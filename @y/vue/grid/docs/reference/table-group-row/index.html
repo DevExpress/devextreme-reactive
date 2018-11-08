@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <meta name="robots" content="noindex" />
+    
+    <title>DxTableGroupRow Plugin Reference - DevExtreme Reactive Components</title>
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="prefetch" href="/devextreme-reactive/@y/fonts/OpenSansCondensedBold.woff">
+    <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/@y/favicon.ico" >
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/devextreme-reactive/@y/css/syntax.css">
+    <link rel="stylesheet" href="/devextreme-reactive/@y/css/site.css?v=1541674085">
+    <link rel="stylesheet" href="/devextreme-reactive/@y/css/embedded-demos.css?v=1541674085">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-1384678-22', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-static-top navbar-main">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/devextreme-reactive/@y/vue/grid/">
+            <div>
+              <img src="/devextreme-reactive/@y/img/grid-logo.svg" alt="Vue Grid">
+              <div class="logo-container">
+                <h3 class="logo-team">DevExtreme</h3>
+                <h3 class="logo-product">Vue Grid</h3>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            
+            <li><a href="/devextreme-reactive/@y/vue/grid/demos/featured/integrated-data-shaping/">Demos</a></li>
+            
+            <li class="active"><a href="/devextreme-reactive/@y/vue/grid/docs/guides/getting-started/">Docs</a></li>
+            <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+            <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container docs-container">
+  <div class="row">
+    <div class="col-sm-9 col-sm-push-3 docs-content">
+        <h1 id="dxtablegrouprow-plugin-reference">DxTableGroupRow Plugin Reference</h1>
+
+<p>A plugin that renders group rows and enables them to expand and collapse.</p>
+
+<h2 id="import">Import</h2>
+
+<p>Use the following statement to import a plugin with embedded theme components:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">DxTableGroupRow</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@devexpress/dx-vue-grid-bootstrap4'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>If you want to use custom components, you can import the themeless plugin:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">DxTableGroupRow</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@devexpress/dx-vue-grid'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h2 id="user-reference">User Reference</h2>
+
+<h3 id="dependencies">Dependencies</h3>
+
+<ul>
+  <li><a href="/devextreme-reactive/@y/vue/grid/docs/reference/grouping-state/">DxGroupingState</a></li>
+  <li><a href="/devextreme-reactive/@y/vue/grid/docs/reference/table/">DxTable</a></li>
+  <li><a href="/devextreme-reactive/@y/vue/grid/docs/reference/data-type-provider/">DxDataTypeProvider</a> [Optional]</li>
+</ul>
+
+<h3 id="properties">Properties</h3>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>showColumnsWhenGrouped?</td>
+      <td>boolean</td>
+      <td>false</td>
+      <td>A Boolean value that specifies whether the grid’s table displays a column by which data is grouped.</td>
+    </tr>
+    <tr>
+      <td>columnExtensions?</td>
+      <td>Array&lt;<a href="#dxtablegrouprowcolumnextension">DxTableGroupRow.ColumnExtension</a>&gt;</td>
+      <td> </td>
+      <td>Additional column properties that the plugin can handle.</td>
+    </tr>
+    <tr>
+      <td>cellComponent</td>
+      <td><a href="#dxtablegrouprowdxcell">DxTableGroupRow.DxCell</a></td>
+      <td> </td>
+      <td>A component that renders a group cell.</td>
+    </tr>
+    <tr>
+      <td>rowComponent</td>
+      <td><a href="#dxtablegrouprowdxrow">DxTableGroupRow.DxRow</a></td>
+      <td> </td>
+      <td>A component that renders a group row.</td>
+    </tr>
+    <tr>
+      <td>indentCellComponent?</td>
+      <td><a href="#dxtablegrouprowdxindentcell">DxTableGroupRow.DxIndentCell</a></td>
+      <td> </td>
+      <td>A component that renders a group indent cell.</td>
+    </tr>
+    <tr>
+      <td>indentColumnWidth</td>
+      <td>number</td>
+      <td> </td>
+      <td>The group indent column’s width.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="interfaces">Interfaces</h2>
+
+<h3 id="dxtablegrouprowcolumnextension">DxTableGroupRow.ColumnExtension</h3>
+
+<p>Describes additional column properties that the plugin can handle.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>columnName</td>
+      <td>string</td>
+      <td>The name of a column to extend.</td>
+    </tr>
+    <tr>
+      <td>showWhenGrouped?</td>
+      <td>boolean</td>
+      <td>Specifies whether the grid displays the column by which data is grouped.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="grouprow">GroupRow</h3>
+
+<p>Describes the group row structure.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>key</td>
+      <td>number | string</td>
+      <td>The current group key.</td>
+    </tr>
+    <tr>
+      <td>value</td>
+      <td>any</td>
+      <td>The current group value.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="component-types">Component Types</h2>
+
+<h3 id="dxtablegrouprowdxcell">DxTableGroupRow.DxCell</h3>
+
+<h4 id="props">Props</h4>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>tableRow</td>
+      <td><a href="/devextreme-reactive/@y/vue/grid/docs/reference/table/#tablerow">TableRow</a></td>
+      <td>Specifies a table row.</td>
+    </tr>
+    <tr>
+      <td>tableColumn</td>
+      <td><a href="/devextreme-reactive/@y/vue/grid/docs/reference/table/#tablecolumn">TableColumn</a></td>
+      <td>Specifies a table column.</td>
+    </tr>
+    <tr>
+      <td>colSpan?</td>
+      <td>number</td>
+      <td>The count of columns that the root cell element spans.</td>
+    </tr>
+    <tr>
+      <td>rowSpan?</td>
+      <td>number</td>
+      <td>The count of rows that the root cell element spans.</td>
+    </tr>
+    <tr>
+      <td>row</td>
+      <td><a href="#grouprow">GroupRow</a></td>
+      <td>The group row.</td>
+    </tr>
+    <tr>
+      <td>column</td>
+      <td><a href="/devextreme-reactive/@y/vue/grid/docs/reference/grid/#column">Column</a></td>
+      <td>The column associated with the group.</td>
+    </tr>
+    <tr>
+      <td>expanded</td>
+      <td>boolean</td>
+      <td>Specifies whether the row is expanded.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="slots">Slots</h4>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>default</td>
+      <td>The default Vue slot.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="events">Events</h4>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>toggle</td>
+      <td>() =&gt; void</td>
+      <td>An event that initiates group row expanding or collapsing.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="dxtablegrouprowdxrow">DxTableGroupRow.DxRow</h3>
+
+<h4 id="props-1">Props</h4>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>tableRow</td>
+      <td><a href="/devextreme-reactive/@y/vue/grid/docs/reference/table/#tablerow">TableRow</a></td>
+      <td>A table row.</td>
+    </tr>
+    <tr>
+      <td>row</td>
+      <td><a href="#grouprow">GroupRow</a></td>
+      <td>The group row.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="slots-1">Slots</h4>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>default</td>
+      <td>The default Vue slot.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="dxtablegrouprowdxindentcell">DxTableGroupRow.DxIndentCell</h3>
+
+<h4 id="props-2">Props</h4>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>tableRow</td>
+      <td><a href="/devextreme-reactive/@y/vue/grid/docs/reference/table/#tablerow">TableRow</a></td>
+      <td>Specifies a table row.</td>
+    </tr>
+    <tr>
+      <td>tableColumn</td>
+      <td><a href="/devextreme-reactive/@y/vue/grid/docs/reference/table/#tablecolumn">TableColumn</a></td>
+      <td>Specifies a table column.</td>
+    </tr>
+    <tr>
+      <td>colSpan?</td>
+      <td>number</td>
+      <td>The count of columns that the root cell element spans.</td>
+    </tr>
+    <tr>
+      <td>rowSpan?</td>
+      <td>number</td>
+      <td>The count of rows that the root cell element spans.</td>
+    </tr>
+    <tr>
+      <td>row</td>
+      <td><a href="#grouprow">GroupRow</a></td>
+      <td>The group row.</td>
+    </tr>
+    <tr>
+      <td>column</td>
+      <td><a href="/devextreme-reactive/@y/vue/grid/docs/reference/grid/#column">Column</a></td>
+      <td>A column associated with the group.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="plugin-components">Plugin Components</h2>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>DxTableGroupRow.components.DxRow</td>
+      <td><a href="#dxtablegrouprowdxrow">DxTableGroupRow.DxRow</a></td>
+      <td>A component that renders a group row.</td>
+    </tr>
+    <tr>
+      <td>DxTableGroupRow.components.DxCell</td>
+      <td><a href="#dxtablegrouprowdxcell">DxTableGroupRow.DxCell</a></td>
+      <td>A component that renders a group cell.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="plugin-developer-reference">Plugin Developer Reference</h2>
+
+<h3 id="imports">Imports</h3>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Plugin</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>columns</td>
+      <td>Getter</td>
+      <td>Array&lt;<a href="#column-extension">Column</a>&gt;</td>
+      <td>The grid columns.</td>
+    </tr>
+    <tr>
+      <td>tableColumns</td>
+      <td>Getter</td>
+      <td>Array&lt;<a href="/devextreme-reactive/@y/vue/grid/docs/reference/table/#tablecolumn">TableColumn</a>&gt;</td>
+      <td>Table columns.</td>
+    </tr>
+    <tr>
+      <td>tableBodyRows</td>
+      <td>Getter</td>
+      <td>Array&lt;<a href="/devextreme-reactive/@y/vue/grid/docs/reference/table/#tablerow">TableRow</a>&gt;</td>
+      <td>Table body rows.</td>
+    </tr>
+    <tr>
+      <td>grouping</td>
+      <td>Getter</td>
+      <td>Array&lt;<a href="/devextreme-reactive/@y/vue/grid/docs/reference/grouping-state/#grouping">Grouping</a>&gt;</td>
+      <td>Current grouping options.</td>
+    </tr>
+    <tr>
+      <td>draftGrouping</td>
+      <td>Getter</td>
+      <td>Array&lt;<a href="/devextreme-reactive/@y/vue/grid/docs/reference/grouping-state/#grouping">Grouping</a>&gt;</td>
+      <td>Grouping options used for the preview.</td>
+    </tr>
+    <tr>
+      <td>expandedGroups</td>
+      <td>Getter</td>
+      <td>Array&lt;<a href="/devextreme-reactive/@y/vue/grid/docs/reference/grouping-state/#groupkey">GroupKey</a>&gt;</td>
+      <td>Expanded groups.</td>
+    </tr>
+    <tr>
+      <td>isGroupRow</td>
+      <td>Getter</td>
+      <td>(row: any) =&gt; boolean</td>
+      <td>A function used to identify a group row within ordinary rows.</td>
+    </tr>
+    <tr>
+      <td>toggleGroupExpanded</td>
+      <td>Action</td>
+      <td>({ groupKey: <a href="/devextreme-reactive/@y/vue/grid/docs/reference/grouping-state/#groupkey">GroupKey</a> }) =&gt; void</td>
+      <td>Toggles the group’s expanded state.</td>
+    </tr>
+    <tr>
+      <td>tableCell</td>
+      <td>Template</td>
+      <td>object?</td>
+      <td>A template that renders a table cell.</td>
+    </tr>
+    <tr>
+      <td>tableRow</td>
+      <td>Template</td>
+      <td>object?</td>
+      <td>A template that renders a table row.</td>
+    </tr>
+    <tr>
+      <td>valueFormatter</td>
+      <td>Template</td>
+      <td><a href="/devextreme-reactive/@y/vue/grid/docs/reference/data-type-provider/#dxdatatypeprovidervalueformatter">DxDataTypeProvider.ValueFormatterProps</a></td>
+      <td>A template that renders the formatted value.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="exports">Exports</h3>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Plugin</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>tableColumns</td>
+      <td>Getter</td>
+      <td>Array&lt;<a href="/devextreme-reactive/@y/vue/grid/docs/reference/table/#tablecolumn">TableColumn</a>&gt;</td>
+      <td>Table columns, including the ones by which the table is grouped.</td>
+    </tr>
+    <tr>
+      <td>tableBodyRows</td>
+      <td>Getter</td>
+      <td>Array&lt;<a href="/devextreme-reactive/@y/vue/grid/docs/reference/table/#tablerow">TableRow</a>&gt;</td>
+      <td>Table body rows with modified group rows.</td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+
+    <div class="col-sm-3 col-sm-pull-9 main-menu">
+      <ul class="list-unstyled">
+        <li>
+          <input id="docsearch" type="text" class="form-control" placeholder="Search...">
+        </li>
+      </ul>
+      <ul class="list-unstyled version">
+        <li>
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.9.0">
+            Version
+            <span>1.9.0</span>
+          </a>
+        </li>
+      </ul>
+      <hr />
+      
+        <h3>Guides</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/guides/getting-started/">Getting Started</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/guides/plugin-overview/">Plugin Overview</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/guides/fundamentals/">Fundamentals</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/guides/data-accessors/">Data Accessors</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/guides/sorting/">Sorting</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/guides/paging/">Paging</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/guides/filtering/">Filtering</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/guides/searching/">Searching</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/guides/grouping/">Grouping</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/guides/selection/">Selection</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/guides/editing/">Editing</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/guides/detail-row/">Detail Row</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/guides/banded-columns/">Banded Columns</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/guides/column-visibility/">Column Visibility</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/guides/virtual-scrolling/">Virtual Scrolling</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/guides/tree-data/">Tree Data</a></li>
+          
+
+        
+        </ul>
+      
+        <h3>API Reference</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/reference/column-chooser/">DxColumnChooser</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/reference/custom-grouping/">DxCustomGrouping</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/reference/custom-paging/">DxCustomPaging</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/reference/custom-tree-data/">DxCustomTreeData</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/reference/data-type-provider/">DxDataTypeProvider</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/reference/editing-state/">DxEditingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/reference/filtering-state/">DxFilteringState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/reference/grid/">DxGrid</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/reference/grouping-panel/">DxGroupingPanel</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/reference/grouping-state/">DxGroupingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/reference/integrated-filtering/">DxIntegratedFiltering</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/reference/integrated-grouping/">DxIntegratedGrouping</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/reference/integrated-paging/">DxIntegratedPaging</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/reference/integrated-selection/">DxIntegratedSelection</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/reference/integrated-sorting/">DxIntegratedSorting</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/reference/paging-panel/">DxPagingPanel</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/reference/paging-state/">DxPagingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/reference/row-detail-state/">DxRowDetailState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/reference/search-panel/">DxSearchPanel</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/reference/search-state/">DxSearchState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/reference/selection-state/">DxSelectionState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/reference/sorting-state/">DxSortingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/reference/table/">DxTable</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/reference/table-band-header/">DxTableBandHeader</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/reference/table-column-visibility/">DxTableColumnVisibility</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/reference/table-edit-column/">DxTableEditColumn</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/reference/table-edit-row/">DxTableEditRow</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/reference/table-filter-row/">DxTableFilterRow</a></li>
+          
+
+        
+          
+          
+
+          
+          <li>DxTableGroupRow</li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/reference/table-header-row/">DxTableHeaderRow</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/reference/table-row-detail/">DxTableRowDetail</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/reference/table-selection/">DxTableSelection</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/reference/table-tree-column/">DxTableTreeColumn</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/reference/toolbar/">DxToolbar</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/reference/tree-data-state/">DxTreeDataState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/vue/grid/docs/reference/virtual-table/">DxVirtualTable</a></li>
+          
+
+        
+        </ul>
+      
+        <h3>Related Docs</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/guides/getting-started/">React Grid</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/chart/docs/guides/getting-started//">React Chart</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/core/docs/guides/fundamentals/">React Core</a></li>
+          
+
+        
+        </ul>
+      
+    </div>
+  </div>
+</div>
+
+<script src="/devextreme-reactive/@y/vue/grid/demos/dist/index.js?v=1541674085"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+
+<script type="text/javascript">
+  docsearch({
+    apiKey: '4cd7a76d4bc286ae69fe26182a8d4b18',
+    indexName: 'devextreme_reactive',
+    inputSelector: '#docsearch',
+    algoliaOptions: { 'facetFilters': ["techno:vue", "tool:grid"] },
+    debug: false
+  });
+</script>
+
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <ul class="list-inline">
+                      
+                      <li><a href="/devextreme-reactive/@y/vue/grid/demos/featured/integrated-data-shaping/">Demos</a></li>
+                      
+                      <li class="active"><a href="/devextreme-reactive/@y/vue/grid/docs/guides/getting-started/">Docs</a></li>
+                      <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+                      <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-9 copyright">
+                  <p>
+                    Copyright © 2011-2018 Developer Express Inc.<br />
+                    All trademarks or registered trademarks are property of their respective owners.
+                    <div class="links">
+                      <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
+                      <br>
+                      <a href="https://js.devexpress.com/Licensing/">Licensing</a>
+                  </div>
+                  <p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+      // Remove unexpected global variable generated by kramdown to fix js-cookie
+      // <h3 id="exports">Exports</h3>
+      window.exports = undefined;
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
+
+    <script src="/devextreme-reactive/@y/js/tracking.js?v=1541674085"></script>
+    <script>
+        trackingCookie.notice();
+    </script>
+
+  </body>
+</html>

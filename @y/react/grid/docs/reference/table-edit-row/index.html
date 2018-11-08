@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>TableEditRow Plugin Reference - DevExtreme Reactive Components</title>
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="prefetch" href="/devextreme-reactive/@y/fonts/OpenSansCondensedBold.woff">
+    <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/@y/favicon.ico" >
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/devextreme-reactive/@y/css/syntax.css">
+    <link rel="stylesheet" href="/devextreme-reactive/@y/css/site.css?v=1541674085">
+    <link rel="stylesheet" href="/devextreme-reactive/@y/css/embedded-demos.css?v=1541674085">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-1384678-22', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-static-top navbar-main">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/devextreme-reactive/@y/react/grid/">
+            <div>
+              <img src="/devextreme-reactive/@y/img/grid-logo.svg" alt="React Grid">
+              <div class="logo-container">
+                <h3 class="logo-team">DevExtreme</h3>
+                <h3 class="logo-product">React Grid</h3>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            
+            <li><a href="/devextreme-reactive/@y/react/grid/demos/featured/integrated-data-shaping/">Demos</a></li>
+            
+            <li class="active"><a href="/devextreme-reactive/@y/react/grid/docs/guides/getting-started/">Docs</a></li>
+            <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+            <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container docs-container">
+  <div class="row">
+    <div class="col-sm-9 col-sm-push-3 docs-content">
+        <h1 id="tableeditrow-plugin-reference">TableEditRow Plugin Reference</h1>
+
+<p>A plugin that renders a row being edited.</p>
+
+<h2 id="import">Import</h2>
+
+<p>Use the following statement to import a plugin with embedded theme components:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">TableEditRow</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@devexpress/dx-react-grid-material-ui'</span><span class="p">;</span>
+<span class="c1">// import { TableEditRow } from '@devexpress/dx-react-grid-bootstrap4';</span>
+<span class="c1">// import { TableEditRow } from '@devexpress/dx-react-grid-bootstrap3';</span>
+</code></pre></div></div>
+
+<p>If you want to use custom components, you can import the themeless plugin:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">TableEditRow</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@devexpress/dx-react-grid'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h2 id="user-reference">User Reference</h2>
+
+<h3 id="dependencies">Dependencies</h3>
+
+<ul>
+  <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/editing-state/">EditingState</a></li>
+  <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/table/">Table</a></li>
+  <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/data-type-provider/">DataTypeProvider</a> [Optional]</li>
+</ul>
+
+<h3 id="properties">Properties</h3>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>cellComponent</td>
+      <td>ComponentType&lt;<a href="#tableeditrowcellprops">TableEditRow.CellProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders an editable cell.</td>
+    </tr>
+    <tr>
+      <td>rowComponent</td>
+      <td>ComponentType&lt;<a href="#tableeditrowrowprops">TableEditRow.RowProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders an editable row.</td>
+    </tr>
+    <tr>
+      <td>rowHeight?</td>
+      <td>number</td>
+      <td> </td>
+      <td>Specifies the editable row’s height.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="interfaces">Interfaces</h2>
+
+<h3 id="tableeditrowcellprops">TableEditRow.CellProps</h3>
+
+<p>Describes properties passed to a component that renders an editable cell.</p>
+
+<p>Extends <a href="/devextreme-reactive/@y/react/grid/docs/reference/table/#tablecellprops">Table.CellProps</a></p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>row</td>
+      <td>any</td>
+      <td>A row to be edited.</td>
+    </tr>
+    <tr>
+      <td>column</td>
+      <td><a href="/devextreme-reactive/@y/react/grid/docs/reference/grid/#column">Column</a></td>
+      <td>A column.</td>
+    </tr>
+    <tr>
+      <td>value</td>
+      <td>any</td>
+      <td>A value to be edited.</td>
+    </tr>
+    <tr>
+      <td>editingEnabled</td>
+      <td>boolean</td>
+      <td>Specifies whether editing a column is enabled.</td>
+    </tr>
+    <tr>
+      <td>onValueChange</td>
+      <td>(newValue: any) =&gt; void</td>
+      <td>Handles value changes.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="tableeditrowrowprops">TableEditRow.RowProps</h3>
+
+<p>Describes properties passed to a component that renders an editable row.</p>
+
+<p>Extends <a href="/devextreme-reactive/@y/react/grid/docs/reference/table/#tablerowprops">Table.RowProps</a></p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>row</td>
+      <td>any</td>
+      <td>A row to be edited.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="plugin-components">Plugin Components</h2>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Properties</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>TableEditRow.Cell</td>
+      <td><a href="#tableeditrowcellprops">TableEditRow.CellProps</a></td>
+      <td>A component that renders an editable cell.</td>
+    </tr>
+    <tr>
+      <td>TableEditRow.Row</td>
+      <td><a href="#tableeditrowrowprops">TableEditRow.RowProps</a></td>
+      <td>A component that renders an editable row.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Additional properties are added to the component’s root element.</p>
+
+<h2 id="static-fields">Static Fields</h2>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ADDED_ROW_TYPE</td>
+      <td>symbol</td>
+      <td>The added row type’s identifier.</td>
+    </tr>
+    <tr>
+      <td>EDIT_ROW_TYPE</td>
+      <td>symbol</td>
+      <td>The edit row type’s identifier.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="plugin-developer-reference">Plugin Developer Reference</h2>
+
+<h3 id="imports">Imports</h3>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Plugin</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>tableBodyRows</td>
+      <td><a href="/devextreme-reactive/@y/react/core/docs/reference/getter/">Getter</a></td>
+      <td>Array&lt;<a href="/devextreme-reactive/@y/react/grid/docs/reference/table/#tablerow">TableRow</a>&gt;</td>
+      <td>Table body rows.</td>
+    </tr>
+    <tr>
+      <td>editingRowIds</td>
+      <td><a href="/devextreme-reactive/@y/react/core/docs/reference/getter/">Getter</a></td>
+      <td>Array&lt;number | string&gt;</td>
+      <td>IDs of the rows that are being edited.</td>
+    </tr>
+    <tr>
+      <td>addedRows</td>
+      <td><a href="/devextreme-reactive/@y/react/core/docs/reference/getter/">Getter</a></td>
+      <td>Array&lt;any&gt;</td>
+      <td>Created but not committed rows.</td>
+    </tr>
+    <tr>
+      <td>isColumnEditingEnabled</td>
+      <td><a href="/devextreme-reactive/@y/react/core/docs/reference/getter/">Getter</a></td>
+      <td>(columnName: string) =&gt; boolean</td>
+      <td>A function that returns a value that specifies if editing by a column is enabled.</td>
+    </tr>
+    <tr>
+      <td>changeAddedRow</td>
+      <td><a href="/devextreme-reactive/@y/react/core/docs/reference/action/">Action</a></td>
+      <td>({ rowId: number, change: any }) =&gt; void</td>
+      <td>Applies a change to a created but uncommitted row. Note: <code class="highlighter-rouge">rowId</code> is a row index within the <code class="highlighter-rouge">addedRows</code> array.</td>
+    </tr>
+    <tr>
+      <td>rowChanges</td>
+      <td><a href="/devextreme-reactive/@y/react/core/docs/reference/getter/">Getter</a></td>
+      <td>{ [key: string]: any }</td>
+      <td>An associative array that stores changes made to existing rows. Each array item specifies changes made to a row. The item’s key specifies the associated row’s ID.</td>
+    </tr>
+    <tr>
+      <td>changeRow</td>
+      <td><a href="/devextreme-reactive/@y/react/core/docs/reference/action/">Action</a></td>
+      <td>({ rowId: number | string, change: object }) =&gt; void</td>
+      <td>Applies a change to an existing row.</td>
+    </tr>
+    <tr>
+      <td>getCellValue</td>
+      <td><a href="/devextreme-reactive/@y/react/core/docs/reference/getter/">Getter</a></td>
+      <td>(row: any, columnName: string) =&gt; any</td>
+      <td>A function used to get the specified row’s column value.</td>
+    </tr>
+    <tr>
+      <td>createRowChange</td>
+      <td><a href="/devextreme-reactive/@y/react/core/docs/reference/getter/">Getter</a></td>
+      <td>(row: any, value: any, columnName: string) =&gt; any</td>
+      <td>A function that returns a value that specifies row changes depending on the row’s editable cell values. This function is called each time an editor’s value changes.</td>
+    </tr>
+    <tr>
+      <td>tableCell</td>
+      <td><a href="/devextreme-reactive/@y/react/core/docs/reference/template/">Template</a></td>
+      <td><a href="/devextreme-reactive/@y/react/grid/docs/reference/table/#tablecellprops">Table.CellProps</a></td>
+      <td>A template that renders a table cell.</td>
+    </tr>
+    <tr>
+      <td>tableRow</td>
+      <td><a href="/devextreme-reactive/@y/react/core/docs/reference/template/">Template</a></td>
+      <td><a href="/devextreme-reactive/@y/react/grid/docs/reference/table/#tablerowprops">Table.RowProps</a></td>
+      <td>A template that renders a table row.</td>
+    </tr>
+    <tr>
+      <td>valueEditor</td>
+      <td><a href="/devextreme-reactive/@y/react/core/docs/reference/template/">Template</a></td>
+      <td><a href="/devextreme-reactive/@y/react/grid/docs/reference/data-type-provider/#datatypeprovidervalueeditorprops">DataTypeProvider.ValueEditorProps</a></td>
+      <td>A template that renders the editor.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="exports">Exports</h3>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Plugin</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>tableBodyRows</td>
+      <td><a href="/devextreme-reactive/@y/react/core/docs/reference/getter/">Getter</a></td>
+      <td>Array&lt;<a href="/devextreme-reactive/@y/react/grid/docs/reference/table/#tablerow">TableRow</a>&gt;</td>
+      <td>Table body rows including editable rows.</td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+
+    <div class="col-sm-3 col-sm-pull-9 main-menu">
+      <ul class="list-unstyled">
+        <li>
+          <input id="docsearch" type="text" class="form-control" placeholder="Search...">
+        </li>
+      </ul>
+      <ul class="list-unstyled version">
+        <li>
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.9.0">
+            Version
+            <span>1.9.0</span>
+          </a>
+        </li>
+      </ul>
+      <hr />
+      
+        <h3>Guides</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/guides/getting-started/">Getting Started</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/guides/plugin-overview/">Plugin Overview</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/guides/fundamentals/">Fundamentals</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/guides/controlled-and-uncontrolled-modes/">Controlled and Uncontrolled Modes</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/guides/data-accessors/">Data Accessors</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/guides/data-formatting/">Data Formatting</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/guides/sorting/">Sorting</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/guides/paging/">Paging</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/guides/filtering/">Filtering</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/guides/searching/">Searching</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/guides/grouping/">Grouping</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/guides/selection/">Selection</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/guides/editing/">Editing</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/guides/detail-row/">Detail Row</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/guides/column-reordering/">Column Reordering</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/guides/column-resizing/">Column Resizing</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/guides/column-visibility/">Column Visibility</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/guides/banded-columns/">Banded Columns</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/guides/fixed-columns/">Fixed Columns</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/guides/virtual-scrolling/">Virtual Scrolling</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/guides/tree-data/">Tree Data</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/guides/summary-row/">Summary Row</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/guides/localization/">Localization</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/guides/immutable-data/">Immutable Data</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/guides/typescript/">TypeScript</a></li>
+          
+
+        
+        </ul>
+      
+        <h3>API Reference</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/column-chooser/">ColumnChooser</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/custom-grouping/">CustomGrouping</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/custom-paging/">CustomPaging</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/custom-summary/">CustomSummary</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/custom-tree-data/">CustomTreeData</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/data-type-provider/">DataTypeProvider</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/drag-drop-provider/">DragDropProvider</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/editing-state/">EditingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/filtering-state/">FilteringState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/grid/">Grid</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/grouping-panel/">GroupingPanel</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/grouping-state/">GroupingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/integrated-filtering/">IntegratedFiltering</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/integrated-grouping/">IntegratedGrouping</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/integrated-paging/">IntegratedPaging</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/integrated-selection/">IntegratedSelection</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/integrated-sorting/">IntegratedSorting</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/integrated-summary/">IntegratedSummary</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/paging-panel/">PagingPanel</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/paging-state/">PagingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/row-detail-state/">RowDetailState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/search-panel/">SearchPanel</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/search-state/">SearchState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/selection-state/">SelectionState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/sorting-state/">SortingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/summary-state/">SummaryState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/table/">Table</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/table-band-header/">TableBandHeader</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/table-column-reordering/">TableColumnReordering</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/table-column-resizing/">TableColumnResizing</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/table-column-visibility/">TableColumnVisibility</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/table-edit-column/">TableEditColumn</a></li>
+          
+
+        
+          
+          
+
+          
+          <li>TableEditRow</li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/table-filter-row/">TableFilterRow</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/table-fixed-columns/">TableFixedColumns</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/table-group-row/">TableGroupRow</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/table-header-row/">TableHeaderRow</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/table-row-detail/">TableRowDetail</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/table-selection/">TableSelection</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/table-summary-row/">TableSummaryRow</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/table-tree-column/">TableTreeColumn</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/toolbar/">Toolbar</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/tree-data-state/">TreeDataState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/grid/docs/reference/virtual-table/">VirtualTable</a></li>
+          
+
+        
+        </ul>
+      
+        <h3>Related Docs</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/core/docs/guides/fundamentals/">React Core</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/chart/docs/guides/getting-started/">React Chart</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@y/react/scheduler/docs/guides/getting-started/">React Scheduler</a></li>
+          
+
+        
+        </ul>
+      
+    </div>
+  </div>
+</div>
+
+<script src="/devextreme-reactive/@y/react/grid/demos/dist/index.js?v=1541674085"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+
+<script type="text/javascript">
+  docsearch({
+    apiKey: '4cd7a76d4bc286ae69fe26182a8d4b18',
+    indexName: 'devextreme_reactive',
+    inputSelector: '#docsearch',
+    algoliaOptions: { 'facetFilters': ["techno:react", "tool:grid"] },
+    debug: false
+  });
+</script>
+
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <ul class="list-inline">
+                      
+                      <li><a href="/devextreme-reactive/@y/react/grid/demos/featured/integrated-data-shaping/">Demos</a></li>
+                      
+                      <li class="active"><a href="/devextreme-reactive/@y/react/grid/docs/guides/getting-started/">Docs</a></li>
+                      <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+                      <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-9 copyright">
+                  <p>
+                    Copyright © 2011-2018 Developer Express Inc.<br />
+                    All trademarks or registered trademarks are property of their respective owners.
+                    <div class="links">
+                      <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
+                      <br>
+                      <a href="https://js.devexpress.com/Licensing/">Licensing</a>
+                  </div>
+                  <p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+      // Remove unexpected global variable generated by kramdown to fix js-cookie
+      // <h3 id="exports">Exports</h3>
+      window.exports = undefined;
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
+
+    <script src="/devextreme-reactive/@y/js/tracking.js?v=1541674085"></script>
+    <script>
+        trackingCookie.notice();
+    </script>
+
+  </body>
+</html>

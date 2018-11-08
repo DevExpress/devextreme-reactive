@@ -8,6 +8,7 @@ import {
   WeekView,
   ViewSwitcher,
   Appointments,
+  AppointmentTooltip,
   AppointmentForm,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { connectProps } from '@devexpress/dx-react-core';
@@ -21,10 +22,12 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
 import TextField from '@material-ui/core/TextField';
 import LocationOn from '@material-ui/icons/LocationOn';
 import Notes from '@material-ui/icons/Notes';
+import Close from '@material-ui/icons/Close';
 import CalendarToday from '@material-ui/icons/CalendarToday';
 import Create from '@material-ui/icons/Create';
 
@@ -38,6 +41,14 @@ const containerStyles = theme => ({
   },
   content: {
     padding: theme.spacing.unit * 2,
+    paddingTop: 0,
+  },
+  header: {
+    overflow: 'hidden',
+    paddingTop: theme.spacing.unit / 2,
+  },
+  closeButton: {
+    float: 'right',
   },
   buttonGroup: {
     display: 'flex',
@@ -105,7 +116,7 @@ class AppointmentFormContainerBasic extends React.PureComponent {
       ...this.getAppointmentChanges(),
     };
     commitChanges({
-      [type]: appointment,
+      [type]: type === 'deleted' ? appointment.id : appointment,
     });
     this.setState({
       appointmentChanges: {},
@@ -155,6 +166,11 @@ class AppointmentFormContainerBasic extends React.PureComponent {
         onBackdropClick={visibleChange}
       >
         <AppointmentForm.Container className={classes.container}>
+          <div className={classes.header}>
+            <IconButton className={classes.closeButton} onClick={visibleChange}>
+              <Close color="action" />
+            </IconButton>
+          </div>
           <div className={classes.content}>
             <div className={classes.wrapper}>
               <Create className={classes.icon} color="action" />
@@ -227,7 +243,7 @@ const styles = theme => ({
   addButton: {
     position: 'absolute',
     bottom: theme.spacing.unit * 3,
-    right: theme.spacing.unit * 3,
+    right: theme.spacing.unit * 4,
   },
 });
 
@@ -324,8 +340,8 @@ class Demo extends React.PureComponent {
       data = data.map(appointment => (
         changed.id === appointment.id ? { ...appointment, ...changed } : appointment));
     }
-    if (deleted) {
-      this.setDeletedAppointmentId(deleted.id);
+    if (deleted !== undefined) {
+      this.setDeletedAppointmentId(deleted);
       this.toggleConfirmationVisible();
     }
     this.setState({ data, addedAppointment: {} });
@@ -355,15 +371,20 @@ class Demo extends React.PureComponent {
             onEditingAppointmentIdChange={this.onEditingAppointmentIdChange}
             onAddedAppointmentChange={this.onAddedAppointmentChange}
           />
-          <DayView
-            startDayHour={startDayHour}
-            endDayHour={endDayHour}
-          />
           <WeekView
             startDayHour={startDayHour}
             endDayHour={endDayHour}
           />
+          <DayView
+            startDayHour={startDayHour}
+            endDayHour={endDayHour}
+          />
           <Appointments />
+          <AppointmentTooltip
+            showOpenButton
+            showCloseButton
+            showDeleteButton
+          />
           <Toolbar />
           <ViewSwitcher />
           <AppointmentForm

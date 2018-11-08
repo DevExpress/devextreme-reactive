@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-react-core",
-  "version": "1.8.0",
+  "version": "1.9.0",
   "description": "Core library for DevExtreme React Components",
   "author": {
     "name": "Developer Express Inc.",
@@ -40,7 +40,7 @@
     "lint:fix": "yarn run lint -- --fix"
   },
   "devDependencies": {
-    "@devexpress/dx-testing": "1.8.0",
+    "@devexpress/dx-testing": "1.9.0",
     "babel-core": "^6.26.3",
     "babel-jest": "^23.6.0",
     "babel-plugin-external-helpers": "^6.22.0",
@@ -69,7 +69,7 @@
     "rollup-plugin-node-resolve": "^3.4.0"
   },
   "dependencies": {
-    "@devexpress/dx-core": "1.8.0",
+    "@devexpress/dx-core": "1.9.0",
     "prop-types": "^15.6.2"
   },
   "peerDependencies": {

@@ -9,9 +9,6 @@ const styles = theme => ({
     textAlign: 'center',
     padding: `${theme.spacing.unit * 5}px 0`,
   },
-  wrapper: {
-    position: 'relative',
-  },
   text: {
     position: 'fixed',
     left: '50%',

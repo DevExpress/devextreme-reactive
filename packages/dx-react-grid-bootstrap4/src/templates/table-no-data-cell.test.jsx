@@ -25,4 +25,15 @@ describe('TableNoDataCell', () => {
     expect(tree.is('.py-5.text-center.custom-class'))
       .toBeTruthy();
   });
+
+  it('should set fixed alignment', () => {
+    const tree = shallow((
+      <TableNoDataCell
+        getMessage={key => key}
+      />
+    ));
+
+    expect(tree.find('big').is('.fixed-block'))
+      .toBeTruthy();
+  });
 });

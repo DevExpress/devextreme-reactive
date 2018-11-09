@@ -1,6 +1,6 @@
 import { getWidth } from '../../utils/scale';
 import {
-  HORIZONTAL, TOP, LEFT, MIDDLE, END, START,
+  HORIZONTAL, LEFT, BOTTOM, MIDDLE, END, START,
 } from '../../constants';
 
 const getTicks = scale => (scale.ticks ? scale.ticks() : scale.domain());
@@ -19,8 +19,8 @@ const getFormat = (scale, tickFormat) => {
 };
 
 const createHorizontalProcessor = (scale, position, tickSize, indentFromAxis, formatTick) => {
-  const isStart = position === TOP;
-  const dominantBaseline = isStart ? 'baseline' : 'hanging';
+  const isStart = position === BOTTOM;
+  const dominantBaseline = isStart ? 'hanging' : 'baseline';
   const textAnchor = MIDDLE;
   return (tick, index) => {
     const coordinates = scale(tick);
@@ -28,10 +28,10 @@ const createHorizontalProcessor = (scale, position, tickSize, indentFromAxis, fo
       key: index,
       x1: coordinates,
       x2: coordinates,
-      y1: isStart ? -tickSize : 0,
-      y2: isStart ? 0 : +tickSize,
+      y1: isStart ? 0 : -tickSize,
+      y2: isStart ? +tickSize : 0,
       xText: coordinates,
-      yText: isStart ? -indentFromAxis : +indentFromAxis,
+      yText: isStart ? +indentFromAxis : -indentFromAxis,
       dominantBaseline,
       textAnchor,
       text: formatTick(tick),

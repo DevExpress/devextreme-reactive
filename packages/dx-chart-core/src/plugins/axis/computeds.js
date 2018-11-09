@@ -28,8 +28,8 @@ const createHorizontalProcessor = (scale, position, tickSize, indentFromAxis, fo
       key: index,
       x1: coordinates,
       x2: coordinates,
-      y1: isStart ? 0 : -tickSize,
-      y2: isStart ? +tickSize : 0,
+      y1: 0,
+      y2: isStart ? +tickSize : -tickSize,
       xText: coordinates,
       yText: isStart ? +indentFromAxis : -indentFromAxis,
       dominantBaseline,
@@ -47,8 +47,8 @@ const createVerticalProcessor = (scale, position, tickSize, indentFromAxis, form
     const coordinates = scale(tick);
     return {
       key: index,
-      x1: isStart ? -tickSize : 0,
-      x2: isStart ? 0 : +tickSize,
+      x1: 0,
+      x2: isStart ? -tickSize : +tickSize,
       y1: coordinates,
       y2: coordinates,
       xText: isStart ? -indentFromAxis : +indentFromAxis,

@@ -10,7 +10,7 @@ import {
 import {
   computed,
   startViewDate as startViewDateCore,
-  viewCellsData as viewCellsDataCore,
+  monthCellsData,
   calculateRectByDateIntervals,
   calculateMonthDateIntervals,
   getAppointmentStyle,
@@ -42,11 +42,11 @@ export class MonthView extends React.PureComponent {
 
     this.startViewDateBaseComputed = ({ viewCellsData }) => startViewDateCore(viewCellsData);
     this.endViewDateBaseComputed = ({ viewCellsData }) => endViewDateCore(viewCellsData);
-    this.viewCellsDataBaseComputed = ({
-      currentView, currentDate,
-    }) => viewCellsDataCore(
-      currentView.type, currentDate, firstDayOfWeek,
-      intervalCount, undefined, undefined, undefined,
+    this.viewCellsDataComputed = ({
+      currentDate,
+    }) => monthCellsData(
+      currentDate, firstDayOfWeek,
+      intervalCount, Date.now(),
     );
 
     this.currentViewComputed = ({ currentView }) => (
@@ -70,7 +70,7 @@ export class MonthView extends React.PureComponent {
       getters, viewName, this.endViewDateBaseComputed, getters.endViewDate,
     );
     this.viewCellsData = getters => computed(
-      getters, viewName, this.viewCellsDataBaseComputed, getters.viewCellsData,
+      getters, viewName, this.viewCellsDataComputed, getters.viewCellsData,
     );
   }
 
@@ -155,7 +155,6 @@ export class MonthView extends React.PureComponent {
                   cellElements: timeTableRef.querySelectorAll('td'),
                 },
               ) : [];
-
               const { appointmentPlaceholder: AppointmentPlaceholder } = this;
               return (
                 <React.Fragment>

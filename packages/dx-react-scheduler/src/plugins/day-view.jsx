@@ -53,11 +53,11 @@ export class DayView extends React.PureComponent {
     this.endViewDateBaseComputed = ({
       viewCellsData,
     }) => endViewDateCore(viewCellsData);
-    this.viewCellsDataBaseComputed = ({
-      currentView, currentDate,
+    this.viewCellsDataComputed = ({
+      currentDate,
     }) => viewCellsDataCore(
-      currentView.type, currentDate, undefined,
-      intervalCount, intervalCount, [],
+      currentDate, undefined,
+      intervalCount, [],
       startDayHour, endDayHour, cellDuration,
     );
 
@@ -82,7 +82,7 @@ export class DayView extends React.PureComponent {
       getters, viewName, () => cellDuration, getters.cellDuration,
     );
     this.viewCellsData = getters => computed(
-      getters, viewName, this.viewCellsDataBaseComputed, getters.viewCellsData,
+      getters, viewName, this.viewCellsDataComputed, getters.viewCellsData,
     );
   }
 

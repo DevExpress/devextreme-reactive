@@ -23,7 +23,7 @@ const styles = theme => ({
   text: {
     padding: theme.spacing.unit,
   },
-  current: {
+  today: {
     margin: theme.spacing.unit / 2,
     display: 'inline-block',
     width: `${theme.spacing.unit * 3}px`,
@@ -45,7 +45,7 @@ const CellBase = ({
   className,
   startDate,
   endDate,
-  current,
+  today,
   otherMonth,
   ...restProps
 }) => (
@@ -56,9 +56,9 @@ const CellBase = ({
   >
     <div
       className={classNames({
-        [classes.text]: !current,
-        [classes.current]: current,
-        [classes.otherMonth]: otherMonth,
+        [classes.text]: !today,
+        [classes.today]: today,
+        [classes.otherMonth]: otherMonth && !today,
       })}
     >
       {moment(startDate).format('D')}
@@ -71,13 +71,15 @@ CellBase.propTypes = {
   className: PropTypes.string,
   startDate: PropTypes.instanceOf(Date).isRequired,
   endDate: PropTypes.instanceOf(Date),
-  current: PropTypes.bool.isRequired,
-  otherMonth: PropTypes.bool.isRequired,
+  today: PropTypes.bool,
+  otherMonth: PropTypes,
 };
 
 CellBase.defaultProps = {
   endDate: undefined,
   className: undefined,
+  today: false,
+  otherMonth: false,
 };
 
 export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

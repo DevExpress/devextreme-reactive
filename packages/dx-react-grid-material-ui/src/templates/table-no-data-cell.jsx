@@ -13,7 +13,7 @@ const styles = theme => ({
     position: 'relative',
   },
   text: {
-    position: 'absolute',
+    position: 'fixed',
     left: '50%',
     width: '100%',
     textAlign: 'center',

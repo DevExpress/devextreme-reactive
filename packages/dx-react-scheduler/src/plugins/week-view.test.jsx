@@ -17,7 +17,7 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
   viewCellsData: jest.fn(),
   startViewDate: jest.fn(),
   endViewDate: jest.fn(),
-  availableViews: jest.fn(),
+  availableViewNames: jest.fn(),
   calculateRectByDateIntervals: jest.fn(),
   calculateWeekDateIntervals: jest.fn(),
 }));
@@ -27,7 +27,7 @@ const DAYS_IN_WEEK = 7;
 const defaultDeps = {
   getter: {
     currentDate: '2018-07-04',
-    availableViews: [],
+    availableViewNames: [],
     currentView: { name: 'Week' },
   },
   template: {

@@ -8,6 +8,7 @@ import {
   WeekView,
   ViewSwitcher,
   Appointments,
+  AppointmentTooltip,
   AppointmentForm,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { connectProps } from '@devexpress/dx-react-core';
@@ -115,7 +116,7 @@ class AppointmentFormContainerBasic extends React.PureComponent {
       ...this.getAppointmentChanges(),
     };
     commitChanges({
-      [type]: appointment,
+      [type]: type === 'deleted' ? appointment.id : appointment,
     });
     this.setState({
       appointmentChanges: {},
@@ -242,7 +243,7 @@ const styles = theme => ({
   addButton: {
     position: 'absolute',
     bottom: theme.spacing.unit * 3,
-    right: theme.spacing.unit * 3,
+    right: theme.spacing.unit * 4,
   },
 });
 
@@ -339,8 +340,8 @@ class Demo extends React.PureComponent {
       data = data.map(appointment => (
         changed.id === appointment.id ? { ...appointment, ...changed } : appointment));
     }
-    if (deleted) {
-      this.setDeletedAppointmentId(deleted.id);
+    if (deleted !== undefined) {
+      this.setDeletedAppointmentId(deleted);
       this.toggleConfirmationVisible();
     }
     this.setState({ data, addedAppointment: {} });
@@ -379,6 +380,11 @@ class Demo extends React.PureComponent {
             endDayHour={endDayHour}
           />
           <Appointments />
+          <AppointmentTooltip
+            showOpenButton
+            showCloseButton
+            showDeleteButton
+          />
           <Toolbar />
           <ViewSwitcher />
           <AppointmentForm

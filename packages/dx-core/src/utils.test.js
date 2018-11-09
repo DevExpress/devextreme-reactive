@@ -38,10 +38,9 @@ describe('utils', () => {
         .not.toThrow();
 
       expect(createClickHandlers())
-        .toEqual({
-          onClick: undefined,
-          onDoubleClick: undefined,
-        });
+        .not.toHaveProperty('onClick');
+      expect(createClickHandlers())
+        .not.toHaveProperty('onDoubleClick');
     });
 
     it('should return onClick function if onClick event is define', () => {
@@ -50,8 +49,9 @@ describe('utils', () => {
       expect(events)
         .toEqual({
           onClick: expect.any(Function),
-          onDoubleClick: undefined,
         });
+      expect(events)
+        .not.toHaveProperty('onDoubleClick');
     });
 
     it('should call onClick event with delay', () => {
@@ -71,9 +71,10 @@ describe('utils', () => {
 
       expect(events)
         .toEqual({
-          onClick: undefined,
           onDoubleClick: expect.any(Function),
         });
+      expect(events)
+        .not.toHaveProperty('onClick');
     });
 
     it('should call onDblClick event without delay', () => {

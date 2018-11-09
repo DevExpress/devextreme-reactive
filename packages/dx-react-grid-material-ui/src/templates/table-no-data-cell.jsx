@@ -9,6 +9,16 @@ const styles = theme => ({
     textAlign: 'center',
     padding: `${theme.spacing.unit * 5}px 0`,
   },
+  wrapper: {
+    position: 'relative',
+  },
+  text: {
+    position: 'absolute',
+    left: '50%',
+    width: '100%',
+    textAlign: 'center',
+    transform: 'translate(-50%, -50%)',
+  },
 });
 
 export const TableNoDataCellBase = ({
@@ -27,7 +37,7 @@ export const TableNoDataCellBase = ({
     colSpan={colSpan}
     {...restProps}
   >
-    <big>
+    <big className={classes.text}>
       {getMessage('noData')}
     </big>
   </TableCell>

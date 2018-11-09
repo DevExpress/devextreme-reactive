@@ -18,7 +18,16 @@ export const TableNoDataCell = ({
     colSpan={colSpan}
     {...restProps}
   >
-    <big className="text-muted">
+    <big
+      className="text-muted"
+      style={{
+        position: 'fixed',
+        left: '50%',
+        width: '100%',
+        textAlign: 'center',
+        transform: 'translate(-50%, -50%)',
+      }}
+    >
       {getMessage('noData')}
     </big>
   </td>

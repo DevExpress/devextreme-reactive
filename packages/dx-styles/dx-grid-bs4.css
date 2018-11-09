@@ -211,3 +211,10 @@ button.dx-g-bs4-table-edit-command-cell {
 .dx-g-bs4-sort-indicator-invisible {
   opacity: 0;
 }
+.fixed-block {
+  position: fixed;
+  left: 50%;
+  width: 100%;
+  text-align: center;
+  transform: translate(-50%, -50%);
+}

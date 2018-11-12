@@ -7,7 +7,7 @@ import {
   Template,
   TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
-import { FakeElement } from '../templates/fake-element';
+import { Target } from '../templates/tooltip/target-component';
 import { withComponents } from '../utils';
 
 const getParameters = (currentSeries, targets) => (
@@ -43,8 +43,8 @@ class RawTooltip extends React.PureComponent {
 
   render() {
     const {
-      popoverComponent: TooltipComponent,
-      fakeComponent: FakeComponent,
+      overlayComponent: OverlayComponent,
+      targetComponent: TargetComponent,
     } = this.props;
     const {
       targets,
@@ -63,17 +63,17 @@ class RawTooltip extends React.PureComponent {
               const text = targets ? `${targets[0].series}: ${targets[0].point}` : '';
               return (
                 <React.Fragment>
-                  <FakeComponent
+                  <TargetComponent
                     {...getParameters(currentSeries, targets)}
-                    buttonRef={(ref) => { this.targetElement = ref; }}
+                    componentRef={(ref) => { this.targetElement = ref; }}
                   />
-                  <TooltipComponent
+                  <OverlayComponent
                     key={text}
                     target={this.targetElement}
                     visible={visibility}
                   >
                     {text}
-                  </TooltipComponent>
+                  </OverlayComponent>
                 </React.Fragment>
               );
             }
@@ -86,8 +86,8 @@ class RawTooltip extends React.PureComponent {
 }
 
 RawTooltip.propTypes = {
-  popoverComponent: PropTypes.func.isRequired,
-  fakeComponent: PropTypes.func.isRequired,
+  overlayComponent: PropTypes.func.isRequired,
+  targetComponent: PropTypes.func.isRequired,
   targets: PropTypes.array,
   visible: PropTypes.bool.isRequired,
 };
@@ -97,8 +97,8 @@ RawTooltip.defaultProps = {
 };
 
 RawTooltip.components = {
-  popoverComponent: 'Overlay',
-  fakeComponent: 'FakeElement',
+  overlayComponent: 'Overlay',
+  targetComponent: 'Target',
 };
 
-export const Tooltip = withComponents({ FakeElement })(RawTooltip);
+export const Tooltip = withComponents({ Target })(RawTooltip);

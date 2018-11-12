@@ -33,7 +33,7 @@ describe('TableNoDataCell', () => {
       />
     ));
 
-    expect(tree.find('big').is('.fixed-block'))
+    expect(tree.find('big').is('.dx-g-bs4-fixed-block'))
       .toBeTruthy();
   });
 });

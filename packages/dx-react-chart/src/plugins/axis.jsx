@@ -179,8 +179,7 @@ class RawAxis extends React.PureComponent {
                       x={-xCorrection}
                       y={-yCorrection}
                     >
-                      {
-                      ticks.map(({
+                      {ticks.map(({
                         x1, x2, y1, y2, key,
                       }) => (
                         <TickComponent
@@ -190,8 +189,7 @@ class RawAxis extends React.PureComponent {
                           y1={y1}
                           y2={y2}
                         />
-                      ))
-                    }
+                      ))}
                       <LineComponent
                         width={dx * widthPostCalculated}
                         height={dy * heightPostCalculated}
@@ -204,15 +202,14 @@ class RawAxis extends React.PureComponent {
                         textAnchor,
                         key,
                       }) => (
-                        <React.Fragment key={key}>
-                          <LabelComponent
-                            text={text}
-                            x={xText}
-                            y={yText}
-                            dominantBaseline={dominantBaseline}
-                            textAnchor={textAnchor}
-                          />
-                        </React.Fragment>
+                        <LabelComponent
+                          key={key}
+                          text={text}
+                          x={xText}
+                          y={yText}
+                          dominantBaseline={dominantBaseline}
+                          textAnchor={textAnchor}
+                        />
                       ))}
                     </RootComponent>
                   </svg>

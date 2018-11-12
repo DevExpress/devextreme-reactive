@@ -23,9 +23,9 @@ const getRenderProps = (series) => {
     palette,
     symbolName,
     isStartedFromZero,
+    getTargetElement,
     getValueDomain, // TODO: Temporary - see corresponding note in *computeDomains*.
     createHitTester,
-    getDElement,
     ...restProps
   } = series;
 

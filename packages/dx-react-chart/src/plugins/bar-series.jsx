@@ -1,7 +1,6 @@
 import {
   getBarPointTransformer as getPointTransformer,
   createBarHitTester as createHitTester,
-  getBarDElement as getDElement,
 } from '@devexpress/dx-chart-core';
 import { declareSeries } from '../utils';
 import { BarCollection as Path } from '../templates/series/bar-collection';
@@ -12,7 +11,6 @@ export const BarSeries = declareSeries('BarSeries', {
   isStartedFromZero: true,
   getPointTransformer,
   createHitTester,
-  getDElement,
 });
 
 BarSeries.defaultProps = {

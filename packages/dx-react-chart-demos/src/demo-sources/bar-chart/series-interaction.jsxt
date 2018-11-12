@@ -10,6 +10,8 @@ import {
   Legend,
   Tooltip,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
+import Popover from '@material-ui/core/Popover';
+import { withStyles } from '@material-ui/core/styles';
 import {
   Stack, Scale, EventTracker, HoverState, SelectionState,
 } from '@devexpress/dx-react-chart';
@@ -58,12 +60,12 @@ export default class Demo extends React.PureComponent {
             style={{ textAlign: 'center', width: '100%' }}
           />
 
-          <LineSeries
+          <BarSeries
             name="USA"
             valueField="USA"
             argumentField="year"
           />
-          <LineSeries
+          <BarSeries
             name="China"
             valueField="China"
             argumentField="year"

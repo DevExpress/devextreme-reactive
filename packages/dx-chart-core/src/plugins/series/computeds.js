@@ -108,18 +108,7 @@ export const pointAttributes = ({ size = DEFAULT_POINT_SIZE }) => {
   });
 };
 
-export const getPointDElement = (pointIndex, currentSeries) => {
-  const { x, y } = currentSeries.points[pointIndex];
-  const size = DEFAULT_POINT_SIZE; // TODO get user size
-
-  return {
-    x,
-    y,
-    d: symbol().size([size ** 2]).type(symbolCircle)(),
-  };
-};
-
-export const getBarDElement = (pointIndex, currentSeries) => {
+getBarPointTransformer.getTargetElement = (pointIndex, currentSeries) => {
   const {
     x, y, y1, width,
   } = currentSeries.points[pointIndex];
@@ -130,13 +119,28 @@ export const getBarDElement = (pointIndex, currentSeries) => {
     d: `M0,0 ${width},0 ${width},${height} 0,${height}`,
   };
 };
-
-export const getPieDElement = (pointIndex, currentSeries) => {
+getPiePointTransformer.getTargetElement = (pointIndex, currentSeries) => {
   const {
-    d, x, y,
+    x, y, innerRadius, outerRadius, startAngle, endAngle,
   } = currentSeries.points[pointIndex];
+  const center = arc()
+    .innerRadius(innerRadius)
+    .outerRadius(outerRadius)
+    .startAngle(startAngle)
+    .endAngle(endAngle)
+    .centroid();
   return {
-    x, y, d,
+    x: center[0] + x, y: center[1] + y, d: symbol().size([1 ** 2]).type(symbolCircle)(),
+  };
+};
+
+getAreaPointTransformer.getTargetElement = (pointIndex, currentSeries) => {
+  const { x, y } = currentSeries.points[pointIndex];
+  const size = DEFAULT_POINT_SIZE; // TODO get user size
+  return {
+    x,
+    y,
+    d: symbol().size([size ** 2]).type(symbolCircle)(),
   };
 };
 
@@ -191,6 +195,7 @@ const scalePoints = (series, scales) => {
   });
   return {
     ...rest,
+    getTargetElement: getPointTransformer.getTargetElement,
     points: series.points.map(transform),
   };
 };

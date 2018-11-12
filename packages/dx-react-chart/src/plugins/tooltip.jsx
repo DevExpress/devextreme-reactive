@@ -11,7 +11,7 @@ import { FakeElement } from '../templates/fake-element';
 import { withComponents } from '../utils';
 
 const getParameters = (currentSeries, targets) => (
-  targets ? currentSeries.getDElement(targets[0].point, currentSeries) : {}
+  targets ? currentSeries.getTargetElement(targets[0].point, currentSeries) : {}
 );
 
 class RawTooltip extends React.PureComponent {

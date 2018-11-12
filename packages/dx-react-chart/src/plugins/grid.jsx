@@ -6,9 +6,7 @@ import {
   TemplatePlaceholder,
   TemplateConnector,
 } from '@devexpress/dx-react-core';
-import {
-  axisCoordinates, TOP, LEFT, ARGUMENT_DOMAIN, getValueDomainName,
-} from '@devexpress/dx-chart-core';
+import { ARGUMENT_DOMAIN, getValueDomainName, getGridCoordinates } from '@devexpress/dx-chart-core';
 import { Line } from '../templates/grid/line';
 import { withPatchedProps, withComponents } from '../utils';
 
@@ -30,29 +28,19 @@ class RawGrid extends React.PureComponent {
                 return null;
               }
 
-              const isHorizontal = name === ARGUMENT_DOMAIN;
-              const {
-                width, height,
-              } = layouts.pane;
-
-              const ticks = axisCoordinates({
-                scale,
-                orientation: isHorizontal ? 'horizontal' : 'vertical',
-                position: isHorizontal ? TOP : LEFT,
-                tickSize: 0,
-              });
-
+              const { width, height } = layouts.pane;
+              const ticks = getGridCoordinates({ name, scale });
               return ((
                 <React.Fragment>
                   {ticks.map(({
-                    x1, x2, y1, y2, key,
+                    key, x, dx, y, dy,
                   }) => (
                     <LineComponent
                       key={key}
-                      x1={isHorizontal ? x1 : width}
-                      x2={x2}
-                      y1={isHorizontal ? height : y1}
-                      y2={y2}
+                      x1={x}
+                      x2={x + dx * width}
+                      y1={y}
+                      y2={y + dy * height}
                       {...restProps}
                     />
                   ))}

@@ -1,5 +1,5 @@
 import { getWidth } from '../../utils/scale';
-import { axisCoordinates, axesData } from './computeds';
+import { axisCoordinates, getGridCoordinates, axesData } from './computeds';
 
 jest.mock('../../utils/scale', () => ({
   getWidth: jest.fn(),
@@ -156,6 +156,48 @@ describe('AxisCoordinates', () => {
         text: 'a', xText: 10, yText: 25, x1: 0, x2: 5, y1: 25, y2: 25, dominantBaseline: 'middle', textAnchor: 'start', key: 0,
       }]);
     });
+  });
+});
+
+describe('getGridCoordinates', () => {
+  const scale = jest.fn(x => x + 1);
+  scale.ticks = jest.fn().mockReturnValue([10, 20, 30, 40]);
+  getWidth.mockReturnValue(30);
+
+  afterEach(jest.clearAllMocks);
+
+  it('should return horizontal coordinates', () => {
+    expect(getGridCoordinates({ name: 'argument-domain', scale })).toEqual([
+      {
+        key: '0', x: 26, y: 0, dx: 0, dy: 1,
+      },
+      {
+        key: '1', x: 36, y: 0, dx: 0, dy: 1,
+      },
+      {
+        key: '2', x: 46, y: 0, dx: 0, dy: 1,
+      },
+      {
+        key: '3', x: 56, y: 0, dx: 0, dy: 1,
+      },
+    ]);
+  });
+
+  it('should return vertical coordinates', () => {
+    expect(getGridCoordinates({ name: 'value-domain', scale })).toEqual([
+      {
+        key: '0', x: 0, y: 26, dx: 1, dy: 0,
+      },
+      {
+        key: '1', x: 0, y: 36, dx: 1, dy: 0,
+      },
+      {
+        key: '2', x: 0, y: 46, dx: 1, dy: 0,
+      },
+      {
+        key: '3', x: 0, y: 56, dx: 1, dy: 0,
+      },
+    ]);
   });
 });
 

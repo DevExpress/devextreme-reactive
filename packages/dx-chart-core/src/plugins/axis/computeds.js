@@ -1,6 +1,6 @@
 import { getWidth } from '../../utils/scale';
 import {
-  HORIZONTAL, LEFT, BOTTOM, MIDDLE, END, START,
+  HORIZONTAL, LEFT, BOTTOM, MIDDLE, END, START, ARGUMENT_DOMAIN,
 } from '../../constants';
 
 const getTicks = scale => (scale.ticks ? scale.ticks() : scale.domain());
@@ -42,7 +42,6 @@ const createVerticalOptions = (position, tickSize, indentFromAxis) => {
   };
 };
 
-// It is called for grid (which does not have labels) - how is it handled here?
 export const axisCoordinates = ({
   scale,
   orientation, // TODO: Replace it with *isHorizontal*.
@@ -68,6 +67,26 @@ export const axisCoordinates = ({
       xText: coordinates,
       yText: coordinates,
       text: formatTick(tick),
+      ...options,
+    };
+  });
+};
+
+const horizontalGridOptions = { y: 0, dy: 1 };
+const verticalGridOptions = { x: 0, dx: 1 };
+
+export const getGridCoordinates = ({ name, scale }) => {
+  const isHorizontal = name === ARGUMENT_DOMAIN;
+  const options = isHorizontal ? horizontalGridOptions : verticalGridOptions;
+  const fixedScale = fixScaleOffset(scale);
+  return getTicks(scale).map((tick, index) => {
+    const coordinates = fixedScale(tick);
+    return {
+      key: String(index),
+      x: coordinates,
+      y: coordinates,
+      dx: 0,
+      dy: 0,
       ...options,
     };
   });

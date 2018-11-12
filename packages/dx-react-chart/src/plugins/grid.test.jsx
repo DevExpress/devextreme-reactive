@@ -1,38 +1,29 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { axisCoordinates } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
+import { getGridCoordinates } from '@devexpress/dx-chart-core';
 import { Grid } from './grid';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
-  axisCoordinates: jest.fn(),
-  ARGUMENT_DOMAIN: 'test_argument_domain',
-  LEFT: 'left',
-  TOP: 'top',
+  getGridCoordinates: jest.fn(),
 }));
 
 describe('Grid', () => {
-  axisCoordinates.mockReturnValue([{
-    text: 'text1',
-    x1: 1,
-    x2: 1,
-    y1: 0,
-    y2: 100,
+  getGridCoordinates.mockReturnValue([{
     key: '1',
+    x: 11,
+    y: 12,
+    dx: 0.1,
+    dy: 0.2,
   },
   {
-    text: 'text2',
-    x1: 11,
-    x2: 11,
-    y1: 33,
-    y2: 44,
     key: '2',
+    x: 21,
+    y: 22,
+    dx: 0.3,
+    dy: 0.4,
   }]);
-
-  const ticks = [1, 2];
-  const scale = jest.fn(value => value);
-  scale.ticks = jest.fn(() => ticks);
 
   afterEach(jest.clearAllMocks);
 
@@ -41,21 +32,19 @@ describe('Grid', () => {
   const defaultDeps = {
     getter: {
       scales: {
-        test_argument_domain: jest.fn(),
-        other_domain: jest.fn(),
+        domain1: 'test-scale',
       },
       layouts: {
-        pane: {
-          x: 1, y: 2, width: 200, height: 300,
-        },
+        pane: { width: 200, height: 300 },
       },
     },
     template: {
       series: {},
     },
   };
+
   const defaultProps = {
-    name: 'test_argument_domain',
+    name: 'domain1',
     lineComponent: LineComponent,
     styles: 'styles',
   };
@@ -71,47 +60,19 @@ describe('Grid', () => {
     ));
 
     expect(tree.find(LineComponent).get(0).props).toEqual({
-      styles: 'styles',
-      x1: 1,
-      x2: 1,
-      y1: 300,
-      y2: 100,
-    });
-
-    expect(tree.find(LineComponent).get(1).props).toEqual({
-      styles: 'styles',
       x1: 11,
-      x2: 11,
-      y1: 300,
-      y2: 44,
-    });
-  });
-
-  it('should render ticks, orientation vertical', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <Grid
-          {...defaultProps}
-          name="other_domain"
-        />
-      </PluginHost>
-    ));
-
-    expect(tree.find(LineComponent).get(0).props).toEqual({
+      x2: 31,
+      y1: 12,
+      y2: 72,
       styles: 'styles',
-      x1: 200,
-      x2: 1,
-      y1: 0,
-      y2: 100,
     });
-
     expect(tree.find(LineComponent).get(1).props).toEqual({
+      x1: 21,
+      x2: 81,
+      y1: 22,
+      y2: 142,
       styles: 'styles',
-      x1: 200,
-      x2: 11,
-      y1: 33,
-      y2: 44,
     });
+    expect(getGridCoordinates).toBeCalledWith({ name: 'domain1', scale: 'test-scale' });
   });
 });

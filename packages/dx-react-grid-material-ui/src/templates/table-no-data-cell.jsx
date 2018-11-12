@@ -6,8 +6,13 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   cell: {
+    padding: `${theme.spacing.unit * 6}px 0`,
+  },
+  text: {
+    position: 'absolute',
+    width: '100%',
     textAlign: 'center',
-    padding: `${theme.spacing.unit * 5}px 0`,
+    marginTop: `-${theme.spacing.unit}px`,
   },
 });
 
@@ -27,7 +32,7 @@ export const TableNoDataCellBase = ({
     colSpan={colSpan}
     {...restProps}
   >
-    <big>
+    <big className={classes.text}>
       {getMessage('noData')}
     </big>
   </TableCell>

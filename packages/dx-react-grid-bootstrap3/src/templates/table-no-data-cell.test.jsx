@@ -32,11 +32,10 @@ describe('TableNoDataCell', () => {
 
     expect(tree.find('big').props().style)
       .toEqual({
-        position: 'fixed',
-        left: '50%',
+        position: 'absolute',
         width: '100%',
         textAlign: 'center',
-        transform: 'translate(-50%, -50%)',
+        marginTop: '-13px',
       });
   });
 });

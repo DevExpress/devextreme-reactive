@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 export const Root = ({ children, className, ...restProps }) => (
   <div
-    className={classNames('d-flex flex-column', className)}
+    className={classNames('d-flex flex-column position-relative', className)}
     {...restProps}
   >
     {children}

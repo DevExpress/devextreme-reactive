@@ -11,8 +11,7 @@ export const TableNoDataCell = ({
 }) => (
   <td
     style={{
-      // textAlign: 'center',
-      padding: '40px 0',
+      padding: '50px 0',
       ...style,
     }}
     colSpan={colSpan}
@@ -21,11 +20,10 @@ export const TableNoDataCell = ({
     <big
       className="text-muted"
       style={{
-        position: 'sticky',
-        left: '45%',
+        position: 'absolute',
         width: '100%',
         textAlign: 'center',
-        // transform: 'translate(-50%, -50%)',
+        marginTop: '-13px',
       }}
     >
       {getMessage('noData')}

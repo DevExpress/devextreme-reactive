@@ -22,7 +22,7 @@ describe('TableNoDataCell', () => {
       />
     ));
 
-    expect(tree.is('.py-5.text-center.custom-class'))
+    expect(tree.is('.p-0.py-5.custom-class'))
       .toBeTruthy();
   });
 

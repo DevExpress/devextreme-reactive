@@ -212,9 +212,8 @@ button.dx-g-bs4-table-edit-command-cell {
   opacity: 0;
 }
 .fixed-block {
-  position: fixed;
-  left: 50%;
+  position: absolute;
   width: 100%;
   text-align: center;
-  transform: translate(-50%, -50%);
+  margin-top: -15px;
 }

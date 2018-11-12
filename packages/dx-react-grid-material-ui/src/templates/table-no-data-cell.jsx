@@ -6,15 +6,13 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   cell: {
-    textAlign: 'center',
-    padding: `${theme.spacing.unit * 5}px 0`,
+    padding: `${theme.spacing.unit * 6}px 0`,
   },
   text: {
-    position: 'fixed',
-    left: '50%',
+    position: 'absolute',
     width: '100%',
     textAlign: 'center',
-    transform: 'translate(-50%, -50%)',
+    marginTop: `-${theme.spacing.unit}px`,
   },
 });
 

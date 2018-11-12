@@ -16,6 +16,10 @@ import { Label } from '../templates/axis/label';
 import { Line } from '../templates/axis/line';
 import { withPatchedProps, withComponents } from '../utils';
 
+const SVG_STYLE = {
+  position: 'absolute', left: 0, top: 0, overflow: 'visible',
+};
+
 const getZeroCoord = () => 0;
 const getCorrectSize = position => (
   (position === LEFT || position === TOP) ? coord => -coord : (coord, side) => side + coord
@@ -24,6 +28,19 @@ const getCorrection = position => (
   (position === LEFT || position === TOP) ? coord => coord : getZeroCoord
 );
 const getCurrentSize = (_, side) => side;
+
+const adjustScaleRange = (scale, [width, height]) => {
+  const range = scale.range().slice();
+  if (Math.abs(range[0] - range[1]) < 0.01) {
+    return scale;
+  }
+  if (range[1] > 0) {
+    range[1] = width;
+  } else {
+    range[0] = height;
+  }
+  return scale.copy().range(range);
+};
 
 class RawAxis extends React.PureComponent {
   constructor(props) {
@@ -80,10 +97,10 @@ class RawAxis extends React.PureComponent {
 
   render() {
     const {
+      name,
+      position,
       tickSize,
       tickFormat,
-      position,
-      name,
       indentFromAxis,
       rootComponent: RootComponent,
       tickComponent: TickComponent,
@@ -106,11 +123,9 @@ class RawAxis extends React.PureComponent {
                 return null;
               }
 
-              const isHorizontal = name === ARGUMENT_DOMAIN;
               const {
                 width: widthCalculated, height: heightCalculated,
               } = layouts[placeholder] || { width: 0, height: 0 };
-
               const {
                 width: widthPostCalculated,
                 height: heightPostCalculated,
@@ -121,52 +136,44 @@ class RawAxis extends React.PureComponent {
                 0,
               );
               // Isn't it too late to adjust sizes?
-              const postCalculatedScale = scale
-                .copy().range(isHorizontal ? [0, widthPostCalculated] : [heightPostCalculated, 0]);
-              const ticks = axisCoordinates({
+              const postCalculatedScale = adjustScaleRange(scale,
+                [widthPostCalculated, heightPostCalculated]);
+              const { sides: [dx, dy], ticks } = axisCoordinates({
+                name,
                 scale: postCalculatedScale,
-                // TODO: Do not recalculate *orientation*.
-                orientation: isHorizontal ? 'horizontal' : 'vertical',
                 position,
                 tickSize,
                 tickFormat,
                 indentFromAxis,
               });
-              const {
-                xCorrection,
-                yCorrection,
-              } = this.state;
+              const { xCorrection, yCorrection } = this.state;
 
               return (
                 <div
                   style={{
                     position: 'relative',
-                    width: isHorizontal ? undefined : widthCalculated,
-                    height: isHorizontal ? heightCalculated : undefined,
-                    flexGrow: isHorizontal ? 1 : undefined,
+                    width: (dy * widthCalculated) || undefined,
+                    height: (dx * heightCalculated) || undefined,
+                    flexGrow: dx || undefined,
                   }}
+                  // TODO: *ref* should be created in constructor.
                   ref={(node) => { this.node = node; }}
                 >
                   <svg
                     width={widthPostCalculated}
                     height={heightPostCalculated}
-                    style={{
-                      position: 'absolute', left: 0, top: 0, overflow: 'visible',
-                    }}
+                    style={SVG_STYLE}
                   >
                     <RootComponent
+                      // TODO: *refsHandler* should be created in constructor.
                       refsHandler={this.createRefsHandler(
                         placeholder,
                         changeBBox,
                         {
-                          getWidth: !isHorizontal
-                            ? getCorrectSize(position) : getCurrentSize,
-                          getHeight: isHorizontal
-                            ? getCorrectSize(position) : getCurrentSize,
-                          getXCorrection: !isHorizontal
-                            ? getCorrection(position) : getZeroCoord,
-                          getYCorrection: isHorizontal
-                            ? getCorrection(position) : getZeroCoord,
+                          getWidth: dx ? getCurrentSize : getCorrectSize(position),
+                          getHeight: dy ? getCurrentSize : getCorrectSize(position),
+                          getXCorrection: dx ? getZeroCoord : getCorrection(position),
+                          getYCorrection: dy ? getZeroCoord : getCorrection(position),
                         },
                       )}
                       x={-xCorrection}
@@ -186,8 +193,8 @@ class RawAxis extends React.PureComponent {
                       ))
                     }
                       <LineComponent
-                        width={isHorizontal ? widthPostCalculated : 0}
-                        height={!isHorizontal ? heightPostCalculated : 0}
+                        width={dx * widthPostCalculated}
+                        height={dy * heightPostCalculated}
                       />
                       {ticks.map(({
                         text,

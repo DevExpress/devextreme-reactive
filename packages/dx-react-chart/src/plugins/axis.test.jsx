@@ -8,7 +8,6 @@ import { Axis } from './axis';
 jest.mock('@devexpress/dx-chart-core', () => ({
   axisCoordinates: jest.fn(),
   axesData: jest.fn(),
-  ARGUMENT_DOMAIN: 'test_argument_domain',
   LEFT: 'left',
   TOP: 'top',
   BOTTOM: 'bottom',
@@ -17,7 +16,7 @@ jest.mock('@devexpress/dx-chart-core', () => ({
 describe('Axis', () => {
   const mockScale = jest.fn();
   mockScale.copy = jest.fn().mockReturnValue(mockScale);
-  mockScale.range = jest.fn().mockReturnValue(mockScale);
+  mockScale.range = jest.fn(arg => (arg === undefined ? [1, 2] : mockScale));
 
   // eslint-disable-next-line react/prop-types
   const RootComponent = ({ children }) => (
@@ -43,8 +42,7 @@ describe('Axis', () => {
   const defaultDeps = {
     getter: {
       scales: {
-        test_argument_domain: mockScale,
-        other_domain: mockScale,
+        'test-domain': mockScale,
       },
       layouts: {
         'bottom-axis': {
@@ -63,14 +61,14 @@ describe('Axis', () => {
   const defaultProps = {
     min: 0,
     position: 'bottom',
-    name: 'test_argument_domain',
+    name: 'test-domain',
     rootComponent: RootComponent,
     tickComponent: TickComponent,
     labelComponent: LabelComponent,
     lineComponent: LineComponent,
   };
 
-  axisCoordinates.mockReturnValue([{
+  const mockTicks = [{
     text: 'text1',
     x1: 1,
     x2: 2,
@@ -93,11 +91,19 @@ describe('Axis', () => {
     dominantBaseline: 'dominantBaseline2',
     textAnchor: 'textAnchor2',
     key: '2',
-  }]);
+  }];
 
-  afterEach(jest.clearAllMocks);
+  const setupAxisCoordinates = (sides) => {
+    axisCoordinates.mockReturnValue({ sides, ticks: mockTicks });
+  };
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    axisCoordinates.mockReset();
+  });
 
   it('should render root component', () => {
+    setupAxisCoordinates([1, 0]);
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -122,9 +128,10 @@ describe('Axis', () => {
         x: -30, y: 0, width: 20, height: 30,
       })),
     };
+    setupAxisCoordinates([0, 1]);
     const tree = mount((
       <PluginHost>
-        <Axis {...defaultProps} name="other_domain" position="left" />
+        <Axis {...defaultProps} position="left" />
         {pluginDepsToComponents(defaultDeps, getterForAxis('left'))}
       </PluginHost>
     ));
@@ -141,9 +148,10 @@ describe('Axis', () => {
         x: 10, y: 0, width: 30, height: 30,
       })),
     };
+    setupAxisCoordinates([0, 1]);
     const tree = mount((
       <PluginHost>
-        <Axis {...defaultProps} name="other_domain" position="right" />
+        <Axis {...defaultProps} position="right" />
         {pluginDepsToComponents(defaultDeps, getterForAxis('right'))}
       </PluginHost>
     ));
@@ -160,6 +168,7 @@ describe('Axis', () => {
         x: 0, y: -40, width: 30, height: 30,
       })),
     };
+    setupAxisCoordinates([1, 0]);
     const tree = mount((
       <PluginHost>
         <Axis {...defaultProps} position="top" />
@@ -179,6 +188,7 @@ describe('Axis', () => {
         x: 0, y: 10, width: 30, height: 20,
       })),
     };
+    setupAxisCoordinates([1, 0]);
     const tree = mount((
       <PluginHost>
         <Axis {...defaultProps} />
@@ -193,11 +203,12 @@ describe('Axis', () => {
   });
 
   it('should render argument axis', () => {
+    setupAxisCoordinates([1, 0]);
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <Axis
-          {...{ ...defaultProps, isArgumentAxis: true }}
+          {...defaultProps}
         />
       </PluginHost>
     ));
@@ -213,6 +224,7 @@ describe('Axis', () => {
 
   it('should pass axisCoordinates method correct parameters, horizontal orientation', () => {
     const mockTickFormat = () => 0;
+    setupAxisCoordinates([1, 0]);
     mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -224,8 +236,8 @@ describe('Axis', () => {
     ));
 
     expect(axisCoordinates).toHaveBeenCalledWith({
+      name: 'test-domain',
       scale: mockScale,
-      orientation: 'horizontal',
       position: 'bottom',
       tickSize: 5,
       tickFormat: mockTickFormat,
@@ -234,11 +246,14 @@ describe('Axis', () => {
   });
 
   it('should pass axisCoordinates method correct parameters, vertical orientation', () => {
+    setupAxisCoordinates([0, 1]);
     mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps, {
           getter: {
-            domains: { name: { orientation: 'vertical', type: 'someType' } },
+            scales: {
+              'other-domain': mockScale,
+            },
             layouts: {
               'bottom-axis': {
                 x: 3, y: 4, width: 250, height: 150,
@@ -248,7 +263,7 @@ describe('Axis', () => {
         })}
         <Axis
           {...defaultProps}
-          name="other_domain"
+          name="other-domain"
           tickSize={6}
           indentFromAxis={3}
         />
@@ -256,8 +271,8 @@ describe('Axis', () => {
     ));
 
     expect(axisCoordinates).toHaveBeenCalledWith({
+      name: 'other-domain',
       scale: mockScale,
-      orientation: 'vertical',
       position: 'bottom',
       tickSize: 6,
       indentFromAxis: 3,
@@ -265,6 +280,7 @@ describe('Axis', () => {
   });
 
   it('should render tick component', () => {
+    setupAxisCoordinates([1, 0]);
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -288,6 +304,7 @@ describe('Axis', () => {
   });
 
   it('should render label component', () => {
+    setupAxisCoordinates([1, 0]);
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -315,6 +332,7 @@ describe('Axis', () => {
   });
 
   it('should render line component, horizontal', () => {
+    setupAxisCoordinates([1, 0]);
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -331,12 +349,12 @@ describe('Axis', () => {
   });
 
   it('should render line component, vertical', () => {
+    setupAxisCoordinates([0, 1]);
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <Axis
           {...defaultProps}
-          name="other_domain"
         />
       </PluginHost>
     ));
@@ -348,6 +366,7 @@ describe('Axis', () => {
   });
 
   it('should pass axesData correct arguments', () => {
+    setupAxisCoordinates([1, 0]);
     mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}

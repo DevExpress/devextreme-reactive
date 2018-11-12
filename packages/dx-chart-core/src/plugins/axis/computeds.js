@@ -1,7 +1,10 @@
 import { getWidth } from '../../utils/scale';
 import {
-  HORIZONTAL, LEFT, BOTTOM, MIDDLE, END, START, ARGUMENT_DOMAIN,
+  LEFT, BOTTOM, MIDDLE, END, START, ARGUMENT_DOMAIN,
 } from '../../constants';
+
+// Same code can be found in domains calculation.
+const isHorizontal = name => name === ARGUMENT_DOMAIN;
 
 const getTicks = scale => (scale.ticks ? scale.ticks() : scale.domain());
 
@@ -9,6 +12,11 @@ const getTicks = scale => (scale.ticks ? scale.ticks() : scale.domain());
 const fixScaleOffset = (scale) => {
   const offset = getWidth(scale) / 2;
   return value => scale(value) + offset;
+};
+
+const createTicks = (scale, callback) => {
+  const fixedScale = fixScaleOffset(scale);
+  return getTicks(scale).map((tick, index) => callback(fixedScale(tick), String(index), tick));
 };
 
 const getFormat = (scale, tickFormat) => {
@@ -19,7 +27,7 @@ const getFormat = (scale, tickFormat) => {
 };
 
 const createHorizontalOptions = (position, tickSize, indentFromAxis) => {
-  // Make *position* should be orientation agnostic - START or END.
+  // Make *position* orientation agnostic - should be START or END.
   const isStart = position === BOTTOM;
   return {
     y1: 0,
@@ -31,7 +39,7 @@ const createHorizontalOptions = (position, tickSize, indentFromAxis) => {
 };
 
 const createVerticalOptions = (position, tickSize, indentFromAxis) => {
-  // Make *position* should be orientation agnostic - START or END.
+  // Make *position* orientation agnostic - should be START or END.
   const isStart = position === LEFT;
   return {
     x1: 0,
@@ -43,53 +51,49 @@ const createVerticalOptions = (position, tickSize, indentFromAxis) => {
 };
 
 export const axisCoordinates = ({
+  name,
   scale,
-  orientation, // TODO: Replace it with *isHorizontal*.
   position,
   tickSize,
   tickFormat,
   indentFromAxis,
 }) => {
-  const isHorizontal = orientation === HORIZONTAL;
-  const options = (isHorizontal ? createHorizontalOptions : createVerticalOptions)(
+  const isHor = isHorizontal(name);
+  const options = (isHor ? createHorizontalOptions : createVerticalOptions)(
     position, tickSize, indentFromAxis,
   );
-  const fixedScale = fixScaleOffset(scale);
   const formatTick = getFormat(scale, tickFormat);
-  return getTicks(scale).map((tick, index) => {
-    const coordinates = fixedScale(tick);
-    return {
-      key: index,
-      x1: coordinates,
-      x2: coordinates,
-      y1: coordinates,
-      y2: coordinates,
-      xText: coordinates,
-      yText: coordinates,
-      text: formatTick(tick),
-      ...options,
-    };
-  });
+  const ticks = createTicks(scale, (coordinates, key, tick) => ({
+    key,
+    x1: coordinates,
+    x2: coordinates,
+    y1: coordinates,
+    y2: coordinates,
+    xText: coordinates,
+    yText: coordinates,
+    text: formatTick(tick),
+    ...options,
+  }));
+  return {
+    sides: [Number(isHor), Number(!isHor)],
+    ticks,
+  };
 };
 
 const horizontalGridOptions = { y: 0, dy: 1 };
 const verticalGridOptions = { x: 0, dx: 1 };
 
 export const getGridCoordinates = ({ name, scale }) => {
-  const isHorizontal = name === ARGUMENT_DOMAIN;
-  const options = isHorizontal ? horizontalGridOptions : verticalGridOptions;
-  const fixedScale = fixScaleOffset(scale);
-  return getTicks(scale).map((tick, index) => {
-    const coordinates = fixedScale(tick);
-    return {
-      key: String(index),
-      x: coordinates,
-      y: coordinates,
-      dx: 0,
-      dy: 0,
-      ...options,
-    };
-  });
+  const isHor = isHorizontal(name);
+  const options = isHor ? horizontalGridOptions : verticalGridOptions;
+  return createTicks(scale, (coordinates, key) => ({
+    key,
+    x: coordinates,
+    y: coordinates,
+    dx: 0,
+    dy: 0,
+    ...options,
+  }));
 };
 
 export const axesData = (axes, axisProps) => [...axes, axisProps];

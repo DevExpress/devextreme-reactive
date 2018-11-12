@@ -14,6 +14,7 @@
 -->
 - [ ] React Grid
 - [ ] React Chart
+- [ ] React Scheduler
 
 ### Current Behaviour
 

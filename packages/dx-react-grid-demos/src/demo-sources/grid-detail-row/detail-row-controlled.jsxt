@@ -12,8 +12,6 @@ import {
   defaultColumnValues,
 } from '../../../demo-data/generator';
 
-const getRowId = row => row.id;
-
 const RowDetail = ({ row }) => (
   <div>
     Details for
@@ -55,7 +53,6 @@ export default class Demo extends React.PureComponent {
         <Grid
           rows={rows}
           columns={columns}
-          getRowId={getRowId}
         >
           <RowDetailState
             expandedRowIds={expandedRowIds}

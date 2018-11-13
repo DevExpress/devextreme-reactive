@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
-import { TableGroupCell } from './table-group-row-cell';
+import { Cell } from './cell';
 
 describe('TableGroupRowCell', () => {
   let resetConsole;
@@ -14,7 +14,7 @@ describe('TableGroupRowCell', () => {
 
   it('should render column title and value', () => {
     const tree = shallow((
-      <TableGroupCell
+      <Cell
         column={{ title: 'Title' }}
         row={{ value: 'Value' }}
       />
@@ -26,9 +26,9 @@ describe('TableGroupRowCell', () => {
 
   it('should render children if passed', () => {
     const tree = shallow((
-      <TableGroupCell>
+      <Cell>
         <span className="test" />
-      </TableGroupCell>
+      </Cell>
     ));
 
     expect(tree.find('.test').exists())
@@ -37,7 +37,7 @@ describe('TableGroupRowCell', () => {
 
   it('should pass custom class to the root element', () => {
     const tree = shallow((
-      <TableGroupCell className="custom-class" />
+      <Cell className="custom-class" />
     ));
 
     expect(tree.is('.dx-g-bs4-cursor-pointer.custom-class'))
@@ -46,7 +46,7 @@ describe('TableGroupRowCell', () => {
 
   it('should pass rest props to the root element', () => {
     const tree = shallow((
-      <TableGroupCell data={{ a: 1 }} />
+      <Cell data={{ a: 1 }} />
     ));
 
     expect(tree.prop('data'))

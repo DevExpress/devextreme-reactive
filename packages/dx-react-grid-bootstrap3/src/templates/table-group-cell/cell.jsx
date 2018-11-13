@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
-export const CellBase = ({
+export const Cell = ({
   style, colSpan, row, column,
   expanded, onToggle,
   children, tableRow, tableColumn,
@@ -33,7 +33,7 @@ export const CellBase = ({
   </td>
 );
 
-CellBase.propTypes = {
+Cell.propTypes = {
   style: PropTypes.object,
   colSpan: PropTypes.number,
   row: PropTypes.any,
@@ -47,7 +47,7 @@ CellBase.propTypes = {
   contentComponent: PropTypes.func.isRequired,
 };
 
-CellBase.defaultProps = {
+Cell.defaultProps = {
   style: null,
   colSpan: 1,
   row: {},

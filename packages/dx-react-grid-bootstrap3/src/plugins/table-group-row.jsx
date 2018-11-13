@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { withComponents } from '@devexpress/dx-react-core';
 import { TableGroupRow as TableGroupRowBase } from '@devexpress/dx-react-grid';
-import { CellBase as Cell } from '../templates/table-group-cell/table-group-row-cell';
+import { Cell } from '../templates/table-group-cell/cell';
 import { TableRow as Row } from '../templates/table-row';
 import { Content } from '../templates/table-group-cell/content';
 import { ExpandButton as Icon } from '../templates/parts/expand-button';

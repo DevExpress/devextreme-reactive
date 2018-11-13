@@ -7,7 +7,7 @@ import {
   Template,
   TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
-import { getParameters } from '@devexpress/dx-chart-core';
+import { getParameters, processPointerMove } from '@devexpress/dx-chart-core';
 import { Target } from '../templates/tooltip/target';
 import { withComponents } from '../utils';
 
@@ -15,7 +15,7 @@ class RawTooltip extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      targets: null,
+      target: props.targetItem || props.defaultTargetItem,
     };
     const handlePointerMove = this.handlePointerMove.bind(this);
     this.getPointerMoveHandlers = ({ pointerMoveHandlers }) => [
@@ -24,13 +24,17 @@ class RawTooltip extends React.PureComponent {
   }
 
   handlePointerMove({ targets }) {
-    if (!targets.length || targets[0].point === undefined) {
+    const { onTargetItemChange } = this.props;
+    const { target: currentTarget } = this.state;
+    const target = processPointerMove(targets, currentTarget, onTargetItemChange);
+    if (target !== undefined) {
+      if (target && target.point === undefined) {
+        this.setState({
+          target: null,
+        });
+      }
       this.setState({
-        targets: null,
-      });
-    } else {
-      this.setState({
-        targets,
+        target,
       });
     }
   }
@@ -42,7 +46,7 @@ class RawTooltip extends React.PureComponent {
       contentComponent: ContentComponent,
     } = this.props;
     const {
-      targets,
+      target,
     } = this.state;
     return (
       <Plugin name="Tooltip">
@@ -52,7 +56,7 @@ class RawTooltip extends React.PureComponent {
           <TemplateConnector>
             {
             ({ series }) => {
-              const { text, element } = getParameters(series, targets);
+              const { text, element } = getParameters(series, target);
               return (
                 <React.Fragment>
                   <TargetComponent
@@ -62,9 +66,9 @@ class RawTooltip extends React.PureComponent {
                   <OverlayComponent
                     key={text}
                     target={this.targetElement}
-                    visible={!!targets}
+                    visible={!!(target && target.point !== undefined)}
                   >
-                    <ContentComponent text={text} targetItem={targets && targets[0]} />
+                    <ContentComponent text={text} targetItem={target} />
                   </OverlayComponent>
                 </React.Fragment>
               );
@@ -78,9 +82,24 @@ class RawTooltip extends React.PureComponent {
 }
 
 RawTooltip.propTypes = {
+  defaultTargetItem: PropTypes.shape({
+    series: PropTypes.string.isRequired,
+    point: PropTypes.number,
+  }),
+  targetItem: PropTypes.shape({
+    series: PropTypes.string.isRequired,
+    point: PropTypes.number,
+  }),
+  onTargetItemChange: PropTypes.func,
   overlayComponent: PropTypes.func.isRequired,
   targetComponent: PropTypes.func.isRequired,
   contentComponent: PropTypes.func.isRequired,
+};
+
+RawTooltip.defaultProps = {
+  defaultTargetItem: undefined,
+  targetItem: undefined,
+  onTargetItemChange: undefined,
 };
 
 RawTooltip.components = {

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { PluginHost } from '@devexpress/dx-react-core';
+import { PluginHost, withComponents } from '@devexpress/dx-react-core';
 import {
   TOP, BOTTOM, LEFT, RIGHT,
 } from '@devexpress/dx-chart-core';
@@ -15,7 +15,6 @@ import { ComponentLayout } from './plugins/component-layout';
 import { Palette } from './plugins/palette';
 import { Root } from './templates/layout';
 import { Label } from './templates/label';
-import { withComponents } from './utils';
 
 class RawChart extends React.PureComponent {
   render() {

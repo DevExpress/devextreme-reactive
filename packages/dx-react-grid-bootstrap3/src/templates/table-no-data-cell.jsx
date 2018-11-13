@@ -11,14 +11,21 @@ export const TableNoDataCell = ({
 }) => (
   <td
     style={{
-      textAlign: 'center',
-      padding: '40px 0',
+      padding: '50px 0',
       ...style,
     }}
     colSpan={colSpan}
     {...restProps}
   >
-    <big className="text-muted">
+    <big
+      className="text-muted"
+      style={{
+        position: 'absolute',
+        width: '100%',
+        textAlign: 'center',
+        marginTop: '-13px',
+      }}
+    >
       {getMessage('noData')}
     </big>
   </td>

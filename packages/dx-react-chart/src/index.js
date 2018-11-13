@@ -21,4 +21,4 @@ export * from './plugins/event-tracker';
 export * from './plugins/hover-state';
 export * from './plugins/selection-state';
 
-export { withPatchedProps, withComponents } from './utils';
+export { withPatchedProps } from './utils';

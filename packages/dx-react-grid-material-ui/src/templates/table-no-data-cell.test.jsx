@@ -43,4 +43,15 @@ describe('TableNoDataCell', () => {
     expect(tree.props().data)
       .toMatchObject({ a: 1 });
   });
+
+  it('should set fixed alignment', () => {
+    const tree = shallow((
+      <TableNoDataCell
+        getMessage={key => key}
+      />
+    ));
+
+    expect(tree.find('big').is(`.${classes.text}`))
+      .toBeTruthy();
+  });
 });

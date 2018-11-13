@@ -7,9 +7,7 @@ import {
   TemplateConnector,
   withComponents,
 } from '@devexpress/dx-react-core';
-import {
-  axisCoordinates, HORIZONTAL, TOP, LEFT, ARGUMENT_DOMAIN, getValueDomainName,
-} from '@devexpress/dx-chart-core';
+import { ARGUMENT_DOMAIN, getValueDomainName, getGridCoordinates } from '@devexpress/dx-chart-core';
 import { Line } from '../templates/grid/line';
 import { withPatchedProps } from '../utils';
 
@@ -25,37 +23,25 @@ class RawGrid extends React.PureComponent {
         <Template name="series">
           <TemplatePlaceholder />
           <TemplateConnector>
-            {({
-              domains,
-              scales,
-              layouts,
-            }) => {
-              const domain = domains[name];
+            {({ scales, layouts }) => {
               const scale = scales[name];
-              const { orientation } = domain;
-              const {
-                width, height,
-              } = layouts.pane;
+              if (!scale) {
+                return null;
+              }
 
-              const coordinates = axisCoordinates(
-                domain,
-                scale,
-                orientation === HORIZONTAL ? TOP : LEFT,
-                0,
-                undefined,
-              );
-
+              const { width, height } = layouts.pane;
+              const ticks = getGridCoordinates({ name, scale });
               return ((
                 <React.Fragment>
-                  {coordinates.ticks.map(({
-                    x1, x2, y1, y2, key,
+                  {ticks.map(({
+                    key, x, dx, y, dy,
                   }) => (
                     <LineComponent
                       key={key}
-                      x1={orientation === HORIZONTAL ? x1 : width}
-                      x2={x2}
-                      y1={orientation === HORIZONTAL ? height : y1}
-                      y2={y2}
+                      x1={x}
+                      x2={x + dx * width}
+                      y1={y}
+                      y2={y + dy * height}
                       {...restProps}
                     />
                   ))}

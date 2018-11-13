@@ -86,14 +86,11 @@ const takeTypeFromAxesOptions = (domains, axes) => {
 };
 
 const takeRestAxesOptions = (domains, axes) => {
-  axes.forEach(({
-    name, tickFormat, min, max,
-  }) => {
+  axes.forEach(({ name, min, max }) => {
     const domain = domains[name];
     if (!domain) {
       return;
     }
-    domain.tickFormat = tickFormat;
     if (domain.type !== BAND) {
       domain.domain = [
         isDefined(min) ? min : domain.domain[0],

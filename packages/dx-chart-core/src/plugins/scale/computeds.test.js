@@ -266,32 +266,11 @@ describe('computeDomains', () => {
     });
   });
 
-  it('should take tickFormat from axes', () => {
-    const domains = computeDomains(
-      [
-        { name: ARGUMENT_DOMAIN, tickFormat: 'argumentTickFormat' },
-        { name: VALUE_DOMAIN, tickFormat: 'valueTickFormat' },
-      ],
-      [{
-        name: 'series1', points: [{ argument: 1, value: 9 }],
-      }],
-    );
-
-    expect(domains).toEqual({
-      [ARGUMENT_DOMAIN]: {
-        domain: [1, 1], orientation: 'horizontal', type: 'linear', tickFormat: 'argumentTickFormat',
-      },
-      [VALUE_DOMAIN]: {
-        domain: [9, 9], orientation: 'vertical', type: 'linear', tickFormat: 'valueTickFormat',
-      },
-    });
-  });
-
   it('should ignore axes for unknown domains', () => {
     const domains = computeDomains(
       [
-        { name: 'domain1', tickFormat: 'format1' },
-        { name: 'domain2', tickFormat: 'format2' },
+        { name: 'domain1' },
+        { name: 'domain2' },
       ],
       [{
         name: 'series1', axisName: 'domain1', points: [{ argument: 1, value: 9 }],
@@ -303,7 +282,7 @@ describe('computeDomains', () => {
         domain: [1, 1], orientation: 'horizontal', type: 'linear',
       },
       domain1: {
-        domain: [9, 9], orientation: 'vertical', type: 'linear', tickFormat: 'format1',
+        domain: [9, 9], orientation: 'vertical', type: 'linear',
       },
     });
   });

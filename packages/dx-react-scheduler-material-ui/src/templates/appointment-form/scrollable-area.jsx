@@ -6,7 +6,7 @@ import classNames from 'classnames';
 const styles = theme => ({
   root: {
     maxHeight: theme.spacing.unit * 50,
-    overflowY: 'scroll',
+    overflowY: 'auto',
     padding: theme.spacing.unit * 2,
     paddingBottom: 0,
   },

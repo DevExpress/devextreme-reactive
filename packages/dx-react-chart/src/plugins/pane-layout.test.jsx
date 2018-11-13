@@ -20,10 +20,14 @@ describe('PaneLayout', () => {
       </PluginHost>
     ));
 
-    expect(tree.find('svg').props().width)
-      .toEqual(expect.any(Number));
-    expect(tree.find('svg').props().height)
-      .toEqual(expect.any(Number));
+    expect(tree.find('svg').props()).toEqual({
+      width: expect.any(Number),
+      height: expect.any(Number),
+      style: {
+        left: 0, top: 0, overflow: 'visible', position: 'absolute',
+      },
+      children: expect.anything(),
+    });
   });
 
   it('should render Sizer with correct styles', () => {
@@ -35,7 +39,10 @@ describe('PaneLayout', () => {
       </PluginHost>
     ));
 
-    expect(tree.find('Sizer').props().style)
-      .toEqual({ flex: 1, zIndex: 1 });
+    expect(tree.find('Sizer').props()).toEqual({
+      containerComponent: expect.any(Function),
+      onSizeChange: expect.any(Function),
+      children: expect.anything(),
+    });
   });
 });

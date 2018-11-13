@@ -45,8 +45,8 @@ const styles = {
 };
 
 export class Sizer extends React.PureComponent {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.setupListeners = this.setupListeners.bind(this);
   }
@@ -121,10 +121,8 @@ export class Sizer extends React.PureComponent {
 Sizer.propTypes = {
   onSizeChange: PropTypes.func.isRequired,
   containerComponent: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  style: PropTypes.object,
 };
 
 Sizer.defaultProps = {
   containerComponent: 'div',
-  style: null,
 };

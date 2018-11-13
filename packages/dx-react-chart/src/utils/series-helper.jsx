@@ -6,11 +6,11 @@ import {
   Getter,
   TemplatePlaceholder,
   TemplateConnector,
+  withComponents,
 } from '@devexpress/dx-react-core';
 import {
   findSeriesByName, addSeries, getValueDomainName, ARGUMENT_DOMAIN,
 } from '@devexpress/dx-chart-core';
-import { withComponents } from './series-component';
 
 // May be it is better to say what props are passed along rather then what are NOT passed?
 const getRenderProps = (series) => {

@@ -6,6 +6,7 @@ import {
   Template,
   TemplatePlaceholder,
   Getter,
+  withComponents,
 } from '@devexpress/dx-react-core';
 import {
   axisCoordinates, HORIZONTAL, LEFT, BOTTOM, ARGUMENT_DOMAIN, getValueDomainName, axesData,
@@ -14,7 +15,7 @@ import { Root } from '../templates/axis/root';
 import { Tick } from '../templates/axis/tick';
 import { Label } from '../templates/axis/label';
 import { Line } from '../templates/axis/line';
-import { withPatchedProps, withComponents } from '../utils';
+import { withPatchedProps } from '../utils';
 
 const getZeroCoord = () => 0;
 const getCorrectSize = position => ((position === 'left' || position === 'top') ? coord => -coord : (coord, side) => side + coord);

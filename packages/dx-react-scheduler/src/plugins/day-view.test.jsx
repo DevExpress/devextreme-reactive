@@ -17,7 +17,7 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
   viewCellsData: jest.fn(),
   startViewDate: jest.fn(),
   endViewDate: jest.fn(),
-  availableViews: jest.fn(),
+  availableViewNames: jest.fn(),
   calculateRectByDateIntervals: jest.fn(),
   calculateWeekDateIntervals: jest.fn(),
 }));
@@ -25,7 +25,7 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
 const defaultDeps = {
   getter: {
     currentDate: '2018-07-04',
-    availableViews: [],
+    availableViewNames: [],
     viewCellsData: [
       [{ startDate: new Date('2018-06-25') }, {}],
       [{}, { startDate: new Date('2018-08-05') }],

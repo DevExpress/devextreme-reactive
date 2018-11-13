@@ -5,10 +5,10 @@ import {
   TemplateConnector,
   Template,
   TemplatePlaceholder,
+  withComponents,
 } from '@devexpress/dx-react-core';
 import { getLegendItems } from '@devexpress/dx-chart-core';
 import { Marker } from '../templates/legend/marker';
-import { withComponents } from '../utils';
 
 class RawLegend extends React.PureComponent {
   render() {

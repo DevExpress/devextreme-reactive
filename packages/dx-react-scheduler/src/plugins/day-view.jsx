@@ -16,7 +16,7 @@ import {
   getAppointmentStyle,
   startViewDate as startViewDateCore,
   endViewDate as endViewDateCore,
-  availableViews as availableViewsCore,
+  availableViewNames as availableViewNamesCore,
   VERTICAL_TYPE,
 } from '@devexpress/dx-scheduler-core';
 
@@ -67,8 +67,8 @@ export class DayView extends React.PureComponent {
     this.endViewDateComputed = getters => computed(
       getters, viewName, this.endViewDateBaseComputed, getters.endViewDate,
     );
-    this.availableViewsComputed = ({ availableViews }) => availableViewsCore(
-      availableViews, viewName,
+    this.availableViewNamesComputed = ({ availableViewNames }) => availableViewNamesCore(
+      availableViewNames, viewName,
     );
     this.currentViewComputed = ({ currentView }) => (
       currentView && currentView.name !== viewName
@@ -113,7 +113,7 @@ export class DayView extends React.PureComponent {
       <Plugin
         name="DayView"
       >
-        <Getter name="availableViews" computed={this.availableViewsComputed} />
+        <Getter name="availableViewNames" computed={this.availableViewNamesComputed} />
         <Getter name="currentView" computed={this.currentViewComputed} />
         <Getter name="intervalCount" computed={this.intervalCountComputed} />
         <Getter name="cellDuration" computed={this.cellDurationComputed} />

@@ -7,6 +7,7 @@ const styles = {
   root: {
     display: 'flex',
     flexDirection: 'column',
+    position: 'relative',
   },
 };
 

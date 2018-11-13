@@ -10,7 +10,6 @@ export const Grid = ({
   getCellValue,
   rootComponent,
   children,
-  ...restProps
 }) => (
   <PluginHost>
     <GridCore
@@ -19,7 +18,6 @@ export const Grid = ({
       getRowId={getRowId}
       getCellValue={getCellValue}
       rootComponent={rootComponent}
-      {...restProps}
     />
     {children}
   </PluginHost>

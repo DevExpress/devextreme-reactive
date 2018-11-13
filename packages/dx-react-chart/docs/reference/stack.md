@@ -30,7 +30,7 @@ series | Array&lt;string&gt; | A list of series names.
 
 ### SeriesData
 
-Array&lt;number&gt;
+Type: `Array<number>`
 
 SeriesData contains data for a single series. It is an array of points (one point per argument). Each array item is an array that stores the baseline and the point value.
 

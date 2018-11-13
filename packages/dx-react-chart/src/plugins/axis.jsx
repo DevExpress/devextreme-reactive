@@ -6,6 +6,7 @@ import {
   Template,
   TemplatePlaceholder,
   Getter,
+  withComponents,
 } from '@devexpress/dx-react-core';
 import {
   axisCoordinates, LEFT, TOP, BOTTOM, ARGUMENT_DOMAIN, getValueDomainName, axesData,
@@ -14,7 +15,7 @@ import { Root } from '../templates/axis/root';
 import { Tick } from '../templates/axis/tick';
 import { Label } from '../templates/axis/label';
 import { Line } from '../templates/axis/line';
-import { withPatchedProps, withComponents } from '../utils';
+import { withPatchedProps } from '../utils';
 
 const SVG_STYLE = {
   position: 'absolute', left: 0, top: 0, overflow: 'visible',

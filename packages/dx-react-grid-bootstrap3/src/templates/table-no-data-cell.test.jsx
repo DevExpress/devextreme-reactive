@@ -22,4 +22,20 @@ describe('TableNoDataCell', () => {
     expect(tree.is('.custom-class'))
       .toBeTruthy();
   });
+
+  it('should set fixed alignment', () => {
+    const tree = shallow((
+      <TableNoDataCell
+        getMessage={key => key}
+      />
+    ));
+
+    expect(tree.find('big').props().style)
+      .toEqual({
+        position: 'absolute',
+        width: '100%',
+        textAlign: 'center',
+        marginTop: '-13px',
+      });
+  });
 });

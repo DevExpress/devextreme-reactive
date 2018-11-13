@@ -22,21 +22,21 @@ export const insertPlugin = (array, newItem) => {
 
 export const createClickHandlers = (click, dblClick) => {
   let timeoutId;
-  const onClick = click ? (e) => {
-    if (!timeoutId) {
-      timeoutId = setTimeout(() => {
-        clearTimeout(timeoutId);
-        click(e);
-      }, DELAY);
-    }
-  } : undefined;
-  const onDoubleClick = dblClick ? (e) => {
-    clearTimeout(timeoutId);
-    dblClick(e);
-  } : undefined;
-
-  return {
-    onClick,
-    onDoubleClick,
-  };
+  const events = {};
+  if (click) {
+    events.onClick = (e) => {
+      if (!timeoutId) {
+        timeoutId = setTimeout(() => {
+          clearTimeout(timeoutId);
+          click(e);
+        }, DELAY);
+      }
+    };
+  } if (dblClick) {
+    events.onDoubleClick = (e) => {
+      clearTimeout(timeoutId);
+      dblClick(e);
+    };
+  }
+  return events;
 };

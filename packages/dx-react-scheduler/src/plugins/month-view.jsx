@@ -16,7 +16,7 @@ import {
   getAppointmentStyle,
   getHorizontalRectByDates,
   endViewDate as endViewDateCore,
-  availableViews as availableViewsCore,
+  availableViewNames as availableViewNamesCore,
   HORIZONTAL_TYPE,
 } from '@devexpress/dx-scheduler-core';
 
@@ -54,8 +54,8 @@ export class MonthView extends React.PureComponent {
         ? currentView
         : { name: viewName, type: TYPE }
     );
-    this.availableViewsComputed = ({ availableViews }) => availableViewsCore(
-      availableViews, viewName,
+    this.availableViewNamesComputed = ({ availableViewNames }) => availableViewNamesCore(
+      availableViewNames, viewName,
     );
     this.intervalCountComputed = getters => computed(
       getters, viewName, () => intervalCount, getters.intervalCount,
@@ -96,7 +96,7 @@ export class MonthView extends React.PureComponent {
       <Plugin
         name="MonthView"
       >
-        <Getter name="availableViews" computed={this.availableViewsComputed} />
+        <Getter name="availableViewNames" computed={this.availableViewNamesComputed} />
         <Getter name="currentView" computed={this.currentViewComputed} />
         <Getter name="firstDayOfWeek" computed={this.firstDayOfWeekComputed} />
         <Getter name="intervalCount" computed={this.intervalCountComputed} />

@@ -5,10 +5,11 @@ import {
   Plugin,
   TemplatePlaceholder,
   TemplateConnector,
+  withComponents,
 } from '@devexpress/dx-react-core';
 import { ARGUMENT_DOMAIN, getValueDomainName, getGridCoordinates } from '@devexpress/dx-chart-core';
 import { Line } from '../templates/grid/line';
-import { withPatchedProps, withComponents } from '../utils';
+import { withPatchedProps } from '../utils';
 
 class RawGrid extends React.PureComponent {
   render() {

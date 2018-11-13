@@ -11,7 +11,7 @@ import {
 } from '../../../demo-data/generator';
 
 const getRowId = row => row.id;
-const root = props => <Grid.Root {...props} style={{ height: '100%' }} />;
+const Root = props => <Grid.Root {...props} style={{ height: '100%' }} />;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -41,7 +41,7 @@ export default class Demo extends React.PureComponent {
           rows={rows}
           columns={columns}
           getRowId={getRowId}
-          rootComponent={root}
+          rootComponent={Root}
         >
           <VirtualTable
             height="auto"

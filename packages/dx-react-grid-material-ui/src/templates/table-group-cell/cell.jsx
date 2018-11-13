@@ -58,6 +58,8 @@ const CellBase = ({
 };
 
 CellBase.propTypes = {
+  contentComponent: PropTypes.func.isRequired,
+  iconComponent: PropTypes.func.isRequired,
   style: PropTypes.object,
   colSpan: PropTypes.number,
   row: PropTypes.any,

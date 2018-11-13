@@ -34,6 +34,8 @@ showColumnsWhenGrouped? | boolean | false | A Boolean value that specifies wheth
 columnExtensions? | Array&lt;[TableGroupRow.ColumnExtension](#tablegrouprowcolumnextension)&gt; | | Additional column properties that the plugin can handle.
 cellComponent | ComponentType&lt;[TableGroupRow.CellProps](#tablegrouprowcellprops)&gt; | | A component that renders a group cell.
 rowComponent | ComponentType&lt;[TableGroupRow.RowProps](#tablegrouprowrowprops)&gt; | | A component that renders a group row.
+contentComponent | ComponentType&lt;[TableGroupRow.ContentProps](#tablegrouprowcontentprops)&gt; | | A component that renders a group cell's content.
+iconComponent | ComponentType&lt;[TableGroupRow.IconProps](#tablegrouprowiconprops)&gt; | | A component that renders a group expand icon.
 indentCellComponent? | ComponentType&lt;[TableGroupRow.IndentCellProps](#tablegrouprowindentcellprops)&gt; | null | A component that renders a group indent cell.
 indentColumnWidth | number | | The group indent column's width.
 
@@ -70,6 +72,24 @@ Extends [Table.RowProps](table.md#tablerowprops)
 Field | Type | Description
 ------|------|------------
 row | [GroupRow](#grouprow) | The group row.
+
+### TableGroupRow.ContentProps
+
+Describes properties passed to a component that renders a group cell content.
+
+Field | Type | Description
+------|------|------------
+row | [GroupRow](#grouprow) | The group row.
+column | [Column](grid.md#column) | The column associated with the group.
+children? | ReactNode | A React node to be rendered within the cell's content.
+
+### TableGroupRow.IconProps
+
+Describes properties passed to a component that renders a group expand icon.
+
+Field | Type | Description
+------|------|------------
+expanded | boolean | Specifies whether the row is expanded.
 
 ### TableGroupRow.IndentCellProps
 

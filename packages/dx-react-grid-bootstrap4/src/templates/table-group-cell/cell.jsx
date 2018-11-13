@@ -34,6 +34,8 @@ export const Cell = ({
 };
 
 Cell.propTypes = {
+  contentComponent: PropTypes.func.isRequired,
+  iconComponent: PropTypes.func.isRequired,
   className: PropTypes.string,
   colSpan: PropTypes.number,
   row: PropTypes.any,

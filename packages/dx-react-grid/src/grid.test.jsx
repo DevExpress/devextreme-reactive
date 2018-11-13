@@ -43,18 +43,4 @@ describe('Grid', () => {
     expect(tree.find(TestChildren))
       .toHaveLength(3);
   });
-
-  it('should pass rest props to GridCore', () => {
-    const tree = mount((
-      <Grid
-        {...defaultProps}
-        style={{ a: 1 }}
-      />
-    ));
-
-    expect(tree.find(GridCore).props())
-      .toMatchObject({
-        style: { a: 1 },
-      });
-  });
 });

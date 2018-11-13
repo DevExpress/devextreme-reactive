@@ -4,7 +4,7 @@ import { Overlay } from './overlay';
 
 describe('Overlay', () => {
   const defaultProps = {
-    target: 'target',
+    target: {},
   };
 
   it('should render Popover', () => {

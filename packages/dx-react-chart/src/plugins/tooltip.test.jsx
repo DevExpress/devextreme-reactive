@@ -9,7 +9,13 @@ jest.mock('@devexpress/dx-chart-core', () => ({
 }));
 
 const TargetComponent = () => null;
-const OverlayComponent = () => null;
+// eslint-disable-next-line react/prop-types
+const OverlayComponent = ({ children }) => (
+  <div>
+    {children}
+  </div>
+);
+const ContentComponent = () => null;
 
 const defaultDeps = {
   getter: {
@@ -24,6 +30,7 @@ const defaultDeps = {
 const defaultProps = {
   targetComponent: TargetComponent,
   overlayComponent: OverlayComponent,
+  contentComponent: ContentComponent,
 };
 
 describe('Tooltip', () => {
@@ -63,7 +70,22 @@ describe('Tooltip', () => {
 
         <Tooltip {...defaultProps} />
       </PluginHost>));
+    const { children, target, visible } = tree.find(OverlayComponent).props();
 
-    expect(tree.find(OverlayComponent).props()).toEqual({ children: 'tooltip-text', target: undefined, visible: false });
+    expect(children)
+      .toBeTruthy();
+    expect(target).toBe(undefined);
+    expect(visible).toBe(false);
+  });
+
+  it('should render content component', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+
+        <Tooltip {...defaultProps} />
+      </PluginHost>));
+
+    expect(tree.find(ContentComponent).props()).toEqual({ text: 'tooltip-text', targetItem: null });
   });
 });

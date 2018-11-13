@@ -8,14 +8,13 @@ import {
   TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 import { getParameters } from '@devexpress/dx-chart-core';
-import { Target } from '../templates/tooltip/target-component';
+import { Target } from '../templates/tooltip/target';
 import { withComponents } from '../utils';
 
 class RawTooltip extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      visibility: false,
       targets: null,
     };
     const handlePointerMove = this.handlePointerMove.bind(this);
@@ -27,12 +26,10 @@ class RawTooltip extends React.PureComponent {
   handlePointerMove({ targets }) {
     if (!targets.length || targets[0].point === undefined) {
       this.setState({
-        visibility: false,
         targets: null,
       });
     } else {
       this.setState({
-        visibility: true,
         targets,
       });
     }
@@ -42,10 +39,10 @@ class RawTooltip extends React.PureComponent {
     const {
       overlayComponent: OverlayComponent,
       targetComponent: TargetComponent,
+      contentComponent: ContentComponent,
     } = this.props;
     const {
       targets,
-      visibility,
     } = this.state;
     return (
       <Plugin name="Tooltip">
@@ -65,9 +62,9 @@ class RawTooltip extends React.PureComponent {
                   <OverlayComponent
                     key={text}
                     target={this.targetElement}
-                    visible={visibility}
+                    visible={!!targets}
                   >
-                    {text}
+                    <ContentComponent text={text} targetItem={targets && targets[0]} />
                   </OverlayComponent>
                 </React.Fragment>
               );
@@ -83,11 +80,13 @@ class RawTooltip extends React.PureComponent {
 RawTooltip.propTypes = {
   overlayComponent: PropTypes.func.isRequired,
   targetComponent: PropTypes.func.isRequired,
+  contentComponent: PropTypes.func.isRequired,
 };
 
 RawTooltip.components = {
   overlayComponent: 'Overlay',
   targetComponent: 'Target',
+  contentComponent: 'Content',
 };
 
 export const Tooltip = withComponents({ Target })(RawTooltip);

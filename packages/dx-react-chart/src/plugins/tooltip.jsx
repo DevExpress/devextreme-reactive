@@ -7,12 +7,9 @@ import {
   Template,
   TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
+import { getParameters } from '@devexpress/dx-chart-core';
 import { Target } from '../templates/tooltip/target-component';
 import { withComponents } from '../utils';
-
-const getParameters = (currentSeries, targets) => (
-  targets ? currentSeries.getTargetElement(targets[0].point, currentSeries) : {}
-);
 
 class RawTooltip extends React.PureComponent {
   constructor(props) {
@@ -58,13 +55,11 @@ class RawTooltip extends React.PureComponent {
           <TemplateConnector>
             {
             ({ series }) => {
-              const currentSeries = targets ? series
-                .find(({ name }) => targets[0].series === name) : undefined;
-              const text = targets ? `${targets[0].series}: ${targets[0].point}` : '';
+              const { text, element } = getParameters(series, targets);
               return (
                 <React.Fragment>
                   <TargetComponent
-                    {...getParameters(currentSeries, targets)}
+                    {...element}
                     componentRef={(ref) => { this.targetElement = ref; }}
                   />
                   <OverlayComponent
@@ -88,12 +83,6 @@ class RawTooltip extends React.PureComponent {
 RawTooltip.propTypes = {
   overlayComponent: PropTypes.func.isRequired,
   targetComponent: PropTypes.func.isRequired,
-  targets: PropTypes.array,
-  visible: PropTypes.bool.isRequired,
-};
-
-RawTooltip.defaultProps = {
-  targets: null,
 };
 
 RawTooltip.components = {

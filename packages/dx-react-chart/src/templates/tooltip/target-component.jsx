@@ -15,11 +15,12 @@ export class Target extends React.PureComponent {
 Target.propTypes = {
   x: PropTypes.number,
   y: PropTypes.number,
-  d: PropTypes.string.isRequired,
+  d: PropTypes.string,
   componentRef: PropTypes.func.isRequired,
 };
 
 Target.defaultProps = {
   x: 0,
   y: 0,
+  d: '',
 };

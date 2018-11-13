@@ -108,10 +108,9 @@ export const pointAttributes = ({ size = DEFAULT_POINT_SIZE }) => {
   });
 };
 
-getBarPointTransformer.getTargetElement = (pointIndex, currentSeries) => {
-  const {
-    x, y, y1, width,
-  } = currentSeries.points[pointIndex];
+getBarPointTransformer.getTargetElement = ({
+  x, y, y1, width,
+}) => {
   const height = Math.abs(y1 - y);
   return {
     x,
@@ -119,10 +118,9 @@ getBarPointTransformer.getTargetElement = (pointIndex, currentSeries) => {
     d: `M0,0 ${width},0 ${width},${height} 0,${height}`,
   };
 };
-getPiePointTransformer.getTargetElement = (pointIndex, currentSeries) => {
-  const {
-    x, y, innerRadius, outerRadius, startAngle, endAngle,
-  } = currentSeries.points[pointIndex];
+getPiePointTransformer.getTargetElement = ({
+  x, y, innerRadius, outerRadius, startAngle, endAngle,
+}) => {
   const center = arc()
     .innerRadius(innerRadius)
     .outerRadius(outerRadius)
@@ -134,8 +132,7 @@ getPiePointTransformer.getTargetElement = (pointIndex, currentSeries) => {
   };
 };
 
-getAreaPointTransformer.getTargetElement = (pointIndex, currentSeries) => {
-  const { x, y } = currentSeries.points[pointIndex];
+getAreaPointTransformer.getTargetElement = ({ x, y }) => {
   const size = DEFAULT_POINT_SIZE; // TODO get user size
   return {
     x,

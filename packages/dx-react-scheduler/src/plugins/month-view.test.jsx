@@ -80,6 +80,8 @@ describe('Month View', () => {
     it('should provide the "viewCellsData" getter', () => {
       const firstDayOfWeek = 2;
       const intervalCount = 2;
+      const expectedMonthCellsData = 'monthCellsData';
+      monthCellsData.mockImplementation(() => expectedMonthCellsData);
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -100,10 +102,7 @@ describe('Month View', () => {
       expect(monthCellsDataCalls[0][2])
         .toBe(intervalCount);
       expect(getComputedState(tree).viewCellsData)
-        .toEqual([
-          [{ startDate: new Date('2018-06-25') }, {}],
-          [{}, { startDate: new Date('2018-08-05') }],
-        ]);
+        .toEqual(expectedMonthCellsData);
     });
 
     it('should provide the "firstDayOfWeek" getter', () => {

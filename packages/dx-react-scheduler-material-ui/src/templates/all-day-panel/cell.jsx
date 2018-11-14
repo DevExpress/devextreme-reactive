@@ -3,6 +3,7 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
+import { fade } from '@material-ui/core/styles/colorManipulator';
 import { getBorder } from '../utils';
 
 const styles = theme => ({
@@ -12,7 +13,7 @@ const styles = theme => ({
       backgroundColor: theme.palette.action.hover,
     },
     '&:focus': {
-      backgroundColor: theme.palette.primary[100],
+      backgroundColor: fade(theme.palette.primary.main, 0.15),
       outline: 0,
     },
   },

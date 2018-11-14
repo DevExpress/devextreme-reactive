@@ -17,26 +17,28 @@ class RawTooltip extends React.PureComponent {
     this.state = {
       target: props.targetItem || props.defaultTargetItem,
     };
+    this.getTargetElement = this.getTargetElement.bind(this);
     const handlePointerMove = this.handlePointerMove.bind(this);
     this.getPointerMoveHandlers = ({ pointerMoveHandlers }) => [
       ...pointerMoveHandlers, handlePointerMove,
     ];
   }
 
+  getTargetElement() {
+    return this.targetElement;
+  }
+
   handlePointerMove({ targets }) {
-    const { onTargetItemChange } = this.props;
-    const { target: currentTarget } = this.state;
-    const target = processPointerMove(targets, currentTarget, onTargetItemChange);
-    if (target !== undefined) {
-      if (target && target.point === undefined) {
-        this.setState({
-          target: null,
-        });
+    this.setState(({ target: currentTarget }, { onTargetItemChange }) => {
+      const target = processPointerMove(targets, currentTarget, onTargetItemChange);
+      if (target !== undefined) {
+        if (target && target.point === undefined) {
+          return { target: null };
+        }
+        return { target };
       }
-      this.setState({
-        target,
-      });
-    }
+      return { target: currentTarget };
+    });
   }
 
   render() {
@@ -65,7 +67,7 @@ class RawTooltip extends React.PureComponent {
                   />
                   <OverlayComponent
                     key={text}
-                    target={this.targetElement}
+                    target={this.getTargetElement}
                     visible={!!(target && target.point !== undefined)}
                   >
                     <ContentComponent text={text} targetItem={target} />

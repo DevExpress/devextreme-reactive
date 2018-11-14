@@ -78,7 +78,7 @@ describe('Tooltip', () => {
 
     expect(children)
       .toBeTruthy();
-    expect(target).toBe(undefined);
+    expect(target).toEqual(expect.any(Function));
     expect(visible).toBeFalsy();
   });
 

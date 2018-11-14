@@ -61,6 +61,7 @@ export const createSplineHitTester = createCanvasAbusingHitTesterCreator(() => {
   return path;
 });
 
+// Some kind of binary search can be used here as bars can be ordered along argument axis.
 export const createBarHitTester = createPointsEnumeratingHitTesterCreator(
   ([px, py], {
     x, width, y, y1,
@@ -77,6 +78,7 @@ const mapAngleTod3 = (angle) => {
   return ret >= 0 ? ret : ret + Math.PI * 2;
 };
 
+// Some kind of binary search can be used here as pies can be ordered along angle axis.
 export const createPieHitTester = createPointsEnumeratingHitTesterCreator(
   ([px, py], {
     x, y, innerRadius, outerRadius, startAngle, endAngle,

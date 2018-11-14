@@ -11,15 +11,6 @@ const styles = theme => ({
     paddingRight: theme.spacing.unit,
     paddingTop: (theme.spacing.unit / 2) - 1,
   },
-  groupButton: {
-    verticalAlign: 'middle',
-    display: 'inline-block',
-    padding: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-  },
-  columnTitle: {
-    verticalAlign: 'middle',
-  },
 });
 
 const CellBase = ({
@@ -44,12 +35,12 @@ const CellBase = ({
     >
       <Icon
         expanded={expanded}
-        className={classes.groupButton}
+        classes={classes}
       />
       <Content
         column={column}
         row={row}
-        className={classes.columnTitle}
+        classes={classes}
       >
         {children}
       </Content>

@@ -2,9 +2,9 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
 export const Content = ({
-  column, row, children,
+  column, row, children, ...restProps
 }) => (
-  <span>
+  <span {...restProps}>
     <strong>
       {column.title || column.name}
         :

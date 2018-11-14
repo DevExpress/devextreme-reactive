@@ -3,7 +3,7 @@ import { shallow, mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { Cell } from './cell';
 
-describe('TableGroupRowCell', () => {
+describe('TableGroupCell', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });

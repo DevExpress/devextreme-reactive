@@ -4,7 +4,7 @@ import TableCell from '@material-ui/core/TableCell';
 import { setupConsole } from '@devexpress/dx-testing';
 import { Cell as TableGroupCell } from './cell';
 
-describe('TableCell', () => {
+describe('TableGroupCell', () => {
   let resetConsole;
   let mount;
   let shallow;
@@ -52,7 +52,7 @@ describe('TableCell', () => {
     expect(tree.find(defaultProps.iconComponent).props())
       .toMatchObject({
         expanded: defaultProps.expanded,
-        className: classes.groupButton,
+        classes: defaultProps.classes,
       });
   });
 
@@ -65,7 +65,7 @@ describe('TableCell', () => {
       .toMatchObject({
         column: defaultProps.column,
         row: defaultProps.row,
-        className: classes.columnTitle,
+        classes: defaultProps.classes,
       });
   });
 

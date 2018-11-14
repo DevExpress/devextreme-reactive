@@ -1,10 +1,21 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { withStyles } from '@material-ui/core/styles';
 
-export const Content = ({
-  column, row, className, children,
+const styles = () => ({
+  columnTitle: {
+    verticalAlign: 'middle',
+  },
+});
+
+const ContentBase = ({
+  column, row, classes, className, children, ...restProps
 }) => (
-  <span className={className}>
+  <span
+    className={classNames(classes.columnTitle, className)}
+    {...restProps}
+  >
     <strong>
       {column.title || column.name}
         :
@@ -14,16 +25,19 @@ export const Content = ({
   </span>
 );
 
-Content.propTypes = {
+ContentBase.propTypes = {
   row: PropTypes.any,
   column: PropTypes.object,
   children: PropTypes.node,
+  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
 };
 
-Content.defaultProps = {
+ContentBase.defaultProps = {
   row: {},
   column: {},
   children: undefined,
   className: undefined,
 };
+
+export const Content = withStyles(styles)(ContentBase);

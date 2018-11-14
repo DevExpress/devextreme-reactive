@@ -5,6 +5,19 @@ const isPointInRect = (x, y, x1, x2, y1, y2) => x1 <= x && x <= x2 && y1 <= y &&
 
 const LINE_TOLERANCE = 10;
 
+const getIndex = point => point.index;
+
+const createPointsEnumeratingHitTesterCreator = hitTestPoint => points => (target) => {
+  const indexes = points.filter(point => hitTestPoint(target, point)).map(getIndex);
+  return indexes.length ? { points: indexes } : null;
+};
+
+const createContinuousSeriesPointsHitTester = createPointsEnumeratingHitTesterCreator(
+  ([px, py], { x, y }) => isPointInRect(
+    px, py, x - LINE_TOLERANCE, x + LINE_TOLERANCE, y - LINE_TOLERANCE, y + LINE_TOLERANCE,
+  ),
+);
+
 // This function is called from event handlers (when DOM is available) -
 // *window.document* can be accessed safely.
 const createContext = () => document.createElement('canvas').getContext('2d'); // eslint-disable-line no-undef
@@ -17,21 +30,8 @@ const createCanvasAbusingHitTesterCreator = makePath => (points) => {
   const path = makePath();
   path.context(ctx);
   path(points);
-  return ([px, py]) => {
-    const hit = ctx.isPointInPath(px, py) ? {} : null;
-    if (hit) {
-      const indexes = points
-        .filter(({ x, y }) => isPointInRect(
-          px, py,
-          x - LINE_TOLERANCE, x + LINE_TOLERANCE, y - LINE_TOLERANCE, y + LINE_TOLERANCE,
-        ))
-        .map(point => point.index);
-      if (indexes.length) {
-        hit.points = indexes;
-      }
-    }
-    return hit;
-  };
+  const hitTestPoints = createContinuousSeriesPointsHitTester(points);
+  return point => (ctx.isPointInPath(point[0], point[1]) ? (hitTestPoints(point) || {}) : null);
 };
 
 export const createAreaHitTester = createCanvasAbusingHitTesterCreator(() => {
@@ -61,47 +61,36 @@ export const createSplineHitTester = createCanvasAbusingHitTesterCreator(() => {
   return path;
 });
 
-export const createBarHitTester = points => ([px, py]) => {
-  const indexes = points
-    .filter(({
-      x, width, y, y1,
-    }) => isPointInRect(px, py, x, x + width, Math.min(y, y1), Math.max(y, y1)))
-    .map(point => point.index);
-  return indexes.length ? { points: indexes } : null;
-};
+export const createBarHitTester = createPointsEnumeratingHitTesterCreator(
+  ([px, py], {
+    x, width, y, y1,
+  }) => isPointInRect(px, py, x, x + width, Math.min(y, y1), Math.max(y, y1)),
+);
 
 // TODO: Use actual point size here!
-export const createScatterHitTester = points => ([px, py]) => {
-  const indexes = points
-    .filter(({
-      x, y,
-    }) => isPointInRect(px, py, x - 10, x + 10, y - 10, y + 10))
-    .map(point => point.index);
-  return indexes.length ? { points: indexes } : null;
-};
+export const createScatterHitTester = createPointsEnumeratingHitTesterCreator(
+  ([px, py], { x, y }) => isPointInRect(px, py, x - 10, x + 10, y - 10, y + 10),
+);
 
 const mapAngleTod3 = (angle) => {
   const ret = angle + Math.PI / 2;
   return ret >= 0 ? ret : ret + Math.PI * 2;
 };
 
-export const createPieHitTester = points => ([px, py]) => {
-  const indexes = points
-    .filter(({
-      x, y, innerRadius, outerRadius, startAngle, endAngle,
-    }) => {
-      const dx = px - x;
-      const dy = py - y;
-      const r = Math.sqrt(dx * dx + dy * dy);
-      if (r < innerRadius || r > outerRadius) {
-        return null;
-      }
-      const angle = mapAngleTod3(Math.atan2(dy, dx));
-      return startAngle <= angle && angle <= endAngle;
-    })
-    .map(point => point.index);
-  return indexes.length ? { points: indexes } : null;
-};
+export const createPieHitTester = createPointsEnumeratingHitTesterCreator(
+  ([px, py], {
+    x, y, innerRadius, outerRadius, startAngle, endAngle,
+  }) => {
+    const dx = px - x;
+    const dy = py - y;
+    const r = Math.sqrt(dx * dx + dy * dy);
+    if (r < innerRadius || r > outerRadius) {
+      return null;
+    }
+    const angle = mapAngleTod3(Math.atan2(dy, dx));
+    return startAngle <= angle && angle <= endAngle;
+  },
+);
 
 const buildFilter = (targets) => {
   const result = {};

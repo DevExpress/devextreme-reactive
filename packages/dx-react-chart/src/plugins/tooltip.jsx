@@ -6,10 +6,10 @@ import {
   TemplateConnector,
   Template,
   TemplatePlaceholder,
+  withComponents,
 } from '@devexpress/dx-react-core';
 import { getParameters, processPointerMove } from '@devexpress/dx-chart-core';
 import { Target } from '../templates/tooltip/target';
-import { withComponents } from '../utils';
 
 class RawTooltip extends React.PureComponent {
   constructor(props) {

@@ -12,15 +12,15 @@ const createContext = () => document.createElement('canvas').getContext('2d'); /
 // For a start using browser canvas will suffice.
 // However a better and more clean solution should be found.
 // Can't d3 perform hit testing?
-const createCanvasAbusingHitTesterCreator = makePath => (coordinates) => {
+const createCanvasAbusingHitTesterCreator = makePath => (points) => {
   const ctx = createContext();
   const path = makePath();
   path.context(ctx);
-  path(coordinates);
+  path(points);
   return ([px, py]) => {
     const hit = ctx.isPointInPath(px, py) ? {} : null;
     if (hit) {
-      const point = coordinates.find(({ x, y }) => isPointInRect(
+      const point = points.find(({ x, y }) => isPointInRect(
         px, py,
         x - LINE_TOLERANCE, x + LINE_TOLERANCE, y - LINE_TOLERANCE, y + LINE_TOLERANCE,
       ));
@@ -59,19 +59,23 @@ export const createSplineHitTester = createCanvasAbusingHitTesterCreator(() => {
   return path;
 });
 
-export const createBarHitTester = coordinates => ([px, py]) => {
-  const point = coordinates.find(({
-    x, width, y, y1,
-  }) => isPointInRect(px, py, x, x + width, Math.min(y, y1), Math.max(y, y1)));
-  return point ? { point: point.index } : null;
+export const createBarHitTester = points => ([px, py]) => {
+  const indexes = points
+    .filter(({
+      x, width, y, y1,
+    }) => isPointInRect(px, py, x, x + width, Math.min(y, y1), Math.max(y, y1)))
+    .map(point => point.index);
+  return indexes.length ? { points: indexes } : null;
 };
 
 // TODO: Use actual point size here!
-export const createScatterHitTester = coordinates => ([px, py]) => {
-  const point = coordinates.find(({
-    x, y,
-  }) => isPointInRect(px, py, x - 10, x + 10, y - 10, y + 10));
-  return point ? { point: point.index } : null;
+export const createScatterHitTester = points => ([px, py]) => {
+  const indexes = points
+    .filter(({
+      x, y,
+    }) => isPointInRect(px, py, x - 10, x + 10, y - 10, y + 10))
+    .map(point => point.index);
+  return indexes.length ? { points: indexes } : null;
 };
 
 const mapAngleTod3 = (angle) => {
@@ -79,20 +83,22 @@ const mapAngleTod3 = (angle) => {
   return ret >= 0 ? ret : ret + Math.PI * 2;
 };
 
-export const createPieHitTester = coordinates => ([px, py]) => {
-  const point = coordinates.find(({
-    x, y, innerRadius, outerRadius, startAngle, endAngle,
-  }) => {
-    const dx = px - x;
-    const dy = py - y;
-    const r = Math.sqrt(dx * dx + dy * dy);
-    if (r < innerRadius || r > outerRadius) {
-      return null;
-    }
-    const angle = mapAngleTod3(Math.atan2(dy, dx));
-    return startAngle <= angle && angle <= endAngle;
-  });
-  return point ? { point: point.index } : null;
+export const createPieHitTester = points => ([px, py]) => {
+  const indexes = points
+    .filter(({
+      x, y, innerRadius, outerRadius, startAngle, endAngle,
+    }) => {
+      const dx = px - x;
+      const dy = py - y;
+      const r = Math.sqrt(dx * dx + dy * dy);
+      if (r < innerRadius || r > outerRadius) {
+        return null;
+      }
+      const angle = mapAngleTod3(Math.atan2(dy, dx));
+      return startAngle <= angle && angle <= endAngle;
+    })
+    .map(point => point.index);
+  return indexes.length ? { points: indexes } : null;
 };
 
 const buildFilter = (targets) => {

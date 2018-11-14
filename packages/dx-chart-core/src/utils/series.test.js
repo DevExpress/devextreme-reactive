@@ -208,12 +208,15 @@ describe('Series', () => {
         {
           x: 30, width: 5, y: 1, y1: 5, index: 'p3',
         },
+        {
+          x: 31, width: 5, y: 0, y1: 4, index: 'p4',
+        },
       ]);
 
       expect(hitTest([15, 1])).toEqual(null);
-      expect(hitTest([12, 4])).toEqual({ point: 'p1' });
-      expect(hitTest([25, 3])).toEqual({ point: 'p2' });
-      expect(hitTest([31, 2])).toEqual({ point: 'p3' });
+      expect(hitTest([12, 4])).toEqual({ points: ['p1'] });
+      expect(hitTest([25, 3])).toEqual({ points: ['p2'] });
+      expect(hitTest([31, 2])).toEqual({ points: ['p3', 'p4'] });
     });
   });
 
@@ -223,12 +226,13 @@ describe('Series', () => {
         { x: 10, y: 4, index: 'p1' },
         { x: 30, y: 5, index: 'p2' },
         { x: 50, y: 8, index: 'p3' },
+        { x: 55, y: 10, index: 'p4' },
       ]);
 
       expect(hitTest([15, -7])).toEqual(null);
-      expect(hitTest([14, 10])).toEqual({ point: 'p1' });
-      expect(hitTest([32, 4])).toEqual({ point: 'p2' });
-      expect(hitTest([47, 18])).toEqual({ point: 'p3' });
+      expect(hitTest([14, 10])).toEqual({ points: ['p1'] });
+      expect(hitTest([32, 4])).toEqual({ points: ['p2'] });
+      expect(hitTest([47, 18])).toEqual({ points: ['p3', 'p4'] });
     });
   });
 
@@ -241,11 +245,15 @@ describe('Series', () => {
         {
           x: 60, y: 50, innerRadius: 1, outerRadius: 10, startAngle: Math.PI / 2, endAngle: Math.PI, index: 'p2',
         },
+        {
+          x: 60, y: 50, innerRadius: 1, outerRadius: 10, startAngle: Math.PI, endAngle: 3 * Math.PI / 2, index: 'p3',
+        },
       ]);
 
       expect(hitTest([60, 61])).toEqual(null);
-      expect(hitTest([64, 45])).toEqual({ point: 'p1' });
-      expect(hitTest([68, 52])).toEqual({ point: 'p2' });
+      expect(hitTest([64, 45])).toEqual({ points: ['p1'] });
+      expect(hitTest([68, 52])).toEqual({ points: ['p2'] });
+      expect(hitTest([60, 55])).toEqual({ points: ['p2', 'p3'] });
     });
   });
 

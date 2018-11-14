@@ -60,8 +60,8 @@ describe('EventTracker', () => {
     });
 
     it('should provide targets on successful hit tests', () => {
-      hitTest1.mockReturnValue({ tag: 'hit1' });
-      hitTest3.mockReturnValue({ tag: 'hit3' });
+      hitTest1.mockReturnValue({ });
+      hitTest3.mockReturnValue({ points: [1, 2] });
       const func = call();
       func({
         clientX: 352,
@@ -71,11 +71,11 @@ describe('EventTracker', () => {
 
       expect(handler1).toBeCalledWith({
         location: [192, 281],
-        targets: [{ series: 'Series 1', tag: 'hit1' }, { series: 'Series 3', tag: 'hit3' }],
+        targets: [{ series: 'Series 1' }, { series: 'Series 3', point: 1 }, { series: 'Series 3', point: 2 }],
       });
       expect(handler2).toBeCalledWith({
         location: [192, 281],
-        targets: [{ series: 'Series 1', tag: 'hit1' }, { series: 'Series 3', tag: 'hit3' }],
+        targets: [{ series: 'Series 1' }, { series: 'Series 3', point: 1 }, { series: 'Series 3', point: 2 }],
       });
     });
 

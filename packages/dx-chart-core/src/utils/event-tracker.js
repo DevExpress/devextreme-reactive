@@ -24,10 +24,14 @@ const buildEventHandler = (seriesList, handlers) => {
     const location = getEventCoords(e);
     hitTesters = hitTesters || createHitTesters();
     const targets = [];
-    seriesList.forEach((seriesItem) => {
-      const status = hitTesters[seriesItem.symbolName](location);
+    seriesList.forEach(({ name: series, symbolName }) => {
+      const status = hitTesters[symbolName](location);
       if (status) {
-        targets.push({ series: seriesItem.name, ...status });
+        if (status.points) {
+          targets.push(...status.points.map(point => ({ series, point })));
+        } else {
+          targets.push({ series });
+        }
       }
     });
     const arg = { location, targets };

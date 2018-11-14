@@ -3,9 +3,8 @@ import {
   Chart,
   PieSeries,
   Title,
-  Tooltip,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
-import { Scale, Animation, EventTracker, HoverState, SelectionState, } from '@devexpress/dx-react-chart';
+import { Scale, Animation } from '@devexpress/dx-react-chart';
 
 const data = [
   { region: 'Asia', val: 4119626293 },
@@ -43,9 +42,6 @@ export default class Demo extends React.PureComponent {
             style={{ textAlign: 'center', width: '100%', marginBottom: '10px' }}
           />
           <Animation />
-          <EventTracker onPointerMove={this.pointerMove} />
-          <HoverState />
-          <Tooltip />
           <Scale />
         </Chart>
       </<%&wrapperTag%>>

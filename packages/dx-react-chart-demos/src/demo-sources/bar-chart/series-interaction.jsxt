@@ -2,16 +2,12 @@ import * as React from 'react';<%&additionalImports%>
 import {
   Chart,
   BarSeries,
-  LineSeries,
   ArgumentAxis,
   ValueAxis,
   ValueGrid,
   Title,
   Legend,
-  Tooltip,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
-import Popover from '@material-ui/core/Popover';
-import { withStyles } from '@material-ui/core/styles';
 import {
   Stack, Scale, EventTracker, HoverState, SelectionState,
 } from '@devexpress/dx-react-chart';
@@ -50,7 +46,6 @@ export default class Demo extends React.PureComponent {
         <Chart
           data={chartData}
         >
-
           <ArgumentAxis type="band" />
           <ValueAxis lineComponent={EmptyComponent} tickComponent={EmptyComponent} />
           <ValueGrid />
@@ -76,8 +71,6 @@ export default class Demo extends React.PureComponent {
           <EventTracker onClick={this.click} />
           <HoverState />
           <SelectionState selection={selection} />
-
-          <Tooltip />
         </Chart>
       </<%&wrapperTag%>>
     );

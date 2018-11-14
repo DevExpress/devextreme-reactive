@@ -50,7 +50,6 @@ describe('Grid', () => {
         <GridCore
           {...defaultProps}
           rootComponent={Root}
-          style={{ a: 1 }}
         />
         <Template name="header">
           <div className="header-content" />
@@ -69,7 +68,6 @@ describe('Grid', () => {
     expect(root.children().at(0).find('.header-content').exists()).toBeTruthy();
     expect(root.children().at(1).find('.body-content').exists()).toBeTruthy();
     expect(root.children().at(2).find('.footer-content').exists()).toBeTruthy();
-    expect(tree.find(Root).props().style).toMatchObject({ a: 1 });
   });
 
   it('should provide rows', () => {

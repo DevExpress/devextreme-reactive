@@ -63,13 +63,14 @@ describe('Series', () => {
       const hitTest = createAreaHitTester([
         { x: 115, y: 35, index: 'p1' },
         { x: 175, y: 65, index: 'p2' },
+        { x: 177, y: 62, index: 'p3' },
       ]);
 
       expect(hitTest([100, 20])).toEqual(null);
-      expect(hitTest([120, 40])).toEqual({ point: 'p1' });
+      expect(hitTest([120, 40])).toEqual({ points: ['p1'] });
       expect(hitTest([140, 60])).toEqual({});
       expect(hitTest([160, 30])).toEqual(null);
-      expect(hitTest([180, 70])).toEqual({ point: 'p2' });
+      expect(hitTest([180, 70])).toEqual({ points: ['p2', 'p3'] });
 
       expect(isPointInPath.mock.calls).toEqual([
         [100, 20],
@@ -119,13 +120,14 @@ describe('Series', () => {
       const hitTest = createLineHitTester([
         { x: 115, y: 35, index: 'p1' },
         { x: 175, y: 65, index: 'p2' },
+        { x: 177, y: 62, index: 'p3' },
       ]);
 
       expect(hitTest([100, 20])).toEqual(null);
-      expect(hitTest([120, 40])).toEqual({ point: 'p1' });
+      expect(hitTest([120, 40])).toEqual({ points: ['p1'] });
       expect(hitTest([140, 60])).toEqual({});
       expect(hitTest([160, 30])).toEqual(null);
-      expect(hitTest([180, 70])).toEqual({ point: 'p2' });
+      expect(hitTest([180, 70])).toEqual({ points: ['p2', 'p3'] });
 
       expect(isPointInPath.mock.calls).toEqual([
         [100, 20],
@@ -178,13 +180,14 @@ describe('Series', () => {
       const hitTest = createSplineHitTester([
         { x: 115, y: 35, index: 'p1' },
         { x: 175, y: 65, index: 'p2' },
+        { x: 177, y: 62, index: 'p3' },
       ]);
 
       expect(hitTest([100, 20])).toEqual(null);
-      expect(hitTest([120, 40])).toEqual({ point: 'p1' });
+      expect(hitTest([120, 40])).toEqual({ points: ['p1'] });
       expect(hitTest([140, 60])).toEqual({});
       expect(hitTest([160, 30])).toEqual(null);
-      expect(hitTest([180, 70])).toEqual({ point: 'p2' });
+      expect(hitTest([180, 70])).toEqual({ points: ['p2', 'p3'] });
 
       expect(isPointInPath.mock.calls).toEqual([
         [100, 20],

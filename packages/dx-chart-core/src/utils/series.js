@@ -20,12 +20,14 @@ const createCanvasAbusingHitTesterCreator = makePath => (points) => {
   return ([px, py]) => {
     const hit = ctx.isPointInPath(px, py) ? {} : null;
     if (hit) {
-      const point = points.find(({ x, y }) => isPointInRect(
-        px, py,
-        x - LINE_TOLERANCE, x + LINE_TOLERANCE, y - LINE_TOLERANCE, y + LINE_TOLERANCE,
-      ));
-      if (point) {
-        hit.point = point.index;
+      const indexes = points
+        .filter(({ x, y }) => isPointInRect(
+          px, py,
+          x - LINE_TOLERANCE, x + LINE_TOLERANCE, y - LINE_TOLERANCE, y + LINE_TOLERANCE,
+        ))
+        .map(point => point.index);
+      if (indexes.length) {
+        hit.points = indexes;
       }
     }
     return hit;

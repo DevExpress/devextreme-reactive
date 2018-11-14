@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { findDOMNode } from 'react-dom';
 import * as PropTypes from 'prop-types';
+import { DragDropContext } from './provider';
 
 const clamp = (value, min, max) => Math.max(Math.min(value, max), min);
 
@@ -57,9 +58,7 @@ export class DropTarget extends React.Component {
   }
 }
 
-DropTarget.contextTypes = {
-  dragDropProvider: PropTypes.object.isRequired,
-};
+DropTarget.contextType = DragDropContext;
 
 DropTarget.propTypes = {
   children: PropTypes.node.isRequired,

@@ -68,7 +68,7 @@ class RawTooltip extends React.PureComponent {
                   <OverlayComponent
                     key={text}
                     target={this.getTargetElement}
-                    visible={!!(target && target.point !== undefined)}
+                    visible={!!target}
                   >
                     <ContentComponent text={text} targetItem={target} />
                   </OverlayComponent>
@@ -86,11 +86,11 @@ class RawTooltip extends React.PureComponent {
 RawTooltip.propTypes = {
   defaultTargetItem: PropTypes.shape({
     series: PropTypes.string.isRequired,
-    point: PropTypes.number,
+    point: PropTypes.number.isRequired,
   }),
   targetItem: PropTypes.shape({
     series: PropTypes.string.isRequired,
-    point: PropTypes.number,
+    point: PropTypes.number.isRequired,
   }),
   onTargetItemChange: PropTypes.func,
   overlayComponent: PropTypes.func.isRequired,

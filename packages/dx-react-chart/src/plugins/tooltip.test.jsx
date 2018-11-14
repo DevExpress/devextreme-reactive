@@ -117,29 +117,17 @@ describe('Tooltip', () => {
     expect(tree.find(ContentComponent).props()).toEqual({ text: 'tooltip-text', targetItem: { series: '2', point: 3 } });
   });
 
-  it('shouldn not handle if "targetItem" prop has only series field', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-
-        <Tooltip {...defaultProps} targetItem={{ series: '1' }} />
-      </PluginHost>));
-
-    expect(tree.find(OverlayComponent).props().visible).toBeFalsy();
-    expect(tree.find(ContentComponent).props()).toEqual({ text: 'tooltip-text', targetItem: { series: '1' } });
-  });
-
   it('should handle "onTargetItemChange"', () => {
     const mock = jest.fn();
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
 
-        <Tooltip {...defaultProps} targetItem={{ series: '1' }} onTargetItemChange={mock} />
+        <Tooltip {...defaultProps} targetItem={{ series: '1', point: 2 }} onTargetItemChange={mock} />
       </PluginHost>
     ));
     getComputedState(tree).pointerMoveHandlers[1]({ targets: 'test-targets' });
 
-    expect(processPointerMove).toBeCalledWith('test-targets', { series: '1' }, mock);
+    expect(processPointerMove).toBeCalledWith('test-targets', { series: '1', point: 2 }, mock);
   });
 });

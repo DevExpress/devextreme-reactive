@@ -12,6 +12,22 @@ import {
 
 import { generateRows } from '../../../demo-data/generator';
 
+const GroupCellContent = ({ column, row }) => (
+  <span>
+    Group
+    {' '}
+    <i>
+      {column.title}
+    </i>
+    {' '}
+    by first letter:
+    {' '}
+    <strong>
+      {row.value}
+    </strong>
+  </span>
+);
+
 const cityGroupCriteria = value => ({ key: value.substr(0, 1) });
 
 export default class Demo extends React.PureComponent {
@@ -58,6 +74,7 @@ export default class Demo extends React.PureComponent {
           <Table />
           <TableHeaderRow />
           <TableGroupRow
+            contentComponent={GroupCellContent}
             columnExtensions={tableGroupColumnExtension}
           />
         </Grid>

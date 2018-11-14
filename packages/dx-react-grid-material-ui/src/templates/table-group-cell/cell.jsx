@@ -35,12 +35,10 @@ const CellBase = ({
     >
       <Icon
         expanded={expanded}
-        classes={classes}
       />
       <Content
         column={column}
         row={row}
-        classes={classes}
       >
         {children}
       </Content>

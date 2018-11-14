@@ -35,11 +35,11 @@ export class VirtualTableLayout extends React.PureComponent {
     this.getRowHeight = this.getRowHeight.bind(this);
     this.updateViewport = this.updateViewport.bind(this);
     this.handleContainerSizeChange = this.handleContainerSizeChange.bind(this);
-
-    this.isEdgeBrowser = isEdgeBrowser();
   }
 
   componentDidMount() {
+    this.isEdgeBrowser = isEdgeBrowser();
+
     this.storeRowHeights();
     this.storeBloksHeights();
   }

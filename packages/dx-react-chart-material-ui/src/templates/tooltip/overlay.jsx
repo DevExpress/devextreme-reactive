@@ -9,7 +9,7 @@ export const Overlay = ({
     open={visible}
     anchorEl={target}
     anchorOrigin={{ vertical: 'center', horizontal: 'center' }}
-    transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+    transformOrigin={{ vertical: 'bottom', horizontal: 'center' }}
     {...restProps}
   >
     {children}

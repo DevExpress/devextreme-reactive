@@ -6,6 +6,7 @@ describe('TableGroupCell', () => {
   describe('Icon', () => {
     const defaultProps = {
       classes: {},
+      expanded: true,
     };
 
     it('should assign className to the root element', () => {

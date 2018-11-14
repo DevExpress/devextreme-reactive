@@ -34,12 +34,11 @@ const IconBase = ({
 );
 
 IconBase.propTypes = {
-  expanded: PropTypes.bool,
+  expanded: PropTypes.bool.isRequired,
   className: PropTypes.string,
 };
 
 IconBase.defaultProps = {
-  expanded: false,
   className: undefined,
 };
 

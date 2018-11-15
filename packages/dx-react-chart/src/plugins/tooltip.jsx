@@ -8,7 +8,7 @@ import {
   TemplatePlaceholder,
   withComponents,
 } from '@devexpress/dx-react-core';
-import { getParameters, processPointerMove } from '@devexpress/dx-chart-core';
+import { getParameters, processHandleTooltip } from '@devexpress/dx-chart-core';
 import { Target } from '../templates/tooltip/target';
 
 class RawTooltip extends React.PureComponent {
@@ -17,6 +17,7 @@ class RawTooltip extends React.PureComponent {
     this.state = {
       target: props.targetItem || props.defaultTargetItem,
     };
+    this.createTargetElement = this.createTargetElement.bind(this);
     this.getTargetElement = this.getTargetElement.bind(this);
     const handlePointerMove = this.handlePointerMove.bind(this);
     this.getPointerMoveHandlers = ({ pointerMoveHandlers }) => [
@@ -32,17 +33,15 @@ class RawTooltip extends React.PureComponent {
     return this.targetElement;
   }
 
+  createTargetElement(ref) {
+    this.targetElement = ref;
+  }
+
   handlePointerMove({ targets }) {
-    this.setState(({ target: currentTarget }, { onTargetItemChange }) => {
-      const target = processPointerMove(targets, currentTarget, onTargetItemChange);
-      if (target !== undefined) {
-        if (target && target.point === undefined) {
-          return { target: null };
-        }
-        return { target };
-      }
-      return null;
-    });
+    this.setState((
+      { target: currentTarget },
+      { onTargetItemChange },
+    ) => processHandleTooltip(targets, currentTarget, onTargetItemChange));
   }
 
   render() {
@@ -70,12 +69,11 @@ class RawTooltip extends React.PureComponent {
                 <React.Fragment>
                   <TargetComponent
                     {...element}
-                    componentRef={(ref) => { this.targetElement = ref; }}
+                    componentRef={this.createTargetElement}
                   />
                   <OverlayComponent
                     key={`${target.series}${target.point}`}
                     target={this.getTargetElement}
-                    visible
                   >
                     <ContentComponent text={text} targetItem={target} />
                   </OverlayComponent>

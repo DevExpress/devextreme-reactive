@@ -2,12 +2,12 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
-import { processPointerMove } from '@devexpress/dx-chart-core';
+import { processHandleTooltip } from '@devexpress/dx-chart-core';
 import { Tooltip } from './tooltip';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   getParameters: jest.fn().mockReturnValue({ element: { x: 10, y: 20 }, text: 'tooltip-text' }),
-  processPointerMove: jest.fn().mockReturnValue('test-target'),
+  processHandleTooltip: jest.fn().mockReturnValue('test-target'),
 }));
 
 const TargetComponent = () => null;
@@ -74,12 +74,11 @@ describe('Tooltip', () => {
 
         <Tooltip {...defaultProps} targetItem={{ series: '1', point: 4 }} />
       </PluginHost>));
-    const { children, target, visible } = tree.find(OverlayComponent).props();
+    const { children, target } = tree.find(OverlayComponent).props();
 
     expect(children)
       .toBeTruthy();
     expect(target).toEqual(expect.any(Function));
-    expect(visible).toBeTruthy();
   });
 
   it('should render contentComponent', () => {
@@ -101,7 +100,6 @@ describe('Tooltip', () => {
         <Tooltip {...defaultProps} defaultTargetItem={{ series: '2', point: 3 }} targetItem={{ series: '1', point: 4 }} />
       </PluginHost>));
 
-    expect(tree.find(OverlayComponent).props().visible).toBeTruthy();
     expect(tree.find(ContentComponent).props()).toEqual({ text: 'tooltip-text', targetItem: { series: '1', point: 4 } });
   });
 
@@ -113,7 +111,6 @@ describe('Tooltip', () => {
         <Tooltip {...defaultProps} defaultTargetItem={{ series: '2', point: 3 }} />
       </PluginHost>));
 
-    expect(tree.find(OverlayComponent).props().visible).toBeTruthy();
     expect(tree.find(ContentComponent).props()).toEqual({ text: 'tooltip-text', targetItem: { series: '2', point: 3 } });
   });
 
@@ -128,6 +125,6 @@ describe('Tooltip', () => {
     ));
     getComputedState(tree).pointerMoveHandlers[1]({ targets: 'test-targets' });
 
-    expect(processPointerMove).toBeCalledWith('test-targets', { series: '1', point: 2 }, mock);
+    expect(processHandleTooltip).toBeCalledWith('test-targets', { series: '1', point: 2 }, mock);
   });
 });

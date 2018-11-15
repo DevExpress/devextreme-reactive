@@ -3,11 +3,11 @@ import * as PropTypes from 'prop-types';
 import { Popover, PopoverBody } from 'reactstrap';
 
 export const Overlay = ({
-  visible, children, target, ...restProps
+  children, target, ...restProps
 }) => (
   <Popover
     placement="top"
-    isOpen={visible}
+    isOpen
     target={target}
     {...restProps}
   >
@@ -19,6 +19,5 @@ export const Overlay = ({
 
 Overlay.propTypes = {
   children: PropTypes.node.isRequired,
-  visible: PropTypes.bool.isRequired,
   target: PropTypes.func.isRequired,
 };

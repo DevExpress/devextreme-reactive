@@ -1,12 +1,16 @@
 import * as React from 'react';
 import { findDOMNode } from 'react-dom';
 import { shallow, mount } from 'enzyme';
+import { isEdgeBrowser } from '@devexpress/dx-core';
 import { getCollapsedGrid } from '@devexpress/dx-grid-core';
 import { setupConsole } from '@devexpress/dx-testing';
 import { VirtualTableLayout } from './virtual-table-layout';
 
 jest.mock('react-dom', () => ({
   findDOMNode: jest.fn(),
+}));
+jest.mock('@devexpress/dx-core', () => ({
+  isEdgeBrowser: jest.fn(),
 }));
 jest.mock('@devexpress/dx-grid-core', () => {
   const actual = require.requireActual('@devexpress/dx-grid-core');
@@ -200,6 +204,66 @@ describe('VirtualTableLayout', () => {
           top: 0,
           left: 50,
         });
+    });
+
+    describe('scroll bounce', () => {
+      const assertRerenderOnBounce = (shouldRerender, scrollArgs) => {
+        const tree = mount((
+          <VirtualTableLayout
+            {...defaultProps}
+            headerRows={defaultProps.bodyRows.slice(0, 1)}
+          />
+        ));
+        const initialCallsCount = getCollapsedGrid.mock.calls.length;
+
+        simulateScroll(tree, scrollArgs);
+
+        if (shouldRerender) {
+          expect(getCollapsedGrid.mock.calls.length).toBeGreaterThan(initialCallsCount);
+        } else {
+          expect(getCollapsedGrid.mock.calls.length).toBe(initialCallsCount);
+        }
+      };
+
+      it('should not re-render on horizontal scroll bounce', () => {
+        assertRerenderOnBounce(false, {
+          scrollLeft: 200,
+          clientWidth: 400,
+          scrollWidth: 500,
+          scrollTop: 0,
+        });
+      });
+
+      it('should not re-render on vertical scroll bounce', () => {
+        assertRerenderOnBounce(false, {
+          scrollTop: 200,
+          clientHeight: 400,
+          scrollHeight: 500,
+          scrollLeft: 0,
+        });
+      });
+
+      it('should normalize scroll position in the Edge browser', () => {
+        isEdgeBrowser.mockReturnValue(true);
+
+        assertRerenderOnBounce(true, {
+          scrollLeft: 201,
+          clientWidth: 200,
+          scrollWidth: 400,
+          scrollTop: 0,
+        });
+      });
+
+      it('should normalize scroll position in the Edge by 1px only', () => {
+        isEdgeBrowser.mockReturnValue(true);
+
+        assertRerenderOnBounce(false, {
+          scrollLeft: 202,
+          clientWidth: 200,
+          scrollWidth: 400,
+          scrollTop: 0,
+        });
+      });
     });
   });
 

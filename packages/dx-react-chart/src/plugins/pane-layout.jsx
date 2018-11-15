@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import {
   Plugin,
   Template,
@@ -7,7 +8,22 @@ import {
   Sizer,
 } from '@devexpress/dx-react-core';
 
-/* eslint-disable-next-line react/prefer-stateless-function */
+const DIV_STYLE = {
+  flex: 1, zIndex: 1, position: 'relative', width: '100%',
+};
+
+const SVG_STYLE = {
+  position: 'absolute', left: 0, top: 0, overflow: 'visible',
+};
+
+const SizerContainer = ({ children }) => (
+  <div style={DIV_STYLE}>{children}</div>
+);
+
+SizerContainer.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
 export class PaneLayout extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -36,21 +52,17 @@ export class PaneLayout extends React.PureComponent {
             <TemplateConnector>
               {(_, { changeBBox }) => (
                 <Sizer
-                  style={{ flex: 1, zIndex: 1 }}
+                  containerComponent={SizerContainer}
                   onSizeChange={size => this.handleSizeUpdate(size, changeBBox)}
                 >
-                  <div style={{ width: '100%' }}>
-                    <svg
-                      {...params}
-                      width={width}
-                      height={height}
-                      style={{
-                        position: 'absolute', left: 0, top: 0, overflow: 'visible',
-                      }}
-                    >
-                      <TemplatePlaceholder name="series" />
-                    </svg>
-                  </div>
+                  <svg
+                    {...params}
+                    width={width}
+                    height={height}
+                    style={SVG_STYLE}
+                  >
+                    <TemplatePlaceholder name="series" />
+                  </svg>
                 </Sizer>
               )}
             </TemplateConnector>

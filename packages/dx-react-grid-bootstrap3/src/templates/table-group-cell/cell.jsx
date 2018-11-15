@@ -1,12 +1,11 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
-import { ExpandButton } from './parts/expand-button';
-
-export const TableGroupCell = ({
+export const Cell = ({
   style, colSpan, row, column,
   expanded, onToggle,
   children, tableRow, tableColumn,
+  iconComponent: Icon, contentComponent: Content,
   ...restProps
 }) => (
   <td
@@ -18,23 +17,23 @@ export const TableGroupCell = ({
     onClick={onToggle}
     {...restProps}
   >
-    <ExpandButton
+    <Icon
       expanded={expanded}
       onToggle={onToggle}
       style={{
         marginRight: '8px',
       }}
     />
-    <strong>
-      {column.title || column.name}
-        :
-      {' '}
-    </strong>
-    {children || row.value}
+    <Content
+      column={column}
+      row={row}
+    >
+      {children}
+    </Content>
   </td>
 );
 
-TableGroupCell.propTypes = {
+Cell.propTypes = {
   style: PropTypes.object,
   colSpan: PropTypes.number,
   row: PropTypes.any,
@@ -44,9 +43,11 @@ TableGroupCell.propTypes = {
   children: PropTypes.node,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
+  iconComponent: PropTypes.func.isRequired,
+  contentComponent: PropTypes.func.isRequired,
 };
 
-TableGroupCell.defaultProps = {
+Cell.defaultProps = {
   style: null,
   colSpan: 1,
   row: {},

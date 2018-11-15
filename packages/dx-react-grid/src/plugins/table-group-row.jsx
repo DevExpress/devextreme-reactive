@@ -39,6 +39,8 @@ export class TableGroupRow extends React.PureComponent {
   render() {
     const {
       cellComponent: GroupCell,
+      contentComponent: Content,
+      iconComponent: Icon,
       rowComponent: GroupRow,
       indentCellComponent: GroupIndentCell,
       indentColumnWidth,
@@ -85,6 +87,8 @@ export class TableGroupRow extends React.PureComponent {
                       {content => (
                         <GroupCell
                           {...params}
+                          contentComponent={Content}
+                          iconComponent={Icon}
                           row={params.tableRow.row}
                           column={params.tableColumn.column}
                           expanded={expandedGroups.indexOf(params.tableRow.row.compoundKey) !== -1}
@@ -136,6 +140,8 @@ TableGroupRow.COLUMN_TYPE = TABLE_GROUP_TYPE;
 
 TableGroupRow.propTypes = {
   cellComponent: PropTypes.func.isRequired,
+  contentComponent: PropTypes.func.isRequired,
+  iconComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
   indentCellComponent: PropTypes.func,
   indentColumnWidth: PropTypes.number.isRequired,
@@ -152,4 +158,6 @@ TableGroupRow.defaultProps = {
 TableGroupRow.components = {
   rowComponent: 'Row',
   cellComponent: 'Cell',
+  contentComponent: 'Content',
+  iconComponent: 'Icon',
 };

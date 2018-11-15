@@ -3,9 +3,9 @@ import * as PropTypes from 'prop-types';
 import { PluginIndexer } from './plugin-indexer';
 import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from './constants';
 
-export class Plugin extends React.PureComponent {
+export class PluginBase extends React.PureComponent {
   componentDidMount() {
-    const { [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: position } = this.context;
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: position } = this.props;
     const { name, dependencies } = this.props;
     this.plugin = {
       position,
@@ -17,12 +17,12 @@ export class Plugin extends React.PureComponent {
   }
 
   componentDidUpdate() {
-    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.props;
     pluginHost.ensureDependencies();
   }
 
   componentWillUnmount() {
-    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.props;
     pluginHost.unregisterPlugin(this.plugin);
   }
 
@@ -36,7 +36,9 @@ export class Plugin extends React.PureComponent {
   }
 }
 
-Plugin.propTypes = {
+PluginBase.propTypes = {
+  [PLUGIN_HOST_CONTEXT]: PropTypes.any.isRequired,
+  [POSITION_CONTEXT]: PropTypes.any.isRequired,
   children: PropTypes.node.isRequired,
   name: PropTypes.string,
   dependencies: PropTypes.arrayOf(PropTypes.shape({
@@ -45,12 +47,7 @@ Plugin.propTypes = {
   })),
 };
 
-Plugin.defaultProps = {
+PluginBase.defaultProps = {
   name: '',
   dependencies: [],
-};
-
-Plugin.contextTypes = {
-  [PLUGIN_HOST_CONTEXT]: PropTypes.object.isRequired,
-  [POSITION_CONTEXT]: PropTypes.func.isRequired,
 };

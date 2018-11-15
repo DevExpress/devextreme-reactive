@@ -6,8 +6,8 @@ import { DragDropContext } from './provider';
 const clamp = (value, min, max) => Math.max(Math.min(value, max), min);
 
 export class DropTarget extends React.Component {
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
 
     this.node = null;
     this.isOver = false;

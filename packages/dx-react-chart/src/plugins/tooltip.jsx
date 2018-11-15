@@ -41,7 +41,13 @@ class RawTooltip extends React.PureComponent {
     this.setState((
       { target: currentTarget },
       { onTargetItemChange },
-    ) => processHandleTooltip(targets, currentTarget, onTargetItemChange));
+    ) => {
+      const target = processHandleTooltip(targets, currentTarget, onTargetItemChange);
+      if (target === undefined) {
+        return null;
+      }
+      return { target };
+    });
   }
 
   render() {

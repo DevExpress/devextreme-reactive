@@ -7,12 +7,6 @@ export const getParameters = (series, target) => {
 };
 
 export const processHandleTooltip = (targets, currentTarget, onTargetItemChange) => {
-  if (targets.length && targets[0].point !== undefined) {
-    const target = processPointerMove(targets, currentTarget, onTargetItemChange);
-    if (target !== undefined) {
-      return { target };
-    }
-    return null;
-  }
-  return { target: null };
+  const filterTargets = targets.filter(target => target.point !== undefined);
+  return processPointerMove(filterTargets, currentTarget, onTargetItemChange);
 };

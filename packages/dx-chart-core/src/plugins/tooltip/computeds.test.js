@@ -27,26 +27,7 @@ describe('#processHandleTooltip', () => {
   afterEach(jest.clearAllMocks);
 
   it('should return target', () => {
-    expect(processHandleTooltip([{ series: 'test-series', point: 'test-point' }], 'currentTarget', 'mockFunction')).toEqual({
-      target: 'test-target',
-    });
+    expect(processHandleTooltip([{ series: 'test-series' }, { series: 'test-series', point: 'test-point' }], 'currentTarget', 'mockFunction')).toBe('test-target');
     expect(processPointerMove).toBeCalledWith([{ series: 'test-series', point: 'test-point' }], 'currentTarget', 'mockFunction');
-  });
-
-  it('should return null target, targets contain only series field', () => {
-    expect(processHandleTooltip([{ series: 'test-series' }], 'currentTarget', 'mockFunction')).toEqual({
-      target: null,
-    });
-  });
-
-  it('should return null target, targets are empty', () => {
-    expect(processHandleTooltip([], 'currentTarget', 'mockFunction')).toEqual({
-      target: null,
-    });
-  });
-
-  it('should return null, target the same', () => {
-    processPointerMove.mockReturnValue(undefined);
-    expect(processHandleTooltip([{ series: 'test-series', point: 'test-point' }], 'currentTarget', 'mockFunction')).toEqual(null);
   });
 });

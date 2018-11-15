@@ -5,9 +5,10 @@ const compareTargets = (target1, target2) => (
   target1.series === target2.series && target1.point === target2.point
 );
 
+// Current value is chosen roughly and expected to be adjusted.
 const DISTANCE_PRIORITY_RATIO = 4;
 
-// If *currentTarget* is among *targets* then it has priority but only until its distance
+// If *currentTarget* is among *targets* then it has priority but only while its distance
 // is not significantly greater (DISTANCE_PRIORITY_RATIO) than that of the best candidate.
 const selectTarget = (targets, currentTarget) => {
   if (!currentTarget) {

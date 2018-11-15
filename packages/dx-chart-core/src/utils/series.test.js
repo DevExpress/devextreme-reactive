@@ -21,6 +21,14 @@ const getContext = jest.fn();
 document.createElement = () => ({ getContext });
 
 describe('Series', () => {
+  const matchFloat = expected => ({
+    $$typeof: Symbol.for('jest.asymmetricMatcher'),
+
+    asymmetricMatch: actual => Math.abs(actual - expected) < 0.01,
+
+    toAsymmetricMatcher: () => `~${expected}`,
+  });
+
   // Mocks are intentionally reset rather then cleared.
   afterEach(jest.resetAllMocks);
 
@@ -67,10 +75,14 @@ describe('Series', () => {
       ]);
 
       expect(hitTest([100, 20])).toEqual(null);
-      expect(hitTest([120, 40])).toEqual({ points: ['p1'] });
+      expect(hitTest([120, 40])).toEqual({
+        points: [{ index: 'p1', distance: matchFloat(0.71) }],
+      });
       expect(hitTest([140, 60])).toEqual({});
       expect(hitTest([160, 30])).toEqual(null);
-      expect(hitTest([180, 70])).toEqual({ points: ['p2', 'p3'] });
+      expect(hitTest([180, 70])).toEqual({
+        points: [{ index: 'p2', distance: matchFloat(0.71) }, { index: 'p3', distance: matchFloat(0.85) }],
+      });
 
       expect(isPointInPath.mock.calls).toEqual([
         [100, 20],
@@ -124,10 +136,14 @@ describe('Series', () => {
       ]);
 
       expect(hitTest([100, 20])).toEqual(null);
-      expect(hitTest([120, 40])).toEqual({ points: ['p1'] });
+      expect(hitTest([120, 40])).toEqual({
+        points: [{ index: 'p1', distance: matchFloat(0.71) }],
+      });
       expect(hitTest([140, 60])).toEqual({});
       expect(hitTest([160, 30])).toEqual(null);
-      expect(hitTest([180, 70])).toEqual({ points: ['p2', 'p3'] });
+      expect(hitTest([180, 70])).toEqual({
+        points: [{ index: 'p2', distance: matchFloat(0.71) }, { index: 'p3', distance: matchFloat(0.85) }],
+      });
 
       expect(isPointInPath.mock.calls).toEqual([
         [100, 20],
@@ -184,10 +200,14 @@ describe('Series', () => {
       ]);
 
       expect(hitTest([100, 20])).toEqual(null);
-      expect(hitTest([120, 40])).toEqual({ points: ['p1'] });
+      expect(hitTest([120, 40])).toEqual({
+        points: [{ index: 'p1', distance: matchFloat(0.71) }],
+      });
       expect(hitTest([140, 60])).toEqual({});
       expect(hitTest([160, 30])).toEqual(null);
-      expect(hitTest([180, 70])).toEqual({ points: ['p2', 'p3'] });
+      expect(hitTest([180, 70])).toEqual({
+        points: [{ index: 'p2', distance: matchFloat(0.71) }, { index: 'p3', distance: matchFloat(0.85) }],
+      });
 
       expect(isPointInPath.mock.calls).toEqual([
         [100, 20],
@@ -217,9 +237,11 @@ describe('Series', () => {
       ]);
 
       expect(hitTest([15, 1])).toEqual(null);
-      expect(hitTest([12, 4])).toEqual({ points: ['p1'] });
-      expect(hitTest([25, 3])).toEqual({ points: ['p2'] });
-      expect(hitTest([31, 2])).toEqual({ points: ['p3', 'p4'] });
+      expect(hitTest([12, 4])).toEqual({ points: [{ index: 'p1', distance: matchFloat(1) }] });
+      expect(hitTest([25, 3])).toEqual({ points: [{ index: 'p2', distance: matchFloat(1) }] });
+      expect(hitTest([31, 2])).toEqual({
+        points: [{ index: 'p3', distance: matchFloat(0.6) }, { index: 'p4', distance: matchFloat(1) }],
+      });
     });
   });
 
@@ -233,9 +255,11 @@ describe('Series', () => {
       ]);
 
       expect(hitTest([15, -7])).toEqual(null);
-      expect(hitTest([14, 10])).toEqual({ points: ['p1'] });
-      expect(hitTest([32, 4])).toEqual({ points: ['p2'] });
-      expect(hitTest([47, 18])).toEqual({ points: ['p3', 'p4'] });
+      expect(hitTest([14, 10])).toEqual({ points: [{ index: 'p1', distance: matchFloat(0.72) }] });
+      expect(hitTest([32, 4])).toEqual({ points: [{ index: 'p2', distance: matchFloat(0.22) }] });
+      expect(hitTest([49, 15])).toEqual({
+        points: [{ index: 'p3', distance: matchFloat(0.71) }, { index: 'p4', distance: matchFloat(0.78) }],
+      });
     });
   });
 
@@ -254,9 +278,11 @@ describe('Series', () => {
       ]);
 
       expect(hitTest([60, 61])).toEqual(null);
-      expect(hitTest([64, 45])).toEqual({ points: ['p1'] });
-      expect(hitTest([68, 52])).toEqual({ points: ['p2'] });
-      expect(hitTest([60, 55])).toEqual({ points: ['p2', 'p3'] });
+      expect(hitTest([64, 45])).toEqual({ points: [{ index: 'p1', distance: matchFloat(0.72) }] });
+      expect(hitTest([68, 52])).toEqual({ points: [{ index: 'p2', distance: matchFloat(0.69) }] });
+      expect(hitTest([60, 55])).toEqual({
+        points: [{ index: 'p2', distance: matchFloat(1) }, { index: 'p3', distance: matchFloat(1) }],
+      });
     });
   });
 

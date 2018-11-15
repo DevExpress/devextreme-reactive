@@ -9,6 +9,8 @@ const getEventCoords = (e) => {
   ];
 };
 
+const compare = (t1, t2) => t1.distance - t2.distance;
+
 const buildEventHandler = (seriesList, handlers) => {
   let hitTesters = null;
 
@@ -28,12 +30,15 @@ const buildEventHandler = (seriesList, handlers) => {
       const status = hitTesters[symbolName](location);
       if (status) {
         if (status.points) {
-          targets.push(...status.points.map(point => ({ series, point })));
+          targets.push(...status.points.map(
+            point => ({ series, point: point.index, distance: point.distance }),
+          ));
         } else {
-          targets.push({ series });
+          targets.push({ series, distance: 1 });
         }
       }
     });
+    targets.sort(compare);
     const arg = { location, targets };
     handlers.forEach(handler => handler(arg));
   };

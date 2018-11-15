@@ -1,21 +1,36 @@
 import { area } from 'd3-shape';
 import { dArea, dLine, dSpline } from '../plugins/series/computeds';
 
-const isPointInRect = (x, y, x1, x2, y1, y2) => x1 <= x && x <= x2 && y1 <= y && y <= y2;
+// Based on https://en.wikipedia.org/wiki/Uniform_norm
+const getUniformDistance = (dx, dy, rx, ry) => Math.max(
+  Math.abs(dx) / rx, Math.abs(dy) / ry,
+);
+
+// Based on https://en.wikipedia.org/wiki/Norm_(mathematics)#Euclidean_norm
+const getEuclideanDistance = (dx, dy, rx, ry) => Math.sqrt(
+  (dx * dx) / (rx * rx) + (dy * dy) / (ry * ry),
+);
+
+const createPointsEnumeratingHitTesterCreator = hitTestPoint => points => (target) => {
+  const list = [];
+  points.forEach((point) => {
+    // *distance* is a normalized distance to point.
+    // It belongs to [0, Infinity):
+    //  = 0 - at point center
+    //  = 1 - at point border
+    //  > 1 - outside point
+    const distance = hitTestPoint(target, point);
+    if (distance <= 1) {
+      list.push({ index: point.index, distance });
+    }
+  });
+  return list.length ? { points: list } : null;
+};
 
 const LINE_TOLERANCE = 10;
 
-const getIndex = point => point.index;
-
-const createPointsEnumeratingHitTesterCreator = hitTestPoint => points => (target) => {
-  const indexes = points.filter(point => hitTestPoint(target, point)).map(getIndex);
-  return indexes.length ? { points: indexes } : null;
-};
-
 const createContinuousSeriesPointsHitTester = createPointsEnumeratingHitTesterCreator(
-  ([px, py], { x, y }) => isPointInRect(
-    px, py, x - LINE_TOLERANCE, x + LINE_TOLERANCE, y - LINE_TOLERANCE, y + LINE_TOLERANCE,
-  ),
+  ([px, py], { x, y }) => getEuclideanDistance(px - x, py - y, LINE_TOLERANCE, LINE_TOLERANCE),
 );
 
 // This function is called from event handlers (when DOM is available) -
@@ -63,14 +78,18 @@ export const createSplineHitTester = createCanvasAbusingHitTesterCreator(() => {
 
 // Some kind of binary search can be used here as bars can be ordered along argument axis.
 export const createBarHitTester = createPointsEnumeratingHitTesterCreator(
-  ([px, py], {
-    x, width, y, y1,
-  }) => isPointInRect(px, py, x, x + width, Math.min(y, y1), Math.max(y, y1)),
+  ([px, py], point) => {
+    const xCenter = point.x + point.width / 2;
+    const yCenter = (point.y + point.y1) / 2;
+    const halfWidth = point.width / 2;
+    const halfHeight = Math.abs(point.y - point.y1) / 2;
+    return getUniformDistance(px - xCenter, py - yCenter, halfWidth, halfHeight);
+  },
 );
 
 // TODO: Use actual point size here!
 export const createScatterHitTester = createPointsEnumeratingHitTesterCreator(
-  ([px, py], { x, y }) => isPointInRect(px, py, x - 10, x + 10, y - 10, y + 10),
+  ([px, py], { x, y }) => getEuclideanDistance(px - x, py - y, 10, 10),
 );
 
 const mapAngleTod3 = (angle) => {
@@ -83,14 +102,15 @@ export const createPieHitTester = createPointsEnumeratingHitTesterCreator(
   ([px, py], {
     x, y, innerRadius, outerRadius, startAngle, endAngle,
   }) => {
+    const rCenter = (innerRadius + outerRadius) / 2;
+    const angleCenter = (startAngle + endAngle) / 2;
+    const halfRadius = (outerRadius - innerRadius) / 2;
+    const halfAngle = Math.abs(startAngle - endAngle) / 2;
     const dx = px - x;
     const dy = py - y;
     const r = Math.sqrt(dx * dx + dy * dy);
-    if (r < innerRadius || r > outerRadius) {
-      return null;
-    }
     const angle = mapAngleTod3(Math.atan2(dy, dx));
-    return startAngle <= angle && angle <= endAngle;
+    return getUniformDistance(r - rCenter, angle - angleCenter, halfRadius, halfAngle);
   },
 );
 

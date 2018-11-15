@@ -134,7 +134,10 @@ export const getCollapsedColumns = (columns, visibleBoundaries, boundaries, getC
 
     if (isVisible) {
       const column = columns[boundary[0]];
-      collapsedColumns.push(column);
+      collapsedColumns.push({
+        ...column,
+        width: getColumnWidth(column, 0),
+      });
     } else {
       collapsedColumns.push({
         key: `${TABLE_STUB_TYPE.toString()}_${boundary[0]}_${boundary[1]}`,

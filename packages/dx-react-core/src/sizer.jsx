@@ -6,9 +6,6 @@ import { findDOMNode } from 'react-dom';
 import { RefHolder } from './ref-holder';
 
 const styles = {
-  root: {
-    position: 'relative',
-  },
   triggersRoot: {
     position: 'absolute',
     top: 0,
@@ -48,8 +45,8 @@ const styles = {
 };
 
 export class Sizer extends React.PureComponent {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.setupListeners = this.setupListeners.bind(this);
   }
@@ -106,7 +103,6 @@ export class Sizer extends React.PureComponent {
     const {
       onSizeChange,
       containerComponent: Container,
-      style,
       ...restProps
     } = this.props;
 
@@ -114,8 +110,7 @@ export class Sizer extends React.PureComponent {
       <RefHolder
         ref={(ref) => { this.root = ref; }}
       >
-        <Container
-          style={{ ...styles.root, ...style }}
+        <Container // NOTE: should has `position: relative`
           {...restProps}
         />
       </RefHolder>
@@ -126,10 +121,8 @@ export class Sizer extends React.PureComponent {
 Sizer.propTypes = {
   onSizeChange: PropTypes.func.isRequired,
   containerComponent: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  style: PropTypes.object,
 };
 
 Sizer.defaultProps = {
   containerComponent: 'div',
-  style: null,
 };

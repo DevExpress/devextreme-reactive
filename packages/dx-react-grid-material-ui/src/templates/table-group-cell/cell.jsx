@@ -1,9 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import ChevronRight from '@material-ui/icons/ChevronRight';
-import ExpandMore from '@material-ui/icons/ExpandMore';
-import IconButton from '@material-ui/core/IconButton';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -14,18 +11,11 @@ const styles = theme => ({
     paddingRight: theme.spacing.unit,
     paddingTop: (theme.spacing.unit / 2) - 1,
   },
-  groupButton: {
-    verticalAlign: 'middle',
-    display: 'inline-block',
-    padding: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-  },
-  columnTitle: {
-    verticalAlign: 'middle',
-  },
 });
 
-const TableGroupCellBase = ({
+const CellBase = ({
+  contentComponent: Content,
+  iconComponent: Icon,
   style, colSpan, row,
   column, expanded,
   onToggle,
@@ -43,28 +33,22 @@ const TableGroupCellBase = ({
       onClick={handleClick}
       {...restProps}
     >
-      <IconButton
-        className={classes.groupButton}
+      <Icon
+        expanded={expanded}
+      />
+      <Content
+        column={column}
+        row={row}
       >
-        {
-          expanded
-            ? <ExpandMore />
-            : <ChevronRight />
-        }
-      </IconButton>
-      <span className={classes.columnTitle}>
-        <strong>
-          {column.title || column.name}
-            :
-          {' '}
-        </strong>
-        {children || row.value}
-      </span>
+        {children}
+      </Content>
     </TableCell>
   );
 };
 
-TableGroupCellBase.propTypes = {
+CellBase.propTypes = {
+  contentComponent: PropTypes.func.isRequired,
+  iconComponent: PropTypes.func.isRequired,
   style: PropTypes.object,
   colSpan: PropTypes.number,
   row: PropTypes.any,
@@ -78,7 +62,7 @@ TableGroupCellBase.propTypes = {
   tableColumn: PropTypes.object,
 };
 
-TableGroupCellBase.defaultProps = {
+CellBase.defaultProps = {
   style: null,
   colSpan: 1,
   row: {},
@@ -91,4 +75,4 @@ TableGroupCellBase.defaultProps = {
   tableColumn: undefined,
 };
 
-export const TableGroupCell = withStyles(styles, { name: 'TableGroupCell' })(TableGroupCellBase);
+export const Cell = withStyles(styles, { name: 'TableGroupCell' })(CellBase);

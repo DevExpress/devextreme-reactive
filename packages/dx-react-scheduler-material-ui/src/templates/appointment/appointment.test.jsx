@@ -29,6 +29,8 @@ describe('Appointment', () => {
         .toBeTruthy();
       expect(tree.is(`.${classes.appointment}`))
         .toBeTruthy();
+      expect(tree.is(`.${classes.clickableAppointment}`))
+        .toBeFalsy();
     });
 
     it('should pass rest props to the root element', () => {
@@ -69,6 +71,34 @@ describe('Appointment', () => {
 
       expect(clickMock.mock.calls[0][0])
         .toEqual({ target: 'target', data: { text: 'a' } });
+    });
+
+    it('should apply clickable class if onClick event exists', () => {
+      const tree = shallow((
+        <Appointment
+          {...defaultProps}
+          onClick={() => undefined}
+        >
+          <div />
+        </Appointment>
+      ));
+
+      expect(tree.is(`.${classes.clickableAppointment}`))
+        .toBeTruthy();
+    });
+
+    it('should apply clickable class if onDoubleClick event exists', () => {
+      const tree = shallow((
+        <Appointment
+          {...defaultProps}
+          onDoubleClick={() => undefined}
+        >
+          <div />
+        </Appointment>
+      ));
+
+      expect(tree.is(`.${classes.clickableAppointment}`))
+        .toBeTruthy();
     });
   });
 });

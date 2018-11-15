@@ -28,13 +28,13 @@ export class ViewSwitcher extends React.PureComponent {
           <TemplateConnector>
             {({
               currentView,
-              availableViews,
+              availableViewNames,
             }, {
               setCurrentViewName,
             }) => (
               <Switcher
                 currentViewName={currentView.name}
-                availableViews={availableViews}
+                availableViewNames={availableViewNames}
                 onChange={setCurrentViewName}
               />
             )}

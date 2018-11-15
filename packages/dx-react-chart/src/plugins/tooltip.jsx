@@ -24,6 +24,10 @@ class RawTooltip extends React.PureComponent {
     ];
   }
 
+  static getDerivedStateFromProps(props, state) {
+    return { target: props.targetItem !== undefined ? props.targetItem : state.target };
+  }
+
   getTargetElement() {
     return this.targetElement;
   }
@@ -37,7 +41,7 @@ class RawTooltip extends React.PureComponent {
         }
         return { target };
       }
-      return { target: currentTarget };
+      return null;
     });
   }
 
@@ -58,6 +62,9 @@ class RawTooltip extends React.PureComponent {
           <TemplateConnector>
             {
             ({ series }) => {
+              if (!target) {
+                return null;
+              }
               const { text, element } = getParameters(series, target);
               return (
                 <React.Fragment>
@@ -66,9 +73,9 @@ class RawTooltip extends React.PureComponent {
                     componentRef={(ref) => { this.targetElement = ref; }}
                   />
                   <OverlayComponent
-                    key={text}
+                    key={`${target.series}${target.point}`}
                     target={this.getTargetElement}
-                    visible={!!target}
+                    visible
                   >
                     <ContentComponent text={text} targetItem={target} />
                   </OverlayComponent>

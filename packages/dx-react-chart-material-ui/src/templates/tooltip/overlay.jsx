@@ -18,14 +18,6 @@ export const Overlay = ({
 
 Overlay.propTypes = {
   children: PropTypes.node.isRequired,
-  visible: PropTypes.bool,
-  target: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.func,
-  ]),
-};
-
-Overlay.defaultProps = {
-  visible: false,
-  target: null,
+  visible: PropTypes.bool.isRequired,
+  target: PropTypes.func.isRequired,
 };

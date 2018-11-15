@@ -57,7 +57,7 @@ describe('Tooltip', () => {
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
 
-        <Tooltip {...defaultProps} />
+        <Tooltip {...defaultProps} targetItem={{ series: '1', point: 4 }} />
       </PluginHost>));
 
     expect(tree.find(TargetComponent).props()).toEqual({
@@ -72,14 +72,14 @@ describe('Tooltip', () => {
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
 
-        <Tooltip {...defaultProps} />
+        <Tooltip {...defaultProps} targetItem={{ series: '1', point: 4 }} />
       </PluginHost>));
     const { children, target, visible } = tree.find(OverlayComponent).props();
 
     expect(children)
       .toBeTruthy();
     expect(target).toEqual(expect.any(Function));
-    expect(visible).toBeFalsy();
+    expect(visible).toBeTruthy();
   });
 
   it('should render contentComponent', () => {
@@ -87,10 +87,10 @@ describe('Tooltip', () => {
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
 
-        <Tooltip {...defaultProps} />
+        <Tooltip {...defaultProps} targetItem={{ series: '1', point: 4 }} />
       </PluginHost>));
 
-    expect(tree.find(ContentComponent).props()).toEqual({ text: 'tooltip-text', targetItem: undefined });
+    expect(tree.find(ContentComponent).props()).toEqual({ text: 'tooltip-text', targetItem: { series: '1', point: 4 } });
   });
 
   it('should handle "targetItem" prop', () => {

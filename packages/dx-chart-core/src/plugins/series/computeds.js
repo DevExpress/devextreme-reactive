@@ -192,7 +192,7 @@ const scalePoints = (series, scales) => {
   });
   return {
     ...rest,
-    getTargetElement: getPointTransformer.getTargetElement,
+    getTargetElement: getPointTransformer.getTargetElement, // TODO: remove it when it is possible
     points: series.points.map(transform),
   };
 };

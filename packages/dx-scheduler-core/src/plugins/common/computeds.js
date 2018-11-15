@@ -57,8 +57,8 @@ export const availableViews = (views, viewName) => {
 
 export const viewCellsData = (
   currentDate, firstDayOfWeek,
-  dayCount, excludedDays = [],
-  startDayHour = 0, endDayHour = 24, cellDuration = 30,
+  dayCount, excludedDays,
+  startDayHour, endDayHour, cellDuration,
 ) => {
   const days = dayScale(currentDate, firstDayOfWeek, dayCount, excludedDays);
   const times = timeScale(

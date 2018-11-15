@@ -3,7 +3,6 @@ import {
   dayScale as dayScaleComputed, availableViews, viewCellsData,
   startViewDate, endViewDate, timeScale,
 } from './computeds';
-import { monthCellsData } from '../month-view/computeds';
 
 describe('#dayScale', () => {
   const currentDate = new Date(2018, 5, 24);
@@ -135,26 +134,16 @@ describe('#availableViews', () => {
 });
 
 describe('#viewCellsData', () => {
-  it('should work when growDirection type is horizontal', () => {
-    const currentDate = '2018-10-11 10:00';
-    const firstDayOfWeek = 1;
-    const intervalCount = 1;
-    const currentViewType = 'month';
-    expect(viewCellsData(currentViewType, currentDate, firstDayOfWeek, intervalCount))
-      .toEqual(monthCellsData(currentDate, firstDayOfWeek, intervalCount));
-  });
-
   it('should work when growDirection type is vertical', () => {
     const currentDate = '2018-10-09 10:00';
     const firstDayOfWeek = undefined;
     const intervalCount = 2;
-    const currentViewType = 'day';
     const startDayHour = 10;
     const endDayHour = 11;
     const cellDuration = 30;
     expect(viewCellsData(
-      currentViewType, currentDate, firstDayOfWeek,
-      intervalCount, 2, undefined, startDayHour,
+      currentDate, firstDayOfWeek,
+      intervalCount, undefined, startDayHour,
       endDayHour, cellDuration,
     )).toEqual([
       [

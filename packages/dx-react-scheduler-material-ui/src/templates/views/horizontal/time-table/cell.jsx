@@ -72,7 +72,7 @@ CellBase.propTypes = {
   startDate: PropTypes.instanceOf(Date).isRequired,
   endDate: PropTypes.instanceOf(Date),
   today: PropTypes.bool,
-  otherMonth: PropTypes,
+  otherMonth: PropTypes.bool,
 };
 
 CellBase.defaultProps = {

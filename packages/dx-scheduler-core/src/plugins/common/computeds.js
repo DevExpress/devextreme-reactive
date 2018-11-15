@@ -36,6 +36,7 @@ export const timeScale = (
     : currentDate;
   const left = moment(startViewDate).startOf('hour').hour(startDayHour);
   const right = moment(startViewDate).startOf('hour').hour(endDayHour);
+
   while (left.isBefore(right)) {
     const startDate = left.toDate();
     left.add(cellDuration, 'minutes');
@@ -56,8 +57,8 @@ export const availableViews = (views, viewName) => {
 
 export const viewCellsData = (
   currentDate, firstDayOfWeek,
-  dayCount, excludedDays,
-  startDayHour, endDayHour, cellDuration,
+  dayCount, excludedDays = [],
+  startDayHour = 0, endDayHour = 24, cellDuration = 30,
 ) => {
   const days = dayScale(currentDate, firstDayOfWeek, dayCount, excludedDays);
   const times = timeScale(

@@ -35,6 +35,7 @@ const IconBase = ({
 
 IconBase.propTypes = {
   expanded: PropTypes.bool.isRequired,
+  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
 };
 

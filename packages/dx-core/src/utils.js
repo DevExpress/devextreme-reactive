@@ -40,3 +40,6 @@ export const createClickHandlers = (click, dblClick) => {
   }
   return events;
 };
+
+/* globals window:true */
+export const isEdgeBrowser = () => /Edge/.test(window.navigator.userAgent);

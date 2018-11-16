@@ -2,12 +2,12 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import prism from 'prismjs';
 import 'prismjs/components/prism-jsx';
+import { EmbeddedDemoContext } from '../context';
 
 export class SourceCode extends React.PureComponent {
   render() {
     const { themeName, sectionName, demoName } = this.props;
-    const { embeddedDemoOptions } = this.context;
-    const { demoSources } = embeddedDemoOptions;
+    const { demoSources } = this.context;
     return (
       <pre className="highlight language-jsx">
         <code
@@ -31,6 +31,4 @@ SourceCode.propTypes = {
   themeName: PropTypes.string.isRequired,
 };
 
-SourceCode.contextTypes = {
-  embeddedDemoOptions: PropTypes.object.isRequired,
-};
+SourceCode.contextType = EmbeddedDemoContext;

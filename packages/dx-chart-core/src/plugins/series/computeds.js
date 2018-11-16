@@ -108,6 +108,39 @@ export const pointAttributes = ({ size = DEFAULT_POINT_SIZE }) => {
   });
 };
 
+getBarPointTransformer.getTargetElement = ({
+  x, y, y1, width,
+}) => {
+  const height = Math.abs(y1 - y);
+  return {
+    x,
+    y,
+    d: `M0,0 ${width},0 ${width},${height} 0,${height}`,
+  };
+};
+getPiePointTransformer.getTargetElement = ({
+  x, y, innerRadius, outerRadius, startAngle, endAngle,
+}) => {
+  const center = arc()
+    .innerRadius(innerRadius)
+    .outerRadius(outerRadius)
+    .startAngle(startAngle)
+    .endAngle(endAngle)
+    .centroid();
+  return {
+    x: center[0] + x, y: center[1] + y, d: symbol().size([1 ** 2]).type(symbolCircle)(),
+  };
+};
+
+getAreaPointTransformer.getTargetElement = ({ x, y }) => {
+  const size = DEFAULT_POINT_SIZE; // TODO get user size
+  return {
+    x,
+    y,
+    d: symbol().size([size ** 2]).type(symbolCircle)(),
+  };
+};
+
 const createNewUniqueName = name => name.replace(/\d*$/, str => (str ? +str + 1 : 0));
 
 const addItem = (list, item) => (list.find(obj => obj.uniqueName === item.uniqueName)
@@ -159,6 +192,7 @@ const scalePoints = (series, scales) => {
   });
   return {
     ...rest,
+    getTargetElement: getPointTransformer.getTargetElement, // TODO: remove it when it is possible
     points: series.points.map(transform),
   };
 };

@@ -39,8 +39,8 @@ export class PluginBase extends React.PureComponent {
 }
 
 PluginBase.propTypes = {
-  [PLUGIN_HOST_CONTEXT]: PropTypes.any.isRequired,
-  [POSITION_CONTEXT]: PropTypes.any.isRequired,
+  [PLUGIN_HOST_CONTEXT]: PropTypes.object.isRequired,
+  [POSITION_CONTEXT]: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
   name: PropTypes.string,
   dependencies: PropTypes.arrayOf(PropTypes.shape({

@@ -51,8 +51,8 @@ class TemplateBase extends React.PureComponent {
 }
 
 TemplateBase.propTypes = {
-  [PLUGIN_HOST_CONTEXT]: PropTypes.any.isRequired,
-  [POSITION_CONTEXT]: PropTypes.any.isRequired,
+  [PLUGIN_HOST_CONTEXT]: PropTypes.object.isRequired,
+  [POSITION_CONTEXT]: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   predicate: PropTypes.func,
   children: PropTypes.oneOfType([

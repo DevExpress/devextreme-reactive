@@ -94,14 +94,13 @@ export class TemplatePlaceholderBase extends React.Component {
 TemplatePlaceholderBase.propTypes = {
   name: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
   params: PropTypes.object, // eslint-disable-line react/no-unused-prop-types
-  [PLUGIN_HOST_CONTEXT]: PropTypes.any,
-  [TEMPLATE_HOST_CONTEXT]: PropTypes.any,
+  [TEMPLATE_HOST_CONTEXT]: PropTypes.object,
+  [PLUGIN_HOST_CONTEXT]: PropTypes.object.isRequired,
   children: PropTypes.func,
 };
 
 TemplatePlaceholderBase.defaultProps = {
   [TEMPLATE_HOST_CONTEXT]: undefined,
-  [PLUGIN_HOST_CONTEXT]: undefined,
   name: undefined,
   params: undefined,
   children: undefined,

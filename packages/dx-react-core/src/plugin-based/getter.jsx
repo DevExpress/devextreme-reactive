@@ -69,6 +69,8 @@ GetterBase.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.any,
   computed: PropTypes.func,
+  [PLUGIN_HOST_CONTEXT]: PropTypes.object.isRequired,
+  [POSITION_CONTEXT]: PropTypes.func.isRequired,
 };
 
 GetterBase.defaultProps = {

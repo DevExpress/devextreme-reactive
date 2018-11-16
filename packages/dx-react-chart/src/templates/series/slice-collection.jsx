@@ -10,7 +10,6 @@ export class SliceCollection extends React.PureComponent {
       path, // Not used - see note above.
       coordinates,
       index,
-      uniqueName,
       style,
       getAnimatedStyle,
       scales,

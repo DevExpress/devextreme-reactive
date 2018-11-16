@@ -32,7 +32,7 @@ export const dSpline = line()
   .curve(curveMonotoneX);
 
 export const getPiePointTransformer = ({
-  innerRadius = 0, outerRadius = 1, argumentScale, valueScale, palette, points,
+  argumentScale, valueScale, points, innerRadius, outerRadius, palette,
 }) => {
   const x = Math.max(...argumentScale.range()) / 2;
   const y = Math.max(...valueScale.range()) / 2;

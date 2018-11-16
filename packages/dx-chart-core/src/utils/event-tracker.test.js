@@ -60,8 +60,12 @@ describe('EventTracker', () => {
     });
 
     it('should provide targets on successful hit tests', () => {
-      hitTest1.mockReturnValue({ tag: 'hit1' });
-      hitTest3.mockReturnValue({ tag: 'hit3' });
+      hitTest1.mockReturnValue({ });
+      hitTest3.mockReturnValue({
+        points: [
+          { index: 1, distance: 0.2 }, { index: 2, distance: 0.3 }, { index: 3, distance: 0.1 },
+        ],
+      });
       const func = call();
       func({
         clientX: 352,
@@ -69,14 +73,14 @@ describe('EventTracker', () => {
         currentTarget,
       });
 
-      expect(handler1).toBeCalledWith({
-        location: [192, 281],
-        targets: [{ series: 'Series 1', tag: 'hit1' }, { series: 'Series 3', tag: 'hit3' }],
-      });
-      expect(handler2).toBeCalledWith({
-        location: [192, 281],
-        targets: [{ series: 'Series 1', tag: 'hit1' }, { series: 'Series 3', tag: 'hit3' }],
-      });
+      const targets = [
+        { series: 'Series 3', point: 3, distance: 0.1 },
+        { series: 'Series 3', point: 1, distance: 0.2 },
+        { series: 'Series 3', point: 2, distance: 0.3 },
+        { series: 'Series 1', distance: 1 },
+      ];
+      expect(handler1).toBeCalledWith({ location: [192, 281], targets });
+      expect(handler2).toBeCalledWith({ location: [192, 281], targets });
     });
 
     it('should create hit testers lazily', () => {

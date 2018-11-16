@@ -153,6 +153,8 @@ getAreaPointTransformer.getTargetElement = ({ x, y }) => {
   };
 };
 
+getLinePointTransformer.getTargetElement = getAreaPointTransformer.getTargetElement;
+
 const createNewUniqueName = name => name.replace(/\d*$/, str => (str ? +str + 1 : 0));
 
 const addItem = (list, item) => (list.find(obj => obj.uniqueName === item.uniqueName)
@@ -196,15 +198,13 @@ export const addSeries = (series, data, palette, props) => {
 // TODO: Memoization is much needed here by the same reason as in "createPoints".
 // Make "scales" persistent first.
 const scalePoints = (series, scales) => {
-  const { getPointTransformer, ...rest } = series;
-  const transform = getPointTransformer({
+  const transform = series.getPointTransformer({
     ...series,
     argumentScale: scales[ARGUMENT_DOMAIN],
     valueScale: scales[getValueDomainName(series.axisName)],
   });
   return {
-    ...rest,
-    getTargetElement: getPointTransformer.getTargetElement, // TODO: remove it when it is possible
+    ...series,
     points: series.points.map(transform),
   };
 };

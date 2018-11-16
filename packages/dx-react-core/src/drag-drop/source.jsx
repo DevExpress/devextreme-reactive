@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { DragDropContext } from './provider';
+import { DragDropContext } from './context';
 import { Draggable } from '../draggable';
 
 export class DragSource extends React.Component {
@@ -10,7 +10,7 @@ export class DragSource extends React.Component {
   }
 
   render() {
-    const { dragDropProvider } = this.context;
+    const dragDropProvider = this.context;
     const {
       onStart, onUpdate, onEnd, payload, children,
     } = this.props;

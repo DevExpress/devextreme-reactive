@@ -2,8 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
 import { EventEmitter } from '@devexpress/dx-core';
-
-export const DragDropContext = React.createContext({ dragDropProvider: undefined });
+import { DragDropContext } from './context';
 
 class DragDropProviderCore {
   constructor() {
@@ -49,7 +48,7 @@ export class DragDropProvider extends React.Component {
   render() {
     const { children } = this.props;
     return (
-      <DragDropContext.Provider value={{ dragDropProvider: this.dragDropProvider }}>
+      <DragDropContext.Provider value={this.dragDropProvider}>
         {children}
       </DragDropContext.Provider>
     );

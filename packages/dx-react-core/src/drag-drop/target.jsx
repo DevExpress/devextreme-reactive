@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { findDOMNode } from 'react-dom';
 import * as PropTypes from 'prop-types';
-import { DragDropContext } from './provider';
+import { DragDropContext } from './context';
 
 const clamp = (value, min, max) => Math.max(Math.min(value, max), min);
 
@@ -16,7 +16,7 @@ export class DropTarget extends React.Component {
   }
 
   componentDidMount() {
-    const { dragDropProvider: { dragEmitter } } = this.context;
+    const { dragEmitter } = this.context;
     dragEmitter.subscribe(this.handleDrag);
   }
 
@@ -26,7 +26,7 @@ export class DropTarget extends React.Component {
   }
 
   componentWillUnmount() {
-    const { dragDropProvider: { dragEmitter } } = this.context;
+    const { dragEmitter } = this.context;
     dragEmitter.unsubscribe(this.handleDrag);
   }
 

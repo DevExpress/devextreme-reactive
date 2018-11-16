@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export const withContextToProps = (
+export const withPropsFromContext = (
   { Context: Context1, name: name1 }, { Context: Context2, name: name2 },
 ) => Component => (props) => {
   return (

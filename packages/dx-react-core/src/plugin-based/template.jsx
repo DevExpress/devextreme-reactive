@@ -4,8 +4,8 @@ import {
   PLUGIN_HOST_CONTEXT, POSITION_CONTEXT,
   RERENDER_TEMPLATE_EVENT, RERENDER_TEMPLATE_SCOPE_EVENT,
 } from './constants';
-import { PluginHostContext, PositionContext } from './context';
-import { withContextToProps } from '../utils/with-context';
+import { PluginHostContext, PositionContext } from './contexts';
+import { withPropsFromContext } from '../utils/with-context';
 
 let globalTemplateId = 0;
 class TemplateBase extends React.PureComponent {
@@ -66,7 +66,7 @@ TemplateBase.defaultProps = {
   children: undefined,
 };
 
-export const Template = withContextToProps({
+export const Template = withPropsFromContext({
   Context: PluginHostContext,
   name: PLUGIN_HOST_CONTEXT,
 }, {

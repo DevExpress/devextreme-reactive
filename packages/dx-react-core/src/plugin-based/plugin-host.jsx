@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import { PluginHost as PluginHostCore } from '@devexpress/dx-core';
 import { PluginIndexer } from './plugin-indexer';
 import { TemplatePlaceholder } from './template-placeholder';
-import { PluginHostContext } from './context';
+import { PluginHostContext } from './contexts';
 
 export class PluginHost extends React.PureComponent {
   constructor(props) {

@@ -4,13 +4,14 @@ import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 
 import { PluginIndexer } from './plugin-indexer';
-import { PositionContext } from './context';
+import { PositionContext } from './contexts';
 
+// eslint-disable-next-line react/prefer-stateless-function
 class TestWrapper extends React.Component {
   render() {
     return <Test position={this.context} />;
   }
-};
+}
 TestWrapper.contextType = PositionContext;
 
 const Test = () => null;

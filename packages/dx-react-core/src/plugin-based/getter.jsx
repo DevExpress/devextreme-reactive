@@ -6,8 +6,8 @@ import {
   getAvailableActions,
 } from './helpers';
 import { UPDATE_CONNECTION_EVENT, PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from './constants';
-import { withContextToProps } from '../utils/with-context';
-import { PluginHostContext, PositionContext } from './context';
+import { withPropsFromContext } from '../utils/with-context';
+import { PluginHostContext, PositionContext } from './contexts';
 
 class GetterBase extends React.PureComponent {
   constructor(props) {
@@ -78,7 +78,7 @@ GetterBase.defaultProps = {
   computed: undefined,
 };
 
-export const Getter = withContextToProps({
+export const Getter = withPropsFromContext({
   Context: PluginHostContext,
   name: PLUGIN_HOST_CONTEXT,
 }, {

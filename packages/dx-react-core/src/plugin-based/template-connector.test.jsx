@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { UPDATE_CONNECTION_EVENT } from './constants';
 import { TemplateConnector } from './template-connector';
-import { PluginHostContext } from './context';
+import { PluginHostContext } from './contexts';
 
 describe('TemplateConnector', () => {
   let resetConsole;

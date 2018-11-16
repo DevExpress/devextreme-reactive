@@ -6,7 +6,7 @@ import {
   getAvailableGetters,
   getAvailableActions,
 } from './helpers';
-import { PluginHostContext } from './context';
+import { PluginHostContext } from './contexts';
 
 export class TemplateConnector extends React.Component {
   constructor(props, context) {

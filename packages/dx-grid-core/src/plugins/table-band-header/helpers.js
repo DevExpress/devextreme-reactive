@@ -3,6 +3,7 @@ import {
 } from './constants';
 import { TABLE_HEADING_TYPE } from '../table-header-row/constants';
 import { TABLE_DATA_TYPE } from '../table/constants';
+import { findChainByColumnIndex } from '../table-header-row/helpers';
 
 export const isBandedTableRow = tableRow => (tableRow.type === TABLE_BAND_TYPE);
 export const isBandedOrHeaderRow = tableRow => isBandedTableRow(tableRow)
@@ -33,27 +34,17 @@ export const getColumnMeta = (
 
 export const getColSpan = (
   currentColumnIndex, tableColumns, columnBands,
-  currentRowLevel, currentColumnTitle, isCurrentColumnFixed,
-) => {
-  let isOneChain = true;
-  return tableColumns.slice(currentColumnIndex + 1)
-    .reduce((acc, tableColumn) => {
-      if (tableColumn.type !== TABLE_DATA_TYPE) return acc;
-      const columnMeta = getColumnMeta(tableColumn.column.name, columnBands, currentRowLevel);
-      if (isCurrentColumnFixed && !tableColumn.fixed) {
-        isOneChain = false;
-      }
-      if (isOneChain && columnMeta.title === currentColumnTitle) {
-        return acc + 1;
-      }
-      isOneChain = false;
-      return acc;
-    }, 1);
-};
+  currentRowLevel, currentColumnTitle, isCurrentColumnFixed, tableHeaderColumnChains,
+) => (
+  findChainByColumnIndex(
+    tableHeaderColumnChains[currentRowLevel],
+    currentColumnIndex,
+  ).columns.length
+);
 
 export const getBandComponent = (
   { tableColumn: currentTableColumn, tableRow, rowSpan },
-  tableHeaderRows, tableColumns, columnBands,
+  tableHeaderRows, tableColumns, columnBands, tableHeaderColumnChains,
 ) => {
   if (rowSpan) return { type: BAND_DUPLICATE_RENDER, payload: null };
 
@@ -93,7 +84,7 @@ export const getBandComponent = (
       currentRowLevel,
     );
     if (prevColumnMeta.title === currentColumnMeta.title
-      && (!isPrevColumnFixed || (isPrevColumnFixed && isCurrentColumnFixed))) {
+      && ((!isPrevColumnFixed && !isCurrentColumnFixed) || (isPrevColumnFixed && isCurrentColumnFixed))) {
       return { type: null, payload: null };
     }
   }
@@ -108,6 +99,7 @@ export const getBandComponent = (
         currentRowLevel,
         currentColumnMeta.title,
         isCurrentColumnFixed,
+        tableHeaderColumnChains,
       ),
       value: currentColumnMeta.title,
       column: currentColumnMeta,

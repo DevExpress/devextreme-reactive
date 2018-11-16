@@ -177,8 +177,8 @@ describe('Table', () => {
     ));
 
     const valueFormatterTemplatePlaceholder = tree
-      .find('TemplatePlaceholder').at(0)
-      .findWhere(node => node.prop('name') === 'valueFormatter');
+      .find('TemplatePlaceholderBase')
+      .findWhere(node => node.prop('name') === 'valueFormatter').last();
 
     expect(valueFormatterTemplatePlaceholder.prop('params'))
       .toMatchObject({

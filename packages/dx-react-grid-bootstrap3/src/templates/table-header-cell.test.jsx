@@ -34,7 +34,7 @@ describe('TableHeaderCell', () => {
   });
 
   it('should have correct styles when dragging is allowed', () => {
-    const tree = shallow((
+    const tree = mount((
       <DragDropProvider>
         <TableHeaderCell
           column={{ name: 'a' }}
@@ -43,7 +43,7 @@ describe('TableHeaderCell', () => {
       </DragDropProvider>
     ));
 
-    expect(tree.dive().find('th').prop('style'))
+    expect(tree.find('th').prop('style'))
       .toMatchObject({
         userSelect: 'none',
         MozUserSelect: 'none',

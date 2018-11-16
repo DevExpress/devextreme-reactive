@@ -6,7 +6,7 @@ import { withStates } from '../../utils/with-states';
 class RawPoint extends React.PureComponent {
   render() {
     const {
-      argument, value, index, x, y, color, ...restProps
+      argument, value, seriesIndex, index, x, y, color, ...restProps
     } = this.props;
     // *d* attribute is calculated during points scaling.
     // TODO: Do it here - d={path().size(size).type(type)()}

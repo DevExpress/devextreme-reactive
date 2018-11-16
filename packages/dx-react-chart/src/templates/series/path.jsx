@@ -6,6 +6,7 @@ import { withStates } from '../../utils/with-states';
 class RawPath extends React.PureComponent {
   render() {
     const {
+      pointComponent,
       path,
       coordinates,
       color,

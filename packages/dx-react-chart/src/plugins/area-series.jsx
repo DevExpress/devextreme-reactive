@@ -9,7 +9,6 @@ import { Area as Path } from '../templates/series/area';
 export const AreaSeries = declareSeries('AreaSeries', {
   components: { Path },
   path,
-  isStartedFromZero: true,
   getPointTransformer,
   createHitTester,
 });

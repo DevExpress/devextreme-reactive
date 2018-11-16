@@ -1,5 +1,5 @@
 import {
-  getAreaPointTransformer as getPointTransformer,
+  getLinePointTransformer as getPointTransformer,
   createScatterHitTester as createHitTester,
 } from '@devexpress/dx-chart-core';
 import { declareSeries } from '../utils';

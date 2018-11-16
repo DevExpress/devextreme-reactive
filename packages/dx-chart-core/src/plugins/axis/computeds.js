@@ -1,4 +1,4 @@
-import { getWidth } from '../../utils/scale';
+import { fixOffset } from '../../utils/scale';
 import {
   LEFT, BOTTOM, MIDDLE, END, START, ARGUMENT_DOMAIN,
 } from '../../constants';
@@ -8,14 +8,8 @@ const isHorizontal = name => name === ARGUMENT_DOMAIN;
 
 const getTicks = scale => (scale.ticks ? scale.ticks() : scale.domain());
 
-// Same code can be found in series coordinates calculation.
-const fixScaleOffset = (scale) => {
-  const offset = getWidth(scale) / 2;
-  return value => scale(value) + offset;
-};
-
 const createTicks = (scale, callback) => {
-  const fixedScale = fixScaleOffset(scale);
+  const fixedScale = fixOffset(scale);
   return getTicks(scale).map((tick, index) => callback(fixedScale(tick), String(index), tick));
 };
 

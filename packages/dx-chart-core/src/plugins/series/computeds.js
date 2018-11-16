@@ -9,7 +9,7 @@ import {
 } from 'd3-shape';
 import { scaleOrdinal } from 'd3-scale';
 import { ARGUMENT_DOMAIN } from '../../constants';
-import { getWidth, getValueDomainName } from '../../utils/scale';
+import { getWidth, getValueDomainName, fixOffset } from '../../utils/scale';
 
 const getX = ({ x }) => x;
 const getY = ({ y }) => y;
@@ -59,16 +59,26 @@ export const getPiePointTransformer = ({
   };
 };
 
-export const getAreaPointTransformer = ({ argumentScale, valueScale }) => {
-  const y1 = valueScale(0);
-  const offset = getWidth(argumentScale) / 2;
+export const getLinePointTransformer = ({ argumentScale, valueScale }) => {
+  const fixedArgumentScale = fixOffset(argumentScale);
   return point => ({
     ...point,
-    x: argumentScale(point.argument) + offset,
+    x: fixedArgumentScale(point.argument),
     y: valueScale(point.value),
-    y1,
   });
 };
+
+export const getAreaPointTransformer = (series) => {
+  const transform = getLinePointTransformer(series);
+  const y1 = series.valueScale(0);
+  return (point) => {
+    const ret = transform(point);
+    ret.y1 = y1;
+    return ret;
+  };
+};
+// Used for domain calculation and stacking.
+getAreaPointTransformer.isStartedFromZero = true;
 
 export const getBarPointTransformer = ({
   argumentScale, valueScale, barWidth,
@@ -85,6 +95,8 @@ export const getBarPointTransformer = ({
     width,
   });
 };
+// Used for domain calculation and stacking.
+getBarPointTransformer.isStartedFromZero = true;
 // Used for Bar grouping.
 getBarPointTransformer.isBroad = true;
 

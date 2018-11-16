@@ -5,7 +5,7 @@ import {
   getAvailableActions,
 } from './helpers';
 import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from './constants';
-import { withPropsFromContext } from '../utils/with-context';
+import { withPropsFromContext } from '../utils/with-props-from-context';
 import { PluginHostContext, PositionContext } from './contexts';
 
 class ActionBase extends React.PureComponent {

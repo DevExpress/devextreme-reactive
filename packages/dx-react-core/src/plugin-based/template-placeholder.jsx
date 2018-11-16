@@ -5,7 +5,7 @@ import {
   PLUGIN_HOST_CONTEXT, RERENDER_TEMPLATE_EVENT,
   TEMPLATE_HOST_CONTEXT, RERENDER_TEMPLATE_SCOPE_EVENT,
 } from './constants';
-import { withPropsFromContext } from '../utils/with-context';
+import { withPropsFromContext } from '../utils/with-props-from-context';
 import { PluginHostContext, TemplateHostContext } from './contexts';
 
 export class TemplatePlaceholderBase extends React.Component {

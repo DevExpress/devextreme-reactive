@@ -4,8 +4,15 @@ export const tableRowsWithHeading = headerRows => [
   { key: TABLE_HEADING_TYPE.toString(), type: TABLE_HEADING_TYPE },
   ...headerRows];
 
-export const tableHeaderColumnChains = (tableHeaderRows, tableColumns) => tableHeaderRows
-  .map(() => [{
-    start: 0,
-    columns: tableColumns,
-  }]);
+export const tableHeaderColumnChainsWithHeading = (
+  headerColumnChains, tableHeaderRows, tableColumns,
+) => [
+  ...tableHeaderRows
+    .filter(row => row.type === TABLE_HEADING_TYPE)
+    .map(() => [{
+      start: 0,
+      columns: tableColumns,
+    }]),
+
+  ...headerColumnChains,
+];

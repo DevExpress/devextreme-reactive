@@ -25,6 +25,7 @@ const RowPlaceholder = props => <TemplatePlaceholder name="tableRow" params={pro
 const CellPlaceholder = props => <TemplatePlaceholder name="tableCell" params={props} />;
 
 const tableHeaderRows = [];
+const tableHeaderColumnChains = [];
 const tableBodyRowsComputed = ({ rows, getRowId }) => tableRowsWithDataRows(rows, getRowId);
 const tableFooterRows = [];
 
@@ -73,6 +74,7 @@ export class Table extends React.PureComponent {
         <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
         <Getter name="tableFooterRows" value={tableFooterRows} />
         <Getter name="tableColumns" computed={tableColumnsComputed} />
+        <Getter name="tableHeaderColumnChains" value={tableHeaderColumnChains} />
         <Getter name="getTableCellColSpan" value={tableCellColSpanGetter} />
 
         <Template name="body">

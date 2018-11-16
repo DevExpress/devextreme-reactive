@@ -84,7 +84,8 @@ export const getBandComponent = (
       currentRowLevel,
     );
     if (prevColumnMeta.title === currentColumnMeta.title
-      && ((!isPrevColumnFixed && !isCurrentColumnFixed) || (isPrevColumnFixed && isCurrentColumnFixed))) {
+      && ((!isPrevColumnFixed && !isCurrentColumnFixed)
+        || (isPrevColumnFixed && isCurrentColumnFixed))) {
       return { type: null, payload: null };
     }
   }

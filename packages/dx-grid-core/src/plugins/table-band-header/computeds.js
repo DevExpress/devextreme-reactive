@@ -25,7 +25,7 @@ export const tableRowsWithBands = (tableHeaderRows, columnBands, tableColumns) =
 };
 
 export const tableHeaderColumnChainsWithBands = (
-  tableHeaderColumnChains, tableColumns, tableHeaderRows, bands,
+  tableHeaderColumnChains, tableHeaderRows, tableColumns, bands,
 ) => {
   const rawBandChains = tableHeaderRows
     .filter(row => row.type === TABLE_BAND_TYPE)

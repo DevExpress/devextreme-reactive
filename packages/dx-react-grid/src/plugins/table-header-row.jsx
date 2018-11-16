@@ -7,7 +7,7 @@ import { getMessagesFormatter } from '@devexpress/dx-core';
 import {
   getColumnSortingDirection,
   tableRowsWithHeading,
-  tableHeaderColumnChains,
+  tableHeaderColumnChainsWithHeading,
   isHeadingTableCell,
   isHeadingTableRow,
   TABLE_DATA_TYPE,
@@ -16,8 +16,8 @@ import {
 
 const tableHeaderRowsComputed = ({ tableHeaderRows }) => tableRowsWithHeading(tableHeaderRows);
 const tableHeaderColumnChainsComputed = ({
-  tableHeaderRows, tableColumns,
-}) => tableHeaderColumnChains(tableHeaderRows, tableColumns);
+  tableHeaderColumnChains, tableHeaderRows, tableColumns,
+}) => tableHeaderColumnChainsWithHeading(tableHeaderColumnChains, tableHeaderRows, tableColumns);
 
 export class TableHeaderRow extends React.PureComponent {
   render() {

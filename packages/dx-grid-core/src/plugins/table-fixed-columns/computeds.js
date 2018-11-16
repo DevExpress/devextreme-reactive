@@ -32,7 +32,6 @@ export const tableHeaderColumnChainsWithFixed = (tableHeaderColumnChains, tableC
   const extendChainProps = column => ({
     fixed: column.fixed,
   });
-
   return splitHeaderColumnChains(
     tableHeaderColumnChains,
     tableColumns,

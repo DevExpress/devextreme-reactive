@@ -2,6 +2,8 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { PluginIndexer } from './plugin-indexer';
 import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from './constants';
+import { PluginHostContext, PositionContext } from './context';
+import { withContextToProps } from '../utils/with-context';
 
 export class PluginBase extends React.PureComponent {
   componentDidMount() {
@@ -51,3 +53,11 @@ PluginBase.defaultProps = {
   name: '',
   dependencies: [],
 };
+
+export const Plugin = withContextToProps({
+  Context: PluginHostContext,
+  name: PLUGIN_HOST_CONTEXT,
+}, {
+  Context: PositionContext,
+  name: POSITION_CONTEXT,
+})(PluginBase);

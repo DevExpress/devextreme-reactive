@@ -1,31 +1,54 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { HOVERED, SELECTED } from '@devexpress/dx-chart-core';
+import {
+  dBar, getAreaAnimationStyle, HOVERED, SELECTED,
+} from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
 
 class RawBar extends React.PureComponent {
   render() {
     const {
-      argument, value, index, seriesIndex, barWidth, color, ...restProps
+      x, width, y, y1,
+      argument, value, seriesIndex, index, state,
+      color,
+      style, scales, getAnimatedStyle,
+      ...restProps
     } = this.props;
+    const attributes = dBar({
+      x, width, y, y1,
+    });
     return (
-      <rect fill={color} {...restProps} />
+      <rect
+        {...attributes}
+        fill={color}
+        style={getAnimatedStyle(style, getAreaAnimationStyle, scales)}
+        {...restProps}
+      />
     );
   }
 }
 
 RawBar.propTypes = {
-  x: PropTypes.number.isRequired,
-  y: PropTypes.number.isRequired,
-  width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
+  argument: PropTypes.any.isRequired,
   value: PropTypes.number.isRequired,
+  x: PropTypes.number.isRequired,
+  width: PropTypes.number.isRequired,
+  y: PropTypes.number.isRequired,
+  y1: PropTypes.number.isRequired,
+  seriesIndex: PropTypes.number.isRequired,
+  index: PropTypes.number.isRequired,
+  state: PropTypes.string,
   color: PropTypes.string,
+  style: PropTypes.object,
+  scales: PropTypes.object.isRequired,
+  getAnimatedStyle: PropTypes.func.isRequired,
 };
 
 RawBar.defaultProps = {
+  state: undefined,
   color: undefined,
+  style: undefined,
 };
 
 export const Bar = withStates({

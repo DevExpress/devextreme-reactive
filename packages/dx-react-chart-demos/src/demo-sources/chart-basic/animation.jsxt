@@ -11,11 +11,12 @@ import {
 import { Scale, Animation } from '@devexpress/dx-react-chart';
 
 const Point = (props) => {
-  const {
-    style, index, ...restProps
-  } = props;
+  const { style, ...restProps } = props;
   return (
-    <BarSeries.Point style={{ ...style, animationDuration: `${(index + 1) * 0.3}s` }} {...restProps} />
+    <BarSeries.Point
+      style={{ ...style, animationDuration: `${(restProps.index + 1) * 0.3}s` }}
+      {...restProps}
+    />
   );
 };
 

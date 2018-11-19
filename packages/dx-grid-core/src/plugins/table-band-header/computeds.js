@@ -36,10 +36,10 @@ export const tableHeaderColumnChainsWithBands = (
     }]);
 
   let currentBand = null;
-  const shouldSplitChain = (chain, column) => {
-    if (!chain) return true;
-    currentBand = getColumnMeta(column.column.name, bands, chain.rowIndex);
-    return chain.bandTitle !== currentBand.title;
+  const shouldSplitChain = (chain, column, rowIndex) => {
+    const columnName = column.column ? column.column.name : undefined;
+    currentBand = getColumnMeta(columnName, bands, rowIndex);
+    return !chain || chain.bandTitle !== currentBand.title;
   };
   const extendChainProps = () => ({
     bandTitle: (currentBand || {}).title,

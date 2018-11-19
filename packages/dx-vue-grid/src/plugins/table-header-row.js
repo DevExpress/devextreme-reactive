@@ -7,6 +7,7 @@ import {
 } from '@devexpress/dx-vue-core';
 import {
   tableRowsWithHeading,
+  tableHeaderColumnChainsWithHeading,
   isHeadingTableCell,
   isHeadingTableRow,
   getColumnSortingDirection,
@@ -14,6 +15,9 @@ import {
 } from '@devexpress/dx-grid-core';
 
 const tableHeaderRowsComputed = ({ tableHeaderRows }) => tableRowsWithHeading(tableHeaderRows);
+const tableHeaderColumnChainsComputed = ({
+  tableHeaderColumnChains, tableHeaderRows, tableColumns,
+}) => tableHeaderColumnChainsWithHeading(tableHeaderColumnChains, tableHeaderRows, tableColumns);
 
 const pluginDependencies = [
   { name: 'DxTable' },
@@ -49,6 +53,7 @@ export const DxTableHeaderRow = {
         dependencies={pluginDependencies}
       >
         <DxGetter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
+        <DxGetter name="tableHeaderColumnChains" computed={tableHeaderColumnChainsComputed} />
 
         <DxTemplate
           name="tableCell"

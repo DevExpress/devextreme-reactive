@@ -10,6 +10,7 @@ import {
   getFixedColumnKeys,
   tableColumnsWithFixed,
   tableHeaderRowsWithFixed,
+  tableHeaderColumnChainsWithFixed,
   isFixedTableRow,
 } from '@devexpress/dx-grid-core';
 import { TableFixedColumns } from './table-fixed-columns';
@@ -19,6 +20,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   getFixedColumnKeys: jest.fn(),
   tableColumnsWithFixed: jest.fn(),
   tableHeaderRowsWithFixed: jest.fn(),
+  tableHeaderColumnChainsWithFixed: jest.fn(),
   isFixedTableRow: jest.fn(),
 }));
 
@@ -48,6 +50,7 @@ describe('TableFixedColumns', () => {
     getFixedColumnKeys.mockImplementation(() => []);
     tableColumnsWithFixed.mockImplementation(() => 'tableColumnsWithFixed');
     tableHeaderRowsWithFixed.mockImplementation(() => 'tableHeaderRowsWithFixed');
+    tableHeaderColumnChainsWithFixed.mockImplementation(() => 'tableHeaderColumnChainsWithFixed');
     isFixedTableRow.mockImplementation(() => false);
   });
   afterEach(() => {
@@ -93,15 +96,23 @@ describe('TableFixedColumns', () => {
   });
 
   it('can render fixed cells', () => {
-    tableColumnsWithFixed.mockImplementation(() => [
-      { column: { name: 'a', xx: 'yyy' }, fixed: FIXED_COLUMN_LEFT_SIDE },
+    const columns = [
+      { key: 'a', column: { name: 'a', xx: 'yyy' }, fixed: FIXED_COLUMN_LEFT_SIDE },
+      { key: 'b', column: { name: 'b' }, fixed: FIXED_COLUMN_LEFT_SIDE },
+    ];
+    tableColumnsWithFixed.mockImplementation(() => [...columns, {}]);
+    tableHeaderColumnChainsWithFixed.mockImplementation(() => [
+      [
+        { start: 0, fixed: FIXED_COLUMN_LEFT_SIDE, columns },
+        { start: 2, columns: [{}] },
+      ],
     ]);
-    const leftColumns = ['a'];
+    const leftColumns = ['a', 'b'];
     const deps = {
       template: {
         tableCell: {
           tableRow: { rowId: 1, row: 'row' },
-          tableColumn: { column: { name: 'column' }, fixed: FIXED_COLUMN_LEFT_SIDE },
+          tableColumn: columns[1],
         },
       },
     };
@@ -153,14 +164,20 @@ describe('TableFixedColumns', () => {
   });
 
   it('takes column widths into account', () => {
-    getFixedColumnKeys.mockImplementation(() => ['a', 'b']);
-    tableColumnsWithFixed.mockImplementation(() => [
+    const columns = [
       {
         key: 'a', column: { name: 'a' }, type: TABLE_DATA_TYPE, fixed: FIXED_COLUMN_LEFT_SIDE,
       },
       {
         key: 'b', column: { name: 'b' }, type: TABLE_DATA_TYPE, fixed: FIXED_COLUMN_LEFT_SIDE,
       },
+    ];
+    getFixedColumnKeys.mockImplementation(() => ['a', 'b']);
+    tableColumnsWithFixed.mockImplementation(() => columns);
+    tableHeaderColumnChainsWithFixed.mockImplementation(() => [
+      [
+        { start: 0, fixed: FIXED_COLUMN_LEFT_SIDE, columns },
+      ],
     ]);
     isFixedTableRow.mockImplementation(tableRow => tableRow.type === 'fixed');
     const leftColumns = ['a', 'b'];
@@ -194,14 +211,20 @@ describe('TableFixedColumns', () => {
   });
 
   it('should render right columns in correct order', () => {
-    getFixedColumnKeys.mockImplementation(() => ['a', 'b']);
-    tableColumnsWithFixed.mockImplementation(() => [
+    const columns = [
       {
         key: 'a', column: { name: 'a' }, type: TABLE_DATA_TYPE, fixed: FIXED_COLUMN_RIGHT_SIDE,
       },
       {
         key: 'b', column: { name: 'b' }, type: TABLE_DATA_TYPE, fixed: FIXED_COLUMN_RIGHT_SIDE,
       },
+    ];
+    getFixedColumnKeys.mockImplementation(() => ['a', 'b']);
+    tableColumnsWithFixed.mockImplementation(() => columns);
+    tableHeaderColumnChainsWithFixed.mockImplementation(() => [
+      [
+        { start: 0, fixed: FIXED_COLUMN_LEFT_SIDE, columns },
+      ],
     ]);
     isFixedTableRow.mockImplementation(tableRow => tableRow.type === 'fixed');
     const rightColumns = ['a', 'b'];

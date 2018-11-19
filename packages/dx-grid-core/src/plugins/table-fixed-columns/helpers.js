@@ -37,8 +37,9 @@ export const calculateFixedColumnProps = (
   const fixedIndex = targetArray.indexOf(tableColumn.key);
   const columnChain = findChainByColumnIndex(tableHeaderColumnChains[0], index);
 
-  const showLeftDivider = columnChain.start === index;
-  const showRightDivider = columnChain.start + columnChain.columns.length - 1 === index;
+  const showLeftDivider = columnChain.start === index && index !== 0;
+  const showRightDivider = columnChain.start + columnChain.columns.length - 1 === index
+    && index < tableColumns.length - 1;
 
   const position = calculatePosition(targetArray, fixedIndex, tableColumnDimensions);
 

@@ -1,12 +1,13 @@
 import { mount } from '@vue/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
 import { DxPluginHost } from '@devexpress/dx-vue-core';
-import { tableRowsWithBands } from '@devexpress/dx-grid-core';
+import { tableRowsWithBands, tableHeaderColumnChainsWithBands } from '@devexpress/dx-grid-core';
 import { DxTableBandHeader } from './table-band-header';
 import { PluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableRowsWithBands: jest.fn(),
+  tableHeaderColumnChainsWithBands: jest.fn(),
   isHeadingTableCell: jest.fn(),
   isBandedTableRow: jest.fn(),
   isBandedOrHeaderRow: jest.fn(),
@@ -15,6 +16,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
 const defaultDeps = {
   getter: {
     tableHeaderRows: [],
+    tableHeaderColumnChainsWithBands: [],
   },
   plugins: ['DxTable', 'DxTableHeaderRow'],
 };
@@ -40,6 +42,7 @@ describe('DxTableBandHeader', () => {
 
   beforeEach(() => {
     tableRowsWithBands.mockImplementation(() => 'tableRowsWithBands');
+    tableHeaderColumnChainsWithBands.mockImplementation(() => 'tableHeaderColumnChainsWithBands');
   });
   afterEach(() => {
     jest.resetAllMocks();

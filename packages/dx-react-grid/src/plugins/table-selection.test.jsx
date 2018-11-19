@@ -5,6 +5,7 @@ import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-c
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithSelection,
+  tableHeaderColumnChainsWithSelection,
   isSelectTableCell,
   isSelectAllTableCell,
   isDataTableRow,
@@ -13,6 +14,7 @@ import { TableSelection } from './table-selection';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableColumnsWithSelection: jest.fn(),
+  tableHeaderColumnChainsWithSelection: jest.fn(),
   isSelectTableCell: jest.fn(),
   isSelectAllTableCell: jest.fn(),
   isDataTableRow: jest.fn(),
@@ -57,6 +59,9 @@ describe('Table Selection', () => {
 
   beforeEach(() => {
     tableColumnsWithSelection.mockImplementation(() => 'tableColumnsWithSelection');
+    tableHeaderColumnChainsWithSelection.mockImplementation(() => (
+      'tableHeaderColumnChainsWithSelection'
+    ));
     isSelectTableCell.mockImplementation(() => false);
     isSelectAllTableCell.mockImplementation(() => false);
     isDataTableRow.mockImplementation(() => false);

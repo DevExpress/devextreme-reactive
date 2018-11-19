@@ -7,6 +7,7 @@ import {
 import {
   TABLE_SELECT_TYPE,
   tableColumnsWithSelection,
+  tableHeaderColumnChainsWithSelection,
   isSelectTableCell,
   isSelectAllTableCell,
   isDataTableRow,
@@ -28,6 +29,9 @@ export class TableSelection extends React.PureComponent {
     const tableColumnsComputed = (
       { tableColumns },
     ) => tableColumnsWithSelection(tableColumns, selectionColumnWidth);
+    const tableColumnChainsComputed = (
+      { tableHeaderColumnChains, tableColumns },
+    ) => tableHeaderColumnChainsWithSelection(tableHeaderColumnChains, tableColumns);
 
     return (
       <Plugin
@@ -40,6 +44,9 @@ export class TableSelection extends React.PureComponent {
       >
         {showSelectionColumn && (
           <Getter name="tableColumns" computed={tableColumnsComputed} />
+        )}
+        {showSelectionColumn && (
+          <Getter name="tableHeaderColumnChains" computed={tableColumnChainsComputed} />
         )}
 
         {(showSelectionColumn && showSelectAll) && (

@@ -16,24 +16,24 @@ const labelOffset = 10;
 const owner = 'facebook';
 const repository = 'react';
 
-const getPath = (x, y, width, height) => `M ${x} ${height + y}
-   L ${width + x} ${height + y}
+const getPath = (x, width, y, y1) => `M ${x} ${y1}
+   L ${width + x} ${y1}
    L ${width + x} ${y + 30}
-   L ${(width / 2) + x} ${y}
+   L ${x + width / 2} ${y}
    L ${x} ${y + 30}
    Z`;
 
 const BarWithLabel = (props) => {
   const {
-    x, y, width, height, color, value, style,
+    x, width, y, y1, color, value, style,
   } = props;
 
   return (
     <React.Fragment>
-      <path d={getPath(x, y, width, height)} fill={color} style={style} />
+      <path d={getPath(x, width, y, y1)} fill={color} style={style} />
       <Chart.Label
-        x={x + (width / 2)}
-        y={y + (height / 2)}
+        x={x + width / 2}
+        y={(y + y1) / 2}
         dominantBaseline="middle"
         textAnchor="middle"
         style={{ fill: '#BBDEFB' }}
@@ -71,7 +71,6 @@ export default class Demo extends React.PureComponent {
             data: data.slice(0, 8),
           });
         })
-
         .catch(() => this.setState({ data: false }));
     }
   }

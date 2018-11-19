@@ -12,16 +12,36 @@ const getBodyColor = () => {
   return backgroundColor;
 };
 
-export const Root = ({ children, className, ...restProps }) => (
-  <div
-    className={classNames('d-flex flex-column position-relative', className)}
-    {...restProps}
-  >
-    <BodyColorContext.Provider value={getBodyColor()}>
-      {children}
-    </BodyColorContext.Provider>
-  </div>
-);
+export class Root extends React.PureComponent {
+  constructor() {
+    super();
+
+    this.state = {
+      backgroundColor: 'white',
+    };
+  }
+
+  componentDidMount() {
+    this.setState({
+      backgroundColor: getBodyColor(),
+    });
+  }
+
+  render() {
+    const { children, className, ...restProps } = this.props;
+    const { backgroundColor } = this.state;
+    return (
+      <div
+        className={classNames('d-flex flex-column position-relative', className)}
+        {...restProps}
+      >
+        <BodyColorContext.Provider value={backgroundColor}>
+          {children}
+        </BodyColorContext.Provider>
+      </div>
+    );
+  }
+}
 
 Root.propTypes = {
   className: PropTypes.string,

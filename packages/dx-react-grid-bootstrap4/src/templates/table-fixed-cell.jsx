@@ -1,24 +1,9 @@
-/* globals document:true window:true */
-
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { BodyColorContext } from './layout';
 
 export class FixedCell extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = { backgroundColor: 'white' };
-  }
-
-  componentDidMount() {
-    const { backgroundColor: stateBackgroundColor } = this.state;
-    const body = document.getElementsByTagName('body')[0];
-    const { backgroundColor } = window.getComputedStyle(body);
-    if (stateBackgroundColor !== backgroundColor) {
-      this.setState({ backgroundColor });
-    }
-  }
-
   render() {
     const {
       component: CellPlaceholder,
@@ -30,7 +15,7 @@ export class FixedCell extends React.PureComponent {
       position,
       ...restProps
     } = this.props;
-    const { backgroundColor } = this.state;
+    const backgroundColor = this.context;
 
     return (
       <CellPlaceholder
@@ -50,6 +35,8 @@ export class FixedCell extends React.PureComponent {
     );
   }
 }
+
+FixedCell.contextType = BodyColorContext;
 
 FixedCell.propTypes = {
   className: PropTypes.string,

@@ -1,37 +1,15 @@
-/* globals document:true window:true */
-
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { BodyColorContext } from './layout';
 
 export class Table extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
-      backgroundColor: 'white',
-    };
-  }
-
-  componentDidMount() {
-    this.checkStyles();
-  }
-
-  checkStyles() {
-    const body = document.getElementsByTagName('body')[0];
-    const { backgroundColor } = this.state;
-    const { backgroundColor: bodyBackgroundColor } = window.getComputedStyle(body);
-
-    if (backgroundColor !== bodyBackgroundColor) {
-      this.setState({ backgroundColor: bodyBackgroundColor });
-    }
-  }
-
   render() {
     const {
       children, use, style, className, ...restProps
     } = this.props;
-    const { backgroundColor } = this.state;
+    const backgroundColor = this.context;
+
     return (
       <table
         ref={(node) => { this.node = node; }}
@@ -54,6 +32,8 @@ export class Table extends React.Component {
     );
   }
 }
+
+Table.contextType = BodyColorContext;
 
 Table.propTypes = {
   use: PropTypes.oneOf(['head', 'foot']),

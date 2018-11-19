@@ -17,12 +17,12 @@ Import the plugins listed above to create a Chart with tooltip.
 
 ### Tooltip in Uncontrolled Mode
 
-In uncontrolled mode, add the `Tooltip` plugin to the chart to enable appears the tooltip on hover points.
+In uncontrolled mode, add the `Tooltip` plugin to the chart to enable tooltip showing for hovered points.
 
 .embedded-demo({ "path": "tooltip/uncontrolled", "showThemeSelector": true })
 
 ### Tooltip in Controlled Mode
 
-In controlled mode, specify in the `Tooltip` plugin's `targetItem` property and handle the `onTargetItemChange` event to control appears of the tooltip externally.
+In controlled mode, specify in the `Tooltip` plugin's `targetItem` property and handle the `onTargetItemChange` event to control tooltip showing externally.
 
 .embedded-demo({ "path": "tooltip/controlled", "showThemeSelector": true })

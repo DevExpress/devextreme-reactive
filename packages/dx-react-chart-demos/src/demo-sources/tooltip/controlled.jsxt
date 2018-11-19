@@ -29,7 +29,7 @@ export default class Demo extends React.PureComponent {
       targetItem: undefined,
     };
 
-    this.targetItemChange = targetItem => this.setState({ targetItem });
+    this.changeTargetItem = targetItem => this.setState({ targetItem });
   }
 
   render() {
@@ -55,7 +55,7 @@ export default class Demo extends React.PureComponent {
           <Animation />
           <Scale />
           <EventTracker />
-          <Tooltip targetItem={targetItem} onTargetItemChange={this.targetItemChange} />
+          <Tooltip targetItem={targetItem} onTargetItemChange={this.changeTargetItem} />
         </Chart>
       </<%&wrapperTag%>>
     );

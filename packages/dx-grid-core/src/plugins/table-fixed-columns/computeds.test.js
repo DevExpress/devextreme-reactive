@@ -1,6 +1,6 @@
 import { TABLE_DATA_TYPE } from '../table/constants';
 import { FIXED_COLUMN_LEFT_SIDE, FIXED_COLUMN_RIGHT_SIDE, TABLE_FIXED_TYPE } from './constants';
-import { tableColumnsWithFixed, tableHeaderRowsWithFixed } from './computeds';
+import { tableColumnsWithFixed, tableHeaderRowsWithFixed, tableHeaderColumnChainsWithFixed } from './computeds';
 
 describe('TableFixedColumns computeds', () => {
   describe('#tableColumnsWithFixed', () => {
@@ -26,6 +26,7 @@ describe('TableFixedColumns computeds', () => {
         ]);
     });
   });
+
   describe('#tableHeaderRowsWithFixed', () => {
     it('should work', () => {
       expect(tableHeaderRowsWithFixed([{}]))
@@ -33,6 +34,32 @@ describe('TableFixedColumns computeds', () => {
           {},
           { key: TABLE_FIXED_TYPE.toString(), type: TABLE_FIXED_TYPE, height: 0 },
         ]);
+    });
+  });
+
+  describe('#tableHeaderColumnChainsWithFixed', () => {
+    const columns = [
+      { key: 'a' }, { key: 'b' }, { key: 'c' },
+      { key: 'd' }, { key: 'e' },
+    ];
+    it('should split single fixed columns at boundaries', () => {
+      const tableColumns = [
+        { fixed: 'left' },
+        ...columns,
+        { fixed: 'right' },
+      ];
+      const existingChains = [
+        [{ start: 0, columns: tableColumns }],
+      ];
+
+      const chains = tableHeaderColumnChainsWithFixed(existingChains, tableColumns);
+
+      expect(chains).toHaveLength(1);
+      expect(chains[0]).toMatchObject([
+        { start: 0, columns: [{ fixed: 'left' }] },
+        { start: 1, columns },
+        { start: 5, columns: [{ fixed: 'left' }] },
+      ]);
     });
   });
 });

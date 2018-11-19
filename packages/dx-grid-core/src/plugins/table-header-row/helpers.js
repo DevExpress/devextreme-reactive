@@ -34,8 +34,8 @@ export const splitHeaderColumnChains = (
             start,
             columns: [],
           });
+          currentChain = acc[acc.length - 1];
         }
-        currentChain = acc[acc.length - 1];
 
         currentChain.columns.push(column);
       });

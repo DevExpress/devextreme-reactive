@@ -91,7 +91,7 @@ describe('TableHeaderRow Plugin helpers', () => {
         [{ start: 0, columns }],
       ];
       const shouldSplitChain = (currentChain, column) => (
-        column.key.indexOf('b') > -1
+        !currentChain || column.key.indexOf('b') > -1
       );
       const extendChainProps = () => ({
         extended: true,

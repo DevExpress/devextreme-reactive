@@ -1,20 +1,28 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { HOVERED, SELECTED } from '@devexpress/dx-chart-core';
+import {
+  pointAttributes, getScatterAnimationStyle, HOVERED, SELECTED,
+} from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 
 class RawPoint extends React.PureComponent {
   render() {
     const {
-      argument, value, seriesIndex, index, x, y, color, ...restProps
+      x, y,
+      argument, value, seriesIndex, index, state,
+      point: pointOptions,
+      color,
+      style, scales, getAnimatedStyle,
+      ...restProps
     } = this.props;
-    // *d* attribute is calculated during points scaling.
-    // TODO: Do it here - d={path().size(size).type(type)()}
+    const { d } = pointAttributes(pointOptions)({});
     return (
       <path
+        transform={`translate(${x} ${y})`}
+        d={d}
         fill={color}
         stroke="none"
-        transform={`translate(${x} ${y})`}
+        style={getAnimatedStyle(style, getScatterAnimationStyle, scales)}
         {...restProps}
       />
     );
@@ -22,14 +30,25 @@ class RawPoint extends React.PureComponent {
 }
 
 RawPoint.propTypes = {
+  argument: PropTypes.any.isRequired,
+  value: PropTypes.number.isRequired,
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
+  seriesIndex: PropTypes.number.isRequired,
+  index: PropTypes.number.isRequired,
+  state: PropTypes.string,
+  point: PropTypes.object,
   color: PropTypes.string,
+  style: PropTypes.object,
+  scales: PropTypes.object.isRequired,
+  getAnimatedStyle: PropTypes.func.isRequired,
 };
 
 RawPoint.defaultProps = {
+  state: undefined,
+  point: {},
   color: undefined,
+  style: undefined,
 };
 
 export const Point = withStates({

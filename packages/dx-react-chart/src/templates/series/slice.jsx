@@ -1,38 +1,57 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { HOVERED, SELECTED } from '@devexpress/dx-chart-core';
+import { getPieAnimationStyle, HOVERED, SELECTED } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
 
 class RawSlice extends React.PureComponent {
   render() {
     const {
-      argument, value, index, seriesIndex, innerRadius, outerRadius, startAngle, endAngle,
-      x, y, d, color, ...restProps
+      x, y, d,
+      argument, value, seriesIndex, index, state,
+      innerRadius, outerRadius, startAngle, endAngle,
+      color,
+      style, scales, getAnimatedStyle,
+      ...restProps
     } = this.props;
+    // TODO: Calculate *d* attribute here.
     return (
-      <path
-        fill={color}
-        stroke="none"
-        d={d}
-        {...restProps}
-      />
+      <g transform={`translate(${x} ${y})`}>
+        <path
+          d={d}
+          fill={color}
+          stroke="none"
+          style={getAnimatedStyle(style, getPieAnimationStyle, scales, { index })}
+          {...restProps}
+        />
+      </g>
     );
   }
 }
 
 RawSlice.propTypes = {
+  argument: PropTypes.any.isRequired,
+  value: PropTypes.number.isRequired,
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
   d: PropTypes.string.isRequired,
-  value: PropTypes.number.isRequired,
-  style: PropTypes.object,
+  seriesIndex: PropTypes.number.isRequired,
+  index: PropTypes.number.isRequired,
+  state: PropTypes.string,
+  innerRadius: PropTypes.number.isRequired,
+  outerRadius: PropTypes.number.isRequired,
+  startAngle: PropTypes.number.isRequired,
+  endAngle: PropTypes.number.isRequired,
   color: PropTypes.string,
+  style: PropTypes.object,
+  scales: PropTypes.object.isRequired,
+  getAnimatedStyle: PropTypes.func.isRequired,
 };
 
 RawSlice.defaultProps = {
-  style: {},
+  state: undefined,
   color: undefined,
+  style: undefined,
 };
 
 export const Slice = withStates({

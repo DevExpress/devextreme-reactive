@@ -14,6 +14,7 @@ import {
   pointAttributes,
   dBar,
   getAreaPointTransformer,
+  getLinePointTransformer,
   getBarPointTransformer,
   getPiePointTransformer,
   scaleSeriesPoints,
@@ -155,6 +156,28 @@ describe('getAreaPointTransformer', () => {
       y: 20,
       d: 'symbol path',
     });
+  });
+});
+
+describe('getLinePointTransformer', () => {
+  it('should return data', () => {
+    const argumentScale = jest.fn().mockReturnValue(10);
+    argumentScale.bandwidth = () => 8;
+    const valueScale = jest.fn();
+    valueScale.mockReturnValueOnce(9);
+
+    const transform = getLinePointTransformer({ argumentScale, valueScale });
+    expect(
+      transform({ argument: 'arg', value: 'val', index: 1 }),
+    ).toEqual({
+      argument: 'arg',
+      value: 'val',
+      index: 1,
+      x: 14,
+      y: 9,
+    });
+    expect(argumentScale.mock.calls).toEqual([['arg']]);
+    expect(valueScale.mock.calls).toEqual([['val']]);
   });
 });
 

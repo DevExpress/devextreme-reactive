@@ -4,7 +4,6 @@ import { PluginHost } from '@devexpress/dx-react-core';
 import { pointAttributes, findSeriesByName } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { ScatterSeries } from './scatter-series';
-import { PointCollection } from '../templates/series/point-collection';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   pointAttributes: jest.fn(),
@@ -16,6 +15,7 @@ jest.mock('@devexpress/dx-chart-core', () => ({
 }));
 
 describe('Scatter series', () => {
+  const SeriesComponent = () => null;
   const PointComponent = () => null;
 
   const coords = [
@@ -39,18 +39,17 @@ describe('Scatter series', () => {
 
   findSeriesByName.mockReturnValue({
     ...defaultProps,
+    index: 1,
     points: coords,
-    styles: 'styles',
-    point: { size: 5 },
-    seriesComponent: PointCollection,
+    seriesComponent: SeriesComponent,
     pointComponent: PointComponent,
+    color: 'color',
   });
 
   const defaultDeps = {
     getter: {
       layouts: { pane: {} },
-      scales: {},
-      getAnimatedStyle: jest.fn(),
+      scales: { test_argument_domain: 'arg-scale', test_value_domain: 'val-scale' },
     },
     template: {
       series: {},
@@ -67,16 +66,14 @@ describe('Scatter series', () => {
         />
       </PluginHost>));
 
-    expect(tree.find(PointComponent)).toHaveLength(coords.length);
-
-    coords.forEach((coord, index) => {
-      const {
-        d, x, y, styles,
-      } = tree.find(PointComponent).get(index).props;
-      expect(d).toBe('M12 12');
-      expect(x).toBe(index + 1);
-      expect(y).toBe(index + 11);
-      expect(styles).toBe('styles');
+    expect(tree.find(SeriesComponent).props()).toEqual({
+      pointComponent: PointComponent,
+      index: 1,
+      color: 'color',
+      coordinates: coords,
+      path: undefined,
+      getAnimatedStyle: undefined,
+      scales: { xScale: 'arg-scale', yScale: 'val-scale' },
     });
   });
 });

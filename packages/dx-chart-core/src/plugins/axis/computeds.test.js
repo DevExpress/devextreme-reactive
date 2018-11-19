@@ -1,7 +1,7 @@
 import { axisCoordinates, getGridCoordinates, axesData } from './computeds';
 
 jest.mock('../../utils/scale', () => ({
-  getWidth: jest.fn().mockReturnValue(30),
+  fixOffset: scale => value => scale(value) + 15,
 }));
 
 describe('axisCoordinates', () => {

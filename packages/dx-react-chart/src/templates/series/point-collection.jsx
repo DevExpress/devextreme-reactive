@@ -9,6 +9,7 @@ export class PointCollection extends React.PureComponent {
       pointComponent: Point,
       path, // Not used - see note above.
       coordinates,
+      index,
       point = {},
       style,
       getAnimatedStyle,
@@ -20,6 +21,7 @@ export class PointCollection extends React.PureComponent {
     return (coordinates.map(item => (
       <Point
         key={item.index.toString()}
+        seriesIndex={index}
         style={getAnimatedStyle(style, getScatterAnimationStyle, scales)}
         {...restProps}
         {...getAttributes(item)}

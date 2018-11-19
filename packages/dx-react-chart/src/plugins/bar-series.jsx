@@ -8,7 +8,6 @@ import { Bar as Point } from '../templates/series/bar';
 
 export const BarSeries = declareSeries('BarSeries', {
   components: { Path, Point },
-  isStartedFromZero: true,
   getPointTransformer,
   createHitTester,
 });

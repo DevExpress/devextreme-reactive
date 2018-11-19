@@ -7,6 +7,7 @@ import { withPattern } from '../../utils/with-pattern';
 class RawArea extends React.PureComponent {
   render() {
     const {
+      pointComponent,
       path,
       coordinates,
       color,

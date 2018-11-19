@@ -32,16 +32,20 @@ describe('Area series', () => {
 
   findSeriesByName.mockReturnValue({
     ...defaultProps,
+    index: 1,
     points: coords,
     seriesComponent: SeriesComponent,
     path: dArea,
-    customProperty: 'custom',
+    color: 'color',
   });
 
   const defaultDeps = {
     getter: {
       layouts: { pane: {} },
-      scales: {},
+      scales: {
+        test_argument_domain: 'arg-scale',
+        test_value_domain: 'val-scale',
+      },
     },
     template: {
       series: {},
@@ -58,16 +62,15 @@ describe('Area series', () => {
         />
       </PluginHost>
     ));
-    const {
-      coordinates: seriesCoordinates, path, ...restProps
-    } = tree.find(SeriesComponent).props();
 
-    expect(seriesCoordinates).toBe(coords);
-    expect(path).toBe(dArea);
-    expect(restProps).toEqual({
-      customProperty: 'custom',
+    expect(tree.find(SeriesComponent).props()).toEqual({
+      pointComponent: undefined,
+      index: 1,
+      coordinates: coords,
+      path: dArea,
+      color: 'color',
       getAnimatedStyle: undefined,
-      scales: {},
+      scales: { xScale: 'arg-scale', yScale: 'val-scale' },
     });
   });
 });

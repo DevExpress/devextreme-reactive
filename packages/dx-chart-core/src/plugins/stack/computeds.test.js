@@ -190,15 +190,17 @@ describe('Stack', () => {
     it('should wrap *getPointTransformer* for starting from zero series', () => {
       mockStack.mockReturnValue([]);
       const getPointTransformer = () => null;
-      getPointTransformer.a = 'A';
-      getPointTransformer.b = 'B';
+      const getPointTransformerWithZero = () => null;
+      getPointTransformerWithZero.isStartedFromZero = true;
+      getPointTransformerWithZero.a = 'A';
+      getPointTransformerWithZero.b = 'B';
 
       const result = getStackedSeries([
         makeSeries('1', { getPointTransformer }),
         makeSeries('2', { getPointTransformer }),
-        makeSeries('3', { getPointTransformer, isStartedFromZero: true }),
-        makeSeries('4', { getPointTransformer, isStartedFromZero: true }),
-        makeSeries('5', { getPointTransformer, isStartedFromZero: true }),
+        makeSeries('3', { getPointTransformer: getPointTransformerWithZero }),
+        makeSeries('4', { getPointTransformer: getPointTransformerWithZero }),
+        makeSeries('5', { getPointTransformer: getPointTransformerWithZero }),
       ], 'test-data', {
         stacks: makeStacks('1', '2', '3', '4', '5'),
         offset: 'test-offset',
@@ -207,14 +209,17 @@ describe('Stack', () => {
 
       expect(result[0].getPointTransformer).toBe(getPointTransformer);
       expect(result[1].getPointTransformer).toBe(getPointTransformer);
-      expect(result[2].getPointTransformer).not.toBe(getPointTransformer);
-      expect(result[3].getPointTransformer).not.toBe(getPointTransformer);
-      expect(result[4].getPointTransformer).not.toBe(getPointTransformer);
+      expect(result[2].getPointTransformer).not.toBe(getPointTransformerWithZero);
+      expect(result[3].getPointTransformer).not.toBe(getPointTransformerWithZero);
+      expect(result[4].getPointTransformer).not.toBe(getPointTransformerWithZero);
 
+      expect(result[2].getPointTransformer.isStartedFromZero).toEqual(true);
       expect(result[2].getPointTransformer.a).toEqual('A');
       expect(result[2].getPointTransformer.b).toEqual('B');
+      expect(result[3].getPointTransformer.isStartedFromZero).toEqual(true);
       expect(result[3].getPointTransformer.a).toEqual('A');
       expect(result[3].getPointTransformer.b).toEqual('B');
+      expect(result[4].getPointTransformer.isStartedFromZero).toEqual(true);
       expect(result[4].getPointTransformer.a).toEqual('A');
       expect(result[4].getPointTransformer.b).toEqual('B');
 
@@ -229,11 +234,12 @@ describe('Stack', () => {
     it('should update *y1* in wrapped *getPointTransformer*', () => {
       mockStack.mockReturnValue([]);
       const mock = jest.fn().mockReturnValue(point => ({ ...point, tag: '#t' }));
+      mock.isStartedFromZero = true;
       const valueScale = value => `${value}#`;
 
       const result = getStackedSeries([
-        makeSeries('1', { getPointTransformer: mock, isStartedFromZero: true }),
-        makeSeries('2', { getPointTransformer: mock, isStartedFromZero: true }),
+        makeSeries('1', { getPointTransformer: mock }),
+        makeSeries('2', { getPointTransformer: mock }),
       ], 'test-data', {
         stacks: makeStacks('1', '2'),
         offset: 'test-offset',
@@ -258,10 +264,12 @@ describe('Stack', () => {
     // TODO: Temporary - see note for *getValueDomainCalculator*.
     it('should collect values in *getValueDomain*', () => {
       mockStack.mockReturnValue([]);
+      const getPointTransformer = () => null;
+      getPointTransformer.isStartedFromZero = true;
 
       const result = getStackedSeries([
-        makeSeries('1', { isStartedFromZero: true }),
-        makeSeries('2', { isStartedFromZero: true }),
+        makeSeries('1', { getPointTransformer }),
+        makeSeries('2', { getPointTransformer }),
       ], 'test-data', {
         stacks: makeStacks('1', '2'),
         offset: 'test-offset',

@@ -34,6 +34,7 @@ describe('#declareSeries', () => {
 
   findSeriesByName.mockReturnValue({
     ...defaultProps,
+    index: 1,
     seriesComponent: TestComponentPath,
     points: coords,
     color: 'color',
@@ -77,9 +78,11 @@ describe('#declareSeries', () => {
     ));
 
     expect(tree.find(TestComponentPath).props()).toEqual({
+      index: 1,
+      path: undefined,
       coordinates: coords,
+      pointComponent: undefined,
       color: 'color',
-      styles: 'styles',
       scales: { xScale: 'argument-scale', yScale: 'value-scale' },
       getAnimatedStyle: 'test-animated-style-getter',
     });

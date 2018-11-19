@@ -11,3 +11,8 @@ export const PieSeries = declareSeries('PieSeries', {
   getPointTransformer,
   createHitTester,
 });
+
+PieSeries.defaultProps = {
+  innerRadius: 0,
+  outerRadius: 1,
+};

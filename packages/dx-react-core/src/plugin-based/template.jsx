@@ -4,8 +4,7 @@ import {
   PLUGIN_HOST_CONTEXT, POSITION_CONTEXT,
   RERENDER_TEMPLATE_EVENT, RERENDER_TEMPLATE_SCOPE_EVENT,
 } from './constants';
-import { PluginHostContext, PositionContext } from './contexts';
-import { withPropsFromContext } from '../utils/with-props-from-context';
+import { withHostAndPosition } from '../utils/with-props-from-context';
 
 let globalTemplateId = 0;
 class TemplateBase extends React.PureComponent {
@@ -66,10 +65,4 @@ TemplateBase.defaultProps = {
   children: undefined,
 };
 
-export const Template = withPropsFromContext({
-  Context: PluginHostContext,
-  name: PLUGIN_HOST_CONTEXT,
-}, {
-  Context: PositionContext,
-  name: POSITION_CONTEXT,
-})(TemplateBase);
+export const Template = withHostAndPosition(TemplateBase);

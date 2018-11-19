@@ -5,8 +5,7 @@ import {
   getAvailableActions,
 } from './helpers';
 import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from './constants';
-import { withPropsFromContext } from '../utils/with-props-from-context';
-import { PluginHostContext, PositionContext } from './contexts';
+import { withHostAndPosition } from '../utils/with-props-from-context';
 
 class ActionBase extends React.PureComponent {
   constructor(props) {
@@ -59,10 +58,4 @@ ActionBase.propTypes = {
   [POSITION_CONTEXT]: PropTypes.func.isRequired,
 };
 
-export const Action = withPropsFromContext({
-  Context: PluginHostContext,
-  name: PLUGIN_HOST_CONTEXT,
-}, {
-  Context: PositionContext,
-  name: POSITION_CONTEXT,
-})(ActionBase);
+export const Action = withHostAndPosition(ActionBase);

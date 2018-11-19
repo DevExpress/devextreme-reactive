@@ -1,15 +1,26 @@
 import * as React from 'react';
+import { PluginHostContext, PositionContext } from '../plugin-based/contexts';
+import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from '../plugin-based/constants';
 
-export const withPropsFromContext = (
-  { Context: Context1, name: name1 }, { Context: Context2, name: name2 },
-) => Component => props => (
-  <Context1.Consumer>
-    {context1 => (
-      <Context2.Consumer>
-        {context2 => (
-          <Component {...props} {...{ [name1]: context1, [name2]: context2 }} />
+export const withHostAndPosition = Component => props => (
+  <PluginHostContext.Consumer>
+    {pluginHostContext => (
+      <PositionContext.Consumer>
+        {positionContext => (
+          <Component
+            {...props}
+            {...{ [PLUGIN_HOST_CONTEXT]: pluginHostContext, [POSITION_CONTEXT]: positionContext }}
+          />
         )}
-      </Context2.Consumer>
+      </PositionContext.Consumer>
     )}
-  </Context1.Consumer>
+  </PluginHostContext.Consumer>
+);
+
+export const withContext = (Context, name) => Component => props => (
+  <Context.Consumer>
+    {context => (
+      <Component {...props} {...{ [name]: context }} />
+    )}
+  </Context.Consumer>
 );

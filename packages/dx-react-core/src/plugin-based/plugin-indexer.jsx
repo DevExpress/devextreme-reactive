@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-// import { POSITION_CONTEXT } from './constants';
 import { PositionContext } from './contexts';
 
 export const PluginIndexer = ({ children }) => (

@@ -5,7 +5,7 @@ import {
   PLUGIN_HOST_CONTEXT, RERENDER_TEMPLATE_EVENT,
   TEMPLATE_HOST_CONTEXT, RERENDER_TEMPLATE_SCOPE_EVENT,
 } from './constants';
-import { withPropsFromContext } from '../utils/with-props-from-context';
+import { withContext } from '../utils/with-props-from-context';
 import { PluginHostContext, TemplateHostContext } from './contexts';
 
 export class TemplatePlaceholderBase extends React.Component {
@@ -106,10 +106,6 @@ TemplatePlaceholderBase.defaultProps = {
   children: undefined,
 };
 
-export const TemplatePlaceholder = withPropsFromContext({
-  Context: PluginHostContext,
-  name: PLUGIN_HOST_CONTEXT,
-}, {
-  Context: TemplateHostContext,
-  name: TEMPLATE_HOST_CONTEXT,
-})(TemplatePlaceholderBase);
+export const TemplatePlaceholder = withContext(PluginHostContext, PLUGIN_HOST_CONTEXT)(
+  withContext(TemplateHostContext, TEMPLATE_HOST_CONTEXT)(TemplatePlaceholderBase),
+);

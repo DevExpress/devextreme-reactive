@@ -1,4 +1,6 @@
-import { createScale, getWidth, getValueDomainName } from './scale';
+import {
+  createScale, getWidth, getValueDomainName, fixOffset,
+} from './scale';
 
 const domainOptions = { domain: [0, 100], type: 'linear', orientation: 'horizontal' };
 const width = 500;
@@ -65,5 +67,21 @@ describe('getValueDomainName', () => {
 
   it('should return default value', () => {
     expect(getValueDomainName()).toEqual('value-domain');
+  });
+});
+
+describe('fixOffset', () => {
+  it('should return original linear scale', () => {
+    const mock = () => 0;
+    expect(fixOffset(mock)).toBe(mock);
+  });
+
+  it('should return wrapped band scale', () => {
+    const mock = x => x * 2;
+    mock.bandwidth = () => 4;
+    const wrapped = fixOffset(mock);
+    expect(wrapped).not.toBe(mock);
+    expect(wrapped(0)).toEqual(2);
+    expect(wrapped(3)).toEqual(8);
   });
 });

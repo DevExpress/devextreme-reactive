@@ -79,7 +79,7 @@ const buildStackedSeries = (series, dataItems) => {
     ...series,
     points,
   };
-  if (series.isStartedFromZero) {
+  if (series.getPointTransformer.isStartedFromZero) {
     stackedSeries.getPointTransformer = getStackedPointTransformer(series.getPointTransformer);
     stackedSeries.getValueDomain = getValueDomain;
   }

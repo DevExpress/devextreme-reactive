@@ -46,7 +46,6 @@ describe('Grid', () => {
   const defaultProps = {
     name: 'domain1',
     lineComponent: LineComponent,
-    styles: 'styles',
   };
 
   it('should render ticks', () => {
@@ -64,14 +63,12 @@ describe('Grid', () => {
       x2: 31,
       y1: 12,
       y2: 72,
-      styles: 'styles',
     });
     expect(tree.find(LineComponent).get(1).props).toEqual({
       x1: 21,
       x2: 81,
       y1: 22,
       y2: 142,
-      styles: 'styles',
     });
     expect(getGridCoordinates).toBeCalledWith({ name: 'domain1', scale: 'test-scale' });
   });

@@ -69,7 +69,7 @@ const collectDomains = (seriesList) => {
     const name = getSeriesValueDomainName(seriesItem);
     const domain = domains[name] || { domain: [], orientation: VERTICAL };
     domains[name] = domain;
-    if (seriesItem.isStartedFromZero && domain.domain.length === 0) {
+    if (seriesItem.getPointTransformer.isStartedFromZero && domain.domain.length === 0) {
       domain.domain = [0];
     }
   });

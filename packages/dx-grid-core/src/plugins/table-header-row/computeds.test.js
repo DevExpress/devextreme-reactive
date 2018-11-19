@@ -15,21 +15,45 @@ describe('TableHeaderRow Plugin computeds', () => {
   });
 
   describe('#tableHeaderColumnChainsWithHeading', () => {
-    it('should return basic chain for heading row', () => {
-      const columns = [{}, {}];
-      const rows = [
-        { key: 'row1', type: TABLE_HEADING_TYPE },
-        { key: 'row2' },
-      ];
-      const existingChains = [{ columns: [] }];
+    const rows = [
+      { key: 'heading_key0', type: TABLE_HEADING_TYPE },
+      { key: 'heading_key1', type: TABLE_HEADING_TYPE },
+      { key: 'other_key', type: 'other' },
+    ];
+    const columns = [{}, {}];
 
-      const chains = tableHeaderColumnChainsWithHeading(existingChains, rows, columns);
+    it('should extend existing chains', () => {
+      const existingChains = [
+        [{ start: 0, columns: [] }],
+      ];
+
+      const chains = tableHeaderColumnChainsWithHeading(
+        existingChains, rows, columns,
+      );
+
+      expect(chains).toHaveLength(3);
+      expect(chains[2]).toBe(existingChains[0]);
+    });
+
+    it('should map over heading rows only', () => {
+      const chains = tableHeaderColumnChainsWithHeading(
+        [], rows, columns,
+      );
 
       expect(chains).toHaveLength(2);
-      expect(chains[0]).toHaveLength(1);
-      expect(chains[0][0].columns).toBe(columns);
-      expect(chains[0][0].start).toBe(0);
-      expect(chains[1]).toBe(existingChains[0]);
+    });
+
+    it('should set correct start and columns', () => {
+      const chains = tableHeaderColumnChainsWithHeading(
+        [], rows, columns,
+      );
+      const expected = [{
+        start: 0,
+        columns,
+      }];
+
+      expect(chains[0]).toMatchObject(expected);
+      expect(chains[1]).toMatchObject(expected);
     });
   });
 });

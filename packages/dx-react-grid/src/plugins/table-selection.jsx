@@ -7,7 +7,7 @@ import {
 import {
   TABLE_SELECT_TYPE,
   tableColumnsWithSelection,
-  tableHeaderColumnChainsWithSelection,
+  insertFirstColumnToChains,
   isSelectTableCell,
   isSelectAllTableCell,
   isDataTableRow,
@@ -31,7 +31,7 @@ export class TableSelection extends React.PureComponent {
     ) => tableColumnsWithSelection(tableColumns, selectionColumnWidth);
     const tableColumnChainsComputed = (
       { tableHeaderColumnChains, tableColumns },
-    ) => tableHeaderColumnChainsWithSelection(tableHeaderColumnChains, tableColumns);
+    ) => insertFirstColumnToChains(tableHeaderColumnChains, tableColumns);
 
     return (
       <Plugin

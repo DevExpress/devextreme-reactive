@@ -7,6 +7,7 @@ import {
 import {
   TABLE_EDIT_COMMAND_TYPE,
   tableColumnsWithEditing,
+  insertFirstColumnToChains,
   isHeadingEditCommandsTableCell,
   isEditCommandsTableCell,
   isAddedTableRow,
@@ -40,6 +41,9 @@ export class TableEditColumn extends React.PureComponent {
     } = this.props;
     const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
     const tableColumnsComputed = ({ tableColumns }) => tableColumnsWithEditing(tableColumns, width);
+    const tableColumnChainsComputed = (
+      { tableHeaderColumnChains, tableColumns },
+    ) => insertFirstColumnToChains(tableHeaderColumnChains, tableColumns);
 
     return (
       <Plugin
@@ -47,6 +51,7 @@ export class TableEditColumn extends React.PureComponent {
         dependencies={pluginDependencies}
       >
         <Getter name="tableColumns" computed={tableColumnsComputed} />
+        <Getter name="tableHeaderColumnChains" computed={tableColumnChainsComputed} />
 
         <Template
           name="tableCell"

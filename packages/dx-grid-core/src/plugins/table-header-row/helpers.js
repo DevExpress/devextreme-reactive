@@ -16,30 +16,43 @@ export const findChainByColumnIndex = (chains, columnIndex) => (
 export const splitHeaderColumnChains = (
   tableColumnChains, tableColumns, shouldSplitChain, extendChainProps,
 ) => (
-  tableColumnChains.map((chain, rowIndex) => chain
-    .reduce((acc, group) => {
-      let currentGroup = null;
-      group.columns.forEach((col) => {
+  tableColumnChains.map((row, rowIndex) => row
+    .reduce((acc, chain) => {
+      let currentChain = null;
+      chain.columns.forEach((col) => {
         const column = tableColumns.find(c => c.key === col.key);
-        const isNewGroup = shouldSplitChain(currentGroup, column, rowIndex);
+        const isNewGroup = shouldSplitChain(currentChain, column, rowIndex);
 
         if (isNewGroup) {
-          const start = currentGroup
-            ? (currentGroup.start + currentGroup.columns.length)
-            : group.start;
+          const start = currentChain
+            ? (currentChain.start + currentChain.columns.length)
+            : chain.start;
 
           acc.push({
-            ...group,
+            ...chain,
             ...extendChainProps(column),
             start,
             columns: [],
           });
-          currentGroup = acc[acc.length - 1];
         }
+        currentChain = acc[acc.length - 1];
 
-        currentGroup.columns.push(column);
+        currentChain.columns.push(column);
       });
 
       return acc;
     }, []))
 );
+
+export const insertFirstColumnToChains = (
+  tableHeaderColumnChains, tableColumns,
+) => tableHeaderColumnChains.map(chains => ([
+  {
+    start: 0,
+    columns: [tableColumns[0]],
+  },
+  ...chains.map(chain => ({
+    ...chain,
+    start: chain.start + 1,
+  })),
+]));

@@ -5,7 +5,7 @@ import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-c
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithSelection,
-  tableHeaderColumnChainsWithSelection,
+  insertFirstColumnToChains,
   isSelectTableCell,
   isSelectAllTableCell,
   isDataTableRow,
@@ -14,7 +14,7 @@ import { TableSelection } from './table-selection';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableColumnsWithSelection: jest.fn(),
-  tableHeaderColumnChainsWithSelection: jest.fn(),
+  insertFirstColumnToChains: jest.fn(),
   isSelectTableCell: jest.fn(),
   isSelectAllTableCell: jest.fn(),
   isDataTableRow: jest.fn(),
@@ -59,8 +59,8 @@ describe('Table Selection', () => {
 
   beforeEach(() => {
     tableColumnsWithSelection.mockImplementation(() => 'tableColumnsWithSelection');
-    tableHeaderColumnChainsWithSelection.mockImplementation(() => (
-      'tableHeaderColumnChainsWithSelection'
+    insertFirstColumnToChains.mockImplementation(() => (
+      'insertFirstColumnToChains'
     ));
     isSelectTableCell.mockImplementation(() => false);
     isSelectAllTableCell.mockImplementation(() => false);
@@ -70,7 +70,7 @@ describe('Table Selection', () => {
     jest.resetAllMocks();
   });
 
-  describe('table layout getter', () => {
+  describe('table layout getters', () => {
     it('should extend tableColumns', () => {
       const tree = mount((
         <PluginHost>
@@ -86,6 +86,19 @@ describe('Table Selection', () => {
         .toBe('tableColumnsWithSelection');
       expect(tableColumnsWithSelection)
         .toBeCalledWith(defaultDeps.getter.tableColumns, 120);
+    });
+    it('should extend tableHeaderColumnChains', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableSelection
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).tableHeaderColumnChains)
+        .toBe('insertFirstColumnToChains');
     });
   });
 

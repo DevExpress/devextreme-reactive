@@ -50,6 +50,9 @@ class RawAxis extends React.PureComponent {
       xCorrection: 0,
       yCorrection: 0,
     };
+    this.setRootRef = (node) => {
+      this.node = node;
+    };
     this.createRefsHandler = this.createRefsHandler.bind(this);
   }
 
@@ -82,20 +85,6 @@ class RawAxis extends React.PureComponent {
     };
   }
 
-  calculateLayout(width, height, defaultWidth, defaultHeight) {
-    const calculatedWidth = width || defaultWidth;
-    const calculatedHeight = height || defaultHeight;
-    const {
-      width: containerWidth,
-      height: containerHeight,
-    } = (this.node && this.node.getBoundingClientRect()) || {};
-
-    return {
-      width: containerWidth || calculatedWidth,
-      height: containerHeight || calculatedHeight,
-    };
-  }
-
   render() {
     const {
       name,
@@ -124,21 +113,15 @@ class RawAxis extends React.PureComponent {
                 return null;
               }
 
-              const {
-                width: widthCalculated, height: heightCalculated,
-              } = layouts[placeholder] || { width: 0, height: 0 };
-              const {
-                width: widthPostCalculated,
-                height: heightPostCalculated,
-              } = this.calculateLayout(
-                widthCalculated,
-                heightCalculated,
-                0,
-                0,
+              const { width, height } = layouts[placeholder] || { width: 0, height: 0 };
+              // DOM content should not be accessed in *render* - it should be done
+              // in *componentDidMount* and *componentDidUpdate*.
+              // TODO: Remove references to *this.node*.
+              const { width: postWidth, height: postHeight } = (
+                this.node ? this.node.getBoundingClientRect() : { width, height }
               );
               // Isn't it too late to adjust sizes?
-              const postCalculatedScale = adjustScaleRange(scale,
-                [widthPostCalculated, heightPostCalculated]);
+              const postCalculatedScale = adjustScaleRange(scale, [postWidth, postHeight]);
               const { sides: [dx, dy], ticks } = axisCoordinates({
                 name,
                 scale: postCalculatedScale,
@@ -153,16 +136,15 @@ class RawAxis extends React.PureComponent {
                 <div
                   style={{
                     position: 'relative',
-                    width: (dy * widthCalculated) || undefined,
-                    height: (dx * heightCalculated) || undefined,
+                    width: (dy * width) || undefined,
+                    height: (dx * height) || undefined,
                     flexGrow: dx || undefined,
                   }}
-                  // TODO: *ref* should be created in constructor.
-                  ref={(node) => { this.node = node; }}
+                  ref={this.setRootRef}
                 >
                   <svg
-                    width={widthPostCalculated}
-                    height={heightPostCalculated}
+                    width={postWidth}
+                    height={postHeight}
                     style={SVG_STYLE}
                   >
                     <RootComponent
@@ -192,8 +174,8 @@ class RawAxis extends React.PureComponent {
                         />
                       ))}
                       <LineComponent
-                        width={dx * widthPostCalculated}
-                        height={dy * heightPostCalculated}
+                        width={dx * postWidth}
+                        height={dy * postHeight}
                       />
                       {ticks.map(({
                         text,

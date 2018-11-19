@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { dArea, findSeriesByName } from '@devexpress/dx-chart-core';
+import { findSeriesByName } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { AreaSeries } from './area-series';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
-  dArea: jest.fn(),
   findSeriesByName: jest.fn(),
   addSeries: jest.fn(),
   ARGUMENT_DOMAIN: 'test_argument_domain',
@@ -35,7 +34,6 @@ describe('Area series', () => {
     index: 1,
     points: coords,
     seriesComponent: SeriesComponent,
-    path: dArea,
     color: 'color',
   });
 
@@ -67,7 +65,6 @@ describe('Area series', () => {
       pointComponent: undefined,
       index: 1,
       coordinates: coords,
-      path: dArea,
       color: 'color',
       getAnimatedStyle: undefined,
       scales: { xScale: 'arg-scale', yScale: 'val-scale' },

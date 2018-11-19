@@ -8,7 +8,6 @@ export class PointCollection extends React.PureComponent {
       coordinates,
       index,
       state,
-      path,
       ...restProps
     } = this.props;
     return (coordinates.map(point => (

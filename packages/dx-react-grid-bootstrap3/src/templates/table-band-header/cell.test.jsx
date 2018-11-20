@@ -35,7 +35,7 @@ describe('TableCell', () => {
       .toBe('none');
   });
 
-  fit('should apply left border if necessary', () => {
+  it('should apply left border if necessary', () => {
     const tree = mount((
       <ThemeColors.Provider value={{ borderColor: 'red' }}>
         <Cell className="custom-class" beforeBorder />

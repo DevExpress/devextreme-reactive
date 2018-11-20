@@ -51,6 +51,7 @@ class RawAxis extends React.PureComponent {
       yCorrection: 0,
     };
     this.createRefsHandler = this.createRefsHandler.bind(this);
+    this.nodeRef = React.createRef();
   }
 
   createRefsHandler(placeholder, changeBBox, {
@@ -85,10 +86,11 @@ class RawAxis extends React.PureComponent {
   calculateLayout(width, height, defaultWidth, defaultHeight) {
     const calculatedWidth = width || defaultWidth;
     const calculatedHeight = height || defaultHeight;
+    const node = this.nodeRef.current;
     const {
       width: containerWidth,
       height: containerHeight,
-    } = (this.node && this.node.getBoundingClientRect()) || {};
+    } = (node && node.getBoundingClientRect()) || {};
 
     return {
       width: containerWidth || calculatedWidth,
@@ -158,7 +160,7 @@ class RawAxis extends React.PureComponent {
                     flexGrow: dx || undefined,
                   }}
                   // TODO: *ref* should be created in constructor.
-                  ref={(node) => { this.node = node; }}
+                  ref={this.nodeRef}
                 >
                   <svg
                     width={widthPostCalculated}

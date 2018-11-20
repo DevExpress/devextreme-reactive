@@ -42,24 +42,113 @@ describe('TableFixedColumns computeds', () => {
       { key: 'a' }, { key: 'b' }, { key: 'c' },
       { key: 'd' }, { key: 'e' },
     ];
-    it('should split single fixed columns at boundaries', () => {
-      const tableColumns = [
-        { fixed: 'left' },
-        ...columns,
-        { fixed: 'right' },
-      ];
+    const assertRowChainsSplit = (rowChains, expectedSplit) => {
+      expect(rowChains.length).toBe(expectedSplit.length);
+      let start = 0;
+      rowChains.forEach((chain, i) => {
+        expect(chain.columns).toMatchObject(
+          expectedSplit[i].map(col => ({
+            key: col,
+          })),
+        );
+        expect(chain.start).toBe(start);
+        start += expectedSplit[i].length;
+      });
+    };
+    const assertChainsSplit = (tableColumns, expectedSplit) => {
       const existingChains = [
         [{ start: 0, columns: tableColumns }],
       ];
-
       const chains = tableHeaderColumnChainsWithFixed(existingChains, tableColumns);
 
-      expect(chains).toHaveLength(1);
-      expect(chains[0]).toMatchObject([
-        { start: 0, columns: [{ fixed: 'left' }] },
-        { start: 1, columns },
-        { start: 5, columns: [{ fixed: 'left' }] },
+      assertRowChainsSplit(chains[0], expectedSplit);
+    };
+
+    it('should split single fixed columns at boundaries', () => {
+      const tableColumns = [
+        { key: 'fixed_left', fixed: 'left' },
+        ...columns.slice(0, 3),
+        { key: 'fixed_right', fixed: 'right' },
+      ];
+
+      assertChainsSplit(tableColumns, [
+        ['fixed_left'],
+        ['a', 'b', 'c'],
+        ['fixed_right'],
       ]);
+    });
+
+    it('should group multiple fixed columns at boundaries', () => {
+      const tableColumns = [
+        { key: 'fixed_left_0', fixed: 'left' },
+        { key: 'fixed_left_1', fixed: 'left' },
+        ...columns.slice(0, 3),
+        { key: 'fixed_right_0', fixed: 'right' },
+        { key: 'fixed_right_1', fixed: 'right' },
+      ];
+
+      assertChainsSplit(tableColumns, [
+        ['fixed_left_0', 'fixed_left_1'],
+        ['a', 'b', 'c'],
+        ['fixed_right_0', 'fixed_right_1'],
+      ]);
+    });
+
+    it('should split single column in the middle', () => {
+      const tableColumns = [
+        ...columns.slice(0, 3),
+        { key: 'fixed_key', fixed: 'left' },
+        ...columns.slice(3, 5),
+      ];
+
+      assertChainsSplit(tableColumns, [
+        ['a', 'b', 'c'],
+        ['fixed_key'],
+        ['d', 'e'],
+      ]);
+    });
+
+    it('should group multiple columns in the middle', () => {
+      const tableColumns = [
+        ...columns.slice(0, 2),
+        { key: 'fixed_key_0', fixed: 'left' },
+        { key: 'fixed_key_1', fixed: 'left' },
+        ...columns.slice(3, 5),
+      ];
+
+      assertChainsSplit(tableColumns, [
+        ['a', 'b'],
+        ['fixed_key_0', 'fixed_key_1'],
+        ['d', 'e'],
+      ]);
+    });
+
+    it('should split columns with different fixed side', () => {
+      const tableColumns = [
+        ...columns.slice(0, 2),
+        { key: 'fixed_left_0', fixed: 'left' },
+        { key: 'fixed_left_1', fixed: 'left' },
+        { key: 'fixed_right_0', fixed: 'right' },
+        ...columns.slice(3, 5),
+      ];
+
+      assertChainsSplit(tableColumns, [
+        ['a', 'b'],
+        ['fixed_left_0', 'fixed_left_1'],
+        ['fixed_right_0'],
+        ['d', 'e'],
+      ]);
+    });
+
+    it('should split multiple rows', () => {
+      const tableColumns = [
+        { key: 'fixed_key_0', fixed: 'left' },
+        ...columns.slice(0, 3),
+        { key: 'fixed_key_1', fixed: 'left' },
+        { key: 'fixed_key_2', fixed: 'left' },
+        ...columns.slice(3, 5),
+      ];
+      const existingChains =
     });
   });
 });

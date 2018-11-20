@@ -1,4 +1,5 @@
-import * as React from 'react';<%&additionalImports%>
+import * as React from 'react';
+import { Card } from 'reactstrap';
 import {
   Chart,
   BarSeries,
@@ -7,7 +8,9 @@ import {
   ValueGrid,
   Title,
   Legend,
-} from '@devexpress/dx-react-chart-<%&themeName%>';
+  Tooltip,
+} from '@devexpress/dx-react-chart-bootstrap4';
+import * as d3Format from 'd3-format';
 import {
   Stack, Scale, EventTracker, HoverState, SelectionState,
 } from '@devexpress/dx-react-chart';
@@ -15,6 +18,19 @@ import {
 import { annualVehiclesSales } from '../../../demo-data/data-vizualization';
 
 const EmptyComponent = () => null;
+const ContentComponent = (props) => {
+  const { targetItem } = props;
+  return (
+    <div>
+      <p className="mb-0 font-weight-bold">
+        {`${targetItem.series}`}
+      </p>
+      <p className="mb-0">
+        {d3Format.format(',.2r')(annualVehiclesSales[targetItem.point][targetItem.series])}
+      </p>
+    </div>
+  );
+};
 const compare = (
   { series, point }, { series: targetSeries, point: targetPoint },
 ) => series === targetSeries && point === targetPoint;
@@ -42,7 +58,7 @@ export default class Demo extends React.PureComponent {
     const { data: chartData, selection } = this.state;
 
     return (
-      <<%&wrapperTag%>>
+      <Card>
         <Chart
           data={chartData}
         >
@@ -70,9 +86,10 @@ export default class Demo extends React.PureComponent {
           <Legend />
           <EventTracker onClick={this.click} />
           <HoverState />
+          <Tooltip contentComponent={ContentComponent} />
           <SelectionState selection={selection} />
         </Chart>
-      </<%&wrapperTag%>>
+      </Card>
     );
   }
 }

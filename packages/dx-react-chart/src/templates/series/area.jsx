@@ -1,6 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { getAreaAnimationStyle, HOVERED, SELECTED } from '@devexpress/dx-chart-core';
+import {
+  dArea, getAreaAnimationStyle, HOVERED, SELECTED,
+} from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
 
@@ -27,7 +29,7 @@ class RawArea extends React.PureComponent {
 }
 
 RawArea.propTypes = {
-  path: PropTypes.func.isRequired,
+  path: PropTypes.func,
   coordinates: PropTypes.array.isRequired,
   index: PropTypes.number.isRequired,
   state: PropTypes.string,
@@ -38,6 +40,7 @@ RawArea.propTypes = {
 };
 
 RawArea.defaultProps = {
+  path: dArea,
   state: undefined,
   color: undefined,
   style: undefined,

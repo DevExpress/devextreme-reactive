@@ -39,11 +39,20 @@ Describes properties passed to a component that renders series.
 Field | Type | Description
 ------|------|------------
 coordinates | Array&lt;{ x: number, y: number }&gt; | Coordinates of the series' points.
-path | (coordinates: Array&lt;{ x: number, y: number }&gt;) => string | A function used to calculate the series' path.
 color | string | A series color.
+
+### SplineSeries.PathSeriesProps
+
+Describes properties of a component that renders series.
+
+Extends [SplineSeries.SeriesProps](#splineseriesseriesprops)
+
+Field | Type | Description
+------|------|------------
+path? | (coordinates: Array&lt;{ x: number, y: number }&gt;) => string | A function used to calculate the series' path.
 
 ## Plugin Components
 
 Name | Properties | Description
 -----|------------|------------
-SplineSeries.Path | [SplineSeries.SeriesProps](#splineseriesseriesprops) | A component that renders series.
+SplineSeries.Path | [SplineSeries.PathSeriesProps](#splineseriespathseriesprops) | A component that renders series.

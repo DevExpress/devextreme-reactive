@@ -4,15 +4,20 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { findDOMNode } from 'react-dom';
 
-export const ThemeColors = React.createContext({});
+const defaultBackgroundColor = '#fff';
+const defaultBorderColor = '#ddd';
+export const ThemeColors = React.createContext({
+  backgroundColor: defaultBackgroundColor,
+  borderColor: defaultBorderColor,
+});
 
 export class Root extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      backgroundColor: '#fff',
-      borderColor: '#ddd',
+      backgroundColor: defaultBackgroundColor,
+      borderColor: defaultBorderColor,
     };
   }
 

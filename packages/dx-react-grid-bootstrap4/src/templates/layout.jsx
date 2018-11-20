@@ -13,8 +13,8 @@ const getBodyColor = () => {
 };
 
 export class Root extends React.PureComponent {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       backgroundColor: 'white',

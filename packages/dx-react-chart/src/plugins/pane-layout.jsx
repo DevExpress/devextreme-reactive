@@ -28,43 +28,36 @@ export class PaneLayout extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = {
-      width: 800,
-      height: 600,
+    this.handleSizeUpdate = (size, changeBBox) => {
+      changeBBox({ placeholder: 'pane', bBox: size });
     };
   }
 
-  handleSizeUpdate({ width, height }, changeBBox) {
-    this.setState({ width, height });
-    changeBBox({ placeholder: 'pane', bBox: { width, height } });
-  }
-
   render() {
-    const {
-      width,
-      height,
-    } = this.state;
-
     return (
       <Plugin name="PaneLayout">
         <Template name="canvas">
           {params => (
             <TemplateConnector>
-              {(_, { changeBBox }) => (
-                <Sizer
-                  containerComponent={SizerContainer}
-                  onSizeChange={size => this.handleSizeUpdate(size, changeBBox)}
-                >
-                  <svg
-                    {...params}
-                    width={width}
-                    height={height}
-                    style={SVG_STYLE}
+              {({ layouts }, { changeBBox }) => {
+                const { width, height } = layouts.pane;
+                return (
+                  <Sizer
+                    containerComponent={SizerContainer}
+                    onSizeChange={size => this.handleSizeUpdate(size, changeBBox)}
                   >
-                    <TemplatePlaceholder name="series" />
-                  </svg>
-                </Sizer>
-              )}
+                    <svg
+                      {...params}
+                      width={width}
+                      height={height}
+                      style={SVG_STYLE}
+                    >
+                      <TemplatePlaceholder name="series" />
+                    </svg>
+                  </Sizer>
+                );
+              }
+                }
             </TemplateConnector>
           )}
         </Template>

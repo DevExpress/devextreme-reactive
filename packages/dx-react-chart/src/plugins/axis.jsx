@@ -9,7 +9,7 @@ import {
   withComponents,
 } from '@devexpress/dx-react-core';
 import {
-  axisCoordinates, LEFT, TOP, BOTTOM, ARGUMENT_DOMAIN, getValueDomainName, axesData,
+  axisCoordinates, LEFT, BOTTOM, ARGUMENT_DOMAIN, getValueDomainName, axesData,
 } from '@devexpress/dx-chart-core';
 import { Root } from '../templates/axis/root';
 import { Tick } from '../templates/axis/tick';
@@ -20,15 +20,6 @@ import { withPatchedProps } from '../utils';
 const SVG_STYLE = {
   position: 'absolute', left: 0, top: 0, overflow: 'visible',
 };
-
-const getZeroCoord = () => 0;
-const getCorrectSize = position => (
-  (position === LEFT || position === TOP) ? coord => -coord : (coord, side) => side + coord
-);
-const getCorrection = position => (
-  (position === LEFT || position === TOP) ? coord => coord : getZeroCoord
-);
-const getCurrentSize = (_, side) => side;
 
 const adjustScaleRange = (scale, [width, height]) => {
   const range = scale.range().slice();
@@ -46,42 +37,8 @@ const adjustScaleRange = (scale, [width, height]) => {
 class RawAxis extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      xCorrection: 0,
-      yCorrection: 0,
-    };
     this.setRootRef = (node) => {
       this.node = node;
-    };
-    this.createRefsHandler = this.createRefsHandler.bind(this);
-  }
-
-  createRefsHandler(placeholder, changeBBox, {
-    getWidth, getHeight, getXCorrection, getYCorrection,
-  }) {
-    return (el) => {
-      if (!el) {
-        return;
-      }
-      const {
-        width, height, x, y,
-      } = el.getBBox();
-      const { width: stateWidth, height: stateHeight } = this.state;
-
-      if (width === stateWidth && height === stateHeight) return;
-      changeBBox({
-        placeholder,
-        bBox: {
-          width: getWidth(x, width),
-          height: getHeight(y, height),
-        },
-      });
-      this.setState({
-        width,
-        height,
-        xCorrection: getXCorrection(x),
-        yCorrection: getYCorrection(y),
-      });
     };
   }
 
@@ -130,7 +87,6 @@ class RawAxis extends React.PureComponent {
                 tickFormat,
                 indentFromAxis,
               });
-              const { xCorrection, yCorrection } = this.state;
 
               return (
                 <div
@@ -148,19 +104,9 @@ class RawAxis extends React.PureComponent {
                     style={SVG_STYLE}
                   >
                     <RootComponent
-                      // TODO: *refsHandler* should be created in constructor.
-                      refsHandler={this.createRefsHandler(
-                        placeholder,
-                        changeBBox,
-                        {
-                          getWidth: dx ? getCurrentSize : getCorrectSize(position),
-                          getHeight: dy ? getCurrentSize : getCorrectSize(position),
-                          getXCorrection: dx ? getZeroCoord : getCorrection(position),
-                          getYCorrection: dy ? getZeroCoord : getCorrection(position),
-                        },
-                      )}
-                      x={-xCorrection}
-                      y={-yCorrection}
+                      dx={dx}
+                      dy={dy}
+                      onSizeChange={bBox => changeBBox({ placeholder, bBox })}
                     >
                       {ticks.map(({
                         x1, x2, y1, y2, key,

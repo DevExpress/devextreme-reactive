@@ -159,7 +159,6 @@ class RawAxis extends React.PureComponent {
                     height: (dx * heightCalculated) || undefined,
                     flexGrow: dx || undefined,
                   }}
-                  // TODO: *ref* should be created in constructor.
                   ref={this.nodeRef}
                 >
                   <svg

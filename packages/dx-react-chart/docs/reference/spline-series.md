@@ -40,6 +40,7 @@ Field | Type | Description
 ------|------|------------
 coordinates | Array&lt;{ x: number, y: number }&gt; | Coordinates of the series' points.
 color | string | A series color.
+state | string | A series state. It can be following values: 'hovered' - series is hovered, 'selected' - series is selected, undefined - series is not hovered and not selected (normal state).
 
 ### SplineSeries.PathSeriesProps
 

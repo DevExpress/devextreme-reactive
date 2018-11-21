@@ -44,6 +44,7 @@ d | string | The slice's [path](https://developer.mozilla.org/en-US/docs/Web/SVG
 value | number | The slice's value.
 color | string | A series color.
 index | number | Point index.
+state | string | A point state. It can be following values: 'hovered' - point is hovered, 'selected' - point is selected, undefined - point is not hovered and not selected (normal state).
 
 ## Plugin Components
 

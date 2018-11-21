@@ -24,15 +24,8 @@ SizerContainer.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
+// eslint-disable-next-line react/prefer-stateless-function
 export class PaneLayout extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.handleSizeUpdate = (size, changeBBox) => {
-      changeBBox({ placeholder: 'pane', bBox: size });
-    };
-  }
-
   render() {
     return (
       <Plugin name="PaneLayout">
@@ -44,7 +37,7 @@ export class PaneLayout extends React.PureComponent {
                 return (
                   <Sizer
                     containerComponent={SizerContainer}
-                    onSizeChange={size => this.handleSizeUpdate(size, changeBBox)}
+                    onSizeChange={size => changeBBox({ placeholder: 'pane', bBox: size })}
                   >
                     <svg
                       {...params}

@@ -9,6 +9,9 @@ describe('PaneLayout', () => {
     action: {
       changeBBox: () => undefined,
     },
+    getter: {
+      layouts: { pane: { width: 400, height: 300 } },
+    },
   };
 
   it('should render Pane with correct props', () => {
@@ -21,8 +24,8 @@ describe('PaneLayout', () => {
     ));
 
     expect(tree.find('svg').props()).toEqual({
-      width: expect.any(Number),
-      height: expect.any(Number),
+      width: 400,
+      height: 300,
       style: {
         left: 0, top: 0, overflow: 'visible', position: 'absolute',
       },

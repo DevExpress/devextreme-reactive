@@ -9,7 +9,7 @@ import {
   withComponents,
 } from '@devexpress/dx-react-core';
 import {
-  axisCoordinates, LEFT, TOP, BOTTOM, ARGUMENT_DOMAIN, getValueDomainName, axesData,
+  axisCoordinates, LEFT, BOTTOM, ARGUMENT_DOMAIN, getValueDomainName, axesData,
 } from '@devexpress/dx-chart-core';
 import { Root } from '../templates/axis/root';
 import { Tick } from '../templates/axis/tick';
@@ -20,15 +20,6 @@ import { withPatchedProps } from '../utils';
 const SVG_STYLE = {
   position: 'absolute', left: 0, top: 0, overflow: 'visible',
 };
-
-const getZeroCoord = () => 0;
-const getCorrectSize = position => (
-  (position === LEFT || position === TOP) ? coord => -coord : (coord, side) => side + coord
-);
-const getCorrection = position => (
-  (position === LEFT || position === TOP) ? coord => coord : getZeroCoord
-);
-const getCurrentSize = (_, side) => side;
 
 const adjustScaleRange = (scale, [width, height]) => {
   const range = scale.range().slice();
@@ -46,53 +37,8 @@ const adjustScaleRange = (scale, [width, height]) => {
 class RawAxis extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      xCorrection: 0,
-      yCorrection: 0,
-    };
-    this.createRefsHandler = this.createRefsHandler.bind(this);
-  }
-
-  createRefsHandler(placeholder, changeBBox, {
-    getWidth, getHeight, getXCorrection, getYCorrection,
-  }) {
-    return (el) => {
-      if (!el) {
-        return;
-      }
-      const {
-        width, height, x, y,
-      } = el.getBBox();
-      const { width: stateWidth, height: stateHeight } = this.state;
-
-      if (width === stateWidth && height === stateHeight) return;
-      changeBBox({
-        placeholder,
-        bBox: {
-          width: getWidth(x, width),
-          height: getHeight(y, height),
-        },
-      });
-      this.setState({
-        width,
-        height,
-        xCorrection: getXCorrection(x),
-        yCorrection: getYCorrection(y),
-      });
-    };
-  }
-
-  calculateLayout(width, height, defaultWidth, defaultHeight) {
-    const calculatedWidth = width || defaultWidth;
-    const calculatedHeight = height || defaultHeight;
-    const {
-      width: containerWidth,
-      height: containerHeight,
-    } = (this.node && this.node.getBoundingClientRect()) || {};
-
-    return {
-      width: containerWidth || calculatedWidth,
-      height: containerHeight || calculatedHeight,
+    this.setRootRef = (node) => {
+      this.node = node;
     };
   }
 
@@ -124,21 +70,15 @@ class RawAxis extends React.PureComponent {
                 return null;
               }
 
-              const {
-                width: widthCalculated, height: heightCalculated,
-              } = layouts[placeholder] || { width: 0, height: 0 };
-              const {
-                width: widthPostCalculated,
-                height: heightPostCalculated,
-              } = this.calculateLayout(
-                widthCalculated,
-                heightCalculated,
-                0,
-                0,
+              const { width, height } = layouts[placeholder] || { width: 0, height: 0 };
+              // DOM content should not be accessed in *render* - it should be done
+              // in *componentDidMount* and *componentDidUpdate*.
+              // TODO: Remove references to *this.node*.
+              const { width: postWidth, height: postHeight } = (
+                this.node ? this.node.getBoundingClientRect() : { width, height }
               );
               // Isn't it too late to adjust sizes?
-              const postCalculatedScale = adjustScaleRange(scale,
-                [widthPostCalculated, heightPostCalculated]);
+              const postCalculatedScale = adjustScaleRange(scale, [postWidth, postHeight]);
               const { sides: [dx, dy], ticks } = axisCoordinates({
                 name,
                 scale: postCalculatedScale,
@@ -147,38 +87,26 @@ class RawAxis extends React.PureComponent {
                 tickFormat,
                 indentFromAxis,
               });
-              const { xCorrection, yCorrection } = this.state;
 
               return (
                 <div
                   style={{
                     position: 'relative',
-                    width: (dy * widthCalculated) || undefined,
-                    height: (dx * heightCalculated) || undefined,
+                    width: (dy * width) || undefined,
+                    height: (dx * height) || undefined,
                     flexGrow: dx || undefined,
                   }}
-                  // TODO: *ref* should be created in constructor.
-                  ref={(node) => { this.node = node; }}
+                  ref={this.setRootRef}
                 >
                   <svg
-                    width={widthPostCalculated}
-                    height={heightPostCalculated}
+                    width={postWidth}
+                    height={postHeight}
                     style={SVG_STYLE}
                   >
                     <RootComponent
-                      // TODO: *refsHandler* should be created in constructor.
-                      refsHandler={this.createRefsHandler(
-                        placeholder,
-                        changeBBox,
-                        {
-                          getWidth: dx ? getCurrentSize : getCorrectSize(position),
-                          getHeight: dy ? getCurrentSize : getCorrectSize(position),
-                          getXCorrection: dx ? getZeroCoord : getCorrection(position),
-                          getYCorrection: dy ? getZeroCoord : getCorrection(position),
-                        },
-                      )}
-                      x={-xCorrection}
-                      y={-yCorrection}
+                      dx={dx}
+                      dy={dy}
+                      onSizeChange={bBox => changeBBox({ placeholder, bBox })}
                     >
                       {ticks.map(({
                         x1, x2, y1, y2, key,
@@ -192,8 +120,8 @@ class RawAxis extends React.PureComponent {
                         />
                       ))}
                       <LineComponent
-                        width={dx * widthPostCalculated}
-                        height={dy * heightPostCalculated}
+                        width={dx * postWidth}
+                        height={dy * postHeight}
                       />
                       {ticks.map(({
                         text,

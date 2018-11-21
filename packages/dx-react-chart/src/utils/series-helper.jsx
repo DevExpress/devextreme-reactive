@@ -40,7 +40,6 @@ export const declareSeries = (pluginName, { components, ...parameters }) => {
                     index={currentSeries.index}
                     pointComponent={currentSeries.pointComponent}
                     coordinates={currentSeries.points}
-                    path={currentSeries.path}
                     color={currentSeries.color}
                     scales={currentScales}
                     getAnimatedStyle={getAnimatedStyle}

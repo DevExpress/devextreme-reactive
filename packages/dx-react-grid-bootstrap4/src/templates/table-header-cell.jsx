@@ -14,6 +14,15 @@ export class TableHeaderCell extends React.PureComponent {
       dragging: false,
     };
     this.cellRef = React.createRef();
+
+    this.onDragStart = () => {
+      this.setState({ dragging: true });
+    };
+    this.onDragEnd = () => {
+      if (this.cellRef.current) {
+        this.setState({ dragging: false });
+      }
+    };
   }
 
   render() {
@@ -60,8 +69,8 @@ export class TableHeaderCell extends React.PureComponent {
       <DragSource
         ref={this.cellRef}
         payload={[{ type: 'column', columnName: column.name }]}
-        onStart={() => this.setState({ dragging: true })}
-        onEnd={() => this.cellRef.current && this.setState({ dragging: false })}
+        onStart={this.onDragStart}
+        onEnd={this.onDragEnd}
       >
         {cellLayout}
       </DragSource>

@@ -26,7 +26,7 @@ export const babelrc = (packageDirectory) => {
   const config = JSON.parse(readFileSync(join(packageDirectory, '.babelrc')));
   const { plugins } = config;
 
-  plugins.push('external-helpers');
+  plugins.push('@babel/plugin-external-helpers');
 
   return config;
 };

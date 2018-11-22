@@ -1,10 +1,10 @@
 {
   "presets": [
-    [ "env", { "modules": false, "targets": { "browsers": ["last 2 versions"] } } ],
-    "react"
+    [ "@babel/env", { "modules": false, "targets": { "browsers": ["last 2 versions"] } } ],
+    "@babel/react"
   ],
   "plugins": [
-    "transform-object-rest-spread",
+    "@babel/plugin-proposal-object-rest-spread",
     ["transform-react-remove-prop-types", {
       "mode": "unsafe-wrap"
     }]

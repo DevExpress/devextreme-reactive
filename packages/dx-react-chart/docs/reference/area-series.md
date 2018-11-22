@@ -39,11 +39,20 @@ Describes properties passed to a component that renders the series.
 Field | Type | Description
 ------|------|------------
 coordinates | Array&lt;{ x: number, y: number, y1: number }&gt; | Coordinates of the series' points.
-path | (coordinates: Array&lt;{ x: number, y: number, y1: number }&gt;) => string | A function used to calculate the series' path.
 color | string | A series color.
+
+### AreaSeries.PathSeriesProps
+
+Describes properties of a component that renders series.
+
+Extends [AreaSeries.SeriesProps](#areaseriesseriesprops)
+
+Field | Type | Description
+------|------|------------
+path? | (coordinates: Array&lt;{ x: number, y: number, y1: number }&gt;) => string | A function used to calculate the series' path.
 
 ## Plugin Components
 
 Name | Properties | Description
 -----|------------|------------
-AreaSeries.Path | [AreaSeries.SeriesProps](#areaseriesseriesprops) | A component that renders series.
+AreaSeries.Path | [AreaSeries.PathSeriesProps](#areaseriespathseriesprops) | A component that renders series.

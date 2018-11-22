@@ -73,7 +73,9 @@ class RawAxis extends React.PureComponent {
               // in *componentDidMount* and *componentDidUpdate*.
               // TODO: Remove references to *this.node*.
               const { width: postWidth, height: postHeight } = (
-                this.rootRef.current ? this.rootRef.current.getBoundingClientRect() : { width, height }
+                this.rootRef.current
+                  ? this.rootRef.current.getBoundingClientRect()
+                  : { width, height }
               );
               // Isn't it too late to adjust sizes?
               const postCalculatedScale = adjustScaleRange(scale, [postWidth, postHeight]);

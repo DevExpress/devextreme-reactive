@@ -14,8 +14,9 @@ export const SelectionControl = ({
     disabled={disabled}
     checked={checked}
     ref={(ref) => {
-      if (!ref) return;
-      ref.indeterminate = indeterminate; // eslint-disable-line no-param-reassign
+      if (ref) {
+        ref.indeterminate = indeterminate; // eslint-disable-line no-param-reassign
+      }
     }}
     onChange={() => {
       if (disabled) return;

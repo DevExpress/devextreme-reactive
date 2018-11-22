@@ -34,7 +34,6 @@ export class Table extends React.Component {
     const { backgroundColor } = this.state;
     return (
       <table
-        ref={(node) => { this.node = node; }}
         className={classNames({
           'table dx-g-bs4-table': true,
           'dx-g-bs4-table-sticky': !!use,

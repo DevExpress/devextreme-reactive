@@ -8,6 +8,7 @@ export class FilterSelector extends React.PureComponent {
     super(props);
 
     this.state = { opened: false };
+    this.buttonRef = React.createRef();
 
     this.handleButtonClick = () => {
       this.setState(prevState => ({ opened: !prevState.opened }));
@@ -34,16 +35,16 @@ export class FilterSelector extends React.PureComponent {
         <ToggleButton
           disabled={disabled || availableValues.length === 1}
           onToggle={this.handleButtonClick}
-          buttonRef={(ref) => { this.targetElement = ref; }}
+          buttonRef={this.buttonRef}
         >
           <Icon type={value} />
         </ToggleButton>
         {
-          this.targetElement ? (
+          this.buttonRef.current ? (
             <Popover
               placement="bottom"
               isOpen={opened}
-              target={this.targetElement}
+              target={this.buttonRef.current}
               container={undefined}
               toggle={this.handleOverlayToggle}
             >

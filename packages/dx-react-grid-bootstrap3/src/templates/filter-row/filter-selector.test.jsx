@@ -40,4 +40,30 @@ describe('FilterSelector', () => {
     expect(tree.find(defaultProps.toggleButtonComponent).prop('disabled'))
       .toBeTruthy();
   });
+
+  it('should pass className to the root element', () => {
+    const tree = shallow((
+      <FilterSelector
+        {...defaultProps}
+        availableValues={['one']}
+        className="custom"
+      />
+    ));
+
+    expect(tree.is('.custom.input-group-btn')).toBeTruthy();
+  });
+
+  it('should pass rest props to the root element', () => {
+    const tree = shallow((
+      <FilterSelector
+        {...defaultProps}
+        availableValues={['one']}
+        style={{ backgroundColor: 'red' }}
+      />
+    ));
+
+    expect(tree.props().style).toMatchObject({
+      backgroundColor: 'red',
+    });
+  });
 });

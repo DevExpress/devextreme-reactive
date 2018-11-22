@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { ListGroup, ListGroupItem } from 'react-bootstrap';
+import classNames from 'classnames';
 import { Overlay } from '../parts/overlay';
 
 export class FilterSelector extends React.PureComponent {
@@ -26,11 +27,15 @@ export class FilterSelector extends React.PureComponent {
     const {
       value, availableValues, disabled, getMessage,
       iconComponent: Icon, toggleButtonComponent: ToggleButton,
+      className, ...restProps
     } = this.props;
     const { opened } = this.state;
 
     return availableValues.length ? (
-      <span className="input-group-btn">
+      <span
+        className={classNames('input-group-btn', className)}
+        {...restProps}
+      >
         <ToggleButton
           disabled={disabled || availableValues.length === 1}
           onToggle={this.handleButtonClick}
@@ -80,6 +85,7 @@ FilterSelector.propTypes = {
   iconComponent: PropTypes.func.isRequired,
   toggleButtonComponent: PropTypes.func.isRequired,
   getMessage: PropTypes.func.isRequired,
+  className: PropTypes.string,
 };
 
 FilterSelector.defaultProps = {
@@ -87,4 +93,5 @@ FilterSelector.defaultProps = {
   availableValues: [],
   onChange: () => {},
   disabled: false,
+  className: undefined,
 };

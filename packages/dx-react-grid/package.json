@@ -46,20 +46,13 @@
     "@devexpress/dx-react-core": "1.9.0",
     "@devexpress/dx-testing": "1.9.0",
     "@babel/core":"^7.1.6",
+    "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23.6.0",
-
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
-
-    "babel-plugin-transform-react-remove-prop-types": "^0.4.20",
-
-
     "@babel/plugin-transform-runtime": "^7.1.0",
-
     "@babel/preset-env":"^7.1.6",
-
     "@babel/preset-react": "^7.0.0",
-
-
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.20",
     "core-js": "^2.5.7",
     "enzyme": "3.7.0",
     "enzyme-adapter-react-16": "^1.7.0",
@@ -78,7 +71,6 @@
     "react-test-renderer": "^16.6.3",
     "rollup": "^0.67.3",
     "rollup-plugin-babel": "^4.0.3",
-
     "rollup-plugin-license": "^0.7.0",
     "rollup-plugin-node-resolve": "^3.4.0"
   },

@@ -11,6 +11,8 @@ import {
 import { getParameters, processHandleTooltip } from '@devexpress/dx-chart-core';
 import { Target } from '../templates/tooltip/target';
 
+const dependencies = [{ name: 'EventTracker', optional: true }];
+
 class RawTooltip extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -20,7 +22,7 @@ class RawTooltip extends React.PureComponent {
     this.createTargetElement = this.createTargetElement.bind(this);
     this.getTargetElement = this.getTargetElement.bind(this);
     const handlePointerMove = this.handlePointerMove.bind(this);
-    this.getPointerMoveHandlers = ({ pointerMoveHandlers }) => [
+    this.getPointerMoveHandlers = ({ pointerMoveHandlers = [] }) => [
       ...pointerMoveHandlers, handlePointerMove,
     ];
   }
@@ -60,7 +62,7 @@ class RawTooltip extends React.PureComponent {
       target,
     } = this.state;
     return (
-      <Plugin name="Tooltip">
+      <Plugin name="Tooltip" dependencies={dependencies}>
         <Getter name="pointerMoveHandlers" computed={this.getPointerMoveHandlers} />
         <Template name="series">
           <TemplatePlaceholder />

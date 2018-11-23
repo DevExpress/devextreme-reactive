@@ -37,6 +37,7 @@ describe('#declareSeries', () => {
     index: 1,
     seriesComponent: TestComponentPath,
     points: coords,
+    state: 'test-state',
     color: 'color',
     styles: 'styles',
   });
@@ -82,6 +83,7 @@ describe('#declareSeries', () => {
       path: undefined,
       coordinates: coords,
       pointComponent: undefined,
+      state: 'test-state',
       color: 'color',
       scales: { xScale: 'argument-scale', yScale: 'value-scale' },
       getAnimatedStyle: 'test-animated-style-getter',

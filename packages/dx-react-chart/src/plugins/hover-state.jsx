@@ -25,12 +25,10 @@ export class HoverState extends React.PureComponent {
   }
 
   handlePointerMove({ targets }) {
-    const { onHoverChange } = this.props;
-    const { hover: currentTarget } = this.state;
-    const hover = processPointerMove(targets, currentTarget, onHoverChange);
-    if (hover !== undefined) {
-      this.setState({ hover });
-    }
+    this.setState(({ hover: currentTarget }, { onHoverChange }) => {
+      const hover = processPointerMove(targets, currentTarget, onHoverChange);
+      return hover !== undefined ? { hover } : null;
+    });
   }
 
   render() {

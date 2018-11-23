@@ -1,12 +1,12 @@
 {
-  "presets": [[ "env", { "modules": false, "targets": { "browsers": ["last 2 versions"] } } ]],
+  "presets": [[ "@babel/preset-env", { "modules": false, "targets": { "browsers": ["last 2 versions"] } } ]],
   "plugins": [
-    "transform-object-rest-spread"
+    "@babel/plugin-proposal-object-rest-spread"
   ],
   "env": {
     "test": {
       "presets": [
-        ["env", {"modules": "commonjs"}]
+        ["@babel/preset-env", {"modules": "commonjs"}]
       ]
     }
   }

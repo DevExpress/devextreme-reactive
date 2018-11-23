@@ -8,6 +8,8 @@ import {
   changeSeriesState, processPointerMove, getHoverTargets, HOVERED,
 } from '@devexpress/dx-chart-core';
 
+const dependencies = [{ name: 'EventTracker', optional: true }];
+
 export class HoverState extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -15,7 +17,7 @@ export class HoverState extends React.PureComponent {
       hover: props.hover || props.defaultHover,
     };
     const handlePointerMove = this.handlePointerMove.bind(this);
-    this.getPointerMoveHandlers = ({ pointerMoveHandlers }) => [
+    this.getPointerMoveHandlers = ({ pointerMoveHandlers = [] }) => [
       ...pointerMoveHandlers, handlePointerMove,
     ];
   }
@@ -37,7 +39,7 @@ export class HoverState extends React.PureComponent {
     // to notify that "series" is updated.
     const getSeries = ({ series }) => changeSeriesState(series, getHoverTargets(hover), HOVERED);
     return (
-      <Plugin name="HoverState">
+      <Plugin name="HoverState" dependencies={dependencies}>
         <Getter name="pointerMoveHandlers" computed={this.getPointerMoveHandlers} />
         <Getter name="series" computed={getSeries} />
       </Plugin>

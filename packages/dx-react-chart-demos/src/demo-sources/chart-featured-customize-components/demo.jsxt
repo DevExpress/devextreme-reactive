@@ -42,11 +42,9 @@ const BarWithLabel = (props) => {
     </React.Fragment>);
 };
 
-const Grid = (props) => {
-  return (
-    <ValueAxis.Grid {...props} strokeDasharray="10 5" />
-  )
-}
+const Grid = props => (
+  <ValueAxis.Grid {...props} strokeDasharray="10 5" />
+);
 
 export default class Demo extends React.PureComponent {
   constructor(props) {

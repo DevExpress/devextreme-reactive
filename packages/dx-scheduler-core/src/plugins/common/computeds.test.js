@@ -134,13 +134,14 @@ describe('#availableViews', () => {
 });
 
 describe('#viewCellsData', () => {
-  it('should work when growDirection type is vertical', () => {
+  it('should work', () => {
     const currentDate = '2018-10-09 10:00';
     const firstDayOfWeek = undefined;
     const intervalCount = 2;
     const startDayHour = 10;
     const endDayHour = 11;
     const cellDuration = 30;
+
     expect(viewCellsData(
       currentDate, firstDayOfWeek,
       intervalCount, undefined, startDayHour,
@@ -156,31 +157,31 @@ describe('#viewCellsData', () => {
       ],
     ]);
   });
+});
 
-  describe('#startViewDate', () => {
-    const viewCells = [
-      [{ startDate: moment('2018-06-10'), endDate: moment('2018-06-11') }],
-      [{ startDate: moment('2018-06-11'), endDate: moment('2018-06-12') }],
-    ];
+describe('#startViewDate', () => {
+  const viewCells = [
+    [{ startDate: moment('2018-06-10'), endDate: moment('2018-06-11') }],
+    [{ startDate: moment('2018-06-11'), endDate: moment('2018-06-12') }],
+  ];
 
-    it('should work', () => {
-      expect(startViewDate(viewCells))
-        .toEqual(moment('2018-06-10').toDate());
-    });
+  it('should work', () => {
+    expect(startViewDate(viewCells))
+      .toEqual(moment('2018-06-10').toDate());
   });
+});
 
-  describe('#endViewDate', () => {
-    const viewCells = [
-      [{ startDate: moment('2018-06-10'), endDate: moment('2018-06-11') }],
-      [
-        { startDate: moment('2018-06-11 10:00'), endDate: moment('2018-06-12 10:30') },
-        { startDate: moment('2018-06-11 10:30'), endDate: moment('2018-06-12 11:00') },
-      ],
-    ];
+describe('#endViewDate', () => {
+  const viewCells = [
+    [{ startDate: moment('2018-06-10'), endDate: moment('2018-06-11') }],
+    [
+      { startDate: moment('2018-06-11 10:00'), endDate: moment('2018-06-12 10:30') },
+      { startDate: moment('2018-06-11 10:30'), endDate: moment('2018-06-12 11:00') },
+    ],
+  ];
 
-    it('should work', () => {
-      expect(endViewDate(viewCells))
-        .toEqual(moment('2018-06-12 10:59:59').toDate());
-    });
+  it('should work', () => {
+    expect(endViewDate(viewCells))
+      .toEqual(moment('2018-06-12 10:59:59').toDate());
   });
 });

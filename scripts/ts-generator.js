@@ -250,7 +250,8 @@ const ensureDirectory = (dir) => {
 
 const isNotRootComponent = (packageName, file) => {
   return (packageName.indexOf('grid') > 0 && file.indexOf('grid') === -1) ||
-        (packageName.indexOf('chart') > 0 && file.indexOf('chart') === -1);
+        (packageName.indexOf('chart') > 0 && file.indexOf('chart') === -1) ||
+        (packageName.indexOf('scheduler') > 0 && file.indexOf('scheduler') === -1);
 };
 
 const generateTypeScriptForPackage = (packageName) => {

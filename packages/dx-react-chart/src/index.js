@@ -16,9 +16,10 @@ export { SplineSeries } from './plugins/spline-series';
 
 export { Axis, ArgumentAxis, ValueAxis } from './plugins/axis';
 export { Grid, ArgumentGrid, ValueGrid } from './plugins/grid';
+export { Tooltip } from './plugins/tooltip';
 
 export * from './plugins/event-tracker';
 export * from './plugins/hover-state';
 export * from './plugins/selection-state';
 
-export { withPatchedProps, withComponents } from './utils';
+export { withPatchedProps } from './utils';

@@ -6,30 +6,11 @@ import {
   Getter,
   TemplatePlaceholder,
   TemplateConnector,
+  withComponents,
 } from '@devexpress/dx-react-core';
 import {
   findSeriesByName, addSeries, getValueDomainName, ARGUMENT_DOMAIN,
 } from '@devexpress/dx-chart-core';
-import { withComponents } from './series-component';
-
-// May be it is better to say what props are passed along rather then what are NOT passed?
-const getRenderProps = (series) => {
-  const {
-    name,
-    uniqueName,
-    axisName,
-    argumentField,
-    valueField,
-    palette,
-    symbolName,
-    isStartedFromZero,
-    getValueDomain, // TODO: Temporary - see corresponding note in *computeDomains*.
-    createHitTester,
-    ...restProps
-  } = series;
-
-  return restProps;
-};
 
 export const declareSeries = (pluginName, { components, ...parameters }) => {
   class Component extends React.PureComponent {
@@ -54,13 +35,15 @@ export const declareSeries = (pluginName, { components, ...parameters }) => {
                   xScale: scales[ARGUMENT_DOMAIN],
                   yScale: scales[getValueDomainName(currentSeries.axisName)],
                 };
-                const { seriesComponent: Series, points, ...props } = getRenderProps(currentSeries);
                 return (
-                  <Series
-                    coordinates={points}
+                  <currentSeries.seriesComponent
+                    index={currentSeries.index}
+                    pointComponent={currentSeries.pointComponent}
+                    coordinates={currentSeries.points}
+                    state={currentSeries.state}
+                    color={currentSeries.color}
                     scales={currentScales}
                     getAnimatedStyle={getAnimatedStyle}
-                    {...props}
                   />
                 );
               }}

@@ -10,6 +10,7 @@ export const Root = ({
     style={{
       display: 'flex',
       flexDirection: 'column',
+      position: 'relative',
       ...style,
     }}
     {...restProps}

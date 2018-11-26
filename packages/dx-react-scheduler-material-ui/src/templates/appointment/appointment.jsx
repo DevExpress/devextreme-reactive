@@ -20,6 +20,9 @@ const styles = ({ palette, typography }) => ({
       outline: 0,
     },
   },
+  clickableAppointment: {
+    cursor: 'pointer',
+  },
 });
 
 const AppointmentBase = ({
@@ -37,9 +40,13 @@ const AppointmentBase = ({
       },
     }
     : null;
+  const clickable = onClick || restProps.onDoubleClick;
   return (
     <div
-      className={classNames(classes.appointment, className)}
+      className={classNames({
+        [classes.appointment]: true,
+        [classes.clickableAppointment]: clickable,
+      }, className)}
       style={style}
       {...onClick}
       {...restProps}

@@ -12,28 +12,17 @@ import {
 
 import { generateRows } from '../../../demo-data/generator';
 
-const NameGroupCell = (props) => {
-  const { row } = props;
-  return (
-    <TableGroupRow.Cell {...props}>
-      from
-      {' '}
-      {row.value.from}
-      {' '}
-      to
-      {' '}
-      {row.value.to}
-    </TableGroupRow.Cell>
-  );
-};
-
-const GroupCell = (props) => {
-  const { column } = props;
-  if (column.name === 'name') {
-    return <NameGroupCell {...props} />;
-  }
-  return <TableGroupRow.Cell {...props} />;
-};
+const GroupCellContent = ({ row, ...restProps }) => (
+  <TableGroupRow.Content {...restProps}>
+    from
+    {' '}
+    {row.value.from}
+    {' '}
+    to
+    {' '}
+    {row.value.to}
+  </TableGroupRow.Content>
+);
 
 const nameGroupCriteria = (value) => {
   const firstLetter = String(value).substr(0, 1).toLowerCase();
@@ -92,7 +81,7 @@ export default class Demo extends React.PureComponent {
           <TableHeaderRow />
           <TableGroupRow
             columnExtensions={tableGroupColumnExtension}
-            cellComponent={GroupCell}
+            contentComponent={GroupCellContent}
           />
         </Grid>
       </<%&wrapperTag%>>

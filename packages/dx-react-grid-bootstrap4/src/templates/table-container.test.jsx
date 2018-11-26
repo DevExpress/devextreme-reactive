@@ -24,4 +24,17 @@ describe('TableContainer', () => {
     expect(tree.props().data)
       .toMatchObject({ a: 1 });
   });
+
+  it('should have correct styles', () => {
+    const tree = shallow((
+      <TableContainer>
+        <span />
+      </TableContainer>
+    ));
+
+    expect(tree.find('div').prop('style'))
+      .toMatchObject({
+        msOverflowStyle: 'auto',
+      });
+  });
 });

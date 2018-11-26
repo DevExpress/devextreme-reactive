@@ -1,10 +1,13 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
+import { dBar } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
 import { Bar } from './bar';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
+  dBar: jest.fn().mockReturnValue({ attributes: 'test-attributes' }),
+  getAreaAnimationStyle: 'test-animation-style',
   HOVERED: 'test_hovered',
   SELECTED: 'test_selected',
 }));
@@ -18,53 +21,56 @@ jest.mock('../../utils/with-pattern', () => ({
 
 describe('Bar', () => {
   const defaultProps = {
-    x: 1,
-    y: 2,
-    width: 10,
-    height: 20,
-    color: 'red',
+    argument: 'arg',
     value: 15,
+    seriesIndex: 1,
+    index: 2,
+    x: 1,
+    width: 10,
+    y: 2,
+    y1: 18,
+    color: 'color',
+    style: { tag: 'test-style' },
+    scales: { tag: 'test-scales' },
+    getAnimatedStyle: jest.fn().mockReturnValue('animated-style'),
   };
 
-  it('should render root element', () => {
+  afterEach(() => {
+    dBar.mockClear();
+    defaultProps.getAnimatedStyle.mockClear();
+  });
+
+  it('should render bar', () => {
     const tree = shallow((
-      <Bar
-        {...defaultProps}
-      />
+      <Bar {...defaultProps} />
     ));
 
     expect(tree.find('rect').props()).toEqual({
-      x: 1,
-      y: 2,
-      width: 10,
-      height: 20,
-      fill: 'red',
+      attributes: 'test-attributes',
+      fill: 'color',
+      style: 'animated-style',
+    });
+    expect(dBar).toBeCalledWith({
+      x: 1, width: 10, y: 2, y1: 18,
     });
   });
 
-  it('should apply custom styles if any', () => {
-    const customStyle = {
-      stroke: 'red',
-      strokeWidth: '2px',
-    };
+  it('should pass rest properties', () => {
     const tree = shallow((
-      <Bar
-        {...defaultProps}
-        style={customStyle}
-      />
+      <Bar {...defaultProps} custom={10} />
     ));
-    const { style } = tree.find('rect').props();
 
-    expect(style).toEqual(customStyle);
+    const { custom } = tree.find('rect').props();
+    expect(custom).toEqual(10);
   });
 
-  it('should pass the rest property to the root element', () => {
-    const tree = shallow((
-      <Bar {...defaultProps} customProperty />
+  it('should apply animation style', () => {
+    shallow((
+      <Bar {...defaultProps} />
     ));
-    const { customProperty } = tree.find('rect').props();
 
-    expect(customProperty).toBeTruthy();
+    expect(defaultProps.getAnimatedStyle)
+      .toBeCalledWith(defaultProps.style, 'test-animation-style', defaultProps.scales);
   });
 
   it('should have hovered and selected states', () => {

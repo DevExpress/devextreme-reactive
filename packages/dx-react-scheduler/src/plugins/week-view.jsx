@@ -16,7 +16,7 @@ import {
   getVerticalRectByDates,
   startViewDate as startViewDateCore,
   endViewDate as endViewDateCore,
-  availableViews as availableViewsCore,
+  availableViewNames as availableViewNamesCore,
   VERTICAL_TYPE,
 } from '@devexpress/dx-scheduler-core';
 
@@ -69,8 +69,8 @@ export class WeekView extends React.PureComponent {
         ? currentView
         : { name: viewName, type: TYPE }
     );
-    this.availableViewsComputed = ({ availableViews }) => availableViewsCore(
-      availableViews, viewName,
+    this.availableViewNamesComputed = ({ availableViewNames }) => availableViewNamesCore(
+      availableViewNames, viewName,
     );
     this.intervalCountComputed = getters => computed(
       getters, viewName, () => intervalCount, getters.intervalCount,
@@ -120,7 +120,7 @@ export class WeekView extends React.PureComponent {
       <Plugin
         name="WeekView"
       >
-        <Getter name="availableViews" computed={this.availableViewsComputed} />
+        <Getter name="availableViewNames" computed={this.availableViewNamesComputed} />
         <Getter name="currentView" computed={this.currentViewComputed} />
         <Getter name="intervalCount" computed={this.intervalCountComputed} />
         <Getter name="firstDayOfWeek" computed={this.firstDayOfWeekComputed} />

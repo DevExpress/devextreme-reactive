@@ -9,7 +9,7 @@ import {
 } from 'd3-shape';
 import { scaleOrdinal } from 'd3-scale';
 import { ARGUMENT_DOMAIN } from '../../constants';
-import { getWidth, getValueDomainName } from '../../utils/scale';
+import { getWidth, getValueDomainName, fixOffset } from '../../utils/scale';
 
 const getX = ({ x }) => x;
 const getY = ({ y }) => y;
@@ -32,7 +32,7 @@ export const dSpline = line()
   .curve(curveMonotoneX);
 
 export const getPiePointTransformer = ({
-  innerRadius = 0, outerRadius = 1, argumentScale, valueScale, palette, points,
+  argumentScale, valueScale, points, innerRadius, outerRadius, palette,
 }) => {
   const x = Math.max(...argumentScale.range()) / 2;
   const y = Math.max(...valueScale.range()) / 2;
@@ -59,16 +59,26 @@ export const getPiePointTransformer = ({
   };
 };
 
-export const getAreaPointTransformer = ({ argumentScale, valueScale }) => {
-  const y1 = valueScale(0);
-  const offset = getWidth(argumentScale) / 2;
+export const getLinePointTransformer = ({ argumentScale, valueScale }) => {
+  const fixedArgumentScale = fixOffset(argumentScale);
   return point => ({
     ...point,
-    x: argumentScale(point.argument) + offset,
+    x: fixedArgumentScale(point.argument),
     y: valueScale(point.value),
-    y1,
   });
 };
+
+export const getAreaPointTransformer = (series) => {
+  const transform = getLinePointTransformer(series);
+  const y1 = series.valueScale(0);
+  return (point) => {
+    const ret = transform(point);
+    ret.y1 = y1;
+    return ret;
+  };
+};
+// Used for domain calculation and stacking.
+getAreaPointTransformer.isStartedFromZero = true;
 
 export const getBarPointTransformer = ({
   argumentScale, valueScale, barWidth,
@@ -85,6 +95,8 @@ export const getBarPointTransformer = ({
     width,
   });
 };
+// Used for domain calculation and stacking.
+getBarPointTransformer.isStartedFromZero = true;
 // Used for Bar grouping.
 getBarPointTransformer.isBroad = true;
 
@@ -107,6 +119,41 @@ export const pointAttributes = ({ size = DEFAULT_POINT_SIZE }) => {
     y: item.y,
   });
 };
+
+getBarPointTransformer.getTargetElement = ({
+  x, y, y1, width,
+}) => {
+  const height = Math.abs(y1 - y);
+  return {
+    x,
+    y,
+    d: `M0,0 ${width},0 ${width},${height} 0,${height}`,
+  };
+};
+getPiePointTransformer.getTargetElement = ({
+  x, y, innerRadius, outerRadius, startAngle, endAngle,
+}) => {
+  const center = arc()
+    .innerRadius(innerRadius)
+    .outerRadius(outerRadius)
+    .startAngle(startAngle)
+    .endAngle(endAngle)
+    .centroid();
+  return {
+    x: center[0] + x, y: center[1] + y, d: symbol().size([1 ** 2]).type(symbolCircle)(),
+  };
+};
+
+getAreaPointTransformer.getTargetElement = ({ x, y }) => {
+  const size = DEFAULT_POINT_SIZE; // TODO get user size
+  return {
+    x,
+    y,
+    d: symbol().size([size ** 2]).type(symbolCircle)(),
+  };
+};
+
+getLinePointTransformer.getTargetElement = getAreaPointTransformer.getTargetElement;
 
 const createNewUniqueName = name => name.replace(/\d*$/, str => (str ? +str + 1 : 0));
 
@@ -151,14 +198,13 @@ export const addSeries = (series, data, palette, props) => {
 // TODO: Memoization is much needed here by the same reason as in "createPoints".
 // Make "scales" persistent first.
 const scalePoints = (series, scales) => {
-  const { getPointTransformer, ...rest } = series;
-  const transform = getPointTransformer({
+  const transform = series.getPointTransformer({
     ...series,
     argumentScale: scales[ARGUMENT_DOMAIN],
     valueScale: scales[getValueDomainName(series.axisName)],
   });
   return {
-    ...rest,
+    ...series,
     points: series.points.map(transform),
   };
 };

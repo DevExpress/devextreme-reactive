@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { findDOMNode } from 'react-dom';
 import * as PropTypes from 'prop-types';
+import { isEdgeBrowser } from '@devexpress/dx-core';
 import { Sizer, RefHolder } from '@devexpress/dx-react-core';
 import {
   getCollapsedGrid,
@@ -37,6 +38,8 @@ export class VirtualTableLayout extends React.PureComponent {
   }
 
   componentDidMount() {
+    this.isEdgeBrowser = isEdgeBrowser();
+
     this.storeRowHeights();
     this.storeBloksHeights();
   }
@@ -140,21 +143,31 @@ export class VirtualTableLayout extends React.PureComponent {
     }
   }
 
-  updateViewport(e) {
+  shouldSkipScrollEvent(e) {
     const node = e.target;
 
     // NOTE: prevent nested scroll to update viewport
     if (node !== e.currentTarget) {
-      return;
+      return true;
     }
-
     // NOTE: prevent iOS to flicker in bounces and correct rendering on high dpi screens
-    const nodeHorizontalOffset = parseInt(node.scrollLeft + node.clientWidth, 10);
-    const nodeVerticalOffset = parseInt(node.scrollTop + node.clientHeight, 10);
+    const correction = this.isEdgeBrowser ? 1 : 0;
+    const nodeHorizontalOffset = parseInt(node.scrollLeft + node.clientWidth, 10) - correction;
+    const nodeVerticalOffset = parseInt(node.scrollTop + node.clientHeight, 10) - correction;
     if (node.scrollTop < 0
       || node.scrollLeft < 0
       || nodeHorizontalOffset > Math.max(node.scrollWidth, node.clientWidth)
       || nodeVerticalOffset > Math.max(node.scrollHeight, node.clientHeight)) {
+      return true;
+    }
+
+    return false;
+  }
+
+  updateViewport(e) {
+    const node = e.target;
+
+    if (this.shouldSkipScrollEvent(e)) {
       return;
     }
 

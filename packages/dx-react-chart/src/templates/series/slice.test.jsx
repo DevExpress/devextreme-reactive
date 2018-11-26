@@ -5,6 +5,7 @@ import { withPattern } from '../../utils/with-pattern';
 import { Slice } from './slice';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
+  getPieAnimationStyle: 'test-animation-style',
   HOVERED: 'test_hovered',
   SELECTED: 'test_selected',
 }));
@@ -18,50 +19,44 @@ jest.mock('../../utils/with-pattern', () => ({
 
 describe('Slice', () => {
   const defaultProps = {
+    argument: 'arg',
+    value: 15,
+    seriesIndex: 1,
+    index: 2,
     x: 1,
     y: 2,
     d: 'M11 11',
-    value: 15,
-    color: 'red',
+    innerRadius: 10,
+    outerRadius: 20,
+    startAngle: 11,
+    endAngle: 12,
+    color: 'color',
+    style: { tag: 'test-style' },
+    scales: { tag: 'test-scales' },
+    getAnimatedStyle: jest.fn().mockReturnValue('animated-style'),
   };
 
-  it('should render path element', () => {
+  it('should render slice', () => {
     const tree = shallow((
       <Slice {...defaultProps} />
     ));
 
+    expect(tree.find('g').props().transform).toEqual('translate(1 2)');
     expect(tree.find('path').props()).toEqual({
       d: 'M11 11',
-      fill: 'red',
+      fill: 'color',
       stroke: 'none',
-      style: {},
+      style: 'animated-style',
     });
   });
 
-  it('should render path element with custom styles', () => {
-    const customStyle = {
-      stroke: 'orange',
-      fill: 'green',
-    };
+  it('should pass rest properties', () => {
     const tree = shallow((
-      <Slice
-        {...defaultProps}
-        style={customStyle}
-      />
+      <Slice {...defaultProps} custom={10} />
     ));
-    const { style } = tree.find('path').props();
+    const { custom } = tree.find('path').props();
 
-    expect(style).toEqual(customStyle);
-  });
-
-
-  it('should pass the rest property to the root element', () => {
-    const tree = shallow((
-      <Slice {...defaultProps} customProperty />
-    ));
-    const { customProperty } = tree.find('path').props();
-
-    expect(customProperty).toBeTruthy();
+    expect(custom).toEqual(10);
   });
 
   it('should have hovered and selected states', () => {

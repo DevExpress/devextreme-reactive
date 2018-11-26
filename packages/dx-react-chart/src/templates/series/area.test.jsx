@@ -20,7 +20,9 @@ describe('Area', () => {
   const defaultProps = {
     path: value => value.join('-'),
     coordinates: [1, 2, 3],
+    index: 1,
     color: 'red',
+    scales: { tag: 'test-scales' },
     getAnimatedStyle: jest.fn(style => style),
   };
 

@@ -42,6 +42,12 @@ const BarWithLabel = (props) => {
     </React.Fragment>);
 };
 
+const Grid = (props) => {
+  return (
+    <ValueAxis.Grid {...props} strokeDasharray="10 5" />
+  )
+}
+
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -104,8 +110,9 @@ export default class Demo extends React.PureComponent {
                 type="band"
                 labelComponent={this.getLabelWithAvatarComponent}
                 tickComponent={() => null}
+                gridComponent={() => null}
               />
-              <ValueAxis lineComponent={() => null} />
+              <ValueAxis lineComponent={() => null} gridComponent={Grid} />
 
               <BarSeries
                 name="Contributions"

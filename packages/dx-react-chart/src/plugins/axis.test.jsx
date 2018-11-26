@@ -284,8 +284,10 @@ describe('Axis', () => {
     enforceUpdate(tree);
 
     expect(tree.find(LineComponent).props()).toEqual({
-      width: 400,
-      height: 0,
+      x1: 0,
+      x2: 400,
+      y1: 0,
+      y2: 0,
     });
   });
 
@@ -297,8 +299,10 @@ describe('Axis', () => {
     enforceUpdate(tree);
 
     expect(tree.find(LineComponent).props()).toEqual({
-      width: 0,
-      height: 300,
+      x1: 0,
+      x2: 0,
+      y1: 0,
+      y2: 300,
     });
   });
 

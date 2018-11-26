@@ -12,10 +12,8 @@ import {
   axisCoordinates, LEFT, BOTTOM, ARGUMENT_DOMAIN, getValueDomainName, axesData, getGridCoordinates,
 } from '@devexpress/dx-chart-core';
 import { Root } from '../templates/axis/root';
-import { Tick } from '../templates/axis/tick';
 import { Label } from '../templates/axis/label';
 import { Line } from '../templates/axis/line';
-import { Grid } from '../templates/axis/grid';
 
 import { withPatchedProps } from '../utils';
 
@@ -126,8 +124,10 @@ class RawAxis extends React.PureComponent {
                         />
                       ))}
                       <LineComponent
-                        width={dx * this.adjustedWidth}
-                        height={dy * this.adjustedHeight}
+                        x1={0}
+                        x2={dx * this.adjustedWidth}
+                        y1={0}
+                        y2={dy * this.adjustedHeight}
                       />
                       {ticks.map(({
                         text,
@@ -216,7 +216,11 @@ RawAxis.components = {
 };
 
 export const Axis = withComponents({
-  Root, Tick, Label, Line, Grid,
+  Root,
+  Tick: Line,
+  Label,
+  Line,
+  Grid: Line,
 })(RawAxis);
 
 // TODO: It is not axis who defines that argument is HORIZONTAL and value is VERTICAL.

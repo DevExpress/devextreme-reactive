@@ -3,7 +3,6 @@ import {
   Chart,
   ArgumentAxis,
   ValueAxis,
-  ValueGrid,
   BarSeries,
   Title,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
@@ -107,7 +106,6 @@ export default class Demo extends React.PureComponent {
                 tickComponent={() => null}
               />
               <ValueAxis lineComponent={() => null} />
-              <ValueGrid strokeDasharray="10 5" />
 
               <BarSeries
                 name="Contributions"

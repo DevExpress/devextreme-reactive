@@ -7,7 +7,6 @@ import {
   AreaSeries,
   Title,
   Legend,
-  ValueGrid,
 } from '@devexpress/dx-react-chart-material-ui';
 import { withStyles } from '@material-ui/core/styles';
 import { Scale, Animation } from '@devexpress/dx-react-chart';
@@ -94,8 +93,6 @@ class Demo extends React.PureComponent {
         >
           <ArgumentAxis />
           <ValueAxis lineComponent={EmptyComponent} tickComponent={EmptyComponent} />
-
-          <ValueGrid />
 
           <AreaSeries
             name="App Store"

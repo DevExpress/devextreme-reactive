@@ -3,7 +3,6 @@ import {
   Chart,
   ArgumentAxis,
   ValueAxis,
-  ArgumentGrid,
   BarSeries,
   SplineSeries,
   Legend,
@@ -50,8 +49,6 @@ export default class Demo extends React.PureComponent {
           />
           <ValueAxis name="sale" />
           <ValueAxis name="total" position="right" />
-
-          <ArgumentGrid name="month" />
 
           <BarSeries
             name="Units Sold"

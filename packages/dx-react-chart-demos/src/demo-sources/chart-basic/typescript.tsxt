@@ -4,7 +4,6 @@ import {
   ValueAxis,
   BarSeries,
   Chart,
-  ValueGrid,
   LineSeries,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 
@@ -35,8 +34,6 @@ export default class Demo extends React.Component<object, object> {
           <ArgumentAxis />
           <ValueAxis name="sale" />
           <ValueAxis name="total" position="right" />
-
-          <ValueGrid name="sale" />
 
           <BarSeries
             name="Units Sold"

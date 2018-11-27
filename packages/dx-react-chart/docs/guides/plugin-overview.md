@@ -23,8 +23,8 @@ The following plugins render series:
 
 The following plugins render additional elements:
 
-- `ArgumentAxis` - renders an argument axis and grid
-- `ValueAxis` - renders a value axis and grid
+- `ArgumentAxis` - renders an argument axis and a grid
+- `ValueAxis` - renders a value axis and a grid
 - `Legend` - renders a legend
 - `Title` - renders a title
 - `Tooltip` - renders a tooltip

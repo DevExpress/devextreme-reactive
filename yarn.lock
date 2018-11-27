@@ -47,6 +47,18 @@
   dependencies:
     regenerator-runtime "^0.12.0"
 
+"@date-io/core@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@date-io/core/-/core-0.0.2.tgz#35be27d26eb652e752ccfbffe624c95169200dbd"
+  integrity sha512-rkanRee2Agpw3tZLaCGJxkNRzi7FdyqueQDmEZAgZfIQaPo0MoOrO0gcTGwhTNREV8+OBKiZLpbaHK79dsU/Wg==
+
+"@date-io/moment@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@date-io/moment/-/moment-0.0.2.tgz#2020055c214fe5da7a6fc4741ebcb6a622ead6da"
+  integrity sha512-YrLDOHAZygZChOwXcr3D6W7Dusp7wLi3Y/pt6ZgxDOnX1iNlO+M7qjZ3PdD+vH0v2xlzEg2n2rZ67QschAIiKQ==
+  dependencies:
+    "@date-io/core" "^0.0.2"
+
 "@lerna/add@^3.4.1":
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/@lerna/add/-/add-3.4.1.tgz#d41068317e30f530df48220d256b5e79690b1877"
@@ -606,7 +618,7 @@
     npmlog "^4.1.2"
     write-file-atomic "^2.3.0"
 
-"@material-ui/core@^3.3.2":
+"@material-ui/core@^3.6.0":
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-3.6.0.tgz#15d602e9316659368e33dd43279b7995b26423ea"
   integrity sha512-Erg9PI1xYa8pQFZf6tvWMGyoKCup+P3HJ6phagKGGPzNQ8dswpgW/qNkTOJNG2DaTtXDmkOswpjWcceHqURwYw==
@@ -7568,10 +7580,10 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-material-ui-pickers@^1.0.0-rc.17:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/material-ui-pickers/-/material-ui-pickers-1.0.1.tgz#396f90fff2f2dbb7c477bce2b9a62101eb3bd26d"
-  integrity sha512-FRJwgeFUQdQxzNAybZvf11204KFBxqKS6sg4JvAO0cWmHULXJhrc9kuEDT8F7Pomwnv6+AyfxygsoMgIRcBMNg==
+material-ui-pickers@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/material-ui-pickers/-/material-ui-pickers-2.0.2.tgz#56b9756254fefd32251ede03af2414ff21572cb5"
+  integrity sha512-c3reNpv4ytl1DdV2+zxRDKD3obL+TjrKlWtK4P4KxcbG/hja6zAO8wwwi578YjxvTDooX9Y1pzpvBwLCYu05zQ==
   dependencies:
     classnames "^2.2.6"
     keycode "^2.2.0"

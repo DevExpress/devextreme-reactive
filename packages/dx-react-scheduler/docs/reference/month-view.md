@@ -125,5 +125,4 @@ MonthView.TimeTableCell | ComponentType&lt;[MonthView.TimeTableCellProps](#month
 MonthView.Row | ComponentType&lt;[MonthView.RowProps](#monthviewrowprops)&gt; | A component that renders a generic row.
 MonthView.AppointmentLayer | ComponentType&lt;[MonthView.AppointmentLayerProps](#monthviewappointmentlayerprops)&gt; | A component that renders the appointment layer.
 
-
 Additional properties are added to the component's root element.

@@ -2,8 +2,7 @@ export { Chart } from './chart';
 export { Legend } from './plugins/legend';
 export { Title } from './plugins/title';
 
-export { Scale } from './plugins/scale';
-export { ArgumentScale, ValueScale } from './plugins/scale-n';
+export { Scale, ArgumentScale, ValueScale } from './plugins/scale';
 export { Stack } from './plugins/stack';
 export { Palette } from './plugins/palette';
 export { Animation } from './plugins/animation';

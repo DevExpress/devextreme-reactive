@@ -8,7 +8,7 @@ import {
   Title,
   Legend,
 } from '@devexpress/dx-react-chart-bootstrap4';
-import { Scale, Animation } from '@devexpress/dx-react-chart';
+import { Animation } from '@devexpress/dx-react-chart';
 import { area, curveStep } from 'd3-shape';
 
 import { australianMedals as data } from '../../../demo-data/data-vizualization';
@@ -97,7 +97,6 @@ export default class Demo extends React.PureComponent {
           <Animation />
           <Legend position="bottom" rootComponent={Root} markerComponent={Marker} />
           <Title text="Australian Medal Count" className="w-100 text-center mb-2" />
-          <Scale />
         </Chart>
       </Card>
     );

@@ -9,7 +9,7 @@ import {
   Legend,
 } from '@devexpress/dx-react-chart-material-ui';
 import { withStyles } from '@material-ui/core/styles';
-import { Stack, Scale, Animation } from '@devexpress/dx-react-chart';
+import { Stack, Animation } from '@devexpress/dx-react-chart';
 import { stackOffsetExpand } from 'd3-shape';
 
 import { oilProduction as data } from '../../../demo-data/data-vizualization';
@@ -104,7 +104,6 @@ class Demo extends React.PureComponent {
             ]}
             offset={stackOffsetExpand}
           />
-          <Scale />
         </Chart>
       </Paper>
     );

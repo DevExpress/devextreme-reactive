@@ -6,7 +6,6 @@ import {
   LineSeries,
   SplineSeries,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
-import { Scale } from '@devexpress/dx-react-chart';
 
 const generateData = (start, end, step) => {
   const data = [];
@@ -47,7 +46,6 @@ export default class Demo extends React.PureComponent {
             valueField="splineValue"
             argumentField="argument"
           />
-          <Scale />
         </Chart>
       </<%&wrapperTag%>>
     );

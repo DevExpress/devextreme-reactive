@@ -9,7 +9,7 @@ import {
   Legend,
 } from '@devexpress/dx-react-chart-material-ui';
 import { withStyles } from '@material-ui/core/styles';
-import { Stack, Scale, Animation } from '@devexpress/dx-react-chart';
+import { Stack, Animation } from '@devexpress/dx-react-chart';
 
 import { energyConsumption as data } from '../../../demo-data/data-vizualization';
 
@@ -100,7 +100,6 @@ class Demo extends React.PureComponent {
               { series: ['Hydro-electric', 'Oil', 'Natural gas', 'Coal', 'Nuclear'] },
             ]}
           />
-          <Scale />
         </Chart>
       </Paper>
     );

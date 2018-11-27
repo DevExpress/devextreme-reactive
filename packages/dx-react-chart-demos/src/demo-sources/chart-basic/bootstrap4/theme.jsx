@@ -16,7 +16,7 @@ import {
   schemeSet3,
 } from 'd3-scale-chromatic';
 
-import { Scale, Palette } from '@devexpress/dx-react-chart';
+import { Palette } from '@devexpress/dx-react-chart';
 
 const schemeCollection = [
   schemeCategory10,
@@ -64,7 +64,6 @@ export default class Demo extends React.PureComponent {
             valueField="val"
             argumentField="category"
           />
-          <Scale />
         </Chart>
         <div className="d-flex justify-content-center mt-3">
           {scheme.map(color => <div key={color} style={{ width: '40px', height: '40px', backgroundColor: color }} />)}

@@ -7,7 +7,7 @@ import {
   Title,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 
-import { Scale, Animation } from '@devexpress/dx-react-chart';
+import { Animation } from '@devexpress/dx-react-chart';
 
 const imageSize = 50;
 const labelOffset = 10;
@@ -123,7 +123,6 @@ export default class Demo extends React.PureComponent {
                 style={{ textAlign: 'center', width: '100%', marginBottom: 4 }}
               />
               <Animation />
-              <Scale />
             </Chart>
           ) : (
             <h1>

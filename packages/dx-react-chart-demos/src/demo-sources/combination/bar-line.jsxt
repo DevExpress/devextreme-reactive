@@ -9,7 +9,7 @@ import {
   Legend,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 
-import { Stack, Scale, Animation } from '@devexpress/dx-react-chart';
+import { Stack, Animation } from '@devexpress/dx-react-chart';
 
 import { oilProduction } from '../../../demo-data/data-vizualization';
 
@@ -111,7 +111,6 @@ export default class Demo extends React.PureComponent {
               { series: ['USA', 'Saudi Arabia', 'Iran', 'Mexico', 'Russia'] },
             ]}
           />
-          <Scale />
         </Chart>
       </<%&wrapperTag%>>
     );

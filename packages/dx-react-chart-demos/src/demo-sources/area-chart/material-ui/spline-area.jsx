@@ -9,7 +9,7 @@ import {
   Legend,
 } from '@devexpress/dx-react-chart-material-ui';
 import { withStyles } from '@material-ui/core/styles';
-import { Scale, Animation } from '@devexpress/dx-react-chart';
+import { ArgumentScale, Animation } from '@devexpress/dx-react-chart';
 import {
   curveCatmullRom,
   area,
@@ -91,6 +91,7 @@ class Demo extends React.PureComponent {
           data={chartData}
           className={classes.chart}
         >
+          <ArgumentScale constructor={scalePoint} />
           <ArgumentAxis />
           <ValueAxis lineComponent={EmptyComponent} tickComponent={EmptyComponent} />
 
@@ -107,7 +108,6 @@ class Demo extends React.PureComponent {
             seriesComponent={Area}
           />
           <Animation />
-          <Scale extensions={[{ type: 'band', constructor: scalePoint }]} />
           <Legend position="bottom" rootComponent={Root} labelComponent={Label} />
           <Title text="iOS App Store vs Google Play Revenue in 2012" className={classes.title} />
         </Chart>

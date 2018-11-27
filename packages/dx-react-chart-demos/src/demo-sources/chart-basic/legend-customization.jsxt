@@ -8,8 +8,6 @@ import {
   Title,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 
-import { Scale } from '@devexpress/dx-react-chart';
-
 import NoisySignalIcon from '../../../demo-data/images/noisySignal.svg';
 import OriginalSignalIcon from '../../../demo-data/images/originalSignal.svg';
 
@@ -70,7 +68,6 @@ export default class Demo extends React.PureComponent {
           <Legend
             markerComponent={SpecialMarkerComponent}
           />
-          <Scale />
         </Chart>
       </<%&wrapperTag%>>
     );

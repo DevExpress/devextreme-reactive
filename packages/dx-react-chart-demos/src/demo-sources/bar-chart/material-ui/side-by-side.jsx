@@ -9,7 +9,7 @@ import {
   Legend,
 } from '@devexpress/dx-react-chart-material-ui';
 import { withStyles } from '@material-ui/core/styles';
-import { Stack, Scale, Animation } from '@devexpress/dx-react-chart';
+import { Stack, Animation } from '@devexpress/dx-react-chart';
 
 import { olimpicMedals as data } from '../../../demo-data/data-vizualization';
 
@@ -88,7 +88,6 @@ class Demo extends React.PureComponent {
           <Legend position="bottom" rootComponent={Root} labelComponent={Label} />
           <Title text="Olimpic Medals in 2008" className={classes.title} />
           <Stack />
-          <Scale />
         </Chart>
       </Paper>
     );

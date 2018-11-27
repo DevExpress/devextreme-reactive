@@ -63,7 +63,6 @@ const demoStyles = () => ({
 });
 
 const format = () => tick => tick;
-const EmptyComponent = () => null;
 
 class Demo extends React.PureComponent {
   constructor(props) {
@@ -84,7 +83,7 @@ class Demo extends React.PureComponent {
           data={chartData}
         >
           <ArgumentAxis tickFormat={format} />
-          <ValueAxis lineComponent={EmptyComponent} tickComponent={EmptyComponent} />
+          <ValueAxis />
 
           <LineSeries
             name="Bronze Medals"

@@ -25,7 +25,6 @@ const Label = symbol => (props) => {
 
 const PriceLabel = Label(' $');
 const LabelWithThousand = Label(' k');
-const EmptyComponent = () => null;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -50,8 +49,6 @@ export default class Demo extends React.PureComponent {
             name="oil"
             max={2200}
             labelComponent={LabelWithThousand}
-            lineComponent={EmptyComponent}
-            tickComponent={EmptyComponent}
           />
           <ValueAxis
             name="price"
@@ -59,8 +56,6 @@ export default class Demo extends React.PureComponent {
             min={0}
             max={110}
             labelComponent={PriceLabel}
-            lineComponent={EmptyComponent}
-            tickComponent={EmptyComponent}
           />
 
           <Title

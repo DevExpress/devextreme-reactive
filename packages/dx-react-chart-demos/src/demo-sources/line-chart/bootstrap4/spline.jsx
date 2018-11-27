@@ -56,7 +56,6 @@ const Label = props => (
     className="pb-2"
   />
 );
-const EmptyComponent = () => null;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -77,10 +76,7 @@ export default class Demo extends React.PureComponent {
           className="pr-4"
         >
           <ArgumentAxis />
-          <ValueAxis
-            lineComponent={EmptyComponent}
-            tickComponent={EmptyComponent}
-          />
+          <ValueAxis />
 
           <LineSeries
             name="Hydro-electric"

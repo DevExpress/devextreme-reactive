@@ -33,7 +33,7 @@ rootComponent | ComponentType&lt;[ValueAxis.RootProps](#valueaxisrootprops)&gt; 
 tickComponent | ComponentType&lt;[ValueAxis.LineProps](#valueaxislineprops)&gt; | | A component that renders a tick.
 labelComponent | ComponentType&lt;[ValueAxis.LabelProps](#valueaxislabelprops)&gt; | | A component that renders the axis label.
 lineComponent | ComponentType&lt;[ValueAxis.LineProps](#valueaxislineprops)&gt; | | A component that renders the axis line.
-gridComponent | ComponentType&lt;[ValueAxis.LineProps](#valueaxislineprops)&gt; | | A component that renders a grid.
+gridComponent | ComponentType&lt;[ValueAxis.LineProps](#valueaxislineprops)&gt; | | A component that renders the grid.
 
 ## Interfaces
 
@@ -49,7 +49,7 @@ children | ReactNode | A React node used to render the axis.
 
 ### ValueAxis.LineProps
 
-Describes properties passed to a component that renders a axis's line, tick and grid.
+Describes properties passed to a component that renders the axis's line, ticks and grid.
 
 Field | Type | Description
 ------|------|------------

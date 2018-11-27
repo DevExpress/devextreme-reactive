@@ -33,7 +33,7 @@ rootComponent | ComponentType&lt;[ArgumentAxis.RootProps](#argumentaxisrootprops
 tickComponent | ComponentType&lt;[ArgumentAxis.LineProps](#argumentaxislineprops)&gt; | | A component that renders a tick.
 labelComponent | ComponentType&lt;[ArgumentAxis.LabelProps](#argumentaxislabelprops)&gt; | | A component that renders the axis's label.
 lineComponent | ComponentType&lt;[ArgumentAxis.LineProps](#argumentaxislineprops)&gt; | | A component that renders the axis's line.
-gridComponent | ComponentType&lt;[ArgumentAxis.LineProps](#argumentaxislineprops)&gt; | | A component that renders a grid.
+gridComponent | ComponentType&lt;[ArgumentAxis.LineProps](#argumentaxislineprops)&gt; | | A component that renders the grid.
 
 ## Interfaces
 
@@ -49,7 +49,7 @@ children | ReactNode | A React node used to render the axis.
 
 ### ArgumentAxis.LineProps
 
-Describes properties passed to a component that renders a axis's line, tick and grid.
+Describes properties passed to a component that renders the axis's line, ticks and grid.
 
 Field | Type | Description
 ------|------|------------

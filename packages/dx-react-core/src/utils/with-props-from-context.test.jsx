@@ -21,7 +21,7 @@ describe('With props from context HOC', () => {
     it('should provide props from contexts', () => {
       const TestBase = () => <div />;
       const Test = withHostAndPosition(TestBase);
-      const tree = mount((<ContextProvider><Test /></ContextProvider>));
+      const tree = mount(<ContextProvider><Test /></ContextProvider>);
 
       expect(tree.find(TestBase).props())
         .toEqual(expectedContexts);
@@ -31,7 +31,7 @@ describe('With props from context HOC', () => {
       // eslint-disable-next-line react/prop-types
       const TestBase = ({ name }) => <div className={name} />;
       const Test = withHostAndPosition(TestBase);
-      const tree = mount((<ContextProvider><Test name="Test" /></ContextProvider>));
+      const tree = mount(<ContextProvider><Test name="Test" /></ContextProvider>);
 
       expect(tree.find(TestBase).props())
         .toEqual({
@@ -47,7 +47,7 @@ describe('With props from context HOC', () => {
     it('should provide props from contexts', () => {
       const TestBase = () => <div />;
       const Test = withContext(PluginHostContext, PLUGIN_HOST_CONTEXT)(TestBase);
-      const tree = mount((<ContextProvider><Test /></ContextProvider>));
+      const tree = mount(<ContextProvider><Test /></ContextProvider>);
 
       expect(tree.find(TestBase).props())
         .toEqual({
@@ -59,7 +59,7 @@ describe('With props from context HOC', () => {
       // eslint-disable-next-line react/prop-types
       const TestBase = ({ name }) => <div className={name} />;
       const Test = withContext(PluginHostContext, PLUGIN_HOST_CONTEXT)(TestBase);
-      const tree = mount((<ContextProvider><Test name="Test" /></ContextProvider>));
+      const tree = mount(<ContextProvider><Test name="Test" /></ContextProvider>);
 
       expect(tree.find(TestBase).props())
         .toEqual({

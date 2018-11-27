@@ -13,11 +13,7 @@ import { withPatchedProps } from '../utils';
 
 class RawGrid extends React.PureComponent {
   render() {
-    const {
-      name,
-      lineComponent: LineComponent,
-      ...restProps
-    } = this.props;
+    const { name, lineComponent: LineComponent } = this.props;
     return (
       <Plugin name="Grid">
         <Template name="series">
@@ -42,7 +38,6 @@ class RawGrid extends React.PureComponent {
                       x2={x + dx * width}
                       y1={y}
                       y2={y + dy * height}
-                      {...restProps}
                     />
                   ))}
                 </React.Fragment>

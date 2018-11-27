@@ -47,6 +47,7 @@ class DemoFrameRenderer extends React.PureComponent {
       editableLink: themeVariantOptions.editableLink,
       frameHeight: 600,
     };
+    this.nodeRef = React.createRef();
   }
 
   componentDidMount() {
@@ -55,16 +56,20 @@ class DemoFrameRenderer extends React.PureComponent {
 
   componentDidUpdate(prevProps, prevState) {
     const { editableLink } = this.state;
-    if (editableLink !== prevState.editableLink) {
-      if (this.node) this.node.ownerDocument.location.reload();
+    const node = this.nodeRef.current;
+    if (editableLink !== prevState.editableLink && node) {
+      node.ownerDocument.location.reload();
     }
   }
 
   updateFrameHeight() {
     const { frameHeight } = this.state;
+    const node = this.nodeRef.current;
     setTimeout(this.updateFrameHeight.bind(this));
-    if (!this.node) return;
-    const height = this.node.ownerDocument.documentElement.offsetHeight;
+
+    if (!node) return;
+
+    const height = node.ownerDocument.documentElement.offsetHeight;
     if (height !== frameHeight) {
       this.setState({ frameHeight: height });
     }
@@ -137,7 +142,7 @@ Custom theme link
                 mountTarget="#mountPoint"
                 scrolling="no"
               >
-                <div ref={(node) => { this.node = node; }} />
+                <div ref={this.nodeRef} />
               </Frame>
             </div>
           )}

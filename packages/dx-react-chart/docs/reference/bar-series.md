@@ -40,9 +40,9 @@ Describes properties passed to a component that renders a bar.
 Field | Type | Description
 ------|------|------------
 x | number | The bar's x coordinate.
+width | number | The bar's width.
 y | number | The bar's y coordinate.
-width | number | The bar width.
-height | number | The bar height.
+y1 | number | The bar's y1 coordinate.
 value | number | The bar's value.
 color | string | A series color.
 index | number | Point index.

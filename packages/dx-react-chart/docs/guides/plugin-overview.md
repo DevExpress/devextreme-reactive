@@ -29,6 +29,7 @@ The following plugins render additional elements:
 - `ValueGrid` - renders a value grid
 - `Legend` - renders a legend
 - `Title` - renders a title
+- `Tooltip` - renders a tooltip
 
 The following plugins implement additional features:
 

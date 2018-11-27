@@ -14,6 +14,7 @@ import {
   pointAttributes,
   dBar,
   getAreaPointTransformer,
+  getLinePointTransformer,
   getBarPointTransformer,
   getPiePointTransformer,
   scaleSeriesPoints,
@@ -146,6 +147,38 @@ describe('getAreaPointTransformer', () => {
     expect(argumentScale.mock.calls).toEqual([['arg']]);
     expect(valueScale.mock.calls).toEqual([[0], ['val']]);
   });
+
+  it('should return target element', () => {
+    expect(getAreaPointTransformer.getTargetElement({
+      x: 10, y: 20,
+    })).toEqual({
+      x: 10,
+      y: 20,
+      d: 'symbol path',
+    });
+  });
+});
+
+describe('getLinePointTransformer', () => {
+  it('should return data', () => {
+    const argumentScale = jest.fn().mockReturnValue(10);
+    argumentScale.bandwidth = () => 8;
+    const valueScale = jest.fn();
+    valueScale.mockReturnValueOnce(9);
+
+    const transform = getLinePointTransformer({ argumentScale, valueScale });
+    expect(
+      transform({ argument: 'arg', value: 'val', index: 1 }),
+    ).toEqual({
+      argument: 'arg',
+      value: 'val',
+      index: 1,
+      x: 14,
+      y: 9,
+    });
+    expect(argumentScale.mock.calls).toEqual([['arg']]);
+    expect(valueScale.mock.calls).toEqual([['val']]);
+  });
 });
 
 describe('getBarPointTransformer', () => {
@@ -177,6 +210,16 @@ describe('getBarPointTransformer', () => {
   it('should be marked with *isBroad* flag', () => {
     expect(getBarPointTransformer.isBroad).toEqual(true);
   });
+
+  it('should return target element', () => {
+    expect(getBarPointTransformer.getTargetElement({
+      x: 10, y: 20, y1: 30, width: 40,
+    })).toEqual({
+      x: 10,
+      y: 20,
+      d: 'M0,0 40,0 40,10 0,10',
+    });
+  });
 });
 
 describe('getPiePointTransformer', () => {
@@ -198,6 +241,7 @@ describe('getPiePointTransformer', () => {
     mockArc.outerRadius = jest.fn().mockReturnValue(mockArc);
     mockArc.startAngle = jest.fn().mockReturnValue(mockArc);
     mockArc.endAngle = jest.fn().mockReturnValue(mockArc);
+    mockArc.centroid = jest.fn().mockReturnValue([2, 3]);
     mockArc.mockReturnValueOnce('test-arc-1');
     mockArc.mockReturnValueOnce('test-arc-2');
     arc.mockReturnValue(mockArc);
@@ -275,6 +319,16 @@ describe('getPiePointTransformer', () => {
       [1],
       [3],
     ]);
+  });
+
+  it('should return target element', () => {
+    expect(getPiePointTransformer.getTargetElement({
+      x: 10, y: 20, innerRadius: 5, outerRadius: 15, startAngle: 45, endAngle: 60,
+    })).toEqual({
+      x: 12,
+      y: 23,
+      d: 'symbol path',
+    });
   });
 });
 

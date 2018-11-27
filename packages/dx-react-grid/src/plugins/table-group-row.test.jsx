@@ -52,6 +52,8 @@ const defaultDeps = {
 
 const defaultProps = {
   cellComponent: () => null,
+  contentComponent: () => null,
+  iconComponent: () => null,
   indentCellComponent: () => null,
   rowComponent: () => null,
   indentColumnWidth: 100,
@@ -281,6 +283,26 @@ describe('TableGroupRow', () => {
       expect(defaultDeps.action.toggleGroupExpanded.mock.calls[0][0])
         .toEqual({ groupKey: '1' });
     });
+  });
+
+  it('should provide components to a cell', () => {
+    isGroupTableRow.mockImplementation(() => true);
+    isGroupTableCell.mockImplementation(() => true);
+
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableGroupRow
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    expect(tree.find(defaultProps.cellComponent).props())
+      .toMatchObject({
+        contentComponent: defaultProps.contentComponent,
+        iconComponent: defaultProps.iconComponent,
+      });
   });
 
   it('can render custom formatted data in group row cell', () => {

@@ -81,6 +81,10 @@ export class DateNavigator extends React.PureComponent {
               changeCurrentDate,
             }) => {
               const navigateAction = navigate(changeCurrentDate, currentView, intervalCount);
+              const calendarDateChanged = (args) => {
+                navigateAction(args);
+                this.handleHide();
+              };
               const navigatorText = viewBoundText(
                 startViewDate,
                 endViewDate,
@@ -104,7 +108,7 @@ export class DateNavigator extends React.PureComponent {
                     onHide={this.handleHide}
                   >
                     <Calendar
-                      currentDate={currentDate}
+                      selectedDate={currentDate}
                       firstDayOfWeek={firstDayOfWeek}
                       getCells={monthCellsData}
                       textComponent={CalendarText}
@@ -114,7 +118,7 @@ export class DateNavigator extends React.PureComponent {
                       headerRowComponent={CalendarHeaderRow}
                       headerCellComponent={CalendarHeaderCell}
                       navigatorComponent={CalendarNavigator}
-                      onNavigate={navigateAction}
+                      onSelectedDateChange={calendarDateChanged}
                     />
                   </Overlay>
                 </React.Fragment>

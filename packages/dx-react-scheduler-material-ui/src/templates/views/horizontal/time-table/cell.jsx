@@ -3,6 +3,7 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import moment from 'moment';
 import TableCell from '@material-ui/core/TableCell';
+import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
 import { getBorder } from '../../../utils';
 
@@ -16,14 +17,14 @@ const styles = theme => ({
       backgroundColor: theme.palette.action.hover,
     },
     '&:focus': {
-      backgroundColor: theme.palette.primary[100],
+      backgroundColor: fade(theme.palette.primary.main, 0.15),
       outline: 0,
     },
   },
   text: {
     padding: theme.spacing.unit,
   },
-  current: {
+  today: {
     margin: theme.spacing.unit / 2,
     display: 'inline-block',
     width: `${theme.spacing.unit * 3}px`,
@@ -45,7 +46,7 @@ const CellBase = ({
   className,
   startDate,
   endDate,
-  current,
+  today,
   otherMonth,
   ...restProps
 }) => (
@@ -56,9 +57,9 @@ const CellBase = ({
   >
     <div
       className={classNames({
-        [classes.text]: !current,
-        [classes.current]: current,
-        [classes.otherMonth]: otherMonth,
+        [classes.text]: !today,
+        [classes.today]: today,
+        [classes.otherMonth]: otherMonth && !today,
       })}
     >
       {moment(startDate).format('D')}
@@ -71,13 +72,15 @@ CellBase.propTypes = {
   className: PropTypes.string,
   startDate: PropTypes.instanceOf(Date).isRequired,
   endDate: PropTypes.instanceOf(Date),
-  current: PropTypes.bool.isRequired,
-  otherMonth: PropTypes.bool.isRequired,
+  today: PropTypes.bool,
+  otherMonth: PropTypes.bool,
 };
 
 CellBase.defaultProps = {
   endDate: undefined,
   className: undefined,
+  today: false,
+  otherMonth: false,
 };
 
 export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

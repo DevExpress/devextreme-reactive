@@ -20,12 +20,28 @@ describe('Calendar', () => {
       expect(tree.is(`.${classes.cell}`))
         .toBeTruthy();
     });
-    it('should render the current cell', () => {
+    it('should render the selected cell', () => {
       const span = shallow((
-        <Cell current />
+        <Cell selected />
       )).find('span');
 
-      expect(span.is(`.${classes.current}`))
+      expect(span.is(`.${classes.selected}`))
+        .toBeTruthy();
+    });
+    it('should render the today cell', () => {
+      const span = shallow((
+        <Cell today />
+      )).find('span');
+
+      expect(span.is(`.${classes.today}`))
+        .toBeTruthy();
+    });
+    it('should prefer the selected prop', () => {
+      const span = shallow((
+        <Cell today selected />
+      )).find('span');
+
+      expect(span.is(`.${classes.selected}`))
         .toBeTruthy();
     });
     it('should render a cell from other month', () => {

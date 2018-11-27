@@ -4,7 +4,6 @@ import { PluginHost } from '@devexpress/dx-react-core';
 import { findSeriesByName } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { BarSeries } from './bar-series';
-import { BarCollection } from '../templates/series/bar-collection';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   dBar: jest.fn(),
@@ -15,6 +14,7 @@ jest.mock('@devexpress/dx-chart-core', () => ({
 }));
 
 describe('Bar series', () => {
+  const SeriesComponent = () => null;
   const PointComponent = () => null;
 
   const coords = [
@@ -36,19 +36,17 @@ describe('Bar series', () => {
 
   findSeriesByName.mockReturnValue({
     ...defaultProps,
+    index: 1,
     points: coords,
-    stack: 'stack',
-    barWidth: 0.3,
-    styles: 'styles',
-    seriesComponent: BarCollection,
+    seriesComponent: SeriesComponent,
     pointComponent: PointComponent,
+    color: 'color',
   });
 
   const defaultDeps = {
     getter: {
       layouts: { pane: {} },
-      scales: {},
-      getAnimatedStyle: jest.fn(),
+      scales: { test_argument_domain: 'arg-scale', test_value_domain: 'val-scale' },
     },
     template: {
       series: {},
@@ -66,15 +64,14 @@ describe('Bar series', () => {
       </PluginHost>
     ));
 
-    expect(tree.find(PointComponent)).toHaveLength(coords.length);
-
-    coords.forEach((coord, index) => {
-      const {
-        x, y, y1,
-      } = tree.find(PointComponent).get(index).props;
-      expect(x).toBe(coords[index].x);
-      expect(y).toBe(coords[index].y);
-      expect(y1).toBe(coords[index].y1);
+    expect(tree.find(SeriesComponent).props()).toEqual({
+      pointComponent: PointComponent,
+      index: 1,
+      color: 'color',
+      coordinates: coords,
+      path: undefined,
+      getAnimatedStyle: undefined,
+      scales: { xScale: 'arg-scale', yScale: 'val-scale' },
     });
   });
 });

@@ -1,10 +1,7 @@
-import { fixOffset } from '../../utils/scale';
+import { isHorizontal, fixOffset } from '../../utils/scale';
 import {
-  LEFT, BOTTOM, MIDDLE, END, START, ARGUMENT_DOMAIN,
+  LEFT, BOTTOM, MIDDLE, END, START,
 } from '../../constants';
-
-// Same code can be found in domains calculation.
-const isHorizontal = name => name === ARGUMENT_DOMAIN;
 
 const getTicks = scale => (scale.ticks ? scale.ticks() : scale.domain());
 

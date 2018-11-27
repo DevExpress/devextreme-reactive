@@ -1,26 +1,17 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Plugin, Getter } from '@devexpress/dx-react-core';
-import { computeExtension } from '@devexpress/dx-chart-core';
+import { Plugin } from '@devexpress/dx-react-core';
 
 export class Scale extends React.PureComponent {
   render() {
-    const { extensions } = this.props;
     return (
-      <Plugin name="Scale">
-        <Getter name="scaleExtension" value={computeExtension(extensions)} />
-      </Plugin>
+      <Plugin name="Scale" />
     );
   }
 }
 
 Scale.propTypes = {
-  extensions: PropTypes.arrayOf(PropTypes.shape({
-    type: PropTypes.string,
-    constructor: PropTypes.func,
-  })),
 };
 
 Scale.defaultProps = {
-  extensions: [],
 };

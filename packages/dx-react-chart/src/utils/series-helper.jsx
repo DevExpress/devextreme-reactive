@@ -12,13 +12,14 @@ import {
   findSeriesByName, addSeries, getValueDomainName, ARGUMENT_DOMAIN,
 } from '@devexpress/dx-chart-core';
 
-export const declareSeries = (pluginName, { components, ...parameters }) => {
+export const declareSeries = (pluginName, { components, getPointTransformer, createHitTester }) => {
   class Component extends React.PureComponent {
     render() {
       const { name } = this.props;
       const symbolName = Symbol(name);
       const seriesItem = {
-        ...parameters,
+        getPointTransformer,
+        createHitTester,
         ...this.props,
         symbolName,
       };

@@ -34,8 +34,8 @@ export default class Demo extends React.PureComponent {
         <Chart
           data={chartData}
         >
-          <ArgumentScale constructor={scaleTime} />
-          <ValueScale constructor={scaleLog} min={100} max={100000} />
+          <ArgumentScale factory={scaleTime} />
+          <ValueScale factory={scaleLog} min={100} max={100000} />
           <ArgumentAxis />
           <ValueAxis
             tickFormat={format}

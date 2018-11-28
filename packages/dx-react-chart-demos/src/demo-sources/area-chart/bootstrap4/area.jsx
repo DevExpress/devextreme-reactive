@@ -55,7 +55,7 @@ export default class Demo extends React.PureComponent {
           data={chartData}
           className="pr-3"
         >
-          <ArgumentScale constructor={scalePoint} />
+          <ArgumentScale factory={scalePoint} />
           <ArgumentAxis />
           <ValueAxis lineComponent={EmptyComponent} tickComponent={EmptyComponent} />
 

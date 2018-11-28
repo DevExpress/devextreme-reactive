@@ -28,7 +28,7 @@ export default class Demo extends React.PureComponent {
           data={chartData}
           style={{ paddingRight: '20px' }}
         >
-          <ArgumentScale constructor={scalePoint} />
+          <ArgumentScale factory={scalePoint} />
           <ArgumentAxis />
           <ValueAxis />
 

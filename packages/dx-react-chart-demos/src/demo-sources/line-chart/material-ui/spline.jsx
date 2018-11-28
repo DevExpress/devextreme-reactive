@@ -102,7 +102,7 @@ class Demo extends React.PureComponent {
           data={chartData}
           className={classes.chart}
         >
-          <ArgumentScale constructor={scalePoint} />
+          <ArgumentScale factory={scalePoint} />
           <ArgumentAxis />
           <ValueAxis lineComponent={EmptyComponent} tickComponent={EmptyComponent} />
 

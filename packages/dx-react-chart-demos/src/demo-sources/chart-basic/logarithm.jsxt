@@ -57,7 +57,7 @@ export default class Demo extends React.PureComponent {
         <Chart
           data={chartData}
         >
-          <ValueScale constructor={scale} max={5000e24} />
+          <ValueScale factory={scale} max={5000e24} />
           <ArgumentAxis />
           <ValueAxis
             tickFormat={format}

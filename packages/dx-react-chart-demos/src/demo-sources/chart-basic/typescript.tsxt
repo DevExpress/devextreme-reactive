@@ -30,8 +30,8 @@ export default class Demo extends React.Component<object, object> {
         <Chart
           data={chartData}
         >
-          <ValueScale name="sale" constructor={null} />
-          <ValueScale name="total" constructor={null} />
+          <ValueScale name="sale" />
+          <ValueScale name="total" />
 
           <ArgumentAxis />
           <ValueAxis name="sale" />

@@ -3,22 +3,20 @@ import { scaleLinear as d3ScaleLinear, scaleBand as d3ScaleBand } from 'd3-scale
 import { isHorizontal, getValueDomainName } from '../../utils/scale';
 import { ARGUMENT_DOMAIN, VALUE_DOMAIN } from '../../constants';
 
-const createDomain = () => ({ domain: [] });
-
 export const defaultDomains = {
-  [ARGUMENT_DOMAIN]: createDomain(),
-  [VALUE_DOMAIN]: createDomain(),
+  [ARGUMENT_DOMAIN]: {},
+  [VALUE_DOMAIN]: {},
 };
 
 export const addDomain = (domains, name, props) => ({
   ...domains,
-  [name]: { ...createDomain(), ...props },
+  [name]: props,
 });
 
 const copy = (domains) => {
   const result = {};
   Object.keys(domains).forEach((name) => {
-    result[name] = { ...domains[name] };
+    result[name] = { ...domains[name], domain: [] };
   });
   return result;
 };

@@ -24,11 +24,10 @@ export const external = (packageDirectory, additional) => {
 
 export const babelrc = (packageDirectory) => {
   const config = JSON.parse(readFileSync(join(packageDirectory, '.babelrc')));
-  const { plugins } = config;
 
-  plugins.push('external-helpers');
-
-  return config;
+  return Object.assign({}, config, {
+      plugins: [...(config.plugins || []), '@babel/plugin-external-helpers'],
+  });
 };
 
 const knownGlobals = {

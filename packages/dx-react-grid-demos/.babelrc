@@ -3,9 +3,6 @@
     [ "@babel/preset-env", { "modules": false, "targets": { "browsers": ["last 2 versions"] } } ],
     "@babel/preset-react"
   ],
-  "plugins": [
-    "@babel/plugin-proposal-object-rest-spread"
-  ],
   "env": {
     "test": {
       "presets": [

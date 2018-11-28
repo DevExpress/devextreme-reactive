@@ -29,6 +29,8 @@ export class SourceCode extends React.PureComponent {
       readOnly: true,
       mode: 'jsx',
       foldGutter: true,
+      viewportMargin: Infinity,
+      height: 'auto',
       gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
     });
     this.foldBlockStartLines.forEach((lineNumber) => {

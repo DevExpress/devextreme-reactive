@@ -1,3 +1,15 @@
 html {
   font-size: initial;
 }
+
+.CodeMirror {
+  border: 1px solid #eee;
+  height: auto;
+}
+.CodeMirror-scroll {
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+.CodeMirror-important-line {
+  background: rgba(160, 155, 155, 0.788);
+}

@@ -1,13 +1,13 @@
-# Scale Plugin Reference
+# ArgumentScale Plugin Reference
 
-The `Scale` plugin extends user data with service information that is required to render axes and series.
+The `ArgumentScale` plugin customizes argument scale.
 
 ## Import
 
 Use the following statement to import the plugin:
 
 ```js
-import { Scale } from '@devexpress/dx-react-chart';
+import { ArgumentScale } from '@devexpress/dx-react-chart';
 ```
 
 ## User Reference
@@ -16,16 +16,11 @@ import { Scale } from '@devexpress/dx-react-chart';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-extensions? | Array&lt;[ScaleOptions](#scaleoptions)&gt; | [{type: 'linear', constructor: () => object}, {type: 'band', constructor: () => object}] | An array of scales with constructors.
+factory? | () => [ScaleObject](#scaleobject) | | A function that constructs a custom scale.
+min? | number | | A minimal scale bound.
+max? | number | | A maximal scale bound.
 
 ## Interfaces
-
-### ScaleOptions
-
-Field | Type | Description
-------|------|------------
-type? | string | A scale type.
-constructor? | () => [ScaleObject](#scaleobject) | A function that constructs a custom scale.
 
 ### ScaleObject
 

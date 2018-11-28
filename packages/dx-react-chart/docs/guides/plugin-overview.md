@@ -38,7 +38,8 @@ The following plugins implement additional features:
 
 ## Data Processing Plugins
 
-- `Scale` - extends user data with service information that is required to render axes and series
+- `ArgumentScale` - customizes argument scale
+- `ValueScale` - customizes value scale and adds more value scales
 - `Stack` - transforms user data to display series points side-by-side or one under another other
 
 ## Plugin Order

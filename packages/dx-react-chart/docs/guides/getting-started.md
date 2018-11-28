@@ -69,7 +69,6 @@ const App = () => (
       <ArgumentAxis />
       <ValueAxis />
       <LineSeries valueField="value" argumentField="argument" />
-      <Scale />
     </Chart>
 );
 

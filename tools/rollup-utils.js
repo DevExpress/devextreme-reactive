@@ -22,14 +22,6 @@ export const external = (packageDirectory, additional) => {
   };
 };
 
-export const babelrc = (packageDirectory) => {
-  const config = JSON.parse(readFileSync(join(packageDirectory, '.babelrc')));
-
-  return Object.assign({}, config, {
-      plugins: [...(config.plugins || []), '@babel/plugin-external-helpers'],
-  });
-};
-
 const knownGlobals = {
   react: 'React',
   'react-dom': 'ReactDOM',

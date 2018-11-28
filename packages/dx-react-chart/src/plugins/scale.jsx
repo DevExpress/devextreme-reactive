@@ -4,16 +4,12 @@ import { Plugin, Getter } from '@devexpress/dx-react-core';
 import { ARGUMENT_DOMAIN, getValueDomainName, addDomain } from '@devexpress/dx-chart-core';
 import { withPatchedProps } from '../utils';
 
-// *constructor* is a keyword and any object (except certain Object.create results) has such field.
-// Either property is renamed or such check is used.
-const sanitizeFactory = value => (value !== Object ? value : undefined);
-
 export class Scale extends React.PureComponent {
   render() {
     const {
-      name, min, max, constructor,
+      name, min, max, factory,
     } = this.props;
-    const args = { min, max, factory: sanitizeFactory(constructor) };
+    const args = { min, max, factory };
     const getDomains = ({ domains }) => addDomain(domains, name, args);
     return (
       <Plugin name="Scale">
@@ -27,13 +23,13 @@ Scale.propTypes = {
   name: PropTypes.string.isRequired,
   min: PropTypes.number,
   max: PropTypes.number,
-  constructor: PropTypes.func,
+  factory: PropTypes.func,
 };
 
 Scale.defaultProps = {
   min: undefined,
   max: undefined,
-  constructor: undefined,
+  factory: undefined,
 };
 
 export const ArgumentScale = withPatchedProps(props => ({

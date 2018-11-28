@@ -18,7 +18,7 @@
     "lint:fix": "yarn run lint -- --fix"
   },
   "peerDependencies": {
-    "prismjs": "^1.14.0",
+    "codemirror": "^5.42.0",
     "prop-types": "^15.6.1",
     "react": "^16.4.2",
     "react-bootstrap": "^0.32.1",
@@ -47,8 +47,5 @@
     "rollup-plugin-babel": "^3.0.4",
     "rollup-plugin-css-only": "^0.4.0",
     "rollup-plugin-node-resolve": "^3.4.0"
-  },
-  "dependencies": {
-    "codemirror": "^5.42.0"
   }
 }

@@ -1,10 +1,11 @@
 import * as React from 'react';<%&additionalImports%>
+// #foldBlock
 import {
   Grid,
   Table,
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
-
+// #foldBlock
 import {
   generateRows,
   globalSalesValues,
@@ -15,6 +16,7 @@ export default class Demo extends React.PureComponent {
     super(props);
 
     this.state = {
+      // #foldBlock
       columns: [
         { name: 'region', title: 'Region' },
         { name: 'sector', title: 'Sector' },

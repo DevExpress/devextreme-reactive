@@ -50,11 +50,12 @@ describe('Calendar', () => {
     it('should render cell and rows by the "cells" props', () => {
       const cells = [
         [{ startDate: 1, otherMonth: true }, { startDate: 2 }],
-        [{ startDate: 3 }, { startDate: 4, current: true }],
+        [{ startDate: 3 }, { startDate: 4, today: true }],
       ];
       const tree = mount((
         <Table
           {...defaultProps}
+          selectedDate={4}
           cells={cells}
         />
       ));
@@ -65,7 +66,9 @@ describe('Calendar', () => {
         .toHaveLength(4);
       expect(cellComponents.first().props().otherMonth)
         .toBeTruthy();
-      expect(cellComponents.last().props().current)
+      expect(cellComponents.last().props().today)
+        .toBeTruthy();
+      expect(cellComponents.last().props().selected)
         .toBeTruthy();
     });
 

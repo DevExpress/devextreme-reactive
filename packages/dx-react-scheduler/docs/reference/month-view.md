@@ -55,7 +55,6 @@ Describes properties passed to a component that renders a month view layout.
 
 Field | Type | Description
 ------|------|------------
-timeScaleComponent | ComponentType&lt;[MonthView.TimeScaleLayoutProps](#monthviewtimescalelayoutprops)&gt; | A component that renders a time scale layout.
 dayScaleComponent | ComponentType&lt;[MonthView.DayScaleLayoutProps](#monthviewdayscalelayoutprops)&gt; | A component that renders a day scale layout.
 timeTableComponent | ComponentType&lt;[MonthView.TimeTableLayoutProps](#monthviewtimetablelayoutprops)&gt; | A component that renders a time table layout.
 

@@ -5,13 +5,14 @@ import {
   getAvailableGetters,
   getAvailableActions,
 } from './helpers';
-import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT, UPDATE_CONNECTION_EVENT } from './constants';
+import { UPDATE_CONNECTION_EVENT, PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from './constants';
+import { withHostAndPosition } from '../utils/with-props-from-context';
 
-export class Getter extends React.PureComponent {
-  constructor(props, context) {
-    super(props, context);
+class GetterBase extends React.PureComponent {
+  constructor(props) {
+    super(props);
 
-    const { [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: positionContext } = context;
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: positionContext } = props;
     const { name } = props;
 
     let lastComputed;
@@ -47,13 +48,13 @@ export class Getter extends React.PureComponent {
   }
 
   componentDidUpdate() {
-    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.props;
 
     pluginHost.broadcast(UPDATE_CONNECTION_EVENT);
   }
 
   componentWillUnmount() {
-    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.props;
 
     pluginHost.unregisterPlugin(this.plugin);
   }
@@ -63,18 +64,17 @@ export class Getter extends React.PureComponent {
   }
 }
 
-Getter.propTypes = {
+GetterBase.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.any,
   computed: PropTypes.func,
+  [PLUGIN_HOST_CONTEXT]: PropTypes.object.isRequired,
+  [POSITION_CONTEXT]: PropTypes.func.isRequired,
 };
 
-Getter.defaultProps = {
+GetterBase.defaultProps = {
   value: undefined,
   computed: undefined,
 };
 
-Getter.contextTypes = {
-  [PLUGIN_HOST_CONTEXT]: PropTypes.object.isRequired,
-  [POSITION_CONTEXT]: PropTypes.func.isRequired,
-};
+export const Getter = withHostAndPosition(GetterBase);

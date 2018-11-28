@@ -37,9 +37,9 @@ const adjustScaleRange = (scale, [width, height]) => {
 class RawAxis extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.setRootRef = (node) => {
-      this.node = node;
-    };
+    this.rootRef = React.createRef();
+    this.adjustedWidth = 0;
+    this.adjustedHeight = 0;
   }
 
   render() {
@@ -71,22 +71,25 @@ class RawAxis extends React.PureComponent {
               }
 
               const { width, height } = layouts[placeholder] || { width: 0, height: 0 };
-              // DOM content should not be accessed in *render* - it should be done
-              // in *componentDidMount* and *componentDidUpdate*.
-              // TODO: Remove references to *this.node*.
-              const { width: postWidth, height: postHeight } = (
-                this.node ? this.node.getBoundingClientRect() : { width, height }
-              );
-              // Isn't it too late to adjust sizes?
-              const postCalculatedScale = adjustScaleRange(scale, [postWidth, postHeight]);
               const { sides: [dx, dy], ticks } = axisCoordinates({
                 name,
-                scale: postCalculatedScale,
+                // Isn't it too late to adjust sizes?
+                scale: adjustScaleRange(scale, [this.adjustedWidth, this.adjustedHeight]),
                 position,
                 tickSize,
                 tickFormat,
                 indentFromAxis,
               });
+              const handleSizeChange = (size) => {
+                // The callback is called when DOM is available -
+                // *rootRef.current* can be surely accessed.
+                const rect = this.rootRef.current.getBoundingClientRect();
+                // *setState* is not used because it would cause excessive Plugin rerenders.
+                // Template rerender is provided by *changeBBox* invocation.
+                this.adjustedWidth = rect.width;
+                this.adjustedHeight = rect.height;
+                changeBBox({ placeholder, bBox: size });
+              };
 
               return (
                 <div
@@ -96,17 +99,17 @@ class RawAxis extends React.PureComponent {
                     height: (dx * height) || undefined,
                     flexGrow: dx || undefined,
                   }}
-                  ref={this.setRootRef}
+                  ref={this.rootRef}
                 >
                   <svg
-                    width={postWidth}
-                    height={postHeight}
+                    width={this.adjustedWidth}
+                    height={this.adjustedHeight}
                     style={SVG_STYLE}
                   >
                     <RootComponent
                       dx={dx}
                       dy={dy}
-                      onSizeChange={bBox => changeBBox({ placeholder, bBox })}
+                      onSizeChange={handleSizeChange}
                     >
                       {ticks.map(({
                         x1, x2, y1, y2, key,
@@ -120,8 +123,8 @@ class RawAxis extends React.PureComponent {
                         />
                       ))}
                       <LineComponent
-                        width={dx * postWidth}
-                        height={dy * postHeight}
+                        width={dx * this.adjustedWidth}
+                        height={dy * this.adjustedHeight}
                       />
                       {ticks.map(({
                         text,

@@ -23,49 +23,61 @@ const TableBase = ({
   className,
   cells,
   headerCells,
+  selectedDate,
   onCellClick,
   ...restProps
-}) => (
-  <TableMUI
-    className={classNames(classes.table, className)}
-    {...restProps}
-  >
-    <TableHead>
-      <HeaderRow>
-        {headerCells.map((cell) => {
-          const key = moment(cell.startDate).format('ddd');
-          return (
-            <HeaderCell
-              key={key}
-            >
-              {key}
-            </HeaderCell>
-          );
-        })}
-      </HeaderRow>
-    </TableHead>
-    <TableBody>
-      {cells.map(row => (
-        <Row
-          key={row[0].startDate.toString()}
-        >
-          {row.map(({ startDate, otherMonth, current }) => (
-            <Cell
-              key={startDate.toString()}
-              otherMonth={otherMonth}
-              current={current}
-              onClick={() => {
-                onCellClick({ nextDate: startDate });
-              }}
-            >
-              {moment(startDate).format('D')}
-            </Cell>
-          ))}
-        </Row>
-      ))}
-    </TableBody>
-  </TableMUI>
-);
+}) => {
+  const comparableSelectedDate = moment(selectedDate);
+  return (
+    <TableMUI
+      className={classNames(classes.table, className)}
+      {...restProps}
+    >
+      <TableHead>
+        <HeaderRow>
+          {headerCells.map((cell) => {
+            const key = moment(cell.startDate).format('ddd');
+            return (
+              <HeaderCell
+                key={key}
+              >
+                {key}
+              </HeaderCell>
+            );
+          })}
+        </HeaderRow>
+      </TableHead>
+      <TableBody>
+        {cells.map(row => (
+          <Row
+            key={row[0].startDate.toString()}
+          >
+            {row.map(({
+              startDate,
+              otherMonth,
+              today,
+            }) => {
+              const selected = comparableSelectedDate.isSame(moment(startDate), 'date');
+              return (
+                <Cell
+                  key={startDate.toString()}
+                  otherMonth={otherMonth}
+                  selected={selected}
+                  today={today}
+                  onClick={() => {
+                    onCellClick({ nextDate: startDate });
+                  }}
+                >
+                  {moment(startDate).format('D')}
+                </Cell>
+              );
+            })}
+          </Row>
+        ))}
+      </TableBody>
+    </TableMUI>
+  );
+};
 
 TableBase.propTypes = {
   rowComponent: PropTypes.func.isRequired,
@@ -74,6 +86,11 @@ TableBase.propTypes = {
   headerCellComponent: PropTypes.func.isRequired,
   cells: PropTypes.array.isRequired,
   classes: PropTypes.object.isRequired,
+  selectedDate: PropTypes.oneOfType([
+    PropTypes.instanceOf(Date),
+    PropTypes.string,
+    PropTypes.number,
+  ]),
   headerCells: PropTypes.array,
   className: PropTypes.string,
   onCellClick: PropTypes.func,
@@ -83,6 +100,7 @@ TableBase.defaultProps = {
   className: undefined,
   headerCells: [],
   onCellClick: () => {},
+  selectedDate: undefined,
 };
 
 export const Table = withStyles(styles, { name: 'Table' })(TableBase);

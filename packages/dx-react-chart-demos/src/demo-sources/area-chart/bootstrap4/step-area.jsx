@@ -7,7 +7,6 @@ import {
   AreaSeries,
   Title,
   Legend,
-  ValueGrid,
 } from '@devexpress/dx-react-chart-bootstrap4';
 import { Scale, Animation } from '@devexpress/dx-react-chart';
 import { area, curveStep } from 'd3-shape';
@@ -50,7 +49,6 @@ const Marker = (props) => {
     <span role="img" aria-label="Gold Medal">🏅</span>
   );
 };
-const EmptyComponent = () => null;
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -69,12 +67,7 @@ export default class Demo extends React.PureComponent {
           data={chartData}
         >
           <ArgumentAxis tickFormat={format} />
-          <ValueAxis
-            lineComponent={EmptyComponent}
-            tickComponent={EmptyComponent}
-          />
-
-          <ValueGrid />
+          <ValueAxis />
 
           <AreaSeries
             name="Bronze Medals"

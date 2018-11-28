@@ -7,7 +7,6 @@ import {
   AreaSeries,
   Title,
   Legend,
-  ValueGrid,
 } from '@devexpress/dx-react-chart-material-ui';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -99,7 +98,6 @@ class Demo extends React.PureComponent {
             lineComponent={EmptyComponent}
             tickComponent={EmptyComponent}
           />
-          <ValueGrid />
           <AreaSeries
             name="Liquids"
             valueField="liquids"

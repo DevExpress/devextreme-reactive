@@ -30,9 +30,10 @@ indentFromAxis? | number | 10 | The indent from the axis.
 type? | 'band' &#124; 'linear' | 'linear' | Axis type.
 tickFormat? | (scale: [ScaleObject](scale.md#scaleobject)) => (tick: string) => string  | | A function that returns a tick formatter function.
 rootComponent | ComponentType&lt;[ArgumentAxis.RootProps](#argumentaxisrootprops)&gt; | |  A component that renders the axis's root layout.
-tickComponent | ComponentType&lt;[ArgumentAxis.TickProps](#argumentaxistickprops)&gt; | | A component that renders a tick.
+tickComponent | ComponentType&lt;[ArgumentAxis.LineProps](#argumentaxislineprops)&gt; | | A component that renders a tick.
 labelComponent | ComponentType&lt;[ArgumentAxis.LabelProps](#argumentaxislabelprops)&gt; | | A component that renders the axis's label.
 lineComponent | ComponentType&lt;[ArgumentAxis.LineProps](#argumentaxislineprops)&gt; | | A component that renders the axis's line.
+gridComponent | ComponentType&lt;[ArgumentAxis.LineProps](#argumentaxislineprops)&gt; | | A component that renders the grid.
 
 ## Interfaces
 
@@ -46,9 +47,9 @@ x | number | The x coordinate of the top left corner of the axis's rendering are
 y | number | The y coordinate of the top left corner of the series' rendering area.
 children | ReactNode | A React node used to render the axis.
 
-### ArgumentAxis.TickProps
+### ArgumentAxis.LineProps
 
-Describes properties passed to a component that renders a tick line.
+Describes properties passed to a component that renders the axis's line, ticks and grid.
 
 Field | Type | Description
 ------|------|------------
@@ -69,21 +70,12 @@ y | number | The y coordinate of the label's top left corner.
 dominantBaseline | 'hanging' &#124; 'middle' &#124; 'baseline' | The label's baseline.
 textAnchor | 'start' &#124; 'middle' &#124; 'end' | The label's text alignment.
 
-### ArgumentAxis.LineProps
-
-Describes properties passed to a component that renders the axis's line.
-
-Field | Type | Description
-------|------|------------
-width | number | The line width.
-height | number | The line height.
-orientation | 'horizontal' &#124; 'vertical' | The axis orientation.
-
 ## Plugin Components
 
 Name | Properties | Description
 -----|------------|------------
 ArgumentAxis.Root | [ArgumentAxis.RootProps](#argumentaxisrootprops) | A component that renders the axis's root layout.
-ArgumentAxis.Tick | [ArgumentAxis.TickProps](#argumentaxistickprops) | A component that renders the tick.
+ArgumentAxis.Tick | [ArgumentAxis.LineProps](#argumentaxislineprops) | A component that renders the tick.
 ArgumentAxis.Label | [ArgumentAxis.LabelProps](#argumentaxislabelprops) | A component that renders the axis's label.
 ArgumentAxis.Line | [ArgumentAxis.LineProps](#argumentaxislineprops) | A component that renders the axis's line.
+ArgumentAxis.Grid | [ArgumentAxis.LineProps](#argumentaxislineprops) | A component that renders the grid.

@@ -7,7 +7,6 @@ import {
   LineSeries,
   Title,
   Legend,
-  ValueGrid,
 } from '@devexpress/dx-react-chart-material-ui';
 import { withStyles } from '@material-ui/core/styles';
 import { Scale, Animation } from '@devexpress/dx-react-chart';
@@ -95,7 +94,6 @@ class Demo extends React.PureComponent {
             lineComponent={EmptyComponent}
             tickComponent={EmptyComponent}
           />
-          <ValueGrid />
 
           <LineSeries
             name="TV news"

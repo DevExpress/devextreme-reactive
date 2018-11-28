@@ -5,7 +5,6 @@ import {
   BarSeries,
   ArgumentAxis,
   ValueAxis,
-  ValueGrid,
   Title,
   Legend,
   Tooltip,
@@ -103,7 +102,6 @@ export default class Demo extends React.PureComponent {
         >
           <ArgumentAxis type="band" />
           <ValueAxis lineComponent={EmptyComponent} tickComponent={EmptyComponent} />
-          <ValueGrid />
 
           <Title
             text="USA and Chinese annual sales of plug-in electric vehicles"

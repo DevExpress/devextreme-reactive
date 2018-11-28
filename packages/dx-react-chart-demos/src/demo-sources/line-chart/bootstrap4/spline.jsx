@@ -7,7 +7,6 @@ import {
   LineSeries,
   Title,
   Legend,
-  ValueGrid,
 } from '@devexpress/dx-react-chart-bootstrap4';
 import { Scale, Animation } from '@devexpress/dx-react-chart';
 import {
@@ -82,7 +81,6 @@ export default class Demo extends React.PureComponent {
             lineComponent={EmptyComponent}
             tickComponent={EmptyComponent}
           />
-          <ValueGrid />
 
           <LineSeries
             name="Hydro-electric"

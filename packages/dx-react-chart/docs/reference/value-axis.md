@@ -30,9 +30,10 @@ indentFromAxis? | number | 10 | The indent from the axis.
 type? | 'band' &#124; 'linear' | 'linear' | Axis type.
 tickFormat? | (scale: [ScaleObject](scale.md#scaleobject)) => (tick: string) => string  | | A function that returns a tick formatter function.
 rootComponent | ComponentType&lt;[ValueAxis.RootProps](#valueaxisrootprops)&gt; | | A component that renders the axis root layout.
-tickComponent | ComponentType&lt;[ValueAxis.TickProps](#valueaxistickprops)&gt; | | A component that renders a tick.
+tickComponent | ComponentType&lt;[ValueAxis.LineProps](#valueaxislineprops)&gt; | | A component that renders a tick.
 labelComponent | ComponentType&lt;[ValueAxis.LabelProps](#valueaxislabelprops)&gt; | | A component that renders the axis label.
 lineComponent | ComponentType&lt;[ValueAxis.LineProps](#valueaxislineprops)&gt; | | A component that renders the axis line.
+gridComponent | ComponentType&lt;[ValueAxis.LineProps](#valueaxislineprops)&gt; | | A component that renders the grid.
 
 ## Interfaces
 
@@ -46,9 +47,9 @@ x | number | The x coordinate of the top left corner of the axis' rendering area
 y | number | The y coordinate of the top left corner of the series' rendering area.
 children | ReactNode | A React node used to render the axis.
 
-### ValueAxis.TickProps
+### ValueAxis.LineProps
 
-Describes properties passed to a component that renders a tick line.
+Describes properties passed to a component that renders the axis's line, ticks and grid.
 
 Field | Type | Description
 ------|------|------------
@@ -69,21 +70,12 @@ y | number | The y coordinate of the label's top left corner.
 dominantBaseline | 'hanging' &#124; 'middle' &#124; 'baseline' | The label's baseline.
 textAnchor | 'start' &#124; 'middle' &#124; 'end' | The label's text alignment.
 
-### ValueAxis.LineProps
-
-Describes properties passed to a component that renders the axis line.
-
-Field | Type | Description
-------|------|------------
-width | number | The line width.
-height | number | The line height.
-orientation | 'horizontal' &#124; 'vertical' | The axis orientation.
-
 ## Plugin Components
 
 Name | Properties | Description
 -----|------------|------------
 ValueAxis.Root | [ValueAxis.RootProps](#valueaxisrootprops) | A component that renders the axis root layout.
-ValueAxis.Tick | [ValueAxis.TickProps](#valueaxistickprops) | A component that renders the tick.
+ValueAxis.Tick | [ValueAxis.LineProps](#valueaxislineprops) | A component that renders the tick.
 ValueAxis.Label | [ValueAxis.LabelProps](#valueaxislabelprops) | A component that renders the axis label.
 ValueAxis.Line | [ValueAxis.LineProps](#valueaxislineprops) | A component that renders the axis line.
+ValueAxis.Grid | [ValueAxis.LineProps](#valueaxislineprops) | A component that renders the grid.

@@ -39,14 +39,14 @@ export default class Demo extends React.Component<object, object> {
             name="Units Sold"
             valueField="sale"
             argumentField="month"
-            axisName="sale"
+            scaleName="sale"
           />
 
           <LineSeries
             name="Total Transactions"
             valueField="total"
             argumentField="month"
-            axisName="total"
+            scaleName="total"
           />
           <Scale />
         </Chart>

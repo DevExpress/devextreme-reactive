@@ -28,17 +28,17 @@ export default class Demo extends React.PureComponent {
           <BarSeries
             valueField="young"
             argumentField="state"
-            axisName="age"
+            scaleName="age"
           />
           <BarSeries
             valueField="middle"
             argumentField="state"
-            axisName="age"
+            scaleName="age"
           />
           <BarSeries
             valueField="older"
             argumentField="state"
-            axisName="age"
+            scaleName="age"
           />
           <Stack />
           <Scale />

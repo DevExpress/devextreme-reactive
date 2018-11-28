@@ -54,7 +54,7 @@ export default class Demo extends React.PureComponent {
             name="Units Sold"
             valueField="sale"
             argumentField="month"
-            axisName="sale"
+            scaleName="sale"
             pointComponent={Point}
           />
 
@@ -62,7 +62,7 @@ export default class Demo extends React.PureComponent {
             name="Total Transactions"
             valueField="total"
             argumentField="month"
-            axisName="total"
+            scaleName="total"
           />
           <Animation />
           <Legend />

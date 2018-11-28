@@ -26,7 +26,7 @@ Name | Type | Default | Description
 name | string | | A series name.
 valueField | string | | The name of a data field that provides series point values.
 argumentField | string | | The name of a data field that provides series point argument values.
-axisName? | string | | An associated axis.
+scaleName? | string | | An associated scale.
 color? | string | | The series color.
 seriesComponent | ComponentType&lt;[AreaSeries.SeriesProps](#areaseriesseriesprops)&gt; | | A component that renders series.
 

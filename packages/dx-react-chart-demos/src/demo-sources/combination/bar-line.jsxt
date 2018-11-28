@@ -9,7 +9,7 @@ import {
   Legend,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 
-import { Stack, Animation } from '@devexpress/dx-react-chart';
+import { ValueScale, Stack, Animation } from '@devexpress/dx-react-chart';
 
 import { oilProduction } from '../../../demo-data/data-vizualization';
 
@@ -45,10 +45,12 @@ export default class Demo extends React.PureComponent {
           data={chartData}
         >
 
+          <ValueScale name="oil" max={2200} />
+          <ValueScale name="price" min={0} max={110} />
+
           <ArgumentAxis />
           <ValueAxis
             name="oil"
-            max={2200}
             labelComponent={LabelWithThousand}
             lineComponent={EmptyComponent}
             tickComponent={EmptyComponent}
@@ -56,8 +58,6 @@ export default class Demo extends React.PureComponent {
           <ValueAxis
             name="price"
             position="right"
-            min={0}
-            max={110}
             labelComponent={PriceLabel}
             lineComponent={EmptyComponent}
             tickComponent={EmptyComponent}

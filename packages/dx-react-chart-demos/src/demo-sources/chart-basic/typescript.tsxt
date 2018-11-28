@@ -6,6 +6,7 @@ import {
   Chart,
   LineSeries,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
+import { ValueScale } from '@devexpress/dx-react-chart';
 
 interface IDataItem {
   month: string,
@@ -29,6 +30,9 @@ export default class Demo extends React.Component<object, object> {
         <Chart
           data={chartData}
         >
+          <ValueScale name="sale" constructor={null} />
+          <ValueScale name="total" constructor={null} />
+
           <ArgumentAxis />
           <ValueAxis name="sale" />
           <ValueAxis name="total" position="right" />

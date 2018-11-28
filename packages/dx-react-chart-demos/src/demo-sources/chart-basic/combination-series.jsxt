@@ -7,6 +7,7 @@ import {
   LineSeries,
   Legend,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
+import { ValueScale } from '@devexpress/dx-react-chart';
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -32,7 +33,10 @@ export default class Demo extends React.PureComponent {
         <Chart
           data={chartData}
         >
-          <ArgumentAxis type="band" />
+          <ValueScale name="sale" />
+          <ValueScale name="total" />
+
+          <ArgumentAxis />
           <ValueAxis name="sale" />
           <ValueAxis name="total" position="right" />
 

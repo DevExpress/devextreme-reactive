@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { mount } from 'enzyme';
 import { pluginDepsToComponents, getComputedState, executeComputedAction } from '../../test-utils';
-import { PluginHost } from '..';
+import { PluginHost } from '../..';
 
 export const testStatePluginField = ({
   Plugin,

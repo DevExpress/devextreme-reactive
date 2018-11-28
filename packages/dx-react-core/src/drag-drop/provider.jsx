@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
 import { EventEmitter } from '@devexpress/dx-core';
+import { DragDropContext } from './context';
 
 class DragDropProviderCore {
   constructor() {
@@ -39,12 +40,6 @@ export class DragDropProvider extends React.Component {
     });
   }
 
-  getChildContext() {
-    return {
-      dragDropProvider: this.dragDropProvider,
-    };
-  }
-
   shouldComponentUpdate(nextProps) {
     const { children } = this.props;
     return nextProps.children !== children;
@@ -52,13 +47,13 @@ export class DragDropProvider extends React.Component {
 
   render() {
     const { children } = this.props;
-    return children;
+    return (
+      <DragDropContext.Provider value={this.dragDropProvider}>
+        {children}
+      </DragDropContext.Provider>
+    );
   }
 }
-
-DragDropProvider.childContextTypes = {
-  dragDropProvider: PropTypes.object.isRequired,
-};
 
 DragDropProvider.propTypes = {
   children: PropTypes.node.isRequired,

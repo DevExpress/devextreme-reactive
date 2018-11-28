@@ -8,9 +8,7 @@ import {
   Title,
   Legend,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
-import { ValueScale } from '@devexpress/dx-react-chart';
-
-import { Stack } from '@devexpress/dx-react-chart';
+import { ValueScale, Stack } from '@devexpress/dx-react-chart';
 
 import { oilProduction } from '../../../demo-data/data-vizualization';
 

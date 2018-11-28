@@ -61,17 +61,16 @@ const guessFactory = (points, getItem) => (
 const collectDomainsFromSeries = (domains, seriesList) => {
   seriesList.forEach((seriesItem) => {
     if (!domains[ARGUMENT_DOMAIN].factory) {
-      const obj = domains[ARGUMENT_DOMAIN];
-      obj.factory = guessFactory(seriesItem.points, getArgument);
+      Object.assign(domains[ARGUMENT_DOMAIN], {
+        factory: guessFactory(seriesItem.points, getArgument),
+      });
     }
     const valueDomainName = getSeriesValueDomainName(seriesItem);
-    if (!domains[valueDomainName]) {
-      Object.assign(domains, { [valueDomainName]: createDomain() });
-    }
     const obj = domains[valueDomainName];
     if (!obj.factory) {
       obj.factory = guessFactory(seriesItem.points, getValue);
     }
+    // TODO: It is to be removed together with *TODO* from above.
     if (seriesItem.getPointTransformer.isStartedFromZero && obj.domain.length === 0) {
       obj.domain = [0];
     }

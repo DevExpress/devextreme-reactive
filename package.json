@@ -38,7 +38,7 @@
     "build:site:demos": "yarn run build:ts && lerna run build --ignore @devexpress/dx-react-grid-demos --ignore @devexpress/dx-react-chart-demos --ignore @devexpress/dx-react-scheduler-demos --ignore @devexpress/dx-vue-* && lerna run build:prod --scope @devexpress/dx-react-grid-demos --scope @devexpress/dx-react-chart-demos --scope @devexpress/dx-react-scheduler-demos",
     "build:site:docs": "gulp site",
     "build:site:watch": "npx nodemon --exec \"yarn run build:site:docs\" --watch \"packages/dx-react-grid-demos/dist/\" --watch \"packages/dx-react-chart-demos/dist/\" --watch \"packages/dx-react-scheduler-demos/dist/\" --watch \"packages/*/docs/\" --watch \"packages/*/demos/\" --watch \"gulpfile.js\" --ext md,js",
-    "lint": "lerna run lint",
+    "lint": "lerna run lint --ignore @devexpress/dx-vue-*",
     "lint:ci": "lerna run lint:ci",
     "test": "lerna run test --ignore @devexpress/dx-vue-*",
     "test:watch": "jest --watch",

@@ -19,9 +19,6 @@ export class TableLayout extends React.PureComponent {
     };
 
     this.animations = new Map();
-    this.tableNode = null;
-
-    this.setRef = (ref) => { if (ref) this.tableNode = ref; };
   }
 
   componentDidUpdate(prevProps) {

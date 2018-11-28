@@ -21,6 +21,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
+import Fab from '@material-ui/core/Fab';
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
 import TextField from '@material-ui/core/TextField';
@@ -415,8 +416,7 @@ class Demo extends React.PureComponent {
           </DialogActions>
         </Dialog>
 
-        <Button
-          variant="fab"
+        <Fab
           color="secondary"
           className={classes.addButton}
           onClick={() => {
@@ -429,7 +429,7 @@ class Demo extends React.PureComponent {
           }}
         >
           <AddIcon />
-        </Button>
+        </Fab>
       </Paper>
     );
   }

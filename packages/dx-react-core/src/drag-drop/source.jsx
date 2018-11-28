@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { DragDropContext } from './context';
 import { Draggable } from '../draggable';
 
 export class DragSource extends React.Component {
@@ -9,7 +10,7 @@ export class DragSource extends React.Component {
   }
 
   render() {
-    const { dragDropProvider } = this.context;
+    const dragDropProvider = this.context;
     const {
       onStart, onUpdate, onEnd, payload, children,
     } = this.props;
@@ -33,10 +34,7 @@ export class DragSource extends React.Component {
     );
   }
 }
-
-DragSource.contextTypes = {
-  dragDropProvider: PropTypes.object.isRequired,
-};
+DragSource.contextType = DragDropContext;
 
 DragSource.propTypes = {
   children: PropTypes.node.isRequired,

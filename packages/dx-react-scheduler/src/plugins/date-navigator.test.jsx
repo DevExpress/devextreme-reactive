@@ -115,16 +115,19 @@ describe('DateNavigator', () => {
   });
 
   it('should render calendar', () => {
-    const calendar = mount((
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <DateNavigator
           {...defaultProps}
         />
       </PluginHost>
-    )).find(CalendarComponent);
+    ));
+    const calendar = tree.find(CalendarComponent);
+    const dateNavigator = tree.find(DateNavigator);
+    dateNavigator.instance().setState({ visible: true });
     const {
-      currentDate,
+      selectedDate,
       firstDayOfWeek,
       textComponent,
       navigationButtonComponent,
@@ -133,13 +136,13 @@ describe('DateNavigator', () => {
       headerRowComponent,
       headerCellComponent,
       navigatorComponent,
-      onNavigate,
+      onSelectedDateChange,
     } = calendar.props();
 
-    onNavigate();
+    onSelectedDateChange();
 
     expect(calendar.exists()).toBeTruthy();
-    expect(currentDate).toBe('2018-07-05');
+    expect(selectedDate).toBe('2018-07-05');
     expect(firstDayOfWeek).toBe(1);
     expect(textComponent).toBe(CalendarTextComponent);
     expect(navigationButtonComponent).toBe(CalendarNavigationButtonComponent);
@@ -149,6 +152,7 @@ describe('DateNavigator', () => {
     expect(headerCellComponent).toBe(CalendarHeaderCell);
     expect(navigatorComponent).toBe(CalendarNavigatorComponent);
     expect(defaultDeps.action.changeCurrentDate).toHaveBeenCalled();
+    expect(dateNavigator.instance().state.visible).toBeFalsy();
   });
 
   it('should calculate calendar cells via the "monthCells" computed', () => {

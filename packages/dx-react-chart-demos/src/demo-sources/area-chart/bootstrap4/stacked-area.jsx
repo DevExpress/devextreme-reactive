@@ -7,7 +7,6 @@ import {
   AreaSeries,
   Title,
   Legend,
-  ValueGrid,
 } from '@devexpress/dx-react-chart-bootstrap4';
 import { Stack, Scale, Animation } from '@devexpress/dx-react-chart';
 import { stackOffsetExpand } from 'd3-shape';
@@ -62,7 +61,6 @@ export default class Demo extends React.PureComponent {
             tickComponent={EmptyComponent}
           />
 
-          <ValueGrid />
           <AreaSeries
             name="Liquids"
             valueField="liquids"

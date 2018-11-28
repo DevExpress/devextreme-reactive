@@ -225,7 +225,7 @@ describe('TableBandHeader', () => {
     ));
 
     const tableCellTemplatePlaceholder = tree
-      .find('TemplatePlaceholder')
+      .find('TemplatePlaceholderBase')
       .findWhere(node => node.prop('name') === 'tableCell')
       .last();
 

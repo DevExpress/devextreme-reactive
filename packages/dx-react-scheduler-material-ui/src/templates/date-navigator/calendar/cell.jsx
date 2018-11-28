@@ -18,20 +18,26 @@ const styles = ({ palette, spacing }) => ({
   otherMonth: {
     color: palette.text.disabled,
   },
-  current: {
+  selected: {
+    background: palette.primary.main,
+    color: palette.primary.contrastText,
     display: 'inline-block',
     width: `${spacing.unit * 4}px`,
     lineHeight: `${spacing.unit * 4}px`,
     borderRadius: '50%',
-    background: palette.primary.main,
-    color: palette.primary.contrastText,
     cursor: 'default',
+  },
+  today: {
+    color: palette.primary.main,
+    fontWeight: 'bold',
   },
 });
 
 const CellBase = ({
   otherMonth,
+  selected,
   current,
+  today,
   classes,
   children,
   className,
@@ -46,7 +52,8 @@ const CellBase = ({
   >
     <span
       className={classNames({
-        [classes.current]: current,
+        [classes.selected]: selected,
+        [classes.today]: today && !selected,
       })}
     >
       {children}
@@ -57,7 +64,8 @@ const CellBase = ({
 CellBase.propTypes = {
   children: PropTypes.node,
   otherMonth: PropTypes.bool,
-  current: PropTypes.bool,
+  selected: PropTypes.bool,
+  today: PropTypes.bool,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
 };
@@ -65,7 +73,8 @@ CellBase.propTypes = {
 CellBase.defaultProps = {
   children: undefined,
   otherMonth: false,
-  current: false,
+  selected: false,
+  today: false,
   className: undefined,
 };
 

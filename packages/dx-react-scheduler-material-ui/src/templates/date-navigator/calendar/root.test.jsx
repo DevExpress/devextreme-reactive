@@ -16,7 +16,7 @@ describe('Calendar', () => {
     headerRowComponent: () => null,
     headerCellComponent: () => null,
     navigatorComponent: () => null,
-    currentDate: '2018-07-16',
+    selectedDate: '2018-07-16',
     firstDayOfWeek: 1,
     getCells: () => [],
   };
@@ -70,10 +70,14 @@ describe('Calendar', () => {
       onNavigate({ back: true });
       expect(tree.state().currentDate.toString())
         .toBe(new Date(2018, 5, 16).toString());
+      expect(tree.state().selectedDate.toString())
+        .toBe(defaultProps.selectedDate);
 
       onNavigate({ back: false });
       expect(tree.state().currentDate.toString())
         .toBe(new Date(2018, 6, 16).toString());
+      expect(tree.state().selectedDate.toString())
+        .toBe(defaultProps.selectedDate);
     });
     it('should render calendar table', () => {
       const tree = mount(<Root {...defaultProps} />);
@@ -99,20 +103,21 @@ describe('Calendar', () => {
         .toBe(defaultProps.headerCellComponent);
     });
     it('should handle table cell click', () => {
-      const onNavigateMock = jest.fn();
+      const onSelectedDateChangeMock = jest.fn();
       const tree = mount((
         <Root
           {...defaultProps}
-          onNavigate={onNavigateMock}
+          onSelectedDateChange={onSelectedDateChangeMock}
         />
       ));
       const { onCellClick } = Table.mock.calls[0][0];
-
       onCellClick({ nextDate: '2018-07-17' });
 
-      expect(onNavigateMock)
+      expect(onSelectedDateChangeMock)
         .toBeCalledWith({ nextDate: '2018-07-17' });
       expect(tree.state().currentDate)
+        .toBe('2018-07-17');
+      expect(tree.state().selectedDate)
         .toBe('2018-07-17');
     });
   });

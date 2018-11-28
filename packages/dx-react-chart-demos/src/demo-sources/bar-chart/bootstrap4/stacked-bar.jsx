@@ -7,7 +7,6 @@ import {
   BarSeries,
   Title,
   Legend,
-  ValueGrid,
 } from '@devexpress/dx-react-chart-bootstrap4';
 import { Stack, Scale, Animation } from '@devexpress/dx-react-chart';
 
@@ -44,7 +43,6 @@ export default class Demo extends React.PureComponent {
             lineComponent={EmptyComponent}
             tickComponent={EmptyComponent}
           />
-          <ValueGrid />
 
           <BarSeries
             name="Hydro-electric"

@@ -5,12 +5,13 @@ import {
   getAvailableActions,
 } from './helpers';
 import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from './constants';
+import { withHostAndPosition } from '../utils/with-props-from-context';
 
-export class Action extends React.PureComponent {
-  constructor(props, context) {
-    super(props, context);
+class ActionBase extends React.PureComponent {
+  constructor(props) {
+    super(props);
 
-    const { [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: positionContext } = context;
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: positionContext } = props;
     const { name } = props;
 
     this.plugin = {
@@ -50,12 +51,11 @@ export class Action extends React.PureComponent {
   }
 }
 
-Action.propTypes = {
+ActionBase.propTypes = {
   name: PropTypes.string.isRequired,
   action: PropTypes.func.isRequired,
-};
-
-Action.contextTypes = {
   [PLUGIN_HOST_CONTEXT]: PropTypes.object.isRequired,
   [POSITION_CONTEXT]: PropTypes.func.isRequired,
 };
+
+export const Action = withHostAndPosition(ActionBase);

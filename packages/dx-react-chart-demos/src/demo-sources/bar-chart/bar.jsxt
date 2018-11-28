@@ -5,7 +5,6 @@ import {
   Title,
   ArgumentAxis,
   ValueAxis,
-  ValueGrid,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 import { Scale, Animation } from '@devexpress/dx-react-chart';
 
@@ -39,7 +38,6 @@ export default class Demo extends React.PureComponent {
         >
           <ArgumentAxis />
           <ValueAxis max={7} lineComponent={EmptyComponent} tickComponent={EmptyComponent} />
-          <ValueGrid />
 
           <BarSeries
             valueField="population"

@@ -84,8 +84,8 @@ describe('AppointmentTooltip', () => {
     ));
 
     const templatePlaceholder = tree
-      .find('TemplatePlaceholder')
-      .filterWhere(node => node.props().name === 'tooltip');
+      .find('TemplatePlaceholderBase')
+      .filterWhere(node => node.props().name === 'tooltip').last();
 
     expect(templatePlaceholder.props().params.onDeleteButtonClick)
       .toEqual(expect.any(Function));
@@ -106,8 +106,8 @@ describe('AppointmentTooltip', () => {
     ));
 
     const appointmentTemplate = tree
-      .find('Template')
-      .filterWhere(node => node.props().name === 'appointment');
+      .find('TemplateBase')
+      .filterWhere(node => node.props().name === 'appointment').last();
 
     expect(appointmentTemplate.props().children().props.params.onClick)
       .toEqual(expect.any(Function));

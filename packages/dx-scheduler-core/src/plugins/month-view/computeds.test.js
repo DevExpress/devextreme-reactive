@@ -35,14 +35,13 @@ describe('Month view computeds', () => {
         .toBeFalsy();
     });
 
-    it('should mark current day', () => {
-      const cells = monthCellsData(new Date(2018, 5, 25), 1);
+    it('should mark today day', () => {
+      const cells = monthCellsData(new Date(2018, 5, 25), 1, 1, new Date(2018, 5, 25));
       const currentCell = cells[4][0];
       const cell = cells[2][5];
-
-      expect(currentCell.current)
+      expect(currentCell.today)
         .toBeTruthy();
-      expect(cell.current)
+      expect(cell.today)
         .toBeFalsy();
     });
 

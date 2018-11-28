@@ -16,6 +16,7 @@ export class SourceCode extends React.PureComponent {
     super(props);
     this.textarea = null;
     this.source = '';
+    this.foldBlockStartLines = [];
   }
 
   componentDidMount() {
@@ -25,15 +26,11 @@ export class SourceCode extends React.PureComponent {
       readOnly: true,
       mode: 'jsx',
       foldGutter: true,
-      gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter']
+      gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
     });
-    const cursor = editor.getSearchCursor('// #foldBlock');
-    const arr = [];
-    while (cursor.findNext()) {
-      cursor.replace('');
-      arr.push(cursor.from().line);
-      editor.foldCode(CodeMirror.Pos(cursor.from().line + 1, 0));
-    }
+    this.foldBlockStartLines.forEach((lineNumber) => {
+      editor.foldCode(CodeMirror.Pos(lineNumber, 0));
+    });
   }
 
   render() {
@@ -41,10 +38,20 @@ export class SourceCode extends React.PureComponent {
     const { embeddedDemoOptions } = this.context;
     const { demoSources } = embeddedDemoOptions;
     this.source = demoSources[sectionName][demoName][themeName].source || '';
+    let occurrenceIndex = 0;
+    const sourceLines = this.source.split('\n').filter((line, index) => {
+      if (line.indexOf('// #foldBlock') > -1) {
+        this.foldBlockStartLines.push(index - occurrenceIndex);
+        occurrenceIndex += 1;
+        return false;
+      }
+      return true;
+    });
+
     return (
       <textarea
         ref={(ref) => { this.textarea = ref; }}
-        value={this.source}
+        value={sourceLines.join('\n')}
         onChange={() => {}}
       />
     );

@@ -5,10 +5,12 @@ import {
   PLUGIN_HOST_CONTEXT, RERENDER_TEMPLATE_EVENT,
   TEMPLATE_HOST_CONTEXT, RERENDER_TEMPLATE_SCOPE_EVENT,
 } from './constants';
+import { withContext } from '../utils/with-props-from-context';
+import { PluginHostContext, TemplateHostContext } from './contexts';
 
-export class TemplatePlaceholder extends React.Component {
-  constructor(props, context) {
-    super(props, context);
+export class TemplatePlaceholderBase extends React.Component {
+  constructor(props) {
+    super(props);
     const { name: propsName } = this.props;
 
     this.subscription = {
@@ -25,17 +27,8 @@ export class TemplatePlaceholder extends React.Component {
     };
   }
 
-  getChildContext() {
-    return {
-      [TEMPLATE_HOST_CONTEXT]: {
-        templates: () => this.restTemplates,
-        params: () => this.params,
-      },
-    };
-  }
-
   componentDidMount() {
-    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.props;
     pluginHost.registerSubscription(this.subscription);
   }
 
@@ -46,14 +39,14 @@ export class TemplatePlaceholder extends React.Component {
   }
 
   componentWillUnmount() {
-    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.props;
     pluginHost.unregisterSubscription(this.subscription);
   }
 
   getRenderingData(props) {
     const { name, params } = props;
     if (name) {
-      const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
+      const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.props;
       return {
         params,
         templates: pluginHost.collect(`${name}Template`)
@@ -61,7 +54,7 @@ export class TemplatePlaceholder extends React.Component {
           .reverse(),
       };
     }
-    const { [TEMPLATE_HOST_CONTEXT]: templateHost } = this.context;
+    const { [TEMPLATE_HOST_CONTEXT]: templateHost } = this.props;
     return {
       params: params || templateHost.params(),
       templates: templateHost.templates(),
@@ -86,27 +79,33 @@ export class TemplatePlaceholder extends React.Component {
     }
 
     const { children: templatePlaceholder } = this.props;
-    return templatePlaceholder ? templatePlaceholder(content) : content;
+    return (
+      <TemplateHostContext.Provider value={{
+        templates: () => this.restTemplates,
+        params: () => this.params,
+      }}
+      >
+        {templatePlaceholder ? templatePlaceholder(content) : content}
+      </TemplateHostContext.Provider>
+    );
   }
 }
 
-TemplatePlaceholder.propTypes = {
+TemplatePlaceholderBase.propTypes = {
   name: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
   params: PropTypes.object, // eslint-disable-line react/no-unused-prop-types
+  [TEMPLATE_HOST_CONTEXT]: PropTypes.object,
+  [PLUGIN_HOST_CONTEXT]: PropTypes.object.isRequired,
   children: PropTypes.func,
 };
 
-TemplatePlaceholder.defaultProps = {
+TemplatePlaceholderBase.defaultProps = {
+  [TEMPLATE_HOST_CONTEXT]: undefined,
   name: undefined,
   params: undefined,
   children: undefined,
 };
 
-TemplatePlaceholder.contextTypes = {
-  [TEMPLATE_HOST_CONTEXT]: PropTypes.object,
-  [PLUGIN_HOST_CONTEXT]: PropTypes.object.isRequired,
-};
-
-TemplatePlaceholder.childContextTypes = {
-  [TEMPLATE_HOST_CONTEXT]: PropTypes.object.isRequired,
-};
+export const TemplatePlaceholder = withContext(PluginHostContext, PLUGIN_HOST_CONTEXT)(
+  withContext(TemplateHostContext, TEMPLATE_HOST_CONTEXT)(TemplatePlaceholderBase),
+);

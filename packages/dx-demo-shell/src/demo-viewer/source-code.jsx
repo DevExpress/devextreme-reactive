@@ -11,12 +11,15 @@ import 'codemirror/addon/fold/indent-fold';
 import 'codemirror/addon/fold/comment-fold';
 import 'codemirror/addon/search/searchcursor';
 
+const FOLD_BLOCK = '// #FOLD_BLOCK';
+const IMPORTANT_LINE = '// #IMPORTANT_LINE';
+
 export class SourceCode extends React.PureComponent {
   constructor(props) {
     super(props);
     this.textarea = null;
-    this.source = '';
     this.foldBlockStartLines = [];
+    this.importantLines = [];
   }
 
   componentDidMount() {
@@ -31,27 +34,40 @@ export class SourceCode extends React.PureComponent {
     this.foldBlockStartLines.forEach((lineNumber) => {
       editor.foldCode(CodeMirror.Pos(lineNumber, 0));
     });
+    this.importantLines.forEach((lineNumber) => {
+      editor.addLineClass(lineNumber, 'background', 'CodeMirror-important-line');
+    });
   }
 
-  render() {
+  prepareSourceCode() {
     const { themeName, sectionName, demoName } = this.props;
     const { embeddedDemoOptions } = this.context;
     const { demoSources } = embeddedDemoOptions;
-    this.source = demoSources[sectionName][demoName][themeName].source || '';
+    const source = demoSources[sectionName][demoName][themeName].source || '';
     let occurrenceIndex = 0;
-    const sourceLines = this.source.split('\n').filter((line, index) => {
-      if (line.indexOf('// #foldBlock') > -1) {
-        this.foldBlockStartLines.push(index - occurrenceIndex);
-        occurrenceIndex += 1;
-        return false;
-      }
-      return true;
-    });
 
+    return source.split('\n')
+      .filter((line, index) => {
+        if (line.indexOf(FOLD_BLOCK) > -1) {
+          this.foldBlockStartLines.push(index - occurrenceIndex);
+          occurrenceIndex += 1;
+          return false;
+        }
+        return true;
+      }).map((line, index) => {
+        if (line.indexOf(IMPORTANT_LINE) > -1) {
+          this.importantLines.push(index);
+        }
+        return line.replace(IMPORTANT_LINE, '');
+      }).join('\n');
+  }
+
+  render() {
+    const sourceCode = this.prepareSourceCode();
     return (
       <textarea
         ref={(ref) => { this.textarea = ref; }}
-        value={sourceLines.join('\n')}
+        value={sourceCode}
         onChange={() => {}}
       />
     );

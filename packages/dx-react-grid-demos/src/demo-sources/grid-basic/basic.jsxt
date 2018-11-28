@@ -1,22 +1,22 @@
 import * as React from 'react';<%&additionalImports%>
-// #foldBlock
+// #FOLD_BLOCK
 import {
   Grid,
   Table,
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
-// #foldBlock
+// #FOLD_BLOCK
 import {
-  generateRows,
+  generateRows,// #IMPORTANT_LINE
   globalSalesValues,
 } from '../../../demo-data/generator';
 
-export default class Demo extends React.PureComponent {
+export default class Demo extends React.PureComponent { // #IMPORTANT_LINE
   constructor(props) {
     super(props);
 
     this.state = {
-      // #foldBlock
+      // #FOLD_BLOCK
       columns: [
         { name: 'region', title: 'Region' },
         { name: 'sector', title: 'Sector' },
@@ -28,7 +28,7 @@ export default class Demo extends React.PureComponent {
     };
   }
 
-  render() {
+  render() {// #IMPORTANT_LINE
     const { rows, columns } = this.state;
 
     return (

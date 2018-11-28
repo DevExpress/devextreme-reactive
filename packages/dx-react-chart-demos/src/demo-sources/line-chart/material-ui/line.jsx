@@ -56,7 +56,6 @@ const demoStyles = () => ({
     whiteSpace: 'pre',
   },
 });
-const EmptyComponent = () => null;
 
 const ValueLabel = (props) => {
   const { text } = props;
@@ -91,8 +90,6 @@ class Demo extends React.PureComponent {
           <ValueAxis
             max={50}
             labelComponent={ValueLabel}
-            lineComponent={EmptyComponent}
-            tickComponent={EmptyComponent}
           />
 
           <LineSeries

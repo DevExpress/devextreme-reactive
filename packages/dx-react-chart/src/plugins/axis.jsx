@@ -49,6 +49,10 @@ class RawAxis extends React.PureComponent {
       tickSize,
       tickFormat,
       indentFromAxis,
+      showGrids,
+      showTicks,
+      showLine,
+      showLabels,
       rootComponent: RootComponent,
       tickComponent: TickComponent,
       labelComponent: LabelComponent,
@@ -112,7 +116,7 @@ class RawAxis extends React.PureComponent {
                       dy={dy}
                       onSizeChange={handleSizeChange}
                     >
-                      {ticks.map(({
+                      {showTicks && ticks.map(({
                         x1, x2, y1, y2, key,
                       }) => (
                         <TickComponent
@@ -123,13 +127,14 @@ class RawAxis extends React.PureComponent {
                           y2={y2}
                         />
                       ))}
-                      <LineComponent
+                      {showLine && (<LineComponent
                         x1={0}
                         x2={dx * this.adjustedWidth}
                         y1={0}
                         y2={dy * this.adjustedHeight}
                       />
-                      {ticks.map(({
+                      )}
+                      {showLabels && ticks.map(({
                         text,
                         xText,
                         yText,
@@ -159,7 +164,7 @@ class RawAxis extends React.PureComponent {
           <TemplateConnector>
             {({ scales, layouts }) => {
               const scale = scales[name];
-              if (!scale) {
+              if (!scale || !showGrids) {
                 return null;
               }
 
@@ -196,6 +201,10 @@ RawAxis.propTypes = {
   lineComponent: PropTypes.func.isRequired,
   gridComponent: PropTypes.func.isRequired,
   position: PropTypes.string.isRequired,
+  showGrids: PropTypes.bool.isRequired,
+  showTicks: PropTypes.bool.isRequired,
+  showLine: PropTypes.bool.isRequired,
+  showLabels: PropTypes.bool.isRequired,
   tickSize: PropTypes.number,
   tickFormat: PropTypes.func,
   indentFromAxis: PropTypes.number,
@@ -232,6 +241,10 @@ export const Axis = withComponents({
 // TODO: Check that only BOTTOM and TOP are accepted.
 export const ArgumentAxis = withPatchedProps(props => ({
   position: BOTTOM,
+  showGrids: false,
+  showTicks: true,
+  showLine: true,
+  showLabels: true,
   ...props,
   name: ARGUMENT_DOMAIN,
 }))(Axis);
@@ -239,6 +252,10 @@ export const ArgumentAxis = withPatchedProps(props => ({
 // TODO: Check that only LEFT and RIGHT are accepted.
 export const ValueAxis = withPatchedProps(props => ({
   position: LEFT,
+  showGrids: true,
+  showTicks: false,
+  showLine: false,
+  showLabels: true,
   ...props,
   name: getValueDomainName(props.name),
 }))(Axis);

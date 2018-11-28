@@ -40,7 +40,6 @@ const demoStyles = () => ({
     marginBottom: '10px',
   },
 });
-const EmptyComponent = () => null;
 
 class Demo extends React.PureComponent {
   constructor(props) {
@@ -61,10 +60,7 @@ class Demo extends React.PureComponent {
           data={chartData}
         >
           <ArgumentAxis />
-          <ValueAxis
-            lineComponent={EmptyComponent}
-            tickComponent={EmptyComponent}
-          />
+          <ValueAxis />
 
           <BarSeries
             name="Gold Medals"

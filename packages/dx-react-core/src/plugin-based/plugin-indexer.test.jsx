@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { mount } from 'enzyme';
-import { setupConsole } from '@devexpress/dx-testing';
 
 import { POSITION_CONTEXT } from './constants';
 import { PluginIndexer } from './plugin-indexer';
@@ -14,14 +13,6 @@ TestWrapper.contextTypes = {
 const Test = () => null;
 
 describe('PluginIndexer', () => {
-  let resetConsole;
-  beforeAll(() => {
-    resetConsole = setupConsole();
-  });
-  afterAll(() => {
-    resetConsole();
-  });
-
   it('should correctly determine plugin position', () => {
     const tree = mount((
       <PluginIndexer>

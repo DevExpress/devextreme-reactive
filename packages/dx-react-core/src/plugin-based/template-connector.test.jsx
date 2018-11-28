@@ -1,18 +1,9 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { setupConsole } from '@devexpress/dx-testing';
 import { PLUGIN_HOST_CONTEXT, UPDATE_CONNECTION_EVENT } from './constants';
 import { TemplateConnector } from './template-connector';
 
 describe('TemplateConnector', () => {
-  let resetConsole;
-  beforeAll(() => {
-    resetConsole = setupConsole();
-  });
-  afterAll(() => {
-    resetConsole();
-  });
-
   let pluginHost;
   beforeEach(() => {
     pluginHost = {

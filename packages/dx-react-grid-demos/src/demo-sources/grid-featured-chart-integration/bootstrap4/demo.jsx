@@ -6,7 +6,6 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Stack,
-  Scale,
 } from '@devexpress/dx-react-chart';
 import {
   Chart,
@@ -91,7 +90,6 @@ const gridDetailContainer = data => ({ row }) => {
           />
           {barSeriesForCity(regionCities)}
           <Stack />
-          <Scale />
           <Legend
             rootComponent={legendRoot}
             position="bottom"

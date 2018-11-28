@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
-import { Plugin } from './plugin';
+import { PluginBase } from './plugin';
 import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from './constants';
 
 describe('Plugin', () => {
@@ -23,23 +23,18 @@ describe('Plugin', () => {
   });
 
   it('should register itself in the plugin host', () => {
-    mount(
-      <Plugin
+    mount((
+      <PluginBase
         name="TestPlugin"
         dependencies={[{
           name: 'Dep1',
           optional: true,
         }]}
+        {...{ [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: () => {} }}
       >
         <div />
-      </Plugin>,
-      {
-        context: {
-          [PLUGIN_HOST_CONTEXT]: pluginHost,
-          [POSITION_CONTEXT]: () => {},
-        },
-      },
-    );
+      </PluginBase>
+    ));
 
     expect(pluginHost.registerPlugin)
       .toHaveBeenCalledTimes(1);
@@ -53,23 +48,18 @@ describe('Plugin', () => {
   });
 
   it('should unregister itself from the plugin host', () => {
-    const tree = mount(
-      <Plugin
+    const tree = mount((
+      <PluginBase
         name="TestPlugin"
         dependencies={[{
           name: 'Dep1',
           optional: true,
         }]}
+        {...{ [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: () => {} }}
       >
         <div />
-      </Plugin>,
-      {
-        context: {
-          [PLUGIN_HOST_CONTEXT]: pluginHost,
-          [POSITION_CONTEXT]: () => {},
-        },
-      },
-    );
+      </PluginBase>
+    ));
 
     tree.unmount();
 
@@ -85,23 +75,18 @@ describe('Plugin', () => {
   });
 
   it('should enforce dependencies check after optional is changed', () => {
-    const pluginContainer = mount(
-      <Plugin
+    const pluginContainer = mount((
+      <PluginBase
         name="TestPlugin"
         dependencies={[{
           name: 'Dep1',
           optional: true,
         }]}
+        {...{ [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: () => {} }}
       >
         <div />
-      </Plugin>,
-      {
-        context: {
-          [PLUGIN_HOST_CONTEXT]: pluginHost,
-          [POSITION_CONTEXT]: () => {},
-        },
-      },
-    );
+      </PluginBase>
+    ));
     pluginContainer.setProps({
       dependencies: [{
         name: 'Dep1',
@@ -118,20 +103,15 @@ describe('Plugin', () => {
       name: 'Dep1',
       optional: true,
     }];
-    const pluginContainer = mount(
-      <Plugin
+    const pluginContainer = mount((
+      <PluginBase
         name="TestPlugin"
         dependencies={dependencies}
+        {...{ [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: () => {} }}
       >
         <div />
-      </Plugin>,
-      {
-        context: {
-          [PLUGIN_HOST_CONTEXT]: pluginHost,
-          [POSITION_CONTEXT]: () => {},
-        },
-      },
-    );
+      </PluginBase>
+    ));
     pluginContainer.setProps({ dependencies });
 
     expect(pluginHost.ensureDependencies)

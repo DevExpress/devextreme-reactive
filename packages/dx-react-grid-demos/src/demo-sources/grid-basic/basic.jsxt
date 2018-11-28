@@ -7,7 +7,7 @@ import {
 } from '@devexpress/dx-react-grid-<%&themeName%>';
 // #FOLD_BLOCK
 import {
-  generateRows,// #IMPORTANT_LINE
+  generateRows, // #IMPORTANT_LINE
   globalSalesValues,
 } from '../../../demo-data/generator';
 
@@ -28,7 +28,7 @@ export default class Demo extends React.PureComponent { // #IMPORTANT_LINE
     };
   }
 
-  render() {// #IMPORTANT_LINE
+  render() { // #IMPORTANT_LINE
     const { rows, columns } = this.state;
 
     return (

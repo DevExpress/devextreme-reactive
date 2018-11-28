@@ -164,7 +164,7 @@ class RawAxis extends React.PureComponent {
           <TemplateConnector>
             {({ scales, layouts }) => {
               const scale = scales[name];
-              if (!scale || showGrids === false) {
+              if (!scale || !showGrids) {
                 return null;
               }
 

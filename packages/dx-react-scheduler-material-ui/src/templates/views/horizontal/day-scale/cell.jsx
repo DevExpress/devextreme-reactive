@@ -16,9 +16,6 @@ const styles = theme => ({
     margin: 0,
     padding: theme.spacing.unit,
   },
-  dayOfMonth: {
-    ...theme.typography.h4,
-  },
 });
 
 const CellBase = ({

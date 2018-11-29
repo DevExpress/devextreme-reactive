@@ -58,7 +58,7 @@ describe('Axis', () => {
 
   const defaultProps = {
     position: 'bottom',
-    name: 'test-domain',
+    scaleName: 'test-domain',
     showTicks: true,
     showGrids: true,
     showLine: true,
@@ -232,7 +232,7 @@ describe('Axis', () => {
     mount(<AxisTester tickFormat={mockTickFormat} />);
 
     expect(axisCoordinates).toHaveBeenCalledWith({
-      name: 'test-domain',
+      scaleName: 'test-domain',
       scale: mockScale,
       position: 'bottom',
       tickSize: 5,
@@ -245,14 +245,14 @@ describe('Axis', () => {
     setupAxisCoordinates([0, 1]);
     mount(
       <AxisTester
-        name="other-domain"
+        scaleName="other-domain"
         tickSize={6}
         indentFromAxis={3}
       />,
     );
 
     expect(axisCoordinates).toHaveBeenCalledWith({
-      name: 'other-domain',
+      scaleName: 'other-domain',
       scale: mockScale,
       position: 'bottom',
       tickSize: 6,

@@ -86,5 +86,3 @@ export const getGridCoordinates = ({ name, scale }) => {
     ...options,
   }));
 };
-
-export const axesData = (axes, axisProps) => [...axes, axisProps];

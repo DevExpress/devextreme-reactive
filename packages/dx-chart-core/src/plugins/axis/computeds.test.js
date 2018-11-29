@@ -1,5 +1,5 @@
 import { isHorizontal } from '../../utils/scale';
-import { axisCoordinates, getGridCoordinates, axesData } from './computeds';
+import { axisCoordinates, getGridCoordinates } from './computeds';
 
 jest.mock('../../utils/scale', () => ({
   isHorizontal: jest.fn(),
@@ -232,17 +232,5 @@ describe('getGridCoordinates', () => {
         key: '3', x: 0, y: 56, dx: 1, dy: 0,
       },
     ]);
-  });
-});
-
-describe('axesData', () => {
-  it('should return array with props', () => {
-    const axes = axesData([], { first: true });
-    expect(axes).toEqual([{ first: true }]);
-  });
-
-  it('should push new axis props', () => {
-    const axes = axesData([{ first: true }], { second: true });
-    expect(axes).toEqual([{ first: true }, { second: true }]);
   });
 });

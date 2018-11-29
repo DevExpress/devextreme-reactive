@@ -64,6 +64,7 @@ export const viewCellsData = (
   const times = timeScale(
     currentDate, firstDayOfWeek, startDayHour, endDayHour, cellDuration, excludedDays,
   );
+  const currentTime = moment();
 
   const cells = [];
   times.forEach((time) => {
@@ -73,9 +74,11 @@ export const viewCellsData = (
       const end = moment(time.end);
       const startDate = moment(day).hours(start.hours()).minutes(start.minutes()).toDate();
       const endDate = moment(day).hours(end.hours()).minutes(end.minutes()).toDate();
+      const today = currentTime.isSame(startDate, 'day');
       rowCells.push({
         startDate,
         endDate,
+        today,
       });
     });
 

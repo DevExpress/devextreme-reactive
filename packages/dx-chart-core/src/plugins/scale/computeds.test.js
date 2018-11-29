@@ -169,7 +169,7 @@ describe('computeDomains', () => {
 
   it('should compute banded domain', () => {
     const domains = computeDomains(
-      [{ name: ARGUMENT_DOMAIN, type: 'band' }],
+      [{ scaleName: ARGUMENT_DOMAIN, type: 'band' }],
       [{
         name: 'series1',
         getPointTransformer,
@@ -211,7 +211,7 @@ describe('computeDomains', () => {
 
   it('should take min/max from axis', () => {
     const domains = computeDomains(
-      [{ name: 'domain1', min: 0, max: 10 }],
+      [{ scaleName: 'domain1', min: 0, max: 10 }],
       [{
         name: 'series1',
         scaleName: 'domain1',
@@ -232,7 +232,7 @@ describe('computeDomains', () => {
 
   it('should take one of min/max from axis', () => {
     const domains = computeDomains(
-      [{ name: 'domain1', max: 7 }],
+      [{ scaleName: 'domain1', max: 7 }],
       [{
         name: 'series1',
         scaleName: 'domain1',
@@ -254,7 +254,7 @@ describe('computeDomains', () => {
   it('should ignore min/max for band domain', () => {
     const domains = computeDomains(
       [{
-        name: ARGUMENT_DOMAIN, min: 1, max: 7, type: 'band',
+        scaleName: ARGUMENT_DOMAIN, min: 1, max: 7, type: 'band',
       }],
       [{
         name: 'series1',
@@ -276,8 +276,8 @@ describe('computeDomains', () => {
   it('should ignore axes for unknown domains', () => {
     const domains = computeDomains(
       [
-        { name: 'domain1' },
-        { name: 'domain2' },
+        { scaleName: 'domain1' },
+        { scaleName: 'domain2' },
       ],
       [{
         name: 'series1', getPointTransformer, scaleName: 'domain1', points: [{ argument: 1, value: 9 }],

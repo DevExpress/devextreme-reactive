@@ -17,13 +17,13 @@ const IMPORTANT_LINE = '// #IMPORTANT_LINE';
 export class SourceCode extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.textarea = null;
+    this.textarea = React.createRef();
     this.foldBlockStartLines = [];
     this.importantLines = [];
   }
 
   componentDidMount() {
-    const editor = CodeMirror.fromTextArea(this.textarea, {
+    const editor = CodeMirror.fromTextArea(this.textarea.current, {
       lineNumbers: true,
       lineWrapping: true,
       readOnly: true,
@@ -68,7 +68,7 @@ export class SourceCode extends React.PureComponent {
     const sourceCode = this.prepareSourceCode();
     return (
       <textarea
-        ref={(ref) => { this.textarea = ref; }}
+        ref={this.textarea}
         value={sourceCode}
         onChange={() => {}}
       />

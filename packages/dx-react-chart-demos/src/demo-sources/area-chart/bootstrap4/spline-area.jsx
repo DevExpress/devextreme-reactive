@@ -47,7 +47,6 @@ const Area = props => (
       .curve(curveCatmullRom)}
   />
 );
-const EmptyComponent = () => null;
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -68,7 +67,7 @@ export default class Demo extends React.PureComponent {
         >
           <ArgumentScale factory={scalePoint} />
           <ArgumentAxis />
-          <ValueAxis lineComponent={EmptyComponent} tickComponent={EmptyComponent} />
+          <ValueAxis />
 
           <AreaSeries
             name="App Store"

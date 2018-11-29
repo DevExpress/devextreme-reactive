@@ -60,8 +60,6 @@ const Root = withStyles(legendStyles, { name: 'LegendRoot' })(legendRootBase);
 const Label = withStyles(legendLabelStyles, { name: 'LegendLabel' })(legendLabelBase);
 const Item = withStyles(legendItemStyles, { name: 'LegendItem' })(legendItemBase);
 
-const EmptyComponent = () => null;
-
 class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -82,7 +80,7 @@ class Demo extends React.PureComponent {
         >
           <ArgumentScale factory={scalePoint} />
           <ArgumentAxis />
-          <ValueAxis lineComponent={EmptyComponent} tickComponent={EmptyComponent} />
+          <ValueAxis />
 
           <AreaSeries
             name="Android"

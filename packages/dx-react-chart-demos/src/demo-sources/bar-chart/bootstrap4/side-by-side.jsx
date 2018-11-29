@@ -18,7 +18,6 @@ const Root = props => (
     className="m-auto flex-row"
   />
 );
-const EmptyComponent = () => null;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -38,10 +37,7 @@ export default class Demo extends React.PureComponent {
           data={chartData}
         >
           <ArgumentAxis />
-          <ValueAxis
-            lineComponent={EmptyComponent}
-            tickComponent={EmptyComponent}
-          />
+          <ValueAxis />
 
           <BarSeries
             name="Gold Medals"

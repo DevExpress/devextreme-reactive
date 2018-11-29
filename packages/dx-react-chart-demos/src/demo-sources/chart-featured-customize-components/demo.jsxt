@@ -107,10 +107,9 @@ export default class Demo extends React.PureComponent {
               <ArgumentAxis
                 type="band"
                 labelComponent={this.getLabelWithAvatarComponent}
-                tickComponent={() => null}
-                gridComponent={() => null}
+                showTick={false}
               />
-              <ValueAxis lineComponent={() => null} gridComponent={Grid} />
+              <ValueAxis gridComponent={Grid} />
 
               <BarSeries
                 name="Contributions"

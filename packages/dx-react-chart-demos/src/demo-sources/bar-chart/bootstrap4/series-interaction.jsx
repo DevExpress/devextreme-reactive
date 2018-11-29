@@ -16,7 +16,6 @@ import {
 
 import { annualVehiclesSales } from '../../../demo-data/data-vizualization';
 
-const EmptyComponent = () => null;
 const ContentComponent = (props) => {
   const { targetItem } = props;
   return (
@@ -62,7 +61,7 @@ export default class Demo extends React.PureComponent {
           data={chartData}
         >
           <ArgumentAxis type="band" />
-          <ValueAxis lineComponent={EmptyComponent} tickComponent={EmptyComponent} />
+          <ValueAxis />
 
           <Title
             text="USA and Chinese annual sales of plug-in electric vehicles"

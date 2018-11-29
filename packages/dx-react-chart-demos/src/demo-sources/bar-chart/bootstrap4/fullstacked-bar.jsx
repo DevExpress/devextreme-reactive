@@ -21,7 +21,6 @@ const Root = props => (
 );
 
 const format = scale => scale.tickFormat(null, '%');
-const EmptyComponent = () => null;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -43,8 +42,6 @@ export default class Demo extends React.PureComponent {
           <ArgumentAxis />
           <ValueAxis
             tickFormat={format}
-            lineComponent={EmptyComponent}
-            tickComponent={EmptyComponent}
           />
 
           <BarSeries

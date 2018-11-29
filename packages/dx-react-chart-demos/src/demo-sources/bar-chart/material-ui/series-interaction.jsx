@@ -41,7 +41,6 @@ const overlayBase = (props) => {
   );
 };
 const OverlayComponent = withStyles(overlayStyles, { name: 'overlayStyles' })(overlayBase);
-const EmptyComponent = () => null;
 const contentStyles = theme => ({
   head: {
     fontSize: 14,
@@ -101,7 +100,7 @@ export default class Demo extends React.PureComponent {
           data={chartData}
         >
           <ArgumentAxis type="band" />
-          <ValueAxis lineComponent={EmptyComponent} tickComponent={EmptyComponent} />
+          <ValueAxis />
 
           <Title
             text="USA and Chinese annual sales of plug-in electric vehicles"

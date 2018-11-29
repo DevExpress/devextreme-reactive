@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Card } from 'reactstrap';
 import {
   RowDetailState,
   DataTypeProvider,
@@ -76,7 +75,7 @@ const gridDetailContainer = data => ({ row }) => {
       <h5>
         {`Economics of ${row.region}`}
       </h5>
-      <Card className="pt-4">
+      <div className="card pt-4">
         <Chart
           data={regionCities}
           height={300}
@@ -99,7 +98,7 @@ const gridDetailContainer = data => ({ row }) => {
             position="bottom"
           />
         </Chart>
-      </Card>
+      </div>
     </div>
   );
 };
@@ -137,7 +136,7 @@ export default class Demo extends React.PureComponent {
     } = this.state;
     return (
 
-      <Card>
+      <div className="card">
         <Grid
           rows={rows}
           columns={columns}
@@ -157,7 +156,7 @@ export default class Demo extends React.PureComponent {
             columnBands={columnBands}
           />
         </Grid>
-      </Card>
+      </div>
     );
   }
 }

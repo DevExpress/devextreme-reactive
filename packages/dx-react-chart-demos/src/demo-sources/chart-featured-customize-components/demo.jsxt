@@ -97,7 +97,7 @@ export default class Demo extends React.PureComponent {
     } = this.state;
 
     return (
-      <<%&wrapperTag%>>
+      <<%&wrapperTag%> <%&wrapperAttributes%>>
         {
           chartData ? (
             <Chart data={chartData}>

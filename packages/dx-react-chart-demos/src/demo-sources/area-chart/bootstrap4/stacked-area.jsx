@@ -6,7 +6,6 @@ import {
   AreaSeries,
   Title,
   Legend,
-  ValueGrid,
 } from '@devexpress/dx-react-chart-bootstrap4';
 import { Stack, Scale, Animation } from '@devexpress/dx-react-chart';
 import { stackOffsetExpand } from 'd3-shape';
@@ -22,7 +21,6 @@ const Root = props => (
 
 const format = () => tick => tick;
 const formatForFullstack = scale => scale.tickFormat(null, '%');
-const EmptyComponent = () => null;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -57,11 +55,8 @@ export default class Demo extends React.PureComponent {
           <ArgumentAxis tickFormat={format} />
           <ValueAxis
             tickFormat={valueFormat}
-            lineComponent={EmptyComponent}
-            tickComponent={EmptyComponent}
           />
 
-          <ValueGrid />
           <AreaSeries
             name="Liquids"
             valueField="liquids"

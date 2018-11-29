@@ -5,8 +5,6 @@ import {
   Chart,
   LineSeries,
   SplineSeries,
-  ArgumentGrid,
-  ValueGrid,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 import { Scale } from '@devexpress/dx-react-chart';
 
@@ -38,9 +36,6 @@ export default class Demo extends React.PureComponent {
         >
           <ArgumentAxis />
           <ValueAxis />
-
-          <ArgumentGrid />
-          <ValueGrid />
 
           <LineSeries
             name="line"

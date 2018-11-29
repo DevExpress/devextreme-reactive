@@ -6,7 +6,6 @@ import {
   BarSeries,
   Title,
   Legend,
-  ValueGrid,
 } from '@devexpress/dx-react-chart-bootstrap4';
 import { Stack, Scale, Animation } from '@devexpress/dx-react-chart';
 
@@ -18,7 +17,6 @@ const Root = props => (
     className="m-auto flex-row"
   />
 );
-const EmptyComponent = () => null;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -38,11 +36,7 @@ export default class Demo extends React.PureComponent {
           data={chartData}
         >
           <ArgumentAxis />
-          <ValueAxis
-            lineComponent={EmptyComponent}
-            tickComponent={EmptyComponent}
-          />
-          <ValueGrid />
+          <ValueAxis />
 
           <BarSeries
             name="Gold Medals"

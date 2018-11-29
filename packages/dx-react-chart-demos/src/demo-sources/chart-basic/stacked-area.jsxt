@@ -4,8 +4,6 @@ import {
   ArgumentAxis,
   ValueAxis,
   AreaSeries,
-  ArgumentGrid,
-  ValueGrid,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 import { Stack, Scale } from '@devexpress/dx-react-chart';
 import { scalePoint } from 'd3-scale';
@@ -32,9 +30,6 @@ export default class Demo extends React.PureComponent {
         >
           <ArgumentAxis type="band" />
           <ValueAxis />
-
-          <ArgumentGrid />
-          <ValueGrid />
 
           <AreaSeries
             name="Young"

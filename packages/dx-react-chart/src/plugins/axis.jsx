@@ -9,12 +9,12 @@ import {
   withComponents,
 } from '@devexpress/dx-react-core';
 import {
-  axisCoordinates, LEFT, BOTTOM, ARGUMENT_DOMAIN, getValueDomainName, axesData,
+  axisCoordinates, LEFT, BOTTOM, ARGUMENT_DOMAIN, getValueDomainName, axesData, getGridCoordinates,
 } from '@devexpress/dx-chart-core';
 import { Root } from '../templates/axis/root';
-import { Tick } from '../templates/axis/tick';
 import { Label } from '../templates/axis/label';
 import { Line } from '../templates/axis/line';
+
 import { withPatchedProps } from '../utils';
 
 const SVG_STYLE = {
@@ -49,10 +49,15 @@ class RawAxis extends React.PureComponent {
       tickSize,
       tickFormat,
       indentFromAxis,
+      showGrids,
+      showTicks,
+      showLine,
+      showLabels,
       rootComponent: RootComponent,
       tickComponent: TickComponent,
       labelComponent: LabelComponent,
       lineComponent: LineComponent,
+      gridComponent: GridComponent,
     } = this.props;
     const placeholder = `${position}-axis`;
     // TODO: Remove *axes* getter as it is not used by Axis itself -
@@ -111,7 +116,7 @@ class RawAxis extends React.PureComponent {
                       dy={dy}
                       onSizeChange={handleSizeChange}
                     >
-                      {ticks.map(({
+                      {showTicks && ticks.map(({
                         x1, x2, y1, y2, key,
                       }) => (
                         <TickComponent
@@ -122,11 +127,14 @@ class RawAxis extends React.PureComponent {
                           y2={y2}
                         />
                       ))}
-                      <LineComponent
-                        width={dx * this.adjustedWidth}
-                        height={dy * this.adjustedHeight}
+                      {showLine && (<LineComponent
+                        x1={0}
+                        x2={dx * this.adjustedWidth}
+                        y1={0}
+                        y2={dy * this.adjustedHeight}
                       />
-                      {ticks.map(({
+                      )}
+                      {showLabels && ticks.map(({
                         text,
                         xText,
                         yText,
@@ -150,6 +158,36 @@ class RawAxis extends React.PureComponent {
             }}
           </TemplateConnector>
         </Template>
+
+        <Template name="series">
+          <TemplatePlaceholder />
+          <TemplateConnector>
+            {({ scales, layouts }) => {
+              const scale = scales[name];
+              if (!scale || !showGrids) {
+                return null;
+              }
+
+              const { width, height } = layouts.pane;
+              const ticks = getGridCoordinates({ name, scale });
+              return ((
+                <React.Fragment>
+                  {ticks.map(({
+                    key, x, dx, y, dy,
+                  }) => (
+                    <GridComponent
+                      key={key}
+                      x1={x}
+                      x2={x + dx * width}
+                      y1={y}
+                      y2={y + dy * height}
+                    />
+                  ))}
+                </React.Fragment>
+              ));
+            }}
+          </TemplateConnector>
+        </Template>
       </Plugin>
     );
   }
@@ -161,7 +199,12 @@ RawAxis.propTypes = {
   tickComponent: PropTypes.func.isRequired,
   labelComponent: PropTypes.func.isRequired,
   lineComponent: PropTypes.func.isRequired,
+  gridComponent: PropTypes.func.isRequired,
   position: PropTypes.string.isRequired,
+  showGrids: PropTypes.bool.isRequired,
+  showTicks: PropTypes.bool.isRequired,
+  showLine: PropTypes.bool.isRequired,
+  showLabels: PropTypes.bool.isRequired,
   tickSize: PropTypes.number,
   tickFormat: PropTypes.func,
   indentFromAxis: PropTypes.number,
@@ -178,10 +221,15 @@ RawAxis.components = {
   tickComponent: 'Tick',
   labelComponent: 'Label',
   lineComponent: 'Line',
+  gridComponent: 'Grid',
 };
 
 export const Axis = withComponents({
-  Root, Tick, Label, Line,
+  Root,
+  Tick: Line,
+  Label,
+  Line,
+  Grid: Line,
 })(RawAxis);
 
 // TODO: It is not axis who defines that argument is HORIZONTAL and value is VERTICAL.
@@ -193,6 +241,10 @@ export const Axis = withComponents({
 // TODO: Check that only BOTTOM and TOP are accepted.
 export const ArgumentAxis = withPatchedProps(props => ({
   position: BOTTOM,
+  showGrids: false,
+  showTicks: true,
+  showLine: true,
+  showLabels: true,
   ...props,
   name: ARGUMENT_DOMAIN,
 }))(Axis);
@@ -200,6 +252,10 @@ export const ArgumentAxis = withPatchedProps(props => ({
 // TODO: Check that only LEFT and RIGHT are accepted.
 export const ValueAxis = withPatchedProps(props => ({
   position: LEFT,
+  showGrids: true,
+  showTicks: false,
+  showLine: false,
+  showLabels: true,
   ...props,
   name: getValueDomainName(props.name),
 }))(Axis);

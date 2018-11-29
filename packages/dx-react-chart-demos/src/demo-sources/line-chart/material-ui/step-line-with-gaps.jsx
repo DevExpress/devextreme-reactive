@@ -8,7 +8,6 @@ import {
   Title,
   Legend,
   ScatterSeries,
-  ValueGrid,
 } from '@devexpress/dx-react-chart-material-ui';
 import { withStyles } from '@material-ui/core/styles';
 import { Scale, Animation } from '@devexpress/dx-react-chart';
@@ -81,7 +80,6 @@ const demoStyles = () => ({
 });
 
 const format = () => tick => tick;
-const EmptyComponent = () => null;
 
 class Demo extends React.PureComponent {
   constructor(props) {
@@ -102,8 +100,7 @@ class Demo extends React.PureComponent {
           data={chartData}
         >
           <ArgumentAxis tickFormat={format} />
-          <ValueAxis lineComponent={EmptyComponent} tickComponent={EmptyComponent} />
-          <ValueGrid />
+          <ValueAxis />
 
           <LineSeries
             name="Bronze Medals"

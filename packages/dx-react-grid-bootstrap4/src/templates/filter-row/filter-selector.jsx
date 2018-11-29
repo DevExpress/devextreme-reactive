@@ -27,10 +27,14 @@ export class FilterSelector extends React.PureComponent {
     const {
       value, availableValues, disabled, getMessage,
       iconComponent: Icon, toggleButtonComponent: ToggleButton,
+      className, ...restProps
     } = this.props;
     const { opened } = this.state;
     return availableValues.length ? (
-      <div className="input-group-prepend">
+      <div
+        className={classNames('input-group-prepend', className)}
+        {...restProps}
+      >
         <ToggleButton
           disabled={disabled || availableValues.length === 1}
           onToggle={this.handleButtonClick}
@@ -82,6 +86,7 @@ FilterSelector.propTypes = {
   iconComponent: PropTypes.func.isRequired,
   toggleButtonComponent: PropTypes.func.isRequired,
   getMessage: PropTypes.func.isRequired,
+  className: PropTypes.string,
 };
 
 FilterSelector.defaultProps = {
@@ -89,4 +94,5 @@ FilterSelector.defaultProps = {
   availableValues: [],
   onChange: () => {},
   disabled: false,
+  className: undefined,
 };

@@ -138,8 +138,8 @@ describe('TableFilterRow', () => {
     ));
 
     const valueEditorTemplatePlaceholder = tree
-      .find('TemplatePlaceholder').at(0)
-      .findWhere(node => node.prop('name') === 'valueEditor');
+      .find('TemplatePlaceholderBase')
+      .findWhere(node => node.prop('name') === 'valueEditor').last();
 
     expect(valueEditorTemplatePlaceholder.prop('params'))
       .toMatchObject({

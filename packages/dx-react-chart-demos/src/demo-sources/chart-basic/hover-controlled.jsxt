@@ -4,7 +4,6 @@ import {
   BarSeries,
   ArgumentAxis,
   ValueAxis,
-  ValueGrid,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 import { Scale, EventTracker, HoverState } from '@devexpress/dx-react-chart';
 
@@ -40,7 +39,6 @@ export default class Demo extends React.PureComponent {
         >
           <ArgumentAxis />
           <ValueAxis />
-          <ValueGrid />
 
           <BarSeries
             valueField="population"

@@ -201,7 +201,7 @@ const scalePoints = (series, scales) => {
   const transform = series.getPointTransformer({
     ...series,
     argumentScale: scales[ARGUMENT_DOMAIN],
-    valueScale: scales[getValueDomainName(series.axisName)],
+    valueScale: scales[getValueDomainName(series.scaleName)],
   });
   return {
     ...series,

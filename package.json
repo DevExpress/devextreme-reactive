@@ -41,7 +41,7 @@
     "build:site:watch": "npx nodemon --exec \"yarn run build:site:docs\" --watch \"packages/dx-react-grid-demos/dist/\" --watch \"packages/dx-react-chart-demos/dist/\" --watch \"packages/dx-react-scheduler-demos/dist/\" --watch \"packages/dx-vue-grid-demos/dist/\" --watch \"packages/*/docs/\" --watch \"packages/*/demos/\" --watch \"gulpfile.js\" --ext md,js",
     "lint": "lerna run lint",
     "lint:ci": "lerna run lint:ci",
-    "test": "lerna run test && jest packages/dx-react-bootstrap4",
+    "test": "lerna run test && jest packages/dx-react-bootstrap4 ",
     "test:watch": "jest --watch",
     "publish:prepare": "yarn && node ./scripts/prepare-commit.js",
     "publish:npm": "yarn && node ./scripts/publish-npm.js",

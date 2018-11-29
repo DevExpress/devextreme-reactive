@@ -34,8 +34,8 @@ export default class Demo extends React.PureComponent {
           data={chartData}
         >
           <ArgumentAxis type="band" />
-          <ValueAxis name="sale" />
-          <ValueAxis name="total" position="right" />
+          <ValueAxis name="sale" showGrids={false} showLine showTicks />
+          <ValueAxis name="total" position="right" showGrids={false} showLine showTicks />
 
           <BarSeries
             name="Units Sold"

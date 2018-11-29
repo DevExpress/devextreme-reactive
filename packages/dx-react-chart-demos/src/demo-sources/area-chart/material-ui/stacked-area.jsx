@@ -58,7 +58,6 @@ const demoStyles = () => ({
 
 const format = () => tick => tick;
 const formatForFullstack = scale => scale.tickFormat(null, '%');
-const EmptyComponent = () => null;
 
 class Demo extends React.PureComponent {
   constructor(props) {
@@ -95,8 +94,6 @@ class Demo extends React.PureComponent {
           <ArgumentAxis tickFormat={format} />
           <ValueAxis
             tickFormat={valueFormat}
-            lineComponent={EmptyComponent}
-            tickComponent={EmptyComponent}
           />
           <AreaSeries
             name="Liquids"

@@ -15,7 +15,6 @@ const superscript = '⁰¹²³⁴⁵⁶⁷⁸⁹';
 const formatPower = d => (`${d}`).split('').map(c => superscript[c]).join('');
 const format = scale => scale.tickFormat(4, d => 10
   + formatPower(Math.round(Math.log(d) / Math.LN10)));
-const EmptyComponent = () => null;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -40,8 +39,6 @@ export default class Demo extends React.PureComponent {
             tickFormat={format}
             min={100}
             max={100000}
-            lineComponent={EmptyComponent}
-            tickComponent={EmptyComponent}
           />
 
           <LineSeries

@@ -41,7 +41,6 @@ const ValueLabel = (props) => {
     />
   );
 };
-const EmptyComponent = () => null;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -65,8 +64,6 @@ export default class Demo extends React.PureComponent {
           <ValueAxis
             max={50}
             labelComponent={ValueLabel}
-            lineComponent={EmptyComponent}
-            tickComponent={EmptyComponent}
           />
 
           <LineSeries

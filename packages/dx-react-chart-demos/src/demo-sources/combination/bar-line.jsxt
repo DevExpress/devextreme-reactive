@@ -67,37 +67,37 @@ export default class Demo extends React.PureComponent {
             name="USA"
             valueField="usa"
             argumentField="year"
-            axisName="oil"
+            scaleName="oil"
           />
           <BarSeries
             name="Saudi Arabia"
             valueField="saudiArabia"
             argumentField="year"
-            axisName="oil"
+            scaleName="oil"
           />
           <BarSeries
             name="Iran"
             valueField="iran"
             argumentField="year"
-            axisName="oil"
+            scaleName="oil"
           />
           <BarSeries
             name="Mexico"
             valueField="mexico"
             argumentField="year"
-            axisName="oil"
+            scaleName="oil"
           />
           <BarSeries
             name="Russia"
             valueField="russia"
             argumentField="year"
-            axisName="oil"
+            scaleName="oil"
           />
           <LineSeries
             name="Oil Price"
             valueField="price"
             argumentField="year"
-            axisName="price"
+            scaleName="price"
           />
           <Animation />
           <Legend />

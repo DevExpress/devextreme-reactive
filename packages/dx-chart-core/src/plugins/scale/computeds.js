@@ -8,7 +8,7 @@ import {
 const isDefined = item => item !== undefined;
 
 // TODO: Property name should not contain "axis" part as it actually means domain.
-const getSeriesValueDomainName = series => getValueDomainName(series.axisName);
+const getSeriesValueDomainName = series => getValueDomainName(series.scaleName);
 
 const calculateDomainField = (items, domain, type) => (
   type === BAND ? [...domain, ...items] : extent([...domain, ...extent(items)])

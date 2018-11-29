@@ -27,7 +27,7 @@ describe('#declareSeries', () => {
 
   const defaultProps = {
     name: 'name',
-    axisName: 'axisName',
+    scaleName: 'scaleName',
     valueField: 'valueField',
     argumentField: 'argumentField',
   };

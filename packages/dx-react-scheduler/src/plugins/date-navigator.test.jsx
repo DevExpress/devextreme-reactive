@@ -111,7 +111,12 @@ describe('DateNavigator', () => {
     expect(navigatorText)
       .toBe('July 2018');
     expect(defaultDeps.action.changeCurrentDate)
-      .toBeCalledWith({ amount: 3, step: 'month' }, expect.any(Object), expect.any(Object));
+      .toBeCalledWith({
+        amount: 3,
+        step: 'month',
+        direction: undefined,
+        nextDate: undefined,
+      }, expect.any(Object), expect.any(Object));
   });
 
   it('should render calendar', () => {

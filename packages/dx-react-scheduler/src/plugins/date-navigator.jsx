@@ -16,8 +16,11 @@ const pluginDependencies = [
   { name: 'ViewState' },
 ];
 
-const navigate = (action, currentView, intervalCount) => payload => action({
-  ...payload, amount: intervalCount, step: currentView.type,
+const navigate = (action, currentView, intervalCount) => (direction, nextDate) => action({
+  direction,
+  nextDate,
+  amount: intervalCount,
+  step: currentView.type,
 });
 
 export class DateNavigator extends React.PureComponent {
@@ -81,8 +84,8 @@ export class DateNavigator extends React.PureComponent {
               changeCurrentDate,
             }) => {
               const navigateAction = navigate(changeCurrentDate, currentView, intervalCount);
-              const calendarDateChanged = (args) => {
-                navigateAction(args);
+              const calendarDateChanged = (nextDate) => {
+                navigateAction(undefined, nextDate);
                 this.handleHide();
               };
               const navigatorText = viewBoundText(

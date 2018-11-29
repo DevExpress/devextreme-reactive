@@ -26,6 +26,7 @@ const CellBase = ({
   className,
   startDate,
   endDate,
+  today,
   ...restProps
 }) => {
   const currentDate = moment(startDate);
@@ -46,11 +47,13 @@ CellBase.propTypes = {
   startDate: PropTypes.instanceOf(Date).isRequired,
   endDate: PropTypes.instanceOf(Date),
   className: PropTypes.string,
+  today: PropTypes.bool,
 };
 
 CellBase.defaultProps = {
   className: undefined,
   endDate: undefined,
+  today: false,
 };
 
 export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

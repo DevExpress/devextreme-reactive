@@ -1,4 +1,3 @@
-
 import { Axis } from '@devexpress/dx-react-chart';
 import { withClassName, getBorderColor } from '../utils';
 

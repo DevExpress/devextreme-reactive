@@ -1,29 +1,26 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { POSITION_CONTEXT } from './constants';
+import { PositionContext } from './contexts';
 
-export const PluginIndexer = (
-  { children },
-  { [POSITION_CONTEXT]: position },
-) => (
-  <React.Fragment>
-    {
+export const PluginIndexer = ({ children }) => (
+  <PositionContext.Consumer>
+    {positionContext => (
       React.Children.map(children, (child, index) => {
         if (!child || !child.type) return child;
 
         const childPosition = () => {
-          const calculatedPosition = (position && position()) || [];
+          const calculatedPosition = (positionContext && positionContext()) || [];
           return [...calculatedPosition, index];
         };
 
         return (
-          <PluginIndexerContext position={childPosition}>
+          <PositionContext.Provider value={childPosition}>
             {child}
-          </PluginIndexerContext>
+          </PositionContext.Provider>
         );
       })
-    }
-  </React.Fragment>
+    )}
+  </PositionContext.Consumer>
 );
 
 PluginIndexer.propTypes = {
@@ -32,31 +29,4 @@ PluginIndexer.propTypes = {
 
 PluginIndexer.defaultProps = {
   children: undefined,
-};
-
-PluginIndexer.contextTypes = {
-  [POSITION_CONTEXT]: PropTypes.func,
-};
-
-class PluginIndexerContext extends React.Component {
-  getChildContext() {
-    const { position } = this.props;
-    return {
-      [POSITION_CONTEXT]: position,
-    };
-  }
-
-  render() {
-    const { children } = this.props;
-    return children;
-  }
-}
-
-PluginIndexerContext.propTypes = {
-  position: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired,
-};
-
-PluginIndexerContext.childContextTypes = {
-  [POSITION_CONTEXT]: PropTypes.func,
 };

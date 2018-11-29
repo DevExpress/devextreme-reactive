@@ -466,7 +466,7 @@ describe('scaleSeriesPoints', () => {
     const getPointTransformer2 = jest.fn()
       .mockReturnValue(point => ({ ...point, tag: '#2' }));
     const series1 = {
-      axisName: 'domain-1',
+      scaleName: 'domain-1',
       getPointTransformer: getPointTransformer1,
       points: [{ name: 'a1' }, { name: 'a2' }],
     };

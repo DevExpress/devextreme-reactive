@@ -3,7 +3,6 @@ import {
   Chart,
   ArgumentAxis,
   ValueAxis,
-  ValueGrid,
   BarSeries,
   Title,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
@@ -42,6 +41,10 @@ const BarWithLabel = (props) => {
       </Chart.Label>
     </React.Fragment>);
 };
+
+const Grid = props => (
+  <ValueAxis.Grid {...props} strokeDasharray="10 5" />
+);
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -104,10 +107,9 @@ export default class Demo extends React.PureComponent {
               <ArgumentAxis
                 type="band"
                 labelComponent={this.getLabelWithAvatarComponent}
-                tickComponent={() => null}
+                showTick={false}
               />
-              <ValueAxis lineComponent={() => null} />
-              <ValueGrid strokeDasharray="10 5" />
+              <ValueAxis gridComponent={Grid} />
 
               <BarSeries
                 name="Contributions"

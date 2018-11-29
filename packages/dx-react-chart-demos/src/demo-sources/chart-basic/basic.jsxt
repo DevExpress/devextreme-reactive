@@ -4,8 +4,6 @@ import {
   ValueAxis,
   Chart,
   Legend,
-  ArgumentGrid,
-  ValueGrid,
   LineSeries,
   AreaSeries,
   SplineSeries,
@@ -36,9 +34,6 @@ export default class Demo extends React.PureComponent {
           <Legend placeholder="right" />
           <ArgumentAxis position="top" />
           <ValueAxis />
-
-          <ArgumentGrid />
-          <ValueGrid />
 
           <LineSeries
             name="Russia"

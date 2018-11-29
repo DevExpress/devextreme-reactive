@@ -146,9 +146,9 @@ describe('computeDomains', () => {
       [{
         name: 'series1', getPointTransformer, points: makePoints([2, 3, 5, 6]),
       }, {
-        name: 'series2', getPointTransformer, points: makePoints([-1, -3, 0, 1]), axisName: 'domain1',
+        name: 'series2', getPointTransformer, points: makePoints([-1, -3, 0, 1]), scaleName: 'domain1',
       }, {
-        name: 'series3', getPointTransformer, points: makePoints([1, 2, 3, 1]), axisName: 'domain1',
+        name: 'series3', getPointTransformer, points: makePoints([1, 2, 3, 1]), scaleName: 'domain1',
       }, {
         name: 'series4', getPointTransformer, points: makePoints([2, 5, 7, 3]),
       }],
@@ -214,7 +214,7 @@ describe('computeDomains', () => {
       [{ name: 'domain1', min: 0, max: 10 }],
       [{
         name: 'series1',
-        axisName: 'domain1',
+        scaleName: 'domain1',
         getPointTransformer,
         points: [{ argument: 1, value: 3 }, { argument: 2, value: 14 }],
       }],
@@ -235,7 +235,7 @@ describe('computeDomains', () => {
       [{ name: 'domain1', max: 7 }],
       [{
         name: 'series1',
-        axisName: 'domain1',
+        scaleName: 'domain1',
         getPointTransformer,
         points: [{ argument: 1, value: 3 }, { argument: 2, value: 14 }],
       }],
@@ -280,7 +280,7 @@ describe('computeDomains', () => {
         { name: 'domain2' },
       ],
       [{
-        name: 'series1', getPointTransformer, axisName: 'domain1', points: [{ argument: 1, value: 9 }],
+        name: 'series1', getPointTransformer, scaleName: 'domain1', points: [{ argument: 1, value: 9 }],
       }],
     );
 

@@ -6,11 +6,11 @@ import {
 } from 'react-bootstrap';
 import { DemoRenderer } from './demo-renderer';
 
-const Head = ({ link }) => (
+const Link = ({ link }) => (
   <link rel="stylesheet" href={link} />
 );
 
-Head.propTypes = {
+Link.propTypes = {
   link: PropTypes.string.isRequired,
 };
 
@@ -137,7 +137,7 @@ class DemoFrameRenderer extends React.PureComponent {
                   height: `${frameHeight}px`,
                   marginBottom: '20px',
                 }}
-                head={<Head link={editableLink} />}
+                head={<Link link={editableLink} />}
                 initialContent={this.markup}
                 mountTarget="#mountPoint"
                 scrolling="no"

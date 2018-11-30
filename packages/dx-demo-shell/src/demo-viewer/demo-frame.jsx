@@ -6,6 +6,14 @@ import {
 } from 'react-bootstrap';
 import { DemoRenderer } from './demo-renderer';
 
+const Link = ({ link }) => (
+  <link rel="stylesheet" href={link} />
+);
+
+Link.propTypes = {
+  link: PropTypes.string.isRequired,
+};
+
 class DemoFrameRenderer extends React.PureComponent {
   constructor(props, context) {
     super(props, context);
@@ -24,12 +32,11 @@ class DemoFrameRenderer extends React.PureComponent {
     const themeLinks = themeVariantOptions.links
       ? themeVariantOptions.links.map(link => `<link rel="stylesheet" href="${link}">`).join('\n')
       : '';
-    this.markup = link => `
+    this.markup = `
       <!DOCTYPE html>
       <html>
       <head>
         ${themeLinks}
-        ${link !== undefined ? `<link rel="stylesheet" href="${link}">` : ''}
         <style>
           body { margin: 8px; overflow: hidden; }
           .panel { margin: 0; }
@@ -52,14 +59,6 @@ class DemoFrameRenderer extends React.PureComponent {
 
   componentDidMount() {
     this.updateFrameHeight();
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    const { editableLink } = this.state;
-    const node = this.nodeRef.current;
-    if (editableLink !== prevState.editableLink && node) {
-      node.ownerDocument.location.reload();
-    }
   }
 
   updateFrameHeight() {
@@ -93,7 +92,7 @@ class DemoFrameRenderer extends React.PureComponent {
           >
             <FormGroup controlId="customThemeLink">
               <ControlLabel>
-Custom theme link
+                Custom theme link
               </ControlLabel>
               <InputGroup>
                 <FormControl
@@ -138,7 +137,8 @@ Custom theme link
                   height: `${frameHeight}px`,
                   marginBottom: '20px',
                 }}
-                initialContent={this.markup(editableLink)}
+                head={<Link link={editableLink} />}
+                initialContent={this.markup}
                 mountTarget="#mountPoint"
                 scrolling="no"
               >

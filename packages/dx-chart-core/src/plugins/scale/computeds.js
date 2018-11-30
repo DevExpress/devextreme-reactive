@@ -77,8 +77,8 @@ const collectDomains = (seriesList) => {
 };
 
 const takeTypeFromAxesOptions = (domains, axes) => {
-  axes.forEach(({ name, type }) => {
-    const domain = domains[name];
+  axes.forEach(({ scaleName, type }) => {
+    const domain = domains[scaleName];
     if (domain) {
       domain.type = type;
     }
@@ -86,8 +86,8 @@ const takeTypeFromAxesOptions = (domains, axes) => {
 };
 
 const takeRestAxesOptions = (domains, axes) => {
-  axes.forEach(({ name, min, max }) => {
-    const domain = domains[name];
+  axes.forEach(({ scaleName, min, max }) => {
+    const domain = domains[scaleName];
     if (!domain) {
       return;
     }

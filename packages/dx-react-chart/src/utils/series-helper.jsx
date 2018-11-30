@@ -34,7 +34,7 @@ export const declareSeries = (pluginName, { components, getPointTransformer, cre
                 const currentSeries = findSeriesByName(symbolName, series);
                 const currentScales = {
                   xScale: scales[ARGUMENT_DOMAIN],
-                  yScale: scales[getValueDomainName(currentSeries.axisName)],
+                  yScale: scales[getValueDomainName(currentSeries.scaleName)],
                 };
                 return (
                   <currentSeries.seriesComponent

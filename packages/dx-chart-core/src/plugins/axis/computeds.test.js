@@ -19,7 +19,7 @@ describe('axisCoordinates', () => {
     it('should return ticks Coordinates with horizontal-top position', () => {
       isHorizontal.mockReturnValue(true);
       const coordinates = axisCoordinates({
-        name: 'test-name', scale, position: 'top', tickSize, indentFromAxis,
+        scaleName: 'test-name', scale, position: 'top', tickSize, indentFromAxis,
       });
       expect(coordinates).toEqual({
         sides: [1, 0],
@@ -33,7 +33,7 @@ describe('axisCoordinates', () => {
     it('should return ticks coordinates with horizontal-bottom position', () => {
       isHorizontal.mockReturnValue(true);
       const coordinates = axisCoordinates({
-        name: 'test-name', scale, position: 'bottom', tickSize, indentFromAxis,
+        scaleName: 'test-name', scale, position: 'bottom', tickSize, indentFromAxis,
       });
       expect(coordinates).toEqual({
         sides: [1, 0],
@@ -47,7 +47,7 @@ describe('axisCoordinates', () => {
     it('should pass correct domain to scale, horizontal', () => {
       isHorizontal.mockReturnValue(true);
       axisCoordinates({
-        name: 'test-name', scale, position: 'top', tickSize,
+        scaleName: 'test-name', scale, position: 'top', tickSize,
       });
       expect(scale.mock.calls).toEqual([
         [1],
@@ -58,7 +58,7 @@ describe('axisCoordinates', () => {
     it('should return ticks coordinates with vertical-left position', () => {
       isHorizontal.mockReturnValue(false);
       const coordinates = axisCoordinates({
-        name: 'test-name', scale, position: 'left', tickSize, indentFromAxis,
+        scaleName: 'test-name', scale, position: 'left', tickSize, indentFromAxis,
       });
       expect(coordinates).toEqual({
         sides: [0, 1],
@@ -72,7 +72,7 @@ describe('axisCoordinates', () => {
     it('should return ticks coordinates with vertical-right position', () => {
       isHorizontal.mockReturnValue(false);
       const coordinates = axisCoordinates({
-        name: 'test-name', scale, position: 'right', tickSize, indentFromAxis,
+        scaleName: 'test-name', scale, position: 'right', tickSize, indentFromAxis,
       });
       expect(coordinates).toEqual({
         sides: [0, 1],
@@ -86,7 +86,7 @@ describe('axisCoordinates', () => {
     it('should pass correct domain to scale, vertical', () => {
       isHorizontal.mockReturnValue(false);
       axisCoordinates({
-        name: 'test-name', scale, position: 'left', tickSize,
+        scaleName: 'test-name', scale, position: 'left', tickSize,
       });
       expect(scale.mock.calls).toEqual([
         [1],

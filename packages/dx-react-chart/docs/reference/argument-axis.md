@@ -25,7 +25,6 @@ Name | Type | Default | Description
 -----|------|---------|------------
 tickSize? | number | 5 | The tick size.
 position? | 'bottom' &#124; 'top' | 'bottom' | The axis position.
-name? | string | | The axis name.
 indentFromAxis? | number | 10 | The indent from the axis.
 type? | 'band' &#124; 'linear' | 'linear' | Axis type.
 tickFormat? | (scale: [ScaleObject](./argument-scale.md#scaleobject)) => (tick: string) => string  | | A function that returns a tick formatter function.

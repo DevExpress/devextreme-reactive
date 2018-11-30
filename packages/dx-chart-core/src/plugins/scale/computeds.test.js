@@ -164,9 +164,9 @@ describe('Scale', () => {
       const domains = computeDomains({ ...testDomains, domain1: { } }, [{
         getPointTransformer, points: makePoints([2, 3, 5, 6]),
       }, {
-        getPointTransformer, points: makePoints([-1, -3, 0, 1]), axisName: 'domain1',
+        getPointTransformer, points: makePoints([-1, -3, 0, 1]), scaleName: 'domain1',
       }, {
-        getPointTransformer, points: makePoints([1, 2, 3, 1]), axisName: 'domain1',
+        getPointTransformer, points: makePoints([1, 2, 3, 1]), scaleName: 'domain1',
       }, {
         getPointTransformer, points: makePoints([2, 5, 7, 3]),
       }]);
@@ -233,7 +233,7 @@ describe('Scale', () => {
         getPointTransformer, points: [{ argument: 1, value: 11 }, { argument: 2, value: 12 }],
       }, {
         getPointTransformer,
-        axisName: 'domain1',
+        scaleName: 'domain1',
         points: [{ argument: 3, value: 1 }, { argument: 4, value: 2 }, { argument: 5, value: 3 }],
       }]);
 
@@ -255,7 +255,7 @@ describe('Scale', () => {
         ...testDomains,
         domain1: { min: 0, max: 10 },
       }, [{
-        axisName: 'domain1',
+        scaleName: 'domain1',
         getPointTransformer,
         points: [{ argument: 1, value: 3 }, { argument: 2, value: 14 }],
       }]);
@@ -278,7 +278,7 @@ describe('Scale', () => {
         ...testDomains,
         domain1: { max: 7 },
       }, [{
-        axisName: 'domain1',
+        scaleName: 'domain1',
         getPointTransformer,
         points: [{ argument: 1, value: 3 }, { argument: 2, value: 14 }],
       }]);

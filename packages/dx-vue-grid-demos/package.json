@@ -27,7 +27,7 @@
     "@devexpress/dx-vue-grid": "1.9.0",
     "@devexpress/dx-vue-grid-bootstrap4": "1.9.0",
     "babel-polyfill": "^6.26.0",
-    "prismjs": "^1.15.0",
+    "codemirror": "^5.42.0",
     "prop-types": "^15.6.2",
     "react": "^16.5.2",
     "react-bootstrap": "^0.32.4",

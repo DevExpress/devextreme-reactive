@@ -47,14 +47,14 @@ export default class Demo extends React.PureComponent {
           <ValueScale name="total" />
 
           <ArgumentAxis />
-          <ValueAxis name="sale" showGrids={false} showLine showTicks />
-          <ValueAxis name="total" position="right" showGrids={false} showLine showTicks />
+          <ValueAxis scaleName="sale" showGrids={false} showLine showTicks />
+          <ValueAxis scaleName="total" position="right" showGrids={false} showLine showTicks />
 
           <BarSeries
             name="Units Sold"
             valueField="sale"
             argumentField="month"
-            axisName="sale"
+            scaleName="sale"
             pointComponent={Point}
           />
 
@@ -62,7 +62,7 @@ export default class Demo extends React.PureComponent {
             name="Total Transactions"
             valueField="total"
             argumentField="month"
-            axisName="total"
+            scaleName="total"
           />
           <Animation />
           <Legend />

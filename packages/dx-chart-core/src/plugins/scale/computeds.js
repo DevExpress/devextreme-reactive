@@ -21,8 +21,7 @@ const copy = (domains) => {
   return result;
 };
 
-// TODO: Property name should not contain "axis" part as it actually means domain.
-const getSeriesValueDomainName = series => getValueDomainName(series.axisName);
+const getSeriesValueDomainName = series => getValueDomainName(series.scaleName);
 
 const mergeContinuousDomains = (domain, items) => extent([...domain, ...items]);
 const mergeDiscreteDomains = (domain, items) => Array.from(new Set([...domain, ...items]));

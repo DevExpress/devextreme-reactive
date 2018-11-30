@@ -4,6 +4,7 @@ import {
   AreaSeries,
   BarSeries,
   SplineSeries,
+  ScatterSeries,
   ArgumentAxis,
   ValueAxis,
   Title,
@@ -26,6 +27,18 @@ const makeLabel = symbol => (props) => {
 
 const PriceLabel = makeLabel('$');
 const LabelWithThousand = makeLabel('k');
+
+const pointOptions = { size: 10 };
+const Point = (props) => (
+  <ScatterSeries.Point point={pointOptions} {...props} />
+);
+
+const LineWithPoints = (props) => (
+  <React.Fragment>
+    <SplineSeries.Path {...props} />
+    <ScatterSeries.Path {...props} pointComponent={Point} />
+  </React.Fragment>
+);
 
 const stacks = [
   { series: ['USA', 'Saudi Arabia', 'Iran', 'Mexico', 'Russia'] },
@@ -108,6 +121,7 @@ export default class Demo extends React.PureComponent {
             valueField="price"
             argumentField="year"
             scaleName="price"
+            seriesComponent={LineWithPoints}
           />
           <Animation />
           <Legend />

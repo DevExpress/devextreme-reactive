@@ -7,16 +7,12 @@ import reactLink from './images/react.png';
 import reactCoreLink from './images/react-core.png';
 import reactGridLink from './images/react-grid.png';
 import reactChartLink from './images/react-chart.png';
-import vueLink from './images/vue.png';
-import vueGridLink from './images/vue-grid.png';
 
 const iconLinks = {
   react: reactLink,
   'react/core': reactCoreLink,
   'react/grid': reactGridLink,
   'react/chart': reactChartLink,
-  vue: vueLink,
-  'vue/grid': vueGridLink,
 };
 
 const titles = {
@@ -24,8 +20,6 @@ const titles = {
   'react/core': 'React Core',
   'react/grid': 'React Grid',
   'react/chart': 'React Chart',
-  vue: 'Vue',
-  'vue/grid': 'Vue Grid',
 };
 
 const Product = ({ link }) => (

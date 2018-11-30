@@ -15,29 +15,42 @@ import { Stack, Scale, Animation } from '@devexpress/dx-react-chart';
 
 import { oilProduction } from '../../../demo-data/data-vizualization';
 
-const makeLabel = symbol => (props) => {
-  const { text, ...restProps } = props;
-  return (
-    <ValueAxis.Label
-      text={`${text} ${symbol}`}
-      {...restProps}
-    />
-  );
-};
+const makeLabel = symbol => ({ text, ...restProps }) => (
+  <ValueAxis.Label
+    text={`${text} ${symbol}`}
+    {...restProps}
+  />
+);
 
 const PriceLabel = makeLabel('$');
 const LabelWithThousand = makeLabel('k');
 
 const pointOptions = { size: 10 };
-const Point = (props) => (
+const Point = props => (
   <ScatterSeries.Point point={pointOptions} {...props} />
 );
 
-const LineWithPoints = (props) => (
+const LineWithPoints = props => (
   <React.Fragment>
     <SplineSeries.Path {...props} />
     <ScatterSeries.Path {...props} pointComponent={Point} />
   </React.Fragment>
+);
+
+const legendRootStyle = {
+  display: 'flex',
+  margin: 'auto',
+  flexDirection: 'grow',
+};
+const LegendRoot = props => (
+  <Legend.Root style={legendRootStyle} {...props} />
+);
+
+const legendLabelStyle = {
+  whiteSpace: 'nowrap',
+};
+const LegendLabel = props => (
+  <Legend.Label style={legendLabelStyle} {...props} />
 );
 
 const stacks = [
@@ -124,7 +137,11 @@ export default class Demo extends React.PureComponent {
             seriesComponent={LineWithPoints}
           />
           <Animation />
-          <Legend />
+          <Legend
+            position="bottom"
+            rootComponent={LegendRoot}
+            labelComponent={LegendLabel}
+          />
           <Stack stacks={stacks} />
           <Scale />
         </Chart>

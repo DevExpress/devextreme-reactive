@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import Popover from '@material-ui/core/Popover';
 import * as d3Format from 'd3-format';
 import {
-  Stack, Scale, EventTracker, HoverState, SelectionState,
+  Stack, Scale, EventTracker, HoverState, SelectionState, Animation,
 } from '@devexpress/dx-react-chart';
 
 import { annualVehiclesSales } from '../../../demo-data/data-vizualization';
@@ -124,6 +124,7 @@ export default class Demo extends React.PureComponent {
           <HoverState />
           <Tooltip contentComponent={ContentComponent} overlayComponent={OverlayComponent} />
           <SelectionState selection={selection} />
+          <Animation />
         </Chart>
       </Paper>
     );

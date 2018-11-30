@@ -25,7 +25,6 @@ Name | Type | Default | Description
 -----|------|---------|------------
 tickSize? | number | 5 | The tick size.
 position? | 'bottom' &#124; 'top' | 'bottom' | The axis position.
-name? | string | | The axis name.
 indentFromAxis? | number | 10 | The indent from the axis.
 type? | 'band' &#124; 'linear' | 'linear' | Axis type.
 showTicks? | boolean | true | Specifies whether to render ticks.

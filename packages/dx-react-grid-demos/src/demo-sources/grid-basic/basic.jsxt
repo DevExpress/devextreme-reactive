@@ -4,7 +4,6 @@ import {
   Table,
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
-
 import {
   generateRows,
   globalSalesValues,

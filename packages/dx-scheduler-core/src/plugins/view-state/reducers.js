@@ -4,7 +4,7 @@ export const changeCurrentDate = (currentDate, {
   nextDate,
   step,
   amount,
-  direction = 'forward',
+  direction,
 }) => (
   nextDate || moment(currentDate)[direction === 'back' ? 'subtract' : 'add'](amount, step).toDate()
 );

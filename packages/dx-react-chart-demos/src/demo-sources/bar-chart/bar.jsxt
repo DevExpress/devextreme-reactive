@@ -42,7 +42,7 @@ export default class Demo extends React.PureComponent {
             valueField="population"
             argumentField="year"
           />
-          <Title text="World population" style={{ textAlign: 'center', width: '100%', marginBottom: '10px' }} />
+          <Title text="World population" />
           <Animation />
           <Scale />
         </Chart>

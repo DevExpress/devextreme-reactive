@@ -45,7 +45,6 @@ export default class Demo extends React.PureComponent {
           />
           <Title
             text="World population (billion)"
-            style={{ textAlign: 'center', width: '100%', marginBottom: '10px' }}
           />
           <Animation />
           <Scale />

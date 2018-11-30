@@ -19,6 +19,8 @@
 !/site/react/grid/overrides
 /site/react/chart/*
 !/site/react/chart/overrides
+/site/react/scheduler/*
+!/site/react/scheduler/overrides
 /site/vue/grid/*
 !/site/vue/grid/overrides
 

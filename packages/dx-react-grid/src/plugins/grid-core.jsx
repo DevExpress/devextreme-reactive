@@ -13,7 +13,6 @@ export class GridCore extends React.PureComponent {
       getRowId,
       getCellValue,
       rootComponent: Root,
-      ...restProps
     } = this.props;
 
     return (
@@ -23,7 +22,7 @@ export class GridCore extends React.PureComponent {
         <Getter name="columns" value={columns} />
         <Getter name="getCellValue" value={cellValueGetter(getCellValue, columns)} />
         <Template name="root">
-          <Root {...restProps}>
+          <Root>
             <TemplatePlaceholder name="header" />
             <TemplatePlaceholder name="body" />
             <TemplatePlaceholder name="footer" />

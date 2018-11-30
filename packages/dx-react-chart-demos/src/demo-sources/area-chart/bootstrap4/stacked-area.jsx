@@ -7,9 +7,8 @@ import {
   AreaSeries,
   Title,
   Legend,
-  Grid,
 } from '@devexpress/dx-react-chart-bootstrap4';
-import { Stack, Scale } from '@devexpress/dx-react-chart';
+import { Stack, Scale, Animation } from '@devexpress/dx-react-chart';
 import { stackOffsetExpand } from 'd3-shape';
 
 import { carbonEmmision as data } from '../../../demo-data/data-vizualization';
@@ -23,7 +22,6 @@ const Root = props => (
 
 const format = () => tick => tick;
 const formatForFullstack = scale => scale.tickFormat(null, '%');
-const EmptyComponent = () => null;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -55,48 +53,46 @@ export default class Demo extends React.PureComponent {
           data={chartData}
           className="pr-3"
         >
-          <ArgumentAxis name="argumentAxis" tickFormat={format} />
+          <ArgumentAxis tickFormat={format} />
           <ValueAxis
             tickFormat={valueFormat}
-            lineComponent={EmptyComponent}
-            tickSize={0}
           />
 
-          <Grid />
           <AreaSeries
             name="Liquids"
             valueField="liquids"
             argumentField="year"
-            stack="one"
           />
           <AreaSeries
             name="Solids"
             valueField="solids"
             argumentField="year"
-            stack="one"
           />
           <AreaSeries
             name="Gas"
             valueField="gas"
             argumentField="year"
-            stack="one"
           />
           <AreaSeries
             name="Cement Production"
             valueField="cementProduction"
             argumentField="year"
-            stack="one"
           />
           <AreaSeries
             name="Gas Flaring"
             valueField="gasFlaring"
             argumentField="year"
-            stack="one"
           />
+          <Animation />
           <Legend position="bottom" rootComponent={Root} />
           <Title text="Carbon Emission Estimates" className="w-100 text-center mb-2" />
           <Scale />
-          <Stack offset={offset} />
+          <Stack
+            stacks={[{
+              series: ['Liquids', 'Solids', 'Gas', 'Cement Production', 'Gas Flaring'],
+            }]}
+            offset={offset}
+          />
         </Chart>
         <div className="pb-5 pl-5 w-200" style={{ width: '200px' }}>
           <h5>Series Type</h5>

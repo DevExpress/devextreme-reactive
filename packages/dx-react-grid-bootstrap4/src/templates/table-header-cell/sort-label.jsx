@@ -38,8 +38,7 @@ export const SortLabel = ({
     tabIndex={disabled ? -1 : 0}
     onMouseDown={handleMouseDown}
     onBlur={handleBlur}
-    onKeyDown={e => onClick(e, onSort)}
-    onClick={e => onClick(e, onSort)}
+    {...!disabled ? { onKeyDown: e => onClick(e, onSort), onClick: e => onClick(e, onSort) } : null}
     {...restProps}
   >
     {children}

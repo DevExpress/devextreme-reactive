@@ -7,9 +7,8 @@ import {
   BarSeries,
   Title,
   Legend,
-  Grid,
 } from '@devexpress/dx-react-chart-bootstrap4';
-import { Stack, Scale } from '@devexpress/dx-react-chart';
+import { Stack, Scale, Animation } from '@devexpress/dx-react-chart';
 import { stackOffsetExpand } from 'd3-shape';
 
 import { oilProduction as data } from '../../../demo-data/data-vizualization';
@@ -22,7 +21,6 @@ const Root = props => (
 );
 
 const format = scale => scale.tickFormat(null, '%');
-const EmptyComponent = () => null;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -44,44 +42,42 @@ export default class Demo extends React.PureComponent {
           <ArgumentAxis />
           <ValueAxis
             tickFormat={format}
-            lineComponent={EmptyComponent}
-            tickSize={0}
           />
-          <Grid />
 
           <BarSeries
             name="Saudi Arabia"
             valueField="saudiArabia"
             argumentField="year"
-            stack="one"
           />
           <BarSeries
             name="USA"
             valueField="usa"
             argumentField="year"
-            stack="one"
           />
           <BarSeries
             name="Iran"
             valueField="iran"
             argumentField="year"
-            stack="one"
           />
           <BarSeries
             name="Mexico"
             valueField="mexico"
             argumentField="year"
-            stack="one"
           />
           <BarSeries
             name="Russia"
             valueField="russia"
             argumentField="year"
-            stack="one"
           />
+          <Animation />
           <Legend position="bottom" rootComponent={Root} />
           <Title text="Oil Production" className="w-100 text-center mb-2" />
-          <Stack offset={stackOffsetExpand} />
+          <Stack
+            stacks={[
+              { series: ['Saudi Arabia', 'USA', 'Iran', 'Mexico', 'Russia'] },
+            ]}
+            offset={stackOffsetExpand}
+          />
           <Scale />
         </Chart>
       </Card>

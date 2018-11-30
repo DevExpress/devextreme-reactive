@@ -7,6 +7,7 @@ describe('AllDayPanel', () => {
   let shallow;
   const defaultProps = {
     allDayPanelRef: () => null,
+    cellsData: [{ startDate: 1 }, { startDate: 2 }],
   };
   beforeAll(() => {
     classes = getClasses(
@@ -41,9 +42,8 @@ describe('AllDayPanel', () => {
     });
     it('should render array of days', () => {
       const cell = () => <td />;
-      const dayScale = [new Date('2018-07-26'), new Date('2018-07-26')];
       const tree = shallow((
-        <Layout {...defaultProps} dayScale={dayScale} cellComponent={cell}>
+        <Layout {...defaultProps} cellComponent={cell}>
           <div />
         </Layout>
       ));

@@ -9,16 +9,15 @@ import {
 } from '@devexpress/dx-react-core';
 import {
   computed,
+  viewCellsData as viewCellsDataCore,
   calculateRectByDateIntervals,
   calculateWeekDateIntervals,
   getAppointmentStyle,
-  getWeekRectByDates,
-  timeScale as timeScaleCore,
-  dayScale as dayScaleCore,
+  getVerticalRectByDates,
   startViewDate as startViewDateCore,
   endViewDate as endViewDateCore,
-  availableViews as availableViewsCore,
-  VERTICAL_APPOINTMENT_TYPE,
+  availableViewNames as availableViewNamesCore,
+  VERTICAL_TYPE,
 } from '@devexpress/dx-scheduler-core';
 
 const DAYS_IN_WEEK = 7;
@@ -29,16 +28,17 @@ export class WeekView extends React.PureComponent {
     super(props);
 
     this.state = {
-      dateTableRef: null,
+      timeTableRef: null,
     };
 
-    this.dateTableRef = this.dateTableRef.bind(this);
+    this.timeTableRef = this.timeTableRef.bind(this);
 
     this.sidebarPlaceholder = () => <TemplatePlaceholder name="sidebar" />;
     this.dayScalePlaceholder = () => <TemplatePlaceholder name="navbar" />;
-    this.dateTablePlaceholder = () => <TemplatePlaceholder name="main" />;
-    this.navbarEmptyPlaceholder = () => <TemplatePlaceholder name="navbarEmpty" />;
+    this.timeTablePlaceholder = () => <TemplatePlaceholder name="main" />;
+    this.dayScaleEmptyCellPlaceholder = () => <TemplatePlaceholder name="dayScaleEmptyCell" />;
     this.appointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
+    this.cellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
 
     const {
       name: viewName,
@@ -51,31 +51,26 @@ export class WeekView extends React.PureComponent {
     } = this.props;
 
     this.endViewDateBaseComputed = ({
-      dayScale, timeScale,
-    }) => endViewDateCore(dayScale, timeScale);
-    this.timeScaleBaseComputed = ({
-      currentDate,
-    }) => timeScaleCore(
-      currentDate,
-      firstDayOfWeek,
-      startDayHour,
-      endDayHour,
-      cellDuration,
-      excludedDays,
-    );
-    this.dayScaleBaseComputed = ({
-      currentDate,
-    }) => dayScaleCore(currentDate, firstDayOfWeek, intervalCount * DAYS_IN_WEEK, excludedDays);
+      viewCellsData,
+    }) => endViewDateCore(viewCellsData);
     this.startViewDateBaseComputed = ({
-      dayScale, timeScale,
-    }) => startViewDateCore(dayScale, timeScale, startDayHour);
+      viewCellsData,
+    }) => startViewDateCore(viewCellsData);
+    this.viewCellsDataComputed = ({
+      currentDate,
+    }) => viewCellsDataCore(
+      currentDate, firstDayOfWeek,
+      intervalCount * DAYS_IN_WEEK, excludedDays,
+      startDayHour, endDayHour, cellDuration,
+    );
+
     this.currentViewComputed = ({ currentView }) => (
       currentView && currentView.name !== viewName
         ? currentView
         : { name: viewName, type: TYPE }
     );
-    this.availableViewsComputed = ({ availableViews }) => availableViewsCore(
-      availableViews, viewName,
+    this.availableViewNamesComputed = ({ availableViewNames }) => availableViewNamesCore(
+      availableViewNames, viewName,
     );
     this.intervalCountComputed = getters => computed(
       getters, viewName, () => intervalCount, getters.intervalCount,
@@ -86,57 +81,51 @@ export class WeekView extends React.PureComponent {
     this.excludedDaysComputed = getters => computed(
       getters, viewName, () => excludedDays, getters.excludedDays,
     );
-    this.timeScaleComputed = getters => computed(
-      getters,
-      viewName,
-      this.timeScaleBaseComputed,
-      getters.timeScale,
-    );
-    this.dayScaleComputed = getters => computed(
-      getters, viewName, this.dayScaleBaseComputed, getters.dayScale,
-    );
     this.startViewDateComputed = getters => computed(
       getters, viewName, this.startViewDateBaseComputed, getters.startViewDate,
     );
     this.endViewDateComputed = getters => computed(
       getters, viewName, this.endViewDateBaseComputed, getters.endViewDate,
     );
+    this.viewCellsData = getters => computed(
+      getters, viewName, this.viewCellsDataComputed, getters.viewCellsData,
+    );
   }
 
-  dateTableRef(dateTableRef) {
-    this.setState({ dateTableRef });
+  timeTableRef(timeTableRef) {
+    this.setState({ timeTableRef });
   }
 
   render() {
     const {
       layoutComponent: ViewLayout,
-      timePanelLayoutComponent: TimePanel,
-      timePanelRowComponent: TimePanelRow,
-      timePanelCellComponent: TimePanelCell,
-      dayPanelLayoutComponent: DayPanel,
-      dayPanelCellComponent: DayPanelCell,
-      dayPanelRowComponent: DayPanelRow,
-      dateTableLayoutComponent: DateTable,
-      dateTableRowComponent: DateTableRow,
-      dateTableCellComponent: DateTableCell,
+      dayScaleEmptyCellComponent: DayScaleEmptyCell,
+      timeScaleLayoutComponent: TimeScale,
+      timeScaleRowComponent: TimeScaleRow,
+      timeScaleCellComponent: TimeScaleCell,
+      dayScaleLayoutComponent: DayScale,
+      dayScaleCellComponent: DayScaleCell,
+      dayScaleRowComponent: DayScaleRow,
+      timeTableLayoutComponent: TimeTable,
+      timeTableRowComponent: TimeTableRow,
+      timeTableCellComponent: TimeTableCell,
       cellDuration,
       excludedDays,
       name: viewName,
-      containerComponent: Container,
+      appointmentLayerComponent: AppointmentLayer,
     } = this.props;
-    const { dateTableRef } = this.state;
+    const { timeTableRef } = this.state;
 
     return (
       <Plugin
         name="WeekView"
       >
-        <Getter name="availableViews" computed={this.availableViewsComputed} />
+        <Getter name="availableViewNames" computed={this.availableViewNamesComputed} />
         <Getter name="currentView" computed={this.currentViewComputed} />
         <Getter name="intervalCount" computed={this.intervalCountComputed} />
         <Getter name="firstDayOfWeek" computed={this.firstDayOfWeekComputed} />
         <Getter name="excludedDays" computed={this.excludedDaysComputed} />
-        <Getter name="timeScale" computed={this.timeScaleComputed} />
-        <Getter name="dayScale" computed={this.dayScaleComputed} />
+        <Getter name="viewCellsData" computed={this.viewCellsData} />
         <Getter name="startViewDate" computed={this.startViewDateComputed} />
         <Getter name="endViewDate" computed={this.endViewDateComputed} />
 
@@ -146,10 +135,10 @@ export class WeekView extends React.PureComponent {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
                 <ViewLayout
-                  navbarComponent={this.dayScalePlaceholder}
-                  navbarEmptyComponent={this.navbarEmptyPlaceholder}
-                  mainComponent={this.dateTablePlaceholder}
-                  sidebarComponent={this.sidebarPlaceholder}
+                  dayScaleComponent={this.dayScalePlaceholder}
+                  dayScaleEmptyCellComponent={this.dayScaleEmptyCellPlaceholder}
+                  timeTableComponent={this.timeTablePlaceholder}
+                  timeScaleComponent={this.sidebarPlaceholder}
                 />
               );
             }}
@@ -158,14 +147,25 @@ export class WeekView extends React.PureComponent {
 
         <Template name="navbar">
           <TemplateConnector>
-            {({ dayScale, currentView }) => {
+            {({ currentView, viewCellsData }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
-                <DayPanel
-                  cellComponent={DayPanelCell}
-                  rowComponent={DayPanelRow}
-                  dayScale={dayScale}
+                <DayScale
+                  cellComponent={DayScaleCell}
+                  rowComponent={DayScaleRow}
+                  cellsData={viewCellsData}
                 />
+              );
+            }}
+          </TemplateConnector>
+        </Template>
+
+        <Template name="dayScaleEmptyCell">
+          <TemplateConnector>
+            {({ currentView }) => {
+              if (currentView.name !== viewName) return <TemplatePlaceholder />;
+              return (
+                <DayScaleEmptyCell />
               );
             }}
           </TemplateConnector>
@@ -173,13 +173,13 @@ export class WeekView extends React.PureComponent {
 
         <Template name="sidebar">
           <TemplateConnector>
-            {({ timeScale, currentView }) => {
+            {({ currentView, viewCellsData }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
-                <TimePanel
-                  rowComponent={TimePanelRow}
-                  cellComponent={TimePanelCell}
-                  timeScale={timeScale}
+                <TimeScale
+                  rowComponent={TimeScaleRow}
+                  cellComponent={TimeScaleCell}
+                  cellsData={viewCellsData}
                 />
               );
             }}
@@ -189,55 +189,67 @@ export class WeekView extends React.PureComponent {
         <Template name="main">
           <TemplateConnector>
             {({
-              timeScale, dayScale, appointments, startViewDate, endViewDate, currentView,
+              appointments, startViewDate,
+              endViewDate, currentView, viewCellsData,
             }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               const intervals = calculateWeekDateIntervals(
                 appointments, startViewDate, endViewDate, excludedDays,
               );
-              const rects = dateTableRef ? calculateRectByDateIntervals(
+              const rects = timeTableRef ? calculateRectByDateIntervals(
                 {
-                  growDirection: VERTICAL_APPOINTMENT_TYPE,
+                  growDirection: VERTICAL_TYPE,
                   multiline: false,
                 },
                 intervals,
-                getWeekRectByDates,
+                getVerticalRectByDates,
                 {
                   startViewDate,
                   endViewDate,
-                  dayScale,
-                  timeScale,
+                  viewCellsData,
                   cellDuration,
-                  cellElements: dateTableRef.querySelectorAll('td'),
+                  cellElements: timeTableRef.querySelectorAll('td'),
                 },
               ) : [];
 
               const { appointmentPlaceholder: AppointmentPlaceholder } = this;
               return (
                 <React.Fragment>
-                  <DateTable
-                    rowComponent={DateTableRow}
-                    cellComponent={DateTableCell}
-                    timeScale={timeScale}
-                    dayScale={dayScale}
-                    dateTableRef={this.dateTableRef}
+                  <TimeTable
+                    rowComponent={TimeTableRow}
+                    cellComponent={this.cellPlaceholder}
+                    tableRef={this.timeTableRef}
+                    cellsData={viewCellsData}
                   />
-                  <Container>
+                  <AppointmentLayer>
                     {rects.map(({
                       dataItem, type, ...geometry
                     }, index) => (
                       <AppointmentPlaceholder
                         key={index.toString()}
                         type={type}
-                        appointment={dataItem}
+                        data={dataItem}
                         style={getAppointmentStyle(geometry)}
                       />
                     ))}
-                  </Container>
+                  </AppointmentLayer>
                 </React.Fragment>
               );
             }}
           </TemplateConnector>
+        </Template>
+
+        <Template name="cell">
+          {params => (
+            <TemplateConnector>
+              {({ currentView }) => {
+                if (currentView.name !== viewName) return <TemplatePlaceholder params={params} />;
+                return (
+                  <TimeTableCell {...params} />
+                );
+              }}
+            </TemplateConnector>
+          )}
         </Template>
       </Plugin>
     );
@@ -246,16 +258,17 @@ export class WeekView extends React.PureComponent {
 
 WeekView.propTypes = {
   layoutComponent: PropTypes.func.isRequired,
-  timePanelLayoutComponent: PropTypes.func.isRequired,
-  timePanelRowComponent: PropTypes.func.isRequired,
-  timePanelCellComponent: PropTypes.func.isRequired,
-  dayPanelLayoutComponent: PropTypes.func.isRequired,
-  dayPanelCellComponent: PropTypes.func.isRequired,
-  dayPanelRowComponent: PropTypes.func.isRequired,
-  dateTableLayoutComponent: PropTypes.func.isRequired,
-  dateTableRowComponent: PropTypes.func.isRequired,
-  dateTableCellComponent: PropTypes.func.isRequired,
-  containerComponent: PropTypes.func.isRequired,
+  dayScaleEmptyCellComponent: PropTypes.func.isRequired,
+  timeScaleLayoutComponent: PropTypes.func.isRequired,
+  timeScaleRowComponent: PropTypes.func.isRequired,
+  timeScaleCellComponent: PropTypes.func.isRequired,
+  dayScaleLayoutComponent: PropTypes.func.isRequired,
+  dayScaleCellComponent: PropTypes.func.isRequired,
+  dayScaleRowComponent: PropTypes.func.isRequired,
+  timeTableLayoutComponent: PropTypes.func.isRequired,
+  timeTableRowComponent: PropTypes.func.isRequired,
+  timeTableCellComponent: PropTypes.func.isRequired,
+  appointmentLayerComponent: PropTypes.func.isRequired,
   startDayHour: PropTypes.number,
   endDayHour: PropTypes.number,
   cellDuration: PropTypes.number,
@@ -277,14 +290,15 @@ WeekView.defaultProps = {
 
 WeekView.components = {
   layoutComponent: 'Layout',
-  containerComponent: 'Container',
-  timePanelLayoutComponent: 'TimePanelLayout',
-  timePanelCellComponent: 'TimePanelCell',
-  timePanelRowComponent: 'TimePanelRow',
-  dayPanelLayoutComponent: 'DayPanelLayout',
-  dayPanelCellComponent: 'DayPanelCell',
-  dayPanelRowComponent: 'DayPanelRow',
-  dateTableLayoutComponent: 'DateTableLayout',
-  dateTableCellComponent: 'DateTableCell',
-  dateTableRowComponent: 'DateTableRow',
+  appointmentLayerComponent: 'AppointmentLayer',
+  dayScaleEmptyCellComponent: 'DayScaleEmptyCell',
+  timeScaleLayoutComponent: 'TimeScaleLayout',
+  timeScaleCellComponent: 'TimeScaleCell',
+  timeScaleRowComponent: 'TimeScaleRow',
+  dayScaleLayoutComponent: 'DayScaleLayout',
+  dayScaleCellComponent: 'DayScaleCell',
+  dayScaleRowComponent: 'DayScaleRow',
+  timeTableLayoutComponent: 'TimeTableLayout',
+  timeTableCellComponent: 'TimeTableCell',
+  timeTableRowComponent: 'TimeTableRow',
 };

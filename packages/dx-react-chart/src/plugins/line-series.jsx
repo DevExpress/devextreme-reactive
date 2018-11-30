@@ -1,14 +1,12 @@
-import { dLine, coordinates } from '@devexpress/dx-chart-core';
-import { makeSeries, withColor, withComponents } from '../utils';
-import { Path } from '../templates/series/path';
+import {
+  getLinePointTransformer as getPointTransformer,
+  createLineHitTester as createHitTester,
+} from '@devexpress/dx-chart-core';
+import { declareSeries } from '../utils';
+import { Line as Path } from '../templates/series/line';
 
-export const LineSeries = withComponents({ Path })(makeSeries(
-  'LineSeries',
-  'line',
-  dLine,
-  coordinates,
-  {
-    seriesComponent: 'Path',
-  },
-  withColor,
-));
+export const LineSeries = declareSeries('LineSeries', {
+  components: { Path },
+  getPointTransformer,
+  createHitTester,
+});

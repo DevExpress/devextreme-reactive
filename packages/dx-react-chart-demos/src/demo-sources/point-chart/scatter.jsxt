@@ -4,13 +4,11 @@ import {
   ScatterSeries,
   ArgumentAxis,
   ValueAxis,
-  Grid,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
-import { Scale } from '@devexpress/dx-react-chart';
+import { Scale, Animation } from '@devexpress/dx-react-chart';
 
 import { dataGenerator } from '../../../demo-data/generator';
 
-const EmptyComponent = () => null;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -29,10 +27,8 @@ export default class Demo extends React.PureComponent {
         <Chart
           data={chartData}
         >
-          <ArgumentAxis name="argumentAxis" />
-          <ValueAxis lineComponent={EmptyComponent} tickSize={0} />
-          <Grid name="argumentAxis" />
-          <Grid />
+          <ArgumentAxis showGrids />
+          <ValueAxis />
           <ScatterSeries
             valueField="val1"
             argumentField="arg1"
@@ -41,6 +37,7 @@ export default class Demo extends React.PureComponent {
             valueField="val2"
             argumentField="arg2"
           />
+          <Animation />
           <Scale />
         </Chart>
       </<%&wrapperTag%>>

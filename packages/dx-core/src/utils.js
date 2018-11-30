@@ -1,3 +1,5 @@
+const DELAY = 200;
+
 const compare = (a, b) => {
   const aPosition = a.position();
   const bPosition = b.position();
@@ -17,3 +19,27 @@ export const insertPlugin = (array, newItem) => {
   result.splice(targetIndex, alreadyExists ? 1 : 0, newItem);
   return result;
 };
+
+export const createClickHandlers = (click, dblClick) => {
+  let timeoutId;
+  const events = {};
+  if (click) {
+    events.onClick = (e) => {
+      if (!timeoutId) {
+        timeoutId = setTimeout(() => {
+          clearTimeout(timeoutId);
+          click(e);
+        }, DELAY);
+      }
+    };
+  } if (dblClick) {
+    events.onDoubleClick = (e) => {
+      clearTimeout(timeoutId);
+      dblClick(e);
+    };
+  }
+  return events;
+};
+
+/* globals window:true */
+export const isEdgeBrowser = () => /Edge/.test(window.navigator.userAgent);

@@ -3,12 +3,14 @@ import { mount } from 'enzyme';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
+  allDayCells,
   calculateRectByDateIntervals,
   calculateAllDayDateIntervals,
 } from '@devexpress/dx-scheduler-core';
 import { AllDayPanel } from './all-day-panel';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
+  allDayCells: jest.fn(),
   calculateRectByDateIntervals: jest.fn(),
   calculateAllDayDateIntervals: jest.fn(),
 }));
@@ -16,9 +18,6 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
 const defaultDeps = {
   getter: {
     currentDate: '2018-07-04',
-    dateTableRef: {
-      querySelectorAll: () => {},
-    },
     currentView: 'week',
     startViewDate: '',
     endViewDate: '',
@@ -29,7 +28,7 @@ const defaultDeps = {
     navbar: {},
     sidebar: {},
     main: {},
-    navbarEmpty: {},
+    dayScaleEmptyCell: {},
   },
 };
 
@@ -37,9 +36,9 @@ const defaultProps = {
   messages: {},
   cellComponent: () => null,
   rowComponent: () => null,
-  textComponent: () => <div className="text" />,
+  titleCellComponent: () => <div className="titleCell" />,
   // eslint-disable-next-line react/prop-types, react/jsx-one-expression-per-line
-  containerComponent: ({ children }) => <div className="container">{children}</div>,
+  appointmentLayerComponent: ({ children }) => <div className="layer">{children}</div>,
   // eslint-disable-next-line react/prop-types, react/jsx-one-expression-per-line
   layoutComponent: ({ children }) => <div className="layout">{children}</div>,
 };
@@ -50,6 +49,7 @@ describe('AllDayPanel', () => {
       dataItem: {}, type: 'h', top: 0, left: 0,
     }]);
     calculateAllDayDateIntervals.mockImplementation(() => []);
+    allDayCells.mockImplementation(() => []);
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -84,7 +84,7 @@ describe('AllDayPanel', () => {
         .toBeTruthy();
     });
 
-    it('should render appointment container', () => {
+    it('should render appointment layer', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -94,11 +94,11 @@ describe('AllDayPanel', () => {
         </PluginHost>
       ));
 
-      expect(tree.find('.container').exists())
+      expect(tree.find('.layer').exists())
         .toBeTruthy();
     });
 
-    it('should render text component', () => {
+    it('should render title cell component', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -108,7 +108,7 @@ describe('AllDayPanel', () => {
         </PluginHost>
       ));
 
-      expect(tree.find('.text').exists())
+      expect(tree.find('.titleCell').exists())
         .toBeTruthy();
     });
   });

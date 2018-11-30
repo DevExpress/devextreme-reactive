@@ -7,13 +7,12 @@ import {
   AreaSeries,
   Title,
   Legend,
-  Grid,
 } from '@devexpress/dx-react-chart-material-ui';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import FormControl from '@material-ui/core/FormControl';
-import { Stack, Scale } from '@devexpress/dx-react-chart';
+import { Stack, Scale, Animation } from '@devexpress/dx-react-chart';
 import { stackOffsetExpand } from 'd3-shape';
 import { carbonEmmision as data } from '../../../demo-data/data-vizualization';
 
@@ -59,7 +58,6 @@ const demoStyles = () => ({
 
 const format = () => tick => tick;
 const formatForFullstack = scale => scale.tickFormat(null, '%');
-const EmptyComponent = () => null;
 
 class Demo extends React.PureComponent {
   constructor(props) {
@@ -93,46 +91,48 @@ class Demo extends React.PureComponent {
           data={chartData}
           className={classes.chart}
         >
-          <ArgumentAxis name="argumentAxis" tickFormat={format} />
-          <ValueAxis tickFormat={valueFormat} lineComponent={EmptyComponent} tickSize={0} />
-          <Grid />
+          <ArgumentAxis tickFormat={format} />
+          <ValueAxis
+            tickFormat={valueFormat}
+          />
           <AreaSeries
             name="Liquids"
             valueField="liquids"
             argumentField="year"
-            stack="a"
           />
           <AreaSeries
             name="Solids"
             valueField="solids"
             argumentField="year"
-            stack="a"
           />
           <AreaSeries
             name="Gas"
             valueField="gas"
             argumentField="year"
-            stack="a"
           />
           <AreaSeries
             name="Cement Production"
             valueField="cementProduction"
             argumentField="year"
-            stack="a"
           />
           <AreaSeries
             name="Gas Flaring"
             valueField="gasFlaring"
             argumentField="year"
-            stack="a"
           />
+          <Animation />
           <Legend position="bottom" rootComponent={Root} labelComponent={Label} />
           <Title text="Carbon Emission Estimates" className={classes.title} />
           <Scale />
-          <Stack offset={offset} />
+          <Stack
+            stacks={[{
+              series: ['Liquids', 'Solids', 'Gas', 'Cement Production', 'Gas Flaring'],
+            }]}
+            offset={offset}
+          />
         </Chart>
         <div className={classes.div}>
-          <Typography component="h5" variant="headline" className={classes.typography}>Series Type</Typography>
+          <Typography component="h5" variant="h5" className={classes.typography}>Series Type</Typography>
           <FormControl>
             <NativeSelect onChange={this.changeSeriesType} defaultValue={1}>
               <option value={1}>Stacked Area</option>

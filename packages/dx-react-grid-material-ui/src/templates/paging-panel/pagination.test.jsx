@@ -57,6 +57,7 @@ describe('Pagination', () => {
 
       expect(buttons).toHaveLength(5);
       expect(activeItems).toHaveLength(1);
+      expect(activeItems.at(0).prop('tabIndex')).toBe(-1);
       expect(disabledItems).toHaveLength(1);
 
       expect(buttons.at(0).hasClass(classes.activeButton)).toBeTruthy();

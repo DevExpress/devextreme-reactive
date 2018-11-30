@@ -7,10 +7,9 @@ import {
   AreaSeries,
   Title,
   Legend,
-  Grid,
 } from '@devexpress/dx-react-chart-material-ui';
 import { withStyles } from '@material-ui/core/styles';
-import { Scale } from '@devexpress/dx-react-chart';
+import { Scale, Animation } from '@devexpress/dx-react-chart';
 import { scalePoint } from 'd3-scale';
 
 const data = [
@@ -61,8 +60,6 @@ const Root = withStyles(legendStyles, { name: 'LegendRoot' })(legendRootBase);
 const Label = withStyles(legendLabelStyles, { name: 'LegendLabel' })(legendLabelBase);
 const Item = withStyles(legendItemStyles, { name: 'LegendItem' })(legendItemBase);
 
-const EmptyComponent = () => null;
-
 class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -82,8 +79,7 @@ class Demo extends React.PureComponent {
           className={classes.chart}
         >
           <ArgumentAxis />
-          <ValueAxis lineComponent={EmptyComponent} tickSize={0} />
-          <Grid />
+          <ValueAxis />
 
           <AreaSeries
             name="Android"
@@ -95,6 +91,7 @@ class Demo extends React.PureComponent {
             valueField="ios"
             argumentField="year"
           />
+          <Animation />
           <Scale extensions={[{ type: 'band', constructor: scalePoint }]} />
           <Legend
             position="bottom"

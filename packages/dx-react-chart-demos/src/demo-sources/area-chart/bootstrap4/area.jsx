@@ -7,9 +7,8 @@ import {
   AreaSeries,
   Title,
   Legend,
-  Grid,
 } from '@devexpress/dx-react-chart-bootstrap4';
-import { Scale } from '@devexpress/dx-react-chart';
+import { Scale, Animation } from '@devexpress/dx-react-chart';
 import { scalePoint } from 'd3-scale';
 
 const data = [
@@ -37,7 +36,6 @@ const Label = props => (
     className="pt-2"
   />
 );
-const EmptyComponent = () => null;
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -57,8 +55,7 @@ export default class Demo extends React.PureComponent {
           className="pr-3"
         >
           <ArgumentAxis />
-          <ValueAxis lineComponent={EmptyComponent} tickSize={0} />
-          <Grid />
+          <ValueAxis />
 
           <AreaSeries
             name="Android"
@@ -70,6 +67,7 @@ export default class Demo extends React.PureComponent {
             valueField="ios"
             argumentField="year"
           />
+          <Animation />
           <Scale extensions={[{ type: 'band', constructor: scalePoint }]} />
           <Legend
             position="bottom"

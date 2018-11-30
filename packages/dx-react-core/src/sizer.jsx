@@ -6,9 +6,6 @@ import { findDOMNode } from 'react-dom';
 import { RefHolder } from './ref-holder';
 
 const styles = {
-  root: {
-    position: 'relative',
-  },
   triggersRoot: {
     position: 'absolute',
     top: 0,
@@ -48,10 +45,11 @@ const styles = {
 };
 
 export class Sizer extends React.PureComponent {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.setupListeners = this.setupListeners.bind(this);
+    this.rootRef = React.createRef();
   }
 
   componentDidMount() {
@@ -61,7 +59,7 @@ export class Sizer extends React.PureComponent {
 
   setupListeners() {
     // eslint-disable-next-line react/no-find-dom-node
-    const rootNode = findDOMNode(this.root);
+    const rootNode = findDOMNode(this.rootRef.current);
     const size = { height: rootNode.clientHeight, width: rootNode.clientWidth };
 
     this.contractTrigger.scrollTop = size.height;
@@ -78,7 +76,7 @@ export class Sizer extends React.PureComponent {
 
   createListeners() {
     // eslint-disable-next-line react/no-find-dom-node
-    const rootNode = findDOMNode(this.root);
+    const rootNode = findDOMNode(this.rootRef.current);
 
     this.triggersRoot = document.createElement('div');
     Object.assign(this.triggersRoot.style, styles.triggersRoot);
@@ -106,16 +104,14 @@ export class Sizer extends React.PureComponent {
     const {
       onSizeChange,
       containerComponent: Container,
-      style,
       ...restProps
     } = this.props;
 
     return (
       <RefHolder
-        ref={(ref) => { this.root = ref; }}
+        ref={this.rootRef}
       >
-        <Container
-          style={{ ...styles.root, ...style }}
+        <Container // NOTE: should have `position: relative`
           {...restProps}
         />
       </RefHolder>
@@ -126,10 +122,8 @@ export class Sizer extends React.PureComponent {
 Sizer.propTypes = {
   onSizeChange: PropTypes.func.isRequired,
   containerComponent: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  style: PropTypes.object,
 };
 
 Sizer.defaultProps = {
   containerComponent: 'div',
-  style: null,
 };

@@ -1,4 +1,5 @@
 export * from './scheduler';
+export * from './plugins/day-view';
 export * from './plugins/week-view';
 export * from './plugins/month-view';
 export * from './plugins/toolbar';
@@ -7,4 +8,6 @@ export * from './plugins/view-switcher';
 export * from './plugins/appointments';
 export * from './plugins/all-day-panel';
 export * from './plugins/view-state';
+export * from './plugins/editing-state';
 export * from './plugins/appointment-tooltip';
+export * from './plugins/appointment-form';

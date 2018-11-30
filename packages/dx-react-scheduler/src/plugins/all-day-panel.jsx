@@ -8,14 +8,16 @@ import {
   TemplateConnector,
 } from '@devexpress/dx-react-core';
 import {
+  allDayCells,
   getAppointmentStyle,
   calculateRectByDateIntervals,
   calculateAllDayDateIntervals,
-  getAllDayRectByDates,
-  HORIZONTAL_APPOINTMENT_TYPE,
+  getHorizontalRectByDates,
+  HORIZONTAL_TYPE,
 } from '@devexpress/dx-scheduler-core';
 
 const pluginDependencies = [
+  { name: 'DayView', optional: true },
   { name: 'WeekView', optional: true },
 ];
 
@@ -23,9 +25,7 @@ const defaultMessages = {
   allDay: 'All Day',
 };
 
-const AppointmentPlaceholder = props => (
-  <TemplatePlaceholder name="appointment" params={props} />
-);
+const MONTH = 'Month';
 
 export class AllDayPanel extends React.PureComponent {
   constructor(props) {
@@ -35,6 +35,9 @@ export class AllDayPanel extends React.PureComponent {
       tableRef: null,
     };
     this.allDayPanelRef = this.allDayPanelRef.bind(this);
+
+    this.appointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
+    this.cellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
   }
 
   allDayPanelRef(ref) {
@@ -45,11 +48,11 @@ export class AllDayPanel extends React.PureComponent {
 
   render() {
     const {
-      containerComponent: Container,
+      appointmentLayerComponent: AppointmentLayer,
       layoutComponent: Layout,
       cellComponent: Cell,
       rowComponent: Row,
-      textComponent: Text,
+      titleCellComponent: TitleCell,
       messages,
     } = this.props;
     const { tableRef } = this.state;
@@ -60,57 +63,78 @@ export class AllDayPanel extends React.PureComponent {
         name="AllDayPanel"
         dependencies={pluginDependencies}
       >
-        <Template name="navbarEmpty">
-          <TemplatePlaceholder />
-          <Text getMessage={getMessage} />
+        <Template name="dayScaleEmptyCell">
+          <TemplateConnector>
+            {({ currentView }) => {
+              if (currentView === MONTH) return null;
+              return (
+                <TitleCell getMessage={getMessage} />
+              );
+            }}
+          </TemplateConnector>
         </Template>
 
         <Template name="navbar">
           <TemplatePlaceholder />
           <TemplateConnector>
             {({
-              dayScale, currentView, appointments, startViewDate, endViewDate, excludedDays,
+              currentView, appointments, startViewDate,
+              endViewDate, excludedDays, viewCellsData,
             }) => {
-              if (currentView === 'month') return null;
+              if (currentView.name === MONTH) return null;
               const intervals = calculateAllDayDateIntervals(
                 appointments, startViewDate, endViewDate, excludedDays,
               );
-              const rects = tableRef ? calculateRectByDateIntervals(
+              const rects = tableRef && tableRef.querySelectorAll('th').length === viewCellsData[0].length ? calculateRectByDateIntervals(
                 {
-                  growDirection: HORIZONTAL_APPOINTMENT_TYPE,
+                  growDirection: HORIZONTAL_TYPE,
                   multiline: false,
                 },
                 intervals,
-                getAllDayRectByDates,
+                getHorizontalRectByDates,
                 {
                   startViewDate,
                   endViewDate,
-                  dayScale,
                   excludedDays,
+                  viewCellsData,
                   cellElements: tableRef.querySelectorAll('th'),
                 },
               ) : [];
+              const { appointmentPlaceholder: AppointmentPlaceholder } = this;
               return (
                 <Layout
                   allDayPanelRef={this.allDayPanelRef}
-                  cellComponent={Cell}
+                  cellComponent={this.cellPlaceholder}
                   rowComponent={Row}
-                  dayScale={dayScale}
+                  cellsData={allDayCells(viewCellsData)}
                 >
-                  <Container>
+                  <AppointmentLayer>
                     {rects.map(({ dataItem, type, ...geometry }, index) => (
                       <AppointmentPlaceholder
                         style={getAppointmentStyle(geometry)}
                         type={type}
                         key={index.toString()}
-                        appointment={dataItem}
+                        data={dataItem}
                       />
                     ))}
-                  </Container>
+                  </AppointmentLayer>
                 </Layout>
               );
             }}
           </TemplateConnector>
+        </Template>
+
+        <Template name="cell">
+          {params => (
+            <TemplateConnector>
+              {({ currentView }) => {
+                if (currentView.name === MONTH) return <TemplatePlaceholder params={params} />;
+                return (
+                  <Cell {...params} />
+                );
+              }}
+            </TemplateConnector>
+          )}
         </Template>
       </Plugin>
     );
@@ -118,11 +142,11 @@ export class AllDayPanel extends React.PureComponent {
 }
 
 AllDayPanel.propTypes = {
-  containerComponent: PropTypes.func.isRequired,
+  appointmentLayerComponent: PropTypes.func.isRequired,
   layoutComponent: PropTypes.func.isRequired,
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
-  textComponent: PropTypes.func.isRequired,
+  titleCellComponent: PropTypes.func.isRequired,
   messages: PropTypes.shape({
     allDay: PropTypes.string,
   }),
@@ -133,9 +157,9 @@ AllDayPanel.defaultProps = {
 };
 
 AllDayPanel.components = {
-  containerComponent: 'Container',
+  appointmentLayerComponent: 'AppointmentLayer',
   layoutComponent: 'Layout',
   cellComponent: 'Cell',
   rowComponent: 'Row',
-  textComponent: 'Text',
+  titleCellComponent: 'TitleCell',
 };

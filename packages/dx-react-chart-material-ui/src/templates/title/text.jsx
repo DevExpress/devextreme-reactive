@@ -6,7 +6,7 @@ export class Text extends React.PureComponent {
   render() {
     const { text, ...restProps } = this.props;
     return (
-      <Typography component="h3" variant="headline" {...restProps}>
+      <Typography component="h3" variant="h5" {...restProps}>
         {text}
       </Typography>
     );

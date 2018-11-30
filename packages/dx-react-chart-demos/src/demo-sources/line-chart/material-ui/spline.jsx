@@ -7,11 +7,10 @@ import {
   LineSeries,
   Title,
   Legend,
-  Grid,
 } from '@devexpress/dx-react-chart-material-ui';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import { Scale } from '@devexpress/dx-react-chart';
+import { Scale, Animation } from '@devexpress/dx-react-chart';
 import {
   curveCatmullRom,
   line,
@@ -34,10 +33,10 @@ const Text = (props) => {
   const { text, subtext, ...restProps } = props;
   return (
     <div {...restProps}>
-      <Typography component="h3" variant="headline">
+      <Typography component="h3" variant="h5">
         {text}
       </Typography>
-      <Typography variant="subheading">{subtext}</Typography>
+      <Typography variant="subtitle1">{subtext}</Typography>
     </div>
   );
 };
@@ -82,7 +81,6 @@ const demoStyles = () => ({
     marginBottom: '10px',
   },
 });
-const EmptyComponent = () => null;
 
 class Demo extends React.PureComponent {
   constructor(props) {
@@ -104,8 +102,7 @@ class Demo extends React.PureComponent {
           className={classes.chart}
         >
           <ArgumentAxis />
-          <ValueAxis lineComponent={EmptyComponent} tickSize={0} />
-          <Grid />
+          <ValueAxis />
 
           <LineSeries
             name="Hydro-electric"
@@ -144,6 +141,7 @@ class Demo extends React.PureComponent {
             textComponent={Text}
             className={classes.title}
           />
+          <Animation />
           <Scale extensions={[{ type: 'band', constructor: scalePoint }]} />
         </Chart>
       </Paper>

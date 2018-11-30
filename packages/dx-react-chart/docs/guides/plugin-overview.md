@@ -4,10 +4,10 @@ The Chart component visualizes data specified via the `data` property using plug
 
 The React Chart supports the following plugin types:
 
-- **UI plugins**  
+- **UI plugins**
  Render UI elements using the provided data.
- 
-- **Data processing plugins**  
+
+- **Data processing plugins**
  Transform data passed to the Chart component.
 
 ## UI Plugins
@@ -23,11 +23,18 @@ The following plugins render series:
 
 The following plugins render additional elements:
 
-- `ArgumentAxis` - renders an argument axis
-- `ValueAxis` - renders a value axis
-- `Grid` - renders a grid
+- `ArgumentAxis` - renders an argument axis and the grid
+- `ValueAxis` - renders a value axis and the grid
 - `Legend` - renders a legend
 - `Title` - renders a title
+- `Tooltip` - renders a tooltip
+
+The following plugins implement additional features:
+
+- `Animation` - animates all chart series when they first appear on-screen
+- `EventTracker` - allows you to handle a click on a point or series
+- `HoverState` - implements the *hovered* state for points and series
+- `SelectionState` -  implements the *selected* state for points and series
 
 ## Data Processing Plugins
 
@@ -44,5 +51,5 @@ Note that the data processing plugin `Scale` should be defined after series and 
 
 The Chart's plugins use special components to render the UI. You can implement your component suite or use a predefined suite:
 
-- [DevExtreme React Chart for Material UI](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-chart-material-ui) - renders the Chart's UI elements based on [Material UI](http://www.material-ui.com) components.
+- [DevExtreme React Chart for Material-UI](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-chart-material-ui) - renders the Chart's UI elements based on [Material-UI](https://material-ui.com/) components.
 - [DevExtreme React Chart for Bootstrap 4](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-chart-bootstrap4) - renders the Chart's UI elements based on [Bootstrap 4](http://getbootstrap.com/) components.

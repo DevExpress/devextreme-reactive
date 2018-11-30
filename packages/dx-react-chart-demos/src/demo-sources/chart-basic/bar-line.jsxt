@@ -5,7 +5,6 @@ import {
   LineSeries,
   ArgumentAxis,
   ValueAxis,
-  Grid,
   Title,
   Legend,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
@@ -26,7 +25,6 @@ const Label = symbol => (props) => {
 
 const PriceLabel = Label(' $');
 const LabelWithThousand = Label(' k');
-const EmptyComponent = () => null;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -46,13 +44,11 @@ export default class Demo extends React.PureComponent {
           data={chartData}
         >
 
-          <ArgumentAxis name="argument" />
+          <ArgumentAxis />
           <ValueAxis
             name="oil"
             max={2200}
             labelComponent={LabelWithThousand}
-            lineComponent={EmptyComponent}
-            tickSize={0}
           />
           <ValueAxis
             name="price"
@@ -60,11 +56,7 @@ export default class Demo extends React.PureComponent {
             min={0}
             max={110}
             labelComponent={PriceLabel}
-            lineComponent={EmptyComponent}
-            tickSize={0}
           />
-
-          <Grid name="oil" />
 
           <Title
             text="Oil production vs Oil price"
@@ -75,47 +67,45 @@ export default class Demo extends React.PureComponent {
             name="USA"
             valueField="usa"
             argumentField="year"
-            axisName="oil"
-            stack="oil"
+            scaleName="oil"
           />
           <BarSeries
             name="Saudi Arabia"
             valueField="saudiArabia"
             argumentField="year"
-            axisName="oil"
-            stack="oil"
+            scaleName="oil"
           />
           <BarSeries
             name="Iran"
             valueField="iran"
             argumentField="year"
-            axisName="oil"
-            stack="oil"
+            scaleName="oil"
           />
           <BarSeries
             name="Mexico"
             valueField="mexico"
             argumentField="year"
-            axisName="oil"
-            stack="oil"
+            scaleName="oil"
           />
           <BarSeries
             name="Russia"
             valueField="russia"
             argumentField="year"
-            axisName="oil"
-            stack="oil"
+            scaleName="oil"
           />
           <LineSeries
             name="Oil Price"
             valueField="price"
             argumentField="year"
-            axisName="price"
-            stack={null}
+            scaleName="price"
           />
-          <Legend />
-          <Stack />
+          <Stack
+            stacks={[
+              { series: ['USA', 'Saudi Arabia', 'Iran', 'Mexico', 'Russia'] },
+            ]}
+          />
           <Scale />
+          <Legend />
         </Chart>
       </<%&wrapperTag%>>
     );

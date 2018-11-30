@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 import { FilterSelector } from './filter-selector';
 
 const defaultProps = {
+  toggleButtonComponent: () => null,
   iconComponent: () => null,
   getMessage: key => key,
 };
@@ -23,7 +24,7 @@ describe('FilterSelector', () => {
       />
     ));
 
-    expect(tree.find('button').prop('disabled'))
+    expect(tree.find(defaultProps.toggleButtonComponent).prop('disabled'))
       .toBeTruthy();
   });
 
@@ -36,7 +37,33 @@ describe('FilterSelector', () => {
       />
     ));
 
-    expect(tree.find('button').prop('disabled'))
+    expect(tree.find(defaultProps.toggleButtonComponent).prop('disabled'))
       .toBeTruthy();
+  });
+
+  it('should pass className to the root element', () => {
+    const tree = shallow((
+      <FilterSelector
+        {...defaultProps}
+        availableValues={['one']}
+        className="custom"
+      />
+    ));
+
+    expect(tree.is('.custom.input-group-prepend')).toBeTruthy();
+  });
+
+  it('should pass rest props to the root element', () => {
+    const tree = shallow((
+      <FilterSelector
+        {...defaultProps}
+        availableValues={['one']}
+        style={{ backgroundColor: 'red' }}
+      />
+    ));
+
+    expect(tree.props().style).toMatchObject({
+      backgroundColor: 'red',
+    });
   });
 });

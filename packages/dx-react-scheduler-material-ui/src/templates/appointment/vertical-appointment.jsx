@@ -2,9 +2,9 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import moment from 'moment';
 import { withStyles } from '@material-ui/core/styles';
-import { Appointment } from './appointment';
+import classNames from 'classnames';
 
-const styles = {
+const styles = ({ palette, spacing }) => ({
   title: {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -20,55 +20,52 @@ const styles = {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
-};
+  content: {
+    color: palette.background.default,
+    padding: spacing.unit / 2,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+  },
+});
 
 const VerticalAppointmentBase = ({
   classes,
-  getTitle,
-  getStartDate, getEndDate,
-  appointment,
+  data,
   children,
+  className,
   ...restProps
 }) => (
-  <Appointment
-    appointment={appointment}
-    {...restProps}
-  >
-    {children || (
-    <React.Fragment>
+  children || (
+    <div className={classNames(classes.content, className)} {...restProps}>
       <div className={classes.title}>
-        {getTitle(appointment)}
+        {data.title}
       </div>
       <div className={classes.textContainer}>
         <div className={classes.time}>
-          {moment(getStartDate(appointment)).format('h:mm A')}
+          {moment(data.startDate).format('h:mm A')}
         </div>
         <div className={classes.time}>
           {' - '}
         </div>
         <div className={classes.time}>
-          {moment(getEndDate(appointment)).format('h:mm A')}
+          {moment(data.endDate).format('h:mm A')}
         </div>
       </div>
-    </React.Fragment>
-    )}
-  </Appointment>
+    </div>
+  )
 );
 
 VerticalAppointmentBase.propTypes = {
   classes: PropTypes.object.isRequired,
-  appointment: PropTypes.object.isRequired,
-  getTitle: PropTypes.func,
-  getStartDate: PropTypes.func,
-  getEndDate: PropTypes.func,
+  data: PropTypes.object.isRequired,
   children: PropTypes.node,
+  className: PropTypes.string,
 };
 
 VerticalAppointmentBase.defaultProps = {
   children: undefined,
-  getStartDate: () => { },
-  getEndDate: () => { },
-  getTitle: () => { },
+  className: undefined,
 };
 
 export const VerticalAppointment = withStyles(styles, { name: 'VerticalAppointment' })(VerticalAppointmentBase);

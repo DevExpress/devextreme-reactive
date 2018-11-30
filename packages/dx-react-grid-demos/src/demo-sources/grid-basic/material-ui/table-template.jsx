@@ -5,6 +5,7 @@ import {
   Table,
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-material-ui';
+import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
 import {
   generateRows,
@@ -14,7 +15,7 @@ import {
 const styles = theme => ({
   tableStriped: {
     '& tbody tr:nth-of-type(odd)': {
-      backgroundColor: theme.palette.primary[50],
+      backgroundColor: fade(theme.palette.primary.main, 0.15),
     },
   },
 });

@@ -1,0 +1,22 @@
+import * as React from 'react';
+import { mount } from 'enzyme';
+import { setupConsole } from '@devexpress/dx-testing';
+import Demo from './<%&demoName%>';
+
+setupConsole();
+
+(Element.prototype as any).getBBox = () => { /**/ };
+jest.spyOn((Element.prototype as any), 'getBBox').mockImplementation(() => ({
+  height: 600,
+  width: 800,
+  x: 0,
+  y: 0,
+}));
+
+window.fetch = jest.fn().mockImplementation(() => new Promise(() => { /**/ }));
+(window as any).__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
+
+ it('should not fail', () => {
+  expect(() => { mount(<Demo />); })
+    .not.toThrow();
+});

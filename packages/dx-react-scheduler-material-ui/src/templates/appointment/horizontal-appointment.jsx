@@ -1,51 +1,49 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { Appointment } from './appointment';
+import classNames from 'classnames';
 
-const styles = {
+const styles = ({ palette, spacing }) => ({
   title: {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
   },
-};
+  content: {
+    color: palette.background.default,
+    padding: spacing.unit / 2,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+  },
+});
 
 const HorizontalAppointmentBase = ({
   classes,
-  getTitle,
-  getStartDate,
-  getEndDate,
-  appointment,
+  data,
   children,
+  className,
   ...restProps
 }) => (
-  <Appointment
-    appointment={appointment}
-    {...restProps}
-  >
+  <div className={classNames(classes.content, className)} {...restProps}>
     {children || (
       <div className={classes.title}>
-        {getTitle(appointment)}
+        {data.title}
       </div>
     )}
-  </Appointment>
+  </div>
 );
 
 HorizontalAppointmentBase.propTypes = {
   classes: PropTypes.object.isRequired,
-  appointment: PropTypes.object.isRequired,
+  data: PropTypes.object.isRequired,
   children: PropTypes.node,
-  getTitle: PropTypes.func,
-  getStartDate: PropTypes.func,
-  getEndDate: PropTypes.func,
+  className: PropTypes.string,
 };
 
 HorizontalAppointmentBase.defaultProps = {
   children: undefined,
-  getStartDate: () => {},
-  getEndDate: () => {},
-  getTitle: () => {},
+  className: undefined,
 };
 
 export const HorizontalAppointment = withStyles(styles, { name: 'HorizontalAppointment' })(HorizontalAppointmentBase);

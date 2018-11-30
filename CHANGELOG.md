@@ -1,3 +1,73 @@
+<a name="1.9.0"></a>
+# [1.9.0](https://github.com/DevExpress/devextreme-reactive/compare/v1.8.0...v1.9.0) (2018-11-07)
+
+
+### Bug Fixes
+
+* **react-chart:** fix indent from axis for label w/o tick and line components ([#1528](https://github.com/DevExpress/devextreme-reactive/issues/1528)) ([e8b2ccb](https://github.com/DevExpress/devextreme-reactive/commit/e8b2ccb))
+* **react-chart:** fix stacks processing ([#1535](https://github.com/DevExpress/devextreme-reactive/issues/1535)) ([9660d5f](https://github.com/DevExpress/devextreme-reactive/commit/9660d5f))
+* **react-grid:** correct order of fixed right columns ([#1533](https://github.com/DevExpress/devextreme-reactive/issues/1533)) ([00ccebd](https://github.com/DevExpress/devextreme-reactive/commit/00ccebd))
+* **react-grid:** pass undefined as empty value to filter editorComponent ([#1522](https://github.com/DevExpress/devextreme-reactive/issues/1522)) ([e69813f](https://github.com/DevExpress/devextreme-reactive/commit/e69813f))
+* **react-grid:** use a column filter operation as a filter selector value ([#1479](https://github.com/DevExpress/devextreme-reactive/issues/1479)) ([70e26fa](https://github.com/DevExpress/devextreme-reactive/commit/70e26fa)), closes [#1474](https://github.com/DevExpress/devextreme-reactive/issues/1474)
+* **react-grid-bootstrap3/4:** prevent sorting for disabled columns ([#1490](https://github.com/DevExpress/devextreme-reactive/issues/1490)) ([086242d](https://github.com/DevExpress/devextreme-reactive/commit/086242d))
+* **react-grid-bootstrap4:** fix position of dragged column header ([#1513](https://github.com/DevExpress/devextreme-reactive/issues/1513)) ([8e0893c](https://github.com/DevExpress/devextreme-reactive/commit/8e0893c))
+* **react-grid-bootstrap4:** prevent filter popup cut off on fixed columns ([#1576](https://github.com/DevExpress/devextreme-reactive/issues/1576)) ([979476e](https://github.com/DevExpress/devextreme-reactive/commit/979476e))
+
+
+### Features
+
+* **react-scheduler:** add the React Scheduler component
+* **react-chart:** add animation plugin ([#1469](https://github.com/DevExpress/devextreme-reactive/issues/1469)) ([3c41352](https://github.com/DevExpress/devextreme-reactive/commit/3c41352))
+* update dependencies ([#1542](https://github.com/DevExpress/devextreme-reactive/issues/1542)) ([f32f1b2](https://github.com/DevExpress/devextreme-reactive/commit/f32f1b2))
+
+
+### Code Refactoring
+
+* **react-chart:** remove "groupWidth" property from BarSeries ([0a15e87](https://github.com/DevExpress/devextreme-reactive/commit/0a15e87))
+
+### BREAKING CHANGES
+
+* **react-chart:** The `groupWidth` property configures a band scale for arguments - it is not a property of a particular bar series.
+To configure a band scale, use the `Scale` plugin as follows:
+
+```javascript
+<Scale extensions={[{ type: 'band', constructor: d3.scaleBand().paddingOuter(0.1).paddingInner(0.2) }]} />
+```
+
+
+
+<a name="1.8.0"></a>
+# [1.8.0](https://github.com/DevExpress/devextreme-reactive/compare/v1.8.0-beta.1...v1.8.0) (2018-10-04)
+
+
+### Bug Fixes
+
+* **grid:** add missed props to documentation ([#1414](https://github.com/DevExpress/devextreme-reactive/issues/1414)) ([e7fe289](https://github.com/DevExpress/devextreme-reactive/commit/e7fe289)), closes [#1412](https://github.com/DevExpress/devextreme-reactive/issues/1412)
+* **grid:** fix nullable values sorting ([#1432](https://github.com/DevExpress/devextreme-reactive/issues/1432)) ([f75deb1](https://github.com/DevExpress/devextreme-reactive/commit/f75deb1)), closes [#1428](https://github.com/DevExpress/devextreme-reactive/issues/1428)
+* **react:** handle event changes correctly ([#1405](https://github.com/DevExpress/devextreme-reactive/issues/1405)) ([61732a1](https://github.com/DevExpress/devextreme-reactive/commit/61732a1))
+* **react-chart:** fix crash in production caused by PropTypes reference ([fd386f5](https://github.com/DevExpress/devextreme-reactive/commit/fd386f5))
+* **react-chart:** bind default domain names for argument and value axes ([#1435](https://github.com/DevExpress/devextreme-reactive/issues/1435)) ([0a5fdf1](https://github.com/DevExpress/devextreme-reactive/commit/0a5fdf1))
+* **react-grid:** add lost border to bands ([#1440](https://github.com/DevExpress/devextreme-reactive/issues/1440)) ([f051c69](https://github.com/DevExpress/devextreme-reactive/commit/f051c69))
+* **react-grid:** fix virtual scrolling in desktop Safari ([#1397](https://github.com/DevExpress/devextreme-reactive/issues/1397)) ([d353edf](https://github.com/DevExpress/devextreme-reactive/commit/d353edf))
+* **react-grid-material-ui:** update MUI ([#1430](https://github.com/DevExpress/devextreme-reactive/issues/1430)) ([c6ef66c](https://github.com/DevExpress/devextreme-reactive/commit/c6ef66c)), closes [#1413](https://github.com/DevExpress/devextreme-reactive/issues/1413)
+
+
+### Features
+
+* **react-chart:** add legend for pie chart ([#1393](https://github.com/DevExpress/devextreme-reactive/issues/1393)) ([088767c](https://github.com/DevExpress/devextreme-reactive/commit/088767c))
+* **react-chart:** add palette plugin ([#1408](https://github.com/DevExpress/devextreme-reactive/issues/1408)) ([a025bb0](https://github.com/DevExpress/devextreme-reactive/commit/a025bb0))
+* **react-grid:** extract ToggleButton component in TableFilterRow ([#1403](https://github.com/DevExpress/devextreme-reactive/issues/1403)) ([687fe3b](https://github.com/DevExpress/devextreme-reactive/commit/687fe3b))
+
+
+### BREAKING CHANGES
+
+* **react-chart:** Previously, there was a single `Grid` plugin. Now there are `ArgumentGrid` and `ValueGrid` plugins.
+`ArgumentGrid` is bound to an argument domain.
+`ValueGrid` is bound to a value domain specified by the name property or to a default domain.
+
+* **react-chart:** Previously, the Chart component configured scales internally. Starting with this release, we extracted the scale customization logic to a separate plugin to enable a user to customize a scale. Now, you need to manually add the `Scale` plugin to the Chart component to draw a chart.
+
+
 <a name="1.8.0-beta.1"></a>
 # [1.8.0-beta.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.7.2...v1.8.0-beta.1) (2018-09-07)
 
@@ -952,7 +1022,7 @@ To provide a more convenient and flexible way to render elements that are placed
   </Grid>
   ```
   The related [guide](https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/immutable-data/) is updated as well.
-* **react-grid-material-ui:** To make Grid for Material UI more flexible we've stopped using the [Paper](https://material-ui-1dab0.firebaseapp.com/demos/paper/) component inside the Grid's layout.
+* **react-grid-material-ui:** To make Grid for Material-UI more flexible we've stopped using the [Paper](https://material-ui.com/demos/paper/) component inside the Grid's layout.
  
 It allows placing our Grid to an existing Paper with other components. For example:
 
@@ -1467,7 +1537,7 @@ The `column` field is no longer present in the GroupRow interface. So, to access
 
 ### Reverts
 
-* fix(react-grid): grid bottom offset in Material UI ([#196](https://github.com/DevExpress/devextreme-reactive/issues/196)) ([e2392ed](https://github.com/DevExpress/devextreme-reactive/commit/e2392ed))
+* fix(react-grid): grid bottom offset in Material-UI ([#196](https://github.com/DevExpress/devextreme-reactive/issues/196)) ([e2392ed](https://github.com/DevExpress/devextreme-reactive/commit/e2392ed))
 
 
 ### BREAKING CHANGES
@@ -1483,8 +1553,8 @@ The `column` field is no longer present in the GroupRow interface. So, to access
 
 ### Bug Fixes
 
-* **react-grid:** add grid bottom offset in Material UI ([#180](https://github.com/DevExpress/devextreme-reactive/issues/180)) ([48f12a2](https://github.com/DevExpress/devextreme-reactive/commit/48f12a2))
-* **react-grid:** add group icon offset in Material UI ([#171](https://github.com/DevExpress/devextreme-reactive/issues/171)) ([43d9da1](https://github.com/DevExpress/devextreme-reactive/commit/43d9da1))
+* **react-grid:** add grid bottom offset in Material-UI ([#180](https://github.com/DevExpress/devextreme-reactive/issues/180)) ([48f12a2](https://github.com/DevExpress/devextreme-reactive/commit/48f12a2))
+* **react-grid:** add group icon offset in Material-UI ([#171](https://github.com/DevExpress/devextreme-reactive/issues/171)) ([43d9da1](https://github.com/DevExpress/devextreme-reactive/commit/43d9da1))
 * **react-grid:** limit filterCellTemplate arguments ([#163](https://github.com/DevExpress/devextreme-reactive/issues/163)) ([2a4f003](https://github.com/DevExpress/devextreme-reactive/commit/2a4f003))
 * **react-grid:** reset a column filter when clearing the filter editor value ([#184](https://github.com/DevExpress/devextreme-reactive/issues/184)) ([83b321c](https://github.com/DevExpress/devextreme-reactive/commit/83b321c)), closes [#136](https://github.com/DevExpress/devextreme-reactive/issues/136)
 * **react-grid:** use MUI Chips for group panel items rendering ([#168](https://github.com/DevExpress/devextreme-reactive/issues/168)) ([45ceb12](https://github.com/DevExpress/devextreme-reactive/commit/45ceb12))
@@ -1498,7 +1568,7 @@ The `column` field is no longer present in the GroupRow interface. So, to access
 ### Features
 
 * **react-grid:** introduce column reordering animation ([#169](https://github.com/DevExpress/devextreme-reactive/issues/169)) ([d5e808b](https://github.com/DevExpress/devextreme-reactive/commit/d5e808b))
-* **react-grid:** introduce Material UI templates (closes [#93](https://github.com/DevExpress/devextreme-reactive/issues/93))
+* **react-grid:** introduce Material-UI templates (closes [#93](https://github.com/DevExpress/devextreme-reactive/issues/93))
 
 
 ### BREAKING CHANGES
@@ -1514,7 +1584,7 @@ The `column` field is no longer present in the GroupRow interface. So, to access
 ### Bug Fixes
 
 * **react-grid:** Add a vertical space between grouping buttons ([#151](https://github.com/DevExpress/devextreme-reactive/issues/151)) ([ec1bd30](https://github.com/DevExpress/devextreme-reactive/commit/ec1bd30))
-* **react-grid:** Add an offset for left column in Material UI ([#156](https://github.com/DevExpress/devextreme-reactive/issues/156)) ([67d0eda](https://github.com/DevExpress/devextreme-reactive/commit/67d0eda))
+* **react-grid:** Add an offset for left column in Material-UI ([#156](https://github.com/DevExpress/devextreme-reactive/issues/156)) ([67d0eda](https://github.com/DevExpress/devextreme-reactive/commit/67d0eda))
 * **react-grid:** Fix incorrect table layout if all columns have fixed width ([#160](https://github.com/DevExpress/devextreme-reactive/issues/160)) ([b933aea](https://github.com/DevExpress/devextreme-reactive/commit/b933aea))
 * **react-grid:** Put the dx-react-grid dependencies in order ([#148](https://github.com/DevExpress/devextreme-reactive/issues/148)) ([fe60801](https://github.com/DevExpress/devextreme-reactive/commit/fe60801))
 * **react-grid:** Update deps (fixes [#134](https://github.com/DevExpress/devextreme-reactive/issues/134)) ([#139](https://github.com/DevExpress/devextreme-reactive/issues/139)) ([5bf504a](https://github.com/DevExpress/devextreme-reactive/commit/5bf504a))
@@ -1554,7 +1624,7 @@ The `column` field is no longer present in the GroupRow interface. So, to access
 
 ### Bug Fixes
 
-* **react-grid:** Cancel sorting by using the Ctrl key in Material UI ([#129](https://github.com/DevExpress/devextreme-reactive/issues/129)) ([2508537](https://github.com/DevExpress/devextreme-reactive/commit/2508537))
+* **react-grid:** Cancel sorting by using the Ctrl key in Material-UI ([#129](https://github.com/DevExpress/devextreme-reactive/issues/129)) ([2508537](https://github.com/DevExpress/devextreme-reactive/commit/2508537))
 * **react-grid:** Treat templates as functions ([#120](https://github.com/DevExpress/devextreme-reactive/issues/120)) ([4b2c490](https://github.com/DevExpress/devextreme-reactive/commit/4b2c490))
 
 
@@ -1565,18 +1635,18 @@ The `column` field is no longer present in the GroupRow interface. So, to access
 
 ### Features
 
-* **react-grid:** Controlled state featured demo for Material UI ([#130](https://github.com/DevExpress/devextreme-reactive/issues/130)) ([2528c67](https://github.com/DevExpress/devextreme-reactive/commit/2528c67))
+* **react-grid:** Controlled state featured demo for Material-UI ([#130](https://github.com/DevExpress/devextreme-reactive/issues/130)) ([2528c67](https://github.com/DevExpress/devextreme-reactive/commit/2528c67))
 * **react-grid:** Implement ColumnOrderState plugin ([#111](https://github.com/DevExpress/devextreme-reactive/issues/111)) ([b3284f0](https://github.com/DevExpress/devextreme-reactive/commit/b3284f0))
 * **react-grid:** Implement DragDropContext plugin ([#117](https://github.com/DevExpress/devextreme-reactive/issues/117)) ([31f6b2d](https://github.com/DevExpress/devextreme-reactive/commit/31f6b2d))
-* **react-grid:** Introduce Material UI templates ([#102](https://github.com/DevExpress/devextreme-reactive/issues/102)) ([70975a7](https://github.com/DevExpress/devextreme-reactive/commit/70975a7))
-* **react-grid:** Material UI detail row ([#115](https://github.com/DevExpress/devextreme-reactive/issues/115)) ([c161c66](https://github.com/DevExpress/devextreme-reactive/commit/c161c66))
-* **react-grid:** Material UI editing ([#124](https://github.com/DevExpress/devextreme-reactive/issues/124)) ([3d9a00b](https://github.com/DevExpress/devextreme-reactive/commit/3d9a00b))
-* **react-grid:** Material UI featured uncontrolled state demo ([#126](https://github.com/DevExpress/devextreme-reactive/issues/126)) ([8e1d80b](https://github.com/DevExpress/devextreme-reactive/commit/8e1d80b))
-* **react-grid:** Material UI filtering ([#109](https://github.com/DevExpress/devextreme-reactive/issues/109)) ([5484942](https://github.com/DevExpress/devextreme-reactive/commit/5484942))
-* **react-grid:** Material UI pager ([#108](https://github.com/DevExpress/devextreme-reactive/issues/108)) ([99f30b6](https://github.com/DevExpress/devextreme-reactive/commit/99f30b6))
+* **react-grid:** Introduce Material-UI templates ([#102](https://github.com/DevExpress/devextreme-reactive/issues/102)) ([70975a7](https://github.com/DevExpress/devextreme-reactive/commit/70975a7))
+* **react-grid:** Material-UI detail row ([#115](https://github.com/DevExpress/devextreme-reactive/issues/115)) ([c161c66](https://github.com/DevExpress/devextreme-reactive/commit/c161c66))
+* **react-grid:** Material-UI editing ([#124](https://github.com/DevExpress/devextreme-reactive/issues/124)) ([3d9a00b](https://github.com/DevExpress/devextreme-reactive/commit/3d9a00b))
+* **react-grid:** Material-UI featured uncontrolled state demo ([#126](https://github.com/DevExpress/devextreme-reactive/issues/126)) ([8e1d80b](https://github.com/DevExpress/devextreme-reactive/commit/8e1d80b))
+* **react-grid:** Material-UI filtering ([#109](https://github.com/DevExpress/devextreme-reactive/issues/109)) ([5484942](https://github.com/DevExpress/devextreme-reactive/commit/5484942))
+* **react-grid:** Material-UI pager ([#108](https://github.com/DevExpress/devextreme-reactive/issues/108)) ([99f30b6](https://github.com/DevExpress/devextreme-reactive/commit/99f30b6))
 * **react-grid:** Mobile-friendly pager ([#125](https://github.com/DevExpress/devextreme-reactive/issues/125)) ([23ec7f0](https://github.com/DevExpress/devextreme-reactive/commit/23ec7f0))
-* **react-grid:** Redux integration demo for Material UI ([#132](https://github.com/DevExpress/devextreme-reactive/issues/132)) ([9988355](https://github.com/DevExpress/devextreme-reactive/commit/9988355))
-* **react-grid:** Remote data featured demo for Material UI ([#131](https://github.com/DevExpress/devextreme-reactive/issues/131)) ([41b64b2](https://github.com/DevExpress/devextreme-reactive/commit/41b64b2))
+* **react-grid:** Redux integration demo for Material-UI ([#132](https://github.com/DevExpress/devextreme-reactive/issues/132)) ([9988355](https://github.com/DevExpress/devextreme-reactive/commit/9988355))
+* **react-grid:** Remote data featured demo for Material-UI ([#131](https://github.com/DevExpress/devextreme-reactive/issues/131)) ([41b64b2](https://github.com/DevExpress/devextreme-reactive/commit/41b64b2))
 * **react-grid:** Use column name if its title is not specified ([#121](https://github.com/DevExpress/devextreme-reactive/issues/121)) ([daef7db](https://github.com/DevExpress/devextreme-reactive/commit/daef7db))
 
 

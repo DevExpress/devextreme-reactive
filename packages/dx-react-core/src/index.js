@@ -1,5 +1,5 @@
-export { PluginHost } from './plugin-based/plugin-host';
 export { Plugin } from './plugin-based/plugin';
+export { PluginHost } from './plugin-based/plugin-host';
 export { Action } from './plugin-based/action';
 export { Getter } from './plugin-based/getter';
 export { Template } from './plugin-based/template';
@@ -15,7 +15,7 @@ export { DropTarget } from './drag-drop/target';
 export { Sizer } from './sizer';
 export { RefHolder } from './ref-holder';
 
-export { createRenderComponent } from './render-component';
+export { connectProps } from './utils/connect-props';
 
 export { createStateHelper } from './utils/state-helper';
 export { withComponents } from './utils/with-components';

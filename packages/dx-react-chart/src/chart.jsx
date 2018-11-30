@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { PluginHost } from '@devexpress/dx-react-core';
+import { PluginHost, withComponents } from '@devexpress/dx-react-core';
 import {
   TOP, BOTTOM, LEFT, RIGHT,
 } from '@devexpress/dx-chart-core';
@@ -12,8 +12,9 @@ import { SpaceFillingRects } from './plugins/space-filling-rects';
 import { PaneLayout } from './plugins/pane-layout';
 import { LayoutManager } from './plugins/layout-manager';
 import { ComponentLayout } from './plugins/component-layout';
+import { Palette } from './plugins/palette';
 import { Root } from './templates/layout';
-import { withComponents } from './utils';
+import { Label } from './templates/label';
 
 class RawChart extends React.PureComponent {
   render() {
@@ -28,8 +29,7 @@ class RawChart extends React.PureComponent {
     return ((
       <PluginHost>
         <BasicData data={data} />
-        {children}
-        <ChartCore />
+        <Palette scheme={[]} />
         <LayoutManager
           width={width}
           height={height}
@@ -50,6 +50,9 @@ class RawChart extends React.PureComponent {
           `${BOTTOM}-${RIGHT}-axis`,
         ]}
         />
+        {children}
+        <ChartCore />
+
       </PluginHost>
     ));
   }
@@ -73,3 +76,4 @@ RawChart.components = {
 };
 
 export const Chart = withComponents({ Root })(RawChart);
+Chart.Label = Label;

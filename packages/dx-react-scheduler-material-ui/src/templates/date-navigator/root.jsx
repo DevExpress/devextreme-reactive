@@ -3,40 +3,41 @@ import * as PropTypes from 'prop-types';
 
 export const Root = ({
   navigationButtonComponent: NavigationButton,
-  toggleButtonComponent: ToggleButton,
-  navigatorTitle,
-  targetRef,
-  onToggle,
+  openButtonComponent: OpenButton,
+  navigatorText,
+  rootRef,
+  onVisibilityToggle,
   onNavigate,
   ...restProps
 }) => (
   <div
-    ref={targetRef}
+    ref={rootRef}
     {...restProps}
   >
     <NavigationButton
-      back
+      type="back"
       onClick={() => { onNavigate({ back: true }); }}
     />
-    <ToggleButton
-      onToggle={onToggle}
-      title={navigatorTitle}
+    <OpenButton
+      onVisibilityToggle={onVisibilityToggle}
+      text={navigatorText}
     />
     <NavigationButton
+      type="forward"
       onClick={() => { onNavigate({ back: false }); }}
     />
   </div>
 );
 
 Root.propTypes = {
-  onToggle: PropTypes.func.isRequired,
+  onVisibilityToggle: PropTypes.func.isRequired,
   onNavigate: PropTypes.func.isRequired,
-  targetRef: PropTypes.func.isRequired,
+  rootRef: PropTypes.func.isRequired,
   navigationButtonComponent: PropTypes.func.isRequired,
-  toggleButtonComponent: PropTypes.func.isRequired,
-  navigatorTitle: PropTypes.string,
+  openButtonComponent: PropTypes.func.isRequired,
+  navigatorText: PropTypes.string,
 };
 
 Root.defaultProps = {
-  navigatorTitle: '',
+  navigatorText: '',
 };

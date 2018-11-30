@@ -3,22 +3,37 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 export const TableSummaryItem = ({
-  children, className, ...restProps
+  children,
+  type,
+  value,
+  getMessage,
+  className,
+  ...restProps
 }) => (
   <div
     className={classNames('dx-g-bs4-table-summary-item', className)}
     {...restProps}
   >
-    {children}
+    {
+      <React.Fragment>
+        {getMessage(type)}
+        :&nbsp;&nbsp;
+        {children}
+      </React.Fragment>
+    }
   </div>
 );
 
 TableSummaryItem.propTypes = {
+  value: PropTypes.number,
+  type: PropTypes.string.isRequired,
+  getMessage: PropTypes.func.isRequired,
   className: PropTypes.string,
   children: PropTypes.node,
 };
 
 TableSummaryItem.defaultProps = {
+  value: null,
   className: undefined,
   children: undefined,
 };

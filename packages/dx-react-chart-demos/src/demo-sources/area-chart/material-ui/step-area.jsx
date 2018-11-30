@@ -7,10 +7,9 @@ import {
   AreaSeries,
   Title,
   Legend,
-  Grid,
 } from '@devexpress/dx-react-chart-material-ui';
 import { withStyles } from '@material-ui/core/styles';
-import { Scale } from '@devexpress/dx-react-chart';
+import { Scale, Animation } from '@devexpress/dx-react-chart';
 import { area, curveStep } from 'd3-shape';
 
 import { australianMedals as data } from '../../../demo-data/data-vizualization';
@@ -72,7 +71,6 @@ const Marker = (props) => {
     <span role="img" aria-label="Gold Medal">🏅</span>
   );
 };
-const EmptyComponent = () => null;
 class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -91,10 +89,8 @@ class Demo extends React.PureComponent {
         <Chart
           data={chartData}
         >
-          <ArgumentAxis name="argumentAxis" tickFormat={format} />
-          <ValueAxis lineComponent={EmptyComponent} ticKSize={0} />
-
-          <Grid />
+          <ArgumentAxis tickFormat={format} />
+          <ValueAxis />
 
           <AreaSeries
             name="Bronze Medals"
@@ -117,6 +113,7 @@ class Demo extends React.PureComponent {
             color="#ffd700"
             seriesComponent={Area}
           />
+          <Animation />
           <Legend position="bottom" rootComponent={Root} labelComponent={Label} markerComponent={Marker} />
           <Title text="Australian Medal Count" className={classes.title} />
           <Scale />

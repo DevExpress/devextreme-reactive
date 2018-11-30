@@ -9,16 +9,15 @@ jest.mock('./table', () => ({
 
 describe('Calendar', () => {
   const defaultProps = {
-    titleComponent: () => null,
+    textComponent: () => null,
     navigationButtonComponent: () => null,
     rowComponent: () => null,
     cellComponent: () => null,
     headerRowComponent: () => null,
     headerCellComponent: () => null,
     navigatorComponent: () => null,
-    currentDate: '2018-07-16',
+    selectedDate: '2018-07-16',
     firstDayOfWeek: 1,
-    getHeaderCells: () => [],
     getCells: () => [],
   };
   describe('Root', () => {
@@ -53,13 +52,13 @@ describe('Calendar', () => {
 
       const {
         currentDate,
-        titleComponent,
+        textComponent,
         navigationButtonComponent,
       } = navigator.props();
 
       expect(navigator.exists()).toBeTruthy();
       expect(currentDate).toBe('2018-07-16');
-      expect(titleComponent).toBe(defaultProps.titleComponent);
+      expect(textComponent).toBe(defaultProps.textComponent);
       expect(navigationButtonComponent).toBe(defaultProps.navigationButtonComponent);
     });
     it('should navigate to the prev and next month', () => {
@@ -71,15 +70,18 @@ describe('Calendar', () => {
       onNavigate({ back: true });
       expect(tree.state().currentDate.toString())
         .toBe(new Date(2018, 5, 16).toString());
+      expect(tree.state().selectedDate.toString())
+        .toBe(defaultProps.selectedDate);
 
       onNavigate({ back: false });
       expect(tree.state().currentDate.toString())
         .toBe(new Date(2018, 6, 16).toString());
+      expect(tree.state().selectedDate.toString())
+        .toBe(defaultProps.selectedDate);
     });
     it('should render calendar table', () => {
       const tree = mount(<Root {...defaultProps} />);
       const {
-        headerCells,
         cells,
         rowComponent,
         cellComponent,
@@ -89,8 +91,6 @@ describe('Calendar', () => {
 
       expect(tree.find('.table').exists())
         .toBeTruthy();
-      expect(headerCells)
-        .toEqual(defaultProps.getHeaderCells());
       expect(cells)
         .toEqual(defaultProps.getCells());
       expect(rowComponent)
@@ -103,20 +103,21 @@ describe('Calendar', () => {
         .toBe(defaultProps.headerCellComponent);
     });
     it('should handle table cell click', () => {
-      const onNavigateMock = jest.fn();
+      const onSelectedDateChangeMock = jest.fn();
       const tree = mount((
         <Root
           {...defaultProps}
-          onNavigate={onNavigateMock}
+          onSelectedDateChange={onSelectedDateChangeMock}
         />
       ));
       const { onCellClick } = Table.mock.calls[0][0];
-
       onCellClick({ nextDate: '2018-07-17' });
 
-      expect(onNavigateMock)
+      expect(onSelectedDateChangeMock)
         .toBeCalledWith({ nextDate: '2018-07-17' });
       expect(tree.state().currentDate)
+        .toBe('2018-07-17');
+      expect(tree.state().selectedDate)
         .toBe('2018-07-17');
     });
   });

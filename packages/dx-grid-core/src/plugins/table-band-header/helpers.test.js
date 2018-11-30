@@ -4,6 +4,7 @@ import {
 import { TABLE_DATA_TYPE } from '../table/constants';
 import { TABLE_HEADING_TYPE } from '../table-header-row/constants';
 import {
+  isNoDataColumn,
   isBandedTableRow,
   isBandedOrHeaderRow,
   getColSpan,
@@ -46,6 +47,17 @@ describe('TableBandHeader Plugin helpers', () => {
     { key: 'c', column: { name: 'c' }, type: TABLE_DATA_TYPE },
     { key: 'e', column: { name: 'e' }, type: TABLE_DATA_TYPE },
   ];
+
+  describe('#isNoDataColumn', () => {
+    it('should work with not data column', () => {
+      expect(isNoDataColumn('editCommand'))
+        .toBeTruthy();
+    });
+    it('should work with data column', () => {
+      expect(isNoDataColumn(TABLE_DATA_TYPE))
+        .toBeFalsy();
+    });
+  });
 
   describe('#isBandedOrHeaderRow', () => {
     it('should work', () => {
@@ -372,7 +384,7 @@ describe('TableBandHeader Plugin helpers', () => {
         });
     });
 
-    fit('should return correct data when there are multiple fixed columns', () => {
+    it('should return correct data when there are multiple fixed columns', () => {
       expect(
         getBandComponent(
           {
@@ -396,6 +408,77 @@ describe('TableBandHeader Plugin helpers', () => {
             column: { title: 'Band A', level: 2 },
           },
         });
+    });
+
+    describe('with command button', () => {
+      const testTableHeaderRows = [
+        { type: 'commandColumn' },
+        { type: TABLE_BAND_TYPE, level: 0 },
+        { type: TABLE_HEADING_TYPE },
+        { type: TABLE_HEADING_TYPE },
+      ];
+      const testColumnBands = [
+        {
+          title: 'Band A',
+          children: [
+            { columnName: 'a' },
+            { columnName: 'b' },
+          ],
+        },
+      ];
+
+      it('should add beforeBorder if commandButton is before BandGroupCell', () => {
+        expect(
+          getBandComponent(
+            {
+              tableColumn: { ...tableColumns[0] },
+              tableRow: { level: 0 },
+            },
+            testTableHeaderRows,
+            [
+              { key: 'commandColumn', column: { name: 'commandColumn' }, type: 'commandColumn' },
+              { ...tableColumns[0] },
+              { ...tableColumns[1] },
+            ],
+            testColumnBands,
+          ),
+        )
+          .toEqual({
+            type: BAND_GROUP_CELL,
+            payload: {
+              colSpan: 2,
+              value: 'Band A',
+              column: { title: 'Band A', level: 1 },
+              beforeBorder: true,
+            },
+          });
+      });
+
+      it('should add beforeBorder if commandButton is before BandHeaderCell', () => {
+        expect(
+          getBandComponent(
+            {
+              tableColumn: { ...tableColumns[0] },
+              tableRow: { level: 1 },
+            },
+            testTableHeaderRows,
+            [
+              { key: 'commandColumn', column: { name: 'commandColumn' }, type: 'commandColumn' },
+              { ...tableColumns[0] },
+              { ...tableColumns[1] },
+            ],
+            testColumnBands,
+          ),
+        )
+          .toEqual({
+            type: BAND_HEADER_CELL,
+            payload: {
+              tableRow: { type: TABLE_HEADING_TYPE },
+              rowSpan: 1,
+              beforeBorder: true,
+            },
+          });
+      });
     });
   });
 });

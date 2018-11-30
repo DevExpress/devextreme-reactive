@@ -1,56 +1,52 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { findSeriesByName, barCoordinates } from '@devexpress/dx-chart-core';
+import { findSeriesByName } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { BarSeries } from './bar-series';
-import { BarCollection } from '../templates/series/bar-collection';
-
-const PointComponent = () => null;
-
-const coords = [{
-  x: 1, y: 3, y1: 6, id: 1,
-}, {
-  x: 2, y: 5, y1: 8, id: 2,
-}, {
-  x: 3, y: 7, y1: 11, id: 3,
-}];
 
 jest.mock('@devexpress/dx-chart-core', () => ({
-  findSeriesByName: jest.fn(),
-  xyScales: jest.fn(),
-  seriesData: jest.fn(),
-  barCoordinates: jest.fn(),
-  checkZeroStart: jest.fn(),
   dBar: jest.fn(),
+  findSeriesByName: jest.fn(),
+  addSeries: jest.fn(),
+  ARGUMENT_DOMAIN: 'test_argument_domain',
+  getValueDomainName: () => 'test_value_domain',
 }));
-
-const defaultProps = {
-  name: 'val1',
-  axisName: 'axisName',
-  valueField: 'valueField',
-  argumentField: 'argumentField',
-};
-
-findSeriesByName.mockImplementation(() => ({
-  ...defaultProps,
-  stack: 'stack',
-  barWidth: 0.3,
-  styles: 'styles',
-  groupWidth: 0.6,
-  uniqueName: 'uniqueSeriesName',
-  seriesComponent: BarCollection,
-  pointComponent: PointComponent,
-}));
-
-barCoordinates.mockImplementation(() => coords);
 
 describe('Bar series', () => {
+  const SeriesComponent = () => null;
+  const PointComponent = () => null;
+
+  const coords = [
+    {
+      x: 1, y: 3, y1: 6, index: 1,
+    },
+    {
+      x: 2, y: 5, y1: 8, index: 2,
+    },
+    {
+      x: 3, y: 7, y1: 11, index: 3,
+    },
+  ];
+
+  const defaultProps = {
+    valueField: 'valueField',
+    argumentField: 'argumentField',
+  };
+
+  findSeriesByName.mockReturnValue({
+    ...defaultProps,
+    index: 1,
+    points: coords,
+    seriesComponent: SeriesComponent,
+    pointComponent: PointComponent,
+    color: 'color',
+  });
+
   const defaultDeps = {
     getter: {
       layouts: { pane: {} },
-      domains: {},
-      colorDomain: jest.fn(),
+      scales: { test_argument_domain: 'arg-scale', test_value_domain: 'val-scale' },
     },
     template: {
       series: {},
@@ -68,15 +64,14 @@ describe('Bar series', () => {
       </PluginHost>
     ));
 
-    expect(tree.find(PointComponent)).toHaveLength(coords.length);
-
-    coords.forEach((coord, index) => {
-      const {
-        x, y, y1,
-      } = tree.find(PointComponent).get(index).props;
-      expect(x).toBe(coords[index].x);
-      expect(y).toBe(coords[index].y);
-      expect(y1).toBe(coords[index].y1);
+    expect(tree.find(SeriesComponent).props()).toEqual({
+      pointComponent: PointComponent,
+      index: 1,
+      color: 'color',
+      coordinates: coords,
+      path: undefined,
+      getAnimatedStyle: undefined,
+      scales: { xScale: 'arg-scale', yScale: 'val-scale' },
     });
   });
 });

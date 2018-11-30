@@ -1,7 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Chart as ChartBase, withComponents, Palette } from '@devexpress/dx-react-chart';
+import { withComponents } from '@devexpress/dx-react-core';
+import { Chart as ChartBase, Palette } from '@devexpress/dx-react-chart';
 import { Root } from './templates/layout';
+import { Label } from './templates/label';
 
 const palette = ['#0070ff', '#d72e3d', '#249d3d', '#ffb90c', '#1698af', '#616a72'];
 
@@ -21,3 +23,4 @@ ChartWithPalette.propTypes = {
 };
 
 export const Chart = withComponents({ Root })(ChartWithPalette);
+Chart.Label = Label;

@@ -14,7 +14,7 @@
 -->
 - [ ] React Grid
 - [ ] React Chart
-- [ ] Vue Grid
+- [ ] React Scheduler
 
 ### Current Behaviour
 
@@ -38,7 +38,6 @@
 
 - devextreme-reactive: xxx
 - react: xxx
-- vue: xxx
 - browser: xxx
 - bootstrap: none
 - react-bootstrap: none

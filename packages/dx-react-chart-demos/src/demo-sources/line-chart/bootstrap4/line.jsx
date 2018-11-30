@@ -7,9 +7,8 @@ import {
   LineSeries,
   Title,
   Legend,
-  Grid,
 } from '@devexpress/dx-react-chart-bootstrap4';
-import { Scale } from '@devexpress/dx-react-chart';
+import { Scale, Animation } from '@devexpress/dx-react-chart';
 
 import { confidence as data } from '../../../demo-data/data-vizualization';
 
@@ -42,7 +41,6 @@ const ValueLabel = (props) => {
     />
   );
 };
-const EmptyComponent = () => null;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -62,14 +60,11 @@ export default class Demo extends React.PureComponent {
           data={chartData}
           className="pr-3"
         >
-          <ArgumentAxis name="argumentAxis" tickFormat={format} />
+          <ArgumentAxis tickFormat={format} />
           <ValueAxis
             max={50}
             labelComponent={ValueLabel}
-            lineComponent={EmptyComponent}
-            tickSize={0}
           />
-          <Grid />
 
           <LineSeries
             name="TV news"
@@ -91,6 +86,7 @@ export default class Demo extends React.PureComponent {
             text={`Confidence in Institutions in American society ${'\n'}(Great deal)`}
             className="w-100 text-center mb-2"
           />
+          <Animation />
           <Scale />
         </Chart>
       </Card>

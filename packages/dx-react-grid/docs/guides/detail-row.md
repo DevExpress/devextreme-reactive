@@ -14,6 +14,7 @@ Note that the [plugin order](./plugin-overview.md#plugin-order) is important.
 ## Detail Row Setup
 
 Add the required plugins listed above to the Grid and specify the detail row component via the `TableRowDetail` plugin's `contentComponent` property to set up a simple Grid with detail rows.
+NOTE: The Detail Row identifies rows by their sequence number. However, data processing plugins can change this number. For example, when rows are sorted or grouped by pages. Use the Grid's [getRowId](../reference/grid.md#properties) function to specify a static row identifier.
 
 ## Uncontrolled Mode
 

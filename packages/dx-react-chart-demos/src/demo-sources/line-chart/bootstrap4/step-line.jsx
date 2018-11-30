@@ -7,9 +7,8 @@ import {
   LineSeries,
   Title,
   Legend,
-  Grid,
 } from '@devexpress/dx-react-chart-bootstrap4';
-import { Scale } from '@devexpress/dx-react-chart';
+import { Scale, Animation } from '@devexpress/dx-react-chart';
 import { line, curveStep } from 'd3-shape';
 
 import { australianMedals as data } from '../../../demo-data/data-vizualization';
@@ -41,7 +40,6 @@ const Marker = (props) => {
 };
 
 const format = () => tick => tick;
-const EmptyComponent = () => null;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -60,12 +58,8 @@ export default class Demo extends React.PureComponent {
         <Chart
           data={chartData}
         >
-          <ArgumentAxis name="argumentAxis" tickFormat={format} />
-          <ValueAxis
-            lineComponent={EmptyComponent}
-            tickSize={0}
-          />
-          <Grid />
+          <ArgumentAxis tickFormat={format} />
+          <ValueAxis />
 
           <LineSeries
             name="Bronze Medals"
@@ -88,6 +82,7 @@ export default class Demo extends React.PureComponent {
             color="#ffd700"
             seriesComponent={Line}
           />
+          <Animation />
           <Legend position="bottom" rootComponent={Root} markerComponent={Marker} />
           <Title
             text="Australian Medal Count"

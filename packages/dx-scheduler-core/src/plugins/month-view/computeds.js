@@ -7,23 +7,19 @@ import {
 } from './helpers';
 
 const DAY_COUNT = 7;
-const WEEK_COUNT = 6;
 const MONTH_LENGTH = 31;
 
-export const endViewBoundary = (cells) => {
-  const lastCellIndex = cells.length - 1;
-  const lastDate = moment(cells[lastCellIndex][WEEK_COUNT].value);
-  return lastDate.startOf('day').add(1, 'days').subtract(1, 'second').toDate();
-};
-
-export const monthCells = (currentDate, firstDayOfWeek, intervalCount = 1) => {
-  const currentMonth = moment(currentDate).month();
+export const monthCellsData = (
+  currentDate,
+  firstDayOfWeek,
+  intervalCount = 1,
+  today,
+) => {
   const targetDate = moment(currentDate);
   const currentMonths = [targetDate.month()];
   while (currentMonths.length < intervalCount) {
     currentMonths.push(targetDate.add(1, 'months').month());
   }
-  const currentDay = moment(currentDate).date();
   const firstMonthDate = moment(currentDate).date(1);
   const firstMonthDay = firstMonthDate.day() - firstDayOfWeek;
   const prevMonthDayCount = firstMonthDate.day(firstMonthDay).day() || DAY_COUNT;
@@ -40,9 +36,10 @@ export const monthCells = (currentDate, firstDayOfWeek, intervalCount = 1) => {
     const week = [];
     while (week.length < DAY_COUNT) {
       week.push({
-        value: from.toDate(),
-        isOtherMonth: currentMonths.findIndex(month => month === from.month()) === -1,
-        isCurrent: currentDay === from.date() && from.month() === currentMonth,
+        startDate: from.toDate(),
+        endDate: from.clone().add(1, 'day').toDate(),
+        otherMonth: currentMonths.findIndex(month => month === from.month()) === -1,
+        today: today ? moment(today).isSame(from, 'date') : false,
       });
       from.add(1, 'day');
     }

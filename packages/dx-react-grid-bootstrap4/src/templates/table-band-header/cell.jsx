@@ -3,12 +3,15 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 export const Cell = ({
-  column, children,
+  column, children, beforeBorder,
   tableRow, tableColumn, row,
   className, ...restProps
 }) => (
   <th
-    className={classNames('dx-g-bs4-banded-cell dx-g-bs4-table-cell text-nowrap border-right', className)}
+    className={classNames({
+      'dx-g-bs4-banded-cell dx-g-bs4-table-cell text-nowrap border-right': true,
+      'border-left': beforeBorder,
+    }, className)}
     {...restProps}
   >
     {children}
@@ -25,6 +28,7 @@ Cell.propTypes = {
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
   className: PropTypes.string,
+  beforeBorder: PropTypes.bool,
 };
 
 Cell.defaultProps = {
@@ -34,4 +38,5 @@ Cell.defaultProps = {
   tableRow: undefined,
   tableColumn: undefined,
   className: undefined,
+  beforeBorder: false,
 };

@@ -1,16 +1,17 @@
-import { barCoordinates as computeCoordinates } from '@devexpress/dx-chart-core';
-import { makeSeries, withColor, withComponents } from '../utils';
-import { BarCollection as Path } from '../templates/series/bar-collection';
+import {
+  getBarPointTransformer as getPointTransformer,
+  createBarHitTester as createHitTester,
+} from '@devexpress/dx-chart-core';
+import { declareSeries } from '../utils';
+import { PointCollection as Path } from '../templates/series/point-collection';
 import { Bar as Point } from '../templates/series/bar';
 
-export const BarSeries = withComponents({ Path, Point })(makeSeries(
-  'BarSeries',
-  'bar',
-  null, // TODO: d3Func is not used.
-  computeCoordinates,
-  {
-    seriesComponent: 'Path',
-    pointComponent: 'Point',
-  },
-  withColor,
-));
+export const BarSeries = declareSeries('BarSeries', {
+  components: { Path, Point },
+  getPointTransformer,
+  createHitTester,
+});
+
+BarSeries.defaultProps = {
+  barWidth: 0.9,
+};

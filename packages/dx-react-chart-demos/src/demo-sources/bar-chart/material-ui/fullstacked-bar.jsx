@@ -7,10 +7,9 @@ import {
   BarSeries,
   Title,
   Legend,
-  Grid,
 } from '@devexpress/dx-react-chart-material-ui';
 import { withStyles } from '@material-ui/core/styles';
-import { Stack, Scale } from '@devexpress/dx-react-chart';
+import { Stack, Scale, Animation } from '@devexpress/dx-react-chart';
 import { stackOffsetExpand } from 'd3-shape';
 
 import { oilProduction as data } from '../../../demo-data/data-vizualization';
@@ -44,7 +43,6 @@ const demoStyles = () => ({
 });
 
 const format = scale => scale.tickFormat(null, '%');
-const EmptyComponent = () => null;
 
 class Demo extends React.PureComponent {
   constructor(props) {
@@ -67,44 +65,42 @@ class Demo extends React.PureComponent {
           <ArgumentAxis />
           <ValueAxis
             tickFormat={format}
-            lineComponent={EmptyComponent}
-            tickSize={0}
           />
-          <Grid />
 
           <BarSeries
             name="Saudi Arabia"
             valueField="saudiArabia"
             argumentField="year"
-            stack="one"
           />
           <BarSeries
             name="USA"
             valueField="usa"
             argumentField="year"
-            stack="one"
           />
           <BarSeries
             name="Iran"
             valueField="iran"
             argumentField="year"
-            stack="one"
           />
           <BarSeries
             name="Mexico"
             valueField="mexico"
             argumentField="year"
-            stack="one"
           />
           <BarSeries
             name="Russia"
             valueField="russia"
             argumentField="year"
-            stack="one"
           />
+          <Animation />
           <Legend position="bottom" rootComponent={Root} labelComponent={Label} />
           <Title text="Oil Production" className={classes.title} />
-          <Stack offset={stackOffsetExpand} />
+          <Stack
+            stacks={[
+              { series: ['Saudi Arabia', 'USA', 'Iran', 'Mexico', 'Russia'] },
+            ]}
+            offset={stackOffsetExpand}
+          />
           <Scale />
         </Chart>
       </Paper>

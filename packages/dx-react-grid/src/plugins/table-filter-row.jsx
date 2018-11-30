@@ -11,6 +11,7 @@ import {
   isFilterTableRow,
   getColumnFilterOperations,
   isFilterValueEmpty,
+  getSelectedFilterOperation,
   TABLE_FILTER_TYPE,
 } from '@devexpress/dx-grid-core';
 
@@ -51,6 +52,7 @@ export class TableFilterRow extends React.PureComponent {
       rowComponent: FilterRow,
       filterSelectorComponent: FilterSelector,
       iconComponent,
+      toggleButtonComponent,
       editorComponent: EditorComponent,
       messages,
     } = this.props;
@@ -84,8 +86,9 @@ export class TableFilterRow extends React.PureComponent {
                 const columnFilterOperations = getColumnFilterOperations(
                   getAvailableFilterOperations, columnName,
                 );
-                const selectedFilterOperation = filterOperations[columnName]
-                  || columnFilterOperations[0];
+                const selectedFilterOperation = getSelectedFilterOperation(
+                  filterOperations, columnName, filter, columnFilterOperations,
+                );
                 const handleFilterOperationChange = (value) => {
                   this.setState({
                     filterOperations: {
@@ -122,6 +125,7 @@ export class TableFilterRow extends React.PureComponent {
                         {showFilterSelector
                           ? (
                             <FilterSelector
+                              toggleButtonComponent={toggleButtonComponent}
                               iconComponent={iconComponent}
                               value={selectedFilterOperation}
                               availableValues={columnFilterOperations}
@@ -133,7 +137,7 @@ export class TableFilterRow extends React.PureComponent {
                         }
                         {content || (
                           <EditorComponent
-                            value={filter ? filter.value : ''}
+                            value={filter ? filter.value : undefined}
                             disabled={!filteringEnabled}
                             getMessage={getMessage}
                             onChange={handleFilterValueChange}
@@ -179,6 +183,7 @@ TableFilterRow.propTypes = {
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
   filterSelectorComponent: PropTypes.func.isRequired,
+  toggleButtonComponent: PropTypes.func.isRequired,
   iconComponent: PropTypes.func.isRequired,
   editorComponent: PropTypes.func.isRequired,
 };
@@ -195,4 +200,5 @@ TableFilterRow.components = {
   filterSelectorComponent: 'FilterSelector',
   iconComponent: 'Icon',
   editorComponent: 'Editor',
+  toggleButtonComponent: 'ToggleButton',
 };

@@ -3,13 +3,14 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 
-const styles = ({ palette, typography, spacing }) => ({
+const styles = ({ palette, typography }) => ({
   appointment: {
     overflow: 'hidden',
-    backgroundColor: palette.primary[300],
     boxSizing: 'border-box',
-    borderRight: `1px solid ${palette.background.paper}`,
-    borderBottom: `1px solid ${palette.background.paper}`,
+    borderRight: '1px solid transparent',
+    borderBottom: '1px solid transparent',
+    backgroundClip: 'padding-box',
+    backgroundColor: palette.primary[300],
     ...typography.caption,
     '&:hover': {
       backgroundColor: palette.primary[400],
@@ -19,12 +20,8 @@ const styles = ({ palette, typography, spacing }) => ({
       outline: 0,
     },
   },
-  content: {
-    color: palette.background.default,
-    padding: spacing.unit / 2,
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
+  clickableAppointment: {
+    cursor: 'pointer',
   },
 });
 
@@ -32,27 +29,29 @@ const AppointmentBase = ({
   classes, className,
   style,
   children,
-  appointment,
+  data,
   onClick: handleClick,
   ...restProps
 }) => {
   const onClick = handleClick
     ? {
       onClick: ({ target }) => {
-        handleClick({ target, appointment });
+        handleClick({ target, data });
       },
     }
     : null;
+  const clickable = onClick || restProps.onDoubleClick;
   return (
     <div
-      className={classNames(classes.appointment, className)}
+      className={classNames({
+        [classes.appointment]: true,
+        [classes.clickableAppointment]: clickable,
+      }, className)}
       style={style}
       {...onClick}
       {...restProps}
     >
-      <div className={classes.content}>
-        {children}
-      </div>
+      {children}
     </div>
   );
 };
@@ -62,14 +61,14 @@ AppointmentBase.propTypes = {
   children: PropTypes.node.isRequired,
   style: PropTypes.object.isRequired,
   className: PropTypes.string,
-  appointment: PropTypes.object,
+  data: PropTypes.object,
   onClick: PropTypes.func,
 };
 
 AppointmentBase.defaultProps = {
   onClick: undefined,
   className: undefined,
-  appointment: {},
+  data: {},
 };
 
 export const Appointment = withStyles(styles, { name: 'Appointment' })(AppointmentBase);

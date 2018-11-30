@@ -1,31 +1,49 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { getAreaAnimationStyle, HOVERED, SELECTED } from '@devexpress/dx-chart-core';
+import { withStates } from '../../utils/with-states';
 
-export class Path extends React.PureComponent {
+class RawPath extends React.PureComponent {
   render() {
     const {
       path,
       coordinates,
+      index, state, pointComponent,
       color,
-      value,
+      style, scales, getAnimatedStyle,
       ...restProps
     } = this.props;
     return (
       <path
         d={path(coordinates)}
+        fill="none"
+        strokeWidth={2}
         stroke={color}
+        style={getAnimatedStyle(style, getAreaAnimationStyle, scales)}
         {...restProps}
       />
     );
   }
 }
 
-Path.propTypes = {
+RawPath.propTypes = {
   path: PropTypes.func.isRequired,
   coordinates: PropTypes.array.isRequired,
+  index: PropTypes.number.isRequired,
+  state: PropTypes.string,
   color: PropTypes.string,
+  style: PropTypes.object,
+  scales: PropTypes.object.isRequired,
+  getAnimatedStyle: PropTypes.func.isRequired,
 };
 
-Path.defaultProps = {
+RawPath.defaultProps = {
+  state: undefined,
   color: undefined,
+  style: undefined,
 };
+
+export const Path = withStates({
+  [HOVERED]: props => ({ strokeWidth: 4, ...props }),
+  [SELECTED]: props => ({ strokeWidth: 4, ...props }),
+})(RawPath);

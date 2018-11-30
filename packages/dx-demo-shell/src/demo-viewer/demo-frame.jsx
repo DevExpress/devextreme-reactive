@@ -2,9 +2,17 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import Frame from 'react-frame-component';
 import {
-  Form, Button, FormGroup, InputGroup, InputGroupAddon, Input, Label,
+  FormGroup, ControlLabel, FormControl, InputGroup, Button,
 } from 'reactstrap';
 import { DemoRenderer } from './demo-renderer';
+
+const Link = ({ link }) => (
+  <link rel="stylesheet" href={link} />
+);
+
+Link.propTypes = {
+  link: PropTypes.string.isRequired,
+};
 
 class DemoFrameRenderer extends React.PureComponent {
   constructor(props, context) {
@@ -24,12 +32,11 @@ class DemoFrameRenderer extends React.PureComponent {
     const themeLinks = themeVariantOptions.links
       ? themeVariantOptions.links.map(link => `<link rel="stylesheet" href="${link}">`).join('\n')
       : '';
-    this.markup = link => `
+    this.markup = `
       <!DOCTYPE html>
       <html>
       <head>
         ${themeLinks}
-        ${link !== undefined ? `<link rel="stylesheet" href="${link}">` : ''}
         <style>
           body { margin: 8px; overflow: hidden; }
           .panel { margin: 0; }
@@ -47,24 +54,21 @@ class DemoFrameRenderer extends React.PureComponent {
       editableLink: themeVariantOptions.editableLink,
       frameHeight: 600,
     };
+    this.nodeRef = React.createRef();
   }
 
   componentDidMount() {
     this.updateFrameHeight();
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    const { editableLink } = this.state;
-    if (editableLink !== prevState.editableLink) {
-      if (this.node) this.node.ownerDocument.location.reload();
-    }
-  }
-
   updateFrameHeight() {
     const { frameHeight } = this.state;
+    const node = this.nodeRef.current;
     setTimeout(this.updateFrameHeight.bind(this));
-    if (!this.node) return;
-    const height = this.node.ownerDocument.documentElement.offsetHeight;
+
+    if (!node) return;
+
+    const height = node.ownerDocument.documentElement.offsetHeight;
     if (height !== frameHeight) {
       this.setState({ frameHeight: height });
     }
@@ -83,31 +87,32 @@ class DemoFrameRenderer extends React.PureComponent {
     return (
       <div>
         {!frame && !!editableLink ? (
-          <Form
+          <form
             style={{ marginBottom: '20px' }}
           >
-            <FormGroup>
-              <Label for="customLink">Custom theme link</Label>
+            <FormGroup controlId="customThemeLink">
+              <ControlLabel>
+                Custom theme link
+              </ControlLabel>
               <InputGroup>
-                <Input
+                <FormControl
                   type="text"
                   id="customLink"
                   innerRef={(node) => { this.customThemeLinkNode = node; }}
                   defaultValue={editableLink}
                 />
-                <InputGroupAddon addonType="append">
+                <InputGroup.Button>
                   <Button
-                    color="secondary"
                     onClick={() => {
                       this.setState({ editableLink: this.customThemeLinkNode.value });
                     }}
                   >
                     Apply
                   </Button>
-                </InputGroupAddon>
+                </InputGroup.Button>
               </InputGroup>
             </FormGroup>
-          </Form>
+          </form>
         ) : null}
 
         {frame
@@ -133,11 +138,12 @@ class DemoFrameRenderer extends React.PureComponent {
                   height: `${frameHeight}px`,
                   marginBottom: '20px',
                 }}
-                initialContent={this.markup(editableLink)}
+                head={<Link link={editableLink} />}
+                initialContent={this.markup}
                 mountTarget="#mountPoint"
                 scrolling="no"
               >
-                <div ref={(node) => { this.node = node; }} />
+                <div ref={this.nodeRef} />
               </Frame>
             </div>
           )}

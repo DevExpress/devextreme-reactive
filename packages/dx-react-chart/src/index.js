@@ -5,6 +5,7 @@ export { Title } from './plugins/title';
 export { Scale } from './plugins/scale';
 export { Stack } from './plugins/stack';
 export { Palette } from './plugins/palette';
+export { Animation } from './plugins/animation';
 
 export { AreaSeries } from './plugins/area-series';
 export { BarSeries } from './plugins/bar-series';
@@ -14,6 +15,10 @@ export { ScatterSeries } from './plugins/scatter-series';
 export { SplineSeries } from './plugins/spline-series';
 
 export { Axis, ArgumentAxis, ValueAxis } from './plugins/axis';
-export { Grid } from './plugins/grid';
+export { Tooltip } from './plugins/tooltip';
 
-export { withPatchedProps, withComponents } from './utils';
+export * from './plugins/event-tracker';
+export * from './plugins/hover-state';
+export * from './plugins/selection-state';
+
+export { withPatchedProps } from './utils';

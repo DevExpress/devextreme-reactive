@@ -43,7 +43,7 @@ treeCellComponent | ComponentType&lt;[TableSummaryRow.CellProps](#tablesummaryro
 treeColumnCellComponent | ComponentType&lt;[TableSummaryRow.CellProps](#tablesummaryrowcellprops)&gt; | | A component that renders a summary cell within a tree column.
 treeColumnContentComponent | ComponentType&lt;[TableSummaryRow.ContentProps](#tablesummaryrowcontentprops)&gt; | | A component that renders a summary cell's content within a tree column.
 treeColumnIndentComponent | ComponentType&lt;[TableSummaryRow.IndentProps](#tablesummaryrowindentprops)&gt; | | A component that renders an indent used to identify a tree row level within a tree column.
-itemComponent | ComponentType&lt;object&gt; | | A component that renders a summary item.
+itemComponent | ComponentType&lt;[TableSummaryRow.ItemProps](#tablesummaryrowitemprops)&gt; | | A component that renders a summary item.
 messages? | [TableSummaryRow.LocalizationMessages](#localization-messages) | | An object that specifies localization messages.
 
 ## Interfaces
@@ -75,6 +75,17 @@ Field | Type | Description
 ------|------|------------
 level | number | Specifies the row's level.
 
+### TableSummaryRow.ItemProps
+
+Describes properties passed to a component that renders a summary item.
+
+Field | Type | Description
+------|------|------------
+value? | number | The summary value
+type | [SummaryType](summary-state.md#summarytype) | The summary type
+children? | ReactNode | A React node used to render the summary value.
+getMessage | ([messageKey](#localization-messages): string) => string | Returns a localization message by the message key.
+
 ## Localization Messages
 
 Field | Type | Default | Description
@@ -90,7 +101,7 @@ avg? | string | 'Avg' | Specifies the average type text.
 Name | Properties | Description
 -----|------------|------------
 TableSummaryRow.Cell | [TableSummaryRow.CellProps](#tablesummaryrowcellprops) | A component that renders a cell within a data row.
-totalRowComponent | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | A component that renders the total summary row.
+TableSummaryRow.TotalRow | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | A component that renders the total summary row.
 TableSummaryRow.GroupRow | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | A component that renders a group summary row.
 TableSummaryRow.TreeRow | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | A component that renders a tree summary row.
 TableSummaryRow.TotalCell | ComponentType&lt;[TableSummaryRow.CellProps](#tablesummaryrowcellprops)&gt; | A component that renders a total summary cell.

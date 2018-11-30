@@ -25,27 +25,30 @@ export class FilterSelector extends React.PureComponent {
 
   render() {
     const {
-      value, availableValues, disabled, getMessage, iconComponent: Icon,
+      value, availableValues, disabled, getMessage,
+      iconComponent: Icon, toggleButtonComponent: ToggleButton,
+      className, ...restProps
     } = this.props;
     const { opened } = this.state;
     return availableValues.length ? (
-      <div className="input-group-prepend">
-        <button
-          type="button"
-          className="btn btn-outline-secondary"
+      <div
+        className={classNames('input-group-prepend', className)}
+        {...restProps}
+      >
+        <ToggleButton
           disabled={disabled || availableValues.length === 1}
-          onClick={this.handleButtonClick}
-          ref={(ref) => { this.targetElement = ref; }}
+          onToggle={this.handleButtonClick}
+          buttonRef={(ref) => { this.targetElement = ref; }}
         >
           <Icon type={value} />
-        </button>
+        </ToggleButton>
         {
           this.targetElement ? (
             <Popover
               placement="bottom"
               isOpen={opened}
               target={this.targetElement}
-              container={this.targetElement.parentElement}
+              container={undefined}
               toggle={this.handleOverlayToggle}
             >
               <div className="py-2">
@@ -81,7 +84,9 @@ FilterSelector.propTypes = {
   onChange: PropTypes.func,
   disabled: PropTypes.bool,
   iconComponent: PropTypes.func.isRequired,
+  toggleButtonComponent: PropTypes.func.isRequired,
   getMessage: PropTypes.func.isRequired,
+  className: PropTypes.string,
 };
 
 FilterSelector.defaultProps = {
@@ -89,4 +94,5 @@ FilterSelector.defaultProps = {
   availableValues: [],
   onChange: () => {},
   disabled: false,
+  className: undefined,
 };

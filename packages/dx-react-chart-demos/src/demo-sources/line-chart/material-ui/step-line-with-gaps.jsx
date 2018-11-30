@@ -8,10 +8,9 @@ import {
   Title,
   Legend,
   ScatterSeries,
-  Grid,
 } from '@devexpress/dx-react-chart-material-ui';
 import { withStyles } from '@material-ui/core/styles';
-import { Scale } from '@devexpress/dx-react-chart';
+import { Scale, Animation } from '@devexpress/dx-react-chart';
 import {
   line,
   curveStep,
@@ -23,7 +22,7 @@ import { australianMedals as data } from '../../../demo-data/data-vizualization'
 
 const Point = (props) => {
   const {
-    x, y, value, color,
+    x, y, value, color, style,
   } = props;
   if (value) {
     return (
@@ -31,6 +30,7 @@ const Point = (props) => {
         fill={color}
         transform={`translate(${x} ${y})`}
         d={symbol().size([10 ** 2]).type(symbolCircle)()}
+        style={style}
       />
     );
   }
@@ -80,7 +80,6 @@ const demoStyles = () => ({
 });
 
 const format = () => tick => tick;
-const EmptyComponent = () => null;
 
 class Demo extends React.PureComponent {
   constructor(props) {
@@ -100,9 +99,8 @@ class Demo extends React.PureComponent {
         <Chart
           data={chartData}
         >
-          <ArgumentAxis name="argumentAxis" tickFormat={format} />
-          <ValueAxis lineComponent={EmptyComponent} tickSize={0} />
-          <Grid />
+          <ArgumentAxis tickFormat={format} />
+          <ValueAxis />
 
           <LineSeries
             name="Bronze Medals"
@@ -125,6 +123,7 @@ class Demo extends React.PureComponent {
             color="#ffd700"
             seriesComponent={LineWithPoint}
           />
+          <Animation />
           <Legend position="bottom" rootComponent={Root} labelComponent={Label} />
           <Title text="Australian Medal Count" className={classes.title} />
           <Scale />

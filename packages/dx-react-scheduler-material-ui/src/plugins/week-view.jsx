@@ -1,30 +1,31 @@
 import { withComponents } from '@devexpress/dx-react-core';
 import { WeekView as WeekViewBase } from '@devexpress/dx-react-scheduler';
-import { WeekLayout as Layout } from '../templates/views/week-layout';
+import { VerticalViewLayout as Layout } from '../templates/layouts/vertical-view-layout';
 
-import { Row } from '../templates/week-view/row';
+import { Row } from '../templates/views/common/row';
+import { DayScaleEmptyCell } from '../templates/views/vertical/day-scale-empty-cell';
+import { Container as AppointmentLayer } from '../templates/appointment/container';
 
-import { Layout as TimePanelLayout } from '../templates/week-view/time-panel/layout';
-import { Cell as TimePanelCell } from '../templates/week-view/time-panel/cell';
+import { Layout as TimeScaleLayout } from '../templates/views/vertical/time-scale/layout';
+import { Cell as TimeScaleCell } from '../templates/views/vertical/time-scale/cell';
 
-import { Layout as DayPanelLayout } from '../templates/week-view/day-panel/layout';
-import { Cell as DayPanelCell } from '../templates/week-view/day-panel/cell';
+import { Layout as TimeTableLayout } from '../templates/views/vertical/time-table/layout';
+import { Cell as TimeTableCell } from '../templates/views/vertical/time-table/cell';
 
-import { Layout as DateTableLayout } from '../templates/week-view/date-table/layout';
-import { Cell as DateTableCell } from '../templates/week-view/date-table/cell';
-
-import { Container } from '../templates/appointment/container';
+import { Layout as DayScaleLayout } from '../templates/views/common/day-scale/layout';
+import { Cell as DayScaleCell } from '../templates/views/vertical/day-scale/cell';
 
 export const WeekView = withComponents({
   Layout,
-  Container,
-  TimePanelLayout,
-  TimePanelCell,
-  TimePanelRow: Row,
-  DayPanelLayout,
-  DayPanelCell,
-  DayPanelRow: Row,
-  DateTableLayout,
-  DateTableCell,
-  DateTableRow: Row,
+  AppointmentLayer,
+  DayScaleEmptyCell,
+  TimeScaleLayout,
+  TimeScaleCell,
+  TimeScaleRow: Row,
+  DayScaleLayout,
+  DayScaleCell,
+  DayScaleRow: Row,
+  TimeTableLayout,
+  TimeTableCell,
+  TimeTableRow: Row,
 })(WeekViewBase);

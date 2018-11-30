@@ -10,6 +10,7 @@ import {
   isFilterTableRow,
   getColumnFilterOperations,
   isFilterValueEmpty,
+  getSelectedFilterOperation,
 } from '@devexpress/dx-grid-core';
 import { TableFilterRow } from './table-filter-row';
 
@@ -20,6 +21,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   getColumnFilterConfig: jest.fn(),
   getColumnFilterOperations: jest.fn(),
   isFilterValueEmpty: jest.fn(),
+  getSelectedFilterOperation: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -56,6 +58,7 @@ const defaultProps = {
   editorComponent: () => null,
   filterSelectorComponent: () => null,
   iconComponent: () => null,
+  toggleButtonComponent: () => null,
 };
 
 describe('TableFilterRow', () => {
@@ -73,6 +76,7 @@ describe('TableFilterRow', () => {
     isFilterTableRow.mockImplementation(() => false);
     getColumnFilterOperations.mockImplementation(() => []);
     isFilterValueEmpty.mockImplementation(() => false);
+    getSelectedFilterOperation.mockImplementation(() => 'filterOperation');
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -134,8 +138,8 @@ describe('TableFilterRow', () => {
     ));
 
     const valueEditorTemplatePlaceholder = tree
-      .find('TemplatePlaceholder')
-      .findWhere(node => node.prop('name') === 'valueEditor');
+      .find('TemplatePlaceholderBase')
+      .findWhere(node => node.prop('name') === 'valueEditor').last();
 
     expect(valueEditorTemplatePlaceholder.prop('params'))
       .toMatchObject({
@@ -232,6 +236,20 @@ describe('TableFilterRow', () => {
       .toMatchObject({ config: null });
   });
 
+  it('should pass undefined as an empty value to EditorComponent', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableFilterRow
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    expect(tree.find(defaultProps.editorComponent).prop('value'))
+      .toBeUndefined();
+  });
+
   it('can render filter selector', () => {
     let tree = mount((
       <PluginHost>
@@ -295,8 +313,12 @@ describe('TableFilterRow', () => {
       .not.toHaveBeenCalled();
   });
 
-  it('should use the first available operation as the FilterSelector value by default', () => {
-    getColumnFilterOperations.mockImplementation(() => ['a', 'b', 'c']);
+  it('should calculate the FilterSelector value', () => {
+    const filter = { columnName: 'a', value: 'b', operation: 'startsWith' };
+    const columnFilterOperations = ['a', 'b', 'c'];
+    getColumnFilterConfig.mockImplementation(() => filter);
+    getColumnFilterOperations.mockImplementation(() => columnFilterOperations);
+
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -306,8 +328,17 @@ describe('TableFilterRow', () => {
         />
       </PluginHost>
     ));
+    const tableFilterRow = tree.find(TableFilterRow);
+    const filterSelectorValue = tree.find(defaultProps.filterSelectorComponent).prop('value');
 
-    expect(tree.find(defaultProps.filterSelectorComponent).prop('value'))
-      .toBe('a');
+    expect(getSelectedFilterOperation)
+      .toBeCalledWith(
+        tableFilterRow.instance().state.filterOperations,
+        defaultDeps.template.tableCell.tableColumn.column.name,
+        filter,
+        columnFilterOperations,
+      );
+    expect(filterSelectorValue)
+      .toBe('filterOperation');
   });
 });

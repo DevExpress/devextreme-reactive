@@ -7,10 +7,9 @@ import {
   BarSeries,
   Title,
   Legend,
-  Grid,
 } from '@devexpress/dx-react-chart-material-ui';
 import { withStyles } from '@material-ui/core/styles';
-import { Stack, Scale } from '@devexpress/dx-react-chart';
+import { Stack, Scale, Animation } from '@devexpress/dx-react-chart';
 
 import { energyConsumption as data } from '../../../demo-data/data-vizualization';
 
@@ -41,7 +40,6 @@ const demoStyles = () => ({
     marginBottom: '10px',
   },
 });
-const EmptyComponent = () => null;
 
 class Demo extends React.PureComponent {
   constructor(props) {
@@ -64,44 +62,41 @@ class Demo extends React.PureComponent {
           <ArgumentAxis />
           <ValueAxis
             max={2400}
-            lineComponent={EmptyComponent}
-            tickSize={0}
           />
-          <Grid />
 
           <BarSeries
             name="Hydro-electric"
             valueField="hydro"
             argumentField="country"
-            stack="a"
           />
           <BarSeries
             name="Oil"
             valueField="oil"
             argumentField="country"
-            stack="a"
           />
           <BarSeries
             name="Natural gas"
             valueField="gas"
             argumentField="country"
-            stack="a"
           />
           <BarSeries
             name="Coal"
             valueField="coal"
             argumentField="country"
-            stack="a"
           />
           <BarSeries
             name="Nuclear"
             valueField="nuclear"
             argumentField="country"
-            stack="a"
           />
+          <Animation />
           <Legend position="bottom" rootComponent={Root} labelComponent={Label} />
           <Title text="Energy Consumption in 2004 (Millions of Tons, Oil Equivalent)" className={classes.title} />
-          <Stack />
+          <Stack
+            stacks={[
+              { series: ['Hydro-electric', 'Oil', 'Natural gas', 'Coal', 'Nuclear'] },
+            ]}
+          />
           <Scale />
         </Chart>
       </Paper>

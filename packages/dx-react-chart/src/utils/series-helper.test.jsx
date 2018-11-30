@@ -1,78 +1,21 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import {
-  findSeriesByName, xyScales, coordinates, seriesData, checkZeroStart,
-} from '@devexpress/dx-chart-core';
-import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
-import { withSeriesPlugin } from './series-helper';
+import { findSeriesByName, addSeries, getValueDomainName } from '@devexpress/dx-chart-core';
+import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
+import { declareSeries } from './series-helper';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   findSeriesByName: jest.fn(),
-  xyScales: jest.fn(),
-  coordinates: jest.fn(),
-  seriesData: jest.fn(),
-  checkZeroStart: jest.fn(),
+  addSeries: jest.fn(),
+  ARGUMENT_DOMAIN: 'test_argument_domain',
+  getValueDomainName: jest.fn(),
 }));
 
-const coords = [
-  {
-    x: 1, y: 3, id: 1, value: 10,
-  },
-  {
-    x: 2, y: 5, id: 2, value: 20,
-  },
-  {
-    x: 3, y: 7, id: 3, value: 30,
-  },
-  {
-    x: 4, y: 10, id: 4, value: 40,
-  },
-  {
-    x: 5, y: 15, id: 5, value: 50,
-  },
-];
+describe('#declareSeries', () => {
+  const coords = 'test-coordinates';
 
-
-describe('Base series', () => {
-  const defaultProps = {
-    name: 'name',
-    axisName: 'axisName',
-    valueField: 'valueField',
-    argumentField: 'argumentField',
-  };
-
-  beforeEach(() => {
-    findSeriesByName.mockReturnValue({
-      ...defaultProps,
-      stack: 'stack1',
-      groupWidth: 0.7,
-      color: 'color',
-      styles: 'styles',
-    });
-    coordinates.mockReturnValue(coords);
-    seriesData.mockReturnValue('series');
-  });
-
-  afterEach(() => {
-    jest.resetAllMocks();
-  });
-
-  const defaultDeps = {
-    getter: {
-      layouts: { pane: { height: 50, width: 60 } },
-      data: 'data',
-      series: 'series',
-      domains: { argumentAxisName: 'argumentDomain', axisName: 'valueDomain' },
-      stacks: ['one', 'two'],
-      argumentAxisName: 'argumentAxisName',
-      scaleExtension: 'scaleExtension',
-      colorDomain: 'colorDomain',
-    },
-    template: {
-      series: {},
-    },
-  };
+  const testGetPointTransformer = () => null;
 
   const TestComponentPath = () => (
     <div>
@@ -80,12 +23,49 @@ describe('Base series', () => {
     </div>
   );
 
-  const WrappedComponent = withSeriesPlugin(
-    TestComponentPath,
-    'TestComponent',
-    'pathType',
-    coordinates,
-  );
+  const TestComponentPoint = () => null;
+
+  const defaultProps = {
+    name: 'name',
+    scaleName: 'scaleName',
+    valueField: 'valueField',
+    argumentField: 'argumentField',
+  };
+
+  findSeriesByName.mockReturnValue({
+    ...defaultProps,
+    index: 1,
+    seriesComponent: TestComponentPath,
+    points: coords,
+    state: 'test-state',
+    color: 'color',
+    styles: 'styles',
+  });
+  addSeries.mockReturnValue('extended-series');
+  getValueDomainName.mockReturnValue('value_domain');
+
+  afterEach(jest.clearAllMocks);
+
+  const defaultDeps = {
+    getter: {
+      series: 'test-series',
+      data: 'test-data',
+      palette: 'test-palette',
+      scales: { test_argument_domain: 'argument-scale', value_domain: 'value-scale' },
+      getAnimatedStyle: 'test-animated-style-getter',
+    },
+    template: {
+      series: {},
+    },
+  };
+
+  const WrappedComponent = declareSeries('TestComponent', {
+    components: {
+      Path: TestComponentPath,
+      Point: TestComponentPoint,
+    },
+    getPointTransformer: testGetPointTransformer,
+  });
 
   it('should render test component', () => {
     const tree = mount((
@@ -99,15 +79,19 @@ describe('Base series', () => {
     ));
 
     expect(tree.find(TestComponentPath).props()).toEqual({
+      index: 1,
+      path: undefined,
       coordinates: coords,
+      pointComponent: undefined,
+      state: 'test-state',
       color: 'color',
-      colorDomain: 'colorDomain',
-      styles: 'styles',
+      scales: { xScale: 'argument-scale', yScale: 'value-scale' },
+      getAnimatedStyle: 'test-animated-style-getter',
     });
   });
 
-  it('should call function to get attributes for series', () => {
-    mount((
+  it('should add series to list', () => {
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
 
@@ -117,68 +101,25 @@ describe('Base series', () => {
       </PluginHost>
     ));
 
-    expect(findSeriesByName).toHaveBeenCalledTimes(1);
-    expect(xyScales).toHaveBeenCalledTimes(1);
-    expect(coordinates).toHaveBeenCalledTimes(1);
-
-    expect(findSeriesByName).toHaveBeenLastCalledWith(
-      expect.anything(),
-      'series',
-    );
-
-    expect(xyScales).toHaveBeenLastCalledWith(
-      'argumentDomain',
-      'valueDomain',
-      { width: 60, height: 50 },
-      0.7,
-      'scaleExtension',
-    );
-
-    expect(coordinates).toHaveBeenLastCalledWith(
-      'data',
-      undefined,
-      'argumentField',
-      'valueField',
-      'name',
-      'stack1',
-      ['one', 'two'],
-      { styles: 'styles', color: 'color' },
-      'scaleExtension',
-    );
+    expect(addSeries).toBeCalledWith('test-series', 'test-data', 'test-palette', {
+      ...defaultProps,
+      symbolName: expect.anything(),
+      getPointTransformer: testGetPointTransformer,
+      seriesComponent: TestComponentPath,
+      pointComponent: TestComponentPoint,
+    });
+    expect(getComputedState(tree)).toEqual({
+      ...defaultDeps.getter,
+      series: 'extended-series',
+    });
   });
 
-  it('should pass axesData correct arguments', () => {
-    mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-
-        <WrappedComponent
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
-    expect(seriesData).toHaveBeenCalledWith(
-      'series',
-      expect.objectContaining({
-        valueField: 'valueField',
-        argumentField: 'argumentField',
-        name: 'name',
-        axisName: 'axisName',
-      }),
-    );
-  });
-
-  it('should pass correct arguments to checkZeroStart', () => {
-    mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-
-        <WrappedComponent
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
-    expect(checkZeroStart)
-      .toHaveBeenCalledWith({}, 'axisName', 'pathType');
+  it('should set components', () => {
+    expect(WrappedComponent.components).toEqual({
+      seriesComponent: 'Path',
+      pointComponent: 'Point',
+    });
+    expect(WrappedComponent.Path).toEqual(TestComponentPath);
+    expect(WrappedComponent.Point).toEqual(TestComponentPoint);
   });
 });

@@ -4,7 +4,6 @@ import {
   ArgumentAxis,
   ValueAxis,
   AreaSeries,
-  Grid,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 import { Stack, Scale } from '@devexpress/dx-react-chart';
 import { scalePoint } from 'd3-scale';
@@ -29,34 +28,29 @@ export default class Demo extends React.PureComponent {
           data={chartData}
           style={{ paddingRight: '20px' }}
         >
-          <ArgumentAxis name="state" type="band" />
-          <ValueAxis name="age" />
-
-          <Grid name="state" />
-          <Grid name="age" />
+          <ArgumentAxis type="band" />
+          <ValueAxis />
 
           <AreaSeries
             name="Young"
             valueField="young"
             argumentField="state"
-            axisName="age"
-            stack="a"
           />
           <AreaSeries
+            name="Middle"
             valueField="middle"
             argumentField="state"
-            axisName="age"
-            stack="a"
-            name="Middle"
           />
           <AreaSeries
             name="Older"
             valueField="older"
             argumentField="state"
-            axisName="age"
-            stack="a"
           />
-          <Stack />
+          <Stack
+            stacks={[
+              { series: ['Young', 'Middle', 'Older'] },
+            ]}
+          />
           <Scale extensions={[{ type: 'band', constructor: scalePoint }]} />
         </Chart>
       </<%&wrapperTag%>>

@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { HORIZONTAL_APPOINTMENT_TYPE, VERTICAL_APPOINTMENT_TYPE } from './constants';
+import { HORIZONTAL_TYPE, VERTICAL_TYPE } from './constants';
 
 export const computed = (getters, viewName, baseComputed, defaultValue) => {
   if (getters.currentView.name !== viewName && !!defaultValue) {
@@ -38,7 +38,7 @@ const byDayPredicate = (boundary, date) => (
 export const viewPredicate = (
   appointment, left, right,
   excludedDays = [],
-  filterAllDayAppointments = false,
+  removeAllDayAppointments = false,
 ) => {
   const { start, end } = appointment;
   const isAppointmentInBoundary = end.isAfter(left) && start.isBefore(right);
@@ -46,8 +46,8 @@ export const viewPredicate = (
   const isAppointmentInExcludedDays = !!excludedIntervals(excludedDays, moment(left))
     .find(interval => (inInterval(start, interval) && inInterval(end, interval)));
 
-  const considerAllDayAppointment = filterAllDayAppointments
-    ? moment(end).diff(start, 'hours') < 24
+  const considerAllDayAppointment = removeAllDayAppointments
+    ? moment(end).diff(start, 'hours') < 24 && !appointment.allDay
     : true;
 
   return isAppointmentInBoundary && !isAppointmentInExcludedDays && considerAllDayAppointment;
@@ -90,6 +90,10 @@ export const findOverlappedAppointments = (sortedAppointments, byDay = false) =>
   return groups;
 };
 
+const isMidnight = date => date.isSame(date.clone().startOf('day'));
+const maxBoundaryPredicate = (maxBoundary, startDate) => ((maxBoundary.isBefore(startDate, 'day'))
+  || (isMidnight(maxBoundary) && maxBoundary.isSame(startDate, 'day')));
+
 export const adjustAppointments = (groups, byDay = false) => groups.map((items) => {
   let offset = 0;
   let reduceValue = 1;
@@ -103,7 +107,7 @@ export const adjustAppointments = (groups, byDay = false) => groups.map((items) 
       for (let index = startIndex + 1; index < groupLength; index += 1) {
         if (appointments[index].offset === undefined) {
           if ((!byDay && maxBoundary.isSameOrBefore(appointments[index].start))
-            || (byDay && (maxBoundary.isBefore(appointments[index].start, 'day')))) {
+            || (byDay && maxBoundaryPredicate(maxBoundary, appointments[index].start))) {
             maxBoundary = appointments[index].end;
             appointments[index].offset = offset;
           }
@@ -167,12 +171,10 @@ const horizontalRectCalculator = (
   appointment,
   {
     rectByDates,
+    multiline,
     rectByDatesMeta: {
-      dayScale,
       cellElements,
-      cells,
-      monthCells,
-      excludedDays,
+      viewCellsData,
     },
   },
 ) => {
@@ -183,11 +185,9 @@ const horizontalRectCalculator = (
     appointment,
     rectByDates,
     {
-      dayScale,
+      multiline,
       cellElements,
-      cells,
-      monthCells,
-      excludedDays,
+      viewCellsData,
     },
   );
 
@@ -197,7 +197,7 @@ const horizontalRectCalculator = (
     left: toPercentage(left, parentWidth),
     width: toPercentage(width, parentWidth),
     dataItem: appointment.dataItem,
-    type: HORIZONTAL_APPOINTMENT_TYPE,
+    type: HORIZONTAL_TYPE,
   };
 };
 
@@ -205,9 +205,9 @@ const verticalRectCalculator = (
   appointment,
   {
     rectByDates,
+    multiline,
     rectByDatesMeta: {
-      dayScale,
-      timeScale,
+      viewCellsData,
       cellDuration,
       cellElements,
       excludedDays,
@@ -221,8 +221,8 @@ const verticalRectCalculator = (
     appointment,
     rectByDates,
     {
-      dayScale,
-      timeScale,
+      multiline,
+      viewCellsData,
       cellDuration,
       excludedDays,
       cellElements,
@@ -237,7 +237,7 @@ const verticalRectCalculator = (
     left: toPercentage(left + (widthInPx * appointment.offset), parentWidth),
     width: toPercentage(widthInPx, parentWidth),
     dataItem: appointment.dataItem,
-    type: VERTICAL_APPOINTMENT_TYPE,
+    type: VERTICAL_TYPE,
   };
 };
 
@@ -246,10 +246,10 @@ export const calculateRectByDateIntervals = (type, intervals, rectByDates, rectB
   const sorted = sortAppointments(intervals, multiline);
   const grouped = findOverlappedAppointments(sorted, multiline);
 
-  const rectCalculator = growDirection === HORIZONTAL_APPOINTMENT_TYPE
+  const rectCalculator = growDirection === HORIZONTAL_TYPE
     ? horizontalRectCalculator
     : verticalRectCalculator;
 
   return unwrapGroups(adjustAppointments(grouped, multiline))
-    .map(appointment => rectCalculator(appointment, { rectByDates, rectByDatesMeta }));
+    .map(appointment => rectCalculator(appointment, { rectByDates, multiline, rectByDatesMeta }));
 };

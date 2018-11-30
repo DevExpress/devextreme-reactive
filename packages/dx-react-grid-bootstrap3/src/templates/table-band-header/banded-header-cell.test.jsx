@@ -47,4 +47,21 @@ describe('BandedHeaderCell', () => {
     expect(tree.find('.custom-class').prop('style').borderTop)
       .toBe('none');
   });
+
+  it('should apply left border if necessary', () => {
+    const tree = shallow((
+      <BandedHeaderCell
+        {...defaultProps}
+        className="custom-class"
+        beforeBorder
+      />
+    ));
+
+    tree.setState({ borderColor: 'red' });
+
+    expect(tree.find('.custom-class').prop('style').borderRight)
+      .toBe('1px solid red');
+    expect(tree.find('.custom-class').prop('style').borderLeft)
+      .toBe('1px solid red');
+  });
 });

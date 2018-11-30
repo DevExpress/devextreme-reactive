@@ -14,7 +14,7 @@ const styles = {
 
 const LayoutBase = ({
   children,
-  dayScale,
+  cellsData,
   allDayPanelRef,
   classes, className,
   cellComponent: Cell,
@@ -29,7 +29,16 @@ const LayoutBase = ({
       >
         <TableHead>
           <Row>
-            {dayScale.map(date => <Cell key={date} date={date} />)}
+            {cellsData.map(({
+              startDate,
+              endDate,
+            }) => (
+              <Cell
+                key={startDate}
+                startDate={startDate}
+                endDate={endDate}
+              />
+            ))}
           </Row>
         </TableHead>
       </Table>
@@ -42,13 +51,12 @@ LayoutBase.propTypes = {
   children: PropTypes.node.isRequired,
   allDayPanelRef: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
-  dayScale: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
+  cellsData: PropTypes.arrayOf(Array).isRequired,
   cellComponent: PropTypes.func,
   rowComponent: PropTypes.func,
   className: PropTypes.string,
 };
 LayoutBase.defaultProps = {
-  dayScale: [],
   className: undefined,
   cellComponent: () => null,
   rowComponent: () => null,

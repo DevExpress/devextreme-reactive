@@ -7,9 +7,8 @@ import {
   LineSeries,
   Title,
   Legend,
-  Grid,
 } from '@devexpress/dx-react-chart-bootstrap4';
-import { Scale } from '@devexpress/dx-react-chart';
+import { Scale, Animation } from '@devexpress/dx-react-chart';
 import {
   curveCatmullRom,
   line,
@@ -57,7 +56,6 @@ const Label = props => (
     className="pb-2"
   />
 );
-const EmptyComponent = () => null;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -78,11 +76,7 @@ export default class Demo extends React.PureComponent {
           className="pr-4"
         >
           <ArgumentAxis />
-          <ValueAxis
-            lineComponent={EmptyComponent}
-            tickSize={0}
-          />
-          <Grid />
+          <ValueAxis />
 
           <LineSeries
             name="Hydro-electric"
@@ -122,6 +116,7 @@ export default class Demo extends React.PureComponent {
             className="w-100 text-center mb-2"
           />
           <Scale extensions={[{ type: 'band', constructor: scalePoint }]} />
+          <Animation />
         </Chart>
       </Card>
     );

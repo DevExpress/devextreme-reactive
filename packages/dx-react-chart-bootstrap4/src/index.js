@@ -11,6 +11,7 @@ export { PieSeries } from './plugins/pie-series';
 export { ScatterSeries } from './plugins/scatter-series';
 export { SplineSeries } from './plugins/spline-series';
 
-export { Grid } from './plugins/grid';
 export { ValueAxis } from './plugins/value-axis';
 export { ArgumentAxis } from './plugins/argument-axis';
+
+export { Tooltip } from './plugins/tooltip';

@@ -1,21 +1,25 @@
 import * as React from 'react';
 import { Plugin, Getter } from '@devexpress/dx-react-core';
-import { prepareData } from '@devexpress/dx-chart-core';
+import { computeDomains, buildScales, scaleSeriesPoints } from '@devexpress/dx-chart-core';
 
-const getData = ({ data, series, processingData }) => prepareData(data, series, processingData);
+const getDomains = ({ axes, series }) => computeDomains(axes, series);
 
-const getDomains = ({
-  axes, series, data, argumentAxisName, startFromZero, computedDomain,
-}) => computedDomain(axes, series, data, argumentAxisName, startFromZero);
+const getScales = ({ domains, layouts, scaleExtension }) => buildScales(
+  domains, scaleExtension, layouts.pane,
+);
 
-const colorDomain = ({
-  series, domains, argumentAxisName, items, paletteComputing,
-}) => (paletteComputing(series, domains[argumentAxisName].domain, items));
+const getSeries = ({
+  series,
+  scales,
+  // TODO: The following are BarSeries specifics - remove them.
+  stacks,
+  scaleExtension,
+}) => scaleSeriesPoints(series, scales, stacks, scaleExtension);
 
 export const ChartCore = () => (
   <Plugin>
-    <Getter name="data" computed={getData} />
     <Getter name="domains" computed={getDomains} />
-    <Getter name="colorDomain" computed={colorDomain} />
+    <Getter name="scales" computed={getScales} />
+    <Getter name="series" computed={getSeries} />
   </Plugin>
 );

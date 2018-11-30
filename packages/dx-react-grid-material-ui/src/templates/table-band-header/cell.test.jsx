@@ -40,4 +40,13 @@ describe('TableCell', () => {
     expect(tree.props().data)
       .toMatchObject({ a: 1 });
   });
+
+  it('should apply left border if necessary', () => {
+    const tree = shallow((
+      <Cell beforeBorder />
+    ));
+
+    expect(tree.is(`.${classes.beforeBorder}`))
+      .toBeTruthy();
+  });
 });

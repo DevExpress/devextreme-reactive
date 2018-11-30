@@ -8,9 +8,8 @@ import {
   Title,
   Legend,
   ScatterSeries,
-  Grid,
 } from '@devexpress/dx-react-chart-bootstrap4';
-import { Scale } from '@devexpress/dx-react-chart';
+import { Scale, Animation } from '@devexpress/dx-react-chart';
 import {
   line,
   curveStep,
@@ -22,7 +21,7 @@ import { australianMedals as data } from '../../../demo-data/data-vizualization'
 
 const Point = (props) => {
   const {
-    x, y, value, color,
+    x, y, value, color, style,
   } = props;
   if (value) {
     return (
@@ -30,6 +29,7 @@ const Point = (props) => {
         fill={color}
         transform={`translate(${x} ${y})`}
         d={symbol().size([10 ** 2]).type(symbolCircle)()}
+        style={style}
       />
     );
   }
@@ -58,7 +58,6 @@ const Root = props => (
 );
 
 const format = () => tick => tick;
-const EmptyComponent = () => null;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -77,12 +76,8 @@ export default class Demo extends React.PureComponent {
         <Chart
           data={chartData}
         >
-          <ArgumentAxis name="argumentAxis" tickFormat={format} />
-          <ValueAxis
-            lineComponent={EmptyComponent}
-            tickSize={0}
-          />
-          <Grid />
+          <ArgumentAxis tickFormat={format} />
+          <ValueAxis />
 
           <LineSeries
             name="Bronze Medals"
@@ -105,6 +100,7 @@ export default class Demo extends React.PureComponent {
             color="#ffd700"
             seriesComponent={LineWithPoint}
           />
+          <Animation />
           <Legend position="bottom" rootComponent={Root} />
           <Title text="Australian Medal Count" className="w-100 text-center mb-2" />
           <Scale />

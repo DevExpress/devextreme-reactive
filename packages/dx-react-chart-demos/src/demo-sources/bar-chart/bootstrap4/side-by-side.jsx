@@ -7,9 +7,8 @@ import {
   BarSeries,
   Title,
   Legend,
-  Grid,
 } from '@devexpress/dx-react-chart-bootstrap4';
-import { Stack, Scale } from '@devexpress/dx-react-chart';
+import { Stack, Scale, Animation } from '@devexpress/dx-react-chart';
 
 import { olimpicMedals as data } from '../../../demo-data/data-vizualization';
 
@@ -19,7 +18,6 @@ const Root = props => (
     className="m-auto flex-row"
   />
 );
-const EmptyComponent = () => null;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -39,11 +37,7 @@ export default class Demo extends React.PureComponent {
           data={chartData}
         >
           <ArgumentAxis />
-          <ValueAxis
-            lineComponent={EmptyComponent}
-            tickSize={0}
-          />
-          <Grid />
+          <ValueAxis />
 
           <BarSeries
             name="Gold Medals"
@@ -63,6 +57,7 @@ export default class Demo extends React.PureComponent {
             argumentField="country"
             color="#cd7f32"
           />
+          <Animation />
           <Legend position="bottom" rootComponent={Root} />
           <Title text="Olimpic Medals in 2008" className="w-100 text-center mb-2" />
           <Stack />

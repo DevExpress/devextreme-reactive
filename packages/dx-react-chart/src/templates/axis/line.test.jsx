@@ -2,30 +2,28 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import { Line } from './line';
 
-const defaultProps = { width: 100, height: 100, orientation: 'horizontal' };
+const defaultProps = {
+  x1: 1, x2: 2, y1: 3, y2: 4,
+};
 
 describe('Line', () => {
-  it('should render line', () => {
+  it('should render line with correct coordinates', () => {
     const { d } = shallow((
       <Line {...defaultProps} />
     )).find('path').props();
 
-    expect(d).toBe('M 0 0 L 100 0');
-  });
-
-  it('should render line. Vertical', () => {
-    const { d } = shallow((
-      <Line {...defaultProps} orientation="vertical" />
-    )).find('path').props();
-
-    expect(d).toBe('M 0 0 L 0 100');
+    expect(d).toBe('M 1 3 L 2 4');
   });
 
   it('should pass the rest property to the root element', () => {
     const tree = shallow(<Line {...defaultProps} customProperty />);
     const { customProperty } = tree.find('path').props();
+    expect(customProperty).toBeTruthy();
+  });
 
-    expect(customProperty)
-      .toBeTruthy();
+  it('should pass the className to the root element', () => {
+    const tree = shallow(<Line {...defaultProps} className />);
+    const { className } = tree.find('path').props();
+    expect(className).toBeTruthy();
   });
 });

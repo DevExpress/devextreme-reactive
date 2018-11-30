@@ -7,10 +7,9 @@ import {
   LineSeries,
   Title,
   Legend,
-  Grid,
 } from '@devexpress/dx-react-chart-material-ui';
 import { withStyles } from '@material-ui/core/styles';
-import { Scale } from '@devexpress/dx-react-chart';
+import { Scale, Animation } from '@devexpress/dx-react-chart';
 
 import { confidence as data } from '../../../demo-data/data-vizualization';
 
@@ -57,7 +56,6 @@ const demoStyles = () => ({
     whiteSpace: 'pre',
   },
 });
-const EmptyComponent = () => null;
 
 const ValueLabel = (props) => {
   const { text } = props;
@@ -88,14 +86,11 @@ class Demo extends React.PureComponent {
           data={chartData}
           className={classes.chart}
         >
-          <ArgumentAxis name="argumentAxis" tickFormat={format} />
+          <ArgumentAxis tickFormat={format} />
           <ValueAxis
             max={50}
             labelComponent={ValueLabel}
-            lineComponent={EmptyComponent}
-            tickSize={0}
           />
-          <Grid />
 
           <LineSeries
             name="TV news"
@@ -117,6 +112,7 @@ class Demo extends React.PureComponent {
             text={`Confidence in Institutions in American society ${'\n'}(Great deal)`}
             className={classes.title}
           />
+          <Animation />
           <Scale />
         </Chart>
       </Paper>

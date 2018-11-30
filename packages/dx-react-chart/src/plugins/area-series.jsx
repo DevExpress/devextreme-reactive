@@ -1,14 +1,11 @@
-import { dArea, coordinates } from '@devexpress/dx-chart-core';
-import { makeSeries, withColor, withComponents } from '../utils';
+import {
+  getAreaPointTransformer as getPointTransformer, createAreaHitTester as createHitTester,
+} from '@devexpress/dx-chart-core';
+import { declareSeries } from '../utils';
 import { Area as Path } from '../templates/series/area';
 
-export const AreaSeries = withComponents({ Path })(makeSeries(
-  'AreaSeries',
-  'area',
-  dArea,
-  coordinates,
-  {
-    seriesComponent: 'Path',
-  },
-  withColor,
-));
+export const AreaSeries = declareSeries('AreaSeries', {
+  components: { Path },
+  getPointTransformer,
+  createHitTester,
+});

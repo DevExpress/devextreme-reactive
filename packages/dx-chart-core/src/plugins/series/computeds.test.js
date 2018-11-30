@@ -1,28 +1,28 @@
-
+import { scaleOrdinal } from 'd3-scale';
 import {
   symbol,
   symbolCircle,
   curveCatmullRom,
-  arc,
   area,
   line,
+  arc,
+  pie,
 } from 'd3-shape';
-import { createScale, getWidth } from '../../utils/scale';
 import {
-  pieAttributes,
-  xyScales,
-  pointAttributes,
-  coordinates,
   findSeriesByName,
-  seriesData,
-  checkZeroStart,
-  barCoordinates,
-  getPieItems,
+  addSeries,
+  pointAttributes,
+  dBar,
+  getAreaPointTransformer,
+  getLinePointTransformer,
+  getBarPointTransformer,
+  getPiePointTransformer,
+  scaleSeriesPoints,
 } from './computeds';
 
-jest.mock('../../utils/scale', () => ({
-  createScale: jest.fn(),
-  getWidth: jest.fn(),
+jest.mock('d3-scale', () => ({
+  scaleIdentity: () => x => x,
+  scaleOrdinal: jest.fn(),
 }));
 
 jest.mock('d3-shape', () => {
@@ -40,62 +40,14 @@ jest.mock('d3-shape', () => {
     return jest.fn().mockReturnValue(proxy);
   };
 
-  const mockPie = {
-    value: jest.fn(func => data => data.map(d => ({
-      startAngle: func(d), endAngle: func(d), value: 'value', data: d,
-    }))),
-    sort: jest.fn().mockReturnThis(),
-  };
-
   return {
     area: createMockWithFluentInterface(),
     line: createMockWithFluentInterface(),
     symbol: createMockWithFluentInterface(),
-    pie: jest.fn().mockReturnValue(mockPie),
+    pie: createMockWithFluentInterface(),
     arc: createMockWithFluentInterface(),
   };
 });
-
-
-const data = [
-  {
-    arg: 1, val1: 3, 'val1-Series3-stack': [2, 3],
-  },
-  {
-    arg: 2, val1: 5, 'val1-Series3-stack': [4, 5],
-  },
-  {
-    arg: 3, val1: 7, 'val1-Series3-stack': [6, 7],
-  },
-  {
-    arg: 4, val1: 10, 'val1-Series3-stack': [9, 10],
-  },
-  {
-    arg: 5, val1: 15, 'val1-Series3-stack': [14, 15],
-  },
-];
-
-const dataWithUndefined = [
-  {
-    arg: 1, val1: 3, 'val1-Series3-stack': [3, 3],
-  },
-  {
-    arg: undefined, val1: 5, 'val1-Series3-stack': [5, 5],
-  },
-  {
-    arg: 3, val1: 7, 'val1-Series3-stack': [7, 7],
-  },
-  { arg: 4, val1: undefined },
-  {
-    arg: 5, val1: 15, 'val1-Series3-stack': [15, 15],
-  },
-];
-
-const computedLine = data.map((item, index) => ({
-  id: index, x: item.arg + 5, y: item['val1-Series3-stack'][1], y1: item['val1-Series3-stack'][0], value: item.val1,
-}));
-
-const groupWidth = 0.7;
 
 describe('dArea', () => {
   it('init function', () => {
@@ -173,181 +125,369 @@ describe('line & spline', () => {
   });
 });
 
-describe('barCoordinates', () => {
-  beforeAll(() => {
-    const translateValue = value => value;
-    createScale.mockImplementation(() => translateValue);
-    getWidth.mockImplementation(() => 10);
+describe('getAreaPointTransformer', () => {
+  it('should return data', () => {
+    const argumentScale = jest.fn().mockReturnValue(10);
+    argumentScale.bandwidth = () => 8;
+    const valueScale = jest.fn();
+    valueScale.mockReturnValueOnce(4);
+    valueScale.mockReturnValueOnce(9);
+
+    const transform = getAreaPointTransformer({ argumentScale, valueScale });
+    expect(
+      transform({ argument: 'arg', value: 'val', index: 1 }),
+    ).toEqual({
+      argument: 'arg',
+      value: 'val',
+      index: 1,
+      x: 14,
+      y: 9,
+      y1: 4,
+    });
+    expect(argumentScale.mock.calls).toEqual([['arg']]);
+    expect(valueScale.mock.calls).toEqual([[0], ['val']]);
   });
 
-  afterAll(() => {
-    jest.clearAllMocks();
-  });
-
-  it('should return array object with x, width properties', () => {
-    const result = barCoordinates(
-      data,
-      { xScale: createScale(), yScale: createScale() },
-      'arg',
-      'val1',
-      'Series3',
-      null,
-      null,
-      {},
-      [
-        { type: 'band', constructor: 'bandConstructor' },
-      ],
-    );
-
-    expect(result).toEqual([{
-      id: 0, value: 3, width: 10, x: 1, y: 3, y1: 2,
-    }, {
-      id: 1, value: 5, width: 10, x: 2, y: 5, y1: 4,
-    }, {
-      id: 2, value: 7, width: 10, x: 3, y: 7, y1: 6,
-    }, {
-      id: 3, value: 10, width: 10, x: 4, y: 10, y1: 9,
-    }, {
-      id: 4, value: 15, width: 10, x: 5, y: 15, y1: 14,
-    }]);
+  it('should return target element', () => {
+    expect(getAreaPointTransformer.getTargetElement({
+      x: 10, y: 20,
+    })).toEqual({
+      x: 10,
+      y: 20,
+      d: 'symbol path',
+    });
   });
 });
 
-describe('Scales', () => {
-  const defaultOptions = [
-    { type: 'argumentType', orientation: 'orientation' },
-    { type: 'valueType' },
-    { width: 20, height: 10 },
-    0.7,
-    [
-      { type: 'argumentType', constructor: 'argumentConstructor' },
-      { type: 'valueType', constructor: 'valueConstructor' },
-      { type: 'band', constructor: 'bandConstructor' },
-    ],
-  ];
+describe('getLinePointTransformer', () => {
+  it('should return data', () => {
+    const argumentScale = jest.fn().mockReturnValue(10);
+    argumentScale.bandwidth = () => 8;
+    const valueScale = jest.fn();
+    valueScale.mockReturnValueOnce(9);
 
-  beforeAll(() => {
-    const translateValue = value => value;
-    createScale.mockImplementation(() => translateValue);
-  });
-
-  it('should create scales with proper parameters', () => {
-    const { xScale, yScale } = xyScales(...defaultOptions);
-
-    expect(createScale).toHaveBeenCalledTimes(2);
-    expect(createScale.mock.calls[0]).toEqual([{ type: 'argumentType', orientation: 'orientation' }, 20, 10, 'argumentConstructor', 1 - groupWidth]);
-    expect(createScale.mock.calls[1]).toEqual([{ type: 'valueType' }, 20, 10, 'valueConstructor']);
-    expect(xScale).toBeTruthy();
-    expect(yScale).toBeTruthy();
+    const transform = getLinePointTransformer({ argumentScale, valueScale });
+    expect(
+      transform({ argument: 'arg', value: 'val', index: 1 }),
+    ).toEqual({
+      argument: 'arg',
+      value: 'val',
+      index: 1,
+      x: 14,
+      y: 9,
+    });
+    expect(argumentScale.mock.calls).toEqual([['arg']]);
+    expect(valueScale.mock.calls).toEqual([['val']]);
   });
 });
 
-describe('Series attributes', () => {
+describe('getBarPointTransformer', () => {
+  it('should return data', () => {
+    const argumentScale = jest.fn().mockReturnValue(11);
+    argumentScale.bandwidth = () => 20;
+    const valueScale = jest.fn();
+    valueScale.mockReturnValueOnce(4);
+    valueScale.mockReturnValueOnce(9);
+
+    const transform = getBarPointTransformer({
+      barWidth: 0.4, argumentScale, valueScale,
+    });
+    expect(
+      transform({ argument: 'arg', value: 'val', index: 1 }),
+    ).toEqual({
+      argument: 'arg',
+      value: 'val',
+      index: 1,
+      x: 17,
+      y: 9,
+      y1: 4,
+      width: 8,
+    });
+    expect(argumentScale.mock.calls).toEqual([['arg']]);
+    expect(valueScale.mock.calls).toEqual([[0], ['val']]);
+  });
+
+  it('should be marked with *isBroad* flag', () => {
+    expect(getBarPointTransformer.isBroad).toEqual(true);
+  });
+
+  it('should return target element', () => {
+    expect(getBarPointTransformer.getTargetElement({
+      x: 10, y: 20, y1: 30, width: 40,
+    })).toEqual({
+      x: 10,
+      y: 20,
+      d: 'M0,0 40,0 40,10 0,10',
+    });
+  });
+});
+
+describe('getPiePointTransformer', () => {
+  afterEach(jest.clearAllMocks);
+
+  it('should return data', () => {
+    const mockPie = jest.fn().mockReturnValue([
+      { startAngle: 1, endAngle: 2 },
+      { startAngle: 3, endAngle: 4 },
+      { startAngle: 5, endAngle: 6 },
+      { startAngle: 7, endAngle: 8 },
+    ]);
+    mockPie.sort = jest.fn().mockReturnValue(mockPie);
+    mockPie.value = jest.fn().mockReturnValue(mockPie);
+    pie.mockReturnValue(mockPie);
+
+    const mockArc = jest.fn();
+    mockArc.innerRadius = jest.fn().mockReturnValue(mockArc);
+    mockArc.outerRadius = jest.fn().mockReturnValue(mockArc);
+    mockArc.startAngle = jest.fn().mockReturnValue(mockArc);
+    mockArc.endAngle = jest.fn().mockReturnValue(mockArc);
+    mockArc.centroid = jest.fn().mockReturnValue([2, 3]);
+    mockArc.mockReturnValueOnce('test-arc-1');
+    mockArc.mockReturnValueOnce('test-arc-2');
+    arc.mockReturnValue(mockArc);
+
+    const colorScale = jest.fn();
+    colorScale.range = jest.fn().mockReturnValue(colorScale);
+    colorScale.mockReturnValueOnce('c1');
+    colorScale.mockReturnValueOnce('c2');
+    scaleOrdinal.mockReturnValue(colorScale);
+
+    const argumentScale = { range: () => [0, 50] };
+    const valueScale = { range: () => [40, 0] };
+    const transform = getPiePointTransformer({
+      argumentScale,
+      valueScale,
+      innerRadius: 0.2,
+      outerRadius: 0.3,
+      valueField: 'val',
+      palette: 'test-palette',
+      points: 'test-points',
+    });
+
+    expect(
+      transform({ argument: 'arg-1', value: 'val-1', index: 1 }),
+    ).toEqual({
+      argument: 'arg-1',
+      value: 'val-1',
+      index: 1,
+      x: 25,
+      y: 20,
+      color: 'c1',
+      d: 'test-arc-1',
+      innerRadius: 4,
+      outerRadius: 6,
+      startAngle: 3,
+      endAngle: 4,
+    });
+    expect(
+      transform({ argument: 'arg-2', value: 'val-2', index: 3 }),
+    ).toEqual({
+      argument: 'arg-2',
+      value: 'val-2',
+      index: 3,
+      x: 25,
+      y: 20,
+      color: 'c2',
+      d: 'test-arc-2',
+      innerRadius: 4,
+      outerRadius: 6,
+      startAngle: 7,
+      endAngle: 8,
+    });
+
+    expect(mockPie.sort).toBeCalledWith(null);
+    expect(mockPie.value).toBeCalledWith(expect.any(Function));
+    expect(mockPie).toBeCalledWith('test-points');
+
+    expect(mockArc.innerRadius).toBeCalledWith(4);
+    expect(mockArc.outerRadius).toBeCalledWith(6);
+    expect(mockArc.startAngle.mock.calls).toEqual([
+      [3],
+      [7],
+    ]);
+    expect(mockArc.endAngle.mock.calls).toEqual([
+      [4],
+      [8],
+    ]);
+    expect(mockArc.mock.calls).toEqual([
+      [],
+      [],
+    ]);
+
+    expect(colorScale.range).toBeCalledWith('test-palette');
+    expect(colorScale.mock.calls).toEqual([
+      [1],
+      [3],
+    ]);
+  });
+
+  it('should return target element', () => {
+    expect(getPiePointTransformer.getTargetElement({
+      x: 10, y: 20, innerRadius: 5, outerRadius: 15, startAngle: 45, endAngle: 60,
+    })).toEqual({
+      x: 12,
+      y: 23,
+      d: 'symbol path',
+    });
+  });
+});
+
+describe('findSeriesByName', () => {
   it('should return series by name', () => {
-    const seriesSymbol = Symbol('Series2');
-    const series = [{ symbolName: Symbol('Series2') }, { symbolName: seriesSymbol }, { symbolName: Symbol('Series3') }];
-    expect(findSeriesByName(seriesSymbol, series)).toEqual(series[1]);
+    const symbolName = Symbol('Series 2');
+    const series = [{ symbolName: Symbol('Series 1') }, { symbolName }, { symbolName: Symbol('Series 3') }];
+
+    expect(findSeriesByName(symbolName, series)).toEqual(series[1]);
+    expect(findSeriesByName(Symbol('test'), series)).toEqual(undefined);
   });
+});
+
+describe('pointAttributes', () => {
+  afterEach(jest.clearAllMocks);
 
   it('should return d attribute for point and coordinates', () => {
-    const { d, x, y } = pointAttributes({ xScale: {} }, {})({ x: 1, y: 2 });
-    expect(d).toBe('symbol path');
-    expect(symbol.mock.results[0].value.size).toBeCalledWith([49]);
+    const createPoint = pointAttributes({ size: 3 });
+    const result = createPoint({ x: 1, y: 2 });
+
+    expect(result).toEqual({
+      x: 1,
+      y: 2,
+      d: 'symbol path',
+    });
+    expect(symbol.mock.results[0].value.size).toBeCalledWith([9]);
     expect(symbol.mock.results[0].value.type).toBeCalledWith(symbolCircle);
-    expect(x).toBe(1);
-    expect(y).toBe(2);
+  });
+});
+
+describe('dBar', () => {
+  it('should return bar coordinates', () => {
+    expect(dBar({
+      x: 1, y: 9, y1: 5, width: 3,
+    })).toEqual({
+      x: 1, y: 5, width: 3, height: 4,
+    });
+    expect(dBar({
+      x: 1, y: 5, y1: 9, width: 3,
+    })).toEqual({
+      x: 1, y: 5, width: 3, height: 4,
+    });
+  });
+});
+
+describe('addSeries', () => {
+  const palette = ['c1', 'c2', 'c3'];
+
+  it('should append element to list', () => {
+    const result = addSeries(
+      [{ uniqueName: 's1' }, { uniqueName: 's2' }], [], palette, { name: 'test' },
+    );
+    expect(result).toEqual([
+      { uniqueName: 's1' },
+      { uniqueName: 's2' },
+      {
+        name: 'test',
+        uniqueName: 'test',
+        index: 2,
+        points: [],
+        color: 'c3',
+        palette,
+      },
+    ]);
   });
 
-  it('should return coordinates for path', () => {
-    expect(coordinates(
-      data,
-      { xScale: createScale(), yScale: createScale() },
-      'arg',
-      'val1',
-      'Series3',
-    )).toEqual(computedLine);
+  it('should generate unique name prop', () => {
+    const result = addSeries([{ uniqueName: 'test' }], [], palette, { name: 'test' });
+    expect(result).toEqual([
+      { uniqueName: 'test' },
+      expect.objectContaining({ uniqueName: 'test0' }),
+    ]);
   });
 
-  it('should return coordinates for path, some value and argument fields are undefined', () => {
-    expect(coordinates(
-      dataWithUndefined,
-      { xScale: createScale(), yScale: createScale() },
-      'arg',
-      'val1',
-      'Series3',
-    )).toEqual([
+  it('should attempt to generate unique name several times', () => {
+    const result = addSeries(
+      [{ uniqueName: 'test1' }, { uniqueName: 'test2' }, { uniqueName: 'test3' }],
+      [], palette, { name: 'test1' },
+    );
+    expect(result[3].uniqueName).toEqual('test4');
+  });
+
+  it('should take color from palette and favor own series color', () => {
+    let result = [{ uniqueName: 's1' }, { uniqueName: 's2' }];
+    result = addSeries(result, [], palette, { name: 't1' });
+    result = addSeries(result, [], palette, { name: 't2', color: 'red' });
+    result = addSeries(result, [], palette, { name: 't3' });
+
+    expect(result[2].color).toEqual('c3');
+    expect(result[3].color).toEqual('red');
+    expect(result[4].color).toEqual('c2');
+  });
+
+  it('should create points', () => {
+    const props = {
+      name: 'test',
+      argumentField: 'arg',
+      valueField: 'val',
+    };
+    const data = [
+      { arg: 'a', val: 1 },
+      { arg: 'b', val: 2 },
+      { val: 3 },
+      { arg: 'd', val: 4 },
+      { arg: 'e' },
+    ];
+    const result = addSeries([{ uniqueName: 's1' }], data, palette, props);
+    expect(result).toEqual([
+      { uniqueName: 's1' },
       {
-        id: 0, x: 6, y: 3, y1: 3, value: 3,
-      },
-      {
-        id: 2, x: 8, y: 7, y1: 7, value: 7,
-      },
-      {
-        id: 4, x: 10, y: 15, y1: 15, value: 15,
+        ...props,
+        index: 1,
+        uniqueName: 'test',
+        points: [
+          { argument: 'a', value: 1, index: 0 },
+          { argument: 'b', value: 2, index: 1 },
+          { argument: 'd', value: 4, index: 3 },
+        ],
+        color: 'c2',
+        palette,
       },
     ]);
   });
 });
 
-describe('Pie attributes', () => {
-  it('should return array of arcs', () => {
-    const getScale = () => ({ range: jest.fn().mockReturnValue([10]) });
-    const pieAttr = pieAttributes(data, { xScale: getScale(), yScale: getScale() }, 'arg', 'val1', null, null, null, { innerRadius: 0.3, outerRadius: 0.5 });
+describe('scaleSeriesPoints', () => {
+  it('should update points', () => {
+    const scales = {
+      'argument-domain': 'test-arg-scale',
+      'value-domain': 'test-val-scale',
+      'domain-1': 'test-val-scale-1',
+    };
+    const getPointTransformer1 = jest.fn()
+      .mockReturnValue(point => ({ ...point, tag: '#1' }));
+    const getPointTransformer2 = jest.fn()
+      .mockReturnValue(point => ({ ...point, tag: '#2' }));
+    const series1 = {
+      scaleName: 'domain-1',
+      getPointTransformer: getPointTransformer1,
+      points: [{ name: 'a1' }, { name: 'a2' }],
+    };
+    const series2 = {
+      getPointTransformer: getPointTransformer2,
+      points: [{ name: 'b1' }, { name: 'b2' }, { name: 'b3' }],
+    };
 
-    expect(pieAttr).toHaveLength(data.length);
-    pieAttr.forEach((attr, index) => {
-      expect(attr.d).toBeTruthy();
-      expect(attr.value).toBe('value');
-      expect(attr.data).toEqual(data[index]);
-      expect(attr.id).toEqual(data[index].arg);
-      expect(attr.x).toEqual(5);
-      expect(attr.y).toEqual(5);
-    });
-    data.forEach((d) => {
-      expect(arc.mock.results[0].value.innerRadius).toHaveBeenCalledWith(1.5);
-      expect(arc.mock.results[0].value.outerRadius).toHaveBeenCalledWith(2.5);
-      expect(arc.mock.results[0].value.startAngle).toHaveBeenCalledWith(d.val1);
-      expect(arc.mock.results[0].value.endAngle).toHaveBeenCalledWith(d.val1);
-    });
-  });
-});
+    const result = scaleSeriesPoints([series1, series2], scales);
 
-describe('seriesData', () => {
-  it('should return array with props', () => {
-    const seriesArray = seriesData(undefined, { first: true });
-    expect(seriesArray).toEqual([{ first: true }]);
-  });
-
-  it('should push new series props', () => {
-    const seriesArray = seriesData([{ uniqueName: 'defaultName' }], { uniqueName: 'defaultName' });
-    expect(seriesArray).toEqual([{ uniqueName: 'defaultName' }, { uniqueName: 'defaultName0' }]);
-  });
-
-  it('should push new  props', () => {
-    const seriesArray = seriesData([{ uniqueName: 'defaultName0' }], { uniqueName: 'defaultName0' });
-    expect(seriesArray).toEqual([{ uniqueName: 'defaultName0' }, { uniqueName: 'defaultName1' }]);
-  });
-});
-
-describe('checkZeroStart', () => {
-  it('should return true for axis with bar', () => {
-    const fromZero = checkZeroStart({}, 'axis1', 'bar');
-    expect(fromZero).toEqual({ axis1: true });
-  });
-
-  it('should return true for axis with area', () => {
-    const fromZero = checkZeroStart({}, 'axis1', 'area');
-    expect(fromZero).toEqual({ axis1: true });
-  });
-
-  it('should return false for axis with another series type', () => {
-    const fromZero = checkZeroStart({}, 'axis1', 'line');
-    expect(fromZero).toEqual({ axis1: false });
-  });
-});
-
-describe('#getPieItems', () => {
-  it('should return function returns items of series', () => {
-    expect(getPieItems(undefined, ['name1', 'name2'])).toEqual([{ uniqueName: 'name1' }, { uniqueName: 'name2' }]);
+    expect(result[0].points).toEqual(
+      [{ name: 'a1', tag: '#1' }, { name: 'a2', tag: '#1' }],
+    );
+    expect(result[1].points).toEqual(
+      [{ name: 'b1', tag: '#2' }, { name: 'b2', tag: '#2' }, { name: 'b3', tag: '#2' }],
+    );
+    expect(getPointTransformer1).toBeCalledWith(
+      { ...series1, argumentScale: 'test-arg-scale', valueScale: 'test-val-scale-1' },
+    );
+    expect(getPointTransformer2).toBeCalledWith(
+      { ...series2, argumentScale: 'test-arg-scale', valueScale: 'test-val-scale' },
+    );
   });
 });

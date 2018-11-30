@@ -29,28 +29,19 @@ describe('Appointment', () => {
         .toBeTruthy();
       expect(tree.is(`.${classes.appointment}`))
         .toBeTruthy();
+      expect(tree.is(`.${classes.clickableAppointment}`))
+        .toBeFalsy();
     });
 
     it('should pass rest props to the root element', () => {
       const tree = shallow((
-        <Appointment {...defaultProps} data={{ a: 1 }}>
+        <Appointment {...defaultProps} customProp={{ a: 1 }}>
           <div />
         </Appointment>
       ));
 
-      expect(tree.props().data)
+      expect(tree.props().customProp)
         .toMatchObject({ a: 1 });
-    });
-
-    it('should render content', () => {
-      const content = shallow((
-        <Appointment {...defaultProps}>
-          <div />
-        </Appointment>
-      )).find(`.${classes.content}`);
-
-      expect(content.exists())
-        .toBeTruthy();
     });
 
     it('should render children', () => {
@@ -70,7 +61,7 @@ describe('Appointment', () => {
         <Appointment
           {...defaultProps}
           onClick={clickMock}
-          appointment={{ text: 'a' }}
+          data={{ text: 'a' }}
         >
           <div />
         </Appointment>
@@ -79,7 +70,35 @@ describe('Appointment', () => {
       appointment.simulate('click', { target: 'target' });
 
       expect(clickMock.mock.calls[0][0])
-        .toEqual({ target: 'target', appointment: { text: 'a' } });
+        .toEqual({ target: 'target', data: { text: 'a' } });
+    });
+
+    it('should apply clickable class if onClick event exists', () => {
+      const tree = shallow((
+        <Appointment
+          {...defaultProps}
+          onClick={() => undefined}
+        >
+          <div />
+        </Appointment>
+      ));
+
+      expect(tree.is(`.${classes.clickableAppointment}`))
+        .toBeTruthy();
+    });
+
+    it('should apply clickable class if onDoubleClick event exists', () => {
+      const tree = shallow((
+        <Appointment
+          {...defaultProps}
+          onDoubleClick={() => undefined}
+        >
+          <div />
+        </Appointment>
+      ));
+
+      expect(tree.is(`.${classes.clickableAppointment}`))
+        .toBeTruthy();
     });
   });
 });

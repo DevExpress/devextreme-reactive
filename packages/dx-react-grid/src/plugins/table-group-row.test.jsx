@@ -52,6 +52,8 @@ const defaultDeps = {
 
 const defaultProps = {
   cellComponent: () => null,
+  contentComponent: () => null,
+  iconComponent: () => null,
   indentCellComponent: () => null,
   rowComponent: () => null,
   indentColumnWidth: 100,
@@ -283,6 +285,26 @@ describe('TableGroupRow', () => {
     });
   });
 
+  it('should provide components to a cell', () => {
+    isGroupTableRow.mockImplementation(() => true);
+    isGroupTableCell.mockImplementation(() => true);
+
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableGroupRow
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    expect(tree.find(defaultProps.cellComponent).props())
+      .toMatchObject({
+        contentComponent: defaultProps.contentComponent,
+        iconComponent: defaultProps.iconComponent,
+      });
+  });
+
   it('can render custom formatted data in group row cell', () => {
     isGroupTableRow.mockImplementation(() => true);
     isGroupTableCell.mockImplementation(() => true);
@@ -297,8 +319,8 @@ describe('TableGroupRow', () => {
     ));
 
     const valueFormatterTemplatePlaceholder = tree
-      .find('TemplatePlaceholder')
-      .findWhere(node => node.prop('name') === 'valueFormatter');
+      .find('TemplatePlaceholderBase')
+      .findWhere(node => node.prop('name') === 'valueFormatter').last();
 
     expect(valueFormatterTemplatePlaceholder.prop('params'))
       .toMatchObject({

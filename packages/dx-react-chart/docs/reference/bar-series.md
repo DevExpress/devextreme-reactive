@@ -23,14 +23,12 @@ import { BarSeries } from '@devexpress/dx-react-chart';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-name | string | | A series name.
+name | string | | The series name.
 valueField | string | | The name of a data field that provides series point values.
 argumentField | string | | The name of a data field that provides series point argument values.
-axisName? | string | | The associated axis.
-stack? | string | | The associated stack.
+scaleName? | string | | An associated scale.
 barWidth? | number | | The bar width in relative units.
-groupWidth? | number | | The bar group width in relative units.
-color? | string | | A series color.
+color? | string | | The series color.
 pointComponent | ComponentType&lt;[BarSeries.PointProps](#barseriespointprops)&gt; | | A component that renders a bar.
 
 ## Interfaces
@@ -42,10 +40,12 @@ Describes properties passed to a component that renders a bar.
 Field | Type | Description
 ------|------|------------
 x | number | The bar's x coordinate.
+width | number | The bar's width.
 y | number | The bar's y coordinate.
-width | number | The bar width.
-height | number | The bar height.
+y1 | number | The bar's y1 coordinate.
 value | number | The bar's value.
+color | string | A series color.
+index | number | Point index.
 
 ## Plugin Components
 

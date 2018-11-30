@@ -4,8 +4,7 @@ import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-c
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
   computed,
-  timeScale,
-  dayScale,
+  viewCellsData,
   startViewDate,
   endViewDate,
   calculateRectByDateIntervals,
@@ -15,45 +14,45 @@ import { WeekView } from './week-view';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   computed: jest.fn(),
-  timeScale: jest.fn(),
-  dayScale: jest.fn(),
+  viewCellsData: jest.fn(),
   startViewDate: jest.fn(),
   endViewDate: jest.fn(),
-  availableViews: jest.fn(),
+  availableViewNames: jest.fn(),
   calculateRectByDateIntervals: jest.fn(),
   calculateWeekDateIntervals: jest.fn(),
 }));
 
+const DAYS_IN_WEEK = 7;
+
 const defaultDeps = {
   getter: {
     currentDate: '2018-07-04',
-    dateTableRef: {
-      querySelectorAll: () => {},
-    },
-    availableViews: [],
+    availableViewNames: [],
     currentView: { name: 'Week' },
   },
   template: {
     body: {},
     navbar: {},
     sidebar: {},
+    dayScaleEmptyCell: {},
     main: {},
   },
 };
 
 const defaultProps = {
   layoutComponent: () => null,
-  timePanelLayoutComponent: () => null,
-  timePanelRowComponent: () => null,
-  timePanelCellComponent: () => null,
-  dayPanelLayoutComponent: () => null,
-  dayPanelCellComponent: () => null,
-  dayPanelRowComponent: () => null,
-  dateTableLayoutComponent: () => null,
-  dateTableRowComponent: () => null,
-  dateTableCellComponent: () => null,
+  timeScaleLayoutComponent: () => null,
+  timeScaleRowComponent: () => null,
+  timeScaleCellComponent: () => null,
+  dayScaleLayoutComponent: () => null,
+  dayScaleCellComponent: () => null,
+  dayScaleRowComponent: () => null,
+  timeTableLayoutComponent: () => null,
+  timeTableRowComponent: () => null,
+  timeTableCellComponent: () => null,
+  dayScaleEmptyCellComponent: () => null,
   // eslint-disable-next-line react/prop-types, react/jsx-one-expression-per-line
-  containerComponent: ({ children }) => <div>{children}</div>,
+  appointmentLayerComponent: ({ children }) => <div>{children}</div>,
 };
 
 describe('Week View', () => {
@@ -61,8 +60,9 @@ describe('Week View', () => {
     computed.mockImplementation(
       (getters, viewName, baseComputed) => baseComputed(getters, viewName),
     );
-    timeScale.mockImplementation(() => [8, 9, 10]);
-    dayScale.mockImplementation(() => [1, 2, 3]);
+    viewCellsData.mockImplementation(() => ([
+      [{}, {}], [{}, {}],
+    ]));
     startViewDate.mockImplementation(() => '2018-07-04');
     endViewDate.mockImplementation(() => '2018-07-11');
     calculateRectByDateIntervals.mockImplementation(() => [{
@@ -75,46 +75,33 @@ describe('Week View', () => {
   });
 
   describe('Getters', () => {
-    it('should provide the "timeScale" getter', () => {
+    it('should provide the "viewCellsData" getter', () => {
+      const props = {
+        firstDayOfWeek: 2,
+        intervalCount: 2,
+        startDayHour: 1,
+        endDayHour: 9,
+        cellDuration: 30,
+        excludedDays: [1],
+      };
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <WeekView
-            startDayHour={8}
-            endDayHour={18}
-            cellDuration={60}
-            firstDayOfWeek={1}
             {...defaultProps}
+            {...props}
           />
         </PluginHost>
       ));
 
-      expect(timeScale)
-        .toBeCalledWith('2018-07-04', 1, 8, 18, 60, []);
-      expect(getComputedState(tree).timeScale)
-        .toEqual([8, 9, 10]);
-    });
-
-    it('should provide the "dayScale" getter', () => {
-      const firstDayOfWeek = 2;
-      const intervalCount = 2;
-      const excludedDays = [1, 2];
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <WeekView
-            firstDayOfWeek={firstDayOfWeek}
-            intervalCount={intervalCount}
-            excludedDays={excludedDays}
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(dayScale)
-        .toBeCalledWith('2018-07-04', firstDayOfWeek, intervalCount * 7, excludedDays);
-      expect(getComputedState(tree).dayScale)
-        .toEqual([1, 2, 3]);
+      expect(viewCellsData)
+        .toBeCalledWith(
+          '2018-07-04', props.firstDayOfWeek,
+          props.intervalCount * DAYS_IN_WEEK, props.excludedDays,
+          props.startDayHour, props.endDayHour, props.cellDuration,
+        );
+      expect(getComputedState(tree).viewCellsData)
+        .toEqual([[{}, {}], [{}, {}]]);
     });
 
     it('should provide the "firstDayOfWeek" getter', () => {
@@ -144,7 +131,9 @@ describe('Week View', () => {
         </PluginHost>
       ));
       expect(startViewDate)
-        .toBeCalledWith([1, 2, 3], [8, 9, 10], 2);
+        .toBeCalledWith([
+          [{}, {}], [{}, {}],
+        ]);
       expect(getComputedState(tree).startViewDate)
         .toBe('2018-07-04');
     });
@@ -159,7 +148,10 @@ describe('Week View', () => {
         </PluginHost>
       ));
       expect(endViewDate)
-        .toBeCalledWith([1, 2, 3], [8, 9, 10]);
+        .toBeCalledWith([
+          [{}, {}],
+          [{}, {}],
+        ]);
       expect(getComputedState(tree).endViewDate)
         .toBe('2018-07-11');
     });
@@ -256,64 +248,79 @@ describe('Week View', () => {
         .toBeTruthy();
     });
 
-    it('should render day panel', () => {
+    it('should render day scale', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <WeekView
             {...defaultProps}
-            dayPanelLayoutComponent={() => <div className="day-panel" />}
+            dayScaleLayoutComponent={() => <div className="day-scale" />}
           />
         </PluginHost>
       ));
 
-      expect(tree.find('.day-panel').exists())
+      expect(tree.find('.day-scale').exists())
         .toBeTruthy();
     });
 
-    it('should render time panel', () => {
+    it('should render time scale', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <WeekView
             {...defaultProps}
-            timePanelLayoutComponent={() => <div className="time-panel" />}
+            timeScaleLayoutComponent={() => <div className="time-scale" />}
           />
         </PluginHost>
       ));
 
-      expect(tree.find('.time-panel').exists())
+      expect(tree.find('.time-scale').exists())
         .toBeTruthy();
     });
 
-    it('should render date table', () => {
+    it('should render time table', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <WeekView
             {...defaultProps}
-            dateTableLayoutComponent={() => <div className="date-table" />}
+            timeTableLayoutComponent={() => <div className="time-table" />}
           />
         </PluginHost>
       ));
 
-      expect(tree.find('.date-table').exists())
+      expect(tree.find('.time-table').exists())
         .toBeTruthy();
     });
 
-    it('should render appointment container', () => {
+    it('should render appointment layer', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <WeekView
             {...defaultProps}
             // eslint-disable-next-line react/jsx-one-expression-per-line
-            containerComponent={({ children }) => <div className="container">{children}</div>}
+            appointmentLayerComponent={({ children }) => <div className="appointment-layer">{children}</div>}
           />
         </PluginHost>
       ));
 
-      expect(tree.find('.container').exists())
+      expect(tree.find('.appointment-layer').exists())
+        .toBeTruthy();
+    });
+
+    it('should render dayScaleEmptyCell', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <WeekView
+            {...defaultProps}
+            dayScaleEmptyCellComponent={() => <div className="empty-cell" />}
+          />
+        </PluginHost>
+      ));
+
+      expect(tree.find('.empty-cell').exists())
         .toBeTruthy();
     });
   });

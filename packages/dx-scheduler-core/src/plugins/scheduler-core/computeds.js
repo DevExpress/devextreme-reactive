@@ -1,13 +1,8 @@
-export const appointments = (
-  data,
-  getAppointmentStartDate,
-  getAppointmentEndDate,
-  getAppointmentAllDay,
-) => data.map(appointment => ({
-  start: getAppointmentStartDate(appointment),
-  end: getAppointmentEndDate(appointment),
-  ...getAppointmentAllDay(appointment) !== undefined && {
-    allDay: getAppointmentAllDay(appointment),
+export const appointments = data => data.map(appointment => ({
+  start: appointment.startDate,
+  end: appointment.endDate,
+  ...appointment.allDay !== undefined && {
+    allDay: appointment.allDay,
   },
   dataItem: appointment,
 }));

@@ -6,9 +6,10 @@ import { Table } from './table';
 export class Root extends React.PureComponent {
   constructor(props) {
     super(props);
-    const { currentDate } = this.props;
+    const { selectedDate } = this.props;
     this.state = {
-      currentDate,
+      selectedDate,
+      currentDate: selectedDate,
     };
     this.onNavigate = this.onNavigate.bind(this);
     this.onCellClick = this.onCellClick.bind(this);
@@ -21,38 +22,40 @@ export class Root extends React.PureComponent {
   }
 
   onCellClick({ nextDate }) {
-    const { onNavigate } = this.props;
-    onNavigate({ nextDate });
-    this.setState({ currentDate: nextDate });
+    const { onSelectedDateChange } = this.props;
+    this.setState({ selectedDate: nextDate, currentDate: nextDate });
+    onSelectedDateChange({ nextDate });
   }
 
   render() {
     const {
-      currentDate, firstDayOfWeek, getHeaderCells, getCells,
-      titleComponent: Title,
+      selectedDate, firstDayOfWeek, getCells,
+      textComponent: Text,
       navigationButtonComponent: NavigationButton,
       navigatorComponent: Navigator,
       rowComponent: Row,
       cellComponent: Cell,
       headerRowComponent: HeaderRow,
       headerCellComponent: HeaderCell,
-      onNavigate,
+      onSelectedDateChange,
       ...restProps
     } = this.props;
-    const { currentDate: currentDateState } = this.state;
+    const { selectedDate: selectedDateState, currentDate } = this.state;
+    const cellsData = getCells(currentDate, firstDayOfWeek, 1, Date.now());
     return (
       <div
         {...restProps}
       >
         <Navigator
-          currentDate={currentDateState}
-          titleComponent={Title}
+          currentDate={currentDate}
+          textComponent={Text}
           navigationButtonComponent={NavigationButton}
           onNavigate={this.onNavigate}
         />
         <Table
-          headerCells={getHeaderCells(currentDateState, firstDayOfWeek)}
-          cells={getCells(currentDateState, firstDayOfWeek)}
+          headerCells={cellsData[0]}
+          selectedDate={selectedDateState}
+          cells={cellsData}
           rowComponent={Row}
           cellComponent={Cell}
           headerRowComponent={HeaderRow}
@@ -65,23 +68,24 @@ export class Root extends React.PureComponent {
 }
 
 Root.propTypes = {
-  titleComponent: PropTypes.func.isRequired,
+  textComponent: PropTypes.func.isRequired,
   navigationButtonComponent: PropTypes.func.isRequired,
-  getHeaderCells: PropTypes.func.isRequired,
   getCells: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
   cellComponent: PropTypes.func.isRequired,
   headerRowComponent: PropTypes.func.isRequired,
   headerCellComponent: PropTypes.func.isRequired,
   navigatorComponent: PropTypes.func.isRequired,
-  currentDate: PropTypes.oneOfType([
+  selectedDate: PropTypes.oneOfType([
+    PropTypes.number,
     PropTypes.string,
     PropTypes.instanceOf(Date),
   ]).isRequired,
-  firstDayOfWeek: PropTypes.number.isRequired,
-  onNavigate: PropTypes.func,
+  firstDayOfWeek: PropTypes.number,
+  onSelectedDateChange: PropTypes.func,
 };
 
 Root.defaultProps = {
-  onNavigate: () => {},
+  onSelectedDateChange: () => {},
+  firstDayOfWeek: 0,
 };

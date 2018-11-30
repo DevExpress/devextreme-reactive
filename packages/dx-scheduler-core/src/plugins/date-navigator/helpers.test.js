@@ -1,44 +1,44 @@
-import { viewBoundTitle } from './helpers';
+import { viewBoundText } from './helpers';
 
 describe('DateNavigator helpers', () => {
-  describe('viewBoundTitle', () => {
-    describe('Week title', () => {
-      it('should calculate title for single day view', () => {
-        const title = viewBoundTitle('2018-07-06 10:00', '2018-07-06 15:00');
-        expect(title)
+  describe('viewBoundText', () => {
+    describe('Week text', () => {
+      it('should calculate text for single day view', () => {
+        const text = viewBoundText('2018-07-06 10:00', '2018-07-06 15:00');
+        expect(text)
           .toBe('6 July 2018');
       });
-      it('should calculate title for multi days singe month view', () => {
-        const title = viewBoundTitle('2018-07-06', '2018-07-10');
-        expect(title)
+      it('should calculate text for multi days singe month view', () => {
+        const text = viewBoundText('2018-07-06', '2018-07-10');
+        expect(text)
           .toBe('6-10 July 2018');
       });
-      it('should calculate title for multi days view and different months', () => {
-        const title = viewBoundTitle('2018-07-28', '2018-08-02');
-        expect(title)
+      it('should calculate text for multi days view and different months', () => {
+        const text = viewBoundText('2018-07-28', '2018-08-02');
+        expect(text)
           .toBe('28 Jul - 2 Aug 2018');
       });
-      it('should calculate title for multi days view and different years', () => {
-        const title = viewBoundTitle('2018-12-30', '2019-01-02');
-        expect(title)
+      it('should calculate text for multi days view and different years', () => {
+        const text = viewBoundText('2018-12-30', '2019-01-02');
+        expect(text)
           .toBe('30 Dec 18 - 2 Jan 19');
       });
     });
 
-    describe('Month title', () => {
-      it('should calculate title for single month view', () => {
-        const title = viewBoundTitle(undefined, undefined, 'month', '2018-07-16', 1);
-        expect(title)
+    describe('Month text', () => {
+      it('should calculate text for single month view', () => {
+        const text = viewBoundText(undefined, undefined, 'month', '2018-07-16', 1);
+        expect(text)
           .toBe('July 2018');
       });
-      it('should calculate title for multi months view', () => {
-        const title = viewBoundTitle(undefined, undefined, 'month', '2018-07-16', 2);
-        expect(title)
+      it('should calculate text for multi months view', () => {
+        const text = viewBoundText(undefined, undefined, 'month', '2018-07-16', 2);
+        expect(text)
           .toBe('Jul-Aug 2018');
       });
-      it('should calculate title for multi months view and different years', () => {
-        const title = viewBoundTitle(undefined, undefined, 'month', '2018-12-29', 2);
-        expect(title)
+      it('should calculate text for multi months view and different years', () => {
+        const text = viewBoundText(undefined, undefined, 'month', '2018-12-29', 2);
+        expect(text)
           .toBe('Dec 18 - Jan 19');
       });
     });

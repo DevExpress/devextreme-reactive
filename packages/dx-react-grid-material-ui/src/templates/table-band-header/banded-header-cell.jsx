@@ -14,13 +14,19 @@ const styles = theme => ({
     verticalAlign: 'bottom',
     paddingBottom: theme.spacing.unit * 2,
   },
+  beforeBorder: {
+    borderLeft: getBorder(theme),
+  },
 });
 
 export const BandedHeaderCellBase = ({
-  component: HeaderCellComponent, className, classes, ...restProps
+  component: HeaderCellComponent, className, classes, beforeBorder, ...restProps
 }) => (
   <HeaderCellComponent
-    className={classNames(classes.headerCellBorder, className)}
+    className={classNames({
+      [classes.headerCellBorder]: true,
+      [classes.beforeBorder]: beforeBorder,
+    }, className)}
     {...restProps}
   />
 );
@@ -29,10 +35,12 @@ BandedHeaderCellBase.propTypes = {
   component: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
+  beforeBorder: PropTypes.bool,
 };
 
 BandedHeaderCellBase.defaultProps = {
   className: undefined,
+  beforeBorder: false,
 };
 
 export const BandedHeaderCell = withStyles(styles, { name: 'BandedHeaderCell' })(BandedHeaderCellBase);

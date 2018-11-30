@@ -20,7 +20,7 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-createRowChange? | (row: any, columnName: string, value: string &#124; number) => any | | A function that returns a row change object depending on row editor values. This function is called each time the row editor's value changes.
+createRowChange? | (row: any, value: string &#124; number, columnName: string) => any | | A function that returns a row change object depending on row editor values. This function is called each time the row editor's value changes.
 columnEditingEnabled? | boolean | true | Specifies whether editing is enabled for all columns.
 columnExtensions? | Array&lt;[EditingState.ColumnExtension](#editingstatecolumnextension)&gt; | | Additional column properties that the plugin can handle.
 editingRowIds? | Array&lt;number &#124; string&gt; | | IDs of the rows being edited.

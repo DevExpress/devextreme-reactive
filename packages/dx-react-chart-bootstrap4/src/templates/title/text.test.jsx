@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import { Text } from './text';
 
 describe('Text', () => {
@@ -8,7 +8,7 @@ describe('Text', () => {
   };
 
   it('should render root element', () => {
-    const tree = shallow((
+    const tree = mount((
       <Text
         {...defaultProps}
       />
@@ -20,9 +20,8 @@ describe('Text', () => {
   });
 
   it('should pass the rest property to the root element', () => {
-    const tree = shallow(<Text {...defaultProps} customProperty />);
-    const { customProperty } = tree.find('h3').props();
-    expect(customProperty)
+    const tree = mount(<Text {...defaultProps} className="custom-class" />);
+    expect(tree.find('h3').is('.custom-class.w-100.text-center.mb-3'))
       .toBeTruthy();
   });
 });

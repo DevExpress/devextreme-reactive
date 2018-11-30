@@ -46,19 +46,19 @@ module.exports = {
         path: path.join(__dirname, '../dx-react-chart/docs/'),
       },
     },
-    // Vue Grid
+    // React Scheduler
     {
       resolve: 'gatsby-source-filesystem',
       options: {
-        name: 'vue/grid|demos',
-        path: path.join(__dirname, '../dx-vue-grid/demos/'),
+        name: 'react/scheduler|demos',
+        path: path.join(__dirname, '../dx-react-scheduler/demos/'),
       },
     },
     {
       resolve: 'gatsby-source-filesystem',
       options: {
-        name: 'vue/grid|docs',
-        path: path.join(__dirname, '../dx-vue-grid/docs/'),
+        name: 'react/scheduler|docs',
+        path: path.join(__dirname, '../dx-react-scheduler/docs/'),
       },
     },
     {

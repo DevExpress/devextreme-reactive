@@ -409,8 +409,8 @@
             "path": "/react/chart/docs/guides/getting-started/"
           },
           {
-            "title": "Vue Grid",
-            "path": "/vue/grid/docs/guides/getting-started/"
+            "title": "React Scheduler",
+            "path": "/react/scheduler/docs/guides/getting-started/"
           }
         ]
       }
@@ -649,41 +649,29 @@
             "path": "/react/grid/docs/guides/getting-started/"
           },
           {
-            "title": "Vue Grid",
-            "path": "/vue/grid/docs/guides/getting-started/"
+            "title": "React Scheduler",
+            "path": "/react/scheduler/docs/guides/getting-started/"
           }
         ]
       }
     ]
   },
-  "vue/grid": {
+  "react/scheduler": {
     "demos": [
       {
         "title": "Demos",
         "items": [
           {
-            "title": "Integrated Data Shaping",
-            "path": "/vue/grid/demos/featured/integrated-data-shaping/"
-          },
-          {
             "title": "Data Editing",
-            "path": "/vue/grid/demos/featured/data-editing/"
+            "path": "/react/scheduler/demos/featured/data-editing/"
           },
           {
-            "title": "Virtual Scrolling",
-            "path": "/vue/grid/demos/featured/virtual-scrolling/"
-          },
-          {
-            "title": "Vuex Integration",
-            "path": "/vue/grid/demos/featured/vuex-integration/"
+            "title": "Appearance Customization",
+            "path": "/react/scheduler/demos/featured/appearance-customization/"
           },
           {
             "title": "Remote Data",
-            "path": "/vue/grid/demos/featured/remote-data/"
-          },
-          {
-            "title": "Tree Data",
-            "path": "/vue/grid/demos/featured/tree-data/"
+            "path": "/react/scheduler/demos/featured/remote-data/"
           }
         ]
       }
@@ -694,67 +682,7 @@
         "items": [
           {
             "title": "Getting Started",
-            "path": "/vue/grid/docs/guides/getting-started/"
-          },
-          {
-            "title": "Plugin Overview",
-            "path": "/vue/grid/docs/guides/plugin-overview/"
-          },
-          {
-            "title": "Fundamentals",
-            "path": "/vue/grid/docs/guides/fundamentals/"
-          },
-          {
-            "title": "Data Accessors",
-            "path": "/vue/grid/docs/guides/data-accessors/"
-          },
-          {
-            "title": "Sorting",
-            "path": "/vue/grid/docs/guides/sorting/"
-          },
-          {
-            "title": "Paging",
-            "path": "/vue/grid/docs/guides/paging/"
-          },
-          {
-            "title": "Filtering",
-            "path": "/vue/grid/docs/guides/filtering/"
-          },
-          {
-            "title": "Searching",
-            "path": "/vue/grid/docs/guides/searching/"
-          },
-          {
-            "title": "Grouping",
-            "path": "/vue/grid/docs/guides/grouping/"
-          },
-          {
-            "title": "Selection",
-            "path": "/vue/grid/docs/guides/selection/"
-          },
-          {
-            "title": "Editing",
-            "path": "/vue/grid/docs/guides/editing/"
-          },
-          {
-            "title": "Detail Row",
-            "path": "/vue/grid/docs/guides/detail-row/"
-          },
-          {
-            "title": "Banded Columns",
-            "path": "/vue/grid/docs/guides/banded-columns/"
-          },
-          {
-            "title": "Column Visibility",
-            "path": "/vue/grid/docs/guides/column-visibility/"
-          },
-          {
-            "title": "Virtual Scrolling",
-            "path": "/vue/grid/docs/guides/virtual-scrolling/"
-          },
-          {
-            "title": "Tree Data",
-            "path": "/vue/grid/docs/guides/tree-data/"
+            "path": "/react/scheduler/docs/guides/getting-started/"
           }
         ]
       },
@@ -762,148 +690,56 @@
         "title": "API Reference",
         "items": [
           {
-            "title": "DxGrid",
-            "path": "/vue/grid/docs/reference/grid/"
+            "title": "Scheduler",
+            "path": "/react/scheduler/docs/reference/scheduler/"
           },
           {
-            "title": "DxTable",
-            "path": "/vue/grid/docs/reference/table/"
+            "title": "ViewState",
+            "path": "/react/scheduler/docs/reference/view-state/"
           },
           {
-            "title": "DxDataTypeProvider",
-            "path": "/vue/grid/docs/reference/data-type-provider/"
+            "title": "DayView",
+            "path": "/react/scheduler/docs/reference/day-view/"
           },
           {
-            "title": "DxGroupingState",
-            "path": "/vue/grid/docs/reference/grouping-state/"
+            "title": "WeekView",
+            "path": "/react/scheduler/docs/reference/week-view/"
           },
           {
-            "title": "DxIntegratedGrouping",
-            "path": "/vue/grid/docs/reference/integrated-grouping/"
+            "title": "MonthView",
+            "path": "/react/scheduler/docs/reference/month-view/"
           },
           {
-            "title": "DxTableGroupRow",
-            "path": "/vue/grid/docs/reference/table-group-row/"
+            "title": "Appointments",
+            "path": "/react/scheduler/docs/reference/appointments/"
           },
           {
-            "title": "DxGroupingPanel",
-            "path": "/vue/grid/docs/reference/grouping-panel/"
+            "title": "AppointmentForm",
+            "path": "/react/scheduler/docs/reference/appointment-form/"
           },
           {
-            "title": "DxCustomGrouping",
-            "path": "/vue/grid/docs/reference/custom-grouping/"
+            "title": "AppointmentTooltip",
+            "path": "/react/scheduler/docs/reference/appointment-tooltip/"
           },
           {
-            "title": "DxFilteringState",
-            "path": "/vue/grid/docs/reference/filtering-state/"
+            "title": "EditingState",
+            "path": "/react/scheduler/docs/reference/editing-state/"
           },
           {
-            "title": "DxIntegratedFiltering",
-            "path": "/vue/grid/docs/reference/integrated-filtering/"
+            "title": "Toolbar",
+            "path": "/react/scheduler/docs/reference/toolbar/"
           },
           {
-            "title": "DxTableFilterRow",
-            "path": "/vue/grid/docs/reference/table-filter-row/"
+            "title": "AllDayPanel",
+            "path": "/react/scheduler/docs/reference/all-day-panel/"
           },
           {
-            "title": "DxSortingState",
-            "path": "/vue/grid/docs/reference/sorting-state/"
+            "title": "DateNavigator",
+            "path": "/react/scheduler/docs/reference/date-navigator/"
           },
           {
-            "title": "DxIntegratedSorting",
-            "path": "/vue/grid/docs/reference/integrated-sorting/"
-          },
-          {
-            "title": "DxPagingState",
-            "path": "/vue/grid/docs/reference/paging-state/"
-          },
-          {
-            "title": "DxIntegratedPaging",
-            "path": "/vue/grid/docs/reference/integrated-paging/"
-          },
-          {
-            "title": "DxCustomPaging",
-            "path": "/vue/grid/docs/reference/custom-paging/"
-          },
-          {
-            "title": "DxPagingPanel",
-            "path": "/vue/grid/docs/reference/paging-panel/"
-          },
-          {
-            "title": "DxEditingState",
-            "path": "/vue/grid/docs/reference/editing-state/"
-          },
-          {
-            "title": "DxTableEditRow",
-            "path": "/vue/grid/docs/reference/table-edit-row/"
-          },
-          {
-            "title": "DxTableEditColumn",
-            "path": "/vue/grid/docs/reference/table-edit-column/"
-          },
-          {
-            "title": "DxTableBandHeader",
-            "path": "/vue/grid/docs/reference/table-band-header/"
-          },
-          {
-            "title": "DxSearchState",
-            "path": "/vue/grid/docs/reference/search-state/"
-          },
-          {
-            "title": "DxSearchPanel",
-            "path": "/vue/grid/docs/reference/search-panel/"
-          },
-          {
-            "title": "DxSelectionState",
-            "path": "/vue/grid/docs/reference/selection-state/"
-          },
-          {
-            "title": "DxIntegratedSelection",
-            "path": "/vue/grid/docs/reference/integrated-selection/"
-          },
-          {
-            "title": "DxTableSelection",
-            "path": "/vue/grid/docs/reference/table-selection/"
-          },
-          {
-            "title": "DxRowDetailState",
-            "path": "/vue/grid/docs/reference/row-detail-state/"
-          },
-          {
-            "title": "DxTableRowDetail",
-            "path": "/vue/grid/docs/reference/table-row-detail/"
-          },
-          {
-            "title": "DxToolbar",
-            "path": "/vue/grid/docs/reference/toolbar/"
-          },
-          {
-            "title": "DxTableHeaderRow",
-            "path": "/vue/grid/docs/reference/table-header-row/"
-          },
-          {
-            "title": "DxTreeDataState",
-            "path": "/vue/grid/docs/reference/tree-data-state/"
-          },
-          {
-            "title": "DxCustomTreeData",
-            "path": "/vue/grid/docs/reference/custom-tree-data/"
-          },
-          {
-            "title": "DxTableTreeColumn",
-            "path": "/vue/grid/docs/reference/table-tree-column/"
-          },
-          {
-            "title": "DxColumnChooser",
-            "path": "/vue/grid/docs/reference/column-chooser/"
-          },
-          {
-            "title": "DxTableColumnVisibility",
-            "path": "/vue/grid/docs/reference/table-column-visibility/"
-          },
-          {
-            "title": "DxVirtualTable",
-            "path": "/vue/grid/docs/reference/virtual-table/"
+            "title": "ViewSwitcher",
+            "path": "/react/scheduler/docs/reference/view-switcher/"
           }
         ]
       },
@@ -911,16 +747,16 @@
         "title": "Related Docs",
         "items": [
           {
-            "title": "React Grid",
-            "path": "/react/grid/docs/guides/getting-started/"
+            "title": "React Core",
+            "path": "/react/core/docs/guides/fundamentals/"
           },
           {
             "title": "React Chart",
             "path": "/react/chart/docs/guides/getting-started/"
           },
           {
-            "title": "React Core",
-            "path": "/react/core/docs/guides/fundamentals/"
+            "title": "React Grid",
+            "path": "/react/grid/docs/guides/getting-started/"
           }
         ]
       }

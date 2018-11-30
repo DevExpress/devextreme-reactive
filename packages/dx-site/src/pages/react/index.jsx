@@ -53,6 +53,12 @@ const IndexPage = () => (
         title="React Chart"
         links={<LandingLink to="/react/chart/">Explore Component</LandingLink>}
       />
+      <LandingProductBlock
+        type="react"
+        iconLink={featureIcon}
+        title="React Scheduler"
+        links={<LandingLink to="/react/scheduler/">Explore Component</LandingLink>}
+      />
     </LandingProductLayout>
     <LandingLayout>
       <LandingTitle
@@ -118,6 +124,12 @@ const IndexPage = () => (
         iconLink={featureIcon}
         title="React Chart"
         links={<LandingLink to="/react/chart/">Learn More</LandingLink>}
+      />
+      <LandingProductBlock
+        type="react"
+        iconLink={featureIcon}
+        title="React Scheduler"
+        links={<LandingLink to="/react/scheduler/">Learn More</LandingLink>}
       />
     </LandingProductLayout>
   </Layout>

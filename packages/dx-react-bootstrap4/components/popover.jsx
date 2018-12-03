@@ -101,17 +101,19 @@ export class Popover extends React.PureComponent {
   }
 }
 
+export const targetElementType = PropTypes.oneOfType([
+  PropTypes.string,
+  PropTypes.func,
+  PropTypes.node,
+  PropTypes.instanceOf((typeof Element !== 'undefined') ? Element : Object),
+]);
+
 Popover.propTypes = {
-  container: PropTypes.string,
+  container: targetElementType,
   placement: PropTypes.string,
   isOpen: PropTypes.bool,
   children: PropTypes.node.isRequired,
-  target: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.func,
-    PropTypes.node,
-    PropTypes.instanceOf(typeof Element !== 'undefined' ? Element : Object),
-  ]),
+  target: targetElementType,
   toggle: PropTypes.func,
 };
 

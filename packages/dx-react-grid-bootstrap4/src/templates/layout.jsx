@@ -17,7 +17,7 @@ export class Root extends React.PureComponent {
     super(props);
 
     this.state = {
-      backgroundColor: 'white',
+      backgroundColor: undefined,
     };
   }
 

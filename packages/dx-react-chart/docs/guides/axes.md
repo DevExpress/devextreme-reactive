@@ -1,4 +1,4 @@
-# React Chart - Scales, Axes and Grid
+# React Chart - Scales, Axes, and Grid
 
 The axes and grid improve the visualized data's readability: axes display series point arguments and values; the grid connects series points and axis values.
 
@@ -8,8 +8,8 @@ The following plugins implement the axes and grid:
 
 - [ArgumentAxis](../reference/argument-axis.md) - renders an argument axis with grid lines.
 - [ValueAxis](../reference/value-axis.md) - renders a value axis with grid lines.
-- [ArgumentScale](../reference/argument-scale.md) - customizes argument scale.
-- [ValueScale](../reference/value-scale.md) - customizes value scale.
+- [ArgumentScale](../reference/argument-scale.md) - customizes the argument scale.
+- [ValueScale](../reference/value-scale.md) - customizes the value scale.
 
 ## Basic Setup
 

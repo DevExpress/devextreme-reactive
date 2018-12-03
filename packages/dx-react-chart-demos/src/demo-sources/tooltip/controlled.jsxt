@@ -7,7 +7,7 @@ import {
   ValueAxis,
   Tooltip,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
-import { Scale, Animation, EventTracker } from '@devexpress/dx-react-chart';
+import { Scale, EventTracker } from '@devexpress/dx-react-chart';
 
 const data = [
   { year: '1950', population: 2.525 },
@@ -49,7 +49,6 @@ export default class Demo extends React.PureComponent {
           <Title
             text="World population (billion)"
           />
-          <Animation />
           <Scale />
           <EventTracker />
           <Tooltip targetItem={targetItem} onTargetItemChange={this.changeTargetItem} />

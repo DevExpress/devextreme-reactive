@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { EmbeddedDemoContext } from '../context';
 
 export class DemoRenderer extends React.Component {
   constructor(props) {
@@ -24,15 +25,11 @@ export class DemoRenderer extends React.Component {
       variantName,
     } = this.props;
     const {
-      embeddedDemoOptions,
-    } = this.context;
-
-    const {
       renderDemo,
       unmountDemo,
       demoSources,
       themeSources,
-    } = embeddedDemoOptions;
+    } = this.context;
     const rootElement = this.rootRef.current;
 
     if (this.demoRenderSkipped) {
@@ -80,6 +77,4 @@ DemoRenderer.propTypes = {
   variantName: PropTypes.string.isRequired,
 };
 
-DemoRenderer.contextTypes = {
-  embeddedDemoOptions: PropTypes.object.isRequired,
-};
+DemoRenderer.contextType = EmbeddedDemoContext;

@@ -11,7 +11,7 @@ describe('TableSelectAllCell', () => {
   let classes;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
-    mount = createMount({ context: { table: {} }, childContextTypes: { table: () => null } });
+    mount = createMount();
     shallow = createShallow({ dive: true });
     classes = getClasses(<TableSelectAllCell />);
   });

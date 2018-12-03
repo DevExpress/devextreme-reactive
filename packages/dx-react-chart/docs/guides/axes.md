@@ -8,8 +8,8 @@ The following plugins implement the axes and grid:
 
 - [ArgumentAxis](../reference/argument-axis.md) - renders an argument axis with grid lines.
 - [ValueAxis](../reference/value-axis.md) - renders a value axis with grid lines.
-- [ArgumentScale](../reference/argument-scale.md) - customizes the argument scale.
-- [ValueScale](../reference/value-scale.md) - customizes the value scale.
+- [ArgumentScale](../reference/argument-scale.md) - allows you to customize the argument scale.
+- [ValueScale](../reference/value-scale.md) - allows you to customize the value scale.
 
 ## Basic Setup
 

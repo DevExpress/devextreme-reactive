@@ -3,6 +3,7 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { BodyColorContext } from './layout';
 
+// eslint-disable-next-line react/prefer-stateless-function
 export class Table extends React.Component {
   render() {
     const {

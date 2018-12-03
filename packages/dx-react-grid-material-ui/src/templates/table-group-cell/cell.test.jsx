@@ -22,7 +22,7 @@ describe('TableGroupCell', () => {
     classes = getClasses(<TableGroupCell {...defaultProps} />);
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
     shallow = createShallow({ dive: true });
-    mount = createMount({ context: { table: {} }, childContextTypes: { table: () => null } });
+    mount = createMount();
   });
 
   afterAll(() => {

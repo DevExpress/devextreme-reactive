@@ -77,7 +77,6 @@ export default class Demo extends React.PureComponent {
           />
           <Title
             text="Worldwide Sales to End Users by OS"
-            className="w-100 text-center mb-2"
           />
         </Chart>
       </Card>

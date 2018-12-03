@@ -92,7 +92,6 @@ export default class Demo extends React.PureComponent {
           <Legend />
           <Title
             text="Book Sales"
-            style={{ textAlign: 'center', width: '100%' }}
           />
           <Stack
             stacks={[

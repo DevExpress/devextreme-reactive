@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { createMount, getClasses } from '@material-ui/core/test-utils';
 import Typography from '@material-ui/core/Typography';
 import { Text } from './text';
 
@@ -7,14 +7,11 @@ describe('Text', () => {
   const defaultProps = {
     text: 'chart',
   };
+  const mount = createMount();
+  const classes = getClasses(<Text {...defaultProps} />);
 
   it('should render root element', () => {
-    const tree = shallow((
-      <Text
-        {...defaultProps}
-      />
-    ));
-
+    const tree = mount(<Text {...defaultProps} />);
     const { component, variant, children: text } = tree.find(Typography).props();
     expect(component)
       .toBe('h3');
@@ -25,9 +22,8 @@ describe('Text', () => {
   });
 
   it('should pass the rest property to the root element', () => {
-    const tree = shallow(<Text {...defaultProps} customProperty />);
-    const { customProperty } = tree.find(Typography).props();
-    expect(customProperty)
+    const tree = mount(<Text {...defaultProps} className="custom-class" />);
+    expect(tree.find(Typography).is(`.${classes.root}.custom-class`))
       .toBeTruthy();
   });
 });

@@ -1,17 +1,6 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import { withClassName } from '../utils';
 
-export class Text extends React.PureComponent {
-  render() {
-    const { text, ...restProps } = this.props;
-    return (
-      <h3 {...restProps}>
-        {text}
-      </h3>
-    );
-  }
-}
-
-Text.propTypes = {
-  text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-};
+export const Text = withClassName(
+  'w-100', 'text-center', 'mb-3',
+)(({ text, ...restProps }) => <h3 {...restProps}>{text}</h3>);

@@ -1,36 +1,8 @@
-/* globals document:true window:true */
-
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { findDOMNode } from 'react-dom';
-
-let borderColor;
+import { ThemeColors } from './layout';
 
 export class FixedCell extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      backgroundColor: 'white',
-      borderColor,
-    };
-  }
-
-  componentDidMount() {
-    const {
-      backgroundColor: stateBackgroundColor,
-      borderColor: stateBorderColor,
-    } = this.state;
-    const body = document.getElementsByTagName('body')[0];
-    const { backgroundColor } = window.getComputedStyle(body);
-    if (!borderColor) {
-      // eslint-disable-next-line react/no-find-dom-node
-      borderColor = window.getComputedStyle(findDOMNode(this)).borderBottomColor;
-    }
-    if (stateBackgroundColor !== backgroundColor || !stateBorderColor) {
-      this.setState({ backgroundColor, borderColor });
-    }
-  }
-
   render() {
     const {
       component: CellPlaceholder,
@@ -41,7 +13,7 @@ export class FixedCell extends React.PureComponent {
       position,
       ...restProps
     } = this.props;
-    const { backgroundColor } = this.state;
+    const { backgroundColor, borderColor } = this.context;
 
     return (
       <CellPlaceholder
@@ -61,6 +33,8 @@ export class FixedCell extends React.PureComponent {
     );
   }
 }
+
+FixedCell.contextType = ThemeColors;
 
 FixedCell.propTypes = {
   style: PropTypes.object,

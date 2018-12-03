@@ -1,40 +1,22 @@
-/* globals window:true */
-
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { findDOMNode } from 'react-dom';
+import { ThemeColors } from '../layout';
 
-export class BandedHeaderCell extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { borderColor: undefined };
-  }
-
-  componentDidMount() {
-    const { borderColor: stateBorderColor } = this.state;
-    if (!stateBorderColor) {
-      // eslint-disable-next-line react/no-find-dom-node
-      this.setState({ borderColor: window.getComputedStyle(findDOMNode(this)).borderBottomColor });
-    }
-  }
-
+export class BandedHeaderCell extends React.PureComponent {
   render() {
     const {
       component: HeaderCellComponent,
       style, beforeBorder,
       ...restProps
     } = this.props;
-    const { borderColor } = this.state;
+    const { borderColor } = this.context;
 
     return (
       <HeaderCellComponent
         style={{
           borderTop: 'none',
-          ...borderColor
-            ? {
-              borderRight: `1px solid ${borderColor}`,
-              ...beforeBorder ? { borderLeft: `1px solid ${borderColor}` } : null,
-            } : null,
+          borderRight: `1px solid ${borderColor}`,
+          ...beforeBorder ? { borderLeft: `1px solid ${borderColor}` } : null,
           ...style,
         }}
         {...restProps}
@@ -42,6 +24,8 @@ export class BandedHeaderCell extends React.Component {
     );
   }
 }
+
+BandedHeaderCell.contextType = ThemeColors;
 
 BandedHeaderCell.propTypes = {
   component: PropTypes.func.isRequired,

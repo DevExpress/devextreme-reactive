@@ -40,11 +40,6 @@ const demoStyles = () => ({
   chart: {
     paddingRight: '20px',
   },
-  title: {
-    textAlign: 'center',
-    width: '100%',
-    marginBottom: '10px',
-  },
 });
 
 const legendRootBase = ({ classes, ...restProps }) => (
@@ -101,7 +96,6 @@ class Demo extends React.PureComponent {
           />
           <Title
             text="Worldwide Sales to End Users by OS"
-            className={classes.title}
           />
         </Chart>
       </Paper>

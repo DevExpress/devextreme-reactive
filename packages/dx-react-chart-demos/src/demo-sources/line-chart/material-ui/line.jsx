@@ -50,9 +50,6 @@ const demoStyles = () => ({
     paddingRight: '20px',
   },
   title: {
-    textAlign: 'center',
-    width: '100%',
-    marginBottom: '10px',
     whiteSpace: 'pre',
   },
 });

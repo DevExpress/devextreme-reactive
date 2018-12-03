@@ -1,6 +1,6 @@
 # ValueScale Plugin Reference
 
-The `ValueScale` plugin customizes value scale and allows to add more value scales.
+The `ValueScale` plugin allows you to customize the value scale and display multiple value scales.
 
 ## Import
 
@@ -16,7 +16,7 @@ import { ValueScale } from '@devexpress/dx-react-chart';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-name? | string | | A scale name.
+name? | string | | The scale name.
 factory? | () => [ScaleObject](./argument-scale.md#scaleobject) | | A function that constructs a custom scale.
-min? | number | | A minimal scale bound.
-max? | number | | A maximal scale bound.
+min? | number | | The scale's minimum value.
+max? | number | | The scale's maximum value.

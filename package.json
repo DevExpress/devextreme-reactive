@@ -42,6 +42,7 @@
     "lint": "lerna run lint",
     "lint:ci": "lerna run lint:ci",
     "test": "lerna run test && yarn test:bs4",
+    "test:ci": "lerna run test -- -- --maxWorkers=2 && yarn test:bs4 ",
     "test:bs4": "jest packages/dx-react-bootstrap4 --ci --silent --runInBand --bail",
     "test:watch": "jest --watch",
     "publish:prepare": "yarn && node ./scripts/prepare-commit.js",

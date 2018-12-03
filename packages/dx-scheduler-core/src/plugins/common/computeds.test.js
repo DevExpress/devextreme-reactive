@@ -159,9 +159,6 @@ describe('#viewCellsData', () => {
   });
 
   it('should mark today day', () => {
-    const DATE_TO_USE = new Date('2018-10-9');
-    global.Date.now = jest.fn(() => new Date(DATE_TO_USE));
-
     const currentDate = new Date('2018-10-9');
     const firstDayOfWeek = undefined;
     const intervalCount = 1;
@@ -173,6 +170,7 @@ describe('#viewCellsData', () => {
       currentDate, firstDayOfWeek,
       intervalCount, undefined, startDayHour,
       endDayHour, cellDuration,
+      currentDate,
     )).toEqual([
       [{ startDate: new Date('2018-10-9 10:00'), endDate: new Date('2018-10-9 10:30'), today: true }],
       [{ startDate: new Date('2018-10-9 10:30'), endDate: new Date('2018-10-9 10:59'), today: true }],

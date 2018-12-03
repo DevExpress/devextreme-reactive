@@ -76,6 +76,8 @@ describe('Week View', () => {
 
   describe('Getters', () => {
     it('should provide the "viewCellsData" getter', () => {
+      const DATE_TO_USE = new Date('2018-10-9');
+      global.Date.now = jest.fn(() => new Date(DATE_TO_USE));
       const props = {
         firstDayOfWeek: 2,
         intervalCount: 2,
@@ -99,6 +101,7 @@ describe('Week View', () => {
           '2018-07-04', props.firstDayOfWeek,
           props.intervalCount * DAYS_IN_WEEK, props.excludedDays,
           props.startDayHour, props.endDayHour, props.cellDuration,
+          DATE_TO_USE,
         );
       expect(getComputedState(tree).viewCellsData)
         .toEqual([[{}, {}], [{}, {}]]);

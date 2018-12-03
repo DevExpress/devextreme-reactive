@@ -25,9 +25,13 @@ Name | Type | Default | Description
 -----|------|---------|------------
 tickSize? | number | 5 | The tick size.
 position? | 'left' &#124; 'right' | 'left' | The axis position.
-name? | string | | The axis name.
+scaleName? | string | | The scale name.
 indentFromAxis? | number | 10 | The indent from the axis.
 type? | 'band' &#124; 'linear' | 'linear' | Axis type.
+showTicks? | boolean | false | Specifies whether to render ticks.
+showGrids? | boolean | true | Specifies whether to render grids.
+showLine? | boolean | false | Specifies whether to render the axis's line.
+showLabels? | boolean | true | Specifies whether to render the axis's labels.
 tickFormat? | (scale: [ScaleObject](scale.md#scaleobject)) => (tick: string) => string  | | A function that returns a tick formatter function.
 rootComponent | ComponentType&lt;[ValueAxis.RootProps](#valueaxisrootprops)&gt; | | A component that renders the axis root layout.
 tickComponent | ComponentType&lt;[ValueAxis.LineProps](#valueaxislineprops)&gt; | | A component that renders a tick.

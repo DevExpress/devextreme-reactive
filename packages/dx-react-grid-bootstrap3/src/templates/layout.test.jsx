@@ -1,22 +1,34 @@
+/* globals window:true */
+
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import { Root } from './layout';
 
+jest.mock('react-dom', () => ({
+  findDOMNode: jest.fn(() => null),
+}));
+
 describe('Layout', () => {
+  const { getComputedStyle } = window;
+  beforeEach(() => {
+    window.getComputedStyle = jest.fn().mockImplementation(() => ({}));
+  });
+  afterEach(() => {
+    window.getComputedStyle = getComputedStyle;
+  });
+
   describe('Root', () => {
     it('should pass className to the root element', () => {
-      const tree = shallow((
+      const tree = mount((
         <Root className="custom-class" />
       ));
 
-      expect(tree.is('.custom-class'))
-        .toBeTruthy();
-      expect(tree.is('.panel-default'))
+      expect(tree.find('.panel.panel-default.custom-class').exists())
         .toBeTruthy();
     });
 
     it('should pass rest props to the root element', () => {
-      const tree = shallow((
+      const tree = mount((
         <Root data={{ a: 1 }} />
       ));
 

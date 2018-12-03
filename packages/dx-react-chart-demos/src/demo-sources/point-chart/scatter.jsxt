@@ -9,7 +9,6 @@ import { Scale, Animation } from '@devexpress/dx-react-chart';
 
 import { dataGenerator } from '../../../demo-data/generator';
 
-const EmptyComponent = () => null;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -28,8 +27,8 @@ export default class Demo extends React.PureComponent {
         <Chart
           data={chartData}
         >
-          <ArgumentAxis />
-          <ValueAxis lineComponent={EmptyComponent} tickComponent={EmptyComponent} />
+          <ArgumentAxis showGrids />
+          <ValueAxis />
           <ScatterSeries
             valueField="val1"
             argumentField="arg1"

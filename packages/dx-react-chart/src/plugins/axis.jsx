@@ -44,11 +44,15 @@ class RawAxis extends React.PureComponent {
 
   render() {
     const {
-      name,
+      scaleName,
       position,
       tickSize,
       tickFormat,
       indentFromAxis,
+      showGrids,
+      showTicks,
+      showLine,
+      showLabels,
       rootComponent: RootComponent,
       tickComponent: TickComponent,
       labelComponent: LabelComponent,
@@ -66,14 +70,14 @@ class RawAxis extends React.PureComponent {
           <TemplatePlaceholder />
           <TemplateConnector>
             {({ scales, layouts }, { changeBBox }) => {
-              const scale = scales[name];
+              const scale = scales[scaleName];
               if (!scale) {
                 return null;
               }
 
               const { width, height } = layouts[placeholder] || { width: 0, height: 0 };
               const { sides: [dx, dy], ticks } = axisCoordinates({
-                name,
+                scaleName,
                 // Isn't it too late to adjust sizes?
                 scale: adjustScaleRange(scale, [this.adjustedWidth, this.adjustedHeight]),
                 position,
@@ -112,7 +116,7 @@ class RawAxis extends React.PureComponent {
                       dy={dy}
                       onSizeChange={handleSizeChange}
                     >
-                      {ticks.map(({
+                      {showTicks && ticks.map(({
                         x1, x2, y1, y2, key,
                       }) => (
                         <TickComponent
@@ -123,13 +127,14 @@ class RawAxis extends React.PureComponent {
                           y2={y2}
                         />
                       ))}
-                      <LineComponent
+                      {showLine && (<LineComponent
                         x1={0}
                         x2={dx * this.adjustedWidth}
                         y1={0}
                         y2={dy * this.adjustedHeight}
                       />
-                      {ticks.map(({
+                      )}
+                      {showLabels && ticks.map(({
                         text,
                         xText,
                         yText,
@@ -158,13 +163,13 @@ class RawAxis extends React.PureComponent {
           <TemplatePlaceholder />
           <TemplateConnector>
             {({ scales, layouts }) => {
-              const scale = scales[name];
-              if (!scale) {
+              const scale = scales[scaleName];
+              if (!scale || !showGrids) {
                 return null;
               }
 
               const { width, height } = layouts.pane;
-              const ticks = getGridCoordinates({ name, scale });
+              const ticks = getGridCoordinates({ scaleName, scale });
               return ((
                 <React.Fragment>
                   {ticks.map(({
@@ -189,13 +194,17 @@ class RawAxis extends React.PureComponent {
 }
 
 RawAxis.propTypes = {
-  name: PropTypes.string.isRequired,
+  scaleName: PropTypes.string.isRequired,
   rootComponent: PropTypes.func.isRequired,
   tickComponent: PropTypes.func.isRequired,
   labelComponent: PropTypes.func.isRequired,
   lineComponent: PropTypes.func.isRequired,
   gridComponent: PropTypes.func.isRequired,
   position: PropTypes.string.isRequired,
+  showGrids: PropTypes.bool.isRequired,
+  showTicks: PropTypes.bool.isRequired,
+  showLine: PropTypes.bool.isRequired,
+  showLabels: PropTypes.bool.isRequired,
   tickSize: PropTypes.number,
   tickFormat: PropTypes.func,
   indentFromAxis: PropTypes.number,
@@ -232,15 +241,23 @@ export const Axis = withComponents({
 // TODO: Check that only BOTTOM and TOP are accepted.
 export const ArgumentAxis = withPatchedProps(props => ({
   position: BOTTOM,
+  showGrids: false,
+  showTicks: true,
+  showLine: true,
+  showLabels: true,
   ...props,
-  name: ARGUMENT_DOMAIN,
+  scaleName: ARGUMENT_DOMAIN,
 }))(Axis);
 
 // TODO: Check that only LEFT and RIGHT are accepted.
 export const ValueAxis = withPatchedProps(props => ({
   position: LEFT,
+  showGrids: true,
+  showTicks: false,
+  showLine: false,
+  showLabels: true,
   ...props,
-  name: getValueDomainName(props.name),
+  scaleName: getValueDomainName(props.scaleName),
 }))(Axis);
 
 ArgumentAxis.components = Axis.components;

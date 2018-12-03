@@ -33,15 +33,8 @@ const legendLabelBase = ({ classes, ...restProps }) => (
   <Legend.Label className={classes.label} {...restProps} />
 );
 const Label = withStyles(legendLabelStyles, { name: 'LegendLabel' })(legendLabelBase);
-const demoStyles = () => ({
-  title: {
-    textAlign: 'center',
-    width: '100%',
-    marginBottom: '10px',
-  },
-});
 
-class Demo extends React.PureComponent {
+export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -52,7 +45,6 @@ class Demo extends React.PureComponent {
 
   render() {
     const { data: chartData } = this.state;
-    const { classes } = this.props;
 
     return (
       <Paper>
@@ -91,7 +83,7 @@ class Demo extends React.PureComponent {
           />
           <Animation />
           <Legend position="bottom" rootComponent={Root} labelComponent={Label} />
-          <Title text="Energy Consumption in 2004 (Millions of Tons, Oil Equivalent)" className={classes.title} />
+          <Title text="Energy Consumption in 2004 (Millions of Tons, Oil Equivalent)" />
           <Stack
             stacks={[
               { series: ['Hydro-electric', 'Oil', 'Natural gas', 'Coal', 'Nuclear'] },
@@ -103,5 +95,3 @@ class Demo extends React.PureComponent {
     );
   }
 }
-
-export default withStyles(demoStyles, { name: 'Demo' })(Demo);

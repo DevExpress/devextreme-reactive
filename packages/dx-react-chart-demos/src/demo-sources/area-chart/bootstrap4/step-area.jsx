@@ -91,7 +91,7 @@ export default class Demo extends React.PureComponent {
           />
           <Animation />
           <Legend position="bottom" rootComponent={Root} markerComponent={Marker} />
-          <Title text="Australian Medal Count" className="w-100 text-center mb-2" />
+          <Title text="Australian Medal Count" />
           <Scale />
         </Chart>
       </div>

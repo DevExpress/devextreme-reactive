@@ -119,7 +119,6 @@ export default class Demo extends React.PureComponent {
               />
               <Title
                 text={`Contributions commits to master ${owner}/${repository} repository`}
-                style={{ textAlign: 'center', width: '100%', marginBottom: 4 }}
               />
               <Animation />
               <Scale />

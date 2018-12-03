@@ -75,7 +75,7 @@ export default class Demo extends React.PureComponent {
           />
           <Animation />
           <Legend position="bottom" rootComponent={Root} />
-          <Title text="Population: Age Structure" style={{ textAlign: 'center', width: '100%', marginBottom: '10px' }} />
+          <Title text="Population: Age Structure" />
           <Stack
             stacks={[
               { series: ['Male: 0-14', 'Male: 15-64', 'Male: 65 and older'] },

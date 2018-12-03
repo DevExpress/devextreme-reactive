@@ -1,30 +1,15 @@
-/* globals window:true */
-
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { findDOMNode } from 'react-dom';
+import { ThemeColors } from '../layout';
 
-export class Cell extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { borderColor: undefined };
-  }
-
-  componentDidMount() {
-    const { borderColor: stateBorderColor } = this.state;
-    if (!stateBorderColor) {
-      // eslint-disable-next-line react/no-find-dom-node
-      this.setState({ borderColor: window.getComputedStyle(findDOMNode(this)).borderBottomColor });
-    }
-  }
-
+export class Cell extends React.PureComponent {
   render() {
     const {
       style, column, value, children,
       tableRow, tableColumn, row, beforeBorder,
       ...restProps
     } = this.props;
-    const { borderColor } = this.state;
+    const { borderColor } = this.context;
 
     return (
       <th
@@ -45,6 +30,8 @@ export class Cell extends React.Component {
     );
   }
 }
+
+Cell.contextType = ThemeColors;
 
 Cell.propTypes = {
   style: PropTypes.object,

@@ -60,7 +60,7 @@ export default class Demo extends React.PureComponent {
 
           <Title
             text="Oil production vs Oil price"
-            style={{ textAlign: 'center', width: '100%' }}
+            style={{ marginRight: '120px' }}
           />
 
           <BarSeries

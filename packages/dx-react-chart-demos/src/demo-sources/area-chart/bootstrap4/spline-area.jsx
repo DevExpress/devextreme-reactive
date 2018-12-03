@@ -83,7 +83,7 @@ export default class Demo extends React.PureComponent {
           <Animation />
           <Scale extensions={[{ type: 'band', constructor: scalePoint }]} />
           <Legend position="bottom" rootComponent={Root} />
-          <Title text="iOS App Store vs Google Play Revenue in 2012" className="w-100 text-center mb-2" />
+          <Title text="iOS App Store vs Google Play Revenue in 2012" />
         </Chart>
       </Card>
     );

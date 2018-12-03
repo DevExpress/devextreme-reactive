@@ -39,7 +39,6 @@ export default class Demo extends React.PureComponent {
           />
           <Title
             text="Area of Countries"
-            style={{ textAlign: 'center', width: '100%', marginBottom: '10px' }}
           />
           <Animation />
           <Scale />

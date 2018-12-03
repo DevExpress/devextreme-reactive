@@ -104,7 +104,7 @@ export default class Demo extends React.PureComponent {
 
           <Title
             text="USA and Chinese annual sales of plug-in electric vehicles"
-            style={{ textAlign: 'center', width: '100%' }}
+            style={{ marginRight: '120px' }}
           />
 
           <BarSeries

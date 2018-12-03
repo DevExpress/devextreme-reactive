@@ -40,11 +40,6 @@ const demoStyles = () => ({
   chart: {
     paddingRight: '20px',
   },
-  title: {
-    textAlign: 'center',
-    width: '100%',
-    marginBottom: '10px',
-  },
   typography: {
     marginTop: '0px',
     marginBottom: '8px',
@@ -122,7 +117,7 @@ class Demo extends React.PureComponent {
           />
           <Animation />
           <Legend position="bottom" rootComponent={Root} labelComponent={Label} />
-          <Title text="Carbon Emission Estimates" className={classes.title} />
+          <Title text="Carbon Emission Estimates" />
           <Scale />
           <Stack
             stacks={[{

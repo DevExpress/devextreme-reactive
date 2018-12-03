@@ -1,6 +1,6 @@
 # ArgumentScale Plugin Reference
 
-The `ArgumentScale` plugin customizes argument scale.
+The `ArgumentScale` plugin allows you to customize the argument scale.
 
 ## Import
 
@@ -17,8 +17,8 @@ import { ArgumentScale } from '@devexpress/dx-react-chart';
 Name | Type | Default | Description
 -----|------|---------|------------
 factory? | () => [ScaleObject](#scaleobject) | | A function that constructs a custom scale.
-min? | number | | A minimal scale bound.
-max? | number | | A maximal scale bound.
+min? | number | | The scale' minimum value.
+max? | number | | The scale' maximum value.
 
 ## Interfaces
 

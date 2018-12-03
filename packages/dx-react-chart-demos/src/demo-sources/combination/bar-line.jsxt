@@ -11,10 +11,10 @@ import {
   Legend,
   Tooltip,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
-
 import {
   Stack, Scale, Animation, EventTracker, HoverState,
 } from '@devexpress/dx-react-chart';
+import { format } from 'd3-format';
 
 import { oilProduction } from '../../../demo-data/data-vizualization';
 
@@ -62,6 +62,18 @@ const legendLabelStyle = {
 };
 const LegendLabel = props => (
   <Legend.Label style={legendLabelStyle} {...props} />
+);
+
+const formatTooltip = format('.1f');
+const TooltipContent = ({ text, style, ...restProps }) => (
+  <Tooltip.Content
+    text={`Price: ${formatTooltip(text)}`}
+    style={{
+      color: priceColor,
+      ...style,
+    }}
+    {...restProps}
+  />
 );
 
 const stacks = [
@@ -172,7 +184,11 @@ export default class Demo extends React.PureComponent {
           <Scale />
           <EventTracker />
           <HoverState hover={hover} onHoverChange={this.changeHover} />
-          <Tooltip targetItem={tooltip} onTargetItemChange={this.changeTooltip} />
+          <Tooltip
+            targetItem={tooltip}
+            onTargetItemChange={this.changeTooltip}
+            contentComponent={TooltipContent}
+          />
         </Chart>
       </<%&wrapperTag%>>
     );

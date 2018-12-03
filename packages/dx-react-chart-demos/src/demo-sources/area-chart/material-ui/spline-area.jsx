@@ -54,11 +54,6 @@ const demoStyles = () => ({
   chart: {
     paddingRight: '20px',
   },
-  title: {
-    textAlign: 'center',
-    width: '100%',
-    marginBottom: '10px',
-  },
 });
 
 const Area = props => (
@@ -108,7 +103,7 @@ class Demo extends React.PureComponent {
           <Animation />
           <Scale extensions={[{ type: 'band', constructor: scalePoint }]} />
           <Legend position="bottom" rootComponent={Root} labelComponent={Label} />
-          <Title text="iOS App Store vs Google Play Revenue in 2012" className={classes.title} />
+          <Title text="iOS App Store vs Google Play Revenue in 2012" />
         </Chart>
       </Paper>
     );

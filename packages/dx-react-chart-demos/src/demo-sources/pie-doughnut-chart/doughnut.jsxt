@@ -39,7 +39,6 @@ export default class Demo extends React.PureComponent {
           />
           <Title
             text="The Population of Continents and Regions"
-            style={{ textAlign: 'center', width: '100%', marginBottom: '10px' }}
           />
           <Animation />
           <Scale />

@@ -40,7 +40,7 @@ const LineWithPoints = props => (
 const legendRootStyle = {
   display: 'flex',
   margin: 'auto',
-  flexDirection: 'grow',
+  flexDirection: 'row',
 };
 const LegendRoot = props => (
   <Legend.Root style={legendRootStyle} {...props} />

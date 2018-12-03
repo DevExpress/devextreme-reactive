@@ -68,17 +68,11 @@ const contentBase = ({ classes, ...props }) => {
 };
 const ContentComponent = withStyles(contentStyles, { name: 'contentStyles' })(contentBase);
 
-const demoStyles = () => ({
-  title: {
-    marginRight: '120px',
-  },
-});
-
 const compare = (
   { series, point }, { series: targetSeries, point: targetPoint },
 ) => series === targetSeries && point === targetPoint;
 
-class Demo extends React.PureComponent {
+export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -99,7 +93,6 @@ class Demo extends React.PureComponent {
 
   render() {
     const { data: chartData, selection } = this.state;
-    const { classes } = this.props;
 
     return (
       <Paper>
@@ -111,7 +104,7 @@ class Demo extends React.PureComponent {
 
           <Title
             text="USA and Chinese annual sales of plug-in electric vehicles"
-            className={classes.title}
+            style={{ marginRight: '120px' }}
           />
 
           <BarSeries
@@ -137,5 +130,3 @@ class Demo extends React.PureComponent {
     );
   }
 }
-
-export default withStyles(demoStyles, { name: 'Demo' })(Demo);

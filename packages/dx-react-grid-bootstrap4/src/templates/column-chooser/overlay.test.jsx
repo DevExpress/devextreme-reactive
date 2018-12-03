@@ -38,7 +38,7 @@ describe('Overlay', () => {
   });
 
   describe('onHide', () => {
-    it('should be called on toggle if overlay is vidible', () => {
+    it('should be called on toggle if overlay is visible', () => {
       const onHide = jest.fn();
       const tree = shallow((
         <Overlay
@@ -55,7 +55,7 @@ describe('Overlay', () => {
       expect(onHide).toHaveBeenCalled();
     });
 
-    it('should not be called on toggle if overlay is not vidible', () => {
+    it('should not be called on toggle if overlay is not visible', () => {
       const onHide = jest.fn();
       const tree = shallow((
         <Overlay

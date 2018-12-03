@@ -38,8 +38,8 @@ The following plugins implement additional features:
 
 ## Data Processing Plugins
 
-- `ArgumentScale` - customizes argument scale
-- `ValueScale` - customizes value scale and adds more value scales
+- `ArgumentScale` - allows you to customize the argument scale
+- `ValueScale` - allows you to customize the value scale and display multiple value scales
 - `Stack` - transforms user data to display series points side-by-side or one under another other
 
 ## Plugin Order

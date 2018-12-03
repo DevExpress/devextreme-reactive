@@ -12,7 +12,9 @@ import {
   Tooltip,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 
-import { Stack, Scale, Animation, EventTracker, HoverState } from '@devexpress/dx-react-chart';
+import {
+  Stack, Scale, Animation, EventTracker, HoverState,
+} from '@devexpress/dx-react-chart';
 
 import { oilProduction } from '../../../demo-data/data-vizualization';
 
@@ -21,7 +23,7 @@ const makeLabel = (symbol, color) => ({ text, style, ...restProps }) => (
     text={`${text} ${symbol}`}
     style={{
       fill: color,
-      ...style
+      ...style,
     }}
     {...restProps}
   />
@@ -66,7 +68,7 @@ const stacks = [
   { series: ['USA', 'Saudi Arabia', 'Iran', 'Mexico', 'Russia'] },
 ];
 
-const changeTarget = target => target && target.series === priceSeriesName ? target : null;
+const changeTarget = target => (target && target.series === priceSeriesName ? target : null);
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -78,17 +80,17 @@ export default class Demo extends React.PureComponent {
       tooltip: null,
     };
 
-    this.changeHover = (target) => this.setState({
+    this.changeHover = target => this.setState({
       hover: changeTarget(target),
     });
 
-    this.changeTooltip = (target) => this.setState({
+    this.changeTooltip = target => this.setState({
       tooltip: changeTarget(target),
     });
   }
 
   render() {
-    const { oilProduction: chartData } = this.state;
+    const { oilProduction: chartData, hover, tooltip } = this.state;
 
     return (
       <<%&wrapperTag%><%&wrapperAttributes%>>
@@ -169,8 +171,8 @@ export default class Demo extends React.PureComponent {
           <Stack stacks={stacks} />
           <Scale />
           <EventTracker />
-          <HoverState hover={this.state.hover} onHoverChange={this.changeHover} />
-          <Tooltip targetItem={this.state.tooltip} onTargetItemChange={this.changeTooltip} />
+          <HoverState hover={hover} onHoverChange={this.changeHover} />
+          <Tooltip targetItem={tooltip} onTargetItemChange={this.changeTooltip} />
         </Chart>
       </<%&wrapperTag%>>
     );

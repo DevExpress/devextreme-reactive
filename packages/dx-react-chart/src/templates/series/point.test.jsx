@@ -1,9 +1,14 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
+import { pointAttributes } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { Point } from './point';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
+  pointAttributes: jest.fn().mockReturnValue(
+    jest.fn().mockReturnValue({ d: 'test-d-attribute' }),
+  ),
+  getScatterAnimationStyle: 'test-animation-style',
   HOVERED: 'test_hovered',
   SELECTED: 'test_selected',
 }));
@@ -14,14 +19,25 @@ jest.mock('../../utils/with-states', () => ({
 
 describe('Point', () => {
   const defaultProps = {
+    argument: 'arg',
+    value: 15,
+    seriesIndex: 1,
+    index: 2,
     x: 1,
     y: 2,
-    d: 'M11 11',
-    value: 10,
-    color: 'red',
+    point: { tag: 'test-options' },
+    color: 'color',
+    style: { tag: 'test-style' },
+    scales: { tag: 'test-scales' },
+    getAnimatedStyle: jest.fn().mockReturnValue('animated-style'),
   };
 
-  it('should render path element', () => {
+  afterEach(() => {
+    pointAttributes.mockClear();
+    defaultProps.getAnimatedStyle.mockClear();
+  });
+
+  it('should render point', () => {
     const tree = shallow((
       <Point
         {...defaultProps}
@@ -29,35 +45,32 @@ describe('Point', () => {
     ));
 
     expect(tree.find('path').props()).toEqual({
-      d: 'M11 11',
-      fill: 'red',
-      stroke: 'none',
       transform: 'translate(1 2)',
+      d: 'test-d-attribute',
+      fill: 'color',
+      style: 'animated-style',
+      stroke: 'none',
     });
+    expect(pointAttributes).toBeCalledWith(defaultProps.point);
+    expect(pointAttributes.mock.results[0].value).toBeCalledWith({});
   });
 
-  it('should render path element with custom styles', () => {
-    const customStyle = {
-      stroke: 'orange',
-      fill: 'green',
-    };
+  it('should pass rest properties', () => {
     const tree = shallow((
-      <Point
-        {...defaultProps}
-        style={customStyle}
-      />
+      <Point {...defaultProps} custom={10} />
     ));
-    const { style } = tree.find('path').props();
-    expect(style).toEqual(customStyle);
+    const { custom } = tree.find('path').props();
+
+    expect(custom).toEqual(10);
   });
 
-  it('should pass the rest property to the root element', () => {
-    const tree = shallow((
-      <Point {...defaultProps} customProperty />
+  it('should apply animation style', () => {
+    shallow((
+      <Point {...defaultProps} />
     ));
-    const { customProperty } = tree.find('path').props();
 
-    expect(customProperty).toBeTruthy();
+    expect(defaultProps.getAnimatedStyle)
+      .toBeCalledWith(defaultProps.style, 'test-animation-style', defaultProps.scales);
   });
 
   it('should have hovered and selected states', () => {

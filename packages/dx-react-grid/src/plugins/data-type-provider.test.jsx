@@ -33,7 +33,7 @@ describe('DataTypeProvider', () => {
       </PluginHost>
     ));
 
-    const valueFormatter = tree.findWhere(n => n.prop('name') === 'valueFormatter');
+    const valueFormatter = tree.findWhere(n => n.prop('name') === 'valueFormatter').last();
 
     expect(valueFormatter.exists())
       .toBeTruthy();
@@ -55,7 +55,7 @@ describe('DataTypeProvider', () => {
       </PluginHost>
     ));
 
-    const valueEditor = tree.findWhere(n => n.prop('name') === 'valueEditor');
+    const valueEditor = tree.findWhere(n => n.prop('name') === 'valueEditor').last();
 
     expect(valueEditor.exists())
       .toBeTruthy();

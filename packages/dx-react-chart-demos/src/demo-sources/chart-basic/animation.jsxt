@@ -3,7 +3,6 @@ import {
   Chart,
   ArgumentAxis,
   ValueAxis,
-  ArgumentGrid,
   BarSeries,
   SplineSeries,
   Legend,
@@ -11,11 +10,12 @@ import {
 import { Scale, Animation } from '@devexpress/dx-react-chart';
 
 const Point = (props) => {
-  const {
-    style, index, ...restProps
-  } = props;
+  const { style, ...restProps } = props;
   return (
-    <BarSeries.Point style={{ ...style, animationDuration: `${(index + 1) * 0.3}s` }} {...restProps} />
+    <BarSeries.Point
+      style={{ ...style, animationDuration: `${(restProps.index + 1) * 0.3}s` }}
+      {...restProps}
+    />
   );
 };
 
@@ -43,20 +43,15 @@ export default class Demo extends React.PureComponent {
         <Chart
           data={chartData}
         >
-          <ArgumentAxis
-            name="month"
-            type="band"
-          />
-          <ValueAxis name="sale" />
-          <ValueAxis name="total" position="right" />
-
-          <ArgumentGrid name="month" />
+          <ArgumentAxis />
+          <ValueAxis scaleName="sale" showGrids={false} showLine showTicks />
+          <ValueAxis scaleName="total" position="right" showGrids={false} showLine showTicks />
 
           <BarSeries
             name="Units Sold"
             valueField="sale"
             argumentField="month"
-            axisName="sale"
+            scaleName="sale"
             pointComponent={Point}
           />
 
@@ -64,7 +59,7 @@ export default class Demo extends React.PureComponent {
             name="Total Transactions"
             valueField="total"
             argumentField="month"
-            axisName="total"
+            scaleName="total"
           />
           <Animation />
           <Legend />

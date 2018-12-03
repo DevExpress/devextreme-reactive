@@ -5,7 +5,6 @@ import {
   LineSeries,
   ArgumentAxis,
   ValueAxis,
-  ValueGrid,
   Title,
   Legend,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
@@ -26,7 +25,6 @@ const Label = symbol => (props) => {
 
 const PriceLabel = Label(' $');
 const LabelWithThousand = Label(' k');
-const EmptyComponent = () => null;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -48,23 +46,17 @@ export default class Demo extends React.PureComponent {
 
           <ArgumentAxis />
           <ValueAxis
-            name="oil"
+            scaleName="oil"
             max={2200}
             labelComponent={LabelWithThousand}
-            lineComponent={EmptyComponent}
-            tickSize={0}
           />
           <ValueAxis
-            name="price"
+            scaleName="price"
             position="right"
             min={0}
             max={110}
             labelComponent={PriceLabel}
-            lineComponent={EmptyComponent}
-            tickSize={0}
           />
-
-          <ValueGrid name="oil" />
 
           <Title
             text="Oil production vs Oil price"
@@ -75,37 +67,37 @@ export default class Demo extends React.PureComponent {
             name="USA"
             valueField="usa"
             argumentField="year"
-            axisName="oil"
+            scaleName="oil"
           />
           <BarSeries
             name="Saudi Arabia"
             valueField="saudiArabia"
             argumentField="year"
-            axisName="oil"
+            scaleName="oil"
           />
           <BarSeries
             name="Iran"
             valueField="iran"
             argumentField="year"
-            axisName="oil"
+            scaleName="oil"
           />
           <BarSeries
             name="Mexico"
             valueField="mexico"
             argumentField="year"
-            axisName="oil"
+            scaleName="oil"
           />
           <BarSeries
             name="Russia"
             valueField="russia"
             argumentField="year"
-            axisName="oil"
+            scaleName="oil"
           />
           <LineSeries
             name="Oil Price"
             valueField="price"
             argumentField="year"
-            axisName="price"
+            scaleName="price"
           />
           <Animation />
           <Legend />

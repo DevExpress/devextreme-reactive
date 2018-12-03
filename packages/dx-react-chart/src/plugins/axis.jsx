@@ -9,26 +9,17 @@ import {
   withComponents,
 } from '@devexpress/dx-react-core';
 import {
-  axisCoordinates, LEFT, TOP, BOTTOM, ARGUMENT_DOMAIN, getValueDomainName, axesData,
+  axisCoordinates, LEFT, BOTTOM, ARGUMENT_DOMAIN, getValueDomainName, axesData, getGridCoordinates,
 } from '@devexpress/dx-chart-core';
 import { Root } from '../templates/axis/root';
-import { Tick } from '../templates/axis/tick';
 import { Label } from '../templates/axis/label';
 import { Line } from '../templates/axis/line';
+
 import { withPatchedProps } from '../utils';
 
 const SVG_STYLE = {
   position: 'absolute', left: 0, top: 0, overflow: 'visible',
 };
-
-const getZeroCoord = () => 0;
-const getCorrectSize = position => (
-  (position === LEFT || position === TOP) ? coord => -coord : (coord, side) => side + coord
-);
-const getCorrection = position => (
-  (position === LEFT || position === TOP) ? coord => coord : getZeroCoord
-);
-const getCurrentSize = (_, side) => side;
 
 const adjustScaleRange = (scale, [width, height]) => {
   const range = scale.range().slice();
@@ -46,67 +37,27 @@ const adjustScaleRange = (scale, [width, height]) => {
 class RawAxis extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      xCorrection: 0,
-      yCorrection: 0,
-    };
-    this.createRefsHandler = this.createRefsHandler.bind(this);
-  }
-
-  createRefsHandler(placeholder, changeBBox, {
-    getWidth, getHeight, getXCorrection, getYCorrection,
-  }) {
-    return (el) => {
-      if (!el) {
-        return;
-      }
-      const {
-        width, height, x, y,
-      } = el.getBBox();
-      const { width: stateWidth, height: stateHeight } = this.state;
-
-      if (width === stateWidth && height === stateHeight) return;
-      changeBBox({
-        placeholder,
-        bBox: {
-          width: getWidth(x, width),
-          height: getHeight(y, height),
-        },
-      });
-      this.setState({
-        width,
-        height,
-        xCorrection: getXCorrection(x),
-        yCorrection: getYCorrection(y),
-      });
-    };
-  }
-
-  calculateLayout(width, height, defaultWidth, defaultHeight) {
-    const calculatedWidth = width || defaultWidth;
-    const calculatedHeight = height || defaultHeight;
-    const {
-      width: containerWidth,
-      height: containerHeight,
-    } = (this.node && this.node.getBoundingClientRect()) || {};
-
-    return {
-      width: containerWidth || calculatedWidth,
-      height: containerHeight || calculatedHeight,
-    };
+    this.rootRef = React.createRef();
+    this.adjustedWidth = 0;
+    this.adjustedHeight = 0;
   }
 
   render() {
     const {
-      name,
+      scaleName,
       position,
       tickSize,
       tickFormat,
       indentFromAxis,
+      showGrids,
+      showTicks,
+      showLine,
+      showLabels,
       rootComponent: RootComponent,
       tickComponent: TickComponent,
       labelComponent: LabelComponent,
       lineComponent: LineComponent,
+      gridComponent: GridComponent,
     } = this.props;
     const placeholder = `${position}-axis`;
     // TODO: Remove *axes* getter as it is not used by Axis itself -
@@ -119,68 +70,53 @@ class RawAxis extends React.PureComponent {
           <TemplatePlaceholder />
           <TemplateConnector>
             {({ scales, layouts }, { changeBBox }) => {
-              const scale = scales[name];
+              const scale = scales[scaleName];
               if (!scale) {
                 return null;
               }
 
-              const {
-                width: widthCalculated, height: heightCalculated,
-              } = layouts[placeholder] || { width: 0, height: 0 };
-              const {
-                width: widthPostCalculated,
-                height: heightPostCalculated,
-              } = this.calculateLayout(
-                widthCalculated,
-                heightCalculated,
-                0,
-                0,
-              );
-              // Isn't it too late to adjust sizes?
-              const postCalculatedScale = adjustScaleRange(scale,
-                [widthPostCalculated, heightPostCalculated]);
+              const { width, height } = layouts[placeholder] || { width: 0, height: 0 };
               const { sides: [dx, dy], ticks } = axisCoordinates({
-                name,
-                scale: postCalculatedScale,
+                scaleName,
+                // Isn't it too late to adjust sizes?
+                scale: adjustScaleRange(scale, [this.adjustedWidth, this.adjustedHeight]),
                 position,
                 tickSize,
                 tickFormat,
                 indentFromAxis,
               });
-              const { xCorrection, yCorrection } = this.state;
+              const handleSizeChange = (size) => {
+                // The callback is called when DOM is available -
+                // *rootRef.current* can be surely accessed.
+                const rect = this.rootRef.current.getBoundingClientRect();
+                // *setState* is not used because it would cause excessive Plugin rerenders.
+                // Template rerender is provided by *changeBBox* invocation.
+                this.adjustedWidth = rect.width;
+                this.adjustedHeight = rect.height;
+                changeBBox({ placeholder, bBox: size });
+              };
 
               return (
                 <div
                   style={{
                     position: 'relative',
-                    width: (dy * widthCalculated) || undefined,
-                    height: (dx * heightCalculated) || undefined,
+                    width: (dy * width) || undefined,
+                    height: (dx * height) || undefined,
                     flexGrow: dx || undefined,
                   }}
-                  // TODO: *ref* should be created in constructor.
-                  ref={(node) => { this.node = node; }}
+                  ref={this.rootRef}
                 >
                   <svg
-                    width={widthPostCalculated}
-                    height={heightPostCalculated}
+                    width={this.adjustedWidth}
+                    height={this.adjustedHeight}
                     style={SVG_STYLE}
                   >
                     <RootComponent
-                      // TODO: *refsHandler* should be created in constructor.
-                      refsHandler={this.createRefsHandler(
-                        placeholder,
-                        changeBBox,
-                        {
-                          getWidth: dx ? getCurrentSize : getCorrectSize(position),
-                          getHeight: dy ? getCurrentSize : getCorrectSize(position),
-                          getXCorrection: dx ? getZeroCoord : getCorrection(position),
-                          getYCorrection: dy ? getZeroCoord : getCorrection(position),
-                        },
-                      )}
-                      x={-xCorrection}
-                      y={-yCorrection}
+                      dx={dx}
+                      dy={dy}
+                      onSizeChange={handleSizeChange}
                     >
-                      {ticks.map(({
+                      {showTicks && ticks.map(({
                         x1, x2, y1, y2, key,
                       }) => (
                         <TickComponent
@@ -191,11 +127,14 @@ class RawAxis extends React.PureComponent {
                           y2={y2}
                         />
                       ))}
-                      <LineComponent
-                        width={dx * widthPostCalculated}
-                        height={dy * heightPostCalculated}
+                      {showLine && (<LineComponent
+                        x1={0}
+                        x2={dx * this.adjustedWidth}
+                        y1={0}
+                        y2={dy * this.adjustedHeight}
                       />
-                      {ticks.map(({
+                      )}
+                      {showLabels && ticks.map(({
                         text,
                         xText,
                         yText,
@@ -219,18 +158,53 @@ class RawAxis extends React.PureComponent {
             }}
           </TemplateConnector>
         </Template>
+
+        <Template name="series">
+          <TemplatePlaceholder />
+          <TemplateConnector>
+            {({ scales, layouts }) => {
+              const scale = scales[scaleName];
+              if (!scale || !showGrids) {
+                return null;
+              }
+
+              const { width, height } = layouts.pane;
+              const ticks = getGridCoordinates({ scaleName, scale });
+              return ((
+                <React.Fragment>
+                  {ticks.map(({
+                    key, x, dx, y, dy,
+                  }) => (
+                    <GridComponent
+                      key={key}
+                      x1={x}
+                      x2={x + dx * width}
+                      y1={y}
+                      y2={y + dy * height}
+                    />
+                  ))}
+                </React.Fragment>
+              ));
+            }}
+          </TemplateConnector>
+        </Template>
       </Plugin>
     );
   }
 }
 
 RawAxis.propTypes = {
-  name: PropTypes.string.isRequired,
+  scaleName: PropTypes.string.isRequired,
   rootComponent: PropTypes.func.isRequired,
   tickComponent: PropTypes.func.isRequired,
   labelComponent: PropTypes.func.isRequired,
   lineComponent: PropTypes.func.isRequired,
+  gridComponent: PropTypes.func.isRequired,
   position: PropTypes.string.isRequired,
+  showGrids: PropTypes.bool.isRequired,
+  showTicks: PropTypes.bool.isRequired,
+  showLine: PropTypes.bool.isRequired,
+  showLabels: PropTypes.bool.isRequired,
   tickSize: PropTypes.number,
   tickFormat: PropTypes.func,
   indentFromAxis: PropTypes.number,
@@ -247,10 +221,15 @@ RawAxis.components = {
   tickComponent: 'Tick',
   labelComponent: 'Label',
   lineComponent: 'Line',
+  gridComponent: 'Grid',
 };
 
 export const Axis = withComponents({
-  Root, Tick, Label, Line,
+  Root,
+  Tick: Line,
+  Label,
+  Line,
+  Grid: Line,
 })(RawAxis);
 
 // TODO: It is not axis who defines that argument is HORIZONTAL and value is VERTICAL.
@@ -262,15 +241,23 @@ export const Axis = withComponents({
 // TODO: Check that only BOTTOM and TOP are accepted.
 export const ArgumentAxis = withPatchedProps(props => ({
   position: BOTTOM,
+  showGrids: false,
+  showTicks: true,
+  showLine: true,
+  showLabels: true,
   ...props,
-  name: ARGUMENT_DOMAIN,
+  scaleName: ARGUMENT_DOMAIN,
 }))(Axis);
 
 // TODO: Check that only LEFT and RIGHT are accepted.
 export const ValueAxis = withPatchedProps(props => ({
   position: LEFT,
+  showGrids: true,
+  showTicks: false,
+  showLine: false,
+  showLabels: true,
   ...props,
-  name: getValueDomainName(props.name),
+  scaleName: getValueDomainName(props.scaleName),
 }))(Axis);
 
 ArgumentAxis.components = Axis.components;

@@ -1,18 +1,20 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import {
-  PLUGIN_HOST_CONTEXT, POSITION_CONTEXT, RERENDER_TEMPLATE_EVENT, RERENDER_TEMPLATE_SCOPE_EVENT,
+  PLUGIN_HOST_CONTEXT, POSITION_CONTEXT,
+  RERENDER_TEMPLATE_EVENT, RERENDER_TEMPLATE_SCOPE_EVENT,
 } from './constants';
+import { withHostAndPosition } from '../utils/with-props-from-context';
 
 let globalTemplateId = 0;
-export class Template extends React.PureComponent {
-  constructor(props, context) {
-    super(props, context);
+class TemplateBase extends React.PureComponent {
+  constructor(props) {
+    super(props);
 
     globalTemplateId += 1;
     this.id = globalTemplateId;
 
-    const { [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: positionContext } = context;
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: positionContext } = props;
     const { name, predicate } = props;
 
     this.plugin = {
@@ -31,12 +33,12 @@ export class Template extends React.PureComponent {
   }
 
   componentDidUpdate() {
-    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.props;
     pluginHost.broadcast(RERENDER_TEMPLATE_EVENT, this.id);
   }
 
   componentWillUnmount() {
-    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.props;
     const { name } = this.props;
     pluginHost.unregisterPlugin(this.plugin);
     pluginHost.broadcast(RERENDER_TEMPLATE_SCOPE_EVENT, name);
@@ -47,8 +49,9 @@ export class Template extends React.PureComponent {
   }
 }
 
-Template.propTypes = {
-  position: PropTypes.func,
+TemplateBase.propTypes = {
+  [PLUGIN_HOST_CONTEXT]: PropTypes.object.isRequired,
+  [POSITION_CONTEXT]: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   predicate: PropTypes.func,
   children: PropTypes.oneOfType([
@@ -57,13 +60,9 @@ Template.propTypes = {
   ]),
 };
 
-Template.defaultProps = {
+TemplateBase.defaultProps = {
   predicate: undefined,
   children: undefined,
-  position: undefined,
 };
 
-Template.contextTypes = {
-  [PLUGIN_HOST_CONTEXT]: PropTypes.object.isRequired,
-  [POSITION_CONTEXT]: PropTypes.func.isRequired,
-};
+export const Template = withHostAndPosition(TemplateBase);

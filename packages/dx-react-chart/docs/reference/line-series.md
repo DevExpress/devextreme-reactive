@@ -26,7 +26,7 @@ Name | Type | Default | Description
 name | string | | The series name.
 valueField | string | | The name of a data field that provides series point values.
 argumentField | string | | The name of a data field that provides series point argument values.
-axisName? | string | | An associated axis.
+scaleName? | string | | An associated scale.
 color? | string | | The series color.
 seriesComponent | ComponentType&lt;[LineSeries.SeriesProps](#lineseriesseriesprops)&gt; | | A component that renders series.
 
@@ -39,11 +39,20 @@ Describes properties passed to a component that renders series.
 Field | Type | Description
 ------|------|------------
 coordinates | Array&lt;{ x: number, y: number }&gt; | Coordinates of the series' points.
-path | (coordinates: Array&lt;{ x: number, y: number }&gt;) => string | A function used to calculate the series' path.
 color | string | A series color.
+
+### LineSeries.PathSeriesProps
+
+Describes properties of a component that renders series.
+
+Extends [LineSeries.SeriesProps](#lineseriesseriesprops)
+
+Field | Type | Description
+------|------|------------
+path? | (coordinates: Array&lt;{ x: number, y: number }&gt;) => string | A function used to calculate the series' path.
 
 ## Plugin Components
 
 Name | Properties | Description
 -----|------------|------------
-LineSeries.Path | [LineSeries.SeriesProps](#lineseriesseriesprops) | A component that renders series.
+LineSeries.Path | [LineSeries.PathSeriesProps](#lineseriespathseriesprops) | A component that renders series.

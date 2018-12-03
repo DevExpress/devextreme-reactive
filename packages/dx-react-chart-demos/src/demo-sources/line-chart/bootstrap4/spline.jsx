@@ -7,7 +7,6 @@ import {
   LineSeries,
   Title,
   Legend,
-  ValueGrid,
 } from '@devexpress/dx-react-chart-bootstrap4';
 import { Scale, Animation } from '@devexpress/dx-react-chart';
 import {
@@ -57,7 +56,6 @@ const Label = props => (
     className="pb-2"
   />
 );
-const EmptyComponent = () => null;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -78,11 +76,7 @@ export default class Demo extends React.PureComponent {
           className="pr-4"
         >
           <ArgumentAxis />
-          <ValueAxis
-            lineComponent={EmptyComponent}
-            tickComponent={EmptyComponent}
-          />
-          <ValueGrid />
+          <ValueAxis />
 
           <LineSeries
             name="Hydro-electric"

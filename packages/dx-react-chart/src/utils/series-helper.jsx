@@ -33,14 +33,14 @@ export const declareSeries = (pluginName, { components, ...parameters }) => {
                 const currentSeries = findSeriesByName(symbolName, series);
                 const currentScales = {
                   xScale: scales[ARGUMENT_DOMAIN],
-                  yScale: scales[getValueDomainName(currentSeries.axisName)],
+                  yScale: scales[getValueDomainName(currentSeries.scaleName)],
                 };
                 return (
                   <currentSeries.seriesComponent
                     index={currentSeries.index}
                     pointComponent={currentSeries.pointComponent}
                     coordinates={currentSeries.points}
-                    path={currentSeries.path}
+                    state={currentSeries.state}
                     color={currentSeries.color}
                     scales={currentScales}
                     getAnimatedStyle={getAnimatedStyle}

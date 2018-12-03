@@ -56,11 +56,11 @@ export class WeekView extends React.PureComponent {
     this.startViewDateBaseComputed = ({
       viewCellsData,
     }) => startViewDateCore(viewCellsData);
-    this.viewCellsDataBaseComputed = ({
-      currentView, currentDate,
+    this.viewCellsDataComputed = ({
+      currentDate,
     }) => viewCellsDataCore(
-      currentView.type, currentDate, firstDayOfWeek,
-      intervalCount, intervalCount * DAYS_IN_WEEK, excludedDays,
+      currentDate, firstDayOfWeek,
+      intervalCount * DAYS_IN_WEEK, excludedDays,
       startDayHour, endDayHour, cellDuration,
     );
 
@@ -88,7 +88,7 @@ export class WeekView extends React.PureComponent {
       getters, viewName, this.endViewDateBaseComputed, getters.endViewDate,
     );
     this.viewCellsData = getters => computed(
-      getters, viewName, this.viewCellsDataBaseComputed, getters.viewCellsData,
+      getters, viewName, this.viewCellsDataComputed, getters.viewCellsData,
     );
   }
 

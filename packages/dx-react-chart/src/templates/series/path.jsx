@@ -6,14 +6,11 @@ import { withStates } from '../../utils/with-states';
 class RawPath extends React.PureComponent {
   render() {
     const {
-      pointComponent,
       path,
       coordinates,
+      index, state, pointComponent,
       color,
-      index,
-      style,
-      getAnimatedStyle,
-      scales,
+      style, scales, getAnimatedStyle,
       ...restProps
     } = this.props;
     return (
@@ -32,11 +29,16 @@ class RawPath extends React.PureComponent {
 RawPath.propTypes = {
   path: PropTypes.func.isRequired,
   coordinates: PropTypes.array.isRequired,
+  index: PropTypes.number.isRequired,
+  state: PropTypes.string,
   color: PropTypes.string,
   style: PropTypes.object,
+  scales: PropTypes.object.isRequired,
+  getAnimatedStyle: PropTypes.func.isRequired,
 };
 
 RawPath.defaultProps = {
+  state: undefined,
   color: undefined,
   style: undefined,
 };

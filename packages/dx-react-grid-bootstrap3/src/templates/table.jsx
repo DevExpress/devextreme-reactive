@@ -25,6 +25,7 @@ export class Table extends React.Component {
     this.state = {
       stickyProp: globalStickyProp,
     };
+    this.tableRef = React.createRef();
   }
 
   componentDidMount() {
@@ -48,7 +49,7 @@ export class Table extends React.Component {
     const { backgroundColor } = this.context;
     return (
       <table
-        ref={(node) => { this.node = node; }}
+        ref={this.tableRef}
         className={classNames('table', className)}
         style={{
           tableLayout: 'fixed',

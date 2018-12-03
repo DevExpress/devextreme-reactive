@@ -15,15 +15,22 @@ import { Stack, Scale, Animation } from '@devexpress/dx-react-chart';
 
 import { oilProduction } from '../../../demo-data/data-vizualization';
 
-const makeLabel = symbol => ({ text, ...restProps }) => (
+const makeLabel = (symbol, color) => ({ text, style, ...restProps }) => (
   <ValueAxis.Label
     text={`${text} ${symbol}`}
+    style={{
+      fill: color,
+      ...style
+    }}
     {...restProps}
   />
 );
 
-const PriceLabel = makeLabel('$');
-const LabelWithThousand = makeLabel('k');
+const priceColor = '#efc564';
+const consumptionColor = '#7cb2b7';
+
+const PriceLabel = makeLabel('$', priceColor);
+const LabelWithThousand = makeLabel('k', consumptionColor);
 
 const pointOptions = { size: 10 };
 const Point = props => (
@@ -128,12 +135,15 @@ export default class Demo extends React.PureComponent {
             name="Consumption"
             valueField="consumption"
             argumentField="year"
+            scaleName="oil"
+            color={consumptionColor}
           />
           <SplineSeries
             name="Oil Price"
             valueField="price"
             argumentField="year"
             scaleName="price"
+            color={priceColor}
             seriesComponent={LineWithPoints}
           />
           <Animation />

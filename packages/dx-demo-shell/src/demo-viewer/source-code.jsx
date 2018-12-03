@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import CodeMirror from 'codemirror';
+import { EmbeddedDemoContext } from '../context';
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/mode/jsx/jsx';
 import 'codemirror/addon/fold/foldcode';
@@ -43,8 +44,7 @@ export class SourceCode extends React.PureComponent {
 
   prepareSourceCode() {
     const { themeName, sectionName, demoName } = this.props;
-    const { embeddedDemoOptions } = this.context;
-    const { demoSources } = embeddedDemoOptions;
+    const { demoSources } = this.context;
     const source = demoSources[sectionName][demoName][themeName].source || '';
     let occurrenceIndex = 0;
 
@@ -82,6 +82,4 @@ SourceCode.propTypes = {
   themeName: PropTypes.string.isRequired,
 };
 
-SourceCode.contextTypes = {
-  embeddedDemoOptions: PropTypes.object.isRequired,
-};
+SourceCode.contextType = EmbeddedDemoContext;

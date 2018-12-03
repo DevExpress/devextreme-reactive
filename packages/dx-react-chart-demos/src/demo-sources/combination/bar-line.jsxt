@@ -11,7 +11,7 @@ import {
   Legend,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 
-import { Stack, Scale, Animation } from '@devexpress/dx-react-chart';
+import { Stack, Scale, Animation, EventTracker, HoverState } from '@devexpress/dx-react-chart';
 
 import { oilProduction } from '../../../demo-data/data-vizualization';
 
@@ -26,6 +26,7 @@ const makeLabel = (symbol, color) => ({ text, style, ...restProps }) => (
   />
 );
 
+const priceSeriesName = 'Oil Price';
 const priceColor = '#efc564';
 const consumptionColor = '#7cb2b7';
 
@@ -70,7 +71,12 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       oilProduction,
+      hover: null,
     };
+
+    this.changeHover = (target) => this.setState(({ hover }) => ({
+      hover: target && target.series === priceSeriesName ? target : null,
+    }));
   }
 
   render() {
@@ -139,7 +145,7 @@ export default class Demo extends React.PureComponent {
             color={consumptionColor}
           />
           <SplineSeries
-            name="Oil Price"
+            name={priceSeriesName}
             valueField="price"
             argumentField="year"
             scaleName="price"
@@ -154,6 +160,8 @@ export default class Demo extends React.PureComponent {
           />
           <Stack stacks={stacks} />
           <Scale />
+          <EventTracker />
+          <HoverState hover={this.state.hover} onHoverChange={this.changeHover} />
         </Chart>
       </<%&wrapperTag%>>
     );

@@ -8,7 +8,6 @@ import {
   Title,
   Legend,
   ScatterSeries,
-  ValueGrid,
 } from '@devexpress/dx-react-chart-bootstrap4';
 import { Scale, Animation } from '@devexpress/dx-react-chart';
 import {
@@ -59,7 +58,6 @@ const Root = props => (
 );
 
 const format = () => tick => tick;
-const EmptyComponent = () => null;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -79,11 +77,7 @@ export default class Demo extends React.PureComponent {
           data={chartData}
         >
           <ArgumentAxis tickFormat={format} />
-          <ValueAxis
-            lineComponent={EmptyComponent}
-            tickComponent={EmptyComponent}
-          />
-          <ValueGrid />
+          <ValueAxis />
 
           <LineSeries
             name="Bronze Medals"

@@ -1,8 +1,9 @@
 import * as React from 'react';
-
+// #FOLD_BLOCK
 import {
   ViewState,
 } from '@devexpress/dx-react-scheduler';
+// #FOLD_BLOCK
 import {
   Scheduler,
   WeekView,
@@ -39,9 +40,9 @@ const filterTasks = (items, priorityId) => items.filter(task => (
 const getPriorityById = priorityId => priorities.find(({ id }) => id === priorityId).title;
 
 const createClassesByPriorityId = (
-  priorityId,
-  classes,
+  priorityId, classes,
   { background = false, color = false, hover = false },
+// #FOLD_BLOCK
 ) => {
   const priority = getPriorityById(priorityId);
   const result = [];
@@ -50,7 +51,7 @@ const createClassesByPriorityId = (
   if (hover) result.push(classes[`${priority}PriorityHover`]);
   return result.join(' ');
 };
-
+// #FOLD_BLOCK
 const styles = theme => ({
   ...priorities.reduce((acc, { title, color, activeColor }) => {
     acc[`${title}PriorityBackground`] = { background: color };
@@ -234,7 +235,7 @@ export default class Demo extends React.PureComponent {
   }
 
   componentDidUpdate() {
-    this.flexibleSpace.update();
+    this.flexibleSpace.update(); // #IMPORTANT_LINE
   }
 
   render() {

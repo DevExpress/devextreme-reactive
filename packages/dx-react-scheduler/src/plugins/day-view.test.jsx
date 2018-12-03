@@ -98,8 +98,8 @@ describe('Day View', () => {
 
       expect(viewCellsData)
         .toBeCalledWith(
-          'day', '2018-07-04', undefined,
-          props.intervalCount, props.intervalCount, [],
+          '2018-07-04', undefined,
+          props.intervalCount, [],
           props.startDayHour, props.endDayHour, props.cellDuration,
         );
       expect(getComputedState(tree).viewCellsData)

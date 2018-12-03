@@ -1,16 +1,19 @@
 import * as React from 'react';
-import { createShallow } from '@material-ui/core/test-utils';
+import { createMount } from '@material-ui/core/test-utils';
 import Checkbox from '@material-ui/core/Checkbox';
 import { BooleanEditor } from './boolean-editor';
 
 describe('Appointment Form', () => {
-  let shallow;
+  let mount;
   beforeAll(() => {
-    shallow = createShallow({ dive: true });
+    mount = createMount();
+  });
+  afterAll(() => {
+    mount.cleanUp();
   });
   describe('BooleanEditor', () => {
     it('should pass rest props to the root element', () => {
-      const tree = shallow((
+      const tree = mount((
         <BooleanEditor className="custom-class" />
       ));
 
@@ -19,20 +22,20 @@ describe('Appointment Form', () => {
     });
 
     it('should render checkbox as boolean editor', () => {
-      const tree = shallow((
+      const tree = mount((
         <BooleanEditor className="custom-class" />
       ));
-      expect(tree.dive().find(Checkbox).exists())
+      expect(tree.find(Checkbox).exists())
         .toBeTruthy();
     });
 
     it('should handle checkbox change', () => {
       const valueChangeMock = jest.fn();
-      const { onChange } = shallow((
+      const { onChange } = mount((
         <BooleanEditor
           onValueChange={valueChangeMock}
         />
-      )).dive().find(Checkbox).props();
+      )).find(Checkbox).props();
       onChange({ target: { checked: true } });
 
       expect(valueChangeMock).toBeCalledWith(true);

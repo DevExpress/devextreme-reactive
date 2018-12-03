@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { axisCoordinates, axesData } from '@devexpress/dx-chart-core';
+import { axisCoordinates, axesData, getGridCoordinates } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { Axis } from './axis';
 
@@ -9,8 +9,8 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   axisCoordinates: jest.fn(),
   axesData: jest.fn(),
   LEFT: 'left',
-  TOP: 'top',
   BOTTOM: 'bottom',
+  getGridCoordinates: jest.fn(),
 }));
 
 describe('Axis', () => {
@@ -27,27 +27,20 @@ describe('Axis', () => {
   const TickComponent = () => null;
   const LabelComponent = () => null;
   const LineComponent = () => null;
-  const getterForAxis = position => ({
-    getter: {
-      layouts: {
-        [`${position}-axis`]: {
-          x: 3, y: 4, width: 250, height: 150,
-        },
-      },
-    },
-    template: {
-      [`${position}-axis`]: {},
-    },
-  });
+  const GridComponent = () => null;
+
   const defaultDeps = {
     getter: {
       scales: {
         'test-domain': mockScale,
+        'other-domain': mockScale,
       },
       layouts: {
-        'bottom-axis': {
-          x: 1, y: 2, width: 200, height: 100,
-        },
+        'top-axis': { width: 150, height: 100 },
+        'bottom-axis': { width: 200, height: 150 },
+        'left-axis': { width: 250, height: 200 },
+        'right-axis': { width: 300, height: 250 },
+        pane: { width: 400, height: 500 },
       },
       axes: [{}],
     },
@@ -55,188 +48,191 @@ describe('Axis', () => {
       changeBBox: jest.fn(),
     },
     template: {
+      'top-axis': {},
       'bottom-axis': {},
+      'left-axis': {},
+      'right-axis': {},
+      series: {},
     },
   };
+
   const defaultProps = {
-    min: 0,
     position: 'bottom',
-    name: 'test-domain',
+    scaleName: 'test-domain',
+    showTicks: true,
+    showGrids: true,
+    showLine: true,
+    showLabels: true,
     rootComponent: RootComponent,
     tickComponent: TickComponent,
     labelComponent: LabelComponent,
     lineComponent: LineComponent,
+    gridComponent: GridComponent,
   };
 
-  const mockTicks = [{
-    text: 'text1',
-    x1: 1,
-    x2: 2,
-    y1: 3,
-    y2: 4,
-    xText: 'xText1',
-    yText: 'yText1',
-    dominantBaseline: 'dominantBaseline1',
-    textAnchor: 'textAnchor1',
+  const mockTicks = [
+    {
+      text: 'text1',
+      x1: 1,
+      x2: 2,
+      y1: 3,
+      y2: 4,
+      xText: 'xText1',
+      yText: 'yText1',
+      dominantBaseline: 'dominantBaseline1',
+      textAnchor: 'textAnchor1',
+      key: '1',
+    },
+    {
+      text: 'text2',
+      x1: 11,
+      x2: 22,
+      y1: 33,
+      y2: 44,
+      xText: 'xText2',
+      yText: 'yText2',
+      dominantBaseline: 'dominantBaseline2',
+      textAnchor: 'textAnchor2',
+      key: '2',
+    },
+  ];
+
+  getGridCoordinates.mockReturnValue([{
     key: '1',
-  },
-  {
-    text: 'text2',
-    x1: 11,
-    x2: 22,
-    y1: 33,
-    y2: 44,
-    xText: 'xText2',
-    yText: 'yText2',
-    dominantBaseline: 'dominantBaseline2',
-    textAnchor: 'textAnchor2',
+    x: 11,
+    y: 12,
+    dx: 0.1,
+    dy: 0.2,
+  }, {
     key: '2',
-  }];
+    x: 21,
+    y: 22,
+    dx: 0.3,
+    dy: 0.4,
+  }]);
 
   const setupAxisCoordinates = (sides) => {
     axisCoordinates.mockReturnValue({ sides, ticks: mockTicks });
   };
 
+  const enforceUpdate = tree => tree.setProps({ tag: 'enforce-update' }).update();
+
+  const getDivStyle = tree => tree.findWhere(node => (
+    node.type() === 'div' && node.prop('style') && node.prop('style').position === 'relative'
+  )).prop('style');
+
+  let originalGetBoundingClientRect;
+  const getBoundingClientRect = jest.fn();
+
+  beforeAll(() => {
+    originalGetBoundingClientRect = global.HTMLDivElement.prototype.getBoundingClientRect;
+    global.HTMLDivElement.prototype.getBoundingClientRect = getBoundingClientRect;
+  });
+
+  afterAll(() => {
+    global.HTMLDivElement.prototype.getBoundingClientRect = originalGetBoundingClientRect;
+  });
+
+  beforeEach(() => {
+    setupAxisCoordinates([1, 0]);
+    getBoundingClientRect.mockReturnValue({ width: 400, height: 300 });
+  });
+
   afterEach(() => {
     jest.clearAllMocks();
     axisCoordinates.mockReset();
+    getBoundingClientRect.mockReset();
   });
+
+  const AxisTester = props => (
+    <PluginHost>
+      {pluginDepsToComponents(defaultDeps)}
+      <Axis {...defaultProps} {...props} />
+    </PluginHost>
+  );
 
   it('should render root component', () => {
-    setupAxisCoordinates([1, 0]);
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <Axis
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
+    const tree = mount(<AxisTester />);
 
-    const {
-      x, y, refsHandler, children,
-    } = tree.find(RootComponent).props();
-    expect(x).toBe(-0);
-    expect(y).toBe(-0);
-    expect(refsHandler).toEqual(expect.any(Function));
-    expect(children).toEqual(expect.any(Object));
+    expect(tree.find(RootComponent).props()).toEqual({
+      dx: 1,
+      dy: 0,
+      onSizeChange: expect.any(Function),
+      children: expect.anything(),
+    });
   });
 
-  it('should pass correct bbox for group, vertical-left position', () => {
-    const element = {
-      getBBox: jest.fn(() => ({
-        x: -30, y: 0, width: 20, height: 30,
-      })),
-    };
+  it('should pass correct bbox, vertical-left position', () => {
     setupAxisCoordinates([0, 1]);
-    const tree = mount((
-      <PluginHost>
-        <Axis {...defaultProps} position="left" />
-        {pluginDepsToComponents(defaultDeps, getterForAxis('left'))}
-      </PluginHost>
-    ));
-    const { refsHandler } = tree.find(RootComponent).props();
+    const tree = mount(<AxisTester position="left" />);
 
-    refsHandler(element);
-    expect(defaultDeps.action.changeBBox.mock.calls[0][0])
-      .toMatchObject({ placeholder: 'left-axis', bBox: { width: 30, height: 30 } });
+    tree.find(RootComponent).props().onSizeChange({ tag: 'size' });
+
+    expect(defaultDeps.action.changeBBox.mock.calls[0][0]).toEqual({
+      placeholder: 'left-axis', bBox: { tag: 'size' },
+    });
+
+    enforceUpdate(tree);
+
+    expect(getDivStyle(tree)).toEqual({ position: 'relative', width: 250 });
+    expect(tree.find('svg').props()).toMatchObject({ width: 400, height: 300 });
   });
 
-  it('should pass correct bbox for group, vertical-right position', () => {
-    const element = {
-      getBBox: jest.fn(() => ({
-        x: 10, y: 0, width: 30, height: 30,
-      })),
-    };
+  it('should pass correct bbox, vertical-right position', () => {
     setupAxisCoordinates([0, 1]);
-    const tree = mount((
-      <PluginHost>
-        <Axis {...defaultProps} position="right" />
-        {pluginDepsToComponents(defaultDeps, getterForAxis('right'))}
-      </PluginHost>
-    ));
-    const { refsHandler } = tree.find(RootComponent).props();
+    const tree = mount(<AxisTester position="right" />);
 
-    refsHandler(element);
-    expect(defaultDeps.action.changeBBox.mock.calls[0][0])
-      .toMatchObject({ placeholder: 'right-axis', bBox: { width: 40, height: 30 } });
+    tree.find(RootComponent).props().onSizeChange({ tag: 'size' });
+
+    expect(defaultDeps.action.changeBBox.mock.calls[0][0]).toEqual({
+      placeholder: 'right-axis', bBox: { tag: 'size' },
+    });
+
+    enforceUpdate(tree);
+
+    expect(getDivStyle(tree)).toEqual({ position: 'relative', width: 300 });
+    expect(tree.find('svg').props()).toMatchObject({ width: 400, height: 300 });
   });
 
-  it('should pass correct bbox for group, horizontal-top position', () => {
-    const element = {
-      getBBox: jest.fn(() => ({
-        x: 0, y: -40, width: 30, height: 30,
-      })),
-    };
+  it('should pass correct bbox, horizontal-top position', () => {
     setupAxisCoordinates([1, 0]);
-    const tree = mount((
-      <PluginHost>
-        <Axis {...defaultProps} position="top" />
-        {pluginDepsToComponents(defaultDeps, getterForAxis('top'))}
-      </PluginHost>
-    ));
-    const { refsHandler } = tree.find(RootComponent).props();
+    const tree = mount(<AxisTester position="top" />);
 
-    refsHandler(element);
-    expect(defaultDeps.action.changeBBox.mock.calls[0][0])
-      .toMatchObject({ placeholder: 'top-axis', bBox: { width: 30, height: 40 } });
+    tree.find(RootComponent).props().onSizeChange({ tag: 'size' });
+
+    expect(defaultDeps.action.changeBBox.mock.calls[0][0]).toEqual({
+      placeholder: 'top-axis', bBox: { tag: 'size' },
+    });
+
+    enforceUpdate(tree);
+
+    expect(getDivStyle(tree)).toEqual({ position: 'relative', height: 100, flexGrow: 1 });
+    expect(tree.find('svg').props()).toMatchObject({ width: 400, height: 300 });
   });
 
   it('should pass correct bbox for group, horizontal-bottom position', () => {
-    const element = {
-      getBBox: jest.fn(() => ({
-        x: 0, y: 10, width: 30, height: 20,
-      })),
-    };
     setupAxisCoordinates([1, 0]);
-    const tree = mount((
-      <PluginHost>
-        <Axis {...defaultProps} />
-        {pluginDepsToComponents(defaultDeps)}
-      </PluginHost>
-    ));
-    const { refsHandler } = tree.find(RootComponent).props();
+    const tree = mount(<AxisTester />);
 
-    refsHandler(element);
-    expect(defaultDeps.action.changeBBox.mock.calls[0][0])
-      .toMatchObject({ placeholder: 'bottom-axis', bBox: { width: 30, height: 30 } });
-  });
+    tree.find(RootComponent).props().onSizeChange({ tag: 'size' });
 
-  it('should render argument axis', () => {
-    setupAxisCoordinates([1, 0]);
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <Axis
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
+    expect(defaultDeps.action.changeBBox.mock.calls[0][0]).toEqual({
+      placeholder: 'bottom-axis', bBox: { tag: 'size' },
+    });
 
-    const {
-      x, y, refsHandler, children,
-    } = tree.find(RootComponent).props();
-    expect(x).toBe(-0);
-    expect(y).toBe(-0);
-    expect(refsHandler).toEqual(expect.any(Function));
-    expect(children).toEqual(expect.any(Object));
+    enforceUpdate(tree);
+
+    expect(getDivStyle(tree)).toEqual({ position: 'relative', height: 150, flexGrow: 1 });
+    expect(tree.find('svg').props()).toMatchObject({ width: 400, height: 300 });
   });
 
   it('should pass axisCoordinates method correct parameters, horizontal orientation', () => {
     const mockTickFormat = () => 0;
     setupAxisCoordinates([1, 0]);
-    mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <Axis
-          {...defaultProps}
-          tickFormat={mockTickFormat}
-        />
-      </PluginHost>
-    ));
+    mount(<AxisTester tickFormat={mockTickFormat} />);
 
     expect(axisCoordinates).toHaveBeenCalledWith({
-      name: 'test-domain',
+      scaleName: 'test-domain',
       scale: mockScale,
       position: 'bottom',
       tickSize: 5,
@@ -247,31 +243,16 @@ describe('Axis', () => {
 
   it('should pass axisCoordinates method correct parameters, vertical orientation', () => {
     setupAxisCoordinates([0, 1]);
-    mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps, {
-          getter: {
-            scales: {
-              'other-domain': mockScale,
-            },
-            layouts: {
-              'bottom-axis': {
-                x: 3, y: 4, width: 250, height: 150,
-              },
-            },
-          },
-        })}
-        <Axis
-          {...defaultProps}
-          name="other-domain"
-          tickSize={6}
-          indentFromAxis={3}
-        />
-      </PluginHost>
-    ));
+    mount(
+      <AxisTester
+        scaleName="other-domain"
+        tickSize={6}
+        indentFromAxis={3}
+      />,
+    );
 
     expect(axisCoordinates).toHaveBeenCalledWith({
-      name: 'other-domain',
+      scaleName: 'other-domain',
       scale: mockScale,
       position: 'bottom',
       tickSize: 6,
@@ -281,14 +262,8 @@ describe('Axis', () => {
 
   it('should render tick component', () => {
     setupAxisCoordinates([1, 0]);
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <Axis
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
+    const tree = mount(<AxisTester />);
+
     expect(tree.find(TickComponent).get(0).props).toEqual({
       x1: 1,
       x2: 2,
@@ -303,16 +278,41 @@ describe('Axis', () => {
     });
   });
 
+  it('should not render tick component, showTicks is false', () => {
+    setupAxisCoordinates([1, 0]);
+    const tree = mount(<AxisTester showTicks={false} />);
+
+    expect(tree.find(TickComponent).get(0)).toBeFalsy();
+  });
+
+  it('should render grid component', () => {
+    setupAxisCoordinates([1, 0]);
+    const tree = mount(<AxisTester />);
+
+    expect(tree.find(GridComponent).get(0).props).toEqual({
+      x1: 11,
+      x2: 51,
+      y1: 12,
+      y2: 112,
+    });
+    expect(tree.find(GridComponent).get(1).props).toEqual({
+      x1: 21,
+      x2: 141,
+      y1: 22,
+      y2: 222,
+    });
+  });
+
+  it('should not render grid component, showGrids is false', () => {
+    setupAxisCoordinates([1, 0]);
+    const tree = mount(<AxisTester showGrids={false} />);
+
+    expect(tree.find(GridComponent).get(0)).toBeFalsy();
+  });
+
   it('should render label component', () => {
     setupAxisCoordinates([1, 0]);
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <Axis
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
+    const tree = mount(<AxisTester />);
 
     expect(tree.find(LabelComponent).get(0).props).toEqual({
       x: 'xText1',
@@ -331,50 +331,54 @@ describe('Axis', () => {
     });
   });
 
+  it('should not render label component, showLabels is false', () => {
+    setupAxisCoordinates([1, 0]);
+    const tree = mount(<AxisTester showLabels={false} />);
+
+    expect(tree.find(LabelComponent).get(0)).toBeFalsy();
+  });
+
   it('should render line component, horizontal', () => {
     setupAxisCoordinates([1, 0]);
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <Axis
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
+    const tree = mount(<AxisTester />);
+
+    tree.find(RootComponent).props().onSizeChange({ tag: 'size' });
+    enforceUpdate(tree);
 
     expect(tree.find(LineComponent).props()).toEqual({
-      width: 200,
-      height: 0,
+      x1: 0,
+      x2: 400,
+      y1: 0,
+      y2: 0,
     });
   });
 
   it('should render line component, vertical', () => {
     setupAxisCoordinates([0, 1]);
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <Axis
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
+    const tree = mount(<AxisTester />);
+
+    tree.find(RootComponent).props().onSizeChange({ tag: 'size' });
+    enforceUpdate(tree);
 
     expect(tree.find(LineComponent).props()).toEqual({
-      width: 0,
-      height: 100,
+      x1: 0,
+      x2: 0,
+      y1: 0,
+      y2: 300,
     });
+  });
+
+  it('should not render line component, showLine is false', () => {
+    setupAxisCoordinates([1, 0]);
+    const tree = mount(<AxisTester showLine={false} />);
+
+    expect(tree.find(LineComponent).get(0)).toBeFalsy();
   });
 
   it('should pass axesData correct arguments', () => {
     setupAxisCoordinates([1, 0]);
-    mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <Axis
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
+    mount(<AxisTester />);
+
     expect(axesData).toHaveBeenCalledWith(
       expect.arrayContaining([{}]),
       expect.objectContaining(defaultProps),

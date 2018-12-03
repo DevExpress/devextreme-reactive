@@ -7,7 +7,6 @@ import {
   BarSeries,
   Title,
   Legend,
-  ValueGrid,
 } from '@devexpress/dx-react-chart-material-ui';
 import { withStyles } from '@material-ui/core/styles';
 import { Stack, Scale, Animation } from '@devexpress/dx-react-chart';
@@ -44,7 +43,6 @@ const demoStyles = () => ({
 });
 
 const format = scale => scale.tickFormat(null, '%');
-const EmptyComponent = () => null;
 
 class Demo extends React.PureComponent {
   constructor(props) {
@@ -67,10 +65,7 @@ class Demo extends React.PureComponent {
           <ArgumentAxis />
           <ValueAxis
             tickFormat={format}
-            lineComponent={EmptyComponent}
-            tickComponent={EmptyComponent}
           />
-          <ValueGrid />
 
           <BarSeries
             name="Saudi Arabia"

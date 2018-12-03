@@ -26,6 +26,7 @@ export class Table extends React.Component {
       stickyProp: globalStickyProp,
       backgroundColor: 'white',
     };
+    this.tableRef = React.createRef();
   }
 
   componentDidMount() {
@@ -36,7 +37,7 @@ export class Table extends React.Component {
     globalStickyProp = testCSSProp('position', 'sticky');
     const { backgroundColor, stickyProp } = this.state;
 
-    let panel = this.node.parentElement;
+    let panel = this.tableRef.current.parentElement;
     while (!panel.classList.contains('panel')) {
       panel = panel.parentElement;
     }
@@ -55,7 +56,7 @@ export class Table extends React.Component {
     const { stickyProp, backgroundColor } = this.state;
     return (
       <table
-        ref={(node) => { this.node = node; }}
+        ref={this.tableRef}
         className={classNames('table', className)}
         style={{
           tableLayout: 'fixed',

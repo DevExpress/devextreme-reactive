@@ -101,7 +101,7 @@ avg? | string | 'Avg' | Specifies the average type text.
 Name | Properties | Description
 -----|------------|------------
 TableSummaryRow.Cell | [TableSummaryRow.CellProps](#tablesummaryrowcellprops) | A component that renders a cell within a data row.
-totalRowComponent | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | A component that renders the total summary row.
+TableSummaryRow.TotalRow | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | A component that renders the total summary row.
 TableSummaryRow.GroupRow | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | A component that renders a group summary row.
 TableSummaryRow.TreeRow | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | A component that renders a tree summary row.
 TableSummaryRow.TotalCell | ComponentType&lt;[TableSummaryRow.CellProps](#tablesummaryrowcellprops)&gt; | A component that renders a total summary cell.

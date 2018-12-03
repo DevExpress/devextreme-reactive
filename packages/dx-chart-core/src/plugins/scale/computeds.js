@@ -8,7 +8,7 @@ import {
 const isDefined = item => item !== undefined;
 
 // TODO: Property name should not contain "axis" part as it actually means domain.
-const getSeriesValueDomainName = series => getValueDomainName(series.axisName);
+const getSeriesValueDomainName = series => getValueDomainName(series.scaleName);
 
 const calculateDomainField = (items, domain, type) => (
   type === BAND ? [...domain, ...items] : extent([...domain, ...extent(items)])
@@ -69,7 +69,7 @@ const collectDomains = (seriesList) => {
     const name = getSeriesValueDomainName(seriesItem);
     const domain = domains[name] || { domain: [], orientation: VERTICAL };
     domains[name] = domain;
-    if (seriesItem.isStartedFromZero && domain.domain.length === 0) {
+    if (seriesItem.getPointTransformer.isStartedFromZero && domain.domain.length === 0) {
       domain.domain = [0];
     }
   });
@@ -77,8 +77,8 @@ const collectDomains = (seriesList) => {
 };
 
 const takeTypeFromAxesOptions = (domains, axes) => {
-  axes.forEach(({ name, type }) => {
-    const domain = domains[name];
+  axes.forEach(({ scaleName, type }) => {
+    const domain = domains[scaleName];
     if (domain) {
       domain.type = type;
     }
@@ -86,8 +86,8 @@ const takeTypeFromAxesOptions = (domains, axes) => {
 };
 
 const takeRestAxesOptions = (domains, axes) => {
-  axes.forEach(({ name, min, max }) => {
-    const domain = domains[name];
+  axes.forEach(({ scaleName, min, max }) => {
+    const domain = domains[scaleName];
     if (!domain) {
       return;
     }

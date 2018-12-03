@@ -8,6 +8,8 @@ jest.mock('d3-scale', () => ({
 }));
 
 describe('computeDomains', () => {
+  const getPointTransformer = () => null;
+
   it('should always create argument domain', () => {
     const domains = computeDomains([], []);
 
@@ -21,7 +23,7 @@ describe('computeDomains', () => {
   it('should create default value domain', () => {
     const domains = computeDomains(
       [],
-      [{ name: 'series1', points: [{ argument: 1, value: 1 }] }],
+      [{ name: 'series1', getPointTransformer, points: [{ argument: 1, value: 1 }] }],
     );
 
     expect(domains).toEqual({
@@ -39,6 +41,7 @@ describe('computeDomains', () => {
       [],
       [{
         name: 'series1',
+        getPointTransformer,
         points: [
           { argument: 1, value: 9 },
           { argument: 2, value: 2 },
@@ -67,7 +70,7 @@ describe('computeDomains', () => {
     const domains = computeDomains(
       [],
       [{
-        name: 'series1', getValueDomain, points,
+        name: 'series1', getPointTransformer, getValueDomain, points,
       }],
     );
 
@@ -86,7 +89,7 @@ describe('computeDomains', () => {
     const domains = computeDomains(
       [],
       [{
-        name: 'series1', points: [{ argument: 1, value: 9 }, { argument: 2, value: -10 }],
+        name: 'series1', getPointTransformer, points: [{ argument: 1, value: 9 }, { argument: 2, value: -10 }],
       }],
     );
 
@@ -104,7 +107,7 @@ describe('computeDomains', () => {
     const domains = computeDomains(
       [],
       [{
-        name: 'series1', points: [{ argument: 1, value: 0 }, { argument: 2, value: 10 }],
+        name: 'series1', getPointTransformer, points: [{ argument: 1, value: 0 }, { argument: 2, value: 10 }],
       }],
     );
 
@@ -122,7 +125,7 @@ describe('computeDomains', () => {
     const domains = computeDomains(
       [],
       [{
-        name: 'series1', isStartedFromZero: true, points: [{ argument: 1, value: 9 }],
+        name: 'series1', getPointTransformer: { isStartedFromZero: true }, points: [{ argument: 1, value: 9 }],
       }],
     );
 
@@ -141,13 +144,13 @@ describe('computeDomains', () => {
     const domains = computeDomains(
       [],
       [{
-        name: 'series1', points: makePoints([2, 3, 5, 6]),
+        name: 'series1', getPointTransformer, points: makePoints([2, 3, 5, 6]),
       }, {
-        name: 'series2', points: makePoints([-1, -3, 0, 1]), axisName: 'domain1',
+        name: 'series2', getPointTransformer, points: makePoints([-1, -3, 0, 1]), scaleName: 'domain1',
       }, {
-        name: 'series3', points: makePoints([1, 2, 3, 1]), axisName: 'domain1',
+        name: 'series3', getPointTransformer, points: makePoints([1, 2, 3, 1]), scaleName: 'domain1',
       }, {
-        name: 'series4', points: makePoints([2, 5, 7, 3]),
+        name: 'series4', getPointTransformer, points: makePoints([2, 5, 7, 3]),
       }],
     );
 
@@ -166,9 +169,10 @@ describe('computeDomains', () => {
 
   it('should compute banded domain', () => {
     const domains = computeDomains(
-      [{ name: ARGUMENT_DOMAIN, type: 'band' }],
+      [{ scaleName: ARGUMENT_DOMAIN, type: 'band' }],
       [{
         name: 'series1',
+        getPointTransformer,
         points: [
           { argument: 'a', value: 1 },
           { argument: 'b', value: 2 },
@@ -191,7 +195,7 @@ describe('computeDomains', () => {
     const domains = computeDomains(
       [],
       [{
-        name: 'series1', points: [{ argument: 'a', value: 'A' }, { argument: 'b', value: 'B' }],
+        name: 'series1', getPointTransformer, points: [{ argument: 'a', value: 'A' }, { argument: 'b', value: 'B' }],
       }],
     );
 
@@ -207,10 +211,11 @@ describe('computeDomains', () => {
 
   it('should take min/max from axis', () => {
     const domains = computeDomains(
-      [{ name: 'domain1', min: 0, max: 10 }],
+      [{ scaleName: 'domain1', min: 0, max: 10 }],
       [{
         name: 'series1',
-        axisName: 'domain1',
+        scaleName: 'domain1',
+        getPointTransformer,
         points: [{ argument: 1, value: 3 }, { argument: 2, value: 14 }],
       }],
     );
@@ -227,10 +232,11 @@ describe('computeDomains', () => {
 
   it('should take one of min/max from axis', () => {
     const domains = computeDomains(
-      [{ name: 'domain1', max: 7 }],
+      [{ scaleName: 'domain1', max: 7 }],
       [{
         name: 'series1',
-        axisName: 'domain1',
+        scaleName: 'domain1',
+        getPointTransformer,
         points: [{ argument: 1, value: 3 }, { argument: 2, value: 14 }],
       }],
     );
@@ -248,10 +254,11 @@ describe('computeDomains', () => {
   it('should ignore min/max for band domain', () => {
     const domains = computeDomains(
       [{
-        name: ARGUMENT_DOMAIN, min: 1, max: 7, type: 'band',
+        scaleName: ARGUMENT_DOMAIN, min: 1, max: 7, type: 'band',
       }],
       [{
         name: 'series1',
+        getPointTransformer,
         points: [{ argument: 'one', value: 9 }, { argument: 'two', value: 1 }, { argument: 'three', value: 1 }],
       }],
     );
@@ -269,11 +276,11 @@ describe('computeDomains', () => {
   it('should ignore axes for unknown domains', () => {
     const domains = computeDomains(
       [
-        { name: 'domain1' },
-        { name: 'domain2' },
+        { scaleName: 'domain1' },
+        { scaleName: 'domain2' },
       ],
       [{
-        name: 'series1', axisName: 'domain1', points: [{ argument: 1, value: 9 }],
+        name: 'series1', getPointTransformer, scaleName: 'domain1', points: [{ argument: 1, value: 9 }],
       }],
     );
 

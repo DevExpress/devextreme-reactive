@@ -207,6 +207,8 @@
         path: /react/chart/docs/guides/animation
       - title: Hover and Selection
         path: /react/chart/docs/guides/hover-and-selection
+      - title: Tooltip
+        path: /react/chart/docs/guides/tooltip
       - title: TypeScript
         path: /react/chart/docs/guides/typescript
   - title: API Reference
@@ -217,8 +219,6 @@
         path: /react/chart/docs/reference/area-series
       - title: ArgumentAxis
         path: /react/chart/docs/reference/argument-axis
-      - title: ArgumentGrid
-        path: /react/chart/docs/reference/argument-grid
       - title: BarSeries
         path: /react/chart/docs/reference/bar-series
       - title: Chart
@@ -247,10 +247,10 @@
         path: /react/chart/docs/reference/stack
       - title: Title
         path: /react/chart/docs/reference/title
+      - title: Tooltip
+        path: /react/chart/docs/reference/tooltip
       - title: ValueAxis
         path: /react/chart/docs/reference/value-axis
-      - title: ValueGrid
-        path: /react/chart/docs/reference/value-grid
   - title: Related Docs
     items:
       - title: React Core

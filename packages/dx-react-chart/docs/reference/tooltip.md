@@ -1,6 +1,6 @@
 # Tooltip Plugin Reference
 
-The `Tooltip` plugin implements a tooltip that shows information about a point. The tooltip appears when the user hovers over a series point.
+The `Tooltip` plugin implements a tooltip that shows information about a point. The tooltip appears when a user hovers the mouse pointer over a series point.
 
 ## Import
 
@@ -17,9 +17,9 @@ import { Tooltip } from '@devexpress/dx-react-chart-material-ui';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-defaultTargetItem? | [SeriesRef](./event-tracker.md#seriesref) | | An item for which the tooltip is initially displayed.
+defaultTargetItem? | [SeriesRef](./event-tracker.md#seriesref) | | An item for which the tooltip is displayed initially.
 targetItem? | [SeriesRef](./event-tracker.md#seriesref) | | An item for which the tooltip is displayed.
-onTargetItemChange? | (target: [SeriesRef](./event-tracker.md#seriesref)) => void | | A function that is executed when the target item is changed.
+onTargetItemChange? | (target: [SeriesRef](./event-tracker.md#seriesref)) => void | | A function that is executed when the target item changes.
 overlayComponent | ComponentType&lt;[Tooltip.OverlayProps](#tooltipoverlayprops)&gt; | | A component that renders the tooltip.
 contentComponent | ComponentType&lt;[Tooltip.ContentProps](#tooltipcontentprops)&gt; | | A component that renders the tooltip content.
 
@@ -36,9 +36,9 @@ children | ReactNode | A React node used to render the axis.
 
 ### Tooltip.ContentProps
 
-Describes properties passed to a component that renders the tooltip content.
+Describes properties passed to a component that renders the tooltip's content.
 
 Field | Type | Description
 ------|------|------------
-text | string | A text of the component.
+text | string | The component's text.
 targetItem | [SeriesRef](./event-tracker.md#seriesref) | An item for which the tooltip is displayed.

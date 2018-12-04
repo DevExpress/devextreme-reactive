@@ -73,13 +73,14 @@ const defaultProps = {
     { key: 9 },
   ],
   containerComponent: props => <div {...props} />,
-  headTableComponent: props => <table {...props} />,
-  tableComponent: props => <table {...props} />,
+  headTableComponent: ({ tableRef, ...props }) => <table {...props} />,
+  tableComponent: ({ tableRef, ...props }) => <table {...props} />,
   headComponent: props => <thead {...props} />,
   bodyComponent: props => <tbody {...props} />,
   rowComponent: () => null,
   cellComponent: () => null,
   getCellColSpan: () => 1,
+  tableRef: React.createRef(),
 };
 
 describe('VirtualTableLayout', () => {

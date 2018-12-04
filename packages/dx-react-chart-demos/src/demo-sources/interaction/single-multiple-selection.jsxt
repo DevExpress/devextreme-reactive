@@ -44,7 +44,7 @@ export default class Demo extends React.PureComponent {
             };
           }
           return {
-            selection: selection[0] && compare(selection[0], target) ? [] : [target],
+            selection: selection.length === 1 && compare(selection[0], target) ? [] : [target],
           };
         });
       }

@@ -19,17 +19,35 @@ export class TableLayout extends React.PureComponent {
     };
 
     this.animations = new Map();
+    this.savedScrolldWidth = {};
   }
 
   componentDidUpdate(prevProps) {
     const { columns } = this.props;
     const { columns: prevColumns } = prevProps;
 
-    // eslint-disable-next-line react/no-find-dom-node
-    const tableWidth = findDOMNode(this).scrollWidth;
+    const tableWidth = this.getTableWidth(prevColumns, columns);
     this.animations = getAnimations(prevColumns, columns, tableWidth, this.animations);
+
     cancelAnimationFrame(this.raf);
     this.raf = requestAnimationFrame(this.processAnimationFrame.bind(this));
+  }
+
+  getTableWidth(prevColumns, columns) {
+    // eslint-disable-next-line react/no-find-dom-node
+    const { offsetWidth, scrollWidth } = findDOMNode(this);
+
+    const widthChanged = this.savedOffsetWidth !== offsetWidth
+      || !this.savedScrolldWidth[columns.length]
+      || columns.length !== prevColumns.length;
+
+    if (widthChanged) {
+      this.savedScrolldWidth = {};
+      this.savedScrolldWidth[columns.length] = scrollWidth;
+      this.savedOffsetWidth = offsetWidth;
+    }
+
+    return this.savedScrolldWidth[columns.length];
   }
 
   getColumns() {

@@ -1,6 +1,7 @@
 /* globals window:true */
 
 import * as React from 'react';
+import { findDOMNode } from 'react-dom';
 import { shallow } from 'enzyme';
 import {
   getAnimations,
@@ -13,6 +14,7 @@ import { TableLayout } from './table-layout';
 jest.mock('react-dom', () => ({
   findDOMNode: jest.fn(() => ({
     scrollWidth: 300,
+    offsetWidth: 200,
   })),
 }));
 jest.mock('@devexpress/dx-grid-core', () => ({
@@ -131,6 +133,88 @@ describe('TableLayout', () => {
         .toHaveBeenCalledTimes(1);
       expect(evalAnimations)
         .toHaveBeenCalledWith(animations);
+    });
+
+    describe('cache table width', () => {
+      const columns = [
+        { key: 'a', column: { name: 'a' } },
+        { key: 'b', column: { name: 'b' } },
+        { key: 'c', column: { name: 'c' } },
+      ];
+      const nextColumns = columns.slice(0, 2);
+      const tableDimensions = { scrollWidth: 300, offsetWidth: 200 };
+
+      it('should not reset width if scroll width changed', () => {
+        const tree = shallow((
+          <TableLayout
+            {...defaultProps}
+            columns={columns}
+            minColumnWidth={100}
+          />
+        ));
+        findDOMNode
+          .mockReturnValueOnce(tableDimensions)
+          .mockReturnValueOnce({ ...tableDimensions, scrollWidth: 400 })
+          .mockReturnValue(tableDimensions);
+        filterActiveAnimations.mockImplementation(() => new Map());
+
+        tree.setProps({ columns: nextColumns });
+        rafCallback();
+        tree.setProps({ columns: nextColumns });
+        rafCallback();
+
+        expect(getAnimations).toHaveBeenCalledTimes(2);
+        expect(getAnimations)
+          .toHaveBeenLastCalledWith(expect.anything(), expect.anything(), 300, new Map());
+      });
+
+      it('should reset width if offset width changed', () => {
+        const tree = shallow((
+          <TableLayout
+            {...defaultProps}
+            columns={columns}
+            minColumnWidth={100}
+          />
+        ));
+        findDOMNode
+          .mockReturnValueOnce(tableDimensions)
+          .mockReturnValueOnce({ scrollWidth: 400, offsetWidth: 300 })
+          .mockReturnValue(tableDimensions);
+        filterActiveAnimations.mockImplementation(() => new Map());
+
+        tree.setProps({ columns: nextColumns });
+        rafCallback();
+        tree.setProps({ columns: nextColumns });
+        rafCallback();
+
+        expect(getAnimations).toHaveBeenCalledTimes(2);
+        expect(getAnimations)
+          .toHaveBeenLastCalledWith(expect.anything(), expect.anything(), 400, new Map());
+      });
+
+      it('should reset width if column count changed', () => {
+        const tree = shallow((
+          <TableLayout
+            {...defaultProps}
+            columns={columns}
+            minColumnWidth={100}
+          />
+        ));
+        findDOMNode
+          .mockReturnValueOnce(tableDimensions)
+          .mockReturnValueOnce({ scrollWidth: 400, offsetWidth: 200 })
+          .mockReturnValue(tableDimensions);
+        filterActiveAnimations.mockImplementation(() => new Map());
+
+        tree.setProps({ columns: nextColumns });
+        rafCallback();
+        tree.setProps({ columns: columns.slice(0, 1) });
+        rafCallback();
+
+        expect(getAnimations).toHaveBeenCalledTimes(2);
+        expect(getAnimations)
+          .toHaveBeenLastCalledWith(expect.anything(), expect.anything(), 400, new Map());
+      });
     });
   });
 });

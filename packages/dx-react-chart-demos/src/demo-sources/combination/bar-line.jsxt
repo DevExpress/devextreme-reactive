@@ -57,6 +57,13 @@ const LegendRoot = props => (
   <Legend.Root style={legendRootStyle} {...props} />
 );
 
+const legendItemStyle = {
+  flexDirection: 'column',
+};
+const LegendItem = props => (
+  <Legend.Item style={legendItemStyle} {...props} />
+);
+
 const legendLabelStyle = {
   whiteSpace: 'nowrap',
 };
@@ -178,6 +185,7 @@ export default class Demo extends React.PureComponent {
           <Legend
             position="bottom"
             rootComponent={LegendRoot}
+            itemComponent={LegendItem}
             labelComponent={LegendLabel}
           />
           <Stack stacks={stacks} />

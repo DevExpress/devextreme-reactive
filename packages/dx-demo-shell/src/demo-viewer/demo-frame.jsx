@@ -12,7 +12,10 @@ const Link = ({ link }) => (
 );
 
 Link.propTypes = {
-  link: PropTypes.string.isRequired,
+  link: PropTypes.string,
+};
+Link.defaultProps = {
+  link: '',
 };
 
 class DemoFrameRenderer extends React.PureComponent {

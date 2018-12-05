@@ -212,7 +212,7 @@ describe('Getter', () => {
 
     const wrapper = mount((
       <PluginHost>
-        <Getter name="action" value={value} />
+        <Getter name="getter" value={value} />
       </PluginHost>
     ));
 

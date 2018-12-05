@@ -16,7 +16,7 @@ describe('axisCoordinates', () => {
 
     it('should return ticks Coordinates with horizontal-top position', () => {
       const coordinates = axisCoordinates({
-        name: 'argument-domain', scale, position: 'top', tickSize, indentFromAxis,
+        scaleName: 'argument-domain', scale, position: 'top', tickSize, indentFromAxis,
       });
       expect(coordinates).toEqual({
         sides: [1, 0],
@@ -28,7 +28,7 @@ describe('axisCoordinates', () => {
 
     it('should return ticks coordinates with horizontal-bottom position', () => {
       const coordinates = axisCoordinates({
-        name: 'argument-domain', scale, position: 'bottom', tickSize, indentFromAxis,
+        scaleName: 'argument-domain', scale, position: 'bottom', tickSize, indentFromAxis,
       });
       expect(coordinates).toEqual({
         sides: [1, 0],
@@ -40,7 +40,7 @@ describe('axisCoordinates', () => {
 
     it('should pass correct domain to scale, horizontal', () => {
       axisCoordinates({
-        name: 'argument-domain', scale, position: 'top', tickSize,
+        scaleName: 'argument-domain', scale, position: 'top', tickSize,
       });
       expect(scale.mock.calls).toEqual([
         [1],
@@ -49,7 +49,7 @@ describe('axisCoordinates', () => {
 
     it('should return ticks coordinates with vertical-left position', () => {
       const coordinates = axisCoordinates({
-        name: 'value-domain', scale, position: 'left', tickSize, indentFromAxis,
+        scaleName: 'value-domain', scale, position: 'left', tickSize, indentFromAxis,
       });
       expect(coordinates).toEqual({
         sides: [0, 1],
@@ -61,7 +61,7 @@ describe('axisCoordinates', () => {
 
     it('should return ticks coordinates with vertical-right position', () => {
       const coordinates = axisCoordinates({
-        name: 'value-domain', scale, position: 'right', tickSize, indentFromAxis,
+        scaleName: 'value-domain', scale, position: 'right', tickSize, indentFromAxis,
       });
       expect(coordinates).toEqual({
         sides: [0, 1],
@@ -73,7 +73,7 @@ describe('axisCoordinates', () => {
 
     it('should pass correct domain to scale, vertical', () => {
       axisCoordinates({
-        name: 'value-domain', scale, position: 'left', tickSize,
+        scaleName: 'value-domain', scale, position: 'left', tickSize,
       });
       expect(scale.mock.calls).toEqual([
         [1],
@@ -84,7 +84,7 @@ describe('axisCoordinates', () => {
       scale.tickFormat = jest.fn(() => tick => `format ${tick}`);
       try {
         const coordinates = axisCoordinates({
-          name: 'argument-domain', scale, position: 'top', tickSize, indentFromAxis,
+          scaleName: 'argument-domain', scale, position: 'top', tickSize, indentFromAxis,
         });
         expect(coordinates.ticks).toEqual([{
           key: '0', xText: 25, yText: -10, text: 'format 1', dominantBaseline: 'baseline', textAnchor: 'middle', y1: 0, y2: -5, x1: 25, x2: 25,
@@ -99,7 +99,7 @@ describe('axisCoordinates', () => {
       const userFormat = jest.fn(() => tick => `user format ${tick}`);
       try {
         const coordinates = axisCoordinates({
-          name: 'argument-domain', scale, tickFormat: userFormat, position: 'top', tickSize, indentFromAxis,
+          scaleName: 'argument-domain', scale, tickFormat: userFormat, position: 'top', tickSize, indentFromAxis,
         });
         expect(coordinates.ticks).toEqual([{
           key: '0', xText: 25, yText: -10, text: 'user format 1', dominantBaseline: 'baseline', textAnchor: 'middle', y1: 0, y2: -5, x1: 25, x2: 25,
@@ -116,7 +116,7 @@ describe('axisCoordinates', () => {
 
     it('should pass correct domain to scale', () => {
       axisCoordinates({
-        name: 'value-domain', scale, position: 'left', tickSize,
+        scaleName: 'value-domain', scale, position: 'left', tickSize,
       });
       expect(scale.mock.calls).toEqual([
         ['a'],
@@ -125,7 +125,7 @@ describe('axisCoordinates', () => {
 
     it('should return ticks coordinates with horizontal-bottom position', () => {
       const coordinates = axisCoordinates({
-        name: 'argument-domain', scale, position: 'bottom', tickSize, indentFromAxis,
+        scaleName: 'argument-domain', scale, position: 'bottom', tickSize, indentFromAxis,
       });
       expect(coordinates).toEqual({
         sides: [1, 0],
@@ -137,7 +137,7 @@ describe('axisCoordinates', () => {
 
     it('should return ticks Coordinates with horizontal-top position', () => {
       const coordinates = axisCoordinates({
-        name: 'argument-domain', scale, position: 'top', tickSize, indentFromAxis,
+        scaleName: 'argument-domain', scale, position: 'top', tickSize, indentFromAxis,
       });
       expect(coordinates).toEqual({
         sides: [1, 0],
@@ -149,7 +149,7 @@ describe('axisCoordinates', () => {
 
     it('should return ticks coordinates with vertical-left position', () => {
       const coordinates = axisCoordinates({
-        name: 'value-domain', scale, position: 'left', tickSize, indentFromAxis,
+        scaleName: 'value-domain', scale, position: 'left', tickSize, indentFromAxis,
       });
       expect(coordinates).toEqual({
         sides: [0, 1],
@@ -161,7 +161,7 @@ describe('axisCoordinates', () => {
 
     it('should return ticks coordinates with vertical-right position', () => {
       const coordinates = axisCoordinates({
-        name: 'value-domain', scale, position: 'right', tickSize, indentFromAxis,
+        scaleName: 'value-domain', scale, position: 'right', tickSize, indentFromAxis,
       });
       expect(coordinates).toEqual({
         sides: [0, 1],
@@ -178,7 +178,7 @@ describe('getGridCoordinates', () => {
   scale.ticks = jest.fn().mockReturnValue([10, 20, 30, 40]);
 
   it('should return horizontal coordinates', () => {
-    expect(getGridCoordinates({ name: 'argument-domain', scale })).toEqual([
+    expect(getGridCoordinates({ scaleName: 'argument-domain', scale })).toEqual([
       {
         key: '0', x: 26, y: 0, dx: 0, dy: 1,
       },
@@ -195,7 +195,7 @@ describe('getGridCoordinates', () => {
   });
 
   it('should return vertical coordinates', () => {
-    expect(getGridCoordinates({ name: 'value-domain', scale })).toEqual([
+    expect(getGridCoordinates({ scaleName: 'value-domain', scale })).toEqual([
       {
         key: '0', x: 0, y: 26, dx: 1, dy: 0,
       },

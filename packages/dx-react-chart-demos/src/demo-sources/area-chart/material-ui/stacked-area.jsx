@@ -7,7 +7,6 @@ import {
   AreaSeries,
   Title,
   Legend,
-  ValueGrid,
 } from '@devexpress/dx-react-chart-material-ui';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -41,11 +40,6 @@ const demoStyles = () => ({
   chart: {
     paddingRight: '20px',
   },
-  title: {
-    textAlign: 'center',
-    width: '100%',
-    marginBottom: '10px',
-  },
   typography: {
     marginTop: '0px',
     marginBottom: '8px',
@@ -59,7 +53,6 @@ const demoStyles = () => ({
 
 const format = () => tick => tick;
 const formatForFullstack = scale => scale.tickFormat(null, '%');
-const EmptyComponent = () => null;
 
 class Demo extends React.PureComponent {
   constructor(props) {
@@ -96,10 +89,7 @@ class Demo extends React.PureComponent {
           <ArgumentAxis tickFormat={format} />
           <ValueAxis
             tickFormat={valueFormat}
-            lineComponent={EmptyComponent}
-            tickComponent={EmptyComponent}
           />
-          <ValueGrid />
           <AreaSeries
             name="Liquids"
             valueField="liquids"
@@ -127,7 +117,7 @@ class Demo extends React.PureComponent {
           />
           <Animation />
           <Legend position="bottom" rootComponent={Root} labelComponent={Label} />
-          <Title text="Carbon Emission Estimates" className={classes.title} />
+          <Title text="Carbon Emission Estimates" />
           <Scale />
           <Stack
             stacks={[{

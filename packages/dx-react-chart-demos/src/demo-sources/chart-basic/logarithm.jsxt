@@ -4,8 +4,6 @@ import {
   ValueAxis,
   Chart,
   ScatterSeries,
-  ArgumentGrid,
-  ValueGrid,
   Title,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 import { scaleLog } from 'd3-scale';
@@ -65,9 +63,6 @@ export default class Demo extends React.PureComponent {
             tickFormat={format}
           />
 
-          <ArgumentGrid />
-          <ValueGrid />
-
           <ScatterSeries
             valueField="mass"
             argumentField="planet"
@@ -80,7 +75,6 @@ export default class Demo extends React.PureComponent {
           />
           <Title
             text="Planetary mass (kg)"
-            style={{ textAlign: 'center', width: '100%', paddingBottom: '20px' }}
           />
         </Chart>
       </<%&wrapperTag%>>

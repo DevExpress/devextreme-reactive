@@ -26,7 +26,7 @@ Name | Type | Default | Description
 name | string | | A series name.
 valueField | string | | The name of a data field that provides series point values.
 argumentField | string | | The name of a data field that provides series point argument values.
-axisName? | string | | The associated axis.
+scaleName? | string | | The associated scale.
 point? | { size : number } | point: { size: 7 } | Point options.
 color? | string | | A series color.
 pointComponent | ComponentType&lt;[ScatterSeries.PointProps](#scatterseriespointprops)&gt; | | A component that renders a series point.

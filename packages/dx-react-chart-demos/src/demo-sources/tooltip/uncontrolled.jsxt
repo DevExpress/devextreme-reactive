@@ -5,10 +5,9 @@ import {
   Title,
   ArgumentAxis,
   ValueAxis,
-  ValueGrid,
   Tooltip,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
-import { Scale, Animation, EventTracker } from '@devexpress/dx-react-chart';
+import { Scale, EventTracker } from '@devexpress/dx-react-chart';
 
 const data = [
   { year: '1950', population: 2.525 },
@@ -39,7 +38,6 @@ export default class Demo extends React.PureComponent {
         >
           <ArgumentAxis />
           <ValueAxis />
-          <ValueGrid />
 
           <BarSeries
             valueField="population"
@@ -47,9 +45,7 @@ export default class Demo extends React.PureComponent {
           />
           <Title
             text="World population (billion)"
-            style={{ textAlign: 'center', width: '100%', marginBottom: '10px' }}
           />
-          <Animation />
           <Scale />
           <EventTracker />
           <Tooltip />

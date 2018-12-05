@@ -14,7 +14,6 @@ import {
   ArgumentAxis,
   ValueAxis,
   Legend,
-  ValueGrid,
 } from '@devexpress/dx-react-chart-material-ui';
 import {
   Grid, Table, TableBandHeader, TableHeaderRow,
@@ -122,7 +121,6 @@ const gridDetailContainerBase = data => ({ row, classes }) => {
             tickComponent={nullComponent}
             lineComponent={nullComponent}
           />
-          <ValueGrid />
           {barSeriesForCity(regionCities)}
           <Stack />
           <Scale />

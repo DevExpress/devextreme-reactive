@@ -7,7 +7,6 @@ import {
   LineSeries,
   Title,
   Legend,
-  ValueGrid,
 } from '@devexpress/dx-react-chart-material-ui';
 import { withStyles } from '@material-ui/core/styles';
 import { Scale, Animation } from '@devexpress/dx-react-chart';
@@ -51,13 +50,9 @@ const demoStyles = () => ({
     paddingRight: '20px',
   },
   title: {
-    textAlign: 'center',
-    width: '100%',
-    marginBottom: '10px',
     whiteSpace: 'pre',
   },
 });
-const EmptyComponent = () => null;
 
 const ValueLabel = (props) => {
   const { text } = props;
@@ -92,10 +87,7 @@ class Demo extends React.PureComponent {
           <ValueAxis
             max={50}
             labelComponent={ValueLabel}
-            lineComponent={EmptyComponent}
-            tickComponent={EmptyComponent}
           />
-          <ValueGrid />
 
           <LineSeries
             name="TV news"

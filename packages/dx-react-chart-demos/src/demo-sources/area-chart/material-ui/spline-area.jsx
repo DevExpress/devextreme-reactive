@@ -7,7 +7,6 @@ import {
   AreaSeries,
   Title,
   Legend,
-  ValueGrid,
 } from '@devexpress/dx-react-chart-material-ui';
 import { withStyles } from '@material-ui/core/styles';
 import { Scale, Animation } from '@devexpress/dx-react-chart';
@@ -55,11 +54,6 @@ const demoStyles = () => ({
   chart: {
     paddingRight: '20px',
   },
-  title: {
-    textAlign: 'center',
-    width: '100%',
-    marginBottom: '10px',
-  },
 });
 
 const Area = props => (
@@ -72,7 +66,6 @@ const Area = props => (
       .curve(curveCatmullRom)}
   />
 );
-const EmptyComponent = () => null;
 
 class Demo extends React.PureComponent {
   constructor(props) {
@@ -93,9 +86,7 @@ class Demo extends React.PureComponent {
           className={classes.chart}
         >
           <ArgumentAxis />
-          <ValueAxis lineComponent={EmptyComponent} tickComponent={EmptyComponent} />
-
-          <ValueGrid />
+          <ValueAxis />
 
           <AreaSeries
             name="App Store"
@@ -112,7 +103,7 @@ class Demo extends React.PureComponent {
           <Animation />
           <Scale extensions={[{ type: 'band', constructor: scalePoint }]} />
           <Legend position="bottom" rootComponent={Root} labelComponent={Label} />
-          <Title text="iOS App Store vs Google Play Revenue in 2012" className={classes.title} />
+          <Title text="iOS App Store vs Google Play Revenue in 2012" />
         </Chart>
       </Paper>
     );

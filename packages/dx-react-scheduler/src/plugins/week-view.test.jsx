@@ -96,7 +96,7 @@ describe('Week View', () => {
 
       expect(viewCellsData)
         .toBeCalledWith(
-          'week', '2018-07-04', props.firstDayOfWeek, props.intervalCount,
+          '2018-07-04', props.firstDayOfWeek,
           props.intervalCount * DAYS_IN_WEEK, props.excludedDays,
           props.startDayHour, props.endDayHour, props.cellDuration,
         );

@@ -1,18 +1,9 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { setupConsole } from '@devexpress/dx-testing';
 import { PluginBase } from './plugin';
 import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from './constants';
 
 describe('Plugin', () => {
-  let resetConsole;
-  beforeAll(() => {
-    resetConsole = setupConsole();
-  });
-  afterAll(() => {
-    resetConsole();
-  });
-
   let pluginHost;
   beforeEach(() => {
     pluginHost = {

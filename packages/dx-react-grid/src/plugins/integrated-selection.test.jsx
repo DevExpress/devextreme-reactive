@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { pluginDepsToComponents, getComputedState, executeComputedAction } from '@devexpress/dx-react-core/test-utils';
+import {
+  pluginDepsToComponents, getComputedState, executeComputedAction, setupConsole,
+} from '@devexpress/dx-testing';
 import {
   rowsWithAvailableToSelect,
   someSelected,

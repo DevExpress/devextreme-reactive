@@ -1,0 +1,19 @@
+{
+  "presets": [
+    [ "env", { "modules": false, "targets": { "browsers": ["last 2 versions"] } } ],
+    "react"
+  ],
+  "plugins": [
+    "transform-object-rest-spread",
+    ["transform-react-remove-prop-types", {
+      "mode": "unsafe-wrap"
+    }]
+  ],
+  "env": {
+    "test": {
+      "presets": [
+        ["env", {"modules": "commonjs"}]
+      ]
+    }
+  }
+}

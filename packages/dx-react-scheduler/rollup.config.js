@@ -19,7 +19,6 @@ export default {
     babel({
       runtimeHelpers: false,
       exclude: 'node_modules/**',
-      rootMode: 'upward',
     }),
     license({
       banner,

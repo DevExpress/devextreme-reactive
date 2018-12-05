@@ -32,7 +32,6 @@ const knownGlobals = {
   'd3-array': 'd3Array',
   'd3-scale': 'd3Scale',
   'd3-shape': 'd3Shape',
-  'react-popper': 'reactPopper',
 };
 
 export const globals = () => {

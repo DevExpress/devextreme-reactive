@@ -11,6 +11,23 @@ const getEuclideanDistance = (dx, dy, rx, ry) => Math.sqrt(
   (dx * dx) / (rx * rx) + (dy * dy) / (ry * ry),
 );
 
+const LINE_TOLERANCE = 10;
+
+const createContinuousSeriesHitTester = points => ([px, py]) => {
+  let minDistance = Number.MAX_VALUE;
+  let minIndex;
+  points.forEach((point, i) => {
+    const distance = getEuclideanDistance(
+      px - point.x, py - point.y, LINE_TOLERANCE, LINE_TOLERANCE,
+    );
+    if (distance < minDistance) {
+      minDistance = distance;
+      minIndex = i;
+    }
+  });
+  return { index: points[minIndex].index, distance: minDistance };
+};
+
 const createPointsEnumeratingHitTesterCreator = hitTestPoint => points => (target) => {
   const list = [];
   points.forEach((point) => {
@@ -27,12 +44,6 @@ const createPointsEnumeratingHitTesterCreator = hitTestPoint => points => (targe
   return list.length ? { points: list } : null;
 };
 
-const LINE_TOLERANCE = 10;
-
-const createContinuousSeriesPointsHitTester = createPointsEnumeratingHitTesterCreator(
-  ([px, py], { x, y }) => getEuclideanDistance(px - x, py - y, LINE_TOLERANCE, LINE_TOLERANCE),
-);
-
 // This function is called from event handlers (when DOM is available) -
 // *window.document* can be accessed safely.
 const createContext = () => document.createElement('canvas').getContext('2d'); // eslint-disable-line no-undef
@@ -45,8 +56,10 @@ const createCanvasAbusingHitTesterCreator = makePath => (points) => {
   const path = makePath();
   path.context(ctx);
   path(points);
-  const hitTestPoints = createContinuousSeriesPointsHitTester(points);
-  return point => (ctx.isPointInPath(point[0], point[1]) ? (hitTestPoints(point) || {}) : null);
+  const hitTestPoints = createContinuousSeriesHitTester(points);
+  return point => (
+    ctx.isPointInPath(point[0], point[1]) ? { points: [hitTestPoints(point)] } : null
+  );
 };
 
 export const createAreaHitTester = createCanvasAbusingHitTesterCreator(() => {

@@ -58,7 +58,11 @@ describe('Axis', () => {
 
   const defaultProps = {
     position: 'bottom',
-    name: 'test-domain',
+    scaleName: 'test-domain',
+    showTicks: true,
+    showGrids: true,
+    showLine: true,
+    showLabels: true,
     rootComponent: RootComponent,
     tickComponent: TickComponent,
     labelComponent: LabelComponent,
@@ -228,7 +232,7 @@ describe('Axis', () => {
     mount(<AxisTester tickFormat={mockTickFormat} />);
 
     expect(axisCoordinates).toHaveBeenCalledWith({
-      name: 'test-domain',
+      scaleName: 'test-domain',
       scale: mockScale,
       position: 'bottom',
       tickSize: 5,
@@ -241,14 +245,14 @@ describe('Axis', () => {
     setupAxisCoordinates([0, 1]);
     mount(
       <AxisTester
-        name="other-domain"
+        scaleName="other-domain"
         tickSize={6}
         indentFromAxis={3}
       />,
     );
 
     expect(axisCoordinates).toHaveBeenCalledWith({
-      name: 'other-domain',
+      scaleName: 'other-domain',
       scale: mockScale,
       position: 'bottom',
       tickSize: 6,
@@ -274,6 +278,13 @@ describe('Axis', () => {
     });
   });
 
+  it('should not render tick component, showTicks is false', () => {
+    setupAxisCoordinates([1, 0]);
+    const tree = mount(<AxisTester showTicks={false} />);
+
+    expect(tree.find(TickComponent).get(0)).toBeFalsy();
+  });
+
   it('should render grid component', () => {
     setupAxisCoordinates([1, 0]);
     const tree = mount(<AxisTester />);
@@ -290,6 +301,13 @@ describe('Axis', () => {
       y1: 22,
       y2: 222,
     });
+  });
+
+  it('should not render grid component, showGrids is false', () => {
+    setupAxisCoordinates([1, 0]);
+    const tree = mount(<AxisTester showGrids={false} />);
+
+    expect(tree.find(GridComponent).get(0)).toBeFalsy();
   });
 
   it('should render label component', () => {
@@ -311,6 +329,13 @@ describe('Axis', () => {
       textAnchor: 'textAnchor2',
       text: 'text2',
     });
+  });
+
+  it('should not render label component, showLabels is false', () => {
+    setupAxisCoordinates([1, 0]);
+    const tree = mount(<AxisTester showLabels={false} />);
+
+    expect(tree.find(LabelComponent).get(0)).toBeFalsy();
   });
 
   it('should render line component, horizontal', () => {
@@ -341,6 +366,13 @@ describe('Axis', () => {
       y1: 0,
       y2: 300,
     });
+  });
+
+  it('should not render line component, showLine is false', () => {
+    setupAxisCoordinates([1, 0]);
+    const tree = mount(<AxisTester showLine={false} />);
+
+    expect(tree.find(LineComponent).get(0)).toBeFalsy();
   });
 
   it('should pass axesData correct arguments', () => {

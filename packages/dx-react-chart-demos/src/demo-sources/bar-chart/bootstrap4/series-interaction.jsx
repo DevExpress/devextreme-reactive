@@ -11,12 +11,11 @@ import {
 } from '@devexpress/dx-react-chart-bootstrap4';
 import * as d3Format from 'd3-format';
 import {
-  Stack, Scale, EventTracker, HoverState, SelectionState,
+  Stack, Scale, EventTracker, HoverState, SelectionState, Animation,
 } from '@devexpress/dx-react-chart';
 
 import { annualVehiclesSales } from '../../../demo-data/data-vizualization';
 
-const EmptyComponent = () => null;
 const ContentComponent = (props) => {
   const { targetItem } = props;
   return (
@@ -62,11 +61,11 @@ export default class Demo extends React.PureComponent {
           data={chartData}
         >
           <ArgumentAxis type="band" />
-          <ValueAxis lineComponent={EmptyComponent} tickComponent={EmptyComponent} />
+          <ValueAxis />
 
           <Title
             text="USA and Chinese annual sales of plug-in electric vehicles"
-            style={{ textAlign: 'center', width: '100%' }}
+            style={{ marginRight: '120px' }}
           />
 
           <BarSeries
@@ -86,6 +85,7 @@ export default class Demo extends React.PureComponent {
           <HoverState />
           <Tooltip contentComponent={ContentComponent} />
           <SelectionState selection={selection} />
+          <Animation />
         </Chart>
       </Card>
     );

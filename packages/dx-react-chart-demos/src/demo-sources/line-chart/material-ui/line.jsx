@@ -50,13 +50,9 @@ const demoStyles = () => ({
     paddingRight: '20px',
   },
   title: {
-    textAlign: 'center',
-    width: '100%',
-    marginBottom: '10px',
     whiteSpace: 'pre',
   },
 });
-const EmptyComponent = () => null;
 
 const ValueLabel = (props) => {
   const { text } = props;
@@ -91,8 +87,6 @@ class Demo extends React.PureComponent {
           <ValueAxis
             max={50}
             labelComponent={ValueLabel}
-            lineComponent={EmptyComponent}
-            tickComponent={EmptyComponent}
           />
 
           <LineSeries

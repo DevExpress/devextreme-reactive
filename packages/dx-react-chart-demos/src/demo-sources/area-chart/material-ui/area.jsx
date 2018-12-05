@@ -40,11 +40,6 @@ const demoStyles = () => ({
   chart: {
     paddingRight: '20px',
   },
-  title: {
-    textAlign: 'center',
-    width: '100%',
-    marginBottom: '10px',
-  },
 });
 
 const legendRootBase = ({ classes, ...restProps }) => (
@@ -59,8 +54,6 @@ const legendItemBase = ({ classes, ...restProps }) => (
 const Root = withStyles(legendStyles, { name: 'LegendRoot' })(legendRootBase);
 const Label = withStyles(legendLabelStyles, { name: 'LegendLabel' })(legendLabelBase);
 const Item = withStyles(legendItemStyles, { name: 'LegendItem' })(legendItemBase);
-
-const EmptyComponent = () => null;
 
 class Demo extends React.PureComponent {
   constructor(props) {
@@ -81,7 +74,7 @@ class Demo extends React.PureComponent {
           className={classes.chart}
         >
           <ArgumentAxis />
-          <ValueAxis lineComponent={EmptyComponent} tickComponent={EmptyComponent} />
+          <ValueAxis />
 
           <AreaSeries
             name="Android"
@@ -103,7 +96,6 @@ class Demo extends React.PureComponent {
           />
           <Title
             text="Worldwide Sales to End Users by OS"
-            className={classes.title}
           />
         </Chart>
       </Paper>

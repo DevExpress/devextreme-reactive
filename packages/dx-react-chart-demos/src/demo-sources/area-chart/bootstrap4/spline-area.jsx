@@ -47,7 +47,6 @@ const Area = props => (
       .curve(curveCatmullRom)}
   />
 );
-const EmptyComponent = () => null;
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -67,7 +66,7 @@ export default class Demo extends React.PureComponent {
           className="pr-3"
         >
           <ArgumentAxis />
-          <ValueAxis lineComponent={EmptyComponent} tickComponent={EmptyComponent} />
+          <ValueAxis />
 
           <AreaSeries
             name="App Store"
@@ -84,7 +83,7 @@ export default class Demo extends React.PureComponent {
           <Animation />
           <Scale extensions={[{ type: 'band', constructor: scalePoint }]} />
           <Legend position="bottom" rootComponent={Root} />
-          <Title text="iOS App Store vs Google Play Revenue in 2012" className="w-100 text-center mb-2" />
+          <Title text="iOS App Store vs Google Play Revenue in 2012" />
         </Chart>
       </Card>
     );

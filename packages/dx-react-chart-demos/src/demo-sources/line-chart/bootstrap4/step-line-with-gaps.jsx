@@ -58,7 +58,6 @@ const Root = props => (
 );
 
 const format = () => tick => tick;
-const EmptyComponent = () => null;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -78,10 +77,7 @@ export default class Demo extends React.PureComponent {
           data={chartData}
         >
           <ArgumentAxis tickFormat={format} />
-          <ValueAxis
-            lineComponent={EmptyComponent}
-            tickComponent={EmptyComponent}
-          />
+          <ValueAxis />
 
           <LineSeries
             name="Bronze Medals"
@@ -106,7 +102,7 @@ export default class Demo extends React.PureComponent {
           />
           <Animation />
           <Legend position="bottom" rootComponent={Root} />
-          <Title text="Australian Medal Count" className="w-100 text-center mb-2" />
+          <Title text="Australian Medal Count" />
           <Scale />
         </Chart>
       </Card>

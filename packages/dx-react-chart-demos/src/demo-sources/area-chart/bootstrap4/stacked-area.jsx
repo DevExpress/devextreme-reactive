@@ -22,7 +22,6 @@ const Root = props => (
 
 const format = () => tick => tick;
 const formatForFullstack = scale => scale.tickFormat(null, '%');
-const EmptyComponent = () => null;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -57,8 +56,6 @@ export default class Demo extends React.PureComponent {
           <ArgumentAxis tickFormat={format} />
           <ValueAxis
             tickFormat={valueFormat}
-            lineComponent={EmptyComponent}
-            tickComponent={EmptyComponent}
           />
 
           <AreaSeries
@@ -88,7 +85,7 @@ export default class Demo extends React.PureComponent {
           />
           <Animation />
           <Legend position="bottom" rootComponent={Root} />
-          <Title text="Carbon Emission Estimates" className="w-100 text-center mb-2" />
+          <Title text="Carbon Emission Estimates" />
           <Scale />
           <Stack
             stacks={[{

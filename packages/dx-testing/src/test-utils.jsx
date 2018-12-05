@@ -6,7 +6,7 @@ import {
   TemplatePlaceholder,
   TemplateConnector,
   Plugin,
-} from '.';
+} from '@devexpress/dx-react-core';
 
 const computedEntries = object => Object.getOwnPropertyNames(object)
   .reduce((acc, key) => Object.assign(acc, { [key]: object[key] }), {});
@@ -65,5 +65,3 @@ export const executeComputedAction = (tree, executor) => {
   actionExecutor = executor;
   tree.find(ComputedStateContainer).find('.actionExecutor').simulate('click');
 };
-// eslint-disable-next-line import/no-cycle
-export { testStatePluginField } from './src/utils/state-helper.test-utils';

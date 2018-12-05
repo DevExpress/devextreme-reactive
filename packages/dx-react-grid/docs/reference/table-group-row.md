@@ -34,7 +34,7 @@ showColumnsWhenGrouped? | boolean | false | A Boolean value that specifies wheth
 columnExtensions? | Array&lt;[TableGroupRow.ColumnExtension](#tablegrouprowcolumnextension)&gt; | | Additional column properties that the plugin can handle.
 cellComponent | ComponentType&lt;[TableGroupRow.CellProps](#tablegrouprowcellprops)&gt; | | A component that renders a group cell.
 rowComponent | ComponentType&lt;[TableGroupRow.RowProps](#tablegrouprowrowprops)&gt; | | A component that renders a group row.
-contentComponent | ComponentType&lt;[TableGroupRow.ContentProps](#tablegrouprowcontentprops)&gt; | | A component that renders a group cell's content.
+contentComponent | ComponentType&lt;[TableGroupRow.ContentProps](#tablegrouprowcontentprops)&gt; | | A component that renders a group cell content.
 iconComponent | ComponentType&lt;[TableGroupRow.IconProps](#tablegrouprowiconprops)&gt; | | A component that renders a group expand icon.
 indentCellComponent? | ComponentType&lt;[TableGroupRow.IndentCellProps](#tablegrouprowindentcellprops)&gt; | null | A component that renders a group indent cell.
 indentColumnWidth | number | | The group indent column's width.
@@ -81,7 +81,7 @@ Field | Type | Description
 ------|------|------------
 row | [GroupRow](#grouprow) | The group row.
 column | [Column](grid.md#column) | The column associated with the group.
-children? | ReactNode | A React node to be rendered within the cell's content.
+children? | ReactNode | A React node to be rendered within the cell content.
 
 ### TableGroupRow.IconProps
 
@@ -117,7 +117,7 @@ Name | Properties | Description
 -----|------------|------------
 TableGroupRow.Row | [TableGroupRow.RowProps](#tablegrouprowrowprops) | A component that renders a group row.
 TableGroupRow.Cell | [TableGroupRow.CellProps](#tablegrouprowcellprops) | A component that renders a group cell.
-TableGroupRow.Content | [TableGroupRow.ContentProps](#tablegrouprowcontentprops) | A component that renders a group cell's content.
+TableGroupRow.Content | [TableGroupRow.ContentProps](#tablegrouprowcontentprops) | A component that renders a group cell content.
 TableGroupRow.Icon | [TableGroupRow.IconProps](#tablegrouprowiconprops) | A component that renders a group expand icon.
 
 Additional properties are added to the component's root element.

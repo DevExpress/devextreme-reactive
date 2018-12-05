@@ -5,13 +5,17 @@ import {
   FormGroup, ControlLabel, FormControl, InputGroup, Button,
 } from 'reactstrap';
 import { DemoRenderer } from './demo-renderer';
+import { EmbeddedDemoContext } from '../context';
 
 const Link = ({ link }) => (
   <link rel="stylesheet" href={link} />
 );
 
 Link.propTypes = {
-  link: PropTypes.string.isRequired,
+  link: PropTypes.string,
+};
+Link.defaultProps = {
+  link: '',
 };
 
 class DemoFrameRenderer extends React.PureComponent {
@@ -24,7 +28,7 @@ class DemoFrameRenderer extends React.PureComponent {
       themeName,
       variantName,
     } = props;
-    const { embeddedDemoOptions: { scriptPath, themeSources } } = this.context;
+    const { scriptPath, themeSources } = this.context;
     const themeVariantOptions = themeSources
       .find(theme => theme.name === themeName).variants
       .find(variant => variant.name === variantName);
@@ -81,7 +85,7 @@ class DemoFrameRenderer extends React.PureComponent {
       themeName,
       variantName,
     } = this.props;
-    const { embeddedDemoOptions: { frame } } = this.context;
+    const { frame } = this.context;
     const { editableLink, frameHeight } = this.state;
 
     return (
@@ -159,9 +163,7 @@ DemoFrameRenderer.propTypes = {
   variantName: PropTypes.string.isRequired,
 };
 
-DemoFrameRenderer.contextTypes = {
-  embeddedDemoOptions: PropTypes.object.isRequired,
-};
+DemoFrameRenderer.contextType = EmbeddedDemoContext;
 
 // eslint-disable-next-line react/no-multi-comp
 export class DemoFrame extends React.PureComponent {

@@ -84,7 +84,6 @@ export default class Demo extends React.PureComponent {
           <Legend position="bottom" rootComponent={Root} itemComponent={Item} labelComponent={Label} />
           <Title
             text={`Confidence in Institutions in American society ${'\n'}(Great deal)`}
-            className="w-100 text-center mb-2"
           />
           <Animation />
           <Scale />

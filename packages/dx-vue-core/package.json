@@ -1,5 +1,6 @@
 {
   "name": "@devexpress/dx-vue-core",
+  "private": true,
   "version": "1.9.0",
   "description": "Core library for DevExtreme Vue Components",
   "author": {

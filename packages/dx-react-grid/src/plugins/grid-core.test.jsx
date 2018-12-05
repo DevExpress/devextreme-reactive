@@ -1,8 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { mount } from 'enzyme';
-import { setupConsole } from '@devexpress/dx-testing';
-import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
+import { pluginDepsToComponents, getComputedState, setupConsole } from '@devexpress/dx-testing';
 import { PluginHost, Template } from '@devexpress/dx-react-core';
 import { rowIdGetter, cellValueGetter } from '@devexpress/dx-grid-core';
 import { GridCore } from './grid-core';

@@ -9,7 +9,8 @@ import { changeSeriesState, SELECTED } from '@devexpress/dx-chart-core';
 export class SelectionState extends React.PureComponent {
   render() {
     const { selection } = this.props;
-    const getSeries = ({ series }) => changeSeriesState(series, selection, SELECTED);
+    const targets = selection || [];
+    const getSeries = ({ series }) => changeSeriesState(series, targets, SELECTED);
     return (
       <Plugin name="SelectionState">
         <Getter name="series" computed={getSeries} />
@@ -21,10 +22,10 @@ export class SelectionState extends React.PureComponent {
 SelectionState.propTypes = {
   selection: PropTypes.arrayOf(PropTypes.shape({
     series: PropTypes.string.isRequired,
-    point: PropTypes.number,
+    point: PropTypes.number.isRequired,
   })),
 };
 
 SelectionState.defaultProps = {
-  selection: [],
+  selection: undefined,
 };

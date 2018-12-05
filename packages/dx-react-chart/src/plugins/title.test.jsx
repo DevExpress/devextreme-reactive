@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost, Template } from '@devexpress/dx-react-core';
-import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
+import { pluginDepsToComponents } from '@devexpress/dx-testing';
 import { Title } from './title';
 
 const textComponent = () => null;

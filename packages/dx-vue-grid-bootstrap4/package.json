@@ -1,5 +1,6 @@
 {
   "name": "@devexpress/dx-vue-grid-bootstrap4",
+  "private": true,
   "version": "1.9.0",
   "description": "Bootstrap 4 templates for DevExtreme Vue Grid component",
   "author": {

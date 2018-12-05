@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
+import { pluginDepsToComponents } from '@devexpress/dx-testing';
 import { getLegendItems } from '@devexpress/dx-chart-core';
 import { Legend } from './legend';
 

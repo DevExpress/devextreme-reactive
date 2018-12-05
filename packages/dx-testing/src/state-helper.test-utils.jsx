@@ -1,8 +1,7 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import { mount } from 'enzyme';
-import { pluginDepsToComponents, getComputedState, executeComputedAction } from '../../test-utils';
-import { PluginHost } from '../..';
+import { PluginHost } from '@devexpress/dx-react-core';
+import { pluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
 
 export const testStatePluginField = ({
   Plugin,
@@ -66,9 +65,6 @@ export const testStatePluginField = ({
           />
         </PluginHost>
       );
-      Test.propTypes = {
-        prop: PropTypes.any.isRequired,
-      };
 
       const tree = mount(<Test prop={values[0]} />);
 
@@ -158,9 +154,6 @@ export const testStatePluginField = ({
             />
           </PluginHost>
         );
-        Test.propTypes = {
-          prop: PropTypes.any.isRequired,
-        };
 
         const tree = mount(<Test prop={values[0]} />);
         const payload = {};

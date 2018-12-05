@@ -293,25 +293,25 @@ describe('Series', () => {
   });
 
   describe('#changeSeriesState', () => {
-    const series1 = { name: 's1' };
-    const series2 = { name: 's2' };
+    const series1 = { name: 's1', points: [] };
+    const series2 = { name: 's2', points: [] };
     const series3 = { name: 's3', points: [{ index: 1 }, { index: 3 }] };
     const series4 = { name: 's4', points: [{ index: 2 }, { index: 5 }, { index: 6 }] };
 
     it('should change series and points', () => {
-      const result = changeSeriesState([series1, series2, series3, series4], [
-        { series: 's1' },
-        { series: 's3' },
+      const [
+        newSeries1, newSeries2, newSeries3, newSeries4,
+      ] = changeSeriesState([series1, series2, series3, series4], [
         { series: 's3', point: 3 },
         { series: 's4', point: 5 },
         { series: 's4', point: 2 },
       ], 'test-state');
 
-      expect(result[0]).toEqual({ ...series1, state: 'test-state' });
+      expect(newSeries1).toBe(series1);
 
-      expect(result[1]).toBe(series2);
+      expect(newSeries2).toBe(series2);
 
-      expect(result[2]).toEqual({
+      expect(newSeries3).toEqual({
         ...series3,
         state: 'test-state',
         points: [
@@ -319,17 +319,18 @@ describe('Series', () => {
           { ...series3.points[1], state: 'test-state' },
         ],
       });
-      expect(result[2].points[0]).toBe(series3.points[0]);
+      expect(newSeries3.points[0]).toBe(series3.points[0]);
 
-      expect(result[3]).toEqual({
+      expect(newSeries4).toEqual({
         ...series4,
+        state: 'test-state',
         points: [
           { ...series4.points[0], state: 'test-state' },
           { ...series4.points[1], state: 'test-state' },
           series4.points[2],
         ],
       });
-      expect(result[3].points[2]).toBe(series4.points[2]);
+      expect(newSeries4.points[2]).toBe(series4.points[2]);
     });
 
     it('should return original list when there are no matches', () => {

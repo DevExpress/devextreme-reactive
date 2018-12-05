@@ -130,12 +130,7 @@ export const createPieHitTester = createPointsEnumeratingHitTesterCreator(
 const buildFilter = (targets) => {
   const result = {};
   targets.forEach(({ series, point }) => {
-    result[series] = result[series] || { points: {} };
-    if (point >= 0) {
-      result[series].points[point] = true;
-    } else {
-      result[series].self = true;
-    }
+    (result[series] = result[series] || new Set()).add(point);
   });
   return result;
 };
@@ -147,18 +142,15 @@ export const changeSeriesState = (seriesList, targets, state) => {
   const filter = buildFilter(targets);
   let matches = 0;
   const result = seriesList.map((seriesItem) => {
-    const obj = filter[seriesItem.name];
-    if (!obj) {
+    const set = filter[seriesItem.name];
+    if (!set) {
       return seriesItem;
     }
     matches += 1;
-    const props = {};
-    if (obj.self) {
-      props.state = state;
-    }
-    if (Object.keys(obj.points).length) {
+    const props = { state };
+    if (set.size) {
       props.points = seriesItem.points.map(
-        point => (obj.points[point.index] ? { ...point, state } : point),
+        point => (set.has(point.index) ? { ...point, state } : point),
       );
     }
     return { ...seriesItem, ...props };

@@ -23,6 +23,7 @@ jest.mock('./column-group', () => ({
 jest.mock('@devexpress/dx-react-core', () => {
   const { Component } = require.requireActual('react');
   return {
+    ...require.requireActual('@devexpress/dx-react-core'),
     // eslint-disable-next-line react/prefer-stateless-function
     Sizer: class extends Component {
       componentDidMount() {

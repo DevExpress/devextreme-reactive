@@ -107,7 +107,7 @@ exports.onPostBootstrap = () => {
   setupFileSynchronization('../dx-react-grid-demos/dist/index.js', './public/static/react-core-demos.js');
   setupFileSynchronization('../dx-react-chart-demos/dist/index.js', './public/static/react-chart-demos.js');
   setupFileSynchronization('../dx-react-grid-demos/dist/index.js', './public/static/react-grid-demos.js');
-  setupFileSynchronization('../dx-vue-grid-demos/dist/index.js', './public/static/vue-grid-demos.js');
+  setupFileSynchronization('../dx-react-scheduler-demos/dist/index.js', './public/static/react-scheduler-demos.js');
 };
 
 const createRedirectPage = ({ fromPath, toPath }) => {

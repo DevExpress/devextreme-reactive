@@ -8,6 +8,6 @@ module.exports = {
     path.join(__dirname, './setup-enzyme.js'),
   ],
   transform: {
-    "^.+\\.jsx?$": "./setup-babel-jest.js"
+    '^.+\\.jsx?$': '../../tools/setup-babel-jest.js',
   },
 };

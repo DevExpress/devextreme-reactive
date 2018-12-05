@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost, TemplatePlaceholder } from '@devexpress/dx-react-core';
 import {
   pluginDepsToComponents,
   getComputedState,
-} from '@devexpress/dx-react-core/test-utils';
+  setupConsole,
+} from '@devexpress/dx-testing';
 import {
   getBandComponent,
   isBandedTableRow,

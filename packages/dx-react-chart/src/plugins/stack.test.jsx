@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
+import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing';
 import { stackOrderNone, stackOffsetDiverging } from 'd3-shape';
 import { getStackedSeries } from '@devexpress/dx-chart-core';
 import { Stack } from './stack';

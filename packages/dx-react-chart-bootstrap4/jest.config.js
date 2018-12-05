@@ -7,4 +7,7 @@ module.exports = {
   setupFiles: [
     path.join(__dirname, './setup-enzyme.js'),
   ],
+  transform: {
+    "^.+\\.jsx?$": "./setup-babel-jest.js"
+  },
 };

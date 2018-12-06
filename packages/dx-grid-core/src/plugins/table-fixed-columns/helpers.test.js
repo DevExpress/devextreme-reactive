@@ -29,6 +29,7 @@ describe('TableFixedColumns Plugin helpers', () => {
   };
   const columnChains = tableHeaderColumnChainsWithFixed(
     [[{ start: 0, columns: tableColumns }]],
+    {},
     tableColumns,
   );
 
@@ -98,6 +99,7 @@ describe('TableFixedColumns Plugin helpers', () => {
       const findColumnByName = name => findColumnByNameCore(name, extendedTableColumns);
       const extendedColumnChains = tableHeaderColumnChainsWithFixed(
         [[{ start: 0, columns: extendedTableColumns }]],
+        {},
         extendedTableColumns,
       );
 

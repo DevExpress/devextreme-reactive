@@ -4,7 +4,6 @@ import { pluginDepsToComponents, getComputedState, setupConsole } from '@devexpr
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithEditing,
-  insertFirstColumnToChains,
   isHeadingEditCommandsTableCell,
   isDataEditCommandsTableCell,
   isEditCommandsTableCell,
@@ -16,7 +15,6 @@ import { TableEditColumn } from './table-edit-column';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableColumnsWithEditing: jest.fn(),
-  insertFirstColumnToChains: jest.fn(),
   isHeadingEditCommandsTableCell: jest.fn(),
   isDataEditCommandsTableCell: jest.fn(),
   isEditCommandsTableCell: jest.fn(),
@@ -73,7 +71,6 @@ describe('TableEditColumn', () => {
 
   beforeEach(() => {
     tableColumnsWithEditing.mockImplementation(() => 'tableColumnsWithEditing');
-    insertFirstColumnToChains.mockImplementation(() => 'insertFirstColumnToChains');
     isHeadingEditCommandsTableCell.mockImplementation(() => false);
     isDataEditCommandsTableCell.mockImplementation(() => false);
     isEditCommandsTableCell.mockImplementation(() => false);
@@ -101,19 +98,6 @@ describe('TableEditColumn', () => {
         .toBe('tableColumnsWithEditing');
       expect(tableColumnsWithEditing)
         .toBeCalledWith(defaultDeps.getter.tableColumns, 120);
-    });
-    it('should extend tableHeaderColumnChains', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <TableEditColumn
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).tableHeaderColumnChains)
-        .toBe('insertFirstColumnToChains');
     });
   });
 

@@ -53,13 +53,14 @@ describe('TableFixedColumns computeds', () => {
       { key: 'a' }, { key: 'b' }, { key: 'c' },
       { key: 'd' }, { key: 'e' },
     ];
+    const rows = [{}, {}];
     const expandChains = rowChains => expandChainsCore(rowChains, col => ({ key: col }));
     const assertRowsChainsSplit = (
       tableColumns, existingCompressedChains, expectedCompressedChains,
     ) => {
       const existingChains = expandChains(existingCompressedChains);
       const expectedChains = expandChains(expectedCompressedChains);
-      const result = tableHeaderColumnChainsWithFixed(existingChains, tableColumns);
+      const result = tableHeaderColumnChainsWithFixed(existingChains, rows, tableColumns);
 
       expect(result).toMatchObject(expectedChains);
     };

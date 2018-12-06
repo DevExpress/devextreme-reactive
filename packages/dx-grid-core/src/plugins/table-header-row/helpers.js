@@ -44,15 +44,9 @@ export const splitHeaderColumnChains = (
     }, []))
 );
 
-export const insertFirstColumnToChains = (
-  tableHeaderColumnChains, tableColumns,
-) => tableHeaderColumnChains.map(chains => ([
-  {
+export const generateSimpleChains = (rows, columns) => (
+  rows.map(() => ([{
     start: 0,
-    columns: [tableColumns[0]],
-  },
-  ...chains.map(chain => ({
-    ...chain,
-    start: chain.start + 1,
-  })),
-]));
+    columns,
+  }]))
+);

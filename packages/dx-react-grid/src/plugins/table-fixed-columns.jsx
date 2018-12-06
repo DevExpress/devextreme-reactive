@@ -17,8 +17,8 @@ import {
 
 const tableHeaderRowsComputed = ({ tableHeaderRows }) => tableHeaderRowsWithFixed(tableHeaderRows);
 const tableHeaderColumnChainsComputed = ({
-  tableColumns, tableHeaderColumnChains,
-}) => tableHeaderColumnChainsWithFixed(tableHeaderColumnChains, tableColumns);
+  tableColumns, tableHeaderRows, tableHeaderColumnChains,
+}) => tableHeaderColumnChainsWithFixed(tableHeaderColumnChains, tableHeaderRows, tableColumns);
 
 const CellPlaceholder = props => <TemplatePlaceholder params={props} />;
 

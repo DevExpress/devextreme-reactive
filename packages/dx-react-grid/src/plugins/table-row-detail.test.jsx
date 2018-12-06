@@ -10,7 +10,6 @@ import {
   isDetailToggleTableCell,
   isDetailTableRow,
   isDetailTableCell,
-  insertFirstColumnToChains,
 } from '@devexpress/dx-grid-core';
 import { TableRowDetail } from './table-row-detail';
 
@@ -22,7 +21,6 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   isDetailToggleTableCell: jest.fn(),
   isDetailTableRow: jest.fn(),
   isDetailTableCell: jest.fn(),
-  insertFirstColumnToChains: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -74,7 +72,6 @@ describe('TableRowDetail', () => {
     isDetailToggleTableCell.mockImplementation(() => false);
     isDetailTableRow.mockImplementation(() => false);
     isDetailTableCell.mockImplementation(() => false);
-    insertFirstColumnToChains.mockImplementation(() => 'insertFirstColumnToChains');
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -134,20 +131,6 @@ describe('TableRowDetail', () => {
         .toBe('tableDetailCellColSpanGetter');
       expect(tableDetailCellColSpanGetter)
         .toBeCalledWith(defaultDeps.getter.getTableCellColSpan);
-    });
-
-    it('should extend tableHeaderColumnChains', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <TableRowDetail
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).tableHeaderColumnChains)
-        .toBe('insertFirstColumnToChains');
     });
   });
 

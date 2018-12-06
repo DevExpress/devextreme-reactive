@@ -3,7 +3,6 @@ import { TABLE_DATA_TYPE } from '../table/constants';
 import {
   isHeadingTableCell,
   isHeadingTableRow,
-  insertFirstColumnToChains,
   splitHeaderColumnChains,
 } from './helpers';
 
@@ -24,61 +23,6 @@ describe('TableHeaderRow Plugin helpers', () => {
         .toBeTruthy();
       expect(isHeadingTableRow({ type: 'undefined' }))
         .toBeFalsy();
-    });
-  });
-
-  describe('#insertFirstColumnToChains', () => {
-    const columns = [
-      { key: 'a' },
-      { key: 'b' },
-      { key: 'c' },
-    ];
-    const newColumn = { key: 'new_column' };
-    const columnsWithNew = [
-      newColumn,
-      ...columns,
-    ];
-    const existingChains = [
-      [
-        { start: 0, columns: [columns.slice(0, 1)] },
-        { start: 1, columns: [columns.slice(1)] },
-      ],
-      [
-        { start: 0, columns: [columns.slice(0, 2)] },
-        { start: 2, columns: [columns.slice(2)] },
-      ],
-    ];
-
-    it('should add a chain with new column', () => {
-      const chains = insertFirstColumnToChains(
-        existingChains, columnsWithNew,
-      );
-
-      expect(chains).toHaveLength(2);
-      expect(chains[0]).toHaveLength(3);
-      expect(chains[0][0].columns).toEqual([newColumn]);
-      expect(chains[0][1].columns).toEqual(existingChains[0][0].columns);
-      expect(chains[0][2].columns).toEqual(existingChains[0][1].columns);
-      expect(chains[1][0].columns).toEqual([newColumn]);
-      expect(chains[1][1].columns).toEqual(existingChains[1][0].columns);
-      expect(chains[1][2].columns).toEqual(existingChains[1][1].columns);
-    });
-
-    it('should shift start for all chains', () => {
-      const chains = insertFirstColumnToChains(
-        existingChains, columnsWithNew,
-      );
-
-      expect(chains[0]).toMatchObject([
-        { start: 0 },
-        { start: 1 },
-        { start: 2 },
-      ]);
-      expect(chains[1]).toMatchObject([
-        { start: 0 },
-        { start: 1 },
-        { start: 3 },
-      ]);
     });
   });
 

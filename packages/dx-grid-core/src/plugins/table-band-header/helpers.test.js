@@ -59,6 +59,7 @@ describe('TableBandHeader Plugin helpers', () => {
   const computeColumnChainsWithFixed = (columns, rows, bands) => (
     tableHeaderColumnChainsWithFixed(
       computeColumnChains(columns, rows, bands),
+      rows,
       columns,
     )
   );

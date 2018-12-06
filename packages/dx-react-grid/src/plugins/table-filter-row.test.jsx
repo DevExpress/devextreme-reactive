@@ -4,7 +4,6 @@ import { pluginDepsToComponents, getComputedState, setupConsole } from '@devexpr
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
   tableHeaderRowsWithFilter,
-  tableHeaderColumnChainsWithFilter,
   isFilterTableCell,
   getColumnFilterConfig,
   isFilterTableRow,
@@ -16,7 +15,6 @@ import { TableFilterRow } from './table-filter-row';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableHeaderRowsWithFilter: jest.fn(),
-  tableHeaderColumnChainsWithFilter: jest.fn(),
   isFilterTableCell: jest.fn(),
   isFilterTableRow: jest.fn(),
   getColumnFilterConfig: jest.fn(),
@@ -73,8 +71,6 @@ describe('TableFilterRow', () => {
 
   beforeEach(() => {
     tableHeaderRowsWithFilter.mockImplementation(() => 'tableHeaderRowsWithFilter');
-    tableHeaderColumnChainsWithFilter.mockImplementation(() => (
-      'tableHeaderColumnChainsWithFilter'));
     isFilterTableCell.mockImplementation(() => true);
     isFilterTableRow.mockImplementation(() => false);
     getColumnFilterOperations.mockImplementation(() => []);

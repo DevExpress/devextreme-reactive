@@ -7,7 +7,6 @@ import { getMessagesFormatter } from '@devexpress/dx-core';
 import {
   getColumnFilterConfig,
   tableHeaderRowsWithFilter,
-  tableHeaderColumnChainsWithFilter,
   isFilterTableCell,
   isFilterTableRow,
   getColumnFilterOperations,
@@ -63,9 +62,6 @@ export class TableFilterRow extends React.PureComponent {
     const tableHeaderRowsComputed = (
       { tableHeaderRows },
     ) => tableHeaderRowsWithFilter(tableHeaderRows, rowHeight);
-    const tableHeaderColumnChainsComputed = (
-      { tableHeaderRows, tableColumns, tableHeaderColumnChains },
-    ) => tableHeaderColumnChainsWithFilter(tableHeaderColumnChains, tableHeaderRows, tableColumns);
 
     return (
       <Plugin
@@ -73,7 +69,6 @@ export class TableFilterRow extends React.PureComponent {
         dependencies={pluginDependencies}
       >
         <Getter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
-        <Getter name="tableHeaderColumnChains" computed={tableHeaderColumnChainsComputed} />
         <Template
           name="tableCell"
           predicate={({ tableRow, tableColumn }) => isFilterTableCell(tableRow, tableColumn)}

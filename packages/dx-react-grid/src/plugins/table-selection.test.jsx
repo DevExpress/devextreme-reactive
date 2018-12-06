@@ -4,7 +4,6 @@ import { pluginDepsToComponents, getComputedState, setupConsole } from '@devexpr
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithSelection,
-  insertFirstColumnToChains,
   isSelectTableCell,
   isSelectAllTableCell,
   isDataTableRow,
@@ -13,7 +12,6 @@ import { TableSelection } from './table-selection';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableColumnsWithSelection: jest.fn(),
-  insertFirstColumnToChains: jest.fn(),
   isSelectTableCell: jest.fn(),
   isSelectAllTableCell: jest.fn(),
   isDataTableRow: jest.fn(),
@@ -58,9 +56,6 @@ describe('Table Selection', () => {
 
   beforeEach(() => {
     tableColumnsWithSelection.mockImplementation(() => 'tableColumnsWithSelection');
-    insertFirstColumnToChains.mockImplementation(() => (
-      'insertFirstColumnToChains'
-    ));
     isSelectTableCell.mockImplementation(() => false);
     isSelectAllTableCell.mockImplementation(() => false);
     isDataTableRow.mockImplementation(() => false);
@@ -85,19 +80,6 @@ describe('Table Selection', () => {
         .toBe('tableColumnsWithSelection');
       expect(tableColumnsWithSelection)
         .toBeCalledWith(defaultDeps.getter.tableColumns, 120);
-    });
-    it('should extend tableHeaderColumnChains', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <TableSelection
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).tableHeaderColumnChains)
-        .toBe('insertFirstColumnToChains');
     });
   });
 

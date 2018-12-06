@@ -7,7 +7,6 @@ import { getMessagesFormatter } from '@devexpress/dx-core';
 import {
   getColumnSortingDirection,
   tableRowsWithHeading,
-  tableHeaderColumnChainsWithHeading,
   isHeadingTableCell,
   isHeadingTableRow,
   TABLE_DATA_TYPE,
@@ -15,9 +14,6 @@ import {
 } from '@devexpress/dx-grid-core';
 
 const tableHeaderRowsComputed = ({ tableHeaderRows }) => tableRowsWithHeading(tableHeaderRows);
-const tableHeaderColumnChainsComputed = ({
-  tableHeaderColumnChains, tableHeaderRows, tableColumns,
-}) => tableHeaderColumnChainsWithHeading(tableHeaderColumnChains, tableHeaderRows, tableColumns);
 
 export class TableHeaderRow extends React.PureComponent {
   render() {
@@ -46,7 +42,6 @@ export class TableHeaderRow extends React.PureComponent {
         ]}
       >
         <Getter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
-        <Getter name="tableHeaderColumnChains" computed={tableHeaderColumnChainsComputed} />
 
         <Template
           name="tableCell"

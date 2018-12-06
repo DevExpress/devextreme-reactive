@@ -30,14 +30,14 @@ Use the `SelectionState` plugin's `selection` property to specify selected serie
 
 The following demos show how to create a chart using the single and multiple selection mode.
 
-- Single selection mode.
+- Single selection mode
 
 .embedded-demo({ "path": "interaction/selection", "showThemeSelector": true })
 
-- Multiple selection mode.
+- Multiple selection mode
 
 .embedded-demo({ "path": "interaction/multiple-selection", "showThemeSelector": true })
 
-- Single/Multiple selection using mouse click and CTRL key.
+- Single/multiple selection by Ctrl + mouse click
 
 .embedded-demo({ "path": "interaction/single-multiple-selection", "showThemeSelector": true })

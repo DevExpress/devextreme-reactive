@@ -56,7 +56,7 @@ Field | Type | Description
 ------|------|------------
 startDate | Date | Specifies the cell start time.
 endDate | Date | Specifies the cell end time.
-today | boolean | Specifies the cell's date is today.
+today | boolean | Indicates whether the cell's date is today.
 
 ### WeekView.LayoutProps
 
@@ -106,7 +106,7 @@ Field | Type | Description
 ------|------|------------
 startDate | Date | Specifies the cell start time.
 endDate? | Date | Specifies the cell end time.
-today? | boolean | Specifies the cell's date is today.
+today? | boolean | Indicates whether the cell's date is today.
 
 ### WeekView.DayScaleEmptyCellProps
 

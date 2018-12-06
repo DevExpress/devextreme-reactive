@@ -1,6 +1,8 @@
+import { GRID_GROUP_CHECK } from '../integrated-grouping/constants';
+
 const warnIfRowIdUndefined = getRowId => (row) => {
   const result = getRowId(row);
-  if (result === undefined) {
+  if (!row[GRID_GROUP_CHECK] && result === undefined) {
     // eslint-disable-next-line no-console
     console.warn('The row id is undefined. Check the getRowId function. The row is', row);
   }

@@ -1,4 +1,5 @@
 import { format } from 'util';
+import { GRID_GROUP_CHECK } from '../integrated-grouping/constants';
 import {
   rowIdGetter,
   cellValueGetter,
@@ -54,7 +55,19 @@ describe('GridCore Plugin computeds', () => {
           .toEqual('The row id is undefined. Check the getRowId function. The row is { a: 1 }');
       });
 
-      it('should not warn otherwise', () => {
+      it('should not warn if row is of a group type', () => {
+        const getRowId = row => row.a;
+        const rows = [
+          { [GRID_GROUP_CHECK]: true },
+          { a: 1 },
+        ];
+
+        rowIdGetter(getRowId, rows)(rows[0]);
+
+        expect(warnLog.length).toBe(0);
+      });
+
+      it('should not warn if func returns valid id', () => {
         const getRowId = row => row.a;
 
         rowIdGetter(getRowId, data)(data[0]);

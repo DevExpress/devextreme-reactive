@@ -48,7 +48,7 @@ Field | Type | Description
 ------|------|------------
 startDate | Date | Specifies the cell start time.
 endDate | Date | Specifies the cell end time.
-otherMonth | boolean | Indicates whether the cell does not belong to the current month.
+otherMonth | boolean | Indicates whether the cell's date is not in the current month.
 today | boolean | Indicates whether the cell's date is today.
 
 ### MonthView.LayoutProps
@@ -98,7 +98,7 @@ Field | Type | Description
 ------|------|------------
 startDate | Date | Specifies the cell start time.
 endDate? | Date | Specifies the cell end time.
-otherMonth? | boolean | Indicates whether the cell does not belong to the current month.
+otherMonth? | boolean | Indicates whether the cell's date is not in the current month.
 today? | boolean | Indicates whether the cell's date is today.
 
 ### MonthView.AppointmentLayerProps

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Popover } from '../../../../dx-react-bootstrap4/components/popover';
+import { Popover } from '../../../../dx-react-bootstrap4/components';
 
 // Popover component calls *target* function from render.
 // For the first time it returns null as expected and Popover crashes.

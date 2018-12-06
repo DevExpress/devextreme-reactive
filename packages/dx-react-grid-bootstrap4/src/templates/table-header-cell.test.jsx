@@ -27,7 +27,7 @@ describe('TableHeaderCell', () => {
   });
 
   it('should have correct classes when dragging is allowed', () => {
-    const tree = shallow((
+    const tree = mount((
       <DragDropProvider>
         <TableHeaderCell
           column={{ name: 'a' }}
@@ -36,7 +36,7 @@ describe('TableHeaderCell', () => {
       </DragDropProvider>
     ));
 
-    expect(tree.dive().find('th').is('.dx-g-bs4-user-select-none.dx-g-bs4-cursor-pointer.position-relative'))
+    expect(tree.find('th').is('.dx-g-bs4-user-select-none.dx-g-bs4-cursor-pointer.position-relative'))
       .toBeTruthy();
   });
 

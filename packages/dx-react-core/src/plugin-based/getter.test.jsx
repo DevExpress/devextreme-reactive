@@ -206,4 +206,17 @@ describe('Getter', () => {
     expect(log).toHaveLength(2);
     expect(log[0]).not.toBe(log[1]);
   });
+
+  it('should correct Getter unmount', () => {
+    const value = 0;
+
+    const wrapper = mount((
+      <PluginHost>
+        <Getter name="getter" value={value} />
+      </PluginHost>
+    ));
+
+    expect(() => { wrapper.unmount(); })
+      .not.toThrow();
+  });
 });

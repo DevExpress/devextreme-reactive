@@ -1,7 +1,14 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { EmbeddedDemoContext } from '../context';
 
 export class DemoRenderer extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.rootRef = React.createRef();
+  }
+
   componentDidMount() {
     this.renderDemo();
   }
@@ -18,19 +25,16 @@ export class DemoRenderer extends React.Component {
       variantName,
     } = this.props;
     const {
-      embeddedDemoOptions,
-    } = this.context;
-
-    const {
       renderDemo,
       unmountDemo,
       demoSources,
       themeSources,
-    } = embeddedDemoOptions;
+    } = this.context;
+    const rootElement = this.rootRef.current;
 
     if (this.demoRenderSkipped) {
       unmountDemo({
-        element: this.root,
+        element: rootElement,
       });
     }
 
@@ -41,7 +45,7 @@ export class DemoRenderer extends React.Component {
 
     if (!demoSource) {
       this.demoRenderSkipped = true;
-      this.root.textContent = 'DEMO NOT AVALIABLE!';
+      rootElement.textContent = 'DEMO NOT AVALIABLE!';
       return;
     }
 
@@ -50,7 +54,7 @@ export class DemoRenderer extends React.Component {
       .find(({ name }) => name === variantName).DemoContainer;
 
     renderDemo({
-      element: this.root,
+      element: rootElement,
       demo: demoSource,
       demoContainer: demoContainerSource,
     });
@@ -60,7 +64,7 @@ export class DemoRenderer extends React.Component {
   render() {
     return (
       <div
-        ref={(node) => { this.root = node; }}
+        ref={this.rootRef}
       />
     );
   }
@@ -73,6 +77,4 @@ DemoRenderer.propTypes = {
   variantName: PropTypes.string.isRequired,
 };
 
-DemoRenderer.contextTypes = {
-  embeddedDemoOptions: PropTypes.object.isRequired,
-};
+DemoRenderer.contextType = EmbeddedDemoContext;

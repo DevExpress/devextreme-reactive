@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { findSeriesByName, dSpline } from '@devexpress/dx-chart-core';
-import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
+import { findSeriesByName } from '@devexpress/dx-chart-core';
+import { pluginDepsToComponents } from '@devexpress/dx-testing';
 import { SplineSeries } from './spline-series';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
-  dSpline: jest.fn(),
   findSeriesByName: jest.fn(),
   addSeries: jest.fn(),
   ARGUMENT_DOMAIN: 'test_argument_domain',
@@ -33,16 +32,16 @@ describe('Spline series', () => {
 
   findSeriesByName.mockReturnValue({
     ...defaultProps,
+    index: 1,
     points: coords,
     seriesComponent: SeriesComponent,
-    path: dSpline,
-    customProperty: 'custom',
+    color: 'color',
   });
 
   const defaultDeps = {
     getter: {
       layouts: { pane: {} },
-      scales: {},
+      scales: { test_argument_domain: 'arg-scale', test_value_domain: 'val-scale' },
     },
     template: {
       series: {},
@@ -59,16 +58,14 @@ describe('Spline series', () => {
         />
       </PluginHost>
     ));
-    const {
-      coordinates: seriesCoordinates, path, ...restProps
-    } = tree.find(SeriesComponent).props();
 
-    expect(seriesCoordinates).toBe(coords);
-    expect(path).toBe(dSpline);
-    expect(restProps).toEqual({
-      customProperty: 'custom',
+    expect(tree.find(SeriesComponent).props()).toEqual({
+      pointComponent: undefined,
+      index: 1,
+      coordinates: coords,
+      color: 'color',
       getAnimatedStyle: undefined,
-      scales: {},
+      scales: { xScale: 'arg-scale', yScale: 'val-scale' },
     });
   });
 });

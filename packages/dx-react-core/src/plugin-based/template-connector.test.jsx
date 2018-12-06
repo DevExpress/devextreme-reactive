@@ -1,18 +1,10 @@
 import * as React from 'react';
-import { shallow } from 'enzyme';
-import { setupConsole } from '@devexpress/dx-testing';
-import { PLUGIN_HOST_CONTEXT, UPDATE_CONNECTION_EVENT } from './constants';
+import { mount } from 'enzyme';
+import { UPDATE_CONNECTION_EVENT } from './constants';
 import { TemplateConnector } from './template-connector';
+import { PluginHostContext } from './contexts';
 
 describe('TemplateConnector', () => {
-  let resetConsole;
-  beforeAll(() => {
-    resetConsole = setupConsole();
-  });
-  afterAll(() => {
-    resetConsole();
-  });
-
   let pluginHost;
   beforeEach(() => {
     pluginHost = {
@@ -25,35 +17,26 @@ describe('TemplateConnector', () => {
   });
 
   it('should register itself in the plugin host', () => {
-    shallow(
-      (
+    mount((
+      <PluginHostContext.Provider value={pluginHost}>
         <TemplateConnector>
           {() => <div />}
         </TemplateConnector>
-      ),
-      {
-        context: {
-          [PLUGIN_HOST_CONTEXT]: pluginHost,
-        },
-      },
-    );
+      </PluginHostContext.Provider>
+    ));
 
     expect(pluginHost.registerSubscription)
       .toHaveBeenCalledTimes(1);
   });
 
   it('should unregister itself in the plugin host', () => {
-    const tree = shallow(
-      (
+    const tree = mount((
+      <PluginHostContext.Provider value={pluginHost}>
         <TemplateConnector>
           {() => <div />}
         </TemplateConnector>
-      ), {
-        context: {
-          [PLUGIN_HOST_CONTEXT]: pluginHost,
-        },
-      },
-    );
+      </PluginHostContext.Provider>
+    ));
 
     tree.unmount();
 
@@ -84,17 +67,13 @@ describe('TemplateConnector', () => {
     it('should provide all known getters and actions', () => {
       const connected = jest.fn().mockImplementation(() => <div />);
 
-      shallow(
-        (
+      mount((
+        <PluginHostContext.Provider value={pluginHost}>
           <TemplateConnector>
             {connected}
           </TemplateConnector>
-        ), {
-          context: {
-            [PLUGIN_HOST_CONTEXT]: pluginHost,
-          },
-        },
-      );
+        </PluginHostContext.Provider>
+      ));
 
       expect(connected)
         .toBeCalledWith(
@@ -110,17 +89,13 @@ describe('TemplateConnector', () => {
         </div>
       ));
 
-      shallow(
-        (
+      mount((
+        <PluginHostContext.Provider value={pluginHost}>
           <TemplateConnector>
             {connected}
           </TemplateConnector>
-        ), {
-          context: {
-            [PLUGIN_HOST_CONTEXT]: pluginHost,
-          },
-        },
-      );
+        </PluginHostContext.Provider>
+      ));
 
       knownGetters.a = 3;
       pluginHost.registerSubscription.mock.calls[0][0][UPDATE_CONNECTION_EVENT]();
@@ -136,18 +111,13 @@ describe('TemplateConnector', () => {
         </div>
       ));
 
-      shallow(
-        (
+      mount((
+        <PluginHostContext.Provider value={pluginHost}>
           <TemplateConnector>
             {connected}
           </TemplateConnector>
-        ),
-        {
-          context: {
-            [PLUGIN_HOST_CONTEXT]: pluginHost,
-          },
-        },
-      );
+        </PluginHostContext.Provider>
+      ));
 
       knownGetters.b = 4;
       pluginHost.registerSubscription.mock.calls[0][0][UPDATE_CONNECTION_EVENT]();

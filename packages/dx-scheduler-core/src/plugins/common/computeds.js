@@ -1,8 +1,5 @@
 import moment from 'moment';
-import { monthCellsData } from '../month-view/computeds';
 import { calculateFirstDateOfWeek } from '../../utils';
-import { getViewType } from './helpers';
-import { HORIZONTAL_TYPE } from '../../constants';
 
 const subtractSecond = date => moment(date).subtract(1, 'second').toDate();
 
@@ -39,6 +36,7 @@ export const timeScale = (
     : currentDate;
   const left = moment(startViewDate).startOf('hour').hour(startDayHour);
   const right = moment(startViewDate).startOf('hour').hour(endDayHour);
+
   while (left.isBefore(right)) {
     const startDate = left.toDate();
     left.add(cellDuration, 'minutes');
@@ -58,13 +56,10 @@ export const availableViewNames = (viewNames, viewName) => {
 };
 
 export const viewCellsData = (
-  currentViewType, currentDate, firstDayOfWeek,
-  intervalCount, dayCount, excludedDays,
+  currentDate, firstDayOfWeek,
+  dayCount, excludedDays,
   startDayHour, endDayHour, cellDuration,
 ) => {
-  if (getViewType(currentViewType) === HORIZONTAL_TYPE) {
-    return monthCellsData(currentDate, firstDayOfWeek, intervalCount);
-  }
   const days = dayScale(currentDate, firstDayOfWeek, dayCount, excludedDays);
   const times = timeScale(
     currentDate, firstDayOfWeek, startDayHour, endDayHour, cellDuration, excludedDays,

@@ -1,13 +1,16 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost, TemplatePlaceholder } from '@devexpress/dx-react-core';
-import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
+import { pluginDepsToComponents } from '@devexpress/dx-testing';
 import { PaneLayout } from './pane-layout';
 
 describe('PaneLayout', () => {
   const defaultDeps = {
     action: {
       changeBBox: () => undefined,
+    },
+    getter: {
+      layouts: { pane: { width: 400, height: 300 } },
     },
   };
 
@@ -21,8 +24,8 @@ describe('PaneLayout', () => {
     ));
 
     expect(tree.find('svg').props()).toEqual({
-      width: expect.any(Number),
-      height: expect.any(Number),
+      width: 400,
+      height: 300,
       style: {
         left: 0, top: 0, overflow: 'visible', position: 'absolute',
       },

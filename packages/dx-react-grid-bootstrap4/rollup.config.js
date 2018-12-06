@@ -2,7 +2,7 @@ import babel from 'rollup-plugin-babel';
 import license from 'rollup-plugin-license';
 import resolve from 'rollup-plugin-node-resolve';
 import css from 'rollup-plugin-css-only';
-import { banner, external, babelrc, globals, stubProcess } from '../../tools/rollup-utils';
+import { banner, external, globals, stubProcess } from '../../tools/rollup-utils';
 import pkg from './package.json';
 
 export default {
@@ -18,11 +18,10 @@ export default {
       main: false,
       extensions: ['.js', '.jsx'],
     }),
-    babel(Object.assign({
-      babelrc: false,
+    babel({
       runtimeHelpers: true,
       exclude: 'node_modules/**',
-    }, babelrc(__dirname))),
+    }),
     license({
       banner,
     }),

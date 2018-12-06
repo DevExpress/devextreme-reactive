@@ -10,7 +10,7 @@ describe('TableSelectCell', () => {
   let classes;
   beforeAll(() => {
     setupConsole({ ignore: ['validateDOMNesting'] });
-    mount = createMount({ context: { table: {} }, childContextTypes: { table: () => null } });
+    mount = createMount();
     shallow = createShallow({ dive: true });
     classes = getClasses(<TableSelectCell />);
   });

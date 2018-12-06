@@ -26,7 +26,7 @@ Name | Type | Default | Description
 name | string | | The series name.
 valueField | string | | The name of a data field that provides series point values.
 argumentField | string | | The name of a data field that provides series point argument values.
-axisName? | string | | An associated axis.
+scaleName? | string | | An associated scale.
 barWidth? | number | | The bar width in relative units.
 color? | string | | The series color.
 pointComponent | ComponentType&lt;[BarSeries.PointProps](#barseriespointprops)&gt; | | A component that renders a bar.
@@ -40,9 +40,9 @@ Describes properties passed to a component that renders a bar.
 Field | Type | Description
 ------|------|------------
 x | number | The bar's x coordinate.
+width | number | The bar's width.
 y | number | The bar's y coordinate.
-width | number | The bar width.
-height | number | The bar height.
+y1 | number | The bar's y1 coordinate.
 value | number | The bar's value.
 color | string | A series color.
 index | number | Point index.

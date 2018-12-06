@@ -5,6 +5,18 @@ import {
   FormGroup, ControlLabel, FormControl, InputGroup, Button,
 } from 'react-bootstrap';
 import { DemoRenderer } from './demo-renderer';
+import { EmbeddedDemoContext } from '../context';
+
+const Link = ({ link }) => (
+  <link rel="stylesheet" href={link} />
+);
+
+Link.propTypes = {
+  link: PropTypes.string,
+};
+Link.defaultProps = {
+  link: '',
+};
 
 class DemoFrameRenderer extends React.PureComponent {
   constructor(props, context) {
@@ -16,7 +28,7 @@ class DemoFrameRenderer extends React.PureComponent {
       themeName,
       variantName,
     } = props;
-    const { embeddedDemoOptions: { scriptPath, themeSources } } = this.context;
+    const { scriptPath, themeSources } = this.context;
     const themeVariantOptions = themeSources
       .find(theme => theme.name === themeName).variants
       .find(variant => variant.name === variantName);
@@ -24,12 +36,11 @@ class DemoFrameRenderer extends React.PureComponent {
     const themeLinks = themeVariantOptions.links
       ? themeVariantOptions.links.map(link => `<link rel="stylesheet" href="${link}">`).join('\n')
       : '';
-    this.markup = link => `
+    this.markup = `
       <!DOCTYPE html>
       <html>
       <head>
         ${themeLinks}
-        ${link !== undefined ? `<link rel="stylesheet" href="${link}">` : ''}
         <style>
           body { margin: 8px; overflow: hidden; }
           .panel { margin: 0; }
@@ -47,24 +58,21 @@ class DemoFrameRenderer extends React.PureComponent {
       editableLink: themeVariantOptions.editableLink,
       frameHeight: 600,
     };
+    this.nodeRef = React.createRef();
   }
 
   componentDidMount() {
     this.updateFrameHeight();
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    const { editableLink } = this.state;
-    if (editableLink !== prevState.editableLink) {
-      if (this.node) this.node.ownerDocument.location.reload();
-    }
-  }
-
   updateFrameHeight() {
     const { frameHeight } = this.state;
+    const node = this.nodeRef.current;
     setTimeout(this.updateFrameHeight.bind(this));
-    if (!this.node) return;
-    const height = this.node.ownerDocument.documentElement.offsetHeight;
+
+    if (!node) return;
+
+    const height = node.ownerDocument.documentElement.offsetHeight;
     if (height !== frameHeight) {
       this.setState({ frameHeight: height });
     }
@@ -77,7 +85,7 @@ class DemoFrameRenderer extends React.PureComponent {
       themeName,
       variantName,
     } = this.props;
-    const { embeddedDemoOptions: { frame } } = this.context;
+    const { frame } = this.context;
     const { editableLink, frameHeight } = this.state;
 
     return (
@@ -88,7 +96,7 @@ class DemoFrameRenderer extends React.PureComponent {
           >
             <FormGroup controlId="customThemeLink">
               <ControlLabel>
-Custom theme link
+                Custom theme link
               </ControlLabel>
               <InputGroup>
                 <FormControl
@@ -133,11 +141,12 @@ Custom theme link
                   height: `${frameHeight}px`,
                   marginBottom: '20px',
                 }}
-                initialContent={this.markup(editableLink)}
+                head={<Link link={editableLink} />}
+                initialContent={this.markup}
                 mountTarget="#mountPoint"
                 scrolling="no"
               >
-                <div ref={(node) => { this.node = node; }} />
+                <div ref={this.nodeRef} />
               </Frame>
             </div>
           )}
@@ -153,9 +162,7 @@ DemoFrameRenderer.propTypes = {
   variantName: PropTypes.string.isRequired,
 };
 
-DemoFrameRenderer.contextTypes = {
-  embeddedDemoOptions: PropTypes.object.isRequired,
-};
+DemoFrameRenderer.contextType = EmbeddedDemoContext;
 
 // eslint-disable-next-line react/no-multi-comp
 export class DemoFrame extends React.PureComponent {

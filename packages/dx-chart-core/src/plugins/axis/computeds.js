@@ -1,4 +1,4 @@
-import { getWidth } from '../../utils/scale';
+import { fixOffset } from '../../utils/scale';
 import {
   LEFT, BOTTOM, MIDDLE, END, START, ARGUMENT_DOMAIN,
 } from '../../constants';
@@ -8,14 +8,8 @@ const isHorizontal = name => name === ARGUMENT_DOMAIN;
 
 const getTicks = scale => (scale.ticks ? scale.ticks() : scale.domain());
 
-// Same code can be found in series coordinates calculation.
-const fixScaleOffset = (scale) => {
-  const offset = getWidth(scale) / 2;
-  return value => scale(value) + offset;
-};
-
 const createTicks = (scale, callback) => {
-  const fixedScale = fixScaleOffset(scale);
+  const fixedScale = fixOffset(scale);
   return getTicks(scale).map((tick, index) => callback(fixedScale(tick), String(index), tick));
 };
 
@@ -51,14 +45,14 @@ const createVerticalOptions = (position, tickSize, indentFromAxis) => {
 };
 
 export const axisCoordinates = ({
-  name,
+  scaleName,
   scale,
   position,
   tickSize,
   tickFormat,
   indentFromAxis,
 }) => {
-  const isHor = isHorizontal(name);
+  const isHor = isHorizontal(scaleName);
   const options = (isHor ? createHorizontalOptions : createVerticalOptions)(
     position, tickSize, indentFromAxis,
   );
@@ -83,8 +77,8 @@ export const axisCoordinates = ({
 const horizontalGridOptions = { y: 0, dy: 1 };
 const verticalGridOptions = { x: 0, dx: 1 };
 
-export const getGridCoordinates = ({ name, scale }) => {
-  const isHor = isHorizontal(name);
+export const getGridCoordinates = ({ scaleName, scale }) => {
+  const isHor = isHorizontal(scaleName);
   const options = isHor ? horizontalGridOptions : verticalGridOptions;
   return createTicks(scale, (coordinates, key) => ({
     key,

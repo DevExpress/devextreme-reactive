@@ -7,7 +7,6 @@ import {
   BarSeries,
   Title,
   Legend,
-  ValueGrid,
 } from '@devexpress/dx-react-chart-bootstrap4';
 import { Stack, Scale, Animation } from '@devexpress/dx-react-chart';
 import { stackOffsetExpand } from 'd3-shape';
@@ -22,7 +21,6 @@ const Root = props => (
 );
 
 const format = scale => scale.tickFormat(null, '%');
-const EmptyComponent = () => null;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -44,10 +42,7 @@ export default class Demo extends React.PureComponent {
           <ArgumentAxis />
           <ValueAxis
             tickFormat={format}
-            lineComponent={EmptyComponent}
-            tickComponent={EmptyComponent}
           />
-          <ValueGrid />
 
           <BarSeries
             name="Saudi Arabia"
@@ -76,7 +71,7 @@ export default class Demo extends React.PureComponent {
           />
           <Animation />
           <Legend position="bottom" rootComponent={Root} />
-          <Title text="Oil Production" className="w-100 text-center mb-2" />
+          <Title text="Oil Production" />
           <Stack
             stacks={[
               { series: ['Saudi Arabia', 'USA', 'Iran', 'Mexico', 'Russia'] },

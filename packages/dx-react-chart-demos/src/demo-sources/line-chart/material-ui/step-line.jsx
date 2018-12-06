@@ -7,7 +7,6 @@ import {
   LineSeries,
   Title,
   Legend,
-  ValueGrid,
 } from '@devexpress/dx-react-chart-material-ui';
 import { withStyles } from '@material-ui/core/styles';
 import { Scale, Animation } from '@devexpress/dx-react-chart';
@@ -55,18 +54,10 @@ const Marker = (props) => {
     </svg>
   );
 };
-const demoStyles = () => ({
-  title: {
-    textAlign: 'center',
-    width: '100%',
-    marginBottom: '10px',
-  },
-});
 
 const format = () => tick => tick;
-const EmptyComponent = () => null;
 
-class Demo extends React.PureComponent {
+export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -77,7 +68,6 @@ class Demo extends React.PureComponent {
 
   render() {
     const { data: chartData } = this.state;
-    const { classes } = this.props;
 
     return (
       <Paper>
@@ -85,8 +75,7 @@ class Demo extends React.PureComponent {
           data={chartData}
         >
           <ArgumentAxis tickFormat={format} />
-          <ValueAxis lineComponent={EmptyComponent} tickComponent={EmptyComponent} />
-          <ValueGrid />
+          <ValueAxis />
 
           <LineSeries
             name="Bronze Medals"
@@ -112,7 +101,6 @@ class Demo extends React.PureComponent {
           <Legend position="bottom" rootComponent={Root} labelComponent={Label} markerComponent={Marker} />
           <Title
             text="Australian Medal Count"
-            className={classes.title}
           />
           <Animation />
           <Scale />
@@ -121,5 +109,3 @@ class Demo extends React.PureComponent {
     );
   }
 }
-
-export default withStyles(demoStyles, { name: 'Demo' })(Demo);

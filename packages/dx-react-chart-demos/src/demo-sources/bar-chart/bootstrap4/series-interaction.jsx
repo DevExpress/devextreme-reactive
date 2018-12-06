@@ -1,20 +1,34 @@
-import * as React from 'react';<%&additionalImports%>
+import * as React from 'react';
+import { Card } from 'reactstrap';
 import {
   Chart,
   BarSeries,
   ArgumentAxis,
   ValueAxis,
-  ValueGrid,
   Title,
   Legend,
-} from '@devexpress/dx-react-chart-<%&themeName%>';
+  Tooltip,
+} from '@devexpress/dx-react-chart-bootstrap4';
+import * as d3Format from 'd3-format';
 import {
-  Stack, Scale, EventTracker, HoverState, SelectionState,
+  Stack, Scale, EventTracker, HoverState, SelectionState, Animation,
 } from '@devexpress/dx-react-chart';
 
 import { annualVehiclesSales } from '../../../demo-data/data-vizualization';
 
-const EmptyComponent = () => null;
+const ContentComponent = (props) => {
+  const { targetItem } = props;
+  return (
+    <div>
+      <p className="mb-0 font-weight-bold">
+        {`${targetItem.series}`}
+      </p>
+      <p className="mb-0">
+        {d3Format.format(',.2r')(annualVehiclesSales[targetItem.point][targetItem.series])}
+      </p>
+    </div>
+  );
+};
 const compare = (
   { series, point }, { series: targetSeries, point: targetPoint },
 ) => series === targetSeries && point === targetPoint;
@@ -42,17 +56,16 @@ export default class Demo extends React.PureComponent {
     const { data: chartData, selection } = this.state;
 
     return (
-      <<%&wrapperTag%>>
+      <Card>
         <Chart
           data={chartData}
         >
           <ArgumentAxis type="band" />
-          <ValueAxis lineComponent={EmptyComponent} tickComponent={EmptyComponent} />
-          <ValueGrid />
+          <ValueAxis />
 
           <Title
             text="USA and Chinese annual sales of plug-in electric vehicles"
-            style={{ textAlign: 'center', width: '100%' }}
+            style={{ marginRight: '120px' }}
           />
 
           <BarSeries
@@ -70,9 +83,11 @@ export default class Demo extends React.PureComponent {
           <Legend />
           <EventTracker onClick={this.click} />
           <HoverState />
+          <Tooltip contentComponent={ContentComponent} />
           <SelectionState selection={selection} />
+          <Animation />
         </Chart>
-      </<%&wrapperTag%>>
+      </Card>
     );
   }
 }

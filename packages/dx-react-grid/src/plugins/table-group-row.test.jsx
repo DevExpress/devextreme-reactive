@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { setupConsole } from '@devexpress/dx-testing';
-import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
+import { pluginDepsToComponents, getComputedState, setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithGrouping,
@@ -319,8 +318,8 @@ describe('TableGroupRow', () => {
     ));
 
     const valueFormatterTemplatePlaceholder = tree
-      .find('TemplatePlaceholder').at(0)
-      .findWhere(node => node.prop('name') === 'valueFormatter');
+      .find('TemplatePlaceholderBase')
+      .findWhere(node => node.prop('name') === 'valueFormatter').last();
 
     expect(valueFormatterTemplatePlaceholder.prop('params'))
       .toMatchObject({

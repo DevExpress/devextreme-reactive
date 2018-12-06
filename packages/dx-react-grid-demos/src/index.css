@@ -1,3 +1,14 @@
 html {
   font-size: initial;
 }
+
+.CodeMirror {
+  height: auto;
+}
+.CodeMirror-scroll {
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+.CodeMirror-important-line {
+  background: rgba(240, 91, 65, 0.29);
+}

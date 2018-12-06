@@ -1,40 +1,101 @@
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
+import { setupConsole } from '@devexpress/dx-testing';
 import { Root } from './root';
 
-const defaultProps = {
-  x: 1,
-  y: 2,
-  refsHandler: jest.fn(),
-  children: null,
-};
-
 describe('Root', () => {
-  it('should render root element', () => {
-    const tree = shallow((
-      <Root {...defaultProps}>
+  let resetConsole;
+  const getBBox = jest.fn();
+
+  beforeAll(() => {
+    resetConsole = setupConsole({ ignore: ['The tag <%s> is unrecognized in this browser.'] });
+    global.HTMLUnknownElement.prototype.getBBox = getBBox;
+  });
+
+  afterAll(() => {
+    delete global.HTMLUnknownElement.prototype.getBBox;
+    resetConsole();
+  });
+
+  afterEach(getBBox.mockReset);
+
+  it('should render root element, horizontal top', () => {
+    getBBox.mockReturnValue({
+      x: 8, y: -37, width: 40, height: 30,
+    });
+    const mock = jest.fn();
+    const tree = mount((
+      <Root dx={1} dy={0} onSizeChange={mock}>
         <div />
       </Root>
     ));
 
     const g = tree.find('g');
-    const { transform } = g.props();
-
-    expect(transform)
-      .toBe('translate(1 2)');
-    expect(g.find('div').exists())
-      .toBeTruthy();
+    expect(g.props().transform).toEqual('translate(0 37)');
+    expect(g.find('div').exists()).toBeTruthy();
+    expect(mock).toBeCalledWith({ width: 40, height: 37 });
   });
 
-  it('should pass the rest property to the root element', () => {
-    const tree = shallow((
-      <Root {...defaultProps} customProperty>
+  it('should render root element, horizontal top', () => {
+    getBBox.mockReturnValue({
+      x: 8, y: 7, width: 40, height: 30,
+    });
+    const mock = jest.fn();
+    const tree = mount((
+      <Root dx={1} dy={0} onSizeChange={mock}>
         <div />
-      </Root>));
+      </Root>
+    ));
 
-    const { customProperty } = tree.find('g').props();
+    const g = tree.find('g');
+    expect(g.props().transform).toEqual('translate(0 0)');
+    expect(g.find('div').exists()).toBeTruthy();
+    expect(mock).toBeCalledWith({ width: 40, height: 37 });
+  });
 
-    expect(customProperty)
-      .toBeTruthy();
+  it('should render root element, vertical left', () => {
+    getBBox.mockReturnValue({
+      x: -48, y: 7, width: 40, height: 30,
+    });
+    const mock = jest.fn();
+    const tree = mount((
+      <Root dx={0} dy={1} onSizeChange={mock}>
+        <div />
+      </Root>
+    ));
+
+    const g = tree.find('g');
+    expect(g.props().transform).toEqual('translate(48 0)');
+    expect(g.find('div').exists()).toBeTruthy();
+    expect(mock).toBeCalledWith({ width: 48, height: 30 });
+  });
+
+  it('should render root element, vertical right', () => {
+    getBBox.mockReturnValue({
+      x: 8, y: 7, width: 40, height: 30,
+    });
+    const mock = jest.fn();
+    const tree = mount((
+      <Root dx={0} dy={1} onSizeChange={mock}>
+        <div />
+      </Root>
+    ));
+
+    const g = tree.find('g');
+    expect(g.props().transform).toEqual('translate(0 0)');
+    expect(g.find('div').exists()).toBeTruthy();
+    expect(mock).toBeCalledWith({ width: 48, height: 30 });
+  });
+
+  it('should pass rest properties to the root element', () => {
+    getBBox.mockReturnValue({});
+    const tree = mount((
+      <Root dx={1} dy={0} onSizeChange={() => null} custom={10}>
+        <div />
+      </Root>
+    ));
+
+    const { custom } = tree.find('g').props();
+    expect(custom).toEqual(10);
   });
 });

@@ -7,7 +7,6 @@ import {
   AreaSeries,
   Title,
   Legend,
-  ValueGrid,
 } from '@devexpress/dx-react-chart-material-ui';
 import { withStyles } from '@material-ui/core/styles';
 import { Scale, Animation } from '@devexpress/dx-react-chart';
@@ -35,13 +34,6 @@ const legendLabelBase = ({ classes, ...restProps }) => (
   <Legend.Label className={classes.label} {...restProps} />
 );
 const Label = withStyles(legendLabelStyles, { name: 'LegendLabel' })(legendLabelBase);
-const demoStyles = () => ({
-  title: {
-    textAlign: 'center',
-    width: '100%',
-    marginBottom: '10px',
-  },
-});
 
 const Area = props => (
   <AreaSeries.Path
@@ -72,8 +64,7 @@ const Marker = (props) => {
     <span role="img" aria-label="Gold Medal">🏅</span>
   );
 };
-const EmptyComponent = () => null;
-class Demo extends React.PureComponent {
+export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -84,7 +75,6 @@ class Demo extends React.PureComponent {
 
   render() {
     const { data: chartData } = this.state;
-    const { classes } = this.props;
 
     return (
       <Paper>
@@ -92,9 +82,7 @@ class Demo extends React.PureComponent {
           data={chartData}
         >
           <ArgumentAxis tickFormat={format} />
-          <ValueAxis lineComponent={EmptyComponent} tickComponent={EmptyComponent} />
-
-          <ValueGrid />
+          <ValueAxis />
 
           <AreaSeries
             name="Bronze Medals"
@@ -119,12 +107,10 @@ class Demo extends React.PureComponent {
           />
           <Animation />
           <Legend position="bottom" rootComponent={Root} labelComponent={Label} markerComponent={Marker} />
-          <Title text="Australian Medal Count" className={classes.title} />
+          <Title text="Australian Medal Count" />
           <Scale />
         </Chart>
       </Paper>
     );
   }
 }
-
-export default withStyles(demoStyles, { name: 'Demo' })(Demo);

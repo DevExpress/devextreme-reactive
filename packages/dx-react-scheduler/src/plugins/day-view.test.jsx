@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
+import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
   computed,
@@ -98,8 +98,8 @@ describe('Day View', () => {
 
       expect(viewCellsData)
         .toBeCalledWith(
-          'day', '2018-07-04', undefined,
-          props.intervalCount, props.intervalCount, [],
+          '2018-07-04', undefined,
+          props.intervalCount, [],
           props.startDayHour, props.endDayHour, props.cellDuration,
         );
       expect(getComputedState(tree).viewCellsData)

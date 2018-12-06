@@ -6,11 +6,9 @@ The axes and grid improve the visualized data's readability: axes display series
 
 The following plugins implement the axes and grid:
 
-- `ArgumentAxis` - renders an argument axis
-- `ValueAxis` - renders a value axis
-- `ArgumentGrid` - renders grid lines for an argument axis
-- `ValueGrid` - renders grid lines for a value axis
-- `Scale` - processes data
+- [ArgumentAxis](../reference/argument-axis.md) - renders an argument axis with grid lines.
+- [ValueAxis](../reference/value-axis.md) - renders a value axis with grid lines.
+- [Scale](../reference/scale.md) - processes data.
 
 ## Basic Setup
 
@@ -18,7 +16,7 @@ Import the plugins listed above to set up a Chart with two axes and a grid.
 
 ## Axis Types
 
-The default axis type is linear. It is sutable for numeric data. The following example shows a Grid with a linear axis:
+The default axis type is linear. It is sutable for numeric data. The following example shows a linear axis:
 
 .embedded-demo({ "path": "chart-basic/default-axis", "showThemeSelector": true })
 

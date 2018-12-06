@@ -1,5 +1,4 @@
-import { setupConsole } from '@devexpress/dx-testing';
-import { testStatePluginField } from '@devexpress/dx-react-core/test-utils';
+import { testStatePluginField, setupConsole } from '@devexpress/dx-testing';
 import { setCurrentPage, setPageSize } from '@devexpress/dx-grid-core';
 import { PagingState } from './paging-state';
 

@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { setupConsole } from '@devexpress/dx-testing';
 import { getAvailableFilterOperationsGetter } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
+import { pluginDepsToComponents, getComputedState, setupConsole } from '@devexpress/dx-testing';
 import { DataTypeProvider } from './data-type-provider';
 
 
@@ -33,7 +32,7 @@ describe('DataTypeProvider', () => {
       </PluginHost>
     ));
 
-    const valueFormatter = tree.findWhere(n => n.prop('name') === 'valueFormatter');
+    const valueFormatter = tree.findWhere(n => n.prop('name') === 'valueFormatter').last();
 
     expect(valueFormatter.exists())
       .toBeTruthy();
@@ -55,7 +54,7 @@ describe('DataTypeProvider', () => {
       </PluginHost>
     ));
 
-    const valueEditor = tree.findWhere(n => n.prop('name') === 'valueEditor');
+    const valueEditor = tree.findWhere(n => n.prop('name') === 'valueEditor').last();
 
     expect(valueEditor.exists())
       .toBeTruthy();

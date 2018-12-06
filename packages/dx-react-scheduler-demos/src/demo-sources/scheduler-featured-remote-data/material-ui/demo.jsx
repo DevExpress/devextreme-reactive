@@ -87,6 +87,7 @@ export default class Demo extends React.PureComponent {
     const { currentDate, currentViewName } = this.state;
     const queryString = makeQueryString(currentDate, currentViewName);
     if (queryString === this.lastQuery) {
+      this.setState({ loading: false });
       return;
     }
     fetch(queryString)

@@ -49,6 +49,7 @@ export class Sizer extends React.PureComponent {
     super(props);
 
     this.setupListeners = this.setupListeners.bind(this);
+    this.rootRef = React.createRef();
   }
 
   componentDidMount() {
@@ -58,7 +59,7 @@ export class Sizer extends React.PureComponent {
 
   setupListeners() {
     // eslint-disable-next-line react/no-find-dom-node
-    const rootNode = findDOMNode(this.root);
+    const rootNode = findDOMNode(this.rootRef.current);
     const size = { height: rootNode.clientHeight, width: rootNode.clientWidth };
 
     this.contractTrigger.scrollTop = size.height;
@@ -75,7 +76,7 @@ export class Sizer extends React.PureComponent {
 
   createListeners() {
     // eslint-disable-next-line react/no-find-dom-node
-    const rootNode = findDOMNode(this.root);
+    const rootNode = findDOMNode(this.rootRef.current);
 
     this.triggersRoot = document.createElement('div');
     Object.assign(this.triggersRoot.style, styles.triggersRoot);
@@ -108,9 +109,9 @@ export class Sizer extends React.PureComponent {
 
     return (
       <RefHolder
-        ref={(ref) => { this.root = ref; }}
+        ref={this.rootRef}
       >
-        <Container // NOTE: should has `position: relative`
+        <Container // NOTE: should have `position: relative`
           {...restProps}
         />
       </RefHolder>

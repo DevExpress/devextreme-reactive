@@ -7,7 +7,6 @@ import {
   BarSeries,
   Title,
   Legend,
-  ValueGrid,
 } from '@devexpress/dx-react-chart-material-ui';
 import { withStyles } from '@material-ui/core/styles';
 import { Stack, Scale, Animation } from '@devexpress/dx-react-chart';
@@ -34,16 +33,8 @@ const legendLabelBase = ({ classes, ...restProps }) => (
   <Legend.Label className={classes.label} {...restProps} />
 );
 const Label = withStyles(legendLabelStyles, { name: 'LegendLabel' })(legendLabelBase);
-const demoStyles = () => ({
-  title: {
-    textAlign: 'center',
-    width: '100%',
-    marginBottom: '10px',
-  },
-});
-const EmptyComponent = () => null;
 
-class Demo extends React.PureComponent {
+export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -54,7 +45,6 @@ class Demo extends React.PureComponent {
 
   render() {
     const { data: chartData } = this.state;
-    const { classes } = this.props;
 
     return (
       <Paper>
@@ -62,11 +52,7 @@ class Demo extends React.PureComponent {
           data={chartData}
         >
           <ArgumentAxis />
-          <ValueAxis
-            lineComponent={EmptyComponent}
-            tickComponent={EmptyComponent}
-          />
-          <ValueGrid />
+          <ValueAxis />
 
           <BarSeries
             name="Gold Medals"
@@ -88,7 +74,7 @@ class Demo extends React.PureComponent {
           />
           <Animation />
           <Legend position="bottom" rootComponent={Root} labelComponent={Label} />
-          <Title text="Olimpic Medals in 2008" className={classes.title} />
+          <Title text="Olimpic Medals in 2008" />
           <Stack />
           <Scale />
         </Chart>
@@ -96,5 +82,3 @@ class Demo extends React.PureComponent {
     );
   }
 }
-
-export default withStyles(demoStyles, { name: 'Demo' })(Demo);

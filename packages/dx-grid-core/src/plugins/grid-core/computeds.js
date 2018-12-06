@@ -1,9 +1,18 @@
+const warnIfRowIdUndefined = getRowId => (...args) => {
+  const result = getRowId(...args);
+  if (result === undefined) {
+    // eslint-disable-next-line no-console
+    console.warn('The row id is undefined. Please check the getRowId function. Arguments are', args);
+  }
+  return result;
+};
+
 export const rowIdGetter = (getRowId, rows) => {
   if (!getRowId) {
     const map = new Map(rows.map((row, rowIndex) => [row, rowIndex]));
     return row => map.get(row);
   }
-  return getRowId;
+  return warnIfRowIdUndefined(getRowId);
 };
 
 const defaultGetCellValue = (row, columnName) => row[columnName];

@@ -51,7 +51,7 @@ describe('GridCore Plugin computeds', () => {
         rowIdGetter(getRowId, data)(data[0]);
 
         expect(warnLog[0])
-          .toEqual('The row id is undefined. Please check the getRowId function. The row is { a: 1 }');
+          .toEqual('The row id is undefined. Check the getRowId function. The row is { a: 1 }');
       });
 
       it('should not warn otherwise', () => {

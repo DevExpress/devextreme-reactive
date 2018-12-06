@@ -2,7 +2,7 @@ const warnIfRowIdUndefined = getRowId => (row) => {
   const result = getRowId(row);
   if (result === undefined) {
     // eslint-disable-next-line no-console
-    console.warn('The row id is undefined. Please check the getRowId function. The row is', row);
+    console.warn('The row id is undefined. Check the getRowId function. The row is', row);
   }
   return result;
 };

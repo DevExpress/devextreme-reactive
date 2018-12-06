@@ -34,7 +34,6 @@ export class TableLayout extends React.PureComponent {
   }
 
   getTableWidth(prevColumns, columns) {
-    // eslint-disable-next-line react/no-find-dom-node
     const { offsetWidth, scrollWidth } = this.tableRef.current;
     const { animationState } = this.state;
 

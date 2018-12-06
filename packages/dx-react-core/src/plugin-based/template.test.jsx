@@ -107,4 +107,15 @@ describe('Template', () => {
 
     expect(tree.find('h1').text()).toBe('first');
   });
+
+  it('should correct Template unmount', () => {
+    const wrapper = mount((
+      <PluginHost>
+        <Template name="root" />
+      </PluginHost>
+    ));
+
+    expect(() => { wrapper.unmount(); })
+      .not.toThrow();
+  });
 });

@@ -47,7 +47,6 @@ export default class Demo extends React.PureComponent {
           />
           <Title
             text="Average USD market price across major bitcoin exchanges"
-            style={{ textAlign: 'center', width: '100%', marginBottom: '10px' }}
           />
           <Scale
             extensions={[

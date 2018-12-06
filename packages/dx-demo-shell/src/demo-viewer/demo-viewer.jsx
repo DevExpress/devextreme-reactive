@@ -19,6 +19,19 @@ export class DemoViewer extends React.Component {
     };
 
     this.toggle = this.toggle.bind(this);
+    this.getEditorInstance = this.getEditorInstance.bind(this);
+    this.editorInstance = null;
+  }
+
+  componentDidUpdate() {
+    const { activeTab } = this.state;
+    if (activeTab === 'source') {
+      this.editorInstance.refresh();
+    }
+  }
+
+  getEditorInstance(instance) {
+    this.editorInstance = instance;
   }
 
   toggle(tab) {
@@ -95,6 +108,7 @@ export class DemoViewer extends React.Component {
                               themeName={themeName}
                               sectionName={sectionName}
                               demoName={demoName}
+                              getEditorInstance={this.getEditorInstance}
                             />
                           </TabPane>
                         </TabContent>

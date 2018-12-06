@@ -34,12 +34,14 @@ export class SourceCode extends React.PureComponent {
       height: 'auto',
       gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
     });
+    const { getEditorInstance } = this.props;
     this.foldBlockStartLines.forEach((lineNumber) => {
       editor.foldCode(CodeMirror.Pos(lineNumber, 0));
     });
     this.importantLines.forEach((lineNumber) => {
       editor.addLineClass(lineNumber, 'background', 'CodeMirror-important-line');
     });
+    getEditorInstance(editor);
   }
 
   prepareSourceCode() {
@@ -80,6 +82,11 @@ SourceCode.propTypes = {
   sectionName: PropTypes.string.isRequired,
   demoName: PropTypes.string.isRequired,
   themeName: PropTypes.string.isRequired,
+  getEditorInstance: PropTypes.func,
+};
+
+SourceCode.defaultProps = {
+  getEditorInstance: () => {},
 };
 
 SourceCode.contextType = EmbeddedDemoContext;

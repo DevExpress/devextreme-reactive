@@ -29,13 +29,9 @@ const buildEventHandler = (seriesList, handlers) => {
     seriesList.forEach(({ name: series, symbolName }) => {
       const status = hitTesters[symbolName](location);
       if (status) {
-        if (status.points) {
-          targets.push(...status.points.map(
-            point => ({ series, point: point.index, distance: point.distance }),
-          ));
-        } else {
-          targets.push({ series, distance: 1 });
-        }
+        targets.push(...status.points.map(
+          point => ({ series, point: point.index, distance: point.distance }),
+        ));
       }
     });
     targets.sort(compare);

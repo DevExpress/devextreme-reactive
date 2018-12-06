@@ -60,10 +60,14 @@ describe('EventTracker', () => {
     });
 
     it('should provide targets on successful hit tests', () => {
-      hitTest1.mockReturnValue({ });
+      hitTest1.mockReturnValue({
+        points: [
+          { index: 1, distance: 0.3 },
+        ],
+      });
       hitTest3.mockReturnValue({
         points: [
-          { index: 1, distance: 0.2 }, { index: 2, distance: 0.3 }, { index: 3, distance: 0.1 },
+          { index: 1, distance: 0.2 }, { index: 2, distance: 0.4 }, { index: 3, distance: 0.1 },
         ],
       });
       const func = call();
@@ -76,8 +80,8 @@ describe('EventTracker', () => {
       const targets = [
         { series: 'Series 3', point: 3, distance: 0.1 },
         { series: 'Series 3', point: 1, distance: 0.2 },
-        { series: 'Series 3', point: 2, distance: 0.3 },
-        { series: 'Series 1', distance: 1 },
+        { series: 'Series 1', point: 1, distance: 0.3 },
+        { series: 'Series 3', point: 2, distance: 0.4 },
       ];
       expect(handler1).toBeCalledWith({ location: [192, 281], targets });
       expect(handler2).toBeCalledWith({ location: [192, 281], targets });

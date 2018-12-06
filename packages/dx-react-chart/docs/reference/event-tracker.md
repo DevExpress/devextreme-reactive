@@ -17,7 +17,7 @@ import { EventTracker } from '@devexpress/dx-react-chart';
 Name | Type | Default | Description
 -----|------|---------|------------
 onClick? | (target: [TargetData](#targetdata)) => void | | A function that is executed when the chart's plot is clicked.
-onPointerMove ? | (target: [TargetData](#targetdata)) => void | | A function that is executed when pointer move on chart.
+onPointerMove ? | (target: [TargetData](#targetdata)) => void | | A function that is executed when pointer moves over the chart.
 
 ## Interfaces
 
@@ -29,7 +29,7 @@ Field | Type | Description
 ------|------|------------
 location | Array&lt;number&gt; | The clicked point's coordinates `[x, y]` (relative to the chart's plot).
 targets | Array&lt;[SeriesRef](#seriesref)&gt; | An array of clicked series.
-event | object | Event data.
+event | object | The event data.
 
 ### SeriesRef
 

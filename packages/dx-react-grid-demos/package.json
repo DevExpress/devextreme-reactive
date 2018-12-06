@@ -28,6 +28,8 @@
     "@devexpress/dx-react-chart": "1.9.0",
     "@devexpress/dx-react-chart-bootstrap4": "1.9.0",
     "@devexpress/dx-react-chart-material-ui": "1.9.0",
+    "@devexpress/dx-react-scheduler": "1.9.0",
+    "@devexpress/dx-react-scheduler-material-ui": "1.9.0",
     "@devexpress/dx-react-core": "1.9.0",
     "@devexpress/dx-react-grid": "1.9.0",
     "@devexpress/dx-react-grid-bootstrap3": "1.9.0",

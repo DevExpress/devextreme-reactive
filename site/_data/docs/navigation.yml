@@ -84,8 +84,8 @@
         path: /react/grid/docs/guides/summary-row
       - title: Localization
         path: /react/grid/docs/guides/localization
-      - title: Immutable Data
-        path: /react/grid/docs/guides/immutable-data
+      - title: Optimizing Performance
+        path: /react/grid/docs/guides/optimizing-performance
       - title: TypeScript
         path: /react/grid/docs/guides/typescript
   - title: API Reference

@@ -59,6 +59,7 @@ export class DayView extends React.PureComponent {
       currentDate, undefined,
       intervalCount, [],
       startDayHour, endDayHour, cellDuration,
+      Date.now(),
     );
 
     this.startViewDateComputed = getters => computed(

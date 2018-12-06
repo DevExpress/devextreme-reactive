@@ -11,38 +11,11 @@ const getEuclideanDistance = (dx, dy, rx, ry) => Math.sqrt(
   (dx * dx) / (rx * rx) + (dy * dy) / (ry * ry),
 );
 
-const LINE_TOLERANCE = 10;
-
-const createContinuousSeriesHitTester = points => ([px, py]) => {
-  let minDistance = Number.MAX_VALUE;
-  let minIndex;
-  points.forEach((point, i) => {
-    const distance = getEuclideanDistance(
-      px - point.x, py - point.y, LINE_TOLERANCE, LINE_TOLERANCE,
-    );
-    if (distance < minDistance) {
-      minDistance = distance;
-      minIndex = i;
-    }
-  });
-  return { index: points[minIndex].index, distance: minDistance };
-};
-
-const createPointsEnumeratingHitTesterCreator = hitTestPoint => points => (target) => {
-  const list = [];
-  points.forEach((point) => {
-    // *distance* is a normalized distance to point.
-    // It belongs to [0, Infinity):
-    //  = 0 - at point center
-    //  = 1 - at point border
-    //  > 1 - outside point
-    const distance = hitTestPoint(target, point);
-    if (distance <= 1) {
-      list.push({ index: point.index, distance });
-    }
-  });
-  return list.length ? { points: list } : null;
-};
+// *distance* is a normalized distance to point.
+// It belongs to [0, Infinity):
+//  = 0 - at point center
+//  = 1 - at point border
+//  > 1 - outside point
 
 // This function is called from event handlers (when DOM is available) -
 // *window.document* can be accessed safely.
@@ -51,18 +24,58 @@ const createContext = () => document.createElement('canvas').getContext('2d'); /
 // For a start using browser canvas will suffice.
 // However a better and more clean solution should be found.
 // Can't d3 perform hit testing?
-const createCanvasAbusingHitTesterCreator = makePath => (points) => {
+const createCanvasAbusingHitTester = (makePath, points) => {
   const ctx = createContext();
   const path = makePath();
   path.context(ctx);
   path(points);
-  const hitTestPoints = createContinuousSeriesHitTester(points);
-  return point => (
-    ctx.isPointInPath(point[0], point[1]) ? { points: [hitTestPoints(point)] } : null
-  );
+  return ([x, y]) => ctx.isPointInPath(x, y);
 };
 
-export const createAreaHitTester = createCanvasAbusingHitTesterCreator(() => {
+const POINT_TOLERANCE = 20;
+const LINE_TOLERANCE = 10;
+
+const hitTestContinuousPoint = ([px, py], { x, y }) => getEuclideanDistance(
+  px - x, py - y, POINT_TOLERANCE, POINT_TOLERANCE,
+);
+
+const createContinuousSeriesHitTesterCreator = makePath => (points) => {
+  const fallbackHitTest = createCanvasAbusingHitTester(makePath, points);
+  return (target) => {
+    let minDistance = Number.MAX_VALUE;
+    let minIndex;
+    const list = [];
+    points.forEach((point, i) => {
+      const distance = hitTestContinuousPoint(target, point);
+      if (distance <= 1) {
+        list.push({ index: point.index, distance });
+      }
+      if (distance < minDistance) {
+        minDistance = distance;
+        minIndex = i;
+      }
+    });
+    // This is special case for continuous series - if no point is actually hit
+    // then the closest point to the pointer position is picked.
+    if (!list.length && fallbackHitTest(target)) {
+      list.push({ index: points[minIndex].index, distance: minDistance });
+    }
+    return list.length ? { points: list } : null;
+  };
+};
+
+const createPointsEnumeratingHitTesterCreator = hitTestPoint => points => (target) => {
+  const list = [];
+  points.forEach((point) => {
+    const distance = hitTestPoint(target, point);
+    if (distance <= 1) {
+      list.push({ index: point.index, distance });
+    }
+  });
+  return list.length ? { points: list } : null;
+};
+
+export const createAreaHitTester = createContinuousSeriesHitTesterCreator(() => {
   const path = area();
   path.x(dArea.x());
   path.y1(dArea.y1());
@@ -70,7 +83,7 @@ export const createAreaHitTester = createCanvasAbusingHitTesterCreator(() => {
   return path;
 });
 
-export const createLineHitTester = createCanvasAbusingHitTesterCreator(() => {
+export const createLineHitTester = createContinuousSeriesHitTesterCreator(() => {
   const path = area();
   const getY = dLine.y();
   path.x(dLine.x());
@@ -79,7 +92,7 @@ export const createLineHitTester = createCanvasAbusingHitTesterCreator(() => {
   return path;
 });
 
-export const createSplineHitTester = createCanvasAbusingHitTesterCreator(() => {
+export const createSplineHitTester = createContinuousSeriesHitTesterCreator(() => {
   const path = area();
   const getY = dSpline.y();
   path.x(dSpline.x());

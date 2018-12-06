@@ -11,6 +11,7 @@ import {
   isDetailToggleTableCell,
   isDetailTableRow,
   isDetailTableCell,
+  insertFirstColumnToChains,
   TABLE_DETAIL_TYPE,
 } from '@devexpress/dx-grid-core';
 
@@ -37,6 +38,9 @@ export class TableRowDetail extends React.PureComponent {
     const tableColumnsComputed = (
       { tableColumns },
     ) => tableColumnsWithDetail(tableColumns, toggleColumnWidth);
+    const tableColumnChainsComputed = (
+      { tableHeaderColumnChains, tableColumns },
+    ) => insertFirstColumnToChains(tableHeaderColumnChains, tableColumns);
     const tableBodyRowsComputed = (
       { tableBodyRows, expandedDetailRowIds },
     ) => tableRowsWithExpandedDetail(tableBodyRows, expandedDetailRowIds, rowHeight);
@@ -47,6 +51,7 @@ export class TableRowDetail extends React.PureComponent {
         dependencies={pluginDependencies}
       >
         <Getter name="tableColumns" computed={tableColumnsComputed} />
+        <Getter name="tableHeaderColumnChains" computed={tableColumnChainsComputed} />
         <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
         <Getter name="getTableCellColSpan" computed={getCellColSpanComputed} />
 

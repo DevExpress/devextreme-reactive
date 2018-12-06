@@ -1,8 +1,8 @@
-const warnIfRowIdUndefined = getRowId => (...args) => {
-  const result = getRowId(...args);
+const warnIfRowIdUndefined = getRowId => (row) => {
+  const result = getRowId(row);
   if (result === undefined) {
     // eslint-disable-next-line no-console
-    console.warn('The row id is undefined. Please check the getRowId function. Arguments are', args);
+    console.warn('The row id is undefined. Please check the getRowId function. The row is', row);
   }
   return result;
 };

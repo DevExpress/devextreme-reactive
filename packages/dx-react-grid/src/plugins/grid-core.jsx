@@ -5,8 +5,6 @@ import {
 } from '@devexpress/dx-react-core';
 import { rowIdGetter, cellValueGetter } from '@devexpress/dx-grid-core';
 
-const tableHeaderColumnChains = [];
-
 export class GridCore extends React.PureComponent {
   render() {
     const {
@@ -23,7 +21,6 @@ export class GridCore extends React.PureComponent {
         <Getter name="getRowId" value={rowIdGetter(getRowId, rows)} />
         <Getter name="columns" value={columns} />
         <Getter name="getCellValue" value={cellValueGetter(getCellValue, columns)} />
-        <Getter name="tableHeaderColumnChains" value={tableHeaderColumnChains} />
         <Template name="root">
           <Root>
             <TemplatePlaceholder name="header" />

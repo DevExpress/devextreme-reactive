@@ -27,6 +27,7 @@ const CellPlaceholder = props => <TemplatePlaceholder name="tableCell" params={p
 const tableHeaderRows = [];
 const tableBodyRowsComputed = ({ rows, getRowId }) => tableRowsWithDataRows(rows, getRowId);
 const tableFooterRows = [];
+const tableHeaderColumnChains = [];
 
 const defaultMessages = {
   noData: 'No data',
@@ -73,6 +74,7 @@ export class Table extends React.PureComponent {
         <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
         <Getter name="tableFooterRows" value={tableFooterRows} />
         <Getter name="tableColumns" computed={tableColumnsComputed} />
+        <Getter name="tableHeaderColumnChains" value={tableHeaderColumnChains} />
         <Getter name="getTableCellColSpan" value={tableCellColSpanGetter} />
 
         <Template name="body">

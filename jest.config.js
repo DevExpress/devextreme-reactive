@@ -3,6 +3,7 @@ module.exports = {
     'packages/dx-chart-core/',
     'packages/dx-core/',
     'packages/dx-grid-core/',
+    'packages/dx-react-bootstrap4/jest.config.js',
     'packages/dx-react-chart/jest.config.js',
     'packages/dx-react-chart-bootstrap4/jest.config.js',
     'packages/dx-react-chart-demos/jest.config.js',

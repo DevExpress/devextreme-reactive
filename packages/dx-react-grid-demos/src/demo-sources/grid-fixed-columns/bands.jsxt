@@ -58,7 +58,7 @@ const tableColumnExtensions = [
 ];
 
 export default () => (
-  <<%&wrapperTag%>>
+  <<%&wrapperTag%><%&wrapperAttributes%>>
     <Grid
       rows={rows}
       columns={columns}

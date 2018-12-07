@@ -56,7 +56,7 @@ export default class Demo extends React.PureComponent {
           {' '}
           {selection.length}
         </span>
-        <<%&wrapperTag%>>
+        <<%&wrapperTag%><%&wrapperAttributes%>>
           <Chart
             data={chartData}
           >

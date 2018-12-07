@@ -4,7 +4,6 @@ import {
   Table,
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-bootstrap4';
-import { Card } from 'reactstrap';
 import {
   generateRows,
   globalSalesValues,
@@ -48,7 +47,7 @@ export default class Demo extends React.PureComponent {
     const { rows, columns } = this.state;
 
     return (
-      <Card>
+      <div className="card">
         <Grid
           rows={rows}
           columns={columns}
@@ -58,7 +57,7 @@ export default class Demo extends React.PureComponent {
             contentComponent={TableHeaderContent}
           />
         </Grid>
-      </Card>
+      </div>
     );
   }
 }

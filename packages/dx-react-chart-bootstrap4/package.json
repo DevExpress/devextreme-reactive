@@ -71,7 +71,6 @@
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-test-renderer": "^16.6.3",
-    "reactstrap": "^6.5.0",
     "rollup": "^0.67.3",
     "rollup-plugin-babel": "^4.0.3",
     "rollup-plugin-css-only": "^0.4.0",
@@ -86,7 +85,6 @@
     "@devexpress/dx-chart-core": "1.9.0",
     "@devexpress/dx-react-chart": "1.9.0",
     "@devexpress/dx-react-core": "1.9.0",
-    "react": ">=16.6.0",
-    "reactstrap": "^6.5.0"
+    "react": ">=16.6.0"
   }
 }

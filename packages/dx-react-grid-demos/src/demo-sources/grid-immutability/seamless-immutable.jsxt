@@ -108,7 +108,7 @@ const SelectionStateContainer = connect(mapSelectionStateToProps,
 
 export default () => (
   <Provider store={store}>
-    <<%&wrapperTag%>>
+    <<%&wrapperTag%><%&wrapperAttributes%>>
       <Grid
         rows={rows}
         columns={columns}

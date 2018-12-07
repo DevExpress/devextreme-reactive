@@ -29,7 +29,7 @@ export default class Demo extends React.PureComponent {
   render() {
     const { columns, rows, defaultHiddenColumnNames } = this.state;
     return (
-      <<%&wrapperTag%>>
+      <<%&wrapperTag%><%&wrapperAttributes%>>
         <Grid
           rows={rows}
           columns={columns}

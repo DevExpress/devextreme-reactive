@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
+import { connectProps } from '@devexpress/dx-react-core';
 import {
   Scale, EventTracker, SelectionState,
 } from '@devexpress/dx-react-chart';
@@ -10,6 +11,7 @@ import {
   ValueAxis,
   Legend,
 } from '@devexpress/dx-react-chart-material-ui';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import { energyConsumption as data } from '../../../../../dx-react-chart-demos/src/demo-data/data-vizualization';
 
@@ -24,6 +26,12 @@ const legendLabelStyles = theme => ({
   label: {
     marginBottom: theme.spacing.unit,
     whiteSpace: 'nowrap',
+    fontSize: '20px',
+    color: 'gray',
+  },
+  selectedSeries: {
+    fontWeight: 'bold',
+    color: 'back',
   },
 });
 const legendItemStyles = () => ({
@@ -35,11 +43,25 @@ const legendItemStyles = () => ({
 const legendRootBase = ({ classes, ...restProps }) => (
   <Legend.Root {...restProps} className={classes.root} />
 );
-const legendLabelBase = ({ classes, ...restProps }) => (
-  <Legend.Label className={classes.label} {...restProps} />
-);
+const legendLabelBase = ({ classes, selectedSeriesName, ...restProps }) => {
+  debugger;
+  return (
+    <div
+      {...restProps}
+      className={classNames({
+        [classes.label]: true,
+        [classes.selectedSeries]: selectedSeriesName === restProps.text,
+      })}
+    >
+      {restProps.text}
+    </div>
+  );
+};
 const legendItemBase = ({ classes, ...restProps }) => (
-  <Legend.Item className={classes.item} {...restProps} />
+  <Legend.Item
+    {...restProps}
+    className={classes.item}
+  />
 );
 const Root = withStyles(legendStyles, { name: 'LegendRoot' })(legendRootBase);
 const Label = withStyles(legendLabelStyles, { name: 'LegendLabel' })(legendLabelBase);
@@ -48,6 +70,8 @@ const Item = withStyles(legendItemStyles, { name: 'LegendItem' })(legendItemBase
 const compare = (
   { series, point }, { series: targetSeries, point: targetPoint },
 ) => series === targetSeries && point === targetPoint;
+
+const Spline = props => <SplineSeries.Path {...props} strokeWidth={8} />;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -66,11 +90,24 @@ export default class Demo extends React.PureComponent {
         }));
       }
     };
+
+    this.legendLabel = connectProps(Label, () => {
+      const { selection } = this.state;
+      const selectedSeriesName = selection[0] ? selection[0].series : undefined;
+      return ({
+        selectedSeriesName,
+      });
+    });
+  }
+
+  componentDidUpdate() {
+    this.legendLabel.update();
   }
 
   render() {
     const { data: chartData, selection } = this.state;
 
+    console.log(selection);
     return (
       <Paper>
         <Chart
@@ -83,6 +120,7 @@ export default class Demo extends React.PureComponent {
             name="Hydro-electric"
             valueField="hydro"
             argumentField="country"
+            seriesComponent={Spline}
           />
           <SplineSeries
             name="Oil"
@@ -104,7 +142,12 @@ export default class Demo extends React.PureComponent {
             valueField="nuclear"
             argumentField="country"
           />
-          <Legend position="bottom" rootComponent={Root} itemComponent={Item} labelComponent={Label} />
+          <Legend
+            position="bottom"
+            rootComponent={Root}
+            itemComponent={Item}
+            labelComponent={this.legendLabel}
+          />
           <Scale />
 
           <EventTracker onClick={this.click} />

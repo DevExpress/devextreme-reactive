@@ -89,6 +89,9 @@ class RawAxis extends React.PureComponent {
                 // The callback is called when DOM is available -
                 // *rootRef.current* can be surely accessed.
                 const rect = this.rootRef.current.getBoundingClientRect();
+                if (rect.width === this.adjustedWidth && rect.height === this.adjustedHeight) {
+                  return;
+                }
                 // *setState* is not used because it would cause excessive Plugin rerenders.
                 // Template rerender is provided by *changeBBox* invocation.
                 this.adjustedWidth = rect.width;

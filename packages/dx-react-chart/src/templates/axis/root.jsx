@@ -11,8 +11,7 @@ export class Root extends React.PureComponent {
       this.node = node;
     };
     this.state = {
-      // *width* and *height* are actually used in *adjust* (eslint false alarm)
-      x: 0, y: 0, width: 0, height: 0, // eslint-disable-line react/no-unused-state
+      x: 0, y: 0,
     };
     this.adjust = this.adjust.bind(this);
   }
@@ -26,18 +25,15 @@ export class Root extends React.PureComponent {
     this.setState(this.adjust); // eslint-disable-line react/no-did-update-set-state
   }
 
-  adjust({ width: prevWidth, height: prevHeight }, { dx, dy, onSizeChange }) {
+  adjust(_, { dx, dy, onSizeChange }) {
     const bbox = this.node.getBBox();
     const width = dx ? bbox.width : getSize(bbox.x, bbox.width);
     const height = dy ? bbox.height : getSize(bbox.y, bbox.height);
     const x = dx ? 0 : getOffset(bbox.x);
     const y = dy ? 0 : getOffset(bbox.y);
-    if (width === prevWidth && height === prevHeight) {
-      return null;
-    }
     onSizeChange({ width, height });
     return {
-      x, y, width, height,
+      x, y,
     };
   }
 

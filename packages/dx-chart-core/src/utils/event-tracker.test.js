@@ -83,6 +83,25 @@ describe('EventTracker', () => {
       expect(handler2).toBeCalledWith({ location: [192, 281], targets });
     });
 
+    it('should provide event', () => {
+      const func = call();
+      func({
+        clientX: 454,
+        clientY: 343,
+        currentTarget,
+        nativeEvent: 'nativeEvent',
+      });
+      const targets = [
+        { series: 'Series 3', point: 3, distance: 0.1 },
+        { series: 'Series 3', point: 1, distance: 0.2 },
+        { series: 'Series 3', point: 2, distance: 0.3 },
+        { series: 'Series 1', distance: 1 },
+      ];
+
+      expect(handler1).toBeCalledWith({ location: [294, 203], targets, event: 'nativeEvent' });
+      expect(handler2).toBeCalledWith({ location: [294, 203], targets, event: 'nativeEvent' });
+    });
+
     it('should create hit testers lazily', () => {
       call();
 

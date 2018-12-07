@@ -45,7 +45,7 @@ openButtonComponent | ComponentType&lt;[DateNavigator.OpenButtonProps](#datenavi
 navigatorText? | string | Text displayed in the date navigator.
 rootRef | (ref: ReactInstance) => void | A function that accepts the date navigator's root element.
 onVisibilityToggle | () => void | An event raised when the date navigator should be shown or hidden.
-onNavigate | ({ back: boolean }) => void | An event raised when a navigation button is clicked. The event handler should switch the date navigator to the next (`back` is false) or previous (`back` is true) date.
+onNavigate | (direction: 'forward' &#124; 'back') => void | An event raised when a navigation button is clicked. The event handler should switch the date navigator to the next or previous date.
 
 ### DateNavigator.OverlayProps
 

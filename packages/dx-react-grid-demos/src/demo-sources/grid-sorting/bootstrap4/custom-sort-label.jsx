@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Card } from 'reactstrap';
 import {
   SortingState,
   IntegratedSorting,
@@ -49,7 +48,7 @@ export default class Demo extends React.PureComponent {
     const { rows, columns } = this.state;
 
     return (
-      <Card>
+      <div className="card">
         <Grid
           rows={rows}
           columns={columns}
@@ -64,7 +63,7 @@ export default class Demo extends React.PureComponent {
             sortLabelComponent={SortLabel}
           />
         </Grid>
-      </Card>
+      </div>
     );
   }
 }

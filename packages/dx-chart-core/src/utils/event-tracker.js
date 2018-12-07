@@ -39,7 +39,7 @@ const buildEventHandler = (seriesList, handlers) => {
       }
     });
     targets.sort(compare);
-    const arg = { location, targets };
+    const arg = { location, targets, event: e.nativeEvent };
     handlers.forEach(handler => handler(arg));
   };
 };

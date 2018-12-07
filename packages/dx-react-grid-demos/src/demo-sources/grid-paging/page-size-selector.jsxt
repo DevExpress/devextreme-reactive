@@ -32,7 +32,7 @@ export default class Demo extends React.PureComponent {
     const { rows, columns, pageSizes } = this.state;
 
     return (
-      <<%&wrapperTag%>>
+      <<%&wrapperTag%><%&wrapperAttributes%>>
         <Grid
           rows={rows}
           columns={columns}

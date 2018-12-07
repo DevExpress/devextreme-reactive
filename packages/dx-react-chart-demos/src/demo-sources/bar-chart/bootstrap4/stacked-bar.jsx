@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Card } from 'reactstrap';
 import {
   Chart,
   ArgumentAxis,
@@ -32,7 +31,7 @@ export default class Demo extends React.PureComponent {
     const { data: chartData } = this.state;
 
     return (
-      <Card>
+      <div className="card">
         <Chart
           data={chartData}
         >
@@ -76,7 +75,7 @@ export default class Demo extends React.PureComponent {
           />
           <Scale />
         </Chart>
-      </Card>
+      </div>
     );
   }
 }

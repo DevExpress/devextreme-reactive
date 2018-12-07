@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Card } from 'reactstrap';
 import {
   Chart,
   ArgumentAxis,
@@ -48,7 +47,7 @@ export default class Demo extends React.PureComponent {
     const { data: chartData, offset, valueFormat } = this.state;
 
     return (
-      <Card>
+      <div className="card">
         <Chart
           data={chartData}
           className="pr-3"
@@ -101,7 +100,7 @@ export default class Demo extends React.PureComponent {
             <option value="2">Fullstacked Area</option>
           </select>
         </div>
-      </Card>
+      </div>
 
     );
   }

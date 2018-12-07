@@ -10,7 +10,7 @@ export const Switcher = ({
   ...restProps
 }) => {
   const handleChange = (event) => {
-    onChange({ nextViewName: event.target.value });
+    onChange(event.target.value);
   };
 
   return (

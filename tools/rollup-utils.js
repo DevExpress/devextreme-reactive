@@ -22,15 +22,6 @@ export const external = (packageDirectory, additional) => {
   };
 };
 
-export const babelrc = (packageDirectory) => {
-  const config = JSON.parse(readFileSync(join(packageDirectory, '.babelrc')));
-  const { plugins } = config;
-
-  plugins.push('external-helpers');
-
-  return config;
-};
-
 const knownGlobals = {
   react: 'React',
   'react-dom': 'ReactDOM',

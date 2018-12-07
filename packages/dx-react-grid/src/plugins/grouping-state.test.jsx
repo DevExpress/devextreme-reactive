@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
   pluginDepsToComponents,
   getComputedState,
   executeComputedAction,
   testStatePluginField,
-} from '@devexpress/dx-react-core/test-utils';
+  setupConsole,
+} from '@devexpress/dx-testing';
 import {
   changeColumnGrouping,
   toggleExpandedGroups,

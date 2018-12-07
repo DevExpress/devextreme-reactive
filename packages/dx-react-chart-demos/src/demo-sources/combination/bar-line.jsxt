@@ -39,19 +39,19 @@ export default class Demo extends React.PureComponent {
     const { oilProduction: chartData } = this.state;
 
     return (
-      <<%&wrapperTag%>>
+      <<%&wrapperTag%><%&wrapperAttributes%>>
         <Chart
           data={chartData}
         >
 
           <ArgumentAxis />
           <ValueAxis
-            name="oil"
+            scaleName="oil"
             max={2200}
             labelComponent={LabelWithThousand}
           />
           <ValueAxis
-            name="price"
+            scaleName="price"
             position="right"
             min={0}
             max={110}
@@ -60,7 +60,7 @@ export default class Demo extends React.PureComponent {
 
           <Title
             text="Oil production vs Oil price"
-            style={{ textAlign: 'center', width: '100%' }}
+            style={{ marginRight: '120px' }}
           />
 
           <BarSeries

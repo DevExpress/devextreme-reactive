@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Card } from 'reactstrap';
 import {
   Chart,
   ArgumentAxis,
@@ -55,7 +54,7 @@ export default class Demo extends React.PureComponent {
     const { data: chartData } = this.state;
 
     return (
-      <Card>
+      <div className="card">
         <Chart
           data={chartData}
           className="pr-3"
@@ -84,12 +83,11 @@ export default class Demo extends React.PureComponent {
           <Legend position="bottom" rootComponent={Root} itemComponent={Item} labelComponent={Label} />
           <Title
             text={`Confidence in Institutions in American society ${'\n'}(Great deal)`}
-            className="w-100 text-center mb-2"
           />
           <Animation />
           <Scale />
         </Chart>
-      </Card>
+      </div>
     );
   }
 }

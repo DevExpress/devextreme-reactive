@@ -168,4 +168,17 @@ describe('Action', () => {
     expect(action.mock.calls[0][1].value)
       .toBe(1);
   });
+
+  it('should correct Action unmount', () => {
+    const action = jest.fn();
+
+    const wrapper = mount((
+      <PluginHost>
+        <Action name="action" action={action} />
+      </PluginHost>
+    ));
+
+    expect(() => { wrapper.unmount(); })
+      .not.toThrow();
+  });
 });

@@ -10,21 +10,12 @@ import {
 } from 'react-router-dom';
 import { DemoViewer } from './demo-viewer/demo-viewer';
 import { SectionsViewer } from './demo-viewer/sections-viewer';
+import { EmbeddedDemoContext } from './context';
 
-class App extends React.Component {
-  getChildContext() {
-    const {
-      router, path, ...restProps
-    } = this.props;
-
-    return { embeddedDemoOptions: restProps };
-  }
-
-  render() {
-    const { router, path } = this.props;
-    const Router = router === 'hash' ? HashRouter : MemoryRouter;
-
-    return (
+const App = ({ router, path, ...restProps }) => {
+  const Router = router === 'hash' ? HashRouter : MemoryRouter;
+  return (
+    <EmbeddedDemoContext.Provider value={restProps}>
       <Router
         initialEntries={path ? [path] : undefined}
       >
@@ -34,12 +25,8 @@ class App extends React.Component {
           <Redirect from="/" to="/section" />
         </Switch>
       </Router>
-    );
-  }
-}
-
-App.childContextTypes = {
-  embeddedDemoOptions: PropTypes.object,
+    </EmbeddedDemoContext.Provider>
+  );
 };
 
 App.propTypes = {

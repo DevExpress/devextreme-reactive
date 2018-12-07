@@ -43,7 +43,7 @@ export default class Demo extends React.PureComponent {
     const { data: chartData } = this.state;
 
     return (
-      <<%&wrapperTag%>>
+      <<%&wrapperTag%><%&wrapperAttributes%>>
         <Chart
           data={chartData}
           style={{ paddingLeft: '20px' }}
@@ -84,7 +84,7 @@ export default class Demo extends React.PureComponent {
           <Legend />
           <Title
             text="Book Sales"
-            style={{ textAlign: 'center', width: '100%' }}
+            style={{ marginRight: '120px' }}
           />
           <Stack
             stacks={[

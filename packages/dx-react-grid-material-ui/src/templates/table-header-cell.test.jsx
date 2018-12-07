@@ -19,7 +19,7 @@ describe('TableHeaderCell', () => {
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting', 'SheetsRegistry'] });
     classes = getClasses(<TableHeaderCell {...defaultProps} />);
-    mount = createMount({ context: { table: {} }, childContextTypes: { table: () => null } });
+    mount = createMount();
     shallow = createShallow({ dive: true });
   });
   afterAll(() => {

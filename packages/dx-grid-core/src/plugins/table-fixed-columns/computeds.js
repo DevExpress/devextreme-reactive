@@ -31,7 +31,6 @@ export const tableHeaderColumnChainsWithFixed = (
   const chains = tableHeaderColumnChains
     || generateSimpleChains(tableHeaderRows, tableColumns);
 
-    console.log(chains)
   const shouldSplitChain = (currentGroup, column) => (
     !currentGroup || currentGroup.fixed !== column.fixed
   );

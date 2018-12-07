@@ -54,7 +54,9 @@ describe('TableFixedColumns computeds', () => {
       { key: 'd' }, { key: 'e' },
     ];
     const rows = [{}, {}];
-    const expandChains = rowChains => rowChains && expandChainsCore(rowChains, col => ({ key: col }));
+    const expandChains = rowChains => rowChains
+      && expandChainsCore(rowChains, col => ({ key: col }));
+
     const assertRowsChainsSplit = (
       tableColumns, existingCompressedChains, expectedCompressedChains,
     ) => {

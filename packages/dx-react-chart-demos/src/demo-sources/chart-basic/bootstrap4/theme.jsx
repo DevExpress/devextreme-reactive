@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Card } from 'reactstrap';
 import {
   Chart,
   PieSeries,
@@ -55,7 +54,7 @@ export default class Demo extends React.PureComponent {
     const { data: chartData, scheme } = this.state;
 
     return (
-      <Card>
+      <div className="card">
         <Chart
           data={chartData}
         >
@@ -83,7 +82,7 @@ export default class Demo extends React.PureComponent {
             <option value={8}>schemeSet3</option>
           </select>
         </div>
-      </Card>
+      </div>
     );
   }
 }

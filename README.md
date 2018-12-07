@@ -7,7 +7,7 @@ DevExtreme Reactive is a set of business React components that deeply integrate 
 - Composable and extendable plugin-based architecture
 - 100% Native React (no jQuery or other dependencies)
 - High performance by using React best practicies
-- [Material-UI](https://github.com/mui-org/material-ui), [Bootstrap 4](http://reactstrap.github.io) and [Bootstrap 3](https://github.com/react-bootstrap/react-bootstrap) integration with seamless theming
+- [Material-UI](https://github.com/mui-org/material-ui), [Bootstrap 4](https://getbootstrap.com/) and [Bootstrap 3](https://github.com/react-bootstrap/react-bootstrap) integration with seamless theming
 - Controlled (stateless) and uncontrolled (stateful) modes
 - [Redux](https://github.com/reactjs/redux/) integration with state persistence and time-traveling
 

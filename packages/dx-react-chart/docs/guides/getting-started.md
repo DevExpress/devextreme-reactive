@@ -30,7 +30,7 @@ This package does not contain visual components. In the examples below, visual c
   npm i --save @devexpress/dx-react-chart-bootstrap4.npm-tag()
   ```
 
-  Make sure that [reactstrap](https://reactstrap.github.io/) dependencies are installed and properly configured. Check the reactstrap's [Getting Started](https://reactstrap.github.io/) article for configuration details. You also need the [OpenIconic](https://useiconic.com/open) icons in your project.
+  Make sure that the [OpenIconic](https://useiconic.com/open) icons are installed and properly configured.
 
   Add the DevExtreme React Chart styles in the root .js file:
 

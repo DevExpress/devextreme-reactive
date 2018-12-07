@@ -23,17 +23,14 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       data,
-      hover: undefined,
     };
-
-    this.changeHover = hover => this.setState({ hover });
   }
 
   render() {
-    const { data: chartData, hover } = this.state;
+    const { data: chartData } = this.state;
 
     return (
-      <<%&wrapperTag%>>
+      <<%&wrapperTag%><%&wrapperAttributes%>>
         <Chart
           data={chartData}
         >
@@ -46,7 +43,7 @@ export default class Demo extends React.PureComponent {
           />
           <Scale />
           <EventTracker />
-          <HoverState hover={hover} onHoverChange={this.changeHover} />
+          <HoverState />
         </Chart>
       </<%&wrapperTag%>>
     );

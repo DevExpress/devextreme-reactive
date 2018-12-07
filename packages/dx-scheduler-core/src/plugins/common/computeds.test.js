@@ -148,13 +148,32 @@ describe('#viewCellsData', () => {
       endDayHour, cellDuration,
     )).toEqual([
       [
-        { startDate: new Date('2018-10-9 10:00'), endDate: new Date('2018-10-9 10:30') },
-        { startDate: new Date('2018-10-10 10:00'), endDate: new Date('2018-10-10 10:30') },
+        { startDate: new Date('2018-10-9 10:00'), endDate: new Date('2018-10-9 10:30'), today: false },
+        { startDate: new Date('2018-10-10 10:00'), endDate: new Date('2018-10-10 10:30'), today: false },
       ],
       [
-        { startDate: new Date('2018-10-9 10:30'), endDate: new Date('2018-10-9 10:59') },
-        { startDate: new Date('2018-10-10 10:30'), endDate: new Date('2018-10-10 10:59') },
+        { startDate: new Date('2018-10-9 10:30'), endDate: new Date('2018-10-9 10:59'), today: false },
+        { startDate: new Date('2018-10-10 10:30'), endDate: new Date('2018-10-10 10:59'), today: false },
       ],
+    ]);
+  });
+
+  it('should mark today day', () => {
+    const currentDate = new Date('2018-10-9');
+    const firstDayOfWeek = undefined;
+    const intervalCount = 1;
+    const startDayHour = 10;
+    const endDayHour = 11;
+    const cellDuration = 30;
+
+    expect(viewCellsData(
+      currentDate, firstDayOfWeek,
+      intervalCount, undefined, startDayHour,
+      endDayHour, cellDuration,
+      currentDate,
+    )).toEqual([
+      [{ startDate: new Date('2018-10-9 10:00'), endDate: new Date('2018-10-9 10:30'), today: true }],
+      [{ startDate: new Date('2018-10-9 10:30'), endDate: new Date('2018-10-9 10:59'), today: true }],
     ]);
   });
 });

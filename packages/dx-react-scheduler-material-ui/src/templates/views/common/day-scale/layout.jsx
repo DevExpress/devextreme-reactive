@@ -28,11 +28,13 @@ const LayoutBase = ({
         {cellsData[0].map(({
           startDate,
           endDate,
+          today,
         }, index) => (
           <Cell
             key={index.toString()}
             startDate={startDate}
             endDate={endDate}
+            today={today}
           />
         ))}
       </Row>

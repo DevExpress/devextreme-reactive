@@ -64,7 +64,7 @@ describe('Table Selection', () => {
     jest.resetAllMocks();
   });
 
-  describe('table layout getters', () => {
+  describe('table layout getter', () => {
     it('should extend tableColumns', () => {
       const tree = mount((
         <PluginHost>

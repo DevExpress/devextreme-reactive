@@ -28,11 +28,10 @@ export const tableHeaderRowsWithFixed = tableHeaderRows => [
 export const tableHeaderColumnChainsWithFixed = (
   tableHeaderColumnChains, tableHeaderRows, tableColumns,
 ) => {
-  let chains = tableHeaderColumnChains;
-  if (!chains) {
-    chains = generateSimpleChains(tableHeaderRows, tableColumns);
-  }
+  const chains = tableHeaderColumnChains
+    || generateSimpleChains(tableHeaderRows, tableColumns);
 
+    console.log(chains)
   const shouldSplitChain = (currentGroup, column) => (
     !currentGroup || currentGroup.fixed !== column.fixed
   );

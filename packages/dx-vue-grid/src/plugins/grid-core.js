@@ -3,8 +3,6 @@ import {
 } from '@devexpress/dx-vue-core';
 import { rowIdGetter, cellValueGetter } from '@devexpress/dx-grid-core';
 
-const tableHeaderColumnChains = [];
-
 export const GridCore = {
   name: 'GridCore',
   props: {
@@ -42,7 +40,6 @@ export const GridCore = {
         <DxGetter name="getRowId" value={rowIdGetter(getRowId, rows)} />
         <DxGetter name="columns" value={columns} />
         <DxGetter name="getCellValue" value={cellValueGetter(getCellValue, columns)} />
-        <DxGetter name="tableHeaderColumnChains" value={tableHeaderColumnChains} />
         <DxTemplate name="root">
           <Root>
             <DxTemplatePlaceholder name="header" />

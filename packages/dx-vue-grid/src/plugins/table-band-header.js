@@ -3,7 +3,7 @@ import {
   DxTemplateConnector, DxTemplatePlaceholder,
 } from '@devexpress/dx-vue-core';
 import {
-  getBandComponent, tableHeaderColumnChainsWithBands,
+  getBandComponent,
   isBandedTableRow, isBandedOrHeaderRow,
   tableRowsWithBands, isHeadingTableCell,
   BAND_GROUP_CELL, BAND_HEADER_CELL,
@@ -47,11 +47,6 @@ export const DxTableBandHeader = {
     const tableHeaderRowsComputed = (
       { tableHeaderRows, tableColumns },
     ) => tableRowsWithBands(tableHeaderRows, columnBands, tableColumns);
-    const tableHeaderColumnChainsComputed = ({
-      tableHeaderColumnChains, tableHeaderRows, tableColumns,
-    }) => tableHeaderColumnChainsWithBands(
-      tableHeaderColumnChains, tableHeaderRows, tableColumns, columnBands,
-    );
 
     return (
       <DxPlugin
@@ -64,7 +59,6 @@ export const DxTableBandHeader = {
         ]}
       >
         <DxGetter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
-        <DxGetter name="tableHeaderColumnChains" computed={tableHeaderColumnChainsComputed} />
 
         <DxTemplate
           name="tableCell"
@@ -73,10 +67,10 @@ export const DxTableBandHeader = {
           {({ attrs }) => (
             <DxTemplateConnector>
               {({
-                getters: { tableColumns, tableHeaderRows, tableHeaderColumnChains },
+                getters: { tableColumns, tableHeaderRows },
               }) => {
                 const bandComponent = getBandComponent(
-                  attrs, tableHeaderRows, tableColumns, columnBands, tableHeaderColumnChains,
+                  attrs, tableHeaderRows, tableColumns, columnBands,
                 );
 
                 switch (bandComponent.type) {

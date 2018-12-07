@@ -95,7 +95,7 @@ describe('TableBandHeader Plugin computeds', () => {
       { key: 'band_2', type: TABLE_BAND_TYPE, level: 2 },
       { key: 'heading', type: 'heading' },
     ];
-    const expandChains = rowChains => expandChainsCore(
+    const expandChains = rowChains => rowChains && expandChainsCore(
       rowChains,
       col => ({
         column: {
@@ -124,6 +124,18 @@ describe('TableBandHeader Plugin computeds', () => {
       expect(collapsedChains).toMatchObject(expectedCompressedChains);
       expect(result).toMatchObject(expectedChains);
     };
+
+    it('should initialize chains if none provided', () => {
+      assertChainsSplit(
+        undefined,
+        [
+          [['a', 'b', 'c', 'd', 'e', 'f'], ['g'], ['h'], ['i']],
+          [['a', 'b'], ['c', 'd'], ['e', 'f'], ['g'], ['h'], ['i']],
+          [['a', 'b'], ['c', 'd'], ['e'], ['f'], ['g'], ['h'], ['i']],
+          [['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']],
+        ],
+      );
+    });
 
     it('should split columns to band chains', () => {
       assertChainsSplit(

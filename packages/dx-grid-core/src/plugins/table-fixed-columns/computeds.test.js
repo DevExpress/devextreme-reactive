@@ -54,7 +54,7 @@ describe('TableFixedColumns computeds', () => {
       { key: 'd' }, { key: 'e' },
     ];
     const rows = [{}, {}];
-    const expandChains = rowChains => expandChainsCore(rowChains, col => ({ key: col }));
+    const expandChains = rowChains => rowChains && expandChainsCore(rowChains, col => ({ key: col }));
     const assertRowsChainsSplit = (
       tableColumns, existingCompressedChains, expectedCompressedChains,
     ) => {
@@ -64,6 +64,20 @@ describe('TableFixedColumns computeds', () => {
 
       expect(result).toMatchObject(expectedChains);
     };
+
+    it('should initialize chains if none provided', () => {
+      const tableColumns = [
+        { key: 'fl', fixed: 'left' },
+        ...columns.slice(0, 3),
+      ];
+
+      assertRowsChainsSplit(tableColumns,
+        undefined,
+        [
+          [['fl'], ['a', 'b', 'c']],
+          [['fl'], ['a', 'b', 'c']],
+        ]);
+    });
 
     it('should split single fixed columns at boundaries', () => {
       const tableColumns = [

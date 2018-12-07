@@ -3,7 +3,6 @@ import { setupConsole } from '@devexpress/dx-testing';
 import { DxPluginHost } from '@devexpress/dx-vue-core';
 import {
   tableRowsWithHeading,
-  tableHeaderColumnChainsWithHeading,
   isHeadingTableCell,
   isHeadingTableRow,
   getColumnSortingDirection,
@@ -13,7 +12,6 @@ import { PluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableRowsWithHeading: jest.fn(),
-  tableHeaderColumnChainsWithHeading: jest.fn(),
   isHeadingTableCell: jest.fn(),
   isHeadingTableRow: jest.fn(),
   getColumnSortingDirection: jest.fn(),
@@ -23,7 +21,6 @@ const defaultDeps = {
   getter: {
     columns: [{ name: 'a' }],
     tableHeaderRows: [{ type: 'undefined', rowId: 1 }],
-    tableHeaderColumnChainsWithHeading: [[{ start: 0, columns: [{ name: 'a' }] }]],
     isColumnSortingEnabled: () => false,
     tableColumns: [],
   },
@@ -57,9 +54,6 @@ describe('DxTableHeaderRow', () => {
 
   beforeEach(() => {
     tableRowsWithHeading.mockImplementation(() => 'tableRowsWithHeading');
-    tableHeaderColumnChainsWithHeading.mockImplementation(() => (
-      'tableHeaderColumnChainsWithHeading'
-    ));
     isHeadingTableCell.mockImplementation(() => false);
     isHeadingTableRow.mockImplementation(() => false);
     getColumnSortingDirection.mockImplementation(() => null);

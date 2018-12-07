@@ -11,9 +11,11 @@
     <link rel="prefetch" href="/devextreme-reactive/fonts/OpenSansCondensedBold.woff">
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.min.css" type="text/css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/addon/fold/foldgutter.min.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1541675194">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1541675194">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1544184422">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1544184422">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <script>
@@ -95,12 +97,11 @@
 <p>The following plugins render additional elements:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">ArgumentAxis</code> - renders an argument axis</li>
-  <li><code class="highlighter-rouge">ValueAxis</code> - renders a value axis</li>
-  <li><code class="highlighter-rouge">ArgumentGrid</code> - renders an argument grid</li>
-  <li><code class="highlighter-rouge">ValueGrid</code> - renders a value grid</li>
+  <li><code class="highlighter-rouge">ArgumentAxis</code> - renders an argument axis and the grid</li>
+  <li><code class="highlighter-rouge">ValueAxis</code> - renders a value axis and the grid</li>
   <li><code class="highlighter-rouge">Legend</code> - renders a legend</li>
   <li><code class="highlighter-rouge">Title</code> - renders a title</li>
+  <li><code class="highlighter-rouge">Tooltip</code> - renders a tooltip</li>
 </ul>
 
 <p>The following plugins implement additional features:</p>
@@ -123,7 +124,7 @@
 
 <p>The plugin order is important. UI plugins are rendered in the same order as they are defined in the Chart component. For example, if the <code class="highlighter-rouge">BarSeries</code> plugin precedes the <code class="highlighter-rouge">LineSeries</code>, the line series overlays the bar series.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/chart-basic/combination-series&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/chart/demos/dist/index.js?v=1541675194&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/chart-basic/combination-series&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/chart/demos/dist/index.js?v=1544184422&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -148,9 +149,9 @@
       </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.9.0">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.9.1">
             Version
-            <span>1.9.0</span>
+            <span>1.9.1</span>
           </a>
         </li>
       </ul>
@@ -237,6 +238,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/chart/docs/guides/tooltip/">Tooltip</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/chart/docs/guides/typescript/">TypeScript</a></li>
           
 
@@ -269,14 +278,6 @@
 
           
           <li><a href="/devextreme-reactive/react/chart/docs/reference/argument-axis/">ArgumentAxis</a></li>
-          
-
-        
-          
-          
-
-          
-          <li><a href="/devextreme-reactive/react/chart/docs/reference/argument-grid/">ArgumentGrid</a></li>
           
 
         
@@ -396,7 +397,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/chart/docs/reference/value-axis/">ValueAxis</a></li>
+          <li><a href="/devextreme-reactive/react/chart/docs/reference/tooltip/">Tooltip</a></li>
           
 
         
@@ -404,7 +405,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/chart/docs/reference/value-grid/">ValueGrid</a></li>
+          <li><a href="/devextreme-reactive/react/chart/docs/reference/value-axis/">ValueAxis</a></li>
           
 
         
@@ -445,7 +446,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/chart/demos/dist/index.js?v=1541675194"></script>
+<script src="/devextreme-reactive/react/chart/demos/dist/index.js?v=1544184422"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
 
 <script type="text/javascript">
@@ -495,9 +496,9 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1541675194"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1544184422"></script>
     <script>
         trackingCookie.notice();
     </script>

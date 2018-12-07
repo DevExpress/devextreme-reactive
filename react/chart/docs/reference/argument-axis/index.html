@@ -11,9 +11,11 @@
     <link rel="prefetch" href="/devextreme-reactive/fonts/OpenSansCondensedBold.woff">
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.min.css" type="text/css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/addon/fold/foldgutter.min.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1541675194">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1541675194">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1544184422">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1544184422">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <script>
@@ -106,12 +108,6 @@
       <td>The axis position.</td>
     </tr>
     <tr>
-      <td>name?</td>
-      <td>string</td>
-      <td> </td>
-      <td>The axis name.</td>
-    </tr>
-    <tr>
       <td>indentFromAxis?</td>
       <td>number</td>
       <td>10</td>
@@ -122,6 +118,30 @@
       <td>‘band’ | ‘linear’</td>
       <td>‘linear’</td>
       <td>Axis type.</td>
+    </tr>
+    <tr>
+      <td>showTicks?</td>
+      <td>boolean</td>
+      <td>true</td>
+      <td>Specifies whether to render ticks.</td>
+    </tr>
+    <tr>
+      <td>showGrids?</td>
+      <td>boolean</td>
+      <td>false</td>
+      <td>Specifies whether to render grids.</td>
+    </tr>
+    <tr>
+      <td>showLine?</td>
+      <td>boolean</td>
+      <td>true</td>
+      <td>Specifies whether to render the axis’s line.</td>
+    </tr>
+    <tr>
+      <td>showLabels?</td>
+      <td>boolean</td>
+      <td>true</td>
+      <td>Specifies whether to render the axis’s labels.</td>
     </tr>
     <tr>
       <td>tickFormat?</td>
@@ -137,7 +157,7 @@
     </tr>
     <tr>
       <td>tickComponent</td>
-      <td>ComponentType&lt;<a href="#argumentaxistickprops">ArgumentAxis.TickProps</a>&gt;</td>
+      <td>ComponentType&lt;<a href="#argumentaxislineprops">ArgumentAxis.LineProps</a>&gt;</td>
       <td> </td>
       <td>A component that renders a tick.</td>
     </tr>
@@ -152,6 +172,12 @@
       <td>ComponentType&lt;<a href="#argumentaxislineprops">ArgumentAxis.LineProps</a>&gt;</td>
       <td> </td>
       <td>A component that renders the axis’s line.</td>
+    </tr>
+    <tr>
+      <td>gridComponent</td>
+      <td>ComponentType&lt;<a href="#argumentaxislineprops">ArgumentAxis.LineProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders the grid.</td>
     </tr>
   </tbody>
 </table>
@@ -189,9 +215,9 @@
   </tbody>
 </table>
 
-<h3 id="argumentaxistickprops">ArgumentAxis.TickProps</h3>
+<h3 id="argumentaxislineprops">ArgumentAxis.LineProps</h3>
 
-<p>Describes properties passed to a component that renders a tick line.</p>
+<p>Describes properties passed to a component that renders the axis’s line, ticks and grid.</p>
 
 <table class="table table-bordered table-striped">
   <thead>
@@ -266,37 +292,6 @@
   </tbody>
 </table>
 
-<h3 id="argumentaxislineprops">ArgumentAxis.LineProps</h3>
-
-<p>Describes properties passed to a component that renders the axis’s line.</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>width</td>
-      <td>number</td>
-      <td>The line width.</td>
-    </tr>
-    <tr>
-      <td>height</td>
-      <td>number</td>
-      <td>The line height.</td>
-    </tr>
-    <tr>
-      <td>orientation</td>
-      <td>‘horizontal’ | ‘vertical’</td>
-      <td>The axis orientation.</td>
-    </tr>
-  </tbody>
-</table>
-
 <h2 id="plugin-components">Plugin Components</h2>
 
 <table class="table table-bordered table-striped">
@@ -315,7 +310,7 @@
     </tr>
     <tr>
       <td>ArgumentAxis.Tick</td>
-      <td><a href="#argumentaxistickprops">ArgumentAxis.TickProps</a></td>
+      <td><a href="#argumentaxislineprops">ArgumentAxis.LineProps</a></td>
       <td>A component that renders the tick.</td>
     </tr>
     <tr>
@@ -327,6 +322,11 @@
       <td>ArgumentAxis.Line</td>
       <td><a href="#argumentaxislineprops">ArgumentAxis.LineProps</a></td>
       <td>A component that renders the axis’s line.</td>
+    </tr>
+    <tr>
+      <td>ArgumentAxis.Grid</td>
+      <td><a href="#argumentaxislineprops">ArgumentAxis.LineProps</a></td>
+      <td>A component that renders the grid.</td>
     </tr>
   </tbody>
 </table>
@@ -341,9 +341,9 @@
       </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.9.0">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.9.1">
             Version
-            <span>1.9.0</span>
+            <span>1.9.1</span>
           </a>
         </li>
       </ul>
@@ -430,6 +430,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/chart/docs/guides/tooltip/">Tooltip</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/chart/docs/guides/typescript/">TypeScript</a></li>
           
 
@@ -462,14 +470,6 @@
 
           
           <li>ArgumentAxis</li>
-          
-
-        
-          
-          
-
-          
-          <li><a href="/devextreme-reactive/react/chart/docs/reference/argument-grid/">ArgumentGrid</a></li>
           
 
         
@@ -589,7 +589,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/chart/docs/reference/value-axis/">ValueAxis</a></li>
+          <li><a href="/devextreme-reactive/react/chart/docs/reference/tooltip/">Tooltip</a></li>
           
 
         
@@ -597,7 +597,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/chart/docs/reference/value-grid/">ValueGrid</a></li>
+          <li><a href="/devextreme-reactive/react/chart/docs/reference/value-axis/">ValueAxis</a></li>
           
 
         
@@ -638,7 +638,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/chart/demos/dist/index.js?v=1541675194"></script>
+<script src="/devextreme-reactive/react/chart/demos/dist/index.js?v=1544184422"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
 
 <script type="text/javascript">
@@ -688,9 +688,9 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1541675194"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1544184422"></script>
     <script>
         trackingCookie.notice();
     </script>

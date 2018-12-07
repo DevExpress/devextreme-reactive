@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>Palette Plugin Reference - DevExtreme Reactive Components</title>
+    <title>React Chart - Tooltip - DevExtreme Reactive Components</title>
     
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -64,39 +64,44 @@
     <div class="container docs-container">
   <div class="row">
     <div class="col-sm-9 col-sm-push-3 docs-content">
-        <h1 id="palette-plugin-reference">Palette Plugin Reference</h1>
+        <h1 id="react-chart---tooltip">React Chart - Tooltip</h1>
 
-<p>The <code class="highlighter-rouge">Palette</code> plugin allows you to specify a custom color scheme for a chart.</p>
+<p>A tooltip displays information about a series point when you hover the mouse pointer over it.</p>
 
-<h2 id="import">Import</h2>
+<h2 id="related-plugins">Related Plugins</h2>
 
-<p>Use the following statement to import the plugin:</p>
+<p>The following plugins implement the tooltip:</p>
 
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Palette</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@devexpress/dx-react-chart'</span><span class="p">;</span>
-</code></pre></div></div>
+<ul>
+  <li><a href="/devextreme-reactive/react/chart/docs/reference/event-tracker/">EventTracker</a> - allows you to handle clicking/hovering a point or series</li>
+  <li><a href="/devextreme-reactive/react/chart/docs/reference/tooltip/">Tooltip</a> - renders the tooltip</li>
+</ul>
 
-<h2 id="user-reference">User Reference</h2>
+<p>Note that the <a href="/devextreme-reactive/react/chart/docs/guides/plugin-overview/#plugin-order">plugin order</a> is important.</p>
 
-<h3 id="properties">Properties</h3>
+<h2 id="basic-setup">Basic Setup</h2>
 
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>scheme</td>
-      <td>Array&lt;string&gt;</td>
-      <td>[‘#0070ff’, ‘#d72e3d’, ‘#249d3d’, ‘#ffb90c’, ‘#1698af’, ‘#616a72’] for <a href="https://www.npmjs.com/package/@devexpress/dx-react-chart-bootstrap4">Bootstrap4</a>; [‘#40C4FF’, ‘#FF5252’, ‘#00C853’, ‘#FFEB3B’, ‘#FF4081’, ‘#E040FB’] for <a href="https://www.npmjs.com/package/@devexpress/dx-react-chart-material-ui">Material-UI</a>;</td>
-      <td>An array of colors.</td>
-    </tr>
-  </tbody>
-</table>
+<p>Import the plugins listed above to create a Chart with tooltip support.</p>
+
+<h3 id="tooltip-in-uncontrolled-mode">Tooltip in Uncontrolled Mode</h3>
+
+<p>In uncontrolled mode, add the <code class="highlighter-rouge">Tooltip</code> plugin to the chart to show a tooltip for hovered points.</p>
+
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/tooltip/uncontrolled&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/chart/demos/dist/index.js?v=1544184422&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>
+
+<h3 id="tooltip-in-controlled-mode">Tooltip in Controlled Mode</h3>
+
+<p>In controlled mode, specify in the <code class="highlighter-rouge">Tooltip</code> plugin’s <code class="highlighter-rouge">targetItem</code> property and handle the <code class="highlighter-rouge">onTargetItemChange</code> event to control the tooltip’s visibility externally.</p>
+
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/tooltip/controlled&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/chart/demos/dist/index.js?v=1544184422&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>
 
     </div>
 
@@ -197,7 +202,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/chart/docs/guides/tooltip/">Tooltip</a></li>
+          <li>Tooltip</li>
           
 
         
@@ -292,7 +297,7 @@
           
 
           
-          <li>Palette</li>
+          <li><a href="/devextreme-reactive/react/chart/docs/reference/palette/">Palette</a></li>
           
 
         

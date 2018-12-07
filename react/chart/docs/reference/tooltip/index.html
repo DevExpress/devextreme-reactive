@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>Palette Plugin Reference - DevExtreme Reactive Components</title>
+    <title>Tooltip Plugin Reference - DevExtreme Reactive Components</title>
     
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -64,15 +64,16 @@
     <div class="container docs-container">
   <div class="row">
     <div class="col-sm-9 col-sm-push-3 docs-content">
-        <h1 id="palette-plugin-reference">Palette Plugin Reference</h1>
+        <h1 id="tooltip-plugin-reference">Tooltip Plugin Reference</h1>
 
-<p>The <code class="highlighter-rouge">Palette</code> plugin allows you to specify a custom color scheme for a chart.</p>
+<p>The <code class="highlighter-rouge">Tooltip</code> plugin implements a tooltip that shows information about a point. The tooltip appears when a user hovers the mouse pointer over a series point.</p>
 
 <h2 id="import">Import</h2>
 
 <p>Use the following statement to import the plugin:</p>
 
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Palette</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@devexpress/dx-react-chart'</span><span class="p">;</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Tooltip</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@devexpress/dx-react-chart-material-ui'</span><span class="p">;</span>
+<span class="c1">//import { Tooltip } from '@devexpress/dx-react-chart-bootstrap4';</span>
 </code></pre></div></div>
 
 <h2 id="user-reference">User Reference</h2>
@@ -90,10 +91,88 @@
   </thead>
   <tbody>
     <tr>
-      <td>scheme</td>
-      <td>Array&lt;string&gt;</td>
-      <td>[‘#0070ff’, ‘#d72e3d’, ‘#249d3d’, ‘#ffb90c’, ‘#1698af’, ‘#616a72’] for <a href="https://www.npmjs.com/package/@devexpress/dx-react-chart-bootstrap4">Bootstrap4</a>; [‘#40C4FF’, ‘#FF5252’, ‘#00C853’, ‘#FFEB3B’, ‘#FF4081’, ‘#E040FB’] for <a href="https://www.npmjs.com/package/@devexpress/dx-react-chart-material-ui">Material-UI</a>;</td>
-      <td>An array of colors.</td>
+      <td>defaultTargetItem?</td>
+      <td><a href="/devextreme-reactive/react/chart/docs/reference/event-tracker/#seriesref">SeriesRef</a></td>
+      <td> </td>
+      <td>An item for which the tooltip is displayed initially.</td>
+    </tr>
+    <tr>
+      <td>targetItem?</td>
+      <td><a href="/devextreme-reactive/react/chart/docs/reference/event-tracker/#seriesref">SeriesRef</a></td>
+      <td> </td>
+      <td>An item for which the tooltip is displayed.</td>
+    </tr>
+    <tr>
+      <td>onTargetItemChange?</td>
+      <td>(target: <a href="/devextreme-reactive/react/chart/docs/reference/event-tracker/#seriesref">SeriesRef</a>) =&gt; void</td>
+      <td> </td>
+      <td>A function that is executed when the target item changes.</td>
+    </tr>
+    <tr>
+      <td>overlayComponent</td>
+      <td>ComponentType&lt;<a href="#tooltipoverlayprops">Tooltip.OverlayProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders the tooltip.</td>
+    </tr>
+    <tr>
+      <td>contentComponent</td>
+      <td>ComponentType&lt;<a href="#tooltipcontentprops">Tooltip.ContentProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders the tooltip content.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="interfaces">Interfaces</h2>
+
+<h3 id="tooltipoverlayprops">Tooltip.OverlayProps</h3>
+
+<p>Describes properties passed to a component that renders the tooltip.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>target</td>
+      <td>() =&gt; HTMLElement</td>
+      <td>A function that returns an HTML element that is used to position the tooltip.</td>
+    </tr>
+    <tr>
+      <td>children</td>
+      <td>ReactNode</td>
+      <td>A React node used to render the axis.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="tooltipcontentprops">Tooltip.ContentProps</h3>
+
+<p>Describes properties passed to a component that renders the tooltip’s content.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>text</td>
+      <td>string</td>
+      <td>The component’s text.</td>
+    </tr>
+    <tr>
+      <td>targetItem</td>
+      <td><a href="/devextreme-reactive/react/chart/docs/reference/event-tracker/#seriesref">SeriesRef</a></td>
+      <td>An item for which the tooltip is displayed.</td>
     </tr>
   </tbody>
 </table>
@@ -292,7 +371,7 @@
           
 
           
-          <li>Palette</li>
+          <li><a href="/devextreme-reactive/react/chart/docs/reference/palette/">Palette</a></li>
           
 
         
@@ -356,7 +435,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/chart/docs/reference/tooltip/">Tooltip</a></li>
+          <li>Tooltip</li>
           
 
         

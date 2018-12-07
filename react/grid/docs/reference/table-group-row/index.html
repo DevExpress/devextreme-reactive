@@ -11,9 +11,11 @@
     <link rel="prefetch" href="/devextreme-reactive/fonts/OpenSansCondensedBold.woff">
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.min.css" type="text/css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/addon/fold/foldgutter.min.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1541675194">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1541675194">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1544184422">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1544184422">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <script>
@@ -127,6 +129,18 @@
       <td>A component that renders a group row.</td>
     </tr>
     <tr>
+      <td>contentComponent</td>
+      <td>ComponentType&lt;<a href="#tablegrouprowcontentprops">TableGroupRow.ContentProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders a group cell content.</td>
+    </tr>
+    <tr>
+      <td>iconComponent</td>
+      <td>ComponentType&lt;<a href="#tablegrouprowiconprops">TableGroupRow.IconProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders a group expand icon.</td>
+    </tr>
+    <tr>
       <td>indentCellComponent?</td>
       <td>ComponentType&lt;<a href="#tablegrouprowindentcellprops">TableGroupRow.IndentCellProps</a>&gt;</td>
       <td>null</td>
@@ -230,6 +244,58 @@
   </tbody>
 </table>
 
+<h3 id="tablegrouprowcontentprops">TableGroupRow.ContentProps</h3>
+
+<p>Describes properties passed to a component that renders a group cell content.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>row</td>
+      <td><a href="#grouprow">GroupRow</a></td>
+      <td>The group row.</td>
+    </tr>
+    <tr>
+      <td>column</td>
+      <td><a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a></td>
+      <td>The column associated with the group.</td>
+    </tr>
+    <tr>
+      <td>children?</td>
+      <td>ReactNode</td>
+      <td>A React node to be rendered within the cell content.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="tablegrouprowiconprops">TableGroupRow.IconProps</h3>
+
+<p>Describes properties passed to a component that renders a group expand icon.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>expanded</td>
+      <td>boolean</td>
+      <td>Specifies whether the row is expanded.</td>
+    </tr>
+  </tbody>
+</table>
+
 <h3 id="tablegrouprowindentcellprops">TableGroupRow.IndentCellProps</h3>
 
 <p>Describes properties passed to a component that renders a group indent cell.</p>
@@ -304,6 +370,16 @@
       <td>TableGroupRow.Cell</td>
       <td><a href="#tablegrouprowcellprops">TableGroupRow.CellProps</a></td>
       <td>A component that renders a group cell.</td>
+    </tr>
+    <tr>
+      <td>TableGroupRow.Content</td>
+      <td><a href="#tablegrouprowcontentprops">TableGroupRow.ContentProps</a></td>
+      <td>A component that renders a group cell content.</td>
+    </tr>
+    <tr>
+      <td>TableGroupRow.Icon</td>
+      <td><a href="#tablegrouprowiconprops">TableGroupRow.IconProps</a></td>
+      <td>A component that renders a group expand icon.</td>
     </tr>
   </tbody>
 </table>
@@ -454,9 +530,9 @@
       </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.9.0">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.9.1">
             Version
-            <span>1.9.0</span>
+            <span>1.9.1</span>
           </a>
         </li>
       </ul>
@@ -1063,7 +1139,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1541675194"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1544184422"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
 
 <script type="text/javascript">
@@ -1113,9 +1189,9 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1541675194"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1544184422"></script>
     <script>
         trackingCookie.notice();
     </script>

@@ -16,7 +16,7 @@ export const Root = ({
   >
     <NavigationButton
       type="back"
-      onClick={() => { onNavigate({ back: true }); }}
+      onClick={() => { onNavigate('back'); }}
     />
     <OpenButton
       onVisibilityToggle={onVisibilityToggle}
@@ -24,7 +24,7 @@ export const Root = ({
     />
     <NavigationButton
       type="forward"
-      onClick={() => { onNavigate({ back: false }); }}
+      onClick={() => { onNavigate('forward'); }}
     />
   </div>
 );

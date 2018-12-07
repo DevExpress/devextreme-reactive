@@ -1,7 +1,11 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Pagination as PaginationBS4, PaginationItem, PaginationLink } from 'reactstrap';
 import { firstRowOnPage, lastRowOnPage, calculateStartPage } from '@devexpress/dx-grid-core';
+import {
+  Pagination as PaginationBS4,
+  PaginationLink,
+  PaginationItem,
+} from '../parts/pagination';
 
 const renderPageButtons = (
   currentPage,

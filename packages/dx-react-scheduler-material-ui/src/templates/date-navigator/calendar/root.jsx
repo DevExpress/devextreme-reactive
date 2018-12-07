@@ -21,10 +21,10 @@ export class Root extends React.PureComponent {
     this.setState({ currentDate: nextDate.toDate() });
   }
 
-  onCellClick({ nextDate }) {
+  onCellClick(nextDate) {
     const { onSelectedDateChange } = this.props;
     this.setState({ selectedDate: nextDate, currentDate: nextDate });
-    onSelectedDateChange({ nextDate });
+    onSelectedDateChange(nextDate);
   }
 
   render() {

@@ -53,7 +53,7 @@ export default class Demo extends React.PureComponent {
           {' '}
           {selection.length ? data[selection[0].point].population : undefined}
         </span>
-        <<%&wrapperTag%>>
+        <<%&wrapperTag%><%&wrapperAttributes%>>
           <Chart
             data={chartData}
           >

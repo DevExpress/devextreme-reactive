@@ -111,10 +111,10 @@ describe('Calendar', () => {
         />
       ));
       const { onCellClick } = Table.mock.calls[0][0];
-      onCellClick({ nextDate: '2018-07-17' });
+      onCellClick('2018-07-17');
 
       expect(onSelectedDateChangeMock)
-        .toBeCalledWith({ nextDate: '2018-07-17' });
+        .toBeCalledWith('2018-07-17');
       expect(tree.state().currentDate)
         .toBe('2018-07-17');
       expect(tree.state().selectedDate)

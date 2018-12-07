@@ -64,10 +64,10 @@ describe('DateNavigator', () => {
         .toBe('back');
       expect(next.props().type)
         .toBe('forward');
-      expect(onNavigate.mock.calls[0][0].back)
-        .toBeTruthy();
-      expect(onNavigate.mock.calls[1][0].back)
-        .toBeFalsy();
+      expect(onNavigate.mock.calls[0][0])
+        .toBe('back');
+      expect(onNavigate.mock.calls[1][0])
+        .toBe('forward');
     });
   });
 });

@@ -5,7 +5,7 @@ import {
   COMMIT_COMMAND_BUTTON,
   CANCEL_COMMAND_BUTTON,
 } from '@devexpress/dx-scheduler-core';
-import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
+import { pluginDepsToComponents } from '@devexpress/dx-testing';
 import { AppointmentForm } from './appointment-form';
 
 describe('AppointmentForm', () => {

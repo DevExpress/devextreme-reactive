@@ -19,6 +19,7 @@
 
 * **react-scheduler:** simplify the ViewSwitcher.Switcher component API ([#1660](https://github.com/DevExpress/devextreme-reactive/issues/1660)) ([6c5d5ca](https://github.com/DevExpress/devextreme-reactive/commit/6c5d5ca))
 * **react-scheduler:** simplify the onNavigate function arguments ([#1659](https://github.com/DevExpress/devextreme-reactive/issues/1659)) ([7e4104](https://github.com/DevExpress/devextreme-reactive/commit/7e4104))
+* **react-chart:** make grid part of the axis ([#1646](https://github.com/DevExpress/devextreme-reactive/issues/1646)) ([4d99c93](https://github.com/DevExpress/devextreme-reactive/commit/4d99c93))
 
 
 ### Features
@@ -34,29 +35,46 @@
 * **react-scheduler:**
 We have changed the `onChange` function's argument type to make the `ViewSwitcher`'s API more clear.
 
-Previously:
-```
-onChange({ nextViewName: string }) => void
-```
+  Previously:
+  ```
+  onChange({ nextViewName: string }) => void
+  ```
 
-Now:
-```
-onChange(nextViewName: string) => void
-```
+  Now:
+  ```
+  onChange(nextViewName: string) => void
+  ```
 
 * **react-scheduler:**
 We changed the `onNavigate` function's argument type to make the `DateNavigator`'s API more clear.
 
-Previously:
-```
-onNavigate({ back: boolean }) => void
-```
+  Previously:
+  ```
+  onNavigate({ back: boolean }) => void
+  ```
 
-Now:
-```
-onNavigate(direction: 'forward' | 'back') => void
-```
+  Now:
+  ```
+  onNavigate(direction: 'forward' | 'back') => void
+  ```
 
+* **react-chart:**
+1. In the `ArgumentAxis` and `ValueAxis` plugins `lineComponent` and `tickComponent` render identical svg-path elements. Previously, they require different properties for drawing: `width` and `height` for `lineComponent` and `x1`, `x2`, `y1`, `y2` for `tickComponent`.
+  Now, for more consistency the `lineComponent` requires the same properties as `tickComponent`.
+
+1. Previously, there were `ArgumentGrid` and `ValueGrid` plugins that render grid lines for axes. Now, grids are part of the axes:
+
+    ```
+    <ArgumentAxis showGrids />
+    <ValueAxis />
+    ```
+
+    For grid customization, use `gridComponent` as follows:
+
+    ```
+    <ArgumentAxis gridComponent={...} />
+    <ValueAxis gridComponent={...} />
+    ```
 
 
 <a name="1.9.0"></a>

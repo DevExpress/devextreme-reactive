@@ -19,7 +19,7 @@ describe('DateNavigator reducers', () => {
     it('should calculate prev date', () => {
       const state = '2018-07-13';
 
-      const nextState = changeCurrentDate(state, { back: true, amount: 1, step: 'week' });
+      const nextState = changeCurrentDate(state, { direction: 'back', amount: 1, step: 'week' });
       expect(nextState.toString())
         .toBe(new Date(2018, 6, 6).toString());
     });

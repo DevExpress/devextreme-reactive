@@ -4,9 +4,9 @@ export const changeCurrentDate = (currentDate, {
   nextDate,
   step,
   amount,
-  back = false,
+  direction,
 }) => (
-  nextDate || moment(currentDate)[back ? 'subtract' : 'add'](amount, step).toDate()
+  nextDate || moment(currentDate)[direction === 'back' ? 'subtract' : 'add'](amount, step).toDate()
 );
 
 export const setCurrentViewName = (currentViewName, nextViewName) => nextViewName;

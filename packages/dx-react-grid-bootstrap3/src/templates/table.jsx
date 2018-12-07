@@ -1,8 +1,8 @@
-/* globals document:true window:true */
-
+/* globals document:true */
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { ThemeColors } from './layout';
 
 let globalStickyProp;
 const testCSSProp = (property, value, noPrefixes) => {
@@ -24,7 +24,6 @@ export class Table extends React.Component {
 
     this.state = {
       stickyProp: globalStickyProp,
-      backgroundColor: 'white',
     };
     this.tableRef = React.createRef();
   }
@@ -35,17 +34,10 @@ export class Table extends React.Component {
 
   checkStyles() {
     globalStickyProp = testCSSProp('position', 'sticky');
-    const { backgroundColor, stickyProp } = this.state;
+    const { stickyProp } = this.state;
 
-    let panel = this.tableRef.current.parentElement;
-    while (!panel.classList.contains('panel')) {
-      panel = panel.parentElement;
-    }
-    const { backgroundColor: bodyBackgroundColor } = window.getComputedStyle(panel);
-
-    if (bodyBackgroundColor !== backgroundColor
-      || stickyProp !== globalStickyProp) {
-      this.setState({ stickyProp: globalStickyProp, backgroundColor });
+    if (stickyProp !== globalStickyProp) {
+      this.setState({ stickyProp: globalStickyProp });
     }
   }
 
@@ -53,7 +45,8 @@ export class Table extends React.Component {
     const {
       children, use, style, className, ...restProps
     } = this.props;
-    const { stickyProp, backgroundColor } = this.state;
+    const { stickyProp } = this.state;
+    const { backgroundColor } = this.context;
     return (
       <table
         ref={this.tableRef}
@@ -82,6 +75,8 @@ export class Table extends React.Component {
     );
   }
 }
+
+Table.contextType = ThemeColors;
 
 Table.propTypes = {
   use: PropTypes.oneOf(['head', 'foot']),

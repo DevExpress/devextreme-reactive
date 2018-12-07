@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Card } from 'reactstrap';
 import { DataTypeProvider } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -108,7 +107,7 @@ export default class Demo extends React.PureComponent {
     } = this.state;
 
     return (
-      <Card>
+      <div className="card">
         <Grid
           rows={countries}
           columns={columns}
@@ -127,7 +126,7 @@ export default class Demo extends React.PureComponent {
             cellComponent={BandCell}
           />
         </Grid>
-      </Card>
+      </div>
     );
   }
 }

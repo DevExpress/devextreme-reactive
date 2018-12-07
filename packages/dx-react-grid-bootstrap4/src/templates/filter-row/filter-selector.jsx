@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Popover } from 'reactstrap';
 import classNames from 'classnames';
+import { Popover } from '../../../../dx-react-bootstrap4/components';
 
 export class FilterSelector extends React.PureComponent {
   constructor(props) {

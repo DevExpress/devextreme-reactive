@@ -18,6 +18,9 @@ const styles = theme => ({
   dayOfMonth: {
     ...theme.typography.h4,
   },
+  highlightCell: {
+    color: theme.palette.primary.main,
+  },
 });
 
 const CellBase = ({
@@ -25,6 +28,7 @@ const CellBase = ({
   className,
   startDate,
   endDate,
+  today,
   ...restProps
 }) => {
   const currentDate = moment(startDate);
@@ -33,10 +37,20 @@ const CellBase = ({
       className={classNames(classes.cell, className)}
       {...restProps}
     >
-      <p className={classes.dayOfWeek}>
+      <p
+        className={classNames({
+          [classes.dayOfWeek]: true,
+          [classes.highlightCell]: today,
+        })}
+      >
         {currentDate.format('ddd')}
       </p>
-      <span className={classes.dayOfMonth}>
+      <span
+        className={classNames({
+          [classes.dayOfMonth]: true,
+          [classes.highlightCell]: today,
+        })}
+      >
         {currentDate.format('D')}
       </span>
     </TableCell>
@@ -48,11 +62,13 @@ CellBase.propTypes = {
   startDate: PropTypes.instanceOf(Date).isRequired,
   endDate: PropTypes.instanceOf(Date),
   className: PropTypes.string,
+  today: PropTypes.bool,
 };
 
 CellBase.defaultProps = {
   className: undefined,
   endDate: undefined,
+  today: false,
 };
 
 export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

@@ -24,7 +24,7 @@ const tableColumnExtensions: Table.ColumnExtension[] = [
 export default class Demo extends React.Component<object, object> {
   public render(): React.ReactNode {
     return (
-      <<%&wrapperTag%>>
+      <<%&wrapperTag%><%&wrapperAttributes%>>
         <Grid
           rows={rows}
           columns={columns}

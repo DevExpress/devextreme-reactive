@@ -1,4 +1,4 @@
-import { testStatePluginField } from '@devexpress/dx-react-core/test-utils';
+import { testStatePluginField } from '@devexpress/dx-testing';
 import {
   addAppointment,
   changeAddedAppointment,

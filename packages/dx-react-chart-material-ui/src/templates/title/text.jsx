@@ -1,18 +1,15 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
+import { withClassName } from '../utils';
 
-export class Text extends React.PureComponent {
-  render() {
-    const { text, ...restProps } = this.props;
-    return (
-      <Typography component="h3" variant="h5" {...restProps}>
-        {text}
-      </Typography>
-    );
-  }
-}
+const styles = () => ({
+  root: {
+    textAlign: 'center',
+    width: '100%',
+    marginBottom: '20px',
+  },
+});
 
-Text.propTypes = {
-  text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-};
+export const Text = withClassName(styles, { name: 'Title' })(
+  ({ text, ...restProps }) => <Typography component="h3" variant="h5" {...restProps}>{text}</Typography>,
+);

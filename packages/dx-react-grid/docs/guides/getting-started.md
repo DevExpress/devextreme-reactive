@@ -28,7 +28,7 @@ This package does not contain visual components. In the examples below, visual c
   npm i --save @devexpress/dx-react-grid-bootstrap4.npm-tag()
   ```
 
-  Make sure that [reactstrap](https://reactstrap.github.io/) dependencies are installed and properly configured. Check the reactstrap's [Getting Started](https://reactstrap.github.io/) article for configuration details. Also you need add to your project the [OpenIconic](https://useiconic.com/open) icons.
+  Make sure that the [OpenIconic](https://useiconic.com/open) icons are installed and properly configured.
 
   Add the DevExtreme React Grid styles in the root .js file:
 

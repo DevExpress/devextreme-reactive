@@ -44,7 +44,7 @@ class RawAxis extends React.PureComponent {
 
   render() {
     const {
-      name,
+      scaleName,
       position,
       tickSize,
       tickFormat,
@@ -70,14 +70,14 @@ class RawAxis extends React.PureComponent {
           <TemplatePlaceholder />
           <TemplateConnector>
             {({ scales, layouts }, { changeBBox }) => {
-              const scale = scales[name];
+              const scale = scales[scaleName];
               if (!scale) {
                 return null;
               }
 
               const { width, height } = layouts[placeholder] || { width: 0, height: 0 };
               const { sides: [dx, dy], ticks } = axisCoordinates({
-                name,
+                scaleName,
                 // Isn't it too late to adjust sizes?
                 scale: adjustScaleRange(scale, [this.adjustedWidth, this.adjustedHeight]),
                 position,
@@ -163,13 +163,13 @@ class RawAxis extends React.PureComponent {
           <TemplatePlaceholder />
           <TemplateConnector>
             {({ scales, layouts }) => {
-              const scale = scales[name];
+              const scale = scales[scaleName];
               if (!scale || !showGrids) {
                 return null;
               }
 
               const { width, height } = layouts.pane;
-              const ticks = getGridCoordinates({ name, scale });
+              const ticks = getGridCoordinates({ scaleName, scale });
               return ((
                 <React.Fragment>
                   {ticks.map(({
@@ -194,7 +194,7 @@ class RawAxis extends React.PureComponent {
 }
 
 RawAxis.propTypes = {
-  name: PropTypes.string.isRequired,
+  scaleName: PropTypes.string.isRequired,
   rootComponent: PropTypes.func.isRequired,
   tickComponent: PropTypes.func.isRequired,
   labelComponent: PropTypes.func.isRequired,
@@ -246,7 +246,7 @@ export const ArgumentAxis = withPatchedProps(props => ({
   showLine: true,
   showLabels: true,
   ...props,
-  name: ARGUMENT_DOMAIN,
+  scaleName: ARGUMENT_DOMAIN,
 }))(Axis);
 
 // TODO: Check that only LEFT and RIGHT are accepted.
@@ -257,7 +257,7 @@ export const ValueAxis = withPatchedProps(props => ({
   showLine: false,
   showLabels: true,
   ...props,
-  name: getValueDomainName(props.name),
+  scaleName: getValueDomainName(props.scaleName),
 }))(Axis);
 
 ArgumentAxis.components = Axis.components;

@@ -62,6 +62,7 @@ export class WeekView extends React.PureComponent {
       currentDate, firstDayOfWeek,
       intervalCount * DAYS_IN_WEEK, excludedDays,
       startDayHour, endDayHour, cellDuration,
+      Date.now(),
     );
 
     this.currentViewComputed = ({ currentView }) => (

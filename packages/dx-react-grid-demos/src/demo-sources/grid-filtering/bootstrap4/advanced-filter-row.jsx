@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Card } from 'reactstrap';
 import { FilteringState, IntegratedFiltering, DataTypeProvider } from '@devexpress/dx-react-grid';
 import {
   Grid, Table, TableHeaderRow, TableFilterRow,
@@ -88,7 +87,7 @@ export default class Demo extends React.PureComponent {
     } = this.state;
 
     return (
-      <Card>
+      <div className="card">
         <Grid
           rows={rows}
           columns={columns}
@@ -113,7 +112,7 @@ export default class Demo extends React.PureComponent {
             messages={{ month: 'Month equals' }}
           />
         </Grid>
-      </Card>
+      </div>
     );
   }
 }

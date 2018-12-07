@@ -37,7 +37,12 @@ describe('EventTracker', () => {
       clickHandlers: [handler1, handler2], pointerMoveHandlers: [],
     }).click;
 
-    afterEach(jest.clearAllMocks);
+    afterEach(() => {
+      jest.clearAllMocks();
+      hitTest1.mockReset();
+      hitTest2.mockReset();
+      hitTest3.mockReset();
+    });
 
     it('should create and invoke hit testers', () => {
       const func = call();
@@ -75,6 +80,7 @@ describe('EventTracker', () => {
         clientX: 352,
         clientY: 421,
         currentTarget,
+        nativeEvent: 'nativeEvent',
       });
 
       const targets = [
@@ -83,8 +89,8 @@ describe('EventTracker', () => {
         { series: 'Series 1', point: 1, distance: 0.3 },
         { series: 'Series 3', point: 2, distance: 0.4 },
       ];
-      expect(handler1).toBeCalledWith({ location: [192, 281], targets });
-      expect(handler2).toBeCalledWith({ location: [192, 281], targets });
+      expect(handler1).toBeCalledWith({ location: [192, 281], targets, event: 'nativeEvent' });
+      expect(handler2).toBeCalledWith({ location: [192, 281], targets, event: 'nativeEvent' });
     });
 
     it('should create hit testers lazily', () => {

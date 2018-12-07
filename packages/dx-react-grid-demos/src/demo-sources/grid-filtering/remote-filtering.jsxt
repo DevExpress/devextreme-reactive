@@ -83,7 +83,7 @@ export default class Demo extends React.PureComponent {
     const { rows, columns, loading } = this.state;
 
     return (
-      <<%&wrapperTag%> style={{ position: 'relative' }}>
+      <<%&wrapperTag%><%&wrapperAttributes%> style={{ position: 'relative' }}>
         <Grid
           rows={rows}
           columns={columns}

@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-react-grid-bootstrap3",
-  "version": "1.9.0",
+  "version": "1.9.1",
   "description": "Bootstrap 3 templates for DevExtreme React Grid component",
   "author": {
     "name": "Developer Express Inc.",
@@ -43,16 +43,16 @@
     "lint:fix": "yarn run lint -- --fix"
   },
   "devDependencies": {
-    "@devexpress/dx-grid-core": "1.9.0",
-    "@devexpress/dx-react-core": "1.9.0",
-    "@devexpress/dx-react-grid": "1.9.0",
-    "@devexpress/dx-testing": "1.9.0",
     "@babel/core": "^7.1.6",
+    "@babel/plugin-transform-runtime": "^7.1.0",
+    "@babel/preset-env": "^7.1.6",
+    "@babel/preset-react": "^7.0.0",
+    "@devexpress/dx-grid-core": "1.9.1",
+    "@devexpress/dx-react-core": "1.9.1",
+    "@devexpress/dx-react-grid": "1.9.1",
+    "@devexpress/dx-testing": "1.9.1",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23.6.0",
-    "@babel/plugin-transform-runtime": "^7.1.0",
-    "@babel/preset-env":"^7.1.6",
-    "@babel/preset-react": "^7.0.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.20",
     "core-js": "^2.5.7",
     "enzyme": "3.7.0",
@@ -80,9 +80,9 @@
     "prop-types": "^15.6.2"
   },
   "peerDependencies": {
-    "@devexpress/dx-grid-core": "1.9.0",
-    "@devexpress/dx-react-core": "1.9.0",
-    "@devexpress/dx-react-grid": "1.9.0",
+    "@devexpress/dx-grid-core": "1.9.1",
+    "@devexpress/dx-react-core": "1.9.1",
+    "@devexpress/dx-react-grid": "1.9.1",
     "react": ">=16.6.0",
     "react-bootstrap": ">=0.32.1",
     "react-dom": ">=16.6.0"

@@ -1,4 +1,4 @@
-import { changeCurrentDate } from './reducers';
+import { changeCurrentDate, setCurrentViewName } from './reducers';
 
 describe('DateNavigator reducers', () => {
   describe('#changeCurrentDate', () => {
@@ -22,6 +22,12 @@ describe('DateNavigator reducers', () => {
       const nextState = changeCurrentDate(state, { back: true, amount: 1, step: 'week' });
       expect(nextState.toString())
         .toBe(new Date(2018, 6, 6).toString());
+    });
+  });
+  describe('#setCurrentViewName', () => {
+    it('should return next view name', () => {
+      const nextViewName = setCurrentViewName('', 'week');
+      expect(nextViewName).toBe('week');
     });
   });
 });

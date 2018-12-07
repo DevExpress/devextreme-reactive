@@ -32,6 +32,49 @@ describe('Series', () => {
   // Mocks are intentionally reset rather then cleared.
   afterEach(jest.resetAllMocks);
 
+  const checkContinuousHitTester = (createHitTester) => {
+    const isPointInPath = jest.fn();
+    getContext.mockReturnValue({ isPointInPath });
+
+    const hitTest = createHitTester([
+      { x: 115, y: 35, index: 'p1' },
+      { x: 165, y: 65, index: 'p2' },
+      { x: 195, y: 60, index: 'p3' },
+    ]);
+
+    isPointInPath.mockReturnValueOnce(false);
+    expect(hitTest([90, 30])).toEqual(null);
+
+    expect(hitTest([110, 40])).toEqual({
+      points: [{ index: 'p1', distance: matchFloat(0.35) }],
+    });
+    expect(hitTest([115, 35])).toEqual({
+      points: [{ index: 'p1', distance: matchFloat(0) }],
+    });
+
+    expect(hitTest([185, 65])).toEqual({
+      points: [{ index: 'p2', distance: matchFloat(1) }, { index: 'p3', distance: matchFloat(0.56) }],
+    });
+    expect(hitTest([190, 60])).toEqual({
+      points: [{ index: 'p3', distance: matchFloat(0.25) }],
+    });
+
+    isPointInPath.mockReturnValueOnce(true);
+    expect(hitTest([140, 40])).toEqual({
+      points: [{ index: 'p1', distance: matchFloat(1.27) }],
+    });
+    isPointInPath.mockReturnValueOnce(true);
+    expect(hitTest([140, 60])).toEqual({
+      points: [{ index: 'p2', distance: matchFloat(1.27) }],
+    });
+
+    expect(isPointInPath.mock.calls).toEqual([
+      [90, 30],
+      [140, 40],
+      [140, 60],
+    ]);
+  };
+
   describe('#createAreaHitTester', () => {
     const mockPath = jest.fn();
     mockPath.x = jest.fn();
@@ -59,39 +102,7 @@ describe('Series', () => {
       expect(mockPath).toBeCalledWith('test-coordinates');
     });
 
-    it('should call context method', () => {
-      const isPointInPath = jest.fn();
-      isPointInPath.mockReturnValueOnce(false);
-      isPointInPath.mockReturnValueOnce(true);
-      isPointInPath.mockReturnValueOnce(true);
-      isPointInPath.mockReturnValueOnce(false);
-      isPointInPath.mockReturnValueOnce(true);
-      getContext.mockReturnValue({ isPointInPath });
-
-      const hitTest = createAreaHitTester([
-        { x: 115, y: 35, index: 'p1' },
-        { x: 175, y: 65, index: 'p2' },
-        { x: 177, y: 62, index: 'p3' },
-      ]);
-
-      expect(hitTest([100, 20])).toEqual(null);
-      expect(hitTest([120, 40])).toEqual({
-        points: [{ index: 'p1', distance: matchFloat(0.71) }],
-      });
-      expect(hitTest([140, 60])).toEqual({});
-      expect(hitTest([160, 30])).toEqual(null);
-      expect(hitTest([180, 70])).toEqual({
-        points: [{ index: 'p2', distance: matchFloat(0.71) }, { index: 'p3', distance: matchFloat(0.85) }],
-      });
-
-      expect(isPointInPath.mock.calls).toEqual([
-        [100, 20],
-        [120, 40],
-        [140, 60],
-        [160, 30],
-        [180, 70],
-      ]);
-    });
+    it('should test points', () => checkContinuousHitTester(createAreaHitTester));
   });
 
   describe('#createLineHitTester', () => {
@@ -120,39 +131,7 @@ describe('Series', () => {
       expect(mockPath).toBeCalledWith('test-coordinates');
     });
 
-    it('should call context method', () => {
-      const isPointInPath = jest.fn();
-      isPointInPath.mockReturnValueOnce(false);
-      isPointInPath.mockReturnValueOnce(true);
-      isPointInPath.mockReturnValueOnce(true);
-      isPointInPath.mockReturnValueOnce(false);
-      isPointInPath.mockReturnValueOnce(true);
-      getContext.mockReturnValue({ isPointInPath });
-
-      const hitTest = createLineHitTester([
-        { x: 115, y: 35, index: 'p1' },
-        { x: 175, y: 65, index: 'p2' },
-        { x: 177, y: 62, index: 'p3' },
-      ]);
-
-      expect(hitTest([100, 20])).toEqual(null);
-      expect(hitTest([120, 40])).toEqual({
-        points: [{ index: 'p1', distance: matchFloat(0.71) }],
-      });
-      expect(hitTest([140, 60])).toEqual({});
-      expect(hitTest([160, 30])).toEqual(null);
-      expect(hitTest([180, 70])).toEqual({
-        points: [{ index: 'p2', distance: matchFloat(0.71) }, { index: 'p3', distance: matchFloat(0.85) }],
-      });
-
-      expect(isPointInPath.mock.calls).toEqual([
-        [100, 20],
-        [120, 40],
-        [140, 60],
-        [160, 30],
-        [180, 70],
-      ]);
-    });
+    it('should test points', () => checkContinuousHitTester(createLineHitTester));
   });
 
   describe('#createSplineHitTester', () => {
@@ -184,39 +163,7 @@ describe('Series', () => {
       expect(mockPath).toBeCalledWith('test-coordinates');
     });
 
-    it('should call context method', () => {
-      const isPointInPath = jest.fn();
-      isPointInPath.mockReturnValueOnce(false);
-      isPointInPath.mockReturnValueOnce(true);
-      isPointInPath.mockReturnValueOnce(true);
-      isPointInPath.mockReturnValueOnce(false);
-      isPointInPath.mockReturnValueOnce(true);
-      getContext.mockReturnValue({ isPointInPath });
-
-      const hitTest = createSplineHitTester([
-        { x: 115, y: 35, index: 'p1' },
-        { x: 175, y: 65, index: 'p2' },
-        { x: 177, y: 62, index: 'p3' },
-      ]);
-
-      expect(hitTest([100, 20])).toEqual(null);
-      expect(hitTest([120, 40])).toEqual({
-        points: [{ index: 'p1', distance: matchFloat(0.71) }],
-      });
-      expect(hitTest([140, 60])).toEqual({});
-      expect(hitTest([160, 30])).toEqual(null);
-      expect(hitTest([180, 70])).toEqual({
-        points: [{ index: 'p2', distance: matchFloat(0.71) }, { index: 'p3', distance: matchFloat(0.85) }],
-      });
-
-      expect(isPointInPath.mock.calls).toEqual([
-        [100, 20],
-        [120, 40],
-        [140, 60],
-        [160, 30],
-        [180, 70],
-      ]);
-    });
+    it('should call context method', () => checkContinuousHitTester(createSplineHitTester));
   });
 
   describe('#createBarHitTester', () => {
@@ -287,25 +234,25 @@ describe('Series', () => {
   });
 
   describe('#changeSeriesState', () => {
-    const series1 = { name: 's1' };
-    const series2 = { name: 's2' };
+    const series1 = { name: 's1', points: [] };
+    const series2 = { name: 's2', points: [] };
     const series3 = { name: 's3', points: [{ index: 1 }, { index: 3 }] };
     const series4 = { name: 's4', points: [{ index: 2 }, { index: 5 }, { index: 6 }] };
 
     it('should change series and points', () => {
-      const result = changeSeriesState([series1, series2, series3, series4], [
-        { series: 's1' },
-        { series: 's3' },
+      const [
+        newSeries1, newSeries2, newSeries3, newSeries4,
+      ] = changeSeriesState([series1, series2, series3, series4], [
         { series: 's3', point: 3 },
         { series: 's4', point: 5 },
         { series: 's4', point: 2 },
       ], 'test-state');
 
-      expect(result[0]).toEqual({ ...series1, state: 'test-state' });
+      expect(newSeries1).toBe(series1);
 
-      expect(result[1]).toBe(series2);
+      expect(newSeries2).toBe(series2);
 
-      expect(result[2]).toEqual({
+      expect(newSeries3).toEqual({
         ...series3,
         state: 'test-state',
         points: [
@@ -313,17 +260,18 @@ describe('Series', () => {
           { ...series3.points[1], state: 'test-state' },
         ],
       });
-      expect(result[2].points[0]).toBe(series3.points[0]);
+      expect(newSeries3.points[0]).toBe(series3.points[0]);
 
-      expect(result[3]).toEqual({
+      expect(newSeries4).toEqual({
         ...series4,
+        state: 'test-state',
         points: [
           { ...series4.points[0], state: 'test-state' },
           { ...series4.points[1], state: 'test-state' },
           series4.points[2],
         ],
       });
-      expect(result[3].points[2]).toBe(series4.points[2]);
+      expect(newSeries4.points[2]).toBe(series4.points[2]);
     });
 
     it('should return original list when there are no matches', () => {

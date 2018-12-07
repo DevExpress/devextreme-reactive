@@ -37,7 +37,12 @@ describe('EventTracker', () => {
       clickHandlers: [handler1, handler2], pointerMoveHandlers: [],
     }).click;
 
-    afterEach(jest.clearAllMocks);
+    afterEach(() => {
+      jest.clearAllMocks();
+      hitTest1.mockReset();
+      hitTest2.mockReset();
+      hitTest3.mockReset();
+    });
 
     it('should create and invoke hit testers', () => {
       const func = call();
@@ -60,10 +65,14 @@ describe('EventTracker', () => {
     });
 
     it('should provide targets on successful hit tests', () => {
-      hitTest1.mockReturnValue({ });
+      hitTest1.mockReturnValue({
+        points: [
+          { index: 1, distance: 0.3 },
+        ],
+      });
       hitTest3.mockReturnValue({
         points: [
-          { index: 1, distance: 0.2 }, { index: 2, distance: 0.3 }, { index: 3, distance: 0.1 },
+          { index: 1, distance: 0.2 }, { index: 2, distance: 0.4 }, { index: 3, distance: 0.1 },
         ],
       });
       const func = call();
@@ -71,35 +80,17 @@ describe('EventTracker', () => {
         clientX: 352,
         clientY: 421,
         currentTarget,
-      });
-
-      const targets = [
-        { series: 'Series 3', point: 3, distance: 0.1 },
-        { series: 'Series 3', point: 1, distance: 0.2 },
-        { series: 'Series 3', point: 2, distance: 0.3 },
-        { series: 'Series 1', distance: 1 },
-      ];
-      expect(handler1).toBeCalledWith({ location: [192, 281], targets });
-      expect(handler2).toBeCalledWith({ location: [192, 281], targets });
-    });
-
-    it('should provide event', () => {
-      const func = call();
-      func({
-        clientX: 454,
-        clientY: 343,
-        currentTarget,
         nativeEvent: 'nativeEvent',
       });
+
       const targets = [
         { series: 'Series 3', point: 3, distance: 0.1 },
         { series: 'Series 3', point: 1, distance: 0.2 },
-        { series: 'Series 3', point: 2, distance: 0.3 },
-        { series: 'Series 1', distance: 1 },
+        { series: 'Series 1', point: 1, distance: 0.3 },
+        { series: 'Series 3', point: 2, distance: 0.4 },
       ];
-
-      expect(handler1).toBeCalledWith({ location: [294, 203], targets, event: 'nativeEvent' });
-      expect(handler2).toBeCalledWith({ location: [294, 203], targets, event: 'nativeEvent' });
+      expect(handler1).toBeCalledWith({ location: [192, 281], targets, event: 'nativeEvent' });
+      expect(handler2).toBeCalledWith({ location: [192, 281], targets, event: 'nativeEvent' });
     });
 
     it('should create hit testers lazily', () => {

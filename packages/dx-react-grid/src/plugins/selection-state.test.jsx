@@ -1,6 +1,5 @@
-import { setupConsole } from '@devexpress/dx-testing';
 import { toggleSelection } from '@devexpress/dx-grid-core';
-import { testStatePluginField } from '@devexpress/dx-react-core/test-utils';
+import { testStatePluginField, setupConsole } from '@devexpress/dx-testing';
 import { SelectionState } from './selection-state';
 
 jest.mock('@devexpress/dx-grid-core', () => ({

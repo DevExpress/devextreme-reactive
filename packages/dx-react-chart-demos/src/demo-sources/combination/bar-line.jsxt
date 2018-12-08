@@ -39,7 +39,7 @@ export default class Demo extends React.PureComponent {
     const { oilProduction: chartData } = this.state;
 
     return (
-      <<%&wrapperTag%>>
+      <<%&wrapperTag%><%&wrapperAttributes%>>
         <Chart
           data={chartData}
         >

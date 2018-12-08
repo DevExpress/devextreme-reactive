@@ -1,19 +1,10 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { setupConsole } from '@devexpress/dx-testing';
 import { UPDATE_CONNECTION_EVENT } from './constants';
 import { TemplateConnector } from './template-connector';
 import { PluginHostContext } from './contexts';
 
 describe('TemplateConnector', () => {
-  let resetConsole;
-  beforeAll(() => {
-    resetConsole = setupConsole();
-  });
-  afterAll(() => {
-    resetConsole();
-  });
-
   let pluginHost;
   beforeEach(() => {
     pluginHost = {

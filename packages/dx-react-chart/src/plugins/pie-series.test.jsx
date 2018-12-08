@@ -2,7 +2,7 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { findSeriesByName } from '@devexpress/dx-chart-core';
-import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
+import { pluginDepsToComponents } from '@devexpress/dx-testing';
 import { PieSeries } from './pie-series';
 
 jest.mock('@devexpress/dx-chart-core', () => ({

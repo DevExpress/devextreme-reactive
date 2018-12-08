@@ -1,7 +1,7 @@
 import babel from 'rollup-plugin-babel';
 import resolve from 'rollup-plugin-node-resolve';
 import css from 'rollup-plugin-css-only'
-import { external, babelrc } from '../../tools/rollup-utils';
+import { external } from '../../tools/rollup-utils';
 import pkg from './package.json';
 
 export default {
@@ -16,10 +16,9 @@ export default {
       main: false,
       extensions: ['.js', '.jsx'],
     }),
-    babel(Object.assign({
-      babelrc: false,
+    babel({
       runtimeHelpers: true,
       exclude: 'node_modules/**',
-    }, babelrc(__dirname))),
+    }),
   ],
 };

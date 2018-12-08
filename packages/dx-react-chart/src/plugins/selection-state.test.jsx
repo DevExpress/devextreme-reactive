@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
+import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing';
 import { changeSeriesState } from '@devexpress/dx-chart-core';
 import { SelectionState } from './selection-state';
 
@@ -20,7 +20,7 @@ describe('SelectionState', () => {
   };
 
   it('should provide getters', () => {
-    const mock = [{ series: '1' }, { series: '2', point: 2 }];
+    const mock = [{ series: '1', point: 1 }, { series: '2', point: 2 }];
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}

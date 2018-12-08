@@ -31,5 +31,15 @@ describe('Vertical view DayPanel', () => {
       expect(tree.props().data)
         .toMatchObject({ a: 1 });
     });
+    it('should highlight today cell', () => {
+      const tree = shallow((
+        <Cell {...defaultProps} today />
+      ));
+
+      expect(tree.find(`p.${classes.highlightCell}`).exists())
+        .toBeTruthy();
+      expect(tree.find(`span.${classes.highlightCell}`).exists())
+        .toBeTruthy();
+    });
   });
 });

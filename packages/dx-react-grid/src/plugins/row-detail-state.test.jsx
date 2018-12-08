@@ -1,5 +1,4 @@
-import { setupConsole } from '@devexpress/dx-testing';
-import { testStatePluginField } from '@devexpress/dx-react-core/test-utils';
+import { testStatePluginField, setupConsole } from '@devexpress/dx-testing';
 import { toggleDetailRowExpanded } from '@devexpress/dx-grid-core';
 import { RowDetailState } from './row-detail-state';
 

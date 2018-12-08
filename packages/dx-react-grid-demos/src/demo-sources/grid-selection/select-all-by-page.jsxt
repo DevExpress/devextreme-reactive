@@ -43,7 +43,7 @@ export default class Demo extends React.PureComponent {
           {' '}
           {selection.length}
         </span>
-        <<%&wrapperTag%>>
+        <<%&wrapperTag%><%&wrapperAttributes%>>
           <Grid
             rows={rows}
             columns={columns}

@@ -35,7 +35,7 @@ export default class Demo extends React.PureComponent {
     const { data: chartData, targetItem } = this.state;
 
     return (
-      <<%&wrapperTag%>>
+      <<%&wrapperTag%><%&wrapperAttributes%>>
         <Chart
           data={chartData}
         >

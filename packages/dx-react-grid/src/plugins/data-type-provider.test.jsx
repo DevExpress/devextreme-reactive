@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { setupConsole } from '@devexpress/dx-testing';
 import { getAvailableFilterOperationsGetter } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
+import { pluginDepsToComponents, getComputedState, setupConsole } from '@devexpress/dx-testing';
 import { DataTypeProvider } from './data-type-provider';
 
 

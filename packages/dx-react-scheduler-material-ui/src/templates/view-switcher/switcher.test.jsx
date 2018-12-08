@@ -26,10 +26,10 @@ describe('ViewSwitcher', () => {
         <Switcher {...defaultProps} />
       ));
 
-      tree.simulate('change', { target: { value: '' } });
+      tree.simulate('change', { target: { value: 'next' } });
 
       expect(defaultProps.onChange)
-        .toBeCalled();
+        .toBeCalledWith('next');
     });
     it('should render items depend of available view names', () => {
       const tree = shallow((

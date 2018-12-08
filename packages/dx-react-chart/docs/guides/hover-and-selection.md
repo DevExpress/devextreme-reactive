@@ -16,13 +16,13 @@ Import the plugins listed above to create an interactive chart.
 
 In uncontrolled mode, add the `HoverState` plugin to the chart to enable the *hovered* state for series and points. You can also specify a series or point that is initialy hovered in the `HoverState` plugin's `defaultHover` property.
 
-.embedded-demo({ "path": "chart-basic/hover", "showThemeSelector": true })
+.embedded-demo({ "path": "interaction/hover", "showThemeSelector": true })
 
 ### Hover in Controlled Mode
 
 In controlled mode, specify a hovered series or point in the `HoverState` plugin's `hover` property and handle the `onHoverChange` event to control the hover state externally.
 
-.embedded-demo({ "path": "chart-basic/hover-controlled", "showThemeSelector": true })
+.embedded-demo({ "path": "interaction/hover-controlled", "showThemeSelector": true })
 
 ### Selection
 
@@ -30,10 +30,14 @@ Use the `SelectionState` plugin's `selection` property to specify selected serie
 
 The following demos show how to create a chart using the single and multiple selection mode.
 
-- Single selection mode.
+- Single selection mode
 
-.embedded-demo({ "path": "chart-basic/selection", "showThemeSelector": true })
+.embedded-demo({ "path": "interaction/selection", "showThemeSelector": true })
 
-- Multiple selection mode.
+- Multiple selection mode
 
-.embedded-demo({ "path": "chart-basic/multiple-selection", "showThemeSelector": true })
+.embedded-demo({ "path": "interaction/multiple-selection", "showThemeSelector": true })
+
+- Single/multiple selection by Ctrl + mouse click
+
+.embedded-demo({ "path": "interaction/single-multiple-selection", "showThemeSelector": true })

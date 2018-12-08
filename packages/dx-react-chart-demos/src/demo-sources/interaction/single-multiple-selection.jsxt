@@ -31,13 +31,18 @@ export default class Demo extends React.PureComponent {
       selection: [],
     };
 
-    this.click = ({ targets }) => {
+    this.click = ({ targets, event }) => {
       const target = targets[0];
       if (target) {
         this.setState(({ selection }) => {
-          const filtered = selection.filter(el => !compare(el, target));
+          if (event.ctrlKey) {
+            const filtered = selection.filter(el => !compare(el, target));
+            return {
+              selection: filtered.length < selection.length ? filtered : [...filtered, target],
+            };
+          }
           return {
-            selection: filtered.length < selection.length ? filtered : [...filtered, target],
+            selection: selection.length === 1 && compare(selection[0], target) ? [] : [target],
           };
         });
       }
@@ -58,7 +63,7 @@ export default class Demo extends React.PureComponent {
           <Chart
             data={chartData}
           >
-            <ArgumentAxis type="band" />
+            <ArgumentAxis />
             <ValueAxis />
 
             <BarSeries

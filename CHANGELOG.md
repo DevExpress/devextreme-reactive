@@ -1,3 +1,82 @@
+# [1.9.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.9.0...v1.9.1) (2018-12-07)
+
+
+### Bug Fixes
+
+* **docs:** correct the Appointments plugin docs ([#1633](https://github.com/DevExpress/devextreme-reactive/issues/1633)) ([87b2988](https://github.com/DevExpress/devextreme-reactive/commit/87b2988))
+* **docs:** correct the table summary row plugin docs ([#1632](https://github.com/DevExpress/devextreme-reactive/issues/1632)) ([0ab1145](https://github.com/DevExpress/devextreme-reactive/commit/0ab1145))
+* **react-grid:** fix the 'no data' message alignment ([#1597](https://github.com/DevExpress/devextreme-reactive/issues/1597)) ([663685a](https://github.com/DevExpress/devextreme-reactive/commit/663685a)), closes [#1600](https://github.com/DevExpress/devextreme-reactive/issues/1600)
+* **react-grid:** fix virtual table layout in Edge ([#1593](https://github.com/DevExpress/devextreme-reactive/issues/1593)) ([65fdf63](https://github.com/DevExpress/devextreme-reactive/commit/65fdf63))
+* **react-grid:** normalize scroll position in Edge browser ([#1605](https://github.com/DevExpress/devextreme-reactive/issues/1605)) ([7e313ce](https://github.com/DevExpress/devextreme-reactive/commit/7e313ce))
+* **react-grid-bootstrap4:** prevent edge from overlapping a scrollbar ([#1612](https://github.com/DevExpress/devextreme-reactive/issues/1612)) ([2fc8a6b](https://github.com/DevExpress/devextreme-reactive/commit/2fc8a6b))
+* **react-scheduler:** add cursor pointer to appointment template ([#1594](https://github.com/DevExpress/devextreme-reactive/issues/1594)) ([d5db46d](https://github.com/DevExpress/devextreme-reactive/commit/d5db46d))
+* **react-scheduler:** fix TypeScript definitions for the 'dx-react-scheduler-material-ui' package ([#1644](https://github.com/DevExpress/devextreme-reactive/issues/1644)) ([aa93cd1](https://github.com/DevExpress/devextreme-reactive/commit/aa93cd1))
+* **react-scheduler:** remove excess events from an appointment ([#1591](https://github.com/DevExpress/devextreme-reactive/issues/1591)) ([ceba7de](https://github.com/DevExpress/devextreme-reactive/commit/ceba7de))
+* **site:** fix the 'Why We Use Cookies' message ([#1655](https://github.com/DevExpress/devextreme-reactive/issues/1655)) ([3e66474](https://github.com/DevExpress/devextreme-reactive/commit/3e66474))
+
+
+### Code Refactoring
+
+* **react-scheduler:** simplify the ViewSwitcher.Switcher component API ([#1660](https://github.com/DevExpress/devextreme-reactive/issues/1660)) ([6c5d5ca](https://github.com/DevExpress/devextreme-reactive/commit/6c5d5ca))
+* **react-scheduler:** simplify the onNavigate function arguments ([#1659](https://github.com/DevExpress/devextreme-reactive/issues/1659)) ([7e4104](https://github.com/DevExpress/devextreme-reactive/commit/7e4104))
+* **react-chart:** make grid part of the axis ([#1646](https://github.com/DevExpress/devextreme-reactive/issues/1646)) ([4d99c93](https://github.com/DevExpress/devextreme-reactive/commit/4d99c93))
+
+
+### Features
+
+* **react-chart:** add tooltip plugin ([#1611](https://github.com/DevExpress/devextreme-reactive/issues/1611)) ([1f9322c](https://github.com/DevExpress/devextreme-reactive/commit/1f9322c))
+* **react-grid:** provide a way to customize a group cell ([#1596](https://github.com/DevExpress/devextreme-reactive/issues/1596)) ([d95a0cb](https://github.com/DevExpress/devextreme-reactive/commit/d95a0cb))
+* **react-grid:** provide a way to customize a summary item ([#1567](https://github.com/DevExpress/devextreme-reactive/issues/1567)) ([f131c1c](https://github.com/DevExpress/devextreme-reactive/commit/f131c1c))
+* **react-scheduler:** highlight today DayScale cell ([#1653](https://github.com/DevExpress/devextreme-reactive/issues/1653)) ([eb42d14](https://github.com/DevExpress/devextreme-reactive/commit/eb42d14))
+
+
+### BREAKING CHANGES
+
+* **react-scheduler:**
+We have changed the `onChange` function's argument type to make the `ViewSwitcher`'s API more clear.
+
+  Previously:
+  ```
+  onChange({ nextViewName: string }) => void
+  ```
+
+  Now:
+  ```
+  onChange(nextViewName: string) => void
+  ```
+
+* **react-scheduler:**
+We changed the `onNavigate` function's argument type to make the `DateNavigator`'s API more clear.
+
+  Previously:
+  ```
+  onNavigate({ back: boolean }) => void
+  ```
+
+  Now:
+  ```
+  onNavigate(direction: 'forward' | 'back') => void
+  ```
+
+* **react-chart:**
+1. In the `ArgumentAxis` and `ValueAxis` plugins `lineComponent` and `tickComponent` render identical svg-path elements. Previously, they require different properties for drawing: `width` and `height` for `lineComponent` and `x1`, `x2`, `y1`, `y2` for `tickComponent`.
+  Now, for more consistency the `lineComponent` requires the same properties as `tickComponent`.
+
+1. Previously, there were `ArgumentGrid` and `ValueGrid` plugins that render grid lines for axes. Now, grids are part of the axes:
+
+    ```
+    <ArgumentAxis showGrids />
+    <ValueAxis />
+    ```
+
+    For grid customization, use `gridComponent` as follows:
+
+    ```
+    <ArgumentAxis gridComponent={...} />
+    <ValueAxis gridComponent={...} />
+    ```
+
+
 <a name="1.9.0"></a>
 # [1.9.0](https://github.com/DevExpress/devextreme-reactive/compare/v1.8.0...v1.9.0) (2018-11-07)
 

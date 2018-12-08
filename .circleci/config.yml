@@ -14,5 +14,5 @@ jobs:
       - run: yarn --no-progress
       - run: yarn run build
       - run: yarn run lint
-      - run: yarn run test -- -- -- --maxWorkers=2
+      - run: yarn run test:ci
       - run: yarn run build:site:docs

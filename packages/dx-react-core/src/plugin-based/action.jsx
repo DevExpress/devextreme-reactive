@@ -41,7 +41,7 @@ class ActionBase extends React.PureComponent {
   }
 
   componentWillUnmount() {
-    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.props;
 
     pluginHost.unregisterPlugin(this.plugin);
   }

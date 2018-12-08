@@ -17,24 +17,22 @@ export class Root extends React.PureComponent {
   }
 
   componentDidMount() {
-    this.setState(this.adjust);
+    this.adjust();
   }
 
   componentDidUpdate() {
-    // *setState* can be called unconditionally because it contains proper check inside.
-    this.setState(this.adjust); // eslint-disable-line react/no-did-update-set-state
+    this.adjust();
   }
 
-  adjust(_, { dx, dy, onSizeChange }) {
+  adjust() {
+    const { dx, dy, onSizeChange } = this.props;
     const bbox = this.node.getBBox();
     const width = dx ? bbox.width : getSize(bbox.x, bbox.width);
     const height = dy ? bbox.height : getSize(bbox.y, bbox.height);
     const x = dx ? 0 : getOffset(bbox.x);
     const y = dy ? 0 : getOffset(bbox.y);
     onSizeChange({ width, height });
-    return {
-      x, y,
-    };
+    this.setState({ x, y });
   }
 
   render() {

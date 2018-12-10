@@ -13,18 +13,21 @@ export const makeVirtualTable = (Table, {
     constructor(props) {
       super(props);
 
-      const {
-        height,
-        estimatedRowHeight,
-        headTableComponent,
-        footerTableComponent,
-      } = props;
-      this.layoutRenderComponent = connectProps(VirtualLayout, () => ({
-        height,
-        estimatedRowHeight,
-        headTableComponent,
-        footerTableComponent,
-      }));
+      this.layoutRenderComponent = connectProps(VirtualLayout, () => {
+        const {
+          height,
+          estimatedRowHeight,
+          headTableComponent,
+          footerTableComponent,
+        } = this.props;
+
+        return {
+          height,
+          estimatedRowHeight,
+          headTableComponent,
+          footerTableComponent,
+        };
+      });
     }
 
     componentDidUpdate() {

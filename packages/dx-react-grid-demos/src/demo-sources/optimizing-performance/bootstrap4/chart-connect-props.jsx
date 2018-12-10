@@ -10,7 +10,7 @@ import {
   ArgumentAxis,
   ValueAxis,
   Legend,
-} from '@devexpress/dx-react-chart-material-ui';
+} from '@devexpress/dx-react-chart-bootstrap4';
 import { energyConsumption as data } from '../../../demo-data/chart-data';
 
 const LegendRoot = ({ classes, ...restProps }) => (

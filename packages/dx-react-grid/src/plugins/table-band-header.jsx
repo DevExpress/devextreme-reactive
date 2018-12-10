@@ -29,9 +29,9 @@ export class TableBandHeader extends React.PureComponent {
       tableHeaderRows, columnBands, tableColumns,
     );
     const tableHeaderColumnChainsComputed = ({
-      tableHeaderColumnChains, tableHeaderRows, tableColumns,
+      tableHeaderRows, tableColumns,
     }) => tableHeaderColumnChainsWithBands(
-      tableHeaderColumnChains, tableHeaderRows, tableColumns, columnBands,
+      tableHeaderRows, tableColumns, columnBands,
     );
 
     return (

@@ -48,13 +48,9 @@ describe('TableBandHeader Plugin helpers', () => {
     { key: 'c', column: { name: 'c' }, type: TABLE_DATA_TYPE },
     { key: 'e', column: { name: 'e' }, type: TABLE_DATA_TYPE },
   ];
-  const existingColumnChains = [
-    [{ start: 0, columns: tableColumns }],
-    [{ start: 0, columns: tableColumns }],
-  ];
 
   const computeColumnChains = (columns, rows, bands) => (
-    tableHeaderColumnChainsWithBands(existingColumnChains, rows, columns, bands)
+    tableHeaderColumnChainsWithBands(rows, columns, bands)
   );
   const computeColumnChainsWithFixed = (columns, rows, bands) => (
     tableHeaderColumnChainsWithFixed(

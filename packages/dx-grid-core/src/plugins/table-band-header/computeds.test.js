@@ -111,13 +111,12 @@ describe('TableBandHeader Plugin computeds', () => {
       ))
     );
     const assertChainsSplit = (
-      existingCompressedChains, expectedCompressedChains,
+      expectedCompressedChains,
     ) => {
-      const existingChains = expandChains(existingCompressedChains);
       const expectedChains = expandChains(expectedCompressedChains);
 
       const result = tableHeaderColumnChainsWithBands(
-        existingChains, rows, columns, bands,
+        rows, columns, bands,
       );
       const collapsedChains = compressChains(result);
 
@@ -125,23 +124,8 @@ describe('TableBandHeader Plugin computeds', () => {
       expect(result).toMatchObject(expectedChains);
     };
 
-    it('should initialize chains if none provided', () => {
-      assertChainsSplit(
-        undefined,
-        [
-          [['a', 'b', 'c', 'd', 'e', 'f'], ['g'], ['h'], ['i']],
-          [['a', 'b'], ['c', 'd'], ['e', 'f'], ['g'], ['h'], ['i']],
-          [['a', 'b'], ['c', 'd'], ['e'], ['f'], ['g'], ['h'], ['i']],
-          [['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']],
-        ],
-      );
-    });
-
     it('should split columns to band chains', () => {
       assertChainsSplit(
-        [
-          [['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']],
-        ],
         [
           [['a', 'b', 'c', 'd', 'e', 'f'], ['g'], ['h'], ['i']],
           [['a', 'b'], ['c', 'd'], ['e', 'f'], ['g'], ['h'], ['i']],

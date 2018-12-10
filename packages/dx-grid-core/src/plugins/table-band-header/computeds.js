@@ -25,7 +25,7 @@ export const tableRowsWithBands = (tableHeaderRows, columnBands, tableColumns) =
 };
 
 export const tableHeaderColumnChainsWithBands = (
-  tableHeaderColumnChains, tableHeaderRows, tableColumns, bands,
+  tableHeaderRows, tableColumns, bands,
 ) => {
   const chains = generateSimpleChains(tableHeaderRows, tableColumns);
   const maxBandRowIndex = tableHeaderRows

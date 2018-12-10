@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Popover, PopoverBody } from 'reactstrap';
+import { Popover } from '../../../../dx-react-bootstrap4/components';
 
 // Popover component calls *target* function from render.
-// For the first time it is returns null as expected and Popover crashes.
+// For the first time it returns null as expected and Popover crashes.
 // Because of it the following HOC is used to unwrap DOM element from *target* function.
 export class Overlay extends React.PureComponent {
   componentDidMount() {
@@ -22,9 +22,9 @@ export class Overlay extends React.PureComponent {
             target={domElement}
             {...restProps}
           >
-            <PopoverBody>
+            <div className="popover-body">
               {children}
-            </PopoverBody>
+            </div>
           </Popover>
         )
         : null

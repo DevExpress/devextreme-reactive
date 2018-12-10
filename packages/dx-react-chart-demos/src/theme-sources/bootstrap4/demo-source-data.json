@@ -1,4 +1,4 @@
 {
-  "additionalImports": "\nimport { Card } from 'reactstrap';",
-  "wrapperTag": "Card"
+  "wrapperTag": "div",
+  "wrapperAttributes": " className=\"card\""
 }

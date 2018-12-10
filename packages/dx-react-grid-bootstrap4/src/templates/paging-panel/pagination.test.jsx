@@ -1,6 +1,10 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { Pagination as PaginationBS4, PaginationItem, PaginationLink } from 'reactstrap';
+import {
+  Pagination as PaginationBS4,
+  PaginationItem,
+  PaginationLink,
+} from '../parts/pagination';
 import { Pagination } from './pagination';
 
 const defaultProps = {

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Card } from 'reactstrap';
 import { createStore } from 'redux';
 import { connect, Provider } from 'react-redux';
 import {
@@ -74,7 +73,7 @@ const GridDetailContainer = ({ row }) => (
 &apos;s Tasks:
       </h5>
     </div>
-    <Card>
+    <div className="card">
       <Grid
         rows={row.tasks}
         columns={detailColumns}
@@ -84,7 +83,7 @@ const GridDetailContainer = ({ row }) => (
         />
         <TableHeaderRow />
       </Grid>
-    </Card>
+    </div>
   </div>
 );
 
@@ -114,7 +113,7 @@ const GridContainer = ({
   columnWidths,
   onColumnWidthsChange,
 }) => (
-  <Card>
+  <div className="card">
     <Grid
       rows={rows}
       columns={columns}
@@ -183,7 +182,7 @@ const GridContainer = ({
         columnBands={columnBands}
       />
     </Grid>
-  </Card>
+  </div>
 );
 
 const gridInitialState = {

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Popover } from 'reactstrap';
+import { Popover } from '../../../../dx-react-bootstrap4/components';
 
 export const Overlay = ({
   visible, children, target, onHide, ...restProps

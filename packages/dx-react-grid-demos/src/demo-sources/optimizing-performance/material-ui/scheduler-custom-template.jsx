@@ -8,23 +8,17 @@ import {
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { withStyles } from '@material-ui/core/styles';
 import { fade } from '@material-ui/core/styles/colorManipulator';
-import appointments from '../../../../../dx-react-scheduler-demos/src/demo-data/today-appointments';
+import appointments from '../../../demo-data/today-appointments';
 
-const styles = theme => ({
-  today: {
-    backgroundColor: fade(theme.palette.primary.main, 0.16),
-  },
+const style = theme => ({
   todayCell: {
     backgroundColor: fade(theme.palette.primary.main, 0.1),
     '&:hover': {
-      backgroundColor: fade(theme.palette.primary.main, 0.14),
+      backgroundColor: fade(theme.palette.primary.main, 0.15),
     },
     '&:focus': {
       backgroundColor: fade(theme.palette.primary.main, 0.16),
     },
-  },
-  weekend: {
-    backgroundColor: fade(theme.palette.action.disabledBackground, 0.06),
   },
   weekendCell: {
     backgroundColor: fade(theme.palette.action.disabledBackground, 0.04),
@@ -35,30 +29,36 @@ const styles = theme => ({
       backgroundColor: fade(theme.palette.action.disabledBackground, 0.04),
     },
   },
+  today: {
+    backgroundColor: fade(theme.palette.primary.main, 0.16),
+  },
+  weekend: {
+    backgroundColor: fade(theme.palette.action.disabledBackground, 0.06),
+  },
 });
 
-const TimeTableCellBase = (props) => {
-  const { startDate } = props;
+const TimeTableCellBase = ({ classes, ...restProps }) => {
+  const { startDate } = restProps;
   const date = new Date(startDate);
   if (date.getDate() === new Date().getDate()) {
-    return <WeekView.TimeTableCell {...props} className={props.classes.todayCell} />;
+    return <WeekView.TimeTableCell {...restProps} className={classes.todayCell} />;
   } if (date.getDay() === 0 || date.getDay() === 6) {
-    return <WeekView.TimeTableCell {...props} className={props.classes.weekendCell} />;
-  } return <WeekView.TimeTableCell {...props} />;
+    return <WeekView.TimeTableCell {...restProps} className={classes.weekendCell} />;
+  } return <WeekView.TimeTableCell {...restProps} />;
 };
 
-const TimeTableCell = withStyles(styles, { name: 'TimeTableCell' })(TimeTableCellBase);
+const TimeTableCell = withStyles(style, { name: 'TimeTableCell' })(TimeTableCellBase);
 
-const DayScaleCellBase = (props) => {
-  const { startDate, today } = props;
+const DayScaleCellBase = ({ classes, ...restProps }) => {
+  const { startDate, today } = restProps;
   if (today) {
-    return <WeekView.DayScaleCell {...props} className={props.classes.today} />;
+    return <WeekView.DayScaleCell {...restProps} className={classes.today} />;
   } if (startDate.getDay() === 0 || startDate.getDay() === 6) {
-    return <WeekView.DayScaleCell {...props} className={props.classes.weekend} />;
-  } return <WeekView.DayScaleCell {...props} />;
+    return <WeekView.DayScaleCell {...restProps} className={classes.weekend} />;
+  } return <WeekView.DayScaleCell {...restProps} />;
 };
 
-const DayScaleCell = withStyles(styles, { name: 'DayScaleCell' })(DayScaleCellBase);
+const DayScaleCell = withStyles(style, { name: 'DayScaleCell' })(DayScaleCellBase);
 
 export default class Demo extends React.PureComponent {
   constructor(props) {

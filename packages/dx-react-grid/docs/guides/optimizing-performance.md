@@ -12,7 +12,7 @@ In this case, you can use a state management library like [Redux](https://redux.
 
 The following demo shows how to work with immutable data using Redux, [react-redux](https://github.com/reduxjs/react-redux) and [seamless-immutable](https://github.com/rtfeldman/seamless-immutable) libraries:
 
-.embedded-demo({ "path": "optimizing-performance/grid-immutable", "showThemeSelector": true })
+.embedded-demo({ "path": "grid-performance/grid-immutable", "showThemeSelector": true })
 
 ## Avoid Constantly Code Inside Render Methods
 
@@ -22,4 +22,4 @@ It is known that all code inside render methods will be called after each compon
 
 In some cases, we want to get access to the parent component’s state. In these scenarios, we recommend using one of the methods below for avoiding performance problems. The first one is using state management libraries like the Redux. However, if your application doesn’t include any state management libraries, we suggest using the [connectProps](../../../dx-react-core/docs/reference/connect-props.md) function from the `@devexpress/dx-react-core` package. In the following example shows how to configure this function:
 
-.embedded-demo({ "path": "optimizing-performance/chart-custom-template", "showThemeSelector": true })
+.embedded-demo({ "path": "optimizing-performance/chart-connect-props", "showThemeSelector": true })

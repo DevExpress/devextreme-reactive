@@ -11,67 +11,49 @@ import {
   ValueAxis,
   Legend,
 } from '@devexpress/dx-react-chart-material-ui';
-import classNames from 'classnames';
-import { withStyles } from '@material-ui/core/styles';
 import { energyConsumption as data } from '../../../../../dx-react-chart-demos/src/demo-data/data-vizualization';
 
-const legendStyles = () => ({
-  root: {
-    display: 'flex',
-    margin: 'auto',
-    flexDirection: 'row',
-  },
-});
-const legendLabelStyles = theme => ({
-  label: {
-    marginBottom: theme.spacing.unit,
-    whiteSpace: 'nowrap',
-    fontSize: '20px',
-    color: 'gray',
-  },
-  selectedSeries: {
-    fontWeight: 'bold',
-    color: 'back',
-  },
-});
-const legendItemStyles = () => ({
-  item: {
-    flexDirection: 'column-reverse',
-  },
-});
-
-const legendRootBase = ({ classes, ...restProps }) => (
-  <Legend.Root {...restProps} className={classes.root} />
-);
-const legendLabelBase = ({ classes, selectedSeriesName, ...restProps }) => {
-  debugger;
-  return (
-    <div
-      {...restProps}
-      className={classNames({
-        [classes.label]: true,
-        [classes.selectedSeries]: selectedSeriesName === restProps.text,
-      })}
-    >
-      {restProps.text}
-    </div>
-  );
-};
-const legendItemBase = ({ classes, ...restProps }) => (
-  <Legend.Item
+const LegendRoot = ({ classes, ...restProps }) => (
+  <Legend.Root
     {...restProps}
-    className={classes.item}
+    style={{
+      display: 'flex',
+      margin: 'auto',
+      flexDirection: 'row',
+    }}
   />
 );
-const Root = withStyles(legendStyles, { name: 'LegendRoot' })(legendRootBase);
-const Label = withStyles(legendLabelStyles, { name: 'LegendLabel' })(legendLabelBase);
-const Item = withStyles(legendItemStyles, { name: 'LegendItem' })(legendItemBase);
+const LegendLabel = ({
+  classes, selectedSeriesName, text, ...restProps
+}) => (
+  <div
+    {...restProps}
+    style={{
+      marginBottom: '8px',
+      whiteSpace: 'nowrap',
+      fontSize: '20px',
+      color: 'gray',
+      ...selectedSeriesName === text ? {
+        fontWeight: 'bold',
+        color: 'black',
+      } : {},
+    }}
+  >
+    {text}
+  </div>
+);
+const LegendItem = ({ classes, ...restProps }) => (
+  <Legend.Item
+    {...restProps}
+    style={{
+      flexDirection: 'column-reverse',
+    }}
+  />
+);
 
 const compare = (
   { series, point }, { series: targetSeries, point: targetPoint },
 ) => series === targetSeries && point === targetPoint;
-
-const Spline = props => <SplineSeries.Path {...props} strokeWidth={8} />;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -79,7 +61,9 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       data,
-      selection: [],
+      selection: [{
+        series: 'Oil', distance: 1,
+      }],
     };
 
     this.click = ({ targets }) => {
@@ -91,7 +75,7 @@ export default class Demo extends React.PureComponent {
       }
     };
 
-    this.legendLabel = connectProps(Label, () => {
+    this.legendLabel = connectProps(LegendLabel, () => {
       const { selection } = this.state;
       const selectedSeriesName = selection[0] ? selection[0].series : undefined;
       return ({
@@ -107,7 +91,6 @@ export default class Demo extends React.PureComponent {
   render() {
     const { data: chartData, selection } = this.state;
 
-    console.log(selection);
     return (
       <Paper>
         <Chart
@@ -120,7 +103,6 @@ export default class Demo extends React.PureComponent {
             name="Hydro-electric"
             valueField="hydro"
             argumentField="country"
-            seriesComponent={Spline}
           />
           <SplineSeries
             name="Oil"
@@ -144,8 +126,8 @@ export default class Demo extends React.PureComponent {
           />
           <Legend
             position="bottom"
-            rootComponent={Root}
-            itemComponent={Item}
+            rootComponent={LegendRoot}
+            itemComponent={LegendItem}
             labelComponent={this.legendLabel}
           />
           <Scale />

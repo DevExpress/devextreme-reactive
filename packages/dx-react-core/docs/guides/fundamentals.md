@@ -7,15 +7,15 @@ React Core provides components for creating a plugin-based component.
 A plugin-based component should adhere to the following principles:
 
 ##### [Inversion of Control](https://en.wikipedia.org/wiki/Inversion_of_control){:target="_blank"}
- 
+
 A plugin shares its items (Getters, Actions, Templates) within an IoC (Inversion of Control) container and can use the ones other plugins share.
- 
+
 A plugin based component consists of the following child components:
 
-- Plugin Host component  
+- Plugin Host component
  A component that hosts plugins.
 
-- Plugin components  
+- Plugin components
  Each plugin is a React component that defines a markup, stores a state and provides state modification actions.
 
 ##### [State Managment](https://en.wikipedia.org/wiki/State_management){:target="_blank"}
@@ -27,7 +27,7 @@ The plugin based component's state is an aggregation of plugin states which keep
 ##### [Data Piping](https://en.wikipedia.org/wiki/Pipeline_(computing)){:target="_blank"}
 
 The component provides a mechanism for communication between plugins.
- 
+
 The plugin application order depends on plugins' defined order in the parent component. The higher it is, the earlier it is applied.
 
 ### Plugin Host Component
@@ -56,3 +56,5 @@ Visualization primitives:
 A [Plugin](../reference/plugin.md) is an auxiliary component that stores plugin primitives or nested plugins. If a React component's root element is a plugin, this component is a plugin component.
 
 .embedded-demo({ "path": "core-basic/plugin-component", "defaultTab": "source" })
+
+.embedded-demo({ "path": "tooltip/controlled", "defaultTab": "source" })

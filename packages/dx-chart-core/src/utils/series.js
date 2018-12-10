@@ -1,15 +1,7 @@
 import { area } from 'd3-shape';
 import { dArea, dLine, dSpline } from '../plugins/series/computeds';
 
-// Based on https://en.wikipedia.org/wiki/Uniform_norm
-const getUniformDistance = (dx, dy, rx, ry) => Math.max(
-  Math.abs(dx) / rx, Math.abs(dy) / ry,
-);
-
-// Based on https://en.wikipedia.org/wiki/Norm_(mathematics)#Euclidean_norm
-const getEuclideanDistance = (dx, dy, rx, ry) => Math.sqrt(
-  (dx * dx) / (rx * rx) + (dy * dy) / (ry * ry),
-);
+const getLength = (dx, dy) => Math.sqrt(dx * dx + dy * dy);
 
 // *distance* is a normalized distance to point.
 // It belongs to [0, Infinity):
@@ -32,12 +24,10 @@ const createCanvasAbusingHitTester = (makePath, points) => {
   return ([x, y]) => ctx.isPointInPath(x, y);
 };
 
-const POINT_TOLERANCE = 20;
+const LINE_POINT_SIZE = 20;
 const LINE_TOLERANCE = 10;
 
-const hitTestContinuousPoint = ([px, py], { x, y }) => getEuclideanDistance(
-  px - x, py - y, POINT_TOLERANCE, POINT_TOLERANCE,
-);
+const getContinuousPointDistance = ([px, py], { x, y }) => getLength(px - x, py - y);
 
 const createContinuousSeriesHitTesterCreator = makePath => (points) => {
   const fallbackHitTest = createCanvasAbusingHitTester(makePath, points);
@@ -46,8 +36,8 @@ const createContinuousSeriesHitTesterCreator = makePath => (points) => {
     let minIndex;
     const list = [];
     points.forEach((point, i) => {
-      const distance = hitTestContinuousPoint(target, point);
-      if (distance <= 1) {
+      const distance = getContinuousPointDistance(target, point);
+      if (distance <= LINE_POINT_SIZE) {
         list.push({ index: point.index, distance });
       }
       if (distance < minDistance) {
@@ -67,9 +57,9 @@ const createContinuousSeriesHitTesterCreator = makePath => (points) => {
 const createPointsEnumeratingHitTesterCreator = hitTestPoint => points => (target) => {
   const list = [];
   points.forEach((point) => {
-    const distance = hitTestPoint(target, point);
-    if (distance <= 1) {
-      list.push({ index: point.index, distance });
+    const status = hitTestPoint(target, point);
+    if (status) {
+      list.push({ index: point.index, distance: status.distance });
     }
   });
   return list.length ? { points: list } : null;
@@ -109,13 +99,18 @@ export const createBarHitTester = createPointsEnumeratingHitTesterCreator(
     const yCenter = (point.y + point.y1) / 2;
     const halfWidth = point.width / 2;
     const halfHeight = Math.abs(point.y - point.y1) / 2;
-    return getUniformDistance(px - xCenter, py - yCenter, halfWidth, halfHeight);
+    return Math.abs(px - xCenter) <= halfWidth && Math.abs(py - yCenter) <= halfHeight ? {
+      distance: getLength(px - xCenter, py - yCenter),
+    } : null;
   },
 );
 
 // TODO: Use actual point size here!
 export const createScatterHitTester = createPointsEnumeratingHitTesterCreator(
-  ([px, py], { x, y }) => getEuclideanDistance(px - x, py - y, 10, 10),
+  ([px, py], { x, y }) => {
+    const distance = getLength(px - x, py - y);
+    return distance <= 10 ? { distance } : null;
+  },
 );
 
 const mapAngleTod3 = (angle) => {
@@ -134,9 +129,13 @@ export const createPieHitTester = createPointsEnumeratingHitTesterCreator(
     const halfAngle = Math.abs(startAngle - endAngle) / 2;
     const dx = px - x;
     const dy = py - y;
-    const r = Math.sqrt(dx * dx + dy * dy);
+    const r = getLength(dx, dy);
     const angle = mapAngleTod3(Math.atan2(dy, dx));
-    return getUniformDistance(r - rCenter, angle - angleCenter, halfRadius, halfAngle);
+    return Math.abs(r - rCenter) <= halfRadius && Math.abs(angle - angleCenter) <= halfAngle ? {
+      // This is not a correct distance calculation but for now it will suffice.
+      // For Pie series it would not be actually used.
+      distance: getLength(r - rCenter, angle - angleCenter),
+    } : null;
   },
 );
 

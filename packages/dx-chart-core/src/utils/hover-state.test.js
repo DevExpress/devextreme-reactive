@@ -1,4 +1,4 @@
-import { getHoverTargets, processPointerMove } from './hover-state';
+import { processPointerMove } from './hover-state';
 
 describe('HoverState', () => {
   describe('#processPointerMove', () => {
@@ -76,21 +76,6 @@ describe('HoverState', () => {
 
       expect(result).toEqual({ series: '1', distance: 0.1 });
       expect(mock).toBeCalledWith({ series: '1', distance: 0.1 });
-    });
-  });
-
-  describe('#getHoveredTargets', () => {
-    it('should return empty array', () => {
-      expect(getHoverTargets(null)).toEqual([]);
-    });
-
-    it('should return item as is', () => {
-      expect(getHoverTargets({ series: '1' })).toEqual([{ series: '1' }]);
-    });
-
-    it('should return additional item for point', () => {
-      expect(getHoverTargets({ series: '1', point: 2 }))
-        .toEqual([{ series: '1' }, { series: '1', point: 2 }]);
     });
   });
 });

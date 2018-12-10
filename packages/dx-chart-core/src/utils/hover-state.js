@@ -46,12 +46,3 @@ export const processPointerMove = (targets, currentTarget, notify) => {
   }
   return nextTarget;
 };
-
-// It handles the case when point is hovered and series does not contain visual points.
-// Series then knows that it is also hovered and can represent the changed state.
-export const getHoverTargets = (hover) => {
-  if (!hover) {
-    return [];
-  }
-  return hover.point >= 0 ? [{ series: hover.series }, hover] : [hover];
-};

@@ -48,6 +48,8 @@ const script = async () => {
   );
 
   console.log('Preparing output directory...');
+  removeSync(SITE_PUBLISHING_DIRECTORY);
+  execSync('git worktree prune');
   execSync(`git worktree add -B ${BRANCH} ${SITE_PUBLISHING_DIRECTORY} upstream/${BRANCH}`, { stdio: 'ignore' });
 
   console.log('Copying generated site...');

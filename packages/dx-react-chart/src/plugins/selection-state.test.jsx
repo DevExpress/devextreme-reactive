@@ -20,7 +20,7 @@ describe('SelectionState', () => {
   };
 
   it('should provide getters', () => {
-    const mock = [{ series: '1' }, { series: '2', point: 2 }];
+    const mock = [{ series: '1', point: 1 }, { series: '2', point: 2 }];
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}

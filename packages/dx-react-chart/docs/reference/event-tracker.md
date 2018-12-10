@@ -16,11 +16,12 @@ import { EventTracker } from '@devexpress/dx-react-chart';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-onClick? | (target: [ClickData](#clickdata)) => void | | A function that is executed when the chart's plot is clicked.
+onClick? | (target: [TargetData](#targetdata)) => void | | A function that is executed when the chart's plot is clicked.
+onPointerMove ? | (target: [TargetData](#targetdata)) => void | | A function that is executed when the pointer moves over the chart.
 
 ## Interfaces
 
-### ClickData
+### TargetData
 
 The click event data.
 
@@ -28,6 +29,7 @@ Field | Type | Description
 ------|------|------------
 location | Array&lt;number&gt; | The clicked point's coordinates `[x, y]` (relative to the chart's plot).
 targets | Array&lt;[SeriesRef](#seriesref)&gt; | An array of clicked series.
+event | object | The event data.
 
 ### SeriesRef
 
@@ -36,4 +38,4 @@ The object that points at a clicked series.
 Field | Type | Description
 ------|------|------------
 series | string | Series name.
-point? | number | The point's index within the `data` array (`undefined` if no series points are clicked).
+point | number | The point's index within the `data` array.

@@ -14,7 +14,7 @@ const style = theme => ({
   todayCell: {
     backgroundColor: fade(theme.palette.primary.main, 0.1),
     '&:hover': {
-      backgroundColor: fade(theme.palette.primary.main, 0.15),
+      backgroundColor: fade(theme.palette.primary.main, 0.14),
     },
     '&:focus': {
       backgroundColor: fade(theme.palette.primary.main, 0.16),

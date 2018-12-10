@@ -38,4 +38,4 @@ The object that points at a clicked series.
 Field | Type | Description
 ------|------|------------
 series | string | Series name.
-point? | number | The point's index within the `data` array (`undefined` if no series points are clicked).
+point | number | The point's index within the `data` array.

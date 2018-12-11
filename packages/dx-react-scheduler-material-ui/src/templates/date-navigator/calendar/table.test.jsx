@@ -99,7 +99,7 @@ describe('Calendar', () => {
       tree.find(defaultProps.cellComponent).props().onClick();
 
       expect(cellClickMock)
-        .toBeCalledWith({ nextDate: '2018-07-16' });
+        .toBeCalledWith('2018-07-16');
     });
   });
 });

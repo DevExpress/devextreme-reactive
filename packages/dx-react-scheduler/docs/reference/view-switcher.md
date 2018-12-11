@@ -39,8 +39,7 @@ Field | Type | Description
 ------|------|------------
 currentViewName | string | A displayed view's name.
 availableViewNames | Array&lt;string&gt; | An array of available view's names.
-onChange | ({ nextViewName: string }) => void | A function that handles changes to the displayed view.
-
+onChange | (nextViewName: string) => void | A function that handles changes to the displayed view.
 
 ## Plugin Components
 

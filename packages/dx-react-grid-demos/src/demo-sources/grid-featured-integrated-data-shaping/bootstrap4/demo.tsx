@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Card } from 'reactstrap';
 import {
   Column,
   FilteringState, GroupingState,
@@ -116,7 +115,7 @@ export default class Demo extends React.Component<object, IGridState> {
     } = this.state;
 
     return (
-      <Card>
+      <div className="card">
         <Grid
           rows={rows}
           columns={columns}
@@ -160,7 +159,7 @@ export default class Demo extends React.Component<object, IGridState> {
           <Toolbar />
           <GroupingPanel showSortingControls={true} />
         </Grid>
-      </Card>
+      </div>
     );
   }
 }

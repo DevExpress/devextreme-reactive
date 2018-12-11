@@ -1,4 +1,8 @@
 /react/core:
+  - title: Common Concepts
+    items:
+      - title: Performance Optimization
+        path: /react/core/docs/guides/performance-optimizations
   - title: Guides
     items:
       - title: Fundamentals
@@ -36,6 +40,10 @@
       - title: React Scheduler
         path: /react/scheduler/docs/guides/getting-started
 /react/grid:
+  - title: Common Concepts
+    items:
+      - title: Performance Optimization
+        path: /react/core/docs/guides/performance-optimizations
   - title: Guides
     items:
       - title: Getting Started
@@ -84,8 +92,6 @@
         path: /react/grid/docs/guides/summary-row
       - title: Localization
         path: /react/grid/docs/guides/localization
-      - title: Optimizing Performance
-        path: /react/grid/docs/guides/optimizing-performance
       - title: TypeScript
         path: /react/grid/docs/guides/typescript
   - title: API Reference
@@ -187,6 +193,10 @@
       - title: React Scheduler
         path: /react/scheduler/docs/guides/getting-started
 /react/chart:
+  - title: Common Concepts
+    items:
+      - title: Performance Optimization
+        path: /react/core/docs/guides/performance-optimizations
   - title: Guides
     items:
       - title: Getting Started
@@ -260,6 +270,10 @@
       - title: React Scheduler
         path: /react/scheduler/docs/guides/getting-started
 /react/scheduler:
+  - title: Common Concepts
+    items:
+      - title: Performance Optimization
+        path: /react/core/docs/guides/performance-optimizations
   - title: Guides
     items:
       - title: Getting Started

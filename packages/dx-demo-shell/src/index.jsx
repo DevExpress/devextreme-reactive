@@ -14,6 +14,7 @@ import { EmbeddedDemoContext } from './context';
 
 const App = ({ router, path, ...restProps }) => {
   const Router = router === 'hash' ? HashRouter : MemoryRouter;
+  console.log(restProps);
   return (
     <EmbeddedDemoContext.Provider value={restProps}>
       <Router
@@ -59,6 +60,7 @@ export const initialize = ({
       options: JSON.parse(placeholder.getAttribute('data-options') || '{}'),
       placeholder,
     }));
+  console.log(embeddedDemoConfigs);
   embeddedDemoConfigs
     .forEach((config) => {
       render(

@@ -1,8 +1,19 @@
-/react/core:
+/react/common:
   - title: Common Concepts
     items:
       - title: Performance Optimization
-        path: /react/core/docs/guides/performance-optimizations
+        path: /react/common/docs/guides/performance-optimizations
+  - title: Related Docs
+    items:
+      - title: React Core
+        path: /react/core/docs/guides/fundamentals
+      - title: React Grid
+        path: /react/grid/docs/guides/getting-started
+      - title: React Chart
+        path: /react/chart/docs/guides/getting-started
+      - title: React Scheduler
+        path: /react/scheduler/docs/guides/getting-started
+/react/core:
   - title: Guides
     items:
       - title: Fundamentals
@@ -43,7 +54,7 @@
   - title: Common Concepts
     items:
       - title: Performance Optimization
-        path: /react/core/docs/guides/performance-optimizations
+        path: /react/common/docs/guides/performance-optimizations
   - title: Guides
     items:
       - title: Getting Started
@@ -196,7 +207,7 @@
   - title: Common Concepts
     items:
       - title: Performance Optimization
-        path: /react/core/docs/guides/performance-optimizations
+        path: /react/common/docs/guides/performance-optimizations
   - title: Guides
     items:
       - title: Getting Started
@@ -273,7 +284,7 @@
   - title: Common Concepts
     items:
       - title: Performance Optimization
-        path: /react/core/docs/guides/performance-optimizations
+        path: /react/common/docs/guides/performance-optimizations
   - title: Guides
     items:
       - title: Getting Started

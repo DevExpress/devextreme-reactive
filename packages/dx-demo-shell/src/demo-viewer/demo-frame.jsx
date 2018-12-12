@@ -28,7 +28,19 @@ class DemoFrameRenderer extends React.PureComponent {
       themeName,
       variantName,
     } = props;
-    const { scriptPath, themeSources } = this.context;
+    console.log(this.context);
+    const { scriptPath, themeSources, demosScriptLinks, firstPart, lastPart } = this.context;
+    console.log(demosScriptLinks);
+    let attachedScripts = '';
+    let mainScript = `<script src="${scriptPath}"></script>`;
+    if (demosScriptLinks && demosScriptLinks.length > 0) {
+      const scriptPaths = demosScriptLinks.split('|');
+      attachedScripts = scriptPaths.reduce((acc, path) => acc + `<script src="${firstPart + path + lastPart}"></script>`, '');
+      mainScript = '';
+    }
+    console.log(attachedScripts);
+    console.log(mainScript);
+
     const themeVariantOptions = themeSources
       .find(theme => theme.name === themeName).variants
       .find(variant => variant.name === variantName);
@@ -51,7 +63,8 @@ class DemoFrameRenderer extends React.PureComponent {
         <div class="embedded-demo" data-options='{ "path": "${frameUrl}/clean", "frame": true }'>
           <div style="min-height: 500px;">Loading...</div>
         </div>
-        <script src="${scriptPath}"></script>
+        ${attachedScripts}
+        ${mainScript}
       </body>
       </html>`;
     this.state = {

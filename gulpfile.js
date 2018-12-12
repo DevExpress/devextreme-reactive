@@ -78,6 +78,9 @@ var injectLiveDemos = function(content) {
           ...data,
           path: `/demo/${data.path}`,
           scriptPath: `{{site.baseurl}}/{{page.demos_script_link}}/dist/index.js?v={{ site.time | date: '%s' }}`,
+          demosScriptLinks: `{{page.demos_script_links}}`,
+          firstPart: `{{site.baseurl}}`,
+          lastPart: `/dist/index.js?v={{ site.time | date: '%s' }}`
         };
         return `<div
           class="embedded-demo"
@@ -92,6 +95,7 @@ var injectLiveDemos = function(content) {
 
 gulp.task('site:clean', function() {
   return gulp.src([
+    'site/react/common/**/*.md',
     'site/react/core/**/*.md',
     'site/react/grid/**/*.md',
     'site/react/chart/**/*.md',
@@ -103,6 +107,7 @@ gulp.task('site:clean', function() {
 
 gulp.task('site:docs', function() {
   return gulp.src([
+      'packages/dx-react-common/docs/*/*.md',
       'packages/dx-react-core/docs/*/*.md',
       'packages/dx-react-grid/demos/*/*.md',
       'packages/dx-react-grid/docs/*/*.md',

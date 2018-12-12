@@ -92,6 +92,12 @@ export const createSplineHitTester = createContinuousSeriesHitTesterCreator(() =
   return path;
 });
 
+const hitTestRect = (dx, dy, halfX, halfY) => (
+  Math.abs(dx) <= halfX && Math.abs(dy) <= halfY ? {
+    distance: getSegmentLength(dx, dy),
+  } : null
+);
+
 // Some kind of binary search can be used here as bars can be ordered along argument axis.
 export const createBarHitTester = createPointsEnumeratingHitTesterCreator(
   ([px, py], point) => {
@@ -99,9 +105,7 @@ export const createBarHitTester = createPointsEnumeratingHitTesterCreator(
     const yCenter = (point.y + point.y1) / 2;
     const halfWidth = point.width / 2;
     const halfHeight = Math.abs(point.y - point.y1) / 2;
-    return Math.abs(px - xCenter) <= halfWidth && Math.abs(py - yCenter) <= halfHeight ? {
-      distance: getSegmentLength(px - xCenter, py - yCenter),
-    } : null;
+    return hitTestRect(px - xCenter, py - yCenter, halfWidth, halfHeight);
   },
 );
 
@@ -131,11 +135,9 @@ export const createPieHitTester = createPointsEnumeratingHitTesterCreator(
     const dy = py - y;
     const r = getSegmentLength(dx, dy);
     const angle = mapAngleTod3(Math.atan2(dy, dx));
-    return Math.abs(r - rCenter) <= halfRadius && Math.abs(angle - angleCenter) <= halfAngle ? {
-      // This is not a correct distance calculation but for now it will suffice.
-      // For Pie series it would not be actually used.
-      distance: getSegmentLength(r - rCenter, angle - angleCenter),
-    } : null;
+    // This is not a correct distance calculation but for now it will suffice.
+    // For Pie series it would not be actually used.
+    return hitTestRect(r - rCenter, angle - angleCenter, halfRadius, halfAngle);
   },
 );
 

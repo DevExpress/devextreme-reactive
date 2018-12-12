@@ -1,7 +1,7 @@
 import { area } from 'd3-shape';
 import { dArea, dLine, dSpline } from '../plugins/series/computeds';
 
-const getLength = (dx, dy) => Math.sqrt(dx * dx + dy * dy);
+const getSegmentLength = (dx, dy) => Math.sqrt(dx * dx + dy * dy);
 
 // *distance* is a normalized distance to point.
 // It belongs to [0, Infinity):
@@ -27,7 +27,7 @@ const createCanvasAbusingHitTester = (makePath, points) => {
 const LINE_POINT_SIZE = 20;
 const LINE_TOLERANCE = 10;
 
-const getContinuousPointDistance = ([px, py], { x, y }) => getLength(px - x, py - y);
+const getContinuousPointDistance = ([px, py], { x, y }) => getSegmentLength(px - x, py - y);
 
 const createContinuousSeriesHitTesterCreator = makePath => (points) => {
   const fallbackHitTest = createCanvasAbusingHitTester(makePath, points);
@@ -100,7 +100,7 @@ export const createBarHitTester = createPointsEnumeratingHitTesterCreator(
     const halfWidth = point.width / 2;
     const halfHeight = Math.abs(point.y - point.y1) / 2;
     return Math.abs(px - xCenter) <= halfWidth && Math.abs(py - yCenter) <= halfHeight ? {
-      distance: getLength(px - xCenter, py - yCenter),
+      distance: getSegmentLength(px - xCenter, py - yCenter),
     } : null;
   },
 );
@@ -108,7 +108,7 @@ export const createBarHitTester = createPointsEnumeratingHitTesterCreator(
 // TODO: Use actual point size here!
 export const createScatterHitTester = createPointsEnumeratingHitTesterCreator(
   ([px, py], { x, y }) => {
-    const distance = getLength(px - x, py - y);
+    const distance = getSegmentLength(px - x, py - y);
     return distance <= 10 ? { distance } : null;
   },
 );
@@ -129,12 +129,12 @@ export const createPieHitTester = createPointsEnumeratingHitTesterCreator(
     const halfAngle = Math.abs(startAngle - endAngle) / 2;
     const dx = px - x;
     const dy = py - y;
-    const r = getLength(dx, dy);
+    const r = getSegmentLength(dx, dy);
     const angle = mapAngleTod3(Math.atan2(dy, dx));
     return Math.abs(r - rCenter) <= halfRadius && Math.abs(angle - angleCenter) <= halfAngle ? {
       // This is not a correct distance calculation but for now it will suffice.
       // For Pie series it would not be actually used.
-      distance: getLength(r - rCenter, angle - angleCenter),
+      distance: getSegmentLength(r - rCenter, angle - angleCenter),
     } : null;
   },
 );

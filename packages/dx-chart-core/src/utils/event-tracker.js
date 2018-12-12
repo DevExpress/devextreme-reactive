@@ -11,7 +11,7 @@ const getEventCoords = (e) => {
 
 const DISTANCE_THRESHOLD = 20;
 
-const compare = (t1, t2) => {
+const compareHitTargets = (t1, t2) => {
   const distanceDelta = t1.distance - t2.distance;
   if (Math.abs(distanceDelta) <= DISTANCE_THRESHOLD) {
     const orderDelta = t2.order - t1.order;
@@ -45,7 +45,7 @@ const buildEventHandler = (seriesList, handlers) => {
         ));
       }
     });
-    targets.sort(compare);
+    targets.sort(compareHitTargets);
     const arg = { location, targets, event: e.nativeEvent };
     handlers.forEach(handler => handler(arg));
   };

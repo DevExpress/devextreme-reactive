@@ -9,7 +9,16 @@ const getEventCoords = (e) => {
   ];
 };
 
-const compare = (t1, t2) => t1.distance - t2.distance;
+const DISTANCE_THRESHOLD = 20;
+
+const compareHitTargets = (t1, t2) => {
+  const distanceDelta = t1.distance - t2.distance;
+  if (Math.abs(distanceDelta) <= DISTANCE_THRESHOLD) {
+    const orderDelta = t2.order - t1.order;
+    return orderDelta !== 0 ? orderDelta : distanceDelta;
+  }
+  return distanceDelta;
+};
 
 const buildEventHandler = (seriesList, handlers) => {
   let hitTesters = null;
@@ -26,15 +35,17 @@ const buildEventHandler = (seriesList, handlers) => {
     const location = getEventCoords(e);
     hitTesters = hitTesters || createHitTesters();
     const targets = [];
-    seriesList.forEach(({ name: series, symbolName }) => {
+    seriesList.forEach(({ name: series, index: order, symbolName }) => {
       const status = hitTesters[symbolName](location);
       if (status) {
         targets.push(...status.points.map(
-          point => ({ series, point: point.index, distance: point.distance }),
+          point => ({
+            series, point: point.index, distance: point.distance, order,
+          }),
         ));
       }
     });
-    targets.sort(compare);
+    targets.sort(compareHitTargets);
     const arg = { location, targets, event: e.nativeEvent };
     handlers.forEach(handler => handler(arg));
   };

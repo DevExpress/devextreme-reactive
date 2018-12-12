@@ -22,8 +22,6 @@ It is known that all code inside render methods will be called after each compon
 
 In some cases, we want to get access to the parent component’s state. In these scenarios, we recommend using one of the methods below for avoiding performance problems. The first one is using state management libraries like the Redux. However, if your application doesn’t include any state management libraries, we suggest using the [connectProps](../reference/connect-props.md) function from the `@devexpress/dx-react-core` package. In the following example shows how to configure this function:
 
-.embedded-demo({ "path": "optimizing-performance/chart-connect-props", "showThemeSelector": true })
+.embedded-demo({ "path": "chart-basic/chart-connect-props", "showThemeSelector": true })
 
 In the sample above the legend title depends of the series selection state. The selection state changes will change the legend title styles because of the [connectProps](../reference/connect-props.md) function's `update` method.
-
-.embedded-demo({ "path": "chart-basic/area", "showThemeSelector": true })

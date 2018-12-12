@@ -1,5 +1,4 @@
-import * as React from 'react';
-import Paper from '@material-ui/core/Paper';
+import * as React from 'react';<%&additionalImports%>
 import { connectProps } from '@devexpress/dx-react-core';
 import {
   Scale, EventTracker, SelectionState,
@@ -10,8 +9,8 @@ import {
   ArgumentAxis,
   ValueAxis,
   Legend,
-} from '@devexpress/dx-react-chart-bootstrap4';
-import { energyConsumption as data } from '../../../demo-data/chart-data';
+} from '@devexpress/dx-react-chart-<%&themeName%>';
+import { energyConsumption as data } from '../../../demo-data/data-vizualization';
 
 const LegendRoot = ({ classes, ...restProps }) => (
   <Legend.Root
@@ -62,7 +61,7 @@ export default class Demo extends React.PureComponent {
     this.state = {
       data,
       selection: [{
-        series: 'Oil', distance: 1,
+        series: 'Oil', point: 1,
       }],
     };
 
@@ -92,7 +91,7 @@ export default class Demo extends React.PureComponent {
     const { data: chartData, selection } = this.state;
 
     return (
-      <Paper>
+      <<%&wrapperTag%><%&wrapperAttributes%>>
         <Chart
           data={chartData}
         >
@@ -135,7 +134,7 @@ export default class Demo extends React.PureComponent {
           <EventTracker onClick={this.click} />
           <SelectionState selection={selection} />
         </Chart>
-      </Paper>
+      </<%&wrapperTag%>>
     );
   }
 }

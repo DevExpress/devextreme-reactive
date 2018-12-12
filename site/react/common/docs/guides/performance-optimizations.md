@@ -42,7 +42,7 @@ In some cases, we want to get access to the parent component’s state. In these
 
 <div
           class="embedded-demo"
-          data-options='{"path":"/demo/optimizing-performance/chart-connect-props","showThemeSelector":true,"scriptPath":"{{site.baseurl}}/{{page.demos_script_link}}/dist/index.js?v={{ site.time | date: '%s' }}","demosScriptLinks":"{{page.demos_script_links}}","firstPart":"{{site.baseurl}}","lastPart":"/dist/index.js?v={{ site.time | date: '%s' }}"}'
+          data-options='{"path":"/demo/chart-basic/chart-connect-props","showThemeSelector":true,"scriptPath":"{{site.baseurl}}/{{page.demos_script_link}}/dist/index.js?v={{ site.time | date: '%s' }}","demosScriptLinks":"{{page.demos_script_links}}","firstPart":"{{site.baseurl}}","lastPart":"/dist/index.js?v={{ site.time | date: '%s' }}"}'
         >
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
@@ -50,12 +50,3 @@ In some cases, we want to get access to the parent component’s state. In these
         </div>
 
 In the sample above the legend title depends of the series selection state. The selection state changes will change the legend title styles because of the [connectProps](../reference/connect-props.md) function's `update` method.
-
-<div
-          class="embedded-demo"
-          data-options='{"path":"/demo/chart-basic/area","showThemeSelector":true,"scriptPath":"{{site.baseurl}}/{{page.demos_script_link}}/dist/index.js?v={{ site.time | date: '%s' }}","demosScriptLinks":"{{page.demos_script_links}}","firstPart":"{{site.baseurl}}","lastPart":"/dist/index.js?v={{ site.time | date: '%s' }}"}'
-        >
-          <div class="loading-shading">
-            <span class="glyphicon glyphicon-refresh loading-icon"></span>
-          </div>
-        </div>

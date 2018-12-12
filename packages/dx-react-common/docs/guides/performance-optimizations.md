@@ -12,13 +12,13 @@ In this case, you can use a state management library like [Redux](https://redux.
 
 The following demo shows how to work with immutable data using Redux, [react-redux](https://github.com/reduxjs/react-redux) and [seamless-immutable](https://github.com/rtfeldman/seamless-immutable) libraries:
 
-.embedded-demo({ "path": "optimizing-performance/grid-immutable", "showThemeSelector": true })
+.embedded-demo({ "path": "grid-immutability/seamless-immutable", "showThemeSelector": true })
 
 ## Avoid Constantly Code Inside Render Methods
 
 It is known that all code inside render methods will be called after each component's updates. We do not recommend creating new functions and variables in this place. To override default templates, you should create your own templates outside render methods. The following example demonstrates the right way to override default the [React Scheduler](https://devexpress.github.io/devextreme-reactive/react/scheduler) cell templates:
 
-.embedded-demo({ "path": "optimizing-performance/scheduler-custom-template", "showThemeSelector": true })
+.embedded-demo({ "path": "scheduler-basic/custom-template", "showThemeSelector": true })
 
 In some cases, we want to get access to the parent component’s state. In these scenarios, we recommend using one of the methods below for avoiding performance problems. The first one is using state management libraries like the Redux. However, if your application doesn’t include any state management libraries, we suggest using the [connectProps](../reference/connect-props.md) function from the `@devexpress/dx-react-core` package. In the following example shows how to configure this function:
 

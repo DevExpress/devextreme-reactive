@@ -17,7 +17,7 @@ Import the plugins listed above to set up a Chart with two axes and a grid.
 
 ## Scale Types
 
-The default scale is linear. It is sutable for numeric data. The following example shows a linear scale:
+The default scale is linear. It is suitable for numeric data. The following example shows a linear scale:
 
 .embedded-demo({ "path": "chart-basic/default-axis", "showThemeSelector": true })
 

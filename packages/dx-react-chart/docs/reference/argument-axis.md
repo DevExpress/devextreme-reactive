@@ -28,7 +28,7 @@ position? | 'bottom' &#124; 'top' | 'bottom' | The axis position.
 indentFromAxis? | number | 10 | The indent from the axis.
 type? | 'band' &#124; 'linear' | 'linear' | Axis type.
 showTicks? | boolean | true | Specifies whether to render ticks.
-showGrid? | boolean | false | Specifies whether to render grids.
+showGrid? | boolean | false | Specifies whether to render the grid.
 showLine? | boolean | true | Specifies whether to render the axis's line.
 showLabels? | boolean | true | Specifies whether to render the axis's labels.
 tickFormat? | (scale: [ScaleObject](scale.md#scaleobject)) => (tick: string) => string  | | A function that returns a tick formatter function.

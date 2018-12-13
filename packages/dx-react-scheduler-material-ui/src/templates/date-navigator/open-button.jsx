@@ -7,6 +7,7 @@ import classNames from 'classnames';
 const styles = {
   button: {
     textTransform: 'none',
+    width: 190,
   },
 };
 

@@ -1,11 +1,11 @@
 # React Chart - Plugin Overview
 
-The Chart component use plugin components to visualizes data specified via the `data` property. These components implement particular features and should be defined within the Chart component.
+The Chart component uses plugin components to visualizes data specified via the `data` property. These components implement particular features and should be defined within the Chart component.
 
 The React Chart supports the following plugin types:
 
 - **UI plugins**
- Uses the provided data to render UI elements.
+ Use the provided data to render UI elements.
 
 - **Data processing plugins**
  Transform data passed to the Chart component.

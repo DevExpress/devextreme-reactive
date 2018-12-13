@@ -6,9 +6,7 @@ import {
   ValueAxis,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 
-import {
-  Scale, EventTracker, SelectionState,
-} from '@devexpress/dx-react-chart';
+import { EventTracker, SelectionState } from '@devexpress/dx-react-chart';
 
 const data = [
   { year: '1950', population: 2.525 },
@@ -65,14 +63,13 @@ export default class Demo extends React.PureComponent {
           <Chart
             data={chartData}
           >
-            <ArgumentAxis type="band" />
+            <ArgumentAxis />
             <ValueAxis />
 
             <BarSeries
               valueField="population"
               argumentField="year"
             />
-            <Scale />
             <EventTracker onClick={this.click} />
             <SelectionState selection={selection} />
           </Chart>

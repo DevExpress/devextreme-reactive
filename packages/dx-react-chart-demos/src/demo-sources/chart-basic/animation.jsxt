@@ -7,7 +7,7 @@ import {
   SplineSeries,
   Legend,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
-import { Scale, Animation } from '@devexpress/dx-react-chart';
+import { ValueScale, Animation } from '@devexpress/dx-react-chart';
 
 const Point = (props) => {
   const { style, ...restProps } = props;
@@ -43,6 +43,9 @@ export default class Demo extends React.PureComponent {
         <Chart
           data={chartData}
         >
+          <ValueScale name="sale" />
+          <ValueScale name="total" />
+
           <ArgumentAxis />
           <ValueAxis scaleName="sale" showGrids={false} showLine showTicks />
           <ValueAxis scaleName="total" position="right" showGrids={false} showLine showTicks />
@@ -63,7 +66,6 @@ export default class Demo extends React.PureComponent {
           />
           <Animation />
           <Legend />
-          <Scale />
         </Chart>
       </<%&wrapperTag%>>
     );

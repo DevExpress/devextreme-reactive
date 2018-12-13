@@ -5,11 +5,10 @@ import {
   TemplateConnector,
   Template,
   TemplatePlaceholder,
-  Getter,
   withComponents,
 } from '@devexpress/dx-react-core';
 import {
-  axisCoordinates, LEFT, BOTTOM, ARGUMENT_DOMAIN, getValueDomainName, axesData, getGridCoordinates,
+  axisCoordinates, LEFT, BOTTOM, ARGUMENT_DOMAIN, getValueDomainName, getGridCoordinates,
 } from '@devexpress/dx-chart-core';
 import { Root } from '../templates/axis/root';
 import { Label } from '../templates/axis/label';
@@ -60,12 +59,8 @@ class RawAxis extends React.PureComponent {
       gridComponent: GridComponent,
     } = this.props;
     const placeholder = `${position}-axis`;
-    // TODO: Remove *axes* getter as it is not used by Axis itself -
-    // it is used in domains calculation (where it shouldn't be used).
-    const getAxes = ({ axes }) => axesData(axes, this.props);
     return (
       <Plugin name="Axis">
-        <Getter name="axes" computed={getAxes} />
         <Template name={placeholder}>
           <TemplatePlaceholder />
           <TemplateConnector>

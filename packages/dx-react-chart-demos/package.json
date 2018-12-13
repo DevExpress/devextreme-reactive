@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "@devexpress/dx-demo-shell": "1.9.1",
+    "@devexpress/dx-chart-core": "1.9.1",
     "@devexpress/dx-react-chart": "1.9.1",
     "@devexpress/dx-react-chart-bootstrap4": "1.9.1",
     "@devexpress/dx-react-chart-material-ui": "1.9.1",

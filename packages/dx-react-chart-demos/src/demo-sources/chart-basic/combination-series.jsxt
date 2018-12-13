@@ -7,7 +7,7 @@ import {
   LineSeries,
   Legend,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
-import { Scale } from '@devexpress/dx-react-chart';
+import { ValueScale } from '@devexpress/dx-react-chart';
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -33,6 +33,9 @@ export default class Demo extends React.PureComponent {
         <Chart
           data={chartData}
         >
+          <ValueScale name="sale" />
+          <ValueScale name="total" />
+
           <ArgumentAxis />
           <ValueAxis scaleName="sale" showGrids={false} showLine showTicks />
           <ValueAxis scaleName="total" position="right" showGrids={false} showLine showTicks />
@@ -52,7 +55,6 @@ export default class Demo extends React.PureComponent {
           />
 
           <Legend />
-          <Scale />
         </Chart>
       </<%&wrapperTag%>>
     );

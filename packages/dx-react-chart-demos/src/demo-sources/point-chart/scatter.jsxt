@@ -5,7 +5,7 @@ import {
   ArgumentAxis,
   ValueAxis,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
-import { Scale, Animation } from '@devexpress/dx-react-chart';
+import { Animation } from '@devexpress/dx-react-chart';
 
 import { dataGenerator } from '../../../demo-data/generator';
 
@@ -38,7 +38,6 @@ export default class Demo extends React.PureComponent {
             argumentField="arg2"
           />
           <Animation />
-          <Scale />
         </Chart>
       </<%&wrapperTag%>>
     );

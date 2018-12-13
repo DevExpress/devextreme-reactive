@@ -7,7 +7,7 @@ import {
   Title,
   Legend,
 } from '@devexpress/dx-react-chart-bootstrap4';
-import { Scale, Animation } from '@devexpress/dx-react-chart';
+import { ArgumentScale, Animation } from '@devexpress/dx-react-chart';
 import {
   curveCatmullRom,
   line,
@@ -74,6 +74,7 @@ export default class Demo extends React.PureComponent {
           data={chartData}
           className="pr-4"
         >
+          <ArgumentScale factory={scalePoint} />
           <ArgumentAxis />
           <ValueAxis />
 
@@ -114,7 +115,6 @@ export default class Demo extends React.PureComponent {
             textComponent={Text}
             className="w-100 text-center mb-2"
           />
-          <Scale extensions={[{ type: 'band', constructor: scalePoint }]} />
           <Animation />
         </Chart>
       </div>

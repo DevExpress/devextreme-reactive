@@ -32,4 +32,4 @@ tickFormat? | (count: number, specifier: string) => (tick: any) => string | A fu
 ticks? | (count: number) => Array&lt;any&gt; | A function that returns an array of ticks.
 paddingInner? | (padding: number) => [ScaleObject](#scaleobject) | A function that sets a scale's inner padding and returns the current scale.
 paddingOuter? | (padding: number) => [ScaleObject](#scaleobject) | A function that sets a scale's outer padding and returns the current scale.
-bandWidth? | () => number | A function that returns the width of each band.
+bandWidth? | () => number | A function that returns each band's width.

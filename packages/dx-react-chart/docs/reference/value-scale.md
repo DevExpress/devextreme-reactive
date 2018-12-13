@@ -16,7 +16,7 @@ import { ValueScale } from '@devexpress/dx-react-chart';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-name? | string | | The scale name.
+name? | string | | The scale's name.
 factory? | () => [ScaleObject](./argument-scale.md#scaleobject) | | A function that constructs a custom scale.
 min? | number | | The scale's minimum value.
 max? | number | | The scale's maximum value.

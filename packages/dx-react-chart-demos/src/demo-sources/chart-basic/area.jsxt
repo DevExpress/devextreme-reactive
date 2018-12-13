@@ -4,7 +4,6 @@ import {
   AreaSeries,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 
-import { Scale } from '@devexpress/dx-react-chart';
 import { born as data } from '../../../demo-data/data-vizualization';
 
 export default class Demo extends React.PureComponent {
@@ -36,7 +35,6 @@ export default class Demo extends React.PureComponent {
             valueField="us"
             argumentField="year"
           />
-          <Scale />
         </Chart>
       </<%&wrapperTag%>>
     );

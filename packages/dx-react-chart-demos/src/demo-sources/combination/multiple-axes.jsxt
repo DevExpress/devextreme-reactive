@@ -72,13 +72,9 @@ const LegendLabel = props => (
 );
 
 const formatTooltip = format('.1f');
-const TooltipContent = ({ text, style, ...restProps }) => (
+const TooltipContent = ({ text, ...restProps }) => (
   <Tooltip.Content
-    text={`Price: ${formatTooltip(text)}`}
-    style={{
-      color: priceColor,
-      ...style,
-    }}
+    text={`${formatTooltip(text)}`}
     {...restProps}
   />
 );
@@ -86,8 +82,6 @@ const TooltipContent = ({ text, style, ...restProps }) => (
 const stacks = [
   { series: ['USA', 'Saudi Arabia', 'Iran', 'Mexico', 'Russia'] },
 ];
-
-const changeTarget = target => (target && target.series === priceSeriesName ? target : null);
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -100,11 +94,11 @@ export default class Demo extends React.PureComponent {
     };
 
     this.changeHover = target => this.setState({
-      hover: changeTarget(target),
+      hover: target,
     });
 
     this.changeTooltip = target => this.setState({
-      tooltip: changeTarget(target),
+      tooltip: target,
     });
   }
 

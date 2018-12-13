@@ -48,7 +48,7 @@ class RawAxis extends React.PureComponent {
       tickSize,
       tickFormat,
       indentFromAxis,
-      showGrids,
+      showGrid,
       showTicks,
       showLine,
       showLabels,
@@ -162,7 +162,7 @@ class RawAxis extends React.PureComponent {
           <TemplateConnector>
             {({ scales, layouts }) => {
               const scale = scales[scaleName];
-              if (!scale || !showGrids) {
+              if (!scale || !showGrid) {
                 return null;
               }
 
@@ -199,7 +199,7 @@ RawAxis.propTypes = {
   lineComponent: PropTypes.func.isRequired,
   gridComponent: PropTypes.func.isRequired,
   position: PropTypes.string.isRequired,
-  showGrids: PropTypes.bool.isRequired,
+  showGrid: PropTypes.bool.isRequired,
   showTicks: PropTypes.bool.isRequired,
   showLine: PropTypes.bool.isRequired,
   showLabels: PropTypes.bool.isRequired,
@@ -239,7 +239,7 @@ export const Axis = withComponents({
 // TODO: Check that only BOTTOM and TOP are accepted.
 export const ArgumentAxis = withPatchedProps(props => ({
   position: BOTTOM,
-  showGrids: false,
+  showGrid: false,
   showTicks: true,
   showLine: true,
   showLabels: true,
@@ -250,7 +250,7 @@ export const ArgumentAxis = withPatchedProps(props => ({
 // TODO: Check that only LEFT and RIGHT are accepted.
 export const ValueAxis = withPatchedProps(props => ({
   position: LEFT,
-  showGrids: true,
+  showGrid: true,
   showTicks: false,
   showLine: false,
   showLabels: true,

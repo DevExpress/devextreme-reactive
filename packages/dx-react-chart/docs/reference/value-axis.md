@@ -29,7 +29,7 @@ scaleName? | string | | The scale name.
 indentFromAxis? | number | 10 | The indent from the axis.
 tickFormat? | (scale: [ScaleObject](./argument-scale.md#scaleobject)) => (tick: string) => string  | | A function that returns a tick formatter function.
 showTicks? | boolean | false | Specifies whether to render ticks.
-showGrids? | boolean | true | Specifies whether to render grids.
+showGrid? | boolean | true | Specifies whether to render the grid.
 showLine? | boolean | false | Specifies whether to render the axis's line.
 showLabels? | boolean | true | Specifies whether to render the axis's labels.
 rootComponent | ComponentType&lt;[ValueAxis.RootProps](#valueaxisrootprops)&gt; | | A component that renders the axis root layout.

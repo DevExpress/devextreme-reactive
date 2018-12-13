@@ -37,8 +37,8 @@ export default class Demo extends React.PureComponent {
           <ValueScale name="total" />
 
           <ArgumentAxis />
-          <ValueAxis scaleName="sale" showGrids={false} showLine showTicks />
-          <ValueAxis scaleName="total" position="right" showGrids={false} showLine showTicks />
+          <ValueAxis scaleName="sale" showGrid={false} showLine showTicks />
+          <ValueAxis scaleName="total" position="right" showGrid={false} showLine showTicks />
 
           <BarSeries
             name="Units Sold"

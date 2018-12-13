@@ -34,8 +34,8 @@ export default class Demo extends React.Component<object, object> {
           <ValueScale name="total" />
 
           <ArgumentAxis />
-          <ValueAxis scaleName="sale" showGrids={false} showLine={true} showTicks={true} />
-          <ValueAxis scaleName="total" position="right" showGrids={false} showLine={true} showTicks={true} />
+          <ValueAxis scaleName="sale" showGrid={false} showLine={true} showTicks={true} />
+          <ValueAxis scaleName="total" position="right" showGrid={false} showLine={true} showTicks={true} />
 
           <BarSeries
             name="Units Sold"

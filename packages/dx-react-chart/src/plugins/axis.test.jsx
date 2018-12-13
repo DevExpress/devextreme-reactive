@@ -59,7 +59,7 @@ describe('Axis', () => {
     position: 'bottom',
     scaleName: 'test-domain',
     showTicks: true,
-    showGrids: true,
+    showGrid: true,
     showLine: true,
     showLabels: true,
     rootComponent: RootComponent,
@@ -314,9 +314,9 @@ describe('Axis', () => {
     });
   });
 
-  it('should not render grid component, showGrids is false', () => {
+  it('should not render grid component, showGrid is false', () => {
     setupAxisCoordinates([1, 0]);
-    const tree = mount(<AxisTester showGrids={false} />);
+    const tree = mount(<AxisTester showGrid={false} />);
 
     expect(tree.find(GridComponent).get(0)).toBeFalsy();
   });

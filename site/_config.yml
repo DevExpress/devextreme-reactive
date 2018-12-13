@@ -30,7 +30,6 @@ defaults:
     values:
       product_name: React Components
       product_link: /react/common
-      demos_script_links: /react/grid/demos|/react/chart/demos|/react/scheduler/demos
       logo_file: core-logo.svg
       initial_guide: /performance-optimizations
   - scope:

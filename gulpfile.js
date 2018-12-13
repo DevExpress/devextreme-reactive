@@ -78,6 +78,7 @@ var injectLiveDemos = function(content) {
           ...data,
           path: `/demo/${data.path}`,
           scriptPath: `{{site.baseurl}}/{{page.demos_script_link}}/dist/index.js?v={{ site.time | date: '%s' }}`,
+          scriptPath1: `{{site.baseurl}}//react/${data.product}/demos/dist/index.js?v={{ site.time | date: '%s' }}`,
           demosScriptLinks: `{{page.demos_script_links}}`,
           firstPart: `{{site.baseurl}}`,
           lastPart: `/dist/index.js?v={{ site.time | date: '%s' }}`
@@ -155,6 +156,11 @@ gulp.task('site:demos:react:scheduler', function() {
     .pipe(gulp.dest(distPath + 'react/scheduler/demos/dist/'));
 });
 
+gulp.task('site:demos:react:common', function() {
+  return gulp.src(['packages/dx-react-common/dist/*'])
+    .pipe(gulp.dest(distPath + 'react/common/dist/'));
+});
+
 gulp.task('site:demos:vue:grid', function() {
   return gulp.src(['packages/dx-vue-grid-demos/dist/*'])
     .pipe(gulp.dest(distPath + 'vue/grid/demos/dist/'));
@@ -168,6 +174,7 @@ gulp.task('site', function(done) {
     'site:demos:vue:grid',
     'site:demos:react:chart',
     'site:demos:react:scheduler',
+    'site:demos:react:common',
     done
   );
 });

@@ -2,12 +2,16 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { initialize } from '@devexpress/dx-demo-shell';
 import '@devexpress/dx-demo-shell/dist/index.css';
-import { demos } from './demo-registry';
+import { gridDemos } from '@devexpress/dx-react-grid-demos/dist';
+// import { gridDemos } from '../../dx-react-grid-demos/src/demo-registry';
+// import { chartDemos } from '../../dx-react-chart-demos/src/demo-registry';
+// import { schedulerDemos } from '../../dx-react-scheduler-demos/src/demo-registry';
 import { themes } from './theme-registry';
-import './index.css';
+
+const allDemos = { ...gridDemos };
 
 initialize({
-  demoSources: demos,
+  demoSources: allDemos,
   themeSources: themes,
   renderDemo: ({
     element,
@@ -30,5 +34,3 @@ initialize({
     ReactDOM.unmountComponentAtNode(element);
   },
 });
-
-export { demos as gridDemos };

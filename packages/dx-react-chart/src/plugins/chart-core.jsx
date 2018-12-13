@@ -2,19 +2,11 @@ import * as React from 'react';
 import { Plugin, Getter } from '@devexpress/dx-react-core';
 import { computeDomains, buildScales, scaleSeriesPoints } from '@devexpress/dx-chart-core';
 
-const getDomains = ({ axes, series }) => computeDomains(axes, series);
+const getDomains = ({ domains, series }) => computeDomains(domains, series);
 
-const getScales = ({ domains, layouts, scaleExtension }) => buildScales(
-  domains, scaleExtension, layouts.pane,
-);
+const getScales = ({ domains, layouts }) => buildScales(domains, layouts.pane);
 
-const getSeries = ({
-  series,
-  scales,
-  // TODO: The following are BarSeries specifics - remove them.
-  stacks,
-  scaleExtension,
-}) => scaleSeriesPoints(series, scales, stacks, scaleExtension);
+const getSeries = ({ series, scales }) => scaleSeriesPoints(series, scales);
 
 export const ChartCore = () => (
   <Plugin>

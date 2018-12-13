@@ -20,7 +20,7 @@ import {
   schemeSet3,
 } from 'd3-scale-chromatic';
 
-import { Scale, Palette } from '@devexpress/dx-react-chart';
+import { Palette } from '@devexpress/dx-react-chart';
 
 const schemeCollection = [
   schemeCategory10,
@@ -90,7 +90,6 @@ class Demo extends React.PureComponent {
             valueField="val"
             argumentField="category"
           />
-          <Scale />
         </Chart>
         <div className={classes.schemeConteiner}>
           {scheme.map(color => (

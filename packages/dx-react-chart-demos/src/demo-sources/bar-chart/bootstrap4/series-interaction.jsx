@@ -10,7 +10,7 @@ import {
 } from '@devexpress/dx-react-chart-bootstrap4';
 import * as d3Format from 'd3-format';
 import {
-  Stack, Scale, EventTracker, HoverState, SelectionState, Animation,
+  Stack, Animation, EventTracker, HoverState, SelectionState,
 } from '@devexpress/dx-react-chart';
 
 import { annualVehiclesSales } from '../../../demo-data/data-vizualization';
@@ -78,7 +78,6 @@ export default class Demo extends React.PureComponent {
             argumentField="year"
           />
           <Stack />
-          <Scale />
           <Legend />
           <EventTracker onClick={this.click} />
           <HoverState />

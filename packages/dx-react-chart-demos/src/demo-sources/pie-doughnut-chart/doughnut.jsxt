@@ -4,7 +4,7 @@ import {
   PieSeries,
   Title,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
-import { Scale, Animation } from '@devexpress/dx-react-chart';
+import { Animation } from '@devexpress/dx-react-chart';
 
 const data = [
   { region: 'Asia', val: 4119626293 },
@@ -41,7 +41,6 @@ export default class Demo extends React.PureComponent {
             text="The Population of Continents and Regions"
           />
           <Animation />
-          <Scale />
         </Chart>
       </<%&wrapperTag%>>
     );

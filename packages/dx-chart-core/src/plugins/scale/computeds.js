@@ -1,120 +1,116 @@
 import { extent } from 'd3-array';
-import { scaleLinear, scaleBand } from 'd3-scale';
-import { createScale, getValueDomainName } from '../../utils/scale';
-import {
-  HORIZONTAL, VERTICAL, LINEAR, BAND, ARGUMENT_DOMAIN,
-} from '../../constants';
+import { scaleLinear as d3ScaleLinear, scaleBand as d3ScaleBand } from 'd3-scale';
+import { isHorizontal, getValueDomainName } from '../../utils/scale';
+import { ARGUMENT_DOMAIN, VALUE_DOMAIN } from '../../constants';
 
-const isDefined = item => item !== undefined;
+export const defaultDomains = {
+  [ARGUMENT_DOMAIN]: {},
+  [VALUE_DOMAIN]: {},
+};
 
-// TODO: Property name should not contain "axis" part as it actually means domain.
+export const addDomain = (domains, name, props) => ({
+  ...domains,
+  [name]: props,
+});
+
+const copy = (domains) => {
+  const result = {};
+  Object.keys(domains).forEach((name) => {
+    result[name] = { ...domains[name], domain: [] };
+  });
+  return result;
+};
+
 const getSeriesValueDomainName = series => getValueDomainName(series.scaleName);
 
-const calculateDomainField = (items, domain, type) => (
-  type === BAND ? [...domain, ...items] : extent([...domain, ...extent(items)])
-);
+const mergeContinuousDomains = (domain, items) => extent([...domain, ...items]);
+const mergeDiscreteDomains = (domain, items) => Array.from(new Set([...domain, ...items]));
 
 const getArgument = point => point.argument;
-
 const getValue = point => point.value;
 
-const getCorrectAxisType = (type, points, getItem) => (
-  type || (points.length && typeof getItem(points[0]) === 'string' && BAND) || LINEAR
-);
+const extendDomain = (target, items) => {
+  const merge = target.isDiscrete ? mergeDiscreteDomains : mergeContinuousDomains;
+  Object.assign(target, { domain: merge(target.domain, items) });
+};
 
 const calculateDomains = (domains, seriesList) => {
   seriesList.forEach((seriesItem) => {
     const valueDomainName = getSeriesValueDomainName(seriesItem);
     const { points } = seriesItem;
-    const argumentDomain = domains[ARGUMENT_DOMAIN];
-    const valueDomain = domains[valueDomainName];
-
-    const valueType = getCorrectAxisType(valueDomain.type, points, getValue);
-    const argumentType = getCorrectAxisType(argumentDomain.type, points, getArgument);
-
     // TODO: This is a temporary workaround for Stack plugin.
     // Once scales (or domains) are exposed for modification Stack will modify scale and
     // this code will be removed.
     const valueDomainItems = seriesItem.getValueDomain
       ? seriesItem.getValueDomain(points) : points.map(getValue);
-    valueDomain.domain = calculateDomainField(
-      valueDomainItems,
-      valueDomain.domain,
-      valueType,
-    );
-    valueDomain.type = valueType;
-
-    argumentDomain.domain = calculateDomainField(
-      points.map(getArgument),
-      argumentDomain.domain,
-      argumentType,
-    );
-    argumentDomain.type = argumentType;
+    extendDomain(domains[valueDomainName], valueDomainItems);
+    extendDomain(domains[ARGUMENT_DOMAIN], points.map(getArgument));
   });
 };
 
-export const computeExtension = (extension) => {
-  const defaultExtension = [
-    { type: LINEAR, constructor: scaleLinear },
-    { type: BAND, constructor: () => scaleBand().paddingInner(0.3).paddingOuter(0.15) },
-  ];
-  return extension.concat(defaultExtension);
-};
+export const scaleLinear = d3ScaleLinear;
+export const scaleBand = () => d3ScaleBand().paddingInner(0.3).paddingOuter(0.15);
 
-const collectDomains = (seriesList) => {
-  const domains = {
-    [ARGUMENT_DOMAIN]: { domain: [], orientation: HORIZONTAL },
-  };
+const guessFactory = (points, getItem) => (
+  (points.length && typeof getItem(points[0]) === 'string' && scaleBand) || scaleLinear
+);
+
+const collectDomainsFromSeries = (domains, seriesList) => {
   seriesList.forEach((seriesItem) => {
-    const name = getSeriesValueDomainName(seriesItem);
-    const domain = domains[name] || { domain: [], orientation: VERTICAL };
-    domains[name] = domain;
-    if (seriesItem.getPointTransformer.isStartedFromZero && domain.domain.length === 0) {
-      domain.domain = [0];
+    if (!domains[ARGUMENT_DOMAIN].factory) {
+      Object.assign(domains[ARGUMENT_DOMAIN], {
+        factory: guessFactory(seriesItem.points, getArgument),
+      });
     }
+    const valueDomainName = getSeriesValueDomainName(seriesItem);
+    const obj = domains[valueDomainName];
+    if (!obj.factory) {
+      obj.factory = guessFactory(seriesItem.points, getValue);
+    }
+    // TODO: It is to be removed together with *TODO* from above.
+    if (seriesItem.getPointTransformer.isStartedFromZero && obj.domain.length === 0) {
+      obj.domain = [0];
+    }
+  });
+  Object.keys(domains).forEach((name) => {
+    const obj = domains[name];
+    if (!obj.factory) {
+      obj.factory = scaleLinear;
+    }
+    obj.isDiscrete = !!obj.factory().bandwidth;
   });
   return domains;
 };
 
-const takeTypeFromAxesOptions = (domains, axes) => {
-  axes.forEach(({ scaleName, type }) => {
-    const domain = domains[scaleName];
-    if (domain) {
-      domain.type = type;
+const applyMinMax = (domains) => {
+  Object.keys(domains).forEach((name) => {
+    const obj = domains[name];
+    if (!obj.isDiscrete) {
+      if (obj.min !== undefined) {
+        obj.domain[0] = obj.min;
+      }
+      if (obj.max !== undefined) {
+        obj.domain[1] = obj.max;
+      }
     }
   });
 };
 
-const takeRestAxesOptions = (domains, axes) => {
-  axes.forEach(({ scaleName, min, max }) => {
-    const domain = domains[scaleName];
-    if (!domain) {
-      return;
-    }
-    if (domain.type !== BAND) {
-      domain.domain = [
-        isDefined(min) ? min : domain.domain[0],
-        isDefined(max) ? max : domain.domain[1],
-      ];
-    }
-  });
-};
-
-export const computeDomains = (axes, series) => {
-  const result = collectDomains(series);
-  // Axes options are taken in two steps because *type* is required for domains calculation
-  // and other options must be applied after domains are calculated.
-  takeTypeFromAxesOptions(result, axes);
-  calculateDomains(result, series);
-  takeRestAxesOptions(result, axes);
+export const computeDomains = (domains, seriesList) => {
+  const result = copy(domains);
+  collectDomainsFromSeries(result, seriesList);
+  calculateDomains(result, seriesList);
+  applyMinMax(result);
   return result;
 };
 
-export const buildScales = (domains, scaleExtension, { width, height }) => {
+export const buildScales = (domains, { width, height }) => {
   const scales = {};
-  Object.entries(domains).forEach(([name, domain]) => {
-    const { constructor } = scaleExtension.find(item => item.type === domain.type);
-    scales[name] = createScale(domain, width, height, constructor);
+  Object.keys(domains).forEach((name) => {
+    const obj = domains[name];
+    scales[name] = obj.factory()
+      .domain(obj.domain)
+      .range(isHorizontal(name) ? [0, width] : [height, 0]);
   });
   return scales;
 };

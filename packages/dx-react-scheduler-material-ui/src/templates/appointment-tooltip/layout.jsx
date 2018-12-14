@@ -19,18 +19,19 @@ const styles = theme => ({
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
   },
-  flexItem: {
-    display: 'flex',
-  },
   buttonsLeft: {
     position: 'relative',
     bottom: -(theme.spacing.unit * 5) / 2,
+    textAlign: 'center',
   },
   buttonsRight: {
     textAlign: 'right',
   },
   icon: {
     color: theme.typography.body2.color,
+  },
+  textCenter: {
+    textAlign: 'center',
   },
 });
 
@@ -70,8 +71,8 @@ const LayoutBase = ({
             && <CommandButton id={commandButtonIds.delete} onExecute={onDeleteButtonClick} />}
           {showCloseButton && <CommandButton id={commandButtonIds.close} onExecute={onHide} />}
         </div>
-        <Grid container spacing={8} wrap="nowrap" alignItems="center">
-          <Grid item xs={2} className={classes.flexItem} justify="center">
+        <Grid container spacing={8} alignItems="center">
+          <Grid item xs={2} className={classes.flexItem}>
             <div className={classes.buttonsLeft}>
               {showOpenButton
                 && <CommandButton id={commandButtonIds.open} onExecute={openButtonClickHandler} />}
@@ -86,7 +87,7 @@ const LayoutBase = ({
       </Header>
       <Content appointmentData={data}>
         <Grid container spacing={8} alignItems="center">
-          <Grid item xs={2} className={classes.flexItem} justify="center">
+          <Grid item xs={2} className={classes.textCenter}>
             <AccessTime className={classes.icon} />
           </Grid>
           <Grid item xs={10}>

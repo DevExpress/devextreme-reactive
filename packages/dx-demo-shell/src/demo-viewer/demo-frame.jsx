@@ -32,9 +32,12 @@ class DemoFrameRenderer extends React.PureComponent {
       scriptPath, themeSources, firstPart, lastPart, demoSources,
     } = this.context;
 
-    // eslint-disable-next-line prefer-destructuring
-    const productName = demoSources[sectionName][demoName][themeName].productName;
-    const demoScript = firstPart === undefined ? scriptPath : `${firstPart}${productName}${lastPart}`;
+    let demoScript = scriptPath;
+    if (firstPart !== undefined) {
+      // eslint-disable-next-line prefer-destructuring
+      const productName = demoSources[sectionName][demoName][themeName].productName;
+      demoScript = `${firstPart}${productName}${lastPart}`;
+    }
 
     const themeVariantOptions = themeSources
       .find(theme => theme.name === themeName).variants

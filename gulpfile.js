@@ -78,10 +78,8 @@ var injectLiveDemos = function(content) {
           ...data,
           path: `/demo/${data.path}`,
           scriptPath: `{{site.baseurl}}/{{page.demos_script_link}}/dist/index.js?v={{ site.time | date: '%s' }}`,
-          scriptPath1: `{{site.baseurl}}//react/${data.product}/demos/dist/index.js?v={{ site.time | date: '%s' }}`,
-          demosScriptLinks: `{{page.demos_script_links}}`,
-          firstPart: `{{site.baseurl}}`,
-          lastPart: `/dist/index.js?v={{ site.time | date: '%s' }}`
+          firstPart: `{{site.baseurl}}//react/`,
+          lastPart: `/demos/dist/index.js?v={{ site.time | date: '%s' }}`
         };
         return `<div
           class="embedded-demo"

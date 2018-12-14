@@ -2,13 +2,12 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { initialize } from '@devexpress/dx-demo-shell';
 import '@devexpress/dx-demo-shell/dist/index.css';
-import { gridDemos } from '@devexpress/dx-react-grid-demos/dist';
-// import { gridDemos } from '../../dx-react-grid-demos/src/demo-registry';
-// import { chartDemos } from '../../dx-react-chart-demos/src/demo-registry';
-// import { schedulerDemos } from '../../dx-react-scheduler-demos/src/demo-registry';
 import { themes } from './theme-registry';
+import { demos as gridDemos } from './grid-demo-registry';
+import { demos as chartDemos } from './chart-demo-registry';
+import { demos as schedulerDemos } from './scheduler-demo-registry';
 
-const allDemos = { ...gridDemos };
+const allDemos = { ...gridDemos, ...chartDemos, ...schedulerDemos };
 
 initialize({
   demoSources: allDemos,

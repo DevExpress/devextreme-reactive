@@ -28,4 +28,5 @@
 
 # Demos
 /packages/*/src/demo-registry.js
+/packages/*/src/*-demo-registry.js
 /packages/*/src/**/*.g*

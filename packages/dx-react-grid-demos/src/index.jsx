@@ -30,5 +30,3 @@ initialize({
     ReactDOM.unmountComponentAtNode(element);
   },
 });
-
-export { demos as gridDemos };

@@ -19,7 +19,9 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit * 6,
   },
   buttonsLeft: {
-    display: 'inline-block',
+    position: 'absolute',
+    bottom: -(theme.spacing.unit * 5) / 2,
+    left: theme.spacing.unit,
   },
   buttonsRight: {
     float: 'right',

@@ -10,22 +10,14 @@ import { withStyles } from '@material-ui/core/styles';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
 import { OPEN_COMMAND_BUTTON, CLOSE_COMMAND_BUTTON, DELETE_COMMAND_BUTTON } from '@devexpress/dx-scheduler-core';
 
-const styles = ({ spacing, palette }) => {
-  const buttonSize = spacing.unit * 5;
-  return {
-    button: {
-      color: palette.primary.contrastText,
-    },
-    floatButton: {
-      backgroundColor: lighten(palette.primary.main, 0.15),
-      position: 'absolute',
-      width: buttonSize,
-      height: buttonSize,
-      bottom: -buttonSize / 2,
-      left: spacing.unit,
-    },
-  };
-};
+const styles = ({ palette }) => ({
+  button: {
+    color: palette.primary.contrastText,
+  },
+  floatButton: {
+    backgroundColor: lighten(palette.primary.main, 0.15),
+  },
+});
 
 const getIcon = (id) => {
   if (id === OPEN_COMMAND_BUTTON) {
@@ -51,7 +43,7 @@ export const CommandButtonBase = ({
   return (
     !isOpenCommandButton
       ? <IconButton {...commonProps}>{getIcon(id)}</IconButton>
-      : <Fab color="primary" {...commonProps}>{getIcon(id)}</Fab>
+      : <Fab color="primary" size="small" {...commonProps}>{getIcon(id)}</Fab>
   );
 };
 

@@ -16,6 +16,7 @@ const styles = theme => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
+    marginLeft: theme.spacing.unit * 6,
   },
   buttonsLeft: {
     display: 'inline-block',

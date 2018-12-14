@@ -6,6 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = theme => ({
   content: {
     padding: theme.spacing.unit * 1.75,
+    marginLeft: theme.spacing.unit * 6,
     backgroundColor: theme.palette.background.paper,
   },
   text: {

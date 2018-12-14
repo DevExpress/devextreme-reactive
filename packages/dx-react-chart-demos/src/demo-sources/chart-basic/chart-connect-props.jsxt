@@ -12,41 +12,47 @@ import {
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 import { energyConsumption as data } from '../../../demo-data/data-vizualization';
 
+const rootStyles = {
+  display: 'flex',
+  margin: 'auto',
+  flexDirection: 'row',
+};
 const LegendRoot = ({ classes, ...restProps }) => (
   <Legend.Root
     {...restProps}
-    style={{
-      display: 'flex',
-      margin: 'auto',
-      flexDirection: 'row',
-    }}
+    style={rootStyles}
   />
 );
+
+const defaultLabelStyles = {
+  marginBottom: '8px',
+  whiteSpace: 'nowrap',
+  fontSize: '20px',
+  color: 'gray',
+};
+const selectedLabelStyles = {
+  ...defaultLabelStyles,
+  fontWeight: 'bold',
+  color: 'black',
+};
 const LegendLabel = ({
   classes, selectedSeriesName, text, ...restProps
 }) => (
   <div
     {...restProps}
-    style={{
-      marginBottom: '8px',
-      whiteSpace: 'nowrap',
-      fontSize: '20px',
-      color: 'gray',
-      ...selectedSeriesName === text ? {
-        fontWeight: 'bold',
-        color: 'black',
-      } : {},
-    }}
+    style={selectedSeriesName === text ? selectedLabelStyles : defaultLabelStyles}
   >
     {text}
   </div>
 );
+
+const itemStyles = {
+  flexDirection: 'column-reverse',
+};
 const LegendItem = ({ classes, ...restProps }) => (
   <Legend.Item
     {...restProps}
-    style={{
-      flexDirection: 'column-reverse',
-    }}
+    style={itemStyles}
   />
 );
 

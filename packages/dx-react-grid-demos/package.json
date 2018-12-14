@@ -53,8 +53,7 @@
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.16.0",
     "tslint-react": "^3.6.0",
-    "whatwg-fetch": "^3.0.0",
-    "moment": "^2.22.2"
+    "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.1.6",

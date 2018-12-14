@@ -24,24 +24,10 @@ module.exports = ({ production }) => ({
         enforce: "pre"
       },
       {
-        test: /\.tsx?$/,
-        loader: "awesome-typescript-loader"
-      },
-      {
         test: /\.jsx?$/,
         exclude: /(node_modules|bower_components|public\/)/,
         use: ["babel-loader"]
       },
-      {
-        test: /\.css$/,
-        use: ["style-loader", "css-loader"]
-      },
-      {
-        test: /\.svg$/,
-        use: {
-            loader: 'svg-sprite-loader',
-        }
-      }
     ]
   },
   resolve: {

@@ -31,6 +31,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
+import { lighten } from '@material-ui/core/styles/colorManipulator';
 
 import { tasks, priorities } from '../../../demo-data/tasks';
 
@@ -54,7 +55,7 @@ const createClassesByPriorityId = (
 // #FOLD_BLOCK
 const styles = theme => ({
   ...priorities.reduce((acc, { title, color, activeColor }) => {
-    acc[`${title}PriorityBackground`] = { background: color };
+    acc[`${title}PriorityBackground`] = { background: color, '& button.edit-button': { background: lighten(color, 0.15) } };
     acc[`${title}PriorityColor`] = { color };
     acc[`${title}PriorityHover`] = { '&:hover': { background: activeColor } };
     return acc;
@@ -152,6 +153,16 @@ const Appointment = withStyles(styles, { name: 'Appointment' })(
       />
     );
   },
+);
+
+const EditButton = withStyles(styles, { name: 'EditButton' })(
+  ({ classes, id, ...restProps }) => (
+    <AppointmentTooltip.CommandButton
+      id={id}
+      {...id === 'open' ? { className: 'edit-button' } : null}
+      {...restProps}
+    />
+  ),
 );
 
 const TooltipHeader = withStyles(styles, { name: 'TooltipHeader' })(
@@ -270,6 +281,7 @@ export default class Demo extends React.PureComponent {
           <AppointmentTooltip
             headerComponent={TooltipHeader}
             contentComponent={TooltipContent}
+            commandButtonComponent={EditButton}
             showOpenButton
             showCloseButton
           />

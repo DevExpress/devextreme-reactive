@@ -12,7 +12,7 @@ const styles = theme => ({
   title: {
     ...theme.typography.h6,
     padding: theme.spacing.unit * 1.75,
-    color: theme.palette.background.default,
+    color: theme.palette.primary.contrastText,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
@@ -75,11 +75,7 @@ const LayoutBase = ({
       </Header>
       <Content appointmentData={data}>
         <div className={classes.text}>
-          {moment(data.startDate).format('h:mm A')}
-        </div>
-        {' - '}
-        <div className={classes.text}>
-          {moment(data.endDate).format('h:mm A')}
+          {`${moment(data.startDate).format('h:mm A')} - ${moment(data.endDate).format('h:mm A')}`}
         </div>
       </Content>
     </Popover>

@@ -1,14 +1,16 @@
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { createMount } from '@material-ui/core/test-utils';
 import { Overlay } from './overlay';
 
 describe('Overlay', () => {
   const defaultProps = {
-    target: () => {},
+    target: () => ({ }),
   };
 
+  const mount = createMount();
+
   it('should render Popover', () => {
-    const tree = shallow((
+    const tree = mount((
       <Overlay
         {...defaultProps}
       >
@@ -16,6 +18,12 @@ describe('Overlay', () => {
       </Overlay>
     ));
 
-    expect(tree.find('.content')).toBeTruthy();
+    expect(tree.find('Popper').props()).toMatchObject({
+      open: true,
+      anchorEl: defaultProps.target,
+      placement: 'top',
+    });
+    expect(tree.find('Paper').exists()).toBeTruthy();
+    expect(tree.find('.content').exists()).toBeTruthy();
   });
 });

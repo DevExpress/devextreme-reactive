@@ -85,8 +85,8 @@ const collectDomainsFromSeries = (domains, seriesList) => {
 const customizeDomains = (domains) => {
   Object.keys(domains).forEach((name) => {
     const obj = domains[name];
-    if (obj.customizeDomain) {
-      obj.domain = obj.customizeDomain(obj.domain);
+    if (obj.modifyDomain) {
+      obj.domain = obj.modifyDomain(obj.domain);
     }
   });
 };

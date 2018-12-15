@@ -11,7 +11,7 @@ import { scaleLog, scaleTime } from 'd3-scale';
 
 import { bitcoin as data } from '../../../demo-data/data-vizualization';
 
-const customizeDomain = () => [100, 100000];
+const modifyDomain = () => [100, 100000];
 
 const superscript = '⁰¹²³⁴⁵⁶⁷⁸⁹';
 const formatPower = d => (`${d}`).split('').map(c => superscript[c]).join('');
@@ -36,7 +36,7 @@ export default class Demo extends React.PureComponent {
           data={chartData}
         >
           <ArgumentScale factory={scaleTime} />
-          <ValueScale factory={scaleLog} customizeDomain={customizeDomain} />
+          <ValueScale factory={scaleLog} modifyDomain={modifyDomain} />
           <ArgumentAxis />
           <ValueAxis tickFormat={format} />
 

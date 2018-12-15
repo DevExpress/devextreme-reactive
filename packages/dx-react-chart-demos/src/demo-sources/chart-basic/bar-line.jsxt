@@ -25,8 +25,8 @@ const Label = symbol => (props) => {
 const PriceLabel = Label(' $');
 const LabelWithThousand = Label(' k');
 
-const customizeOilDomain = domain => [domain[0], 2200];
-const customizePriceDomain = () => [0, 110];
+const modifyOilDomain = domain => [domain[0], 2200];
+const modifyPriceDomain = () => [0, 110];
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -45,8 +45,8 @@ export default class Demo extends React.PureComponent {
         <Chart
           data={chartData}
         >
-          <ValueScale name="oil" customizeDomain={customizeOilDomain} />
-          <ValueScale name="price" customizeDomain={customizePriceDomain} />
+          <ValueScale name="oil" modifyDomain={modifyOilDomain} />
+          <ValueScale name="price" modifyDomain={modifyPriceDomain} />
 
           <ArgumentAxis />
           <ValueAxis

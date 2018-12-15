@@ -22,17 +22,17 @@ describe('Scale', () => {
 
   it('should update domains', () => {
     const mockFactory = () => 0;
-    const mockCustomize = () => 0;
+    const mockModify = () => 0;
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <Scale name="scale-1" factory={mockFactory} customizeDomain={mockCustomize} />
+        <Scale name="scale-1" factory={mockFactory} modifyDomain={mockModify} />
       </PluginHost>
     ));
 
     expect(getComputedState(tree)).toEqual({ domains: 'added-domains' });
     expect(addDomain).toBeCalledWith(
-      'test-domains', 'scale-1', { factory: mockFactory, customizeDomain: mockCustomize },
+      'test-domains', 'scale-1', { factory: mockFactory, modifyDomain: mockModify },
     );
   });
 

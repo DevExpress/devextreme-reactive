@@ -254,7 +254,7 @@ describe('Scale', () => {
       const mock = jest.fn().mockReturnValue([10, 11]);
       const domains = computeDomains({
         ...testDomains,
-        domain1: { customizeDomain: mock },
+        domain1: { modifyDomain: mock },
       }, [{
         scaleName: 'domain1',
         getPointTransformer,
@@ -269,7 +269,7 @@ describe('Scale', () => {
           domain: [], factory: scaleLinear, isDiscrete: false,
         },
         domain1: {
-          domain: [10, 11], customizeDomain: mock, factory: scaleLinear, isDiscrete: false,
+          domain: [10, 11], modifyDomain: mock, factory: scaleLinear, isDiscrete: false,
         },
       });
       expect(mock).toBeCalledWith([3, 14]);

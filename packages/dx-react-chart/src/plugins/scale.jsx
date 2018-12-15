@@ -6,8 +6,8 @@ import { withPatchedProps } from '../utils';
 
 export class Scale extends React.PureComponent {
   render() {
-    const { name, factory, customizeDomain } = this.props;
-    const args = { factory, customizeDomain };
+    const { name, factory, modifyDomain } = this.props;
+    const args = { factory, modifyDomain };
     const getDomains = ({ domains }) => addDomain(domains, name, args);
     return (
       <Plugin name="Scale">
@@ -20,12 +20,12 @@ export class Scale extends React.PureComponent {
 Scale.propTypes = {
   name: PropTypes.string.isRequired,
   factory: PropTypes.func,
-  customizeDomain: PropTypes.func,
+  modifyDomain: PropTypes.func,
 };
 
 Scale.defaultProps = {
   factory: undefined,
-  customizeDomain: undefined,
+  modifyDomain: undefined,
 };
 
 export const ArgumentScale = withPatchedProps(props => ({

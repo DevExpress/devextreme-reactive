@@ -79,9 +79,13 @@ const TooltipContent = ({ text, ...restProps }) => (
   />
 );
 
+const titleStyle = { marginRight: '120px' };
 const stacks = [
   { series: ['USA', 'Saudi Arabia', 'Iran', 'Mexico', 'Russia'] },
 ];
+
+const modifyOilDomain = domain => [domain[0], 2200];
+const modifyPriceDomain = () => [0, 110];
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -112,12 +116,11 @@ export default class Demo extends React.PureComponent {
         >
           <ValueScale
             name="oil"
-            max={2200}
+            modifyDomain={modifyOilDomain}
           />
           <ValueScale
             name="price"
-            min={0}
-            max={110}
+            modifyDomain={modifyPriceDomain}
           />
 
           <ArgumentAxis />
@@ -133,7 +136,7 @@ export default class Demo extends React.PureComponent {
 
           <Title
             text="Oil production vs Oil price"
-            style={{ marginRight: '120px' }}
+            style={titleStyle}
           />
 
           <BarSeries

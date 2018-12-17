@@ -11,15 +11,28 @@ import {
   isFixedTableRow,
   tableColumnsWithFixed,
   tableHeaderRowsWithFixed,
+  tableHeaderColumnChainsWithFixed,
   calculateFixedColumnProps,
 } from '@devexpress/dx-grid-core';
 
 const tableHeaderRowsComputed = ({ tableHeaderRows }) => tableHeaderRowsWithFixed(tableHeaderRows);
+const tableHeaderColumnChainsComputed = ({
+  tableColumns, tableHeaderRows, tableHeaderColumnChains,
+}) => tableHeaderColumnChainsWithFixed(tableHeaderColumnChains, tableHeaderRows, tableColumns);
 
 const CellPlaceholder = props => <TemplatePlaceholder params={props} />;
 
 const pluginDependencies = [
   { name: 'Table' },
+  { name: 'TableBandHeader', optional: true },
+  { name: 'TableColumnReordering', optional: true },
+  { name: 'TableEditColumn', optional: true },
+  { name: 'TableEditRow', optional: true },
+  { name: 'TableFilterRow', optional: true },
+  { name: 'TableHeaderRow', optional: true },
+  { name: 'TableSelection', optional: true },
+  { name: 'TableSummaryRow', optional: true },
+  { name: 'TableTreeColumn', optional: true },
 ];
 
 export class TableFixedColumns extends React.PureComponent {
@@ -62,19 +75,21 @@ export class TableFixedColumns extends React.PureComponent {
       >
         <Getter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
         <Getter name="tableColumns" computed={tableColumnsComputed} />
+        <Getter name="tableHeaderColumnChains" computed={tableHeaderColumnChainsComputed} />
         <Template
           name="tableCell"
           predicate={({ tableColumn }) => !!tableColumn.fixed}
         >
           {params => (
             <TemplateConnector>
-              {({ tableColumns }) => {
+              {({ tableColumns, tableHeaderColumnChains }) => {
                 const { tableColumnDimensions } = this.state;
                 const fixedColumnProps = calculateFixedColumnProps(
                   params,
                   { leftColumns, rightColumns },
                   tableColumns,
                   tableColumnDimensions,
+                  tableHeaderColumnChains,
                 );
 
                 return (

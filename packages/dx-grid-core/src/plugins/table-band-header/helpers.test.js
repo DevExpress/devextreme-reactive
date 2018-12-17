@@ -7,10 +7,11 @@ import {
   isNoDataColumn,
   isBandedTableRow,
   isBandedOrHeaderRow,
-  getColSpan,
   getColumnMeta,
   getBandComponent,
 } from './helpers';
+import { tableHeaderColumnChainsWithBands } from './computeds';
+import { tableHeaderColumnChainsWithFixed } from '../table-fixed-columns/computeds';
 
 describe('TableBandHeader Plugin helpers', () => {
   const columnBands = [
@@ -47,6 +48,17 @@ describe('TableBandHeader Plugin helpers', () => {
     { key: 'c', column: { name: 'c' }, type: TABLE_DATA_TYPE },
     { key: 'e', column: { name: 'e' }, type: TABLE_DATA_TYPE },
   ];
+
+  const computeColumnChains = (columns, rows, bands) => (
+    tableHeaderColumnChainsWithBands(rows, columns, bands)
+  );
+  const computeColumnChainsWithFixed = (columns, rows, bands) => (
+    tableHeaderColumnChainsWithFixed(
+      computeColumnChains(columns, rows, bands),
+      rows,
+      columns,
+    )
+  );
 
   describe('#isNoDataColumn', () => {
     it('should work with not data column', () => {
@@ -91,122 +103,6 @@ describe('TableBandHeader Plugin helpers', () => {
     });
   });
 
-  describe('#getColSpan', () => {
-    it('should work correctly for the first row level bands', () => {
-      const currentColumnTitle = 'Band A';
-      const currentColumnIndex = 0;
-      const currentRowLevel = 0;
-
-      expect(getColSpan(
-        currentColumnIndex,
-        tableColumns,
-        columnBands,
-        currentRowLevel,
-        currentColumnTitle,
-      )).toBe(4);
-    });
-
-    it('should work correctly for nested row level bands', () => {
-      const currentColumnTitle = 'Band B';
-      const currentColumnIndex = 0;
-      const currentRowLevel = 1;
-
-      expect(getColSpan(
-        currentColumnIndex,
-        tableColumns,
-        columnBands,
-        currentRowLevel,
-        currentColumnTitle,
-      )).toBe(2);
-    });
-
-    it('should work for nested row level non-band elements', () => {
-      const currentColumnTitle = 'Band A';
-      const currentColumnIndex = 2;
-      const currentRowLevel = 1;
-
-      expect(getColSpan(
-        currentColumnIndex,
-        tableColumns,
-        columnBands,
-        currentRowLevel,
-        currentColumnTitle,
-      )).toBe(1);
-    });
-
-    it('should work with alternate titles', () => {
-      const currentColumnTitle = 'Band B';
-      const currentColumnIndex = 3;
-      const currentRowLevel = 1;
-
-      expect(getColSpan(
-        currentColumnIndex,
-        tableColumns,
-        columnBands,
-        currentRowLevel,
-        currentColumnTitle,
-      )).toBe(1);
-    });
-
-    it('should consider fixed columns for the first row level bands', () => {
-      const currentColumnTitle = 'Band A';
-      const currentRowLevel = 0;
-      const currentColumnIndex = 0;
-      const isCurrentColumnFixed = true;
-
-      expect(getColSpan(
-        currentColumnIndex,
-        [
-          { ...tableColumns[0], fixed: 'before' },
-          ...tableColumns.slice(1),
-        ],
-        columnBands,
-        currentRowLevel,
-        currentColumnTitle,
-        isCurrentColumnFixed,
-      )).toBe(1);
-    });
-
-    it('should consider fixed columns for nested row level bands', () => {
-      const currentColumnTitle = 'Band A';
-      const currentRowLevel = 1;
-      const currentColumnIndex = 0;
-      const isCurrentColumnFixed = true;
-
-      expect(getColSpan(
-        currentColumnIndex,
-        [
-          { ...tableColumns[0], fixed: 'before' },
-          ...tableColumns.slice(1),
-        ],
-        columnBands,
-        currentRowLevel,
-        currentColumnTitle,
-        isCurrentColumnFixed,
-      )).toBe(1);
-    });
-
-    it('should consider multiple fixed columns', () => {
-      const currentColumnTitle = 'Band A';
-      const currentRowLevel = 0;
-      const currentColumnIndex = 0;
-      const isCurrentColumnFixed = true;
-
-      expect(getColSpan(
-        currentColumnIndex,
-        [
-          { ...tableColumns[0], fixed: 'before' },
-          { ...tableColumns[1], fixed: 'before' },
-          ...tableColumns.slice(2),
-        ],
-        columnBands,
-        currentRowLevel,
-        currentColumnTitle,
-        isCurrentColumnFixed,
-      )).toBe(2);
-    });
-  });
-
   describe('#getBandComponent', () => {
     const tableHeaderRows = [
       { type: TABLE_BAND_TYPE, level: 0 },
@@ -236,8 +132,9 @@ describe('TableBandHeader Plugin helpers', () => {
           level: 2,
         },
       };
+      const chains = computeColumnChains(tableColumns, tableHeaderRows, columnBands);
 
-      expect(getBandComponent(params, tableHeaderRows, tableColumns, columnBands, []))
+      expect(getBandComponent(params, tableHeaderRows, tableColumns, columnBands, chains))
         .toEqual({ type: BAND_EMPTY_CELL, payload: null });
     });
 
@@ -252,8 +149,9 @@ describe('TableBandHeader Plugin helpers', () => {
           level: 1,
         },
       };
+      const chains = computeColumnChains(tableColumns, tableHeaderRows, columnBands);
 
-      expect(getBandComponent(params, tableHeaderRows, tableColumns, columnBands, []))
+      expect(getBandComponent(params, tableHeaderRows, tableColumns, columnBands, chains))
         .toEqual({
           type: BAND_HEADER_CELL,
           payload: {
@@ -274,8 +172,9 @@ describe('TableBandHeader Plugin helpers', () => {
           level: 0,
         },
       };
+      const chains = computeColumnChains(tableColumns, tableHeaderRows, columnBands);
 
-      expect(getBandComponent(params, tableHeaderRows, tableColumns, columnBands, []))
+      expect(getBandComponent(params, tableHeaderRows, tableColumns, columnBands, chains))
         .toEqual({
           type: BAND_GROUP_CELL,
           payload: {
@@ -297,118 +196,132 @@ describe('TableBandHeader Plugin helpers', () => {
           level: 0,
         },
       };
+      const chains = computeColumnChains(tableColumns, tableHeaderRows, columnBands);
 
-      expect(getBandComponent(params, tableHeaderRows, tableColumns, columnBands, []))
+      expect(getBandComponent(params, tableHeaderRows, tableColumns, columnBands, chains))
         .toEqual({
           type: null,
           payload: null,
         });
     });
 
-    it('should return correct data for cells in a fixed column', () => {
-      expect(
-        getBandComponent({
-          tableColumn: {
-            type: TABLE_DATA_TYPE,
-            key: 'a',
-            column: { name: 'a' },
-            fixed: 'before',
-          },
-          tableRow: { level: 0 },
-        }, tableHeaderRows, tableColumns, columnBands),
-      )
-        .toEqual({
-          type: BAND_GROUP_CELL,
-          payload: {
-            colSpan: 1,
-            value: 'Band A',
-            column: { title: 'Band A', level: 2 },
-          },
-        });
-
-      expect(
-        getBandComponent({
-          tableColumn: {
-            ...tableColumns[0],
-            fixed: 'before',
-          },
-          tableRow: { level: 1 },
-        }, tableHeaderRows, tableColumns, columnBands),
-      )
-        .toEqual({
-          type: BAND_GROUP_CELL,
-          payload: {
-            colSpan: 1,
-            value: 'Band B',
-            column: { title: 'Band B', level: 2 },
-          },
-        });
-
-      expect(
-        getBandComponent({
-          tableColumn: {
-            ...tableColumns[0],
-            fixed: 'before',
-          },
-          tableRow: { level: 2 },
-        }, tableHeaderRows, tableColumns, columnBands),
-      )
-        .toEqual({
-          type: BAND_HEADER_CELL,
-          payload: {
-            tableRow: { type: TABLE_HEADING_TYPE },
-            rowSpan: 1,
-          },
-        });
-    });
-
-    it('should return correct data for the cell going after a fixed column', () => {
-      expect(
-        getBandComponent(
+    describe('with fixed columns', () => {
+      it('should return correct data for cells in a fixed column', () => {
+        const columns = [
           {
-            tableColumn: tableColumns[1],
+            ...tableColumns[0],
+            fixed: 'left',
+          },
+          ...tableColumns.slice(1),
+        ];
+        const columnChains = computeColumnChainsWithFixed(columns, tableHeaderRows, columnBands);
+
+        expect(
+          getBandComponent({
+            tableColumn: columns[0],
             tableRow: { level: 0 },
+          }, tableHeaderRows, tableColumns, columnBands, columnChains),
+        )
+          .toEqual({
+            type: BAND_GROUP_CELL,
+            payload: {
+              colSpan: 1,
+              value: 'Band A',
+              column: { title: 'Band A', level: 2 },
+            },
+          });
+
+        expect(
+          getBandComponent({
+            tableColumn: tableColumns[0],
+            tableRow: { level: 1 },
+          }, tableHeaderRows, tableColumns, columnBands, columnChains),
+        )
+          .toEqual({
+            type: BAND_GROUP_CELL,
+            payload: {
+              colSpan: 1,
+              value: 'Band B',
+              column: { title: 'Band B', level: 2 },
+            },
+          });
+
+        expect(
+          getBandComponent({
+            tableColumn: tableColumns[0],
+            tableRow: { level: 2 },
+          }, tableHeaderRows, tableColumns, columnBands, columnChains),
+        )
+          .toEqual({
+            type: BAND_HEADER_CELL,
+            payload: {
+              tableRow: { type: TABLE_HEADING_TYPE },
+              rowSpan: 1,
+            },
+          });
+      });
+
+      it('should return correct data for the cell going after a fixed column', () => {
+        const columns = [
+          {
+            ...tableColumns[0],
+            fixed: 'left',
           },
-          tableHeaderRows,
-          [{ ...tableColumns[0], fixed: 'before' }, ...tableColumns.slice(1)],
-          columnBands,
-        ),
-      )
-        .toEqual({
-          type: BAND_GROUP_CELL,
-          payload: {
-            colSpan: 3,
-            value: 'Band A',
-            column: { title: 'Band A', level: 2 },
-          },
-        });
+          ...tableColumns.slice(1),
+        ];
+        const columnChains = computeColumnChainsWithFixed(columns, tableHeaderRows, columnBands);
+        expect(
+          getBandComponent(
+            {
+              tableColumn: columns[1],
+              tableRow: { level: 0 },
+            },
+            tableHeaderRows,
+            columns,
+            columnBands,
+            columnChains,
+          ),
+        )
+          .toEqual({
+            type: BAND_GROUP_CELL,
+            payload: {
+              colSpan: 3,
+              value: 'Band A',
+              column: { title: 'Band A', level: 2 },
+            },
+          });
+      });
+
+      it('should return correct data when there are multiple fixed columns', () => {
+        const columns = [
+          { ...tableColumns[0], fixed: 'left' },
+          { ...tableColumns[1], fixed: 'left' },
+          ...tableColumns.slice(2),
+        ];
+        const columnChains = computeColumnChainsWithFixed(columns, tableHeaderRows, columnBands);
+        expect(
+          getBandComponent(
+            {
+              tableColumn: columns[0],
+              tableRow: { level: 0 },
+            },
+            tableHeaderRows,
+            columns,
+            columnBands,
+            columnChains,
+          ),
+        )
+          .toEqual({
+            type: BAND_GROUP_CELL,
+            payload: {
+              colSpan: 2,
+              value: 'Band A',
+              column: { title: 'Band A', level: 2 },
+            },
+          });
+      });
     });
 
-    it('should return correct data when there are multiple fixed columns', () => {
-      expect(
-        getBandComponent(
-          {
-            tableColumn: { ...tableColumns[0], fixed: 'before' },
-            tableRow: { level: 0 },
-          },
-          tableHeaderRows,
-          [
-            { ...tableColumns[0], fixed: 'before' },
-            { ...tableColumns[1], fixed: 'before' },
-            ...tableColumns.slice(2),
-          ],
-          columnBands,
-        ),
-      )
-        .toEqual({
-          type: BAND_GROUP_CELL,
-          payload: {
-            colSpan: 2,
-            value: 'Band A',
-            column: { title: 'Band A', level: 2 },
-          },
-        });
-    });
 
     describe('with command button', () => {
       const testTableHeaderRows = [
@@ -426,21 +339,23 @@ describe('TableBandHeader Plugin helpers', () => {
           ],
         },
       ];
+      const testColumns = [
+        { key: 'commandColumn', column: { name: 'commandColumn' }, type: 'commandColumn' },
+        ...tableColumns,
+      ];
+      const columnChains = computeColumnChains(testColumns, testTableHeaderRows, testColumnBands);
 
       it('should add beforeBorder if commandButton is before BandGroupCell', () => {
         expect(
           getBandComponent(
             {
-              tableColumn: { ...tableColumns[0] },
+              tableColumn: tableColumns[0],
               tableRow: { level: 0 },
             },
             testTableHeaderRows,
-            [
-              { key: 'commandColumn', column: { name: 'commandColumn' }, type: 'commandColumn' },
-              { ...tableColumns[0] },
-              { ...tableColumns[1] },
-            ],
+            testColumns,
             testColumnBands,
+            columnChains,
           ),
         )
           .toEqual({
@@ -458,16 +373,13 @@ describe('TableBandHeader Plugin helpers', () => {
         expect(
           getBandComponent(
             {
-              tableColumn: { ...tableColumns[0] },
+              tableColumn: tableColumns[0],
               tableRow: { level: 1 },
             },
             testTableHeaderRows,
-            [
-              { key: 'commandColumn', column: { name: 'commandColumn' }, type: 'commandColumn' },
-              { ...tableColumns[0] },
-              { ...tableColumns[1] },
-            ],
+            testColumns,
             testColumnBands,
+            columnChains,
           ),
         )
           .toEqual({

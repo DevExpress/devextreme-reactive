@@ -1,5 +1,6 @@
 import { TABLE_DATA_TYPE } from '../table/constants';
 import { FIXED_COLUMN_LEFT_SIDE, FIXED_COLUMN_RIGHT_SIDE, TABLE_FIXED_TYPE } from './constants';
+import { splitHeaderColumnChains, generateSimpleChains } from '../table-header-row/helpers';
 
 export const tableColumnsWithFixed = (
   tableColumns, leftColumns, rightColumns,
@@ -23,3 +24,23 @@ export const tableHeaderRowsWithFixed = tableHeaderRows => [
   ...tableHeaderRows,
   { key: TABLE_FIXED_TYPE.toString(), type: TABLE_FIXED_TYPE, height: 0 },
 ];
+
+export const tableHeaderColumnChainsWithFixed = (
+  tableHeaderColumnChains, tableHeaderRows, tableColumns,
+) => {
+  const chains = tableHeaderColumnChains
+    || generateSimpleChains(tableHeaderRows, tableColumns);
+
+  const shouldSplitChain = (currentGroup, column) => (
+    !currentGroup || currentGroup.fixed !== column.fixed
+  );
+  const extendChainProps = column => ({
+    fixed: column.fixed,
+  });
+  return splitHeaderColumnChains(
+    chains,
+    tableColumns,
+    shouldSplitChain,
+    extendChainProps,
+  );
+};

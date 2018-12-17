@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Card } from 'reactstrap';
 import {
   Chart,
   PieSeries,
@@ -16,7 +15,7 @@ import {
   schemeSet3,
 } from 'd3-scale-chromatic';
 
-import { Scale, Palette } from '@devexpress/dx-react-chart';
+import { Palette } from '@devexpress/dx-react-chart';
 
 const schemeCollection = [
   schemeCategory10,
@@ -55,7 +54,7 @@ export default class Demo extends React.PureComponent {
     const { data: chartData, scheme } = this.state;
 
     return (
-      <Card>
+      <div className="card">
         <Chart
           data={chartData}
         >
@@ -64,7 +63,6 @@ export default class Demo extends React.PureComponent {
             valueField="val"
             argumentField="category"
           />
-          <Scale />
         </Chart>
         <div className="d-flex justify-content-center mt-3">
           {scheme.map(color => <div key={color} style={{ width: '40px', height: '40px', backgroundColor: color }} />)}
@@ -83,7 +81,7 @@ export default class Demo extends React.PureComponent {
             <option value={8}>schemeSet3</option>
           </select>
         </div>
-      </Card>
+      </div>
     );
   }
 }

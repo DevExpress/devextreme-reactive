@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Card } from 'reactstrap';
 import {
   Chart,
   ArgumentAxis,
@@ -8,7 +7,7 @@ import {
   Title,
   Legend,
 } from '@devexpress/dx-react-chart-bootstrap4';
-import { Stack, Scale, Animation } from '@devexpress/dx-react-chart';
+import { Stack, Animation } from '@devexpress/dx-react-chart';
 import { stackOffsetExpand } from 'd3-shape';
 
 import { carbonEmmision as data } from '../../../demo-data/data-vizualization';
@@ -48,7 +47,7 @@ export default class Demo extends React.PureComponent {
     const { data: chartData, offset, valueFormat } = this.state;
 
     return (
-      <Card>
+      <div className="card">
         <Chart
           data={chartData}
           className="pr-3"
@@ -86,7 +85,6 @@ export default class Demo extends React.PureComponent {
           <Animation />
           <Legend position="bottom" rootComponent={Root} />
           <Title text="Carbon Emission Estimates" />
-          <Scale />
           <Stack
             stacks={[{
               series: ['Liquids', 'Solids', 'Gas', 'Cement Production', 'Gas Flaring'],
@@ -101,7 +99,7 @@ export default class Demo extends React.PureComponent {
             <option value="2">Fullstacked Area</option>
           </select>
         </div>
-      </Card>
+      </div>
 
     );
   }

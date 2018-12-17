@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Card } from 'reactstrap';
 import {
   Chart,
   ArgumentAxis,
@@ -8,7 +7,7 @@ import {
   Title,
   Legend,
 } from '@devexpress/dx-react-chart-bootstrap4';
-import { Scale, Animation } from '@devexpress/dx-react-chart';
+import { ArgumentScale, Animation } from '@devexpress/dx-react-chart';
 import { scalePoint } from 'd3-scale';
 
 const data = [
@@ -49,11 +48,12 @@ export default class Demo extends React.PureComponent {
     const { data: chartData } = this.state;
 
     return (
-      <Card>
+      <div className="card">
         <Chart
           data={chartData}
           className="pr-3"
         >
+          <ArgumentScale factory={scalePoint} />
           <ArgumentAxis />
           <ValueAxis />
 
@@ -68,7 +68,6 @@ export default class Demo extends React.PureComponent {
             argumentField="year"
           />
           <Animation />
-          <Scale extensions={[{ type: 'band', constructor: scalePoint }]} />
           <Legend
             position="bottom"
             rootComponent={Root}
@@ -79,7 +78,7 @@ export default class Demo extends React.PureComponent {
             text="Worldwide Sales to End Users by OS"
           />
         </Chart>
-      </Card>
+      </div>
     );
   }
 }

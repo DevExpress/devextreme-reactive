@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Card } from 'reactstrap';
 import {
   Chart,
   BarSeries,
@@ -10,8 +9,9 @@ import {
   Tooltip,
 } from '@devexpress/dx-react-chart-bootstrap4';
 import * as d3Format from 'd3-format';
+import { scaleBand } from '@devexpress/dx-chart-core';
 import {
-  Stack, Scale, EventTracker, HoverState, SelectionState, Animation,
+  ArgumentScale, Stack, Animation, EventTracker, HoverState, SelectionState,
 } from '@devexpress/dx-react-chart';
 
 import { annualVehiclesSales } from '../../../demo-data/data-vizualization';
@@ -56,11 +56,12 @@ export default class Demo extends React.PureComponent {
     const { data: chartData, selection } = this.state;
 
     return (
-      <Card>
+      <div className="card">
         <Chart
           data={chartData}
         >
-          <ArgumentAxis type="band" />
+          <ArgumentScale factory={scaleBand} />
+          <ArgumentAxis />
           <ValueAxis />
 
           <Title
@@ -79,7 +80,6 @@ export default class Demo extends React.PureComponent {
             argumentField="year"
           />
           <Stack />
-          <Scale />
           <Legend />
           <EventTracker onClick={this.click} />
           <HoverState />
@@ -87,7 +87,7 @@ export default class Demo extends React.PureComponent {
           <SelectionState selection={selection} />
           <Animation />
         </Chart>
-      </Card>
+      </div>
     );
   }
 }

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Card } from 'reactstrap';
 import {
   Chart,
   ArgumentAxis,
@@ -8,7 +7,7 @@ import {
   Title,
   Legend,
 } from '@devexpress/dx-react-chart-bootstrap4';
-import { Scale, Animation } from '@devexpress/dx-react-chart';
+import { ArgumentScale, Animation } from '@devexpress/dx-react-chart';
 import {
   curveCatmullRom,
   line,
@@ -70,11 +69,12 @@ export default class Demo extends React.PureComponent {
     const { data: chartData } = this.state;
 
     return (
-      <Card>
+      <div className="card">
         <Chart
           data={chartData}
           className="pr-4"
         >
+          <ArgumentScale factory={scalePoint} />
           <ArgumentAxis />
           <ValueAxis />
 
@@ -115,10 +115,9 @@ export default class Demo extends React.PureComponent {
             textComponent={Text}
             className="w-100 text-center mb-2"
           />
-          <Scale extensions={[{ type: 'band', constructor: scalePoint }]} />
           <Animation />
         </Chart>
-      </Card>
+      </div>
     );
   }
 }

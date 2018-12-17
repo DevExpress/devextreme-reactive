@@ -322,4 +322,15 @@ describe('TemplatePlaceholder', () => {
     expect(tree.find('.test').text())
       .toBe(getterValue);
   });
+
+  it('should correct TemplatePlaceholder unmount', () => {
+    const wrapper = mount((
+      <PluginHost>
+        <TemplatePlaceholder name="template" />
+      </PluginHost>
+    ));
+
+    expect(() => { wrapper.unmount(); })
+      .not.toThrow();
+  });
 });

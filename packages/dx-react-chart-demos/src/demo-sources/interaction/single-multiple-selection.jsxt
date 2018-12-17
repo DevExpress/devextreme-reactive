@@ -6,9 +6,7 @@ import {
   ValueAxis,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 
-import {
-  Scale, EventTracker, SelectionState,
-} from '@devexpress/dx-react-chart';
+import { EventTracker, SelectionState } from '@devexpress/dx-react-chart';
 
 const data = [
   { year: '1950', population: 2.525 },
@@ -33,13 +31,18 @@ export default class Demo extends React.PureComponent {
       selection: [],
     };
 
-    this.click = ({ targets }) => {
+    this.click = ({ targets, event }) => {
       const target = targets[0];
       if (target) {
         this.setState(({ selection }) => {
-          const filtered = selection.filter(el => !compare(el, target));
+          if (event.ctrlKey || event.metaKey) {
+            const filtered = selection.filter(el => !compare(el, target));
+            return {
+              selection: filtered.length < selection.length ? filtered : [...filtered, target],
+            };
+          }
           return {
-            selection: filtered.length < selection.length ? filtered : [...filtered, target],
+            selection: selection.length === 1 && compare(selection[0], target) ? [] : [target],
           };
         });
       }
@@ -56,18 +59,17 @@ export default class Demo extends React.PureComponent {
           {' '}
           {selection.length}
         </span>
-        <<%&wrapperTag%>>
+        <<%&wrapperTag%><%&wrapperAttributes%>>
           <Chart
             data={chartData}
           >
-            <ArgumentAxis type="band" />
+            <ArgumentAxis />
             <ValueAxis />
 
             <BarSeries
               valueField="population"
               argumentField="year"
             />
-            <Scale />
             <EventTracker onClick={this.click} />
             <SelectionState selection={selection} />
           </Chart>

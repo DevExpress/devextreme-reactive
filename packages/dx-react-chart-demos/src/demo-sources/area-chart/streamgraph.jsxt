@@ -13,7 +13,7 @@ import {
   area,
 } from 'd3-shape';
 
-import { Stack, Scale, Animation } from '@devexpress/dx-react-chart';
+import { Stack, Animation } from '@devexpress/dx-react-chart';
 
 import { booksSale } from '../../../demo-data/data-vizualization';
 
@@ -43,7 +43,7 @@ export default class Demo extends React.PureComponent {
     const { data: chartData } = this.state;
 
     return (
-      <<%&wrapperTag%>>
+      <<%&wrapperTag%><%&wrapperAttributes%>>
         <Chart
           data={chartData}
           style={{ paddingLeft: '20px' }}
@@ -93,7 +93,6 @@ export default class Demo extends React.PureComponent {
             offset={stackOffsetWiggle}
             order={stackOrderInsideOut}
           />
-          <Scale />
         </Chart>
       </<%&wrapperTag%>>
     );

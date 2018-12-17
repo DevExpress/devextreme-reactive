@@ -65,7 +65,7 @@ const TableBase = ({
                   selected={selected}
                   today={today}
                   onClick={() => {
-                    onCellClick({ nextDate: startDate });
+                    onCellClick(startDate);
                   }}
                 >
                   {moment(startDate).format('D')}

@@ -35,7 +35,7 @@ export default class Demo extends React.PureComponent {
     const { rows, columns, tableColumnExtensions } = this.state;
 
     return (
-      <<%&wrapperTag%>>
+      <<%&wrapperTag%><%&wrapperAttributes%>>
         <Grid
           rows={rows}
           columns={columns}

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
+import { Pagination, PaginationItem, PaginationLink } from '../parts/pagination';
 import { PageSizeSelector } from './page-size-selector';
 
 describe('PageSizeSelector', () => {

@@ -54,7 +54,7 @@ Field | Type | Description
 ------|------|------------
 startDate | Date | Specifies the cell start time.
 endDate | Date | Specifies the cell end time.
-
+today | boolean | Indicates whether the cell's date is today.
 
 ### DayView.LayoutProps
 
@@ -104,6 +104,7 @@ Field | Type | Description
 ------|------|------------
 startDate | Date | Specifies the cell end time.
 endDate? | Date | Specifies the cell start time.
+today? | boolean | Indicates whether the cell's date is today.
 
 ### DayView.DayScaleEmptyCellProps
 

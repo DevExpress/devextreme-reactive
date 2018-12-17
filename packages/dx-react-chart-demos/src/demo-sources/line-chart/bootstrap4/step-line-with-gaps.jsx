@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Card } from 'reactstrap';
 import {
   Chart,
   ArgumentAxis,
@@ -9,7 +8,7 @@ import {
   Legend,
   ScatterSeries,
 } from '@devexpress/dx-react-chart-bootstrap4';
-import { Scale, Animation } from '@devexpress/dx-react-chart';
+import { Animation } from '@devexpress/dx-react-chart';
 import {
   line,
   curveStep,
@@ -72,7 +71,7 @@ export default class Demo extends React.PureComponent {
     const { data: chartData } = this.state;
 
     return (
-      <Card>
+      <div className="card">
         <Chart
           data={chartData}
         >
@@ -103,9 +102,8 @@ export default class Demo extends React.PureComponent {
           <Animation />
           <Legend position="bottom" rootComponent={Root} />
           <Title text="Australian Medal Count" />
-          <Scale />
         </Chart>
-      </Card>
+      </div>
     );
   }
 }

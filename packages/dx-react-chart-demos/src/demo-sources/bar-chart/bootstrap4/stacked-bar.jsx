@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Card } from 'reactstrap';
 import {
   Chart,
   ArgumentAxis,
@@ -8,7 +7,7 @@ import {
   Title,
   Legend,
 } from '@devexpress/dx-react-chart-bootstrap4';
-import { Stack, Scale, Animation } from '@devexpress/dx-react-chart';
+import { Stack, Animation } from '@devexpress/dx-react-chart';
 
 import { energyConsumption as data } from '../../../demo-data/data-vizualization';
 
@@ -32,7 +31,7 @@ export default class Demo extends React.PureComponent {
     const { data: chartData } = this.state;
 
     return (
-      <Card>
+      <div className="card">
         <Chart
           data={chartData}
         >
@@ -74,9 +73,8 @@ export default class Demo extends React.PureComponent {
               { series: ['Hydro-electric', 'Oil', 'Natural gas', 'Coal', 'Nuclear'] },
             ]}
           />
-          <Scale />
         </Chart>
-      </Card>
+      </div>
     );
   }
 }

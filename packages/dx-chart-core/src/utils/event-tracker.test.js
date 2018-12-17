@@ -10,6 +10,7 @@ describe('EventTracker', () => {
     const hitTest1 = jest.fn();
     const series1 = {
       name: 'Series 1',
+      index: 0,
       symbolName: 'series-1',
       points: 'coordinates-1',
       createHitTester: jest.fn().mockReturnValue(hitTest1),
@@ -17,6 +18,7 @@ describe('EventTracker', () => {
     const hitTest2 = jest.fn();
     const series2 = {
       name: 'Series 2',
+      index: 1,
       symbolName: 'series-2',
       points: 'coordinates-2',
       createHitTester: jest.fn().mockReturnValue(hitTest2),
@@ -24,6 +26,7 @@ describe('EventTracker', () => {
     const hitTest3 = jest.fn();
     const series3 = {
       name: 'Series 3',
+      index: 2,
       symbolName: 'series-3',
       points: 'coordinates-3',
       createHitTester: jest.fn().mockReturnValue(hitTest3),
@@ -67,12 +70,12 @@ describe('EventTracker', () => {
     it('should provide targets on successful hit tests', () => {
       hitTest1.mockReturnValue({
         points: [
-          { index: 1, distance: 0.3 },
+          { index: 1, distance: 50 },
         ],
       });
       hitTest3.mockReturnValue({
         points: [
-          { index: 1, distance: 0.2 }, { index: 2, distance: 0.4 }, { index: 3, distance: 0.1 },
+          { index: 1, distance: 20 }, { index: 2, distance: 80 }, { index: 3, distance: 10 },
         ],
       });
       const func = call();
@@ -84,13 +87,64 @@ describe('EventTracker', () => {
       });
 
       const targets = [
-        { series: 'Series 3', point: 3, distance: 0.1 },
-        { series: 'Series 3', point: 1, distance: 0.2 },
-        { series: 'Series 1', point: 1, distance: 0.3 },
-        { series: 'Series 3', point: 2, distance: 0.4 },
+        {
+          series: 'Series 3', point: 3, distance: 10, order: 2,
+        },
+        {
+          series: 'Series 3', point: 1, distance: 20, order: 2,
+        },
+        {
+          series: 'Series 1', point: 1, distance: 50, order: 0,
+        },
+        {
+          series: 'Series 3', point: 2, distance: 80, order: 2,
+        },
       ];
       expect(handler1).toBeCalledWith({ location: [192, 281], targets, event: 'nativeEvent' });
       expect(handler2).toBeCalledWith({ location: [192, 281], targets, event: 'nativeEvent' });
+    });
+
+    it('should take series order into account', () => {
+      hitTest1.mockReturnValue({
+        points: [
+          { index: 2, distance: 30 },
+        ],
+      });
+      hitTest2.mockReturnValue({
+        points: [
+          { index: 1, distance: 40 }, { index: 3, distance: 60 },
+        ],
+      });
+      hitTest3.mockReturnValue({
+        points: [
+          { index: 0, distance: 35 },
+        ],
+      });
+      const func = call();
+      func({
+        clientX: 481,
+        clientY: 324,
+        currentTarget,
+        nativeEvent: 'nativeEvent',
+      });
+
+      const targets = [
+        {
+          series: 'Series 3', point: 0, distance: 35, order: 2,
+        },
+        {
+          series: 'Series 2', point: 1, distance: 40, order: 1,
+        },
+        {
+          series: 'Series 1', point: 2, distance: 30, order: 0,
+        },
+        {
+          series: 'Series 2', point: 3, distance: 60, order: 1,
+        },
+      ];
+
+      expect(handler1).toBeCalledWith({ location: [321, 184], targets, event: 'nativeEvent' });
+      expect(handler2).toBeCalledWith({ location: [321, 184], targets, event: 'nativeEvent' });
     });
 
     it('should create hit testers lazily', () => {

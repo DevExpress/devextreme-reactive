@@ -120,7 +120,7 @@ const getColumnsSize = (columns, startIndex, endIndex, getColumnSize) => {
   let index;
   const loopEndIndex = endIndex + 1;
   for (index = startIndex; index < loopEndIndex; index += 1) {
-    size += getColumnSize(columns[index], 0);
+    size += getColumnSize(columns[index], 0) || 0;
   }
   return size;
 };

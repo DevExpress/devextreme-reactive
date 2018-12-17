@@ -22,29 +22,49 @@ const getPath = (x, width, y, y1) => `M ${x} ${y1}
    L ${x} ${y + 30}
    Z`;
 
-const BarWithLabel = (props) => {
-  const {
-    x, width, y, y1, color, value, style,
-  } = props;
+const labelStyle = { fill: '#BBDEFB' };
 
-  return (
-    <React.Fragment>
-      <path d={getPath(x, width, y, y1)} fill={color} style={style} />
-      <Chart.Label
-        x={x + width / 2}
-        y={(y + y1) / 2}
-        dominantBaseline="middle"
-        textAnchor="middle"
-        style={{ fill: '#BBDEFB' }}
-      >
-        {value}
-      </Chart.Label>
-    </React.Fragment>);
-};
+const BarWithLabel = ({
+  x, width, y, y1, color, value, style,
+}) => (
+  <React.Fragment>
+    <path d={getPath(x, width, y, y1)} fill={color} style={style} />
+    <Chart.Label
+      x={x + width / 2}
+      y={(y + y1) / 2}
+      dominantBaseline="middle"
+      textAnchor="middle"
+      style={labelStyle}
+    >
+      {value}
+    </Chart.Label>
+  </React.Fragment>
+);
 
 const Grid = props => (
   <ValueAxis.Grid {...props} strokeDasharray="10 5" />
 );
+
+const makeAxisLabel = (data) => {
+  const loginToAvatar = new Map();
+  data.forEach(({ login, avatar_url: url }) => {
+    loginToAvatar.set(login, url);
+  });
+  return (props) => {
+    const { text, x, y } = props;
+    return (
+      <React.Fragment>
+        <image
+          href={loginToAvatar.get(text)}
+          width={imageSize}
+          height={imageSize}
+          transform={`translate(${x - (imageSize / 2)} ${y - labelOffset})`}
+        />
+        <ArgumentAxis.Label {...props} y={y + imageSize} />
+      </React.Fragment>
+    );
+  };
+};
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -53,7 +73,6 @@ export default class Demo extends React.PureComponent {
     this.state = {
       data: false,
     };
-    this.getLabelWithAvatarComponent = this.getLabelWithAvatarComponent.bind(this);
   }
 
   componentDidMount() {
@@ -70,33 +89,19 @@ export default class Demo extends React.PureComponent {
       fetch(`https://api.github.com/repos/${owner}/${repository}/contributors`)
         .then(response => response.json())
         .then((data) => {
+          const slice = data.slice(0, 8);
           this.setState({
-            data: data.slice(0, 8),
+            data: slice,
+            AxisLabel: makeAxisLabel(slice),
           });
         })
         .catch(() => this.setState({ data: false }));
     }
   }
 
-  getLabelWithAvatarComponent(props) {
-    const { text, x, y } = props;
-    const { data } = this.state;
-    const contributor = data.find(({ login }) => login === text);
-    return (
-      <React.Fragment>
-        <image
-          href={contributor.avatar_url}
-          width={imageSize}
-          height={imageSize}
-          transform={`translate(${x - (imageSize / 2)} ${y - labelOffset})`}
-        />
-        <ArgumentAxis.Label {...props} y={y + imageSize} />
-      </React.Fragment>);
-  }
-
   render() {
     const {
-      data: chartData,
+      data: chartData, AxisLabel,
     } = this.state;
 
     return (
@@ -105,8 +110,7 @@ export default class Demo extends React.PureComponent {
           chartData ? (
             <Chart data={chartData}>
               <ArgumentAxis
-                type="band"
-                labelComponent={this.getLabelWithAvatarComponent}
+                labelComponent={AxisLabel}
                 showTick={false}
               />
               <ValueAxis gridComponent={Grid} />

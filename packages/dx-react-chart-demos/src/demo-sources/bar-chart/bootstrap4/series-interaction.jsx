@@ -9,8 +9,9 @@ import {
   Tooltip,
 } from '@devexpress/dx-react-chart-bootstrap4';
 import * as d3Format from 'd3-format';
+import { scaleBand } from '@devexpress/dx-chart-core';
 import {
-  Stack, Animation, EventTracker, HoverState, SelectionState,
+  ArgumentScale, Stack, Animation, EventTracker, HoverState, SelectionState,
 } from '@devexpress/dx-react-chart';
 
 import { annualVehiclesSales } from '../../../demo-data/data-vizualization';
@@ -59,7 +60,8 @@ export default class Demo extends React.PureComponent {
         <Chart
           data={chartData}
         >
-          <ArgumentAxis type="band" />
+          <ArgumentScale factory={scaleBand} />
+          <ArgumentAxis />
           <ValueAxis />
 
           <Title

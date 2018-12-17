@@ -13,8 +13,9 @@ import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Popover from '@material-ui/core/Popover';
 import * as d3Format from 'd3-format';
+import { scaleBand } from '@devexpress/dx-chart-core';
 import {
-  Stack, Animation, EventTracker, HoverState, SelectionState,
+  ArgumentScale, Stack, Animation, EventTracker, HoverState, SelectionState,
 } from '@devexpress/dx-react-chart';
 
 import { annualVehiclesSales } from '../../../demo-data/data-vizualization';
@@ -99,7 +100,8 @@ export default class Demo extends React.PureComponent {
         <Chart
           data={chartData}
         >
-          <ArgumentAxis type="band" />
+          <ArgumentScale factory={scaleBand} />
+          <ArgumentAxis />
           <ValueAxis />
 
           <Title

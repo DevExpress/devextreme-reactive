@@ -5,6 +5,10 @@ import {
   DataTypeProvider,
 } from '@devexpress/dx-react-grid';
 import {
+  scaleBand,
+} from '@devexpress/dx-chart-core';
+import {
+  ArgumentScale,
   Stack,
 } from '@devexpress/dx-react-chart';
 import {
@@ -46,12 +50,10 @@ const legendLabelStyles = () => ({
   },
 });
 
-const nullComponent = () => null;
 const currencyFormatter = ({ value }) => `$${value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
-const axisLabel = ({
-  text,
-  ...restProps
-}) => <ValueAxis.Label text={currencyFormatter({ value: text })} {...restProps} />;
+const AxisLabel = ({ text, ...restProps }) => (
+  <ValueAxis.Label text={currencyFormatter({ value: text })} {...restProps} />
+);
 
 const CurrencyTypeProvider = props => (
   <DataTypeProvider
@@ -60,18 +62,18 @@ const CurrencyTypeProvider = props => (
   />
 );
 
-const legendRootBase = ({ classes, ...restProps }) => (
+const LegendRootBase = ({ classes, ...restProps }) => (
   <Legend.Root
     {...restProps}
     className={classes.root}
   />
 );
-const legendRoot = withStyles(legendStyles, { name: 'LegendRoot' })(legendRootBase);
+const LegendRoot = withStyles(legendStyles, { name: 'LegendRoot' })(LegendRootBase);
 
-const legendLabelBase = ({ classes, ...restProps }) => (
+const LegendLabelBase = ({ classes, ...restProps }) => (
   <Legend.Label className={classes.label} {...restProps} />
 );
-const legendLabel = withStyles(legendLabelStyles, { name: 'LegendLabel' })(legendLabelBase);
+const LegendLabel = withStyles(legendLabelStyles, { name: 'LegendLabel' })(LegendLabelBase);
 
 const barSeriesForCity = regionCities => Object
   .keys(regionCities[0])
@@ -111,20 +113,20 @@ const gridDetailContainerBase = data => ({ row, classes }) => {
           data={regionCities}
           height={300}
         >
+          <ArgumentScale
+            factory={scaleBand}
+          />
           <ArgumentAxis
-            type="band"
-            tickComponent={nullComponent}
+            showTicks={false}
           />
           <ValueAxis
-            labelComponent={axisLabel}
-            tickComponent={nullComponent}
-            lineComponent={nullComponent}
+            labelComponent={AxisLabel}
           />
           {barSeriesForCity(regionCities)}
           <Stack />
           <Legend
-            rootComponent={legendRoot}
-            labelComponent={legendLabel}
+            rootComponent={LegendRoot}
+            labelComponent={LegendLabel}
             position="bottom"
           />
         </Chart>

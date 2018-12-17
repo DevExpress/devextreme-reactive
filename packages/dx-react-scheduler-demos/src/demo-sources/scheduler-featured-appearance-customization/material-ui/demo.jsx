@@ -90,6 +90,10 @@ const styles = theme => ({
   defaultBullet: {
     background: theme.palette.divider,
   },
+  tooltipContent: {
+    paddingLeft: theme.spacing.unit * 2.2,
+    paddingRight: theme.spacing.unit * 2.2,
+  },
 });
 
 const PrioritySelectorItem = ({ id, classes }) => {
@@ -191,7 +195,7 @@ const TooltipContent = withStyles(styles, { name: 'TooltipContent' })(
     if (appointmentData.priorityId === 2) icon = <Event />;
     else if (appointmentData.priorityId === 3) icon = <PriorityHigh />;
     return (
-      <AppointmentTooltip.Content>
+      <AppointmentTooltip.Content className={classes.tooltipContent}>
         <List>
           <ListItem className={classes.contentItem}>
             <ListItemIcon className={`${classes.contentItemIcon} ${priorityClasses}`}>

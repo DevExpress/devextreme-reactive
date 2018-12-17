@@ -12,6 +12,7 @@ const SSR_TEST_FILE = 'demo.ssr.test.jsxt';
 const GENERATED_SUFFIX = '.g';
 const TEST_SUFFIX = '.test';
 const DEMOS_REGISTRY_FILE = './src/demo-registry.js';
+const productDemosFile = productName => `../dx-react-common/src/${productName}-demo-registry.js`;
 
 const themeNames = [];
 const loadThemeNames = () => {
@@ -183,61 +184,40 @@ const groupBy = (array, iteratee) => array
     return acc;
   }, {});
 const indent = (string, count) => string.split('\n').map(substring => `${' '.repeat(count)}${substring}`).join('\n');
-const generateDemoRegistry = () => {
-  const structuredDemos = groupBy(demos, element => element.sectionName);
-  Object.keys(structuredDemos).forEach((sectionName) => {
-    structuredDemos[sectionName] = groupBy(
-      structuredDemos[sectionName],
-      element => element.demoName,
-    );
-  });
-
-  const currentPath = path.resolve('./').split('/'); // .../devextreme-reactive/packages/dx-react-grid-demos
-  const packageName = currentPath[currentPath.length - 1]; // dx-react-grid-demos
-  const productName = packageName.split('-')[2]; // grid
-
-  const sectionsString = Object.keys(structuredDemos).reduce((sectionsAcc, sectionName) => {
-    const demosString = Object.keys(structuredDemos[sectionName]).reduce((demosAcc, demoName) => {
-      const themesString = structuredDemos[sectionName][demoName]
-        .reduce((themesAcc, { themeName, generateDemo, demoExtension }) => {
-          const fileName = `${DEMOS_FOLDER}/${sectionName}/${themeName}/${demoName}${generateDemo ? GENERATED_SUFFIX : ''}.${demoExtension}`;
-          const demoSource = JSON.stringify(String(fs.readFileSync(fileName, 'utf-8')));
-          return `${themesAcc}\n${indent(`'${themeName}': {\n`
-            + `  demo: require('.${fileName}').default,\n`
-            + `  source: ${demoSource},\n`
-            + `  productName: '${productName}',\n`
-            + '},', 2)}`;
-        }, '');
-
-      return `${demosAcc}\n${indent(`'${demoName}': {${themesString}\n},`, 2)}`;
-    }, '');
-
-    return `${sectionsAcc}\n${indent(`'${sectionName}': {${demosString}\n},`, 2)}`;
-  }, '');
-
-  overrideFileIfChanged(
-    DEMOS_REGISTRY_FILE,
-    '/* eslint-disable quote-props */\n'
-    + '/* eslint-disable global-require */\n'
-    + '/* eslint-disable no-template-curly-in-string */\n\n'
-    + `module.exports.demos = {${sectionsString}\n};\n`,
-  );
-};
-
-
-const generateAllDemoRegistry = () => {
-  const structuredDemos = groupBy(demos, element => element.sectionName);
-  Object.keys(structuredDemos).forEach((sectionName) => {
-    structuredDemos[sectionName] = groupBy(
-      structuredDemos[sectionName],
-      element => element.demoName,
-    );
-  });
-
-
+const getCurrentProductName = () => {
   const currentPath = path.resolve('./').split('/');
   const packageName = currentPath[currentPath.length - 1];
   const productName = packageName.split('-')[2];
+  return productName;
+};
+const generateDemoRegistry = (folderPath, attachDemo) => {
+  const structuredDemos = groupBy(demos, element => element.sectionName);
+  Object.keys(structuredDemos).forEach((sectionName) => {
+    structuredDemos[sectionName] = groupBy(
+      structuredDemos[sectionName],
+      element => element.demoName,
+    );
+  });
+
+  let returnedString;
+  const productName = getCurrentProductName();
+
+  if (attachDemo) {
+    returnedString = (themesAcc, themeName, demoSource, fileName) => (
+      `${themesAcc}\n${indent(`'${themeName}': {\n`
+      + `  demo: require('.${fileName}').default,\n`
+      + `  source: ${demoSource},\n`
+      + `  productName: '${productName}',\n`
+      + '},', 2)}`
+    );
+  } else {
+    returnedString = (themesAcc, themeName, demoSource) => (
+      `${themesAcc}\n${indent(`'${themeName}': {\n`
+      + `  source: ${demoSource},\n`
+      + `  productName: '${productName}',\n`
+      + '},', 2)}`
+    );
+  }
 
   const sectionsString = Object.keys(structuredDemos).reduce((sectionsAcc, sectionName) => {
     const demosString = Object.keys(structuredDemos[sectionName]).reduce((demosAcc, demoName) => {
@@ -245,21 +225,16 @@ const generateAllDemoRegistry = () => {
         .reduce((themesAcc, { themeName, generateDemo, demoExtension }) => {
           const fileName = `${DEMOS_FOLDER}/${sectionName}/${themeName}/${demoName}${generateDemo ? GENERATED_SUFFIX : ''}.${demoExtension}`;
           const demoSource = JSON.stringify(String(fs.readFileSync(fileName, 'utf-8')));
-          return `${themesAcc}\n${indent(`'${themeName}': {\n`
-            + `  source: ${demoSource},\n`
-            + `  productName: '${productName}',\n`
-            + '},', 2)}`;
+          return returnedString(themesAcc, themeName, demoSource, fileName);
         }, '');
-
       return `${demosAcc}\n${indent(`'${demoName}': {${themesString}\n},`, 2)}`;
     }, '');
 
     return `${sectionsAcc}\n${indent(`'${sectionName}': {${demosString}\n},`, 2)}`;
   }, '');
 
-  const productDemosFile = `../dx-react-common/src/${productName}-demo-registry.js`;
   overrideFileIfChanged(
-    productDemosFile,
+    folderPath,
     '/* eslint-disable quote-props */\n'
     + '/* eslint-disable global-require */\n'
     + '/* eslint-disable no-template-curly-in-string */\n\n'
@@ -270,6 +245,6 @@ const generateAllDemoRegistry = () => {
 loadThemeNames();
 loadDemosToGenerate();
 generateDemos();
-generateDemoRegistry();
-generateAllDemoRegistry();
+generateDemoRegistry(DEMOS_REGISTRY_FILE, true);
+generateDemoRegistry(productDemosFile(getCurrentProductName()), false);
 removePendingFiles();

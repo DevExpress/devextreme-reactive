@@ -7,7 +7,7 @@ import {
   Title,
   Legend,
 } from '@devexpress/dx-react-chart-bootstrap4';
-import { Stack, Scale, Animation } from '@devexpress/dx-react-chart';
+import { Stack, Animation } from '@devexpress/dx-react-chart';
 import { stackOffsetExpand } from 'd3-shape';
 
 import { carbonEmmision as data } from '../../../demo-data/data-vizualization';
@@ -85,7 +85,6 @@ export default class Demo extends React.PureComponent {
           <Animation />
           <Legend position="bottom" rootComponent={Root} />
           <Title text="Carbon Emission Estimates" />
-          <Scale />
           <Stack
             stacks={[{
               series: ['Liquids', 'Solids', 'Gas', 'Cement Production', 'Gas Flaring'],

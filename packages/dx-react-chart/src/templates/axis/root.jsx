@@ -7,12 +7,9 @@ const getSize = (position, delta) => (position >= 0 ? position + delta : -positi
 export class Root extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.ref = (node) => {
-      this.node = node;
-    };
+    this.ref = React.createRef();
     this.state = {
-      // *width* and *height* are actually used in *adjust* (eslint false alarm)
-      x: 0, y: 0, width: 0, height: 0, // eslint-disable-line react/no-unused-state
+      x: 0, y: 0,
     };
     this.adjust = this.adjust.bind(this);
   }
@@ -22,23 +19,27 @@ export class Root extends React.PureComponent {
   }
 
   componentDidUpdate() {
-    // *setState* can be called unconditionally because it contains proper check inside.
+    // *setState* is called unconditionally because PureComponent is expected to break the cycle.
     this.setState(this.adjust); // eslint-disable-line react/no-did-update-set-state
   }
 
-  adjust({ width: prevWidth, height: prevHeight }, { dx, dy, onSizeChange }) {
-    const bbox = this.node.getBBox();
+  // Since calculated state does not depend on current state non-callback version of *setState*
+  // might have been expected - it can't be done.
+  // Parent component (Axis) accesses its DOM content in *onSizeChange* handler. When
+  // this component is mounted parent is not yet - it crashes on DOM access.
+  // *setState* callback is invoked later then *componentDidMount* - by that time parent component
+  // is already mounted and can access its DOM.
+  // Because of it callback version of *setState* has to be used here.
+  // Can we rely on the fact that by the time of callback parent is mounted?
+  // For now we stick with it, but need to find a more solid solution.
+  adjust(_, { dx, dy, onSizeChange }) {
+    const bbox = this.ref.current.getBBox();
     const width = dx ? bbox.width : getSize(bbox.x, bbox.width);
     const height = dy ? bbox.height : getSize(bbox.y, bbox.height);
     const x = dx ? 0 : getOffset(bbox.x);
     const y = dy ? 0 : getOffset(bbox.y);
-    if (width === prevWidth && height === prevHeight) {
-      return null;
-    }
     onSizeChange({ width, height });
-    return {
-      x, y, width, height,
-    };
+    return { x, y };
   }
 
   render() {

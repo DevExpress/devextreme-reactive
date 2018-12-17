@@ -7,7 +7,7 @@ import {
   Title,
   Legend,
 } from '@devexpress/dx-react-chart-bootstrap4';
-import { Stack, Scale, Animation } from '@devexpress/dx-react-chart';
+import { Stack, Animation } from '@devexpress/dx-react-chart';
 
 import { olimpicMedals as data } from '../../../demo-data/data-vizualization';
 
@@ -60,7 +60,6 @@ export default class Demo extends React.PureComponent {
           <Legend position="bottom" rootComponent={Root} />
           <Title text="Olimpic Medals in 2008" />
           <Stack />
-          <Scale />
         </Chart>
       </div>
     );

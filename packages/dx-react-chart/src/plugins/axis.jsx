@@ -5,11 +5,10 @@ import {
   TemplateConnector,
   Template,
   TemplatePlaceholder,
-  Getter,
   withComponents,
 } from '@devexpress/dx-react-core';
 import {
-  axisCoordinates, LEFT, BOTTOM, ARGUMENT_DOMAIN, getValueDomainName, axesData, getGridCoordinates,
+  axisCoordinates, LEFT, BOTTOM, ARGUMENT_DOMAIN, getValueDomainName, getGridCoordinates,
 } from '@devexpress/dx-chart-core';
 import { Root } from '../templates/axis/root';
 import { Label } from '../templates/axis/label';
@@ -49,7 +48,7 @@ class RawAxis extends React.PureComponent {
       tickSize,
       tickFormat,
       indentFromAxis,
-      showGrids,
+      showGrid,
       showTicks,
       showLine,
       showLabels,
@@ -60,12 +59,8 @@ class RawAxis extends React.PureComponent {
       gridComponent: GridComponent,
     } = this.props;
     const placeholder = `${position}-axis`;
-    // TODO: Remove *axes* getter as it is not used by Axis itself -
-    // it is used in domains calculation (where it shouldn't be used).
-    const getAxes = ({ axes }) => axesData(axes, this.props);
     return (
       <Plugin name="Axis">
-        <Getter name="axes" computed={getAxes} />
         <Template name={placeholder}>
           <TemplatePlaceholder />
           <TemplateConnector>
@@ -89,6 +84,9 @@ class RawAxis extends React.PureComponent {
                 // The callback is called when DOM is available -
                 // *rootRef.current* can be surely accessed.
                 const rect = this.rootRef.current.getBoundingClientRect();
+                if (rect.width === this.adjustedWidth && rect.height === this.adjustedHeight) {
+                  return;
+                }
                 // *setState* is not used because it would cause excessive Plugin rerenders.
                 // Template rerender is provided by *changeBBox* invocation.
                 this.adjustedWidth = rect.width;
@@ -164,7 +162,7 @@ class RawAxis extends React.PureComponent {
           <TemplateConnector>
             {({ scales, layouts }) => {
               const scale = scales[scaleName];
-              if (!scale || !showGrids) {
+              if (!scale || !showGrid) {
                 return null;
               }
 
@@ -201,7 +199,7 @@ RawAxis.propTypes = {
   lineComponent: PropTypes.func.isRequired,
   gridComponent: PropTypes.func.isRequired,
   position: PropTypes.string.isRequired,
-  showGrids: PropTypes.bool.isRequired,
+  showGrid: PropTypes.bool.isRequired,
   showTicks: PropTypes.bool.isRequired,
   showLine: PropTypes.bool.isRequired,
   showLabels: PropTypes.bool.isRequired,
@@ -241,7 +239,7 @@ export const Axis = withComponents({
 // TODO: Check that only BOTTOM and TOP are accepted.
 export const ArgumentAxis = withPatchedProps(props => ({
   position: BOTTOM,
-  showGrids: false,
+  showGrid: false,
   showTicks: true,
   showLine: true,
   showLabels: true,
@@ -252,7 +250,7 @@ export const ArgumentAxis = withPatchedProps(props => ({
 // TODO: Check that only LEFT and RIGHT are accepted.
 export const ValueAxis = withPatchedProps(props => ({
   position: LEFT,
-  showGrids: true,
+  showGrid: true,
   showTicks: false,
   showLine: false,
   showLabels: true,

@@ -1,15 +1,6 @@
-import { HORIZONTAL, VALUE_DOMAIN } from '../constants';
+import { ARGUMENT_DOMAIN, VALUE_DOMAIN } from '../constants';
 
-export const createScale = (
-  { domain, orientation },
-  width, height,
-  constructor,
-) => {
-  const scale = constructor();
-  return scale
-    .domain(domain)
-    .range(orientation === HORIZONTAL ? [0, width] : [height, 0]);
-};
+export const isHorizontal = name => name === ARGUMENT_DOMAIN;
 
 export const getWidth = scale => (scale.bandwidth ? scale.bandwidth() : 0);
 

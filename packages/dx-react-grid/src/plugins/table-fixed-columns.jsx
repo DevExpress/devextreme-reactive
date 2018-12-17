@@ -24,6 +24,15 @@ const CellPlaceholder = props => <TemplatePlaceholder params={props} />;
 
 const pluginDependencies = [
   { name: 'Table' },
+  { name: 'TableBandHeader', optional: true },
+  { name: 'TableColumnReordering', optional: true },
+  { name: 'TableEditColumn', optional: true },
+  { name: 'TableEditRow', optional: true },
+  { name: 'TableFilterRow', optional: true },
+  { name: 'TableHeaderRow', optional: true },
+  { name: 'TableSelection', optional: true },
+  { name: 'TableSummaryRow', optional: true },
+  { name: 'TableTreeColumn', optional: true },
 ];
 
 export class TableFixedColumns extends React.PureComponent {

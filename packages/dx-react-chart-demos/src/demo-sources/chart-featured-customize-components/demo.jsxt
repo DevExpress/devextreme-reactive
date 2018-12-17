@@ -22,12 +22,11 @@ const getPath = (x, width, y, y1) => `M ${x} ${y1}
    L ${x} ${y + 30}
    Z`;
 
-const BarWithLabel = (props) => {
-  const {
-    x, width, y, y1, color, value, style,
-  } = props;
+const labelStyle = { fill: '#BBDEFB' };
 
-  return (
+const BarWithLabel = ({
+  x, width, y, y1, color, value, style,
+}) => (
     <React.Fragment>
       <path d={getPath(x, width, y, y1)} fill={color} style={style} />
       <Chart.Label
@@ -35,12 +34,12 @@ const BarWithLabel = (props) => {
         y={(y + y1) / 2}
         dominantBaseline="middle"
         textAnchor="middle"
-        style={{ fill: '#BBDEFB' }}
+        style={labelStyle}
       >
         {value}
       </Chart.Label>
-    </React.Fragment>);
-};
+    </React.Fragment>
+);
 
 const Grid = props => (
   <ValueAxis.Grid {...props} strokeDasharray="10 5" />

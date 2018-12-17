@@ -1,13 +1,12 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { axisCoordinates, axesData, getGridCoordinates } from '@devexpress/dx-chart-core';
+import { axisCoordinates, getGridCoordinates } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-testing';
 import { Axis } from './axis';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   axisCoordinates: jest.fn(),
-  axesData: jest.fn(),
   LEFT: 'left',
   BOTTOM: 'bottom',
   getGridCoordinates: jest.fn(),
@@ -60,7 +59,7 @@ describe('Axis', () => {
     position: 'bottom',
     scaleName: 'test-domain',
     showTicks: true,
-    showGrids: true,
+    showGrid: true,
     showLine: true,
     showLabels: true,
     rootComponent: RootComponent,
@@ -315,9 +314,9 @@ describe('Axis', () => {
     });
   });
 
-  it('should not render grid component, showGrids is false', () => {
+  it('should not render grid component, showGrid is false', () => {
     setupAxisCoordinates([1, 0]);
-    const tree = mount(<AxisTester showGrids={false} />);
+    const tree = mount(<AxisTester showGrid={false} />);
 
     expect(tree.find(GridComponent).get(0)).toBeFalsy();
   });
@@ -385,15 +384,5 @@ describe('Axis', () => {
     const tree = mount(<AxisTester showLine={false} />);
 
     expect(tree.find(LineComponent).get(0)).toBeFalsy();
-  });
-
-  it('should pass axesData correct arguments', () => {
-    setupAxisCoordinates([1, 0]);
-    mount(<AxisTester />);
-
-    expect(axesData).toHaveBeenCalledWith(
-      expect.arrayContaining([{}]),
-      expect.objectContaining(defaultProps),
-    );
   });
 });

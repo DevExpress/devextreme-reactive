@@ -7,7 +7,7 @@ import {
   Title,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 
-import { Scale, Animation } from '@devexpress/dx-react-chart';
+import { Animation } from '@devexpress/dx-react-chart';
 
 const imageSize = 50;
 const labelOffset = 10;
@@ -121,7 +121,6 @@ export default class Demo extends React.PureComponent {
                 text={`Contributions commits to master ${owner}/${repository} repository`}
               />
               <Animation />
-              <Scale />
             </Chart>
           ) : (
             <h1>

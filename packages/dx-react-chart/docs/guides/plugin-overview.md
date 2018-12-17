@@ -1,11 +1,11 @@
 # React Chart - Plugin Overview
 
-The Chart component visualizes data specified via the `data` property using plugin components. These components implement particular features and should be defined within the Chart component.
+The Chart component uses plugin components to visualizes data specified via the `data` property. These components implement particular features and should be defined within the Chart component.
 
 The React Chart supports the following plugin types:
 
 - **UI plugins**
- Render UI elements using the provided data.
+ Use the provided data to render UI elements.
 
 - **Data processing plugins**
  Transform data passed to the Chart component.
@@ -38,7 +38,8 @@ The following plugins implement additional features:
 
 ## Data Processing Plugins
 
-- `Scale` - extends user data with service information that is required to render axes and series
+- `ArgumentScale` - allows you to customize the argument scale
+- `ValueScale` - allows you to customize the value scale and display multiple value scales
 - `Stack` - transforms user data to display series points side-by-side or one under another other
 
 ## Plugin Order

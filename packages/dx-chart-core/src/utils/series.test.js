@@ -46,26 +46,26 @@ describe('Series', () => {
     expect(hitTest([90, 30])).toEqual(null);
 
     expect(hitTest([110, 40])).toEqual({
-      points: [{ index: 'p1', distance: matchFloat(0.35) }],
+      points: [{ index: 'p1', distance: matchFloat(7.07) }],
     });
     expect(hitTest([115, 35])).toEqual({
       points: [{ index: 'p1', distance: matchFloat(0) }],
     });
 
     expect(hitTest([185, 65])).toEqual({
-      points: [{ index: 'p2', distance: matchFloat(1) }, { index: 'p3', distance: matchFloat(0.56) }],
+      points: [{ index: 'p2', distance: matchFloat(20) }, { index: 'p3', distance: matchFloat(11.18) }],
     });
     expect(hitTest([190, 60])).toEqual({
-      points: [{ index: 'p3', distance: matchFloat(0.25) }],
+      points: [{ index: 'p3', distance: matchFloat(5) }],
     });
 
     isPointInPath.mockReturnValueOnce(true);
     expect(hitTest([140, 40])).toEqual({
-      points: [{ index: 'p1', distance: matchFloat(1.27) }],
+      points: [{ index: 'p1', distance: matchFloat(25.5) }],
     });
     isPointInPath.mockReturnValueOnce(true);
     expect(hitTest([140, 60])).toEqual({
-      points: [{ index: 'p2', distance: matchFloat(1.27) }],
+      points: [{ index: 'p2', distance: matchFloat(25.5) }],
     });
 
     expect(isPointInPath.mock.calls).toEqual([
@@ -185,9 +185,9 @@ describe('Series', () => {
 
       expect(hitTest([15, 1])).toEqual(null);
       expect(hitTest([12, 4])).toEqual({ points: [{ index: 'p1', distance: matchFloat(1) }] });
-      expect(hitTest([25, 3])).toEqual({ points: [{ index: 'p2', distance: matchFloat(1) }] });
+      expect(hitTest([25, 3])).toEqual({ points: [{ index: 'p2', distance: matchFloat(1.41) }] });
       expect(hitTest([31, 2])).toEqual({
-        points: [{ index: 'p3', distance: matchFloat(0.6) }, { index: 'p4', distance: matchFloat(1) }],
+        points: [{ index: 'p3', distance: matchFloat(1.8) }, { index: 'p4', distance: matchFloat(2.5) }],
       });
     });
   });
@@ -202,10 +202,10 @@ describe('Series', () => {
       ]);
 
       expect(hitTest([15, -7])).toEqual(null);
-      expect(hitTest([14, 10])).toEqual({ points: [{ index: 'p1', distance: matchFloat(0.72) }] });
-      expect(hitTest([32, 4])).toEqual({ points: [{ index: 'p2', distance: matchFloat(0.22) }] });
+      expect(hitTest([14, 10])).toEqual({ points: [{ index: 'p1', distance: matchFloat(7.21) }] });
+      expect(hitTest([32, 4])).toEqual({ points: [{ index: 'p2', distance: matchFloat(2.24) }] });
       expect(hitTest([49, 15])).toEqual({
-        points: [{ index: 'p3', distance: matchFloat(0.71) }, { index: 'p4', distance: matchFloat(0.78) }],
+        points: [{ index: 'p3', distance: matchFloat(7.07) }, { index: 'p4', distance: matchFloat(7.81) }],
       });
     });
   });
@@ -225,10 +225,10 @@ describe('Series', () => {
       ]);
 
       expect(hitTest([60, 61])).toEqual(null);
-      expect(hitTest([64, 45])).toEqual({ points: [{ index: 'p1', distance: matchFloat(0.72) }] });
-      expect(hitTest([68, 52])).toEqual({ points: [{ index: 'p2', distance: matchFloat(0.69) }] });
+      expect(hitTest([64, 45])).toEqual({ points: [{ index: 'p1', distance: matchFloat(0.95) }] });
+      expect(hitTest([68, 52])).toEqual({ points: [{ index: 'p2', distance: matchFloat(2.8) }] });
       expect(hitTest([60, 55])).toEqual({
-        points: [{ index: 'p2', distance: matchFloat(1) }, { index: 'p3', distance: matchFloat(1) }],
+        points: [{ index: 'p2', distance: matchFloat(0.93) }, { index: 'p3', distance: matchFloat(0.93) }],
       });
     });
   });

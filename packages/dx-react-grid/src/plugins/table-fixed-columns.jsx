@@ -11,10 +11,14 @@ import {
   isFixedTableRow,
   tableColumnsWithFixed,
   tableHeaderRowsWithFixed,
+  tableHeaderColumnChainsWithFixed,
   calculateFixedColumnProps,
 } from '@devexpress/dx-grid-core';
 
 const tableHeaderRowsComputed = ({ tableHeaderRows }) => tableHeaderRowsWithFixed(tableHeaderRows);
+const tableHeaderColumnChainsComputed = ({
+  tableColumns, tableHeaderRows, tableHeaderColumnChains,
+}) => tableHeaderColumnChainsWithFixed(tableHeaderColumnChains, tableHeaderRows, tableColumns);
 
 const CellPlaceholder = props => <TemplatePlaceholder params={props} />;
 
@@ -62,19 +66,21 @@ export class TableFixedColumns extends React.PureComponent {
       >
         <Getter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
         <Getter name="tableColumns" computed={tableColumnsComputed} />
+        <Getter name="tableHeaderColumnChains" computed={tableHeaderColumnChainsComputed} />
         <Template
           name="tableCell"
           predicate={({ tableColumn }) => !!tableColumn.fixed}
         >
           {params => (
             <TemplateConnector>
-              {({ tableColumns }) => {
+              {({ tableColumns, tableHeaderColumnChains }) => {
                 const { tableColumnDimensions } = this.state;
                 const fixedColumnProps = calculateFixedColumnProps(
                   params,
                   { leftColumns, rightColumns },
                   tableColumns,
                   tableColumnDimensions,
+                  tableHeaderColumnChains,
                 );
 
                 return (

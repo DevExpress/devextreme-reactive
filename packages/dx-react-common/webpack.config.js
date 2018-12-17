@@ -28,6 +28,10 @@ module.exports = ({ production }) => ({
         exclude: /(node_modules|bower_components|public\/)/,
         use: ["babel-loader"]
       },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"]
+      },
     ]
   },
   resolve: {

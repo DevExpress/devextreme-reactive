@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { initialize } from '@devexpress/dx-demo-shell';
+import '@devexpress/dx-demo-shell/dist/index.css';
 import { themes } from './theme-registry';
 import { demos as gridDemos } from './grid-demo-registry';
 import { demos as chartDemos } from './chart-demo-registry';

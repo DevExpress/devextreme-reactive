@@ -30,7 +30,7 @@ describe('GridCore Plugin computeds', () => {
         .toEqual(2);
     });
 
-    describe('warning if row id is undefined', () => {
+    describe('warning if custom getter returns undefined', () => {
       /* eslint-disable no-console */
       let warnLog;
       let savedWarn;
@@ -46,7 +46,7 @@ describe('GridCore Plugin computeds', () => {
       });
       /* eslint-enable no-console */
 
-      it('should throw a warning if custom func returns undefined', () => {
+      it('should warn if row is regular', () => {
         const getRowId = () => undefined;
 
         rowIdGetter(getRowId, data)(data[0]);

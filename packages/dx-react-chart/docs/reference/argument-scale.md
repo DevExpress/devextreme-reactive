@@ -1,13 +1,13 @@
-# Scale Plugin Reference
+# ArgumentScale Plugin Reference
 
-The `Scale` plugin extends user data with service information that is required to render axes and series.
+The `ArgumentScale` plugin allows you to customize the argument scale.
 
 ## Import
 
 Use the following statement to import the plugin:
 
 ```js
-import { Scale } from '@devexpress/dx-react-chart';
+import { ArgumentScale } from '@devexpress/dx-react-chart';
 ```
 
 ## User Reference
@@ -16,16 +16,11 @@ import { Scale } from '@devexpress/dx-react-chart';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-extensions? | Array&lt;[ScaleOptions](#scaleoptions)&gt; | [{type: 'linear', constructor: () => object}, {type: 'band', constructor: () => object}] | An array of scales with constructors.
+factory? | () => [ScaleObject](#scaleobject) | | A function that constructs a custom scale.
+min? | number | | The scale' minimum value.
+max? | number | | The scale' maximum value.
 
 ## Interfaces
-
-### ScaleOptions
-
-Field | Type | Description
-------|------|------------
-type? | string | A scale type.
-constructor? | () => [ScaleObject](#scaleobject) | A function that constructs a custom scale.
 
 ### ScaleObject
 
@@ -37,4 +32,4 @@ tickFormat? | (count: number, specifier: string) => (tick: any) => string | A fu
 ticks? | (count: number) => Array&lt;any&gt; | A function that returns an array of ticks.
 paddingInner? | (padding: number) => [ScaleObject](#scaleobject) | A function that sets a scale's inner padding and returns the current scale.
 paddingOuter? | (padding: number) => [ScaleObject](#scaleobject) | A function that sets a scale's outer padding and returns the current scale.
-bandWidth? | () => number | A function that returns the width of each band.
+bandWidth? | () => number | A function that returns each band's width.

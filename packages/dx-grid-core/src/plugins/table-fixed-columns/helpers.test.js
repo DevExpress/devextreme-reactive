@@ -1,6 +1,7 @@
 import { TABLE_DATA_TYPE } from '../table/constants';
 import { FIXED_COLUMN_LEFT_SIDE, FIXED_COLUMN_RIGHT_SIDE, TABLE_FIXED_TYPE } from './constants';
 import { getFixedColumnKeys, isFixedTableRow, calculateFixedColumnProps } from './helpers';
+import { tableHeaderColumnChainsWithFixed } from './computeds';
 
 describe('TableFixedColumns Plugin helpers', () => {
   const sampleType = Symbol('sample');
@@ -26,6 +27,11 @@ describe('TableFixedColumns Plugin helpers', () => {
     key_c: 70,
     key_d: 150,
   };
+  const columnChains = tableHeaderColumnChainsWithFixed(
+    [[{ start: 0, columns: tableColumns }]],
+    {},
+    tableColumns,
+  );
 
   describe('#getFixedColumnKeys', () => {
     it('should return the correct array of column keys', () => {
@@ -51,6 +57,7 @@ describe('TableFixedColumns Plugin helpers', () => {
           fixedColumns,
           tableColumns,
           tableColumnDimensions,
+          columnChains,
         );
         return position;
       };
@@ -90,12 +97,18 @@ describe('TableFixedColumns Plugin helpers', () => {
         createColumn('f', FIXED_COLUMN_RIGHT_SIDE),
       ];
       const findColumnByName = name => findColumnByNameCore(name, extendedTableColumns);
+      const extendedColumnChains = tableHeaderColumnChainsWithFixed(
+        [[{ start: 0, columns: extendedTableColumns }]],
+        {},
+        extendedTableColumns,
+      );
 
       const calculateDividers = column => (calculateFixedColumnProps(
         { tableColumn: column },
         { leftColumns: ['a', 'b0', 'b1', 'b2', 'c'], rightColumns: ['d', 'e0', 'e1', 'e2', 'f'] },
         extendedTableColumns,
         {},
+        extendedColumnChains,
       ));
 
       it('should be visible for standalone left column', () => {

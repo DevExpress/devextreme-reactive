@@ -1,0 +1,203 @@
+import * as React from 'react';<%&additionalImports%>
+import {
+  Chart,
+  AreaSeries,
+  BarSeries,
+  SplineSeries,
+  ScatterSeries,
+  ArgumentAxis,
+  ValueAxis,
+  Title,
+  Legend,
+  Tooltip,
+} from '@devexpress/dx-react-chart-<%&themeName%>';
+import {
+  Stack, ValueScale, Animation, EventTracker, HoverState,
+} from '@devexpress/dx-react-chart';
+import { format } from 'd3-format';
+
+import { oilProduction } from '../../../demo-data/data-vizualization';
+
+const makeLabel = (symbol, color) => ({ text, style, ...restProps }) => (
+  <ValueAxis.Label
+    text={`${text} ${symbol}`}
+    style={{
+      fill: color,
+      ...style,
+    }}
+    {...restProps}
+  />
+);
+
+const priceSeriesName = 'Oil Price';
+const priceColor = '#efc564';
+const consumptionColor = '#7cb2b7';
+
+const PriceLabel = makeLabel('$', priceColor);
+const LabelWithThousand = makeLabel('k', consumptionColor);
+
+const pointOptions = { size: 10 };
+const Point = props => (
+  <ScatterSeries.Point point={pointOptions} {...props} />
+);
+
+const LineWithPoints = props => (
+  <React.Fragment>
+    <SplineSeries.Path {...props} />
+    <ScatterSeries.Path {...props} pointComponent={Point} />
+  </React.Fragment>
+);
+
+const legendRootStyle = {
+  display: 'flex',
+  margin: 'auto',
+  flexDirection: 'row',
+};
+const LegendRoot = props => (
+  <Legend.Root style={legendRootStyle} {...props} />
+);
+
+const legendItemStyle = {
+  flexDirection: 'column',
+};
+const LegendItem = props => (
+  <Legend.Item style={legendItemStyle} {...props} />
+);
+
+const legendLabelStyle = {
+  whiteSpace: 'nowrap',
+};
+const LegendLabel = props => (
+  <Legend.Label style={legendLabelStyle} {...props} />
+);
+
+const formatTooltip = format('.1f');
+const TooltipContent = ({ text, ...restProps }) => (
+  <Tooltip.Content
+    text={`${formatTooltip(text)}`}
+    {...restProps}
+  />
+);
+
+const stacks = [
+  { series: ['USA', 'Saudi Arabia', 'Iran', 'Mexico', 'Russia'] },
+];
+
+export default class Demo extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      oilProduction,
+      hover: null,
+      tooltip: null,
+    };
+
+    this.changeHover = target => this.setState({
+      hover: target,
+    });
+
+    this.changeTooltip = target => this.setState({
+      tooltip: target,
+    });
+  }
+
+  render() {
+    const { oilProduction: chartData, hover, tooltip } = this.state;
+
+    return (
+      <<%&wrapperTag%><%&wrapperAttributes%>>
+        <Chart
+          data={chartData}
+        >
+          <ValueScale
+            name="oil"
+            max={2200}
+          />
+          <ValueScale
+            name="price"
+            min={0}
+            max={110}
+          />
+
+          <ArgumentAxis />
+          <ValueAxis
+            scaleName="oil"
+            labelComponent={LabelWithThousand}
+          />
+          <ValueAxis
+            scaleName="price"
+            position="right"
+            labelComponent={PriceLabel}
+          />
+
+          <Title
+            text="Oil production vs Oil price"
+            style={{ marginRight: '120px' }}
+          />
+
+          <BarSeries
+            name="USA"
+            valueField="usa"
+            argumentField="year"
+            scaleName="oil"
+          />
+          <BarSeries
+            name="Saudi Arabia"
+            valueField="saudiArabia"
+            argumentField="year"
+            scaleName="oil"
+          />
+          <BarSeries
+            name="Iran"
+            valueField="iran"
+            argumentField="year"
+            scaleName="oil"
+          />
+          <BarSeries
+            name="Mexico"
+            valueField="mexico"
+            argumentField="year"
+            scaleName="oil"
+          />
+          <BarSeries
+            name="Russia"
+            valueField="russia"
+            argumentField="year"
+            scaleName="oil"
+          />
+          <AreaSeries
+            name="Consumption"
+            valueField="consumption"
+            argumentField="year"
+            scaleName="oil"
+            color={consumptionColor}
+          />
+          <SplineSeries
+            name={priceSeriesName}
+            valueField="price"
+            argumentField="year"
+            scaleName="price"
+            color={priceColor}
+            seriesComponent={LineWithPoints}
+          />
+          <Animation />
+          <Legend
+            position="bottom"
+            rootComponent={LegendRoot}
+            itemComponent={LegendItem}
+            labelComponent={LegendLabel}
+          />
+          <Stack stacks={stacks} />
+          <EventTracker />
+          <HoverState hover={hover} onHoverChange={this.changeHover} />
+          <Tooltip
+            targetItem={tooltip}
+            onTargetItemChange={this.changeTooltip}
+            contentComponent={TooltipContent}
+          />
+        </Chart>
+      </<%&wrapperTag%>>
+    );
+  }
+}

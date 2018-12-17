@@ -6,7 +6,7 @@ import {
   ArgumentAxis,
   ValueAxis,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
-import { Scale, Animation } from '@devexpress/dx-react-chart';
+import { Animation } from '@devexpress/dx-react-chart';
 
 const data = [
   { year: '1950', population: 2.525 },
@@ -44,7 +44,6 @@ export default class Demo extends React.PureComponent {
           />
           <Title text="World population" />
           <Animation />
-          <Scale />
         </Chart>
       </<%&wrapperTag%>>
     );

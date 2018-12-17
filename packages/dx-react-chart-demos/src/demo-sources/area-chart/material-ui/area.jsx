@@ -9,7 +9,7 @@ import {
   Legend,
 } from '@devexpress/dx-react-chart-material-ui';
 import { withStyles } from '@material-ui/core/styles';
-import { Scale, Animation } from '@devexpress/dx-react-chart';
+import { ArgumentScale, Animation } from '@devexpress/dx-react-chart';
 import { scalePoint } from 'd3-scale';
 
 const data = [
@@ -73,6 +73,7 @@ class Demo extends React.PureComponent {
           data={chartData}
           className={classes.chart}
         >
+          <ArgumentScale factory={scalePoint} />
           <ArgumentAxis />
           <ValueAxis />
 
@@ -87,7 +88,6 @@ class Demo extends React.PureComponent {
             argumentField="year"
           />
           <Animation />
-          <Scale extensions={[{ type: 'band', constructor: scalePoint }]} />
           <Legend
             position="bottom"
             rootComponent={Root}

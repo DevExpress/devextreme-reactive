@@ -31,7 +31,7 @@ defaults:
       product_name: React Components
       product_link: /react/common
       logo_file: core-logo.svg
-      initial_guide: /performance-optimizations
+      initial_guide: /performance-optimization
   - scope:
       path: react/common/docs
       type: pages

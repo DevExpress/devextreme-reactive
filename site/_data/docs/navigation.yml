@@ -2,7 +2,7 @@
   - title: Common Concepts
     items:
       - title: Performance Optimization
-        path: /react/common/docs/guides/performance-optimizations
+        path: /react/common/docs/guides/performance-optimization
   - title: Related Docs
     items:
       - title: React Core
@@ -54,7 +54,7 @@
   - title: Common Concepts
     items:
       - title: Performance Optimization
-        path: /react/common/docs/guides/performance-optimizations
+        path: /react/common/docs/guides/performance-optimization
   - title: Guides
     items:
       - title: Getting Started
@@ -207,7 +207,7 @@
   - title: Common Concepts
     items:
       - title: Performance Optimization
-        path: /react/common/docs/guides/performance-optimizations
+        path: /react/common/docs/guides/performance-optimization
   - title: Guides
     items:
       - title: Getting Started
@@ -284,7 +284,7 @@
   - title: Common Concepts
     items:
       - title: Performance Optimization
-        path: /react/common/docs/guides/performance-optimizations
+        path: /react/common/docs/guides/performance-optimization
   - title: Guides
     items:
       - title: Getting Started

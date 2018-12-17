@@ -1,11 +1,14 @@
 import * as React from 'react';
+import Helmet from 'react-helmet';
 import Layout from '../components/layout';
 import Header from '../components/header';
-import MainLogo from '../components/logos/main';
+import ProductLogo from '../components/logos/product';
 import LandingHeaderAddon from '../components/landing/header-addon';
 import LandingLayout from '../components/landing/layout';
 import LandingTitle from '../components/landing/title';
+import LandingHr from '../components/landing/hr';
 import LandingIconFeature from '../components/landing/icon-feature';
+import LandingImageFeature from '../components/landing/image-feature';
 import LandingMaintainence from '../components/landing/maintainence';
 import LandingProductLayout from '../components/landing/product-layout';
 import LandingProductBlock from '../components/landing/product-block';
@@ -13,21 +16,24 @@ import LandingLink from '../components/landing/link';
 
 import headerLink from './images/header.png';
 import featureIcon from './images/feature-icon.png';
+import bootstrapThemeLink from './react/images/bootstrap-theme.png';
+import materialThemeLink from './react/images/material-theme.png';
 
 const IndexPage = () => (
   <Layout>
+    <Helmet title="React Components" />
     <Header
-      logo={<MainLogo />}
+      logo={<ProductLogo link="react" />}
       addon={(
         <LandingHeaderAddon
           main={(
             <React.Fragment>
               Data-Centric
               <br />
-              Reactive Components
+              React Components
             </React.Fragment>
           )}
-          additional="for Bootstrap and Material Design"
+          additional="for Bootstrap and Material UI"
           imageLink={headerLink}
         />
       )}
@@ -38,48 +44,69 @@ const IndexPage = () => (
       <LandingProductBlock
         type="react"
         iconLink={featureIcon}
-        title="React"
-        links={<LandingLink to="/react/">Explore Components</LandingLink>}
+        title="React Grid"
+        links={<LandingLink to="/react/grid/">Explore Component</LandingLink>}
+      />
+      <LandingProductBlock
+        type="react"
+        iconLink={featureIcon}
+        title="React Chart"
+        links={<LandingLink to="/react/chart/">Explore Component</LandingLink>}
+      />
+      <LandingProductBlock
+        type="react"
+        iconLink={featureIcon}
+        title="React Scheduler"
+        links={<LandingLink to="/react/scheduler/">Explore Component</LandingLink>}
       />
     </LandingProductLayout>
     <LandingLayout>
       <LandingTitle
-        text="Why DevExtreme Reactive?"
+        text="Why DevExtreme for React?"
       />
       <LandingIconFeature
         iconLink={featureIcon}
-        title="Native Bootstrap Rendering"
-        description="DevExtreme Reactive components deeply integrate with Bootstrap 4 CSS framework. Take advantage of Bootstrap semantic rendering and apply Bootstrap themes automatically."
+        title="100% Native React"
+        description="We've focused our energy on performance and leveraged the best practice recomendations oferred by the React team. Through immutability and pure functions, we can apply memoization and built-in react optimisations to archieve outstanding performance."
       />
       <LandingIconFeature
         iconLink={featureIcon}
         title="Plugin-based Architecture"
         description="DevExtreme Reactive Components are build of plugins. Add and deploy only the features you need or extend the build-in functionality with your or third-party custom plugins."
       />
-      <LandingIconFeature
-        iconLink={featureIcon}
-        title="Outstanding Performance"
-        description="No matter whether your target React or Vue, our components use performance best practises of both. Be confident you'll get 100% possible speed."
+      <LandingHr />
+      <LandingTitle
+        text="Native Rendering & Seamless Theming"
+      />
+      <LandingImageFeature
+        imageLink={bootstrapThemeLink}
+        title="Twitter Bootstrap React Components"
+        description="Use any existing or create your custom bootstrap theme. No need for any additional configuration."
+      />
+      <LandingImageFeature
+        imageLink={materialThemeLink}
+        title="Material Design React Components"
+        description="We ship additional Material-UI packages that allow you to utilize the familiar approaches and appearance."
+      />
+      <LandingHr />
+      <LandingTitle
+        text="And Things That Also Matter..."
       />
       <LandingIconFeature
-        iconLink={featureIcon}
-        title="Shared Code"
-        description="Having React and Vue specific rendering layers our components share there code implementation. This reduces the number of bugs and allows us to ship new features faster."
+        title="Customization"
+        description="Wide customization and extensibility capabilities. From template React components to custom plugins."
       />
       <LandingIconFeature
-        iconLink={featureIcon}
-        title="TypeScript Support"
-        description="TypeScript is usually the choice for enterprise-scale web applications. Our TypeScript definitions are autogenerated and are always complete and in sync with the docs."
+        title="Localization"
+        description="Every textual piece of our React components is customizable. Localize or globalize your react app with ease."
       />
       <LandingIconFeature
-        iconLink={featureIcon}
-        title="Localization Capabilities"
-        description="Every text element of the components UI is customizable. So, it's ready for localization or globalization if you need it in your app."
+        title="TypeScript"
+        description="Create easy-to-maintain and bug-free React applications with our autogenerated TypeScript definitions."
       />
       <LandingIconFeature
-        iconLink={featureIcon}
-        title="Simple Docs with Live Examples"
-        description="Every component has a complete API reference and a usage guide with code examples and live demos with source avaliable on GitHub."
+        title="Docs & Examples"
+        description="Improve your productivity using our comprehensive and simple docs with live React demos and code examples."
       />
     </LandingLayout>
     <LandingMaintainence />
@@ -89,8 +116,20 @@ const IndexPage = () => (
       <LandingProductBlock
         type="react"
         iconLink={featureIcon}
-        title="React"
-        links={<LandingLink to="/react/">Learn More</LandingLink>}
+        title="React Grid"
+        links={<LandingLink to="/react/grid/">Learn More</LandingLink>}
+      />
+      <LandingProductBlock
+        type="react"
+        iconLink={featureIcon}
+        title="React Chart"
+        links={<LandingLink to="/react/chart/">Learn More</LandingLink>}
+      />
+      <LandingProductBlock
+        type="react"
+        iconLink={featureIcon}
+        title="React Scheduler"
+        links={<LandingLink to="/react/scheduler/">Learn More</LandingLink>}
       />
     </LandingProductLayout>
   </Layout>

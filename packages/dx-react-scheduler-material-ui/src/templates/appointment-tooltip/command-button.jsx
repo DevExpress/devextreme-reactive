@@ -34,16 +34,16 @@ export const CommandButtonBase = ({
   ...restProps
 }) => {
   const isOpenCommandButton = id === OPEN_COMMAND_BUTTON;
-  const buttonClass = classes[!isOpenCommandButton ? 'button' : 'floatButton'];
+  const buttonClass = classes[isOpenCommandButton ? 'floatButton' : 'button'];
   const commonProps = {
     onClick: onExecute,
     className: classNames(buttonClass, className),
     ...restProps,
   };
   return (
-    !isOpenCommandButton
-      ? <IconButton {...commonProps}>{getIcon(id)}</IconButton>
-      : <Fab color="primary" size="small" {...commonProps}>{getIcon(id)}</Fab>
+    isOpenCommandButton
+      ? <Fab color="primary" size="small" {...commonProps}>{getIcon(id)}</Fab>
+      : <IconButton {...commonProps}>{getIcon(id)}</IconButton>
   );
 };
 

@@ -2,9 +2,8 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import TableMUI from '@material-ui/core/Table';
+import RootRef from '@material-ui/core/RootRef';
 import { withStyles } from '@material-ui/core/styles';
-// eslint-disable-next-line no-restricted-imports
-import { RootRef } from '@material-ui/core';
 import { RefType } from '@devexpress/dx-react-core';
 import { getBorder } from './utils';
 

@@ -37,7 +37,6 @@ export default class Demo extends React.PureComponent {
       const target = targets[0];
       if (target) {
         this.setState(({ selection }) => {
-          debugger
           if (event.ctrlKey) {
             const filtered = selection.filter(el => !compare(el, target));
             return {

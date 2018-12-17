@@ -1,22 +1,57 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
-import Popover from '@material-ui/core/Popover';
+import { withStyles } from '@material-ui/core/styles';
+import Popper from '@material-ui/core/Popper';
+import Paper from '@material-ui/core/Paper';
+import classNames from 'classnames';
 
-export const Overlay = ({
-  children, target, ...restProps
+const styles = (theme) => {
+  const { unit } = theme.spacing;
+  const arrowSize = unit * 1.2;
+  return {
+    popper: {
+      zIndex: 1,
+      marginBottom: `${arrowSize}px`,
+    },
+    paper: {
+      padding: `${unit * 0.5}px ${unit}px`,
+    },
+    arrow: {
+      width: `${arrowSize * 5}px`,
+      height: `${arrowSize * 2.5}px`,
+      position: 'absolute',
+      top: '100%',
+      left: '50%',
+      transform: 'translateX(-50%)',
+      overflow: 'hidden',
+
+      '&::after': {
+        content: '""',
+        position: 'absolute',
+        width: `${arrowSize}px`,
+        height: `${arrowSize}px`,
+        background: theme.palette.background.paper,
+        transform: 'translateX(-50%) translateY(-50%) rotate(45deg)',
+        top: 0,
+        left: '50%',
+        boxShadow: theme.shadows[2],
+      },
+    },
+  };
+};
+
+export const Overlay = withStyles(styles)(({
+  classes, className, children, target, ...restProps
 }) => (
-  <Popover
+  <Popper
     open
     anchorEl={target}
-    anchorOrigin={{ vertical: 'center', horizontal: 'center' }}
-    transformOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+    placement="top"
+    className={classNames(classes.popper, className)}
     {...restProps}
   >
-    {children}
-  </Popover>
-);
-
-Overlay.propTypes = {
-  children: PropTypes.node.isRequired,
-  target: PropTypes.func.isRequired,
-};
+    <Paper className={classes.paper}>
+      {children}
+    </Paper>
+    <div className={classes.arrow} />
+  </Popper>
+));

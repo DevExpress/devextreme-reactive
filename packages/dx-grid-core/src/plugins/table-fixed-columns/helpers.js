@@ -1,7 +1,8 @@
 import { TABLE_DATA_TYPE } from '../table/constants';
 import {
-  FIXED_COLUMN_LEFT_SIDE, FIXED_COLUMN_RIGHT_SIDE, TABLE_FIXED_TYPE,
+  FIXED_COLUMN_LEFT_SIDE, TABLE_FIXED_TYPE,
 } from './constants';
+import { findChainByColumnIndex } from '../table-header-row/helpers';
 
 export const getFixedColumnKeys = (tableColumns, fixedNames) => tableColumns
   .filter(tableColumn => (
@@ -25,27 +26,20 @@ export const calculateFixedColumnProps = (
   { leftColumns, rightColumns },
   tableColumns,
   tableColumnDimensions,
+  tableHeaderColumnChains,
 ) => {
   const { fixed: side } = tableColumn;
   const targetArray = side === FIXED_COLUMN_LEFT_SIDE
     ? getFixedColumnKeys(tableColumns, leftColumns)
     : getFixedColumnKeys(tableColumns, rightColumns).reverse();
 
-  const fixedIndex = targetArray.indexOf(tableColumn.key);
   const index = tableColumns.findIndex(({ key }) => key === tableColumn.key);
+  const fixedIndex = targetArray.indexOf(tableColumn.key);
+  const columnChain = findChainByColumnIndex(tableHeaderColumnChains[0], index);
 
-  const isBoundary = fixedSide => (
-    fixedIndex === targetArray.length - 1 && fixedSide === side
-  );
-  const isStandAlone = (shift) => {
-    const neighborTableColumn = tableColumns[index + shift];
-    return neighborTableColumn && targetArray.indexOf(neighborTableColumn.key) === -1;
-  };
-
-  const showRightDivider = isBoundary(FIXED_COLUMN_LEFT_SIDE)
-    || (index !== tableColumns.length - 1 && isStandAlone(1));
-  const showLeftDivider = isBoundary(FIXED_COLUMN_RIGHT_SIDE)
-    || (index !== 0 && isStandAlone(-1));
+  const showLeftDivider = columnChain.start === index && index !== 0;
+  const showRightDivider = columnChain.start + columnChain.columns.length - 1 === index
+    && index < tableColumns.length - 1;
 
   const position = calculatePosition(targetArray, fixedIndex, tableColumnDimensions);
 

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createMount } from '@material-ui/core/test-utils';
+import { createMount, getClasses } from '@material-ui/core/test-utils';
 import { Overlay } from './overlay';
 
 describe('Overlay', () => {
@@ -7,6 +7,7 @@ describe('Overlay', () => {
     target: () => ({ }),
   };
 
+  const classes = getClasses(<Overlay {...defaultProps}>Test</Overlay>);
   const mount = createMount();
 
   it('should render Popover', () => {
@@ -22,8 +23,41 @@ describe('Overlay', () => {
       open: true,
       anchorEl: defaultProps.target,
       placement: 'top',
+      className: classes.popper,
     });
-    expect(tree.find('Paper').exists()).toBeTruthy();
+    expect(tree.find('Paper').props()).toMatchObject({
+      className: classes.paper,
+    });
+    expect(tree.find('div').get(3).props).toMatchObject({
+      className: classes.arrow,
+    });
     expect(tree.find('.content').exists()).toBeTruthy();
+  });
+
+  it('should pass custom class to the root element', () => {
+    const tree = mount((
+      <Overlay
+        {...defaultProps}
+        className="custom-class"
+      >
+        <div className="content" />
+      </Overlay>
+    ));
+
+    expect(tree.find('Popper').is('.custom-class')).toBeTruthy();
+    expect(tree.find('Popper').is(`.${classes.popper}`)).toBeTruthy();
+  });
+
+  it('should pass rest props to the root element', () => {
+    const tree = mount((
+      <Overlay
+        {...defaultProps}
+        custom={10}
+      >
+        <div className="content" />
+      </Overlay>
+    ));
+
+    expect(tree.find('Popper').props().custom).toEqual(10);
   });
 });

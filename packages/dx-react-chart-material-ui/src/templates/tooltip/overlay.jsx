@@ -3,6 +3,7 @@ import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Popper from '@material-ui/core/Popper';
 import Paper from '@material-ui/core/Paper';
+import classNames from 'classnames';
 import { getBorderColor } from '../utils';
 
 const styles = theme => ({
@@ -57,7 +58,7 @@ class RawOverlay extends React.PureComponent {
 
   render() {
     const {
-      classes, children, target, ...restProps
+      classes, className, children, target, ...restProps
     } = this.props;
     const { modifiers } = this.state;
     return (
@@ -65,7 +66,7 @@ class RawOverlay extends React.PureComponent {
         open
         anchorEl={target}
         placement="top"
-        className={classes.popper}
+        className={classNames(classes.popper, className)}
         modifiers={modifiers}
         {...restProps}
       >

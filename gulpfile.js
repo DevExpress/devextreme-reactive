@@ -94,14 +94,9 @@ var injectLiveDemos = function(content) {
 
 gulp.task('site:clean', function() {
   return gulp.src([
-    'site/react/common/**/*.md',
-    'site/react/core/**/*.md',
-    'site/react/grid/**/*.md',
-    'site/react/chart/**/*.md',
-    'site/react/scheduler/**/*.md',
-    'site/vue/grid/**/*.md',
-  ], { read: false })
-    .pipe(clean());
+    'site/react/**/**/*.md',
+    'site/vue/**/**/*.md',
+  ], { read: false }).pipe(clean());
 });
 
 gulp.task('site:docs', function() {

@@ -190,7 +190,8 @@ const getCurrentProductName = () => {
   const productName = packageName.split('-')[2];
   return productName;
 };
-const generateDemoRegistry = (folderPath, attachDemo) => {
+const generateDemoRegistry = (folderPath, getDemoLink) => {
+  const productName = getCurrentProductName();
   const structuredDemos = groupBy(demos, element => element.sectionName);
   Object.keys(structuredDemos).forEach((sectionName) => {
     structuredDemos[sectionName] = groupBy(
@@ -199,33 +200,17 @@ const generateDemoRegistry = (folderPath, attachDemo) => {
     );
   });
 
-  let returnedString;
-  const productName = getCurrentProductName();
-
-  if (attachDemo) {
-    returnedString = (themesAcc, themeName, demoSource, fileName) => (
-      `${themesAcc}\n${indent(`'${themeName}': {\n`
-      + `  demo: require('.${fileName}').default,\n`
-      + `  source: ${demoSource},\n`
-      + `  productName: '${productName}',\n`
-      + '},', 2)}`
-    );
-  } else {
-    returnedString = (themesAcc, themeName, demoSource) => (
-      `${themesAcc}\n${indent(`'${themeName}': {\n`
-      + `  source: ${demoSource},\n`
-      + `  productName: '${productName}',\n`
-      + '},', 2)}`
-    );
-  }
-
   const sectionsString = Object.keys(structuredDemos).reduce((sectionsAcc, sectionName) => {
     const demosString = Object.keys(structuredDemos[sectionName]).reduce((demosAcc, demoName) => {
       const themesString = structuredDemos[sectionName][demoName]
         .reduce((themesAcc, { themeName, generateDemo, demoExtension }) => {
           const fileName = `${DEMOS_FOLDER}/${sectionName}/${themeName}/${demoName}${generateDemo ? GENERATED_SUFFIX : ''}.${demoExtension}`;
           const demoSource = JSON.stringify(String(fs.readFileSync(fileName, 'utf-8')));
-          return returnedString(themesAcc, themeName, demoSource, fileName);
+          return `${themesAcc}\n${indent(`'${themeName}': {\n`
+            + `${getDemoLink(fileName)}`
+            + `  source: ${demoSource},\n`
+            + `  productName: '${productName}',\n`
+            + '},', 2)}`;
         }, '');
       return `${demosAcc}\n${indent(`'${demoName}': {${themesString}\n},`, 2)}`;
     }, '');
@@ -245,6 +230,9 @@ const generateDemoRegistry = (folderPath, attachDemo) => {
 loadThemeNames();
 loadDemosToGenerate();
 generateDemos();
-generateDemoRegistry(DEMOS_REGISTRY_FILE, true);
-generateDemoRegistry(productDemosFile(getCurrentProductName()), false);
+generateDemoRegistry(
+  DEMOS_REGISTRY_FILE,
+  fileName => `  demo: require('.${fileName}').default,\n`,
+);
+generateDemoRegistry(productDemosFile(getCurrentProductName()), () => '');
 removePendingFiles();

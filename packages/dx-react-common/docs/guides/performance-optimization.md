@@ -4,7 +4,7 @@ Internally, Reactive Components use React [guidelines](https://reactjs.org/docs/
 
 ## Use Immutable Data Structures
 
-React Controls do not change data passed through a state and use memoization and [React.PureComponents](https://reactjs.org/docs/react-api.html#reactpurecomponent). A `React.PureComponent` compares old and new state values using a shallow comparison. In this case, if you update a state object field, React does not update the component because it compares two references to the same object. Immutable data structures help to solve this problem.
+React Controls do not change data passed through a state and use memoization and [React.PureComponents](https://reactjs.org/docs/react-api.html#reactpurecomponent). A `React.PureComponent` shallowly compares old and new state values. In this case, if you update a state object field, React does not update the component because it compares two references to the same object. Immutable data structures help to solve this problem.
 
 Keep the Control’s state management plugins as separate components and update their properties independently to optimize performance. This allows the Control to avoid rendering unchanged UI elements.
 
@@ -16,7 +16,7 @@ The following demo shows how to work with immutable data using Redux, [react-red
 
 ## Avoid Constantly Code Inside Render Methods
 
-It is known that all code inside render methods will be called after each component's updates. We do not recommend creating new functions and variables in this place. To override default templates, you should create your own templates outside render methods. The following example demonstrates the right way to override default cell templates in the [React Scheduler](https://devexpress.github.io/devextreme-reactive/react/scheduler) control:
+It is known that all code inside render methods will be called after each component update. We do not recommend creating new functions and variables in this place. To override default templates, you should create your own templates outside render methods. The following example demonstrates the right way to override default cell templates in the [React Scheduler](https://devexpress.github.io/devextreme-reactive/react/scheduler) control:
 
 .embedded-demo({ "path": "scheduler-basic/custom-template", "showThemeSelector": true })
 
@@ -24,4 +24,4 @@ In some cases, we want to get access to the parent component’s state. In these
 
 .embedded-demo({ "path": "chart-basic/chart-connect-props", "showThemeSelector": true })
 
-In the sample above the legend title of the [React Chart](https://devexpress.github.io/devextreme-reactive/react/chart) depends of the series selection state. The selection state changes will change the legend title styles because of the [connectProps](../../../dx-react-core/docs/reference/connect-props.md) function's `update` method.
+In the sample above the legend labels of the [React Chart](https://devexpress.github.io/devextreme-reactive/react/chart) depend of the series selection state. The selection state changes will change the legend labels styles because of the [connectProps](../../../dx-react-core/docs/reference/connect-props.md) function's `update` method.

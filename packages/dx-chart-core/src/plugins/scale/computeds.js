@@ -82,16 +82,11 @@ const collectDomainsFromSeries = (domains, seriesList) => {
   return domains;
 };
 
-const applyMinMax = (domains) => {
+const customizeDomains = (domains) => {
   Object.keys(domains).forEach((name) => {
     const obj = domains[name];
-    if (!obj.isDiscrete) {
-      if (obj.min !== undefined) {
-        obj.domain[0] = obj.min;
-      }
-      if (obj.max !== undefined) {
-        obj.domain[1] = obj.max;
-      }
+    if (obj.modifyDomain) {
+      obj.domain = obj.modifyDomain(obj.domain);
     }
   });
 };
@@ -100,7 +95,7 @@ export const computeDomains = (domains, seriesList) => {
   const result = copy(domains);
   collectDomainsFromSeries(result, seriesList);
   calculateDomains(result, seriesList);
-  applyMinMax(result);
+  customizeDomains(result);
   return result;
 };
 

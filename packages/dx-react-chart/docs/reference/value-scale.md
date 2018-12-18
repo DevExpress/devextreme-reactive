@@ -18,4 +18,4 @@ Name | Type | Default | Description
 -----|------|---------|------------
 name? | string | | The scale's name.
 factory? | () => [ScaleObject](./argument-scale.md#scaleobject) | | A function that constructs a custom scale.
-modifyDomain? | (domain: Array&lt;any&gt;) => Array&lt;any&gt; | | A function that modifies scale domain.
+modifyDomain? | (domain: Array&lt;any&gt;) => Array&lt;any&gt; | | A function that modifies the scale domain.

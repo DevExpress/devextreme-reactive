@@ -1,7 +1,7 @@
 import * as React from 'react';<%&additionalImports%>
 import { connectProps } from '@devexpress/dx-react-core';
 import {
-  Scale, EventTracker, SelectionState,
+  Scale, EventTracker, HoverState,
 } from '@devexpress/dx-react-chart';
 import {
   Chart,
@@ -17,9 +17,9 @@ const rootStyles = {
   margin: 'auto',
   flexDirection: 'row',
 };
-const LegendRoot = ({ classes, ...restProps }) => (
+const LegendRoot = props => (
   <Legend.Root
-    {...restProps}
+    {...props}
     style={rootStyles}
   />
 );
@@ -28,19 +28,18 @@ const defaultLabelStyles = {
   marginBottom: '8px',
   whiteSpace: 'nowrap',
   fontSize: '20px',
-  color: 'gray',
+  color: 'lightgray',
 };
-const selectedLabelStyles = {
+const hoveredLabelStyles = {
   ...defaultLabelStyles,
-  fontWeight: 'bold',
   color: 'black',
 };
 const LegendLabel = ({
-  classes, selectedSeriesName, text, ...restProps
+  hoveredSeriesName, text, ...restProps
 }) => (
   <div
     {...restProps}
-    style={selectedSeriesName === text ? selectedLabelStyles : defaultLabelStyles}
+    style={hoveredSeriesName === text ? hoveredLabelStyles : defaultLabelStyles}
   >
     {text}
   </div>
@@ -49,16 +48,12 @@ const LegendLabel = ({
 const itemStyles = {
   flexDirection: 'column-reverse',
 };
-const LegendItem = ({ classes, ...restProps }) => (
+const LegendItem = props => (
   <Legend.Item
-    {...restProps}
+    {...props}
     style={itemStyles}
   />
 );
-
-const compare = (
-  { series, point }, { series: targetSeries, point: targetPoint },
-) => series === targetSeries && point === targetPoint;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -66,26 +61,17 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       data,
-      selection: [{
-        series: 'Oil', point: 1,
-      }],
+      hover: undefined,
     };
 
-    this.click = ({ targets }) => {
-      const target = targets[0];
-      if (target) {
-        this.setState(({ selection }) => ({
-          selection: selection[0] && compare(selection[0], target) ? [] : [target],
-        }));
-      }
-    };
+    this.changeHover = hover => this.setState({ hover });
 
     this.legendLabel = connectProps(LegendLabel, () => {
-      const { selection } = this.state;
-      const selectedSeriesName = selection[0] ? selection[0].series : undefined;
-      return ({
-        selectedSeriesName,
-      });
+      const { hover } = this.state;
+      const hoveredSeriesName = hover ? hover.series : undefined;
+      return {
+        hoveredSeriesName,
+      };
     });
   }
 
@@ -94,7 +80,7 @@ export default class Demo extends React.PureComponent {
   }
 
   render() {
-    const { data: chartData, selection } = this.state;
+    const { data: chartData, hover } = this.state;
 
     return (
       <<%&wrapperTag%><%&wrapperAttributes%>>
@@ -137,8 +123,8 @@ export default class Demo extends React.PureComponent {
           />
           <Scale />
 
-          <EventTracker onClick={this.click} />
-          <SelectionState selection={selection} />
+          <EventTracker />
+          <HoverState hover={hover} onHoverChange={this.changeHover} />
         </Chart>
       </<%&wrapperTag%>>
     );

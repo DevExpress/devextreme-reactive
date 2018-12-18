@@ -5,10 +5,11 @@ import { PluginHostContext, PositionContext } from '../plugin-based/contexts';
 import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from '../plugin-based/constants';
 
 describe('With props from context HOC', () => {
+  const positionContext = () => 'positionContext';
   // eslint-disable-next-line react/prop-types
   const ContextProvider = ({ children }) => (
     <PluginHostContext.Provider value="pluginHostContext">
-      <PositionContext.Provider value="positionContext">
+      <PositionContext.Provider value={positionContext}>
         {children}
       </PositionContext.Provider>
     </PluginHostContext.Provider>
@@ -16,7 +17,7 @@ describe('With props from context HOC', () => {
   describe('#withHostAndPosition', () => {
     const expectedContexts = {
       [PLUGIN_HOST_CONTEXT]: 'pluginHostContext',
-      [POSITION_CONTEXT]: 'positionContext',
+      [POSITION_CONTEXT]: positionContext,
     };
     it('should provide props from contexts', () => {
       const TestBase = () => <div />;

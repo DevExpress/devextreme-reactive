@@ -5,13 +5,13 @@ import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from './constants';
 import { PluginHost } from '@devexpress/dx-core/src/index';
 
 describe('Plugin', () => {
-  let pluginHost;
+  let pluginHost: any;
   beforeEach(() => {
-    pluginHost = jest.fn<PluginHost>(() => ({
+    pluginHost = new(jest.fn<PluginHost>(() => ({
       registerPlugin: jest.fn(),
       unregisterPlugin: jest.fn(),
       ensureDependencies: jest.fn(),
-    }));
+    })));
   });
 
   it('should register itself in the plugin host', () => {

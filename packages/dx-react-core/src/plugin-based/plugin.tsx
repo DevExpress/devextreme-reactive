@@ -3,13 +3,19 @@ import { InnerPlugin } from '@devexpress/dx-core';
 import { PluginIndexer } from './plugin-indexer';
 import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from './constants';
 import { withHostAndPosition } from '../utils/with-props-from-context';
-import { PluginContextProps } from './plugin-context-prop-types';
+// import { PluginContextProps } from './plugin-context-prop-types';
+import { PluginHost } from '../../../dx-core/src/plugin-host';
 
 export interface PluginProps {
   /** React elements that expose the plugin's state and actions and render the plugin's UI. */
-  children: React.ReactNode;
+  children: React.ReactChild;
   name?: string;
   dependencies?: { name: string, optional?: boolean }[];
+}
+
+interface PluginContextProps {
+  [POSITION_CONTEXT]: Function;
+  [PLUGIN_HOST_CONTEXT]: PluginHost;
 }
 
 /** @internal */

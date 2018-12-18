@@ -105,7 +105,7 @@ describe('utils', () => {
   describe('#isEdgeBrowser', () => {
     /* globals window:true */
     const assertIsEdge = (expected, ua) => {
-      window.navigator.userAgent = ua;
+      (window.navigator as any).userAgent = ua;
       expect(isEdgeBrowser()).toBe(expected);
     };
 

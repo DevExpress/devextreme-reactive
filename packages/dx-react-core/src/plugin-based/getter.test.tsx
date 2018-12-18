@@ -164,7 +164,7 @@ describe('Getter', () => {
 
   // This test is not correct enough. Rewrite it in future
   it('should be memoized based on args', () => {
-    const log = [];
+    const log: any[] = [];
     const staticComputed = ({ test }) => ({ test });
 
     // eslint-disable-next-line
@@ -179,8 +179,8 @@ describe('Getter', () => {
 
             <Template name="root">
               <TemplateConnector>
-                {({ test }) => {
-                  log.push(test);
+                {({ test }: any) => {
+                  log.push(test as any);
                   return null;
                 }}
               </TemplateConnector>

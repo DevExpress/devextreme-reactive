@@ -86,7 +86,7 @@ describe('TemplatePlaceholder', () => {
     const tree = mount((
       <PluginHost>
         <Template name="test">
-          {({ text }) => (
+          {({ text }: any) => (
             <h1>
               {text}
             </h1>
@@ -109,7 +109,7 @@ describe('TemplatePlaceholder', () => {
         return (
           <Plugin>
             <Template name="test">
-              {({ text }) => (
+              {({ text }: any) => (
                 <h1>
                   {text}
                 </h1>
@@ -169,7 +169,7 @@ describe('TemplatePlaceholder', () => {
     const tree = mount((
       <PluginHost>
         <Template name="test">
-          {({ text }) => (
+          {({ text }: any) => (
             <h1>
               {text}
             </h1>
@@ -195,7 +195,7 @@ describe('TemplatePlaceholder', () => {
     const tree = mount((
       <PluginHost>
         <Template name="test">
-          {({ text }) => (
+          {({ text }: any) => (
             <h1>
               {text}
             </h1>
@@ -224,7 +224,7 @@ describe('TemplatePlaceholder', () => {
         return (
           <Plugin>
             <Template name="test">
-              {({ text }) => (
+              {({ text }: any) => (
                 <h1>
                   {text}
                 </h1>
@@ -263,7 +263,7 @@ describe('TemplatePlaceholder', () => {
     const tree = mount((
       <PluginHost>
         <Template name="testNested">
-          {params => (
+          {(params: any) => (
             <h1>
               {params && params.text}
             </h1>
@@ -271,7 +271,7 @@ describe('TemplatePlaceholder', () => {
         </Template>
 
         <Template name="test">
-          {({ text }) => (
+          {({ text }: any) => (
             <div>
               <TemplatePlaceholder name="testNested" />
               <h2>

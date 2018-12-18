@@ -185,8 +185,7 @@ const groupBy = (array, iteratee) => array
   }, {});
 const indent = (string, count) => string.split('\n').map(substring => `${' '.repeat(count)}${substring}`).join('\n');
 const getCurrentProductName = () => {
-  const currentPath = path.resolve('./').split('/');
-  const packageName = currentPath[currentPath.length - 1];
+  const packageName = path.basename(path.resolve('./'));
   const productName = packageName.split('-')[2];
   return productName;
 };
@@ -234,5 +233,8 @@ generateDemoRegistry(
   DEMOS_REGISTRY_FILE,
   fileName => `  demo: require('.${fileName}').default,\n`,
 );
-generateDemoRegistry(productDemosFile(getCurrentProductName()), () => '');
+generateDemoRegistry(
+  productDemosFile(getCurrentProductName()),
+  () => '',
+);
 removePendingFiles();

@@ -37,14 +37,30 @@ const PriceLabel = makeLabel('$', priceColor);
 const LabelWithThousand = makeLabel('k', consumptionColor);
 
 const pointOptions = { size: 10 };
-const Point = props => (
+const areaPointStyle = { animation: null };
+
+const AreaPoint = (props) => {
+  const { state } = props;
+  return state
+    ? <ScatterSeries.Point style={areaPointStyle} point={pointOptions} {...props} />
+    : null;
+};
+
+const AreaWithPoints = props => (
+  <React.Fragment>
+    <AreaSeries.Path {...props} />
+    <ScatterSeries.Path {...props} pointComponent={AreaPoint} />
+  </React.Fragment>
+);
+
+const LinePoint = props => (
   <ScatterSeries.Point point={pointOptions} {...props} />
 );
 
 const LineWithPoints = props => (
   <React.Fragment>
     <SplineSeries.Path {...props} />
-    <ScatterSeries.Path {...props} pointComponent={Point} />
+    <ScatterSeries.Path {...props} pointComponent={LinePoint} />
   </React.Fragment>
 );
 
@@ -175,6 +191,7 @@ export default class Demo extends React.PureComponent {
             argumentField="year"
             scaleName="oil"
             color={consumptionColor}
+            seriesComponent={AreaWithPoints}
           />
           <SplineSeries
             name={priceSeriesName}

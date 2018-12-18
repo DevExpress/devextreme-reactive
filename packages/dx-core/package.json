@@ -36,7 +36,8 @@
     "build": "rollup -c rollup.config.js",
     "build:watch": "rollup -c rollup.config.js -w",
     "lint": "eslint \"src/**\"",
-    "lint:fix": "yarn run lint -- --fix"
+    "lint:fix": "yarn run lint -- --fix",
+    "tsc": "tsc"
   },
   "devDependencies": {
     "@babel/core": "^7.1.6",
@@ -53,6 +54,10 @@
     "jest": "^23.6.0",
     "rollup": "^0.67.3",
     "rollup-plugin-babel": "^4.0.3",
-    "rollup-plugin-license": "^0.7.0"
+    "rollup-plugin-license": "^0.7.0",
+    "rollup-plugin-typescript2": "^0.18.1",
+    "tslint": "^5.11.0",
+    "tslint-config-airbnb": "^5.11.1",
+    "typescript": "^3.2.2"
   }
 }

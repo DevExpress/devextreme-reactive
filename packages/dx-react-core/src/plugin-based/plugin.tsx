@@ -18,7 +18,7 @@ interface PluginContextProps {
 
 /** @internal */
 export class PluginBase extends React.PureComponent<PluginProps & PluginContextProps> {
-  plugin: InnerPlugin;
+  plugin!: InnerPlugin;
 
   componentDidMount() {
     const { [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: position } = this.props;

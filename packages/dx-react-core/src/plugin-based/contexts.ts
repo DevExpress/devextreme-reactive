@@ -8,7 +8,7 @@ export interface TemplateHostInterface {
 }
 
 /** @internal */
-export const PluginHostContext = React.createContext<PluginHost>({});
+export const PluginHostContext = React.createContext<PluginHost | null>(null);
 /** @internal */
 export const PositionContext = React.createContext<Function>(() => {});
 /** @internal */

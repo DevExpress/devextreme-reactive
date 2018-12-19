@@ -1,5 +1,6 @@
 import { argumentsShallowEqual } from './shallow-equal';
 
+/** @internal */
 export const memoize = (func) => {
   let lastArgs: any = null;
   let lastResult = null;

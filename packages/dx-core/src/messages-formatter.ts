@@ -3,6 +3,7 @@ const processPattern = (pattern, params) => Object.keys(params).reduce(
   pattern,
 );
 
+/** @internal */
 export const getMessagesFormatter = messages => (key, params?) => {
   const message = messages[key];
 

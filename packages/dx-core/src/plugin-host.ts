@@ -6,17 +6,20 @@ const getDependencyError = (
     `The '${pluginName}' plugin requires '${dependencyName}' to be defined before it.`,
   );
 
+/** @internal */
 export interface IDependency { name: string, optional?: boolean };
 interface IPluginBase {
-  position: () => any;
+  position: Function;
   name?: string;
   dependencies?: IDependency[];
 }
 interface IPluginWithGetter {
   [getterName: string]: any;
 }
+/** @internal */
 export type InnerPlugin = IPluginWithGetter & IPluginBase;
 
+/** @internal */
 export class PluginHost {
   private plugins: InnerPlugin[];
   private subscriptions: Set<any>;

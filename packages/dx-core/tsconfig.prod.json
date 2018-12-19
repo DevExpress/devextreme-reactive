@@ -2,7 +2,7 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "declarationDir": "./dist",
-    "declarationMap": true,
+    "stripInternal": true,
   },
   "include": [
     "./src"

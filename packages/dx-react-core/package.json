@@ -29,14 +29,16 @@
   "files": [
     "dist"
   ],
-  "types": "dist/dx-react-core.d.ts",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "build": "rollup -c rollup.config.js",
     "build:watch": "rollup -c rollup.config.js -w",
-    "build:ts": "tsc ",
+    "ts": "tsc -p ./tsconfig.json",
+    "ts:watch": "tsc -p ./tsconfig.json -w",
+    "ts:prod": "tsc -p ./tsconfig.prod.json",
     "lint": "tslint -p tsconfig.json",
     "lint:fix": "yarn run lint -- --fix",
     "tsc": "tsc"

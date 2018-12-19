@@ -1,6 +1,6 @@
 import babel from 'rollup-plugin-babel';
 import license from 'rollup-plugin-license';
-import typescript from 'rollup-plugin-typescript2';
+import resolve from 'rollup-plugin-node-resolve';
 import { banner, external, globals } from '../../tools/rollup-utils';
 import pkg from './package.json';
 
@@ -14,12 +14,13 @@ export default {
   ],
   external: external(__dirname),
   plugins: [
-    typescript({
-      typescript: require('typescript'),
+    resolve({
+      extensions: ['.ts', '.tsx', '.js'],
     }),
     babel({
       runtimeHelpers: true,
       exclude: 'node_modules/**',
+      extensions: ['.ts', '.tsx', '.js']
     }),
     license({
       banner,

@@ -1,10 +1,11 @@
 {
   "compilerOptions": {
     "module": "es6",
-    "target": "es5",
+    "target": "es6",
     "jsx": "react",
     "declaration": true,
-    // "esModuleInterop": true,
+    "emitDeclarationOnly": true,
+    "esModuleInterop": true,
     "strict": true,
     "alwaysStrict": true,
     "noImplicitAny": false,
@@ -13,13 +14,12 @@
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
-    // "removeComments": true,
-    "stripInternal": true,
     "noLib": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "sourceMap": true,
-    "lib": ["es6", "dom"],
+    "skipLibCheck": true,
+    "moduleResolution": "node" ,
+    "lib": ["es6", "es2017.object", "dom"],
     "plugins": [
       {
         "name": "typescript-tslint-plugin",

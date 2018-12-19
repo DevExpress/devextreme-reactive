@@ -1,10 +1,18 @@
 {
-  "presets": [[ "@babel/preset-env", { "modules": false, "targets": { "browsers": ["last 2 versions"] } } ]],
+  "presets": [
+    [ "@babel/preset-env", { "modules": false, "targets": { "browsers": ["last 2 versions"] } } ],
+    "@babel/react",
+    "@babel/typescript"
+  ],
   "env": {
     "test": {
       "presets": [
         ["@babel/preset-env", {"modules": "commonjs"}]
       ]
     }
-  }
+  },
+  "plugins": [
+    "@babel/proposal-class-properties",
+    "@babel/proposal-object-rest-spread"
+  ]
 }

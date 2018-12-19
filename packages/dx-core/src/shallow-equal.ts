@@ -1,3 +1,4 @@
+/** @internal */
 export function shallowEqual(objA, objB) {
   if (objA === objB) {
     return true;
@@ -30,6 +31,7 @@ export function shallowEqual(objA, objB) {
   return true;
 }
 
+/** @internal */
 export function argumentsShallowEqual(prev, next) {
   if (prev === null || next === null || prev.length !== next.length) {
     return false;

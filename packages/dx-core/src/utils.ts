@@ -1,5 +1,7 @@
+/** @internal */
 const DELAY = 200;
 
+/** @internal */
 const compare = (a, b) => {
   const aPosition = a.position();
   const bPosition = b.position();
@@ -10,6 +12,7 @@ const compare = (a, b) => {
   return aPosition.length - bPosition.length;
 };
 
+/** @internal */
 export const insertPlugin = (array, newItem) => {
   const result = array.slice();
   const nextItemIndex = array.findIndex(item => compare(newItem, item) <= 0);
@@ -20,6 +23,7 @@ export const insertPlugin = (array, newItem) => {
   return result;
 };
 
+/** @internal */
 export const createClickHandlers = (click?, dblClick?) => {
   let timeoutId;
   const events: any = {};
@@ -42,4 +46,5 @@ export const createClickHandlers = (click?, dblClick?) => {
 };
 
 /* globals window:true */
+/** @internal */
 export const isEdgeBrowser = () => /Edge/.test(window.navigator.userAgent);

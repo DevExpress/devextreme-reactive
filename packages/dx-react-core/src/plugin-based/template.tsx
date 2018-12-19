@@ -66,20 +66,7 @@ export class TemplateBase extends React.PureComponent<TemplateProps & PluginCont
   }
 }
 
-// TemplateBase.propTypes = {
-//   [PLUGIN_HOST_CONTEXT]: PropTypes.object.isRequired,
-//   [POSITION_CONTEXT]: PropTypes.func.isRequired,
-//   name: PropTypes.string.isRequired,
-//   predicate: PropTypes.func,
-//   children: PropTypes.oneOfType([
-//     PropTypes.func,
-//     PropTypes.node,
-//   ]),
-// };
-
-// TemplateBase.defaultProps = {
-//   predicate: undefined,
-//   children: undefined,
-// };
-
+/** A React component that defines a markup that is rendered
+ * as the corresponding TemplatePlaceholder.
+ */
 export const Template: React.ComponentType<TemplateProps> = withHostAndPosition(TemplateBase);

@@ -1,6 +1,7 @@
 /* globals document:true */
 
 let gestureCover: HTMLElement;
+/** @internal */
 export const toggleGestureCover = (toggle, cursor?) => {
   let style: React.CSSProperties = {
     pointerEvents: toggle ? 'all' : 'none',

@@ -1,5 +1,6 @@
 /* globals document:true window:true */
 
+/** @internal */
 export const clear = () => {
   if (window.getSelection) {
     if (window.getSelection().empty) {

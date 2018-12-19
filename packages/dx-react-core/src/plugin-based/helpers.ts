@@ -1,5 +1,6 @@
 import { shallowEqual } from '@devexpress/dx-core';
 
+/** @internal */
 export const getAvailableGetters = (
   pluginHost,
   getGetterValue = getterName => pluginHost.get(`${getterName}Getter`),
@@ -16,7 +17,11 @@ export const getAvailableGetters = (
         return result;
       },
       getOwnPropertyDescriptor(target, prop) {
-        return { configurable: true, enumerable: true, value: this.get!(target as any, prop, undefined) };
+        return {
+          configurable: true,
+          enumerable: true,
+          value: this.get!(target as any, prop, undefined),
+        };
       },
       ownKeys() {
         return pluginHost.knownKeys('Getter');
@@ -39,6 +44,7 @@ export const getAvailableGetters = (
   return { getters, trackedDependencies };
 };
 
+/** @internal */
 export const isTrackedDependenciesChanged = (
   pluginHost,
   prevTrackedDependencies,
@@ -52,6 +58,7 @@ export const isTrackedDependenciesChanged = (
   return !shallowEqual(prevTrackedDependencies, trackedDependencies);
 };
 
+/** @internal */
 export const getAvailableActions = (
   pluginHost,
   getAction = actionName => pluginHost.collect(`${actionName}Action`).slice().reverse()[0],
@@ -64,7 +71,11 @@ export const getAvailableActions = (
         return getAction(prop);
       },
       getOwnPropertyDescriptor(target, prop) {
-        return { configurable: true, enumerable: true, value: this.get!(target as any, prop, undefined) };
+        return {
+          configurable: true,
+          enumerable: true,
+          value: this.get!(target as any, prop, undefined),
+        };
       },
       ownKeys() {
         return pluginHost.knownKeys('Action');

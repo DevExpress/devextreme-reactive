@@ -12,6 +12,7 @@ type DragSourceProps = {
   payload: any;
 } & Partial<DragSourceDefaultProps>;
 
+/** @internal */
 export class DragSource extends React.Component<DragSourceProps & DragSourceDefaultProps> {
   static defaultProps = defaultProps;
 

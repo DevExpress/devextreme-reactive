@@ -1,5 +1,6 @@
 const TIMEOUT = 180;
 
+/** @internal */
 export class TouchStrategy {
   delegate: any;
   touchStartTimeout: any;

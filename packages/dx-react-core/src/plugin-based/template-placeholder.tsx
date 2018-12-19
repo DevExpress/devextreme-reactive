@@ -111,6 +111,7 @@ class TemplatePlaceholderBase extends React.Component<
   }
 }
 
+/** A React component to which a related Template is rendered. */
 export const TemplatePlaceholder: React.ComponentType<TemplatePlaceholderProps> = withContext(
   PluginHostContext, PLUGIN_HOST_CONTEXT,
 )(

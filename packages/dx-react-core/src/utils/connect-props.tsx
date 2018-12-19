@@ -2,9 +2,12 @@ import * as React from 'react';
 
 type RenderComponentProps = {
   update: () => void;
-}
+};
 type connectPropsType = (cmp, props) => any;
 
+/** A function that creates a new component that allows you to pass additional properties
+ * to the wrapped component.
+*/
 export const connectProps: connectPropsType  = (WrappedComponent, getAdditionalProps) => {
   let storedAdditionalProps = getAdditionalProps();
   const components = new Set();

@@ -47,8 +47,9 @@ type SizerProps = {
   onSizeChange: (size) => void;
   // containerComponent?: React.ComponentType;
   containerComponent: any;
-}
+};
 
+/** @internal */
 export class Sizer extends React.PureComponent<SizerProps> {
   rootRef: React.RefObject<RefHolder>;
   contractTrigger: any;
@@ -58,8 +59,8 @@ export class Sizer extends React.PureComponent<SizerProps> {
   contractNotifier: HTMLDivElement;
 
   static defaultProps = {
-    containerComponent: 'div'
-  }
+    containerComponent: 'div',
+  };
 
   constructor(props) {
     super(props);

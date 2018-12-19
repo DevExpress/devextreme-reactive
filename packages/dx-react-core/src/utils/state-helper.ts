@@ -1,3 +1,4 @@
+/** @internal */
 export const createStateHelper = (component, controlledStateProperties = {}) => {
   const notifyStateChange = (nextState, state) => {
     Object.keys(controlledStateProperties).forEach((propertyName) => {

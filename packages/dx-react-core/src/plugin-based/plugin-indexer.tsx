@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { PositionContext } from './contexts';
 
+/** @internal */
 export const PluginIndexer = ({ children }) => (
   <PositionContext.Consumer>
     {positionContext => (

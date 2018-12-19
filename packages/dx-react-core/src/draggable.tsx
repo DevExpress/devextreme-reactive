@@ -14,6 +14,7 @@ type DraggableProps = {
   onEnd?: (args) => void;
 };
 
+/** @internal */
 export class Draggable extends React.Component<DraggableProps> {
   mouseStrategy: MouseStrategy;
   touchStrategy: TouchStrategy;

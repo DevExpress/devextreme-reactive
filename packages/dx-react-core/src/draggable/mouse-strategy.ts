@@ -9,6 +9,7 @@ const isBoundExceeded = (
 ) => clamp(x, initialX - BOUNDARY, initialX + BOUNDARY) !== x
   || clamp(y, initialY - BOUNDARY, initialY + BOUNDARY) !== y;
 
+/** @internal */
 export class MouseStrategy {
   delegate: any;
   mouseInitialOffset: any;

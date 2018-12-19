@@ -4,10 +4,10 @@ import { PluginIndexer } from './plugin-indexer';
 import { TemplatePlaceholder } from './template-placeholder';
 import { PluginHostContext } from './contexts';
 
-export type PluginHostProps = {
+type PluginHostProps = {
   /** Plugin React elements. */
   children?: React.ReactNode;
-}
+};
 
 export class PluginHost extends React.PureComponent<PluginHostProps> {
   /** @internal */

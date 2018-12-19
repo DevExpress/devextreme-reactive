@@ -6,18 +6,26 @@ export { Template } from './plugin-based/template';
 export { TemplatePlaceholder } from './plugin-based/template-placeholder';
 export { TemplateConnectorBase } from './plugin-based/template-connector';
 
+/** @internal */
 export { Draggable } from './draggable';
 
+/** @internal */
 export { DragDropProvider } from './drag-drop/provider';
+/** @internal */
 export { DragSource } from './drag-drop/source';
+/** @internal */
 export { DropTarget } from './drag-drop/target';
 
+/** @internal */
 export { Sizer } from './sizer';
+/** @internal */
 export { RefHolder } from './ref-holder';
 
 export { connectProps } from './utils/connect-props';
 
+/** @internal */
 export { createStateHelper } from './utils/state-helper';
+/** @internal */
 export { withComponents } from './utils/with-components';
 
 export { RefType } from './utils/ref-type';

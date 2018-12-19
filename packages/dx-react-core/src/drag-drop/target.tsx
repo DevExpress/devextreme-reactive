@@ -12,6 +12,7 @@ const defaultProps = {
 };
 type DropTargetDefaultProps = Readonly<typeof defaultProps>;
 
+/** @internal */
 export class DropTarget extends React.Component<DropTargetDefaultProps> {
   static defaultProps = defaultProps;
   isOver: boolean;

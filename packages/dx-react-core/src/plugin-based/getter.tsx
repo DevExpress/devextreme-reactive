@@ -16,7 +16,8 @@ interface GetterProps {
   value?: any;
   /** A function that calculates a value depending on the values other Getters expose.
    * The value is computed each time a related Getter's value changes.
-   * Applies only if `value` is not defined. */
+   * Applies only if `value` is not defined.
+   */
   computed?: (
     getters: { [getterName: string]: any },
     actions?: { [actionName: string]: any },

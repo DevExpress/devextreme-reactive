@@ -13,6 +13,7 @@ const makeBoundComponent = (Target, components, exposed) => {
   return Component;
 };
 
+/** @internal */
 export const withComponents = components => (Target) => {
   const props = {};
   const exposed = {};

@@ -3,6 +3,7 @@
 import { EventEmitter } from '@devexpress/dx-core';
 
 let eventEmitter;
+/** @internal */
 export const getSharedEventEmitter = () => {
   if (!eventEmitter) {
     eventEmitter = new EventEmitter();

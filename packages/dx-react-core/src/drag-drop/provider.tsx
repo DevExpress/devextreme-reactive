@@ -3,6 +3,7 @@ import * as React from 'react';
 import { EventEmitter } from '@devexpress/dx-core';
 import { DragDropContext } from './context';
 
+/** @internal */
 export class DragDropProviderCore {
   payload: null;
   dragEmitter: EventEmitter;
@@ -33,6 +34,7 @@ const defaultProps = {
 type DragDropProviderDefaultProps = Readonly<typeof defaultProps>;
 type DragDropProviderProps = Partial<DragDropProviderDefaultProps>;
 
+/** @internal */
 export class DragDropProvider extends React.Component<
   DragDropProviderProps & DragDropProviderDefaultProps
 > {

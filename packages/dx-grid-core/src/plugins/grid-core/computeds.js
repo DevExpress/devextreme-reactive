@@ -4,7 +4,7 @@ const warnIfRowIdUndefined = getRowId => (row) => {
   const result = getRowId(row);
   if (!row[GRID_GROUP_CHECK] && result === undefined) {
     // eslint-disable-next-line no-console
-    console.warn('The getRowId function returns undefined. The row is', row);
+    console.warn('The row id is undefined. Check the getRowId function. The row is', row);
   }
   return result;
 };

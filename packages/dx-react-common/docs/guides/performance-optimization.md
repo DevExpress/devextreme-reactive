@@ -16,12 +16,12 @@ The following demo shows how to work with immutable data using Redux, [react-red
 
 ## Avoid Constantly Code Inside Render Methods
 
-It is known that all code inside render methods will be called after each component update. We do not recommend creating new functions and variables in this place. To override default templates, you should create your own templates outside render methods. The following example demonstrates the right way to override default cell templates in the [React Scheduler](https://devexpress.github.io/devextreme-reactive/react/scheduler) control:
+It is known that all code inside render methods will be called after each component update. We do not recommend creating new functions and variables in this place. To override default templates, you should create your own templates outside render methods. The following example demonstrates the right way to override default appointment templates in the [React Scheduler](https://devexpress.github.io/devextreme-reactive/react/scheduler) control:
 
-.embedded-demo({ "path": "scheduler-basic/custom-template", "showThemeSelector": true })
+.embedded-demo({ "path": "scheduler-basic/simple-template", "showThemeSelector": true })
 
 In some cases, we want to get access to the parent component’s state. In these scenarios, we recommend using one of the methods below for avoiding performance problems. The first one is using state management libraries like the Redux. However, if your application doesn’t include any state management libraries, we suggest using the [connectProps](../../../dx-react-core/docs/reference/connect-props.md) function from the `@devexpress/dx-react-core` package. The following example shows how to configure this function:
 
 .embedded-demo({ "path": "chart-basic/chart-connect-props", "showThemeSelector": true })
 
-In the sample above the legend labels of the [React Chart](https://devexpress.github.io/devextreme-reactive/react/chart) depend of the series selection state. The selection state changes will change the legend labels styles because of the [connectProps](../../../dx-react-core/docs/reference/connect-props.md) function's `update` method.
+In the sample above the legend labels of the [React Chart](https://devexpress.github.io/devextreme-reactive/react/chart) depend of the series hover state. The hover state changes will change the legend labels styles because of the [connectProps](../../../dx-react-core/docs/reference/connect-props.md) function's `update` method.

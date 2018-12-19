@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { findDOMNode } from 'react-dom';
 import {
   getAnimations,
   filterActiveAnimations,
@@ -19,17 +18,36 @@ export class TableLayout extends React.PureComponent {
     };
 
     this.animations = new Map();
+    this.savedScrolldWidth = {};
+    this.tableRef = React.createRef();
   }
 
   componentDidUpdate(prevProps) {
     const { columns } = this.props;
     const { columns: prevColumns } = prevProps;
 
-    // eslint-disable-next-line react/no-find-dom-node
-    const tableWidth = findDOMNode(this).scrollWidth;
+    const tableWidth = this.getTableWidth(prevColumns, columns);
     this.animations = getAnimations(prevColumns, columns, tableWidth, this.animations);
+
     cancelAnimationFrame(this.raf);
     this.raf = requestAnimationFrame(this.processAnimationFrame.bind(this));
+  }
+
+  getTableWidth(prevColumns, columns) {
+    const { offsetWidth, scrollWidth } = this.tableRef.current;
+    const { animationState } = this.state;
+
+    const widthChanged = this.savedOffsetWidth !== offsetWidth
+      || !this.savedScrolldWidth[columns.length];
+    const columnCountChanged = columns.length !== prevColumns.length;
+
+    if (columnCountChanged || (widthChanged && !animationState.size)) {
+      this.savedScrolldWidth = {};
+      this.savedScrolldWidth[columns.length] = scrollWidth;
+      this.savedOffsetWidth = offsetWidth;
+    }
+
+    return this.savedScrolldWidth[columns.length];
   }
 
   getColumns() {
@@ -83,6 +101,7 @@ export class TableLayout extends React.PureComponent {
     return (
       <Layout
         {...restProps}
+        tableRef={this.tableRef}
         columns={columns}
         minWidth={minWidth}
         minColumnWidth={minColumnWidth}

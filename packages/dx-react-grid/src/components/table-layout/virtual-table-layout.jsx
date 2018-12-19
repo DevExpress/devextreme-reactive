@@ -2,7 +2,7 @@ import * as React from 'react';
 import { findDOMNode } from 'react-dom';
 import * as PropTypes from 'prop-types';
 import { isEdgeBrowser } from '@devexpress/dx-core';
-import { Sizer, RefHolder } from '@devexpress/dx-react-core';
+import { Sizer, RefHolder, RefType } from '@devexpress/dx-react-core';
 import {
   getCollapsedGrid,
   TABLE_FLEX_TYPE,
@@ -181,18 +181,21 @@ export class VirtualTableLayout extends React.PureComponent {
     this.setState({ width, height });
   }
 
-  renderRowsBlock(name, collapsedGrid, Table, Body, marginBottom) {
+  renderRowsBlock(name, collapsedGrid, Table, Body, blockRef, marginBottom) {
     const {
       minWidth,
       rowComponent: Row,
       cellComponent: Cell,
     } = this.props;
 
+    const tableRef = blockRef || React.createRef();
+
     return (
       <RefHolder
         ref={ref => this.registerBlockRef(name, ref)}
       >
         <Table
+          tableRef={tableRef}
           style={{ minWidth: `${minWidth}px`, ...marginBottom ? { marginBottom: `${marginBottom}px` } : null }}
         >
           <ColumnGroup
@@ -250,6 +253,7 @@ export class VirtualTableLayout extends React.PureComponent {
       bodyComponent: Body,
       footerComponent: Footer,
       getCellColSpan,
+      tableRef,
     } = this.props;
 
     const {
@@ -312,7 +316,7 @@ export class VirtualTableLayout extends React.PureComponent {
         onScroll={this.updateViewport}
       >
         {!!headerRows.length && this.renderRowsBlock('header', collapsedHeaderGrid, HeadTable, Head)}
-        {this.renderRowsBlock('body', collapsedBodyGrid, Table, Body, Math.max(0, height - headerHeight - bodyHeight - footerHeight))}
+        {this.renderRowsBlock('body', collapsedBodyGrid, Table, Body, tableRef, Math.max(0, height - headerHeight - bodyHeight - footerHeight))}
         {!!footerRows.length && this.renderRowsBlock('footer', collapsedFooterGrid, FootTable, Footer)}
       </Sizer>
     );
@@ -338,6 +342,7 @@ VirtualTableLayout.propTypes = {
   containerComponent: PropTypes.func.isRequired,
   estimatedRowHeight: PropTypes.number.isRequired,
   getCellColSpan: PropTypes.func.isRequired,
+  tableRef: RefType.isRequired,
 };
 
 VirtualTableLayout.defaultProps = {

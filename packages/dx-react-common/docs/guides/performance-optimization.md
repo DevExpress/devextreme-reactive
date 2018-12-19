@@ -10,7 +10,7 @@ Keep the Control’s state management plugins as separate components and update 
 
 In this case, you can use a state management library like [Redux](https://redux.js.org/) to work with independent components’ states.
 
-The following demo shows how to work with immutable data using Redux, [react-redux](https://github.com/reduxjs/react-redux) and [seamless-immutable](https://github.com/rtfeldman/seamless-immutable) libraries:
+The following demo shows how the [React Grid](https://devexpress.github.io/devextreme-reactive/react/grid) works with immutable data using Redux, [react-redux](https://github.com/reduxjs/react-redux) and [seamless-immutable](https://github.com/rtfeldman/seamless-immutable) libraries:
 
 .embedded-demo({ "path": "grid-immutability/seamless-immutable", "showThemeSelector": true })
 

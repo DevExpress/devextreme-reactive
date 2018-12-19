@@ -2,7 +2,9 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import TableMUI from '@material-ui/core/Table';
+import RootRef from '@material-ui/core/RootRef';
 import { withStyles } from '@material-ui/core/styles';
+import { RefType } from '@devexpress/dx-react-core';
 import { getBorder } from './utils';
 
 const styles = theme => ({
@@ -29,20 +31,22 @@ const styles = theme => ({
 });
 
 const TableBase = ({
-  children, classes, className, use,
+  children, classes, className, use, tableRef,
   ...restProps
 }) => (
-  <TableMUI
-    className={classNames({
-      [classes.table]: true,
-      [classes.stickyTable]: !!use,
-      [classes.headTable]: use === 'head',
-      [classes.footTable]: use === 'foot',
-    }, className)}
-    {...restProps}
-  >
-    {children}
-  </TableMUI>
+  <RootRef rootRef={tableRef}>
+    <TableMUI
+      className={classNames({
+        [classes.table]: true,
+        [classes.stickyTable]: !!use,
+        [classes.headTable]: use === 'head',
+        [classes.footTable]: use === 'foot',
+      }, className)}
+      {...restProps}
+    >
+      {children}
+    </TableMUI>
+  </RootRef>
 );
 
 TableBase.propTypes = {
@@ -50,6 +54,7 @@ TableBase.propTypes = {
   children: PropTypes.node.isRequired,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
+  tableRef: RefType.isRequired,
 };
 
 TableBase.defaultProps = {

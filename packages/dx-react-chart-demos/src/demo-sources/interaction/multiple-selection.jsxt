@@ -58,7 +58,7 @@ export default class Demo extends React.PureComponent {
           <Chart
             data={chartData}
           >
-            <ArgumentAxis type="band" />
+            <ArgumentAxis />
             <ValueAxis />
 
             <BarSeries

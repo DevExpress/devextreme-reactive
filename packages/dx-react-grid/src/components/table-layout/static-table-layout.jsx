@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { RefType } from '@devexpress/dx-react-core';
 import { ColumnGroup } from './column-group';
 import { RowsBlockLayout } from './rows-block-layout';
 
@@ -19,11 +20,13 @@ export class StaticTableLayout extends React.PureComponent {
       rowComponent,
       cellComponent,
       getCellColSpan,
+      tableRef,
     } = this.props;
 
     return (
       <Container>
         <Table
+          tableRef={tableRef}
           style={{ minWidth: `${minWidth}px` }}
         >
           <ColumnGroup columns={columns} />
@@ -75,6 +78,7 @@ StaticTableLayout.propTypes = {
   rowComponent: PropTypes.func.isRequired,
   cellComponent: PropTypes.func.isRequired,
   getCellColSpan: PropTypes.func.isRequired,
+  tableRef: RefType.isRequired,
 };
 
 StaticTableLayout.defaultProps = {

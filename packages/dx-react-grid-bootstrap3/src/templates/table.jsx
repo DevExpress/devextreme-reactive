@@ -2,6 +2,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { RefType } from '@devexpress/dx-react-core';
 import { ThemeColors } from './layout';
 
 let globalStickyProp;
@@ -43,13 +44,16 @@ export class Table extends React.Component {
 
   render() {
     const {
-      children, use, style, className, ...restProps
+      children, use, style, className, tableRef, ...restProps
     } = this.props;
     const { stickyProp } = this.state;
     const { backgroundColor } = this.context;
     return (
       <table
-        ref={this.tableRef}
+        ref={(ref) => {
+          this.tableRef.current = ref;
+          tableRef.current = ref;
+        }}
         className={classNames('table', className)}
         style={{
           tableLayout: 'fixed',
@@ -83,6 +87,7 @@ Table.propTypes = {
   children: PropTypes.node.isRequired,
   style: PropTypes.object,
   className: PropTypes.string,
+  tableRef: RefType.isRequired,
 };
 
 Table.defaultProps = {

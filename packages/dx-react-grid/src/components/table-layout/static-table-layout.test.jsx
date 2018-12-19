@@ -22,6 +22,7 @@ const defaultProps = {
   cellComponent: () => null,
   rowComponent: () => null,
   getCellColSpan: () => 1,
+  tableRef: React.createRef(),
 };
 
 describe('StaticTableLayout', () => {

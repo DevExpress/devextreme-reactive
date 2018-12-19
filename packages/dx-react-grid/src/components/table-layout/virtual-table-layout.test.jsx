@@ -26,6 +26,7 @@ jest.mock('./column-group', () => ({
 jest.mock('@devexpress/dx-react-core', () => {
   const { Component } = require.requireActual('react');
   return {
+    ...require.requireActual('@devexpress/dx-react-core'),
     // eslint-disable-next-line react/prefer-stateless-function
     Sizer: class extends Component {
       componentDidMount() {
@@ -76,13 +77,14 @@ const defaultProps = {
     { key: 9 },
   ],
   containerComponent: props => <div {...props} />,
-  headTableComponent: props => <table {...props} />,
-  tableComponent: props => <table {...props} />,
+  headTableComponent: ({ tableRef, ...props }) => <table {...props} />,
+  tableComponent: ({ tableRef, ...props }) => <table {...props} />,
   headComponent: props => <thead {...props} />,
   bodyComponent: props => <tbody {...props} />,
   rowComponent: () => null,
   cellComponent: () => null,
   getCellColSpan: () => 1,
+  tableRef: React.createRef(),
 };
 
 describe('VirtualTableLayout', () => {

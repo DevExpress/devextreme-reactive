@@ -2,18 +2,25 @@ title: DevExtreme Reactive Components
 baseurl: "/devextreme-reactive"
 version: "X.X.X"
 
+url: "https://devexpress.github.io/devextreme-reactive/" # used for configure sitemap
 markdown: kramdown
 plugins:
   - jekyll-feed
   - jekyll-relative-links
   - jekyll-redirect-from
+  - jekyll-sitemap
 exclude:
   - Gemfile
   - Gemfile.lock
 
+
 permalink: pretty
 
 defaults:
+  - scope:
+      path: "vue/*"
+    values:
+      sitemap: false
   - scope:
       path: ""
       type: pages

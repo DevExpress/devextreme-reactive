@@ -16,6 +16,11 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
           "minWidth": "400px",
         }
       }
+      tableRef={
+        Object {
+          "current": null,
+        }
+      }
     >
       <ColumnGroup
         columns={
@@ -165,6 +170,11 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
         Object {
           "marginBottom": "600px",
           "minWidth": "400px",
+        }
+      }
+      tableRef={
+        Object {
+          "current": null,
         }
       }
     >
@@ -1091,6 +1101,11 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
       style={
         Object {
           "minWidth": "400px",
+        }
+      }
+      tableRef={
+        Object {
+          "current": null,
         }
       }
     >

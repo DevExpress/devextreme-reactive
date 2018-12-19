@@ -19,3 +19,5 @@ export { connectProps } from './utils/connect-props';
 
 export { createStateHelper } from './utils/state-helper';
 export { withComponents } from './utils/with-components';
+
+export { RefType } from './utils/ref-type';

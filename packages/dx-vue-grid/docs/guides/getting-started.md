@@ -1,6 +1,6 @@
 # Vue Grid - Getting Started
 
-Project status: **CTP**
+`This project is deprecated.` You may use [Devextreme Vue](https://github.com/DevExpress/devextreme-vue) instead.
 
 ## Overview
 

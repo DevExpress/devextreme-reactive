@@ -1,6 +1,6 @@
 # DevExtreme Vue Core
 
-Project status: **CTP**
+**This project is deprecated.** You may use [Devextreme Vue](https://github.com/DevExpress/devextreme-vue) instead.
 
 Core library for DevExtreme Vue Components.
 

@@ -1,6 +1,6 @@
 # DevExtreme Vue Grid
 
-Project status: **CTP**
+**This project is deprecated.** You may use [Devextreme Vue](https://github.com/DevExpress/devextreme-vue) instead.
 
 DevExtreme Vue Grid is a component that displays table data from a local or remote source.
 

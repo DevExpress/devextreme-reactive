@@ -17,10 +17,10 @@ describe('Legend', () => {
     });
 
     it('should return points for Pie series', () => {
-      const SliceCollection = () => null;
       const series = {
-        seriesComponent: SliceCollection,
-        points: [{ id: 'item 1', color: 'c1' }, { id: 'item 2', color: 'c2' }],
+        innerRadius: 0,
+        outerRadius: 1,
+        points: [{ argument: 'item 1', color: 'c1' }, { argument: 'item 2', color: 'c2' }],
       };
       const items = getLegendItems([series]);
 
@@ -32,7 +32,7 @@ describe('Legend', () => {
 
     it('should not mistake single series for Pie', () => {
       const items = getLegendItems([
-        { uniqueName: 'item 1', color: 'c1', seriesComponent: () => null },
+        { uniqueName: 'item 1', color: 'c1' },
       ]);
 
       expect(items).toEqual([

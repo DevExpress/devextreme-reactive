@@ -94,8 +94,8 @@ var injectLiveDemos = function(content) {
 
 gulp.task('site:clean', function() {
   return gulp.src([
-    'site/react/**/**/*.md',
-    'site/vue/**/**/*.md',
+    'site/react/**/*.md',
+    'site/vue/**/*.md',
   ], { read: false }).pipe(clean());
 });
 

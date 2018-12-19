@@ -54,7 +54,13 @@ layout: default
 <script
   type="text/javascript"
   src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"
-  onload="docsearch({ apiKey: '4cd7a76d4bc286ae69fe26182a8d4b18', indexName: 'devextreme_reactive', inputSelector: '#docsearch', algoliaOptions: { 'facetFilters': ['techno:{{product_link_parts[1]}}', 'tool: {{product_link_parts[2]}}'] }, debug: false })"
+  onload="docsearch({
+    apiKey: '4cd7a76d4bc286ae69fe26182a8d4b18',
+    indexName: 'devextreme_reactive',
+    inputSelector: '#docsearch',
+    algoliaOptions: { 'facetFilters': ['techno:{{product_link_parts[1]}}', 'tool: {{product_link_parts[2]}}'] },
+    debug: false
+  })"
   async
 >
 </script>

@@ -51,6 +51,7 @@ export const isTrackedDependenciesChanged = (
   getGetterValue = getterName => pluginHost.get(`${getterName}Getter`),
 ) => {
   const trackedDependencies = Object.keys(prevTrackedDependencies)
+    // tslint:disable-next-line: prefer-object-spread
     .reduce((acc, getterName) => Object.assign(acc, {
       [getterName]: getGetterValue(getterName),
     }), {});

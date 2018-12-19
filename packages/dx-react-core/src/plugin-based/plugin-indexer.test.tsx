@@ -5,7 +5,6 @@ import { mount } from 'enzyme';
 import { PluginIndexer } from './plugin-indexer';
 import { PositionContext } from './contexts';
 
-// eslint-disable-next-line react/prefer-stateless-function
 class TestWrapper extends React.Component {
   render() {
     return <Test position={this.context} />;

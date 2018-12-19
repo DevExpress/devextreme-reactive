@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-const makeBoundComponent = (Target, components, exposed) => {
+const makeBoundComponent = (Target, components, exposed: object) => {
   class Component extends React.PureComponent {
-    static components: any;
+    static components: {[key: string]: string};
 
     render() {
       return <Target {...components} {...this.props} />;
@@ -13,17 +13,24 @@ const makeBoundComponent = (Target, components, exposed) => {
   return Component;
 };
 
+interface ITargetComponent {
+  components: {[key: string]: string};
+}
+
 /** @internal */
 export const withComponents = components => (Target) => {
   const props = {};
   const exposed = {};
-  Object.entries(Target.components).forEach(([fieldName, componentName]: [string, string]) => {
+  const targetComponents = (Target as ITargetComponent).components;
+
+  Object.entries(targetComponents).forEach(([fieldName, componentName]: [string, string]) => {
     const component = components[componentName];
     if (component && component !== Target[componentName]) {
       props[fieldName] = component;
     }
     exposed[componentName] = component || Target[componentName];
   });
+
   return Object.keys(props).length > 0
     ? makeBoundComponent(Target, props, exposed) : Target;
 };

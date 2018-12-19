@@ -4,6 +4,9 @@
     "target": "es5",
     "jsx": "react",
     "declaration": true,
+    // "esModuleInterop": true,
+    "strict": true,
+    "alwaysStrict": true,
     "noImplicitAny": false,
     "noImplicitReturns": true,
     "noImplicitThis": true,
@@ -16,10 +19,16 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": true,
-    "lib": ["es6", "es2017.object", "dom"]
+    "lib": ["es6", "dom"],
+    "plugins": [
+      {
+        "name": "typescript-tslint-plugin",
+        "configFile": "./tslint.json",
+      }
+    ]
   },
   "exclude": [
     "node_modules",
     "**/*.test.ts*"
-  ]
+  ],
  }

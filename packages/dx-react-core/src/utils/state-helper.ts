@@ -9,7 +9,7 @@ export const createStateHelper = (component, controlledStateProperties = {}) => 
     });
   };
 
-  let lastStateUpdater: Function;
+  let lastStateUpdater: (state) => void;
   let initialState = null;
   let lastInitialState = null;
   const applyReducer = (reduce, payload?, callback?) => {

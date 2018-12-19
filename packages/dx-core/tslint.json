@@ -1,8 +1,0 @@
-{
-  "extends": "tslint-config-airbnb",
-  "rules": {
-    "import/prefer-default-export": "off",
-    "align": false,
-    "filenames/match-regex": [2, "^[a-z-\\.]+$"]
-  }
-}

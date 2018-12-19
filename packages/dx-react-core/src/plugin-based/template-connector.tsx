@@ -7,18 +7,22 @@ import {
 } from './helpers';
 import { PluginHostContext } from './contexts';
 
+interface Getters {
+  [getterName: string]: any | object;
+}
+
 export interface TemplateConnectorProps {
   /** A function that renders a markup using Getters and Actions passed as arguments. */
   children: (
-    getters: { [getterName: string]: any },
+    getters: Getters,
     actions: { [actionName: string]: (payload?: any) => void },
   ) => React.ReactNode;
 }
 
 /** @internal */
 export class TemplateConnectorBase extends React.Component<TemplateConnectorProps> {
-  trackedDependencies: { [key: string]: { get: Function }};
-  subscription: { [UPDATE_CONNECTION_EVENT: string]: Function };
+  trackedDependencies: { [key: string]: { get: (args) => any }};
+  subscription: { [UPDATE_CONNECTION_EVENT: string]: (args) => void };
 
   constructor(props, context) {
     super(props, context);

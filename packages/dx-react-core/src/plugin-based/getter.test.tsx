@@ -165,9 +165,9 @@ describe('Getter', () => {
   // This test is not correct enough. Rewrite it in future
   it('should be memoized based on args', () => {
     const log: any[] = [];
-    const staticComputed = ({ test }) => ({ test });
+    const staticComputed = ({ test }: any) => ({ test });
 
-    // eslint-disable-next-line
+    // tslint:disable-next-line: max-classes-per-file
     class EncapsulatedPlugin extends React.PureComponent {
       render() {
         return (
@@ -179,7 +179,7 @@ describe('Getter', () => {
 
             <Template name="root">
               <TemplateConnector>
-                {({ test }: any) => {
+                {({ test }) => {
                   log.push(test as any);
                   return null;
                 }}

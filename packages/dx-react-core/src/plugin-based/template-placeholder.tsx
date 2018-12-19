@@ -24,10 +24,10 @@ interface TemplateHostContextProps {
 class TemplatePlaceholderBase extends React.Component<
   TemplatePlaceholderProps & PluginContextProps & TemplateHostContextProps
 > {
-  subscription: { [key: string]: Function };
-  template: TemplateBase;
-  params: object;
-  restTemplates: TemplateBase[];
+  subscription: { [key: string]: (args) => void };
+  template: TemplateBase | null = null;
+  params: object = {};
+  restTemplates: TemplateBase[] = [];
 
   constructor(props) {
     super(props);

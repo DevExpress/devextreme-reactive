@@ -6,27 +6,27 @@ const getDependencyError = (
     `The '${pluginName}' plugin requires '${dependencyName}' to be defined before it.`,
   );
 
+export interface IDependency { name: string, optional?: boolean };
 interface IPluginBase {
-  position: Function;
+  position: () => any;
   name?: string;
-  dependencies?: { name: string, optional?: boolean }[];
+  dependencies?: IDependency[];
 }
 interface IPluginWithGetter {
-  [getterName: string]: (params: any) => any;
+  [getterName: string]: any;
 }
 export type InnerPlugin = IPluginWithGetter & IPluginBase;
 
 export class PluginHost {
-  plugins: InnerPlugin[];
-  subscriptions: Set<any>;
-  gettersCache: object;
-  knownKeysCache: object;
-  validationRequired: boolean;
+  private plugins: InnerPlugin[];
+  private subscriptions: Set<any>;
+  private gettersCache: object = {};
+  private knownKeysCache: object = {};
+  private validationRequired: boolean = true;
 
   constructor() {
     this.plugins = [];
     this.subscriptions = new Set();
-    this.gettersCache = {};
   }
 
   ensureDependencies() {
@@ -64,12 +64,6 @@ export class PluginHost {
   unregisterPlugin(plugin) {
     this.plugins.splice(this.plugins.indexOf(plugin), 1);
     this.cleanPluginsCache();
-  }
-
-  cleanPluginsCache() {
-    this.validationRequired = true;
-    this.gettersCache = {};
-    this.knownKeysCache = {};
   }
 
   knownKeys(postfix) {
@@ -124,5 +118,11 @@ export class PluginHost {
 
   broadcast(event, message?: any) {
     this.subscriptions.forEach(subscription => subscription[event] && subscription[event](message));
+  }
+
+  private cleanPluginsCache() {
+    this.validationRequired = true;
+    this.gettersCache = {};
+    this.knownKeysCache = {};
   }
 }

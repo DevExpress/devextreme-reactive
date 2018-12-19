@@ -46,21 +46,21 @@ const styles = {
 type SizerProps = {
   onSizeChange: (size) => void;
   // containerComponent?: React.ComponentType;
-  containerComponent: any;
+  containerComponent?: any;
 };
 
 /** @internal */
 export class Sizer extends React.PureComponent<SizerProps> {
+  static defaultProps = {
+    containerComponent: 'div',
+  };
+
   rootRef: React.RefObject<RefHolder>;
   contractTrigger: any;
   expandNotifier: any;
   expandTrigger: any;
-  triggersRoot: HTMLDivElement;
-  contractNotifier: HTMLDivElement;
-
-  static defaultProps = {
-    containerComponent: 'div',
-  };
+  triggersRoot?: HTMLDivElement;
+  contractNotifier?: HTMLDivElement;
 
   constructor(props) {
     super(props);

@@ -1,16 +1,14 @@
 import * as React from 'react';
-import { InnerPlugin } from '@devexpress/dx-core';
+import { InnerPlugin, PluginHost, IDependency } from '@devexpress/dx-core';
 import { PluginIndexer } from './plugin-indexer';
 import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from './constants';
 import { withHostAndPosition } from '../utils/with-props-from-context';
-// import { PluginContextProps } from './plugin-context-prop-types';
-import { PluginHost } from '../../../dx-core/src/plugin-host';
 
 export interface PluginProps {
   /** React elements that expose the plugin's state and actions and render the plugin's UI. */
-  children: React.ReactChild;
+  children: React.ReactNode;
   name?: string;
-  dependencies?: { name: string, optional?: boolean }[];
+  dependencies?: IDependency[];
 }
 
 interface PluginContextProps {

@@ -1,6 +1,8 @@
+type Handler = (e: object) => void;
+
 /** @internal */
 export class EventEmitter {
-  handlers: Function[];
+  private handlers: Handler[];
 
   constructor() {
     this.handlers = [];

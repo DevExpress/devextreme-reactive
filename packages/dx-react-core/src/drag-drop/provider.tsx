@@ -35,6 +35,7 @@ type DragDropProviderDefaultProps = Readonly<typeof defaultProps>;
 type DragDropProviderProps = Partial<DragDropProviderDefaultProps>;
 
 /** @internal */
+// tslint:disable-next-line: max-classes-per-file
 export class DragDropProvider extends React.Component<
   DragDropProviderProps & DragDropProviderDefaultProps
 > {

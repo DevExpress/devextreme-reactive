@@ -23,10 +23,12 @@ let globalTemplateId = 0;
 export class TemplateBase extends React.PureComponent<TemplateProps & PluginContextProps> {
   id: number;
   plugin: InnerPlugin;
-  children: Function;
+  children: () => any;
 
   constructor(props) {
     super(props);
+
+    this.children = () => void 0;
 
     globalTemplateId += 1;
     this.id = globalTemplateId;
@@ -66,7 +68,7 @@ export class TemplateBase extends React.PureComponent<TemplateProps & PluginCont
   }
 }
 
-/** A React component that defines a markup that is rendered
+/*** A React component that defines a markup that is rendered
  * as the corresponding TemplatePlaceholder.
  */
 export const Template: React.ComponentType<TemplateProps> = withHostAndPosition(TemplateBase);

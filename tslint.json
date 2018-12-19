@@ -1,0 +1,23 @@
+{
+  "extends": [
+    "tslint:latest",
+    "tslint-react",
+    "tslint-config-airbnb",
+    "tslint-eslint-rules",
+    "tslint-config-prettier"
+  ],
+  "rules": {
+    // "import/prefer-default-export": "off",
+    "filenames/match-regex": [2, "^[a-z-\\.]+$"],
+    "align": false,
+    "interface-over-type-literal": false,
+    "interface-name": false,
+    "object-literal-sort-keys": false,
+    "ordered-imports": false,
+    "jsx-no-lambda": false,
+    "member-access": [ true, "no-public" ],
+    "variable-name": [ true, "allow-pascal-case" ],
+    "ban-types": [true, ["Object", "Use {} instead."], ["String"]],
+    "no-empty": [true, "allow-empty-functions"]
+  }
+}

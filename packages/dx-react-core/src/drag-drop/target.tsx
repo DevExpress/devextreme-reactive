@@ -46,7 +46,7 @@ export class DropTarget extends React.Component<DropTargetDefaultProps> {
       top,
       right,
       bottom,
-    } = (findDOMNode(this) as Element).getBoundingClientRect(); // eslint-disable-line react/no-find-dom-node
+    } = (findDOMNode(this) as Element).getBoundingClientRect();
     const {
       onDrop, onEnter, onLeave, onOver,
     } = this.props;

@@ -14,7 +14,7 @@ interface GetterProps {
   name: string;
   /** The shared value. */
   value?: any;
-  /** A function that calculates a value depending on the values other Getters expose.
+  /*** A function that calculates a value depending on the values other Getters expose.
    * The value is computed each time a related Getter's value changes.
    * Applies only if `value` is not defined.
    */

@@ -64,15 +64,13 @@ const IndexPage = () => (
       <LandingTitle
         text="Why DevExtreme for React?"
       />
-      <LandingIconFeature
-        iconLink={featureIcon}
+      <LandingImageFeature
         title="100% Native React"
         description="We've focused our energy on performance and leveraged the best practice recomendations oferred by the React team. Through immutability and pure functions, we can apply memoization and built-in react optimisations to archieve outstanding performance."
       />
-      <LandingIconFeature
-        iconLink={featureIcon}
-        title="Plugin-based Architecture"
-        description="DevExtreme Reactive Components are build of plugins. Add and deploy only the features you need or extend the build-in functionality with your or third-party custom plugins."
+      <LandingImageFeature
+        title="Loves Redux by Design"
+        description="Fully control React Grid state and treat it as a pure view component. Effortlessly enable state persistence and time-traveling without side-effects. Our React Grid can also manage its state internally helping you write less code, so you focus on more important business tasks."
       />
       <LandingHr />
       <LandingTitle

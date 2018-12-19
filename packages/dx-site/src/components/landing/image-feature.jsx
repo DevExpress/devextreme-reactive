@@ -11,11 +11,13 @@ const ImageFeature = ({ imageLink, title, description }) => (
     <div className={styles.description}>
       {description}
     </div>
-    <img
-      className={styles.image}
-      alt="title"
-      src={imageLink}
-    />
+    {imageLink && (
+      <img
+        className={styles.image}
+        alt="title"
+        src={imageLink}
+      />
+    )}
   </div>
 );
 

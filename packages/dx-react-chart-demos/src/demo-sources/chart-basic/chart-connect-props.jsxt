@@ -1,7 +1,7 @@
 import * as React from 'react';<%&additionalImports%>
 import { connectProps } from '@devexpress/dx-react-core';
 import {
-  ValueScale, EventTracker, HoverState,
+  EventTracker, HoverState,
 } from '@devexpress/dx-react-chart';
 import {
   Chart,

@@ -37,7 +37,7 @@ export class AllDayPanel extends React.PureComponent {
     this.allDayPanelRef = this.allDayPanelRef.bind(this);
 
     this.appointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
-    this.cellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
+    this.cellPlaceholder = params => <TemplatePlaceholder name="allDayPanelCell" params={params} />;
   }
 
   allDayPanelRef(ref) {
@@ -124,7 +124,7 @@ export class AllDayPanel extends React.PureComponent {
           </TemplateConnector>
         </Template>
 
-        <Template name="cell">
+        <Template name="allDayPanelCell">
           {params => <Cell {...params} />}
         </Template>
       </Plugin>

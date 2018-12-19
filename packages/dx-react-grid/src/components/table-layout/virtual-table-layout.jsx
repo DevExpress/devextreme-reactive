@@ -263,7 +263,7 @@ export class VirtualTableLayout extends React.PureComponent {
     } = this.state;
 
     const getColumnWidth = column => (column.type === TABLE_FLEX_TYPE
-      ? 0
+      ? null
       : column.width || minColumnWidth);
     const getColSpan = (
       tableRow, tableColumn,

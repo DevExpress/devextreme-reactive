@@ -5,7 +5,7 @@ import {
   TemplateConnector, TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 import {
-  getBandComponent,
+  getBandComponent, tableHeaderColumnChainsWithBands,
   isBandedTableRow, isBandedOrHeaderRow,
   tableRowsWithBands, isHeadingTableCell,
   BAND_GROUP_CELL, BAND_HEADER_CELL,
@@ -28,6 +28,11 @@ export class TableBandHeader extends React.PureComponent {
     const tableHeaderRowsComputed = ({ tableHeaderRows, tableColumns }) => tableRowsWithBands(
       tableHeaderRows, columnBands, tableColumns,
     );
+    const tableHeaderColumnChainsComputed = ({
+      tableHeaderRows, tableColumns,
+    }) => tableHeaderColumnChainsWithBands(
+      tableHeaderRows, tableColumns, columnBands,
+    );
 
     return (
       <Plugin
@@ -40,6 +45,7 @@ export class TableBandHeader extends React.PureComponent {
         ]}
       >
         <Getter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
+        <Getter name="tableHeaderColumnChains" computed={tableHeaderColumnChainsComputed} />
 
         <Template
           name="tableCell"
@@ -50,11 +56,12 @@ export class TableBandHeader extends React.PureComponent {
               {({
                 tableColumns,
                 tableHeaderRows,
+                tableHeaderColumnChains,
               }) => {
                 const bandComponent = getBandComponent(
                   params,
                   tableHeaderRows, tableColumns,
-                  columnBands,
+                  columnBands, tableHeaderColumnChains,
                 );
                 switch (bandComponent.type) {
                   case BAND_DUPLICATE_RENDER:

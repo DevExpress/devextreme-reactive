@@ -338,10 +338,10 @@ class DemoBase extends React.PureComponent {
             showDeleteCommand
             commandComponent={Command}
           />
+          <TableSummaryRow />
           <TableFixedColumns
             leftColumns={leftFixedColumns}
           />
-          <TableSummaryRow />
           <PagingPanel
             pageSizes={pageSizes}
           />

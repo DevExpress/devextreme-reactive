@@ -302,10 +302,10 @@ export default class Demo extends React.PureComponent {
             showDeleteCommand
             commandComponent={Command}
           />
+          <TableSummaryRow />
           <TableFixedColumns
             leftColumns={leftFixedColumns}
           />
-          <TableSummaryRow />
           <PagingPanel
             pageSizes={pageSizes}
           />

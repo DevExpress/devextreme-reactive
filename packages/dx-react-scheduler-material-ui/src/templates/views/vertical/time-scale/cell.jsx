@@ -33,7 +33,6 @@ const CellBase = ({
   const currentTime = moment(endDate);
   return (
     <TableCell
-      numeric
       className={classNames(classes.cell, className)}
       {...restProps}
     >

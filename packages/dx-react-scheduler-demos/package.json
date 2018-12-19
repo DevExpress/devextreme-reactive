@@ -27,7 +27,7 @@
     "@devexpress/dx-react-core": "1.9.1",
     "@devexpress/dx-react-scheduler": "1.9.1",
     "@devexpress/dx-react-scheduler-material-ui": "1.9.1",
-    "@material-ui/core": "^3.6.0",
+    "@material-ui/core": "^3.7.0",
     "@material-ui/icons": "^3.0.1",
     "@types/react": "^16.7.7",
     "@types/react-dom": "^16.0.10",

@@ -137,7 +137,6 @@ class TableHeaderCellBase extends React.PureComponent {
       <TableCell
         style={style}
         className={tableCellClasses}
-        numeric={align === 'right'}
         {...restProps}
       >
         <div className={classes.container}>

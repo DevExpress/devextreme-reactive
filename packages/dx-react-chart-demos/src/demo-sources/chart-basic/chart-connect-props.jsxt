@@ -1,7 +1,7 @@
 import * as React from 'react';<%&additionalImports%>
 import { connectProps } from '@devexpress/dx-react-core';
 import {
-  Scale, EventTracker, HoverState,
+  ValueScale, EventTracker, HoverState,
 } from '@devexpress/dx-react-chart';
 import {
   Chart,
@@ -89,6 +89,7 @@ export default class Demo extends React.PureComponent {
         >
           <ArgumentAxis />
           <ValueAxis />
+          <ValueScale />
 
           <SplineSeries
             name="Hydro-electric"
@@ -121,7 +122,6 @@ export default class Demo extends React.PureComponent {
             itemComponent={LegendItem}
             labelComponent={this.legendLabel}
           />
-          <Scale />
 
           <EventTracker />
           <HoverState hover={hover} onHoverChange={this.changeHover} />

@@ -125,16 +125,7 @@ export class AllDayPanel extends React.PureComponent {
         </Template>
 
         <Template name="cell">
-          {params => (
-            <TemplateConnector>
-              {({ currentView }) => {
-                if (currentView.name === MONTH) return <TemplatePlaceholder params={params} />;
-                return (
-                  <Cell {...params} />
-                );
-              }}
-            </TemplateConnector>
-          )}
+          {params => <Cell {...params} />}
         </Template>
       </Plugin>
     );

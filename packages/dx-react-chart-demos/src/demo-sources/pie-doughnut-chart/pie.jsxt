@@ -4,7 +4,7 @@ import {
   PieSeries,
   Title,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
-import { Scale, Animation } from '@devexpress/dx-react-chart';
+import { Animation } from '@devexpress/dx-react-chart';
 
 const data = [
   { country: 'Russia', area: 12 },
@@ -41,7 +41,6 @@ export default class Demo extends React.PureComponent {
             text="Area of Countries"
           />
           <Animation />
-          <Scale />
         </Chart>
       </<%&wrapperTag%>>
     );

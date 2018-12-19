@@ -8,7 +8,7 @@ import {
   Legend,
   ScatterSeries,
 } from '@devexpress/dx-react-chart-bootstrap4';
-import { Scale, Animation } from '@devexpress/dx-react-chart';
+import { Animation } from '@devexpress/dx-react-chart';
 import {
   line,
   curveStep,
@@ -102,7 +102,6 @@ export default class Demo extends React.PureComponent {
           <Animation />
           <Legend position="bottom" rootComponent={Root} />
           <Title text="Australian Medal Count" />
-          <Scale />
         </Chart>
       </div>
     );

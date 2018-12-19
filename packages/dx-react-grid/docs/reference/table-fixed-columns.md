@@ -23,6 +23,15 @@ import { TableFixedColumns } from '@devexpress/dx-react-grid';
 ### Dependencies
 
 - [Table](table.md)
+- [TableBandHeader](table-band-header.md) [Optional]
+- [TableColumnReordering](table-column-reordering.md) [Optional]
+- [TableEditColumn](table-edit-column.md) [Optional]
+- [TableEditRow](table-edit-row.md) [Optional]
+- [TableFilterRow](table-filter-row.md) [Optional]
+- [TableHeaderRow](table-header-row.md) [Optional]
+- [TableSelection](table-selection.md) [Optional]
+- [TableSummaryRow](table-summary-row.md) [Optional]
+- [TableTreeColumn](table-tree-column.md) [Optional]
 
 ### Properties
 

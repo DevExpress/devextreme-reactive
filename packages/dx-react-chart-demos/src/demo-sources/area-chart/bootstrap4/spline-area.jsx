@@ -7,7 +7,7 @@ import {
   Title,
   Legend,
 } from '@devexpress/dx-react-chart-bootstrap4';
-import { Scale, Animation } from '@devexpress/dx-react-chart';
+import { ArgumentScale, Animation } from '@devexpress/dx-react-chart';
 import {
   curveCatmullRom,
   area,
@@ -64,6 +64,7 @@ export default class Demo extends React.PureComponent {
           data={chartData}
           className="pr-3"
         >
+          <ArgumentScale factory={scalePoint} />
           <ArgumentAxis />
           <ValueAxis />
 
@@ -80,7 +81,6 @@ export default class Demo extends React.PureComponent {
             seriesComponent={Area}
           />
           <Animation />
-          <Scale extensions={[{ type: 'band', constructor: scalePoint }]} />
           <Legend position="bottom" rootComponent={Root} />
           <Title text="iOS App Store vs Google Play Revenue in 2012" />
         </Chart>

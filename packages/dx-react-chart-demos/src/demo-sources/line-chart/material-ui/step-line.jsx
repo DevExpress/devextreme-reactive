@@ -9,7 +9,7 @@ import {
   Legend,
 } from '@devexpress/dx-react-chart-material-ui';
 import { withStyles } from '@material-ui/core/styles';
-import { Scale, Animation } from '@devexpress/dx-react-chart';
+import { Animation } from '@devexpress/dx-react-chart';
 import { line, curveStep } from 'd3-shape';
 
 import { australianMedals as data } from '../../../demo-data/data-vizualization';
@@ -103,7 +103,6 @@ export default class Demo extends React.PureComponent {
             text="Australian Medal Count"
           />
           <Animation />
-          <Scale />
         </Chart>
       </Paper>
     );

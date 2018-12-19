@@ -4,8 +4,11 @@ import {
   DataTypeProvider,
 } from '@devexpress/dx-react-grid';
 import {
+  scaleBand,
+} from '@devexpress/dx-chart-core';
+import {
+  ArgumentScale,
   Stack,
-  Scale,
 } from '@devexpress/dx-react-chart';
 import {
   Chart,
@@ -20,12 +23,10 @@ import {
 } from '@devexpress/dx-react-grid-bootstrap4';
 import { citiesCount, regionsCount } from '../../../demo-data/chart-data';
 
-const nullComponent = () => null;
 const currencyFormatter = ({ value }) => `$${value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
-const axisLabel = ({
-  text,
-  ...restProps
-}) => <ValueAxis.Label text={currencyFormatter({ value: text })} {...restProps} />;
+const AxisLabel = ({ text, ...restProps }) => (
+  <ValueAxis.Label text={currencyFormatter({ value: text })} {...restProps} />
+);
 
 const CurrencyTypeProvider = props => (
   <DataTypeProvider
@@ -34,7 +35,7 @@ const CurrencyTypeProvider = props => (
   />
 );
 
-const legendRoot = props => (
+const LegendRoot = props => (
   <Legend.Root
     {...props}
     className="m-auto flex-row"
@@ -79,20 +80,19 @@ const gridDetailContainer = data => ({ row }) => {
           data={regionCities}
           height={300}
         >
+          <ArgumentScale
+            factory={scaleBand}
+          />
           <ArgumentAxis
-            type="band"
-            tickComponent={nullComponent}
+            showTicks={false}
           />
           <ValueAxis
-            labelComponent={axisLabel}
-            tickComponent={nullComponent}
-            lineComponent={nullComponent}
+            labelComponent={AxisLabel}
           />
           {barSeriesForCity(regionCities)}
           <Stack />
-          <Scale />
           <Legend
-            rootComponent={legendRoot}
+            rootComponent={LegendRoot}
             position="bottom"
           />
         </Chart>

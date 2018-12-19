@@ -3,6 +3,7 @@ import {
 } from './constants';
 import { TABLE_HEADING_TYPE } from '../table-header-row/constants';
 import { TABLE_DATA_TYPE } from '../table/constants';
+import { findChainByColumnIndex } from '../table-header-row/helpers';
 
 export const isBandedTableRow = tableRow => (tableRow.type === TABLE_BAND_TYPE);
 export const isBandedOrHeaderRow = tableRow => isBandedTableRow(tableRow)
@@ -31,29 +32,9 @@ export const getColumnMeta = (
   return acc;
 }, result || { level, title });
 
-export const getColSpan = (
-  currentColumnIndex, tableColumns, columnBands,
-  currentRowLevel, currentColumnTitle, isCurrentColumnFixed,
-) => {
-  let isOneChain = true;
-  return tableColumns.slice(currentColumnIndex + 1)
-    .reduce((acc, tableColumn) => {
-      if (tableColumn.type !== TABLE_DATA_TYPE) return acc;
-      const columnMeta = getColumnMeta(tableColumn.column.name, columnBands, currentRowLevel);
-      if (isCurrentColumnFixed && !tableColumn.fixed) {
-        isOneChain = false;
-      }
-      if (isOneChain && columnMeta.title === currentColumnTitle) {
-        return acc + 1;
-      }
-      isOneChain = false;
-      return acc;
-    }, 1);
-};
-
 export const getBandComponent = (
   { tableColumn: currentTableColumn, tableRow, rowSpan },
-  tableHeaderRows, tableColumns, columnBands,
+  tableHeaderRows, tableColumns, columnBands, tableHeaderColumnChains,
 ) => {
   if (rowSpan) return { type: BAND_DUPLICATE_RENDER, payload: null };
 
@@ -84,31 +65,18 @@ export const getBandComponent = (
     };
   }
 
-  const isCurrentColumnFixed = !!currentTableColumn.fixed;
-  if (currentColumnIndex > 0 && previousTableColumn.type === TABLE_DATA_TYPE) {
-    const isPrevColumnFixed = !!previousTableColumn.fixed;
-    const prevColumnMeta = getColumnMeta(
-      previousTableColumn.column.name,
-      columnBands,
-      currentRowLevel,
-    );
-    if (prevColumnMeta.title === currentColumnMeta.title
-      && (!isPrevColumnFixed || (isPrevColumnFixed && isCurrentColumnFixed))) {
-      return { type: null, payload: null };
-    }
+  const currentColumnChain = findChainByColumnIndex(
+    tableHeaderColumnChains[currentRowLevel],
+    currentColumnIndex,
+  );
+  if (currentColumnChain.start < currentColumnIndex) {
+    return { type: null, payload: null };
   }
 
   return {
     type: BAND_GROUP_CELL,
     payload: {
-      colSpan: getColSpan(
-        currentColumnIndex,
-        tableColumns,
-        columnBands,
-        currentRowLevel,
-        currentColumnMeta.title,
-        isCurrentColumnFixed,
-      ),
+      colSpan: currentColumnChain.columns.length,
       value: currentColumnMeta.title,
       column: currentColumnMeta,
       ...beforeBorder && { beforeBorder },

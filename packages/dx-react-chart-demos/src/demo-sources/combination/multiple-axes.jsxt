@@ -12,8 +12,14 @@ import {
   Tooltip,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 import {
-  Stack, ValueScale, Animation, EventTracker, HoverState,
+  ValueScale,
+  Stack,
+  Animation,
+  EventTracker,
+  HoverState,
 } from '@devexpress/dx-react-chart';
+import { HOVERED } from '@devexpress/dx-chart-core';
+import { connectProps } from '@devexpress/dx-react-core';
 import { format } from 'd3-format';
 
 import { oilProduction } from '../../../demo-data/data-vizualization';
@@ -31,6 +37,7 @@ const makeLabel = (symbol, color) => ({ text, style, ...restProps }) => (
 
 const priceSeriesName = 'Oil Price';
 const priceColor = '#efc564';
+const consumptionSeriesName = 'Consumption';
 const consumptionColor = '#7cb2b7';
 
 const PriceLabel = makeLabel('$', priceColor);
@@ -39,28 +46,34 @@ const LabelWithThousand = makeLabel('k', consumptionColor);
 const pointOptions = { size: 10 };
 const areaPointStyle = { animation: null };
 
+const getState = ({ index, hoverIndex }) => (index === hoverIndex ? HOVERED : null);
+
+const BarPoint = props => (
+  <BarSeries.Point {...props} state={getState(props)} />
+);
+
 const AreaPoint = (props) => {
-  const { state } = props;
+  const state = getState(props);
   return state
-    ? <ScatterSeries.Point style={areaPointStyle} point={pointOptions} {...props} />
+    ? <ScatterSeries.Point style={areaPointStyle} point={pointOptions} {...props} state={state} />
     : null;
 };
 
 const AreaWithPoints = props => (
   <React.Fragment>
     <AreaSeries.Path {...props} />
-    <ScatterSeries.Path {...props} pointComponent={AreaPoint} />
+    <ScatterSeries.Path {...props} />
   </React.Fragment>
 );
 
 const LinePoint = props => (
-  <ScatterSeries.Point point={pointOptions} {...props} />
+  <ScatterSeries.Point point={pointOptions} {...props} state={getState(props)} />
 );
 
 const LineWithPoints = props => (
   <React.Fragment>
     <SplineSeries.Path {...props} />
-    <ScatterSeries.Path {...props} pointComponent={LinePoint} />
+    <ScatterSeries.Path {...props} />
   </React.Fragment>
 );
 
@@ -88,12 +101,38 @@ const LegendLabel = props => (
 );
 
 const formatTooltip = format('.1f');
-const TooltipContent = ({ text, ...restProps }) => (
-  <Tooltip.Content
-    text={`${formatTooltip(text)}`}
-    {...restProps}
-  />
-);
+const tooltipScheme = [
+  ['USA', 'usa'],
+  ['Saudi Arabia', 'saudiArabia'],
+  ['Iran', 'iran'],
+  ['Mexico', 'mexico'],
+  ['Russia', 'russia'],
+  [consumptionSeriesName, 'consumption'],
+  [priceSeriesName, 'price'],
+];
+const TooltipContent = ({ data, text, ...props }) => {
+  const items = tooltipScheme.map(([name, key]) => {
+    const val = data[key];
+    if (!val) {
+      return null;
+    }
+    return (
+      <tr>
+        <td>
+          <Tooltip.Content text={name} {...props} />
+        </td>
+        <td>
+          <Tooltip.Content text={formatTooltip(val)} {...props} />
+        </td>
+      </tr>
+    );
+  });
+  return (
+    <table>
+      {items}
+    </table>
+  );
+};
 
 const titleStyle = { marginRight: '120px' };
 const stacks = [
@@ -108,27 +147,57 @@ export default class Demo extends React.PureComponent {
     super(props);
 
     this.state = {
-      oilProduction,
-      hover: null,
-      tooltip: null,
+      data: oilProduction,
+      hoverIndex: -1,
+      tooltipTarget: null,
     };
 
     this.changeHover = target => this.setState({
-      hover: target,
+      hoverIndex: target ? target.point : -1,
     });
 
     this.changeTooltip = target => this.setState({
-      tooltip: target,
+      tooltipTarget: target ? { series: consumptionSeriesName, point: target.point } : null,
+    });
+
+    const getHoverProps = () => {
+      const { hoverIndex } = this.state;
+      return { hoverIndex };
+    };
+    this.BarPoint = connectProps(BarPoint, getHoverProps);
+    this.LinePoint = connectProps(LinePoint, getHoverProps);
+    this.AreaPoint = connectProps(AreaPoint, getHoverProps);
+
+    this.TooltipContent = connectProps(TooltipContent, () => {
+      const { data, tooltipTarget } = this.state;
+      return { data: tooltipTarget ? data[tooltipTarget.point] : null };
     });
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const {
+      hoverIndex: prevHoverIndex, tooltipTarget: prevTooltipTarget,
+    } = prevState;
+    const {
+      hoverIndex: curHoverIndex, tooltipTarget: curTooltipTarget,
+    } = this.state;
+    if (prevHoverIndex !== curHoverIndex) {
+      this.BarPoint.update();
+      this.LinePoint.update();
+      this.AreaPoint.update();
+    }
+    if (prevTooltipTarget !== curTooltipTarget) {
+      this.TooltipContent.update();
+    }
+  }
+
   render() {
-    const { oilProduction: chartData, hover, tooltip } = this.state;
+    const { data, tooltipTarget } = this.state;
 
     return (
       <<%&wrapperTag%><%&wrapperAttributes%>>
         <Chart
-          data={chartData}
+          data={data}
         >
           <ValueScale
             name="oil"
@@ -160,38 +229,44 @@ export default class Demo extends React.PureComponent {
             valueField="usa"
             argumentField="year"
             scaleName="oil"
+            pointComponent={this.BarPoint}
           />
           <BarSeries
             name="Saudi Arabia"
             valueField="saudiArabia"
             argumentField="year"
             scaleName="oil"
+            pointComponent={this.BarPoint}
           />
           <BarSeries
             name="Iran"
             valueField="iran"
             argumentField="year"
             scaleName="oil"
+            pointComponent={this.BarPoint}
           />
           <BarSeries
             name="Mexico"
             valueField="mexico"
             argumentField="year"
             scaleName="oil"
+            pointComponent={this.BarPoint}
           />
           <BarSeries
             name="Russia"
             valueField="russia"
             argumentField="year"
             scaleName="oil"
+            pointComponent={this.BarPoint}
           />
           <AreaSeries
-            name="Consumption"
+            name={consumptionSeriesName}
             valueField="consumption"
             argumentField="year"
             scaleName="oil"
             color={consumptionColor}
             seriesComponent={AreaWithPoints}
+            pointComponent={this.AreaPoint}
           />
           <SplineSeries
             name={priceSeriesName}
@@ -200,6 +275,7 @@ export default class Demo extends React.PureComponent {
             scaleName="price"
             color={priceColor}
             seriesComponent={LineWithPoints}
+            pointComponent={this.LinePoint}
           />
           <Animation />
           <Legend
@@ -210,11 +286,14 @@ export default class Demo extends React.PureComponent {
           />
           <Stack stacks={stacks} />
           <EventTracker />
-          <HoverState hover={hover} onHoverChange={this.changeHover} />
+          <HoverState
+            hover={null}
+            onHoverChange={this.changeHover}
+          />
           <Tooltip
-            targetItem={tooltip}
+            targetItem={tooltipTarget}
             onTargetItemChange={this.changeTooltip}
-            contentComponent={TooltipContent}
+            contentComponent={this.TooltipContent}
           />
         </Chart>
       </<%&wrapperTag%>>

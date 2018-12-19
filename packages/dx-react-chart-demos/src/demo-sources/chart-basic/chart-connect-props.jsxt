@@ -89,7 +89,6 @@ export default class Demo extends React.PureComponent {
         >
           <ArgumentAxis />
           <ValueAxis />
-          <ValueScale />
 
           <SplineSeries
             name="Hydro-electric"

@@ -4,10 +4,12 @@ import { Table } from './table';
 import { ThemeColors } from './layout';
 
 describe('Table', () => {
+  const tableRef = React.createRef();
+
   it('should pass class to the root element', () => {
     const tree = mount((
       <ThemeColors.Provider value={{ backgroundColor: 'white' }}>
-        <Table className="custom-class">
+        <Table className="custom-class" tableRef={tableRef}>
           <tbody />
         </Table>
       </ThemeColors.Provider>
@@ -20,7 +22,7 @@ describe('Table', () => {
   it('should pass rest props to the root element', () => {
     const tree = mount((
       <ThemeColors.Provider value={{ backgroundColor: 'white' }}>
-        <Table data={{ a: 1 }}>
+        <Table data={{ a: 1 }} tableRef={tableRef}>
           <tbody />
         </Table>
       </ThemeColors.Provider>

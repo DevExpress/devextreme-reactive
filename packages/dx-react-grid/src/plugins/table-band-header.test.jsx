@@ -11,6 +11,7 @@ import {
   isBandedTableRow,
   isBandedOrHeaderRow,
   tableRowsWithBands,
+  tableHeaderColumnChainsWithBands,
   isHeadingTableCell,
   BAND_DUPLICATE_RENDER,
   BAND_EMPTY_CELL,
@@ -24,6 +25,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   isBandedTableRow: jest.fn(),
   isBandedOrHeaderRow: jest.fn(),
   tableRowsWithBands: jest.fn(),
+  tableHeaderColumnChainsWithBands: jest.fn(),
   isHeadingTableCell: jest.fn(),
   BAND_DUPLICATE_RENDER: 'd',
   BAND_EMPTY_CELL: 'e',
@@ -74,6 +76,7 @@ describe('TableBandHeader', () => {
 
   beforeEach(() => {
     tableRowsWithBands.mockImplementation(() => 'tableRowsWithBands');
+    tableHeaderColumnChainsWithBands.mockImplementation(() => 'tableHeaderColumnChainsWithBands');
     isHeadingTableCell.mockImplementation(() => false);
     isBandedTableRow.mockImplementation(() => false);
     isBandedOrHeaderRow.mockImplementation(() => false);

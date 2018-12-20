@@ -2,4 +2,4 @@
 
 The demo shows a chart with multiple axes.
 
-.embedded-demo({ "path": "combination/bar-line", "showThemeSelector": true, "showThemeVariants": true })
+.embedded-demo({ "path": "combination/multiple-axes", "showThemeSelector": true, "showThemeVariants": true })

@@ -6,10 +6,12 @@ import {
   LineSeries,
   Title,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
-import { Scale, Animation } from '@devexpress/dx-react-chart';
+import { ArgumentScale, ValueScale, Animation } from '@devexpress/dx-react-chart';
 import { scaleLog, scaleTime } from 'd3-scale';
 
 import { bitcoin as data } from '../../../demo-data/data-vizualization';
+
+const modifyDomain = () => [100, 100000];
 
 const superscript = '⁰¹²³⁴⁵⁶⁷⁸⁹';
 const formatPower = d => (`${d}`).split('').map(c => superscript[c]).join('');
@@ -33,13 +35,10 @@ export default class Demo extends React.PureComponent {
         <Chart
           data={chartData}
         >
-          <ArgumentAxis type="time" />
-          <ValueAxis
-            type="log"
-            tickFormat={format}
-            min={100}
-            max={100000}
-          />
+          <ArgumentScale factory={scaleTime} />
+          <ValueScale factory={scaleLog} modifyDomain={modifyDomain} />
+          <ArgumentAxis />
+          <ValueAxis tickFormat={format} />
 
           <LineSeries
             valueField="price"
@@ -47,12 +46,6 @@ export default class Demo extends React.PureComponent {
           />
           <Title
             text="Average USD market price across major bitcoin exchanges"
-          />
-          <Scale
-            extensions={[
-              { type: 'log', constructor: scaleLog },
-              { type: 'time', constructor: scaleTime },
-            ]}
           />
           <Animation />
         </Chart>

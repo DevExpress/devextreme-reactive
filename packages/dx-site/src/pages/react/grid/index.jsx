@@ -34,9 +34,22 @@ const IndexPage = () => (
               for Bootstrap and Material UI
               <br />
               <br />
-              <LandingLink to="/react/grid/docs/">Getting Started</LandingLink>
+              <LandingLink
+                to="/react/grid/docs/guides/getting-started/"
+                variant="button"
+                title="Getting Started"
+              >
+                Getting Started
+              </LandingLink>
               {' '}
-              <LandingLink to="/react/grid/demos/" type="react">Demos</LandingLink>
+              <LandingLink
+                to="/react/grid/demos/"
+                type="react"
+                variant="button"
+                title="Demos"
+              >
+                Demos
+              </LandingLink>
             </React.Fragment>
           )}
           imageLink={headerLink}
@@ -110,9 +123,22 @@ const IndexPage = () => (
     <LandingReadyToLearnMore
       links={(
         <React.Fragment>
-          <LandingLink to="/react/grid/docs/">Getting Started</LandingLink>
+          <LandingLink
+            to="/react/grid/docs/guides/getting-started/"
+            variant="button"
+            title="Getting Started"
+          >
+            Getting Started
+          </LandingLink>
           {' '}
-          <LandingLink to="/react/grid/demos/" type="react">Demos</LandingLink>
+          <LandingLink
+            to="/react/grid/demos/"
+            type="react"
+            variant="button"
+            title="Demos"
+          >
+            Demos
+          </LandingLink>
         </React.Fragment>
       )}
     />

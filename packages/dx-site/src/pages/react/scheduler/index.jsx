@@ -22,9 +22,22 @@ const IndexPage = () => (
               for Material UI
               <br />
               <br />
-              <LandingLink to="/react/scheduler/docs/">Getting Started</LandingLink>
+              <LandingLink
+                to="/react/scheduler/docs/guides/getting-started/"
+                variant="button"
+                title="Getting Started"
+              >
+                Getting Started
+              </LandingLink>
               {' '}
-              <LandingLink to="/react/scheduler/demos/" type="react">Demos</LandingLink>
+              <LandingLink
+                to="/react/scheduler/demos/"
+                type="react"
+                variant="button"
+                title="Demos"
+              >
+                Demos
+              </LandingLink>
             </React.Fragment>
           )}
         />
@@ -35,9 +48,22 @@ const IndexPage = () => (
     <LandingReadyToLearnMore
       links={(
         <React.Fragment>
-          <LandingLink to="/react/scheduler/docs/">Getting Started</LandingLink>
+          <LandingLink
+            to="/react/scheduler/docs/guides/getting-started/"
+            variant="button"
+            title="Getting Started"
+          >
+            Getting Started
+          </LandingLink>
           {' '}
-          <LandingLink to="/react/scheduler/demos/" type="react">Demos</LandingLink>
+          <LandingLink
+            to="/react/scheduler/demos/"
+            type="react"
+            variant="button"
+            title="Demos"
+          >
+            Demos
+          </LandingLink>
         </React.Fragment>
       )}
     />

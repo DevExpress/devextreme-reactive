@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { PluginHost as PluginHostCore } from '@devexpress/dx-core';
+import { PluginHost as PluginHostCore } from '@devexpress/dx-core/dist/internal';
 import { PluginIndexer } from './plugin-indexer';
 import { TemplatePlaceholder } from './template-placeholder';
 import { PluginHostContext } from './contexts';

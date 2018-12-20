@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { InnerPlugin } from '@devexpress/dx-core';
+import { InnerPlugin } from '@devexpress/dx-core/dist/internal';
 import {
   getAvailableGetters,
   getAvailableActions,

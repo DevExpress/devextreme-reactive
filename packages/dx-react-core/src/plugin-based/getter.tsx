@@ -6,7 +6,7 @@ import {
 } from './helpers';
 import { UPDATE_CONNECTION_EVENT, PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from './constants';
 import { withHostAndPosition } from '../utils/with-props-from-context';
-import { InnerPlugin } from '../../../dx-core/src/index';
+import { InnerPlugin } from '@devexpress/dx-core/dist/internal';
 import { PluginContextProps } from './plugin-context-prop-types';
 
 interface GetterProps {
@@ -23,7 +23,6 @@ interface GetterProps {
     actions?: { [actionName: string]: any },
   ) => any;
 }
-
 class GetterBase extends React.PureComponent<GetterProps & PluginContextProps> {
   plugin: InnerPlugin;
 

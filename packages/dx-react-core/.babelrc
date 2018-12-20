@@ -1,8 +1,12 @@
 {
   "presets": [
     [ "@babel/preset-env", { "modules": false, "targets": { "browsers": ["last 2 versions"] } } ],
-    "@babel/react",
-    "@babel/typescript"
+    "@babel/preset-react"
+  ],
+  "plugins": [
+    ["transform-react-remove-prop-types", {
+      "mode": "unsafe-wrap"
+    }]
   ],
   "env": {
     "test": {
@@ -10,9 +14,5 @@
         ["@babel/preset-env", {"modules": "commonjs"}]
       ]
     }
-  },
-  "plugins": [
-    "@babel/proposal-class-properties",
-    "@babel/proposal-object-rest-spread"
-  ]
+  }
 }

@@ -1,6 +1,6 @@
 /* globals window:true */
 
-import { EventEmitter } from '@devexpress/dx-core';
+import { EventEmitter } from '@devexpress/dx-core/dist/internal';
 
 let eventEmitter;
 /** @internal */

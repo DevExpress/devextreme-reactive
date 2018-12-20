@@ -18,6 +18,7 @@
     "member-access": [ true, "no-public" ],
     "variable-name": [ true, "allow-pascal-case" ],
     "ban-types": [true, ["Object", "Use {} instead."], ["String"]],
-    "no-empty": [true, "allow-empty-functions"]
+    "no-empty": [true, "allow-empty-functions"],
+    "no-namespace": false
   }
 }

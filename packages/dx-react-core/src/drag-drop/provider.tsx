@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { EventEmitter } from '@devexpress/dx-core';
+import { EventEmitter } from '@devexpress/dx-core/dist/internal';
 import { DragDropContext } from './context';
 
 /** @internal */

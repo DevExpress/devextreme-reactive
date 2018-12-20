@@ -2,7 +2,7 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginBase } from './plugin';
 import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from './constants';
-import { PluginHost } from '@devexpress/dx-core/src/index';
+import { PluginHost } from '@devexpress/dx-core';
 
 describe('Plugin', () => {
   let pluginHost: any;

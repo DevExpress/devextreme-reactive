@@ -13,15 +13,18 @@
   color: black;
   border-radius: 3px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, .3);
+  width: 220px;
+  text-align: center;
   &:hover {
-    color: darkgray;
+    color: #fff;
+    background-color: #0b4249;
   }
 }
 
 .plain {
   color: #fff;
   &:hover {
-    color: #fff;
+    color: #0b4249;
   }
 }
 

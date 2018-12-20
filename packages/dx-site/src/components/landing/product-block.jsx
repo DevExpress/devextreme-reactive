@@ -3,6 +3,8 @@ import * as PropTypes from 'prop-types';
 
 import styles from './product-block.module.scss';
 
+const Title = ({ text }) => text.split('\n').map(chunk => <span key={Math.random().toString()}>{chunk}</span>);
+
 const ProductLink = ({
   type, iconLink, title, links,
 }) => (
@@ -15,7 +17,7 @@ const ProductLink = ({
           src={iconLink}
         />
         <div className={styles.title}>
-          {title}
+          <Title text={title} />
         </div>
       </div>
       {links}

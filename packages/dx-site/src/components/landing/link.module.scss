@@ -1,6 +1,13 @@
 .link {
   font-family: "Segoe UI";
   font-size: 16px;
+  margin-bottom: 20px;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.button {
   background-color: white;
   padding: 15px 20px;
   color: black;
@@ -8,7 +15,13 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, .3);
   &:hover {
     color: darkgray;
-    text-decoration: none;
+  }
+}
+
+.plain {
+  color: #fff;
+  &:hover {
+    color: #fff;
   }
 }
 

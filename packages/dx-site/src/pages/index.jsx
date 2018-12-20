@@ -44,20 +44,68 @@ const IndexPage = () => (
       <LandingProductBlock
         type="react"
         iconLink={featureIcon}
-        title="React Grid"
-        links={<LandingLink to="/react/grid/">Explore Component</LandingLink>}
+        title={'React\nGrid'}
+        links={[
+          <LandingLink
+            to="/react/grid/"
+            variant="button"
+            title="Explore Component"
+            key="react-grid-header"
+          >
+            Explore Component
+          </LandingLink>,
+          <LandingLink
+            to="/react/grid/demos/"
+            title="Grid Demos"
+            key="react-grid-demos-header"
+          >
+            Demos
+          </LandingLink>,
+        ]}
       />
       <LandingProductBlock
         type="react"
         iconLink={featureIcon}
-        title="React Chart"
-        links={<LandingLink to="/react/chart/">Explore Component</LandingLink>}
+        title={'React\nChart'}
+        links={[
+          <LandingLink
+            to="/react/chart/"
+            variant="button"
+            title="Explore Component"
+            key="react-chart-header"
+          >
+            Explore Component
+          </LandingLink>,
+          <LandingLink
+            to="/react/chart/demos/"
+            title="Chart Demos"
+            key="react-chart-demos-header"
+          >
+            Demos
+          </LandingLink>,
+        ]}
       />
       <LandingProductBlock
         type="react"
         iconLink={featureIcon}
-        title="React Scheduler"
-        links={<LandingLink to="/react/scheduler/">Explore Component</LandingLink>}
+        title={'React\nScheduler'}
+        links={[
+          <LandingLink
+            to="/react/scheduler/"
+            variant="button"
+            title="Explore Component"
+            key="react-scheduler-header"
+          >
+            Explore Component
+          </LandingLink>,
+          <LandingLink
+            to="/react/scheduler/demos/"
+            title="Scheduler Demos"
+            key="react-scheduler-demos-header"
+          >
+            Demos
+          </LandingLink>,
+        ]}
       />
     </LandingProductLayout>
     <LandingLayout>
@@ -117,19 +165,46 @@ const IndexPage = () => (
         type="react"
         iconLink={featureIcon}
         title="React Grid"
-        links={<LandingLink to="/react/grid/">Learn More</LandingLink>}
+        links={[
+          <LandingLink to="/react/grid/docs/guides/getting-started/" variant="button" title="Getting Started">Getting Started</LandingLink>,
+          <LandingLink
+            to="/react/grid/demos/"
+            title="Grid Demos"
+            key="react-grid-demos-footer"
+          >
+            Demos
+          </LandingLink>,
+        ]}
       />
       <LandingProductBlock
         type="react"
         iconLink={featureIcon}
         title="React Chart"
-        links={<LandingLink to="/react/chart/">Learn More</LandingLink>}
+        links={[
+          <LandingLink to="/react/chart/docs/guides/getting-started/" variant="button" title="Getting Started">Getting Started</LandingLink>,
+          <LandingLink
+            to="/react/chart/demos/"
+            title="Chart Demos"
+            key="react-chart-demos-footer"
+          >
+            Demos
+          </LandingLink>,
+        ]}
       />
       <LandingProductBlock
         type="react"
         iconLink={featureIcon}
         title="React Scheduler"
-        links={<LandingLink to="/react/scheduler/">Learn More</LandingLink>}
+        links={[
+          <LandingLink to="/react/scheduler/docs/guides/getting-started/" variant="button" title="Getting Started">Getting Started</LandingLink>,
+          <LandingLink
+            to="/react/scheduler/demos/"
+            title="Scheduler Demos"
+            key="react-scheduler-demos-footer"
+          >
+            Demos
+          </LandingLink>,
+        ]}
       />
     </LandingProductLayout>
   </Layout>

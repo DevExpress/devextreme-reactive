@@ -1,5 +1,5 @@
 .container {
-  height: 210px;
+  height: 240px;
   margin-bottom: 10px;
   padding: 10px;
   border-radius: 3px;
@@ -14,6 +14,9 @@
   font-family: "Segoe UI Bold";
   font-size: 22px;
   color: white;
+  span {
+    display: block;
+  }
 }
 
 .description {

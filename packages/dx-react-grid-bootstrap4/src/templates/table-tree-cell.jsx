@@ -1,14 +1,21 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 export const TableTreeCell = ({
-  column, children, tableRow, tableColumn, row, ...restProps
+  column, children, tableRow,
+  tableColumn, row, ...restProps
 }) => (
   <td
     {...restProps}
   >
     <div
-      className="d-flex flex-direction-row align-items-center"
+      className={classNames({
+        'd-flex flex-direction-row align-items-center': true,
+        'text-nowrap': !(tableColumn && tableColumn.wordWrapEnabled),
+        'text-right': tableColumn && tableColumn.align === 'right',
+        'text-center': tableColumn && tableColumn.align === 'center',
+      })}
     >
       {children}
     </div>

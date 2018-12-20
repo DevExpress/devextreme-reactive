@@ -22,7 +22,11 @@ describe('TableTreeCell', () => {
     ));
 
     expect(tree.prop('style'))
-      .toMatchObject({ color: 'gray' });
+      .toEqual({
+        color: 'gray',
+        textAlign: 'left',
+        whiteSpace: 'nowrap',
+      });
   });
 
   it('should pass rest props to the root element', () => {
@@ -32,5 +36,17 @@ describe('TableTreeCell', () => {
 
     expect(tree.is('.custom-class'))
       .toBeTruthy();
+  });
+
+  it('should not apply nowrap style', () => {
+    const tree = shallow((
+      <TableTreeCell tableColumn={{ wordWrapEnabled: true }} />
+    ));
+
+    expect(tree.prop('style'))
+      .toEqual({
+        textAlign: 'left',
+        whiteSpace: 'normal',
+      });
   });
 });

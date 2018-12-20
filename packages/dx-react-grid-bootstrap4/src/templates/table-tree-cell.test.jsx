@@ -33,4 +33,18 @@ describe('TableTreeCell', () => {
     expect(tree.find('.d-flex.flex-direction-row.align-items-center').exists())
       .toBeTruthy();
   });
+
+  it('should apply align classes', () => {
+    let tree = shallow((
+      <TableTreeCell tableColumn={{ align: 'right' }} />
+    ));
+    expect(tree.find('.d-flex.flex-direction-row.align-items-center.text-right').exists())
+      .toBeTruthy();
+
+    tree = shallow((
+      <TableTreeCell tableColumn={{ align: 'center' }} />
+    ));
+    expect(tree.find('.d-flex.flex-direction-row.align-items-center.text-center').exists())
+      .toBeTruthy();
+  });
 });

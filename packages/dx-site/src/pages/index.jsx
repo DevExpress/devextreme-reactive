@@ -164,9 +164,15 @@ const IndexPage = () => (
       <LandingProductBlock
         type="react"
         iconLink={featureIcon}
-        title="React Grid"
+        title={'React\nGrid'}
         links={[
-          <LandingLink to="/react/grid/docs/guides/getting-started/" variant="button" title="Getting Started">Getting Started</LandingLink>,
+          <LandingLink
+            to="/react/grid/docs/guides/getting-started/"
+            variant="button"
+            title="Getting Started"
+          >
+            Getting Started
+          </LandingLink>,
           <LandingLink
             to="/react/grid/demos/"
             title="Grid Demos"
@@ -179,9 +185,15 @@ const IndexPage = () => (
       <LandingProductBlock
         type="react"
         iconLink={featureIcon}
-        title="React Chart"
+        title={'React\nChart'}
         links={[
-          <LandingLink to="/react/chart/docs/guides/getting-started/" variant="button" title="Getting Started">Getting Started</LandingLink>,
+          <LandingLink
+            to="/react/chart/docs/guides/getting-started/"
+            variant="button"
+            title="Getting Started"
+          >
+            Getting Started
+          </LandingLink>,
           <LandingLink
             to="/react/chart/demos/"
             title="Chart Demos"
@@ -194,7 +206,7 @@ const IndexPage = () => (
       <LandingProductBlock
         type="react"
         iconLink={featureIcon}
-        title="React Scheduler"
+        title={'React\nScheduler'}
         links={[
           <LandingLink to="/react/scheduler/docs/guides/getting-started/" variant="button" title="Getting Started">Getting Started</LandingLink>,
           <LandingLink

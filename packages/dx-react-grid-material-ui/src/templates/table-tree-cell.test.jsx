@@ -58,16 +58,20 @@ describe('TableTreeCell', () => {
       .toBeFalsy();
   });
 
-  it('should apply align classes', () => {
-    let tree = shallow((
+  it('should apply align right classes', () => {
+    const tree = shallow((
       <TableTreeCell tableColumn={{ align: 'right' }} />
     ));
+
     expect(tree.is(`.${classes.cellRightAlign}`))
       .toBeTruthy();
+  });
 
-    tree = shallow((
+  it('should apply align center classes', () => {
+    const tree = shallow((
       <TableTreeCell tableColumn={{ align: 'center' }} />
     ));
+
     expect(tree.is(`.${classes.cellCenterAlign}`))
       .toBeTruthy();
   });

@@ -34,14 +34,16 @@ describe('TableTreeCell', () => {
       .toBeTruthy();
   });
 
-  it('should apply align classes', () => {
-    let tree = shallow((
+  it('should apply align right class', () => {
+    const tree = shallow((
       <TableTreeCell tableColumn={{ align: 'right' }} />
     ));
     expect(tree.find('.d-flex.flex-direction-row.align-items-center.text-right').exists())
       .toBeTruthy();
+  });
 
-    tree = shallow((
+  it('should apply align center class', () => {
+    const tree = shallow((
       <TableTreeCell tableColumn={{ align: 'center' }} />
     ));
     expect(tree.find('.d-flex.flex-direction-row.align-items-center.text-center').exists())

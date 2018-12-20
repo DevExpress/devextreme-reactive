@@ -41,23 +41,26 @@ const makeLabel = (symbol, color) => ({ text, style, ...restProps }) => (
 const PriceLabel = makeLabel('$', priceColor);
 const LabelWithThousand = makeLabel('k', consumptionColor);
 
-const getState = ({ index, hoverIndex }) => (index === hoverIndex ? HOVERED : null);
+const patchProps = ({ hoverIndex, ...props }) => ({
+  state: props.index === hoverIndex ? HOVERED : null,
+  ...props,
+});
 
 const BarPoint = props => (
-  <BarSeries.Point {...props} state={getState(props)} />
+  <BarSeries.Point {...patchProps(props)} />
 );
 
 const pointOptions = { size: 10 };
 
 const areaPointStyle = { animation: null };
 const AreaPoint = (props) => {
-  const state = getState(props);
-  return state
-    ? <ScatterSeries.Point style={areaPointStyle} point={pointOptions} {...props} state={state} />
+  const patched = patchProps(props);
+  return patched.state
+    ? <ScatterSeries.Point style={areaPointStyle} point={pointOptions} {...patched} />
     : null;
 };
 
-const AreaWithPoints = props => (
+const AreaWithPoints = ({ state, ...props }) => (
   <React.Fragment>
     <AreaSeries.Path {...props} />
     <ScatterSeries.Path {...props} />
@@ -65,7 +68,7 @@ const AreaWithPoints = props => (
 );
 
 const SplinePoint = props => (
-  <ScatterSeries.Point point={pointOptions} {...props} state={getState(props)} />
+  <ScatterSeries.Point point={pointOptions} {...patchProps(props)} />
 );
 
 const SplineWithPoints = props => (
@@ -124,27 +127,28 @@ const LegendLabel = props => (
 );
 
 const formatTooltip = format('.1f');
-const TooltipContent = ({ data, text, ...props }) => {
-  const items = series.map(({ name, key }) => {
+const tooltipSpanStyle = { padding: '5px' };
+const TooltipContent = ({ data, text, style, ...props }) => {
+  const textStyle = {
+    ...style,
+    paddingLeft: '5px',
+    display: 'inline-block',
+  };
+  const items = series.map(({ color, key }) => {
     const val = data[key];
-    if (!val) {
-      return null;
-    }
     return (
-      <tr>
-        <td>
-          <Tooltip.Content text={name} {...props} />
-        </td>
-        <td>
-          <Tooltip.Content text={formatTooltip(val)} {...props} />
-        </td>
-      </tr>
+      <div key={key}>
+        <svg width="10" height="10">
+          <circle cx="5" cy="5" r="5" fill={color} />
+        </svg>
+        <Tooltip.Content style={textStyle} text={val ? formatTooltip(val) : 'N/A'} {...props} />
+      </div>
     );
   });
   return (
-    <table>
+    <React.Fragment>
       {items}
-    </table>
+    </React.Fragment>
   );
 };
 
@@ -203,6 +207,7 @@ export default class Demo extends React.PureComponent {
       name, key, color, type, scale, series: seriesComponent, point: pointComponent,
     }) => {
       const props = {
+        key: name,
         name,
         valueField: key,
         argumentField: 'year',

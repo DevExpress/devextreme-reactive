@@ -65,11 +65,13 @@ const IndexPage = () => (
         text="Why DevExtreme for React?"
       />
       <LandingImageFeature
+        iconLink={featureIcon}
         title="100% Native React"
         description="We've focused our energy on performance and leveraged the best practice recomendations oferred by the React team. Through immutability and pure functions, we can apply memoization and built-in react optimisations to archieve outstanding performance."
       />
       <LandingImageFeature
         title="Loves Redux by Design"
+        iconLink={featureIcon}
         description="Fully control React Grid state and treat it as a pure view component. Effortlessly enable state persistence and time-traveling without side-effects. Our React Grid can also manage its state internally helping you write less code, so you focus on more important business tasks."
       />
       <LandingHr />

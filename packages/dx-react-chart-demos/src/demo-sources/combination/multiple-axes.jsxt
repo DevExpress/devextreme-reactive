@@ -24,6 +24,10 @@ import { format } from 'd3-format';
 
 import { oilProduction } from '../../../demo-data/data-vizualization';
 
+const consumptionSeriesName = 'Consumption';
+const consumptionColor = '#7cb2b7';
+const priceColor = '#efc564';
+
 const makeLabel = (symbol, color) => ({ text, style, ...restProps }) => (
   <ValueAxis.Label
     text={`${text} ${symbol}`}
@@ -34,17 +38,8 @@ const makeLabel = (symbol, color) => ({ text, style, ...restProps }) => (
     {...restProps}
   />
 );
-
-const priceSeriesName = 'Oil Price';
-const priceColor = '#efc564';
-const consumptionSeriesName = 'Consumption';
-const consumptionColor = '#7cb2b7';
-
 const PriceLabel = makeLabel('$', priceColor);
 const LabelWithThousand = makeLabel('k', consumptionColor);
-
-const pointOptions = { size: 10 };
-const areaPointStyle = { animation: null };
 
 const getState = ({ index, hoverIndex }) => (index === hoverIndex ? HOVERED : null);
 
@@ -52,6 +47,9 @@ const BarPoint = props => (
   <BarSeries.Point {...props} state={getState(props)} />
 );
 
+const pointOptions = { size: 10 };
+
+const areaPointStyle = { animation: null };
 const AreaPoint = (props) => {
   const state = getState(props);
   return state
@@ -77,6 +75,31 @@ const SplineWithPoints = props => (
   </React.Fragment>
 );
 
+const series = [
+  { name: 'USA', key: 'usa', color: '#0070ff' },
+  { name: 'Saudi Arabia', key: 'saudiArabia', color: '#d72e3d' },
+  { name: 'Iran', key: 'iran', color: '#249d3d' },
+  { name: 'Mexico', key: 'mexico', color: '#ffb90c' },
+  { name: 'Russia', key: 'russia', color: '#1698af' },
+  {
+    name: consumptionSeriesName,
+    key: 'consumption',
+    color: consumptionColor,
+    type: AreaSeries,
+    series: AreaWithPoints,
+    point: 'AreaPoint',
+  },
+  {
+    name: 'Oil Price',
+    key: 'price',
+    color: priceColor,
+    scale: 'price',
+    type: SplineSeries,
+    series: SplineWithPoints,
+    point: 'SplinePoint',
+  },
+];
+
 const legendRootStyle = {
   display: 'flex',
   margin: 'auto',
@@ -101,17 +124,8 @@ const LegendLabel = props => (
 );
 
 const formatTooltip = format('.1f');
-const tooltipScheme = [
-  ['USA', 'usa'],
-  ['Saudi Arabia', 'saudiArabia'],
-  ['Iran', 'iran'],
-  ['Mexico', 'mexico'],
-  ['Russia', 'russia'],
-  [consumptionSeriesName, 'consumption'],
-  [priceSeriesName, 'price'],
-];
 const TooltipContent = ({ data, text, ...props }) => {
-  const items = tooltipScheme.map(([name, key]) => {
+  const items = series.map(({ name, key }) => {
     const val = data[key];
     if (!val) {
       return null;
@@ -136,7 +150,7 @@ const TooltipContent = ({ data, text, ...props }) => {
 
 const titleStyle = { marginRight: '120px' };
 const stacks = [
-  { series: ['USA', 'Saudi Arabia', 'Iran', 'Mexico', 'Russia'] },
+  { series: series.filter(obj => !obj.type).map(obj => obj.name) },
 ];
 
 const modifyOilDomain = domain => [domain[0], 2200];
@@ -157,6 +171,20 @@ export default class Demo extends React.PureComponent {
       target: target ? { series: consumptionSeriesName, point: target.point } : null,
     });
 
+    this.createComponents();
+    this.createSeries();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (getHoverIndex(prevState) !== getHoverIndex(this.state)) {
+      this.BarPoint.update();
+      this.SplinePoint.update();
+      this.AreaPoint.update();
+      this.TooltipContent.update();
+    }
+  }
+
+  createComponents() {
     const getHoverProps = () => ({
       hoverIndex: getHoverIndex(this.state),
     });
@@ -170,13 +198,24 @@ export default class Demo extends React.PureComponent {
     });
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (getHoverIndex(prevState) !== getHoverIndex(this.state)) {
-      this.BarPoint.update();
-      this.SplinePoint.update();
-      this.AreaPoint.update();
-      this.TooltipContent.update();
-    }
+  createSeries() {
+    this.series = series.map(({
+      name, key, color, type, scale, series: seriesComponent, point: pointComponent,
+    }) => {
+      const props = {
+        name,
+        valueField: key,
+        argumentField: 'year',
+        color,
+        scaleName: scale || 'oil',
+        pointComponent: pointComponent ? this[pointComponent] : this.BarPoint,
+      };
+      if (seriesComponent) {
+        props.seriesComponent = seriesComponent;
+      }
+      const Series = type || BarSeries;
+      return <Series {...props} />;
+    });
   }
 
   render() {
@@ -212,59 +251,8 @@ export default class Demo extends React.PureComponent {
             style={titleStyle}
           />
 
-          <BarSeries
-            name="USA"
-            valueField="usa"
-            argumentField="year"
-            scaleName="oil"
-            pointComponent={this.BarPoint}
-          />
-          <BarSeries
-            name="Saudi Arabia"
-            valueField="saudiArabia"
-            argumentField="year"
-            scaleName="oil"
-            pointComponent={this.BarPoint}
-          />
-          <BarSeries
-            name="Iran"
-            valueField="iran"
-            argumentField="year"
-            scaleName="oil"
-            pointComponent={this.BarPoint}
-          />
-          <BarSeries
-            name="Mexico"
-            valueField="mexico"
-            argumentField="year"
-            scaleName="oil"
-            pointComponent={this.BarPoint}
-          />
-          <BarSeries
-            name="Russia"
-            valueField="russia"
-            argumentField="year"
-            scaleName="oil"
-            pointComponent={this.BarPoint}
-          />
-          <AreaSeries
-            name={consumptionSeriesName}
-            valueField="consumption"
-            argumentField="year"
-            scaleName="oil"
-            color={consumptionColor}
-            seriesComponent={AreaWithPoints}
-            pointComponent={this.AreaPoint}
-          />
-          <SplineSeries
-            name={priceSeriesName}
-            valueField="price"
-            argumentField="year"
-            scaleName="price"
-            color={priceColor}
-            seriesComponent={SplineWithPoints}
-            pointComponent={this.SplinePoint}
-          />
+          {this.series}
+
           <Animation />
           <Legend
             position="bottom"

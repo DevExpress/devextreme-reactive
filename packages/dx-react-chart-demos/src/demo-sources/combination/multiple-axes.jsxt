@@ -66,11 +66,11 @@ const AreaWithPoints = props => (
   </React.Fragment>
 );
 
-const LinePoint = props => (
+const SplinePoint = props => (
   <ScatterSeries.Point point={pointOptions} {...props} state={getState(props)} />
 );
 
-const LineWithPoints = props => (
+const SplineWithPoints = props => (
   <React.Fragment>
     <SplineSeries.Path {...props} />
     <ScatterSeries.Path {...props} />
@@ -161,7 +161,7 @@ export default class Demo extends React.PureComponent {
       hoverIndex: getHoverIndex(this.state),
     });
     this.BarPoint = connectProps(BarPoint, getHoverProps);
-    this.LinePoint = connectProps(LinePoint, getHoverProps);
+    this.SplinePoint = connectProps(SplinePoint, getHoverProps);
     this.AreaPoint = connectProps(AreaPoint, getHoverProps);
 
     this.TooltipContent = connectProps(TooltipContent, () => {
@@ -173,7 +173,7 @@ export default class Demo extends React.PureComponent {
   componentDidUpdate(prevProps, prevState) {
     if (getHoverIndex(prevState) !== getHoverIndex(this.state)) {
       this.BarPoint.update();
-      this.LinePoint.update();
+      this.SplinePoint.update();
       this.AreaPoint.update();
       this.TooltipContent.update();
     }
@@ -262,8 +262,8 @@ export default class Demo extends React.PureComponent {
             argumentField="year"
             scaleName="price"
             color={priceColor}
-            seriesComponent={LineWithPoints}
-            pointComponent={this.LinePoint}
+            seriesComponent={SplineWithPoints}
+            pointComponent={this.SplinePoint}
           />
           <Animation />
           <Legend

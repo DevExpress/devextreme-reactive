@@ -30,6 +30,8 @@ describe('TableTreeCell', () => {
       .toBeTruthy();
     expect(tree.is(`.${classes.cell}`))
       .toBeTruthy();
+    expect(tree.is(`.${classes.cellNoWrap}`))
+      .toBeTruthy();
   });
 
   it('should pass rest props to the root element', () => {
@@ -39,5 +41,16 @@ describe('TableTreeCell', () => {
 
     expect(tree.props().data)
       .toMatchObject({ a: 1 });
+  });
+
+  it('should not apply nowrap styles', () => {
+    const tree = shallow((
+      <TableTreeCell tableColumn={{ wordWrapEnabled: true }} />
+    ));
+
+    expect(tree.is(`.${classes.cell}`))
+      .toBeTruthy();
+    expect(tree.is(`.${classes.cellNoWrap}`))
+      .toBeFalsy();
   });
 });

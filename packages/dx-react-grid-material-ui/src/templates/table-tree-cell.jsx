@@ -17,6 +17,9 @@ const styles = theme => ({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  cellNoWrap: {
+    whiteSpace: 'nowrap',
+  },
 });
 
 const TableTreeCellBase = ({
@@ -28,6 +31,7 @@ const TableTreeCellBase = ({
   <TableCellMUI
     className={classNames({
       [classes.cell]: true,
+      [classes.cellNoWrap]: !(tableColumn && tableColumn.wordWrapEnabled),
     }, className)}
     {...restProps}
   >

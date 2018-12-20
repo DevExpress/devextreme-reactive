@@ -170,6 +170,7 @@ const IndexPage = () => (
             to="/react/grid/docs/guides/getting-started/"
             variant="button"
             title="Getting Started"
+            key="react-grid-footer"
           >
             Getting Started
           </LandingLink>,
@@ -191,6 +192,7 @@ const IndexPage = () => (
             to="/react/chart/docs/guides/getting-started/"
             variant="button"
             title="Getting Started"
+            key="react-chart-footer"
           >
             Getting Started
           </LandingLink>,
@@ -208,7 +210,14 @@ const IndexPage = () => (
         iconLink={featureIcon}
         title={'React\nScheduler'}
         links={[
-          <LandingLink to="/react/scheduler/docs/guides/getting-started/" variant="button" title="Getting Started">Getting Started</LandingLink>,
+          <LandingLink
+            to="/react/scheduler/docs/guides/getting-started/"
+            variant="button"
+            title="Getting Started"
+            key="react-scheduler-footer"
+          >
+            Getting Started
+          </LandingLink>,
           <LandingLink
             to="/react/scheduler/demos/"
             title="Scheduler Demos"

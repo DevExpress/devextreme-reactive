@@ -32,3 +32,13 @@
 .react {
   background-color: rgb(89, 208, 240);
 }
+
+.fixed {
+  flex: 0 0 285px;
+}
+
+@media (max-width: 768px) {
+  .fixed {
+    flex: 0 0 200px;
+  }
+}

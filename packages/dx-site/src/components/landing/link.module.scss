@@ -31,3 +31,9 @@
 .react {
   background-color: rgb(89, 208, 240);
 }
+
+@media (max-width: 768px) {
+  .button {
+    width: 185px;
+  }
+}

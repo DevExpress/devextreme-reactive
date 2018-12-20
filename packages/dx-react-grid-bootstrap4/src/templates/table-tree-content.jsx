@@ -6,7 +6,7 @@ export const TableTreeContent = ({
   children, className, ...restProps
 }) => (
   <div
-    className={classNames('text-nowrap w-100 dx-g-bs4-table-tree-content', className)}
+    className={classNames('w-100 dx-g-bs4-table-tree-content', className)}
     {...restProps}
   >
     {children}

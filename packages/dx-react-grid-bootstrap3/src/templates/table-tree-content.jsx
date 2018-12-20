@@ -7,7 +7,6 @@ export const TableTreeContent = ({
   <div
     style={{
       width: '100%',
-      whiteSpace: 'nowrap',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
       ...style,

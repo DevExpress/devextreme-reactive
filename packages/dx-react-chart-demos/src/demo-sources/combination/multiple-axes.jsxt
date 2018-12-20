@@ -142,57 +142,45 @@ const stacks = [
 const modifyOilDomain = domain => [domain[0], 2200];
 const modifyPriceDomain = () => [0, 110];
 
+const getHoverIndex = ({ target }) => (target ? target.point : -1);
+
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
       data: oilProduction,
-      hoverIndex: -1,
-      tooltipTarget: null,
+      target: null,
     };
 
     this.changeHover = target => this.setState({
-      hoverIndex: target ? target.point : -1,
+      target: target ? { series: consumptionSeriesName, point: target.point } : null,
     });
 
-    this.changeTooltip = target => this.setState({
-      tooltipTarget: target ? { series: consumptionSeriesName, point: target.point } : null,
+    const getHoverProps = () => ({
+      hoverIndex: getHoverIndex(this.state),
     });
-
-    const getHoverProps = () => {
-      const { hoverIndex } = this.state;
-      return { hoverIndex };
-    };
     this.BarPoint = connectProps(BarPoint, getHoverProps);
     this.LinePoint = connectProps(LinePoint, getHoverProps);
     this.AreaPoint = connectProps(AreaPoint, getHoverProps);
 
     this.TooltipContent = connectProps(TooltipContent, () => {
-      const { data, tooltipTarget } = this.state;
-      return { data: tooltipTarget ? data[tooltipTarget.point] : null };
+      const { data, target } = this.state;
+      return { data: target ? data[target.point] : null };
     });
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const {
-      hoverIndex: prevHoverIndex, tooltipTarget: prevTooltipTarget,
-    } = prevState;
-    const {
-      hoverIndex: curHoverIndex, tooltipTarget: curTooltipTarget,
-    } = this.state;
-    if (prevHoverIndex !== curHoverIndex) {
+    if (getHoverIndex(prevState) !== getHoverIndex(this.state)) {
       this.BarPoint.update();
       this.LinePoint.update();
       this.AreaPoint.update();
-    }
-    if (prevTooltipTarget !== curTooltipTarget) {
       this.TooltipContent.update();
     }
   }
 
   render() {
-    const { data, tooltipTarget } = this.state;
+    const { data, target } = this.state;
 
     return (
       <<%&wrapperTag%><%&wrapperAttributes%>>
@@ -287,12 +275,11 @@ export default class Demo extends React.PureComponent {
           <Stack stacks={stacks} />
           <EventTracker />
           <HoverState
-            hover={null}
+            hover={target}
             onHoverChange={this.changeHover}
           />
           <Tooltip
-            targetItem={tooltipTarget}
-            onTargetItemChange={this.changeTooltip}
+            targetItem={target}
             contentComponent={this.TooltipContent}
           />
         </Chart>

@@ -25,8 +25,8 @@ import { format } from 'd3-format';
 import { oilProduction } from '../../../demo-data/data-vizualization';
 
 const consumptionSeriesName = 'Consumption';
-const consumptionColor = '#7cb2b7';
-const priceColor = '#efc564';
+const consumptionColor = '#41c0f0';
+const priceColor = '#fcd45a';
 
 const makeLabel = (symbol, color) => ({ text, style, ...restProps }) => (
   <ValueAxis.Label
@@ -79,10 +79,10 @@ const SplineWithPoints = props => (
 );
 
 const series = [
-  { name: 'USA', key: 'usa', color: '#0070ff' },
-  { name: 'Saudi Arabia', key: 'saudiArabia', color: '#d72e3d' },
-  { name: 'Iran', key: 'iran', color: '#249d3d' },
-  { name: 'Mexico', key: 'mexico', color: '#ffb90c' },
+  { name: 'USA', key: 'usa', color: '#08abbd' },
+  { name: 'Saudi Arabia', key: 'saudiArabia', color: '#78bc97' },
+  { name: 'Iran', key: 'iran', color: '#d4d67e' },
+  { name: 'Mexico', key: 'mexico', color: '#9ccc65' },
   { name: 'Russia', key: 'russia', color: '#1698af' },
   {
     name: consumptionSeriesName, key: 'consumption', color: consumptionColor, type: AreaSeries,

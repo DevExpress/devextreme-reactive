@@ -15,7 +15,8 @@
     "build": "rollup -c rollup.config.js",
     "build:watch": "rollup -c rollup.config.js -w",
     "lint": "eslint \"src/**/*.{js,jsx}\"",
-    "lint:fix": "yarn run lint -- --fix"
+    "lint:fix": "yarn run lint -- --fix",
+    "parse": "node parse-demo.js"
   },
   "peerDependencies": {
     "codemirror": "^5.42.0",

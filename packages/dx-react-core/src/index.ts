@@ -4,7 +4,7 @@ export { Action } from './plugin-based/action';
 export { Getter } from './plugin-based/getter';
 export { Template } from './plugin-based/template';
 export { TemplatePlaceholder } from './plugin-based/template-placeholder';
-export { TemplateConnectorBase } from './plugin-based/template-connector';
+export { TemplateConnector } from './plugin-based/template-connector';
 
 /** @internal */
 export { Draggable } from './draggable';

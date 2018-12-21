@@ -20,7 +20,7 @@ export interface TemplateConnectorProps {
 }
 
 /** @internal */
-export class TemplateConnectorBase extends React.Component<TemplateConnectorProps> {
+class TemplateConnectorBase extends React.Component<TemplateConnectorProps> {
   trackedDependencies: { [key: string]: { get: (args) => any }};
   subscription: { [UPDATE_CONNECTION_EVENT: string]: (args) => void };
 

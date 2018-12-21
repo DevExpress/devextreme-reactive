@@ -6,7 +6,7 @@ import { PluginHostContext, PositionContext } from '../plugin-based/contexts';
 import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from '../plugin-based/constants';
 
 describe('With props from context HOC', () => {
-  const positionContext = () => 'positionContext';
+  const positionContext = () => [42];
   const hostContext = new(jest.fn<PluginHost>())();
   const ContextProvider = ({ children }) => (
     <PluginHostContext.Provider value={hostContext}>

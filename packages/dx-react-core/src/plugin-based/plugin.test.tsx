@@ -21,7 +21,7 @@ describe('Plugin', () => {
           name: 'Dep1',
           optional: true,
         }]}
-        {...{ [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: () => {} }}
+        {...{ [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: () => [] }}
       >
         <div />
       </PluginBase>
@@ -46,7 +46,7 @@ describe('Plugin', () => {
           name: 'Dep1',
           optional: true,
         }]}
-        {...{ [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: () => {} }}
+        {...{ [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: () => [] }}
       >
         <div />
       </PluginBase>
@@ -73,7 +73,7 @@ describe('Plugin', () => {
           name: 'Dep1',
           optional: true,
         }]}
-        {...{ [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: () => {} }}
+        {...{ [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: () => [] }}
       >
         <div />
       </PluginBase>
@@ -98,7 +98,7 @@ describe('Plugin', () => {
       <PluginBase
         name="TestPlugin"
         dependencies={dependencies}
-        {...{ [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: () => {} }}
+        {...{ [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: () => [] }}
       >
         <div />
       </PluginBase>

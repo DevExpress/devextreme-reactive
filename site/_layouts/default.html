@@ -63,6 +63,11 @@
           </ul>
         </div>
       </div>
+      {% if page.product_name == "Vue Grid" %}
+      <div style="width: 100%; background-color: rgba(238, 80, 57, 0.3); margin: 0 auto; text-align: center; color: rgb(48, 78, 101); font-size: 18px;">
+        <b>This project is deprecated. <a href="https://github.com/DevExpress/devextreme-vue/blob/master/README.md">Use DevExtreme Vue</a> instead.</b>
+      </div>
+      {% endif %}
     </nav>
 
     {{ content }}

@@ -5,7 +5,7 @@ import { PluginHost } from './plugin-host';
 import { Action } from './action';
 import { Getter } from './getter';
 import { Template } from './template';
-import { TemplateConnectorBase } from './template-connector';
+import { TemplateConnector } from './template-connector';
 
 describe('Action', () => {
   it('should execute action', () => {
@@ -17,12 +17,12 @@ describe('Action', () => {
         <Action name="action" action={action} />
 
         <Template name="root">
-          <TemplateConnectorBase>
+          <TemplateConnector>
             {(getters, actions) => {
               computedAction = actions.action;
               return null;
             }}
-          </TemplateConnectorBase>
+          </TemplateConnector>
         </Template>
       </PluginHost>
     ));
@@ -46,12 +46,12 @@ describe('Action', () => {
         <Action name="action" action={action2} />
 
         <Template name="root">
-          <TemplateConnectorBase>
+          <TemplateConnector>
             {(getters, actions) => {
               computedAction = actions.action;
               return null;
             }}
-          </TemplateConnectorBase>
+          </TemplateConnector>
         </Template>
       </PluginHost>
     ));
@@ -74,12 +74,12 @@ describe('Action', () => {
         <Action name="action" action={action2} />
 
         <Template name="root">
-          <TemplateConnectorBase>
+          <TemplateConnector>
             {(getters, actions) => {
               computedAction = actions.action;
               return null;
             }}
-          </TemplateConnectorBase>
+          </TemplateConnector>
         </Template>
       </PluginHost>
     ));
@@ -101,12 +101,12 @@ describe('Action', () => {
         <Action name="action2" action={action2} />
 
         <Template name="root">
-          <TemplateConnectorBase>
+          <TemplateConnector>
             {(getters, actions) => {
               computedAction2 = actions.action2;
               return null;
             }}
-          </TemplateConnectorBase>
+          </TemplateConnector>
         </Template>
       </PluginHost>
     ));
@@ -128,12 +128,12 @@ describe('Action', () => {
         <Action name="action" action={action2} />
 
         <Template name="root">
-          <TemplateConnectorBase>
+          <TemplateConnector>
             {(getters, actions) => {
               computedAction = actions.action;
               return null;
             }}
-          </TemplateConnectorBase>
+          </TemplateConnector>
         </Template>
       </PluginHost>
     ));
@@ -154,12 +154,12 @@ describe('Action', () => {
         <Getter name="value" value={2} />
 
         <Template name="root">
-          <TemplateConnectorBase>
+          <TemplateConnector>
             {(getters, actions) => {
               computedAction = actions.action;
               return null;
             }}
-          </TemplateConnectorBase>
+          </TemplateConnector>
         </Template>
       </PluginHost>
     ));

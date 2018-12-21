@@ -27,15 +27,15 @@ describe('DragDropProvider', () => {
 
     const draggable = tree.find(Draggable);
 
-    draggable.prop('onStart')({ x: 50, y: 50 });
+    draggable.prop('onStart')!({ x: 50, y: 50 });
     expect(onStart.mock.calls[0][0])
       .toEqual({ clientOffset: { x: 50, y: 50 } });
 
-    draggable.prop('onUpdate')({ x: 100, y: 100 });
+    draggable.prop('onUpdate')!({ x: 100, y: 100 });
     expect(onUpdate.mock.calls[0][0])
       .toEqual({ clientOffset: { x: 100, y: 100 } });
 
-    draggable.prop('onEnd')({ x: 100, y: 100 });
+    draggable.prop('onEnd')!({ x: 100, y: 100 });
     expect(onEnd.mock.calls[0][0])
       .toEqual({ clientOffset: { x: 100, y: 100 } });
   });

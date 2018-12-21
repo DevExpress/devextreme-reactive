@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { shallowEqual } from '@devexpress/dx-core/dist/internal';
+import { shallowEqual } from '@devexpress/dx-core';
 import {
   PLUGIN_HOST_CONTEXT, RERENDER_TEMPLATE_EVENT,
   TEMPLATE_HOST_CONTEXT, RERENDER_TEMPLATE_SCOPE_EVENT,

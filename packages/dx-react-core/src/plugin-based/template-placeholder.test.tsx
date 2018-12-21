@@ -103,7 +103,6 @@ describe('TemplatePlaceholder', () => {
   });
 
   it('should support template update on params change', () => {
-    // eslint-disable-next-line
     class EncapsulatedPlugin extends React.PureComponent {
       render() {
         return (
@@ -218,7 +217,7 @@ describe('TemplatePlaceholder', () => {
   });
 
   it('should support templates chain update on params change', () => {
-    // eslint-disable-next-line
+    // tslint:disable-next-line: max-classes-per-file
     class EncapsulatedPlugin extends React.PureComponent {
       render() {
         return (

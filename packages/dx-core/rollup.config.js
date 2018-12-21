@@ -26,6 +26,7 @@ export default {
     // babel({
     //   runtimeHelpers: true,
     //   exclude: 'node_modules/**',
+    //   extensions: ['.ts', '.tsx', '.js']
     // }),
     license({
       banner,

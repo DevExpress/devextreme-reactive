@@ -126,7 +126,6 @@ describe('Getter', () => {
   });
 
   it('notifies dependencies to update', () => {
-    // eslint-disable-next-line
     class EncapsulatedPlugin extends React.PureComponent {
       render() {
         return (

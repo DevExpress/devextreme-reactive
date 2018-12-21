@@ -1,12 +1,12 @@
 import * as React from 'react';
 
-import { EventEmitter } from '@devexpress/dx-core/dist/internal';
+import { EventEmitter } from '@devexpress/dx-core';
 import { DragDropContext } from './context';
 
 /** @internal */
 export class DragDropProviderCore {
   payload: null;
-  dragEmitter: EventEmitter;
+  dragEmitter: EventEmitter
 
   constructor() {
     this.payload = null;

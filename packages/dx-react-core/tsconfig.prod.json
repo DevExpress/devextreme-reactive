@@ -2,13 +2,11 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "./dist",
+    "declaration": true,
     "declarationDir": "./dist",
-    // "sourceRoot": "../src",
     "emitDeclarationOnly": true,
-    // "stripInternal": true,
-    // "skipLibCheck": true
-    "skipLibCheck": true,
-    "isolatedModules": false
+    "baseUrl": "./",
+    "rootDir": "./src"
   },
   "include": [
     "./src"

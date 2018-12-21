@@ -1,14 +1,15 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
+import { PluginHost } from '@devexpress/dx-core';
 import { withContext, withHostAndPosition } from './with-props-from-context';
 import { PluginHostContext, PositionContext } from '../plugin-based/contexts';
 import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from '../plugin-based/constants';
 
 describe('With props from context HOC', () => {
   const positionContext = () => 'positionContext';
-  // eslint-disable-next-line react/prop-types
+  const hostContext = new(jest.fn<PluginHost>());
   const ContextProvider = ({ children }) => (
-    <PluginHostContext.Provider value="pluginHostContext">
+    <PluginHostContext.Provider value={hostContext}>
       <PositionContext.Provider value={positionContext}>
         {children}
       </PositionContext.Provider>
@@ -16,7 +17,7 @@ describe('With props from context HOC', () => {
   );
   describe('#withHostAndPosition', () => {
     const expectedContexts = {
-      [PLUGIN_HOST_CONTEXT]: 'pluginHostContext',
+      [PLUGIN_HOST_CONTEXT]: hostContext,
       [POSITION_CONTEXT]: positionContext,
     };
     it('should provide props from contexts', () => {
@@ -29,7 +30,6 @@ describe('With props from context HOC', () => {
     });
 
     it('should keep component props if provide new props from contexts', () => {
-      // eslint-disable-next-line react/prop-types
       const TestBase = ({ name }) => <div className={name} />;
       const Test = withHostAndPosition(TestBase);
       const tree = mount(<ContextProvider><Test name="Test" /></ContextProvider>);
@@ -52,19 +52,18 @@ describe('With props from context HOC', () => {
 
       expect(tree.find(TestBase).props())
         .toEqual({
-          [PLUGIN_HOST_CONTEXT]: 'pluginHostContext',
+          [PLUGIN_HOST_CONTEXT]: hostContext,
         });
     });
 
     it('should keep component props if provide new props from contexts', () => {
-      // eslint-disable-next-line react/prop-types
       const TestBase = ({ name }) => <div className={name} />;
       const Test = withContext(PluginHostContext, PLUGIN_HOST_CONTEXT)(TestBase);
       const tree = mount(<ContextProvider><Test name="Test" /></ContextProvider>);
 
       expect(tree.find(TestBase).props())
         .toEqual({
-          [PLUGIN_HOST_CONTEXT]: 'pluginHostContext',
+          [PLUGIN_HOST_CONTEXT]: hostContext,
           name: 'Test',
         });
       expect(tree.find('.Test').exists())

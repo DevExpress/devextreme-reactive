@@ -1,11 +1,9 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "es6",
     "target": "es5",
     "jsx": "react",
-    "declaration": true,
-    "declarationMap": true,
-    // "esModuleInterop": true,
+    "declaration": false,
     "strict": true,
     "alwaysStrict": true,
     "noImplicitAny": false,
@@ -20,14 +18,8 @@
     "experimentalDecorators": true,
     "sourceMap": true,
     "lib": ["es6", "es2017.object", "dom"],
-    "rootDir": "./",
     "baseUrl": "./",
-    // "plugins": [
-    //   {
-    //     "name": "typescript-tslint-plugin",
-    //     "configFile": "./tslint.json",
-    //   }
-    // ],
+    "stripInternal": true,
     "paths": {
       "@devexpress/*":["packages/*/src"],
       "*": ["node_modules", "packages"]
@@ -35,6 +27,7 @@
   },
   "exclude": [
     "node_modules",
-    "**/*.test.ts*"
+    "**/*.test.ts*",
+    "packages/**/dist"
   ],
  }

@@ -47,8 +47,8 @@ describe('DropTarget', () => {
 
     const draggable = tree.find(Draggable);
 
-    draggable.prop('onStart')({ x: 50, y: 50 });
-    draggable.prop('onUpdate')({ x: 100, y: 100 });
+    draggable.prop('onStart')!({ x: 50, y: 50 });
+    draggable.prop('onUpdate')!({ x: 100, y: 100 });
 
     expect(onEnter.mock.calls)
       .toEqual([[{ payload: 'data', clientOffset: { x: 100, y: 100 } }]]);
@@ -82,9 +82,9 @@ describe('DropTarget', () => {
 
     const draggable = tree.find(Draggable);
 
-    draggable.prop('onStart')({ x: 50, y: 50 });
-    draggable.prop('onUpdate')({ x: 100, y: 100 });
-    draggable.prop('onUpdate')({ x: 150, y: 150 });
+    draggable.prop('onStart')!({ x: 50, y: 50 });
+    draggable.prop('onUpdate')!({ x: 100, y: 100 });
+    draggable.prop('onUpdate')!({ x: 150, y: 150 });
 
     expect(onOver.mock.calls)
       .toEqual([[{ payload: 'data', clientOffset: { x: 150, y: 150 } }]]);
@@ -118,9 +118,9 @@ describe('DropTarget', () => {
 
     const draggable = tree.find(Draggable);
 
-    draggable.prop('onStart')({ x: 50, y: 50 });
-    draggable.prop('onUpdate')({ x: 100, y: 100 });
-    draggable.prop('onUpdate')({ x: 300, y: 300 });
+    draggable.prop('onStart')!({ x: 50, y: 50 });
+    draggable.prop('onUpdate')!({ x: 100, y: 100 });
+    draggable.prop('onUpdate')!({ x: 300, y: 300 });
 
     expect(onLeave.mock.calls)
       .toEqual([[{ payload: 'data', clientOffset: { x: 300, y: 300 } }]]);
@@ -154,9 +154,9 @@ describe('DropTarget', () => {
 
     const draggable = tree.find(Draggable);
 
-    draggable.prop('onStart')({ x: 50, y: 50 });
-    draggable.prop('onUpdate')({ x: 100, y: 100 });
-    draggable.prop('onEnd')({ x: 100, y: 100 });
+    draggable.prop('onStart')!({ x: 50, y: 50 });
+    draggable.prop('onUpdate')!({ x: 100, y: 100 });
+    draggable.prop('onEnd')!({ x: 100, y: 100 });
 
     expect(onDrop.mock.calls)
       .toEqual([[{ payload: 'data', clientOffset: { x: 100, y: 100 } }]]);

@@ -75,7 +75,6 @@ export class Sizer extends React.PureComponent<SizerProps> {
   }
 
   setupListeners() {
-    // eslint-disable-next-line react/no-find-dom-node
     const rootNode = findDOMNode(this.rootRef.current!) as Element;
     const size = { height: rootNode.clientHeight, width: rootNode.clientWidth };
 
@@ -92,7 +91,6 @@ export class Sizer extends React.PureComponent<SizerProps> {
   }
 
   createListeners() {
-    // eslint-disable-next-line react/no-find-dom-node
     const rootNode = findDOMNode(this.rootRef.current!) as Element;
 
     this.triggersRoot = document.createElement('div');

@@ -1,5 +1,4 @@
 import * as React from 'react';
-// eslint-disable-next-line camelcase
 import { unstable_batchedUpdates, findDOMNode } from 'react-dom';
 import { TouchStrategy } from './draggable/touch-strategy';
 import { MouseStrategy } from './draggable/mouse-strategy';
@@ -73,7 +72,6 @@ export class Draggable extends React.Component<DraggableProps> {
   }
 
   setupNodeSubscription() {
-    // eslint-disable-next-line react/no-find-dom-node
     const node = findDOMNode(this) as Element;
     if (!node) return;
     node.removeEventListener('mousedown', this.mouseDownListener);

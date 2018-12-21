@@ -15,10 +15,11 @@
     "object-literal-sort-keys": false,
     "ordered-imports": false,
     "jsx-no-lambda": false,
+    "jsx-boolean-value": false,
     "member-access": [ true, "no-public" ],
     "variable-name": [ true, "allow-pascal-case" ],
     "ban-types": [true, ["Object", "Use {} instead."], ["String"]],
     "no-empty": [true, "allow-empty-functions"],
-    "no-namespace": false
+    "no-implicit-dependencies": false
   }
 }

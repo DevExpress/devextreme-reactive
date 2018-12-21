@@ -1,4 +1,3 @@
-// import babel from 'rollup-plugin-babel';
 import license from 'rollup-plugin-license';
 import replace from "rollup-plugin-replace";
 import typescript from 'rollup-plugin-typescript2';
@@ -25,10 +24,6 @@ export default {
       "/** @class */": "/*#__PURE__*/",
       delimiters: ["", ""],
     }),
-    // babel({
-    //   runtimeHelpers: true,
-    //   exclude: 'node_modules/**',
-    // }),
     license({
       banner,
     }),

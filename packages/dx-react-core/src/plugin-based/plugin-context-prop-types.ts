@@ -1,6 +1,5 @@
-import { PluginHost } from '@devexpress/dx-core';
+import { PluginHost, PluginPositionFn } from '@devexpress/dx-core';
 import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from './constants';
-import { PluginPositionFn } from './contexts';
 
 interface PluginContextHostProps {
   [PLUGIN_HOST_CONTEXT]: PluginHost;

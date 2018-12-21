@@ -88,7 +88,7 @@ class TemplatePlaceholderBase extends React.Component<
     [this.template] = templates;
     this.restTemplates = templates.slice(1);
 
-    let content: Function | null = null;
+    let content: ((...args) => any)| null = null;
     if (this.template) {
       const { children: templateContent } = this.template;
 
@@ -100,10 +100,11 @@ class TemplatePlaceholderBase extends React.Component<
 
     const { children: templatePlaceholder } = this.props;
     return (
-      <TemplateHostContext.Provider value={{
-        templates: () => this.restTemplates,
-        params: () => this.params,
-      }}
+      <TemplateHostContext.Provider
+        value={{
+          templates: () => this.restTemplates,
+          params: () => this.params,
+        }}
       >
         {templatePlaceholder ? templatePlaceholder(content) : content}
       </TemplateHostContext.Provider>

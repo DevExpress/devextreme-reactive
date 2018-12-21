@@ -12,7 +12,7 @@ class TestWrapper extends React.Component {
 }
 TestWrapper.contextType = PositionContext;
 
-const Test: React.SFC<{ position:any }> = () => null;
+const Test: React.SFC<{ position: any }> = () => null;
 
 describe('PluginIndexer', () => {
   it('should correctly determine plugin position', () => {

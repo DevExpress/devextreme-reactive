@@ -36,7 +36,8 @@ export const createClickHandlers = (click?, dblClick?) => {
         }, DELAY);
       }
     };
-  } if (dblClick) {
+  }
+  if (dblClick) {
     events.onDoubleClick = (e) => {
       clearTimeout(timeoutId);
       dblClick(e);

@@ -2,7 +2,7 @@ import * as React from 'react';
 
 const makeBoundComponent = (Target, components, exposed: object) => {
   class Component extends React.PureComponent {
-    static components: {[key: string]: string};
+    static components: PluginComponents;
 
     render() {
       return <Target {...components} {...this.props} />;
@@ -13,8 +13,9 @@ const makeBoundComponent = (Target, components, exposed: object) => {
   return Component;
 };
 
+type PluginComponents = { [key: string]: string };
 interface ITargetComponent {
-  components: {[key: string]: string};
+  components: PluginComponents;
 }
 
 /** @internal */

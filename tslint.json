@@ -2,23 +2,25 @@
   "extends": [
     "tslint:latest",
     "tslint-react",
-    "tslint-config-airbnb",
     "tslint-eslint-rules",
-    "tslint-config-prettier"
-  ],
+    "tslint-config-airbnb"
+  ]
+  ,
   "rules": {
-    // "import/prefer-default-export": "off",
     "filenames/match-regex": [2, "^[a-z-\\.]+$"],
-    "align": false,
+    "align": [true, "elements", "members", "parameters", "statements"],
     "interface-over-type-literal": false,
     "interface-name": false,
+    "import-spacing": true,
+    "semicolon": true,
+    "max-line-length": [true, 100],
     "object-literal-sort-keys": false,
     "ordered-imports": false,
     "jsx-no-lambda": false,
     "jsx-boolean-value": false,
+    "jsx-no-multiline-js": false,
     "member-access": [ true, "no-public" ],
     "variable-name": [ true, "allow-pascal-case" ],
-    "ban-types": [true, ["Object", "Use {} instead."], ["String"]],
     "no-empty": [true, "allow-empty-functions"],
     "no-implicit-dependencies": false
   }

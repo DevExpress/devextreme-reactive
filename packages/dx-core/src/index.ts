@@ -1,5 +1,5 @@
 /** @internal */
-export { PluginHost, IDependency, InnerPlugin } from './plugin-host';
+export { PluginHost, IDependency, InnerPlugin, PluginPositionFn as PositionContextFn } from './plugin-host';
 /** @internal */
 export { EventEmitter } from './event-emitter';
 /** @internal */

@@ -1,6 +1,7 @@
 import license from 'rollup-plugin-license';
+import { default as typescriptRollup } from 'rollup-plugin-typescript2';
 import replace from "rollup-plugin-replace";
-import typescript from 'rollup-plugin-typescript2';
+import typescript from 'typescript';
 import {
   banner, external, globals, stubProcess,
 } from '../../tools/rollup-utils';
@@ -16,8 +17,8 @@ export default {
   ],
   external: external(__dirname),
   plugins: [
-    typescript({
-      typescript: require('typescript'),
+    typescriptRollup({
+      typescript,
       useTsconfigDeclarationDir: true,
     }),
     replace({

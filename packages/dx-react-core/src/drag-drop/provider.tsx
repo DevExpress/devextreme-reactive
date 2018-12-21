@@ -6,7 +6,7 @@ import { DragDropContext } from './context';
 /** @internal */
 export class DragDropProviderCore {
   payload: null;
-  dragEmitter: EventEmitter
+  dragEmitter: EventEmitter;
 
   constructor() {
     this.payload = null;

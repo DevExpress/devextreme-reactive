@@ -1,17 +1,16 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { PluginHost } from '@devexpress/dx-core';
 import { PluginBase } from './plugin';
 import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from './constants';
 
 describe('Plugin', () => {
   let pluginHost: any;
   beforeEach(() => {
-    pluginHost = new(jest.fn<PluginHost>(() => ({
+    pluginHost = {
       registerPlugin: jest.fn(),
       unregisterPlugin: jest.fn(),
       ensureDependencies: jest.fn(),
-    })));
+    };
   });
 
   it('should register itself in the plugin host', () => {

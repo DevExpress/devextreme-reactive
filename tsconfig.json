@@ -20,12 +20,18 @@
     "experimentalDecorators": true,
     "sourceMap": true,
     "lib": ["es6", "es2017.object", "dom"],
-    "plugins": [
-      {
-        "name": "typescript-tslint-plugin",
-        "configFile": "./tslint.json",
-      }
-    ]
+    "rootDir": "./",
+    "baseUrl": "./",
+    // "plugins": [
+    //   {
+    //     "name": "typescript-tslint-plugin",
+    //     "configFile": "./tslint.json",
+    //   }
+    // ],
+    "paths": {
+      "@devexpress/*":["packages/*/src"],
+      "*": ["node_modules", "packages"]
+    },
   },
   "exclude": [
     "node_modules",

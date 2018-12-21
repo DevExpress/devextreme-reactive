@@ -9,6 +9,9 @@ const styles = theme => ({
     width: '300px',
     display: 'flex',
     flexDirection: 'column',
+    position: 'relative',
+    paddingLeft: theme.spacing.unit,
+    paddingRight: theme.spacing.unit,
   },
 });
 

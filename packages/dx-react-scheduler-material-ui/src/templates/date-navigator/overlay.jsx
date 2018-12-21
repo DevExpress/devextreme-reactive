@@ -2,6 +2,8 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import Popover from '@material-ui/core/Popover';
 
+const origin = { vertical: 'top', horizontal: 'right' };
+
 export const Overlay = ({
   visible, onHide, children, target, ...restProps
 }) => (
@@ -9,8 +11,8 @@ export const Overlay = ({
     open={visible}
     anchorEl={target}
     onClose={onHide}
-    anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-    transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+    anchorOrigin={origin}
+    transformOrigin={origin}
     {...restProps}
   >
     {children}

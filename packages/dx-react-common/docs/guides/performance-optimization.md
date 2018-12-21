@@ -1,6 +1,6 @@
 # React Components - Performance Optimization
 
-Internally, Reactive Components use React [guidelines](https://reactjs.org/docs/optimizing-performance.html) for optimizing performance. However, a customer component configuration is just as important as internal configuration for performance optimization. You can avoid big performance issues if you follow some easy rules.
+This article describes the main rules you should follow to provide high perfromance for your application. For more information on performance optimization, refer to the [React guidelines](https://reactjs.org/docs/optimizing-performance.html).
 
 ## Use Immutable Data Structures
 
@@ -14,14 +14,16 @@ The following demo shows how the [React Grid](https://devexpress.github.io/devex
 
 .embedded-demo({ "path": "grid-immutability/seamless-immutable", "showThemeSelector": true })
 
-## Avoid Constantly Code Inside Render Methods
+## Avoid Declaring Statements Inside Render Methods
 
-It is known that all code inside render methods will be called after each component update. We do not recommend creating new functions and variables in this place. To override default templates, you should create your own templates outside render methods. The following example demonstrates the right way to override default appointment templates in the [React Scheduler](https://devexpress.github.io/devextreme-reactive/react/scheduler) control:
+Do not declare functions and variables inside render methods. Otherwise, these functions and variables are declared each time a component is updated. One of the most common mistakes is when a developer declares a custom template within a render method. The following example, demonstrates how to correctly override a default appointment template in the [React Scheduler](https://devexpress.github.io/devextreme-reactive/react/scheduler) control:
 
 .embedded-demo({ "path": "scheduler-basic/simple-template", "showThemeSelector": true })
 
-In some cases, we want to get access to the parent component’s state. In these scenarios, we recommend using one of the methods below for avoiding performance problems. The first one is using state management libraries like the Redux. However, if your application doesn’t include any state management libraries, we suggest using the [connectProps](../../../dx-react-core/docs/reference/connect-props.md) function from the `@devexpress/dx-react-core` package. The following example shows how to configure this function:
+## Correctly Access the Parent Component's State
+
+The most preferable way to access the parent component's state is to use a management library like [Redux](https://redux.js.org/). If you do not use such libraries in your application, we recommend that you use the [connectProps](../../../dx-react-core/docs/reference/connect-props.md) function avaiable in the `@devexpress/dx-react-core` package.
+
+In the following example, [React Chart](https://devexpress.github.io/devextreme-reactive/react/chart) uses the `connectionProps`'s `update` method to update a legend label style when the parent serie's hover state is changed.
 
 .embedded-demo({ "path": "chart-basic/chart-connect-props", "showThemeSelector": true })
-
-In the sample above the legend labels of the [React Chart](https://devexpress.github.io/devextreme-reactive/react/chart) depend of the series hover state. The hover state changes will change the legend labels styles because of the [connectProps](../../../dx-react-core/docs/reference/connect-props.md) function's `update` method.

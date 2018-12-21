@@ -119,26 +119,32 @@ const formatTooltip = format('.1f');
 const TooltipContent = ({
   data, text, style, ...props
 }) => {
-  const textStyle = {
+  const alignStyle = {
     ...style,
-    paddingLeft: '5px',
-    display: 'inline-block',
+    paddingLeft: '10px',
   };
-  const items = series.map(({ color, key }) => {
+  const items = series.map(({ name, key, color }) => {
     const val = data[key];
     return (
-      <div key={key}>
-        <svg width="10" height="10">
-          <circle cx="5" cy="5" r="5" fill={color} />
-        </svg>
-        <Tooltip.Content style={textStyle} text={val ? formatTooltip(val) : 'N/A'} {...props} />
-      </div>
+      <tr key={key}>
+        <td>
+          <svg width="10" height="10">
+            <circle cx="5" cy="5" r="5" fill={color} />
+          </svg>
+        </td>
+        <td>
+          <Tooltip.Content style={alignStyle} text={name} {...props} />
+        </td>
+        <td align="right">
+          <Tooltip.Content style={alignStyle} text={val ? formatTooltip(val) : 'N/A'} {...props} />
+        </td>
+      </tr>
     );
   });
   return (
-    <React.Fragment>
+    <table>
       {items}
-    </React.Fragment>
+    </table>
   );
 };
 

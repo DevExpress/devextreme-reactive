@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { PluginHost, PositionContextFn } from '@devexpress/dx-core';
+import { PluginHost, PluginPositionFn } from '@devexpress/dx-core';
 
 /** @internal */
 export interface TemplateHostInterface {
@@ -10,6 +10,6 @@ export interface TemplateHostInterface {
 /** @internal */
 export const PluginHostContext = React.createContext<PluginHost | null>(null);
 /** @internal */
-export const PositionContext = React.createContext<PositionContextFn>(() => []);
+export const PositionContext = React.createContext<PluginPositionFn>(() => []);
 /** @internal */
 export const TemplateHostContext = React.createContext<TemplateHostInterface | null>(null);

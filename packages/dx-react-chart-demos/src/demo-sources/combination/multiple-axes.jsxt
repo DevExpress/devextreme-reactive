@@ -85,21 +85,10 @@ const series = [
   { name: 'Mexico', key: 'mexico', color: '#ffb90c' },
   { name: 'Russia', key: 'russia', color: '#1698af' },
   {
-    name: consumptionSeriesName,
-    key: 'consumption',
-    color: consumptionColor,
-    type: AreaSeries,
-    series: AreaWithPoints,
-    point: 'AreaPoint',
+    name: consumptionSeriesName, key: 'consumption', color: consumptionColor, type: AreaSeries,
   },
   {
-    name: 'Oil Price',
-    key: 'price',
-    color: priceColor,
-    scale: 'price',
-    type: SplineSeries,
-    series: SplineWithPoints,
-    point: 'SplinePoint',
+    name: 'Oil Price', key: 'price', color: priceColor, scale: 'price', type: SplineSeries,
   },
 ];
 
@@ -127,8 +116,9 @@ const LegendLabel = props => (
 );
 
 const formatTooltip = format('.1f');
-const tooltipSpanStyle = { padding: '5px' };
-const TooltipContent = ({ data, text, style, ...props }) => {
+const TooltipContent = ({
+  data, text, style, ...props
+}) => {
   const textStyle = {
     ...style,
     paddingLeft: '5px',
@@ -204,7 +194,7 @@ export default class Demo extends React.PureComponent {
 
   createSeries() {
     this.series = series.map(({
-      name, key, color, type, scale, series: seriesComponent, point: pointComponent,
+      name, key, color, type, scale,
     }) => {
       const props = {
         key: name,
@@ -213,13 +203,16 @@ export default class Demo extends React.PureComponent {
         argumentField: 'year',
         color,
         scaleName: scale || 'oil',
-        pointComponent: pointComponent ? this[pointComponent] : this.BarPoint,
+        pointComponent: this.BarPoint,
       };
-      if (seriesComponent) {
-        props.seriesComponent = seriesComponent;
+      if (type === AreaSeries) {
+        props.seriesComponent = AreaWithPoints;
+        props.pointComponent = this.AreaPoint;
+      } else if (type) {
+        props.seriesComponent = SplineWithPoints;
+        props.pointComponent = this.SplinePoint;
       }
-      const Series = type || BarSeries;
-      return <Series {...props} />;
+      return React.createElement(type || BarSeries, props);
     });
   }
 

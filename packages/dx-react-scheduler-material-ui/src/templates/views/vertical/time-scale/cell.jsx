@@ -12,6 +12,7 @@ const styles = theme => ({
     paddingLeft: theme.spacing.unit / 4,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+    textAlign: 'right',
     '&:last-child': {
       padding: theme.spacing.unit,
       paddingLeft: theme.spacing.unit / 4,

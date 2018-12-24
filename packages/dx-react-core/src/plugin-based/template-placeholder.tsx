@@ -14,7 +14,6 @@ export interface TemplatePlaceholderProps {
   name?: string;
   /** An object passed to the related template. */
   params?: object;
-  /** @internal */
   children?: (content) => any;
 }
 interface TemplateHostContextProps {

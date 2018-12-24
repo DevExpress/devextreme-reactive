@@ -3,10 +3,10 @@ import { mount } from 'enzyme';
 import { connectProps } from './connect-props';
 
 describe('connectProps', () => {
-  const WrappedComponent = () => null;
+  const WrappedComponent = () => <span />;
 
   it('should pass props to a wrapped component', () => {
-    const EnhancedComponent = connectProps(WrappedComponent, () => {});
+    const EnhancedComponent = connectProps(WrappedComponent, () => ({}));
     const tree = mount(<EnhancedComponent a={1} />);
 
     expect(tree.find(WrappedComponent).prop('a'))

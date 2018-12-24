@@ -4,8 +4,8 @@ type RenderComponentProps = {
   update: () => void;
 };
 type connectPropsType = (
-  WrappedComponent: React.Component<any>, getAdditionalProps: () => object,
-) => React.ComponentType<any>;
+  WrappedComponent: React.ComponentType<any>, getAdditionalProps: () => object,
+) => React.ComponentType<any> & { update(): void };
 
 /*** A function that creates a new component that allows you to pass additional properties
  * to the wrapped component.

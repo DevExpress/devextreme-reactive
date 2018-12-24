@@ -1,4 +1,6 @@
+// import comment
 import * as React from 'react';
+// import comment
 import {
   Chart,
   BarSeries,
@@ -7,9 +9,11 @@ import {
   ValueAxis,
   Tooltip,
 } from '@devexpress/dx-react-chart-bootstrap4';
+// import comment
 import { EventTracker } from '@devexpress/dx-react-chart';
 
-const data = [ // comment
+// const comment
+const data = [
   { year: '1950', population: 2.525 },
   { year: '1960', population: 3.018 },
   { year: '1970', population: 3.682 },
@@ -20,7 +24,8 @@ const data = [ // comment
 ];
 
 export default class Demo extends React.PureComponent {
-  constructor(props) { // comment
+  // const comment
+constructor(props) {
     super(props);
 
     this.state = {
@@ -29,7 +34,8 @@ export default class Demo extends React.PureComponent {
   }
 
   render() {
-    const { data: chartData } = this.state; // comment
+    // const comment
+const { data: chartData } = this.state;
 
     return (
       <div className="card">

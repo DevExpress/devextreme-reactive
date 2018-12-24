@@ -68,11 +68,31 @@ const parseFile = () => {
   overrideFileIfChanged(path.join(OUTPUT_FILE), nextSource);
 };
 
+const parseFile2 = (meta) => {
+  const sourceFilename = path.join(INPUT_FILE);
+  const source = fs.readFileSync(sourceFilename, 'utf-8');
+
+  const outputSource = meta.reduce((acc, { findStr, addStr }) => {
+    const indexes = findAllIndexes(acc, findStr);
+    // const endLineIndexes = indexes.map(index => endOfLineByIndex(acc, index));
+
+    const nextSource = combineStringByIndexes(acc, indexes, addStr);
+    return nextSource;
+  }, source);
+
+  overrideFileIfChanged(path.join(OUTPUT_FILE), outputSource);
+};
+
 const simulateManyCalls = (value) => {
   for (let i = 0; i < value; i += 1) {
     parseFile();
   }
 };
 
+parseFile2([
+  { findStr: 'const', addStr: '// const comment\n' },
+  { findStr: 'import', addStr: '// import comment\n' },
+]);
+
 // parseFile();
-simulateManyCalls(10000); // MacBook Pro 2018 15' -> ✨  Done in 1.67s.
+// simulateManyCalls(10000); // MacBook Pro 2018 15' -> ✨  Done in 1.67s.

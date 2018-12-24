@@ -9,7 +9,6 @@ const getDependencyError = (
 /** @internal */
 export type PluginPositionFn = () => number[];
 
-/** @internal */
 export interface IDependency { name: string; optional?: boolean; }
 interface IPluginBase {
   position: PluginPositionFn;

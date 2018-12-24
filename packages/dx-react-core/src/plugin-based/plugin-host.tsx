@@ -4,7 +4,7 @@ import { PluginIndexer } from './plugin-indexer';
 import { TemplatePlaceholder } from './template-placeholder';
 import { PluginHostContext } from './contexts';
 
-type PluginHostProps = {
+export type PluginHostProps = {
   /** Plugin React elements. */
   children?: React.ReactNode;
 };

@@ -8,7 +8,7 @@ import {
 import { PluginHostContext } from './contexts';
 
 interface Getters {
-  [getterName: string]: any | object;
+  [getterName: string]: any;
 }
 
 export interface TemplateConnectorProps {

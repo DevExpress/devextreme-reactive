@@ -1,4 +1,3 @@
-/** @internal */
 export { PluginHost, IDependency, InnerPlugin, PluginPositionFn } from './plugin-host';
 /** @internal */
 export { EventEmitter } from './event-emitter';

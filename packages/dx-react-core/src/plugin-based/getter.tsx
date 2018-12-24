@@ -9,7 +9,7 @@ import { withHostAndPosition } from '../utils/with-props-from-context';
 import { InnerPlugin } from '@devexpress/dx-core';
 import { PluginContextProps } from './plugin-context-prop-types';
 
-interface GetterProps {
+export interface GetterProps {
   /** The Getter's name. */
   name: string;
   /** The shared value. */

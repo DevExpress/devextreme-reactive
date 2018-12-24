@@ -1,6 +1,6 @@
-const { execSync } = require('child_process');
-const { join, dirname, sep } = require('path');
+const { join, sep } = require('path');
 const { readFileSync, existsSync } = require('fs');
+const rimraf = require('rimraf');
 const replace = require('replace-in-file');
 const dts = require('dts-bundle');
 
@@ -26,7 +26,7 @@ module.exports = (packageDirectory) => {
     headerPath: 'none',
   });
 
-  require('fs-extra').removeSync(dtsPath);
+  rimraf(dtsPath, () => {});
 }
 
 const getIndexDts = (packageDirectory, dtsPath) => {

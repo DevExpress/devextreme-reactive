@@ -24,6 +24,7 @@
     "inquirer": "^6.2.0",
     "lerna": "^3.2.1",
     "replace-in-file": "^3.4.2",
+    "rimraf": "^2.6.2",
     "run-sequence": "^2.2.1",
     "semver": "^5.5.1",
     "typescript": "^3.2.2"

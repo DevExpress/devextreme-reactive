@@ -34,6 +34,7 @@ const script = async () => {
   const tagPath = tag !== 'latest' ? `/@${tag}` : '';
 
   console.log('Building site content...');
+  execSync('yarn run build', { stdio: 'ignore' });
   execSync('yarn run build:site', { stdio: 'ignore', env: { ...process.env, VERSION_TAG: tag } });
 
   console.log('Cleaning generated site...');

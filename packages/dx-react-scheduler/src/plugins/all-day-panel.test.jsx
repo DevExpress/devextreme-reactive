@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { pluginDepsToComponents } from '@devexpress/dx-testing';
-import { PluginHost } from '@devexpress/dx-react-core';
+import { PluginHost, TemplatePlaceholder } from '@devexpress/dx-react-core';
 import {
   allDayCells,
   calculateRectByDateIntervals,
@@ -35,12 +35,13 @@ const defaultDeps = {
 const defaultProps = {
   messages: {},
   cellComponent: () => null,
-  rowComponent: () => null,
-  titleCellComponent: () => <div className="titleCell" />,
   // eslint-disable-next-line react/prop-types, react/jsx-one-expression-per-line
-  appointmentLayerComponent: ({ children }) => <div className="layer">{children}</div>,
+  rowComponent: ({ children }) => <tr>{children}</tr>,
+  titleCellComponent: () => null,
   // eslint-disable-next-line react/prop-types, react/jsx-one-expression-per-line
-  layoutComponent: ({ children }) => <div className="layout">{children}</div>,
+  appointmentLayerComponent: () => null,
+  // eslint-disable-next-line react/prop-types, react/jsx-one-expression-per-line
+  layoutComponent: ({ children }) => <div>{children}</div>,
 };
 
 describe('AllDayPanel', () => {
@@ -49,7 +50,7 @@ describe('AllDayPanel', () => {
       dataItem: {}, type: 'h', top: 0, left: 0,
     }]);
     calculateAllDayDateIntervals.mockImplementation(() => []);
-    allDayCells.mockImplementation(() => []);
+    allDayCells.mockImplementation(() => [[{}]]);
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -66,21 +67,7 @@ describe('AllDayPanel', () => {
         </PluginHost>
       ));
 
-      expect(tree.find('.layout').exists())
-        .toBeTruthy();
-    });
-
-    it('should render day panel', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <AllDayPanel
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(tree.find('.layout').exists())
+      expect(tree.find(defaultProps.layoutComponent).exists())
         .toBeTruthy();
     });
 
@@ -94,7 +81,7 @@ describe('AllDayPanel', () => {
         </PluginHost>
       ));
 
-      expect(tree.find('.layer').exists())
+      expect(tree.find(defaultProps.appointmentLayerComponent).exists())
         .toBeTruthy();
     });
 
@@ -108,7 +95,22 @@ describe('AllDayPanel', () => {
         </PluginHost>
       ));
 
-      expect(tree.find('.titleCell').exists())
+      expect(tree.find(defaultProps.titleCellComponent).exists())
+        .toBeTruthy();
+    });
+
+    it('should render all day cell template', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <AllDayPanel
+            {...defaultProps}
+          />
+          <TemplatePlaceholder name="allDayPanelCell" />
+        </PluginHost>
+      ));
+
+      expect(tree.find(defaultProps.cellComponent).exists())
         .toBeTruthy();
     });
   });

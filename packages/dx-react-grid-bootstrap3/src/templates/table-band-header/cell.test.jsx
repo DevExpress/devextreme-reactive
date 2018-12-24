@@ -1,9 +1,18 @@
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
+import { setupConsole } from '@devexpress/dx-testing';
 import { Cell } from './cell';
 import { ThemeColors } from '../layout';
 
 describe('TableCell', () => {
+  let resetConsole;
+  beforeAll(() => {
+    resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
+  });
+  afterAll(() => {
+    resetConsole();
+  });
+
   it('should render children if passed', () => {
     const tree = shallow((
       <Cell>

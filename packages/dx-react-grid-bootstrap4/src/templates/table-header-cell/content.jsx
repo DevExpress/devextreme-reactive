@@ -3,18 +3,14 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 export const Content = ({
-  column, children, align, className, style, ...restProps
+  column, children, align, className, ...restProps
 }) => (
   <div
     className={classNames({
-      'w-100 d-flex flex-row align-items-end': true,
+      'dx-g-bs4-header-cell-content w-100 d-flex flex-row align-items-end': true,
       'justify-content-center': align === 'center',
       'justify-content-end': align === 'right',
     }, className)}
-    style={{
-      minWidth: 0,
-      ...style,
-    }}
     {...restProps}
   >
     {children}

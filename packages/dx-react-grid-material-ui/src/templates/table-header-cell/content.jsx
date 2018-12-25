@@ -6,6 +6,7 @@ import classNames from 'classnames';
 const styles = {
   content: {
     width: '100%',
+    minWidth: 0,
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
@@ -20,7 +21,7 @@ const styles = {
 };
 
 const ContentBase = ({
-  column, align, children, classes, className, style, ...restProps
+  column, align, children, classes, className, ...restProps
 }) => (
   <div
     className={classNames({
@@ -28,10 +29,6 @@ const ContentBase = ({
       [classes.alignCenter]: align === 'center',
       [classes.alignRight]: align === 'right',
     }, className)}
-    style={{
-      minWidth: 0,
-      ...style,
-    }}
     {...restProps}
   >
     {children}

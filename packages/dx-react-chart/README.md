@@ -1,6 +1,6 @@
 # DevExtreme React Chart
 
-Project status: **CTP**
+Project status: **Beta**
 
 The DevExtreme React Chart is a component that visualizes data using a variety of series types, including bar, line, area, scatter, pie, and more.
 

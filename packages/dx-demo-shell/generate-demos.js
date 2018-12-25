@@ -124,8 +124,9 @@ const createFromTemplate = (sourceFilename, outputFilename, data) => {
   mustache.tags = ['<%', '%>'];
   const output = mustache.render(source, data);
   const outputWithComments = addStringsBeforeEntry(output, [
-    { findStr: 'const', addStr: '// #FOLD_BLOCK' },
-    { findStr: 'import', addStr: '// #FOLD_BLOCK' },
+    { findStr: 'const ', addStr: '// #FOLD_BLOCK' },
+    { findStr: 'constructor', addStr: '// #FOLD_BLOCK' },
+    { findStr: 'import ', addStr: '// #FOLD_BLOCK' },
   ]);
   overrideFileIfChanged(outputFilename, outputWithComments); // parse demos here
   cancelFileRemoving(outputFilename);

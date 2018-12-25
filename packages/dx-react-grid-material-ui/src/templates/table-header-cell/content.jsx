@@ -20,7 +20,7 @@ const styles = {
 };
 
 const ContentBase = ({
-  column, align, children, classes, className, ...restProps
+  column, align, children, classes, className, style, ...restProps
 }) => (
   <div
     className={classNames({
@@ -28,6 +28,10 @@ const ContentBase = ({
       [classes.alignCenter]: align === 'center',
       [classes.alignRight]: align === 'right',
     }, className)}
+    style={{
+      minWidth: 0,
+      ...style,
+    }}
     {...restProps}
   >
     {children}

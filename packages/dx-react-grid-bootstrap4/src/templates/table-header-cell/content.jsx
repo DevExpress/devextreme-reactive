@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 export const Content = ({
-  column, children, align, className, ...restProps
+  column, children, align, className, style, ...restProps
 }) => (
   <div
     className={classNames({
@@ -11,6 +11,10 @@ export const Content = ({
       'justify-content-center': align === 'center',
       'justify-content-end': align === 'right',
     }, className)}
+    style={{
+      minWidth: 0,
+      ...style,
+    }}
     {...restProps}
   >
     {children}

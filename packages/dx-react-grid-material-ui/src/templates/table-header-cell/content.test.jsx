@@ -69,4 +69,27 @@ describe('Content', () => {
     expect(tree.is(`.${classes.alignCenter}`))
       .toBeTruthy();
   });
+
+  it('should have correct default styles', () => {
+    const tree = shallow((
+      <Content {...defaultProps} />
+    ));
+    expect(tree.prop('style'))
+      .toMatchObject({
+        minWidth: 0,
+      });
+  });
+
+  it('should apply custom styles', () => {
+    const tree = shallow((
+      <Content
+        {...defaultProps}
+        style={{ color: 'red' }}
+      />
+    ));
+    expect(tree.prop('style'))
+      .toMatchObject({
+        color: 'red',
+      });
+  });
 });

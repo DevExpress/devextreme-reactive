@@ -54,4 +54,27 @@ describe('Content', () => {
         a: 1,
       });
   });
+
+  it('should have correct default styles', () => {
+    const tree = shallow((
+      <Content {...defaultProps} />
+    ));
+    expect(tree.prop('style'))
+      .toMatchObject({
+        minWidth: 0,
+      });
+  });
+
+  it('should apply custom styles', () => {
+    const tree = shallow((
+      <Content
+        {...defaultProps}
+        style={{ color: 'red' }}
+      />
+    ));
+    expect(tree.prop('style'))
+      .toMatchObject({
+        color: 'red',
+      });
+  });
 });

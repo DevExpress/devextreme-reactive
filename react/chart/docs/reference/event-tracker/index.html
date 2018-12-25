@@ -14,8 +14,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.min.css" type="text/css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/addon/fold/foldgutter.min.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1544184422">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1544184422">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1545738758">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1545738758">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <script>
@@ -91,16 +91,22 @@
   <tbody>
     <tr>
       <td>onClick?</td>
-      <td>(target: <a href="#clickdata">ClickData</a>) =&gt; void</td>
+      <td>(target: <a href="#targetdata">TargetData</a>) =&gt; void</td>
       <td> </td>
       <td>A function that is executed when the chart’s plot is clicked.</td>
+    </tr>
+    <tr>
+      <td>onPointerMove ?</td>
+      <td>(target: <a href="#targetdata">TargetData</a>) =&gt; void</td>
+      <td> </td>
+      <td>A function that is executed when the pointer moves over the chart.</td>
     </tr>
   </tbody>
 </table>
 
 <h2 id="interfaces">Interfaces</h2>
 
-<h3 id="clickdata">ClickData</h3>
+<h3 id="targetdata">TargetData</h3>
 
 <p>The click event data.</p>
 
@@ -122,6 +128,11 @@
       <td>targets</td>
       <td>Array&lt;<a href="#seriesref">SeriesRef</a>&gt;</td>
       <td>An array of clicked series.</td>
+    </tr>
+    <tr>
+      <td>event</td>
+      <td>object</td>
+      <td>The event data.</td>
     </tr>
   </tbody>
 </table>
@@ -145,9 +156,9 @@
       <td>Series name.</td>
     </tr>
     <tr>
-      <td>point?</td>
+      <td>point</td>
       <td>number</td>
-      <td>The point’s index within the <code class="highlighter-rouge">data</code> array (<code class="highlighter-rouge">undefined</code> if no series points are clicked).</td>
+      <td>The point’s index within the <code class="highlighter-rouge">data</code> array.</td>
     </tr>
   </tbody>
 </table>
@@ -162,9 +173,9 @@
       </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.9.1">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.10.0">
             Version
-            <span>1.9.1</span>
+            <span>1.10.0</span>
           </a>
         </li>
       </ul>
@@ -298,6 +309,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/chart/docs/reference/argument-scale/">ArgumentScale</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/chart/docs/reference/bar-series/">BarSeries</a></li>
           
 
@@ -362,14 +381,6 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/chart/docs/reference/scale/">Scale</a></li>
-          
-
-        
-          
-          
-
-          
           <li><a href="/devextreme-reactive/react/chart/docs/reference/scatter-series/">ScatterSeries</a></li>
           
 
@@ -422,6 +433,14 @@
           
 
         
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/chart/docs/reference/value-scale/">ValueScale</a></li>
+          
+
+        
         </ul>
       
         <h3>Related Docs</h3>
@@ -459,17 +478,21 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/chart/demos/dist/index.js?v=1544184422"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script src="/devextreme-reactive/react/chart/demos/dist/index.js?v=1545738758"></script>
 
-<script type="text/javascript">
-  docsearch({
+<script
+  type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"
+  onload="docsearch({
     apiKey: '4cd7a76d4bc286ae69fe26182a8d4b18',
     indexName: 'devextreme_reactive',
     inputSelector: '#docsearch',
-    algoliaOptions: { 'facetFilters': ["techno:react", "tool:chart"] },
+    algoliaOptions: { 'facetFilters': ['techno:react', 'tool: chart'] },
     debug: false
-  });
+  })"
+  async
+>
+</script>
 </script>
 
 
@@ -511,7 +534,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1544184422"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1545738758"></script>
     <script>
         trackingCookie.notice();
     </script>

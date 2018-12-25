@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>React Chart - Axes and Grid - DevExtreme Reactive Components</title>
+    <title>React Chart - Scales, Axes, and Grid - DevExtreme Reactive Components</title>
     
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,8 +14,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.min.css" type="text/css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/addon/fold/foldgutter.min.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1544184422">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1544184422">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1545738758">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1545738758">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <script>
@@ -64,7 +64,7 @@
     <div class="container docs-container">
   <div class="row">
     <div class="col-sm-9 col-sm-push-3 docs-content">
-        <h1 id="react-chart---axes-and-grid">React Chart - Axes and Grid</h1>
+        <h1 id="react-chart---scales-axes-and-grid">React Chart - Scales, Axes, and Grid</h1>
 
 <p>The axes and grid improve the visualized data’s readability: axes display series point arguments and values; the grid connects series points and axis values.</p>
 
@@ -75,36 +75,37 @@
 <ul>
   <li><a href="/devextreme-reactive/react/chart/docs/reference/argument-axis/">ArgumentAxis</a> - renders an argument axis with grid lines.</li>
   <li><a href="/devextreme-reactive/react/chart/docs/reference/value-axis/">ValueAxis</a> - renders a value axis with grid lines.</li>
-  <li><a href="/devextreme-reactive/react/chart/docs/reference/scale/">Scale</a> - processes data.</li>
+  <li><a href="/devextreme-reactive/react/chart/docs/reference/argument-scale/">ArgumentScale</a> - allows you to customize the argument scale.</li>
+  <li><a href="/devextreme-reactive/react/chart/docs/reference/value-scale/">ValueScale</a> - allows you to customize the value scale.</li>
 </ul>
 
 <h2 id="basic-setup">Basic Setup</h2>
 
 <p>Import the plugins listed above to set up a Chart with two axes and a grid.</p>
 
-<h2 id="axis-types">Axis Types</h2>
+<h2 id="scale-types">Scale Types</h2>
 
-<p>The default axis type is linear. It is sutable for numeric data. The following example shows a linear axis:</p>
+<p>The default scale is linear. It is suitable for numeric data. The following example shows a linear scale:</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/chart-basic/default-axis&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/chart/demos/dist/index.js?v=1544184422&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/chart-basic/default-axis&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/chart/demos/dist/index.js?v=1545738758&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
         </div>
 
-<p>The band axis type is used to display string values. Set the axis’ <code class="highlighter-rouge">type</code> property to <code class="highlighter-rouge">"band"</code> as demonstrated in the following example to use a band axis:</p>
+<p>The band scale is used to process string values. Set the scale’s <code class="highlighter-rouge">factory</code> property to <code class="highlighter-rouge">scaleBand</code> as demonstrated in the following example to use a band scale:</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/chart-basic/band-axis&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/chart/demos/dist/index.js?v=1544184422&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/chart-basic/band-axis&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/chart/demos/dist/index.js?v=1545738758&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
         </div>
 
-<h2 id="custom-axis-types">Custom Axis Types</h2>
+<h2 id="custom-scales">Custom Scales</h2>
 
-<p>You can also use custom axis types. For this, assign an array of scale configuration objects to the <code class="highlighter-rouge">Scale</code> plugin’s <code class="highlighter-rouge">extensions</code> property. The following example demonstrates how to use a logarithmic scale with d3 plugins:</p>
+<p>You can also use custom scales. For this, assign a custom factory function to the <code class="highlighter-rouge">ArgumentScale</code> or <code class="highlighter-rouge">ValueScale</code> plugin’s <code class="highlighter-rouge">factory</code> property. The following example demonstrates how to use a logarithmic scale with d3 plugins:</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/chart-basic/logarithm&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/chart/demos/dist/index.js?v=1544184422&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/chart-basic/logarithm&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/chart/demos/dist/index.js?v=1545738758&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -120,9 +121,9 @@
       </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.9.1">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.10.0">
             Version
-            <span>1.9.1</span>
+            <span>1.10.0</span>
           </a>
         </li>
       </ul>
@@ -256,6 +257,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/chart/docs/reference/argument-scale/">ArgumentScale</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/chart/docs/reference/bar-series/">BarSeries</a></li>
           
 
@@ -320,14 +329,6 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/chart/docs/reference/scale/">Scale</a></li>
-          
-
-        
-          
-          
-
-          
           <li><a href="/devextreme-reactive/react/chart/docs/reference/scatter-series/">ScatterSeries</a></li>
           
 
@@ -380,6 +381,14 @@
           
 
         
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/chart/docs/reference/value-scale/">ValueScale</a></li>
+          
+
+        
         </ul>
       
         <h3>Related Docs</h3>
@@ -417,17 +426,21 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/chart/demos/dist/index.js?v=1544184422"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script src="/devextreme-reactive/react/chart/demos/dist/index.js?v=1545738758"></script>
 
-<script type="text/javascript">
-  docsearch({
+<script
+  type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"
+  onload="docsearch({
     apiKey: '4cd7a76d4bc286ae69fe26182a8d4b18',
     indexName: 'devextreme_reactive',
     inputSelector: '#docsearch',
-    algoliaOptions: { 'facetFilters': ["techno:react", "tool:chart"] },
+    algoliaOptions: { 'facetFilters': ['techno:react', 'tool: chart'] },
     debug: false
-  });
+  })"
+  async
+>
+</script>
 </script>
 
 
@@ -469,7 +482,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1544184422"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1545738758"></script>
     <script>
         trackingCookie.notice();
     </script>

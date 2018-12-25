@@ -103,6 +103,8 @@ const LegendRoot = props => (
 
 const legendItemStyle = {
   flexDirection: 'column',
+  marginLeft: '-2px',
+  marginRight: '-2px',
 };
 const LegendItem = props => (
   <Legend.Item style={legendItemStyle} {...props} />

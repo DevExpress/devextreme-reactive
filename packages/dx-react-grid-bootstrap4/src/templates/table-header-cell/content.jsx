@@ -7,7 +7,7 @@ export const Content = ({
 }) => (
   <div
     className={classNames({
-      'w-100 d-flex flex-row align-items-end': true,
+      'dx-g-bs4-header-cell-content w-100 d-flex flex-row align-items-end': true,
       'justify-content-center': align === 'center',
       'justify-content-end': align === 'right',
     }, className)}

@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const mustache = require('mustache');
+const addStringsBeforeEntry = require('./parse-demo');
 
 const THEMES_FOLDER = './src/theme-sources';
 const DEMOS_FOLDER = './src/demo-sources';
@@ -122,7 +123,11 @@ const createFromTemplate = (sourceFilename, outputFilename, data) => {
   const source = fs.readFileSync(sourceFilename, 'utf-8');
   mustache.tags = ['<%', '%>'];
   const output = mustache.render(source, data);
-  overrideFileIfChanged(outputFilename, output);
+  const outputWithComments = addStringsBeforeEntry(output, [
+    { findStr: 'const', addStr: '// #FOLD_BLOCK' },
+    { findStr: 'import', addStr: '// #FOLD_BLOCK' },
+  ]);
+  overrideFileIfChanged(outputFilename, outputWithComments); // parse demos here
   cancelFileRemoving(outputFilename);
 };
 const generateDemos = () => {

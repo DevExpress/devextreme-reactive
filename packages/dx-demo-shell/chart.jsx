@@ -25,7 +25,7 @@ const data = [
 
 export default class Demo extends React.PureComponent {
   // const comment
-constructor(props) {
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -35,7 +35,7 @@ constructor(props) {
 
   render() {
     // const comment
-const { data: chartData } = this.state;
+    const { data: chartData } = this.state;
 
     return (
       <div className="card">

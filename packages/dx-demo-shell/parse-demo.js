@@ -27,10 +27,11 @@ const findAllIndexes = (source, str) => {
   } return indexes;
 };
 
-const combineStringByIndex = (source, index, str) => {
-  const start = source.slice(0, index);
-  const end = source.slice(index);
-  return start + str + end;
+const findWhiteSpacesCount = (source, index) => {
+  let str = '';
+  while (source[index - str.length - 1] === ' ') {
+    str += ' ';
+  } return str;
 };
 
 const combineStringByIndexes = (source, indexes, str) => {
@@ -41,8 +42,9 @@ const combineStringByIndexes = (source, indexes, str) => {
 
   for (let index = 0; index < indexesLength; index += 1) {
     endIndex = indexes[index];
-    parts.push(source.slice(startIndex, endIndex));
-    parts.push(str);
+    parts.push(source.slice(startIndex, endIndex)); // add part before comment
+    parts.push(str); // add comment
+    parts.push(findWhiteSpacesCount(source, indexes[index])); // add white spaces before next part
     startIndex = endIndex;
   }
   parts.push(source.slice(startIndex));
@@ -50,49 +52,26 @@ const combineStringByIndexes = (source, indexes, str) => {
   return parts.join('');
 };
 
-const endOfLineByIndex = (source, index) => source.indexOf('\n', index);
-
-const parseFile = () => {
-  const sourceFilename = path.join(INPUT_FILE);
-  const source = fs.readFileSync(sourceFilename, 'utf-8');
-
-  const indexes = findAllIndexes(source, 'const');
-  const endLineIndexes = indexes.map(index => endOfLineByIndex(source, index));
-
-  const nextSource = combineStringByIndexes(source, endLineIndexes, ' // comment');
-
-  // console.log(nextSource);
-  // console.log(indexes);
-  // console.log(nextSource);
-
-  overrideFileIfChanged(path.join(OUTPUT_FILE), nextSource);
-};
-
-const parseFile2 = (meta) => {
+const parseFile2 = (meta) => { // for testing
   const sourceFilename = path.join(INPUT_FILE);
   const source = fs.readFileSync(sourceFilename, 'utf-8');
 
   const outputSource = meta.reduce((acc, { findStr, addStr }) => {
+    const addedStr = `${addStr}\n`;
     const indexes = findAllIndexes(acc, findStr);
-    // const endLineIndexes = indexes.map(index => endOfLineByIndex(acc, index));
 
-    const nextSource = combineStringByIndexes(acc, indexes, addStr);
+    const nextSource = combineStringByIndexes(acc, indexes, addedStr);
     return nextSource;
   }, source);
 
   overrideFileIfChanged(path.join(OUTPUT_FILE), outputSource);
 };
 
-const simulateManyCalls = (value) => {
-  for (let i = 0; i < value; i += 1) {
-    parseFile();
-  }
-};
+module.exports = (source, meta) => meta
+  .reduce((acc, { findStr, addStr }) => {
+    const addedStr = `${addStr}\n`;
+    const indexes = findAllIndexes(acc, findStr);
 
-parseFile2([
-  { findStr: 'const', addStr: '// const comment\n' },
-  { findStr: 'import', addStr: '// import comment\n' },
-]);
-
-// parseFile();
-// simulateManyCalls(10000); // MacBook Pro 2018 15' -> ✨  Done in 1.67s.
+    const nextSource = combineStringByIndexes(acc, indexes, addedStr);
+    return nextSource;
+  }, source);

@@ -1,19 +1,37 @@
-const fs = require('fs');
-const path = require('path');
+// ======== for remove
+// const fs = require('fs');
+// const path = require('path');
 
-const INPUT_FILE = path.resolve('./chart.jsxt');
-const OUTPUT_FILE = path.resolve('./chart.jsx');
+// const INPUT_FILE = path.resolve('./chart.jsxt');
+// const OUTPUT_FILE = path.resolve('./chart.jsx');
 
-const overrideFileIfChanged = (filename, data) => {
-  // let existingData;
-  // if (fs.existsSync(filename)) {
-  //   existingData = fs.readFileSync(filename, 'utf-8');
-  // }
-  // if (existingData !== data) {
-  //   fs.writeFileSync(filename, data, 'utf-8');
-  // }
-  fs.writeFileSync(filename, data, 'utf-8');
-};
+// const overrideFileIfChanged = (filename, data) => {
+//   // let existingData;
+//   // if (fs.existsSync(filename)) {
+//   //   existingData = fs.readFileSync(filename, 'utf-8');
+//   // }
+//   // if (existingData !== data) {
+//   //   fs.writeFileSync(filename, data, 'utf-8');
+//   // }
+//   fs.writeFileSync(filename, data, 'utf-8');
+// };
+
+// const parseFile2 = (meta) => { // for testing
+//   const sourceFilename = path.join(INPUT_FILE);
+//   const source = fs.readFileSync(sourceFilename, 'utf-8');
+
+//   const outputSource = meta.reduce((acc, { findStr, addStr }) => {
+//     const addedStr = `${addStr}\n`;
+//     const indexes = findAllIndexes(acc, findStr);
+
+//     const nextSource = combineStringByIndexes(acc, indexes, addedStr);
+//     return nextSource;
+//   }, source);
+
+//   overrideFileIfChanged(path.join(OUTPUT_FILE), outputSource);
+// };
+
+// ==========
 
 const findAllIndexes = (source, str) => {
   let position = 0;
@@ -52,26 +70,10 @@ const combineStringByIndexes = (source, indexes, str) => {
   return parts.join('');
 };
 
-const parseFile2 = (meta) => { // for testing
-  const sourceFilename = path.join(INPUT_FILE);
-  const source = fs.readFileSync(sourceFilename, 'utf-8');
-
-  const outputSource = meta.reduce((acc, { findStr, addStr }) => {
-    const addedStr = `${addStr}\n`;
-    const indexes = findAllIndexes(acc, findStr);
-
-    const nextSource = combineStringByIndexes(acc, indexes, addedStr);
-    return nextSource;
-  }, source);
-
-  overrideFileIfChanged(path.join(OUTPUT_FILE), outputSource);
-};
-
 module.exports = (source, meta) => meta
   .reduce((acc, { findStr, addStr }) => {
     const addedStr = `${addStr}\n`;
     const indexes = findAllIndexes(acc, findStr);
 
-    const nextSource = combineStringByIndexes(acc, indexes, addedStr);
-    return nextSource;
+    return combineStringByIndexes(acc, indexes, addedStr);
   }, source);

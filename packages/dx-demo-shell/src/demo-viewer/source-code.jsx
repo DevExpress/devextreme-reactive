@@ -38,19 +38,19 @@ export class SourceCode extends React.PureComponent {
       height: 'auto',
       gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
     });
-    this.applySpecialOptions();
+    this.applySpecialCodeOptions();
   }
 
   componentWillReceiveProps(nextProps) {
-    const sourceCode = this.prepareSourceCode(nextProps);
+    const { themeName, sectionName, demoName } = nextProps;
+    const sourceCode = this.prepareSourceCode(themeName, sectionName, demoName);
     this.codeMirror.setValue(sourceCode);
-    this.applySpecialOptions();
+    this.applySpecialCodeOptions();
   }
 
-  prepareSourceCode(props) {
+  prepareSourceCode(themeName, sectionName, demoName) {
     this.foldBlockStartLines = [];
     this.importantLines = [];
-    const { themeName, sectionName, demoName } = props;
     const { demoSources } = this.context;
     const source = demoSources[sectionName][demoName][themeName].source || '';
     let occurrenceIndex = 0;
@@ -72,7 +72,7 @@ export class SourceCode extends React.PureComponent {
       }).join('\n');
   }
 
-  applySpecialOptions() {
+  applySpecialCodeOptions() {
     this.foldBlockStartLines.forEach((lineNumber) => {
       this.codeMirror.foldCode(CodeMirror.Pos(lineNumber, 0));
     });
@@ -82,7 +82,8 @@ export class SourceCode extends React.PureComponent {
   }
 
   render() {
-    const sourceCode = this.prepareSourceCode(this.props);
+    const { themeName, sectionName, demoName } = this.props;
+    const sourceCode = this.prepareSourceCode(themeName, sectionName, demoName);
     return (
       <textarea
         ref={this.textarea}
@@ -93,7 +94,6 @@ export class SourceCode extends React.PureComponent {
   }
 }
 
-/* eslint-disable react/no-unused-prop-types */
 SourceCode.propTypes = {
   sectionName: PropTypes.string.isRequired,
   demoName: PropTypes.string.isRequired,

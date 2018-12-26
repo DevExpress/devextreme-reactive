@@ -41,14 +41,14 @@ export class SourceCode extends React.PureComponent {
     this.applySpecialCodeOptions();
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { themeName, sectionName, demoName } = nextProps;
-    const sourceCode = this.prepareSourceCode(themeName, sectionName, demoName);
+  componentDidUpdate() {
+    const sourceCode = this.prepareSourceCode();
     this.codeMirror.setValue(sourceCode);
     this.applySpecialCodeOptions();
   }
 
-  prepareSourceCode(themeName, sectionName, demoName) {
+  prepareSourceCode() {
+    const { themeName, sectionName, demoName } = this.props;
     this.foldBlockStartLines = [];
     this.importantLines = [];
     const { demoSources } = this.context;
@@ -82,8 +82,7 @@ export class SourceCode extends React.PureComponent {
   }
 
   render() {
-    const { themeName, sectionName, demoName } = this.props;
-    const sourceCode = this.prepareSourceCode(themeName, sectionName, demoName);
+    const sourceCode = this.prepareSourceCode();
     return (
       <textarea
         ref={this.textarea}

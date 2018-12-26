@@ -1,6 +1,7 @@
 import { PureComputed, CustomFunction } from '@devexpress/dx-core';
 import { Column, Row, GetCellValueFn } from './grid-core.types';
-import { TableColumn, TargetColumnGeometry } from './table.types';
+import { TableColumn, TargetColumnGeometry, GetCellColSpanFn, TableRow } from './table.types';
+import { SummaryItem } from '.';
 
 /** Describes grouping options. */
 export interface Grouping {
@@ -70,4 +71,15 @@ export type TableColumnsWithGroupingFn = PureComputed<
 export type GetGroupCellTargetIndexFn = PureComputed<
   [TargetColumnGeometry[], number, { x: number, y: number }],
   number
+>;
+/** @internal */
+export type GroupCellColSpanGetter = PureComputed<
+  [GetCellColSpanFn, SummaryItem[]],
+  GetCellColSpanFn
+>;
+
+/** @internal */
+export type GroupSummaryChainsFn = PureComputed<
+  [TableRow, TableColumn[], SummaryItem[]],
+  string[][]
 >;

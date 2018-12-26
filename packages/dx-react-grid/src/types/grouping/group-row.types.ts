@@ -1,5 +1,6 @@
 import { PureComputed } from '@devexpress/dx-core';
-import { Table, Column } from '../index';
+import { GroupSummaryItem, GroupSummaryValue, ColumnSummary } from '@devexpress/dx-grid-core';
+import { Table, Column, TableColumn, TableRow } from '../index';
 
 // tslint:disable-next-line: no-namespace
 export namespace TableGroupRow {
@@ -32,6 +33,10 @@ export namespace TableGroupRow {
     position: string;
     /** @internal */
     side: string;
+    inlineSummaries: any;
+    inlineSummaryComponent: React.ComponentType<any>;
+    inlineSummaryItemComponent: React.ComponentType<any>;
+    getMessage: (string) => string;
   }
 
   /** Describes properties passed to a component that renders a group row. */
@@ -94,12 +99,19 @@ export interface TableGroupRowProps {
   contentComponent: React.ComponentType<TableGroupRow.ContentProps>;
   /** A component that renders a group expand icon. */
   iconComponent: React.ComponentType<TableGroupRow.IconProps>;
+  inlineSummaryItemComponent: React.ComponentType<any>;
+  inlineSummaryComponent: React.ComponentType<any>;
+  summaryCellComponent: React.ComponentType<any>;
+  summaryItemComponent: React.ComponentType<any>;
+  stubCellComponent: React.ComponentType<any>;
   /** A component that renders a content container */
   containerComponent: React.ComponentType<TableGroupRow.ContainerProps>;
   /** A component that renders a group indent cell. */
   indentCellComponent?: React.ComponentType<TableGroupRow.IndentCellProps>;
   /** The group indent column's width. */
   indentColumnWidth: number;
+  messages: object;
+  formatlessSummaryTypes: string[];
   /** The group cell's left padding value */
   contentCellPadding: string;
 }
@@ -107,4 +119,23 @@ export interface TableGroupRowProps {
 /** @internal */
 export type ShowColumnWhenGroupedGetterFn = PureComputed<
   [boolean, TableGroupRow.ColumnExtension[] | undefined], (name: string) => boolean
+>;
+
+/** @internal */
+export type GetInlineSummaryComponent = PureComputed<
+  [Column, ColumnSummary, string[]],
+  React.FunctionComponent<any>
+>;
+
+/** @internal */
+export type InlineSummary = ColumnSummary & {
+  columnTitle: string | undefined;
+  messageKey: string;
+  component: React.FunctionComponent<any>;
+};
+
+/** @internal */
+export type FlattenGroupInlineSummariesFn = PureComputed<
+  [TableColumn[], TableRow, GroupSummaryItem[], GroupSummaryValue, string[]],
+  InlineSummary[]
 >;

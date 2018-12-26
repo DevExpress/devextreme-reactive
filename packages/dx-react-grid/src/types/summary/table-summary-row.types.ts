@@ -1,4 +1,5 @@
 import { Table, SummaryType, Column, ColumnSummary } from '../index';
+import { GetMessageFn } from '@devexpress/dx-core';
 
 // tslint:disable-next-line: no-namespace
 export namespace TableSummaryRow {
@@ -33,7 +34,7 @@ export namespace TableSummaryRow {
     /** A React node used to render the summary value. */
     children?: React.ReactNode;
     /** Returns a localization message by the message key. */
-    getMessage: (messageKey: string) => string;
+    getMessage: GetMessageFn;
   }
 
   export interface LocalizationMessages {
@@ -81,4 +82,13 @@ export interface TableSummaryRowProps {
 export type SummaryItemProps = {
   summary: ColumnSummary,
   children?: React.ReactNode,
+};
+
+/** @internal */
+export type TableSummaryContentProps = {
+  column: Column;
+  columnSummaries: ReadonlyArray<ColumnSummary>;
+  formatlessSummaryTypes: string[];
+  itemComponent: React.ComponentType<TableSummaryRow.ItemProps>;
+  messages: object;
 };

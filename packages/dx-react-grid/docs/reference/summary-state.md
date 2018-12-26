@@ -30,10 +30,12 @@ treeItems? | Array&lt;[SummaryItem](#summaryitem)&gt; | | The tree summary items
 
 Describes the summary item associated with a column.
 
-Field | Type | Description
-------|------|------------
-columnName | string | The name of a column associated with the current summary item.
-type | [SummaryType](#summarytype) | A summary type.
+Field | Type | Default | Description
+------|------|---------|--
+columnName | string | | The name of a column associated with the current summary item.
+type | [SummaryType](#summarytype) | | A summary type.
+showInGroupRow? | boolean | false | Specifies whether a summary should be rendered in a group row instead of a summary row.
+showInGroupCaption? | boolean | false | Specifies whether a summary should be rendered inside a group row caption instead of a summary row.
 
 ### SummaryType
 

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { pluginDepsToComponents, getComputedState, setupConsole } from '@devexpress/dx-testing';
 import { PluginHost, Template } from '@devexpress/dx-react-core';
+import { getMessagesFormatter } from '@devexpress/dx-core';
 import {
   tableColumnsWithGrouping,
   tableRowsWithGrouping,
@@ -10,11 +11,17 @@ import {
   isGroupIndentTableCell,
   isGroupIndentStubTableCell,
   isGroupTableRow,
+  isGroupRowOrdinaryCell,
+  isRowSummaryCell,
+  getColumnSummaries,
   calculateGroupCellIndent,
 } from '@devexpress/dx-grid-core';
-import { TableGroupRow } from './table-group-row';
+import { TableGroupRow, defaultMessages } from './table-group-row';
+import { TableSummaryContent } from '../components/summary/table-summary-content';
+import { flattenGroupInlineSummaries } from '../components/summary/group-summaries';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
+  ...require.requireActual('@devexpress/dx-grid-core'),
   tableColumnsWithGrouping: jest.fn(),
   tableRowsWithGrouping: jest.fn(),
   tableGroupCellColSpanGetter: jest.fn(),
@@ -23,6 +30,18 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   isGroupIndentStubTableCell: jest.fn(),
   isGroupTableRow: jest.fn(),
   calculateGroupCellIndent: jest.fn(),
+  isGroupRowOrdinaryCell: jest.fn(),
+  isRowSummaryCell: jest.fn(),
+  getColumnSummaries: jest.fn(),
+}));
+
+jest.mock('@devexpress/dx-core', () => ({
+  ...require.requireActual('@devexpress/dx-core'),
+  getMessagesFormatter: jest.fn().mockReturnValue(() => {}),
+}));
+
+jest.mock('../components/summary/group-summaries', () => ({
+  flattenGroupInlineSummaries: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -35,13 +54,15 @@ const defaultDeps = {
     expandedGroups: [],
     isGroupRow: () => false,
     getTableCellColSpan: () => 1,
+    groupSummaryItems: [],
+    groupSummaryValues: { compoundKey: 5 },
   },
   action: {
     toggleGroupExpanded: jest.fn(),
   },
   template: {
     tableCell: {
-      tableRow: { type: 'undefined', id: 1, row: 'row' },
+      tableRow: { type: 'undefined', id: 1, row: { compoundKey: 'compoundKey' } },
       tableColumn: { type: 'undefined', id: 1, column: { name: 'a' } },
       style: {},
     },
@@ -60,7 +81,13 @@ const defaultProps = {
   containerComponent: ({ children }) => children,
   indentCellComponent: () => null,
   rowComponent: () => null,
+  rowSummaryCellComponent: ({ children }) => children,
+  rowSummaryItemComponent: () => null,
+  inlineSummaryComponent: () => null,
+  inlineSummaryItemComponent: () => null,
   indentColumnWidth: 100,
+  messages: {},
+  formatlessSummaryTypes: [],
   contentCellPadding: 'contentCellPadding',
 };
 
@@ -82,6 +109,7 @@ describe('TableGroupRow', () => {
     isGroupIndentTableCell.mockImplementation(() => false);
     isGroupIndentStubTableCell.mockImplementation(() => false);
     isGroupTableRow.mockImplementation(() => false);
+    flattenGroupInlineSummaries.mockReturnValue('flattenGroupInlineSummaries');
     calculateGroupCellIndent.mockReturnValue('groupCellIndent');
   });
   afterEach(() => {
@@ -142,7 +170,10 @@ describe('TableGroupRow', () => {
       expect(getComputedState(tree).getTableCellColSpan)
         .toBe('tableGroupCellColSpanGetter');
       expect(tableGroupCellColSpanGetter)
-        .toBeCalledWith(defaultDeps.getter.getTableCellColSpan);
+        .toBeCalledWith(
+          defaultDeps.getter.getTableCellColSpan,
+          defaultDeps.getter.groupSummaryItems,
+        );
     });
   });
 
@@ -370,6 +401,8 @@ describe('TableGroupRow', () => {
       .toMatchObject({
         contentComponent: defaultProps.contentComponent,
         iconComponent: defaultProps.iconComponent,
+        inlineSummaryComponent: defaultProps.inlineSummaryComponent,
+        inlineSummaryItemComponent: defaultProps.inlineSummaryItemComponent,
       });
   });
 
@@ -436,5 +469,164 @@ describe('TableGroupRow', () => {
         ...defaultDeps.template.tableRow,
         row: defaultDeps.template.tableRow.tableRow.row,
       });
+  });
+
+  describe('Group summary', () => {
+    const columnSummaries = [];
+    beforeEach(() => {
+      isGroupRowOrdinaryCell.mockReturnValue(true);
+      isRowSummaryCell.mockReturnValue(true);
+      getColumnSummaries.mockReturnValue(columnSummaries);
+    });
+
+    it('should render group summary cell in an oridinary cell if column contains summary', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableGroupRow
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(isGroupRowOrdinaryCell)
+        .toBeCalledWith(
+          defaultDeps.template.tableCell.tableRow,
+          defaultDeps.template.tableCell.tableColumn,
+        );
+      expect(isRowSummaryCell)
+        .toBeCalledWith(
+          defaultDeps.template.tableCell.tableRow,
+          defaultDeps.template.tableCell.tableColumn,
+          defaultDeps.getter.grouping,
+          defaultDeps.getter.groupSummaryItems,
+        );
+      expect(tree.find(defaultProps.rowSummaryCellComponent).props())
+        .toMatchObject({
+          ...defaultDeps.template.tableCell,
+          row: defaultDeps.template.tableCell.tableRow.row,
+          column: defaultDeps.template.tableCell.tableColumn.column,
+          onToggle: expect.any(Function),
+        });
+    });
+
+    it('should render a summary content component', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableGroupRow
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(tree.find(TableSummaryContent).props())
+        .toMatchObject({
+          column: defaultDeps.template.tableCell.tableColumn.column,
+          columnSummaries,
+          formatlessSummaryTypes: defaultProps.formatlessSummaryTypes,
+          itemComponent: defaultProps.rowSummaryItemComponent,
+          messages: defaultProps.messages,
+        });
+    });
+
+    it('should calculate column summaries', () => {
+      mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableGroupRow
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      const summaryPredicate = getColumnSummaries.mock.calls[0][3];
+      expect(summaryPredicate({ showInGroupRow: true }))
+        .toBeTruthy();
+      expect(summaryPredicate({ showInGroupRow: false }))
+        .toBeFalsy();
+      expect(getColumnSummaries)
+        .toBeCalledWith(
+          defaultDeps.getter.groupSummaryItems,
+          defaultDeps.template.tableCell.tableColumn.column.name,
+          5,
+          expect.any(Function),
+        );
+    });
+
+    it('should pass a correct onToggle handler', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableGroupRow
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+      const onToggle = tree.find(defaultProps.rowSummaryCellComponent)
+        .prop('onToggle');
+      defaultDeps.action.toggleGroupExpanded.mockClear();
+
+      onToggle();
+
+      expect(defaultDeps.action.toggleGroupExpanded)
+        .toBeCalledWith(
+          { groupKey: defaultDeps.template.tableCell.tableRow.row.compoundKey },
+          expect.any(Object), // getters
+          expect.any(Object), // actions
+        );
+    });
+  });
+
+  describe('Inline summary', () => {
+    beforeEach(() => {
+      isGroupTableRow.mockImplementation(() => true);
+      isGroupTableCell.mockImplementation(() => true);
+    });
+
+    it('should compute inline summaries', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableGroupRow
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(tree.find(defaultProps.cellComponent).props())
+        .toMatchObject({
+          inlineSummaries: 'flattenGroupInlineSummaries',
+        });
+      expect(flattenGroupInlineSummaries)
+        .toBeCalledWith(
+          'tableColumnsWithGrouping',
+          defaultDeps.template.tableCell.tableRow,
+          defaultDeps.getter.groupSummaryItems,
+          defaultDeps.getter.groupSummaryValues,
+          expect.any(Array),
+        );
+    });
+
+    it('should provide getMessage function', () => {
+      getMessagesFormatter.mockReturnValue(key => key.toUpperCase());
+      const messages = { minOf: 'min of' };
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableGroupRow
+            {...defaultProps}
+            messages={messages}
+          />
+        </PluginHost>
+      ));
+
+      expect(getMessagesFormatter).toBeCalledWith({ ...defaultMessages, ...messages });
+      const getMessage = tree
+        .find(defaultProps.cellComponent)
+        .prop('getMessage');
+      expect(getMessage('min'))
+        .toBe('MIN');
+    });
   });
 });

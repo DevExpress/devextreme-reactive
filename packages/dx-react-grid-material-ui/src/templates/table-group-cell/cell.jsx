@@ -18,6 +18,9 @@ const CellBase = ({
   contentComponent: Content,
   iconComponent: Icon,
   containerComponent: Container,
+  inlineSummaryComponent: InlineSummary,
+  inlineSummaryItemComponent: InlineSummaryItem,
+  inlineSummaries, getMessage,
   style, colSpan, row,
   column, expanded,
   onToggle,
@@ -46,6 +49,15 @@ const CellBase = ({
         >
           {children}
         </Content>
+        {
+          inlineSummaries.length ? (
+            <InlineSummary
+              inlineSummaries={inlineSummaries}
+              getMessage={getMessage}
+              inlineSummaryItemComponent={InlineSummaryItem}
+            />
+          ) : null
+        }
       </Container>
     </TableCell>
   );
@@ -56,6 +68,8 @@ CellBase.propTypes = {
   contentComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   iconComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   containerComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  inlineSummaryComponent: PropTypes.func.isRequired,
+  inlineSummaryItemComponent: PropTypes.func.isRequired,
   style: PropTypes.object,
   colSpan: PropTypes.number,
   row: PropTypes.any,
@@ -63,10 +77,12 @@ CellBase.propTypes = {
   expanded: PropTypes.bool,
   onToggle: PropTypes.func,
   classes: PropTypes.object.isRequired,
+  getMessage: PropTypes.func.isRequired,
   children: PropTypes.node,
   className: PropTypes.string,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
+  inlineSummaries: PropTypes.array,
   side: PropTypes.string,
   position: PropTypes.string,
 };
@@ -77,6 +93,7 @@ CellBase.defaultProps = {
   row: {},
   column: {},
   expanded: false,
+  inlineSummaries: [],
   onToggle: () => {},
   children: undefined,
   className: undefined,

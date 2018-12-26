@@ -1,11 +1,9 @@
 import * as React from 'react';
-import { getMessagesFormatter } from '@devexpress/dx-core';
 import {
   Getter,
   Template,
   Plugin,
   TemplateConnector,
-  TemplatePlaceholder,
   Getters,
 } from '@devexpress/dx-react-core';
 import {
@@ -21,9 +19,10 @@ import {
   TABLE_TREE_SUMMARY_TYPE,
   TABLE_GROUP_SUMMARY_TYPE,
   TABLE_TOTAL_SUMMARY_TYPE,
-  ColumnSummary,
+  isInlineGroupSummary,
 } from '@devexpress/dx-grid-core';
-import { TableCellProps, TableRowProps, SummaryItemProps, TableSummaryRowProps } from '../types';
+import { TableCellProps, TableRowProps, TableSummaryRowProps } from '../types';
+import { TableSummaryContent } from '../components/summary/table-summary-content';
 
 const dependencies = [
   { name: 'DataTypeProvider', optional: true },
@@ -33,14 +32,6 @@ const dependencies = [
   { name: 'Table' },
   { name: 'TableTreeColumn', optional: true },
 ];
-
-const defaultMessages = {
-  sum: 'Sum',
-  min: 'Min',
-  max: 'Max',
-  avg: 'Avg',
-  count: 'Count',
-};
 
 const tableBodyRowsComputed = ({
   tableBodyRows,
@@ -56,9 +47,7 @@ const tableFooterRowsComputed = ({
   tableFooterRows,
 }: Getters) => tableRowsWithTotalSummaries(tableFooterRows);
 
-const defaultTypelessSummaries = ['count'];
-
-class TableSummaryRowBase extends React.PureComponent<TableSummaryRowProps> {
+export class TableSummaryRowBase extends React.PureComponent<TableSummaryRowProps> {
   static TREE_ROW_TYPE = TABLE_TREE_SUMMARY_TYPE;
   static GROUP_ROW_TYPE = TABLE_GROUP_SUMMARY_TYPE;
   static TOTAL_ROW_TYPE = TABLE_TOTAL_SUMMARY_TYPE;
@@ -79,50 +68,21 @@ class TableSummaryRowBase extends React.PureComponent<TableSummaryRowProps> {
     itemComponent: 'Item',
   };
 
-  renderContent(column, columnSummaries: ReadonlyArray<ColumnSummary>) {
+  renderContent(column, columnSummaries) {
     const {
       formatlessSummaryTypes,
       itemComponent: Item,
       messages,
     } = this.props;
 
-    const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
-    const SummaryItem: React.SFC<SummaryItemProps> = ({ summary, children }) => (
-      <Item
-        getMessage={getMessage}
-        type={summary.type}
-        value={summary.value}
-      >
-        {children || String(summary.value)}
-      </Item>
-    );
-
     return (
-      <>
-        {columnSummaries.map((summary) => {
-          if (summary.value === null
-            || formatlessSummaryTypes.includes(summary.type)
-            || defaultTypelessSummaries.includes(summary.type)) {
-            return <SummaryItem key={summary.type} summary={summary} />;
-          }
-          return (
-            <TemplatePlaceholder
-              key={summary.type}
-              name="valueFormatter"
-              params={{
-                column,
-                value: summary.value,
-              }}
-            >
-              {content => (
-                <SummaryItem summary={summary}>
-                  {content}
-                </SummaryItem>
-              )}
-            </TemplatePlaceholder>
-          );
-        })}
-      </>
+      <TableSummaryContent
+        column={column}
+        columnSummaries={columnSummaries}
+        formatlessSummaryTypes={formatlessSummaryTypes}
+        itemComponent={Item}
+        messages={messages!}
+      />
     );
   }
 
@@ -185,6 +145,7 @@ class TableSummaryRowBase extends React.PureComponent<TableSummaryRowProps> {
                   groupSummaryItems,
                   params.tableColumn.column!.name,
                   groupSummaryValues[params.tableRow.row.compoundKey],
+                  summaryItem => !isInlineGroupSummary(summaryItem),
                 );
                 return (
                   <GroupCell

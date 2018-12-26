@@ -152,10 +152,13 @@ describe('TableGroupRow Plugin computeds', () => {
 
   describe('#tableGroupCellColSpanGetter', () => {
     const parentGetCellColSpan = () => 'original';
-    it('should return correct colspan', () => {
-      const getCellColSpanGetter = tableGroupCellColSpanGetter(parentGetCellColSpan);
 
+    it('should return correct colspan', () => {
+      const getCellColSpanGetter = tableGroupCellColSpanGetter(
+        parentGetCellColSpan, [],
+      );
       const tableColumn = { type: TABLE_GROUP_TYPE, column: { name: 'a' } };
+
       expect(getCellColSpanGetter({
         tableColumn,
         tableRow: { type: TABLE_GROUP_TYPE, row: { groupedBy: 'a' } },
@@ -172,10 +175,49 @@ describe('TableGroupRow Plugin computeds', () => {
 
       expect(getCellColSpanGetter({
         tableColumn,
+        tableRow: { type: TABLE_GROUP_TYPE, row: { groupedBy: 'a' } },
+        tableColumns: [{}, {}, tableColumn],
+      }))
+        .toBe(1);
+
+      expect(getCellColSpanGetter({
+        tableColumn,
         tableRow: { type: TABLE_GROUP_TYPE, row: { groupedBy: 'b' } },
         tableColumns: [{}, tableColumn, {}],
       }))
+        .toBe(2);
+
+      expect(getCellColSpanGetter({
+        tableColumn,
+        tableRow: { type: Symbol('undefined'), row: {} },
+        tableColumns: [{}, tableColumn, {}],
+      }))
         .toBe('original');
+    });
+
+    describe('with summary', () => {
+      const tableColumns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+        .map(name => ({ column: { name } }));
+      const groupSummaryItems = [
+        { columnName: 'b', type: 'sum', showInGroupRow: true },
+        { columnName: 'd', type: 'sum', showInGroupCaption: true },
+        { columnName: 'e', type: 'sum', showInGroupRow: true },
+      ];
+      const tableRow = { type: TABLE_GROUP_TYPE, row: { groupedBy: 'a' } };
+
+      it('should return correct colspan when group row contains summary', () => {
+        const getCellColSpanGetter = tableGroupCellColSpanGetter(
+          parentGetCellColSpan, groupSummaryItems,
+        );
+
+        expect(tableColumns.map(
+          tableColumn => getCellColSpanGetter({
+            tableColumn,
+            tableRow,
+            tableColumns,
+          })))
+          .toEqual([1, 1, 2, 'original', 1, 3, 'original', 'original']);
+      });
     });
   });
 });

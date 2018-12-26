@@ -17,6 +17,15 @@ const styles = theme => ({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  cellNoWrap: {
+    whiteSpace: 'nowrap',
+  },
+  cellRightAlign: {
+    textAlign: 'right',
+  },
+  cellCenterAlign: {
+    textAlign: 'center',
+  },
 });
 
 const TableTreeCellBase = ({
@@ -28,6 +37,9 @@ const TableTreeCellBase = ({
   <TableCellMUI
     className={classNames({
       [classes.cell]: true,
+      [classes.cellNoWrap]: !(tableColumn && tableColumn.wordWrapEnabled),
+      [classes.cellRightAlign]: tableColumn && tableColumn.align === 'right',
+      [classes.cellCenterAlign]: tableColumn && tableColumn.align === 'center',
     }, className)}
     {...restProps}
   >

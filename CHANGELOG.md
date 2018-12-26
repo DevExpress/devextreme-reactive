@@ -1,3 +1,55 @@
+# [1.10.0](https://github.com/DevExpress/devextreme-reactive/compare/v1.9.1...v1.10.0) (2018-12-25)
+
+
+### Bug Fixes
+
+* **react-chart:** fix resizing of the axes ([#1685](https://github.com/DevExpress/devextreme-reactive/issues/1685)) ([7c409f0](https://github.com/DevExpress/devextreme-reactive/commit/7c409f0))
+* **react-chart:** fix-pie-legend ([#1714](https://github.com/DevExpress/devextreme-reactive/issues/1714)) ([d662409](https://github.com/DevExpress/devextreme-reactive/commit/d662409))
+* **react-core-demos:** fix the 'Template Overriding' demo ([#1729](https://github.com/DevExpress/devextreme-reactive/issues/1729)) ([a119cb4](https://github.com/DevExpress/devextreme-reactive/commit/a119cb4))
+* **react-grid:** apply wordWrapEnabled property to TableTreeColumn ([#1721](https://github.com/DevExpress/devextreme-reactive/issues/1721)) ([336c88a](https://github.com/DevExpress/devextreme-reactive/commit/336c88a))
+* **react-grid:** fix header layout when middle band column is fixed ([#1619](https://github.com/DevExpress/devextreme-reactive/issues/1619)) ([504f434](https://github.com/DevExpress/devextreme-reactive/commit/504f434))
+* **react-grid:** pass actual properties to a tableLayout in VirtualTable ([#1690](https://github.com/DevExpress/devextreme-reactive/issues/1690)) ([ac609f2](https://github.com/DevExpress/devextreme-reactive/commit/ac609f2))
+* **react-grid:** prevent animation flicker on column visibility change ([#1674](https://github.com/DevExpress/devextreme-reactive/issues/1674)) ([2cbb72a](https://github.com/DevExpress/devextreme-reactive/commit/2cbb72a))
+* **react-grid:** prevent virtual table from setting a width to flex column ([#1691](https://github.com/DevExpress/devextreme-reactive/issues/1691)) ([6d28bfb](https://github.com/DevExpress/devextreme-reactive/commit/6d28bfb))
+* **react-grid:** specify table fixed columns plugin optional dependencies ([#1693](https://github.com/DevExpress/devextreme-reactive/issues/1693)) ([3564212](https://github.com/DevExpress/devextreme-reactive/commit/3564212))
+* **react-scheduler:** add to AllDayPanel another cell template name ([#1719](https://github.com/DevExpress/devextreme-reactive/issues/1719)) ([386728f](https://github.com/DevExpress/devextreme-reactive/commit/386728f))
+* **react-scheduler:** fix date navigator button width ([#1699](https://github.com/DevExpress/devextreme-reactive/issues/1699)) ([7093d7b](https://github.com/DevExpress/devextreme-reactive/commit/7093d7b))
+* update [@material-ui](https://github.com/material-ui)/core to 3.7.0 ([#1718](https://github.com/DevExpress/devextreme-reactive/issues/1718)) ([ce5d4fe](https://github.com/DevExpress/devextreme-reactive/commit/ce5d4fe))
+
+
+### Code Refactoring
+
+* **react-chart:** replace Scale plugin with ArgumentScale and ValueScale ([#1650](https://github.com/DevExpress/devextreme-reactive/issues/1650)) ([1f2e0b2](https://github.com/DevExpress/devextreme-reactive/commit/1f2e0b2))
+* **react-chart:** rename "showGrids" Axis property ([#1696](https://github.com/DevExpress/devextreme-reactive/issues/1696)) ([f8087da](https://github.com/DevExpress/devextreme-reactive/commit/f8087da))
+* **react-chart:** property to customize scale domain ([#1711](https://github.com/DevExpress/devextreme-reactive/issues/1711)) ([b09e439](https://github.com/DevExpress/devextreme-reactive/commit/b09e439))
+
+
+### BREAKING CHANGES
+
+* **react-chart:**
+Previously the `ArgumenAxis`, `ValueAxis`, and `Scale` plugins allowed you to customize argument and value scales. In this release, we have implemented the `ArgumentScale` and `ValueScale` plugins for this purpose to make the API more clear. 
+
+* **react-chart:**
+The `showGrids` *Axis* property is renamed to `showGrid`.
+
+* **react-chart:**
+The `min` and `max` scale properties are replaced with the `modifyDomain` property because the *band* scale domain cannot be customized in *min* and *max* terms.
+
+  Replace this
+  
+  ```javascript
+  <ArgumentScale min={0} max={10} ... />
+  ```
+  
+  with this
+  
+  ```javascript
+  const modifyDomain = () => [0, 10];
+  
+  <ArgumentScale modifyDomain={modifyDomain} ... />
+  ```
+
+
 # [1.9.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.9.0...v1.9.1) (2018-12-07)
 
 

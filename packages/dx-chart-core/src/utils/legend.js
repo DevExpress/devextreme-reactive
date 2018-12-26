@@ -3,13 +3,13 @@ const getDefaultLegendItems = series => series.map(
 );
 
 const getPieLegendItems = series => series[0]
-  .points.map(({ id: text, color }) => ({ text, color }));
+  .points.map(({ argument: text, color }) => ({ text, color }));
 
 // The function supports special case when there is single Pie series.
-// There is no commom way to tell if series is of Pie type -
-// checking `seriesComponent` function name will suffice for now.
+// There is no common way to tell if series is PieSeries -
+// checking `radius` props will suffice for now.
 const isSinglePieSeriesCase = series => (
-  series.length === 1 && series[0].seriesComponent.name === 'SliceCollection'
+  series.length === 1 && 'innerRadius' in series[0] && 'outerRadius' in series[0]
 );
 
 export const getLegendItems = series => (

@@ -8,7 +8,23 @@ const defaultProps = {
 };
 
 describe('Content', () => {
-  it('should have correct styles align is right', () => {
+  it('should have correct default styles', () => {
+    const tree = shallow((
+      <Content
+        {...defaultProps}
+      />
+    ));
+    expect(tree.prop('style'))
+      .toMatchObject({
+        width: '100%',
+        minWidth: 0,
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'flex-end',
+      });
+  });
+
+  it('should have correct styles when align is right', () => {
     const tree = shallow((
       <Content
         {...defaultProps}
@@ -22,7 +38,7 @@ describe('Content', () => {
       });
   });
 
-  it('should have correct styles align is center', () => {
+  it('should have correct styles when align is center', () => {
     const tree = shallow((
       <Content
         {...defaultProps}

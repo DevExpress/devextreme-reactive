@@ -28,7 +28,7 @@ export class SourceCode extends React.PureComponent {
   }
 
   componentDidMount() {
-    const editor = CodeMirror.fromTextArea(this.textarea.current, {
+    this.codeMirror = CodeMirror.fromTextArea(this.textarea.current, {
       lineNumbers: true,
       lineWrapping: true,
       readOnly: true,
@@ -38,20 +38,19 @@ export class SourceCode extends React.PureComponent {
       height: 'auto',
       gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
     });
-    this.foldBlockStartLines.forEach((lineNumber) => {
-      editor.foldCode(CodeMirror.Pos(lineNumber, 0));
-    });
-    this.importantLines.forEach((lineNumber) => {
-      editor.addLineClass(lineNumber, 'background', 'CodeMirror-important-line');
-    });
+    this.applySpecialOptions();
   }
 
-  // componentDidUpdate() {
-  //   CodeMirror.changed();
-  // }
+  componentWillReceiveProps(nextProps) {
+    const sourceCode = this.prepareSourceCode(nextProps);
+    this.codeMirror.setValue(sourceCode);
+    this.applySpecialOptions();
+  }
 
-  prepareSourceCode() {
-    const { themeName, sectionName, demoName } = this.props;
+  prepareSourceCode(props) {
+    this.foldBlockStartLines = [];
+    this.importantLines = [];
+    const { themeName, sectionName, demoName } = props;
     const { demoSources } = this.context;
     const source = demoSources[sectionName][demoName][themeName].source || '';
     let occurrenceIndex = 0;
@@ -73,18 +72,28 @@ export class SourceCode extends React.PureComponent {
       }).join('\n');
   }
 
+  applySpecialOptions() {
+    this.foldBlockStartLines.forEach((lineNumber) => {
+      this.codeMirror.foldCode(CodeMirror.Pos(lineNumber, 0));
+    });
+    this.importantLines.forEach((lineNumber) => {
+      this.codeMirror.addLineClass(lineNumber, 'background', 'CodeMirror-important-line');
+    });
+  }
+
   render() {
-    const sourceCode = this.prepareSourceCode();
+    const sourceCode = this.prepareSourceCode(this.props);
     return (
       <textarea
         ref={this.textarea}
-        value={sourceCode}
+        defaultValue={sourceCode}
         onChange={() => {}}
       />
     );
   }
 }
 
+/* eslint-disable react/no-unused-prop-types */
 SourceCode.propTypes = {
   sectionName: PropTypes.string.isRequired,
   demoName: PropTypes.string.isRequired,

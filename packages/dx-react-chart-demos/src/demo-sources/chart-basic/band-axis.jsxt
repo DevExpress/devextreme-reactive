@@ -6,7 +6,8 @@ import {
   BarSeries,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 
-import { Stack, Scale } from '@devexpress/dx-react-chart';
+import { scaleBand } from '@devexpress/dx-chart-core';
+import { ArgumentScale, Stack } from '@devexpress/dx-react-chart';
 
 import { ageStructure } from '../../../demo-data/data-vizualization';
 
@@ -27,8 +28,8 @@ export default class Demo extends React.PureComponent {
         <Chart
           data={chartData}
         >
-
-          <ArgumentAxis type="band" />
+          <ArgumentScale factory={scaleBand} />
+          <ArgumentAxis />
           <ValueAxis />
 
           <BarSeries
@@ -47,7 +48,6 @@ export default class Demo extends React.PureComponent {
             name="Older"
           />
           <Stack />
-          <Scale />
         </Chart>
       </<%&wrapperTag%>>
     );

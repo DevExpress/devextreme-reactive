@@ -39,6 +39,8 @@ GEM
       sass (~> 3.4)
     jekyll-seo-tag (2.5.0)
       jekyll (~> 3.3)
+    jekyll-sitemap (1.2.0)
+      jekyll (~> 3.3)
     jekyll-watch (2.0.0)
       listen (~> 3.0)
     kramdown (1.17.0)
@@ -81,11 +83,12 @@ DEPENDENCIES
   jekyll-feed (~> 0.6)
   jekyll-redirect-from (~> 0.12.1)
   jekyll-relative-links (~> 0.5.3)
+  jekyll-sitemap
   minima (~> 2.0)
   tzinfo-data
 
 RUBY VERSION
-   ruby 2.4.4p296
+   ruby 2.5.1p57
 
 BUNDLED WITH
-   1.16.1
+   1.16.4

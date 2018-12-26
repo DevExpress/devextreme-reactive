@@ -208,6 +208,9 @@ button.dx-g-bs4-table-edit-command-cell {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.dx-g-bs4-header-cell-content {
+  min-width: 0;
+}
 .dx-g-bs4-sort-indicator-invisible {
   opacity: 0;
 }

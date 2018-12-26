@@ -7,6 +7,7 @@ export const Content = ({
   <div
     style={{
       width: '100%',
+      minWidth: 0,
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'flex-end',

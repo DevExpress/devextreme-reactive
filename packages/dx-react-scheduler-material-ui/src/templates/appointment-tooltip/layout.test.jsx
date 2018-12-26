@@ -125,12 +125,10 @@ describe('Appointment Tooltip', () => {
       const tree = shallow((
         <Layout {...defaultProps} />
       ));
-      const text = tree.find(defaultProps.contentComponent).find(`.${classes.text}`);
+      const text = tree.find(defaultProps.contentComponent).find(`.${classes.text}`).text();
 
-      expect(text.at(0).props().children)
-        .toEqual('10:00 AM');
-      expect(text.at(1).props().children)
-        .toEqual('11:00 AM');
+      expect(text)
+        .toEqual('10:00 AM - 11:00 AM');
     });
   });
 });

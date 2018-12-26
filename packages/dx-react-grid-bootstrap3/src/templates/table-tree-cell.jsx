@@ -10,6 +10,7 @@ export const TableTreeCell = ({
   <td
     style={{
       textAlign: (tableColumn && tableColumn.align) || 'left',
+      whiteSpace: (tableColumn && tableColumn.wordWrapEnabled) ? 'normal' : 'nowrap',
       ...style,
     }}
     {...restProps}

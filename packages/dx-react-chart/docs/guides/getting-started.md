@@ -1,6 +1,6 @@
 # React Chart - Getting Started
 
-Project status: **CTP**
+Project status: **Beta**
 
 ## Overview
 
@@ -69,7 +69,6 @@ const App = () => (
       <ArgumentAxis />
       <ValueAxis />
       <LineSeries valueField="value" argumentField="argument" />
-      <Scale />
     </Chart>
 );
 

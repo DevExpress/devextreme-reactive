@@ -2,7 +2,10 @@ import * as React from 'react';
 import { findDOMNode } from 'react-dom';
 import { shallow, mount } from 'enzyme';
 import { isEdgeBrowser } from '@devexpress/dx-core';
-import { getCollapsedGrid } from '@devexpress/dx-grid-core';
+import {
+  getCollapsedGrid,
+  TABLE_FLEX_TYPE,
+} from '@devexpress/dx-grid-core';
 import { setupConsole } from '@devexpress/dx-testing';
 import { VirtualTableLayout } from './virtual-table-layout';
 
@@ -23,6 +26,7 @@ jest.mock('./column-group', () => ({
 jest.mock('@devexpress/dx-react-core', () => {
   const { Component } = require.requireActual('react');
   return {
+    ...require.requireActual('@devexpress/dx-react-core'),
     // eslint-disable-next-line react/prefer-stateless-function
     Sizer: class extends Component {
       componentDidMount() {
@@ -73,13 +77,14 @@ const defaultProps = {
     { key: 9 },
   ],
   containerComponent: props => <div {...props} />,
-  headTableComponent: props => <table {...props} />,
-  tableComponent: props => <table {...props} />,
+  headTableComponent: ({ tableRef, ...props }) => <table {...props} />,
+  tableComponent: ({ tableRef, ...props }) => <table {...props} />,
   headComponent: props => <thead {...props} />,
   bodyComponent: props => <tbody {...props} />,
   rowComponent: () => null,
   cellComponent: () => null,
   getCellColSpan: () => 1,
+  tableRef: React.createRef(),
 };
 
 describe('VirtualTableLayout', () => {
@@ -128,6 +133,33 @@ describe('VirtualTableLayout', () => {
 
     expect(tree.find('Sizer').dive())
       .toMatchSnapshot();
+  });
+
+  it('should not render width for a flex column', () => {
+    const columns = [
+      { key: 'col0', width: 100 },
+      { key: 'col1', width: 100 },
+      { key: 'col_flex', type: TABLE_FLEX_TYPE },
+    ];
+    const rows = [{ key: 0 }];
+
+    getCollapsedGrid
+      .mockImplementationOnce((args) => {
+        const result = require.requireActual('@devexpress/dx-grid-core').getCollapsedGrid(args);
+
+        expect(result.columns.find(col => col.key === 'col_flex').width)
+          .toBe(null);
+
+        return result;
+      });
+
+    mount((
+      <VirtualTableLayout
+        {...defaultProps}
+        headerRows={rows}
+        columns={columns}
+      />
+    ));
   });
 
   describe('viewport', () => {

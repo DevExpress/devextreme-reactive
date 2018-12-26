@@ -1,6 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import Popover from '@material-ui/core/Popover';
+import AccessTime from '@material-ui/icons/AccessTime';
+import Grid from '@material-ui/core/Grid';
 import moment from 'moment';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -11,18 +13,25 @@ const styles = theme => ({
   },
   title: {
     ...theme.typography.h6,
-    padding: theme.spacing.unit * 1.75,
-    color: theme.palette.background.default,
+    paddingBottom: theme.spacing.unit * 1.75,
+    color: theme.palette.primary.contrastText,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
   },
   buttonsLeft: {
-    display: 'inline-block',
+    position: 'relative',
+    bottom: -(theme.spacing.unit * 5) / 2,
+    textAlign: 'center',
   },
   buttonsRight: {
-    float: 'right',
-    display: 'inline-block',
+    textAlign: 'right',
+  },
+  icon: {
+    color: theme.typography.body2.color,
+  },
+  textCenter: {
+    textAlign: 'center',
   },
 });
 
@@ -57,29 +66,36 @@ const LayoutBase = ({
       {...restProps}
     >
       <Header appointmentData={data}>
-        <div>
-          <div className={classes.buttonsLeft}>
-            {showOpenButton
-              && <CommandButton id={commandButtonIds.open} onExecute={openButtonClickHandler} />}
-          </div>
-          <div className={classes.buttonsRight}>
-            {showDeleteButton
-              && <CommandButton id={commandButtonIds.delete} onExecute={onDeleteButtonClick} />}
-            {showCloseButton && <CommandButton id={commandButtonIds.close} onExecute={onHide} />}
-          </div>
+        <div className={classes.buttonsRight}>
+          {showDeleteButton
+            && <CommandButton id={commandButtonIds.delete} onExecute={onDeleteButtonClick} />}
+          {showCloseButton && <CommandButton id={commandButtonIds.close} onExecute={onHide} />}
         </div>
-        <div className={classes.title}>
-          {data.title}
-        </div>
+        <Grid container spacing={8} alignItems="center">
+          <Grid item xs={2} className={classes.flexItem}>
+            <div className={classes.buttonsLeft}>
+              {showOpenButton
+                && <CommandButton id={commandButtonIds.open} onExecute={openButtonClickHandler} />}
+            </div>
+          </Grid>
+          <Grid item xs={10}>
+            <div className={classes.title}>
+              {data.title}
+            </div>
+          </Grid>
+        </Grid>
       </Header>
       <Content appointmentData={data}>
-        <div className={classes.text}>
-          {moment(data.startDate).format('h:mm A')}
-        </div>
-        {' - '}
-        <div className={classes.text}>
-          {moment(data.endDate).format('h:mm A')}
-        </div>
+        <Grid container spacing={8} alignItems="center">
+          <Grid item xs={2} className={classes.textCenter}>
+            <AccessTime className={classes.icon} />
+          </Grid>
+          <Grid item xs={10}>
+            <div className={classes.text}>
+              {`${moment(data.startDate).format('h:mm A')} - ${moment(data.endDate).format('h:mm A')}`}
+            </div>
+          </Grid>
+        </Grid>
       </Content>
     </Popover>
   );

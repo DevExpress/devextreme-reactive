@@ -38,6 +38,6 @@ The following demos show how to create a chart using the single and multiple sel
 
 .embedded-demo({ "path": "interaction/multiple-selection", "showThemeSelector": true })
 
-- Single/multiple selection by Ctrl + mouse click
+- Single/multiple selection by `Ctrl` (`Cmd` for MacOS) + mouse click
 
 .embedded-demo({ "path": "interaction/single-multiple-selection", "showThemeSelector": true })

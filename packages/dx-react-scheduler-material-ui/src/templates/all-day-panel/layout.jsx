@@ -10,6 +10,9 @@ const styles = {
   table: {
     tableLayout: 'fixed',
   },
+  wrapper: {
+    position: 'relative',
+  },
 };
 
 const LayoutBase = ({
@@ -21,7 +24,7 @@ const LayoutBase = ({
   rowComponent: Row,
   ...restProps
 }) => (
-  <div style={{ position: 'relative' }}>
+  <div className={classes.wrapper}>
     <RootRef rootRef={allDayPanelRef}>
       <Table
         className={classNames(classes.table, className)}

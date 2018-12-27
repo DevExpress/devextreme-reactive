@@ -379,14 +379,13 @@ describe('addSeries', () => {
 
   it('should append element to list', () => {
     const result = addSeries(
-      [{ uniqueName: 's1' }, { uniqueName: 's2' }], [], palette, { name: 'test' },
+      [{ name: 's1' }, { name: 's2' }], [], palette, { name: 'test' },
     );
     expect(result).toEqual([
-      { uniqueName: 's1' },
-      { uniqueName: 's2' },
+      { name: 's1' },
+      { name: 's2' },
       {
         name: 'test',
-        uniqueName: 'test',
         index: 2,
         points: [],
         color: 'c3',
@@ -396,23 +395,23 @@ describe('addSeries', () => {
   });
 
   it('should generate unique name prop', () => {
-    const result = addSeries([{ uniqueName: 'test' }], [], palette, { name: 'test' });
+    const result = addSeries([{ name: 'test' }], [], palette, { name: 'test' });
     expect(result).toEqual([
-      { uniqueName: 'test' },
-      expect.objectContaining({ uniqueName: 'test0' }),
+      { name: 'test' },
+      expect.objectContaining({ name: 'test0' }),
     ]);
   });
 
   it('should attempt to generate unique name several times', () => {
     const result = addSeries(
-      [{ uniqueName: 'test1' }, { uniqueName: 'test2' }, { uniqueName: 'test3' }],
+      [{ name: 'test1' }, { name: 'test2' }, { name: 'test3' }],
       [], palette, { name: 'test1' },
     );
-    expect(result[3].uniqueName).toEqual('test4');
+    expect(result[3].name).toEqual('test4');
   });
 
   it('should take color from palette and favor own series color', () => {
-    let result = [{ uniqueName: 's1' }, { uniqueName: 's2' }];
+    let result = [{ name: 's1' }, { name: 's2' }];
     result = addSeries(result, [], palette, { name: 't1' });
     result = addSeries(result, [], palette, { name: 't2', color: 'red' });
     result = addSeries(result, [], palette, { name: 't3' });
@@ -435,13 +434,13 @@ describe('addSeries', () => {
       { arg: 'd', val: 4 },
       { arg: 'e' },
     ];
-    const result = addSeries([{ uniqueName: 's1' }], data, palette, props);
+    const result = addSeries([{ name: 's1' }], data, palette, props);
     expect(result).toEqual([
-      { uniqueName: 's1' },
+      { name: 's1' },
       {
         ...props,
         index: 1,
-        uniqueName: 'test',
+        name: 'test',
         points: [
           { argument: 'a', value: 1, index: 0 },
           { argument: 'b', value: 2, index: 1 },

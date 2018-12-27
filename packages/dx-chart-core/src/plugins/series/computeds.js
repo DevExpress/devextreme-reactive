@@ -155,15 +155,14 @@ getAreaPointTransformer.getTargetElement = ({ x, y }) => {
 
 getLinePointTransformer.getTargetElement = getAreaPointTransformer.getTargetElement;
 
-const createNewUniqueName = name => name.replace(/\d*$/, str => (str ? +str + 1 : 0));
-
-const addItem = (list, item) => (list.find(obj => obj.uniqueName === item.uniqueName)
-  ? addItem(list, {
-    ...item,
-    uniqueName: createNewUniqueName(item.uniqueName),
-  })
-  : list.concat(item)
-);
+const getUniqueName = (list, name) => {
+  const names = new Set(list.map(item => item.name));
+  let ret = name;
+  while (names.has(ret)) {
+    ret = ret.replace(/\d*$/, str => (str ? +str + 1 : 0));
+  }
+  return ret;
+};
 
 // TODO: Memoization is much needed here.
 // Though "series" list never persists, single "series" item most often does.
@@ -180,19 +179,17 @@ const createPoints = (argumentField, valueField, data) => {
 };
 
 export const addSeries = (series, data, palette, props) => {
-  const points = createPoints(props.argumentField, props.valueField, data);
   // It is used to generate unique series dependent attribute names for patterns.
   // *symbolName* cannot be used as it cannot be part of DOM attribute name.
-  // TODO: Consider making *name* unique and then use it instead of *index*.
   const index = series.length;
-  return addItem(series, {
+  return [...series, {
     ...props,
+    name: getUniqueName(series, props.name),
     index,
-    points,
-    uniqueName: props.name,
+    points: createPoints(props.argumentField, props.valueField, data),
     palette, // TODO: For Pie only. Find a better place for it.
     color: props.color || palette[index % palette.length],
-  });
+  }];
 };
 
 // TODO: Memoization is much needed here by the same reason as in "createPoints".

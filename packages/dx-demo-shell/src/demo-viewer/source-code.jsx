@@ -26,7 +26,6 @@ export class SourceCode extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { source, foldBlockStartLines, importantLines } = this.prepareSourceCode();
     this.codeMirror = CodeMirror.fromTextArea(this.textarea.current, {
       lineNumbers: true,
       lineWrapping: true,
@@ -37,11 +36,14 @@ export class SourceCode extends React.PureComponent {
       height: 'auto',
       gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
     });
-    this.codeMirror.setValue(source);
-    this.applySpecialCodeOptions(foldBlockStartLines, importantLines);
+    this.updateCodeMirror();
   }
 
   componentDidUpdate() {
+    this.updateCodeMirror();
+  }
+
+  updateCodeMirror() {
     const { source, foldBlockStartLines, importantLines } = this.prepareSourceCode();
     this.codeMirror.setValue(source);
     this.applySpecialCodeOptions(foldBlockStartLines, importantLines);
@@ -92,7 +94,6 @@ export class SourceCode extends React.PureComponent {
       <textarea
         ref={this.textarea}
         defaultValue=""
-        onChange={() => {}}
       />
     );
   }

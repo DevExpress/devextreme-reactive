@@ -12,11 +12,9 @@ A plugin shares its items (Getters, Actions, Templates) within an IoC (Inversion
 
 A plugin based component consists of the following child components:
 
-- Plugin Host component
- A component that hosts plugins.
+- **Plugin Host component**. A component that hosts plugins.
 
-- Plugin components
- Each plugin is a React component that defines a markup, stores a state and provides state modification actions.
+- **Plugin components**. Each plugin is a React component that defines a markup, stores a state and provides state modification actions.
 
 ##### [State Managment](https://en.wikipedia.org/wiki/State_management){:target="_blank"}
 

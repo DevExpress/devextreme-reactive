@@ -23,11 +23,10 @@ export class SourceCode extends React.PureComponent {
   constructor(props) {
     super(props);
     this.textarea = React.createRef();
-    this.foldBlockStartLines = [];
-    this.importantLines = [];
   }
 
   componentDidMount() {
+    const { source, foldBlockStartLines, importantLines } = this.prepareSourceCode();
     this.codeMirror = CodeMirror.fromTextArea(this.textarea.current, {
       lineNumbers: true,
       lineWrapping: true,
@@ -38,55 +37,61 @@ export class SourceCode extends React.PureComponent {
       height: 'auto',
       gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
     });
-    this.applySpecialCodeOptions();
+    this.codeMirror.setValue(source);
+    this.applySpecialCodeOptions(foldBlockStartLines, importantLines);
   }
 
   componentDidUpdate() {
-    const sourceCode = this.prepareSourceCode();
-    this.codeMirror.setValue(sourceCode);
-    this.applySpecialCodeOptions();
+    const { source, foldBlockStartLines, importantLines } = this.prepareSourceCode();
+    this.codeMirror.setValue(source);
+    this.applySpecialCodeOptions(foldBlockStartLines, importantLines);
   }
 
   prepareSourceCode() {
     const { themeName, sectionName, demoName } = this.props;
-    this.foldBlockStartLines = [];
-    this.importantLines = [];
     const { demoSources } = this.context;
     const source = demoSources[sectionName][demoName][themeName].source || '';
+    const foldBlockStartLines = [];
+    const importantLines = [];
     let occurrenceIndex = 0;
 
-    return source.split('\n')
+    const nextSource = source.split('\n')
       .filter((line, index) => {
         if (line.indexOf(FOLD_BLOCK) > -1) {
-          this.foldBlockStartLines.push(index - occurrenceIndex);
+          foldBlockStartLines.push(index - occurrenceIndex);
           occurrenceIndex += 1;
           return false;
         } if (findOccurrence(line, [CONSTRUCTOR, CONST, IMPORT])) {
-          this.foldBlockStartLines.push(index);
+          foldBlockStartLines.push(index);
         } return true;
       }).map((line, index) => {
         if (line.indexOf(IMPORTANT_LINE) > -1) {
-          this.importantLines.push(index);
+          importantLines.push(index);
         }
         return line.replace(IMPORTANT_LINE, '');
       }).join('\n');
+
+    return ({
+      source: nextSource,
+      foldBlockStartLines,
+      importantLines,
+    });
   }
 
-  applySpecialCodeOptions() {
-    this.foldBlockStartLines.forEach((lineNumber) => {
+  applySpecialCodeOptions(foldBlockStartLines, importantLines) {
+    foldBlockStartLines.forEach((lineNumber) => {
       this.codeMirror.foldCode(CodeMirror.Pos(lineNumber, 0));
     });
-    this.importantLines.forEach((lineNumber) => {
+    importantLines.forEach((lineNumber) => {
       this.codeMirror.addLineClass(lineNumber, 'background', 'CodeMirror-important-line');
     });
   }
 
   render() {
-    const sourceCode = this.prepareSourceCode();
     return (
       <textarea
         ref={this.textarea}
-        defaultValue={sourceCode}
+        defaultValue=""
         onChange={() => {}}
       />
     );

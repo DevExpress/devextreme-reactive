@@ -88,6 +88,8 @@
         path: /react/grid/docs/guides/immutable-data
       - title: TypeScript
         path: /react/grid/docs/guides/typescript
+      - title: Custom Plugin Development
+        path: /react/grid/docs/guides/custom-plugin-development
   - title: API Reference
     items:
       - title: Grid

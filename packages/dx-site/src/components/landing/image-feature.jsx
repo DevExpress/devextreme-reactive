@@ -7,7 +7,7 @@ const ImageFeature = ({
   imageLink, iconLink,
   title, description,
 }) => (
-  <div className={`col-md-6 ${styles.container}`}>
+  <div className={`col-lg-6 col-md-6 ${styles.container}`}>
     <div className="row">
       {iconLink && (
         <div className="col-md-2">

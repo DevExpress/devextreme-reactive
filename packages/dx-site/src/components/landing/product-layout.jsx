@@ -17,9 +17,7 @@ const ProductLayout = ({ position, children }) => (
     </div>
     {position === 'footer' ? (
       <div className={styles.footerBottom} />
-    ) : (
-      <div className={styles.headerBottom} />
-    )}
+    ) : null}
   </React.Fragment>
 );
 

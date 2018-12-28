@@ -1,7 +1,7 @@
 .container {
   height: 240px;
   margin-bottom: 10px;
-  padding: 10px;
+  padding: 30px;
   border-radius: 3px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
 }
@@ -31,14 +31,4 @@
 
 .react {
   background-color: rgb(89, 208, 240);
-}
-
-.fixed {
-  flex: 0 0 285px;
-}
-
-@media (max-width: 768px) {
-  .fixed {
-    flex: 0 0 200px;
-  }
 }

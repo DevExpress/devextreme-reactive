@@ -1,6 +1,6 @@
 # React Scheduler - Fundamentals
 
-The [DevExtreme React Scheduler](https://devexpress.github.io/devextreme-reactive/react/scheduler) allow you to display a structure of appointments, events or tasks and provide a functionality to manage data.
+The [DevExtreme React Scheduler](https://devexpress.github.io/devextreme-reactive/react/scheduler) allow you to display a structure of appointments and provide a functionality to manage data.
 
 ## Overview
 

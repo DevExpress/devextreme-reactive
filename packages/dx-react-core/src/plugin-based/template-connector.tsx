@@ -6,16 +6,13 @@ import {
   getAvailableActions,
 } from './helpers';
 import { PluginHostContext } from './contexts';
-
-interface Getters {
-  [getterName: string]: any;
-}
+import { Getters, Actions } from './getter';
 
 export interface TemplateConnectorProps {
   /** A function that renders a markup using Getters and Actions passed as arguments. */
   children: (
     getters: Getters,
-    actions: { [actionName: string]: (payload?: any) => void },
+    actions: Actions,
   ) => React.ReactNode;
 }
 

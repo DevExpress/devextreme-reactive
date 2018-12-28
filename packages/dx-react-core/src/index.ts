@@ -7,6 +7,8 @@ export { TemplatePlaceholder } from './plugin-based/template-placeholder';
 export { TemplateConnector } from './plugin-based/template-connector';
 
 /** @internal */
+export { Getters } from './plugin-based/getter';
+/** @internal */
 export { Draggable } from './draggable';
 
 /** @internal */

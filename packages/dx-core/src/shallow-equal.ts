@@ -1,5 +1,5 @@
 /** @internal */
-export function shallowEqual(objA, objB) {
+export const shallowEqual = (objA, objB) => {
   if (objA === objB) {
     return true;
   }
@@ -32,7 +32,7 @@ export function shallowEqual(objA, objB) {
 }
 
 /** @internal */
-export function argumentsShallowEqual(prev, next) {
+export const argumentsShallowEqual = (prev, next) => {
   if (prev === null || next === null || prev.length !== next.length) {
     return false;
   }

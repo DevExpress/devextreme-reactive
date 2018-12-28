@@ -1,4 +1,5 @@
 import { insertPlugin } from './utils';
+import { Getters } from '@devexpress/dx-react-core';
 
 const getDependencyError = (
   pluginName, dependencyName,
@@ -10,16 +11,13 @@ const getDependencyError = (
 export type PluginPositionFn = () => number[];
 
 export interface IDependency { name: string; optional?: boolean; }
-interface IPluginBase {
+
+/** @internal */
+export type InnerPlugin = {
   position: PluginPositionFn;
   name?: string;
   dependencies?: IDependency[];
-}
-interface IPluginWithGetter {
-  [getterName: string]: any;
-}
-/** @internal */
-export type InnerPlugin = IPluginWithGetter & IPluginBase;
+} & Getters;
 
 /** @internal */
 export class PluginHost {

@@ -29,7 +29,7 @@ export const shallowEqual = (objA, objB) => {
   }
 
   return true;
-}
+};
 
 /** @internal */
 export const argumentsShallowEqual = (prev, next) => {
@@ -44,4 +44,4 @@ export const argumentsShallowEqual = (prev, next) => {
   }
 
   return true;
-}
+};

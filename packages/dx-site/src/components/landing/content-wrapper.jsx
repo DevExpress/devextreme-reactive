@@ -10,7 +10,7 @@ const ContentWrapper = ({ children }) => (
 );
 
 ContentWrapper.propTypes = {
-  children: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default ContentWrapper;

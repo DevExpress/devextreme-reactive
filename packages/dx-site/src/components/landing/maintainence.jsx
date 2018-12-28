@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import styles from './maintainence.module.scss';
-import maintainenceLink from './images/maintainence.png';
+import maintainenceLink from './images/maintainence-and-support-img.svg';
 
 const Maintainance = () => (
   <div className={`container ${styles.container}`}>

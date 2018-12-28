@@ -13,13 +13,13 @@ The Scheduler is a widget that represents scheduled data and allows a user to ma
 In the image above demonstrates features that can be applied by adding special plugins.
 
 - [ViewSwitcher](../reference/view-switcher.md) - allow quick switching between views
-- [DateNavigator](../reference/date-navigator.md) - allow change current date
-- [AllDayPanel](../reference/all-day-panel.md) - allow display long-time appointments in a simple form
+- [DateNavigator](../reference/date-navigator.md) - allow change current date and show visible time interval
+- [AllDayPanel](../reference/all-day-panel.md) - allow display longer then a day appointments in a specific place
 - [AppointmentTooltip](../reference/appointment-tooltip.md) - allow display short information about event in tooltip form
 
 ## Basic Setup
 
-The Scheduler displays data specified via the `data` property. Follow [AppointmentModel](../reference/scheduler.md/#appointmentmodel) interface to right define that property. Also, you can add custom properties to your data set and uses their for your needs inside scheduler's components.
+The Scheduler displays data specified via the `data` property. Follow [AppointmentModel](../reference/scheduler.md/#appointmentmodel) interface to right define that property. Also, you can add custom properties to your data set and use them for your needs inside scheduler's components.
 
 The Scheduler requires the following plugins for basic data visualization:
 

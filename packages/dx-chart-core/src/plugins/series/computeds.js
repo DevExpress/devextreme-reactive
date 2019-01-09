@@ -166,29 +166,34 @@ const getUniqueName = (list, name) => {
 
 // TODO: Memoization is much needed here.
 // Though "series" list never persists, single "series" item most often does.
-const createPoints = (argumentField, valueField, data) => {
+const createPoints = (argumentField, valueField, data, props) => {
   const points = [];
   data.forEach((dataItem, index) => {
     const argument = dataItem[argumentField];
     const value = dataItem[valueField];
     if (argument !== undefined && value !== undefined) {
-      points.push({ argument, value, index });
+      points.push({
+        argument, value, index, ...props,
+      });
     }
   });
   return points;
 };
 
 export const addSeries = (series, data, palette, props) => {
+  const {
+    argumentField, valueField, name, scaleName, seriesComponent, pointComponent, color, ...restProps
+  } = props;
   // It is used to generate unique series dependent attribute names for patterns.
   // *symbolName* cannot be used as it cannot be part of DOM attribute name.
   const index = series.length;
   return [...series, {
     ...props,
-    name: getUniqueName(series, props.name),
+    name: getUniqueName(series, name),
     index,
-    points: createPoints(props.argumentField, props.valueField, data),
+    points: createPoints(argumentField, valueField, data, restProps),
     palette, // TODO: For Pie only. Find a better place for it.
-    color: props.color || palette[index % palette.length],
+    color: color || palette[index % palette.length],
   }];
 };
 

@@ -426,6 +426,7 @@ describe('addSeries', () => {
       name: 'test',
       argumentField: 'arg',
       valueField: 'val',
+      userOptions: 'userOptions',
     };
     const data = [
       { arg: 'a', val: 1 },
@@ -442,9 +443,15 @@ describe('addSeries', () => {
         index: 1,
         name: 'test',
         points: [
-          { argument: 'a', value: 1, index: 0 },
-          { argument: 'b', value: 2, index: 1 },
-          { argument: 'd', value: 4, index: 3 },
+          {
+            argument: 'a', value: 1, index: 0, userOptions: 'userOptions',
+          },
+          {
+            argument: 'b', value: 2, index: 1, userOptions: 'userOptions',
+          },
+          {
+            argument: 'd', value: 4, index: 3, userOptions: 'userOptions',
+          },
         ],
         color: 'c2',
         palette,

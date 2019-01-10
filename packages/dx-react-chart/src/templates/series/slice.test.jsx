@@ -1,5 +1,8 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
+import {
+  arc,
+} from 'd3-shape';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
 import { Slice } from './slice';
@@ -17,6 +20,10 @@ jest.mock('../../utils/with-pattern', () => ({
   withPattern: jest.fn().mockReturnValue(x => x),
 }));
 
+jest.mock('d3-shape', () => ({
+  arc: jest.fn(),
+}));
+
 describe('Slice', () => {
   const defaultProps = {
     argument: 'arg',
@@ -25,9 +32,9 @@ describe('Slice', () => {
     index: 2,
     x: 1,
     y: 2,
-    d: 'M11 11',
-    innerRadius: 10,
-    outerRadius: 20,
+    radius: 20,
+    innerRadius: 2,
+    outerRadius: 4,
     startAngle: 11,
     endAngle: 12,
     color: 'color',
@@ -37,13 +44,25 @@ describe('Slice', () => {
   };
 
   it('should render slice', () => {
+    const mockArc = jest.fn().mockReturnValue('test-d');
+    mockArc.innerRadius = jest.fn().mockReturnValue(mockArc);
+    mockArc.outerRadius = jest.fn().mockReturnValue(mockArc);
+    mockArc.startAngle = jest.fn().mockReturnValue(mockArc);
+    mockArc.endAngle = jest.fn().mockReturnValue(mockArc);
+    arc.mockReturnValue(mockArc);
+
     const tree = shallow((
       <Slice {...defaultProps} />
     ));
 
+    expect(mockArc.innerRadius).toBeCalledWith(40);
+    expect(mockArc.outerRadius).toBeCalledWith(80);
+    expect(mockArc.startAngle).toBeCalledWith(11);
+    expect(mockArc.endAngle).toBeCalledWith(12);
+
     expect(tree.find('g').props().transform).toEqual('translate(1 2)');
     expect(tree.find('path').props()).toEqual({
-      d: 'M11 11',
+      d: 'test-d',
       fill: 'color',
       stroke: 'none',
       style: 'animated-style',

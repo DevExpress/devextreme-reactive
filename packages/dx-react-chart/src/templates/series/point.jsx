@@ -15,11 +15,10 @@ class RawPoint extends React.PureComponent {
       style, scales, getAnimatedStyle,
       ...restProps
     } = this.props;
-    const { d } = pointAttributes(pointOptions)({});
     return (
       <path
         transform={`translate(${x} ${y})`}
-        d={d}
+        d={pointAttributes(pointOptions)}
         fill={color}
         stroke="none"
         style={getAnimatedStyle(style, getScatterAnimationStyle, scales)}
@@ -52,18 +51,18 @@ RawPoint.defaultProps = {
 };
 
 export const Point = withStates({
-  [HOVERED]: ({ color, ...restProps }) => ({
+  [HOVERED]: ({ color, point, ...restProps }) => ({
     stroke: color,
     strokeWidth: 4,
     fill: 'none',
-    // size: 12, Awaiting TODO from above.
+    d: pointAttributes(point),
     ...restProps,
   }),
-  [SELECTED]: ({ color, ...restProps }) => ({
+  [SELECTED]: ({ color, point, ...restProps }) => ({
     stroke: color,
     strokeWidth: 4,
     fill: 'none',
-    // size: 12, Awaiting TODO from above.
+    d: pointAttributes(point),
     ...restProps,
   }),
 })(RawPoint);

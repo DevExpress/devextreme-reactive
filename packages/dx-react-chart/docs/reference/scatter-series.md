@@ -41,7 +41,7 @@ Field | Type | Description
 ------|------|------------
 x | number | The point's x coordinate.
 y | number | The point's y coordinate.
-d | string | The point's [path](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/d).
+point | { size : number } | Point options.
 value | number | The point's value.
 color | string | A series color.
 index | number | Point index.

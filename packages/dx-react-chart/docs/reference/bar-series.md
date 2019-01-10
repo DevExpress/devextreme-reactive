@@ -39,8 +39,9 @@ Describes properties passed to a component that renders a bar.
 
 Field | Type | Description
 ------|------|------------
-x | number | The bar's x coordinate.
-width | number | The bar's width.
+x | number | The bar's center x coordinate.
+barWidth | number | The bar width in relative units.
+spacingForBar | number | The bar spacing for drawing.
 y | number | The bar's y coordinate.
 y1 | number | The bar's y1 coordinate.
 value | number | The bar's value.

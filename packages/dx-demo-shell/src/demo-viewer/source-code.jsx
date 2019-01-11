@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import CodeMirror from 'codemirror';
 import { EmbeddedDemoContext } from '../context';
-import { findOccurrence } from '../utils';
+import { isOccurrenceInSource } from '../utils';
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/mode/jsx/jsx';
 import 'codemirror/addon/fold/foldcode';
@@ -63,7 +63,7 @@ export class SourceCode extends React.PureComponent {
           foldBlockStartLines.push(index - occurrenceIndex);
           occurrenceIndex += 1;
           return false;
-        } if (findOccurrence(line, [CONSTRUCTOR, CONST, IMPORT])) {
+        } if (isOccurrenceInSource(line, [CONSTRUCTOR, CONST, IMPORT])) {
           foldBlockStartLines.push(index);
         } return true;
       }).map((line, index) => {

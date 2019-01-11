@@ -1,3 +1,3 @@
-export const findOccurrence = (
+export const isOccurrenceInSource = (
   source, strings,
-) => strings.find(string => source.indexOf(string) > -1) !== undefined;
+) => strings.some(string => source.indexOf(string) > -1);

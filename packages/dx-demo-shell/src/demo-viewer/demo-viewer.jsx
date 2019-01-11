@@ -51,6 +51,7 @@ export const DemoViewer = (
                       <Tab.Content
                         animation
                         mountOnEnter
+                        unmountOnExit
                         style={{ marginTop: '20px' }}
                       >
                         <Tab.Pane eventKey="preview">

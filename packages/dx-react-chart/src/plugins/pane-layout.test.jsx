@@ -33,7 +33,7 @@ describe('PaneLayout', () => {
     });
   });
 
-  it('should render Sizer with correct styles', () => {
+  it('should render patched Sizer with correct styles', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -42,7 +42,7 @@ describe('PaneLayout', () => {
       </PluginHost>
     ));
 
-    expect(tree.find('Sizer').props()).toEqual({
+    expect(tree.find('UpdatableSizer').props()).toEqual({
       containerComponent: expect.any(Function),
       onSizeChange: expect.any(Function),
       children: expect.anything(),

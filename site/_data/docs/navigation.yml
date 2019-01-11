@@ -266,6 +266,8 @@
     items:
       - title: Getting Started
         path: /react/scheduler/docs/guides/getting-started
+      - title: Editing
+        path: /react/scheduler/docs/guides/editing
   - title: API Reference
     items:
       - title: AllDayPanel

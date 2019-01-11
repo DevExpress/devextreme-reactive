@@ -19,11 +19,23 @@ Handle the `EditingState` plugin's `onCommitChanges` event to commit changes mad
 
 ### User Interactions
 
+The React Scheduler provide a functionality to manage the data source via user interface. User can add, edit and delete appointments by built-in UI forms. UI plugins afford actions for easy way data editing. Rules below introduce to user's editing manipulations.
+
+NOTE: The UI editing plugins don't work without the [EditingState](../reference/editing-state.md) plugin.
+
 #### Add Appointment
 
-- Double click a cell in the timetable. The appointment details will be shown here. - `!!!!`
+1. Double clicks a cell in a timetable. The appointment editing form will be shown.
+2. In the form, specifies required fields and clicks the `Create` button. This will create an appointment and add it.
 
+#### Update Appointment
 
+- Double clicks an appointment. The appointment editing form will be shown.
+- Clicks an appointment. The appointment tooltip will be shown with an `Edit` button. The `Edit` button will open an appointment editing form.
+
+#### Delete Appointment
+
+- Clicks an appointment. The appointment tooltip will be shown with an `Edit` button.
 
 ## Uncontrolled Mode
 
@@ -33,7 +45,7 @@ In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), you can specif
 - `defaultAddedAppointment` - the appointment being added
 - `defaultAppointmentChanges` - the appointment changes
 
-.embedded-demo({ "path": "scheduler-editing/edit-appointment", "showThemeSelector": true })
+.embedded-demo({ "path": "scheduler-editing/uncontrolled", "showThemeSelector": true })
 
 ## Controlled Mode
 
@@ -45,4 +57,4 @@ In the [controlled mode](controlled-and-uncontrolled-modes.md), specify the foll
 
 Note, you can also use the `onAddedAppointmentChange` event to initialize a created appointment with default property values.
 
-.embedded-demo({ "path": "scheduler-editing/edit-appointment-controlled", "showThemeSelector": true })
+.embedded-demo({ "path": "scheduler-editing/delete-confirmation", "showThemeSelector": true })

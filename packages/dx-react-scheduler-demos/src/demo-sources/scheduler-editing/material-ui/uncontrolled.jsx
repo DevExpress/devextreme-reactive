@@ -4,14 +4,9 @@ import { ViewState, EditingState } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
   DayView,
-  WeekView,
-  MonthView,
-  ViewSwitcher,
-  AllDayPanel,
   Appointments,
   AppointmentForm,
   AppointmentTooltip,
-  Toolbar,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
 import { appointments } from '../../../demo-data/appointments';
@@ -63,19 +58,10 @@ export default class Demo extends React.PureComponent {
           <EditingState
             onCommitChanges={this.commitChanges}
           />
-
           <DayView
             startDayHour={9}
             endDayHour={19}
           />
-          <WeekView
-            startDayHour={9}
-            endDayHour={19}
-          />
-          <MonthView />
-          <AllDayPanel />
-          <Toolbar />
-          <ViewSwitcher />
           <Appointments />
           <AppointmentTooltip
             showOpenButton

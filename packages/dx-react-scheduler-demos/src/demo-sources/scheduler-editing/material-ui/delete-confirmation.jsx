@@ -14,8 +14,32 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
-
 import { appointments } from '../../../demo-data/appointments';
+
+const DeleteConfirmationDialog = ({
+  visible, onCancel, onCommit,
+}) => (
+  <Dialog
+    open={visible}
+  >
+    <DialogTitle>
+      Delete Appointment
+    </DialogTitle>
+    <DialogContent>
+      <DialogContentText>
+        Are you sure you want to delete this appointment?
+      </DialogContentText>
+    </DialogContent>
+    <DialogActions>
+      <Button onClick={onCancel} color="primary">
+        Cancel
+      </Button>
+      <Button onClick={onCommit} color="secondary">
+        Delete
+      </Button>
+    </DialogActions>
+  </Dialog>
+);
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -32,8 +56,8 @@ export default class Demo extends React.PureComponent {
     this.commitDeletedAppointment = this.commitDeletedAppointment.bind(this);
   }
 
-  setDeletedAppointmentId(id) {
-    this.setState({ deletedAppointmentId: id });
+  setDeletedAppointmentId(deletedAppointmentId) {
+    this.setState({ deletedAppointmentId });
   }
 
   toggleConfirmationVisible() {
@@ -98,27 +122,11 @@ export default class Demo extends React.PureComponent {
           <AppointmentForm />
         </Scheduler>
 
-        <Dialog
-          open={confirmationVisible}
-          onClose={this.cancelDelete}
-        >
-          <DialogTitle>
-            Delete Appointment
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Are you sure you want to delete this appointment?
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.toggleConfirmationVisible} color="primary">
-              Cancel
-            </Button>
-            <Button onClick={this.commitDeletedAppointment} color="secondary">
-              Delete
-            </Button>
-          </DialogActions>
-        </Dialog>
+        <DeleteConfirmationDialog
+          visible={confirmationVisible}
+          onCancel={this.toggleConfirmationVisible}
+          onCommit={this.commitDeletedAppointment}
+        />
       </Paper>
     );
   }

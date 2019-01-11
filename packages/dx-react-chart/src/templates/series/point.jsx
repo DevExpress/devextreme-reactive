@@ -35,8 +35,8 @@ RawPoint.propTypes = {
   y: PropTypes.number.isRequired,
   seriesIndex: PropTypes.number.isRequired,
   index: PropTypes.number.isRequired,
+  point: PropTypes.object.isRequired,
   state: PropTypes.string,
-  point: PropTypes.object,
   color: PropTypes.string,
   style: PropTypes.object,
   scales: PropTypes.object.isRequired,
@@ -45,7 +45,6 @@ RawPoint.propTypes = {
 
 RawPoint.defaultProps = {
   state: undefined,
-  point: {},
   color: undefined,
   style: undefined,
 };

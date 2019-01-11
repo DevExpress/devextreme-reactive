@@ -471,13 +471,13 @@ describe('addSeries', () => {
         name: 'test',
         points: [
           {
-            argument: 'a', value: 1, index: 0, userOptions: 'userOptions',
+            argument: 'a', value: 1, index: 0, userOptions: 'userOptions', color: 'c2',
           },
           {
-            argument: 'b', value: 2, index: 1, userOptions: 'userOptions',
+            argument: 'b', value: 2, index: 1, userOptions: 'userOptions', color: 'c2',
           },
           {
-            argument: 'd', value: 4, index: 3, userOptions: 'userOptions',
+            argument: 'd', value: 4, index: 3, userOptions: 'userOptions', color: 'c2',
           },
         ],
         color: 'c2',

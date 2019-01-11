@@ -40,6 +40,7 @@ Field | Type | Description
 ------|------|------------
 x | number | The slice's x coordinate.
 y | number | The slice's y coordinate.
+radius | number | The slice's radius.
 innerRadius | number | The inner radius in relative units.
 outerRadius | number | The outer radius in relative units.
 startAngle | number | The start angle of the slice.

@@ -1,6 +1,6 @@
 # DevExtreme Chart Core
 
-Project status: **CTP**
+Project status: **Beta**
 
 Core library for the DevExtreme Reactive Chart component.
 

@@ -12,11 +12,21 @@ import {
   Tooltip,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 import {
-  Stack, ValueScale, Animation, EventTracker, HoverState,
+  ValueScale,
+  Stack,
+  Animation,
+  EventTracker,
+  HoverState,
 } from '@devexpress/dx-react-chart';
+import { HOVERED } from '@devexpress/dx-chart-core';
+import { connectProps } from '@devexpress/dx-react-core';
 import { format } from 'd3-format';
 
 import { oilProduction } from '../../../demo-data/data-vizualization';
+
+const consumptionSeriesName = 'Consumption';
+const consumptionColor = '#41c0f0';
+const priceColor = '#fcd45a';
 
 const makeLabel = (symbol, color) => ({ text, style, ...restProps }) => (
   <ValueAxis.Label
@@ -28,25 +38,59 @@ const makeLabel = (symbol, color) => ({ text, style, ...restProps }) => (
     {...restProps}
   />
 );
-
-const priceSeriesName = 'Oil Price';
-const priceColor = '#efc564';
-const consumptionColor = '#7cb2b7';
-
 const PriceLabel = makeLabel('$', priceColor);
 const LabelWithThousand = makeLabel('k', consumptionColor);
 
-const pointOptions = { size: 10 };
-const Point = props => (
-  <ScatterSeries.Point point={pointOptions} {...props} />
+const patchProps = ({ hoverIndex, ...props }) => ({
+  state: props.index === hoverIndex ? HOVERED : null,
+  ...props,
+});
+
+const BarPoint = props => (
+  <BarSeries.Point {...patchProps(props)} />
 );
 
-const LineWithPoints = props => (
+const pointOptions = { size: 10 };
+
+const areaPointStyle = { animation: null };
+const AreaPoint = (props) => {
+  const patched = patchProps(props);
+  return patched.state
+    ? <ScatterSeries.Point style={areaPointStyle} point={pointOptions} {...patched} />
+    : null;
+};
+
+const AreaWithPoints = ({ state, ...props }) => (
   <React.Fragment>
-    <SplineSeries.Path {...props} />
-    <ScatterSeries.Path {...props} pointComponent={Point} />
+    <AreaSeries.Path {...props} />
+    <ScatterSeries.Path {...props} />
   </React.Fragment>
 );
+
+const SplinePoint = props => (
+  <ScatterSeries.Point point={pointOptions} {...patchProps(props)} />
+);
+
+const SplineWithPoints = props => (
+  <React.Fragment>
+    <SplineSeries.Path {...props} />
+    <ScatterSeries.Path {...props} />
+  </React.Fragment>
+);
+
+const series = [
+  { name: 'USA', key: 'usa', color: '#08abbd' },
+  { name: 'Saudi Arabia', key: 'saudiArabia', color: '#78bc97' },
+  { name: 'Iran', key: 'iran', color: '#d4d67e' },
+  { name: 'Mexico', key: 'mexico', color: '#9ccc65' },
+  { name: 'Russia', key: 'russia', color: '#1698af' },
+  {
+    name: consumptionSeriesName, key: 'consumption', color: consumptionColor, type: AreaSeries,
+  },
+  {
+    name: 'Oil Price', key: 'price', color: priceColor, scale: 'price', type: SplineSeries,
+  },
+];
 
 const legendRootStyle = {
   display: 'flex',
@@ -59,6 +103,8 @@ const LegendRoot = props => (
 
 const legendItemStyle = {
   flexDirection: 'column',
+  marginLeft: '-2px',
+  marginRight: '-2px',
 };
 const LegendItem = props => (
   <Legend.Item style={legendItemStyle} {...props} />
@@ -72,47 +118,118 @@ const LegendLabel = props => (
 );
 
 const formatTooltip = format('.1f');
-const TooltipContent = ({ text, ...restProps }) => (
-  <Tooltip.Content
-    text={`${formatTooltip(text)}`}
-    {...restProps}
-  />
-);
+const TooltipContent = ({
+  data, text, style, ...props
+}) => {
+  const alignStyle = {
+    ...style,
+    paddingLeft: '10px',
+  };
+  const items = series.map(({ name, key, color }) => {
+    const val = data[key];
+    return (
+      <tr key={key}>
+        <td>
+          <svg width="10" height="10">
+            <circle cx="5" cy="5" r="5" fill={color} />
+          </svg>
+        </td>
+        <td>
+          <Tooltip.Content style={alignStyle} text={name} {...props} />
+        </td>
+        <td align="right">
+          <Tooltip.Content style={alignStyle} text={val ? formatTooltip(val) : 'N/A'} {...props} />
+        </td>
+      </tr>
+    );
+  });
+  return (
+    <table>
+      {items}
+    </table>
+  );
+};
 
-const titleStyle = { marginRight: '120px' };
 const stacks = [
-  { series: ['USA', 'Saudi Arabia', 'Iran', 'Mexico', 'Russia'] },
+  { series: series.filter(obj => !obj.type).map(obj => obj.name) },
 ];
 
 const modifyOilDomain = domain => [domain[0], 2200];
 const modifyPriceDomain = () => [0, 110];
+
+const getHoverIndex = ({ target }) => (target ? target.point : -1);
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      oilProduction,
-      hover: null,
-      tooltip: null,
+      data: oilProduction,
+      target: null,
     };
 
     this.changeHover = target => this.setState({
-      hover: target,
+      target: target ? { series: consumptionSeriesName, point: target.point } : null,
     });
 
-    this.changeTooltip = target => this.setState({
-      tooltip: target,
+    this.createComponents();
+    this.createSeries();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (getHoverIndex(prevState) !== getHoverIndex(this.state)) {
+      this.BarPoint.update();
+      this.SplinePoint.update();
+      this.AreaPoint.update();
+      this.TooltipContent.update();
+    }
+  }
+
+  createComponents() {
+    const getHoverProps = () => ({
+      hoverIndex: getHoverIndex(this.state),
+    });
+    this.BarPoint = connectProps(BarPoint, getHoverProps);
+    this.SplinePoint = connectProps(SplinePoint, getHoverProps);
+    this.AreaPoint = connectProps(AreaPoint, getHoverProps);
+
+    this.TooltipContent = connectProps(TooltipContent, () => {
+      const { data, target } = this.state;
+      return { data: target ? data[target.point] : null };
+    });
+  }
+
+  createSeries() {
+    this.series = series.map(({
+      name, key, color, type, scale,
+    }) => {
+      const props = {
+        key: name,
+        name,
+        valueField: key,
+        argumentField: 'year',
+        color,
+        scaleName: scale || 'oil',
+        pointComponent: this.BarPoint,
+      };
+      if (type === AreaSeries) {
+        props.seriesComponent = AreaWithPoints;
+        props.pointComponent = this.AreaPoint;
+      } else if (type) {
+        props.seriesComponent = SplineWithPoints;
+        props.pointComponent = this.SplinePoint;
+      }
+      return React.createElement(type || BarSeries, props);
     });
   }
 
   render() {
-    const { oilProduction: chartData, hover, tooltip } = this.state;
+    const { data, target } = this.state;
 
     return (
       <<%&wrapperTag%><%&wrapperAttributes%>>
         <Chart
-          data={chartData}
+          data={data}
         >
           <ValueScale
             name="oil"
@@ -136,54 +253,10 @@ export default class Demo extends React.PureComponent {
 
           <Title
             text="Oil production vs Oil price"
-            style={titleStyle}
           />
 
-          <BarSeries
-            name="USA"
-            valueField="usa"
-            argumentField="year"
-            scaleName="oil"
-          />
-          <BarSeries
-            name="Saudi Arabia"
-            valueField="saudiArabia"
-            argumentField="year"
-            scaleName="oil"
-          />
-          <BarSeries
-            name="Iran"
-            valueField="iran"
-            argumentField="year"
-            scaleName="oil"
-          />
-          <BarSeries
-            name="Mexico"
-            valueField="mexico"
-            argumentField="year"
-            scaleName="oil"
-          />
-          <BarSeries
-            name="Russia"
-            valueField="russia"
-            argumentField="year"
-            scaleName="oil"
-          />
-          <AreaSeries
-            name="Consumption"
-            valueField="consumption"
-            argumentField="year"
-            scaleName="oil"
-            color={consumptionColor}
-          />
-          <SplineSeries
-            name={priceSeriesName}
-            valueField="price"
-            argumentField="year"
-            scaleName="price"
-            color={priceColor}
-            seriesComponent={LineWithPoints}
-          />
+          {this.series}
+
           <Animation />
           <Legend
             position="bottom"
@@ -193,11 +266,13 @@ export default class Demo extends React.PureComponent {
           />
           <Stack stacks={stacks} />
           <EventTracker />
-          <HoverState hover={hover} onHoverChange={this.changeHover} />
+          <HoverState
+            hover={target}
+            onHoverChange={this.changeHover}
+          />
           <Tooltip
-            targetItem={tooltip}
-            onTargetItemChange={this.changeTooltip}
-            contentComponent={TooltipContent}
+            targetItem={target}
+            contentComponent={this.TooltipContent}
           />
         </Chart>
       </<%&wrapperTag%>>

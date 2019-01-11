@@ -1,7 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { arc } from 'd3-shape';
-import { getPieAnimationStyle, HOVERED, SELECTED } from '@devexpress/dx-chart-core';
+import {
+  getPieAnimationStyle, dPie, HOVERED, SELECTED,
+} from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
 
@@ -18,11 +19,9 @@ class RawSlice extends React.PureComponent {
     return (
       <g transform={`translate(${x} ${y})`}>
         <path
-          d={arc()
-            .innerRadius(innerRadius * radius)
-            .outerRadius(outerRadius * radius)
-            .startAngle(startAngle)
-            .endAngle(endAngle)()}
+          d={dPie({
+            radius, innerRadius, outerRadius, startAngle, endAngle,
+          })}
           fill={color}
           stroke="none"
           style={getAnimatedStyle(style, getPieAnimationStyle, scales, { index })}

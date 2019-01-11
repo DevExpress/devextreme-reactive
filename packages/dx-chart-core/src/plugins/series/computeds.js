@@ -102,7 +102,15 @@ export const dBar = ({
   x: x - width / 2, y: Math.min(y, y1), width: width || 2, height: Math.abs(y1 - y),
 });
 
-export const pointAttributes = ({ size }) => symbol().size([size ** 2]).type(symbolCircle)();
+export const dSymbol = ({ size }) => symbol().size([size ** 2]).type(symbolCircle)();
+
+export const dPie = ({
+  radius, innerRadius, outerRadius, startAngle, endAngle,
+}) => arc()
+  .innerRadius(innerRadius * radius)
+  .outerRadius(outerRadius * radius)
+  .startAngle(startAngle)
+  .endAngle(endAngle)();
 
 getBarPointTransformer.getTargetElement = ({
   x, y, y1, barWidth, spacingForBar,

@@ -11,8 +11,9 @@ import {
 import {
   findSeriesByName,
   addSeries,
-  pointAttributes,
+  dSymbol,
   dBar,
+  dPie,
   getAreaPointTransformer,
   getScatterPointTransformer,
   getLinePointTransformer,
@@ -54,6 +55,14 @@ const mockSymbol = jest.fn().mockReturnValue('symbol path');
 mockSymbol.size = jest.fn().mockReturnValue(mockSymbol);
 mockSymbol.type = jest.fn().mockReturnValue(mockSymbol);
 symbol.mockReturnValue(mockSymbol);
+
+const mockArc = jest.fn().mockReturnValue('test-d');
+mockArc.innerRadius = jest.fn().mockReturnValue(mockArc);
+mockArc.outerRadius = jest.fn().mockReturnValue(mockArc);
+mockArc.startAngle = jest.fn().mockReturnValue(mockArc);
+mockArc.endAngle = jest.fn().mockReturnValue(mockArc);
+mockArc.centroid = jest.fn().mockReturnValue([2, 3]);
+arc.mockReturnValue(mockArc);
 
 describe('dArea', () => {
   it('init function', () => {
@@ -330,14 +339,6 @@ describe('getPiePointTransformer', () => {
   });
 
   it('should return target element', () => {
-    const mockArc = jest.fn();
-    mockArc.innerRadius = jest.fn().mockReturnValue(mockArc);
-    mockArc.outerRadius = jest.fn().mockReturnValue(mockArc);
-    mockArc.startAngle = jest.fn().mockReturnValue(mockArc);
-    mockArc.endAngle = jest.fn().mockReturnValue(mockArc);
-    mockArc.centroid = jest.fn().mockReturnValue([2, 3]);
-    arc.mockReturnValue(mockArc);
-
     expect(getPiePointTransformer.getTargetElement({
       x: 10, y: 20, innerRadius: 1, outerRadius: 2, radius: 20, startAngle: 45, endAngle: 60,
     })).toEqual({
@@ -358,11 +359,11 @@ describe('findSeriesByName', () => {
   });
 });
 
-describe('pointAttributes', () => {
+describe('dSymbol', () => {
   afterEach(jest.clearAllMocks);
 
   it('should return d attribute for point and coordinates', () => {
-    const result = pointAttributes({ size: 3 });
+    const result = dSymbol({ size: 3 });
 
     expect(result).toEqual('symbol path');
     expect(symbol.mock.results[0].value.size).toBeCalledWith([9]);
@@ -382,6 +383,22 @@ describe('dBar', () => {
     })).toEqual({
       x: 0.5, y: 5, width: 3, height: 4,
     });
+  });
+});
+
+describe('dPie', () => {
+  afterEach(jest.clearAllMocks);
+
+  it('should return pie coordinates', () => {
+    const result = dPie({
+      radius: 10, innerRadius: 4, outerRadius: 8, startAngle: 90, endAngle: 180,
+    });
+    expect(result).toEqual('test-d');
+
+    expect(mockArc.innerRadius).toBeCalledWith(40);
+    expect(mockArc.outerRadius).toBeCalledWith(80);
+    expect(mockArc.startAngle).toBeCalledWith(90);
+    expect(mockArc.endAngle).toBeCalledWith(180);
   });
 });
 

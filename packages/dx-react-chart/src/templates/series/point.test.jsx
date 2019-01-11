@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { pointAttributes } from '@devexpress/dx-chart-core';
+import { dSymbol } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { Point } from './point';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
-  pointAttributes: jest.fn().mockReturnValue('test-d-attribute'),
+  dSymbol: jest.fn().mockReturnValue('test-d-attribute'),
   getScatterAnimationStyle: 'test-animation-style',
   HOVERED: 'test_hovered',
   SELECTED: 'test_selected',
@@ -31,7 +31,7 @@ describe('Point', () => {
   };
 
   afterEach(() => {
-    pointAttributes.mockClear();
+    dSymbol.mockClear();
     defaultProps.getAnimatedStyle.mockClear();
   });
 
@@ -49,7 +49,7 @@ describe('Point', () => {
       style: 'animated-style',
       stroke: 'none',
     });
-    expect(pointAttributes).toBeCalledWith(defaultProps.point);
+    expect(dSymbol).toBeCalledWith(defaultProps.point);
   });
 
   it('should pass rest properties', () => {

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import {
-  pointAttributes, getScatterAnimationStyle, HOVERED, SELECTED,
+  dSymbol, getScatterAnimationStyle, HOVERED, SELECTED,
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 
@@ -18,7 +18,7 @@ class RawPoint extends React.PureComponent {
     return (
       <path
         transform={`translate(${x} ${y})`}
-        d={pointAttributes(pointOptions)}
+        d={dSymbol(pointOptions)}
         fill={color}
         stroke="none"
         style={getAnimatedStyle(style, getScatterAnimationStyle, scales)}
@@ -55,14 +55,14 @@ export const Point = withStates({
     stroke: color,
     strokeWidth: 4,
     fill: 'none',
-    d: pointAttributes(point),
+    d: dSymbol(point),
     ...restProps,
   }),
   [SELECTED]: ({ color, point, ...restProps }) => ({
     stroke: color,
     strokeWidth: 4,
     fill: 'none',
-    d: pointAttributes(point),
+    d: dSymbol(point),
     ...restProps,
   }),
 })(RawPoint);

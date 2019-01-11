@@ -46,7 +46,21 @@ export const TableCell = ({
 ```
 
 ### Plugins
-Having implemented all the required components, we can proceed to writing a theme plugin. It is a simple task: just import a base plugin from the core package and provide it with your theme components. There is a special HOC `withComponents` for this purpose but it is not yet documented.
+Having implemented all the required components, we can proceed to writing a theme plugin. It is a simple task: just import a base plugin from the core package and provide it with your theme components.
+
+```jsx
+import { TableHeaderRow as TableHeaderRowBase } from '@devexpress/dx-react-grid';
+import { TableRow } from '../templates/table-row';
+// ... other components
+
+export const TableHeaderRow = props => (
+  <TableHeaderRowBase
+    rowComponent={TableRow}
+    // ... other components
+    {...props}
+```
+
+Looking at a code of our themes you may have noticed that we use a special HOC `withComponents` for this purpose but it is not yet documented. With this HOC a code above will look like this:
 
 ```jsx
 import { withComponents } from '@devexpress/dx-react-core';

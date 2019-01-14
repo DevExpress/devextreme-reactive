@@ -27,7 +27,7 @@
 ### BREAKING CHANGES
 
 * **react-chart:**
-Previously the `ArgumenAxis`, `ValueAxis`, and `Scale` plugins allowed you to customize argument and value scales. In this release, we have implemented the `ArgumentScale` and `ValueScale` plugins for this purpose to make the API more clear.
+Previously the `ArgumentAxis`, `ValueAxis`, and `Scale` plugins allowed you to customize argument and value scales. In this release, we have implemented the `ArgumentScale` and `ValueScale` plugins for this purpose to make the API more clear.
 
 * **react-chart:**
 The `showGrids` *Axis* property is renamed to `showGrid`.
@@ -219,7 +219,7 @@ To configure a band scale, use the `Scale` plugin as follows:
 ### BREAKING CHANGES
 
 * **react-grid:**
-Since we've extracted a sorting control, the `getMessage` property, that returns  the sort label’s text, has been moved from the `TableHeaderRow.CellProps` interface to the `TableHeaderRow.SortLabelProps` one.
+Because we've extracted the sorting control, the `getMessage` property, which returns the sort label's text, has been moved from the `TableHeaderRow.CellProps` interface to `TableHeaderRow.SortLabelProps`.
 
 <a name="1.7.2"></a>
 # [1.7.2](https://github.com/DevExpress/devextreme-reactive/compare/v1.7.1...v1.7.2) (2018-08-31)

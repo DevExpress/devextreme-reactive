@@ -159,15 +159,12 @@ gulp.task('site:demos:vue:grid', function() {
     .pipe(gulp.dest(distPath + 'vue/grid/demos/dist/'));
 });
 
-gulp.task('site', function(done) {
-  runSequence(
-    'site:clean',
-    'site:docs',
-    'site:demos:react:grid',
-    'site:demos:vue:grid',
-    'site:demos:react:chart',
-    'site:demos:react:scheduler',
-    'site:demos:react:common',
-    done
-  );
-});
+gulp.task('site', gulp.series(
+  'site:clean',
+  'site:docs',
+  'site:demos:react:grid',
+  'site:demos:vue:grid',
+  'site:demos:react:chart',
+  'site:demos:react:scheduler',
+  'site:demos:react:common',
+));

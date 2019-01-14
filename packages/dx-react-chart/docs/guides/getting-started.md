@@ -1,6 +1,6 @@
 # React Chart - Getting Started
 
-Project status: **CTP**
+Project status: **Beta**
 
 ## Overview
 

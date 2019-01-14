@@ -161,7 +161,7 @@ describe('TableBandHeader', () => {
 
     const target = tree
       .find(TemplatePlaceholder)
-      .filterWhere(node => node.parent().is('TemplateConnector'));
+      .filterWhere(node => node.parent().is('TemplateConnectorBase'));
 
     expect(isBandedOrHeaderRow)
       .toBeCalledWith(defaultDeps.template.tableCell.tableRow);

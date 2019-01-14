@@ -8,6 +8,7 @@ import {
 } from '@devexpress/dx-react-scheduler-material-ui';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
+import moment from 'moment';
 
 import appointments from '../../../demo-data/today-appointments';
 
@@ -21,15 +22,15 @@ const style = theme => ({
     ...theme.typography.h6,
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
-    color: theme.palette.background.default,
+    color: theme.palette.primary.contrastText,
+  },
+  text: {
+    ...theme.typography.body2,
+    marginBottom: theme.spacing.unit * 2,
   },
   icon: {
     fontSize: '18px',
-    paddingLeft: theme.spacing.unit * 1.5,
     paddingRight: theme.spacing.unit,
-  },
-  button: {
-    marginLeft: theme.spacing.unit * 3,
   },
 });
 
@@ -51,11 +52,14 @@ const Content = withStyles(style, { name: 'Content' })(({
   children, appointmentData, classes, ...restProps
 }) => (
   <AppointmentTooltip.Content {...restProps}>
-    {children}
+    <div className={classes.text}>
+      {moment(appointmentData.startDate).format('h:mm A')}
+      {' - '}
+      {moment(appointmentData.endDate).format('h:mm A')}
+    </div>
     <Button
       variant="outlined"
       color="primary"
-      className={classes.button}
       // eslint-disable-next-line no-alert
       onClick={() => alert(JSON.stringify(appointmentData))}
     >

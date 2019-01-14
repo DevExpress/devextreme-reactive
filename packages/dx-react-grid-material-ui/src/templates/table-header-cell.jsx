@@ -76,6 +76,7 @@ const styles = theme => ({
   cellRight: {
     paddingLeft: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
+    textAlign: 'right',
   },
   cellCenter: {
     textAlign: 'center',
@@ -137,7 +138,6 @@ class TableHeaderCellBase extends React.PureComponent {
       <TableCell
         style={style}
         className={tableCellClasses}
-        numeric={align === 'right'}
         {...restProps}
       >
         <div className={classes.container}>

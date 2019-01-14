@@ -1,9 +1,20 @@
+import { GRID_GROUP_CHECK } from '../integrated-grouping/constants';
+
+const warnIfRowIdUndefined = getRowId => (row) => {
+  const result = getRowId(row);
+  if (!row[GRID_GROUP_CHECK] && result === undefined) {
+    // eslint-disable-next-line no-console
+    console.warn('The row id is undefined. Check the getRowId function. The row is', row);
+  }
+  return result;
+};
+
 export const rowIdGetter = (getRowId, rows) => {
   if (!getRowId) {
     const map = new Map(rows.map((row, rowIndex) => [row, rowIndex]));
     return row => map.get(row);
   }
-  return getRowId;
+  return warnIfRowIdUndefined(getRowId);
 };
 
 const defaultGetCellValue = (row, columnName) => row[columnName];

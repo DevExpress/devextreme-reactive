@@ -16,9 +16,7 @@ const OpenButtonBase = ({
 }) => (
   <Button
     onClick={onVisibilityToggle}
-    className={classNames({
-      [classes.button]: true,
-    }, className)}
+    className={classNames(classes.button, className)}
     {...restProps}
   >
     {text}

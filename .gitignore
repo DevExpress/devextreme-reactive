@@ -30,3 +30,4 @@
 /packages/*/src/demo-registry.js
 /packages/*/src/*-demo-registry.js
 /packages/*/src/**/*.g*
+packages/*/.rpt2_cache

@@ -1,6 +1,6 @@
 # React Components - Performance Optimization
 
-This article describes the main rules you should follow to provide high perfromance for your application. For more information on performance optimization, refer to the [React guidelines](https://reactjs.org/docs/optimizing-performance.html).
+This article describes how to provide high performance for your application. Refer to the [React guidelines](https://reactjs.org/docs/optimizing-performance.html) for more information on performance optimization.
 
 ## Use Immutable Data Structures
 

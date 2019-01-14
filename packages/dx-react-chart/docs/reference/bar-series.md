@@ -40,10 +40,10 @@ Describes properties passed to a component that renders a bar.
 Field | Type | Description
 ------|------|------------
 x | number | The bar's center x coordinate.
-barWidth | number | The bar width in relative units.
-maxBarWidth | number | The maximum bar width in pixels.
 y | number | The bar's y coordinate.
 y1 | number | The bar's y1 coordinate.
+barWidth | number | The bar width in relative units.
+maxBarWidth | number | The maximum width that the bar can occupy, measured in pixels.
 value | number | The bar's value.
 color | string | A series color.
 index | number | Point index.

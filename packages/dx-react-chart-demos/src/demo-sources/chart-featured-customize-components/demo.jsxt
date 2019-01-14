@@ -25,9 +25,9 @@ const getPath = (x, width, y, y1) => `M ${x} ${y1}
 const labelStyle = { fill: '#BBDEFB' };
 
 const BarWithLabel = ({
-  x, barWidth, spacingForBar, y, y1, color, value, style,
+  x, barWidth, maxBarWidth, y, y1, color, value, style,
 }) => {
-  const width = spacingForBar * barWidth;
+  const width = maxBarWidth * barWidth;
   return (
     <React.Fragment>
       <path d={getPath(x - width / 2, width, y, y1)} fill={color} style={style} />

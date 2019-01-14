@@ -34,7 +34,7 @@ export const getPiePointTransformer = ({
 }) => {
   const x = Math.max(...argumentScale.range()) / 2;
   const y = Math.max(...valueScale.range()) / 2;
-  const radius = Math.min(x, y);
+  const maxRadius = Math.min(x, y);
   const pieData = pie().sort(null).value(d => d.value)(points);
   const colorScale = scaleOrdinal().range(palette);
   return (point) => {
@@ -46,7 +46,7 @@ export const getPiePointTransformer = ({
       y,
       startAngle,
       endAngle,
-      radius,
+      maxRadius,
     };
   };
 };
@@ -84,7 +84,7 @@ export const getBarPointTransformer = ({
     x: fixedArgumentScale(point.argument),
     y: valueScale(point.value),
     y1,
-    spacingForBar: getWidth(argumentScale),
+    maxBarWidth: getWidth(argumentScale),
   });
 };
 // Used for domain calculation and stacking.
@@ -105,17 +105,17 @@ export const dBar = ({
 export const dSymbol = ({ size }) => symbol().size([size ** 2]).type(symbolCircle)();
 
 export const dPie = ({
-  radius, innerRadius, outerRadius, startAngle, endAngle,
+  maxRadius, innerRadius, outerRadius, startAngle, endAngle,
 }) => arc()
-  .innerRadius(innerRadius * radius)
-  .outerRadius(outerRadius * radius)
+  .innerRadius(innerRadius * maxRadius)
+  .outerRadius(outerRadius * maxRadius)
   .startAngle(startAngle)
   .endAngle(endAngle)();
 
 getBarPointTransformer.getTargetElement = ({
-  x, y, y1, barWidth, spacingForBar,
+  x, y, y1, barWidth, maxBarWidth,
 }) => {
-  const width = barWidth * spacingForBar;
+  const width = barWidth * maxBarWidth;
   const height = Math.abs(y1 - y);
   return {
     x: x - width / 2,
@@ -124,11 +124,11 @@ getBarPointTransformer.getTargetElement = ({
   };
 };
 getPiePointTransformer.getTargetElement = ({
-  x, y, innerRadius, outerRadius, radius, startAngle, endAngle,
+  x, y, innerRadius, outerRadius, maxRadius, startAngle, endAngle,
 }) => {
   const center = arc()
-    .innerRadius(innerRadius * radius)
-    .outerRadius(outerRadius * radius)
+    .innerRadius(innerRadius * maxRadius)
+    .outerRadius(outerRadius * maxRadius)
     .startAngle(startAngle)
     .endAngle(endAngle)
     .centroid();

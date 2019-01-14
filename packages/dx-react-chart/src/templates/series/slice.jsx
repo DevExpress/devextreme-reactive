@@ -10,7 +10,7 @@ class RawSlice extends React.PureComponent {
   render() {
     const {
       x, y, d,
-      argument, value, seriesIndex, index, state, radius,
+      argument, value, seriesIndex, index, state, maxRadius,
       innerRadius, outerRadius, startAngle, endAngle,
       color,
       style, scales, getAnimatedStyle,
@@ -20,7 +20,7 @@ class RawSlice extends React.PureComponent {
       <g transform={`translate(${x} ${y})`}>
         <path
           d={dPie({
-            radius, innerRadius, outerRadius, startAngle, endAngle,
+            maxRadius, innerRadius, outerRadius, startAngle, endAngle,
           })}
           fill={color}
           stroke="none"
@@ -42,7 +42,7 @@ RawSlice.propTypes = {
   state: PropTypes.string,
   innerRadius: PropTypes.number.isRequired,
   outerRadius: PropTypes.number.isRequired,
-  radius: PropTypes.number.isRequired,
+  maxRadius: PropTypes.number.isRequired,
   startAngle: PropTypes.number.isRequired,
   endAngle: PropTypes.number.isRequired,
   color: PropTypes.string,

@@ -114,8 +114,8 @@ const getGroupedPointTransformer = (getPointTransformer, groupCount, groupOffset
     const widthCoeff = 1 / groupCount;
     return (point) => {
       const ret = transform(point);
-      ret.x -= ret.spacingForBar * (0.5 - 0.5 * widthCoeff - groupOffset * widthCoeff);
-      ret.spacingForBar /= groupCount;
+      ret.x -= ret.maxBarWidth * (0.5 - 0.5 * widthCoeff - groupOffset * widthCoeff);
+      ret.maxBarWidth /= groupCount;
       return ret;
     };
   };

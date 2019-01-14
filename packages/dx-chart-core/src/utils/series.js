@@ -101,11 +101,11 @@ const hitTestRect = (dx, dy, halfX, halfY) => (
 // Some kind of binary search can be used here as bars can be ordered along argument axis.
 export const createBarHitTester = createPointsEnumeratingHitTesterCreator(
   ([px, py], {
-    x, y, y1, barWidth, spacingForBar,
+    x, y, y1, barWidth, maxBarWidth,
   }) => {
     const xCenter = x;
     const yCenter = (y + y1) / 2;
-    const halfWidth = spacingForBar * barWidth / 2;
+    const halfWidth = maxBarWidth * barWidth / 2;
     const halfHeight = Math.abs(y - y1) / 2;
     return hitTestRect(px - xCenter, py - yCenter, halfWidth, halfHeight);
   },
@@ -126,10 +126,10 @@ const mapAngleTod3 = (angle) => {
 // Some kind of binary search can be used here as pies can be ordered along angle axis.
 export const createPieHitTester = createPointsEnumeratingHitTesterCreator(
   ([px, py], {
-    x, y, innerRadius, outerRadius, startAngle, radius, endAngle,
+    x, y, innerRadius, outerRadius, startAngle, maxRadius, endAngle,
   }) => {
-    const inner = innerRadius * radius;
-    const outer = outerRadius * radius;
+    const inner = innerRadius * maxRadius;
+    const outer = outerRadius * maxRadius;
     const rCenter = (inner + outer) / 2;
     const angleCenter = (startAngle + endAngle) / 2;
     const halfRadius = (outer - inner) / 2;

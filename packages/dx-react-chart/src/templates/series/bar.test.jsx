@@ -27,7 +27,7 @@ describe('Bar', () => {
     index: 2,
     x: 1,
     barWidth: 2,
-    spacingForBar: 20,
+    maxBarWidth: 20,
     y: 2,
     y1: 18,
     color: 'color',

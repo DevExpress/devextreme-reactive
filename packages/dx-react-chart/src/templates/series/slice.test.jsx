@@ -26,7 +26,7 @@ describe('Slice', () => {
     index: 2,
     x: 1,
     y: 2,
-    radius: 20,
+    maxRadius: 20,
     innerRadius: 2,
     outerRadius: 4,
     startAngle: 11,

@@ -251,7 +251,7 @@ describe('getBarPointTransformer', () => {
       x: 21,
       y: 9,
       y1: 4,
-      spacingForBar: 20,
+      maxBarWidth: 20,
     });
     expect(argumentScale.mock.calls).toEqual([['arg']]);
     expect(valueScale.mock.calls).toEqual([[0], ['val']]);
@@ -263,7 +263,7 @@ describe('getBarPointTransformer', () => {
 
   it('should return target element', () => {
     expect(getBarPointTransformer.getTargetElement({
-      x: 30, y: 20, y1: 30, barWidth: 2, spacingForBar: 20,
+      x: 30, y: 20, y1: 30, barWidth: 2, maxBarWidth: 20,
     })).toEqual({
       x: 10,
       y: 20,
@@ -310,7 +310,7 @@ describe('getPiePointTransformer', () => {
       x: 25,
       y: 20,
       color: 'c1',
-      radius: 20,
+      maxRadius: 20,
       startAngle: 3,
       endAngle: 4,
     });
@@ -323,7 +323,7 @@ describe('getPiePointTransformer', () => {
       x: 25,
       y: 20,
       color: 'c2',
-      radius: 20,
+      maxRadius: 20,
       startAngle: 7,
       endAngle: 8,
     });
@@ -340,7 +340,7 @@ describe('getPiePointTransformer', () => {
 
   it('should return target element', () => {
     expect(getPiePointTransformer.getTargetElement({
-      x: 10, y: 20, innerRadius: 1, outerRadius: 2, radius: 20, startAngle: 45, endAngle: 60,
+      x: 10, y: 20, innerRadius: 1, outerRadius: 2, maxRadius: 20, startAngle: 45, endAngle: 60,
     })).toEqual({
       x: 12,
       y: 23,
@@ -391,7 +391,7 @@ describe('dPie', () => {
 
   it('should return pie coordinates', () => {
     const result = dPie({
-      radius: 10, innerRadius: 4, outerRadius: 8, startAngle: 90, endAngle: 180,
+      maxRadius: 10, innerRadius: 4, outerRadius: 8, startAngle: 90, endAngle: 180,
     });
     expect(result).toEqual('test-d');
 

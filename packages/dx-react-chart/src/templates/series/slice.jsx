@@ -9,7 +9,7 @@ import { withPattern } from '../../utils/with-pattern';
 class RawSlice extends React.PureComponent {
   render() {
     const {
-      x, y, d,
+      x, y,
       argument, value, seriesIndex, index, state, maxRadius,
       innerRadius, outerRadius, startAngle, endAngle,
       color,

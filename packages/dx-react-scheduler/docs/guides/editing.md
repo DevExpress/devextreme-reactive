@@ -4,9 +4,7 @@ The Scheduler supports editing features including creating, updating and deletin
 
 ## User Interactions
 
-The React Scheduler provide a functionality to manage the data source via user interface. End-user can add, edit and delete appointments by built-in UI controls. UI plugins afford actions for easy way data editing. Rules below introduce to user's editing manipulations.
-
-NOTE: The UI editing plugins don't work without the [EditingState](../reference/editing-state.md) plugin.
+The React Scheduler provide a functionality to manage the data source via user interface. End-user can add, edit and delete appointments by built-in UI controls. Rules below introduce to user's editing manipulations.
 
 ### Add Appointment
 
@@ -20,7 +18,7 @@ NOTE: The UI editing plugins don't work without the [EditingState](../reference/
 
 ### Delete Appointment
 
-- Clicks an appointment. The appointment tooltip will be shown with an `Delete` button.
+- Clicks an appointment. The appointment tooltip will be shown with a `Delete` button.
 
 ## Related Plugins
 

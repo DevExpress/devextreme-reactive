@@ -291,6 +291,8 @@
     items:
       - title: Getting Started
         path: /react/scheduler/docs/guides/getting-started
+      - title: View Switching
+        path: /react/scheduler/docs/guides/view-switching
   - title: API Reference
     items:
       - title: AllDayPanel

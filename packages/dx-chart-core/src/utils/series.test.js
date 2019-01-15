@@ -170,16 +170,16 @@ describe('Series', () => {
     it('should test bars', () => {
       const hitTest = createBarHitTester([
         {
-          x: 10, width: 4, y: 2, y1: 4, index: 'p1',
+          x: 12, barWidth: 1, maxBarWidth: 4, y: 2, y1: 4, index: 'p1',
         },
         {
-          x: 20, width: 8, y: 3, y1: 5, index: 'p2',
+          x: 24, barWidth: 4, maxBarWidth: 2, y: 3, y1: 5, index: 'p2',
         },
         {
-          x: 30, width: 5, y: 1, y1: 5, index: 'p3',
+          x: 32.5, barWidth: 2.5, maxBarWidth: 2, y: 1, y1: 5, index: 'p3',
         },
         {
-          x: 31, width: 5, y: 0, y1: 4, index: 'p4',
+          x: 33.5, barWidth: 2.5, maxBarWidth: 2, y: 0, y1: 4, index: 'p4',
         },
       ]);
 
@@ -195,10 +195,18 @@ describe('Series', () => {
   describe('#createScatterHitTester', () => {
     it('should test points', () => {
       const hitTest = createScatterHitTester([
-        { x: 10, y: 4, index: 'p1' },
-        { x: 30, y: 5, index: 'p2' },
-        { x: 50, y: 8, index: 'p3' },
-        { x: 55, y: 10, index: 'p4' },
+        {
+          x: 10, y: 4, index: 'p1', point: { size: 20 },
+        },
+        {
+          x: 30, y: 5, index: 'p2', point: { size: 20 },
+        },
+        {
+          x: 50, y: 8, index: 'p3', point: { size: 20 },
+        },
+        {
+          x: 55, y: 10, index: 'p4', point: { size: 20 },
+        },
       ]);
 
       expect(hitTest([15, -7])).toEqual(null);
@@ -214,13 +222,13 @@ describe('Series', () => {
     it('should test pies', () => {
       const hitTest = createPieHitTester([
         {
-          x: 60, y: 50, innerRadius: 1, outerRadius: 10, startAngle: 0, endAngle: Math.PI / 4, index: 'p1',
+          x: 60, y: 50, innerRadius: 0.1, outerRadius: 1, maxRadius: 10, startAngle: 0, endAngle: Math.PI / 4, index: 'p1',
         },
         {
-          x: 60, y: 50, innerRadius: 1, outerRadius: 10, startAngle: Math.PI / 2, endAngle: Math.PI, index: 'p2',
+          x: 60, y: 50, innerRadius: 0.1, outerRadius: 1, maxRadius: 10, startAngle: Math.PI / 2, endAngle: Math.PI, index: 'p2',
         },
         {
-          x: 60, y: 50, innerRadius: 1, outerRadius: 10, startAngle: Math.PI, endAngle: 3 * Math.PI / 2, index: 'p3',
+          x: 60, y: 50, innerRadius: 0.1, outerRadius: 1, maxRadius: 10, startAngle: Math.PI, endAngle: 3 * Math.PI / 2, index: 'p3',
         },
       ]);
 

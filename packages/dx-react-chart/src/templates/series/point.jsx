@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import {
-  pointAttributes, getScatterAnimationStyle, HOVERED, SELECTED,
+  dSymbol, getScatterAnimationStyle, HOVERED, SELECTED,
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 
@@ -15,11 +15,10 @@ class RawPoint extends React.PureComponent {
       style, scales, getAnimatedStyle,
       ...restProps
     } = this.props;
-    const { d } = pointAttributes(pointOptions)({});
     return (
       <path
         transform={`translate(${x} ${y})`}
-        d={d}
+        d={dSymbol(pointOptions)}
         fill={color}
         stroke="none"
         style={getAnimatedStyle(style, getScatterAnimationStyle, scales)}
@@ -36,8 +35,8 @@ RawPoint.propTypes = {
   y: PropTypes.number.isRequired,
   seriesIndex: PropTypes.number.isRequired,
   index: PropTypes.number.isRequired,
+  point: PropTypes.object.isRequired,
   state: PropTypes.string,
-  point: PropTypes.object,
   color: PropTypes.string,
   style: PropTypes.object,
   scales: PropTypes.object.isRequired,
@@ -46,24 +45,23 @@ RawPoint.propTypes = {
 
 RawPoint.defaultProps = {
   state: undefined,
-  point: {},
   color: undefined,
   style: undefined,
 };
 
 export const Point = withStates({
-  [HOVERED]: ({ color, ...restProps }) => ({
+  [HOVERED]: ({ color, point, ...restProps }) => ({
     stroke: color,
     strokeWidth: 4,
     fill: 'none',
-    // size: 12, Awaiting TODO from above.
+    d: dSymbol(point),
     ...restProps,
   }),
-  [SELECTED]: ({ color, ...restProps }) => ({
+  [SELECTED]: ({ color, point, ...restProps }) => ({
     stroke: color,
     strokeWidth: 4,
     fill: 'none',
-    // size: 12, Awaiting TODO from above.
+    d: dSymbol(point),
     ...restProps,
   }),
 })(RawPoint);

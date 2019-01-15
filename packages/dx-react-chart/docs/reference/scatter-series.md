@@ -11,7 +11,7 @@ import { ScatterSeries } from '@devexpress/dx-react-chart-material-ui';
 // import { ScatterSeries } from '@devexpress/dx-react-chart-bootstrap4';
 ```
 
-If you want to use custom components, you can import the themeless plugin:
+You can import the themeless plugin if you want to use custom components:
 
 ```js
 import { ScatterSeries } from '@devexpress/dx-react-chart';

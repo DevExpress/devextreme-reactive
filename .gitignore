@@ -21,9 +21,13 @@
 !/site/react/chart/overrides
 /site/react/scheduler/*
 !/site/react/scheduler/overrides
+/site/react/common/*
+!/site/react/common/overrides
 /site/vue/grid/*
 !/site/vue/grid/overrides
 
 # Demos
 /packages/*/src/demo-registry.js
+/packages/*/src/*-demo-registry.js
 /packages/*/src/**/*.g*
+packages/*/.rpt2_cache

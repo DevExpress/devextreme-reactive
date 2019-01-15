@@ -43,8 +43,8 @@ const ThemeViewerBase = ({
         storage.setItem(VARIANT_STORAGE_KEY, variant);
         history.push(`${url}/${theme}/${variant}`);
       };
-      return (
 
+      return (
         <Switch>
           <Route
             path={`${url}/:themeName/:variantName`}

@@ -108,7 +108,6 @@ export class DemoViewer extends React.Component {
                               themeName={themeName}
                               sectionName={sectionName}
                               demoName={demoName}
-                              getEditorInstance={this.getEditorInstance}
                             />
                           </TabPane>
                         </TabContent>

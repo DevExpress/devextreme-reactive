@@ -1,6 +1,6 @@
 # DevExtreme Vue Grid Bootstrap 4
 
-Project status: **CTP**
+**This project is deprecated.** Use [Devextreme Vue](https://github.com/DevExpress/devextreme-vue) instead.
 
 A template suite used to render the Vue Grid's UI elements based on [Bootstrap 4](http://getbootstrap.com/) components.
 

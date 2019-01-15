@@ -31,6 +31,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
+import { lighten } from '@material-ui/core/styles/colorManipulator';
 
 import { tasks, priorities } from '../../../demo-data/tasks';
 
@@ -54,7 +55,7 @@ const createClassesByPriorityId = (
 // #FOLD_BLOCK
 const styles = theme => ({
   ...priorities.reduce((acc, { title, color, activeColor }) => {
-    acc[`${title}PriorityBackground`] = { background: color };
+    acc[`${title}PriorityBackground`] = { background: color, '& button.edit-button': { background: lighten(color, 0.15) } };
     acc[`${title}PriorityColor`] = { color };
     acc[`${title}PriorityHover`] = { '&:hover': { background: activeColor } };
     return acc;
@@ -88,6 +89,10 @@ const styles = theme => ({
   },
   defaultBullet: {
     background: theme.palette.divider,
+  },
+  tooltipContent: {
+    paddingLeft: theme.spacing.unit * 2.2,
+    paddingRight: theme.spacing.unit * 2.2,
   },
 });
 
@@ -154,6 +159,16 @@ const Appointment = withStyles(styles, { name: 'Appointment' })(
   },
 );
 
+const EditButton = withStyles(styles, { name: 'EditButton' })(
+  ({ classes, id, ...restProps }) => (
+    <AppointmentTooltip.CommandButton
+      id={id}
+      {...id === 'open' ? { className: 'edit-button' } : null}
+      {...restProps}
+    />
+  ),
+);
+
 const TooltipHeader = withStyles(styles, { name: 'TooltipHeader' })(
   ({ classes, appointmentData, ...restProps }) => {
     const priorityClasses = createClassesByPriorityId(
@@ -180,7 +195,7 @@ const TooltipContent = withStyles(styles, { name: 'TooltipContent' })(
     if (appointmentData.priorityId === 2) icon = <Event />;
     else if (appointmentData.priorityId === 3) icon = <PriorityHigh />;
     return (
-      <AppointmentTooltip.Content>
+      <AppointmentTooltip.Content className={classes.tooltipContent}>
         <List>
           <ListItem className={classes.contentItem}>
             <ListItemIcon className={`${classes.contentItemIcon} ${priorityClasses}`}>
@@ -270,6 +285,7 @@ export default class Demo extends React.PureComponent {
           <AppointmentTooltip
             headerComponent={TooltipHeader}
             contentComponent={TooltipContent}
+            commandButtonComponent={EditButton}
             showOpenButton
             showCloseButton
           />

@@ -46,7 +46,7 @@ const UnitsFilterCellBase = ({ filter, onFilter, classes }) => (
     />
   </TableCell>
 );
-const UnitsFilterCell = withStyles(styles, { name: 'SexFilterCell' })(UnitsFilterCellBase);
+const UnitsFilterCell = withStyles(styles, { name: 'UnitsFilterCell' })(UnitsFilterCellBase);
 
 const FilterCell = (props) => {
   const { column } = props;

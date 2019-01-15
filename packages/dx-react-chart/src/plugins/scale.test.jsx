@@ -21,54 +21,41 @@ describe('Scale', () => {
   };
 
   it('should update domains', () => {
-    const mock = () => 0;
+    const mockFactory = () => 0;
+    const mockModify = () => 0;
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <Scale name="scale-1" min={1} max={2} factory={mock} />
+        <Scale name="scale-1" factory={mockFactory} modifyDomain={mockModify} />
       </PluginHost>
     ));
 
-    expect(getComputedState(tree)).toEqual({
-      domains: 'added-domains',
-    });
-    expect(addDomain).toBeCalledWith('test-domains', 'scale-1', { min: 1, max: 2, factory: mock });
-  });
-
-  it('should handle *constructor* keyword case', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <Scale name="scale-1" min={1} />
-      </PluginHost>
-    ));
-
-    expect(getComputedState(tree)).toEqual({
-      domains: 'added-domains',
-    });
-    expect(addDomain).toBeCalledWith('test-domains', 'scale-1', { min: 1 });
+    expect(getComputedState(tree)).toEqual({ domains: 'added-domains' });
+    expect(addDomain).toBeCalledWith(
+      'test-domains', 'scale-1', { factory: mockFactory, modifyDomain: mockModify },
+    );
   });
 
   it('should add argument scale', () => {
     mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <ArgumentScale name="scale-1" min={1} />
+        <ArgumentScale name="scale-1" />
       </PluginHost>
     ));
 
-    expect(addDomain).toBeCalledWith('test-domains', 'test_argument', { min: 1 });
+    expect(addDomain).toBeCalledWith('test-domains', 'test_argument', { });
   });
 
   it('should add value scale', () => {
     mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <ValueScale name="scale-1" max={2} />
+        <ValueScale name="scale-1" />
       </PluginHost>
     ));
 
-    expect(addDomain).toBeCalledWith('test-domains', 'test_value', { max: 2 });
+    expect(addDomain).toBeCalledWith('test-domains', 'test_value', { });
     expect(getValueDomainName).toBeCalledWith('scale-1');
   });
 });

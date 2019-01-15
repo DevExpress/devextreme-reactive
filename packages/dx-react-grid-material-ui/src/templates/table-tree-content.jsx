@@ -8,7 +8,6 @@ const styles = () => ({
     width: '100%',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
   },
 });
 

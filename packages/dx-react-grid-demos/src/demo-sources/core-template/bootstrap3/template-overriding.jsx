@@ -21,7 +21,7 @@ export default class Demo extends React.PureComponent {
     };
 
     this.completeTask = (index) => {
-      const newTasks = getStateTasks.slice();
+      const newTasks = getStateTasks().slice();
       newTasks[index] = {
         ...newTasks[index],
         done: true,

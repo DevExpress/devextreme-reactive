@@ -6,17 +6,15 @@ React Core provides components for creating a plugin-based component.
 
 A plugin-based component should adhere to the following principles:
 
-##### [Inversion of Control](https://en.wikipedia.org/wiki/Inversion_of_control)
+##### [Inversion of Control](https://en.wikipedia.org/wiki/Inversion_of_control){:target="_blank"}
 
 A plugin shares its items (Getters, Actions, Templates) within an IoC (Inversion of Control) container and can use the ones other plugins share.
 
 A plugin based component consists of the following child components:
 
-- Plugin Host component
- A component that hosts plugins.
+- **Plugin Host component**. A component that hosts plugins.
 
-- Plugin components
- Each plugin is a React component that defines a markup, stores a state and provides state modification actions.
+- **Plugin components**. Each plugin is a React component that defines a markup, stores a state and provides state modification actions.
 
 ##### [State Managment](https://en.wikipedia.org/wiki/State_management)
 
@@ -36,7 +34,7 @@ A [PluginHost](../reference/plugin-host.md) is an auxiliary component used as a 
 
 .embedded-demo({ "path": "core-basic/plugin-host-component", "defaultTab": "source" })
 
-The PluginHost component's content is called **plugin root**. It should contain only **plugin primitives** and plugin components.
+The PluginHost component's content is called **plugin root**. It must contain only **plugin primitives** and plugin components.
 
 **Plugin primitives** are React Core components that can be declared within a plugin based component or plugin. They are initialized when the plugin host is being mounted. The following plugin primitives are available:
 

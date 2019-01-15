@@ -3,6 +3,8 @@ import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Fab from '@material-ui/core/Fab';
+import IconButton from '@material-ui/core/IconButton';
 import { OPEN_COMMAND_BUTTON, CLOSE_COMMAND_BUTTON, DELETE_COMMAND_BUTTON } from '@devexpress/dx-scheduler-core';
 import { CommandButton } from './command-button';
 
@@ -35,29 +37,34 @@ describe('Appointment Tooltip', () => {
     });
 
     it('should render `open` button', () => {
-      const editIcon = shallow((
+      const button = shallow((
         <CommandButton id={OPEN_COMMAND_BUTTON} />
-      )).find(EditIcon);
-
-      expect(editIcon.exists())
+      ));
+      expect(button.find(Fab).exists())
+        .toBeTruthy();
+      expect(button.find(EditIcon).exists())
         .toBeTruthy();
     });
 
     it('should render `close` button', () => {
-      const closeIcon = shallow((
+      const button = shallow((
         <CommandButton id={CLOSE_COMMAND_BUTTON} />
-      )).find(CloseIcon);
+      ));
 
-      expect(closeIcon.exists())
+      expect(button.find(IconButton).exists())
+        .toBeTruthy();
+      expect(button.find(CloseIcon).exists())
         .toBeTruthy();
     });
 
     it('should render `delete` button', () => {
-      const deleteIcon = shallow((
+      const button = shallow((
         <CommandButton id={DELETE_COMMAND_BUTTON} />
-      )).find(DeleteIcon);
+      ));
 
-      expect(deleteIcon.exists())
+      expect(button.find(IconButton).exists())
+        .toBeTruthy();
+      expect(button.find(DeleteIcon).exists())
         .toBeTruthy();
     });
 

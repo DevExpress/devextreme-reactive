@@ -250,10 +250,11 @@ describe('Scale', () => {
       });
     });
 
-    it('should take min/max from axis', () => {
+    it('should allow to customize domain', () => {
+      const mock = jest.fn().mockReturnValue([10, 11]);
       const domains = computeDomains({
         ...testDomains,
-        domain1: { min: 0, max: 10 },
+        domain1: { modifyDomain: mock },
       }, [{
         scaleName: 'domain1',
         getPointTransformer,
@@ -268,51 +269,10 @@ describe('Scale', () => {
           domain: [], factory: scaleLinear, isDiscrete: false,
         },
         domain1: {
-          domain: [0, 10], min: 0, max: 10, factory: scaleLinear, isDiscrete: false,
+          domain: [10, 11], modifyDomain: mock, factory: scaleLinear, isDiscrete: false,
         },
       });
-    });
-
-    it('should take one of min/max from axis', () => {
-      const domains = computeDomains({
-        ...testDomains,
-        domain1: { max: 7 },
-      }, [{
-        scaleName: 'domain1',
-        getPointTransformer,
-        points: [{ argument: 1, value: 3 }, { argument: 2, value: 14 }],
-      }]);
-
-      expect(domains).toEqual({
-        [ARGUMENT_DOMAIN]: {
-          domain: [1, 2], factory: scaleLinear, isDiscrete: false,
-        },
-        [VALUE_DOMAIN]: {
-          domain: [], factory: scaleLinear, isDiscrete: false,
-        },
-        domain1: {
-          domain: [3, 7], max: 7, factory: scaleLinear, isDiscrete: false,
-        },
-      });
-    });
-
-    it('should ignore min/max for band domain', () => {
-      const domains = computeDomains({
-        ...testDomains,
-        [ARGUMENT_DOMAIN]: { factory: scaleBand, min: 1, max: 7 },
-      }, [{
-        getPointTransformer,
-        points: [{ argument: 'one', value: 9 }, { argument: 'two', value: 1 }, { argument: 'three', value: 1 }],
-      }]);
-
-      expect(domains).toEqual({
-        [ARGUMENT_DOMAIN]: {
-          domain: ['one', 'two', 'three'], factory: scaleBand, isDiscrete: true, min: 1, max: 7,
-        },
-        [VALUE_DOMAIN]: {
-          domain: [1, 9], factory: scaleLinear, isDiscrete: false,
-        },
-      });
+      expect(mock).toBeCalledWith([3, 14]);
     });
   });
 

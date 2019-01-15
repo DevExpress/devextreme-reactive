@@ -17,8 +17,7 @@ import { ArgumentScale } from '@devexpress/dx-react-chart';
 Name | Type | Default | Description
 -----|------|---------|------------
 factory? | () => [ScaleObject](#scaleobject) | | A function that constructs a custom scale.
-min? | number | | The scale' minimum value.
-max? | number | | The scale' maximum value.
+modifyDomain? | (domain: Array&lt;any&gt;) => Array&lt;any&gt; | | A function that modifies the scale domain.
 
 ## Interfaces
 

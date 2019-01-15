@@ -30,6 +30,12 @@ describe('TableTreeCell', () => {
       .toBeTruthy();
     expect(tree.is(`.${classes.cell}`))
       .toBeTruthy();
+    expect(tree.is(`.${classes.cellNoWrap}`))
+      .toBeTruthy();
+    expect(tree.is(`.${classes.cellRightAlign}`))
+      .toBeFalsy();
+    expect(tree.is(`.${classes.cellCenterAlign}`))
+      .toBeFalsy();
   });
 
   it('should pass rest props to the root element', () => {
@@ -39,5 +45,34 @@ describe('TableTreeCell', () => {
 
     expect(tree.props().data)
       .toMatchObject({ a: 1 });
+  });
+
+  it('should not apply nowrap class', () => {
+    const tree = shallow((
+      <TableTreeCell tableColumn={{ wordWrapEnabled: true }} />
+    ));
+
+    expect(tree.is(`.${classes.cell}`))
+      .toBeTruthy();
+    expect(tree.is(`.${classes.cellNoWrap}`))
+      .toBeFalsy();
+  });
+
+  it('should apply align right classes', () => {
+    const tree = shallow((
+      <TableTreeCell tableColumn={{ align: 'right' }} />
+    ));
+
+    expect(tree.is(`.${classes.cellRightAlign}`))
+      .toBeTruthy();
+  });
+
+  it('should apply align center classes', () => {
+    const tree = shallow((
+      <TableTreeCell tableColumn={{ align: 'center' }} />
+    ));
+
+    expect(tree.is(`.${classes.cellCenterAlign}`))
+      .toBeTruthy();
   });
 });

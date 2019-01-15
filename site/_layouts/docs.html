@@ -1,0 +1,67 @@
+---
+layout: default
+---
+
+<div class="container docs-container">
+  <div class="row">
+    <div class="col-sm-9 col-sm-push-3 docs-content">
+        {{ content }}
+    </div>
+
+    <div class="col-sm-3 col-sm-pull-9 main-menu">
+      <ul class="list-unstyled">
+        <li>
+          <input id="docsearch" type="text" class="form-control" placeholder="Search...">
+        </li>
+      </ul>
+      <ul class="list-unstyled version">
+        <li>
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#{{site.version}}">
+            Version
+            <span>{{site.version}}</span>
+          </a>
+        </li>
+      </ul>
+      <hr />
+      {% for group in site.data.docs.navigation[page.product_link] %}
+        <h3>{{ group.title }}</h3>
+
+        <ul class="list-unstyled">
+        {% if group.title == 'API Reference' %}
+          {% assign groupItems = group.items | sort: 'title' %}
+        {% else %}
+          {% assign groupItems = group.items %}
+        {% endif %}
+        {% for item in groupItems %}
+          {% assign url1 = item.path | append: '.html' %}
+          {% assign url2 = item.path | append: '/' %}
+
+          {% if page.url == url1 or page.url == url2 %}
+          <li>{{ item.title }}</li>
+          {% else %}
+          <li><a href="{{site.baseurl}}{{item.path}}/">{{ item.title }}</a></li>
+          {% endif %}
+
+        {% endfor %}
+        </ul>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<script src="{{site.baseurl}}/react/common/dist/index.js?v={{ site.time | date: '%s' }}"></script>
+{% assign product_link_parts = page.product_link | split: "/" %}
+<script
+  type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"
+  onload="docsearch({
+    apiKey: '4cd7a76d4bc286ae69fe26182a8d4b18',
+    indexName: 'devextreme_reactive',
+    inputSelector: '#docsearch',
+    algoliaOptions: { 'facetFilters': ['techno:{{product_link_parts[1]}}', 'tool: {{product_link_parts[2]}}'] },
+    debug: false
+  })"
+  async
+>
+</script>
+</script>

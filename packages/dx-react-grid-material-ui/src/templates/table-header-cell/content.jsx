@@ -6,6 +6,7 @@ import classNames from 'classnames';
 const styles = {
   content: {
     width: '100%',
+    minWidth: 0,
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',

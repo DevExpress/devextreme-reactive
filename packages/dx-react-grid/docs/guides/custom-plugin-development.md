@@ -117,7 +117,7 @@ As you can see, there is a select box at the top right corner of the grid associ
 Let's start extending our grid!
 
 ## Rendering Custom Markup
-For rendering custom markup in existing grid UI elements, in our case it is the toolbar, we need to create a custom plugin. For creating a plugin, we need to wrap all content in the [Plugin](../../../core/docs/reference/plugin.md) component. Since our plugin will reside in the grid's toolbar, we will name it `ToolbarFilter`. Let's create a new folder `plugins` in our project and
+For rendering custom markup in existing grid UI elements, in our case it is the toolbar, we need to create a custom plugin. To create a plugin, we need to wrap all content in the [Plugin](../../../core/docs/reference/plugin.md) component. Since our plugin will reside in the grid's toolbar, we will name it `ToolbarFilter`. Let's create a new folder `plugins` in our project and
 put a new `toolbar-filter.js` file into the folder with the following code:
 
 *toolbar-filter.js:*

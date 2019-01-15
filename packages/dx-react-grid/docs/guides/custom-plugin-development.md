@@ -1,3 +1,14 @@
+# React Grid - Custom Plugin Development
+
+
+## Table of Contents
+1. [Introduction](#introduction)
+2. [Rendering Custom Markup](#rendering-custom-markup)
+3. [Sharing Values Between Plugins](#sharing-values-between-plugins)
+4. [Using Built-In Plugins Functionality](#using-built-in-plugins-functionality)
+5. [Final Steps](#final-steps)
+
+
 ## Introduction
 
 This tutorial is intended for advanced users who are familiar with basic [Grid's](./getting-started.md) concept and who wants to learn how to use [React Core](../../../core/docs/guides/fundamentals.md) components for extending the Grid component functionality.
@@ -96,7 +107,9 @@ export default {
 
 Let's take a look at the screenshot below to see the final result that we will get after performing all the steps from the tutorial:
 
-![](../../../../../img/guides/custom-plugin-development/result.png)
+<p align="center">
+  <img class="img-responsive" src="../../../../../img/guides/custom-plugin-development/result.png">
+</p>
 
 As you can see, there is a select box at the top right corner of the grid associated with the `CompanyName` column. When a user selects an item from the box, the grid displays only filtered items. Moreover, there is the `CLEAR` button that clears the selected value. When the value is cleared, the grid displays all available rows.
 
@@ -124,7 +137,7 @@ export class ToolbarFilter extends React.PureComponent {
   }
 }
 ```
-We are going to show our plugin in the Grid's [toolbar](../reference/toolbar.md). According to the documentation, the toolbar exports the `toolbarContent` template. So, we need to use this template in our plugin for modifying its content. For this task we need to add the [Template](../../../core/docs/reference/template.md) component to our plugin and set its `name` property to `toolbarContent`.
+We are going to show our plugin in the Grid's [toolbar](../reference/toolbar.md). According to the documentation, the toolbar exports a [template](../../../core/docs/reference/template.md) with the `toolbarContent` name. So, we need to use this template in our plugin for modifying its content. For this task we need to add the [Template](../../../core/docs/reference/template.md) component to our plugin and set its `name` property to `toolbarContent`.
 ```jsx
 ...
 import {
@@ -138,9 +151,8 @@ export class ToolbarFilter extends React.PureComponent {
       <Plugin
         ...
       >
-        <Template name="toolbarContent">
-          </Template>
-        </Plugin>
+        <Template name="toolbarContent" />
+      </Plugin>
     );
   }
 }
@@ -169,7 +181,7 @@ export class ToolbarFilter extends React.PureComponent {
 }
 ```
 
-The plugin should not work without the toolbar, let's notify the plugin about it by specifying the `dependencies` option as shown below:
+The plugin should not work without the [Toolbar](../reference/toolbar.md) plugin because we use its template. Let's notify the plugin about it by specifying the `dependencies` option as shown below:
 ```jsx
 ...
 
@@ -204,8 +216,8 @@ export class ToolbarFilter extends React.PureComponent {
       >
         <Template name="toolbarContent">
           <TemplatePlaceholder />
-            <Select value="" />
-          </Template>
+          <Select value="" />
+        </Template>
       </Plugin>
     );
   }
@@ -239,10 +251,12 @@ class App extends Component {
 }
 ```
 After that, our grid should look as follows:
-![](../../../../../img/guides/custom-plugin-development/add-select.png)
+<p align="center">
+  <img class="img-responsive" src="../../../../../img/guides/custom-plugin-development/add-select.png">
+</p>
 
-## Providing Values For The Select Box
-We see our select box, but it does nothing. The next step we should perform is to add items to our select box. These items should represent unique values of a particular column by which we want to filter our grid. The `ToolbarFilter` plugin represents a UI [plugin](./plugin-overview.md). This plugin should only render content based on provided data. But it should not manipulate the Grid's state or modify data. For this task, we need to implement an extra plugin called [state management](./plugin-overview.md) plugin. This plugin will prepare all necessary information for our `ToolbarFilter` plugin. Let's name it `ToolbarFilterState`. So, add a new `file toolbar-filter-state.js` file to the `plugins` folder of our project and implement the logic of a new plugin in it.
+## Sharing Values Between Plugins
+We see our select box, but it does nothing. The next step we should perform is to add items to our select box. These items should represent unique values of a particular column by which we want to filter our grid. The `ToolbarFilter` plugin represents a UI [plugin](./plugin-overview.md). This plugin should only render content based on provided data. But it should not manipulate the Grid's state or modify data. For this task, we need to implement an extra plugin called [state management](./plugin-overview.md) plugin. This plugin will prepare all necessary information for our `ToolbarFilter` plugin. Let's name it `ToolbarFilterState`. So, add a new `toolbar-filter-state.js` file to the `plugins` folder of our project and implement the logic of a new plugin in it.
 
 *file toolbar-filter-state.js:*
 ```jsx
@@ -285,7 +299,7 @@ export class ToolbarFilterState extends React.PureComponent {
   }
 }
 ```
-In our scenario, we are going to filter the grid by the `CompanyName` column. The default filter value should be set to an empty string which means that the grid should not fitler items initially. So, we can add this plugin to our grid. Since it is a state management plugin it should included before UI plugins. See [React Grid - Plugin Overview](./plugin-overview.md).
+In our scenario, we are going to filter the grid by the `CompanyName` column. The default filter value should be set to an empty string which means that the grid should not fitler items initially. So, we can add this plugin to our grid. Since it is a state management plugin it should be included before UI plugins. See [React Grid - Plugin Overview](./plugin-overview.md).
 
 *index.js:*
 ```jsx
@@ -314,7 +328,7 @@ class App extends Component {
 ```
 We added the `ToolbarFilterState` plugin but nothing has changed and the select box still does nothing. The next task is to get unique values of the `CompanyName` column and pass these values to `ToolbarFilter` for displaying. If we want to share data between plugins, we need to use [getters](../../../core/docs/reference/getter.md).
 
-How can we get values of a particular column? We set data items using the `rows` property of the [Grid](../reference/grid.md) plugin. This plugin exports the `rows` getter. We can use it in our case. However, we will need to pass data items to our UI plugin (`ToolbarFilter`). So, we will declare a new getter for this task and name it `toolbarFilterDataItems`. The value of this getter will be calculated based on the value of the `rows` getter. For this task we will need to use computed functions. These functions calculates values based on values of other getters. As you remember, we will need not only filter our grid, but display the filtered column name near the select box. Since we are going to do that in the `ToolbarFilter` plugin we will need to get the column name in the plugin. A new getter will help us do this. Let's name it `toolbarFilterColumnName`. Moreover, we will use this getter for calculating a value for `toolbarFilterDataItems`. Add a new calculated function named, for example, `filterDataItemsComputed` that accepts the `rows` and `toolbarFilterColumnName` getters and calculates items for our select box. Our code might be as follows:
+How can we get values of a particular column? We set data items using the `rows` property of the [Grid](../reference/grid.md) plugin. This plugin exports the `rows` getter. We can use it in our case. However, we will need to pass data items to our UI plugin (`ToolbarFilter`). So, we will declare a new getter for this task and name it `toolbarFilterDataItems`. The value of this getter will be calculated based on the value of the `rows` getter. For this task we will need to use computed functions. These functions calculate values based on values of other getters. As you remember, we will need not only filter our grid, but display the filtered column name near the select box. Since we are going to do that in the `ToolbarFilter` plugin we will need to get the column name in the plugin. A new getter will help us do this. Let's name it `toolbarFilterColumnName`. Moreover, we will use this getter for calculating a value for `toolbarFilterDataItems`. Add a new calculated function named, for example, `filterDataItemsComputed` that accepts the `rows` and `toolbarFilterColumnName` getters and calculates items for our select box. Our code might be as follows:
 
 
 *file toolbar-filter-state.js:*
@@ -451,7 +465,7 @@ export class ToolbarFilter extends React.PureComponent {
 }
 ```
 
-## Filtering The Grid Based On A Selected Value
+## Using Built-In Plugins Functionality
 
 We need to determine when a value is changed and filter the grid based on the value. We store the `filterValue` property in state object of the `ToolbarFilterState` plugin. However, the UI element that affects this value is rendered by the `ToolbarFilter` plugin. How can we detect changes in one plugin and change the required value in the state object of another plugin? We need to use an [action](../../../core/docs/reference/action.md). Let's name it `changeToolbarFilterValue`.
 
@@ -465,11 +479,11 @@ import {
 export class ToolbarFilterState extends React.PureComponent {
   constructor(props) {
     super(props);
-        ...
-        this.state = {
-            filterValue: this.props.defaultFilterValue
-        };
-        this.changeValue = this.changeValue.bind(this);
+    ...
+    this.state = {
+      filterValue: this.props.defaultFilterValue
+    };
+    this.changeValue = this.changeValue.bind(this);
   }
 
   changeValue() {
@@ -554,7 +568,7 @@ class App extends Component {
         <Grid
           ...
         >
-          <ToolbarFilterState defaultColumnName={"CompanyName"} defaultFilterValue={""}/>
+          <ToolbarFilterState defaultColumnName="CompanyName" defaultFilterValue=""/>
           <IntegratedFiltering />
           <Table />
           <TableHeaderRow />
@@ -571,8 +585,8 @@ class App extends Component {
 ```jsx
 ...
 
-const filterExpressionComputed = ({filterExpression, toolbarFilterValue, toolbarFilterColumnName}) => {
-    const newFilterExpression = { ...filterExpression || {filters: [], operator: "and"} };
+const filterExpressionComputed = ({ filterExpression, toolbarFilterValue, toolbarFilterColumnName }) => {
+    const newFilterExpression = { ...filterExpression || { filters: [], operator: "and" } };
     if (toolbarFilterValue) {
       newFilterExpression.filters.push({
         columnName: toolbarFilterColumnName,
@@ -602,7 +616,7 @@ Now our grid can filter items by the `CompanyName` column.
 
 
 
-## Clearing The Current Filter Value And Displaying The Current Column Caption
+## Final Steps
 
 Let's complete this task by displaying the current column caption near the select box and adding the `Clear` button for clearing the selected value. For this task we will perform the following steps:
 
@@ -647,7 +661,7 @@ export class ToolbarFilterState extends React.PureComponent {
 *toolbar-filter.js:*
 ```jsx
 ...
-const columnTitle = function(columns, toolbarFilterColumnName) {
+const getColumnTitle = (columns, toolbarFilterColumnName) => {
   const column = columns.find(col => col.name === toolbarFilterColumnName);
   return column ? column.title : "";
 }
@@ -669,7 +683,7 @@ export class ToolbarFilter extends React.PureComponent {
               clearToolbarFilterValue
             }) => (
               <div>
-                <InputLabel htmlFor="filter-field">{columnTitle(columns, toolbarFilterColumnName)}:</InputLabel>
+                <InputLabel htmlFor="filter-field">{getColumnTitle(columns, toolbarFilterColumnName)}:</InputLabel>
                   ...
                 <Button onClick={clearToolbarFilterValue}>Clear</Button>
               </div>

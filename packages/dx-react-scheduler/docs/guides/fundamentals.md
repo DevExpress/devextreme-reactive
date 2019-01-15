@@ -38,7 +38,6 @@ The Scheduler's visualization plugins provide a rich API to customize its elemen
 
 For example, the `WeekView` plugin allows you to customize the appearance of the layout by override these [properties](../reference/week-view.md/#properties). The following sample demonstrated how to use the `timeTableCellComponent` and `dayScaleCellComponent` and highlight current date and weekends.
 
-`TODO:` should change demo to "scheduler-basic/custom-template" after merge `Performance Optimization` guide.
-.embedded-demo({ "path": "scheduler-basic/week", "showThemeSelector": true })
+.embedded-demo({ "path": "scheduler-basic/custom-template", "showThemeSelector": true })
 
 *Note: All UI plugins use the same API to customize UI elements' appearance.*

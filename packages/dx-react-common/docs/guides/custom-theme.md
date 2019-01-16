@@ -58,6 +58,7 @@ export const TableHeaderRow = props => (
     rowComponent={TableRow}
     // ... other components
     {...props}
+  />
 ```
 
 Looking at a code of our themes you may have noticed that we use a special HOC `withComponents` for this purpose but it is not yet documented. With this HOC a code above will look like this:

@@ -30,7 +30,7 @@ export class TableHeaderCell extends React.PureComponent {
       showGroupingControls, onGroup, groupingEnabled,
       draggingEnabled, resizingEnabled,
       onWidthChange, onWidthDraft, onWidthDraftCancel,
-      tableRow, getMessage, children,
+      tableRow, children,
       // @deprecated
       showSortingControls, sortingDirection, sortingEnabled, onSort, before,
       ...restProps
@@ -102,7 +102,6 @@ TableHeaderCell.propTypes = {
   onWidthChange: PropTypes.func,
   onWidthDraft: PropTypes.func,
   onWidthDraftCancel: PropTypes.func,
-  getMessage: PropTypes.func,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
@@ -127,7 +126,6 @@ TableHeaderCell.defaultProps = {
   onWidthChange: undefined,
   onWidthDraft: undefined,
   onWidthDraftCancel: undefined,
-  getMessage: undefined,
   children: undefined,
   before: undefined,
 };

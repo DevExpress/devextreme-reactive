@@ -1,24 +1,6 @@
 # React Scheduler - Editing
 
-The Scheduler supports editing features including creating, updating and deleting appointments. Use the corresponding plugins to manage the editing state and perform editing operations programmatically or via the UI controls. The editing state contains information about appointment currently being edited, changes applied to a particular appointment, and appointment that has been deleted and created but not yet committed. Once a user accepts a appointment addition or deletion, or changes made to an appointment (clicking the Save or Delete button), the Scheduler fires the `EditingState` plugin's `onCommitChanges` event and resets the appointment's editing state.
-
-## User Interactions
-
-The React Scheduler provide a functionality to manage the data source via user interface. End-user can add, edit and delete appointments by built-in UI controls. Rules below introduce to user's editing manipulations.
-
-### Add Appointment
-
-1. Double clicks a cell in a timetable. The appointment editing form will be shown.
-2. In the form, specifies required fields and clicks the `Create` button. This will create an appointment and add it.
-
-### Update Appointment
-
-- Double clicks an appointment. The appointment editing form will be shown.
-- Clicks an appointment. The appointment tooltip will be shown with an `Edit` button. The `Edit` button will open an appointment editing form.
-
-### Delete Appointment
-
-- Clicks an appointment. The appointment tooltip will be shown with a `Delete` button.
+The Scheduler supports editing features including creating, updating and deleting appointments. Use the corresponding plugins to manage the editing state. The editing state contains information about appointment currently being edited, changes applied to a particular appointment, and appointment that has been deleted and created but not yet committed. Once a user accepts an appointment addition, deletion, or changes made to an appointment (clicking the Save or Delete button), the Scheduler fires the `EditingState` plugin's `onCommitChanges` event and resets the appointment's editing state.
 
 ## Related Plugins
 
@@ -28,6 +10,24 @@ The following plugins implement editing features:
 - [AppointmentTooltip](../reference/appointment-tooltip.md) - renders a appointment tooltip with editing controls
 - [AppointmentForm](../reference/appointment-form.md) - renders an appointment editing form
 - [Appointments](../reference/appointments.md) - renders appointments
+
+## User Interactions
+
+The React Scheduler provides a functionality to manage the data source via user interface. End-user can add, edit and delete appointments by built-in UI controls. Rules below introduce to user's editing manipulations.
+
+### Add an Appointment
+
+1. Double clicks a cell in a timetable. The appointment editing form will be shown.
+2. In the form, specifies required fields and clicks the `Create` button. This will create an appointment and add it.
+
+### Update an Appointment
+
+- Double clicks an appointment. The appointment editing form will be shown.
+- Clicks an appointment. The appointment tooltip will be shown with an `Edit` button. The `Edit` button will open an appointment editing form.
+
+### Delete an Appointment
+
+- Clicks an appointment. The appointment tooltip will be shown with a `Delete` button.
 
 ## Basic Setup
 
@@ -57,7 +57,9 @@ Note, you can also use the `onAddedAppointmentChange` event to initialize a crea
 
 .embedded-demo({ "path": "scheduler-editing/controlled", "showThemeSelector": true })
 
-## Delete Confirmation
+## Changes Preprocessing
+
+You can validate user input or prevent user action using the `onCommintChanges` property of the `EditingState` plugin. For example, it's a quite popular task to show a confirmation dialog to prevent accidental data removing.
 
 To implement a delete confirmation functionality you should detect the `deleted` argument of the `commitChanges` handler. And open confirmation dialog before commit deleting.
 

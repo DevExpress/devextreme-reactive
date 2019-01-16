@@ -48,11 +48,11 @@ export default class Demo extends React.PureComponent {
       data: appointments,
       currentDate: '2018-06-27',
       deletedAppointmentId: null,
-      confirmationVisible: false,
+      confirmationVisibility: false,
     };
 
     this.commitChanges = this.commitChanges.bind(this);
-    this.toggleConfirmationVisible = this.toggleConfirmationVisible.bind(this);
+    this.toggleConfirmationVisibility = this.toggleConfirmationVisibility.bind(this);
     this.commitDeletedAppointment = this.commitDeletedAppointment.bind(this);
   }
 
@@ -60,16 +60,16 @@ export default class Demo extends React.PureComponent {
     this.setState({ deletedAppointmentId });
   }
 
-  toggleConfirmationVisible() {
-    const { confirmationVisible } = this.state;
-    this.setState({ confirmationVisible: !confirmationVisible });
+  toggleConfirmationVisibility() {
+    const { confirmationVisibility } = this.state;
+    this.setState({ confirmationVisibility: !confirmationVisibility });
   }
 
   commitDeletedAppointment() {
     const { data, deletedAppointmentId } = this.state;
     const nextData = data.filter(appointment => appointment.id !== deletedAppointmentId);
     this.setState({ data: nextData, deletedAppointmentId: null });
-    this.toggleConfirmationVisible();
+    this.toggleConfirmationVisibility();
   }
 
   commitChanges({ added, changed, deleted }) {
@@ -90,13 +90,13 @@ export default class Demo extends React.PureComponent {
     }
     if (deleted) {
       this.setDeletedAppointmentId(deleted);
-      this.toggleConfirmationVisible();
+      this.toggleConfirmationVisibility();
     }
     this.setState({ data });
   }
 
   render() {
-    const { currentDate, data, confirmationVisible } = this.state;
+    const { currentDate, data, confirmationVisibility } = this.state;
 
     return (
       <Paper>
@@ -123,8 +123,8 @@ export default class Demo extends React.PureComponent {
         </Scheduler>
 
         <DeleteConfirmationDialog
-          visible={confirmationVisible}
-          onCancel={this.toggleConfirmationVisible}
+          visible={confirmationVisibility}
+          onCancel={this.toggleConfirmationVisibility}
           onCommit={this.commitDeletedAppointment}
         />
       </Paper>

@@ -9,6 +9,7 @@ import LandingLayout from '../components/landing/layout';
 import LandingTitle from '../components/landing/title';
 import LandingImageFeature from '../components/landing/image-feature';
 import LandingFeaturePreview from '../components/landing/feature-preview';
+import LandingFeatureDescription from '../components/landing/feature-description';
 import LandingMaintainence from '../components/landing/maintainence';
 import LandingProductLayout from '../components/landing/product-layout';
 import LandingProductBlock from '../components/landing/product-block';
@@ -25,7 +26,7 @@ import imageBoxLink from './images/image-box.png';
 const IndexPage = () => (
   <Layout>
     <Helmet title="React Components" />
-    <LandingContentWrapper>
+    <LandingContentWrapper highlighted>
       <Header
         logo={<ProductLogo link="react" />}
         addon={(
@@ -113,7 +114,7 @@ const IndexPage = () => (
         />
       </LandingProductLayout>
     </LandingContentWrapper>
-    <LandingContentWrapper>
+    <LandingContentWrapper highlighted>
       <LandingLayout>
         <LandingTitle
           text="Why DevExtreme for React?"
@@ -131,8 +132,9 @@ const IndexPage = () => (
       </LandingLayout>
     </LandingContentWrapper>
 
-    <LandingLayout>
-      <LandingImageFeature
+
+    <LandingContentWrapper flex withContainer>
+      <LandingFeatureDescription
         title="100% Native React"
         description="We've focused our energy on performance and leveraged the best practice recomendations oferred by the React team. Through immutability and pure functions, we can apply memoization and built-in react optimisations to archieve outstanding performance."
       />
@@ -140,23 +142,21 @@ const IndexPage = () => (
         title="100% Native React"
         imageLink={imageBoxLink}
       />
-    </LandingLayout>
-
-    <LandingContentWrapper>
-      <LandingLayout>
-        <LandingFeaturePreview
-          title="Loves Redux by Design"
-          imageLink={imageBoxLink}
-        />
-        <LandingImageFeature
-          title="Loves Redux by Design"
-          description="Fully control React Grid state and treat it as a pure view component. Effortlessly enable state persistence and time-traveling without side-effects. Our React Grid can also manage its state internally helping you write less code, so you focus on more important business tasks."
-        />
-      </LandingLayout>
     </LandingContentWrapper>
 
-    <LandingLayout>
-      <LandingImageFeature
+    <LandingContentWrapper flex highlighted leftImage withContainer>
+      <LandingFeatureDescription
+        title="Loves Redux by Design"
+        description="Fully control React Grid state and treat it as a pure view component. Effortlessly enable state persistence and time-traveling without side-effects. Our React Grid can also manage its state internally helping you write less code, so you focus on more important business tasks."
+      />
+      <LandingFeaturePreview
+        title="Loves Redux by Design"
+        imageLink={imageBoxLink}
+      />
+    </LandingContentWrapper>
+
+    <LandingContentWrapper flex withContainer>
+      <LandingFeatureDescription
         title="Plugin-based Architecture"
         description="DevExtreme Reactive Components are built of plugins. Add and deploy only the features you need or extend the built-in functionality with your or third-party custom plugins."
       />
@@ -164,23 +164,21 @@ const IndexPage = () => (
         title="Plugin-based Architecture"
         imageLink={imageBoxLink}
       />
-    </LandingLayout>
-
-    <LandingContentWrapper>
-      <LandingLayout>
-        <LandingFeaturePreview
-          title="TypeScript Support"
-          imageLink={imageBoxLink}
-        />
-        <LandingImageFeature
-          title="TypeScript Support"
-          description="DevExtreme Reactive Components are built of plugins. Add and deploy only the features you need or extend the built-in functionality with your or third-party custom plugins."
-        />
-      </LandingLayout>
     </LandingContentWrapper>
 
-    <LandingLayout>
-      <LandingImageFeature
+    <LandingContentWrapper flex highlighted leftImage withContainer>
+      <LandingFeatureDescription
+        title="TypeScript Support"
+        description="DevExtreme Reactive Components are built of plugins. Add and deploy only the features you need or extend the built-in functionality with your or third-party custom plugins."
+      />
+      <LandingFeaturePreview
+        title="TypeScript Support"
+        imageLink={imageBoxLink}
+      />
+    </LandingContentWrapper>
+
+    <LandingContentWrapper flex withContainer>
+      <LandingFeatureDescription
         title="Localization Capabilities"
         description="Every text element of the components UI is customizable. So, it's ready for localization or globalization if you need it in your app."
       />
@@ -188,19 +186,17 @@ const IndexPage = () => (
         title="Localization Capabilities"
         imageLink={imageBoxLink}
       />
-    </LandingLayout>
+    </LandingContentWrapper>
 
-    <LandingContentWrapper>
-      <LandingLayout>
-        <LandingFeaturePreview
-          title="Simple Docs with Live Examples"
-          imageLink={imageBoxLink}
-        />
-        <LandingImageFeature
-          title="Simple Docs with Live Examples"
-          description="Every component feature has a complete API reference and a usage guide with code examples and live demos with sources available on GitHub."
-        />
-      </LandingLayout>
+    <LandingContentWrapper flex highlighted leftImage withContainer>
+      <LandingFeatureDescription
+        title="Simple Docs with Live Examples"
+        description="Every component feature has a complete API reference and a usage guide with code examples and live demos with sources available on GitHub."
+      />
+      <LandingFeaturePreview
+        title="Simple Docs with Live Examples"
+        imageLink={imageBoxLink}
+      />
     </LandingContentWrapper>
 
     <LandingMaintainence />

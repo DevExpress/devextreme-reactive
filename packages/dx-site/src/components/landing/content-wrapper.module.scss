@@ -1,3 +1,20 @@
-.contentWrapper {
+.leftImage {
+  flex-direction: row-reverse;
+}
+
+.highlighted {
   background-color: #f8f8f8;
+}
+
+.flex {
+  display: flex;
+}
+
+@media screen and (max-width: 768px) {
+  .flex {
+    display: block;
+  }
+  .leftImage {
+    flex-direction: unset;
+  }
 }

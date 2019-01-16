@@ -23,7 +23,7 @@ const TableHead = props => <TableSUI.Header {...props} />;
 ```
 Here a component passes props as-is to the underlying Semantic UI component.
 
-But there are also other templates that receive grid-specific data via props and a different approach is required. These properties are described in a related plugin docs under section 'Interfaces'. Let's take a `tableCell` component for example. It receives props of type [Table.DataCellProps](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table/#tabledatacellprops). As you can see, some of these properties - such as `tableColumn`, `row`, `value` - are unknown to React, hence we should destructure the props.
+But there are also other components that receive grid-specific data via props and a different approach is required. These properties are described in a related plugin docs under section 'Interfaces'. Let's take a `tableCell` component for example. It receives props of type [Table.DataCellProps](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table/#tabledatacellprops). As you can see, some of these properties - such as `tableColumn`, `row`, `value` - are unknown to React, hence we should destructure the props.
 
 Below is a `tableCell` component illustrating props destructuring.
 ```jsx

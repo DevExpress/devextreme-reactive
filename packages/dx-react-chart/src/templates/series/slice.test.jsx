@@ -5,6 +5,7 @@ import { withPattern } from '../../utils/with-pattern';
 import { Slice } from './slice';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
+  dPie: jest.fn().mockReturnValue('test-d-attribute'),
   getPieAnimationStyle: 'test-animation-style',
   HOVERED: 'test_hovered',
   SELECTED: 'test_selected',
@@ -25,9 +26,9 @@ describe('Slice', () => {
     index: 2,
     x: 1,
     y: 2,
-    d: 'M11 11',
-    innerRadius: 10,
-    outerRadius: 20,
+    maxRadius: 20,
+    innerRadius: 2,
+    outerRadius: 4,
     startAngle: 11,
     endAngle: 12,
     color: 'color',
@@ -43,7 +44,7 @@ describe('Slice', () => {
 
     expect(tree.find('g').props().transform).toEqual('translate(1 2)');
     expect(tree.find('path').props()).toEqual({
-      d: 'M11 11',
+      d: 'test-d-attribute',
       fill: 'color',
       stroke: 'none',
       style: 'animated-style',

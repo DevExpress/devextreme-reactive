@@ -15,6 +15,7 @@
     "concurrently": "^4.1.0",
     "conventional-changelog-cli": "^2.0.11",
     "conventional-recommended-bump": "^4.0.4",
+    "dts-bundle": "^0.7.3",
     "fs-extra": "^7.0.1",
     "gulp": "^4.0.0",
     "gulp-clean": "^0.4.0",
@@ -22,13 +23,16 @@
     "gulp-rename": "^1.4.0",
     "inquirer": "^6.2.1",
     "lerna": "^3.8.0",
+    "replace-in-file": "^3.4.2",
+    "rimraf": "^2.6.2",
     "run-sequence": "^2.2.1",
-    "semver": "^5.6.0"
+    "semver": "^5.6.0",
+    "typescript": "^3.2.2"
   },
   "scripts": {
     "postinstall": "check-node-version --quiet --node \">=6.11.1\" --npm \">=5.3.0\" --yarn \">=1.0.0\"",
-    "build": "yarn run build:ts && lerna run build --ignore @devexpress/dx-vue-*",
-    "build:ts": "node ./scripts/ts-generator.js",
+    "build": "lerna run build --ignore @devexpress/dx-vue-* && yarn run build:ts",
+    "build:ts": "node ./scripts/ts-generator.js && lerna run dts",
     "build:ts:watch": "nodemon --exec \"yarn build:ts\" --watch \"packages/*/docs/reference/*.md\" --watch \"scripts/ts-generator.js\" --ext md,js",
     "build:watch": "concurrently \"yarn build:ts:watch\" \"lerna run --parallel build:watch --ignore @devexpress/dx-vue-*\"",
     "build:react:grid:watch": "concurrently \"yarn build:ts:watch\" \"lerna run --scope @devexpress/dx-core --scope @devexpress/dx-react-core --scope @devexpress/dx-testing --parallel build\" \"lerna run --scope @devexpress/dx-grid-core --scope \"@devexpress/*react-grid*\" --parallel build:watch\"",

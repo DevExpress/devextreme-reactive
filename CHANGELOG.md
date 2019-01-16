@@ -219,7 +219,7 @@ To configure a band scale, use the `Scale` plugin as follows:
 ### BREAKING CHANGES
 
 * **react-grid:**
-Because we've extracted the sorting control, the `getMessage` property, which returns the sort label's text, has been moved from the `TableHeaderRow.CellProps` interface to `TableHeaderRow.SortLabelProps`.
+Because we've extracted the sorting control, the `getMessage` property has been moved from the `TableHeaderRow.CellProps` interface to `TableHeaderRow.SortLabelProps`. This property returns the sort label's text.
 
 <a name="1.7.2"></a>
 # [1.7.2](https://github.com/DevExpress/devextreme-reactive/compare/v1.7.1...v1.7.2) (2018-08-31)

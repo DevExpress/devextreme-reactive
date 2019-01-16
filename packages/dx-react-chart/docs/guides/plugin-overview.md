@@ -7,16 +7,16 @@ The Chart component uses plugin components to visualizes data specified via the 
 The React Chart supports the following plugin types:
 
 - **Animation plugins**
-Animate all chart series.
+animate all chart series.
 
 - **Interactivity plugins**
-Provide interaction with user - hover, selection, click.
+provide interaction with user - hover, selection, click.
 
 - **Data processing plugins**
- Transform data passed to the Chart component.
+transform data passed to the Chart component.
 
  - **UI plugins**
- Use the provided data to render UI elements.
+use the provided data to render UI elements.
 
 ## Animation Plugins
 

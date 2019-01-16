@@ -291,8 +291,8 @@
     items:
       - title: Getting Started
         path: /react/scheduler/docs/guides/getting-started
-      - title: View Types
-        path: /react/scheduler/docs/guides/view-types
+      - title: Views
+        path: /react/scheduler/docs/guides/views
   - title: API Reference
     items:
       - title: AllDayPanel

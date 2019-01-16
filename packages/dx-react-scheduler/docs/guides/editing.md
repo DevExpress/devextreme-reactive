@@ -17,17 +17,17 @@ The React Scheduler provides a functionality to manage the data source via user 
 
 ### Add an Appointment
 
-1. Double clicks a cell in a timetable. The appointment editing form will be shown.
-2. In the form, specifies required fields and clicks the `Create` button. This will create an appointment and add it.
+1. Double click a cell in a timetable. The appointment editing form will be shown.
+2. In the form, specify required fields and clicks the `Create` button. This will create an appointment and add it.
 
 ### Update an Appointment
 
-- Double clicks an appointment. The appointment editing form will be shown.
-- Clicks an appointment. The appointment tooltip will be shown with an `Edit` button. The `Edit` button will open an appointment editing form.
+- Double click an appointment. The appointment editing form will be shown.
+- Click an appointment. The appointment tooltip will be shown with an `Edit` button. The `Edit` button will open an appointment editing form.
 
 ### Delete an Appointment
 
-- Clicks an appointment. The appointment tooltip will be shown with a `Delete` button.
+- Click an appointment. The appointment tooltip will be shown with a `Delete` button.
 
 ## Basic Setup
 

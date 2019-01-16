@@ -116,7 +116,7 @@ class TableHeaderCellBase extends React.PureComponent {
       showGroupingControls, onGroup, groupingEnabled,
       draggingEnabled,
       resizingEnabled, onWidthChange, onWidthDraft, onWidthDraftCancel,
-      classes, getMessage, tableRow, className, children,
+      classes, tableRow, className, children,
       // @deprecated
       showSortingControls, sortingDirection, sortingEnabled, onSort, before,
       ...restProps
@@ -186,7 +186,6 @@ TableHeaderCellBase.propTypes = {
   onWidthDraft: PropTypes.func,
   onWidthDraftCancel: PropTypes.func,
   classes: PropTypes.object.isRequired,
-  getMessage: PropTypes.func.isRequired,
   className: PropTypes.string,
   children: PropTypes.node,
   before: PropTypes.node,

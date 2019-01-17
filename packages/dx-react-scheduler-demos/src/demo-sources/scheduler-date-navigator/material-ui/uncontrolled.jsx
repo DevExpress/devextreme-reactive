@@ -1,8 +1,6 @@
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
-
 import { ViewState } from '@devexpress/dx-react-scheduler';
-
 import {
   Scheduler,
   MonthView,
@@ -33,8 +31,8 @@ export default class Demo extends React.PureComponent {
           <ViewState
             defaultCurrentDate="2018-07-27"
           />
-          <Toolbar />
           <MonthView />
+          <Toolbar />
           <DateNavigator />
           <Appointments />
         </Scheduler>

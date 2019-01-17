@@ -126,29 +126,6 @@ describe('TableHeaderRow', () => {
       .toMatchObject(defaultDeps.template.tableRow);
   });
 
-  it('should pass correct getMessage prop to TableHeaderRowTemplate', () => {
-    isHeadingTableCell.mockImplementation(() => true);
-
-    const deps = {
-      plugins: ['SortingState'],
-    };
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps, deps)}
-        <TableHeaderRow
-          {...defaultProps}
-          showSortingControls
-          messages={{
-            sortingHint: 'test',
-          }}
-        />
-      </PluginHost>
-    ));
-
-    const { getMessage } = tree.find(defaultProps.cellComponent).props();
-    expect(getMessage('sortingHint')).toBe('test');
-  });
-
   describe('resizing', () => {
     it('should pass correct props to cellComponent', () => {
       isHeadingTableCell.mockImplementation(() => true);

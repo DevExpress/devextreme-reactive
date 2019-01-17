@@ -3,19 +3,19 @@
 
 ## Table of Contents
 1. [Introduction](#introduction)
-2. [Rendering Custom Markup](#rendering-custom-markup)
-3. [Sharing Values Between Plugins](#sharing-values-between-plugins)
-4. [Using Built-In Plugins Functionality](#using-built-in-plugins-functionality)
+2. [Render Custom Markup](#render-custom-markup)
+3. [Share Values Between Plugins](#share-values-between-plugins)
+4. [Use the Functionality of Built-In Plugins](#use-the-functionality-of-built-in-plugins)
 5. [Final Steps](#final-steps)
 
 
 ## Introduction
 
-This tutorial is intended for advanced users who are familiar with basic [Grid's](./getting-started.md) concept and who wants to learn how to use [React Core](../../../core/docs/guides/fundamentals.md) components for extending the Grid component functionality.
+This tutorial is aimed at advanced users who are familiar with [basic Grid concepts](./getting-started.md) and who want to add new functionality to the Grid by using the [React Core](../../../core/docs/guides/fundamentals.md) components.
 
-In our particular case, we will add a select box in the Grid's toolbar that will allow users to filter the grid by the required column. The purpose of the tutorial is not to implement a very useful feature. The main idea is to show how to add functionality to the Grid componet that does not exist out of the box.
+In our particular case, we will extend the Grid's toolbar with a select box that will allow users to filter the grid by a required column. The purpose of the tutorial is not to implement a very useful feature. The main idea is to show how to add to the Grid component functionality that is not provided out of the box.
 
-We chose the `Material-UI` theme and our initial code is follows:
+The initial code is shown below. As you can see, we will use the Grid in the `Material-UI` theme.
 
 *index.js:*
 ```jsx
@@ -99,20 +99,21 @@ export default [{
   }];
 ```
 
-Let's take a look at the screenshot below to see the final result that we will get after performing all the steps from the tutorial:
+Take a look at the image below to see what we will get after the tutorial is finished:
 
 <p align="center">
   <img class="img-responsive" src="../../../../../img/guides/custom-plugin-development/result.png">
 </p>
 
-As you can see, there is a select box at the top right corner of the grid associated with the `CompanyName` column. When a user selects an item from the box, the grid displays only filtered items. Moreover, there is the `CLEAR` button that clears the selected value. When the value is cleared, the grid displays all available rows.
-
+At the top right corner, you can see a select box. When a user selects an item from it, the grid displays only the filtered rows. When the value is cleared using the `CLEAR` button, the grid displays all available rows.
 
 Let's start extending our grid!
 
-## Rendering Custom Markup
-For rendering custom markup in existing grid UI elements, in our case it is the toolbar, we need to create a custom plugin. To create a plugin, we need to wrap all content in the [Plugin](../../../core/docs/reference/plugin.md) component. Since our plugin will reside in the grid's toolbar, we will name it `ToolbarFilter`. Let's create a new folder `plugins` in our project and
-put a new `toolbar-filter.js` file into the folder with the following code:
+## Render Custom Markup
+
+To render custom markup in an existing UI element of the Grid (toolbar in our case), we need to create a plugin. Wrap the custom markup in the [Plugin](../../../core/docs/reference/plugin.md) component to do this. Since our plugin will be part of the toolbar, `ToolbarFilter` is a suitable name for it.
+
+Let's create a new folder called `plugins` in our project and add a new file, `toolbar-filter.js`, with the following code to it:
 
 *toolbar-filter.js:*
 ```jsx
@@ -131,7 +132,9 @@ export class ToolbarFilter extends React.PureComponent {
   }
 }
 ```
-We are going to show our plugin in the Grid's [toolbar](../reference/toolbar.md). According to the documentation, the toolbar exports a [template](../../../core/docs/reference/template.md) with the `toolbarContent` name. So, we need to use this template in our plugin for modifying its content. For this task we need to add the [Template](../../../core/docs/reference/template.md) component to our plugin and set its `name` property to `toolbarContent`.
+
+As it was mentioned above, our plugin will be part of the Grid's [toolbar](../reference/toolbar.md). According to the documentation, the toolbar exports a [template](../../../core/docs/reference/template.md) with the `toolbarContent` name. Add the [Template](../../../core/docs/reference/template.md) component to our plugin and set its `name` to `toolbarContent`:
+
 ```jsx
 ...
 import {
@@ -152,7 +155,8 @@ export class ToolbarFilter extends React.PureComponent {
 }
 ```
 
-We are not going to completely replace the current toolbar content. We only need to append our content to existing one. We need to render the default content of the `toolbarContent` template. For this task we add the [TemplatePlaceholder](../../../core/docs/reference/template-placeholder.md) component without parameters to our template.
+We do not want to *replace* the default toolbar content. Rather we should *append* our content to it. To do this, add the [TemplatePlaceholder](../../../core/docs/reference/template-placeholder.md) component without parameters to the template:
+
 ```jsx
 ...
 import {
@@ -175,7 +179,8 @@ export class ToolbarFilter extends React.PureComponent {
 }
 ```
 
-The plugin should not work without the [Toolbar](../reference/toolbar.md) plugin because we use its template. Let's notify the plugin about it by specifying the `dependencies` option as shown below:
+Our plugin should not work without the [Toolbar](../reference/toolbar.md) plugin because we use its template. Specify the `dependencies` property to notify our plugin about it:
+
 ```jsx
 ...
 
@@ -197,7 +202,8 @@ export class ToolbarFilter extends React.PureComponent {
 }
 ```
 
-Now, we are ready to add our content to the `toolbarContent` template. Since we are going to display a select box, let's add the [Select](https://material-ui.com/demos/selects/) component to our template:
+Now, all is set to add custom markup to the `toolbarContent` template. Since we are going to display a select box, let's add the [Select](https://material-ui.com/demos/selects/) component to our template:
+
 ```jsx
 ...
 import Select from '@material-ui/core/Select';
@@ -217,7 +223,7 @@ export class ToolbarFilter extends React.PureComponent {
   }
 }
 ```
-It's time to add our plugin to the grid.
+It is time to add our plugin to the Grid:
 
 *index.js:*
 ```jsx
@@ -244,12 +250,13 @@ class App extends Component {
   }
 }
 ```
-After that, our grid should look as follows:
+After you've done that, the Grid should look as follows:
 <p align="center">
   <img class="img-responsive" src="../../../../../img/guides/custom-plugin-development/add-select.png">
 </p>
 
-## Sharing Values Between Plugins
+## Share Values Between Plugins
+
 We see our select box, but it does nothing. The next step we should perform is to add items to our select box. These items should represent unique values of a particular column by which we want to filter our grid. The `ToolbarFilter` plugin represents a UI [plugin](./plugin-overview.md). This plugin should only render content based on provided data. But it should not manipulate the Grid's state or modify data. For this task, we need to implement an extra plugin called [state management](./plugin-overview.md) plugin. This plugin will prepare all necessary information for our `ToolbarFilter` plugin. Let's name it `ToolbarFilterState`. So, add a new `toolbar-filter-state.js` file to the `plugins` folder of our project and implement the logic of a new plugin in it.
 
 *file toolbar-filter-state.js:*
@@ -459,7 +466,7 @@ export class ToolbarFilter extends React.PureComponent {
 }
 ```
 
-## Using Built-In Plugins Functionality
+## Use the Functionality of Built-In Plugins
 
 We need to determine when a value is changed and filter the grid based on the value. We store the `filterValue` property in state object of the `ToolbarFilterState` plugin. However, the UI element that affects this value is rendered by the `ToolbarFilter` plugin. How can we detect changes in one plugin and change the required value in the state object of another plugin? We need to use an [action](../../../core/docs/reference/action.md). Let's name it `changeToolbarFilterValue`.
 

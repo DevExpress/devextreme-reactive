@@ -291,8 +291,8 @@
     items:
       - title: Getting Started
         path: /react/scheduler/docs/guides/getting-started
-      - title: Appointment Types
-        path: /react/scheduler/docs/guides/appointment-types
+      - title: Appointments
+        path: /react/scheduler/docs/guides/appointments
   - title: API Reference
     items:
       - title: AllDayPanel

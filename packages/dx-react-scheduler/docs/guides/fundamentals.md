@@ -4,7 +4,7 @@ The [DevExtreme React Scheduler](https://devexpress.github.io/devextreme-reactiv
 
 ## Overview
 
-The React Scheduler has built-in functionality for appointment layouting in different views. The scheduler contains easily customizable UI elements such as date navigator, view switcher, all-day panel, appointment tooltip, and appointment form. The [editing](../reference/editing-state.md) functionality is supported, as well. Moreover, you can specify which one of [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) operations is available.
+The React Scheduler has built-in functionality for appointment layouting in different views. The scheduler contains easily customizable UI elements such as [date navigator](../reference/date-navigator.md), [view switcher](../reference/view-switcher.md), [all-day panel](../reference/all-day-panel.md), [appointment tooltip](../reference/appointment-tooltip.md), and [appointment form](../reference/appointment-form.md). The [editing](../reference/editing-state.md) functionality is supported, as well. Moreover, you can specify which one of [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) operations is available.
 
 The following image describes the main UI elements of the React Scheduler.
 
@@ -12,16 +12,11 @@ The following image describes the main UI elements of the React Scheduler.
   <img class="img-responsive" src="../../img/scheduler-elements.png">
 </p>
 
-The React Scheduler adheres to plugin-based architecture. This says that every feature is encapsulated in a particular plugin(or React component). See also the Plugin Overview guide. Next plugins implement most common features.
-
-- [ViewSwitcher](../reference/view-switcher.md) - changes the current view
-- [DateNavigator](../reference/date-navigator.md) - changes the current date and shows a visible time interval
-- [AllDayPanel](../reference/all-day-panel.md) - displays longer then a day appointments in a specific place
-- [AppointmentTooltip](../reference/appointment-tooltip.md) - displays short information about event in a tooltip form also provide a some UI functionality to fast data editing
+The React Scheduler adheres to plugin-based architecture. This says that every feature is encapsulated in a particular plugin (or React component).
 
 ## Basic Setup
 
-The Scheduler displays data specified via the `data` property. You should follow the [AppointmentModel](../reference/scheduler.md/#appointmentmodel) interface to define that property. Please refer to [this](https://github.com/DevExpress/devextreme-reactive/blob/master/packages/dx-react-scheduler-demos/src/demo-sources/scheduler-featured-remote-data/material-ui/demo.jsx#L53) demo to see how to use a custom formatted data.
+The Scheduler displays data specified via the `data` property. You should follow the [AppointmentModel](../reference/scheduler.md/#appointmentmodel) interface to define that property. Also you can add [custom](https://github.com/DevExpress/devextreme-reactive/blob/master/packages/dx-react-scheduler-demos/src/demo-sources/scheduler-featured-remote-data/material-ui/demo.jsx#L53) fields.
 
 The Scheduler requires the following plugins for basic data visualization:
 

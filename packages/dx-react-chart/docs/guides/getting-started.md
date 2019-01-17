@@ -4,7 +4,7 @@ Project status: **Beta**
 
 ## Overview
 
-The DevExtreme React Chart is a component that visualizes data using a variety of series types, including bar, line, area, scatter, pie, and more. It is support controlled and uncontrolled state modes. In the uncontrolled mode UI plugins manage the state internally. In the controlled mode, the state is managed externally via the plugins’ props. The DevExtreme React Chart has a composable and extendable architecture in which plugins provide additional elements (such as axes, legend, grid). Twitter Bootstrap and Material-UI rendering and theming are supported out of the box.
+The DevExtreme React Chart is a component for data visualization that provides many series types, including bar, line, area, scatter, pie, and more. It can function in uncontrolled and controlled state modes. In uncontrolled mode, UI plugins manage the state internally. In controlled mode, the state is managed externally via plugin props. The DevExtreme React Chart has a composable and extendable architecture in which plugins provide additional elements (such as axes, legend, grid). Twitter Bootstrap and Material-UI rendering and theming are supported out of the box.
 
 ## Installation
 
@@ -52,7 +52,7 @@ React Chart uses the latest web platform standards and does not support older br
 
 ## Using the Chart Component
 
-The Chart component's functionality is implemented in plugins. You need a [series](series.md) plugin and the `ArgumentAxis`, `ValuesAxis` plugins to draw a simple chart. The following code shows how to configure a simple line chart:
+The Chart component's functionality is implemented in plugins. To draw a simple chart, the `ArgumentAxis` and `ValueAxis` plugins and one of the [series](series.md) plugins. The following code shows how to configure a simple line chart:
 
 ```jsx
 import { Chart, ArgumentAxis, ValueAxis, LineSeries } from "@devexpress/dx-react-chart-material-ui";

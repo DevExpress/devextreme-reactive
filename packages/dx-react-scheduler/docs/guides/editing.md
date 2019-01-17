@@ -1,6 +1,6 @@
 # React Scheduler - Editing
 
-The Scheduler supports editing features including creating, updating and deleting appointments. Use the corresponding plugins to manage the editing state. The editing state contains information about appointment currently being edited, changes applied to a particular appointment, and appointment that has been deleted and created but not yet committed. Once a user accepts an appointment addition, deletion, or changes made to an appointment (clicking the Save or Delete button), the Scheduler fires the `EditingState` plugin's `onCommitChanges` event and resets the appointment's editing state.
+The React Scheduler supports editing features including creating, updating and deleting appointments. Use the corresponding plugins to manage the editing state. The editing state contains information about appointment currently being edited, changes applied to a particular appointment, and appointment that has been deleted and created but not yet committed. Once a user accepts an appointment addition, deletion, or changes made to an appointment (clicking the Save or Delete button), the Scheduler fires the `EditingState` plugin's `onCommitChanges` event and resets the appointment's editing state.
 
 ## Related Plugins
 
@@ -9,7 +9,6 @@ The following plugins implement editing features:
 - [EditingState](../reference/editing-state.md) - controls the editing state
 - [AppointmentTooltip](../reference/appointment-tooltip.md) - renders a appointment tooltip with editing controls
 - [AppointmentForm](../reference/appointment-form.md) - renders an appointment editing form
-- [Appointments](../reference/appointments.md) - renders appointments
 
 ## User Interactions
 

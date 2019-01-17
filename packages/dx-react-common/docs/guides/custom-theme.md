@@ -1,31 +1,29 @@
-# React Components - How to create a custom theme
+# React Components - Create a Custom Theme
 
 ## Motivation
-Although the [React Components](https://devexpress.github.io/devextreme-reactive/react/) are shipped with modern themes and easily customizable themselves, sometimes this will not suffice. For example, if your site uses design guidelines incompatipable with Bootstrap or Material-UI guidelines, you will need to develop your own theme. It is not a very difficult task because you don't have to stylize all the plugins: for a basic [Grid](https://devexpress.github.io/devextreme-reactive/react/grid),  [Scheduler](https://devexpress.github.io/devextreme-reactive/react/scheduler) or [Chart](https://devexpress.github.io/devextreme-reactive/react/chart) it's enough to implement a dozen of simple components.
+[React Components](https://devexpress.github.io/devextreme-reactive/react/) are shipped with modern themes and can be easily customized. However, there are situations when you need to develop your own theme, for example, when the design guidelines of your site go against the Bootstrap or Material UI guidelines.
 
-## How theming works
-A theme contains only presentation logic, all the internal routines are encapsulated in plugins and contained in core packages - `dx-react-grid`, `dx-react-scheduler` and `dx-react-chart`. A core package exports 'bare' UI plugins and a theme package fills these plugins with visual components or 'templates' using [Render Props](https://reactjs.org/docs/render-props.html). Basically a theme is just a set of React UI components delivered to plugins. So to stylize a plugin you just need to write necessary components and provide them to the plugin.
+## How Themes Work
+A theme contains only the representation logic. All the internal routines are encapsulated in plugins and contained in core packages: `dx-react-grid`, `dx-react-scheduler`, and `dx-react-chart`. A core package exports "bare" UI plugins that a theme package can fill with visual components via [Render Props](https://reactjs.org/docs/render-props.html). Essentially, a theme is a set of React UI components delivered to plugins. To stylize a plugin, you just need to provide necessary components to it.
 
-## Implementing a custom theme
-For example let's make a grid theme based on the [Semantic UI](https://react.semantic-ui.com/) framework. This theme will cover three essential plugins - [Grid](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/grid/), [Table](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table/) and [TableHeader](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-header-row/). Theme sources and preview are available in this [CodeSandbox](https://codesandbox.io/s/jmqwvjqw3).
+## Implement a Custom Theme
+Let's create a grid theme based on the [Semantic UI](https://react.semantic-ui.com/) framework. The theme will stylize three main plugins: [Grid](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/grid/), [Table](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table/), and [TableHeader](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-header-row/). Theme sources and preview are available in this [CodeSandbox](https://codesandbox.io/s/jmqwvjqw3).
 
-### Theme structure
-Create a new directory in the sources root called `semantic-ui-theme` with two nested directories - `plugins` and `templates`.
+### Theme Structure
+The theme consists of two directories: `plugins` (plugins that we customize) and `templates` (components provided to the plugins). Both of them are located in the `semantic-ui-theme` directory under `src`.
 
-### Templates
-As we saw, plugins do not render UI elements by themselves, render props used instead. These render props are listed in documentation with a 'Component' prefix, in case of `Table` plugin it is `tableComponent`, `headComponent`, etc.
+### Components
+As we mentioned earlier, plugins render UI elements via render props. All render props have the postfix `Component`. For instance, the [Table](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table/) plugin contains the `tableComponent`, `headComponent`, `cellComponent`, and others.
 
-#### Handling props
-Sometimes theme component may be simple like
+#### Handle the Props
+If props are of the `object` type, you can pass them to the theme component "as is":
 ```jsx
 import { Table as TableSUI } from 'semantic-ui-react';
 const TableHead = props => <TableSUI.Header {...props} />;
 ```
-Here a component passes props as-is to the underlying Semantic UI component.
 
-But there are also other components that receive grid-specific data via props and a different approach is required. These properties are described in a related plugin docs under section 'Interfaces'. Let's take a `tableCell` component for example. It receives props of type [Table.DataCellProps](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table/#tabledatacellprops). As you can see, some of these properties - such as `tableColumn`, `row`, `value` - are unknown to React, hence we should destructure the props.
+Otherwise, you need to destructure the props. Let's look at the `cellComponent` [prop of the `Table` plugin](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table/#properties) for example. It receives [Table.DataCellProps](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table/#tabledatacellprops). Some of them, such as `tableColumn`, `row`, and `value`, are specific to the Grid and unknown to React. They should not be passed to the theme component and need to be removed from the props. The following example illustrates the process:
 
-Below is a `tableCell` component illustrating props destructuring.
 ```jsx
 import { Table as TableSUI } from 'semantic-ui-react';
 
@@ -46,7 +44,7 @@ export const TableCell = ({
 ```
 
 ### Plugins
-Having implemented all the required components, we can proceed to writing a theme plugin. It is a simple task: just import a base plugin from the core package and provide it with your theme components.
+Once you implement all the required components, create a theme plugin. Inside of it, import a base plugin from the core package and provide your theme components to it:
 
 ```jsx
 import { TableHeaderRow as TableHeaderRowBase } from '@devexpress/dx-react-grid';
@@ -61,7 +59,7 @@ export const TableHeaderRow = props => (
   />
 ```
 
-Looking at a code of our themes you may have noticed that we use a special HOC `withComponents` for this purpose but it is not yet documented. With this HOC a code above will look like this:
+If you look at the code of our themes, you may notice that we do the same with a not-yet-documented HOC, `withComponents`. The previous code looks like this if you use this HOC too:
 
 ```jsx
 import { withComponents } from '@devexpress/dx-react-core';
@@ -75,4 +73,4 @@ export const TableHeaderRow = withComponents({
 })(TableHeaderRowBase);
 ```
 
-Some of our components like [TableLayout](https://github.com/DevExpress/devextreme-reactive/blob/master/packages/dx-react-grid/src/components/table-layout.jsx) are not fully documented, so we recommend that you use our [repository](https://github.com/DevExpress/devextreme-reactive) code as a reference when implementing your own theme.
+A number of our components, like [TableLayout](https://github.com/DevExpress/devextreme-reactive/blob/master/packages/dx-react-grid/src/components/table-layout.jsx), are still to be documented. When you implement a custom theme, we recommend consulting our [repository code](https://github.com/DevExpress/devextreme-reactive) as well as the docs.

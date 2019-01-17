@@ -22,7 +22,7 @@ In the uncontrolled mode, specify the initial view name value in the `ViewState`
 
 ### Controlled Mode
 
-In the controlled mode, pass the view name option to the `ViewState` plugin’s `currentViewName` property and handle the `onCurrentViewNameChange` event to control the view state externally.
+In the controlled mode, pass the view name to the `ViewState` plugin’s `currentViewName` property and handle the `onCurrentViewNameChange` event to control the view state externally.
 
 .embedded-demo({ "path": "scheduler-view-switcher/controlled", "showThemeSelector": true })
 

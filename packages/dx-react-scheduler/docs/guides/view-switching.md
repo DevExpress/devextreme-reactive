@@ -1,17 +1,17 @@
 # React Scheduler - View Switching
 
-If the React Scheduler has more then one view, your can choose showed view by UI with `ViewSwitcher` plugin. The following guide provides information about navigation between available views.
+The React Scheduler component with the `ViewState` and `ViewSwitcher` plugins provides the capability to switch between views at runtime.
 
 ## Related Plugins
 
 The following plugins implement view switching feature:
 
-- [ViewState](../reference/view-state.md) - controls a showed view state
+- [ViewState](../reference/view-state.md) - manages a current view state
 - [ViewSwitcher](../reference/view-switcher.md) - renders a view switcher control
 
 ## Basic Setup
 
-Import the plugins listed above to set up a Scheduler with basic view switching.
+Import the plugins listed above to enable a user to switch between views at runtime.
 
 ### Uncontrolled Mode
 

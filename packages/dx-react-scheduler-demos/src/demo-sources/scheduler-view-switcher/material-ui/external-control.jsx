@@ -13,7 +13,6 @@ import {
 
 import { appointments } from '../../../demo-data/month-appointments';
 
-
 const ExternalViewSwitcher = ({
   currentViewName,
   onChange,
@@ -39,6 +38,7 @@ export default class Demo extends React.PureComponent {
       data: appointments,
       currentViewName: 'Work Week',
     };
+
     this.currentViewNameChange = (e) => {
       this.setState({ currentViewName: e.target.value });
     };

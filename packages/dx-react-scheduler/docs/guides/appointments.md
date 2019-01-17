@@ -9,7 +9,7 @@ The Scheduler component provides few appointment types.
 
 ## One-Time Appointment
 
-The one-time appointment with specified start and end dates. These appointments displayed in the following demo. To display one-time appointments in the views add the [Appointments](../reference/appointments.md) plugin.
+The one-time appointment with specified start and end dates. These appointments are displayed in the following demo. To display one-time appointments in the views add the [Appointments](../reference/appointments.md) plugin.
 
 .embedded-demo({ "path": "scheduler-basic/day", "showThemeSelector": true })
 

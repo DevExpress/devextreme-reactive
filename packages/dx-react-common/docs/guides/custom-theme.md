@@ -1,7 +1,7 @@
 # React Components - Create a Custom Theme
 
 ## Motivation
-[React Components](https://devexpress.github.io/devextreme-reactive/react/) are shipped with modern themes and can be easily customized. However, there are situations when you need to develop your own theme, for example, when the design guidelines of your site go against the Bootstrap or Material UI guidelines.
+[React Components](https://devexpress.github.io/devextreme-reactive/react/) are shipped with modern themes and can be easily customized. However, there are situations when you need to develop your own theme, for example, when the design guidelines of your site go against the Bootstrap or Material-UI guidelines.
 
 ## How Themes Work
 A theme contains only the representation logic. All the internal routines are encapsulated in plugins and contained in core packages: `dx-react-grid`, `dx-react-scheduler`, and `dx-react-chart`. A core package exports "bare" UI plugins that a theme package can fill with visual components via [Render Props](https://reactjs.org/docs/render-props.html). Essentially, a theme is a set of React UI components delivered to plugins. To stylize a plugin, you just need to provide necessary components to it.

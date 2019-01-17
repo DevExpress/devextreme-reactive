@@ -25,7 +25,7 @@ import {
   TableHeaderRow,
   Toolbar
 } from '@devexpress/dx-react-grid-material-ui';
-import service from './data.js';
+import customers from "./data.js";
 
 class App extends PureComponent {
   constructor(props) {
@@ -39,7 +39,7 @@ class App extends PureComponent {
         { name: "State", title: "State" },
         { name: "Zipcode", title: "Zip code" }
       ],
-      rows: service.getCustomers()
+      rows: customers
     };
   }
   render() {
@@ -61,7 +61,7 @@ class App extends PureComponent {
 ```
 *data.js:*
 ```js
-const customers = [{
+export default [{
     ID: 1,
     CompanyName: 'Super Mart of the West',
     Address: '702 SW 8th Street',
@@ -97,12 +97,6 @@ const customers = [{
     State: 'Illinois',
     Zipcode: 60179
   }];
-
-export default {
-  getCustomers() {
-    return customers;
-  }
-}
 ```
 
 Let's take a look at the screenshot below to see the final result that we will get after performing all the steps from the tutorial:

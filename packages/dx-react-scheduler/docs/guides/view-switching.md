@@ -7,6 +7,7 @@ The React Scheduler component with the `ViewState` and `ViewSwitcher` plugins pr
 The following plugins implement view switching feature:
 
 - [ViewState](../reference/view-state.md) - manages a current view state
+- [Toolbar](../reference/toolbar.md) - renders the Scheduler Toolbar
 - [ViewSwitcher](../reference/view-switcher.md) - renders a view switcher control
 
 ## Basic Setup
@@ -27,6 +28,6 @@ In the controlled mode, pass the view name option to the `ViewState` plugin’s 
 
 ## External Control
 
-To control the view state externally define the `ViewState` plugin's `currentViewName` property without adding the `ViewSwitching` plugin.
+To control the view state externally define the `ViewState` plugin's `currentViewName` property without adding the `ViewSwitcher` plugin.
 
 .embedded-demo({ "path": "scheduler-view-switcher/external-control", "showThemeSelector": true })

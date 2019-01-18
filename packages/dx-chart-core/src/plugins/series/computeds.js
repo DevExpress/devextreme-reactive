@@ -7,7 +7,6 @@ import {
   arc,
   pie,
 } from 'd3-shape';
-import { scaleOrdinal } from 'd3-scale';
 import { ARGUMENT_DOMAIN } from '../../constants';
 import { getWidth, getValueDomainName, fixOffset } from '../../utils/scale';
 
@@ -30,18 +29,16 @@ export const dSpline = line()
   .curve(curveMonotoneX);
 
 export const getPiePointTransformer = ({
-  argumentScale, valueScale, points, palette,
+  argumentScale, valueScale, points,
 }) => {
   const x = Math.max(...argumentScale.range()) / 2;
   const y = Math.max(...valueScale.range()) / 2;
   const maxRadius = Math.min(x, y);
   const pieData = pie().sort(null).value(d => d.value)(points);
-  const colorScale = scaleOrdinal().range(palette);
   return (point) => {
     const { startAngle, endAngle } = pieData[point.index];
     return {
       ...point,
-      color: point.color || colorScale(point.index),
       x,
       y,
       startAngle,
@@ -91,6 +88,8 @@ export const getBarPointTransformer = ({
 getBarPointTransformer.isStartedFromZero = true;
 // Used for Bar grouping.
 getBarPointTransformer.isBroad = true;
+
+getPiePointTransformer.getPointColor = (palette, index) => palette[index % palette.length];
 
 export const findSeriesByName = (
   name, series,
@@ -162,14 +161,19 @@ const getUniqueName = (list, name) => {
 
 // TODO: Memoization is much needed here.
 // Though "series" list never persists, single "series" item most often does.
-const createPoints = (argumentField, valueField, data, props) => {
+const createPoints = ({ argumentField, valueField, getPointTransformer }, data, props, palette) => {
   const points = [];
   data.forEach((dataItem, index) => {
     const argument = dataItem[argumentField];
     const value = dataItem[valueField];
     if (argument !== undefined && value !== undefined) {
       points.push({
-        argument, value, index, ...props,
+        argument,
+        value,
+        index,
+        ...props,
+        color: getPointTransformer.getPointColor
+          ? getPointTransformer.getPointColor(palette, index) : props.color,
       });
     }
   });
@@ -180,14 +184,13 @@ export const addSeries = (series, data, palette, props, restProps) => {
   // It is used to generate unique series dependent attribute names for patterns.
   // *symbolName* cannot be used as it cannot be part of DOM attribute name.
   const index = series.length;
-  const color = props.color || palette[index % palette.length];
+  const seriesColor = props.color || palette[index % palette.length];
   return [...series, {
     ...props,
     name: getUniqueName(series, props.name),
     index,
-    points: createPoints(props.argumentField, props.valueField, data, { ...restProps, color }),
-    palette, // TODO: For Pie only. Find a better place for it.
-    color,
+    points: createPoints(props, data, { ...restProps, color: seriesColor }, palette),
+    color: seriesColor,
   }];
 };
 

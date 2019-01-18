@@ -13,6 +13,10 @@ import { Tooltip } from '@devexpress/dx-react-chart-material-ui';
 
 ## User Reference
 
+### Dependencies
+
+- [EventTracker](event-tracker.md) [Optional]
+
 ### Properties
 
 Name | Type | Default | Description

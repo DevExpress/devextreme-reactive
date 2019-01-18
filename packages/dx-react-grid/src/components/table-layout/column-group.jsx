@@ -7,11 +7,11 @@ export class ColumnGroup extends React.PureComponent {
 
     return (
       <colgroup>
-        {columns.map(column => (
+        {columns.map(({ key, width, preferMinWidth }) => (
           <col
-            key={column.key}
-            style={column.width !== undefined
-              ? { width: `${column.width}px` }
+            key={key}
+            style={width !== undefined
+              ? { [preferMinWidth ? 'minWidth' : 'width']: `${width}px` }
               : null}
           />
         ))}
@@ -22,4 +22,7 @@ export class ColumnGroup extends React.PureComponent {
 
 ColumnGroup.propTypes = {
   columns: PropTypes.array.isRequired,
+};
+
+ColumnGroup.defaultProps = {
 };

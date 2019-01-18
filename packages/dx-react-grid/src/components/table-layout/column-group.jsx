@@ -23,6 +23,3 @@ export class ColumnGroup extends React.PureComponent {
 ColumnGroup.propTypes = {
   columns: PropTypes.array.isRequired,
 };
-
-ColumnGroup.defaultProps = {
-};

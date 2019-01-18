@@ -14,7 +14,7 @@ The following plugins render corresponding views:
 
 The `DayView` displays appointments for a specified date. The Scheduler component arranges appointments from top to bottom. If their time intervals overlap, their width is decreased and they are placed next to each other.
 
-By default the duration of time scale is 24 hours. To change this value define the view plugin's properties `startDayHour` and `endDayHour`. In the following example a time scale starts at 9 a.m. and ends at 7 p.m.
+By default the duration of [time scale](fundamentals.md#overview) is 24 hours. To change this value define the view plugin's properties `startDayHour` and `endDayHour`. In the following example a time scale starts at 9 a.m. and ends at 7 p.m.
 
 .embedded-demo({ "path": "scheduler-basic/day", "showThemeSelector": true })
 

@@ -483,7 +483,7 @@ describe('addSeries', () => {
     ]);
   });
 
-  it('should create points for pie', () => {
+  it('should calculate point color with `getPointColor` function', () => {
     const props = {
       name: 'test',
       argumentField: 'arg',
@@ -517,6 +517,12 @@ describe('addSeries', () => {
         ],
         color: 'c2',
       },
+    ]);
+
+    expect(props.getPointTransformer.getPointColor.mock.calls).toEqual([
+      [palette, 0],
+      [palette, 1],
+      [palette, 3],
     ]);
   });
 });

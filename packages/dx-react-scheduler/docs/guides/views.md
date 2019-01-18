@@ -1,6 +1,6 @@
 # React Scheduler - Views
 
-The Scheduler component provides several types of views. Views display information in various ways, you can choose the most convenient view for your data source or combine few views and switching between them.
+The Scheduler component provides several types of views. Views display information in various ways, you can choose the most convenient view for your data source or combine few views and switch between them.
 
 ## Related Plugins
 

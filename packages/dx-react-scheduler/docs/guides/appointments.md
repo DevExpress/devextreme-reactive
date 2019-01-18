@@ -15,7 +15,7 @@ The one-time appointment with specified start and end dates. These appointments 
 
 ## All-Day Appointment
 
-The all-day appointment that covers the whole day or multiple days. By default all-day appointments are rendered only the [MonthView](../reference/month-view.md). To display them on the day or week views use the [AllDayPanel](../reference/all-day-panel.md) plugin.
+The all-day appointment that covers the whole day or multiple days. By default, all-day appointments are rendered only on the [MonthView](../reference/month-view.md). To display them on the day or week views use the [AllDayPanel](../reference/all-day-panel.md) plugin.
 
 .embedded-demo({ "path": "scheduler-all-day-panel/week-view", "showThemeSelector": true })
 

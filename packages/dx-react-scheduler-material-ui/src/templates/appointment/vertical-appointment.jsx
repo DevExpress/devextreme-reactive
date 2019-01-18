@@ -6,11 +6,13 @@ import classNames from 'classnames';
 
 const styles = ({ palette, spacing }) => ({
   title: {
+    fontWeight: 'bold',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
   },
   textContainer: {
+    lineHeight: `${spacing.unit * 1.5}px`,
     whiteSpace: 'pre',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -22,7 +24,7 @@ const styles = ({ palette, spacing }) => ({
   },
   content: {
     color: palette.background.default,
-    padding: spacing.unit / 2,
+    padding: `${spacing.unit / 2}px ${spacing.unit}px`,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',

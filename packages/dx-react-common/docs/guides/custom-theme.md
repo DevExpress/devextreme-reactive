@@ -1,13 +1,12 @@
 # React Components - Create a Custom Theme
 
-## Motivation
-[React Components](https://devexpress.github.io/devextreme-reactive/react/) are shipped with modern themes and can be easily customized. However, there are situations when you need to develop your own theme, for example, when the design guidelines of your site go against the Bootstrap or Material-UI guidelines.
+[React Components](https://devexpress.github.io/devextreme-reactive/react/) include Bootstrap and Material-UI themes that can be customized. However, there are situations when you want to develop a custom theme. For example, when your site does not abide by Bootstrap or Material-UI guidelines.
 
 ## How Themes Work
-A theme contains only the representation logic. All the internal routines are encapsulated in plugins and contained in core packages: `dx-react-grid`, `dx-react-scheduler`, and `dx-react-chart`. A core package exports "bare" UI plugins that a theme package can fill with visual components via [Render Props](https://reactjs.org/docs/render-props.html). Essentially, a theme is a set of React UI components delivered to plugins. To stylize a plugin, you just need to provide necessary components to it.
+A theme is a set of React UI components that implement the representation logic. All the internal routines are encapsulated in plugins and contained in core packages: `dx-react-grid`, `dx-react-scheduler`, and `dx-react-chart`. A core package exports "bare" UI plugins that a theme package can fill with visual components via [Render Props](https://reactjs.org/docs/render-props.html). To stylize such a plugin, you should provide necessary theme components to it.
 
 ## Implement a Custom Theme
-Let's create a grid theme based on the [Semantic UI](https://react.semantic-ui.com/) framework. The theme will stylize three main plugins: [Grid](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/grid/), [Table](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table/), and [TableHeader](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-header-row/). Theme sources and preview are available in this [CodeSandbox](https://codesandbox.io/s/jmqwvjqw3).
+In this tutorial, we create a grid theme based on the [Semantic UI](https://react.semantic-ui.com/) framework. This theme stylizes three main plugins: [Grid](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/grid/), [Table](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table/), and [TableHeader](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-header-row/). Theme sources and preview are available in this [CodeSandbox](https://codesandbox.io/s/jmqwvjqw3).
 
 ### Theme Structure
 The theme consists of two directories: `plugins` (plugins that we customize) and `templates` (components provided to the plugins). Both of them are located in the `semantic-ui-theme` directory under `src`.

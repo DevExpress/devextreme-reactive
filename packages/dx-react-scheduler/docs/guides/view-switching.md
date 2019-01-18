@@ -28,6 +28,6 @@ In controlled mode, use the `ViewState` plugin's `currentViewName` property to s
 
 ## Control the View Externally
 
-Define the `ViewState` plugin's `currentViewName` property but do not add the `ViewSwitcher` plugin:
+Define the `ViewState` plugin's `currentViewName` property. The `ViewSwitcher` plugin is not required in this case:
 
 .embedded-demo({ "path": "scheduler-view-switcher/external-control", "showThemeSelector": true })

@@ -83,8 +83,8 @@ export class Sizer extends React.PureComponent<SizerProps> {
   }
 
   // There is no need to remove listeners as divs are removed from DOM when component is unmount.
-  // But there is little chance that when component unmounting and 'scroll' event happen roughly
-  // at the same time and `setupListeners` is called after component is unmount.
+  // But there is a little chance that component unmounting and 'scroll' event happen roughly
+  // at the same time so that `setupListeners` is called after component is unmount.
   componentWillUnmount() {
     this.expandTrigger.removeEventListener('scroll', this.setupListeners);
     this.contractTrigger.removeEventListener('scroll', this.setupListeners);

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
@@ -9,9 +10,17 @@ const styles = ({ spacing }) => ({
   root: {
     height: spacing.unit * 5,
     width: spacing.unit * 12.5,
+    fontSize: '14px',
   },
   input: {
     padding: `${spacing.unit * 1.25}px ${spacing.unit * 1.75}px`,
+    lineHeight: `${spacing.unit * 2.5}px`,
+  },
+  upperCase: {
+    textTransform: 'uppercase',
+  },
+  menuItem: {
+    fontSize: '14px',
   },
 });
 
@@ -30,11 +39,21 @@ const SwitcherBase = ({
       classes={{ root: classes.root }}
       value={currentViewName}
       onChange={handleChange}
-      input={(<OutlinedInput classes={{ input: classes.input }} labelWidth={0} />)}
+      input={(
+        <OutlinedInput
+          classes={{ input: classes.input }}
+          className={classes.upperCase}
+          labelWidth={0}
+        />
+      )}
       {...restProps}
     >
       {availableViewNames.map(viewName => (
-        <MenuItem value={viewName} key={viewName}>
+        <MenuItem
+          value={viewName}
+          key={viewName}
+          className={classNames(classes.upperCase, classes.menuItem)}
+        >
           {viewName}
         </MenuItem>
       ))}

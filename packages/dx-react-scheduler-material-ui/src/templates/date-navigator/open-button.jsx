@@ -15,7 +15,6 @@ export const OpenButton = ({
 
 OpenButton.propTypes = {
   onVisibilityToggle: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
   text: PropTypes.string,
   className: PropTypes.string,
 };

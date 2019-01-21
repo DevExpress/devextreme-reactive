@@ -13,6 +13,7 @@ const ContentWrapper = ({
 }) => (
   <div className={
     classNames({
+      [styles.contentWrapper]: true,
       [styles.leftImage]: leftImage && !withContainer,
       [styles.highlighted]: highlighted,
       [styles.flex]: flex && !withContainer,

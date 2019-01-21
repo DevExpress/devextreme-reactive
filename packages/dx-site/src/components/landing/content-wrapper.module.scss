@@ -1,3 +1,7 @@
+.contentWrapper {
+  padding: 40px 0;
+}
+
 .leftImage {
   flex-direction: row-reverse;
 }
@@ -10,11 +14,25 @@
   display: flex;
 }
 
+.flex img {
+  margin: 0 0 0 80px;
+}
+
+.leftImage img {
+  margin: 0 80px 0 0;
+}
+
 @media screen and (max-width: 768px) {
   .flex {
     display: block;
   }
   .leftImage {
     flex-direction: unset;
+  }
+  .flex img {
+    margin: 0;
+  }
+  .leftImage img {
+    margin: 0;
   }
 }

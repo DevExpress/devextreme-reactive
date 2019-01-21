@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 
-const OpenButton = ({
+export const OpenButton = ({
   text, onVisibilityToggle, ...restProps
 }) => (
   <Button

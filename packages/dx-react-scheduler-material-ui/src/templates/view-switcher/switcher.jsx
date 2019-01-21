@@ -30,7 +30,7 @@ const SwitcherBase = ({
       classes={{ root: classes.root }}
       value={currentViewName}
       onChange={handleChange}
-      input={(<OutlinedInput classes={{ input: classes.input }} />)}
+      input={(<OutlinedInput classes={{ input: classes.input }} labelWidth={0} />)}
       {...restProps}
     >
       {availableViewNames.map(viewName => (

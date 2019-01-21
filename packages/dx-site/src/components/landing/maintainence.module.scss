@@ -14,3 +14,9 @@
   font-size: 14px;
   color: rgba(125, 136, 142, 255);
 }
+
+@media screen and (max-width: 768px) {
+  .container img {
+    display: none;
+  }
+}

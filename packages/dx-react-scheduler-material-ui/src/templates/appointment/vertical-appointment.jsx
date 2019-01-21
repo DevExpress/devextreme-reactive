@@ -23,7 +23,7 @@ const styles = ({ palette, spacing }) => ({
     textOverflow: 'ellipsis',
   },
   content: {
-    color: palette.background.default,
+    color: palette.common.white,
     padding: `${spacing.unit / 2}px ${spacing.unit}px`,
     overflow: 'hidden',
     textOverflow: 'ellipsis',

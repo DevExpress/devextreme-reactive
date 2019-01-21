@@ -13,7 +13,7 @@ const styles = ({ palette, spacing }) => ({
   },
   textContainer: {
     lineHeight: `${spacing.unit * 1.5}px`,
-    whiteSpace: 'pre',
+    whiteSpace: 'pre-wrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },

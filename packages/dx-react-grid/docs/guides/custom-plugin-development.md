@@ -32,12 +32,12 @@ class App extends PureComponent {
     super(props);
     this.state = {
       columns: [
-        { name: "ID", title: "ID" },
-        { name: "CompanyName", title: "Company Name" },
-        { name: "Address", title: "Address" },
-        { name: "City", title: "City" },
-        { name: "State", title: "State" },
-        { name: "Zipcode", title: "Zip code" }
+        { name: 'ID', title: 'ID' },
+        { name: 'CompanyName', title: 'Company Name' },
+        { name: 'Address', title: 'Address' },
+        { name: 'City', title: 'City' },
+        { name: 'State', title: 'State' },
+        { name: 'Zipcode', title: 'Zip code' }
       ],
       rows: customers
     };
@@ -185,7 +185,7 @@ Our plugin should not work without the [Toolbar](../reference/toolbar.md) plugin
 ...
 
 const pluginDependencies = [
-  { name: "Toolbar" }
+  { name: 'Toolbar' }
 ];
 
 export class ToolbarFilter extends React.PureComponent {
@@ -257,7 +257,11 @@ After you've done that, the Grid should look as follows:
 
 ## Share Values Between Plugins
 
-We see our select box, but it does nothing. The next step we should perform is to add items to our select box. These items should represent unique values of a particular column by which we want to filter our grid. The `ToolbarFilter` plugin represents a UI [plugin](./plugin-overview.md). This plugin should only render content based on provided data. But it should not manipulate the Grid's state or modify data. For this task, we need to implement an extra plugin called [state management](./plugin-overview.md) plugin. This plugin will prepare all necessary information for our `ToolbarFilter` plugin. Let's name it `ToolbarFilterState`. So, add a new `toolbar-filter-state.js` file to the `plugins` folder of our project and implement the logic of a new plugin in it.
+We see our select box, but it does nothing. The next step we should perform is to add items to our select box. These items should represent unique values of a particular column by which we want to filter our grid. The `ToolbarFilter` plugin represents a UI [plugin](./plugin-overview.md). This plugin should only render content based on provided data. But it should not manipulate the Grid's state or modify data. For this task, we need to implement an extra plugin called [state management](./plugin-overview.md) plugin.
+
+The UI and state plugin separation is optional. In fact we can implement all logic in our UI plugin. However, this separation makes plugins more flexible and maintanable.
+
+Our new state plugin will prepare all necessary information for our `ToolbarFilter` plugin. Let's name it `ToolbarFilterState`. So, add a new `toolbar-filter-state.js` file to the `plugins` folder of our project and implement the logic of a new plugin in it.
 
 *file toolbar-filter-state.js:*
 ```jsx
@@ -278,9 +282,9 @@ export class ToolbarFilterState extends React.PureComponent {
 }
 ```
 
-Now we need to specify by which column we wish to filter our grid. The "columnName" option is appropriate for this task. Since we are not going to implement [controlled](./controlled-and-uncontrolled-modes.md) mode for this plugin add the `default` prefix to the property name according to the naming convention. So, the final name will be `defaultColumnName`.
+Now we need to specify by which column we wish to filter our grid. The `columnName` option is appropriate for this task.
 
-In addition, to the `defaultColumnName` property, let's add the `defaultFilterValue` property to allow a user to apecify initial filter value. When a user selects a value in our select box, this value will be changed. In this case, save it in the state object of our component as shown below:
+In addition, to the `columnName` option, let's add the `filterValue` property to allow a user to apecify initial filter value. Since we are not going to implement [controlled](./controlled-and-uncontrolled-modes.md) mode for this plugin add the `default` prefix to the property name according to the naming convention. So, the final name will be `defaultFilterValue`. When a user selects a value in our select box, this value will be changed. In this case, save it in the state object of our component as shown below:
 
 *file toolbar-filter-state.js:*
 ```jsx
@@ -316,7 +320,7 @@ class App extends Component {
         <Grid
           ...
         >
-          <ToolbarFilterState defaultColumnName="CompanyName" defaultFilterValue="" />
+          <ToolbarFilterState columnName="CompanyName" defaultFilterValue="" />
           <Table />
           <TableHeaderRow />
           <Toolbar />
@@ -329,7 +333,7 @@ class App extends Component {
 ```
 We added the `ToolbarFilterState` plugin but nothing has changed and the select box still does nothing. The next task is to get unique values of the `CompanyName` column and pass these values to `ToolbarFilter` for displaying. If we want to share data between plugins, we need to use [getters](../../../core/docs/reference/getter.md).
 
-How can we get values of a particular column? We set data items using the `rows` property of the [Grid](../reference/grid.md) plugin. This plugin exports the `rows` getter. We can use it in our case. However, we will need to pass data items to our UI plugin (`ToolbarFilter`). So, we will declare a new getter for this task and name it `toolbarFilterDataItems`. The value of this getter will be calculated based on the value of the `rows` getter. For this task we will need to use computed functions. These functions calculate values based on values of other getters. As you remember, we will need not only filter our grid, but display the filtered column name near the select box. Since we are going to do that in the `ToolbarFilter` plugin we will need to get the column name in the plugin. A new getter will help us do this. Let's name it `toolbarFilterColumnName`. Moreover, we will use this getter for calculating a value for `toolbarFilterDataItems`. Add a new calculated function named, for example, `filterDataItemsComputed` that accepts the `rows` and `toolbarFilterColumnName` getters and calculates items for our select box. Our code might be as follows:
+How can we get values of a particular column? We set data items using the `rows` property of the [Grid](../reference/grid.md) plugin. This plugin exports the `rows` getter. We can use it in our case. However, we will need to pass data items to our UI plugin (`ToolbarFilter`). So, we will declare a new getter for this task and name it `toolbarFilterDataItems`. The value of this getter will be calculated based on the value of the `rows` getter. The getters which values are calculated based on values of other getters are called `computed getters`. For calculating these values we will need to use functions. As you remember, we will need not only filter our grid, but display the filtered column title near the select box. Since we are going to do that in the `ToolbarFilter` plugin we will need to get the column title in the plugin. A new computed getter will help us do this. Let's name it `toolbarFilterColumnTitle`. The result of this getter will be calculated based on the value of the `columns`getter that is exported by the [Grid](../reference/grid.md) plugin, and the `columnName` property value. Moreover, we will use the `columnName` value for calculating a value for `toolbarFilterDataItems`. Add a new function named, for example, `filterDataItemsComputed` that accepts the `rows` getter and calculates items for our select box. Our code might be as follows:
 
 
 *file toolbar-filter-state.js:*
@@ -339,31 +343,38 @@ import {
     ..., Getter
 } from '@devexpress/dx-react-core';
 
-const filterDataItemsComputed = ({rows, toolbarFilterColumnName}) => {
-  return rows.reduce((acc, row) => {
-    if(!acc.includes(row[toolbarFilterColumnName])) {
-      acc.push(row[toolbarFilterColumnName]);
-    }
-    return acc;
-  }, []);
-}
-
 export class ToolbarFilterState extends React.PureComponent {
-  ...
+  constructor(props) {
+    ...
+    this.filterColumnTitleComputed = this.filterColumnTitleComputed.bind(this);
+    this.filterDataItemsComputed = this.filterDataItemsComputed.bind(this);
+  }
+  filterColumnTitleComputed({columns}) {
+    const column = columns.find(col => col.name === this.props.columnName);
+    return column ? column.title : '';
+  }
+  filterDataItemsComputed({rows}) {
+    return rows.reduce((acc, row) => {
+      if(!acc.includes(row[this.props.columnName])) {
+        acc.push(row[this.props.columnName]);
+      }
+      return acc;
+    }, []);
+  }
   render() {
     return (
       <Plugin
         name="ToolbarFilterState"
       >
-        <Getter name="toolbarFilterColumnName" value={this.props.defaultColumnName} />
-        <Getter name="toolbarFilterDataItems" computed={filterDataItemsComputed} />
+        <Getter name="toolbarFilterColumnTitle" computed={this.filterColumnTitleComputed} />
+        <Getter name="toolbarFilterDataItems" computed={this.filterDataItemsComputed} />
       </Plugin>
     );
   }
 }
 ```
 
-Note, that the getters order is very important. All computed getters that depends on value getters should be included after the value getters. That is why we added `toolbarFilterColumnName` before `toolbarFilterDataItems`.
+Note, that the getters order is very important. All computed getters that depends on value getters should be included after the value getters.
 
 To get `toolbarFilterDataItems` in the `ToolbarFilter` plugin and render items, we need to use [TemplateConnector](../../../core/docs/reference/template-connector.md) as shown below:
 
@@ -435,7 +446,7 @@ export class ToolbarFilterState extends React.PureComponent {
 ...
 const pluginDependencies = [
   ...,
-  { name: "ToolbarFilterState" }
+  { name: 'ToolbarFilterState' }
 ];
 
 export class ToolbarFilter extends React.PureComponent {
@@ -522,7 +533,7 @@ export class ToolbarFilter extends React.PureComponent {
           }) => (
             <Select
               ...
-              onChange={changeToolbarFilterValue}
+              onChange={(event) => {changeToolbarFilterValue(event.target.value)}}
             >
               ...
             </Select>
@@ -535,23 +546,23 @@ export class ToolbarFilter extends React.PureComponent {
 }
 ```
 
-The event handler passes the `event` parameter. We can get a new value using this parameter and pass it to the state object of the `ToolbarFilterState` plugin.
+The event handler passes the `event` parameter. We can get a new value using this parameter, pass it to the `changeToolbarFilterValue` acton and then, to the state object of the `ToolbarFilterState` plugin.
 
 *file toolbar-filter-state.js:*
 ```jsx
 ...
 export class ToolbarFilterState extends React.PureComponent {
   ...
-  changeValue(event) {
+  changeValue(value) {
     this.setState({
-      filterValue: event.target.value
+      filterValue: value
     });
   }
   ...
 }
 ```
 
-We managed to detect changes in the select box. However, it is not sufficient for filtering the grid. We will need to add the [IntegratedFiltering](../reference/integrated-filtering.md) plugin that performs built-in data filtering. If we take a look at the plugin description, we will see that there is the `filterExpression` getter that represents a filter expression that will be used for filtering. So, we will redefine the value of `filterExpression` using a computed function to extend the expression with our selected value.
+We managed to detect changes in the select box. However, it is not sufficient for filtering the grid. We will need to add the [IntegratedFiltering](../reference/integrated-filtering.md) plugin that performs built-in data filtering. If we take a look at the plugin description, we will see that there is the `filterExpression` getter that represents a filter expression that will be used for filtering. So, we will redefine the value of `filterExpression` using a  function to extend the expression with our selected value.
 
 *index.js:*
 ```jsx
@@ -569,7 +580,7 @@ class App extends Component {
         <Grid
           ...
         >
-          <ToolbarFilterState defaultColumnName="CompanyName" defaultFilterValue=""/>
+          <ToolbarFilterState columnName="CompanyName" defaultFilterValue=""/>
           <IntegratedFiltering />
           <Table />
           <TableHeaderRow />
@@ -586,19 +597,22 @@ class App extends Component {
 ```jsx
 ...
 
-const filterExpressionComputed = ({ filterExpression, toolbarFilterValue, toolbarFilterColumnName }) => {
-    const newFilterExpression = { ...filterExpression || { filters: [], operator: "and" } };
-    if (toolbarFilterValue) {
-      newFilterExpression.filters.push({
-        columnName: toolbarFilterColumnName,
+export class ToolbarFilterState extends React.PureComponent {
+  constructor(props) {
+    ...
+    this.filterExpressionComputed = this.filterExpressionComputed.bind(this);
+  }
+  ...
+  filterExpressionComputed({filterExpression, toolbarFilterValue}) {
+    const newFilterExpression = { ...filterExpression || {filters: [], operator: 'and'} };
+    if(toolbarFilterValue) {
+      newFilterExpression.filters = [...newFilterExpression.filters, {
+        columnName: this.props.columnName,
         value: toolbarFilterValue
-      });
+      }];
     }
     return newFilterExpression;
-}
-
-export class ToolbarFilterState extends React.PureComponent {
-  ...
+  }
   render() {
     ...
     return (
@@ -606,7 +620,7 @@ export class ToolbarFilterState extends React.PureComponent {
         name="ToolbarFilterState"
       >
         ...
-        <Getter name="filterExpression" computed={filterExpressionComputed} />
+        <Getter name="filterExpression" computed={this.filterExpressionComputed} />
       </Plugin>
     );
   }
@@ -623,10 +637,10 @@ Let's complete this task by displaying the current column caption near the selec
 
 * Declare the `clearToolbarFilterValue` action in the `ToolbarFilterState` plugin and clear the `filterValue` state property in the action.
 * Add the `Button` widget near the select box in the `ToolbarFilter` plugin and use the `clearToolbarFilterValue` action as the `onClick` event handler.
-* Get the `toolbarFilterColumnName` getter value in the `ToolbarFilterState` plugin.
-* Since we want to get a caption of the `CompanyName` column, we will need to find the required column by its name and get the caption. For this task we will get the `columns` getter value that is exported by the [Grid](../reference/grid.md) plugin.
+* We already have the `toolbarFilterColumnTitle` getter that is declared in the `ToolbarFilterState` plugin. So, we can use the result of this getter in the `ToolbarFitler` plugin.
 
 The following code snippets show this approach in action:
+
 *file toolbar-filter-state.js:*
 ```jsx
 ...
@@ -635,16 +649,14 @@ export class ToolbarFilterState extends React.PureComponent {
   constructor(props) {
     super(props);
     ...
-    this.columnName = this.props.defaultColumnName || null;
     this.clearValue = this.clearValue.bind(this);
   }
-
+  ...
   clearValue() {
     this.setState({
-      filterValue: ""
+      filterValue: ''
     });
   }
-
   render() {
     ...
     return (
@@ -662,10 +674,6 @@ export class ToolbarFilterState extends React.PureComponent {
 *toolbar-filter.js:*
 ```jsx
 ...
-const getColumnTitle = (columns, toolbarFilterColumnName) => {
-  const column = columns.find(col => col.name === toolbarFilterColumnName);
-  return column ? column.title : "";
-}
 export class ToolbarFilter extends React.PureComponent {
   render() {
     return (
@@ -677,14 +685,13 @@ export class ToolbarFilter extends React.PureComponent {
           <TemplateConnector>
           {({
               ...,
-              toolbarFilterColumnName,
-              columns
+              toolbarFilterColumnTitle
             }, {
               ...,
               clearToolbarFilterValue
             }) => (
               <div>
-                <InputLabel htmlFor="filter-field">{getColumnTitle(columns, toolbarFilterColumnName)}:</InputLabel>
+                <InputLabel htmlFor="filter-field">{toolbarFilterColumnTitle}:</InputLabel>
                   ...
                 <Button onClick={clearToolbarFilterValue}>Clear</Button>
               </div>

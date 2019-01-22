@@ -7,7 +7,7 @@ const ProductLayout = ({ position, children }) => (
   <React.Fragment>
     <div className={styles[position]}>
       <div className="container">
-        <div className={`row ${position === 'footer' ? 'justify-content-center' : ''}`}>
+        <div className="row">
           {children}
         </div>
       </div>

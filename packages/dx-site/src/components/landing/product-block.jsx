@@ -8,7 +8,7 @@ const Title = ({ text }) => text.split('\n').map(chunk => <span key={Math.random
 const ProductLink = ({
   type, iconLink, title, links,
 }) => (
-  <div className="col-lg-3 col-md-6">
+  <div className={`col-lg-3 col-md-6 ${styles.productBlock}`}>
     <div className={`d-flex flex-column ${styles.container} ${styles[type]}`}>
       <div className={styles.titleWrapper}>
         <div className="d-flex flex-row justify-content-center align-items-end">

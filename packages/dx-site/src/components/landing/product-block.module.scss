@@ -31,3 +31,9 @@
 .react {
   background-color: rgb(89, 208, 240);
 }
+
+@media screen and (max-width: 1024px) {
+  .productBlock {
+    margin-bottom: 20px;
+  }
+}

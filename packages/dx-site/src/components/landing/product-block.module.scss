@@ -1,9 +1,12 @@
 .container {
   height: 240px;
-  margin-bottom: 10px;
-  padding: 30px;
+  padding: 30px 30px 25px 30px;
   border-radius: 3px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
+}
+
+.titleWrapper {
+  margin-bottom: 30px;
 }
 
 .icon {
@@ -23,10 +26,6 @@
 .description {
   font-size: 14px;
   color: rgba(125, 136, 142, 255);
-}
-
-.logo {
-  margin-bottom: 20px;
 }
 
 .react {

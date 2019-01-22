@@ -1,7 +1,7 @@
 .link {
   font-family: "Segoe UI";
   font-size: 16px;
-  margin-bottom: 20px;
+  text-align: center;
   &:hover {
     text-decoration: none;
   }
@@ -13,8 +13,8 @@
   color: black;
   border-radius: 3px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, .3);
-  width: 225px;
-  text-align: center;
+  margin: 0 auto 20px;
+  width: 100%;
   &:hover {
     color: #fff;
     background-color: #0b4249;

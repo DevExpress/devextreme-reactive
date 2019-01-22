@@ -31,7 +31,7 @@ const IndexPage = () => (
           main="React Grid"
           additional={(
             <React.Fragment>
-              for Bootstrap and Material UI
+              for Bootstrap and Material-UI
               <br />
               <br />
               <LandingLink

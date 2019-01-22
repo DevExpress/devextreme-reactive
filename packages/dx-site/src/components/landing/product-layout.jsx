@@ -16,7 +16,7 @@ const ProductLayout = ({ position, children }) => (
 );
 
 ProductLayout.propTypes = {
-  position: PropTypes.oneOf(['header', 'PropTypes.oneOf']).isRequired,
+  position: PropTypes.oneOf(['header', 'footer']).isRequired,
   children: PropTypes.node.isRequired,
 };
 

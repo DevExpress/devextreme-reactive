@@ -1,38 +1,32 @@
 # React Scheduler - Fundamentals
 
-The [DevExtreme React Scheduler](https://devexpress.github.io/devextreme-reactive/react/scheduler) component displays appointments and provide a functionality to manage data.
+The [DevExtreme React Scheduler](https://devexpress.github.io/devextreme-reactive/react/scheduler) is a component that displays appointments in different layouts. It also allows a user to [edit](../reference/editing-state.md) appointments. You can enable each of the [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) operations separately.
 
-## Overview
-
-The React Scheduler has built-in functionality for appointment layouting in different views. The scheduler contains easily customizable UI elements such as [date navigator](../reference/date-navigator.md), [view switcher](../reference/view-switcher.md), [all-day panel](../reference/all-day-panel.md), [appointment tooltip](../reference/appointment-tooltip.md), and [appointment form](../reference/appointment-form.md). The [editing](../reference/editing-state.md) functionality is supported, as well. Moreover, you can specify which one of [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) operations is available.
-
-The following image describes the main UI elements of the React Scheduler.
+The Scheduler's UI elements include [date navigator](../reference/date-navigator.md), [view switcher](../reference/view-switcher.md), [all-day panel](../reference/all-day-panel.md), [appointment tooltip](../reference/appointment-tooltip.md), and [appointment form](../reference/appointment-form.md). The following image illustrates them:
 
 <p align="center">
   <img class="img-responsive" src="../../img/scheduler-elements.png">
 </p>
 
-The React Scheduler adheres to plugin-based architecture. This says that every feature is encapsulated in a particular plugin (or React component).
+The Scheduler adheres to the plugin-based architecture: every feature is encapsulated in a dedicated plugin (or React component).
 
 ## Basic Setup
 
-The Scheduler displays data specified via the `data` property. You should follow the [AppointmentModel](../reference/scheduler.md/#appointmentmodel) interface to define that property. Also you can add [custom](https://github.com/DevExpress/devextreme-reactive/blob/master/packages/dx-react-scheduler-demos/src/demo-sources/scheduler-featured-remote-data/material-ui/demo.jsx#L53) fields.
+The Scheduler displays data specified via the `data` property. Data objects should have the structure of the [AppointmentModel](../reference/scheduler.md/#appointmentmodel). You can also [extend the objects with custom fields](https://github.com/DevExpress/devextreme-reactive/blob/master/packages/dx-react-scheduler-demos/src/demo-sources/scheduler-featured-remote-data/material-ui/demo.jsx#L53).
 
 The Scheduler requires the following plugins for basic data visualization:
 
-- One of [DayView](../reference/day-view.md) / [WeekView](../reference/week-view.md) / [MonthView](../reference/month-view.md) - each plugin renders a specific view layout
-- [Appointments](../reference/appointments.md) - renders the appointments data structure and define template for single appointment visualization
+- One of the [DayView](../reference/day-view.md) / [WeekView](../reference/week-view.md) / [MonthView](../reference/month-view.md) - each of them renders a specific appointment layout.
+- [Appointments](../reference/appointments.md) - renders appointments.
 
-By default, the widget uses current time. You can define a date that should be initially displayed in the date navigator and used for internal calculations using the `currentDate` option of the [ViewState](../reference/view-state.md) plugin.
+To specify the date that should be initially displayed in the date navigator and used for calculations, use the `currentDate` option of the [ViewState](../reference/view-state.md) plugin. Otherwise, the widget uses current date.
 
 .embedded-demo({ "path": "scheduler-basic/basic-setup", "showThemeSelector": true })
 
 ## Appearance Customization
 
-The Scheduler's visualization plugins provide a rich API to customize its elements' appearance. Examples of the most popular customization tasks are described below.
+The Scheduler's visualization plugins provide an API that allows you to customize the appearance of the UI elements.
 
-For example, the `WeekView` plugin allows you to customize the appearance of the layout by override these [properties](../reference/week-view.md/#properties). The following sample demonstrates how to use the `timeTableCellComponent` and `dayScaleCellComponent` and highlight current date and weekends.
+For example, the `WeekView` plugin provides [properties](../reference/week-view.md/#properties) that you should specify to customize the layout's appearance. The following sample demonstrates how you can implement the `timeTableCellComponent` and `dayScaleCellComponent` to highlight current date and weekends. You can use the same approach with any other DevExtreme UI plugin to customize the appearance of UI elements.
 
 .embedded-demo({ "path": "scheduler-basic/custom-template", "showThemeSelector": true })
-
-*Note: All UI plugins use the same API to customize UI elements' appearance.*

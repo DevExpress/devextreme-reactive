@@ -1,4 +1,6 @@
-import { TABLE_TOTAL_SUMMARY_TYPE, TABLE_GROUP_SUMMARY_TYPE, TABLE_TREE_SUMMARY_TYPE } from './constants';
+import {
+  TABLE_TOTAL_SUMMARY_TYPE, TABLE_GROUP_SUMMARY_TYPE, TABLE_TREE_SUMMARY_TYPE,
+} from './constants';
 import { TABLE_DATA_TYPE } from '../table/constants';
 import {
   isGroupSummaryTableCell,
@@ -68,7 +70,11 @@ describe('TableSummaryRow Plugin helpers', () => {
   describe('#getColumnSummaries', () => {
     it('should work', () => {
       expect(getColumnSummaries(
-        [{ columnName: 'a', type: 'count' }, { columnName: 'b', type: 'max' }, { columnName: 'a', type: 'min' }],
+        [
+          { columnName: 'a', type: 'count' },
+          { columnName: 'b', type: 'max' },
+          { columnName: 'a', type: 'min' },
+        ],
         'a',
         [1, 2, 1],
       )).toEqual([{ type: 'count', value: 1 }, { type: 'min', value: 1 }]);

@@ -30,7 +30,10 @@ describe('TableRowDetail Plugin computeds', () => {
     });
 
     it('can\'t expand not data', () => {
-      const tableRows = [{ type: TABLE_DATA_TYPE, rowId: 1, row: 'row1' }, { type: 'undefined', rowId: 2, row: 'row2' }];
+      const tableRows = [
+        { type: TABLE_DATA_TYPE, rowId: 1, row: 'row1' },
+        { type: 'undefined', rowId: 2, row: 'row2' },
+      ];
       const expandedDetailRowIds = [2];
 
       const rowsWithDetails = tableRowsWithExpandedDetail(tableRows, expandedDetailRowIds, 100);
@@ -41,7 +44,10 @@ describe('TableRowDetail Plugin computeds', () => {
     });
 
     it('can expand several rows', () => {
-      const tableRows = [{ type: TABLE_DATA_TYPE, rowId: 1, row: 'row1' }, { type: TABLE_DATA_TYPE, rowId: 2, row: 'row2' }];
+      const tableRows = [
+        { type: TABLE_DATA_TYPE, rowId: 1, row: 'row1' },
+        { type: TABLE_DATA_TYPE, rowId: 2, row: 'row2' },
+      ];
       const expandedDetailRowIds = [1, 2];
 
       const rowsWithDetails = tableRowsWithExpandedDetail(tableRows, expandedDetailRowIds, 100);
@@ -83,15 +89,15 @@ describe('TableRowDetail Plugin computeds', () => {
 
       const tableColumn = { type: 'undefined' };
       expect(getCellColSpanGetter({
-        tableRow: { type: TABLE_DETAIL_TYPE },
         tableColumn,
+        tableRow: { type: TABLE_DETAIL_TYPE },
         tableColumns: [tableColumn, {}, {}],
       }))
         .toBe(3);
 
       expect(getCellColSpanGetter({
-        tableRow: { type: TABLE_DETAIL_TYPE },
         tableColumn,
+        tableRow: { type: TABLE_DETAIL_TYPE },
         tableColumns: [{}, tableColumn, {}],
       }))
         .toBe('original');

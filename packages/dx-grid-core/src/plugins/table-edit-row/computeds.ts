@@ -19,11 +19,11 @@ export const tableRowsWithEditing: TableRowsWithEditingFn = (
 
   const addedTableRows = addedRows
     .map((row, rowIndex) => ({
+      row,
       key: `${TABLE_ADDED_TYPE.toString()}_${rowIndex}`,
       type: TABLE_ADDED_TYPE,
       rowId: rowIndex,
       height: rowHeight,
-      row,
     }));
 
   return [

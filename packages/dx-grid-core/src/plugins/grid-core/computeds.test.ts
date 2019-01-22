@@ -31,7 +31,7 @@ describe('GridCore Plugin computeds', () => {
     });
 
     describe('warning if custom getter returns undefined', () => {
-      /* eslint-disable no-console */
+      /* tslint:disable no-console */
       let warnLog;
       let savedWarn;
       beforeEach(() => {
@@ -44,7 +44,7 @@ describe('GridCore Plugin computeds', () => {
       afterEach(() => {
         console.warn = savedWarn;
       });
-      /* eslint-enable no-console */
+      /* tslint:enable no-console */
 
       it('should warn if row is regular', () => {
         const getRowId = () => undefined;

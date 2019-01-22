@@ -1,3 +1,4 @@
+// tslint:disable: max-line-length
 import { getColumnExtensionValueGetter } from './column-extension';
 
 describe('getColumnExtensionValue', () => {

@@ -18,10 +18,10 @@ export const tableRowsWithExpandedDetail: PureComputed<[TableRow[], number[], nu
       result = [
         ...result.slice(0, insertIndex),
         {
-          key: `${TABLE_DETAIL_TYPE.toString()}_${rowId}`,
-          type: TABLE_DETAIL_TYPE,
           rowId,
           row,
+          key: `${TABLE_DETAIL_TYPE.toString()}_${rowId}`,
+          type: TABLE_DETAIL_TYPE,
           height: rowHeight,
         },
         ...result.slice(insertIndex),

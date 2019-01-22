@@ -53,7 +53,7 @@ export const splitHeaderColumnChains: SplitHeaderColumnChainsFn = (
 
 export const generateSimpleChains: GenerateChainsFn = (rows, columns) => (
   rows.map(() => ([{
-    start: 0,
     columns,
+    start: 0,
   }]))
 );

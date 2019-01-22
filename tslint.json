@@ -4,11 +4,10 @@
     "tslint-react",
     "tslint-eslint-rules",
     "tslint-config-airbnb"
-  ]
-  ,
+  ],
   "rules": {
     "filenames/match-regex": [2, "^[a-z-\\.]+$"],
-    "align": [true, "elements", "members", "parameters", "statements"],
+    "align": [true, "members", "statements"],
     "interface-over-type-literal": false,
     "interface-name": false,
     "import-spacing": true,
@@ -22,6 +21,11 @@
     "member-access": [ true, "no-public" ],
     "variable-name": [ true, "allow-pascal-case" ],
     "no-empty": [true, "allow-empty-functions"],
-    "no-implicit-dependencies": false
+    "no-implicit-dependencies": false,
+    "prefer-array-literal": [true, { "allow-type-parameters": true }],
+    "array-type": false
+  },
+  "jsRules": {
+    "object-literal-sort-keys": false
   }
 }

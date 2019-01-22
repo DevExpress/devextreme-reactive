@@ -17,7 +17,9 @@ describe('TableEditColumn Plugin helpers', () => {
         .toBeTruthy();
       expect(isHeadingEditCommandsTableCell({ type: TABLE_HEADING_TYPE }, { type: 'undefined' }))
         .toBeFalsy();
-      expect(isHeadingEditCommandsTableCell({ type: 'undefined' }, { type: TABLE_EDIT_COMMAND_TYPE }))
+      expect(isHeadingEditCommandsTableCell(
+        { type: 'undefined' }, { type: TABLE_EDIT_COMMAND_TYPE },
+      ))
         .toBeFalsy();
     });
   });

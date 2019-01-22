@@ -32,7 +32,7 @@ describe('TableHeaderRow Plugin helpers', () => {
         { key: 'a0' }, { key: 'a1' }, { key: 'b0' }, { key: 'b1' },
       ];
       const existingChains = [
-        [{ start: 0, columns }],
+        [{ columns, start: 0 }],
       ];
       const shouldSplitChain = (currentChain, column) => (
         !currentChain || column.key.indexOf('b') > -1

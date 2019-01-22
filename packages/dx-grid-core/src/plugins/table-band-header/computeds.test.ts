@@ -16,8 +16,13 @@ describe('TableBandHeader Plugin computeds', () => {
     });
 
     it('should add one band row if two nested levels', () => {
-      const columnBands = [{ title: 'title-a', children: [{ columnName: 'a' }, { columnName: 'b' }] }];
-      const tableColumns = [{ type: TABLE_DATA_TYPE, column: { name: 'a' } }, { type: TABLE_DATA_TYPE, column: { name: 'b' } }];
+      const columnBands = [
+        { title: 'title-a', children: [{ columnName: 'a' }, { columnName: 'b' }] },
+      ];
+      const tableColumns = [
+        { type: TABLE_DATA_TYPE, column: { name: 'a' } },
+        { type: TABLE_DATA_TYPE, column: { name: 'b' } },
+      ];
       const rows = tableRowsWithBands(tableHeaderRows, columnBands, tableColumns);
 
       expect(rows)

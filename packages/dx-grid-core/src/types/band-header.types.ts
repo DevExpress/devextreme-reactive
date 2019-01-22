@@ -1,5 +1,5 @@
-import { TableColumn, TableRow } from "./table.types";
-import { HeaderColumnChainRows } from "./header-row.types";
+import { TableColumn, TableRow } from './table.types';
+import { HeaderColumnChainRows } from './header-row.types';
 
 export interface ColumnBands {
   /** A column name that is used to identify a column in the bands tree. */

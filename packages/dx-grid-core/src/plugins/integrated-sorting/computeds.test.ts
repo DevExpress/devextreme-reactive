@@ -181,7 +181,7 @@ describe('IntegratedSorting computeds', () => {
       const getRowLevelKey = row => row.levelKey;
 
       it('should sort grouped rows', () => {
-        /* eslint-disable indent */
+        /* tslint:disable ter-indent align */
         const groupedRows = [
           groupRow({ groupedBy: 'a', value: 1 }),
             groupRow({ groupedBy: 'b', value: 1 }),
@@ -190,13 +190,13 @@ describe('IntegratedSorting computeds', () => {
               { c: 2 },
           groupRow({ groupedBy: 'a', value: 2 }),
         ];
-        /* eslint-enable indent */
+        /* tslint:enable ter-indent align */
         const sorting: ReadonlyArray<Sorting> = [
           { columnName: 'a', direction: 'desc' },
           { columnName: 'b', direction: 'desc' },
           { columnName: 'c', direction: 'desc' },
         ];
-        /* eslint-disable indent */
+        /* tslint:disable ter-indent align */
         const sortedGroupedRows = [
           groupRow({ groupedBy: 'a', value: 2 }),
           groupRow({ groupedBy: 'a', value: 1 }),
@@ -205,7 +205,7 @@ describe('IntegratedSorting computeds', () => {
               { c: 1 },
             groupRow({ groupedBy: 'b', value: 1 }),
         ];
-        /* eslint-enable indent */
+        /* tslint:enable ter-indent align */
 
         expect(sortedRows(
           groupedRows,
@@ -227,7 +227,7 @@ describe('IntegratedSorting computeds', () => {
       const getRowLevelKey = row => row.levelKey;
 
       it('should sort grouped rows', () => {
-        /* eslint-disable indent */
+        /* tslint:disable ter-indent align */
         const hierarchicalRows = [
           rowNode({ level: 0, a: 1 }),
             rowNode({ level: 1, b: 1 }),
@@ -236,13 +236,13 @@ describe('IntegratedSorting computeds', () => {
               { c: 2 },
           rowNode({ level: 0, a: 2 }),
         ];
-        /* eslint-enabke indent */
+        /* tslint:enable ter-indent align */
         const sorting: ReadonlyArray<Sorting> = [
           { columnName: 'a', direction: 'desc' },
           { columnName: 'b', direction: 'desc' },
           { columnName: 'c', direction: 'desc' },
         ];
-        /* eslint-disable indent */
+        /* tslint:disable ter-indent align */
         const sortedHierarchicalRows = [
           rowNode({ level: 0, a: 2 }),
           rowNode({ level: 0, a: 1 }),
@@ -251,7 +251,7 @@ describe('IntegratedSorting computeds', () => {
               { c: 1 },
             rowNode({ level: 1, b: 1 }),
         ];
-        /* eslint-enable indent */
+        /* tslint:enable ter-indent align */
 
         expect(sortedRows(
           hierarchicalRows,

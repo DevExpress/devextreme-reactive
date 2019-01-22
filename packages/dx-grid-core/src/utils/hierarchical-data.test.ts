@@ -21,9 +21,9 @@ describe('Hierarchical Utils', () => {
   /* tslint:enable align */
 
   const node = (root, ...children) => ({
-    [NODE_CHECK]: true,
     root,
     children,
+    [NODE_CHECK]: true,
   });
 
   const tree = [

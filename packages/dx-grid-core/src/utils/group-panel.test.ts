@@ -50,6 +50,7 @@ describe('GroupPanel utils', () => {
         .toBe(0);
     });
 
+// tslint:disable-next-line: max-line-length
     it('should return target index correctly for a new group when all elements are on the same line', () => {
       const geometries = [
         {
@@ -73,6 +74,7 @@ describe('GroupPanel utils', () => {
         .toBe(0);
     });
 
+// tslint:disable-next-line: max-line-length
     it('should return target index correctly for a new group when elements are on multiple lines', () => {
       const geometries = [
         {

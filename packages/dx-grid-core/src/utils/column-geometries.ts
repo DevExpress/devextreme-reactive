@@ -29,8 +29,8 @@ export const getTargetColumnGeometries: GetTargetColumnGeometriesFn = (
 
       return {
         top,
-        right: rightBorder,
         bottom,
+        right: rightBorder,
         left: leftBorder,
       };
     });

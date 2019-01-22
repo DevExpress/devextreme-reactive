@@ -37,7 +37,10 @@ describe('IntegratedFiltering computeds', () => {
       });
 
       it('can filter by several fields', () => {
-        const filterExpression = { operator: 'and', filters: [{ columnName: 'a', value: 1 }, { columnName: 'b', value: 2 }] };
+        const filterExpression = {
+          operator: 'and',
+          filters: [{ columnName: 'a', value: 1 }, { columnName: 'b', value: 2 }],
+        };
 
         const filtered = filteredRows(rows, filterExpression, getCellValue);
         expect(filtered)
@@ -81,7 +84,10 @@ describe('IntegratedFiltering computeds', () => {
       });
 
       it('should filter with OR group operator', () => {
-        const filterExpression = { operator: 'or', filters: [{ columnName: 'a', value: 1 }, { columnName: 'b', value: 1 }] };
+        const filterExpression = {
+          operator: 'or',
+          filters: [{ columnName: 'a', value: 1 }, { columnName: 'b', value: 1 }],
+        };
         const filtered = filteredRows(rows, filterExpression, getCellValue);
 
         expect(filtered).toEqual({
@@ -135,7 +141,7 @@ describe('IntegratedFiltering computeds', () => {
       const getCollapsedRows = row => row.collapsedRows;
 
       it('should filter grouped rows', () => {
-        /* eslint-disable indent */
+        /* tslint:disable ter-indent align */
         const groupedRows = [
           groupRow({ groupedBy: 'a', collapsedRows: [{ a: 1, b: 1 }, { a: 2, b: 2 }] }),
           groupRow({ groupedBy: 'a' }),
@@ -147,9 +153,9 @@ describe('IntegratedFiltering computeds', () => {
               { a: 2, b: 1 },
               { a: 2, b: 2 },
         ];
-        /* eslint-enable indent */
+        /* tslint:enable ter-indent align */
         const filterExpression = { columnName: 'a', value: 1 };
-        /* eslint-disable indent */
+        /* tslint:disable ter-indent align */
         const filteredGroupedRows = {
           rows: [
             groupRow({ groupedBy: 'a', collapsedRows: [{ a: 1, b: 1 }, { a: 2, b: 2 }] }),
@@ -159,10 +165,13 @@ describe('IntegratedFiltering computeds', () => {
                 { a: 1, b: 2 },
           ],
           collapsedRowsMeta: new Map([
-            [groupRow({ groupedBy: 'a', collapsedRows: [{ a: 1, b: 1 }, { a: 2, b: 2 }] }), [{ a: 1, b: 1 }]],
+            [
+              groupRow({ groupedBy: 'a', collapsedRows: [{ a: 1, b: 1 }, { a: 2, b: 2 }] }),
+              [{ a: 1, b: 1 }],
+            ],
           ]),
         };
-        /* eslint-enable indent */
+        /* tslint:enable ter-indent align */
 
         expect(filteredRows(
           groupedRows,
@@ -185,7 +194,7 @@ describe('IntegratedFiltering computeds', () => {
       const getCollapsedRows = row => row.collapsedRows;
 
       it('should sort tree rows', () => {
-        /* eslint-disable indent */
+        /* tslint:disable ter-indent align */
         const hierarchicalRows = [
           rowNode({ level: 0, collapsedRows: [{ a: 1, b: 1 }, { a: 2, b: 2 }] }),
           rowNode({ level: 0 }),
@@ -201,9 +210,7 @@ describe('IntegratedFiltering computeds', () => {
               { a: 2, b: 1 },
               { a: 2, b: 2 },
         ];
-        /* eslint-enabke indent */
         const filterExpression = { columnName: 'a', value: 1 };
-        /* eslint-disable indent */
         const sortedGroupedRows = {
           rows: [
             rowNode({ level: 0, collapsedRows: [{ a: 1, b: 1 }, { a: 2, b: 2 }] }),
@@ -223,7 +230,7 @@ describe('IntegratedFiltering computeds', () => {
             [rowNode({ level: 1, a: 1 }), []],
           ]),
         };
-        /* eslint-enable indent */
+        /* tslint:enable ter-indent align */
 
         expect(filteredRows(
           hierarchicalRows,

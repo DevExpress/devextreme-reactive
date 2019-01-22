@@ -26,6 +26,7 @@ describe('TableGroupRow Plugin computeds', () => {
       { name: 'd' },
     ];
 
+    /* tslint:disable max-line-length */
     it('should work', () => {
       expect(tableColumnsWithGrouping(tableColumns, columns, grouping, grouping, 123, () => false))
         .toEqual([
@@ -122,6 +123,7 @@ describe('TableGroupRow Plugin computeds', () => {
         { type: TABLE_DATA_TYPE, column: { name: 'd' } },
       ]);
     });
+    /* tslint:enable max-line-length */
   });
 
   describe('#tableRowsWithGrouping', () => {
@@ -155,22 +157,22 @@ describe('TableGroupRow Plugin computeds', () => {
 
       const tableColumn = { type: TABLE_GROUP_TYPE, column: { name: 'a' } };
       expect(getCellColSpanGetter({
-        tableRow: { type: TABLE_GROUP_TYPE, row: { groupedBy: 'a' } },
         tableColumn,
+        tableRow: { type: TABLE_GROUP_TYPE, row: { groupedBy: 'a' } },
         tableColumns: [tableColumn, {}, {}],
       }))
         .toBe(3);
 
       expect(getCellColSpanGetter({
-        tableRow: { type: TABLE_GROUP_TYPE, row: { groupedBy: 'a' } },
         tableColumn,
+        tableRow: { type: TABLE_GROUP_TYPE, row: { groupedBy: 'a' } },
         tableColumns: [{}, tableColumn, {}],
       }))
         .toBe(2);
 
       expect(getCellColSpanGetter({
-        tableRow: { type: TABLE_GROUP_TYPE, row: { groupedBy: 'b' } },
         tableColumn,
+        tableRow: { type: TABLE_GROUP_TYPE, row: { groupedBy: 'b' } },
         tableColumns: [{}, tableColumn, {}],
       }))
         .toBe('original');

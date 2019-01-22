@@ -81,15 +81,15 @@ describe('Table Plugin computeds', () => {
       it('should return correct colspan', () => {
         const tableColumn = { type: 'undefined' };
         expect(tableCellColSpanGetter({
-          tableRow: { type: TABLE_NODATA_TYPE },
           tableColumn,
+          tableRow: { type: TABLE_NODATA_TYPE },
           tableColumns: [tableColumn, {}, {}],
         }))
           .toBe(3);
 
         expect(tableCellColSpanGetter({
-          tableRow: { type: TABLE_NODATA_TYPE },
           tableColumn,
+          tableRow: { type: TABLE_NODATA_TYPE },
           tableColumns: [{}, tableColumn, {}],
         }))
           .toBe(1);

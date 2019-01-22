@@ -28,7 +28,7 @@ describe('IntegratedGrouping computeds', () => {
       expect(groupRowLevelKeyGetter({}))
         .toBeFalsy();
 
-      expect(groupRowLevelKeyGetter())
+      expect(groupRowLevelKeyGetter(undefined))
         .toBeFalsy();
 
       expect(groupRowLevelKeyGetter({ [GRID_GROUP_LEVEL_KEY]: 'a' }))
@@ -36,7 +36,8 @@ describe('IntegratedGrouping computeds', () => {
     });
   });
 
-  const groupRow = ({ groupedBy, collapsedRows, ...restParams }) => ({
+  type GroupRowArgs =  { [x: string]: any, groupedBy?: any, collapsedRows?: any };
+  const groupRow = ({ groupedBy, collapsedRows, ...restParams }: GroupRowArgs) => ({
     ...restParams,
     groupedBy,
     [GRID_GROUP_CHECK]: true,
@@ -212,6 +213,7 @@ describe('IntegratedGrouping computeds', () => {
         .toHaveBeenCalledWith(firstGrouping[0].columnName);
     });
 
+// tslint:disable-next-line: max-line-length
     it('should group using default getColumnCriteria if custom getColumnCriteria returns nothing', () => {
       const getColumnCriteria = () => undefined;
       expect(groupedRows(rows, firstGrouping, getCellValue, getColumnCriteria))

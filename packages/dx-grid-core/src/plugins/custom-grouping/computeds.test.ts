@@ -18,22 +18,25 @@ describe('CustomGrouping Plugin computeds', () => {
 
   describe('#customGroupedRows', () => {
     it('should process hierarchical data by one column', () => {
-      const hierarchicalSource = [{
-        key: 1,
-        items: [
-          { a: 1, b: 1 },
-          { a: 1, b: 2 },
-        ],
-      }, {
-        key: 2,
-        items: [
-          { a: 2, b: 1 },
-          { a: 2, b: 2 },
-        ],
-      }, {
-        key: 3,
-        items: [],
-      }];
+      const hierarchicalSource = [
+        {
+          key: 1,
+          items: [
+            { a: 1, b: 1 },
+            { a: 1, b: 2 },
+          ],
+        },
+        {
+          key: 2,
+          items: [
+            { a: 2, b: 1 },
+            { a: 2, b: 2 },
+          ],
+        },
+        {
+          key: 3,
+          items: [],
+        }];
       const getHierarchicalChildGroups = groups => groups
         .map(group => ({ key: String(group.key), value: group.key, childRows: group.items }));
       const groupings = [{ columnName: 'a' }];

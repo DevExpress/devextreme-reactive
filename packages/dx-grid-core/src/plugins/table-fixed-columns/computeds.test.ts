@@ -1,6 +1,8 @@
 import { TABLE_DATA_TYPE } from '../table/constants';
 import { FIXED_COLUMN_LEFT_SIDE, FIXED_COLUMN_RIGHT_SIDE, TABLE_FIXED_TYPE } from './constants';
-import { tableColumnsWithFixed, tableHeaderRowsWithFixed, tableHeaderColumnChainsWithFixed } from './computeds';
+import {
+  tableColumnsWithFixed, tableHeaderRowsWithFixed, tableHeaderColumnChainsWithFixed,
+} from './computeds';
 
 export const expandChainsCore = (compressedChains, expandColumn) => (
   compressedChains.map((rowChains) => {

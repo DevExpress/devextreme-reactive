@@ -7,8 +7,6 @@ import {
   GetFixedColumnKeysFn, IsSpecificRowFn, CalculatePositionFn, CalculateFixedColumnPropsFn,
 } from '../../types';
 
-
-
 export const getFixedColumnKeys: GetFixedColumnKeysFn = (tableColumns, fixedNames) => tableColumns
   .filter(tableColumn => (
     (tableColumn.type === TABLE_DATA_TYPE && fixedNames.indexOf(tableColumn.column!.name) !== -1)

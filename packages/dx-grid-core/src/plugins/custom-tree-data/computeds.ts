@@ -95,7 +95,7 @@ export const expandedTreeRows: ExpandedTreeRowsFn = (
     acc.rows.push(row);
 
     return acc;
-  }, { rows: [], treeMeta, collapsedRowsMeta: new Map() });
+  }, { treeMeta, rows: [], collapsedRowsMeta: new Map() });
 };
 
 export const collapsedTreeRowsGetter: PureComputed<

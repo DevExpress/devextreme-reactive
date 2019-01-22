@@ -21,7 +21,7 @@ describe('CustomTreeData Plugin computeds', () => {
       ];
       const getHierarchicalChildRows = (row, rootRows) => (row ? row.items : rootRows);
       const linearizedRows = {
-        /* eslint-disable indent */
+        /* tslint:disable ter-indent align */
         rows: [
           hierarchicalSource[0],
           hierarchicalSource[1],
@@ -33,7 +33,7 @@ describe('CustomTreeData Plugin computeds', () => {
             hierarchicalSource[2].items[1],
           hierarchicalSource[3],
         ],
-        /* eslint-enable indent */
+        /* tslint:enable ter-indent align */
         treeMeta: new Map([
           [hierarchicalSource[0], { level: 0, leaf: true }],
           [hierarchicalSource[1], { level: 0, leaf: false }],
@@ -72,7 +72,7 @@ describe('CustomTreeData Plugin computeds', () => {
         return childRows.length ? childRows : null;
       };
       const linearizedRows = {
-        /* eslint-disable indent */
+        /* tslint:disable ter-indent align */
         rows: [
           plainSource[0],
             plainSource[3],
@@ -83,7 +83,7 @@ describe('CustomTreeData Plugin computeds', () => {
             plainSource[6],
           plainSource[2],
         ],
-        /* eslint-enable indent */
+        /* tslint:enable ter-indent align */
         treeMeta: new Map([
           [plainSource[0], { level: 0, leaf: false }],
           [plainSource[3], { level: 1, leaf: true }],
@@ -122,7 +122,7 @@ describe('CustomTreeData Plugin computeds', () => {
         return row && row.hasItems ? [] : null;
       };
       const linearizedRows = {
-        /* eslint-disable indent */
+        /* tslint:disable ter-indent align */
         rows: [
           plainSource[0],
           plainSource[1],
@@ -131,7 +131,7 @@ describe('CustomTreeData Plugin computeds', () => {
             plainSource[4],
           plainSource[2],
         ],
-        /* eslint-enable indent */
+        /* tslint:enable ter-indent align */
         treeMeta: new Map([
           [plainSource[0], { level: 0, leaf: false }],
           [plainSource[1], { level: 0, leaf: false }],
@@ -231,7 +231,7 @@ describe('CustomTreeData Plugin computeds', () => {
 
   describe('#expandedTreeRows', () => {
     it('should collapse rows', () => {
-      /* eslint-disable indent */
+      /* tslint:disable ter-indent align */
       const rows = [
         { a: 0 },
         { a: 1 },
@@ -241,7 +241,7 @@ describe('CustomTreeData Plugin computeds', () => {
           { a: 2, b: 1 },
             { a: 2, b: 1, c: 1 },
       ];
-      /* eslint-enable indent */
+      /* tslint:enable ter-indent align */
       const linearizedRows = {
         rows,
         treeMeta: new Map([
@@ -258,14 +258,14 @@ describe('CustomTreeData Plugin computeds', () => {
       const expandedRowIds = [1];
 
       const expandedLinearizedRows = {
-        /* eslint-disable indent */
+        /* tslint:disable ter-indent align */
         rows: [
           { a: 0 },
           { a: 1 },
             { a: 1, b: 1 },
           { a: 2 },
         ],
-        /* eslint-enable indent */
+        /* tslint:enable ter-indent align */
         treeMeta: linearizedRows.treeMeta,
         collapsedRowsMeta: new Map([
           [rows[2], [rows[3]]],

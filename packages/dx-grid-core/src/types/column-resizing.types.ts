@@ -15,4 +15,4 @@ export type ColumnWidthState = {
 };
 export type ColumnWidthReducer = PureReducer<
   ColumnWidthState, ColumnWidthPayload, Partial<ColumnWidthState>
->
+>;

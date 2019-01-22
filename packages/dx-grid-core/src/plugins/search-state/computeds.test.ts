@@ -14,6 +14,7 @@ describe('SearchState computeds', () => {
     });
 
     it('should return old and new filter', () => {
+// tslint:disable-next-line: max-line-length
       expect(searchFilterExpression('searchValue', [{ name: 'first' }, { name: 'second' }], ['filters']))
         .toEqual({
           filters: [

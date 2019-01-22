@@ -322,7 +322,6 @@ describe('TableBandHeader Plugin helpers', () => {
       });
     });
 
-
     describe('with command button', () => {
       const testTableHeaderRows = [
         { type: 'commandColumn' },

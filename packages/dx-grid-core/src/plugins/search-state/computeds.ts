@@ -4,7 +4,7 @@ export const searchFilterExpression: SearchFilterExpressionFn = (
   searchValue, columns, filterExpression,
 ) => {
   const filters = columns.map(({ name }) => ({ columnName: name, value: searchValue }));
-  const selfFilterExpression: FilterExpression = { operator: 'or', filters };
+  const selfFilterExpression: FilterExpression = { filters, operator: 'or' };
   if (!filterExpression) {
     return selfFilterExpression;
   }

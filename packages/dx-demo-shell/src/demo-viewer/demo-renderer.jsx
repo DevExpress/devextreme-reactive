@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { EmbeddedDemoContext } from '../context';
+import { wrapDemo } from './perf-wrapper';
 
 export class DemoRenderer extends React.Component {
   constructor(props) {
@@ -29,6 +30,7 @@ export class DemoRenderer extends React.Component {
       unmountDemo,
       demoSources,
       themeSources,
+      perf,
     } = this.context;
     const rootElement = this.rootRef.current;
 
@@ -55,7 +57,7 @@ export class DemoRenderer extends React.Component {
 
     renderDemo({
       element: rootElement,
-      demo: demoSource,
+      demo: perf ? wrapDemo(demoSource) : demoSource,
       demoContainer: demoContainerSource,
     });
     this.demoRenderSkipped = false;

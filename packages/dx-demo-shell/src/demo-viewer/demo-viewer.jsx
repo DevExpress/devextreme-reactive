@@ -28,6 +28,25 @@ export const DemoViewer = (
           )}
         />
         <Route
+          path={`${url}/:themeName/:variantName/perf`}
+          render={({ match: { params: { themeName, variantName } } }) => (
+            <div>
+              <EmbeddedDemoContext.Consumer>
+                {context => (
+                  <EmbeddedDemoContext.Provider value={{ ...context, perf: true }}>
+                    <DemoFrame
+                      themeName={themeName}
+                      variantName={variantName}
+                      sectionName={sectionName}
+                      demoName={demoName}
+                    />
+                  </EmbeddedDemoContext.Provider>
+                )}
+              </EmbeddedDemoContext.Consumer>
+            </div>
+          )}
+        />
+        <Route
           path={url}
           render={() => (
             <div style={{ paddingTop: '8px' }}>

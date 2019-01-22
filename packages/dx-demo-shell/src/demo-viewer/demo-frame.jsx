@@ -29,7 +29,7 @@ class DemoFrameRenderer extends React.PureComponent {
       variantName,
     } = props;
     const {
-      scriptPath, themeSources, firstPart, lastPart, demoSources,
+      scriptPath, themeSources, firstPart, lastPart, demoSources, perf,
     } = this.context;
 
     let demoScript = scriptPath;
@@ -46,6 +46,11 @@ class DemoFrameRenderer extends React.PureComponent {
     const themeLinks = themeVariantOptions.links
       ? themeVariantOptions.links.map(link => `<link rel="stylesheet" href="${link}">`).join('\n')
       : '';
+    const demoOptions = JSON.stringify({
+      path: `${frameUrl}/clean`,
+      frame: true,
+      perf,
+    });
     this.markup = `
       <!DOCTYPE html>
       <html>
@@ -58,7 +63,7 @@ class DemoFrameRenderer extends React.PureComponent {
       </head>
       <body>
         <div id="mountPoint"></div>
-        <div class="embedded-demo" data-options='{ "path": "${frameUrl}/clean", "frame": true }'>
+        <div class="embedded-demo" data-options='${demoOptions}'>
           <div style="min-height: 500px;">Loading...</div>
         </div>
         <script src="${demoScript}"></script>

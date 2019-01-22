@@ -299,7 +299,7 @@ describe('Stack', () => {
       expect(result[2]).not.toBe(series3);
 
       expect(mockScale.domain).toBeCalledWith(['group-1', 'group-2']);
-      expect(mockScale.range).toBeCalledWith([0, 1]);
+      expect(mockScale.range).toBeCalledWith([0, 2]);
       expect(mockScale.mock.calls).toEqual([
         ['group-1'],
         ['group-2'],
@@ -344,27 +344,33 @@ describe('Stack', () => {
       const result = getStackedSeries([series1, series2, series3], 'test-data', { stacks: [] });
 
       const transform1 = result[0].getPointTransformer({ barWidth: 0.5 });
-      expect(transform1({ index: 1, x: 150, width: 60 })).toEqual({
+      expect(transform1({
+        index: 1, x: 150, maxBarWidth: 60,
+      })).toEqual({
         index: 1,
         tag: '1',
-        x: 154,
-        width: 20,
+        x: 134,
+        maxBarWidth: 20,
       });
 
       const transform2 = result[1].getPointTransformer({ barWidth: 0.8 });
-      expect(transform2({ index: 2, x: 150, width: 60 })).toEqual({
+      expect(transform2({
+        index: 2, x: 150, maxBarWidth: 60,
+      })).toEqual({
         index: 2,
         tag: '2',
-        x: 190,
-        width: 20,
+        x: 142,
+        maxBarWidth: 20,
       });
 
       const transform3 = result[2].getPointTransformer({ barWidth: 0.4 });
-      expect(transform3({ index: 3, x: 150, width: 60 })).toEqual({
+      expect(transform3({
+        index: 3, x: 150, maxBarWidth: 60,
+      })).toEqual({
         index: 3,
         tag: '3',
-        x: 240,
-        width: 20,
+        x: 146,
+        maxBarWidth: 20,
       });
     });
 

@@ -11,7 +11,7 @@ import { ScatterSeries } from '@devexpress/dx-react-chart-material-ui';
 // import { ScatterSeries } from '@devexpress/dx-react-chart-bootstrap4';
 ```
 
-If you want to use custom components, you can import the themeless plugin:
+You can import the themeless plugin if you want to use custom components:
 
 ```js
 import { ScatterSeries } from '@devexpress/dx-react-chart';
@@ -41,7 +41,7 @@ Field | Type | Description
 ------|------|------------
 x | number | The point's x coordinate.
 y | number | The point's y coordinate.
-d | string | The point's [path](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/d).
+point | { size : number } | Point options.
 value | number | The point's value.
 color | string | A series color.
 index | number | Point index.

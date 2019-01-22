@@ -25,6 +25,7 @@
   },
   "main": "dist/dx-grid-core.umd.js",
   "module": "dist/dx-grid-core.es.js",
+  "types": "dist/dx-grid-core.d.ts",
   "globalName": "DevExpress.DXGridCore",
   "files": [
     "dist"
@@ -35,7 +36,7 @@
     "test:coverage": "jest --coverage",
     "build": "rollup -c rollup.config.js",
     "build:watch": "rollup -c rollup.config.js -w",
-    "lint": "eslint \"src/**\"",
+    "lint": "tslint -p tsconfig.lint.json",
     "lint:fix": "yarn run lint -- --fix"
   },
   "devDependencies": {

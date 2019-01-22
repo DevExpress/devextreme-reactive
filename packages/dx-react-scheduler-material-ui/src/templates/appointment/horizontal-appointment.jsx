@@ -10,7 +10,7 @@ const styles = ({ palette, spacing }) => ({
     whiteSpace: 'nowrap',
   },
   content: {
-    color: palette.background.default,
+    color: palette.common.white,
     padding: spacing.unit / 2,
     overflow: 'hidden',
     textOverflow: 'ellipsis',

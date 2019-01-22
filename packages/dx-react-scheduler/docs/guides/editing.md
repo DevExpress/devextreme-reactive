@@ -1,65 +1,66 @@
 # React Scheduler - Editing
 
-The React Scheduler supports editing features including creating, updating and deleting appointments. Use the corresponding plugins to manage the editing state. The editing state contains information about appointment currently being edited, changes applied to a particular appointment, and appointment that has been deleted and created but not yet committed. Once a user accepts an appointment addition, deletion, or changes made to an appointment (clicking the Save or Delete button), the Scheduler fires the `EditingState` plugin's `onCommitChanges` event and resets the appointment's editing state.
+The React Scheduler allows users to create, update, and delete appointments. The editing state contains information about pending changes made to an appointment and is managed by the `EditingState` plugin. Once a user clicks Save or Delete, the plugin fires the `onCommitChanges` event and clears the editing state.
 
 ## Related Plugins
 
-The following plugins implement editing features:
+The following plugins implement this feature:
 
-- [EditingState](../reference/editing-state.md) - controls the editing state
-- [AppointmentTooltip](../reference/appointment-tooltip.md) - renders a appointment tooltip with editing controls
-- [AppointmentForm](../reference/appointment-form.md) - renders an appointment editing form
+- [EditingState](../reference/editing-state.md) - controls the editing state.
+- [AppointmentTooltip](../reference/appointment-tooltip.md) - renders a tooltip with controls that manage the appointment.
+- [AppointmentForm](../reference/appointment-form.md) - renders a form that allows a user to edit an appointment.
 
-## User Interactions
+## User Interaction
 
-The React Scheduler provides a functionality to manage the data source via user interface. End-user can add, edit and delete appointments by built-in UI controls. Rules below introduce to user's editing manipulations.
+The user edits appointments as follows:
 
 ### Add an Appointment
 
-1. Double click a cell in a timetable. The appointment editing form will be shown.
-2. In the form, specify required fields and clicks the `Create` button. This will create an appointment and add it.
+1. Double-click a cell in the timetable to open the appointment editing form.
+2. Fill out the form and click Create to add a new appointment to the dataset.
 
 ### Update an Appointment
 
-- Double click an appointment. The appointment editing form will be shown.
-- Click an appointment. The appointment tooltip will be shown with an `Edit` button. The `Edit` button will open an appointment editing form.
+Double-click an appointment to open the appointment editing form.
+
+OR
+
+Click an appointment for the appointment tooltip to appear, and then click Edit in the tooltip to open the appointment editing form.
 
 ### Delete an Appointment
 
-- Click an appointment. The appointment tooltip will be shown with a `Delete` button.
+Click an appointment for the appointment tooltip to appear, and then click Delete in the tooltip to remove the appointment.
 
 ## Basic Setup
 
-Add the plugins listed above to the Scheduler to set up a simple Scheduler supporting editing features.
-
-Handle the `EditingState` plugin's `onCommitChanges` event to commit changes made by an end-user to your data store.
+Add the plugins listed above to the Scheduler and handle the `EditingState` plugin's `onCommitChanges` event to commit edits to the data storage.
 
 ## Uncontrolled Mode
 
-In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), you can specify the initial editing state values using the following `EditingState` plugin's properties:
+In [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the initial editing state via the following `EditingState` properties:
 
-- `defaultEditingAppointmentId` - the appointment ID being edited
-- `defaultAddedAppointment` - the appointment being added
-- `defaultAppointmentChanges` - the appointment changes
+- `defaultEditingAppointmentId` - the ID of the appointment being edited.
+- `defaultAddedAppointment` - the appointment being added.
+- `defaultAppointmentChanges` - changes made to the appointment. 
 
 .embedded-demo({ "path": "scheduler-editing/uncontrolled", "showThemeSelector": true })
 
 ## Controlled Mode
 
-In the [controlled mode](controlled-and-uncontrolled-modes.md), specify the following `EditingState` plugin's property pairs to set a state value and handle its changes:
+In [controlled mode](controlled-and-uncontrolled-modes.md), specify the following `EditingState` properties in pairs to set a state value and handle the event when it changes:
 
-- `editingAppointmentId` and `onEditingAppointmentIdChange` - the appointment ID being edited
-- `addedAppointment` and `onAddedAppointmentChange` - the appointment being added
-- `appointmentChanges` and `onAppointmentChangesChange` - the appointment changes
+- `editingAppointmentId` and `onEditingAppointmentIdChange` - the ID of the appointment being edited.
+- `addedAppointment` and `onAddedAppointmentChange` - the appointment being added.
+- `appointmentChanges` and `onAppointmentChangesChange` - changes made to the appointment.
 
-Note, you can also use the `onAddedAppointmentChange` event to initialize a created appointment with default property values.
+You can also use the `onAddedAppointmentChange` event to initialize a new appointment's properties with default values.
 
 .embedded-demo({ "path": "scheduler-editing/controlled", "showThemeSelector": true })
 
-## Changes Preprocessing
+## Preprocess Changes
 
-You can validate user input or prevent user action using the `onCommintChanges` property of the `EditingState` plugin. For example, it's a quite popular task to show a confirmation dialog to prevent accidental data removing.
+To validate user input or prevent a user action, handle the `EditingState` plugin's `onCommitChanges` event.
 
-To implement a delete confirmation functionality you should detect the `deleted` argument of the `commitChanges` handler. And open confirmation dialog before commit deleting.
+For example, you can show a confirmation dialog before an appointment is removed. To detect an attempt to remove an appointment, check the `deleted` parameter's value in the `commitChanges` handler:
 
 .embedded-demo({ "path": "scheduler-editing/delete-confirmation", "showThemeSelector": true })

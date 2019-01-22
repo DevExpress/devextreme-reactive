@@ -41,7 +41,7 @@ export type TableColumnsWithDraftGroupingFn = PureComputed<
 >;
 
 export type TableColumnsWithGroupingFn = PureComputed<
-  [TableColumn[], Column[], Grouping[], Grouping[], number, ShowColumnWhenGroupedFn]
+  [Column[], TableColumn[], Grouping[], Grouping[], number, ShowColumnWhenGroupedFn], TableColumn[]
 >;
 
 export type GetGroupCellTargetIndexFn = PureComputed<

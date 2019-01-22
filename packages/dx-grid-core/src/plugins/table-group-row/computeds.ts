@@ -37,7 +37,7 @@ const tableColumnsWithDraftGrouping: TableColumnsWithDraftGroupingFn = (
   }, [] as Array<TableColumn & { draft?: boolean }>);
 
 export const tableColumnsWithGrouping: TableColumnsWithGroupingFn = (
-  tableColumns, columns, grouping, draftGrouping, indentColumnWidth, showColumnWhenGrouped,
+  columns, tableColumns, grouping, draftGrouping, indentColumnWidth, showColumnWhenGrouped,
 ) => [
   ...grouping.map((columnGrouping) => {
     const groupedColumn = columns.find(column => column.name === columnGrouping.columnName);

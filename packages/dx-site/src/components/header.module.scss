@@ -1,3 +1,5 @@
+@import "../constants";
+
 .header {
   background-image: url("./images/header-background.png");
   background-size: cover;
@@ -10,6 +12,7 @@
 }
 
 .links {
+  padding-right: $inner-offset;
   a {
     margin: 0 10px;
     color: rgba(255, 255, 255, 255);

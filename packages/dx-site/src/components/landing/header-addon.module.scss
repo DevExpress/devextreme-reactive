@@ -1,8 +1,11 @@
+@import "../../constants";
+
 .main {
   line-height: 1.1;
   font-family: "Segoe UI Light";
   font-size: 60px;
   color: white;
+  padding-left: $inner-offset;
 }
 
 .additional {
@@ -11,6 +14,11 @@
   color: white;
   line-height: 1.1;
   margin-top: 20px;
+  padding-left: $inner-offset;
+}
+
+.overviewImage {
+  padding-left: $inner-offset;
 }
 
 .container {

@@ -7,7 +7,7 @@ const HeaderAddon = ({ main, additional, imageLink }) => (
   <div className={styles.cropper}>
     <div className="container">
       <div className={`row ${styles.container}`}>
-        <div className={`col-md-8 ${styles.block}`}>
+        <div className={`col-md-6 ${styles.block}`}>
           <div className={styles.main}>
             {main}
           </div>
@@ -16,10 +16,11 @@ const HeaderAddon = ({ main, additional, imageLink }) => (
           </div>
         </div>
         {imageLink ? (
-          <div className={`col-md-4 ${styles.block}`}>
+          <div className={`col-md-6 ${styles.block}`}>
             <img
               alt="Product Overview"
               src={imageLink}
+              className={styles.overviewImage}
             />
           </div>
         ) : null}

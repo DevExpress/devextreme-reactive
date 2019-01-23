@@ -1,19 +1,20 @@
+@import "../../constants";
+
 .main {
-  color: white;
-  font-size: 16px;
-  &:hover {
-    color: lightgray;
-    text-decoration: none;
-  }
+  color: rgb(89, 208, 240);
+  display: block;
+  font-size: 24px;
 }
 
 .title {
   letter-spacing: -0.5px;
+  color: white;
   font-family: "Segoe UI Semibold";
 }
 
 .name {
   text-transform: uppercase;
+  color: white;
   font-family: "Segoe UI Light";
 }
 
@@ -21,12 +22,10 @@
   font-size: 24px;
   letter-spacing: -0.5px;
   font-family: "Segoe UI Bold";
+  line-height: 1.2;
+  display: block;
+  padding-left: $inner-offset;
   &:hover {
-    color: lightgray;
     text-decoration: none;
   }
-}
-
-.react {
-  color: rgb(89, 208, 240);
 }

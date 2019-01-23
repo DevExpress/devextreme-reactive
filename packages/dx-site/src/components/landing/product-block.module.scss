@@ -1,6 +1,8 @@
+@import "../../constants";
+
 .container {
   height: 240px;
-  padding: 30px 30px 25px 30px;
+  padding: 30px $inner-offset 25px $inner-offset;
   border-radius: 3px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
 }

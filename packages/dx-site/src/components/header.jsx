@@ -10,29 +10,31 @@ const Header = ({ logo, links, addon }) => (
         <div className="col-auto mr-auto">
           {logo}
         </div>
-        <div className={`col-auto ${styles.links}`}>
-          {links}
-          <a
-            href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Blog
-          </a>
-          <a
-            href="https://github.com/DevExpress/devextreme-reactive"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            GitHub
-          </a>
-          <a
-            href="https://js.devexpress.com/Buy/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Buy
-          </a>
+        <div className="col-auto">
+          <div className={styles.links}>
+            {links}
+            <a
+              href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Blog
+            </a>
+            <a
+              href="https://github.com/DevExpress/devextreme-reactive"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GitHub
+            </a>
+            <a
+              href="https://js.devexpress.com/Buy/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Buy
+            </a>
+          </div>
         </div>
       </div>
     </div>

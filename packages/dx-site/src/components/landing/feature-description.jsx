@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
-import styles from './image-feature.module.scss';
+import styles from './feature-description.module.scss';
 
 const FeatureDescription = ({ title, description }) => (
   <div>

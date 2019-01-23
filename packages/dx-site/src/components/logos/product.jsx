@@ -11,22 +11,19 @@ const titles = {
 };
 
 const Product = ({ link }) => (
-  <div className="d-flex flex-row align-items-center">
-    <div className="d-flex flex-column">
-      <Link to="/" className={`${styles.product} ${styles[link.split('/')[0]]}`}>
-        {titles[link]}
-      </Link>
-      <Link to="/" className={styles.main}>
-        <span className={styles.title}>
-          DevExtreme
-        </span>
-        {' '}
-        <span className={styles.name}>
-          Reactive
-        </span>
-      </Link>
-    </div>
-  </div>
+  <Link to="/" className={`${styles.product} ${styles[link.split('/')[0]]}`}>
+    <span className={styles.main}>
+      {titles[link]}
+    </span>
+
+    <span className={styles.title}>
+      DevExtreme
+    </span>
+    {' '}
+    <span className={styles.name}>
+      Reactive
+    </span>
+  </Link>
 );
 
 Product.propTypes = {

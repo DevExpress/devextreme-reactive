@@ -1,9 +1,14 @@
 .contentWrapper {
-  padding: 40px 0;
+  overflow: hidden;
 }
 
-.leftImage {
+.flex.leftImage {
   flex-direction: row-reverse;
+
+  img {
+    margin-right: auto;
+    margin-left: 0;
+  }
 }
 
 .highlighted {
@@ -12,14 +17,33 @@
 
 .flex {
   display: flex;
+  // flex-wrap: wrap;
+
+  img {
+    margin-left: auto;
+  }
 }
 
-.flex img {
-  margin: 0 0 0 80px;
+.flex > img, .flex > div {
+  width: 530px;
 }
 
-.leftImage img {
-  margin: 0 80px 0 0;
+@media (max-width: 1200px) {
+  .flex > img {
+    margin-right: -150px;
+  }
+  .flex > div {
+    width: 500px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .flex > img {
+    margin-right: -200px;
+  }
+  .flex > div {
+    width: 300px;
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -34,5 +58,8 @@
   }
   .leftImage img {
     margin: 0;
+  }
+  .flex > div {
+    width: 100%;
   }
 }

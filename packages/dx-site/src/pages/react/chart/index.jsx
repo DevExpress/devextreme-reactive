@@ -27,7 +27,7 @@ const IndexPage = () => (
           main="React Chart"
           additional={(
             <React.Fragment>
-              for Bootstrap and Material-UI
+              for Bootstrap and Material Design
               <br />
               <br />
               <LandingLink

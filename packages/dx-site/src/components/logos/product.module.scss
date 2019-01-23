@@ -3,19 +3,20 @@
 .main {
   color: rgb(89, 208, 240);
   display: block;
-  font-size: 24px;
+  font-size: 22px;
 }
 
 .title {
-  letter-spacing: -0.5px;
   color: white;
-  font-family: "Segoe UI Semibold";
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-size: 18px;
 }
 
 .name {
   text-transform: uppercase;
   color: white;
-  font-family: "Segoe UI Light";
+  font-family: "Segoe UI";
+  font-size: 18px;
 }
 
 .product {

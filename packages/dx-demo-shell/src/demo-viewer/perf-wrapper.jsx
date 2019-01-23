@@ -65,6 +65,10 @@ export const wrapDemo = (Demo) => {
     }
 
     createSamples(refs) {
+      // Looks like that when `ReactDOM.render` is called inside a "thread" where another component
+      // is already being rendered function returns almost immediately (end ~= start) and render
+      // request is scheduled.
+      // Calling `ReactDOM.render` in another "thread" seems to help.
       this.timeout = setTimeout(() => {
         this.initialized = true;
         const times = refs.map((ref) => {

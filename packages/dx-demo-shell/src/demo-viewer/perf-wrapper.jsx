@@ -34,61 +34,73 @@ export const wrapDemo = (Demo) => {
   class WrappedDemo extends React.PureComponent {
     constructor(props) {
       super(props);
-      this.ref = React.createRef();
-      this.state = { };
+      this.node = React.createElement(Demo, {});
+      this.state = { refs: [] };
+    }
+
+    static getDerivedStateFromProps({ count }, { refs }) {
+      return refs.length !== count ? {
+        refs: Array.from({ length: count }).map(React.createRef),
+      } : null;
     }
 
     componentDidMount() {
-      const { count } = this.props;
-      setTimeout(() => {
-        this.createSamples(count);
-      }, 50);
+      const { refs } = this.state;
+      this.createSamples(refs);
     }
 
-    componentDidUpdate() {
-      this.updateSamples();
+    componentDidUpdate(prevProps, { refs: prevRefs }) {
+      const { refs } = this.state;
+      if (prevRefs !== refs) {
+        this.destroySamples(prevRefs);
+        this.createSamples(refs);
+      } else {
+        this.updateSamples(refs);
+      }
     }
 
     componentWillUnmount() {
-      this.destroySamples();
+      const { refs } = this.state;
+      this.destroySamples(refs);
     }
 
-    createSamples(count) {
-      const root = this.ref.current;
-      const node = React.createElement(Demo, {});
-      const times = Array.from({ length: count }).map(() => {
-        const container = document.createElement('div');
-        container.classList.add('demo-item');
-        Object.keys(itemStyle).forEach((name) => {
-          container.style[name] = itemStyle[name];
+    createSamples(refs) {
+      this.timeout = setTimeout(() => {
+        this.initialized = true;
+        const times = refs.map((ref) => {
+          const start = performance.now();
+          ReactDOM.render(this.node, ref.current);
+          const end = performance.now();
+          return end - start;
         });
-        root.appendChild(container);
-        const start = performance.now();
-        ReactDOM.render(node, container);
-        const end = performance.now();
-        return end - start;
-      });
-      const metrics = analyze(times);
-      this.setState({ metrics });
+        this.setState({
+          metrics: analyze(times),
+        });
+      }, 10);
     }
 
-    updateSamples() {
-      const root = this.ref.current;
-      const node = React.createElement(Demo, {});
-      Array.from(root.childNodes).forEach((container) => {
-        ReactDOM.render(node, container);
-      });
+    updateSamples(refs) {
+      if (this.initialized) {
+        refs.forEach((ref) => {
+          ReactDOM.render(this.node, ref.current);
+        });
+      }
     }
 
-    destroySamples() {
-      const root = this.ref.current;
-      Array.from(root.childNodes).forEach(ReactDOM.unmountComponentAtNode);
+    destroySamples(refs) {
+      clearTimeout(this.timeout);
+      if (this.initialized) {
+        refs.forEach((ref) => {
+          ReactDOM.unmountComponentAtNode(ref.current);
+        });
+        this.initialized = false;
+      }
     }
 
     render() {
-      const { metrics } = this.state;
+      const { refs, metrics } = this.state;
       return (
-        <div className="performance">
+        <div className="performance-metrics">
           <div>
             <h3>Metrics</h3>
             {Object.keys(metrics || {}).map(name => (
@@ -98,14 +110,20 @@ export const wrapDemo = (Demo) => {
               </React.Fragment>
             ))}
           </div>
-          <div ref={this.ref} className="demo-list" style={listStyle} />
+          <div className="demo-list" style={listStyle}>
+            {refs.map((ref, i) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <div ref={ref} key={i} className="demo-item" style={itemStyle} />
+            ))}
+          </div>
         </div>
       );
     }
   }
 
   WrappedDemo.propTypes = {
-    count: PropTypes.number,
+    // False alarm - used in `getDerivedStateFromProps`.
+    count: PropTypes.number, // eslint-disable-line react/no-unused-prop-types
   };
 
   WrappedDemo.defaultProps = {

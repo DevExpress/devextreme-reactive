@@ -6,21 +6,19 @@ import MenuItem from '@material-ui/core/MenuItem';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import { withStyles } from '@material-ui/core/styles';
 
-const styles = ({ spacing }) => ({
+const styles = ({ spacing, typography }) => ({
   root: {
-    height: spacing.unit * 5,
     width: spacing.unit * 12.5,
-    fontSize: '14px',
+    fontSize: typography.fontSize,
   },
   input: {
     padding: `${spacing.unit * 1.25}px ${spacing.unit * 1.75}px`,
-    lineHeight: `${spacing.unit * 2.5}px`,
   },
   upperCase: {
     textTransform: 'uppercase',
   },
   menuItem: {
-    fontSize: '14px',
+    fontSize: typography.fontSize,
   },
 });
 

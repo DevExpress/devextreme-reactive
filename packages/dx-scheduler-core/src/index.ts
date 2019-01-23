@@ -19,3 +19,6 @@ export * from './plugins/horizontal-rect/helpers';
 export * from './plugins/vertical-rect/helpers';
 export * from './constants';
 export * from './utils';
+
+/** @internal */
+export * from './types';

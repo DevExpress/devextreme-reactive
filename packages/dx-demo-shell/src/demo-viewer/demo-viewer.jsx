@@ -28,21 +28,16 @@ export const DemoViewer = (
           )}
         />
         <Route
-          path={`${url}/:themeName/:variantName/perf`}
-          render={({ match: { params: { themeName, variantName } } }) => (
+          path={`${url}/:themeName/:variantName/perf/:samplesCount?`}
+          render={({ match: { params: { themeName, variantName, samplesCount } } }) => (
             <div>
-              <EmbeddedDemoContext.Consumer>
-                {context => (
-                  <EmbeddedDemoContext.Provider value={{ ...context, perf: true }}>
-                    <DemoFrame
-                      themeName={themeName}
-                      variantName={variantName}
-                      sectionName={sectionName}
-                      demoName={demoName}
-                    />
-                  </EmbeddedDemoContext.Provider>
-                )}
-              </EmbeddedDemoContext.Consumer>
+              <DemoFrame
+                themeName={themeName}
+                variantName={variantName}
+                sectionName={sectionName}
+                demoName={demoName}
+                perfSamplesCount={Number(samplesCount) || 16}
+              />
             </div>
           )}
         />

@@ -24,13 +24,13 @@ export class DemoRenderer extends React.Component {
       demoName,
       themeName,
       variantName,
+      perfSamplesCount,
     } = this.props;
     const {
       renderDemo,
       unmountDemo,
       demoSources,
       themeSources,
-      perf,
     } = this.context;
     const rootElement = this.rootRef.current;
 
@@ -57,7 +57,7 @@ export class DemoRenderer extends React.Component {
 
     renderDemo({
       element: rootElement,
-      demo: perf ? wrapDemo(demoSource) : demoSource,
+      demo: perfSamplesCount > 0 ? wrapDemo(demoSource, perfSamplesCount) : demoSource,
       demoContainer: demoContainerSource,
     });
     this.demoRenderSkipped = false;
@@ -77,6 +77,7 @@ DemoRenderer.propTypes = {
   demoName: PropTypes.string.isRequired,
   themeName: PropTypes.string.isRequired,
   variantName: PropTypes.string.isRequired,
+  perfSamplesCount: PropTypes.number.isRequired,
 };
 
 DemoRenderer.contextType = EmbeddedDemoContext;

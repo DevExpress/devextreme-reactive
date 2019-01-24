@@ -27,9 +27,10 @@ class DemoFrameRenderer extends React.PureComponent {
       demoName,
       themeName,
       variantName,
+      perfSamplesCount,
     } = props;
     const {
-      scriptPath, themeSources, firstPart, lastPart, demoSources, perf,
+      scriptPath, themeSources, firstPart, lastPart, demoSources,
     } = this.context;
 
     let demoScript = scriptPath;
@@ -46,11 +47,7 @@ class DemoFrameRenderer extends React.PureComponent {
     const themeLinks = themeVariantOptions.links
       ? themeVariantOptions.links.map(link => `<link rel="stylesheet" href="${link}">`).join('\n')
       : '';
-    const demoOptions = JSON.stringify({
-      path: `${frameUrl}/clean`,
-      frame: true,
-      perf,
-    });
+    const mode = perfSamplesCount > 0 ? `/perf/${perfSamplesCount}` : '/clean';
     this.markup = `
       <!DOCTYPE html>
       <html>
@@ -63,7 +60,7 @@ class DemoFrameRenderer extends React.PureComponent {
       </head>
       <body>
         <div id="mountPoint"></div>
-        <div class="embedded-demo" data-options='${demoOptions}'>
+        <div class="embedded-demo" data-options='{ "path": "${frameUrl}${mode}", "frame": true }'>
           <div style="min-height: 500px;">Loading...</div>
         </div>
         <script src="${demoScript}"></script>
@@ -94,12 +91,6 @@ class DemoFrameRenderer extends React.PureComponent {
   }
 
   render() {
-    const {
-      sectionName,
-      demoName,
-      themeName,
-      variantName,
-    } = this.props;
     const { frame } = this.context;
     const { editableLink, frameHeight } = this.state;
 
@@ -135,12 +126,7 @@ class DemoFrameRenderer extends React.PureComponent {
 
         {frame
           ? (
-            <DemoRenderer
-              sectionName={sectionName}
-              demoName={demoName}
-              themeName={themeName}
-              variantName={variantName}
-            />
+            <DemoRenderer {...this.props} />
           )
           : (
             <div
@@ -175,6 +161,11 @@ DemoFrameRenderer.propTypes = {
   demoName: PropTypes.string.isRequired,
   themeName: PropTypes.string.isRequired,
   variantName: PropTypes.string.isRequired,
+  perfSamplesCount: PropTypes.number,
+};
+
+DemoFrameRenderer.defaultProps = {
+  perfSamplesCount: undefined,
 };
 
 DemoFrameRenderer.contextType = EmbeddedDemoContext;

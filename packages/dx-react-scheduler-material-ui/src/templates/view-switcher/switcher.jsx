@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import classNames from 'classnames';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
@@ -8,17 +7,16 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = ({ spacing, typography }) => ({
   root: {
-    width: spacing.unit * 12.5,
     fontSize: typography.fontSize,
   },
   input: {
     padding: `${spacing.unit * 1.25}px ${spacing.unit * 1.75}px`,
-  },
-  upperCase: {
+    paddingRight: `${spacing.unit * 4}px`,
     textTransform: 'uppercase',
   },
   menuItem: {
     fontSize: typography.fontSize,
+    textTransform: 'uppercase',
   },
 });
 
@@ -40,7 +38,6 @@ const SwitcherBase = ({
       input={(
         <OutlinedInput
           classes={{ input: classes.input }}
-          className={classes.upperCase}
           labelWidth={0}
         />
       )}
@@ -50,7 +47,7 @@ const SwitcherBase = ({
         <MenuItem
           value={viewName}
           key={viewName}
-          className={classNames(classes.upperCase, classes.menuItem)}
+          className={classes.menuItem}
         >
           {viewName}
         </MenuItem>
@@ -61,6 +58,7 @@ const SwitcherBase = ({
 
 SwitcherBase.propTypes = {
   onChange: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
   currentViewName: PropTypes.string,
   availableViewNames: PropTypes.arrayOf(PropTypes.string),
 };

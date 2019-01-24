@@ -1,4 +1,5 @@
 import { isHorizontal, fixOffset } from '../../utils/scale';
+import { AxisCoordinatesFn } from '../types';
 import {
   LEFT, BOTTOM, MIDDLE, END, START,
 } from '../../constants';
@@ -48,7 +49,7 @@ export const axisCoordinates = ({
   tickSize,
   tickFormat,
   indentFromAxis,
-}) => {
+}: AxisCoordinatesFn) => {
   const isHor = isHorizontal(scaleName);
   const options = (isHor ? createHorizontalOptions : createVerticalOptions)(
     position, tickSize, indentFromAxis,
@@ -66,8 +67,8 @@ export const axisCoordinates = ({
     ...options,
   }));
   return {
-    sides: [Number(isHor), Number(!isHor)],
     ticks,
+    sides: [Number(isHor), Number(!isHor)],
   };
 };
 

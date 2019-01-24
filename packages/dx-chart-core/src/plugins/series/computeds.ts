@@ -7,6 +7,7 @@ import {
   arc,
   pie,
 } from 'd3-shape';
+import { TargetElement } from '../types';
 import { ARGUMENT_DOMAIN } from '../../constants';
 import { getWidth, getValueDomainName, fixOffset } from '../../utils/scale';
 
@@ -78,9 +79,9 @@ export const getBarPointTransformer = ({
   const fixedArgumentScale = fixOffset(argumentScale);
   return point => ({
     ...point,
+    y1,
     x: fixedArgumentScale(point.argument),
     y: valueScale(point.value),
-    y1,
     maxBarWidth: getWidth(argumentScale),
   });
 };
@@ -117,8 +118,8 @@ getBarPointTransformer.getTargetElement = ({
   const width = barWidth * maxBarWidth;
   const height = Math.abs(y1 - y);
   return {
-    x: x - width / 2,
     y,
+    x: x - width / 2,
     d: `M0,0 ${width},0 ${width},${height} 0,${height}`,
   };
 };
@@ -136,7 +137,7 @@ getPiePointTransformer.getTargetElement = ({
   };
 };
 
-getAreaPointTransformer.getTargetElement = ({ x, y }) => ({
+getAreaPointTransformer.getTargetElement = ({ x, y }: TargetElement) => ({
   x,
   y,
   d: symbol().size([2 ** 2]).type(symbolCircle)(),
@@ -144,7 +145,7 @@ getAreaPointTransformer.getTargetElement = ({ x, y }) => ({
 
 getLinePointTransformer.getTargetElement = getAreaPointTransformer.getTargetElement;
 
-getScatterPointTransformer.getTargetElement = ({ x, y, point }) => ({
+getScatterPointTransformer.getTargetElement = ({ x, y, point }: TargetElement) => ({
   x,
   y,
   d: symbol().size([point.size ** 2]).type(symbolCircle)(),
@@ -162,7 +163,7 @@ const getUniqueName = (list, name) => {
 // TODO: Memoization is much needed here.
 // Though "series" list never persists, single "series" item most often does.
 const createPoints = ({ argumentField, valueField, getPointTransformer }, data, props, palette) => {
-  const points = [];
+  const points: any[] = [];
   data.forEach((dataItem, index) => {
     const argument = dataItem[argumentField];
     const value = dataItem[valueField];
@@ -180,15 +181,15 @@ const createPoints = ({ argumentField, valueField, getPointTransformer }, data, 
   return points;
 };
 
-export const addSeries = (series, data, palette, props, restProps) => {
+export const addSeries = (series, data, palette, props?, restProps?) => {
   // It is used to generate unique series dependent attribute names for patterns.
   // *symbolName* cannot be used as it cannot be part of DOM attribute name.
   const index = series.length;
   const seriesColor = props.color || palette[index % palette.length];
   return [...series, {
     ...props,
-    name: getUniqueName(series, props.name),
     index,
+    name: getUniqueName(series, props.name),
     points: createPoints(props, data, { ...restProps, color: seriesColor }, palette),
     color: seriesColor,
   }];

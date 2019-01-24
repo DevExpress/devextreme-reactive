@@ -4,11 +4,11 @@ const addKeyframe = (name, def) => {
   if (typeof document === 'undefined') {
     return;
   }
-  const head = document.getElementsByTagName('head')[0]; // eslint-disable-line no-undef
-  let style = Array.from(head.getElementsByTagName('style'))
-    .find(node => node.dataset[ANIMATIONS]);
+  const head = document.getElementsByTagName('head')[0];
+  let style: any = Array.from(head.getElementsByTagName('style'))
+  .find((node: any) => node.dataset[ANIMATIONS]);
   if (!style) {
-    style = document.createElement('style'); // eslint-disable-line no-undef
+    style = document.createElement('style');
     style.type = 'text/css';
     style.dataset[ANIMATIONS] = true;
     head.appendChild(style);

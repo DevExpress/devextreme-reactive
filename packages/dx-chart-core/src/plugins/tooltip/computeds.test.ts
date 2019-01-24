@@ -19,7 +19,8 @@ describe('#getParameters', () => {
   const series = [createSeries('s1'), createSeries('s2'), createSeries('s3')];
 
   it('should return text and element', () => {
-    expect(getParameters(series, { series: 's2', point: 1 })).toEqual({ element: 'parameters', text: '20' });
+    expect(getParameters(series, { series: 's2', point: 1 }))
+    .toEqual({ element: 'parameters', text: '20' });
   });
 });
 
@@ -27,7 +28,14 @@ describe('#processHandleTooltip', () => {
   afterEach(jest.clearAllMocks);
 
   it('should return target', () => {
-    expect(processHandleTooltip([{ series: 'test-series' }, { series: 'test-series', point: 'test-point' }], 'currentTarget', 'mockFunction')).toBe('test-target');
-    expect(processPointerMove).toBeCalledWith([{ series: 'test-series', point: 'test-point' }], 'currentTarget', 'mockFunction');
+    expect(processHandleTooltip(
+      [{ series: 'test-series' }, { series: 'test-series', point: 'test-point' }],
+      'currentTarget', 'mockFunction'))
+      .toBe('test-target');
+    expect(processPointerMove)
+    .toBeCalledWith(
+      [{ series: 'test-series', point: 'test-point' }],
+      'currentTarget',
+      'mockFunction');
   });
 });

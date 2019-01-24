@@ -31,7 +31,7 @@ const getStackedPointTransformer = (getPointTransformer) => {
 
 // TODO: Temporary - see corresponding note in *computeDomains*.
 const getValueDomain = (points) => {
-  const items = [];
+  const items: any[] = [];
   points.forEach((point) => {
     items.push(point.value, point.value0);
   });

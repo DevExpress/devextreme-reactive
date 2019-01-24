@@ -1,7 +1,7 @@
 import { buildEventHandlers } from './event-tracker';
 
-window.pageXOffset = 120; // eslint-disable-line no-undef
-window.pageYOffset = 110; // eslint-disable-line no-undef
+window.pageXOffset = 120;
+window.pageYOffset = 110;
 
 describe('EventTracker', () => {
   describe('#buildEventHandlers', () => {
@@ -50,9 +50,9 @@ describe('EventTracker', () => {
     it('should create and invoke hit testers', () => {
       const func = call();
       func({
+        currentTarget,
         clientX: 454,
         clientY: 343,
-        currentTarget,
       });
 
       expect(series1.createHitTester).toBeCalledWith('coordinates-1');
@@ -80,9 +80,9 @@ describe('EventTracker', () => {
       });
       const func = call();
       func({
+        currentTarget,
         clientX: 352,
         clientY: 421,
-        currentTarget,
         nativeEvent: 'nativeEvent',
       });
 
@@ -100,8 +100,8 @@ describe('EventTracker', () => {
           series: 'Series 3', point: 2, distance: 80, order: 2,
         },
       ];
-      expect(handler1).toBeCalledWith({ location: [192, 281], targets, event: 'nativeEvent' });
-      expect(handler2).toBeCalledWith({ location: [192, 281], targets, event: 'nativeEvent' });
+      expect(handler1).toBeCalledWith({ targets, location: [192, 281], event: 'nativeEvent' });
+      expect(handler2).toBeCalledWith({ targets, location: [192, 281], event: 'nativeEvent' });
     });
 
     it('should take series order into account', () => {
@@ -122,9 +122,9 @@ describe('EventTracker', () => {
       });
       const func = call();
       func({
+        currentTarget,
         clientX: 481,
         clientY: 324,
-        currentTarget,
         nativeEvent: 'nativeEvent',
       });
 
@@ -143,8 +143,8 @@ describe('EventTracker', () => {
         },
       ];
 
-      expect(handler1).toBeCalledWith({ location: [321, 184], targets, event: 'nativeEvent' });
-      expect(handler2).toBeCalledWith({ location: [321, 184], targets, event: 'nativeEvent' });
+      expect(handler1).toBeCalledWith({ targets, location: [321, 184], event: 'nativeEvent' });
+      expect(handler2).toBeCalledWith({ targets, location: [321, 184], event: 'nativeEvent' });
     });
 
     it('should create hit testers lazily', () => {
@@ -181,9 +181,9 @@ describe('EventTracker', () => {
         clickHandlers: [], pointerMoveHandlers: [handler1, handler2],
       });
       pointerleave({
+        currentTarget,
         clientX: 572,
         clientY: 421,
-        currentTarget,
       });
 
       expect(handler1).toBeCalledWith({ location: [412, 281], targets: [] });

@@ -32,7 +32,6 @@ jest.mock('d3-shape', () => {
       get(target, prop, receiver) {
         if (target[prop] === undefined) {
           const mock = target[prop] || jest.fn().mockReturnValue(receiver);
-          // eslint-disable-next-line no-param-reassign
           target[prop] = mock;
         }
         return target[prop];
@@ -290,7 +289,6 @@ describe('getPiePointTransformer', () => {
     const transform = getPiePointTransformer({
       argumentScale,
       valueScale,
-      palette: 'test-palette',
       points: 'test-points',
     });
 
@@ -350,7 +348,11 @@ describe('getPiePointTransformer', () => {
 describe('findSeriesByName', () => {
   it('should return series by name', () => {
     const symbolName = Symbol('Series 2');
-    const series = [{ symbolName: Symbol('Series 1') }, { symbolName }, { symbolName: Symbol('Series 3') }];
+    const series = [
+      { symbolName: Symbol('Series 1') },
+      { symbolName },
+      { symbolName: Symbol('Series 3') },
+    ];
 
     expect(findSeriesByName(symbolName, series)).toEqual(series[1]);
     expect(findSeriesByName(Symbol('test'), series)).toEqual(undefined);
@@ -436,7 +438,7 @@ describe('addSeries', () => {
   });
 
   it('should take color from palette and favor own series color', () => {
-    let result = [{ name: 's1' }, { name: 's2' }];
+    let result: any[] = [{ name: 's1' }, { name: 's2' }];
     result = addSeries(result, [], palette, { name: 't1' });
     result = addSeries(result, [], palette, { name: 't2', color: 'red' });
     result = addSeries(result, [], palette, { name: 't3' });
@@ -460,7 +462,12 @@ describe('addSeries', () => {
       { arg: 'd', val: 4 },
       { arg: 'e' },
     ];
-    const result = addSeries([{ name: 's1' }], data, palette, props, { userOptions: 'userOptions' });
+    const result = addSeries(
+      [{ name: 's1' }],
+      data,
+      palette,
+      props,
+      { userOptions: 'userOptions' });
     expect(result).toEqual([
       { name: 's1' },
       {
@@ -497,7 +504,12 @@ describe('addSeries', () => {
       { arg: 'd', val: 4 },
       { arg: 'e' },
     ];
-    const result = addSeries([{ name: 's1' }], data, palette, props, { userOptions: 'userOptions' });
+    const result = addSeries(
+      [{ name: 's1' }],
+      data,
+      palette,
+      props,
+      { userOptions: 'userOptions' });
     expect(result).toEqual([
       { name: 's1' },
       {

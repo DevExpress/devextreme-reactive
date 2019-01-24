@@ -6,7 +6,7 @@ import {
 } from './computeds';
 
 describe('Animation styles', () => {
-  const { head } = document; // eslint-disable-line no-undef
+  const { head } = document;
 
   afterEach(() => {
     const style = head.getElementsByTagName('style')[0];
@@ -36,7 +36,7 @@ describe('Animation styles', () => {
 
   describe('#getScatterAnimationStyle', () => {
     it('should return style', () => {
-      expect(getScatterAnimationStyle({})).toEqual({
+      expect(getScatterAnimationStyle()).toEqual({
         animation: 'animation_scatter 1s',
       });
     });
@@ -44,11 +44,12 @@ describe('Animation styles', () => {
 
   describe('style element generation', () => {
     it('should reuse single "style" element', () => {
-      getScatterAnimationStyle({}, null, 'test-point', 'test-series-name');
-      getScatterAnimationStyle({}, null, 'test-point', 'test-series-name');
+      getScatterAnimationStyle();
+      getScatterAnimationStyle();
 
       expect(head.getElementsByTagName('style').length).toEqual(1);
       expect(head.getElementsByTagName('style')[0].textContent).toEqual(
+        // tslint:disable-next-line: max-line-length
         '\n@keyframes animation_scatter { 0% { opacity: 0; } 50% { opacity: 0; } 100% { opacity: 1 } }\n',
       );
     });

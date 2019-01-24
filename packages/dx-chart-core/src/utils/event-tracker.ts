@@ -1,7 +1,7 @@
 // This function is called from event handlers (when DOM is available) -
 // *window* can be accessed safely.
 const getEventCoords = (e) => {
-  const { pageXOffset, pageYOffset } = window; // eslint-disable-line no-undef
+  const { pageXOffset, pageYOffset } = window;
   const { left, top } = e.currentTarget.getBoundingClientRect();
   return [
     e.clientX - left - pageXOffset,
@@ -21,7 +21,7 @@ const compareHitTargets = (t1, t2) => {
 };
 
 const buildEventHandler = (seriesList, handlers) => {
-  let hitTesters = null;
+  let hitTesters: any = null;
 
   const createHitTesters = () => {
     const obj = {};
@@ -34,13 +34,13 @@ const buildEventHandler = (seriesList, handlers) => {
   return (e) => {
     const location = getEventCoords(e);
     hitTesters = hitTesters || createHitTesters();
-    const targets = [];
+    const targets: any[] = [];
     seriesList.forEach(({ name: series, index: order, symbolName }) => {
       const status = hitTesters[symbolName](location);
       if (status) {
         targets.push(...status.points.map(
           point => ({
-            series, point: point.index, distance: point.distance, order,
+            series, order, point: point.index, distance: point.distance,
           }),
         ));
       }
@@ -58,7 +58,7 @@ const buildLeaveEventHandler = handlers => (e) => {
 };
 
 export const buildEventHandlers = (seriesList, { clickHandlers, pointerMoveHandlers }) => {
-  const handlers = {};
+  const handlers: any = {};
   if (clickHandlers.length) {
     handlers.click = buildEventHandler(seriesList, clickHandlers);
   }

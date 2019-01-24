@@ -23,7 +23,7 @@ describe('Stack', () => {
     mockScale.range = jest.fn().mockReturnValue(mockScale);
     scaleBand.mockReturnValue(mockScale);
 
-    const makeSeries = (name, extra) => ({
+    const makeSeries = (name, extra?) => ({
       name,
       points: [],
       getPointTransformer: () => null,
@@ -292,7 +292,10 @@ describe('Stack', () => {
       const series2 = makeSeries('2', { getPointTransformer });
       const series3 = makeSeries('3', { getPointTransformer });
 
-      const result = getStackedSeries([series1, series2, series3], 'test-data', { stacks: [] });
+      const result = getStackedSeries(
+        [series1, series2, series3],
+        'test-data',
+        { stacks: [], offset: 'offset', order: 'order' });
 
       expect(result[0]).toBe(series1);
       expect(result[1]).not.toBe(series2);
@@ -321,7 +324,10 @@ describe('Stack', () => {
         makeSeries('3'),
       ];
 
-      const result = getStackedSeries(list, 'test-data', { stacks: [] });
+      const result = getStackedSeries(
+        list,
+        'test-data',
+        { stacks: [], offset: 'offset', order: 'order' });
 
       expect(result).toBe(list);
     });
@@ -341,7 +347,10 @@ describe('Stack', () => {
       const series2 = makeSeries('2', { getPointTransformer });
       const series3 = makeSeries('3', { getPointTransformer });
 
-      const result = getStackedSeries([series1, series2, series3], 'test-data', { stacks: [] });
+      const result = getStackedSeries(
+        [series1, series2, series3],
+        'test-data',
+        { stacks: [], offset: 'offset', order: 'order' });
 
       const transform1 = result[0].getPointTransformer({ barWidth: 0.5 });
       expect(transform1({

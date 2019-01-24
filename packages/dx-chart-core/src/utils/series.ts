@@ -11,13 +11,13 @@ const getSegmentLength = (dx, dy) => Math.sqrt(dx * dx + dy * dy);
 
 // This function is called from event handlers (when DOM is available) -
 // *window.document* can be accessed safely.
-const createContext = () => document.createElement('canvas').getContext('2d'); // eslint-disable-line no-undef
+const createContext = () => document.createElement('canvas').getContext('2d');
 
 // For a start using browser canvas will suffice.
 // However a better and more clean solution should be found.
 // Can't d3 perform hit testing?
 const createCanvasAbusingHitTester = (makePath, points) => {
-  const ctx = createContext();
+  const ctx: any = createContext();
   const path = makePath();
   path.context(ctx);
   path(points);
@@ -34,11 +34,11 @@ const createContinuousSeriesHitTesterCreator = makePath => (points) => {
   return (target) => {
     let minDistance = Number.MAX_VALUE;
     let minIndex;
-    const list = [];
+    const list: any[] = [];
     points.forEach((point, i) => {
       const distance = getContinuousPointDistance(target, point);
       if (distance <= LINE_POINT_SIZE) {
-        list.push({ index: point.index, distance });
+        list.push({  distance, index: point.index });
       }
       if (distance < minDistance) {
         minDistance = distance;
@@ -55,7 +55,7 @@ const createContinuousSeriesHitTesterCreator = makePath => (points) => {
 };
 
 const createPointsEnumeratingHitTesterCreator = hitTestPoint => points => (target) => {
-  const list = [];
+  const list: any[] = [];
   points.forEach((point) => {
     const status = hitTestPoint(target, point);
     if (status) {
@@ -164,7 +164,7 @@ export const changeSeriesState = (seriesList, targets, state) => {
       return seriesItem;
     }
     matches += 1;
-    const props = { state };
+    const props: {state: string, points?: any[]} = { state };
     if (set.size) {
       props.points = seriesItem.points.map(
         point => (set.has(point.index) ? { ...point, state } : point),

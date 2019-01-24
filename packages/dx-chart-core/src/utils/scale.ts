@@ -4,7 +4,8 @@ export const isHorizontal = name => name === ARGUMENT_DOMAIN;
 
 export const getWidth = scale => (scale.bandwidth ? scale.bandwidth() : 0);
 
-export const getValueDomainName = name => name || VALUE_DOMAIN;
+// tslint:disable-next-line: ter-arrow-parens
+export const getValueDomainName = (name?) => name || VALUE_DOMAIN;
 
 export const fixOffset = (scale) => {
   const offset = getWidth(scale) / 2;

@@ -17,7 +17,6 @@ jest.mock('../plugins/series/computeds', () => ({
 }));
 
 const getContext = jest.fn();
-// eslint-disable-next-line no-undef
 document.createElement = () => ({ getContext });
 
 describe('Series', () => {
@@ -53,7 +52,10 @@ describe('Series', () => {
     });
 
     expect(hitTest([185, 65])).toEqual({
-      points: [{ index: 'p2', distance: matchFloat(20) }, { index: 'p3', distance: matchFloat(11.18) }],
+      points: [
+        { index: 'p2', distance: matchFloat(20) },
+        { index: 'p3', distance: matchFloat(11.18) },
+      ],
     });
     expect(hitTest([190, 60])).toEqual({
       points: [{ index: 'p3', distance: matchFloat(5) }],
@@ -187,7 +189,10 @@ describe('Series', () => {
       expect(hitTest([12, 4])).toEqual({ points: [{ index: 'p1', distance: matchFloat(1) }] });
       expect(hitTest([25, 3])).toEqual({ points: [{ index: 'p2', distance: matchFloat(1.41) }] });
       expect(hitTest([31, 2])).toEqual({
-        points: [{ index: 'p3', distance: matchFloat(1.8) }, { index: 'p4', distance: matchFloat(2.5) }],
+        points: [
+          { index: 'p3', distance: matchFloat(1.8) },
+          { index: 'p4', distance: matchFloat(2.5) },
+        ],
       });
     });
   });
@@ -213,7 +218,10 @@ describe('Series', () => {
       expect(hitTest([14, 10])).toEqual({ points: [{ index: 'p1', distance: matchFloat(7.21) }] });
       expect(hitTest([32, 4])).toEqual({ points: [{ index: 'p2', distance: matchFloat(2.24) }] });
       expect(hitTest([49, 15])).toEqual({
-        points: [{ index: 'p3', distance: matchFloat(7.07) }, { index: 'p4', distance: matchFloat(7.81) }],
+        points: [
+          { index: 'p3', distance: matchFloat(7.07) },
+          { index: 'p4', distance: matchFloat(7.81) },
+        ],
       });
     });
   });
@@ -222,13 +230,31 @@ describe('Series', () => {
     it('should test pies', () => {
       const hitTest = createPieHitTester([
         {
-          x: 60, y: 50, innerRadius: 0.1, outerRadius: 1, maxRadius: 10, startAngle: 0, endAngle: Math.PI / 4, index: 'p1',
+          x: 60, y: 50,
+          innerRadius: 0.1,
+          outerRadius: 1,
+          maxRadius: 10,
+          startAngle: 0,
+          endAngle: Math.PI / 4,
+          index: 'p1',
         },
         {
-          x: 60, y: 50, innerRadius: 0.1, outerRadius: 1, maxRadius: 10, startAngle: Math.PI / 2, endAngle: Math.PI, index: 'p2',
+          x: 60, y: 50,
+          innerRadius: 0.1,
+          outerRadius: 1,
+          maxRadius: 10,
+          startAngle: Math.PI / 2,
+          endAngle: Math.PI,
+          index: 'p2',
         },
         {
-          x: 60, y: 50, innerRadius: 0.1, outerRadius: 1, maxRadius: 10, startAngle: Math.PI, endAngle: 3 * Math.PI / 2, index: 'p3',
+          x: 60, y: 50,
+          innerRadius: 0.1,
+          outerRadius: 1,
+          maxRadius: 10,
+          startAngle: Math.PI,
+          endAngle: 3 * Math.PI / 2,
+          index: 'p3',
         },
       ]);
 
@@ -236,7 +262,10 @@ describe('Series', () => {
       expect(hitTest([64, 45])).toEqual({ points: [{ index: 'p1', distance: matchFloat(0.95) }] });
       expect(hitTest([68, 52])).toEqual({ points: [{ index: 'p2', distance: matchFloat(2.8) }] });
       expect(hitTest([60, 55])).toEqual({
-        points: [{ index: 'p2', distance: matchFloat(0.93) }, { index: 'p3', distance: matchFloat(0.93) }],
+        points: [
+          { index: 'p2', distance: matchFloat(0.93) },
+          { index: 'p3', distance: matchFloat(0.93) },
+        ],
       });
     });
   });

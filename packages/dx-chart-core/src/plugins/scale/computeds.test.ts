@@ -74,7 +74,7 @@ describe('Scale', () => {
           { argument: 2, value: 2 },
           { argument: 3, value: 7 },
         ],
-      }, {
+      },                                           {
         getPointTransformer,
         points: [
           { argument: 2, value: 10 },
@@ -160,14 +160,14 @@ describe('Scale', () => {
     });
 
     it('should compute domains from several series', () => {
-      const makePoints = values => values.map((value, index) => ({ argument: index + 1, value }));
+      const makePoints = values => values.map((value, index) => ({ value, argument: index + 1 }));
       const domains = computeDomains({ ...testDomains, domain1: { } }, [{
         getPointTransformer, points: makePoints([2, 3, 5, 6]),
-      }, {
+      },                                                                {
         getPointTransformer, points: makePoints([-1, -3, 0, 1]), scaleName: 'domain1',
-      }, {
+      },                                                                {
         getPointTransformer, points: makePoints([1, 2, 3, 1]), scaleName: 'domain1',
-      }, {
+      },                                                                {
         getPointTransformer, points: makePoints([2, 5, 7, 3]),
       }]);
 
@@ -231,7 +231,7 @@ describe('Scale', () => {
         domain1: { factory: factory2 },
       }, [{
         getPointTransformer, points: [{ argument: 1, value: 11 }, { argument: 2, value: 12 }],
-      }, {
+      },  {
         getPointTransformer,
         scaleName: 'domain1',
         points: [{ argument: 3, value: 1 }, { argument: 4, value: 2 }, { argument: 5, value: 3 }],
@@ -256,8 +256,8 @@ describe('Scale', () => {
         ...testDomains,
         domain1: { modifyDomain: mock },
       }, [{
-        scaleName: 'domain1',
         getPointTransformer,
+        scaleName: 'domain1',
         points: [{ argument: 1, value: 3 }, { argument: 2, value: 14 }],
       }]);
 

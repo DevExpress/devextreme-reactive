@@ -1,11 +1,13 @@
 import * as moment from 'moment';
 import { PureComputed } from '@devexpress/dx-core';
-import { AppointmentCore, LeftBound, RightBound, ExcludedDays } from '../../types';
+import {
+  AppointmentCore, AppointmentMoment, LeftBound, RightBound, ExcludedDays,
+} from '../../types';
 import { allDayPredicate, sliceAppointmentsByBoundaries } from './helpers';
 import { viewPredicate } from '../../utils';
 
 export const calculateAllDayDateIntervals: PureComputed<
-  [AppointmentCore[], LeftBound, RightBound, ExcludedDays]
+  [AppointmentCore[], LeftBound, RightBound, ExcludedDays], AppointmentMoment[]
 > = (
   appointments,
   leftBound, rightBound,
@@ -16,7 +18,7 @@ export const calculateAllDayDateIntervals: PureComputed<
     viewPredicate(appointment, leftBound, rightBound, excludedDays, false)
     && allDayPredicate(appointment)
   ))
-  .reduce((acc, appointment) => ([
+  .reduce((acc: AppointmentMoment[], appointment) => ([
     ...acc,
     ...sliceAppointmentsByBoundaries(appointment, leftBound, rightBound, excludedDays),
   ]), []);

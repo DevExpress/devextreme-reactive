@@ -1,3 +1,5 @@
+export type CurrentViewType = string;
+
 export interface AppointmentModel {
   /** The start date. */
   startDate: Date | string | number;

@@ -1,9 +1,15 @@
-import moment from 'moment';
+import * as moment from 'moment';
+import { PureComputed } from '@devexpress/dx-core';
+import {
+  Action, StartDate, EndDate,
+} from '../../types';
 
-export const callActionIfExists = (action, payload) => {
+export const callActionIfExists: PureComputed<[Action, object], void> = (action, payload) => {
   if (action) {
     action(payload);
   }
 };
 
-export const isAllDayCell = (startDate, endDate) => moment(endDate).diff(moment(startDate), 'days') >= 1;
+export const isAllDayCell: PureComputed<
+  [StartDate, EndDate], boolean
+> = (startDate, endDate) => moment(endDate).diff(moment(startDate), 'days') >= 1;

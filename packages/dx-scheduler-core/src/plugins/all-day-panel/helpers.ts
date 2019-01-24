@@ -1,6 +1,8 @@
 import * as moment from 'moment';
 import { PureComputed } from '@devexpress/dx-core';
-import { AppointmentMoment, ViewCellData, TakePrev } from '../../types';
+import {
+  AppointmentMoment, ViewCellData, TakePrev, LeftBound, RightBound, ExcludedDays,
+} from '../../types';
 
 export const allDayPredicate: PureComputed<[AppointmentMoment], boolean> = appointment => (
   appointment.end.diff(appointment.start, 'hours') > 23
@@ -19,7 +21,9 @@ export const getAllDayCellIndexByDate: PureComputed<
   return cellIndex;
 };
 
-export const sliceAppointmentsByBoundaries = (appointment, left, right, excludedDays = []) => {
+export const sliceAppointmentsByBoundaries: PureComputed<
+  [AppointmentMoment, LeftBound, RightBound, ExcludedDays], AppointmentMoment[]
+> = (appointment, left, right, excludedDays = []) => {
   const startDate = appointment.start.clone();
   const endDate = appointment.end.clone();
   let nextStart = startDate.clone();

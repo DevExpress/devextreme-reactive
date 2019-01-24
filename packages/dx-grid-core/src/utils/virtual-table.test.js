@@ -336,7 +336,7 @@ describe('VirtualTableLayout utils', () => {
         { key: 2, colWidth: 50 },
         { key: 3, colWidth: 60 },
         { key: 4, colWidth: 70 },
-        { key: 5, colWidth: 80 },
+        { key: 5, colWidth: 80, width: 80 },
         { key: 6, colWidth: 90 },
         { key: 7, colWidth: 100 },
       ];
@@ -346,9 +346,9 @@ describe('VirtualTableLayout utils', () => {
 
       const result = [
         { type: TABLE_STUB_TYPE, key: `${TABLE_STUB_TYPE.toString()}_0_1`, width: 70 },
-        { ...columns[2], width: 50 },
-        { ...columns[3], width: 60 },
-        { ...columns[4], width: 70 },
+        { ...columns[2], width: 50, preferMinWidth: true },
+        { ...columns[3], width: 60, preferMinWidth: true },
+        { ...columns[4], width: 70, preferMinWidth: true },
         { ...columns[5], width: 80 },
         { type: TABLE_STUB_TYPE, key: `${TABLE_STUB_TYPE.toString()}_6_7`, width: 190 },
       ];

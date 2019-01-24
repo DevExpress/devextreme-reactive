@@ -1,5 +1,7 @@
 import moment from 'moment';
-import { allDayPredicate, sliceAppointmentsByBoundaries, getAllDayCellIndexByDate } from './helpers';
+import {
+  allDayPredicate, sliceAppointmentsByBoundaries, getAllDayCellIndexByDate,
+} from './helpers';
 
 describe('AllDayPanel helpers', () => {
   describe('#allDayAppointment', () => {
@@ -25,7 +27,9 @@ describe('AllDayPanel helpers', () => {
     });
 
     it('should work with the "allDay" appointment field', () => {
-      const appointment = { start: moment('2018-12-31 10:20'), end: moment('2019-01-01 10:00'), allDay: true };
+      const appointment = {
+        start: moment('2018-12-31 10:20'), end: moment('2019-01-01 10:00'), allDay: true,
+      };
 
       expect(allDayPredicate(appointment))
         .toBe(true);
@@ -36,7 +40,9 @@ describe('AllDayPanel helpers', () => {
     const right = new Date('2018-08-05 23:59:59');
     it('should slice without excludedDays', () => {
       const excludedDays = [];
-      const appointment = { start: moment('2018-07-30 10:00'), end: moment('2018-07-31 22:30'), dataItem: {} };
+      const appointment = {
+        start: moment('2018-07-30 10:00'), end: moment('2018-07-31 22:30'), dataItem: {},
+      };
 
       const slicedAppointment = sliceAppointmentsByBoundaries(
         appointment, left, right, excludedDays,
@@ -49,7 +55,9 @@ describe('AllDayPanel helpers', () => {
 
     it('should slice if start in excluded days', () => {
       const excludedDays = [1, 2];
-      const appointment = { start: moment('2018-07-30 10:00'), end: moment('2018-08-01 22:30'), dataItem: {} };
+      const appointment = {
+        start: moment('2018-07-30 10:00'), end: moment('2018-08-01 22:30'), dataItem: {},
+      };
 
       const slicedAppointment = sliceAppointmentsByBoundaries(
         appointment, left, right, excludedDays,
@@ -62,7 +70,9 @@ describe('AllDayPanel helpers', () => {
 
     it('should slice if end in excluded days', () => {
       const excludedDays = [2, 3];
-      const appointment = { start: moment('2018-07-30 10:00'), end: moment('2018-08-01 22:30'), dataItem: {} };
+      const appointment = {
+        start: moment('2018-07-30 10:00'), end: moment('2018-08-01 22:30'), dataItem: {},
+      };
 
       const slicedAppointment = sliceAppointmentsByBoundaries(
         appointment, left, right, excludedDays,
@@ -75,7 +85,9 @@ describe('AllDayPanel helpers', () => {
 
     it('should not slice if boundaries are not excluded days', () => {
       const excludedDays = [0, 2, 4];
-      const appointment = { start: moment('2018-07-30 10:00'), end: moment('2018-08-03 22:30'), dataItem: {} };
+      const appointment = {
+        start: moment('2018-07-30 10:00'), end: moment('2018-08-03 22:30'), dataItem: {},
+      };
 
       const slicedAppointment = sliceAppointmentsByBoundaries(
         appointment, left, right, excludedDays,
@@ -88,7 +100,9 @@ describe('AllDayPanel helpers', () => {
 
     it('should slice if start is before left boundary', () => {
       const excludedDays = [];
-      const appointment = { start: moment('2018-07-27 10:00'), end: moment('2018-08-03 22:30'), dataItem: {} };
+      const appointment = {
+        start: moment('2018-07-27 10:00'), end: moment('2018-08-03 22:30'), dataItem: {},
+      };
 
       const slicedAppointment = sliceAppointmentsByBoundaries(
         appointment, left, right, excludedDays,
@@ -101,7 +115,9 @@ describe('AllDayPanel helpers', () => {
 
     it('should slice if end is after right boundary', () => {
       const excludedDays = [];
-      const appointment = { start: moment('2018-07-31 10:00'), end: moment('2018-08-06 22:30'), dataItem: {} };
+      const appointment = {
+        start: moment('2018-07-31 10:00'), end: moment('2018-08-06 22:30'), dataItem: {},
+      };
 
       const slicedAppointment = sliceAppointmentsByBoundaries(
         appointment, left, right, excludedDays,
@@ -113,7 +129,9 @@ describe('AllDayPanel helpers', () => {
     });
 
     it('should not fail if excluded days are not defined', () => {
-      const appointment = { start: moment('2018-07-31 10:00'), end: moment('2018-08-06 22:30'), dataItem: {} };
+      const appointment = {
+        start: moment('2018-07-31 10:00'), end: moment('2018-08-06 22:30'), dataItem: {},
+      };
       expect(() => {
         sliceAppointmentsByBoundaries(
           appointment, left, right,

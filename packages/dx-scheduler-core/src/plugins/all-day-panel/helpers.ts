@@ -1,11 +1,15 @@
-import moment from 'moment';
+import * as moment from 'moment';
+import { PureComputed } from '@devexpress/dx-core';
+import { AppointmentMoment, ViewCellData, TakePrev } from '../../types';
 
-export const allDayPredicate = appointment => (
+export const allDayPredicate: PureComputed<[AppointmentMoment], boolean> = appointment => (
   appointment.end.diff(appointment.start, 'hours') > 23
   || !!appointment.allDay
 );
 
-export const getAllDayCellIndexByDate = (viewCellsData, date, takePrev) => {
+export const getAllDayCellIndexByDate: PureComputed<
+  [ViewCellData[][], Date, TakePrev], number
+> = (viewCellsData, date, takePrev) => {
   const currentDate = moment(date);
   let cellIndex = viewCellsData[0]
     .findIndex(day => moment(day.startDate).day() === currentDate.day());

@@ -1,10 +1,12 @@
-import moment from 'moment';
+import * as moment from 'moment';
+import { PureComputed } from '@devexpress/dx-core';
+import { AppointmentCore, LeftBound, RightBound, ExcludedDays } from '../../types';
 import { allDayPredicate, sliceAppointmentsByBoundaries } from './helpers';
-import {
-  viewPredicate,
-} from '../../utils';
+import { viewPredicate } from '../../utils';
 
-export const calculateAllDayDateIntervals = (
+export const calculateAllDayDateIntervals: PureComputed<
+  [AppointmentCore[], LeftBound, RightBound, ExcludedDays]
+> = (
   appointments,
   leftBound, rightBound,
   excludedDays,

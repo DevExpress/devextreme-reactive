@@ -69,7 +69,6 @@ export class TableHeaderRow extends React.PureComponent {
                   <HeaderCell
                     {...params}
                     column={params.tableColumn.column}
-                    getMessage={getMessage}
                     draggingEnabled={draggingEnabled && atLeastOneDataColumn}
                     resizingEnabled={tableColumnResizingEnabled}
                     onWidthChange={({ shift }) => changeTableColumnWidth({ columnName, shift })}

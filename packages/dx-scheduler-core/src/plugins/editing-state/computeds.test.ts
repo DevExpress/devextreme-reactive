@@ -1,7 +1,4 @@
-import {
-  addedAppointmentById,
-  changedAppointmentById,
-} from './computeds';
+import { changedAppointmentById } from './computeds';
 
 describe('EditingState computeds', () => {
   describe('#changedAppointmentById', () => {
@@ -13,15 +10,6 @@ describe('EditingState computeds', () => {
       expect(computed).toEqual({
         o2: { b: 1 },
       });
-    });
-  });
-
-  describe('#addedAppointmentById', () => {
-    it('should work', () => {
-      const addedAppointment = { b: 1 };
-
-      const computed = addedAppointmentById(addedAppointment);
-      expect(computed).toEqual({ b: 1 });
     });
   });
 });

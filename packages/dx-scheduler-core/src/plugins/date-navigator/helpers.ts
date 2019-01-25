@@ -1,6 +1,12 @@
-import moment from 'moment';
+import * as moment from 'moment';
+import { PureComputed } from '@devexpress/dx-core';
+import {
+  CurrentDate, NavigationStep, IntervalCount, StartViewDate, EndViewDate,
+} from '../../types';
 
-const calculateTextByDays = (startViewDate, endViewDate) => {
+const calculateTextByDays: PureComputed<
+  [StartViewDate, EndViewDate], string
+> = (startViewDate, endViewDate) => {
   const momentStartViewDate = moment(startViewDate);
   const momentEndViewDate = moment(endViewDate);
 
@@ -16,7 +22,9 @@ const calculateTextByDays = (startViewDate, endViewDate) => {
   return `${momentStartViewDate.format('D MMM YY')} - ${momentEndViewDate.format('D MMM YY')}`;
 };
 
-const calculateTextByMonths = (currentDate, intervalCount) => {
+const calculateTextByMonths: PureComputed<
+[StartViewDate, IntervalCount], string
+> = (currentDate, intervalCount) => {
   const momentCurrentDate = moment(currentDate);
 
   if (intervalCount === 1) {
@@ -29,7 +37,9 @@ const calculateTextByMonths = (currentDate, intervalCount) => {
   return `${momentCurrentDate.format('MMM YY')} - ${lastMonth.format('MMM YY')}`;
 };
 
-export const viewBoundText = (startViewDate, endViewDate, step, currentDate, intervalCount) => (
+export const viewBoundText: PureComputed<
+[StartViewDate, EndViewDate, NavigationStep, CurrentDate, IntervalCount], string
+> = (startViewDate, endViewDate, step, currentDate, intervalCount) => (
   step !== 'month'
     ? calculateTextByDays(startViewDate, endViewDate)
     : calculateTextByMonths(currentDate, intervalCount)

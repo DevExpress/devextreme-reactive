@@ -9,6 +9,8 @@ export type ViewName = string;
 export type CurrentTime = Date | number | string;
 export type StartViewDate = Date;
 export type EndViewDate = Date;
+export type IntervalCount = number;
+export type Index = number | string;
 
 export interface AppointmentModel {
   /** The start date. */

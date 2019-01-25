@@ -1,6 +1,5 @@
 import {
   addAppointment,
-  changeAddedAppointment,
   cancelAddedAppointment,
   startEditAppointment,
   stopEditAppointment,
@@ -18,19 +17,19 @@ describe('EditingState reducers', () => {
       expect(nextAddedAppointment).toEqual({ a: 2 });
     });
   });
-  describe('#changeAddedAppointment', () => {
+  describe('#changeAppointment', () => {
     it('should work', () => {
-      const addedAppointment = { a: 2 };
+      const addedAppointment = {};
       const payload = { change: { a: 3 } };
 
-      const nextAddedAppointment = changeAddedAppointment(addedAppointment, payload);
+      const nextAddedAppointment = changeAppointment(addedAppointment, payload);
       expect(nextAddedAppointment).toEqual({ a: 3 });
     });
     it('should combine many fields', () => {
       const addedAppointment = { a: 2 };
       const payload = { change: { b: 3 } };
 
-      const nextAddedAppointment = changeAddedAppointment(addedAppointment, payload);
+      const nextAddedAppointment = changeAppointment(addedAppointment, payload);
       expect(nextAddedAppointment).toEqual({ a: 2, b: 3 });
     });
   });
@@ -52,14 +51,6 @@ describe('EditingState reducers', () => {
     it('should work', () => {
       expect(stopEditAppointment())
         .toEqual(undefined);
-    });
-  });
-  describe('#changeAppointment', () => {
-    it('should work', () => {
-      const addedAppointment = { a: 0 };
-      const change = { a: 1, b: 2 };
-      expect(changeAppointment(addedAppointment, { change }))
-        .toEqual({ a: 1, b: 2 });
     });
   });
   describe('#cancelChanges', () => {

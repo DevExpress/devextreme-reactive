@@ -4,6 +4,24 @@ $font-family-sans-serif: "Segoe UI", sans-serif;
 
 @import "../../../node_modules/bootstrap/scss/functions";
 @import "../../../node_modules/bootstrap/scss/variables";
+
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 800px,
+  md: 1000px,
+  lg: 1360px,
+  xl: 1800px
+);
+
+$container-max-widths: (
+  sm: 760px,
+  md: 920px,
+  lg: 1200px,
+  xl: 1200px
+);
+
+
 @import "../../../node_modules/bootstrap/scss/mixins";
 
 @import "../../../node_modules/bootstrap/scss/reboot";
@@ -37,12 +55,6 @@ $font-family-sans-serif: "Segoe UI", sans-serif;
 .col-xl-auto {
   padding-right: 10px;
   padding-left: 10px;
-}
-
-@media (min-width: 1200px) {
-  .container {
-      max-width: 1200px;
-  }
 }
 
 pre {

@@ -18,13 +18,13 @@ export const Root = ({
       type="back"
       onClick={() => { onNavigate('back'); }}
     />
-    <OpenButton
-      onVisibilityToggle={onVisibilityToggle}
-      text={navigatorText}
-    />
     <NavigationButton
       type="forward"
       onClick={() => { onNavigate('forward'); }}
+    />
+    <OpenButton
+      onVisibilityToggle={onVisibilityToggle}
+      text={navigatorText}
     />
   </div>
 );

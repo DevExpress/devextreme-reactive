@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
   root: {
+    flex: 1,
     overflow: 'auto',
     WebkitOverflowScrolling: 'touch',
     // NOTE: fix sticky positioning in Safari

@@ -1,38 +1,25 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
 
-const styles = {
-  button: {
-    textTransform: 'none',
-    width: 190,
-  },
-};
-
-const OpenButtonBase = ({
-  text, classes, onVisibilityToggle, className, ...restProps
+export const OpenButton = ({
+  text, onVisibilityToggle, ...restProps
 }) => (
   <Button
     onClick={onVisibilityToggle}
-    className={classNames(classes.button, className)}
     {...restProps}
   >
     {text}
   </Button>
 );
 
-OpenButtonBase.propTypes = {
+OpenButton.propTypes = {
   onVisibilityToggle: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
   text: PropTypes.string,
   className: PropTypes.string,
 };
 
-OpenButtonBase.defaultProps = {
+OpenButton.defaultProps = {
   text: '',
   className: undefined,
 };
-
-export const OpenButton = withStyles(styles, { name: 'OpenButton' })(OpenButtonBase);

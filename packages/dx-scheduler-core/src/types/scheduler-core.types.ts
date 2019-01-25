@@ -1,4 +1,10 @@
 export type CurrentViewType = string;
+export type CurrentDate = Date;
+export type FirstDayOfWeek = number;
+export type DayCount = number;
+export type StartDayHour = number;
+export type EndDayHour = number;
+export type CellDuration = number;
 
 export interface AppointmentModel {
   /** The start date. */

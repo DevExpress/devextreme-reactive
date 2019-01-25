@@ -1,9 +1,16 @@
-import moment from 'moment';
+import * as moment from 'moment';
+import { PureComputed } from '@devexpress/dx-core';
+import {
+  CurrentDate, FirstDayOfWeek, DayCount, ExcludedDays,
+  StartDayHour, EndDayHour, CellDuration,
+} from '../../types';
 import { calculateFirstDateOfWeek } from '../../utils';
 
-const subtractSecond = date => moment(date).subtract(1, 'second').toDate();
+const subtractSecond: PureComputed<[Date]> = date => moment(date).subtract(1, 'second').toDate();
 
-export const dayScale = (
+export const dayScale: PureComputed<
+  [CurrentDate, FirstDayOfWeek, DayCount, ExcludedDays], Date[]
+> = (
   currentDate,
   firstDayOfWeek,
   dayCount,
@@ -22,7 +29,9 @@ export const dayScale = (
   return result;
 };
 
-export const timeScale = (
+export const timeScale: PureComputed<
+  [CurrentDate, FirstDayOfWeek, StartDayHour, EndDayHour, CellDuration, ExcludedDays]
+> = (
   currentDate,
   firstDayOfWeek,
   startDayHour,

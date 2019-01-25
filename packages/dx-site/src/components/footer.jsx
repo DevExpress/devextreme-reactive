@@ -6,30 +6,35 @@ const Footer = () => (
   <footer className={styles.footer}>
     <div className="container">
       <div className="row">
-        <div className={`col-md-4 ${styles.links}`}>
-          <a
-            href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Blog
-          </a>
-          <a
-            href="https://github.com/DevExpress/devextreme-reactive"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            GitHub
-          </a>
-          <a
-            href="https://js.devexpress.com/Buy/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Buy
-          </a>
+        <div className="col-md-3">
+          <div className={styles.links}>
+            <a
+              href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Blog"
+            >
+              Blog
+            </a>
+            <a
+              href="https://github.com/DevExpress/devextreme-reactive"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="GitHub"
+            >
+              GitHub
+            </a>
+            <a
+              href="https://js.devexpress.com/Buy/"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Buy"
+            >
+              Buy
+            </a>
+          </div>
         </div>
-        <div className={`col-md-8 ${styles.copyright}`}>
+        <div className={`col-md-9 ${styles.copyright}`}>
           Copyright © 2011-
           {new Date().getFullYear()}
           {' '}

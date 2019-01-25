@@ -1,3 +1,5 @@
+@import '../constants';
+
 .footer {
   background-color: #f0f2f4;
   padding: 50px 0;
@@ -14,6 +16,7 @@
 
 .links {
   margin-bottom: 50px;
+  padding-left: $inner-offset;
   a {
     margin: 0 10px;
     color: rgba(51, 51, 51, 255);

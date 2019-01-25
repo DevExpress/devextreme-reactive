@@ -1,15 +1,18 @@
-import moment from 'moment';
+import * as moment from 'moment';
+import { CustomFunction } from '@devexpress/dx-core';
 import {
-  viewPredicate,
-} from '../../utils';
-import {
-  sliceAppointmentByWeek,
-} from './helpers';
+  FirstDayOfWeek, IntervalCount, CurrentDate, Today, MonthCellData,
+  AppointmentCore, AppointmentMoment, LeftBound, RightBound,
+} from '../../types';
+import { viewPredicate } from '../../utils';
+import { sliceAppointmentByWeek } from './helpers';
 
 const DAY_COUNT = 7;
 const MONTH_LENGTH = 31;
 
-export const monthCellsData = (
+export const monthCellsData: CustomFunction<
+  [CurrentDate, FirstDayOfWeek, IntervalCount, Today], MonthCellData[][]
+> = (
   currentDate,
   firstDayOfWeek,
   intervalCount = 1,
@@ -48,18 +51,18 @@ export const monthCellsData = (
   return result;
 };
 
-export const calculateMonthDateIntervals = (
-  appointments,
-  leftBound, rightBound,
+export const calculateMonthDateIntervals: CustomFunction<
+  [AppointmentCore[], LeftBound, RightBound], AppointmentMoment[]
+> = (
+  appointments, leftBound, rightBound,
 ) => appointments
   .map(({ start, end, ...restArgs }) => ({ start: moment(start), end: moment(end), ...restArgs }))
   .filter(appointment => viewPredicate(appointment, leftBound, rightBound))
-  .reduce((acc, appointment) => (
-    [
-      ...acc,
-      ...sliceAppointmentByWeek(
-        { left: moment(leftBound), right: moment(rightBound) },
-        appointment,
-        DAY_COUNT,
-      ),
-    ]), []);
+  .reduce((acc, appointment) => ([
+    ...acc,
+    ...sliceAppointmentByWeek(
+      { left: moment(leftBound), right: moment(rightBound) },
+      appointment,
+      DAY_COUNT,
+    ),
+  ]), []);

@@ -1,6 +1,7 @@
 export type CurrentViewType = string;
 export type CurrentDate = Date;
-export type FirstDayOfWeek = number | undefined;
+export type Today = Date;
+export type FirstDayOfWeek = number;
 export type DayCount = number;
 export type StartDayHour = number;
 export type EndDayHour = number;
@@ -11,6 +12,8 @@ export type StartViewDate = Date;
 export type EndViewDate = Date;
 export type IntervalCount = number;
 export type Index = number | string;
+export type CellElement = React.ReactInstance;
+export type Multiline = boolean;
 
 export interface AppointmentModel {
   /** The start date. */

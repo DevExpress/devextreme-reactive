@@ -5,7 +5,7 @@ export type RightBound = Date;
 export type ExcludedDays = number[];
 
 export type ViewCellData = { startDate: Date; endDate: Date; };
-export type TakePrev = boolean;
+export type TakePrevious = boolean;
 
 export interface AppointmentMoment {
   /** The appointment start date */

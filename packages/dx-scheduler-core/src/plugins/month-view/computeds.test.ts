@@ -1,6 +1,4 @@
-import {
-  monthCellsData,
-} from './computeds';
+import { monthCellsData } from './computeds';
 
 describe('Month view computeds', () => {
   describe('#monthCellsData', () => {

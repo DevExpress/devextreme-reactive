@@ -1,6 +1,12 @@
-import moment from 'moment';
+import * as moment from 'moment';
+import { CustomFunction } from '@devexpress/dx-core';
+import {
+  TimeBounds, AppointmentMoment, Step, TakePrevious, Index, ViewCellData,
+} from '../../types';
 
-export const sliceAppointmentByWeek = (timeBounds, appointment, step) => {
+export const sliceAppointmentByWeek: CustomFunction<
+  [TimeBounds, AppointmentMoment, Step], AppointmentMoment[]
+> = (timeBounds, appointment, step) => {
   const { left, right } = timeBounds;
   const pieces = [];
   const { start, end, ...restFields } = appointment;
@@ -31,7 +37,9 @@ export const sliceAppointmentByWeek = (timeBounds, appointment, step) => {
   return pieces;
 };
 
-export const getMonthCellIndexByDate = (viewCellsData, date, takePrev = false) => {
+export const getMonthCellIndexByDate: CustomFunction<
+[ViewCellData[][], Date, TakePrevious], Index
+> = (viewCellsData, date, takePrev = false) => {
   const startViewDate = moment(viewCellsData[0][0].startDate);
   const currentDate = moment(date);
   let cellIndex = currentDate.diff(startViewDate, 'days');

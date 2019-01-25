@@ -4,3 +4,5 @@ export * from './appointment-form.types';
 export * from './appointment-tooltip.types';
 export * from './date-navigator.types';
 export * from './editing-state.types';
+export * from './horizontal-rect.types';
+export * from './month-view.types';

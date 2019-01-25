@@ -26,7 +26,9 @@ describe('MonthView Helpers', () => {
     });
 
     it('should slice appointment if it starts on first week and ends on second', () => {
-      const appointment = { start: moment('2018-07-11 22:00'), end: moment('2018-07-12 09:00'), dataItem: { id: 1 } };
+      const appointment = {
+        start: moment('2018-07-11 22:00'), end: moment('2018-07-12 09:00'), dataItem: { id: 1 },
+      };
 
       const slicedAppointment = sliceAppointmentByWeek(bounds, appointment, 7);
       expect(slicedAppointment)
@@ -42,7 +44,9 @@ describe('MonthView Helpers', () => {
     });
 
     it('should slice appointment if it starts on first week and ends on third', () => {
-      const appointment = { start: moment('2018-07-09 16:00'), end: moment('2018-07-23 05:00'), dataItem: { id: 1 } };
+      const appointment = {
+        start: moment('2018-07-09 16:00'), end: moment('2018-07-23 05:00'), dataItem: { id: 1 },
+      };
 
       const slicedAppointment = sliceAppointmentByWeek(bounds, appointment, 7);
       expect(slicedAppointment)

@@ -4,7 +4,7 @@ import Layout from '../components/layout';
 import Header from '../components/header';
 import ProductLogo from '../components/logos/product';
 import LandingHeaderAddon from '../components/landing/header-addon';
-import LandingContentWrapper from '../components/landing/content-wrapper';
+import LandingAlternatedBackground from '../components/landing/alternated-background';
 import LandingLayout from '../components/landing/layout';
 import LandingTitle from '../components/landing/title';
 import LandingImageFeature from '../components/landing/image-feature';
@@ -14,6 +14,7 @@ import LandingMaintainence from '../components/landing/maintainence';
 import LandingProductLayout from '../components/landing/product-layout';
 import LandingProductBlock from '../components/landing/product-block';
 import LandingLink from '../components/landing/link';
+import LandingChessBoardLayout from '../components/landing/chess-board-layout';
 
 import headerLink from './images/header.png';
 import bootstrapLogo from './images/bootstrap-logo.svg';
@@ -26,7 +27,7 @@ import imageBoxLink from './images/image-box.png';
 const IndexPage = () => (
   <Layout>
     <Helmet title="React Components" />
-    <LandingContentWrapper highlighted>
+    <LandingAlternatedBackground>
       <Header
         logo={<ProductLogo link="react" />}
         addon={(
@@ -113,8 +114,8 @@ const IndexPage = () => (
           ]}
         />
       </LandingProductLayout>
-    </LandingContentWrapper>
-    <LandingContentWrapper highlighted>
+    </LandingAlternatedBackground>
+    <LandingAlternatedBackground>
       <LandingLayout>
         <LandingTitle
           text="Why DevExtreme for React?"
@@ -130,74 +131,106 @@ const IndexPage = () => (
           description="We ship additional Material-UI packages that allow you to utilize the familiar approaches and appearance."
         />
       </LandingLayout>
-    </LandingContentWrapper>
+    </LandingAlternatedBackground>
 
+    <LandingChessBoardLayout
+      firstChild={(
+        <LandingFeatureDescription
+          title="100% Native React"
+          description="We've focused our energy on performance and leveraged the best practice recomendations oferred by the React team. Through immutability and pure functions, we can apply memoization and built-in react optimisations to archieve outstanding performance."
+        />
+        )}
+      secondChild={(
+        <LandingFeaturePreview
+          title="100% Native React"
+          imageLink={imageBoxLink}
+        />
+        )}
+    />
 
-    <LandingContentWrapper flex withContainer>
-      <LandingFeatureDescription
-        title="100% Native React"
-        description="We've focused our energy on performance and leveraged the best practice recomendations oferred by the React team. Through immutability and pure functions, we can apply memoization and built-in react optimisations to archieve outstanding performance."
+    <LandingAlternatedBackground>
+      <LandingChessBoardLayout
+        reversed
+        firstChild={(
+          <LandingFeatureDescription
+            title="Loves Redux by Design"
+            description="Fully control React Grid state and treat it as a pure view component. Effortlessly enable state persistence and time-traveling without side-effects. Our React Grid can also manage its state internally helping you write less code, so you focus on more important business tasks."
+          />
+        )}
+        secondChild={(
+          <LandingFeaturePreview
+            title="Loves Redux by Design"
+            imageLink={imageBoxLink}
+          />
+        )}
       />
-      <LandingFeaturePreview
-        title="100% Native React"
-        imageLink={imageBoxLink}
-      />
-    </LandingContentWrapper>
+    </LandingAlternatedBackground>
 
-    <LandingContentWrapper flex highlighted leftImage withContainer>
-      <LandingFeatureDescription
-        title="Loves Redux by Design"
-        description="Fully control React Grid state and treat it as a pure view component. Effortlessly enable state persistence and time-traveling without side-effects. Our React Grid can also manage its state internally helping you write less code, so you focus on more important business tasks."
-      />
-      <LandingFeaturePreview
-        title="Loves Redux by Design"
-        imageLink={imageBoxLink}
-      />
-    </LandingContentWrapper>
+    <LandingChessBoardLayout
+      firstChild={(
+        <LandingFeatureDescription
+          title="Plugin-based Architecture"
+          description="DevExtreme Reactive Components are built of plugins. Add and deploy only the features you need or extend the built-in functionality with your or third-party custom plugins."
+        />
+      )}
+      secondChild={(
+        <LandingFeaturePreview
+          title="Plugin-based Architecture"
+          imageLink={imageBoxLink}
+        />
+      )}
+    />
 
-    <LandingContentWrapper flex withContainer>
-      <LandingFeatureDescription
-        title="Plugin-based Architecture"
-        description="DevExtreme Reactive Components are built of plugins. Add and deploy only the features you need or extend the built-in functionality with your or third-party custom plugins."
+    <LandingAlternatedBackground>
+      <LandingChessBoardLayout
+        reversed
+        firstChild={(
+          <LandingFeatureDescription
+            title="TypeScript Support"
+            description="DevExtreme Reactive Components are built of plugins. Add and deploy only the features you need or extend the built-in functionality with your or third-party custom plugins."
+          />
+        )}
+        secondChild={(
+          <LandingFeaturePreview
+            title="TypeScript Support"
+            imageLink={imageBoxLink}
+          />
+        )}
       />
-      <LandingFeaturePreview
-        title="Plugin-based Architecture"
-        imageLink={imageBoxLink}
-      />
-    </LandingContentWrapper>
+    </LandingAlternatedBackground>
 
-    <LandingContentWrapper flex highlighted leftImage withContainer>
-      <LandingFeatureDescription
-        title="TypeScript Support"
-        description="DevExtreme Reactive Components are built of plugins. Add and deploy only the features you need or extend the built-in functionality with your or third-party custom plugins."
-      />
-      <LandingFeaturePreview
-        title="TypeScript Support"
-        imageLink={imageBoxLink}
-      />
-    </LandingContentWrapper>
+    <LandingChessBoardLayout
+      firstChild={(
+        <LandingFeatureDescription
+          title="Localization Capabilities"
+          description="Every text element of the components UI is customizable. So, it's ready for localization or globalization if you need it in your app."
+        />
+      )}
+      secondChild={(
+        <LandingFeaturePreview
+          title="Localization Capabilities"
+          imageLink={imageBoxLink}
+        />
+      )}
+    />
 
-    <LandingContentWrapper flex withContainer>
-      <LandingFeatureDescription
-        title="Localization Capabilities"
-        description="Every text element of the components UI is customizable. So, it's ready for localization or globalization if you need it in your app."
+    <LandingAlternatedBackground>
+      <LandingChessBoardLayout
+        reversed
+        firstChild={(
+          <LandingFeatureDescription
+            title="Simple Docs with Live Examples"
+            description="Every component feature has a complete API reference and a usage guide with code examples and live demos with sources available on GitHub."
+          />
+        )}
+        secondChild={(
+          <LandingFeaturePreview
+            title="Simple Docs with Live Examples"
+            imageLink={imageBoxLink}
+          />
+        )}
       />
-      <LandingFeaturePreview
-        title="Localization Capabilities"
-        imageLink={imageBoxLink}
-      />
-    </LandingContentWrapper>
-
-    <LandingContentWrapper flex highlighted leftImage withContainer>
-      <LandingFeatureDescription
-        title="Simple Docs with Live Examples"
-        description="Every component feature has a complete API reference and a usage guide with code examples and live demos with sources available on GitHub."
-      />
-      <LandingFeaturePreview
-        title="Simple Docs with Live Examples"
-        imageLink={imageBoxLink}
-      />
-    </LandingContentWrapper>
+    </LandingAlternatedBackground>
 
     <LandingMaintainence />
     <LandingProductLayout

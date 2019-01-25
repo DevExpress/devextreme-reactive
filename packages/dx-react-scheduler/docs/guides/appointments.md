@@ -9,13 +9,13 @@ The Scheduler component provides few appointment types.
 
 ## One-Time Appointment
 
-The one-time appointment with specified start and end dates. These appointments are displayed in the following demo. To display one-time appointments in the views add the [Appointments](../reference/appointments.md) plugin.
+The one-time appointment is specified start and end dates. These appointments are displayed in the following demo. To display one-time appointments in the views add the [Appointments](../reference/appointments.md) plugin.
 
 .embedded-demo({ "path": "scheduler-basic/day", "showThemeSelector": true })
 
 ## All-Day Appointment
 
-The all-day appointment that covers the whole day or multiple days. By default, all-day appointments are rendered only on the [MonthView](../reference/month-view.md). To display them on the day or week views use the [AllDayPanel](../reference/all-day-panel.md) plugin.
+The all-day appointment covers the whole day or multiple days. By default, all-day appointments are rendered only on the [MonthView](../reference/month-view.md). To display them on the day or week views use the [AllDayPanel](../reference/all-day-panel.md) plugin.
 
 .embedded-demo({ "path": "scheduler-all-day-panel/week-view", "showThemeSelector": true })
 

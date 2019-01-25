@@ -1,6 +1,9 @@
+@import '../../constants';
+
 .title {
   font-family: "Segoe UI Light";
   font-size: 42px;
   color: rgba(24, 60, 87, 255);
   margin-bottom: 30px;
+  padding-left: $inner-offset;
 }

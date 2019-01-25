@@ -2,7 +2,8 @@ import * as moment from 'moment';
 import { PureComputed } from '@devexpress/dx-core';
 import {
   CurrentDate, FirstDayOfWeek, DayCount, ExcludedDays,
-  StartDayHour, EndDayHour, CellDuration,
+  StartDayHour, EndDayHour, CellDuration, TimeScale,
+  ViewName, CurrentTime, ViewCell, StartViewDate, EndViewDate,
 } from '../../types';
 import { calculateFirstDateOfWeek } from '../../utils';
 
@@ -30,7 +31,7 @@ export const dayScale: PureComputed<
 };
 
 export const timeScale: PureComputed<
-  [CurrentDate, FirstDayOfWeek, StartDayHour, EndDayHour, CellDuration, ExcludedDays]
+  [CurrentDate, FirstDayOfWeek, StartDayHour, EndDayHour, CellDuration, ExcludedDays], TimeScale[]
 > = (
   currentDate,
   firstDayOfWeek,
@@ -55,16 +56,21 @@ export const timeScale: PureComputed<
   return result;
 };
 
-export const availableViewNames = (viewNames, viewName) => {
+export const availableViewNames: PureComputed<
+  [ViewName[], ViewName], ViewName[]
+> = (viewNames, viewName) => {
   if (!viewNames) return [viewName];
   if (viewNames.findIndex(view => viewName === view) === -1) {
     const nextViewNames = viewNames.slice();
     nextViewNames.push(viewName);
     return nextViewNames;
-  } return viewNames;
+  }
+  return viewNames;
 };
 
-export const viewCellsData = (
+export const viewCellsData: PureComputed<
+  [CurrentDate, FirstDayOfWeek, DayCount, ExcludedDays, StartDayHour, EndDayHour, CellDuration, CurrentTime], ViewCell[][]
+> = (
   currentDate, firstDayOfWeek,
   dayCount, excludedDays,
   startDayHour, endDayHour, cellDuration,
@@ -97,14 +103,20 @@ export const viewCellsData = (
   return cells;
 };
 
-export const allDayCells = viewCells => viewCells[0].map(cell => ({
+export const allDayCells: PureComputed<
+  [ViewCell[][]], ViewCell[][]
+> = viewCells => viewCells[0].map(cell => ({
   startDate: moment(cell.startDate).startOf('day').toDate(),
   endDate: moment(cell.startDate).add(1, 'day').startOf('day').toDate(),
 }));
 
-export const startViewDate = viewCells => moment(viewCells[0][0].startDate).toDate();
+export const startViewDate: PureComputed<
+  [ViewCell[][]], StartViewDate
+> = viewCells => moment(viewCells[0][0].startDate).toDate();
 
-export const endViewDate = (viewCells) => {
+export const endViewDate: PureComputed<
+[ViewCell[][]], EndViewDate
+> = (viewCells) => {
   const lastRowIndex = viewCells.length - 1;
   const lastCellIndex = viewCells[lastRowIndex].length - 1;
   return subtractSecond(viewCells[lastRowIndex][lastCellIndex].endDate);

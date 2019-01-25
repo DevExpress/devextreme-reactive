@@ -1,6 +1,4 @@
-import {
-  getViewType,
-} from './helpers';
+import { getViewType } from './helpers';
 import { VERTICAL_TYPE, HORIZONTAL_TYPE } from '../../constants';
 
 describe('#getViewType', () => {

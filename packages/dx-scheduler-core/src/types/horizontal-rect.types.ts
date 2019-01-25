@@ -5,7 +5,7 @@ export interface HorizontalPayload {
   multiline: Multiline;
   viewCellsData: ViewCellData[][];
   cellElements: CellElement[][];
-};
+}
 
 export interface Rect {
   top: number;

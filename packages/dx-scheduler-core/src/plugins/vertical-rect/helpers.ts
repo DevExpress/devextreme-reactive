@@ -1,14 +1,27 @@
-import moment from 'moment';
+import * as moment from 'moment';
+import { CustomFunction } from '@devexpress/dx-core';
+import {
+  ViewCellData, TakePrevious, CellByDate, CellDuration,
+  CellElement, VerticalCellRect, VerticalPayload, StartDate, EndDate,
+} from '../../types';
 
 const CELL_GAP_PX = 10;
 const CELL_BOUND_HORIZONTAL_OFFSET_PX = 1;
 const CELL_BOUND_VERTICAL_OFFSET_PX = 4;
 
-export const getCellByDate = (viewCellsData, date, takePrev = false) => {
-  const cellIndex = viewCellsData[0].findIndex(timeCell => moment(date).isSame(timeCell.startDate, 'date'));
+export const getCellByDate: CustomFunction<
+  [ViewCellData[][], Date, TakePrevious], CellByDate
+> = (viewCellsData, date, takePrev = false) => {
+  const cellIndex =
+    viewCellsData[0].findIndex(timeCell => moment(date).isSame(timeCell.startDate, 'date'));
 
   const rowIndex = viewCellsData.findIndex(timeCell => moment(date)
-    .isBetween(timeCell[cellIndex].startDate, timeCell[cellIndex].endDate, null, takePrev ? '(]' : '[)'));
+    .isBetween(
+      timeCell[cellIndex].startDate,
+      timeCell[cellIndex].endDate,
+      null,
+      takePrev ? '(]' : '[)'),
+    );
 
   const totalCellIndex = (rowIndex * viewCellsData[0].length) + cellIndex;
   return {
@@ -17,7 +30,9 @@ export const getCellByDate = (viewCellsData, date, takePrev = false) => {
   };
 };
 
-const getCellRect = (date, viewCellsData, cellDuration, cellElements, takePrev) => {
+const getCellRect: CustomFunction<
+  [Date, ViewCellData[][], CellDuration, CellElement[][], TakePrevious], VerticalCellRect
+> = (date, viewCellsData, cellDuration, cellElements, takePrev) => {
   const {
     index: cellIndex,
     startDate: cellStartDate,
@@ -46,7 +61,9 @@ const getCellRect = (date, viewCellsData, cellDuration, cellElements, takePrev) 
   };
 };
 
-export const getVerticalRectByDates = (
+export const getVerticalRectByDates: CustomFunction<
+  [StartDate, EndDate, VerticalPayload], VerticalCellRect
+> = (
   startDate,
   endDate,
   {

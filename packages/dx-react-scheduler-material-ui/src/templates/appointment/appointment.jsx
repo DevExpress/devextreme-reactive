@@ -3,13 +3,14 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 
-const styles = ({ palette, typography }) => ({
+const styles = ({ palette, typography, spacing }) => ({
   appointment: {
     overflow: 'hidden',
     boxSizing: 'border-box',
     borderRight: '1px solid transparent',
     borderBottom: '1px solid transparent',
     backgroundClip: 'padding-box',
+    borderRadius: spacing.unit / 2,
     backgroundColor: palette.primary[300],
     ...typography.caption,
     '&:hover': {

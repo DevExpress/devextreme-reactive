@@ -99,6 +99,14 @@ gulp.task('site:clean', function() {
   ], { read: false }).pipe(clean());
 });
 
+gulp.task('site:docs:img', function() {
+  return gulp.src(['packages/dx-react-scheduler/docs/*/*.png'], { base: 'packages' })
+    .pipe(rename(function(path) {
+      path.dirname = splitNameToPath('', path.dirname);
+    }))
+    .pipe(gulp.dest(distPath));
+});
+
 gulp.task('site:docs', function() {
   return gulp.src([
       'packages/dx-react-common/docs/*/*.md',
@@ -162,6 +170,7 @@ gulp.task('site:demos:vue:grid', function() {
 gulp.task('site', gulp.series(
   'site:clean',
   'site:docs',
+  'site:docs:img',
   'site:demos:react:grid',
   'site:demos:vue:grid',
   'site:demos:react:chart',

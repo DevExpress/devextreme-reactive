@@ -18,8 +18,8 @@ export interface VerticalCellRectByDate extends CellRect {
   height: number;
 }
 
-export interface VerticalPayload {
+export type VerticalPayload = {
   viewCellsData: ViewCellData[][];
   cellDuration: CellDuration;
   cellElements: CellElement[];
-}
+};

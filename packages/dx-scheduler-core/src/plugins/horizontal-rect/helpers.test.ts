@@ -152,7 +152,6 @@ describe('Horizontal rect helpers', () => {
         },
       );
 
-
       expect(getMonthCellIndexByDate)
         .not.toBeCalled();
       expect(getAllDayCellIndexByDate)

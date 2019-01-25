@@ -1,12 +1,16 @@
-import moment from 'moment';
+import * as moment from 'moment';
+import { PureReducer } from '@devexpress/dx-core';
+import {
+  CurrentDatePayload, CurrentDate, ViewName,
+} from '../../types';
 
-export const changeCurrentDate = (currentDate, {
-  nextDate,
-  step,
-  amount,
-  direction,
+export const changeCurrentDate: PureReducer<CurrentDate, CurrentDatePayload, Date> = (
+  currentDate, {
+  nextDate, step, amount, direction,
 }) => (
   nextDate || moment(currentDate)[direction === 'back' ? 'subtract' : 'add'](amount, step).toDate()
 );
 
-export const setCurrentViewName = (currentViewName, nextViewName) => nextViewName;
+export const setCurrentViewName: PureReducer<
+  ViewName, ViewName, ViewName
+> = (currentViewName, nextViewName) => nextViewName;

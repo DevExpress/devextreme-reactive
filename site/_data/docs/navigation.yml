@@ -303,6 +303,8 @@
         path: /react/scheduler/docs/guides/fundamentals
       - title: View Switching
         path: /react/scheduler/docs/guides/view-switching
+      - title: Editing
+        path: /react/scheduler/docs/guides/editing
   - title: API Reference
     items:
       - title: AllDayPanel

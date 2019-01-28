@@ -1,17 +1,13 @@
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
-
 import { ViewState } from '@devexpress/dx-react-scheduler';
-
 import {
   Scheduler,
   DayView,
   WeekView,
-  MonthView,
   Appointments,
   Toolbar,
   ViewSwitcher,
-  DateNavigator,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
 import { appointments } from '../../../demo-data/month-appointments';
@@ -22,15 +18,11 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       data: appointments,
-      currentViewName: 'Work Week',
-    };
-    this.currentViewNameChange = (currentViewName) => {
-      this.setState({ currentViewName });
     };
   }
 
   render() {
-    const { data, currentViewName } = this.state;
+    const { data } = this.state;
 
     return (
       <Paper>
@@ -39,8 +31,7 @@ export default class Demo extends React.PureComponent {
         >
           <ViewState
             defaultCurrentDate="2018-07-25"
-            currentViewName={currentViewName}
-            onCurrentViewNameChange={this.currentViewNameChange}
+            defaultCurrentViewName="Week"
           />
 
           <DayView
@@ -51,17 +42,9 @@ export default class Demo extends React.PureComponent {
             startDayHour={10}
             endDayHour={19}
           />
-          <WeekView
-            name="Work Week"
-            excludedDays={[0, 6]}
-            startDayHour={9}
-            endDayHour={19}
-          />
-          <MonthView />
 
           <Toolbar />
           <ViewSwitcher />
-          <DateNavigator />
           <Appointments />
         </Scheduler>
       </Paper>

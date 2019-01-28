@@ -78,6 +78,8 @@ var injectLiveDemos = function(content) {
           ...data,
           path: `/demo/${data.path}`,
           scriptPath: `{{site.baseurl}}/{{page.demos_script_link}}/dist/index.js?v={{ site.time | date: '%s' }}`,
+          firstPart: `{{site.baseurl}}//react/`,
+          lastPart: `/demos/dist/index.js?v={{ site.time | date: '%s' }}`
         };
         return `<div
           class="embedded-demo"
@@ -92,17 +94,22 @@ var injectLiveDemos = function(content) {
 
 gulp.task('site:clean', function() {
   return gulp.src([
-    'site/react/core/**/*.md',
-    'site/react/grid/**/*.md',
-    'site/react/chart/**/*.md',
-    'site/react/scheduler/**/*.md',
-    'site/vue/grid/**/*.md',
-  ], { read: false })
-    .pipe(clean());
+    'site/react/**/*.md',
+    'site/vue/**/*.md',
+  ], { read: false }).pipe(clean());
+});
+
+gulp.task('site:docs:img', function() {
+  return gulp.src(['packages/dx-react-scheduler/docs/*/*.png'], { base: 'packages' })
+    .pipe(rename(function(path) {
+      path.dirname = splitNameToPath('', path.dirname);
+    }))
+    .pipe(gulp.dest(distPath));
 });
 
 gulp.task('site:docs', function() {
   return gulp.src([
+      'packages/dx-react-common/docs/*/*.md',
       'packages/dx-react-core/docs/*/*.md',
       'packages/dx-react-grid/demos/*/*.md',
       'packages/dx-react-grid/docs/*/*.md',
@@ -150,16 +157,23 @@ gulp.task('site:demos:react:scheduler', function() {
     .pipe(gulp.dest(distPath + 'react/scheduler/demos/dist/'));
 });
 
+gulp.task('site:demos:react:common', function() {
+  return gulp.src(['packages/dx-react-common/dist/*'])
+    .pipe(gulp.dest(distPath + 'react/common/dist/'));
+});
+
 gulp.task('site:demos:vue:grid', function() {
   return gulp.src(['packages/dx-vue-grid-demos/dist/*'])
     .pipe(gulp.dest(distPath + 'vue/grid/demos/dist/'));
 });
 
 gulp.task('site', gulp.series(
-    'site:clean',
-    'site:docs',
-    'site:demos:react:grid',
-    'site:demos:vue:grid',
-    'site:demos:react:chart',
-    'site:demos:react:scheduler',
+  'site:clean',
+  'site:docs',
+  'site:docs:img',
+  'site:demos:react:grid',
+  'site:demos:vue:grid',
+  'site:demos:react:chart',
+  'site:demos:react:scheduler',
+  'site:demos:react:common',
 ));

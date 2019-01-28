@@ -1,6 +1,12 @@
-import moment from 'moment';
+import * as moment from 'moment';
+import { CustomFunction } from '@devexpress/dx-core';
+import {
+  AppointmentMoment, LeftBound, RightBound, ExcludedDays,
+} from '../../types';
 
-export const sliceAppointmentByDay = (appointment) => {
+export const sliceAppointmentByDay: CustomFunction<
+  [AppointmentMoment], AppointmentMoment[]
+> = (appointment) => {
   const { start, end, dataItem } = appointment;
   if (start.isSame(end, 'day')) {
     return [appointment];
@@ -11,7 +17,9 @@ export const sliceAppointmentByDay = (appointment) => {
   ];
 };
 
-export const dayBoundaryPredicate = (
+export const dayBoundaryPredicate: CustomFunction<
+[AppointmentMoment, LeftBound, RightBound, ExcludedDays], boolean
+> = (
   appointment,
   leftBound, rightBound,
   excludedDays = [],
@@ -31,7 +39,9 @@ export const dayBoundaryPredicate = (
     && appointment.start.isBefore(endDayTime));
 };
 
-export const reduceAppointmentByDayBounds = (appointment, leftBound, rightBound) => {
+export const reduceAppointmentByDayBounds: CustomFunction<
+  [AppointmentMoment, LeftBound, RightBound], AppointmentMoment
+> = (appointment, leftBound, rightBound) => {
   const dayStart = moment(leftBound);
   const dayEnd = moment(rightBound);
   const startDayTime = moment(appointment.start)

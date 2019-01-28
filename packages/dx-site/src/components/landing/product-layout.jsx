@@ -5,7 +5,7 @@ import styles from './product-layout.module.scss';
 
 const ProductLayout = ({ position, children }) => (
   <React.Fragment>
-    <div className={styles[position]}>
+    <div className={`${styles[position]} ${position === 'footer' ? 'd-none d-sm-block' : ''}`}>
       <div className="container">
         <div className="row">
           {children}

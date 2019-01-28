@@ -9,7 +9,7 @@ The Scheduler supports one-time and all-day appointments.
 
 ## One-Time Appointments
 
-One-time appointments are non-recurring appointments with specified start and end dates. They are shown in the following demo. To display one-time appointments on a view, add the [Appointments](../reference/appointments.md) plugin.
+One-time appointments are appointments with specified start and end date and time. They are shown in the following demo. To display one-time appointments on a view, add the [Appointments](../reference/appointments.md) plugin.
 
 .embedded-demo({ "path": "scheduler-basic/day", "showThemeSelector": true })
 

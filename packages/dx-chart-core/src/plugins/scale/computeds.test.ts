@@ -6,7 +6,7 @@ import { ARGUMENT_DOMAIN, VALUE_DOMAIN } from '../../constants';
 jest.mock('d3-scale', () => ({
   scaleLinear: () => ({ tag: 'scale-linear' }),
   scaleBand: () => {
-    const ret = { tag: 'scale-band' };
+    const ret = { tag: 'scale-band' } as any;
     ret.paddingInner = (value) => {
       ret.inner = value;
       return ret;
@@ -279,7 +279,7 @@ describe('Scale', () => {
   describe('buildScales', () => {
     it('should build scales from domains', () => {
       const createMockScale = () => {
-        const mock = jest.fn();
+        const mock = jest.fn() as any;
         mock.domain = jest.fn().mockReturnValue(mock);
         mock.range = jest.fn().mockReturnValue(mock);
         return mock;

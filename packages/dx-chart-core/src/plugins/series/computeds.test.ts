@@ -49,18 +49,18 @@ jest.mock('d3-shape', () => {
   };
 });
 
-const mockSymbol = jest.fn().mockReturnValue('symbol path');
+const mockSymbol = jest.fn().mockReturnValue('symbol path') as any;
 mockSymbol.size = jest.fn().mockReturnValue(mockSymbol);
 mockSymbol.type = jest.fn().mockReturnValue(mockSymbol);
-symbol.mockReturnValue(mockSymbol);
+(symbol as jest.Mock).mockReturnValue(mockSymbol);
 
-const mockArc = jest.fn().mockReturnValue('test-d');
+const mockArc = jest.fn().mockReturnValue('test-d') as any;
 mockArc.innerRadius = jest.fn().mockReturnValue(mockArc);
 mockArc.outerRadius = jest.fn().mockReturnValue(mockArc);
 mockArc.startAngle = jest.fn().mockReturnValue(mockArc);
 mockArc.endAngle = jest.fn().mockReturnValue(mockArc);
 mockArc.centroid = jest.fn().mockReturnValue([2, 3]);
-arc.mockReturnValue(mockArc);
+(arc as jest.Mock).mockReturnValue(mockArc);
 
 describe('dArea', () => {
   it('init function', () => {
@@ -68,7 +68,7 @@ describe('dArea', () => {
   });
 
   it('x getter', () => {
-    const fluentArea = area.mock.results[0].value;
+    const fluentArea = (area as any).mock.results[0].value;
     const getX = fluentArea.x.mock.calls[0][0];
 
     expect(fluentArea.x).toHaveBeenCalledTimes(1);
@@ -76,7 +76,7 @@ describe('dArea', () => {
   });
 
   it('y1 getter', () => {
-    const fluentArea = area.mock.results[0].value;
+    const fluentArea = (area as any).mock.results[0].value;
     const getY = fluentArea.y1.mock.calls[0][0];
 
     expect(fluentArea.y1).toHaveBeenCalledTimes(1);
@@ -84,7 +84,7 @@ describe('dArea', () => {
   });
 
   it('y0 getter', () => {
-    const fluentArea = area.mock.results[0].value;
+    const fluentArea = (area as any).mock.results[0].value;
     const getY = fluentArea.y0.mock.calls[0][0];
 
     expect(fluentArea.y0).toHaveBeenCalledTimes(1);
@@ -98,20 +98,20 @@ describe('line & spline', () => {
   });
 
   it('x & y  getters', () => {
-    const fluentLine = line.mock.results[0].value;
+    const fluentLine = (line as any).mock.results[0].value;
     expect(fluentLine.x).toHaveBeenCalledTimes(2);
     expect(fluentLine.y).toHaveBeenCalledTimes(2);
   });
 
   describe('dLine', () => {
     it('x getter', () => {
-      const getX = line.mock.results[0].value.x.mock.calls[0][0];
+      const getX = (line as any).mock.results[0].value.x.mock.calls[0][0];
 
       expect(getX({ x: 10 })).toEqual(10);
     });
 
     it('y1 getter', () => {
-      const getY = line.mock.results[0].value.y.mock.calls[0][0];
+      const getY = (line as any).mock.results[0].value.y.mock.calls[0][0];
 
       expect(getY({ y: 10 })).toEqual(10);
     });
@@ -119,19 +119,19 @@ describe('line & spline', () => {
 
   describe('dSpline', () => {
     it('x getter', () => {
-      const getX = line.mock.results[0].value.x.mock.calls[1][0];
+      const getX = (line as any).mock.results[0].value.x.mock.calls[1][0];
 
       expect(getX({ x: 10 })).toEqual(10);
     });
 
     it('y1 getter', () => {
-      const getY = line.mock.results[0].value.y.mock.calls[1][0];
+      const getY = (line as any).mock.results[0].value.y.mock.calls[1][0];
 
       expect(getY({ y: 10 })).toEqual(10);
     });
 
     it('curve', () => {
-      const curve = line.mock.results[0].value.curve.mock.calls[0][0];
+      const curve = (line as any).mock.results[0].value.curve.mock.calls[0][0];
 
       expect(curve).toEqual(curveCatmullRom);
     });
@@ -140,7 +140,7 @@ describe('line & spline', () => {
 
 describe('getAreaPointTransformer', () => {
   it('should return data', () => {
-    const argumentScale = jest.fn().mockReturnValue(10);
+    const argumentScale = jest.fn().mockReturnValue(10) as any;
     argumentScale.bandwidth = () => 8;
     const valueScale = jest.fn();
     valueScale.mockReturnValueOnce(4);
@@ -176,7 +176,7 @@ describe('getScatterPointTransformer', () => {
   afterEach(jest.clearAllMocks);
 
   it('should return data', () => {
-    const argumentScale = jest.fn().mockReturnValue(10);
+    const argumentScale = jest.fn().mockReturnValue(10) as any;
     argumentScale.bandwidth = () => 8;
     const valueScale = jest.fn().mockReturnValue(4);
 
@@ -209,7 +209,7 @@ describe('getScatterPointTransformer', () => {
 
 describe('getLinePointTransformer', () => {
   it('should return data', () => {
-    const argumentScale = jest.fn().mockReturnValue(10);
+    const argumentScale = jest.fn().mockReturnValue(10) as any;
     argumentScale.bandwidth = () => 8;
     const valueScale = jest.fn();
     valueScale.mockReturnValueOnce(9);
@@ -231,7 +231,7 @@ describe('getLinePointTransformer', () => {
 
 describe('getBarPointTransformer', () => {
   it('should return data', () => {
-    const argumentScale = jest.fn().mockReturnValue(11);
+    const argumentScale = jest.fn().mockReturnValue(11) as any;
     argumentScale.bandwidth = () => 20;
     const valueScale = jest.fn();
     valueScale.mockReturnValueOnce(4);
@@ -279,10 +279,10 @@ describe('getPiePointTransformer', () => {
       { startAngle: 3, endAngle: 4 },
       { startAngle: 5, endAngle: 6 },
       { startAngle: 7, endAngle: 8 },
-    ]);
+    ]) as any;
     mockPie.sort = jest.fn().mockReturnValue(mockPie);
     mockPie.value = jest.fn().mockReturnValue(mockPie);
-    pie.mockReturnValue(mockPie);
+    (pie as jest.Mock).mockReturnValue(mockPie);
 
     const argumentScale = { range: () => [0, 50] };
     const valueScale = { range: () => [40, 0] };
@@ -366,8 +366,8 @@ describe('dSymbol', () => {
     const result = dSymbol({ size: 3 });
 
     expect(result).toEqual('symbol path');
-    expect(symbol.mock.results[0].value.size).toBeCalledWith([9]);
-    expect(symbol.mock.results[0].value.type).toBeCalledWith(symbolCircle);
+    expect((symbol as any).mock.results[0].value.size).toBeCalledWith([9]);
+    expect((symbol as any).mock.results[0].value.type).toBeCalledWith(symbolCircle);
   });
 });
 

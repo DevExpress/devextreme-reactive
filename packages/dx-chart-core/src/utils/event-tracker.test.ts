@@ -1,6 +1,7 @@
 import { buildEventHandlers } from './event-tracker';
-
+// @ts-ignore
 window.pageXOffset = 120;
+// @ts-ignore
 window.pageYOffset = 110;
 
 describe('EventTracker', () => {

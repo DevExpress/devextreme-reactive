@@ -17,6 +17,7 @@ jest.mock('../plugins/series/computeds', () => ({
 }));
 
 const getContext = jest.fn();
+// @ts-ignore
 document.createElement = () => ({ getContext });
 
 describe('Series', () => {
@@ -78,7 +79,7 @@ describe('Series', () => {
   };
 
   describe('#createAreaHitTester', () => {
-    const mockPath = jest.fn();
+    const mockPath = jest.fn() as any;
     mockPath.x = jest.fn();
     mockPath.y0 = jest.fn();
     mockPath.y1 = jest.fn();
@@ -89,7 +90,7 @@ describe('Series', () => {
       dArea.y0.mockReturnValue('#y0');
       dArea.y1.mockReturnValue('#y1');
 
-      area.mockReturnValue(mockPath);
+      (area as jest.Mock).mockReturnValue(mockPath);
     });
 
     it('should setup context', () => {
@@ -108,7 +109,7 @@ describe('Series', () => {
   });
 
   describe('#createLineHitTester', () => {
-    const mockPath = jest.fn();
+    const mockPath = jest.fn() as any;
     mockPath.x = jest.fn();
     mockPath.y0 = jest.fn();
     mockPath.y1 = jest.fn();
@@ -118,7 +119,7 @@ describe('Series', () => {
       dLine.x.mockReturnValue('#x');
       dLine.y.mockReturnValue('#y');
 
-      area.mockReturnValue(mockPath);
+      (area as jest.Mock).mockReturnValue(mockPath);
     });
 
     it('should setup context', () => {
@@ -137,7 +138,7 @@ describe('Series', () => {
   });
 
   describe('#createSplineHitTester', () => {
-    const mockPath = jest.fn();
+    const mockPath = jest.fn() as any;
     mockPath.x = jest.fn();
     mockPath.y0 = jest.fn();
     mockPath.y1 = jest.fn();
@@ -149,7 +150,7 @@ describe('Series', () => {
       dSpline.y.mockReturnValue('#y');
       dSpline.curve.mockReturnValue('#curve');
 
-      area.mockReturnValue(mockPath);
+      (area as jest.Mock).mockReturnValue(mockPath);
     });
 
     it('should setup context', () => {

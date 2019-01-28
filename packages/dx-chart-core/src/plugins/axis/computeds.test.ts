@@ -2,7 +2,7 @@ import { isHorizontal } from '../../utils/scale';
 import { axisCoordinates, getGridCoordinates } from './computeds';
 
 jest.mock('../../utils/scale', () => ({
-  isHorizontal: jest.fn().mockReturnValue(true),
+  isHorizontal: jest.fn(),
   fixOffset: scale => value => scale(value) + 15,
 }));
 
@@ -13,10 +13,11 @@ describe('axisCoordinates', () => {
   afterEach(jest.clearAllMocks);
 
   describe('linear', () => {
-    const scale = jest.fn().mockReturnValue(10);
+    const scale = jest.fn().mockReturnValue(10) as any;
     scale.ticks = jest.fn().mockReturnValue([1]);
 
     it('should return ticks Coordinates with horizontal-top position', () => {
+      (isHorizontal as jest.Mock).mockReturnValue(true);
       const coordinates = axisCoordinates({
         scale, tickSize, indentFromAxis, scaleName: 'test-name', position: 'top',
       });
@@ -36,6 +37,7 @@ describe('axisCoordinates', () => {
     });
 
     it('should return ticks coordinates with horizontal-bottom position', () => {
+      (isHorizontal as jest.Mock).mockReturnValue(true);
       const coordinates = axisCoordinates({
         scale,  tickSize, indentFromAxis, scaleName: 'test-name', position: 'bottom',
       });
@@ -55,6 +57,7 @@ describe('axisCoordinates', () => {
     });
 
     it('should pass correct domain to scale, horizontal', () => {
+      (isHorizontal as jest.Mock).mockReturnValue(true);
       axisCoordinates({
         scale, tickSize, indentFromAxis, scaleName: 'test-name', position: 'top',
       });
@@ -65,7 +68,7 @@ describe('axisCoordinates', () => {
     });
 
     it('should return ticks coordinates with vertical-left position', () => {
-      isHorizontal.mockReturnValue(false);
+      (isHorizontal as jest.Mock).mockReturnValue(false);
       const coordinates = axisCoordinates({
         scale, tickSize, indentFromAxis, scaleName: 'test-name', position: 'left',
       });
@@ -85,7 +88,7 @@ describe('axisCoordinates', () => {
     });
 
     it('should return ticks coordinates with vertical-right position', () => {
-      isHorizontal.mockReturnValue(false);
+      (isHorizontal as jest.Mock).mockReturnValue(false);
       const coordinates = axisCoordinates({
         tickSize, indentFromAxis,  scale, scaleName: 'test-name', position: 'right',
       });
@@ -105,7 +108,7 @@ describe('axisCoordinates', () => {
     });
 
     it('should pass correct domain to scale, vertical', () => {
-      isHorizontal.mockReturnValue(false);
+      (isHorizontal as jest.Mock).mockReturnValue(false);
       axisCoordinates({
         scale,  tickSize, indentFromAxis, scaleName: 'test-name', position: 'left',
       });
@@ -116,7 +119,7 @@ describe('axisCoordinates', () => {
     });
 
     it('should format ticks', () => {
-      isHorizontal.mockReturnValue(true);
+      (isHorizontal as jest.Mock).mockReturnValue(true);
       scale.tickFormat = jest.fn(() => tick => `format ${tick}`);
       try {
         const coordinates = axisCoordinates({
@@ -137,7 +140,7 @@ describe('axisCoordinates', () => {
     });
 
     it('should format ticks, user set format', () => {
-      isHorizontal.mockReturnValue(true);
+      (isHorizontal as jest.Mock).mockReturnValue(true);
       scale.tickFormat = jest.fn(() => tick => `format ${tick}`);
       const userFormat = jest.fn(() => tick => `user format ${tick}`);
       try {
@@ -165,11 +168,11 @@ describe('axisCoordinates', () => {
   });
 
   describe('band', () => {
-    const scale = jest.fn().mockReturnValue(10);
+    const scale = jest.fn().mockReturnValue(10) as any;
     scale.domain = jest.fn().mockReturnValue(['a']);
 
     it('should pass correct domain to scale', () => {
-      isHorizontal.mockReturnValue(false);
+      (isHorizontal as jest.Mock).mockReturnValue(false);
       axisCoordinates({
         scale, tickSize, indentFromAxis, position: 'left', scaleName: 'test-name',
       });
@@ -179,7 +182,7 @@ describe('axisCoordinates', () => {
     });
 
     it('should return ticks coordinates with horizontal-bottom position', () => {
-      isHorizontal.mockReturnValue(true);
+      (isHorizontal as jest.Mock).mockReturnValue(true);
       const coordinates = axisCoordinates({
         scale, tickSize, indentFromAxis, position: 'bottom', scaleName: 'test-name',
       });
@@ -198,7 +201,7 @@ describe('axisCoordinates', () => {
     });
 
     it('should return ticks Coordinates with horizontal-top position', () => {
-      isHorizontal.mockReturnValue(true);
+      (isHorizontal as jest.Mock).mockReturnValue(true);
       const coordinates = axisCoordinates({
         scale, tickSize, indentFromAxis, position: 'top', scaleName: 'test-name',
       });
@@ -217,7 +220,7 @@ describe('axisCoordinates', () => {
     });
 
     it('should return ticks coordinates with vertical-left position', () => {
-      isHorizontal.mockReturnValue(false);
+      (isHorizontal as jest.Mock).mockReturnValue(false);
       const coordinates = axisCoordinates({
         scale, tickSize, indentFromAxis, position: 'left', scaleName: 'test-name',
       });
@@ -236,7 +239,7 @@ describe('axisCoordinates', () => {
     });
 
     it('should return ticks coordinates with vertical-right position', () => {
-      isHorizontal.mockReturnValue(false);
+      (isHorizontal as jest.Mock).mockReturnValue(false);
       const coordinates = axisCoordinates({
         scale, tickSize, indentFromAxis, position: 'right', scaleName: 'test-name',
       });
@@ -257,11 +260,11 @@ describe('axisCoordinates', () => {
 });
 
 describe('getGridCoordinates', () => {
-  const scale = jest.fn(x => x + 1);
+  const scale = jest.fn(x => x + 1) as any;
   scale.ticks = jest.fn().mockReturnValue([10, 20, 30, 40]);
 
   it('should return horizontal coordinates', () => {
-    isHorizontal.mockReturnValue(true);
+    (isHorizontal as jest.Mock).mockReturnValue(true);
     expect(getGridCoordinates({ scale, scaleName: 'test-name' })).toEqual([
       {
         key: '0', x: 26, y: 0, dx: 0, dy: 1,
@@ -279,7 +282,7 @@ describe('getGridCoordinates', () => {
   });
 
   it('should return vertical coordinates', () => {
-    isHorizontal.mockReturnValue(false);
+    (isHorizontal as jest.Mock).mockReturnValue(false);
     expect(getGridCoordinates({ scale, scaleName: 'test-name' })).toEqual([
       {
         key: '0', x: 0, y: 26, dx: 1, dy: 0,

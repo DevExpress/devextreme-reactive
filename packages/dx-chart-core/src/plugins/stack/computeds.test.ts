@@ -12,16 +12,16 @@ jest.mock('d3-scale', () => ({
 
 describe('Stack', () => {
   describe('getStackedSeries', () => {
-    const mockStack = jest.fn();
+    const mockStack = jest.fn() as any;
     mockStack.keys = jest.fn().mockReturnValue(mockStack);
     mockStack.offset = jest.fn().mockReturnValue(mockStack);
     mockStack.order = jest.fn().mockReturnValue(mockStack);
-    stack.mockReturnValue(mockStack);
+    (stack as jest.Mock).mockReturnValue(mockStack);
 
-    const mockScale = jest.fn();
+    const mockScale = jest.fn() as any;
     mockScale.domain = jest.fn().mockReturnValue(mockScale);
     mockScale.range = jest.fn().mockReturnValue(mockScale);
-    scaleBand.mockReturnValue(mockScale);
+    (scaleBand as jest.Mock).mockReturnValue(mockScale);
 
     const makeSeries = (name, extra?) => ({
       name,
@@ -86,7 +86,7 @@ describe('Stack', () => {
           { ...series3.points[1], value0: '3c', value: '3d' },
         ],
       });
-      expect(stack.mock.calls.length).toEqual(1);
+      expect((stack as any).mock.calls.length).toEqual(1);
       expect(mockStack.keys).toBeCalledWith(['val1', 'val2', 'val3']);
       expect(mockStack.offset).toBeCalledWith('test-offset');
       expect(mockStack.order).toBeCalledWith('test-order');
@@ -137,7 +137,7 @@ describe('Stack', () => {
       expect(result[1].points).toEqual([{ index: 0, value0: '3a', value: '3b' }]);
       expect(result[2].points).toEqual([{ index: 0, value0: '2a', value: '2b' }]);
       expect(result[3].points).toEqual([{ index: 0, value0: '4a', value: '4b' }]);
-      expect(stack.mock.calls.length).toEqual(2);
+      expect((stack as any).mock.calls.length).toEqual(2);
       expect(mockStack.keys.mock.calls).toEqual([
         [['val1', 'val3']],
         [['val2', 'val4']],
@@ -184,7 +184,7 @@ describe('Stack', () => {
       expect(result[1]).toBe(series2);
       expect(result[2]).toBe(series3);
       expect(result[3]).not.toBe(series4);
-      expect(stack.mock.calls.length).toEqual(1);
+      expect((stack as any).mock.calls.length).toEqual(1);
     });
 
     it('should wrap *getPointTransformer* for starting from zero series', () => {
@@ -233,7 +233,7 @@ describe('Stack', () => {
 
     it('should update *y1* in wrapped *getPointTransformer*', () => {
       mockStack.mockReturnValue([]);
-      const mock = jest.fn().mockReturnValue(point => ({ ...point, tag: '#t' }));
+      const mock = jest.fn().mockReturnValue(point => ({ ...point, tag: '#t' })) as any;
       mock.isStartedFromZero = true;
       const valueScale = value => `${value}#`;
 
@@ -333,7 +333,7 @@ describe('Stack', () => {
     });
 
     it('should update *x* and *width* in wrapped *getPointTransformer*', () => {
-      const getPointTransformer = jest.fn();
+      const getPointTransformer = jest.fn() as any;
       getPointTransformer.isBroad = true;
       getPointTransformer.mockReturnValueOnce(point => ({ ...point, tag: '1' }));
       getPointTransformer.mockReturnValueOnce(point => ({ ...point, tag: '2' }));

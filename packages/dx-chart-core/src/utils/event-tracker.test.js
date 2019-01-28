@@ -165,7 +165,7 @@ describe('EventTracker', () => {
       });
     });
 
-    it('should create only pointer move handlers', () => {
+    it('should create only move handlers', () => {
       const handlers = buildEventHandlers([series1, series2, series3], {
         clickHandlers: [], pointerMoveHandlers: [1],
       });
@@ -176,7 +176,7 @@ describe('EventTracker', () => {
       });
     });
 
-    it('should raise event on pointer leave', () => {
+    it('should invoke handlers on leave event', () => {
       const { mouseleave } = buildEventHandlers([series1, series2, series3], {
         clickHandlers: [], pointerMoveHandlers: [handler1, handler2],
       });

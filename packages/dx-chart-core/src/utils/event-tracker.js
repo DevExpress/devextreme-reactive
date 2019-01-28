@@ -57,14 +57,26 @@ const buildLeaveEventHandler = handlers => (e) => {
   handlers.forEach(handler => handler(arg));
 };
 
+// The result is of Map<string, Function> type.
+// Keys are DOM event names (https://developer.mozilla.org/en-US/docs/Web/Events).
 export const buildEventHandlers = (seriesList, { clickHandlers, pointerMoveHandlers }) => {
   const handlers = {};
   if (clickHandlers.length) {
     handlers.click = buildEventHandler(seriesList, clickHandlers);
   }
   if (pointerMoveHandlers.length) {
-    handlers.pointermove = buildEventHandler(seriesList, pointerMoveHandlers);
-    handlers.pointerleave = buildLeaveEventHandler(pointerMoveHandlers);
+    const moveHandler = buildEventHandler(seriesList, pointerMoveHandlers);
+    const leaveHandler = buildLeaveEventHandler(pointerMoveHandlers);
+    if ('onpointermove' in window) { // eslint-disable-line no-undef
+      handlers.pointermove = moveHandler;
+      handlers.pointerleave = leaveHandler;
+    } else if ('ontouchmove' in window) { // eslint-disable-line no-undef
+      handlers.touchmove = moveHandler;
+      handlers.touchleave = leaveHandler;
+    } else {
+      handlers.mousemove = moveHandler;
+      handlers.mouseleave = leaveHandler;
+    }
   }
   return handlers;
 };

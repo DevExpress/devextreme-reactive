@@ -32,3 +32,20 @@
 .cropper {
   overflow: hidden;
 }
+
+
+@media screen and (max-width: 800px) {
+  .main {
+    font-size: 48px;
+  }
+  .additional {
+    font-size: 24px;
+    margin-top: 10px;
+  }
+  .block {
+    padding-top: 0;
+  }
+  .container {
+    padding-bottom: 220px;
+  }
+}

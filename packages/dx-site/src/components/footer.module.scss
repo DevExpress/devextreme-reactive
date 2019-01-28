@@ -8,6 +8,8 @@
 .copyright {
   font-size: 14px;
   color: rgba(125, 136, 142, 255);
+  padding-left: $inner-offset;
+  padding-right: $inner-offset;
   a {
     color: rgba(125, 136, 142, 255);
     text-decoration: underline;
@@ -17,6 +19,7 @@
 .links {
   margin-bottom: 50px;
   padding-left: $inner-offset;
+  padding-right: $inner-offset;
   a {
     margin: 0 10px;
     color: rgba(51, 51, 51, 255);

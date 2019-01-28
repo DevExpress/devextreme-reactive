@@ -34,30 +34,32 @@ const Footer = () => (
             </a>
           </div>
         </div>
-        <div className={`col-md-9 ${styles.copyright}`}>
-          Copyright © 2011-
-          {new Date().getFullYear()}
-          {' '}
-          Developer Express Inc.
-          <br />
-          All trademarks or registered trademarks are property of their respective owners.
-          <br />
-          <br />
-          <a
-            href="https://js.devexpress.com/Privacy/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Your Privacy - Legal Statements
-          </a>
-          <br />
-          <a
-            href="https://js.devexpress.com/Licensing/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Licensing
-          </a>
+        <div className="col-md-9">
+          <div className={styles.copyright}>
+            Copyright © 2011-
+            {new Date().getFullYear()}
+            {' '}
+            Developer Express Inc.
+            <br />
+            All trademarks or registered trademarks are property of their respective owners.
+            <br />
+            <br />
+            <a
+              href="https://js.devexpress.com/Privacy/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Your Privacy - Legal Statements
+            </a>
+            <br />
+            <a
+              href="https://js.devexpress.com/Licensing/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Licensing
+            </a>
+          </div>
         </div>
       </div>
     </div>

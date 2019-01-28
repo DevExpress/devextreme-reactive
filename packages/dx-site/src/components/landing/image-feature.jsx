@@ -7,7 +7,7 @@ const ImageFeature = ({
   iconLink,
   title, description,
 }) => (
-  <div className="col-lg-6 col-md-6">
+  <div className="col-lg-6 col-md-6 col-sm-6">
     <div className={styles.container}>
       <div className="d-flex align-items-start">
         {iconLink && (

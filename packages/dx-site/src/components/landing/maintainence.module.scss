@@ -1,6 +1,15 @@
+@import '../../constants';
+
 .container {
   margin-top: 50px;
   margin-bottom: 50px;
+}
+
+.content {
+  background: url(./images/maintainence-and-support-img.svg) no-repeat 60px 0;
+  padding-left: 270px;
+  padding-bottom: 25px;
+  padding-right: $inner-offset;
 }
 
 .title {
@@ -15,8 +24,10 @@
   color: rgba(125, 136, 142, 255);
 }
 
-@media screen and (max-width: 768px) {
-  .container img {
-    display: none;
+@media screen and (max-width: 800px) {
+  .content {
+    background: none;
+    padding-left: $inner-offset;
+    padding-bottom: 0;
   }
 }

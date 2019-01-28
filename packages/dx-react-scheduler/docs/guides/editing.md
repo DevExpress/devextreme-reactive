@@ -12,7 +12,7 @@ The following plugins implement this feature:
 
 ## User Interaction
 
-The user edits appointments as follows:
+The user can edit appointments as follows:
 
 ### Add an Appointment
 
@@ -29,7 +29,7 @@ Click an appointment for the appointment tooltip to appear, and then click Edit 
 
 ### Delete an Appointment
 
-Click an appointment for the appointment tooltip to appear, and then click Delete in the tooltip to remove the appointment.
+Click an appointment to invoke the appointment tooltip, and then click Delete in the tooltip to remove the appointment.
 
 ## Basic Setup
 
@@ -59,7 +59,7 @@ You can also use the `onAddedAppointmentChange` event to initialize a new appoin
 
 ## Preprocess Changes
 
-To validate user input or prevent a user action, handle the `EditingState` plugin's `onCommitChanges` event.
+To validate user input or prevent user actions, handle the `EditingState` plugin's `onCommitChanges` event.
 
 For example, you can show a confirmation dialog before an appointment is removed. To detect an attempt to remove an appointment, check the `deleted` parameter's value in the `commitChanges` handler:
 

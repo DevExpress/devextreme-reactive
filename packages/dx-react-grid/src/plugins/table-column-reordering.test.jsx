@@ -109,6 +109,40 @@ describe('TableColumnReordering', () => {
       .toHaveBeenCalledWith(defaultDeps.getter.tableColumns, ['b', 'a']);
   });
 
+  it('should apply the column order in uncontrolled mode when drag-and-drop is disabled', () => {
+    mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableColumnReordering
+          {...defaultProps}
+          defaultOrder={['b', 'a']}
+        />
+      </PluginHost>
+    ));
+
+    expect(orderedColumns)
+      .toHaveBeenCalledTimes(1);
+    expect(orderedColumns)
+      .toHaveBeenCalledWith(defaultDeps.getter.tableColumns, ['b', 'a']);
+  });
+
+  it('should apply the column order in controlled mode when drag-and-drop is disabled', () => {
+    mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableColumnReordering
+          {...defaultProps}
+          order={['b', 'a']}
+        />
+      </PluginHost>
+    ));
+
+    expect(orderedColumns)
+      .toHaveBeenCalledTimes(1);
+    expect(orderedColumns)
+      .toHaveBeenCalledWith(defaultDeps.getter.tableColumns, ['b', 'a']);
+  });
+
   it('should render the "table" template', () => {
     const tree = mount((
       <DragDropProvider>
@@ -304,7 +338,7 @@ describe('TableColumnReordering', () => {
         .toHaveBeenCalledTimes(defaultDeps.getter.tableColumns.length * 3);
     });
 
-    it('should works correctly if table columns are changed', () => {
+    it('should work correctly if table columns are changed', () => {
       const changedTableColumns = [
         { key: `${TABLE_DATA_TYPE}_a`, type: TABLE_DATA_TYPE, column: { name: 'a' } },
         { key: `${TABLE_DATA_TYPE}_c`, type: TABLE_DATA_TYPE, column: { name: 'c' } },

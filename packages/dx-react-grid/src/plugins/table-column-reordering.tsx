@@ -1,0 +1,300 @@
+import * as React from 'react';
+import {
+  Getter,
+  Plugin,
+  Template,
+  TemplatePlaceholder,
+  TemplateConnector,
+  DropTarget,
+  withComponents,
+  Getters,
+  PluginComponents,
+} from '@devexpress/dx-react-core';
+import {
+  TABLE_DATA_TYPE,
+  TABLE_REORDERING_TYPE,
+  orderedColumns,
+  changeColumnOrder,
+  getTableTargetColumnIndex,
+  tableHeaderRowsWithReordering,
+  draftOrder as draftOrderComputed,
+  TargetColumnGeometry,
+  TableColumn,
+} from '@devexpress/dx-grid-core';
+import { Table as TableNS } from '../types';
+
+export interface TableColumnReorderingProps {
+  /** The column order. */
+  order?: Array<string>;
+  /** The initial column order in the uncontrolled mode. */
+  defaultOrder?: Array<string>;
+  /** Handles changes to the column order. */
+  onOrderChange?: (nextOrder: Array<string>) => void;
+  tableContainerComponent: React.ComponentType<TableContainerProps>;
+  rowComponent: React.ComponentType<any>;
+  cellComponent: React.ComponentType<TableReorderingCellProps>;
+}
+interface TableColumnReorderingState {
+  order?: string[];
+  sourceColumnIndex: number;
+  targetColumnIndex: number;
+}
+
+export interface TableReorderingCellProps {
+  getCellDimensions: (getter: CellDimensionsGetter) => void;
+}
+
+interface TableContainerProps {
+  onOver: (arg: DragOverArgs) => void;
+  onLeave: () => void;
+  onDrop: () => void;
+}
+
+const pluginDependencies = [
+  { name: 'Table' },
+  { name: 'DragDropProvider', optional: true },
+];
+
+const tableHeaderRowsComputed = (
+  { tableHeaderRows }: Getters,
+) => tableHeaderRowsWithReordering(tableHeaderRows);
+
+type CellDimensionsGetter = () => TargetColumnGeometry;
+type DragOverArgs = { payload: any; clientOffset: { x: any; y: any }; };
+// tslint:disable-next-line: max-line-length
+class TableColumnReorderingRaw extends React.PureComponent<TableColumnReorderingProps, TableColumnReorderingState> {
+  static components: PluginComponents;
+  private cellDimensionGetters: { [colName: string]: CellDimensionsGetter } = {};
+  private cellDimensions: TargetColumnGeometry[] = [];
+  private onOver: (arg: DragOverArgs) => void;
+  private onLeave: () => void;
+  private onDrop: () => void;
+
+  constructor(props: TableColumnReorderingProps) {
+    super(props);
+
+    this.state = {
+      order: props.defaultOrder,
+      sourceColumnIndex: -1,
+      targetColumnIndex: -1,
+    };
+
+    this.onOver = this.handleOver.bind(this);
+    this.onLeave = this.handleLeave.bind(this);
+    this.onDrop = this.handleDrop.bind(this);
+  }
+
+  getState() {
+    const { order: orderState } = this.state;
+    const {
+      order = orderState,
+    } = this.props;
+    return {
+      ...this.state,
+      order,
+    };
+  }
+
+  getDraftOrder() {
+    const { order, sourceColumnIndex, targetColumnIndex } = this.getState();
+    return draftOrderComputed(order!, sourceColumnIndex, targetColumnIndex);
+  }
+
+  getAvailableColumns() {
+    return this.getDraftOrder()
+      .filter(columnName => !!this.cellDimensionGetters[columnName]);
+  }
+
+  cacheCellDimensions() {
+    this.cellDimensions = (this.cellDimensions && this.cellDimensions.length)
+      ? this.cellDimensions
+      : this.getAvailableColumns()
+        .map(columnName => this.cellDimensionGetters[columnName]());
+  }
+
+  resetCellDimensions() {
+    this.cellDimensions = [];
+  }
+
+  ensureCellDimensionGetters(tableColumns: TableColumn[]) {
+    Object.keys(this.cellDimensionGetters)
+      .forEach((columnName) => {
+        const columnIndex = tableColumns
+          .findIndex(({ type, column }) => type === TABLE_DATA_TYPE && column!.name === columnName);
+        if (columnIndex === -1) {
+          delete this.cellDimensionGetters[columnName];
+        }
+      });
+  }
+
+// tslint:disable-next-line: max-line-length
+  storeCellDimensionsGetter(tableColumn: TableColumn, getter: CellDimensionsGetter, tableColumns: TableColumn[]) {
+    if (tableColumn.type === TABLE_DATA_TYPE) {
+      this.cellDimensionGetters[tableColumn.column!.name] = getter;
+    }
+    this.ensureCellDimensionGetters(tableColumns);
+  }
+
+  handleOver({ payload, clientOffset: { x } }: DragOverArgs) {
+    const sourceColumnName = payload[0].columnName;
+    const availableColumns = this.getAvailableColumns();
+    const relativeSourceColumnIndex = availableColumns.indexOf(sourceColumnName);
+
+    if (relativeSourceColumnIndex === -1) return;
+
+    this.cacheCellDimensions();
+    const cellDimensions = this.cellDimensions;
+
+    const overlappedColumns = cellDimensions
+      .filter(({ left, right }) => left <= x && x <= right);
+
+    if (overlappedColumns.length > 1) return;
+
+    const relativeTargetIndex = getTableTargetColumnIndex(
+      cellDimensions,
+      relativeSourceColumnIndex,
+      x,
+    );
+
+    if (relativeTargetIndex === -1) return;
+
+    const {
+      sourceColumnIndex: prevSourceColumnIndex,
+      targetColumnIndex: prevTargetColumnIndex,
+    } = this.getState();
+    const draftOrder = this.getDraftOrder();
+    const targetColumnIndex = draftOrder.indexOf(availableColumns[relativeTargetIndex]);
+
+    if (targetColumnIndex === prevTargetColumnIndex) return;
+
+    const sourceColumnIndex = prevSourceColumnIndex === -1
+      ? draftOrder.indexOf(sourceColumnName)
+      : prevSourceColumnIndex;
+
+    this.setState({
+      sourceColumnIndex,
+      targetColumnIndex,
+    });
+  }
+
+  handleLeave() {
+    this.setState({
+      sourceColumnIndex: -1,
+      targetColumnIndex: -1,
+    });
+
+    this.resetCellDimensions();
+  }
+
+  handleDrop() {
+    const { sourceColumnIndex, targetColumnIndex, order } = this.getState();
+    const { onOrderChange } = this.props;
+
+    if (sourceColumnIndex === -1 && targetColumnIndex === -1) return;
+
+    const nextOrder = changeColumnOrder(order!, {
+      sourceColumnName: order![sourceColumnIndex],
+      targetColumnName: order![targetColumnIndex],
+    }) as string[];
+
+    this.setState({
+      order: nextOrder,
+      sourceColumnIndex: -1,
+      targetColumnIndex: -1,
+    });
+
+    if (onOrderChange) {
+      onOrderChange(nextOrder);
+    }
+
+    this.resetCellDimensions();
+  }
+
+  render() {
+    const {
+      tableContainerComponent: Container,
+      rowComponent: Row,
+      cellComponent: Cell,
+    } = this.props;
+
+    const columnsComputed = (
+      { tableColumns }: Getters,
+    ) => orderedColumns(tableColumns, this.getDraftOrder());
+
+    this.cellDimensionGetters = {};
+
+    return (
+      <Plugin
+        name="TableColumnReordering"
+        dependencies={pluginDependencies}
+      >
+        <Getter name="tableColumns" computed={columnsComputed} />
+        <Getter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
+        <Template name="table">
+          {params => (
+            <TemplateConnector>
+              {({ draggingEnabled }) => (
+                <Container
+                  {...params}
+                  onOver={this.onOver}
+                  onLeave={this.onLeave}
+                  onDrop={this.onDrop}
+                  draggingEnabled={draggingEnabled}
+                >
+                  <TemplatePlaceholder />
+                </Container>
+              )}
+            </TemplateConnector>
+          )}
+        </Template>
+        <Template
+          name="tableRow"
+          predicate={({ tableRow }: Getters) => tableRow.type === TABLE_REORDERING_TYPE}
+        >
+          {params => (
+            <Row {...params} />
+          )}
+        </Template>
+        <Template
+          name="tableCell"
+          predicate={({ tableRow }: Getters) => tableRow.type === TABLE_REORDERING_TYPE}
+        >
+          {(params: TableNS.CellProps) => (
+            <TemplateConnector>
+              {({ tableColumns }: Getters) => (
+                <Cell
+                  {...params}
+                  getCellDimensions={getter => this.storeCellDimensionsGetter(
+                    params.tableColumn, getter, tableColumns,
+                  )}
+                />
+              )}
+            </TemplateConnector>
+          )}
+        </Template>
+      </Plugin>
+    );
+  }
+}
+
+TableColumnReorderingRaw.components = {
+  tableContainerComponent: 'TableContainer',
+  rowComponent: 'Row',
+  cellComponent: 'Cell',
+};
+
+const TableContainer: React.SFC<TableContainerProps> = ({
+  onOver, onLeave, onDrop, children, // eslint-disable-line react/prop-types
+}) => (
+  draggingEnabled ? (
+    <DropTarget
+      onOver={onOver}
+      onLeave={onLeave}
+      onDrop={onDrop}
+    >
+      {children}
+    </DropTarget>
+  ) : children
+);
+
+export const TableColumnReordering = withComponents({ TableContainer })(TableColumnReorderingRaw);

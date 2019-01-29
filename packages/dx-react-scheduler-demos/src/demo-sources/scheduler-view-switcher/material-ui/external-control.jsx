@@ -36,7 +36,7 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       data: appointments,
-      currentViewName: 'Work Week',
+      currentViewName: 'Month',
     };
 
     this.currentViewNameChange = (e) => {

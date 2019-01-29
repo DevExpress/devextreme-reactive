@@ -301,6 +301,8 @@
         path: /react/scheduler/docs/guides/getting-started
       - title: Fundamentals
         path: /react/scheduler/docs/guides/fundamentals
+      - title: Views
+        path: /react/scheduler/docs/guides/views
       - title: Appointments
         path: /react/scheduler/docs/guides/appointments
       - title: View Switching

@@ -1,9 +1,9 @@
 import * as moment from 'moment';
-import { CustomFunction } from '@devexpress/dx-core';
+import { CustomFunction, PureComputed } from '@devexpress/dx-core';
 import { HORIZONTAL_TYPE, VERTICAL_TYPE } from './constants';
 import {
-  ViewName, AppointmentModel, ExcludedDays, AppointmentMoment,
-  AppointmentCore, CurrentDate, FirstDayOfWeek,
+  ViewName, AppointmentModel, ExcludedDays,
+  CurrentDate, FirstDayOfWeek, AppointmentMoment,
 } from './types';
 
 export const computed: CustomFunction<
@@ -15,14 +15,13 @@ export const computed: CustomFunction<
   return baseComputed(getters, viewName);
 };
 
-type Number1 = number | string;
-
 export const toPercentage: CustomFunction<
-  [Number1, Number1], number
-> = (value, total) => (value * 100) / total; // ????
+  [number, number]
+> = (value, total) => (value * 100) / total;
 
+type Interval = [moment.Moment, moment.Moment];
 const createExcludedInterval: CustomFunction<
-  [number, moment.Moment], any
+  [number, moment.Moment], Interval
 > = (day, start) => {
   const leftBound = moment(start.day(day));
   return [
@@ -31,8 +30,8 @@ const createExcludedInterval: CustomFunction<
   ];
 };
 
-const excludedIntervals: CustomFunction<
-  [ExcludedDays, moment.Moment], any
+const excludedIntervals: PureComputed<
+  [ExcludedDays, moment.Moment], Interval[]
 > = (excludedDays, start) => excludedDays
   .map(day => (day === 0 ? 7 : day))
   .sort((a, b) => a - b)
@@ -43,28 +42,31 @@ const excludedIntervals: CustomFunction<
       acc.push(createExcludedInterval(day, start));
     }
     return acc;
-  }, []);
+  }, [] as Interval[]);
 
 const byDayPredicate: CustomFunction<
-  [moment.Moment, Date], boolean
+  [moment.Moment, moment.Moment], boolean
 > = (boundary, date) => (
   boundary.isSameOrAfter(date, 'day')
   && !boundary.isSame(boundary.clone().startOf('day'))
 );
 
-export const viewPredicate: CustomFunction<
-[AppointmentMoment, Date, Date, ExcludedDays, boolean], boolean
+const inInterval = (
+  date: moment.Moment, interval: Interval,
+) => date.isBetween(interval[0], interval[1], undefined, '[]'); // null -> undefined
+
+export const viewPredicate: PureComputed<
+  [AppointmentMoment, Date, Date, ExcludedDays, boolean], boolean
 > = (
   appointment, left, right,
   excludedDays = [],
   removeAllDayAppointments = false,
 ) => {
   const { start, end } = appointment;
-  const isAppointmentInBoundary = end.isAfter(left) && start.isBefore(right);
-  const inInterval = (date, interval) => date.isBetween(...interval, null, '[]');
+  const isAppointmentInBoundary = end.isAfter(left as Date) && start.isBefore(right as Date);
+
   const isAppointmentInExcludedDays = !!excludedIntervals(excludedDays, moment(left))
     .find(interval => (inInterval(start, interval) && inInterval(end, interval)));
-
   const considerAllDayAppointment = removeAllDayAppointments
     ? moment(end).diff(start, 'hours') < 24 && !appointment.allDay
     : true;
@@ -72,8 +74,8 @@ export const viewPredicate: CustomFunction<
   return isAppointmentInBoundary && !isAppointmentInExcludedDays && considerAllDayAppointment;
 };
 
-export const sortAppointments: CustomFunction<
-  [AppointmentMoment[], boolean], boolean
+export const sortAppointments: PureComputed<
+  [AppointmentMoment[], boolean], AppointmentMoment[]
 > = (appointments, byDay = false) => appointments
   .slice().sort((a, b) => {
     const compareValue = byDay ? 'day' : undefined;
@@ -87,10 +89,10 @@ export const sortAppointments: CustomFunction<
   });
 
 export const findOverlappedAppointments: CustomFunction<
-[AppointmentMoment[], boolean], any[]
+  [AppointmentMoment[], boolean], any[]
 > = (sortedAppointments, byDay = false) => {
   const appointments = sortedAppointments.slice();
-  const groups = [];
+  const groups: AppointmentMoment[][] = [];
   let totalIndex = 0;
 
   while (totalIndex < appointments.length) {
@@ -151,14 +153,14 @@ export const adjustAppointments: CustomFunction<
   return { items: appointments, reduceValue };
 });
 
-export const calculateFirstDateOfWeek: CustomFunction<
+export const calculateFirstDateOfWeek: PureComputed<
   [CurrentDate, FirstDayOfWeek, ExcludedDays], Date
 > = (currentDate, firstDayOfWeek, excludedDays = []) => {
   const currentLocale = moment.locale();
   moment.updateLocale('tmp-locale', {
-    week: { dow: firstDayOfWeek },
+    week: { dow: firstDayOfWeek, doy: 1 }, // !!!! doy
   });
-  const firstDateOfWeek = moment(currentDate).startOf('week');
+  const firstDateOfWeek = moment(currentDate as CurrentDate).startOf('week');
   if (excludedDays.indexOf(firstDayOfWeek) !== -1) {
     excludedDays.slice().sort().forEach((day) => {
       if (day === firstDateOfWeek.day()) {
@@ -171,8 +173,28 @@ export const calculateFirstDateOfWeek: CustomFunction<
   return firstDateOfWeek.toDate();
 };
 
+type GroupItem = {
+  start: moment.Moment;
+  end: moment.Moment;
+  dataItem: AppointmentModel;
+  offset: number;
+};
+
+type AppointmentGroup = {
+  items: GroupItem[];
+  reduceValue: number;
+};
+
+type AppointmentUnwrappedGroup = {
+  start: moment.Moment;
+  end: moment.Moment;
+  dataItem: AppointmentModel;
+  offset: number;
+  reduceValue: number;
+};
+
 export const unwrapGroups: CustomFunction<
-  [any[]], any[]
+  [AppointmentGroup[]], AppointmentUnwrappedGroup[]
 > = groups => groups.reduce((acc, { items, reduceValue }) => {
   acc.push(...items.map(appointment => ({
     start: appointment.start,
@@ -182,10 +204,17 @@ export const unwrapGroups: CustomFunction<
     reduceValue,
   })));
   return acc;
-}, []);
+}, [] as AppointmentUnwrappedGroup[]);
+
+type ElementRect = {
+  top: number,
+  left: number,
+  width: number,
+  height: number,
+};
 
 export const getAppointmentStyle: CustomFunction<
-  [number, number, number, number], any
+  [ElementRect], any
 > = ({
   top, left,
   width, height,
@@ -198,7 +227,7 @@ export const getAppointmentStyle: CustomFunction<
 });
 
 const rectCalculatorBase: CustomFunction<
-  [AppointmentCore, (...args: any) => any, object], any
+  [AppointmentUnwrappedGroup, (...args: any) => any, object], any
 > = (
   appointment,
   getRectByDates,
@@ -215,7 +244,7 @@ type Rect = {
 };
 
 const horizontalRectCalculator: CustomFunction<
-  [AppointmentCore, any], Rect
+  [AppointmentUnwrappedGroup, any], Rect
 > = (
   appointment,
   {
@@ -251,7 +280,7 @@ const horizontalRectCalculator: CustomFunction<
 };
 
 const verticalRectCalculator: CustomFunction<
-  [AppointmentCore, any], Rect
+  [AppointmentUnwrappedGroup, any], Rect
 > = (
   appointment,
   {
@@ -297,7 +326,7 @@ export const calculateRectByDateIntervals: CustomFunction<
 > = (type, intervals, rectByDates, rectByDatesMeta) => {
   const { growDirection, multiline } = type;
   const sorted = sortAppointments(intervals, multiline);
-  const grouped = findOverlappedAppointments(sorted, multiline);
+  const grouped = findOverlappedAppointments(sorted as AppointmentMoment[], multiline);
 
   const rectCalculator = growDirection === HORIZONTAL_TYPE
     ? horizontalRectCalculator

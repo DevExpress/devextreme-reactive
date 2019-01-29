@@ -28,4 +28,4 @@ export type PureComputed<TArgs extends any[], TReturn = TupleHead<TArgs>> =
  * For compatibility with current definitions
  */
 export type CustomFunction<TArgs extends any[], TReturn = TupleHead<TArgs>> =
-  (...args: TArgs | ReadonlyTuple<TArgs>) => TReturn;
+  (...args: TArgs) => TReturn;

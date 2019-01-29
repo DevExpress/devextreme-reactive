@@ -5,7 +5,7 @@ import { TABLE_HEADING_TYPE } from '../table-header-row/constants';
 import { TABLE_DATA_TYPE } from '../table/constants';
 import { findChainByColumnIndex } from '../table-header-row/helpers';
 import {
-  IsSpecificRowFn, GetColumnBandMetaFn, GetBandComponentFn,
+  IsSpecificRowFn, GetColumnBandMetaFn, GetBandComponentFn, BandHeaderRow,
 } from '../../types';
 
 export const isBandedTableRow: IsSpecificRowFn = tableRow => (tableRow.type === TABLE_BAND_TYPE);
@@ -42,8 +42,9 @@ export const getBandComponent: GetBandComponentFn = (
   if (rowSpan) return { type: BAND_DUPLICATE_RENDER, payload: null };
 
   const maxLevel = tableHeaderRows.filter(column => column.type === TABLE_BAND_TYPE).length + 1;
-  const currentRowLevel = tableRow.level === undefined
-    ? maxLevel - 1 : tableRow.level;
+  const level = (tableRow as BandHeaderRow).level;
+  const currentRowLevel = level === undefined
+    ? maxLevel - 1 : level;
   const currentColumnMeta = currentTableColumn.type === TABLE_DATA_TYPE
     ? getColumnMeta(currentTableColumn.column!.name, columnBands, currentRowLevel)
     : { level: 0, title: '' };
@@ -80,7 +81,7 @@ export const getBandComponent: GetBandComponentFn = (
     type: BAND_GROUP_CELL,
     payload: {
       colSpan: currentColumnChain!.columns.length,
-      value: currentColumnMeta.title,
+      value: currentColumnMeta.title!,
       column: currentColumnMeta,
       ...beforeBorder && { beforeBorder },
     },

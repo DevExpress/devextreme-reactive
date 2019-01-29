@@ -2,7 +2,7 @@ import {
   GetRowLevelKeyFn, IsSpecificRowFn, GetCollapsedRowsFn, GetRowIdFn, Row, GetCellValueFn,
 } from './grid-core.types';
 import { TableRow } from './table.types';
-import { PureComputed } from '@devexpress/dx-core';
+import { PureComputed, CustomFunction } from '@devexpress/dx-core';
 
 export interface SummaryItem {
   /** The name of a column associated with the current summary item. */
@@ -15,7 +15,7 @@ export type SummaryType = string;
 export type RowLevel = { levelKey: string, row: Row, opened: boolean };
 
 type GetRowValueFn = PureComputed<[Row], any>;
-type ColumnSummary = { type: SummaryType, value: SummaryValue };
+export type ColumnSummary = { type: SummaryType, value: SummaryValue };
 export type GetColumnSummariesFn = PureComputed<
   [SummaryItem[], string, SummaryValue[]],
   ColumnSummary[]
@@ -27,11 +27,11 @@ export type TableRowsWithSummariesFn = PureComputed<
 
 type DefaultSummaryCalulator = PureComputed<[Row[], GetRowValueFn], SummaryValue>;
 export type DefaultSummaryCalculators = { [key: string]: DefaultSummaryCalulator };
-export type SummaryValue = number | null;
+export type SummaryValue = number | undefined;
 type GroupSummaryValue = { [key: string]: SummaryValue[] };
 type TreeSummaryValue = { [key: number]: SummaryValue[] };
 
-export type SummaryCalculator = PureComputed<
+export type SummaryCalculator = CustomFunction<
   [SummaryType, Row[], GetRowValueFn], SummaryValue
 >;
 
@@ -41,15 +41,15 @@ export type RowsSummaryValuesFn = PureComputed<
 
 export type TotalSummaryValuesFn = PureComputed<[
   TableRow[], SummaryItem[], GetCellValueFn, GetRowLevelKeyFn,
-  IsSpecificRowFn, GetCollapsedRowsFn, SummaryCalculator
+  IsSpecificRowFn, GetCollapsedRowsFn, SummaryCalculator?
 ], SummaryValue[]>;
 
 export type GroupSummaryValuesFn = PureComputed<[
   TableRow[], SummaryItem[], GetCellValueFn, GetRowLevelKeyFn,
-  IsSpecificRowFn, SummaryCalculator
+  IsSpecificRowFn, SummaryCalculator?
 ], GroupSummaryValue>;
 
 export type TreeSummaryValuesFn = PureComputed<[
   TableRow[], SummaryItem[], GetCellValueFn, GetRowLevelKeyFn,
-  IsSpecificRowFn, GetRowIdFn, SummaryCalculator
+  IsSpecificRowFn, GetRowIdFn, SummaryCalculator?
 ], TreeSummaryValue>;

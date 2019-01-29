@@ -2,7 +2,7 @@ import { easeOutCubic } from '@devexpress/dx-core';
 import { getTargetColumnGeometries } from './column-geometries';
 import {
   GetTableColumnGeometriesFn, GetTableTargetColumnIndexFn, ColumnAnimation,
-  GetColumnAnimationsFn, ColumnGeometry,
+  GetColumnAnimationsFn, ColumnGeometry, ColumnAnimationMap, FilterActiveAnimationsFn, EvalAnimationsFn,
 } from '../types';
 
 export const getTableColumnGeometries: GetTableColumnGeometriesFn = (columns, tableWidth) => {
@@ -85,13 +85,13 @@ export const getAnimations: GetColumnAnimationsFn = (
     .filter((animation: [string, ColumnAnimation]) => animation[1].left));
 };
 
-export const filterActiveAnimations = (animations: ColumnAnimation[]) => new Map(
+export const filterActiveAnimations: FilterActiveAnimationsFn = animations => new Map(
   [...animations.entries()]
     .filter(([, animation]) => getAnimationProgress(animation) < 1),
 );
 
-export const evalAnimations = (animations: ColumnAnimation[]) => new Map([...animations.entries()]
-  .map(([key, animation]): [any, object] => {
+export const evalAnimations: EvalAnimationsFn = animations => new Map([...animations.entries()]
+  .map(([key, animation]): [string, ColumnAnimation] => {
     const progress = easeOutCubic(getAnimationProgress(animation));
     const result = { ...animation.style };
     if (animation.left) {

@@ -1,9 +1,9 @@
-import { PureComputed } from '@devexpress/dx-core';
+import { PureComputed, CustomFunction } from '@devexpress/dx-core';
 import { Row, GetRowIdFn, RowId, IsSpecificRowFn, GetRowLevelKeyFn } from './grid-core.types';
 import { NODE_CHECK } from '../utils/hierarchical-data';
 import { TableRow } from './table.types';
 
-export type GetTreeChildRowsFn = PureComputed<[Row | null, Row[]], Row[] | null>;
+export type GetTreeChildRowsFn = CustomFunction<[Row | null, Row[]], Row[] | null>;
 
 export type TreeMeta = { level: number, leaf: boolean };
 export type TreeNode = {

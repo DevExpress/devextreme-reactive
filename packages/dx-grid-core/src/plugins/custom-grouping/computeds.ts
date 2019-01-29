@@ -15,15 +15,15 @@ export const customGroupedRows: CustomGroupedRowsFn = (
 
   const groupedBy = grouping[0].columnName;
   const nestedGrouping = grouping.slice(1);
-  return getChildGroups(currentRows, grouping[0], rootRows)
+  return getChildGroups(currentRows as any[], grouping[0], rootRows as any[])
     .reduce((acc, { key, value = key, childRows }) => {
       const compoundKey = `${keyPrefix}${key}`;
       acc.push({
         groupedBy,
         compoundKey,
         key,
-        value,
         [GRID_GROUP_CHECK]: true,
+        value,
         [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE.toString()}_${groupedBy}`,
       });
       acc.push(...customGroupedRows(

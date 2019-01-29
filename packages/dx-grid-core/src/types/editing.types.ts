@@ -20,4 +20,6 @@ export type RowPayload = { row: Row };
 export type RowChangePayload = { rowId: RowId, change: any };
 export type RowChanges = { [key: string]: any };
 
-export type TableRowsWithEditingFn = PureComputed<[TableRow[], RowId[], TableRow[], number]>;
+export type TableRowsWithEditingFn = PureComputed<
+  [TableRow[], RowId[], TableRow[], number | undefined]
+>;

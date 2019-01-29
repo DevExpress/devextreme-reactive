@@ -69,8 +69,11 @@ export type ColumnAnimation = {
   style: object,
   left?: { from: number, to: number },
 };
-export type ColumnAnimationMap = Map<string, ColumnAnimation>;
+export type ColumnAnimationMap = ReadonlyMap<string, ColumnAnimation>;
+export type ColumnAnimationStyleMap = ReadonlyMap<string, object>;
 export type GetColumnAnimationsFn = PureComputed<
   [TableColumn[], TableColumn[], number, ColumnAnimationMap],
   ColumnAnimationMap
 >;
+export type FilterActiveAnimationsFn = PureComputed<[ColumnAnimationMap]>;
+export type EvalAnimationsFn = PureComputed<[ColumnAnimationMap], ColumnAnimationStyleMap>;

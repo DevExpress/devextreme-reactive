@@ -35,7 +35,7 @@ const rowsSummary: RowsSummaryValuesFn = (
 ) => summaryItems
   .reduce((acc, { type, columnName }) => {
     const getValue = (row: Row) => getCellValue(row, columnName);
-    acc.push(calculator(type, rows, getValue));
+    acc.push(calculator(type, rows as any[], getValue));
     return acc;
   }, [] as SummaryValue[]);
 

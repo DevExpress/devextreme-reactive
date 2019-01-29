@@ -31,7 +31,7 @@ export const calculateFixedColumnProps: CalculateFixedColumnPropsFn = (
   tableColumnDimensions,
   tableHeaderColumnChains,
 ) => {
-  const { fixed: side } = tableColumn;
+  const side = tableColumn.fixed!;
   const targetArray = side === FIXED_COLUMN_LEFT_SIDE
     ? getFixedColumnKeys(tableColumns, leftColumns)
     : getFixedColumnKeys(tableColumns, rightColumns).slice().reverse();

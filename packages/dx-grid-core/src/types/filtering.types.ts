@@ -50,7 +50,16 @@ export type FilteredCollapsedRowsGetterFn = PureComputed<
   (row: Row) => Row[] | undefined
 >;
 
+export type ColumnFilterOperations = {
+  [columnName: string]: FilterOperation,
+};
+
+export type FilterConfig = {
+  operation?: FilterOperation,
+  value?: any,
+};
+
 export type GetSelectedFilterOperationFn = PureComputed<
-  [FilterOperation[], string, Filter, FilterOperation[]],
+  [ColumnFilterOperations, string, Filter, FilterOperation[]],
   FilterOperation
 >;

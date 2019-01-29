@@ -3,7 +3,7 @@ import { TableColumn } from './table.types';
 import { HeaderColumnChainRows } from './header-row.types';
 
 export type FixedColumnName = string | symbol;
-export type FixedColumnSide = 'left' | 'right' | undefined;
+export type FixedColumnSide = 'left' | 'right';
 
 export type ColumnDimensions = { [key: string]: number };
 

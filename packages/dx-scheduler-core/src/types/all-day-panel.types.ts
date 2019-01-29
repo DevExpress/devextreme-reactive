@@ -1,4 +1,4 @@
-import * as moment from 'moment';
+import moment from 'moment';
 
 export type LeftBound = Date;
 export type RightBound = Date;

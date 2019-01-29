@@ -4,6 +4,7 @@
     "outDir": "./dist",
     "downlevelIteration": true,
     "noImplicitAny": true,
+    "allowSyntheticDefaultImports": true
   },
   "include": [
     "./src"

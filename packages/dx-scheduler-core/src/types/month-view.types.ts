@@ -1,4 +1,4 @@
-import * as moment from 'moment';
+import moment from 'moment';
 
 export type TimeBounds = { left: moment.Moment, right: moment.Moment };
 export type Step = number;

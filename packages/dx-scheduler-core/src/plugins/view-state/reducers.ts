@@ -1,4 +1,4 @@
-import * as moment from 'moment';
+import moment from 'moment';
 import { PureReducer } from '@devexpress/dx-core';
 import { CurrentDatePayload, CurrentDate, ViewName } from '../../types';
 

@@ -1,4 +1,4 @@
-import * as moment from 'moment';
+import moment from 'moment';
 import { PureComputed } from '@devexpress/dx-core';
 import {
   FirstDayOfWeek, IntervalCount, CurrentDate, Today, MonthCellData,

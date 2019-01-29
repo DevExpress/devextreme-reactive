@@ -1,4 +1,4 @@
-import * as moment from 'moment';
+import moment from 'moment';
 import { CustomFunction, PureComputed } from '@devexpress/dx-core';
 import { HORIZONTAL_TYPE, VERTICAL_TYPE } from './constants';
 import {

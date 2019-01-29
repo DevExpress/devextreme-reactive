@@ -8,6 +8,7 @@ export type EndDayHour = number;
 export type CellDuration = number;
 export type ViewName = string;
 export type CurrentTime = Date | number | string;
+export type AppointmentDate = Date | number | string;
 export type StartViewDate = Date;
 export type EndViewDate = Date;
 export type IntervalCount = number;

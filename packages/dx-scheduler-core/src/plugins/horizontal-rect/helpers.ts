@@ -1,7 +1,7 @@
 import { CustomFunction } from '@devexpress/dx-core';
 import {
-  ViewCellData, CellElement, TakePrevious, Multiline,
-  CellRect, HorizontalCellRect, HorizontalPayload, StartDate, EndDate,
+  ViewCellData, CellElement, TakePrevious, Multiline, AppointmentDate,
+  CellRect, HorizontalCellRect, HorizontalPayload, EndDate,
 } from '../../types';
 import { getAllDayCellIndexByDate } from '../all-day-panel/helpers';
 import { getMonthCellIndexByDate } from '../month-view/helpers';
@@ -10,7 +10,7 @@ const TOP_CELL_OFFSET = 0.32;
 const CELL_BOUND_OFFSET_PX = 1;
 
 const getCellRect: CustomFunction<
-  [Date, ViewCellData[][], CellElement[][], TakePrevious, Multiline], CellRect
+  [AppointmentDate, ViewCellData[][], CellElement[][], TakePrevious, Multiline], CellRect
 > = (date, viewCellsData, cellElements, takePrev, multiline) => {
   const cellIndex = multiline
     ? getMonthCellIndexByDate(viewCellsData, date, takePrev)
@@ -37,7 +37,7 @@ const getCellRect: CustomFunction<
 };
 
 export const getHorizontalRectByDates: CustomFunction<
-[StartDate, EndDate, HorizontalPayload], HorizontalCellRect
+[AppointmentDate, EndDate, HorizontalPayload], HorizontalCellRect
 > = (
   startDate,
   endDate,

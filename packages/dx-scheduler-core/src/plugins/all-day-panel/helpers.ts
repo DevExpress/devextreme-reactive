@@ -1,7 +1,8 @@
 import * as moment from 'moment';
 import { PureComputed } from '@devexpress/dx-core';
 import {
-  AppointmentMoment, ViewCellData, TakePrevious, LeftBound, RightBound, ExcludedDays,
+  AppointmentMoment, ViewCellData, TakePrevious,
+  LeftBound, RightBound, ExcludedDays, AppointmentDate,
 } from '../../types';
 
 export const allDayPredicate: PureComputed<[AppointmentMoment], boolean> = appointment => (
@@ -10,7 +11,7 @@ export const allDayPredicate: PureComputed<[AppointmentMoment], boolean> = appoi
 );
 
 export const getAllDayCellIndexByDate: PureComputed<
-  [ViewCellData[][], Date, TakePrevious], number
+  [ViewCellData[][], AppointmentDate, TakePrevious], number
 > = (viewCellsData, date, takePrev) => {
   const currentDate = moment(date);
   let cellIndex = viewCellsData[0]

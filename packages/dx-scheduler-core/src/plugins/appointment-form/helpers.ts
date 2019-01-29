@@ -1,8 +1,6 @@
 import * as moment from 'moment';
 import { PureComputed } from '@devexpress/dx-core';
-import {
-  Action, StartDate, EndDate,
-} from '../../types';
+import { Action, StartDate, EndDate } from '../../types';
 
 export const callActionIfExists: PureComputed<[Action, object], void> = (action, payload) => {
   if (action) {

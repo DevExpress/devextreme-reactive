@@ -19,7 +19,7 @@ export const getCellByDate: CustomFunction<
     .isBetween(
       timeCell[cellIndex].startDate,
       timeCell[cellIndex].endDate,
-      null,
+      undefined, // null,
       takePrev ? '(]' : '[)'),
     );
 

@@ -65,4 +65,4 @@ export const calculateMonthDateIntervals: CustomFunction<
       appointment,
       DAY_COUNT,
     ),
-  ]), []);
+  ]), [] as AppointmentMoment[]);

@@ -14,8 +14,15 @@ export interface Rect {
   height: number;
 }
 
+type ParentRect = {
+  top: number;
+  left: number;
+  width: number;
+  height?: number;
+};
+
 export interface CellRect extends Rect {
-  parentRect: object;
+  parentRect: ParentRect;
 }
 
 export interface HorizontalCellRect extends Rect {

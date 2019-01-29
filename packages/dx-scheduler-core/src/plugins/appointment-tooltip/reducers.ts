@@ -1,7 +1,5 @@
 import { PureReducer } from '@devexpress/dx-core';
-import {
-  AppointmentMeta,
-} from '../../types';
+import { AppointmentMeta } from '../../types';
 
 export const setAppointmentMeta: PureReducer<AppointmentMeta, AppointmentMeta> = (
   prevAppointmentMeta,

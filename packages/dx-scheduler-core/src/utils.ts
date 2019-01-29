@@ -56,7 +56,7 @@ const inInterval = (
 ) => date.isBetween(interval[0], interval[1], undefined, '[]'); // null -> undefined
 
 export const viewPredicate: PureComputed<
-  [AppointmentMoment, Date, Date, ExcludedDays, boolean], boolean
+  [AppointmentMoment, Date, Date, ExcludedDays?, boolean?], boolean
 > = (
   appointment, left, right,
   excludedDays = [],

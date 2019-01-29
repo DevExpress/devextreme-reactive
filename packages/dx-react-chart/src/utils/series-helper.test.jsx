@@ -107,7 +107,7 @@ describe('#declareSeries', () => {
       getPointTransformer: testGetPointTransformer,
       seriesComponent: TestComponentPath,
       pointComponent: TestComponentPoint,
-    });
+    }, {});
     expect(getComputedState(tree)).toEqual({
       ...defaultDeps.getter,
       series: 'extended-series',

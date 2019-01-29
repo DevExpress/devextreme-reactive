@@ -25,6 +25,7 @@ import { TableGroupRow } from '@devexpress/dx-react-grid';
 - [GroupingState](grouping-state.md)
 - [Table](table.md)
 - [DataTypeProvider](data-type-provider.md) [Optional]
+- [TableSelection](table-selection.md) [Optional]
 
 ### Properties
 

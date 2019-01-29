@@ -16,4 +16,4 @@ import { Palette } from '@devexpress/dx-react-chart';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-scheme | Array&lt;string&gt; | ['#0070ff', '#d72e3d', '#249d3d', '#ffb90c', '#1698af', '#616a72'] for [Bootstrap4](https://www.npmjs.com/package/@devexpress/dx-react-chart-bootstrap4); ['#40C4FF', '#FF5252', '#00C853', '#FFEB3B', '#FF4081', '#E040FB'] for [Material-UI](https://www.npmjs.com/package/@devexpress/dx-react-chart-material-ui); | An array of colors.
+scheme | Array&lt;string&gt; | [&apos;#0070ff&apos;, &apos;#d72e3d&apos;, &apos;#249d3d&apos;, &apos;#ffb90c&apos;, &apos;#1698af&apos;, &apos;#616a72&apos;] for [Bootstrap4](https://www.npmjs.com/package/@devexpress/dx-react-chart-bootstrap4); [&apos;#40C4FF&apos;, &apos;#FF5252&apos;, &apos;#00C853&apos;, &apos;#FFEB3B&apos;, &apos;#FF4081&apos;, &apos;#E040FB&apos;] for [Material-UI](https://www.npmjs.com/package/@devexpress/dx-react-chart-material-ui); | An array of colors.

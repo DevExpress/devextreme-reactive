@@ -12,6 +12,10 @@ import { HoverState } from '@devexpress/dx-react-chart';
 
 ## User Reference
 
+### Dependencies
+
+- [EventTracker](event-tracker.md) [Optional]
+
 ### Properties
 
 Name | Type | Default | Description

@@ -100,20 +100,21 @@ const hitTestRect = (dx, dy, halfX, halfY) => (
 
 // Some kind of binary search can be used here as bars can be ordered along argument axis.
 export const createBarHitTester = createPointsEnumeratingHitTesterCreator(
-  ([px, py], point) => {
-    const xCenter = point.x + point.width / 2;
-    const yCenter = (point.y + point.y1) / 2;
-    const halfWidth = point.width / 2;
-    const halfHeight = Math.abs(point.y - point.y1) / 2;
+  ([px, py], {
+    x, y, y1, barWidth, maxBarWidth,
+  }) => {
+    const xCenter = x;
+    const yCenter = (y + y1) / 2;
+    const halfWidth = maxBarWidth * barWidth / 2;
+    const halfHeight = Math.abs(y - y1) / 2;
     return hitTestRect(px - xCenter, py - yCenter, halfWidth, halfHeight);
   },
 );
 
-// TODO: Use actual point size here!
 export const createScatterHitTester = createPointsEnumeratingHitTesterCreator(
-  ([px, py], { x, y }) => {
+  ([px, py], { x, y, point }) => {
     const distance = getSegmentLength(px - x, py - y);
-    return distance <= 10 ? { distance } : null;
+    return distance <= point.size / 2 ? { distance } : null;
   },
 );
 
@@ -125,11 +126,13 @@ const mapAngleTod3 = (angle) => {
 // Some kind of binary search can be used here as pies can be ordered along angle axis.
 export const createPieHitTester = createPointsEnumeratingHitTesterCreator(
   ([px, py], {
-    x, y, innerRadius, outerRadius, startAngle, endAngle,
+    x, y, innerRadius, outerRadius, startAngle, maxRadius, endAngle,
   }) => {
-    const rCenter = (innerRadius + outerRadius) / 2;
+    const inner = innerRadius * maxRadius;
+    const outer = outerRadius * maxRadius;
+    const rCenter = (inner + outer) / 2;
     const angleCenter = (startAngle + endAngle) / 2;
-    const halfRadius = (outerRadius - innerRadius) / 2;
+    const halfRadius = (outer - inner) / 2;
     const halfAngle = Math.abs(startAngle - endAngle) / 2;
     const dx = px - x;
     const dy = py - y;

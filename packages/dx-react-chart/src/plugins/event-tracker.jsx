@@ -11,16 +11,22 @@ import { buildEventHandlers } from '@devexpress/dx-chart-core';
 
 const wrapToList = arg => (arg ? [arg] : []);
 
-const EVENT_NAME_MAP = {
+const EVENT_NAME_TO_REACT_MAP = {
   click: 'onClick',
+  mousemove: 'onMouseMove',
+  mouseleave: 'onMouseLeave',
+  touchmove: 'onTouchMove',
+  touchleave: 'onTouchLeave',
   pointermove: 'onPointerMove',
   pointerleave: 'onPointerLeave',
 };
 
+// Translates event names from common space to React.
+// https://developer.mozilla.org/en-US/docs/Web/Events
 const translateEventNames = (handlers) => {
   const result = {};
   Object.entries(handlers).forEach(([name, handler]) => {
-    result[EVENT_NAME_MAP[name]] = handler;
+    result[EVENT_NAME_TO_REACT_MAP[name]] = handler;
   });
   return result;
 };

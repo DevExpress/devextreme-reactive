@@ -165,22 +165,22 @@ describe('EventTracker', () => {
       });
     });
 
-    it('should create only pointer move handlers', () => {
+    it('should create only move handlers', () => {
       const handlers = buildEventHandlers([series1, series2, series3], {
         clickHandlers: [], pointerMoveHandlers: [1],
       });
 
       expect(handlers).toEqual({
-        pointermove: expect.any(Function),
-        pointerleave: expect.any(Function),
+        mousemove: expect.any(Function),
+        mouseleave: expect.any(Function),
       });
     });
 
-    it('should raise event on pointer leave', () => {
-      const { pointerleave } = buildEventHandlers([series1, series2, series3], {
+    it('should invoke handlers on leave event', () => {
+      const { mouseleave } = buildEventHandlers([series1, series2, series3], {
         clickHandlers: [], pointerMoveHandlers: [handler1, handler2],
       });
-      pointerleave({
+      mouseleave({
         clientX: 572,
         clientY: 421,
         currentTarget,
@@ -188,6 +188,38 @@ describe('EventTracker', () => {
 
       expect(handler1).toBeCalledWith({ location: [412, 281], targets: [] });
       expect(handler2).toBeCalledWith({ location: [412, 281], targets: [] });
+    });
+
+    it('should use touch events if available', () => {
+      window.ontouchmove = true; // eslint-disable-line no-undef
+      try {
+        const handlers = buildEventHandlers([series1, series2, series3], {
+          clickHandlers: [], pointerMoveHandlers: [1],
+        });
+
+        expect(handlers).toEqual({
+          touchmove: expect.any(Function),
+          touchleave: expect.any(Function),
+        });
+      } finally {
+        delete window.ontouchmove; // eslint-disable-line no-undef
+      }
+    });
+
+    it('should use pointer events if available', () => {
+      window.onpointermove = true; // eslint-disable-line no-undef
+      try {
+        const handlers = buildEventHandlers([series1, series2, series3], {
+          clickHandlers: [], pointerMoveHandlers: [1],
+        });
+
+        expect(handlers).toEqual({
+          pointermove: expect.any(Function),
+          pointerleave: expect.any(Function),
+        });
+      } finally {
+        delete window.onpointermove; // eslint-disable-line no-undef
+      }
     });
   });
 });

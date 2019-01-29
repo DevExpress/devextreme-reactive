@@ -1,4 +1,5 @@
 import { argumentsShallowEqual } from './shallow-equal';
+import { Memoized } from '@devexpress/dx-core';
 
 /** @internal */
 export const memoize = (func) => {

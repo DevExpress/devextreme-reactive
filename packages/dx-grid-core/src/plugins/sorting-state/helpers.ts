@@ -9,7 +9,7 @@ export const getColumnSortingDirection: GetColumnSortingDirectionFn = (
   sorting, columnName,
 ) => {
   const columnSorting = sorting.filter(s => s.columnName === columnName)[0];
-  return columnSorting ? columnSorting.direction : null;
+  return columnSorting ? columnSorting.direction : undefined;
 };
 
 export const getPersistentSortedColumns: GetPersistentSortedColumnsFn = (

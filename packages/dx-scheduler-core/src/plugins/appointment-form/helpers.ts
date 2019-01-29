@@ -10,4 +10,4 @@ export const callActionIfExists: PureComputed<[Action, object], void> = (action,
 
 export const isAllDayCell: PureComputed<
   [StartDate, EndDate], boolean
-> = (startDate, endDate) => moment(endDate).diff(moment(startDate), 'days') >= 1;
+> = (startDate, endDate) => moment(endDate as Date).diff(moment(startDate as Date), 'days') >= 1;

@@ -1,4 +1,4 @@
-import { CustomFunction } from '@devexpress/dx-core';
+import { PureComputed } from '@devexpress/dx-core';
 import {
   ViewCellData, CellElement, TakePrevious, Multiline, AppointmentDate,
   CellRect, HorizontalCellRect, HorizontalPayload, EndDate,
@@ -9,7 +9,7 @@ import { getMonthCellIndexByDate } from '../month-view/helpers';
 const TOP_CELL_OFFSET = 0.32;
 const CELL_BOUND_OFFSET_PX = 1;
 
-const getCellRect: CustomFunction<
+const getCellRect: PureComputed<
   [AppointmentDate, ViewCellData[][], CellElement[][], TakePrevious, Multiline], CellRect
 > = (date, viewCellsData, cellElements, takePrev, multiline) => {
   const cellIndex = multiline
@@ -36,7 +36,7 @@ const getCellRect: CustomFunction<
   };
 };
 
-export const getHorizontalRectByDates: CustomFunction<
+export const getHorizontalRectByDates: PureComputed<
 [AppointmentDate, EndDate, HorizontalPayload], HorizontalCellRect
 > = (
   startDate,

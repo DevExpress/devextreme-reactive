@@ -13,7 +13,7 @@ export const allDayPredicate: PureComputed<[AppointmentMoment], boolean> = appoi
 export const getAllDayCellIndexByDate: PureComputed<
   [ViewCellData[][], AppointmentDate, TakePrevious], number
 > = (viewCellsData, date, takePrev) => {
-  const currentDate = moment(date);
+  const currentDate = moment(date as Date);
   let cellIndex = viewCellsData[0]
     .findIndex(day => moment(day.startDate).day() === currentDate.day());
   if (takePrev && currentDate.format() === currentDate.startOf('day').format()) {
@@ -30,12 +30,12 @@ export const sliceAppointmentsByBoundaries: PureComputed<
   let nextStart = startDate.clone();
   let nextEnd = endDate.clone();
 
-  if (startDate.isBefore(left as Date)) {
-    nextStart = moment(left as Date);
+  if (startDate.isBefore(left as LeftBound)) {
+    nextStart = moment(left as LeftBound);
     nextStart.startOf('day');
   }
   if (endDate.isAfter(right as RightBound)) {
-    nextEnd = moment(right);
+    nextEnd = moment(right as Date);
     nextEnd.endOf('day');
   }
   if (excludedDays.findIndex(day => day === startDate.day()) !== -1) {

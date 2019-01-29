@@ -7,7 +7,9 @@ import {
 } from '../../types';
 import { calculateFirstDateOfWeek } from '../../utils';
 
-const subtractSecond: PureComputed<[Date]> = date => moment(date).subtract(1, 'second').toDate();
+const subtractSecond: PureComputed<
+  [Date]
+> = date => moment(date as Date).subtract(1, 'second').toDate();
 
 export const dayScale: PureComputed<
   [CurrentDate, FirstDayOfWeek, DayCount, ExcludedDays], Date[]
@@ -19,8 +21,8 @@ export const dayScale: PureComputed<
 ) => {
   const result = [];
   const date = firstDayOfWeek !== undefined
-    ? moment(calculateFirstDateOfWeek(currentDate, firstDayOfWeek, excluded))
-    : moment(currentDate);
+    ? moment(calculateFirstDateOfWeek(currentDate, firstDayOfWeek, excluded) as Date)
+    : moment(currentDate as Date);
   for (let index = 0; index < dayCount; index += 1) {
     if (excluded.findIndex(item => item === date.day()) === -1) {
       result.push(date.toDate());
@@ -44,8 +46,8 @@ export const timeScale: PureComputed<
   const startDateOfView = firstDayOfWeek !== undefined
     ? calculateFirstDateOfWeek(currentDate, firstDayOfWeek, excludedDays)
     : currentDate;
-  const left = moment(startDateOfView).startOf('hour').hour(startDayHour);
-  const right = moment(startDateOfView).startOf('hour').hour(endDayHour);
+  const left = moment(startDateOfView as Date).startOf('hour').hour(startDayHour);
+  const right = moment(startDateOfView as Date).startOf('hour').hour(endDayHour);
 
   while (left.isBefore(right)) {
     const startDate = left.toDate();
@@ -81,7 +83,7 @@ export const viewCellsData: PureComputed<
   const times = timeScale(
     currentDate, firstDayOfWeek, startDayHour, endDayHour, cellDuration, excludedDays,
   );
-  const currentTime = moment(currTime);
+  const currentTime = moment(currTime as Date);
 
   const cells: ViewCell[][] = [];
   times.forEach((time) => {

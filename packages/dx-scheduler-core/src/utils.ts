@@ -53,7 +53,7 @@ const byDayPredicate: CustomFunction<
 
 const inInterval = (
   date: moment.Moment, interval: Interval,
-) => date.isBetween(interval[0], interval[1], undefined, '[]'); // null -> undefined
+) => date.isBetween(interval[0], interval[1], undefined, '[]');
 
 export const viewPredicate: PureComputed<
   [AppointmentMoment, Date, Date, ExcludedDays?, boolean?], boolean
@@ -65,7 +65,7 @@ export const viewPredicate: PureComputed<
   const { start, end } = appointment;
   const isAppointmentInBoundary = end.isAfter(left as Date) && start.isBefore(right as Date);
 
-  const isAppointmentInExcludedDays = !!excludedIntervals(excludedDays, moment(left))
+  const isAppointmentInExcludedDays = !!excludedIntervals(excludedDays, moment(left as Date))
     .find(interval => (inInterval(start, interval) && inInterval(end, interval)));
   const considerAllDayAppointment = removeAllDayAppointments
     ? moment(end).diff(start, 'hours') < 24 && !appointment.allDay

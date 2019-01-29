@@ -8,9 +8,7 @@ import {
   dayBoundaryPredicate,
   reduceAppointmentByDayBounds,
 } from './helpers';
-import {
-  viewPredicate,
-} from '../../utils';
+import { viewPredicate } from '../../utils';
 
 export const calculateWeekDateIntervals: PureComputed<
 [AppointmentCore[], LeftBound, RightBound, ExcludedDays], AppointmentMoment[]

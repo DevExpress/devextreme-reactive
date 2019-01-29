@@ -1,10 +1,8 @@
 import * as moment from 'moment';
-import { CustomFunction } from '@devexpress/dx-core';
-import {
-  AppointmentMoment, LeftBound, RightBound, ExcludedDays,
-} from '../../types';
+import { PureComputed } from '@devexpress/dx-core';
+import { AppointmentMoment, LeftBound, RightBound, ExcludedDays } from '../../types';
 
-export const sliceAppointmentByDay: CustomFunction<
+export const sliceAppointmentByDay: PureComputed<
   [AppointmentMoment], AppointmentMoment[]
 > = (appointment) => {
   const { start, end, dataItem } = appointment;
@@ -17,15 +15,15 @@ export const sliceAppointmentByDay: CustomFunction<
   ];
 };
 
-export const dayBoundaryPredicate: CustomFunction<
+export const dayBoundaryPredicate: PureComputed<
 [AppointmentMoment, LeftBound, RightBound, ExcludedDays], boolean
 > = (
   appointment,
   leftBound, rightBound,
   excludedDays = [],
 ) => {
-  const dayStart = moment(leftBound);
-  const dayEnd = moment(rightBound);
+  const dayStart = moment(leftBound as Date);
+  const dayEnd = moment(rightBound as Date);
   const startDayTime = moment(appointment.start)
     .hour(dayStart.hour())
     .minutes(dayStart.minutes());
@@ -39,11 +37,11 @@ export const dayBoundaryPredicate: CustomFunction<
     && appointment.start.isBefore(endDayTime));
 };
 
-export const reduceAppointmentByDayBounds: CustomFunction<
+export const reduceAppointmentByDayBounds: PureComputed<
   [AppointmentMoment, LeftBound, RightBound], AppointmentMoment
 > = (appointment, leftBound, rightBound) => {
-  const dayStart = moment(leftBound);
-  const dayEnd = moment(rightBound);
+  const dayStart = moment(leftBound as Date);
+  const dayEnd = moment(rightBound as Date);
   const startDayTime = moment(appointment.start)
     .hour(dayStart.hour())
     .minutes(dayStart.minutes())

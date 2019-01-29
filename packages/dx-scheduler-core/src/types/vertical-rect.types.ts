@@ -8,9 +8,16 @@ interface CellRect {
   top: number;
   left: number;
 }
+
+type ParentRect = {
+  top: number;
+  width: number;
+  left: number;
+};
+
 export interface VerticalCellRect extends CellRect {
   topOffset: number;
-  parentRect: object;
+  parentRect: ParentRect;
 }
 
 export interface VerticalCellRectByDate extends CellRect {

@@ -29,11 +29,11 @@ export const sliceAppointmentsByBoundaries: PureComputed<
   let nextStart = startDate.clone();
   let nextEnd = endDate.clone();
 
-  if (startDate.isBefore(left)) {
-    nextStart = moment(left);
+  if (startDate.isBefore(left as Date)) {
+    nextStart = moment(left as Date);
     nextStart.startOf('day');
   }
-  if (endDate.isAfter(right)) {
+  if (endDate.isAfter(right as RightBound)) {
     nextEnd = moment(right);
     nextEnd.endOf('day');
   }

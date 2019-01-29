@@ -11,6 +11,10 @@
   padding-bottom: 30px;
 }
 
+.opened {
+  right: auto;
+}
+
 .links {
   padding-right: $inner-offset;
   a {
@@ -21,6 +25,29 @@
     }
     &:last-child {
       margin-right: 0;
+    }
+  }
+}
+
+@media(max-width: 800px) {
+  .links {
+    transition: right .1s linear;
+    position: fixed;
+    top: 80px;
+    right: -300px;
+    width: 200px;
+    height: 100%;
+    background: #093643;
+    box-shadow: -5px 10px 30px -5px #000;
+    z-index: 999;
+    padding: 20px;
+    &.opened {
+      right: 0;
+
+    }
+    a {
+      display: block;
+      margin: 0;
     }
   }
 }

@@ -41,8 +41,8 @@
     "gatsby-transformer-remark": "^2.1.2",
     "node-sass": "4.9.3",
     "prop-types": "^15.6.2",
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
     "react-helmet": "^5.2.0",
     "reactstrap": "^6.4.0",
     "segoe-fonts": "^1.0.1"

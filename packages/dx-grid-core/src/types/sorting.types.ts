@@ -34,7 +34,7 @@ export type SortedRowsFn = PureComputed<
 
 export type GetColumnSortingDirectionFn = PureComputed<
   [Sorting[], string],
-  SortingDirection | undefined
+  SortingDirection | null
 >;
 
 export type GetPersistentSortedColumnsFn = PureComputed<

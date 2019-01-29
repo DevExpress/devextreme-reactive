@@ -9,6 +9,7 @@ export const changeCurrentDate: PureReducer<CurrentDate, CurrentDatePayload, Dat
   nextDate
   || moment(currentDate as Date)[direction === 'back' ? 'subtract' : 'add'](amount, step)
     .toDate()
+  || moment().subtract(amount, step)
 );
 
 export const setCurrentViewName: PureReducer<

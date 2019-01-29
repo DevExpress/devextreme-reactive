@@ -1,6 +1,6 @@
 export interface CurrentDatePayload {
   nextDate: Date;
-  step: string;
+  step: 'day' | 'week' | 'month';
   amount: number;
   direction: string;
 }

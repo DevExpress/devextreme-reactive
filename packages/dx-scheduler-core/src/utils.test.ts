@@ -47,7 +47,8 @@ describe('Utils', () => {
         { start: moment('2018-07-10 08:00'), end: moment('2018-07-10 09:00') },
         { start: moment('2018-07-10 11:00'), end: moment('2018-07-10 12:00') },
       ];
-      const filtered = appointments.filter(appointment => viewPredicate(appointment, '2018-07-10 09:00', '2018-07-10 11:00'));
+      const filtered = appointments.filter(appointment =>
+        viewPredicate(appointment, '2018-07-10 09:00', '2018-07-10 11:00'));
 
       expect(filtered)
         .toEqual(appointments.slice(0, 4));
@@ -63,7 +64,8 @@ describe('Utils', () => {
         { start: moment('2018-07-07 09:00'), end: moment('2018-07-07 09:00') },
         { start: moment('2018-07-07 09:00'), end: moment('2018-07-08 10:00') },
       ];
-      const filtered = appointments.filter(appointment => viewPredicate(appointment, '2018-07-02', '2018-07-08 23:59', [4, 6, 0]));
+      const filtered = appointments.filter(appointment =>
+        viewPredicate(appointment, '2018-07-02', '2018-07-08 23:59', [4, 6, 0]));
 
       expect(filtered)
         .toEqual(appointments.slice(0, 4));
@@ -81,7 +83,8 @@ describe('Utils', () => {
           start: moment('2018-07-09 08:00'), end: moment('2018-07-10 08:00'), allDay: undefined,
         },
       ];
-      const filtered = appointments.filter(appointment => viewPredicate(appointment, '2018-07-08', '2018-07-12', [], true));
+      const filtered = appointments.filter(appointment =>
+        viewPredicate(appointment, '2018-07-08', '2018-07-12', [], true));
 
       expect(filtered)
         .toEqual(appointments.slice(0, 1));

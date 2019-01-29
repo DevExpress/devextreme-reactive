@@ -1,3 +1,5 @@
+/* globals document:true */
+
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
@@ -7,19 +9,34 @@ class Header extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      visibility: false,
+      menuVisibility: false,
     };
-    this.toggleVisibility = this.toggleVisibility.bind(this);
+    this.toggleMenuVisibility = this.toggleMenuVisibility.bind(this);
+    this.handleOutsideClick = this.handleOutsideClick.bind(this);
+    this.menuRef = React.createRef();
   }
 
-  toggleVisibility() {
-    const { visibility } = this.state;
-    this.setState({ visibility: !visibility });
+  toggleMenuVisibility() {
+    const { menuVisibility } = this.state;
+    if (!menuVisibility) {
+      document.addEventListener('click', this.handleOutsideClick, false);
+    } else {
+      document.removeEventListener('click', this.handleOutsideClick, false);
+    }
+
+    this.setState({ menuVisibility: !menuVisibility });
+  }
+
+  handleOutsideClick(e) {
+    if (this.menuRef.current.contains(e.target)) {
+      return;
+    }
+    this.toggleMenuVisibility();
   }
 
   render() {
     const { logo, links, addon } = this.props;
-    const { visibility } = this.state;
+    const { menuVisibility } = this.state;
     return (
       <header className={styles.header}>
         <div className={`container ${styles.headerContainer}`}>
@@ -31,12 +48,13 @@ class Header extends React.Component {
               <button
                 className="d-block d-sm-none"
                 type="button"
-                onClick={this.toggleVisibility}
+                onClick={this.toggleMenuVisibility}
               >
                 Menu
               </button>
               <div
-                className={`${styles.links} ${visibility ? styles.opened : ''}`}
+                className={`${styles.links} ${menuVisibility ? styles.opened : ''}`}
+                ref={this.menuRef}
               >
                 {links}
                 <a

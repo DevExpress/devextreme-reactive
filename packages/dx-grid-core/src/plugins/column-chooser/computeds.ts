@@ -1,7 +1,6 @@
 import { PureComputed } from '@devexpress/dx-core';
 import { Column } from '../../types/grid-core.types';
-
-type ColumnChooserItem = { column: Column, hidden: boolean };
+import { ColumnChooserItem } from '../../types';
 
 export const columnChooserItems: PureComputed<[Column[], string[]], ColumnChooserItem[]> = (
   columns, hiddenColumnNames,

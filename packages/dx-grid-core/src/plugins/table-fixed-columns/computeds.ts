@@ -13,7 +13,7 @@ export const tableColumnsWithFixed: PureComputed<
   tableColumns, leftColumns, rightColumns,
 ) => tableColumns
   .map((tableColumn) => {
-    let fixed: FixedColumnSide;
+    let fixed!: FixedColumnSide;
     if ((tableColumn.type === TABLE_DATA_TYPE
       && leftColumns.indexOf(tableColumn.column!.name) !== -1)
       || leftColumns.indexOf(tableColumn.type) !== -1) {

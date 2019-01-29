@@ -9,6 +9,7 @@ export interface Grouping {
 }
 /** Describes a group that can be nested in another one. */
 export type GroupKey = string;
+export type GroupIndex = number;
 
 export type GroupingPanelItem = { column: Column, draft: boolean };
 

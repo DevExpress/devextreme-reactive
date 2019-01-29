@@ -1,5 +1,5 @@
-import { TableColumn, TableRow } from "./table.types";
-import { HeaderColumnChainRows } from "./header-row.types";
+import { TableColumn, TableRow } from './table.types';
+import { HeaderColumnChainRows } from './header-row.types';
 
 export interface ColumnBands {
   /** A column name that is used to identify a column in the bands tree. */
@@ -15,7 +15,7 @@ export type BandHeaderRow = TableRow & NestedLevel;
 export type GetMaxNestedLevelFn = (
   bands: ColumnBands[],
   level?: number,
-  result?: NestedLevel | null
+  result?: NestedLevel | null,
 ) => NestedLevel;
 
 type ColumnBandMeta = { level: number; title: string | null };
@@ -26,7 +26,7 @@ export type GetColumnBandMetaFn = (
   tableRowLevel: number,
   level?: number,
   title?: string | null | undefined,
-  result?: ColumnBandMeta | null
+  result?: ColumnBandMeta | null,
 ) => ColumnBandMeta;
 
 type BandComponentPayload = {
@@ -41,5 +41,5 @@ export type GetBandComponentFn = (
   tableHeaderRows: TableRow[],
   tableColumns: TableColumn[],
   columnsBands: ColumnBands[],
-  tableHeaderColumnChains: HeaderColumnChainRows
+  tableHeaderColumnChains: HeaderColumnChainRows,
 ) => { type: string | null; payload: BandComponentPayload | null };

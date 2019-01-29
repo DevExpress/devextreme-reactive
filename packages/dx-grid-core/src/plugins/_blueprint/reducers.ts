@@ -1,7 +1,12 @@
+import { PureReducer } from '@devexpress/dx-core';
+
+type State = { names: string[] };
+type Payload = { columnName: string };
+
 // tslint:disable-next-line: space-in-parens
-export const pureReducer = (state: any, payload: any/* state, payload */) => {
+export const pureReducer: PureReducer<State, Payload> = (state, payload) => {
   // tslint:disable-next-line:prefer-const
-  let nextState;
+  const nextState = { names: [...state.names, payload.columnName] };
 
   // do not mutate state
 

@@ -16,3 +16,4 @@ export * from './header-row.types';
 export * from './summary.types';
 export * from './merge-sort.types';
 export * from './paging.types';
+export * from './column-chooser.types';

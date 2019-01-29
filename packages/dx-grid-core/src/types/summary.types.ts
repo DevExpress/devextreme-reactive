@@ -27,7 +27,7 @@ export type TableRowsWithSummariesFn = PureComputed<
 
 type DefaultSummaryCalulator = PureComputed<[Row[], GetRowValueFn], SummaryValue>;
 export type DefaultSummaryCalculators = { [key: string]: DefaultSummaryCalulator };
-export type SummaryValue = number | undefined;
+export type SummaryValue = number | null;
 type GroupSummaryValue = { [key: string]: SummaryValue[] };
 type TreeSummaryValue = { [key: number]: SummaryValue[] };
 

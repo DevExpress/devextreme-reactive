@@ -1,7 +1,9 @@
+import { PureComputed } from '@devexpress/dx-core';
+
 // tslint:disable-next-line: space-in-parens
-export const pureComputed = (arg: any/* param1, param2 */) => {
+export const pureComputed: PureComputed<[string[], number?]> = (param1, param2) => {
   // tslint:disable-next-line:prefer-const
-  let result;
+  const result = param1.slice();
 
   // ...
 

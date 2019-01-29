@@ -7,7 +7,7 @@ describe('Plugin reducers', () => {
       const payload = { columnName: 'test' };
 
       const nextState = pureReducer(state, payload);
-      expect(nextState).toBeUndefined();
+      expect(nextState).toBe(['test']);
     });
   });
 });

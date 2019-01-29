@@ -9,7 +9,7 @@ import {
 const customTreeRows: GetCustomTreeRowsFn = (
   currentRow, getChildRows, rootRows, level = 0,
 ) => {
-  const childRows = getChildRows(currentRow, rootRows);
+  const childRows = getChildRows(currentRow, rootRows as any[]);
 
   if (!childRows) return { rows: [], treeMeta: [], empty: true };
 

@@ -6,7 +6,7 @@ describe('Plugin computeds', () => {
       const arg1 = [];
 
       const computed = pureComputed(arg1);
-      expect(computed).toBeUndefined();
+      expect(computed).toBe([]);
     });
   });
 });

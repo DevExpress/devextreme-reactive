@@ -20,9 +20,9 @@ export type ReadonlyObject<T> = { readonly [K in keyof T]: Immutable<T[K]>; };
 
 type TupleHead<T> = T extends [infer U, ...any[]] ? U : never;
 
-export type PureReducer<S = any, P = any, R = S> = (
-  ...args: ReadonlyTuple<[S, P]>
-) => Immutable<R>;
+export type PureReducer<TState = any, TPayload = any, TResult = TState> = (
+  ...args: ReadonlyTuple<[TState, TPayload]>
+) => Immutable<TResult>;
 
 export type PureComputed<TArgs extends any[], TReturn = TupleHead<TArgs>> =
   (...args: ReadonlyTuple<TArgs>) => Immutable<TReturn>;
@@ -33,7 +33,6 @@ export type PureComputed<TArgs extends any[], TReturn = TupleHead<TArgs>> =
 export type CustomFunction<TArgs extends any[], TReturn = TupleHead<TArgs>> =
   (...args: TArgs) => TReturn;
 
-// export type Memoized<T extends (...args: any[]) => any> = (...args: any[]) => (...args: any[]) => T;
 export type Memoized<TArg, T extends (...args: any[]) => any> =
   (arg: TArg) =>
     (...args: [Getters, Actions]) => ReturnType<T>;

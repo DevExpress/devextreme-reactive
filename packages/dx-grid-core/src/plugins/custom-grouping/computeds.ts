@@ -22,8 +22,8 @@ export const customGroupedRows: CustomGroupedRowsFn = (
         groupedBy,
         compoundKey,
         key,
-        [GRID_GROUP_CHECK]: true,
         value,
+        [GRID_GROUP_CHECK]: true,
         [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE.toString()}_${groupedBy}`,
       });
       acc.push(...customGroupedRows(

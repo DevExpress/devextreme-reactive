@@ -8,7 +8,6 @@ import {
   AppointmentForm,
   AppointmentTooltip,
 } from '@devexpress/dx-react-scheduler-material-ui';
-
 import { appointments } from '../../../demo-data/appointments';
 
 export default class Demo extends React.PureComponent {
@@ -17,9 +16,28 @@ export default class Demo extends React.PureComponent {
     this.state = {
       data: appointments,
       currentDate: '2018-06-27',
+
+      addedAppointment: {},
+      appointmentChanges: {},
+      editingAppointmentId: undefined,
     };
 
     this.commitChanges = this.commitChanges.bind(this);
+    this.changeAddedAppointment = this.changeAddedAppointment.bind(this);
+    this.changeAppointmentChanges = this.changeAppointmentChanges.bind(this);
+    this.changeEditingAppointmentId = this.changeEditingAppointmentId.bind(this);
+  }
+
+  changeAddedAppointment(addedAppointment) {
+    this.setState({ addedAppointment });
+  }
+
+  changeAppointmentChanges(appointmentChanges) {
+    this.setState({ appointmentChanges });
+  }
+
+  changeEditingAppointmentId(editingAppointmentId) {
+    this.setState({ editingAppointmentId });
   }
 
   commitChanges({ added, changed, deleted }) {
@@ -45,7 +63,9 @@ export default class Demo extends React.PureComponent {
   }
 
   render() {
-    const { currentDate, data } = this.state;
+    const {
+      currentDate, data, addedAppointment, appointmentChanges, editingAppointmentId,
+    } = this.state;
 
     return (
       <Paper>
@@ -57,6 +77,15 @@ export default class Demo extends React.PureComponent {
           />
           <EditingState
             onCommitChanges={this.commitChanges}
+
+            addedAppointment={addedAppointment}
+            onAddedAppointmentChange={this.changeAddedAppointment}
+
+            appointmentChanges={appointmentChanges}
+            onAppointmentChangesChange={this.changeAppointmentChanges}
+
+            editingAppointmentId={editingAppointmentId}
+            onEditingAppointmentIdChange={this.changeEditingAppointmentId}
           />
           <DayView
             startDayHour={9}

@@ -1,13 +1,11 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { pointAttributes } from '@devexpress/dx-chart-core';
+import { dSymbol } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { Point } from './point';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
-  pointAttributes: jest.fn().mockReturnValue(
-    jest.fn().mockReturnValue({ d: 'test-d-attribute' }),
-  ),
+  dSymbol: jest.fn().mockReturnValue('test-d-attribute'),
   getScatterAnimationStyle: 'test-animation-style',
   HOVERED: 'test_hovered',
   SELECTED: 'test_selected',
@@ -33,7 +31,7 @@ describe('Point', () => {
   };
 
   afterEach(() => {
-    pointAttributes.mockClear();
+    dSymbol.mockClear();
     defaultProps.getAnimatedStyle.mockClear();
   });
 
@@ -51,8 +49,7 @@ describe('Point', () => {
       style: 'animated-style',
       stroke: 'none',
     });
-    expect(pointAttributes).toBeCalledWith(defaultProps.point);
-    expect(pointAttributes.mock.results[0].value).toBeCalledWith({});
+    expect(dSymbol).toBeCalledWith(defaultProps.point);
   });
 
   it('should pass rest properties', () => {
@@ -79,10 +76,10 @@ describe('Point', () => {
       test_selected: expect.any(Function),
     });
     expect(withStates.mock.calls[0][0].test_hovered({ a: 1, b: 2, color: 'green' })).toEqual({
-      a: 1, b: 2, strokeWidth: 4, fill: 'none', stroke: 'green',
+      a: 1, b: 2, strokeWidth: 4, fill: 'none', stroke: 'green', d: 'test-d-attribute',
     });
     expect(withStates.mock.calls[0][0].test_selected({ a: 1, b: 2, color: 'blue' })).toEqual({
-      a: 1, b: 2, strokeWidth: 4, fill: 'none', stroke: 'blue',
+      a: 1, b: 2, strokeWidth: 4, fill: 'none', stroke: 'blue', d: 'test-d-attribute',
     });
   });
 });

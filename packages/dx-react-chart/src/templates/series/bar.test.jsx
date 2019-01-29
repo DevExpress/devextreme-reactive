@@ -26,7 +26,8 @@ describe('Bar', () => {
     seriesIndex: 1,
     index: 2,
     x: 1,
-    width: 10,
+    barWidth: 2,
+    maxBarWidth: 20,
     y: 2,
     y1: 18,
     color: 'color',
@@ -51,7 +52,7 @@ describe('Bar', () => {
       style: 'animated-style',
     });
     expect(dBar).toBeCalledWith({
-      x: 1, width: 10, y: 2, y1: 18,
+      x: 1, width: 40, y: 2, y1: 18,
     });
   });
 

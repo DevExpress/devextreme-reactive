@@ -111,13 +111,11 @@ const getGroupName = (series, i, seriesToStackMap) => {
 const getGroupedPointTransformer = (getPointTransformer, groupCount, groupOffset) => {
   const wrapper = (series) => {
     const transform = getPointTransformer(series);
-    const { barWidth } = series;
     const widthCoeff = 1 / groupCount;
-    const offsetCoeff = -(1 - barWidth) / 2 + groupOffset + widthCoeff * (1 - barWidth) / 2;
     return (point) => {
       const ret = transform(point);
-      ret.x += (ret.width / barWidth) * offsetCoeff;
-      ret.width *= widthCoeff;
+      ret.x -= ret.maxBarWidth * (0.5 - 0.5 * widthCoeff - groupOffset * widthCoeff);
+      ret.maxBarWidth /= groupCount;
       return ret;
     };
   };
@@ -137,7 +135,7 @@ const applyGrouping = (seriesList, seriesToStackMap) => {
   if (groups.size < 2) {
     return seriesList;
   }
-  const scale = scaleBand().domain(Array.from(groups)).range([0, 1]);
+  const scale = scaleBand().domain(Array.from(groups)).range([0, groups.size]);
   return seriesList.map((seriesItem, i) => {
     if (!seriesItem.getPointTransformer.isBroad) {
       return seriesItem;

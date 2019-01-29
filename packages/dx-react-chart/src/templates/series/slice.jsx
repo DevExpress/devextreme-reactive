@@ -1,24 +1,27 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { getPieAnimationStyle, HOVERED, SELECTED } from '@devexpress/dx-chart-core';
+import {
+  getPieAnimationStyle, dPie, HOVERED, SELECTED,
+} from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
 
 class RawSlice extends React.PureComponent {
   render() {
     const {
-      x, y, d,
-      argument, value, seriesIndex, index, state,
+      x, y,
+      argument, value, seriesIndex, index, state, maxRadius,
       innerRadius, outerRadius, startAngle, endAngle,
       color,
       style, scales, getAnimatedStyle,
       ...restProps
     } = this.props;
-    // TODO: Calculate *d* attribute here.
     return (
       <g transform={`translate(${x} ${y})`}>
         <path
-          d={d}
+          d={dPie({
+            maxRadius, innerRadius, outerRadius, startAngle, endAngle,
+          })}
           fill={color}
           stroke="none"
           style={getAnimatedStyle(style, getPieAnimationStyle, scales, { index })}
@@ -34,12 +37,12 @@ RawSlice.propTypes = {
   value: PropTypes.number.isRequired,
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
-  d: PropTypes.string.isRequired,
   seriesIndex: PropTypes.number.isRequired,
   index: PropTypes.number.isRequired,
   state: PropTypes.string,
   innerRadius: PropTypes.number.isRequired,
   outerRadius: PropTypes.number.isRequired,
+  maxRadius: PropTypes.number.isRequired,
   startAngle: PropTypes.number.isRequired,
   endAngle: PropTypes.number.isRequired,
   color: PropTypes.string,

@@ -40,7 +40,11 @@ Field | Type | Description
 ------|------|------------
 x | number | The slice's x coordinate.
 y | number | The slice's y coordinate.
-d | string | The slice's [path](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/d).
+maxRadius | number | The slice's maximum radius in pixels.
+innerRadius | number | The inner radius in relative units.
+outerRadius | number | The outer radius in relative units.
+startAngle | number | The slice's start angle.
+endAngle | number | The slice's end angle.
 value | number | The slice's value.
 color | string | A series color.
 index | number | Point index.

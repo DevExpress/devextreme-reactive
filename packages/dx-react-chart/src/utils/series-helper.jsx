@@ -15,7 +15,16 @@ import {
 export const declareSeries = (pluginName, { components, getPointTransformer, createHitTester }) => {
   class Component extends React.PureComponent {
     render() {
-      const { name } = this.props;
+      const {
+        name,
+        argumentField,
+        valueField,
+        scaleName,
+        seriesComponent,
+        pointComponent,
+        color,
+        ...restProps
+      } = this.props;
       const symbolName = Symbol(name);
       const seriesItem = {
         getPointTransformer,
@@ -23,7 +32,11 @@ export const declareSeries = (pluginName, { components, getPointTransformer, cre
         ...this.props,
         symbolName,
       };
-      const getSeries = ({ series, data, palette }) => addSeries(series, data, palette, seriesItem);
+      const getSeries = ({
+        series,
+        data,
+        palette,
+      }) => addSeries(series, data, palette, seriesItem, restProps);
       return (
         <Plugin name={pluginName}>
           <Getter name="series" computed={getSeries} />
@@ -56,6 +69,10 @@ export const declareSeries = (pluginName, { components, getPointTransformer, cre
   }
   Component.propTypes = {
     name: PropTypes.string,
+    scaleName: PropTypes.string,
+    seriesComponent: PropTypes.func.isRequired,
+    pointComponent: PropTypes.func,
+    color: PropTypes.string,
     /* eslint-disable react/no-unused-prop-types */
     valueField: PropTypes.string.isRequired,
     argumentField: PropTypes.string.isRequired,
@@ -63,6 +80,9 @@ export const declareSeries = (pluginName, { components, getPointTransformer, cre
   };
   Component.defaultProps = {
     name: 'defaultSeriesName',
+    scaleName: undefined,
+    pointComponent: undefined,
+    color: undefined,
   };
   Component.components = {};
   if (components.Path) {

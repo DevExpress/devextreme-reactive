@@ -21,6 +21,6 @@ All-day appointments last for the entire day or multiple days. They are displaye
 
 ## Customize the Appearance
 
-The [Appointments](../reference/appointments.md) plugin allows you to customize the appearance of appointments. Override the plugin's `appointmentComponent` with a custom component. Use the [AppointmentProps](../reference/appointments.md#appointmentsappointmentprops) when you implement the custom component. The following example shows how to use this approach to add custom styles to appointments.
+The [Appointments](../reference/appointments.md) plugin allows you to customize the appearance of appointments. Override the plugin's `appointmentComponent` with a custom component. Use the [AppointmentProps](../reference/appointments.md#appointmentsappointmentprops) when you implement the custom component. The following example shows how to use this approach to add custom styles to appointments:
 
 .embedded-demo({ "path": "scheduler-basic/simple-template", "showThemeSelector": true })

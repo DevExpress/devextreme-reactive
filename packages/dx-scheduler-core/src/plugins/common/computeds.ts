@@ -40,19 +40,19 @@ export const timeScale: PureComputed<
   cellDuration,
   excludedDays,
 ) => {
-  const result = [];
-  const startViewDate = firstDayOfWeek !== undefined
+  const result: TimeScale[] = [];
+  const startDateOfView = firstDayOfWeek !== undefined
     ? calculateFirstDateOfWeek(currentDate, firstDayOfWeek, excludedDays)
     : currentDate;
-  const left = moment(startViewDate).startOf('hour').hour(startDayHour);
-  const right = moment(startViewDate).startOf('hour').hour(endDayHour);
+  const left = moment(startDateOfView).startOf('hour').hour(startDayHour);
+  const right = moment(startDateOfView).startOf('hour').hour(endDayHour);
 
   while (left.isBefore(right)) {
     const startDate = left.toDate();
     left.add(cellDuration, 'minutes');
     result.push({ start: startDate, end: left.toDate() });
   }
-  result[result.length - 1].end = subtractSecond(result[result.length - 1].end);
+  result[result.length - 1].end = subtractSecond(result[result.length - 1].end) as Date;
   return result;
 };
 
@@ -69,7 +69,8 @@ export const availableViewNames: PureComputed<
 };
 
 export const viewCellsData: PureComputed<
-  [CurrentDate, FirstDayOfWeek, DayCount, ExcludedDays, StartDayHour, EndDayHour, CellDuration, CurrentTime], ViewCell[][]
+  [CurrentDate, FirstDayOfWeek, DayCount, ExcludedDays,
+    StartDayHour, EndDayHour, CellDuration, CurrentTime], ViewCell[][]
 > = (
   currentDate, firstDayOfWeek,
   dayCount, excludedDays,
@@ -82,9 +83,9 @@ export const viewCellsData: PureComputed<
   );
   const currentTime = moment(currTime);
 
-  const cells = [];
+  const cells: ViewCell[][] = [];
   times.forEach((time) => {
-    const rowCells = [];
+    const rowCells: ViewCell[] = [];
     const start = moment(time.start);
     const end = moment(time.end);
     days.forEach((day) => {
@@ -103,8 +104,13 @@ export const viewCellsData: PureComputed<
   return cells;
 };
 
+type AllDayCell = {
+  startDate: Date | string | number;
+  endDate: Date | string | number;
+};
+
 export const allDayCells: PureComputed<
-  [ViewCell[][]], ViewCell[][]
+  [ViewCell[][]], AllDayCell[]
 > = viewCells => viewCells[0].map(cell => ({
   startDate: moment(cell.startDate).startOf('day').toDate(),
   endDate: moment(cell.startDate).add(1, 'day').startOf('day').toDate(),
@@ -119,5 +125,5 @@ export const endViewDate: PureComputed<
 > = (viewCells) => {
   const lastRowIndex = viewCells.length - 1;
   const lastCellIndex = viewCells[lastRowIndex].length - 1;
-  return subtractSecond(viewCells[lastRowIndex][lastCellIndex].endDate);
+  return subtractSecond(viewCells[lastRowIndex][lastCellIndex].endDate!);
 };

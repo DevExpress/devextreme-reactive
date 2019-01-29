@@ -50,10 +50,9 @@ type Size = {
 
 type SizerProps = {
   onSizeChange: (size: Size) => void;
-  onScroll: (e) => void
-  // containerComponent?: React.ComponentType;
+  onScroll?: (e) => void;
   containerComponent?: any;
-  style: object;
+  style?: object;
 };
 
 /** @internal */

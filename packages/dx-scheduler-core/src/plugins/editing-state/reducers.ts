@@ -1,10 +1,10 @@
 import { PureReducer } from '@devexpress/dx-core';
 import {
-  Index, AppointmentDataPayload, AppointmentModel, Changes, EditAppointmentPayload,
+  Index, AddedAppointmentDataPayload, AppointmentModel, Changes, EditAppointmentPayload,
 } from '../../types';
 
 export const addAppointment: PureReducer<
-  AppointmentModel, AppointmentDataPayload, AppointmentModel | {}
+  AppointmentModel, AddedAppointmentDataPayload, AppointmentModel | {}
 > = (
   addedAppointmentData, { appointmentData } = { appointmentData:  {} },
 ) => appointmentData;

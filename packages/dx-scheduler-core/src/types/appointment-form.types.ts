@@ -6,3 +6,6 @@ export type EndDate = Date | number | string;
 export type AppointmentDataPayload = {
   appointmentData: AppointmentModel;
 };
+export type AddedAppointmentDataPayload = {
+  appointmentData: AppointmentModel | {};
+};

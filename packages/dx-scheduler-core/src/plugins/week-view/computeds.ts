@@ -1,18 +1,11 @@
 import moment from 'moment';
-import { PureComputed } from '@devexpress/dx-core';
+import { CalculateWeekDateIntervals, AppointmentMoment } from '../../types';
 import {
-  AppointmentCore, AppointmentMoment, LeftBound, RightBound, ExcludedDays,
-} from '../../types';
-import {
-  sliceAppointmentByDay,
-  dayBoundaryPredicate,
-  reduceAppointmentByDayBounds,
+  sliceAppointmentByDay, dayBoundaryPredicate, reduceAppointmentByDayBounds,
 } from './helpers';
 import { viewPredicate } from '../../utils';
 
-export const calculateWeekDateIntervals: PureComputed<
-  [AppointmentCore[], LeftBound, RightBound, ExcludedDays], AppointmentMoment[]
-> = (
+export const calculateWeekDateIntervals: CalculateWeekDateIntervals = (
   appointments,
   leftBound, rightBound,
   excludedDays,

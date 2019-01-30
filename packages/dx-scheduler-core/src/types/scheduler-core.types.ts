@@ -1,3 +1,6 @@
+import { PureComputed } from '@devexpress/dx-core';
+
+export type ExcludedDays = number[];
 export type CurrentViewType = string;
 export type CurrentDate = Date;
 export type Today = Date;
@@ -59,3 +62,16 @@ export interface ViewCell {
   /** Indicates whether the cell's date is today. */
   today?: boolean;
 }
+
+export type DayScaleComputed = PureComputed<
+  [CurrentDate, FirstDayOfWeek, DayCount, ExcludedDays], Date[]
+>;
+
+export type TimeScaleComputed = PureComputed<
+  [CurrentDate, FirstDayOfWeek, StartDayHour, EndDayHour, CellDuration, ExcludedDays], TimeScale[]
+>;
+
+export type ViewCellsDataComputed = PureComputed<
+  [CurrentDate, FirstDayOfWeek, DayCount, ExcludedDays,
+    StartDayHour, EndDayHour, CellDuration, CurrentTime], ViewCell[][]
+>;

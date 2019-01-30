@@ -1,13 +1,9 @@
 import moment from 'moment';
-import { PureComputed } from '@devexpress/dx-core';
 import {
-  TimeBounds, AppointmentMoment, Step,
-  TakePrevious, Index, ViewCellData, AppointmentDate,
+  SliceAppointmentByWeek, GetMonthCellIndexByDate, AppointmentDate,
 } from '../../types';
 
-export const sliceAppointmentByWeek: PureComputed<
-  [TimeBounds, AppointmentMoment, Step], AppointmentMoment[]
-> = (timeBounds, appointment, step) => {
+export const sliceAppointmentByWeek: SliceAppointmentByWeek = (timeBounds, appointment, step) => {
   const { left, right } = timeBounds;
   const pieces = [];
   const { start, end, ...restFields } = appointment;
@@ -38,9 +34,9 @@ export const sliceAppointmentByWeek: PureComputed<
   return pieces;
 };
 
-export const getMonthCellIndexByDate: PureComputed<
-  [ViewCellData[][], AppointmentDate, TakePrevious], Index
-> = (viewCellsData, date, takePrev = false) => {
+export const getMonthCellIndexByDate: GetMonthCellIndexByDate = (
+  viewCellsData, date, takePrev = false,
+) => {
   const startViewDate = moment(viewCellsData[0][0].startDate);
   const currentDate = moment(date as AppointmentDate);
   let cellIndex = currentDate.diff(startViewDate, 'days');

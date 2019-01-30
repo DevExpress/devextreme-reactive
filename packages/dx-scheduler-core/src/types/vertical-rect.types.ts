@@ -1,6 +1,10 @@
-import { Index, CurrentTime, CellDuration, CellElement } from './scheduler-core.types';
-import { ViewCellData } from './all-day-panel.types';
+import { PureComputed } from '@devexpress/dx-core';
+import {
+  Index, CurrentTime, CellDuration, CellElement, AppointmentDate,
+} from './scheduler-core.types';
+import { ViewCellData, TakePrevious } from './all-day-panel.types';
 import { ParentRect, Coordinates } from './horizontal-rect.types';
+import { EndDate } from './appointment-form.types';
 
 export type CellByDate = { index: Index; startDate: CurrentTime };
 
@@ -19,3 +23,15 @@ export type VerticalPayload = {
   cellDuration: CellDuration;
   cellElements: CellElement[];
 };
+
+export type GetCellByDate = PureComputed<
+  [ViewCellData[][], AppointmentDate, TakePrevious], CellByDate
+>;
+
+export type GetCellRectVertical = PureComputed<
+  [AppointmentDate, ViewCellData[][], CellDuration, CellElement[], TakePrevious], VerticalCellRect
+>;
+
+export type GetVerticalRectByDates = PureComputed<
+  [AppointmentDate, EndDate, VerticalPayload], VerticalCellRectByDate
+>;

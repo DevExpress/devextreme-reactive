@@ -1,17 +1,13 @@
-import { PureComputed } from '@devexpress/dx-core';
-import {
-  ViewCellData, CellElement, TakePrevious, Multiline, AppointmentDate,
-  CellRect, HorizontalCellRect, HorizontalPayload, EndDate,
-} from '../../types';
+import { GetCellRectHorizontal, GetHorizontalRectByDates } from '../../types';
 import { getAllDayCellIndexByDate } from '../all-day-panel/helpers';
 import { getMonthCellIndexByDate } from '../month-view/helpers';
 
 const TOP_CELL_OFFSET = 0.32;
 const CELL_BOUND_OFFSET_PX = 1;
 
-const getCellRect: PureComputed<
-  [AppointmentDate, ViewCellData[][], CellElement[][], TakePrevious, Multiline], CellRect
-> = (date, viewCellsData, cellElements, takePrev, multiline) => {
+const getCellRect: GetCellRectHorizontal = (
+  date, viewCellsData, cellElements, takePrev, multiline,
+) => {
   const cellIndex = multiline
     ? getMonthCellIndexByDate(viewCellsData, date, takePrev)
     : getAllDayCellIndexByDate(viewCellsData, date, takePrev);
@@ -36,9 +32,7 @@ const getCellRect: PureComputed<
   };
 };
 
-export const getHorizontalRectByDates: PureComputed<
-  [AppointmentDate, EndDate, HorizontalPayload], HorizontalCellRect
-> = (
+export const getHorizontalRectByDates: GetHorizontalRectByDates = (
   startDate,
   endDate,
   {

@@ -1,8 +1,7 @@
 import moment from 'moment';
-import { PureComputed } from '@devexpress/dx-core';
 import {
-  FirstDayOfWeek, IntervalCount, CurrentDate, Today, MonthCellData,
-  AppointmentCore, AppointmentMoment, LeftBound, RightBound,
+  MonthCellsDataComputed, CurrentDate, Today,
+  CalculateMonthDateIntervals, AppointmentMoment, LeftBound, RightBound,
 } from '../../types';
 import { viewPredicate } from '../../utils';
 import { sliceAppointmentByWeek } from './helpers';
@@ -10,9 +9,7 @@ import { sliceAppointmentByWeek } from './helpers';
 const DAY_COUNT = 7;
 const MONTH_LENGTH = 31;
 
-export const monthCellsData: PureComputed<
-  [CurrentDate, FirstDayOfWeek, IntervalCount, Today], MonthCellData[][]
-> = (
+export const monthCellsData: MonthCellsDataComputed = (
   currentDate,
   firstDayOfWeek,
   intervalCount = 1,
@@ -51,9 +48,7 @@ export const monthCellsData: PureComputed<
   return result;
 };
 
-export const calculateMonthDateIntervals: PureComputed<
-  [AppointmentCore[], LeftBound, RightBound], AppointmentMoment[]
-> = (
+export const calculateMonthDateIntervals: CalculateMonthDateIntervals = (
   appointments, leftBound, rightBound,
 ) => appointments
   .map(({ start, end, ...restArgs }) => ({ start: moment(start), end: moment(end), ...restArgs }))

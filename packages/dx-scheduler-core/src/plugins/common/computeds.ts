@@ -1,9 +1,9 @@
 import moment from 'moment';
 import { PureComputed } from '@devexpress/dx-core';
 import {
-  CurrentDate, FirstDayOfWeek, DayCount, ExcludedDays,
-  StartDayHour, EndDayHour, CellDuration, TimeScale,
-  ViewName, CurrentTime, ViewCell, StartViewDate, EndViewDate,
+  CurrentDate, TimeScale, EndViewDate,
+  ViewName, CurrentTime, ViewCell, StartViewDate,
+  DayScaleComputed, TimeScaleComputed, ViewCellsDataComputed,
 } from '../../types';
 import { calculateFirstDateOfWeek } from '../../utils';
 
@@ -11,9 +11,7 @@ const subtractSecond: PureComputed<
   [Date]
 > = date => moment(date as Date).subtract(1, 'second').toDate();
 
-export const dayScale: PureComputed<
-  [CurrentDate, FirstDayOfWeek, DayCount, ExcludedDays], Date[]
-> = (
+export const dayScale: DayScaleComputed = (
   currentDate,
   firstDayOfWeek,
   dayCount,
@@ -32,9 +30,7 @@ export const dayScale: PureComputed<
   return result;
 };
 
-export const timeScale: PureComputed<
-  [CurrentDate, FirstDayOfWeek, StartDayHour, EndDayHour, CellDuration, ExcludedDays], TimeScale[]
-> = (
+export const timeScale: TimeScaleComputed = (
   currentDate,
   firstDayOfWeek,
   startDayHour,
@@ -70,10 +66,7 @@ export const availableViewNames: PureComputed<
   return viewNames;
 };
 
-export const viewCellsData: PureComputed<
-  [CurrentDate, FirstDayOfWeek, DayCount, ExcludedDays,
-    StartDayHour, EndDayHour, CellDuration, CurrentTime], ViewCell[][]
-> = (
+export const viewCellsData: ViewCellsDataComputed = (
   currentDate, firstDayOfWeek,
   dayCount, excludedDays,
   startDayHour, endDayHour,

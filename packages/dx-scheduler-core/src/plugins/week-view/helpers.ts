@@ -1,6 +1,8 @@
 import moment from 'moment';
 import { PureComputed } from '@devexpress/dx-core';
-import { AppointmentMoment, LeftBound, RightBound, ExcludedDays } from '../../types';
+import {
+  AppointmentMoment, LeftBound, RightBound, DayBoundaryPredicate, ReduceAppointmentByDayBounds,
+} from '../../types';
 
 export const sliceAppointmentByDay: PureComputed<
   [AppointmentMoment], AppointmentMoment[]
@@ -15,9 +17,7 @@ export const sliceAppointmentByDay: PureComputed<
   ];
 };
 
-export const dayBoundaryPredicate: PureComputed<
-  [AppointmentMoment, LeftBound, RightBound, ExcludedDays], boolean
-> = (
+export const dayBoundaryPredicate: DayBoundaryPredicate = (
   appointment,
   leftBound, rightBound,
   excludedDays = [],
@@ -37,9 +37,9 @@ export const dayBoundaryPredicate: PureComputed<
     && appointment.start.isBefore(endDayTime));
 };
 
-export const reduceAppointmentByDayBounds: PureComputed<
-  [AppointmentMoment, LeftBound, RightBound], AppointmentMoment
-> = (appointment, leftBound, rightBound) => {
+export const reduceAppointmentByDayBounds: ReduceAppointmentByDayBounds = (
+  appointment, leftBound, rightBound,
+) => {
   const dayStart = moment(leftBound as LeftBound);
   const dayEnd = moment(rightBound as RightBound);
   const startDayTime = moment(appointment.start)

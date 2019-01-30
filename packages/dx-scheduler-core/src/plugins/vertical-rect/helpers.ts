@@ -1,17 +1,13 @@
 import moment from 'moment';
-import { PureComputed } from '@devexpress/dx-core';
 import {
-  ViewCellData, TakePrevious, CellByDate, CellDuration, VerticalCellRectByDate,
-  CellElement, VerticalCellRect, VerticalPayload, AppointmentDate, EndDate,
+  GetCellByDate, GetVerticalRectByDates, GetCellRectVertical, AppointmentDate,
 } from '../../types';
 
 const CELL_GAP_PX = 10;
 const CELL_BOUND_HORIZONTAL_OFFSET_PX = 1;
 const CELL_BOUND_VERTICAL_OFFSET_PX = 4;
 
-export const getCellByDate: PureComputed<
-  [ViewCellData[][], AppointmentDate, TakePrevious], CellByDate
-> = (viewCellsData, date, takePrev = false) => {
+export const getCellByDate: GetCellByDate = (viewCellsData, date, takePrev = false) => {
   const cellIndex =
     viewCellsData[0].findIndex(timeCell =>
       moment(date as AppointmentDate).isSame(timeCell.startDate, 'date'));
@@ -31,9 +27,9 @@ export const getCellByDate: PureComputed<
   };
 };
 
-const getCellRect: PureComputed<
-  [AppointmentDate, ViewCellData[][], CellDuration, CellElement[], TakePrevious], VerticalCellRect
-> = (date, viewCellsData, cellDuration, cellElements, takePrev) => {
+const getCellRect: GetCellRectVertical = (
+  date, viewCellsData, cellDuration, cellElements, takePrev,
+) => {
   const {
     index: cellIndex,
     startDate: cellStartDate,
@@ -62,9 +58,7 @@ const getCellRect: PureComputed<
   };
 };
 
-export const getVerticalRectByDates: PureComputed<
-  [AppointmentDate, EndDate, VerticalPayload], VerticalCellRectByDate
-> = (
+export const getVerticalRectByDates: GetVerticalRectByDates = (
   startDate,
   endDate,
   {

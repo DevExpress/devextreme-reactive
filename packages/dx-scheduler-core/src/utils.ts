@@ -2,22 +2,20 @@ import moment from 'moment';
 import { CustomFunction, PureComputed } from '@devexpress/dx-core';
 import { HORIZONTAL_TYPE, VERTICAL_TYPE } from './constants';
 import {
-  ViewName, ExcludedDays, RightBound,
-  CurrentDate, FirstDayOfWeek, AppointmentMoment, LeftBound,
+  Computed, ExcludedDays, RightBound, ViewPredicate,
+  CurrentDate, CalculateFirstDateOfWeek, AppointmentMoment, LeftBound,
   Interval, AppointmentGroup, AppointmentUnwrappedGroup,
-  Rect, ElementRect,
+  Rect, ElementRect, RectCalculatorBase, CalculateRectByDateIntervals,
 } from './types';
 
-export const computed: CustomFunction<
-  [any, ViewName, (...args: any[]) => any, any]
-> = (getters, viewName, baseComputed, defaultValue) => {
+export const computed: Computed = (getters, viewName, baseComputed, defaultValue) => {
   if (getters.currentView.name !== viewName && !!defaultValue) {
     return defaultValue;
   }
   return baseComputed(getters, viewName);
 };
 
-export const toPercentage: CustomFunction<
+export const toPercentage: PureComputed<
   [number, number]
 > = (value, total) => (value * 100) / total;
 
@@ -45,7 +43,7 @@ const excludedIntervals: PureComputed<
     return acc;
   }, [] as Interval[]);
 
-const byDayPredicate: CustomFunction<
+const byDayPredicate: PureComputed<
   [moment.Moment, moment.Moment], boolean
 > = (boundary, date) => (
   boundary.isSameOrAfter(date, 'day')
@@ -56,9 +54,7 @@ const inInterval = (
   date: moment.Moment, interval: Interval,
 ) => date.isBetween(interval[0], interval[1], undefined, '[]');
 
-export const viewPredicate: PureComputed<
-  [AppointmentMoment, LeftBound, RightBound, ExcludedDays?, boolean?], boolean
-> = (
+export const viewPredicate: ViewPredicate = (
   appointment, left, right,
   excludedDays = [],
   removeAllDayAppointments = false,
@@ -117,14 +113,14 @@ export const findOverlappedAppointments: CustomFunction<
   return groups;
 };
 
-const isMidnight: CustomFunction<
+const isMidnight: PureComputed<
   [moment.Moment], boolean
 > = date => date.isSame(date.clone().startOf('day'));
 
-const maxBoundaryPredicate: CustomFunction<
+const maxBoundaryPredicate: PureComputed<
   [moment.Moment, Date], boolean
-> = (maxBoundary, startDate) => ((maxBoundary.isBefore(startDate, 'day'))
-  || (isMidnight(maxBoundary) && maxBoundary.isSame(startDate, 'day')));
+> = (maxBoundary, startDate) => ((maxBoundary.isBefore(startDate as Date, 'day'))
+  || (isMidnight(maxBoundary) && maxBoundary.isSame(startDate as Date, 'day')));
 
 export const adjustAppointments: CustomFunction<
   [any[], boolean], any
@@ -155,12 +151,12 @@ export const adjustAppointments: CustomFunction<
   return { items: appointments, reduceValue };
 });
 
-export const calculateFirstDateOfWeek: PureComputed<
-  [CurrentDate, FirstDayOfWeek, ExcludedDays], Date
-> = (currentDate, firstDayOfWeek, excludedDays = []) => {
+export const calculateFirstDateOfWeek: CalculateFirstDateOfWeek = (
+  currentDate, firstDayOfWeek, excludedDays = [],
+) => {
   const currentLocale = moment.locale();
   moment.updateLocale('tmp-locale', {
-    week: { dow: firstDayOfWeek, doy: 1 }, // !!!! doy
+    week: { dow: firstDayOfWeek, doy: 1 }, // doy
   });
   const firstDateOfWeek = moment(currentDate as CurrentDate).startOf('week');
   if (excludedDays.indexOf(firstDayOfWeek) !== -1) {
@@ -175,7 +171,7 @@ export const calculateFirstDateOfWeek: PureComputed<
   return firstDateOfWeek.toDate();
 };
 
-export const unwrapGroups: CustomFunction<
+export const unwrapGroups: PureComputed<
   [AppointmentGroup[]], AppointmentUnwrappedGroup[]
 > = groups => groups.reduce((acc, { items, reduceValue }) => {
   acc.push(...items.map(appointment => ({
@@ -188,7 +184,7 @@ export const unwrapGroups: CustomFunction<
   return acc;
 }, [] as AppointmentUnwrappedGroup[]);
 
-export const getAppointmentStyle: CustomFunction<
+export const getAppointmentStyle: PureComputed<
   [Rect], any
 > = ({
   top, left,
@@ -201,9 +197,7 @@ export const getAppointmentStyle: CustomFunction<
   position: 'absolute',
 });
 
-const rectCalculatorBase: CustomFunction<
-  [AppointmentUnwrappedGroup, (...args: any) => any, object], any
-> = (
+const rectCalculatorBase: RectCalculatorBase = (
   appointment,
   getRectByDates,
   options,
@@ -287,9 +281,9 @@ const verticalRectCalculator: CustomFunction<
   };
 };
 
-export const calculateRectByDateIntervals: CustomFunction<
-  [any, AppointmentMoment[], (...args: any) => any, any], ElementRect[]
-> = (type, intervals, rectByDates, rectByDatesMeta) => {
+export const calculateRectByDateIntervals: CalculateRectByDateIntervals = (
+  type, intervals, rectByDates, rectByDatesMeta,
+) => {
   const { growDirection, multiline } = type;
   const sorted = sortAppointments(intervals, multiline);
   const grouped = findOverlappedAppointments(sorted as AppointmentMoment[], multiline);

@@ -11,7 +11,7 @@ import {
 import { viewPredicate } from '../../utils';
 
 export const calculateWeekDateIntervals: PureComputed<
-[AppointmentCore[], LeftBound, RightBound, ExcludedDays], AppointmentMoment[]
+  [AppointmentCore[], LeftBound, RightBound, ExcludedDays], AppointmentMoment[]
 > = (
   appointments,
   leftBound, rightBound,

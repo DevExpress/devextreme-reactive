@@ -42,7 +42,7 @@ export const getMonthCellIndexByDate: PureComputed<
 [ViewCellData[][], AppointmentDate, TakePrevious], Index
 > = (viewCellsData, date, takePrev = false) => {
   const startViewDate = moment(viewCellsData[0][0].startDate);
-  const currentDate = moment(date as Date);
+  const currentDate = moment(date as AppointmentDate);
   let cellIndex = currentDate.diff(startViewDate, 'days');
 
   if (takePrev && currentDate.format() === currentDate.startOf('day').format()) {

@@ -18,7 +18,7 @@ export const calculateAllDayDateIntervals: PureComputed<
     viewPredicate(appointment, leftBound, rightBound, excludedDays, false)
     && allDayPredicate(appointment)
   ))
-  .reduce((acc: AppointmentMoment[], appointment) => ([
+  .reduce((acc, appointment) => ([
     ...acc,
     ...sliceAppointmentsByBoundaries(appointment, leftBound, rightBound, excludedDays),
-  ]), []);
+  ]), [] as AppointmentMoment[]);

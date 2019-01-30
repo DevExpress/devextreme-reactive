@@ -1,7 +1,6 @@
 import { testStatePluginField } from '@devexpress/dx-testing';
 import {
   addAppointment,
-  // changeAddedAppointment,
   cancelAddedAppointment,
   startEditAppointment,
   stopEditAppointment,
@@ -19,7 +18,6 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
   changeAppointment: jest.fn(),
   cancelChanges: jest.fn(),
   addAppointment: jest.fn(),
-  // changeAddedAppointment: jest.fn(),
   cancelAddedAppointment: jest.fn(),
 }));
 

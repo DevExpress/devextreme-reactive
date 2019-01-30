@@ -16,14 +16,14 @@ export const sliceAppointmentByDay: PureComputed<
 };
 
 export const dayBoundaryPredicate: PureComputed<
-[AppointmentMoment, LeftBound, RightBound, ExcludedDays], boolean
+  [AppointmentMoment, LeftBound, RightBound, ExcludedDays], boolean
 > = (
   appointment,
   leftBound, rightBound,
   excludedDays = [],
 ) => {
-  const dayStart = moment(leftBound as Date);
-  const dayEnd = moment(rightBound as Date);
+  const dayStart = moment(leftBound as LeftBound);
+  const dayEnd = moment(rightBound as RightBound);
   const startDayTime = moment(appointment.start)
     .hour(dayStart.hour())
     .minutes(dayStart.minutes());
@@ -40,8 +40,8 @@ export const dayBoundaryPredicate: PureComputed<
 export const reduceAppointmentByDayBounds: PureComputed<
   [AppointmentMoment, LeftBound, RightBound], AppointmentMoment
 > = (appointment, leftBound, rightBound) => {
-  const dayStart = moment(leftBound as Date);
-  const dayEnd = moment(rightBound as Date);
+  const dayStart = moment(leftBound as LeftBound);
+  const dayEnd = moment(rightBound as RightBound);
   const startDayTime = moment(appointment.start)
     .hour(dayStart.hour())
     .minutes(dayStart.minutes())

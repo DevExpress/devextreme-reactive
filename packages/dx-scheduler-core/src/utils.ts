@@ -2,8 +2,8 @@ import moment from 'moment';
 import { CustomFunction, PureComputed } from '@devexpress/dx-core';
 import { HORIZONTAL_TYPE, VERTICAL_TYPE } from './constants';
 import {
-  ViewName, AppointmentModel, ExcludedDays,
-  CurrentDate, FirstDayOfWeek, AppointmentMoment,
+  ViewName, AppointmentModel, ExcludedDays, RightBound,
+  CurrentDate, FirstDayOfWeek, AppointmentMoment, LeftBound,
 } from './types';
 
 export const computed: CustomFunction<
@@ -56,16 +56,17 @@ const inInterval = (
 ) => date.isBetween(interval[0], interval[1], undefined, '[]');
 
 export const viewPredicate: PureComputed<
-  [AppointmentMoment, Date, Date, ExcludedDays?, boolean?], boolean
+  [AppointmentMoment, LeftBound, RightBound, ExcludedDays?, boolean?], boolean
 > = (
   appointment, left, right,
   excludedDays = [],
   removeAllDayAppointments = false,
 ) => {
   const { start, end } = appointment;
-  const isAppointmentInBoundary = end.isAfter(left as Date) && start.isBefore(right as Date);
+  const isAppointmentInBoundary = end.isAfter(left as LeftBound)
+    && start.isBefore(right as RightBound);
 
-  const isAppointmentInExcludedDays = !!excludedIntervals(excludedDays, moment(left as Date))
+  const isAppointmentInExcludedDays = !!excludedIntervals(excludedDays, moment(left as LeftBound))
     .find(interval => (inInterval(start, interval) && inInterval(end, interval)));
   const considerAllDayAppointment = removeAllDayAppointments
     ? moment(end).diff(start, 'hours') < 24 && !appointment.allDay

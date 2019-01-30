@@ -18,15 +18,15 @@ export const monthCellsData: PureComputed<
   intervalCount = 1,
   today,
 ) => {
-  const targetDate = moment(currentDate as Date);
+  const targetDate = moment(currentDate as CurrentDate);
   const currentMonths = [targetDate.month()];
   while (currentMonths.length < intervalCount) {
     currentMonths.push(targetDate.add(1, 'months').month());
   }
-  const firstMonthDate = moment(currentDate as Date).date(1);
+  const firstMonthDate = moment(currentDate as CurrentDate).date(1);
   const firstMonthDay = firstMonthDate.day() - firstDayOfWeek;
   const prevMonthDayCount = firstMonthDate.day(firstMonthDay).day() || DAY_COUNT;
-  const prevMonth = moment(currentDate as Date).subtract(1, 'months');
+  const prevMonth = moment(currentDate as CurrentDate).subtract(1, 'months');
   const prevMonthStartDay = prevMonth.daysInMonth() - (prevMonthDayCount - 1);
   const from = moment()
     .year(prevMonth.year())
@@ -42,7 +42,7 @@ export const monthCellsData: PureComputed<
         startDate: from.toDate(),
         endDate: from.clone().add(1, 'day').toDate(),
         otherMonth: currentMonths.findIndex(month => month === from.month()) === -1,
-        today: today ? moment(today as Date).isSame(from, 'date') : false,
+        today: today ? moment(today as Today).isSame(from, 'date') : false,
       });
       from.add(1, 'day');
     }
@@ -61,7 +61,7 @@ export const calculateMonthDateIntervals: PureComputed<
   .reduce((acc, appointment) => ([
     ...acc,
     ...sliceAppointmentByWeek(
-      { left: moment(leftBound as Date), right: moment(rightBound as Date) },
+      { left: moment(leftBound as LeftBound), right: moment(rightBound as RightBound) },
       appointment,
       DAY_COUNT,
     ),

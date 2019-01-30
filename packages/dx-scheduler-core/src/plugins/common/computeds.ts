@@ -22,7 +22,7 @@ export const dayScale: PureComputed<
   const result = [];
   const date = firstDayOfWeek !== undefined
     ? moment(calculateFirstDateOfWeek(currentDate, firstDayOfWeek, excluded) as Date)
-    : moment(currentDate as Date);
+    : moment(currentDate as CurrentDate);
   for (let index = 0; index < dayCount; index += 1) {
     if (excluded.findIndex(item => item === date.day()) === -1) {
       result.push(date.toDate());
@@ -83,7 +83,7 @@ export const viewCellsData: PureComputed<
   const times = timeScale(
     currentDate, firstDayOfWeek, startDayHour, endDayHour, cellDuration, excludedDays,
   );
-  const currentTime = moment(currTime as Date);
+  const currentTime = moment(currTime as CurrentTime);
 
   const cells: ViewCell[][] = [];
   times.forEach((time) => {
@@ -123,7 +123,7 @@ export const startViewDate: PureComputed<
 > = viewCells => moment(viewCells[0][0].startDate).toDate();
 
 export const endViewDate: PureComputed<
-[ViewCell[][]], EndViewDate
+  [ViewCell[][]], EndViewDate
 > = (viewCells) => {
   const lastRowIndex = viewCells.length - 1;
   const lastCellIndex = viewCells[lastRowIndex].length - 1;

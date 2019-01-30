@@ -13,9 +13,10 @@ export const getCellByDate: PureComputed<
   [ViewCellData[][], AppointmentDate, TakePrevious], CellByDate
 > = (viewCellsData, date, takePrev = false) => {
   const cellIndex =
-    viewCellsData[0].findIndex(timeCell => moment(date as Date).isSame(timeCell.startDate, 'date'));
+    viewCellsData[0].findIndex(timeCell =>
+      moment(date as AppointmentDate).isSame(timeCell.startDate, 'date'));
 
-  const rowIndex = viewCellsData.findIndex(timeCell => moment(date as Date)
+  const rowIndex = viewCellsData.findIndex(timeCell => moment(date as AppointmentDate)
     .isBetween(
       timeCell[cellIndex].startDate,
       timeCell[cellIndex].endDate,
@@ -46,7 +47,7 @@ const getCellRect: PureComputed<
     height: cellHeight,
   } = cellElement.getBoundingClientRect();
 
-  const timeOffset = moment(date as Date).diff(cellStartDate as Date, 'minutes');
+  const timeOffset = moment(date as AppointmentDate).diff(cellStartDate as Date, 'minutes');
   const topOffset = cellHeight * (timeOffset / cellDuration);
   let parentRect = { left: 0, top: 0, width: 0 };
   if (cellElement.offsetParent) {

@@ -35,7 +35,7 @@ export const sliceAppointmentsByBoundaries: PureComputed<
     nextStart.startOf('day');
   }
   if (endDate.isAfter(right as RightBound)) {
-    nextEnd = moment(right as Date);
+    nextEnd = moment(right as RightBound);
     nextEnd.endOf('day');
   }
   if (excludedDays.findIndex(day => day === startDate.day()) !== -1) {

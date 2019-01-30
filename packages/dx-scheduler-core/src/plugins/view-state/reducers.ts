@@ -7,7 +7,7 @@ export const changeCurrentDate: PureReducer<CurrentDate, CurrentDatePayload, Dat
   nextDate, step, amount, direction,
 }) => (
   nextDate
-  || moment(currentDate as Date)[direction === 'back' ? 'subtract' : 'add'](amount, step)
+  || moment(currentDate as CurrentDate)[direction === 'back' ? 'subtract' : 'add'](amount, step)
     .toDate()
   || moment().subtract(amount, step)
 );

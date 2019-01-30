@@ -37,7 +37,7 @@ const getCellRect: PureComputed<
 };
 
 export const getHorizontalRectByDates: PureComputed<
-[AppointmentDate, EndDate, HorizontalPayload], HorizontalCellRect
+  [AppointmentDate, EndDate, HorizontalPayload], HorizontalCellRect
 > = (
   startDate,
   endDate,

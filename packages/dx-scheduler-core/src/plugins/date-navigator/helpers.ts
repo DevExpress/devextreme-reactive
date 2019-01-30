@@ -7,8 +7,8 @@ import {
 const calculateTextByDays: PureComputed<
   [StartViewDate, EndViewDate], string
 > = (startViewDate, endViewDate) => {
-  const momentStartViewDate = moment(startViewDate as Date);
-  const momentEndViewDate = moment(endViewDate as Date);
+  const momentStartViewDate = moment(startViewDate as StartViewDate);
+  const momentEndViewDate = moment(endViewDate as EndViewDate);
 
   if (momentStartViewDate.isSame(momentEndViewDate, 'day')) {
     return momentStartViewDate.format('D MMMM YYYY');
@@ -25,7 +25,7 @@ const calculateTextByDays: PureComputed<
 const calculateTextByMonths: PureComputed<
 [StartViewDate, IntervalCount], string
 > = (currentDate, intervalCount) => {
-  const momentCurrentDate = moment(currentDate as Date);
+  const momentCurrentDate = moment(currentDate as StartViewDate);
 
   if (intervalCount === 1) {
     return momentCurrentDate.format('MMMM YYYY');

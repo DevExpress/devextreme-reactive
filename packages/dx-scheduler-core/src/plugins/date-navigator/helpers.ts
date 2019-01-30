@@ -23,7 +23,7 @@ const calculateTextByDays: PureComputed<
 };
 
 const calculateTextByMonths: PureComputed<
-[StartViewDate, IntervalCount], string
+  [StartViewDate, IntervalCount], string
 > = (currentDate, intervalCount) => {
   const momentCurrentDate = moment(currentDate as StartViewDate);
 
@@ -38,7 +38,7 @@ const calculateTextByMonths: PureComputed<
 };
 
 export const viewBoundText: PureComputed<
-[StartViewDate, EndViewDate, NavigationStep, CurrentDate, IntervalCount], string
+  [StartViewDate, EndViewDate, NavigationStep, CurrentDate, IntervalCount], string
 > = (startViewDate, endViewDate, step, currentDate, intervalCount) => (
   step !== 'month'
     ? calculateTextByDays(startViewDate, endViewDate)

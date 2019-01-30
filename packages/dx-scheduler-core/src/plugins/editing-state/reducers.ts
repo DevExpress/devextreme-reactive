@@ -6,7 +6,7 @@ import {
 export const addAppointment: PureReducer<
   AppointmentModel, AppointmentDataPayload, AppointmentModel | {}
 > = (
-  addedAppointmentData, { appointmentData } = { appointmentData: {} },
+  addedAppointmentData, { appointmentData } = { appointmentData:  {} },
 ) => appointmentData;
 
 export const cancelAddedAppointment = () => ({});

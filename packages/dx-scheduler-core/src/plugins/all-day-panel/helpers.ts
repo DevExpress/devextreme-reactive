@@ -13,7 +13,7 @@ export const allDayPredicate: PureComputed<[AppointmentMoment], boolean> = appoi
 export const getAllDayCellIndexByDate: PureComputed<
   [ViewCellData[][], AppointmentDate, TakePrevious], number
 > = (viewCellsData, date, takePrev) => {
-  const currentDate = moment(date as Date);
+  const currentDate = moment(date as AppointmentDate);
   let cellIndex = viewCellsData[0]
     .findIndex(day => moment(day.startDate).day() === currentDate.day());
   if (takePrev && currentDate.format() === currentDate.startOf('day').format()) {

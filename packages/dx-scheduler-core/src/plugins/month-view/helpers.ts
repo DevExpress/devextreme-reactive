@@ -39,7 +39,7 @@ export const sliceAppointmentByWeek: PureComputed<
 };
 
 export const getMonthCellIndexByDate: PureComputed<
-[ViewCellData[][], AppointmentDate, TakePrevious], Index
+  [ViewCellData[][], AppointmentDate, TakePrevious], Index
 > = (viewCellsData, date, takePrev = false) => {
   const startViewDate = moment(viewCellsData[0][0].startDate);
   const currentDate = moment(date as AppointmentDate);

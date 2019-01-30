@@ -3,7 +3,6 @@ import moment from 'moment';
 export type LeftBound = Date;
 export type RightBound = Date;
 export type ExcludedDays = number[];
-
 export type ViewCellData = { startDate: Date; endDate: Date; };
 export type TakePrevious = boolean;
 

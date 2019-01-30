@@ -76,8 +76,8 @@ export const viewCellsData: PureComputed<
 > = (
   currentDate, firstDayOfWeek,
   dayCount, excludedDays,
-  startDayHour, endDayHour, cellDuration,
-  currTime,
+  startDayHour, endDayHour,
+  cellDuration, currTime,
 ) => {
   const days = dayScale(currentDate, firstDayOfWeek, dayCount, excludedDays);
   const times = timeScale(

@@ -7,19 +7,19 @@ export interface HorizontalPayload {
   cellElements: CellElement[][];
 }
 
-export interface Rect {
+export interface Coordinates {
   top: number;
   left: number;
   width: number;
+}
+
+export interface Rect extends Coordinates {
   height: number;
 }
 
-export type ParentRect = {
-  top: number;
-  left: number;
-  width: number;
+export interface ParentRect extends Coordinates {
   height?: number;
-};
+}
 
 export interface CellRect extends Rect {
   parentRect: ParentRect;

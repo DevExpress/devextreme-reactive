@@ -1,21 +1,15 @@
 import { Index, CurrentTime, CellDuration, CellElement } from './scheduler-core.types';
 import { ViewCellData } from './all-day-panel.types';
-import { ParentRect } from './horizontal-rect.types';
+import { ParentRect, Coordinates } from './horizontal-rect.types';
 
 export type CellByDate = { index: Index; startDate: CurrentTime };
 
-interface CellRect {
-  width: number;
-  top: number;
-  left: number;
-}
-
-export interface VerticalCellRect extends CellRect {
+export interface VerticalCellRect extends Coordinates {
   topOffset: number;
   parentRect: ParentRect;
 }
 
-export interface VerticalCellRectByDate extends CellRect {
+export interface VerticalCellRectByDate extends Coordinates {
   parentWidth: number;
   height: number;
 }

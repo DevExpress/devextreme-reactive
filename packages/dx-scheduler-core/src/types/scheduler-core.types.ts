@@ -16,6 +16,7 @@ export type Index = number | string;
 export type CellElement = React.ReactInstance;
 export type Multiline = boolean;
 
+/** Describes an appointment data object that the `mapAppointmentData` function should return. */
 export interface AppointmentModel {
   /** The start date. */
   startDate: Date | string | number;
@@ -43,12 +44,11 @@ export interface AppointmentCore {
 }
 
 export interface TimeScale {
-  /** The start date. */
   start: Date;
-  /** The end date. */
   end: Date;
 }
 
+/** Describes a cell data configuration object. */
 export interface ViewCell {
   /** Specifies the cell start time. */
   startDate: Date;

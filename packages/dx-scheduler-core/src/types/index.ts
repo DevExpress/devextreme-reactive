@@ -8,3 +8,4 @@ export * from './horizontal-rect.types';
 export * from './month-view.types';
 export * from './vertical-rect.types';
 export * from './view-state.types';
+export * from './utils.types';

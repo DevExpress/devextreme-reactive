@@ -2,8 +2,10 @@ import moment from 'moment';
 import { CustomFunction, PureComputed } from '@devexpress/dx-core';
 import { HORIZONTAL_TYPE, VERTICAL_TYPE } from './constants';
 import {
-  ViewName, AppointmentModel, ExcludedDays, RightBound,
+  ViewName, ExcludedDays, RightBound,
   CurrentDate, FirstDayOfWeek, AppointmentMoment, LeftBound,
+  Interval, AppointmentGroup, AppointmentUnwrappedGroup,
+  Rect, ElementRect,
 } from './types';
 
 export const computed: CustomFunction<
@@ -19,7 +21,6 @@ export const toPercentage: CustomFunction<
   [number, number]
 > = (value, total) => (value * 100) / total;
 
-type Interval = [moment.Moment, moment.Moment];
 const createExcludedInterval: CustomFunction<
   [number, moment.Moment], Interval
 > = (day, start) => {
@@ -174,26 +175,6 @@ export const calculateFirstDateOfWeek: PureComputed<
   return firstDateOfWeek.toDate();
 };
 
-type GroupItem = {
-  start: moment.Moment;
-  end: moment.Moment;
-  dataItem: AppointmentModel;
-  offset: number;
-};
-
-type AppointmentGroup = {
-  items: GroupItem[];
-  reduceValue: number;
-};
-
-type AppointmentUnwrappedGroup = {
-  start: moment.Moment;
-  end: moment.Moment;
-  dataItem: AppointmentModel;
-  offset: number;
-  reduceValue: number;
-};
-
 export const unwrapGroups: CustomFunction<
   [AppointmentGroup[]], AppointmentUnwrappedGroup[]
 > = groups => groups.reduce((acc, { items, reduceValue }) => {
@@ -207,15 +188,8 @@ export const unwrapGroups: CustomFunction<
   return acc;
 }, [] as AppointmentUnwrappedGroup[]);
 
-type ElementRect = {
-  top: number,
-  left: number,
-  width: number,
-  height: number,
-};
-
 export const getAppointmentStyle: CustomFunction<
-  [ElementRect], any
+  [Rect], any
 > = ({
   top, left,
   width, height,
@@ -235,17 +209,8 @@ const rectCalculatorBase: CustomFunction<
   options,
 ) => getRectByDates(appointment.start, appointment.end, options);
 
-type Rect = {
-  top: number;
-  height: number;
-  left: number;
-  width: number;
-  dataItem: AppointmentModel;
-  type: string;
-};
-
 const horizontalRectCalculator: CustomFunction<
-  [AppointmentUnwrappedGroup, any], Rect
+  [AppointmentUnwrappedGroup, any], ElementRect
 > = (
   appointment,
   {
@@ -281,7 +246,7 @@ const horizontalRectCalculator: CustomFunction<
 };
 
 const verticalRectCalculator: CustomFunction<
-  [AppointmentUnwrappedGroup, any], Rect
+  [AppointmentUnwrappedGroup, any], ElementRect
 > = (
   appointment,
   {
@@ -323,7 +288,7 @@ const verticalRectCalculator: CustomFunction<
 };
 
 export const calculateRectByDateIntervals: CustomFunction<
-  [any, any, any, any], any
+  [any, AppointmentMoment[], (...args: any) => any, any], ElementRect[]
 > = (type, intervals, rectByDates, rectByDatesMeta) => {
   const { growDirection, multiline } = type;
   const sorted = sortAppointments(intervals, multiline);

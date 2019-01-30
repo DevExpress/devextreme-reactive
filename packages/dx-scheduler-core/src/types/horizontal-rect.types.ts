@@ -14,7 +14,7 @@ export interface Rect {
   height: number;
 }
 
-type ParentRect = {
+export type ParentRect = {
   top: number;
   left: number;
   width: number;

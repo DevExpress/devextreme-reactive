@@ -13,7 +13,7 @@
 
 This tutorial shows how to use the [React Core](../../../core/docs/guides/fundamentals.md) components to extend the Grid's functionality. We add to the Grid's toolbar a select box that filters the grid by a predefined column.
 
-We start with the following code that configures the Grid in the `Material-UI` theme.
+We start with the following code that configures the Grid in the `Material-UI` theme:
 
 *index.js:*
 ```jsx

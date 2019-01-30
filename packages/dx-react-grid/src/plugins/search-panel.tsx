@@ -18,7 +18,7 @@ const defaultMessages = {
   searchPlaceholder: 'Search...',
 };
 
-export class SearchPanel extends React.PureComponent<SearchPanelProps> {
+class SearchPanelBase extends React.PureComponent<SearchPanelProps> {
   static components: PluginComponents;
 
   render() {
@@ -47,6 +47,8 @@ export class SearchPanel extends React.PureComponent<SearchPanelProps> {
   }
 }
 
-SearchPanel.components = {
+SearchPanelBase.components = {
   inputComponent: 'Input',
 };
+
+export const SearchPanel: React.ComponentType<SearchPanelProps> = SearchPanelBase;

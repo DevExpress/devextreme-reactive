@@ -38,7 +38,7 @@ const showColumnWhenGroupedGetter: ShowColumnWhenGroupedGetterFn = (
   return columnName => map[columnName] || showColumnsWhenGrouped;
 };
 
-export class TableGroupRow extends React.PureComponent<TableGroupRowProps> {
+class TableGroupRowBase extends React.PureComponent<TableGroupRowProps> {
   static ROW_TYPE = TABLE_GROUP_TYPE;
   static COLUMN_TYPE = TABLE_GROUP_TYPE;
   static components: PluginComponents;
@@ -142,9 +142,11 @@ export class TableGroupRow extends React.PureComponent<TableGroupRowProps> {
   }
 }
 
-TableGroupRow.components = {
+TableGroupRowBase.components = {
   rowComponent: 'Row',
   cellComponent: 'Cell',
   contentComponent: 'Content',
   iconComponent: 'Icon',
 };
+
+export const TableGroupRow: React.ComponentType<TableGroupRowProps> = TableGroupRowBase;

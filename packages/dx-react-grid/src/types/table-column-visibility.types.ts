@@ -37,6 +37,7 @@ export interface TableColumnVisibilityProps {
   messages?: TableColumnVisibility.LocalizationMessages;
 }
 
+/** @internal */
 export type TableColumnVisibilityState = {
   hiddenColumnNames: string[],
 };

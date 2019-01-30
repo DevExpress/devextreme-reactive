@@ -6,6 +6,7 @@ import {
   allSelected,
   unwrapSelectedRows,
 } from '@devexpress/dx-grid-core';
+import { IntegratedSelectionProps } from '../types';
 
 const rowsWithAvailableToSelectComputed = (
   { rows, getRowId, isGroupRow }: Getters,
@@ -28,7 +29,7 @@ const pluginDependencies = [
 ];
 
 // eslint-disable-next-line react/prefer-stateless-function
-export class IntegratedSelection extends React.PureComponent {
+class IntegratedSelectionBase extends React.PureComponent<IntegratedSelectionProps> {
   render() {
     return (
       <Plugin
@@ -45,3 +46,6 @@ export class IntegratedSelection extends React.PureComponent {
     );
   }
 }
+
+// tslint:disable-next-line: max-line-length
+export const IntegratedSelection: React.ComponentType<IntegratedSelectionProps> = IntegratedSelectionBase;

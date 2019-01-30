@@ -6,7 +6,7 @@ const pluginDependencies = [
   { name: 'SummaryState' },
 ];
 
-export class CustomSummary extends React.PureComponent<CustomSummaryProps> {
+class CustomSummaryBase extends React.PureComponent<CustomSummaryProps> {
   render() {
     const { totalValues, groupValues, treeValues } = this.props;
 
@@ -22,3 +22,5 @@ export class CustomSummary extends React.PureComponent<CustomSummaryProps> {
     );
   }
 }
+
+export const CustomSummary: React.ComponentType<CustomSummaryProps> = CustomSummaryBase;

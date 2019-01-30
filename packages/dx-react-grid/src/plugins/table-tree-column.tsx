@@ -5,7 +5,7 @@ import {
 import { isTreeTableCell } from '@devexpress/dx-grid-core';
 import { TableTreeColumnProps, CellProps } from '../types';
 
-export class TableTreeColumn extends React.PureComponent<TableTreeColumnProps> {
+class TableTreeColumnBase extends React.PureComponent<TableTreeColumnProps> {
   static components: PluginComponents;
 
   render() {
@@ -121,10 +121,12 @@ export class TableTreeColumn extends React.PureComponent<TableTreeColumnProps> {
   }
 }
 
-TableTreeColumn.components = {
+TableTreeColumnBase.components = {
   cellComponent: 'Cell',
   contentComponent: 'Content',
   indentComponent: 'Indent',
   expandButtonComponent: 'ExpandButton',
   checkboxComponent: 'Checkbox',
 };
+
+export const TableTreeColumn: React.ComponentType<TableTreeColumnProps> = TableTreeColumnBase;

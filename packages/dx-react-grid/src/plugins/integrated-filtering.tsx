@@ -7,27 +7,10 @@ import {
   getColumnExtension,
   defaultFilterPredicate,
   FilterPredicate,
+  Filter,
 } from '@devexpress/dx-grid-core';
-import { Filter } from './filtering-state';
 import { PureComputed } from '@devexpress/dx-core';
-
-// tslint:disable-next-line:no-namespace
-export namespace IntegratedFiltering {
-  /** Describes additional column properties that the plugin can handle. */
-  export interface ColumnExtension {
-    /** The name of a column to extend. */
-    columnName: string;
-    /*** A filter predicate. The `filter` parameter accepts an object containing the 'value' field.
-     * Note that you can use the onFilter event to extend this object
-     * to the fields your filtering algorithm requires. */
-    predicate?: (value: any, filter: Filter, row: any) => boolean;
-  }
-}
-
-export interface IntegratedFilteringProps {
-  /** Additional column properties that the plugin can handle. */
-  columnExtensions?: IntegratedFiltering.ColumnExtension[];
-}
+import { IntegratedFilteringProps } from '../types/integrated-filtering.types';
 
 const pluginDependencies = [
   { name: 'FilteringState', optional: true },
@@ -37,7 +20,7 @@ const pluginDependencies = [
 const getCollapsedRowsComputed = ({ rows }: Getters) => filteredCollapsedRowsGetter(rows);
 const unwrappedRowsComputed = ({ rows }: Getters) => unwrappedFilteredRows(rows);
 
-export class IntegratedFiltering extends React.PureComponent<IntegratedFilteringProps> {
+class IntegratedFilteringBase extends React.PureComponent<IntegratedFilteringProps> {
   static defaultPredicate: (value: any, filter: Filter, row: any) => boolean;
 
   render() {
@@ -76,4 +59,7 @@ export class IntegratedFiltering extends React.PureComponent<IntegratedFiltering
   }
 }
 
-IntegratedFiltering.defaultPredicate = defaultFilterPredicate;
+IntegratedFilteringBase.defaultPredicate = defaultFilterPredicate;
+
+// tslint:disable-next-line: max-line-length
+export const IntegratedFiltering: React.ComponentType<IntegratedFilteringProps> = IntegratedFilteringBase;

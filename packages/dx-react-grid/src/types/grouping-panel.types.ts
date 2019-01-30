@@ -1,5 +1,4 @@
-import { GroupingPanelItem } from '@devexpress/dx-grid-core';
-
+import { GroupingPanelItem } from '.';
 // tslint:disable-next-line: no-namespace
 export namespace GroupingPanel {
   /** Describes properties passed to a component that renders a group panel container. */

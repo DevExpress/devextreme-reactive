@@ -3,6 +3,7 @@ import { ColumnGroup } from './column-group';
 import { RowsBlockLayout } from './rows-block-layout';
 import { TableLayoutProps } from '../../types';
 
+/** @internal */
 export class StaticTableLayout extends React.PureComponent<TableLayoutProps> {
   static defaultProps = {
     headerRows: [],

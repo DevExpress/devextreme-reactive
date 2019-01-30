@@ -17,7 +17,7 @@ const defaultMessages = {
   info: ({ from, to, count }) => `${from}${from < to ? `-${to}` : ''} of ${count}`,
 };
 
-export class PagingPanel extends React.PureComponent<PagingPanelProps> {
+class PagingPanelBase extends React.PureComponent<PagingPanelProps> {
   static components: PluginComponents;
   render() {
     const {
@@ -54,6 +54,8 @@ export class PagingPanel extends React.PureComponent<PagingPanelProps> {
   }
 }
 
-PagingPanel.components = {
+PagingPanelBase.components = {
   containerComponent: 'Container',
 };
+
+export const PagingPanel: React.ComponentType<PagingPanelProps> = PagingPanelBase;

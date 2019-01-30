@@ -7,6 +7,7 @@ export interface SearchStateProps {
   onValueChange?: (value: string) => void;
 }
 
+/** @internal */
 export type SearchStateState = {
   value: string,
 };

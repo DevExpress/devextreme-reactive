@@ -1,6 +1,6 @@
 import { PureComputed } from '@devexpress/dx-core';
-import { IntegratedFiltering } from '@devexpress/dx-react-grid';
 import { Column } from './grid-core.types';
+import { IntegratedFiltering } from './filtering.types';
 
 /** Describes properties of a table row that the Table plugin renders. */
 export interface TableRow {

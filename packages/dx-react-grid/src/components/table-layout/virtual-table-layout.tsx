@@ -12,6 +12,7 @@ import { VirtualTableLayoutProps, VirtualTableLayoutState } from '../../types';
 
 const AUTO_HEIGHT = 'auto';
 
+/** @internal */
 // tslint:disable-next-line: max-line-length
 export class VirtualTableLayout extends React.PureComponent<VirtualTableLayoutProps, VirtualTableLayoutState> {
   static defaultProps = {

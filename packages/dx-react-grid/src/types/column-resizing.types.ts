@@ -11,6 +11,7 @@ export interface TableColumnResizingProps {
   onColumnWidthsChange?: (nextColumnWidths: Array<TableColumnWidthInfo>) => void;
 }
 
+/** @internal */
 export type TableColumnResizingState = {
   columnWidths: TableColumnWidthInfo[],
   draftColumnWidths: TableColumnWidthInfo[],

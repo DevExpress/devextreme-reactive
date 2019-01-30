@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {
-  Getter, Template, TemplatePlaceholder, TemplateConnector, Plugin, Getters, PluginComponents, Actions,
+  Getter, Template, TemplatePlaceholder, TemplateConnector, Plugin, Getters,
+  PluginComponents, Actions,
 } from '@devexpress/dx-react-core';
 import { getMessagesFormatter } from '@devexpress/dx-core';
 import {
@@ -36,7 +37,7 @@ const defaultMessages = {
   lessThanOrEqual: 'Less than or equal to',
 };
 
-export class TableFilterRow extends React.PureComponent<TableFilterRowProps, TableFilterRowState> {
+class TableFilterRowBase extends React.PureComponent<TableFilterRowProps, TableFilterRowState> {
   static ROW_TYPE = TABLE_FILTER_TYPE;
   static components: PluginComponents;
 
@@ -168,7 +169,7 @@ export class TableFilterRow extends React.PureComponent<TableFilterRowProps, Tab
   }
 }
 
-TableFilterRow.components = {
+TableFilterRowBase.components = {
   rowComponent: 'Row',
   cellComponent: 'Cell',
   filterSelectorComponent: 'FilterSelector',
@@ -176,3 +177,5 @@ TableFilterRow.components = {
   editorComponent: 'Editor',
   toggleButtonComponent: 'ToggleButton',
 };
+
+export const TableFilterRow: React.ComponentType<TableFilterRowProps> = TableFilterRowBase;

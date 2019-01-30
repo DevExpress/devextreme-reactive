@@ -14,7 +14,7 @@ import {
 } from '@devexpress/dx-grid-core';
 import { TableSelectionProps, CellProps, RowProps } from '../types';
 
-export class TableSelection extends React.PureComponent<TableSelectionProps> {
+class TableSelectionBase extends React.PureComponent<TableSelectionProps> {
   static components: PluginComponents;
   static COLUMN_TYPE = TABLE_SELECT_TYPE;
 
@@ -111,3 +111,5 @@ export class TableSelection extends React.PureComponent<TableSelectionProps> {
     );
   }
 }
+
+export const TableSelection: React.ComponentType<TableSelectionProps> = TableSelectionBase;

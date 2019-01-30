@@ -2,6 +2,7 @@ import * as React from 'react';
 import { RowLayout } from './row-layout';
 import { RowsBlockLayoutProps } from '../../types';
 
+/** @internal */
 export class RowsBlockLayout extends React.PureComponent<RowsBlockLayoutProps> {
   render() {
     const {

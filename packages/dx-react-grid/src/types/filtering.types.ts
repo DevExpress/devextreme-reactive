@@ -114,6 +114,7 @@ export interface TableFilterRowProps {
   messages?: TableFilterRow.LocalizationMessages;
 }
 
+/** @internal */
 export type TableFilterRowState = {
   filterOperations: ColumnFilterOperations,
 };

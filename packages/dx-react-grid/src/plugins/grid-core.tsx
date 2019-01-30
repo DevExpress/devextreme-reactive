@@ -3,9 +3,9 @@ import {
   Plugin, Getter, Template, TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 import { rowIdGetter, cellValueGetter } from '@devexpress/dx-grid-core';
-import { GridProps } from '../grid';
+import { GridProps } from '../types';
 
-export class GridCore extends React.PureComponent<GridProps> {
+class GridCoreBase extends React.PureComponent<GridProps> {
   render() {
     const {
       rows,
@@ -32,3 +32,5 @@ export class GridCore extends React.PureComponent<GridProps> {
     );
   }
 }
+
+export const GridCore: React.ComponentType<GridProps> = GridCoreBase;

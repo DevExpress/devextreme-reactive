@@ -10,7 +10,7 @@ import {
 } from '@devexpress/dx-grid-core';
 import { TableLayoutCoreProps, TableLayoutCoreState } from '../types';
 
-export class TableLayout extends React.PureComponent<TableLayoutCoreProps, TableLayoutCoreState> {
+class TableLayoutBase extends React.PureComponent<TableLayoutCoreProps, TableLayoutCoreState> {
   animations: ColumnAnimationMap;
   savedScrolldWidth: { [key: number]: number };
   savedOffsetWidth: number = -1;
@@ -116,3 +116,6 @@ export class TableLayout extends React.PureComponent<TableLayoutCoreProps, Table
     );
   }
 }
+
+/** @internal */
+export const TableLayout: React.ComponentType<TableLayoutCoreProps> = TableLayoutBase;

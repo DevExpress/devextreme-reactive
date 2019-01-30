@@ -26,7 +26,7 @@ export namespace TableSummaryRow {
   /** Describes properties passed to a component that renders a summary item. */
   export interface ItemProps {
     /** The summary value */
-    value?: number;
+    value?: number | null;
     /** The summary type */
     type: SummaryType;
     /** A React node used to render the summary value. */

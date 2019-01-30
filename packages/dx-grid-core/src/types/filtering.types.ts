@@ -24,6 +24,20 @@ export interface FilterExpression {
  * Built-in operations: `contains`, `notContains`, `startsWith`, `endsWith`, `equal`, `notEqual`,
  * `greaterThan`, `graterThenOrEqual`, `lessThan`, `lessThanOrEqual` */
 export type FilterOperation = string;
+
+// tslint:disable-next-line:no-namespace
+export namespace IntegratedFiltering {
+  /** Describes additional column properties that the plugin can handle. */
+  export interface ColumnExtension {
+    /** The name of a column to extend. */
+    columnName: string;
+    /*** A filter predicate. The `filter` parameter accepts an object containing the 'value' field.
+     * Note that you can use the onFilter event to extend this object
+     * to the fields your filtering algorithm requires. */
+    predicate?: (value: any, filter: Filter, row: any) => boolean;
+  }
+}
+
 export type GetAvailableFilterOperationsFn = PureComputed<[string], FilterOperation[] | undefined>;
 
 export type FilterPredicate = PureComputed<[any, Filter, Row?], boolean>;

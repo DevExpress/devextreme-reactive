@@ -7,42 +7,15 @@ import {
   getColumnExtensionValueGetter,
   getPersistentSortedColumns,
   calculateKeepOther,
-  Sorting,
   ChangeSortingPayload,
 } from '@devexpress/dx-grid-core';
-
-// tslint:disable-next-line: no-namespace
-export namespace SortingState {
-  /** Describes additional column properties that the plugin can handle. */
-  export interface ColumnExtension {
-    /** The name of a column to extend. */
-    columnName: string;
-    /** Specifies whether sorting is enabled for a column. */
-    sortingEnabled: boolean;
-  }
-}
-
-export interface SortingStateProps {
-  /** Specifies the applied sorting. */
-  sorting?: Array<Sorting>;
-  /** Specifies initial sorting in the uncontrolled mode. */
-  defaultSorting?: Array<Sorting>;
-  /** Specifies whether sorting is enabled for all columns. */
-  columnSortingEnabled?: boolean;
-  /** Additional column properties that the plugin can handle. */
-  columnExtensions?: Array<SortingState.ColumnExtension>;
-  /** Handles sorting changes. */
-  onSortingChange?: (sorting: Array<Sorting>) => void;
-}
-interface SortingStateState {
-  sorting: boolean;
-}
+import { SortingStateProps, SortingStateState } from '../types/sorting-state.types';
 
 const columnExtensionValueGetter = (
   columnExtensions, defaultValue,
 ) => getColumnExtensionValueGetter(columnExtensions, 'sortingEnabled', defaultValue);
 
-export class SortingState extends React.PureComponent<SortingStateProps, SortingStateState> {
+class SortingStateBase extends React.PureComponent<SortingStateProps, SortingStateState> {
   changeColumnSorting: ActionFn<ChangeSortingPayload>;
 
   constructor(props) {
@@ -101,3 +74,5 @@ export class SortingState extends React.PureComponent<SortingStateProps, Sorting
     );
   }
 }
+
+export const SortingState: React.ComponentType<SortingStateProps> = SortingStateBase;

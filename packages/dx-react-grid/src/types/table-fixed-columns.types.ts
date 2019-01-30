@@ -31,6 +31,7 @@ export interface TableFixedColumnsProps {
   listenerCellComponent: React.ComponentType<ListenerCellProps>;
 }
 
+/** @internal */
 export type TableFixedColumnsState = {
   tableColumnDimensions: ColumnDimensions,
 };

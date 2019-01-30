@@ -26,7 +26,7 @@ const defaultMessages = {
   cancelCommand: 'Cancel',
 };
 
-export class TableEditColumn extends React.PureComponent<TableEditColumnProps> {
+class TableEditColumnBase extends React.PureComponent<TableEditColumnProps> {
   static COLUMN_TYPE = TABLE_EDIT_COMMAND_TYPE;
   static components: PluginComponents;
 
@@ -150,8 +150,10 @@ export class TableEditColumn extends React.PureComponent<TableEditColumnProps> {
   }
 }
 
-TableEditColumn.components = {
+TableEditColumnBase.components = {
   cellComponent: 'Cell',
   headerCellComponent: 'HeaderCell',
   commandComponent: 'Command',
 };
+
+export const TableEditColumn: React.ComponentType<TableEditColumnProps> = TableEditColumnBase;

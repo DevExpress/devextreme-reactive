@@ -8,7 +8,7 @@ import {
 } from '@devexpress/dx-react-core';
 import { ToolbarProps } from '../types';
 
-export class Toolbar extends React.PureComponent<ToolbarProps> {
+class ToolbarBase extends React.PureComponent<ToolbarProps> {
   static components: PluginComponents;
 
   render() {
@@ -34,7 +34,9 @@ export class Toolbar extends React.PureComponent<ToolbarProps> {
   }
 }
 
-Toolbar.components = {
+ToolbarBase.components = {
   rootComponent: 'Root',
   flexibleSpaceComponent: 'FlexibleSpace',
 };
+
+export const Toolbar: React.ComponentType<ToolbarProps> = ToolbarBase;

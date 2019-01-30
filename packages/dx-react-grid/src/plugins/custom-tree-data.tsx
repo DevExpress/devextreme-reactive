@@ -32,7 +32,7 @@ const collapsedTreeRowsGetterComputed = (
 ) => collapsedTreeRowsGetter(getCollapsedRows, rows);
 const unwrappedTreeRowsComputed = ({ rows }: Getters) => unwrappedCustomTreeRows(rows);
 
-export class CustomTreeData extends React.PureComponent<CustomTreeDataProps> {
+class CustomTreeDataBase extends React.PureComponent<CustomTreeDataProps> {
   render() {
     const {
       getChildRows,
@@ -56,3 +56,5 @@ export class CustomTreeData extends React.PureComponent<CustomTreeDataProps> {
     );
   }
 }
+
+export const CustomTreeData: React.ComponentType<CustomTreeDataProps> = CustomTreeDataBase;

@@ -1,9 +1,11 @@
 import * as React from 'react';
 import { Plugin, Template, Getter, Getters } from '@devexpress/dx-react-core';
 import { getAvailableFilterOperationsGetter } from '@devexpress/dx-grid-core';
-import { DataTypeProviderProps, ValueFormatterProps, ValueEditorProps } from '../types/data-type-provider.types';
+import {
+  DataTypeProviderProps, ValueFormatterProps, ValueEditorProps,
+} from '../types/data-type-provider.types';
 
-export class DataTypeProvider extends React.PureComponent<DataTypeProviderProps> {
+class DataTypeProviderBase extends React.PureComponent<DataTypeProviderProps> {
   render() {
     const {
       for: columnNames,
@@ -52,3 +54,5 @@ export class DataTypeProvider extends React.PureComponent<DataTypeProviderProps>
     );
   }
 }
+
+export const DataTypeProvider: React.ComponentType<DataTypeProviderProps> = DataTypeProviderBase;

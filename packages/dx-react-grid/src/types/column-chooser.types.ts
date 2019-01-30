@@ -1,4 +1,11 @@
-import { ColumnChooserItem } from './column-chooser';
+import { Column } from '@devexpress/dx-grid-core';
+
+export interface ColumnChooserItem {
+  /** The grid column associated with the item. */
+  column: Column;
+  /** Specifies whether the associated column is hidden. */
+  hidden: boolean;
+}
 
 // tslint:disable-next-line:no-namespace
 export namespace ColumnChooser {
@@ -49,3 +56,22 @@ export namespace ColumnChooser {
     showColumnChooser?: string;
   }
 }
+
+
+export interface ColumnChooserProps {
+  /** A component that renders the column chooser overlay. */
+  overlayComponent: React.ComponentType<ColumnChooser.OverlayProps>;
+  /** A component that renders a button that invokes the column chooser. */
+  toggleButtonComponent: React.ComponentType<ColumnChooser.ToggleButtonProps>;
+  /** A component that renders the column chooser container. */
+  containerComponent: React.ComponentType<ColumnChooser.ContainerProps>;
+  /** A component that renders a column chooser item. */
+  itemComponent: React.ComponentType<ColumnChooser.ItemProps>;
+  /** An object that specifies localization messages. */
+  messages?: ColumnChooser.LocalizationMessages;
+}
+
+/** @internal */
+export type ColumnChooserState = {
+  visible: boolean;
+};

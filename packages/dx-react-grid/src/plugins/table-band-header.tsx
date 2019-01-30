@@ -16,7 +16,7 @@ import { CellProps, RowProps } from '../types';
 
 const CellPlaceholder = (props: CellProps) => <TemplatePlaceholder params={props} />;
 
-export class TableBandHeader extends React.PureComponent<TableBandHeaderProps> {
+class TableBandHeaderBase extends React.PureComponent<TableBandHeaderProps> {
   static ROW_TYPE = TABLE_BAND_TYPE;
   static components: PluginComponents;
 
@@ -113,9 +113,11 @@ export class TableBandHeader extends React.PureComponent<TableBandHeaderProps> {
   }
 }
 
-TableBandHeader.components = {
+TableBandHeaderBase.components = {
   cellComponent: 'Cell',
   rowComponent: 'Row',
   bandedHeaderCellComponent: 'BandedHeaderCell',
   invisibleCellComponent: 'InvisibleCell',
 };
+
+export const TableBandHeader: React.ComponentType<TableBandHeaderProps> = TableBandHeaderBase;

@@ -5,7 +5,7 @@ import {
 import { toggleRowExpanded, ToggleRowPayload } from '@devexpress/dx-grid-core';
 import { TreeDataStateProps, TreeDataStateState } from '../types';
 
-export class TreeDataState extends React.PureComponent<TreeDataStateProps, TreeDataStateState> {
+class TreeDataStateBase extends React.PureComponent<TreeDataStateProps, TreeDataStateState> {
   toggleRowExpanded: ActionFn<ToggleRowPayload>;
 
   constructor(props) {
@@ -54,3 +54,5 @@ export class TreeDataState extends React.PureComponent<TreeDataStateProps, TreeD
     );
   }
 }
+
+export const TreeDataState: React.ComponentType<TreeDataStateProps> = TreeDataStateBase;

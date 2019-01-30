@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Getter, Plugin } from '@devexpress/dx-react-core';
 import { SummaryStateProps } from '../types';
 
-export class SummaryState extends React.PureComponent<SummaryStateProps> {
+class SummaryStateBase extends React.PureComponent<SummaryStateProps> {
   render() {
     const { totalItems, groupItems, treeItems } = this.props;
 
@@ -17,3 +17,5 @@ export class SummaryState extends React.PureComponent<SummaryStateProps> {
     );
   }
 }
+
+export const SummaryState: React.ComponentType<SummaryStateProps> = SummaryStateBase;

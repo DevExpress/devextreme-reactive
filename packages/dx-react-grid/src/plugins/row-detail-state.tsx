@@ -5,7 +5,8 @@ import {
 import { toggleDetailRowExpanded, ToggleRowPayload } from '@devexpress/dx-grid-core';
 import { RowDetailStateProps, RowDetailStateState } from '../types';
 
-export class RowDetailState extends React.PureComponent<RowDetailStateProps, RowDetailStateState> {
+// tslint:disable-next-line: max-line-length
+class RowDetailStateBase extends React.PureComponent<RowDetailStateProps, RowDetailStateState> {
   toggleDetailRowExpanded: ActionFn<ToggleRowPayload>;
 
   constructor(props) {
@@ -52,3 +53,5 @@ export class RowDetailState extends React.PureComponent<RowDetailStateProps, Row
     );
   }
 }
+
+export const RowDetailState: React.ComponentType<RowDetailStateProps> = RowDetailStateBase;

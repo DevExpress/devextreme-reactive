@@ -3,10 +3,7 @@ import { Getter, Plugin, Getters, Actions } from '@devexpress/dx-react-core';
 import {
   paginatedRows, rowsWithPageHeaders, rowCount, currentPage,
 } from '@devexpress/dx-grid-core';
-
-// tslint:disable-next-line:no-empty-interface
-export interface IntegratedPagingProps {
-}
+import { IntegratedPagingProps } from '../types';
 
 const pluginDependencies = [
   { name: 'PagingState' },
@@ -24,7 +21,7 @@ const currentPageComputed = (
 ) => currentPage(page, totalCount, pageSize, setCurrentPage);
 
 // eslint-disable-next-line react/prefer-stateless-function
-export class IntegratedPaging extends React.PureComponent<IntegratedPagingProps> {
+class IntegratedPagingBase extends React.PureComponent<IntegratedPagingProps> {
   render() {
     return (
       <Plugin
@@ -39,3 +36,5 @@ export class IntegratedPaging extends React.PureComponent<IntegratedPagingProps>
     );
   }
 }
+
+export const IntegratedPaging: React.ComponentType<IntegratedPagingProps> = IntegratedPagingBase;

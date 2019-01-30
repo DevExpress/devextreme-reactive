@@ -55,7 +55,7 @@ const tableFooterRowsComputed = ({
 
 const defaultTypelessSummaries = ['count'];
 
-export class TableSummaryRow extends React.PureComponent<TableSummaryRowProps> {
+class TableSummaryRowBase extends React.PureComponent<TableSummaryRowProps> {
   static TREE_ROW_TYPE = TABLE_TREE_SUMMARY_TYPE;
   static GROUP_ROW_TYPE = TABLE_GROUP_SUMMARY_TYPE;
   static TOTAL_ROW_TYPE = TABLE_TOTAL_SUMMARY_TYPE;
@@ -266,7 +266,7 @@ export class TableSummaryRow extends React.PureComponent<TableSummaryRowProps> {
   }
 }
 
-TableSummaryRow.components = {
+TableSummaryRowBase.components = {
   totalRowComponent: 'TotalRow',
   groupRowComponent: 'GroupRow',
   treeRowComponent: 'TreeRow',
@@ -278,3 +278,5 @@ TableSummaryRow.components = {
   treeColumnIndentComponent: 'TableTreeIndent',
   itemComponent: 'Item',
 };
+
+export const TableSummaryRow: React.ComponentType<TableSummaryRowProps> = TableSummaryRowBase;

@@ -3,27 +3,9 @@ import {
   Getter, Action, Plugin, createStateHelper,
 } from '@devexpress/dx-react-core';
 import { setCurrentPage, setPageSize } from '@devexpress/dx-grid-core';
+import { PagingStateProps, PagingStateState } from '../types/paging-state.types';
 
-export interface PagingStateProps {
-  /** Specifies the current page number. */
-  currentPage?: number;
-  /** Specifies the initial page in uncontrolled mode. */
-  defaultCurrentPage?: number;
-  /** Handles current page changes. */
-  onCurrentPageChange?: (currentPage: number) => void;
-  /** Specifies the page size. Set this property to `0` to show all rows on a page. */
-  pageSize?: number;
-  /** Specifies the initial page size in uncontrolled mode. */
-  defaultPageSize?: number;
-  /** Handles page size changes. */
-  onPageSizeChange?: (pageSize: number) => void;
-}
-interface PagingStateState {
-  currentPage: number;
-  pageSize: number;
-}
-
-export class PagingState extends React.PureComponent<PagingStateProps, PagingStateState> {
+class PagingStateBase extends React.PureComponent<PagingStateProps, PagingStateState> {
   setCurrentPage: (payload: any) => void;
   setPageSize: (payload: any) => void;
 
@@ -82,3 +64,5 @@ export class PagingState extends React.PureComponent<PagingStateProps, PagingSta
     );
   }
 }
+
+export const PagingState: React.ComponentType<PagingStateProps> = PagingStateBase;

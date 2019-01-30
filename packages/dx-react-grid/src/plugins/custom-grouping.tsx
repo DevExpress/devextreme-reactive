@@ -7,20 +7,8 @@ import {
   customGroupingRowIdGetter,
   customGroupedRows,
   expandedGroupRows,
-  Grouping,
-  GroupKey,
 } from '@devexpress/dx-grid-core';
-
-export interface CustomGroupingProps {
-  /*** A function that extracts groups from the specified data. It is executed recursively
-   * for the root and nested groups.
-   **/
-  getChildGroups: (currentRows: Array<any>, grouping: Grouping, rootRows: Array<any>) => Array<{ key: number | string, value?: any, childRows?: Array<any> }>;
-  /** Specifies columns by which data is grouped. */
-  grouping?: Grouping[] | null;
-  /** Specifies the expanded groups. */
-  expandedGroups?: GroupKey[] | null;
-}
+import { CustomGroupingProps } from '../types';
 
 const pluginDependencies = [
   { name: 'GroupingState' },
@@ -34,7 +22,7 @@ const expandedGroupedRowsComputed = (
 ) => expandedGroupRows(rows, grouping, expandedGroups);
 const getRowIdComputed = ({ getRowId, rows }: Getters) => customGroupingRowIdGetter(getRowId, rows);
 
-export class CustomGrouping extends React.PureComponent<CustomGroupingProps> {
+class CustomGroupingBase extends React.PureComponent<CustomGroupingProps> {
   render() {
     const {
       getChildGroups,
@@ -66,3 +54,5 @@ export class CustomGrouping extends React.PureComponent<CustomGroupingProps> {
     );
   }
 }
+
+export const CustomGrouping: React.ComponentType<CustomGroupingProps> = CustomGroupingBase;

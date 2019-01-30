@@ -7,6 +7,7 @@ const getRowStyle = ({ row }) => (row.height !== undefined
   ? ({ height: `${row.height}px` })
   : undefined);
 
+  /** @internal */
 export class RowLayout extends React.PureComponent<RowLayoutProps> {
   render() {
     const {

@@ -17,7 +17,7 @@ const tableHeaderRowsComputed = (
   { tableHeaderRows }: Getters,
 ) => tableRowsWithHeading(tableHeaderRows);
 
-export class TableHeaderRow extends React.PureComponent<TableHeaderRowProps> {
+class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {
   static ROW_TYPE = TABLE_HEADING_TYPE;
   static components: PluginComponents;
 
@@ -90,7 +90,7 @@ export class TableHeaderRow extends React.PureComponent<TableHeaderRowProps> {
                     showGroupingControls={showGroupingControls!}
                     // @deprecated
                     sortingDirection={showSortingControls && sorting !== undefined
-                      ? getColumnSortingDirection(sorting, columnName) : undefined}
+                      ? getColumnSortingDirection(sorting, columnName)! : undefined}
                     // @deprecated
                     onSort={
                       ({ direction, keepOther }) => changeColumnSorting({
@@ -162,7 +162,7 @@ export class TableHeaderRow extends React.PureComponent<TableHeaderRowProps> {
   }
 }
 
-TableHeaderRow.components = {
+TableHeaderRowBase.components = {
   cellComponent: 'Cell',
   rowComponent: 'Row',
   contentComponent: 'Content',
@@ -170,3 +170,5 @@ TableHeaderRow.components = {
   titleComponent: 'Title',
   groupButtonComponent: 'GroupButton',
 };
+
+export const TableHeaderRow: React.ComponentType<TableHeaderRowProps> = TableHeaderRowBase;

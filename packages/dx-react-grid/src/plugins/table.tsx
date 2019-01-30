@@ -37,7 +37,7 @@ const defaultMessages = {
   noData: 'No data',
 };
 
-export class Table extends React.PureComponent<TableProps> {
+class TableBase extends React.PureComponent<TableProps> {
   static COLUMN_TYPE = TABLE_DATA_TYPE;
   static ROW_TYPE = TABLE_DATA_TYPE;
   static NODATA_ROW_TYPE = TABLE_NODATA_TYPE;
@@ -209,7 +209,7 @@ export class Table extends React.PureComponent<TableProps> {
   }
 }
 
-Table.components = {
+TableBase.components = {
   tableComponent: 'Table',
   headComponent: 'TableHead',
   bodyComponent: 'TableBody',
@@ -224,3 +224,5 @@ Table.components = {
   stubCellComponent: 'StubCell',
   stubHeaderCellComponent: 'StubHeaderCell',
 };
+
+export const Table: React.ComponentType<TableProps> = TableBase;

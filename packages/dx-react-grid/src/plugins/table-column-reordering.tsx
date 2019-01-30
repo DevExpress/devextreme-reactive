@@ -21,34 +21,10 @@ import {
   TargetColumnGeometry,
   TableColumn,
 } from '@devexpress/dx-grid-core';
-import { Table as TableNS } from '../types';
-
-export interface TableColumnReorderingProps {
-  /** The column order. */
-  order?: Array<string>;
-  /** The initial column order in the uncontrolled mode. */
-  defaultOrder?: Array<string>;
-  /** Handles changes to the column order. */
-  onOrderChange?: (nextOrder: Array<string>) => void;
-  tableContainerComponent: React.ComponentType<TableContainerProps>;
-  rowComponent: React.ComponentType<any>;
-  cellComponent: React.ComponentType<TableReorderingCellProps>;
-}
-interface TableColumnReorderingState {
-  order?: string[];
-  sourceColumnIndex: number;
-  targetColumnIndex: number;
-}
-
-export interface TableReorderingCellProps {
-  getCellDimensions: (getter: CellDimensionsGetter) => void;
-}
-
-interface TableContainerProps {
-  onOver: (arg: DragOverArgs) => void;
-  onLeave: () => void;
-  onDrop: () => void;
-}
+import {
+  Table as TableNS, CellDimensionsGetter, TableColumnReorderingProps,
+  DragOverArgs, TableColumnReorderingState, TableContainerProps,
+} from '../types';
 
 const pluginDependencies = [
   { name: 'Table' },
@@ -59,8 +35,6 @@ const tableHeaderRowsComputed = (
   { tableHeaderRows }: Getters,
 ) => tableHeaderRowsWithReordering(tableHeaderRows);
 
-type CellDimensionsGetter = () => TargetColumnGeometry;
-type DragOverArgs = { payload: any; clientOffset: { x: any; y: any }; };
 // tslint:disable-next-line: max-line-length
 class TableColumnReorderingRaw extends React.PureComponent<TableColumnReorderingProps, TableColumnReorderingState> {
   static components: PluginComponents;
@@ -284,7 +258,7 @@ TableColumnReorderingRaw.components = {
 };
 
 const TableContainer: React.SFC<TableContainerProps> = ({
-  onOver, onLeave, onDrop, children, // eslint-disable-line react/prop-types
+  onOver, onLeave, onDrop, children,
 }) => (
   draggingEnabled ? (
     <DropTarget
@@ -297,4 +271,5 @@ const TableContainer: React.SFC<TableContainerProps> = ({
   ) : children
 );
 
-export const TableColumnReordering = withComponents({ TableContainer })(TableColumnReorderingRaw);
+export const TableColumnReordering: React.ComponentType<TableColumnReorderingProps>
+  = withComponents({ TableContainer })(TableColumnReorderingRaw);

@@ -2,7 +2,8 @@ import * as React from 'react';
 import { connectProps, PluginComponents } from '@devexpress/dx-react-core';
 import { VirtualTableLayoutProps } from '../types';
 
-export const makeVirtualTable = (Table, {
+/** @internal */
+export const makeVirtualTable: (...args: any) => any = (Table, {
   VirtualLayout,
   FixedHeader,
   FixedFooter,

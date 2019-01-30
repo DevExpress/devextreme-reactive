@@ -23,7 +23,7 @@ const pluginDependencies = [
   { name: 'Table' },
 ];
 
-export class TableRowDetail extends React.PureComponent<TableRowDetailProps> {
+class TableRowDetailBase extends React.PureComponent<TableRowDetailProps> {
   static components: PluginComponents;
   static ROW_TYPE = TABLE_DETAIL_TYPE;
   static COLUMN_TYPE = TABLE_DETAIL_TYPE;
@@ -56,7 +56,9 @@ export class TableRowDetail extends React.PureComponent<TableRowDetailProps> {
 
         <Template
           name="tableCell"
-          predicate={({ tableRow, tableColumn }: any) => isDetailToggleTableCell(tableRow, tableColumn)}
+          predicate={(
+            { tableRow, tableColumn }: any,
+          ) => isDetailToggleTableCell(tableRow, tableColumn)}
         >
           {(params: CellProps) => (
             <TemplateConnector>
@@ -109,8 +111,10 @@ export class TableRowDetail extends React.PureComponent<TableRowDetailProps> {
   }
 }
 
-TableRowDetail.components = {
+TableRowDetailBase.components = {
   rowComponent: 'Row',
   cellComponent: 'Cell',
   toggleCellComponent: 'ToggleCell',
 };
+
+export const TableRowDetail: React.ComponentType<TableRowDetailProps> = TableRowDetailBase;

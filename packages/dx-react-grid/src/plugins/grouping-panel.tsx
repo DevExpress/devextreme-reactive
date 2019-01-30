@@ -56,7 +56,7 @@ class GroupingPanelRaw extends React.PureComponent<GroupingPanelProps> {
                 groupingEnabled={groupingEnabled}
                 showSortingControls={showSortingControls!}
                 sortingDirection={showSortingControls
-                  ? getColumnSortingDirection(sorting, columnName) : undefined}
+                  ? getColumnSortingDirection(sorting, columnName)! : undefined}
                 showGroupingControls={showGroupingControls!}
                 onGroup={() => changeColumnGrouping({ columnName })}
                 onSort={(
@@ -112,4 +112,5 @@ GroupingPanelRaw.components = {
   emptyMessageComponent: 'EmptyMessage',
 };
 
-export const GroupingPanel = withComponents({ Layout })(GroupingPanelRaw);
+// tslint:disable-next-line: max-line-length
+export const GroupingPanel: React.ComponentType<GroupingPanelProps> = withComponents({ Layout })(GroupingPanelRaw);

@@ -13,7 +13,7 @@ const pluginDependencies = [
   { name: 'SummaryState' },
 ];
 
-export class IntegratedSummary extends React.PureComponent<IntegratedSummaryProps> {
+class IntegratedSummaryBase extends React.PureComponent<IntegratedSummaryProps> {
   static defaultCalculator: SummaryCalculator = defaultSummaryCalculator;
 
   render() {
@@ -80,3 +80,5 @@ export class IntegratedSummary extends React.PureComponent<IntegratedSummaryProp
     );
   }
 }
+
+export const IntegratedSummary: React.ComponentType<IntegratedSummaryProps> = IntegratedSummaryBase;

@@ -19,7 +19,7 @@ const pluginDependencies = [
   { name: 'DataTypeProvider', optional: true },
 ];
 
-export class TableEditRow extends React.PureComponent<TableEditRowProps> {
+class TableEditRowBase extends React.PureComponent<TableEditRowProps> {
   static ADDED_ROW_TYPE = TABLE_ADDED_TYPE;
   static EDIT_ROW_TYPE = TABLE_EDIT_TYPE;
   static components: PluginComponents;
@@ -123,7 +123,9 @@ export class TableEditRow extends React.PureComponent<TableEditRowProps> {
   }
 }
 
-TableEditRow.components = {
+TableEditRowBase.components = {
   rowComponent: 'Row',
   cellComponent: 'Cell',
 };
+
+export const TableEditRow: React.ComponentType<TableEditRowProps> = TableEditRowBase;

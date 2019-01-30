@@ -6,11 +6,11 @@ import { ItemLayout } from './group-panel-layout/item-layout';
 import { GroupingPanel as GP } from '../types';
 
 // tslint:disable-next-line: max-line-length
-export class GroupPanelLayout extends React.PureComponent<GP.LayoutProps, GP.GroupingItemLayoutState> {
+class GroupPanelLayoutBase extends React.PureComponent<GP.LayoutProps, GP.GroupingItemLayoutState> {
   static defaultProps = {
     onGroup: () => {},
     draggingEnabled: false,
-    isColumnGroupingEnabled: () => {},
+    isColumnGroupingEnabled: () => false,
     onGroupDraft: () => {},
     onGroupDraftCancel: () => {},
   };
@@ -161,3 +161,6 @@ export class GroupPanelLayout extends React.PureComponent<GP.LayoutProps, GP.Gro
       : groupPanel;
   }
 }
+
+/** @internal */
+export const GroupPanelLayout: React.ComponentType<GP.LayoutProps> = GroupPanelLayoutBase;

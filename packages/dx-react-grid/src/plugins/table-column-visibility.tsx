@@ -37,7 +37,7 @@ const columnExtensionValueGetter = (
 ) => getColumnExtensionValueGetter(columnExtensions, 'togglingEnabled', defaultValue);
 
 // tslint:disable-next-line: max-line-length
-export class TableColumnVisibility extends React.PureComponent<TableColumnVisibilityProps, TableColumnVisibilityState> {
+class TableColumnVisibilityBase extends React.PureComponent<TableColumnVisibilityProps, TableColumnVisibilityState> {
   static components: PluginComponents;
   toggleColumnVisibility: ActionFn<string[]>;
 
@@ -117,6 +117,9 @@ export class TableColumnVisibility extends React.PureComponent<TableColumnVisibi
   }
 }
 
-TableColumnVisibility.components = {
+TableColumnVisibilityBase.components = {
   emptyMessageComponent: 'EmptyMessage',
 };
+
+// tslint:disable-next-line: max-line-length
+export const TableColumnVisibility: React.ComponentType<TableColumnVisibilityProps> = TableColumnVisibilityBase;

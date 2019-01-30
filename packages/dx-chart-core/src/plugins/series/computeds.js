@@ -7,15 +7,12 @@ import {
   arc,
   pie,
 } from 'd3-shape';
-import { scaleOrdinal } from 'd3-scale';
 import { ARGUMENT_DOMAIN } from '../../constants';
 import { getWidth, getValueDomainName, fixOffset } from '../../utils/scale';
 
 const getX = ({ x }) => x;
 const getY = ({ y }) => y;
 const getY1 = ({ y1 }) => y1;
-
-const DEFAULT_POINT_SIZE = 7;
 
 export const dArea = area()
   .x(getX)
@@ -32,29 +29,21 @@ export const dSpline = line()
   .curve(curveMonotoneX);
 
 export const getPiePointTransformer = ({
-  argumentScale, valueScale, points, innerRadius, outerRadius, palette,
+  argumentScale, valueScale, points,
 }) => {
   const x = Math.max(...argumentScale.range()) / 2;
   const y = Math.max(...valueScale.range()) / 2;
-  const radius = Math.min(x, y);
+  const maxRadius = Math.min(x, y);
   const pieData = pie().sort(null).value(d => d.value)(points);
-  const inner = innerRadius * radius;
-  const outer = outerRadius * radius;
-  const gen = arc().innerRadius(inner).outerRadius(outer);
-  const colorScale = scaleOrdinal().range(palette);
   return (point) => {
     const { startAngle, endAngle } = pieData[point.index];
     return {
       ...point,
-      // TODO: It should be calculated in *pointComponent*.
-      d: gen.startAngle(startAngle).endAngle(endAngle)(),
-      color: point.color || colorScale(point.index),
       x,
       y,
-      innerRadius: inner,
-      outerRadius: outer,
       startAngle,
       endAngle,
+      maxRadius,
     };
   };
 };
@@ -67,6 +56,8 @@ export const getLinePointTransformer = ({ argumentScale, valueScale }) => {
     y: valueScale(point.value),
   });
 };
+
+export const getScatterPointTransformer = getLinePointTransformer;
 
 export const getAreaPointTransformer = (series) => {
   const transform = getLinePointTransformer(series);
@@ -81,24 +72,24 @@ export const getAreaPointTransformer = (series) => {
 getAreaPointTransformer.isStartedFromZero = true;
 
 export const getBarPointTransformer = ({
-  argumentScale, valueScale, barWidth,
+  argumentScale, valueScale,
 }) => {
   const y1 = valueScale(0);
-  const categoryWidth = getWidth(argumentScale);
-  const offset = categoryWidth * (1 - barWidth) / 2;
-  const width = categoryWidth * barWidth;
+  const fixedArgumentScale = fixOffset(argumentScale);
   return point => ({
     ...point,
-    x: argumentScale(point.argument) + offset,
+    x: fixedArgumentScale(point.argument),
     y: valueScale(point.value),
     y1,
-    width,
+    maxBarWidth: getWidth(argumentScale),
   });
 };
 // Used for domain calculation and stacking.
 getBarPointTransformer.isStartedFromZero = true;
 // Used for Bar grouping.
 getBarPointTransformer.isBroad = true;
+
+getPiePointTransformer.getPointColor = (palette, index) => palette[index % palette.length];
 
 export const findSeriesByName = (
   name, series,
@@ -107,35 +98,36 @@ export const findSeriesByName = (
 export const dBar = ({
   x, y, y1, width,
 }) => ({
-  x, y: Math.min(y, y1), width: width || 2, height: Math.abs(y1 - y),
+  x: x - width / 2, y: Math.min(y, y1), width: width || 2, height: Math.abs(y1 - y),
 });
 
-export const pointAttributes = ({ size = DEFAULT_POINT_SIZE }) => {
-  const dPoint = symbol().size([size ** 2]).type(symbolCircle)();
-  return item => ({
-    // TODO: It should be calculated in *pointComponent*.
-    d: dPoint,
-    x: item.x,
-    y: item.y,
-  });
-};
+export const dSymbol = ({ size }) => symbol().size([size ** 2]).type(symbolCircle)();
+
+export const dPie = ({
+  maxRadius, innerRadius, outerRadius, startAngle, endAngle,
+}) => arc()
+  .innerRadius(innerRadius * maxRadius)
+  .outerRadius(outerRadius * maxRadius)
+  .startAngle(startAngle)
+  .endAngle(endAngle)();
 
 getBarPointTransformer.getTargetElement = ({
-  x, y, y1, width,
+  x, y, y1, barWidth, maxBarWidth,
 }) => {
+  const width = barWidth * maxBarWidth;
   const height = Math.abs(y1 - y);
   return {
-    x,
+    x: x - width / 2,
     y,
     d: `M0,0 ${width},0 ${width},${height} 0,${height}`,
   };
 };
 getPiePointTransformer.getTargetElement = ({
-  x, y, innerRadius, outerRadius, startAngle, endAngle,
+  x, y, innerRadius, outerRadius, maxRadius, startAngle, endAngle,
 }) => {
   const center = arc()
-    .innerRadius(innerRadius)
-    .outerRadius(outerRadius)
+    .innerRadius(innerRadius * maxRadius)
+    .outerRadius(outerRadius * maxRadius)
     .startAngle(startAngle)
     .endAngle(endAngle)
     .centroid();
@@ -144,55 +136,62 @@ getPiePointTransformer.getTargetElement = ({
   };
 };
 
-getAreaPointTransformer.getTargetElement = ({ x, y }) => {
-  const size = DEFAULT_POINT_SIZE; // TODO get user size
-  return {
-    x,
-    y,
-    d: symbol().size([size ** 2]).type(symbolCircle)(),
-  };
-};
+getAreaPointTransformer.getTargetElement = ({ x, y }) => ({
+  x,
+  y,
+  d: symbol().size([2 ** 2]).type(symbolCircle)(),
+});
 
 getLinePointTransformer.getTargetElement = getAreaPointTransformer.getTargetElement;
 
-const createNewUniqueName = name => name.replace(/\d*$/, str => (str ? +str + 1 : 0));
+getScatterPointTransformer.getTargetElement = ({ x, y, point }) => ({
+  x,
+  y,
+  d: symbol().size([point.size ** 2]).type(symbolCircle)(),
+});
 
-const addItem = (list, item) => (list.find(obj => obj.uniqueName === item.uniqueName)
-  ? addItem(list, {
-    ...item,
-    uniqueName: createNewUniqueName(item.uniqueName),
-  })
-  : list.concat(item)
-);
+const getUniqueName = (list, name) => {
+  const names = new Set(list.map(item => item.name));
+  let ret = name;
+  while (names.has(ret)) {
+    ret = ret.replace(/\d*$/, str => (str ? +str + 1 : 0));
+  }
+  return ret;
+};
 
 // TODO: Memoization is much needed here.
 // Though "series" list never persists, single "series" item most often does.
-const createPoints = (argumentField, valueField, data) => {
+const createPoints = ({ argumentField, valueField, getPointTransformer }, data, props, palette) => {
   const points = [];
   data.forEach((dataItem, index) => {
     const argument = dataItem[argumentField];
     const value = dataItem[valueField];
     if (argument !== undefined && value !== undefined) {
-      points.push({ argument, value, index });
+      points.push({
+        argument,
+        value,
+        index,
+        ...props,
+        color: getPointTransformer.getPointColor
+          ? getPointTransformer.getPointColor(palette, index) : props.color,
+      });
     }
   });
   return points;
 };
 
-export const addSeries = (series, data, palette, props) => {
-  const points = createPoints(props.argumentField, props.valueField, data);
+export const addSeries = (series, data, palette, props, restProps) => {
   // It is used to generate unique series dependent attribute names for patterns.
   // *symbolName* cannot be used as it cannot be part of DOM attribute name.
-  // TODO: Consider making *name* unique and then use it instead of *index*.
   const index = series.length;
-  return addItem(series, {
+  const seriesColor = props.color || palette[index % palette.length];
+  return [...series, {
     ...props,
+    name: getUniqueName(series, props.name),
     index,
-    points,
-    uniqueName: props.name,
-    palette, // TODO: For Pie only. Find a better place for it.
-    color: props.color || palette[index % palette.length],
-  });
+    points: createPoints(props, data, { ...restProps, color: seriesColor }, palette),
+    color: seriesColor,
+  }];
 };
 
 // TODO: Memoization is much needed here by the same reason as in "createPoints".

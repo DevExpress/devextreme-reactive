@@ -9,14 +9,14 @@ import { withPattern } from '../../utils/with-pattern';
 class RawBar extends React.PureComponent {
   render() {
     const {
-      x, width, y, y1,
+      x, barWidth, y, y1, maxBarWidth,
       argument, value, seriesIndex, index, state,
       color,
       style, scales, getAnimatedStyle,
       ...restProps
     } = this.props;
     const attributes = dBar({
-      x, width, y, y1,
+      x, width: maxBarWidth * barWidth, y, y1,
     });
     return (
       <rect
@@ -33,7 +33,8 @@ RawBar.propTypes = {
   argument: PropTypes.any.isRequired,
   value: PropTypes.number.isRequired,
   x: PropTypes.number.isRequired,
-  width: PropTypes.number.isRequired,
+  barWidth: PropTypes.number.isRequired,
+  maxBarWidth: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
   y1: PropTypes.number.isRequired,
   seriesIndex: PropTypes.number.isRequired,

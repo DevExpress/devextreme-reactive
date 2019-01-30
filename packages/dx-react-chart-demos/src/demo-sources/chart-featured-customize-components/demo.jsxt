@@ -25,21 +25,24 @@ const getPath = (x, width, y, y1) => `M ${x} ${y1}
 const labelStyle = { fill: '#BBDEFB' };
 
 const BarWithLabel = ({
-  x, width, y, y1, color, value, style,
-}) => (
-  <React.Fragment>
-    <path d={getPath(x, width, y, y1)} fill={color} style={style} />
-    <Chart.Label
-      x={x + width / 2}
-      y={(y + y1) / 2}
-      dominantBaseline="middle"
-      textAnchor="middle"
-      style={labelStyle}
-    >
-      {value}
-    </Chart.Label>
-  </React.Fragment>
-);
+  x, barWidth, maxBarWidth, y, y1, color, value, style,
+}) => {
+  const width = maxBarWidth * barWidth;
+  return (
+    <React.Fragment>
+      <path d={getPath(x - width / 2, width, y, y1)} fill={color} style={style} />
+      <Chart.Label
+        x={x}
+        y={(y + y1) / 2}
+        dominantBaseline="middle"
+        textAnchor="middle"
+        style={labelStyle}
+      >
+        {value}
+      </Chart.Label>
+    </React.Fragment>
+  );
+};
 
 const Grid = props => (
   <ValueAxis.Grid {...props} strokeDasharray="10 5" />

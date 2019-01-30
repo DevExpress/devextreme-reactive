@@ -1,0 +1,131 @@
+import * as React from 'react';<%&additionalImports%>
+import { connectProps } from '@devexpress/dx-react-core';
+import {
+  EventTracker, HoverState,
+} from '@devexpress/dx-react-chart';
+import {
+  Chart,
+  SplineSeries,
+  ArgumentAxis,
+  ValueAxis,
+  Legend,
+} from '@devexpress/dx-react-chart-<%&themeName%>';
+import { energyConsumption as data } from '../../../demo-data/data-vizualization';
+
+const rootStyles = {
+  display: 'flex',
+  margin: 'auto',
+  flexDirection: 'row',
+};
+const LegendRoot = props => (
+  <Legend.Root
+    {...props}
+    style={rootStyles}
+  />
+);
+
+const defaultLabelStyles = {
+  marginBottom: '8px',
+  whiteSpace: 'nowrap',
+  fontSize: '20px',
+  color: 'lightgray',
+};
+const hoveredLabelStyles = {
+  ...defaultLabelStyles,
+  color: 'black',
+};
+const LegendLabel = ({
+  hoveredSeriesName, text, ...restProps
+}) => (
+  <div
+    {...restProps}
+    style={hoveredSeriesName === text ? hoveredLabelStyles : defaultLabelStyles}
+  >
+    {text}
+  </div>
+);
+
+const itemStyles = {
+  flexDirection: 'column-reverse',
+};
+const LegendItem = props => (
+  <Legend.Item
+    {...props}
+    style={itemStyles}
+  />
+);
+
+export default class Demo extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      data,
+      hover: undefined,
+    };
+
+    this.changeHover = hover => this.setState({ hover });
+
+    this.legendLabel = connectProps(LegendLabel, () => {
+      const { hover } = this.state;
+      const hoveredSeriesName = hover ? hover.series : undefined;
+      return {
+        hoveredSeriesName,
+      };
+    });
+  }
+
+  componentDidUpdate() {
+    this.legendLabel.update();
+  }
+
+  render() {
+    const { data: chartData, hover } = this.state;
+
+    return (
+      <<%&wrapperTag%><%&wrapperAttributes%>>
+        <Chart
+          data={chartData}
+        >
+          <ArgumentAxis />
+          <ValueAxis />
+
+          <SplineSeries
+            name="Hydro-electric"
+            valueField="hydro"
+            argumentField="country"
+          />
+          <SplineSeries
+            name="Oil"
+            valueField="oil"
+            argumentField="country"
+          />
+          <SplineSeries
+            name="Natural gas"
+            valueField="gas"
+            argumentField="country"
+          />
+          <SplineSeries
+            name="Coal"
+            valueField="coal"
+            argumentField="country"
+          />
+          <SplineSeries
+            name="Nuclear"
+            valueField="nuclear"
+            argumentField="country"
+          />
+          <Legend
+            position="bottom"
+            rootComponent={LegendRoot}
+            itemComponent={LegendItem}
+            labelComponent={this.legendLabel}
+          />
+
+          <EventTracker />
+          <HoverState hover={hover} onHoverChange={this.changeHover} />
+        </Chart>
+      </<%&wrapperTag%>>
+    );
+  }
+}

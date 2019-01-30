@@ -31,13 +31,25 @@ defaults:
       path: react
     values:
       demos_link: /react
+  # React Common
+  - scope:
+      path: react/common
+    values:
+      product_name: React Components
+      product_link: /react/common
+      logo_file: core-logo.svg
+      initial_guide: /performance-optimization
+  - scope:
+      path: react/common/docs
+      type: pages
+    values:
+      layout: docs
   # React Core
   - scope:
       path: react/core
     values:
       product_name: React Core
       product_link: /react/core
-      demos_script_link: /react/grid/demos
       logo_file: core-logo.svg
       initial_guide: /fundamentals
   - scope:

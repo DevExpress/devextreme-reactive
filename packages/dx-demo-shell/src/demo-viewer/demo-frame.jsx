@@ -28,7 +28,17 @@ class DemoFrameRenderer extends React.PureComponent {
       themeName,
       variantName,
     } = props;
-    const { scriptPath, themeSources } = this.context;
+    const {
+      scriptPath, themeSources, firstPart, lastPart, demoSources,
+    } = this.context;
+
+    let demoScript = scriptPath;
+    if (firstPart !== undefined) {
+      // eslint-disable-next-line prefer-destructuring
+      const productName = demoSources[sectionName][demoName][themeName].productName;
+      demoScript = `${firstPart}${productName}${lastPart}`;
+    }
+
     const themeVariantOptions = themeSources
       .find(theme => theme.name === themeName).variants
       .find(variant => variant.name === variantName);
@@ -51,7 +61,7 @@ class DemoFrameRenderer extends React.PureComponent {
         <div class="embedded-demo" data-options='{ "path": "${frameUrl}/clean", "frame": true }'>
           <div style="min-height: 500px;">Loading...</div>
         </div>
-        <script src="${scriptPath}"></script>
+        <script src="${demoScript}"></script>
       </body>
       </html>`;
     this.state = {

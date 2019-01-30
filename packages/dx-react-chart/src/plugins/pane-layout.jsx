@@ -5,8 +5,12 @@ import {
   Template,
   TemplateConnector,
   TemplatePlaceholder,
-  Sizer,
 } from '@devexpress/dx-react-core';
+
+// Original *Sizer* cannot be used because it ignores (as it should do) *forceUpdate* request.
+// *UpdatableSizer* implements *componentDidUpdate* and forces internal *Sizer* size calculation.
+// It allows to run chart size recalculation by calling *forceUpdate* on chart instance.
+import { UpdatableSizer } from '../utils/updatable-sizer';
 
 const DIV_STYLE = {
   flex: 1, zIndex: 1, position: 'relative', width: '100%',
@@ -35,7 +39,7 @@ export class PaneLayout extends React.PureComponent {
               {({ layouts }, { changeBBox }) => {
                 const { width, height } = layouts.pane;
                 return (
-                  <Sizer
+                  <UpdatableSizer
                     containerComponent={SizerContainer}
                     onSizeChange={size => changeBBox({ placeholder: 'pane', bBox: size })}
                   >
@@ -47,7 +51,7 @@ export class PaneLayout extends React.PureComponent {
                     >
                       <TemplatePlaceholder name="series" />
                     </svg>
-                  </Sizer>
+                  </UpdatableSizer>
                 );
               }
                 }

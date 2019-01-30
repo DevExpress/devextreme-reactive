@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "module": "es6",
+    "target": "es5",
+    "jsx": "react",
+    "declaration": false,
+    "strict": true,
+    "alwaysStrict": true,
+    "noImplicitAny": false,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "noUnusedLocals": true,
+    "moduleResolution": "node",
+    "noLib": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "lib": ["es6", "es2017.object", "dom"],
+    "baseUrl": "./",
+    "stripInternal": true,
+    "paths": {
+      "@devexpress/*":["packages/*/src"],
+      "*": ["node_modules", "packages"]
+    },
+  },
+  "exclude": [
+    "node_modules",
+    "**/*.test.ts*",
+    "packages/**/dist"
+  ],
+ }

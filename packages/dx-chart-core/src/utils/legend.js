@@ -1,5 +1,5 @@
 const getDefaultLegendItems = series => series.map(
-  ({ uniqueName: text, color }) => ({ text, color }),
+  ({ name: text, color }) => ({ text, color }),
 );
 
 const getPieLegendItems = series => series[0]

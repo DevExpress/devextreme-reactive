@@ -4,7 +4,7 @@
     "outDir": "./dist",
     "downlevelIteration": true,
     "noImplicitAny": true,
-    "allowSyntheticDefaultImports": true
+    "esModuleInterop": true
   },
   "include": [
     "./src"

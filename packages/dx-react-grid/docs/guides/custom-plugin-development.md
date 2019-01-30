@@ -331,7 +331,7 @@ class App extends Component {
 ```
 Although we added the `ToolbarFilterState` plugin, the select box still does nothing because the `ToolbarFilterState` does not communicate with the `ToolbarFilter`. Now, we need to collect unique values of the `CompanyName` column in the `ToolbarFilterState` and pass them to the `ToolbarFilter` so that it displayed them. For this, we use [getters](../../../core/docs/reference/getter.md).
 
-The [Grid](../reference/grid.md) plugin provides the `rows` property for specifying the row collection and exports the `rows` getter. We need to create a new getter that filters data from the `rows` getter. Such getters are called "computed getters" because they use other getters in calculations. The new getter in question is called `toolbarFilterDataItems` in the following code.
+The [Grid](../reference/grid.md) plugin provides the `rows` property for specifying the row collection and exports the `rows` getter. We need to create a new getter that filters data from the `rows` getter. Such getters are called "computed getters" because they use other getters in calculations. This getter is called `toolbarFilterDataItems` in the following code.
 
 In addition, we want to display the name of the filtered column near the select box. The Grid exports the `columns` getter that we use in another computed getter named `toolbarFilterColumnTitle`.
 

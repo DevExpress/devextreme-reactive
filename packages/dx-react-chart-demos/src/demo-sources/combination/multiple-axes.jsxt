@@ -50,7 +50,7 @@ const BarPoint = props => (
   <BarSeries.Point {...patchProps(props)} />
 );
 
-const pointOptions = { size: 10 };
+const pointOptions = { size: 7 };
 
 const areaPointStyle = { animation: null };
 const AreaPoint = (props) => {

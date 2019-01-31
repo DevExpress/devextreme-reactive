@@ -63,15 +63,15 @@ export interface ViewCell {
   today?: boolean;
 }
 
-export type DayScaleComputed = PureComputed<
+export type DayScaleFn = PureComputed<
   [CurrentDate, FirstDayOfWeek, DayCount, ExcludedDays], Date[]
 >;
 
-export type TimeScaleComputed = PureComputed<
+export type TimeScaleFn = PureComputed<
   [CurrentDate, FirstDayOfWeek, StartDayHour, EndDayHour, CellDuration, ExcludedDays], TimeScale[]
 >;
 
-export type ViewCellsDataComputed = PureComputed<
+export type ViewCellsDataFn = PureComputed<
   [CurrentDate, FirstDayOfWeek, DayCount, ExcludedDays,
     StartDayHour, EndDayHour, CellDuration, CurrentTime], ViewCell[][]
 >;

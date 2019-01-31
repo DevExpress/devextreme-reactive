@@ -3,6 +3,6 @@ import { StartViewDate, EndViewDate, CurrentDate, IntervalCount } from './schedu
 
 export type NavigationStep = string;
 
-export type ViewBoundText = PureComputed<
+export type ViewBoundTextFn = PureComputed<
   [StartViewDate, EndViewDate, NavigationStep, CurrentDate, IntervalCount], string
 >;

@@ -2,13 +2,13 @@ import moment from 'moment';
 import { CustomFunction, PureComputed } from '@devexpress/dx-core';
 import { HORIZONTAL_TYPE, VERTICAL_TYPE } from './constants';
 import {
-  Computed, ExcludedDays, RightBound, ViewPredicate,
-  CurrentDate, CalculateFirstDateOfWeek, AppointmentMoment, LeftBound,
+  ComputedHelperFn, ExcludedDays, RightBound, ViewPredicateFn,
+  CurrentDate, CalculateFirstDateOfWeekFn, AppointmentMoment, LeftBound,
   Interval, AppointmentGroup, AppointmentUnwrappedGroup,
-  Rect, ElementRect, RectCalculatorBase, CalculateRectByDateIntervals,
+  Rect, ElementRect, RectCalculatorBaseFn, CalculateRectByDateIntervalsFn,
 } from './types';
 
-export const computed: Computed = (getters, viewName, baseComputed, defaultValue) => {
+export const computed: ComputedHelperFn = (getters, viewName, baseComputed, defaultValue) => {
   if (getters.currentView.name !== viewName && !!defaultValue) {
     return defaultValue;
   }
@@ -54,7 +54,7 @@ const inInterval = (
   date: moment.Moment, interval: Interval,
 ) => date.isBetween(interval[0], interval[1], undefined, '[]');
 
-export const viewPredicate: ViewPredicate = (
+export const viewPredicate: ViewPredicateFn = (
   appointment, left, right,
   excludedDays = [],
   removeAllDayAppointments = false,
@@ -151,7 +151,7 @@ export const adjustAppointments: CustomFunction<
   return { items: appointments, reduceValue };
 });
 
-export const calculateFirstDateOfWeek: CalculateFirstDateOfWeek = (
+export const calculateFirstDateOfWeek: CalculateFirstDateOfWeekFn = (
   currentDate, firstDayOfWeek, excludedDays = [],
 ) => {
   const currentLocale = moment.locale();
@@ -197,7 +197,7 @@ export const getAppointmentStyle: PureComputed<
   position: 'absolute',
 });
 
-const rectCalculatorBase: RectCalculatorBase = (
+const rectCalculatorBase: RectCalculatorBaseFn = (
   appointment,
   getRectByDates,
   options,
@@ -281,7 +281,7 @@ const verticalRectCalculator: CustomFunction<
   };
 };
 
-export const calculateRectByDateIntervals: CalculateRectByDateIntervals = (
+export const calculateRectByDateIntervals: CalculateRectByDateIntervalsFn = (
   type, intervals, rectByDates, rectByDatesMeta,
 ) => {
   const { growDirection, multiline } = type;

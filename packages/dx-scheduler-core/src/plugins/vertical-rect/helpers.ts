@@ -1,13 +1,13 @@
 import moment from 'moment';
 import {
-  GetCellByDate, GetVerticalRectByDates, GetCellRectVertical, AppointmentDate,
+  GetCellByDateFn, GetVerticalRectByDatesFn, GetCellRectVerticalFn, AppointmentDate,
 } from '../../types';
 
 const CELL_GAP_PX = 10;
 const CELL_BOUND_HORIZONTAL_OFFSET_PX = 1;
 const CELL_BOUND_VERTICAL_OFFSET_PX = 4;
 
-export const getCellByDate: GetCellByDate = (viewCellsData, date, takePrev = false) => {
+export const getCellByDate: GetCellByDateFn = (viewCellsData, date, takePrev = false) => {
   const cellIndex =
     viewCellsData[0].findIndex(timeCell =>
       moment(date as AppointmentDate).isSame(timeCell.startDate, 'date'));
@@ -27,7 +27,7 @@ export const getCellByDate: GetCellByDate = (viewCellsData, date, takePrev = fal
   };
 };
 
-const getCellRect: GetCellRectVertical = (
+const getCellRect: GetCellRectVerticalFn = (
   date, viewCellsData, cellDuration, cellElements, takePrev,
 ) => {
   const {
@@ -58,7 +58,7 @@ const getCellRect: GetCellRectVertical = (
   };
 };
 
-export const getVerticalRectByDates: GetVerticalRectByDates = (
+export const getVerticalRectByDates: GetVerticalRectByDatesFn = (
   startDate,
   endDate,
   {

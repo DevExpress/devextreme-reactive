@@ -3,7 +3,7 @@ import { PureComputed } from '@devexpress/dx-core';
 import {
   CurrentDate, TimeScale, EndViewDate,
   ViewName, CurrentTime, ViewCell, StartViewDate,
-  DayScaleComputed, TimeScaleComputed, ViewCellsDataComputed,
+  DayScaleFn, TimeScaleFn, ViewCellsDataFn,
 } from '../../types';
 import { calculateFirstDateOfWeek } from '../../utils';
 
@@ -11,7 +11,7 @@ const subtractSecond: PureComputed<
   [Date]
 > = date => moment(date as Date).subtract(1, 'second').toDate();
 
-export const dayScale: DayScaleComputed = (
+export const dayScale: DayScaleFn = (
   currentDate,
   firstDayOfWeek,
   dayCount,
@@ -30,7 +30,7 @@ export const dayScale: DayScaleComputed = (
   return result;
 };
 
-export const timeScale: TimeScaleComputed = (
+export const timeScale: TimeScaleFn = (
   currentDate,
   firstDayOfWeek,
   startDayHour,
@@ -66,7 +66,7 @@ export const availableViewNames: PureComputed<
   return viewNames;
 };
 
-export const viewCellsData: ViewCellsDataComputed = (
+export const viewCellsData: ViewCellsDataFn = (
   currentDate, firstDayOfWeek,
   dayCount, excludedDays,
   startDayHour, endDayHour,

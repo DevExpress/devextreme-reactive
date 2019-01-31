@@ -1,7 +1,7 @@
 import moment from 'moment';
 import {
-  MonthCellsDataComputed, CurrentDate, Today,
-  CalculateMonthDateIntervals, AppointmentMoment, LeftBound, RightBound,
+  MonthCellsDataComputedFn, CurrentDate, Today,
+  CalculateMonthDateIntervalsFn, AppointmentMoment, LeftBound, RightBound,
 } from '../../types';
 import { viewPredicate } from '../../utils';
 import { sliceAppointmentByWeek } from './helpers';
@@ -9,7 +9,7 @@ import { sliceAppointmentByWeek } from './helpers';
 const DAY_COUNT = 7;
 const MONTH_LENGTH = 31;
 
-export const monthCellsData: MonthCellsDataComputed = (
+export const monthCellsData: MonthCellsDataComputedFn = (
   currentDate,
   firstDayOfWeek,
   intervalCount = 1,
@@ -48,7 +48,7 @@ export const monthCellsData: MonthCellsDataComputed = (
   return result;
 };
 
-export const calculateMonthDateIntervals: CalculateMonthDateIntervals = (
+export const calculateMonthDateIntervals: CalculateMonthDateIntervalsFn = (
   appointments, leftBound, rightBound,
 ) => appointments
   .map(({ start, end, ...restArgs }) => ({ start: moment(start), end: moment(end), ...restArgs }))

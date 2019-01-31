@@ -24,7 +24,6 @@
   },
   "main": "dist/dx-scheduler-core.umd.js",
   "module": "dist/dx-scheduler-core.es.js",
-  "types": "dist/dx-grid-core.d.ts",
   "globalName": "DevExpress.DXSchedulerCore",
   "files": [
     "dist"

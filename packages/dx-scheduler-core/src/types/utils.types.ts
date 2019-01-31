@@ -28,22 +28,22 @@ export interface ElementRect extends Rect {
   type: string;
 }
 
-export type Computed = PureComputed<
+export type ComputedHelperFn = PureComputed<
   [any, ViewName, (...args: any[]) => any, any]
 >;
 
-export type ViewPredicate = PureComputed<
+export type ViewPredicateFn = PureComputed<
   [AppointmentMoment, LeftBound, RightBound, ExcludedDays?, boolean?], boolean
 >;
 
-export type CalculateFirstDateOfWeek = PureComputed<
+export type CalculateFirstDateOfWeekFn = PureComputed<
   [CurrentDate, FirstDayOfWeek, ExcludedDays], Date
 > ;
 
-export type RectCalculatorBase = PureComputed<
+export type RectCalculatorBaseFn = PureComputed<
   [AppointmentUnwrappedGroup, (...args: any) => any, object], any
 >;
 
-export type CalculateRectByDateIntervals = PureComputed<
+export type CalculateRectByDateIntervalsFn = PureComputed<
   [any, AppointmentMoment[], (...args: any) => any, any], ElementRect[]
 >;

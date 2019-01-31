@@ -16,14 +16,14 @@ export interface AppointmentMoment {
   [propertyName: string]: any;
 }
 
-export type CalculateAllDayDateIntervals = PureComputed<
+export type CalculateAllDayDateIntervalsFn = PureComputed<
   [AppointmentCore[], LeftBound, RightBound, ExcludedDays], AppointmentMoment[]
 >;
 
-export type GetAllDayCellIndexByDate = PureComputed<
+export type GetAllDayCellIndexByDateFn = PureComputed<
   [ViewCellData[][], AppointmentDate, TakePrevious], number
 >;
 
-export type SliceAppointmentsByBoundaries = PureComputed<
+export type SliceAppointmentsByBoundariesFn = PureComputed<
   [AppointmentMoment, LeftBound, RightBound, ExcludedDays], AppointmentMoment[]
 >;

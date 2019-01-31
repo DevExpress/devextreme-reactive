@@ -24,14 +24,14 @@ export type VerticalPayload = {
   cellElements: CellElement[];
 };
 
-export type GetCellByDate = PureComputed<
+export type GetCellByDateFn = PureComputed<
   [ViewCellData[][], AppointmentDate, TakePrevious], CellByDate
 >;
 
-export type GetCellRectVertical = PureComputed<
+export type GetCellRectVerticalFn = PureComputed<
   [AppointmentDate, ViewCellData[][], CellDuration, CellElement[], TakePrevious], VerticalCellRect
 >;
 
-export type GetVerticalRectByDates = PureComputed<
+export type GetVerticalRectByDatesFn = PureComputed<
   [AppointmentDate, EndDate, VerticalPayload], VerticalCellRectByDate
 >;

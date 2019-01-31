@@ -1,9 +1,9 @@
 import moment from 'moment';
 import {
-  SliceAppointmentByWeek, GetMonthCellIndexByDate, AppointmentDate,
+  SliceAppointmentByWeekFn, GetMonthCellIndexByDateFn, AppointmentDate,
 } from '../../types';
 
-export const sliceAppointmentByWeek: SliceAppointmentByWeek = (timeBounds, appointment, step) => {
+export const sliceAppointmentByWeek: SliceAppointmentByWeekFn = (timeBounds, appointment, step) => {
   const { left, right } = timeBounds;
   const pieces = [];
   const { start, end, ...restFields } = appointment;
@@ -34,7 +34,7 @@ export const sliceAppointmentByWeek: SliceAppointmentByWeek = (timeBounds, appoi
   return pieces;
 };
 
-export const getMonthCellIndexByDate: GetMonthCellIndexByDate = (
+export const getMonthCellIndexByDate: GetMonthCellIndexByDateFn = (
   viewCellsData, date, takePrev = false,
 ) => {
   const startViewDate = moment(viewCellsData[0][0].startDate);

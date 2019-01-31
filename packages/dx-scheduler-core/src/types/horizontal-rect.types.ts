@@ -31,10 +31,10 @@ export interface HorizontalCellRect extends Rect {
   parentWidth: number;
 }
 
-export type GetCellRectHorizontal = PureComputed<
+export type GetCellRectHorizontalFn = PureComputed<
   [AppointmentDate, ViewCellData[][], CellElement[][], TakePrevious, Multiline], CellRect
 >;
 
-export type GetHorizontalRectByDates = PureComputed<
+export type GetHorizontalRectByDatesFn = PureComputed<
   [AppointmentDate, EndDate, HorizontalPayload], HorizontalCellRect
 >;

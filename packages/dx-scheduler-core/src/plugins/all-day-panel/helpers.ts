@@ -1,8 +1,8 @@
 import moment from 'moment';
 import { PureComputed } from '@devexpress/dx-core';
 import {
-  AppointmentMoment, GetAllDayCellIndexByDate,
-  LeftBound, RightBound, SliceAppointmentsByBoundaries, AppointmentDate,
+  AppointmentMoment, GetAllDayCellIndexByDateFn,
+  LeftBound, RightBound, SliceAppointmentsByBoundariesFn, AppointmentDate,
 } from '../../types';
 
 export const allDayPredicate: PureComputed<[AppointmentMoment], boolean> = appointment => (
@@ -10,7 +10,7 @@ export const allDayPredicate: PureComputed<[AppointmentMoment], boolean> = appoi
   || !!appointment.allDay
 );
 
-export const getAllDayCellIndexByDate: GetAllDayCellIndexByDate = (
+export const getAllDayCellIndexByDate: GetAllDayCellIndexByDateFn = (
   viewCellsData, date, takePrev,
 ) => {
   const currentDate = moment(date as AppointmentDate);
@@ -22,7 +22,7 @@ export const getAllDayCellIndexByDate: GetAllDayCellIndexByDate = (
   return cellIndex;
 };
 
-export const sliceAppointmentsByBoundaries: SliceAppointmentsByBoundaries = (
+export const sliceAppointmentsByBoundaries: SliceAppointmentsByBoundariesFn = (
   appointment, left, right, excludedDays = [],
 ) => {
   const startDate = appointment.start.clone();

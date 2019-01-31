@@ -22,18 +22,18 @@ export interface MonthCellData {
   today: boolean;
 }
 
-export type MonthCellsDataComputed = PureComputed<
+export type MonthCellsDataComputedFn = PureComputed<
   [CurrentDate, FirstDayOfWeek, IntervalCount, Today], MonthCellData[][]
 >;
 
-export type CalculateMonthDateIntervals = PureComputed<
+export type CalculateMonthDateIntervalsFn = PureComputed<
   [AppointmentCore[], LeftBound, RightBound], AppointmentMoment[]
 >;
 
-export type SliceAppointmentByWeek = PureComputed<
+export type SliceAppointmentByWeekFn = PureComputed<
   [TimeBounds, AppointmentMoment, Step], AppointmentMoment[]
 >;
 
-export type GetMonthCellIndexByDate = PureComputed<
+export type GetMonthCellIndexByDateFn = PureComputed<
   [ViewCellData[][], AppointmentDate, TakePrevious], Index
 >;

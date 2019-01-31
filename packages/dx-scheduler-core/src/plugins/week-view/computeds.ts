@@ -1,11 +1,11 @@
 import moment from 'moment';
-import { CalculateWeekDateIntervals, AppointmentMoment } from '../../types';
+import { CalculateWeekDateIntervalsFn, AppointmentMoment } from '../../types';
 import {
   sliceAppointmentByDay, dayBoundaryPredicate, reduceAppointmentByDayBounds,
 } from './helpers';
 import { viewPredicate } from '../../utils';
 
-export const calculateWeekDateIntervals: CalculateWeekDateIntervals = (
+export const calculateWeekDateIntervals: CalculateWeekDateIntervalsFn = (
   appointments,
   leftBound, rightBound,
   excludedDays,

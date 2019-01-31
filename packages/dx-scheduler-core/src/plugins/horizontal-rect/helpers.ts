@@ -1,11 +1,11 @@
-import { GetCellRectHorizontal, GetHorizontalRectByDates } from '../../types';
+import { GetCellRectHorizontalFn, GetHorizontalRectByDatesFn } from '../../types';
 import { getAllDayCellIndexByDate } from '../all-day-panel/helpers';
 import { getMonthCellIndexByDate } from '../month-view/helpers';
 
 const TOP_CELL_OFFSET = 0.32;
 const CELL_BOUND_OFFSET_PX = 1;
 
-const getCellRect: GetCellRectHorizontal = (
+const getCellRect: GetCellRectHorizontalFn = (
   date, viewCellsData, cellElements, takePrev, multiline,
 ) => {
   const cellIndex = multiline
@@ -32,7 +32,7 @@ const getCellRect: GetCellRectHorizontal = (
   };
 };
 
-export const getHorizontalRectByDates: GetHorizontalRectByDates = (
+export const getHorizontalRectByDates: GetHorizontalRectByDatesFn = (
   startDate,
   endDate,
   {

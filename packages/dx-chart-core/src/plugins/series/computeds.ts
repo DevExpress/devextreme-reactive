@@ -170,12 +170,12 @@ const getUniqueName: PureComputed<[Series[], string], string> = (list, name) => 
 
 // TODO: Memoization is much needed here.
 // Though "series" list never persists, single "series" item most often does.
-const createPoints: PureComputed<[Series, any[], any, string[]], Point[]> = (
+const createPoints: PureComputed<[Series, DataItems[], any, string[]], Point[]> = (
   {
     argumentField, valueField, getPointTransformer,
   },
   data, props, palette) => {
-  const points: any[] = [];
+  const points: Point[] = [];
   data.forEach((dataItem, index) => {
     const argument = dataItem[argumentField];
     const value = dataItem[valueField];

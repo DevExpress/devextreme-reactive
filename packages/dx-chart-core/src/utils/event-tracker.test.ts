@@ -182,6 +182,7 @@ describe('EventTracker', () => {
         clickHandlers: [], pointerMoveHandlers: [handler1, handler2],
       });
       mouseleave({
+        currentTarget,
         clientX: 572,
         clientY: 421,
       });

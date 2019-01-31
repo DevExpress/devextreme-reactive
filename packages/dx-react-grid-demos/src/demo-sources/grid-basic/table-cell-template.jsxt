@@ -10,8 +10,9 @@ import {
   globalSalesValues,
 } from '../../../demo-data/generator';
 
-const HighlightedCell = ({ value, style }) => (
+const HighlightedCell = ({ value, style, ...restProps }) => (
   <Table.Cell
+    {...restProps}
     style={{
       backgroundColor: value < 5000 ? 'red' : undefined,
       ...style,

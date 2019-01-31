@@ -136,8 +136,10 @@ const PrioritySelector = withStyles(styles, { name: 'PrioritySelector' })(
 );
 
 const FlexibleSpace = withStyles(styles, { name: 'FlexibleSpace' })(
-  ({ classes, priority, priorityChange }) => (
-    <Toolbar.FlexibleSpace className={classes.flexibleSpace}>
+  ({
+    classes, priority, priorityChange, ...restProps
+  }) => (
+    <Toolbar.FlexibleSpace {...restProps} className={classes.flexibleSpace}>
       <PrioritySelector priority={priority} priorityChange={priorityChange} />
     </Toolbar.FlexibleSpace>
   ),
@@ -151,9 +153,9 @@ const Appointment = withStyles(styles, { name: 'Appointment' })(
     );
     return (
       <Appointments.Appointment
+        {...restProps}
         data={data}
         className={priorityClasses}
-        {...restProps}
       />
     );
   },
@@ -162,9 +164,9 @@ const Appointment = withStyles(styles, { name: 'Appointment' })(
 const EditButton = withStyles(styles, { name: 'EditButton' })(
   ({ classes, id, ...restProps }) => (
     <AppointmentTooltip.CommandButton
-      id={id}
-      {...id === 'open' ? { className: 'edit-button' } : null}
       {...restProps}
+      {...id === 'open' ? { className: 'edit-button' } : null}
+      id={id}
     />
   ),
 );
@@ -177,16 +179,16 @@ const TooltipHeader = withStyles(styles, { name: 'TooltipHeader' })(
     );
     return (
       <AppointmentTooltip.Header
+        {...restProps}
         appointmentData={appointmentData}
         className={priorityClasses}
-        {...restProps}
       />
     );
   },
 );
 
 const TooltipContent = withStyles(styles, { name: 'TooltipContent' })(
-  ({ classes, appointmentData }) => {
+  ({ classes, appointmentData, ...restProps }) => {
     const priority = getPriorityById(appointmentData.priorityId);
     const priorityClasses = createClassesByPriorityId(
       appointmentData.priorityId, classes, { color: true },
@@ -195,7 +197,7 @@ const TooltipContent = withStyles(styles, { name: 'TooltipContent' })(
     if (appointmentData.priorityId === 2) icon = <Event />;
     else if (appointmentData.priorityId === 3) icon = <PriorityHigh />;
     return (
-      <AppointmentTooltip.Content className={classes.tooltipContent}>
+      <AppointmentTooltip.Content {...restProps} className={classes.tooltipContent}>
         <List>
           <ListItem className={classes.contentItem}>
             <ListItemIcon className={`${classes.contentItemIcon} ${priorityClasses}`}>

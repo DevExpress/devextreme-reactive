@@ -58,7 +58,6 @@ export default class Demo extends React.PureComponent {
           <Scheduler
             data={data}
           >
-
             <ViewState
               defaultCurrentDate="2018-07-25"
               currentViewName={currentViewName}

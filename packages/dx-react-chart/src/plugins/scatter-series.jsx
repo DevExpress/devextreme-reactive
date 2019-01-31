@@ -1,5 +1,5 @@
 import {
-  getLinePointTransformer as getPointTransformer,
+  getScatterPointTransformer as getPointTransformer,
   createScatterHitTester as createHitTester,
 } from '@devexpress/dx-chart-core';
 import { declareSeries } from '../utils';
@@ -11,3 +11,7 @@ export const ScatterSeries = declareSeries('ScatterSeries', {
   getPointTransformer,
   createHitTester,
 });
+
+ScatterSeries.defaultProps = {
+  point: { size: 7 },
+};

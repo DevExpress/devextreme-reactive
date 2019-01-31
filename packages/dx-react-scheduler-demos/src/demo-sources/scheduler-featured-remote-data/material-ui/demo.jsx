@@ -40,9 +40,9 @@ const styles = {
 };
 
 const ToolbarWithLoading = withStyles(styles, { name: 'Toolbar' })(
-  ({ children, classes }) => (
+  ({ children, classes, ...restProps }) => (
     <div className={classes.toolbarRoot}>
-      <Toolbar.Root>
+      <Toolbar.Root {...restProps}>
         {children}
       </Toolbar.Root>
       <LinearProgress className={classes.progress} />

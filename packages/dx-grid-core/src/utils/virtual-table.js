@@ -136,7 +136,8 @@ export const getCollapsedColumns = (columns, visibleBoundaries, boundaries, getC
       const column = columns[boundary[0]];
       collapsedColumns.push({
         ...column,
-        width: getColumnWidth(column, 0),
+        ...!column.width ? { preferMinWidth: true } : null,
+        width: getColumnWidth(column),
       });
     } else {
       collapsedColumns.push({

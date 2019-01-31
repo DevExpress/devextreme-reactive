@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { DragSource } from '@devexpress/dx-react-core';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = ({ palette, typography, spacing }) => ({
@@ -26,36 +27,62 @@ const styles = ({ palette, typography, spacing }) => ({
   },
 });
 
-const AppointmentBase = ({
-  classes, className,
-  style,
-  children,
-  data,
-  onClick: handleClick,
-  ...restProps
-}) => {
-  const onClick = handleClick
-    ? {
-      onClick: ({ target }) => {
-        handleClick({ target, data });
-      },
-    }
-    : null;
-  const clickable = onClick || restProps.onDoubleClick;
-  return (
-    <div
-      className={classNames({
-        [classes.appointment]: true,
-        [classes.clickableAppointment]: clickable,
-      }, className)}
-      style={style}
-      {...onClick}
-      {...restProps}
-    >
-      {children}
-    </div>
-  );
-};
+class AppointmentBase extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      dragging: false,
+    };
+    this.appointmentRef = React.createRef();
+
+    this.onDragStart = () => {
+      this.setState({ dragging: true });
+    };
+    this.onDragEnd = () => {
+      if (this.appointmentRef.current) {
+        this.setState({ dragging: false });
+      }
+    };
+  }
+
+  render() {
+    const {
+      classes, className,
+      style, children, data,
+      onClick: handleClick,
+      ...restProps
+    } = this.props;
+    const onClick = handleClick
+      ? {
+        onClick: ({ target }) => {
+          handleClick({ target, data });
+        },
+      }
+      : null;
+    const clickable = onClick || restProps.onDoubleClick;
+    return (
+      <DragSource
+        ref={this.appointmentRef}
+        payload={[{ type: 'appointment' }]}
+        onStart={this.onDragStart}
+        onEnd={this.onDragEnd}
+      >
+        <div
+          className={classNames({
+            [classes.appointment]: true,
+            [classes.clickableAppointment]: clickable,
+          }, className)}
+          style={style}
+          {...onClick}
+          {...restProps}
+        >
+          {children}
+        </div>
+      </DragSource>
+    );
+  }
+}
 
 AppointmentBase.propTypes = {
   classes: PropTypes.object.isRequired,

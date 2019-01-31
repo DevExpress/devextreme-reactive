@@ -11,3 +11,5 @@ export * from './easings';
 export { getMessagesFormatter } from './messages-formatter';
 /** @internal */
 export { createClickHandlers, isEdgeBrowser } from './utils';
+/** @internal */
+export * from './types';

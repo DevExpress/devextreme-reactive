@@ -40,6 +40,10 @@ export type EventHandlers = {
   click?: any,
   pointermove?: any,
   pointerleave?: any,
+  touchmove?: any,
+  touchleave?: any,
+  mousemove?: any,
+  mouseleave?: any,
 };
 export type createPointsEnumeratingHitTesterCreatorFn = PureComputed<
 [hitTestPointFn], PureComputed<[any[]],

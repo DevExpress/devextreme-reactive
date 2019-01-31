@@ -49,19 +49,23 @@ RawPoint.defaultProps = {
   style: undefined,
 };
 
+// The expression is used to have 12 from 7 in default scenario
+// and to adjust hovered or selected size when custom *point.size* is defined.
+const getAdjustedOptions = ({ size }) => ({ size: Math.round(size * 1.7) });
+
 export const Point = withStates({
   [HOVERED]: ({ color, point, ...restProps }) => ({
     stroke: color,
     strokeWidth: 4,
     fill: 'none',
-    d: dSymbol(point),
+    point: getAdjustedOptions(point),
     ...restProps,
   }),
   [SELECTED]: ({ color, point, ...restProps }) => ({
     stroke: color,
     strokeWidth: 4,
     fill: 'none',
-    d: dSymbol(point),
+    point: getAdjustedOptions(point),
     ...restProps,
   }),
 })(RawPoint);

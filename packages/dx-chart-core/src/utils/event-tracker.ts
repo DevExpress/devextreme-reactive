@@ -62,6 +62,8 @@ const buildLeaveEventHandler: PureComputed<[Handler[]], PureComputed<[any]>> = h
   handlers.forEach(handler => handler(arg));
 };
 
+// The result is of Map<string, Function> type.
+// Keys are DOM event names (https://developer.mozilla.org/en-US/docs/Web/Events).
 export const buildEventHandlers: PureComputed<
   [Series[], HandlersObject], EventHandlers
 > = (seriesList, { clickHandlers, pointerMoveHandlers }) => {
@@ -70,8 +72,18 @@ export const buildEventHandlers: PureComputed<
     handlers.click = buildEventHandler(seriesList, clickHandlers);
   }
   if (pointerMoveHandlers.length) {
-    handlers.pointermove = buildEventHandler(seriesList, pointerMoveHandlers);
-    handlers.pointerleave = buildLeaveEventHandler(pointerMoveHandlers);
+    const moveHandler = buildEventHandler(seriesList, pointerMoveHandlers);
+    const leaveHandler = buildLeaveEventHandler(pointerMoveHandlers);
+    if ('onpointermove' in window) {
+      handlers.pointermove = moveHandler;
+      handlers.pointerleave = leaveHandler;
+    } else if ('ontouchmove' in window) {
+      handlers.touchmove = moveHandler;
+      handlers.touchleave = leaveHandler;
+    } else {
+      handlers.mousemove = moveHandler;
+      handlers.mouseleave = leaveHandler;
+    }
   }
   return handlers;
 };

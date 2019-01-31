@@ -17,6 +17,7 @@ const pluginDependencies = [
   { name: 'GroupingState' },
   { name: 'Table' },
   { name: 'DataTypeProvider', optional: true },
+  { name: 'TableSelection', optional: true },
 ];
 
 const tableBodyRowsComputed = (

@@ -30,6 +30,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "name": "a",
               },
               "key": "a",
+              "preferMinWidth": true,
               "width": 120,
             },
             Object {
@@ -37,6 +38,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "name": "b",
               },
               "key": "b",
+              "preferMinWidth": true,
               "width": 120,
             },
             Object {
@@ -44,6 +46,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "name": "c",
               },
               "key": "c",
+              "preferMinWidth": true,
               "width": 120,
             },
             Object {
@@ -51,6 +54,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "name": "d",
               },
               "key": "d",
+              "preferMinWidth": true,
               "width": 120,
             },
             Object {
@@ -58,6 +62,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "name": "e",
               },
               "key": "e",
+              "preferMinWidth": true,
               "width": 120,
             },
           ]
@@ -186,6 +191,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "name": "a",
               },
               "key": "a",
+              "preferMinWidth": true,
               "width": 120,
             },
             Object {
@@ -193,6 +199,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "name": "b",
               },
               "key": "b",
+              "preferMinWidth": true,
               "width": 120,
             },
             Object {
@@ -200,6 +207,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "name": "c",
               },
               "key": "c",
+              "preferMinWidth": true,
               "width": 120,
             },
             Object {
@@ -207,6 +215,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "name": "d",
               },
               "key": "d",
+              "preferMinWidth": true,
               "width": 120,
             },
             Object {
@@ -214,6 +223,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "name": "e",
               },
               "key": "e",
+              "preferMinWidth": true,
               "width": 120,
             },
           ]
@@ -1117,6 +1127,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "name": "a",
               },
               "key": "a",
+              "preferMinWidth": true,
               "width": 120,
             },
             Object {
@@ -1124,6 +1135,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "name": "b",
               },
               "key": "b",
+              "preferMinWidth": true,
               "width": 120,
             },
             Object {
@@ -1131,6 +1143,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "name": "c",
               },
               "key": "c",
+              "preferMinWidth": true,
               "width": 120,
             },
             Object {
@@ -1138,6 +1151,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "name": "d",
               },
               "key": "d",
+              "preferMinWidth": true,
               "width": 120,
             },
             Object {
@@ -1145,6 +1159,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "name": "e",
               },
               "key": "e",
+              "preferMinWidth": true,
               "width": 120,
             },
           ]

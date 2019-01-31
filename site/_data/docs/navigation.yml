@@ -109,6 +109,8 @@
         path: /react/grid/docs/guides/localization
       - title: TypeScript
         path: /react/grid/docs/guides/typescript
+      - title: Custom Plugin Development
+        path: /react/grid/docs/guides/custom-plugin-development
   - title: API Reference
     items:
       - title: Grid
@@ -299,8 +301,18 @@
     items:
       - title: Getting Started
         path: /react/scheduler/docs/guides/getting-started
+      - title: Fundamentals
+        path: /react/scheduler/docs/guides/fundamentals
+      - title: Views
+        path: /react/scheduler/docs/guides/views
+      - title: Appointments
+        path: /react/scheduler/docs/guides/appointments
       - title: View Switching
         path: /react/scheduler/docs/guides/view-switching
+      - title: Date Navigation
+        path: /react/scheduler/docs/guides/date-navigation
+      - title: Editing
+        path: /react/scheduler/docs/guides/editing
   - title: API Reference
     items:
       - title: AllDayPanel

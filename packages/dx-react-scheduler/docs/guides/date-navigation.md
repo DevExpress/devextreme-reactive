@@ -16,7 +16,7 @@ Import the plugins listed above to enable a user to change the current date at r
 
 ### Uncontrolled Mode
 
-In uncontrolled mode, specify the initial current date in the `ViewState` plugin's `defaultCurrentDate` property.
+In uncontrolled mode, specify the initial date in the `ViewState` plugin's `defaultCurrentDate` property.
 
 .embedded-demo({ "path": "scheduler-date-navigator/uncontrolled", "showThemeSelector": true })
 

@@ -1,8 +1,8 @@
 import moment from 'moment';
 import { PureReducer } from '@devexpress/dx-core';
-import { CurrentDatePayload, CurrentDate, ViewName } from '../../types';
+import { ChangeCurrentDatePayload, CurrentDate, ViewName } from '../../types';
 
-export const changeCurrentDate: PureReducer<CurrentDate, CurrentDatePayload, Date> = (
+export const changeCurrentDate: PureReducer<CurrentDate, ChangeCurrentDatePayload, Date> = (
   currentDate, {
   nextDate, step, amount, direction,
 }) => (

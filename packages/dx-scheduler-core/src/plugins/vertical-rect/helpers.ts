@@ -9,8 +9,8 @@ const CELL_BOUND_VERTICAL_OFFSET_PX = 4;
 
 export const getCellByDate: GetCellByDateFn = (viewCellsData, date, takePrev = false) => {
   const cellIndex =
-    viewCellsData[0].findIndex(timeCell =>
-      moment(date as AppointmentDate).isSame(timeCell.startDate, 'date'));
+    viewCellsData[0].findIndex(timeCell => moment(date as AppointmentDate)
+      .isSame(timeCell.startDate, 'date'));
 
   const rowIndex = viewCellsData.findIndex(timeCell => moment(date as AppointmentDate)
     .isBetween(

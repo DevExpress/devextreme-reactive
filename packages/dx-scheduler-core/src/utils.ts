@@ -185,7 +185,7 @@ export const unwrapGroups: PureComputed<
 }, [] as AppointmentUnwrappedGroup[]);
 
 export const getAppointmentStyle: PureComputed<
-  [Rect], any
+  [Rect], React.CSSProperties
 > = ({
   top, left,
   width, height,

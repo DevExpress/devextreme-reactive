@@ -66,7 +66,7 @@ describe('PluginIndexer', () => {
       .toEqual([[0, 0], [0, 1], [1]]);
   });
 
-  it.only('should memoize position context function', () => {
+  it('should memoize position context function', () => {
     const Test1 = ({ enableGetter }) => (
       <PluginIndexer>
         <TestWrapper />

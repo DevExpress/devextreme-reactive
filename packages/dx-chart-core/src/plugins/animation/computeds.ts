@@ -1,6 +1,9 @@
+import { PureComputed } from '@devexpress/dx-core';
+import { GetAnimationStyleFn, Point, buildAnimatedStyleGetterFn } from '../../types';
+
 const ANIMATIONS = Symbol('animation');
 
-const addKeyframe = (name, def) => {
+const addKeyframe: PureComputed<[string, string], void> = (name, def) => {
   if (typeof document === 'undefined') {
     return;
   }
@@ -39,9 +42,10 @@ const getPieAnimationName = () => {
 
 const getDefaultAreaAnimationOptions = () => '1s';
 
-const getDefaultPieAnimationOptions = ({ index }) => `${0.7 + index * 0.1}s`;
+const getDefaultPieAnimationOptions:
+PureComputed<[Point], string> = ({ index }) => `${0.7 + index * 0.1}s`;
 
-export const getAreaAnimationStyle = (scales) => {
+export const getAreaAnimationStyle: GetAnimationStyleFn = (scales) => {
   const animationStyle = {
     transformOrigin: `0px ${scales.yScale.copy().clamp(true)(0)}px`,
   };
@@ -52,7 +56,7 @@ export const getAreaAnimationStyle = (scales) => {
   };
 };
 
-export const getPieAnimationStyle = (scales, point) => {
+export const getPieAnimationStyle: GetAnimationStyleFn = (_, point) => {
   const options = getDefaultPieAnimationOptions(point);
   return {
     animation: `${getPieAnimationName()} ${options}`,
@@ -66,7 +70,7 @@ export const getScatterAnimationStyle = () => {
   };
 };
 
-export const buildAnimatedStyleGetter = (
+export const buildAnimatedStyleGetter: buildAnimatedStyleGetterFn = (
   style, getAnimationStyle, scales, point,
 ) => {
   const animationStyle = getAnimationStyle(scales, point);

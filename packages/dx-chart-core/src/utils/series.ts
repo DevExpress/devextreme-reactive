@@ -1,7 +1,12 @@
 import { area } from 'd3-shape';
 import { dArea, dLine, dSpline } from '../plugins/series/computeds';
+import { PureComputed } from '@devexpress/dx-core';
+import {
+  MakePath, Point, CanvasAbusingHitTester, ContinuousSeriesHitTesterCreatorFn,
+  Series, Target, Props, createPointsEnumeratingHitTesterCreatorFn, List,
+} from '../types';
 
-const getSegmentLength = (dx, dy) => Math.sqrt(dx * dx + dy * dy);
+const getSegmentLength: PureComputed<[number, number]> = (dx, dy) => Math.sqrt(dx * dx + dy * dy);
 
 // *distance* is a normalized distance to point.
 // It belongs to [0, Infinity):
@@ -16,7 +21,9 @@ const createContext = () => document.createElement('canvas').getContext('2d');
 // For a start using browser canvas will suffice.
 // However a better and more clean solution should be found.
 // Can't d3 perform hit testing?
-const createCanvasAbusingHitTester = (makePath, points) => {
+const createCanvasAbusingHitTester: PureComputed<
+  [MakePath, Point[]], CanvasAbusingHitTester
+> = (makePath, points) => {
   const ctx: any = createContext();
   const path = makePath();
   path.context(ctx);
@@ -27,14 +34,17 @@ const createCanvasAbusingHitTester = (makePath, points) => {
 const LINE_POINT_SIZE = 20;
 const LINE_TOLERANCE = 10;
 
-const getContinuousPointDistance = ([px, py], { x, y }) => getSegmentLength(px - x, py - y);
+const getContinuousPointDistance: PureComputed<
+  [[number, number], Point], number
+> = ([px, py], { x, y }) => getSegmentLength(px - x, py - y);
 
-const createContinuousSeriesHitTesterCreator = makePath => (points) => {
+const createContinuousSeriesHitTesterCreator: PureComputed<
+[MakePath], ContinuousSeriesHitTesterCreatorFn> = makePath => (points) => {
   const fallbackHitTest = createCanvasAbusingHitTester(makePath, points);
   return (target) => {
     let minDistance = Number.MAX_VALUE;
     let minIndex;
-    const list: any[] = [];
+    const list: List[] = [];
     points.forEach((point, i) => {
       const distance = getContinuousPointDistance(target, point);
       if (distance <= LINE_POINT_SIZE) {
@@ -54,16 +64,17 @@ const createContinuousSeriesHitTesterCreator = makePath => (points) => {
   };
 };
 
-const createPointsEnumeratingHitTesterCreator = hitTestPoint => points => (target) => {
-  const list: any[] = [];
-  points.forEach((point) => {
-    const status = hitTestPoint(target, point);
-    if (status) {
-      list.push({ index: point.index, distance: status.distance });
-    }
-  });
-  return list.length ? { points: list } : null;
-};
+const createPointsEnumeratingHitTesterCreator: createPointsEnumeratingHitTesterCreatorFn =
+ hitTestPoint => points => (target) => {
+   const list: List[] = [];
+   points.forEach((point) => {
+     const status = hitTestPoint(target, point);
+     if (status) {
+       list.push({ index: point.index, distance: status.distance });
+     }
+   });
+   return list.length ? { points: list } : null;
+ };
 
 export const createAreaHitTester = createContinuousSeriesHitTesterCreator(() => {
   const path = area();
@@ -92,7 +103,9 @@ export const createSplineHitTester = createContinuousSeriesHitTesterCreator(() =
   return path;
 });
 
-const hitTestRect = (dx, dy, halfX, halfY) => (
+const hitTestRect: PureComputed<
+  [number, number, number, number], {distance: number} | null
+> = (dx, dy, halfX, halfY) => (
   Math.abs(dx) <= halfX && Math.abs(dy) <= halfY ? {
     distance: getSegmentLength(dx, dy),
   } : null
@@ -111,14 +124,15 @@ export const createBarHitTester = createPointsEnumeratingHitTesterCreator(
   },
 );
 
-export const createScatterHitTester = createPointsEnumeratingHitTesterCreator(
+export const createScatterHitTester =
+ createPointsEnumeratingHitTesterCreator(
   ([px, py], { x, y, point }) => {
     const distance = getSegmentLength(px - x, py - y);
     return distance <= point.size / 2 ? { distance } : null;
   },
 );
 
-const mapAngleTod3 = (angle) => {
+const mapAngleTod3: PureComputed<[number]> = (angle) => {
   const ret = angle + Math.PI / 2;
   return ret >= 0 ? ret : ret + Math.PI * 2;
 };
@@ -144,7 +158,7 @@ export const createPieHitTester = createPointsEnumeratingHitTesterCreator(
   },
 );
 
-const buildFilter = (targets) => {
+const buildFilter: PureComputed<[Target[]], {[key: string]: any}> = (targets) => {
   const result = {};
   targets.forEach(({ series, point }) => {
     (result[series] = result[series] || new Set()).add(point);
@@ -152,7 +166,9 @@ const buildFilter = (targets) => {
   return result;
 };
 
-export const changeSeriesState = (seriesList, targets, state) => {
+export const changeSeriesState: PureComputed<
+  [Series[], Target[], string]
+> = (seriesList, targets, state) => {
   if (targets.length === 0) {
     return seriesList;
   }
@@ -164,7 +180,7 @@ export const changeSeriesState = (seriesList, targets, state) => {
       return seriesItem;
     }
     matches += 1;
-    const props: {state: string, points?: any[]} = { state };
+    const props: Props = { state };
     if (set.size) {
       props.points = seriesItem.points.map(
         point => (set.has(point.index) ? { ...point, state } : point),

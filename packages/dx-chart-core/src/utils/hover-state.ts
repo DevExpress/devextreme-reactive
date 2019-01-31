@@ -1,13 +1,20 @@
+import { PureComputed } from '@devexpress/dx-core';
+import {
+  Target, ProcessPointerMoveFn,
+} from '../types';
+
 // Comparing by reference is not an option as Tracker always sends new objects.
 // Tracker cannot persist references as it actually operates with simple scalars
 // and constructs objects to provide info in a slightly more suitable way.
-const compareTargets = (target1, target2) => (
+const compareTargets: PureComputed<[Target, Target], boolean> = (target1, target2) => (
   target1.series === target2.series && target1.point === target2.point
 );
 
 // If *currentTarget* is among *targets* then it has priority but only while its distance
 // is not significantly greater (DISTANCE_PRIORITY_RATIO) than that of the best candidate.
-const selectTarget = (targets, currentTarget) => {
+const selectTarget: PureComputed<[Target[], Target], Target | undefined | null> = (
+  targets, currentTarget,
+) => {
   const candidate = targets[0];
   if (!currentTarget) {
     return candidate;
@@ -18,7 +25,9 @@ const selectTarget = (targets, currentTarget) => {
   return compareTargets(candidate, currentTarget) ? undefined : candidate;
 };
 
-export const processPointerMove = (targets, currentTarget, notify) => {
+export const processPointerMove: ProcessPointerMoveFn = (
+  targets, currentTarget, notify,
+  ) => {
   const nextTarget = selectTarget(targets, currentTarget);
   if (nextTarget === undefined) {
     return undefined;

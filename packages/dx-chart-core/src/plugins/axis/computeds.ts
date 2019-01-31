@@ -1,24 +1,32 @@
 import { isHorizontal, fixOffset } from '../../utils/scale';
-import { AxisCoordinatesFn } from '../types';
 import {
   LEFT, BOTTOM, MIDDLE, END, START,
 } from '../../constants';
+import {
+  VerticalTickOptions, HorizontalTickOptions, Scale, CallbackFn,
+  Tick, TickFormatFn, GetFormatFn, AxisCoordinatesFn, GetGridCoordinatesFn,
+} from '../../types';
 
-const getTicks = scale => (scale.ticks ? scale.ticks() : scale.domain());
+import { PureComputed } from '@devexpress/dx-core';
 
-const createTicks = (scale, callback) => {
+const getTicks: PureComputed<[Scale], any[]> =
+scale => (scale.ticks ? scale.ticks() : scale.domain());
+
+const createTicks: PureComputed<[Scale, CallbackFn], Tick[]> = (scale, callback) => {
   const fixedScale = fixOffset(scale);
   return getTicks(scale).map((tick, index) => callback(fixedScale(tick), String(index), tick));
 };
 
-const getFormat = (scale, tickFormat) => {
+const getFormat: PureComputed<[Scale, TickFormatFn], GetFormatFn> = (scale, tickFormat) => {
   if (scale.tickFormat) {
     return tickFormat ? tickFormat(scale) : scale.tickFormat();
   }
   return tick => tick;
 };
 
-const createHorizontalOptions = (position, tickSize, indentFromAxis) => {
+const createHorizontalOptions: PureComputed<
+  [string, number, number], HorizontalTickOptions
+> = (position, tickSize, indentFromAxis) => {
   // Make *position* orientation agnostic - should be START or END.
   const isStart = position === BOTTOM;
   return {
@@ -30,7 +38,9 @@ const createHorizontalOptions = (position, tickSize, indentFromAxis) => {
   };
 };
 
-const createVerticalOptions = (position, tickSize, indentFromAxis) => {
+const createVerticalOptions: PureComputed<
+  [string, number, number], VerticalTickOptions
+> = (position, tickSize, indentFromAxis) => {
   // Make *position* orientation agnostic - should be START or END.
   const isStart = position === LEFT;
   return {
@@ -42,14 +52,14 @@ const createVerticalOptions = (position, tickSize, indentFromAxis) => {
   };
 };
 
-export const axisCoordinates = ({
+export const axisCoordinates: AxisCoordinatesFn = ({
   scaleName,
   scale,
   position,
   tickSize,
   tickFormat,
   indentFromAxis,
-}: AxisCoordinatesFn) => {
+}) => {
   const isHor = isHorizontal(scaleName);
   const options = (isHor ? createHorizontalOptions : createVerticalOptions)(
     position, tickSize, indentFromAxis,
@@ -75,7 +85,7 @@ export const axisCoordinates = ({
 const horizontalGridOptions = { y: 0, dy: 1 };
 const verticalGridOptions = { x: 0, dx: 1 };
 
-export const getGridCoordinates = ({ scaleName, scale }) => {
+export const getGridCoordinates: GetGridCoordinatesFn = ({ scaleName, scale }) => {
   const isHor = isHorizontal(scaleName);
   const options = isHor ? horizontalGridOptions : verticalGridOptions;
   return createTicks(scale, (coordinates, key) => ({

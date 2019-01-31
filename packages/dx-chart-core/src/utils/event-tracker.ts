@@ -1,6 +1,11 @@
+import { PureComputed } from '@devexpress/dx-core';
+import {
+  Series, HandlersObject, Handler, TrackerTarget, EventHandlers,
+} from '../types';
+
 // This function is called from event handlers (when DOM is available) -
 // *window* can be accessed safely.
-const getEventCoords = (e) => {
+const getEventCoords: PureComputed<[any], [number, number]> = (e) => {
   const { pageXOffset, pageYOffset } = window;
   const { left, top } = e.currentTarget.getBoundingClientRect();
   return [
@@ -11,7 +16,7 @@ const getEventCoords = (e) => {
 
 const DISTANCE_THRESHOLD = 20;
 
-const compareHitTargets = (t1, t2) => {
+const compareHitTargets: PureComputed<[TrackerTarget, TrackerTarget], number> = (t1, t2) => {
   const distanceDelta = t1.distance - t2.distance;
   if (Math.abs(distanceDelta) <= DISTANCE_THRESHOLD) {
     const orderDelta = t2.order - t1.order;
@@ -20,7 +25,7 @@ const compareHitTargets = (t1, t2) => {
   return distanceDelta;
 };
 
-const buildEventHandler = (seriesList, handlers) => {
+const buildEventHandler: PureComputed<[Series[], Handler[]], any> = (seriesList, handlers) => {
   let hitTesters: any = null;
 
   const createHitTesters = () => {
@@ -34,7 +39,7 @@ const buildEventHandler = (seriesList, handlers) => {
   return (e) => {
     const location = getEventCoords(e);
     hitTesters = hitTesters || createHitTesters();
-    const targets: any[] = [];
+    const targets: TrackerTarget[] = [];
     seriesList.forEach(({ name: series, index: order, symbolName }) => {
       const status = hitTesters[symbolName](location);
       if (status) {
@@ -51,14 +56,16 @@ const buildEventHandler = (seriesList, handlers) => {
   };
 };
 
-const buildLeaveEventHandler = handlers => (e) => {
+const buildLeaveEventHandler: PureComputed<[Handler[]], PureComputed<[any]>> = handlers => (e) => {
   const location = getEventCoords(e);
   const arg = { location, targets: [] };
   handlers.forEach(handler => handler(arg));
 };
 
-export const buildEventHandlers = (seriesList, { clickHandlers, pointerMoveHandlers }) => {
-  const handlers: any = {};
+export const buildEventHandlers: PureComputed<
+  [Series[], HandlersObject], EventHandlers
+> = (seriesList, { clickHandlers, pointerMoveHandlers }) => {
+  const handlers: EventHandlers = {};
   if (clickHandlers.length) {
     handlers.click = buildEventHandler(seriesList, clickHandlers);
   }

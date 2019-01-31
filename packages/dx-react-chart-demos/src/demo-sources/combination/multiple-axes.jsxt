@@ -98,7 +98,7 @@ const legendRootStyle = {
   flexDirection: 'row',
 };
 const LegendRoot = props => (
-  <Legend.Root style={legendRootStyle} {...props} />
+  <Legend.Root {...props} style={legendRootStyle} />
 );
 
 const legendItemStyle = {
@@ -107,14 +107,14 @@ const legendItemStyle = {
   marginRight: '-2px',
 };
 const LegendItem = props => (
-  <Legend.Item style={legendItemStyle} {...props} />
+  <Legend.Item {...props} style={legendItemStyle} />
 );
 
 const legendLabelStyle = {
   whiteSpace: 'nowrap',
 };
 const LegendLabel = props => (
-  <Legend.Label style={legendLabelStyle} {...props} />
+  <Legend.Label {...props} style={legendLabelStyle} />
 );
 
 const formatTooltip = format('.1f');

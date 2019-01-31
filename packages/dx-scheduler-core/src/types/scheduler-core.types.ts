@@ -51,6 +51,11 @@ export interface TimeScale {
   end: Date;
 }
 
+export type AllDayCell = {
+  startDate: Date | string | number;
+  endDate: Date | string | number;
+};
+
 /** Describes a cell data configuration object. */
 export interface ViewCell {
   /** Specifies the cell start time. */

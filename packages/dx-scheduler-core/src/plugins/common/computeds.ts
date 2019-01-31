@@ -3,7 +3,7 @@ import { PureComputed } from '@devexpress/dx-core';
 import {
   CurrentDate, TimeScale, EndViewDate,
   ViewName, CurrentTime, ViewCell, StartViewDate,
-  DayScaleFn, TimeScaleFn, ViewCellsDataFn,
+  DayScaleFn, TimeScaleFn, ViewCellsDataFn, AllDayCell,
 } from '../../types';
 import { calculateFirstDateOfWeek } from '../../utils';
 
@@ -97,11 +97,6 @@ export const viewCellsData: ViewCellsDataFn = (
     cells.push(rowCells);
   });
   return cells;
-};
-
-type AllDayCell = {
-  startDate: Date | string | number;
-  endDate: Date | string | number;
 };
 
 export const allDayCells: PureComputed<

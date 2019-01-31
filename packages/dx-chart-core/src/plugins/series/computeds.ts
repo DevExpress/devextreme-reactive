@@ -15,9 +15,9 @@ import { ARGUMENT_DOMAIN } from '../../constants';
 import { getWidth, getValueDomainName, fixOffset } from '../../utils/scale';
 import { PureComputed } from '@devexpress/dx-core';
 
-const getX = ({ x }: Point) => x;
-const getY = ({ y }: Point) => y;
-const getY1 = ({ y1 }: Point) => y1;
+const getX: PureComputed<[Point], number> = ({ x }) => x;
+const getY: PureComputed<[Point], number> = ({ y }) => y;
+const getY1: PureComputed<[Point], number> = ({ y1 }) => y1;
 
 export const dArea = area()
   .x(getX)

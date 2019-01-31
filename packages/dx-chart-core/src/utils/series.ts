@@ -43,7 +43,7 @@ const createContinuousSeriesHitTesterCreator: PureComputed<
   const fallbackHitTest = createCanvasAbusingHitTester(makePath, points);
   return (target) => {
     let minDistance = Number.MAX_VALUE;
-    let minIndex;
+    let minIndex: number = 0;
     const list: List[] = [];
     points.forEach((point, i) => {
       const distance = getContinuousPointDistance(target, point);

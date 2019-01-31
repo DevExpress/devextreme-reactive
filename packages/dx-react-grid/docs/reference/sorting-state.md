@@ -30,7 +30,7 @@ onSortingChange? | (sorting: Array&lt;[Sorting](#sorting)&gt;) => void | | Handl
 
 ### Sorting
 
-Describes the sorting applied to a column.
+Describes sorting settings applied to a column.
 
 Field | Type | Description
 ------|------|------------

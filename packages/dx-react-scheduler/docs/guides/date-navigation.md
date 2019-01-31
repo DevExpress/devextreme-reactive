@@ -1,6 +1,6 @@
 # React Scheduler - Date Navigation
 
-The React Scheduler component provides the `ViewState` and `DateNavigator` plugins to change the current date at runtime.
+The React Scheduler component's `ViewState` and `DateNavigator` plugins enable you to change the current date at runtime.
 
 ## Related Plugins
 

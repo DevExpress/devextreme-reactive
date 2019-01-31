@@ -10,6 +10,7 @@ export class GridCore extends React.PureComponent {
     const {
       rows,
       columns,
+      isRtl,
       getRowId,
       getCellValue,
       rootComponent: Root,
@@ -17,6 +18,7 @@ export class GridCore extends React.PureComponent {
 
     return (
       <Plugin>
+        <Getter name="isRtl" value={isRtl} />
         <Getter name="rows" value={rows} />
         <Getter name="getRowId" value={rowIdGetter(getRowId, rows)} />
         <Getter name="columns" value={columns} />
@@ -34,6 +36,7 @@ export class GridCore extends React.PureComponent {
 }
 
 GridCore.propTypes = {
+  isRtl: PropTypes.bool,
   rows: PropTypes.array.isRequired,
   getRowId: PropTypes.func,
   getCellValue: PropTypes.func,
@@ -42,6 +45,7 @@ GridCore.propTypes = {
 };
 
 GridCore.defaultProps = {
+  isRtl: undefined,
   getRowId: undefined,
   getCellValue: undefined,
 };

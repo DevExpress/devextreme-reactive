@@ -26,6 +26,7 @@ const CellPlaceholder = props => <TemplatePlaceholder name="tableCell" params={p
 
 const tableHeaderRows = [];
 const tableBodyRowsComputed = ({ rows, getRowId }) => tableRowsWithDataRows(rows, getRowId);
+const isRtlComputed = ({ isRtl }) => isRtl;
 const tableFooterRows = [];
 
 const defaultMessages = {
@@ -69,6 +70,7 @@ export class Table extends React.PureComponent {
       <Plugin
         name="Table"
       >
+        <Getter name="isRtl" computed={isRtlComputed} />
         <Getter name="tableHeaderRows" value={tableHeaderRows} />
         <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
         <Getter name="tableFooterRows" value={tableFooterRows} />
@@ -81,6 +83,7 @@ export class Table extends React.PureComponent {
         <Template name="table">
           <TemplateConnector>
             {({
+              isRtl,
               tableHeaderRows: headerRows,
               tableBodyRows: bodyRows,
               tableFooterRows: footerRows,
@@ -88,6 +91,7 @@ export class Table extends React.PureComponent {
               getTableCellColSpan,
             }) => (
               <Layout
+                isRtl={isRtl}
                 tableComponent={tableComponent}
                 headComponent={headComponent}
                 bodyComponent={bodyComponent}

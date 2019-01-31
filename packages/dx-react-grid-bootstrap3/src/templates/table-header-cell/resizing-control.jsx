@@ -50,13 +50,13 @@ export class ResizingControl extends React.PureComponent {
       this.setState({ resizing: true });
     };
     this.onResizeUpdate = ({ x }) => {
-      const { onWidthDraft } = this.props;
-      onWidthDraft({ shift: x - this.resizeStartingX });
+      const { onWidthDraft, isRtl } = this.props;
+      onWidthDraft({ shift: isRtl ? this.resizeStartingX - x : x - this.resizeStartingX });
     };
     this.onResizeEnd = ({ x }) => {
-      const { onWidthChange, onWidthDraftCancel } = this.props;
+      const { onWidthChange, onWidthDraftCancel, isRtl } = this.props;
       onWidthDraftCancel();
-      onWidthChange({ shift: x - this.resizeStartingX });
+      onWidthChange({ shift: isRtl ? this.resizeStartingX - x : x - this.resizeStartingX });
       this.setState({ resizing: false });
     };
   }
@@ -93,7 +93,12 @@ export class ResizingControl extends React.PureComponent {
 }
 
 ResizingControl.propTypes = {
+  isRtl: PropTypes.bool,
   onWidthChange: PropTypes.func.isRequired,
   onWidthDraft: PropTypes.func.isRequired,
   onWidthDraftCancel: PropTypes.func.isRequired,
+};
+
+ResizingControl.defaultProps = {
+  isRtl: undefined,
 };

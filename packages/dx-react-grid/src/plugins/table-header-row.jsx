@@ -13,6 +13,7 @@ import {
   TABLE_HEADING_TYPE,
 } from '@devexpress/dx-grid-core';
 
+const isRtlComputed = (({ isRtl }) => isRtl);
 const tableHeaderRowsComputed = ({ tableHeaderRows }) => tableRowsWithHeading(tableHeaderRows);
 
 export class TableHeaderRow extends React.PureComponent {
@@ -41,6 +42,7 @@ export class TableHeaderRow extends React.PureComponent {
           { name: 'TableColumnResizing', optional: true },
         ]}
       >
+        <Getter name="isRtl" computed={isRtlComputed} />
         <Getter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
 
         <Template
@@ -50,7 +52,7 @@ export class TableHeaderRow extends React.PureComponent {
           {params => (
             <TemplateConnector>
               {({
-                sorting, tableColumns, draggingEnabled, tableColumnResizingEnabled,
+                isRtl, sorting, tableColumns, draggingEnabled, tableColumnResizingEnabled,
                 isColumnSortingEnabled, isColumnGroupingEnabled,
               }, {
                 changeColumnSorting, changeColumnGrouping,
@@ -64,10 +66,10 @@ export class TableHeaderRow extends React.PureComponent {
                 const groupingEnabled = isColumnGroupingEnabled
                   && isColumnGroupingEnabled(columnName)
                   && atLeastOneDataColumn;
-
                 return (
                   <HeaderCell
                     {...params}
+                    isRtl={isRtl}
                     column={params.tableColumn.column}
                     draggingEnabled={draggingEnabled && atLeastOneDataColumn}
                     resizingEnabled={tableColumnResizingEnabled}

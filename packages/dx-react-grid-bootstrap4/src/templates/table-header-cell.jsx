@@ -28,6 +28,7 @@ export class TableHeaderCell extends React.PureComponent {
   render() {
     const {
       className, column, tableColumn,
+      isRtl,
       showGroupingControls, onGroup, groupingEnabled,
       draggingEnabled, onWidthDraftCancel,
       resizingEnabled, onWidthChange, onWidthDraft,
@@ -57,6 +58,7 @@ export class TableHeaderCell extends React.PureComponent {
         </div>
         {resizingEnabled && (
           <ResizingControl
+            isRtl={isRtl}
             onWidthChange={onWidthChange}
             onWidthDraft={onWidthDraft}
             onWidthDraftCancel={onWidthDraftCancel}

@@ -6,6 +6,7 @@ import { GridCore } from './plugins/grid-core';
 export const Grid = ({
   rows,
   columns,
+  isRtl,
   getRowId,
   getCellValue,
   rootComponent,
@@ -15,6 +16,7 @@ export const Grid = ({
     <GridCore
       rows={rows}
       columns={columns}
+      isRtl={isRtl}
       getRowId={getRowId}
       getCellValue={getCellValue}
       rootComponent={rootComponent}
@@ -24,6 +26,7 @@ export const Grid = ({
 );
 
 Grid.propTypes = {
+  isRtl: PropTypes.bool,
   rows: PropTypes.array.isRequired,
   getRowId: PropTypes.func,
   getCellValue: PropTypes.func,
@@ -33,6 +36,7 @@ Grid.propTypes = {
 };
 
 Grid.defaultProps = {
+  isRtl: undefined,
   getRowId: undefined,
   getCellValue: undefined,
   children: undefined,

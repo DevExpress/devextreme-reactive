@@ -113,6 +113,7 @@ class TableHeaderCellBase extends React.PureComponent {
   render() {
     const {
       style, column, tableColumn,
+      isRtl,
       showGroupingControls, onGroup, groupingEnabled,
       draggingEnabled,
       resizingEnabled, onWidthChange, onWidthDraft, onWidthDraftCancel,
@@ -145,6 +146,7 @@ class TableHeaderCellBase extends React.PureComponent {
         </div>
         {resizingEnabled && (
           <ResizingControl
+            isRtl={isRtl}
             onWidthChange={onWidthChange}
             onWidthDraft={onWidthDraft}
             onWidthDraftCancel={onWidthDraftCancel}

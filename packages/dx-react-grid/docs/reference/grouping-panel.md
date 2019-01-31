@@ -49,7 +49,7 @@ Describes the grouping panel item properties.
 Field | Type | Description
 ------|------|------------
 column | [Column](grid.md#column) | A column associated with the item.
-draft? | string | The item preview mode. Contains the "add", "remove" or "reorder" value.
+draft? | boolean | Specifies if the item is in preview mode.
 
 ### GroupingPanel.ContainerProps
 

@@ -10,7 +10,7 @@ import {
   Filter,
 } from '@devexpress/dx-grid-core';
 import { PureComputed } from '@devexpress/dx-core';
-import { IntegratedFilteringProps } from '../types/integrated-filtering.types';
+import { IntegratedFilteringProps } from '../types';
 
 const pluginDependencies = [
   { name: 'FilteringState', optional: true },

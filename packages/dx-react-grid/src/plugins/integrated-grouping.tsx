@@ -8,7 +8,7 @@ import {
   expandedGroupRows,
   getColumnExtension,
 } from '@devexpress/dx-grid-core';
-import { IntegratedGroupingProps } from '../types/integrated-grouping.types';
+import { IntegratedGroupingProps } from '../types';
 
 const pluginDependencies = [
   { name: 'GroupingState' },

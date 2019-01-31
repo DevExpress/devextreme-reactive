@@ -11,8 +11,7 @@ import {
   BAND_EMPTY_CELL, BAND_DUPLICATE_RENDER,
   TABLE_BAND_TYPE,
 } from '@devexpress/dx-grid-core';
-import { TableBandHeaderProps } from '../types/band-header.types';
-import { CellProps, RowProps } from '../types';
+import { TableBandHeaderProps, CellProps, RowProps } from '../types';
 
 const CellPlaceholder = (props: CellProps) => <TemplatePlaceholder params={props} />;
 

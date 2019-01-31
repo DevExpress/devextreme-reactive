@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connectProps, PluginComponents } from '@devexpress/dx-react-core';
-import { VirtualTableLayoutProps } from '../types';
+import { VirtualTableProps, VirtualTableLayoutProps } from '../types';
 
 /** @internal */
 export const makeVirtualTable: (...args: any) => any = (Table, {
@@ -10,10 +10,10 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
   defaultEstimatedRowHeight,
   defaultHeight,
 }) => {
-  class VirtualTable extends React.PureComponent<VirtualTableLayoutProps> {
+  class VirtualTable extends React.PureComponent<VirtualTableProps> {
     static FixedHeader: React.ComponentType;
     static FixedFooter: React.ComponentType;
-    layoutRenderComponent: React.ComponentType<any> & { update(): void; };
+    layoutRenderComponent: React.ComponentType<VirtualTableLayoutProps> & { update(): void; };
 
     constructor(props) {
       super(props);

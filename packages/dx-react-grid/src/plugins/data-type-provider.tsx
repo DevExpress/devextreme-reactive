@@ -3,7 +3,7 @@ import { Plugin, Template, Getter, Getters } from '@devexpress/dx-react-core';
 import { getAvailableFilterOperationsGetter } from '@devexpress/dx-grid-core';
 import {
   DataTypeProviderProps, ValueFormatterProps, ValueEditorProps,
-} from '../types/data-type-provider.types';
+} from '../types';
 
 class DataTypeProviderBase extends React.PureComponent<DataTypeProviderProps> {
   render() {

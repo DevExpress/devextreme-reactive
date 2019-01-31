@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Getter, Plugin } from '@devexpress/dx-react-core';
-import { CustomSummaryProps } from '../types/custom-summary.types';
+import { CustomSummaryProps } from '../types/summary/custom-summary.types';
 
 const pluginDependencies = [
   { name: 'SummaryState' },

@@ -9,16 +9,21 @@ export interface TableColumnWidthInfo {
   /** A column width. */
   width: number;
 }
+/** @internal */
 export type SpecifyWidthsFn = PureComputed<
   [TableColumn[], TableColumnWidthInfo[], (columnName: string) => void]
 >;
+/** @internal */
 export type TableColumnsWithWidthFn = PureComputed<[TableColumn[], TableColumnWidthInfo[]]>;
 
+/** @internal */
 export type ColumnWidthPayload = { columnName: string, shift: number, minColumnWidth: number };
+/** @internal */
 export type ColumnWidthState = {
   columnWidths: TableColumnWidthInfo[],
   draftColumnWidths: TableColumnWidthInfo[],
 };
+/** @internal */
 export type ColumnWidthReducer = PureReducer<
   ColumnWidthState, ColumnWidthPayload, Partial<ColumnWidthState>
 >;

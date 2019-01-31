@@ -9,7 +9,7 @@ import {
   calculateKeepOther,
   ChangeSortingPayload,
 } from '@devexpress/dx-grid-core';
-import { SortingStateProps, SortingStateState } from '../types/sorting-state.types';
+import { SortingStateProps, SortingStateState } from '../types';
 
 const columnExtensionValueGetter = (
   columnExtensions, defaultValue,

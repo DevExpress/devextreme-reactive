@@ -45,35 +45,50 @@ export type GridColumnExtension = {
   wordWrapEnabled?: boolean;
 } & IntegratedFiltering.ColumnExtension;
 
+/** @internal */
 export type GetColumnExtensionFn = PureComputed<[string], GridColumnExtension>;
+/** @internal */
 export type GetColumnExtensionValueGetterFn = PureComputed<
   [GridColumnExtension[], string, any], GetColumnExtensionFn
 >;
 
+/** @internal */
 export type GetCellColSpanFn = PureComputed<
   [{ tableRow: TableRow, tableColumns: TableColumn[], tableColumn: TableColumn }],
   number
 >;
+/** @internal */
 export type CellColSpanGetter = PureComputed<[GetCellColSpanFn]>;
 
+/** @internal */
 export type ColumnGeometry = { left: number, right: number };
+/** @internal */
 export type TargetColumnGeometry = ColumnGeometry & { top: number, bottom: number };
+/** @internal */
 export type GetTableColumnGeometriesFn = PureComputed<[TableColumn[], number], ColumnGeometry[]>;
+/** @internal */
 // tslint:disable-next-line: max-line-length
 export type GetTableTargetColumnIndexFn = PureComputed<[TargetColumnGeometry[], number, number], number>;
+/** @internal */
 // tslint:disable-next-line: max-line-length
 export type GetTargetColumnGeometriesFn = PureComputed<[TargetColumnGeometry[], number], TargetColumnGeometry[]>;
 
+/** @internal */
 export type ColumnAnimation = {
   startTime: number,
   style: object,
   left?: { from: number, to: number },
 };
+/** @internal */
 export type ColumnAnimationMap = ReadonlyMap<string, ColumnAnimation>;
+/** @internal */
 export type ColumnAnimationStyleMap = ReadonlyMap<string, object>;
+/** @internal */
 export type GetColumnAnimationsFn = PureComputed<
   [TableColumn[], TableColumn[], number, ColumnAnimationMap],
   ColumnAnimationMap
 >;
+/** @internal */
 export type FilterActiveAnimationsFn = PureComputed<[ColumnAnimationMap]>;
+/** @internal */
 export type EvalAnimationsFn = PureComputed<[ColumnAnimationMap], ColumnAnimationStyleMap>;

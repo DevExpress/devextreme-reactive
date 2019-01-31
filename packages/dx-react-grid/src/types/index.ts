@@ -1,37 +1,29 @@
-// export * from '@devexpress/dx-grid-core';
-export * from './table.types';
-export * from './table-layout.types';
-export * from './table-selection.types';
-export * from './row-detail.types';
-export * from './group-row.types';
-export * from './header-row.types';
-export * from './filtering.types';
-export * from './table-edit-row.types';
-export * from './table-edit-column.types';
-export * from './column-resizing.types';
-export * from './paging-panel.types';
-export * from './grouping-panel.types';
-export * from './table-column-visibility.types';
-export * from './toolbar.types';
-export * from './tree-data-state.types';
-export * from './custom-tree-data.types';
-export * from './table-tree-column.types';
-export * from './search-state.types';
-export * from './search-panel.types';
-export * from './summary-state.types';
-export * from './integrated-summary.types';
-export * from './table-summary-row.types';
-export * from './row-layout.types';
-export * from './column-chooser.types';
-export * from './custom-grouping.types';
-export * from './custom-paging.types';
-export * from './drag-drop-provider.types';
-export * from './editing-state.types';
-export * from './filtering-state.types';
-export * from './groupiong-state.types';
-export * from './integrated-paging.types';
-export * from './integrated-selection.types';
-export * from './integrated-sorting.types';
-export * from './selection-state.types';
-export * from './table-column-reordering.types';
-export * from './grid.types';
+export {
+  Column, TableColumn, TableRow, SummaryType, ColumnSummary,
+  ColumnDimensions, ColumnAnimationStyleMap, SummaryItem, IntegratedFiltering,
+  GroupKey, Grouping, GroupingPanelItem, Filter, ColumnFilterOperations,
+  Sorting, TargetColumnGeometry, FilterOperation, ColumnChooserItem,
+  TableColumnWidthInfo, RowId,
+// } from '@devexpress/dx-grid-core';
+} from '../../../dx-grid-core/src/index';
+
+/** @internal */
+export { GetCellColSpanFn } from '../../../dx-grid-core/src/index';
+
+export * from './column-operations';
+export * from './data-type-provider';
+export * from './detail-row';
+export * from './editing';
+export * from './filtering';
+export * from './grid';
+export * from './grouping';
+export * from './header';
+export * from './layout';
+export * from './paging';
+export * from './search';
+export * from './selection';
+export * from './sorting';
+export * from './summary';
+export * from './tables';
+export * from './toolbar';
+export * from './tree-data';

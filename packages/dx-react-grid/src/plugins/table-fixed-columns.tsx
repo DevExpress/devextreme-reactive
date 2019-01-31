@@ -15,8 +15,9 @@ import {
   tableHeaderColumnChainsWithFixed,
   calculateFixedColumnProps,
 } from '@devexpress/dx-grid-core';
-import { TableFixedColumnsProps, TableFixedColumnsState } from '../types/table-fixed-columns.types';
-import { CellProps, RowProps } from '../types';
+import {
+  CellProps, RowProps, TableFixedColumnsProps, TableFixedColumnsState,
+} from '../types';
 
 const tableHeaderRowsComputed = (
   { tableHeaderRows }: Getters,

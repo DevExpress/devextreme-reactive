@@ -28,7 +28,7 @@ treeItems? | Array&lt;[SummaryItem](#summaryitem)&gt; | | The tree summary items
 
 ### SummaryItem
 
-Describes the summary associated with a column.
+Describes the summary item associated with a column.
 
 Field | Type | Description
 ------|------|------------

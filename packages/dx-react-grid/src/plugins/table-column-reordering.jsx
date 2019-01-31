@@ -21,6 +21,7 @@ import {
 
 const pluginDependencies = [
   { name: 'Table' },
+  { name: 'DragDropProvider', optional: true },
 ];
 
 const tableHeaderRowsComputed = (
@@ -189,14 +190,19 @@ class TableColumnReorderingRaw extends React.PureComponent {
         <Getter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
         <Template name="table">
           {params => (
-            <Container
-              {...params}
-              onOver={this.onOver}
-              onLeave={this.onLeave}
-              onDrop={this.onDrop}
-            >
-              <TemplatePlaceholder />
-            </Container>
+            <TemplateConnector>
+              {({ draggingEnabled }) => (
+                <Container
+                  {...params}
+                  onOver={this.onOver}
+                  onLeave={this.onLeave}
+                  onDrop={this.onDrop}
+                  draggingEnabled={draggingEnabled}
+                >
+                  <TemplatePlaceholder />
+                </Container>
+              )}
+            </TemplateConnector>
           )}
         </Template>
         <Template
@@ -251,15 +257,17 @@ TableColumnReorderingRaw.components = {
 };
 
 const TableContainer = ({
-  onOver, onLeave, onDrop, children, // eslint-disable-line react/prop-types
+  onOver, onLeave, onDrop, draggingEnabled, children, // eslint-disable-line react/prop-types
 }) => (
-  <DropTarget
-    onOver={onOver}
-    onLeave={onLeave}
-    onDrop={onDrop}
-  >
-    {children}
-  </DropTarget>
+  draggingEnabled ? (
+    <DropTarget
+      onOver={onOver}
+      onLeave={onLeave}
+      onDrop={onDrop}
+    >
+      {children}
+    </DropTarget>
+  ) : children
 );
 
 export const TableColumnReordering = withComponents({ TableContainer })(TableColumnReorderingRaw);

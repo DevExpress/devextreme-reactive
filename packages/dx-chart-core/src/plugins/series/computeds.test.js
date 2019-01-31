@@ -1,4 +1,3 @@
-import { scaleOrdinal } from 'd3-scale';
 import {
   symbol,
   symbolCircle,
@@ -286,12 +285,6 @@ describe('getPiePointTransformer', () => {
     mockPie.value = jest.fn().mockReturnValue(mockPie);
     pie.mockReturnValue(mockPie);
 
-    const colorScale = jest.fn();
-    colorScale.range = jest.fn().mockReturnValue(colorScale);
-    colorScale.mockReturnValueOnce('c1');
-    colorScale.mockReturnValueOnce('c2');
-    scaleOrdinal.mockReturnValue(colorScale);
-
     const argumentScale = { range: () => [0, 50] };
     const valueScale = { range: () => [40, 0] };
     const transform = getPiePointTransformer({
@@ -302,7 +295,9 @@ describe('getPiePointTransformer', () => {
     });
 
     expect(
-      transform({ argument: 'arg-1', value: 'val-1', index: 1 }),
+      transform({
+        argument: 'arg-1', value: 'val-1', index: 1, color: 'c1',
+      }),
     ).toEqual({
       argument: 'arg-1',
       value: 'val-1',
@@ -315,7 +310,9 @@ describe('getPiePointTransformer', () => {
       endAngle: 4,
     });
     expect(
-      transform({ argument: 'arg-2', value: 'val-2', index: 3 }),
+      transform({
+        argument: 'arg-2', value: 'val-2', index: 3, color: 'c2',
+      }),
     ).toEqual({
       argument: 'arg-2',
       value: 'val-2',
@@ -331,11 +328,6 @@ describe('getPiePointTransformer', () => {
     expect(mockPie.sort).toBeCalledWith(null);
     expect(mockPie.value).toBeCalledWith(expect.any(Function));
     expect(mockPie).toBeCalledWith('test-points');
-    expect(colorScale.range).toBeCalledWith('test-palette');
-    expect(colorScale.mock.calls).toEqual([
-      [1],
-      [3],
-    ]);
   });
 
   it('should return target element', () => {
@@ -346,6 +338,12 @@ describe('getPiePointTransformer', () => {
       y: 23,
       d: 'symbol path',
     });
+  });
+
+  it('should return point color', () => {
+    expect(getPiePointTransformer.getPointColor(
+      ['color1', 'color2'], 1,
+    )).toEqual('color2');
   });
 });
 
@@ -417,7 +415,6 @@ describe('addSeries', () => {
         index: 2,
         points: [],
         color: 'c3',
-        palette,
       },
     ]);
   });
@@ -454,6 +451,7 @@ describe('addSeries', () => {
       name: 'test',
       argumentField: 'arg',
       valueField: 'val',
+      getPointTransformer: {},
     };
     const data = [
       { arg: 'a', val: 1 },
@@ -481,8 +479,50 @@ describe('addSeries', () => {
           },
         ],
         color: 'c2',
-        palette,
       },
+    ]);
+  });
+
+  it('should calculate point color with `getPointColor` function', () => {
+    const props = {
+      name: 'test',
+      argumentField: 'arg',
+      valueField: 'val',
+      getPointTransformer: { getPointColor: jest.fn().mockReturnValue('point color') },
+    };
+    const data = [
+      { arg: 'a', val: 1 },
+      { arg: 'b', val: 2 },
+      { val: 3 },
+      { arg: 'd', val: 4 },
+      { arg: 'e' },
+    ];
+    const result = addSeries([{ name: 's1' }], data, palette, props, { userOptions: 'userOptions' });
+    expect(result).toEqual([
+      { name: 's1' },
+      {
+        ...props,
+        index: 1,
+        name: 'test',
+        points: [
+          {
+            argument: 'a', value: 1, index: 0, userOptions: 'userOptions', color: 'point color',
+          },
+          {
+            argument: 'b', value: 2, index: 1, userOptions: 'userOptions', color: 'point color',
+          },
+          {
+            argument: 'd', value: 4, index: 3, userOptions: 'userOptions', color: 'point color',
+          },
+        ],
+        color: 'c2',
+      },
+    ]);
+
+    expect(props.getPointTransformer.getPointColor.mock.calls).toEqual([
+      [palette, 0],
+      [palette, 1],
+      [palette, 3],
     ]);
   });
 });

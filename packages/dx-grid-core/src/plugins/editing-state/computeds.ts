@@ -28,7 +28,7 @@ const defaultCreateRowChange: CreateRowChangeFn = (row, value, columnName) => (
   { [columnName]: value }
 );
 export const createRowChangeGetter: PureComputed<
-  [CreateRowChangeFn | undefined, EditingColumnExtension[]?]
+  [CreateRowChangeFn?, EditingColumnExtension[]?], CreateRowChangeFn
 > = (
   createRowChange = defaultCreateRowChange,
   columnExtensions = [],

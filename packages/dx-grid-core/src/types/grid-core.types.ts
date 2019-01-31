@@ -1,7 +1,7 @@
-/** Defines the column configuration object. Used to display data stored in a row. */
 import { TableRow, TableColumn } from './table.types';
 import { PureReducer, PureComputed, CustomFunction } from '@devexpress/dx-core';
 
+/** Defines the column configuration object. Used to display data stored in a row. */
 export interface Column {
   /*** Specifies the column name or the name of a row field whose value the column displays.
    * If the column name does not match any field name, specify the `getCellValue` function.

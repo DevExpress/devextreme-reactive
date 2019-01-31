@@ -1,6 +1,7 @@
 import { TableColumn, TableRow } from './table.types';
 import { HeaderColumnChainRows } from './header-row.types';
 
+/** Describes properties of column bands that the TableBandHeader plugin renders. */
 export interface ColumnBands {
   /** A column name that is used to identify a column in the bands tree. */
   columnName?: string;

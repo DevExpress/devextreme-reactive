@@ -2,8 +2,8 @@ import moment from 'moment';
 import { CustomFunction, PureComputed } from '@devexpress/dx-core';
 import { HORIZONTAL_TYPE, VERTICAL_TYPE } from './constants';
 import {
-  ComputedHelperFn, ExcludedDays, RightBound, ViewPredicateFn,
-  CurrentDate, CalculateFirstDateOfWeekFn, AppointmentMoment, LeftBound,
+  ComputedHelperFn, ViewPredicateFn,
+  CalculateFirstDateOfWeekFn, AppointmentMoment,
   Interval, AppointmentGroup, AppointmentUnwrappedGroup,
   Rect, ElementRect, RectCalculatorBaseFn, CalculateRectByDateIntervalsFn,
 } from './types';
@@ -30,7 +30,7 @@ const createExcludedInterval: CustomFunction<
 };
 
 const excludedIntervals: PureComputed<
-  [ExcludedDays, moment.Moment], Interval[]
+  [number[], moment.Moment], Interval[]
 > = (excludedDays, start) => excludedDays
   .map(day => (day === 0 ? 7 : day))
   .sort((a, b) => a - b)
@@ -60,10 +60,10 @@ export const viewPredicate: ViewPredicateFn = (
   removeAllDayAppointments = false,
 ) => {
   const { start, end } = appointment;
-  const isAppointmentInBoundary = end.isAfter(left as LeftBound)
-    && start.isBefore(right as RightBound);
+  const isAppointmentInBoundary = end.isAfter(left as Date)
+    && start.isBefore(right as Date);
 
-  const isAppointmentInExcludedDays = !!excludedIntervals(excludedDays, moment(left as LeftBound))
+  const isAppointmentInExcludedDays = !!excludedIntervals(excludedDays, moment(left as Date))
     .find(interval => (inInterval(start, interval) && inInterval(end, interval)));
   const considerAllDayAppointment = removeAllDayAppointments
     ? moment(end).diff(start, 'hours') < 24 && !appointment.allDay
@@ -158,7 +158,7 @@ export const calculateFirstDateOfWeek: CalculateFirstDateOfWeekFn = (
   moment.updateLocale('tmp-locale', {
     week: { dow: firstDayOfWeek, doy: 1 }, // doy
   });
-  const firstDateOfWeek = moment(currentDate as CurrentDate).startOf('week');
+  const firstDateOfWeek = moment(currentDate as Date).startOf('week');
   if (excludedDays.indexOf(firstDayOfWeek) !== -1) {
     excludedDays.slice().sort().forEach((day) => {
       if (day === firstDateOfWeek.day()) {

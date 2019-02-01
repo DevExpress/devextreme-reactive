@@ -1,23 +1,9 @@
 import { PureComputed } from '@devexpress/dx-core';
 
-export type ExcludedDays = number[];
-export type CurrentViewType = string;
-export type CurrentDate = Date;
-export type Today = Date;
-export type FirstDayOfWeek = number;
-export type DayCount = number;
-export type StartDayHour = number;
-export type EndDayHour = number;
-export type CellDuration = number;
-export type ViewName = string;
 export type CurrentTime = Date | number | string;
 export type AppointmentDate = Date | number | string;
-export type StartViewDate = Date;
-export type EndViewDate = Date;
-export type IntervalCount = number;
 export type Index = number | string;
 export type CellElement = React.ReactInstance;
-export type Multiline = boolean;
 
 /** Describes an appointment data object that the `mapAppointmentData` function should return. */
 export interface AppointmentModel {
@@ -69,14 +55,14 @@ export interface ViewCell {
 }
 
 export type DayScaleFn = PureComputed<
-  [CurrentDate, FirstDayOfWeek, DayCount, ExcludedDays], Date[]
+  [Date, number, number, number[]], Date[]
 >;
 
 export type TimeScaleFn = PureComputed<
-  [CurrentDate, FirstDayOfWeek, StartDayHour, EndDayHour, CellDuration, ExcludedDays], TimeScale[]
+  [Date, number, number, number, number, number[]], TimeScale[]
 >;
 
 export type ViewCellsDataFn = PureComputed<
-  [CurrentDate, FirstDayOfWeek, DayCount, ExcludedDays,
-    StartDayHour, EndDayHour, CellDuration, CurrentTime], ViewCell[][]
+  [Date, number, number, number[],
+    number, number, number, CurrentTime], ViewCell[][]
 >;

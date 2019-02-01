@@ -2,7 +2,7 @@ import moment from 'moment';
 import { PureComputed } from '@devexpress/dx-core';
 import {
   AppointmentMoment, GetAllDayCellIndexByDateFn,
-  LeftBound, RightBound, SliceAppointmentsByBoundariesFn, AppointmentDate,
+  SliceAppointmentsByBoundariesFn, AppointmentDate,
 } from '../../types';
 
 export const allDayPredicate: PureComputed<[AppointmentMoment], boolean> = appointment => (
@@ -30,12 +30,12 @@ export const sliceAppointmentsByBoundaries: SliceAppointmentsByBoundariesFn = (
   let nextStart = startDate.clone();
   let nextEnd = endDate.clone();
 
-  if (startDate.isBefore(left as LeftBound)) {
-    nextStart = moment(left as LeftBound);
+  if (startDate.isBefore(left as Date)) {
+    nextStart = moment(left as Date);
     nextStart.startOf('day');
   }
-  if (endDate.isAfter(right as RightBound)) {
-    nextEnd = moment(right as RightBound);
+  if (endDate.isAfter(right as Date)) {
+    nextEnd = moment(right as Date);
     nextEnd.endOf('day');
   }
   if (excludedDays.findIndex(day => day === startDate.day()) !== -1) {

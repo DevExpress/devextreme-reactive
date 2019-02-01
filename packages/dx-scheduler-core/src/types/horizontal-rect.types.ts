@@ -1,10 +1,10 @@
 import { PureComputed } from '@devexpress/dx-core';
-import { Multiline, CellElement, AppointmentDate } from './scheduler-core.types';
-import { ViewCellData, TakePrevious } from './all-day-panel.types';
+import { CellElement, AppointmentDate } from './scheduler-core.types';
+import { ViewCellData } from './all-day-panel.types';
 import { EndDate } from './appointment-form.types';
 
 export interface HorizontalPayload {
-  multiline: Multiline;
+  multiline: boolean;
   viewCellsData: ViewCellData[][];
   cellElements: CellElement[][];
 }
@@ -32,7 +32,7 @@ export interface HorizontalCellRect extends Rect {
 }
 
 export type GetCellRectHorizontalFn = PureComputed<
-  [AppointmentDate, ViewCellData[][], CellElement[][], TakePrevious, Multiline], CellRect
+  [AppointmentDate, ViewCellData[][], CellElement[][], boolean, boolean], CellRect
 >;
 
 export type GetHorizontalRectByDatesFn = PureComputed<

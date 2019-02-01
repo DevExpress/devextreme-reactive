@@ -1,8 +1,7 @@
 import moment from 'moment';
 import { PureComputed } from '@devexpress/dx-core';
 import {
-  CurrentDate, TimeScale, EndViewDate,
-  ViewName, CurrentTime, ViewCell, StartViewDate,
+  TimeScale, CurrentTime, ViewCell,
   DayScaleFn, TimeScaleFn, ViewCellsDataFn, AllDayCell,
 } from '../../types';
 import { calculateFirstDateOfWeek } from '../../utils';
@@ -20,7 +19,7 @@ export const dayScale: DayScaleFn = (
   const result = [];
   const date = firstDayOfWeek !== undefined
     ? moment(calculateFirstDateOfWeek(currentDate, firstDayOfWeek, excluded) as Date)
-    : moment(currentDate as CurrentDate);
+    : moment(currentDate as Date);
   for (let index = 0; index < dayCount; index += 1) {
     if (excluded.findIndex(item => item === date.day()) === -1) {
       result.push(date.toDate());
@@ -55,7 +54,7 @@ export const timeScale: TimeScaleFn = (
 };
 
 export const availableViewNames: PureComputed<
-  [ViewName[], ViewName], ViewName[]
+  [string[], string], string[]
 > = (viewNames, viewName) => {
   if (!viewNames) return [viewName];
   if (viewNames.findIndex(view => viewName === view) === -1) {
@@ -107,11 +106,11 @@ export const allDayCells: PureComputed<
 }));
 
 export const startViewDate: PureComputed<
-  [ViewCell[][]], StartViewDate
+  [ViewCell[][]], Date
 > = viewCells => moment(viewCells[0][0].startDate).toDate();
 
 export const endViewDate: PureComputed<
-  [ViewCell[][]], EndViewDate
+  [ViewCell[][]], Date
 > = (viewCells) => {
   const lastRowIndex = viewCells.length - 1;
   const lastCellIndex = viewCells[lastRowIndex].length - 1;

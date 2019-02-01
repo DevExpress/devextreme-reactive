@@ -1,10 +1,8 @@
 import moment from 'moment';
 import { PureComputed } from '@devexpress/dx-core';
-import {
-  AppointmentModel, ViewName, ExcludedDays, CurrentDate, FirstDayOfWeek,
-} from './scheduler-core.types';
+import { AppointmentModel } from './scheduler-core.types';
 import { Rect } from './horizontal-rect.types';
-import { AppointmentMoment, LeftBound, RightBound } from './all-day-panel.types';
+import { AppointmentMoment } from './all-day-panel.types';
 
 export type Interval = [moment.Moment, moment.Moment];
 interface GroupItem {
@@ -29,15 +27,15 @@ export interface ElementRect extends Rect {
 }
 
 export type ComputedHelperFn = PureComputed<
-  [any, ViewName, (...args: any[]) => any, any]
+  [any, string, (...args: any[]) => any, any]
 >;
 
 export type ViewPredicateFn = PureComputed<
-  [AppointmentMoment, LeftBound, RightBound, ExcludedDays?, boolean?], boolean
+  [AppointmentMoment, Date, Date, number[]?, boolean?], boolean
 >;
 
 export type CalculateFirstDateOfWeekFn = PureComputed<
-  [CurrentDate, FirstDayOfWeek, ExcludedDays], Date
+  [Date, number, number[]], Date
 > ;
 
 export type RectCalculatorBaseFn = PureComputed<

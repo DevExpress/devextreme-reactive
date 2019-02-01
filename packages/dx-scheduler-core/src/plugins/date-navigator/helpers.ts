@@ -1,14 +1,12 @@
 import moment from 'moment';
 import { PureComputed } from '@devexpress/dx-core';
-import {
-  ViewBoundTextFn, IntervalCount, StartViewDate, EndViewDate,
-} from '../../types';
+import { ViewBoundTextFn } from '../../types';
 
 const calculateTextByDays: PureComputed<
-  [StartViewDate, EndViewDate], string
+  [Date, Date], string
 > = (startViewDate, endViewDate) => {
-  const momentStartViewDate = moment(startViewDate as StartViewDate);
-  const momentEndViewDate = moment(endViewDate as EndViewDate);
+  const momentStartViewDate = moment(startViewDate as Date);
+  const momentEndViewDate = moment(endViewDate as Date);
 
   if (momentStartViewDate.isSame(momentEndViewDate, 'day')) {
     return momentStartViewDate.format('D MMMM YYYY');
@@ -23,9 +21,9 @@ const calculateTextByDays: PureComputed<
 };
 
 const calculateTextByMonths: PureComputed<
-  [StartViewDate, IntervalCount], string
+  [Date, number], string
 > = (currentDate, intervalCount) => {
-  const momentCurrentDate = moment(currentDate as StartViewDate);
+  const momentCurrentDate = moment(currentDate as Date);
 
   if (intervalCount === 1) {
     return momentCurrentDate.format('MMMM YYYY');

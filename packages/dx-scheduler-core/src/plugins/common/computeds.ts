@@ -77,25 +77,19 @@ export const viewCellsData: ViewCellsDataFn = (
   );
   const currentTime = moment(currTime as CurrentTime);
 
-  const cells: ViewCell[][] = [];
-  times.forEach((time) => {
-    const rowCells: ViewCell[] = [];
+  return times.reduce((cellsAcc, time) => {
     const start = moment(time.start);
     const end = moment(time.end);
-    days.forEach((day) => {
+    const rowCells = days.reduce((rowAcc, day) => {
       const startDate = moment(day).hours(start.hours()).minutes(start.minutes()).toDate();
       const endDate = moment(day).hours(end.hours()).minutes(end.minutes()).toDate();
       const today = currentTime.isSame(startDate, 'day');
-      rowCells.push({
-        startDate,
-        endDate,
-        today,
-      });
-    });
-
-    cells.push(rowCells);
-  });
-  return cells;
+      rowAcc.push({ startDate, endDate, today });
+      return rowAcc;
+    }, [] as ViewCell[]);
+    cellsAcc.push(rowCells);
+    return cellsAcc;
+  }, [] as ViewCell[][]);
 };
 
 export const allDayCells: PureComputed<

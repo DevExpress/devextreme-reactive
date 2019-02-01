@@ -26,7 +26,7 @@ const styles = ({ palette, typography, spacing }) => ({
   },
 });
 
-const Appointment = ({
+const AppointmentBase = ({
   classes, className,
   style,
   children,
@@ -57,7 +57,7 @@ const Appointment = ({
   );
 };
 
-Appointment.propTypes = {
+AppointmentBase.propTypes = {
   classes: PropTypes.object.isRequired,
   children: PropTypes.node.isRequired,
   style: PropTypes.object.isRequired,
@@ -66,10 +66,10 @@ Appointment.propTypes = {
   onClick: PropTypes.func,
 };
 
-Appointment.defaultProps = {
+AppointmentBase.defaultProps = {
   onClick: undefined,
   className: undefined,
   data: {},
 };
 
-export const Appointment = withStyles(styles, { name: 'Appointment' })(Appointment);
+export const Appointment = withStyles(styles, { name: 'Appointment' })(AppointmentBase);

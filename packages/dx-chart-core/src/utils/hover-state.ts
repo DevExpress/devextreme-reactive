@@ -6,7 +6,7 @@ import {
 // Comparing by reference is not an option as Tracker always sends new objects.
 // Tracker cannot persist references as it actually operates with simple scalars
 // and constructs objects to provide info in a slightly more suitable way.
-const compareTargets: PureComputed<[Target, Target], boolean> = (target1, target2) => (
+const compareTargets = (target1: Target, target2: Target) => (
   target1.series === target2.series && target1.point === target2.point
 );
 

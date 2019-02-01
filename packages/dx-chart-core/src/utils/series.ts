@@ -3,10 +3,10 @@ import { dArea, dLine, dSpline } from '../plugins/series/computeds';
 import { PureComputed } from '@devexpress/dx-core';
 import {
   MakePath, Point, CanvasAbusingHitTester, ContinuousSeriesHitTesterCreatorFn,
-  Series, Target, Props, createPointsEnumeratingHitTesterCreatorFn, List,
+  Series, Target, Props, createPointsEnumeratingHitTesterCreatorFn, PointDistance, Location,
 } from '../types';
 
-const getSegmentLength: PureComputed<[number, number]> = (dx, dy) => Math.sqrt(dx * dx + dy * dy);
+const getSegmentLength = (dx: number, dy: number) => Math.sqrt(dx * dx + dy * dy);
 
 // *distance* is a normalized distance to point.
 // It belongs to [0, Infinity):
@@ -24,7 +24,7 @@ const createContext = () => document.createElement('canvas').getContext('2d');
 const createCanvasAbusingHitTester: PureComputed<
   [MakePath, Point[]], CanvasAbusingHitTester
 > = (makePath, points) => {
-  const ctx: any = createContext();
+  const ctx = createContext()!;
   const path = makePath();
   path.context(ctx);
   path(points);
@@ -34,9 +34,9 @@ const createCanvasAbusingHitTester: PureComputed<
 const LINE_POINT_SIZE = 20;
 const LINE_TOLERANCE = 10;
 
-const getContinuousPointDistance: PureComputed<
-  [[number, number], Point], number
-> = ([px, py], { x, y }) => getSegmentLength(px - x, py - y);
+const getContinuousPointDistance: PureComputed<[Location, Point], number> = (
+  [px, py], { x, y },
+): number => getSegmentLength(px - x, py - y);
 
 const createContinuousSeriesHitTesterCreator: PureComputed<
 [MakePath], ContinuousSeriesHitTesterCreatorFn> = makePath => (points) => {
@@ -44,7 +44,7 @@ const createContinuousSeriesHitTesterCreator: PureComputed<
   return (target) => {
     let minDistance = Number.MAX_VALUE;
     let minIndex: number = 0;
-    const list: List[] = [];
+    const list: PointDistance[] = [];
     points.forEach((point, i) => {
       const distance = getContinuousPointDistance(target, point);
       if (distance <= LINE_POINT_SIZE) {
@@ -66,7 +66,7 @@ const createContinuousSeriesHitTesterCreator: PureComputed<
 
 const createPointsEnumeratingHitTesterCreator: createPointsEnumeratingHitTesterCreatorFn =
  hitTestPoint => points => (target) => {
-   const list: List[] = [];
+   const list: PointDistance[] = [];
    points.forEach((point) => {
      const status = hitTestPoint(target, point);
      if (status) {
@@ -103,9 +103,9 @@ export const createSplineHitTester = createContinuousSeriesHitTesterCreator(() =
   return path;
 });
 
-const hitTestRect: PureComputed<
-  [number, number, number, number], {distance: number} | null
-> = (dx, dy, halfX, halfY) => (
+const hitTestRect = (
+  dx: number, dy: number, halfX: number, halfY: number,
+): {distance: number} | null => (
   Math.abs(dx) <= halfX && Math.abs(dy) <= halfY ? {
     distance: getSegmentLength(dx, dy),
   } : null
@@ -124,15 +124,14 @@ export const createBarHitTester = createPointsEnumeratingHitTesterCreator(
   },
 );
 
-export const createScatterHitTester =
- createPointsEnumeratingHitTesterCreator(
+export const createScatterHitTester = createPointsEnumeratingHitTesterCreator(
   ([px, py], { x, y, point }) => {
     const distance = getSegmentLength(px - x, py - y);
     return distance <= point.size / 2 ? { distance } : null;
   },
 );
 
-const mapAngleTod3: PureComputed<[number]> = (angle) => {
+const mapAngleTod3 = (angle: number) => {
   const ret = angle + Math.PI / 2;
   return ret >= 0 ? ret : ret + Math.PI * 2;
 };

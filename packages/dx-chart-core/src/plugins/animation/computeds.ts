@@ -1,9 +1,8 @@
-import { PureComputed } from '@devexpress/dx-core';
 import { GetAnimationStyleFn, Point, buildAnimatedStyleGetterFn } from '../../types';
 
 const ANIMATIONS = Symbol('animation');
 
-const addKeyframe: PureComputed<[string, string], void> = (name, def) => {
+const addKeyframe = (name: string, def: string): void => {
   if (typeof document === 'undefined') {
     return;
   }
@@ -42,8 +41,7 @@ const getPieAnimationName = () => {
 
 const getDefaultAreaAnimationOptions = () => '1s';
 
-const getDefaultPieAnimationOptions:
-PureComputed<[Point], string> = ({ index }) => `${0.7 + index * 0.1}s`;
+const getDefaultPieAnimationOptions = ({ index }: Point) => `${0.7 + index * 0.1}s`;
 
 export const getAreaAnimationStyle: GetAnimationStyleFn = (scales) => {
   const animationStyle = {

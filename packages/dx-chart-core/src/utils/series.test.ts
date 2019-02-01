@@ -86,9 +86,9 @@ describe('Series', () => {
     mockPath.context = jest.fn();
 
     beforeEach(() => {
-      dArea.x.mockReturnValue('#x');
-      dArea.y0.mockReturnValue('#y0');
-      dArea.y1.mockReturnValue('#y1');
+      (dArea.x as jest.Mock).mockReturnValue('#x');
+      (dArea.y0 as jest.Mock).mockReturnValue('#y0');
+      (dArea.y1 as jest.Mock).mockReturnValue('#y1');
 
       (area as jest.Mock).mockReturnValue(mockPath);
     });
@@ -116,8 +116,8 @@ describe('Series', () => {
     mockPath.context = jest.fn();
 
     beforeEach(() => {
-      dLine.x.mockReturnValue('#x');
-      dLine.y.mockReturnValue('#y');
+      (dLine.x as jest.Mock).mockReturnValue('#x');
+      (dLine.y as jest.Mock).mockReturnValue('#y');
 
       (area as jest.Mock).mockReturnValue(mockPath);
     });
@@ -146,9 +146,9 @@ describe('Series', () => {
     mockPath.context = jest.fn();
 
     beforeEach(() => {
-      dSpline.x.mockReturnValue('#x');
-      dSpline.y.mockReturnValue('#y');
-      dSpline.curve.mockReturnValue('#curve');
+      (dSpline.x as jest.Mock).mockReturnValue('#x');
+      (dSpline.y as jest.Mock).mockReturnValue('#y');
+      (dSpline.curve as jest.Mock).mockReturnValue('#curve');
 
       (area as jest.Mock).mockReturnValue(mockPath);
     });

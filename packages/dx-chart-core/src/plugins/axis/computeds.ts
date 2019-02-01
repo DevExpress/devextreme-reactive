@@ -3,30 +3,24 @@ import {
   LEFT, BOTTOM, MIDDLE, END, START,
 } from '../../constants';
 import {
-  VerticalTickOptions, HorizontalTickOptions, Scale, CallbackFn,
-  Tick, TickFormatFn, GetFormatFn, AxisCoordinatesFn, GetGridCoordinatesFn,
+  Scale, CallbackFn, Tick, TickFormatFn, GetFormatFn, AxisCoordinatesFn, GetGridCoordinatesFn,
 } from '../../types';
 
-import { PureComputed } from '@devexpress/dx-core';
+const getTicks = (scale: Scale): any[] => (scale.ticks ? scale.ticks() : scale.domain());
 
-const getTicks: PureComputed<[Scale], any[]> =
-scale => (scale.ticks ? scale.ticks() : scale.domain());
-
-const createTicks: PureComputed<[Scale, CallbackFn], Tick[]> = (scale, callback) => {
+const createTicks = (scale: Scale, callback: CallbackFn): Tick[] => {
   const fixedScale = fixOffset(scale);
   return getTicks(scale).map((tick, index) => callback(fixedScale(tick), String(index), tick));
 };
 
-const getFormat: PureComputed<[Scale, TickFormatFn], GetFormatFn> = (scale, tickFormat) => {
+const getFormat = (scale: Scale, tickFormat: TickFormatFn): GetFormatFn => {
   if (scale.tickFormat) {
     return tickFormat ? tickFormat(scale) : scale.tickFormat();
   }
   return tick => tick;
 };
 
-const createHorizontalOptions: PureComputed<
-  [string, number, number], HorizontalTickOptions
-> = (position, tickSize, indentFromAxis) => {
+const createHorizontalOptions = (position: string, tickSize: number, indentFromAxis: number) => {
   // Make *position* orientation agnostic - should be START or END.
   const isStart = position === BOTTOM;
   return {
@@ -38,9 +32,7 @@ const createHorizontalOptions: PureComputed<
   };
 };
 
-const createVerticalOptions: PureComputed<
-  [string, number, number], VerticalTickOptions
-> = (position, tickSize, indentFromAxis) => {
+const createVerticalOptions = (position: string, tickSize: number, indentFromAxis: number) => {
   // Make *position* orientation agnostic - should be START or END.
   const isStart = position === LEFT;
   return {

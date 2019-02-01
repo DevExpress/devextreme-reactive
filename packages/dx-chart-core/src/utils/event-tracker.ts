@@ -5,7 +5,7 @@ import {
 
 // This function is called from event handlers (when DOM is available) -
 // *window* can be accessed safely.
-const getEventCoords: PureComputed<[any], [number, number]> = (e) => {
+const getEventCoords = (e): [number, number] => {
   const { pageXOffset, pageYOffset } = window;
   const { left, top } = e.currentTarget.getBoundingClientRect();
   return [
@@ -16,7 +16,7 @@ const getEventCoords: PureComputed<[any], [number, number]> = (e) => {
 
 const DISTANCE_THRESHOLD = 20;
 
-const compareHitTargets: PureComputed<[TrackerTarget, TrackerTarget], number> = (t1, t2) => {
+const compareHitTargets = (t1: TrackerTarget, t2: TrackerTarget) => {
   const distanceDelta = t1.distance - t2.distance;
   if (Math.abs(distanceDelta) <= DISTANCE_THRESHOLD) {
     const orderDelta = t2.order - t1.order;
@@ -56,7 +56,7 @@ const buildEventHandler: PureComputed<[Series[], Handler[]], any> = (seriesList,
   };
 };
 
-const buildLeaveEventHandler: PureComputed<[Handler[]], PureComputed<[any]>> = handlers => (e) => {
+const buildLeaveEventHandler: PureComputed<[Handler[]], (any)> = handlers => (e) => {
   const location = getEventCoords(e);
   const arg = { location, targets: [] };
   handlers.forEach(handler => handler(arg));

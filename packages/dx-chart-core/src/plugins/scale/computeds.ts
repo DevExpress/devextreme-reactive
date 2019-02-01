@@ -38,15 +38,15 @@ const mergeDiscreteDomains = (
   domain, items,
 ) => Array.from(new Set([...domain, ...items]));
 
-const getArgument = (point): Point => point.argument;
-const getValue = (point): Point => point.value;
+const getArgument = (point: Point) => point.argument;
+const getValue = (point: Point) => point.value;
 
 const extendDomain = (target, items) => {
   const merge = target.isDiscrete ? mergeDiscreteDomains : mergeContinuousDomains;
   Object.assign(target, { domain: merge(target.domain, items) });
 };
 
-const calculateDomains: PureComputed<[any, Series[]]> = (domains, seriesList) => {
+const calculateDomains: PureComputed<[Domains, Series[]], void> = (domains, seriesList) => {
   seriesList.forEach((seriesItem) => {
     const valueDomainName = getSeriesValueDomainName(seriesItem);
     const { points } = seriesItem;
@@ -63,7 +63,7 @@ const calculateDomains: PureComputed<[any, Series[]]> = (domains, seriesList) =>
 export const scaleLinear = d3ScaleLinear;
 export const scaleBand = () => d3ScaleBand().paddingInner(0.3).paddingOuter(0.15);
 
-const guessFactory: PureComputed<[Point[], GetItemFn]> = (points, getItem) => (
+const guessFactory = (points: Point[], getItem: GetItemFn) => (
   (points.length && typeof getItem(points[0]) === 'string' && scaleBand) || scaleLinear
 );
 

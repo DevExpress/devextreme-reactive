@@ -3,7 +3,8 @@ import { scaleBand } from 'd3-scale';
 import { PureComputed } from '@devexpress/dx-core';
 import {
   Stack, StackMap, Series, getStackedSeriesFn, GetPointTransformerFn, DataItems,
-  OrderFn, OffsetFn, GetValueDomainFn,
+  CollectStacksFn, GetValueDomainFn, ApplyStackingFn, StacksKeys, OrderFn, OffsetFn,
+  SeriesPositions,
 } from '../../types';
 
 // "Stack" plugin relies on "data" and "series" getters and
@@ -18,7 +19,7 @@ const buildSeriesToStackMap: PureComputed<[Stack[]], StackMap> = (stacks) => {
   return result;
 };
 
-const getStackedPointTransformer: PureComputed<[GetPointTransformerFn]> = (getPointTransformer) => {
+const getStackedPointTransformer = (getPointTransformer: GetPointTransformerFn) => {
   const wrapper = (series) => {
     const transform = getPointTransformer(series);
     const { valueScale } = series;
@@ -44,7 +45,7 @@ const getValueDomain: GetValueDomainFn = (points) => {
   return items;
 };
 
-const collectStacks: PureComputed<[Series[], StackMap], any[]> = (seriesList, seriesToStackMap) => {
+const collectStacks: CollectStacksFn = (seriesList, seriesToStackMap) => {
   const stacksKeys = {};
   const seriesPositions = {};
   seriesList.forEach(({ name, valueField }) => {
@@ -68,7 +69,11 @@ const collectStacks: PureComputed<[Series[], StackMap], any[]> = (seriesList, se
   return [stacksKeys, seriesPositions];
 };
 
-const getStackedData = (stacksKeys, dataItems, offset, order) => {
+const getStackedData: PureComputed<
+  [StacksKeys, DataItems, OffsetFn, OrderFn], {[key: number]: number[]}
+> = (
+  stacksKeys, dataItems, offset, order,
+) => {
   const result = {};
   Object.keys(stacksKeys).forEach((stackId) => {
     result[stackId] = stack().keys(stacksKeys[stackId]).order(order).offset(offset)(dataItems);
@@ -76,7 +81,7 @@ const getStackedData = (stacksKeys, dataItems, offset, order) => {
   return result;
 };
 
-const buildStackedSeries: PureComputed<[Series, DataItems]> = (series, dataItems) => {
+const buildStackedSeries = (series: Series, dataItems: DataItems) => {
   const points = series.points.map((point) => {
     const [value0, value] = dataItems[point.index];
     return { ...point, value, value0 };
@@ -92,10 +97,9 @@ const buildStackedSeries: PureComputed<[Series, DataItems]> = (series, dataItems
   return stackedSeries;
 };
 
-const applyStacking: PureComputed<
-  [Series[], DataItems, StackMap, OffsetFn, OrderFn]
-> = (seriesList, dataItems, seriesToStackMap, offset, order) => {
-  const [stacksKeys, seriesPositions] = collectStacks(seriesList, seriesToStackMap);
+const applyStacking: ApplyStackingFn = (seriesList, dataItems, seriesToStackMap, offset, order) => {
+  const [stacksKeys, seriesPositions] = collectStacks(seriesList, seriesToStackMap) as
+   [StacksKeys, SeriesPositions];
   if (Object.keys(stacksKeys).length === 0) {
     return seriesList;
   }
@@ -106,7 +110,7 @@ const applyStacking: PureComputed<
     if (!stackData) {
       return seriesItem;
     }
-    const position = seriesPositions[seriesItem.name];
+    const position = seriesPositions[seriesItem.name] as number;
     return buildStackedSeries(seriesItem, stackData[position]);
   }) as Series[];
 };

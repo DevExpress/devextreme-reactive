@@ -1,6 +1,20 @@
 import { PureComputed, CustomFunction } from '@devexpress/dx-core';
 import { ContinuousSeriesHitTesterCreatorFn } from './utils.types';
 
+type RangeFn = CustomFunction<[any[]?], any[]>;
+type BandwidthFn = CustomFunction<[], number>;
+type ScaleTickFormatFn = CustomFunction<[number?, string?], GetFormatFn>;
+type DomainFn = CustomFunction<[any[]?], any>;
+type TicksFn = CustomFunction<[number?], any[]>;
+type PaddingInnerFn = CustomFunction<[number], Scale>;
+type PaddingOuterFn = CustomFunction<[number], Scale>;
+type CopyFn = CustomFunction<[], Scale>;
+type ClampFn = CustomFunction<[boolean], Scale>;
+
+type PointFn = PureComputed<[Point]>;
+type GetTargetElementFn = PureComputed<[any]>;
+type PointColorFn = PureComputed<[string[], number], string>;
+
 export interface Scale {
   (value: any): number ;
   // A function that returns an array of ticks.
@@ -97,16 +111,6 @@ export interface Stack {
 type Text = string;
 export type GetFormatFn = PureComputed<[any], Text>;
 
-export type RangeFn = CustomFunction<[any[]?], any[]>;
-export type BandwidthFn = CustomFunction<[], number>;
-export type ScaleTickFormatFn = CustomFunction<[number?, string?], GetFormatFn>;
-export type DomainFn = CustomFunction<[any[]?], any>;
-export type TicksFn = CustomFunction<[number?], any[]>;
-export type PaddingInnerFn = CustomFunction<[number], Scale>;
-export type PaddingOuterFn = CustomFunction<[number], Scale>;
-export type CopyFn = CustomFunction<[], Scale>;
-export type ClampFn = CustomFunction<[boolean], Scale>;
-
 export type Point = {
   index: number,
   argument: any,
@@ -132,8 +136,6 @@ export type Series = {
   createHitTester: ContinuousSeriesHitTesterCreatorFn,
   getPointTransformer: GetPointTransformerFn,
 };
-
-export type PointFn = PureComputed<[Point]>;
 export type GetValueDomainFn = PureComputed<[Point[]]>;
 export type GetPointTransformerFn = PureComputed<[PointTransformer], PointFn>&
 {
@@ -142,6 +144,4 @@ export type GetPointTransformerFn = PureComputed<[PointTransformer], PointFn>&
   isBroad?: boolean,
   getTargetElement: GetTargetElementFn,
 };
-export type GetTargetElementFn = PureComputed<[any]>;
-export type PointColorFn = PureComputed<[string[], number], string>;
 export type PointTransformer = Series & {argumentScale: Scale, valueScale: Scale};

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/api-extractor/api-extractor.schema.json",
+  "compiler" : {
+    "configType": "tsconfig",
+    "rootFolder": "."
+  },
+  "apiReviewFile": {
+    "apiReviewFolder": "api/",
+    "tempFolder": "api/temp",
+    "enabled": true
+  },
+  "apiJsonFile": {
+    "outputFolder": "api/json",
+    "enabled": true
+  },
+  "validationRules": {
+    "missingReleaseTags": "allow"
+  },
+  "policies": {
+    "namespaceSupport": "permissive"
+  }
+}

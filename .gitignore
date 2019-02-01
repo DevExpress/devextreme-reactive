@@ -30,4 +30,8 @@
 /packages/*/src/demo-registry.js
 /packages/*/src/*-demo-registry.js
 /packages/*/src/**/*.g*
-packages/*/.rpt2_cache
+
+# Typescript
+/packages/*/.rpt2_cache
+/packages/*/api/json/*
+/packages/*/api/temp/*

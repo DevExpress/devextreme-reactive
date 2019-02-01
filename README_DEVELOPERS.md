@@ -24,7 +24,7 @@ Install packages using `yarn` or `npm`:
 After installation, the following scripts are available:
 
 - `yarn lint` - Executes linters.
-- `yarn test` - Executes tests.
+- `yarn test` - Runs tests.
 - `yarn test:watch` - Runs an interactive test watcher.
 - `yarn build` - Builds DevExtreme Reactive.
 - `yarn build:watch` - Builds DevExtreme Reactive in watch mode and runs demos. The following demo ULRs are accessible:
@@ -37,8 +37,10 @@ Since we are using a [monorepo](https://en.wikipedia.org/wiki/Monorepo),you can 
 
 ## Tests and CI
 
+We follow the [Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) approach. There is a simple rule - 'Each PR should contain a test if possible'. It means, if PR contains a bug fix, it should contain a [regression test](https://en.wikipedia.org/wiki/Regression_testing), if PR contains a feature implementation, it should contain tests for the new functionality etc.
 
+We recommend run tests and execute linters locally before creating PR.
 
 ## Commit Message & Pull Request Title Guidelines
 
-We are using the [Conventional Commits](https://www.conventionalcommits.org) specification for PR's naming.
+We are using the [Conventional Commits](https://www.conventionalcommits.org) specification for PR names. Be sure, your pull request follows this specification.

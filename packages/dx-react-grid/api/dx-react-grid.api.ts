@@ -796,16 +796,23 @@ module TableHeaderRow {
     children: React.ReactNode;
     column: Column;
     draggingEnabled: boolean;
+    // @deprecated (undocumented)
     groupingEnabled: boolean;
+    // @deprecated (undocumented)
     onGroup: () => void;
+    // @deprecated (undocumented)
     onSort: (parameters: { direction?: 'asc' | 'desc' | null, keepOther?: boolean }) => void;
     onWidthChange: (parameters: { shift: number }) => void;
     onWidthDraft: (parameters: { shift: number }) => void;
     onWidthDraftCancel: () => void;
     resizingEnabled: boolean;
+    // @deprecated (undocumented)
     showGroupingControls: boolean;
+    // @deprecated (undocumented)
     showSortingControls: boolean;
+    // @deprecated (undocumented)
     sortingDirection?: 'asc' | 'desc';
+    // @deprecated (undocumented)
     sortingEnabled: boolean;
   }
 

@@ -27,13 +27,13 @@ After installation, the following scripts are available:
 - `yarn test` - Runs tests.
 - `yarn test:watch` - Runs an interactive test watcher.
 - `yarn build` - Builds DevExtreme Reactive.
-- `yarn build:watch` - Builds DevExtreme Reactive in watch mode and runs demos. The following demo ULRs are accessible:
+- `yarn build:watch` - Builds DevExtreme Reactive in watch mode and runs demos. The following demo URLs are accessible:
 
 - `http://localhost:3002/` - Grid demos.
 - `http://localhost:3004/` - Chart demos.
 - `http://localhost:3005/` - Scheduler demos.
 
-Since we are using a [monorepo](https://en.wikipedia.org/wiki/Monorepo),you can execute the described commands from particular packages ('dx-react-core/', './packages/dx-react-grid/' etc).
+Since we are using a [monorepo](https://en.wikipedia.org/wiki/Monorepo), you can execute the described commands from particular packages ('dx-react-core/', './packages/dx-react-grid/' etc).
 
 ## Tests and CI
 

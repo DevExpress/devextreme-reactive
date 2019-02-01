@@ -1,6 +1,6 @@
 {
   "extends": "../../api-extractor.json",
   "project": {
-    "entryPointSourceFile": "dist/dx-react-core.d.ts"
+    "entryPointSourceFile": "dist/dx-react-grid.d.ts"
   }
 }

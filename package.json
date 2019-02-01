@@ -37,7 +37,7 @@
   "scripts": {
     "postinstall": "check-node-version --quiet --node \">=6.11.1\" --npm \">=5.3.0\" --yarn \">=1.0.0\"",
     "build": "lerna run build --ignore @devexpress/dx-vue-* && yarn run build:ts",
-    "build:ts": "node ./scripts/ts-generator.js && lerna run dts",
+    "build:ts": "node ./scripts/ts-generator.js && lerna run dts && lerna run update-api",
     "build:ts:watch": "nodemon --exec \"yarn build:ts\" --watch \"packages/*/docs/reference/*.md\" --watch \"scripts/ts-generator.js\" --ext md,js",
     "build:watch": "concurrently \"yarn build:ts:watch\" \"lerna run --parallel build:watch --ignore @devexpress/dx-vue-*\"",
     "build:react:grid:watch": "concurrently \"yarn build:ts:watch\" \"lerna run --scope @devexpress/dx-core --scope @devexpress/dx-react-core --scope @devexpress/dx-testing --parallel build\" \"lerna run --scope @devexpress/dx-grid-core --scope \"@devexpress/*react-grid*\" --parallel build:watch\"",

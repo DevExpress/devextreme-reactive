@@ -10,6 +10,7 @@ const styles = {
     width: '100%',
     top: 0,
     left: 0,
+    height: '100%',
   },
 };
 
@@ -47,6 +48,8 @@ export class ContainerBase extends React.PureComponent {
       //   clientOffset,
       // );
 
+      console.log(clientOffset);
+
       // if (prevTargetItemIndex === targetItemIndex) return;
 
       // onGroupDraft({
@@ -72,7 +75,7 @@ export class ContainerBase extends React.PureComponent {
       // });
       console.log('on leave!');
     };
-    this.onDrop = () => {
+    this.onDrop = (args) => {
       // const { onGroup } = this.props;
       // const { sourceColumnName, targetItemIndex } = this.state;
       // this.resetState();
@@ -80,6 +83,7 @@ export class ContainerBase extends React.PureComponent {
       //   columnName: sourceColumnName,
       //   groupIndex: targetItemIndex,
       // });
+      console.log(args);
       console.log('on drop!');
     };
     this.onDragStart = (columnName) => {

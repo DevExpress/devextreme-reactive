@@ -20,10 +20,10 @@ export interface GetterProps {
    */
   computed?: (
     getters: Getters,
-    actions?: Actions,
+    actions: Actions,
   ) => any;
 }
-export type Getters = { [getterName: string]: any };
+export type Getters = { readonly [getterName: string]: any };
 export type Actions = { [actionName: string]: (payload?: any) => void };
 
 class GetterBase extends React.PureComponent<GetterProps & PluginContextProps> {

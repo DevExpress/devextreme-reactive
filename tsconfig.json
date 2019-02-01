@@ -28,6 +28,7 @@
   "exclude": [
     "node_modules",
     "**/*.test.ts*",
-    "packages/**/dist"
+    "packages/**/dist",
+    "packages/**/api"
   ],
  }

@@ -64,7 +64,7 @@ class AppointmentBase extends React.PureComponent {
     return (
       <DragSource
         ref={this.appointmentRef}
-        payload={[{ type: 'appointment' }]}
+        payload={[{ type: 'appointment', data }]}
         onStart={this.onDragStart}
         onEnd={this.onDragEnd}
       >

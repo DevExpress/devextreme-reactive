@@ -1,8 +1,8 @@
 import { PureComputed } from '@devexpress/dx-core';
-import { AppointmentModel, AppointmentCore } from '../../types';
+import { AppointmentModel, Appointment } from '../../types';
 
 export const appointments: PureComputed<
-  [AppointmentModel[]], AppointmentCore[]
+  [AppointmentModel[]], Appointment[]
 > = data => data.map(appointment => ({
   start: appointment.startDate,
   end: appointment.endDate,

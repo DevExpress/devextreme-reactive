@@ -35,7 +35,7 @@ export interface AppointmentModel {
   [propertyName: string]: any;
 }
 
-export interface AppointmentCore {
+export interface Appointment {
   /** The start date. */
   start: Date | string | number;
   /** The end date. */

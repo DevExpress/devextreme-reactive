@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { PureComputed } from '@devexpress/dx-core';
 import {
-  CurrentDate, FirstDayOfWeek, IntervalCount, Today, AppointmentCore, AppointmentDate, Index,
+  CurrentDate, FirstDayOfWeek, IntervalCount, Today, Appointment, AppointmentDate, Index,
 } from './scheduler-core.types';
 import {
   LeftBound, RightBound, AppointmentMoment, ViewCellData, TakePrevious,
@@ -27,7 +27,7 @@ export type MonthCellsDataComputedFn = PureComputed<
 >;
 
 export type CalculateMonthDateIntervalsFn = PureComputed<
-  [AppointmentCore[], LeftBound, RightBound], AppointmentMoment[]
+  [Appointment[], LeftBound, RightBound], AppointmentMoment[]
 >;
 
 export type SliceAppointmentByWeekFn = PureComputed<

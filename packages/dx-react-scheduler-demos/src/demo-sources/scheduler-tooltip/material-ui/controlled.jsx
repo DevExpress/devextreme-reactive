@@ -24,7 +24,7 @@ const styles = theme => ({
   },
 });
 
-const AppointmentBase = ({
+const Appointment = ({
   children,
   data,
   onClick,
@@ -51,7 +51,7 @@ const AppointmentBase = ({
   </Appointments.Appointment>
 );
 
-const Appointment = withStyles(styles, { name: 'Appointment' })(AppointmentBase);
+const Appointment = withStyles(styles, { name: 'Appointment' })(Appointment);
 
 export default class Demo extends React.PureComponent {
   constructor(props) {

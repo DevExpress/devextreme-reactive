@@ -1,9 +1,9 @@
 import { PureComputed } from '@devexpress/dx-core';
-import { AppointmentCore, ExcludedDays } from './scheduler-core.types';
+import { Appointment, ExcludedDays } from './scheduler-core.types';
 import { LeftBound, RightBound, AppointmentMoment } from './all-day-panel.types';
 
 export type CalculateWeekDateIntervalsFn = PureComputed<
-  [AppointmentCore[], LeftBound, RightBound, ExcludedDays], AppointmentMoment[]
+  [Appointment[], LeftBound, RightBound, ExcludedDays], AppointmentMoment[]
 >;
 
 export type DayBoundaryPredicateFn = PureComputed<

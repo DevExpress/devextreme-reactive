@@ -15,20 +15,20 @@ import { ARGUMENT_DOMAIN } from '../../constants';
 import { getWidth, getValueDomainName, fixOffset } from '../../utils/scale';
 import { PureComputed } from '@devexpress/dx-core';
 
-const getX: PureComputed<[Point], number> = ({ x }) => x;
-const getY: PureComputed<[Point], number> = ({ y }) => y;
-const getY1: PureComputed<[Point], number> = ({ y1 }) => y1;
+const getX = ({ x }: Point) => x;
+const getY = ({ y }: Point) => y;
+const getY1 = ({ y1 }: Point) => y1;
 
-export const dArea = area()
+export const dArea = area<Point>()
   .x(getX)
   .y1(getY)
   .y0(getY1);
 
-export const dLine = line()
+export const dLine = line<Point>()
   .x(getX)
   .y(getY);
 
-export const dSpline = line()
+export const dSpline = line<Point>()
   .x(getX)
   .y(getY)
   .curve(curveMonotoneX);
@@ -39,7 +39,7 @@ export const getPiePointTransformer: GetPointTransformerFn = ({
   const x = Math.max(...argumentScale.range()) / 2;
   const y = Math.max(...valueScale.range()) / 2;
   const maxRadius = Math.min(x, y);
-  const pieData = pie().sort(null).value(d => d.value)(points);
+  const pieData = pie<Point>().sort(null).value(d => d.value)(points as Point[]);
   return (point) => {
     const { startAngle, endAngle } = pieData[point.index];
     return {
@@ -107,17 +107,18 @@ export const dBar: DBarFn = ({
   x: x - width / 2, y: Math.min(y, y1), width: width || 2, height: Math.abs(y1 - y),
 });
 
-export const dSymbol: PureComputed<[Point]> = (
+export const dSymbol: PureComputed<[Point], string> = (
   { size },
-) => symbol().size([size ** 2]).type(symbolCircle)();
+) => symbol().size(size ** 2).type(symbolCircle)()!;
 
 export const dPie: DPieFn = ({
   maxRadius, innerRadius, outerRadius, startAngle, endAngle,
-}) => arc()
-  .innerRadius(innerRadius * maxRadius)
-  .outerRadius(outerRadius * maxRadius)
-  .startAngle(startAngle)
-  .endAngle(endAngle)();
+}) => arc()({
+  startAngle,
+  endAngle,
+  innerRadius: innerRadius * maxRadius,
+  outerRadius: outerRadius * maxRadius,
+})!;
 
 getBarPointTransformer.getTargetElement = ({
   x, y, y1, barWidth, maxBarWidth,
@@ -133,21 +134,21 @@ getBarPointTransformer.getTargetElement = ({
 getPiePointTransformer.getTargetElement = ({
   x, y, innerRadius, outerRadius, maxRadius, startAngle, endAngle,
 }) => {
-  const center = arc()
-    .innerRadius(innerRadius * maxRadius)
-    .outerRadius(outerRadius * maxRadius)
-    .startAngle(startAngle)
-    .endAngle(endAngle)
-    .centroid();
+  const center = arc().centroid({
+    startAngle,
+    endAngle,
+    innerRadius: innerRadius * maxRadius,
+    outerRadius: outerRadius * maxRadius,
+  });
   return {
-    x: center[0] + x, y: center[1] + y, d: symbol().size([1 ** 2]).type(symbolCircle)(),
+    x: center[0] + x, y: center[1] + y, d: symbol().size(1 ** 2).type(symbolCircle)(),
   };
 };
 
 getAreaPointTransformer.getTargetElement = ({ x, y }) => ({
   x,
   y,
-  d: symbol().size([2 ** 2]).type(symbolCircle)(),
+  d: symbol().size(2 ** 2).type(symbolCircle)(),
 });
 
 getLinePointTransformer.getTargetElement = getAreaPointTransformer.getTargetElement;
@@ -155,7 +156,7 @@ getLinePointTransformer.getTargetElement = getAreaPointTransformer.getTargetElem
 getScatterPointTransformer.getTargetElement = ({ x, y, point }) => ({
   x,
   y,
-  d: symbol().size([point.size ** 2]).type(symbolCircle)(),
+  d: symbol().size(point.size ** 2).type(symbolCircle)(),
 });
 
 const getUniqueName: PureComputed<[Series[], string], string> = (list, name) => {

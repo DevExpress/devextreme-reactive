@@ -77,16 +77,16 @@ const createPointsEnumeratingHitTesterCreator: createPointsEnumeratingHitTesterC
  };
 
 export const createAreaHitTester = createContinuousSeriesHitTesterCreator(() => {
-  const path = area();
+  const path = area<Point>();
   path.x(dArea.x());
-  path.y1(dArea.y1());
+  path.y1(dArea.y1()!);
   path.y0(dArea.y0());
   return path;
 });
 
 export const createLineHitTester = createContinuousSeriesHitTesterCreator(() => {
-  const path = area();
-  const getY = dLine.y();
+  const path = area<Point>();
+  const getY = dLine.y() as (x: Point) => number;
   path.x(dLine.x());
   path.y1(point => getY(point) - LINE_TOLERANCE);
   path.y0(point => getY(point) + LINE_TOLERANCE);
@@ -94,12 +94,12 @@ export const createLineHitTester = createContinuousSeriesHitTesterCreator(() => 
 });
 
 export const createSplineHitTester = createContinuousSeriesHitTesterCreator(() => {
-  const path = area();
-  const getY = dSpline.y();
+  const path = area<Point>();
+  const getY = dSpline.y() as (x: Point) => number;
   path.x(dSpline.x());
   path.y1(point => getY(point) - LINE_TOLERANCE);
   path.y0(point => getY(point) + LINE_TOLERANCE);
-  path.curve(dSpline.curve());
+  path.curve(dSpline.curve() as any);
   return path;
 });
 

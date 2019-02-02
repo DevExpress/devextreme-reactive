@@ -70,13 +70,15 @@ const collectStacks: CollectStacksFn = (seriesList, seriesToStackMap) => {
 };
 
 const getStackedData: PureComputed<
-  [StacksKeys, DataItems, OffsetFn, OrderFn], {[key: number]: number[]}
+  [StacksKeys, DataItems, OffsetFn, OrderFn], {[key: number]: any[]}
 > = (
   stacksKeys, dataItems, offset, order,
 ) => {
   const result = {};
   Object.keys(stacksKeys).forEach((stackId) => {
-    result[stackId] = stack().keys(stacksKeys[stackId]).order(order).offset(offset)(dataItems);
+    result[stackId] = stack().keys(stacksKeys[stackId])
+    .order(order as any)
+    .offset(offset as any)(dataItems as any[]);
   });
   return result;
 };
@@ -99,7 +101,7 @@ const buildStackedSeries = (series: Series, dataItems: DataItems) => {
 
 const applyStacking: ApplyStackingFn = (seriesList, dataItems, seriesToStackMap, offset, order) => {
   const [stacksKeys, seriesPositions] = collectStacks(seriesList, seriesToStackMap) as
-   [StacksKeys, SeriesPositions];
+  [StacksKeys, SeriesPositions];
   if (Object.keys(stacksKeys).length === 0) {
     return seriesList;
   }
@@ -110,7 +112,7 @@ const applyStacking: ApplyStackingFn = (seriesList, dataItems, seriesToStackMap,
     if (!stackData) {
       return seriesItem;
     }
-    const position = seriesPositions[seriesItem.name] as number;
+    const position = seriesPositions[seriesItem.name];
     return buildStackedSeries(seriesItem, stackData[position]);
   }) as Series[];
 };

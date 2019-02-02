@@ -55,10 +55,6 @@ mockSymbol.type = jest.fn().mockReturnValue(mockSymbol);
 (symbol as jest.Mock).mockReturnValue(mockSymbol);
 
 const mockArc = jest.fn().mockReturnValue('test-d') as any;
-mockArc.innerRadius = jest.fn().mockReturnValue(mockArc);
-mockArc.outerRadius = jest.fn().mockReturnValue(mockArc);
-mockArc.startAngle = jest.fn().mockReturnValue(mockArc);
-mockArc.endAngle = jest.fn().mockReturnValue(mockArc);
 mockArc.centroid = jest.fn().mockReturnValue([2, 3]);
 (arc as jest.Mock).mockReturnValue(mockArc);
 
@@ -203,7 +199,7 @@ describe('getScatterPointTransformer', () => {
       d: 'symbol path',
     });
 
-    expect(mockSymbol.size).toBeCalledWith([400]);
+    expect(mockSymbol.size).toBeCalledWith(400);
   });
 });
 
@@ -336,6 +332,12 @@ describe('getPiePointTransformer', () => {
       y: 23,
       d: 'symbol path',
     });
+    expect(mockArc.centroid).toBeCalledWith({
+      startAngle: 45,
+      endAngle: 60,
+      innerRadius: 20,
+      outerRadius: 40,
+    });
   });
 
   it('should return point color', () => {
@@ -366,7 +368,7 @@ describe('dSymbol', () => {
     const result = dSymbol({ size: 3 });
 
     expect(result).toEqual('symbol path');
-    expect((symbol as any).mock.results[0].value.size).toBeCalledWith([9]);
+    expect((symbol as any).mock.results[0].value.size).toBeCalledWith(9);
     expect((symbol as any).mock.results[0].value.type).toBeCalledWith(symbolCircle);
   });
 });
@@ -393,12 +395,14 @@ describe('dPie', () => {
     const result = dPie({
       maxRadius: 10, innerRadius: 4, outerRadius: 8, startAngle: 90, endAngle: 180,
     });
-    expect(result).toEqual('test-d');
 
-    expect(mockArc.innerRadius).toBeCalledWith(40);
-    expect(mockArc.outerRadius).toBeCalledWith(80);
-    expect(mockArc.startAngle).toBeCalledWith(90);
-    expect(mockArc.endAngle).toBeCalledWith(180);
+    expect(mockArc).toBeCalledWith({
+      innerRadius: 40,
+      outerRadius: 80,
+      startAngle: 90,
+      endAngle: 180,
+    });
+    expect(result).toEqual('test-d');
   });
 });
 

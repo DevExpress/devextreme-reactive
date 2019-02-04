@@ -50,7 +50,6 @@ export namespace ColumnChooser {
   }
 }
 
-
 export interface ColumnChooserProps {
   /** A component that renders the column chooser overlay. */
   overlayComponent: React.ComponentType<ColumnChooser.OverlayProps>;

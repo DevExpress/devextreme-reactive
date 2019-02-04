@@ -35,9 +35,9 @@ describe('FilteringState', () => {
   });
 
   testStatePluginField({
+    defaultDeps,
     Plugin: FilteringState,
     propertyName: 'filters',
-    defaultDeps,
     values: [
       [{ columnName: 'a', value: 'a' }],
       [{ columnName: 'b', value: 'a' }],

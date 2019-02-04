@@ -51,9 +51,9 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
     };
 
     this.state = {
-      editingRowIds: props.editingRowIds || props.defaultEditingRowIds,
       addedRows,
       rowChanges,
+      editingRowIds: props.editingRowIds || props.defaultEditingRowIds,
       deletedRowIds: props.deletedRowIds || props.defaultDeletedRowIds,
     };
 

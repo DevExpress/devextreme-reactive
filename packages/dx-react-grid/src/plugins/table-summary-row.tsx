@@ -24,7 +24,7 @@ import {
   TABLE_TOTAL_SUMMARY_TYPE,
   ColumnSummary,
 } from '@devexpress/dx-grid-core';
-import { CellProps, RowProps, SummaryItemProps, TableSummaryRowProps } from '../types';
+import { TableCellProps, TableRowProps, SummaryItemProps, TableSummaryRowProps } from '../types';
 
 const dependencies = [
   { name: 'DataTypeProvider', optional: true },
@@ -138,7 +138,7 @@ class TableSummaryRowBase extends React.PureComponent<TableSummaryRowProps> {
             { tableRow, tableColumn }: any,
           ) => isTotalSummaryTableCell(tableRow, tableColumn)}
         >
-          {(params: CellProps) => (
+          {(params: TableCellProps) => (
             <TemplateConnector>
               {({ totalSummaryItems, totalSummaryValues }) => {
                 const columnSummaries = getColumnSummaries(
@@ -164,7 +164,7 @@ class TableSummaryRowBase extends React.PureComponent<TableSummaryRowProps> {
             { tableRow, tableColumn }: any,
           ) => isGroupSummaryTableCell(tableRow, tableColumn)}
         >
-          {(params: CellProps) => (
+          {(params: TableCellProps) => (
             <TemplateConnector>
               {({ groupSummaryItems, groupSummaryValues }) => {
                 const columnSummaries = getColumnSummaries(
@@ -190,7 +190,7 @@ class TableSummaryRowBase extends React.PureComponent<TableSummaryRowProps> {
             { tableRow, tableColumn }: any,
           ) => isTreeSummaryTableCell(tableRow, tableColumn)}
         >
-          {(params: CellProps) => (
+          {(params: TableCellProps) => (
             <TemplateConnector>
               {({
                 treeSummaryItems,
@@ -235,7 +235,7 @@ class TableSummaryRowBase extends React.PureComponent<TableSummaryRowProps> {
           name="tableRow"
           predicate={({ tableRow }: any) => !!isTotalSummaryTableRow(tableRow)}
         >
-          {(params: RowProps) => (
+          {(params: TableRowProps) => (
             <TotalRow
               {...params}
             />
@@ -245,7 +245,7 @@ class TableSummaryRowBase extends React.PureComponent<TableSummaryRowProps> {
           name="tableRow"
           predicate={({ tableRow }: any) => !!isGroupSummaryTableRow(tableRow)}
         >
-          {(params: RowProps) => (
+          {(params: TableRowProps) => (
             <GroupRow
               {...params}
             />
@@ -255,7 +255,7 @@ class TableSummaryRowBase extends React.PureComponent<TableSummaryRowProps> {
           name="tableRow"
           predicate={({ tableRow }: any) => !!isTreeSummaryTableRow(tableRow)}
         >
-          {(params: RowProps) => (
+          {(params: TableRowProps) => (
             <TreeRow
               {...params}
             />

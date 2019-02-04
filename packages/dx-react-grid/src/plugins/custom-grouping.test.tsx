@@ -155,6 +155,7 @@ describe('CustomGrouping', () => {
   });
 
   describe('temporary grouping', () => {
+  // tslint:disable-next-line: max-line-length
     it('should provide grouping and expanded groups based on grouping and expandedGroups properties', () => {
       const grouping = [{ columnName: 'a' }];
       const expandedGroups = ['a', 'b'];

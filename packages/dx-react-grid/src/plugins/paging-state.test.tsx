@@ -19,9 +19,9 @@ describe('PagingState', () => {
   });
 
   testStatePluginField({
+    defaultDeps,
     Plugin: PagingState,
     propertyName: 'currentPage',
-    defaultDeps,
     values: [
       0,
       1,
@@ -34,9 +34,9 @@ describe('PagingState', () => {
   });
 
   testStatePluginField({
+    defaultDeps,
     Plugin: PagingState,
     propertyName: 'pageSize',
-    defaultDeps,
     values: [
       0,
       1,

@@ -11,7 +11,9 @@ import {
   isGroupTableRow,
   TABLE_GROUP_TYPE,
 } from '@devexpress/dx-grid-core';
-import { TableGroupRowProps, ShowColumnWhenGroupedGetterFn, CellProps, RowProps } from '../types';
+import {
+  TableGroupRowProps, ShowColumnWhenGroupedGetterFn, TableCellProps, TableRowProps,
+} from '../types';
 
 const pluginDependencies = [
   { name: 'GroupingState' },
@@ -79,7 +81,7 @@ class TableGroupRowBase extends React.PureComponent<TableGroupRowProps> {
           name="tableCell"
           predicate={({ tableRow }: any) => isGroupTableRow(tableRow)}
         >
-          {(params: CellProps) => (
+          {(params: TableCellProps) => (
             <TemplateConnector>
               {({ grouping, expandedGroups }, { toggleGroupExpanded }) => {
                 if (isGroupTableCell(params.tableRow, params.tableColumn)) {
@@ -99,9 +101,9 @@ class TableGroupRowBase extends React.PureComponent<TableGroupRowProps> {
                           row={params.tableRow.row}
                           column={params.tableColumn.column!}
                           expanded={expandedGroups.indexOf(params.tableRow.row.compoundKey) !== -1}
-                          onToggle={
-                            () => toggleGroupExpanded({ groupKey: params.tableRow.row.compoundKey })
-                          }
+                          onToggle={() => toggleGroupExpanded(
+                            { groupKey: params.tableRow.row.compoundKey },
+                          )}
                         >
                           {content}
                         </GroupCell>
@@ -130,7 +132,7 @@ class TableGroupRowBase extends React.PureComponent<TableGroupRowProps> {
           name="tableRow"
           predicate={({ tableRow }: any) => isGroupTableRow(tableRow)}
         >
-          {(params: RowProps) => (
+          {(params: TableRowProps) => (
             <GroupRow
               {...params}
               row={params.tableRow.row}

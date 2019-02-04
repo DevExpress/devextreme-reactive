@@ -65,10 +65,10 @@ describe('TableColumnVisibility', () => {
   });
 
   testStatePluginField({
-    Plugin: TableColumnVisibility,
-    propertyName: 'hiddenColumnNames',
     defaultDeps,
     defaultProps,
+    Plugin: TableColumnVisibility,
+    propertyName: 'hiddenColumnNames',
     values: [
       ['a'],
       ['b'],
@@ -123,6 +123,7 @@ describe('TableColumnVisibility', () => {
   });
 
   describe('column extensions', () => {
+    // tslint:disable-next-line: max-line-length
     it('should correctly call getColumnExtensionValueGetter if columnExtensions prop is defined', () => {
       const columnExtensions = [{ columnName: 'a', togglingEnabled: true }];
       mount((

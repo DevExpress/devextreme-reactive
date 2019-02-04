@@ -94,8 +94,8 @@ class GroupingStateBase extends React.PureComponent<GroupingStateProps, Grouping
     const sortIndex = adjustSortIndex(groupingIndex, grouping, sorting);
     changeColumnSorting({
       columnName,
-      keepOther: true,
       sortIndex,
+      keepOther: true,
       ...restParams,
     });
     return false;
@@ -136,8 +136,8 @@ class GroupingStateBase extends React.PureComponent<GroupingStateProps, Grouping
         if (columnSortingIndex === sortIndex) return;
 
         changeColumnSorting({
-          keepOther: true,
           sortIndex,
+          keepOther: true,
           ...sorting[columnSortingIndex],
         });
       },

@@ -11,7 +11,7 @@ import {
   isAddedTableRow,
   isEditTableRow,
 } from '@devexpress/dx-grid-core';
-import { TableEditColumnProps, CellProps } from '../types';
+import { TableEditColumnProps, TableCellProps } from '../types';
 
 const pluginDependencies = [
   { name: 'EditingState' },
@@ -67,7 +67,7 @@ class TableEditColumnBase extends React.PureComponent<TableEditColumnProps> {
             { tableRow, tableColumn }: any,
           ) => isHeadingEditCommandsTableCell(tableRow, tableColumn)}
         >
-          {(params: CellProps) => (
+          {(params: TableCellProps) => (
             <TemplateConnector>
               {(getters, actions) => (
                 <HeaderCell {...params}>
@@ -89,7 +89,7 @@ class TableEditColumnBase extends React.PureComponent<TableEditColumnProps> {
             { tableRow, tableColumn }: any,
           ) => isEditCommandsTableCell(tableRow, tableColumn)}
         >
-          {(params: CellProps) => (
+          {(params: TableCellProps) => (
             <TemplateConnector>
               {(getters, actions) => {
                 const isEdit = isEditTableRow(params.tableRow);

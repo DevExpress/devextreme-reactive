@@ -188,6 +188,7 @@ describe('TableGroupRow', () => {
     });
   });
 
+  // tslint:disable-next-line: max-line-length
   it('should render groupIndent cell on select group column and foreign group row intersection', () => {
     isGroupTableRow.mockImplementation(() => true);
     isGroupIndentTableCell.mockImplementation(() => true);

@@ -71,6 +71,7 @@ describe('TableColumnReordering', () => {
     jest.clearAllMocks();
   });
 
+  // tslint:disable-next-line: max-line-length
   it('should apply the column order specified in the "defaultOrder" property in uncontrolled mode', () => {
     mount((
       <DragDropProvider>
@@ -173,7 +174,7 @@ describe('TableColumnReordering', () => {
       </div>
     );
     const mountWithCellTemplates = ({
-      defaultOrder, onOrderChange = undefined,
+      defaultOrder, onOrderChange,
     }, deps = {}) => mount((
       <DragDropProvider>
         <PluginHost>
@@ -373,7 +374,9 @@ describe('TableColumnReordering', () => {
 
     it('should not change column order if target is moved from outside', () => {
       const onOrderChangeMock = jest.fn();
-      const { onLeave, onDrop } = mountWithCellTemplates({ defaultOrder: ['a', 'b'], onOrderChange: onOrderChangeMock })
+      const { onLeave, onDrop } = mountWithCellTemplates(
+        { defaultOrder: ['a', 'b'], onOrderChange: onOrderChangeMock },
+      )
         .find(TableMock)
         .props();
 

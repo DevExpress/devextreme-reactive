@@ -28,8 +28,8 @@ export interface TableBandHeaderProps {
   rowComponent: React.ComponentType<Table.RowProps>;
   /** Specifies column bands for multi-level table header. */
   columnBands: Array<TableBandHeader.ColumnBands>;
-  /** @internal */ //TODO: publish?
+  /** @internal */
   bandedHeaderCellComponent: React.ComponentType<Table.CellProps & { component: React.ReactNode }>;
-  /** @internal */ //TODO: publish?
+  /** @internal */
   invisibleCellComponent: React.ComponentType;
 }

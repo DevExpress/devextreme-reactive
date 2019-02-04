@@ -5,7 +5,6 @@ import { PluginHost } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents, getComputedState, setupConsole } from '@devexpress/dx-testing';
 import { DataTypeProvider } from './data-type-provider';
 
-
 jest.mock('@devexpress/dx-grid-core', () => ({
   getAvailableFilterOperationsGetter: jest.fn(),
 }));
@@ -22,6 +21,7 @@ describe('DataTypeProvider', () => {
     getAvailableFilterOperationsGetter.mockImplementation(() => () => ['a', 'b']);
   });
 
+  // tslint:disable-next-line: max-line-length
   it('should define the "valueFormatter" with correct predicate if "formatterComponent" is specified', () => {
     const tree = mount((
       <PluginHost>
@@ -44,6 +44,7 @@ describe('DataTypeProvider', () => {
       .toBeFalsy();
   });
 
+  // tslint:disable-next-line: max-line-length
   it('should define the "valueEditor" with correct predicate if "editorComponent" is specified', () => {
     const tree = mount((
       <PluginHost>

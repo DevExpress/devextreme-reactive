@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Plugin, Template, Getter, Getters } from '@devexpress/dx-react-core';
 import { getAvailableFilterOperationsGetter } from '@devexpress/dx-grid-core';
 import {
-  DataTypeProviderProps, ValueFormatterProps, ValueEditorProps,
+  DataTypeProvider as DataTypeProviderNS, DataTypeProviderProps,
 } from '../types';
 
 class DataTypeProviderBase extends React.PureComponent<DataTypeProviderProps> {
@@ -34,7 +34,7 @@ class DataTypeProviderBase extends React.PureComponent<DataTypeProviderProps> {
               name="valueFormatter"
               predicate={({ column }: any) => columnNames.includes(column.name)}
             >
-              {(params: ValueFormatterProps) => <Formatter {...params} />}
+              {(params: DataTypeProviderNS.ValueFormatterProps) => <Formatter {...params} />}
             </Template>
           )
           : null
@@ -45,7 +45,7 @@ class DataTypeProviderBase extends React.PureComponent<DataTypeProviderProps> {
               name="valueEditor"
               predicate={({ column }: any) => columnNames.includes(column.name)}
             >
-              {(params: ValueEditorProps) => <Editor {...params} />}
+              {(params: DataTypeProviderNS.ValueEditorProps) => <Editor {...params} />}
             </Template>
           )
           : null

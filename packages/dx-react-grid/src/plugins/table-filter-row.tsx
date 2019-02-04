@@ -15,7 +15,7 @@ import {
   TABLE_FILTER_TYPE,
   FilterConfig,
 } from '@devexpress/dx-grid-core';
-import { TableFilterRowProps, TableFilterRowState, CellProps, RowProps } from '../types';
+import { TableFilterRowProps, TableFilterRowState, TableCellProps, TableRowProps } from '../types';
 
 const pluginDependencies = [
   { name: 'FilteringState' },
@@ -78,7 +78,7 @@ class TableFilterRowBase extends React.PureComponent<TableFilterRowProps, TableF
           name="tableCell"
           predicate={({ tableRow, tableColumn }: any) => isFilterTableCell(tableRow, tableColumn)}
         >
-          {(params: CellProps) => (
+          {(params: TableCellProps) => (
             <TemplateConnector>
               {(
                 { filters, isColumnFilteringEnabled, getAvailableFilterOperations },
@@ -162,7 +162,7 @@ class TableFilterRowBase extends React.PureComponent<TableFilterRowProps, TableF
           name="tableRow"
           predicate={({ tableRow }: any) => !!isFilterTableRow(tableRow)}
         >
-          {(params: RowProps) => <FilterRow {...params} />}
+          {(params: TableRowProps) => <FilterRow {...params} />}
         </Template>
       </Plugin>
     );

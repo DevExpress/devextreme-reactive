@@ -13,7 +13,7 @@ export class ColumnGroup extends React.PureComponent<{ columns: TableColumn[] }>
             key={key}
             style={width !== undefined
               ? { [preferMinWidth ? 'minWidth' : 'width']: `${width}px` }
-              : null}
+              : undefined}
           />
         ))}
       </colgroup>

@@ -108,13 +108,9 @@ export interface TableProps {
 }
 
 /** @internal */
-export type CellProps = Table.CellProps;
+export type TableCellProps = Table.CellProps;
 /** @internal */
-export type RowProps = Table.RowProps;
+export type TableRowProps = Table.RowProps;
 
 /** @internal */
 export type CellPlaceholderProps = Table.CellProps;
-/** @internal */
-// export type RowProps = Table.RowProps;
-
-

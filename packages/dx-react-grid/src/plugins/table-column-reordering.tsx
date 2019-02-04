@@ -23,7 +23,7 @@ import {
 } from '@devexpress/dx-grid-core';
 import {
   Table as TableNS, CellDimensionsGetter, TableColumnReorderingProps,
-  DragOverArgs, TableColumnReorderingState, TableContainerProps,
+  DragOverArgs, TableColumnReorderingState,
 } from '../types';
 
 const pluginDependencies = [
@@ -257,8 +257,8 @@ TableColumnReorderingRaw.components = {
   cellComponent: 'Cell',
 };
 
-const TableContainer: React.SFC<TableContainerProps> = ({
-  onOver, onLeave, onDrop, children,
+const TableContainer = ({
+  onOver, onLeave, onDrop, children, draggingEnabled,
 }) => (
   draggingEnabled ? (
     <DropTarget

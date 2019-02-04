@@ -35,8 +35,3 @@ export interface DataTypeProviderProps {
   /** The names of filter operations that are available for the associated columns. */
   availableFilterOperations?: Array<FilterOperation>;
 }
-
-/** @internal */
-export type ValueFormatterProps = DataTypeProvider.ValueFormatterProps;
-/** @internal */
-export type ValueEditorProps = DataTypeProvider.ValueEditorProps;

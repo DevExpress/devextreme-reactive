@@ -187,5 +187,4 @@ export { getGroupCellTargetIndex } from './utils/group-panel';
 /** @internal */
 export { getCollapsedGrid, TABLE_STUB_TYPE } from './utils/virtual-table';
 
-
 export * from './types';

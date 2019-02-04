@@ -2,7 +2,9 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { changeSearchValue } from '@devexpress/dx-grid-core';
-import { pluginDepsToComponents, getComputedState, testStatePluginField } from '@devexpress/dx-testing';
+import {
+  pluginDepsToComponents, getComputedState, testStatePluginField,
+} from '@devexpress/dx-testing';
 import { SearchState } from './search-state';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
@@ -18,21 +20,15 @@ const defaultDeps = {
 };
 
 describe('Search state', () => {
-  let resetConsole;
-
-  afterAll(() => {
-    resetConsole();
-  });
-
   beforeEach(() => {
     changeSearchValue.mockImplementation(() => []);
   });
 
   testStatePluginField({
+    defaultDeps,
     Plugin: SearchState,
     propertyName: 'value',
     getterName: 'searchValue',
-    defaultDeps,
     values: [
       'searchValue',
       'searchValue2',

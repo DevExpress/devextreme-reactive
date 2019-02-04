@@ -57,9 +57,9 @@ describe('GroupingState', () => {
   });
 
   testStatePluginField({
+    defaultDeps,
     Plugin: GroupingState,
     propertyName: 'grouping',
-    defaultDeps,
     values: [
       [{ columnName: 'a' }],
       [{ columnName: 'b' }],
@@ -73,9 +73,9 @@ describe('GroupingState', () => {
   });
 
   testStatePluginField({
+    defaultDeps,
     Plugin: GroupingState,
     propertyName: 'expandedGroups',
-    defaultDeps,
     values: [
       ['A'],
       ['B'],
@@ -109,6 +109,7 @@ describe('GroupingState', () => {
         .toBe(defaultGrouping);
     });
 
+    // tslint:disable-next-line: max-line-length
     it('should provide draftGrouping getter based on the result of draftColumnGrouping action', () => {
       const defaultGrouping = [{ columnName: 'a' }];
 
@@ -135,6 +136,7 @@ describe('GroupingState', () => {
         .toEqual([{ columnName: 'b' }]);
     });
 
+    // tslint:disable-next-line: max-line-length
     it('should provide draftGrouping getter based on the result of cancelColumnGroupingDraft result', () => {
       const defaultGrouping = [{ columnName: 'a' }];
 
@@ -179,7 +181,9 @@ describe('GroupingState', () => {
         </PluginHost>
       ));
 
-      executeComputedAction(tree, actions => actions.changeColumnSorting({ columnName: 'a', direction: 'asc' }));
+      executeComputedAction(tree, actions => actions
+        .changeColumnSorting({ columnName: 'a', direction: 'asc' }),
+      );
       expect(adjustSortIndex).toBeCalledWith(0, defaultGrouping, []);
       expect(deps.action.changeColumnSorting.mock.calls[0][0])
         .toEqual({
@@ -190,6 +194,7 @@ describe('GroupingState', () => {
         });
     });
 
+    // tslint:disable-next-line: max-line-length
     it('should modify changeColumnSorting action payload when several grouped columns is sorted', () => {
       const defaultGrouping = [{ columnName: 'a' }, { columnName: 'b' }, { columnName: 'c' }];
       const sorting = [{ columnName: 'a' }, { columnName: 'b' }, { columnName: 'c' }];
@@ -221,9 +226,13 @@ describe('GroupingState', () => {
         });
     });
 
+    // tslint:disable-next-line: max-line-length
     it('should correctly set sortIndex for changeColumnSorting action when some grouped columns is not sorted', () => {
       const defaultGrouping = [{ columnName: 'a' }, { columnName: 'b' }, { columnName: 'c' }];
-      const sorting = [{ columnName: 'a', direction: 'asc' }, { columnName: 'c', direction: 'asc' }];
+      const sorting = [
+        { columnName: 'a', direction: 'asc' },
+        { columnName: 'c', direction: 'asc' },
+      ];
       const deps = {
         getter: {
           sorting,
@@ -301,7 +310,9 @@ describe('GroupingState', () => {
         </PluginHost>
       ));
 
-      executeComputedAction(tree, actions => actions.changeColumnSorting({ columnName: 'c', direction: 'asc' }));
+      executeComputedAction(tree, actions => actions
+        .changeColumnSorting({ columnName: 'c', direction: 'asc' }),
+      );
       expect(deps.action.changeColumnSorting.mock.calls[0][0])
         .toEqual({
           columnName: 'c',
@@ -313,7 +324,10 @@ describe('GroupingState', () => {
 
   describe('changeColumnSorting action on changeColumnGrouping action', () => {
     it('should fire changeColumnSorting action when grouped by sorted column', () => {
-      const sorting = [{ columnName: 'b', direction: 'asc' }, { columnName: 'a', direction: 'asc' }];
+      const sorting = [
+        { columnName: 'b', direction: 'asc' },
+        { columnName: 'a', direction: 'asc' },
+      ];
       const grouping = [{ columnName: 'a' }];
       const deps = {
         getter: {
@@ -346,7 +360,10 @@ describe('GroupingState', () => {
     });
 
     it('should fire changeColumnSorting action when ungrouped by sorted column', () => {
-      const sorting = [{ columnName: 'a', direction: 'asc' }, { columnName: 'b', direction: 'asc' }];
+      const sorting = [
+        { columnName: 'a', direction: 'asc' },
+        { columnName: 'b', direction: 'asc' },
+      ];
       const grouping = [{ columnName: 'b' }];
       const deps = {
         getter: {
@@ -379,7 +396,10 @@ describe('GroupingState', () => {
     });
 
     it('should correctly calculate sortIndex when some grouped columns is not sorted', () => {
-      const sorting = [{ columnName: 'a', direction: 'asc' }, { columnName: 'c', direction: 'asc' }];
+      const sorting = [
+        { columnName: 'a', direction: 'asc' },
+        { columnName: 'c', direction: 'asc' },
+      ];
       const grouping = [{ columnName: 'a' }, { columnName: 'b' }, { columnName: 'c' }];
       const deps = {
         getter: {
@@ -400,7 +420,9 @@ describe('GroupingState', () => {
       ));
 
       changeColumnGrouping.mockReturnValue({ grouping });
-      executeComputedAction(tree, actions => actions.changeColumnGrouping({ columnName: 'a', groupIndex: 1 }));
+      executeComputedAction(tree, actions => actions
+        .changeColumnGrouping({ columnName: 'a', groupIndex: 1 }),
+      );
       expect(adjustSortIndex).toBeCalledWith(0, grouping, sorting);
       expect(deps.action.changeColumnSorting)
         .not.toBeCalled();
@@ -431,8 +453,12 @@ describe('GroupingState', () => {
         .not.toBeCalled();
     });
 
+    // tslint:disable-next-line: max-line-length
     it('should not fire changeColumnSorting action when grouped column sorting index is correct', () => {
-      const sorting = [{ columnName: 'a', direction: 'asc' }, { columnName: 'b', direction: 'asc' }];
+      const sorting = [
+        { columnName: 'a', direction: 'asc' },
+        { columnName: 'b', direction: 'asc' },
+      ];
       const grouping = [{ columnName: 'a' }, { columnName: 'b' }];
       const deps = {
         getter: {

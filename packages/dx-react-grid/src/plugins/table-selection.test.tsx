@@ -189,7 +189,6 @@ describe('Table Selection', () => {
       </PluginHost>
     ));
 
-
     expect(tree.find(defaultProps.rowComponent).exists())
       .toBeFalsy();
   });

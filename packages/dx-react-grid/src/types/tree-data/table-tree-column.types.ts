@@ -1,6 +1,6 @@
 import { Column, Table } from '../index';
 
-// tslint:disable-next-line: no-namespace
+/* tslint:disable no-namespace max-line-length */
 export namespace TableTreeColumn {
   /** Describes properties passed to a component that renders a cell within a data row. */
   export interface CellProps extends Table.CellProps {
@@ -67,3 +67,4 @@ export interface TableTreeColumnProps {
   /** Specifies whether to render Select All checkbox. Requires the IntegratedSelection plugin. */
   showSelectAll?: boolean;
 }
+/* tslint:enable no-namespace max-line-length */

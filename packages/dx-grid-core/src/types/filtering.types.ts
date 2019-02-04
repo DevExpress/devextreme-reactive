@@ -25,7 +25,7 @@ export interface FilterExpression {
  * `greaterThan`, `graterThenOrEqual`, `lessThan`, `lessThanOrEqual` */
 export type FilterOperation = string;
 
-// tslint:disable-next-line:no-namespace
+/* tslint:disable no-namespace max-line-length */
 export namespace IntegratedFiltering {
   /** Describes additional column properties that the plugin can handle. */
   export interface ColumnExtension {
@@ -35,6 +35,7 @@ export namespace IntegratedFiltering {
     predicate?: (value: any, filter: Filter, row: any) => boolean;
   }
 }
+/* tslint:enable no-namespace max-line-length */
 
 /** @internal */
 export type GetAvailableFilterOperationsFn = PureComputed<[string], FilterOperation[] | undefined>;

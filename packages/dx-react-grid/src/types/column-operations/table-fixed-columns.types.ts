@@ -1,4 +1,4 @@
-import { ColumnDimensions, Table, RowProps } from '../index';
+import { ColumnDimensions, Table, TableRowProps } from '../index';
 
 // tslint:disable-next-line: no-namespace
 export namespace TableFixedColumns {
@@ -25,7 +25,7 @@ export interface TableFixedColumnsProps {
   /** A component that renders a fixed column's cell. */
   cellComponent: React.ComponentType<TableFixedColumns.CellProps>;
   /** @internal */
-  listenerRowComponent: React.ComponentType<RowProps>;
+  listenerRowComponent: React.ComponentType<TableRowProps>;
   /** @internal */
   listenerCellComponent: React.ComponentType<ListenerCellProps>;
 }

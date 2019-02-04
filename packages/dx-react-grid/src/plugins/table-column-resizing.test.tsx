@@ -54,14 +54,14 @@ describe('TableColumnResizing', () => {
   });
 
   testStatePluginField({
+    defaultDeps,
+    defaultProps,
     Plugin: TableColumnResizing,
     propertyName: 'columnWidths',
     getGetterValue: () => tableColumnsWithWidths
       .mock
       .calls[tableColumnsWithWidths.mock.calls.length - 1][1],
-    defaultDeps,
     customPayload: defaultProps,
-    defaultProps,
     values: [
       [{ columnName: 'a', width: 1 }],
       [{ columnName: 'a', width: 2 }],
@@ -75,6 +75,7 @@ describe('TableColumnResizing', () => {
   });
 
   describe('table layout getters', () => {
+    // tslint:disable-next-line: max-line-length
     it('should apply the column widths specified in the "defaultColumnWidths" property in uncontrolled mode', () => {
       const tree = mount((
         <PluginHost>
@@ -95,6 +96,7 @@ describe('TableColumnResizing', () => {
     });
   });
 
+  // tslint:disable-next-line: max-line-length
   it('should correctly update column widths after the "draftTableColumnWidth" action is fired', () => {
     const tree = mount((
       <PluginHost>
@@ -118,6 +120,7 @@ describe('TableColumnResizing', () => {
       .toBeCalledWith('tableColumnsWithWidths', [{ columnName: 'a', width: 150 }]);
   });
 
+  // tslint:disable-next-line: max-line-length
   it('should correctly update column widths after the "cancelTableColumnWidthDraft" action is fired', () => {
     const tree = mount((
       <PluginHost>
@@ -131,7 +134,9 @@ describe('TableColumnResizing', () => {
 
     const payload = { changes: { a: 50 } };
 
-    cancelTableColumnWidthDraft.mockReturnValue({ draftColumnWidths: [{ columnName: 'a', width: 150 }] });
+    cancelTableColumnWidthDraft.mockReturnValue(
+      { draftColumnWidths: [{ columnName: 'a', width: 150 }] },
+    );
     executeComputedAction(tree, actions => actions.cancelTableColumnWidthDraft(payload));
 
     expect(cancelTableColumnWidthDraft)

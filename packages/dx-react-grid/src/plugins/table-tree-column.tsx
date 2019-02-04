@@ -3,7 +3,7 @@ import {
   Template, Getter, Plugin, TemplateConnector, TemplatePlaceholder, PluginComponents,
 } from '@devexpress/dx-react-core';
 import { isTreeTableCell } from '@devexpress/dx-grid-core';
-import { TableTreeColumnProps, CellProps } from '../types';
+import { TableTreeColumnProps, TableCellProps } from '../types';
 
 class TableTreeColumnBase extends React.PureComponent<TableTreeColumnProps> {
   static components: PluginComponents;
@@ -61,7 +61,7 @@ class TableTreeColumnBase extends React.PureComponent<TableTreeColumnProps> {
             { tableRow, tableColumn }: any,
           ) => isTreeTableCell(tableRow, tableColumn, forColumnName)}
         >
-          {(params: CellProps) => (
+          {(params: TableCellProps) => (
             <TemplateConnector>
               {({
                 getCollapsedRows, expandedRowIds, selection, isTreeRowLeaf, getTreeRowLevel,
@@ -77,9 +77,9 @@ class TableTreeColumnBase extends React.PureComponent<TableTreeColumnProps> {
                   <TemplatePlaceholder
                     name="valueFormatter"
                     params={{
+                      value,
                       row,
                       column: params.tableColumn.column,
-                      value,
                     }}
                   >
                     {content => (

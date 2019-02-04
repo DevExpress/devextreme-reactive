@@ -12,7 +12,7 @@ import {
   isSelectAllTableCell,
   isDataTableRow,
 } from '@devexpress/dx-grid-core';
-import { TableSelectionProps, CellProps, RowProps } from '../types';
+import { TableSelectionProps, TableCellProps, TableRowProps } from '../types';
 
 class TableSelectionBase extends React.PureComponent<TableSelectionProps> {
   static defaultProps = {
@@ -60,7 +60,7 @@ class TableSelectionBase extends React.PureComponent<TableSelectionProps> {
               tableRow, tableColumn,
             }: any) => isSelectAllTableCell(tableRow, tableColumn)}
           >
-            {(params: CellProps) => (
+            {(params: TableCellProps) => (
               <TemplateConnector>
                 {({ selectAllAvailable, allSelected, someSelected }, { toggleSelectAll }) => (
                   <HeaderCell
@@ -80,7 +80,7 @@ class TableSelectionBase extends React.PureComponent<TableSelectionProps> {
             name="tableCell"
             predicate={({ tableRow, tableColumn }: any) => isSelectTableCell(tableRow, tableColumn)}
           >
-            {(params: CellProps) => (
+            {(params: TableCellProps) => (
               <TemplateConnector>
                 {({ selection }, { toggleSelection }) => (
                   <Cell
@@ -99,7 +99,7 @@ class TableSelectionBase extends React.PureComponent<TableSelectionProps> {
             name="tableRow"
             predicate={({ tableRow }: any) => !!isDataTableRow(tableRow)}
           >
-            {(params: RowProps) => (
+            {(params: TableRowProps) => (
               <TemplateConnector>
                 {({ selection }, { toggleSelection }) => (
                   <Row

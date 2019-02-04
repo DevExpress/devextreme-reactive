@@ -184,6 +184,7 @@ describe('TableFilterRow', () => {
       .toBe('Filter...');
   });
 
+  // tslint:disable-next-line: max-line-length
   it('should render a cell with a disabled filtering editor if filtering is not allowed for the column', () => {
     const tree = mount((
       <PluginHost>

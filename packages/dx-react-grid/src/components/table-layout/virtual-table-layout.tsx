@@ -292,6 +292,8 @@ export class VirtualTableLayout extends React.PureComponent<VirtualTableLayoutPr
     const getColSpan = (
       tableRow, tableColumn,
     ) => getCellColSpan!({ tableRow, tableColumn, tableColumns: columns });
+
+    /* tslint:disable object-shorthand-properties-first */
     const collapsedHeaderGrid = getCollapsedGrid({
       rows: headerRows,
       columns,
@@ -325,6 +327,7 @@ export class VirtualTableLayout extends React.PureComponent<VirtualTableLayoutPr
       getRowHeight: this.getRowHeight,
       getColSpan,
     });
+    /* tslint:enable object-shorthand-properties-first */
 
     /* tslint:disable max-line-length */
     return (

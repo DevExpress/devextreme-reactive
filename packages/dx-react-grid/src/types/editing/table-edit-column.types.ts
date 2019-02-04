@@ -1,6 +1,6 @@
 import { Table } from '../index';
 
-// tslint:disable-next-line: no-namespace
+/* tslint:disable no-namespace max-line-length */
 export namespace TableEditColumn {
   /** Describes properties passed to a data row's command cell component. */
   export interface CellProps extends Table.CellProps {
@@ -58,3 +58,4 @@ export interface TableEditColumnProps {
   /** An object that specifies the localization messages. */
   messages?: TableEditColumn.LocalizationMessages;
 }
+/* tslint:enable no-namespace max-line-length */

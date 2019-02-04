@@ -207,7 +207,11 @@ describe('Table', () => {
   });
 
   it('should render stub cell on plugin-defined column and row intersection', () => {
-    const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {} };
+    const tableCellArgs = {
+      tableRow: { row: 'row' },
+      tableColumn: { column: 'column' },
+      style: {},
+    };
 
     const tree = mount((
       <PluginHost>
@@ -225,7 +229,11 @@ describe('Table', () => {
 
   it('should render stub header cell on plugin-defined column and row intersection', () => {
     isHeaderStubTableCell.mockImplementation(() => true);
-    const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {} };
+    const tableCellArgs = {
+      tableRow: { row: 'row' },
+      tableColumn: { column: 'column' },
+      style: {},
+    };
 
     const tree = mount((
       <PluginHost>

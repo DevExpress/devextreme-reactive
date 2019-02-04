@@ -32,6 +32,8 @@ export interface TableColumn {
   align?: 'left' | 'right' | 'center';
   /** Specifies the fixed table's column alignment. */
   fixed?: 'left' | 'right';
+  /** @internal */
+  preferMinWidth?: boolean;
 }
 
 export type GridColumnExtension = {

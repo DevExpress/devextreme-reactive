@@ -1,6 +1,6 @@
 import { Column } from '../index';
 
-// tslint:disable-next-line: no-namespace
+/* tslint:disable no-namespace max-line-length */
 export namespace DragDropProvider {
   /** Describes properties of the component that renders a container for columns being dragged. */
   export interface ContainerProps {
@@ -28,3 +28,4 @@ export type DragDropProviderState = {
   payload: any | null;
   clientOffset: { x: number, y: number} | null;
 };
+/* tslint:enable no-namespace max-line-length */

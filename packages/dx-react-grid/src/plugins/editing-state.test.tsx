@@ -73,10 +73,10 @@ describe('EditingState', () => {
   });
 
   testStatePluginField({
-    Plugin: EditingState,
-    propertyName: 'editingRowIds',
     defaultDeps,
     defaultProps,
+    Plugin: EditingState,
+    propertyName: 'editingRowIds',
     values: [
       [0],
       [1],
@@ -92,10 +92,10 @@ describe('EditingState', () => {
   });
 
   testStatePluginField({
-    Plugin: EditingState,
-    propertyName: 'deletedRowIds',
     defaultDeps,
     defaultProps,
+    Plugin: EditingState,
+    propertyName: 'deletedRowIds',
     values: [
       [0],
       [1],
@@ -111,10 +111,10 @@ describe('EditingState', () => {
   });
 
   testStatePluginField({
-    Plugin: EditingState,
-    propertyName: 'rowChanges',
     defaultDeps,
     defaultProps,
+    Plugin: EditingState,
+    propertyName: 'rowChanges',
     values: [
       { 1: { a: 0 } },
       { 1: { a: 1 } },
@@ -130,10 +130,10 @@ describe('EditingState', () => {
   });
 
   testStatePluginField({
-    Plugin: EditingState,
-    propertyName: 'addedRows',
     defaultDeps,
     defaultProps,
+    Plugin: EditingState,
+    propertyName: 'addedRows',
     values: [
       [{ a: 0 }],
       [{ a: 1 }],

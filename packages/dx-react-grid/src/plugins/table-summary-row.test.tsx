@@ -205,6 +205,7 @@ describe('TableSummaryRow', () => {
       .toMatchObject(defaultDeps.template.tableRow);
   });
 
+  // tslint:disable-next-line: max-line-length
   it('should render total summary cell on user-defined column and total summary row intersection', () => {
     isTotalSummaryTableCell.mockImplementation(() => true);
     getColumnSummaries.mockImplementation(() => [{ type: 'count', value: 10 }]);
@@ -238,6 +239,7 @@ describe('TableSummaryRow', () => {
       .toBe('Count=10');
   });
 
+  // tslint:disable-next-line: max-line-length
   it('should render group summary cell on user-defined column and group summary row intersection', () => {
     isGroupSummaryTableCell.mockImplementation(() => true);
     getColumnSummaries.mockImplementation(() => [{ type: 'sum', value: 20 }]);
@@ -271,6 +273,7 @@ describe('TableSummaryRow', () => {
       .toBe('Sum=20');
   });
 
+  // tslint:disable-next-line: max-line-length
   it('should render tree summary cell on user-defined column and tree summary row intersection', () => {
     isTreeSummaryTableCell.mockImplementation(() => true);
     getColumnSummaries.mockImplementation(() => [{ type: 'max', value: 30 }]);
@@ -394,6 +397,7 @@ describe('TableSummaryRow', () => {
         .toBeFalsy();
     };
 
+    // tslint:disable-next-line: max-line-length
     it('should render unformatted value if formatlessSummaryTypes contains the summary type', () => {
       getColumnSummaries.mockImplementation(() => [{ type: 'max', value: 30 }]);
 

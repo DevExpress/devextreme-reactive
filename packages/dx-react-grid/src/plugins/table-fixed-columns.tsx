@@ -16,7 +16,7 @@ import {
   calculateFixedColumnProps,
 } from '@devexpress/dx-grid-core';
 import {
-  CellProps, RowProps, TableFixedColumnsProps, TableFixedColumnsState,
+  TableCellProps, TableRowProps, TableFixedColumnsProps, TableFixedColumnsState,
 } from '../types';
 
 const tableHeaderRowsComputed = (
@@ -93,7 +93,7 @@ class TableFixedColumnsBase extends React.PureComponent<TableFixedColumnsProps, 
           name="tableCell"
           predicate={({ tableColumn }: any) => !!tableColumn.fixed}
         >
-          {(params: CellProps) => (
+          {(params: TableCellProps) => (
             <TemplateConnector>
               {({ tableColumns, tableHeaderColumnChains }) => {
                 const { tableColumnDimensions } = this.state;
@@ -120,7 +120,7 @@ class TableFixedColumnsBase extends React.PureComponent<TableFixedColumnsProps, 
           name="tableRow"
           predicate={({ tableRow }: any) => !!isFixedTableRow(tableRow)}
         >
-          {(params: RowProps) => (
+          {(params: TableRowProps) => (
             <ListenerRow {...params} />
           )}
         </Template>
@@ -128,7 +128,7 @@ class TableFixedColumnsBase extends React.PureComponent<TableFixedColumnsProps, 
           name="tableCell"
           predicate={({ tableRow }: any) => !!isFixedTableRow(tableRow)}
         >
-          {(params: CellProps) => (
+          {(params: TableCellProps) => (
             <ListenerCell
               {...params}
               listen={!!params.tableColumn.fixed}

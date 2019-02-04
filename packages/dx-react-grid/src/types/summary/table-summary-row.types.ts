@@ -16,7 +16,9 @@ export namespace TableSummaryRow {
     children?: React.ReactNode;
   }
 
-  /** Describes properties passed to a component that renders an indent used to identify a row's level. */
+  /* * Describes properties passed to a component that renders an indent used to identify
+   * a row's level.
+   * */
   export interface IndentProps {
     /** Specifies the row's level. */
     level: number;

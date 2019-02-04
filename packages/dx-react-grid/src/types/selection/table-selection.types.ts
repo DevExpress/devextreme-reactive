@@ -1,6 +1,6 @@
 import { Table } from '../index';
 
-// tslint:disable-next-line: no-namespace
+/* tslint:disable no-namespace max-line-length */
 export namespace TableSelection {
   /** Describes properties passed to a component that renders a cell containing the Select All checkbox. */
   export interface HeaderCellProps extends Table.CellProps {
@@ -48,3 +48,4 @@ export interface TableSelectionProps {
 
   rowComponent: React.ComponentType<TableSelection.RowProps>;
 }
+/* tslint:enable no-namespace max-line-length */

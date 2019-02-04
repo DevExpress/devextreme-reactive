@@ -12,7 +12,7 @@ import {
   isDetailTableCell,
   TABLE_DETAIL_TYPE,
 } from '@devexpress/dx-grid-core';
-import { TableRowDetailProps, CellProps, RowProps } from '../types';
+import { TableRowDetailProps, TableCellProps, TableRowProps } from '../types';
 
 const getCellColSpanComputed = (
   { getTableCellColSpan }: Getters,
@@ -60,7 +60,7 @@ class TableRowDetailBase extends React.PureComponent<TableRowDetailProps> {
             { tableRow, tableColumn }: any,
           ) => isDetailToggleTableCell(tableRow, tableColumn)}
         >
-          {(params: CellProps) => (
+          {(params: TableCellProps) => (
             <TemplateConnector>
               {({ expandedDetailRowIds }, { toggleDetailRowExpanded }) => (
                 <ToggleCell
@@ -77,7 +77,7 @@ class TableRowDetailBase extends React.PureComponent<TableRowDetailProps> {
           name="tableCell"
           predicate={({ tableRow }: any) => !!isDetailTableRow(tableRow)}
         >
-          {(params: CellProps) => (
+          {(params: TableCellProps) => (
             <TemplateConnector>
               {({ tableColumns }) => {
                 if (isDetailTableCell(params.tableColumn, tableColumns)) {
@@ -99,7 +99,7 @@ class TableRowDetailBase extends React.PureComponent<TableRowDetailProps> {
           name="tableRow"
           predicate={({ tableRow }: any) => !!isDetailTableRow(tableRow)}
         >
-          {(params: RowProps) => (
+          {(params: TableRowProps) => (
             <Row
               {...params}
               row={params.tableRow.row}

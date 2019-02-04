@@ -11,9 +11,9 @@ import {
   BAND_EMPTY_CELL, BAND_DUPLICATE_RENDER,
   TABLE_BAND_TYPE,
 } from '@devexpress/dx-grid-core';
-import { TableBandHeaderProps, CellProps, RowProps } from '../types';
+import { TableBandHeaderProps, TableCellProps, TableRowProps } from '../types';
 
-const CellPlaceholder = (props: CellProps) => <TemplatePlaceholder params={props} />;
+const CellPlaceholder = (props: TableCellProps) => <TemplatePlaceholder params={props} />;
 
 class TableBandHeaderBase extends React.PureComponent<TableBandHeaderProps> {
   static ROW_TYPE = TABLE_BAND_TYPE;
@@ -56,7 +56,7 @@ class TableBandHeaderBase extends React.PureComponent<TableBandHeaderProps> {
           name="tableCell"
           predicate={({ tableRow }: any) => !!isBandedOrHeaderRow(tableRow)}
         >
-          {(params: CellProps) => (
+          {(params: TableCellProps) => (
             <TemplateConnector>
               {({
                 tableColumns,
@@ -79,7 +79,7 @@ class TableBandHeaderBase extends React.PureComponent<TableBandHeaderProps> {
                       <Cell {...params} {...payload}>
                         {value}
                       </Cell>
-                    )
+                    );
                   }
                   case BAND_HEADER_CELL:
                     return (
@@ -99,13 +99,13 @@ class TableBandHeaderBase extends React.PureComponent<TableBandHeaderProps> {
           name="tableCell"
           predicate={({ tableRow, tableColumn }: any) => isHeadingTableCell(tableRow, tableColumn)}
         >
-          {(params: CellProps) => <HeaderCell component={CellPlaceholder} {...params} />}
+          {(params: TableCellProps) => <HeaderCell component={CellPlaceholder} {...params} />}
         </Template>
         <Template
           name="tableRow"
           predicate={({ tableRow }: any) => !!isBandedTableRow(tableRow)}
         >
-          {(params: RowProps) => <Row {...params} />}
+          {(params: TableRowProps) => <Row {...params} />}
         </Template>
       </Plugin>
     );

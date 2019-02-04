@@ -27,9 +27,9 @@ describe('SelectionState', () => {
   });
 
   testStatePluginField({
+    defaultDeps,
     Plugin: SelectionState,
     propertyName: 'selection',
-    defaultDeps,
     values: [
       [1],
       [2],

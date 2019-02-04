@@ -11,7 +11,7 @@ import {
   TABLE_DATA_TYPE,
   TABLE_HEADING_TYPE,
 } from '@devexpress/dx-grid-core';
-import { TableHeaderRowProps, CellProps, RowProps } from '../types';
+import { TableHeaderRowProps, TableCellProps, TableRowProps } from '../types';
 
 const tableHeaderRowsComputed = (
   { tableHeaderRows }: Getters,
@@ -52,7 +52,7 @@ class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {
           name="tableCell"
           predicate={({ tableRow, tableColumn }: any) => isHeadingTableCell(tableRow, tableColumn)}
         >
-          {(params: CellProps) => (
+          {(params: TableCellProps) => (
             <TemplateConnector>
               {({
                 sorting, tableColumns, draggingEnabled, tableColumnResizingEnabled,
@@ -155,7 +155,7 @@ class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {
           name="tableRow"
           predicate={({ tableRow }: any) => !!isHeadingTableRow(tableRow)}
         >
-          {(params: RowProps) => <HeaderRow {...params} />}
+          {(params: TableRowProps) => <HeaderRow {...params} />}
         </Template>
       </Plugin>
     );

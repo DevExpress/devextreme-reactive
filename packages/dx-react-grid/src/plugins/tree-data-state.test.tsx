@@ -30,10 +30,10 @@ describe('RowDetailState', () => {
   });
 
   testStatePluginField({
+    defaultDeps,
     Plugin: TreeDataState,
     propertyName: 'expandedRowIds',
     getterName: 'expandedRowIds',
-    defaultDeps,
     values: [
       [0],
       [1],

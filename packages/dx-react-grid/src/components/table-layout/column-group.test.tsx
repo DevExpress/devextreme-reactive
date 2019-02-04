@@ -28,7 +28,7 @@ describe('ColumnGroup', () => {
 
     expect(tree.find('colgroup').children('col').map(col => col.prop('style')))
       .toMatchObject([
-        null,
+        undefined,
         { width: '100px' },
         { width: '200px' },
         { minWidth: '200px' },

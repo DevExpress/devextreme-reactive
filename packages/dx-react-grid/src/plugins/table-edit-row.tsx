@@ -11,7 +11,7 @@ import {
   TABLE_EDIT_TYPE,
   TABLE_ADDED_TYPE,
 } from '@devexpress/dx-grid-core';
-import { TableEditRowProps, CellProps, RowProps } from '../types';
+import { TableEditRowProps, TableCellProps, TableRowProps } from '../types';
 
 const pluginDependencies = [
   { name: 'EditingState' },
@@ -45,7 +45,7 @@ class TableEditRowBase extends React.PureComponent<TableEditRowProps> {
           name="tableCell"
           predicate={({ tableRow, tableColumn }: any) => isEditTableCell(tableRow, tableColumn)}
         >
-          {(params: CellProps) => (
+          {(params: TableCellProps) => (
             <TemplateConnector>
               {({
                 getCellValue,
@@ -111,7 +111,7 @@ class TableEditRowBase extends React.PureComponent<TableEditRowProps> {
             { tableRow }: any,
           ) => !!(isEditTableRow(tableRow) || isAddedTableRow(tableRow))}
         >
-          {(params: RowProps) => (
+          {(params: TableRowProps) => (
             <EditRow
               {...params}
               row={params.tableRow.row}

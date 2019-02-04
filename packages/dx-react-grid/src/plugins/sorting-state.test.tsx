@@ -45,9 +45,9 @@ describe('SortingState', () => {
   });
 
   testStatePluginField({
+    defaultDeps,
     Plugin: SortingState,
     propertyName: 'sorting',
-    defaultDeps,
     values: [
       [{ columnName: 'a', direction: 'asc' }],
       [{ columnName: 'b', direction: 'desc' }],

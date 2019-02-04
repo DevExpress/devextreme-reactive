@@ -35,6 +35,7 @@ export namespace TableRowDetail {
     row: any;
   }
 
+  // tslint:disable-next-line: max-line-length
   /** Describes properties passed to a component that renders a cell containing the expand/collapse control. */
   export interface ToggleCellProps extends Table.CellProps {
     /** A row. */

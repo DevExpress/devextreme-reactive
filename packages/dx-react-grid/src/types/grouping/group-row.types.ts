@@ -68,7 +68,9 @@ export interface GroupRow {
 }
 
 export interface TableGroupRowProps {
-  /** A Boolean value that specifies whether the grid's table displays a column by which data is grouped. */
+  /* * A Boolean value that specifies whether the grid's table
+   * displays a column by which data is grouped.
+   * */
   showColumnsWhenGrouped?: boolean;
   /** Additional column properties that the plugin can handle. */
   columnExtensions?: Array<TableGroupRow.ColumnExtension>;

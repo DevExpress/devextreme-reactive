@@ -102,6 +102,7 @@ describe('TableFixedColumns', () => {
     tableColumnsWithFixed.mockImplementation(() => [...columns, {}]);
     tableHeaderColumnChainsWithFixed.mockImplementation(() => [
       [
+        // tslint:disable-next-line: object-shorthand-properties-first
         { start: 0, fixed: FIXED_COLUMN_LEFT_SIDE, columns },
         { start: 2, columns: [{}] },
       ],
@@ -175,7 +176,7 @@ describe('TableFixedColumns', () => {
     tableColumnsWithFixed.mockImplementation(() => columns);
     tableHeaderColumnChainsWithFixed.mockImplementation(() => [
       [
-        { start: 0, fixed: FIXED_COLUMN_LEFT_SIDE, columns },
+        { columns, start: 0, fixed: FIXED_COLUMN_LEFT_SIDE },
       ],
     ]);
     isFixedTableRow.mockImplementation(tableRow => tableRow.type === 'fixed');
@@ -187,11 +188,17 @@ describe('TableFixedColumns', () => {
         <Template name="root">
           <TemplatePlaceholder
             name="tableCell"
-            params={{ tableColumn: { key: 'b', column: { name: 'b' }, fixed: FIXED_COLUMN_LEFT_SIDE }, tableRow: { type: 'row' } }}
+            params={{
+              tableColumn: { key: 'b', column: { name: 'b' }, fixed: FIXED_COLUMN_LEFT_SIDE },
+              tableRow: { type: 'row' },
+            }}
           />
           <TemplatePlaceholder
             name="tableCell"
-            params={{ tableColumn: { key: 'a', column: { name: 'a' }, fixed: FIXED_COLUMN_LEFT_SIDE }, tableRow: { type: 'fixed' } }}
+            params={{
+              tableColumn: { key: 'a', column: { name: 'a' }, fixed: FIXED_COLUMN_LEFT_SIDE },
+              tableRow: { type: 'fixed' },
+            }}
           />
         </Template>
         <TableFixedColumns
@@ -222,7 +229,7 @@ describe('TableFixedColumns', () => {
     tableColumnsWithFixed.mockImplementation(() => columns);
     tableHeaderColumnChainsWithFixed.mockImplementation(() => [
       [
-        { start: 0, fixed: FIXED_COLUMN_LEFT_SIDE, columns },
+        { columns, start: 0, fixed: FIXED_COLUMN_LEFT_SIDE },
       ],
     ]);
     isFixedTableRow.mockImplementation(tableRow => tableRow.type === 'fixed');
@@ -234,11 +241,17 @@ describe('TableFixedColumns', () => {
         <Template name="root">
           <TemplatePlaceholder
             name="tableCell"
-            params={{ tableColumn: { key: 'a', column: { name: 'a' }, fixed: FIXED_COLUMN_RIGHT_SIDE }, tableRow: { type: 'row' } }}
+            params={{
+              tableColumn: { key: 'a', column: { name: 'a' }, fixed: FIXED_COLUMN_RIGHT_SIDE },
+              tableRow: { type: 'row' },
+            }}
           />
           <TemplatePlaceholder
             name="tableCell"
-            params={{ tableColumn: { key: 'b', column: { name: 'b' }, fixed: FIXED_COLUMN_RIGHT_SIDE }, tableRow: { type: 'fixed' } }}
+            params={{
+              tableColumn: { key: 'b', column: { name: 'b' }, fixed: FIXED_COLUMN_RIGHT_SIDE },
+              tableRow: { type: 'fixed' },
+            }}
           />
         </Template>
         <TableFixedColumns

@@ -98,7 +98,6 @@ describe('TableLayout', () => {
       filterActiveAnimations.mockImplementation(() => new Map());
       evalAnimations.mockImplementation(() => new Map());
 
-
       const nextColumns = [columns[1], columns[0]];
 
       const tree = mount((

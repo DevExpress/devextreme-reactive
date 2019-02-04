@@ -1,6 +1,6 @@
 import { Table, Filter, Column, ColumnFilterOperations } from '../index';
 
-// tslint:disable-next-line: no-namespace
+/* tslint:disable no-namespace max-line-length */
 export namespace TableFilterRow {
   /** Describes properties passed to a component that renders a filter cell. */
   export interface CellProps extends Table.CellProps {
@@ -115,3 +115,4 @@ export interface TableFilterRowProps {
 export type TableFilterRowState = {
   filterOperations: ColumnFilterOperations,
 };
+/* tslint:enable no-namespace max-line-length */

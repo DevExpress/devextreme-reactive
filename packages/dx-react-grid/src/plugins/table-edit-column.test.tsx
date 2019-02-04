@@ -58,7 +58,9 @@ const defaultProps = {
   commandComponent: () => null,
 };
 
-const findCommandWithId = (tree, id) => tree.find(defaultProps.commandComponent).filterWhere(wrapper => wrapper.prop('id') === id);
+const findCommandWithId = (tree, id) => tree
+  .find(defaultProps.commandComponent)
+  .filterWhere(wrapper => wrapper.prop('id') === id);
 
 describe('TableEditColumn', () => {
   let resetConsole;
@@ -102,6 +104,7 @@ describe('TableEditColumn', () => {
   });
 
   describe('headerCell', () => {
+    // tslint:disable-next-line: max-line-length
     it('should render edit commands cell on edit-commands column and header row intersection', () => {
       isHeadingEditCommandsTableCell.mockImplementation(() => true);
 
@@ -151,6 +154,7 @@ describe('TableEditColumn', () => {
   });
 
   describe('cell', () => {
+    // tslint:disable-next-line: max-line-length
     it('should render edit commands cell on edit-commands column and added row intersection', () => {
       isEditCommandsTableCell.mockImplementation(() => true);
 

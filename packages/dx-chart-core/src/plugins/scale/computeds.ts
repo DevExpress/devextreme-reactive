@@ -132,9 +132,10 @@ export const buildScales = (domains: DomainInfoCache, { width, height }: Layout)
   const scales = {};
   Object.keys(domains).forEach((name) => {
     const obj = domains[name];
-    scales[name] = obj.factory!()
-      .domain(obj.domain as any[])
-      .range(isHorizontal(name) ? [0, width] : [height, 0]);
+    const scale = obj.factory!();
+    scale.domain(obj.domain);
+    scale.range(isHorizontal(name) ? [0, width] : [height, 0]);
+    scales[name] = scale;
   });
   return scales as ScalesCache;
 };

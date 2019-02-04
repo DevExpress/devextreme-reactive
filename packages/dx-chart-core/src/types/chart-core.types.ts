@@ -1,15 +1,3 @@
-import { CustomFunction } from '@devexpress/dx-core';
-import { CreateHitTesterFn } from './utils.types';
-
-type RangeFn = CustomFunction<[any[]?], any[]>;
-type BandwidthFn = CustomFunction<[], number>;
-type DomainFn = CustomFunction<[any[]?], any>;
-type TicksFn = CustomFunction<[number?], any[]>;
-type PaddingInnerFn = CustomFunction<[number], Scale>;
-type PaddingOuterFn = CustomFunction<[number], Scale>;
-type CopyFn = CustomFunction<[], Scale>;
-type ClampFn = CustomFunction<[boolean], Scale>;
-
 type DataItem = { readonly [field: string]: any };
 export type DataItems = ReadonlyArray<DataItem>;
 
@@ -19,26 +7,30 @@ export type Domain = ReadonlyArray<any>;
 export interface Scale {
   (value: any): number;
   // A function that returns an array of ticks.
-  ticks?: TicksFn;
+  ticks?: (ticks?: number) => Domain;
   // A function that sets (if the domain parameter is an array) or
   // gets (if the domain parameter is undefined) the current domain.
-  domain: DomainFn;
+  domain: (domain?: Domain) => any;
   // A function that returns a tick formatter function.
   tickFormat?: (count?: number, format?: string) => GetFormatFn;
   // A function that returns each band’s width.
-  bandwidth?: BandwidthFn;
+  bandwidth?: () => number;
   // A function that sets (if the range parameter is an array) or
   // gets (if the range parameter is undefined) the scale’s current range.
-  range: RangeFn;
+  range: (range?: Domain) => any;
   // Returns an exact copy of this scale
-  copy: CopyFn;
+  copy: () => Scale;
   // Enables or disables clamping
-  clamp: ClampFn;
+  clamp: (clamp: boolean) => Scale;
   // A function that sets a scale’s inner padding and returns the current scale
-  paddingInner?: PaddingInnerFn;
+  paddingInner?: (arg: number) => Scale;
   // A function that sets a scale’s outer padding and returns the current scale
-  paddingOuter?: PaddingOuterFn;
+  paddingOuter?: (arg: number) => Scale;
 }
+
+export type ScalesCache = {
+  readonly [key: string]: Scale,
+};
 
 export interface Point {
   // Point argument
@@ -142,3 +134,17 @@ export type GetPointTransformerFn = GetPointTransformerFnRaw & {
   isBroad?: boolean,
   getTargetElement: GetTargetElementFn,
 };
+
+export type PointDistance = {
+  readonly index: number,
+  readonly distance: number,
+};
+
+export type Location = Readonly<[number, number]>;
+
+type HitTestResult = {
+  readonly points: ReadonlyArray<PointDistance>;
+} | null;
+export type HitTestFn = (location: Location) => HitTestResult;
+
+export type CreateHitTesterFn = (points: PointList) => HitTestFn;

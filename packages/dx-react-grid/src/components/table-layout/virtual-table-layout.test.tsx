@@ -2,9 +2,11 @@ import * as React from 'react';
 import { findDOMNode } from 'react-dom';
 import { shallow, mount } from 'enzyme';
 import { isEdgeBrowser } from '@devexpress/dx-core';
+import { Sizer } from '@devexpress/dx-react-core';
 import {
   getCollapsedGrid,
   TABLE_FLEX_TYPE,
+  TABLE_DATA_TYPE,
 } from '@devexpress/dx-grid-core';
 import { setupConsole } from '@devexpress/dx-testing';
 import { VirtualTableLayout } from './virtual-table-layout';
@@ -27,7 +29,6 @@ jest.mock('@devexpress/dx-react-core', () => {
   const { Component } = require.requireActual('react');
   return {
     ...require.requireActual('@devexpress/dx-react-core'),
-    // eslint-disable-next-line react/prefer-stateless-function
     Sizer: class extends Component {
       componentDidMount() {
         // eslint-disable-next-line react/prop-types
@@ -36,14 +37,13 @@ jest.mock('@devexpress/dx-react-core', () => {
       }
 
       render() {
-        // eslint-disable-next-line react/prop-types
         const { containerComponent: Container, onSizeChange, ...restProps } = this.props;
         return (
           <Container {...restProps} />
         );
       }
     },
-    // eslint-disable-next-line react/no-multi-comp
+    // tslint:disable-next-line: max-classes-per-file
     RefHolder: class extends Component {
       render() {
         // eslint-disable-next-line react/prop-types
@@ -87,7 +87,7 @@ const defaultProps = {
   rowComponent: () => null,
   cellComponent: () => null,
   getCellColSpan: () => 1,
-  tableRef: React.createRef(),
+  tableRef: React.createRef<HTMLTableElement>(),
 };
 
 describe('VirtualTableLayout', () => {
@@ -119,7 +119,7 @@ describe('VirtualTableLayout', () => {
     };
 
     tree
-      .find('Sizer')
+      .find(Sizer)
       .find(defaultProps.containerComponent)
       .prop('onScroll')(eventData);
     tree.update();
@@ -134,7 +134,7 @@ describe('VirtualTableLayout', () => {
       />
     ));
 
-    expect(tree.find('Sizer').dive())
+    expect(tree.find(Sizer).dive())
       .toMatchSnapshot();
   });
 
@@ -223,6 +223,7 @@ describe('VirtualTableLayout', () => {
       ));
 
       simulateScroll(tree, { scrollTop: 100, scrollLeft: 50 });
+      const calls = getCollapsedGrid.mock.calls;
 
       expect(getCollapsedGrid.mock.calls[getCollapsedGrid.mock.calls.length - 3][0])
         .toMatchObject({
@@ -428,6 +429,7 @@ describe('VirtualTableLayout', () => {
       ));
       tree.setProps({ footerRows: [rows[0]] });
 
+      const calls = getCollapsedGrid.mock.calls;
       const { getRowHeight } = getCollapsedGrid.mock.calls[0][0];
       expect(getRowHeight(rows[1]))
         .toEqual(defaultProps.estimatedRowHeight);

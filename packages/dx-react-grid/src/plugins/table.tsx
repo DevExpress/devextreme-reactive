@@ -38,6 +38,10 @@ const defaultMessages = {
 };
 
 class TableBase extends React.PureComponent<TableProps> {
+  static defaultProps = {
+    columnExtensions: undefined,
+    messages: {},
+  };
   static COLUMN_TYPE = TABLE_DATA_TYPE;
   static ROW_TYPE = TABLE_DATA_TYPE;
   static NODATA_ROW_TYPE = TABLE_NODATA_TYPE;

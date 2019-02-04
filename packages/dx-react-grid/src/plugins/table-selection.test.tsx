@@ -129,7 +129,7 @@ describe('Table Selection', () => {
       .toMatchObject(defaultDeps.template.tableCell);
   });
 
-  it('should render row by using rowComponent if selectByRowClick is true', () => {
+  it('should render row using rowComponent if selectByRowClick is true', () => {
     isDataTableRow.mockImplementation(() => true);
 
     const tree = mount((

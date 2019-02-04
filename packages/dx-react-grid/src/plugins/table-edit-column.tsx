@@ -27,6 +27,13 @@ const defaultMessages = {
 };
 
 class TableEditColumnBase extends React.PureComponent<TableEditColumnProps> {
+  static defaultProps = {
+    showAddCommand: false,
+    showEditCommand: false,
+    showDeleteCommand: false,
+    width: 140,
+    messages: {},
+  };
   static COLUMN_TYPE = TABLE_EDIT_COMMAND_TYPE;
   static components: PluginComponents;
 

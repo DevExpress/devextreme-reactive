@@ -30,6 +30,17 @@ export class VirtualTableLayout extends React.PureComponent<VirtualTableLayoutPr
   constructor(props) {
     super(props);
 
+    this.state = {
+      bodyHeight: 0,
+      headerHeight: 0,
+      footerHeight: 0,
+      rowHeights: new Map(),
+      viewportTop: 0,
+      viewportLeft: 0,
+      width: 800,
+      height: 600,
+    };
+
     const headerHeight = props.headerRows
       .reduce((acc, row) => acc + this.getRowHeight(row), 0);
     const footerHeight = props.footerRows
@@ -38,12 +49,7 @@ export class VirtualTableLayout extends React.PureComponent<VirtualTableLayoutPr
     this.state = {
       headerHeight,
       footerHeight,
-      bodyHeight: 0,
-      rowHeights: new Map(),
-      viewportTop: 0,
-      viewportLeft: 0,
-      width: 800,
-      height: 600,
+      ...this.state,
     };
 
     this.rowRefs = new Map();

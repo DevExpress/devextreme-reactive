@@ -36,7 +36,7 @@
     "@devexpress/dx-react-grid-material-ui": "1.10.0",
     "@material-ui/core": "^3.9.2",
     "@material-ui/icons": "^3.0.2",
-    "@types/react": "^16.8.1",
+    "@types/react": "^16.7.22",
     "@types/react-dom": "^16.0.11",
     "codemirror": "^5.43.0",
     "core-js": "^2.6.3",

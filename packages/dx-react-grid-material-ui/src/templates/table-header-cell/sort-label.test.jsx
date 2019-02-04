@@ -92,12 +92,12 @@ describe('SortLabel', () => {
       ));
       const sortLabel = tree.find(TableSortLabel);
 
-      sortLabel.simulate('keydown', { ...e, keyCode: ENTER_KEY_CODE });
+      sortLabel.simulate('keydown', { ...e, keyCode: ENTER_KEY_CODE, key: 'Enter' });
       expect(onSort)
         .toHaveBeenCalled();
 
       onSort.mockClear();
-      sortLabel.simulate('keydown', { ...e, keyCode: SPACE_KEY_CODE });
+      sortLabel.simulate('keydown', { ...e, keyCode: SPACE_KEY_CODE, key: 'Enter' });
       expect(onSort)
         .toHaveBeenCalled();
 
@@ -116,7 +116,12 @@ describe('SortLabel', () => {
         />
       ));
 
-      tree.find(TableSortLabel).simulate('keydown', { ...e, keyCode: ENTER_KEY_CODE, shiftKey: true });
+      tree.find(TableSortLabel).simulate('keydown', {
+        ...e,
+        keyCode: ENTER_KEY_CODE,
+        shiftKey: true,
+        key: 'Enter',
+      });
       expect(onSort)
         .toHaveBeenCalledWith({ keepOther: true, cancel: undefined });
     });
@@ -130,7 +135,12 @@ describe('SortLabel', () => {
         />
       ));
 
-      tree.find(TableSortLabel).simulate('keydown', { ...e, keyCode: ENTER_KEY_CODE, ctrlKey: true });
+      tree.find(TableSortLabel).simulate('keydown', {
+        ...e,
+        keyCode: ENTER_KEY_CODE,
+        ctrlKey: true,
+        key: 'Enter',
+      });
       expect(onSort)
         .toHaveBeenCalledWith({ keepOther: true, direction: null });
     });

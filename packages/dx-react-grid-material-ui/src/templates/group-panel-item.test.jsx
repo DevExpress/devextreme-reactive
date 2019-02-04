@@ -111,12 +111,12 @@ describe('GroupPanelItem', () => {
     ));
     const сhipElem = tree.find(Chip);
 
-    сhipElem.simulate('keyup', { keyCode: ENTER_KEY_CODE });
+    сhipElem.simulate('keyup', { keyCode: ENTER_KEY_CODE, key: 'Enter' });
     expect(onSort)
       .toHaveBeenCalled();
 
     onSort.mockClear();
-    сhipElem.simulate('keyup', { keyCode: SPACE_KEY_CODE });
+    сhipElem.simulate('keyup', { keyCode: SPACE_KEY_CODE, key: ' ' });
     expect(onSort)
       .toHaveBeenCalled();
 
@@ -142,7 +142,7 @@ describe('GroupPanelItem', () => {
       />
     ));
 
-    tree.find(Chip).simulate('keyup', { keyCode: ENTER_KEY_CODE, ctrlKey: true });
+    tree.find(Chip).simulate('keyup', { keyCode: ENTER_KEY_CODE, ctrlKey: true, key: 'Enter' });
     expect(onSort)
       .toHaveBeenCalledWith({ keepOther: true, direction: null });
   });

@@ -15,11 +15,11 @@ describe('#isHorizontal', () => {
 
 describe('#getWidth', () => {
   it('should return offset 0, scale is not band', () => {
-    expect(getWidth({})).toBe(0);
+    expect(getWidth({} as any)).toBe(0);
   });
 
   it('should return offset not zero, scale is band', () => {
-    expect(getWidth({ bandwidth: () => 4 })).toBe(4);
+    expect(getWidth({ bandwidth: () => 4 } as any)).toBe(4);
   });
 });
 
@@ -36,13 +36,13 @@ describe('#getValueDomainName', () => {
 describe('#fixOffset', () => {
   it('should return original linear scale', () => {
     const mock = () => 0;
-    expect(fixOffset(mock)).toBe(mock);
+    expect(fixOffset(mock as any)).toBe(mock);
   });
 
   it('should return wrapped band scale', () => {
     const mock = x => x * 2;
     mock.bandwidth = () => 4;
-    const wrapped = fixOffset(mock);
+    const wrapped = fixOffset(mock as any);
     expect(wrapped).not.toBe(mock);
     expect(wrapped(0)).toEqual(2);
     expect(wrapped(3)).toEqual(8);

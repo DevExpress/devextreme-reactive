@@ -1,19 +1,21 @@
-import { PureComputed } from '@devexpress/dx-core';
-
-const isEqual = (
-  { width: firstWidth, height: firstHeight },
-  { width: secondWidth, height: secondHeight },
-) => firstWidth === secondWidth && firstHeight === secondHeight;
-
 type BBox = {
-  width: number,
-  height: number,
+  readonly width: number;
+  readonly height: number;
+};
+type BBoxes = {
+  readonly [placeholder: string]: BBox;
+};
+type BBoxesChange = {
+  readonly bBox: BBox;
+  readonly placeholder: string;
 };
 
-export const bBoxes: PureComputed<[BBox, {
-  bBox: BBox,
-  placeholder: string,
-}]> = (prevBBoxes, { bBox, placeholder }) => {
+const isEqual = (
+  { width: firstWidth, height: firstHeight }: BBox,
+  { width: secondWidth, height: secondHeight }: BBox,
+) => firstWidth === secondWidth && firstHeight === secondHeight;
+
+export const bBoxes = (prevBBoxes: BBoxes, { bBox, placeholder }: BBoxesChange) => {
   if (isEqual(prevBBoxes[placeholder] || {}, bBox)) return prevBBoxes;
   return { ...prevBBoxes, [placeholder]: bBox };
 };

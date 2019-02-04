@@ -37,7 +37,7 @@ describe('EventTracker', () => {
       getBoundingClientRect: () => ({ left: 40, top: 30 }),
     };
 
-    const call = () => buildEventHandlers([series1, series2, series3], {
+    const call = () => buildEventHandlers([series1, series2, series3] as any, {
       clickHandlers: [handler1, handler2], pointerMoveHandlers: [],
     }).click;
 
@@ -157,8 +157,8 @@ describe('EventTracker', () => {
     });
 
     it('should create only click handlers', () => {
-      const handlers = buildEventHandlers([series1, series2, series3], {
-        clickHandlers: [1], pointerMoveHandlers: [],
+      const handlers = buildEventHandlers([series1, series2, series3] as any, {
+        clickHandlers: [1] as any, pointerMoveHandlers: [],
       });
 
       expect(handlers).toEqual({
@@ -167,8 +167,8 @@ describe('EventTracker', () => {
     });
 
     it('should create only move handlers', () => {
-      const handlers = buildEventHandlers([series1, series2, series3], {
-        clickHandlers: [], pointerMoveHandlers: [1],
+      const handlers = buildEventHandlers([series1, series2, series3] as any, {
+        clickHandlers: [], pointerMoveHandlers: [1] as any,
       });
 
       expect(handlers).toEqual({
@@ -178,7 +178,7 @@ describe('EventTracker', () => {
     });
 
     it('should invoke handlers on leave event', () => {
-      const { mouseleave } = buildEventHandlers([series1, series2, series3], {
+      const { mouseleave } = buildEventHandlers([series1, series2, series3] as any, {
         clickHandlers: [], pointerMoveHandlers: [handler1, handler2],
       });
       mouseleave({
@@ -195,8 +195,8 @@ describe('EventTracker', () => {
       // @ts-ignore
       window.ontouchmove = true;
       try {
-        const handlers = buildEventHandlers([series1, series2, series3], {
-          clickHandlers: [], pointerMoveHandlers: [1],
+        const handlers = buildEventHandlers([series1, series2, series3] as any, {
+          clickHandlers: [], pointerMoveHandlers: [1] as any,
         });
 
         expect(handlers).toEqual({
@@ -212,8 +212,8 @@ describe('EventTracker', () => {
       // @ts-ignore
       window.onpointermove = true;
       try {
-        const handlers = buildEventHandlers([series1, series2, series3], {
-          clickHandlers: [], pointerMoveHandlers: [1],
+        const handlers = buildEventHandlers([series1, series2, series3] as any, {
+          clickHandlers: [], pointerMoveHandlers: [1] as any,
         });
 
         expect(handlers).toEqual({

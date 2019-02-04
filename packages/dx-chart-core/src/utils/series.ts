@@ -1,9 +1,7 @@
-import { area } from 'd3-shape';
+import { area, Area, CurveFactory } from 'd3-shape';
 import { dArea, dLine, dSpline } from '../plugins/series/computeds';
-import { PureComputed } from '@devexpress/dx-core';
 import {
-  MakePath, Point, CanvasAbusingHitTester, ContinuousSeriesHitTesterCreatorFn,
-  Series, Target, Props, createPointsEnumeratingHitTesterCreatorFn, PointDistance, Location,
+  SeriesList, Point, PointList, TargetList, PointDistance, Location, CreateHitTesterFn,
 } from '../types';
 
 const getSegmentLength = (dx: number, dy: number) => Math.sqrt(dx * dx + dy * dy);
@@ -16,65 +14,68 @@ const getSegmentLength = (dx: number, dy: number) => Math.sqrt(dx * dx + dy * dy
 
 // This function is called from event handlers (when DOM is available) -
 // *window.document* can be accessed safely.
-const createContext = () => document.createElement('canvas').getContext('2d');
+const createContext = () => document.createElement('canvas').getContext('2d')!;
 
+type MakePathFn = () => Area<Point>;
+type IsPointInPathFn = (target: Location) => boolean;
 // For a start using browser canvas will suffice.
 // However a better and more clean solution should be found.
 // Can't d3 perform hit testing?
-const createCanvasAbusingHitTester: PureComputed<
-  [MakePath, Point[]], CanvasAbusingHitTester
-> = (makePath, points) => {
-  const ctx = createContext()!;
+const createCanvasAbusingHitTester = (makePath: MakePathFn, points: PointList): IsPointInPathFn => {
+  const ctx = createContext();
   const path = makePath();
   path.context(ctx);
-  path(points);
+  path(points as Point[]);
   return ([x, y]) => ctx.isPointInPath(x, y);
 };
 
 const LINE_POINT_SIZE = 20;
 const LINE_TOLERANCE = 10;
 
-const getContinuousPointDistance: PureComputed<[Location, Point], number> = (
-  [px, py], { x, y },
-): number => getSegmentLength(px - x, py - y);
+const getContinuousPointDistance = (
+  [px, py]: Location, { x, y }: Point,
+) => getSegmentLength(px - x, py - y);
 
-const createContinuousSeriesHitTesterCreator: PureComputed<
-[MakePath], ContinuousSeriesHitTesterCreatorFn> = makePath => (points) => {
-  const fallbackHitTest = createCanvasAbusingHitTester(makePath, points);
-  return (target) => {
-    let minDistance = Number.MAX_VALUE;
-    let minIndex: number = 0;
-    const list: PointDistance[] = [];
-    points.forEach((point, i) => {
-      const distance = getContinuousPointDistance(target, point);
-      if (distance <= LINE_POINT_SIZE) {
-        list.push({  distance, index: point.index });
+const createContinuousSeriesHitTesterCreator =
+  (makePath: MakePathFn): CreateHitTesterFn => (points) => {
+    const fallbackHitTest = createCanvasAbusingHitTester(makePath, points);
+    return (target) => {
+      let minDistance = Number.MAX_VALUE;
+      let minIndex: number = 0;
+      const list: PointDistance[] = [];
+      points.forEach((point, i) => {
+        const distance = getContinuousPointDistance(target, point);
+        if (distance <= LINE_POINT_SIZE) {
+          list.push({ distance, index: point.index });
+        }
+        if (distance < minDistance) {
+          minDistance = distance;
+          minIndex = i;
+        }
+      });
+      // This is special case for continuous series - if no point is actually hit
+      // then the closest point to the pointer position is picked.
+      if (!list.length && fallbackHitTest(target)) {
+        list.push({ index: points[minIndex].index, distance: minDistance });
       }
-      if (distance < minDistance) {
-        minDistance = distance;
-        minIndex = i;
+      return list.length ? { points: list } : null;
+    };
+  };
+
+// TODO: Make some base "Point" interface and use it here instead of "any".
+type HitTestPointFn = (location: Location, point: any) => Readonly<{ distance: number }> | null;
+
+const createPointsEnumeratingHitTesterCreator =
+  (hitTestPoint: HitTestPointFn): CreateHitTesterFn => points => (target) => {
+    const list: PointDistance[] = [];
+    points.forEach((point) => {
+      const status = hitTestPoint(target, point);
+      if (status) {
+        list.push({ index: point.index, distance: status.distance });
       }
     });
-    // This is special case for continuous series - if no point is actually hit
-    // then the closest point to the pointer position is picked.
-    if (!list.length && fallbackHitTest(target)) {
-      list.push({ index: points[minIndex].index, distance: minDistance });
-    }
     return list.length ? { points: list } : null;
   };
-};
-
-const createPointsEnumeratingHitTesterCreator: createPointsEnumeratingHitTesterCreatorFn =
- hitTestPoint => points => (target) => {
-   const list: PointDistance[] = [];
-   points.forEach((point) => {
-     const status = hitTestPoint(target, point);
-     if (status) {
-       list.push({ index: point.index, distance: status.distance });
-     }
-   });
-   return list.length ? { points: list } : null;
- };
 
 export const createAreaHitTester = createContinuousSeriesHitTesterCreator(() => {
   const path = area<Point>();
@@ -99,13 +100,11 @@ export const createSplineHitTester = createContinuousSeriesHitTesterCreator(() =
   path.x(dSpline.x());
   path.y1(point => getY(point) - LINE_TOLERANCE);
   path.y0(point => getY(point) + LINE_TOLERANCE);
-  path.curve(dSpline.curve() as any);
+  path.curve(dSpline.curve() as CurveFactory);
   return path;
 });
 
-const hitTestRect = (
-  dx: number, dy: number, halfX: number, halfY: number,
-): {distance: number} | null => (
+const hitTestRect = (dx: number, dy: number, halfX: number, halfY: number) => (
   Math.abs(dx) <= halfX && Math.abs(dy) <= halfY ? {
     distance: getSegmentLength(dx, dy),
   } : null
@@ -157,7 +156,11 @@ export const createPieHitTester = createPointsEnumeratingHitTesterCreator(
   },
 );
 
-const buildFilter: PureComputed<[Target[]], {[key: string]: any}> = (targets) => {
+type Filter = {
+  [series: string]: ReadonlySet<number>;
+};
+
+const buildFilter = (targets: TargetList): Filter => {
   const result = {};
   targets.forEach(({ series, point }) => {
     (result[series] = result[series] || new Set()).add(point);
@@ -165,9 +168,7 @@ const buildFilter: PureComputed<[Target[]], {[key: string]: any}> = (targets) =>
   return result;
 };
 
-export const changeSeriesState: PureComputed<
-  [Series[], Target[], string]
-> = (seriesList, targets, state) => {
+export const changeSeriesState = (seriesList: SeriesList, targets: TargetList, state: string) => {
   if (targets.length === 0) {
     return seriesList;
   }
@@ -179,7 +180,7 @@ export const changeSeriesState: PureComputed<
       return seriesItem;
     }
     matches += 1;
-    const props: Props = { state };
+    const props: { state: string, points?: Point[] } = { state };
     if (set.size) {
       props.points = seriesItem.points.map(
         point => (set.has(point.index) ? { ...point, state } : point),

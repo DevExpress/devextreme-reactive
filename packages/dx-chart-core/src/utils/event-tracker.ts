@@ -1,11 +1,26 @@
-import { PureComputed } from '@devexpress/dx-core';
-import {
-  Series, HandlersObject, Handler, TrackerTarget, EventHandlers,
-} from '../types';
+import { Target, Location, TargetList, SeriesList, HitTestFn } from '../types';
+
+type EventHandlerFn = (e: any) => void;
+type HandlerArg = {
+  readonly location: Location;
+  readonly targets: TargetList;
+  readonly event?: any;
+};
+type HandlerFn = (arg: HandlerArg) => void;
+type HandlerFnList = ReadonlyArray<HandlerFn>;
+
+type HitTesters = {
+  [series: string]: HitTestFn;
+};
+
+type TrackerTarget = Target & {
+  readonly distance: number;
+  readonly order: number;
+};
 
 // This function is called from event handlers (when DOM is available) -
 // *window* can be accessed safely.
-const getEventCoords = (e): [number, number] => {
+const getEventCoords = (e: any): Location => {
   const { pageXOffset, pageYOffset } = window;
   const { left, top } = e.currentTarget.getBoundingClientRect();
   return [
@@ -25,11 +40,11 @@ const compareHitTargets = (t1: TrackerTarget, t2: TrackerTarget) => {
   return distanceDelta;
 };
 
-const buildEventHandler: PureComputed<[Series[], Handler[]], any> = (seriesList, handlers) => {
-  let hitTesters: any = null;
+const buildEventHandler = (seriesList: SeriesList, handlers: HandlerFnList): EventHandlerFn => {
+  let hitTesters: HitTesters | null = null;
 
   const createHitTesters = () => {
-    const obj = {};
+    const obj: HitTesters = {};
     seriesList.forEach((seriesItem) => {
       obj[seriesItem.symbolName] = seriesItem.createHitTester(seriesItem.points);
     });
@@ -41,7 +56,7 @@ const buildEventHandler: PureComputed<[Series[], Handler[]], any> = (seriesList,
     hitTesters = hitTesters || createHitTesters();
     const targets: TrackerTarget[] = [];
     seriesList.forEach(({ name: series, index: order, symbolName }) => {
-      const status = hitTesters[symbolName](location);
+      const status = hitTesters![symbolName](location);
       if (status) {
         targets.push(...status.points.map(
           point => ({
@@ -51,22 +66,37 @@ const buildEventHandler: PureComputed<[Series[], Handler[]], any> = (seriesList,
       }
     });
     targets.sort(compareHitTargets);
-    const arg = { location, targets, event: e.nativeEvent };
+    const arg: HandlerArg = { location, targets, event: e.nativeEvent };
     handlers.forEach(handler => handler(arg));
   };
 };
 
-const buildLeaveEventHandler: PureComputed<[Handler[]], (any)> = handlers => (e) => {
+const buildLeaveEventHandler = (handlers: HandlerFnList): EventHandlerFn => (e) => {
   const location = getEventCoords(e);
-  const arg = { location, targets: [] };
+  const arg: HandlerArg = { location, targets: [] };
   handlers.forEach(handler => handler(arg));
+};
+
+type EventHandlers = {
+  click?: EventHandlerFn;
+  pointermove?: EventHandlerFn;
+  pointerleave?: EventHandlerFn;
+  touchmove?: EventHandlerFn;
+  touchleave?: EventHandlerFn;
+  mousemove?: EventHandlerFn;
+  mouseleave?: EventHandlerFn;
+};
+
+type HandlersObject = {
+  readonly clickHandlers: HandlerFnList;
+  readonly pointerMoveHandlers: HandlerFnList;
 };
 
 // The result is of Map<string, Function> type.
 // Keys are DOM event names (https://developer.mozilla.org/en-US/docs/Web/Events).
-export const buildEventHandlers: PureComputed<
-  [Series[], HandlersObject], EventHandlers
-> = (seriesList, { clickHandlers, pointerMoveHandlers }) => {
+export const buildEventHandlers = (
+  seriesList: SeriesList, { clickHandlers, pointerMoveHandlers }: HandlersObject,
+) => {
   const handlers: EventHandlers = {};
   if (clickHandlers.length) {
     handlers.click = buildEventHandler(seriesList, clickHandlers);

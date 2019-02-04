@@ -96,7 +96,7 @@ describe('Series', () => {
     it('should setup context', () => {
       getContext.mockReturnValue('test-context');
 
-      createAreaHitTester('test-coordinates');
+      createAreaHitTester('test-coordinates' as any);
 
       expect(mockPath.x).toBeCalledWith('#x');
       expect(mockPath.y0).toBeCalledWith('#y0');
@@ -125,7 +125,7 @@ describe('Series', () => {
     it('should setup context', () => {
       getContext.mockReturnValue('test-context');
 
-      createLineHitTester('test-coordinates');
+      createLineHitTester('test-coordinates' as any);
 
       expect(mockPath.x).toBeCalledWith('#x');
       expect(mockPath.y0).toBeCalledWith(expect.any(Function));
@@ -156,7 +156,7 @@ describe('Series', () => {
     it('should setup context', () => {
       getContext.mockReturnValue('test-context');
 
-      createSplineHitTester('test-coordinates');
+      createSplineHitTester('test-coordinates' as any);
 
       expect(mockPath.x).toBeCalledWith('#x');
       expect(mockPath.y0).toBeCalledWith(expect.any(Function));
@@ -174,7 +174,7 @@ describe('Series', () => {
       const hitTest = createBarHitTester([
         {
           x: 12, barWidth: 1, maxBarWidth: 4, y: 2, y1: 4, index: 'p1',
-        },
+        } as any,
         {
           x: 24, barWidth: 4, maxBarWidth: 2, y: 3, y1: 5, index: 'p2',
         },
@@ -203,7 +203,7 @@ describe('Series', () => {
       const hitTest = createScatterHitTester([
         {
           x: 10, y: 4, index: 'p1', point: { size: 20 },
-        },
+        } as any,
         {
           x: 30, y: 5, index: 'p2', point: { size: 20 },
         },
@@ -238,7 +238,7 @@ describe('Series', () => {
           startAngle: 0,
           endAngle: Math.PI / 4,
           index: 'p1',
-        },
+        } as any,
         {
           x: 60, y: 50,
           innerRadius: 0.1,
@@ -280,7 +280,7 @@ describe('Series', () => {
     it('should change series and points', () => {
       const [
         newSeries1, newSeries2, newSeries3, newSeries4,
-      ] = changeSeriesState([series1, series2, series3, series4], [
+      ] = changeSeriesState([series1, series2, series3, series4] as any, [
         { series: 's3', point: 3 },
         { series: 's4', point: 5 },
         { series: 's4', point: 2 },
@@ -313,9 +313,9 @@ describe('Series', () => {
     });
 
     it('should return original list when there are no matches', () => {
-      const list = [series1, series2, series3, series4];
+      const list = [series1 as any, series2, series3, series4];
       const result = changeSeriesState(list, [
-        { series: 's5' },
+        { series: 's5' } as any,
         { series: 's6', point: 3 },
         { series: 's0', point: 0 },
       ], 'test-state');

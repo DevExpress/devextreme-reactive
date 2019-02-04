@@ -1,5 +1,5 @@
 import { PureComputed } from '@devexpress/dx-core';
-import { PiePoint, Point } from './chart-core.types';
+import { PiePoint } from './chart-core.types';
 
 export type DBarFn = PureComputed<[{
   x: number, y: number, y1: number, width: number,

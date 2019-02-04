@@ -1,5 +1,5 @@
 import { PureComputed, CustomFunction } from '@devexpress/dx-core';
-import { ContinuousSeriesHitTesterCreatorFn } from './utils.types';
+import { CreateHitTesterFn } from './utils.types';
 
 type RangeFn = CustomFunction<[any[]?], any[]>;
 type BandwidthFn = CustomFunction<[], number>;
@@ -15,8 +15,9 @@ type PointFn = PureComputed<[Point]>;
 type GetTargetElementFn = PureComputed<[any]>;
 type PointColorFn = PureComputed<[string[], number], string>;
 
+// TODO: Find a way to use types from "d3-scale".
 export interface Scale {
-  (value: any): number ;
+  (value: any): number;
   // A function that returns an array of ticks.
   ticks?: TicksFn;
   // A function that sets (if the domain parameter is an array) or
@@ -44,17 +45,17 @@ export interface BarPoint {
   x: number;
   // The bar's y coordinate'
   y: number;
-// The bar's y1 coordinate
+  // The bar's y1 coordinate
   y1: number;
-// The bar's width in relative units
+  // The bar's width in relative units
   barWidth: number;
-// The maximum width that the bar can occupy, measured in pixels
+  // The maximum width that the bar can occupy, measured in pixels
   maxBarWidth: number;
-// The bar's value
+  // The bar's value
   value: number;
   // A series color
   color: string;
-// Point index
+  // Point index
   index: number;
 }
 
@@ -63,21 +64,21 @@ export interface PiePoint {
   x: number;
   // The slice's y coordinate
   y: number;
-// The slice's maximum radius in pixels
+  // The slice's maximum radius in pixels
   maxRadius: number;
-// The inner radius in relative units
+  // The inner radius in relative units
   innerRadius: number;
-// The outer radius in relative units
+  // The outer radius in relative units
   outerRadius: number;
-// The slice's start angle
+  // The slice's start angle
   startAngle: number;
-// The slice's end angle
+  // The slice's end angle
   endAngle: number;
-// The slice's value
+  // The slice's value
   value: number;
-// A series color
+  // A series color
   color: string;
-// Point index
+  // Point index
   index: number;
 }
 
@@ -86,22 +87,23 @@ export interface ScatterPoint {
   x: number;
   // The point's y coordinate
   y: number;
-// Point options
+  // Point options
   point: { size: number };
-// The point's value
+  // The point's value
   value: number;
-// A series color
+  // A series color
   color: string;
-// Point index
+  // Point index
   index: number;
 }
 
 export interface Target {
   // Series name
-  series: string;
+  readonly series: string;
   // The point’s index within the data array
-  point: number;
+  readonly point: number;
 }
+export type TargetList = ReadonlyArray<Target>;
 
 export interface Stack {
   // A list of series names
@@ -122,6 +124,7 @@ export type Point = {
   y1: number,
   size: number,
 };
+export type PointList = ReadonlyArray<Point>;
 
 export type Series = {
   index: number,
@@ -133,9 +136,11 @@ export type Series = {
   color: string,
   argumentField: string,
   valueField: string,
-  createHitTester: ContinuousSeriesHitTesterCreatorFn,
+  createHitTester: CreateHitTesterFn,
   getPointTransformer: GetPointTransformerFn,
 };
+export type SeriesList = ReadonlyArray<Series>;
+
 export type GetValueDomainFn = PureComputed<[Point[]]>;
 export type GetPointTransformerFn = PureComputed<[PointTransformer], PointFn>&
 {

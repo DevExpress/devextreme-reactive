@@ -8,27 +8,26 @@ import {
   pie,
 } from 'd3-shape';
 import {
-  Point, Domains,
-  Series, DPieFn, DBarFn, GetPointTransformerFn, DataItems,
+  SeriesList, Series, PointList, Point, DataItems,
+  GetPointTransformerFn, TransformedPoint, BarPoint, PiePoint, ScatterPoint, Palette, ScalesCache,
 } from '../../types';
 import { ARGUMENT_DOMAIN } from '../../constants';
 import { getWidth, getValueDomainName, fixOffset } from '../../utils/scale';
-import { PureComputed } from '@devexpress/dx-core';
 
-const getX = ({ x }: Point) => x;
-const getY = ({ y }: Point) => y;
-const getY1 = ({ y1 }: Point) => y1;
+const getX = ({ x }: TransformedPoint) => x;
+const getY = ({ y }: TransformedPoint) => y;
+const getY1 = ({ y1 }: TransformedPoint) => y1!;
 
-export const dArea = area<Point>()
+export const dArea = area<TransformedPoint>()
   .x(getX)
   .y1(getY)
   .y0(getY1);
 
-export const dLine = line<Point>()
+export const dLine = line<TransformedPoint>()
   .x(getX)
   .y(getY);
 
-export const dSpline = line<Point>()
+export const dSpline = line<TransformedPoint>()
   .x(getX)
   .y(getY)
   .curve(curveMonotoneX);
@@ -97,22 +96,24 @@ getBarPointTransformer.isBroad = true;
 
 getPiePointTransformer.getPointColor = (palette, index) => palette[index % palette.length];
 
-export const findSeriesByName: PureComputed<[string, Series[]], Series | undefined> = (
-  name, series,
+export const findSeriesByName = (
+  name: string, series: SeriesList,
 ) => series.find(seriesItem => seriesItem.symbolName === name);
 
-export const dBar: DBarFn = ({
+export const dBar = ({
   x, y, y1, width,
-}) => ({
-  x: x - width / 2, y: Math.min(y, y1), width: width || 2, height: Math.abs(y1 - y),
+}: TransformedPoint & { width: number }) => ({
+  x: x - width / 2, y: Math.min(y, y1!), width: width || 2, height: Math.abs(y1! - y),
 });
 
-export const dSymbol: PureComputed<[Point], string> = (
-  { size },
+export const dSymbol = (
+  { size }: { size: number },
 ) => symbol().size(size ** 2).type(symbolCircle)()!;
 
-export const dPie: DPieFn = ({
+export const dPie = ({
   maxRadius, innerRadius, outerRadius, startAngle, endAngle,
+}: {
+  maxRadius: number, innerRadius: number, outerRadius: number, startAngle: number, endAngle: number,
 }) => arc()({
   startAngle,
   endAngle,
@@ -120,20 +121,21 @@ export const dPie: DPieFn = ({
   outerRadius: outerRadius * maxRadius,
 })!;
 
-getBarPointTransformer.getTargetElement = ({
-  x, y, y1, barWidth, maxBarWidth,
-}) => {
+getBarPointTransformer.getTargetElement = (point: TransformedPoint) => {
+  const { x, y, y1, barWidth, maxBarWidth } = point as BarPoint;
   const width = barWidth * maxBarWidth;
-  const height = Math.abs(y1 - y);
+  const height = Math.abs(y1! - y);
   return {
     y,
     x: x - width / 2,
     d: `M0,0 ${width},0 ${width},${height} 0,${height}`,
   };
 };
-getPiePointTransformer.getTargetElement = ({
-  x, y, innerRadius, outerRadius, maxRadius, startAngle, endAngle,
-}) => {
+
+getPiePointTransformer.getTargetElement = (point: TransformedPoint) => {
+  const {
+    x, y, innerRadius, outerRadius, maxRadius, startAngle, endAngle,
+  } = point as PiePoint;
   const center = arc().centroid({
     startAngle,
     endAngle,
@@ -141,25 +143,30 @@ getPiePointTransformer.getTargetElement = ({
     outerRadius: outerRadius * maxRadius,
   });
   return {
-    x: center[0] + x, y: center[1] + y, d: symbol().size(1 ** 2).type(symbolCircle)(),
+    x: center[0] + x,
+    y: center[1] + y,
+    d: symbol().size(1 ** 2).type(symbolCircle)()!,
   };
 };
 
-getAreaPointTransformer.getTargetElement = ({ x, y }) => ({
+getAreaPointTransformer.getTargetElement = ({ x, y }: TransformedPoint) => ({
   x,
   y,
-  d: symbol().size(2 ** 2).type(symbolCircle)(),
+  d: symbol().size(2 ** 2).type(symbolCircle)()!,
 });
 
 getLinePointTransformer.getTargetElement = getAreaPointTransformer.getTargetElement;
 
-getScatterPointTransformer.getTargetElement = ({ x, y, point }) => ({
-  x,
-  y,
-  d: symbol().size(point.size ** 2).type(symbolCircle)(),
-});
+getScatterPointTransformer.getTargetElement = (arg: TransformedPoint) => {
+  const { x, y, point } = arg as ScatterPoint;
+  return {
+    x,
+    y,
+    d: symbol().size(point.size ** 2).type(symbolCircle)()!,
+  };
+};
 
-const getUniqueName: PureComputed<[Series[], string], string> = (list, name) => {
+const getUniqueName = (list: SeriesList, name: string) => {
   const names = new Set(list.map(item => item.name));
   let ret = name;
   while (names.has(ret)) {
@@ -171,11 +178,11 @@ const getUniqueName: PureComputed<[Series[], string], string> = (list, name) => 
 
 // TODO: Memoization is much needed here.
 // Though "series" list never persists, single "series" item most often does.
-const createPoints: PureComputed<[Series, DataItems[], any, string[]], Point[]> = (
+const createPoints = (
   {
     argumentField, valueField, getPointTransformer,
-  },
-  data, props, palette) => {
+  }: Series,
+  data: DataItems, props: any, palette: Palette) => {
   const points: Point[] = [];
   data.forEach((dataItem, index) => {
     const argument = dataItem[argumentField];
@@ -191,12 +198,12 @@ const createPoints: PureComputed<[Series, DataItems[], any, string[]], Point[]> 
       });
     }
   });
-  return points;
+  return points as PointList;
 };
 
-export const addSeries: PureComputed<
-  [Series[], DataItems, string[], any?, any?]
-> = (series, data, palette, props?, restProps?) => {
+export const addSeries = (
+  series: SeriesList, data: DataItems, palette: Palette, props?: any, restProps?: any,
+) => {
   // It is used to generate unique series dependent attribute names for patterns.
   // *symbolName* cannot be used as it cannot be part of DOM attribute name.
   const index = series.length;
@@ -207,23 +214,24 @@ export const addSeries: PureComputed<
     name: getUniqueName(series, props.name),
     points: createPoints(props, data, { ...restProps, color: seriesColor }, palette),
     color: seriesColor,
-  }];
+  }] as SeriesList;
 };
 
 // TODO: Memoization is much needed here by the same reason as in "createPoints".
 // Make "scales" persistent first.
-const scalePoints: PureComputed<[Series, Domains]> = (series, scales) => {
+const scalePoints = (series: Series, scales: ScalesCache) => {
   const transform = series.getPointTransformer({
     ...series,
     argumentScale: scales[ARGUMENT_DOMAIN],
     valueScale: scales[getValueDomainName(series.scaleName)],
   });
-  return {
+  const ret: Series = {
     ...series,
     points: series.points.map(transform),
   };
+  return ret;
 };
 
-export const scaleSeriesPoints: PureComputed<
-  [Series[], Domains]
-> = (series, scales) => series.map(seriesItem => scalePoints(seriesItem, scales) as Series);
+export const scaleSeriesPoints = (
+  series: SeriesList, scales: ScalesCache,
+) => series.map(seriesItem => scalePoints(seriesItem, scales) as Series) as SeriesList;

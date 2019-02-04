@@ -24,8 +24,8 @@ describe('Scale', () => {
   describe('defaultDomains', () => {
     it('should contain argument and value domains', () => {
       expect(defaultDomains).toEqual({
-        [ARGUMENT_DOMAIN]: { },
-        [VALUE_DOMAIN]: { },
+        [ARGUMENT_DOMAIN]: { domain: [] },
+        [VALUE_DOMAIN]: { domain: [] },
       });
     });
   });
@@ -33,7 +33,8 @@ describe('Scale', () => {
   describe('addDomain', () => {
     it('should add domain to map', () => {
       expect(addDomain(
-        { 'domain-1': { tag: '1' }, 'domain-2': { tag: '2' } }, 'test-domain', { tag: 'test' },
+        { 'domain-1': { tag: '1' }, 'domain-2': { tag: '2' } } as any,
+        'test-domain', { tag: 'test' },
       )).toEqual({
         'domain-1': { tag: '1' },
         'domain-2': { tag: '2' },
@@ -67,7 +68,7 @@ describe('Scale', () => {
     const getPointTransformer = () => null;
 
     it('should compute domains from series points', () => {
-      const domains = computeDomains(testDomains, [{
+      const domains = computeDomains(testDomains as any, [{
         getPointTransformer,
         points: [
           { argument: 1, value: 9 },
@@ -80,7 +81,7 @@ describe('Scale', () => {
           { argument: 2, value: 10 },
           { argument: 4, value: 11 },
         ],
-      }]);
+      }] as any);
 
       expect(domains).toEqual({
         [ARGUMENT_DOMAIN]: {
@@ -99,9 +100,9 @@ describe('Scale', () => {
         { argument: 2, value: 2 },
         { argument: 3, value: 7 },
       ];
-      const domains = computeDomains(testDomains, [{
+      const domains = computeDomains(testDomains as any, [{
         getPointTransformer, getValueDomain, points,
-      }]);
+      }] as any);
 
       expect(domains).toEqual({
         [ARGUMENT_DOMAIN]: {
@@ -115,9 +116,9 @@ describe('Scale', () => {
     });
 
     it('should compute domains from series points, negative values', () => {
-      const domains = computeDomains(testDomains, [{
+      const domains = computeDomains(testDomains as any, [{
         getPointTransformer, points: [{ argument: 1, value: 9 }, { argument: 2, value: -10 }],
-      }]);
+      }] as any);
 
       expect(domains).toEqual({
         [ARGUMENT_DOMAIN]: {
@@ -130,9 +131,9 @@ describe('Scale', () => {
     });
 
     it('should compute domains from series points, zero values', () => {
-      const domains = computeDomains(testDomains, [{
+      const domains = computeDomains(testDomains as any, [{
         getPointTransformer, points: [{ argument: 1, value: 0 }, { argument: 2, value: 10 }],
-      }]);
+      }] as any);
 
       expect(domains).toEqual({
         [ARGUMENT_DOMAIN]: {
@@ -145,9 +146,9 @@ describe('Scale', () => {
     });
 
     it('should include zero into bounds if series starts from zero', () => {
-      const domains = computeDomains(testDomains, [{
+      const domains = computeDomains(testDomains as any, [{
         getPointTransformer: { isStartedFromZero: true }, points: [{ argument: 1, value: 9 }],
-      }]);
+      }] as any);
 
       expect(domains).toEqual({
         [ARGUMENT_DOMAIN]: {
@@ -161,7 +162,7 @@ describe('Scale', () => {
 
     it('should compute domains from several series', () => {
       const makePoints = values => values.map((value, index) => ({ value, argument: index + 1 }));
-      const domains = computeDomains({ ...testDomains, domain1: { } }, [{
+      const domains = computeDomains({ ...testDomains, domain1: { } } as any, [{
         getPointTransformer, points: makePoints([2, 3, 5, 6]),
       }, {
         getPointTransformer, points: makePoints([-1, -3, 0, 1]), scaleName: 'domain1',
@@ -169,7 +170,7 @@ describe('Scale', () => {
         getPointTransformer, points: makePoints([1, 2, 3, 1]), scaleName: 'domain1',
       }, {
         getPointTransformer, points: makePoints([2, 5, 7, 3]),
-      }]);
+      }] as any);
 
       expect(domains).toEqual({
         [ARGUMENT_DOMAIN]: {
@@ -188,14 +189,14 @@ describe('Scale', () => {
       const domains = computeDomains({
         ...testDomains,
         [ARGUMENT_DOMAIN]: { factory: scaleBand },
-      }, [{
+      } as any, [{
         getPointTransformer,
         points: [
           { argument: 'a', value: 1 },
           { argument: 'b', value: 2 },
           { argument: 'c', value: 1.5 },
         ],
-      }]);
+      }] as any);
 
       expect(domains).toEqual({
         [ARGUMENT_DOMAIN]: {
@@ -208,9 +209,9 @@ describe('Scale', () => {
     });
 
     it('should guess banded domain type by data', () => {
-      const domains = computeDomains(testDomains, [{
+      const domains = computeDomains(testDomains as any, [{
         getPointTransformer, points: [{ argument: 'a', value: 'A' }, { argument: 'b', value: 'B' }],
-      }]);
+      }] as any);
 
       expect(domains).toEqual({
         [ARGUMENT_DOMAIN]: {
@@ -229,13 +230,13 @@ describe('Scale', () => {
         ...testDomains,
         [ARGUMENT_DOMAIN]: { factory: factory1 },
         domain1: { factory: factory2 },
-      }, [{
+      } as any, [{
         getPointTransformer, points: [{ argument: 1, value: 11 }, { argument: 2, value: 12 }],
       }, {
         getPointTransformer,
         scaleName: 'domain1',
         points: [{ argument: 3, value: 1 }, { argument: 4, value: 2 }, { argument: 5, value: 3 }],
-      }]);
+      }] as any);
 
       expect(domains).toEqual({
         [ARGUMENT_DOMAIN]: {
@@ -255,11 +256,11 @@ describe('Scale', () => {
       const domains = computeDomains({
         ...testDomains,
         domain1: { modifyDomain: mock },
-      }, [{
+      } as any, [{
         getPointTransformer,
         scaleName: 'domain1',
         points: [{ argument: 1, value: 3 }, { argument: 2, value: 14 }],
-      }]);
+      }] as any);
 
       expect(domains).toEqual({
         [ARGUMENT_DOMAIN]: {
@@ -292,7 +293,7 @@ describe('Scale', () => {
         [ARGUMENT_DOMAIN]: { domain: 'test-domain-1', factory: () => mockScale1 },
         [VALUE_DOMAIN]: { domain: 'test-domain-2', factory: () => mockScale2 },
         'test-domain': { domain: 'test-domain-3', factory: () => mockScale3 },
-      }, { width: 400, height: 300 });
+      } as any, { width: 400, height: 300 });
 
       expect(scales).toEqual({
         [ARGUMENT_DOMAIN]: mockScale1,

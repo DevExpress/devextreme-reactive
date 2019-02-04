@@ -11,9 +11,10 @@ type PaddingOuterFn = CustomFunction<[number], Scale>;
 type CopyFn = CustomFunction<[], Scale>;
 type ClampFn = CustomFunction<[boolean], Scale>;
 
-type PointFn = PureComputed<[Point]>;
-type GetTargetElementFn = PureComputed<[any]>;
-type PointColorFn = PureComputed<[string[], number], string>;
+type DataItem = { readonly [field: string]: any };
+export type DataItems = ReadonlyArray<DataItem>;
+
+export type Domain = ReadonlyArray<any>;
 
 // TODO: Find a way to use types from "d3-scale".
 export interface Scale {
@@ -40,61 +41,52 @@ export interface Scale {
   paddingOuter?: PaddingOuterFn;
 }
 
-export interface BarPoint {
-  // The bar's x coordinate (the bar's center)
-  x: number;
-  // The bar's y coordinate'
-  y: number;
-  // The bar's y1 coordinate
-  y1: number;
-  // The bar's width in relative units
-  barWidth: number;
-  // The maximum width that the bar can occupy, measured in pixels
-  maxBarWidth: number;
-  // The bar's value
-  value: number;
-  // A series color
-  color: string;
+export interface Point {
+  // Point argument
+  readonly argument: any;
+  // Point value
+  readonly value: any;
   // Point index
-  index: number;
+  readonly index: number;
+  // Point color
+  readonly color: string;
 }
 
-export interface PiePoint {
-  // The slice's x coordinate
-  x: number;
-  // The slice's y coordinate
-  y: number;
-  // The slice's maximum radius in pixels
-  maxRadius: number;
-  // The inner radius in relative units
-  innerRadius: number;
-  // The outer radius in relative units
-  outerRadius: number;
-  // The slice's start angle
-  startAngle: number;
-  // The slice's end angle
-  endAngle: number;
-  // The slice's value
-  value: number;
-  // A series color
-  color: string;
-  // Point index
-  index: number;
-}
+export type PointList = ReadonlyArray<Point>;
 
-export interface ScatterPoint {
+export interface TransformedPoint extends Point {
   // The point's x coordinate
-  x: number;
-  // The point's y coordinate
-  y: number;
+  readonly x: number;
+  // The point's y coordinate'
+  readonly y: number;
+  // Let's keep it here (instead of creating a separate interface with single field) for now.
+  // The point's y1 coordinate
+  readonly y1?: number;
+}
+
+export interface BarPoint extends TransformedPoint {
+  // The bar's width in relative units
+  readonly barWidth: number;
+  // The maximum width that the bar can occupy, measured in pixels
+  readonly maxBarWidth: number;
+}
+
+export interface ScatterPoint extends TransformedPoint {
   // Point options
   point: { size: number };
-  // The point's value
-  value: number;
-  // A series color
-  color: string;
-  // Point index
-  index: number;
+}
+
+export interface PiePoint extends TransformedPoint {
+  // The slice's maximum radius in pixels
+  readonly maxRadius: number;
+  // The inner radius in relative units
+  readonly innerRadius: number;
+  // The outer radius in relative units
+  readonly outerRadius: number;
+  // The slice's start angle
+  readonly startAngle: number;
+  // The slice's end angle
+  readonly endAngle: number;
 }
 
 export interface Target {
@@ -109,22 +101,10 @@ export interface Stack {
   // A list of series names
   series: string[];
 }
+export type StackList = ReadonlyArray<Stack>;
 
 type Text = string;
 export type GetFormatFn = PureComputed<[any], Text>;
-
-export type Point = {
-  index: number,
-  argument: any,
-  color: string,
-  value: number,
-  value0: number,
-  x: number,
-  y: number,
-  y1: number,
-  size: number,
-};
-export type PointList = ReadonlyArray<Point>;
 
 export type Series = {
   index: number,
@@ -141,12 +121,25 @@ export type Series = {
 };
 export type SeriesList = ReadonlyArray<Series>;
 
-export type GetValueDomainFn = PureComputed<[Point[]]>;
-export type GetPointTransformerFn = PureComputed<[PointTransformer], PointFn>&
-{
+export type GetValueDomainFn = (points: PointList) => Domain;
+
+export type Palette = ReadonlyArray<string>;
+
+type PointColorFn = (palette: Palette, index: number) => string;
+type GetTargetElementFn = (point: TransformedPoint) => {
+  readonly x: number;
+  readonly y: number;
+  readonly d: string;
+};
+type TransformPointFn = (point: Point) => TransformedPoint;
+export type GetPointTransformerFnRaw = (series: {
+  readonly points: PointList;
+  readonly argumentScale: Scale;
+  readonly valueScale: Scale;
+}) => TransformPointFn;
+export type GetPointTransformerFn = GetPointTransformerFnRaw & {
   isStartedFromZero?: boolean,
   getPointColor?: PointColorFn,
   isBroad?: boolean,
   getTargetElement: GetTargetElementFn,
 };
-export type PointTransformer = Series & {argumentScale: Scale, valueScale: Scale};

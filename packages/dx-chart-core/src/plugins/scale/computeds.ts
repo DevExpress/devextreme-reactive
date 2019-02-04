@@ -2,51 +2,61 @@ import { extent } from 'd3-array';
 import { scaleLinear as d3ScaleLinear, scaleBand as d3ScaleBand } from 'd3-scale';
 import { isHorizontal, getValueDomainName } from '../../utils/scale';
 import { ARGUMENT_DOMAIN, VALUE_DOMAIN } from '../../constants';
-import { PureComputed } from '@devexpress/dx-core';
 import {
-  Domains, Series, Point, GetItemFn, Layout,
+  Series, Point, Scale, SeriesList, PointList, ScalesCache, Domain,
 } from '../../types';
 
-export const defaultDomains = {
-  [ARGUMENT_DOMAIN]: {},
-  [VALUE_DOMAIN]: {},
+type FactoryFn = () => Scale;
+type ModifyDomainFn = (domain: Domain) => Domain;
+type DomainInfo = {
+  readonly modifyDomain?: ModifyDomainFn;
+  domain: Domain;
+  factory?: FactoryFn;
+  isDiscrete?: boolean;
+};
+type DomainInfoCache = {
+  readonly [name: string]: DomainInfo;
 };
 
-export const addDomain: PureComputed<
-[Domains, string, any], Domains
-> = (domains, name, props) => ({
-  ...domains,
-  [name]: props,
-});
+export const defaultDomains: DomainInfoCache = {
+  [ARGUMENT_DOMAIN]: { domain: [] },
+  [VALUE_DOMAIN]: { domain: [] },
+};
 
-const copy: PureComputed<[Domains], {[key: string]: any}> = (domains) => {
+export const addDomain = (domains: DomainInfoCache, name: string, props: any) => {
+  const ret: DomainInfoCache = {
+    ...domains,
+    [name]: props,
+  };
+  return ret;
+};
+
+const copy = (domains: DomainInfoCache) => {
   const result = {};
   Object.keys(domains).forEach((name) => {
     result[name] = { ...domains[name], domain: [] };
   });
-  return result;
+  return result as DomainInfoCache;
 };
 
-const getSeriesValueDomainName: PureComputed<
-  [Series], string
-> = series => getValueDomainName(series.scaleName);
+const getSeriesValueDomainName = (series: Series) => getValueDomainName(series.scaleName);
 
 const mergeContinuousDomains = (
-  domain, items,
-) => extent([...domain, ...items]);
+  domain: Domain, items: Domain,
+): Domain => extent([...domain, ...items]);
 const mergeDiscreteDomains = (
-  domain, items,
-) => Array.from(new Set([...domain, ...items]));
+  domain: Domain, items: Domain,
+): Domain => Array.from(new Set([...domain, ...items]));
 
 const getArgument = (point: Point) => point.argument;
 const getValue = (point: Point) => point.value;
 
-const extendDomain = (target, items) => {
+const extendDomain = (target: DomainInfo, items: Domain) => {
   const merge = target.isDiscrete ? mergeDiscreteDomains : mergeContinuousDomains;
   Object.assign(target, { domain: merge(target.domain, items) });
 };
 
-const calculateDomains: PureComputed<[Domains, Series[]], void> = (domains, seriesList) => {
+const calculateDomains = (domains: DomainInfoCache, seriesList: SeriesList) => {
   seriesList.forEach((seriesItem) => {
     const valueDomainName = getSeriesValueDomainName(seriesItem);
     const { points } = seriesItem;
@@ -63,13 +73,14 @@ const calculateDomains: PureComputed<[Domains, Series[]], void> = (domains, seri
 export const scaleLinear = d3ScaleLinear;
 export const scaleBand = () => d3ScaleBand().paddingInner(0.3).paddingOuter(0.15);
 
-const guessFactory = (points: Point[], getItem: GetItemFn) => (
-  (points.length && typeof getItem(points[0]) === 'string' && scaleBand) || scaleLinear
-);
+const guessFactory = (points: PointList, getItem: (point: Point) => any): FactoryFn => {
+  if (points.length && typeof getItem(points[0]) === 'string') {
+    return scaleBand as any as FactoryFn;
+  }
+  return scaleLinear;
+};
 
-const collectDomainsFromSeries: PureComputed<
-  [Domains, Series[]]
-> = (domains, seriesList) => {
+const collectDomainsFromSeries = (domains: DomainInfoCache, seriesList: SeriesList) => {
   seriesList.forEach((seriesItem) => {
     if (!domains[ARGUMENT_DOMAIN].factory) {
       Object.assign(domains[ARGUMENT_DOMAIN], {
@@ -96,7 +107,7 @@ const collectDomainsFromSeries: PureComputed<
   return domains;
 };
 
-const customizeDomains: PureComputed<[Domains], void> = (domains) => {
+const customizeDomains = (domains: DomainInfoCache) => {
   Object.keys(domains).forEach((name) => {
     const obj = domains[name];
     if (obj.modifyDomain) {
@@ -105,7 +116,7 @@ const customizeDomains: PureComputed<[Domains], void> = (domains) => {
   });
 };
 
-export const computeDomains: PureComputed<[Domains, Series[]]> = (domains, seriesList) => {
+export const computeDomains = (domains: DomainInfoCache, seriesList: SeriesList) => {
   const result = copy(domains);
   collectDomainsFromSeries(result, seriesList);
   calculateDomains(result, seriesList);
@@ -113,13 +124,17 @@ export const computeDomains: PureComputed<[Domains, Series[]]> = (domains, serie
   return result;
 };
 
-export const buildScales: PureComputed<[Domains, Layout]> = (domains, { width, height }) => {
+type Layout = {
+  readonly width: number;
+  readonly height: number;
+};
+export const buildScales = (domains: DomainInfoCache, { width, height }: Layout) => {
   const scales = {};
   Object.keys(domains).forEach((name) => {
     const obj = domains[name];
-    scales[name] = obj.factory()
-      .domain(obj.domain)
+    scales[name] = obj.factory!()
+      .domain(obj.domain as any[])
       .range(isHorizontal(name) ? [0, width] : [height, 0]);
   });
-  return scales;
+  return scales as ScalesCache;
 };

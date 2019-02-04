@@ -142,9 +142,9 @@ describe('getAreaPointTransformer', () => {
     valueScale.mockReturnValueOnce(4);
     valueScale.mockReturnValueOnce(9);
 
-    const transform = getAreaPointTransformer({ argumentScale, valueScale });
+    const transform = getAreaPointTransformer({ argumentScale, valueScale } as any);
     expect(
-      transform({ argument: 'arg', value: 'val', index: 1 }),
+      transform({ argument: 'arg', value: 'val', index: 1 } as any),
     ).toEqual({
       argument: 'arg',
       value: 'val',
@@ -160,7 +160,7 @@ describe('getAreaPointTransformer', () => {
   it('should return target element', () => {
     expect(getAreaPointTransformer.getTargetElement({
       x: 10, y: 20,
-    })).toEqual({
+    } as any)).toEqual({
       x: 10,
       y: 20,
       d: 'symbol path',
@@ -176,9 +176,9 @@ describe('getScatterPointTransformer', () => {
     argumentScale.bandwidth = () => 8;
     const valueScale = jest.fn().mockReturnValue(4);
 
-    const transform = getScatterPointTransformer({ argumentScale, valueScale });
+    const transform = getScatterPointTransformer({ argumentScale, valueScale } as any);
     expect(
-      transform({ argument: 'arg', value: 'val', index: 1 }),
+      transform({ argument: 'arg', value: 'val', index: 1 } as any),
     ).toEqual({
       argument: 'arg',
       value: 'val',
@@ -193,7 +193,7 @@ describe('getScatterPointTransformer', () => {
   it('should return target element', () => {
     expect(getScatterPointTransformer.getTargetElement({
       x: 10, y: 20, point: { size: 20 },
-    })).toEqual({
+    } as any)).toEqual({
       x: 10,
       y: 20,
       d: 'symbol path',
@@ -210,9 +210,9 @@ describe('getLinePointTransformer', () => {
     const valueScale = jest.fn();
     valueScale.mockReturnValueOnce(9);
 
-    const transform = getLinePointTransformer({ argumentScale, valueScale });
+    const transform = getLinePointTransformer({ argumentScale, valueScale } as any);
     expect(
-      transform({ argument: 'arg', value: 'val', index: 1 }),
+      transform({ argument: 'arg', value: 'val', index: 1 } as any),
     ).toEqual({
       argument: 'arg',
       value: 'val',
@@ -235,9 +235,9 @@ describe('getBarPointTransformer', () => {
 
     const transform = getBarPointTransformer({
       argumentScale, valueScale,
-    });
+    } as any);
     expect(
-      transform({ argument: 'arg', value: 'val', index: 1 }),
+      transform({ argument: 'arg', value: 'val', index: 1 } as any),
     ).toEqual({
       argument: 'arg',
       value: 'val',
@@ -258,7 +258,7 @@ describe('getBarPointTransformer', () => {
   it('should return target element', () => {
     expect(getBarPointTransformer.getTargetElement({
       x: 30, y: 20, y1: 30, barWidth: 2, maxBarWidth: 20,
-    })).toEqual({
+    } as any)).toEqual({
       x: 10,
       y: 20,
       d: 'M0,0 40,0 40,10 0,10',
@@ -286,7 +286,7 @@ describe('getPiePointTransformer', () => {
       argumentScale,
       valueScale,
       points: 'test-points',
-    });
+    } as any);
 
     expect(
       transform({
@@ -327,7 +327,7 @@ describe('getPiePointTransformer', () => {
   it('should return target element', () => {
     expect(getPiePointTransformer.getTargetElement({
       x: 10, y: 20, innerRadius: 1, outerRadius: 2, maxRadius: 20, startAngle: 45, endAngle: 60,
-    })).toEqual({
+    } as any)).toEqual({
       x: 12,
       y: 23,
       d: 'symbol path',
@@ -356,8 +356,8 @@ describe('findSeriesByName', () => {
       { symbolName: Symbol('Series 3') },
     ];
 
-    expect(findSeriesByName(symbolName, series)).toEqual(series[1]);
-    expect(findSeriesByName(Symbol('test'), series)).toEqual(undefined);
+    expect(findSeriesByName(symbolName as any, series as any)).toEqual(series[1]);
+    expect(findSeriesByName(Symbol('test') as any, series as any)).toEqual(undefined);
   });
 });
 
@@ -377,12 +377,12 @@ describe('dBar', () => {
   it('should return bar coordinates', () => {
     expect(dBar({
       x: 2, y: 9, y1: 5, width: 3,
-    })).toEqual({
+    } as any)).toEqual({
       x: 0.5, y: 5, width: 3, height: 4,
     });
     expect(dBar({
       x: 2, y: 5, y1: 9, width: 3,
-    })).toEqual({
+    } as any)).toEqual({
       x: 0.5, y: 5, width: 3, height: 4,
     });
   });
@@ -411,7 +411,7 @@ describe('addSeries', () => {
 
   it('should append element to list', () => {
     const result = addSeries(
-      [{ name: 's1' }, { name: 's2' }], [], palette, { name: 'test' },
+      [{ name: 's1' }, { name: 's2' }] as any, [], palette, { name: 'test' },
     );
     expect(result).toEqual([
       { name: 's1' },
@@ -426,7 +426,7 @@ describe('addSeries', () => {
   });
 
   it('should generate unique name prop', () => {
-    const result = addSeries([{ name: 'test' }], [], palette, { name: 'test' });
+    const result = addSeries([{ name: 'test' }] as any, [], palette, { name: 'test' });
     expect(result).toEqual([
       { name: 'test' },
       expect.objectContaining({ name: 'test0' }),
@@ -435,14 +435,14 @@ describe('addSeries', () => {
 
   it('should attempt to generate unique name several times', () => {
     const result = addSeries(
-      [{ name: 'test1' }, { name: 'test2' }, { name: 'test3' }],
+      [{ name: 'test1' }, { name: 'test2' }, { name: 'test3' }] as any,
       [], palette, { name: 'test1' },
     );
     expect(result[3].name).toEqual('test4');
   });
 
   it('should take color from palette and favor own series color', () => {
-    let result: any[] = [{ name: 's1' }, { name: 's2' }];
+    let result: any = [{ name: 's1' }, { name: 's2' }];
     result = addSeries(result, [], palette, { name: 't1' });
     result = addSeries(result, [], palette, { name: 't2', color: 'red' });
     result = addSeries(result, [], palette, { name: 't3' });
@@ -467,7 +467,7 @@ describe('addSeries', () => {
       { arg: 'e' },
     ];
     const result = addSeries(
-      [{ name: 's1' }],
+      [{ name: 's1' }] as any,
       data,
       palette,
       props,
@@ -509,7 +509,7 @@ describe('addSeries', () => {
       { arg: 'e' },
     ];
     const result = addSeries(
-      [{ name: 's1' }],
+      [{ name: 's1' }] as any,
       data,
       palette,
       props,
@@ -564,7 +564,7 @@ describe('scaleSeriesPoints', () => {
       points: [{ name: 'b1' }, { name: 'b2' }, { name: 'b3' }],
     };
 
-    const result = scaleSeriesPoints([series1, series2], scales);
+    const result = scaleSeriesPoints([series1, series2] as any, scales as any);
 
     expect(result[0].points).toEqual(
       [{ name: 'a1', tag: '#1' }, { name: 'a2', tag: '#1' }],

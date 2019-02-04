@@ -1,12 +1,12 @@
 import { CustomFunction, PureComputed } from '@devexpress/dx-core';
-import { Stack, Series } from './chart-core.types';
+import { Stack, Series, DataItems } from './chart-core.types';
 
 type StackProps = {
   stacks: Stack[],
   order: OrderFn,
   offset: OffsetFn,
 };
-export type DataItems = any[];
+
 export type StackMap = {[key: string]: number};
 export type OrderFn = CustomFunction<[Stack[]], number[]>;
 export type OffsetFn = CustomFunction<[Stack[], number[]], void>;

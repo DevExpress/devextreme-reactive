@@ -1,33 +1,57 @@
 import { stack } from 'd3-shape';
 import { scaleBand } from 'd3-scale';
-import { PureComputed } from '@devexpress/dx-core';
 import {
-  Stack, StackMap, Series, getStackedSeriesFn, GetPointTransformerFn, DataItems,
-  CollectStacksFn, GetValueDomainFn, ApplyStackingFn, StacksKeys, OrderFn, OffsetFn,
-  SeriesPositions,
+  SeriesList, Series, PointList, Point, GetPointTransformerFn, DataItems, Domain,
+  StackList, GetPointTransformerFnRaw, BarPoint,
 } from '../../types';
+
+interface StackedPoint extends Point {
+  readonly value0: any;
+}
+
+type StackData = ReadonlyArray<ReadonlyArray<number>>;
+
+type OrderFn = (series: StackData) => number[];
+type OffsetFn = (series: StackData, order: number[]) => void;
+
+type StackMap = {
+  readonly [series: string]: number;
+};
+type StacksKeys = {
+  [stackId: number]: string[];
+};
+type SeriesPositions = {
+  [name: string]: number;
+};
+type StackedDataItem = Readonly<[any, any]>;
+type StackedDataItems = ReadonlyArray<StackedDataItem>;
+type StackedData = {
+  readonly [stackId: number]: {
+    readonly [seriesPosition: number]: StackedDataItems;
+  };
+};
 
 // "Stack" plugin relies on "data" and "series" getters and
 // knowledge about "getPointTransformer" and "path" functions behavior.
-const buildSeriesToStackMap: PureComputed<[Stack[]], StackMap> = (stacks) => {
+const buildSeriesToStackMap = (stacks: StackList) => {
   const result = {};
   stacks.forEach(({ series }, i) => {
     series.forEach((name) => {
       result[name] = i;
     });
   });
-  return result;
+  return result as StackMap;
 };
 
 const getStackedPointTransformer = (getPointTransformer: GetPointTransformerFn) => {
-  const wrapper = (series) => {
+  const wrapper: GetPointTransformerFnRaw = (series) => {
     const transform = getPointTransformer(series);
     const { valueScale } = series;
-    return (point) => {
+    return (point: Point) => {
       const ret = transform(point);
       return {
         ...ret,
-        y1: valueScale(point.value0),
+        y1: valueScale((point as StackedPoint).value0),
       };
     };
   };
@@ -37,17 +61,18 @@ const getStackedPointTransformer = (getPointTransformer: GetPointTransformerFn) 
 };
 
 // TODO: Temporary - see corresponding note in *computeDomains*.
-const getValueDomain: GetValueDomainFn = (points) => {
+const getValueDomain = (points: PointList) => {
   const items: any[] = [];
   points.forEach((point) => {
-    items.push(point.value, point.value0);
+    items.push(point.value, (point as StackedPoint).value0);
   });
-  return items;
+  return items as Domain;
 };
 
-const collectStacks: CollectStacksFn = (seriesList, seriesToStackMap) => {
-  const stacksKeys = {};
-  const seriesPositions = {};
+const collectStacks = (
+  seriesList: SeriesList, seriesToStackMap: StackMap,
+  stacksKeys: StacksKeys, seriesPositions: SeriesPositions,
+) => {
   seriesList.forEach(({ name, valueField }) => {
     const stackId = seriesToStackMap[name];
     if (stackId === undefined) {
@@ -66,24 +91,21 @@ const collectStacks: CollectStacksFn = (seriesList, seriesToStackMap) => {
       delete stacksKeys[stackId];
     }
   });
-  return [stacksKeys, seriesPositions];
 };
 
-const getStackedData: PureComputed<
-  [StacksKeys, DataItems, OffsetFn, OrderFn], {[key: number]: any[]}
-> = (
-  stacksKeys, dataItems, offset, order,
+const getStackedData = (
+  stacksKeys: StacksKeys, dataItems: DataItems, offset: OffsetFn, order: OrderFn,
 ) => {
   const result = {};
   Object.keys(stacksKeys).forEach((stackId) => {
     result[stackId] = stack().keys(stacksKeys[stackId])
-    .order(order as any)
-    .offset(offset as any)(dataItems as any[]);
+      .order(order as any)
+      .offset(offset as any)(dataItems as any);
   });
-  return result;
+  return result as StackedData;
 };
 
-const buildStackedSeries = (series: Series, dataItems: DataItems) => {
+const buildStackedSeries = (series: Series, dataItems: StackedDataItems) => {
   const points = series.points.map((point) => {
     const [value0, value] = dataItems[point.index];
     return { ...point, value, value0 };
@@ -96,12 +118,16 @@ const buildStackedSeries = (series: Series, dataItems: DataItems) => {
     stackedSeries.getPointTransformer = getStackedPointTransformer(series.getPointTransformer);
     stackedSeries.getValueDomain = getValueDomain;
   }
-  return stackedSeries;
+  return stackedSeries as Series;
 };
 
-const applyStacking: ApplyStackingFn = (seriesList, dataItems, seriesToStackMap, offset, order) => {
-  const [stacksKeys, seriesPositions] = collectStacks(seriesList, seriesToStackMap) as
-  [StacksKeys, SeriesPositions];
+const applyStacking = (
+  seriesList: SeriesList, dataItems: DataItems, seriesToStackMap: StackMap,
+  offset: OffsetFn, order: OrderFn,
+) => {
+  const stacksKeys: StacksKeys = {};
+  const seriesPositions: SeriesPositions = {};
+  collectStacks(seriesList, seriesToStackMap, stacksKeys, seriesPositions);
   if (Object.keys(stacksKeys).length === 0) {
     return seriesList;
   }
@@ -114,35 +140,36 @@ const applyStacking: ApplyStackingFn = (seriesList, dataItems, seriesToStackMap,
     }
     const position = seriesPositions[seriesItem.name];
     return buildStackedSeries(seriesItem, stackData[position]);
-  }) as Series[];
+  }) as SeriesList;
 };
 
-const getGroupName: PureComputed<
-  [Series, number, StackMap], string
-> = (series, i, seriesToStackMap) => {
+const getGroupName = (series: Series, i: number, seriesToStackMap: StackMap) => {
   const stackId = seriesToStackMap[series.name];
   return stackId >= 0 ? String(stackId) : `group-${i}`;
 };
 
-const getGroupedPointTransformer = (getPointTransformer, groupCount, groupOffset) => {
-  const wrapper = (series) => {
+const getGroupedPointTransformer = (
+  getPointTransformer: GetPointTransformerFn, groupCount: number, groupOffset: number,
+) => {
+  const wrapper: GetPointTransformerFnRaw = (series) => {
     const transform = getPointTransformer(series);
     const widthCoeff = 1 / groupCount;
     return (point) => {
-      const ret = transform(point);
-      ret.x -= ret.maxBarWidth * (0.5 - 0.5 * widthCoeff - groupOffset * widthCoeff);
-      ret.maxBarWidth /= groupCount;
-      return ret;
+      const original = transform(point) as BarPoint;
+      const result: BarPoint = {
+        ...original,
+        x: original.x - original.maxBarWidth * (0.5 - 0.5 * widthCoeff - groupOffset * widthCoeff),
+        maxBarWidth: original.maxBarWidth / groupCount,
+      };
+      return result;
     };
   };
   // Preserve static fields of original transformer.
   Object.assign(wrapper, getPointTransformer);
-  return wrapper;
+  return wrapper as GetPointTransformerFn;
 };
 
-const applyGrouping: PureComputed<
-  [Series[], StackMap]
-> = (seriesList, seriesToStackMap) => {
+const applyGrouping = (seriesList: SeriesList, seriesToStackMap: StackMap) => {
   const groups = new Set();
   seriesList.forEach((seriesItem, i) => {
     if (seriesItem.getPointTransformer.isBroad) {
@@ -161,17 +188,18 @@ const applyGrouping: PureComputed<
     const getPointTransformer = getGroupedPointTransformer(
       seriesItem.getPointTransformer,
       groups.size,
-      scale(getGroupName(seriesItem, i, seriesToStackMap)),
+      scale(getGroupName(seriesItem, i, seriesToStackMap))!,
     );
     return {
       ...seriesItem,
       getPointTransformer,
     };
-  }) as Series[];
+  }) as SeriesList;
 };
 
-export const getStackedSeries: getStackedSeriesFn = (
-  seriesList, dataItems, { stacks, offset, order },
+export const getStackedSeries = (
+  seriesList: SeriesList, dataItems: DataItems,
+  { stacks, offset, order }: { stacks: StackList, offset: OffsetFn, order: OrderFn },
 ) => {
   const map = buildSeriesToStackMap(stacks);
   const stackedSeriesList = applyStacking(seriesList, dataItems, map, offset, order);

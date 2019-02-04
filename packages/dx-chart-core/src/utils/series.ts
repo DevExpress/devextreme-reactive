@@ -1,7 +1,7 @@
 import { area, Area, CurveFactory } from 'd3-shape';
 import { dArea, dLine, dSpline } from '../plugins/series/computeds';
 import {
-  SeriesList, Point, PointList, TargetList, PointDistance, Location, CreateHitTesterFn,
+  SeriesList, TransformedPoint, PointList, TargetList, PointDistance, Location, CreateHitTesterFn,
 } from '../types';
 
 const getSegmentLength = (dx: number, dy: number) => Math.sqrt(dx * dx + dy * dy);
@@ -16,7 +16,7 @@ const getSegmentLength = (dx: number, dy: number) => Math.sqrt(dx * dx + dy * dy
 // *window.document* can be accessed safely.
 const createContext = () => document.createElement('canvas').getContext('2d')!;
 
-type MakePathFn = () => Area<Point>;
+type MakePathFn = () => Area<TransformedPoint>;
 type IsPointInPathFn = (target: Location) => boolean;
 // For a start using browser canvas will suffice.
 // However a better and more clean solution should be found.
@@ -25,7 +25,7 @@ const createCanvasAbusingHitTester = (makePath: MakePathFn, points: PointList): 
   const ctx = createContext();
   const path = makePath();
   path.context(ctx);
-  path(points as Point[]);
+  path(points as TransformedPoint[]);
   return ([x, y]) => ctx.isPointInPath(x, y);
 };
 
@@ -33,7 +33,7 @@ const LINE_POINT_SIZE = 20;
 const LINE_TOLERANCE = 10;
 
 const getContinuousPointDistance = (
-  [px, py]: Location, { x, y }: Point,
+  [px, py]: Location, { x, y }: TransformedPoint,
 ) => getSegmentLength(px - x, py - y);
 
 const createContinuousSeriesHitTesterCreator =
@@ -44,7 +44,7 @@ const createContinuousSeriesHitTesterCreator =
       let minIndex: number = 0;
       const list: PointDistance[] = [];
       points.forEach((point, i) => {
-        const distance = getContinuousPointDistance(target, point);
+        const distance = getContinuousPointDistance(target, point as TransformedPoint);
         if (distance <= LINE_POINT_SIZE) {
           list.push({ distance, index: point.index });
         }
@@ -78,7 +78,7 @@ const createPointsEnumeratingHitTesterCreator =
   };
 
 export const createAreaHitTester = createContinuousSeriesHitTesterCreator(() => {
-  const path = area<Point>();
+  const path = area<TransformedPoint>();
   path.x(dArea.x());
   path.y1(dArea.y1()!);
   path.y0(dArea.y0());
@@ -86,8 +86,8 @@ export const createAreaHitTester = createContinuousSeriesHitTesterCreator(() => 
 });
 
 export const createLineHitTester = createContinuousSeriesHitTesterCreator(() => {
-  const path = area<Point>();
-  const getY = dLine.y() as (x: Point) => number;
+  const path = area<TransformedPoint>();
+  const getY = dLine.y() as (x: TransformedPoint) => number;
   path.x(dLine.x());
   path.y1(point => getY(point) - LINE_TOLERANCE);
   path.y0(point => getY(point) + LINE_TOLERANCE);
@@ -95,8 +95,8 @@ export const createLineHitTester = createContinuousSeriesHitTesterCreator(() => 
 });
 
 export const createSplineHitTester = createContinuousSeriesHitTesterCreator(() => {
-  const path = area<Point>();
-  const getY = dSpline.y() as (x: Point) => number;
+  const path = area<TransformedPoint>();
+  const getY = dSpline.y() as (x: TransformedPoint) => number;
   path.x(dSpline.x());
   path.y1(point => getY(point) - LINE_TOLERANCE);
   path.y0(point => getY(point) + LINE_TOLERANCE);
@@ -180,9 +180,9 @@ export const changeSeriesState = (seriesList: SeriesList, targets: TargetList, s
       return seriesItem;
     }
     matches += 1;
-    const props: { state: string, points?: Point[] } = { state };
+    const props: { state: string, points?: TransformedPoint[] } = { state };
     if (set.size) {
-      props.points = seriesItem.points.map(
+      props.points = (seriesItem.points as TransformedPoint[]).map(
         point => (set.has(point.index) ? { ...point, state } : point),
       );
     }

@@ -23,8 +23,10 @@ TableContainer.propTypes = {
     PropTypes.node,
   ]).isRequired,
   className: PropTypes.string,
+  style: PropTypes.object,
 };
 
 TableContainer.defaultProps = {
   className: undefined,
+  style: null,
 };

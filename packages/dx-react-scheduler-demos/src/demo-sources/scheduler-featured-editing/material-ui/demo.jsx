@@ -208,17 +208,18 @@ class AppointmentFormContainerBasic extends React.PureComponent {
           </div>
           <div className={classes.buttonGroup}>
             {!isNewAppointment && (
-            <Button
-              variant="outlined"
-              color="secondary"
-              className={classes.button}
-              onClick={() => {
-                visibleChange();
-                this.commitAppointment('deleted');
-              }}
-            >
-              Delete
-            </Button>)}
+              <Button
+                variant="outlined"
+                color="secondary"
+                className={classes.button}
+                onClick={() => {
+                  visibleChange();
+                  this.commitAppointment('deleted');
+                }}
+              >
+                Delete
+              </Button>
+            )}
             <Button
               variant="outlined"
               color="primary"

@@ -24,4 +24,10 @@ export class PointCollection extends React.PureComponent {
 PointCollection.propTypes = {
   pointComponent: PropTypes.func.isRequired,
   coordinates: PropTypes.array.isRequired,
+  index: PropTypes.number.isRequired,
+  state: PropTypes.string,
+};
+
+PointCollection.defaultProps = {
+  state: undefined,
 };

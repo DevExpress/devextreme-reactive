@@ -54,6 +54,7 @@ export const testStatePluginField = ({
     });
 
     it(`should apply ${propertyName} defined in ${propertyName} property after change`, () => {
+      // eslint-disable-next-line react/prop-types
       const Test = ({ prop }) => (
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -142,6 +143,7 @@ export const testStatePluginField = ({
       });
 
       it(`should not apply undefined ${propertyName} property after ${actionName} action calls`, () => {
+        // eslint-disable-next-line react/prop-types
         const Test = ({ prop }) => (
           <PluginHost>
             {pluginDepsToComponents(defaultDeps)}
@@ -202,6 +204,7 @@ export const testStatePluginField = ({
       });
 
       it(`should correctly work when ${eventPropertyName} change event changes`, () => {
+        // eslint-disable-next-line react/prop-types
         const Test = ({ changeHandler }) => (
           <PluginHost>
             {pluginDepsToComponents(defaultDeps)}

@@ -38,7 +38,8 @@ export const PaginationLink = ({
       {...restProps}
     >
       {content}
-    </a>);
+    </a>
+  );
 };
 
 PaginationLink.propTypes = {

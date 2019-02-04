@@ -20,7 +20,7 @@ describe('axisCoordinates', () => {
       (isHorizontal as jest.Mock).mockReturnValue(true);
       const coordinates = axisCoordinates({
         scale, tickSize, indentFromAxis, scaleName: 'test-name', position: 'top',
-      });
+      } as any);
       expect(coordinates).toEqual({
         sides: [1, 0],
         ticks: [{
@@ -40,7 +40,7 @@ describe('axisCoordinates', () => {
       (isHorizontal as jest.Mock).mockReturnValue(true);
       const coordinates = axisCoordinates({
         scale,  tickSize, indentFromAxis, scaleName: 'test-name', position: 'bottom',
-      });
+      } as any);
       expect(coordinates).toEqual({
         sides: [1, 0],
         ticks: [{
@@ -60,7 +60,7 @@ describe('axisCoordinates', () => {
       (isHorizontal as jest.Mock).mockReturnValue(true);
       axisCoordinates({
         scale, tickSize, indentFromAxis, scaleName: 'test-name', position: 'top',
-      });
+      } as any);
       expect(scale.mock.calls).toEqual([
         [1],
       ]);
@@ -71,7 +71,7 @@ describe('axisCoordinates', () => {
       (isHorizontal as jest.Mock).mockReturnValue(false);
       const coordinates = axisCoordinates({
         scale, tickSize, indentFromAxis, scaleName: 'test-name', position: 'left',
-      });
+      } as any);
       expect(coordinates).toEqual({
         sides: [0, 1],
         ticks: [{
@@ -91,7 +91,7 @@ describe('axisCoordinates', () => {
       (isHorizontal as jest.Mock).mockReturnValue(false);
       const coordinates = axisCoordinates({
         tickSize, indentFromAxis,  scale, scaleName: 'test-name', position: 'right',
-      });
+      } as any);
       expect(coordinates).toEqual({
         sides: [0, 1],
         ticks: [{
@@ -111,7 +111,7 @@ describe('axisCoordinates', () => {
       (isHorizontal as jest.Mock).mockReturnValue(false);
       axisCoordinates({
         scale,  tickSize, indentFromAxis, scaleName: 'test-name', position: 'left',
-      });
+      } as any);
       expect(scale.mock.calls).toEqual([
         [1],
       ]);
@@ -124,7 +124,7 @@ describe('axisCoordinates', () => {
       try {
         const coordinates = axisCoordinates({
           scale, tickSize, indentFromAxis, position: 'top', scaleName: 'test-name',
-        });
+        } as any);
         expect(coordinates.ticks).toEqual([{
           key: '0',
           xText: 25,
@@ -175,7 +175,7 @@ describe('axisCoordinates', () => {
       (isHorizontal as jest.Mock).mockReturnValue(false);
       axisCoordinates({
         scale, tickSize, indentFromAxis, position: 'left', scaleName: 'test-name',
-      });
+      } as any);
       expect(scale.mock.calls).toEqual([
         ['a'],
       ]);
@@ -185,7 +185,7 @@ describe('axisCoordinates', () => {
       (isHorizontal as jest.Mock).mockReturnValue(true);
       const coordinates = axisCoordinates({
         scale, tickSize, indentFromAxis, position: 'bottom', scaleName: 'test-name',
-      });
+      } as any);
       expect(coordinates).toEqual({
         sides: [1, 0],
         ticks: [{
@@ -204,7 +204,7 @@ describe('axisCoordinates', () => {
       (isHorizontal as jest.Mock).mockReturnValue(true);
       const coordinates = axisCoordinates({
         scale, tickSize, indentFromAxis, position: 'top', scaleName: 'test-name',
-      });
+      } as any);
       expect(coordinates).toEqual({
         sides: [1, 0],
         ticks: [{
@@ -223,7 +223,7 @@ describe('axisCoordinates', () => {
       (isHorizontal as jest.Mock).mockReturnValue(false);
       const coordinates = axisCoordinates({
         scale, tickSize, indentFromAxis, position: 'left', scaleName: 'test-name',
-      });
+      } as any);
       expect(coordinates).toEqual({
         sides: [0, 1],
         ticks: [{
@@ -242,7 +242,7 @@ describe('axisCoordinates', () => {
       (isHorizontal as jest.Mock).mockReturnValue(false);
       const coordinates = axisCoordinates({
         scale, tickSize, indentFromAxis, position: 'right', scaleName: 'test-name',
-      });
+      } as any);
       expect(coordinates).toEqual({
         sides: [0, 1],
         ticks: [{

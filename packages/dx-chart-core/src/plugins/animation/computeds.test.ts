@@ -19,7 +19,7 @@ describe('Animation styles', () => {
     yScale.clamp = () => yScale;
 
     it('should return style', () => {
-      expect(getAreaAnimationStyle({ yScale })).toEqual({
+      expect(getAreaAnimationStyle({ yScale } as any)).toEqual({
         animation: 'animation_transform 1s',
         transformOrigin: '0px 4px',
       });
@@ -28,7 +28,7 @@ describe('Animation styles', () => {
 
   describe('#getPieAnimationStyle', () => {
     it('should return style', () => {
-      expect(getPieAnimationStyle({}, { index: 3 })).toEqual({
+      expect(getPieAnimationStyle({} as any, { index: 3 } as any)).toEqual({
         animation: 'animation_pie 1s',
       });
     });
@@ -36,7 +36,7 @@ describe('Animation styles', () => {
 
   describe('#getScatterAnimationStyle', () => {
     it('should return style', () => {
-      expect(getScatterAnimationStyle()).toEqual({
+      expect(getScatterAnimationStyle({} as any)).toEqual({
         animation: 'animation_scatter 1s',
       });
     });
@@ -44,8 +44,8 @@ describe('Animation styles', () => {
 
   describe('style element generation', () => {
     it('should reuse single "style" element', () => {
-      getScatterAnimationStyle();
-      getScatterAnimationStyle();
+      getScatterAnimationStyle({} as any);
+      getScatterAnimationStyle({} as any);
 
       expect(head.getElementsByTagName('style').length).toEqual(1);
       expect(head.getElementsByTagName('style')[0].textContent).toEqual(
@@ -61,7 +61,7 @@ describe('#buildAnimatedStyleGetter', () => {
     const getAnimationStyle = jest.fn().mockReturnValue({ animation: 'test' });
 
     expect(buildAnimatedStyleGetter(
-      { style: 'base' }, getAnimationStyle, 'test-scales', 'test-point',
+      { style: 'base' }, getAnimationStyle, 'test-scales' as any, 'test-point' as any,
     )).toEqual({
       style: 'base',
       animation: 'test',

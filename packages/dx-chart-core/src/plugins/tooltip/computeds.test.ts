@@ -19,7 +19,7 @@ describe('#getParameters', () => {
   const series = [createSeries('s1'), createSeries('s2'), createSeries('s3')];
 
   it('should return text and element', () => {
-    expect(getParameters(series, { series: 's2', point: 1 }))
+    expect(getParameters(series as any, { series: 's2', point: 1 }))
     .toEqual({ element: 'parameters', text: '20' });
   });
 });
@@ -29,8 +29,8 @@ describe('#processHandleTooltip', () => {
 
   it('should return target', () => {
     expect(processHandleTooltip(
-      [{ series: 'test-series' }, { series: 'test-series', point: 'test-point' }],
-      'currentTarget', 'mockFunction'))
+      [{ series: 'test-series' }, { series: 'test-series', point: 'test-point' }] as any,
+      'currentTarget' as any, 'mockFunction' as any))
       .toBe('test-target');
     expect(processPointerMove)
     .toBeCalledWith(

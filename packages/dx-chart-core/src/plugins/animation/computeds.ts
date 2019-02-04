@@ -1,4 +1,4 @@
-import { GetAnimationStyleFn, Point, buildAnimatedStyleGetterFn } from '../../types';
+import { Point, Scale } from '../../types';
 
 const ANIMATIONS = Symbol('animation');
 
@@ -43,6 +43,15 @@ const getDefaultAreaAnimationOptions = () => '1s';
 
 const getDefaultPieAnimationOptions = ({ index }: Point) => `${0.7 + index * 0.1}s`;
 
+type Scales = {
+  readonly xScale: Scale;
+  readonly yScale: Scale;
+};
+type GetAnimationStyleFn = (scales: Scales, point?: Point) => {
+  readonly animation: string;
+  readonly transformOrigin?: string;
+};
+
 export const getAreaAnimationStyle: GetAnimationStyleFn = (scales) => {
   const animationStyle = {
     transformOrigin: `0px ${scales.yScale.copy().clamp(true)(0)}px`,
@@ -55,21 +64,21 @@ export const getAreaAnimationStyle: GetAnimationStyleFn = (scales) => {
 };
 
 export const getPieAnimationStyle: GetAnimationStyleFn = (_, point) => {
-  const options = getDefaultPieAnimationOptions(point);
+  const options = getDefaultPieAnimationOptions(point!);
   return {
     animation: `${getPieAnimationName()} ${options}`,
   };
 };
 
-export const getScatterAnimationStyle = () => {
+export const getScatterAnimationStyle: GetAnimationStyleFn = () => {
   const options = getDefaultAreaAnimationOptions();
   return {
     animation: `${getScatterAnimationName()} ${options}`,
   };
 };
 
-export const buildAnimatedStyleGetter: buildAnimatedStyleGetterFn = (
-  style, getAnimationStyle, scales, point,
+export const buildAnimatedStyleGetter = (
+  style: any, getAnimationStyle: GetAnimationStyleFn, scales: Scales, point: Point,
 ) => {
   const animationStyle = getAnimationStyle(scales, point);
   return {

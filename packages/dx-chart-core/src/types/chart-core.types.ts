@@ -1,9 +1,8 @@
-import { PureComputed, CustomFunction } from '@devexpress/dx-core';
+import { CustomFunction } from '@devexpress/dx-core';
 import { CreateHitTesterFn } from './utils.types';
 
 type RangeFn = CustomFunction<[any[]?], any[]>;
 type BandwidthFn = CustomFunction<[], number>;
-type ScaleTickFormatFn = CustomFunction<[number?, string?], GetFormatFn>;
 type DomainFn = CustomFunction<[any[]?], any>;
 type TicksFn = CustomFunction<[number?], any[]>;
 type PaddingInnerFn = CustomFunction<[number], Scale>;
@@ -25,7 +24,7 @@ export interface Scale {
   // gets (if the domain parameter is undefined) the current domain.
   domain: DomainFn;
   // A function that returns a tick formatter function.
-  tickFormat?: ScaleTickFormatFn;
+  tickFormat?: (count?: number, format?: string) => GetFormatFn;
   // A function that returns each band’s width.
   bandwidth?: BandwidthFn;
   // A function that sets (if the range parameter is an array) or
@@ -103,8 +102,7 @@ export interface Stack {
 }
 export type StackList = ReadonlyArray<Stack>;
 
-type Text = string;
-export type GetFormatFn = PureComputed<[any], Text>;
+export type GetFormatFn = (tick: any) => string;
 
 export type Series = {
   index: number,
@@ -126,11 +124,12 @@ export type GetValueDomainFn = (points: PointList) => Domain;
 export type Palette = ReadonlyArray<string>;
 
 type PointColorFn = (palette: Palette, index: number) => string;
-type GetTargetElementFn = (point: TransformedPoint) => {
+export type TargetElement = {
   readonly x: number;
   readonly y: number;
   readonly d: string;
 };
+type GetTargetElementFn = (point: TransformedPoint) => TargetElement;
 type TransformPointFn = (point: Point) => TransformedPoint;
 export type GetPointTransformerFnRaw = (series: {
   readonly points: PointList;

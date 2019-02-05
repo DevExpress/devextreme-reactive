@@ -87,7 +87,8 @@ export const GroupPanelItem = ({
               marginLeft: '-5px',
             }}
           />
-        </span>)}
+        </span>
+      )}
     </div>
   );
 };

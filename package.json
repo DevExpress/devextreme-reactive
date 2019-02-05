@@ -29,6 +29,9 @@
     "semver": "^5.6.0",
     "typescript": "^3.2.2"
   },
+  "resolutions": {
+    "write-file-atomic": "2.3.0"
+  },
   "scripts": {
     "postinstall": "check-node-version --quiet --node \">=6.11.1\" --npm \">=5.3.0\" --yarn \">=1.0.0\"",
     "build": "lerna run build --ignore @devexpress/dx-vue-* && yarn run build:ts",

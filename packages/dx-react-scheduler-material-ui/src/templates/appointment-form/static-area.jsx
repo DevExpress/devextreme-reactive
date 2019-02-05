@@ -24,6 +24,12 @@ const StaticAreaBase = ({
 
 StaticAreaBase.propTypes = {
   children: PropTypes.node.isRequired,
+  classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
+};
+
+StaticAreaBase.defaultProps = {
+  className: undefined,
 };
 
 export const StaticArea = withStyles(styles)(StaticAreaBase, { name: 'StaticArea' });

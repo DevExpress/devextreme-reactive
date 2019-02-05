@@ -79,7 +79,8 @@ export const GroupPanelItem = ({
           <span
             className="oi oi-x dx-g-bs4-group-panel-item-icon"
           />
-        </span>)}
+        </span>
+      )}
     </div>
   );
 };

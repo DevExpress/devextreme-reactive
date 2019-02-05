@@ -1,5 +1,6 @@
 import { extent } from 'd3-array';
 import { scaleLinear as d3ScaleLinear, scaleBand as d3ScaleBand } from 'd3-scale';
+import { PureComputed } from '@devexpress/dx-core';
 import { isHorizontal, getValueDomainName } from '../../utils/scale';
 import { ARGUMENT_DOMAIN, VALUE_DOMAIN } from '../../constants';
 import {
@@ -23,13 +24,11 @@ export const defaultDomains: DomainInfoCache = {
   [VALUE_DOMAIN]: { domain: [] },
 };
 
-export const addDomain = (domains: DomainInfoCache, name: string, props: any) => {
-  const ret: DomainInfoCache = {
-    ...domains,
-    [name]: props,
-  };
-  return ret;
-};
+type AddDomain = PureComputed<[DomainInfoCache, string, any]>;
+export const addDomain: AddDomain = (domains, name, props) => ({
+  ...domains,
+  [name]: props,
+});
 
 const copy = (domains: DomainInfoCache): DomainInfoCache => {
   const result = {};
@@ -118,7 +117,8 @@ const customizeDomains = (domains: DomainInfoCache) => {
   });
 };
 
-export const computeDomains = (domains: DomainInfoCache, seriesList: SeriesList) => {
+type ComputeDomains = PureComputed<[DomainInfoCache, SeriesList]>;
+export const computeDomains: ComputeDomains = (domains, seriesList) => {
   const result = copy(domains);
   collectDomainsFromSeries(result, seriesList);
   calculateDomains(result, seriesList);
@@ -130,7 +130,9 @@ type Layout = {
   readonly width: number;
   readonly height: number;
 };
-export const buildScales = (domains: DomainInfoCache, { width, height }: Layout): ScalesCache => {
+
+type BuildScales = PureComputed<[DomainInfoCache, Layout], ScalesCache>;
+export const buildScales: BuildScales = (domains, { width, height }) => {
   const scales = {};
   Object.keys(domains).forEach((name) => {
     const obj = domains[name];

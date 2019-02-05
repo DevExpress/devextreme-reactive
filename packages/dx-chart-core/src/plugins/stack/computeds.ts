@@ -1,5 +1,6 @@
 import { stack } from 'd3-shape';
 import { scaleBand } from 'd3-scale';
+import { PureComputed } from '@devexpress/dx-core';
 import {
   SeriesList, Series, PointList, Point, GetPointTransformerFn, DataItems, DomainItems,
   StackList, GetPointTransformerFnRaw, BarPoint,
@@ -197,9 +198,15 @@ const applyGrouping = (seriesList: SeriesList, seriesToStackMap: StackMap): Seri
   });
 };
 
-export const getStackedSeries = (
-  seriesList: SeriesList, dataItems: DataItems,
-  { stacks, offset, order }: { stacks: StackList, offset: OffsetFn, order: OrderFn },
+type StacksOptions = {
+  readonly stacks: StackList;
+  readonly offset: OffsetFn;
+  readonly order: OrderFn;
+};
+
+type GetStackedSeries = PureComputed<[SeriesList, DataItems, StacksOptions]>;
+export const getStackedSeries: GetStackedSeries = (
+  seriesList, dataItems, { stacks, offset, order },
 ) => {
   const map = buildSeriesToStackMap(stacks);
   const stackedSeriesList = applyStacking(seriesList, dataItems, map, offset, order);

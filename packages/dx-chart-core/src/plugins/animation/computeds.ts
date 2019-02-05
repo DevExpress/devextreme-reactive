@@ -1,3 +1,4 @@
+import { PureComputed } from '@devexpress/dx-core';
 import { Point, Scale } from '../../types';
 
 const ANIMATIONS = Symbol('animation');
@@ -77,8 +78,9 @@ export const getScatterAnimationStyle: GetAnimationStyleFn = () => {
   };
 };
 
-export const buildAnimatedStyleGetter = (
-  style: any, getAnimationStyle: GetAnimationStyleFn, scales: Scales, point: Point,
+type BuildAnimatedStyleGetter = PureComputed<[any, GetAnimationStyleFn, Scales, Point]>;
+export const buildAnimatedStyleGetter: BuildAnimatedStyleGetter = (
+  style, getAnimationStyle, scales, point,
 ) => {
   const animationStyle = getAnimationStyle(scales, point);
   return {

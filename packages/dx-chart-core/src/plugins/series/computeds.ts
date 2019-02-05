@@ -7,6 +7,7 @@ import {
   arc,
   pie,
 } from 'd3-shape';
+import { PureComputed } from '@devexpress/dx-core';
 import {
   SeriesList, Series, PointList, Point, DataItems,
   GetPointTransformerFn, TransformedPoint, BarPoint, PiePoint, ScatterPoint, Palette, ScalesCache,
@@ -202,9 +203,10 @@ const createPoints = (
   return points;
 };
 
-export const addSeries = (
-  series: SeriesList, data: DataItems, palette: Palette, props?: any, restProps?: any,
-): SeriesList => {
+type AddSeries = PureComputed<[SeriesList, DataItems, Palette, any, any]>;
+export const addSeries: AddSeries = (
+  series, data, palette, props, restProps,
+) => {
   // It is used to generate unique series dependent attribute names for patterns.
   // *symbolName* cannot be used as it cannot be part of DOM attribute name.
   const index = series.length;
@@ -233,6 +235,7 @@ const scalePoints = (series: Series, scales: ScalesCache) => {
   return ret;
 };
 
-export const scaleSeriesPoints = (
-  series: SeriesList, scales: ScalesCache,
-): SeriesList => series.map(seriesItem => scalePoints(seriesItem, scales));
+type ScaleSeriesPoints = PureComputed<[SeriesList, ScalesCache]>;
+export const scaleSeriesPoints: ScaleSeriesPoints = (
+  series, scales,
+) => series.map(seriesItem => scalePoints(seriesItem, scales));

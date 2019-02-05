@@ -1,3 +1,4 @@
+import { PureComputed } from '@devexpress/dx-core';
 import { isHorizontal, fixOffset } from '../../utils/scale';
 import {
   LEFT, BOTTOM, MIDDLE, END, START,
@@ -70,14 +71,15 @@ type AxisCoordinatesResult = {
   readonly sides: Readonly<[number, number]>;
 };
 
-export const axisCoordinates = ({
+type AxisCoordinates = PureComputed<[AxisCoordinatesArg], AxisCoordinatesResult>;
+export const axisCoordinates: AxisCoordinates = ({
   scaleName,
   scale,
   position,
   tickSize,
   tickFormat,
   indentFromAxis,
-}: AxisCoordinatesArg): AxisCoordinatesResult  => {
+})  => {
   const isHor = isHorizontal(scaleName);
   const options = (isHor ? createHorizontalOptions : createVerticalOptions)(
     position, tickSize, indentFromAxis,
@@ -116,9 +118,10 @@ type Grid = {
 };
 type GridCoordinatesResult = ReadonlyArray<Grid>;
 
-export const getGridCoordinates = ({
+type GetGridCoordinates = PureComputed<[GridCoordinatesArg], GridCoordinatesResult>;
+export const getGridCoordinates: GetGridCoordinates = ({
   scaleName, scale,
-}: GridCoordinatesArg): GridCoordinatesResult => {
+}) => {
   const isHor = isHorizontal(scaleName);
   const options = isHor ? horizontalGridOptions : verticalGridOptions;
   return createTicks(scale, (coordinates, key) => ({

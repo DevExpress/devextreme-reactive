@@ -4,7 +4,7 @@
 
 If you find a bug in the source code or you want to request a new feature you can submit an issue to our [GitHub Repository](https://github.com/DevExpress/devextreme-reactive/). Also, you can submit a Pull Request with a fix or implementation.
 
-Got a Question about our components? At first, check our [documentation](https://devexpress.github.io/devextreme-reactive/) and existing [issues](https://github.com/DevExpress/devextreme-reactive/issues) in our repository. If you didn't find any useful information, create a new issue with your question. If you own an active DevExtreme license, feel free to contact us in the Support Center (https://www.devexpress.com/ask) to receive an answer shortly.
+Got a Question about our components? At first, check our [documentation](https://devexpress.github.io/devextreme-reactive/) and existing [issues](https://github.com/DevExpress/devextreme-reactive/issues) in our repository. If you didn't find any useful information, create a new issue with your question. If you own an active DevExtreme license, feel free to contact us in the [Support Center](https://www.devexpress.com/ask) to receive an answer shortly.
 
 ## Contributing Code and Content
 

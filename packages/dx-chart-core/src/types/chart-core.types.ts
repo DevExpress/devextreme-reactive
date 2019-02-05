@@ -64,7 +64,7 @@ export interface BarPoint extends TransformedPoint {
 
 export interface ScatterPoint extends TransformedPoint {
   // Point options
-  point: { size: number };
+  readonly point: { size: number };
 }
 
 export interface PiePoint extends TransformedPoint {
@@ -90,25 +90,25 @@ export type TargetList = ReadonlyArray<Target>;
 
 export interface Stack {
   // A list of series names
-  series: string[];
+  readonly series: string[];
 }
 export type StackList = ReadonlyArray<Stack>;
 
 export type GetFormatFn = (tick: any) => string;
 
-export type Series = {
-  index: number,
-  scaleName: string,
-  symbolName: string,
-  name: string,
-  getValueDomain?: GetValueDomainFn,
-  points: Point[],
-  color: string,
-  argumentField: string,
-  valueField: string,
-  createHitTester: CreateHitTesterFn,
-  getPointTransformer: GetPointTransformerFn,
-};
+export interface Series {
+  readonly index: number;
+  readonly scaleName: string;
+  readonly symbolName: string;
+  readonly name: string;
+  readonly getValueDomain?: GetValueDomainFn;
+  readonly points: PointList;
+  readonly color: string;
+  readonly argumentField: string;
+  readonly valueField: string;
+  readonly createHitTester: CreateHitTesterFn;
+  readonly getPointTransformer: GetPointTransformerFn;
+}
 export type SeriesList = ReadonlyArray<Series>;
 
 export type GetValueDomainFn = (points: PointList) => Domain;

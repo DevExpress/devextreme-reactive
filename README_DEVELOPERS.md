@@ -33,13 +33,13 @@ After installation, the following scripts are available:
   - `http://localhost:3004/` - Chart demos
   - `http://localhost:3005/` - Scheduler demos
 
-Since we are using a [monorepo](https://en.wikipedia.org/wiki/Monorepo), you can execute the described commands from particular packages (`dx-react-core/`, `./packages/dx-react-grid/` etc).
+Since we are using a [monorepo](https://en.wikipedia.org/wiki/Monorepo), you can execute the described commands from particular packages (`./packages/dx-react-core/`, `./packages/dx-react-grid/`, etc).
 
 ## Tests and CI
 
 We follow the [Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) approach. There is a simple rule - 'Each PR should contain a test if possible'. It means, if PR contains a bug fix, it should contain a [regression test](https://en.wikipedia.org/wiki/Regression_testing), if PR contains a feature implementation, it should contain tests for the new functionality etc.
 
-We recommend run tests and execute linters locally before creating PR.
+We recommend running tests and executing linters locally before creating PR.
 
 ## Commit Message & Pull Request Title Guidelines
 

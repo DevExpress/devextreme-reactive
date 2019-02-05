@@ -1,7 +1,7 @@
 import { stack } from 'd3-shape';
 import { scaleBand } from 'd3-scale';
 import {
-  SeriesList, Series, PointList, Point, GetPointTransformerFn, DataItems, Domain,
+  SeriesList, Series, PointList, Point, GetPointTransformerFn, DataItems, DomainItems,
   StackList, GetPointTransformerFnRaw, BarPoint,
 } from '../../types';
 
@@ -33,14 +33,14 @@ type StackedData = {
 
 // "Stack" plugin relies on "data" and "series" getters and
 // knowledge about "getPointTransformer" and "path" functions behavior.
-const buildSeriesToStackMap = (stacks: StackList) => {
+const buildSeriesToStackMap = (stacks: StackList): StackMap => {
   const result = {};
   stacks.forEach(({ series }, i) => {
     series.forEach((name) => {
       result[name] = i;
     });
   });
-  return result as StackMap;
+  return result;
 };
 
 const getStackedPointTransformer = (getPointTransformer: GetPointTransformerFn) => {
@@ -61,12 +61,12 @@ const getStackedPointTransformer = (getPointTransformer: GetPointTransformerFn) 
 };
 
 // TODO: Temporary - see corresponding note in *computeDomains*.
-const getValueDomain = (points: PointList) => {
+const getValueDomain = (points: PointList): DomainItems => {
   const items: any[] = [];
   points.forEach((point) => {
     items.push(point.value, (point as StackedPoint).value0);
   });
-  return items as Domain;
+  return items;
 };
 
 const collectStacks = (
@@ -95,17 +95,17 @@ const collectStacks = (
 
 const getStackedData = (
   stacksKeys: StacksKeys, dataItems: DataItems, offset: OffsetFn, order: OrderFn,
-) => {
+): StackedData => {
   const result = {};
   Object.keys(stacksKeys).forEach((stackId) => {
     result[stackId] = stack().keys(stacksKeys[stackId])
       .order(order as any)
       .offset(offset as any)(dataItems as any);
   });
-  return result as StackedData;
+  return result;
 };
 
-const buildStackedSeries = (series: Series, dataItems: StackedDataItems) => {
+const buildStackedSeries = (series: Series, dataItems: StackedDataItems): Series => {
   const points = series.points.map((point) => {
     const [value0, value] = dataItems[point.index];
     return { ...point, value, value0 };
@@ -118,13 +118,13 @@ const buildStackedSeries = (series: Series, dataItems: StackedDataItems) => {
     stackedSeries.getPointTransformer = getStackedPointTransformer(series.getPointTransformer);
     stackedSeries.getValueDomain = getValueDomain;
   }
-  return stackedSeries as Series;
+  return stackedSeries;
 };
 
 const applyStacking = (
   seriesList: SeriesList, dataItems: DataItems, seriesToStackMap: StackMap,
   offset: OffsetFn, order: OrderFn,
-) => {
+): SeriesList => {
   const stacksKeys: StacksKeys = {};
   const seriesPositions: SeriesPositions = {};
   collectStacks(seriesList, seriesToStackMap, stacksKeys, seriesPositions);
@@ -140,7 +140,7 @@ const applyStacking = (
     }
     const position = seriesPositions[seriesItem.name];
     return buildStackedSeries(seriesItem, stackData[position]);
-  }) as SeriesList;
+  });
 };
 
 const getGroupName = (series: Series, i: number, seriesToStackMap: StackMap) => {
@@ -169,7 +169,7 @@ const getGroupedPointTransformer = (
   return wrapper as GetPointTransformerFn;
 };
 
-const applyGrouping = (seriesList: SeriesList, seriesToStackMap: StackMap) => {
+const applyGrouping = (seriesList: SeriesList, seriesToStackMap: StackMap): SeriesList => {
   const groups = new Set();
   seriesList.forEach((seriesItem, i) => {
     if (seriesItem.getPointTransformer.isBroad) {
@@ -194,7 +194,7 @@ const applyGrouping = (seriesList: SeriesList, seriesToStackMap: StackMap) => {
       ...seriesItem,
       getPointTransformer,
     };
-  }) as SeriesList;
+  });
 };
 
 export const getStackedSeries = (

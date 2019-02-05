@@ -54,7 +54,7 @@ type GetAnimationStyleFn = (scales: Scales, point?: Point) => {
 
 export const getAreaAnimationStyle: GetAnimationStyleFn = (scales) => {
   const animationStyle = {
-    transformOrigin: `0px ${scales.yScale.copy().clamp(true)(0)}px`,
+    transformOrigin: `0px ${scales.yScale.copy().clamp!(true)(0)}px`,
   };
   const options = getDefaultAreaAnimationOptions();
   return {

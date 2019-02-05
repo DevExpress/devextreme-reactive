@@ -1,7 +1,6 @@
-import { Target, TargetList } from '../types';
+import { Target, TargetList, NotifyPointerMoveFn } from '../types';
 
 type ProcessedTarget = Target | null | undefined;
-export type NotifyPointerMoveFn = (target: Target | null) => void;
 
 // Comparing by reference is not an option as Tracker always sends new objects.
 // Tracker cannot persist references as it actually operates with simple scalars

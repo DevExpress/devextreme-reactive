@@ -1,7 +1,8 @@
 import { area, Area, CurveFactory } from 'd3-shape';
 import { dArea, dLine, dSpline } from '../plugins/series/computeds';
 import {
-  SeriesList, TransformedPoint, PointList, TargetList, PointDistance, Location, CreateHitTesterFn,
+  SeriesList, TransformedPoint, PointList, TargetList, PointDistance, Location,
+  CreateHitTesterFn, BarPoint, ScatterPoint, PiePoint,
 } from '../types';
 
 const getSegmentLength = (dx: number, dy: number) => Math.sqrt(dx * dx + dy * dy);
@@ -62,14 +63,14 @@ const createContinuousSeriesHitTesterCreator =
     };
   };
 
-// TODO: Make some base "Point" interface and use it here instead of "any".
-type HitTestPointFn = (location: Location, point: any) => Readonly<{ distance: number }> | null;
+type HitTestPointFn =
+  (location: Location, point: TransformedPoint) => Readonly<{ distance: number }> | null;
 
 const createPointsEnumeratingHitTesterCreator =
   (hitTestPoint: HitTestPointFn): CreateHitTesterFn => points => (target) => {
     const list: PointDistance[] = [];
     points.forEach((point) => {
-      const status = hitTestPoint(target, point);
+      const status = hitTestPoint(target, point as TransformedPoint);
       if (status) {
         list.push({ index: point.index, distance: status.distance });
       }
@@ -112,19 +113,19 @@ const hitTestRect = (dx: number, dy: number, halfX: number, halfY: number) => (
 
 // Some kind of binary search can be used here as bars can be ordered along argument axis.
 export const createBarHitTester = createPointsEnumeratingHitTesterCreator(
-  ([px, py], {
-    x, y, y1, barWidth, maxBarWidth,
-  }) => {
+  ([px, py], point) => {
+    const { x, y, y1, barWidth, maxBarWidth } = point as BarPoint;
     const xCenter = x;
-    const yCenter = (y + y1) / 2;
+    const yCenter = (y + y1!) / 2;
     const halfWidth = maxBarWidth * barWidth / 2;
-    const halfHeight = Math.abs(y - y1) / 2;
+    const halfHeight = Math.abs(y - y1!) / 2;
     return hitTestRect(px - xCenter, py - yCenter, halfWidth, halfHeight);
   },
 );
 
 export const createScatterHitTester = createPointsEnumeratingHitTesterCreator(
-  ([px, py], { x, y, point }) => {
+  ([px, py], obj) => {
+    const { x, y, point } = obj as ScatterPoint;
     const distance = getSegmentLength(px - x, py - y);
     return distance <= point.size / 2 ? { distance } : null;
   },
@@ -137,9 +138,10 @@ const mapAngleTod3 = (angle: number) => {
 
 // Some kind of binary search can be used here as pies can be ordered along angle axis.
 export const createPieHitTester = createPointsEnumeratingHitTesterCreator(
-  ([px, py], {
-    x, y, innerRadius, outerRadius, startAngle, maxRadius, endAngle,
-  }) => {
+  ([px, py], point) => {
+    const {
+      x, y, innerRadius, outerRadius, startAngle, maxRadius, endAngle,
+    } = point as PiePoint;
     const inner = innerRadius * maxRadius;
     const outer = outerRadius * maxRadius;
     const rCenter = (inner + outer) / 2;
@@ -157,7 +159,7 @@ export const createPieHitTester = createPointsEnumeratingHitTesterCreator(
 );
 
 type Filter = {
-  [series: string]: ReadonlySet<number>;
+  readonly [series: string]: ReadonlySet<number>;
 };
 
 const buildFilter = (targets: TargetList): Filter => {

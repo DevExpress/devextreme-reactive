@@ -1,6 +1,6 @@
-import { processPointerMove, NotifyPointerMoveFn } from '../../utils/hover-state';
+import { processPointerMove } from '../../utils/hover-state';
 import {
-  SeriesList, Target, TargetElement, TransformedPoint, TargetList,
+  SeriesList, Target, TargetElement, TransformedPoint, TargetList, NotifyPointerMoveFn,
 } from '../../types';
 
 type TooltipParameters = {

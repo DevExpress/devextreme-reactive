@@ -1,27 +1,27 @@
 type DataItem = { readonly [field: string]: any };
 export type DataItems = ReadonlyArray<DataItem>;
 
-export type Domain = ReadonlyArray<any>;
+export type DomainItems = ReadonlyArray<any>;
 
 // TODO: Find a way to use types from "d3-scale".
 export interface Scale {
   (value: any): number;
   // A function that returns an array of ticks.
-  ticks?: (ticks?: number) => Domain;
+  ticks?: (ticks?: number) => DomainItems;
   // A function that sets (if the domain parameter is an array) or
   // gets (if the domain parameter is undefined) the current domain.
-  domain: (domain?: Domain) => any;
+  domain: (domain?: DomainItems) => any;
   // A function that returns a tick formatter function.
   tickFormat?: (count?: number, format?: string) => GetFormatFn;
   // A function that returns each band’s width.
   bandwidth?: () => number;
   // A function that sets (if the range parameter is an array) or
   // gets (if the range parameter is undefined) the scale’s current range.
-  range: (range?: Domain) => any;
+  range: (range?: DomainItems) => any;
   // Returns an exact copy of this scale
   copy: () => Scale;
   // Enables or disables clamping
-  clamp: (clamp: boolean) => Scale;
+  clamp?: (clamp: boolean) => Scale;
   // A function that sets a scale’s inner padding and returns the current scale
   paddingInner?: (arg: number) => Scale;
   // A function that sets a scale’s outer padding and returns the current scale
@@ -111,7 +111,7 @@ export interface Series {
 }
 export type SeriesList = ReadonlyArray<Series>;
 
-export type GetValueDomainFn = (points: PointList) => Domain;
+export type GetValueDomainFn = (points: PointList) => DomainItems;
 
 export type Palette = ReadonlyArray<string>;
 
@@ -148,3 +148,5 @@ type HitTestResult = {
 export type HitTestFn = (location: Location) => HitTestResult;
 
 export type CreateHitTesterFn = (points: PointList) => HitTestFn;
+
+export type NotifyPointerMoveFn = (target: Target | null) => void;

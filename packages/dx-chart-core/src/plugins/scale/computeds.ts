@@ -3,14 +3,14 @@ import { scaleLinear as d3ScaleLinear, scaleBand as d3ScaleBand } from 'd3-scale
 import { isHorizontal, getValueDomainName } from '../../utils/scale';
 import { ARGUMENT_DOMAIN, VALUE_DOMAIN } from '../../constants';
 import {
-  Series, Point, Scale, SeriesList, PointList, ScalesCache, Domain,
+  Series, Point, Scale, SeriesList, PointList, ScalesCache, DomainItems,
 } from '../../types';
 
 type FactoryFn = () => Scale;
-type ModifyDomainFn = (domain: Domain) => Domain;
+type ModifyDomainFn = (domain: DomainItems) => DomainItems;
 type DomainInfo = {
   readonly modifyDomain?: ModifyDomainFn;
-  domain: Domain;
+  domain: DomainItems;
   factory?: FactoryFn;
   isDiscrete?: boolean;
 };
@@ -31,27 +31,27 @@ export const addDomain = (domains: DomainInfoCache, name: string, props: any) =>
   return ret;
 };
 
-const copy = (domains: DomainInfoCache) => {
+const copy = (domains: DomainInfoCache): DomainInfoCache => {
   const result = {};
   Object.keys(domains).forEach((name) => {
     result[name] = { ...domains[name], domain: [] };
   });
-  return result as DomainInfoCache;
+  return result;
 };
 
 const getSeriesValueDomainName = (series: Series) => getValueDomainName(series.scaleName);
 
-const mergeContinuousDomains = (
-  domain: Domain, items: Domain,
-): Domain => extent([...domain, ...items]);
-const mergeDiscreteDomains = (
-  domain: Domain, items: Domain,
-): Domain => Array.from(new Set([...domain, ...items]));
+type MergeDomainsFn = (domain: DomainItems, items: DomainItems) => DomainItems;
+const mergeContinuousDomains: MergeDomainsFn = (domain, items) =>
+  extent([...domain, ...items]);
+const mergeDiscreteDomains: MergeDomainsFn = (domain, items) =>
+  Array.from(new Set([...domain, ...items]));
 
-const getArgument = (point: Point) => point.argument;
-const getValue = (point: Point) => point.value;
+type GetItemFn = (point: Point) => any;
+const getArgument: GetItemFn = point => point.argument;
+const getValue: GetItemFn = point => point.value;
 
-const extendDomain = (target: DomainInfo, items: Domain) => {
+const extendDomain = (target: DomainInfo, items: DomainItems) => {
   const merge = target.isDiscrete ? mergeDiscreteDomains : mergeContinuousDomains;
   Object.assign(target, { domain: merge(target.domain, items) });
 };
@@ -70,10 +70,12 @@ const calculateDomains = (domains: DomainInfoCache, seriesList: SeriesList) => {
   });
 };
 
-export const scaleLinear = d3ScaleLinear;
-export const scaleBand = () => d3ScaleBand().paddingInner(0.3).paddingOuter(0.15);
+export const scaleLinear: FactoryFn = d3ScaleLinear;
+export const scaleBand: FactoryFn = () => (
+  d3ScaleBand().paddingInner(0.3).paddingOuter(0.15) as any as Scale
+);
 
-const guessFactory = (points: PointList, getItem: (point: Point) => any): FactoryFn => {
+const guessFactory = (points: PointList, getItem: GetItemFn) => {
   if (points.length && typeof getItem(points[0]) === 'string') {
     return scaleBand as any as FactoryFn;
   }
@@ -128,7 +130,7 @@ type Layout = {
   readonly width: number;
   readonly height: number;
 };
-export const buildScales = (domains: DomainInfoCache, { width, height }: Layout) => {
+export const buildScales = (domains: DomainInfoCache, { width, height }: Layout): ScalesCache => {
   const scales = {};
   Object.keys(domains).forEach((name) => {
     const obj = domains[name];
@@ -137,5 +139,5 @@ export const buildScales = (domains: DomainInfoCache, { width, height }: Layout)
     scale.range(isHorizontal(name) ? [0, width] : [height, 0]);
     scales[name] = scale;
   });
-  return scales as ScalesCache;
+  return scales;
 };

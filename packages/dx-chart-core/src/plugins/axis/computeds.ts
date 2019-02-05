@@ -9,16 +9,16 @@ type TickFormatFn = (scale: Scale) => GetFormatFn;
 
 const getTicks = (scale: Scale): any[] => (scale.ticks ? scale.ticks() : scale.domain());
 
-const createTicks = <T>(scale: Scale, callback: ProcessTickFn<T>) => {
+const createTicks = <T>(scale: Scale, callback: ProcessTickFn<T>): ReadonlyArray<T> => {
   const fixedScale = fixOffset(scale);
   return getTicks(scale).map((tick, index) => callback(fixedScale(tick), String(index), tick));
 };
 
-const getFormat = (scale: Scale, tickFormat: TickFormatFn) => {
+const getFormat = (scale: Scale, tickFormat: TickFormatFn): GetFormatFn => {
   if (scale.tickFormat) {
     return tickFormat ? tickFormat(scale) : scale.tickFormat();
   }
-  return (tick => tick) as GetFormatFn;
+  return tick => tick;
 };
 
 const createHorizontalOptions = (position: string, tickSize: number, indentFromAxis: number) => {
@@ -65,6 +65,10 @@ type Tick = {
   readonly textAnchor: string;
   readonly text: string;
 };
+type AxisCoordinatesResult = {
+  readonly ticks: ReadonlyArray<Tick>;
+  readonly sides: Readonly<[number, number]>;
+};
 
 export const axisCoordinates = ({
   scaleName,
@@ -73,26 +77,23 @@ export const axisCoordinates = ({
   tickSize,
   tickFormat,
   indentFromAxis,
-}: AxisCoordinatesArg) => {
+}: AxisCoordinatesArg): AxisCoordinatesResult  => {
   const isHor = isHorizontal(scaleName);
   const options = (isHor ? createHorizontalOptions : createVerticalOptions)(
     position, tickSize, indentFromAxis,
   );
   const formatTick = getFormat(scale, tickFormat);
-  const ticks = createTicks(scale, (coordinates, key, tick) => {
-    const ret: Tick = {
-      key,
-      x1: coordinates,
-      x2: coordinates,
-      y1: coordinates,
-      y2: coordinates,
-      xText: coordinates,
-      yText: coordinates,
-      text: formatTick(tick),
-      ...options,
-    };
-    return ret;
-  });
+  const ticks = createTicks(scale, (coordinates, key, tick) => ({
+    key,
+    x1: coordinates,
+    x2: coordinates,
+    y1: coordinates,
+    y2: coordinates,
+    xText: coordinates,
+    yText: coordinates,
+    text: formatTick(tick),
+    ...options,
+  }));
   return {
     ticks,
     sides: [Number(isHor), Number(!isHor)],
@@ -113,19 +114,19 @@ type Grid = {
   readonly dx: number;
   readonly dy: number;
 };
+type GridCoordinatesResult = ReadonlyArray<Grid>;
 
-export const getGridCoordinates = ({ scaleName, scale }: GridCoordinatesArg) => {
+export const getGridCoordinates = ({
+  scaleName, scale,
+}: GridCoordinatesArg): GridCoordinatesResult => {
   const isHor = isHorizontal(scaleName);
   const options = isHor ? horizontalGridOptions : verticalGridOptions;
-  return createTicks(scale, (coordinates, key) => {
-    const ret: Grid = {
-      key,
-      x: coordinates,
-      y: coordinates,
-      dx: 0,
-      dy: 0,
-      ...options,
-    };
-    return ret;
-  });
+  return createTicks(scale, (coordinates, key) => ({
+    key,
+    x: coordinates,
+    y: coordinates,
+    dx: 0,
+    dy: 0,
+    ...options,
+  }));
 };

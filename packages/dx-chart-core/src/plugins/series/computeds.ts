@@ -182,7 +182,8 @@ const createPoints = (
   {
     argumentField, valueField, getPointTransformer,
   }: Series,
-  data: DataItems, props: any, palette: Palette) => {
+  data: DataItems, props: any, palette: Palette,
+): PointList => {
   const points: Point[] = [];
   data.forEach((dataItem, index) => {
     const argument = dataItem[argumentField];
@@ -198,12 +199,12 @@ const createPoints = (
       });
     }
   });
-  return points as PointList;
+  return points;
 };
 
 export const addSeries = (
   series: SeriesList, data: DataItems, palette: Palette, props?: any, restProps?: any,
-) => {
+): SeriesList => {
   // It is used to generate unique series dependent attribute names for patterns.
   // *symbolName* cannot be used as it cannot be part of DOM attribute name.
   const index = series.length;
@@ -214,7 +215,7 @@ export const addSeries = (
     name: getUniqueName(series, props.name),
     points: createPoints(props, data, { ...restProps, color: seriesColor }, palette),
     color: seriesColor,
-  }] as SeriesList;
+  }];
 };
 
 // TODO: Memoization is much needed here by the same reason as in "createPoints".
@@ -234,4 +235,4 @@ const scalePoints = (series: Series, scales: ScalesCache) => {
 
 export const scaleSeriesPoints = (
   series: SeriesList, scales: ScalesCache,
-) => series.map(seriesItem => scalePoints(seriesItem, scales) as Series) as SeriesList;
+): SeriesList => series.map(seriesItem => scalePoints(seriesItem, scales));

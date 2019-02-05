@@ -17,7 +17,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": true,
-    "lib": ["es6", "es2017.object", "dom"],
+    "lib": ["es6", "es7", "es2017.object", "dom"],
     "baseUrl": "./",
     "stripInternal": true,
     "paths": {

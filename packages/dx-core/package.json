@@ -41,18 +41,18 @@
     "lint:fix": "yarn run lint -- --fix"
   },
   "devDependencies": {
-    "core-js": "^2.6.1",
-    "jest": "^23.6.0",
-    "prettier": "^1.15.3",
-    "rollup": "^0.68.2",
-    "rollup-plugin-license": "^0.7.0",
+    "core-js": "^2.6.3",
+    "jest": "^24.0.0",
+    "prettier": "^1.16.4",
+    "rollup": "^1.1.2",
+    "rollup-plugin-license": "^0.8.1",
     "rollup-plugin-replace": "^2.1.0",
-    "rollup-plugin-typescript2": "^0.18.1",
-    "tslint": "^5.12.0",
+    "rollup-plugin-typescript2": "^0.19.2",
+    "tslint": "^5.12.1",
     "tslint-config-airbnb": "^5.11.1",
     "tslint-config-prettier": "^1.17.0",
     "tslint-react": "^3.6.0",
-    "typescript": "^3.2.2",
-    "typescript-tslint-plugin": "^0.2.1"
+    "typescript": "^3.3.1",
+    "typescript-tslint-plugin": "^0.3.1"
   }
 }

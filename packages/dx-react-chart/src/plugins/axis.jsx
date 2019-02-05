@@ -125,12 +125,13 @@ class RawAxis extends React.PureComponent {
                           y2={y2}
                         />
                       ))}
-                      {showLine && (<LineComponent
-                        x1={0}
-                        x2={dx * this.adjustedWidth}
-                        y1={0}
-                        y2={dy * this.adjustedHeight}
-                      />
+                      {showLine && (
+                        <LineComponent
+                          x1={0}
+                          x2={dx * this.adjustedWidth}
+                          y1={0}
+                          y2={dy * this.adjustedHeight}
+                        />
                       )}
                       {showLabels && ticks.map(({
                         text,

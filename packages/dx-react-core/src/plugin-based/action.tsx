@@ -7,12 +7,13 @@ import {
 import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from './constants';
 import { withHostAndPosition } from '../utils/with-props-from-context';
 import { PluginContextProps } from './plugin-context-prop-types';
+import { Actions, Getters } from './getter';
 
 export interface ActionProps {
   /** The action name. */
   name: string;
   /** A function that is called when the action is executed. */
-  action: (payload?: any, getters?: any[], actions?: any[]) => void;
+  action: (payload: any, getters: Getters, actions: Actions) => void;
 }
 
 class ActionBase extends React.PureComponent<ActionProps & PluginContextProps> {

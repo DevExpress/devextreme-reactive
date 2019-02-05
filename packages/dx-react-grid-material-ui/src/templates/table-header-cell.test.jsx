@@ -7,7 +7,6 @@ import { TableHeaderCell } from './table-header-cell';
 import { ResizingControl } from './table-header-cell/resizing-control';
 
 const defaultProps = {
-  getMessage: key => key,
   column: { name: 'Test' },
 };
 

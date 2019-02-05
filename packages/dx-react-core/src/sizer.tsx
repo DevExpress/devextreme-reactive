@@ -43,10 +43,16 @@ const styles = {
   },
 };
 
+type Size = {
+  width: number;
+  height: number;
+};
+
 type SizerProps = {
-  onSizeChange: (size) => void;
-  // containerComponent?: React.ComponentType;
+  onSizeChange: (size: Size) => void;
+  onScroll?: (e) => void;
   containerComponent?: any;
+  style?: object;
 };
 
 /** @internal */
@@ -56,11 +62,14 @@ export class Sizer extends React.PureComponent<SizerProps> {
   };
 
   rootRef: React.RefObject<RefHolder>;
-  contractTrigger: any;
-  expandNotifier: any;
-  expandTrigger: any;
-  triggersRoot?: HTMLDivElement;
-  contractNotifier?: HTMLDivElement;
+  // Though there properties cannot be assigned in constructor
+  // they will be assigned when component is mount.
+  rootNode!: HTMLElement;
+  triggersRoot!: HTMLDivElement;
+  expandTrigger!: HTMLDivElement;
+  expandNotifier!: HTMLDivElement;
+  contractTrigger!: HTMLDivElement;
+  contractNotifier!: HTMLDivElement;
 
   constructor(props) {
     super(props);
@@ -74,9 +83,16 @@ export class Sizer extends React.PureComponent<SizerProps> {
     this.setupListeners();
   }
 
+  // There is no need to remove listeners as divs are removed from DOM when component is unmount.
+  // But there is a little chance that component unmounting and 'scroll' event happen roughly
+  // at the same time so that `setupListeners` is called after component is unmount.
+  componentWillUnmount() {
+    this.expandTrigger.removeEventListener('scroll', this.setupListeners);
+    this.contractTrigger.removeEventListener('scroll', this.setupListeners);
+  }
+
   setupListeners() {
-    const rootNode = findDOMNode(this.rootRef.current!) as Element;
-    const size = { height: rootNode.clientHeight, width: rootNode.clientWidth };
+    const size: Size = { height: this.rootNode.clientHeight, width: this.rootNode.clientWidth };
 
     this.contractTrigger.scrollTop = size.height;
     this.contractTrigger.scrollLeft = size.width;
@@ -91,11 +107,11 @@ export class Sizer extends React.PureComponent<SizerProps> {
   }
 
   createListeners() {
-    const rootNode = findDOMNode(this.rootRef.current!) as Element;
+    this.rootNode = findDOMNode(this.rootRef.current!) as HTMLElement;
 
     this.triggersRoot = document.createElement('div');
     Object.assign(this.triggersRoot.style, styles.triggersRoot);
-    rootNode.appendChild(this.triggersRoot);
+    this.rootNode.appendChild(this.triggersRoot);
 
     this.expandTrigger = document.createElement('div');
     Object.assign(this.expandTrigger.style, styles.expandTrigger);

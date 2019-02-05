@@ -22,6 +22,7 @@
     "gulp-clean": "^0.4.0",
     "gulp-intercept": "^0.1.0",
     "gulp-rename": "^1.4.0",
+    "husky": "^1.3.1",
     "inquirer": "^6.2.1",
     "lerna": "^3.8.0",
     "replace-in-file": "^3.4.2",
@@ -37,7 +38,7 @@
   "scripts": {
     "postinstall": "check-node-version --quiet --node \">=6.11.1\" --npm \">=5.3.0\" --yarn \">=1.0.0\"",
     "build": "lerna run build --ignore @devexpress/dx-vue-* && yarn run build:ts",
-    "build:ts": "node ./scripts/ts-generator.js && lerna run dts && lerna run update-api",
+    "build:ts": "node ./scripts/ts-generator.js && lerna run dts",
     "build:ts:watch": "nodemon --exec \"yarn build:ts\" --watch \"packages/*/docs/reference/*.md\" --watch \"scripts/ts-generator.js\" --ext md,js",
     "build:watch": "concurrently \"yarn build:ts:watch\" \"lerna run --parallel build:watch --ignore @devexpress/dx-vue-*\"",
     "build:react:grid:watch": "concurrently \"yarn build:ts:watch\" \"lerna run --scope @devexpress/dx-core --scope @devexpress/dx-react-core --scope @devexpress/dx-testing --parallel build\" \"lerna run --scope @devexpress/dx-grid-core --scope \"@devexpress/*react-grid*\" --parallel build:watch\"",
@@ -55,7 +56,13 @@
     "test:watch": "jest --watch",
     "publish:prepare": "yarn && node ./scripts/prepare-commit.js",
     "publish:npm": "yarn && node ./scripts/publish-npm.js",
-    "publish:site": "yarn && node ./scripts/publish-site.js"
+    "publish:site": "yarn && node ./scripts/publish-site.js",
+    "update-api": "lerna run update-api"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn update-api"
+    }
   },
   "workspaces": [
     "packages/*"

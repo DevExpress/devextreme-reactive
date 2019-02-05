@@ -1,15 +1,12 @@
 // @public (undocumented)
 interface ActionProps {
-  action: (payload?: any) => void;
+  action: (payload: any, getters: Getters, actions: Actions) => void;
   name: string;
 }
 
-// @public
-export function connectProps(WrappedComponent: React.ComponentType<any>, getAdditionalProps: () => object): React.ComponentType<any>;
-
 // @public (undocumented)
 interface GetterProps {
-  computed?: (getters: { [getterName: string]: any }) => any;
+  computed?: (getters: Getters, actions: Actions) => any;
   name: string;
   value?: any;
 }
@@ -22,15 +19,21 @@ interface PluginHostProps {
 // @public (undocumented)
 interface PluginProps {
   children: React.ReactNode;
+  // (undocumented)
+  dependencies?: IDependency[];
+  // (undocumented)
+  name?: string;
 }
 
 // @public (undocumented)
 interface TemplateConnectorProps {
-  children: (getters: { [getterName: string]: any }, actions: { [actionName: string]: (payload?: any) => void }) => React.ReactNode;
+  children: (getters: Getters, actions: Actions) => React.ReactNode;
 }
 
 // @public (undocumented)
 interface TemplatePlaceholderProps {
+  // (undocumented)
+  children?: (content: any) => any;
   name?: string;
   params?: object;
 }
@@ -42,11 +45,14 @@ interface TemplateProps {
   predicate?: (params: object) => boolean;
 }
 
-// WARNING: Unsupported export: Action
-// WARNING: Unsupported export: Getter
-// WARNING: Unsupported export: PluginHost
 // WARNING: Unsupported export: Plugin
-// WARNING: Unsupported export: TemplateConnector
-// WARNING: Unsupported export: TemplatePlaceholder
+// WARNING: Unsupported export: PluginHost
+// WARNING: Unsupported export: Action
+// WARNING: Unsupported export: Getters
+// WARNING: Unsupported export: Actions
+// WARNING: Unsupported export: Getter
 // WARNING: Unsupported export: Template
+// WARNING: Unsupported export: TemplatePlaceholder
+// WARNING: Unsupported export: TemplateConnector
+// WARNING: Unsupported export: connectProps
 // (No @packagedocumentation comment for this package)

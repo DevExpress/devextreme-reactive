@@ -70,7 +70,7 @@ span.dx-g-bs4-group-panel-item-icon {
   bottom: 0;
 }
 .dx-g-bs4-table-container {
-  flex: 1;
+  flex-grow: 1;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
 }

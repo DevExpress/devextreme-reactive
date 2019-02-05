@@ -219,6 +219,44 @@ describe('IntegratedGrouping computeds', () => {
       expect(groupedRows(rows, firstGrouping, getCellValue, getColumnCriteria))
         .toEqual(firstGroupedRows);
     });
+
+    describe('group row value', () => {
+      it('should use groupCriteria value if it exists', () => {
+        const getColumnCriteria = () => value => ({ value, key: String(value) });
+        const result = groupedRows(rows, firstGrouping, getCellValue, getColumnCriteria);
+
+        expect(result[0].value)
+          .toEqual(1);
+      });
+
+      it('should use groupCriteria value even if it`s different from cell value', () => {
+        const getColumnCriteria = () => value => ({
+          value: `${value} test`,
+          key: String(value),
+        });
+        const result = groupedRows(rows, firstGrouping, getCellValue, getColumnCriteria);
+
+        expect(result[0].value)
+          .toEqual('1 test');
+      });
+
+      // tslint:disable-next-line: max-line-length
+      it('should use key as a value if groupCriteria value is falsy and cell value is defined', () => {
+        const getColumnCriteria = () => value => ({ key: `${value} test` });
+        const result = groupedRows(rows, firstGrouping, getCellValue, getColumnCriteria);
+
+        expect(result[0].value)
+          .toEqual('1 test');
+      });
+
+      it('should use cell value if both groupCriteria value and cell value are undefined', () => {
+        const getColumnCriteria = () => value => ({ key: `${value} test` });
+        const result = groupedRows(rows, [{ columnName: 'c' }], getCellValue, getColumnCriteria);
+
+        expect(result[0].value)
+          .toBeUndefined();
+      });
+    });
   });
 
   describe('#expandedGroupRows', () => {

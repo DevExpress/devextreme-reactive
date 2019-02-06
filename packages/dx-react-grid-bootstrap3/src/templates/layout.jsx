@@ -36,7 +36,6 @@ export class Root extends React.PureComponent {
           style={{
             display: 'flex',
             flexDirection: 'column',
-            position: 'relative',
             ...style,
           }}
           {...restProps}

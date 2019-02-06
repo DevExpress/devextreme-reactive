@@ -147,7 +147,7 @@ export class Sizer extends React.PureComponent<SizerProps> {
         ref={this.rootRef}
       >
         <Container // NOTE: should have `position: relative`
-          style={{ ...styles.root, ...style }}
+          style={style ? { ...styles.root, ...style } : styles.root}
           {...restProps}
         />
       </RefHolder>

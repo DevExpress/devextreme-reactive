@@ -4,7 +4,7 @@ We use the [Fork-and-Branch workflow](http://blog.scottlowe.org/2015/01/27/using
 
 **Don't clone the main repository!**
 
-[Create a pull request](https://help.github.com/articles/creating-a-pull-request-from-a-fork/) to the master branch when you are ready to submit your changes. Each pull request should pass all automatic checks and at least one member of the DevExtreme team should [review](https://help.github.com/articles/about-pull-request-reviews/) it.
+[Create a pull request](https://help.github.com/articles/creating-a-pull-request-from-a-fork/) to the `master` branch when you are ready to submit your changes. Each pull request should pass all automatic checks and at least one member of the DevExtreme team should [review](https://help.github.com/articles/about-pull-request-reviews/) it.
 
 Make sure that you properly configure your Git [username](https://help.github.com/articles/setting-your-username-in-git) and [email](https://help.github.com/articles/setting-your-email-in-git).
 
@@ -17,30 +17,34 @@ To set up a build environment, you need the following software installed:
 
 ## Building
 
-Install packages using `yarn`, for instance:
+Run the following command to install packages:
 
     yarn
+    
+or
 
-After installation, the following scripts are available:
+    npm install
 
-- `yarn lint` - Executes linters
-- `yarn test` - Runs tests
-- `yarn test:watch` - Runs an interactive test watcher
-- `yarn build` - Builds DevExtreme Reactive
-- `yarn build:watch` - Builds DevExtreme Reactive in watch mode and runs demos. The following demo URLs are accessible:
+After installation, the following commands are available:
+
+- `yarn lint` or `npm run lint` - Executes linters
+- `yarn test` or `npm run test` - Runs tests
+- `yarn test:watch` or `npm run test:watch` - Runs an interactive test watcher
+- `yarn build`  or `npm run build` - Builds DevExtreme Reactive
+- `yarn build:watch`  or `npm run build:watch` - Builds DevExtreme Reactive in watch mode and runs demos. The following demo URLs are accessible:
 
   - `http://localhost:3002/` - Grid demos
   - `http://localhost:3004/` - Chart demos
   - `http://localhost:3005/` - Scheduler demos
 
-Since we are using a [monorepo](https://en.wikipedia.org/wiki/Monorepo), you can execute the described commands from particular packages (`./packages/dx-react-core/`, `./packages/dx-react-grid/`, etc).
+Since we are using a [monorepo](https://en.wikipedia.org/wiki/Monorepo), you can execute the described commands from individual packages (`./packages/dx-react-core/`, `./packages/dx-react-grid/`, and so on).
 
 ## Tests and CI
 
-We follow the [Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) approach. There is a simple rule - 'Each PR should contain a test if possible'. It means, if PR contains a bug fix, it should contain a [regression test](https://en.wikipedia.org/wiki/Regression_testing), if PR contains a feature implementation, it should contain tests for the new functionality etc.
+We adhere to the [test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) paradigm. It follows a simple rule: each PR should contain a test if possible. It means that if a PR fixes a bug, it should contain a [regression test](https://en.wikipedia.org/wiki/Regression_testing); if a PR implements a new functionality, it should contain tests for it, and so on.
 
-We recommend running tests and executing linters locally before creating PR.
+We recommend running tests and executing linters locally before you submit a PR.
 
 ## Commit Message & Pull Request Title Guidelines
 
-We are using the [Conventional Commits](https://www.conventionalcommits.org) specification for PR names. Be sure, your pull request follows this specification.
+We use the [Conventional Commits](https://www.conventionalcommits.org) specification for commit messages and PR titles. Please make sure that your PR also follows it.

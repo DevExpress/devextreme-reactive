@@ -14,8 +14,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.min.css" type="text/css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/addon/fold/foldgutter.min.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1545741364">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1545741364">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1549446580">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1549446580">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <script>
@@ -60,6 +60,7 @@
         </div>
       </div>
     </nav>
+    
 
     <div class="container docs-container">
   <div class="row">
@@ -70,11 +71,11 @@
 
 <h2 id="overview">Overview</h2>
 
-<p>The DevExtreme React Chart is a component that visualizes data using a variety of series types, including bar, line, area, scatter, pie, and more. It is a stateless component - it relies on properties and works in controlled mode only. The DevExtreme React Chart has a composable and extendable architecture in which plugins provide additional elements (such as axes, legend, grid). Twitter Bootstrap and Material-UI rendering and theming are supported out of the box.</p>
+<p>The DevExtreme React Chart is a data visualization component that provides different series types, including bar, line, area, scatter, pie, and so on. It can function in uncontrolled and controlled state modes. In uncontrolled mode, the UI plugins manage the state internally. In controlled mode, the state is managed externally via plugin props. The DevExtreme React Chart has a composable and extendable architecture in which plugins provide additional elements (such as a legend, grid, and axes). It also supports Twitter Bootstrap and Material-UI rendering and theming.</p>
 
 <h2 id="installation">Installation</h2>
 
-<p>Install the dx-react-chart package and its dependencies using the following command:</p>
+<p>Install the <code class="highlighter-rouge">dx-react-chart</code> package and its dependencies using the following command:</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm i --save @devexpress/dx-react-core @devexpress/dx-react-chart
 </code></pre></div></div>
@@ -119,7 +120,7 @@
 
 <h2 id="using-the-chart-component">Using the Chart Component</h2>
 
-<p>The Chart component’s functionality is implemented in plugins. You need a <a href="/devextreme-reactive/react/chart/docs/guides/series/">series</a> plugin and the <code class="highlighter-rouge">ArgumentAxis</code>, <code class="highlighter-rouge">ValuesAxis</code>, and <code class="highlighter-rouge">Scale</code> plugins to draw a simple chart. The following code shows how to configure a simple line chart:</p>
+<p>The Chart component’s functionality is implemented in plugins. To draw a simple chart, use the <code class="highlighter-rouge">ArgumentAxis</code> and <code class="highlighter-rouge">ValueAxis</code> plugins and one of the <a href="/devextreme-reactive/react/chart/docs/guides/series/">series</a> plugins. The following code shows how to configure a simple line chart:</p>
 
 <div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Chart</span><span class="p">,</span> <span class="nx">ArgumentAxis</span><span class="p">,</span> <span class="nx">ValueAxis</span><span class="p">,</span> <span class="nx">LineSeries</span> <span class="p">}</span> <span class="k">from</span> <span class="s2">"@devexpress/dx-react-chart-material-ui"</span><span class="p">;</span>
 <span class="c1">// import { Chart, ArgumentAxis, ValueAxis, LineSeries } from "@devexpress/dx-react-chart-bootstrap4";</span>
@@ -163,13 +164,36 @@
       </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.10.0">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.10.1">
             Version
-            <span>1.10.0</span>
+            <span>1.10.1</span>
           </a>
         </li>
       </ul>
       <hr />
+      
+        <h3>Common Concepts</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/common/docs/guides/performance-optimization/">Performance Optimization</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/common/docs/guides/custom-theme/">Custom Theme</a></li>
+          
+
+        
+        </ul>
       
         <h3>Guides</h3>
 
@@ -468,7 +492,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/chart/demos/dist/index.js?v=1545741364"></script>
+<script src="/devextreme-reactive/react/common/dist/index.js?v=1549446580"></script>
 
 <script
   type="text/javascript"
@@ -501,7 +525,7 @@
                 </div>
                 <div class="col-md-9 copyright">
                   <p>
-                    Copyright © 2011-2018 Developer Express Inc.<br />
+                    Copyright © 2011-2019 Developer Express Inc.<br />
                     All trademarks or registered trademarks are property of their respective owners.
                     <div class="links">
                       <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
@@ -524,7 +548,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1545741364"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1549446580"></script>
     <script>
         trackingCookie.notice();
     </script>

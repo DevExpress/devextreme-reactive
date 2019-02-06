@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>React Grid - Custom Plugin Development - DevExtreme Reactive Components</title>
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="prefetch" href="/devextreme-reactive/fonts/OpenSansCondensedBold.woff">
+    <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.min.css" type="text/css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/addon/fold/foldgutter.min.css" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1549446580">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1549446580">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-1384678-22', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-static-top navbar-main">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/devextreme-reactive/react/grid/">
+            <div>
+              <img src="/devextreme-reactive/img/grid-logo.svg" alt="React Grid">
+              <div class="logo-container">
+                <h3 class="logo-team">DevExtreme</h3>
+                <h3 class="logo-product">React Grid</h3>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            
+            <li><a href="/devextreme-reactive/react/grid/demos/featured/integrated-data-shaping/">Demos</a></li>
+            
+            <li class="active"><a href="/devextreme-reactive/react/grid/docs/guides/getting-started/">Docs</a></li>
+            <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+            <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
+
+    <div class="container docs-container">
+  <div class="row">
+    <div class="col-sm-9 col-sm-push-3 docs-content">
+        <h1 id="react-grid---custom-plugin-development">React Grid - Custom Plugin Development</h1>
+
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol>
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#render-custom-markup">Render Custom Markup</a></li>
+  <li><a href="#share-values-between-plugins">Share Values Between Plugins</a></li>
+  <li><a href="#use-the-functionality-of-built-in-plugins">Use the Functionality of Built-In Plugins</a></li>
+  <li><a href="#final-steps">Final Steps</a></li>
+</ol>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>This tutorial shows how to use the <a href="/devextreme-reactive/react/core/docs/guides/fundamentals/">React Core</a> components to extend the Grid’s functionality. We add to the Grid’s toolbar a select box that filters the grid by a predefined column.</p>
+
+<p>We start with the following code that configures the Grid in the <code class="highlighter-rouge">Material-UI</code> theme:</p>
+
+<p><em>index.js:</em></p>
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span>
+  <span class="nx">Grid</span><span class="p">,</span>
+  <span class="nx">Table</span><span class="p">,</span>
+  <span class="nx">TableHeaderRow</span><span class="p">,</span>
+  <span class="nx">Toolbar</span>
+<span class="p">}</span> <span class="k">from</span> <span class="s1">'@devexpress/dx-react-grid-material-ui'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">customers</span> <span class="k">from</span> <span class="s2">"./data.js"</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nx">App</span> <span class="kd">extends</span> <span class="nx">PureComponent</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="na">columns</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'ID'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'ID'</span> <span class="p">},</span>
+        <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'CompanyName'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'Company Name'</span> <span class="p">},</span>
+        <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'Address'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'Address'</span> <span class="p">},</span>
+        <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'City'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'City'</span> <span class="p">},</span>
+        <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'State'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'State'</span> <span class="p">},</span>
+        <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'Zipcode'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'Zip code'</span> <span class="p">}</span>
+      <span class="p">],</span>
+      <span class="na">rows</span><span class="p">:</span> <span class="nx">customers</span>
+    <span class="p">};</span>
+  <span class="p">}</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="p">{</span> <span class="nx">rows</span><span class="p">,</span> <span class="nx">columns</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">;</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="p">&lt;</span><span class="nc">Paper</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nc">Grid</span>
+          <span class="na">rows=</span><span class="si">{</span><span class="nx">rows</span><span class="si">}</span>
+          <span class="na">columns=</span><span class="si">{</span><span class="nx">columns</span><span class="si">}</span>
+        <span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nc">Table</span> <span class="p">/&gt;</span>
+          <span class="p">&lt;</span><span class="nc">TableHeaderRow</span> <span class="p">/&gt;</span>
+          <span class="p">&lt;</span><span class="nc">Toolbar</span> <span class="p">/&gt;</span>
+        <span class="p">&lt;/</span><span class="nc">Grid</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nc">Paper</span><span class="p">&gt;</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p><em>data.js:</em></p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="k">default</span> <span class="p">[{</span>
+    <span class="na">ID</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="na">CompanyName</span><span class="p">:</span> <span class="s1">'Super Mart of the West'</span><span class="p">,</span>
+    <span class="na">Address</span><span class="p">:</span> <span class="s1">'702 SW 8th Street'</span><span class="p">,</span>
+    <span class="na">City</span><span class="p">:</span> <span class="s1">'Bentonville'</span><span class="p">,</span>
+    <span class="na">State</span><span class="p">:</span> <span class="s1">'Arkansas'</span><span class="p">,</span>
+    <span class="na">Zipcode</span><span class="p">:</span> <span class="mi">72716</span>
+  <span class="p">},</span> <span class="p">{</span>
+    <span class="na">ID</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="na">CompanyName</span><span class="p">:</span> <span class="s1">'Electronics Depot'</span><span class="p">,</span>
+    <span class="na">Address</span><span class="p">:</span> <span class="s1">'2455 Paces Ferry Road NW'</span><span class="p">,</span>
+    <span class="na">City</span><span class="p">:</span> <span class="s1">'Atlanta'</span><span class="p">,</span>
+    <span class="na">State</span><span class="p">:</span> <span class="s1">'Georgia'</span><span class="p">,</span>
+    <span class="na">Zipcode</span><span class="p">:</span> <span class="mi">30339</span>
+  <span class="p">},</span> <span class="p">{</span>
+    <span class="na">ID</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="na">CompanyName</span><span class="p">:</span> <span class="s1">'K&amp;S Music'</span><span class="p">,</span>
+    <span class="na">Address</span><span class="p">:</span> <span class="s1">'1000 Nicllet Mall'</span><span class="p">,</span>
+    <span class="na">City</span><span class="p">:</span> <span class="s1">'Minneapolis'</span><span class="p">,</span>
+    <span class="na">State</span><span class="p">:</span> <span class="s1">'Minnesota'</span><span class="p">,</span>
+    <span class="na">Zipcode</span><span class="p">:</span> <span class="mi">55403</span>
+  <span class="p">},</span> <span class="p">{</span>
+    <span class="na">ID</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="na">CompanyName</span><span class="p">:</span> <span class="s2">"Tom's Club"</span><span class="p">,</span>
+    <span class="na">Address</span><span class="p">:</span> <span class="s1">'999 Lake Drive'</span><span class="p">,</span>
+    <span class="na">City</span><span class="p">:</span> <span class="s1">'Issaquah'</span><span class="p">,</span>
+    <span class="na">State</span><span class="p">:</span> <span class="s1">'Washington'</span><span class="p">,</span>
+    <span class="na">Zipcode</span><span class="p">:</span> <span class="mi">98027</span>
+  <span class="p">},</span> <span class="p">{</span>
+    <span class="na">ID</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="na">CompanyName</span><span class="p">:</span> <span class="s1">'E-Mart'</span><span class="p">,</span>
+    <span class="na">Address</span><span class="p">:</span> <span class="s1">'3333 Beverly Rd'</span><span class="p">,</span>
+    <span class="na">City</span><span class="p">:</span> <span class="s1">'Hoffman Estates'</span><span class="p">,</span>
+    <span class="na">State</span><span class="p">:</span> <span class="s1">'Illinois'</span><span class="p">,</span>
+    <span class="na">Zipcode</span><span class="p">:</span> <span class="mi">60179</span>
+  <span class="p">}];</span>
+</code></pre></div></div>
+
+<p>The image below shows the final result. There is a select box at the top right corner. When a user selects a value from it, the grid displays only the filtered rows. When the value is cleared using the <code class="highlighter-rouge">CLEAR</code> button, the grid displays all rows.</p>
+
+<p align="center">
+  <img class="img-responsive" src="../../../../../img/guides/custom-plugin-development/result.png" />
+</p>
+
+<p>The first step is to render custom markup.</p>
+
+<h2 id="render-custom-markup">Render Custom Markup</h2>
+
+<p>To render custom markup in a UI element that belongs to the Grid (<a href="/devextreme-reactive/react/grid/docs/reference/toolbar/">toolbar</a> in our case), you should wrap the custom markup in the <a href="/devextreme-reactive/react/core/docs/reference/plugin/">Plugin</a> component to create a plugin. We name the plugin <code class="highlighter-rouge">ToolbarFilter</code>, since it is part of the toolbar and contains a filtering UI element.</p>
+
+<p>Create a new folder called <code class="highlighter-rouge">plugins</code> in the project and add a new file, <code class="highlighter-rouge">toolbar-filter.js</code>, with the following code to it:</p>
+
+<p><em>toolbar-filter.js:</em></p>
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span>
+  <span class="nx">Plugin</span>
+<span class="p">}</span> <span class="k">from</span> <span class="s1">'@devexpress/dx-react-core'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">ToolbarFilter</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PureComponent</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="p">&lt;</span><span class="nc">Plugin</span>
+        <span class="na">name=</span><span class="s2">"ToolbarFilter"</span>
+      <span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nc">Plugin</span><span class="p">&gt;</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The Grid’s toolbar exports a <a href="/devextreme-reactive/react/core/docs/reference/template/">template</a> called <code class="highlighter-rouge">toolbarContent</code>. Add the <a href="/devextreme-reactive/react/core/docs/reference/template/">Template</a> component to our plugin and set its <code class="highlighter-rouge">name</code> attribute to <code class="highlighter-rouge">toolbarContent</code>. This is the place for our custom markup.</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">...</span>
+<span class="k">import</span> <span class="p">{</span>
+  <span class="p">...,</span>
+  <span class="nx">Template</span>
+<span class="p">}</span> <span class="k">from</span> <span class="s1">'@devexpress/dx-react-core'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">ToolbarFilter</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PureComponent</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="p">&lt;</span><span class="nc">Plugin</span>
+        <span class="p">...</span>
+      <span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nc">Template</span> <span class="na">name=</span><span class="s2">"toolbarContent"</span> <span class="p">/&gt;</span>
+      <span class="p">&lt;/</span><span class="nc">Plugin</span><span class="p">&gt;</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>We should <em>append</em> our content to default toolbar. To do this, add the <a href="/devextreme-reactive/react/core/docs/reference/template-placeholder/">TemplatePlaceholder</a> component without parameters to the template:</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">...</span>
+<span class="k">import</span> <span class="p">{</span>
+  <span class="p">...,</span>
+  <span class="nx">TemplatePlaceholder</span>
+<span class="p">}</span> <span class="k">from</span> <span class="s1">'@devexpress/dx-react-core'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">ToolbarFilter</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PureComponent</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="p">&lt;</span><span class="nc">Plugin</span>
+        <span class="p">...</span>
+      <span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nc">Template</span> <span class="na">name=</span><span class="s2">"toolbarContent"</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nc">TemplatePlaceholder</span> <span class="p">/&gt;</span>
+        <span class="p">&lt;/</span><span class="nc">Template</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nc">Plugin</span><span class="p">&gt;</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Because our plugin uses the toolbar’s template, we should list the <a href="/devextreme-reactive/react/grid/docs/reference/toolbar/">Toolbar</a> plugin in the dependencies.</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">...</span>
+
+<span class="kd">const</span> <span class="nx">pluginDependencies</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'Toolbar'</span> <span class="p">}</span>
+<span class="p">];</span>
+
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">ToolbarFilter</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PureComponent</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="p">&lt;</span><span class="nc">Plugin</span>
+        <span class="p">...</span>
+        <span class="na">dependencies=</span><span class="si">{</span><span class="nx">pluginDependencies</span><span class="si">}</span>
+      <span class="p">&gt;</span>
+        ...
+      <span class="p">&lt;/</span><span class="nc">Plugin</span><span class="p">&gt;</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Next, add custom markup to the <code class="highlighter-rouge">toolbarContent</code> template. To display a select box, add the <a href="https://material-ui.com/demos/selects/">Select</a> component to the template.</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">...</span>
+<span class="k">import</span> <span class="nx">Select</span> <span class="k">from</span> <span class="s1">'@material-ui/core/Select'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">ToolbarFilter</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PureComponent</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="p">&lt;</span><span class="nc">Plugin</span>
+        <span class="p">...</span>
+      <span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nc">Template</span> <span class="na">name=</span><span class="s2">"toolbarContent"</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nc">TemplatePlaceholder</span> <span class="p">/&gt;</span>
+          <span class="p">&lt;</span><span class="nc">Select</span> <span class="na">value=</span><span class="s2">""</span> <span class="p">/&gt;</span>
+        <span class="p">&lt;/</span><span class="nc">Template</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nc">Plugin</span><span class="p">&gt;</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>After that, we can add our plugin to the Grid.</p>
+
+<p><em>index.js:</em></p>
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">...</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">ToolbarFilter</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'./plugins/toolbar-filter.js'</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nx">App</span> <span class="kd">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+  <span class="p">...</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="p">{</span> <span class="nx">rows</span><span class="p">,</span> <span class="nx">columns</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">;</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="p">&lt;</span><span class="nc">Paper</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nc">Grid</span>
+          <span class="na">rows=</span><span class="si">{</span><span class="nx">rows</span><span class="si">}</span>
+          <span class="na">columns=</span><span class="si">{</span><span class="nx">columns</span><span class="si">}</span>
+        <span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nc">Table</span> <span class="p">/&gt;</span>
+          <span class="p">&lt;</span><span class="nc">TableHeaderRow</span> <span class="p">/&gt;</span>
+          <span class="p">&lt;</span><span class="nc">Toolbar</span> <span class="p">/&gt;</span>
+          <span class="p">&lt;</span><span class="nc">ToolbarFilter</span> <span class="p">/&gt;</span>
+        <span class="p">&lt;/</span><span class="nc">Grid</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nc">Paper</span><span class="p">&gt;</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>If you run the code now, the Grid should look as follows:</p>
+<p align="center">
+  <img class="img-responsive" src="../../../../../img/guides/custom-plugin-development/add-select.png" />
+</p>
+
+<h2 id="share-values-between-plugins">Share Values Between Plugins</h2>
+
+<p>The select box is empty now. We should populate it with values of the column by which we want to filter the grid.</p>
+
+<p>The <code class="highlighter-rouge">ToolbarFilter</code> plugin, which we implemented in the previous step, is a <a href="/devextreme-reactive/react/grid/docs/guides/plugin-overview/">UI plugin</a>: it renders UI elements based on provided data. We could also enable it to modify the data or manipulate the Grid’s state, but it is better to implement this functionality in a <a href="/devextreme-reactive/react/grid/docs/guides/plugin-overview/">state management plugin</a>. This separation of concerns makes the plugins more flexible and maintainable.</p>
+
+<p>The state management plugin called <code class="highlighter-rouge">ToolbarFilterState</code> prepares all necessary information for the <code class="highlighter-rouge">ToolbarFilter</code> plugin. Create a new <code class="highlighter-rouge">toolbar-filter-state.js</code> file in the <code class="highlighter-rouge">plugins</code> folder and add the following code to it:</p>
+
+<p><em>file toolbar-filter-state.js:</em></p>
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="o">*</span> <span class="k">as</span> <span class="nx">React</span> <span class="k">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span>
+    <span class="nx">Plugin</span>
+<span class="p">}</span> <span class="k">from</span> <span class="s1">'@devexpress/dx-react-core'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">ToolbarFilterState</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PureComponent</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="p">&lt;</span><span class="nc">Plugin</span>
+        <span class="na">name=</span><span class="s2">"ToolbarFilterState"</span>
+      <span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nc">Plugin</span><span class="p">&gt;</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>We should allow a user to specify the initial filter value. To do this, add the <code class="highlighter-rouge">defaultFilterValue</code> property to the plugin. The prefix is used by convention: all properties that specify default values in <a href="/devextreme-reactive/react/grid/docs/guides/controlled-and-uncontrolled-modes/">uncontrolled mode</a> should be prefixed with <code class="highlighter-rouge">default</code>. This tutorial does not cover the implementation of the controlled mode.</p>
+
+<p>When a user selects a value in the select box, the <code class="highlighter-rouge">defaultFilterValue</code> changes. Save it in the component’s state as shown below.</p>
+
+<p><em>file toolbar-filter-state.js:</em></p>
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">...</span>
+
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">ToolbarFilterState</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PureComponent</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="na">filterValue</span><span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">defaultFilterValue</span>
+    <span class="p">};</span>
+    <span class="p">...</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="p">...</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>In this tutorial, we are going to filter the grid by the <code class="highlighter-rouge">CompanyName</code> column. Assign this name to the <code class="highlighter-rouge">columnName</code> attribute. In addition, set the <code class="highlighter-rouge">defaultFilterValue</code> to an empty string, so that the grid does not apply any filter initially.</p>
+
+<p>Now, the <code class="highlighter-rouge">ToolbarFilterState</code> plugin is ready to be added to the Grid. A state management plugin, it should be included before UI plugins. You can find more information on plugin types in the <a href="/devextreme-reactive/react/grid/docs/guides/plugin-overview/">Plugin Overview</a>.</p>
+
+<p><em>index.js:</em></p>
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">...</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">ToolbarFilterState</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'./plugins/toolbar-filter-state.js'</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nx">App</span> <span class="kd">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+  <span class="p">...</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="p">...</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="p">&lt;</span><span class="nc">Paper</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nc">Grid</span>
+          <span class="p">...</span>
+        <span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nc">ToolbarFilterState</span> <span class="na">columnName=</span><span class="s2">"CompanyName"</span> <span class="na">defaultFilterValue=</span><span class="s2">""</span> <span class="p">/&gt;</span>
+          <span class="p">&lt;</span><span class="nc">Table</span> <span class="p">/&gt;</span>
+          <span class="p">&lt;</span><span class="nc">TableHeaderRow</span> <span class="p">/&gt;</span>
+          <span class="p">&lt;</span><span class="nc">Toolbar</span> <span class="p">/&gt;</span>
+          <span class="p">&lt;</span><span class="nc">ToolbarFilter</span> <span class="p">/&gt;</span>
+        <span class="p">&lt;/</span><span class="nc">Grid</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nc">Paper</span><span class="p">&gt;</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>Although we added the <code class="highlighter-rouge">ToolbarFilterState</code> plugin, the select box still does nothing because the <code class="highlighter-rouge">ToolbarFilterState</code> does not communicate with the <code class="highlighter-rouge">ToolbarFilter</code>. Now, we need to collect unique values of the <code class="highlighter-rouge">CompanyName</code> column in the <code class="highlighter-rouge">ToolbarFilterState</code> and pass them to the <code class="highlighter-rouge">ToolbarFilter</code> so that it displayed them. For this, we use <a href="/devextreme-reactive/react/core/docs/reference/getter/">getters</a>.</p>
+
+<p>The <a href="/devextreme-reactive/react/grid/docs/reference/grid/">Grid</a> plugin provides the <code class="highlighter-rouge">rows</code> property for specifying the row collection and exports the <code class="highlighter-rouge">rows</code> getter. We need to create a new getter that filters data from the <code class="highlighter-rouge">rows</code> getter. Such getters are called “computed getters” because they use other getters in calculations. This getter is called <code class="highlighter-rouge">toolbarFilterDataItems</code> in the following code.</p>
+
+<p>In addition, we want to display the name of the filtered column near the select box. The Grid exports the <code class="highlighter-rouge">columns</code> getter that we use in another computed getter named <code class="highlighter-rouge">toolbarFilterColumnTitle</code>.</p>
+
+<p>Both computed getters also use the <code class="highlighter-rouge">columnName</code> property value in calculations.</p>
+
+<p><em>file toolbar-filter-state.js:</em></p>
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">...</span>
+<span class="k">import</span> <span class="p">{</span>
+    <span class="p">...,</span> <span class="nx">Getter</span>
+<span class="p">}</span> <span class="k">from</span> <span class="s1">'@devexpress/dx-react-core'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">ToolbarFilterState</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PureComponent</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">...</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">filterColumnTitleComputed</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">filterColumnTitleComputed</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">filterDataItemsComputed</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">filterDataItemsComputed</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="nx">filterColumnTitleComputed</span><span class="p">({</span><span class="nx">columns</span><span class="p">})</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">column</span> <span class="o">=</span> <span class="nx">columns</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">col</span> <span class="o">=&gt;</span> <span class="nx">col</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">columnName</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">column</span> <span class="p">?</span> <span class="nx">column</span><span class="p">.</span><span class="nx">title</span> <span class="p">:</span> <span class="s1">''</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="nx">filterDataItemsComputed</span><span class="p">({</span><span class="nx">rows</span><span class="p">})</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">rows</span><span class="p">.</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">acc</span><span class="p">,</span> <span class="nx">row</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">acc</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="nx">row</span><span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">columnName</span><span class="p">]))</span> <span class="p">{</span>
+        <span class="nx">acc</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">row</span><span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">columnName</span><span class="p">]);</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="nx">acc</span><span class="p">;</span>
+    <span class="p">},</span> <span class="p">[]);</span>
+  <span class="p">}</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="p">&lt;</span><span class="nc">Plugin</span>
+        <span class="na">name=</span><span class="s2">"ToolbarFilterState"</span>
+      <span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nc">Getter</span> <span class="na">name=</span><span class="s2">"toolbarFilterColumnTitle"</span> <span class="na">computed=</span><span class="si">{</span><span class="k">this</span><span class="p">.</span><span class="nx">filterColumnTitleComputed</span><span class="si">}</span> <span class="p">/&gt;</span>
+        <span class="p">&lt;</span><span class="nc">Getter</span> <span class="na">name=</span><span class="s2">"toolbarFilterDataItems"</span> <span class="na">computed=</span><span class="si">{</span><span class="k">this</span><span class="p">.</span><span class="nx">filterDataItemsComputed</span><span class="si">}</span> <span class="p">/&gt;</span>
+      <span class="p">&lt;/</span><span class="nc">Plugin</span><span class="p">&gt;</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>NOTE: If you use computed and value getters in one plugin, their order is important. Computed getters that depend on value getters should be included after the value getters.</p>
+
+<p>To access <code class="highlighter-rouge">toolbarFilterDataItems</code> from the <code class="highlighter-rouge">ToolbarFilter</code> plugin, use the <a href="/devextreme-reactive/react/core/docs/reference/template-connector/">TemplateConnector</a> as shown below:</p>
+
+<p><em>toolbar-filter.js:</em></p>
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span>
+  <span class="p">...,</span>
+  <span class="nx">TemplateConnector</span>
+<span class="p">}</span> <span class="k">from</span> <span class="s1">'@devexpress/dx-react-core'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">ToolbarFilter</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PureComponent</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="p">&lt;</span><span class="nc">Plugin</span>
+        <span class="p">...</span>
+      <span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nc">Template</span> <span class="na">name=</span><span class="s2">"toolbarContent"</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nc">TemplatePlaceholder</span> <span class="p">/&gt;</span>
+          <span class="p">&lt;</span><span class="nc">TemplateConnector</span><span class="p">&gt;</span>
+          <span class="si">{</span><span class="p">({</span>
+              <span class="nx">toolbarFilterDataItems</span>
+            <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">(</span>
+              <span class="p">&lt;</span><span class="nc">Select</span><span class="p">&gt;</span>
+                <span class="si">{</span><span class="nx">toolbarFilterDataItems</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">item</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="o">=&gt;</span>
+                  <span class="p">&lt;</span><span class="nc">MenuItem</span> <span class="na">key=</span><span class="si">{</span><span class="nx">index</span><span class="si">}</span> <span class="na">value=</span><span class="si">{</span><span class="nx">item</span><span class="si">}</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">item</span><span class="si">}</span><span class="p">&lt;/</span><span class="nc">MenuItem</span><span class="p">&gt;</span>
+                <span class="p">)</span><span class="si">}</span>
+              <span class="p">&lt;/</span><span class="nc">Select</span><span class="p">&gt;</span>
+          <span class="p">)</span><span class="si">}</span>
+          <span class="p">&lt;/</span><span class="nc">TemplateConnector</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nc">Template</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nc">Plugin</span><span class="p">&gt;</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Next, use the <code class="highlighter-rouge">toolbarFilterValue</code> getter to share the <code class="highlighter-rouge">defaultFilterValue</code> between the <code class="highlighter-rouge">ToolbarFilter</code> and <code class="highlighter-rouge">ToolbarFilterState</code> plugins. In addition, add the <code class="highlighter-rouge">ToolbarFilterState</code> to the <code class="highlighter-rouge">ToolbarFilter</code>’s dependencies.</p>
+
+<p><em>file toolbar-filter-state.js:</em></p>
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">...</span>
+
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">ToolbarFilterState</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PureComponent</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+      <span class="p">...</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="na">filterValue</span><span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">defaultFilterValue</span>
+      <span class="p">};</span>
+  <span class="p">}</span>
+  <span class="p">...</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="p">{</span> <span class="nx">filterValue</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">;</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="p">&lt;</span><span class="nc">Plugin</span>
+        <span class="na">name=</span><span class="s2">"ToolbarFilterState"</span>
+      <span class="p">&gt;</span>
+        ...
+        <span class="p">&lt;</span><span class="nc">Getter</span> <span class="na">name=</span><span class="s2">"toolbarFilterValue"</span> <span class="na">value=</span><span class="si">{</span><span class="nx">filterValue</span><span class="si">}</span> <span class="p">/&gt;</span>
+      <span class="p">&lt;/</span><span class="nc">Plugin</span><span class="p">&gt;</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><em>toolbar-filter.js:</em></p>
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">...</span>
+<span class="kd">const</span> <span class="nx">pluginDependencies</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">...,</span>
+  <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'ToolbarFilterState'</span> <span class="p">}</span>
+<span class="p">];</span>
+
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">ToolbarFilter</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PureComponent</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="p">&lt;</span><span class="nc">Plugin</span>
+        <span class="p">...</span>
+        <span class="na">dependencies=</span><span class="si">{</span><span class="nx">pluginDependencies</span><span class="si">}</span>
+      <span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nc">Template</span> <span class="na">name=</span><span class="s2">"toolbarContent"</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nc">TemplatePlaceholder</span> <span class="p">/&gt;</span>
+          <span class="p">&lt;</span><span class="nc">TemplateConnector</span><span class="p">&gt;</span>
+          <span class="si">{</span><span class="p">({</span>
+            <span class="nx">toolbarFilterValue</span><span class="p">,</span>
+            <span class="p">...</span>
+            <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">(</span>
+              <span class="p">&lt;</span><span class="nc">Select</span>
+                <span class="na">value=</span><span class="si">{</span><span class="nx">toolbarFilterValue</span><span class="si">}</span>
+              <span class="p">&gt;</span>
+                ...
+              <span class="p">&lt;/</span><span class="nc">Select</span><span class="p">&gt;</span>
+          <span class="p">)</span><span class="si">}</span>
+          <span class="p">&lt;/</span><span class="nc">TemplateConnector</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nc">Template</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nc">Plugin</span><span class="p">&gt;</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="use-the-functionality-of-built-in-plugins">Use the Functionality of Built-In Plugins</h2>
+
+<p>We need to detect changes in the select box value and filter the grid accordingly. The <code class="highlighter-rouge">filterValue</code> property is stored in the <code class="highlighter-rouge">ToolbarFilterState</code> plugin’s state. However, the UI element that affects the <code class="highlighter-rouge">filterValue</code> is rendered by the <code class="highlighter-rouge">ToolbarFilter</code> plugin. We should create an <a href="/devextreme-reactive/react/core/docs/reference/action/">action</a> called <code class="highlighter-rouge">changeToolbarFilterValue</code> to detect changes in one plugin and apply them to the state of another.</p>
+
+<p><em>file toolbar-filter-state.js:</em></p>
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">...</span>
+<span class="k">import</span> <span class="p">{</span>
+    <span class="p">...,</span> <span class="nx">Action</span>
+<span class="p">}</span> <span class="k">from</span> <span class="s1">'@devexpress/dx-react-core'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">ToolbarFilterState</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PureComponent</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+    <span class="p">...</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="na">filterValue</span><span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">defaultFilterValue</span>
+    <span class="p">};</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">changeValue</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">changeValue</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">changeValue</span><span class="p">()</span> <span class="p">{</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="p">&lt;</span><span class="nc">Plugin</span>
+        <span class="na">name=</span><span class="s2">"ToolbarFilterState"</span>
+      <span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nc">Action</span> <span class="na">name=</span><span class="s2">"changeToolbarFilterValue"</span> <span class="na">action=</span><span class="si">{</span><span class="k">this</span><span class="p">.</span><span class="nx">changeValue</span><span class="si">}</span> <span class="p">/&gt;</span>
+      <span class="p">&lt;/</span><span class="nc">Plugin</span><span class="p">&gt;</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>The <code class="highlighter-rouge">changeToolbarFilterValue</code> action is available in any plugin used with the <code class="highlighter-rouge">ToolbarFilterState</code>. We can use the <a href="/devextreme-reactive/react/core/docs/reference/template-connector/">TemplateConnector</a> to access the action from the <code class="highlighter-rouge">ToolbarFilter</code>. In the following code, this action is used in the <code class="highlighter-rouge">Select.onChange</code> event handler:</p>
+
+<p><em>toolbar-filter.js:</em></p>
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">...</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">ToolbarFilter</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PureComponent</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="p">&lt;</span><span class="nc">Plugin</span>
+        <span class="p">...</span>
+      <span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nc">Template</span> <span class="na">name=</span><span class="s2">"toolbarContent"</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nc">TemplatePlaceholder</span> <span class="p">/&gt;</span>
+          <span class="p">&lt;</span><span class="nc">TemplateConnector</span><span class="p">&gt;</span>
+          <span class="si">{</span><span class="p">({</span>
+            <span class="p">...</span> <span class="c1">// Accessing getters</span>
+           <span class="p">},</span> <span class="p">{</span>
+            <span class="nx">changeToolbarFilterValue</span> <span class="c1">// Accessing actions</span>
+          <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">(</span>
+            <span class="p">&lt;</span><span class="nc">Select</span>
+              <span class="p">...</span>
+              <span class="na">onChange=</span><span class="si">{</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="nx">changeToolbarFilterValue</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">)}</span><span class="si">}</span>
+            <span class="p">&gt;</span>
+              ...
+            <span class="p">&lt;/</span><span class="nc">Select</span><span class="p">&gt;</span>
+          <span class="p">)</span><span class="si">}</span>
+          <span class="p">&lt;/</span><span class="nc">TemplateConnector</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nc">Template</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nc">Plugin</span><span class="p">&gt;</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The event handler accepts the <code class="highlighter-rouge">event</code> parameter that we can use to access the filter value. The filter value is passed to the <code class="highlighter-rouge">changeToolbarFilterValue</code> action (the previous code) and then to the state object of the <code class="highlighter-rouge">ToolbarFilterState</code> plugin (the code below).</p>
+
+<p><em>file toolbar-filter-state.js:</em></p>
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">...</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">ToolbarFilterState</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PureComponent</span> <span class="p">{</span>
+  <span class="p">...</span>
+  <span class="nx">changeValue</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
+      <span class="na">filterValue</span><span class="p">:</span> <span class="nx">value</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+  <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Although we are detecting changes in the select box, the grid does not apply a filter yet. We need to add the <a href="/devextreme-reactive/react/grid/docs/reference/integrated-filtering/">IntegratedFiltering</a> plugin to the Grid. The plugin imports a <code class="highlighter-rouge">filterExpression</code> getter that represents the filter expression to be applied. We should use a function to extend the <code class="highlighter-rouge">filterExpression</code> with the selected value.</p>
+
+<p><em>index.js:</em></p>
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">...</span>
+<span class="k">import</span> <span class="p">{</span>
+  <span class="nx">IntegratedFiltering</span>
+<span class="p">}</span> <span class="k">from</span> <span class="s1">'@devexpress/dx-react-grid'</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nx">App</span> <span class="kd">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+  <span class="p">...</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="p">...</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="p">&lt;</span><span class="nc">Paper</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nc">Grid</span>
+          <span class="p">...</span>
+        <span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nc">ToolbarFilterState</span> <span class="na">columnName=</span><span class="s2">"CompanyName"</span> <span class="na">defaultFilterValue=</span><span class="s2">""</span><span class="p">/&gt;</span>
+          <span class="p">&lt;</span><span class="nc">IntegratedFiltering</span> <span class="p">/&gt;</span>
+          <span class="p">&lt;</span><span class="nc">Table</span> <span class="p">/&gt;</span>
+          <span class="p">&lt;</span><span class="nc">TableHeaderRow</span> <span class="p">/&gt;</span>
+          <span class="p">&lt;</span><span class="nc">Toolbar</span> <span class="p">/&gt;</span>
+          <span class="p">&lt;</span><span class="nc">ToolbarFilter</span> <span class="p">/&gt;</span>
+        <span class="p">&lt;/</span><span class="nc">Grid</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nc">Paper</span><span class="p">&gt;</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><em>file toolbar-filter-state.js:</em></p>
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">...</span>
+
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">ToolbarFilterState</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PureComponent</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">...</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">filterExpressionComputed</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">filterExpressionComputed</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="p">...</span>
+  <span class="nx">filterExpressionComputed</span><span class="p">({</span><span class="nx">filterExpression</span><span class="p">,</span> <span class="nx">toolbarFilterValue</span><span class="p">})</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">newFilterExpression</span> <span class="o">=</span> <span class="p">{</span> <span class="p">...</span><span class="nx">filterExpression</span> <span class="o">||</span> <span class="p">{</span><span class="na">filters</span><span class="p">:</span> <span class="p">[],</span> <span class="na">operator</span><span class="p">:</span> <span class="s1">'and'</span><span class="p">}</span> <span class="p">};</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">toolbarFilterValue</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">newFilterExpression</span><span class="p">.</span><span class="nx">filters</span> <span class="o">=</span> <span class="p">[...</span><span class="nx">newFilterExpression</span><span class="p">.</span><span class="nx">filters</span><span class="p">,</span> <span class="p">{</span>
+        <span class="na">columnName</span><span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">columnName</span><span class="p">,</span>
+        <span class="na">value</span><span class="p">:</span> <span class="nx">toolbarFilterValue</span>
+      <span class="p">}];</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">newFilterExpression</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="p">...</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="p">&lt;</span><span class="nc">Plugin</span>
+        <span class="na">name=</span><span class="s2">"ToolbarFilterState"</span>
+      <span class="p">&gt;</span>
+        ...
+        <span class="p">&lt;</span><span class="nc">Getter</span> <span class="na">name=</span><span class="s2">"filterExpression"</span> <span class="na">computed=</span><span class="si">{</span><span class="k">this</span><span class="p">.</span><span class="nx">filterExpressionComputed</span><span class="si">}</span> <span class="p">/&gt;</span>
+      <span class="p">&lt;/</span><span class="nc">Plugin</span><span class="p">&gt;</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Now, you can filter grid rows by the <code class="highlighter-rouge">CompanyName</code> column.</p>
+
+<h2 id="final-steps">Final Steps</h2>
+
+<p>At the final steps, we should display the current column’s caption near the select box and add the <code class="highlighter-rouge">Clear</code> button that clears the selected value:</p>
+
+<ul>
+  <li>Add the <code class="highlighter-rouge">clearToolbarFilterValue</code> action to the <code class="highlighter-rouge">ToolbarFilterState</code> plugin to clear the <code class="highlighter-rouge">filterValue</code>.</li>
+  <li>Add the <code class="highlighter-rouge">Button</code> widget next to the select box in the <code class="highlighter-rouge">ToolbarFilter</code> plugin and use <code class="highlighter-rouge">clearToolbarFilterValue</code> as the <code class="highlighter-rouge">onClick</code> event handler.</li>
+  <li>We implemented the <code class="highlighter-rouge">toolbarFilterColumnTitle</code> getter in the <code class="highlighter-rouge">ToolbarFilterState</code> plugin. Add an <code class="highlighter-rouge">InputLabel</code> to the <code class="highlighter-rouge">ToolbarFilter</code> plugin and use the result of the getter to display the column name in the label.</li>
+</ul>
+
+<p>The following code shows the last additions:</p>
+
+<p><em>file toolbar-filter-state.js:</em></p>
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">...</span>
+
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">ToolbarFilterState</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PureComponent</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+    <span class="p">...</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">clearValue</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">clearValue</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="p">...</span>
+  <span class="nx">clearValue</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
+      <span class="na">filterValue</span><span class="p">:</span> <span class="s1">''</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="p">...</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="p">&lt;</span><span class="nc">Plugin</span>
+        <span class="na">name=</span><span class="s2">"ToolbarFilterState"</span>
+      <span class="p">&gt;</span>
+        ...
+        <span class="p">&lt;</span><span class="nc">Action</span> <span class="na">name=</span><span class="s2">"clearToolbarFilterValue"</span> <span class="na">action=</span><span class="si">{</span><span class="k">this</span><span class="p">.</span><span class="nx">clearValue</span><span class="si">}</span> <span class="p">/&gt;</span>
+      <span class="p">&lt;/</span><span class="nc">Plugin</span><span class="p">&gt;</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><em>toolbar-filter.js:</em></p>
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">...</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">ToolbarFilter</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PureComponent</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="p">&lt;</span><span class="nc">Plugin</span>
+        <span class="p">...</span>
+      <span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nc">Template</span> <span class="na">name=</span><span class="s2">"toolbarContent"</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nc">TemplatePlaceholder</span> <span class="p">/&gt;</span>
+          <span class="p">&lt;</span><span class="nc">TemplateConnector</span><span class="p">&gt;</span>
+          <span class="si">{</span><span class="p">({</span>
+              <span class="p">...,</span>
+              <span class="nx">toolbarFilterColumnTitle</span>
+            <span class="p">},</span> <span class="p">{</span>
+              <span class="p">...,</span>
+              <span class="nx">clearToolbarFilterValue</span>
+            <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">(</span>
+              <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nc">InputLabel</span> <span class="na">htmlFor=</span><span class="s2">"filter-field"</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">toolbarFilterColumnTitle</span><span class="si">}</span>:<span class="p">&lt;/</span><span class="nc">InputLabel</span><span class="p">&gt;</span>
+                  ...
+                <span class="p">&lt;</span><span class="nc">Button</span> <span class="na">onClick=</span><span class="si">{</span><span class="nx">clearToolbarFilterValue</span><span class="si">}</span><span class="p">&gt;</span>Clear<span class="p">&lt;/</span><span class="nc">Button</span><span class="p">&gt;</span>
+              <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+          <span class="p">)</span><span class="si">}</span>
+          <span class="p">&lt;/</span><span class="nc">TemplateConnector</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nc">Template</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nc">Plugin</span><span class="p">&gt;</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><a href="https://codesandbox.io/s/0ymwn2lm8w">Here</a> you can find the full project with custom plugins.</p>
+
+    </div>
+
+    <div class="col-sm-3 col-sm-pull-9 main-menu">
+      <ul class="list-unstyled">
+        <li>
+          <input id="docsearch" type="text" class="form-control" placeholder="Search...">
+        </li>
+      </ul>
+      <ul class="list-unstyled version">
+        <li>
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.10.1">
+            Version
+            <span>1.10.1</span>
+          </a>
+        </li>
+      </ul>
+      <hr />
+      
+        <h3>Common Concepts</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/common/docs/guides/performance-optimization/">Performance Optimization</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/common/docs/guides/custom-theme/">Custom Theme</a></li>
+          
+
+        
+        </ul>
+      
+        <h3>Guides</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/getting-started/">Getting Started</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/plugin-overview/">Plugin Overview</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/fundamentals/">Fundamentals</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/controlled-and-uncontrolled-modes/">Controlled and Uncontrolled Modes</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/data-accessors/">Data Accessors</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/data-formatting/">Data Formatting</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/sorting/">Sorting</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/paging/">Paging</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/filtering/">Filtering</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/searching/">Searching</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/grouping/">Grouping</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/selection/">Selection</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/editing/">Editing</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/detail-row/">Detail Row</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/column-reordering/">Column Reordering</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/column-resizing/">Column Resizing</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/column-visibility/">Column Visibility</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/banded-columns/">Banded Columns</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/fixed-columns/">Fixed Columns</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/virtual-scrolling/">Virtual Scrolling</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/tree-data/">Tree Data</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/summary-row/">Summary Row</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/localization/">Localization</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/typescript/">TypeScript</a></li>
+          
+
+        
+          
+          
+
+          
+          <li>Custom Plugin Development</li>
+          
+
+        
+        </ul>
+      
+        <h3>API Reference</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/column-chooser/">ColumnChooser</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/custom-grouping/">CustomGrouping</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/custom-paging/">CustomPaging</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/custom-summary/">CustomSummary</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/custom-tree-data/">CustomTreeData</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/data-type-provider/">DataTypeProvider</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/drag-drop-provider/">DragDropProvider</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/editing-state/">EditingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/filtering-state/">FilteringState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/grid/">Grid</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/grouping-panel/">GroupingPanel</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/grouping-state/">GroupingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/integrated-filtering/">IntegratedFiltering</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/integrated-grouping/">IntegratedGrouping</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/integrated-paging/">IntegratedPaging</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/integrated-selection/">IntegratedSelection</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/integrated-sorting/">IntegratedSorting</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/integrated-summary/">IntegratedSummary</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/paging-panel/">PagingPanel</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/paging-state/">PagingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/row-detail-state/">RowDetailState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/search-panel/">SearchPanel</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/search-state/">SearchState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/selection-state/">SelectionState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/sorting-state/">SortingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/summary-state/">SummaryState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table/">Table</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-band-header/">TableBandHeader</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-column-reordering/">TableColumnReordering</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-column-resizing/">TableColumnResizing</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-column-visibility/">TableColumnVisibility</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-edit-column/">TableEditColumn</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-edit-row/">TableEditRow</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-filter-row/">TableFilterRow</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-fixed-columns/">TableFixedColumns</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-group-row/">TableGroupRow</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-header-row/">TableHeaderRow</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-row-detail/">TableRowDetail</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-selection/">TableSelection</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-summary-row/">TableSummaryRow</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-tree-column/">TableTreeColumn</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/toolbar/">Toolbar</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/tree-data-state/">TreeDataState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/virtual-table/">VirtualTable</a></li>
+          
+
+        
+        </ul>
+      
+        <h3>Related Docs</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/core/docs/guides/fundamentals/">React Core</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/chart/docs/guides/getting-started/">React Chart</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/guides/getting-started/">React Scheduler</a></li>
+          
+
+        
+        </ul>
+      
+    </div>
+  </div>
+</div>
+
+<script src="/devextreme-reactive/react/common/dist/index.js?v=1549446580"></script>
+
+<script
+  type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"
+  onload="docsearch({
+    apiKey: '4cd7a76d4bc286ae69fe26182a8d4b18',
+    indexName: 'devextreme_reactive',
+    inputSelector: '#docsearch',
+    algoliaOptions: { 'facetFilters': ['techno:react', 'tool: grid'] },
+    debug: false
+  })"
+  async
+>
+</script>
+</script>
+
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <ul class="list-inline">
+                      
+                      <li><a href="/devextreme-reactive/react/grid/demos/featured/integrated-data-shaping/">Demos</a></li>
+                      
+                      <li class="active"><a href="/devextreme-reactive/react/grid/docs/guides/getting-started/">Docs</a></li>
+                      <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+                      <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-9 copyright">
+                  <p>
+                    Copyright © 2011-2019 Developer Express Inc.<br />
+                    All trademarks or registered trademarks are property of their respective owners.
+                    <div class="links">
+                      <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
+                      <br>
+                      <a href="https://js.devexpress.com/Licensing/">Licensing</a>
+                  </div>
+                  <p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+      // Remove unexpected global variable generated by kramdown to fix js-cookie
+      // <h3 id="exports">Exports</h3>
+      window.exports = undefined;
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
+
+    <script src="/devextreme-reactive/js/tracking.js?v=1549446580"></script>
+    <script>
+        trackingCookie.notice();
+    </script>
+
+  </body>
+</html>

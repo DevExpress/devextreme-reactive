@@ -14,8 +14,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.min.css" type="text/css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/addon/fold/foldgutter.min.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1545741364">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1545741364">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1549446580">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1549446580">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <script>
@@ -60,6 +60,7 @@
         </div>
       </div>
     </nav>
+    
 
     <div class="container docs-container">
   <div class="row">
@@ -158,12 +159,7 @@
     <tr>
       <td>x</td>
       <td>number</td>
-      <td>The bar’s x coordinate.</td>
-    </tr>
-    <tr>
-      <td>width</td>
-      <td>number</td>
-      <td>The bar’s width.</td>
+      <td>The bar’s x coordinate (the bar’s center).</td>
     </tr>
     <tr>
       <td>y</td>
@@ -174,6 +170,16 @@
       <td>y1</td>
       <td>number</td>
       <td>The bar’s y1 coordinate.</td>
+    </tr>
+    <tr>
+      <td>barWidth</td>
+      <td>number</td>
+      <td>The bar’s width in relative units.</td>
+    </tr>
+    <tr>
+      <td>maxBarWidth</td>
+      <td>number</td>
+      <td>The maximum width that the bar can occupy, measured in pixels.</td>
     </tr>
     <tr>
       <td>value</td>
@@ -222,13 +228,36 @@
       </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.10.0">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.10.1">
             Version
-            <span>1.10.0</span>
+            <span>1.10.1</span>
           </a>
         </li>
       </ul>
       <hr />
+      
+        <h3>Common Concepts</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/common/docs/guides/performance-optimization/">Performance Optimization</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/common/docs/guides/custom-theme/">Custom Theme</a></li>
+          
+
+        
+        </ul>
       
         <h3>Guides</h3>
 
@@ -527,7 +556,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/chart/demos/dist/index.js?v=1545741364"></script>
+<script src="/devextreme-reactive/react/common/dist/index.js?v=1549446580"></script>
 
 <script
   type="text/javascript"
@@ -560,7 +589,7 @@
                 </div>
                 <div class="col-md-9 copyright">
                   <p>
-                    Copyright © 2011-2018 Developer Express Inc.<br />
+                    Copyright © 2011-2019 Developer Express Inc.<br />
                     All trademarks or registered trademarks are property of their respective owners.
                     <div class="links">
                       <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
@@ -583,7 +612,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1545741364"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1549446580"></script>
     <script>
         trackingCookie.notice();
     </script>

@@ -199,9 +199,9 @@ const applyGrouping = (seriesList: SeriesList, seriesToStackMap: StackMap): Seri
 };
 
 type StacksOptions = {
-  readonly stacks: StackList;
-  readonly offset: OffsetFn;
-  readonly order: OrderFn;
+  stacks: StackList;
+  offset: OffsetFn;
+  order: OrderFn;
 };
 
 type GetStackedSeries = PureComputed<[SeriesList, DataItems, StacksOptions]>;

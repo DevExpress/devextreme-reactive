@@ -47,12 +47,12 @@ const createVerticalOptions = (position: string, tickSize: number, indentFromAxi
 };
 
 type AxisCoordinatesArg = {
-  readonly scaleName: string;
-  readonly scale: Scale;
-  readonly position: string;
-  readonly tickSize: number;
-  readonly tickFormat: TickFormatFn;
-  readonly indentFromAxis: number;
+  scaleName: string;
+  scale: Scale;
+  position: string;
+  tickSize: number;
+  tickFormat: TickFormatFn;
+  indentFromAxis: number;
 };
 type Tick = {
   readonly key: string;
@@ -67,8 +67,8 @@ type Tick = {
   readonly text: string;
 };
 type AxisCoordinatesResult = {
-  readonly ticks: ReadonlyArray<Tick>;
-  readonly sides: Readonly<[number, number]>;
+  ticks: Tick[];
+  sides: [number, number];
 };
 
 type AxisCoordinates = PureComputed<[AxisCoordinatesArg], AxisCoordinatesResult>;
@@ -106,8 +106,8 @@ const horizontalGridOptions = { y: 0, dy: 1 };
 const verticalGridOptions = { x: 0, dx: 1 };
 
 type GridCoordinatesArg = {
-  readonly scaleName: string;
-  readonly scale: Scale;
+  scaleName: string;
+  scale: Scale;
 };
 type Grid = {
   readonly key: string;
@@ -116,9 +116,8 @@ type Grid = {
   readonly dx: number;
   readonly dy: number;
 };
-type GridCoordinatesResult = ReadonlyArray<Grid>;
 
-type GetGridCoordinates = PureComputed<[GridCoordinatesArg], GridCoordinatesResult>;
+type GetGridCoordinates = PureComputed<[GridCoordinatesArg], Grid[]>;
 export const getGridCoordinates: GetGridCoordinates = ({
   scaleName, scale,
 }) => {

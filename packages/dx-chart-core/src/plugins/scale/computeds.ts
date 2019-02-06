@@ -127,8 +127,8 @@ export const computeDomains: ComputeDomains = (domains, seriesList) => {
 };
 
 type Layout = {
-  readonly width: number;
-  readonly height: number;
+  width: number;
+  height: number;
 };
 
 type BuildScales = PureComputed<[DomainInfoCache, Layout], ScalesCache>;

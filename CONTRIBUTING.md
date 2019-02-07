@@ -10,7 +10,7 @@ You can use the [Support Center](https://www.devexpress.com/ask) to contact us i
 
 Important: **Read Section 5 of the [LICENSE AGREEMENT](LICENSE.md#5-submission-of-contributions) before you submit any contribution.**
 
-Please keep in mind that DevExtreme Reactive has a development schedule; we are unable to accept every pull request from non-DevExpress contributors.
+Note that DevExtreme Reactive has a development schedule and we cannot accept every pull request from non-DevExpress contributors.
 
 However, you are welcome to fork the repository, modify the source code in your fork, and make your builds.
 

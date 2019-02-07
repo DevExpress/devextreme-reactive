@@ -44,7 +44,18 @@ describe('TableNoDataCell', () => {
       .toMatchObject({ a: 1 });
   });
 
-  it('should set fixed alignment', () => {
+  it('should set sticky position for the text container', () => {
+    const tree = shallow((
+      <TableNoDataCell
+        getMessage={key => key}
+      />
+    ));
+
+    expect(tree.find(`div.${classes.textContainer}`))
+      .toBeTruthy();
+  });
+
+  it('should align text to the center', () => {
     const tree = shallow((
       <TableNoDataCell
         getMessage={key => key}

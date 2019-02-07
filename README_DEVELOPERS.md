@@ -2,7 +2,7 @@
 
 We use the [Fork-and-Branch workflow](http://blog.scottlowe.org/2015/01/27/using-fork-branch-git-workflow/). Start with [forking the repository](https://help.github.com/articles/fork-a-repo/), then create a branch to which you commit modifications.
 
-**Don't clone the main repository!**
+**Do not clone the main repository**
 
 [Create a pull request](https://help.github.com/articles/creating-a-pull-request-from-a-fork/) to the `master` branch when you are ready to submit your changes. Each pull request should pass all automatic checks and at least one member of the DevExtreme team should [review](https://help.github.com/articles/about-pull-request-reviews/) it.
 

@@ -11,6 +11,7 @@
   },
   "license": "SEE LICENSE IN README.md",
   "devDependencies": {
+    "@microsoft/api-extractor": "^6.3.0",
     "check-node-version": "^3.2.0",
     "concurrently": "^4.1.0",
     "conventional-changelog-cli": "^2.0.11",
@@ -21,6 +22,7 @@
     "gulp-clean": "^0.4.0",
     "gulp-intercept": "^0.1.0",
     "gulp-rename": "^1.4.0",
+    "husky": "^1.3.1",
     "inquirer": "^6.2.1",
     "lerna": "^3.8.0",
     "replace-in-file": "^3.4.2",
@@ -54,7 +56,13 @@
     "test:watch": "jest --watch",
     "publish:prepare": "yarn && node ./scripts/prepare-commit.js",
     "publish:npm": "yarn && node ./scripts/publish-npm.js",
-    "publish:site": "yarn && node ./scripts/publish-site.js"
+    "publish:site": "yarn && node ./scripts/publish-site.js",
+    "update-api": "lerna run update-api"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn update-api"
+    }
   },
   "workspaces": [
     "packages/*"

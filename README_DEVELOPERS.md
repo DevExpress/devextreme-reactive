@@ -47,4 +47,4 @@ We recommend running tests and executing linters locally before you submit a PR.
 
 ## Commit Message & Pull Request Title Guidelines
 
-We use the [Conventional Commits](https://www.conventionalcommits.org) specification for commit messages and PR titles. Please make sure that your PR also follows it.
+We use the [Conventional Commits](https://www.conventionalcommits.org) specification for commit messages and PR titles. You should make sure that your PR also follows it.

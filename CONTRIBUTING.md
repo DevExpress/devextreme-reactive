@@ -12,7 +12,7 @@ Important: **Read Section 5 of the [LICENSE AGREEMENT](LICENSE.md#5-submission-o
 
 Note that DevExtreme Reactive has a development schedule and we cannot accept every pull request from non-DevExpress contributors.
 
-However, you are welcome to fork the repository, modify the source code in your fork, and make your builds.
+However, you can fork the repository, modify the source code in your fork, and make your builds.
 
 To submit a pull request, follow these guidelines:
 

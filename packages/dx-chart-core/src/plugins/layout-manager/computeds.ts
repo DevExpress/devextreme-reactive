@@ -1,14 +1,6 @@
-type BBox = {
-  readonly width: number;
-  readonly height: number;
-};
-type BBoxes = {
-  readonly [placeholder: string]: BBox;
-};
-type BBoxesChange = {
-  readonly bBox: BBox;
-  readonly placeholder: string;
-};
+import {
+  BBox, BBoxes, BBoxesChange,
+} from '../../types';
 
 const isEqual = (
   { width: firstWidth, height: firstHeight }: BBox,

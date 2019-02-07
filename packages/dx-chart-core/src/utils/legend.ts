@@ -1,10 +1,4 @@
-import { SeriesList } from '../types';
-
-type LegendItem = {
-  readonly text: string;
-  readonly color: string;
-};
-type LegendItemList = ReadonlyArray<LegendItem>;
+import { SeriesList, LegendItemList } from '../types';
 
 const getDefaultLegendItems = (series: SeriesList): LegendItemList => series.map(
   ({ name: text, color }) => ({ text, color }),

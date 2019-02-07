@@ -1,12 +1,11 @@
-import { PureComputed } from '@devexpress/dx-core';
 import { isHorizontal, fixOffset } from '../../utils/scale';
 import {
   LEFT, BOTTOM, MIDDLE, END, START,
 } from '../../constants';
-import { Scale, GetFormatFn } from '../../types';
-
-type ProcessTickFn<T> = (coord: number, key: string, tick: any) => T;
-type TickFormatFn = (scale: Scale) => GetFormatFn;
+import {
+  Scale, GetFormatFn, ProcessTickFn, TickFormatFn, AxisCoordinates,
+  GetGridCoordinates,
+} from '../../types';
 
 const getTicks = (scale: Scale): any[] => (scale.ticks ? scale.ticks() : scale.domain());
 
@@ -46,32 +45,6 @@ const createVerticalOptions = (position: string, tickSize: number, indentFromAxi
   };
 };
 
-type AxisCoordinatesArg = {
-  scaleName: string;
-  scale: Scale;
-  position: string;
-  tickSize: number;
-  tickFormat: TickFormatFn;
-  indentFromAxis: number;
-};
-type Tick = {
-  readonly key: string;
-  readonly x1: number;
-  readonly x2: number;
-  readonly y1: number;
-  readonly y2: number;
-  readonly xText: number;
-  readonly yText: number;
-  readonly dominantBaseline: string;
-  readonly textAnchor: string;
-  readonly text: string;
-};
-type AxisCoordinatesResult = {
-  ticks: Tick[];
-  sides: [number, number];
-};
-
-type AxisCoordinates = PureComputed<[AxisCoordinatesArg], AxisCoordinatesResult>;
 export const axisCoordinates: AxisCoordinates = ({
   scaleName,
   scale,
@@ -105,19 +78,6 @@ export const axisCoordinates: AxisCoordinates = ({
 const horizontalGridOptions = { y: 0, dy: 1 };
 const verticalGridOptions = { x: 0, dx: 1 };
 
-type GridCoordinatesArg = {
-  scaleName: string;
-  scale: Scale;
-};
-type Grid = {
-  readonly key: string;
-  readonly x: number;
-  readonly y: number;
-  readonly dx: number;
-  readonly dy: number;
-};
-
-type GetGridCoordinates = PureComputed<[GridCoordinatesArg], Grid[]>;
 export const getGridCoordinates: GetGridCoordinates = ({
   scaleName, scale,
 }) => {

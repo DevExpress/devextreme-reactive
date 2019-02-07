@@ -1,36 +1,10 @@
 import { stack } from 'd3-shape';
 import { scaleBand } from 'd3-scale';
-import { PureComputed } from '@devexpress/dx-core';
 import {
   SeriesList, Series, PointList, Point, GetPointTransformerFn, DataItems, DomainItems,
-  StackList, GetPointTransformerFnRaw, BarPoint,
+  StackList, GetPointTransformerFnRaw, BarPoint, StackedPoint, StackMap, GetStackedSeries,
+  SeriesPositions, StacksKeys, StackedDataItems, OffsetFn, OrderFn, StackedData,
 } from '../../types';
-
-interface StackedPoint extends Point {
-  readonly value0: any;
-}
-
-type StackData = ReadonlyArray<ReadonlyArray<number>>;
-
-type OrderFn = (series: StackData) => number[];
-type OffsetFn = (series: StackData, order: number[]) => void;
-
-type StackMap = {
-  readonly [series: string]: number;
-};
-type StacksKeys = {
-  [stackId: number]: string[];
-};
-type SeriesPositions = {
-  [name: string]: number;
-};
-type StackedDataItem = Readonly<[any, any]>;
-type StackedDataItems = ReadonlyArray<StackedDataItem>;
-type StackedData = {
-  readonly [stackId: number]: {
-    readonly [seriesPosition: number]: StackedDataItems;
-  };
-};
 
 // "Stack" plugin relies on "data" and "series" getters and
 // knowledge about "getPointTransformer" and "path" functions behavior.
@@ -198,13 +172,6 @@ const applyGrouping = (seriesList: SeriesList, seriesToStackMap: StackMap): Seri
   });
 };
 
-type StacksOptions = {
-  stacks: StackList;
-  offset: OffsetFn;
-  order: OrderFn;
-};
-
-type GetStackedSeries = PureComputed<[SeriesList, DataItems, StacksOptions]>;
 export const getStackedSeries: GetStackedSeries = (
   seriesList, dataItems, { stacks, offset, order },
 ) => {

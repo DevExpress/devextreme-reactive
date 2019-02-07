@@ -7,9 +7,8 @@ import {
   arc,
   pie,
 } from 'd3-shape';
-import { PureComputed } from '@devexpress/dx-core';
 import {
-  SeriesList, Series, PointList, Point, DataItems,
+  SeriesList, Series, PointList, Point, DataItems, AddSeries, ScaleSeriesPoints,
   GetPointTransformerFn, TransformedPoint, BarPoint, PiePoint, ScatterPoint, Palette, ScalesCache,
 } from '../../types';
 import { ARGUMENT_DOMAIN } from '../../constants';
@@ -203,7 +202,6 @@ const createPoints = (
   return points;
 };
 
-type AddSeries = PureComputed<[SeriesList, DataItems, Palette, any, any]>;
 export const addSeries: AddSeries = (
   series, data, palette, props, restProps,
 ) => {
@@ -235,7 +233,6 @@ const scalePoints = (series: Series, scales: ScalesCache) => {
   return ret;
 };
 
-type ScaleSeriesPoints = PureComputed<[SeriesList, ScalesCache]>;
 export const scaleSeriesPoints: ScaleSeriesPoints = (
   series, scales,
 ) => series.map(seriesItem => scalePoints(seriesItem, scales));

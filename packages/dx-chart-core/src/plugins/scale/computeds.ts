@@ -1,30 +1,17 @@
 import { extent } from 'd3-array';
 import { scaleLinear as d3ScaleLinear, scaleBand as d3ScaleBand } from 'd3-scale';
-import { PureComputed } from '@devexpress/dx-core';
 import { isHorizontal, getValueDomainName } from '../../utils/scale';
 import { ARGUMENT_DOMAIN, VALUE_DOMAIN } from '../../constants';
 import {
-  Series, Point, Scale, SeriesList, PointList, ScalesCache, DomainItems,
+  Series, Scale, SeriesList, PointList, DomainItems, DomainInfoCache, BuildScales,
+  AddDomain, MergeDomainsFn, GetItemFn, DomainInfo, FactoryFn, ComputeDomains,
 } from '../../types';
-
-type FactoryFn = () => Scale;
-type ModifyDomainFn = (domain: DomainItems) => DomainItems;
-type DomainInfo = {
-  readonly modifyDomain?: ModifyDomainFn;
-  domain: DomainItems;
-  factory?: FactoryFn;
-  isDiscrete?: boolean;
-};
-type DomainInfoCache = {
-  readonly [name: string]: DomainInfo;
-};
 
 export const defaultDomains: DomainInfoCache = {
   [ARGUMENT_DOMAIN]: { domain: [] },
   [VALUE_DOMAIN]: { domain: [] },
 };
 
-type AddDomain = PureComputed<[DomainInfoCache, string, any]>;
 export const addDomain: AddDomain = (domains, name, props) => ({
   ...domains,
   [name]: props,
@@ -40,13 +27,11 @@ const copy = (domains: DomainInfoCache): DomainInfoCache => {
 
 const getSeriesValueDomainName = (series: Series) => getValueDomainName(series.scaleName);
 
-type MergeDomainsFn = (domain: DomainItems, items: DomainItems) => DomainItems;
 const mergeContinuousDomains: MergeDomainsFn = (domain, items) =>
   extent([...domain, ...items]);
 const mergeDiscreteDomains: MergeDomainsFn = (domain, items) =>
   Array.from(new Set([...domain, ...items]));
 
-type GetItemFn = (point: Point) => any;
 const getArgument: GetItemFn = point => point.argument;
 const getValue: GetItemFn = point => point.value;
 
@@ -117,7 +102,6 @@ const customizeDomains = (domains: DomainInfoCache) => {
   });
 };
 
-type ComputeDomains = PureComputed<[DomainInfoCache, SeriesList]>;
 export const computeDomains: ComputeDomains = (domains, seriesList) => {
   const result = copy(domains);
   collectDomainsFromSeries(result, seriesList);
@@ -126,12 +110,6 @@ export const computeDomains: ComputeDomains = (domains, seriesList) => {
   return result;
 };
 
-type Layout = {
-  width: number;
-  height: number;
-};
-
-type BuildScales = PureComputed<[DomainInfoCache, Layout], ScalesCache>;
 export const buildScales: BuildScales = (domains, { width, height }) => {
   const scales = {};
   Object.keys(domains).forEach((name) => {

@@ -1,5 +1,4 @@
-import { PureComputed } from '@devexpress/dx-core';
-import { Point, Scale } from '../../types';
+import { Point, GetAnimationStyleFn, BuildAnimatedStyleGetter } from '../../types';
 
 const ANIMATIONS = Symbol('animation');
 
@@ -44,15 +43,6 @@ const getDefaultAreaAnimationOptions = () => '1s';
 
 const getDefaultPieAnimationOptions = ({ index }: Point) => `${0.7 + index * 0.1}s`;
 
-type Scales = {
-  readonly xScale: Scale;
-  readonly yScale: Scale;
-};
-type GetAnimationStyleFn = (scales: Scales, point?: Point) => {
-  readonly animation: string;
-  readonly transformOrigin?: string;
-};
-
 export const getAreaAnimationStyle: GetAnimationStyleFn = (scales) => {
   const animationStyle = {
     transformOrigin: `0px ${scales.yScale.copy().clamp!(true)(0)}px`,
@@ -78,7 +68,6 @@ export const getScatterAnimationStyle: GetAnimationStyleFn = () => {
   };
 };
 
-type BuildAnimatedStyleGetter = PureComputed<[any, GetAnimationStyleFn, Scales, Point]>;
 export const buildAnimatedStyleGetter: BuildAnimatedStyleGetter = (
   style, getAnimationStyle, scales, point,
 ) => {

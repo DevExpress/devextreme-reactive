@@ -1,8 +1,9 @@
-import { area, Area, CurveFactory } from 'd3-shape';
+import { area, CurveFactory } from 'd3-shape';
 import { dArea, dLine, dSpline } from '../plugins/series/computeds';
 import {
   SeriesList, TransformedPoint, PointList, TargetList, PointDistance, Location,
-  CreateHitTesterFn, BarPoint, ScatterPoint, PiePoint,
+  CreateHitTesterFn, BarPoint, ScatterPoint, PiePoint, MakePathFn, IsPointInPathFn,
+  HitTestPointFn, Filter,
 } from '../types';
 
 const getSegmentLength = (dx: number, dy: number) => Math.sqrt(dx * dx + dy * dy);
@@ -17,8 +18,6 @@ const getSegmentLength = (dx: number, dy: number) => Math.sqrt(dx * dx + dy * dy
 // *window.document* can be accessed safely.
 const createContext = () => document.createElement('canvas').getContext('2d')!;
 
-type MakePathFn = () => Area<TransformedPoint>;
-type IsPointInPathFn = (target: Location) => boolean;
 // For a start using browser canvas will suffice.
 // However a better and more clean solution should be found.
 // Can't d3 perform hit testing?
@@ -62,9 +61,6 @@ const createContinuousSeriesHitTesterCreator =
       return list.length ? { points: list } : null;
     };
   };
-
-type HitTestPointFn =
-  (location: Location, point: TransformedPoint) => Readonly<{ distance: number }> | null;
 
 const createPointsEnumeratingHitTesterCreator =
   (hitTestPoint: HitTestPointFn): CreateHitTesterFn => points => (target) => {
@@ -157,10 +153,6 @@ export const createPieHitTester = createPointsEnumeratingHitTesterCreator(
     return hitTestRect(r - rCenter, angle - angleCenter, halfRadius, halfAngle);
   },
 );
-
-type Filter = {
-  readonly [series: string]: ReadonlySet<number>;
-};
 
 const buildFilter = (targets: TargetList): Filter => {
   const result = {};

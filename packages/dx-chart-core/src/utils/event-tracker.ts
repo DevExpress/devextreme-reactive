@@ -1,22 +1,7 @@
-import { Target, Location, TargetList, SeriesList, HitTestFn } from '../types';
-
-type EventHandlerFn = (e: any) => void;
-type HandlerArg = {
-  readonly location: Location;
-  readonly targets: TargetList;
-  readonly event?: any;
-};
-type HandlerFn = (arg: HandlerArg) => void;
-type HandlerFnList = ReadonlyArray<HandlerFn>;
-
-type HitTesters = {
-  [series: string]: HitTestFn;
-};
-
-type TrackerTarget = Target & {
-  readonly distance: number;
-  readonly order: number;
-};
+import {
+  TrackerTarget, Location, HandlerFnList, SeriesList, HitTesters,
+  EventHandlerFn, HandlerArg, EventHandlers, HandlersObject,
+} from '../types';
 
 // This function is called from event handlers (when DOM is available) -
 // *window* can be accessed safely.
@@ -75,21 +60,6 @@ const buildLeaveEventHandler = (handlers: HandlerFnList): EventHandlerFn => (e) 
   const location = getEventCoords(e);
   const arg: HandlerArg = { location, targets: [] };
   handlers.forEach(handler => handler(arg));
-};
-
-type EventHandlers = {
-  click?: EventHandlerFn;
-  pointermove?: EventHandlerFn;
-  pointerleave?: EventHandlerFn;
-  touchmove?: EventHandlerFn;
-  touchleave?: EventHandlerFn;
-  mousemove?: EventHandlerFn;
-  mouseleave?: EventHandlerFn;
-};
-
-type HandlersObject = {
-  readonly clickHandlers: HandlerFnList;
-  readonly pointerMoveHandlers: HandlerFnList;
 };
 
 // The result is of Map<string, Function> type.

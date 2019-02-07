@@ -1,12 +1,7 @@
 import { processPointerMove } from '../../utils/hover-state';
 import {
-  SeriesList, Target, TargetElement, TransformedPoint, TargetList, NotifyPointerMoveFn,
+  SeriesList, Target, TransformedPoint, TargetList, NotifyPointerMoveFn, TooltipParameters,
 } from '../../types';
-
-type TooltipParameters = {
-  readonly element: TargetElement;
-  readonly text: string;
-};
 
 export const getParameters = (series: SeriesList, target: Target): TooltipParameters => {
   const currentSeries = series.find(({ name }) => target.series === name)!;

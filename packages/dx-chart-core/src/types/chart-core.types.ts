@@ -88,12 +88,6 @@ export interface Target {
 }
 export type TargetList = ReadonlyArray<Target>;
 
-export interface Stack {
-  // A list of series names
-  readonly series: string[];
-}
-export type StackList = ReadonlyArray<Stack>;
-
 export type GetFormatFn = (tick: any) => string;
 
 export interface Series {
@@ -148,5 +142,3 @@ type HitTestResult = {
 export type HitTestFn = (location: Location) => HitTestResult;
 
 export type CreateHitTesterFn = (points: PointList) => HitTestFn;
-
-export type NotifyPointerMoveFn = (target: Target | null) => void;

@@ -25,7 +25,6 @@
   },
   "main": "dist/dx-core.umd.js",
   "module": "dist/dx-core.es.js",
-  "types": "dist/dx-core.d.ts",
   "globalName": "DevExpress.DXCore",
   "files": [
     "dist"
@@ -36,7 +35,6 @@
     "test:coverage": "jest --coverage",
     "build": "rollup -c rollup.config.js",
     "build:watch": "rollup -c rollup.config.js -w",
-    "dts": "tsc -p tsconfig.dts.json && node ./merge-dts.js",
     "lint": "tslint -p tsconfig.lint.json",
     "lint:fix": "yarn run lint -- --fix"
   },

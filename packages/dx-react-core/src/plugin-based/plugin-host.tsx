@@ -4,23 +4,21 @@ import { PluginIndexer } from './plugin-indexer';
 import { TemplatePlaceholder } from './template-placeholder';
 import { PluginHostContext } from './contexts';
 
-export type PluginHostProps = {
+export interface PluginHostProps {
   /** Plugin React elements. */
-  children?: React.ReactNode;
-};
+  children: React.ReactNode;
+}
 
-export class PluginHost extends React.PureComponent<PluginHostProps> {
-  /** @internal */
+/** @internal */
+class PluginHostBase extends React.PureComponent<PluginHostProps> {
   host: PluginHostCore;
 
-  /** @internal */
-  constructor(props) {
+  constructor(props: PluginHostProps) {
     super(props);
 
     this.host = new PluginHostCore();
   }
 
-  /** @internal */
   render() {
     const { children } = this.props;
 
@@ -34,3 +32,5 @@ export class PluginHost extends React.PureComponent<PluginHostProps> {
     );
   }
 }
+
+export const PluginHost: React.ComponentType<PluginHostProps> = PluginHostBase;

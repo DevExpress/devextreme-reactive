@@ -37,7 +37,7 @@ After installation, the following commands are available:
   - `http://localhost:3004/` - Chart demos
   - `http://localhost:3005/` - Scheduler demos
 
-Since we are using a [monorepo](https://en.wikipedia.org/wiki/Monorepo), you can execute the described commands from individual packages (`./packages/dx-react-core/`, `./packages/dx-react-grid/`, and so on).
+We use a [monorepo](https://en.wikipedia.org/wiki/Monorepo), and you can execute the described commands from individual packages (`./packages/dx-react-core/`, `./packages/dx-react-grid/`, and so on).
 
 ## Tests and CI
 

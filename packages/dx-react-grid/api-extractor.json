@@ -1,33 +1,6 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/api-extractor/api-extractor.schema.json",
-  "compiler" : {
-    "configType": "tsconfig",
-    "rootFolder": "."
-  },
-  "apiReviewFile": {
-    "apiReviewFolder": "api/",
-    "tempFolder": "api/temp",
-    "enabled": true
-  },
-  "apiJsonFile": {
-    "outputFolder": "api/json",
-    "enabled": true
-  },
-  "validationRules": {
-    "missingReleaseTags": "allow"
-  },
-  "policies": {
-    "namespaceSupport": "permissive"
-  },
+  "extends": "../../api-extractor.json",
   "project": {
     "entryPointSourceFile": "dist/dx-react-grid.d.ts"
-    // "entryPointSourceFile": "dist/dts/dx-react-grid/src/index.d.ts"
-  }//,
-  // "dtsRollup": {
-  //   "enabled": true,
-  //   "trimming": true,
-  //   "publishFolderForPublic": "dist/",
-  //   "mainDtsRollupPath": "dx-react-grid.d.ts"
-  // }
-}
+  }
 }

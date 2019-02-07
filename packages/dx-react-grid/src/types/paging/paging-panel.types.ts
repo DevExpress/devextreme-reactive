@@ -26,7 +26,7 @@ export namespace PagingPanel {
     /** Specifies the page size selector's 'All' item text. */
     showAll?: string;
     /*** Specifies the 'Rows per page' label's text.
-     * Available in the "@devexpress/dx-react-grid-material-ui" package. */
+     * Available in the "\@devexpress/dx-react-grid-material-ui" package. */
     rowsPerPage?: string;
     /** Specifies the 'Row count' text template. */
     info?: (parameters: { from: number, to: number, count: number }) => string | string;

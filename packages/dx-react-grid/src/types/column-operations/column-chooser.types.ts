@@ -24,7 +24,7 @@ export namespace ColumnChooser {
     /** An event that initiates overlay showing or hiding. */
     onToggle: () => void;
     /*** Returns a specified localization message.
-     * Available in the "@devexpress/dx-react-grid-material-ui" package. */
+     * Available in the "\@devexpress/dx-react-grid-material-ui" package. */
     getMessage: (messageKey: string) => string;
     /** A function that accepts the button's root React element. */
     buttonRef: (ref: React.ReactInstance) => void;
@@ -45,7 +45,7 @@ export namespace ColumnChooser {
 
   export interface LocalizationMessages {
     /*** The toggle button's tooltip text.
-     * Available in the "@devexpress/dx-react-grid-material-ui" package. */
+     * Available in the "\@devexpress/dx-react-grid-material-ui" package. */
     showColumnChooser?: string;
   }
 }

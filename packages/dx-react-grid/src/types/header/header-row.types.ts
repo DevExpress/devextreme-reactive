@@ -7,11 +7,11 @@ export namespace TableHeaderRow {
   export interface CellProps extends Table.CellProps {
     /** A column object associated with the header cell. */
     column: Column;
-    /** **@deprecated** <br/> Specifies whether to display a button that groups data by the column. */
+    /** \@deprecated Specifies whether to display a button that groups data by the column. */
     showGroupingControls: boolean;
-    /** **@deprecated** <br/> Specifies whether grouping by the column is enabled. */
+    /** \@deprecated Specifies whether grouping by the column is enabled. */
     groupingEnabled: boolean;
-    /** **@deprecated** <br/> An event that invokes grouping by the column. */
+    /** \@deprecated An event that invokes grouping by the column. */
     onGroup: () => void;
     /** Specifies whether the column's resizing is enabled. */
     resizingEnabled: boolean;
@@ -25,13 +25,13 @@ export namespace TableHeaderRow {
     draggingEnabled: boolean;
     /** The header cell's children. */
     children: React.ReactNode;
-    /** **@deprecated** <br/> Specifies whether to render controls that toggle the column's sorting state. */
+    /** \@deprecated Specifies whether to render controls that toggle the column's sorting state. */
     showSortingControls: boolean;
-    /** **@deprecated** <br/> Specifies whether sorting by the column is enabled. */
+    /** \@deprecated Specifies whether sorting by the column is enabled. */
     sortingEnabled: boolean;
-    /** **@deprecated** <br/> Specifies the column's sorting direction. */
+    /** \@deprecated <br/> Specifies the column's sorting direction. */
     sortingDirection?: 'asc' | 'desc';
-    /** **@deprecated** <br/> An event that invokes a sorting direction change. Keeps the current sorting state if `keepOther` is set to true. Cancels sorting by the current column if `direction` is set to null. */
+    /** \@deprecated <br/> An event that invokes a sorting direction change. Keeps the current sorting state if `keepOther` is set to true. Cancels sorting by the current column if `direction` is set to null. */
     onSort: (parameters: { direction?: 'asc' | 'desc' | null, keepOther?: boolean }) => void;
     /** Returns the sort label's text. */
     getMessage: (messageKey: string) => string;
@@ -76,7 +76,7 @@ export namespace TableHeaderRow {
   }
 
   export interface LocalizationMessages {
-    /** Specifies the 'Sort' hint's text. Available in the "@devexpress/dx-react-grid-material-ui" package. */
+    /** Specifies the 'Sort' hint's text. Available in the "\@devexpress/dx-react-grid-material-ui" package. */
     sortingHint?: string;
   }
 }

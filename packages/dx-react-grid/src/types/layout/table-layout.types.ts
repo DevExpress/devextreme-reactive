@@ -35,6 +35,7 @@ export type TableLayoutCoreState = {
   animationState: ColumnAnimationStyleMap,
 };
 
+/** @internal */
 export interface VirtualTableLayoutProps extends TableLayoutProps {
   height: number | 'auto';
   estimatedRowHeight: number;

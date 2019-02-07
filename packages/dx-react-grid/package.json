@@ -42,7 +42,7 @@
     "test:coverage": "jest --coverage",
     "build": "rollup -c rollup.config.js",
     "build:watch": "rollup -c rollup.config.js -w",
-	"update-api": "api-extractor run",
+	  "update-api": "api-extractor run",
     "dts": "tsc -p tsconfig.dts.json && node ./merge-dts.js",
     "lint": "tslint -p tsconfig.lint.json",
     "lint:fix": "yarn run lint -- --fix"
@@ -69,7 +69,7 @@
     "rollup": "^1.1.2",
     "rollup-plugin-babel": "^4.3.2",
     "rollup-plugin-license": "^0.8.1",
-    "rollup-plugin-node-resolve": "^4.0.0"    "tslint": "^5.11.0",
+    "rollup-plugin-node-resolve": "^4.0.0",
     "ts-jest": "^23.10.5",
     "tslint": "^5.11.0",
     "tslint-config-airbnb": "^5.11.1",

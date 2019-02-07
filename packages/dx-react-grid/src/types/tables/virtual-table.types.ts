@@ -40,3 +40,14 @@ export interface VirtualTableProps {
   /** @internal */
   footerTableComponent: React.ComponentType<object>;
 }
+
+// tslint:disable-next-line:max-line-length
+/** A plugin that renders a scrollable table instead of a static table. Contains the VirtualTable.Row and VirtualTable.Cell components that provide ways to customize virtual table rows and columns. These components can be extended by other plugins. */
+export declare const VirtualTable: React.ComponentType<VirtualTableProps> & {
+  /** The data column type's indentifier. */
+  COLUMN_TYPE: symbol;
+  /** The data row type's indentifier. */
+  ROW_TYPE: symbol;
+  /** The nodata row type's indentifier. */
+  NODATA_ROW_TYPE: symbol;
+};

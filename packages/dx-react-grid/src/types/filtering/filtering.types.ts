@@ -12,7 +12,7 @@ export namespace TableFilterRow {
     column: Column;
     /** Specifies whether filtering by column is enabled. */
     filteringEnabled: boolean;
-    /** Returns the filter editor placeholder text. Available in the "@devexpress/dx-react-grid-material-ui" package. */
+    /** Returns the filter editor placeholder text. Available in the "\@devexpress/dx-react-grid-material-ui" package. */
     getMessage: (messageKey: string) => string;
   }
 

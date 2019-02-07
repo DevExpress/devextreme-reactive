@@ -4,7 +4,7 @@
 
 If you got a question, bug report, or feature request, submit an issue to [our repository](https://github.com/DevExpress/devextreme-reactive). You should check the [list of active issues](https://github.com/DevExpress/devextreme-reactive/issues) first to avoid duplicates. 
 
-If you own an active DevExtreme license, feel free to contact us in the [Support Center](https://www.devexpress.com/ask) to receive an answer in shorter time.
+You can use the [Support Center](https://www.devexpress.com/ask) to contact us if you have an active DevExtreme license.
 
 ## Contribute Code and Content
 

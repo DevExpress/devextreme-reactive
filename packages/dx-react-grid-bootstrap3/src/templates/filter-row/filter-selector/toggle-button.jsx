@@ -22,9 +22,11 @@ ToggleButton.propTypes = {
   onToggle: PropTypes.func.isRequired,
   children: PropTypes.node,
   disabled: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 ToggleButton.defaultProps = {
   children: undefined,
   disabled: false,
+  className: undefined,
 };

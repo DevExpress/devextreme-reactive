@@ -26,6 +26,7 @@ const ScrollableAreaBase = ({
 ScrollableAreaBase.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
+  classes: PropTypes.object.isRequired,
 };
 
 ScrollableAreaBase.defaultProps = {

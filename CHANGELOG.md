@@ -1,3 +1,43 @@
+# [1.10.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.10.0...v1.10.1) (2019-02-06)
+
+
+### Bug Fixes
+
+* **react-chart:** fix hovered and selected scatter point size ([#1808](https://github.com/DevExpress/devextreme-reactive/issues/1808)) ([647a0d8](https://github.com/DevExpress/devextreme-reactive/commit/647a0d8))
+* **react-chart:** fix-event-handlers-in-safari ([#1803](https://github.com/DevExpress/devextreme-reactive/issues/1803)) ([cc90bc0](https://github.com/DevExpress/devextreme-reactive/commit/cc90bc0))
+* **react-chart-bootstrap4:** fix dependencies section ([#1774](https://github.com/DevExpress/devextreme-reactive/issues/1774)) ([12e9f6f](https://github.com/DevExpress/devextreme-reactive/commit/12e9f6f))
+* **react-grid:** disallow rendering a checkbox in incorrect column when grouping is enabled ([#1793](https://github.com/DevExpress/devextreme-reactive/issues/1793)) ([96b7de0](https://github.com/DevExpress/devextreme-reactive/commit/96b7de0))
+* **react-grid:** fix column width in virtual table ([#1783](https://github.com/DevExpress/devextreme-reactive/issues/1783)) ([f3c481c](https://github.com/DevExpress/devextreme-reactive/commit/f3c481c))
+* **react-grid:** prevent tree column header text from overflowing a container ([#1731](https://github.com/DevExpress/devextreme-reactive/issues/1731)) ([af3629c](https://github.com/DevExpress/devextreme-reactive/commit/af3629c))
+* **react-grid:** stretch table container to a container size ([#1796](https://github.com/DevExpress/devextreme-reactive/issues/1796)) ([a36b109](https://github.com/DevExpress/devextreme-reactive/commit/a36b109))
+
+
+### Code Refactoring
+
+* **react-chart:** move point coordinates calculations specifics down to the pointComponent ([#1753](https://github.com/DevExpress/devextreme-reactive/issues/1753)) ([fde7756](https://github.com/DevExpress/devextreme-reactive/commit/fde7756))
+
+
+### Features
+
+* **react-grid:** throw warning if getRowId returns undefined ([#1679](https://github.com/DevExpress/devextreme-reactive/issues/1679)) ([d10397e](https://github.com/DevExpress/devextreme-reactive/commit/d10397e))
+
+
+### Performance Improvements
+
+* **react-core:** optimize position context calculation ([#1813](https://github.com/DevExpress/devextreme-reactive/issues/1813)) ([b2ea6e7](https://github.com/DevExpress/devextreme-reactive/commit/b2ea6e7))
+
+
+### BREAKING CHANGES
+
+* **react-chart:**
+  Previously, `pointComponent` of `BarSeries` and `PieSeries` accepted precalculated fields (`width` and `d`, respectively). Now, `pointComponent` accepts fields that provide raw data for calculation. This makes `pointComponent` more flexible as the `width` and `d` fields can now be calculated the way you need.
+
+  The following substitutions took place:
+ 
+  - `width` => `barWidth` and `maxBarWidth`
+  - `d` => `innerRadius`, `outerRadius`, `maxRadius`, `startAngle`, and `endAngle`
+
+
 # [1.10.0](https://github.com/DevExpress/devextreme-reactive/compare/v1.9.1...v1.10.0) (2018-12-25)
 
 

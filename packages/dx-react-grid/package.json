@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-react-grid",
-  "version": "1.10.0",
+  "version": "1.10.1",
   "description": "Composable plugin-based data grid component for React",
   "author": {
     "name": "Developer Express Inc.",
@@ -31,6 +31,9 @@
   "files": [
     "dist"
   ],
+  "tsdoc": {
+    "tsdocFlavor": "AEDoc"
+  },
   "types": "dist/dx-react-grid.d.ts",
   "scripts": {
     "test": "jest",
@@ -38,6 +41,7 @@
     "test:coverage": "jest --coverage",
     "build": "rollup -c rollup.config.js",
     "build:watch": "rollup -c rollup.config.js -w",
+    "update-api": "api-extractor run",
     "lint": "eslint \"src/**\"",
     "lint:fix": "yarn run lint -- --fix"
   },
@@ -46,9 +50,9 @@
     "@babel/plugin-transform-runtime": "^7.2.0",
     "@babel/preset-env": "^7.3.1",
     "@babel/preset-react": "^7.0.0",
-    "@devexpress/dx-core": "1.10.0",
-    "@devexpress/dx-react-core": "1.10.0",
-    "@devexpress/dx-testing": "1.10.0",
+    "@devexpress/dx-core": "1.10.1",
+    "@devexpress/dx-react-core": "1.10.1",
+    "@devexpress/dx-testing": "1.10.1",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^24.0.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
@@ -74,12 +78,12 @@
     "rollup-plugin-node-resolve": "^4.0.0"
   },
   "dependencies": {
-    "@devexpress/dx-grid-core": "1.10.0",
+    "@devexpress/dx-grid-core": "1.10.1",
     "prop-types": "^15.6.2"
   },
   "peerDependencies": {
-    "@devexpress/dx-core": "1.10.0",
-    "@devexpress/dx-react-core": "1.10.0",
+    "@devexpress/dx-core": "1.10.1",
+    "@devexpress/dx-react-core": "1.10.1",
     "react": ">=16.6.0",
     "react-dom": ">=16.6.0"
   }

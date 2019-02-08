@@ -5,6 +5,11 @@
     "tslint-eslint-rules",
     "tslint-config-airbnb"
   ],
+  "linterOptions": {
+    "exclude": [
+        "packages/*/api/*"
+    ]
+  },
   "rules": {
     "filenames/match-regex": [2, "^[a-z-\\.]+$"],
     "align": [true, "members", "statements"],

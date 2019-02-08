@@ -15,14 +15,7 @@ const AUTO_HEIGHT = 'auto';
 /** @internal */
 // tslint:disable-next-line: max-line-length
 export class VirtualTableLayout extends React.PureComponent<VirtualTableLayoutProps, VirtualTableLayoutState> {
-  static defaultProps = {
-    headerRows: [],
-    footerRows: [],
-    headComponent: () => null,
-    headTableComponent: () => null,
-    footerComponent: () => null,
-    footerTableComponent: () => null,
-  };
+  static defaultProps: Partial<VirtualTableLayoutProps>;
   isEdgeBrowser: boolean = false;
   rowRefs: Map<any, any>;
   blockRefs: Map<any, any>;
@@ -118,8 +111,8 @@ export class VirtualTableLayout extends React.PureComponent<VirtualTableLayoutPr
   }
 
   storeBloksHeights() {
-    const getBlockHeight = blockName => (this.blockRefs.get('body')
-      ? (findDOMNode(this.blockRefs.get('header')) as HTMLElement).getBoundingClientRect().height
+    const getBlockHeight = blockName => (this.blockRefs.get(blockName)
+      ? (findDOMNode(this.blockRefs.get(blockName)) as HTMLElement).getBoundingClientRect().height
       : 0
     );
     const headerHeight = getBlockHeight('header');
@@ -347,3 +340,12 @@ export class VirtualTableLayout extends React.PureComponent<VirtualTableLayoutPr
     /* tslint:enable max-line-length */
   }
 }
+
+VirtualTableLayout.defaultProps = {
+  headerRows: [],
+  footerRows: [],
+  headComponent: () => null,
+  headTableComponent: () => null,
+  footerComponent: () => null,
+  footerTableComponent: () => null,
+};

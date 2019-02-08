@@ -4,11 +4,7 @@ import { GroupingPanel as GP } from '../../types';
 
 // tslint:disable-next-line: max-line-length
 export class ItemLayout extends React.PureComponent<GP.GroupingItemLayoutProps, GP.GroupingItemLayoutState> {
-  static defaultProps = {
-    draggingEnabled: false,
-    onDragStart: () => {},
-    onDragEnd: () => {},
-  };
+  static defaultProps: Partial<GP.GroupingItemLayoutProps>;
 
   constructor(props) {
     super(props);
@@ -49,3 +45,9 @@ export class ItemLayout extends React.PureComponent<GP.GroupingItemLayoutProps, 
     ));
   }
 }
+
+ItemLayout.defaultProps = {
+  draggingEnabled: false,
+  onDragStart: () => {},
+  onDragEnd: () => {},
+};

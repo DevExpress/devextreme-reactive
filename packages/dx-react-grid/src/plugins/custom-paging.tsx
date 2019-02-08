@@ -7,9 +7,7 @@ const pluginDependencies = [
 ];
 
 class CustomPagingBase extends React.PureComponent<CustomPagingProps> {
-  static defaultProps = {
-    totalCount: 0,
-  };
+  static defaultProps: Partial<CustomPagingProps>;
 
   render() {
     const { totalCount } = this.props;
@@ -24,5 +22,9 @@ class CustomPagingBase extends React.PureComponent<CustomPagingProps> {
     );
   }
 }
+
+CustomPagingBase.defaultProps = {
+  totalCount: 0,
+};
 
 export const CustomPaging: React.ComponentType<CustomPagingProps> = CustomPagingBase;

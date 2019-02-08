@@ -6,6 +6,7 @@ import { setCurrentPage, setPageSize } from '@devexpress/dx-grid-core';
 import { PagingStateProps, PagingStateState } from '../types';
 
 class PagingStateBase extends React.PureComponent<PagingStateProps, PagingStateState> {
+  static defaultProps: Partial<PagingStateProps>;
   setCurrentPage: (payload: any) => void;
   setPageSize: (payload: any) => void;
 
@@ -64,5 +65,10 @@ class PagingStateBase extends React.PureComponent<PagingStateProps, PagingStateS
     );
   }
 }
+
+PagingStateBase.defaultProps = {
+  defaultPageSize: 10,
+  defaultCurrentPage: 0,
+};
 
 export const PagingState: React.ComponentType<PagingStateProps> = PagingStateBase;

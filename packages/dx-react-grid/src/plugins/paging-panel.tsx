@@ -18,6 +18,7 @@ const defaultMessages = {
 };
 
 class PagingPanelBase extends React.PureComponent<PagingPanelProps> {
+  static defaultProps: Partial<PagingPanelProps>;
   static components: PluginComponents;
   render() {
     const {
@@ -53,6 +54,11 @@ class PagingPanelBase extends React.PureComponent<PagingPanelProps> {
     );
   }
 }
+
+PagingPanelBase.defaultProps = {
+  pageSizes: [],
+  messages: {},
+};
 
 PagingPanelBase.components = {
   containerComponent: 'Container',

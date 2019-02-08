@@ -3,6 +3,7 @@ import {
   Plugin, Getter, Template, TemplatePlaceholder,
   TemplateConnector,
   DragDropProvider as DragDropProviderCore,
+  PluginComponents,
 } from '@devexpress/dx-react-core';
 import { DragDropProviderProps, DragDropProviderState } from '../types';
 
@@ -12,6 +13,7 @@ const getTargetColumns = (payload, columns) => payload
 
 // tslint:disable-next-line: max-line-length
 class DragDropProviderBase extends React.PureComponent<DragDropProviderProps, DragDropProviderState> {
+  static components: PluginComponents;
   change: (object) => void;
 
   constructor(props) {
@@ -69,5 +71,10 @@ class DragDropProviderBase extends React.PureComponent<DragDropProviderProps, Dr
     );
   }
 }
+
+DragDropProviderBase.components = {
+  containerComponent: 'Container',
+  columnComponent: 'Column',
+};
 
 export const DragDropProvider: React.ComponentType<DragDropProviderProps> = DragDropProviderBase;

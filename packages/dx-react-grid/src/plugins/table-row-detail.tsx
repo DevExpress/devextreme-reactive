@@ -24,9 +24,10 @@ const pluginDependencies = [
 ];
 
 class TableRowDetailBase extends React.PureComponent<TableRowDetailProps> {
-  static components: PluginComponents;
   static ROW_TYPE = TABLE_DETAIL_TYPE;
   static COLUMN_TYPE = TABLE_DETAIL_TYPE;
+  static defaultProps: Partial<TableRowDetailProps>;
+  static components: PluginComponents;
 
   render() {
     const {
@@ -110,6 +111,10 @@ class TableRowDetailBase extends React.PureComponent<TableRowDetailProps> {
     );
   }
 }
+
+TableRowDetailBase.defaultProps = {
+  contentComponent: () => null,
+};
 
 TableRowDetailBase.components = {
   rowComponent: 'Row',

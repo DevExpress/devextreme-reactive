@@ -6,6 +6,7 @@ import { changeSearchValue, searchFilterExpression } from '@devexpress/dx-grid-c
 import { SearchStateProps, SearchStateState } from '../types';
 
 class SearchStateBase extends React.PureComponent<SearchStateProps, SearchStateState> {
+  static defaultProps: Partial<SearchStateProps>;
   changeValue: ActionFn<string>;
 
   constructor(props) {
@@ -52,5 +53,9 @@ class SearchStateBase extends React.PureComponent<SearchStateProps, SearchStateS
     );
   }
 }
+
+SearchStateBase.defaultProps = {
+  defaultValue: '',
+};
 
 export const SearchState: React.ComponentType<SearchStateProps> = SearchStateBase;

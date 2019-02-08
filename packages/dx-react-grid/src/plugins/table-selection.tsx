@@ -15,12 +15,7 @@ import {
 import { TableSelectionProps, TableCellProps, TableRowProps } from '../types';
 
 class TableSelectionBase extends React.PureComponent<TableSelectionProps> {
-  static defaultProps = {
-    highlightRow: false,
-    selectByRowClick: false,
-    showSelectAll: false,
-    showSelectionColumn: true,
-  };
+  static defaultProps: Partial<TableSelectionProps>;
   static components: PluginComponents;
   static COLUMN_TYPE = TABLE_SELECT_TYPE;
 
@@ -117,5 +112,18 @@ class TableSelectionBase extends React.PureComponent<TableSelectionProps> {
     );
   }
 }
+
+TableSelectionBase.defaultProps = {
+  highlightRow: false,
+  selectByRowClick: false,
+  showSelectAll: false,
+  showSelectionColumn: true,
+};
+
+TableSelectionBase.components = {
+  rowComponent: 'Row',
+  cellComponent: 'Cell',
+  headerCellComponent: 'HeaderCell',
+};
 
 export const TableSelection: React.ComponentType<TableSelectionProps> = TableSelectionBase;

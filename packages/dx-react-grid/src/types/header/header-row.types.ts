@@ -33,8 +33,6 @@ export namespace TableHeaderRow {
     sortingDirection?: 'asc' | 'desc';
     /** \@deprecated <br/> An event that invokes a sorting direction change. Keeps the current sorting state if `keepOther` is set to true. Cancels sorting by the current column if `direction` is set to null. */
     onSort: (parameters: { direction?: 'asc' | 'desc' | null, keepOther?: boolean }) => void;
-    /** Returns the sort label's text. */
-    getMessage: (messageKey: string) => string;
     /** @internal */
     before: React.ReactNode;
   }

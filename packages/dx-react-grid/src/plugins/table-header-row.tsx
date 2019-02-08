@@ -19,6 +19,7 @@ const tableHeaderRowsComputed = (
 
 class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {
   static ROW_TYPE = TABLE_HEADING_TYPE;
+  static defaultProps: Partial<TableHeaderRowProps>;
   static components: PluginComponents;
 
   render() {
@@ -74,7 +75,6 @@ class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {
                   <HeaderCell
                     {...params}
                     column={params.tableColumn.column!}
-                    getMessage={getMessage}
                     draggingEnabled={draggingEnabled && atLeastOneDataColumn}
                     resizingEnabled={tableColumnResizingEnabled}
                     onWidthChange={({ shift }) => changeTableColumnWidth({ columnName, shift })}
@@ -161,6 +161,12 @@ class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {
     );
   }
 }
+
+TableHeaderRowBase.defaultProps = {
+  showSortingControls: false,
+  showGroupingControls: false,
+  messages: {},
+};
 
 TableHeaderRowBase.components = {
   cellComponent: 'Cell',

@@ -6,6 +6,7 @@ import { isTreeTableCell } from '@devexpress/dx-grid-core';
 import { TableTreeColumnProps, TableCellProps } from '../types';
 
 class TableTreeColumnBase extends React.PureComponent<TableTreeColumnProps> {
+  static defaultProps: Partial<TableTreeColumnProps>;
   static components: PluginComponents;
 
   render() {
@@ -120,6 +121,11 @@ class TableTreeColumnBase extends React.PureComponent<TableTreeColumnProps> {
     );
   }
 }
+
+TableTreeColumnBase.defaultProps = {
+  showSelectionControls: false,
+  showSelectAll: false,
+};
 
 TableTreeColumnBase.components = {
   cellComponent: 'Cell',

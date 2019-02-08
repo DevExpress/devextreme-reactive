@@ -7,13 +7,7 @@ import { GroupingPanel as GP } from '../types';
 
 // tslint:disable-next-line: max-line-length
 class GroupPanelLayoutBase extends React.PureComponent<GP.LayoutProps, GP.GroupingItemLayoutState> {
-  static defaultProps = {
-    onGroup: () => {},
-    draggingEnabled: false,
-    isColumnGroupingEnabled: () => false,
-    onGroupDraft: () => {},
-    onGroupDraftCancel: () => {},
-  };
+  static defaultProps: Partial<GP.LayoutProps>;
   handleDragEvent: (...args: any) => void;
   onEnter: (any) => void;
   onOver: (any) => void;
@@ -161,6 +155,14 @@ class GroupPanelLayoutBase extends React.PureComponent<GP.LayoutProps, GP.Groupi
       : groupPanel;
   }
 }
+
+GroupPanelLayoutBase.defaultProps = {
+  onGroup: () => {},
+  draggingEnabled: false,
+  isColumnGroupingEnabled: () => false,
+  onGroupDraft: () => {},
+  onGroupDraftCancel: () => {},
+};
 
 /** @internal */
 export const GroupPanelLayout: React.ComponentType<GP.LayoutProps> = GroupPanelLayoutBase;

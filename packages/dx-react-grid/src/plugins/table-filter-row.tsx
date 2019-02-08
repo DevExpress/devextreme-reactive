@@ -39,6 +39,7 @@ const defaultMessages = {
 
 class TableFilterRowBase extends React.PureComponent<TableFilterRowProps, TableFilterRowState> {
   static ROW_TYPE = TABLE_FILTER_TYPE;
+  static defaultProps: Partial<TableFilterRowProps>;
   static components: PluginComponents;
 
   constructor(props: TableFilterRowProps) {
@@ -168,6 +169,11 @@ class TableFilterRowBase extends React.PureComponent<TableFilterRowProps, TableF
     );
   }
 }
+
+TableFilterRowBase.defaultProps = {
+  showFilterSelector: false,
+  messages: {},
+};
 
 TableFilterRowBase.components = {
   rowComponent: 'Row',

@@ -20,6 +20,7 @@ const pluginDependencies = [
 
 // tslint:disable-next-line: max-line-length
 class TableColumnResizingBase extends React.PureComponent<TableColumnResizingProps, TableColumnResizingState> {
+  static defaultProps: Partial<TableColumnResizingProps>;
   changeTableColumnWidth: ActionFn<ColumnWidthPayload>;
   draftTableColumnWidth: ActionFn<ColumnWidthPayload>;
   cancelTableColumnWidthDraft: ActionFn<any>;
@@ -109,6 +110,10 @@ class TableColumnResizingBase extends React.PureComponent<TableColumnResizingPro
     );
   }
 }
+
+TableColumnResizingBase.defaultProps = {
+  defaultColumnWidths: [],
+};
 
 // tslint:disable-next-line: max-line-length
 export const TableColumnResizing: React.ComponentType<TableColumnResizingProps> = TableColumnResizingBase;

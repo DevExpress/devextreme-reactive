@@ -5,12 +5,7 @@ import { TableLayoutProps } from '../../types';
 
 /** @internal */
 export class StaticTableLayout extends React.PureComponent<TableLayoutProps> {
-  static defaultProps = {
-    headerRows: [],
-    footerRows: [],
-    headComponent: () => null,
-    footerComponent: () => null,
-  };
+  static defaultProps: Partial<TableLayoutProps>;
 
   render() {
     const {
@@ -70,3 +65,10 @@ export class StaticTableLayout extends React.PureComponent<TableLayoutProps> {
     );
   }
 }
+
+StaticTableLayout.defaultProps = {
+  headerRows: [],
+  footerRows: [],
+  headComponent: () => null,
+  footerComponent: () => null,
+};

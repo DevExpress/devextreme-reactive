@@ -59,11 +59,8 @@ class TableSummaryRowBase extends React.PureComponent<TableSummaryRowProps> {
   static TREE_ROW_TYPE = TABLE_TREE_SUMMARY_TYPE;
   static GROUP_ROW_TYPE = TABLE_GROUP_SUMMARY_TYPE;
   static TOTAL_ROW_TYPE = TABLE_TOTAL_SUMMARY_TYPE;
+  static defaultProps: Partial<TableSummaryRowProps>;
   static components: PluginComponents;
-  static defaultProps = {
-    formatlessSummaryTypes: [],
-    messages: {},
-  };
 
   renderContent(column, columnSummaries: ReadonlyArray<ColumnSummary>) {
     const {
@@ -265,6 +262,11 @@ class TableSummaryRowBase extends React.PureComponent<TableSummaryRowProps> {
     );
   }
 }
+
+TableSummaryRowBase.defaultProps = {
+  formatlessSummaryTypes: [],
+  messages: {},
+};
 
 TableSummaryRowBase.components = {
   totalRowComponent: 'TotalRow',

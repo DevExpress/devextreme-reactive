@@ -16,6 +16,7 @@ const defaultMessages = {
 };
 
 class GroupingPanelRaw extends React.PureComponent<GroupingPanelProps> {
+  static defaultProps: Partial<GroupingPanelProps>;
   static components: PluginComponents;
 
   render() {
@@ -104,6 +105,12 @@ class GroupingPanelRaw extends React.PureComponent<GroupingPanelProps> {
     );
   }
 }
+
+GroupingPanelRaw.defaultProps = {
+  showSortingControls: false,
+  showGroupingControls: false,
+  messages: {},
+};
 
 GroupingPanelRaw.components = {
   layoutComponent: 'Layout',

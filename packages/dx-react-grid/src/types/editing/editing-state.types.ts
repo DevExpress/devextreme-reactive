@@ -35,6 +35,10 @@ export interface EditingStateProps {
   defaultEditingRowIds?: Array<number | string>;
   /** Handles adding or removing a row to/from the `editingRowIds` array. */
   onEditingRowIdsChange?: (editingRowIds: Array<number | string>) => void;
+  /** @internal */
+  deletedRowIds?: Array<number | string>;
+  /** @internal */
+  defaultDeletedRowIds?: Array<number | string>;
   onDeletedRowIdsChange?: (deletedRowIds: Array<number | string>) => void;
   /** Created but not committed rows. */
   addedRows?: Array<any>;

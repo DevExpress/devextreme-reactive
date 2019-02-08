@@ -6,6 +6,7 @@ import { toggleSelection } from '@devexpress/dx-grid-core';
 import { SelectionStateProps, SelectionStateState } from '../types';
 
 class SelectionStateBase extends React.PureComponent<SelectionStateProps, SelectionStateState> {
+  static defaultProps: Partial<SelectionStateProps>;
   toggleSelection: ActionFn<any>;
 
   constructor(props) {
@@ -52,5 +53,9 @@ class SelectionStateBase extends React.PureComponent<SelectionStateProps, Select
     );
   }
 }
+
+SelectionStateBase.defaultProps = {
+  defaultSelection: [],
+};
 
 export const SelectionState: React.ComponentType<SelectionStateProps> = SelectionStateBase;

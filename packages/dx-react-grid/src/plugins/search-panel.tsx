@@ -19,6 +19,7 @@ const defaultMessages = {
 };
 
 class SearchPanelBase extends React.PureComponent<SearchPanelProps> {
+  static defaultProps: Partial<SearchPanelProps>;
   static components: PluginComponents;
 
   render() {
@@ -46,6 +47,10 @@ class SearchPanelBase extends React.PureComponent<SearchPanelProps> {
     );
   }
 }
+
+SearchPanelBase.defaultProps = {
+  messages: {},
+};
 
 SearchPanelBase.components = {
   inputComponent: 'Input',

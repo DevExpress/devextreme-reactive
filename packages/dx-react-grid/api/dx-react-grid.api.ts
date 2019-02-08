@@ -845,7 +845,6 @@ module TableHeaderRow {
     children: React.ReactNode;
     column: Column;
     draggingEnabled: boolean;
-    getMessage: (messageKey: string) => string;
     groupingEnabled: boolean;
     onGroup: () => void;
     onSort: (parameters: {

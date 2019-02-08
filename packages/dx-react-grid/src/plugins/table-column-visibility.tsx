@@ -38,6 +38,7 @@ const columnExtensionValueGetter = (
 
 // tslint:disable-next-line: max-line-length
 class TableColumnVisibilityBase extends React.PureComponent<TableColumnVisibilityProps, TableColumnVisibilityState> {
+  static defaultProps: Partial<TableColumnVisibilityProps>;
   static components: PluginComponents;
   toggleColumnVisibility: ActionFn<string[]>;
 
@@ -116,6 +117,12 @@ class TableColumnVisibilityBase extends React.PureComponent<TableColumnVisibilit
     );
   }
 }
+
+TableColumnVisibilityBase.defaultProps = {
+  defaultHiddenColumnNames: [],
+  messages: {},
+  columnTogglingEnabled: true,
+};
 
 TableColumnVisibilityBase.components = {
   emptyMessageComponent: 'EmptyMessage',

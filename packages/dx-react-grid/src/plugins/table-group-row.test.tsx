@@ -112,8 +112,8 @@ describe('TableGroupRow', () => {
         .toBe('tableColumnsWithGrouping');
       expect(tableColumnsWithGrouping)
         .toBeCalledWith(
-          defaultDeps.getter.tableColumns,
           defaultDeps.getter.columns,
+          defaultDeps.getter.tableColumns,
           defaultDeps.getter.grouping,
           defaultDeps.getter.draftGrouping,
           defaultProps.indentColumnWidth,

@@ -11,9 +11,8 @@ const pluginDependencies = [
   { name: 'Toolbar' },
 ];
 
-class ColumnChooserBase extends React.PureComponent<
-  ColumnChooserProps, ColumnChooserState
-> {
+class ColumnChooserBase extends React.PureComponent<ColumnChooserProps, ColumnChooserState> {
+  static defaultProps: Partial<ColumnChooserProps>;
   static components: PluginComponents;
   button!: React.ReactInstance;
 
@@ -101,6 +100,10 @@ class ColumnChooserBase extends React.PureComponent<
     );
   }
 }
+
+ColumnChooserBase.defaultProps = {
+  messages: {},
+};
 
 ColumnChooserBase.components = {
   overlayComponent: 'Overlay',

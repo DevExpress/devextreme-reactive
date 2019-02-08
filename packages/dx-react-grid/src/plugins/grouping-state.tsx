@@ -24,6 +24,7 @@ const columnExtensionValueGetter = (
 ) => getColumnExtensionValueGetter(columnExtensions, 'groupingEnabled', defaultValue);
 
 class GroupingStateBase extends React.PureComponent<GroupingStateProps, GroupingStateState> {
+  static defaultProps: Partial<GroupingStateProps>;
   stateHelper: StateHelper;
   draftColumnGrouping: ActionFn<ChangeGroupingPayload>;
   toggleGroupExpanded: ActionFn<ToggleGroupPayload>;
@@ -171,5 +172,11 @@ class GroupingStateBase extends React.PureComponent<GroupingStateProps, Grouping
     );
   }
 }
+
+GroupingStateBase.defaultProps = {
+  defaultGrouping: [],
+  defaultExpandedGroups: [],
+  columnGroupingEnabled: true,
+};
 
 export const GroupingState: React.ComponentType<GroupingStateProps> = GroupingStateBase;

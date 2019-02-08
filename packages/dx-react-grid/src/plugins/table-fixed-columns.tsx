@@ -44,10 +44,7 @@ const pluginDependencies = [
 // tslint:disable-next-line: max-line-length
 class TableFixedColumnsBase extends React.PureComponent<TableFixedColumnsProps, TableFixedColumnsState> {
   static components: PluginComponents;
-  static defaultProps = {
-    leftColumns: [],
-    rightColumns: [],
-  };
+  static defaultProps: Partial<TableFixedColumnsProps>;
 
   constructor(props) {
     super(props);
@@ -142,6 +139,11 @@ class TableFixedColumnsBase extends React.PureComponent<TableFixedColumnsProps, 
     );
   }
 }
+
+TableFixedColumnsBase.defaultProps = {
+  leftColumns: [],
+  rightColumns: [],
+};
 
 TableFixedColumnsBase.components = {
   cellComponent: 'Cell',

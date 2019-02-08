@@ -43,6 +43,7 @@ const showColumnWhenGroupedGetter: ShowColumnWhenGroupedGetterFn = (
 class TableGroupRowBase extends React.PureComponent<TableGroupRowProps> {
   static ROW_TYPE = TABLE_GROUP_TYPE;
   static COLUMN_TYPE = TABLE_GROUP_TYPE;
+  static defaultProps: Partial<TableGroupRowProps>;
   static components: PluginComponents;
 
   render() {
@@ -60,8 +61,8 @@ class TableGroupRowBase extends React.PureComponent<TableGroupRowProps> {
     const tableColumnsComputed = ({
       columns, tableColumns, grouping, draftGrouping,
     }: Getters) => tableColumnsWithGrouping(
-      tableColumns,
       columns,
+      tableColumns,
       grouping,
       draftGrouping,
       indentColumnWidth,
@@ -143,6 +144,10 @@ class TableGroupRowBase extends React.PureComponent<TableGroupRowProps> {
     );
   }
 }
+
+TableGroupRowBase.defaultProps = {
+  showColumnsWhenGrouped: false,
+};
 
 TableGroupRowBase.components = {
   rowComponent: 'Row',

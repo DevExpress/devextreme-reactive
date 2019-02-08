@@ -37,6 +37,7 @@ const tableHeaderRowsComputed = (
 
 // tslint:disable-next-line: max-line-length
 class TableColumnReorderingRaw extends React.PureComponent<TableColumnReorderingProps, TableColumnReorderingState> {
+  static defaultProps: Partial<TableColumnReorderingProps>;
   static components: PluginComponents;
   private cellDimensionGetters: { [colName: string]: CellDimensionsGetter } = {};
   private cellDimensions: TargetColumnGeometry[] = [];
@@ -250,6 +251,10 @@ class TableColumnReorderingRaw extends React.PureComponent<TableColumnReordering
     );
   }
 }
+
+TableColumnReorderingRaw.defaultProps = {
+  defaultOrder: [],
+};
 
 TableColumnReorderingRaw.components = {
   tableContainerComponent: 'TableContainer',

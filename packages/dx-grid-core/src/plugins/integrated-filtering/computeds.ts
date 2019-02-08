@@ -109,7 +109,6 @@ const buildPredicate: PureComputed<
     const { columnName } = filter;
     const customPredicate = getColumnPredicate && getColumnPredicate(columnName);
     const predicate = customPredicate || defaultFilterPredicate;
-    debugger
     return (row: Row) => predicate(getCellValue(row, columnName), filter, row);
   };
 
@@ -129,7 +128,6 @@ const buildPredicate: PureComputed<
 export const filteredRows: FilteredRowsFn = (
   rows, filterExpression, getCellValue, getColumnPredicate, getRowLevelKey, getCollapsedRows,
 ) => {
-  debugger
   if (!(filterExpression && Object.keys(filterExpression).length && rows.length)) {
     // tslint:disable-next-line:no-object-literal-type-assertion
     return { rows } as Partial<RowsWithCollapsedRowsMetaMap>;

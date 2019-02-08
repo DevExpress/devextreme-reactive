@@ -31,8 +31,9 @@ const operationPredicates: { [key: string]: FilterPredicate } = {
   endsWith: (value, filter) => toLowerCase(value)
     .endsWith(toLowerCase(filter.value)),
 
-  equal: (value, filter) => value === filter.value,
-  notEqual: (value, filter) => value !== filter.value,
+  equal: (value, filter) => String(value) === String(filter.value),
+  notEqual: (value, filter) => String(value) !== String(filter.value),
+
   greaterThan: (value, filter) => value > filter.value!,
   greaterThanOrEqual: (value, filter) => value >= filter.value!,
   lessThan: (value, filter) => value < filter.value!,
@@ -108,6 +109,7 @@ const buildPredicate: PureComputed<
     const { columnName } = filter;
     const customPredicate = getColumnPredicate && getColumnPredicate(columnName);
     const predicate = customPredicate || defaultFilterPredicate;
+    debugger
     return (row: Row) => predicate(getCellValue(row, columnName), filter, row);
   };
 
@@ -127,6 +129,7 @@ const buildPredicate: PureComputed<
 export const filteredRows: FilteredRowsFn = (
   rows, filterExpression, getCellValue, getColumnPredicate, getRowLevelKey, getCollapsedRows,
 ) => {
+  debugger
   if (!(filterExpression && Object.keys(filterExpression).length && rows.length)) {
     // tslint:disable-next-line:no-object-literal-type-assertion
     return { rows } as Partial<RowsWithCollapsedRowsMetaMap>;

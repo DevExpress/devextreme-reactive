@@ -25,10 +25,11 @@ export const isFilterValueEmpty = (value: any) => value === undefined || !String
 export const getSelectedFilterOperation: GetSelectedFilterOperationFn = (
   filterOperations, columnName, columnFilter, columnFilterOperations,
 ) => {
+  if (columnFilter && columnFilter.operation) {
+    return columnFilter.operation;
+  }
   if (filterOperations[columnName]) {
     return filterOperations[columnName];
   }
-  return columnFilter && columnFilter.operation
-    ? columnFilter.operation
-    : columnFilterOperations[0];
+  return columnFilterOperations[0];
 };

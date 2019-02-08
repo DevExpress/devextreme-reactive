@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import {
   Plugin,
   Getter,
@@ -7,18 +6,43 @@ import {
   Template,
   TemplatePlaceholder,
   withComponents,
+  PluginComponents,
 } from '@devexpress/dx-react-core';
-import { getParameters, processHandleTooltip } from '@devexpress/dx-chart-core';
+import {
+  getParameters,
+  processHandleTooltip,
+  Target as TargetItem,
+  NotifyPointerMoveFn,
+  HandlerFnList,
+} from '@devexpress/dx-chart-core';
 import { Target } from '../templates/tooltip/target';
+import { PureComputed } from '@devexpress/dx-core';
 
 const dependencies = [{ name: 'EventTracker', optional: true }];
 
-class RawTooltip extends React.PureComponent {
+type RawTooltipProps = {
+  defaultTargetItem?: TargetItem,
+  targetItem?: TargetItem,
+  onTargetItemChange?: NotifyPointerMoveFn,
+  overlayComponent: any,
+  targetComponent: any,
+  contentComponent: any,
+};
+type RawTooltipState = {
+  target: TargetItem,
+};
+
+class RawTooltip extends React.PureComponent<RawTooltipProps, RawTooltipState> {
+  static components: PluginComponents;
+  getPointerMoveHandlers: PureComputed<[{ pointerMoveHandlers: HandlerFnList }], HandlerFnList>;
+  targetElement: React.RefObject<SVGPathElement> | undefined;
+
   constructor(props) {
     super(props);
     this.state = {
       target: props.targetItem || props.defaultTargetItem,
     };
+    this.targetElement = undefined;
     this.createTargetElement = this.createTargetElement.bind(this);
     this.getTargetElement = this.getTargetElement.bind(this);
     const handlePointerMove = this.handlePointerMove.bind(this);
@@ -87,35 +111,13 @@ class RawTooltip extends React.PureComponent {
                   </OverlayComponent>
                 </React.Fragment>
               );
-            }
-          }
+            }}
           </TemplateConnector>
         </Template>
       </Plugin>
     );
   }
 }
-
-RawTooltip.propTypes = {
-  defaultTargetItem: PropTypes.shape({
-    series: PropTypes.string.isRequired,
-    point: PropTypes.number.isRequired,
-  }),
-  targetItem: PropTypes.shape({
-    series: PropTypes.string.isRequired,
-    point: PropTypes.number.isRequired,
-  }),
-  onTargetItemChange: PropTypes.func,
-  overlayComponent: PropTypes.func.isRequired,
-  targetComponent: PropTypes.func.isRequired,
-  contentComponent: PropTypes.func.isRequired,
-};
-
-RawTooltip.defaultProps = {
-  defaultTargetItem: undefined,
-  targetItem: undefined,
-  onTargetItemChange: undefined,
-};
 
 RawTooltip.components = {
   overlayComponent: 'Overlay',

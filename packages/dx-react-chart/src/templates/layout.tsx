@@ -1,7 +1,13 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 
-export class Root extends React.PureComponent {
+type RootProps = {
+  children?: React.ReactNode,
+  width: number,
+  height: number,
+  style?: any,
+};
+
+export class Root extends React.PureComponent<RootProps> {
   render() {
     const {
       children, width, height, style, ...restProps
@@ -21,15 +27,3 @@ export class Root extends React.PureComponent {
     );
   }
 }
-
-Root.propTypes = {
-  children: PropTypes.node,
-  width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
-  style: PropTypes.object,
-};
-
-Root.defaultProps = {
-  children: undefined,
-  style: undefined,
-};

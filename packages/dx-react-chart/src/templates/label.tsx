@@ -1,19 +1,15 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 
-export class Label extends React.PureComponent {
+type LabelProps = {
+  children: string | number,
+  x: number,
+  y: number,
+};
+
+export class Label extends React.PureComponent<LabelProps> {
   render() {
     return (
       <text {...this.props} />
     );
   }
 }
-
-Label.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]).isRequired,
-  x: PropTypes.number.isRequired,
-  y: PropTypes.number.isRequired,
-};

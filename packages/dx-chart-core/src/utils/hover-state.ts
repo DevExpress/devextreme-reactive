@@ -21,7 +21,7 @@ const selectTarget = (targets: TargetList, currentTarget: Target): ProcessedTarg
 };
 
 export const processPointerMove = (
-  targets: TargetList, currentTarget: Target, notify: NotifyPointerMoveFn,
+  targets: TargetList, currentTarget: Target, notify?: NotifyPointerMoveFn,
 ) => {
   const nextTarget = selectTarget(targets, currentTarget);
   if (nextTarget === undefined) {

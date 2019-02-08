@@ -8,7 +8,7 @@ import {
   pie,
 } from 'd3-shape';
 import {
-  SeriesList, Series, PointList, Point, DataItems, AddSeries, ScaleSeriesPoints,
+  SeriesList, Series, PointList, Point, DataItems, AddSeriesFn, ScaleSeriesPointsFn,
   GetPointTransformerFn, TransformedPoint, BarPoint, PiePoint, ScatterPoint, Palette, ScalesCache,
 } from '../../types';
 import { ARGUMENT_DOMAIN } from '../../constants';
@@ -97,12 +97,12 @@ getBarPointTransformer.isBroad = true;
 getPiePointTransformer.getPointColor = (palette, index) => palette[index % palette.length];
 
 export const findSeriesByName = (
-  name: string, series: SeriesList,
-) => series.find(seriesItem => seriesItem.symbolName === name);
+  name: symbol, series: SeriesList,
+): Series => series.find(seriesItem => seriesItem.symbolName === name) as Series;
 
 export const dBar = ({
   x, y, y1, width,
-}: TransformedPoint & { width: number }) => ({
+}: { x: number, y: number, y1: number, width: number }) => ({
   x: x - width / 2, y: Math.min(y, y1!), width: width || 2, height: Math.abs(y1! - y),
 });
 
@@ -202,7 +202,7 @@ const createPoints = (
   return points;
 };
 
-export const addSeries: AddSeries = (
+export const addSeries: AddSeriesFn = (
   series, data, palette, props, restProps,
 ) => {
   // It is used to generate unique series dependent attribute names for patterns.
@@ -233,6 +233,6 @@ const scalePoints = (series: Series, scales: ScalesCache) => {
   return ret;
 };
 
-export const scaleSeriesPoints: ScaleSeriesPoints = (
+export const scaleSeriesPoints: ScaleSeriesPointsFn = (
   series, scales,
 ) => series.map(seriesItem => scalePoints(seriesItem, scales));

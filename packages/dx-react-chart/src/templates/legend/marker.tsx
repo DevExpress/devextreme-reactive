@@ -1,7 +1,10 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 
-export class Marker extends React.PureComponent {
+type MarkerProps = {
+  color?: string,
+};
+
+export class Marker extends React.PureComponent<MarkerProps> {
   render() {
     const { color, ...restProps } = this.props;
     return (
@@ -11,11 +14,3 @@ export class Marker extends React.PureComponent {
     );
   }
 }
-
-Marker.propTypes = {
-  color: PropTypes.string,
-};
-
-Marker.defaultProps = {
-  color: undefined,
-};

@@ -1,8 +1,9 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import { Plugin, Template, TemplateConnector } from '@devexpress/dx-react-core';
 
-export class SpaceFillingRects extends React.PureComponent {
+type SpaceFillingRectsProps = {placeholders: string[]};
+
+export class SpaceFillingRects extends React.PureComponent<SpaceFillingRectsProps> {
   render() {
     const { placeholders } = this.props;
     return (
@@ -12,7 +13,8 @@ export class SpaceFillingRects extends React.PureComponent {
             <TemplateConnector>
               {({ layouts: positions }) => {
                 const [, horizontal, postfix] = name.split('-');
-                const { width } = positions[horizontal + (postfix ? `-${postfix}` : '')] || {};
+                // tslint:disable-next-line: max-line-length
+                const { width }: {width: number} = positions[horizontal + (postfix ? `-${postfix}` : '')] || {};
                 return <div id={name} style={{ width }} />;
               }}
             </TemplateConnector>
@@ -22,7 +24,3 @@ export class SpaceFillingRects extends React.PureComponent {
     );
   }
 }
-
-SpaceFillingRects.propTypes = {
-  placeholders: PropTypes.arrayOf(PropTypes.string).isRequired,
-};

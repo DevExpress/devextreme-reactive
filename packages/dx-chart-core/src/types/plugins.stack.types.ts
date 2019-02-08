@@ -37,4 +37,4 @@ export type StacksOptions = {
   offset: OffsetFn;
   order: OrderFn;
 };
-export type GetStackedSeries = PureComputed<[SeriesList, DataItems, StacksOptions]>;
+export type GetStackedSeriesFn = PureComputed<[SeriesList, DataItems, StacksOptions]>;

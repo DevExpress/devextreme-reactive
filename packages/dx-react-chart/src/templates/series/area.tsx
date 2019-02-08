@@ -1,12 +1,26 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import {
-  dArea, getAreaAnimationStyle, HOVERED, SELECTED,
+  dArea, getAreaAnimationStyle, HOVERED, SELECTED, Scales,
+  BuildAnimatedStyleGetterFn, TransformedPoint,
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
 
-class RawArea extends React.PureComponent {
+const defaultProps = { path: dArea };
+type RawAreaDefaultProps = Readonly<typeof defaultProps>;
+type RawAreaProps = {
+  coordinates: TransformedPoint[],
+  index: number,
+  state?: string,
+  color?: string,
+  style?: any,
+  scales: Scales,
+  getAnimatedStyle: BuildAnimatedStyleGetterFn,
+  pointComponent?: any,
+} & RawAreaDefaultProps;
+
+class RawArea extends React.PureComponent<RawAreaProps> {
+  static defaultProps = defaultProps;
   render() {
     const {
       path,
@@ -18,7 +32,7 @@ class RawArea extends React.PureComponent {
     } = this.props;
     return (
       <path
-        d={path(coordinates)}
+        d={path(coordinates)!}
         fill={color}
         opacity={0.5}
         style={getAnimatedStyle(style, getAreaAnimationStyle, scales)}
@@ -27,26 +41,6 @@ class RawArea extends React.PureComponent {
     );
   }
 }
-
-RawArea.propTypes = {
-  path: PropTypes.func,
-  coordinates: PropTypes.array.isRequired,
-  index: PropTypes.number.isRequired,
-  state: PropTypes.string,
-  color: PropTypes.string,
-  style: PropTypes.object,
-  scales: PropTypes.object.isRequired,
-  getAnimatedStyle: PropTypes.func.isRequired,
-  pointComponent: PropTypes.func,
-};
-
-RawArea.defaultProps = {
-  path: dArea,
-  state: undefined,
-  color: undefined,
-  style: undefined,
-  pointComponent: undefined,
-};
 
 export const Area = withStates({
   [HOVERED]: withPattern(

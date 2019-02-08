@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import {
   Plugin,
   Template,
@@ -7,7 +6,7 @@ import {
   TemplatePlaceholder,
   TemplateConnector,
 } from '@devexpress/dx-react-core';
-import { buildEventHandlers } from '@devexpress/dx-chart-core';
+import { buildEventHandlers, HandlerFn } from '@devexpress/dx-chart-core';
 
 const wrapToList = arg => (arg ? [arg] : []);
 
@@ -31,8 +30,13 @@ const translateEventNames = (handlers) => {
   return result;
 };
 
+type EventTrackerProps = {
+  onClick?: HandlerFn,
+  onPointerMove?: HandlerFn,
+};
+
 // eslint-disable-next-line react/no-multi-comp
-export class EventTracker extends React.PureComponent {
+export class EventTracker extends React.PureComponent<EventTrackerProps> {
   render() {
     const { onClick, onPointerMove } = this.props;
     return (
@@ -51,13 +55,3 @@ export class EventTracker extends React.PureComponent {
     );
   }
 }
-
-EventTracker.propTypes = {
-  onClick: PropTypes.func,
-  onPointerMove: PropTypes.func,
-};
-
-EventTracker.defaultProps = {
-  onClick: undefined,
-  onPointerMove: undefined,
-};

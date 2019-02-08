@@ -93,7 +93,7 @@ export type GetFormatFn = (tick: any) => string;
 export interface Series {
   readonly index: number;
   readonly scaleName: string;
-  readonly symbolName: string;
+  readonly symbolName: unique symbol;
   readonly name: string;
   readonly getValueDomain?: GetValueDomainFn;
   readonly points: PointList;
@@ -102,6 +102,9 @@ export interface Series {
   readonly valueField: string;
   readonly createHitTester: CreateHitTesterFn;
   readonly getPointTransformer: GetPointTransformerFn;
+  readonly pointComponent: any;
+  readonly state: string;
+  readonly seriesComponent: any;
 }
 export type SeriesList = ReadonlyArray<Series>;
 

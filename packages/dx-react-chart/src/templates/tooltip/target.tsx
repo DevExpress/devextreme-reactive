@@ -1,7 +1,13 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 
-export class Target extends React.PureComponent {
+type TargetProps = {
+  x: number,
+  y: number,
+  d: string,
+  componentRef: React.RefObject<SVGPathElement>,
+};
+
+export class Target extends React.PureComponent<TargetProps> {
   render() {
     const {
       d, x, y, componentRef,
@@ -11,10 +17,3 @@ export class Target extends React.PureComponent {
     );
   }
 }
-
-Target.propTypes = {
-  x: PropTypes.number.isRequired,
-  y: PropTypes.number.isRequired,
-  d: PropTypes.string.isRequired,
-  componentRef: PropTypes.func.isRequired,
-};

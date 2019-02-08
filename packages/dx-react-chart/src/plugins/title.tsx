@@ -1,13 +1,21 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 
 import {
   Plugin,
   Template,
   TemplatePlaceholder,
+  PluginComponents,
 } from '@devexpress/dx-react-core';
 
-export class Title extends React.PureComponent {
+const defaultProps = {
+  position: 'top',
+};
+type TitleDefaultProps = Readonly<typeof defaultProps>;
+type TitleProps = {
+  text: string, textComponent: any,
+} & Partial<TitleDefaultProps>;
+export class Title extends React.PureComponent<TitleProps> {
+  static components: PluginComponents;
   render() {
     const {
       textComponent: Text,
@@ -18,7 +26,7 @@ export class Title extends React.PureComponent {
     const placeholder = position;
     return (
       <Plugin name="Title">
-        <Template name={placeholder}>
+        <Template name={placeholder!}>
           <TemplatePlaceholder />
           <Text text={text} {...restProps} />
         </Template>
@@ -26,16 +34,6 @@ export class Title extends React.PureComponent {
     );
   }
 }
-
-Title.propTypes = {
-  textComponent: PropTypes.func.isRequired,
-  text: PropTypes.string.isRequired,
-  position: PropTypes.string,
-};
-
-Title.defaultProps = {
-  position: 'top',
-};
 
 Title.components = {
   textComponent: 'Text',

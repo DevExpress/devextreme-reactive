@@ -1,4 +1,4 @@
-import { Point, GetAnimationStyleFn, BuildAnimatedStyleGetter } from '../../types';
+import { Point, GetAnimationStyleFn, BuildAnimatedStyleGetterFn } from '../../types';
 
 const ANIMATIONS = Symbol('animation');
 
@@ -68,7 +68,7 @@ export const getScatterAnimationStyle: GetAnimationStyleFn = () => {
   };
 };
 
-export const buildAnimatedStyleGetter: BuildAnimatedStyleGetter = (
+export const buildAnimatedStyleGetter: BuildAnimatedStyleGetterFn = (
   style, getAnimationStyle, scales, point,
 ) => {
   const animationStyle = getAnimationStyle(scales, point);

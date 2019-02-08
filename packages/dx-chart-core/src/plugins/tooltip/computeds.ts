@@ -13,7 +13,7 @@ export const getParameters = (series: SeriesList, target: Target): TooltipParame
 };
 
 export const processHandleTooltip = (
-  targets: TargetList, currentTarget: Target, onTargetItemChange: NotifyPointerMoveFn,
+  targets: TargetList, currentTarget: Target, onTargetItemChange?: NotifyPointerMoveFn,
 ) => {
   const filterTargets = targets.filter(target => target.point !== undefined);
   return processPointerMove(filterTargets, currentTarget, onTargetItemChange);

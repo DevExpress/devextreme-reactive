@@ -1,12 +1,28 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import {
-  dBar, getAreaAnimationStyle, HOVERED, SELECTED,
+  dBar, getAreaAnimationStyle, HOVERED, SELECTED, BuildAnimatedStyleGetterFn, Scales,
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
 
-class RawBar extends React.PureComponent {
+type RawBarProps = {
+  argument: any,
+  value: number,
+  x: number,
+  barWidth: number,
+  maxBarWidth: number,
+  y: number,
+  y1: number,
+  seriesIndex: number,
+  index: number,
+  state?: string,
+  color?: string,
+  style?: any,
+  scales: Scales,
+  getAnimatedStyle: BuildAnimatedStyleGetterFn,
+};
+
+class RawBar extends React.PureComponent<RawBarProps> {
   render() {
     const {
       x, barWidth, y, y1, maxBarWidth,
@@ -16,7 +32,7 @@ class RawBar extends React.PureComponent {
       ...restProps
     } = this.props;
     const attributes = dBar({
-      x, width: maxBarWidth * barWidth, y, y1,
+      x, y, y1, width: maxBarWidth * barWidth,
     });
     return (
       <rect
@@ -28,29 +44,6 @@ class RawBar extends React.PureComponent {
     );
   }
 }
-
-RawBar.propTypes = {
-  argument: PropTypes.any.isRequired,
-  value: PropTypes.number.isRequired,
-  x: PropTypes.number.isRequired,
-  barWidth: PropTypes.number.isRequired,
-  maxBarWidth: PropTypes.number.isRequired,
-  y: PropTypes.number.isRequired,
-  y1: PropTypes.number.isRequired,
-  seriesIndex: PropTypes.number.isRequired,
-  index: PropTypes.number.isRequired,
-  state: PropTypes.string,
-  color: PropTypes.string,
-  style: PropTypes.object,
-  scales: PropTypes.object.isRequired,
-  getAnimatedStyle: PropTypes.func.isRequired,
-};
-
-RawBar.defaultProps = {
-  state: undefined,
-  color: undefined,
-  style: undefined,
-};
 
 export const Bar = withStates({
   [HOVERED]: withPattern(

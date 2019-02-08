@@ -1,14 +1,15 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import {
   Plugin,
   TemplateConnector,
   Template,
   TemplatePlaceholder,
   withComponents,
+  PluginComponents,
 } from '@devexpress/dx-react-core';
 import {
   axisCoordinates, LEFT, BOTTOM, ARGUMENT_DOMAIN, getValueDomainName, getGridCoordinates,
+  TickFormatFn,
 } from '@devexpress/dx-chart-core';
 import { Root } from '../templates/axis/root';
 import { Label } from '../templates/axis/label';
@@ -33,7 +34,36 @@ const adjustScaleRange = (scale, [width, height]) => {
   return scale.copy().range(range);
 };
 
-class RawAxis extends React.PureComponent {
+const defaultProps = {
+  tickSize: 5,
+  indentFromAxis: 10,
+};
+type RawAxisDefaultProps = Readonly<typeof defaultProps>;
+type RawAxisProps = {
+  tickSize: number,
+  indentFromAxis: number,
+  scaleName: string,
+  rootComponent: any,
+  tickComponent: any,
+  labelComponent: any,
+  lineComponent: any,
+  gridComponent: any,
+  position: string,
+  showGrid: boolean,
+  showTicks: boolean,
+  showLine: boolean,
+  showLabels: boolean,
+  tickFormat: TickFormatFn,
+} & Partial<RawAxisDefaultProps>;
+
+class RawAxis extends React.PureComponent<RawAxisProps> {
+  static components: PluginComponents;
+  static defaultProps = defaultProps;
+
+  rootRef: React.RefObject<HTMLElement>;
+  adjustedWidth: number;
+  adjustedHeight: number;
+
   constructor(props) {
     super(props);
     this.rootRef = React.createRef();
@@ -73,17 +103,17 @@ class RawAxis extends React.PureComponent {
               const { width, height } = layouts[placeholder] || { width: 0, height: 0 };
               const { sides: [dx, dy], ticks } = axisCoordinates({
                 scaleName,
-                // Isn't it too late to adjust sizes?
-                scale: adjustScaleRange(scale, [this.adjustedWidth, this.adjustedHeight]),
                 position,
                 tickSize,
                 tickFormat,
                 indentFromAxis,
+                // Isn't it too late to adjust sizes?
+                scale: adjustScaleRange(scale, [this.adjustedWidth, this.adjustedHeight]),
               });
               const handleSizeChange = (size) => {
                 // The callback is called when DOM is available -
                 // *rootRef.current* can be surely accessed.
-                const rect = this.rootRef.current.getBoundingClientRect();
+                const rect = this.rootRef.current!.getBoundingClientRect();
                 if (rect.width === this.adjustedWidth && rect.height === this.adjustedHeight) {
                   return;
                 }
@@ -102,12 +132,12 @@ class RawAxis extends React.PureComponent {
                     height: (dx * height) || undefined,
                     flexGrow: dx || undefined,
                   }}
-                  ref={this.rootRef}
+                  ref={this.rootRef as any}
                 >
                   <svg
                     width={this.adjustedWidth}
                     height={this.adjustedHeight}
-                    style={SVG_STYLE}
+                    style={SVG_STYLE as any}
                   >
                     <RootComponent
                       dx={dx}
@@ -192,29 +222,6 @@ class RawAxis extends React.PureComponent {
   }
 }
 
-RawAxis.propTypes = {
-  scaleName: PropTypes.string.isRequired,
-  rootComponent: PropTypes.func.isRequired,
-  tickComponent: PropTypes.func.isRequired,
-  labelComponent: PropTypes.func.isRequired,
-  lineComponent: PropTypes.func.isRequired,
-  gridComponent: PropTypes.func.isRequired,
-  position: PropTypes.string.isRequired,
-  showGrid: PropTypes.bool.isRequired,
-  showTicks: PropTypes.bool.isRequired,
-  showLine: PropTypes.bool.isRequired,
-  showLabels: PropTypes.bool.isRequired,
-  tickSize: PropTypes.number,
-  tickFormat: PropTypes.func,
-  indentFromAxis: PropTypes.number,
-};
-
-RawAxis.defaultProps = {
-  tickSize: 5,
-  tickFormat: undefined,
-  indentFromAxis: 10,
-};
-
 RawAxis.components = {
   rootComponent: 'Root',
   tickComponent: 'Tick',
@@ -224,10 +231,10 @@ RawAxis.components = {
 };
 
 export const Axis = withComponents({
-  Root,
-  Tick: Line,
   Label,
   Line,
+  Root,
+  Tick: Line,
   Grid: Line,
 })(RawAxis);
 
@@ -258,6 +265,3 @@ export const ValueAxis = withPatchedProps(props => ({
   ...props,
   scaleName: getValueDomainName(props.scaleName),
 }))(Axis);
-
-ArgumentAxis.components = Axis.components;
-ValueAxis.components = Axis.components;

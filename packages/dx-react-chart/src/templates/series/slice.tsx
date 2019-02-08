@@ -1,12 +1,30 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import {
-  getPieAnimationStyle, dPie, HOVERED, SELECTED,
+  getPieAnimationStyle, dPie, HOVERED, SELECTED, Scales, BuildAnimatedStyleGetterFn,
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
 
-class RawSlice extends React.PureComponent {
+type RawSliceProps = {
+  argument: any,
+  value: number,
+  x: number,
+  y: number,
+  seriesIndex: number,
+  index: number,
+  state?: string,
+  innerRadius: number,
+  outerRadius: number,
+  maxRadius: number,
+  startAngle: number,
+  endAngle: number,
+  color?: string,
+  style?: any,
+  scales: Scales,
+  getAnimatedStyle: BuildAnimatedStyleGetterFn,
+};
+
+class RawSlice extends React.PureComponent<RawSliceProps> {
   render() {
     const {
       x, y,
@@ -31,31 +49,6 @@ class RawSlice extends React.PureComponent {
     );
   }
 }
-
-RawSlice.propTypes = {
-  argument: PropTypes.any.isRequired,
-  value: PropTypes.number.isRequired,
-  x: PropTypes.number.isRequired,
-  y: PropTypes.number.isRequired,
-  seriesIndex: PropTypes.number.isRequired,
-  index: PropTypes.number.isRequired,
-  state: PropTypes.string,
-  innerRadius: PropTypes.number.isRequired,
-  outerRadius: PropTypes.number.isRequired,
-  maxRadius: PropTypes.number.isRequired,
-  startAngle: PropTypes.number.isRequired,
-  endAngle: PropTypes.number.isRequired,
-  color: PropTypes.string,
-  style: PropTypes.object,
-  scales: PropTypes.object.isRequired,
-  getAnimatedStyle: PropTypes.func.isRequired,
-};
-
-RawSlice.defaultProps = {
-  state: undefined,
-  color: undefined,
-  style: undefined,
-};
 
 export const Slice = withStates({
   [HOVERED]: withPattern(

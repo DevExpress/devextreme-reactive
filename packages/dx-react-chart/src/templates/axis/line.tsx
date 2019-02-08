@@ -1,7 +1,13 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 
-export class Line extends React.PureComponent {
+type LineProps = {
+  x1: number,
+  x2: number,
+  y1: number,
+  y2: number,
+};
+
+export class Line extends React.PureComponent<LineProps> {
   render() {
     const {
       x1, x2, y1, y2, ...restProps
@@ -14,10 +20,3 @@ export class Line extends React.PureComponent {
     );
   }
 }
-
-Line.propTypes = {
-  x1: PropTypes.number.isRequired,
-  x2: PropTypes.number.isRequired,
-  y1: PropTypes.number.isRequired,
-  y2: PropTypes.number.isRequired,
-};

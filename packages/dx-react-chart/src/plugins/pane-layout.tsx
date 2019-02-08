@@ -21,7 +21,7 @@ const SVG_STYLE = {
 };
 
 const SizerContainer = ({ children }) => (
-  <div style={DIV_STYLE}>{children}</div>
+  <div style={DIV_STYLE as any}>{children}</div>
 );
 
 SizerContainer.propTypes = {
@@ -47,14 +47,13 @@ export class PaneLayout extends React.PureComponent {
                       {...params}
                       width={width}
                       height={height}
-                      style={SVG_STYLE}
+                      style={SVG_STYLE as any}
                     >
                       <TemplatePlaceholder name="series" />
                     </svg>
                   </UpdatableSizer>
                 );
-              }
-                }
+              }}
             </TemplateConnector>
           )}
         </Template>

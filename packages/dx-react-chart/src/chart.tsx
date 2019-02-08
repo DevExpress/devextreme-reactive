@@ -1,8 +1,7 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
-import { PluginHost, withComponents } from '@devexpress/dx-react-core';
+import { PluginHost, withComponents, PluginComponents } from '@devexpress/dx-react-core';
 import {
-  TOP, BOTTOM, LEFT, RIGHT,
+  TOP, BOTTOM, LEFT, RIGHT, DataItems,
 } from '@devexpress/dx-chart-core';
 
 import { BasicData } from './plugins/basic-data';
@@ -16,7 +15,18 @@ import { Palette } from './plugins/palette';
 import { Root } from './templates/layout';
 import { Label } from './templates/label';
 
-class RawChart extends React.PureComponent {
+const defaultProps = {
+  height: 500,
+  width: undefined,
+  children: null,
+};
+
+type RawChartDefaultProps = Readonly<typeof defaultProps>;
+type RawChartProps = {data: DataItems, rootComponent: any} & Partial<RawChartDefaultProps>;
+
+class RawChart extends React.PureComponent<RawChartProps & RawChartDefaultProps> {
+  static defaultProps = defaultProps;
+  static components: PluginComponents;
   render() {
     const {
       data,
@@ -39,16 +49,17 @@ class RawChart extends React.PureComponent {
         <PaneLayout />
         <AxesLayout />
         <ComponentLayout />
-        <SpaceFillingRects placeholders={[
-          `${TOP}-${LEFT}`,
-          `${TOP}-${RIGHT}`,
-          `${BOTTOM}-${LEFT}`,
-          `${BOTTOM}-${RIGHT}`,
-          `${TOP}-${LEFT}-axis`,
-          `${TOP}-${RIGHT}-axis`,
-          `${BOTTOM}-${LEFT}-axis`,
-          `${BOTTOM}-${RIGHT}-axis`,
-        ]}
+        <SpaceFillingRects
+          placeholders={[
+            `${TOP}-${LEFT}`,
+            `${TOP}-${RIGHT}`,
+            `${BOTTOM}-${LEFT}`,
+            `${BOTTOM}-${RIGHT}`,
+            `${TOP}-${LEFT}-axis`,
+            `${TOP}-${RIGHT}-axis`,
+            `${BOTTOM}-${LEFT}-axis`,
+            `${BOTTOM}-${RIGHT}-axis`,
+          ]}
         />
         {children}
         <ChartCore />
@@ -57,19 +68,6 @@ class RawChart extends React.PureComponent {
     ));
   }
 }
-RawChart.propTypes = {
-  data: PropTypes.array.isRequired,
-  rootComponent: PropTypes.func.isRequired,
-  width: PropTypes.number,
-  height: PropTypes.number,
-  children: PropTypes.node,
-};
-
-RawChart.defaultProps = {
-  height: 500,
-  width: undefined,
-  children: null,
-};
 
 RawChart.components = {
   rootComponent: 'Root',

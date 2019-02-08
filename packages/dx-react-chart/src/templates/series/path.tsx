@@ -1,9 +1,23 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
-import { getAreaAnimationStyle, HOVERED, SELECTED } from '@devexpress/dx-chart-core';
+import {
+  getAreaAnimationStyle, HOVERED, SELECTED,
+  TransformedPoint, Scales, BuildAnimatedStyleGetterFn,
+} from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 
-class RawPath extends React.PureComponent {
+type RawPathProps = {
+  path: any,
+  coordinates: TransformedPoint[],
+  index: number,
+  state?: string,
+  color?: string,
+  style?: any,
+  scales: Scales,
+  getAnimatedStyle: BuildAnimatedStyleGetterFn,
+  pointComponent: any,
+};
+
+class RawPath extends React.PureComponent<RawPathProps> {
   render() {
     const {
       path,
@@ -25,25 +39,6 @@ class RawPath extends React.PureComponent {
     );
   }
 }
-
-RawPath.propTypes = {
-  path: PropTypes.func.isRequired,
-  coordinates: PropTypes.array.isRequired,
-  index: PropTypes.number.isRequired,
-  state: PropTypes.string,
-  color: PropTypes.string,
-  style: PropTypes.object,
-  scales: PropTypes.object.isRequired,
-  getAnimatedStyle: PropTypes.func.isRequired,
-  pointComponent: PropTypes.func,
-};
-
-RawPath.defaultProps = {
-  state: undefined,
-  color: undefined,
-  style: undefined,
-  pointComponent: undefined,
-};
 
 export const Path = withStates({
   [HOVERED]: props => ({ strokeWidth: 4, ...props }),

@@ -6,7 +6,7 @@ import { declareSeries } from '../utils';
 import { Line as Path } from '../templates/series/line';
 
 export const LineSeries = declareSeries('LineSeries', {
-  components: { Path },
   getPointTransformer,
   createHitTester,
+  components: { Path },
 });

@@ -3,8 +3,8 @@ import {
   LEFT, BOTTOM, MIDDLE, END, START,
 } from '../../constants';
 import {
-  Scale, GetFormatFn, ProcessTickFn, TickFormatFn, AxisCoordinates,
-  GetGridCoordinates,
+  Scale, GetFormatFn, ProcessTickFn, TickFormatFn, AxisCoordinatesFn,
+  GetGridCoordinatesFn,
 } from '../../types';
 
 const getTicks = (scale: Scale): any[] => (scale.ticks ? scale.ticks() : scale.domain());
@@ -14,7 +14,7 @@ const createTicks = <T>(scale: Scale, callback: ProcessTickFn<T>): ReadonlyArray
   return getTicks(scale).map((tick, index) => callback(fixedScale(tick), String(index), tick));
 };
 
-const getFormat = (scale: Scale, tickFormat: TickFormatFn): GetFormatFn => {
+const getFormat = (scale: Scale, tickFormat?: TickFormatFn): GetFormatFn => {
   if (scale.tickFormat) {
     return tickFormat ? tickFormat(scale) : scale.tickFormat();
   }
@@ -45,7 +45,7 @@ const createVerticalOptions = (position: string, tickSize: number, indentFromAxi
   };
 };
 
-export const axisCoordinates: AxisCoordinates = ({
+export const axisCoordinates: AxisCoordinatesFn = ({
   scaleName,
   scale,
   position,
@@ -78,7 +78,7 @@ export const axisCoordinates: AxisCoordinates = ({
 const horizontalGridOptions = { y: 0, dy: 1 };
 const verticalGridOptions = { x: 0, dx: 1 };
 
-export const getGridCoordinates: GetGridCoordinates = ({
+export const getGridCoordinates: GetGridCoordinatesFn = ({
   scaleName, scale,
 }) => {
   const isHor = isHorizontal(scaleName);

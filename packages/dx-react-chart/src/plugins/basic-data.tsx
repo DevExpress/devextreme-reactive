@@ -1,9 +1,8 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import { Plugin, Getter } from '@devexpress/dx-react-core';
-import { defaultDomains } from '@devexpress/dx-chart-core';
+import { defaultDomains, DataItems } from '@devexpress/dx-chart-core';
 
-export const BasicData = ({ data }) => (
+export const BasicData = ({ data }: {data: DataItems}) => (
   <Plugin name="Basis">
     <Getter name="data" value={data} />
     <Getter name="domains" value={defaultDomains} />
@@ -12,7 +11,3 @@ export const BasicData = ({ data }) => (
     <Getter name="getAnimatedStyle" value={style => style} />
   </Plugin>
 );
-
-BasicData.propTypes = {
-  data: PropTypes.array.isRequired,
-};

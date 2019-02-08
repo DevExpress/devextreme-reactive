@@ -6,7 +6,7 @@ export type StateHelper = {
 };
 
 export type CreateStateHelperFn = PureComputed<
-  [React.PureComponent, { [fieldName: string]: () => ActionFn<any> | undefined }],
+  [React.PureComponent, { [fieldName: string]: () => ActionFn<any> | undefined }?],
   StateHelper
 >;
 

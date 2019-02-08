@@ -2,7 +2,7 @@ import { stack } from 'd3-shape';
 import { scaleBand } from 'd3-scale';
 import {
   SeriesList, Series, PointList, Point, GetPointTransformerFn, DataItems, DomainItems,
-  StackList, GetPointTransformerFnRaw, BarPoint, StackedPoint, StackMap, GetStackedSeries,
+  StackList, GetPointTransformerFnRaw, BarPoint, StackedPoint, StackMap, GetStackedSeriesFn,
   SeriesPositions, StacksKeys, StackedDataItems, OffsetFn, OrderFn, StackedData,
 } from '../../types';
 
@@ -172,7 +172,7 @@ const applyGrouping = (seriesList: SeriesList, seriesToStackMap: StackMap): Seri
   });
 };
 
-export const getStackedSeries: GetStackedSeries = (
+export const getStackedSeries: GetStackedSeriesFn = (
   seriesList, dataItems, { stacks, offset, order },
 ) => {
   const map = buildSeriesToStackMap(stacks);

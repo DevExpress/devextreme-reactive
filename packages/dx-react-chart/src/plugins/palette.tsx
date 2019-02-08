@@ -1,8 +1,11 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import { Palette as Scheme } from '@devexpress/dx-chart-core';
 import { Plugin, Getter } from '@devexpress/dx-react-core';
 
-export class Palette extends React.PureComponent {
+type PaletteProps = {
+  scheme: Scheme,
+};
+export class Palette extends React.PureComponent<PaletteProps> {
   render() {
     const { scheme } = this.props;
     return (
@@ -12,7 +15,3 @@ export class Palette extends React.PureComponent {
     );
   }
 }
-
-Palette.propTypes = {
-  scheme: PropTypes.array.isRequired,
-};

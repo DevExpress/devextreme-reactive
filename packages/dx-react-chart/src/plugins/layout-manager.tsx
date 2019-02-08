@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import {
   Plugin,
   Getter,
@@ -7,10 +6,22 @@ import {
   Template,
   TemplatePlaceholder,
   createStateHelper,
+  ActionFn,
 } from '@devexpress/dx-react-core';
-import { bBoxes } from '@devexpress/dx-chart-core';
+import { bBoxes, BBoxesChange } from '@devexpress/dx-chart-core';
 
-export class LayoutManager extends React.Component {
+const defaultProps = { width: 0 };
+type LayoutManagerDefaultProps = Readonly<typeof defaultProps>;
+type LayoutManagerProps = {
+  height: number,
+  rootComponent: any,
+} & Partial<LayoutManagerDefaultProps>;
+type LayoutManagerState = {bBoxes: {pane: {width: number | undefined, height: number}}};
+
+export class LayoutManager extends React.Component<LayoutManagerProps, LayoutManagerState> {
+  static defaultProps = defaultProps;
+  changeBBox: ActionFn<BBoxesChange>;
+
   constructor(props) {
     super(props);
     const { width, height } = this.props;
@@ -50,13 +61,3 @@ export class LayoutManager extends React.Component {
     );
   }
 }
-
-LayoutManager.propTypes = {
-  width: PropTypes.number,
-  height: PropTypes.number.isRequired,
-  rootComponent: PropTypes.func.isRequired,
-};
-
-LayoutManager.defaultProps = {
-  width: 0,
-};

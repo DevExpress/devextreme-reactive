@@ -7,9 +7,9 @@ import { PointCollection as Path } from '../templates/series/point-collection';
 import { Slice as Point } from '../templates/series/slice';
 
 export const PieSeries = declareSeries('PieSeries', {
-  components: { Path, Point },
   getPointTransformer,
   createHitTester,
+  components: { Path, Point },
 });
 
 PieSeries.defaultProps = {

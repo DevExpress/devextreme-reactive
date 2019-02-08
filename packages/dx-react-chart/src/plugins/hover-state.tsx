@@ -1,16 +1,26 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import {
   Plugin,
   Getter,
+  Getters,
 } from '@devexpress/dx-react-core';
 import {
-  changeSeriesState, processPointerMove, HOVERED,
+  changeSeriesState, processPointerMove, HOVERED, Target, NotifyPointerMoveFn, HandlerFnList,
 } from '@devexpress/dx-chart-core';
+import { PureComputed } from '@devexpress/dx-core';
 
 const dependencies = [{ name: 'EventTracker', optional: true }];
 
-export class HoverState extends React.PureComponent {
+type HoverStateProps = {
+  defaultHover?: Target,
+  hover?: Target,
+  onHoverChange?: NotifyPointerMoveFn,
+};
+type HoverStateState = {
+  hover: Target,
+};
+export class HoverState extends React.PureComponent<HoverStateProps, HoverStateState> {
+  getPointerMoveHandlers: PureComputed<[{ pointerMoveHandlers: HandlerFnList }], HandlerFnList>;
   constructor(props) {
     super(props);
     this.state = {
@@ -38,7 +48,7 @@ export class HoverState extends React.PureComponent {
     // Function has to be recreated every time as there is no other way
     // to notify that "series" is updated.
     const targets = hover ? [hover] : [];
-    const getSeries = ({ series }) => changeSeriesState(series, targets, HOVERED);
+    const getSeries = ({ series }: Getters) => changeSeriesState(series, targets, HOVERED);
     return (
       <Plugin name="HoverState" dependencies={dependencies}>
         <Getter name="pointerMoveHandlers" computed={this.getPointerMoveHandlers} />
@@ -47,21 +57,3 @@ export class HoverState extends React.PureComponent {
     );
   }
 }
-
-HoverState.propTypes = {
-  defaultHover: PropTypes.shape({
-    series: PropTypes.string.isRequired,
-    point: PropTypes.number.isRequired,
-  }),
-  hover: PropTypes.shape({
-    series: PropTypes.string.isRequired,
-    point: PropTypes.number.isRequired,
-  }),
-  onHoverChange: PropTypes.func,
-};
-
-HoverState.defaultProps = {
-  defaultHover: undefined,
-  hover: undefined,
-  onHoverChange: undefined,
-};

@@ -1,10 +1,21 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 
 const getOffset = position => (position >= 0 ? 0 : -position);
 const getSize = (position, delta) => (position >= 0 ? position + delta : -position);
 
-export class Root extends React.PureComponent {
+type RootProps = {
+  dx: number,
+  dy: number,
+  onSizeChange: any,
+  children: React.ReactNode,
+};
+type RootState = {
+  x: number,
+  y: number,
+};
+
+export class Root extends React.PureComponent<RootProps, RootState> {
+  ref: React.RefObject<SVGPathElement>;
   constructor(props) {
     super(props);
     this.ref = React.createRef();
@@ -33,7 +44,7 @@ export class Root extends React.PureComponent {
   // Can we rely on the fact that by the time of callback parent is mounted?
   // For now we stick with it, but need to find a more solid solution.
   adjust(_, { dx, dy, onSizeChange }) {
-    const bbox = this.ref.current.getBBox();
+    const bbox = this.ref.current!.getBBox();
     const width = dx ? bbox.width : getSize(bbox.x, bbox.width);
     const height = dy ? bbox.height : getSize(bbox.y, bbox.height);
     const x = dx ? 0 : getOffset(bbox.x);
@@ -56,10 +67,3 @@ export class Root extends React.PureComponent {
     );
   }
 }
-
-Root.propTypes = {
-  dx: PropTypes.number.isRequired,
-  dy: PropTypes.number.isRequired,
-  onSizeChange: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired,
-};

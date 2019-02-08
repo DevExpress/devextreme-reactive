@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import {
   Template,
   Plugin,
@@ -7,13 +6,30 @@ import {
   TemplatePlaceholder,
   TemplateConnector,
   withComponents,
+  Getters,
+  PluginComponents,
 } from '@devexpress/dx-react-core';
 import {
   findSeriesByName, addSeries, getValueDomainName, ARGUMENT_DOMAIN,
 } from '@devexpress/dx-chart-core';
 
+const defaultProps = {
+  name: 'defaultSeriesName',
+};
+type ComponentDefaultProps = Readonly<typeof defaultProps>;
+type ComponentProps = {
+  scaleName?: string,
+  seriesComponent: any,
+  pointComponent?: any,
+  color?: string,
+  valueField: string,
+  argumentField: string,
+} & Partial<ComponentDefaultProps>;
+
 export const declareSeries = (pluginName, { components, getPointTransformer, createHitTester }) => {
-  class Component extends React.PureComponent {
+  class Component extends React.PureComponent<ComponentProps> {
+    static components: PluginComponents;
+    static defaultProps = defaultProps;
     render() {
       const {
         name,
@@ -36,7 +52,7 @@ export const declareSeries = (pluginName, { components, getPointTransformer, cre
         series,
         data,
         palette,
-      }) => addSeries(series, data, palette, seriesItem, restProps);
+      }: Getters) => addSeries(series, data, palette, seriesItem, restProps);
       return (
         <Plugin name={pluginName}>
           <Getter name="series" computed={getSeries} />
@@ -47,14 +63,14 @@ export const declareSeries = (pluginName, { components, getPointTransformer, cre
                 const currentSeries = findSeriesByName(symbolName, series);
                 const currentScales = {
                   xScale: scales[ARGUMENT_DOMAIN],
-                  yScale: scales[getValueDomainName(currentSeries.scaleName)],
+                  yScale: scales[getValueDomainName(currentSeries!.scaleName)],
                 };
                 return (
                   <currentSeries.seriesComponent
-                    index={currentSeries.index}
-                    pointComponent={currentSeries.pointComponent}
-                    coordinates={currentSeries.points}
-                    state={currentSeries.state}
+                    index={currentSeries!.index}
+                    pointComponent={currentSeries!.pointComponent}
+                    coordinates={currentSeries!.points}
+                    state={currentSeries!.state}
                     color={currentSeries.color}
                     scales={currentScales}
                     getAnimatedStyle={getAnimatedStyle}
@@ -67,23 +83,6 @@ export const declareSeries = (pluginName, { components, getPointTransformer, cre
       );
     }
   }
-  Component.propTypes = {
-    name: PropTypes.string,
-    scaleName: PropTypes.string,
-    seriesComponent: PropTypes.func.isRequired,
-    pointComponent: PropTypes.func,
-    color: PropTypes.string,
-    /* eslint-disable react/no-unused-prop-types */
-    valueField: PropTypes.string.isRequired,
-    argumentField: PropTypes.string.isRequired,
-    /* eslint-enable react/no-unused-prop-types */
-  };
-  Component.defaultProps = {
-    name: 'defaultSeriesName',
-    scaleName: undefined,
-    pointComponent: undefined,
-    color: undefined,
-  };
   Component.components = {};
   if (components.Path) {
     Component.components.seriesComponent = 'Path';

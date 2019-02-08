@@ -1,7 +1,16 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import {
+  TransformedPoint,
+} from '@devexpress/dx-chart-core';
 
-export class PointCollection extends React.PureComponent {
+type PointCollectionProps = {
+  pointComponent: any,
+  coordinates: TransformedPoint[],
+  index: number,
+  state?: string,
+};
+
+export class PointCollection extends React.PureComponent<PointCollectionProps> {
   render() {
     const {
       pointComponent: Point,
@@ -20,14 +29,3 @@ export class PointCollection extends React.PureComponent {
     )));
   }
 }
-
-PointCollection.propTypes = {
-  pointComponent: PropTypes.func.isRequired,
-  coordinates: PropTypes.array.isRequired,
-  index: PropTypes.number.isRequired,
-  state: PropTypes.string,
-};
-
-PointCollection.defaultProps = {
-  state: undefined,
-};

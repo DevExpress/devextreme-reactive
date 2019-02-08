@@ -1,17 +1,28 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
-import { Plugin, Getter } from '@devexpress/dx-react-core';
-import { getStackedSeries } from '@devexpress/dx-chart-core';
+import { Plugin, Getter, Getters } from '@devexpress/dx-react-core';
+import { getStackedSeries, StackList, OffsetFn, OrderFn } from '@devexpress/dx-chart-core';
 import {
   stackOrderNone,
   stackOffsetDiverging,
 } from 'd3-shape';
 
-export class Stack extends React.PureComponent {
+const defaultProps = {
+  stacks: [],
+  offset: stackOffsetDiverging,
+  order: stackOrderNone,
+};
+type StackProps = {
+  stacks: StackList,
+  offset: OffsetFn,
+  order: OrderFn,
+};
+
+export class Stack extends React.PureComponent<StackProps> {
+  static defaultProps = defaultProps;
   render() {
     const { stacks, offset, order } = this.props;
     const params = { stacks, offset, order };
-    const getSeries = ({ series, data }) => getStackedSeries(series, data, params);
+    const getSeries = ({ series, data }: Getters) => getStackedSeries(series, data, params);
     return (
       <Plugin name="Stack">
         <Getter name="series" computed={getSeries} />
@@ -19,17 +30,3 @@ export class Stack extends React.PureComponent {
     );
   }
 }
-
-Stack.propTypes = {
-  stacks: PropTypes.arrayOf(PropTypes.shape({
-    series: PropTypes.arrayOf(PropTypes.string).isRequired,
-  })),
-  offset: PropTypes.func,
-  order: PropTypes.func,
-};
-
-Stack.defaultProps = {
-  stacks: [],
-  offset: stackOffsetDiverging,
-  order: stackOrderNone,
-};

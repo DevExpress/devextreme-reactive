@@ -9,8 +9,8 @@ export const getWidth = (scale: Scale) => (
 
 export const getValueDomainName = (name?: string) => name || VALUE_DOMAIN;
 
-type FixedScale = (value: number) => number;
-export const fixOffset = (scale: Scale): FixedScale => {
+type FixedScaleFn = (value: number) => number;
+export const fixOffset = (scale: Scale): FixedScaleFn => {
   const offset = getWidth(scale) / 2;
   return offset > 0 ? value => scale(value) + offset : scale;
 };

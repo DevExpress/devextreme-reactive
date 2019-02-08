@@ -5,7 +5,7 @@ import { declareSeries } from '../utils';
 import { Area as Path } from '../templates/series/area';
 
 export const AreaSeries = declareSeries('AreaSeries', {
-  components: { Path },
   getPointTransformer,
   createHitTester,
+  components: { Path },
 });

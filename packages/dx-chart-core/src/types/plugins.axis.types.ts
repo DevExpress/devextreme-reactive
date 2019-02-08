@@ -11,7 +11,7 @@ export type AxisCoordinatesArg = {
   scale: Scale;
   position: string;
   tickSize: number;
-  tickFormat: TickFormatFn;
+  tickFormat?: TickFormatFn;
   indentFromAxis: number;
 };
 export type Tick = {
@@ -31,7 +31,7 @@ export type AxisCoordinatesResult = {
   sides: [number, number];
 };
 
-export type AxisCoordinates = PureComputed<[AxisCoordinatesArg], AxisCoordinatesResult>;
+export type AxisCoordinatesFn = PureComputed<[AxisCoordinatesArg], AxisCoordinatesResult>;
 
 export type GridCoordinatesArg = {
   scaleName: string;
@@ -45,4 +45,4 @@ export type Grid = {
   readonly dy: number;
 };
 
-export type GetGridCoordinates = PureComputed<[GridCoordinatesArg], Grid[]>;
+export type GetGridCoordinatesFn = PureComputed<[GridCoordinatesArg], Grid[]>;

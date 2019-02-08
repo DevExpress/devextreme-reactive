@@ -1,11 +1,24 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import {
-  dSymbol, getScatterAnimationStyle, HOVERED, SELECTED,
+  dSymbol, getScatterAnimationStyle, HOVERED, SELECTED, Scales, BuildAnimatedStyleGetterFn,
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 
-class RawPoint extends React.PureComponent {
+type RawPointProps = {
+  argument: any,
+  value: number,
+  x: number,
+  y: number,
+  seriesIndex: number,
+  index: number,
+  point: { size: number },
+  state?: string,
+  color?: string,
+  style?: any,
+  scales: Scales,
+  getAnimatedStyle: BuildAnimatedStyleGetterFn,
+};
+class RawPoint extends React.PureComponent<RawPointProps> {
   render() {
     const {
       x, y,
@@ -27,27 +40,6 @@ class RawPoint extends React.PureComponent {
     );
   }
 }
-
-RawPoint.propTypes = {
-  argument: PropTypes.any.isRequired,
-  value: PropTypes.number.isRequired,
-  x: PropTypes.number.isRequired,
-  y: PropTypes.number.isRequired,
-  seriesIndex: PropTypes.number.isRequired,
-  index: PropTypes.number.isRequired,
-  point: PropTypes.object.isRequired,
-  state: PropTypes.string,
-  color: PropTypes.string,
-  style: PropTypes.object,
-  scales: PropTypes.object.isRequired,
-  getAnimatedStyle: PropTypes.func.isRequired,
-};
-
-RawPoint.defaultProps = {
-  state: undefined,
-  color: undefined,
-  style: undefined,
-};
 
 // The expression is used to have 12 from 7 in default scenario
 // and to adjust hovered or selected size when custom *point.size* is defined.

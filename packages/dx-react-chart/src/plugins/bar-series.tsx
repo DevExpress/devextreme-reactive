@@ -7,9 +7,9 @@ import { PointCollection as Path } from '../templates/series/point-collection';
 import { Bar as Point } from '../templates/series/bar';
 
 export const BarSeries = declareSeries('BarSeries', {
-  components: { Path, Point },
   getPointTransformer,
   createHitTester,
+  components: { Path, Point },
 });
 
 BarSeries.defaultProps = {

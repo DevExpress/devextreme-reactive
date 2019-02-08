@@ -3,8 +3,8 @@ import { scaleLinear as d3ScaleLinear, scaleBand as d3ScaleBand } from 'd3-scale
 import { isHorizontal, getValueDomainName } from '../../utils/scale';
 import { ARGUMENT_DOMAIN, VALUE_DOMAIN } from '../../constants';
 import {
-  Series, Scale, SeriesList, PointList, DomainItems, DomainInfoCache, BuildScales,
-  AddDomain, MergeDomainsFn, GetItemFn, DomainInfo, FactoryFn, ComputeDomains,
+  Series, Scale, SeriesList, PointList, DomainItems, DomainInfoCache, BuildScalesFn,
+  AddDomainFn, MergeDomainsFn, GetItemFn, DomainInfo, FactoryFn, ComputeDomainsFn,
 } from '../../types';
 
 export const defaultDomains: DomainInfoCache = {
@@ -12,7 +12,7 @@ export const defaultDomains: DomainInfoCache = {
   [VALUE_DOMAIN]: { domain: [] },
 };
 
-export const addDomain: AddDomain = (domains, name, props) => ({
+export const addDomain: AddDomainFn = (domains, name, props) => ({
   ...domains,
   [name]: props,
 });
@@ -102,7 +102,7 @@ const customizeDomains = (domains: DomainInfoCache) => {
   });
 };
 
-export const computeDomains: ComputeDomains = (domains, seriesList) => {
+export const computeDomains: ComputeDomainsFn = (domains, seriesList) => {
   const result = copy(domains);
   collectDomainsFromSeries(result, seriesList);
   calculateDomains(result, seriesList);
@@ -110,7 +110,7 @@ export const computeDomains: ComputeDomains = (domains, seriesList) => {
   return result;
 };
 
-export const buildScales: BuildScales = (domains, { width, height }) => {
+export const buildScales: BuildScalesFn = (domains, { width, height }) => {
   const scales = {};
   Object.keys(domains).forEach((name) => {
     const obj = domains[name];

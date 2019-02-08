@@ -13,7 +13,10 @@ export const AxesLayout = () => (
           <TemplatePlaceholder name={`${TOP}-axis`} />
           <TemplatePlaceholder name={`${TOP}-${RIGHT}-axis`} />
         </div>
-        <div id="center-axis-container" style={{ display: 'flex', flexDirection: 'row', flexGrow: 1 }}>
+        <div
+          id="center-axis-container"
+          style={{ display: 'flex', flexDirection: 'row', flexGrow: 1 }}
+        >
           <TemplatePlaceholder name={`${LEFT}-axis`} />
           <TemplatePlaceholder />
           <TemplatePlaceholder name={`${RIGHT}-axis`} />

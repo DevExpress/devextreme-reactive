@@ -14,15 +14,15 @@ export type DomainInfo = {
 export type DomainInfoCache = {
   readonly [name: string]: DomainInfo;
 };
-export type AddDomain = PureComputed<[DomainInfoCache, string, any]>;
+export type AddDomainFn = PureComputed<[DomainInfoCache, string, any]>;
 
 export type MergeDomainsFn = (domain: DomainItems, items: DomainItems) => DomainItems;
 export type GetItemFn = (point: Point) => any;
 
-export type ComputeDomains = PureComputed<[DomainInfoCache, SeriesList]>;
+export type ComputeDomainsFn = PureComputed<[DomainInfoCache, SeriesList]>;
 export type Layout = {
   width: number;
   height: number;
 };
 
-export type BuildScales = PureComputed<[DomainInfoCache, Layout], ScalesCache>;
+export type BuildScalesFn = PureComputed<[DomainInfoCache, Layout], ScalesCache>;

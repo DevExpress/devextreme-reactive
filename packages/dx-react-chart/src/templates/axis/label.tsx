@@ -1,7 +1,14 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 
-export class Label extends React.PureComponent {
+type LabelProps = {
+  text: string | number,
+  x: number,
+  y: number,
+  dominantBaseline: string,
+  textAnchor: string,
+};
+
+export class Label extends React.PureComponent<LabelProps> {
   render() {
     const {
       text, x, y, dominantBaseline, textAnchor, ...restProps
@@ -20,14 +27,3 @@ export class Label extends React.PureComponent {
     );
   }
 }
-
-Label.propTypes = {
-  text: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]).isRequired,
-  x: PropTypes.number.isRequired,
-  y: PropTypes.number.isRequired,
-  dominantBaseline: PropTypes.string.isRequired,
-  textAnchor: PropTypes.string.isRequired,
-};

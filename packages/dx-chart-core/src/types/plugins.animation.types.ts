@@ -10,4 +10,6 @@ export type GetAnimationStyleFn = (scales: Scales, point?: Point) => {
   readonly animation: string;
   readonly transformOrigin?: string;
 };
-export type BuildAnimatedStyleGetter = PureComputed<[any, GetAnimationStyleFn, Scales, Point]>;
+export type BuildAnimatedStyleGetterFn = PureComputed<
+  [any, GetAnimationStyleFn, Scales, {index: number}?]
+>;

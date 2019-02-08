@@ -76,5 +76,14 @@ describe('TableFilterRow Plugin helpers', () => {
       expect(filterOperation)
         .toBe('endsWith');
     });
+
+    it('should prefer column filter if exists', () => {
+      const filterOperation = getSelectedFilterOperation(
+        { a: 'contains' }, 'a', { operation: 'endsWith' }, ['endsWith', 'contains'],
+      );
+
+      expect(filterOperation)
+        .toBe('endsWith');
+    });
   });
 });

@@ -29,11 +29,13 @@ export const groupedRows: GroupedRowsFn = (
     || defaultColumnCriteria;
   const groups = rows
     .reduce((acc, row) => {
-      const { key, value } = groupCriteria(getCellValue(row, columnName), row);
+      const rawValue = getCellValue(row, columnName);
+      const { key, value } = groupCriteria(rawValue, row);
       const sameKeyItems = acc.get(key);
 
       if (!sameKeyItems) {
-        acc.set(key, [value || key, key, [row]]);
+        const groupingValue = value === rawValue ? value : value || key;
+        acc.set(key, [groupingValue, key, [row]]);
       } else {
         sameKeyItems[2].push(row);
       }

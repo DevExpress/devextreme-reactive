@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import {
   Plugin,
+  Getter,
   Template,
   TemplateConnector,
   TemplatePlaceholder,
@@ -30,9 +31,15 @@ SizerContainer.propTypes = {
 
 // eslint-disable-next-line react/prefer-stateless-function
 export class PaneLayout extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.ref = React.createRef();
+  }
+
   render() {
     return (
       <Plugin name="PaneLayout">
+        <Getter name="rootRef" value={this.ref} />
         <Template name="canvas">
           {params => (
             <TemplateConnector>
@@ -44,6 +51,7 @@ export class PaneLayout extends React.PureComponent {
                     onSizeChange={size => changeBBox({ placeholder: 'pane', bBox: size })}
                   >
                     <svg
+                      ref={this.ref}
                       {...params}
                       width={width}
                       height={height}

@@ -1,16 +1,14 @@
+import { getRootOffset } from './root-offset';
 import {
-  TrackerTarget, Location, HandlerFnList, SeriesList, HitTesters,
+  TrackerTarget, HandlerFnList, SeriesList, HitTesters, Location,
   EventHandlerFn, HandlerArg, EventHandlers, HandlersObject,
 } from '../types';
 
-// This function is called from event handlers (when DOM is available) -
-// *window* can be accessed safely.
 const getEventCoords = (e: any): Location => {
-  const { pageXOffset, pageYOffset } = window;
-  const { left, top } = e.currentTarget.getBoundingClientRect();
+  const offset = getRootOffset(e.currentTarget);
   return [
-    e.clientX - left - pageXOffset,
-    e.clientY - top - pageYOffset,
+    e.clientX - offset[0],
+    e.clientY - offset[1],
   ];
 };
 

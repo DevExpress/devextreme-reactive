@@ -1,8 +1,12 @@
-import {
-  TargetElement,
-} from './chart-core.types';
+import { Rect } from './chart-core.types';
+
+export interface TooltipReference {
+  readonly clientWidth: number;
+  readonly clientHeight: number;
+  getBoundingClientRect(): ClientRect;
+}
 
 export type TooltipParameters = {
-  readonly element: TargetElement;
+  readonly element: Rect;
   readonly text: string;
 };

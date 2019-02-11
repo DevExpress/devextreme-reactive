@@ -2,7 +2,7 @@ import { PureComputed } from '@devexpress/dx-core';
 
 export type CurrentTime = Date | number | string;
 export type AppointmentDate = Date | number | string;
-export type Index = number | string;
+export type AppointmentId = number | string;
 export type CellElement = React.ReactInstance;
 
 /** Describes an appointment data object that the `mapAppointmentData` function should return. */

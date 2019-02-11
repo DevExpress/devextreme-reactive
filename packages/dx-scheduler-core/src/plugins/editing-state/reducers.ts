@@ -1,6 +1,6 @@
 import { PureReducer } from '@devexpress/dx-core';
 import {
-  Index, AddedAppointmentDataPayload, AppointmentModel, Changes, EditAppointmentPayload,
+  AppointmentId, AddedAppointmentDataPayload, AppointmentModel, Changes, EditAppointmentPayload,
 } from '../../types';
 
 export const addAppointment: PureReducer<
@@ -12,13 +12,13 @@ export const addAppointment: PureReducer<
 export const cancelAddedAppointment = () => ({});
 
 export const startEditAppointment: PureReducer<
-  Index, EditAppointmentPayload, Index
+  AppointmentId, EditAppointmentPayload
 > = (prevEditingAppointmentId, { appointmentId }) => appointmentId;
 
 export const stopEditAppointment = () => undefined;
 
 export const changeAppointment: PureReducer<
-AppointmentModel, Changes, AppointmentModel
+AppointmentModel, Changes
 > = (
   appointment, { change },
 ) => ({ ...appointment, ...change });

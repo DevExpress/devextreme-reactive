@@ -1,12 +1,12 @@
 import { PureComputed } from '@devexpress/dx-core';
 import {
-  Index, CurrentTime, CellElement, AppointmentDate,
+  AppointmentId, CurrentTime, CellElement, AppointmentDate,
 } from './scheduler-core.types';
 import { ViewCellData } from './all-day-panel.types';
 import { ParentRect, Coordinates } from './horizontal-rect.types';
 import { EndDate } from './appointment-form.types';
 
-export type CellByDate = { index: Index; startDate: CurrentTime };
+export type CellByDate = { index: AppointmentId; startDate: CurrentTime };
 
 export interface VerticalCellRect extends Coordinates {
   topOffset: number;

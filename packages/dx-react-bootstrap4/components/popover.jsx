@@ -61,7 +61,7 @@ export class Popover extends React.PureComponent {
 
   renderPopper() {
     const {
-      children, target, ...restProps
+      children, target, container, ...restProps
     } = this.props;
 
     return (
@@ -101,19 +101,15 @@ export class Popover extends React.PureComponent {
   }
 }
 
-export const targetElementType = PropTypes.oneOfType([
-  PropTypes.string,
-  PropTypes.func,
-  PropTypes.node,
-  PropTypes.instanceOf((typeof Element !== 'undefined') ? Element : Object),
-]);
-
 Popover.propTypes = {
-  container: targetElementType,
+  container: PropTypes.string,
   placement: PropTypes.string,
   isOpen: PropTypes.bool,
   children: PropTypes.node.isRequired,
-  target: targetElementType,
+  target: PropTypes.oneOfType([
+    PropTypes.instanceOf((typeof Element !== 'undefined') ? Element : Object),
+    PropTypes.object,
+  ]),
   toggle: PropTypes.func,
 };
 

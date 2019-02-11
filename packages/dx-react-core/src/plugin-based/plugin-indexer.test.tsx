@@ -65,4 +65,24 @@ describe('PluginIndexer', () => {
       .map(wrapper => wrapper.props().position()))
       .toEqual([[0, 0], [0, 1], [1]]);
   });
+
+  it('should memoize position context function', () => {
+    const Test1 = ({ enableGetter }) => (
+      <PluginIndexer>
+        <TestWrapper />
+        {enableGetter && <TestWrapper />}
+      </PluginIndexer>
+    );
+    Test1.propTypes = {
+      enableGetter: PropTypes.bool.isRequired,
+    };
+
+    const tree = mount(<Test1 enableGetter={false} />);
+    const { position } = tree.find(Test).at(0).props();
+
+    tree.setProps({ enableGetter: true });
+
+    expect(tree.find(Test).at(0).props().position)
+      .toBe(position);
+  });
 });

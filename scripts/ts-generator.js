@@ -30,7 +30,11 @@ const tsReplace = element => element
   .replace(/ComponentType/g, 'React.ComponentType')
   .replace(/ReactInstance/g, 'React.ReactInstance')
   .replace(/\[key: number \| string\]:/, '[key: string]:')
-  .replace(/\[key: GroupKey\]:/, '[key: string]:');
+  .replace(/\[key: GroupKey\]:/, '[key: string]:')
+  // clean description
+  .replace(/\@devexpress/g, '\\@devexpress')
+  .replace(/\*\*\@deprecated\*\*/g, '\@deprecated')
+  .replace(/<br\/>/g, '');
 
 const getFormattedLine = (line, level = 1) => {
   const elements = line.split('|')

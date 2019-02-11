@@ -249,8 +249,8 @@ export class AppointmentForm extends React.PureComponent {
                       });
                     },
                   }}
-                />)
-              }
+                />
+              )}
             </TemplateConnector>
           )}
         </Template>

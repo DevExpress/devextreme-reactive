@@ -1,6 +1,6 @@
 # React Scheduler - Fundamentals
 
-The [DevExtreme React Scheduler](https://devexpress.github.io/devextreme-reactive/react/scheduler) is a component that displays appointments in different layouts. It also allows a user to [edit](../reference/editing-state.md) appointments. You can enable each of the [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) operations separately.
+The [DevExtreme React Scheduler](https://devexpress.github.io/devextreme-reactive/react/scheduler) is a component that displays appointments in different layouts. It also allows a user to [edit](./editing.md) appointments. You can enable each of the [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) operations separately.
 
 The Scheduler's UI elements include [date navigator](../reference/date-navigator.md), [view switcher](../reference/view-switcher.md), [all-day panel](../reference/all-day-panel.md), [appointment tooltip](../reference/appointment-tooltip.md), [appointment form](../reference/appointment-form.md), and others. The following image illustrates these elements:
 

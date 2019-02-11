@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-react-core",
-  "version": "1.10.0",
+  "version": "1.10.1",
   "description": "Core library for DevExtreme React Components",
   "author": {
     "name": "Developer Express Inc.",
@@ -37,31 +37,32 @@
     "build": "rollup -c rollup.config.js",
     "build:watch": "rollup -c rollup.config.js -w",
     "dts": "tsc -p tsconfig.dts.json && node ./merge-dts.js",
+    "update-api": "api-extractor run",
     "lint": "tslint -p tsconfig.lint.json",
     "lint:fix": "yarn run lint -- --fix",
     "tsc": "tsc"
   },
   "devDependencies": {
-    "@types/enzyme": "^3.1.15",
-    "core-js": "^2.6.1",
+    "@types/enzyme": "^3.1.16",
+    "core-js": "^2.6.3",
     "enzyme": "3.8.0",
-    "enzyme-adapter-react-16": "^1.7.1",
-    "jest": "^23.6.0",
+    "enzyme-adapter-react-16": "^1.8.0",
+    "jest": "^24.0.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-test-renderer": "^16.7.0",
-    "rollup": "^0.68.2",
-    "rollup-plugin-license": "^0.7.0",
+    "rollup": "^1.1.2",
+    "rollup-plugin-license": "^0.8.1",
     "rollup-plugin-node-resolve": "^4.0.0",
     "rollup-plugin-replace": "^2.1.0",
-    "rollup-plugin-typescript2": "^0.18.1",
+    "rollup-plugin-typescript2": "^0.19.2",
     "ts-jest": "^23.10.5",
-    "tslint": "^5.11.0",
+    "tslint": "^5.12.1",
     "tslint-config-airbnb": "^5.11.1",
-    "typescript": "^3.2.2"
+    "typescript": "^3.3.1"
   },
   "dependencies": {
-    "@devexpress/dx-core": "1.10.0",
+    "@devexpress/dx-core": "1.10.1",
     "prop-types": "^15.6.2"
   },
   "peerDependencies": {

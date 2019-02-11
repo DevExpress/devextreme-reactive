@@ -36,7 +36,6 @@ const styles = ({ palette, spacing }) => ({
 const CellBase = ({
   otherMonth,
   selected,
-  current,
   today,
   classes,
   children,

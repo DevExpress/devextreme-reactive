@@ -11,6 +11,7 @@ export const TableContainer = ({
   <div
     className={classNames('table-responsive', className)}
     style={{
+      flexGrow: 1,
       overflow: 'auto',
       WebkitOverflowScrolling: 'touch',
       border: 0,

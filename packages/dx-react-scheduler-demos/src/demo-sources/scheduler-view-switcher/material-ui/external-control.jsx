@@ -36,7 +36,7 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       data: appointments,
-      currentViewName: 'Work Week',
+      currentViewName: 'Month',
     };
 
     this.currentViewNameChange = (e) => {
@@ -58,7 +58,6 @@ export default class Demo extends React.PureComponent {
           <Scheduler
             data={data}
           >
-
             <ViewState
               defaultCurrentDate="2018-07-25"
               currentViewName={currentViewName}

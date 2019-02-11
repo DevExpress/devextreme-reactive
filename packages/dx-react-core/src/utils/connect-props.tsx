@@ -3,14 +3,13 @@ import * as React from 'react';
 type RenderComponentProps = {
   update: () => void;
 };
-type connectPropsType = (
-  WrappedComponent: React.ComponentType<any>, getAdditionalProps: () => object,
-) => React.ComponentType<any> & { update(): void };
 
 /*** A function that creates a new component that allows you to pass additional properties
  * to the wrapped component.
  */
-export const connectProps: connectPropsType  = (WrappedComponent: any, getAdditionalProps) => {
+export const connectProps = (
+  WrappedComponent: React.ComponentType<any>, getAdditionalProps: () => object,
+): typeof WrappedComponent & { update(): void } => {
   let storedAdditionalProps = getAdditionalProps();
   const components = new Set();
   class RenderComponent extends React.PureComponent<RenderComponentProps> {

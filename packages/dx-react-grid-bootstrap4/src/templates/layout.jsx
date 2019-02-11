@@ -32,7 +32,7 @@ export class Root extends React.PureComponent {
     const { backgroundColor } = this.state;
     return (
       <div
-        className={classNames('d-flex flex-column position-relative', className)}
+        className={classNames('d-flex flex-column', className)}
         {...restProps}
       >
         <BodyColorContext.Provider value={backgroundColor}>

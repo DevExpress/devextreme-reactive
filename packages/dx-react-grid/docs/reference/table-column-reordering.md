@@ -23,6 +23,7 @@ import { TableColumnReordering } from '@devexpress/dx-react-grid';
 ### Dependencies
 
 - [Table](table.md)
+- [DragDropProvider](drag-drop-provider.md) [Optional]
 
 ### Properties
 

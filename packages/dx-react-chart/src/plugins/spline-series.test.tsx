@@ -13,7 +13,6 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   checkZeroStart: jest.fn(),
 }));
 
-
 describe('Spline series', () => {
   const SeriesComponent = () => null;
 
@@ -30,7 +29,7 @@ describe('Spline series', () => {
     argumentField: 'argumentField',
   };
 
-  findSeriesByName.mockReturnValue({
+  (findSeriesByName as jest.Mock).mockReturnValue({
     ...defaultProps,
     index: 1,
     points: coords,

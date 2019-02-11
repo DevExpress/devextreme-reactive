@@ -5,10 +5,10 @@ type ComponentWithStatesProps = {
 };
 
 export const withStates = states => (Component) => {
-  class ComponentWithStates extends React.PureComponent<ComponentWithStatesProps> {
+  class ComponentWithStates extends React.PureComponent<ComponentWithStatesProps & any> {
     render() {
       const { state, ...restProps } = this.props;
-      const stateFunc = states[state];
+      const stateFunc = state && states[state];
       const result = stateFunc ? stateFunc(restProps) : restProps;
       return React.isValidElement(result) ? result : <Component {...result} />;
     }

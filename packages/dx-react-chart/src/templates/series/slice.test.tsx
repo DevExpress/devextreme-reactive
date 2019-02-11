@@ -55,7 +55,7 @@ describe('Slice', () => {
     const tree = shallow((
       <Slice {...defaultProps} custom={10} />
     ));
-    const { custom } = tree.find('path').props();
+    const { custom } = tree.find('path').props() as any;
 
     expect(custom).toEqual(10);
   });
@@ -68,13 +68,13 @@ describe('Slice', () => {
   });
 
   it('should use patterns', () => {
-    expect(withPattern.mock.calls).toEqual([
+    expect((withPattern as jest.Mock).mock.calls).toEqual([
       [expect.any(Function), { opacity: 0.75 }],
       [expect.any(Function), { opacity: 0.5 }],
     ]);
-    expect(withPattern.mock.calls[0][0]({ seriesIndex: 1, index: 2 }))
+    expect((withPattern as jest.Mock).mock.calls[0][0]({ seriesIndex: 1, index: 2 }))
       .toEqual('series-1-point-2-hover');
-    expect(withPattern.mock.calls[1][0]({ seriesIndex: 2, index: 3 }))
+    expect((withPattern as jest.Mock).mock.calls[1][0]({ seriesIndex: 2, index: 3 }))
       .toEqual('series-2-point-3-selection');
   });
 });

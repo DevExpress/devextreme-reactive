@@ -17,7 +17,7 @@ describe('Line', () => {
 
   it('should pass the rest property to the root element', () => {
     const tree = shallow(<Line {...defaultProps} customProperty />);
-    const { customProperty } = tree.find('path').props();
+    const { customProperty } = tree.find('path').props() as any;
     expect(customProperty).toBeTruthy();
   });
 

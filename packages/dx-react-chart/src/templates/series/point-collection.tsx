@@ -10,7 +10,7 @@ type PointCollectionProps = {
   state?: string,
 };
 
-export class PointCollection extends React.PureComponent<PointCollectionProps> {
+export class PointCollection extends React.PureComponent<PointCollectionProps & any> {
   render() {
     const {
       pointComponent: Point,

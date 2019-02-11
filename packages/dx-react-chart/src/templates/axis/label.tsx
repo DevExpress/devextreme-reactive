@@ -8,7 +8,7 @@ type LabelProps = {
   textAnchor: string,
 };
 
-export class Label extends React.PureComponent<LabelProps> {
+export class Label extends React.PureComponent<LabelProps & any> {
   render() {
     const {
       text, x, y, dominantBaseline, textAnchor, ...restProps

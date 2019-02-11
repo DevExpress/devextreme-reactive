@@ -13,8 +13,8 @@ const defaultDeps = {
 };
 
 const defaultProps = {
-  text: 'chart',
   textComponent,
+  text: 'chart',
   style: 'style',
 };
 

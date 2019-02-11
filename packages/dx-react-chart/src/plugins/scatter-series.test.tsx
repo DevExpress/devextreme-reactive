@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { pointAttributes, findSeriesByName } from '@devexpress/dx-chart-core';
+import { findSeriesByName } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-testing';
 import { ScatterSeries } from './scatter-series';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
-  pointAttributes: jest.fn(),
   findSeriesByName: jest.fn(),
   addSeries: jest.fn(),
   ARGUMENT_DOMAIN: 'test_argument_domain',
@@ -26,18 +25,12 @@ describe('Scatter series', () => {
     { x: 5, y: 15, index: 5 },
   ];
 
-  pointAttributes.mockReturnValue(() => ({
-    x: 4,
-    y: 3,
-    d: 'M12 12',
-  }));
-
   const defaultProps = {
     argumentField: 'arg',
     valueField: 'val',
   };
 
-  findSeriesByName.mockReturnValue({
+  (findSeriesByName as jest.Mock).mockReturnValue({
     ...defaultProps,
     index: 1,
     points: coords,

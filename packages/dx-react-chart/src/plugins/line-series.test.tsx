@@ -29,7 +29,7 @@ describe('Line series', () => {
     argumentField: 'argumentField',
   };
 
-  findSeriesByName.mockReturnValue({
+  (findSeriesByName as jest.Mock).mockReturnValue({
     ...defaultProps,
     index: 1,
     points: coords,

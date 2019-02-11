@@ -60,7 +60,7 @@ describe('Area', () => {
     const tree = shallow((
       <Area {...defaultProps} customProperty />
     ));
-    const { customProperty } = tree.find('path').props();
+    const { customProperty } = tree.find('path').props() as any;
 
     expect(customProperty).toBeTruthy();
   });
@@ -73,11 +73,11 @@ describe('Area', () => {
   });
 
   it('should use patterns', () => {
-    expect(withPattern.mock.calls).toEqual([
+    expect((withPattern as jest.Mock).mock.calls).toEqual([
       [expect.any(Function), { opacity: 0.75 }],
       [expect.any(Function), { opacity: 0.5 }],
     ]);
-    expect(withPattern.mock.calls[0][0]({ index: 2 })).toEqual('series-2-hover');
-    expect(withPattern.mock.calls[1][0]({ index: 3 })).toEqual('series-3-selection');
+    expect((withPattern as jest.Mock).mock.calls[0][0]({ index: 2 })).toEqual('series-2-hover');
+    expect((withPattern as jest.Mock).mock.calls[1][0]({ index: 3 })).toEqual('series-3-selection');
   });
 });

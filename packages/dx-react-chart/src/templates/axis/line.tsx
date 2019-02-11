@@ -7,7 +7,7 @@ type LineProps = {
   y2: number,
 };
 
-export class Line extends React.PureComponent<LineProps> {
+export class Line extends React.PureComponent<LineProps & any> {
   render() {
     const {
       x1, x2, y1, y2, ...restProps

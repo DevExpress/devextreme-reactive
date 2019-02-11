@@ -1,4 +1,4 @@
-import { Point, GetAnimationStyleFn, BuildAnimatedStyleGetterFn } from '../../types';
+import { GetAnimationStyleFn, BuildAnimatedStyleGetterFn } from '../../types';
 
 const ANIMATIONS = Symbol('animation');
 
@@ -41,7 +41,7 @@ const getPieAnimationName = () => {
 
 const getDefaultAreaAnimationOptions = () => '1s';
 
-const getDefaultPieAnimationOptions = ({ index }: Point) => `${0.7 + index * 0.1}s`;
+const getDefaultPieAnimationOptions = ({ index }: {index: number}) => `${0.7 + index * 0.1}s`;
 
 export const getAreaAnimationStyle: GetAnimationStyleFn = (scales) => {
   const animationStyle = {

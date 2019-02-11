@@ -13,7 +13,7 @@ describe('EventTracker', () => {
   afterEach(jest.clearAllMocks);
 
   it('should pass params to template', () => {
-    buildEventHandlers.mockReturnValue({
+    (buildEventHandlers as jest.Mock).mockReturnValue({
       click: 'test-click',
       pointermove: 'test-pointer-move',
       pointerleave: 'test-pointer-leave',

@@ -13,7 +13,7 @@ jest.mock('@devexpress/dx-chart-core', () => ({
 }));
 
 describe('Axis', () => {
-  const mockScale = jest.fn();
+  const mockScale = jest.fn() as any;
   mockScale.copy = jest.fn().mockReturnValue(mockScale);
   mockScale.range = jest.fn(arg => (arg === undefined ? [1, 2] : mockScale));
 
@@ -96,7 +96,7 @@ describe('Axis', () => {
     },
   ];
 
-  getGridCoordinates.mockReturnValue([{
+  (getGridCoordinates as jest.Mock).mockReturnValue([{
     key: '1',
     x: 11,
     y: 12,
@@ -111,7 +111,7 @@ describe('Axis', () => {
   }]);
 
   const setupAxisCoordinates = (sides) => {
-    axisCoordinates.mockReturnValue({ sides, ticks: mockTicks });
+    (axisCoordinates as jest.Mock).mockReturnValue({ sides, ticks: mockTicks });
   };
 
   const enforceUpdate = tree => tree.setProps({ tag: 'enforce-update' }).update();
@@ -124,12 +124,12 @@ describe('Axis', () => {
   const getBoundingClientRect = jest.fn();
 
   beforeAll(() => {
-    originalGetBoundingClientRect = global.HTMLDivElement.prototype.getBoundingClientRect;
-    global.HTMLDivElement.prototype.getBoundingClientRect = getBoundingClientRect;
+    originalGetBoundingClientRect = (global as any).HTMLDivElement.prototype.getBoundingClientRect;
+    (global as any).HTMLDivElement.prototype.getBoundingClientRect = getBoundingClientRect;
   });
 
   afterAll(() => {
-    global.HTMLDivElement.prototype.getBoundingClientRect = originalGetBoundingClientRect;
+    (global as any).HTMLDivElement.prototype.getBoundingClientRect = originalGetBoundingClientRect;
   });
 
   beforeEach(() => {
@@ -139,7 +139,7 @@ describe('Axis', () => {
 
   afterEach(() => {
     jest.clearAllMocks();
-    axisCoordinates.mockReset();
+    (axisCoordinates as jest.Mock).mockReset();
     getBoundingClientRect.mockReset();
   });
 
@@ -165,7 +165,7 @@ describe('Axis', () => {
     setupAxisCoordinates([0, 1]);
     const tree = mount(<AxisTester position="left" />);
 
-    tree.find(RootComponent).props().onSizeChange({ tag: 'size' });
+    (tree.find(RootComponent).props() as any).onSizeChange({ tag: 'size' });
 
     expect(defaultDeps.action.changeBBox.mock.calls[0][0]).toEqual({
       placeholder: 'left-axis', bBox: { tag: 'size' },
@@ -181,7 +181,7 @@ describe('Axis', () => {
     setupAxisCoordinates([0, 1]);
     const tree = mount(<AxisTester position="left" />);
 
-    const { onSizeChange } = tree.find(RootComponent).props();
+    const { onSizeChange } = tree.find(RootComponent).props() as any;
 
     onSizeChange({ tag: 'size' });
     onSizeChange({ tag: 'size' });
@@ -193,7 +193,7 @@ describe('Axis', () => {
     setupAxisCoordinates([0, 1]);
     const tree = mount(<AxisTester position="right" />);
 
-    tree.find(RootComponent).props().onSizeChange({ tag: 'size' });
+    (tree.find(RootComponent).props() as any).onSizeChange({ tag: 'size' });
 
     expect(defaultDeps.action.changeBBox.mock.calls[0][0]).toEqual({
       placeholder: 'right-axis', bBox: { tag: 'size' },
@@ -209,7 +209,7 @@ describe('Axis', () => {
     setupAxisCoordinates([1, 0]);
     const tree = mount(<AxisTester position="top" />);
 
-    tree.find(RootComponent).props().onSizeChange({ tag: 'size' });
+    (tree.find(RootComponent).props() as any).onSizeChange({ tag: 'size' });
 
     expect(defaultDeps.action.changeBBox.mock.calls[0][0]).toEqual({
       placeholder: 'top-axis', bBox: { tag: 'size' },
@@ -225,7 +225,7 @@ describe('Axis', () => {
     setupAxisCoordinates([1, 0]);
     const tree = mount(<AxisTester />);
 
-    tree.find(RootComponent).props().onSizeChange({ tag: 'size' });
+    (tree.find(RootComponent).props() as any).onSizeChange({ tag: 'size' });
 
     expect(defaultDeps.action.changeBBox.mock.calls[0][0]).toEqual({
       placeholder: 'bottom-axis', bBox: { tag: 'size' },
@@ -353,7 +353,7 @@ describe('Axis', () => {
     setupAxisCoordinates([1, 0]);
     const tree = mount(<AxisTester />);
 
-    tree.find(RootComponent).props().onSizeChange({ tag: 'size' });
+    (tree.find(RootComponent).props() as any).onSizeChange({ tag: 'size' });
     enforceUpdate(tree);
 
     expect(tree.find(LineComponent).props()).toEqual({
@@ -368,7 +368,7 @@ describe('Axis', () => {
     setupAxisCoordinates([0, 1]);
     const tree = mount(<AxisTester />);
 
-    tree.find(RootComponent).props().onSizeChange({ tag: 'size' });
+    (tree.find(RootComponent).props() as any).onSizeChange({ tag: 'size' });
     enforceUpdate(tree);
 
     expect(tree.find(LineComponent).props()).toEqual({

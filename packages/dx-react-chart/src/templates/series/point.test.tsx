@@ -31,7 +31,7 @@ describe('Point', () => {
   };
 
   afterEach(() => {
-    dSymbol.mockClear();
+    (dSymbol as jest.Mock).mockClear();
     defaultProps.getAnimatedStyle.mockClear();
   });
 
@@ -56,7 +56,7 @@ describe('Point', () => {
     const tree = shallow((
       <Point {...defaultProps} custom={10} />
     ));
-    const { custom } = tree.find('path').props();
+    const { custom } = tree.find('path').props() as any;
 
     expect(custom).toEqual(10);
   });
@@ -75,12 +75,12 @@ describe('Point', () => {
       test_hovered: expect.any(Function),
       test_selected: expect.any(Function),
     });
-    expect(withStates.mock.calls[0][0].test_hovered({
+    expect((withStates as jest.Mock).mock.calls[0][0].test_hovered({
       a: 1, b: 2, color: 'green', point: { size: 7 },
     })).toEqual({
       a: 1, b: 2, strokeWidth: 4, fill: 'none', stroke: 'green', point: { size: 12 },
     });
-    expect(withStates.mock.calls[0][0].test_selected({
+    expect((withStates as jest.Mock).mock.calls[0][0].test_selected({
       a: 1, b: 2, color: 'blue', point: { size: 9 },
     })).toEqual({
       a: 1, b: 2, strokeWidth: 4, fill: 'none', stroke: 'blue', point: { size: 15 },

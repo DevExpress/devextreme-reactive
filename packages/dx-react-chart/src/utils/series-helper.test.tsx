@@ -16,6 +16,7 @@ describe('#declareSeries', () => {
   const coords = 'test-coordinates';
 
   const testGetPointTransformer = () => null;
+  const testCreateHitTester = () => null;
 
   const TestComponentPath = () => (
     <div>
@@ -32,7 +33,7 @@ describe('#declareSeries', () => {
     argumentField: 'argumentField',
   };
 
-  findSeriesByName.mockReturnValue({
+  (findSeriesByName as jest.Mock).mockReturnValue({
     ...defaultProps,
     index: 1,
     seriesComponent: TestComponentPath,
@@ -41,8 +42,8 @@ describe('#declareSeries', () => {
     color: 'color',
     styles: 'styles',
   });
-  addSeries.mockReturnValue('extended-series');
-  getValueDomainName.mockReturnValue('value_domain');
+  (addSeries as jest.Mock).mockReturnValue('extended-series');
+  (getValueDomainName as jest.Mock).mockReturnValue('value_domain');
 
   afterEach(jest.clearAllMocks);
 
@@ -65,6 +66,7 @@ describe('#declareSeries', () => {
       Point: TestComponentPoint,
     },
     getPointTransformer: testGetPointTransformer,
+    createHitTester: testCreateHitTester,
   });
 
   it('should render test component', () => {
@@ -105,6 +107,7 @@ describe('#declareSeries', () => {
       ...defaultProps,
       symbolName: expect.anything(),
       getPointTransformer: testGetPointTransformer,
+      createHitTester: testCreateHitTester,
       seriesComponent: TestComponentPath,
       pointComponent: TestComponentPoint,
     }, {});

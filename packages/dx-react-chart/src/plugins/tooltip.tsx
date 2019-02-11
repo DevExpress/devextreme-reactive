@@ -7,6 +7,7 @@ import {
   TemplatePlaceholder,
   withComponents,
   PluginComponents,
+  Getters,
 } from '@devexpress/dx-react-core';
 import {
   getParameters,
@@ -34,7 +35,7 @@ type RawTooltipState = {
 
 class RawTooltip extends React.PureComponent<RawTooltipProps, RawTooltipState> {
   static components: PluginComponents;
-  getPointerMoveHandlers: PureComputed<[{ pointerMoveHandlers: HandlerFnList }], HandlerFnList>;
+  getPointerMoveHandlers: PureComputed<[Getters], HandlerFnList>;
   targetElement: React.RefObject<SVGPathElement> | undefined;
 
   constructor(props) {

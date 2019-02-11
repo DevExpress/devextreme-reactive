@@ -74,7 +74,7 @@ describe('Tooltip', () => {
 
         <Tooltip {...defaultProps} targetItem={{ series: '1', point: 4 }} />
       </PluginHost>));
-    const { children, target } = tree.find(OverlayComponent).props();
+    const { children, target } = tree.find(OverlayComponent).props() as any;
 
     expect(children)
       .toBeTruthy();
@@ -89,7 +89,8 @@ describe('Tooltip', () => {
         <Tooltip {...defaultProps} targetItem={{ series: '1', point: 4 }} />
       </PluginHost>));
 
-    expect(tree.find(ContentComponent).props()).toEqual({ text: 'tooltip-text', targetItem: { series: '1', point: 4 } });
+    expect(tree.find(ContentComponent).props())
+    .toEqual({ text: 'tooltip-text', targetItem: { series: '1', point: 4 } });
   });
 
   it('should handle "targetItem" prop', () => {
@@ -97,10 +98,15 @@ describe('Tooltip', () => {
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
 
-        <Tooltip {...defaultProps} defaultTargetItem={{ series: '2', point: 3 }} targetItem={{ series: '1', point: 4 }} />
+        <Tooltip
+          {...defaultProps}
+          defaultTargetItem={{ series: '2', point: 3 }}
+          targetItem={{ series: '1', point: 4 }}
+        />
       </PluginHost>));
 
-    expect(tree.find(ContentComponent).props()).toEqual({ text: 'tooltip-text', targetItem: { series: '1', point: 4 } });
+    expect(tree.find(ContentComponent).props())
+    .toEqual({ text: 'tooltip-text', targetItem: { series: '1', point: 4 } });
   });
 
   it('should handle "defaultTargetItem" prop', () => {
@@ -111,7 +117,8 @@ describe('Tooltip', () => {
         <Tooltip {...defaultProps} defaultTargetItem={{ series: '2', point: 3 }} />
       </PluginHost>));
 
-    expect(tree.find(ContentComponent).props()).toEqual({ text: 'tooltip-text', targetItem: { series: '2', point: 3 } });
+    expect(tree.find(ContentComponent).props())
+    .toEqual({ text: 'tooltip-text', targetItem: { series: '2', point: 3 } });
   });
 
   it('should handle "onTargetItemChange"', () => {
@@ -120,7 +127,11 @@ describe('Tooltip', () => {
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
 
-        <Tooltip {...defaultProps} targetItem={{ series: '1', point: 2 }} onTargetItemChange={mock} />
+        <Tooltip
+          {...defaultProps}
+          targetItem={{ series: '1', point: 2 }}
+          onTargetItemChange={mock}
+        />
       </PluginHost>
     ));
     getComputedState(tree).pointerMoveHandlers[1]({ targets: 'test-targets' });

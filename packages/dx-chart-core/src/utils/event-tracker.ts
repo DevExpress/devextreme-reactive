@@ -31,7 +31,8 @@ const buildEventHandler = (seriesList: SeriesList, handlers: HandlerFnList): Eve
   const createHitTesters = () => {
     const obj: HitTesters = {};
     seriesList.forEach((seriesItem) => {
-      obj[seriesItem.symbolName] = seriesItem.createHitTester(seriesItem.points);
+      obj[seriesItem.symbolName as unknown as string] = seriesItem
+      .createHitTester(seriesItem.points);
     });
     return obj;
   };
@@ -41,7 +42,7 @@ const buildEventHandler = (seriesList: SeriesList, handlers: HandlerFnList): Eve
     hitTesters = hitTesters || createHitTesters();
     const targets: TrackerTarget[] = [];
     seriesList.forEach(({ name: series, index: order, symbolName }) => {
-      const status = hitTesters![symbolName](location);
+      const status = hitTesters![symbolName as unknown as string](location);
       if (status) {
         targets.push(...status.points.map(
           point => ({

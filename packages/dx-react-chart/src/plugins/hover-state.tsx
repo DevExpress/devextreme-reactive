@@ -20,7 +20,7 @@ type HoverStateState = {
   hover: Target,
 };
 export class HoverState extends React.PureComponent<HoverStateProps, HoverStateState> {
-  getPointerMoveHandlers: PureComputed<[{ pointerMoveHandlers: HandlerFnList }], HandlerFnList>;
+  getPointerMoveHandlers: PureComputed<[Getters], HandlerFnList>;
   constructor(props) {
     super(props);
     this.state = {

@@ -57,7 +57,7 @@ describe('Path', () => {
     const tree = shallow((
       <Path {...defaultProps} customProperty />
     ));
-    const { customProperty } = tree.find('path').props();
+    const { customProperty } = tree.find('path').props() as any;
 
     expect(customProperty).toBeTruthy();
   });
@@ -67,9 +67,9 @@ describe('Path', () => {
       test_hovered: expect.any(Function),
       test_selected: expect.any(Function),
     });
-    expect(withStates.mock.calls[0][0].test_hovered({ a: 1, b: 2 }))
+    expect((withStates as jest.Mock).mock.calls[0][0].test_hovered({ a: 1, b: 2 }))
       .toEqual({ a: 1, b: 2, strokeWidth: 4 });
-    expect(withStates.mock.calls[0][0].test_selected({ a: 1, b: 2 }))
+    expect((withStates as jest.Mock).mock.calls[0][0].test_selected({ a: 1, b: 2 }))
       .toEqual({ a: 1, b: 2, strokeWidth: 4 });
   });
 });

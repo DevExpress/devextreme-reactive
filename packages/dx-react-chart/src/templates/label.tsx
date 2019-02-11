@@ -6,7 +6,7 @@ type LabelProps = {
   y: number,
 };
 
-export class Label extends React.PureComponent<LabelProps> {
+export class Label extends React.PureComponent<LabelProps & any> {
   render() {
     return (
       <text {...this.props} />

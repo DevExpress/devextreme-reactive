@@ -14,8 +14,10 @@ type TitleDefaultProps = Readonly<typeof defaultProps>;
 type TitleProps = {
   text: string, textComponent: any,
 } & Partial<TitleDefaultProps>;
+
 export class Title extends React.PureComponent<TitleProps> {
   static components: PluginComponents;
+  static defaultProps = defaultProps;
   render() {
     const {
       textComponent: Text,

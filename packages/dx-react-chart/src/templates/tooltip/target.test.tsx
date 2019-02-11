@@ -2,11 +2,13 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import { Target } from './target';
 
+const emptyFunc = () => {};
+
 const defaultProps = {
   d: 'd-attribute',
   x: 10,
   y: 20,
-  componentRef: () => {},
+  componentRef: emptyFunc as any,
 };
 
 describe('Target', () => {

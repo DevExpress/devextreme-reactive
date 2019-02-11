@@ -11,6 +11,7 @@ import {
 } from '@devexpress/dx-react-core';
 import {
   findSeriesByName, addSeries, getValueDomainName, ARGUMENT_DOMAIN,
+  GetPointTransformerFn, CreateHitTesterFn,
 } from '@devexpress/dx-chart-core';
 
 const defaultProps = {
@@ -25,8 +26,21 @@ type ComponentProps = {
   valueField: string,
   argumentField: string,
 } & Partial<ComponentDefaultProps>;
+type Components = {
+  Path: any,
+  Point?: any,
+};
 
-export const declareSeries = (pluginName, { components, getPointTransformer, createHitTester }) => {
+type ExtraSeriesParameters = {
+  components: Components,
+  getPointTransformer: GetPointTransformerFn,
+  createHitTester: CreateHitTesterFn,
+};
+
+export const declareSeries = (
+  pluginName: string,
+  { components, getPointTransformer, createHitTester }: ExtraSeriesParameters,
+) => {
   class Component extends React.PureComponent<ComponentProps> {
     static components: PluginComponents;
     static defaultProps = defaultProps;

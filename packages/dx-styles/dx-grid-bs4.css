@@ -70,7 +70,7 @@ span.dx-g-bs4-group-panel-item-icon {
   bottom: 0;
 }
 .dx-g-bs4-table-container {
-  flex: 1;
+  flex-grow: 1;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
 }
@@ -216,8 +216,11 @@ button.dx-g-bs4-table-edit-command-cell {
   opacity: 0;
 }
 .dx-g-bs4-fixed-block {
-  position: absolute;
-  width: 100%;
-  text-align: center;
-  margin-top: -15px;
+  display: inline-block;
+  position: sticky;
+  left: 50%;
+}
+.dx-g-bs4-fixed-block .text-muted {
+  display: inline-block;
+  transform: translateX(-50%);
 }

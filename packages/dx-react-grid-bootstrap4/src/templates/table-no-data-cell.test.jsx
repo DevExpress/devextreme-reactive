@@ -22,18 +22,29 @@ describe('TableNoDataCell', () => {
       />
     ));
 
-    expect(tree.is('.p-0.py-5.custom-class'))
+    expect(tree.is('.py-5.custom-class'))
       .toBeTruthy();
   });
 
-  it('should set fixed alignment', () => {
+  it('should set sticky position for text container', () => {
     const tree = shallow((
       <TableNoDataCell
         getMessage={key => key}
       />
     ));
 
-    expect(tree.find('big').is('.dx-g-bs4-fixed-block'))
+    expect(tree.find('.dx-g-bs4-fixed-block'))
+      .toBeTruthy();
+  });
+
+  it('should align text to the center', () => {
+    const tree = shallow((
+      <TableNoDataCell
+        getMessage={key => key}
+      />
+    ));
+
+    expect(tree.find('big').is('.text-muted'))
       .toBeTruthy();
   });
 });

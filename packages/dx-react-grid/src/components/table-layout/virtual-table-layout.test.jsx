@@ -30,6 +30,7 @@ jest.mock('@devexpress/dx-react-core', () => {
     // eslint-disable-next-line react/prefer-stateless-function
     Sizer: class extends Component {
       componentDidMount() {
+        // eslint-disable-next-line react/prop-types
         const { onSizeChange } = this.props;
         onSizeChange({ width: 400, height: 120 });
       }
@@ -77,7 +78,9 @@ const defaultProps = {
     { key: 9 },
   ],
   containerComponent: props => <div {...props} />,
+  // eslint-disable-next-line react/prop-types
   headTableComponent: ({ tableRef, ...props }) => <table {...props} />,
+  // eslint-disable-next-line react/prop-types
   tableComponent: ({ tableRef, ...props }) => <table {...props} />,
   headComponent: props => <thead {...props} />,
   bodyComponent: props => <tbody {...props} />,

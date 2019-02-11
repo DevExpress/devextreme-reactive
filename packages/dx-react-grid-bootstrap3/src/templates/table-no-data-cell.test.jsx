@@ -23,7 +23,22 @@ describe('TableNoDataCell', () => {
       .toBeTruthy();
   });
 
-  it('should set fixed alignment', () => {
+  it('should set sticky position for text container', () => {
+    const tree = shallow((
+      <TableNoDataCell
+        getMessage={key => key}
+      />
+    ));
+
+    expect(tree.find('div').props().style)
+      .toEqual({
+        display: 'inline-block',
+        position: 'sticky',
+        left: '50%',
+      });
+  });
+
+  it('should align text to the center', () => {
     const tree = shallow((
       <TableNoDataCell
         getMessage={key => key}
@@ -32,10 +47,8 @@ describe('TableNoDataCell', () => {
 
     expect(tree.find('big').props().style)
       .toEqual({
-        position: 'absolute',
-        width: '100%',
-        textAlign: 'center',
-        marginTop: '-13px',
+        display: 'inline-block',
+        transform: 'translateX(-50%)',
       });
   });
 });

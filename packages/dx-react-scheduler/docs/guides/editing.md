@@ -35,7 +35,7 @@ Click an appointment to invoke the appointment tooltip, and then click Delete in
 
 Add the plugins listed above to the Scheduler and handle the `EditingState` plugin's `onCommitChanges` event to commit edits to the data storage.
 
-## Uncontrolled Mode
+### Uncontrolled Mode
 
 In uncontrolled mode, specify the initial editing state via the following `EditingState` properties:
 
@@ -45,7 +45,7 @@ In uncontrolled mode, specify the initial editing state via the following `Editi
 
 .embedded-demo({ "path": "scheduler-editing/uncontrolled", "showThemeSelector": true })
 
-## Controlled Mode
+### Controlled Mode
 
 In controlled mode, specify the following `EditingState` properties in pairs to set a state value and handle the event when it changes:
 

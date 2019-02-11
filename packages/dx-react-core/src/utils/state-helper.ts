@@ -1,5 +1,9 @@
+import { CreateStateHelperFn } from '../types';
+
 /** @internal */
-export const createStateHelper = (component, controlledStateProperties = {}) => {
+export const createStateHelper: CreateStateHelperFn = (
+  component, controlledStateProperties = {},
+) => {
   const notifyStateChange = (nextState, state) => {
     Object.keys(controlledStateProperties).forEach((propertyName) => {
       const changeEvent = controlledStateProperties[propertyName]();

@@ -156,7 +156,7 @@ export const calculateFirstDateOfWeek: CalculateFirstDateOfWeekFn = (
 ) => {
   const currentLocale = moment.locale();
   moment.updateLocale('tmp-locale', {
-    week: { dow: firstDayOfWeek, doy: 1 }, // doy
+    week: { dow: firstDayOfWeek, doy: 1 }, // `doy` is required for TS using
   });
   const firstDateOfWeek = moment(currentDate as Date).startOf('week');
   if (excludedDays.indexOf(firstDayOfWeek) !== -1) {

@@ -36,12 +36,12 @@ describe('#processHandleTooltip', () => {
   it('should return target', () => {
     expect(processHandleTooltip(
       [{ series: 'test-series' }, { series: 'test-series', point: 'test-point' }] as any,
-      'currentTarget' as any, 'mockFunction' as any)
+      'currentTarget' as any, 'mockFunction' as any),
     ).toBe('test-target');
     expect(processPointerMove).toBeCalledWith(
       [{ series: 'test-series', point: 'test-point' }],
       'currentTarget',
-      'mockFunction'
+      'mockFunction',
     );
   });
 });

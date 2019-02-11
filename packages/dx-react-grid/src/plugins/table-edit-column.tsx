@@ -45,7 +45,6 @@ class TableEditColumnBase extends React.PureComponent<TableEditColumnProps> {
     const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
     const tableColumnsComputed = (
       { tableColumns }: Getters,
-      // TODO: width can be a string but TableColumn cannot contain string width!
     ) => tableColumnsWithEditing(tableColumns, width as number);
 
     return (

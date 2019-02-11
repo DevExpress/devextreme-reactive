@@ -39,7 +39,7 @@ export type TableLayoutCoreState = {
 export interface VirtualTableLayoutProps extends TableLayoutProps {
   height: number | 'auto';
   estimatedRowHeight: number;
-  headTableComponent: React.ComponentType<object>; // TODO: extract props?
+  headTableComponent: React.ComponentType<object>;
   footerTableComponent: React.ComponentType<object>;
 }
 /** @internal */

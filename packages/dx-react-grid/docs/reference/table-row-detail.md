@@ -29,7 +29,7 @@ import { TableRowDetail } from '@devexpress/dx-react-grid';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-contentComponent | ComponentType&lt;[TableRowDetail.ContentProps](#tablerowdetailcontentprops)&gt; | | A component that renders the detail row's content within the detail cell.
+contentComponent? | ComponentType&lt;[TableRowDetail.ContentProps](#tablerowdetailcontentprops)&gt; | | A component that renders the detail row's content within the detail cell.
 cellComponent | ComponentType&lt;[TableRowDetail.CellProps](#tablerowdetailcellprops)&gt; | | A component that renders a detail cell.
 rowComponent | ComponentType&lt;[TableRowDetail.RowProps](#tablerowdetailrowprops)&gt; | | A component that renders a detail row.
 toggleCellComponent | ComponentType&lt;[TableRowDetail.ToggleCellProps](#tablerowdetailtogglecellprops)&gt; | | A component that renders a cell containing the expand/collapse control.

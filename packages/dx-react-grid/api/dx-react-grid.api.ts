@@ -429,12 +429,6 @@ interface RowDetailStateProps {
 }
 
 // @public (undocumented)
-interface RowDetailStateState {
-  // (undocumented)
-  expandedRowIds?: RowId[];
-}
-
-// @public (undocumented)
 module SearchPanel {
   interface InputProps {
     getMessage: (messageKey: string) => string;
@@ -966,7 +960,7 @@ module TableRowDetail {
 // @public (undocumented)
 interface TableRowDetailProps {
   cellComponent: React.ComponentType<TableRowDetail.CellProps>;
-  contentComponent: React.ComponentType<TableRowDetail.ContentProps>;
+  contentComponent?: React.ComponentType<TableRowDetail.ContentProps>;
   rowComponent: React.ComponentType<TableRowDetail.RowProps>;
   rowHeight?: number;
   toggleCellComponent: React.ComponentType<TableRowDetail.ToggleCellProps>;

@@ -9,6 +9,7 @@ export interface RowDetailStateProps {
   onExpandedRowIdsChange?: (expandedRowIds: Array<number | string>) => void;
 }
 
+/** @internal */
 export interface RowDetailStateState {
   expandedRowIds?: RowId[];
 }
@@ -49,7 +50,7 @@ export namespace TableRowDetail {
 
 export interface TableRowDetailProps {
   /** A component that renders the detail row's content within the detail cell. */
-  contentComponent: React.ComponentType<TableRowDetail.ContentProps>;
+  contentComponent?: React.ComponentType<TableRowDetail.ContentProps>;
   /** A component that renders a detail cell. */
   cellComponent: React.ComponentType<TableRowDetail.CellProps>;
   /** A component that renders a detail row. */

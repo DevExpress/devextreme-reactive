@@ -25,7 +25,7 @@ class FilteringStateBase extends React.PureComponent<FilteringStateProps, Filter
     super(props);
 
     this.state = {
-      filters: props.filters || props.defaultFilters || [],
+      filters: props.filters || props.defaultFilters,
     };
     const stateHelper = createStateHelper(
       this,

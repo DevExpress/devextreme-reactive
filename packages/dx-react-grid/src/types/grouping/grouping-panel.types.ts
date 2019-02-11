@@ -44,7 +44,6 @@ export namespace GroupingPanel {
     items: ReadonlyArray<GroupingPanelItem>,
     isColumnGroupingEnabled?: (colName: string) => boolean,
     draggingEnabled?: boolean,
-    // TODO: types
     onGroup?: (payload?: any) => void,
     onGroupDraft?: (payload?: any) => void,
     onGroupDraftCancel?: (payload?: any) => void,

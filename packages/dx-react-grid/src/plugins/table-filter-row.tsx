@@ -89,7 +89,7 @@ class TableFilterRowBase extends React.PureComponent<TableFilterRowProps, TableF
                 const { name: columnName } = params.tableColumn.column!;
                 const filter = getColumnFilterConfig(filters, columnName)!;
                 const onFilter = (
-                  config: FilterConfig | null, // TODO: change in docs
+                  config: FilterConfig | null,
                 ) => changeColumnFilter({ columnName, config });
                 const columnFilterOperations = getColumnFilterOperations(
                   getAvailableFilterOperations, columnName,

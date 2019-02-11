@@ -10,14 +10,10 @@ module.exports = {
   globals: {
     'ts-jest': {
       tsConfig: './tsconfig.json',
-      // skipBabel: true,
       diagnostics: false, // set to true to enable type checking
     },
   },
   moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx'],
-  // moduleNameMapper: {
-  //   "@devexpress/*":["packages/*/src"],
-  // },
   transform: {
     '.(js|ts|tsx)': resolve.sync('ts-jest')
   },

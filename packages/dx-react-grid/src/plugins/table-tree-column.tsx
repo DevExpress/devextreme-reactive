@@ -39,7 +39,6 @@ class TableTreeColumnBase extends React.PureComponent<TableTreeColumnProps> {
         >
           <ExpandButton
             visible={false}
-            // TODO: why it compiled before?
             expanded={false}
             onToggle={() => {}}
           />

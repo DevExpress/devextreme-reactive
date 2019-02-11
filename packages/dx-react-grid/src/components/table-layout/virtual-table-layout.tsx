@@ -194,7 +194,6 @@ export class VirtualTableLayout extends React.PureComponent<VirtualTableLayoutPr
     const {
       minWidth,
     } = this.props;
-    // TODO: cell and row do not receive all reqired props
     const Row = this.props.rowComponent as React.ComponentType<any>;
     const Cell = this.props.cellComponent as React.ComponentType<any>;
 

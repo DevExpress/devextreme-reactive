@@ -104,8 +104,8 @@ class GroupingStateBase extends React.PureComponent<GroupingStateProps, Grouping
 
   changeColumnGrouping(
     { columnName, groupIndex }: ChangeGroupingPayload,
-    getters: Getters | undefined,
-    actions: Actions | undefined,
+    getters?: Getters,
+    actions?: Actions,
   ) {
     this.stateHelper.applyReducer(
       changeColumnGrouping,

@@ -15,4 +15,8 @@ export interface RawChartProps {
 export interface ChartRootProps {
   // A React node to be placed in the root layout
   children: React.ReactNode;
+  /** @internal */
+  width: number;
+  /** @internal */
+  height: number;
 }

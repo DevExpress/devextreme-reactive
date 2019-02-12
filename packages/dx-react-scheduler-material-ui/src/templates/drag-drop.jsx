@@ -3,6 +3,8 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Chip from '@material-ui/core/Chip';
 import { withStyles } from '@material-ui/core/styles';
+import { VerticalAppointment } from './appointment/vertical-appointment';
+import { Appointment } from './appointment/appointment';
 
 const styles = theme => ({
   container: {
@@ -11,6 +13,8 @@ const styles = theme => ({
     left: 0,
     top: 0,
     display: 'inline-block',
+    height: '100%',
+    width: '100%',
   },
   column: {
     paddingLeft: theme.spacing.unit * 2,
@@ -27,7 +31,7 @@ const ContainerBase = ({
   <div
     className={classNames(classes.container, className)}
     style={{
-      transform: `translate(calc(${clientOffset.x}px - 50%), calc(${clientOffset.y}px - 50%))`,
+      transform: `translate(calc(${clientOffset.x - 10}px), calc(${clientOffset.y - 10}px))`,
       ...style,
     }}
     {...restProps}
@@ -56,17 +60,26 @@ ContainerBase.defaultProps = {
 export const Container = withStyles(styles, { name: 'DragDrop' })(ContainerBase);
 
 const ColumnBase = ({
-  column,
+  appointmentData,
   classes,
   className,
+  rect,
+  appointmentRef,
   ...restProps
-}) => (
-  <Chip
-    className={classNames(classes.column, className)}
-    label={column.title}
-    {...restProps}
-  />
-);
+}) => {
+  // console.log(appointmentRef);
+  return (
+    <Appointment
+      style={rect}
+    >
+      <VerticalAppointment
+        // className={classNames(classes.column, className)}
+        data={appointmentData}
+        {...restProps}
+      />
+    </Appointment>
+  );
+};
 
 ColumnBase.propTypes = {
   column: PropTypes.object.isRequired,

@@ -6,9 +6,8 @@ import {
   DragDropProvider as DragDropProviderCore,
 } from '@devexpress/dx-react-core';
 
-const getTargetColumns = (payload, columns) => payload
-  .filter(item => item.type === 'column')
-  .map(item => columns.find(column => column.name === item.columnName));
+const getTargetColumns = payload => payload
+  .filter(item => item.type === 'appointment');
 
 export class DragDropProvider extends React.PureComponent {
   constructor(props) {
@@ -25,7 +24,7 @@ export class DragDropProvider extends React.PureComponent {
   render() {
     const {
       containerComponent: Container,
-      columnComponent: Column,
+      columnComponent: Appointment,
     } = this.props;
     const {
       payload,
@@ -45,16 +44,19 @@ export class DragDropProvider extends React.PureComponent {
           </DragDropProviderCore>
           {payload && (
             <TemplateConnector>
-              {({ columns }) => (
+              {({ appointments }) => (
                 <Container
                   clientOffset={clientOffset}
                 >
-                  {getTargetColumns(payload, columns)
-                    .map(column => (
-                      <Column
-                        key={column.name}
-                        column={column}
-                      />
+                  {getTargetColumns(payload)
+                    .map(appointment => (
+                      // <Appointment
+                      //   key={appointment.data.id}
+                      //   appointmentData={appointment.data}
+                      //   rect={{ height: appointment.style.height, width: appointment.style.width }}
+                      //   appointmentRef={appointment.appointmentRef}
+                      // />
+                      () => null
                     ))
                   }
                 </Container>

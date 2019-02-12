@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
+import moment from 'moment';
 import { DragSource } from '@devexpress/dx-react-core';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -24,6 +25,9 @@ const styles = ({ palette, typography, spacing }) => ({
   },
   clickableAppointment: {
     cursor: 'pointer',
+  },
+  dragging: {
+    opacity: 0.5,
   },
 });
 
@@ -51,8 +55,11 @@ class AppointmentBase extends React.PureComponent {
       classes, className,
       style, children, data,
       onClick: handleClick,
+      changeAppointment,
+      commitChangedAppointment,
       ...restProps
     } = this.props;
+    const { dragging } = this.state;
     const onClick = handleClick
       ? {
         onClick: ({ target }) => {
@@ -61,16 +68,26 @@ class AppointmentBase extends React.PureComponent {
       }
       : null;
     const clickable = onClick || restProps.onDoubleClick;
+    const appointmentDuration = moment(data.endDate).diff(moment(data.startDate), 'seconds');
     return (
       <DragSource
         ref={this.appointmentRef}
-        payload={[{ type: 'appointment', data }]}
+        payload={[{
+          type: 'appointment',
+          data,
+          style,
+          appointmentRef: this.appointmentRef.current,
+          changeAppointment,
+          commitChangedAppointment,
+          appointmentDuration,
+        }]}
         onStart={this.onDragStart}
         onEnd={this.onDragEnd}
       >
         <div
           className={classNames({
             [classes.appointment]: true,
+            [classes.dragging]: dragging,
             [classes.clickableAppointment]: clickable,
           }, className)}
           style={style}

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import {
-  Plugin, Template,
+  Plugin, Template, TemplateConnector,
 } from '@devexpress/dx-react-core';
 import { createClickHandlers } from '@devexpress/dx-core';
 
@@ -23,27 +23,37 @@ export class Appointments extends React.PureComponent {
         name="Appointments"
         dependencies={pluginDependencies}
       >
-        <Template
-          name="appointment"
-        >
-          {({
-            onClick, onDoubleClick,
-            data, type, style,
-            ...restParams
-          }) => (
-            <Appointment
-              style={style}
-              data={data}
-              {...createClickHandlers(onClick, onDoubleClick)}
-              {...restParams}
-            >
-              <AppointmentContent
-                data={data}
-                type={type}
-              />
-            </Appointment>
-          )}
-        </Template>
+        <TemplateConnector>
+          {(getters, actions) => {
+            console.log(123);
+
+            return (
+              <Template
+                name="appointment"
+              >
+                {({
+                  onClick, onDoubleClick,
+                  data, type, style,
+                  ...restParams
+                }) => (
+                  <Appointment
+                    style={style}
+                    data={data}
+                    changeAppointment={actions.changeAppointment}
+                    commitChangedAppointment={actions.commitChangedAppointment}
+                    {...createClickHandlers(onClick, onDoubleClick)}
+                    {...restParams}
+                  >
+                    <AppointmentContent
+                      data={data}
+                      type={type}
+                    />
+                  </Appointment>
+                )}
+              </Template>
+            );
+          }}
+        </TemplateConnector>
       </Plugin>
     );
   }

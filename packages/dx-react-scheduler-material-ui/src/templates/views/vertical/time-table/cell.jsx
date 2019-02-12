@@ -2,10 +2,13 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import TableCell from '@material-ui/core/TableCell';
+import Paper from '@material-ui/core/Paper';
 import { DropTarget } from '@devexpress/dx-react-core';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
+import moment from 'moment';
 import { getBorder } from '../../../utils';
+import { VerticalAppointment } from '../../../appointment/vertical-appointment';
 
 const styles = theme => ({
   cell: {
@@ -18,6 +21,28 @@ const styles = theme => ({
       outline: 0,
     },
   },
+  dragging: {
+    position: 'relative',
+  },
+  appointment: {
+    overflow: 'hidden',
+    boxSizing: 'border-box',
+    borderRight: '1px solid transparent',
+    borderBottom: '1px solid transparent',
+    backgroundClip: 'padding-box',
+    borderRadius: theme.spacing.unit / 2,
+    backgroundColor: theme.palette.primary[300],
+    ...theme.typography.caption,
+    top: 0,
+    left: 0,
+    position: 'absolute',
+    background: 'blue',
+    width: '100%',
+    zIndex: 100,
+  },
+  clickableAppointment: {
+    cursor: 'pointer',
+  },
 });
 
 class CellBase extends React.PureComponent {
@@ -25,74 +50,38 @@ class CellBase extends React.PureComponent {
     super(props);
 
     this.state = {
-      sourceColumnName: null,
-      targetItemIndex: -1,
+      over: false,
+      payload: {},
     };
 
     this.handleDragEvent = (eventHandler, { payload, ...restArgs }) => {
-      // const { isColumnGroupingEnabled } = this.props;
-      // const { columnName } = payload[0];
-
-      // if (isColumnGroupingEnabled(columnName)) {
       eventHandler({ payload, ...restArgs });
-      // }
     };
     this.onEnter = ({ payload }) => {
-      // this.setState({
-      //   sourceColumnName: payload[0].columnName,
-      // });
       console.log('on enter!');
+      // debugger
+      console.log(payload[0].appointmentDuration);
+      payload[0].changeAppointment({
+        change: {
+          startDate: this.props.startDate,
+          endDate: moment(this.props.startDate).add(payload[0].appointmentDuration, 'seconds').toDate(),
+        },
+      });
+      this.setState({ payload, over: true });
     };
     this.onOver = ({ clientOffset }) => {
-      // const { onGroupDraft, items } = this.props;
-      // const { sourceColumnName, targetItemIndex: prevTargetItemIndex } = this.state;
-      // // eslint-disable-next-line react/no-find-dom-node
-      // const itemGeometries = this.itemRefs.map(ref => findDOMNode(ref).getBoundingClientRect());
-      // const sourceItemIndex = items.findIndex(({ column }) => column.name === sourceColumnName);
-      // const targetItemIndex = getGroupCellTargetIndex(
-      //   itemGeometries,
-      //   sourceItemIndex,
-      //   clientOffset,
-      // );
-
-      // console.log(clientOffset);
-
-      // if (prevTargetItemIndex === targetItemIndex) return;
-
-      // onGroupDraft({
-      //   columnName: sourceColumnName,
-      //   groupIndex: targetItemIndex,
-      // });
-      // this.setState({ targetItemIndex });
       console.log('on over!');
     };
     this.onLeave = () => {
-      // const { onGroupDraft } = this.props;
-      // const { sourceColumnName } = this.state;
-      // if (!this.draggingColumnName) {
-      //   this.resetState();
-      //   return;
-      // }
-      // onGroupDraft({
-      //   columnName: sourceColumnName,
-      //   groupIndex: -1,
-      // });
-      // this.setState({
-      //   targetItemIndex: -1,
-      // });
       console.log('on leave!');
+      this.setState({ payload: {}, over: false });
     };
     this.onDrop = (args) => {
-      // const { onGroup } = this.props;
-      // const { sourceColumnName, targetItemIndex } = this.state;
-      // this.resetState();
-      // onGroup({
-      //   columnName: sourceColumnName,
-      //   groupIndex: targetItemIndex,
-      // });
       console.log(args);
       console.log(this.props.startDate);
       console.log('on drop!');
+      args.payload[0].commitChangedAppointment({ appointmentId: args.payload[0].data.id });
+      this.setState({ payload: {}, over: false });
     };
     this.onDragStart = (columnName) => {
       this.draggingColumnName = columnName;
@@ -119,6 +108,8 @@ class CellBase extends React.PureComponent {
       endDate,
       ...restProps
     } = this.props;
+    const { over, payload } = this.state;
+    console.log(over);
     return (
       <DropTarget
         onEnter={args => this.handleDragEvent(this.onEnter, args)}
@@ -128,10 +119,30 @@ class CellBase extends React.PureComponent {
       >
         <TableCell
           tabIndex={0}
-          className={classNames(classes.cell, className)}
+          className={classNames({
+            [classes.cell]: true,
+            [classes.dragging]: over,
+            className,
+          })}
           {...restProps}
         >
           {children}
+          {over && (
+            <Paper
+              className={classes.appointment}
+              style={{
+                height: payload[0].style.height,
+              }}
+            >
+              <VerticalAppointment
+                data={{
+                  ...payload[0].data,
+                  startDate,
+                  endDate: moment(startDate).add(payload[0].appointmentDuration, 'seconds').toDate(),
+                }}
+              />
+            </Paper>
+          )}
         </TableCell>
       </DropTarget>
     );

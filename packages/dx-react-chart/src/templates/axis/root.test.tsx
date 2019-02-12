@@ -87,15 +87,15 @@ describe('Root', () => {
     expect(mock).toBeCalledWith({ width: 48, height: 30 });
   });
 
-  // it('should pass rest properties to the root element', () => {
-  //   getBBox.mockReturnValue({});
-  //   const tree = mount((
-  //     <Root dx={1} dy={0} onSizeChange={() => null} custom={10}>
-  //       <div />
-  //     </Root>
-  //   ));
+  it('should pass rest properties to the root element', () => {
+    getBBox.mockReturnValue({});
+    const tree = mount((
+      <Root dx={1} dy={0} onSizeChange={() => null} custom={10}>
+        <div />
+      </Root>
+    ));
 
-  //   const { custom } = tree.find('g').props() as any;
-  //   expect(custom).toEqual(10);
-  // });
+    const { custom } = tree.find('g').props() as any;
+    expect(custom).toEqual(10);
+  });
 });

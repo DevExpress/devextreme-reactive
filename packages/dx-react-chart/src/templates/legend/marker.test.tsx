@@ -12,11 +12,11 @@ describe('Marker', () => {
       .toEqual('color');
   });
 
-  // it('should pass the rest property to the root element', () => {
-  //   const tree = shallow(<Marker customProperty />);
-  //   const { customProperty } = tree.find('svg').props() as any;
+  it('should pass the rest property to the root element', () => {
+    const tree = shallow(<Marker customProperty />);
+    const { customProperty } = tree.find('svg').props() as any;
 
-  //   expect(customProperty)
-  //     .toBeTruthy();
-  // });
+    expect(customProperty)
+      .toBeTruthy();
+  });
 });

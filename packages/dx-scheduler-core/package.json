@@ -34,7 +34,7 @@
     "test:coverage": "jest --coverage",
     "build": "rollup -c rollup.config.js",
     "build:watch": "rollup -c rollup.config.js -w",
-    "lint": "eslint \"src/**\"",
+    "lint": "tslint -p tsconfig.lint.json",
     "lint:fix": "yarn run lint -- --fix"
   },
   "devDependencies": {

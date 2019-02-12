@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost, TemplatePlaceholder } from '@devexpress/dx-react-core';
-import { pluginDepsToComponents } from '@devexpress/dx-testing';
+import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing';
 import { PaneLayout } from './pane-layout';
 
 describe('PaneLayout', () => {
@@ -30,6 +30,10 @@ describe('PaneLayout', () => {
         left: 0, top: 0, overflow: 'visible', position: 'absolute',
       },
       children: expect.anything(),
+    });
+    expect(getComputedState(tree)).toEqual({
+      ...defaultDeps.getter,
+      rootRef: expect.anything(),
     });
   });
 

@@ -8,10 +8,7 @@ import {
   withComponents,
   PluginComponents,
 } from '@devexpress/dx-react-core';
-import {
-  getParameters,
-  processHandleTooltip,
-} from '@devexpress/dx-chart-core';
+import { getParameters, processHandleTooltip, createReference } from '@devexpress/dx-chart-core';
 import { Target } from '../templates/tooltip/target';
 import { RawTooltipProps, RawTooltipState, getPointerMoveHandlersFn } from '../types';
 
@@ -20,16 +17,12 @@ const dependencies = [{ name: 'EventTracker', optional: true }];
 class RawTooltip extends React.PureComponent<RawTooltipProps, RawTooltipState> {
   static components: PluginComponents;
   getPointerMoveHandlers: getPointerMoveHandlersFn;
-  targetElement: React.RefObject<SVGPathElement> | undefined;
 
   constructor(props) {
     super(props);
     this.state = {
       target: props.targetItem || props.defaultTargetItem,
     };
-    this.targetElement = undefined;
-    this.createTargetElement = this.createTargetElement.bind(this);
-    this.getTargetElement = this.getTargetElement.bind(this);
     const handlePointerMove = this.handlePointerMove.bind(this);
     this.getPointerMoveHandlers = ({ pointerMoveHandlers = [] }) => [
       ...pointerMoveHandlers, handlePointerMove,
@@ -38,14 +31,6 @@ class RawTooltip extends React.PureComponent<RawTooltipProps, RawTooltipState> {
 
   static getDerivedStateFromProps(props, state) {
     return { target: props.targetItem !== undefined ? props.targetItem : state.target };
-  }
-
-  getTargetElement() {
-    return this.targetElement;
-  }
-
-  createTargetElement(ref) {
-    this.targetElement = ref;
   }
 
   handlePointerMove({ targets }) {
@@ -64,37 +49,27 @@ class RawTooltip extends React.PureComponent<RawTooltipProps, RawTooltipState> {
   render() {
     const {
       overlayComponent: OverlayComponent,
-      targetComponent: TargetComponent,
       contentComponent: ContentComponent,
     } = this.props;
-    const {
-      target,
-    } = this.state;
+    const { target } = this.state;
     return (
       <Plugin name="Tooltip" dependencies={dependencies}>
         <Getter name="pointerMoveHandlers" computed={this.getPointerMoveHandlers} />
         <Template name="series">
           <TemplatePlaceholder />
           <TemplateConnector>
-            {
-            ({ series }) => {
+            {({ series, rootRef }) => {
               if (!target) {
                 return null;
               }
               const { text, element } = getParameters(series, target);
               return (
-                <React.Fragment>
-                  <TargetComponent
-                    {...element}
-                    componentRef={this.createTargetElement}
-                  />
-                  <OverlayComponent
-                    key={`${target.series}${target.point}`}
-                    target={this.getTargetElement}
-                  >
-                    <ContentComponent text={text} targetItem={target} />
-                  </OverlayComponent>
-                </React.Fragment>
+                <OverlayComponent
+                  key={`${target.series}${target.point}`}
+                  target={createReference(element, rootRef)}
+                >
+                  <ContentComponent text={text} targetItem={target} />
+                </OverlayComponent>
               );
             }}
           </TemplateConnector>

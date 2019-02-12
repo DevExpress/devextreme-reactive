@@ -129,6 +129,29 @@ describe('IntegratedFiltering computeds', () => {
           ],
         });
       });
+
+      it('should filter equal numbers and strings correctly', () => {
+        const filterExpression = { columnName: 'a', value: '1', operation: 'equal' };
+
+        const filtered = filteredRows(rows, filterExpression, getCellValue);
+        expect(filtered)
+          .toEqual({
+            rows: [
+              { a: 1, b: 1 },
+              { a: 1, b: 2 },
+            ],
+          });
+      });
+
+      it('should filter not equal numbers and strings correctly', () => {
+        const filterExpression = { columnName: 'a', value: '1', operation: 'notEqual' };
+
+        const filtered = filteredRows([{ a: 1 }], filterExpression, getCellValue);
+        expect(filtered)
+          .toEqual({
+            rows: [],
+          });
+      });
     });
 
     describe('grouped rows', () => {

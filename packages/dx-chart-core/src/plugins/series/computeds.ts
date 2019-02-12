@@ -8,8 +8,8 @@ import {
   pie,
 } from 'd3-shape';
 import {
-  SeriesList, Series, PointList, Point, DataItems, AddSeriesFn, ScaleSeriesPointsFn,
-  GetPointTransformerFn, TransformedPoint, BarPoint, PiePoint, ScatterPoint, Palette, ScalesCache,
+  SeriesList, Series, PointList, Point, DataItems, AddSeriesFn, ScalesCache, ScaleSeriesPointsFn,
+  GetPointTransformerFn, TransformedPoint, BarPoint, PiePoint, ScatterPoint, Palette, Rect,
 } from '../../types';
 import { ARGUMENT_DOMAIN } from '../../constants';
 import { getWidth, getValueDomainName, fixOffset } from '../../utils/scale';
@@ -121,18 +121,18 @@ export const dPie = ({
   outerRadius: outerRadius * maxRadius,
 })!;
 
-getBarPointTransformer.getTargetElement = (point: TransformedPoint) => {
+const getRect = (cx: number, cy: number, dx: number, dy: number): Rect => (
+  [cx - dx, cy - dy, cx + dx, cy + dy]
+);
+
+getBarPointTransformer.getTargetElement = (point) => {
   const { x, y, y1, barWidth, maxBarWidth } = point as BarPoint;
   const width = barWidth * maxBarWidth;
   const height = Math.abs(y1! - y);
-  return {
-    y,
-    x: x - width / 2,
-    d: `M0,0 ${width},0 ${width},${height} 0,${height}`,
-  };
+  return getRect(x, y + height / 2, width / 2, height / 2);
 };
 
-getPiePointTransformer.getTargetElement = (point: TransformedPoint) => {
+getPiePointTransformer.getTargetElement = (point) => {
   const {
     x, y, innerRadius, outerRadius, maxRadius, startAngle, endAngle,
   } = point as PiePoint;
@@ -142,28 +142,19 @@ getPiePointTransformer.getTargetElement = (point: TransformedPoint) => {
     innerRadius: innerRadius * maxRadius,
     outerRadius: outerRadius * maxRadius,
   });
-  return {
-    x: center[0] + x,
-    y: center[1] + y,
-    d: symbol().size(1 ** 2).type(symbolCircle)()!,
-  };
+  const cx = center[0] + x;
+  const cy = center[1] + y;
+  return getRect(cx, cy, 0.5, 0.5);
 };
 
-getAreaPointTransformer.getTargetElement = ({ x, y }: TransformedPoint) => ({
-  x,
-  y,
-  d: symbol().size(2 ** 2).type(symbolCircle)()!,
-});
+getAreaPointTransformer.getTargetElement = ({ x, y }) => getRect(x, y, 1, 1);
 
 getLinePointTransformer.getTargetElement = getAreaPointTransformer.getTargetElement;
 
-getScatterPointTransformer.getTargetElement = (arg: TransformedPoint) => {
+getScatterPointTransformer.getTargetElement = (arg) => {
   const { x, y, point } = arg as ScatterPoint;
-  return {
-    x,
-    y,
-    d: symbol().size(point.size ** 2).type(symbolCircle)()!,
-  };
+  const t = point.size / 2;
+  return getRect(x, y, t, t);
 };
 
 const getUniqueName = (list: SeriesList, name: string) => {

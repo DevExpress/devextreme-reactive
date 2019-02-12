@@ -5,7 +5,6 @@ import {
 } from '@devexpress/dx-react-core';
 import {
   addAppointment,
-  changeAddedAppointment,
   cancelAddedAppointment,
   startEditAppointment,
   stopEditAppointment,
@@ -64,7 +63,7 @@ export class EditingState extends React.PureComponent {
     this.addAppointment = stateHelper.applyFieldReducer
       .bind(stateHelper, 'addedAppointment', addAppointment);
     this.changeAddedAppointment = stateHelper.applyFieldReducer
-      .bind(stateHelper, 'addedAppointment', changeAddedAppointment);
+      .bind(stateHelper, 'addedAppointment', changeAppointment);
     this.cancelAddedAppointment = stateHelper.applyFieldReducer
       .bind(stateHelper, 'addedAppointment', cancelAddedAppointment);
     this.commitAddedAppointment = () => {

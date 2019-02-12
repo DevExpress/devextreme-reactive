@@ -31,8 +31,9 @@ const operationPredicates: { [key: string]: FilterPredicate } = {
   endsWith: (value, filter) => toLowerCase(value)
     .endsWith(toLowerCase(filter.value)),
 
-  equal: (value, filter) => value === filter.value,
-  notEqual: (value, filter) => value !== filter.value,
+  equal: (value, filter) => String(value) === String(filter.value),
+  notEqual: (value, filter) => String(value) !== String(filter.value),
+
   greaterThan: (value, filter) => value > filter.value!,
   greaterThanOrEqual: (value, filter) => value >= filter.value!,
   lessThan: (value, filter) => value < filter.value!,

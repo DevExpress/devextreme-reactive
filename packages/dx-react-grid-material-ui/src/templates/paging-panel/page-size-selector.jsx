@@ -9,6 +9,9 @@ const styles = theme => ({
   pageSizeSelector: {
     ...theme.typography.caption,
     paddingRight: theme.spacing.unit * 5,
+    // NOTE: fixes vertical alignment in FF
+    display: 'flex',
+    alignItems: 'center',
   },
   label: {
     paddingRight: theme.spacing.unit * 3,

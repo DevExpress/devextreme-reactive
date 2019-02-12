@@ -17,7 +17,6 @@ describe('Axis', () => {
   mockScale.copy = jest.fn().mockReturnValue(mockScale);
   mockScale.range = jest.fn(arg => (arg === undefined ? [1, 2] : mockScale));
 
-  // eslint-disable-next-line react/prop-types
   const RootComponent = ({ children }) => (
     <div>
       {children}

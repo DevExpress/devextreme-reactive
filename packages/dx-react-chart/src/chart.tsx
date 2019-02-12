@@ -73,5 +73,7 @@ RawChart.components = {
   rootComponent: 'Root',
 };
 
-export const Chart = withComponents({ Root })(RawChart);
+export const Chart: React.ComponentType<
+  RawChartProps & RawChartDefaultProps
+> = withComponents({ Root })(RawChart);
 Chart.Label = Label;

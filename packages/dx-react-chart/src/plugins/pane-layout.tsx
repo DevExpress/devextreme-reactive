@@ -28,7 +28,6 @@ SizerContainer.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-// eslint-disable-next-line react/prefer-stateless-function
 export class PaneLayout extends React.PureComponent {
   render() {
     return (

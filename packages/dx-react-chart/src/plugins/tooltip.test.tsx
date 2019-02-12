@@ -11,7 +11,6 @@ jest.mock('@devexpress/dx-chart-core', () => ({
 }));
 
 const TargetComponent = () => null;
-// eslint-disable-next-line react/prop-types
 const OverlayComponent = ({ children }) => (
   <div>
     {children}

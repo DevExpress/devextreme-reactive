@@ -126,4 +126,4 @@ RawTooltip.components = {
   contentComponent: 'Content',
 };
 
-export const Tooltip = withComponents({ Target })(RawTooltip);
+export const Tooltip: React.ComponentType<RawTooltipProps> = withComponents({ Target })(RawTooltip);

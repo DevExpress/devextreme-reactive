@@ -230,7 +230,7 @@ RawAxis.components = {
   gridComponent: 'Grid',
 };
 
-export const Axis = withComponents({
+export const Axis: React.ComponentType<RawAxisProps> = withComponents({
   Label,
   Line,
   Root,

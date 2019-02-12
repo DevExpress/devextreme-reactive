@@ -31,7 +31,7 @@ export class Root extends React.PureComponent<RootProps, RootState> {
 
   componentDidUpdate() {
     // *setState* is called unconditionally because PureComponent is expected to break the cycle.
-    this.setState(this.adjust); // eslint-disable-line react/no-did-update-set-state
+    this.setState(this.adjust);
   }
 
   // Since calculated state does not depend on current state non-callback version of *setState*

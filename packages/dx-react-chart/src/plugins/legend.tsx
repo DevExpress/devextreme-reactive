@@ -65,4 +65,4 @@ RawLegend.components = {
   labelComponent: 'Label',
 };
 
-export const Legend = withComponents({ Marker })(RawLegend);
+export const Legend: React.ComponentType<RawLegendProps> = withComponents({ Marker })(RawLegend);

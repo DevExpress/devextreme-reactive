@@ -1,20 +1,9 @@
 import * as React from 'react';
-import { Sizer } from '@devexpress/dx-react-core';
-
-type Size = {
-  width: number;
-  height: number;
-};
-type UpdateSizerProps = {
-  onSizeChange: (size: Size) => void;
-  onScroll?: (e) => void;
-  containerComponent?: any;
-  style?: object;
-};
+import { Sizer, SizerProps } from '@devexpress/dx-react-core';
 
 // It is located in a separate file only for testing purpose -
 // it should actually be placed next to PaneLayout.
-export class UpdatableSizer extends React.PureComponent<UpdateSizerProps> {
+export class UpdatableSizer extends React.PureComponent<SizerProps> {
   ref: React.RefObject<any>;
   constructor(props) {
     super(props);

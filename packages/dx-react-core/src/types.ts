@@ -11,3 +11,14 @@ export type CreateStateHelperFn = PureComputed<
 >;
 
 export type ActionFn<P> = PureComputed<[P], void | boolean>;
+export type Size = {
+  width: number;
+  height: number;
+};
+
+export type SizerProps = {
+  onSizeChange: (size: Size) => void;
+  onScroll?: (e) => void;
+  containerComponent?: any;
+  style?: object;
+};

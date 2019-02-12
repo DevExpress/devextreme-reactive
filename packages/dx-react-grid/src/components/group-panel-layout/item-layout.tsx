@@ -2,9 +2,16 @@ import * as React from 'react';
 import { DragSource } from '@devexpress/dx-react-core';
 import { GroupingPanel as GP } from '../../types';
 
+const defaultProps = {
+  draggingEnabled: false,
+  onDragStart: () => {},
+  onDragEnd: () => {},
+};
+type GPItemLayoutProps = Readonly<GP.GroupingItemLayoutProps & typeof defaultProps>;
+
 // tslint:disable-next-line: max-line-length
-export class ItemLayout extends React.PureComponent<GP.GroupingItemLayoutProps, GP.GroupingItemLayoutState> {
-  static defaultProps: Partial<GP.GroupingItemLayoutProps>;
+export class ItemLayout extends React.PureComponent<GPItemLayoutProps, GP.GroupingItemLayoutState> {
+  static defaultProps = defaultProps;
 
   constructor(props) {
     super(props);
@@ -31,11 +38,11 @@ export class ItemLayout extends React.PureComponent<GP.GroupingItemLayoutProps, 
         payload={[{ type: 'column', columnName: item.column.name }]}
         onStart={() => {
           this.setState({ dragging: true });
-          onDragStart!();
+          onDragStart();
         }}
         onEnd={() => {
           this.setState({ dragging: false });
-          onDragEnd!();
+          onDragEnd();
         }}
       >
         {itemElement}
@@ -45,9 +52,3 @@ export class ItemLayout extends React.PureComponent<GP.GroupingItemLayoutProps, 
     ));
   }
 }
-
-ItemLayout.defaultProps = {
-  draggingEnabled: false,
-  onDragStart: () => {},
-  onDragEnd: () => {},
-};

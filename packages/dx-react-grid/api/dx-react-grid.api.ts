@@ -30,7 +30,7 @@ module ColumnChooser {
   interface ItemProps {
     disabled: boolean;
     item: ColumnChooserItem;
-    onToggle: () => void;
+    onToggle(): void;
   }
 
   // (undocumented)
@@ -40,7 +40,7 @@ module ColumnChooser {
 
   interface OverlayProps {
     children: React.ReactNode;
-    onHide: () => void;
+    onHide(): void;
     target: React.ReactInstance;
     visible: boolean;
   }
@@ -50,7 +50,7 @@ module ColumnChooser {
     active?: boolean;
     buttonRef: (ref: React.ReactInstance) => void;
     getMessage: (messageKey: string) => string;
-    onToggle: () => void;
+    onToggle(): void;
   }
 
 }
@@ -154,7 +154,6 @@ interface DragDropProviderProps {
 // @public (undocumented)
 interface EditingColumnExtension {
   columnName: string;
-  // (undocumented)
   createRowChange?: (row: any, value: any, columnName: string) => any;
   editingEnabled?: boolean;
 }
@@ -643,7 +642,7 @@ module TableEditColumn {
 
   interface CommandProps {
     id: 'add' | 'edit' | 'delete' | 'commit' | 'cancel';
-    onExecute: () => void;
+    onExecute(): void;
     text: string;
   }
 
@@ -748,7 +747,7 @@ module TableFilterRow {
     buttonRef: (ref: React.ReactInstance) => void;
     children?: React.ReactNode;
     disabled?: boolean;
-    onToggle: () => void;
+    onToggle(): void;
   }
 
 }
@@ -790,7 +789,7 @@ module TableGroupRow {
   interface CellProps extends Table.CellProps {
     column: Column;
     expanded: boolean;
-    onToggle: () => void;
+    onToggle(): void;
     row: GroupRow;
   }
 
@@ -840,7 +839,7 @@ module TableHeaderRow {
     column: Column;
     draggingEnabled: boolean;
     groupingEnabled: boolean;
-    onGroup: () => void;
+    onGroup(): void;
     onSort: (parameters: {
           direction?: 'asc' | 'desc' | null;
           keepOther?: boolean;
@@ -851,7 +850,7 @@ module TableHeaderRow {
     onWidthDraft: (parameters: {
           shift: number;
         }) => void;
-    onWidthDraftCancel: () => void;
+    onWidthDraftCancel(): void;
     resizingEnabled: boolean;
     showGroupingControls: boolean;
     showSortingControls: boolean;
@@ -867,7 +866,7 @@ module TableHeaderRow {
 
   interface GroupButtonProps {
     disabled: boolean;
-    onGroup: () => void;
+    onGroup(): void;
   }
 
   // (undocumented)
@@ -950,7 +949,7 @@ module TableRowDetail {
 
   interface ToggleCellProps extends Table.CellProps {
     expanded: boolean;
-    onToggle: () => void;
+    onToggle(): void;
     // (undocumented)
     row: any;
   }
@@ -970,7 +969,7 @@ interface TableRowDetailProps {
 // @public (undocumented)
 module TableSelection {
   interface CellProps extends Table.CellProps {
-    onToggle: () => void;
+    onToggle(): void;
     // (undocumented)
     row: any;
     selected: boolean;
@@ -986,7 +985,7 @@ module TableSelection {
   // (undocumented)
   interface RowProps extends Table.RowProps {
     // (undocumented)
-    onToggle: () => void;
+    onToggle(): void;
     // (undocumented)
     selectByRowClick?: boolean;
     // (undocumented)
@@ -1071,7 +1070,7 @@ module TableTreeColumn {
     checked: boolean;
     disabled: boolean;
     indeterminate: boolean;
-    onChange: () => void;
+    onChange(): void;
   }
 
   interface ContentProps {
@@ -1080,7 +1079,7 @@ module TableTreeColumn {
 
   interface ExpandButtonProps {
     expanded: boolean;
-    onToggle: () => void;
+    onToggle(): void;
     visible: boolean;
   }
 

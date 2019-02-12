@@ -3,9 +3,17 @@ import { ColumnGroup } from './column-group';
 import { RowsBlockLayout } from './rows-block-layout';
 import { TableLayoutProps } from '../../types';
 
+const defaultProps = {
+  headerRows: [],
+  footerRows: [],
+  headComponent: () => null,
+  footerComponent: () => null,
+};
+type StaticTableLayoutProps = Readonly<TableLayoutProps & typeof defaultProps>;
+
 /** @internal */
-export class StaticTableLayout extends React.PureComponent<TableLayoutProps> {
-  static defaultProps: Partial<TableLayoutProps>;
+export class StaticTableLayout extends React.PureComponent<StaticTableLayoutProps> {
+  static defaultProps = defaultProps;
 
   render() {
     const {
@@ -65,10 +73,3 @@ export class StaticTableLayout extends React.PureComponent<TableLayoutProps> {
     );
   }
 }
-
-StaticTableLayout.defaultProps = {
-  headerRows: [],
-  footerRows: [],
-  headComponent: () => null,
-  footerComponent: () => null,
-};

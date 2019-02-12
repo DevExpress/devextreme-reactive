@@ -57,7 +57,7 @@ export namespace TableFilterRow {
     /** Specifies whether the editor is disabled. */
     disabled?: boolean;
     /** Handles filter value changes. */
-    onToggle: () => void;
+    onToggle(): void;
     /** A function that accepts the button's root React element. */
     buttonRef: (ref: React.ReactInstance) => void;
     /** A React node used to render the button content. */

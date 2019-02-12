@@ -79,7 +79,7 @@ class GroupingStateBase extends React.PureComponent<GroupingStateProps, Grouping
     { columnName, keepOther, ...restParams }: ChangeSortingPayload,
     { sorting }: Getters,
     { changeColumnSorting }: Actions,
-  ): boolean {
+  ) {
     const { grouping } = this.state;
     const groupingIndex = grouping
       .findIndex(columnGrouping => columnGrouping.columnName === columnName);

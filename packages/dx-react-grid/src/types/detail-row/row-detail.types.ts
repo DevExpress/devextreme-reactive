@@ -44,7 +44,7 @@ export namespace TableRowDetail {
     /** Specifies whether to expand the detail row. */
     expanded: boolean;
     /** An event that initiates row expanding or collapsing. */
-    onToggle: () => void;
+    onToggle(): void;
   }
 }
 

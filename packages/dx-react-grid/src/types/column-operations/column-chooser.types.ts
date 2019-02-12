@@ -9,7 +9,7 @@ export namespace ColumnChooser {
     /** Specifies whether a column chooser item is disabled. */
     disabled: boolean;
     /** Handles an associated column's visibility changes. */
-    onToggle: () => void;
+    onToggle(): void;
   }
 
   /** Describes properties passed to a component that renders the column chooser container. */
@@ -22,7 +22,7 @@ export namespace ColumnChooser {
    * that invokes the column chooser. */
   export interface ToggleButtonProps {
     /** An event that initiates overlay showing or hiding. */
-    onToggle: () => void;
+    onToggle(): void;
     /*** Returns a specified localization message.
      * Available in the "\@devexpress/dx-react-grid-material-ui" package. */
     getMessage: (messageKey: string) => string;
@@ -38,7 +38,7 @@ export namespace ColumnChooser {
     /** A React component instance or a DOM element that is used for overlay positioning. */
     target: React.ReactInstance;
     /** An event that initiates overlay hiding. */
-    onHide: () => void;
+    onHide(): void;
     /** A React node used to render overlay content. */
     children: React.ReactNode;
   }

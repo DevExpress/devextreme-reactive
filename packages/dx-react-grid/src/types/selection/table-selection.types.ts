@@ -20,13 +20,13 @@ export namespace TableSelection {
     /** Indicates whether a row is selected. */
     selected: boolean;
     /** An event that initiates row selecting or deselecting. */
-    onToggle: () => void;
+    onToggle(): void;
   }
 
   export interface RowProps extends Table.RowProps {
     selected?: boolean;
     selectByRowClick?: boolean;
-    onToggle: () => void;
+    onToggle(): void;
   }
 }
 

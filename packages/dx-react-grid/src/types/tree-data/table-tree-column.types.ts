@@ -33,7 +33,7 @@ export namespace TableTreeColumn {
     /** Specifies whether a row is expanded. */
     expanded: boolean;
     /** An event that initiates row expanding or collapsing. */
-    onToggle: () => void;
+    onToggle(): void;
   }
 
   /** Describes properties passed to a component that renders a checkbox used to control selection. */
@@ -45,7 +45,7 @@ export namespace TableTreeColumn {
     /** Specifies whether a row's children are partially selected. */
     indeterminate: boolean;
     /** An event that initiates row selecting or deselecting. */
-    onChange: () => void;
+    onChange(): void;
   }
 }
 

@@ -20,7 +20,7 @@ export namespace TableGroupRow {
     /** Specifies whether the row is expanded. */
     expanded: boolean;
     /** An event that initiates group row expanding or collapsing. */
-    onToggle: () => void;
+    onToggle(): void;
 
     /** @internal */
     contentComponent: React.ComponentType<ContentProps>;

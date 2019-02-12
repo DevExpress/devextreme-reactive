@@ -5,14 +5,23 @@ import { getGroupCellTargetIndex } from '@devexpress/dx-grid-core';
 import { ItemLayout } from './group-panel-layout/item-layout';
 import { GroupingPanel as GP } from '../types';
 
+const defaultProps = {
+  onGroup: () => {},
+  draggingEnabled: false,
+  isColumnGroupingEnabled: () => false,
+  onGroupDraft: () => {},
+  onGroupDraftCancel: () => {},
+};
+type GPLayoutProps = Readonly<GP.LayoutProps & typeof defaultProps>;
+
 // tslint:disable-next-line: max-line-length
-class GroupPanelLayoutBase extends React.PureComponent<GP.LayoutProps, GP.GroupingItemLayoutState> {
-  static defaultProps: Partial<GP.LayoutProps>;
+class GroupPanelLayoutBase extends React.PureComponent<GPLayoutProps, GP.GroupingItemLayoutState> {
+  static defaultProps = defaultProps;
   handleDragEvent: (...args: any) => void;
   onEnter: (any) => void;
   onOver: (any) => void;
-  itemRefs: any;
-  draggingColumnName?: string;
+  itemRefs: ItemLayout[] = [];
+  draggingColumnName: string | null = null;
   onLeave: () => void;
   onDrop: () => void;
   onDragStart: (columnName: any) => void;
@@ -29,7 +38,7 @@ class GroupPanelLayoutBase extends React.PureComponent<GP.LayoutProps, GP.Groupi
       const { isColumnGroupingEnabled } = this.props;
       const { columnName } = payload[0];
 
-      if (isColumnGroupingEnabled!(columnName)) {
+      if (isColumnGroupingEnabled(columnName)) {
         eventHandler({ payload, ...restArgs });
       }
     };
@@ -53,7 +62,7 @@ class GroupPanelLayoutBase extends React.PureComponent<GP.LayoutProps, GP.Groupi
 
       if (prevTargetItemIndex === targetItemIndex) return;
 
-      onGroupDraft!({
+      onGroupDraft({
         columnName: sourceColumnName,
         groupIndex: targetItemIndex,
       });
@@ -66,7 +75,7 @@ class GroupPanelLayoutBase extends React.PureComponent<GP.LayoutProps, GP.Groupi
         this.resetState();
         return;
       }
-      onGroupDraft!({
+      onGroupDraft({
         columnName: sourceColumnName,
         groupIndex: -1,
       });
@@ -78,7 +87,7 @@ class GroupPanelLayoutBase extends React.PureComponent<GP.LayoutProps, GP.Groupi
       const { onGroup } = this.props;
       const { sourceColumnName, targetItemIndex } = this.state;
       this.resetState();
-      onGroup!({
+      onGroup({
         columnName: sourceColumnName,
         groupIndex: targetItemIndex,
       });
@@ -87,11 +96,11 @@ class GroupPanelLayoutBase extends React.PureComponent<GP.LayoutProps, GP.Groupi
       this.draggingColumnName = columnName;
     };
     this.onDragEnd = () => {
-      this.draggingColumnName = undefined;
+      this.draggingColumnName = null;
       const { sourceColumnName, targetItemIndex } = this.state;
       const { onGroup } = this.props;
       if (sourceColumnName && targetItemIndex === -1) {
-        onGroup!({
+        onGroup({
           columnName: sourceColumnName,
         });
       }
@@ -101,7 +110,7 @@ class GroupPanelLayoutBase extends React.PureComponent<GP.LayoutProps, GP.Groupi
 
   resetState() {
     const { onGroupDraftCancel } = this.props;
-    onGroupDraftCancel!();
+    onGroupDraftCancel();
     this.setState({
       sourceColumnName: null,
       targetItemIndex: -1,
@@ -130,7 +139,7 @@ class GroupPanelLayoutBase extends React.PureComponent<GP.LayoutProps, GP.Groupi
               ref={element => element && this.itemRefs.push(element)}
               item={item}
               itemComponent={Item}
-              draggingEnabled={draggingEnabled && isColumnGroupingEnabled!(columnName)}
+              draggingEnabled={draggingEnabled && isColumnGroupingEnabled(columnName)}
               onDragStart={() => this.onDragStart(columnName)}
               onDragEnd={this.onDragEnd}
             />
@@ -155,14 +164,6 @@ class GroupPanelLayoutBase extends React.PureComponent<GP.LayoutProps, GP.Groupi
       : groupPanel;
   }
 }
-
-GroupPanelLayoutBase.defaultProps = {
-  onGroup: () => {},
-  draggingEnabled: false,
-  isColumnGroupingEnabled: () => false,
-  onGroupDraft: () => {},
-  onGroupDraftCancel: () => {},
-};
 
 /** @internal */
 export const GroupPanelLayout: React.ComponentType<GP.LayoutProps> = GroupPanelLayoutBase;

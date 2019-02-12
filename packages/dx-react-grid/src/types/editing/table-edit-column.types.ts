@@ -23,7 +23,7 @@ export namespace TableEditColumn {
     /** The command action description. */
     text: string;
     /** An event initiating the command execution. */
-    onExecute: () => void;
+    onExecute(): void;
   }
 
   export interface LocalizationMessages {

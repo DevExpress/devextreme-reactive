@@ -12,7 +12,7 @@ export namespace TableHeaderRow {
     /** \@deprecated Specifies whether grouping by the column is enabled. */
     groupingEnabled: boolean;
     /** \@deprecated An event that invokes grouping by the column. */
-    onGroup: () => void;
+    onGroup(): void;
     /** Specifies whether the column's resizing is enabled. */
     resizingEnabled: boolean;
     /** An event that initiates the column width change. The initial column width increases by the `shift` value or decreases if `shift` is negative. */
@@ -20,7 +20,7 @@ export namespace TableHeaderRow {
     /** An event that changes the column width used for preview. The initial column width increases by the `shift` value or decreases if `shift` is less than zero. */
     onWidthDraft: (parameters: { shift: number }) => void;
     /** An event that cancels the column width change used for preview. */
-    onWidthDraftCancel: () => void;
+    onWidthDraftCancel(): void;
     /** Specifies whether drag-and-drop is enabled. */
     draggingEnabled: boolean;
     /** The header cell's children. */
@@ -70,7 +70,7 @@ export namespace TableHeaderRow {
     /** Specifies whether the group button is disabled. */
     disabled: boolean;
     /** An event that invokes grouping by the associated column. */
-    onGroup: () => void;
+    onGroup(): void;
   }
 
   export interface LocalizationMessages {

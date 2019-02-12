@@ -39,11 +39,11 @@ const tableHeaderRowsComputed = (
 class TableColumnReorderingRaw extends React.PureComponent<TableColumnReorderingProps, TableColumnReorderingState> {
   static defaultProps: Partial<TableColumnReorderingProps>;
   static components: PluginComponents;
-  private cellDimensionGetters: { [colName: string]: CellDimensionsGetter } = {};
-  private cellDimensions: TargetColumnGeometry[] = [];
-  private onOver: (arg: DragOverArgs) => void;
-  private onLeave: () => void;
-  private onDrop: () => void;
+  cellDimensionGetters: { [colName: string]: CellDimensionsGetter } = {};
+  cellDimensions: TargetColumnGeometry[] = [];
+  onOver: (arg: DragOverArgs) => void;
+  onLeave: () => void;
+  onDrop: () => void;
 
   constructor(props: TableColumnReorderingProps) {
     super(props);
@@ -91,7 +91,7 @@ class TableColumnReorderingRaw extends React.PureComponent<TableColumnReordering
     this.cellDimensions = [];
   }
 
-  ensureCellDimensionGetters(tableColumns: TableColumn[]) {
+  ensureCellDimensionGetters(tableColumns: ReadonlyArray<TableColumn>) {
     Object.keys(this.cellDimensionGetters)
       .forEach((columnName) => {
         const columnIndex = tableColumns
@@ -103,7 +103,7 @@ class TableColumnReorderingRaw extends React.PureComponent<TableColumnReordering
   }
 
 // tslint:disable-next-line: max-line-length
-  storeCellDimensionsGetter(tableColumn: TableColumn, getter: CellDimensionsGetter, tableColumns: TableColumn[]) {
+  storeCellDimensionsGetter(tableColumn: Readonly<TableColumn>, getter: CellDimensionsGetter, tableColumns: ReadonlyArray<TableColumn>) {
     if (tableColumn.type === TABLE_DATA_TYPE) {
       this.cellDimensionGetters[tableColumn.column!.name] = getter;
     }

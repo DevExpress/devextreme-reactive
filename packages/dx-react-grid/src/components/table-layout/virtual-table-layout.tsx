@@ -12,11 +12,21 @@ import { VirtualTableLayoutProps, VirtualTableLayoutState } from '../../types';
 
 const AUTO_HEIGHT = 'auto';
 
+const defaultProps = {
+  headerRows: [],
+  footerRows: [],
+  headComponent: () => null,
+  headTableComponent: () => null,
+  footerComponent: () => null,
+  footerTableComponent: () => null,
+};
+type PropsType = Readonly<VirtualTableLayoutProps & typeof defaultProps>;
+
 /** @internal */
 // tslint:disable-next-line: max-line-length
-export class VirtualTableLayout extends React.PureComponent<VirtualTableLayoutProps, VirtualTableLayoutState> {
-  static defaultProps: Partial<VirtualTableLayoutProps>;
-  isEdgeBrowser: boolean = false;
+export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTableLayoutState> {
+  static defaultProps = defaultProps;
+  isEdgeBrowser = false;
   rowRefs: Map<any, any>;
   blockRefs: Map<any, any>;
 
@@ -339,12 +349,3 @@ export class VirtualTableLayout extends React.PureComponent<VirtualTableLayoutPr
     /* tslint:enable max-line-length */
   }
 }
-
-VirtualTableLayout.defaultProps = {
-  headerRows: [],
-  footerRows: [],
-  headComponent: () => null,
-  headTableComponent: () => null,
-  footerComponent: () => null,
-  footerTableComponent: () => null,
-};

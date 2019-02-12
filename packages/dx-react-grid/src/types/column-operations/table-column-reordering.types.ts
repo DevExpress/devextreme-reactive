@@ -13,8 +13,8 @@ export interface TableReorderingCellProps {
 /** @internal */
 export interface TableContainerProps {
   onOver: (arg: DragOverArgs) => void;
-  onLeave: () => void;
-  onDrop: () => void;
+  onLeave(): void;
+  onDrop(): void;
   draggingEnabled: boolean;
 }
 

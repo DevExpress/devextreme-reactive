@@ -13,9 +13,9 @@ import { TableLayoutCoreProps, TableLayoutCoreState } from '../types';
 class TableLayoutBase extends React.PureComponent<TableLayoutCoreProps, TableLayoutCoreState> {
   animations: ColumnAnimationMap;
   savedScrolldWidth: { [key: number]: number };
-  savedOffsetWidth: number = -1;
+  savedOffsetWidth = -1;
   tableRef: React.RefObject<HTMLTableElement>;
-  raf: number = -1;
+  raf = -1;
 
   constructor(props) {
     super(props);

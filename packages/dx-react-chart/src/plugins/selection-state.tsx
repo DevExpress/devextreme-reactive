@@ -4,11 +4,9 @@ import {
   Getter,
   Getters,
 } from '@devexpress/dx-react-core';
-import { changeSeriesState, SELECTED, TargetList } from '@devexpress/dx-chart-core';
+import { changeSeriesState, SELECTED } from '@devexpress/dx-chart-core';
+import { SelectionStateProps } from '../types';
 
-type SelectionStateProps = {
-  selection?: TargetList;
-};
 export class SelectionState extends React.PureComponent<SelectionStateProps> {
   render() {
     const { selection } = this.props;

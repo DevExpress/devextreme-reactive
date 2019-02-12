@@ -11,30 +11,11 @@ import {
 } from '@devexpress/dx-react-core';
 import {
   findSeriesByName, addSeries, getValueDomainName, ARGUMENT_DOMAIN,
-  GetPointTransformerFn, CreateHitTesterFn,
 } from '@devexpress/dx-chart-core';
+import { ExtraSeriesParameters, ComponentProps } from '../types';
 
 const defaultProps = {
   name: 'defaultSeriesName',
-};
-type ComponentDefaultProps = Readonly<typeof defaultProps>;
-type ComponentProps = {
-  scaleName?: string,
-  seriesComponent: any,
-  pointComponent?: any,
-  color?: string,
-  valueField: string,
-  argumentField: string,
-} & Partial<ComponentDefaultProps>;
-type Components = {
-  Path: any,
-  Point?: any,
-};
-
-type ExtraSeriesParameters = {
-  components: Components,
-  getPointTransformer: GetPointTransformerFn,
-  createHitTester: CreateHitTesterFn,
 };
 
 export const declareSeries = (
@@ -81,10 +62,10 @@ export const declareSeries = (
                 };
                 return (
                   <currentSeries.seriesComponent
-                    index={currentSeries!.index}
-                    pointComponent={currentSeries!.pointComponent}
-                    coordinates={currentSeries!.points}
-                    state={currentSeries!.state}
+                    index={currentSeries.index}
+                    pointComponent={currentSeries.pointComponent}
+                    coordinates={currentSeries.points}
+                    state={currentSeries.state}
                     color={currentSeries.color}
                     scales={currentScales}
                     getAnimatedStyle={getAnimatedStyle}

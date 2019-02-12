@@ -102,9 +102,9 @@ export interface Series {
   readonly valueField: string;
   readonly createHitTester: CreateHitTesterFn;
   readonly getPointTransformer: GetPointTransformerFn;
-  readonly pointComponent: any;
+  readonly pointComponent: React.ComponentType<any>;
   readonly state: string;
-  readonly seriesComponent: any;
+  readonly seriesComponent: React.ComponentType<any>;
 }
 export type SeriesList = ReadonlyArray<Series>;
 

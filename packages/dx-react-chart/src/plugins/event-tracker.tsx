@@ -6,7 +6,8 @@ import {
   TemplatePlaceholder,
   TemplateConnector,
 } from '@devexpress/dx-react-core';
-import { buildEventHandlers, HandlerFn } from '@devexpress/dx-chart-core';
+import { buildEventHandlers } from '@devexpress/dx-chart-core';
+import { EventTrackerProps } from '../types';
 
 const wrapToList = arg => (arg ? [arg] : []);
 
@@ -28,11 +29,6 @@ const translateEventNames = (handlers) => {
     result[EVENT_NAME_TO_REACT_MAP[name]] = handler;
   });
   return result;
-};
-
-type EventTrackerProps = {
-  onClick?: HandlerFn,
-  onPointerMove?: HandlerFn,
 };
 
 export class EventTracker extends React.PureComponent<EventTrackerProps> {

@@ -1,23 +1,11 @@
 import * as React from 'react';
 import {
   getAreaAnimationStyle, HOVERED, SELECTED,
-  TransformedPoint, Scales, BuildAnimatedStyleGetterFn,
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
+import { PathProps } from '../../types';
 
-type RawPathProps = {
-  path: any,
-  coordinates: TransformedPoint[],
-  index: number,
-  state?: string,
-  color?: string,
-  style?: any,
-  scales: Scales,
-  getAnimatedStyle: BuildAnimatedStyleGetterFn,
-  pointComponent: any,
-};
-
-class RawPath extends React.PureComponent<RawPathProps> {
+class RawPath extends React.PureComponent<PathProps> {
   render() {
     const {
       path,
@@ -29,7 +17,7 @@ class RawPath extends React.PureComponent<RawPathProps> {
     } = this.props;
     return (
       <path
-        d={path(coordinates)}
+        d={path!(coordinates)}
         fill="none"
         strokeWidth={2}
         stroke={color}

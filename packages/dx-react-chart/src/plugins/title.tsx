@@ -6,16 +6,13 @@ import {
   TemplatePlaceholder,
   PluginComponents,
 } from '@devexpress/dx-react-core';
+import { TitleProps } from '../types';
 
 const defaultProps = {
   position: 'top',
 };
 type TitleDefaultProps = Readonly<typeof defaultProps>;
-type TitleProps = {
-  text: string, textComponent: any,
-} & Partial<TitleDefaultProps>;
-
-export class Title extends React.PureComponent<TitleProps> {
+export class Title extends React.PureComponent<TitleProps & TitleDefaultProps> {
   static components: PluginComponents;
   static defaultProps = defaultProps;
   render() {
@@ -28,7 +25,7 @@ export class Title extends React.PureComponent<TitleProps> {
     const placeholder = position;
     return (
       <Plugin name="Title">
-        <Template name={placeholder!}>
+        <Template name={placeholder}>
           <TemplatePlaceholder />
           <Text text={text} {...restProps} />
         </Template>

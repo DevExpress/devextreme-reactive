@@ -9,16 +9,14 @@ import {
   ActionFn,
 } from '@devexpress/dx-react-core';
 import { bBoxes, BBoxesChange } from '@devexpress/dx-chart-core';
+import { LayoutManagerProps, LayoutManagerState } from '../types';
 
 const defaultProps = { width: 0 };
 type LayoutManagerDefaultProps = Readonly<typeof defaultProps>;
-type LayoutManagerProps = {
-  height: number,
-  rootComponent: any,
-} & Partial<LayoutManagerDefaultProps>;
-type LayoutManagerState = {bBoxes: {pane: {width: number | undefined, height: number}}};
 
-export class LayoutManager extends React.Component<LayoutManagerProps, LayoutManagerState> {
+export class LayoutManager extends React.Component<
+  LayoutManagerProps & LayoutManagerDefaultProps, LayoutManagerState
+> {
   static defaultProps = defaultProps;
   changeBBox: ActionFn<BBoxesChange>;
 

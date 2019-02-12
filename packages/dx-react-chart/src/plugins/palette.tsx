@@ -1,10 +1,7 @@
 import * as React from 'react';
-import { Palette as Scheme } from '@devexpress/dx-chart-core';
 import { Plugin, Getter } from '@devexpress/dx-react-core';
+import { PaletteProps } from '../types';
 
-type PaletteProps = {
-  scheme: Scheme,
-};
 export class Palette extends React.PureComponent<PaletteProps> {
   render() {
     const { scheme } = this.props;

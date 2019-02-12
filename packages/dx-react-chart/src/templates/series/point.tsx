@@ -1,23 +1,10 @@
 import * as React from 'react';
 import {
-  dSymbol, getScatterAnimationStyle, HOVERED, SELECTED, Scales, BuildAnimatedStyleGetterFn,
+  dSymbol, getScatterAnimationStyle, HOVERED, SELECTED,
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
+import { RawPointProps } from '../../types';
 
-type RawPointProps = {
-  argument: any,
-  value: number,
-  x: number,
-  y: number,
-  seriesIndex: number,
-  index: number,
-  point: { size: number },
-  state?: string,
-  color?: string,
-  style?: any,
-  scales: Scales,
-  getAnimatedStyle: BuildAnimatedStyleGetterFn,
-};
 class RawPoint extends React.PureComponent<RawPointProps> {
   render() {
     const {

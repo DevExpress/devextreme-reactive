@@ -1,25 +1,15 @@
 import * as React from 'react';
 import {
-  dArea, getAreaAnimationStyle, HOVERED, SELECTED, Scales,
-  BuildAnimatedStyleGetterFn, TransformedPoint,
+  dArea, getAreaAnimationStyle, HOVERED, SELECTED,
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
+import { PathProps } from '../../types';
 
 const defaultProps = { path: dArea };
 type RawAreaDefaultProps = Readonly<typeof defaultProps>;
-type RawAreaProps = {
-  coordinates: TransformedPoint[],
-  index: number,
-  state?: string,
-  color?: string,
-  style?: any,
-  scales: Scales,
-  getAnimatedStyle: BuildAnimatedStyleGetterFn,
-  pointComponent?: any,
-} & RawAreaDefaultProps;
 
-class RawArea extends React.PureComponent<RawAreaProps> {
+class RawArea extends React.PureComponent<PathProps & RawAreaDefaultProps> {
   static defaultProps = defaultProps;
   render() {
     const {
@@ -32,7 +22,7 @@ class RawArea extends React.PureComponent<RawAreaProps> {
     } = this.props;
     return (
       <path
-        d={path(coordinates)!}
+        d={path(coordinates)}
         fill={color}
         opacity={0.5}
         style={getAnimatedStyle(style, getAreaAnimationStyle, scales)}

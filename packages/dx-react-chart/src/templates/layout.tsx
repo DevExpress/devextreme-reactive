@@ -1,13 +1,7 @@
 import * as React from 'react';
+import { RootLayoutProps } from '../types';
 
-type RootProps = {
-  children?: React.ReactNode,
-  width: number,
-  height: number,
-  style?: any,
-};
-
-export class Root extends React.PureComponent<RootProps> {
+export class Root extends React.PureComponent<RootLayoutProps> {
   render() {
     const {
       children, width, height, style, ...restProps

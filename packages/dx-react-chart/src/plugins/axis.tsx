@@ -8,9 +8,9 @@ import {
   PluginComponents,
 } from '@devexpress/dx-react-core';
 import {
-  axisCoordinates, LEFT, BOTTOM, ARGUMENT_DOMAIN, getValueDomainName, getGridCoordinates,
-  TickFormatFn,
+  axisCoordinates, LEFT, BOTTOM, ARGUMENT_DOMAIN, getValueDomainName, getGridCoordinates, Scale,
 } from '@devexpress/dx-chart-core';
+import { RawAxisProps } from '../types';
 import { Root } from '../templates/axis/root';
 import { Label } from '../templates/axis/label';
 import { Line } from '../templates/axis/line';
@@ -21,7 +21,7 @@ const SVG_STYLE = {
   position: 'absolute', left: 0, top: 0, overflow: 'visible',
 };
 
-const adjustScaleRange = (scale, [width, height]) => {
+const adjustScaleRange = (scale: Scale, [width, height]: [number, number]) => {
   const range = scale.range().slice();
   if (Math.abs(range[0] - range[1]) < 0.01) {
     return scale;
@@ -39,24 +39,8 @@ const defaultProps = {
   indentFromAxis: 10,
 };
 type RawAxisDefaultProps = Readonly<typeof defaultProps>;
-type RawAxisProps = {
-  tickSize: number,
-  indentFromAxis: number,
-  scaleName: string,
-  rootComponent: any,
-  tickComponent: any,
-  labelComponent: any,
-  lineComponent: any,
-  gridComponent: any,
-  position: string,
-  showGrid: boolean,
-  showTicks: boolean,
-  showLine: boolean,
-  showLabels: boolean,
-  tickFormat: TickFormatFn,
-} & Partial<RawAxisDefaultProps>;
 
-class RawAxis extends React.PureComponent<RawAxisProps> {
+class RawAxis extends React.PureComponent<RawAxisProps & RawAxisDefaultProps> {
   static components: PluginComponents;
   static defaultProps = defaultProps;
 

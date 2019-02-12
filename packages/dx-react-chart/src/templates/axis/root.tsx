@@ -1,18 +1,8 @@
 import * as React from 'react';
+import { RootProps, RootState } from '../../types';
 
 const getOffset = position => (position >= 0 ? 0 : -position);
 const getSize = (position, delta) => (position >= 0 ? position + delta : -position);
-
-type RootProps = {
-  dx: number,
-  dy: number,
-  onSizeChange: any,
-  children: React.ReactNode,
-};
-type RootState = {
-  x: number,
-  y: number,
-};
 
 export class Root extends React.PureComponent<RootProps, RootState> {
   ref: React.RefObject<SVGPathElement>;

@@ -1,26 +1,10 @@
 import * as React from 'react';
 import {
-  dBar, getAreaAnimationStyle, HOVERED, SELECTED, BuildAnimatedStyleGetterFn, Scales,
+  dBar, getAreaAnimationStyle, HOVERED, SELECTED,
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
-
-type RawBarProps = {
-  argument: any,
-  value: number,
-  x: number,
-  barWidth: number,
-  maxBarWidth: number,
-  y: number,
-  y1: number,
-  seriesIndex: number,
-  index: number,
-  state?: string,
-  color?: string,
-  style?: any,
-  scales: Scales,
-  getAnimatedStyle: BuildAnimatedStyleGetterFn,
-};
+import { RawBarProps } from '../../types';
 
 class RawBar extends React.PureComponent<RawBarProps> {
   render() {

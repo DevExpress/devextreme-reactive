@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Plugin, Getter, Getters } from '@devexpress/dx-react-core';
-import { getStackedSeries, StackList, OffsetFn, OrderFn } from '@devexpress/dx-chart-core';
+import { getStackedSeries } from '@devexpress/dx-chart-core';
+import { StackProps } from '../types';
 import {
   stackOrderNone,
   stackOffsetDiverging,
@@ -11,13 +12,9 @@ const defaultProps = {
   offset: stackOffsetDiverging,
   order: stackOrderNone,
 };
-type StackProps = {
-  stacks: StackList,
-  offset: OffsetFn,
-  order: OrderFn,
-};
+type StackDefaultProps = Readonly<typeof defaultProps>;
 
-export class Stack extends React.PureComponent<StackProps> {
+export class Stack extends React.PureComponent<StackProps & StackDefaultProps> {
   static defaultProps = defaultProps;
   render() {
     const { stacks, offset, order } = this.props;

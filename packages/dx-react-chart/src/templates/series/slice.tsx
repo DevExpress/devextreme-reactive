@@ -1,28 +1,10 @@
 import * as React from 'react';
 import {
-  getPieAnimationStyle, dPie, HOVERED, SELECTED, Scales, BuildAnimatedStyleGetterFn,
+  getPieAnimationStyle, dPie, HOVERED, SELECTED,
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
-
-type RawSliceProps = {
-  argument: any,
-  value: number,
-  x: number,
-  y: number,
-  seriesIndex: number,
-  index: number,
-  state?: string,
-  innerRadius: number,
-  outerRadius: number,
-  maxRadius: number,
-  startAngle: number,
-  endAngle: number,
-  color?: string,
-  style?: any,
-  scales: Scales,
-  getAnimatedStyle: BuildAnimatedStyleGetterFn,
-};
+import { RawSliceProps } from '../../types';
 
 class RawSlice extends React.PureComponent<RawSliceProps> {
   render() {

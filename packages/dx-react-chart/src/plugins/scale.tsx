@@ -2,12 +2,7 @@ import * as React from 'react';
 import { Plugin, Getter, Getters } from '@devexpress/dx-react-core';
 import { ARGUMENT_DOMAIN, getValueDomainName, addDomain } from '@devexpress/dx-chart-core';
 import { withPatchedProps } from '../utils';
-
-type ScaleProps = {
-  name: string,
-  factory?: any,
-  modifyDomain?: any,
-};
+import { ScaleProps } from '../types';
 
 export class Scale extends React.PureComponent<ScaleProps> {
   render() {

@@ -5,7 +5,7 @@ type ComponentWithStatesProps = {
 };
 
 export const withStates = states => (Component) => {
-  class ComponentWithStates extends React.PureComponent<ComponentWithStatesProps & any> {
+  class ComponentWithStates extends React.PureComponent<ComponentWithStatesProps> {
     render() {
       const { state, ...restProps } = this.props;
       const stateFunc = state && states[state];

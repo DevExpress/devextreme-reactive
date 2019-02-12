@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { PluginHost, withComponents, PluginComponents } from '@devexpress/dx-react-core';
 import {
-  TOP, BOTTOM, LEFT, RIGHT, DataItems,
+  TOP, BOTTOM, LEFT, RIGHT,
 } from '@devexpress/dx-chart-core';
+import { RawChartProps } from './types';
 
 import { BasicData } from './plugins/basic-data';
 import { ChartCore } from './plugins/chart-core';
@@ -17,12 +18,9 @@ import { Label } from './templates/label';
 
 const defaultProps = {
   height: 500,
-  width: undefined,
-  children: null,
 };
 
 type RawChartDefaultProps = Readonly<typeof defaultProps>;
-type RawChartProps = {data: DataItems, rootComponent: any} & Partial<RawChartDefaultProps>;
 
 class RawChart extends React.PureComponent<RawChartProps & RawChartDefaultProps> {
   static defaultProps = defaultProps;
@@ -73,7 +71,5 @@ RawChart.components = {
   rootComponent: 'Root',
 };
 
-export const Chart: React.ComponentType<
-  RawChartProps & RawChartDefaultProps
-> = withComponents({ Root })(RawChart);
+export const Chart: React.ComponentType<RawChartProps> = withComponents({ Root })(RawChart);
 Chart.Label = Label;

@@ -1,11 +1,11 @@
 import * as React from 'react';
 
-type TargetProps = {
-  x: number,
-  y: number,
-  d: string,
-  componentRef: React.RefObject<SVGPathElement>,
-};
+interface TargetProps {
+  x: number;
+  y: number;
+  d: string;
+  componentRef: React.RefObject<SVGPathElement>;
+}
 
 export class Target extends React.PureComponent<TargetProps> {
   render() {

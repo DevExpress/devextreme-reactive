@@ -10,20 +10,15 @@ import {
 } from '@devexpress/dx-react-core';
 import { getLegendItems } from '@devexpress/dx-chart-core';
 import { Marker } from '../templates/legend/marker';
+import { RawLegendProps } from '../types';
 
 const defaultProps = {
   position: 'right',
   getItems: ({ series }: Getters) => getLegendItems(series),
 };
 type RawLegendDefaultProps = Readonly<typeof defaultProps>;
-type RawLegendProps = {
-  markerComponent: any,
-  labelComponent: any,
-  rootComponent: any,
-  itemComponent: any,
-} & Partial<RawLegendDefaultProps>;
 
-class RawLegend extends React.PureComponent<RawLegendProps> {
+class RawLegend extends React.PureComponent<RawLegendProps & RawLegendDefaultProps> {
   static defaultProps = defaultProps;
   static components: PluginComponents;
   render() {
@@ -38,12 +33,12 @@ class RawLegend extends React.PureComponent<RawLegendProps> {
     const placeholder = position;
     return (
       <Plugin name="Legend">
-        <Template name={placeholder!}>
+        <Template name={placeholder}>
           <TemplatePlaceholder />
           <TemplateConnector>
             {getters => (
               <Root name={`legend-${placeholder}`}>
-                {getItems!(getters).map(({ text, color }) => (
+                {getItems(getters).map(({ text, color }) => (
                   <Item key={text}>
                     <MarkerComponent name={text} color={color} />
                     <Label text={text} />

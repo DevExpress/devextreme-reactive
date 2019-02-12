@@ -1,8 +1,5 @@
 import * as React from 'react';
-
-type MarkerProps = {
-  color?: string,
-};
+import { MarkerProps } from '../../types';
 
 export class Marker extends React.PureComponent<MarkerProps> {
   render() {

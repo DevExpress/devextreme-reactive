@@ -5,22 +5,14 @@ import {
   Getters,
 } from '@devexpress/dx-react-core';
 import {
-  changeSeriesState, processPointerMove, HOVERED, Target, NotifyPointerMoveFn, HandlerFnList,
+  changeSeriesState, processPointerMove, HOVERED,
 } from '@devexpress/dx-chart-core';
-import { PureComputed } from '@devexpress/dx-core';
+import { HoverStateProps, HoverStateState, getPointerMoveHandlersFn } from '../types';
 
 const dependencies = [{ name: 'EventTracker', optional: true }];
 
-type HoverStateProps = {
-  defaultHover?: Target,
-  hover?: Target,
-  onHoverChange?: NotifyPointerMoveFn,
-};
-type HoverStateState = {
-  hover: Target,
-};
 export class HoverState extends React.PureComponent<HoverStateProps, HoverStateState> {
-  getPointerMoveHandlers: PureComputed<[Getters], HandlerFnList>;
+  getPointerMoveHandlers: getPointerMoveHandlersFn;
   constructor(props) {
     super(props);
     this.state = {

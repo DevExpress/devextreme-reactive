@@ -7,35 +7,19 @@ import {
   TemplatePlaceholder,
   withComponents,
   PluginComponents,
-  Getters,
 } from '@devexpress/dx-react-core';
 import {
   getParameters,
   processHandleTooltip,
-  Target as TargetItem,
-  NotifyPointerMoveFn,
-  HandlerFnList,
 } from '@devexpress/dx-chart-core';
 import { Target } from '../templates/tooltip/target';
-import { PureComputed } from '@devexpress/dx-core';
+import { RawTooltipProps, RawTooltipState, getPointerMoveHandlersFn } from '../types';
 
 const dependencies = [{ name: 'EventTracker', optional: true }];
 
-type RawTooltipProps = {
-  defaultTargetItem?: TargetItem,
-  targetItem?: TargetItem,
-  onTargetItemChange?: NotifyPointerMoveFn,
-  overlayComponent: any,
-  targetComponent: any,
-  contentComponent: any,
-};
-type RawTooltipState = {
-  target: TargetItem,
-};
-
 class RawTooltip extends React.PureComponent<RawTooltipProps, RawTooltipState> {
   static components: PluginComponents;
-  getPointerMoveHandlers: PureComputed<[Getters], HandlerFnList>;
+  getPointerMoveHandlers: getPointerMoveHandlersFn;
   targetElement: React.RefObject<SVGPathElement> | undefined;
 
   constructor(props) {

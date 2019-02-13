@@ -29,7 +29,7 @@ rootComponent | ComponentType&lt;[Scheduler.RootProps](#schedulerrootprops)&gt; 
 
 ### AppointmentModel
 
-Describes an appointment data object that the `mapAppointmentData` function should return.
+Describes an appointment data object.
 
 Field | Type | Description
 ------|------|------------

@@ -25,7 +25,7 @@ export interface DragDropProviderProps {
 
 /** @internal */
 export type DragDropProviderState = {
-  payload: any | null;
+  payload: any;
   clientOffset: { x: number, y: number} | null;
 };
 /* tslint:enable no-namespace max-line-length */

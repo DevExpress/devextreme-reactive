@@ -25,7 +25,7 @@ const styles = theme => ({
   },
   dragging: {
     position: 'relative',
-    backgroundColor: 'gray',
+    // backgroundColor: 'gray',
   },
   appointment: {
     overflow: 'hidden',
@@ -62,39 +62,57 @@ class CellBase extends React.PureComponent {
       eventHandler({ payload, ...restArgs });
     };
     this.onEnter = ({ payload, clientOffset }) => {
-      console.log('on enter!');
+      // console.log('on enter!');
 
       let part = (clientOffset.y - this.state.top) / this.cell.current.clientHeight;
 
-      if (part === 0) {
-        part = 0.01;
-      }
-      if (part === 1) {
-        part = 0.01;
-      }
+      // if (part === 0) {
+      //   this.setState({ payload, over: false, top: clientOffset.y, part });
+      //   return;
+      // }
+      // if (part === 1) {
+      //   this.setState({ payload, over: false, top: clientOffset.y, part });
+      //   return;
+      // }
       this.setState({ payload, over: true, top: clientOffset.y, part });
     };
     this.onOver = ({ clientOffset, payload }) => {
       const { top } = this.state;
       let part = (clientOffset.y - this.state.top) / this.cell.current.clientHeight;
-      console.log(part);
+      // console.log(part);
 
-      // let minus = 1;
-      // if (part < 0) {
-      //   minus *= -1;
+      // if (part === 0) {
+      //   this.setState({ payload, over: false, top: clientOffset.y, part });
+      //   return;
+      // }
+      // if (part === 1) {
+      //   this.setState({ payload, over: false, top: clientOffset.y, part });
+      //   return;
       // }
 
-      // if (Math.abs(part) < 0.25) {
-      //   part = 0;
-      // } else if (Math.abs(part) < 0.5) {
-      //   part = 0.25;
-      // } else if (Math.abs(part) < 0.75) {
-      //   part = 0.5;
-      // } else {
-      //   part = 0.75;
-      // }
-      // part *= minus;
+      let minus = 1;
+      if (part < 0) {
+        minus *= -1;
+      }
 
+      const oldPart = part;
+
+      if (part > 0 && part < 0.25) {
+        part = 0;
+      } else if ((part < 0 && part > -0.25)) {
+        part = -0.01;
+      } else if (Math.abs(part) < 0.5) {
+        part = 0.25 * minus;
+      } else if (Math.abs(part) < 0.75) {
+        part = 0.5 * minus;
+      } else if (Math.abs(part) < 1) {
+        part = 0.75 * minus;
+      }
+      if (part < 0) {
+        part = 1 + part;
+      }
+
+      console.log(`${oldPart} -> ${part}`);
       this.setState({ part });
 
       payload[0].changeAppointment({

@@ -54,6 +54,7 @@ export default class Demo extends React.PureComponent {
           data={data}
         >
           <DragDropProvider />
+
           <EditingState
             onCommitChanges={this.commitChanges}
           />
@@ -66,6 +67,7 @@ export default class Demo extends React.PureComponent {
           />
           <Appointments />
           <AllDayPanel />
+
         </Scheduler>
       </Paper>
     );

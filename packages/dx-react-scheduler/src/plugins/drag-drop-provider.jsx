@@ -30,6 +30,7 @@ export class DragDropProvider extends React.PureComponent {
 
     // if (clientOffset) {
     //   console.log(clientOffset.y);
+    //   console.log(clientOffset.x);
     // }
 
     // note - Add SSR support

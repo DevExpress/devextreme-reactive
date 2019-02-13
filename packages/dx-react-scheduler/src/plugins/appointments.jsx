@@ -25,8 +25,6 @@ export class Appointments extends React.PureComponent {
       >
         <TemplateConnector>
           {(getters, actions) => {
-            console.log(123);
-
             return (
               <Template
                 name="appointment"

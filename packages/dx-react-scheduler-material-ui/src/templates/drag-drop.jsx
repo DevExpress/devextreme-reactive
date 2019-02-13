@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Chip from '@material-ui/core/Chip';
 import { withStyles } from '@material-ui/core/styles';
 import { VerticalAppointment } from './appointment/vertical-appointment';
 import { Appointment } from './appointment/appointment';
@@ -15,6 +14,7 @@ const styles = theme => ({
     display: 'inline-block',
     height: '100%',
     width: '100%',
+    cursor: 'move',
   },
   column: {
     paddingLeft: theme.spacing.unit * 2,
@@ -31,7 +31,7 @@ const ContainerBase = ({
   <div
     className={classNames(classes.container, className)}
     style={{
-      transform: `translate(calc(${clientOffset.x - 10}px), calc(${clientOffset.y - 10}px))`,
+      transform: `translate(calc(${clientOffset.x - 50}px), calc(${clientOffset.y - 50}px))`,
       ...style,
     }}
     {...restProps}

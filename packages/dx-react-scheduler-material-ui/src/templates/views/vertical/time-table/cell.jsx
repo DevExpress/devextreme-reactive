@@ -58,9 +58,7 @@ class CellBase extends React.PureComponent {
       eventHandler({ payload, ...restArgs });
     };
     this.onEnter = ({ payload }) => {
-      console.log('on enter!');
-      // debugger
-      console.log(payload[0].appointmentDuration);
+      // console.log('on enter!');
       payload[0].changeAppointment({
         change: {
           startDate: this.props.startDate,
@@ -70,16 +68,14 @@ class CellBase extends React.PureComponent {
       this.setState({ payload, over: true });
     };
     this.onOver = ({ clientOffset }) => {
-      console.log('on over!');
+      // console.log('on over!');
     };
     this.onLeave = () => {
-      console.log('on leave!');
+      // console.log('on leave!');
       this.setState({ payload: {}, over: false });
     };
     this.onDrop = (args) => {
-      console.log(args);
-      console.log(this.props.startDate);
-      console.log('on drop!');
+      // console.log('on drop!');
       args.payload[0].commitChangedAppointment({ appointmentId: args.payload[0].data.id });
       this.setState({ payload: {}, over: false });
     };
@@ -109,7 +105,6 @@ class CellBase extends React.PureComponent {
       ...restProps
     } = this.props;
     const { over, payload } = this.state;
-    console.log(over);
     return (
       <DropTarget
         onEnter={args => this.handleDragEvent(this.onEnter, args)}

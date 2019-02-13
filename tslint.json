@@ -27,6 +27,7 @@
     "variable-name": [ true, "allow-pascal-case" ],
     "no-empty": [true, "allow-empty-functions"],
     "no-implicit-dependencies": false,
+    "object-shorthand-properties-first": false,
     "prefer-array-literal": [true, { "allow-type-parameters": true }],
     "array-type": false,
     "member-ordering": false

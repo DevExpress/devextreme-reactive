@@ -160,11 +160,7 @@ describe('getAreaPointTransformer', () => {
   it('should return target element', () => {
     expect(getAreaPointTransformer.getTargetElement({
       x: 10, y: 20,
-    } as any)).toEqual({
-      x: 10,
-      y: 20,
-      d: 'symbol path',
-    });
+    } as any)).toEqual([9, 19, 11, 21]);
   });
 });
 
@@ -192,14 +188,8 @@ describe('getScatterPointTransformer', () => {
 
   it('should return target element', () => {
     expect(getScatterPointTransformer.getTargetElement({
-      x: 10, y: 20, point: { size: 20 },
-    } as any)).toEqual({
-      x: 10,
-      y: 20,
-      d: 'symbol path',
-    });
-
-    expect(mockSymbol.size).toBeCalledWith(400);
+      x: 10, y: 20, point: { size: 4 },
+    } as any)).toEqual([8, 18, 12, 22]);
   });
 });
 
@@ -257,12 +247,8 @@ describe('getBarPointTransformer', () => {
 
   it('should return target element', () => {
     expect(getBarPointTransformer.getTargetElement({
-      x: 30, y: 20, y1: 30, barWidth: 2, maxBarWidth: 20,
-    } as any)).toEqual({
-      x: 10,
-      y: 20,
-      d: 'M0,0 40,0 40,10 0,10',
-    });
+      x: 30, y: 20, y1: 30, barWidth: 0.4, maxBarWidth: 20,
+    } as any)).toEqual([26, 20, 34, 30]);
   });
 });
 
@@ -327,11 +313,7 @@ describe('getPiePointTransformer', () => {
   it('should return target element', () => {
     expect(getPiePointTransformer.getTargetElement({
       x: 10, y: 20, innerRadius: 1, outerRadius: 2, maxRadius: 20, startAngle: 45, endAngle: 60,
-    } as any)).toEqual({
-      x: 12,
-      y: 23,
-      d: 'symbol path',
-    });
+    } as any)).toEqual([11.5, 22.5, 12.5, 23.5]);
     expect(mockArc.centroid).toBeCalledWith({
       startAngle: 45,
       endAngle: 60,

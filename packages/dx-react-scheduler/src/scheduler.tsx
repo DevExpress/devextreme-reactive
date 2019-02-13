@@ -1,9 +1,9 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { SchedulerCore } from './plugins/scheduler-core';
+import { SchedulerProps } from './types';
 
-export const Scheduler = ({
+export const Scheduler: React.SFC<SchedulerProps> = ({
   data,
   rootComponent,
   children,
@@ -16,14 +16,3 @@ export const Scheduler = ({
     {children}
   </PluginHost>
 );
-
-Scheduler.propTypes = {
-  data: PropTypes.array,
-  rootComponent: PropTypes.func.isRequired,
-  children: PropTypes.node,
-};
-
-Scheduler.defaultProps = {
-  children: undefined,
-  data: [],
-};

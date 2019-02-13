@@ -28,6 +28,10 @@ export class DragDropProvider extends React.PureComponent {
     } = this.state;
 
 
+    // if (clientOffset) {
+    //   console.log(clientOffset.y);
+    // }
+
     // note - Add SSR support
     // AUTO SCROLL
     const SCROLL_OFFSET = 50;

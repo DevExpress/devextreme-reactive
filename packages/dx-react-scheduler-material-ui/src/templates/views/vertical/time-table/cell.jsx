@@ -6,6 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import { DropTarget } from '@devexpress/dx-react-core';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
+import RootRef from '@material-ui/core/RootRef';
 import moment from 'moment';
 import { getBorder } from '../../../utils';
 import { VerticalAppointment } from '../../../appointment/vertical-appointment';
@@ -13,6 +14,7 @@ import { VerticalAppointment } from '../../../appointment/vertical-appointment';
 const styles = theme => ({
   cell: {
     borderLeft: getBorder(theme),
+    boxSizing: 'border-box',
     '&:hover': {
       backgroundColor: theme.palette.action.hover,
     },
@@ -23,6 +25,7 @@ const styles = theme => ({
   },
   dragging: {
     position: 'relative',
+    backgroundColor: 'gray',
   },
   appointment: {
     overflow: 'hidden',
@@ -33,15 +36,12 @@ const styles = theme => ({
     borderRadius: theme.spacing.unit / 2,
     backgroundColor: theme.palette.primary[300],
     ...theme.typography.caption,
-    top: 0,
+    // top: 0,
     left: 0,
     position: 'absolute',
     background: 'blue',
-    width: '100%',
+    width: '90%',
     zIndex: 100,
-  },
-  clickableAppointment: {
-    cursor: 'pointer',
   },
 });
 
@@ -52,46 +52,66 @@ class CellBase extends React.PureComponent {
     this.state = {
       over: false,
       payload: {},
+      top: undefined,
+      part: 0,
     };
+
+    this.cell = React.createRef();
 
     this.handleDragEvent = (eventHandler, { payload, ...restArgs }) => {
       eventHandler({ payload, ...restArgs });
     };
-    this.onEnter = ({ payload }) => {
-      // console.log('on enter!');
+    this.onEnter = ({ payload, clientOffset }) => {
+      console.log('on enter!');
+
+      let part = (clientOffset.y - this.state.top) / this.cell.current.clientHeight;
+
+      if (part === 0) {
+        part = 0.01;
+      }
+      if (part === 1) {
+        part = 0.01;
+      }
+      this.setState({ payload, over: true, top: clientOffset.y, part });
+    };
+    this.onOver = ({ clientOffset, payload }) => {
+      const { top } = this.state;
+      let part = (clientOffset.y - this.state.top) / this.cell.current.clientHeight;
+      console.log(part);
+
+      // let minus = 1;
+      // if (part < 0) {
+      //   minus *= -1;
+      // }
+
+      // if (Math.abs(part) < 0.25) {
+      //   part = 0;
+      // } else if (Math.abs(part) < 0.5) {
+      //   part = 0.25;
+      // } else if (Math.abs(part) < 0.75) {
+      //   part = 0.5;
+      // } else {
+      //   part = 0.75;
+      // }
+      // part *= minus;
+
+      this.setState({ part });
+
       payload[0].changeAppointment({
         change: {
           startDate: this.props.startDate,
           endDate: moment(this.props.startDate).add(payload[0].appointmentDuration, 'seconds').toDate(),
         },
       });
-      this.setState({ payload, over: true });
-    };
-    this.onOver = ({ clientOffset }) => {
-      // console.log('on over!');
     };
     this.onLeave = () => {
       // console.log('on leave!');
-      this.setState({ payload: {}, over: false });
+      this.setState({ payload: {}, over: false, top: undefined, part: 0 });
     };
     this.onDrop = (args) => {
       // console.log('on drop!');
       args.payload[0].commitChangedAppointment({ appointmentId: args.payload[0].data.id });
-      this.setState({ payload: {}, over: false });
-    };
-    this.onDragStart = (columnName) => {
-      this.draggingColumnName = columnName;
-    };
-    this.onDragEnd = () => {
-      this.draggingColumnName = null;
-      const { sourceColumnName, targetItemIndex } = this.state;
-      const { onGroup } = this.props;
-      if (sourceColumnName && targetItemIndex === -1) {
-        onGroup({
-          columnName: sourceColumnName,
-        });
-      }
-      this.resetState();
+      this.setState({ payload: {}, over: false, top: undefined, part: 0 });
     };
   }
 
@@ -104,7 +124,7 @@ class CellBase extends React.PureComponent {
       endDate,
       ...restProps
     } = this.props;
-    const { over, payload } = this.state;
+    const { over, payload, part } = this.state;
     return (
       <DropTarget
         onEnter={args => this.handleDragEvent(this.onEnter, args)}
@@ -112,21 +132,23 @@ class CellBase extends React.PureComponent {
         onLeave={args => this.handleDragEvent(this.onLeave, args)}
         onDrop={args => this.handleDragEvent(this.onDrop, args)}
       >
-        <TableCell
-          tabIndex={0}
-          className={classNames({
-            [classes.cell]: true,
-            [classes.dragging]: over,
-            className,
-          })}
-          {...restProps}
-        >
-          {children}
-          {over && (
+        <RootRef rootRef={this.cell}>
+          <TableCell
+            tabIndex={0}
+            className={classNames({
+              [classes.cell]: true,
+              [classes.dragging]: over,
+              className,
+            })}
+            {...restProps}
+          >
+            {children}
+            {over && (
             <Paper
               className={classes.appointment}
               style={{
                 height: payload[0].style.height,
+                top: `${part * 100}%`,
               }}
             >
               <VerticalAppointment
@@ -137,8 +159,9 @@ class CellBase extends React.PureComponent {
                 }}
               />
             </Paper>
-          )}
-        </TableCell>
+            )}
+          </TableCell>
+        </RootRef>
       </DropTarget>
     );
   }

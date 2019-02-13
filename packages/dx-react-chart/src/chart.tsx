@@ -24,7 +24,9 @@ type RawChartDefaultProps = Readonly<typeof defaultProps>;
 
 class RawChart extends React.PureComponent<RawChartProps & RawChartDefaultProps> {
   static defaultProps = defaultProps;
-  static components: PluginComponents;
+  static components: PluginComponents = {
+    rootComponent: 'Root',
+  };
   render() {
     const {
       data,
@@ -66,10 +68,6 @@ class RawChart extends React.PureComponent<RawChartProps & RawChartDefaultProps>
     ));
   }
 }
-
-RawChart.components = {
-  rootComponent: 'Root',
-};
 
 export const Chart: React.ComponentType<RawChartProps> = withComponents({ Root })(RawChart);
 Chart.Label = Label;

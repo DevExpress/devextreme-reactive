@@ -1,3 +1,5 @@
+import { onSizeChangeFn } from '@devexpress/dx-react-core';
+
 export interface LabelProps {
   // The label text
   text: string | number;
@@ -27,7 +29,7 @@ export interface RootProps {
   // The y coordinate of the top left corner of the series’ rendering area
   dy: number;
   /** @internal */
-  onSizeChange: any;
+  onSizeChange: onSizeChangeFn;
   // A React node used to render the axis.
   children: React.ReactNode;
 }

@@ -8,7 +8,8 @@ import {
   PluginComponents,
 } from '@devexpress/dx-react-core';
 import {
-  axisCoordinates, LEFT, BOTTOM, ARGUMENT_DOMAIN, getValueDomainName, getGridCoordinates, Scale,
+  axisCoordinates, LEFT, BOTTOM, ARGUMENT_DOMAIN, getValueDomainName, getGridCoordinates,
+  Scale, NumberArray,
 } from '@devexpress/dx-chart-core';
 import { RawAxisProps } from '../types';
 import { Root } from '../templates/axis/root';
@@ -17,11 +18,11 @@ import { Line } from '../templates/axis/line';
 
 import { withPatchedProps } from '../utils';
 
-const SVG_STYLE = {
+const SVG_STYLE: React.CSSProperties = {
   position: 'absolute', left: 0, top: 0, overflow: 'visible',
 };
 
-const adjustScaleRange = (scale: Scale, [width, height]: [number, number]) => {
+const adjustScaleRange = (scale: Scale, [width, height]: NumberArray) => {
   const range = scale.range().slice();
   if (Math.abs(range[0] - range[1]) < 0.01) {
     return scale;
@@ -44,16 +45,9 @@ class RawAxis extends React.PureComponent<RawAxisProps & RawAxisDefaultProps> {
   static components: PluginComponents;
   static defaultProps = defaultProps;
 
-  rootRef: React.RefObject<HTMLElement>;
-  adjustedWidth: number;
-  adjustedHeight: number;
-
-  constructor(props) {
-    super(props);
-    this.rootRef = React.createRef();
-    this.adjustedWidth = 0;
-    this.adjustedHeight = 0;
-  }
+  rootRef: React.RefObject<HTMLDivElement> = React.createRef();
+  adjustedWidth: number = 0;
+  adjustedHeight: number = 0;
 
   render() {
     const {
@@ -116,12 +110,12 @@ class RawAxis extends React.PureComponent<RawAxisProps & RawAxisDefaultProps> {
                     height: (dx * height) || undefined,
                     flexGrow: dx || undefined,
                   }}
-                  ref={this.rootRef as any}
+                  ref={this.rootRef}
                 >
                   <svg
                     width={this.adjustedWidth}
                     height={this.adjustedHeight}
-                    style={SVG_STYLE as any}
+                    style={SVG_STYLE}
                   >
                     <RootComponent
                       dx={dx}

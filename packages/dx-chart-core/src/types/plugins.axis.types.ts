@@ -1,6 +1,6 @@
 import { PureComputed } from '@devexpress/dx-core';
 import {
-  Scale, GetFormatFn,
+  Scale, GetFormatFn, NumberArray,
 } from './chart-core.types';
 
 export type ProcessTickFn<T> = (coord: number, key: string, tick: any) => T;
@@ -28,7 +28,7 @@ export type Tick = {
 };
 export type AxisCoordinatesResult = {
   ticks: Tick[];
-  sides: [number, number];
+  sides: NumberArray;
 };
 
 export type AxisCoordinatesFn = PureComputed<[AxisCoordinatesArg], AxisCoordinatesResult>;

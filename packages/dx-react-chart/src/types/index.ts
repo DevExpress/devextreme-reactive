@@ -9,6 +9,7 @@ export * from './plugins.selection-state.types';
 export * from './plugins.stack.types';
 export * from './plugins.tooltip.types';
 export * from './plugins.title.types';
+export * from './plugins.basic-data.types';
 export * from './utils.series-helpers.types';
 export * from './templates.axis.types';
 export * from './templates.legend.types';

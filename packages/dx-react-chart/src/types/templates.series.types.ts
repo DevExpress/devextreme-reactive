@@ -1,42 +1,37 @@
 import {
   Scales, BuildAnimatedStyleGetterFn, TransformedPoint,
 } from '@devexpress/dx-chart-core';
-import { PureComputed } from '@devexpress/dx-core';
 
-type Path = PureComputed<[TransformedPoint[]], string>;
+type PathFn = (points: ReadonlyArray<TransformedPoint>) => string;
 
-interface InternalPathProps {
+interface InternalCommonProps {
+/** @internal */
+  style?: any;
+/** @internal */
+  scales: Scales;
+/** @internal */
+  getAnimatedStyle: BuildAnimatedStyleGetterFn;
+}
+
+interface InternalPathProps extends InternalCommonProps {
   /** @internal */
   index: number;
   /** @internal */
   state?: string;
-  /** @internal */
-  style?: any;
-  /** @internal */
-  scales: Scales;
-  /** @internal */
-  getAnimatedStyle: BuildAnimatedStyleGetterFn;
-  /** @internal */
 }
 
-interface InternalPointProps {
+interface InternalPointProps extends InternalCommonProps {
 /** @internal */
   argument: any;
 /** @internal */
   seriesIndex: number;
 /** @internal */
   state?: string;
-/** @internal */
-  style?: any;
-/** @internal */
-  scales: Scales;
-/** @internal */
-  getAnimatedStyle: BuildAnimatedStyleGetterFn;
 }
 
 export interface PathProps extends InternalPathProps {
   // A function used to calculate the series’ path
-  path?: Path;
+  path?: PathFn;
   // Coordinates of the series’ points
   coordinates: TransformedPoint[];
   // A series color

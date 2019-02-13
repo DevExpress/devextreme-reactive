@@ -103,7 +103,7 @@ export interface Series {
   readonly createHitTester: CreateHitTesterFn;
   readonly getPointTransformer: GetPointTransformerFn;
   readonly pointComponent: React.ComponentType<any>;
-  readonly state: string;
+  readonly state?: string;
   readonly seriesComponent: React.ComponentType<any>;
 }
 export type SeriesList = ReadonlyArray<Series>;
@@ -133,7 +133,8 @@ export type PointDistance = {
   readonly distance: number,
 };
 
-export type Location = Readonly<[number, number]>;
+export type NumberArray = [number, number];
+export type Location = Readonly<NumberArray>;
 
 type HitTestResult = {
   readonly points: ReadonlyArray<PointDistance>;

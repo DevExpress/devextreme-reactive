@@ -5,7 +5,7 @@ const defaultProps = {
   size: 6,
   opacity: 0.75,
 };
-type PatternDefaultProps = Readonly<typeof defaultProps> ;
+type PatternDefaultProps = Readonly<typeof defaultProps>;
 
 export class Pattern extends React.PureComponent<PatternProps & PatternDefaultProps> {
   static defaultProps = defaultProps;

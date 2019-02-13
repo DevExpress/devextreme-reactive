@@ -17,7 +17,7 @@ const DIV_STYLE = {
   flex: 1, zIndex: 1, position: 'relative', width: '100%',
 };
 
-const SVG_STYLE = {
+const SVG_STYLE: React.CSSProperties = {
   position: 'absolute', left: 0, top: 0, overflow: 'visible',
 };
 
@@ -30,10 +30,7 @@ SizerContainer.propTypes = {
 };
 
 export class PaneLayout extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.ref = React.createRef();
-  }
+  ref: React.RefObject<SVGSVGElement> = React.createRef();
 
   render() {
     return (
@@ -54,7 +51,7 @@ export class PaneLayout extends React.PureComponent {
                       {...params}
                       width={width}
                       height={height}
-                      style={SVG_STYLE as any}
+                      style={SVG_STYLE}
                     >
                       <TemplatePlaceholder name="series" />
                     </svg>

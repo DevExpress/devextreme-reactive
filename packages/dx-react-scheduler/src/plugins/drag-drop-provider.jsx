@@ -2,12 +2,8 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import {
   Plugin, Getter, Template, TemplatePlaceholder,
-  TemplateConnector,
   DragDropProvider as DragDropProviderCore,
 } from '@devexpress/dx-react-core';
-
-const getTargetColumns = payload => payload
-  .filter(item => item.type === 'appointment');
 
 export class DragDropProvider extends React.PureComponent {
   constructor(props) {
@@ -32,7 +28,8 @@ export class DragDropProvider extends React.PureComponent {
     } = this.state;
 
 
-    // SCROLL AREA
+    // note - Add SSR support
+    // AUTO SCROLL
     const SCROLL_OFFSET = 50;
     const SCROLL_SPEED_PX = 30;
     const layout = document.getElementsByClassName('dx-layout')[0];
@@ -57,25 +54,9 @@ export class DragDropProvider extends React.PureComponent {
             <TemplatePlaceholder />
           </DragDropProviderCore>
           {payload && (
-            <TemplateConnector>
-              {({ appointments }) => (
-                <Container
-                  clientOffset={clientOffset}
-                >
-                  {getTargetColumns(payload)
-                    .map(appointment => (
-                      // <Appointment
-                      //   key={appointment.data.id}
-                      //   appointmentData={appointment.data}
-                      //   rect={{ height: appointment.style.height, width: appointment.style.width }}
-                      //   appointmentRef={appointment.appointmentRef}
-                      // />
-                      () => null
-                    ))
-                  }
-                </Container>
-              )}
-            </TemplateConnector>
+            <Container
+              clientOffset={clientOffset}
+            />
           )}
         </Template>
       </Plugin>

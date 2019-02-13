@@ -7,7 +7,9 @@ import { RowDetailStateProps, RowDetailStateState } from '../types';
 
 // tslint:disable-next-line: max-line-length
 class RowDetailStateBase extends React.PureComponent<RowDetailStateProps, RowDetailStateState> {
-  static defaultProps: Partial<RowDetailStateProps>;
+  static defaultProps = {
+    defaultExpandedRowIds: [],
+  };
   toggleDetailRowExpanded: ActionFn<ToggleRowPayload>;
 
   constructor(props) {
@@ -54,9 +56,5 @@ class RowDetailStateBase extends React.PureComponent<RowDetailStateProps, RowDet
     );
   }
 }
-
-RowDetailStateBase.defaultProps = {
-  defaultExpandedRowIds: [],
-};
 
 export const RowDetailState: React.ComponentType<RowDetailStateProps> = RowDetailStateBase;

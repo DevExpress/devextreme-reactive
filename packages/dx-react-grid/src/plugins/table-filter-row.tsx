@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {
-  Getter, Template, TemplatePlaceholder, TemplateConnector, Plugin, Getters,
-  PluginComponents, Actions,
+  Getter, Template, TemplatePlaceholder, TemplateConnector, Plugin, Getters, Actions,
 } from '@devexpress/dx-react-core';
 import { getMessagesFormatter } from '@devexpress/dx-core';
 import {
@@ -39,10 +38,20 @@ const defaultMessages = {
 
 class TableFilterRowBase extends React.PureComponent<TableFilterRowProps, TableFilterRowState> {
   static ROW_TYPE = TABLE_FILTER_TYPE;
-  static defaultProps: Partial<TableFilterRowProps>;
-  static components: PluginComponents;
+  static defaultProps = {
+    showFilterSelector: false,
+    messages: {},
+  };
+  static components = {
+    rowComponent: 'Row',
+    cellComponent: 'Cell',
+    filterSelectorComponent: 'FilterSelector',
+    iconComponent: 'Icon',
+    editorComponent: 'Editor',
+    toggleButtonComponent: 'ToggleButton',
+  };
 
-  constructor(props: TableFilterRowProps) {
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -169,19 +178,5 @@ class TableFilterRowBase extends React.PureComponent<TableFilterRowProps, TableF
     );
   }
 }
-
-TableFilterRowBase.defaultProps = {
-  showFilterSelector: false,
-  messages: {},
-};
-
-TableFilterRowBase.components = {
-  rowComponent: 'Row',
-  cellComponent: 'Cell',
-  filterSelectorComponent: 'FilterSelector',
-  iconComponent: 'Icon',
-  editorComponent: 'Editor',
-  toggleButtonComponent: 'ToggleButton',
-};
 
 export const TableFilterRow: React.ComponentType<TableFilterRowProps> = TableFilterRowBase;

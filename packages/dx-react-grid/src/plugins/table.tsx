@@ -7,7 +7,6 @@ import {
   TemplateConnector,
   Plugin,
   Getters,
-  PluginComponents,
 } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithDataRows,
@@ -38,11 +37,27 @@ const defaultMessages = {
 };
 
 class TableBase extends React.PureComponent<TableProps> {
-  static defaultProps: Partial<TableProps>;
   static COLUMN_TYPE = TABLE_DATA_TYPE;
   static ROW_TYPE = TABLE_DATA_TYPE;
   static NODATA_ROW_TYPE = TABLE_NODATA_TYPE;
-  static components: PluginComponents;
+  static defaultProps = {
+    messages: {},
+  };
+  static components = {
+    tableComponent: 'Table',
+    headComponent: 'TableHead',
+    bodyComponent: 'TableBody',
+    footerComponent: 'TableFooter',
+    containerComponent: 'Container',
+    layoutComponent: 'Layout',
+    rowComponent: 'Row',
+    cellComponent: 'Cell',
+    noDataRowComponent: 'NoDataRow',
+    noDataCellComponent: 'NoDataCell',
+    stubRowComponent: 'StubRow',
+    stubCellComponent: 'StubCell',
+    stubHeaderCellComponent: 'StubHeaderCell',
+  };
 
   tableColumnsComputed: Memoized<GridColumnExtension[], typeof tableColumnsWithDataRows>;
 
@@ -209,26 +224,5 @@ class TableBase extends React.PureComponent<TableProps> {
     );
   }
 }
-
-TableBase.defaultProps = {
-  columnExtensions: undefined,
-  messages: {},
-};
-
-TableBase.components = {
-  tableComponent: 'Table',
-  headComponent: 'TableHead',
-  bodyComponent: 'TableBody',
-  footerComponent: 'TableFooter',
-  containerComponent: 'Container',
-  layoutComponent: 'Layout',
-  rowComponent: 'Row',
-  cellComponent: 'Cell',
-  noDataRowComponent: 'NoDataRow',
-  noDataCellComponent: 'NoDataCell',
-  stubRowComponent: 'StubRow',
-  stubCellComponent: 'StubCell',
-  stubHeaderCellComponent: 'StubHeaderCell',
-};
 
 export const Table: React.ComponentType<TableProps> = TableBase;

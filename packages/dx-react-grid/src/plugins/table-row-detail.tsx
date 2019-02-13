@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  Getter, Template, Plugin, TemplateConnector, Getters, PluginComponents,
+  Getter, Template, Plugin, TemplateConnector, Getters,
 } from '@devexpress/dx-react-core';
 import {
   tableRowsWithExpandedDetail,
@@ -29,7 +29,11 @@ class TableRowDetailBase extends React.PureComponent<TableRowDetailProps> {
   static defaultProps = {
     contentComponent: () => null,
   };
-  static components: PluginComponents;
+  static components = {
+    rowComponent: 'Row',
+    cellComponent: 'Cell',
+    toggleCellComponent: 'ToggleCell',
+  };
 
   render() {
     const {
@@ -113,15 +117,5 @@ class TableRowDetailBase extends React.PureComponent<TableRowDetailProps> {
     );
   }
 }
-
-TableRowDetailBase.defaultProps = {
-  contentComponent: () => null,
-};
-
-TableRowDetailBase.components = {
-  rowComponent: 'Row',
-  cellComponent: 'Cell',
-  toggleCellComponent: 'ToggleCell',
-};
 
 export const TableRowDetail: React.ComponentType<TableRowDetailProps> = TableRowDetailBase;

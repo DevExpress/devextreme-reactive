@@ -16,7 +16,10 @@ const columnExtensionValueGetter = (
 ) => getColumnExtensionValueGetter(columnExtensions, 'sortingEnabled', defaultValue);
 
 class SortingStateBase extends React.PureComponent<SortingStateProps, SortingStateState> {
-  static defaultProps: Partial<SortingStateProps>;
+  static defaultProps = {
+    defaultSorting: [],
+    columnSortingEnabled: true,
+  };
   changeColumnSorting: ActionFn<ChangeSortingPayload>;
 
   constructor(props) {
@@ -75,10 +78,5 @@ class SortingStateBase extends React.PureComponent<SortingStateProps, SortingSta
     );
   }
 }
-
-SortingStateBase.defaultProps = {
-  defaultSorting: [],
-  columnSortingEnabled: true,
-};
 
 export const SortingState: React.ComponentType<SortingStateProps> = SortingStateBase;

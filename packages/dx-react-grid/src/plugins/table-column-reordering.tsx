@@ -8,7 +8,6 @@ import {
   DropTarget,
   withComponents,
   Getters,
-  PluginComponents,
 } from '@devexpress/dx-react-core';
 import {
   TABLE_DATA_TYPE,
@@ -37,15 +36,21 @@ const tableHeaderRowsComputed = (
 
 // tslint:disable-next-line: max-line-length
 class TableColumnReorderingRaw extends React.PureComponent<TableColumnReorderingProps, TableColumnReorderingState> {
-  static defaultProps: Partial<TableColumnReorderingProps>;
-  static components: PluginComponents;
+  static defaultProps = {
+    defaultOrder: [],
+  };
+  static components = {
+    tableContainerComponent: 'TableContainer',
+    rowComponent: 'Row',
+    cellComponent: 'Cell',
+  };
   cellDimensionGetters: { [colName: string]: CellDimensionsGetter } = {};
   cellDimensions: TargetColumnGeometry[] = [];
   onOver: (arg: DragOverArgs) => void;
   onLeave: () => void;
   onDrop: () => void;
 
-  constructor(props: TableColumnReorderingProps) {
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -72,7 +77,7 @@ class TableColumnReorderingRaw extends React.PureComponent<TableColumnReordering
 
   getDraftOrder() {
     const { order, sourceColumnIndex, targetColumnIndex } = this.getState();
-    return draftOrderComputed(order!, sourceColumnIndex, targetColumnIndex);
+    return draftOrderComputed(order, sourceColumnIndex, targetColumnIndex);
   }
 
   getAvailableColumns() {
@@ -167,9 +172,9 @@ class TableColumnReorderingRaw extends React.PureComponent<TableColumnReordering
 
     if (sourceColumnIndex === -1 && targetColumnIndex === -1) return;
 
-    const nextOrder = changeColumnOrder(order!, {
-      sourceColumnName: order![sourceColumnIndex],
-      targetColumnName: order![targetColumnIndex],
+    const nextOrder = changeColumnOrder(order, {
+      sourceColumnName: order[sourceColumnIndex],
+      targetColumnName: order[targetColumnIndex],
     }) as string[];
 
     this.setState({
@@ -251,16 +256,6 @@ class TableColumnReorderingRaw extends React.PureComponent<TableColumnReordering
     );
   }
 }
-
-TableColumnReorderingRaw.defaultProps = {
-  defaultOrder: [],
-};
-
-TableColumnReorderingRaw.components = {
-  tableContainerComponent: 'TableContainer',
-  rowComponent: 'Row',
-  cellComponent: 'Cell',
-};
 
 const TableContainer = ({
   onOver, onLeave, onDrop, children, draggingEnabled,

@@ -4,12 +4,14 @@ import {
   Template,
   Plugin,
   TemplatePlaceholder,
-  PluginComponents,
 } from '@devexpress/dx-react-core';
 import { ToolbarProps } from '../types';
 
 class ToolbarBase extends React.PureComponent<ToolbarProps> {
-  static components: PluginComponents;
+  static components = {
+    rootComponent: 'Root',
+    flexibleSpaceComponent: 'FlexibleSpace',
+  };
 
   render() {
     const {
@@ -33,10 +35,5 @@ class ToolbarBase extends React.PureComponent<ToolbarProps> {
     );
   }
 }
-
-ToolbarBase.components = {
-  rootComponent: 'Root',
-  flexibleSpaceComponent: 'FlexibleSpace',
-};
 
 export const Toolbar: React.ComponentType<ToolbarProps> = ToolbarBase;

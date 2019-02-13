@@ -9,10 +9,9 @@ const defaultProps = {
   headComponent: () => null,
   footerComponent: () => null,
 };
-type StaticTableLayoutProps = Readonly<TableLayoutProps & typeof defaultProps>;
 
 /** @internal */
-export class StaticTableLayout extends React.PureComponent<StaticTableLayoutProps> {
+export class StaticTableLayout extends React.PureComponent<TableLayoutProps & typeof defaultProps> {
   static defaultProps = defaultProps;
 
   render() {

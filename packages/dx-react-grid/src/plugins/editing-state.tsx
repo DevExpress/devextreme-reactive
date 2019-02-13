@@ -24,7 +24,13 @@ const columnExtensionValueGetter = (
 ) => getColumnExtensionValueGetter(columnExtensions, 'editingEnabled', defaultValue);
 
 class EditingStateBase extends React.PureComponent<EditingStateProps, EditingStateState> {
-  static defaultProps: Partial<EditingStateProps>;
+  static defaultProps = {
+    columnEditingEnabled: true,
+    defaultEditingRowIds: [],
+    defaultRowChanges: {},
+    defaultAddedRows: [],
+    defaultDeletedRowIds: [],
+  };
   startEditRows: (payload: any) => void;
   stopEditRows: (payload: any) => void;
   changeRow: (payload: any) => void;
@@ -181,13 +187,5 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
     );
   }
 }
-
-EditingStateBase.defaultProps = {
-  columnEditingEnabled: true,
-  defaultEditingRowIds: [],
-  defaultRowChanges: {},
-  defaultAddedRows: [],
-  defaultDeletedRowIds: [],
-};
 
 export const EditingState: React.ComponentType<EditingStateProps> = EditingStateBase;

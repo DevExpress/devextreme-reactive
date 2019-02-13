@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { getMessagesFormatter } from '@devexpress/dx-core';
 import {
-  Template, TemplatePlaceholder, Plugin, TemplateConnector, withComponents, PluginComponents,
+  Template, TemplatePlaceholder, Plugin, TemplateConnector, withComponents,
   Getters, Actions,
 } from '@devexpress/dx-react-core';
 import {
@@ -15,9 +15,20 @@ const defaultMessages = {
   groupByColumn: 'Drag a column header here to group by that column',
 };
 
-class GroupingPanelRaw extends React.PureComponent<GroupingPanelProps> {
-  static defaultProps: Partial<GroupingPanelProps>;
-  static components: PluginComponents;
+const defaultProps = {
+  showSortingControls: false,
+  showGroupingControls: false,
+  messages: {},
+};
+
+class GroupingPanelRaw extends React.PureComponent<GroupingPanelProps & typeof defaultProps> {
+  static defaultProps = defaultProps;
+  static components = {
+    layoutComponent: 'Layout',
+    containerComponent: 'Container',
+    itemComponent: 'Item',
+    emptyMessageComponent: 'EmptyMessage',
+  };
 
   render() {
     const {
@@ -55,10 +66,10 @@ class GroupingPanelRaw extends React.PureComponent<GroupingPanelProps> {
                 item={item}
                 sortingEnabled={sortingEnabled}
                 groupingEnabled={groupingEnabled}
-                showSortingControls={showSortingControls!}
+                showSortingControls={showSortingControls}
                 sortingDirection={showSortingControls
                   ? getColumnSortingDirection(sorting, columnName)! : undefined}
-                showGroupingControls={showGroupingControls!}
+                showGroupingControls={showGroupingControls}
                 onGroup={() => changeColumnGrouping({ columnName })}
                 onSort={(
                   { direction, keepOther },
@@ -105,19 +116,6 @@ class GroupingPanelRaw extends React.PureComponent<GroupingPanelProps> {
     );
   }
 }
-
-GroupingPanelRaw.defaultProps = {
-  showSortingControls: false,
-  showGroupingControls: false,
-  messages: {},
-};
-
-GroupingPanelRaw.components = {
-  layoutComponent: 'Layout',
-  containerComponent: 'Container',
-  itemComponent: 'Item',
-  emptyMessageComponent: 'EmptyMessage',
-};
 
 // tslint:disable-next-line: max-line-length
 export const GroupingPanel: React.ComponentType<GroupingPanelProps> = withComponents({ Layout })(GroupingPanelRaw);

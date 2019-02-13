@@ -35,7 +35,7 @@ export interface TableColumnReorderingProps {
 
 /** @internal */
 export type TableColumnReorderingState = {
-  order?: string[];
+  order: string[];
   sourceColumnIndex: number;
   targetColumnIndex: number;
 };

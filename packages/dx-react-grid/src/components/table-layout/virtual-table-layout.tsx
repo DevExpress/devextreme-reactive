@@ -20,7 +20,7 @@ const defaultProps = {
   footerComponent: () => null,
   footerTableComponent: () => null,
 };
-type PropsType = Readonly<VirtualTableLayoutProps & typeof defaultProps>;
+type PropsType = VirtualTableLayoutProps & typeof defaultProps;
 
 /** @internal */
 // tslint:disable-next-line: max-line-length

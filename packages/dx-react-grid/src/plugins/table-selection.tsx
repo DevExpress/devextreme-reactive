@@ -3,7 +3,6 @@ import {
   Getter, Template, Plugin,
   TemplateConnector,
   Getters,
-  PluginComponents,
 } from '@devexpress/dx-react-core';
 import {
   TABLE_SELECT_TYPE,
@@ -15,8 +14,17 @@ import {
 import { TableSelectionProps, TableCellProps, TableRowProps } from '../types';
 
 class TableSelectionBase extends React.PureComponent<TableSelectionProps> {
-  static defaultProps: Partial<TableSelectionProps>;
-  static components: PluginComponents;
+  static defaultProps = {
+    highlightRow: false,
+    selectByRowClick: false,
+    showSelectAll: false,
+    showSelectionColumn: true,
+  };
+  static components = {
+    rowComponent: 'Row',
+    cellComponent: 'Cell',
+    headerCellComponent: 'HeaderCell',
+  };
   static COLUMN_TYPE = TABLE_SELECT_TYPE;
 
   render() {
@@ -112,18 +120,5 @@ class TableSelectionBase extends React.PureComponent<TableSelectionProps> {
     );
   }
 }
-
-TableSelectionBase.defaultProps = {
-  highlightRow: false,
-  selectByRowClick: false,
-  showSelectAll: false,
-  showSelectionColumn: true,
-};
-
-TableSelectionBase.components = {
-  rowComponent: 'Row',
-  cellComponent: 'Cell',
-  headerCellComponent: 'HeaderCell',
-};
 
 export const TableSelection: React.ComponentType<TableSelectionProps> = TableSelectionBase;

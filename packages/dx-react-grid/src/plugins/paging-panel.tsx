@@ -3,7 +3,6 @@ import { getMessagesFormatter } from '@devexpress/dx-core';
 import {
   Template, TemplatePlaceholder, Plugin,
   TemplateConnector,
-  PluginComponents,
 } from '@devexpress/dx-react-core';
 import { pageCount } from '@devexpress/dx-grid-core';
 import { PagingPanelProps } from '../types';
@@ -18,8 +17,14 @@ const defaultMessages = {
 };
 
 class PagingPanelBase extends React.PureComponent<PagingPanelProps> {
-  static defaultProps: Partial<PagingPanelProps>;
-  static components: PluginComponents;
+  static defaultProps = {
+    pageSizes: [],
+    messages: {},
+  };
+  static components = {
+    containerComponent: 'Container',
+  };
+
   render() {
     const {
       containerComponent: Pager,
@@ -54,14 +59,5 @@ class PagingPanelBase extends React.PureComponent<PagingPanelProps> {
     );
   }
 }
-
-PagingPanelBase.defaultProps = {
-  pageSizes: [],
-  messages: {},
-};
-
-PagingPanelBase.components = {
-  containerComponent: 'Container',
-};
 
 export const PagingPanel: React.ComponentType<PagingPanelProps> = PagingPanelBase;

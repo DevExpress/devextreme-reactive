@@ -6,7 +6,9 @@ import { toggleRowExpanded, ToggleRowPayload } from '@devexpress/dx-grid-core';
 import { TreeDataStateProps, TreeDataStateState } from '../types';
 
 class TreeDataStateBase extends React.PureComponent<TreeDataStateProps, TreeDataStateState> {
-  static defaultProps: Partial<TreeDataStateProps>;
+  static defaultProps = {
+    defaultExpandedRowIds: [],
+  };
   toggleRowExpanded: ActionFn<ToggleRowPayload>;
 
   constructor(props) {
@@ -55,9 +57,5 @@ class TreeDataStateBase extends React.PureComponent<TreeDataStateProps, TreeData
     );
   }
 }
-
-TreeDataStateBase.defaultProps = {
-  defaultExpandedRowIds: [],
-};
 
 export const TreeDataState: React.ComponentType<TreeDataStateProps> = TreeDataStateBase;

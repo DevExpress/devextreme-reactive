@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { getMessagesFormatter } from '@devexpress/dx-core';
 import {
-  Template, TemplatePlaceholder, Plugin, TemplateConnector, PluginComponents,
+  Template, TemplatePlaceholder, Plugin, TemplateConnector,
 } from '@devexpress/dx-react-core';
 import { columnChooserItems } from '@devexpress/dx-grid-core';
 import { ColumnChooserState, ColumnChooserProps } from '../types';
@@ -12,8 +12,15 @@ const pluginDependencies = [
 ];
 
 class ColumnChooserBase extends React.PureComponent<ColumnChooserProps, ColumnChooserState> {
-  static defaultProps: Partial<ColumnChooserProps>;
-  static components: PluginComponents;
+  static defaultProps = {
+    messages: {},
+  };
+  static components = {
+    overlayComponent: 'Overlay',
+    containerComponent: 'Container',
+    itemComponent: 'Item',
+    toggleButtonComponent: 'ToggleButton',
+  };
   button!: React.ReactInstance;
 
   constructor(props) {
@@ -100,16 +107,5 @@ class ColumnChooserBase extends React.PureComponent<ColumnChooserProps, ColumnCh
     );
   }
 }
-
-ColumnChooserBase.defaultProps = {
-  messages: {},
-};
-
-ColumnChooserBase.components = {
-  overlayComponent: 'Overlay',
-  containerComponent: 'Container',
-  itemComponent: 'Item',
-  toggleButtonComponent: 'ToggleButton',
-};
 
 export const ColumnChooser: React.ComponentType<ColumnChooserProps> = ColumnChooserBase;

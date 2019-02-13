@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { getMessagesFormatter } from '@devexpress/dx-core';
 import {
-  Getter, Template, Plugin, TemplateConnector, Getters, PluginComponents,
+  Getter, Template, Plugin, TemplateConnector, Getters,
 } from '@devexpress/dx-react-core';
 import {
   TABLE_EDIT_COMMAND_TYPE,
@@ -27,9 +27,19 @@ const defaultMessages = {
 };
 
 class TableEditColumnBase extends React.PureComponent<TableEditColumnProps> {
-  static defaultProps: Partial<TableEditColumnProps>;
   static COLUMN_TYPE = TABLE_EDIT_COMMAND_TYPE;
-  static components: PluginComponents;
+  static defaultProps = {
+    showAddCommand: false,
+    showEditCommand: false,
+    showDeleteCommand: false,
+    width: 140,
+    messages: {},
+  };
+  static components = {
+    cellComponent: 'Cell',
+    headerCellComponent: 'HeaderCell',
+    commandComponent: 'Command',
+  };
 
   render() {
     const {
@@ -149,19 +159,5 @@ class TableEditColumnBase extends React.PureComponent<TableEditColumnProps> {
     );
   }
 }
-
-TableEditColumnBase.defaultProps = {
-  showAddCommand: false,
-  showEditCommand: false,
-  showDeleteCommand: false,
-  width: 140,
-  messages: {},
-};
-
-TableEditColumnBase.components = {
-  cellComponent: 'Cell',
-  headerCellComponent: 'HeaderCell',
-  commandComponent: 'Command',
-};
 
 export const TableEditColumn: React.ComponentType<TableEditColumnProps> = TableEditColumnBase;

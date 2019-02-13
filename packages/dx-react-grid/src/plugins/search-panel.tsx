@@ -5,7 +5,6 @@ import {
   TemplatePlaceholder,
   Plugin,
   TemplateConnector,
-  PluginComponents,
 } from '@devexpress/dx-react-core';
 import { SearchPanelProps } from '../types';
 
@@ -19,8 +18,12 @@ const defaultMessages = {
 };
 
 class SearchPanelBase extends React.PureComponent<SearchPanelProps> {
-  static defaultProps: Partial<SearchPanelProps>;
-  static components: PluginComponents;
+  static defaultProps = {
+    messages: {},
+  };
+  static components = {
+    inputComponent: 'Input',
+  };
 
   render() {
     const { inputComponent: Input, messages } = this.props;
@@ -47,13 +50,5 @@ class SearchPanelBase extends React.PureComponent<SearchPanelProps> {
     );
   }
 }
-
-SearchPanelBase.defaultProps = {
-  messages: {},
-};
-
-SearchPanelBase.components = {
-  inputComponent: 'Input',
-};
 
 export const SearchPanel: React.ComponentType<SearchPanelProps> = SearchPanelBase;

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  Getter, Template, Plugin, TemplatePlaceholder, TemplateConnector, Getters, PluginComponents,
+  Getter, Template, Plugin, TemplatePlaceholder, TemplateConnector, Getters,
 } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithGrouping,
@@ -43,8 +43,15 @@ const showColumnWhenGroupedGetter: ShowColumnWhenGroupedGetterFn = (
 class TableGroupRowBase extends React.PureComponent<TableGroupRowProps> {
   static ROW_TYPE = TABLE_GROUP_TYPE;
   static COLUMN_TYPE = TABLE_GROUP_TYPE;
-  static defaultProps: Partial<TableGroupRowProps>;
-  static components: PluginComponents;
+  static defaultProps = {
+    showColumnsWhenGrouped: false,
+  };
+  static components = {
+    rowComponent: 'Row',
+    cellComponent: 'Cell',
+    contentComponent: 'Content',
+    iconComponent: 'Icon',
+  };
 
   render() {
     const {
@@ -144,16 +151,5 @@ class TableGroupRowBase extends React.PureComponent<TableGroupRowProps> {
     );
   }
 }
-
-TableGroupRowBase.defaultProps = {
-  showColumnsWhenGrouped: false,
-};
-
-TableGroupRowBase.components = {
-  rowComponent: 'Row',
-  cellComponent: 'Cell',
-  contentComponent: 'Content',
-  iconComponent: 'Icon',
-};
 
 export const TableGroupRow: React.ComponentType<TableGroupRowProps> = TableGroupRowBase;

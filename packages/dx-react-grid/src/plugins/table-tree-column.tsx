@@ -1,13 +1,22 @@
 import * as React from 'react';
 import {
-  Template, Getter, Plugin, TemplateConnector, TemplatePlaceholder, PluginComponents,
+  Template, Getter, Plugin, TemplateConnector, TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 import { isTreeTableCell } from '@devexpress/dx-grid-core';
 import { TableTreeColumnProps, TableCellProps } from '../types';
 
 class TableTreeColumnBase extends React.PureComponent<TableTreeColumnProps> {
-  static defaultProps: Partial<TableTreeColumnProps>;
-  static components: PluginComponents;
+  static defaultProps = {
+    showSelectionControls: false,
+    showSelectAll: false,
+  };
+  static components = {
+    cellComponent: 'Cell',
+    contentComponent: 'Content',
+    indentComponent: 'Indent',
+    expandButtonComponent: 'ExpandButton',
+    checkboxComponent: 'Checkbox',
+  };
 
   render() {
     const {
@@ -120,18 +129,5 @@ class TableTreeColumnBase extends React.PureComponent<TableTreeColumnProps> {
     );
   }
 }
-
-TableTreeColumnBase.defaultProps = {
-  showSelectionControls: false,
-  showSelectAll: false,
-};
-
-TableTreeColumnBase.components = {
-  cellComponent: 'Cell',
-  contentComponent: 'Content',
-  indentComponent: 'Indent',
-  expandButtonComponent: 'ExpandButton',
-  checkboxComponent: 'Checkbox',
-};
 
 export const TableTreeColumn: React.ComponentType<TableTreeColumnProps> = TableTreeColumnBase;

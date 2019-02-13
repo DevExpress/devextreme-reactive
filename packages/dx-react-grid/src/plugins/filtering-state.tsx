@@ -18,7 +18,10 @@ const filterExpressionComputed = (
 ) => filterExpression(filters, filterExpressionValue);
 
 class FilteringStateBase extends React.PureComponent<FilteringStateProps, FilteringStateState> {
-  static defaultProps: Partial<FilteringStateProps>;
+  static defaultProps = {
+    defaultFilters: [],
+    columnFilteringEnabled: true,
+  };
   changeColumnFilter: (payload: ChangeFilterPayload) => void;
 
   constructor(props) {
@@ -71,10 +74,5 @@ class FilteringStateBase extends React.PureComponent<FilteringStateProps, Filter
     );
   }
 }
-
-FilteringStateBase.defaultProps = {
-  defaultFilters: [],
-  columnFilteringEnabled: true,
-};
 
 export const FilteringState: React.ComponentType<FilteringStateProps> = FilteringStateBase;

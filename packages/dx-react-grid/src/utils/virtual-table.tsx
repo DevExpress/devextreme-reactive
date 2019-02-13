@@ -11,7 +11,12 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
   defaultHeight,
 }) => {
   class VirtualTable extends React.PureComponent<VirtualTableProps> {
-    static defaultProps: Partial<VirtualTableProps>;
+    static defaultProps = {
+      estimatedRowHeight: defaultEstimatedRowHeight,
+      height: defaultHeight,
+      headTableComponent: FixedHeader,
+      footerTableComponent: FixedFooter,
+    };
     static FixedHeader: React.ComponentType;
     static FixedFooter: React.ComponentType;
     layoutRenderComponent: React.ComponentType<VirtualTableLayoutProps> & { update(): void; };
@@ -53,13 +58,6 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
       );
     }
   }
-
-  VirtualTable.defaultProps = {
-    estimatedRowHeight: defaultEstimatedRowHeight,
-    height: defaultHeight,
-    headTableComponent: FixedHeader,
-    footerTableComponent: FixedFooter,
-  };
 
   Object.values(Table.components as PluginComponents).forEach((name) => {
     VirtualTable[name] = Table[name];

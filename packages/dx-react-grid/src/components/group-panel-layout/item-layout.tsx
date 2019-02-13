@@ -7,7 +7,7 @@ const defaultProps = {
   onDragStart: () => {},
   onDragEnd: () => {},
 };
-type GPItemLayoutProps = Readonly<GP.GroupingItemLayoutProps & typeof defaultProps>;
+type GPItemLayoutProps = GP.GroupingItemLayoutProps & typeof defaultProps;
 
 // tslint:disable-next-line: max-line-length
 export class ItemLayout extends React.PureComponent<GPItemLayoutProps, GP.GroupingItemLayoutState> {

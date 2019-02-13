@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  Getter, Template, Plugin, TemplateConnector, TemplatePlaceholder, Getters, PluginComponents,
+  Getter, Template, Plugin, TemplateConnector, TemplatePlaceholder, Getters,
 } from '@devexpress/dx-react-core';
 import { getMessagesFormatter } from '@devexpress/dx-core';
 import {
@@ -19,8 +19,19 @@ const tableHeaderRowsComputed = (
 
 class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {
   static ROW_TYPE = TABLE_HEADING_TYPE;
-  static defaultProps: Partial<TableHeaderRowProps>;
-  static components: PluginComponents;
+  static defaultProps = {
+    showSortingControls: false,
+    showGroupingControls: false,
+    messages: {},
+  };
+  static components = {
+    cellComponent: 'Cell',
+    rowComponent: 'Row',
+    contentComponent: 'Content',
+    sortLabelComponent: 'SortLabel',
+    titleComponent: 'Title',
+    groupButtonComponent: 'GroupButton',
+  };
 
   render() {
     const {
@@ -161,12 +172,6 @@ class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {
     );
   }
 }
-
-TableHeaderRowBase.defaultProps = {
-  showSortingControls: false,
-  showGroupingControls: false,
-  messages: {},
-};
 
 TableHeaderRowBase.components = {
   cellComponent: 'Cell',

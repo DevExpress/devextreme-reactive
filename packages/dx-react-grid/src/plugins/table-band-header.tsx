@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {
   Getter, Template, Plugin,
-  TemplateConnector, TemplatePlaceholder, Getters, PluginComponents,
+  TemplateConnector, TemplatePlaceholder, Getters,
 } from '@devexpress/dx-react-core';
 import {
   getBandComponent, tableHeaderColumnChainsWithBands,
@@ -17,7 +17,12 @@ const CellPlaceholder = (props: TableCellProps) => <TemplatePlaceholder params={
 
 class TableBandHeaderBase extends React.PureComponent<TableBandHeaderProps> {
   static ROW_TYPE = TABLE_BAND_TYPE;
-  static components: PluginComponents;
+  static components = {
+    cellComponent: 'Cell',
+    rowComponent: 'Row',
+    bandedHeaderCellComponent: 'BandedHeaderCell',
+    invisibleCellComponent: 'InvisibleCell',
+  };
 
   render() {
     const {

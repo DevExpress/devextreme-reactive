@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  Getter, Template, TemplatePlaceholder, TemplateConnector, Plugin, PluginComponents, Getters,
+  Getter, Template, TemplatePlaceholder, TemplateConnector, Plugin, Getters,
 } from '@devexpress/dx-react-core';
 import {
   getRowChange,
@@ -22,7 +22,10 @@ const pluginDependencies = [
 class TableEditRowBase extends React.PureComponent<TableEditRowProps> {
   static ADDED_ROW_TYPE = TABLE_ADDED_TYPE;
   static EDIT_ROW_TYPE = TABLE_EDIT_TYPE;
-  static components: PluginComponents;
+  static components = {
+    rowComponent: 'Row',
+    cellComponent: 'Cell',
+  };
 
   render() {
     const {
@@ -122,10 +125,5 @@ class TableEditRowBase extends React.PureComponent<TableEditRowProps> {
     );
   }
 }
-
-TableEditRowBase.components = {
-  rowComponent: 'Row',
-  cellComponent: 'Cell',
-};
 
 export const TableEditRow: React.ComponentType<TableEditRowProps> = TableEditRowBase;

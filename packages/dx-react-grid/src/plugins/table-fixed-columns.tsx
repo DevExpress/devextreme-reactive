@@ -6,7 +6,6 @@ import {
   TemplatePlaceholder,
   TemplateConnector,
   Getters,
-  PluginComponents,
 } from '@devexpress/dx-react-core';
 import {
   isFixedTableRow,
@@ -43,8 +42,15 @@ const pluginDependencies = [
 
 // tslint:disable-next-line: max-line-length
 class TableFixedColumnsBase extends React.PureComponent<TableFixedColumnsProps, TableFixedColumnsState> {
-  static components: PluginComponents;
-  static defaultProps: Partial<TableFixedColumnsProps>;
+  static components = {
+    cellComponent: 'Cell',
+    listenerRowComponent: 'ListenerRow',
+    listenerCellComponent: 'ListenerCell',
+  };
+  static defaultProps = {
+    leftColumns: [],
+    rightColumns: [],
+  };
 
   constructor(props) {
     super(props);
@@ -139,16 +145,5 @@ class TableFixedColumnsBase extends React.PureComponent<TableFixedColumnsProps, 
     );
   }
 }
-
-TableFixedColumnsBase.defaultProps = {
-  leftColumns: [],
-  rightColumns: [],
-};
-
-TableFixedColumnsBase.components = {
-  cellComponent: 'Cell',
-  listenerRowComponent: 'ListenerRow',
-  listenerCellComponent: 'ListenerCell',
-};
 
 export const TableFixedColumns: React.ComponentType<TableFixedColumnsProps> = TableFixedColumnsBase;

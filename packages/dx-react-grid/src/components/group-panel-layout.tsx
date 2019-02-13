@@ -12,7 +12,7 @@ const defaultProps = {
   onGroupDraft: () => {},
   onGroupDraftCancel: () => {},
 };
-type GPLayoutProps = Readonly<GP.LayoutProps & typeof defaultProps>;
+type GPLayoutProps = GP.LayoutProps & typeof defaultProps;
 
 // tslint:disable-next-line: max-line-length
 class GroupPanelLayoutBase extends React.PureComponent<GPLayoutProps, GP.GroupingItemLayoutState> {

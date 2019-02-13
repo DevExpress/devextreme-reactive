@@ -10,7 +10,6 @@ import {
   createStateHelper,
   ActionFn,
   Getters,
-  PluginComponents,
 } from '@devexpress/dx-react-core';
 import {
   toggleColumn,
@@ -38,8 +37,14 @@ const columnExtensionValueGetter = (
 
 // tslint:disable-next-line: max-line-length
 class TableColumnVisibilityBase extends React.PureComponent<TableColumnVisibilityProps, TableColumnVisibilityState> {
-  static defaultProps: Partial<TableColumnVisibilityProps>;
-  static components: PluginComponents;
+  static defaultProps = {
+    defaultHiddenColumnNames: [],
+    messages: {},
+    columnTogglingEnabled: true,
+  };
+  static components = {
+    emptyMessageComponent: 'EmptyMessage',
+  };
   toggleColumnVisibility: ActionFn<string[]>;
 
   constructor(props) {
@@ -117,12 +122,6 @@ class TableColumnVisibilityBase extends React.PureComponent<TableColumnVisibilit
     );
   }
 }
-
-TableColumnVisibilityBase.defaultProps = {
-  defaultHiddenColumnNames: [],
-  messages: {},
-  columnTogglingEnabled: true,
-};
 
 TableColumnVisibilityBase.components = {
   emptyMessageComponent: 'EmptyMessage',

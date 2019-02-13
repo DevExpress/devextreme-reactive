@@ -29,7 +29,7 @@ rootComponent | ComponentType&lt;[Scheduler.RootProps](#schedulerrootprops)&gt; 
 
 ### AppointmentModel
 
-Describes an appointment data object.
+Describes an appointment data object. If you are using other data fields you should map them yourself. Please refer to [this](https://devexpress.github.io/devextreme-reactive/react/scheduler/demos/featured/remote-data/) demo for more details.
 
 Field | Type | Description
 ------|------|------------

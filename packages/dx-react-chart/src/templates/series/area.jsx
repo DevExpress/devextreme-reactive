@@ -37,6 +37,7 @@ RawArea.propTypes = {
   style: PropTypes.object,
   scales: PropTypes.object.isRequired,
   getAnimatedStyle: PropTypes.func.isRequired,
+  pointComponent: PropTypes.func,
 };
 
 RawArea.defaultProps = {
@@ -44,6 +45,7 @@ RawArea.defaultProps = {
   state: undefined,
   color: undefined,
   style: undefined,
+  pointComponent: undefined,
 };
 
 export const Area = withStates({

@@ -39,6 +39,10 @@ const styles = (theme) => {
   };
 };
 
+const popperModifiers = {
+  flip: { enabled: false },
+};
+
 export const Overlay = withStyles(styles)(({
   classes, className, children, target, ...restProps
 }) => (
@@ -47,6 +51,7 @@ export const Overlay = withStyles(styles)(({
     anchorEl={target}
     placement="top"
     className={classNames(classes.popper, className)}
+    modifiers={popperModifiers}
     {...restProps}
   >
     <Paper className={classes.paper}>

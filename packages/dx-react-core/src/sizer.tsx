@@ -5,6 +5,9 @@ import { findDOMNode } from 'react-dom';
 import { RefHolder } from './ref-holder';
 
 const styles = {
+  root: {
+    position: 'relative',
+  },
   triggersRoot: {
     position: 'absolute',
     top: 0,
@@ -50,8 +53,9 @@ type Size = {
 
 type SizerProps = {
   onSizeChange: (size: Size) => void;
-  // containerComponent?: React.ComponentType;
+  onScroll?: (e) => void;
   containerComponent?: any;
+  style?: object;
 };
 
 /** @internal */
@@ -134,6 +138,7 @@ export class Sizer extends React.PureComponent<SizerProps> {
     const {
       onSizeChange,
       containerComponent: Container,
+      style,
       ...restProps
     } = this.props;
 
@@ -142,6 +147,7 @@ export class Sizer extends React.PureComponent<SizerProps> {
         ref={this.rootRef}
       >
         <Container // NOTE: should have `position: relative`
+          style={style ? { ...styles.root, ...style } : styles.root}
           {...restProps}
         />
       </RefHolder>

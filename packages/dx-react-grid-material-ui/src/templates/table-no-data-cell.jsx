@@ -8,11 +8,14 @@ const styles = theme => ({
   cell: {
     padding: `${theme.spacing.unit * 6}px 0`,
   },
+  textContainer: {
+    display: 'inline-block',
+    position: 'sticky',
+    left: '50%',
+  },
   text: {
-    position: 'absolute',
-    width: '100%',
-    textAlign: 'center',
-    marginTop: `-${theme.spacing.unit}px`,
+    transform: 'translateX(-50%)',
+    display: 'inline-block',
   },
 });
 
@@ -32,9 +35,11 @@ export const TableNoDataCellBase = ({
     colSpan={colSpan}
     {...restProps}
   >
-    <big className={classes.text}>
-      {getMessage('noData')}
-    </big>
+    <div className={classes.textContainer}>
+      <big className={classes.text}>
+        {getMessage('noData')}
+      </big>
+    </div>
   </TableCell>
 );
 

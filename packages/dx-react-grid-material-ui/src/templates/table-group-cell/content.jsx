@@ -21,7 +21,7 @@ const ContentBase = ({
         :
       {' '}
     </strong>
-    {children || row.value}
+    {children || String(row.value)}
   </span>
 );
 

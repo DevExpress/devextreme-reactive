@@ -2,7 +2,7 @@ title: DevExtreme Reactive Components
 baseurl: "/devextreme-reactive"
 version: "X.X.X"
 
-url: "https://devexpress.github.io/devextreme-reactive/" # used for configure sitemap
+url: "https://devexpress.github.io" # used for configure sitemap
 markdown: kramdown
 plugins:
   - jekyll-feed

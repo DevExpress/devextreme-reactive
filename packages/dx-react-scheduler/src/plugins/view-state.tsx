@@ -1,14 +1,25 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import {
   Getter,
   Action,
   Plugin,
   createStateHelper,
 } from '@devexpress/dx-react-core';
-import { changeCurrentDate, setCurrentViewName } from '@devexpress/dx-scheduler-core';
+import {
+  changeCurrentDate,
+  setCurrentViewName,
+  ChangeCurrentDatePayload,
+} from '@devexpress/dx-scheduler-core';
+import { ViewStateProps, ViewStateState } from '../types';
 
-export class ViewState extends React.PureComponent {
+class ViewStateBase extends React.PureComponent<ViewStateProps, ViewStateState> {
+  static defaultProps = {
+    defaultCurrentDate: new Date(),
+    defaultCurrentViewName: undefined,
+  };
+  changeCurrentDate: (payload: ChangeCurrentDatePayload) => void;
+  setCurrentViewName: (payload: string) => void;
+
   constructor(props) {
     super(props);
 
@@ -69,28 +80,4 @@ export class ViewState extends React.PureComponent {
   }
 }
 
-ViewState.propTypes = {
-  currentDate: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-    PropTypes.instanceOf(Date),
-  ]),
-  defaultCurrentDate: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-    PropTypes.instanceOf(Date),
-  ]),
-  onCurrentDateChange: PropTypes.func,
-  currentViewName: PropTypes.string,
-  defaultCurrentViewName: PropTypes.string,
-  onCurrentViewNameChange: PropTypes.func,
-};
-
-ViewState.defaultProps = {
-  currentDate: undefined,
-  defaultCurrentDate: new Date(),
-  onCurrentDateChange: undefined,
-  currentViewName: undefined,
-  defaultCurrentViewName: undefined,
-  onCurrentViewNameChange: undefined,
-};
+export const ViewState: React.ComponentType<ViewStateProps> = ViewStateBase;

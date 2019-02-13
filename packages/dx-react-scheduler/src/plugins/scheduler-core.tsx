@@ -1,11 +1,11 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import {
   Plugin, Getter, Template, TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 import { appointments } from '@devexpress/dx-scheduler-core';
+import { SchedulerProps } from '../types';
 
-export class SchedulerCore extends React.PureComponent {
+class SchedulerCoreBase extends React.PureComponent<SchedulerProps> {
   render() {
     const {
       data,
@@ -29,7 +29,4 @@ export class SchedulerCore extends React.PureComponent {
   }
 }
 
-SchedulerCore.propTypes = {
-  data: PropTypes.array.isRequired,
-  rootComponent: PropTypes.func.isRequired,
-};
+export const SchedulerCore: React.ComponentType<SchedulerProps> = SchedulerCoreBase;

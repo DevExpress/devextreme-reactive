@@ -74,7 +74,7 @@ export class DragDropProvider extends React.PureComponent {
                 data={{ ...payload[0].data, ...sourcePayload }}
                 rect={{
                   height: payload[0].style.height,
-                  width: payload[0].style.width,
+                  width: source ? source.getBoundingClientRect().width : payload[0].style.width,
                 }}
               />
             </Container>

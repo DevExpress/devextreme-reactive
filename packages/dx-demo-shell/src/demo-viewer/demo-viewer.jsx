@@ -28,6 +28,20 @@ export const DemoViewer = (
           )}
         />
         <Route
+          path={`${url}/:themeName/:variantName/perf/:samplesCount?`}
+          render={({ match: { params: { themeName, variantName, samplesCount } } }) => (
+            <div>
+              <DemoFrame
+                themeName={themeName}
+                variantName={variantName}
+                sectionName={sectionName}
+                demoName={demoName}
+                perfSamplesCount={Number(samplesCount) || 16}
+              />
+            </div>
+          )}
+        />
+        <Route
           path={url}
           render={() => (
             <div style={{ paddingTop: '8px' }}>

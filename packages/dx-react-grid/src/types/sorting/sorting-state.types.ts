@@ -26,5 +26,5 @@ export interface SortingStateProps {
 
 /** @internal */
 export type SortingStateState = {
-  sorting: boolean;
+  sorting: Sorting[];
 };

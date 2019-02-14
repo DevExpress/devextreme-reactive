@@ -12,9 +12,14 @@ export class DragDropProvider extends React.PureComponent {
     this.state = {
       payload: null,
       clientOffset: null,
+      source: null,
+      sourcePayload: null,
     };
 
-    this.change = ({ payload, clientOffset }) => this.setState({ payload, clientOffset });
+    this.change = (args) => {
+      // console.log(args);
+      this.setState({ payload: args.payload, clientOffset: args.clientOffset, source: args.source, sourcePayload: args.sourcePayload });
+    };
   }
 
   render() {
@@ -25,13 +30,9 @@ export class DragDropProvider extends React.PureComponent {
     const {
       payload,
       clientOffset,
+      source,
+      sourcePayload,
     } = this.state;
-
-
-    // if (clientOffset) {
-    //   console.log(clientOffset.y);
-    //   console.log(clientOffset.x);
-    // }
 
     // note - Add SSR support
     // AUTO SCROLL
@@ -45,6 +46,11 @@ export class DragDropProvider extends React.PureComponent {
     }
     if (clientOffset && layout.clientHeight - SCROLL_OFFSET < clientOffset.y) {
       layout.scrollTop += SCROLL_SPEED_PX;
+    }
+
+    console.log(sourcePayload);
+    if (source) {
+      console.log(source.getBoundingClientRect());
     }
 
     return (
@@ -61,7 +67,17 @@ export class DragDropProvider extends React.PureComponent {
           {payload && (
             <Container
               clientOffset={clientOffset}
-            />
+              left={source ? source.getBoundingClientRect().left : clientOffset.x}
+              top={source ? source.getBoundingClientRect().top : clientOffset.y}
+            >
+              <Appointment
+                data={{ ...payload[0].data, ...sourcePayload }}
+                rect={{
+                  height: payload[0].style.height,
+                  width: payload[0].style.width,
+                }}
+              />
+            </Container>
           )}
         </Template>
       </Plugin>

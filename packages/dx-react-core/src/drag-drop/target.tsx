@@ -9,6 +9,7 @@ const defaultProps = {
   onOver: (args) => {},
   onLeave: (args) => {},
   onDrop: (args) => {},
+  sourcePayload: {},
 };
 type DropTargetDefaultProps = Readonly<typeof defaultProps>;
 
@@ -40,7 +41,9 @@ export class DropTarget extends React.Component<DropTargetDefaultProps> {
     dragEmitter.unsubscribe(this.handleDrag);
   }
 
-  handleDrag({ payload, clientOffset, end }) {
+  handleDrag({ payload, clientOffset, end, source: prevSource }) {
+    const { sourcePayload } = this.props;
+    const { dragEmitter } = this.context;
     const {
       left,
       top,
@@ -52,14 +55,20 @@ export class DropTarget extends React.Component<DropTargetDefaultProps> {
     } = this.props;
     const isOver = clientOffset
       && clamp(clientOffset.x, left, right) === clientOffset.x
-      && clamp(clientOffset.y, top, bottom) === clientOffset.y;
+      && clamp(clientOffset.y, top, bottom - 1) === clientOffset.y; // "-1" fix bug with double over
 
+    // rect: { left, top, right, bottom }
     if (!this.isOver && isOver) onEnter({ payload, clientOffset });
     if (this.isOver && isOver) onOver({ payload, clientOffset });
     if (this.isOver && !isOver) onLeave({ payload, clientOffset });
     if (isOver && end) onDrop({ payload, clientOffset });
 
     this.isOver = isOver && !end;
+    const source = findDOMNode(this);
+    if (this.isOver && source !== prevSource) {
+      console.log(sourcePayload);
+      dragEmitter.emit({ payload, clientOffset, source, sourcePayload });
+    }
   }
 
   render() {

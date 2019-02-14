@@ -61,7 +61,7 @@ class CellBase extends React.PureComponent {
     this.handleDragEvent = (eventHandler, { payload, ...restArgs }) => {
       eventHandler({ payload, ...restArgs });
     };
-    this.onEnter = ({ payload, clientOffset }) => {
+    this.onEnter = ({ payload, clientOffset, rect }) => {
       // console.log('on enter!');
 
       let part = (clientOffset.y - this.state.top) / this.cell.current.clientHeight;
@@ -117,7 +117,7 @@ class CellBase extends React.PureComponent {
         part = 1 + part;
       }
 
-      console.log(`${oldPart} -> ${part}`);
+      // console.log(`${oldPart} -> ${part}`);
       this.setState({ part });
 
       payload[0].changeAppointment({
@@ -154,6 +154,7 @@ class CellBase extends React.PureComponent {
         onOver={args => this.handleDragEvent(this.onOver, args)}
         onLeave={args => this.handleDragEvent(this.onLeave, args)}
         onDrop={args => this.handleDragEvent(this.onDrop, args)}
+        sourcePayload={{ startDate, endDate }}
       >
         <RootRef rootRef={this.cell}>
           <TableCell
@@ -166,7 +167,7 @@ class CellBase extends React.PureComponent {
             {...restProps}
           >
             {children}
-            {over && (
+            {/* {over && (
             <Paper
               className={classes.appointment}
               style={{
@@ -182,7 +183,7 @@ class CellBase extends React.PureComponent {
                 }}
               />
             </Paper>
-            )}
+            )} */}
           </TableCell>
         </RootRef>
       </DropTarget>

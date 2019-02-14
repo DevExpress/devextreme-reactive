@@ -37,6 +37,7 @@ class AppointmentBase extends React.PureComponent {
 
     this.state = {
       dragging: false,
+      cellRef: null,
     };
     this.appointmentRef = React.createRef();
 
@@ -47,6 +48,9 @@ class AppointmentBase extends React.PureComponent {
       if (this.appointmentRef.current) {
         this.setState({ dragging: false });
       }
+    };
+    this.callBack = (cellRefArg) => {
+      this.setState({ cellRef: cellRefArg });
     };
   }
 
@@ -59,7 +63,8 @@ class AppointmentBase extends React.PureComponent {
       commitChangedAppointment,
       ...restProps
     } = this.props;
-    const { dragging } = this.state;
+    const { dragging, cellRef } = this.state;
+
     const onClick = handleClick
       ? {
         onClick: ({ target }) => {
@@ -80,6 +85,8 @@ class AppointmentBase extends React.PureComponent {
           changeAppointment,
           commitChangedAppointment,
           appointmentDuration,
+          cellRef,
+          cellCallBack: this.callBack,
         }]}
         onStart={this.onDragStart}
         onEnd={this.onDragEnd}

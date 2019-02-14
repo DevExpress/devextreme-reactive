@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
+import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import { VerticalAppointment } from './appointment/vertical-appointment';
 import { Appointment } from './appointment/appointment';
@@ -15,6 +16,7 @@ const styles = theme => ({
     height: '100%',
     width: '100%',
     cursor: 'move',
+    transition: 'transform 0.05s',
   },
   column: {
     paddingLeft: theme.spacing.unit * 2,
@@ -25,13 +27,13 @@ const styles = theme => ({
 });
 
 const ContainerBase = ({
-  clientOffset, classes, style, className, children,
+  clientOffset, classes, style, className, children, left, top,
   ...restProps
 }) => (
   <div
     className={classNames(classes.container, className)}
     style={{
-      transform: `translate(calc(${clientOffset.x - 50}px), calc(${clientOffset.y - 50}px))`,
+      transform: `translate(calc(${left}px), calc(${top}px))`,
       ...style,
     }}
     {...restProps}
@@ -45,6 +47,7 @@ ContainerBase.propTypes = {
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired,
   }).isRequired,
+  left: PropTypes.number,
   children: PropTypes.node,
   classes: PropTypes.object.isRequired,
   style: PropTypes.object,
@@ -53,12 +56,14 @@ ContainerBase.propTypes = {
 
 ContainerBase.defaultProps = {
   style: null,
+  left: undefined,
   className: undefined,
   children: undefined,
 };
 
 export const Container = withStyles(styles, { name: 'DragDrop' })(ContainerBase);
 
+// console.log(appointmentRef);
 const ColumnBase = ({
   appointmentData,
   classes,
@@ -66,21 +71,17 @@ const ColumnBase = ({
   rect,
   appointmentRef,
   ...restProps
-}) => {
-  // console.log(appointmentRef);
-  return (
-    <Appointment
-      style={rect}
-    >
-      <VerticalAppointment
+}) => (
+  <Appointment
+    style={rect}
+  >
+    <VerticalAppointment
         // className={classNames(classes.column, className)}
-        data={appointmentData}
-        {...restProps}
-      />
-    </Appointment>
-  );
-};
-
+      data={appointmentData}
+      {...restProps}
+    />
+  </Appointment>
+);
 ColumnBase.propTypes = {
   column: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,

@@ -13,6 +13,10 @@ export class DragDropProviderCore {
     this.dragEmitter = new EventEmitter();
   }
 
+  updateSource(source) {
+    this.dragEmitter.emit({ source });
+  }
+
   start(payload, clientOffset) {
     this.payload = payload;
     this.dragEmitter.emit({ clientOffset, payload: this.payload });
@@ -29,7 +33,7 @@ export class DragDropProviderCore {
 }
 
 const defaultProps = {
-  onChange: ({ payload, clientOffset }) => {},
+  onChange: ({ payload, clientOffset, source, sourcePayload }) => {},
 };
 type DragDropProviderDefaultProps = Readonly<typeof defaultProps>;
 type DragDropProviderProps = Partial<DragDropProviderDefaultProps>;
@@ -48,10 +52,12 @@ export class DragDropProvider extends React.Component<
 
     this.dragDropProvider = new DragDropProviderCore();
 
-    this.dragDropProvider.dragEmitter.subscribe(({ payload, clientOffset, end }) => {
+    this.dragDropProvider.dragEmitter.subscribe(({ payload, clientOffset, end, source, sourcePayload }) => {
       onChange({
         payload: end ? null : payload,
         clientOffset: end ? null : clientOffset,
+        source: end ? null : source,
+        sourcePayload: end ? null : sourcePayload,
       });
     });
   }

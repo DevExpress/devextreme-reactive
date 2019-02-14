@@ -52,13 +52,13 @@ describe('FixedCell', () => {
     ));
 
     expect(tree.prop('style')).toMatchObject({
-      left: 200
+      left: 200,
     });
   });
 
   it('should apply background color', () => {
     const tree = mount((
-      <BodyColorContext.Provider value={'red'}>
+      <BodyColorContext.Provider value="red">
         <FixedCell {...defaultProps} />
       </BodyColorContext.Provider>
     ));
@@ -77,4 +77,3 @@ describe('FixedCell', () => {
       .toMatchObject({ a: 1 });
   });
 });
-

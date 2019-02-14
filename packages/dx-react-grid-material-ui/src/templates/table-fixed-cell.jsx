@@ -8,6 +8,7 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.paper,
     position: 'sticky',
     zIndex: 300,
+    backgroundClip: 'padding-box',
   },
   dividerRight: {
     borderRight: `1px solid ${theme.palette.divider}`,

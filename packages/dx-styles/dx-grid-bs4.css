@@ -198,6 +198,7 @@ button.dx-g-bs4-table-edit-command-cell {
 }
 .dx-g-bs4-fixed-cell {
   z-index: 300;
+  background-clip: padding-box;
 }
 .dx-g-bs4-table-summary-item {
   font-weight: bold;

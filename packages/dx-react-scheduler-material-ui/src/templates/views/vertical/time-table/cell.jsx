@@ -97,6 +97,11 @@ class CellBase extends React.PureComponent {
 
       const oldPart = part;
 
+      if (Math.abs(part) > 1) {
+        this.setState({ payload: {}, over: false, top: undefined, part: 0 });
+        return;
+      }
+
       if (part > 0 && part < 0.25) {
         part = 0;
       } else if ((part < 0 && part > -0.25)) {

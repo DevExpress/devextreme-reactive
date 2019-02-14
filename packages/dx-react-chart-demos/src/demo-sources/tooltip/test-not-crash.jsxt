@@ -1,0 +1,43 @@
+import * as React from 'react';<%&additionalImports%>
+import {
+  Chart,
+  ArgumentAxis,
+  AreaSeries,
+  LineSeries,
+  SplineSeries,
+  BarSeries,
+  ScatterSeries,
+  PieSeries,
+  Tooltip,
+} from '@devexpress/dx-react-chart-<%&themeName%>';
+
+const data = [
+  { arg: 'A', val: 2 },
+  { arg: 'B', val: 1 },
+  { arg: 'C', val: 4 },
+  { arg: 'D', val: 3 },
+  { arg: 'E', val: 2 },
+  { arg: 'F', val: 3 },
+];
+
+export default () => (
+  <<%&wrapperTag%><%&wrapperAttributes%>>
+    <Chart data={data}>
+      <ArgumentAxis />
+
+      <AreaSeries name="area" argumentField="arg" valueField="val" />
+      <LineSeries name="line" argumentField="arg" valueField="val" />
+      <SplineSeries name="spline" argumentField="arg" valueField="val" />
+      <BarSeries name="bar" argumentField="arg" valueField="val" />
+      <ScatterSeries name="scatter" argumentField="arg" valueField="val" />
+      <PieSeries name="pie" argumentField="arg" valueField="val" />
+
+      <Tooltip targetItem={{ series: 'area', point: 0 }} />
+      <Tooltip targetItem={{ series: 'line', point: 1 }} />
+      <Tooltip targetItem={{ series: 'spline', point: 2 }} />
+      <Tooltip targetItem={{ series: 'bar', point: 3 }} />
+      <Tooltip targetItem={{ series: 'bar', point: 4 }} />
+      <Tooltip targetItem={{ series: 'pie', point: 5 }} />
+    </Chart>
+  </<%&wrapperTag%>>
+);

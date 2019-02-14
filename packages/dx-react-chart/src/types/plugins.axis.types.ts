@@ -1,4 +1,4 @@
-import { TickFormatFn } from '@devexpress/dx-chart-core';
+import { TickFormatFn } from './index';
 import { LabelProps, LineProps, RootProps } from './templates.axis.types';
 
 export interface RawAxisProps {

@@ -1,7 +1,7 @@
 import {
   Target,
   NotifyPointerMoveFn,
-} from '@devexpress/dx-chart-core';
+} from './index';
 
 export interface RawTooltipProps {
   // An item for which the tooltip is displayed initially

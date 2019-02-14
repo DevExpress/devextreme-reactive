@@ -1,6 +1,6 @@
 import {
-  Scales, BuildAnimatedStyleGetterFn, TransformedPoint,
-} from '@devexpress/dx-chart-core';
+  Scales, BuildAnimatedStyleGetterFn, TransformedPoint, Series,
+} from './index';
 
 type PathFn = (points: ReadonlyArray<TransformedPoint>) => string;
 
@@ -13,13 +13,6 @@ interface InternalCommonProps {
   getAnimatedStyle: BuildAnimatedStyleGetterFn;
 }
 
-interface InternalPathProps extends InternalCommonProps {
-  /** @internal */
-  index: number;
-  /** @internal */
-  state?: string;
-}
-
 interface InternalPointProps extends InternalCommonProps {
 /** @internal */
   argument: any;
@@ -29,7 +22,7 @@ interface InternalPointProps extends InternalCommonProps {
   state?: string;
 }
 
-export interface PathProps extends InternalPathProps {
+export interface PathProps {
   // A function used to calculate the series’ path
   path?: PathFn;
   // Coordinates of the series’ points
@@ -102,4 +95,12 @@ export interface PointCollectionProps extends RawPointProps {
   coordinates: TransformedPoint[];
   index: number;
   state?: string;
+}
+
+// tslint:disable-next-line: no-namespace
+export namespace AreaSeries {
+
+}
+export interface AreaSeriesProps extends Series {
+  seriesComponent: React.ComponentType<PathProps>;
 }

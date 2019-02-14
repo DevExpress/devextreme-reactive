@@ -1,6 +1,6 @@
 import {
   GetPointTransformerFn, CreateHitTesterFn,
-} from '@devexpress/dx-chart-core';
+} from './index';
 import { RawPointProps, PathProps } from './templates.series.types';
 
 export type ComponentProps = {

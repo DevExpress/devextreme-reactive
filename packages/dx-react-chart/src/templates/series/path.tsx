@@ -28,7 +28,7 @@ class RawPath extends React.PureComponent<PathProps> {
   }
 }
 
-export const Path = withStates({
+export const Path: React.ComponentType<PathProps> = withStates({
   [HOVERED]: props => ({ strokeWidth: 4, ...props }),
   [SELECTED]: props => ({ strokeWidth: 4, ...props }),
 })(RawPath);

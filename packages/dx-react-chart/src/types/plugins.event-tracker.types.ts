@@ -1,4 +1,4 @@
-import { HandlerFn } from '@devexpress/dx-chart-core';
+import { HandlerFn } from './index';
 export interface EventTrackerProps {
   // A function that is executed when the chart’s plot is clicked
   onClick ?: HandlerFn;

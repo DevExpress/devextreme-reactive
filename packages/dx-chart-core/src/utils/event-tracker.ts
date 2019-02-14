@@ -63,6 +63,7 @@ const buildLeaveEventHandler = (handlers: HandlerFnList): EventHandlerFn => (e) 
 
 // The result is of Map<string, Function> type.
 // Keys are DOM event names (https://developer.mozilla.org/en-US/docs/Web/Events).
+/** @internal */
 export const buildEventHandlers = (
   seriesList: SeriesList, { clickHandlers, pointerMoveHandlers }: HandlersObject,
 ) => {

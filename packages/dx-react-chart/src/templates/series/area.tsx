@@ -4,13 +4,10 @@ import {
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
-import { PathProps } from '../../types';
+import { AreaSeriesProps } from '../../types';
 
-const defaultProps = { path: dArea };
-type RawAreaDefaultProps = Readonly<typeof defaultProps>;
-
-class RawArea extends React.PureComponent<PathProps & RawAreaDefaultProps> {
-  static defaultProps = defaultProps;
+class RawArea extends React.PureComponent<AreaSeriesProps> {
+  static defaultProps = { path: dArea };
   render() {
     const {
       path,
@@ -22,7 +19,7 @@ class RawArea extends React.PureComponent<PathProps & RawAreaDefaultProps> {
     } = this.props;
     return (
       <path
-        d={path(coordinates)}
+        d={path!(coordinates)}
         fill={color}
         opacity={0.5}
         style={getAnimatedStyle(style, getAreaAnimationStyle, scales)}
@@ -32,7 +29,7 @@ class RawArea extends React.PureComponent<PathProps & RawAreaDefaultProps> {
   }
 }
 
-export const Area = withStates({
+export const Area: React.ComponentType<AreaSeriesProps> = withStates({
   [HOVERED]: withPattern(
     ({ index }) => `series-${index}-hover`, { opacity: 0.75 },
   )(RawArea),

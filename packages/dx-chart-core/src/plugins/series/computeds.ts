@@ -18,20 +18,24 @@ const getX = ({ x }: TransformedPoint) => x;
 const getY = ({ y }: TransformedPoint) => y;
 const getY1 = ({ y1 }: TransformedPoint) => y1!;
 
+/** @internal */
 export const dArea = area<TransformedPoint>()
   .x(getX)
   .y1(getY)
   .y0(getY1);
 
+/** @internal */
 export const dLine = line<TransformedPoint>()
   .x(getX)
   .y(getY);
 
+/** @internal */
 export const dSpline = line<TransformedPoint>()
   .x(getX)
   .y(getY)
   .curve(curveMonotoneX);
 
+/** @internal */
 export const getPiePointTransformer: GetPointTransformerFn = ({
   argumentScale, valueScale, points,
 }) => {
@@ -52,6 +56,7 @@ export const getPiePointTransformer: GetPointTransformerFn = ({
   };
 };
 
+/** @internal */
 export const getLinePointTransformer: GetPointTransformerFn = ({
   argumentScale, valueScale,
 }) => {
@@ -63,8 +68,10 @@ export const getLinePointTransformer: GetPointTransformerFn = ({
   });
 };
 
+/** @internal */
 export const getScatterPointTransformer = getLinePointTransformer;
 
+/** @internal */
 export const getAreaPointTransformer: GetPointTransformerFn = (series) => {
   const transform = getLinePointTransformer(series);
   const y1 = series.valueScale(0);
@@ -76,6 +83,7 @@ export const getAreaPointTransformer: GetPointTransformerFn = (series) => {
 // Used for domain calculation and stacking.
 getAreaPointTransformer.isStartedFromZero = true;
 
+/** @internal */
 export const getBarPointTransformer: GetPointTransformerFn = ({
   argumentScale, valueScale,
 }) => {
@@ -96,20 +104,24 @@ getBarPointTransformer.isBroad = true;
 
 getPiePointTransformer.getPointColor = (palette, index) => palette[index % palette.length];
 
+/** @internal */
 export const findSeriesByName = (
   name: symbol, series: SeriesList,
 ): Series => series.find(seriesItem => seriesItem.symbolName === name) as Series;
 
+/** @internal */
 export const dBar = ({
   x, y, y1, width,
 }: { x: number, y: number, y1: number, width: number }) => ({
   x: x - width / 2, y: Math.min(y, y1!), width: width || 2, height: Math.abs(y1! - y),
 });
 
+/** @internal */
 export const dSymbol = (
   { size }: { size: number },
 ) => symbol().size(size ** 2).type(symbolCircle)()!;
 
+/** @internal */
 export const dPie = ({
   maxRadius, innerRadius, outerRadius, startAngle, endAngle,
 }: {
@@ -193,6 +205,7 @@ const createPoints = (
   return points;
 };
 
+/** @internal */
 export const addSeries: AddSeriesFn = (
   series, data, palette, props, restProps,
 ) => {

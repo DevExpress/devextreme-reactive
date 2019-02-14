@@ -74,6 +74,7 @@ const createPointsEnumeratingHitTesterCreator =
     return list.length ? { points: list } : null;
   };
 
+/** @internal */
 export const createAreaHitTester = createContinuousSeriesHitTesterCreator(() => {
   const path = area<TransformedPoint>();
   path.x(dArea.x());
@@ -82,6 +83,7 @@ export const createAreaHitTester = createContinuousSeriesHitTesterCreator(() => 
   return path;
 });
 
+/** @internal */
 export const createLineHitTester = createContinuousSeriesHitTesterCreator(() => {
   const path = area<TransformedPoint>();
   const getY = dLine.y() as (x: TransformedPoint) => number;
@@ -91,6 +93,7 @@ export const createLineHitTester = createContinuousSeriesHitTesterCreator(() => 
   return path;
 });
 
+/** @internal */
 export const createSplineHitTester = createContinuousSeriesHitTesterCreator(() => {
   const path = area<TransformedPoint>();
   const getY = dSpline.y() as (x: TransformedPoint) => number;
@@ -108,6 +111,7 @@ const hitTestRect = (dx: number, dy: number, halfX: number, halfY: number) => (
 );
 
 // Some kind of binary search can be used here as bars can be ordered along argument axis.
+/** @internal */
 export const createBarHitTester = createPointsEnumeratingHitTesterCreator(
   ([px, py], point) => {
     const { x, y, y1, barWidth, maxBarWidth } = point as BarPoint;
@@ -119,6 +123,7 @@ export const createBarHitTester = createPointsEnumeratingHitTesterCreator(
   },
 );
 
+/** @internal */
 export const createScatterHitTester = createPointsEnumeratingHitTesterCreator(
   ([px, py], obj) => {
     const { x, y, point } = obj as ScatterPoint;
@@ -133,6 +138,7 @@ const mapAngleTod3 = (angle: number) => {
 };
 
 // Some kind of binary search can be used here as pies can be ordered along angle axis.
+/** @internal */
 export const createPieHitTester = createPointsEnumeratingHitTesterCreator(
   ([px, py], point) => {
     const {
@@ -162,6 +168,7 @@ const buildFilter = (targets: TargetList): Filter => {
   return result;
 };
 
+/** @internal */
 export const changeSeriesState = (seriesList: SeriesList, targets: TargetList, state: string) => {
   if (targets.length === 0) {
     return seriesList;

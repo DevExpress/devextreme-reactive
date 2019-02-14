@@ -1,5 +1,5 @@
 
-import { TargetList } from '@devexpress/dx-chart-core';
+import { TargetList } from './index';
 
 export interface SelectionStateProps {
   // An array of selected series and points

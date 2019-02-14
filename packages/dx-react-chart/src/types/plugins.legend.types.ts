@@ -1,5 +1,5 @@
 import { Getters } from '@devexpress/dx-react-core';
-import { LegendItemList } from '@devexpress/dx-chart-core';
+import { LegendItemList } from './index';
 import { MarkerProps } from './templates.legend.types';
 
 interface LabelProps {

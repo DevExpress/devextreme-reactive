@@ -29,7 +29,7 @@ class RawBar extends React.PureComponent<RawBarProps> {
   }
 }
 
-export const Bar = withStates({
+export const Bar: React.ComponentType<RawBarProps> = withStates({
   [HOVERED]: withPattern(
     ({ seriesIndex, index }) => `series-${seriesIndex}-point-${index}-hover`, { opacity: 0.75 },
   )(RawBar),

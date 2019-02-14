@@ -20,6 +20,7 @@ const selectTarget = (targets: TargetList, currentTarget: Target): ProcessedTarg
   return compareTargets(candidate, currentTarget) ? undefined : candidate;
 };
 
+/** @internal */
 export const processPointerMove = (
   targets: TargetList, currentTarget: Target, notify?: NotifyPointerMoveFn,
 ) => {

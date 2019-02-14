@@ -45,6 +45,7 @@ const createVerticalOptions = (position: string, tickSize: number, indentFromAxi
   };
 };
 
+/** @internal */
 export const axisCoordinates: AxisCoordinatesFn = ({
   scaleName,
   scale,
@@ -78,6 +79,7 @@ export const axisCoordinates: AxisCoordinatesFn = ({
 const horizontalGridOptions = { y: 0, dy: 1 };
 const verticalGridOptions = { x: 0, dx: 1 };
 
+/** @internal */
 export const getGridCoordinates: GetGridCoordinatesFn = ({
   scaleName, scale,
 }) => {

@@ -18,6 +18,7 @@ const defaultProps = {
   name: 'defaultSeriesName',
 };
 
+/** @internal */
 export const declareSeries = (
   pluginName: string,
   { components, getPointTransformer, createHitTester }: ExtraSeriesParameters,

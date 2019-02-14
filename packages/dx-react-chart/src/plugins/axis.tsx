@@ -5,7 +5,6 @@ import {
   Template,
   TemplatePlaceholder,
   withComponents,
-  PluginComponents,
 } from '@devexpress/dx-react-core';
 import {
   axisCoordinates, LEFT, BOTTOM, ARGUMENT_DOMAIN, getValueDomainName, getGridCoordinates,
@@ -35,15 +34,18 @@ const adjustScaleRange = (scale: Scale, [width, height]: NumberArray) => {
   return scale.copy().range(range);
 };
 
-const defaultProps = {
-  tickSize: 5,
-  indentFromAxis: 10,
-};
-type RawAxisDefaultProps = Readonly<typeof defaultProps>;
-
-class RawAxis extends React.PureComponent<RawAxisProps & RawAxisDefaultProps> {
-  static components: PluginComponents;
-  static defaultProps = defaultProps;
+class RawAxis extends React.PureComponent<RawAxisProps> {
+  static components: {
+    rootComponent: 'Root',
+    tickComponent: 'Tick',
+    labelComponent: 'Label',
+    lineComponent: 'Line',
+    gridComponent: 'Grid',
+  };
+  static defaultProps = {
+    tickSize: 5,
+    indentFromAxis: 10,
+  };
 
   rootRef: React.RefObject<HTMLDivElement> = React.createRef();
   adjustedWidth: number = 0;
@@ -82,9 +84,9 @@ class RawAxis extends React.PureComponent<RawAxisProps & RawAxisDefaultProps> {
               const { sides: [dx, dy], ticks } = axisCoordinates({
                 scaleName,
                 position,
-                tickSize,
+                tickSize: tickSize!,
                 tickFormat,
-                indentFromAxis,
+                indentFromAxis: indentFromAxis!,
                 // Isn't it too late to adjust sizes?
                 scale: adjustScaleRange(scale, [this.adjustedWidth, this.adjustedHeight]),
               });
@@ -200,14 +202,6 @@ class RawAxis extends React.PureComponent<RawAxisProps & RawAxisDefaultProps> {
   }
 }
 
-RawAxis.components = {
-  rootComponent: 'Root',
-  tickComponent: 'Tick',
-  labelComponent: 'Label',
-  lineComponent: 'Line',
-  gridComponent: 'Grid',
-};
-
 export const Axis: React.ComponentType<RawAxisProps> = withComponents({
   Label,
   Line,
@@ -223,7 +217,7 @@ export const Axis: React.ComponentType<RawAxisProps> = withComponents({
 // It should be domain dependent - something like AT_DOMAIN_START or AT_DOMAIN_END.
 
 // TODO: Check that only BOTTOM and TOP are accepted.
-export const ArgumentAxis = withPatchedProps(props => ({
+export const ArgumentAxis: React.ComponentType<RawAxisProps> = withPatchedProps(props => ({
   position: BOTTOM,
   showGrid: false,
   showTicks: true,
@@ -234,7 +228,7 @@ export const ArgumentAxis = withPatchedProps(props => ({
 }))(Axis);
 
 // TODO: Check that only LEFT and RIGHT are accepted.
-export const ValueAxis = withPatchedProps(props => ({
+export const ValueAxis: React.ComponentType<RawAxisProps> = withPatchedProps(props => ({
   position: LEFT,
   showGrid: true,
   showTicks: false,

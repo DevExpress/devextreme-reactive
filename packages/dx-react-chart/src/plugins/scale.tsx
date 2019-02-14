@@ -4,6 +4,7 @@ import { ARGUMENT_DOMAIN, getValueDomainName, addDomain } from '@devexpress/dx-c
 import { withPatchedProps } from '../utils';
 import { ScaleProps } from '../types';
 
+/** @internal */
 export class Scale extends React.PureComponent<ScaleProps> {
   render() {
     const { name, factory, modifyDomain } = this.props;
@@ -17,12 +18,12 @@ export class Scale extends React.PureComponent<ScaleProps> {
   }
 }
 
-export const ArgumentScale = withPatchedProps(props => ({
+export const ArgumentScale: React.ComponentType<ScaleProps> = withPatchedProps(props => ({
   ...props,
   name: ARGUMENT_DOMAIN,
 }))(Scale);
 
-export const ValueScale = withPatchedProps(props => ({
+export const ValueScale: React.ComponentType<ScaleProps> = withPatchedProps(props => ({
   ...props,
   name: getValueDomainName(props.name),
 }))(Scale);

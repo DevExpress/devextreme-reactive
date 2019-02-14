@@ -3,8 +3,9 @@ import {
 } from '@devexpress/dx-chart-core';
 import { declareSeries } from '../utils';
 import { Area as Path } from '../templates/series/area';
+import { AreaSeriesProps } from '../types';
 
-export const AreaSeries = declareSeries('AreaSeries', {
+export const AreaSeries: React.ComponentType<AreaSeriesProps> = declareSeries('AreaSeries', {
   getPointTransformer,
   createHitTester,
   components: { Path },

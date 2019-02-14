@@ -1,5 +1,4 @@
-
-import { DataItems } from '@devexpress/dx-chart-core';
+import { DataItems } from './index';
 
 export interface BasicDataProps {
   data: DataItems;

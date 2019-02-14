@@ -1,6 +1,4 @@
-import {
-  Target, NotifyPointerMoveFn, HandlerFnList,
-} from '@devexpress/dx-chart-core';
+import { Target, NotifyPointerMoveFn, HandlerFnList } from './index';
 import { Getters } from '@devexpress/dx-react-core';
 import { PureComputed } from '@devexpress/dx-core';
 

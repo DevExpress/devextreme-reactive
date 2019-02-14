@@ -1,3 +1,4 @@
+import { Scales, BuildAnimatedStyleGetterFn } from './plugins.animation.types';
 type DataItem = { readonly [field: string]: any };
 export type DataItems = ReadonlyArray<DataItem>;
 
@@ -91,20 +92,40 @@ export type TargetList = ReadonlyArray<Target>;
 export type GetFormatFn = (tick: any) => string;
 
 export interface Series {
-  readonly index: number;
-  readonly scaleName: string;
-  readonly symbolName: unique symbol;
+  // A series name
   readonly name: string;
-  readonly getValueDomain?: GetValueDomainFn;
-  readonly points: PointList;
-  readonly color: string;
-  readonly argumentField: string;
+  // The name of a data field that provides series point values
   readonly valueField: string;
-  readonly createHitTester: CreateHitTesterFn;
-  readonly getPointTransformer: GetPointTransformerFn;
-  readonly pointComponent: React.ComponentType<any>;
-  readonly state?: string;
+  // The name of a data field that provides series point argument values
+  readonly argumentField: string;
+  // The associated scale
+  readonly scaleName: string;
+  // A series color
+  readonly color: string;
+  /** @internal */
   readonly seriesComponent: React.ComponentType<any>;
+  /** @internal */
+  readonly style?: any;
+  /** @internal */
+  readonly scales: Scales;
+  /** @internal */
+  readonly getAnimatedStyle: BuildAnimatedStyleGetterFn;
+  /** @internal */
+  readonly index: number;
+  /** @internal */
+  readonly getValueDomain?: GetValueDomainFn;
+  /** @internal */
+  readonly points: PointList;
+  /** @internal */
+  readonly createHitTester: CreateHitTesterFn;
+  /** @internal */
+  readonly getPointTransformer: GetPointTransformerFn;
+  /** @internal */
+  readonly pointComponent: React.ComponentType<any>;
+  /** @internal */
+  readonly state?: string;
+  /** @internal */
+  readonly symbolName: unique symbol;
 }
 export type SeriesList = ReadonlyArray<Series>;
 

@@ -12,10 +12,13 @@ const defaultProps = {
   offset: stackOffsetDiverging,
   order: stackOrderNone,
 };
-type StackDefaultProps = Readonly<typeof defaultProps>;
-
-export class Stack extends React.PureComponent<StackProps & StackDefaultProps> {
-  static defaultProps = defaultProps;
+/** @internal */
+export class Stack extends React.PureComponent<StackProps & typeof defaultProps> {
+  static defaultProps = {
+    stacks: [],
+    offset: stackOffsetDiverging,
+    order: stackOrderNone,
+  };
   render() {
     const { stacks, offset, order } = this.props;
     const params = { stacks, offset, order };

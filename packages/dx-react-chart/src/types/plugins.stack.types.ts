@@ -1,5 +1,5 @@
 
-import { StackList, OffsetFn, OrderFn } from '@devexpress/dx-chart-core';
+import { StackList, OffsetFn, OrderFn } from './index';
 export interface StackProps {
   // A list of stacks
   stacks?: StackList;

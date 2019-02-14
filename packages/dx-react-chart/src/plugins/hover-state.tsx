@@ -11,6 +11,7 @@ import { HoverStateProps, HoverStateState, getPointerMoveHandlersFn } from '../t
 
 const dependencies = [{ name: 'EventTracker', optional: true }];
 
+/** @internal */
 export class HoverState extends React.PureComponent<HoverStateProps, HoverStateState> {
   getPointerMoveHandlers: getPointerMoveHandlersFn;
   constructor(props) {

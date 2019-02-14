@@ -4,16 +4,17 @@ import {
   Plugin,
   Template,
   TemplatePlaceholder,
-  PluginComponents,
 } from '@devexpress/dx-react-core';
 import { TitleProps } from '../types';
 
 const defaultProps = {
   position: 'top',
 };
-type TitleDefaultProps = Readonly<typeof defaultProps>;
-export class Title extends React.PureComponent<TitleProps & TitleDefaultProps> {
-  static components: PluginComponents;
+/** @internal */
+export class Title extends React.PureComponent<TitleProps & typeof defaultProps> {
+  static components: {
+    textComponent: 'Text',
+  };
   static defaultProps = defaultProps;
   render() {
     const {
@@ -33,7 +34,3 @@ export class Title extends React.PureComponent<TitleProps & TitleDefaultProps> {
     );
   }
 }
-
-Title.components = {
-  textComponent: 'Text',
-};

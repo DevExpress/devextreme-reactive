@@ -32,7 +32,7 @@ class RawSlice extends React.PureComponent<RawSliceProps> {
   }
 }
 
-export const Slice = withStates({
+export const Slice: React.ComponentType<RawSliceProps> = withStates({
   [HOVERED]: withPattern(
     ({ seriesIndex, index }) => `series-${seriesIndex}-point-${index}-hover`, { opacity: 0.75 },
   )(RawSlice),

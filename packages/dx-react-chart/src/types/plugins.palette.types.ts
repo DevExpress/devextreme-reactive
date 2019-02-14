@@ -1,5 +1,5 @@
 
-import { Palette } from '@devexpress/dx-chart-core';
+import { Palette } from './index';
 export interface PaletteProps {
   scheme: Palette;
 }

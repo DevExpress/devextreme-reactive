@@ -7,11 +7,12 @@ import {
   AddDomainFn, MergeDomainsFn, GetItemFn, DomainInfo, FactoryFn, ComputeDomainsFn,
 } from '../../types';
 
+/** @internal */
 export const defaultDomains: DomainInfoCache = {
   [ARGUMENT_DOMAIN]: { domain: [] },
   [VALUE_DOMAIN]: { domain: [] },
 };
-
+/** @internal */
 export const addDomain: AddDomainFn = (domains, name, props) => ({
   ...domains,
   [name]: props,
@@ -53,8 +54,9 @@ const calculateDomains = (domains: DomainInfoCache, seriesList: SeriesList) => {
     extendDomain(domains[ARGUMENT_DOMAIN], points.map(getArgument));
   });
 };
-
+/** @internal */
 export const scaleLinear: FactoryFn = d3ScaleLinear;
+/** @internal */
 export const scaleBand: FactoryFn = () => (
   d3ScaleBand().paddingInner(0.3).paddingOuter(0.15) as any as Scale
 );
@@ -102,6 +104,7 @@ const customizeDomains = (domains: DomainInfoCache) => {
   });
 };
 
+/** @internal */
 export const computeDomains: ComputeDomainsFn = (domains, seriesList) => {
   const result = copy(domains);
   collectDomainsFromSeries(result, seriesList);
@@ -110,6 +113,7 @@ export const computeDomains: ComputeDomainsFn = (domains, seriesList) => {
   return result;
 };
 
+/** @internal */
 export const buildScales: BuildScalesFn = (domains, { width, height }) => {
   const scales = {};
   Object.keys(domains).forEach((name) => {

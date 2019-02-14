@@ -32,7 +32,7 @@ class RawPoint extends React.PureComponent<RawPointProps> {
 // and to adjust hovered or selected size when custom *point.size* is defined.
 const getAdjustedOptions = ({ size }) => ({ size: Math.round(size * 1.7) });
 
-export const Point = withStates({
+export const Point: React.ComponentType<RawPointProps> = withStates({
   [HOVERED]: ({ color, point, ...restProps }) => ({
     stroke: color,
     strokeWidth: 4,

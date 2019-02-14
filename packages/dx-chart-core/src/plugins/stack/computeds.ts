@@ -172,6 +172,7 @@ const applyGrouping = (seriesList: SeriesList, seriesToStackMap: StackMap): Seri
   });
 };
 
+/** @internal */
 export const getStackedSeries: GetStackedSeriesFn = (
   seriesList, dataItems, { stacks, offset, order },
 ) => {

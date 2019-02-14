@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { PluginHost, withComponents, PluginComponents } from '@devexpress/dx-react-core';
+import { PluginHost, withComponents } from '@devexpress/dx-react-core';
 import {
   TOP, BOTTOM, LEFT, RIGHT,
 } from '@devexpress/dx-chart-core';
@@ -16,15 +16,11 @@ import { Palette } from './plugins/palette';
 import { Root } from './templates/layout';
 import { Label } from './templates/label';
 
-const defaultProps = {
-  height: 500,
-};
-
-type RawChartDefaultProps = Readonly<typeof defaultProps>;
-
-class RawChart extends React.PureComponent<RawChartProps & RawChartDefaultProps> {
-  static defaultProps = defaultProps;
-  static components: PluginComponents = {
+class RawChart extends React.PureComponent<RawChartProps> {
+  static defaultProps = {
+    height: 500,
+  };
+  static components = {
     rootComponent: 'Root',
   };
   render() {
@@ -42,7 +38,7 @@ class RawChart extends React.PureComponent<RawChartProps & RawChartDefaultProps>
         <Palette scheme={[]} />
         <LayoutManager
           width={width}
-          height={height}
+          height={height!}
           rootComponent={rootComponent}
           {...restProps}
         />
@@ -70,4 +66,4 @@ class RawChart extends React.PureComponent<RawChartProps & RawChartDefaultProps>
 }
 
 export const Chart: React.ComponentType<RawChartProps> = withComponents({ Root })(RawChart);
-Chart.Label = Label;
+(Chart as any).Label = Label;

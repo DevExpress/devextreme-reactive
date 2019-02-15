@@ -20,6 +20,7 @@ export class FixedCell extends React.PureComponent {
         style={{
           ...style,
           position: 'sticky',
+          backgroundClip: 'padding-box',
           zIndex: 300,
           backgroundColor,
           [side]: position,

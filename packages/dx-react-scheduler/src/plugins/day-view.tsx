@@ -20,9 +20,11 @@ import {
   VERTICAL_TYPE,
 } from '@devexpress/dx-scheduler-core';
 
+import { DayViewProps, DayViewState } from '../types';
+
 const TYPE = 'day';
 
-export class DayView extends React.PureComponent {
+export class DayView extends React.PureComponent<DayViewProps, DayViewState> {
   constructor(props) {
     super(props);
 

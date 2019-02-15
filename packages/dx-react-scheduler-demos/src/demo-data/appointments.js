@@ -36,7 +36,7 @@ export const appointments = [
     id: 5,
     location: 'Room 2',
   }, {
-    title: 'Install New Database',
+    title: '* DRAGGING DISABLED *',
     startDate: new Date(2018, 5, 27, 9, 45),
     endDate: new Date(2018, 5, 27, 11, 15),
     id: 6,

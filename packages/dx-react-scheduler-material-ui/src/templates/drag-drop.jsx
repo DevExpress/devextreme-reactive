@@ -19,9 +19,7 @@ const styles = theme => ({
     transition: 'transform 0.05s',
   },
   column: {
-    paddingLeft: theme.spacing.unit * 2,
-    paddingRight: theme.spacing.unit * 2,
-    float: 'right',
+    boxShadow: '0px 1px 5px 0px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.12)',
     cursor: 'move',
   },
 });
@@ -73,10 +71,11 @@ const ColumnBase = ({
   ...restProps
 }) => (
   <Appointment
+    className={classes.column}
     style={rect}
   >
     <VerticalAppointment
-        // className={classNames(classes.column, className)}
+          // className={classNames(classes.column, className)}
       data={appointmentData}
       {...restProps}
     />

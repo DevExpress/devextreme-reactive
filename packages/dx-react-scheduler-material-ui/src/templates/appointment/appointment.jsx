@@ -37,20 +37,17 @@ class AppointmentBase extends React.PureComponent {
 
     this.state = {
       dragging: false,
-      cellRef: null,
+      initialY: null,
     };
     this.appointmentRef = React.createRef();
 
-    this.onDragStart = () => {
-      this.setState({ dragging: true });
+    this.onDragStart = ({ clientOffset }) => {
+      this.setState({ dragging: true, initialY: clientOffset.y });
     };
     this.onDragEnd = () => {
       if (this.appointmentRef.current) {
         this.setState({ dragging: false });
       }
-    };
-    this.callBack = (cellRefArg) => {
-      this.setState({ cellRef: cellRefArg });
     };
   }
 
@@ -63,7 +60,7 @@ class AppointmentBase extends React.PureComponent {
       commitChangedAppointment,
       ...restProps
     } = this.props;
-    const { dragging, cellRef } = this.state;
+    const { dragging, initialY } = this.state;
 
     const onClick = handleClick
       ? {
@@ -74,24 +71,48 @@ class AppointmentBase extends React.PureComponent {
       : null;
     const clickable = onClick || restProps.onDoubleClick;
     const appointmentDuration = moment(data.endDate).diff(moment(data.startDate), 'seconds');
+
+    const draggingPredicate = (appointmentData) => {
+      if (appointmentData.title === '* DRAGGING DISABLED *') return false;
+      return true;
+    };
+
+    const appointmentType = data.allDay || moment(data.endDate).diff(data.startDate, 'hours') > 23
+      ? 'horizontal' : 'vertical';
+
     return (
-      <DragSource
-        ref={this.appointmentRef}
-        payload={[{
-          type: 'appointment',
-          data,
-          style,
-          appointmentRef: this.appointmentRef.current,
-          changeAppointment,
-          commitChangedAppointment,
-          appointmentDuration,
-          cellRef,
-          cellCallBack: this.callBack,
-        }]}
-        onStart={this.onDragStart}
-        onEnd={this.onDragEnd}
-      >
+      draggingPredicate(data) ? (
+        <DragSource
+          payload={[{
+            type: appointmentType,
+            data,
+            style,
+            appointmentRef: this.appointmentRef,
+            changeAppointment,
+            commitChangedAppointment,
+            appointmentDuration,
+            appointmentInitialY: initialY,
+          }]}
+          onStart={this.onDragStart}
+          onEnd={this.onDragEnd}
+        >
+          <div
+            ref={this.appointmentRef}
+            className={classNames({
+              [classes.appointment]: true,
+              [classes.dragging]: dragging,
+              [classes.clickableAppointment]: clickable,
+            }, className)}
+            style={style}
+            {...onClick}
+            {...restProps}
+          >
+            {children}
+          </div>
+        </DragSource>
+      ) : (
         <div
+          ref={this.appointmentRef}
           className={classNames({
             [classes.appointment]: true,
             [classes.dragging]: dragging,
@@ -103,7 +124,7 @@ class AppointmentBase extends React.PureComponent {
         >
           {children}
         </div>
-      </DragSource>
+      )
     );
   }
 }

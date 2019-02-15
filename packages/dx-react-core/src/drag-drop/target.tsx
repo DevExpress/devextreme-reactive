@@ -66,7 +66,6 @@ export class DropTarget extends React.Component<DropTargetDefaultProps> {
     this.isOver = isOver && !end;
     const source = findDOMNode(this);
     if (this.isOver && source !== prevSource) {
-      console.log(sourcePayload);
       dragEmitter.emit({ payload, clientOffset, source, sourcePayload });
     }
   }

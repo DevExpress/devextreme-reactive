@@ -2,19 +2,16 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import TableCell from '@material-ui/core/TableCell';
-import Paper from '@material-ui/core/Paper';
 import { DropTarget } from '@devexpress/dx-react-core';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
 import RootRef from '@material-ui/core/RootRef';
 import moment from 'moment';
 import { getBorder } from '../../../utils';
-import { VerticalAppointment } from '../../../appointment/vertical-appointment';
 
 const styles = theme => ({
   cell: {
     borderLeft: getBorder(theme),
-    boxSizing: 'border-box',
     '&:hover': {
       backgroundColor: theme.palette.action.hover,
     },
@@ -24,24 +21,7 @@ const styles = theme => ({
     },
   },
   dragging: {
-    position: 'relative',
-    // backgroundColor: 'gray',
-  },
-  appointment: {
-    overflow: 'hidden',
-    boxSizing: 'border-box',
-    borderRight: '1px solid transparent',
-    borderBottom: '1px solid transparent',
-    backgroundClip: 'padding-box',
-    borderRadius: theme.spacing.unit / 2,
-    backgroundColor: theme.palette.primary[300],
-    ...theme.typography.caption,
-    // top: 0,
-    left: 0,
-    position: 'absolute',
-    background: 'blue',
-    width: '90%',
-    zIndex: 100,
+    // backgroundColor: 'lightgoldenrodyellow',
   },
 });
 
@@ -78,7 +58,7 @@ class CellBase extends React.PureComponent {
     };
     this.onOver = ({ clientOffset, payload }) => {
       const { top } = this.state;
-      let part = (clientOffset.y - this.state.top) / this.cell.current.clientHeight;
+      let part = (clientOffset.y - top) / this.cell.current.clientHeight;
       // console.log(part);
 
       // if (part === 0) {
@@ -120,10 +100,12 @@ class CellBase extends React.PureComponent {
       // console.log(`${oldPart} -> ${part}`);
       this.setState({ part });
 
+      const secondsDuration = moment(this.props.startDate).diff(this.props.endDate, 'seconds');
+
       payload[0].changeAppointment({
         change: {
-          startDate: this.props.startDate,
-          endDate: moment(this.props.startDate).add(payload[0].appointmentDuration, 'seconds').toDate(),
+          startDate: moment(this.props.startDate).add(secondsDuration * part * (-1), 'seconds').toDate(),
+          endDate: moment(this.props.startDate).add(payload[0].appointmentDuration - secondsDuration * part, 'seconds').toDate(),
         },
       });
     };
@@ -148,13 +130,17 @@ class CellBase extends React.PureComponent {
       ...restProps
     } = this.props;
     const { over, payload, part } = this.state;
+
+    const cellType = moment(endDate).diff(startDate, 'hours') > 23
+      ? 'horizontal' : 'vertical';
+
     return (
       <DropTarget
         onEnter={args => this.handleDragEvent(this.onEnter, args)}
         onOver={args => this.handleDragEvent(this.onOver, args)}
         onLeave={args => this.handleDragEvent(this.onLeave, args)}
         onDrop={args => this.handleDragEvent(this.onDrop, args)}
-        sourcePayload={{ startDate, endDate }}
+        sourcePayload={{ startDate, endDate, cellRef: this.cell, type: cellType }}
       >
         <RootRef rootRef={this.cell}>
           <TableCell

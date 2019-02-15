@@ -57,6 +57,7 @@ describe('FixedCell', () => {
 
     expect(tree.prop('style')).toMatchObject({
       color: 'white',
+      position: 'sticky',
     });
   });
 

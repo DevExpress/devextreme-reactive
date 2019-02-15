@@ -40,10 +40,7 @@ describe('FixedCell', () => {
       <FixedCell {...defaultProps} className="custom-class" />
     ));
 
-    expect(tree.is(`.${classes.fixedCell}`))
-      .toBeTruthy();
-
-    expect(tree.is('.custom-class'))
+    expect(tree.is(`.${classes.fixedCell}.custom-class`))
       .toBeTruthy();
   });
 

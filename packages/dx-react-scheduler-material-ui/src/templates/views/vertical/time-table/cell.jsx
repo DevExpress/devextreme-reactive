@@ -45,6 +45,10 @@ class CellBase extends React.PureComponent {
       // console.log('on enter!');
 
       let part = (clientOffset.y - this.state.top) / this.cell.current.clientHeight;
+      // if (this.offsetTime !== 0) {
+      //   this.offsetTime = moment(this.props.startDate).diff(payload[0].data.startDate, 'minutes');
+      //   console.log(this.offsetTime);
+      // }
 
       // if (part === 0) {
       //   this.setState({ payload, over: false, top: clientOffset.y, part });
@@ -75,8 +79,6 @@ class CellBase extends React.PureComponent {
         minus *= -1;
       }
 
-      const oldPart = part;
-
       if (Math.abs(part) > 1) {
         this.setState({ payload: {}, over: false, top: undefined, part: 0 });
         return;
@@ -100,14 +102,16 @@ class CellBase extends React.PureComponent {
       // console.log(`${oldPart} -> ${part}`);
       this.setState({ part });
 
-      const secondsDuration = moment(this.props.startDate).diff(this.props.endDate, 'seconds');
+      // const secondsDuration = moment(this.props.startDate).diff(this.props.endDate, 'seconds');
+      const secondsDuration = 0;
 
-      payload[0].changeAppointment({
-        change: {
-          startDate: moment(this.props.startDate).add(secondsDuration * part * (-1), 'seconds').toDate(),
-          endDate: moment(this.props.startDate).add(payload[0].appointmentDuration - secondsDuration * part, 'seconds').toDate(),
-        },
-      });
+      // console.log(`start ${moment(this.props.startDate).add((this.offsetTime) * (-1), 'seconds').toDate()} - end ${moment(this.props.startDate).add((payload[0].appointmentDuration - this.offsetTime), 'seconds').toDate()}`);
+      // payload[0].changeAppointment({
+      //   change: {
+      //     startDate: moment(this.props.startDate).add((this.offsetTime) * (-1), 'seconds').toDate(),
+      //     endDate: moment(this.props.startDate).add((payload[0].appointmentDuration - this.offsetTime), 'seconds').toDate(),
+      //   },
+      // });
     };
     this.onLeave = () => {
       // console.log('on leave!');
@@ -115,8 +119,9 @@ class CellBase extends React.PureComponent {
     };
     this.onDrop = (args) => {
       // console.log('on drop!');
-      args.payload[0].commitChangedAppointment({ appointmentId: args.payload[0].data.id });
-      this.setState({ payload: {}, over: false, top: undefined, part: 0 });
+      // this.offsetTime = 0;
+      // args.payload[0].commitChangedAppointment({ appointmentId: args.payload[0].data.id });
+      // this.setState({ payload: {}, over: false, top: undefined, part: 0 });
     };
   }
 

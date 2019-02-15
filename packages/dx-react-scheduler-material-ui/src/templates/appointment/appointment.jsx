@@ -80,6 +80,11 @@ class AppointmentBase extends React.PureComponent {
     const appointmentType = data.allDay || moment(data.endDate).diff(data.startDate, 'hours') > 23
       ? 'horizontal' : 'vertical';
 
+    let offsetY = 0;
+    if (this.appointmentRef.current) {
+      offsetY = initialY - this.appointmentRef.current.getBoundingClientRect().top;
+    }
+
     return (
       draggingPredicate(data) ? (
         <DragSource
@@ -92,7 +97,9 @@ class AppointmentBase extends React.PureComponent {
             commitChangedAppointment,
             appointmentDuration,
             appointmentInitialY: initialY,
+            offsetY,
           }]}
+          // elementOffsetY={offsetY}
           onStart={this.onDragStart}
           onEnd={this.onDragEnd}
         >

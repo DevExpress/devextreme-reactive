@@ -19,14 +19,17 @@ export class DragDropProviderCore {
 
   start(payload, clientOffset) {
     this.payload = payload;
+    // this.dragEmitter.emit({ clientOffset: { x: clientOffset.x + 10, y: clientOffset.y - 100 }, payload: this.payload });
     this.dragEmitter.emit({ clientOffset, payload: this.payload });
   }
 
   update(clientOffset) {
+    // this.dragEmitter.emit({ clientOffset: { x: clientOffset.x + 10, y: clientOffset.y - 100 }, payload: this.payload });
     this.dragEmitter.emit({ clientOffset, payload: this.payload });
   }
 
   end(clientOffset) {
+    // this.dragEmitter.emit({ clientOffset: { x: clientOffset.x + 10, y: clientOffset.y - 100 }, payload: this.payload, end: true });
     this.dragEmitter.emit({ clientOffset, payload: this.payload, end: true });
     this.payload = null;
   }

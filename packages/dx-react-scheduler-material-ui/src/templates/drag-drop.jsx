@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import { VerticalAppointment } from './appointment/vertical-appointment';
 import { Appointment } from './appointment/appointment';
@@ -16,7 +15,7 @@ const styles = theme => ({
     height: '100%',
     width: '100%',
     cursor: 'move',
-    transition: 'transform 0.05s',
+    // transition: 'transform 0.05s', // blink with start dragging
   },
   column: {
     boxShadow: '0px 1px 5px 0px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.12)',

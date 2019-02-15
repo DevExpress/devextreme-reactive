@@ -49,7 +49,7 @@ export default class Demo extends React.PureComponent {
     const { data, currentDate } = this.state;
 
     return (
-      <Paper>
+      <Paper style={{ margin: '50px' }}>
         <Scheduler
           data={data}
         >

@@ -17,8 +17,31 @@ export class DragDropProvider extends React.PureComponent {
       sourcePayload: null,
     };
 
+    this.payload = null;
+    this.sourcePayload = null;
+    this.source = null;
+    this.offsetY = 0;
+    this.timeOffset = 0;
+
     this.change = (args) => {
       // console.log(args);
+      if (args.sourcePayload) {
+        this.sourcePayload = args.sourcePayload;
+      }
+      if (args.source) {
+        this.source = args.source;
+      }
+      if (args.payload) {
+        this.payload = args.payload;
+      }
+      if (args.payload && args.sourcePayload) {
+        args.payload[0].changeAppointment({
+          change: {
+            startDate: moment(args.sourcePayload.startDate).add((this.offsetTime) * (-1), 'seconds').toDate(),
+            endDate: moment(args.sourcePayload.startDate).add((args.payload[0].appointmentDuration - this.offsetTime), 'seconds').toDate(),
+          },
+        });
+      }
       this.setState({ payload: args.payload, clientOffset: args.clientOffset, source: args.source, sourcePayload: args.sourcePayload });
     };
     this.moveOffset = null;
@@ -51,13 +74,10 @@ export class DragDropProvider extends React.PureComponent {
     }
 
     // for cursor position
-    console.log(payload);
-    if (payload && payload[0].appointmentRef && this.moveOffset === null) {
-      const moveOffset = clientOffset.y - payload[0].appointmentRef.current.getBoundingClientRect().top;
-      if (this.moveOffset !== moveOffset) {
-        this.moveOffset = moveOffset;
-      }
-      console.log(this.moveOffset);
+    if (payload && payload[0].appointmentRef && source && this.offsetY === 0) {
+      this.offsetTime = moment(sourcePayload.startDate).diff(payload[0].data.startDate, 'seconds');
+      console.log(this.offsetTime);
+      this.offsetY = sourcePayload.cellRef.current.getBoundingClientRect().top - payload[0].appointmentRef.current.getBoundingClientRect().top;
     }
     if (!payload) {
       this.moveOffset = null;
@@ -71,45 +91,76 @@ export class DragDropProvider extends React.PureComponent {
 
     // All Day
     let draftHeight = payload && payload[0].style.height;
-    if (sourcePayload) {
+    if (this.sourcePayload && payload) {
       // if (moment(sourcePayload.endDate).diff(sourcePayload.startDate, 'hours') > 23) {
       //   draftHeight = sourcePayload.cellRef.current.getBoundingClientRect().height;
       // }
-      if (payload[0].type !== sourcePayload.type) {
-        draftHeight = sourcePayload.cellRef.current.getBoundingClientRect().height;
+      if (payload[0].type !== this.sourcePayload.type) {
+        draftHeight = this.sourcePayload.cellRef.current.getBoundingClientRect().height;
       }
     }
 
 
     // Move by cell parts
     let topOffset = 0;
-    if (clientOffset && sourcePayload) {
-      let part = (clientOffset.y - sourcePayload.cellRef.current.getBoundingClientRect().top) / sourcePayload.cellRef.current.getBoundingClientRect().height;
+    // if (clientOffset && this.sourcePayload) {
+    //   let part = (clientOffset.y - this.sourcePayload.cellRef.current.getBoundingClientRect().top) / this.sourcePayload.cellRef.current.getBoundingClientRect().height;
 
-      let minus = 1;
-      if (part < 0) {
-        minus *= -1;
-      }
+    //   let minus = 1;
+    //   if (part < 0) {
+    //     minus *= -1;
+    //   }
 
-      if (Math.abs(part) > 1) { // return
-        // this.setState({ payload: {}, over: false, top: undefined, part: 0 });
-      }
+    //   if (Math.abs(part) > 1) { // return
+    //     // this.setState({ payload: {}, over: false, top: undefined, part: 0 });
+    //   }
 
-      if (part > 0 && part < 0.25) {
-        part = 0;
-      } else if ((part < 0 && part > -0.25)) {
-        part = -0.01;
-      } else if (Math.abs(part) < 0.5) {
-        part = 0.25 * minus;
-      } else if (Math.abs(part) < 0.75) {
-        part = 0.5 * minus;
-      } else if (Math.abs(part) < 1) {
-        part = 0.75 * minus;
-      }
-      if (part < 0) {
-        part = 1 + part;
-      }
-      topOffset = sourcePayload.cellRef.current.getBoundingClientRect().height * part;
+    //   if (part > 0 && part < 0.25) {
+    //     part = 0;
+    //   } else if ((part < 0 && part > -0.25)) {
+    //     part = -0.01;
+    //   } else if (Math.abs(part) < 0.5) {
+    //     part = 0.25 * minus;
+    //   } else if (Math.abs(part) < 0.75) {
+    //     part = 0.5 * minus;
+    //   } else if (Math.abs(part) < 1) {
+    //     part = 0.75 * minus;
+    //   }
+    //   if (part < 0) {
+    //     part = 1 + part;
+    //   }
+    //   topOffset = this.sourcePayload.cellRef.current.getBoundingClientRect().height * part;
+    // }
+
+    console.log(payload && payload[0]);
+    console.log(this.payload && this.payload[0]);
+
+    if (payload && this.payload !== payload) { // ENTER TO NEW DRAG TARGET
+      // if (this.offsetTime !== 0) {
+      //   this.offsetTime = moment(sourcePayload.startDate).diff(payload[0].data.startDate, 'minutes');
+      // }
+      console.log(12333213);
+      payload[0].changeAppointment({
+        change: {
+          startDate: moment(sourcePayload.startDate).add((this.offsetTime) * (-1), 'seconds').toDate(),
+          endDate: moment(sourcePayload.startDate).add((payload[0].appointmentDuration - this.offsetTime), 'seconds').toDate(),
+        },
+      });
+    }
+
+    if (this.payload && !payload) { // DROP OUTSIDE DRAG TARGET !!!!!!!
+      // payload[0].changeAppointment({
+      //   change: {
+      //     startDate: sourcePayload.startDate,
+      //     endDate: moment(sourcePayload.startDate).add(payload[0].appointmentDuration, 'seconds').toDate(),
+      //   },
+      // });
+      this.payload[0].commitChangedAppointment({ appointmentId: this.payload[0].data.id });
+      this.payload = null;
+      this.sourcePayload = null;
+      this.source = null;
+      this.offsetY = 0;
+      this.timeOffset = 0;
     }
 
     return (
@@ -126,14 +177,14 @@ export class DragDropProvider extends React.PureComponent {
           {payload && (
             <Container
               clientOffset={clientOffset}
-              left={source ? source.getBoundingClientRect().left : clientOffset.x}
-              top={source ? source.getBoundingClientRect().top - this.moveOffset + topOffset : clientOffset.y - this.moveOffset + topOffset}
+              left={this.source.getBoundingClientRect().left}
+              top={this.source.getBoundingClientRect().top - this.offsetY} // : clientOffset.y - this.moveOffset + topOffset}
             >
               <Appointment
-                data={{ ...payload[0].data, ...sourcePayload }} // NOTE use endDate: moment(this.props.startDate).add(payload[0].appointmentDuration, 'seconds').toDate()
+                data={{ ...payload[0].data, ...this.sourcePayload }} // NOTE use endDate: moment(this.props.startDate).add(payload[0].appointmentDuration, 'seconds').toDate()
                 rect={{
                   height: draftHeight,
-                  width: source ? source.getBoundingClientRect().width : payload[0].style.width,
+                  width: this.source ? this.source.getBoundingClientRect().width : payload[0].style.width,
                 }}
               />
             </Container>

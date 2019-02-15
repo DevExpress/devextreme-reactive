@@ -1,6 +1,7 @@
 import {
   TableRow, TableColumn, ColumnAnimationStyleMap, GetCellColSpanFn, TableProps,
 } from '../index';
+import { GetRowHeightFn, GetColumnWidthFn, VisibleBoundary } from '@devexpress/dx-grid-core/src';
 
 type tableLayoutComponents = 'containerComponent' | 'tableComponent'
   | 'headComponent' | 'bodyComponent' | 'footerComponent';
@@ -36,11 +37,27 @@ export type TableLayoutCoreState = {
 };
 
 /** @internal */
+export type VisibleBoundaries = {
+  columns: VisibleBoundary[],
+  headerRows: VisibleBoundary,
+  bodyRows: VisibleBoundary,
+  footerRows: VisibleBoundary,
+};
+
+/** @internal */
 export interface VirtualTableLayoutProps extends TableLayoutProps {
   height: number | 'auto';
   estimatedRowHeight: number;
   headTableComponent: React.ComponentType<object>;
   footerTableComponent: React.ComponentType<object>;
+  onUpdate: () => void;
+  visibleBoundaries: VisibleBoundaries;
+  getRowHeight: GetRowHeightFn;
+  getColumnWidth: GetColumnWidthFn;
+  headerHeight: number;
+  bodyHeight: number;
+  footerHeight: number;
+  containerHeight: number;
 }
 /** @internal */
 export type VirtualTableLayoutState = {
@@ -52,4 +69,6 @@ export type VirtualTableLayoutState = {
   headerHeight: number,
   bodyHeight: number,
   footerHeight: number,
+  containerHeight: number,
+  firstRowIndex: number,
 };

@@ -966,8 +966,9 @@ namespace TableHeaderRow {
     children: React.ReactNode;
     column: Column;
     draggingEnabled: boolean;
+    getMessage: (messageKey: string) => string;
     groupingEnabled: boolean;
-    onGroup(): void;
+    onGroup: () => void;
     onSort: (parameters: {
       // (undocumented)
       direction?: 'asc' | 'desc' | null;
@@ -996,7 +997,7 @@ namespace TableHeaderRow {
   }
   interface GroupButtonProps {
     disabled: boolean;
-    onGroup(): void;
+    onGroup: () => void;
   }
   // (undocumented)
   interface LocalizationMessages {
@@ -1086,7 +1087,7 @@ namespace TableRowDetail {
 // @public (undocumented)
 interface TableRowDetailProps {
   cellComponent: React.ComponentType<TableRowDetail.CellProps>;
-  contentComponent?: React.ComponentType<TableRowDetail.ContentProps>;
+  contentComponent: React.ComponentType<TableRowDetail.ContentProps>;
   rowComponent: React.ComponentType<TableRowDetail.RowProps>;
   rowHeight?: number;
   toggleCellComponent: React.ComponentType<TableRowDetail.ToggleCellProps>;
@@ -1114,7 +1115,7 @@ namespace TableSelection {
   // (undocumented)
   interface RowProps extends Table.RowProps {
     // (undocumented)
-    onToggle(): void;
+    onToggle: () => void;
     // (undocumented)
     selectByRowClick?: boolean;
     // (undocumented)

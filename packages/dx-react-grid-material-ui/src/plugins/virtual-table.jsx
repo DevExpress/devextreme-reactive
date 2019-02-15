@@ -13,6 +13,7 @@ export const VirtualTable = makeVirtualTable(Table, {
   FixedFooter,
   defaultEstimatedRowHeight: 48,
   defaultHeight: 530,
+  minColumnWidth: 120,
 });
 
 VirtualTable.COLUMN_TYPE = Table.COLUMN_TYPE;

@@ -40,6 +40,7 @@ export interface VirtualTableProps {
   headTableComponent: React.ComponentType<object>;
   /** @internal */
   footerTableComponent: React.ComponentType<object>;
+  onViewportTopChange: (number) => void;
 }
 
 // tslint:disable-next-line:max-line-length

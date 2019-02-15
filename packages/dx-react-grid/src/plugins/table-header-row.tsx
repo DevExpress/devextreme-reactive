@@ -13,9 +13,15 @@ import {
 } from '@devexpress/dx-grid-core';
 import { TableHeaderRowProps, TableCellProps, TableRowProps } from '../types';
 
-const tableHeaderRowsComputed = (
-  { tableHeaderRows }: Getters,
-) => tableRowsWithHeading(tableHeaderRows);
+// const tableHeaderRowsComputed = (
+//   { tableHeaderRows }: Getters,
+// ) => tableRowsWithHeading(tableHeaderRows);
+const tableHeaderRowsComputed = ({ tableHeaderRows }: Getters) => {
+  // console.log('computed')
+  const res = tableRowsWithHeading(tableHeaderRows || []);
+  // console.log('header rows comp', res);
+  return res;
+};
 
 class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {
   static ROW_TYPE = TABLE_HEADING_TYPE;
@@ -32,6 +38,7 @@ class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {
     titleComponent: 'Title',
     groupButtonComponent: 'GroupButton',
   };
+
 
   render() {
     const {

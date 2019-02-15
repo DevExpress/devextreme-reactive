@@ -69,8 +69,10 @@ export type GetCollapsedCellsFn = PureComputed<
 export type GetCollapsedGridFn = PureComputed<
   [{
     rows: TableRow[], columns: TableColumn[],
-    top: number, height: number, left: number, width: number,
-    getColumnWidth: GetColumnWidthFn, getRowHeight: GetRowHeightFn, getColSpan: GetColSpanFn,
+    rowsVisibleBoundary: VisibleBoundary, columnsVisibleBoundary: VisibleBoundary[],
+    getColumnWidth: GetColumnWidthFn, getRowHeight: GetRowHeightFn,
+    getColSpan: GetColSpanFn,
+
   }],
   { columns: CollapsedColumn[], rows: CollapsedRow[] }
 >;

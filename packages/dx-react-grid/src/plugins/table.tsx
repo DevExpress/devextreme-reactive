@@ -21,7 +21,7 @@ import {
   TABLE_NODATA_TYPE,
   GridColumnExtension,
 } from '@devexpress/dx-grid-core';
-import { TableProps, Table as TableNS } from '../types';
+import { TableProps, Table as TableNS, TableLayoutProps } from '../types';
 
 const RowPlaceholder = props => <TemplatePlaceholder name="tableRow" params={props} />;
 const CellPlaceholder = props => <TemplatePlaceholder name="tableCell" params={props} />;
@@ -88,6 +88,7 @@ class TableBase extends React.PureComponent<TableProps> {
       headComponent,
       bodyComponent,
       footerComponent,
+      minColumnWidth,
     } = this.props;
 
     const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
@@ -102,6 +103,7 @@ class TableBase extends React.PureComponent<TableProps> {
         <Getter name="tableFooterRows" value={tableFooterRows} />
         <Getter name="tableColumns" computed={tableColumnsComputed} />
         <Getter name="getTableCellColSpan" value={tableCellColSpanGetter} />
+        <Getter name="visibleBoundaries" value={[]} />
 
         <Template name="body">
           <TemplatePlaceholder name="table" />
@@ -115,22 +117,31 @@ class TableBase extends React.PureComponent<TableProps> {
               tableColumns: columns,
               getTableCellColSpan,
             }) => (
-              <Layout
-                tableComponent={tableComponent}
-                headComponent={headComponent}
-                bodyComponent={bodyComponent}
-                footerComponent={footerComponent}
-                containerComponent={containerComponent}
-                headerRows={headerRows}
-                bodyRows={bodyRows}
-                footerRows={footerRows}
-                columns={columns}
-                rowComponent={RowPlaceholder}
-                cellComponent={CellPlaceholder}
-                getCellColSpan={getTableCellColSpan}
+              <TemplatePlaceholder
+                name="tableLayout"
+                params={{
+                  tableComponent,
+                  headComponent,
+                  bodyComponent,
+                  footerComponent,
+                  containerComponent,
+                  headerRows,
+                  bodyRows,
+                  footerRows,
+                  columns,
+                  minColumnWidth,
+                  rowComponent: RowPlaceholder,
+                  cellComponent: CellPlaceholder,
+                  getCellColSpan: getTableCellColSpan,
+                }}
               />
             )}
           </TemplateConnector>
+        </Template>
+        <Template name="tableLayout">
+          {(params: TableLayoutProps) => (
+            <Layout {...params} />
+          )}
         </Template>
         <Template name="tableCell">
           {(params: TableNS.CellProps) => (

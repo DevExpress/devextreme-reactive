@@ -47,10 +47,10 @@ const legendLabelBase = ({ classes, ...restProps }) => (
 const Label = withStyles(legendLabelStyles, { name: 'LegendLabel' })(legendLabelBase);
 
 const Marker = (props) => {
-  const { className, color, ...restProps } = props;
+  const { className, color } = props;
   return (
-    <svg {...restProps} className={className} fill={color} width="10" height="10">
-      <rect {...restProps} x={0} y={0} width={10} height={10} />
+    <svg className={className} fill={color} width="10" height="10">
+      <rect x={0} y={0} width={10} height={10} />
     </svg>
   );
 };

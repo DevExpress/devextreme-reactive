@@ -34,13 +34,8 @@ const hoveredLabelStyles = {
   ...defaultLabelStyles,
   color: 'black',
 };
-const LegendLabel = ({
-  hoveredSeriesName, text, ...restProps
-}) => (
-  <div
-    {...restProps}
-    style={hoveredSeriesName === text ? hoveredLabelStyles : defaultLabelStyles}
-  >
+const LegendLabel = ({ hoveredSeriesName, text }) => (
+  <div style={hoveredSeriesName === text ? hoveredLabelStyles : defaultLabelStyles}>
     {text}
   </div>
 );

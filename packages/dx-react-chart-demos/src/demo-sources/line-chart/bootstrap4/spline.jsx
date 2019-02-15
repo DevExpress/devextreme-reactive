@@ -27,9 +27,9 @@ const Line = props => (
 );
 
 const Text = (props) => {
-  const { text, subtext, ...restProps } = props;
+  const { text, subtext } = props;
   return (
-    <div {...restProps}>
+    <div>
       <h3>
         {text}
       </h3>

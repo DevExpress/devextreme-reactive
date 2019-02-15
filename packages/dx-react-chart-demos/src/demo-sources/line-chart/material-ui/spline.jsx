@@ -30,9 +30,9 @@ const Line = props => (
 );
 
 const Text = (props) => {
-  const { text, subtext, ...restProps } = props;
+  const { text, subtext } = props;
   return (
-    <div {...restProps}>
+    <div>
       <Typography component="h3" variant="h5">
         {text}
       </Typography>

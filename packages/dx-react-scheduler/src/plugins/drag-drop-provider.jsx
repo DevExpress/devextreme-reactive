@@ -76,7 +76,6 @@ export class DragDropProvider extends React.PureComponent {
     // for cursor position
     if (payload && payload[0].appointmentRef && source && this.offsetY === 0) {
       this.offsetTime = moment(sourcePayload.startDate).diff(payload[0].data.startDate, 'seconds');
-      console.log(this.offsetTime);
       this.offsetY = sourcePayload.cellRef.current.getBoundingClientRect().top - payload[0].appointmentRef.current.getBoundingClientRect().top;
     }
     if (!payload) {
@@ -102,7 +101,6 @@ export class DragDropProvider extends React.PureComponent {
 
 
     // Move by cell parts
-    let topOffset = 0;
     // if (clientOffset && this.sourcePayload) {
     //   let part = (clientOffset.y - this.sourcePayload.cellRef.current.getBoundingClientRect().top) / this.sourcePayload.cellRef.current.getBoundingClientRect().height;
 
@@ -132,29 +130,7 @@ export class DragDropProvider extends React.PureComponent {
     //   topOffset = this.sourcePayload.cellRef.current.getBoundingClientRect().height * part;
     // }
 
-    console.log(payload && payload[0]);
-    console.log(this.payload && this.payload[0]);
-
-    if (payload && this.payload !== payload) { // ENTER TO NEW DRAG TARGET
-      // if (this.offsetTime !== 0) {
-      //   this.offsetTime = moment(sourcePayload.startDate).diff(payload[0].data.startDate, 'minutes');
-      // }
-      console.log(12333213);
-      payload[0].changeAppointment({
-        change: {
-          startDate: moment(sourcePayload.startDate).add((this.offsetTime) * (-1), 'seconds').toDate(),
-          endDate: moment(sourcePayload.startDate).add((payload[0].appointmentDuration - this.offsetTime), 'seconds').toDate(),
-        },
-      });
-    }
-
     if (this.payload && !payload) { // DROP OUTSIDE DRAG TARGET !!!!!!!
-      // payload[0].changeAppointment({
-      //   change: {
-      //     startDate: sourcePayload.startDate,
-      //     endDate: moment(sourcePayload.startDate).add(payload[0].appointmentDuration, 'seconds').toDate(),
-      //   },
-      // });
       this.payload[0].commitChangedAppointment({ appointmentId: this.payload[0].data.id });
       this.payload = null;
       this.sourcePayload = null;

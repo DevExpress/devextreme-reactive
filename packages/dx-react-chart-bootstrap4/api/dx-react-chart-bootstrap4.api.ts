@@ -158,8 +158,8 @@ module Title {
 // @public (undocumented)
 interface TitleProps {
   position?: 'top' | 'bottom' | 'left' | 'right';
-  text: string;
-  textComponent: React.ComponentType<TitleBase.TextProps>;
+  text?: string;
+  textComponent?: React.ComponentType<TitleBase.TextProps>;
 }
 
 // WARNING: Unsupported export: OverlayProps

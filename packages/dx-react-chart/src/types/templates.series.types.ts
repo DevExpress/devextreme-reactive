@@ -53,6 +53,42 @@ export namespace AreaSeries {
   }
 }
 
+// tslint:disable-next-line: no-namespace
+export namespace LineSeries {
+  /** Describes properties of a component that renders series */
+  export interface PathSeriesProps {
+    /** A function used to calculate the series’ path */
+    path: PathFn;
+  }
+  /** Describes properties passed to a component that renders the series */
+  export interface SeriesProps extends PathSeriesProps, InternalPathProps {
+    /** Coordinates of the series’ points */
+    coordinates: TransformedPoint[];
+    /** A series color */
+    color?: string;
+    /** @internal */
+    pointComponent: React.ComponentType<any>;
+  }
+}
+
+// tslint:disable-next-line: no-namespace
+export namespace SplineSeries {
+  /** Describes properties of a component that renders series */
+  export interface PathSeriesProps {
+    /** A function used to calculate the series’ path */
+    path: PathFn;
+  }
+  /** Describes properties passed to a component that renders the series */
+  export interface SeriesProps extends PathSeriesProps, InternalPathProps {
+    /** Coordinates of the series’ points */
+    coordinates: TransformedPoint[];
+    /** A series color */
+    color?: string;
+    /** @internal */
+    pointComponent: React.ComponentType<any>;
+  }
+}
+
 export interface BarSeriesProps extends Series {
   /** The bar width in relative units */
   barWidth?: number;

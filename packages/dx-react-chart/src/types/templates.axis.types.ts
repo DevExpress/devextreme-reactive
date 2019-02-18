@@ -37,6 +37,26 @@ export namespace Axis {
   }
 }
 
+// tslint:disable-next-line: no-namespace
+export namespace ValueAxis {
+  // tslint:disable-next-line: no-empty-interface
+  export interface LabelProps extends Axis.LabelProps {}
+  // tslint:disable-next-line: no-empty-interface
+  export interface LineProps extends Axis.LineProps {}
+  // tslint:disable-next-line: no-empty-interface
+  export interface RootProps extends Axis.RootProps {}
+}
+
+// tslint:disable-next-line: no-namespace
+export namespace ArgumentAxis {
+  // tslint:disable-next-line: no-empty-interface
+  export interface LabelProps extends Axis.LabelProps {}
+  // tslint:disable-next-line: no-empty-interface
+  export interface LineProps extends Axis.LineProps {}
+  // tslint:disable-next-line: no-empty-interface
+  export interface RootProps extends Axis.RootProps {}
+}
+
 /** @internal */
 export type RootState = {
   x: number,

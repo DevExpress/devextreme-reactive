@@ -4,7 +4,9 @@ import {
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
-import { BarSeries } from '../../types';
+import { BarSeries, TransformedPoint } from '../../types';
+
+type DBar = TransformedPoint & {width: number};
 
 class RawBar extends React.PureComponent<BarSeries.PointProps> {
   render() {
@@ -17,7 +19,7 @@ class RawBar extends React.PureComponent<BarSeries.PointProps> {
     } = this.props;
     const attributes = dBar({
       x, y, y1: y1!, width: maxBarWidth * barWidth,
-    });
+    } as unknown as DBar);
     return (
       <rect
         {...attributes}

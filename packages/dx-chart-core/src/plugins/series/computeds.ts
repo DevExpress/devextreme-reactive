@@ -112,7 +112,7 @@ export const findSeriesByName = (
 /** @internal */
 export const dBar = ({
   x, y, y1, width,
-}: { x: number, y: number, y1: number, width: number }) => ({
+}: TransformedPoint & { width: number }) => ({
   x: x - width / 2, y: Math.min(y, y1!), width: width || 2, height: Math.abs(y1! - y),
 });
 

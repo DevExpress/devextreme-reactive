@@ -1,14 +1,14 @@
 import * as React from 'react';
-import { Axis, RootState } from '../../types';
+import { Axis } from '../../types';
 
-const getOffset = position => (position >= 0 ? 0 : -position);
-const getSize = (position, delta) => (position >= 0 ? position + delta : -position);
+const getOffset = (position: number) => (position >= 0 ? 0 : -position);
+const getSize = (position: number, delta: number) => (position >= 0 ? position + delta : -position);
 
-export class Root extends React.PureComponent<Axis.RootProps, RootState> {
-  ref: React.RefObject<SVGPathElement>;
-  constructor(props) {
+export class Root extends React.PureComponent<Axis.RootProps, Axis.RootState> {
+  ref = React.createRef<SVGGElement>();
+
+  constructor(props: Axis.RootProps) {
     super(props);
-    this.ref = React.createRef();
     this.state = {
       x: 0, y: 0,
     };
@@ -33,7 +33,7 @@ export class Root extends React.PureComponent<Axis.RootProps, RootState> {
   // Because of it callback version of *setState* has to be used here.
   // Can we rely on the fact that by the time of callback parent is mounted?
   // For now we stick with it, but need to find a more solid solution.
-  adjust(_, { dx, dy, onSizeChange }) {
+  adjust(_: Axis.RootState, { dx, dy, onSizeChange }: Axis.RootProps): Axis.RootState {
     const bbox = this.ref.current!.getBBox();
     const width = dx ? bbox.width : getSize(bbox.x, bbox.width);
     const height = dy ? bbox.height : getSize(bbox.y, bbox.height);

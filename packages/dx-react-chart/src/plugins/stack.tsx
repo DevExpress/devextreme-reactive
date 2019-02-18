@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Plugin, Getter, Getters } from '@devexpress/dx-react-core';
 import { getStackedSeries } from '@devexpress/dx-chart-core';
-import { StackProps, StacksOptions } from '../types';
+import { StackProps, StacksOptions, OffsetFn, OrderFn } from '../types';
 import {
   stackOrderNone,
   stackOffsetDiverging,
@@ -11,8 +11,8 @@ import {
 export class Stack extends React.PureComponent<StackProps> {
   static defaultProps: Partial<StackProps> = {
     stacks: [],
-    offset: stackOffsetDiverging,
-    order: stackOrderNone,
+    offset: stackOffsetDiverging as OffsetFn,
+    order: stackOrderNone as OrderFn,
   };
 
   render() {

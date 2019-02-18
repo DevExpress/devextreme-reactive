@@ -1,13 +1,12 @@
 import { Getters } from '@devexpress/dx-react-core';
 import { LegendItemList } from './index';
-import { MarkerProps } from './templates.legend.types';
 
 // tslint:disable-next-line: no-namespace
 export namespace Legend {
   /** Describes properties passed to a component that renders the labe */
   export interface LabelProps {
     /** Item text */
-    text: string|number;
+    text: string | number;
   }
   /** Describes properties passed to a component that renders the legend’s root layout */
   export interface RootProps {
@@ -21,6 +20,13 @@ export namespace Legend {
     /** A React node used to render an item */
     children: React.ReactNode;
   }
+
+  export interface MarkerProps {
+    /** @internal */
+    color?: string;
+    /** @internal */
+    name?: string;
+  }
 }
 export interface LegendProps {
   /** The legend position */
@@ -28,7 +34,7 @@ export interface LegendProps {
   /** @internal */
   getItems?: ({ series }: Getters) => LegendItemList;
   /** A component that renders a marker */
-  markerComponent: React.ComponentType<MarkerProps>;
+  markerComponent: React.ComponentType<Legend.MarkerProps>;
   /** A component that renders the legend label */
   labelComponent: React.ComponentType<Legend.LabelProps>;
   /** A component that renders the legend’s root layout */

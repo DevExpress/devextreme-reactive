@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { MarkerProps } from '../../types';
+import { Legend } from '../../types';
 
-export class Marker extends React.PureComponent<MarkerProps> {
+export class Marker extends React.PureComponent<Legend.MarkerProps> {
   render() {
     const { color, ...restProps } = this.props;
     return (

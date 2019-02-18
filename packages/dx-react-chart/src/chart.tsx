@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { PluginHost, withComponents } from '@devexpress/dx-react-core';
+import { PluginHost, withComponents, PluginComponents } from '@devexpress/dx-react-core';
 import {
   TOP, BOTTOM, LEFT, RIGHT,
 } from '@devexpress/dx-chart-core';
@@ -17,12 +17,13 @@ import { Root } from './templates/layout';
 import { Label } from './templates/label';
 
 class RawChart extends React.PureComponent<ChartProps> {
-  static defaultProps = {
+  static defaultProps: Partial<ChartProps> = {
     height: 500,
   };
-  static components = {
+  static components: PluginComponents = {
     rootComponent: 'Root',
   };
+
   render() {
     const {
       data,

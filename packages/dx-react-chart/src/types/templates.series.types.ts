@@ -2,7 +2,7 @@ import {
   Scales, BuildAnimatedStyleGetterFn, TransformedPoint, Series, PiePoint, BarPoint, ScatterPoint,
 } from './index';
 
-type PathFn = (points: ReadonlyArray<TransformedPoint>) => string;
+export type PathFn = (points: ReadonlyArray<TransformedPoint>) => string;
 
 interface InternalPointProps {
   /** @internal */

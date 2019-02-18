@@ -2,7 +2,7 @@ import { PureComputed } from '@devexpress/dx-core';
 import {
   ScaleObject, DomainItems, ScalesCache, SeriesList, Point,
 } from './chart-core.types';
-/** @internal */
+
 export type FactoryFn = () => ScaleObject;
 export type ModifyDomainFn = (domain: DomainItems) => DomainItems;
 /** @internal */

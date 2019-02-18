@@ -35,8 +35,15 @@ export namespace Axis {
     /** A React node used to render the axis. */
     children: React.ReactNode;
   }
+
+  /** @internal */
+  export type RootState = {
+    x: number,
+    y: number,
+  };
 }
 
+// TODO: Remove it when it is possible (now it is hold by themed packages).
 // tslint:disable-next-line: no-namespace
 export namespace ValueAxis {
   // tslint:disable-next-line: no-empty-interface
@@ -47,6 +54,7 @@ export namespace ValueAxis {
   export interface RootProps extends Axis.RootProps {}
 }
 
+// TODO: Remove it when it is possible (now it is hold by themed packages).
 // tslint:disable-next-line: no-namespace
 export namespace ArgumentAxis {
   // tslint:disable-next-line: no-empty-interface
@@ -56,9 +64,3 @@ export namespace ArgumentAxis {
   // tslint:disable-next-line: no-empty-interface
   export interface RootProps extends Axis.RootProps {}
 }
-
-/** @internal */
-export type RootState = {
-  x: number,
-  y: number,
-};

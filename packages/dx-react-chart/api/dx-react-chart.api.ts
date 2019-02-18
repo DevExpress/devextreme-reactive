@@ -154,6 +154,10 @@ module Legend {
     text: string | number;
   }
 
+  // (undocumented)
+  interface MarkerProps {
+  }
+
   interface RootProps {
     children: React.ReactNode;
   }
@@ -164,7 +168,7 @@ module Legend {
 interface LegendProps {
   itemComponent: React.ComponentType<Legend.ItemProps>;
   labelComponent: React.ComponentType<Legend.LabelProps>;
-  markerComponent: React.ComponentType<MarkerProps>;
+  markerComponent: React.ComponentType<Legend.MarkerProps>;
   position?: 'left' | 'right' | 'top' | 'bottom';
   rootComponent: React.ComponentType<Legend.RootProps>;
 }
@@ -180,10 +184,6 @@ module LineSeries {
     coordinates: TransformedPoint[];
   }
 
-}
-
-// @public (undocumented)
-interface MarkerProps {
 }
 
 // @public (undocumented)
@@ -227,15 +227,15 @@ interface RawAxisProps {
   indentFromAxis?: number;
   labelComponent: React.ComponentType<Axis.LabelProps>;
   lineComponent: React.ComponentType<Axis.LineProps>;
-  position: string;
+  position?: string;
   rootComponent: React.ComponentType<Axis.RootProps>;
-  scaleName: string;
-  showGrid: boolean;
-  showLabels: boolean;
-  showLine: boolean;
-  showTicks: boolean;
+  scaleName?: string;
+  showGrid?: boolean;
+  showLabels?: boolean;
+  showLine?: boolean;
+  showTicks?: boolean;
   tickComponent: React.ComponentType<Axis.LineProps>;
-  tickFormat: TickFormatFn;
+  tickFormat?: TickFormatFn;
   tickSize?: number;
 }
 
@@ -256,8 +256,8 @@ interface ScaleObject {
 
 // @public (undocumented)
 interface ScaleProps {
-  factory?: any;
-  modifyDomain?: (domain: any[]) => ScaleObject;
+  factory?: FactoryFn;
+  modifyDomain?: ModifyDomainFn;
   name?: string;
 }
 
@@ -442,6 +442,8 @@ interface ValueScaleProps extends ScaleProps {
 // WARNING: Unsupported export: OffsetFn
 // WARNING: Unsupported export: StackList
 // WARNING: Unsupported export: StacksOptions
+// WARNING: Unsupported export: FactoryFn
+// WARNING: Unsupported export: ModifyDomainFn
 // WARNING: Unsupported export: TickFormatFn
 // WARNING: Unsupported export: Scales
 // WARNING: Unsupported export: GetAnimationStyleFn

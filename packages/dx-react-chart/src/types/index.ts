@@ -1,10 +1,12 @@
 export {
-  DataItems, TickFormatFn, HandlerFn, Target, NotifyPointerMoveFn, HandlerFnList, LegendItemList,
+  DataItems, TickFormatFn, HandlerFn, SeriesRef, NotifyPointerMoveFn, HandlerFnList, LegendItemList,
   Palette, TargetList, StackList, OffsetFn, OrderFn, Scales, BuildAnimatedStyleGetterFn,
-  TransformedPoint, GetPointTransformerFn, CreateHitTesterFn, Series,
+  TransformedPoint, GetPointTransformerFn, CreateHitTesterFn, Series, PiePoint, BarPoint,
+  ScatterPoint, ScaleObject, TooltipReference,
 // } from '@devexpress/dx-chart-core';
 } from '../../../dx-chart-core/src/index';
 
+export * from './plugins.animation.types';
 export * from './plugins.axis.types';
 export * from './plugins.event-tracker.types';
 export * from './plugins.hover-state.types';

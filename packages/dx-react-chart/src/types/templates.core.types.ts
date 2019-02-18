@@ -1,12 +1,3 @@
-export interface ChartLabelProps {
-  // The label text
-  children: string | number;
-  // The x coordinate of the label’s top left corner
-  x: number;
-  // The y coordinate of the label’s top left corner
-  y: number;
-}
-
 /** @internal */
 export interface RootLayoutProps {
   children?: React.ReactNode;

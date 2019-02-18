@@ -4,9 +4,9 @@ import {
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
-import { RawSliceProps } from '../../types';
+import { PieSeries } from '../../types';
 
-class RawSlice extends React.PureComponent<RawSliceProps> {
+class RawSlice extends React.PureComponent<PieSeries.PointProps> {
   render() {
     const {
       x, y,
@@ -32,7 +32,7 @@ class RawSlice extends React.PureComponent<RawSliceProps> {
   }
 }
 
-export const Slice: React.ComponentType<RawSliceProps> = withStates({
+export const Slice: React.ComponentType<PieSeries.PointProps> = withStates({
   [HOVERED]: withPattern(
     ({ seriesIndex, index }) => `series-${seriesIndex}-point-${index}-hover`, { opacity: 0.75 },
   )(RawSlice),

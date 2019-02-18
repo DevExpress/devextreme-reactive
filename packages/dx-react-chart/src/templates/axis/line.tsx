@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { LineProps } from '../../types';
+import { Axis } from '../../types';
 
-export class Line extends React.PureComponent<LineProps> {
+export class Line extends React.PureComponent<Axis.LineProps> {
   render() {
     const {
       x1, x2, y1, y2, ...restProps

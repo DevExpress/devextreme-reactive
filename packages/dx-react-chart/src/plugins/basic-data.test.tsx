@@ -14,7 +14,7 @@ describe('Basis Data', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents({})}
-        <BasicData data={data} />
+        <BasicData data={data as any} />
       </PluginHost>
     ));
 

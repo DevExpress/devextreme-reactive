@@ -1,9 +1,9 @@
-import { ChartRootProps } from './chart.types';
+import { Chart } from './chart.types';
 
 /** @internal */
 export interface LayoutManagerProps {
   height: number;
-  rootComponent: React.ComponentType<ChartRootProps>;
+  rootComponent: React.ComponentType<Chart.RootProps>;
   width?: number;
 }
 /** @internal */

@@ -237,6 +237,7 @@ const scalePoints = (series: Series, scales: ScalesCache) => {
   return ret;
 };
 
+/** @internal */
 export const scaleSeriesPoints: ScaleSeriesPointsFn = (
   series, scales,
 ) => series.map(seriesItem => scalePoints(seriesItem, scales));

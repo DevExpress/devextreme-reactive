@@ -4,9 +4,9 @@ import {
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
-import { AreaSeriesProps } from '../../types';
+import { AreaSeries } from '../../types';
 
-class RawArea extends React.PureComponent<AreaSeriesProps> {
+class RawArea extends React.PureComponent<AreaSeries.SeriesProps> {
   static defaultProps = { path: dArea };
   render() {
     const {
@@ -29,7 +29,7 @@ class RawArea extends React.PureComponent<AreaSeriesProps> {
   }
 }
 
-export const Area: React.ComponentType<AreaSeriesProps> = withStates({
+export const Area: React.ComponentType<AreaSeries.SeriesProps> = withStates({
   [HOVERED]: withPattern(
     ({ index }) => `series-${index}-hover`, { opacity: 0.75 },
   )(RawArea),

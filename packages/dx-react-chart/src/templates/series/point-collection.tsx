@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { PointCollectionProps } from '../../types';
 
+/** @internal */
 export class PointCollection extends React.PureComponent<PointCollectionProps> {
   render() {
     const {

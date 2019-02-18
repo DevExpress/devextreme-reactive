@@ -3,9 +3,9 @@ import {
   dSymbol, getScatterAnimationStyle, HOVERED, SELECTED,
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
-import { RawPointProps } from '../../types';
+import { ScatterSeries } from '../../types';
 
-class RawPoint extends React.PureComponent<RawPointProps> {
+class RawPoint extends React.PureComponent<ScatterSeries.PointProps> {
   render() {
     const {
       x, y,
@@ -32,7 +32,7 @@ class RawPoint extends React.PureComponent<RawPointProps> {
 // and to adjust hovered or selected size when custom *point.size* is defined.
 const getAdjustedOptions = ({ size }) => ({ size: Math.round(size * 1.7) });
 
-export const Point: React.ComponentType<RawPointProps> = withStates({
+export const Point: React.ComponentType<ScatterSeries.PointProps> = withStates({
   [HOVERED]: ({ color, point, ...restProps }) => ({
     stroke: color,
     strokeWidth: 4,

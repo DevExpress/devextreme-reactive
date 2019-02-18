@@ -4,8 +4,9 @@ import {
 } from '@devexpress/dx-chart-core';
 import { declareSeries } from '../utils';
 import { Spline as Path } from '../templates/series/spline';
+import { AreaSeriesProps } from '../types';
 
-export const SplineSeries = declareSeries('SplineSeries', {
+export const SplineSeries: React.ComponentType<AreaSeriesProps> = declareSeries('SplineSeries', {
   getPointTransformer,
   createHitTester,
   components: { Path },

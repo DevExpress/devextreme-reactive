@@ -9,14 +9,14 @@ import {
 } from '@devexpress/dx-react-core';
 import { getLegendItems } from '@devexpress/dx-chart-core';
 import { Marker } from '../templates/legend/marker';
-import { RawLegendProps } from '../types';
+import { LegendProps } from '../types';
 
-class RawLegend extends React.PureComponent<RawLegendProps> {
+class RawLegend extends React.PureComponent<LegendProps> {
   static defaultProps = {
     position: 'right',
     getItems: ({ series }: Getters) => getLegendItems(series),
   };
-  static components: {
+  static components = {
     rootComponent: 'Root',
     itemComponent: 'Item',
     markerComponent: 'Marker',
@@ -54,4 +54,4 @@ class RawLegend extends React.PureComponent<RawLegendProps> {
   }
 }
 
-export const Legend: React.ComponentType<RawLegendProps> = withComponents({ Marker })(RawLegend);
+export const Legend: React.ComponentType<LegendProps> = withComponents({ Marker })(RawLegend);

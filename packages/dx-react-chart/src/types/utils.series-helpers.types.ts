@@ -1,22 +1,13 @@
 import {
   GetPointTransformerFn, CreateHitTesterFn,
 } from './index';
-import { RawPointProps, PathProps } from './templates.series.types';
 
-export type ComponentProps = {
-  name?: string,
-  scaleName?: string,
-  seriesComponent: React.ComponentType<PathProps>,
-  pointComponent?: React.ComponentType<RawPointProps>,
-  color?: string,
-  valueField: string,
-  argumentField: string,
-};
+/** @internal */
 export type Components = {
   Path: any,
   Point?: any,
 };
-
+/** @internal */
 export type ExtraSeriesParameters = {
   components: Components,
   getPointTransformer: GetPointTransformerFn,

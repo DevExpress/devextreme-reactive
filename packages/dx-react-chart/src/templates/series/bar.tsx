@@ -4,9 +4,9 @@ import {
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
-import { RawBarProps } from '../../types';
+import { BarSeries } from '../../types';
 
-class RawBar extends React.PureComponent<RawBarProps> {
+class RawBar extends React.PureComponent<BarSeries.PointProps> {
   render() {
     const {
       x, barWidth, y, y1, maxBarWidth,
@@ -16,7 +16,7 @@ class RawBar extends React.PureComponent<RawBarProps> {
       ...restProps
     } = this.props;
     const attributes = dBar({
-      x, y, y1, width: maxBarWidth * barWidth,
+      x, y, y1: y1!, width: maxBarWidth * barWidth,
     });
     return (
       <rect
@@ -29,7 +29,7 @@ class RawBar extends React.PureComponent<RawBarProps> {
   }
 }
 
-export const Bar: React.ComponentType<RawBarProps> = withStates({
+export const Bar: React.ComponentType<BarSeries.PointProps> = withStates({
   [HOVERED]: withPattern(
     ({ seriesIndex, index }) => `series-${seriesIndex}-point-${index}-hover`, { opacity: 0.75 },
   )(RawBar),

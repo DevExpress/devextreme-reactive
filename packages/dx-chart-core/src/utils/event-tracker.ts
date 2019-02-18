@@ -1,7 +1,7 @@
 import { getRootOffset } from './root-offset';
 import {
   TrackerTarget, HandlerFnList, SeriesList, HitTesters, Location,
-  EventHandlerFn, HandlerArg, EventHandlers, HandlersObject,
+  EventHandlerFn, TargetData, EventHandlers, HandlersObject,
 } from '../types';
 
 const getEventCoords = (e: any): Location => {
@@ -50,14 +50,14 @@ const buildEventHandler = (seriesList: SeriesList, handlers: HandlerFnList): Eve
       }
     });
     targets.sort(compareHitTargets);
-    const arg: HandlerArg = { location, targets, event: e.nativeEvent };
+    const arg: TargetData = { location, targets, event: e.nativeEvent };
     handlers.forEach(handler => handler(arg));
   };
 };
 
 const buildLeaveEventHandler = (handlers: HandlerFnList): EventHandlerFn => (e) => {
   const location = getEventCoords(e);
-  const arg: HandlerArg = { location, targets: [] };
+  const arg: TargetData = { location, targets: [] };
   handlers.forEach(handler => handler(arg));
 };
 

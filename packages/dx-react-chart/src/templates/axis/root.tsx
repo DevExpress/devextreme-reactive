@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { RootProps, RootState } from '../../types';
+import { Axis, RootState } from '../../types';
 
 const getOffset = position => (position >= 0 ? 0 : -position);
 const getSize = (position, delta) => (position >= 0 ? position + delta : -position);
 
-export class Root extends React.PureComponent<RootProps, RootState> {
+export class Root extends React.PureComponent<Axis.RootProps, RootState> {
   ref: React.RefObject<SVGPathElement>;
   constructor(props) {
     super(props);

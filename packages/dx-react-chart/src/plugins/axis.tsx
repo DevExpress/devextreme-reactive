@@ -8,9 +8,9 @@ import {
 } from '@devexpress/dx-react-core';
 import {
   axisCoordinates, LEFT, BOTTOM, ARGUMENT_DOMAIN, getValueDomainName, getGridCoordinates,
-  Scale, NumberArray,
+  ScaleObject, NumberArray,
 } from '@devexpress/dx-chart-core';
-import { RawAxisProps } from '../types';
+import { RawAxisProps, ArgumentAxisProps, ValueAxisProps } from '../types';
 import { Root } from '../templates/axis/root';
 import { Label } from '../templates/axis/label';
 import { Line } from '../templates/axis/line';
@@ -21,7 +21,7 @@ const SVG_STYLE: React.CSSProperties = {
   position: 'absolute', left: 0, top: 0, overflow: 'visible',
 };
 
-const adjustScaleRange = (scale: Scale, [width, height]: NumberArray) => {
+const adjustScaleRange = (scale: ScaleObject, [width, height]: NumberArray) => {
   const range = scale.range().slice();
   if (Math.abs(range[0] - range[1]) < 0.01) {
     return scale;
@@ -35,7 +35,7 @@ const adjustScaleRange = (scale: Scale, [width, height]: NumberArray) => {
 };
 
 class RawAxis extends React.PureComponent<RawAxisProps> {
-  static components: {
+  static components = {
     rootComponent: 'Root',
     tickComponent: 'Tick',
     labelComponent: 'Label',
@@ -217,7 +217,7 @@ export const Axis: React.ComponentType<RawAxisProps> = withComponents({
 // It should be domain dependent - something like AT_DOMAIN_START or AT_DOMAIN_END.
 
 // TODO: Check that only BOTTOM and TOP are accepted.
-export const ArgumentAxis: React.ComponentType<RawAxisProps> = withPatchedProps(props => ({
+export const ArgumentAxis: React.ComponentType<ArgumentAxisProps> = withPatchedProps(props => ({
   position: BOTTOM,
   showGrid: false,
   showTicks: true,
@@ -228,7 +228,7 @@ export const ArgumentAxis: React.ComponentType<RawAxisProps> = withPatchedProps(
 }))(Axis);
 
 // TODO: Check that only LEFT and RIGHT are accepted.
-export const ValueAxis: React.ComponentType<RawAxisProps> = withPatchedProps(props => ({
+export const ValueAxis: React.ComponentType<ValueAxisProps> = withPatchedProps(props => ({
   position: LEFT,
   showGrid: true,
   showTicks: false,

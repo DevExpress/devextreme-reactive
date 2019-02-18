@@ -12,7 +12,7 @@ const defaultProps = {
 };
 /** @internal */
 export class Title extends React.PureComponent<TitleProps & typeof defaultProps> {
-  static components: {
+  static components = {
     textComponent: 'Text',
   };
   static defaultProps = defaultProps;

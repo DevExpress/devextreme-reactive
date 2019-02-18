@@ -1,5 +1,6 @@
+
 export interface MarkerProps {
-  // marker color
+  /** @internal */
   color?: string;
   /** @internal */
   name?: string;

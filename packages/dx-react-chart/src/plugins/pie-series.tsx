@@ -5,8 +5,9 @@ import {
 import { declareSeries } from '../utils';
 import { PointCollection as Path } from '../templates/series/point-collection';
 import { Slice as Point } from '../templates/series/slice';
+import { PieSeriesProps } from '../types';
 
-export const PieSeries = declareSeries('PieSeries', {
+export const PieSeries: React.ComponentType<PieSeriesProps> = declareSeries('PieSeries', {
   getPointTransformer,
   createHitTester,
   components: { Path, Point },

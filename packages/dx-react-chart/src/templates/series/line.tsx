@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { dLine } from '@devexpress/dx-chart-core';
 import { Path } from './path';
-import { PathProps } from '../../types';
+import { AreaSeries } from '../../types';
 
 const defaultProps = {
   path: dLine,
 };
-export class Line extends React.PureComponent<PathProps> {
+export class Line extends React.PureComponent<AreaSeries.SeriesProps> {
   static defaultProps = defaultProps;
   render() {
     return <Path {...this.props} />;

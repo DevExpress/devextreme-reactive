@@ -12,7 +12,7 @@ import {
 import {
   findSeriesByName, addSeries, getValueDomainName, ARGUMENT_DOMAIN,
 } from '@devexpress/dx-chart-core';
-import { ExtraSeriesParameters, ComponentProps } from '../types';
+import { ExtraSeriesParameters, Series } from '../types';
 
 const defaultProps = {
   name: 'defaultSeriesName',
@@ -23,7 +23,7 @@ export const declareSeries = (
   pluginName: string,
   { components, getPointTransformer, createHitTester }: ExtraSeriesParameters,
 ) => {
-  class Component extends React.PureComponent<ComponentProps> {
+  class Component extends React.PureComponent<Series> {
     static components: PluginComponents;
     static defaultProps = defaultProps;
     render() {

@@ -1,16 +1,16 @@
 import { PureComputed } from '@devexpress/dx-core';
 import {
-  Scale,
+  ScaleObject,
 } from './chart-core.types';
 export type Scales = {
-  readonly xScale: Scale;
-  readonly yScale: Scale;
+  readonly xScale: ScaleObject;
+  readonly yScale: ScaleObject;
 };
-type Point = {index: number};
-export type GetAnimationStyleFn = (scales: Scales, point?: Point) => {
+type SomePoint = {index: number};
+export type GetAnimationStyleFn = (scales: Scales, point?: SomePoint) => {
   readonly animation: string;
   readonly transformOrigin?: string;
 };
 export type BuildAnimatedStyleGetterFn = PureComputed<
-  [any, GetAnimationStyleFn, Scales, Point?]
+  [any, GetAnimationStyleFn, Scales, SomePoint?]
 >;

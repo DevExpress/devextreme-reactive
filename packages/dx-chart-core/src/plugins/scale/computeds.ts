@@ -3,7 +3,7 @@ import { scaleLinear as d3ScaleLinear, scaleBand as d3ScaleBand } from 'd3-scale
 import { isHorizontal, getValueDomainName } from '../../utils/scale';
 import { ARGUMENT_DOMAIN, VALUE_DOMAIN } from '../../constants';
 import {
-  Series, Scale, SeriesList, PointList, DomainItems, DomainInfoCache, BuildScalesFn,
+  Series, ScaleObject, SeriesList, PointList, DomainItems, DomainInfoCache, BuildScalesFn,
   AddDomainFn, MergeDomainsFn, GetItemFn, DomainInfo, FactoryFn, ComputeDomainsFn,
 } from '../../types';
 
@@ -58,7 +58,7 @@ const calculateDomains = (domains: DomainInfoCache, seriesList: SeriesList) => {
 export const scaleLinear: FactoryFn = d3ScaleLinear;
 /** @internal */
 export const scaleBand: FactoryFn = () => (
-  d3ScaleBand().paddingInner(0.3).paddingOuter(0.15) as any as Scale
+  d3ScaleBand().paddingInner(0.3).paddingOuter(0.15) as any as ScaleObject
 );
 
 const guessFactory = (points: PointList, getItem: GetItemFn) => {

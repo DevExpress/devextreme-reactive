@@ -1,17 +1,18 @@
-import { Target, NotifyPointerMoveFn, HandlerFnList } from './index';
+import { SeriesRef, NotifyPointerMoveFn, HandlerFnList } from './index';
 import { Getters } from '@devexpress/dx-react-core';
 import { PureComputed } from '@devexpress/dx-core';
 
 export interface HoverStateProps {
-  // Specifies a series or point that is initially displayed hovered
-  defaultHover?: Target;
-  // Specifies a series or point that is hovered
-  hover?: Target;
-  // A function that is executed when the hover target is changed
+  /** Specifies a series or point that is initially displayed hovered */
+  defaultHover?: SeriesRef;
+  /** Specifies a series or point that is hovered */
+  hover?: SeriesRef;
+  /** A function that is executed when the hover target is changed */
   onHoverChange?: NotifyPointerMoveFn;
 }
+/** @internal */
 export type HoverStateState = {
-  hover: Target,
+  hover: SeriesRef,
 };
-
+/** @internal */
 export type getPointerMoveHandlersFn = PureComputed<[Getters], HandlerFnList>;

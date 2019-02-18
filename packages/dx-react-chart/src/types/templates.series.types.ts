@@ -1,106 +1,104 @@
 import {
-  Scales, BuildAnimatedStyleGetterFn, TransformedPoint, Series,
+  Scales, BuildAnimatedStyleGetterFn, TransformedPoint, Series, PiePoint, BarPoint, ScatterPoint,
 } from './index';
 
 type PathFn = (points: ReadonlyArray<TransformedPoint>) => string;
 
-interface InternalCommonProps {
-/** @internal */
+interface InternalPointProps {
+  /** @internal */
+  seriesIndex: number;
+  /** @internal */
+  state?: string;
+  /** @internal */
   style?: any;
-/** @internal */
+  /** @internal */
   scales: Scales;
-/** @internal */
+  /** @internal */
   getAnimatedStyle: BuildAnimatedStyleGetterFn;
 }
 
-interface InternalPointProps extends InternalCommonProps {
-/** @internal */
-  argument: any;
-/** @internal */
-  seriesIndex: number;
-/** @internal */
-  state?: string;
-}
-
-export interface PathProps {
-  // A function used to calculate the series’ path
-  path?: PathFn;
-  // Coordinates of the series’ points
-  coordinates: TransformedPoint[];
-  // A series color
-  color?: string;
-  // A component that renders a series point
-  pointComponent: React.ComponentType<RawPointProps>;
-}
-
-export interface RawBarProps extends InternalPointProps {
-  // The bar’s value
-  value: number;
-  // The bar’s x coordinate (the bar’s center)
-  x: number;
-  // The bar’s width in relative units
-  barWidth: number;
-  // The maximum width that the bar can occupy, measured in pixels
-  maxBarWidth: number;
-  // The bar’s y coordinate
-  y: number;
-  // The bar’s y1 coordinate
-  y1: number;
-  // Point index.
+interface InternalPathProps extends InternalPointProps {
+  /** @internal */
   index: number;
-  // A series color
-  color?: string;
-}
-
-export interface RawSliceProps extends InternalPointProps {
-  // The slice’s value
-  value: number;
-  // The slice’s x coordinate
-  x: number;
-  // The slice’s y coordinate
-  y: number;
-  // Point index.
-  index: number;
-  // The inner radius in relative units
-  innerRadius: number;
-  // The outer radius in relative units
-  outerRadius: number;
-  // The slice’s maximum radius in pixels
-  maxRadius: number;
-  // The slice’s start angle
-  startAngle: number;
-  // The slice’s end angle
-  endAngle: number;
-  // A series color
-  color?: string;
-}
-
-export interface RawPointProps extends InternalPointProps {
-  value: number;
-  // The point’s x coordinate
-  x: number;
-  // The point’s y coordinate
-  y: number;
-  // Point index
-  index: number;
-  // Point options
-  point: { size: number };
-  // A series color
-  color?: string;
 }
 
 /** @internal */
-export interface PointCollectionProps extends RawPointProps {
-  pointComponent: React.ComponentType<RawPointProps>;
+export interface PointCollectionProps {
+  pointComponent: React.ComponentType<any>;
   coordinates: TransformedPoint[];
   index: number;
   state?: string;
+}
+
+export interface AreaSeriesProps extends Series {
+  /** A component that renders series */
+  seriesComponent: React.ComponentType<AreaSeries.PathSeriesProps>;
 }
 
 // tslint:disable-next-line: no-namespace
 export namespace AreaSeries {
-
+  /** Describes properties of a component that renders series */
+  export interface PathSeriesProps {
+    /** A function used to calculate the series’ path */
+    path: PathFn;
+  }
+  /** Describes properties passed to a component that renders the series */
+  export interface SeriesProps extends PathSeriesProps, InternalPathProps {
+    /** Coordinates of the series’ points */
+    coordinates: TransformedPoint[];
+    /** A series color */
+    color?: string;
+    /** @internal */
+    pointComponent: React.ComponentType<any>;
+  }
 }
-export interface AreaSeriesProps extends Series {
-  seriesComponent: React.ComponentType<PathProps>;
+
+export interface BarSeriesProps extends Series {
+  /** The bar width in relative units */
+  barWidth?: number;
+  /** A component that renders a bar */
+  pointComponent: React.ComponentType<BarSeries.PointProps>;
+}
+
+// tslint:disable-next-line: no-namespace
+export namespace BarSeries {
+  /** Describes properties passed to a component that renders a bar */
+  export interface PointProps extends InternalPointProps, BarPoint {}
+}
+
+export interface PieSeriesProps extends Series {
+  /** The inner radius in relative units */
+  innerRadius?: number;
+  /** The outer radius in relative units */
+  outerRadius?: number;
+  /** A component that renders point */
+  pointComponent: React.ComponentType<PieSeries.PointProps>;
+}
+
+// tslint:disable-next-line: no-namespace
+export namespace PieSeries {
+  /** Describes properties passed to a component that renders the slice */
+  export interface PointProps extends InternalPointProps, PiePoint {}
+}
+
+export interface ScatterSeriesProps extends Series {
+  /** Point options */
+  point: {size: number};
+  /** A component that renders point */
+  pointComponent: React.ComponentType<ScatterSeries.PointProps>;
+}
+
+// tslint:disable-next-line: no-namespace
+export namespace ScatterSeries {
+  /** Describes properties passed to a component that renders the point */
+  export interface PointProps extends InternalPointProps, ScatterPoint {}
+  /** Describes properties passed to a component that renders the series. */
+  export interface SeriesProps {
+    /** Coordinates of the series’ points. */
+    coordinates: TransformedPoint[];
+    /** Point options */
+    point?: { size: number };
+    /** A component that renders a series point */
+    pointComponent: React.ComponentType<ScatterSeries.PointProps>;
+  }
 }

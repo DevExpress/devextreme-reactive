@@ -3,7 +3,7 @@ import { PluginHost, withComponents } from '@devexpress/dx-react-core';
 import {
   TOP, BOTTOM, LEFT, RIGHT,
 } from '@devexpress/dx-chart-core';
-import { RawChartProps } from './types';
+import { ChartProps } from './types';
 
 import { BasicData } from './plugins/basic-data';
 import { ChartCore } from './plugins/chart-core';
@@ -16,7 +16,7 @@ import { Palette } from './plugins/palette';
 import { Root } from './templates/layout';
 import { Label } from './templates/label';
 
-class RawChart extends React.PureComponent<RawChartProps> {
+class RawChart extends React.PureComponent<ChartProps> {
   static defaultProps = {
     height: 500,
   };
@@ -65,5 +65,5 @@ class RawChart extends React.PureComponent<RawChartProps> {
   }
 }
 
-export const Chart: React.ComponentType<RawChartProps> = withComponents({ Root })(RawChart);
+export const Chart: React.ComponentType<ChartProps> = withComponents({ Root })(RawChart);
 (Chart as any).Label = Label;

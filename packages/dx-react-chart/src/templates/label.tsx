@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { ChartLabelProps } from '../types';
+import { Chart } from '../types';
 
-export class Label extends React.PureComponent<ChartLabelProps> {
+export class Label extends React.PureComponent<Chart.LabelProps> {
   render() {
     return (
       <text {...this.props} />

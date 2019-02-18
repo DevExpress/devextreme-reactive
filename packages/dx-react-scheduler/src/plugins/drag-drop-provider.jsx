@@ -42,7 +42,13 @@ export class DragDropProvider extends React.PureComponent {
           },
         });
       }
-      this.setState({ payload: args.payload, clientOffset: args.clientOffset, source: args.source, sourcePayload: args.sourcePayload });
+
+      this.setState({
+        payload: args.payload,
+        clientOffset: args.clientOffset,
+        source: args.source,
+        sourcePayload: args.sourcePayload,
+      });
     };
     this.moveOffset = null;
   }
@@ -77,7 +83,9 @@ export class DragDropProvider extends React.PureComponent {
     if (payload && payload[0].appointmentRef && source && this.offsetY === 0) {
       this.offsetTime = moment(sourcePayload.startDate).diff(payload[0].data.startDate, 'seconds');
       this.offsetY = sourcePayload.cellRef.current.getBoundingClientRect().top - payload[0].appointmentRef.current.getBoundingClientRect().top;
+      this.offsetYBottom = payload[0].appointmentRef.current.getBoundingClientRect().bottom - sourcePayload.cellRef.current.getBoundingClientRect().bottom;
     }
+
     if (!payload) {
       this.moveOffset = null;
     }
@@ -98,7 +106,6 @@ export class DragDropProvider extends React.PureComponent {
         draftHeight = this.sourcePayload.cellRef.current.getBoundingClientRect().height;
       }
     }
-
 
     // Move by cell parts
     // if (clientOffset && this.sourcePayload) {
@@ -139,6 +146,37 @@ export class DragDropProvider extends React.PureComponent {
       this.timeOffset = 0;
     }
 
+    // SLICE APPOINTMENTS BY BOUNDARIES
+    let appointmentTop = 0;
+    let appointmentLeft = 0;
+    let appointmentHeight = 0;
+    let appointmentWidth = 0;
+    if (payload) {
+      const tbodyElement = this.source.parentElement.parentElement;
+      const tableRect = tbodyElement.getBoundingClientRect();
+      const cellRect = this.source.getBoundingClientRect();
+
+      appointmentLeft = cellRect.left; // only for week view
+      appointmentWidth = cellRect.width; // only for week view
+
+      if (cellRect.top - this.offsetY < tableRect.top) { // TOP
+        appointmentTop = tableRect.top;
+        appointmentHeight = cellRect.bottom - tableRect.top + this.offsetYBottom;
+      } else {
+        appointmentTop = cellRect.top - this.offsetY;
+        appointmentHeight = draftHeight;
+      }
+      // console.log(cellRect.bottom + Math.abs(this.offsetYBottom));
+      // console.log(tableRect.bottom);
+      if (cellRect.bottom + this.offsetYBottom > tableRect.bottom) { // BOTTOM
+        // appointmentLeft = cellRect.left; // only for week view
+        // appointmentTop = (cellRect.top - this.offsetY < top) ? top : cellRect.top - this.offsetY;
+        appointmentHeight = tableRect.bottom - cellRect.top + this.offsetY;
+        // appointmentWidth = cellRect.width; // only for week view
+      }
+    }
+
+
     return (
       <Plugin
         name="DragDropProvider"
@@ -153,14 +191,14 @@ export class DragDropProvider extends React.PureComponent {
           {payload && (
             <Container
               clientOffset={clientOffset}
-              left={this.source.getBoundingClientRect().left}
-              top={this.source.getBoundingClientRect().top - this.offsetY} // : clientOffset.y - this.moveOffset + topOffset}
+              left={appointmentLeft}
+              top={appointmentTop} // : clientOffset.y - this.moveOffset + topOffset}
             >
               <Appointment
                 data={{ ...payload[0].data, ...this.sourcePayload }} // NOTE use endDate: moment(this.props.startDate).add(payload[0].appointmentDuration, 'seconds').toDate()
                 rect={{
-                  height: draftHeight,
-                  width: this.source ? this.source.getBoundingClientRect().width : payload[0].style.width,
+                  height: appointmentHeight,
+                  width: appointmentWidth,
                 }}
               />
             </Container>

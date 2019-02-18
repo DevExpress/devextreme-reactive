@@ -5,9 +5,9 @@ import moment from 'moment';
 import TableCell from '@material-ui/core/TableCell';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
-import { getBorder } from '../../../utils';
 import RootRef from '@material-ui/core/RootRef';
 import { DropTarget } from '@devexpress/dx-react-core';
+import { getBorder } from '../../../utils';
 
 const styles = theme => ({
   cell: {
@@ -118,21 +118,21 @@ class CellBase extends React.PureComponent {
       // console.log(`${oldPart} -> ${part}`);
       this.setState({ part });
 
-      payload[0].changeAppointment({
-        change: {
-          startDate: this.props.startDate,
-          endDate: moment(this.props.startDate).add(payload[0].appointmentDuration, 'seconds').toDate(),
-        },
-      });
+      // payload[0].changeAppointment({
+      //   change: {
+      //     startDate: this.props.startDate,
+      //     endDate: moment(this.props.startDate).add(payload[0].appointmentDuration, 'seconds').toDate(),
+      //   },
+      // });
     };
     this.onLeave = () => {
       // console.log('on leave!');
-      this.setState({ payload: {}, over: false, top: undefined, part: 0 });
+      // this.setState({ payload: {}, over: false, top: undefined, part: 0 });
     };
     this.onDrop = (args) => {
-      // console.log('on drop!');
-      args.payload[0].commitChangedAppointment({ appointmentId: args.payload[0].data.id });
-      this.setState({ payload: {}, over: false, top: undefined, part: 0 });
+      // // console.log('on drop!');
+      // args.payload[0].commitChangedAppointment({ appointmentId: args.payload[0].data.id });
+      // this.setState({ payload: {}, over: false, top: undefined, part: 0 });
     };
   }
 
@@ -146,6 +146,7 @@ class CellBase extends React.PureComponent {
       otherMonth,
       ...restProps
     } = this.props;
+
     return (
       <DropTarget
         onEnter={args => this.handleDragEvent(this.onEnter, args)}
@@ -153,7 +154,7 @@ class CellBase extends React.PureComponent {
         onLeave={args => this.handleDragEvent(this.onLeave, args)}
         onDrop={args => this.handleDragEvent(this.onDrop, args)}
         sourcePayload={{
-          startDate, endDate, cellRef: this.cell, type: cellType,
+          startDate, endDate, cellRef: this.cell, type: 'horizontal',
         }}
       >
         <RootRef rootRef={this.cell}>

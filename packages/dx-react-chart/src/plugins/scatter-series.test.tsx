@@ -55,7 +55,7 @@ describe('Scatter series', () => {
         {pluginDepsToComponents(defaultDeps)}
 
         <ScatterSeries
-          {...defaultProps}
+          {...defaultProps as any}
         />
       </PluginHost>));
 

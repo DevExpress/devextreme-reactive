@@ -9,7 +9,7 @@ export class Scale extends React.PureComponent<ScaleProps> {
   render() {
     const { name, factory, modifyDomain } = this.props;
     const args = { factory, modifyDomain };
-    const getDomains = ({ domains }: Getters) => addDomain(domains, name, args);
+    const getDomains = ({ domains }: Getters) => addDomain(domains, name!, args);
     return (
       <Plugin name="Scale">
         <Getter name="domains" computed={getDomains} />

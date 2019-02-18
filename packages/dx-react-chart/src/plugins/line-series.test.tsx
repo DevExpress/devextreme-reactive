@@ -53,7 +53,7 @@ describe('Line series', () => {
         {pluginDepsToComponents(defaultDeps)}
 
         <LineSeries
-          {...defaultProps}
+          {...defaultProps as any}
         />
       </PluginHost>
     ));

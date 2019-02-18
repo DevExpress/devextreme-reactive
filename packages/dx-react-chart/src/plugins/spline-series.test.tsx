@@ -53,7 +53,7 @@ describe('Spline series', () => {
         {pluginDepsToComponents(defaultDeps)}
 
         <SplineSeries
-          {...defaultProps}
+          {...defaultProps as any}
         />
       </PluginHost>
     ));

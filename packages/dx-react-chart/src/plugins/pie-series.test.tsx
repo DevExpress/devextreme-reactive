@@ -58,7 +58,7 @@ describe('Pie series', () => {
         {pluginDepsToComponents(defaultDeps)}
 
         <PieSeries
-          {...defaultProps}
+          {...defaultProps as any}
         />
       </PluginHost>
     ));

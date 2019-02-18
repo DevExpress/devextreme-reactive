@@ -56,7 +56,7 @@ describe('Area series', () => {
         {pluginDepsToComponents(defaultDeps)}
 
         <AreaSeries
-          {...defaultProps}
+          {...defaultProps as any}
         />
       </PluginHost>
     ));

@@ -59,7 +59,7 @@ describe('Bar series', () => {
         {pluginDepsToComponents(defaultDeps)}
 
         <BarSeries
-          {...defaultProps}
+          {...defaultProps as any}
         />
       </PluginHost>
     ));

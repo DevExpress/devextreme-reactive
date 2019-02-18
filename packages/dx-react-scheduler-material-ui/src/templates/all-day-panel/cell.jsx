@@ -133,7 +133,7 @@ class CellBase extends React.PureComponent {
         onLeave={args => this.handleDragEvent(this.onLeave, args)}
         onDrop={args => this.handleDragEvent(this.onDrop, args)}
         sourcePayload={{
-          startDate, endDate, cellRef: this.cell, type: 'horizontal',
+          startDate, endDate, cellRef: this.cell, type: 'allDay',
         }}
       >
         <RootRef rootRef={this.cell}>

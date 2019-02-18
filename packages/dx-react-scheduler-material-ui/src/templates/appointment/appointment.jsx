@@ -27,7 +27,7 @@ const styles = ({ palette, typography, spacing }) => ({
     cursor: 'pointer',
   },
   dragging: {
-    opacity: 0.5,
+    // opacity: 0.5,
   },
 });
 

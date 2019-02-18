@@ -42,9 +42,7 @@ interface ArgumentAxisProps extends RawAxisProps {
 }
 
 // @public (undocumented)
-interface ArgumentScaleProps {
-  factory?: any;
-  modifyDomain?: (domain: any[]) => ScaleObject;
+interface ArgumentScaleProps extends ScaleProps {
 }
 
 // @public (undocumented)
@@ -257,6 +255,13 @@ interface ScaleObject {
 }
 
 // @public (undocumented)
+interface ScaleProps {
+  factory?: any;
+  modifyDomain?: (domain: any[]) => ScaleObject;
+  name?: string;
+}
+
+// @public (undocumented)
 interface ScatterPoint extends TransformedPoint {
   readonly point: {
     size: number;
@@ -415,8 +420,7 @@ interface ValueAxisProps extends RawAxisProps {
 }
 
 // @public (undocumented)
-interface ValueScaleProps extends ArgumentScaleProps {
-  name?: string;
+interface ValueScaleProps extends ScaleProps {
 }
 
 // WARNING: Unsupported export: ArgumentScale

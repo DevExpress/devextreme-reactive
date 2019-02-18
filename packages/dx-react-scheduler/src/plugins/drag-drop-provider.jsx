@@ -43,7 +43,6 @@ export class DragDropProvider extends React.PureComponent {
         this.payload = args.payload;
       }
       if (args.payload && args.sourcePayload) {
-        console.log('save');
         if (args.payload[0].type === args.sourcePayload.type) { // SAME TYPES
           this.appointmentStartTime = moment(args.sourcePayload.startDate).add((this.offsetTimeTop) * (-1), 'seconds').toDate();
           this.appointmentEndTime = moment(args.sourcePayload.startDate).add((args.payload[0].appointmentDuration - this.offsetTimeTop), 'seconds').toDate();
@@ -102,7 +101,7 @@ export class DragDropProvider extends React.PureComponent {
 
     // for cursor position
     if (payload && payload[0].appointmentRef && source && this.offsetTopPX === 0 && this.offsetBottomPX === 0) {
-      this.appointmentHeightPX = payload[0].appointmentDuration * sourcePayload.cellRef.current.getBoundingClientRect().height / 1800;
+      this.appointmentHeightPX = payload[0].appointmentDuration * sourcePayload.cellRef.current.getBoundingClientRect().height / moment(sourcePayload.endDate).diff(sourcePayload.startDate, 'seconds');
       this.offsetTimeTop = moment(sourcePayload.startDate).diff(payload[0].data.startDate, 'seconds');
       this.offsetTimeBottom = moment(payload[0].data.endDate).diff(sourcePayload.endDate, 'seconds');
       this.offsetTopPX = sourcePayload.cellRef.current.getBoundingClientRect().top - payload[0].appointmentRef.current.getBoundingClientRect().top;
@@ -158,8 +157,6 @@ export class DragDropProvider extends React.PureComponent {
     let appointmentHeight = 0;
     let appointmentWidth = 0;
 
-    let draftHeight = payload && payload[0].style.height;
-
     if (payload) {
       const tbodyElement = this.source.parentElement.parentElement;
       const tableRect = tbodyElement.getBoundingClientRect();
@@ -168,25 +165,9 @@ export class DragDropProvider extends React.PureComponent {
       appointmentLeft = cellRect.left; // only for week view
       appointmentWidth = cellRect.width; // only for week view
 
-      // if (cellRect.top - this.offsetTopPX < tableRect.top) { // TOP BOUNDARY
-      //   appointmentTop = tableRect.top;
-      //   appointmentHeight = cellRect.bottom - tableRect.top + this.offsetBottomPX;
-      // } else {
-      //   appointmentTop = cellRect.top - this.offsetTopPX;
-      //   appointmentHeight = draftHeight;
-      //   // appointmentHeight = payload[0].appointmentDuration * cellRect.height / 1800;
-      // }
-      // // console.log(cellRect.bottom + Math.abs(this.offsetBottomPX));
-      // // console.log(tableRect.bottom);
-      // if (cellRect.bottom + this.offsetBottomPX > tableRect.bottom) { // BOTTOM BOUNDARY
-      //   // appointmentLeft = cellRect.left; // only for week view
-      //   // appointmentTop = (cellRect.top - this.offsetTopPX < top) ? top : cellRect.top - this.offsetTopPX;
-      //   appointmentHeight = tableRect.bottom - cellRect.top + this.offsetTopPX;
-      //   // appointmentWidth = cellRect.width; // only for week view
-      // }
-
       const topTime = moment(payload[0].viewBoundaries.start).date(this.sourcePayload.startDate.getDate()).toDate();
       const bottomTime = moment(payload[0].viewBoundaries.end).date(this.sourcePayload.startDate.getDate()).toDate();
+
       if (moment(this.sourcePayload.startDate).add(-this.offsetTimeTop, 'seconds').isSameOrBefore(topTime)) { // TOP BOUNDARY
         appointmentTop = tableRect.top;
         appointmentHeight = cellRect.bottom - tableRect.top + this.offsetBottomPX;
@@ -194,9 +175,7 @@ export class DragDropProvider extends React.PureComponent {
         this.appointmentHeight = appointmentHeight;
         this.offsetTopPX = cellRect.top - tableRect.top;
       } else {
-        // appointmentTop = cellRect.top - this.offsetTopPX;
         appointmentTop = cellRect.top - (this.offsetTimeTop * cellRect.height / 1800);
-        // appointmentHeight = draftHeight > this.appointmentHeight ? draftHeight : this.appointmentHeight;
         appointmentHeight = this.appointmentHeightPX;
       }
       if (moment(this.sourcePayload.endDate).add(this.offsetTimeBottom, 'seconds').isSameOrAfter(bottomTime)) { // BOTTOM BOUNDARY

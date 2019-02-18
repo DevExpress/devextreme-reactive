@@ -8,26 +8,22 @@ import {
   createStateHelper,
   ActionFn,
 } from '@devexpress/dx-react-core';
-import { bBoxes, BBoxesChange } from '@devexpress/dx-chart-core';
-import { LayoutManagerProps, LayoutManagerState } from '../types';
+import { bBoxes } from '@devexpress/dx-chart-core';
+import { LayoutManagerProps, LayoutManagerState, BBoxesChange } from '../types';
 
-const defaultProps = { width: 0 };
-type LayoutManagerDefaultProps = Readonly<typeof defaultProps>;
-
-export class LayoutManager extends React.Component<
-  LayoutManagerProps & LayoutManagerDefaultProps, LayoutManagerState
-> {
-  static defaultProps = defaultProps;
+export class LayoutManager extends React.Component<LayoutManagerProps, LayoutManagerState> {
+  static defaultProps: Partial<LayoutManagerProps> = {
+    width: 0,
+  };
   changeBBox: ActionFn<BBoxesChange>;
 
-  constructor(props) {
+  constructor(props: LayoutManagerProps) {
     super(props);
     const { width, height } = this.props;
 
-    this.state = { bBoxes: { pane: { width, height } } };
+    this.state = { bBoxes: { pane: { width: width!, height } } };
 
     const stateHelper = createStateHelper(this);
-
     this.changeBBox = stateHelper.applyFieldReducer.bind(
       stateHelper,
       'bBoxes',
@@ -48,8 +44,8 @@ export class LayoutManager extends React.Component<
 
         <Template name="root">
           <Root
+            width={width!}
             height={height}
-            width={width}
             {...restProps}
           >
             <TemplatePlaceholder name="canvas" />

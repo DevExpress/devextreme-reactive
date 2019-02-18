@@ -6,22 +6,23 @@ import {
   Template,
   TemplatePlaceholder,
   withComponents,
+  PluginComponents,
 } from '@devexpress/dx-react-core';
 import { getParameters, processHandleTooltip, createReference } from '@devexpress/dx-chart-core';
 import { Target } from '../templates/tooltip/target';
-import { TooltipProps, RawTooltipState, getPointerMoveHandlersFn } from '../types';
+import { TooltipProps, TooltipState, GetPointerMoveHandlersFn } from '../types';
 
 const dependencies = [{ name: 'EventTracker', optional: true }];
 
-class RawTooltip extends React.PureComponent<TooltipProps, RawTooltipState> {
-  static components = {
+class RawTooltip extends React.PureComponent<TooltipProps, TooltipState> {
+  static components: PluginComponents = {
     overlayComponent: 'Overlay',
     targetComponent: 'Target',
     contentComponent: 'Content',
   };
-  getPointerMoveHandlers: getPointerMoveHandlersFn;
+  getPointerMoveHandlers: GetPointerMoveHandlersFn;
 
-  constructor(props) {
+  constructor(props: TooltipProps) {
     super(props);
     this.state = {
       target: props.targetItem || props.defaultTargetItem,
@@ -32,7 +33,7 @@ class RawTooltip extends React.PureComponent<TooltipProps, RawTooltipState> {
     ];
   }
 
-  static getDerivedStateFromProps(props, state) {
+  static getDerivedStateFromProps(props: TooltipProps, state: TooltipState): TooltipState {
     return { target: props.targetItem !== undefined ? props.targetItem : state.target };
   }
 
@@ -41,11 +42,11 @@ class RawTooltip extends React.PureComponent<TooltipProps, RawTooltipState> {
       { target: currentTarget },
       { onTargetItemChange },
     ) => {
-      const target = processHandleTooltip(targets, currentTarget, onTargetItemChange);
+      const target = processHandleTooltip(targets, currentTarget!, onTargetItemChange);
       if (target === undefined) {
         return null;
       }
-      return { target };
+      return { target: target! };
     });
   }
 

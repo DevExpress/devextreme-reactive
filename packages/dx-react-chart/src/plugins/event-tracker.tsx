@@ -7,9 +7,9 @@ import {
   TemplateConnector,
 } from '@devexpress/dx-react-core';
 import { buildEventHandlers } from '@devexpress/dx-chart-core';
-import { EventTrackerProps } from '../types';
+import { EventTrackerProps, HandlerFn, EventHandlers } from '../types';
 
-const wrapToList = arg => (arg ? [arg] : []);
+const wrapToList = (arg?: HandlerFn) => (arg ? [arg] : []);
 
 const EVENT_NAME_TO_REACT_MAP = {
   click: 'onClick',
@@ -23,7 +23,7 @@ const EVENT_NAME_TO_REACT_MAP = {
 
 // Translates event names from common space to React.
 // https://developer.mozilla.org/en-US/docs/Web/Events
-const translateEventNames = (handlers) => {
+const translateEventNames = (handlers: EventHandlers) => {
   const result = {};
   Object.entries(handlers).forEach(([name, handler]) => {
     result[EVENT_NAME_TO_REACT_MAP[name]] = handler;

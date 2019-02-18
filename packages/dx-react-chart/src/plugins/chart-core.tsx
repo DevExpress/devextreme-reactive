@@ -8,7 +8,7 @@ const getScales = ({ domains, layouts }: Getters) => buildScales(domains, layout
 
 const getSeries = ({ series, scales }: Getters) => scaleSeriesPoints(series, scales);
 
-export const ChartCore = () => (
+export const ChartCore: React.SFC = () => (
   <Plugin>
     <Getter name="domains" computed={getDomains} />
     <Getter name="scales" computed={getScales} />

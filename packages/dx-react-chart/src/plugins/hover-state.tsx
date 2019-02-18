@@ -5,16 +5,17 @@ import {
   Getters,
 } from '@devexpress/dx-react-core';
 import {
-  changeSeriesState, processPointerMove, HOVERED,
+  changeSeriesState, processPointerMove, HOVERED, TargetData,
 } from '@devexpress/dx-chart-core';
-import { HoverStateProps, HoverStateState, getPointerMoveHandlersFn } from '../types';
+import { HoverStateProps, HoverStateState, GetPointerMoveHandlersFn } from '../types';
 
 const dependencies = [{ name: 'EventTracker', optional: true }];
 
 /** @internal */
 export class HoverState extends React.PureComponent<HoverStateProps, HoverStateState> {
-  getPointerMoveHandlers: getPointerMoveHandlersFn;
-  constructor(props) {
+  getPointerMoveHandlers: GetPointerMoveHandlersFn;
+
+  constructor(props: HoverStateProps) {
     super(props);
     this.state = {
       hover: props.hover || props.defaultHover,
@@ -25,14 +26,14 @@ export class HoverState extends React.PureComponent<HoverStateProps, HoverStateS
     ];
   }
 
-  static getDerivedStateFromProps(props, state) {
+  static getDerivedStateFromProps(props: HoverStateProps, state: HoverStateState): HoverStateState {
     return { hover: props.hover !== undefined ? props.hover : state.hover };
   }
 
-  handlePointerMove({ targets }) {
+  handlePointerMove({ targets }: TargetData) {
     this.setState(({ hover: currentTarget }, { onHoverChange }) => {
-      const hover = processPointerMove(targets, currentTarget, onHoverChange);
-      return hover !== undefined ? { hover } : null;
+      const hover = processPointerMove(targets, currentTarget!, onHoverChange);
+      return hover !== undefined ? { hover: hover! } : null;
     });
   }
 

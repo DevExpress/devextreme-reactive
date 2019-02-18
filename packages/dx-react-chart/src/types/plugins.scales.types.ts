@@ -1,12 +1,12 @@
-import { ScaleObject } from './index';
+import { FactoryFn, ModifyDomainFn } from './index';
 
 export interface ScaleProps {
   /** The scale’s name */
   name?: string;
   /** A function that constructs a custom scale */
-  factory?: any;
+  factory?: FactoryFn;
   /** A function that modifies the scale domain */
-  modifyDomain?: (domain: any[]) => ScaleObject;
+  modifyDomain?: ModifyDomainFn;
 
 }
 

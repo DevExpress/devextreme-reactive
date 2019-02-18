@@ -5,12 +5,14 @@ import {
   Template,
   TemplatePlaceholder,
   withComponents,
+  PluginComponents,
+  onSizeChangeFn,
 } from '@devexpress/dx-react-core';
 import {
   axisCoordinates, LEFT, BOTTOM, ARGUMENT_DOMAIN, getValueDomainName, getGridCoordinates,
-  ScaleObject, NumberArray,
+  NumberArray,
 } from '@devexpress/dx-chart-core';
-import { RawAxisProps, ArgumentAxisProps, ValueAxisProps } from '../types';
+import { RawAxisProps, ArgumentAxisProps, ValueAxisProps, ScaleObject } from '../types';
 import { Root } from '../templates/axis/root';
 import { Label } from '../templates/axis/label';
 import { Line } from '../templates/axis/line';
@@ -35,21 +37,21 @@ const adjustScaleRange = (scale: ScaleObject, [width, height]: NumberArray) => {
 };
 
 class RawAxis extends React.PureComponent<RawAxisProps> {
-  static components = {
+  static components: PluginComponents = {
     rootComponent: 'Root',
     tickComponent: 'Tick',
     labelComponent: 'Label',
     lineComponent: 'Line',
     gridComponent: 'Grid',
   };
-  static defaultProps = {
+  static defaultProps: Partial<RawAxisProps> = {
     tickSize: 5,
     indentFromAxis: 10,
   };
 
-  rootRef: React.RefObject<HTMLDivElement> = React.createRef();
-  adjustedWidth: number = 0;
-  adjustedHeight: number = 0;
+  rootRef = React.createRef<HTMLDivElement>();
+  adjustedWidth = 0;
+  adjustedHeight = 0;
 
   render() {
     const {
@@ -75,22 +77,22 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
           <TemplatePlaceholder />
           <TemplateConnector>
             {({ scales, layouts }, { changeBBox }) => {
-              const scale = scales[scaleName];
+              const scale = scales[scaleName!];
               if (!scale) {
                 return null;
               }
 
               const { width, height } = layouts[placeholder] || { width: 0, height: 0 };
               const { sides: [dx, dy], ticks } = axisCoordinates({
-                scaleName,
-                position,
+                scaleName: scaleName!,
+                position: position!,
                 tickSize: tickSize!,
                 tickFormat,
                 indentFromAxis: indentFromAxis!,
                 // Isn't it too late to adjust sizes?
                 scale: adjustScaleRange(scale, [this.adjustedWidth, this.adjustedHeight]),
               });
-              const handleSizeChange = (size) => {
+              const handleSizeChange: onSizeChangeFn = (size) => {
                 // The callback is called when DOM is available -
                 // *rootRef.current* can be surely accessed.
                 const rect = this.rootRef.current!.getBoundingClientRect();
@@ -172,13 +174,13 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
           <TemplatePlaceholder />
           <TemplateConnector>
             {({ scales, layouts }) => {
-              const scale = scales[scaleName];
+              const scale = scales[scaleName!];
               if (!scale || !showGrid) {
                 return null;
               }
 
               const { width, height } = layouts.pane;
-              const ticks = getGridCoordinates({ scaleName, scale });
+              const ticks = getGridCoordinates({ scaleName: scaleName!, scale });
               return ((
                 <React.Fragment>
                   {ticks.map(({

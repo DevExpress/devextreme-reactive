@@ -4,7 +4,7 @@ import {
 } from '@devexpress/dx-chart-core';
 import { Plugin, Template, TemplatePlaceholder } from '@devexpress/dx-react-core';
 
-export const AxesLayout = () => (
+export const AxesLayout: React.SFC = () => (
   <Plugin>
     <Template name="canvas">
       <div id="center-center" style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>

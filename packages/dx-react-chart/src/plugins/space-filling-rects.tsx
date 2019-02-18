@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Plugin, Template, TemplateConnector } from '@devexpress/dx-react-core';
-
-type SpaceFillingRectsProps = {placeholders: string[]};
+import { SpaceFillingRectsProps, BBoxes } from '../types';
 
 export class SpaceFillingRects extends React.PureComponent<SpaceFillingRectsProps> {
   render() {
@@ -11,10 +10,10 @@ export class SpaceFillingRects extends React.PureComponent<SpaceFillingRectsProp
         {placeholders.map(name => (
           <Template name={name} key={name}>
             <TemplateConnector>
-              {({ layouts: positions }) => {
+              {({ layouts }) => {
                 const [, horizontal, postfix] = name.split('-');
-                // tslint:disable-next-line: max-line-length
-                const { width }: {width: number} = positions[horizontal + (postfix ? `-${postfix}` : '')] || {};
+                const key = horizontal + (postfix ? `-${postfix}` : '');
+                const { width } = (layouts as BBoxes)[key] || { width: undefined };
                 return <div id={name} style={{ width }} />;
               }}
             </TemplateConnector>

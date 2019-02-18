@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import {
   Plugin,
   Getter,
@@ -13,7 +12,7 @@ import {
 // It allows to run chart size recalculation by calling *forceUpdate* on chart instance.
 import { UpdatableSizer } from '../utils/updatable-sizer';
 
-const DIV_STYLE = {
+const DIV_STYLE: React.CSSProperties = {
   flex: 1, zIndex: 1, position: 'relative', width: '100%',
 };
 
@@ -21,16 +20,16 @@ const SVG_STYLE: React.CSSProperties = {
   position: 'absolute', left: 0, top: 0, overflow: 'visible',
 };
 
-const SizerContainer = ({ children }) => (
-  <div style={DIV_STYLE as any}>{children}</div>
-);
-
-SizerContainer.propTypes = {
-  children: PropTypes.node.isRequired,
+type SizerContainerProps = {
+  children: React.ReactNode;
 };
 
+const SizerContainer: React.SFC<SizerContainerProps> = ({ children }) => (
+  <div style={DIV_STYLE}>{children}</div>
+);
+
 export class PaneLayout extends React.PureComponent {
-  ref: React.RefObject<SVGSVGElement> = React.createRef();
+  ref = React.createRef<SVGSVGElement>();
 
   render() {
     return (

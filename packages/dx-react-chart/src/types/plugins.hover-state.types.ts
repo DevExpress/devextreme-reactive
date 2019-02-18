@@ -12,7 +12,7 @@ export interface HoverStateProps {
 }
 /** @internal */
 export type HoverStateState = {
-  hover: SeriesRef,
+  hover?: SeriesRef;
 };
 /** @internal */
-export type getPointerMoveHandlersFn = PureComputed<[Getters], HandlerFnList>;
+export type GetPointerMoveHandlersFn = PureComputed<[Getters], HandlerFnList>;

@@ -4,18 +4,19 @@ import {
   Plugin,
   Template,
   TemplatePlaceholder,
+  PluginComponents,
 } from '@devexpress/dx-react-core';
 import { TitleProps } from '../types';
 
-const defaultProps = {
-  position: 'top',
-};
 /** @internal */
-export class Title extends React.PureComponent<TitleProps & typeof defaultProps> {
-  static components = {
+export class Title extends React.PureComponent<TitleProps> {
+  static components: PluginComponents = {
     textComponent: 'Text',
   };
-  static defaultProps = defaultProps;
+  static defaultProps: Partial<TitleProps> = {
+    position: 'top',
+  };
+
   render() {
     const {
       textComponent: Text,
@@ -23,7 +24,7 @@ export class Title extends React.PureComponent<TitleProps & typeof defaultProps>
       position,
       ...restProps
     } = this.props;
-    const placeholder = position;
+    const placeholder = position!;
     return (
       <Plugin name="Title">
         <Template name={placeholder}>

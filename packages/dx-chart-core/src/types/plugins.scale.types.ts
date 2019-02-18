@@ -4,7 +4,7 @@ import {
 } from './chart-core.types';
 /** @internal */
 export type FactoryFn = () => ScaleObject;
-type ModifyDomainFn = (domain: DomainItems) => DomainItems;
+export type ModifyDomainFn = (domain: DomainItems) => DomainItems;
 /** @internal */
 export type DomainInfo = {
   readonly modifyDomain?: ModifyDomainFn;

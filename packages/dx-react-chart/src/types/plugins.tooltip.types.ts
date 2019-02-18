@@ -13,14 +13,12 @@ export interface TooltipProps {
   onTargetItemChange?: NotifyPointerMoveFn;
   /** A component that renders the tooltip */
   overlayComponent: React.ComponentType<Tooltip.OverlayProps>;
-  /** @internal */
-  targetComponent: any;
   /** A component that renders the tooltip content */
   contentComponent: React.ComponentType<Tooltip.ContentProps>;
 }
 /** @internal */
-export type RawTooltipState = {
-  target: SeriesRef,
+export type TooltipState = {
+  target?: SeriesRef;
 };
 
 // tslint:disable-next-line: no-namespace

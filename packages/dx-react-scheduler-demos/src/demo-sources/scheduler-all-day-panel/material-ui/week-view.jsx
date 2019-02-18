@@ -56,7 +56,8 @@ export default class Demo extends React.PureComponent {
         <Scheduler
           data={data}
         >
-          <DragDropProvider />
+
+
 
           <EditingState
             onCommitChanges={this.commitChanges}
@@ -74,6 +75,8 @@ export default class Demo extends React.PureComponent {
 
           <Toolbar />
           <ViewSwitcher />
+
+          <DragDropProvider />
 
         </Scheduler>
       </Paper>

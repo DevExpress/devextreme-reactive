@@ -73,8 +73,6 @@ class CellBase extends React.PureComponent {
         minus *= -1;
       }
 
-      const oldPart = part;
-
       if (Math.abs(part) > 1) {
         this.setState({
           payload: {}, over: false, top: undefined, part: 0,
@@ -146,23 +144,6 @@ class CellBase extends React.PureComponent {
           >
             {children}
           </TableCell>
-          {/* {over && (
-                <Paper
-                  className={classes.appointment}
-                  style={{
-                    height: payload[0].style.height,
-                    top: `${part * 100}%`,
-                  }}
-                >
-                  <VerticalAppointment
-                    data={{
-                      ...payload[0].data,
-                      startDate,
-                      endDate: moment(startDate).add(payload[0].appointmentDuration, 'seconds').toDate(),
-                    }}
-                  />
-                </Paper>
-                )} */}
         </RootRef>
       </DropTarget>
     );

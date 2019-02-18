@@ -59,6 +59,8 @@ class AppointmentBase extends React.PureComponent {
       changeAppointment,
       commitChangedAppointment,
       viewBoundaries,
+      excludedDays,
+      viewCellsData,
       ...restProps
     } = this.props;
     const { dragging, initialY } = this.state;
@@ -100,6 +102,8 @@ class AppointmentBase extends React.PureComponent {
             appointmentInitialY: initialY,
             offsetY,
             viewBoundaries,
+            excludedDays,
+            viewCellsData,
           }]}
           // elementOffsetY={offsetY}
           onStart={this.onDragStart}

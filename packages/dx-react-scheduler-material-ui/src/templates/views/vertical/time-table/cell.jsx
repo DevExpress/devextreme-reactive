@@ -136,16 +136,13 @@ class CellBase extends React.PureComponent {
     } = this.props;
     const { over, payload, part } = this.state;
 
-    const cellType = moment(endDate).diff(startDate, 'hours') > 23
-      ? 'horizontal' : 'vertical';
-
     return (
       <DropTarget
         onEnter={args => this.handleDragEvent(this.onEnter, args)}
         onOver={args => this.handleDragEvent(this.onOver, args)}
         onLeave={args => this.handleDragEvent(this.onLeave, args)}
         onDrop={args => this.handleDragEvent(this.onDrop, args)}
-        sourcePayload={{ startDate, endDate, cellRef: this.cell, type: cellType }}
+        sourcePayload={{ startDate, endDate, cellRef: this.cell, type: 'vertical' }}
       >
         <RootRef rootRef={this.cell}>
           <TableCell
@@ -158,23 +155,6 @@ class CellBase extends React.PureComponent {
             {...restProps}
           >
             {children}
-            {/* {over && (
-            <Paper
-              className={classes.appointment}
-              style={{
-                height: payload[0].style.height,
-                top: `${part * 100}%`,
-              }}
-            >
-              <VerticalAppointment
-                data={{
-                  ...payload[0].data,
-                  startDate,
-                  endDate: moment(startDate).add(payload[0].appointmentDuration, 'seconds').toDate(),
-                }}
-              />
-            </Paper>
-            )} */}
           </TableCell>
         </RootRef>
       </DropTarget>

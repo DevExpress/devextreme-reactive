@@ -43,6 +43,8 @@ export class Appointments extends React.PureComponent {
                     {...restParams}
 
                     viewBoundaries={{ start: getters.startViewDate, end: getters.endViewDate }}
+                    excludedDays={getters.excludedDays}
+                    viewCellsData={getters.viewCellsData}
                   >
                     <AppointmentContent
                       data={data}

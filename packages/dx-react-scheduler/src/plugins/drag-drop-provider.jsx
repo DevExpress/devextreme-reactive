@@ -4,6 +4,12 @@ import {
   Plugin, Getter, Template, TemplatePlaceholder,
   DragDropProvider as DragDropProviderCore,
 } from '@devexpress/dx-react-core';
+import {
+  calculateRectByDateIntervals,
+  calculateWeekDateIntervals,
+  getVerticalRectByDates,
+  getAppointmentStyle,
+} from '@devexpress/dx-scheduler-core';
 import moment from 'moment';
 
 export class DragDropProvider extends React.PureComponent {
@@ -159,31 +165,69 @@ export class DragDropProvider extends React.PureComponent {
 
     if (payload) {
       const tbodyElement = this.source.parentElement.parentElement;
-      const tableRect = tbodyElement.getBoundingClientRect();
-      const cellRect = this.source.getBoundingClientRect();
+      const intervals = calculateWeekDateIntervals(
+        [{ ...payload[0].data, start: this.appointmentStartTime, end: this.appointmentEndTime }], payload[0].viewBoundaries.start, payload[0].viewBoundaries.end, payload[0].excludedDays,
+      );
+      console.log(intervals);
+      this.rects = calculateRectByDateIntervals(
+        {
+          growDirection: 'vertical',
+          multiline: false,
+        },
+        intervals,
+        getVerticalRectByDates,
+        {
+          startViewDate: payload[0].viewBoundaries.start,
+          endViewDate: payload[0].viewBoundaries.end,
+          viewCellsData: payload[0].viewCellsData,
+          cellDuration: moment(sourcePayload.endDate).diff(sourcePayload.startDate, 'minutes'),
+          cellElements: tbodyElement.querySelectorAll('td'),
+        },
+      );
+      console.log(this.rects);
 
-      appointmentLeft = cellRect.left; // only for week view
-      appointmentWidth = cellRect.width; // only for week view
 
-      const topTime = moment(payload[0].viewBoundaries.start).date(this.sourcePayload.startDate.getDate()).toDate();
-      const bottomTime = moment(payload[0].viewBoundaries.end).date(this.sourcePayload.startDate.getDate()).toDate();
+      if (this.sourcePayload.type === 'vertical') {
+        const tbodyElement = this.source.parentElement.parentElement;
+        const tableRect = tbodyElement.getBoundingClientRect();
+        const cellRect = this.source.getBoundingClientRect();
 
-      if (moment(this.sourcePayload.startDate).add(-this.offsetTimeTop, 'seconds').isSameOrBefore(topTime)) { // TOP BOUNDARY
-        appointmentTop = tableRect.top;
-        appointmentHeight = cellRect.bottom - tableRect.top + this.offsetBottomPX;
+        appointmentLeft = cellRect.left; // only for week view
+        appointmentWidth = cellRect.width; // only for week view
 
-        this.appointmentHeight = appointmentHeight;
-        this.offsetTopPX = cellRect.top - tableRect.top;
+        const topTime = moment(payload[0].viewBoundaries.start).date(this.sourcePayload.startDate.getDate()).toDate();
+        const bottomTime = moment(payload[0].viewBoundaries.end).date(this.sourcePayload.startDate.getDate()).toDate();
+
+        if (moment(this.sourcePayload.startDate).add(-this.offsetTimeTop, 'seconds').isSameOrBefore(topTime)) { // TOP BOUNDARY
+          appointmentTop = tableRect.top;
+          appointmentHeight = cellRect.bottom - tableRect.top + this.offsetBottomPX;
+
+          this.appointmentHeight = appointmentHeight;
+          this.offsetTopPX = cellRect.top - tableRect.top;
+        } else {
+          appointmentTop = cellRect.top - (this.offsetTimeTop * cellRect.height / moment(sourcePayload.endDate).diff(sourcePayload.startDate, 'seconds'));
+          appointmentHeight = this.appointmentHeightPX;
+        }
+        if (moment(this.sourcePayload.endDate).add(this.offsetTimeBottom, 'seconds').isSameOrAfter(bottomTime)) { // BOTTOM BOUNDARY
+          appointmentHeight = tableRect.bottom - cellRect.top + this.offsetTopPX;
+          this.appointmentHeight = appointmentHeight;
+        }
       } else {
-        appointmentTop = cellRect.top - (this.offsetTimeTop * cellRect.height / 1800);
-        appointmentHeight = this.appointmentHeightPX;
-      }
-      if (moment(this.sourcePayload.endDate).add(this.offsetTimeBottom, 'seconds').isSameOrAfter(bottomTime)) { // BOTTOM BOUNDARY
-        appointmentHeight = tableRect.bottom - cellRect.top + this.offsetTopPX;
-        this.appointmentHeight = appointmentHeight;
+        const tbodyElement = this.source.parentElement.parentElement;
+        const tableRect = tbodyElement.getBoundingClientRect();
+        const cellRect = this.source.getBoundingClientRect();
+
+        appointmentTop = cellRect.top;
+        appointmentHeight = cellRect.height;
+        appointmentWidth = cellRect.width;
+        appointmentLeft = cellRect.left - (moment(payload[0].startDate).diff(sourcePayload.startDate, 'days') * (cellRect.right - cellRect.left));
+
+        const topTime = moment(payload[0].viewBoundaries.start).date(this.sourcePayload.startDate.getDate()).toDate();
+        const bottomTime = moment(payload[0].viewBoundaries.end).date(this.sourcePayload.startDate.getDate()).toDate();
       }
     }
 
+    console.log(appointmentHeight);
 
     return (
       <Plugin
@@ -196,20 +240,34 @@ export class DragDropProvider extends React.PureComponent {
           >
             <TemplatePlaceholder />
           </DragDropProviderCore>
+        </Template>
+
+        <Template name="main">
+          <TemplatePlaceholder />
+          <div className="MAXIM" />
           {payload && (
-            <Container
-              clientOffset={clientOffset}
-              left={appointmentLeft}
-              top={appointmentTop}
-            >
-              <Appointment
-                data={{ ...payload[0].data, startDate: this.appointmentStartTime, endDate: this.appointmentEndTime }} // NOTE use endDate: moment(this.props.startDate).add(payload[0].appointmentDuration, 'seconds').toDate()
-                rect={{
-                  height: appointmentHeight,
-                  width: appointmentWidth,
-                }}
-              />
-            </Container>
+          <Container
+            clientOffset={clientOffset}
+            // left={geometry.left} // %
+            // top={geometry.top}
+          >
+            {this.rects.map(({
+              dataItem, type, ...geometry
+            }) => {
+              console.log(geometry);
+              const rect = getAppointmentStyle(geometry);
+              return (
+                <Appointment
+                  data={{ ...payload[0].data, startDate: this.appointmentStartTime, endDate: this.appointmentEndTime }} // NOTE use endDate: moment(this.props.startDate).add(payload[0].appointmentDuration, 'seconds').toDate()
+                  // rect={{
+                  //   height: geometry.height,
+                  //   width: geometry.width, // %
+                  // }}
+                  rect={rect}
+                />
+              );
+            })}
+          </Container>
           )}
         </Template>
       </Plugin>
@@ -226,3 +284,18 @@ DragDropProvider.components = {
   containerComponent: 'Container',
   columnComponent: 'Column',
 };
+
+
+// <Container
+//   clientOffset={clientOffset}
+//   left={appointmentLeft}
+//   top={appointmentTop}
+// >
+//   <Appointment
+//     data={{ ...payload[0].data, startDate: this.appointmentStartTime, endDate: this.appointmentEndTime }} // NOTE use endDate: moment(this.props.startDate).add(payload[0].appointmentDuration, 'seconds').toDate()
+//     rect={{
+//       height: appointmentHeight,
+//       width: appointmentWidth,
+//     }}
+//   />
+// </Container>

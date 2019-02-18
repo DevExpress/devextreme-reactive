@@ -28,6 +28,9 @@ export class DragDropProvider extends React.PureComponent {
     this.appointmentHeight = 0;
     this.appointmentHeightPX = 0;
 
+    this.appointmentStartTime = 0;
+    this.appointmentEndTime = 0;
+
     this.change = (args) => {
       // console.log(args);
       if (args.sourcePayload) {
@@ -41,12 +44,25 @@ export class DragDropProvider extends React.PureComponent {
       }
       if (args.payload && args.sourcePayload) {
         console.log('save');
-        args.payload[0].changeAppointment({
-          change: {
-            startDate: moment(args.sourcePayload.startDate).add((this.offsetTimeTop) * (-1), 'seconds').toDate(),
-            endDate: moment(args.sourcePayload.startDate).add((args.payload[0].appointmentDuration - this.offsetTimeTop), 'seconds').toDate(),
-          },
-        });
+        if (args.payload[0].type === args.sourcePayload.type) { // SAME TYPES
+          this.appointmentStartTime = moment(args.sourcePayload.startDate).add((this.offsetTimeTop) * (-1), 'seconds').toDate();
+          this.appointmentEndTime = moment(args.sourcePayload.startDate).add((args.payload[0].appointmentDuration - this.offsetTimeTop), 'seconds').toDate();
+          args.payload[0].changeAppointment({
+            change: {
+              startDate: this.appointmentStartTime,
+              endDate: this.appointmentEndTime,
+            },
+          });
+        } else { // DIFFERENT TYPES
+          this.appointmentStartTime = args.sourcePayload.startDate;
+          this.appointmentEndTime = args.sourcePayload.endDate;
+          args.payload[0].changeAppointment({
+            change: {
+              startDate: args.sourcePayload.startDate,
+              endDate: args.sourcePayload.endDate,
+            },
+          });
+        }
       }
 
       this.setState({
@@ -56,7 +72,6 @@ export class DragDropProvider extends React.PureComponent {
         sourcePayload: args.sourcePayload,
       });
     };
-    this.moveOffset = null;
   }
 
   render() {
@@ -93,11 +108,6 @@ export class DragDropProvider extends React.PureComponent {
       this.offsetTopPX = sourcePayload.cellRef.current.getBoundingClientRect().top - payload[0].appointmentRef.current.getBoundingClientRect().top;
       this.offsetBottomPX = payload[0].appointmentRef.current.getBoundingClientRect().bottom - sourcePayload.cellRef.current.getBoundingClientRect().bottom;
     }
-
-    if (!payload) {
-      this.moveOffset = null;
-    }
-    this.moveOffset = 0; // !!!!!!!!
 
     // Move by cell parts
     // if (clientOffset && this.sourcePayload) {
@@ -211,10 +221,10 @@ export class DragDropProvider extends React.PureComponent {
             <Container
               clientOffset={clientOffset}
               left={appointmentLeft}
-              top={appointmentTop} // : clientOffset.y - this.moveOffset + topOffset}
+              top={appointmentTop}
             >
               <Appointment
-                data={{ ...payload[0].data, ...this.sourcePayload }} // NOTE use endDate: moment(this.props.startDate).add(payload[0].appointmentDuration, 'seconds').toDate()
+                data={{ ...payload[0].data, startDate: this.appointmentStartTime, endDate: this.appointmentEndTime }} // NOTE use endDate: moment(this.props.startDate).add(payload[0].appointmentDuration, 'seconds').toDate()
                 rect={{
                   height: appointmentHeight,
                   width: appointmentWidth,

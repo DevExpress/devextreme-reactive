@@ -26,6 +26,7 @@ export class DragDropProvider extends React.PureComponent {
     this.offsetTimeBottom = 0;
 
     this.appointmentHeight = 0;
+    this.appointmentHeightPX = 0;
 
     this.change = (args) => {
       // console.log(args);
@@ -39,6 +40,7 @@ export class DragDropProvider extends React.PureComponent {
         this.payload = args.payload;
       }
       if (args.payload && args.sourcePayload) {
+        console.log('save');
         args.payload[0].changeAppointment({
           change: {
             startDate: moment(args.sourcePayload.startDate).add((this.offsetTimeTop) * (-1), 'seconds').toDate(),
@@ -85,6 +87,7 @@ export class DragDropProvider extends React.PureComponent {
 
     // for cursor position
     if (payload && payload[0].appointmentRef && source && this.offsetTopPX === 0 && this.offsetBottomPX === 0) {
+      this.appointmentHeightPX = payload[0].appointmentDuration * sourcePayload.cellRef.current.getBoundingClientRect().height / 1800;
       this.offsetTimeTop = moment(sourcePayload.startDate).diff(payload[0].data.startDate, 'seconds');
       this.offsetTimeBottom = moment(payload[0].data.endDate).diff(sourcePayload.endDate, 'seconds');
       this.offsetTopPX = sourcePayload.cellRef.current.getBoundingClientRect().top - payload[0].appointmentRef.current.getBoundingClientRect().top;
@@ -180,13 +183,13 @@ export class DragDropProvider extends React.PureComponent {
 
         this.appointmentHeight = appointmentHeight;
         this.offsetTopPX = cellRect.top - tableRect.top;
-        console.log('TOP');
       } else {
-        appointmentTop = cellRect.top - this.offsetTopPX;
-        appointmentHeight = draftHeight > this.appointmentHeight ? draftHeight : this.appointmentHeight;
+        // appointmentTop = cellRect.top - this.offsetTopPX;
+        appointmentTop = cellRect.top - (this.offsetTimeTop * cellRect.height / 1800);
+        // appointmentHeight = draftHeight > this.appointmentHeight ? draftHeight : this.appointmentHeight;
+        appointmentHeight = this.appointmentHeightPX;
       }
       if (moment(this.sourcePayload.endDate).add(this.offsetTimeBottom, 'seconds').isSameOrAfter(bottomTime)) { // BOTTOM BOUNDARY
-        console.log('BOTTOM');
         appointmentHeight = tableRect.bottom - cellRect.top + this.offsetTopPX;
         this.appointmentHeight = appointmentHeight;
       }

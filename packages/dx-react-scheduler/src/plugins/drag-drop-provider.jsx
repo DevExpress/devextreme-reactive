@@ -20,8 +20,12 @@ export class DragDropProvider extends React.PureComponent {
     this.payload = null;
     this.sourcePayload = null;
     this.source = null;
-    this.offsetY = 0;
-    this.timeOffset = 0;
+    this.offsetTopPX = 0;
+    this.offsetBottomPX = 0;
+    this.offsetTimeTop = 0;
+    this.offsetTimeBottom = 0;
+
+    this.appointmentHeight = 0;
 
     this.change = (args) => {
       // console.log(args);
@@ -37,8 +41,8 @@ export class DragDropProvider extends React.PureComponent {
       if (args.payload && args.sourcePayload) {
         args.payload[0].changeAppointment({
           change: {
-            startDate: moment(args.sourcePayload.startDate).add((this.offsetTime) * (-1), 'seconds').toDate(),
-            endDate: moment(args.sourcePayload.startDate).add((args.payload[0].appointmentDuration - this.offsetTime), 'seconds').toDate(),
+            startDate: moment(args.sourcePayload.startDate).add((this.offsetTimeTop) * (-1), 'seconds').toDate(),
+            endDate: moment(args.sourcePayload.startDate).add((args.payload[0].appointmentDuration - this.offsetTimeTop), 'seconds').toDate(),
           },
         });
       }
@@ -80,32 +84,17 @@ export class DragDropProvider extends React.PureComponent {
     }
 
     // for cursor position
-    if (payload && payload[0].appointmentRef && source && this.offsetY === 0) {
-      this.offsetTime = moment(sourcePayload.startDate).diff(payload[0].data.startDate, 'seconds');
-      this.offsetY = sourcePayload.cellRef.current.getBoundingClientRect().top - payload[0].appointmentRef.current.getBoundingClientRect().top;
-      this.offsetYBottom = payload[0].appointmentRef.current.getBoundingClientRect().bottom - sourcePayload.cellRef.current.getBoundingClientRect().bottom;
+    if (payload && payload[0].appointmentRef && source && this.offsetTopPX === 0 && this.offsetBottomPX === 0) {
+      this.offsetTimeTop = moment(sourcePayload.startDate).diff(payload[0].data.startDate, 'seconds');
+      this.offsetTimeBottom = moment(payload[0].data.endDate).diff(sourcePayload.endDate, 'seconds');
+      this.offsetTopPX = sourcePayload.cellRef.current.getBoundingClientRect().top - payload[0].appointmentRef.current.getBoundingClientRect().top;
+      this.offsetBottomPX = payload[0].appointmentRef.current.getBoundingClientRect().bottom - sourcePayload.cellRef.current.getBoundingClientRect().bottom;
     }
 
     if (!payload) {
       this.moveOffset = null;
     }
     this.moveOffset = 0; // !!!!!!!!
-
-    // if (source) {
-    //   console.log(source.getBoundingClientRect());
-    //   console.log(clientOffset.y);
-    // }
-
-    // All Day
-    let draftHeight = payload && payload[0].style.height;
-    if (this.sourcePayload && payload) {
-      // if (moment(sourcePayload.endDate).diff(sourcePayload.startDate, 'hours') > 23) {
-      //   draftHeight = sourcePayload.cellRef.current.getBoundingClientRect().height;
-      // }
-      if (payload[0].type !== this.sourcePayload.type) {
-        draftHeight = this.sourcePayload.cellRef.current.getBoundingClientRect().height;
-      }
-    }
 
     // Move by cell parts
     // if (clientOffset && this.sourcePayload) {
@@ -142,8 +131,12 @@ export class DragDropProvider extends React.PureComponent {
       this.payload = null;
       this.sourcePayload = null;
       this.source = null;
-      this.offsetY = 0;
-      this.timeOffset = 0;
+
+      this.offsetTopPX = 0;
+      this.offsetBottomPX = 0;
+      this.offsetTimeTop = 0;
+      this.offsetTimeBottom = 0;
+      this.appointmentHeight = 0;
     }
 
     // SLICE APPOINTMENTS BY BOUNDARIES
@@ -151,6 +144,9 @@ export class DragDropProvider extends React.PureComponent {
     let appointmentLeft = 0;
     let appointmentHeight = 0;
     let appointmentWidth = 0;
+
+    let draftHeight = payload && payload[0].style.height;
+
     if (payload) {
       const tbodyElement = this.source.parentElement.parentElement;
       const tableRect = tbodyElement.getBoundingClientRect();
@@ -159,20 +155,40 @@ export class DragDropProvider extends React.PureComponent {
       appointmentLeft = cellRect.left; // only for week view
       appointmentWidth = cellRect.width; // only for week view
 
-      if (cellRect.top - this.offsetY < tableRect.top) { // TOP
+      // if (cellRect.top - this.offsetTopPX < tableRect.top) { // TOP BOUNDARY
+      //   appointmentTop = tableRect.top;
+      //   appointmentHeight = cellRect.bottom - tableRect.top + this.offsetBottomPX;
+      // } else {
+      //   appointmentTop = cellRect.top - this.offsetTopPX;
+      //   appointmentHeight = draftHeight;
+      //   // appointmentHeight = payload[0].appointmentDuration * cellRect.height / 1800;
+      // }
+      // // console.log(cellRect.bottom + Math.abs(this.offsetBottomPX));
+      // // console.log(tableRect.bottom);
+      // if (cellRect.bottom + this.offsetBottomPX > tableRect.bottom) { // BOTTOM BOUNDARY
+      //   // appointmentLeft = cellRect.left; // only for week view
+      //   // appointmentTop = (cellRect.top - this.offsetTopPX < top) ? top : cellRect.top - this.offsetTopPX;
+      //   appointmentHeight = tableRect.bottom - cellRect.top + this.offsetTopPX;
+      //   // appointmentWidth = cellRect.width; // only for week view
+      // }
+
+      const topTime = moment(payload[0].viewBoundaries.start).date(this.sourcePayload.startDate.getDate()).toDate();
+      const bottomTime = moment(payload[0].viewBoundaries.end).date(this.sourcePayload.startDate.getDate()).toDate();
+      if (moment(this.sourcePayload.startDate).add(-this.offsetTimeTop, 'seconds').isSameOrBefore(topTime)) { // TOP BOUNDARY
         appointmentTop = tableRect.top;
-        appointmentHeight = cellRect.bottom - tableRect.top + this.offsetYBottom;
+        appointmentHeight = cellRect.bottom - tableRect.top + this.offsetBottomPX;
+
+        this.appointmentHeight = appointmentHeight;
+        this.offsetTopPX = cellRect.top - tableRect.top;
+        console.log('TOP');
       } else {
-        appointmentTop = cellRect.top - this.offsetY;
-        appointmentHeight = draftHeight;
+        appointmentTop = cellRect.top - this.offsetTopPX;
+        appointmentHeight = draftHeight > this.appointmentHeight ? draftHeight : this.appointmentHeight;
       }
-      // console.log(cellRect.bottom + Math.abs(this.offsetYBottom));
-      // console.log(tableRect.bottom);
-      if (cellRect.bottom + this.offsetYBottom > tableRect.bottom) { // BOTTOM
-        // appointmentLeft = cellRect.left; // only for week view
-        // appointmentTop = (cellRect.top - this.offsetY < top) ? top : cellRect.top - this.offsetY;
-        appointmentHeight = tableRect.bottom - cellRect.top + this.offsetY;
-        // appointmentWidth = cellRect.width; // only for week view
+      if (moment(this.sourcePayload.endDate).add(this.offsetTimeBottom, 'seconds').isSameOrAfter(bottomTime)) { // BOTTOM BOUNDARY
+        console.log('BOTTOM');
+        appointmentHeight = tableRect.bottom - cellRect.top + this.offsetTopPX;
+        this.appointmentHeight = appointmentHeight;
       }
     }
 

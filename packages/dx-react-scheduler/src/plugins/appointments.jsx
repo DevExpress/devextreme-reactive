@@ -41,6 +41,8 @@ export class Appointments extends React.PureComponent {
                     commitChangedAppointment={actions.commitChangedAppointment}
                     {...createClickHandlers(onClick, onDoubleClick)}
                     {...restParams}
+
+                    viewBoundaries={{ start: getters.startViewDate, end: getters.endViewDate }}
                   >
                     <AppointmentContent
                       data={data}

@@ -1,6 +1,7 @@
 <!--
-    If you have any questions regarding your scenario or components behavior, please provide a detailed explanation.
-    If you own an active DevExtreme license, feel free to contact us in the Support Center (https://www.devexpress.com/ask) to receive an answer shortly.
+    We do not guarantee a quick answer on GitHub.
+    If you own an active DevExtreme license, feel free to contact us in the Support Center (https://www.devexpress.com/ask)
+    to receive an answer shortly.
 -->
 
 <!--
@@ -24,10 +25,13 @@
 
 
 
-### Steps to Reproduce (for Bugs)
+### Steps to Reproduce
 <!--
     Provide detailed steps to reproduce the bug. If possible, create a demo illustrating the problem.
 -->
+
+
+### Screenshots
 
 
 

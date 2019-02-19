@@ -27,7 +27,7 @@ const styles = ({ palette, typography, spacing }) => ({
     cursor: 'pointer',
   },
   dragging: {
-    // opacity: 0.5,
+    opacity: 0.5,
   },
 });
 
@@ -113,7 +113,7 @@ class AppointmentBase extends React.PureComponent {
             ref={this.appointmentRef}
             className={classNames({
               [classes.appointment]: true,
-              [classes.dragging]: dragging,
+              [classes.dragging]: this.props.drag,
               [classes.clickableAppointment]: clickable,
             }, className)}
             style={style}

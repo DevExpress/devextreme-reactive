@@ -31,9 +31,12 @@ export class Appointments extends React.PureComponent {
               >
                 {({
                   onClick, onDoubleClick,
-                  data, type, style,
+                  data, type, style, drag,
                   ...restParams
-                }) => (
+                }) => {
+                  console.log(drag);
+                  debugger
+                return (
                   <Appointment
                     style={style}
                     data={data}
@@ -41,6 +44,8 @@ export class Appointments extends React.PureComponent {
                     commitChangedAppointment={actions.commitChangedAppointment}
                     {...createClickHandlers(onClick, onDoubleClick)}
                     {...restParams}
+
+                    drag={drag}
 
                     viewBoundaries={{ start: getters.startViewDate, end: getters.endViewDate }}
                     excludedDays={getters.excludedDays}
@@ -51,7 +56,8 @@ export class Appointments extends React.PureComponent {
                       type={type}
                     />
                   </Appointment>
-                )}
+                );
+              }}
               </Template>
             );
           }}

@@ -48,7 +48,6 @@ export class DragDropProvider extends React.PureComponent {
     this.allDayRects = [];
 
     this.change = (args) => {
-
       if (args.source) {
         this.source = args.source;
       }
@@ -56,6 +55,7 @@ export class DragDropProvider extends React.PureComponent {
         this.payload = args.payload;
       }
       if (args.payload && args.sourcePayload && args.sourcePayload !== this.sourcePayload) {
+        // this.props.onDragIdChange(args.payload[0].data.id);
         if (args.payload[0].type === args.sourcePayload.type || (args.sourcePayload.type === 'allDay' && args.payload[0].type === 'horizontal')) { // SAME TYPES && All DAY
           this.appointmentStartTime = moment(args.sourcePayload.startDate).add((this.offsetTimeTop) * (-1), 'seconds').toDate();
           this.appointmentEndTime = moment(args.sourcePayload.startDate).add((args.payload[0].appointmentDuration - this.offsetTimeTop), 'seconds').toDate();
@@ -86,6 +86,13 @@ export class DragDropProvider extends React.PureComponent {
         source: args.source,
         sourcePayload: args.sourcePayload,
       });
+    };
+
+    this.appointmentsChange = (getters) => {
+      getters.appointments.map(appointment => (
+        this.state.payload && appointment.id === this.state.payload[0].data.id ? { ...appointment, drag: true } : appointment
+      ));
+      return (getters.appointments);
     };
   }
 
@@ -244,6 +251,7 @@ export class DragDropProvider extends React.PureComponent {
       <Plugin
         name="DragDropProvider"
       >
+        <Getter name="appointments" computed={this.appointmentsChange} />
         <Getter name="draggingEnabled" value />
         <Template name="root">
           <DragDropProviderCore
@@ -294,6 +302,15 @@ export class DragDropProvider extends React.PureComponent {
             })}
           </Container>
           )}
+        </Template>
+
+        <Template name="appointment">
+          {(params) => {
+            debugger
+            if (false) {
+              return <div />;
+            } return <TemplatePlaceholder params={{ ...params, drag: payload && params.data.id === payload[0].data.id }} />;
+          }}
         </Template>
       </Plugin>
     );

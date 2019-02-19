@@ -16,7 +16,7 @@ export class SchedulerCore extends React.PureComponent {
       <Plugin
         name="SchedulerCore"
       >
-        <Getter name="appointments" value={appointments(data)} />
+        <Getter name="appointments" computed={() => appointments(data)} />
         <Template name="root">
           <Root>
             <TemplatePlaceholder name="header" />

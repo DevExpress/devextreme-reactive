@@ -31,11 +31,14 @@ class RawBar extends React.PureComponent<BarSeries.PointProps> {
   }
 }
 
+// It should actually be `withPattern<BarSeries.PointProps>` but `opacity` is not decleared there.
+// It is not clear if `opacity` should be explicitly enumerated or stay as part of `restProps`.
+
 export const Bar: React.ComponentType<BarSeries.PointProps> = withStates({
-  [HOVERED]: withPattern(
+  [HOVERED]: withPattern<any>(
     ({ seriesIndex, index }) => `series-${seriesIndex}-point-${index}-hover`, { opacity: 0.75 },
   )(RawBar),
-  [SELECTED]: withPattern(
+  [SELECTED]: withPattern<any>(
     ({ seriesIndex, index }) => `series-${seriesIndex}-point-${index}-selection`, { opacity: 0.5 },
   )(RawBar),
 })(RawBar);

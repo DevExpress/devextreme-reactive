@@ -4,11 +4,7 @@ import { Sizer, SizerProps } from '@devexpress/dx-react-core';
 // It is located in a separate file only for testing purpose -
 // it should actually be placed next to PaneLayout.
 export class UpdatableSizer extends React.PureComponent<SizerProps> {
-  ref: React.RefObject<any>;
-  constructor(props) {
-    super(props);
-    this.ref = React.createRef();
-  }
+  ref = React.createRef<Sizer>();
 
   componentDidUpdate() {
     this.ref.current!.setupListeners();

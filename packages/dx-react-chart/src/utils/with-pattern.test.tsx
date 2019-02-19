@@ -9,7 +9,7 @@ jest.mock('../templates/pattern', () => ({
 
 describe('#withPattern', () => {
   const BaseComponent = () => null;
-  const TestComponent = withPattern(
+  const TestComponent = withPattern<any>(
     ({ x, y }) => `${x}-${y}`,
     { a: 1, b: 2 },
   )(BaseComponent);

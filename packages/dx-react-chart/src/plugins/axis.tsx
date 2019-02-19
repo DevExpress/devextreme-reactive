@@ -227,7 +227,9 @@ export const ArgumentAxis: React.ComponentType<ArgumentAxisProps> = withPatchedP
   showLabels: true,
   ...props,
   scaleName: ARGUMENT_DOMAIN,
-}))(Axis);
+}))(Axis) as any;
+// Casting to *any* is done because RawAxisProps is not assignalbe to ArgumentAxisProps
+// because of *position* field.
 
 // TODO: Check that only LEFT and RIGHT are accepted.
 export const ValueAxis: React.ComponentType<ValueAxisProps> = withPatchedProps(props => ({
@@ -238,4 +240,6 @@ export const ValueAxis: React.ComponentType<ValueAxisProps> = withPatchedProps(p
   showLabels: true,
   ...props,
   scaleName: getValueDomainName(props.scaleName),
-}))(Axis);
+}))(Axis) as any;
+// Casting to *any* is done because RawAxisProps is not assignalbe to ValueAxisProps
+// because of *position* field.

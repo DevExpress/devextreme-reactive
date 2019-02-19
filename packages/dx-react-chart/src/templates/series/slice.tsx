@@ -37,11 +37,14 @@ class RawSlice extends React.PureComponent<PieSeries.PointProps> {
   }
 }
 
+// It should actually be `withPattern<PieSeries.PointProps>` but `opacity` is not decleared there.
+// It is not clear if `opacity` should be explicitly enumerated or stay as part of `restProps`.
+
 export const Slice: React.ComponentType<PieSeries.PointProps> = withStates({
-  [HOVERED]: withPattern(
+  [HOVERED]: withPattern<any>(
     ({ seriesIndex, index }) => `series-${seriesIndex}-point-${index}-hover`, { opacity: 0.75 },
   )(RawSlice),
-  [SELECTED]: withPattern(
+  [SELECTED]: withPattern<any>(
     ({ seriesIndex, index }) => `series-${seriesIndex}-point-${index}-selection`, { opacity: 0.5 },
   )(RawSlice),
 })(RawSlice);

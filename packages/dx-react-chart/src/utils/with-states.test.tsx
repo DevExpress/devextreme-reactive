@@ -13,7 +13,7 @@ describe('#withStates', () => {
     state2: props => (
       <OtherComponent {...props} tag="state-2" />
     ),
-  })(BaseComponent);
+  })(BaseComponent) as any;
 
   it('should return original component by default', () => {
     const tree = mount(<TestComponent a={1} b={2} />);

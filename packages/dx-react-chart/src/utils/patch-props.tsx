@@ -1,18 +1,17 @@
 import * as React from 'react';
-import { PluginComponents } from '@devexpress/dx-react-core';
+import { ITargetComponent } from '@devexpress/dx-react-core';
 
 /** @internal */
-type PatchFn = (props: any) => any;
+export const withPatchedProps = (
+  patch: <T extends any>(props: T) => T,
+) => <K extends object>(Target: React.ComponentType<K>): React.ComponentType<K> => {
+  class Component extends React.PureComponent<K> {
+    static components = (Target as any as ITargetComponent).components;
 
-/** @internal */
-export const withPatchedProps = (patch): PatchFn => (Target): React.ComponentType<any> => {
-  class Component extends React.PureComponent<any> {
-    static components: PluginComponents;
     render() {
       const props = patch(this.props);
       return <Target {...props} />;
     }
   }
-  Component.components = Target.components;
   return Component;
 };

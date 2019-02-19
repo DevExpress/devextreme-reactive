@@ -1,12 +1,9 @@
 import * as React from 'react';
 
-type ComponentWithStatesProps = {
-  state?: string,
-};
-type TargetComponent = React.ComponentType<any>;
-
-export const withStates = (states): any => (Component): TargetComponent => {
-  class ComponentWithStates extends React.PureComponent<ComponentWithStatesProps & any> {
+export const withStates = (
+  states: { readonly [key: string]: (props: any) => any; },
+) => <K extends any>(Component: React.ComponentType<K>): React.ComponentType<K> => {
+  class ComponentWithStates extends React.PureComponent<K> {
     render() {
       const { state, ...restProps } = this.props;
       const stateFunc = state && states[state];

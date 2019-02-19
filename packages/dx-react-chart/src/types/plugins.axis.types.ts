@@ -19,7 +19,7 @@ export interface RawAxisProps {
   /** A component that renders the grid */
   gridComponent: React.ComponentType<Axis.LineProps>;
   /** The axis position */
-  position?: string;
+  position?: 'left' | 'top' | 'right' | 'bottom';
   /** Specifies whether to render the grid */
   showGrid?: boolean;
   /** Specifies whether to render ticks */
@@ -34,10 +34,10 @@ export interface RawAxisProps {
 
 export interface ArgumentAxisProps extends RawAxisProps {
   /** The axis position */
-  position: 'top' | 'bottom';
+  position?: 'top' | 'bottom';
 }
 
 export interface ValueAxisProps extends RawAxisProps {
   /** The axis position */
-  position: 'left' | 'right';
+  position?: 'left' | 'right';
 }

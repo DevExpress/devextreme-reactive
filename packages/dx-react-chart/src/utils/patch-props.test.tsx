@@ -9,7 +9,7 @@ describe('withPatchedProps', () => {
     const PatchedTester = withPatchedProps(({ a, b, ...restProps }) => ({
       ...restProps,
       c: a + b,
-    }))(Tester);
+    }) as any)(Tester) as any;
 
     const tree = mount(<PatchedTester a="a" b="b" c="c" d="d" />);
 
@@ -22,7 +22,7 @@ describe('withPatchedProps', () => {
   it('should replace props', () => {
     const PatchedTester = withPatchedProps(({ a, b }) => ({
       c: a + b,
-    }))(Tester);
+    }) as any)(Tester) as any;
 
     const tree = mount(<PatchedTester a="a" b="b" c="c" d="d" />);
 

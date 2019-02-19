@@ -38,7 +38,7 @@ module ArgumentAxis {
 
 // @public (undocumented)
 interface ArgumentAxisProps extends RawAxisProps {
-  position: 'top' | 'bottom';
+  position?: 'top' | 'bottom';
 }
 
 // @public (undocumented)
@@ -227,7 +227,7 @@ interface RawAxisProps {
   indentFromAxis?: number;
   labelComponent: React.ComponentType<Axis.LabelProps>;
   lineComponent: React.ComponentType<Axis.LineProps>;
-  position?: string;
+  position?: 'left' | 'top' | 'right' | 'bottom';
   rootComponent: React.ComponentType<Axis.RootProps>;
   scaleName?: string;
   showGrid?: boolean;
@@ -416,7 +416,7 @@ module ValueAxis {
 
 // @public (undocumented)
 interface ValueAxisProps extends RawAxisProps {
-  position: 'left' | 'right';
+  position?: 'left' | 'right';
 }
 
 // @public (undocumented)

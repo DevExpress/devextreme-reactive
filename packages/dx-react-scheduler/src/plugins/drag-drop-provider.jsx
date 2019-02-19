@@ -1,3 +1,4 @@
+/* globals document:true */
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import {
@@ -14,6 +15,9 @@ import {
   calculateAllDayDateIntervals,
 } from '@devexpress/dx-scheduler-core';
 import moment from 'moment';
+
+const SCROLL_OFFSET = 50;
+const SCROLL_SPEED_PX = 30;
 
 export class DragDropProvider extends React.PureComponent {
   constructor(props) {
@@ -85,6 +89,12 @@ export class DragDropProvider extends React.PureComponent {
     };
   }
 
+  componentDidMount() {
+    const [layout] = document.getElementsByClassName('dx-layout');
+    this.layout = layout;
+    this.layoutHeaderRect = document.getElementsByClassName('dx-layout-header')[0].getBoundingClientRect();
+  }
+
   render() {
     const {
       containerComponent: Container,
@@ -99,16 +109,30 @@ export class DragDropProvider extends React.PureComponent {
 
     // note - Add SSR support
     // AUTO SCROLL
-    const SCROLL_OFFSET = 50;
-    const SCROLL_SPEED_PX = 30;
-    const layout = document.getElementsByClassName('dx-layout')[0];
-    const layoutHeader = document.getElementsByClassName('dx-layout-header')[0];
+    // const layout = document.getElementsByClassName('dx-layout')[0];
+    // const layoutHeader = document.getElementsByClassName('dx-layout-header')[0];
+    // const layoutHeaderRect = layoutHeader.getBoundingClientRect();
 
-    if (clientOffset && clientOffset.y - SCROLL_OFFSET < layoutHeader.clientHeight) { // disable scroll onOver AllDay
-      layout.scrollTop -= SCROLL_SPEED_PX;
-    }
-    if (clientOffset && layout.clientHeight - SCROLL_OFFSET < clientOffset.y) {
-      layout.scrollTop += SCROLL_SPEED_PX;
+    // disable scroll onOver AllDay
+    // if (clientOffset) {
+    //   console.log(layoutHeader.clientHeight);
+    //   console.log(layoutHeader.getBoundingClientRect().top);
+    //   console.log(clientOffset.y);
+    // }
+    // if (clientOffset && clientOffset.y - SCROLL_OFFSET < layoutHeaderRect.height + layoutHeaderRect.top) {
+    //   layout.scrollTop -= SCROLL_SPEED_PX;
+    // }
+    // if (clientOffset && layout.clientHeight - SCROLL_OFFSET < clientOffset.y) {
+    //   layout.scrollTop += SCROLL_SPEED_PX;
+    // }
+
+    if (this.layout && clientOffset) {
+      if ((clientOffset.y - SCROLL_OFFSET < this.layoutHeaderRect.height + this.layoutHeaderRect.top) && (clientOffset.y > this.layoutHeaderRect.height + this.layoutHeaderRect.top)) {
+        this.layout.scrollTop -= SCROLL_SPEED_PX;
+      }
+      if (this.layout.clientHeight - SCROLL_OFFSET < clientOffset.y - this.layout.offsetTop) {
+        this.layout.scrollTop += SCROLL_SPEED_PX;
+      }
     }
 
     // for cursor position

@@ -4,8 +4,8 @@ import {
 
 /** @internal */
 export type Components = {
-  Path: any,
-  Point?: any,
+  readonly Path: React.ComponentType<any>,
+  readonly Point?: React.ComponentType<any>,
 };
 /** @internal */
 export type ExtraSeriesParameters = {

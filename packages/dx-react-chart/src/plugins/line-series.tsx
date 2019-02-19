@@ -6,7 +6,7 @@ import { declareSeries } from '../utils';
 import { Line as Path } from '../templates/series/line';
 import { AreaSeriesProps } from '../types';
 
-export const LineSeries: React.ComponentType<AreaSeriesProps> = declareSeries('LineSeries', {
+export const LineSeries = declareSeries<AreaSeriesProps>('LineSeries', {
   getPointTransformer,
   createHitTester,
   components: { Path },

@@ -122,7 +122,6 @@ export interface Series {
   readonly state?: string;
   /** @internal */
   readonly symbolName: unique symbol;
-  /** @internal */
 }
 /** @internal */
 export type SeriesList = ReadonlyArray<Series>;

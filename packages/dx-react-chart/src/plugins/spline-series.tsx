@@ -6,7 +6,7 @@ import { declareSeries } from '../utils';
 import { Spline as Path } from '../templates/series/spline';
 import { AreaSeriesProps } from '../types';
 
-export const SplineSeries: React.ComponentType<AreaSeriesProps> = declareSeries('SplineSeries', {
+export const SplineSeries = declareSeries<AreaSeriesProps>('SplineSeries', {
   getPointTransformer,
   createHitTester,
   components: { Path },

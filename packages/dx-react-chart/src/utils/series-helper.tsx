@@ -14,18 +14,17 @@ import {
 } from '@devexpress/dx-chart-core';
 import { ExtraSeriesParameters, Series } from '../types';
 
-const defaultProps = {
-  name: 'defaultSeriesName',
-};
-
 /** @internal */
-export const declareSeries = (
+export const declareSeries = <T extends Series>(
   pluginName: string,
   { components, getPointTransformer, createHitTester }: ExtraSeriesParameters,
-) => {
-  class Component extends React.PureComponent<Series> {
+): React.ComponentType<T> => {
+  class Component extends React.PureComponent<T> {
     static components: PluginComponents;
-    static defaultProps = defaultProps;
+    static defaultProps: Partial<Series> = {
+      name: 'defaultSeriesName',
+    };
+
     render() {
       const {
         name,

@@ -65,9 +65,9 @@ describe('#declareSeries', () => {
       Path: TestComponentPath,
       Point: TestComponentPoint,
     },
-    getPointTransformer: testGetPointTransformer,
+    getPointTransformer: testGetPointTransformer as any,
     createHitTester: testCreateHitTester,
-  });
+  }) as any;
 
   it('should render test component', () => {
     const tree = mount((

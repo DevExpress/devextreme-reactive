@@ -7,9 +7,7 @@ import { PointCollection as Path } from '../templates/series/point-collection';
 import { Point } from '../templates/series/point';
 import { ScatterSeriesProps } from '../types';
 
-export const ScatterSeries: React.ComponentType<
-  ScatterSeriesProps
-> = declareSeries('ScatterSeries', {
+export const ScatterSeries = declareSeries<ScatterSeriesProps>('ScatterSeries', {
   getPointTransformer,
   createHitTester,
   components: { Path, Point },

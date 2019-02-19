@@ -48,16 +48,14 @@ export class DragDropProvider extends React.PureComponent {
     this.allDayRects = [];
 
     this.change = (args) => {
-      if (args.sourcePayload) {
-        this.sourcePayload = args.sourcePayload;
-      }
+
       if (args.source) {
         this.source = args.source;
       }
       if (args.payload) {
         this.payload = args.payload;
       }
-      if (args.payload && args.sourcePayload) {
+      if (args.payload && args.sourcePayload && args.sourcePayload !== this.sourcePayload) {
         if (args.payload[0].type === args.sourcePayload.type || (args.sourcePayload.type === 'allDay' && args.payload[0].type === 'horizontal')) { // SAME TYPES && All DAY
           this.appointmentStartTime = moment(args.sourcePayload.startDate).add((this.offsetTimeTop) * (-1), 'seconds').toDate();
           this.appointmentEndTime = moment(args.sourcePayload.startDate).add((args.payload[0].appointmentDuration - this.offsetTimeTop), 'seconds').toDate();
@@ -77,6 +75,9 @@ export class DragDropProvider extends React.PureComponent {
             },
           });
         }
+      }
+      if (args.sourcePayload) {
+        this.sourcePayload = args.sourcePayload;
       }
 
       this.setState({
@@ -155,7 +156,7 @@ export class DragDropProvider extends React.PureComponent {
     //   topOffset = this.sourcePayload.cellRef.current.getBoundingClientRect().height * part;
     // }
 
-    if (this.payload && !payload) { // DROP OUTSIDE DRAG TARGET !!!!!!!
+    if (this.payload && !payload && this.source) { // DROP OUTSIDE DRAG TARGET !!!!!!!
       this.payload[0].commitChangedAppointment({ appointmentId: this.payload[0].data.id });
       this.payload = null;
       this.sourcePayload = null;
@@ -172,11 +173,11 @@ export class DragDropProvider extends React.PureComponent {
       this.templateName = 'main';
     }
 
-    if (payload) {
+    if (payload && this.sourcePayload) {
       this.rects = [];
       this.allDayRects = [];
 
-      const tbodyElement = this.source.parentElement.parentElement;
+      const tbodyElement = this.sourcePayload.cellRef.current.parentElement.parentElement;
       const draftAppointments = [{ ...payload[0].data, start: this.appointmentStartTime, end: this.appointmentEndTime }];
       this.templateName = this.sourcePayload.type !== 'allDay' ? 'main' : 'navbar';
       if (this.sourcePayload.type === 'vertical') {

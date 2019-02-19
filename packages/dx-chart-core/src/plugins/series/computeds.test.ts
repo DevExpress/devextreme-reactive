@@ -562,3 +562,16 @@ describe('scaleSeriesPoints', () => {
     );
   });
 });
+
+describe('transformers', () => {
+  it('should ensure that all transformes are difference instances', () => {
+    const list = [
+      getAreaPointTransformer,
+      getLinePointTransformer,
+      getBarPointTransformer,
+      getScatterPointTransformer,
+      getPiePointTransformer,
+    ];
+    expect(new Set(list).size).toEqual(list.length);
+  });
+});

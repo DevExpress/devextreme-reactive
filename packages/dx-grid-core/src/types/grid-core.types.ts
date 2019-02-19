@@ -1,5 +1,5 @@
 import { TableRow, TableColumn } from './table.types';
-import { PureReducer, PureComputed, CustomFunction } from '@devexpress/dx-core';
+import { PureReducer, PureComputed } from '@devexpress/dx-core';
 
 /** Defines the column configuration object. Used to display data stored in a row. */
 export interface Column {
@@ -14,22 +14,31 @@ export interface Column {
 }
 
 export type Row = any;
-
 export type RowId = number | string;
+/** @internal */
 export type GetRowIdFn = PureComputed<[Row], RowId>;
 
+/** @internal */
 type TogglePayload = { state?: boolean };
+/** @internal */
 export type ToggleRowsPayload = TogglePayload & { rowIds: RowId[] };
+/** @internal */
 export type ToggleRowPayload = TogglePayload & { rowId: RowId };
+/** @internal */
 export type ToggleRowsFieldReducer = PureReducer<RowId[], ToggleRowsPayload>;
+/** @internal */
 export type ToggleRowFieldReducer = PureReducer<RowId[], ToggleRowPayload>;
 
-/** Specifies the function used to get a cell's value. */
-export type GetCellValueFn = CustomFunction<[Row, string], any>;
+export type GetCellValueFn = (row: any, columnName: string) => any;
+/** @internal */
 export type GetRowLevelKeyFn = PureComputed<[Row?], string>;
+/** @internal */
 export type GetCollapsedRowsFn = PureComputed<[Row], Row[]>;
+/** @internal */
 export type IsSpecificRowFn = PureComputed<[Row], boolean | undefined>;
+/** @internal */
 // tslint:disable-next-line:max-line-length
 export type IsSpecificCellFn<P0 = TableRow, P1 = TableColumn, P2 = any> = PureComputed<[P0, P1, P2?], boolean>;
 
+/** @internal */
 export type UnwrapRowsComputed = PureComputed<[{ rows: Row[]}], Row[]>;

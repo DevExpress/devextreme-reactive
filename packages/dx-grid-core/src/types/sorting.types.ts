@@ -12,9 +12,13 @@ export interface Sorting {
 }
 
 export type SortingDirection = 'asc' | 'desc';
+/** @internal */
 export type SortingColumnExtension = GridColumnExtension & { sortingEnabled?: boolean };
+/** @internal */
 export type ColumnSortingState = { sorting: Sorting[] };
+/** @internal */
 export type KeepOtherSorting = boolean | string[];
+/** @internal */
 export type ChangeSortingPayload = {
   columnName: string;
   direction?: string;
@@ -22,26 +26,32 @@ export type ChangeSortingPayload = {
   sortIndex?: number | undefined;
 };
 
+/** @internal */
 type GetColumnCompareFn = (name: string) => (a: any, b: any) => number;
+/** @internal */
 export type CreateCompareFn = PureComputed<
   [Sorting[], GetColumnCompareFn | undefined, (...args: [Row, string]) => any],
   CompareFn
 >;
 
+/** @internal */
 export type SortedRowsFn = PureComputed<
   [Row[], Sorting[], GetCellValueFn, GetColumnCompareFn?, IsSpecificRowFn?, GetRowLevelKeyFn?]
 >;
 
+/** @internal */
 export type GetColumnSortingDirectionFn = PureComputed<
   [Sorting[], string],
   SortingDirection | null
 >;
 
+/** @internal */
 export type GetPersistentSortedColumnsFn = PureComputed<
   [Sorting[], SortingColumnExtension[]?],
   string[]
 >;
 
+/** @internal */
 export type CalculateKeepOtherFn = PureComputed<
   [Sorting[], KeepOtherSorting, string[]],
   KeepOtherSorting

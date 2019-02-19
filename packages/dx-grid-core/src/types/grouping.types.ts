@@ -9,42 +9,64 @@ export interface Grouping {
 }
 /** Describes a group that can be nested in another one. */
 export type GroupKey = string;
+/** @internal */
 export type GroupIndex = number;
 
-export type GroupingPanelItem = { column: Column, draft: boolean };
+/** Describes the grouping panel item properties. */
+export interface GroupingPanelItem {
+  /** A column associated with the item. */
+  column: Column;
+  /** Specifies if the item is in preview mode */
+  draft?: boolean;
+}
 
+/** @internal */
 export type DraftGroupingState = { draftGrouping: Grouping[] };
+/** @internal */
 export type ColumnGroupingState = { grouping?: Grouping[], expandedGroups?: ReadonlyArray<string> };
+/** @internal */
+
 export type ChangeGroupingPayload = { columnName: string, groupIndex: number };
+/** @internal */
 export type ToggleGroupPayload = { groupKey: GroupKey };
 
+/** @internal */
 type ChildGroup = { key: number | string, value?: any, childRows?: any[] };
 
+/** @internal */
 export type GetChildGroupsFn = CustomFunction<[Row[], Grouping, Row[]], ChildGroup[]>;
 
+/** @internal */
 export type GroupingCriteriaFn = PureComputed<[any, any?], { key: string | number, value?: any }>;
 
+/** @internal */
 export type CustomGroupedRowsFn = PureComputed<
   [Row[], Grouping[], GetChildGroupsFn, Row[]?, string?]
 >;
 
+/** @internal */
 export type GroupingPanelItemsFn = PureComputed<
   [Column[], Grouping[], Grouping[]], GroupingPanelItem[]
 >;
 
+/** @internal */
 export type GroupedRowsFn = PureComputed<
   [Row[], Grouping[], GetCellValueFn, (c: string) => GroupingCriteriaFn, string?]
 >;
 
+/** @internal */
 type ShowColumnWhenGroupedFn = (name: string) => boolean;
+/** @internal */
 export type TableColumnsWithDraftGroupingFn = PureComputed<
   [TableColumn[], Grouping[], Grouping[], ShowColumnWhenGroupedFn]
 >;
 
+/** @internal */
 export type TableColumnsWithGroupingFn = PureComputed<
   [Column[], TableColumn[], Grouping[], Grouping[], number, ShowColumnWhenGroupedFn], TableColumn[]
 >;
 
+/** @internal */
 export type GetGroupCellTargetIndexFn = PureComputed<
   [TargetColumnGeometry[], number, { x: number, y: number }],
   number

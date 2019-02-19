@@ -55,7 +55,7 @@ export class DragDropProvider extends React.PureComponent {
         this.payload = args.payload;
       }
       if (args.payload && args.sourcePayload) {
-        if (args.payload[0].type === args.sourcePayload.type || args.sourcePayload.type === 'allDay') { // SAME TYPES && All DAY
+        if (args.payload[0].type === args.sourcePayload.type || (args.sourcePayload.type === 'allDay' && args.payload[0].type === 'horizontal')) { // SAME TYPES && All DAY
           this.appointmentStartTime = moment(args.sourcePayload.startDate).add((this.offsetTimeTop) * (-1), 'seconds').toDate();
           this.appointmentEndTime = moment(args.sourcePayload.startDate).add((args.payload[0].appointmentDuration - this.offsetTimeTop), 'seconds').toDate();
           args.payload[0].changeAppointment({
@@ -280,7 +280,6 @@ export class DragDropProvider extends React.PureComponent {
     //   const bottomTime = moment(payload[0].viewBoundaries.end).date(this.sourcePayload.startDate.getDate()).toDate();
     // }
 
-    debugger
     return (
       <Plugin
         name="DragDropProvider"
@@ -306,7 +305,6 @@ export class DragDropProvider extends React.PureComponent {
             {this.rects.map(({
               dataItem, type, ...geometry
             }) => {
-              console.log(geometry);
               const rect = getAppointmentStyle(geometry);
               return (
                 <Appointment
@@ -322,7 +320,7 @@ export class DragDropProvider extends React.PureComponent {
           </Container>
           )}
         </Template>
-        <Template name="navbar">
+        <Template name="allDayPanel">
           <TemplatePlaceholder />
           <div className="MAXIM" />
           {payload && (
@@ -334,7 +332,6 @@ export class DragDropProvider extends React.PureComponent {
             {this.allDayRects.map(({
               dataItem, type, ...geometry
             }) => {
-              console.log(geometry);
               const rect = getAppointmentStyle(geometry);
               return (
                 <Appointment

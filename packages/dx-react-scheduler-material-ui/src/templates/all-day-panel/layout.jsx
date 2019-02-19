@@ -24,30 +24,27 @@ const LayoutBase = ({
   rowComponent: Row,
   ...restProps
 }) => (
-  <div className={classes.wrapper}>
-    <RootRef rootRef={allDayPanelRef}>
-      <Table
-        className={classNames(classes.table, className)}
-        {...restProps}
-      >
-        <TableHead>
-          <Row>
-            {cellsData.map(({
-              startDate,
-              endDate,
-            }) => (
-              <Cell
-                key={startDate}
-                startDate={startDate}
-                endDate={endDate}
-              />
-            ))}
-          </Row>
-        </TableHead>
-      </Table>
-    </RootRef>
-    {children}
-  </div>
+  <RootRef rootRef={allDayPanelRef}>
+    <Table
+      className={classNames(classes.table, className)}
+      {...restProps}
+    >
+      <TableHead>
+        <Row>
+          {cellsData.map(({
+            startDate,
+            endDate,
+          }) => (
+            <Cell
+              key={startDate}
+              startDate={startDate}
+              endDate={endDate}
+            />
+          ))}
+        </Row>
+      </TableHead>
+    </Table>
+  </RootRef>
 );
 
 LayoutBase.propTypes = {

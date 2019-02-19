@@ -38,6 +38,7 @@ export class AllDayPanel extends React.PureComponent {
 
     this.appointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
     this.cellPlaceholder = params => <TemplatePlaceholder name="allDayPanelCell" params={params} />;
+    this.allDayPanelPlaceholder = params => <TemplatePlaceholder name="allDayPanel" params={params} />;
   }
 
   allDayPanelRef(ref) {
@@ -57,6 +58,7 @@ export class AllDayPanel extends React.PureComponent {
     } = this.props;
     const { tableRef } = this.state;
     const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
+    const { allDayPanelPlaceholder: AllDayPanelPlaceholder } = this;
 
     return (
       <Plugin
@@ -75,6 +77,20 @@ export class AllDayPanel extends React.PureComponent {
         </Template>
 
         <Template name="navbar">
+          <TemplatePlaceholder />
+          <TemplateConnector>
+            {({ currentView }) => {
+              if (currentView === MONTH) return null;
+              return (
+                <div style={{ position: 'relative' }}>
+                  <AllDayPanelPlaceholder />
+                </div>
+              );
+            }}
+          </TemplateConnector>
+        </Template>
+
+        <Template name="allDayPanel">
           <TemplatePlaceholder />
           <TemplateConnector>
             {({
@@ -102,12 +118,13 @@ export class AllDayPanel extends React.PureComponent {
               ) : [];
               const { appointmentPlaceholder: AppointmentPlaceholder } = this;
               return (
-                <Layout
-                  allDayPanelRef={this.allDayPanelRef}
-                  cellComponent={this.cellPlaceholder}
-                  rowComponent={Row}
-                  cellsData={allDayCells(viewCellsData)}
-                >
+                <React.Fragment>
+                  <Layout
+                    allDayPanelRef={this.allDayPanelRef}
+                    cellComponent={this.cellPlaceholder}
+                    rowComponent={Row}
+                    cellsData={allDayCells(viewCellsData)}
+                  />
                   <AppointmentLayer>
                     {rects.map(({ dataItem, type, ...geometry }, index) => (
                       <AppointmentPlaceholder
@@ -118,7 +135,7 @@ export class AllDayPanel extends React.PureComponent {
                       />
                     ))}
                   </AppointmentLayer>
-                </Layout>
+                </React.Fragment>
               );
             }}
           </TemplateConnector>

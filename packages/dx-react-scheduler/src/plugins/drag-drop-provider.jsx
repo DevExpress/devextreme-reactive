@@ -107,25 +107,7 @@ export class DragDropProvider extends React.PureComponent {
       sourcePayload,
     } = this.state;
 
-    // note - Add SSR support
     // AUTO SCROLL
-    // const layout = document.getElementsByClassName('dx-layout')[0];
-    // const layoutHeader = document.getElementsByClassName('dx-layout-header')[0];
-    // const layoutHeaderRect = layoutHeader.getBoundingClientRect();
-
-    // disable scroll onOver AllDay
-    // if (clientOffset) {
-    //   console.log(layoutHeader.clientHeight);
-    //   console.log(layoutHeader.getBoundingClientRect().top);
-    //   console.log(clientOffset.y);
-    // }
-    // if (clientOffset && clientOffset.y - SCROLL_OFFSET < layoutHeaderRect.height + layoutHeaderRect.top) {
-    //   layout.scrollTop -= SCROLL_SPEED_PX;
-    // }
-    // if (clientOffset && layout.clientHeight - SCROLL_OFFSET < clientOffset.y) {
-    //   layout.scrollTop += SCROLL_SPEED_PX;
-    // }
-
     if (this.layout && clientOffset) {
       if ((clientOffset.y - SCROLL_OFFSET < this.layoutHeaderRect.height + this.layoutHeaderRect.top) && (clientOffset.y > this.layoutHeaderRect.height + this.layoutHeaderRect.top)) {
         this.layout.scrollTop -= SCROLL_SPEED_PX;

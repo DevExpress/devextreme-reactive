@@ -48,7 +48,6 @@ export class DragDropProvider extends React.PureComponent {
     this.allDayRects = [];
 
     this.change = (args) => {
-      // console.log(args);
       if (args.sourcePayload) {
         this.sourcePayload = args.sourcePayload;
       }
@@ -173,12 +172,6 @@ export class DragDropProvider extends React.PureComponent {
       this.templateName = 'main';
     }
 
-    // SLICE APPOINTMENTS BY BOUNDARIES
-    // let appointmentTop = 0;
-    // let appointmentLeft = 0;
-    // let appointmentHeight = 0;
-    // let appointmentWidth = 0;
-
     if (payload) {
       this.rects = [];
       this.allDayRects = [];
@@ -246,46 +239,6 @@ export class DragDropProvider extends React.PureComponent {
       }
     }
 
-
-    // if (this.sourcePayload.type === 'vertical') {
-    //   const tbodyElement = this.source.parentElement.parentElement;
-    //   const tableRect = tbodyElement.getBoundingClientRect();
-    //   const cellRect = this.source.getBoundingClientRect();
-
-    //   appointmentLeft = cellRect.left; // only for week view
-    //   appointmentWidth = cellRect.width; // only for week view
-
-    //   const topTime = moment(payload[0].viewBoundaries.start).date(this.sourcePayload.startDate.getDate()).toDate();
-    //   const bottomTime = moment(payload[0].viewBoundaries.end).date(this.sourcePayload.startDate.getDate()).toDate();
-
-    //   if (moment(this.sourcePayload.startDate).add(-this.offsetTimeTop, 'seconds').isSameOrBefore(topTime)) { // TOP BOUNDARY
-    //     appointmentTop = tableRect.top;
-    //     appointmentHeight = cellRect.bottom - tableRect.top + this.offsetBottomPX;
-
-    //     this.appointmentHeight = appointmentHeight;
-    //     this.offsetTopPX = cellRect.top - tableRect.top;
-    //   } else {
-    //     appointmentTop = cellRect.top - (this.offsetTimeTop * cellRect.height / moment(this.sourcePayload.endDate).diff(this.sourcePayload.startDate, 'seconds'));
-    //     appointmentHeight = this.appointmentHeightPX;
-    //   }
-    //   if (moment(this.sourcePayload.endDate).add(this.offsetTimeBottom, 'seconds').isSameOrAfter(bottomTime)) { // BOTTOM BOUNDARY
-    //     appointmentHeight = tableRect.bottom - cellRect.top + this.offsetTopPX;
-    //     this.appointmentHeight = appointmentHeight;
-    //   }
-    // } else {
-    //   const tbodyElement = this.source.parentElement.parentElement;
-    //   const tableRect = tbodyElement.getBoundingClientRect();
-    //   const cellRect = this.source.getBoundingClientRect();
-
-    //   appointmentTop = cellRect.top;
-    //   appointmentHeight = cellRect.height;
-    //   appointmentWidth = cellRect.width;
-    //   appointmentLeft = cellRect.left - (moment(payload[0].startDate).diff(sourcePayload.startDate, 'days') * (cellRect.right - cellRect.left));
-
-    //   const topTime = moment(payload[0].viewBoundaries.start).date(this.sourcePayload.startDate.getDate()).toDate();
-    //   const bottomTime = moment(payload[0].viewBoundaries.end).date(this.sourcePayload.startDate.getDate()).toDate();
-    // }
-
     return (
       <Plugin
         name="DragDropProvider"
@@ -305,8 +258,6 @@ export class DragDropProvider extends React.PureComponent {
           {payload && (
           <Container
             clientOffset={clientOffset}
-            // left={geometry.left} // %
-            // top={geometry.top}
           >
             {this.rects.map(({
               dataItem, type, ...geometry
@@ -314,11 +265,7 @@ export class DragDropProvider extends React.PureComponent {
               const rect = getAppointmentStyle(geometry);
               return (
                 <Appointment
-                  data={{ ...payload[0].data, startDate: this.appointmentStartTime, endDate: this.appointmentEndTime }} // NOTE use endDate: moment(this.props.startDate).add(payload[0].appointmentDuration, 'seconds').toDate()
-                  // rect={{
-                  //   height: geometry.height,
-                  //   width: geometry.width, // %
-                  // }}
+                  data={{ ...payload[0].data, startDate: this.appointmentStartTime, endDate: this.appointmentEndTime }}
                   rect={rect}
                 />
               );
@@ -332,8 +279,6 @@ export class DragDropProvider extends React.PureComponent {
           {payload && (
           <Container
             clientOffset={clientOffset}
-            // left={geometry.left} // %
-            // top={geometry.top}
           >
             {this.allDayRects.map(({
               dataItem, type, ...geometry
@@ -341,11 +286,7 @@ export class DragDropProvider extends React.PureComponent {
               const rect = getAppointmentStyle(geometry);
               return (
                 <Appointment
-                  data={{ ...payload[0].data, startDate: this.appointmentStartTime, endDate: this.appointmentEndTime }} // NOTE use endDate: moment(this.props.startDate).add(payload[0].appointmentDuration, 'seconds').toDate()
-                  // rect={{
-                  //   height: geometry.height,
-                  //   width: geometry.width, // %
-                  // }}
+                  data={{ ...payload[0].data, startDate: this.appointmentStartTime, endDate: this.appointmentEndTime }}
                   rect={rect}
                 />
               );
@@ -367,18 +308,3 @@ DragDropProvider.components = {
   containerComponent: 'Container',
   columnComponent: 'Column',
 };
-
-
-// <Container
-//   clientOffset={clientOffset}
-//   left={appointmentLeft}
-//   top={appointmentTop}
-// >
-//   <Appointment
-//     data={{ ...payload[0].data, startDate: this.appointmentStartTime, endDate: this.appointmentEndTime }} // NOTE use endDate: moment(this.props.startDate).add(payload[0].appointmentDuration, 'seconds').toDate()
-//     rect={{
-//       height: appointmentHeight,
-//       width: appointmentWidth,
-//     }}
-//   />
-// </Container>

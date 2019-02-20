@@ -1,9 +1,10 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import {
-  Plugin, Template, TemplateConnector,
+  Plugin, Template, TemplateConnector, DragSource,
 } from '@devexpress/dx-react-core';
 import { createClickHandlers } from '@devexpress/dx-core';
+import { DragDropProvider } from './drag-drop-provider';
 
 const pluginDependencies = [
   { name: 'DayView', optional: true },
@@ -24,32 +25,59 @@ export class Appointments extends React.PureComponent {
         dependencies={pluginDependencies}
       >
         <TemplateConnector>
-          {(getters, actions) => {
-            return (
-              <Template
-                name="appointment"
-              >
-                {({
-                  onClick, onDoubleClick,
-                  data, type, style, drag,
-                  ...restParams
-                }) => {
-                  console.log(drag);
-                  debugger
+          {(getters, actions) => (
+            <Template
+              name="appointment"
+            >
+              {({
+                onClick, onDoubleClick,
+                data, type, style, drag,
+                ...restParams
+              }) => {
+                const DraggingAppointment = getters.appointmentTemplate;
+                const draggingPredicate = (appointmentData) => {
+                  if (appointmentData.title === '* DRAGGING DISABLED *') return false;
+                  return true;
+                };
+
+                if (draggingPredicate && draggingPredicate(data)) {
+                  return (
+                    <DragSource
+                      payload={[{
+                        type,
+                        data,
+                        style,
+                        changeAppointment: actions.changeAppointment,
+                        commitChangedAppointment: actions.commitChangedAppointment,
+                        viewBoundaries: { start: getters.startViewDate, end: getters.endViewDate },
+                        excludedDays: getters.excludedDays,
+                        viewCellsData: getters.viewCellsData,
+                      }]}
+                    >
+                      {!drag ? (
+                        <Appointment
+                          style={style}
+                          data={data}
+                          {...createClickHandlers(onClick, onDoubleClick)}
+                          {...restParams}
+                        >
+                          <AppointmentContent
+                            data={data}
+                            type={type}
+                          />
+                        </Appointment>
+                      ) : (
+                        <DraggingAppointment style={style} data={data} />
+                      )}
+                    </DragSource>
+                  );
+                }
                 return (
                   <Appointment
                     style={style}
                     data={data}
-                    changeAppointment={actions.changeAppointment}
-                    commitChangedAppointment={actions.commitChangedAppointment}
                     {...createClickHandlers(onClick, onDoubleClick)}
                     {...restParams}
-
-                    drag={drag}
-
-                    viewBoundaries={{ start: getters.startViewDate, end: getters.endViewDate }}
-                    excludedDays={getters.excludedDays}
-                    viewCellsData={getters.viewCellsData}
                   >
                     <AppointmentContent
                       data={data}
@@ -58,9 +86,8 @@ export class Appointments extends React.PureComponent {
                   </Appointment>
                 );
               }}
-              </Template>
-            );
-          }}
+            </Template>
+          )}
         </TemplateConnector>
       </Plugin>
     );

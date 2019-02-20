@@ -22,6 +22,9 @@ const styles = theme => ({
     // opacity: '0.5',
     backgroundColor: theme.palette.primary[600],
   },
+  draggingAppointment: {
+    opacity: 0.5,
+  },
 });
 
 const ContainerBase = ({
@@ -63,11 +66,9 @@ export const Container = withStyles(styles, { name: 'DragDrop' })(ContainerBase)
 
 // console.log(appointmentRef);
 const ColumnBase = ({
-  appointmentData,
   classes,
   className,
   rect,
-  appointmentRef,
   ...restProps
 }) => (
   <Appointment
@@ -76,13 +77,13 @@ const ColumnBase = ({
   >
     <VerticalAppointment
           // className={classNames(classes.column, className)}
-      data={appointmentData}
+      // data={appointmentData}
       {...restProps}
     />
   </Appointment>
 );
 ColumnBase.propTypes = {
-  column: PropTypes.object.isRequired,
+  rect: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
 };
@@ -92,3 +93,36 @@ ColumnBase.defaultProps = {
 };
 
 export const Column = withStyles(styles, { name: 'DragDrop' })(ColumnBase);
+
+const DraggingAppointmentBase = ({
+  classes,
+  className,
+  style,
+  data,
+  ...restProps
+}) => {
+  return (
+    <Appointment
+      className={classes.draggingAppointment}
+      style={style}
+    >
+      <VerticalAppointment
+        // className={classNames(classes.column, className)}
+        data={data}
+        {...restProps}
+      />
+    </Appointment>
+  );
+};
+DraggingAppointmentBase.propTypes = {
+  style: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired,
+  data: PropTypes.object.isRequired,
+  className: PropTypes.string,
+};
+
+DraggingAppointmentBase.defaultProps = {
+  className: undefined,
+};
+
+export const DraggingAppointment = withStyles(styles, { name: 'DragDrop' })(DraggingAppointmentBase);

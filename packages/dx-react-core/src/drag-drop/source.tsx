@@ -6,7 +6,6 @@ const defaultProps = {
   onStart: ({ clientOffset }) => {},
   onUpdate: ({ clientOffset }) => {},
   onEnd: ({ clientOffset }) => {},
-  elementOffsetY: 0,
 };
 type DragSourceDefaultProps = Readonly<typeof defaultProps>;
 type DragSourceProps = {
@@ -25,7 +24,7 @@ export class DragSource extends React.Component<DragSourceProps & DragSourceDefa
   render() {
     const dragDropProvider = this.context;
     const {
-      onStart, onUpdate, onEnd, payload, children, elementOffsetY,
+      onStart, onUpdate, onEnd, payload, children,
     } = this.props;
     return (
       <Draggable
@@ -34,12 +33,12 @@ export class DragSource extends React.Component<DragSourceProps & DragSourceDefa
           onStart({ clientOffset: { x, y } });
         }}
         onUpdate={({ x, y }) => {
-          dragDropProvider.update({ x, y: y - elementOffsetY });
-          onUpdate({ clientOffset: { x, y: y - elementOffsetY } });
+          dragDropProvider.update({ x, y });
+          onUpdate({ clientOffset: { x, y } });
         }}
         onEnd={({ x, y }) => {
-          dragDropProvider.end({ x, y: y - elementOffsetY });
-          onEnd({ clientOffset: { x, y: y - elementOffsetY } });
+          dragDropProvider.end({ x, y });
+          onEnd({ clientOffset: { x, y } });
         }}
       >
         {children}

@@ -1,8 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import moment from 'moment';
-import { DragSource } from '@devexpress/dx-react-core';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = ({ palette, typography, spacing }) => ({
@@ -31,116 +29,35 @@ const styles = ({ palette, typography, spacing }) => ({
   },
 });
 
-class AppointmentBase extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      dragging: false,
-      initialY: null,
-    };
-    this.appointmentRef = React.createRef();
-
-    this.onDragStart = ({ clientOffset }) => {
-      this.setState({ dragging: true, initialY: clientOffset.y });
-    };
-    this.onDragEnd = () => {
-      if (this.appointmentRef.current) {
-        this.setState({ dragging: false });
-      }
-    };
-  }
-
-  render() {
-    const {
-      classes, className,
-      style, children, data,
-      onClick: handleClick,
-      changeAppointment,
-      commitChangedAppointment,
-      viewBoundaries,
-      excludedDays,
-      viewCellsData,
-      ...restProps
-    } = this.props;
-    const { dragging, initialY } = this.state;
-
-    const onClick = handleClick
-      ? {
-        onClick: ({ target }) => {
-          handleClick({ target, data });
-        },
-      }
-      : null;
-    const clickable = onClick || restProps.onDoubleClick;
-    const appointmentDuration = moment(data.endDate).diff(moment(data.startDate), 'seconds');
-
-    const draggingPredicate = (appointmentData) => {
-      if (appointmentData.title === '* DRAGGING DISABLED *') return false;
-      return true;
-    };
-
-    const appointmentType = data.allDay || moment(data.endDate).diff(data.startDate, 'hours') > 23
-      ? 'horizontal' : 'vertical';
-
-    let offsetY = 0;
-    if (this.appointmentRef.current) {
-      offsetY = initialY - this.appointmentRef.current.getBoundingClientRect().top;
+const AppointmentBase = ({
+  classes, className,
+  style, children, data,
+  onClick: handleClick,
+  ...restProps
+}) => {
+  const onClick = handleClick
+    ? {
+      onClick: ({ target }) => {
+        handleClick({ target, data });
+      },
     }
+    : null;
+  const clickable = onClick || restProps.onDoubleClick;
 
-    return (
-      draggingPredicate(data) ? (
-        <DragSource
-          payload={[{
-            type: appointmentType,
-            data,
-            style,
-            appointmentRef: this.appointmentRef,
-            changeAppointment,
-            commitChangedAppointment,
-            appointmentDuration,
-            appointmentInitialY: initialY,
-            offsetY,
-            viewBoundaries,
-            excludedDays,
-            viewCellsData,
-          }]}
-          // elementOffsetY={offsetY}
-          onStart={this.onDragStart}
-          onEnd={this.onDragEnd}
-        >
-          <div
-            ref={this.appointmentRef}
-            className={classNames({
-              [classes.appointment]: true,
-              [classes.dragging]: this.props.drag,
-              [classes.clickableAppointment]: clickable,
-            }, className)}
-            style={style}
-            {...onClick}
-            {...restProps}
-          >
-            {children}
-          </div>
-        </DragSource>
-      ) : (
-        <div
-          ref={this.appointmentRef}
-          className={classNames({
-            [classes.appointment]: true,
-            [classes.dragging]: dragging,
-            [classes.clickableAppointment]: clickable,
-          }, className)}
-          style={style}
-          {...onClick}
-          {...restProps}
-        >
-          {children}
-        </div>
-      )
-    );
-  }
-}
+  return (
+    <div
+      className={classNames({
+        [classes.appointment]: true,
+        [classes.clickableAppointment]: clickable,
+      }, className)}
+      style={style}
+      {...onClick}
+      {...restProps}
+    >
+      {children}
+    </div>
+  );
+};
 
 AppointmentBase.propTypes = {
   classes: PropTypes.object.isRequired,

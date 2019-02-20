@@ -33,13 +33,8 @@ export class DragDropProvider extends React.PureComponent {
     this.payload = null;
     this.sourcePayload = null;
     this.source = null;
-    this.offsetTopPX = 0;
-    this.offsetBottomPX = 0;
-    this.offsetTimeTop = 0;
-    this.offsetTimeBottom = 0;
-
-    this.appointmentHeight = 0;
-    this.appointmentHeightPX = 0;
+    this.offsetTimeTop = null;
+    this.offsetTimeBottom = null;
 
     this.appointmentStartTime = 0;
     this.appointmentEndTime = 0;
@@ -55,10 +50,11 @@ export class DragDropProvider extends React.PureComponent {
         this.payload = args.payload;
       }
       if (args.payload && args.sourcePayload && args.sourcePayload !== this.sourcePayload) {
-        // this.props.onDragIdChange(args.payload[0].data.id);
         if (args.payload[0].type === args.sourcePayload.type || (args.sourcePayload.type === 'allDay' && args.payload[0].type === 'horizontal')) { // SAME TYPES && All DAY
+          const appointmentDuration = moment(args.payload[0].data.endDate).diff(moment(args.payload[0].data.startDate), 'seconds');
+
           this.appointmentStartTime = moment(args.sourcePayload.startDate).add((this.offsetTimeTop) * (-1), 'seconds').toDate();
-          this.appointmentEndTime = moment(args.sourcePayload.startDate).add((args.payload[0].appointmentDuration - this.offsetTimeTop), 'seconds').toDate();
+          this.appointmentEndTime = moment(args.sourcePayload.startDate).add((appointmentDuration - this.offsetTimeTop), 'seconds').toDate();
           args.payload[0].changeAppointment({
             change: {
               startDate: this.appointmentStartTime,
@@ -87,13 +83,6 @@ export class DragDropProvider extends React.PureComponent {
         sourcePayload: args.sourcePayload,
       });
     };
-
-    this.appointmentsChange = (getters) => {
-      getters.appointments.map(appointment => (
-        this.state.payload && appointment.id === this.state.payload[0].data.id ? { ...appointment, drag: true } : appointment
-      ));
-      return (getters.appointments);
-    };
   }
 
   componentDidMount() {
@@ -106,6 +95,7 @@ export class DragDropProvider extends React.PureComponent {
     const {
       containerComponent: Container,
       columnComponent: Appointment,
+      draggingAppointment: DraggingAppointment,
     } = this.props;
     const {
       payload,
@@ -124,13 +114,10 @@ export class DragDropProvider extends React.PureComponent {
       }
     }
 
-    // for cursor position
-    if (payload && payload[0].appointmentRef && source && this.offsetTopPX === 0 && this.offsetBottomPX === 0) {
-      this.appointmentHeightPX = payload[0].appointmentDuration * sourcePayload.cellRef.current.getBoundingClientRect().height / moment(sourcePayload.endDate).diff(sourcePayload.startDate, 'seconds');
+    // CURSOR POSITION
+    if (payload && source && this.offsetTimeTop === null && this.offsetTimeBottom === null) {
       this.offsetTimeTop = moment(sourcePayload.startDate).diff(payload[0].data.startDate, 'seconds');
       this.offsetTimeBottom = moment(payload[0].data.endDate).diff(sourcePayload.endDate, 'seconds');
-      this.offsetTopPX = sourcePayload.cellRef.current.getBoundingClientRect().top - payload[0].appointmentRef.current.getBoundingClientRect().top;
-      this.offsetBottomPX = payload[0].appointmentRef.current.getBoundingClientRect().bottom - sourcePayload.cellRef.current.getBoundingClientRect().bottom;
     }
 
     // Move by cell parts
@@ -169,11 +156,8 @@ export class DragDropProvider extends React.PureComponent {
       this.sourcePayload = null;
       this.source = null;
 
-      this.offsetTopPX = 0;
-      this.offsetBottomPX = 0;
-      this.offsetTimeTop = 0;
-      this.offsetTimeBottom = 0;
-      this.appointmentHeight = 0;
+      this.offsetTimeTop = null;
+      this.offsetTimeBottom = null;
 
       this.rects = [];
       this.allDayRects = [];
@@ -251,8 +235,8 @@ export class DragDropProvider extends React.PureComponent {
       <Plugin
         name="DragDropProvider"
       >
-        <Getter name="appointments" computed={this.appointmentsChange} />
-        <Getter name="draggingEnabled" value />
+        {/* <Getter name="draggingDisable" value={} /> */}
+        <Getter name="appointmentTemplate" value={DraggingAppointment} />
         <Template name="root">
           <DragDropProviderCore
             onChange={this.change}
@@ -270,10 +254,11 @@ export class DragDropProvider extends React.PureComponent {
           >
             {this.rects.map(({
               dataItem, type, ...geometry
-            }) => {
+            }, index) => {
               const rect = getAppointmentStyle(geometry);
               return (
                 <Appointment
+                  key={index.toString()}
                   data={{ ...payload[0].data, startDate: this.appointmentStartTime, endDate: this.appointmentEndTime }}
                   rect={rect}
                 />
@@ -291,10 +276,11 @@ export class DragDropProvider extends React.PureComponent {
           >
             {this.allDayRects.map(({
               dataItem, type, ...geometry
-            }) => {
+            }, index) => {
               const rect = getAppointmentStyle(geometry);
               return (
                 <Appointment
+                  key={index.toString()}
                   data={{ ...payload[0].data, startDate: this.appointmentStartTime, endDate: this.appointmentEndTime }}
                   rect={rect}
                 />
@@ -306,10 +292,7 @@ export class DragDropProvider extends React.PureComponent {
 
         <Template name="appointment">
           {(params) => {
-            debugger
-            if (false) {
-              return <div />;
-            } return <TemplatePlaceholder params={{ ...params, drag: payload && params.data.id === payload[0].data.id }} />;
+            return <TemplatePlaceholder params={{ ...params, drag: payload && params.data.id === payload[0].data.id }} />;
           }}
         </Template>
       </Plugin>
@@ -320,9 +303,16 @@ export class DragDropProvider extends React.PureComponent {
 DragDropProvider.propTypes = {
   containerComponent: PropTypes.func.isRequired,
   columnComponent: PropTypes.func.isRequired,
+  draggingAppointment: PropTypes.func.isRequired,
+  draggingDisable: PropTypes.func,
+};
+
+DragDropProvider.defaultTypes = {
+  draggingDisable: () => true,
 };
 
 DragDropProvider.components = {
   containerComponent: 'Container',
   columnComponent: 'Column',
+  draggingAppointment: 'DraggingAppointment',
 };

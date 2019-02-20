@@ -193,7 +193,6 @@ export class WeekView extends React.PureComponent {
               appointments, startViewDate,
               endViewDate, currentView, viewCellsData,
             }) => {
-              console.log('123');
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               const intervals = calculateWeekDateIntervals(
                 appointments, startViewDate, endViewDate, excludedDays,

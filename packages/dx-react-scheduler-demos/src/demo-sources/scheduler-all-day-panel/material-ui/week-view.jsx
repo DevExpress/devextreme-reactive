@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
 import { ViewState, EditingState } from '@devexpress/dx-react-scheduler';
-import { connectProps } from '@devexpress/dx-react-core';
 import {
   Scheduler,
   WeekView,
@@ -22,33 +21,12 @@ export default class Demo extends React.PureComponent {
     this.state = {
       data: appointments,
       currentDate: new Date('2018-06-27'),
-      dragId: undefined,
     };
 
     this.commitChanges = this.commitChanges.bind(this);
-
-    this.appointmentComponent = (args) => {
-      // const { dragId } = this.state;
-      if (args.data.drag) return <Appointments.Appointment {...args} style={{ ...args.style, opacity: 0.5 }} />;
-      return <Appointments.Appointment {...args} />;
-    };
-
-    this.legendLabel = connectProps(this.appointmentComponent, () => {
-      const { dragId } = this.state;
-      return {
-        dragId,
-      };
-    });
   }
 
-  // static getDerivedStateFromProps(nextProps, nextState) {
-  //   // return {};
-  //   if (dragId !== nextState.dragId) {
-  //     return { data: data.slice() };
-  //   }
-  // }
-
-  commitChanges({ added, changed, deleted, dragId }) {
+  commitChanges({ added, changed, deleted }) {
     let { data } = this.state;
     if (added) {
       const startingAddedId = data.length > 0 ? data[data.length - 1].id + 1 : 0;
@@ -66,11 +44,6 @@ export default class Demo extends React.PureComponent {
     }
     if (deleted) {
       data = data.filter(appointment => appointment.id !== deleted);
-    }
-    if (dragId !== undefined) {
-      data = data.map(appointment => (
-        appointment.id === dragId ? { ...appointment, drag: true } : appointment
-      ));
     }
     this.setState({ data });
   }
@@ -95,17 +68,13 @@ export default class Demo extends React.PureComponent {
             endDayHour={19}
           />
           <MonthView />
-          <Appointments
-            appointmentComponent={this.appointmentComponent}
-          />
+          <Appointments />
           <AllDayPanel />
 
           <Toolbar />
           <ViewSwitcher />
 
-          <DragDropProvider
-            onDragIdChange={(id) => { /*this.commitChanges({ dragId: id });*/ }}
-          />
+          <DragDropProvider />
 
         </Scheduler>
       </Paper>

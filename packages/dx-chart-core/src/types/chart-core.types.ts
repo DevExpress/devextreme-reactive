@@ -47,6 +47,9 @@ export interface Point {
 /** @internal */
 export type PointList = ReadonlyArray<Point>;
 
+// Though this type highly intersects with *PointComponentProps* there is no actual
+// relation between them. One is internal object other is set of component properties.
+// TODO: Reorganize types to remove the false similarity.
 export interface TransformedPoint extends Point {
   /** The point's x coordinate */
   readonly x: number;
@@ -68,6 +71,7 @@ export type TargetList = ReadonlyArray<SeriesRef>;
 
 export type GetFormatFn = (tick: any) => string;
 
+// TODO: The issue is similar to that of *TransformedPoint*.
 /** @internal */
 export interface Series {
   /** A series name */

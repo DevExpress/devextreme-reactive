@@ -100,6 +100,10 @@ export interface AreaSeriesProps extends SeriesProps {
   seriesComponent?: React.ComponentType<AreaSeries.SeriesProps>;
 }
 
+// The following namespaces and empty interfaces inside them are added to match generated d.ts
+// content with that generated from md files.
+// TODO: Remove redundant entities when d.ts generation from md files is removed.
+
 // tslint:disable-next-line: no-namespace
 export namespace AreaSeries {
   /** Describes properties passed to a component that renders the series */

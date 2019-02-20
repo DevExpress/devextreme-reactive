@@ -302,8 +302,8 @@ describe('Week View', () => {
           {pluginDepsToComponents(defaultDeps)}
           <WeekView
             {...defaultProps}
-            // eslint-disable-next-line react/jsx-one-expression-per-line
-            appointmentLayerComponent={({ children }) => <div className="appointment-layer">{children}</div>}
+            appointmentLayerComponent={({ children }) =>
+              <div className="appointment-layer">{children}</div>}
           />
         </PluginHost>
       ));

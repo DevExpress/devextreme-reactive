@@ -24,7 +24,27 @@ import { WeekViewProps, VerticalViewState } from '../types';
 const DAYS_IN_WEEK = 7;
 const TYPE = 'week';
 
+const SidebarPlaceholder = () => <TemplatePlaceholder name="sidebar" />;
+const DayScalePlaceholder = () => <TemplatePlaceholder name="navbar" />;
+const TimeTablePlaceholder = () => <TemplatePlaceholder name="main" />;
+const DayScaleEmptyCellPlaceholder = () => <TemplatePlaceholder name="dayScaleEmptyCell" />;
+const AppointmentPlaceholder = params =>
+  <TemplatePlaceholder name="appointment" params={params} />;
+const CellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
+
 export class WeekView extends React.PureComponent<WeekViewProps, VerticalViewState> {
+  endViewDateBaseComputed;
+  startViewDateBaseComputed;
+  viewCellsDataComputed;
+  currentViewComputed;
+  availableViewNamesComputed;
+  intervalCountComputed;
+  firstDayOfWeekComputed;
+  excludedDaysComputed;
+  startViewDateComputed;
+  endViewDateComputed;
+  viewCellsData;
+
   static defaultProps = {
     startDayHour: 0,
     endDayHour: 24,
@@ -53,18 +73,7 @@ export class WeekView extends React.PureComponent<WeekViewProps, VerticalViewSta
   constructor(props) {
     super(props);
 
-    this.state = {
-      timeTableRef: null,
-    };
-
     this.timeTableRef = this.timeTableRef.bind(this);
-
-    this.sidebarPlaceholder = () => <TemplatePlaceholder name="sidebar" />;
-    this.dayScalePlaceholder = () => <TemplatePlaceholder name="navbar" />;
-    this.timeTablePlaceholder = () => <TemplatePlaceholder name="main" />;
-    this.dayScaleEmptyCellPlaceholder = () => <TemplatePlaceholder name="dayScaleEmptyCell" />;
-    this.appointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
-    this.cellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
 
     const {
       name: viewName,
@@ -76,18 +85,14 @@ export class WeekView extends React.PureComponent<WeekViewProps, VerticalViewSta
       intervalCount,
     } = this.props;
 
-    this.endViewDateBaseComputed = ({
-      viewCellsData,
-    }) => endViewDateCore(viewCellsData);
-    this.startViewDateBaseComputed = ({
-      viewCellsData,
-    }) => startViewDateCore(viewCellsData);
+    this.endViewDateBaseComputed = ({ viewCellsData }) => endViewDateCore(viewCellsData);
+    this.startViewDateBaseComputed = ({ viewCellsData }) => startViewDateCore(viewCellsData);
     this.viewCellsDataComputed = ({
       currentDate,
     }) => viewCellsDataCore(
       currentDate, firstDayOfWeek,
-      intervalCount * DAYS_IN_WEEK, excludedDays,
-      startDayHour, endDayHour, cellDuration,
+      intervalCount! * DAYS_IN_WEEK, excludedDays!,
+      startDayHour!, endDayHour!, cellDuration!,
       Date.now(),
     );
 
@@ -97,25 +102,25 @@ export class WeekView extends React.PureComponent<WeekViewProps, VerticalViewSta
         : { name: viewName, type: TYPE }
     );
     this.availableViewNamesComputed = ({ availableViewNames }) => availableViewNamesCore(
-      availableViewNames, viewName,
+      availableViewNames, viewName!,
     );
     this.intervalCountComputed = getters => computed(
-      getters, viewName, () => intervalCount, getters.intervalCount,
+      getters, viewName!, () => intervalCount, getters.intervalCount,
     );
     this.firstDayOfWeekComputed = getters => computed(
-      getters, viewName, () => firstDayOfWeek, getters.firstDayOfWeek,
+      getters, viewName!, () => firstDayOfWeek, getters.firstDayOfWeek,
     );
     this.excludedDaysComputed = getters => computed(
-      getters, viewName, () => excludedDays, getters.excludedDays,
+      getters, viewName!, () => excludedDays, getters.excludedDays,
     );
     this.startViewDateComputed = getters => computed(
-      getters, viewName, this.startViewDateBaseComputed, getters.startViewDate,
+      getters, viewName!, this.startViewDateBaseComputed, getters.startViewDate,
     );
     this.endViewDateComputed = getters => computed(
-      getters, viewName, this.endViewDateBaseComputed, getters.endViewDate,
+      getters, viewName!, this.endViewDateBaseComputed, getters.endViewDate,
     );
     this.viewCellsData = getters => computed(
-      getters, viewName, this.viewCellsDataComputed, getters.viewCellsData,
+      getters, viewName!, this.viewCellsDataComputed, getters.viewCellsData,
     );
   }
 
@@ -162,10 +167,10 @@ export class WeekView extends React.PureComponent<WeekViewProps, VerticalViewSta
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
                 <ViewLayout
-                  dayScaleComponent={this.dayScalePlaceholder}
-                  dayScaleEmptyCellComponent={this.dayScaleEmptyCellPlaceholder}
-                  timeTableComponent={this.timeTablePlaceholder}
-                  timeScaleComponent={this.sidebarPlaceholder}
+                  dayScaleComponent={DayScalePlaceholder}
+                  dayScaleEmptyCellComponent={DayScaleEmptyCellPlaceholder}
+                  timeTableComponent={TimeTablePlaceholder}
+                  timeScaleComponent={SidebarPlaceholder}
                 />
               );
             }}
@@ -221,7 +226,7 @@ export class WeekView extends React.PureComponent<WeekViewProps, VerticalViewSta
             }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               const intervals = calculateWeekDateIntervals(
-                appointments, startViewDate, endViewDate, excludedDays,
+                appointments, startViewDate, endViewDate, excludedDays!,
               );
               const rects = timeTableRef ? calculateRectByDateIntervals(
                 {
@@ -239,12 +244,11 @@ export class WeekView extends React.PureComponent<WeekViewProps, VerticalViewSta
                 },
               ) : [];
 
-              const { appointmentPlaceholder: AppointmentPlaceholder } = this;
               return (
                 <React.Fragment>
                   <TimeTable
                     rowComponent={TimeTableRow}
-                    cellComponent={this.cellPlaceholder}
+                    cellComponent={CellPlaceholder}
                     tableRef={this.timeTableRef}
                     cellsData={viewCellsData}
                   />

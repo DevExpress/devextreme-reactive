@@ -358,12 +358,12 @@ describe('dSymbol', () => {
 describe('dBar', () => {
   it('should return bar coordinates', () => {
     expect(dBar({
-      x: 2, y: 9, y1: 5, width: 3,
+      x: 2, y: 9, y1: 5, barWidth: 0.5, maxBarWidth: 6,
     } as any)).toEqual({
       x: 0.5, y: 5, width: 3, height: 4,
     });
     expect(dBar({
-      x: 2, y: 5, y1: 9, width: 3,
+      x: 2, y: 5, y1: 9, barWidth: 0.5, maxBarWidth: 6,
     } as any)).toEqual({
       x: 0.5, y: 5, width: 3, height: 4,
     });

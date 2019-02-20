@@ -4,12 +4,11 @@ import {
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
-import { AreaSeries, PathFn } from '../../types';
+import { AreaSeries } from '../../types';
 
 class RawArea extends React.PureComponent<AreaSeries.SeriesProps> {
   static defaultProps: Partial<AreaSeries.SeriesProps> = {
-    // TODO: Move "PathFn" to "dx-chart-core".
-    path: dArea as any as PathFn,
+    path: dArea,
   };
 
   render() {

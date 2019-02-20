@@ -51,9 +51,7 @@ describe('Bar', () => {
       fill: 'color',
       style: 'animated-style',
     });
-    expect(dBar).toBeCalledWith({
-      x: 1, width: 40, y: 2, y1: 18,
-    });
+    expect(dBar).toBeCalledWith(defaultProps);
   });
 
   it('should pass rest properties', () => {

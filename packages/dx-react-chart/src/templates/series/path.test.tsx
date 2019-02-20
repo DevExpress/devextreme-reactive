@@ -25,7 +25,7 @@ describe('Path', () => {
   it('should render root element', () => {
     const tree = shallow((
       <Path
-        {...defaultProps}
+        {...(defaultProps as any)}
       />
     ));
 
@@ -44,7 +44,7 @@ describe('Path', () => {
     };
     const tree = shallow((
       <Path
-        {...defaultProps}
+        {...(defaultProps as any)}
         style={customStyle}
       />
     ));
@@ -55,7 +55,7 @@ describe('Path', () => {
 
   it('should pass the rest property to the root element', () => {
     const tree = shallow((
-      <Path {...defaultProps} customProperty />
+      <Path {...(defaultProps as any)} customProperty />
     ));
     const { customProperty } = tree.find('path').props() as any;
 

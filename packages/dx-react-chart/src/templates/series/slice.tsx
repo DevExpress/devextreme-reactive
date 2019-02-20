@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  getPieAnimationStyle, dPie, HOVERED, SELECTED, PiePoint,
+  getPieAnimationStyle, dPie, HOVERED, SELECTED,
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
@@ -19,16 +19,14 @@ class RawSlice extends React.PureComponent<PieSeries.PointProps> {
     return (
       <g transform={`translate(${x} ${y})`}>
         <path
-          d={dPie({
-            maxRadius, innerRadius, outerRadius, startAngle, endAngle,
-          })}
+          d={dPie(this.props)}
           fill={color}
           stroke="none"
           style={getAnimatedStyle(
             style,
             getPieAnimationStyle,
             scales,
-            { index } as unknown as PiePoint,
+            this.props,
           )}
           {...restProps}
         />

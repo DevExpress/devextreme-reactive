@@ -37,9 +37,7 @@ describe('Point', () => {
 
   it('should render point', () => {
     const tree = shallow((
-      <Point
-        {...defaultProps}
-      />
+      <Point {...(defaultProps as any)} />
     ));
 
     expect(tree.find('path').props()).toEqual({
@@ -54,7 +52,7 @@ describe('Point', () => {
 
   it('should pass rest properties', () => {
     const tree = shallow((
-      <Point {...defaultProps} custom={10} />
+      <Point {...(defaultProps as any)} custom={10} />
     ));
     const { custom } = tree.find('path').props() as any;
 
@@ -63,7 +61,7 @@ describe('Point', () => {
 
   it('should apply animation style', () => {
     shallow((
-      <Point {...defaultProps} />
+      <Point {...(defaultProps as any)} />
     ));
 
     expect(defaultProps.getAnimatedStyle)

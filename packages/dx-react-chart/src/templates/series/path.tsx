@@ -3,9 +3,9 @@ import {
   getAreaAnimationStyle, HOVERED, SELECTED,
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
-import { AreaSeries } from '../../types';
+import { PathComponentPathProps } from '../../types';
 
-class RawPath extends React.PureComponent<AreaSeries.SeriesProps> {
+class RawPath extends React.PureComponent<PathComponentPathProps> {
   render() {
     const {
       path,
@@ -28,7 +28,7 @@ class RawPath extends React.PureComponent<AreaSeries.SeriesProps> {
   }
 }
 
-export const Path: React.ComponentType<AreaSeries.SeriesProps> = withStates({
+export const Path = withStates({
   [HOVERED]: props => ({ strokeWidth: 4, ...props }),
   [SELECTED]: props => ({ strokeWidth: 4, ...props }),
 })(RawPath);

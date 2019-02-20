@@ -12,16 +12,18 @@ import {
 import {
   findSeriesByName, addSeries, getValueDomainName, ARGUMENT_DOMAIN,
 } from '@devexpress/dx-chart-core';
-import { ExtraSeriesParameters, Series } from '../types';
+import {
+  ExtraSeriesParameters, SeriesProps, PathComponentProps, Scales,
+} from '../types';
 
 /** @internal */
-export const declareSeries = <T extends Series>(
+export const declareSeries = <T extends SeriesProps>(
   pluginName: string,
   { components, getPointTransformer, createHitTester }: ExtraSeriesParameters,
 ): React.ComponentType<T> => {
   class Component extends React.PureComponent<T> {
     static components: PluginComponents;
-    static defaultProps: Partial<Series> = {
+    static defaultProps: Partial<SeriesProps> = {
       name: 'defaultSeriesName',
     };
 
@@ -56,15 +58,17 @@ export const declareSeries = <T extends Series>(
             <TemplateConnector>
               {({ series, scales, getAnimatedStyle }) => {
                 const currentSeries = findSeriesByName(symbolName, series);
-                const currentScales = {
+                const currentScales: Scales = {
                   xScale: scales[ARGUMENT_DOMAIN],
                   yScale: scales[getValueDomainName(currentSeries!.scaleName)],
                 };
+                const Path: React.ComponentType<PathComponentProps> =
+                  currentSeries.seriesComponent as any;
                 return (
-                  <currentSeries.seriesComponent
+                  <Path
                     index={currentSeries.index}
                     pointComponent={currentSeries.pointComponent}
-                    coordinates={currentSeries.points}
+                    coordinates={currentSeries.points as any}
                     state={currentSeries.state}
                     color={currentSeries.color}
                     scales={currentScales}

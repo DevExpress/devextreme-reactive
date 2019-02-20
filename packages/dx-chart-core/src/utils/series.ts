@@ -1,9 +1,11 @@
-import { area, CurveFactory } from 'd3-shape';
+import { area } from 'd3-shape';
 import { dArea, dLine, dSpline } from '../plugins/series/computeds';
 import {
   SeriesList, TransformedPoint, PointList, TargetList, PointDistance, Location,
-  CreateHitTesterFn, BarPoint, ScatterPoint, PiePoint, MakePathFn, IsPointInPathFn,
+  CreateHitTesterFn, MakePathFn, IsPointInPathFn,
   HitTestPointFn, Filter,
+  BarSeries, ScatterSeries, PieSeries,
+  PathFn,
 } from '../types';
 
 const getSegmentLength = (dx: number, dy: number) => Math.sqrt(dx * dx + dy * dy);
@@ -25,7 +27,7 @@ const createCanvasAbusingHitTester = (makePath: MakePathFn, points: PointList): 
   const ctx = createContext();
   const path = makePath();
   path.context(ctx);
-  path(points as TransformedPoint[]);
+  path(points as any);
   return ([x, y]) => ctx.isPointInPath(x, y);
 };
 
@@ -76,31 +78,31 @@ const createPointsEnumeratingHitTesterCreator =
 
 /** @internal */
 export const createAreaHitTester = createContinuousSeriesHitTesterCreator(() => {
-  const path = area<TransformedPoint>();
+  const path: PathFn = area() as any;
   path.x(dArea.x());
-  path.y1(dArea.y1()!);
-  path.y0(dArea.y0());
+  path.y1!(dArea.y1!());
+  path.y0!(dArea.y0!());
   return path;
 });
 
 /** @internal */
 export const createLineHitTester = createContinuousSeriesHitTesterCreator(() => {
-  const path = area<TransformedPoint>();
-  const getY = dLine.y() as (x: TransformedPoint) => number;
+  const path: PathFn = area() as any;
+  const getY = dLine.y();
   path.x(dLine.x());
-  path.y1(point => getY(point) - LINE_TOLERANCE);
-  path.y0(point => getY(point) + LINE_TOLERANCE);
+  path.y1!(point => getY(point) - LINE_TOLERANCE);
+  path.y0!(point => getY(point) + LINE_TOLERANCE);
   return path;
 });
 
 /** @internal */
 export const createSplineHitTester = createContinuousSeriesHitTesterCreator(() => {
-  const path = area<TransformedPoint>();
-  const getY = dSpline.y() as (x: TransformedPoint) => number;
+  const path: PathFn = area() as any;
+  const getY = dSpline.y();
   path.x(dSpline.x());
-  path.y1(point => getY(point) - LINE_TOLERANCE);
-  path.y0(point => getY(point) + LINE_TOLERANCE);
-  path.curve(dSpline.curve() as CurveFactory);
+  path.y1!(point => getY(point) - LINE_TOLERANCE);
+  path.y0!(point => getY(point) + LINE_TOLERANCE);
+  path.curve!(dSpline.curve!());
   return path;
 });
 
@@ -114,7 +116,7 @@ const hitTestRect = (dx: number, dy: number, halfX: number, halfY: number) => (
 /** @internal */
 export const createBarHitTester = createPointsEnumeratingHitTesterCreator(
   ([px, py], point) => {
-    const { x, y, y1, barWidth, maxBarWidth } = point as BarPoint;
+    const { x, y, y1, barWidth, maxBarWidth } = point as BarSeries.PointProps;
     const xCenter = x;
     const yCenter = (y + y1!) / 2;
     const halfWidth = maxBarWidth * barWidth / 2;
@@ -126,7 +128,7 @@ export const createBarHitTester = createPointsEnumeratingHitTesterCreator(
 /** @internal */
 export const createScatterHitTester = createPointsEnumeratingHitTesterCreator(
   ([px, py], obj) => {
-    const { x, y, point } = obj as ScatterPoint;
+    const { x, y, point } = obj as ScatterSeries.PointProps;
     const distance = getSegmentLength(px - x, py - y);
     return distance <= point.size / 2 ? { distance } : null;
   },
@@ -143,7 +145,7 @@ export const createPieHitTester = createPointsEnumeratingHitTesterCreator(
   ([px, py], point) => {
     const {
       x, y, innerRadius, outerRadius, startAngle, maxRadius, endAngle,
-    } = point as PiePoint;
+    } = point as PieSeries.PointProps;
     const inner = innerRadius * maxRadius;
     const outer = outerRadius * maxRadius;
     const rCenter = (inner + outer) / 2;

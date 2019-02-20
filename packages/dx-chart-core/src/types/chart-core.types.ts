@@ -57,31 +57,6 @@ export interface TransformedPoint extends Point {
   readonly y1?: number;
 }
 
-export interface BarPoint extends TransformedPoint {
-  /** The bar's width in relative units */
-  readonly barWidth: number;
-  /** The maximum width that the bar can occupy, measured in pixels */
-  readonly maxBarWidth: number;
-}
-
-export interface ScatterPoint extends TransformedPoint {
-  /** Point options */
-  readonly point: { size: number };
-}
-
-export interface PiePoint extends TransformedPoint {
-  /** The slice's maximum radius in pixels */
-  readonly maxRadius: number;
-  /** The inner radius in relative units */
-  readonly innerRadius: number;
-  /** The outer radius in relative units */
-  readonly outerRadius: number;
-  /** The slice's start angle */
-  readonly startAngle: number;
-  /** The slice's end angle */
-  readonly endAngle: number;
-}
-
 /** The object that points at a clicked series */
 export interface SeriesRef {
   /** Series name */
@@ -93,6 +68,7 @@ export type TargetList = ReadonlyArray<SeriesRef>;
 
 export type GetFormatFn = (tick: any) => string;
 
+/** @internal */
 export interface Series {
   /** A series name */
   readonly name: string;
@@ -101,11 +77,13 @@ export interface Series {
   /** The name of a data field that provides series point argument values */
   readonly argumentField: string;
   /** The associated scale */
-  readonly scaleName: string;
+  readonly scaleName?: string;
   /** A series color */
   readonly color: string;
   /** @internal */
-  readonly seriesComponent: React.ComponentType<any>;
+  readonly seriesComponent?: React.ComponentType<any>;
+  /** @internal */
+  readonly pointComponent?: React.ComponentType<any>;
   /** @internal */
   readonly index: number;
   /** @internal */
@@ -116,8 +94,6 @@ export interface Series {
   readonly createHitTester: CreateHitTesterFn;
   /** @internal */
   readonly getPointTransformer: GetPointTransformerFn;
-  /** @internal */
-  readonly pointComponent: React.ComponentType<any>;
   /** @internal */
   readonly state?: string;
   /** @internal */

@@ -4,20 +4,17 @@ interface AnimationProps {
 
 // @public (undocumented)
 module AreaSeries {
-  interface PathSeriesProps {
-    path: PathFn;
+  interface PathSeriesProps extends SeriesProps {
   }
 
-  interface SeriesProps extends PathSeriesProps, InternalPathProps {
-    color?: string;
-    coordinates: TransformedPoint[];
+  interface SeriesProps extends PathComponentPathProps {
   }
 
 }
 
 // @public (undocumented)
-interface AreaSeriesProps extends Series {
-  seriesComponent: React.ComponentType<AreaSeries.PathSeriesProps>;
+interface AreaSeriesProps extends SeriesProps {
+  seriesComponent?: React.ComponentType<AreaSeries.SeriesProps>;
 }
 
 // @public (undocumented)
@@ -74,22 +71,18 @@ module Axis {
 }
 
 // @public (undocumented)
-interface BarPoint extends TransformedPoint {
-  readonly barWidth: number;
-  readonly maxBarWidth: number;
-}
-
-// @public (undocumented)
 module BarSeries {
-  interface PointProps extends InternalPointProps, BarPoint {
+  interface PointProps extends PointComponentProps {
+    barWidth: number;
+    maxBarWidth: number;
   }
 
 }
 
 // @public (undocumented)
-interface BarSeriesProps extends Series {
+interface BarSeriesProps extends SeriesProps {
   barWidth?: number;
-  pointComponent: React.ComponentType<BarSeries.PointProps>;
+  pointComponent?: React.ComponentType<BarSeries.PointProps>;
 }
 
 // @public (undocumented)
@@ -123,6 +116,12 @@ interface ChartProps {
 }
 
 // @public (undocumented)
+interface CommonComponentProps {
+  // (undocumented)
+  color: string;
+}
+
+// @public (undocumented)
 interface EventTrackerProps {
   onClick?: HandlerFn;
   onPointerMove?: HandlerFn;
@@ -133,14 +132,6 @@ interface HoverStateProps {
   defaultHover?: SeriesRef;
   hover?: SeriesRef;
   onHoverChange?: NotifyPointerMoveFn;
-}
-
-// @public (undocumented)
-interface InternalPathProps extends InternalPointProps {
-}
-
-// @public (undocumented)
-interface InternalPointProps {
 }
 
 // @public (undocumented)
@@ -175,15 +166,17 @@ interface LegendProps {
 
 // @public (undocumented)
 module LineSeries {
-  interface PathSeriesProps {
-    path: PathFn;
+  interface PathSeriesProps extends SeriesProps {
   }
 
-  interface SeriesProps extends PathSeriesProps, InternalPathProps {
-    color?: string;
-    coordinates: TransformedPoint[];
+  interface SeriesProps extends PathComponentPathProps {
   }
 
+}
+
+// @public (undocumented)
+interface LineSeriesProps extends SeriesProps {
+  seriesComponent?: React.ComponentType<LineSeries.SeriesProps>;
 }
 
 // @public (undocumented)
@@ -192,26 +185,50 @@ interface PaletteProps {
 }
 
 // @public (undocumented)
-interface PiePoint extends TransformedPoint {
-  readonly endAngle: number;
-  readonly innerRadius: number;
-  readonly maxRadius: number;
-  readonly outerRadius: number;
-  readonly startAngle: number;
+interface PathComponentPathProps extends PathComponentProps {
+  path?: PathFn;
+}
+
+// @public (undocumented)
+interface PathComponentProps extends CommonComponentProps {
+  coordinates: PathPoints;
+}
+
+// @public (undocumented)
+interface PathFn {
+  // (undocumented)
+  (points: PathPoints): string;
+  // (undocumented)
+  context(ctx: any): this;
+  // (undocumented)
+  curve?(): any;
+  // (undocumented)
+  x(): GetPointFieldFn;
+  // (undocumented)
+  y(): GetPointFieldFn;
+  // (undocumented)
+  y0?(): GetPointFieldFn;
+  // (undocumented)
+  y1?(): GetPointFieldFn;
 }
 
 // @public (undocumented)
 module PieSeries {
-  interface PointProps extends InternalPointProps, PiePoint {
+  interface PointProps extends PointComponentProps {
+    endAngle: number;
+    innerRadius: number;
+    maxRadius: number;
+    outerRadius: number;
+    startAngle: number;
   }
 
 }
 
 // @public (undocumented)
-interface PieSeriesProps extends Series {
+interface PieSeriesProps extends SeriesProps {
   innerRadius?: number;
   outerRadius?: number;
-  pointComponent: React.ComponentType<PieSeries.PointProps>;
+  pointComponent?: React.ComponentType<PieSeries.PointProps>;
 }
 
 // @public (undocumented)
@@ -219,6 +236,16 @@ interface Point {
   readonly color: string;
   readonly index: number;
   readonly value: any;
+}
+
+// @public (undocumented)
+interface PointComponentProps extends CommonComponentProps {
+  argument: any;
+  index: number;
+  value: any;
+  x: number;
+  y: number;
+  y1?: number;
 }
 
 // @public (undocumented)
@@ -261,34 +288,22 @@ interface ScaleProps {
   name?: string;
 }
 
-// @public (undocumented)
-interface ScatterPoint extends TransformedPoint {
-  readonly point: {
-    size: number;
-  }
-}
-
+// WARNING: Unsupported export: PointOptions
 // @public (undocumented)
 module ScatterSeries {
-  interface PointProps extends InternalPointProps, ScatterPoint {
+  interface PointProps extends PointComponentProps {
+    point: PointOptions;
   }
 
-  interface SeriesProps {
-    coordinates: TransformedPoint[];
-    point?: {
-      size: number;
-    }
-    pointComponent: React.ComponentType<ScatterSeries.PointProps>;
+  interface SeriesProps extends PathComponentProps {
   }
 
 }
 
 // @public (undocumented)
-interface ScatterSeriesProps extends Series {
-  point: {
-    size: number;
-  }
-  pointComponent: React.ComponentType<ScatterSeries.PointProps>;
+interface ScatterSeriesProps extends SeriesProps {
+  point?: ScatterSeries.PointOptions;
+  pointComponent?: React.ComponentType<ScatterSeries.PointProps>;
 }
 
 // @public (undocumented)
@@ -297,12 +312,12 @@ interface SelectionStateProps {
 }
 
 // @public (undocumented)
-interface Series {
-  readonly argumentField: string;
-  readonly color: string;
-  readonly name: string;
-  readonly scaleName: string;
-  readonly valueField: string;
+interface SeriesProps {
+  argumentField: string;
+  color?: string;
+  name?: string;
+  scaleName?: string;
+  valueField: string;
 }
 
 // @public
@@ -313,15 +328,17 @@ interface SeriesRef {
 
 // @public (undocumented)
 module SplineSeries {
-  interface PathSeriesProps {
-    path: PathFn;
+  interface PathSeriesProps extends SeriesProps {
   }
 
-  interface SeriesProps extends PathSeriesProps, InternalPathProps {
-    color?: string;
-    coordinates: TransformedPoint[];
+  interface SeriesProps extends PathComponentPathProps {
   }
 
+}
+
+// @public (undocumented)
+interface SplineSeriesProps extends SeriesProps {
+  seriesComponent?: React.ComponentType<SplineSeries.SeriesProps>;
 }
 
 // @public (undocumented)
@@ -425,7 +442,6 @@ interface ValueScaleProps extends ScaleProps {
 
 // WARNING: Unsupported export: ArgumentScale
 // WARNING: Unsupported export: ValueScale
-// WARNING: Unsupported export: PathFn
 // WARNING: Unsupported export: DataItem
 // WARNING: Unsupported export: DataItems
 // WARNING: Unsupported export: DomainItems
@@ -442,6 +458,8 @@ interface ValueScaleProps extends ScaleProps {
 // WARNING: Unsupported export: OffsetFn
 // WARNING: Unsupported export: StackList
 // WARNING: Unsupported export: StacksOptions
+// WARNING: Unsupported export: PathPoints
+// WARNING: Unsupported export: GetPointFieldFn
 // WARNING: Unsupported export: FactoryFn
 // WARNING: Unsupported export: ModifyDomainFn
 // WARNING: Unsupported export: TickFormatFn

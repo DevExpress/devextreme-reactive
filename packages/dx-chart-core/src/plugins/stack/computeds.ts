@@ -2,7 +2,7 @@ import { stack } from 'd3-shape';
 import { scaleBand } from 'd3-scale';
 import {
   SeriesList, Series, PointList, Point, GetPointTransformerFn, DataItems, DomainItems,
-  StackList, GetPointTransformerFnRaw, BarPoint, StackedPoint, StackMap, GetStackedSeriesFn,
+  StackList, GetPointTransformerFnRaw, BarSeries, StackedPoint, StackMap, GetStackedSeriesFn,
   SeriesPositions, StacksKeys, StackedDataItems, OffsetFn, OrderFn, StackedData,
 } from '../../types';
 
@@ -130,8 +130,8 @@ const getGroupedPointTransformer = (
     const transform = getPointTransformer(series);
     const widthCoeff = 1 / groupCount;
     return (point) => {
-      const original = transform(point) as BarPoint;
-      const result: BarPoint = {
+      const original = transform(point) as BarSeries.PointProps;
+      const result: BarSeries.PointProps = {
         ...original,
         x: original.x - original.maxBarWidth * (0.5 - 0.5 * widthCoeff - groupOffset * widthCoeff),
         maxBarWidth: original.maxBarWidth / groupCount,

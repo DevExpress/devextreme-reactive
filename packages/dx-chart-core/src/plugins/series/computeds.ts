@@ -9,31 +9,33 @@ import {
 } from 'd3-shape';
 import {
   SeriesList, Series, PointList, Point, DataItems, AddSeriesFn, ScalesCache, ScaleSeriesPointsFn,
-  GetPointTransformerFn, TransformedPoint, BarPoint, PiePoint, ScatterPoint, Palette, Rect,
+  GetPointTransformerFn, Palette, Rect,
+  BarSeries, ScatterSeries, PieSeries,
+  PointComponentProps, PathFn,
 } from '../../types';
 import { ARGUMENT_DOMAIN } from '../../constants';
 import { getWidth, getValueDomainName, fixOffset } from '../../utils/scale';
 
-const getX = ({ x }: TransformedPoint) => x;
-const getY = ({ y }: TransformedPoint) => y;
-const getY1 = ({ y1 }: TransformedPoint) => y1!;
+const getX = ({ x }: PointComponentProps) => x;
+const getY = ({ y }: PointComponentProps) => y;
+const getY1 = ({ y1 }: PointComponentProps) => y1!;
 
 /** @internal */
-export const dArea = area<TransformedPoint>()
+export const dArea: PathFn = area<PointComponentProps>()
   .x(getX)
   .y1(getY)
-  .y0(getY1);
+  .y0(getY1) as any;
 
 /** @internal */
-export const dLine = line<TransformedPoint>()
+export const dLine: PathFn = line<PointComponentProps>()
   .x(getX)
-  .y(getY);
+  .y(getY) as any;
 
 /** @internal */
-export const dSpline = line<TransformedPoint>()
+export const dSpline: PathFn = line<PointComponentProps>()
   .x(getX)
   .y(getY)
-  .curve(curveMonotoneX);
+  .curve(curveMonotoneX) as any;
 
 /** @internal */
 export const getPiePointTransformer: GetPointTransformerFn = ({
@@ -111,22 +113,23 @@ export const findSeriesByName = (
 
 /** @internal */
 export const dBar = ({
-  x, y, y1, width,
-}: TransformedPoint & { width: number }) => ({
-  x: x - width / 2, y: Math.min(y, y1!), width: width || 2, height: Math.abs(y1! - y),
-});
+  x, y, y1, barWidth, maxBarWidth,
+}: BarSeries.PointProps) => {
+  const width = barWidth * maxBarWidth;
+  return {
+    x: x - width / 2, y: Math.min(y, y1!), width: width || 2, height: Math.abs(y1! - y),
+  };
+};
 
 /** @internal */
 export const dSymbol = (
-  { size }: { size: number },
+  { size }: ScatterSeries.PointOptions,
 ) => symbol().size(size ** 2).type(symbolCircle)()!;
 
 /** @internal */
 export const dPie = ({
   maxRadius, innerRadius, outerRadius, startAngle, endAngle,
-}: {
-  maxRadius: number, innerRadius: number, outerRadius: number, startAngle: number, endAngle: number,
-}) => arc()({
+}: PieSeries.PointProps) => arc()({
   startAngle,
   endAngle,
   innerRadius: innerRadius * maxRadius,
@@ -138,7 +141,7 @@ const getRect = (cx: number, cy: number, dx: number, dy: number): Rect => (
 );
 
 getBarPointTransformer.getTargetElement = (point) => {
-  const { x, y, y1, barWidth, maxBarWidth } = point as BarPoint;
+  const { x, y, y1, barWidth, maxBarWidth } = point as BarSeries.PointProps;
   const width = barWidth * maxBarWidth;
   const height = Math.abs(y1! - y);
   return getRect(x, y + height / 2, width / 2, height / 2);
@@ -147,7 +150,7 @@ getBarPointTransformer.getTargetElement = (point) => {
 getPiePointTransformer.getTargetElement = (point) => {
   const {
     x, y, innerRadius, outerRadius, maxRadius, startAngle, endAngle,
-  } = point as PiePoint;
+  } = point as PieSeries.PointProps;
   const center = arc().centroid({
     startAngle,
     endAngle,
@@ -164,7 +167,7 @@ getAreaPointTransformer.getTargetElement = ({ x, y }) => getRect(x, y, 1, 1);
 getLinePointTransformer.getTargetElement = getAreaPointTransformer.getTargetElement;
 
 getScatterPointTransformer.getTargetElement = (arg) => {
-  const { x, y, point } = arg as ScatterPoint;
+  const { x, y, point } = arg as ScatterSeries.PointProps;
   const t = point.size / 2;
   return getRect(x, y, t, t);
 };

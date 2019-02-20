@@ -1,9 +1,12 @@
-import { Area } from 'd3-shape';
 import {
   TransformedPoint, Location,
 } from './chart-core.types';
+import {
+  PathFn,
+} from './plugins.series.types';
+
 /** @internal */
-export type MakePathFn = () => Area<TransformedPoint>;
+export type MakePathFn = () => PathFn;
 /** @internal */
 export type IsPointInPathFn = (target: Location) => boolean;
 /** @internal */

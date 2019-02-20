@@ -39,7 +39,7 @@ describe('Slice', () => {
 
   it('should render slice', () => {
     const tree = shallow((
-      <Slice {...defaultProps} />
+      <Slice {...(defaultProps as any)} />
     ));
 
     expect(tree.find('g').props().transform).toEqual('translate(1 2)');
@@ -53,7 +53,7 @@ describe('Slice', () => {
 
   it('should pass rest properties', () => {
     const tree = shallow((
-      <Slice {...defaultProps} custom={10} />
+      <Slice {...(defaultProps as any)} custom={10} />
     ));
     const { custom } = tree.find('path').props() as any;
 

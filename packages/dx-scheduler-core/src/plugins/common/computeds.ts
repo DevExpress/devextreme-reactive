@@ -71,9 +71,9 @@ export const viewCellsData: ViewCellsDataFn = (
   startDayHour, endDayHour,
   cellDuration, currTime,
 ) => {
-  const days = dayScale(currentDate, firstDayOfWeek, dayCount, excludedDays);
+  const days = dayScale(currentDate, firstDayOfWeek!, dayCount!, excludedDays);
   const times = timeScale(
-    currentDate, firstDayOfWeek, startDayHour, endDayHour, cellDuration, excludedDays,
+    currentDate, firstDayOfWeek!, startDayHour, endDayHour, cellDuration, excludedDays,
   );
   const currentTime = moment(currTime as CurrentTime);
 

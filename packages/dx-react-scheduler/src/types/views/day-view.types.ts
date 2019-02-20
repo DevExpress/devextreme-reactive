@@ -37,8 +37,7 @@ export interface DayViewProps {
 
 /** @internal */
 export type DayViewState = {
-  currentDate: number | string | Date;
-  currentViewName: string;
+  timeTableRef: HTMLElement;
 };
 
 // tslint:disable-next-line: no-namespace

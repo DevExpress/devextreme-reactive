@@ -63,6 +63,6 @@ export type TimeScaleFn = PureComputed<
 >;
 
 export type ViewCellsDataFn = PureComputed<
-  [Date, number, number, number[],
+  [Date, number | undefined, number | undefined, number[],
     number, number, number, CurrentTime], ViewCell[][]
 >;

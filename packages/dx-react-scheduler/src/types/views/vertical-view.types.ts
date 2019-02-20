@@ -1,4 +1,4 @@
-export interface DayViewProps {
+export interface VerticalViewProps {
   /** The view name. */
   name?: string;
   /** Multiplies the default view interval. */
@@ -9,70 +9,70 @@ export interface DayViewProps {
   startDayHour?: number;
   /** Specifies the end hour of the view time scale. */
   endDayHour?: number;
-  /** A component that renders a day view layout. */
-  layoutComponent: React.ComponentType<DayView.LayoutProps>;
+  /** A component that renders a view layout. */
+  layoutComponent: React.ComponentType<VerticalView.LayoutProps>;
   /** A component that renders a time scale layout. */
-  timeScaleLayoutComponent: React.ComponentType<DayView.TimeScaleLayoutProps>;
+  timeScaleLayoutComponent: React.ComponentType<VerticalView.TimeScaleLayoutProps>;
   /** A component that renders a time scale row. */
-  timeScaleRowComponent: React.ComponentType<DayView.RowProps>;
+  timeScaleRowComponent: React.ComponentType<VerticalView.RowProps>;
   /** A component that renders a time scale cell. */
-  timeScaleCellComponent: React.ComponentType<DayView.TimeScaleCellProps>;
+  timeScaleCellComponent: React.ComponentType<VerticalView.TimeScaleCellProps>;
   /** A component that renders a day scale layout. */
-  dayScaleLayoutComponent: React.ComponentType<DayView.DayScaleLayoutProps>;
+  dayScaleLayoutComponent: React.ComponentType<VerticalView.DayScaleLayoutProps>;
   /** A component that renders a day scale cell. */
-  dayScaleCellComponent: React.ComponentType<DayView.DayScaleCellProps>;
+  dayScaleCellComponent: React.ComponentType<VerticalView.DayScaleCellProps>;
   /** A component that renders a day scale row.  */
-  dayScaleRowComponent: React.ComponentType<DayView.RowProps>;
+  dayScaleRowComponent: React.ComponentType<VerticalView.RowProps>;
   /** A component that renders a day scale empty cell.  */
-  dayScaleEmptyCellComponent: React.ComponentType<DayView.DayScaleEmptyCellProps>;
+  dayScaleEmptyCellComponent: React.ComponentType<VerticalView.DayScaleEmptyCellProps>;
   /** A component that renders a time table layout. */
-  timeTableLayoutComponent: React.ComponentType<DayView.TimeTableLayoutProps>;
+  timeTableLayoutComponent: React.ComponentType<VerticalView.TimeTableLayoutProps>;
   /** A component that renders a time table cell. */
-  timeTableCellComponent: React.ComponentType<DayView.TimeTableCellProps>;
+  timeTableCellComponent: React.ComponentType<VerticalView.TimeTableCellProps>;
   /** A component that renders a time table row. */
-  timeTableRowComponent: React.ComponentType<DayView.RowProps>;
+  timeTableRowComponent: React.ComponentType<VerticalView.RowProps>;
   /** A component that renders the appointment layer. */
-  appointmentLayerComponent: React.ComponentType<DayView.AppointmentLayerProps>;
+  appointmentLayerComponent: React.ComponentType<VerticalView.AppointmentLayerProps>;
 }
 
 /** @internal */
-export type DayViewState = {
+export type VerticalViewState = {
   timeTableRef: HTMLElement;
 };
 
 // tslint:disable-next-line: no-namespace
-export namespace DayView {
+export namespace VerticalView {
   /** Describes properties passed to a component that renders a day view layout. */
   export interface LayoutProps {
     /** A component that renders a time scale layout. */
-    timeScaleComponent: React.ComponentType<DayView.TimeScaleLayoutProps>;
+    timeScaleComponent: React.ComponentType<VerticalView.TimeScaleLayoutProps>;
     /** A component that renders a day scale layout. */
-    dayScaleComponent: React.ComponentType<DayView.DayScaleLayoutProps>;
+    dayScaleComponent: React.ComponentType<VerticalView.DayScaleLayoutProps>;
     /** A component that renders a time table layout. */
-    timeTableComponent: React.ComponentType<DayView.TimeTableLayoutProps>;
+    timeTableComponent: React.ComponentType<VerticalView.TimeTableLayoutProps>;
     /** A component that renders a day scale empty cell. */
-    dayScaleEmptyCellComponent: React.ComponentType<DayView.DayScaleEmptyCellProps>;
+    dayScaleEmptyCellComponent: React.ComponentType<VerticalView.DayScaleEmptyCellProps>;
   }
   /** Describes properties passed to a component that renders a time scale layout. */
   export interface TimeScaleLayoutProps {
     /** Specifies the cells meta data. */
-    cellsData: DayView.CellData[][];
+    cellsData: VerticalView.CellData[][];
     /** A component that renders a time scale cell. */
-    cellComponent: React.ComponentType<DayView.TimeScaleCellProps>;
+    cellComponent: React.ComponentType<VerticalView.TimeScaleCellProps>;
     /** A component that renders a time scale row. */
-    rowComponent: React.ComponentType<DayView.RowProps>;
+    rowComponent: React.ComponentType<VerticalView.RowProps>;
   }
 
   /** Describes properties passed to a component that renders a time table layout. */
   export interface TimeTableLayoutProps {
     /** Specifies the cells meta data. */
-    cellsData:	DayView.CellData[][];
+    cellsData:	VerticalView.CellData[][];
     /** A function that accepts the table root React element. */
     tableRef: (ref: React.ReactInstance) => void;
     /** A component that renders a time table cell. */
-    cellComponent: React.ComponentType<DayView.TimeTableCellProps>;
+    cellComponent: React.ComponentType<VerticalView.TimeTableCellProps>;
     /** A component that renders a time table row. */
-    rowComponent: React.ComponentType<DayView.RowProps>;
+    rowComponent: React.ComponentType<VerticalView.RowProps>;
   }
 
   /** Describes properties passed to a component that renders a time table cell. */
@@ -102,11 +102,11 @@ export namespace DayView {
   /** Describes properties passed to a component that renders a day scale layout. */
   export interface DayScaleLayoutProps {
     /** Specifies the cells meta data. */
-    cellsData:	DayView.CellData[][];
+    cellsData:	VerticalView.CellData[][];
     /** A component that renders a day scale cell. */
-    cellComponent:	React.ComponentType<DayView.DayScaleCellProps>;
+    cellComponent:	React.ComponentType<VerticalView.DayScaleCellProps>;
     /** A component that renders a day scale row. */
-    rowComponent:	React.ComponentType<DayView.RowProps>;
+    rowComponent:	React.ComponentType<VerticalView.RowProps>;
   }
   /** Describes properties passed to a component that renders a day scale cell. */
   export interface DayScaleCellProps {

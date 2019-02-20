@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { PureComputed } from '@devexpress/dx-core';
 import {
   Template,
   Plugin,
@@ -18,10 +17,10 @@ import {
   startViewDate as startViewDateCore,
   endViewDate as endViewDateCore,
   availableViewNames as availableViewNamesCore,
-  VERTICAL_TYPE, ViewCell,
+  VERTICAL_TYPE,
 } from '@devexpress/dx-scheduler-core';
 
-import { DayViewProps, DayViewState } from '../types';
+import { VerticalViewProps, VerticalViewState } from '../types';
 
 const TYPE = 'day';
 
@@ -32,7 +31,7 @@ const TimeTablePlaceholder = () => <TemplatePlaceholder name="main" />;
 const AppointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
 const CellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
 
-export class DayView extends React.PureComponent<DayViewProps, DayViewState> {
+export class DayView extends React.PureComponent<VerticalViewProps, VerticalViewState> {
   startViewDateBaseComputed;
   endViewDateBaseComputed;
   viewCellsDataComputed;

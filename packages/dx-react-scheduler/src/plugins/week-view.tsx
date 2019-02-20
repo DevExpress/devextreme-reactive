@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import {
   Template,
   Plugin,
@@ -20,10 +19,37 @@ import {
   VERTICAL_TYPE,
 } from '@devexpress/dx-scheduler-core';
 
+import { WeekViewProps, VerticalViewState } from '../types';
+
 const DAYS_IN_WEEK = 7;
 const TYPE = 'week';
 
-export class WeekView extends React.PureComponent {
+export class WeekView extends React.PureComponent<WeekViewProps, VerticalViewState> {
+  static defaultProps = {
+    startDayHour: 0,
+    endDayHour: 24,
+    cellDuration: 30,
+    intervalCount: 1,
+    firstDayOfWeek: 0,
+    excludedDays: [],
+    name: 'Week',
+  };
+
+  static components = {
+    layoutComponent: 'Layout',
+    appointmentLayerComponent: 'AppointmentLayer',
+    dayScaleEmptyCellComponent: 'DayScaleEmptyCell',
+    timeScaleLayoutComponent: 'TimeScaleLayout',
+    timeScaleCellComponent: 'TimeScaleCell',
+    timeScaleRowComponent: 'TimeScaleRow',
+    dayScaleLayoutComponent: 'DayScaleLayout',
+    dayScaleCellComponent: 'DayScaleCell',
+    dayScaleRowComponent: 'DayScaleRow',
+    timeTableLayoutComponent: 'TimeTableLayout',
+    timeTableCellComponent: 'TimeTableCell',
+    timeTableRowComponent: 'TimeTableRow',
+  };
+
   constructor(props) {
     super(props);
 
@@ -256,50 +282,3 @@ export class WeekView extends React.PureComponent {
     );
   }
 }
-
-WeekView.propTypes = {
-  layoutComponent: PropTypes.func.isRequired,
-  dayScaleEmptyCellComponent: PropTypes.func.isRequired,
-  timeScaleLayoutComponent: PropTypes.func.isRequired,
-  timeScaleRowComponent: PropTypes.func.isRequired,
-  timeScaleCellComponent: PropTypes.func.isRequired,
-  dayScaleLayoutComponent: PropTypes.func.isRequired,
-  dayScaleCellComponent: PropTypes.func.isRequired,
-  dayScaleRowComponent: PropTypes.func.isRequired,
-  timeTableLayoutComponent: PropTypes.func.isRequired,
-  timeTableRowComponent: PropTypes.func.isRequired,
-  timeTableCellComponent: PropTypes.func.isRequired,
-  appointmentLayerComponent: PropTypes.func.isRequired,
-  startDayHour: PropTypes.number,
-  endDayHour: PropTypes.number,
-  cellDuration: PropTypes.number,
-  intervalCount: PropTypes.number,
-  firstDayOfWeek: PropTypes.number,
-  excludedDays: PropTypes.array,
-  name: PropTypes.string,
-};
-
-WeekView.defaultProps = {
-  startDayHour: 0,
-  endDayHour: 24,
-  cellDuration: 30,
-  intervalCount: 1,
-  firstDayOfWeek: 0,
-  excludedDays: [],
-  name: 'Week',
-};
-
-WeekView.components = {
-  layoutComponent: 'Layout',
-  appointmentLayerComponent: 'AppointmentLayer',
-  dayScaleEmptyCellComponent: 'DayScaleEmptyCell',
-  timeScaleLayoutComponent: 'TimeScaleLayout',
-  timeScaleCellComponent: 'TimeScaleCell',
-  timeScaleRowComponent: 'TimeScaleRow',
-  dayScaleLayoutComponent: 'DayScaleLayout',
-  dayScaleCellComponent: 'DayScaleCell',
-  dayScaleRowComponent: 'DayScaleRow',
-  timeTableLayoutComponent: 'TimeTableLayout',
-  timeTableCellComponent: 'TimeTableCell',
-  timeTableRowComponent: 'TimeTableRow',
-};

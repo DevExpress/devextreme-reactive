@@ -4,7 +4,6 @@ import {
   Plugin, Template, TemplateConnector, DragSource,
 } from '@devexpress/dx-react-core';
 import { createClickHandlers } from '@devexpress/dx-core';
-import { DragDropProvider } from './drag-drop-provider';
 
 const pluginDependencies = [
   { name: 'DayView', optional: true },
@@ -56,7 +55,7 @@ export class Appointments extends React.PureComponent {
                     >
                       {!drag ? (
                         <Appointment
-                          style={style}
+                          style={{ ...style, cursor: 'pointer' }}
                           data={data}
                           {...createClickHandlers(onClick, onDoubleClick)}
                           {...restParams}

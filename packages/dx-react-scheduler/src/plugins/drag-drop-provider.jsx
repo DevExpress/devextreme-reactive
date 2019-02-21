@@ -62,12 +62,12 @@ export class DragDropProvider extends React.PureComponent {
         if (args.payload[0].type === this.sourceData.type || (this.sourceData.type === 'allDay' && args.payload[0].type === 'horizontal')) { // SAME TYPES && All DAY
           const appointmentDuration = moment(args.payload[0].data.endDate).diff(moment(args.payload[0].data.startDate), 'seconds');
 
+          // CURSOR POSITION
           if (this.sourceData && this.offsetTimeTop === null && this.offsetTimeBottom === null) {
             this.offsetTimeTop = moment(this.sourceData.startDate).diff(args.payload[0].data.startDate, 'seconds');
             this.offsetTimeBottom = moment(args.payload[0].data.endDate).diff(this.sourceData.endDate, 'seconds');
           }
 
-          debugger
           this.appointmentStartTime = moment(this.sourceData.startDate).add((this.offsetTimeTop) * (-1), 'seconds').toDate();
           this.appointmentEndTime = moment(this.sourceData.startDate).add((appointmentDuration - this.offsetTimeTop), 'seconds').toDate();
           args.payload[0].changeAppointment({

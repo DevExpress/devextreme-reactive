@@ -40,9 +40,8 @@ export class DropTarget extends React.Component<DropTargetDefaultProps> {
     dragEmitter.unsubscribe(this.handleDrag);
   }
 
-  handleDrag({ payload, clientOffset, end, sourcePayload: prevSourcePayload }) {
+  handleDrag({ payload, clientOffset, end }) {
     const { sourcePayload } = this.props;
-    if (prevSourcePayload === sourcePayload) return;
     const dragDropContext = this.context;
     const {
       left,
@@ -54,8 +53,8 @@ export class DropTarget extends React.Component<DropTargetDefaultProps> {
       onDrop, onEnter, onLeave, onOver,
     } = this.props;
     const isOver = clientOffset
-      && clamp(clientOffset.x, left, right) === clientOffset.x
-      && clamp(clientOffset.y, top, bottom - 1) === clientOffset.y; // "-1" fix bug with double over
+      && clamp(clientOffset.x, left, right - 1) === clientOffset.x // "-1" fix bug with double over
+      && clamp(clientOffset.y, top, bottom - 1) === clientOffset.y; // in scheduler table cells
 
     if (!this.isOver && isOver) {
       onEnter({ payload, clientOffset });

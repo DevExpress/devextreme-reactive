@@ -56,8 +56,6 @@ export class DragDropProvider extends React.PureComponent {
         } else {
           this.sourceData = args.sources[0];
         }
-        console.log(args.sources);
-        console.log(this.sourceData);
 
         if (args.payload[0].type === this.sourceData.type || (this.sourceData.type === 'allDay' && args.payload[0].type === 'horizontal')) { // SAME TYPES && All DAY
           const appointmentDuration = moment(args.payload[0].data.endDate).diff(moment(args.payload[0].data.startDate), 'seconds');

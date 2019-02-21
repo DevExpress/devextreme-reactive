@@ -22,8 +22,6 @@ export class DragDropProviderCore {
     if (this.sources.findIndex(source => source.cellRef === sourcePayload.cellRef) === -1) {
       this.sources.push(sourcePayload);
     }
-
-    // this.update(clientOffset);
   }
 
   removeSource(sourcePayload, clientOffset) {

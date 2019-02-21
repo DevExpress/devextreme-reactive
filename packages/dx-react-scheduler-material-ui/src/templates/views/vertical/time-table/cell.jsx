@@ -6,7 +6,6 @@ import { DropTarget } from '@devexpress/dx-react-core';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
 import RootRef from '@material-ui/core/RootRef';
-import moment from 'moment';
 import { getBorder } from '../../../utils';
 
 const styles = theme => ({
@@ -20,109 +19,13 @@ const styles = theme => ({
       outline: 0,
     },
   },
-  dragging: {
-    // backgroundColor: 'lightgoldenrodyellow',
-  },
 });
 
 class CellBase extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = {
-      over: false,
-      payload: {},
-      top: undefined,
-      part: 0,
-    };
-
     this.cell = React.createRef();
-
-    this.handleDragEvent = (eventHandler, { payload, ...restArgs }) => {
-      eventHandler({ payload, ...restArgs });
-    };
-    this.onEnter = ({ payload, clientOffset, rect }) => {
-      // console.log('on enter!');
-
-      let part = (clientOffset.y - this.state.top) / this.cell.current.clientHeight;
-      // if (this.offsetTime !== 0) {
-      //   this.offsetTime = moment(this.props.startDate).diff(payload[0].data.startDate, 'minutes');
-      //   console.log(this.offsetTime);
-      // }
-
-      // if (part === 0) {
-      //   this.setState({ payload, over: false, top: clientOffset.y, part });
-      //   return;
-      // }
-      // if (part === 1) {
-      //   this.setState({ payload, over: false, top: clientOffset.y, part });
-      //   return;
-      // }
-      this.setState({ payload, over: true, top: clientOffset.y, part });
-    };
-    this.onOver = ({ clientOffset, payload }) => {
-      const { top } = this.state;
-      let part = (clientOffset.y - top) / this.cell.current.clientHeight;
-      // console.log(part);
-
-      // if (part === 0) {
-      //   this.setState({ payload, over: false, top: clientOffset.y, part });
-      //   return;
-      // }
-      // if (part === 1) {
-      //   this.setState({ payload, over: false, top: clientOffset.y, part });
-      //   return;
-      // }
-
-      let minus = 1;
-      if (part < 0) {
-        minus *= -1;
-      }
-
-      if (Math.abs(part) > 1) {
-        this.setState({ payload: {}, over: false, top: undefined, part: 0 });
-        return;
-      }
-
-      if (part > 0 && part < 0.25) {
-        part = 0;
-      } else if ((part < 0 && part > -0.25)) {
-        part = -0.01;
-      } else if (Math.abs(part) < 0.5) {
-        part = 0.25 * minus;
-      } else if (Math.abs(part) < 0.75) {
-        part = 0.5 * minus;
-      } else if (Math.abs(part) < 1) {
-        part = 0.75 * minus;
-      }
-      if (part < 0) {
-        part = 1 + part;
-      }
-
-      // console.log(`${oldPart} -> ${part}`);
-      this.setState({ part });
-
-      // const secondsDuration = moment(this.props.startDate).diff(this.props.endDate, 'seconds');
-      const secondsDuration = 0;
-
-      // console.log(`start ${moment(this.props.startDate).add((this.offsetTime) * (-1), 'seconds').toDate()} - end ${moment(this.props.startDate).add((payload[0].appointmentDuration - this.offsetTime), 'seconds').toDate()}`);
-      // payload[0].changeAppointment({
-      //   change: {
-      //     startDate: moment(this.props.startDate).add((this.offsetTime) * (-1), 'seconds').toDate(),
-      //     endDate: moment(this.props.startDate).add((payload[0].appointmentDuration - this.offsetTime), 'seconds').toDate(),
-      //   },
-      // });
-    };
-    this.onLeave = () => {
-      // console.log('on leave!');
-      this.setState({ payload: {}, over: false, top: undefined, part: 0 });
-    };
-    this.onDrop = (args) => {
-      // console.log('on drop!');
-      // this.offsetTime = 0;
-      // args.payload[0].commitChangedAppointment({ appointmentId: args.payload[0].data.id });
-      // this.setState({ payload: {}, over: false, top: undefined, part: 0 });
-    };
   }
 
   render() {
@@ -134,22 +37,18 @@ class CellBase extends React.PureComponent {
       endDate,
       ...restProps
     } = this.props;
-    const { over, payload, part } = this.state;
 
     return (
       <DropTarget
-        onEnter={args => this.handleDragEvent(this.onEnter, args)}
-        onOver={args => this.handleDragEvent(this.onOver, args)}
-        onLeave={args => this.handleDragEvent(this.onLeave, args)}
-        onDrop={args => this.handleDragEvent(this.onDrop, args)}
-        sourcePayload={{ startDate, endDate, cellRef: this.cell, type: 'vertical' }}
+        sourcePayload={{
+          startDate, endDate, cellRef: this.cell, type: 'vertical',
+        }}
       >
         <RootRef rootRef={this.cell}>
           <TableCell
             tabIndex={0}
             className={classNames({
               [classes.cell]: true,
-              [classes.dragging]: over,
               className,
             })}
             {...restProps}

@@ -15,7 +15,7 @@ Import the plugins listed above to set up a Chart with a legend and title.
 
 .embedded-demo({ "path": "chart-basic/basic-legend", "showThemeSelector": true })
 
-## Appearance Customization
+## Customize the Appearance
 
 You can customize a legend marker and title as demonstrated in the following example:
 

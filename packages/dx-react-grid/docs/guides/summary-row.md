@@ -17,7 +17,7 @@ Note that the [plugin order](./plugin-overview.md#plugin-order) is important.
 
 Use the `SummaryState`, `IntegratedSummary` (or `CustomSummary`) and `TableSummaryRow` plugins to set up a Grid that displays a data summary.
 
-### Built-in Data Summaries Calculation
+### Calculate Built-in Data Summaries
 
 The `IntegratedSummary` plugin performs the built-in summary calculation.
 
@@ -33,7 +33,7 @@ The following example demonstrates tree summary rows. In this example, the summa
 
 .embedded-demo({ "path": "grid-summary/tree-summary", "showThemeSelector": true })
 
-### Custom Data Summaries Calculation
+### Calculate Custom Data Summaries
 
 The `CustomSummary` plugin allows you to calculate a data summary on a remote server or local machine.
 
@@ -45,13 +45,13 @@ Select several rows to calculate a summary for them.
 
 Use the `CustomSummary` plugin's `groupValues` and `treeValues` properties to calculate a custom group and tree summary.
 
-## Custom Algorithms
+## Implement a Custom Algorithm
 
 The `IntegratedSummary` plugin allows you to extend the built-in summary types (`count`, `sum`, `max`, `min`, `avg`) with custom types. The following example shows a custom `median` summary type:
 
 .embedded-demo({ "path": "grid-summary/custom-algorithm", "showThemeSelector": true })
 
-## Summary Formatting Prevention
+## Prevent Summary Formatting
 
 If a `DataTypeProvider` plugin is assigned to a column, its value formatting component is applied to a summary row. Use the `formattlessSummaryTypes` property to specify summary types that should not be formatted. The following example shows a custom `overprice` summary type that is not formatted:
 

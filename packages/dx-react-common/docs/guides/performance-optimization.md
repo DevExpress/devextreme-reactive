@@ -1,4 +1,4 @@
-# React Components - Performance Optimization
+# React Components - Optimize Performance
 
 This article describes how to provide high performance for your application. Refer to the [React guidelines](https://reactjs.org/docs/optimizing-performance.html) for more information on performance optimization.
 
@@ -20,7 +20,7 @@ Do not declare functions and variables inside render methods. Otherwise, these f
 
 .embedded-demo({ "path": "scheduler-basic/simple-template", "showThemeSelector": true })
 
-## Correctly Access the Parent Component's State
+## Access the Parent Component's State Correctly
 
 Use a management library like [Redux](https://redux.js.org/) to access the parent component's state. If you do not use such libraries in your application, we recommend that you use the [connectProps](../../../dx-react-core/docs/reference/connect-props.md) function available in the `@devexpress/dx-react-core` package.
 

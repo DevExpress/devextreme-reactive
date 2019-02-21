@@ -16,19 +16,19 @@ Note that [plugin order](./plugin-overview.md#plugin-order) is important.
 
 Import the plugins listed above to set up a Grid with basic filtering.
 
-## Uncontrolled Mode
+### Uncontrolled Mode
 
-In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the initial filtering conditions in the `FilteringState` plugin's `defaultFilters` property.
+In [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the initial filtering conditions in the `FilteringState` plugin's `defaultFilters` property.
 
 .embedded-demo({ "path": "grid-filtering/filter-row", "showThemeSelector": true })
 
-## Controlled Mode
+### Controlled Mode
 
-In the [controlled mode](controlled-and-uncontrolled-modes.md), pass the filtering options to the `FilteringState` plugin's `filters` property and handle the `onFiltersChange` event to control the filtering state externally.
+In [controlled mode](controlled-and-uncontrolled-modes.md), pass the filtering options to the `FilteringState` plugin's `filters` property and handle the `onFiltersChange` event to control the filtering state externally.
 
 .embedded-demo({ "path": "grid-filtering/controlled-mode", "showThemeSelector": true })
 
-## Using Custom Filtering Algorithms
+## Use Custom Filtering Algorithms
 
 You can also specify a filtering predicate using the `IntegratedFiltering` plugin's `columnExtenstions` property to implement custom filtering logic for specific columns.
 
@@ -46,7 +46,7 @@ Specify the [TableFilterRow](../reference/table-filter-row.md) plugin's `showFil
 
 .embedded-demo({ "path": "grid-filtering/advanced-filter-row", "showThemeSelector": true })
 
-## Customizing Filter Row Appearance
+## Customize Filter Row Appearance
 
 Pass a function that returns a custom component to the `TableFilterRow` plugin's `cellComponent` property to substitute the built-in filter row editors. In this case, delegate the component's state management to the `TableFilterRow` plugin by assigning the function's `filter` and `onFilter` arguments to the corresponding component properties.
 
@@ -62,6 +62,6 @@ Note that you do not need to use the `IntegratedFiltering` plugin for remote fil
 
 .embedded-demo({ "path": "grid-filtering/remote-filtering", "showThemeSelector": true })
 
-## The Use of Filtering with Other Data Processing Plugins
+## Use Filtering with Other Data Processing Plugins
 
 The order in which the plugins appear in the Grid's container is important when you use filtering features with paging or grouping. You need to choose whether to paginate filtered rows or filter the current page. In the former case, put the `IntegratedFiltering` plugin before the `IntegratedPaging` plugin. Otherwise, inverse the plugins' order.

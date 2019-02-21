@@ -50,7 +50,7 @@ React Chart can work in other browsers if they use the latest version of WebKit,
 
 React Chart uses the latest web platform standards and does not support older browsers like IE11 and Android 4. Use the ES2015 (ES6) polyfill to support these browsers. We recommend [BABEL Polyfill](https://babeljs.io/docs/usage/polyfill/), but you can use an alternative.
 
-## Using the Chart Component
+## Use the Chart Component
 
 The Chart component's functionality is implemented in plugins. To draw a simple chart, use the `ArgumentAxis` and `ValueAxis` plugins and one of the [series](series.md) plugins. The following code shows how to configure a simple line chart:
 
@@ -74,7 +74,7 @@ const App = () => (
 
 ```
 
-## Try Out The React Chart
+## Try Out the React Chart
 
 Follow the links below to try out the React Chart:
 

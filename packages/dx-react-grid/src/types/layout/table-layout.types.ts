@@ -39,9 +39,9 @@ export type TableLayoutCoreState = {
 /** @internal */
 export type VisibleBoundaries = {
   columns: VisibleBoundary[],
-  headerRows: VisibleBoundary,
+  // headerRows: VisibleBoundary,
   bodyRows: VisibleBoundary,
-  footerRows: VisibleBoundary,
+  // footerRows: VisibleBoundary,
 };
 
 /** @internal */
@@ -58,6 +58,10 @@ export interface VirtualTableLayoutProps extends TableLayoutProps {
   bodyHeight: number;
   footerHeight: number;
   containerHeight: number;
+  blockRefsHandler: (name: string, ref: React.ReactInstance | null) => void;
+  rowRefsHandler: (row: any, ref?: React.ReactInstance | null) => void;
+  totalRowCount: number;
+  loadedRowsStart: number;
 }
 /** @internal */
 export type VirtualTableLayoutState = {

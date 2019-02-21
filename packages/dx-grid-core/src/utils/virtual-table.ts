@@ -21,14 +21,16 @@ export const getVisibleBoundaryWithFixed: GetVisibleBoundaryWithFixedFn = (
 }, [visibleBoundary] as [VisibleBoundary]);
 
 export const getVisibleBoundary: GetVisibleBoundaryFn = (
-  items, viewportStart, viewportSize, getItemSize, overscan,
+  items, viewportStart, viewportSize, getItemSize, offset, itemSize = 0,// overscan,
 ) => {
   let start: number | null = null;
   let end: number | null = null;
 
   const viewportEnd = viewportStart + viewportSize;
   let index = 0;
-  let beforePosition = 0;
+  let beforePosition = offset * itemSize;
+  // const topOffset = offset * itemSize;
+
   while (end === null && index < items.length) {
     const item = items[index];
     const afterPosition = beforePosition + getItemSize(item)!;
@@ -51,11 +53,20 @@ export const getVisibleBoundary: GetVisibleBoundaryFn = (
 
   start = start === null ? 0 : start;
   end = end === null ? 0 : end;
+  // console.log('st, e', start, end)
 
-  if (overscan) {
-    start = Math.max(0, start - overscan);
-    end = Math.min(items.length - 1, end + overscan);
-  }
+  // if (overscan) {
+  //   start = Math.max(0, start - overscan);
+  //   end = Math.min(items.length - 1, end + overscan);
+  // }
+
+  return [start + offset, end + offset];
+};
+
+export const getRenderBoundary: GetRenderBoundaryFn = (items, visibleBoundary, overscan) => {
+  let [start, end] = visibleBoundary;
+  start = Math.max(0, start - overscan);
+  end = Math.min(items.length - 1, end + overscan);
 
   return [start, end];
 };
@@ -64,18 +75,27 @@ export const getColumnsVisibleBoundary: PureComputed<
   [TableColumn[], number, number, GetColumnWidthFn], VisibleBoundary[]
 > = (columns, left, width, getColumnWidth) => (
   getVisibleBoundaryWithFixed(
-    getVisibleBoundary(columns, left, width, getColumnWidth, 1),
+    getVisibleBoundary(columns, left, width, getColumnWidth, 0),//, 1),
     columns,
   )
 );
 export const getRowsVisibleBoundary: PureComputed<
-[TableRow[], number, number, GetColumnWidthFn], VisibleBoundary
-> = (rows, top, height, getRowHeight) => {
-  // debugger
+[TableRow[], number, number, GetColumnWidthFn, number, number], VisibleBoundary
+> = (rows, top, height, getRowHeight, offset, rowHeight) => {
   return (
-    getVisibleBoundary(rows, top, height, getRowHeight, 3)
+    getVisibleBoundary(rows, top, height, getRowHeight, offset, rowHeight)//, 3)
   );
 };
+
+type GetRenderBoundaryFn = PureComputed<[any[], number[], number]>;
+
+export const getColumnsRenderBoundary: GetRenderBoundaryFn = (columns, visibleBoundary, overscan) => (
+  getRenderBoundary(columns, visibleBoundary, 1)
+);
+
+export const getRowsRenderBoundary: GetRenderBoundaryFn = (rows, visibleBoundary, overscan) => (
+  getRenderBoundary(rows, visibleBoundary, 3)
+);
 
 export const getSpanBoundary: GetSpanBoundaryFn = (
   items, visibleBoundaries, getItemSpan,
@@ -95,7 +115,7 @@ export const getSpanBoundary: GetSpanBoundaryFn = (
   });
 
 export const collapseBoundaries: CollapseBoundariesFn = (
-  itemsCount, visibleBoundaries, spanBoundaries,
+  itemsCount, visibleBoundaries, spanBoundaries, offset = 0,
 ) => {
   const boundaries: VisibleBoundary[] = [];
 
@@ -115,7 +135,7 @@ export const collapseBoundaries: CollapseBoundariesFn = (
     }));
 
   let lastPoint: number | undefined;
-  for (let index = 0; index < itemsCount; index += 1) {
+  for (let index = 0; index < itemsCount + offset; index += 1) {
     if (visiblePoints.indexOf(index) !== -1) {
       if (lastPoint !== undefined) {
         boundaries.push([lastPoint, index - 1]);
@@ -185,18 +205,19 @@ export const getCollapsedColumns: GetCollapsedColumnsFn = (
 };
 
 export const getCollapsedRows: GetCollapsedAndStubRowsFn = (
-  rows, visibleBoundary, boundaries, getRowHeight, getCells,
+  rows, visibleBoundary, boundaries, getRowHeight, getCells, offset,
 ) => {
   const collapsedRows: any[] = [];
   boundaries.forEach((boundary) => {
     const isVisible = visibleBoundary[0] <= boundary[0] && boundary[1] <= visibleBoundary[1];
     if (isVisible) {
-      const row = rows[boundary[0]];
+      const row = rows[boundary[0] - offset];
       collapsedRows.push({
         row,
         cells: getCells(row),
       });
     } else {
+      console.log('COLLAPSE ROWS', boundary[0], boundary[1])
       collapsedRows.push({
         row: {
           key: `${TABLE_STUB_TYPE.toString()}_${boundary[0]}_${boundary[1]}`,
@@ -253,7 +274,9 @@ export const getCollapsedGrid: GetCollapsedGridFn = ({
   columnsVisibleBoundary,
   getColumnWidth = (column: any) => column.width,
   getRowHeight = (row: any) => row.height,
-  getColSpan = () => 1,
+  getColSpan = (row, column) => 1,
+  totalRowCount,
+  offset,
 }) => {
   if (!rows.length || !columns.length) {
     return {
@@ -261,9 +284,15 @@ export const getCollapsedGrid: GetCollapsedGridFn = ({
       rows: [],
     };
   }
+
+  const boundaries = rowsVisibleBoundary || [0, rows.length];
+  // const slicedRows = rowsVisibleBoundary
+  //   ? rows.slice(rowsVisibleBoundary[0], rowsVisibleBoundary[1])
+  //   : rows.slice();
 // console.log(columnsVisibleBoundary, rowsVisibleBoundary)
+
   const rowSpanBoundaries = rows
-    .slice(rowsVisibleBoundary[0], rowsVisibleBoundary[1])
+    .slice(boundaries[0], boundaries[1])
     .map(row => getSpanBoundary(
       columns,
       columnsVisibleBoundary,
@@ -273,9 +302,11 @@ export const getCollapsedGrid: GetCollapsedGridFn = ({
     columns.length,
     columnsVisibleBoundary,
     rowSpanBoundaries,
+    0,
   );
 
-  const rowBoundaries = collapseBoundaries(rows.length, [rowsVisibleBoundary], []);
+  const rowBoundaries = collapseBoundaries(totalRowCount!, [boundaries], [], offset);
+  console.log('collapse boundaries', totalRowCount, boundaries)
 
   return {
     columns: getCollapsedColumns(
@@ -286,7 +317,7 @@ export const getCollapsedGrid: GetCollapsedGridFn = ({
     ),
     rows: getCollapsedRows(
       rows,
-      rowsVisibleBoundary,
+      boundaries,
       rowBoundaries,
       getRowHeight,
       row => getCollapsedCells(
@@ -299,6 +330,7 @@ export const getCollapsedGrid: GetCollapsedGridFn = ({
         columnBoundaries,
         column => getColSpan(row, column),
       ),
+      offset,
     ),
   };
 };

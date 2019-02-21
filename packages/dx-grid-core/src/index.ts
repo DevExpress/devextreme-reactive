@@ -189,6 +189,8 @@ export {
   getCollapsedGrid,
   getColumnsVisibleBoundary,
   getRowsVisibleBoundary,
+  getColumnsRenderBoundary,
+  getRowsRenderBoundary,
   TABLE_STUB_TYPE,
 } from './utils/virtual-table';
 

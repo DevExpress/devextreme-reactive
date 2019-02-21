@@ -18,7 +18,7 @@ type CollapsedRow = TableRow & { cells: any[], height: number };
 export type VisibleBoundary =  ReadonlyArray<number>;
 /** @internal */
 export type GetVisibleBoundaryFn = PureComputed<
-  [ReadonlyArray<any>, number, number, (item: any) => number | null, number],
+  [ReadonlyArray<any>, number, number, (item: any) => number, number, number?],//, number],
   VisibleBoundary
 >;
 
@@ -36,7 +36,7 @@ export type GetSpanBoundaryFn = PureComputed<
 
 /** @internal */
 export type CollapseBoundariesFn = PureComputed<
-  [number, VisibleBoundary[], ReadonlyArray<VisibleBoundary>[]],
+  [number, VisibleBoundary[], ReadonlyArray<VisibleBoundary>[], number],
   VisibleBoundary[]
 >;
 
@@ -55,7 +55,7 @@ export type GetCollapsedColumnsFn = PureComputed<
 /** @internal */
 export type GetCollapsedAndStubRowsFn = PureComputed<
 // tslint:disable-next-line: max-line-length
-  [TableRow[], VisibleBoundary, VisibleBoundary[], GetRowHeightFn, (r: TableRow) => ReadonlyArray<any>],
+  [TableRow[], VisibleBoundary, VisibleBoundary[], GetRowHeightFn, (r: TableRow) => ReadonlyArray<any>, number],
   CollapsedRow[]
 >;
 
@@ -72,7 +72,8 @@ export type GetCollapsedGridFn = PureComputed<
     rowsVisibleBoundary: VisibleBoundary, columnsVisibleBoundary: VisibleBoundary[],
     getColumnWidth: GetColumnWidthFn, getRowHeight: GetRowHeightFn,
     getColSpan: GetColSpanFn,
-
+    totalRowCount: number,
+    offset: number,
   }],
   { columns: CollapsedColumn[], rows: CollapsedRow[] }
 >;

@@ -26,12 +26,10 @@ export class DragDropProvider extends React.PureComponent {
     this.state = {
       payload: null,
       clientOffset: null,
-      sourcePayload: null,
       sourceData: null,
     };
 
     this.payload = null;
-    this.sourcePayload = null;
     this.offsetTimeTop = null;
     this.offsetTimeBottom = null;
 
@@ -47,11 +45,11 @@ export class DragDropProvider extends React.PureComponent {
       if (args.payload) {
         this.payload = args.payload;
       }
-      if (args.payload && args.sourcePayload && args.sourcePayload !== this.sourcePayload) {
+      if (args.payload && args.sources && args.sources.length /* && args.sourcePayload !== this.sourcePayload */) {
         if (args.sources.size > 1) {
           const index = args.sources.findIndex(source => source.type === 'allDay');
           if (index > -1) {
-            this.source = args.sources[index];
+            this.sourceData = args.sources[index];
           }
         } else {
           this.sourceData = args.sources[0];
@@ -85,14 +83,10 @@ export class DragDropProvider extends React.PureComponent {
           });
         }
       }
-      if (args.sourcePayload) {
-        this.sourcePayload = args.sourcePayload;
-      }
 
       this.setState({
         payload: args.payload,
         clientOffset: args.clientOffset,
-        sourcePayload: args.sourcePayload,
         sourceData: this.sourceData,
       });
     };
@@ -109,11 +103,11 @@ export class DragDropProvider extends React.PureComponent {
       containerComponent: Container,
       columnComponent: Appointment,
       draggingAppointment: DraggingAppointment,
+      draggingPredicate,
     } = this.props;
     const {
       payload,
       clientOffset,
-      sourcePayload,
       sourceData,
     } = this.state;
 
@@ -166,10 +160,8 @@ export class DragDropProvider extends React.PureComponent {
     // DROP OUTSIDE DRAG TARGET !!!!!!!
     if (this.payload && !payload && this.sourceData) {
       this.payload[0].commitChangedAppointment({ appointmentId: this.payload[0].data.id });
-      this.payload = null;
-      this.sourcePayload = null;
-      this.sourceData = [];
 
+      this.payload = null;
       this.sourceData = null;
 
       this.offsetTimeTop = null;
@@ -249,7 +241,7 @@ export class DragDropProvider extends React.PureComponent {
       <Plugin
         name="DragDropProvider"
       >
-        {/* <Getter name="draggingDisable" value={} /> */}
+        <Getter name="draggingPredicate" value={draggingPredicate} />
         <Getter name="appointmentTemplate" value={DraggingAppointment} />
         <Template name="root">
           <DragDropProviderCore
@@ -318,11 +310,11 @@ DragDropProvider.propTypes = {
   containerComponent: PropTypes.func.isRequired,
   columnComponent: PropTypes.func.isRequired,
   draggingAppointment: PropTypes.func.isRequired,
-  draggingDisable: PropTypes.func,
+  draggingPredicate: PropTypes.func,
 };
 
-DragDropProvider.defaultTypes = {
-  draggingDisable: () => true,
+DragDropProvider.defaultProps = {
+  draggingPredicate: () => true,
 };
 
 DragDropProvider.components = {

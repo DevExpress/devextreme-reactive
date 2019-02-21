@@ -58,12 +58,12 @@ export class DropTarget extends React.Component<DropTargetDefaultProps> {
 
     if (!this.isOver && isOver) {
       onEnter({ payload, clientOffset });
-      dragDropContext.addSource(sourcePayload, clientOffset);
+      dragDropContext.addSource(sourcePayload);
     }
     if (this.isOver && isOver) { onOver({ payload, clientOffset }); }
     if (this.isOver && !isOver) {
       onLeave({ payload, clientOffset });
-      dragDropContext.removeSource(sourcePayload, clientOffset);
+      dragDropContext.removeSource(sourcePayload);
     }
     if (isOver && end) onDrop({ payload, clientOffset });
 

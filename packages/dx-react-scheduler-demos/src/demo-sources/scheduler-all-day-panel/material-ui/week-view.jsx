@@ -14,6 +14,11 @@ import {
 
 import { appointments } from '../../../demo-data/appointments';
 
+const draggingPredicate = (appointmentData) => {
+  if (appointmentData.title === '* DRAGGING DISABLED *') return false;
+  return true;
+};
+
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -74,7 +79,9 @@ export default class Demo extends React.PureComponent {
           <Toolbar />
           <ViewSwitcher />
 
-          <DragDropProvider />
+          <DragDropProvider
+            draggingPredicate={draggingPredicate}
+          />
 
         </Scheduler>
       </Paper>

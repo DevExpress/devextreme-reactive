@@ -34,12 +34,8 @@ export class Appointments extends React.PureComponent {
                 ...restParams
               }) => {
                 const DraggingAppointment = getters.appointmentTemplate;
-                const draggingPredicate = (appointmentData) => {
-                  if (appointmentData.title === '* DRAGGING DISABLED *') return false;
-                  return true;
-                };
 
-                if (draggingPredicate && draggingPredicate(data)) {
+                if (getters.draggingPredicate && getters.draggingPredicate(data)) {
                   return (
                     <DragSource
                       payload={[{

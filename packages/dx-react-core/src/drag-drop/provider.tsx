@@ -7,7 +7,6 @@ import { DragDropContext } from './context';
 export class DragDropProviderCore {
   payload: null;
   sources: any;
-  sourcePayload: any;
   dragEmitter: EventEmitter;
 
   constructor() {
@@ -16,15 +15,13 @@ export class DragDropProviderCore {
     this.dragEmitter = new EventEmitter();
   }
 
-  addSource(sourcePayload, clientOffset) {
-    this.sourcePayload = sourcePayload;
-
+  addSource(sourcePayload) {
     if (this.sources.findIndex(source => source.cellRef === sourcePayload.cellRef) === -1) {
       this.sources.push(sourcePayload);
     }
   }
 
-  removeSource(sourcePayload, clientOffset) {
+  removeSource(sourcePayload) {
     const deleteIndex = this.sources.findIndex(source => source.cellRef === sourcePayload.cellRef);
     if (deleteIndex > -1) {
       this.sources.splice(deleteIndex, 1);
@@ -38,20 +35,19 @@ export class DragDropProviderCore {
 
   update(clientOffset) {
     this.dragEmitter.emit({
-      clientOffset, payload: this.payload, sourcePayload: this.sourcePayload, sources: this.sources,
+      clientOffset, payload: this.payload, sources: this.sources,
     });
   }
 
   end(clientOffset) {
     this.dragEmitter.emit({ clientOffset, payload: this.payload, end: true });
     this.payload = null;
-    this.sourcePayload = null;
     this.sources = [];
   }
 }
 
 const defaultProps = {
-  onChange: ({ payload, clientOffset, sources, sourcePayload }) => {},
+  onChange: ({ payload, clientOffset, sources }) => {},
 };
 type DragDropProviderDefaultProps = Readonly<typeof defaultProps>;
 type DragDropProviderProps = Partial<DragDropProviderDefaultProps>;
@@ -70,12 +66,11 @@ export class DragDropProvider extends React.Component<
 
     this.dragDropProvider = new DragDropProviderCore();
 
-    this.dragDropProvider.dragEmitter.subscribe(({ payload, clientOffset, end, sources, sourcePayload }) => {
+    this.dragDropProvider.dragEmitter.subscribe(({ payload, clientOffset, end, sources }) => {
       onChange({
         payload: end ? null : payload,
         clientOffset: end ? null : clientOffset,
         sources: end ? null : sources,
-        sourcePayload: end ? null : sourcePayload,
       });
     });
   }

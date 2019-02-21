@@ -14,7 +14,7 @@ The theme consists of two directories: `plugins` (plugins that we customize) and
 ### Components
 As we mentioned earlier, plugins render UI elements via render props. All render props have the postfix `Component`. For instance, the [Table](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table/) plugin contains the `tableComponent`, `headComponent`, `cellComponent`, and others.
 
-### Handle the Props
+#### Handle the Props
 If props are of the `object` type, you can pass them to the theme component "as is":
 ```jsx
 import { Table as TableSUI } from 'semantic-ui-react';

@@ -22,7 +22,6 @@ export class DropTarget extends React.Component<DropTargetDefaultProps> {
     super(props);
 
     this.isOver = false;
-
     this.handleDrag = this.handleDrag.bind(this);
   }
 
@@ -41,9 +40,10 @@ export class DropTarget extends React.Component<DropTargetDefaultProps> {
     dragEmitter.unsubscribe(this.handleDrag);
   }
 
-  handleDrag({ payload, clientOffset, end, source: prevSource }) {
+  handleDrag({ payload, clientOffset, end, sourcePayload: prevSourcePayload }) {
     const { sourcePayload } = this.props;
-    const { dragEmitter } = this.context;
+    if (prevSourcePayload === sourcePayload) return;
+    const dragDropContext = this.context;
     const {
       left,
       top,
@@ -57,17 +57,18 @@ export class DropTarget extends React.Component<DropTargetDefaultProps> {
       && clamp(clientOffset.x, left, right) === clientOffset.x
       && clamp(clientOffset.y, top, bottom - 1) === clientOffset.y; // "-1" fix bug with double over
 
-    // rect: { left, top, right, bottom }
-    if (!this.isOver && isOver) onEnter({ payload, clientOffset });
-    if (this.isOver && isOver) onOver({ payload, clientOffset });
-    if (this.isOver && !isOver) onLeave({ payload, clientOffset });
+    if (!this.isOver && isOver) {
+      onEnter({ payload, clientOffset });
+      dragDropContext.addSource(sourcePayload, clientOffset);
+    }
+    if (this.isOver && isOver) { onOver({ payload, clientOffset }); }
+    if (this.isOver && !isOver) {
+      onLeave({ payload, clientOffset });
+      dragDropContext.removeSource(sourcePayload, clientOffset);
+    }
     if (isOver && end) onDrop({ payload, clientOffset });
 
     this.isOver = isOver && !end;
-    const source = findDOMNode(this);
-    if (this.isOver && source !== prevSource) {
-      dragEmitter.emit({ payload, clientOffset, source, sourcePayload });
-    }
   }
 
   render() {

@@ -26,15 +26,16 @@ export class DragDropProvider extends React.PureComponent {
     this.state = {
       payload: null,
       clientOffset: null,
-      source: null,
       sourcePayload: null,
+      sourceData: null,
     };
 
     this.payload = null;
     this.sourcePayload = null;
-    this.source = null;
     this.offsetTimeTop = null;
     this.offsetTimeBottom = null;
+
+    this.sourceData = null;
 
     this.appointmentStartTime = 0;
     this.appointmentEndTime = 0;
@@ -43,18 +44,32 @@ export class DragDropProvider extends React.PureComponent {
     this.allDayRects = [];
 
     this.change = (args) => {
-      if (args.source) {
-        this.source = args.source;
-      }
       if (args.payload) {
         this.payload = args.payload;
       }
       if (args.payload && args.sourcePayload && args.sourcePayload !== this.sourcePayload) {
-        if (args.payload[0].type === args.sourcePayload.type || (args.sourcePayload.type === 'allDay' && args.payload[0].type === 'horizontal')) { // SAME TYPES && All DAY
+        if (args.sources.size > 1) {
+          const index = args.sources.findIndex(source => source.type === 'allDay');
+          if (index > -1) {
+            this.source = args.sources[index];
+          }
+        } else {
+          this.sourceData = args.sources[0];
+        }
+        console.log(args.sources);
+        console.log(this.sourceData);
+
+        if (args.payload[0].type === this.sourceData.type || (this.sourceData.type === 'allDay' && args.payload[0].type === 'horizontal')) { // SAME TYPES && All DAY
           const appointmentDuration = moment(args.payload[0].data.endDate).diff(moment(args.payload[0].data.startDate), 'seconds');
 
-          this.appointmentStartTime = moment(args.sourcePayload.startDate).add((this.offsetTimeTop) * (-1), 'seconds').toDate();
-          this.appointmentEndTime = moment(args.sourcePayload.startDate).add((appointmentDuration - this.offsetTimeTop), 'seconds').toDate();
+          if (this.sourceData && this.offsetTimeTop === null && this.offsetTimeBottom === null) {
+            this.offsetTimeTop = moment(this.sourceData.startDate).diff(args.payload[0].data.startDate, 'seconds');
+            this.offsetTimeBottom = moment(args.payload[0].data.endDate).diff(this.sourceData.endDate, 'seconds');
+          }
+
+          debugger
+          this.appointmentStartTime = moment(this.sourceData.startDate).add((this.offsetTimeTop) * (-1), 'seconds').toDate();
+          this.appointmentEndTime = moment(this.sourceData.startDate).add((appointmentDuration - this.offsetTimeTop), 'seconds').toDate();
           args.payload[0].changeAppointment({
             change: {
               startDate: this.appointmentStartTime,
@@ -62,12 +77,12 @@ export class DragDropProvider extends React.PureComponent {
             },
           });
         } else { // DIFFERENT TYPES
-          this.appointmentStartTime = args.sourcePayload.startDate;
-          this.appointmentEndTime = args.sourcePayload.endDate;
+          this.appointmentStartTime = this.sourceData.startDate;
+          this.appointmentEndTime = this.sourceData.endDate;
           args.payload[0].changeAppointment({
             change: {
-              startDate: args.sourcePayload.startDate,
-              endDate: args.sourcePayload.endDate,
+              startDate: this.sourceData.startDate,
+              endDate: this.sourceData.endDate,
             },
           });
         }
@@ -79,8 +94,8 @@ export class DragDropProvider extends React.PureComponent {
       this.setState({
         payload: args.payload,
         clientOffset: args.clientOffset,
-        source: args.source,
         sourcePayload: args.sourcePayload,
+        sourceData: this.sourceData,
       });
     };
   }
@@ -100,8 +115,8 @@ export class DragDropProvider extends React.PureComponent {
     const {
       payload,
       clientOffset,
-      source,
       sourcePayload,
+      sourceData,
     } = this.state;
 
     // AUTO SCROLL
@@ -115,10 +130,10 @@ export class DragDropProvider extends React.PureComponent {
     }
 
     // CURSOR POSITION
-    if (payload && source && this.offsetTimeTop === null && this.offsetTimeBottom === null) {
-      this.offsetTimeTop = moment(sourcePayload.startDate).diff(payload[0].data.startDate, 'seconds');
-      this.offsetTimeBottom = moment(payload[0].data.endDate).diff(sourcePayload.endDate, 'seconds');
-    }
+    // if (payload && sourceData && this.offsetTimeTop === null && this.offsetTimeBottom === null) {
+    //   this.offsetTimeTop = moment(sourceData.startDate).diff(payload[0].data.startDate, 'seconds');
+    //   this.offsetTimeBottom = moment(payload[0].data.endDate).diff(sourceData.endDate, 'seconds');
+    // }
 
     // Move by cell parts
     // if (clientOffset && this.sourcePayload) {
@@ -150,28 +165,29 @@ export class DragDropProvider extends React.PureComponent {
     //   topOffset = this.sourcePayload.cellRef.current.getBoundingClientRect().height * part;
     // }
 
-    if (this.payload && !payload && this.source) { // DROP OUTSIDE DRAG TARGET !!!!!!!
+    // DROP OUTSIDE DRAG TARGET !!!!!!!
+    if (this.payload && !payload && this.sourceData) {
       this.payload[0].commitChangedAppointment({ appointmentId: this.payload[0].data.id });
       this.payload = null;
       this.sourcePayload = null;
-      this.source = null;
+      this.sourceData = [];
+
+      this.sourceData = null;
 
       this.offsetTimeTop = null;
       this.offsetTimeBottom = null;
 
       this.rects = [];
       this.allDayRects = [];
-      this.templateName = 'main';
     }
 
-    if (payload && this.sourcePayload) {
+    if (payload && this.sourceData) {
       this.rects = [];
       this.allDayRects = [];
 
-      const tbodyElement = this.sourcePayload.cellRef.current.parentElement.parentElement;
+      const tbodyElement = this.sourceData.cellRef.current.parentElement.parentElement;
       const draftAppointments = [{ ...payload[0].data, start: this.appointmentStartTime, end: this.appointmentEndTime }];
-      this.templateName = this.sourcePayload.type !== 'allDay' ? 'main' : 'navbar';
-      if (this.sourcePayload.type === 'vertical') {
+      if (this.sourceData.type === 'vertical') {
         const intervals = calculateWeekDateIntervals(
           draftAppointments, payload[0].viewBoundaries.start, payload[0].viewBoundaries.end, payload[0].excludedDays,
         );
@@ -186,11 +202,11 @@ export class DragDropProvider extends React.PureComponent {
             startViewDate: payload[0].viewBoundaries.start,
             endViewDate: payload[0].viewBoundaries.end,
             viewCellsData: payload[0].viewCellsData,
-            cellDuration: moment(this.sourcePayload.endDate).diff(this.sourcePayload.startDate, 'minutes'),
+            cellDuration: moment(this.sourceData.endDate).diff(this.sourceData.startDate, 'minutes'),
             cellElements: tbodyElement.querySelectorAll('td'),
           },
         );
-      } else if (this.sourcePayload.type === 'horizontal') {
+      } else if (this.sourceData.type === 'horizontal') {
         const intervals = calculateMonthDateIntervals(
           draftAppointments, payload[0].viewBoundaries.start, payload[0].viewBoundaries.end,
         );
@@ -208,7 +224,7 @@ export class DragDropProvider extends React.PureComponent {
             cellElements: tbodyElement.querySelectorAll('td'),
           },
         );
-      } else if (this.sourcePayload.type === 'allDay') {
+      } else if (this.sourceData.type === 'allDay') {
         const intervals = calculateAllDayDateIntervals(
           draftAppointments, payload[0].viewBoundaries.start, payload[0].viewBoundaries.end, payload[0].excludedDays,
         );
@@ -223,7 +239,7 @@ export class DragDropProvider extends React.PureComponent {
             startViewDate: payload[0].viewBoundaries.start,
             endViewDate: payload[0].viewBoundaries.end,
             viewCellsData: payload[0].viewCellsData,
-            cellDuration: moment(this.sourcePayload.endDate).diff(this.sourcePayload.startDate, 'minutes'),
+            cellDuration: moment(this.sourceData.endDate).diff(this.sourceData.startDate, 'minutes'),
             cellElements: tbodyElement.querySelectorAll('th'),
             excludedDays: payload[0].excludedDays,
           },

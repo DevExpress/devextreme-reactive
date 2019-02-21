@@ -19,7 +19,7 @@ import {
   VERTICAL_TYPE,
 } from '@devexpress/dx-scheduler-core';
 
-import { WeekViewProps, VerticalViewState } from '../types';
+import { WeekViewProps, ViewState } from '../types';
 
 const DAYS_IN_WEEK = 7;
 const TYPE = 'week';
@@ -32,7 +32,7 @@ const AppointmentPlaceholder = params =>
   <TemplatePlaceholder name="appointment" params={params} />;
 const CellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
 
-export class WeekView extends React.PureComponent<WeekViewProps, VerticalViewState> {
+export class WeekView extends React.PureComponent<WeekViewProps, ViewState> {
   endViewDateBaseComputed;
   startViewDateBaseComputed;
   viewCellsDataComputed;

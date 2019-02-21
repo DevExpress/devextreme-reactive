@@ -20,7 +20,7 @@ import {
   VERTICAL_TYPE,
 } from '@devexpress/dx-scheduler-core';
 
-import { VerticalViewProps, VerticalViewState } from '../types';
+import { VerticalViewProps, ViewState } from '../types';
 
 const TYPE = 'day';
 
@@ -31,7 +31,7 @@ const TimeTablePlaceholder = () => <TemplatePlaceholder name="main" />;
 const AppointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
 const CellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
 
-export class DayView extends React.PureComponent<VerticalViewProps, VerticalViewState> {
+export class DayView extends React.PureComponent<VerticalViewProps, ViewState> {
   startViewDateBaseComputed;
   endViewDateBaseComputed;
   viewCellsDataComputed;

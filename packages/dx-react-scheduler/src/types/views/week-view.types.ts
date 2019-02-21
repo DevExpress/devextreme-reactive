@@ -1,4 +1,4 @@
-import { VerticalViewProps } from './vertical-view.types';
+import { VerticalViewProps } from './view.types';
 
 export interface WeekViewProps extends VerticalViewProps {
   // tslint:disable-next-line: max-line-length

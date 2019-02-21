@@ -36,7 +36,7 @@ export interface VerticalViewProps {
 }
 
 /** @internal */
-export type VerticalViewState = {
+export type ViewState = {
   timeTableRef: HTMLElement;
 };
 

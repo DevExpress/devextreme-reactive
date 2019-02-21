@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import {
   Template,
   Plugin,
@@ -20,15 +19,30 @@ import {
   HORIZONTAL_TYPE,
 } from '@devexpress/dx-scheduler-core';
 
+import { MonthViewProps, ViewState } from '../types';
+
 const TYPE = 'month';
 
-export class MonthView extends React.PureComponent {
+export class MonthView extends React.PureComponent<MonthViewProps, ViewState> {
+  static defaultProps = {
+    intervalCount: 1,
+    firstDayOfWeek: 0,
+    name: 'Month',
+  };
+
+  static components = {
+    layoutComponent: 'Layout',
+    appointmentLayerComponent: 'AppointmentLayer',
+    dayScaleLayoutComponent: 'DayScaleLayout',
+    dayScaleCellComponent: 'DayScaleCell',
+    dayScaleRowComponent: 'DayScaleRow',
+    timeTableLayoutComponent: 'TimeTableLayout',
+    timeTableCellComponent: 'TimeTableCell',
+    timeTableRowComponent: 'TimeTableRow',
+  };
+
   constructor(props) {
     super(props);
-
-    this.state = {
-      timeTableRef: null,
-    };
 
     const {
       name: viewName, firstDayOfWeek, intervalCount,
@@ -198,34 +212,3 @@ export class MonthView extends React.PureComponent {
     );
   }
 }
-
-MonthView.propTypes = {
-  layoutComponent: PropTypes.func.isRequired,
-  dayScaleLayoutComponent: PropTypes.func.isRequired,
-  dayScaleCellComponent: PropTypes.func.isRequired,
-  dayScaleRowComponent: PropTypes.func.isRequired,
-  timeTableLayoutComponent: PropTypes.func.isRequired,
-  timeTableRowComponent: PropTypes.func.isRequired,
-  timeTableCellComponent: PropTypes.func.isRequired,
-  appointmentLayerComponent: PropTypes.func.isRequired,
-  intervalCount: PropTypes.number,
-  firstDayOfWeek: PropTypes.number,
-  name: PropTypes.string,
-};
-
-MonthView.defaultProps = {
-  intervalCount: 1,
-  firstDayOfWeek: 0,
-  name: 'Month',
-};
-
-MonthView.components = {
-  layoutComponent: 'Layout',
-  appointmentLayerComponent: 'AppointmentLayer',
-  dayScaleLayoutComponent: 'DayScaleLayout',
-  dayScaleCellComponent: 'DayScaleCell',
-  dayScaleRowComponent: 'DayScaleRow',
-  timeTableLayoutComponent: 'TimeTableLayout',
-  timeTableCellComponent: 'TimeTableCell',
-  timeTableRowComponent: 'TimeTableRow',
-};

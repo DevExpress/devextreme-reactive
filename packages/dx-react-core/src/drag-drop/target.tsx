@@ -43,12 +43,13 @@ export class DropTarget extends React.Component<DropTargetDefaultProps> {
   handleDrag({ payload, clientOffset, end }) {
     const { sourcePayload } = this.props;
     const dragDropContext = this.context;
+    const currentElement = findDOMNode(this);
     const {
       left,
       top,
       right,
       bottom,
-    } = (findDOMNode(this) as Element).getBoundingClientRect();
+    } = (currentElement as Element).getBoundingClientRect();
     const {
       onDrop, onEnter, onLeave, onOver,
     } = this.props;
@@ -58,12 +59,12 @@ export class DropTarget extends React.Component<DropTargetDefaultProps> {
 
     if (!this.isOver && isOver) {
       onEnter({ payload, clientOffset });
-      dragDropContext.addSource(sourcePayload);
+      dragDropContext.addSource({ ...sourcePayload, currentElement });
     }
     if (this.isOver && isOver) { onOver({ payload, clientOffset }); }
     if (this.isOver && !isOver) {
       onLeave({ payload, clientOffset });
-      dragDropContext.removeSource(sourcePayload);
+      dragDropContext.removeSource({ ...sourcePayload, currentElement });
     }
     if (isOver && end) onDrop({ payload, clientOffset });
 

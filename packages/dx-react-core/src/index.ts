@@ -35,4 +35,7 @@ export {
 export { RefType } from './utils/ref-type';
 
 /** @internal */
+export { withDragTarget } from './utils/with-drag-target';
+
+/** @internal */
 export * from './types';

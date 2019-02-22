@@ -6,6 +6,7 @@ import {
   Template,
   TemplatePlaceholder,
   TemplateConnector,
+  withDragTarget,
 } from '@devexpress/dx-react-core';
 import {
   allDayCells,
@@ -142,7 +143,19 @@ export class AllDayPanel extends React.PureComponent {
         </Template>
 
         <Template name="allDayPanelCell">
-          {params => <Cell {...params} />}
+          {params => (
+            <TemplateConnector>
+              {(getters) => {
+                if (getters.draggingPredicate) {
+                  const TargetCell = withDragTarget(Cell, {
+                    startDate: params.startDate, endDate: params.endDate, type: 'allDay',
+                  }, params);
+                  return <TargetCell {...params} />;
+                }
+                return <Cell {...params} />;
+              }}
+            </TemplateConnector>
+          )}
         </Template>
       </Plugin>
     );

@@ -46,7 +46,7 @@ export class DragDropProvider extends React.PureComponent {
         this.payload = args.payload;
       }
       if (args.payload && args.sources && args.sources.length /* && args.sourcePayload !== this.sourcePayload */) {
-        if (args.sources.size > 1) {
+        if (args.sources.length > 1) {
           const index = args.sources.findIndex(source => source.type === 'allDay');
           if (index > -1) {
             this.sourceData = args.sources[index];
@@ -175,7 +175,7 @@ export class DragDropProvider extends React.PureComponent {
       this.rects = [];
       this.allDayRects = [];
 
-      const tbodyElement = this.sourceData.cellRef.current.parentElement.parentElement;
+      const tbodyElement = this.sourceData.currentElement.parentElement.parentElement;
       const draftAppointments = [{ ...payload[0].data, start: this.appointmentStartTime, end: this.appointmentEndTime }];
       if (this.sourceData.type === 'vertical') {
         const intervals = calculateWeekDateIntervals(

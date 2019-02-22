@@ -16,13 +16,13 @@ export class DragDropProviderCore {
   }
 
   addSource(sourcePayload) {
-    if (this.sources.findIndex(source => source.cellRef === sourcePayload.cellRef) === -1) {
+    if (this.sources.findIndex(source => source.currentElement === sourcePayload.currentElement) === -1) {
       this.sources.push(sourcePayload);
     }
   }
 
   removeSource(sourcePayload) {
-    const deleteIndex = this.sources.findIndex(source => source.cellRef === sourcePayload.cellRef);
+    const deleteIndex = this.sources.findIndex(source => source.currentElement === sourcePayload.currentElement);
     if (deleteIndex > -1) {
       this.sources.splice(deleteIndex, 1);
     }

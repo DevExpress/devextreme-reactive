@@ -29,6 +29,12 @@ export const getVisibleBoundary: GetVisibleBoundaryFn = (
   const viewportEnd = viewportStart + viewportSize;
   let index = 0;
   let beforePosition = offset * itemSize;
+  if (beforePosition + items.length * itemSize < viewportStart) {
+    beforePosition = viewportStart;
+    index = items.length;
+    start = Math.round(viewportStart / itemSize) - offset;
+    end = start + items.length;
+  }
   // const topOffset = offset * itemSize;
 
   while (end === null && index < items.length) {
@@ -63,10 +69,11 @@ export const getVisibleBoundary: GetVisibleBoundaryFn = (
   return [start + offset, end + offset];
 };
 
-export const getRenderBoundary: GetRenderBoundaryFn = (items, visibleBoundary, overscan) => {
+export const getRenderBoundary: GetRenderBoundaryFn = (itemsCount, visibleBoundary, overscan) => {
   let [start, end] = visibleBoundary;
   start = Math.max(0, start - overscan);
-  end = Math.min(items.length - 1, end + overscan);
+  end = Math.min(itemsCount - 1, end + overscan);
+  // end = end + overscan;
 
   return [start, end];
 };
@@ -87,14 +94,14 @@ export const getRowsVisibleBoundary: PureComputed<
   );
 };
 
-type GetRenderBoundaryFn = PureComputed<[any[], number[], number]>;
+type GetRenderBoundaryFn = PureComputed<[number, number[], number], number[]>;
 
 export const getColumnsRenderBoundary: GetRenderBoundaryFn = (columns, visibleBoundary, overscan) => (
   getRenderBoundary(columns, visibleBoundary, 1)
 );
 
-export const getRowsRenderBoundary: GetRenderBoundaryFn = (rows, visibleBoundary, overscan) => (
-  getRenderBoundary(rows, visibleBoundary, 3)
+export const getRowsRenderBoundary: GetRenderBoundaryFn = (rowsCount, visibleBoundary, overscan) => (
+  getRenderBoundary(rowsCount, visibleBoundary, overscan)
 );
 
 export const getSpanBoundary: GetSpanBoundaryFn = (
@@ -217,7 +224,7 @@ export const getCollapsedRows: GetCollapsedAndStubRowsFn = (
         cells: getCells(row),
       });
     } else {
-      console.log('COLLAPSE ROWS', boundary[0], boundary[1])
+      // console.log('COLLAPSE ROWS', boundary[0], boundary[1])
       collapsedRows.push({
         row: {
           key: `${TABLE_STUB_TYPE.toString()}_${boundary[0]}_${boundary[1]}`,
@@ -306,7 +313,7 @@ export const getCollapsedGrid: GetCollapsedGridFn = ({
   );
 
   const rowBoundaries = collapseBoundaries(totalRowCount!, [boundaries], [], offset);
-  console.log('collapse boundaries', totalRowCount, boundaries)
+  // console.log('collapse boundaries', totalRowCount, boundaries)
 
   return {
     columns: getCollapsedColumns(

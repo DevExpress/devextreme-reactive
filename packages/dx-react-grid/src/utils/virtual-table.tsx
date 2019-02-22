@@ -80,8 +80,6 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
         }
       );
 
-      // this.setFirstRowIndex = stateHelper.applyFieldReducer
-      //   .bind(stateHelper, 'firstRowIndex', (prevIndex, index) => index);
       this.setViewportTop = stateHelper.applyFieldReducer
         .bind(stateHelper, 'viewportTop', (prevTop, top) => top);
 
@@ -115,7 +113,6 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
     }
 
     registerRowRef(row, ref) {
-      // console.log('register',row)
       if (ref === null) {
         this.rowRefs.delete(row);
       } else {
@@ -149,9 +146,6 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
         return;
       }
 
-      // console.log('scrolltop in handler', node.scrollTop);
-
-      // setViewportTop(node.scrollTop);
       if (currentVirtualPageBoundary[0] < 0 || currentVirtualPageBoundary[1] < 0) {
         console.log('request next page. boundary is', currentVirtualPageBoundary);
         requestNextPage(Math.round(node.scrollTop / this.props.estimatedRowHeight));
@@ -162,11 +156,6 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
         viewportTop: node.scrollTop,
         viewportLeft: node.scrollLeft,
       });
-    }
-
-    updateVisibleBoundaries() {
-      // const { viewportTop } = this.state;
-
     }
 
     handleContainerSizeChange({ width, height }) {
@@ -254,32 +243,6 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
         footerHeight,
       } = this.state;
 
-      /* const onFirstIndexChanged = ({
-        virtualPageIndex, start, requestedStartIndex,
-        virtualPageSize, firstRowIndex, visibleBoundaries,
-        virtualPageOverscan,
-      }: Getters, {
-        setVirtualPageIndex, setRequestedStartIndex, getRows,
-      }: Actions) => {
-        const newIndex = Math.round(firstRowIndex / virtualPageSize);
-        if (start + virtualPageSize < visibleBoundaries.bodyRows[1] + virtualPageOverscan
-          || visibleBoundaries.bodyRows[0] - virtualPageOverscan < start && start > 0
-          ) {
-          const newRequestedStartIndex = start + virtualPageSize;
-          if (requestedStartIndex !== newRequestedStartIndex) {
-            setRequestedStartIndex(newRequestedStartIndex);
-            // debugger
-            getRows(newRequestedStartIndex);
-          }
-        }
-        // if (virtualPageIndex !== newIndex) {
-        //   setVirtualPageIndex(newIndex);
-          // getRows();
-        // }
-        return newIndex;
-      }; */
-
-
       const getColumnWidth = column => (column.type === TABLE_FLEX_TYPE
         ? 0
         : column.width || minColumnWidth);
@@ -306,15 +269,8 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
             ),
           // footerRows: getRowsBoundary(tableFooterRows, 0, footerHeight),
         };
+        // console.log('recompute bound', viewportTop)
 
-        console.log('computed vis boundaries. start', loadedRowsStart, 'cnt', loadedRowsCount, 'res', res.bodyRows)
-
-        // setVisibleBoundaries(res);
-        // window.setTimeout(() => setVisibleBoundaries(res), 0);
-
-        // setFirstRowIndex(res.bodyRows[0]);
-
-        // console.log(viewportTop, res);
         return res;
       };
 
@@ -322,9 +278,11 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
         visibleBoundaries,
         tableBodyRows,
         tableColumns,
+        loadedRowsStart,
+        // totalRowCount,
       }: Getters) => ({
-        bodyRows: getRowsRenderBoundary(tableBodyRows, visibleBoundaries.bodyRows, 3),
-        columns: getColumnsRenderBoundary(tableColumns, visibleBoundaries.columns, 1),
+        bodyRows: getRowsRenderBoundary(loadedRowsStart + tableBodyRows.length - 1, visibleBoundaries.bodyRows, 3),
+        columns: visibleBoundaries.columns,// getColumnsRenderBoundary(tableColumns, visibleBoundaries.columns, 1),
       });
 
       const firstRowIndexComputed = (getters: Getters, actions: Actions) => {
@@ -346,9 +304,6 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
         const bottomBoundaryOffset = loadedRowsCount - virtualPageOverscan - topIndexOffset - visibleCount;
 
         const { estimatedRowHeight } = this.props;
-        // console.log('top offset', topBoundaryOffset, 'bot offs', bottomBoundaryOffset, 'size', virtualPageSize,
-        // 'os', virtualPageOverscan, 'cnt', visibleCount, 'fi', firstRowIndex, 'start', start
-        // );
 
         return [topBoundaryOffset, bottomBoundaryOffset];
       };
@@ -357,17 +312,11 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
         <Plugin name="VirtualTable">
           <Table layoutComponent={this.layoutRenderComponent} {...restProps} />
 
-          {/* <Getter name="start" value={0} /> */}
           <Getter name="visibleBoundaries" computed={visibleBoundariesComputed} />
-          {/* <Getter name="virtualTableDimensions" computed={virtualTableDimensionsComputed} /> */}
           <Getter name="renderBoundaries" computed={renderBoundariesComputed} />
           <Getter name="firstRowIndex" computed={firstRowIndexComputed} />
-          {/* <Getter name="virtualPageHeight" computed={} /> */}
 
           <Getter name="currentVirtualPageBoundary" computed={currentVirtualPageBoundaryComputed} />
-          {/* <Getter name="viewportTop" value={viewportTop} /> */}
-          {/* <Action name="setFirstRowIndex" action={this.setFirstRowIndex} /> */}
-          {/* <Action name="setViewportTop" action={this.setViewportTop} /> */}
 
           <Template name="tableLayout">
             {(params: TableLayoutProps) => {
@@ -377,22 +326,15 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
                   {(
                     { visibleBoundaries, viewportTop, firstRowIndex, virtualPageIndex,
                       currentVirtualPageBoundary, totalRowCount, loadedRowsStart, start,
-                      loadedRowsCount,
+                      loadedRowsCount, renderBoundaries, loadedRowsStart, tableBodyRows,
                     },
                     { setViewportTop, setFirstRowIndex, getRows, requestNextPage },
                   ) => {
                     const {
                       containerComponent: Container,
                     } = params;
-                    // console.log('vp', viewportTop, 'ind', firstRowIndex, 'vind', virtualPageIndex)
 
-                    console.log(
-                      'virt page bounds', currentVirtualPageBoundary,
-                      'start', start,
-                      'loadedRowsStart', loadedRowsStart,
-                      'loadedRowsCount', loadedRowsCount,
-                      'boundaries', visibleBoundaries.bodyRows)
-                    // console.log(visibleBoundaries.bodyRows);
+                    console.log(visibleBoundaries.bodyRows);
 
                     return (
                       <Sizer
@@ -410,7 +352,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
                             blockRefsHandler: this.registerBlockRef,
                             rowRefsHandler: this.registerRowRef,
                             onUpdate: this.handleTableUpdate,
-                            visibleBoundaries,
+                            visibleBoundaries: renderBoundaries,
                             getRowHeight: this.getRowHeight,
                             getColumnWidth,
                             headerHeight,

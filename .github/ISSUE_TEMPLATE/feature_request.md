@@ -2,6 +2,8 @@
     We do not guarantee a quick answer on GitHub.
     If you own an active DevExtreme license, feel free to contact us in the Support Center (https://www.devexpress.com/ask)
     to receive an answer shortly.
+
+    Note: you can create own PR with a feature.
 -->
 
 ### I'm using ...
@@ -31,10 +33,3 @@
 <!---
     Include as many relevant details about the environment with which you experienced the bug. Leave "none" if you don't have the package in your package.json file.
 -->
-
-- devextreme-reactive: xxx
-- react: xxx
-- browser: xxx
-- bootstrap: none
-- react-bootstrap: none
-- material-ui: none

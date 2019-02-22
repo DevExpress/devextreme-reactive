@@ -6,6 +6,8 @@ import {
   WeekView,
   Appointments,
   AllDayPanel,
+  DragDropProvider,
+  AppointmentDragging,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
 import { appointments } from '../../../demo-data/appointments';
@@ -28,6 +30,7 @@ export default class Demo extends React.PureComponent {
         <Scheduler
           data={data}
         >
+          <DragDropProvider />
           <ViewState
             defaultCurrentDate={currentDate}
           />
@@ -37,6 +40,8 @@ export default class Demo extends React.PureComponent {
           />
           <Appointments />
           <AllDayPanel />
+
+          <AppointmentDragging />
         </Scheduler>
       </Paper>
     );

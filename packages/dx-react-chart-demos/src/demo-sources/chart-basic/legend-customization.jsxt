@@ -13,9 +13,10 @@ import OriginalSignalIcon from '../../../demo-data/images/originalSignal.svg';
 
 const SpecialMarkerComponent = ({ name, color }) => {
   const Icon = name === 'Noisy signal' ? NoisySignalIcon : OriginalSignalIcon;
+  // xlinkHref is use for safari
   return (
     <svg width={18} height={18} viewBox={Icon.viewBox}>
-      <use fill={color} href={`#${Icon.id}`} />
+      <use fill={color} xlinkHref={`#${Icon.id}`} />
     </svg>
   );
 };

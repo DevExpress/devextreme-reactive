@@ -28,7 +28,7 @@ const Line = props => (
 
 const Text = (props) => {
   const { text } = props;
-  const { mainText, subText } = text;
+  const [mainText, subText] = text.split('\\n');
   return (
     <div className="w-100 text-center mb-2">
       <h3>
@@ -56,11 +56,6 @@ const Label = props => (
     className="pb-2"
   />
 );
-
-const titleText = {
-  mainText: 'Energy Consumption in 2004',
-  subText: '(Millions of Tons, Oil Equivalent)',
-};
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -116,7 +111,7 @@ export default class Demo extends React.PureComponent {
           />
           <Legend position="bottom" rootComponent={Root} itemComponent={Item} labelComponent={Label} />
           <Title
-            text={titleText}
+            text="Energy Consumption in 2004\n(Millions of Tons, Oil Equivalent)"
             textComponent={Text}
           />
           <Animation />

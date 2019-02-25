@@ -38,7 +38,7 @@ const titleStyles = {
 };
 const Text = withStyles(titleStyles)((props) => {
   const { text, classes } = props;
-  const { mainText, subText } = text;
+  const [mainText, subText] = text.split('\\n');
   return (
     <div className={classes.title}>
       <Typography component="h3" variant="h5">
@@ -85,11 +85,6 @@ const demoStyles = () => ({
     paddingRight: '30px',
   },
 });
-
-const titleText = {
-  mainText: 'Energy Consumption in 2004',
-  subText: '(Millions of Tons, Oil Equivalent)',
-};
 
 class Demo extends React.PureComponent {
   constructor(props) {
@@ -146,7 +141,7 @@ class Demo extends React.PureComponent {
           />
           <Legend position="bottom" rootComponent={Root} itemComponent={Item} labelComponent={Label} />
           <Title
-            text={titleText}
+            text="Energy Consumption in 2004\n(Millions of Tons, Oil Equivalent)"
             textComponent={Text}
           />
           <Animation />

@@ -21,15 +21,15 @@ Use the `SortingState`, `IntegratedSorting` and `TableHeaderRow` plugins to set 
 
 Set the `TableHeaderRow` plugin's `showSortingControls` property to true to enable changing the sorting criteria in the header row.
 
-## Uncontrolled Mode
+### Uncontrolled Mode
 
-In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the initial sorting conditions in the `SortingState` plugin's `defaultSorting` property.
+In [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the initial sorting conditions in the `SortingState` plugin's `defaultSorting` property.
 
 .embedded-demo({ "path": "grid-sorting/header-sorting", "showThemeSelector": true })
 
-## Controlled Mode
+### Controlled Mode
 
-In the [controlled mode](controlled-and-uncontrolled-modes.md), pass the sorting options to the `SortingState` plugin's `sorting` property and handle the `onSortingChange` event to control the sorting state externally.
+In [controlled mode](controlled-and-uncontrolled-modes.md), pass the sorting options to the `SortingState` plugin's `sorting` property and handle the `onSortingChange` event to control the sorting state externally.
 
 .embedded-demo({ "path": "grid-sorting/controlled-mode", "showThemeSelector": true })
 
@@ -39,7 +39,7 @@ You can prevent sorting by a specific column using the [SortingState](../referen
 
 .embedded-demo({ "path": "grid-sorting/disable-column-sorting", "showThemeSelector": true })
 
-## Using Sorting with Grouping
+## Use Sorting with Grouping
 
 The Grid's grouping features allow you to sort groups and data rows. For this, set the `GroupingPanel` plugin's `showSortingControls` property to true to enable the sorting UI for the Group Panel's column headers.
 

@@ -1,4 +1,4 @@
-# React Core - Providing Actions
+# React Core - Provide Actions
 
 An [Action](../reference/action.md) is a plugin primitive used to share a function between other plugins.
 
@@ -6,7 +6,7 @@ Usually, an action is used to execute a function associated with it from a UI ev
 
 .embedded-demo({ "path": "core-action/simple-action", "defaultTab": "source" })
 
-## Passing Action parameters
+## Pass Action Parameters
 
 An Action accepts a payload that is passed to the underlying function.
 

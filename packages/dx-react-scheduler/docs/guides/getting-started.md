@@ -35,7 +35,7 @@ React Scheduler can work in other browsers if they use the latest version of Web
 
 React Scheduler uses the latest web platform standards, and cannot support older browsers like IE11 and Android 4. Use the ES2015 (ES6) polyfill to support these browsers. We recommend [BABEL Polyfill](https://babeljs.io/docs/usage/polyfill/), but you can use an alternative.
 
-## Using Scheduler component
+## Use the Scheduler Component
 
 The Scheduler requires a view plugin and the `Appointments` plugin to display the specified data:
 
@@ -55,7 +55,7 @@ const App = () => (
 );
 ```
 
-## Try Out The React Scheduler
+## Try Out the React Scheduler
 
 Follow the link below to try out the React Scheduler:
 

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import { VerticalAppointment } from './appointment/vertical-appointment';
 import { Appointment } from './appointment/appointment';
@@ -24,6 +25,33 @@ const styles = theme => ({
   },
 });
 
+const ContainerBase = ({
+  classes, className, children,
+  ...restProps
+}) => (
+  <div
+    className={classNames(classes.container, 'CONTAINER')}
+    {...restProps}
+  >
+    {children}
+  </div>
+);
+
+ContainerBase.propTypes = {
+  children: PropTypes.node,
+  classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
+};
+
+ContainerBase.defaultProps = {
+  style: null,
+  left: undefined,
+  className: undefined,
+  children: undefined,
+};
+
+export const Container = withStyles(styles, { name: 'Container' })(ContainerBase);
+
 const DraftAppointmentBase = ({
   classes,
   className,
@@ -43,18 +71,14 @@ const DraftAppointmentBase = ({
 );
 
 DraftAppointmentBase.propTypes = {
-  clientOffset: PropTypes.shape({
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired,
-  }).isRequired,
   children: PropTypes.node,
   classes: PropTypes.object.isRequired,
-  style: PropTypes.object,
+  rect: PropTypes.object,
   className: PropTypes.string,
 };
 
 DraftAppointmentBase.defaultProps = {
-  style: null,
+  rect: {},
   className: undefined,
   children: undefined,
 };

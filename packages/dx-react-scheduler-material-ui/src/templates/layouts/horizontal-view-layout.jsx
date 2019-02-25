@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -31,14 +32,14 @@ export class HorizontalViewLayoutBase extends React.PureComponent {
 
     return (
       <Grid
-        className={classes.container}
+        className={classNames(classes.container, 'dx-layout')}
         container
         direction="column"
         wrap="nowrap"
       >
         <Grid
           item
-          className={classes.stickyHeader}
+          className={classNames(classes.stickyHeader, 'dx-layout-header')}
         >
           <Navbar />
         </Grid>

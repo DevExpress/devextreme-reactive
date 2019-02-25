@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -34,12 +35,12 @@ export class VerticalViewLayoutBase extends React.PureComponent {
     return (
       <Grid
         container
-        className={classes.container}
+        className={classNames(classes.container, 'dx-layout')}
       >
         <Grid
           container
           direction="row"
-          className={classes.stickyHeader}
+          className={classNames(classes.stickyHeader, 'dx-layout-header')}
         >
           <Grid item xs={1} className={classes.emptySpace}>
             <DayScaleEmptyCell />
@@ -55,7 +56,7 @@ export class VerticalViewLayoutBase extends React.PureComponent {
             <TimeScale />
           </Grid>
 
-          <Grid item xs={11} className={classes.timeTable}>
+          <Grid item xs={11} className={classNames(classes.timeTable, 'dx-time-table')}>
             <TimeTable />
           </Grid>
         </Grid>

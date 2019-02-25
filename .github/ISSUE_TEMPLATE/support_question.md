@@ -1,31 +1,29 @@
 <!--
-    We do not guarantee a quick answer on GitHub.
+    We cannot guarantee a quick answer on GitHub.
     If you own an active DevExtreme license, feel free to contact us in the Support Center (https://www.devexpress.com/ask)
     to receive an answer shortly.
 -->
 
 <!--
-    Checked checkbox should look like this: [x]
+    A checked check box should look like this: [x]
 -->
 - [ ] I have searched this repository's [issues](https://github.com/devexpress/devextreme-reactive/issues) and believe that this is not a duplicate.
 
 ### I'm using ...
-<!--
-    Checked checkbox should look like this: [x]
--->
+
 - [ ] React Grid
 - [ ] React Chart
 - [ ] React Scheduler
 
 ### Description
 <!--
-    Provide a detailed explanation.
+    Ask your question. Provide as many details as possible.
 -->
 
 
 ### Environment
 <!---
-    Include as many relevant details about the environment with which you experienced the bug. Leave "none" if you don't have the package in your package.json file.
+    Include as many relevant details about the environment with which you use our components. Leave "none" if you don't have the package in your package.json file.
 -->
 
 - devextreme-reactive: xxx

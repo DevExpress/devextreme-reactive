@@ -74,5 +74,4 @@ export type VirtualTableLayoutState = {
   bodyHeight: number,
   footerHeight: number,
   containerHeight: number,
-  firstRowIndex: number,
 };

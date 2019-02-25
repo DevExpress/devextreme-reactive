@@ -47,11 +47,6 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
   static defaultProps = {
     defaultOverscan: 50,
   };
-  setFirstRowIndex: ActionFn<number>;
-  setVisibleBoundaries: ActionFn<number>;
-  setViewportTop: ActionFn<number>;
-  setVirtualPageIndex: ActionFn<number>;
-  setRequestedStartIndex: ActionFn<number>;
   requestNextPageAction: (payload: any, getters: Getters, actions: Actions) => void;
   requestTimer: any = 0;
 
@@ -59,8 +54,6 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
     super(props);
 
     this.state = {
-      firstRowIndex: props.firstRowIndex || 0,
-      virtualPageIndex: 0,
       rowCount: props.rowCount || 0,
       start: props.start || 0,
       viewportTop: 0,
@@ -74,10 +67,6 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
     const stateHelper: StateHelper = createStateHelper(
       this,
       {
-        firstRowIndex: () => {
-          const { onFirstRowIndexChange } = this.props;
-          return onFirstRowIndexChange;
-        },
         viewportTop: () => {
           const { onViewportTopChange } = this.props;
           return onViewportTopChange;
@@ -87,17 +76,6 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
         },
       },
     );
-
-    this.setFirstRowIndex = stateHelper.applyFieldReducer
-      .bind(stateHelper, 'firstRowIndex', (prevIndex, index) => index);
-    this.setVisibleBoundaries = stateHelper.applyFieldReducer
-      .bind(stateHelper, 'visibleBoundaries', (prevBoundaries, boundaries) => boundaries);
-    this.setViewportTop = stateHelper.applyFieldReducer
-      .bind(stateHelper, 'viewportTop', (prevTop, top) => top);
-    this.setVirtualPageIndex = stateHelper.applyFieldReducer
-      .bind(stateHelper, 'virtualPageIndex', (prevIndex, index) => index);
-    this.setRequestedStartIndex = stateHelper.applyFieldReducer
-      .bind(stateHelper, 'requestedStartIndex', (prevIndex, index) => index);
 
     this.requestNextPageAction = (payload: any, getters: Getters, actions: Actions) => {
       const { requestedStartIndex, lastQueryTime } = this.state;
@@ -113,7 +91,7 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
         newAdjustedIndex = payload + getters.virtualPageOverscan;
       }
 
-      if (newAdjustedIndex !== requestedStartIndex /* && lastQueryTime < Date.now() + 30 */) {
+      if (newAdjustedIndex !== requestedStartIndex) {
         if (this.requestTimer !== 0) {
           clearTimeout(this.requestTimer);
         }
@@ -137,12 +115,10 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const {
-      firstRowIndex = prevState.firstRowIndex,
       start = prevState.start,
     } = nextProps;
 
     return {
-      firstRowIndex,
       start,
     };
   }
@@ -154,7 +130,7 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
 
   render() {
     const {
-      viewportTop, virtualPageIndex,// start,
+      viewportTop,
       virtualRowsCache,
     } = this.state;
     const { start, rowCount } = this.props;
@@ -174,12 +150,6 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
         <Getter name="loadedRowsStart" computed={loadedRowsStartComputed} />
         <Getter name="getRowId" computed={rowIdGetterComputed} />
 
-        <Getter name="virtualPageIndex" value={virtualPageIndex} />
-
-        <Action name="setFirstRowIndex" action={this.setFirstRowIndex} />
-        <Action name="setVisibleBoundaries" action={this.setVisibleBoundaries} />
-        <Action name="setVirtualPageIndex" action={this.setVirtualPageIndex} />
-        <Action name="setRequestedStartIndex" action={this.setRequestedStartIndex} />
         <Action name="requestNextPage" action={this.requestNextPageAction} />
       </Plugin>
     );

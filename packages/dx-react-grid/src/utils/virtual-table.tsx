@@ -17,11 +17,6 @@ import { memoize, Memoized } from '@devexpress/dx-core';
 
 const AUTO_HEIGHT = 'auto';
 
-const firstRowIndexComputed = (getters: Getters, actions: Actions) => {
-  // onFirstIndexChanged(getters, actions);
-  return getters.visibleBoundaries.bodyRows[0];
-};
-
 const renderBoundariesComputed = ({
   visibleBoundaries,
   tableBodyRows,
@@ -54,7 +49,6 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
     layoutRenderComponent: React.ComponentType<VirtualTableLayoutProps> & { update(): void; };
     rowRefs: Map<any, any>;
     blockRefs: Map<any, any>;
-    setViewportTop: ActionFn<number>;
     visibleBoundariesComputed: Memoized<VirtualTableLayoutState, Function>;
     getColumnWidth: (column: any) => any;
 
@@ -71,7 +65,6 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
         headerHeight: 0,
         bodyHeight: 0,
         footerHeight: 0,
-        firstRowIndex: 0,
       };
 
       const {
@@ -91,16 +84,12 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
       const stateHelper = createStateHelper(
         this,
         {
-          // firstRowIndex: () => { },
           viewportTop: () => {
             const { onViewportTopChange } = this.props;
             return onViewportTopChange;
           }
         }
       );
-
-      this.setViewportTop = stateHelper.applyFieldReducer
-        .bind(stateHelper, 'viewportTop', (prevTop, top) => top);
 
       this.rowRefs = new Map();
       this.blockRefs = new Map();
@@ -130,7 +119,6 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
           loadedRowsStart,
           loadedRowsCount,
         }: Getters,
-        // { setFirstRowIndex }: Actions,
         ) => {
           // console.log('recomp bounds')
           const { viewportLeft, width, viewportTop, containerHeight, headerHeight, footerHeight } = this.state;
@@ -337,7 +325,6 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
 
           <Getter name="visibleBoundaries" computed={visibleBoundariesComputed} />
           <Getter name="renderBoundaries" computed={renderBoundariesComputed} />
-          <Getter name="firstRowIndex" computed={firstRowIndexComputed} />
 
           <Getter name="currentVirtualPageBoundary" computed={currentVirtualPageBoundaryComputed} />
 
@@ -347,11 +334,11 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
               return (
                 <TemplateConnector>
                   {(
-                    { visibleBoundaries, viewportTop, firstRowIndex, virtualPageIndex,
+                    { visibleBoundaries, viewportTop,
                       currentVirtualPageBoundary, totalRowCount, loadedRowsStart, start,
                       loadedRowsCount, renderBoundaries, tableBodyRows,
                     },
-                    { setViewportTop, setFirstRowIndex, getRows, requestNextPage },
+                    { getRows, requestNextPage },
                   ) => {
                     const {
                       containerComponent: Container,

@@ -10,8 +10,6 @@ export interface VirtualTableStateProps {
 
 export type VirtualTableStateState = {
   virtualRowsCache: any,
-  firstRowIndex: number;
-  virtualPageIndex: number;
   start: number;
   rowCount?: number;
   viewportTop: number;

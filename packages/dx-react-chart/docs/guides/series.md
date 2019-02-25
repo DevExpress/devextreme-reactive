@@ -34,7 +34,7 @@ The `PieSeries` plugin visualizes data as a circle divided into sectors that eac
 
 .embedded-demo({ "path": "chart-basic/pie", "showThemeSelector": true })
 
-## Points' Appearance Customization
+## Customize Point Appearance
 
 The `pointComponent` property allows you to customize the points' appearance. The following example shows how to change the points' shape. [`d3-shape`](https://github.com/d3/d3-shape/blob/master/README.md) (a 3rd-party plugin) provides the shapes.
 

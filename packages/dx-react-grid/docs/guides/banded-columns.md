@@ -15,7 +15,7 @@ Import the plugins listed above and specify the `TableBandHeader` plugin's `colu
 
 .embedded-demo({ "path": "grid-band-columns/basic", "showThemeSelector": true })
 
-## Appearance Customization
+## Customize the Appearance
 
 You can customize the appearance of the header with bands by overriding the `TableBandHeader` and `TableHeaderRow` plugins' `cellComponent` properties:
 

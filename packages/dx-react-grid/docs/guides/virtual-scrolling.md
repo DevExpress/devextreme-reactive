@@ -32,7 +32,7 @@ The Grid also supports column virtualization, which is demonstrated in the follo
 
 .embedded-demo({ "path": "grid-virtual-scrolling/column-virtualization", "showThemeSelector": true })
 
-## Stretching out to Parent Element Size
+## Fill the Container
 
 If the Grid should have the same size as the container element, set the `VirtualTable` plugin's `height` property to "auto" and the Grid root element's style setting to `height: 100%`.
 

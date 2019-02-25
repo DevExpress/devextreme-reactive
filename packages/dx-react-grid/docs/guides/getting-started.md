@@ -58,7 +58,7 @@ React Grid can work in other browsers if they use the latest version of WebKit, 
 
 React Grid uses the latest web platform standards, and cannot support older browsers like IE11 and Android 4. Use the ES2015 (ES6) polyfill to support these browsers. We recommend [BABEL Polyfill](https://babeljs.io/docs/usage/polyfill/), but you can use an alternative.
 
-## Using Grid component
+## Use the Grid Component
 
 The Grid renders nothing by default. The root Grid component's nested plugin components implement its functionality, and it is necessary to specify at least one plugin that visualizes the grid data.
 
@@ -86,7 +86,7 @@ const App = () => (
 );
 ```
 
-## Try Out The React Grid
+## Try Out the React Grid
 
 Follow the links below to try out the React Grid:
 

@@ -29,17 +29,26 @@ const Line = props => (
   />
 );
 
-const Text = (props) => {
-  const { text, subtext } = props;
+const titleStyles = {
+  title: {
+    textAlign: 'center',
+    width: '100%',
+    marginBottom: '10px',
+  },
+};
+const Text = withStyles(titleStyles)((props) => {
+  const { text, classes } = props;
+  const { mainText, subText } = text;
   return (
-    <div>
+    <div className={classes.title}>
       <Typography component="h3" variant="h5">
-        {text}
+        {mainText}
       </Typography>
-      <Typography variant="subtitle1">{subtext}</Typography>
+      <Typography variant="subtitle1">{subText}</Typography>
     </div>
   );
-};
+});
+
 const legendStyles = () => ({
   root: {
     display: 'flex',
@@ -75,12 +84,12 @@ const demoStyles = () => ({
   chart: {
     paddingRight: '30px',
   },
-  title: {
-    textAlign: 'center',
-    width: '100%',
-    marginBottom: '10px',
-  },
 });
+
+const titleText = {
+  mainText: 'Energy Consumption in 2004',
+  subText: '(Millions of Tons, Oil Equivalent)',
+};
 
 class Demo extends React.PureComponent {
   constructor(props) {
@@ -137,10 +146,8 @@ class Demo extends React.PureComponent {
           />
           <Legend position="bottom" rootComponent={Root} itemComponent={Item} labelComponent={Label} />
           <Title
-            text="Energy Consumption in 2004"
-            subtext="(Millions of Tons, Oil Equivalent)"
+            text={titleText}
             textComponent={Text}
-            className={classes.title}
           />
           <Animation />
         </Chart>

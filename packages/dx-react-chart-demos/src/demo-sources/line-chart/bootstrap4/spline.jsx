@@ -27,13 +27,14 @@ const Line = props => (
 );
 
 const Text = (props) => {
-  const { text, subtext } = props;
+  const { text } = props;
+  const { mainText, subText } = text;
   return (
-    <div>
+    <div className="w-100 text-center mb-2">
       <h3>
-        {text}
+        {mainText}
       </h3>
-      <p>{subtext}</p>
+      <p>{subText}</p>
     </div>
   );
 };
@@ -55,6 +56,11 @@ const Label = props => (
     className="pb-2"
   />
 );
+
+const titleText = {
+  mainText: 'Energy Consumption in 2004',
+  subText: '(Millions of Tons, Oil Equivalent)',
+};
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -110,10 +116,8 @@ export default class Demo extends React.PureComponent {
           />
           <Legend position="bottom" rootComponent={Root} itemComponent={Item} labelComponent={Label} />
           <Title
-            text="Energy Consumption in 2004"
-            subtext="(Millions of Tons, Oil Equivalent)"
+            text={titleText}
             textComponent={Text}
-            className="w-100 text-center mb-2"
           />
           <Animation />
         </Chart>

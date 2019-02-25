@@ -124,11 +124,22 @@ export const getSpanBoundary: GetSpanBoundaryFn = (
 export const collapseBoundaries: CollapseBoundariesFn = (
   itemsCount, visibleBoundaries, spanBoundaries, offset = 0,
 ) => {
-  const boundaries: VisibleBoundary[] = [];
 
-  const visiblePoints = visibleBoundaries.reduce((acc: number[], boundary) => {
+  const testboundaries: VisibleBoundary[] = [];
+  // const boundaries: VisibleBoundary[] = [];
+  // console.log('collapse boundaries')
+  let min = itemsCount;
+  let max = 0;
+  /* const visiblePoints = */
+  visibleBoundaries.reduce((acc: number[], boundary) => {
     for (let point = boundary[0]; point <= boundary[1]; point += 1) {
       acc.push(point);
+      if (point < min) {
+        min = point;
+      }
+      if (max < point && point < itemsCount) {
+        max = point;
+      }
     }
     return acc;
   }, []);
@@ -140,7 +151,28 @@ export const collapseBoundaries: CollapseBoundariesFn = (
       spanStartPoints.add(boundary[0]);
       spanEndPoints.add(boundary[1]);
     }));
+  // console.log(itemsCount, offset)
+  // const start = performance.now();
 
+  if (min > 0) {
+    testboundaries.push([0, min - 1]);
+  }
+
+  for (let i = min; i <= max; i += 1) {
+    testboundaries.push([i, i]);
+  }
+
+  if (max < itemsCount - 1) {
+    testboundaries.push([max + 1, itemsCount - 1]);
+  }
+  // console.log(testboundaries)
+
+  return testboundaries;
+
+  // console.log('visiblePoints', visiblePoints)
+
+
+/*
   let lastPoint: number | undefined;
   for (let index = 0; index < itemsCount + offset; index += 1) {
     if (visiblePoints.indexOf(index) !== -1) {
@@ -171,8 +203,10 @@ export const collapseBoundaries: CollapseBoundariesFn = (
   if (lastPoint !== undefined) {
     boundaries.push([lastPoint, itemsCount - 1]);
   }
+  console.log(boundaries, testboundaries, itemsCount, max, visibleBoundaries, visiblePoints, spanBoundaries)
+  // console.log('collapse', performance.now() - start);
 
-  return boundaries;
+  return testboundaries; */
 };
 
 const getColumnsSize: GetColumnsSizeFn = (columns, startIndex, endIndex, getColumnSize) => {
@@ -292,6 +326,7 @@ export const getCollapsedGrid: GetCollapsedGridFn = ({
     };
   }
 
+  // console.log('get collapsed grid');
   const boundaries = rowsVisibleBoundary || [0, rows.length];
   // const slicedRows = rowsVisibleBoundary
   //   ? rows.slice(rowsVisibleBoundary[0], rowsVisibleBoundary[1])

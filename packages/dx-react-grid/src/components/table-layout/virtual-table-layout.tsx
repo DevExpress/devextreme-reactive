@@ -11,11 +11,13 @@ import { VirtualTableLayoutProps, VirtualTableLayoutState } from '../../types';
 export class VirtualTableLayout extends React.PureComponent<VirtualTableLayoutProps, VirtualTableLayoutState> {
   componentDidMount() {
     const { onUpdate } = this.props;
+    // console.log('layout did mount')
     onUpdate();
   }
 
   componentDidUpdate() {
     const { onUpdate } = this.props;
+    // console.log('layout did update')
     onUpdate();
   }
 
@@ -29,6 +31,7 @@ export class VirtualTableLayout extends React.PureComponent<VirtualTableLayoutPr
     } = this.props;
 
     const tableRef = blockRef || React.createRef();
+    // console.log('render layout')
 
     return (
       <RefHolder

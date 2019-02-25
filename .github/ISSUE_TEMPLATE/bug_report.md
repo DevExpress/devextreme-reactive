@@ -5,23 +5,23 @@
 -->
 
 <!--
-    Checked checkbox should look like this: [x]
+    A checked check box should look like this: [x]
 -->
 - [ ] I have searched this repository's [issues](https://github.com/devexpress/devextreme-reactive/issues) and believe that this is not a duplicate.
 
 ### I'm using ...
-<!--
-    Checked checkbox should look like this: [x]
--->
+
 - [ ] React Grid
 - [ ] React Chart
 - [ ] React Scheduler
 
 ### Current Behaviour
+<!-- A clear and concise description of what the problem is. Ex. I'm always frustrated when [...] -->
 
 
 
 ### Expected Behaviour
+<!-- A clear and concise description of what you want to happen. -->
 
 
 
@@ -32,6 +32,8 @@
 
 
 ### Screenshots
+<!-- Illustrate the problem with a couple screenshots if possible. -->
+
 
 
 

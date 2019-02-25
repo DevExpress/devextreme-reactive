@@ -19,13 +19,13 @@ Import the plugins listed above to set up a Grid with basic searching.
 
 ### Uncontrolled Mode
 
-In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the initial searching value in the `SearchState` plugin's `defaultValue` property.
+In [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the initial searching value in the `SearchState` plugin's `defaultValue` property.
 
 .embedded-demo({ "path": "grid-searching/uncontrolled-mode", "showThemeSelector": true })
 
 ### Controlled Mode
 
-In the [controlled mode](controlled-and-uncontrolled-modes.md), pass the search option to the `SearchState` plugin's `value` property and handle the `onValueChange` event to control the search state externally.
+In [controlled mode](controlled-and-uncontrolled-modes.md), pass the search option to the `SearchState` plugin's `value` property and handle the `onValueChange` event to control the search state externally.
 
 .embedded-demo({ "path": "grid-searching/controlled-mode", "showThemeSelector": true })
 

@@ -5,7 +5,7 @@
 1. [Introduction](#introduction)
 2. [Render Custom Markup](#render-custom-markup)
 3. [Share Values Between Plugins](#share-values-between-plugins)
-4. [Use the Functionality of Built-In Plugins](#use-the-functionality-of-built-in-plugins)
+4. [Use the Functionality of Built-in Plugins](#use-the-functionality-of-built-in-plugins)
 5. [Final Steps](#final-steps)
 
 
@@ -477,7 +477,7 @@ export class ToolbarFilter extends React.PureComponent {
 }
 ```
 
-## Use the Functionality of Built-In Plugins
+## Use the Functionality of Built-in Plugins
 
 We need to detect changes in the select box value and filter the grid accordingly. The `filterValue` property is stored in the `ToolbarFilterState` plugin's state. However, the UI element that affects the `filterValue` is rendered by the `ToolbarFilter` plugin. We should create an [action](../../../core/docs/reference/action.md) called `changeToolbarFilterValue` to detect changes in one plugin and apply them to the state of another.
 

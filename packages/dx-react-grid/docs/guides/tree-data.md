@@ -26,19 +26,19 @@ You can also transform tree data defined as a plain array.
 
 .embedded-demo({ "path": "grid-tree-data/plain-tree", "showThemeSelector": true })
 
-## Uncontrolled Mode
+### Uncontrolled Mode
 
-In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the initially expanded rows' IDs in the `TreeDataState` plugin's `defaultExpandedRowIds` property.
+In [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the initially expanded rows' IDs in the `TreeDataState` plugin's `defaultExpandedRowIds` property.
 
 .embedded-demo({ "path": "grid-tree-data/uncontrolled-mode", "showThemeSelector": true })
 
-## Controlled Mode
+### Controlled Mode
 
-In the [controlled mode](controlled-and-uncontrolled-modes.md), pass the expanded row ids to the `TreeDataState` plugin's `expandedRowIds` property and handle the `onExpandedRowIdsChange` event to control the tree data state externally.
+In [controlled mode](controlled-and-uncontrolled-modes.md), pass the expanded row ids to the `TreeDataState` plugin's `expandedRowIds` property and handle the `onExpandedRowIdsChange` event to control the tree data state externally.
 
 .embedded-demo({ "path": "grid-tree-data/controlled-mode", "showThemeSelector": true })
 
-## Configuring Hierarchical Selection Controls
+## Configure Hierarchical Selection Controls
 
 The `TableTreeColumn` plugin allows showing hierarchical selection controls.
 
@@ -63,7 +63,7 @@ Do the following to show the Select All checkbox in the header row:
 
 .embedded-demo({ "path": "grid-tree-data/select-all", "showThemeSelector": true })
 
-## Remote Data Loading on Demand
+## Load Remote Data on Demand
 
 You can handle the Grid's tree data state changes to request nested data from the server according to the expanded row ID.
 

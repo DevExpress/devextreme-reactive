@@ -19,7 +19,7 @@ The Chart component uses plugin components to visualize data specified via the `
 - `HoverState` - implements the *hovered* state for points and series.
 - `SelectionState` - implements the *selected* state for points and series.
 
-## Data processing plugins
+## Data Processing Plugins
 
 - `ArgumentScale` - allows you to customize the argument scale.
 - `ValueScale` - allows you to customize the value scale and display multiple value scales.

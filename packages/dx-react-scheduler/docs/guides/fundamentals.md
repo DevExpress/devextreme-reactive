@@ -23,7 +23,7 @@ To specify the date that should be initially displayed in the date navigator and
 
 .embedded-demo({ "path": "scheduler-basic/basic-setup", "showThemeSelector": true })
 
-## Appearance Customization
+## Customize the Appearance
 
 The Scheduler's visualization plugins provide an API that allows you to customize the appearance of the UI elements.
 

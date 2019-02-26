@@ -321,23 +321,26 @@ export class AppointmentDragging extends React.PureComponent {
                   // const insideOffset = this.part * divisionTime;
                   debugger
                   if (this.offsetTimeTop === null && this.offsetTimeBottom === null) {
-
-
+                    // this.offsetTimeTop = moment(targetData.startDate).diff(payload.startDate, 'seconds'); // + insideOffset
                     this.offsetTimeTop = moment(targetData.startDate).diff(payload.startDate, 'seconds') + insideOffset;
                     this.offsetTimeBottom = moment(payload.endDate).diff(targetData.endDate, 'seconds');
                   }
 
-
-                  const appointmentDuration = sourceType === targetType
-                    ? moment(payload.endDate).diff(moment(payload.startDate), 'seconds') /* SAME TYPES */
-                    : moment(targetData.endDate).diff(moment(targetData.startDate), 'seconds'); // DIFFERENT TYPES
-                  console.log(this.offsetTimeTop);
+                  // const appointmentDuration = sourceType === targetType
+                  //   ? moment(payload.endDate).diff(moment(payload.startDate), 'seconds') /* SAME TYPES */
+                  //   : moment(targetData.endDate).diff(moment(targetData.startDate), 'seconds'); // DIFFERENT TYPES
+                  const appointmentDuration = moment(payload.endDate).diff(moment(payload.startDate), 'seconds');
 
                   const start = moment(targetData.startDate).add(insideOffset, 'seconds');
                   const end = moment(start);
 
-                  this.appointmentStartTime = moment(start).add((this.offsetTimeTop) * (-1), 'seconds').toDate();
-                  this.appointmentEndTime = moment(end).add((appointmentDuration - this.offsetTimeTop), 'seconds').toDate();
+                  if (sourceType === targetType) {
+                    this.appointmentStartTime = moment(start).add((this.offsetTimeTop) * (-1), 'seconds').toDate();
+                    this.appointmentEndTime = moment(end).add((appointmentDuration - this.offsetTimeTop), 'seconds').toDate();
+                  } else {
+                    this.appointmentStartTime = moment(targetData.startDate).add(insideOffset, 'seconds');
+                    this.appointmentEndTime = moment(targetData.endDate).add(insideOffset, 'seconds');
+                  }
 
                   changeAppointment({
                     change: {

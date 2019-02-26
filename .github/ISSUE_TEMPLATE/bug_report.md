@@ -1,33 +1,39 @@
 <!--
-    If you have any questions regarding your scenario or components behavior, please provide a detailed explanation.
-    If you own an active DevExtreme license, feel free to contact us in the Support Center (https://www.devexpress.com/ask) to receive an answer shortly.
+    We cannot guarantee a quick answer on GitHub.
+    If you have an active DevExtreme license, contact us in the Support Center (https://www.devexpress.com/ask)
+    for a quicker response.
 -->
 
 <!--
-    Checked checkbox should look like this: [x]
+    A checked check box should look like this: [x]
 -->
 - [ ] I have searched this repository's [issues](https://github.com/devexpress/devextreme-reactive/issues) and believe that this is not a duplicate.
 
 ### I'm using ...
-<!--
-    Checked checkbox should look like this: [x]
--->
+
 - [ ] React Grid
 - [ ] React Chart
 - [ ] React Scheduler
 
 ### Current Behaviour
+<!-- A detailed description of the problem. For example, I'm always frustrated when [...] -->
 
 
 
 ### Expected Behaviour
+<!-- A detailed description of the expected result. -->
 
 
 
-### Steps to Reproduce (for Bugs)
+### Steps to Reproduce
 <!--
-    Provide detailed steps to reproduce the bug. If possible, create a demo illustrating the problem.
+    Provide steps to reproduce the bug. If possible, create a demo illustrating the problem.
 -->
+
+
+### Screenshots
+<!-- Use screenshots to Illustrate the problem. -->
+
 
 
 

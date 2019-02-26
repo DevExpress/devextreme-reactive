@@ -23,7 +23,7 @@
 
 ### Environment
 <!---
-    Include as many relevant details about the environment with which you use our components. Leave "none" if you don't have the package in your package.json file.
+    Include as many relevant details about the environment you use. Leave "none" if you do not have the package in your package.json file.
 -->
 
 - devextreme-reactive: xxx

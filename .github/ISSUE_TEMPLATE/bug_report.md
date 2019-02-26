@@ -1,7 +1,7 @@
 <!--
     We cannot guarantee a quick answer on GitHub.
-    If you own an active DevExtreme license, feel free to contact us in the Support Center (https://www.devexpress.com/ask)
-    to receive an answer shortly.
+    If you have an active DevExtreme license, contact us in the Support Center (https://www.devexpress.com/ask)
+    for a quicker response.
 -->
 
 <!--
@@ -16,12 +16,12 @@
 - [ ] React Scheduler
 
 ### Current Behaviour
-<!-- A clear and concise description of what the problem is. Ex. I'm always frustrated when [...] -->
+<!-- A detailed description of the problem. For example, I'm always frustrated when [...] -->
 
 
 
 ### Expected Behaviour
-<!-- A clear and concise description of what you want to happen. -->
+<!-- A detailed description of the expected result. -->
 
 
 
@@ -32,7 +32,7 @@
 
 
 ### Screenshots
-<!-- Illustrate the problem with a couple screenshots if possible. -->
+<!-- Use screenshots to Illustrate the problem. -->
 
 
 

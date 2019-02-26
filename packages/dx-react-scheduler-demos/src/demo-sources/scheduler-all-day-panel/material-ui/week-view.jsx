@@ -74,7 +74,9 @@ export default class Demo extends React.PureComponent {
           <Toolbar />
           <ViewSwitcher />
 
-          <AppointmentDragging />
+          <AppointmentDragging
+            draggingPredicate={({ title }) => title !== 'DRAGGING DISABLED'}
+          />
         </Scheduler>
       </Paper>
     );

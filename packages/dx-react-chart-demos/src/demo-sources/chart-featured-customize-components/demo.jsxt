@@ -55,10 +55,11 @@ const makeAxisLabel = (data) => {
   });
   return (props) => {
     const { text, x, y } = props;
+    // Though "xlinkHref" is deprecated it is used because Safari does not support "href".
     return (
       <React.Fragment>
         <image
-          href={loginToAvatar.get(text)}
+          xlinkHref={loginToAvatar.get(text)}
           width={imageSize}
           height={imageSize}
           transform={`translate(${x - (imageSize / 2)} ${y - labelOffset})`}

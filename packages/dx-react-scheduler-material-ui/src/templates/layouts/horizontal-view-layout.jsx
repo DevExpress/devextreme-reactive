@@ -45,7 +45,7 @@ export class HorizontalViewLayoutBase extends React.PureComponent {
         </Grid>
         <Grid
           item
-          className={classes.main}
+          className={classNames(classes.main, 'dx-time-table')}
         >
           <Main />
         </Grid>

@@ -178,7 +178,7 @@ export class AppointmentDragging extends React.PureComponent {
         <Template name="appointment">
           {params => (
             <DragSource
-              payload={params.data}
+              payload={{ ...params.data, type: params.type }}
             >
               {payload && params.data.id === payload.id ? (
                 <DraggingAppointment {...params} />
@@ -207,8 +207,7 @@ export class AppointmentDragging extends React.PureComponent {
                 const targetData = allDayCellsData[this.allDayIndex];
                 const targetType = moment(targetData.startDate).isSame(targetData.endDate, 'day')
                   ? 'vertical' : 'horizontal';
-                const sourceType = appointmentDuration < 24 * 60 * 60
-                  ? 'vertical' : 'horizontal';
+                const sourceType = payload.type;
 
                 // CURSOR POSITION
                 if (this.offsetTimeTop === null && this.offsetTimeBottom === null) {
@@ -297,17 +296,15 @@ export class AppointmentDragging extends React.PureComponent {
 
                 if (firstIndex > -1 && secondIndex > -1) {
                   const targetData = viewCellsData[firstIndex][secondIndex];
-                  const targetType = moment(targetData.startDate).diff(targetData.endDate, 'hours') < 24
+                  const targetType = moment(targetData.startDate).isSame(targetData.endDate, 'day')
                     ? 'vertical' : 'horizontal';
-                  const sourceType = appointmentDuration < 24 * 60 * 60
-                    ? 'vertical' : 'horizontal';
+                  const sourceType = payload.type;
 
                   // CURSOR POSITION
                   if (this.offsetTimeTop === null && this.offsetTimeBottom === null) {
                     this.offsetTimeTop = moment(targetData.startDate).diff(payload.startDate, 'seconds');
                     this.offsetTimeBottom = moment(payload.endDate).diff(targetData.endDate, 'seconds');
                   }
-
 
                   /* SAME TYPES && All DAY */
                   if (sourceType === targetType) {
@@ -326,25 +323,45 @@ export class AppointmentDragging extends React.PureComponent {
                   });
 
                   const draftAppointments = [{ ...payload, start: this.appointmentStartTime, end: this.appointmentEndTime }];
-                  const intervals = calculateWeekDateIntervals(
-                    draftAppointments, startViewDate, endViewDate, excludedDays,
-                  );
+                  if (targetType === 'vertical') {
+                    const intervals = calculateWeekDateIntervals(
+                      draftAppointments, startViewDate, endViewDate, excludedDays,
+                    );
 
-                  this.rects = calculateRectByDateIntervals(
-                    {
-                      growDirection: 'vertical',
-                      multiline: false,
-                    },
-                    intervals,
-                    getVerticalRectByDates,
-                    {
-                      startViewDate,
-                      endViewDate,
-                      viewCellsData,
-                      cellDuration: moment(targetData.endDate).diff(targetData.startDate, 'minutes'),
-                      cellElements: timeTableCells,
-                    },
-                  );
+                    this.rects = calculateRectByDateIntervals(
+                      {
+                        growDirection: 'vertical',
+                        multiline: false,
+                      },
+                      intervals,
+                      getVerticalRectByDates,
+                      {
+                        startViewDate,
+                        endViewDate,
+                        viewCellsData,
+                        cellDuration: moment(targetData.endDate).diff(targetData.startDate, 'minutes'),
+                        cellElements: timeTableCells,
+                      },
+                    );
+                  } else {
+                    const intervals = calculateMonthDateIntervals(
+                      draftAppointments, startViewDate, endViewDate,
+                    );
+                    this.rects = calculateRectByDateIntervals(
+                      {
+                        growDirection: 'horizontal',
+                        multiline: true,
+                      },
+                      intervals,
+                      getHorizontalRectByDates,
+                      {
+                        startViewDate,
+                        endViewDate,
+                        viewCellsData,
+                        cellElements: timeTableCells,
+                      },
+                    );
+                  }
                 }
               }
 

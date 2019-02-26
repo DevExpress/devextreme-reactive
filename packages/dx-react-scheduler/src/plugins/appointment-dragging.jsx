@@ -4,8 +4,7 @@ import * as PropTypes from 'prop-types';
 import moment from 'moment';
 import {
   Plugin, Getter, Template, TemplatePlaceholder,
-  TemplateConnector, DropTarget,
-  withComponents, DragSource,
+  TemplateConnector, DropTarget, DragSource,
   DragDropProvider as DragDropProviderCore,
 } from '@devexpress/dx-react-core';
 import {
@@ -154,7 +153,7 @@ export class AppointmentDragging extends React.PureComponent {
 
   render() {
     const {
-      timeTableIndex, payload, timeTableCells, allDayIndex, allDayCells,
+      payload, timeTableCells, allDayCells,
     } = this.state;
     const {
       containerComponent: Container,
@@ -167,8 +166,6 @@ export class AppointmentDragging extends React.PureComponent {
       <Plugin
         name="AppointmentDragging"
       >
-        <Getter name="draggingPredicate" value={draggingPredicate} />
-
         <Template name="root">
           <DragDropProviderCore
             onChange={this.onPayloadChange}
@@ -319,7 +316,6 @@ export class AppointmentDragging extends React.PureComponent {
                   const divisionTime = 15 * 60;
                   const insideOffset = targetType === 'vertical' ? this.part * divisionTime : 0;
                   // const insideOffset = this.part * divisionTime;
-                  debugger
                   if (this.offsetTimeTop === null && this.offsetTimeBottom === null) {
                     // this.offsetTimeTop = moment(targetData.startDate).diff(payload.startDate, 'seconds'); // + insideOffset
                     this.offsetTimeTop = moment(targetData.startDate).diff(payload.startDate, 'seconds') + insideOffset;

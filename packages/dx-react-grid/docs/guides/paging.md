@@ -17,7 +17,7 @@ Note that the [plugin order](./plugin-overview.md#plugin-order) is important.
 
 Use the `PagingState`, `IntegratedPaging` (or `CustomPaging`), and `PagingPanel` plugins to set up a Grid with paging.
 
-## Uncontrolled Mode
+### Uncontrolled Mode
 
 In [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the initial active page index in the `PagingState` plugin's `defaultCurrentPage` property.
 
@@ -25,7 +25,7 @@ In the following example, the page size is specified using the `PagingState` plu
 
 .embedded-demo({ "path": "grid-paging/uncontrolled-mode", "showThemeSelector": true })
 
-## Page Size Selection
+#### Page Size Selection
 
 Assign an array of available page sizes to the `PagingPanel` plugin's `pageSizes` property to enable page size selection via the UI. The Page Size Selector displays the 'All' item if the specified array contains an item whose value is 0. You can specify custom text for this Page Size Selector item using the `messages.showAll` property.
 
@@ -33,7 +33,7 @@ The example below demonstrates a basic configuration for the uncontrolled mode. 
 
 .embedded-demo({ "path": "grid-paging/page-size-selector", "showThemeSelector": true })
 
-## Controlled Mode
+### Controlled Mode
 
 In [controlled mode](controlled-and-uncontrolled-modes.md), specify the following `PagingState` plugin property pairs to set a state value and handle its changes:
 
@@ -54,6 +54,6 @@ For remote paging, use the `CustomPaging` plugin instead of the `IntegratedPagin
 
 .embedded-demo({ "path": "grid-paging/remote-paging", "showThemeSelector": true })
 
-## Using Paging with Other Data Processing Plugins
+## Use Paging with Other Data Processing Plugins
 
 When you use paging features with sorting, grouping, or filtering, take note of the order in which the plugins appear in the Grid's container. You need to choose whether to paginate filtered rows or filter the current page. In the former case, put the `IntegratedFiltering` plugin before the `IntegratedPaging` one. Otherwise, inverse the plugins' order.

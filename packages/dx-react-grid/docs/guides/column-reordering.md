@@ -17,14 +17,14 @@ Note that the [plugin order](./plugin-overview.md#plugin-order) is important.
 
 Import the plugins listed above to set up a simple Grid with column reordering enabled.
 
-## Uncontrolled Mode
+### Uncontrolled Mode
 
-In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the initial column order in the [TableColumnReordering](../reference/table-column-reordering.md) plugin's `defaultOrder` property.
+In [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the initial column order in the [TableColumnReordering](../reference/table-column-reordering.md) plugin's `defaultOrder` property.
 
 .embedded-demo({ "path": "grid-column-reordering/uncontrolled", "showThemeSelector": true })
 
-## Controlled Mode
+### Controlled Mode
 
-In the [controlled mode](controlled-and-uncontrolled-modes.md), pass the column order to the [TableColumnReordering](../reference/table-column-reordering.md) plugin's `order` property and handle the `onOrderChange` event to control the column order state.
+In [controlled mode](controlled-and-uncontrolled-modes.md), pass the column order to the [TableColumnReordering](../reference/table-column-reordering.md) plugin's `order` property and handle the `onOrderChange` event to control the column order state.
 
 .embedded-demo({ "path": "grid-column-reordering/controlled", "showThemeSelector": true })

@@ -30,40 +30,35 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "name": "a",
               },
               "key": "a",
-              "preferMinWidth": true,
-              "width": 120,
+              "width": 160,
             },
             Object {
               "column": Object {
                 "name": "b",
               },
               "key": "b",
-              "preferMinWidth": true,
-              "width": 120,
+              "width": 160,
             },
             Object {
               "column": Object {
                 "name": "c",
               },
               "key": "c",
-              "preferMinWidth": true,
-              "width": 120,
+              "width": 160,
             },
             Object {
               "column": Object {
                 "name": "d",
               },
               "key": "d",
-              "preferMinWidth": true,
-              "width": 120,
+              "width": 160,
             },
             Object {
               "column": Object {
                 "name": "e",
               },
               "key": "e",
-              "preferMinWidth": true,
-              "width": 120,
+              "width": 160,
             },
           ]
         }
@@ -191,40 +186,35 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "name": "a",
               },
               "key": "a",
-              "preferMinWidth": true,
-              "width": 120,
+              "width": 160,
             },
             Object {
               "column": Object {
                 "name": "b",
               },
               "key": "b",
-              "preferMinWidth": true,
-              "width": 120,
+              "width": 160,
             },
             Object {
               "column": Object {
                 "name": "c",
               },
               "key": "c",
-              "preferMinWidth": true,
-              "width": 120,
+              "width": 160,
             },
             Object {
               "column": Object {
                 "name": "d",
               },
               "key": "d",
-              "preferMinWidth": true,
-              "width": 120,
+              "width": 160,
             },
             Object {
               "column": Object {
                 "name": "e",
               },
               "key": "e",
-              "preferMinWidth": true,
-              "width": 120,
+              "width": 160,
             },
           ]
         }
@@ -1127,40 +1117,35 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "name": "a",
               },
               "key": "a",
-              "preferMinWidth": true,
-              "width": 120,
+              "width": 160,
             },
             Object {
               "column": Object {
                 "name": "b",
               },
               "key": "b",
-              "preferMinWidth": true,
-              "width": 120,
+              "width": 160,
             },
             Object {
               "column": Object {
                 "name": "c",
               },
               "key": "c",
-              "preferMinWidth": true,
-              "width": 120,
+              "width": 160,
             },
             Object {
               "column": Object {
                 "name": "d",
               },
               "key": "d",
-              "preferMinWidth": true,
-              "width": 120,
+              "width": 160,
             },
             Object {
               "column": Object {
                 "name": "e",
               },
               "key": "e",
-              "preferMinWidth": true,
-              "width": 120,
+              "width": 160,
             },
           ]
         }

@@ -1,9 +1,9 @@
 /react/common:
   - title: Common Concepts
     items:
-      - title: Performance Optimization
+      - title: Optimize Performance
         path: /react/common/docs/guides/performance-optimization
-      - title: Custom Theme
+      - title: Create a Custom Theme
         path: /react/common/docs/guides/custom-theme
   - title: Related Docs
     items:
@@ -20,11 +20,11 @@
     items:
       - title: Fundamentals
         path: /react/core/docs/guides/fundamentals
-      - title: Rendering Markup
+      - title: Render Markup
         path: /react/core/docs/guides/rendering-markup
-      - title: Providing Values
+      - title: Provide Values
         path: /react/core/docs/guides/providing-values
-      - title: Providing Actions
+      - title: Provide Actions
         path: /react/core/docs/guides/providing-actions
   - title: API Reference
     items:
@@ -55,9 +55,9 @@
 /react/grid:
   - title: Common Concepts
     items:
-      - title: Performance Optimization
+      - title: Optimize Performance
         path: /react/common/docs/guides/performance-optimization
-      - title: Custom Theme
+      - title: Create a Custom Theme
         path: /react/common/docs/guides/custom-theme
   - title: Guides
     items:
@@ -212,9 +212,9 @@
 /react/chart:
   - title: Common Concepts
     items:
-      - title: Performance Optimization
+      - title: Optimize Performance
         path: /react/common/docs/guides/performance-optimization
-      - title: Custom Theme
+      - title: Create a Custom Theme
         path: /react/common/docs/guides/custom-theme
   - title: Guides
     items:
@@ -293,9 +293,9 @@
 /react/scheduler:
   - title: Common Concepts
     items:
-      - title: Performance Optimization
+      - title: Optimize Performance
         path: /react/common/docs/guides/performance-optimization
-      - title: Custom Theme
+      - title: Create a Custom Theme
         path: /react/common/docs/guides/custom-theme
   - title: Guides
     items:

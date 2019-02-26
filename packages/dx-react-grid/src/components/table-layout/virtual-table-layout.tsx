@@ -1,11 +1,13 @@
 import * as React from 'react';
 import { findDOMNode } from 'react-dom';
-import { isEdgeBrowser } from '@devexpress/dx-core';
+import { isEdgeBrowser, memoize, MemoizedFunction } from '@devexpress/dx-core';
 import { Sizer, RefHolder } from '@devexpress/dx-react-core';
 import {
   getCollapsedGrid,
-  TABLE_FLEX_TYPE,
   TABLE_STUB_TYPE,
+  getColumnWidthGetter,
+  GetColumnWidthFn,
+  TableColumn,
 } from '@devexpress/dx-grid-core';
 import { ColumnGroup } from './column-group';
 import { VirtualTableLayoutProps, VirtualTableLayoutState } from '../../types';
@@ -29,6 +31,7 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
   isEdgeBrowser = false;
   rowRefs: Map<any, any>;
   blockRefs: Map<any, any>;
+  getColumnWidthGetter: MemoizedFunction<[TableColumn[], number, number], GetColumnWidthFn>;
 
   constructor(props) {
     super(props);
@@ -61,6 +64,12 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
     this.getRowHeight = this.getRowHeight.bind(this);
     this.updateViewport = this.updateViewport.bind(this);
     this.handleContainerSizeChange = this.handleContainerSizeChange.bind(this);
+
+    this.getColumnWidthGetter = memoize(
+      (tableColumns, tableWidth, minColumnWidth) => (
+        getColumnWidthGetter(tableColumns, tableWidth, minColumnWidth)
+      ),
+    );
   }
 
   componentDidMount() {
@@ -288,9 +297,7 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
       height,
     } = this.state;
 
-    const getColumnWidth = column => (column.type === TABLE_FLEX_TYPE
-      ? null
-      : column.width || minColumnWidth);
+    const getColumnWidth = this.getColumnWidthGetter(columns, width, minColumnWidth!);
     const getColSpan = (
       tableRow, tableColumn,
     ) => getCellColSpan!({ tableRow, tableColumn, tableColumns: columns });

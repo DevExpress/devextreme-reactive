@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { mount } from 'enzyme';
+import { mount, render } from 'enzyme';
 
 import { PluginHost } from './plugin-host';
 import { Plugin } from './plugin';
@@ -29,7 +29,7 @@ describe('TemplatePlaceholder', () => {
   });
 
   it('can accept a content render function as a child', () => {
-    const tree = mount((
+    const tree = render((
       <PluginHost>
         <Template name="test">
           <span>
@@ -49,7 +49,7 @@ describe('TemplatePlaceholder', () => {
       </PluginHost>
     ));
 
-    expect(tree.render().find('h1 > span')).toHaveLength(1);
+    expect(tree.find('h1 > span')).toHaveLength(1);
   });
 
   it('should update on content render function change', () => {

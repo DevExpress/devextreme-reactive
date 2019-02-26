@@ -69,6 +69,9 @@ const contentBase = ({ classes, ...props }) => {
 };
 const ContentComponent = withStyles(contentStyles, { name: 'contentStyles' })(contentBase);
 
+const titleStyle = { marginRight: '120px' };
+const TitleText = props => <Title.Text {...props} style={titleStyle} />;
+
 const compare = (
   { series, point }, { series: targetSeries, point: targetPoint },
 ) => series === targetSeries && point === targetPoint;
@@ -106,7 +109,7 @@ export default class Demo extends React.PureComponent {
 
           <Title
             text="USA and Chinese annual sales of plug-in electric vehicles"
-            style={{ marginRight: '120px' }}
+            textComponent={TitleText}
           />
 
           <BarSeries

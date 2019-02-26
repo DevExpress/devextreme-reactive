@@ -18,9 +18,9 @@ Add the plugins listed above to the Grid to set up a simple Grid supporting edit
 
 Handle the `EditingState` plugin's `onCommitChanges` event to commit changes made by an end-user to your data store.
 
-## Uncontrolled Mode
+### Uncontrolled Mode
 
-In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), you can specify the initial editing state values using the following `EditingState` plugin's properties:
+In [uncontrolled mode](controlled-and-uncontrolled-modes.md), you can specify the initial editing state values using the following `EditingState` plugin's properties:
 
 - `defaultEditingRowIds` - the rows being edited
 - `defaultAddedRows` - the rows being added
@@ -29,9 +29,9 @@ In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), you can specif
 
 .embedded-demo({ "path": "grid-editing/edit-row", "showThemeSelector": true })
 
-## Controlled Mode
+### Controlled Mode
 
-In the [controlled mode](controlled-and-uncontrolled-modes.md), specify the following `EditingState` plugin's property pairs to set a state value and handle its changes:
+In [controlled mode](controlled-and-uncontrolled-modes.md), specify the following `EditingState` plugin's property pairs to set a state value and handle its changes:
 
 - `editingRowIds` and `onEditingRowIdsChange` - the rows being edited
 - `addedRows` and `onAddedRowsChange` - the rows being added
@@ -42,7 +42,7 @@ Note, you can also use the `onAddedRowsChange` event to initialize a created row
 
 .embedded-demo({ "path": "grid-editing/edit-row-controlled", "showThemeSelector": true })
 
-## Disable Editing by a Column
+## Disable Editing in a Column
 
 You can prevent editing of a specific column using the [EditingState](../reference/editing-state.md) plugin's `columnExtensions` property.
 

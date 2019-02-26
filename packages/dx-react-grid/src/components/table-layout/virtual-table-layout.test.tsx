@@ -5,8 +5,8 @@ import { isEdgeBrowser } from '@devexpress/dx-core';
 import { Sizer } from '@devexpress/dx-react-core';
 import {
   getCollapsedGrid,
+  getColumnWidthGetter,
   TABLE_FLEX_TYPE,
-  TABLE_DATA_TYPE,
 } from '@devexpress/dx-grid-core';
 import { setupConsole } from '@devexpress/dx-testing';
 import { VirtualTableLayout } from './virtual-table-layout';
@@ -14,12 +14,16 @@ import { VirtualTableLayout } from './virtual-table-layout';
 jest.mock('react-dom', () => ({
   findDOMNode: jest.fn(),
 }));
-jest.mock('@devexpress/dx-core', () => ({
-  isEdgeBrowser: jest.fn(),
-}));
+jest.mock('@devexpress/dx-core', () => {
+  return {
+    ...require.requireActual('@devexpress/dx-core'),
+    isEdgeBrowser: jest.fn(),
+  };
+});
 jest.mock('@devexpress/dx-grid-core', () => {
   const actual = require.requireActual('@devexpress/dx-grid-core');
   jest.spyOn(actual, 'getCollapsedGrid');
+  jest.spyOn(actual, 'getColumnWidthGetter');
   return actual;
 });
 jest.mock('./column-group', () => ({
@@ -434,5 +438,21 @@ describe('VirtualTableLayout', () => {
       expect(getRowHeight(rows[1]))
         .toEqual(defaultProps.estimatedRowHeight);
     });
+  });
+
+  it('should use getColumnWidthGetter', () => {
+    const getColumnWidth = () => 0;
+    getColumnWidthGetter.mockImplementationOnce(() => getColumnWidth);
+
+    mount((
+      <VirtualTableLayout
+        {...defaultProps}
+      />
+    ));
+
+    expect(getCollapsedGrid.mock.calls[0][0])
+      .toMatchObject({
+        getColumnWidth,
+      });
   });
 });

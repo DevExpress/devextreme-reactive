@@ -77,7 +77,11 @@ DemoRenderer.propTypes = {
   demoName: PropTypes.string.isRequired,
   themeName: PropTypes.string.isRequired,
   variantName: PropTypes.string.isRequired,
-  perfSamplesCount: PropTypes.number.isRequired,
+  perfSamplesCount: PropTypes.number,
+};
+
+DemoRenderer.defaultProps = {
+  perfSamplesCount: undefined,
 };
 
 DemoRenderer.contextType = EmbeddedDemoContext;

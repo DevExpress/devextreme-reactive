@@ -26,13 +26,13 @@ Import the [TableFixedColumns](../reference/table-fixed-columns.md) plugin and s
 
 .embedded-demo({ "path": "grid-fixed-columns/basic", "showThemeSelector": true })
 
-## Fixing Service Columns
+## Fix Service Columns
 
 You can also use the `leftColumns` and `rightColumns` properties to fix service columns, such as Selection Column or Editing Column.
 
 .embedded-demo({ "path": "grid-fixed-columns/with-selection", "showThemeSelector": true })
 
-## Compatibility With Other Plugins
+## Compatibility with Other Plugins
 
 You can use the [TableFixedColumns](../reference/table-fixed-columns.md) plugin with other plugins.
 

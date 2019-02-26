@@ -10,46 +10,78 @@ import {
   Title,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 
-import { born as data } from '../../../demo-data/data-vizualization';
+const data = [
+  { arg: 0.2, val: 0.4 },
+  { arg: 1.4, val: 2.3 },
+  { arg: 2.7, val: 3.8 },
+  { arg: 3.2, val: 1.1 },
+  { arg: 4.8, val: 2.8 },
+];
+
+const initialRangeStart = 0;
+const initialRangeEnd = 10;
+const minRangeDelta = 2;
+
+const sliderStyle = {
+  width: '400px',
+};
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
-
     this.state = {
-      data,
+      rangeStart: initialRangeStart,
+      rangeEnd: initialRangeEnd,
+    };
+    this.changeRangeStart = (e) => {
+      const value = Number(e.target.value);
+      this.setState(({ rangeEnd }) => (
+        value < rangeEnd - minRangeDelta ? { rangeStart: value } : null
+      ));
+    };
+    this.changeRangeEnd = (e) => {
+      const value = Number(e.target.value);
+      this.setState(({ rangeStart }) => (
+        value > rangeStart + minRangeDelta ? { rangeEnd: value } : null
+      ));
     };
   }
 
   render() {
-    const { data: chartData } = this.state;
-
     return (
       <<%&wrapperTag%><%&wrapperAttributes%>>
         <Chart
-          data={chartData}
+          data={data}
         >
           <Title text="Born amount" />
-          <Legend placeholder="right" />
-          <ArgumentAxis position="top" />
+          <ArgumentAxis />
           <ValueAxis />
 
           <LineSeries
             name="Russia"
-            valueField="ru"
-            argumentField="year"
-          />
-          <SplineSeries
-            name="China"
-            valueField="ch"
-            argumentField="year"
-          />
-          <AreaSeries
-            name="USA"
-            valueField="us"
-            argumentField="year"
+            valueField="val"
+            argumentField="arg"
           />
         </Chart>
+
+        <div>
+          <div>
+            <input
+              type="range"
+              style={sliderStyle}
+              min={initialRangeStart} max={initialRangeEnd} step={0.1}
+              value={this.state.rangeStart} onChange={this.changeRangeStart}
+            />
+          </div>
+          <div>
+            <input
+              type="range"
+              style={sliderStyle}
+              min={initialRangeStart} max={initialRangeEnd} step={0.1}
+              value={this.state.rangeEnd} onChange={this.changeRangeEnd}
+            />
+          </div>
+        </div>
       </<%&wrapperTag%>>
     );
   }

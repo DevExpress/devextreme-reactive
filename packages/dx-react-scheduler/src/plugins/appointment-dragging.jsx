@@ -19,6 +19,9 @@ import {
   calculateAllDayDateIntervals,
 } from '@devexpress/dx-scheduler-core';
 
+const SCROLL_OFFSET = 50;
+const SCROLL_SPEED_PX = 30;
+
 const clamp = (value, min, max) => Math.max(Math.min(value, max), min);
 
 // tslint:disable-next-line: max-line-length
@@ -55,13 +58,27 @@ export class AppointmentDragging extends React.PureComponent {
     this.rects = [];
   }
 
-  componentDidMount() {
-    const [layout] = document.getElementsByClassName('dx-layout');
-    this.layout = layout;
-    this.layoutHeaderRect = document.getElementsByClassName('dx-layout-header')[0].getBoundingClientRect();
-  }
+  // componentDidMount() {
+  //   const [layout] = document.getElementsByClassName('dx-layout');
+  //   this.layout = layout;
+  //   this.layoutHeaderRect = document.getElementsByClassName('dx-layout-header')[0].getBoundingClientRect();
+  // }
 
-  onPayloadChange({ payload }) {
+  onPayloadChange({ payload, clientOffset }) {
+    // AUTO SCROLL
+    if (this.layout && clientOffset) {
+      const [layout] = document.getElementsByClassName('dx-layout');
+      this.layout = layout;
+      this.layoutHeaderRect = document.getElementsByClassName('dx-layout-header')[0].getBoundingClientRect();
+
+      if ((clientOffset.y - SCROLL_OFFSET < this.layoutHeaderRect.height + this.layoutHeaderRect.top) && (clientOffset.y > this.layoutHeaderRect.height + this.layoutHeaderRect.top)) {
+        this.layout.scrollTop -= SCROLL_SPEED_PX;
+      }
+      if (this.layout.clientHeight - SCROLL_OFFSET < clientOffset.y - this.layout.offsetTop) {
+        this.layout.scrollTop += SCROLL_SPEED_PX;
+      }
+    }
+
     if (payload) return;
     this.setState({ payload });
   }
@@ -97,6 +114,11 @@ export class AppointmentDragging extends React.PureComponent {
 
     if (allDayIndex === -1 && timeTableIndex === -1) return;
 
+    if (timeTableIndex !== -1) {
+      const cellRect = timeTableCells[timeTableIndex].getBoundingClientRect();
+      this.part = clientOffset.y > cellRect.top + (cellRect.bottom - cellRect.top) / 2 ? 1 : 0;
+    }
+
     this.timeTableIndex = timeTableIndex;
     this.allDayIndex = allDayIndex;
     this.payload = payload;
@@ -115,8 +137,6 @@ export class AppointmentDragging extends React.PureComponent {
   }
 
   handleDrop(args, commitChangedAppointment) {
-    console.log('drop!');
-    // const { payload } = this.state;
     commitChangedAppointment({ appointmentId: this.payload.id });
 
     this.offsetTimeTop = null;
@@ -126,6 +146,7 @@ export class AppointmentDragging extends React.PureComponent {
     this.allDayIndex = null;
 
     this.payload = null;
+    this.part = 0;
 
     this.setState({
       timeTableCells: [],
@@ -292,7 +313,6 @@ export class AppointmentDragging extends React.PureComponent {
               if (this.timeTableIndex !== -1 && this.allDayIndex === -1 && payload) {
                 const firstIndex = Math.floor(this.timeTableIndex / viewCellsData[0].length);
                 const secondIndex = this.timeTableIndex % viewCellsData[0].length;
-                const appointmentDuration = moment(payload.endDate).diff(moment(payload.startDate), 'seconds');
 
                 if (firstIndex > -1 && secondIndex > -1) {
                   const targetData = viewCellsData[firstIndex][secondIndex];
@@ -301,19 +321,26 @@ export class AppointmentDragging extends React.PureComponent {
                   const sourceType = payload.type;
 
                   // CURSOR POSITION
+                  const divisionTime = 15 * 60;
+                  const insideOffset = this.part * divisionTime;
                   if (this.offsetTimeTop === null && this.offsetTimeBottom === null) {
-                    this.offsetTimeTop = moment(targetData.startDate).diff(payload.startDate, 'seconds');
+
+
+                    this.offsetTimeTop = moment(targetData.startDate).diff(payload.startDate, 'seconds') + insideOffset;
                     this.offsetTimeBottom = moment(payload.endDate).diff(targetData.endDate, 'seconds');
                   }
 
-                  /* SAME TYPES && All DAY */
-                  if (sourceType === targetType) {
-                    this.appointmentStartTime = moment(targetData.startDate).add((this.offsetTimeTop) * (-1), 'seconds').toDate();
-                    this.appointmentEndTime = moment(targetData.startDate).add((appointmentDuration - this.offsetTimeTop), 'seconds').toDate();
-                  } else { // DIFFERENT TYPES
-                    this.appointmentStartTime = targetData.startDate;
-                    this.appointmentEndTime = targetData.endDate;
-                  }
+
+                  const appointmentDuration = sourceType === targetType
+                    ? moment(payload.endDate).diff(moment(payload.startDate), 'seconds') /* SAME TYPES */
+                    : moment(targetData.endDate).diff(moment(targetData.startDate), 'seconds'); // DIFFERENT TYPES
+                  console.log(this.offsetTimeTop);
+
+                  const start = moment(targetData.startDate).add(insideOffset, 'seconds');
+                  const end = moment(start).add(insideOffset, 'seconds');
+
+                  this.appointmentStartTime = start.add((this.offsetTimeTop) * (-1), 'seconds').toDate();
+                  this.appointmentEndTime = end.add((appointmentDuration - this.offsetTimeTop - insideOffset), 'seconds').toDate();
 
                   changeAppointment({
                     change: {

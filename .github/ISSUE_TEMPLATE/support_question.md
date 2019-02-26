@@ -1,3 +1,9 @@
+---
+name: Support Question
+about: Questions and requests for support.
+
+---
+
 <!--
     We cannot guarantee a quick answer on GitHub.
     If you own an active DevExtreme license, feel free to contact us in the Support Center (https://www.devexpress.com/ask)

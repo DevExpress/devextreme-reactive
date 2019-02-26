@@ -21,6 +21,9 @@ const SpecialMarkerComponent = ({ name, color }) => {
   );
 };
 
+const titleStyle = { margin: 'auto' };
+const TitleText = props => <Title.Text {...props} style={titleStyle} />;
+
 const generateData = (start, end, step) => {
   const data = [];
   for (let i = start; i < end; i += step) {
@@ -65,7 +68,10 @@ export default class Demo extends React.PureComponent {
             argumentField="argument"
           />
 
-          <Title text="Noisy and Original signals" style={{ margin: 'auto' }} />
+          <Title
+            text="Noisy and Original signals"
+            textComponent={TitleText}
+          />
           <Legend
             markerComponent={SpecialMarkerComponent}
           />

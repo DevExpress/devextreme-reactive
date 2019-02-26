@@ -27,7 +27,7 @@
 
 ### Steps to Reproduce
 <!--
-    Provide detailed steps to reproduce the bug. If possible, create a demo illustrating the problem.
+    Provide steps to reproduce the bug. If possible, create a demo illustrating the problem.
 -->
 
 

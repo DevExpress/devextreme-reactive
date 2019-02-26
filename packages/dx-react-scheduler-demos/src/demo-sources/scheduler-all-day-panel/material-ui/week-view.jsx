@@ -54,7 +54,7 @@ export default class Demo extends React.PureComponent {
         <Scheduler
           data={data}
         >
-          <DragDropProvider />
+          {/* <DragDropProvider /> */}
           <ViewState
             defaultCurrentDate={currentDate}
           />

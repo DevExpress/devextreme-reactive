@@ -108,6 +108,7 @@ export class AppointmentDragging extends React.PureComponent {
 
     if (allDayIndex === -1 && timeTableIndex === -1) return;
 
+    this.part = 0;
     if (timeTableIndex !== -1) {
       const cellRect = timeTableCells[timeTableIndex].getBoundingClientRect();
       this.part = clientOffset.y > cellRect.top + (cellRect.bottom - cellRect.top) / 2 ? 1 : 0;
@@ -316,7 +317,9 @@ export class AppointmentDragging extends React.PureComponent {
 
                   // CURSOR POSITION
                   const divisionTime = 15 * 60;
-                  const insideOffset = this.part * divisionTime;
+                  const insideOffset = targetType === 'vertical' ? this.part * divisionTime : 0;
+                  // const insideOffset = this.part * divisionTime;
+                  debugger
                   if (this.offsetTimeTop === null && this.offsetTimeBottom === null) {
 
 
@@ -331,10 +334,10 @@ export class AppointmentDragging extends React.PureComponent {
                   console.log(this.offsetTimeTop);
 
                   const start = moment(targetData.startDate).add(insideOffset, 'seconds');
-                  const end = moment(start).add(insideOffset, 'seconds');
+                  const end = moment(start);
 
-                  this.appointmentStartTime = start.add((this.offsetTimeTop) * (-1), 'seconds').toDate();
-                  this.appointmentEndTime = end.add((appointmentDuration - this.offsetTimeTop - insideOffset), 'seconds').toDate();
+                  this.appointmentStartTime = moment(start).add((this.offsetTimeTop) * (-1), 'seconds').toDate();
+                  this.appointmentEndTime = moment(end).add((appointmentDuration - this.offsetTimeTop), 'seconds').toDate();
 
                   changeAppointment({
                     change: {

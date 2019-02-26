@@ -58,15 +58,9 @@ export class AppointmentDragging extends React.PureComponent {
     this.rects = [];
   }
 
-  // componentDidMount() {
-  //   const [layout] = document.getElementsByClassName('dx-layout');
-  //   this.layout = layout;
-  //   this.layoutHeaderRect = document.getElementsByClassName('dx-layout-header')[0].getBoundingClientRect();
-  // }
-
   onPayloadChange({ payload, clientOffset }) {
     // AUTO SCROLL
-    if (this.layout && clientOffset) {
+    if (clientOffset) {
       const [layout] = document.getElementsByClassName('dx-layout');
       this.layout = layout;
       this.layoutHeaderRect = document.getElementsByClassName('dx-layout-header')[0].getBoundingClientRect();

@@ -21,7 +21,7 @@ describe('ColumnGroup', () => {
           { key: 'a' },
           { key: 'b', width: 100 },
           { key: 'c', width: 200 },
-          { key: 'd', width: 200, preferMinWidth: true },
+          { key: 'd', width: 200 },
         ]}
       />
     ));
@@ -31,7 +31,7 @@ describe('ColumnGroup', () => {
         undefined,
         { width: '100px' },
         { width: '200px' },
-        { minWidth: '200px' },
+        { width: '200px' },
       ]);
   });
 });

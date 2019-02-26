@@ -2,7 +2,7 @@ import { TableColumn, TableRow } from './table.types';
 import { PureComputed } from '@devexpress/dx-core';
 
 /** @internal */
-export type GetColumnWidthFn = PureComputed<[TableColumn, number?], number>;
+export type GetColumnWidthFn = PureComputed<[TableColumn, number?], number | null>;
 /** @internal */
 export type GetRowHeightFn = PureComputed<[TableRow, number?], number>;
 /** @internal */
@@ -18,7 +18,7 @@ type CollapsedRow = TableRow & { cells: any[], height: number };
 export type VisibleBoundary =  ReadonlyArray<number>;
 /** @internal */
 export type GetVisibleBoundaryFn = PureComputed<
-  [ReadonlyArray<any>, number, number, (item: any) => number, number],
+  [ReadonlyArray<any>, number, number, (item: any) => number | null, number],
   VisibleBoundary
 >;
 
@@ -73,4 +73,10 @@ export type GetCollapsedGridFn = PureComputed<
     getColumnWidth: GetColumnWidthFn, getRowHeight: GetRowHeightFn, getColSpan: GetColSpanFn,
   }],
   { columns: CollapsedColumn[], rows: CollapsedRow[] }
+>;
+
+/** @internal */
+export type GetColumnWidthGetterFn = PureComputed<
+  [TableColumn[], number, number],
+  GetColumnWidthFn
 >;

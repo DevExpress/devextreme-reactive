@@ -4,7 +4,9 @@ import {
   GetCollapsedAndStubRowsFn, GetCollapsedCellsFn, GetCollapsedGridFn, GetColumnWidthFn,
   GetRowHeightFn,
   CollapsedCell,
+  GetColumnWidthGetterFn,
 } from '../types';
+import { TABLE_FLEX_TYPE } from '..';
 
 export const TABLE_STUB_TYPE = Symbol('stub');
 
@@ -28,7 +30,7 @@ export const getVisibleBoundary: GetVisibleBoundaryFn = (
   let beforePosition = 0;
   while (end === null && index < items.length) {
     const item = items[index];
-    const afterPosition = beforePosition + getItemSize(item);
+    const afterPosition = beforePosition + getItemSize(item)!;
     const isVisible = (beforePosition >= viewportStart && beforePosition < viewportEnd)
       || (afterPosition > viewportStart && afterPosition <= viewportEnd)
       || (beforePosition < viewportStart && afterPosition > viewportEnd);
@@ -152,8 +154,7 @@ export const getCollapsedColumns: GetCollapsedColumnsFn = (
       const column = columns[boundary[0]];
       collapsedColumns.push({
         ...column,
-        ...!column.width ? { preferMinWidth: true } : null,
-        width: getColumnWidth(column),
+        width: getColumnWidth(column) as number,
       });
     } else {
       collapsedColumns.push({
@@ -290,4 +291,17 @@ export const getCollapsedGrid: GetCollapsedGridFn = ({
       ),
     ),
   };
+};
+
+export const getColumnWidthGetter: GetColumnWidthGetterFn = (
+  tableColumns, tableWidth, minColumnWidth,
+) => {
+  const colsHavingWidth = tableColumns.filter(col => col.width !== undefined);
+  const columnsWidth = colsHavingWidth.reduce((acc, col) => (acc + col.width!), 0);
+  const autoWidth = (tableWidth - columnsWidth) / (tableColumns.length - colsHavingWidth.length);
+  const autoColWidth = Math.max(autoWidth, minColumnWidth!);
+
+  return column => (column.type === TABLE_FLEX_TYPE
+    ? null
+    : column.width || autoColWidth);
 };

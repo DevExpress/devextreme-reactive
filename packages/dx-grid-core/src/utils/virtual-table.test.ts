@@ -1,4 +1,5 @@
 // tslint:disable: max-line-length
+import { TABLE_FLEX_TYPE } from '..';
 import {
   getVisibleBoundary,
   getVisibleBoundaryWithFixed,
@@ -8,6 +9,7 @@ import {
   getCollapsedCells,
   getCollapsedGrid,
   TABLE_STUB_TYPE,
+  getColumnWidthGetter,
 } from './virtual-table';
 
 describe('VirtualTableLayout utils', () => {
@@ -347,9 +349,9 @@ describe('VirtualTableLayout utils', () => {
 
       const result = [
         { type: TABLE_STUB_TYPE, key: `${TABLE_STUB_TYPE.toString()}_0_1`, width: 70 },
-        { ...columns[2], width: 50, preferMinWidth: true },
-        { ...columns[3], width: 60, preferMinWidth: true },
-        { ...columns[4], width: 70, preferMinWidth: true },
+        { ...columns[2], width: 50 },
+        { ...columns[3], width: 60 },
+        { ...columns[4], width: 70 },
         { ...columns[5], width: 80 },
         { type: TABLE_STUB_TYPE, key: `${TABLE_STUB_TYPE.toString()}_6_7`, width: 190 },
       ];
@@ -561,6 +563,60 @@ describe('VirtualTableLayout utils', () => {
         .toEqual([1, 5, 1, 1, 1, 1, 1]);
       expect(result.rows[2].cells.map(cell => cell.colSpan))
         .toEqual([7, 1, 1, 1, 1, 1, 1]);
+    });
+  });
+
+  describe('#getColumnWidthGetter', () => {
+    const columns = [
+      { key: 'a', width: 20 },
+      { key: 'b', width: 80 },
+      { key: 'c' },
+      { key: 'd' },
+      { key: 'e', width: 200 },
+    ];
+    const tableWidth = 800;
+    const minWidth = 150;
+    const getWidths = (cols, width, minColWidth) => {
+      const getColumnWidth = getColumnWidthGetter(cols, width, minColWidth);
+      return cols.map(getColumnWidth);
+    };
+
+    it('should calculate width for free-width columns if table stretches to page', () => {
+      expect(getWidths(columns, tableWidth, minWidth))
+      .toMatchObject([
+        20, 80,
+        250, 250,
+        200,
+      ]);
+    });
+
+    it('should return minColumnWidth otherwise', () => {
+      expect(getWidths([
+        ...columns,
+        { key: 'f' },
+        { key: 'g' },
+        { key: 'h' },
+        { key: 'j' },
+      ], 1200, minWidth)).toMatchObject([
+        20, 80,
+        minWidth, minWidth,
+        200,
+        minWidth, minWidth, minWidth, minWidth,
+      ]);
+    });
+
+    it('should return null for flex columns', () => {
+      expect(getWidths([
+        ...columns,
+        { key: 'f' },
+        { key: 'g', type: TABLE_FLEX_TYPE },
+      ], tableWidth, minWidth)).toMatchObject([
+        20, 80,
+        minWidth, minWidth,
+        200,
+        minWidth,
+        null,
+      ]);
     });
   });
 });

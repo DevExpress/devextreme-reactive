@@ -106,7 +106,6 @@ export class AppointmentDragging extends React.PureComponent {
       timeTableCells: [],
       allDayCells: [],
       payload: undefined,
-      timeTableIndex: undefined,
     };
 
     this.onOver = this.handleOver.bind(this);
@@ -241,8 +240,6 @@ export class AppointmentDragging extends React.PureComponent {
     }
 
     this.setState({
-      allDayIndex,
-      timeTableIndex,
       payload,
       timeTableCells,
       allDayCells,
@@ -259,8 +256,6 @@ export class AppointmentDragging extends React.PureComponent {
       timeTableCells: [],
       allDayCells: [],
       payload: undefined,
-      timeTableIndex: undefined,
-      allDayIndex: undefined,
     });
   }
 

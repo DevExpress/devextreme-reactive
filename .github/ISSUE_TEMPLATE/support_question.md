@@ -1,6 +1,6 @@
 ---
 name: Support Question
-about: Questions and requests for support.
+about: Ask a question about our product
 
 ---
 

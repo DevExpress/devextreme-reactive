@@ -1,3 +1,12 @@
+# [1.10.3](https://github.com/DevExpress/devextreme-reactive/compare/v1.10.2...v1.10.3) (2019-02-27)
+
+
+### Bug Fixes
+
+* **react-grid:** fix dependencies ([#1873](https://github.com/DevExpress/devextreme-reactive/issues/1873)) ([1f3d9ae](https://github.com/DevExpress/devextreme-reactive/commit/1f3d9ae))
+
+
+
 # [1.10.2](https://github.com/DevExpress/devextreme-reactive/compare/v1.10.1...v1.10.2) (2019-02-27)
 
 

@@ -51,7 +51,8 @@ const DeleteButton = ({ onExecute }) => (
     hint="Delete row"
     color="text-danger"
     onExecute={() => {
-      if (confirm('Are you sure you want to delete this row?')) {
+      // eslint-disable-next-line
+      if (window.confirm('Are you sure you want to delete this row?')) {
         onExecute();
       }
     }}
@@ -75,9 +76,9 @@ const commandComponents = {
 };
 
 const Command = ({ id, onExecute }) => {
-  const CommandButton = commandComponents[id];
+  const ButtonComponent = commandComponents[id];
   return (
-    <CommandButton
+    <ButtonComponent
       onExecute={onExecute}
     />
   );
@@ -164,7 +165,6 @@ export default class Demo extends React.PureComponent {
       addedRows: [],
       rowChanges: {},
       currentPage: 0,
-      deletingRows: [],
       pageSize: 0,
       pageSizes: [5, 10, 0],
       columnOrder: ['product', 'amount', 'discount', 'saleDate', 'customer'],
@@ -175,10 +175,6 @@ export default class Demo extends React.PureComponent {
         { columnName: 'discount', type: 'avg' },
         { columnName: 'amount', type: 'sum' },
       ],
-    };
-    const getStateDeletingRows = () => {
-      const { deletingRows } = this.state;
-      return deletingRows;
     };
 
     const getStateRows = () => {
@@ -221,7 +217,6 @@ export default class Demo extends React.PureComponent {
       }
       this.setState({ rows });
     };
-    this.cancelDelete = () => this.setState({ deletingRows: [] });
     this.deleteRows = (deletedIds) => {
       const rows = getStateRows().slice();
       deletedIds.forEach((rowId) => {

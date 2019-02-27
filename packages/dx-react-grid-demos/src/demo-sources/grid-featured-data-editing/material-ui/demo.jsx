@@ -10,11 +10,6 @@ import {
   TableFixedColumns, TableSummaryRow,
 } from '@devexpress/dx-react-grid-material-ui';
 import Paper from '@material-ui/core/Paper';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Input from '@material-ui/core/Input';
@@ -71,11 +66,15 @@ const EditButton = ({ onExecute }) => (
 );
 
 const DeleteButton = ({ onExecute }) => (
-  <IconButton onClick={() => {
-      if (confirm('Are you sure you want to delete this row?')) {
+  <IconButton
+    onClick={() => {
+      // eslint-disable-next-line
+      if (window.confirm('Are you sure you want to delete this row?')) {
         onExecute();
-      }}}
-      title="Delete row">
+      }
+    }}
+    title="Delete row"
+  >
     <DeleteIcon />
   </IconButton>
 );
@@ -192,7 +191,6 @@ class DemoBase extends React.PureComponent {
       addedRows: [],
       rowChanges: {},
       currentPage: 0,
-      deletingRows: [],
       pageSize: 0,
       pageSizes: [5, 10, 0],
       columnOrder: ['product', 'region', 'amount', 'discount', 'saleDate', 'customer'],
@@ -203,10 +201,6 @@ class DemoBase extends React.PureComponent {
         { columnName: 'discount', type: 'avg' },
         { columnName: 'amount', type: 'sum' },
       ],
-    };
-    const getStateDeletingRows = () => {
-      const { deletingRows } = this.state;
-      return deletingRows;
     };
     const getStateRows = () => {
       const { rows } = this.state;
@@ -246,9 +240,8 @@ class DemoBase extends React.PureComponent {
       if (deleted) {
         rows = this.deleteRows(deleted);
       }
-      this.setState({ rows  });
+      this.setState({ rows });
     };
-    this.cancelDelete = () => this.setState({ deletingRows: [] });
     this.deleteRows = (deletedIds) => {
       const rows = getStateRows().slice();
       deletedIds.forEach((rowId) => {
@@ -266,9 +259,6 @@ class DemoBase extends React.PureComponent {
 
   render() {
     const {
-      classes,
-    } = this.props;
-    const {
       rows,
       columns,
       tableColumnExtensions,
@@ -277,7 +267,6 @@ class DemoBase extends React.PureComponent {
       addedRows,
       rowChanges,
       currentPage,
-      deletingRows,
       pageSize,
       pageSizes,
       columnOrder,

@@ -343,11 +343,11 @@ export class AppointmentDragging extends React.PureComponent {
                 {payload && params.data.id === payload.id ? (
                   <DraggingAppointment {...params} />
                 ) : (
-                  <TemplatePlaceholder {...params} />
+                  <TemplatePlaceholder params={{ ...params, style: { ...params.style, cursor: 'pointer' } }} />
                 )}
               </DragSource>
             ) : (
-              <TemplatePlaceholder {...params} />
+              <TemplatePlaceholder />
             )
           )}
         </Template>

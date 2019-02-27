@@ -1,4 +1,4 @@
-# React Core - Rendering Markup
+# React Core - Render Markup
 
 A plugin-based component's main purpose is to render markups defined in separate plugins as a single React component tree.
 
@@ -14,13 +14,13 @@ The `root` template name is reserved. If you create a template with the `root` n
 
 .embedded-demo({ "path": "core-basic/plugin-component", "defaultTab": "source" })
 
-## Passing Parameters to a Template
+## Pass Parameters to a Template
 
 You can render similar entities using a single template. For this, associate several template placeholders with the template and pass parameters to this template using the TemplatePlaceholder's `params` property.
 
 .embedded-demo({ "path": "core-template/template-parameters", "defaultTab": "source" })
 
-## Template Overriding
+## Override a Template
 
 You can override an existing template by creating a new one with the same name. You can render an overridden template within a new one using the `TamplatePlaceholder` component without a name.
 

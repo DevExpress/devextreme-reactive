@@ -30,6 +30,9 @@ const Area = (props) => {
   return <AreaSeries.Path {...props} path={path} />;
 };
 
+const titleStyle = { marginRight: '120px' };
+const TitleText = props => <Title.Text {...props} style={titleStyle} />;
+
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -84,7 +87,7 @@ export default class Demo extends React.PureComponent {
           <Legend />
           <Title
             text="Book Sales"
-            style={{ marginRight: '120px' }}
+            textComponent={TitleText}
           />
           <Stack
             stacks={[

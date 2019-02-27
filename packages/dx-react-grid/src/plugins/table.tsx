@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { memoize, getMessagesFormatter, Memoized } from '@devexpress/dx-core';
+import { memoize, getMessagesFormatter, MemoizedComputed } from '@devexpress/dx-core';
 import {
   Getter,
   Template,
@@ -59,7 +59,7 @@ class TableBase extends React.PureComponent<TableProps> {
     stubHeaderCellComponent: 'StubHeaderCell',
   };
 
-  tableColumnsComputed: Memoized<GridColumnExtension[], typeof tableColumnsWithDataRows>;
+  tableColumnsComputed: MemoizedComputed<GridColumnExtension[], typeof tableColumnsWithDataRows>;
 
   constructor(props) {
     super(props);

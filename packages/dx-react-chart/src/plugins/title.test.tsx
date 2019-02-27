@@ -53,18 +53,4 @@ describe('Title', () => {
     expect(tree.find('h1').text())
       .toBe('other template');
   });
-
-  it('should pass style to text', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-
-        <Title
-          {...defaultProps}
-        />
-      </PluginHost>));
-
-    expect(tree.find(textComponent).props().style)
-      .toBe('style');
-  });
 });

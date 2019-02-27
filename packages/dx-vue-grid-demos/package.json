@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@devexpress/dx-vue-grid-demos",
-  "version": "1.10.1",
+  "version": "1.10.3",
   "description": "DevExtreme Vue Components Demos",
   "author": {
     "name": "Developer Express Inc.",
@@ -22,15 +22,15 @@
     "lint:fix": "yarn run lint -- --fix"
   },
   "dependencies": {
-    "@devexpress/dx-demo-shell": "1.10.1",
-    "@devexpress/dx-vue-core": "1.10.1",
-    "@devexpress/dx-vue-grid": "1.10.1",
-    "@devexpress/dx-vue-grid-bootstrap4": "1.10.1",
+    "@devexpress/dx-demo-shell": "1.10.3",
+    "@devexpress/dx-vue-core": "1.10.3",
+    "@devexpress/dx-vue-grid": "1.10.3",
+    "@devexpress/dx-vue-grid-bootstrap4": "1.10.3",
     "babel-polyfill": "^6.26.0",
     "codemirror": "^5.42.0",
     "prop-types": "^15.6.2",
     "react": "^16.6.3",
-    "react-bootstrap": "^0.32.4",
+    "react-bootstrap": "=0.32.4",
     "react-dom": "^16.6.3",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
@@ -38,7 +38,7 @@
     "vuex": "^3.0.1"
   },
   "devDependencies": {
-    "@devexpress/dx-testing": "1.10.1",
+    "@devexpress/dx-testing": "1.10.3",
     "@vue/test-utils": "1.0.0-beta.12",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
     "babel-jest": "^23.4.2",

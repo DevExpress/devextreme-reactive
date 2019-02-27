@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { memoize, Memoized } from '@devexpress/dx-core';
+import { memoize, MemoizedComputed } from '@devexpress/dx-core';
 import {
   Plugin, Getter, Action, createStateHelper, StateHelper, ActionFn, Getters,
 } from '@devexpress/dx-react-core';
@@ -26,8 +26,9 @@ class TableColumnResizingBase extends React.PureComponent<TableColumnResizingPro
   changeTableColumnWidth: ActionFn<ColumnWidthPayload>;
   draftTableColumnWidth: ActionFn<ColumnWidthPayload>;
   cancelTableColumnWidthDraft: ActionFn<any>;
-  tableColumnsComputed: Memoized<TableColumnWidthInfo[], typeof tableColumnsWithWidths>;
-  tableColumnsDraftComputed: Memoized<TableColumnWidthInfo[], typeof tableColumnsWithDraftWidths>;
+  tableColumnsComputed: MemoizedComputed<TableColumnWidthInfo[], typeof tableColumnsWithWidths>;
+  // tslint:disable-next-line: max-line-length
+  tableColumnsDraftComputed: MemoizedComputed<TableColumnWidthInfo[], typeof tableColumnsWithDraftWidths>;
 
   constructor(props) {
     super(props);

@@ -54,7 +54,7 @@ In the following example, the Grid functions are in the [uncontrolled mode](cont
 
 ## Controlled Mode
 
-In the [controlled mode](controlled-and-uncontrolled-modes.md), pass a grouping options array to the `GroupingState` plugin's `grouping` property and handle the `onGroupingChange` event to control the grid grouping state.
+In [controlled mode](controlled-and-uncontrolled-modes.md), pass a grouping options array to the `GroupingState` plugin's `grouping` property and handle the `onGroupingChange` event to control the grid grouping state.
 
 .embedded-demo({ "path": "grid-grouping/controlled-mode", "showThemeSelector": true })
 

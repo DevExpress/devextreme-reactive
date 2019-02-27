@@ -22,14 +22,13 @@ export class Title extends React.PureComponent<TitleProps> {
       textComponent: Text,
       text,
       position,
-      ...restProps
     } = this.props;
     const placeholder = position!;
     return (
       <Plugin name="Title">
         <Template name={placeholder}>
           <TemplatePlaceholder />
-          <Text text={text} {...restProps} />
+          <Text text={text} />
         </Template>
       </Plugin>
     );

@@ -70,8 +70,12 @@ export const getLinePointTransformer: GetPointTransformerFn = ({
   });
 };
 
+// Though transformations for line and scatter are the same,
+// separate function instance is required as it contains additional static fields.
 /** @internal */
-export const getScatterPointTransformer = getLinePointTransformer;
+export const getScatterPointTransformer: GetPointTransformerFn = (
+  ...args
+) => getLinePointTransformer(...args);
 
 /** @internal */
 export const getAreaPointTransformer: GetPointTransformerFn = (series) => {

@@ -8,11 +8,11 @@ export class ColumnGroup extends React.PureComponent<{ columns: TableColumn[] }>
 
     return (
       <colgroup>
-        {columns.map(({ key, width, preferMinWidth }) => (
+        {columns.map(({ key, width }) => (
           <col
             key={key}
             style={width !== undefined
-              ? { [preferMinWidth ? 'minWidth' : 'width']: `${width}px` }
+              ? { width: `${width}px` }
               : undefined}
           />
         ))}

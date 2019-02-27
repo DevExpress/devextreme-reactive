@@ -20,11 +20,7 @@ const SVG_STYLE: React.CSSProperties = {
   position: 'absolute', left: 0, top: 0, overflow: 'visible',
 };
 
-type SizerContainerProps = {
-  children: React.ReactNode;
-};
-
-const SizerContainer: React.SFC<SizerContainerProps> = ({ children }) => (
+const SizerContainer: React.SFC = ({ children }) => (
   <div style={DIV_STYLE}>{children}</div>
 );
 

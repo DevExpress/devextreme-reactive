@@ -7,8 +7,7 @@ import {
   stackOffsetDiverging,
 } from 'd3-shape';
 
-/** @internal */
-export class Stack extends React.PureComponent<StackProps> {
+class StackBase extends React.PureComponent<StackProps> {
   static defaultProps: Partial<StackProps> = {
     stacks: [],
     offset: stackOffsetDiverging as OffsetFn,
@@ -30,3 +29,5 @@ export class Stack extends React.PureComponent<StackProps> {
     );
   }
 }
+
+export const Stack: React.ComponentType<StackProps> = StackBase;

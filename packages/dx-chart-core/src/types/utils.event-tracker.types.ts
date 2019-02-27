@@ -29,7 +29,6 @@ export interface TargetData {
   readonly event?: any;
 }
 export type HandlerFn = (arg: TargetData) => void;
-/** @internal */
 export type HandlerFnList = ReadonlyArray<HandlerFn>;
 
 /** @internal */

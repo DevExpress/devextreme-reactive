@@ -8,8 +8,7 @@ import {
 } from '@devexpress/dx-react-core';
 import { TitleProps } from '../types';
 
-/** @internal */
-export class Title extends React.PureComponent<TitleProps> {
+class TitleBase extends React.PureComponent<TitleProps> {
   static components: PluginComponents = {
     textComponent: 'Text',
   };
@@ -34,3 +33,4 @@ export class Title extends React.PureComponent<TitleProps> {
     );
   }
 }
+export const Title: React.ComponentType<TitleProps> = TitleBase;

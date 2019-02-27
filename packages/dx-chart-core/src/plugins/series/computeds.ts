@@ -9,7 +9,7 @@ import {
 } from 'd3-shape';
 import {
   SeriesList, Series, PointList, Point, DataItems, AddSeriesFn, ScalesCache, ScaleSeriesPointsFn,
-  GetPointTransformerFn, Palette, Rect,
+  GetPointTransformerFn, Colors, Rect,
   BarSeries, ScatterSeries, PieSeries,
   PointComponentProps, PathFn,
 } from '../../types';
@@ -192,7 +192,7 @@ const createPoints = (
   {
     argumentField, valueField, getPointTransformer,
   }: Series,
-  data: DataItems, props: any, palette: Palette,
+  data: DataItems, props: any, palette: Colors,
 ): PointList => {
   const points: Point[] = [];
   data.forEach((dataItem, index) => {

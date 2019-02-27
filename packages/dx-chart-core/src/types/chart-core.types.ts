@@ -109,9 +109,9 @@ export type SeriesList = ReadonlyArray<Series>;
 /** @internal */
 export type GetValueDomainFn = (points: PointList) => DomainItems;
 
-export type Palette = ReadonlyArray<string>;
+export type Colors = ReadonlyArray<string>;
 
-type PointColorFn = (palette: Palette, index: number) => string;
+type PointColorFn = (palette: Colors, index: number) => string;
 /** @internal */
 export type Rect = Readonly<[number, number, number, number]>;
 type GetTargetElementFn = (point: TransformedPoint) => Rect;

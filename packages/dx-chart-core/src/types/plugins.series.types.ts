@@ -1,13 +1,13 @@
 import { PureComputed } from '@devexpress/dx-core';
 import {
-  Palette, SeriesList, DataItems, ScalesCache,
+  Colors, SeriesList, DataItems, ScalesCache,
 } from './chart-core.types';
 import {
   Scales, BuildAnimatedStyleGetterFn,
 } from './plugins.animation.types';
 
 /** @internal */
-export type AddSeriesFn = PureComputed<[SeriesList, DataItems, Palette, any, any]>;
+export type AddSeriesFn = PureComputed<[SeriesList, DataItems, Colors, any, any]>;
 /** @internal */
 export type ScaleSeriesPointsFn = PureComputed<[SeriesList, ScalesCache]>;
 

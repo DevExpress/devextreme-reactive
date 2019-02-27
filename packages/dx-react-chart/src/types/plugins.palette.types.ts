@@ -1,6 +1,6 @@
 
-import { Palette } from './index';
+import { Colors } from './index';
 export interface PaletteProps {
   /** An array of colors */
-  scheme: Palette;
+  scheme: Colors;
 }

@@ -181,7 +181,7 @@ interface LineSeriesProps extends SeriesProps {
 
 // @public (undocumented)
 interface PaletteProps {
-  scheme: Palette;
+  scheme: Colors;
 }
 
 // @public (undocumented)
@@ -442,12 +442,19 @@ interface ValueScaleProps extends ScaleProps {
 
 // WARNING: Unsupported export: ArgumentScale
 // WARNING: Unsupported export: ValueScale
+// WARNING: Unsupported export: Palette
+// WARNING: Unsupported export: Animation
+// WARNING: Unsupported export: EventTracker
+// WARNING: Unsupported export: HoverState
+// WARNING: Unsupported export: SelectionState
+// WARNING: Unsupported export: HoverStateState
+// WARNING: Unsupported export: GetPointerMoveHandlersFn
 // WARNING: Unsupported export: DataItem
 // WARNING: Unsupported export: DataItems
 // WARNING: Unsupported export: DomainItems
 // WARNING: Unsupported export: TargetList
 // WARNING: Unsupported export: GetFormatFn
-// WARNING: Unsupported export: Palette
+// WARNING: Unsupported export: Colors
 // WARNING: Unsupported export: PointDistance
 // WARNING: Unsupported export: NumberArray
 // WARNING: Unsupported export: Location
@@ -467,5 +474,6 @@ interface ValueScaleProps extends ScaleProps {
 // WARNING: Unsupported export: GetAnimationStyleFn
 // WARNING: Unsupported export: BuildAnimatedStyleGetterFn
 // WARNING: Unsupported export: HandlerFn
+// WARNING: Unsupported export: HandlerFnList
 // WARNING: Unsupported export: NotifyPointerMoveFn
 // (No @packagedocumentation comment for this package)

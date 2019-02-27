@@ -1,6 +1,6 @@
 export {
   DataItems, TickFormatFn, HandlerFn, SeriesRef, NotifyPointerMoveFn, HandlerFnList, LegendItemList,
-  Palette, TargetList, Scales, BuildAnimatedStyleGetterFn,
+  Colors, TargetList, Scales, BuildAnimatedStyleGetterFn,
   TransformedPoint, GetPointTransformerFn, CreateHitTesterFn, Series,
   ScaleObject, TooltipReference,
   FactoryFn, ModifyDomainFn,
@@ -16,7 +16,6 @@ export {
   BarSeriesProps,
   ScatterSeriesProps,
   PieSeriesProps,
-// } from '@devexpress/dx-chart-core';
 } from '../../../dx-chart-core/src/index';
 
 export * from './plugins.animation.types';

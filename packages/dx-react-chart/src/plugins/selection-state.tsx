@@ -7,8 +7,7 @@ import {
 import { changeSeriesState, SELECTED } from '@devexpress/dx-chart-core';
 import { SelectionStateProps } from '../types';
 
-/** @internal */
-export class SelectionState extends React.PureComponent<SelectionStateProps> {
+class SelectionStateBase extends React.PureComponent<SelectionStateProps> {
   render() {
     const { selection } = this.props;
     const targets = selection || [];
@@ -20,3 +19,5 @@ export class SelectionState extends React.PureComponent<SelectionStateProps> {
     );
   }
 }
+
+export const SelectionState: React.ComponentType<SelectionStateProps> = SelectionStateBase;

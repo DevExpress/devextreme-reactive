@@ -31,8 +31,7 @@ const translateEventNames = (handlers: EventHandlers) => {
   return result;
 };
 
-/** @internal */
-export class EventTracker extends React.PureComponent<EventTrackerProps> {
+class EventTrackerBase extends React.PureComponent<EventTrackerProps> {
   render() {
     const { onClick, onPointerMove } = this.props;
     return (
@@ -51,3 +50,5 @@ export class EventTracker extends React.PureComponent<EventTrackerProps> {
     );
   }
 }
+
+export const EventTracker: React.ComponentType<EventTrackerProps> = EventTrackerBase;

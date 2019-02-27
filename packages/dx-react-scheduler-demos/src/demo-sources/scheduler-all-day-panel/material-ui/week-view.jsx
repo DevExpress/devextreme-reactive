@@ -6,7 +6,6 @@ import {
   WeekView,
   Appointments,
   AllDayPanel,
-  DragDropProvider,
   AppointmentDragging,
   ViewSwitcher,
   Toolbar,

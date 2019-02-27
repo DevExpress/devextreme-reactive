@@ -103,8 +103,8 @@ export class AppointmentDragging extends React.PureComponent {
     super(props);
 
     this.state = {
-      timeTableCells: [],
-      allDayCells: [],
+      startTime: null,
+      endTime: null,
       payload: undefined,
     };
 
@@ -213,13 +213,6 @@ export class AppointmentDragging extends React.PureComponent {
       this.appointmentEndTime = moment(targetData.endDate).add(insideOffset, 'seconds');
     }
 
-    changeAppointment({
-      change: {
-        startDate: this.appointmentStartTime,
-        endDate: this.appointmentEndTime,
-      },
-    });
-
     const draftAppointments = [{ ...payload, start: this.appointmentStartTime, end: this.appointmentEndTime }];
 
     if (allDayIndex !== -1) {
@@ -239,10 +232,20 @@ export class AppointmentDragging extends React.PureComponent {
       this.timeTableRects = [];
     }
 
+    const { startTime, endTime } = this.state;
+    if (startTime && moment(startTime).isSame(this.appointmentStartTime) && moment(endTime).isSame(this.appointmentEndTime)) return;
+
+    changeAppointment({
+      change: {
+        startDate: this.appointmentStartTime,
+        endDate: this.appointmentEndTime,
+      },
+    });
+
     this.setState({
+      startTime: this.appointmentStartTime,
+      endTime: this.appointmentEndTime,
       payload,
-      timeTableCells,
-      allDayCells,
     });
   }
 
@@ -253,9 +256,9 @@ export class AppointmentDragging extends React.PureComponent {
     this.offsetTimeTop = null;
 
     this.setState({
-      timeTableCells: [],
-      allDayCells: [],
       payload: undefined,
+      startTime: null,
+      endTime: null,
     });
   }
 

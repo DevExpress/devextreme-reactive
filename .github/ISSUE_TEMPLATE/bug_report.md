@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Report a bug in devextreme-reactive
+about: Report a bug to help us improve
 
 ---
 

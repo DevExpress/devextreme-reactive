@@ -9,10 +9,6 @@ import {
   PagingPanel, DragDropProvider, TableColumnReordering,
   TableFixedColumns, TableSummaryRow,
 } from '@devexpress/dx-react-grid-bootstrap3';
-import {
-  Modal,
-  Button,
-} from 'react-bootstrap';
 import { ProgressBarCell } from '../../../theme-sources/bootstrap3/components/progress-bar-cell';
 import { HighlightedCell } from '../../../theme-sources/bootstrap3/components/highlighted-cell';
 import { CurrencyTypeProvider } from '../../../theme-sources/bootstrap3/components/currency-type-provider';
@@ -42,38 +38,51 @@ const CommandButton = ({
   </button>
 );
 
-const commandComponentProps = {
-  add: {
-    icon: 'plus',
-    text: 'New',
-    hint: 'Create new row',
-  },
-  edit: {
-    text: 'Edit',
-    hint: 'Edit row',
-  },
-  delete: {
-    icon: 'trash',
-    hint: 'Delete row',
-    isDanger: true,
-  },
-  commit: {
-    text: 'Save',
-    hint: 'Save changes',
-  },
-  cancel: {
-    icon: 'remove',
-    hint: 'Cancel changes',
-    isDanger: true,
-  },
-};
+const AddButton = ({ onExecute }) => (
+  <CommandButton icon="plus" text="New" hint="Create new row" onExecute={onExecute} />
+);
 
-const Command = ({ id, onExecute }) => (
+const EditButton = ({ onExecute }) => (
+  <CommandButton text="Edit" hint="Edit row" onExecute={onExecute} />
+);
+
+const DeleteButton = ({ onExecute }) => (
   <CommandButton
-    {...commandComponentProps[id]}
-    onExecute={onExecute}
+    icon="trash"
+    hint="Delete row"
+    isDanger
+    onExecute={() => {
+      if (confirm('Are you sure you want to delete this row?')) {
+        onExecute();
+      }
+    }}
   />
 );
+
+const CommitButton = ({ onExecute }) => (
+  <CommandButton text="Save" hint="Save changes" onExecute={onExecute} />
+);
+
+const CancelButton = ({ onExecute }) => (
+  <CommandButton icon="remove" hint="Cancel changes" onExecute={onExecute} isDanger />
+);
+
+const commandComponents = {
+  add: AddButton,
+  edit: EditButton,
+  delete: DeleteButton,
+  commit: CommitButton,
+  cancel: CancelButton,
+};
+
+const Command = ({ id, onExecute }) => {
+  const CommandButton = commandComponents[id];
+  return (
+    <CommandButton
+      onExecute={onExecute}
+    />
+  );
+};
 
 const availableValues = {
   product: globalSalesValues.product,
@@ -169,10 +178,6 @@ export default class Demo extends React.PureComponent {
         { columnName: 'amount', type: 'sum' },
       ],
     };
-    const getStateDeletingRows = () => {
-      const { deletingRows } = this.state;
-      return deletingRows;
-    };
 
     const getStateRows = () => {
       const { rows } = this.state;
@@ -209,18 +214,21 @@ export default class Demo extends React.PureComponent {
       if (changed) {
         rows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
       }
-      this.setState({ rows, deletingRows: deleted || getStateDeletingRows() });
+      if (deleted) {
+        rows = this.deleteRows(deleted);
+      }
+      this.setState({ rows });
     };
     this.cancelDelete = () => this.setState({ deletingRows: [] });
-    this.deleteRows = () => {
+    this.deleteRows = (deletedIds) => {
       const rows = getStateRows().slice();
-      getStateDeletingRows().forEach((rowId) => {
+      deletedIds.forEach((rowId) => {
         const index = rows.findIndex(row => row.id === rowId);
         if (index > -1) {
           rows.splice(index, 1);
         }
       });
-      this.setState({ rows, deletingRows: [] });
+      return rows;
     };
     this.changeColumnOrder = (order) => {
       this.setState({ columnOrder: order });
@@ -237,7 +245,6 @@ export default class Demo extends React.PureComponent {
       addedRows,
       rowChanges,
       currentPage,
-      deletingRows,
       pageSize,
       pageSizes,
       columnOrder,
@@ -313,43 +320,6 @@ export default class Demo extends React.PureComponent {
             pageSizes={pageSizes}
           />
         </Grid>
-
-        <Modal
-          bsSize="large"
-          show={!!deletingRows.length}
-          onHide={this.cancelDelete}
-        >
-          <Modal.Header closeButton>
-            <Modal.Title>
-              Delete Row
-            </Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <p>
-              Are you sure you want to delete the following row?
-            </p>
-            <Grid
-              rows={rows.filter(row => deletingRows.indexOf(row.id) > -1)}
-              columns={columns}
-            >
-              <CurrencyTypeProvider for={currencyColumns} />
-              <PercentTypeProvider for={percentColumns} />
-              <Table
-                columnExtensions={tableColumnExtensions}
-                cellComponent={Cell}
-              />
-              <TableHeaderRow />
-            </Grid>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button onClick={this.cancelDelete}>
-              Cancel
-            </Button>
-            <Button className="btn-danger" onClick={this.deleteRows}>
-              Delete
-            </Button>
-          </Modal.Footer>
-        </Modal>
       </div>
     );
   }

@@ -71,7 +71,11 @@ const EditButton = ({ onExecute }) => (
 );
 
 const DeleteButton = ({ onExecute }) => (
-  <IconButton onClick={onExecute} title="Delete row">
+  <IconButton onClick={() => {
+      if (confirm('Are you sure you want to delete this row?')) {
+        onExecute();
+      }}}
+      title="Delete row">
     <DeleteIcon />
   </IconButton>
 );
@@ -239,18 +243,21 @@ class DemoBase extends React.PureComponent {
       if (changed) {
         rows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
       }
-      this.setState({ rows, deletingRows: deleted || getStateDeletingRows() });
+      if (deleted) {
+        rows = this.deleteRows(deleted);
+      }
+      this.setState({ rows  });
     };
     this.cancelDelete = () => this.setState({ deletingRows: [] });
-    this.deleteRows = () => {
+    this.deleteRows = (deletedIds) => {
       const rows = getStateRows().slice();
-      getStateDeletingRows().forEach((rowId) => {
+      deletedIds.forEach((rowId) => {
         const index = rows.findIndex(row => row.id === rowId);
         if (index > -1) {
           rows.splice(index, 1);
         }
       });
-      this.setState({ rows, deletingRows: [] });
+      return rows;
     };
     this.changeColumnOrder = (order) => {
       this.setState({ columnOrder: order });
@@ -346,43 +353,6 @@ class DemoBase extends React.PureComponent {
             pageSizes={pageSizes}
           />
         </Grid>
-
-        <Dialog
-          open={!!deletingRows.length}
-          onClose={this.cancelDelete}
-          classes={{ paper: classes.dialog }}
-        >
-          <DialogTitle>
-            Delete Row
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Are you sure you want to delete the following row?
-            </DialogContentText>
-            <Paper>
-              <Grid
-                rows={rows.filter(row => deletingRows.indexOf(row.id) > -1)}
-                columns={columns}
-              >
-                <CurrencyTypeProvider for={currencyColumns} />
-                <PercentTypeProvider for={percentColumns} />
-                <Table
-                  columnExtensions={tableColumnExtensions}
-                  cellComponent={Cell}
-                />
-                <TableHeaderRow />
-              </Grid>
-            </Paper>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.cancelDelete} color="primary">
-              Cancel
-            </Button>
-            <Button onClick={this.deleteRows} color="secondary">
-              Delete
-            </Button>
-          </DialogActions>
-        </Dialog>
       </Paper>
     );
   }

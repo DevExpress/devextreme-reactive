@@ -123,14 +123,13 @@ export class AppointmentDragging extends React.PureComponent {
     // AUTO SCROLL
     if (clientOffset) {
       const [layout] = document.getElementsByClassName('dx-layout');
-      this.layout = layout;
-      this.layoutHeaderRect = document.getElementsByClassName('dx-layout-header')[0].getBoundingClientRect();
+      const layoutHeaderRect = document.getElementsByClassName('dx-layout-header')[0].getBoundingClientRect();
 
-      if ((clientOffset.y - SCROLL_OFFSET < this.layoutHeaderRect.height + this.layoutHeaderRect.top) && (clientOffset.y > this.layoutHeaderRect.height + this.layoutHeaderRect.top)) {
-        this.layout.scrollTop -= SCROLL_SPEED_PX;
+      if ((clientOffset.y - SCROLL_OFFSET < layoutHeaderRect.height + layoutHeaderRect.top) && (clientOffset.y > layoutHeaderRect.height + layoutHeaderRect.top)) {
+        layout.scrollTop -= SCROLL_SPEED_PX;
       }
-      if (this.layout.clientHeight - SCROLL_OFFSET < clientOffset.y - this.layout.offsetTop) {
-        this.layout.scrollTop += SCROLL_SPEED_PX;
+      if (layout.clientHeight - SCROLL_OFFSET < clientOffset.y - layout.offsetTop) {
+        layout.scrollTop += SCROLL_SPEED_PX;
       }
     }
 

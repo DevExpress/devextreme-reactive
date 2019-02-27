@@ -3,7 +3,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import moment from 'moment';
 import {
-  Plugin, Getter, Template, TemplatePlaceholder,
+  Plugin, Template, TemplatePlaceholder,
   TemplateConnector, DropTarget, DragSource,
   DragDropProvider as DragDropProviderCore,
 } from '@devexpress/dx-react-core';
@@ -23,7 +23,81 @@ const SCROLL_SPEED_PX = 30;
 
 const clamp = (value, min, max) => Math.max(Math.min(value, max), min);
 
-// tslint:disable-next-line: max-line-length
+const cellData = (timeTableIndex, allDayIndex, viewCellsData) => {
+  if (allDayIndex !== -1) {
+    const allDayCellsData = allDayCellsCore(viewCellsData);
+    return allDayCellsData[allDayIndex];
+  }
+  if (timeTableIndex !== -1) {
+    const firstIndex = Math.floor(timeTableIndex / viewCellsData[0].length);
+    const secondIndex = timeTableIndex % viewCellsData[0].length;
+    return viewCellsData[firstIndex][secondIndex];
+  }
+};
+
+const allDayRects = (draftAppointments, startViewDate, endViewDate, excludedDays, viewCellsData, cellElements) => {
+  const intervals = calculateAllDayDateIntervals(
+    draftAppointments, startViewDate, endViewDate, excludedDays,
+  );
+  return calculateRectByDateIntervals(
+    {
+      growDirection: 'horizontal',
+      multiline: false,
+    },
+    intervals,
+    getHorizontalRectByDates,
+    {
+      startViewDate,
+      endViewDate,
+      viewCellsData,
+      cellElements,
+      excludedDays,
+    },
+  );
+};
+
+
+const verticalTimeTableRects = (draftAppointments, startViewDate, endViewDate, excludedDays, viewCellsData, cellDuration, cellElements) => {
+  const intervals = calculateWeekDateIntervals(
+    draftAppointments, startViewDate, endViewDate, excludedDays,
+  );
+  return calculateRectByDateIntervals(
+    {
+      growDirection: 'vertical',
+      multiline: false,
+    },
+    intervals,
+    getVerticalRectByDates,
+    {
+      startViewDate,
+      endViewDate,
+      viewCellsData,
+      cellDuration,
+      cellElements,
+    },
+  );
+};
+
+const horizontalTimeTableRects = (draftAppointments, startViewDate, endViewDate, excludedDays, viewCellsData, cellElements) => {
+  const intervals = calculateMonthDateIntervals(
+    draftAppointments, startViewDate, endViewDate,
+  );
+  return calculateRectByDateIntervals(
+    {
+      growDirection: 'horizontal',
+      multiline: true,
+    },
+    intervals,
+    getHorizontalRectByDates,
+    {
+      startViewDate,
+      endViewDate,
+      viewCellsData,
+      cellElements,
+    },
+  );
+};
+
 export class AppointmentDragging extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -36,10 +110,10 @@ export class AppointmentDragging extends React.PureComponent {
     };
 
     this.onOver = this.handleOver.bind(this);
-    this.onLeave = this.handleLeave.bind(this);
     this.onDrop = this.handleDrop.bind(this);
     this.onPayloadChange = this.onPayloadChange.bind(this);
 
+    this.onOver2 = (getters, actions) => args => this.onOver(args, getters, actions);
     this.onDrop2 = action => args => this.onDrop(args, action);
     this.onPayloadChange2 = action => args => this.onPayloadChange(args, action);
 
@@ -54,10 +128,10 @@ export class AppointmentDragging extends React.PureComponent {
 
     this.payload = null;
 
-    this.rects = [];
+    this.timeTableRects = [];
   }
 
-  onPayloadChange({ payload, clientOffset }) {
+  onPayloadChange({ payload, clientOffset }, commitChangedAppointment) {
     // AUTO SCROLL
     if (clientOffset) {
       const [layout] = document.getElementsByClassName('dx-layout');
@@ -73,10 +147,23 @@ export class AppointmentDragging extends React.PureComponent {
     }
 
     if (payload) return;
+    if (this.payload) {
+      commitChangedAppointment({ appointmentId: this.payload.id });
+      // RESET
+      this.offsetTimeTop = null;
+      this.offsetTimeBottom = null;
+      this.part = 0;
+    }
     this.setState({ payload });
   }
 
-  handleOver({ payload, clientOffset }) {
+  handleOver(
+    { payload, clientOffset },
+    {
+      viewCellsData, startViewDate, endViewDate, excludedDays,
+    },
+    { changeAppointment },
+  ) {
     const timeTableCells = Array.from(document.getElementsByClassName('dx-time-table')[0].querySelectorAll('td'));
     const allDayCells = Array.from(document.querySelectorAll('th'));
     const timeTableIndex = timeTableCells.findIndex((timeTableCell) => {
@@ -107,10 +194,63 @@ export class AppointmentDragging extends React.PureComponent {
 
     if (allDayIndex === -1 && timeTableIndex === -1) return;
 
+    const appointmentDuration = moment(payload.endDate).diff(moment(payload.startDate), 'seconds');
+    const targetData = cellData(timeTableIndex, allDayIndex, viewCellsData);
+    const targetType = moment(targetData.startDate).isSame(targetData.endDate, 'day')
+      ? 'vertical' : 'horizontal';
+    const sourceType = payload.type;
+
+    // CALCULATE INSIDE OFFSET
     this.part = 0;
     if (timeTableIndex !== -1) {
       const cellRect = timeTableCells[timeTableIndex].getBoundingClientRect();
       this.part = clientOffset.y > cellRect.top + (cellRect.bottom - cellRect.top) / 2 ? 1 : 0;
+    }
+
+    // CURSOR POSITION
+    const divisionTime = 15 * 60;
+    const insideOffset = targetType === 'vertical' ? this.part * divisionTime : 0;
+
+    if (this.offsetTimeTop === null && this.offsetTimeBottom === null) {
+      this.offsetTimeTop = moment(targetData.startDate).diff(payload.startDate, 'seconds') + insideOffset;
+      this.offsetTimeBottom = moment(payload.endDate).diff(targetData.endDate, 'seconds');
+    }
+
+    const start = moment(targetData.startDate).add(insideOffset, 'seconds');
+    const end = moment(start);
+
+    if (sourceType === targetType) {
+      this.appointmentStartTime = moment(start).add((this.offsetTimeTop) * (-1), 'seconds').toDate();
+      this.appointmentEndTime = moment(end).add((appointmentDuration - this.offsetTimeTop), 'seconds').toDate();
+    } else {
+      this.appointmentStartTime = moment(targetData.startDate).add(insideOffset, 'seconds');
+      this.appointmentEndTime = moment(targetData.endDate).add(insideOffset, 'seconds');
+    }
+
+    changeAppointment({
+      change: {
+        startDate: this.appointmentStartTime,
+        endDate: this.appointmentEndTime,
+      },
+    });
+
+    const draftAppointments = [{ ...payload, start: this.appointmentStartTime, end: this.appointmentEndTime }];
+
+    if (allDayIndex !== -1) {
+      this.allDayRects = allDayRects(draftAppointments, startViewDate, endViewDate, excludedDays, viewCellsData, allDayCells);
+    } else {
+      this.allDayRects = [];
+    }
+
+    if (timeTableIndex !== -1 && allDayIndex === -1) {
+      const cellDuration = moment(targetData.endDate).diff(targetData.startDate, 'minutes');
+      if (targetType === 'vertical') {
+        this.timeTableRects = verticalTimeTableRects(draftAppointments, startViewDate, endViewDate, excludedDays, viewCellsData, cellDuration, timeTableCells);
+      } else {
+        this.timeTableRects = horizontalTimeTableRects(draftAppointments, startViewDate, endViewDate, excludedDays, viewCellsData, timeTableCells);
+      }
+    } else {
+      this.timeTableRects = [];
     }
 
     this.timeTableIndex = timeTableIndex;
@@ -124,10 +264,6 @@ export class AppointmentDragging extends React.PureComponent {
       timeTableCells,
       allDayCells,
     });
-  }
-
-  handleLeave() {
-    // use cash for make draft appointments
   }
 
   handleDrop(args, commitChangedAppointment) {
@@ -153,7 +289,7 @@ export class AppointmentDragging extends React.PureComponent {
 
   render() {
     const {
-      payload, timeTableCells, allDayCells,
+      payload,
     } = this.state;
     const {
       containerComponent: Container,
@@ -167,19 +303,29 @@ export class AppointmentDragging extends React.PureComponent {
         name="AppointmentDragging"
       >
         <Template name="root">
-          <DragDropProviderCore
-            onChange={this.onPayloadChange}
-          >
-            <TemplatePlaceholder />
-          </DragDropProviderCore>
+          <TemplateConnector>
+            {(getters, { commitChangedAppointment }) => (
+              <DragDropProviderCore
+                onChange={this.onPayloadChange2(commitChangedAppointment)}
+              >
+                <TemplatePlaceholder />
+              </DragDropProviderCore>
+            )}
+          </TemplateConnector>
         </Template>
 
         <Template name="body">
           <TemplateConnector>
-            {(getters, { commitChangedAppointment }) => (
+            {({
+              viewCellsData, startViewDate, endViewDate, excludedDays,
+            }, { commitChangedAppointment, changeAppointment }) => (
               <DropTarget
-                onOver={this.onOver}
-                onLeave={this.onLeave}
+                onOver={this.onOver2(
+                  {
+                    viewCellsData, startViewDate, endViewDate, excludedDays,
+                  },
+                  { changeAppointment },
+                )}
                 onDrop={this.onDrop2(commitChangedAppointment)}
               >
                 <TemplatePlaceholder />
@@ -208,209 +354,47 @@ export class AppointmentDragging extends React.PureComponent {
 
         <Template name="allDayPanel">
           <TemplatePlaceholder />
-          <TemplateConnector>
-            {({
-              viewCellsData, startViewDate, endViewDate, excludedDays,
-            }, { changeAppointment, commitChangedAppointment }) => {
-              this.allDayRects = [];
-
-              // DROP OUTSIDE THE TARGET
-              if (!payload && this.payload) {
-                commitChangedAppointment({ appointmentId: this.payload.id });
-              }
-              if (this.allDayIndex !== -1 && payload) {
-                const allDayCellsData = allDayCellsCore(viewCellsData);
-                const appointmentDuration = moment(payload.endDate).diff(moment(payload.startDate), 'seconds');
-                const targetData = allDayCellsData[this.allDayIndex];
-                const targetType = moment(targetData.startDate).isSame(targetData.endDate, 'day')
-                  ? 'vertical' : 'horizontal';
-                const sourceType = payload.type;
-
-                // CURSOR POSITION
-                if (this.offsetTimeTop === null && this.offsetTimeBottom === null) {
-                  this.offsetTimeTop = moment(targetData.startDate).diff(payload.startDate, 'seconds');
-                  this.offsetTimeBottom = moment(payload.endDate).diff(targetData.endDate, 'seconds');
-                }
-
-                /* SAME TYPES && All DAY */
-                if (sourceType === targetType) {
-                  this.appointmentStartTime = moment(targetData.startDate).add((this.offsetTimeTop) * (-1), 'seconds').toDate();
-                  this.appointmentEndTime = moment(targetData.startDate).add((appointmentDuration - this.offsetTimeTop), 'seconds').toDate();
-                } else { // DIFFERENT TYPES
-                  this.appointmentStartTime = targetData.startDate;
-                  this.appointmentEndTime = targetData.endDate;
-                }
-
-
-                changeAppointment({
-                  change: {
-                    startDate: this.appointmentStartTime,
-                    endDate: this.appointmentEndTime,
-                  },
-                });
-
-                const draftAppointments = [{ ...payload, start: this.appointmentStartTime, end: this.appointmentEndTime }];
-
-                const intervals = calculateAllDayDateIntervals(
-                  draftAppointments, startViewDate, endViewDate, excludedDays,
+          {(payload ? (
+            <Container>
+              {this.allDayRects.map(({
+                dataItem, type, ...geometry
+              }, index) => {
+                const rect = getAppointmentStyle(geometry);
+                if (payload === undefined) return null;
+                return (
+                  <DraftAppointment
+                    key={index.toString()}
+                    data={{ ...payload, startDate: this.appointmentStartTime, endDate: this.appointmentEndTime }}
+                    rect={rect}
+                  />
                 );
-                this.allDayRects = calculateRectByDateIntervals(
-                  {
-                    growDirection: 'horizontal',
-                    multiline: false,
-                  },
-                  intervals,
-                  getHorizontalRectByDates,
-                  {
-                    startViewDate,
-                    endViewDate,
-                    viewCellsData,
-                    cellDuration: moment(targetData.endDate).diff(targetData.startDate, 'minutes'),
-                    cellElements: allDayCells,
-                    excludedDays,
-                  },
-                );
-              }
-
-              if (!payload) return null;
-              return (
-                <Container>
-                  {this.allDayRects.map(({
-                    dataItem, type, ...geometry
-                  }, index) => {
-                    const rect = getAppointmentStyle(geometry);
-                    if (payload === undefined) return null;
-                    return (
-                      <DraftAppointment
-                        key={index.toString()}
-                        data={{ ...payload, startDate: this.appointmentStartTime, endDate: this.appointmentEndTime }}
-                        rect={rect}
-                      />
-                    );
-                  })}
-                </Container>
-              );
-            }}
-          </TemplateConnector>
+              })}
+            </Container>
+          ) : (
+            null
+          ))}
         </Template>
 
         <Template name="main">
           <TemplatePlaceholder />
-          <TemplateConnector>
-            {({
-              viewCellsData, startViewDate, endViewDate, excludedDays,
-            }, { changeAppointment, commitChangedAppointment }) => {
-              this.rects = [];
-
-              // DROP OUTSIDE THE TARGET
-              if (!payload && this.payload) {
-                commitChangedAppointment({ appointmentId: this.payload.id });
-              }
-              if (this.timeTableIndex !== -1 && this.allDayIndex === -1 && payload) {
-                const firstIndex = Math.floor(this.timeTableIndex / viewCellsData[0].length);
-                const secondIndex = this.timeTableIndex % viewCellsData[0].length;
-
-                if (firstIndex > -1 && secondIndex > -1) {
-                  const targetData = viewCellsData[firstIndex][secondIndex];
-                  const targetType = moment(targetData.startDate).isSame(targetData.endDate, 'day')
-                    ? 'vertical' : 'horizontal';
-                  const sourceType = payload.type;
-
-                  // CURSOR POSITION
-                  const divisionTime = 15 * 60;
-                  const insideOffset = targetType === 'vertical' ? this.part * divisionTime : 0;
-                  // const insideOffset = this.part * divisionTime;
-                  if (this.offsetTimeTop === null && this.offsetTimeBottom === null) {
-                    // this.offsetTimeTop = moment(targetData.startDate).diff(payload.startDate, 'seconds'); // + insideOffset
-                    this.offsetTimeTop = moment(targetData.startDate).diff(payload.startDate, 'seconds') + insideOffset;
-                    this.offsetTimeBottom = moment(payload.endDate).diff(targetData.endDate, 'seconds');
-                  }
-
-                  // const appointmentDuration = sourceType === targetType
-                  //   ? moment(payload.endDate).diff(moment(payload.startDate), 'seconds') /* SAME TYPES */
-                  //   : moment(targetData.endDate).diff(moment(targetData.startDate), 'seconds'); // DIFFERENT TYPES
-                  const appointmentDuration = moment(payload.endDate).diff(moment(payload.startDate), 'seconds');
-
-                  const start = moment(targetData.startDate).add(insideOffset, 'seconds');
-                  const end = moment(start);
-
-                  if (sourceType === targetType) {
-                    this.appointmentStartTime = moment(start).add((this.offsetTimeTop) * (-1), 'seconds').toDate();
-                    this.appointmentEndTime = moment(end).add((appointmentDuration - this.offsetTimeTop), 'seconds').toDate();
-                  } else {
-                    this.appointmentStartTime = moment(targetData.startDate).add(insideOffset, 'seconds');
-                    this.appointmentEndTime = moment(targetData.endDate).add(insideOffset, 'seconds');
-                  }
-
-                  changeAppointment({
-                    change: {
-                      startDate: this.appointmentStartTime,
-                      endDate: this.appointmentEndTime,
-                    },
-                  });
-
-                  const draftAppointments = [{ ...payload, start: this.appointmentStartTime, end: this.appointmentEndTime }];
-                  if (targetType === 'vertical') {
-                    const intervals = calculateWeekDateIntervals(
-                      draftAppointments, startViewDate, endViewDate, excludedDays,
-                    );
-
-                    this.rects = calculateRectByDateIntervals(
-                      {
-                        growDirection: 'vertical',
-                        multiline: false,
-                      },
-                      intervals,
-                      getVerticalRectByDates,
-                      {
-                        startViewDate,
-                        endViewDate,
-                        viewCellsData,
-                        cellDuration: moment(targetData.endDate).diff(targetData.startDate, 'minutes'),
-                        cellElements: timeTableCells,
-                      },
-                    );
-                  } else {
-                    const intervals = calculateMonthDateIntervals(
-                      draftAppointments, startViewDate, endViewDate,
-                    );
-                    this.rects = calculateRectByDateIntervals(
-                      {
-                        growDirection: 'horizontal',
-                        multiline: true,
-                      },
-                      intervals,
-                      getHorizontalRectByDates,
-                      {
-                        startViewDate,
-                        endViewDate,
-                        viewCellsData,
-                        cellElements: timeTableCells,
-                      },
-                    );
-                  }
-                }
-              }
-
-              if (!payload) return null;
-              return (
-                <Container>
-                  {this.rects.map(({
-                    dataItem, type, ...geometry
-                  }, index) => {
-                    const rect = getAppointmentStyle(geometry);
-                    return (
-                      <DraftAppointment
-                        key={index.toString()}
-                        data={{ ...payload, startDate: this.appointmentStartTime, endDate: this.appointmentEndTime }}
-                        rect={rect}
-                      />
-                    );
-                  })}
-                </Container>
-              );
-            }}
-          </TemplateConnector>
+          {(payload ? (
+            <Container>
+              {this.timeTableRects.map(({
+                dataItem, type, ...geometry
+              }, index) => {
+                const rect = getAppointmentStyle(geometry);
+                return (
+                  <DraftAppointment
+                    key={index.toString()}
+                    data={{ ...payload, startDate: this.appointmentStartTime, endDate: this.appointmentEndTime }}
+                    rect={rect}
+                  />
+                );
+              })}
+            </Container>
+          ) : (
+            null
+          ))}
         </Template>
       </Plugin>
     );

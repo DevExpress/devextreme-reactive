@@ -117,18 +117,7 @@ export class AppointmentDragging extends React.PureComponent {
     this.onDrop2 = action => args => this.onDrop(args, action);
     this.onPayloadChange2 = action => args => this.onPayloadChange(args, action);
 
-    this.allDayCells = [];
-    this.timeTableCells = [];
-
-    this.timeTableIndex = null;
-    this.allDayIndex = null;
-
     this.offsetTimeTop = null;
-    this.offsetTimeBottom = null;
-
-    this.payload = null;
-
-    this.timeTableRects = [];
   }
 
   onPayloadChange({ payload, clientOffset }, commitChangedAppointment) {
@@ -147,12 +136,11 @@ export class AppointmentDragging extends React.PureComponent {
     }
 
     if (payload) return;
-    if (this.payload) {
-      commitChangedAppointment({ appointmentId: this.payload.id });
+    const { payload: prevPayload } = this.state;
+    if (prevPayload) {
+      commitChangedAppointment({ appointmentId: prevPayload.id });
       // RESET
       this.offsetTimeTop = null;
-      this.offsetTimeBottom = null;
-      this.part = 0;
     }
     this.setState({ payload });
   }
@@ -201,19 +189,18 @@ export class AppointmentDragging extends React.PureComponent {
     const sourceType = payload.type;
 
     // CALCULATE INSIDE OFFSET
-    this.part = 0;
+    let insidePart = 0;
     if (timeTableIndex !== -1) {
       const cellRect = timeTableCells[timeTableIndex].getBoundingClientRect();
-      this.part = clientOffset.y > cellRect.top + (cellRect.bottom - cellRect.top) / 2 ? 1 : 0;
+      insidePart = clientOffset.y > cellRect.top + (cellRect.bottom - cellRect.top) / 2 ? 1 : 0;
     }
 
     // CURSOR POSITION
     const divisionTime = 15 * 60;
-    const insideOffset = targetType === 'vertical' ? this.part * divisionTime : 0;
+    const insideOffset = targetType === 'vertical' ? insidePart * divisionTime : 0;
 
-    if (this.offsetTimeTop === null && this.offsetTimeBottom === null) {
+    if (this.offsetTimeTop === null) {
       this.offsetTimeTop = moment(targetData.startDate).diff(payload.startDate, 'seconds') + insideOffset;
-      this.offsetTimeBottom = moment(payload.endDate).diff(targetData.endDate, 'seconds');
     }
 
     const start = moment(targetData.startDate).add(insideOffset, 'seconds');
@@ -253,10 +240,6 @@ export class AppointmentDragging extends React.PureComponent {
       this.timeTableRects = [];
     }
 
-    this.timeTableIndex = timeTableIndex;
-    this.allDayIndex = allDayIndex;
-    this.payload = payload;
-
     this.setState({
       allDayIndex,
       timeTableIndex,
@@ -267,16 +250,10 @@ export class AppointmentDragging extends React.PureComponent {
   }
 
   handleDrop(args, commitChangedAppointment) {
-    commitChangedAppointment({ appointmentId: this.payload.id });
+    const { payload } = this.state;
+    commitChangedAppointment({ appointmentId: payload.id });
 
     this.offsetTimeTop = null;
-    this.offsetTimeBottom = null;
-
-    this.timeTableIndex = null;
-    this.allDayIndex = null;
-
-    this.payload = null;
-    this.part = 0;
 
     this.setState({
       timeTableCells: [],

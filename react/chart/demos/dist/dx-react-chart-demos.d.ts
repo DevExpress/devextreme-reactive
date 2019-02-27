@@ -51,25 +51,27 @@ export interface ArgumentAxisProps {
   indentFromAxis?: number;
   /** Axis type. */
   type?: 'band' | 'linear';
-  /** A component that renders the axis root layout. */
+  /** A function that returns a tick formatter function. */
+  tickForamt?: (scale: object) => (tick: string) => string;
+  /** A component that renders the axis's root layout. */
   rootComponent?: React.ComponentType<ArgumentAxisBase.RootProps>;
   /** A component that renders a tick. */
   tickComponent?: React.ComponentType<ArgumentAxisBase.TickProps>;
-  /** A component that renders the axis label. */
+  /** A component that renders the axis's label. */
   labelComponent?: React.ComponentType<ArgumentAxisBase.LabelProps>;
-  /** A component that renders the axis line. */
+  /** A component that renders the axis's line. */
   lineComponent?: React.ComponentType<ArgumentAxisBase.LineProps>;
 }
 
 /** The ArgumentAxis plugin visualizes the argument axis. */
 export declare const ArgumentAxis: React.ComponentType<ArgumentAxisProps> & {
-  /** A component that renders the axis root layout. */
+  /** A component that renders the axis's root layout. */
   Root: React.ComponentType<ArgumentAxisBase.RootProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   /** A component that renders the tick. */
   Tick: React.ComponentType<ArgumentAxisBase.TickProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  /** A component that renders the axis label. */
+  /** A component that renders the axis's label. */
   Label: React.ComponentType<ArgumentAxisBase.LabelProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  /** A component that renders the axis line. */
+  /** A component that renders the axis's line. */
   Line: React.ComponentType<ArgumentAxisBase.LineProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
 };
 
@@ -342,6 +344,8 @@ export interface ValueAxisProps {
   indentFromAxis?: number;
   /** Axis type. */
   type?: 'band' | 'linear';
+  /** A function that returns a tick formatter function. */
+  tickForamt?: (scale: object) => (tick: string) => string;
   /** A component that renders the axis root layout. */
   rootComponent?: React.ComponentType<ValueAxisBase.RootProps>;
   /** A component that renders a tick. */

@@ -203,7 +203,7 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
     );
   }
 }
-
+/** @internal */
 export const Axis: React.ComponentType<RawAxisProps> = withComponents({
   Label,
   Line,

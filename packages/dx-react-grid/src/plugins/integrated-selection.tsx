@@ -47,5 +47,7 @@ class IntegratedSelectionBase extends React.PureComponent<IntegratedSelectionPro
   }
 }
 
-// tslint:disable-next-line: max-line-length
+/* tslint:disable: max-line-length */
+/** A plugin that performs built-in selection. */
 export const IntegratedSelection: React.ComponentType<IntegratedSelectionProps> = IntegratedSelectionBase;
+/* tslint:enable: max-line-length */

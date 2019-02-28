@@ -36,4 +36,5 @@ class ToolbarBase extends React.PureComponent<ToolbarProps> {
   }
 }
 
+/** A plugin that renders the Grid toolbar. */
 export const Toolbar: React.ComponentType<ToolbarProps> = ToolbarBase;

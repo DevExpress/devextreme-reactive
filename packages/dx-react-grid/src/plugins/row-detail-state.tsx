@@ -57,4 +57,5 @@ class RowDetailStateBase extends React.PureComponent<RowDetailStateProps, RowDet
   }
 }
 
+/** A plugin that manages the expanded state for table row details. */
 export const RowDetailState: React.ComponentType<RowDetailStateProps> = RowDetailStateBase;

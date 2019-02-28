@@ -271,5 +271,6 @@ const TableContainer = ({
   ) : children
 );
 
+/** A plugin that manages the displayed columns' order. */
 export const TableColumnReordering: React.ComponentType<TableColumnReorderingProps>
   = withComponents({ TableContainer })(TableColumnReorderingRaw);

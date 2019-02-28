@@ -1159,6 +1159,7 @@ interface VirtualTableProps {
 // WARNING: Unsupported export: CustomSummary
 // WARNING: Unsupported export: VirtualTable
 // WARNING: Unsupported export: IntegratedFilteringProps
+// WARNING: Unsupported export: DefaultPredicateFn
 // WARNING: Unsupported export: TreeDataStateState
 // WARNING: Unsupported export: Row
 // WARNING: Unsupported export: RowId

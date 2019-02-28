@@ -117,5 +117,11 @@ class GroupingPanelRaw extends React.PureComponent<GroupingPanelProps & typeof d
   }
 }
 
-// tslint:disable-next-line: max-line-length
-export const GroupingPanel: React.ComponentType<GroupingPanelProps> = withComponents({ Layout })(GroupingPanelRaw);
+/***
+ * A plugin that renders the Grouping Panel in the Grid's header. This panel displays grouped
+ * columns and allows a user to modify grouping options.Optionally, the plugin allows an end-user
+ * to change grouped columns' sorting order and render sorting indicators.
+ * */
+export const GroupingPanel: React.ComponentType<GroupingPanelProps> = withComponents(
+  { Layout },
+)(GroupingPanelRaw);

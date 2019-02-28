@@ -55,4 +55,6 @@ class CustomGroupingBase extends React.PureComponent<CustomGroupingProps> {
   }
 }
 
+// tslint:disable-next-line: max-line-length
+/** A plugin that converts custom formatted grouped data to a supported format and performs local group expanding/collapsing. */
 export const CustomGrouping: React.ComponentType<CustomGroupingProps> = CustomGroupingBase;

@@ -160,4 +160,11 @@ class TableEditColumnBase extends React.PureComponent<TableEditColumnProps> {
   }
 }
 
-export const TableEditColumn: React.ComponentType<TableEditColumnProps> = TableEditColumnBase;
+/***
+ * A plugin that renders a command column. This column contains controls used for row editing,
+ * creating, or deleting and committing/canceling changes.
+ * */
+export const TableEditColumn: React.ComponentType<TableEditColumnProps> & {
+  /** The edit column type's identifier. */
+  COLUMN_TYPE: symbol;
+} = TableEditColumnBase;

@@ -126,4 +126,10 @@ class TableEditRowBase extends React.PureComponent<TableEditRowProps> {
   }
 }
 
-export const TableEditRow: React.ComponentType<TableEditRowProps> = TableEditRowBase;
+/** A plugin that renders a row being edited. */
+export const TableEditRow: React.ComponentType<TableEditRowProps> & {
+  /** The added row type's identifier. */
+  ADDED_ROW_TYPE: symbol;
+  /** The edit row type's identifier. */
+  EDIT_ROW_TYPE: symbol;
+} = TableEditRowBase;

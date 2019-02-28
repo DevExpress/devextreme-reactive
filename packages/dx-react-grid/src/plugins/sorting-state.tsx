@@ -79,4 +79,6 @@ class SortingStateBase extends React.PureComponent<SortingStateProps, SortingSta
   }
 }
 
+// tslint:disable-next-line: max-line-length
+/** A plugin that manages the sorting state. It controls the list of columns that participate in sorting. */
 export const SortingState: React.ComponentType<SortingStateProps> = SortingStateBase;

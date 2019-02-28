@@ -188,4 +188,8 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
   }
 }
 
+/***
+ * A plugin that manages grid rows' editing state. It arranges grid rows
+ * by different lists depending on a row's state.
+ * */
 export const EditingState: React.ComponentType<EditingStateProps> = EditingStateBase;

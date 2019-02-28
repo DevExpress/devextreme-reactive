@@ -152,4 +152,10 @@ class TableGroupRowBase extends React.PureComponent<TableGroupRowProps> {
   }
 }
 
-export const TableGroupRow: React.ComponentType<TableGroupRowProps> = TableGroupRowBase;
+/** A plugin that renders group rows and enables them to expand and collapse. */
+export const TableGroupRow: React.ComponentType<TableGroupRowProps> & {
+  /** The group column type's identifier. */
+  COLUMN_TYPE: symbol;
+  /** The group row type's identifier. */
+  ROW_TYPE: symbol;
+} = TableGroupRowBase;

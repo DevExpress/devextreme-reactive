@@ -182,4 +182,12 @@ TableHeaderRowBase.components = {
   groupButtonComponent: 'GroupButton',
 };
 
-export const TableHeaderRow: React.ComponentType<TableHeaderRowProps> = TableHeaderRowBase;
+/***
+ * A plugin that renders the table's header row. The Column's `title` field specifies the
+ * column's title in the header row.The plugin also allows you to manage a column's sorting
+ * and grouping state and initiate column dragging.
+ * */
+export const TableHeaderRow: React.ComponentType<TableHeaderRowProps> & {
+  /** The header row type's identifier. */
+  ROW_TYPE: symbol;
+} = TableHeaderRowBase;

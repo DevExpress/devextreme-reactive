@@ -47,7 +47,7 @@
     "lint": "lerna run lint --ignore @devexpress/dx-vue-*",
     "lint:ci": "lerna run lint:ci",
     "test": "lerna run test --ignore @devexpress/dx-vue-* && yarn test:bs4",
-    "test:ci": "yarn upda-api && lerna run test --ignore @devexpress/dx-vue-* -- -- --maxWorkers=2 && yarn test:bs4",
+    "test:ci": "yarn update-api && lerna run test --ignore @devexpress/dx-vue-* -- -- --maxWorkers=2 && yarn test:bs4",
     "test:bs4": "jest packages/dx-react-bootstrap4 --ci --silent --runInBand --bail",
     "test:watch": "jest --watch",
     "publish:prepare": "yarn && node ./scripts/prepare-commit.js",

@@ -119,18 +119,15 @@ export class AppointmentDragging extends React.PureComponent {
       payload: undefined,
     };
 
-    this.onOver = this.handleOver.bind(this);
-    this.onDrop = this.handleDrop.bind(this);
-    this.onPayloadChange = this.onPayloadChange.bind(this);
 
-    this.onOver2 = (getters, actions) => args => this.onOver(args, getters, actions);
-    this.onDrop2 = action => args => this.onDrop(args, action);
-    this.onPayloadChange2 = action => args => this.onPayloadChange(args, action);
+    this.onOver = (getters, actions) => args => this.handleOver.bind(this)(args, getters, actions);
+    this.onDrop = action => () => this.handleDrop.bind(this)(action);
+    this.onPayloadChange = action => args => this.onPayloadChange2.bind(this)(args, action);
 
     this.offsetTimeTop = null;
   }
 
-  onPayloadChange({ payload }, commitChangedAppointment) {
+  onPayloadChange2({ payload }, commitChangedAppointment) {
     if (payload) return;
 
     const { payload: prevPayload } = this.state;
@@ -237,7 +234,7 @@ export class AppointmentDragging extends React.PureComponent {
     });
   }
 
-  handleDrop(args, commitChangedAppointment) {
+  handleDrop(commitChangedAppointment) {
     const { payload } = this.state;
     commitChangedAppointment({ appointmentId: payload.id });
 
@@ -265,34 +262,26 @@ export class AppointmentDragging extends React.PureComponent {
       <Plugin
         name="AppointmentDragging"
       >
-        <Template name="root">
-          <TemplateConnector>
-            {(getters, { commitChangedAppointment }) => (
-              <DragDropProviderCore
-                onChange={this.onPayloadChange2(commitChangedAppointment)}
-              >
-                <TemplatePlaceholder />
-              </DragDropProviderCore>
-            )}
-          </TemplateConnector>
-        </Template>
-
         <Template name="body">
           <TemplateConnector>
             {({
               viewCellsData, startViewDate, endViewDate, excludedDays, timeTableElement, layoutElement, layoutHeaderElement,
             }, { commitChangedAppointment, changeAppointment }) => (
-              <DropTarget
-                onOver={this.onOver2(
-                  {
-                    viewCellsData, startViewDate, endViewDate, excludedDays, timeTableElement, layoutElement, layoutHeaderElement,
-                  },
-                  { changeAppointment },
-                )}
-                onDrop={this.onDrop2(commitChangedAppointment)}
+              <DragDropProviderCore
+                onChange={this.onPayloadChange(commitChangedAppointment)}
               >
-                <TemplatePlaceholder />
-              </DropTarget>
+                <DropTarget
+                  onOver={this.onOver(
+                    {
+                      viewCellsData, startViewDate, endViewDate, excludedDays, timeTableElement, layoutElement, layoutHeaderElement,
+                    },
+                    { changeAppointment },
+                  )}
+                  onDrop={this.onDrop(commitChangedAppointment)}
+                >
+                  <TemplatePlaceholder />
+                </DropTarget>
+              </DragDropProviderCore>
             )}
           </TemplateConnector>
         </Template>

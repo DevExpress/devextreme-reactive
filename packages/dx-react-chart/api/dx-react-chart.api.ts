@@ -1,4 +1,4 @@
-// @public
+// @public (undocumented)
 declare const Animation: React.ComponentType<AnimationProps>;
 
 // @public (undocumented)
@@ -6,395 +6,517 @@ interface AnimationProps {
 }
 
 // @public (undocumented)
-namespace AreaSeries {
-  interface SeriesProps {
-    color: string;
-    coordinates: Array<{ // (undocumented)
- x: number, // (undocumented)
- y: number, // (undocumented)
- y1: number }>;
-  }
-}
-
-// @public (undocumented)
-namespace AreaSeries {
-  interface PathSeriesProps extends AreaSeries.SeriesProps {
-    path?: (coordinates: Array<{ // (undocumented)
- x: number, // (undocumented)
- y: number, // (undocumented)
- y1: number }>) => string;
-  }
-}
-
-// @public
 declare const AreaSeries: React.ComponentType<AreaSeriesProps>;
 
 // @public (undocumented)
-interface AreaSeriesProps {
-  argumentField: string;
-  color?: string;
-  name: string;
-  scaleName?: string;
-  seriesComponent: React.ComponentType<AreaSeries.SeriesProps>;
-  valueField: string;
-}
-
-// @public (undocumented)
-namespace ArgumentAxis {
-  interface RootProps {
-    children: React.ReactNode;
-    x: number;
-    y: number;
+declare namespace AreaSeries {
+  interface PathSeriesProps extends SeriesProps {
+  }
+  interface SeriesProps extends PathComponentPathProps {
   }
 }
 
 // @public (undocumented)
+interface AreaSeriesProps extends SeriesProps {
+  seriesComponent?: React.ComponentType<AreaSeries.SeriesProps>;
+}
+
+// @public (undocumented)
+declare const ArgumentAxis: React.ComponentType<ArgumentAxisProps>;
+
+// @public (undocumented)
 namespace ArgumentAxis {
+  // (undocumented)
+  interface LabelProps extends Axis.LabelProps {
+  }
+  // (undocumented)
+  interface LineProps extends Axis.LineProps {
+  }
+  // (undocumented)
+  interface RootProps extends Axis.RootProps {
+  }
+}
+
+// @public (undocumented)
+interface ArgumentAxisProps extends RawAxisProps {
+  position?: 'top' | 'bottom';
+}
+
+// @public (undocumented)
+declare const ArgumentScale: React.ComponentType<ArgumentScaleProps>;
+
+// @public (undocumented)
+interface ArgumentScaleProps extends ScaleProps {
+}
+
+// @public (undocumented)
+namespace Axis {
+  // (undocumented)
+  interface LabelProps {
+    dominantBaseline: string;
+    text: string | number;
+    textAnchor: string;
+    x: number;
+    y: number;
+  }
+  // (undocumented)
   interface LineProps {
     x1: number;
     x2: number;
     y1: number;
     y2: number;
   }
-}
-
-// @public (undocumented)
-namespace ArgumentAxis {
-  interface LabelProps {
-    dominantBaseline: 'hanging' | 'middle' | 'baseline';
-    text: string | number;
-    textAnchor: 'start' | 'middle' | 'end';
-    x: number;
-    y: number;
+  // (undocumented)
+  interface RootProps {
+    children: React.ReactNode;
+    dx: number;
+    dy: number;
   }
 }
 
-// @public
-declare const ArgumentAxis: React.ComponentType<ArgumentAxisProps>;
-
 // @public (undocumented)
-interface ArgumentAxisProps {
-  gridComponent: React.ComponentType<ArgumentAxis.LineProps>;
-  indentFromAxis?: number;
-  labelComponent: React.ComponentType<ArgumentAxis.LabelProps>;
-  lineComponent: React.ComponentType<ArgumentAxis.LineProps>;
-  position?: 'bottom' | 'top';
-  rootComponent: React.ComponentType<ArgumentAxis.RootProps>;
-  showGrid?: boolean;
-  showLabels?: boolean;
-  showLine?: boolean;
-  showTicks?: boolean;
-  tickComponent: React.ComponentType<ArgumentAxis.LineProps>;
-  tickFormat?: (scale: ScaleObject) => (tick: string) => string;
-  tickSize?: number;
-}
-
-// @public
-declare const ArgumentScale: React.ComponentType<ArgumentScaleProps>;
-
-// @public (undocumented)
-interface ArgumentScaleProps {
-  factory?: () => ScaleObject;
-  modifyDomain?: (domain: Array<any>) => Array<any>;
-}
-
-// @public (undocumented)
-namespace BarSeries {
-  interface PointProps {
-    barWidth: number;
-    color: string;
-    index: number;
-    maxBarWidth: number;
-    value: number;
-    x: number;
-    y: number;
-    y1: number;
-  }
-}
-
-// @public
 declare const BarSeries: React.ComponentType<BarSeriesProps>;
 
 // @public (undocumented)
-interface BarSeriesProps {
-  argumentField: string;
-  barWidth?: number;
-  color?: string;
-  name: string;
-  pointComponent: React.ComponentType<BarSeries.PointProps>;
-  scaleName?: string;
-  valueField: string;
+declare namespace BarSeries {
+  interface PointProps extends PointComponentProps {
+    barWidth: number;
+    maxBarWidth: number;
+  }
 }
 
 // @public (undocumented)
+interface BarSeriesProps extends SeriesProps {
+  barWidth?: number;
+  pointComponent?: React.ComponentType<BarSeries.PointProps>;
+}
+
+// @public (undocumented)
+interface BasicDataProps {
+  // (undocumented)
+  data: DataItems;
+}
+
+// @public (undocumented)
+declare type BuildAnimatedStyleGetterFn = PureComputed<[any, GetAnimationStyleFn, Scales, PointComponentProps?]>;
+
+// @public (undocumented)
+declare const Chart: React.ComponentType<ChartProps>;
+
+// @public (undocumented)
 namespace Chart {
+  // (undocumented)
+  interface LabelProps {
+    children: string | number;
+    x: number;
+    y: number;
+  }
+  // (undocumented)
   interface RootProps {
     children: React.ReactNode;
   }
 }
 
 // @public (undocumented)
-namespace Chart {
-  interface LabelProps {
-    children: string | number;
-    x: number;
-    y: number;
-  }
-}
-
-// @public
-declare const Chart: React.ComponentType<ChartProps>;
-
-// @public (undocumented)
 interface ChartProps {
-  data: Array<any>;
+  data: DataItems;
   height?: number;
   rootComponent: React.ComponentType<Chart.RootProps>;
   width?: number;
 }
 
-// @public
+// @public (undocumented)
+declare type Colors = ReadonlyArray<string>;
+
+// @public (undocumented)
+interface CommonComponentProps {
+  color: string;
+}
+
+// @public (undocumented)
+declare type DataItem = {
+  // (undocumented)
+  readonly [field: string]: any;
+};
+
+// @public (undocumented)
+declare type DataItems = ReadonlyArray<DataItem>;
+
+// @public (undocumented)
+declare type DomainItems = ReadonlyArray<any>;
+
+// @public (undocumented)
 declare const EventTracker: React.ComponentType<EventTrackerProps>;
 
 // @public (undocumented)
 interface EventTrackerProps {
-  onClick?: (target: TargetData) => void;
-  onPointerMove ?: (target: TargetData) => void;
+  onClick?: HandlerFn;
+  onPointerMove?: HandlerFn;
 }
 
-// @public
+// @public (undocumented)
+declare type FactoryFn = () => ScaleObject;
+
+// @public (undocumented)
+declare type GetAnimationStyleFn = (scales: Scales, point?: PointComponentProps) => {
+  // (undocumented)
+  readonly animation: string;
+  // (undocumented)
+  readonly transformOrigin?: string;
+};
+
+// @public (undocumented)
+declare type GetFormatFn = (tick: any) => string;
+
+// @public (undocumented)
+type GetPointerMoveHandlersFn = PureComputed<[Getters], HandlerFnList>;
+
+// @public (undocumented)
+declare type GetPointFieldFn = (point: PointComponentProps) => number;
+
+// @public (undocumented)
+declare type HandlerFn = (arg: TargetData) => void;
+
+// @public (undocumented)
+declare type HandlerFnList = ReadonlyArray<HandlerFn>;
+
+// @public (undocumented)
+declare type HitTestFn = (location: Location) => HitTestResult;
+
+// @public (undocumented)
+declare type HitTestResult = {
+  // (undocumented)
+  readonly points: ReadonlyArray<PointDistance>;
+} | null;
+
+// @public (undocumented)
 declare const HoverState: React.ComponentType<HoverStateProps>;
 
 // @public (undocumented)
 interface HoverStateProps {
   defaultHover?: SeriesRef;
   hover?: SeriesRef;
-  onHoverChange?: (target: SeriesRef) => void;
+  onHoverChange?: NotifyPointerMoveFn;
 }
 
 // @public (undocumented)
-namespace Legend {
-  interface LabelProps {
-    text: string | number;
-  }
-}
+type HoverStateState = {
+  // (undocumented)
+  hover?: SeriesRef;
+};
 
 // @public (undocumented)
-namespace Legend {
-  interface RootProps {
-    children: React.ReactNode;
-  }
-}
+declare const Legend: React.ComponentType<LegendProps>;
 
 // @public (undocumented)
 namespace Legend {
   interface ItemProps {
     children: React.ReactNode;
   }
+  interface LabelProps {
+    text: string | number;
+  }
+  // (undocumented)
+  interface MarkerProps {
+  }
+  interface RootProps {
+    children: React.ReactNode;
+  }
 }
-
-// @public
-declare const Legend: React.ComponentType<LegendProps>;
 
 // @public (undocumented)
 interface LegendProps {
   itemComponent: React.ComponentType<Legend.ItemProps>;
   labelComponent: React.ComponentType<Legend.LabelProps>;
-  markerComponent: React.ComponentType<object>;
+  markerComponent: React.ComponentType<Legend.MarkerProps>;
   position?: 'left' | 'right' | 'top' | 'bottom';
   rootComponent: React.ComponentType<Legend.RootProps>;
 }
 
 // @public (undocumented)
-namespace LineSeries {
-  interface SeriesProps {
-    color: string;
-    coordinates: Array<{ // (undocumented)
- x: number, // (undocumented)
- y: number }>;
+declare const LineSeries: React.ComponentType<AreaSeriesProps>;
+
+// @public (undocumented)
+declare namespace LineSeries {
+  interface PathSeriesProps extends SeriesProps {
+  }
+  interface SeriesProps extends PathComponentPathProps {
   }
 }
 
 // @public (undocumented)
-namespace LineSeries {
-  interface PathSeriesProps extends LineSeries.SeriesProps {
-    path?: (coordinates: Array<{ // (undocumented)
- x: number, // (undocumented)
- y: number }>) => string;
-  }
+interface LineSeriesProps extends SeriesProps {
+  seriesComponent?: React.ComponentType<LineSeries.SeriesProps>;
 }
-
-// @public
-declare const LineSeries: React.ComponentType<LineSeriesProps>;
 
 // @public (undocumented)
-interface LineSeriesProps {
-  argumentField: string;
-  color?: string;
-  name: string;
-  scaleName?: string;
-  seriesComponent: React.ComponentType<LineSeries.SeriesProps>;
-  valueField: string;
-}
+declare type Location = Readonly<NumberArray>;
 
-// @public
+// @public (undocumented)
+declare type ModifyDomainFn = (domain: DomainItems) => DomainItems;
+
+// @public (undocumented)
+declare type NotifyPointerMoveFn = (target: SeriesRef | null) => void;
+
+// @public (undocumented)
+declare type NumberArray = [number, number];
+
+// @public (undocumented)
+declare type OffsetFn = (series: StackData, order: number[]) => void;
+
+// @public (undocumented)
+declare type OrderFn = (series: StackData) => number[];
+
+// @public (undocumented)
 declare const Palette: React.ComponentType<PaletteProps>;
 
 // @public (undocumented)
 interface PaletteProps {
-  scheme: Array<string>;
+  scheme: Colors;
 }
 
 // @public (undocumented)
-namespace PieSeries {
-  interface PointProps {
-    color: string;
+interface PathComponentPathProps extends PathComponentProps {
+  path?: PathFn;
+}
+
+// @public (undocumented)
+interface PathComponentProps extends CommonComponentProps {
+  coordinates: PathPoints;
+}
+
+// @public (undocumented)
+interface PathFn {
+  // (undocumented)
+  (points: PathPoints): string;
+  // (undocumented)
+  context(ctx: any): this;
+  // (undocumented)
+  curve?(): any;
+  // (undocumented)
+  curve?(c: any): this;
+  // (undocumented)
+  x(f: GetPointFieldFn): this;
+  // (undocumented)
+  x(): GetPointFieldFn;
+  // (undocumented)
+  y(): GetPointFieldFn;
+  // (undocumented)
+  y(f: GetPointFieldFn): this;
+  // (undocumented)
+  y0?(): GetPointFieldFn;
+  // (undocumented)
+  y0?(f: GetPointFieldFn): this;
+  // (undocumented)
+  y1?(): GetPointFieldFn;
+  // (undocumented)
+  y1?(f: GetPointFieldFn): this;
+}
+
+// @public (undocumented)
+declare type PathPoints = ReadonlyArray<PointComponentProps>;
+
+// @public (undocumented)
+declare const PieSeries: React.ComponentType<PieSeriesProps>;
+
+// @public (undocumented)
+declare namespace PieSeries {
+  interface PointProps extends PointComponentProps {
     endAngle: number;
-    index: number;
     innerRadius: number;
     maxRadius: number;
     outerRadius: number;
     startAngle: number;
-    value: number;
-    x: number;
-    y: number;
   }
 }
 
-// @public
-declare const PieSeries: React.ComponentType<PieSeriesProps>;
+// @public (undocumented)
+interface PieSeriesProps extends SeriesProps {
+  innerRadius?: number;
+  outerRadius?: number;
+  pointComponent?: React.ComponentType<PieSeries.PointProps>;
+}
 
 // @public (undocumented)
-interface PieSeriesProps {
-  argumentField: string;
-  innerRadius?: number;
-  name: string;
-  outerRadius?: number;
-  pointComponent: React.ComponentType<PieSeries.PointProps>;
-  valueField: string;
+interface Point {
+  readonly color: string;
+  readonly index: number;
+  readonly value: any;
+}
+
+// @public (undocumented)
+interface PointComponentProps extends CommonComponentProps {
+  argument: any;
+  index: number;
+  value: any;
+  x: number;
+  y: number;
+  y1?: number;
+}
+
+// @public (undocumented)
+declare type PointDistance = {
+  // (undocumented)
+  readonly index: number;
+  // (undocumented)
+  readonly distance: number;
+};
+
+// @public (undocumented)
+interface RawAxisProps {
+  gridComponent: React.ComponentType<Axis.LineProps>;
+  indentFromAxis?: number;
+  labelComponent: React.ComponentType<Axis.LabelProps>;
+  lineComponent: React.ComponentType<Axis.LineProps>;
+  position?: 'left' | 'top' | 'right' | 'bottom';
+  rootComponent: React.ComponentType<Axis.RootProps>;
+  scaleName?: string;
+  showGrid?: boolean;
+  showLabels?: boolean;
+  showLine?: boolean;
+  showTicks?: boolean;
+  tickComponent: React.ComponentType<Axis.LineProps>;
+  tickFormat?: TickFormatFn;
+  tickSize?: number;
 }
 
 // @public (undocumented)
 interface ScaleObject {
-  bandWidth?: () => number;
-  domain: (domain?: Array<any>) => ScaleObject | Array<any>;
-  paddingInner?: (padding: number) => ScaleObject;
-  paddingOuter?: (padding: number) => ScaleObject;
-  range: () => (range?: Array<any>) => ScaleObject | Array<any>;
-  tickFormat?: (count: number, specifier: string) => (tick: any) => string;
-  ticks?: (count: number) => Array<any>;
+  // (undocumented)
+  (value: any): number;
+  bandwidth?: () => number;
+  clamp?: (clamp: boolean) => ScaleObject;
+  copy: () => ScaleObject;
+  domain: (domain?: DomainItems) => any;
+  paddingInner?: (arg: number) => ScaleObject;
+  paddingOuter?: (arg: number) => ScaleObject;
+  range: (range?: DomainItems) => any;
+  tickFormat?: (count?: number, format?: string) => GetFormatFn;
+  ticks?: (ticks?: number) => DomainItems;
 }
 
 // @public (undocumented)
-namespace ScatterSeries {
-  interface PointProps {
-    color: string;
-    index: number;
-    point: { // (undocumented)
- size : number };
-    value: number;
-    x: number;
-    y: number;
-  }
+interface ScaleProps {
+  factory?: FactoryFn;
+  modifyDomain?: ModifyDomainFn;
+  name?: string;
 }
 
 // @public (undocumented)
-namespace ScatterSeries {
-  interface SeriesProps {
-    coordinates: Array<{ // (undocumented)
- x: number, // (undocumented)
- y: number }>;
-    point?: { // (undocumented)
- size : number };
-    pointComponent: React.ComponentType<ScatterSeries.PointProps>;
-  }
-}
+declare type Scales = {
+  // (undocumented)
+  readonly xScale: ScaleObject;
+  // (undocumented)
+  readonly yScale: ScaleObject;
+};
 
-// @public
+// @public (undocumented)
 declare const ScatterSeries: React.ComponentType<ScatterSeriesProps>;
 
 // @public (undocumented)
-interface ScatterSeriesProps {
-  argumentField: string;
-  color?: string;
-  name: string;
-  point?: { // (undocumented)
- size : number };
-  pointComponent: React.ComponentType<ScatterSeries.PointProps>;
-  scaleName?: string;
-  valueField: string;
+declare namespace ScatterSeries {
+  type PointOptions = {
+    // (undocumented)
+    size: number;
+  };
+  interface PointProps extends PointComponentProps {
+    point: PointOptions;
+  }
+  interface SeriesProps extends PathComponentProps {
+  }
 }
 
-// @public
+// @public (undocumented)
+interface ScatterSeriesProps extends SeriesProps {
+  point?: ScatterSeries.PointOptions;
+  pointComponent?: React.ComponentType<ScatterSeries.PointProps>;
+}
+
+// @public (undocumented)
 declare const SelectionState: React.ComponentType<SelectionStateProps>;
 
 // @public (undocumented)
 interface SelectionStateProps {
-  selection?: Array<SeriesRef>;
-}
-
-// @public
-type SeriesData = Array<number>;
-
-// @public
-interface SeriesRef {
-  point: number;
-  series: string;
+  selection?: TargetList;
 }
 
 // @public (undocumented)
-namespace SplineSeries {
-  interface SeriesProps {
-    color: string;
-    coordinates: Array<{ // (undocumented)
- x: number, // (undocumented)
- y: number }>;
-  }
-}
-
-// @public (undocumented)
-namespace SplineSeries {
-  interface PathSeriesProps extends SplineSeries.SeriesProps {
-    path?: (coordinates: Array<{ // (undocumented)
- x: number, // (undocumented)
- y: number }>) => string;
-  }
-}
-
-// @public
-declare const SplineSeries: React.ComponentType<SplineSeriesProps>;
-
-// @public (undocumented)
-interface SplineSeriesProps {
+interface SeriesProps {
   argumentField: string;
   color?: string;
-  name: string;
+  name?: string;
   scaleName?: string;
-  seriesComponent: React.ComponentType<SplineSeries.SeriesProps>;
   valueField: string;
 }
 
 // @public
+interface SeriesRef {
+  readonly point: number;
+  readonly series: string;
+}
+
+// @public (undocumented)
+declare const SplineSeries: React.ReactType<AreaSeriesProps>;
+
+// @public (undocumented)
+declare namespace SplineSeries {
+  interface PathSeriesProps extends SeriesProps {
+  }
+  interface SeriesProps extends PathComponentPathProps {
+  }
+}
+
+// @public (undocumented)
+interface SplineSeriesProps extends SeriesProps {
+  seriesComponent?: React.ComponentType<SplineSeries.SeriesProps>;
+}
+
+// @public (undocumented)
 declare const Stack: React.ComponentType<StackProps>;
 
 // @public (undocumented)
-interface StackData {
-  series: Array<string>;
+interface Stack {
+  readonly series: string[];
 }
 
 // @public (undocumented)
+declare type StackData = ReadonlyArray<ReadonlyArray<number>>;
+
+// @public (undocumented)
+declare type StackList = ReadonlyArray<Stack>;
+
+// @public (undocumented)
 interface StackProps {
-  offset?: (data: Array<SeriesData>, order: Array<number>) => void;
-  order?: (data: Array<SeriesData>) => Array<number>;
-  stacks?: Array<StackData>;
+  offset?: OffsetFn;
+  order?: OrderFn;
+  stacks?: StackList;
 }
+
+// @public (undocumented)
+declare type StacksOptions = {
+  // (undocumented)
+  stacks: StackList;
+  // (undocumented)
+  offset: OffsetFn;
+  // (undocumented)
+  order: OrderFn;
+};
 
 // @public
 interface TargetData {
-  event: object;
-  location: Array<number>;
-  targets: Array<SeriesRef>;
+  readonly event?: any;
+  readonly location: Location;
+  readonly targets: TargetList;
 }
+
+// @public (undocumented)
+declare type TargetList = ReadonlyArray<SeriesRef>;
+
+// @public (undocumented)
+declare type TickFormatFn = (scale: ScaleObject) => GetFormatFn;
+
+// @public (undocumented)
+declare const Title: React.ComponentType<TitleProps>;
 
 // @public (undocumented)
 namespace Title {
@@ -402,9 +524,6 @@ namespace Title {
     text: string;
   }
 }
-
-// @public
-declare const Title: React.ComponentType<TitleProps>;
 
 // @public (undocumented)
 interface TitleProps {
@@ -414,12 +533,7 @@ interface TitleProps {
 }
 
 // @public (undocumented)
-namespace Tooltip {
-  interface OverlayProps {
-    children: React.ReactNode;
-    target: () => HTMLElement;
-  }
-}
+declare const Tooltip: React.ComponentType<TooltipProps>;
 
 // @public (undocumented)
 namespace Tooltip {
@@ -427,79 +541,64 @@ namespace Tooltip {
     targetItem: SeriesRef;
     text: string;
   }
+  interface OverlayProps {
+    children: React.ReactNode;
+    target: TooltipReference;
+  }
 }
-
-// @public
-declare const Tooltip: React.ComponentType<TooltipProps>;
 
 // @public (undocumented)
 interface TooltipProps {
   contentComponent: React.ComponentType<Tooltip.ContentProps>;
   defaultTargetItem?: SeriesRef;
-  onTargetItemChange?: (target: SeriesRef) => void;
+  onTargetItemChange?: NotifyPointerMoveFn;
   overlayComponent: React.ComponentType<Tooltip.OverlayProps>;
   targetItem?: SeriesRef;
 }
 
 // @public (undocumented)
-namespace ValueAxis {
-  interface RootProps {
-    children: React.ReactNode;
-    x: number;
-    y: number;
-  }
+interface TooltipReference {
+  // (undocumented)
+  readonly clientHeight: number;
+  // (undocumented)
+  readonly clientWidth: number;
+  // (undocumented)
+  getBoundingClientRect(): ClientRect;
 }
 
 // @public (undocumented)
-namespace ValueAxis {
-  interface LineProps {
-    x1: number;
-    x2: number;
-    y1: number;
-    y2: number;
-  }
+interface TransformedPoint extends Point {
+  readonly x: number;
+  readonly y: number;
+  readonly y1?: number;
 }
 
 // @public (undocumented)
-namespace ValueAxis {
-  interface LabelProps {
-    dominantBaseline: 'hanging' | 'middle' | 'baseline';
-    text: string | number;
-    textAnchor: 'start' | 'middle' | 'end';
-    x: number;
-    y: number;
-  }
-}
-
-// @public
 declare const ValueAxis: React.ComponentType<ValueAxisProps>;
 
 // @public (undocumented)
-interface ValueAxisProps {
-  gridComponent: React.ComponentType<ValueAxis.LineProps>;
-  indentFromAxis?: number;
-  labelComponent: React.ComponentType<ValueAxis.LabelProps>;
-  lineComponent: React.ComponentType<ValueAxis.LineProps>;
-  position?: 'left' | 'right';
-  rootComponent: React.ComponentType<ValueAxis.RootProps>;
-  scaleName?: string;
-  showGrid?: boolean;
-  showLabels?: boolean;
-  showLine?: boolean;
-  showTicks?: boolean;
-  tickComponent: React.ComponentType<ValueAxis.LineProps>;
-  tickFormat?: (scale: ScaleObject) => (tick: string) => string;
-  tickSize?: number;
+namespace ValueAxis {
+  // (undocumented)
+  interface LabelProps extends Axis.LabelProps {
+  }
+  // (undocumented)
+  interface LineProps extends Axis.LineProps {
+  }
+  // (undocumented)
+  interface RootProps extends Axis.RootProps {
+  }
 }
 
-// @public
+// @public (undocumented)
+interface ValueAxisProps extends RawAxisProps {
+  position?: 'left' | 'right';
+}
+
+// @public (undocumented)
 declare const ValueScale: React.ComponentType<ValueScaleProps>;
 
 // @public (undocumented)
-interface ValueScaleProps {
-  factory?: () => ScaleObject;
-  modifyDomain?: (domain: Array<any>) => Array<any>;
-  name?: string;
+interface ValueScaleProps extends ScaleProps {
 }
 
 

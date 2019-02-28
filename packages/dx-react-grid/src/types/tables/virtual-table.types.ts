@@ -3,9 +3,10 @@ import { Table } from '../index';
 export interface VirtualTableProps {
   /** The virtual table's height. */
   height: number | string;
-  /* * Estimated row height. Specify the average value for a table whose rows have
+  /***
+   * Estimated row height. Specify the average value for a table whose rows have
    * different heights.
-   * */
+   **/
   estimatedRowHeight: number;
   /** Additional column properties that the plugin can handle. */
   columnExtensions?: Array<Table.ColumnExtension>;

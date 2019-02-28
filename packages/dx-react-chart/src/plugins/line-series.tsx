@@ -1,3 +1,4 @@
+import * as React from 'react';
 import {
   getLinePointTransformer as getPointTransformer,
   createLineHitTester as createHitTester,
@@ -6,7 +7,8 @@ import { declareSeries } from '../utils';
 import { Line as Path } from '../templates/series/line';
 import { AreaSeriesProps } from '../types';
 
-export const LineSeries = declareSeries<AreaSeriesProps>('LineSeries', {
+// tslint:disable-next-line: max-line-length
+export const LineSeries: React.ComponentType<AreaSeriesProps> = declareSeries<AreaSeriesProps>('LineSeries', {
   getPointTransformer,
   createHitTester,
   components: { Path },

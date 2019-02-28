@@ -23,6 +23,17 @@ const SCROLL_SPEED_PX = 30;
 
 const clamp = (value, min, max) => Math.max(Math.min(value, max), min);
 
+const tableIndex = (timeTableCells, clientOffset) => timeTableCells.findIndex((timeTableCell) => {
+  const {
+    left, top,
+    right, bottom,
+  } = timeTableCell.getBoundingClientRect();
+  const isOver = clientOffset
+      && clamp(clientOffset.x, left, right) === clientOffset.x
+      && clamp(clientOffset.y, top, bottom) === clientOffset.y;
+  return isOver;
+});
+
 const cellData = (timeTableIndex, allDayIndex, viewCellsData) => {
   if (allDayIndex !== -1) {
     const allDayCellsData = allDayCellsCore(viewCellsData);
@@ -152,31 +163,8 @@ export class AppointmentDragging extends React.PureComponent {
   ) {
     const timeTableCells = Array.from(document.getElementsByClassName('dx-time-table')[0].querySelectorAll('td'));
     const allDayCells = Array.from(document.querySelectorAll('th'));
-    const timeTableIndex = timeTableCells.findIndex((timeTableCell) => {
-      const {
-        left,
-        top,
-        right,
-        bottom,
-      } = timeTableCell.getBoundingClientRect();
-      const isOver = clientOffset
-        && clamp(clientOffset.x, left, right) === clientOffset.x
-        && clamp(clientOffset.y, top, bottom) === clientOffset.y;
-      return isOver;
-    });
-
-    const allDayIndex = allDayCells.findIndex((timeTableCell) => {
-      const {
-        left,
-        top,
-        right,
-        bottom,
-      } = timeTableCell.getBoundingClientRect();
-      const isOver = clientOffset
-        && clamp(clientOffset.x, left, right) === clientOffset.x
-        && clamp(clientOffset.y, top, bottom) === clientOffset.y;
-      return isOver;
-    });
+    const timeTableIndex = tableIndex(timeTableCells, clientOffset);
+    const allDayIndex = tableIndex(allDayCells, clientOffset);
 
     if (allDayIndex === -1 && timeTableIndex === -1) return;
 

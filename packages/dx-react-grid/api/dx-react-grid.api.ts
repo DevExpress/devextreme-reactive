@@ -1,61 +1,65 @@
 // @public
 interface ChangeSet {
-  added?: ReadonlyArray<any>;
-  changed?: {
-    [key: string]: any;
-  }
-  deleted?: ReadonlyArray<number | string>;
+  added?: Array<any>;
+  changed?: { // (undocumented)
+ [key: string]: any };
+  deleted?: Array<number | string>;
 }
 
 // @public
 interface Column {
-  getCellValue?: GetCellValueFn;
+  getCellValue?: (row: any, columnName: string) => any;
   name: string;
   title?: string;
 }
 
-// @public
-interface ColumnBands {
-  children?: ColumnBands[];
-  columnName?: string;
-  title?: string;
+// @public (undocumented)
+namespace ColumnChooser {
+  interface OverlayProps {
+    children: React.ReactNode;
+    onHide: () => void;
+    target: React.ReactInstance;
+    visible: boolean;
+  }
 }
 
 // @public (undocumented)
-module ColumnChooser {
+namespace ColumnChooser {
+  interface ToggleButtonProps {
+    buttonRef: (ref: React.ReactInstance) => void;
+    getMessage: (messageKey: string) => string;
+    onToggle: () => void;
+  }
+}
+
+// @public (undocumented)
+namespace ColumnChooser {
   interface ContainerProps {
     children: React.ReactNode;
   }
+}
 
+// @public (undocumented)
+namespace ColumnChooser {
   interface ItemProps {
     disabled: boolean;
     item: ColumnChooserItem;
-    onToggle(): void;
+    onToggle: () => void;
   }
+}
 
+// @public (undocumented)
+namespace ColumnChooser {
   // (undocumented)
   interface LocalizationMessages {
     showColumnChooser?: string;
   }
-
-  interface OverlayProps {
-    children: React.ReactNode;
-    onHide(): void;
-    target: React.ReactInstance;
-    visible: boolean;
-  }
-
-  interface ToggleButtonProps {
-    // (undocumented)
-    active?: boolean;
-    buttonRef: (ref: React.ReactInstance) => void;
-    getMessage: (messageKey: string) => string;
-    onToggle(): void;
-  }
-
 }
 
-// @public (undocumented)
+// @public
+declare const ColumnChooser: React.ComponentType<ColumnChooserProps>;
+
+// @public
 interface ColumnChooserItem {
   column: Column;
   hidden: boolean;
@@ -70,32 +74,41 @@ interface ColumnChooserProps {
   toggleButtonComponent: React.ComponentType<ColumnChooser.ToggleButtonProps>;
 }
 
+// @public
+declare const CustomGrouping: React.ComponentType<CustomGroupingProps>;
+
 // @public (undocumented)
 interface CustomGroupingProps {
-  expandedGroups?: GroupKey[] | null;
-  getChildGroups: (currentRows: Array<any>, grouping: Grouping, rootRows: Array<any>) => Array<{
-      key: number | string;
-      value?: any;
-      childRows?: Array<any>;
-    }>;
-  grouping?: Grouping[] | null;
+  expandedGroups?: Array<GroupKey> | null;
+  getChildGroups: (currentRows: Array<any>, grouping: Grouping, rootRows: Array<any>) => Array<{ // (undocumented)
+ key: number | string, // (undocumented)
+ value?: any, // (undocumented)
+ childRows?: Array<any> }>;
+  grouping?: Array<Grouping> | null;
 }
+
+// @public
+declare const CustomPaging: React.ComponentType<CustomPagingProps>;
 
 // @public (undocumented)
 interface CustomPagingProps {
   totalCount?: number;
 }
 
+// @public
+declare const CustomSummary: React.ComponentType<CustomSummaryProps>;
+
 // @public (undocumented)
 interface CustomSummaryProps {
-  groupValues?: {
-    [key: string]: Array<any>;
-  }
+  groupValues?: { // (undocumented)
+ [key: string]: Array<any> };
   totalValues?: Array<any>;
-  treeValues?: {
-    [key: string]: Array<any>;
-  }
+  treeValues?: { // (undocumented)
+ [key: string]: Array<any> };
 }
+
+// @public
+declare const CustomTreeData: React.ComponentType<CustomTreeDataProps>;
 
 // @public (undocumented)
 interface CustomTreeDataProps {
@@ -103,23 +116,26 @@ interface CustomTreeDataProps {
 }
 
 // @public (undocumented)
-module DataTypeProvider {
+namespace DataTypeProvider {
+  interface ValueFormatterProps {
+    column: Column;
+    row?: any;
+    value: any;
+  }
+}
+
+// @public (undocumented)
+namespace DataTypeProvider {
   interface ValueEditorProps {
     column: Column;
     onValueChange: (newValue: any) => void;
-    // (undocumented)
     row?: any;
     value: any;
   }
-
-  interface ValueFormatterProps {
-    column: Column;
-    // (undocumented)
-    row?: any;
-    value: any;
-  }
-
 }
+
+// @public
+declare const DataTypeProvider: React.ComponentType<DataTypeProviderProps>;
 
 // @public (undocumented)
 interface DataTypeProviderProps {
@@ -130,20 +146,24 @@ interface DataTypeProviderProps {
 }
 
 // @public (undocumented)
-module DragDropProvider {
+namespace DragDropProvider {
+  interface ContainerProps {
+    children: React.ReactNode;
+    clientOffset: { // (undocumented)
+ x: number, // (undocumented)
+ y: number };
+  }
+}
+
+// @public (undocumented)
+namespace DragDropProvider {
   interface ColumnProps {
     column: Column;
   }
-
-  interface ContainerProps {
-    children: React.ReactNode;
-    clientOffset: {
-      x: number;
-      y: number;
-    }
-  }
-
 }
+
+// @public
+declare const DragDropProvider: React.ComponentType<DragDropProviderProps>;
 
 // @public (undocumented)
 interface DragDropProviderProps {
@@ -152,21 +172,16 @@ interface DragDropProviderProps {
 }
 
 // @public (undocumented)
-interface EditingColumnExtension {
-  columnName: string;
-  createRowChange?: (row: any, value: any, columnName: string) => any;
-  editingEnabled?: boolean;
-}
-
-// @public (undocumented)
-module EditingState {
+namespace EditingState {
   interface ColumnExtension {
     columnName: string;
     createRowChange?: (row: any, value: any, columnName: string) => any;
     editingEnabled?: boolean;
   }
-
 }
+
+// @public
+declare const EditingState: React.ComponentType<EditingStateProps>;
 
 // @public (undocumented)
 interface EditingStateProps {
@@ -176,24 +191,19 @@ interface EditingStateProps {
   createRowChange?: (row: any, value: string | number, columnName: string) => any;
   defaultAddedRows?: Array<any>;
   defaultEditingRowIds?: Array<number | string>;
-  defaultRowChanges?: {
-    [key: string]: any;
-  }
+  defaultRowChanges?: { // (undocumented)
+ [key: string]: any };
   editingRowIds?: Array<number | string>;
   onAddedRowsChange?: (addedRows: Array<any>) => void;
   onCommitChanges: (changes: ChangeSet) => void;
-  // (undocumented)
-  onDeletedRowIdsChange?: (deletedRowIds: Array<number | string>) => void;
   onEditingRowIdsChange?: (editingRowIds: Array<number | string>) => void;
-  onRowChangesChange?: (rowChanges: {
-      [key: string]: any;
-    }) => void;
-  rowChanges?: {
-    [key: string]: any;
-  }
+  onRowChangesChange?: (rowChanges: { // (undocumented)
+ [key: string]: any }) => void;
+  rowChanges?: { // (undocumented)
+ [key: string]: any };
 }
 
-// @public (undocumented)
+// @public
 interface Filter {
   columnName: string;
   operation?: FilterOperation;
@@ -207,38 +217,45 @@ interface FilterExpression {
 }
 
 // @public (undocumented)
-module FilteringState {
+namespace FilteringState {
   interface ColumnExtension {
     columnName: string;
     filteringEnabled: boolean;
   }
-
 }
+
+// @public
+declare const FilteringState: React.ComponentType<FilteringStateProps>;
 
 // @public (undocumented)
 interface FilteringStateProps {
-  columnExtensions?: FilteringState.ColumnExtension[];
+  columnExtensions?: Array<FilteringState.ColumnExtension>;
   columnFilteringEnabled?: boolean;
-  defaultFilters?: Filter[];
-  filters?: Filter[];
-  onFiltersChange?: (filters: Filter[]) => void;
+  defaultFilters?: Array<Filter>;
+  filters?: Array<Filter>;
+  onFiltersChange?: (filters: Array<Filter>) => void;
 }
 
+// @public
+type FilterOperation = string;
+
 // @public (undocumented)
-module Grid {
+namespace Grid {
   interface RootProps {
     children?: React.ReactNode;
   }
-
 }
+
+// @public
+declare const Grid: React.ComponentType<GridProps>;
 
 // @public (undocumented)
 interface GridProps {
-  columns: Column[];
+  columns: Array<Column>;
   getCellValue?: (row: any, columnName: string) => any;
   getRowId?: (row: any) => number | string;
   rootComponent: React.ComponentType<Grid.RootProps>;
-  rows: any[];
+  rows: Array<any>;
 }
 
 // @public
@@ -247,40 +264,49 @@ interface Grouping {
 }
 
 // @public (undocumented)
-module GroupingPanel {
+namespace GroupingPanel {
   interface ContainerProps {
     children?: React.ReactNode;
   }
+}
 
-  interface EmptyMessageProps {
-    getMessage: (messageKey: string) => string;
-  }
-
+// @public (undocumented)
+namespace GroupingPanel {
   interface ItemProps {
     groupingEnabled: boolean;
     item: GroupingPanelItem;
     onGroup: () => void;
-    onSort: (parameters: {
-                direction?: 'asc' | 'desc' | null;
-                keepOther?: boolean;
-            }) => void;
+    onSort: (parameters: { // (undocumented)
+ direction?: 'asc' | 'desc' | null }) => void;
     showGroupingControls: boolean;
     showSortingControls: boolean;
     sortingDirection?: 'asc' | 'desc';
     sortingEnabled: boolean;
   }
+}
 
+// @public (undocumented)
+namespace GroupingPanel {
+  interface EmptyMessageProps {
+    getMessage: (messageKey: string) => string;
+  }
+}
+
+// @public (undocumented)
+namespace GroupingPanel {
   // (undocumented)
   interface LocalizationMessages {
     groupByColumn?: string;
   }
-
 }
+
+// @public
+declare const GroupingPanel: React.ComponentType<GroupingPanelProps>;
 
 // @public
 interface GroupingPanelItem {
   column: Column;
-  draft?: boolean;
+  draft?: string;
 }
 
 // @public (undocumented)
@@ -294,13 +320,15 @@ interface GroupingPanelProps {
 }
 
 // @public (undocumented)
-module GroupingState {
+namespace GroupingState {
   interface ColumnExtension {
     columnName: string;
     groupingEnabled: boolean;
   }
-
 }
+
+// @public
+declare const GroupingState: React.ComponentType<GroupingStateProps>;
 
 // @public (undocumented)
 interface GroupingStateProps {
@@ -315,58 +343,84 @@ interface GroupingStateProps {
 }
 
 // @public
+type GroupKey = string;
+
+// @public
 interface GroupRow {
   key: number | string;
   value: any;
 }
 
 // @public (undocumented)
-module IntegratedFiltering {
+namespace IntegratedFiltering {
   interface ColumnExtension {
     columnName: string;
     predicate?: (value: any, filter: Filter, row: any) => boolean;
   }
+}
 
+// @public
+declare const IntegratedFiltering: React.ComponentType<IntegratedFilteringProps> & {
+  defaultPredicate: (value: any, filter: Filter, row: any) => boolean;
+};
+
+// @public (undocumented)
+interface IntegratedFilteringProps {
+  columnExtensions?: Array<IntegratedFiltering.ColumnExtension>;
 }
 
 // @public (undocumented)
-module IntegratedGrouping {
+namespace IntegratedGrouping {
   interface ColumnExtension {
     columnName: string;
-    criteria?: (value: any) => {
-          key: string | number;
-          value?: any;
-        };
+    criteria?: (value: any) => { // (undocumented)
+ key: string | number, // (undocumented)
+ value?: any };
   }
-
 }
+
+// @public
+declare const IntegratedGrouping: React.ComponentType<IntegratedGroupingProps>;
 
 // @public (undocumented)
 interface IntegratedGroupingProps {
   columnExtensions?: Array<IntegratedGrouping.ColumnExtension>;
 }
 
+// @public
+declare const IntegratedPaging: React.ComponentType<IntegratedPagingProps>;
+
 // @public (undocumented)
 interface IntegratedPagingProps {
 }
+
+// @public
+declare const IntegratedSelection: React.ComponentType<IntegratedSelectionProps>;
 
 // @public (undocumented)
 interface IntegratedSelectionProps {
 }
 
 // @public (undocumented)
-module IntegratedSorting {
+namespace IntegratedSorting {
   interface ColumnExtension {
     columnName: string;
     compare?: (a: any, b: any) => number;
   }
-
 }
+
+// @public
+declare const IntegratedSorting: React.ComponentType<IntegratedSortingProps>;
 
 // @public (undocumented)
 interface IntegratedSortingProps {
   columnExtensions?: Array<IntegratedSorting.ColumnExtension>;
 }
+
+// @public
+declare const IntegratedSummary: React.ComponentType<IntegratedSummaryProps> & {
+  defaultCalculator: (type: SummaryType, rows: Array<any>, getValue: (row: any) => any) => any;
+};
 
 // @public (undocumented)
 interface IntegratedSummaryProps {
@@ -374,14 +428,13 @@ interface IntegratedSummaryProps {
 }
 
 // @public (undocumented)
-module PagingPanel {
+namespace PagingPanel {
   interface ContainerProps {
     currentPage: number;
-    getMessage: (messageKey: string, parameters?: {
-                from: number;
-                to: number;
-                count: number;
-            }) => string;
+    getMessage: (messageKey: string, parameters?: { // (undocumented)
+ from: number, // (undocumented)
+ to: number, // (undocumented)
+ count: number }) => string;
     onCurrentPageChange: (page: number) => void;
     onPageSizeChange: (size: number) => void;
     pageSize: number;
@@ -389,19 +442,23 @@ module PagingPanel {
     totalCount: number;
     totalPages: number;
   }
+}
 
+// @public (undocumented)
+namespace PagingPanel {
   // (undocumented)
   interface LocalizationMessages {
-    info?: (parameters: {
-                from: number;
-                to: number;
-                count: number;
-            }) => string | string;
+    info?: (parameters: { // (undocumented)
+ from: number, // (undocumented)
+ to: number, // (undocumented)
+ count: number }) => string | string;
     rowsPerPage?: string;
     showAll?: string;
   }
-
 }
+
+// @public
+declare const PagingPanel: React.ComponentType<PagingPanelProps>;
 
 // @public (undocumented)
 interface PagingPanelProps {
@@ -409,6 +466,9 @@ interface PagingPanelProps {
   messages?: PagingPanel.LocalizationMessages;
   pageSizes?: Array<number>;
 }
+
+// @public
+declare const PagingState: React.ComponentType<PagingStateProps>;
 
 // @public (undocumented)
 interface PagingStateProps {
@@ -420,6 +480,9 @@ interface PagingStateProps {
   pageSize?: number;
 }
 
+// @public
+declare const RowDetailState: React.ComponentType<RowDetailStateProps>;
+
 // @public (undocumented)
 interface RowDetailStateProps {
   defaultExpandedRowIds?: Array<number | string>;
@@ -428,19 +491,24 @@ interface RowDetailStateProps {
 }
 
 // @public (undocumented)
-module SearchPanel {
+namespace SearchPanel {
   interface InputProps {
     getMessage: (messageKey: string) => string;
     onValueChange: (value: string) => void;
     value: string;
   }
+}
 
+// @public (undocumented)
+namespace SearchPanel {
   // (undocumented)
   interface LocalizationMessages {
     searchPlaceholder?: string;
   }
-
 }
+
+// @public
+declare const SearchPanel: React.ComponentType<SearchPanelProps>;
 
 // @public (undocumented)
 interface SearchPanelProps {
@@ -448,12 +516,18 @@ interface SearchPanelProps {
   messages?: SearchPanel.LocalizationMessages;
 }
 
+// @public
+declare const SearchState: React.ComponentType<SearchStateProps>;
+
 // @public (undocumented)
 interface SearchStateProps {
   defaultValue?: string;
   onValueChange?: (value: string) => void;
   value?: string;
 }
+
+// @public
+declare const SelectionState: React.ComponentType<SelectionStateProps>;
 
 // @public (undocumented)
 interface SelectionStateProps {
@@ -469,13 +543,15 @@ interface Sorting {
 }
 
 // @public (undocumented)
-module SortingState {
+namespace SortingState {
   interface ColumnExtension {
     columnName: string;
     sortingEnabled: boolean;
   }
-
 }
+
+// @public
+declare const SortingState: React.ComponentType<SortingStateProps>;
 
 // @public (undocumented)
 interface SortingStateProps {
@@ -486,11 +562,14 @@ interface SortingStateProps {
   sorting?: Array<Sorting>;
 }
 
-// @public (undocumented)
+// @public
 interface SummaryItem {
   columnName: string;
   type: SummaryType;
 }
+
+// @public
+declare const SummaryState: React.ComponentType<SummaryStateProps>;
 
 // @public (undocumented)
 interface SummaryStateProps {
@@ -499,72 +578,97 @@ interface SummaryStateProps {
   treeItems?: Array<SummaryItem>;
 }
 
-// @public (undocumented)
-module Table {
-  interface CellProps {
-    colSpan?: number;
-    rowSpan?: number;
-    tableColumn: TableColumn;
-    tableRow: TableRow;
-  }
+// @public
+type SummaryType = string;
 
+// @public (undocumented)
+namespace Table {
   interface ColumnExtension {
     align?: 'left' | 'right' | 'center';
     columnName: string;
     width?: number;
     wordWrapEnabled?: boolean;
   }
+}
 
+// @public (undocumented)
+namespace Table {
+  interface CellProps {
+    colSpan?: number;
+    rowSpan?: number;
+    tableColumn: TableColumn;
+    tableRow: TableRow;
+  }
+}
+
+// @public (undocumented)
+namespace Table {
   interface DataCellProps extends Table.CellProps {
     children?: React.ReactNode;
     column: Column;
     row: any;
     value: any;
   }
+}
 
-  interface DataRowProps extends Table.RowProps {
-    // (undocumented)
-    row: any;
-  }
-
-  // (undocumented)
-  interface InnerTableProps {
-    // (undocumented)
-    style: React.CSSProperties;
-    // (undocumented)
-    tableRef?: React.RefObject<HTMLTableElement>;
-  }
-
-  // (undocumented)
-  interface LocalizationMessages {
-    noData?: string;
-  }
-
+// @public (undocumented)
+namespace Table {
   interface NoDataCellProps extends Table.CellProps {
     getMessage: (messageKey: string) => string;
   }
+}
 
+// @public (undocumented)
+namespace Table {
   interface RowProps {
     children: React.ReactNode;
     tableRow: TableRow;
   }
-
 }
 
 // @public (undocumented)
-module TableBandHeader {
+namespace Table {
+  interface DataRowProps extends Table.RowProps {
+    row: any;
+  }
+}
+
+// @public (undocumented)
+namespace Table {
+  // (undocumented)
+  interface LocalizationMessages {
+    noData?: string;
+  }
+}
+
+// @public
+declare const Table: React.ComponentType<TableProps> & {
+  COLUMN_TYPE: symbol;
+  ROW_TYPE: symbol;
+  NODATA_ROW_TYPE: symbol;
+};
+
+// @public (undocumented)
+namespace TableBandHeader {
   interface CellProps extends Table.CellProps {
     beforeBorder?: boolean;
     children?: React.ReactNode;
   }
+}
 
+// @public (undocumented)
+namespace TableBandHeader {
   interface ColumnBands {
     children?: Array<TableBandHeader.ColumnBands>;
     columnName?: string;
     title?: string;
   }
-
 }
+
+// @public
+declare const TableBandHeader: React.ComponentType<TableBandHeaderProps> & {
+  ROW_TYPE: symbol;
+};
 
 // @public (undocumented)
 interface TableBandHeaderProps {
@@ -583,12 +687,18 @@ interface TableColumn {
   width?: number;
 }
 
+// @public
+declare const TableColumnReordering: React.ComponentType<TableColumnReorderingProps>;
+
 // @public (undocumented)
 interface TableColumnReorderingProps {
   defaultOrder?: Array<string>;
   onOrderChange?: (nextOrder: Array<string>) => void;
   order?: Array<string>;
 }
+
+// @public
+declare const TableColumnResizing: React.ComponentType<TableColumnResizingProps>;
 
 // @public (undocumented)
 interface TableColumnResizingProps {
@@ -599,22 +709,30 @@ interface TableColumnResizingProps {
 }
 
 // @public (undocumented)
-module TableColumnVisibility {
+namespace TableColumnVisibility {
+  interface EmptyMessageProps {
+    getMessage: (messageKey: string) => string;
+  }
+}
+
+// @public (undocumented)
+namespace TableColumnVisibility {
   interface ColumnExtension {
     columnName: string;
     togglingEnabled: boolean;
   }
+}
 
-  interface EmptyMessageProps {
-    getMessage: (messageKey: string) => string;
-  }
-
+// @public (undocumented)
+namespace TableColumnVisibility {
   // (undocumented)
   interface LocalizationMessages {
     noColumns?: string;
   }
-
 }
+
+// @public
+declare const TableColumnVisibility: React.ComponentType<TableColumnVisibilityProps>;
 
 // @public (undocumented)
 interface TableColumnVisibilityProps {
@@ -634,22 +752,31 @@ interface TableColumnWidthInfo {
 }
 
 // @public (undocumented)
-module TableEditColumn {
+namespace TableEditColumn {
   interface CellProps extends Table.CellProps {
     children?: React.ReactNode;
     row: any;
   }
+}
 
-  interface CommandProps {
-    id: 'add' | 'edit' | 'delete' | 'commit' | 'cancel';
-    onExecute(): void;
-    text: string;
-  }
-
+// @public (undocumented)
+namespace TableEditColumn {
   interface HeaderCellProps extends Table.CellProps {
     children?: React.ReactNode;
   }
+}
 
+// @public (undocumented)
+namespace TableEditColumn {
+  interface CommandProps {
+    id: 'add' | 'edit' | 'delete' | 'commit' | 'cancel';
+    onExecute: () => void;
+    text: string;
+  }
+}
+
+// @public (undocumented)
+namespace TableEditColumn {
   // (undocumented)
   interface LocalizationMessages {
     addCommand?: string;
@@ -658,8 +785,12 @@ module TableEditColumn {
     deleteCommand?: string;
     editCommand?: string;
   }
-
 }
+
+// @public
+declare const TableEditColumn: React.ComponentType<TableEditColumnProps> & {
+  COLUMN_TYPE: symbol;
+};
 
 // @public (undocumented)
 interface TableEditColumnProps {
@@ -674,21 +805,28 @@ interface TableEditColumnProps {
 }
 
 // @public (undocumented)
-module TableEditRow {
+namespace TableEditRow {
   interface CellProps extends Table.CellProps {
-    // (undocumented)
     column: Column;
     editingEnabled: boolean;
     onValueChange: (newValue: any) => void;
     row: any;
     value: any;
   }
+}
 
+// @public (undocumented)
+namespace TableEditRow {
   interface RowProps extends Table.RowProps {
     row: any;
   }
-
 }
+
+// @public
+declare const TableEditRow: React.ComponentType<TableEditRowProps> & {
+  ADDED_ROW_TYPE: symbol;
+  EDIT_ROW_TYPE: symbol;
+};
 
 // @public (undocumented)
 interface TableEditRowProps {
@@ -698,23 +836,18 @@ interface TableEditRowProps {
 }
 
 // @public (undocumented)
-module TableFilterRow {
+namespace TableFilterRow {
   interface CellProps extends Table.CellProps {
-    // (undocumented)
     column: Column;
     filter: Filter | null;
     filteringEnabled: boolean;
     getMessage: (messageKey: string) => string;
     onFilter: (filter: Filter | null) => void;
   }
+}
 
-  interface EditorProps {
-    disabled: boolean;
-    getMessage: (messageKey: string) => string;
-    onChange: (value: string) => void;
-    value: any;
-  }
-
+// @public (undocumented)
+namespace TableFilterRow {
   interface FilterSelectorProps {
     availableValues: Array<string>;
     disabled: boolean;
@@ -723,11 +856,37 @@ module TableFilterRow {
     onChange: (value: string) => void;
     value: string;
   }
+}
 
+// @public (undocumented)
+namespace TableFilterRow {
   interface IconProps {
     type: string;
   }
+}
 
+// @public (undocumented)
+namespace TableFilterRow {
+  interface EditorProps {
+    disabled: boolean;
+    getMessage: (messageKey: string) => string;
+    onChange: (value: string) => void;
+    value: any;
+  }
+}
+
+// @public (undocumented)
+namespace TableFilterRow {
+  interface ToggleButtonProps {
+    buttonRef: (ref: React.ReactInstance) => void;
+    children?: React.ReactNode;
+    disabled?: boolean;
+    onToggle: () => void;
+  }
+}
+
+// @public (undocumented)
+namespace TableFilterRow {
   // (undocumented)
   interface LocalizationMessages {
     contains?: string;
@@ -742,15 +901,12 @@ module TableFilterRow {
     notEqual?: string;
     startsWith?: string;
   }
-
-  interface ToggleButtonProps {
-    buttonRef: (ref: React.ReactInstance) => void;
-    children?: React.ReactNode;
-    disabled?: boolean;
-    onToggle(): void;
-  }
-
 }
+
+// @public
+declare const TableFilterRow: React.ComponentType<TableFilterRowProps> & {
+  ROW_TYPE: symbol;
+};
 
 // @public (undocumented)
 interface TableFilterRowProps {
@@ -766,7 +922,7 @@ interface TableFilterRowProps {
 }
 
 // @public (undocumented)
-module TableFixedColumns {
+namespace TableFixedColumns {
   interface CellProps extends Table.CellProps {
     component: React.ComponentType<Table.CellProps>;
     position: number;
@@ -774,8 +930,10 @@ module TableFixedColumns {
     showRightDivider: boolean;
     side: 'left' | 'right';
   }
-
 }
+
+// @public
+declare const TableFixedColumns: React.ComponentType<TableFixedColumnsProps>;
 
 // @public (undocumented)
 interface TableFixedColumnsProps {
@@ -785,39 +943,59 @@ interface TableFixedColumnsProps {
 }
 
 // @public (undocumented)
-module TableGroupRow {
-  interface CellProps extends Table.CellProps {
-    column: Column;
-    expanded: boolean;
-    onToggle(): void;
-    row: GroupRow;
-  }
-
+namespace TableGroupRow {
   interface ColumnExtension {
     columnName: string;
     showWhenGrouped?: boolean;
   }
+}
 
+// @public (undocumented)
+namespace TableGroupRow {
+  interface CellProps extends Table.CellProps {
+    column: Column;
+    expanded: boolean;
+    onToggle: () => void;
+    row: GroupRow;
+  }
+}
+
+// @public (undocumented)
+namespace TableGroupRow {
+  interface RowProps extends Table.RowProps {
+    row: GroupRow;
+  }
+}
+
+// @public (undocumented)
+namespace TableGroupRow {
   interface ContentProps {
     children?: React.ReactNode;
     column: Column;
     row: GroupRow;
   }
+}
 
+// @public (undocumented)
+namespace TableGroupRow {
   interface IconProps {
     expanded: boolean;
   }
+}
 
+// @public (undocumented)
+namespace TableGroupRow {
   interface IndentCellProps extends Table.CellProps {
     column: Column;
     row: GroupRow;
   }
-
-  interface RowProps extends Table.RowProps {
-    row: GroupRow;
-  }
-
 }
+
+// @public
+declare const TableGroupRow: React.ComponentType<TableGroupRowProps> & {
+  COLUMN_TYPE: symbol;
+  ROW_TYPE: symbol;
+};
 
 // @public (undocumented)
 interface TableGroupRowProps {
@@ -828,66 +1006,77 @@ interface TableGroupRowProps {
   indentCellComponent?: React.ComponentType<TableGroupRow.IndentCellProps>;
   indentColumnWidth: number;
   rowComponent: React.ComponentType<TableGroupRow.RowProps>;
-  // (undocumented)
   showColumnsWhenGrouped?: boolean;
 }
 
 // @public (undocumented)
-module TableHeaderRow {
+namespace TableHeaderRow {
   interface CellProps extends Table.CellProps {
     children: React.ReactNode;
     column: Column;
     draggingEnabled: boolean;
     groupingEnabled: boolean;
-    onGroup(): void;
-    onSort: (parameters: {
-          direction?: 'asc' | 'desc' | null;
-          keepOther?: boolean;
-        }) => void;
-    onWidthChange: (parameters: {
-          shift: number;
-        }) => void;
-    onWidthDraft: (parameters: {
-          shift: number;
-        }) => void;
-    onWidthDraftCancel(): void;
+    onGroup: () => void;
+    onSort: (parameters: { // (undocumented)
+ direction?: 'asc' | 'desc' | null, // (undocumented)
+ keepOther?: boolean }) => void;
+    onWidthChange: (parameters: { // (undocumented)
+ shift: number }) => void;
+    onWidthDraft: (parameters: { // (undocumented)
+ shift: number }) => void;
+    onWidthDraftCancel: () => void;
     resizingEnabled: boolean;
     showGroupingControls: boolean;
     showSortingControls: boolean;
     sortingDirection?: 'asc' | 'desc';
     sortingEnabled: boolean;
   }
+}
 
+// @public (undocumented)
+namespace TableHeaderRow {
+  interface SortLabelProps {
+    align: string;
+    children: React.ReactNode;
+    column: Column;
+    direction: 'asc' | 'desc';
+    disabled: boolean;
+    getMessage: (messageKey: string) => string;
+    onSort: (parameters: { // (undocumented)
+ direction?: 'asc' | 'desc' | null, // (undocumented)
+ keepOther?: boolean }) => void;
+  }
+}
+
+// @public (undocumented)
+namespace TableHeaderRow {
   interface ContentProps {
     align: string;
     children: React.ReactNode;
     column: Column;
   }
+}
 
+// @public (undocumented)
+namespace TableHeaderRow {
   interface GroupButtonProps {
-    disabled: boolean;
-    onGroup(): void;
+    disabled: string;
+    onGroup: () => void;
   }
+}
 
+// @public (undocumented)
+namespace TableHeaderRow {
   // (undocumented)
   interface LocalizationMessages {
     sortingHint?: string;
   }
-
-  interface SortLabelProps {
-    align: string;
-    children: React.ReactNode;
-    column: Column;
-    direction: 'asc' | 'desc' | null;
-    disabled: boolean;
-    getMessage: (messageKey: string) => string;
-    onSort: (parameters: {
-          direction?: 'asc' | 'desc' | null;
-          keepOther?: boolean;
-        }) => void;
-  }
-
 }
+
+// @public
+declare const TableHeaderRow: React.ComponentType<TableHeaderRowProps> & {
+  ROW_TYPE: symbol;
+};
 
 // @public (undocumented)
 interface TableHeaderRowProps {
@@ -917,7 +1106,7 @@ interface TableProps {
   stubCellComponent: React.ComponentType<Table.CellProps>;
   stubHeaderCellComponent: React.ComponentType<Table.CellProps>;
   stubRowComponent: React.ComponentType<Table.RowProps>;
-  tableComponent: React.ComponentType<Table.InnerTableProps>;
+  tableComponent: React.ComponentType<object>;
 }
 
 // @public
@@ -930,31 +1119,41 @@ interface TableRow {
 }
 
 // @public (undocumented)
-module TableRowDetail {
+namespace TableRowDetail {
+  interface ContentProps {
+    row: any;
+  }
+}
+
+// @public (undocumented)
+namespace TableRowDetail {
   interface CellProps extends Table.CellProps {
     children?: React.ReactNode;
-    // (undocumented)
     row: any;
   }
+}
 
-  interface ContentProps {
-    // (undocumented)
-    row: any;
-  }
-
+// @public (undocumented)
+namespace TableRowDetail {
   interface RowProps extends Table.RowProps {
-    // (undocumented)
     row: any;
   }
+}
 
+// @public (undocumented)
+namespace TableRowDetail {
   interface ToggleCellProps extends Table.CellProps {
     expanded: boolean;
-    onToggle(): void;
-    // (undocumented)
+    onToggle: () => void;
     row: any;
   }
-
 }
+
+// @public
+declare const TableRowDetail: React.ComponentType<TableRowDetailProps> & {
+  COLUMN_TYPE: symbol;
+  ROW_TYPE: symbol;
+};
 
 // @public (undocumented)
 interface TableRowDetailProps {
@@ -967,40 +1166,34 @@ interface TableRowDetailProps {
 }
 
 // @public (undocumented)
-module TableSelection {
-  interface CellProps extends Table.CellProps {
-    onToggle(): void;
-    // (undocumented)
-    row: any;
-    selected: boolean;
-  }
-
+namespace TableSelection {
   interface HeaderCellProps extends Table.CellProps {
     allSelected: boolean;
     disabled: boolean;
     onToggle: (select?: boolean) => void;
     someSelected: boolean;
   }
-
-  // (undocumented)
-  interface RowProps extends Table.RowProps {
-    // (undocumented)
-    onToggle(): void;
-    // (undocumented)
-    selectByRowClick?: boolean;
-    // (undocumented)
-    selected?: boolean;
-  }
-
 }
+
+// @public (undocumented)
+namespace TableSelection {
+  interface CellProps extends Table.CellProps {
+    onToggle: () => void;
+    row: any;
+    selected: boolean;
+  }
+}
+
+// @public
+declare const TableSelection: React.ComponentType<TableSelectionProps> & {
+  COLUMN_TYPE: symbol;
+};
 
 // @public (undocumented)
 interface TableSelectionProps {
   cellComponent: React.ComponentType<TableSelection.CellProps>;
   headerCellComponent: React.ComponentType<TableSelection.HeaderCellProps>;
   highlightRow?: boolean;
-  // (undocumented)
-  rowComponent: React.ComponentType<TableSelection.RowProps>;
   selectByRowClick?: boolean;
   selectionColumnWidth: number;
   showSelectAll?: boolean;
@@ -1008,28 +1201,39 @@ interface TableSelectionProps {
 }
 
 // @public (undocumented)
-module TableSummaryRow {
+namespace TableSummaryRow {
   interface CellProps extends Table.CellProps {
     children?: React.ReactNode;
     column: Column;
   }
+}
 
+// @public (undocumented)
+namespace TableSummaryRow {
   interface ContentProps {
     children?: React.ReactNode;
   }
+}
 
-  // (undocumented)
+// @public (undocumented)
+namespace TableSummaryRow {
   interface IndentProps {
     level: number;
   }
+}
 
+// @public (undocumented)
+namespace TableSummaryRow {
   interface ItemProps {
     children?: React.ReactNode;
     getMessage: (messageKey: string) => string;
     type: SummaryType;
-    value?: number | null;
+    value?: number;
   }
+}
 
+// @public (undocumented)
+namespace TableSummaryRow {
   // (undocumented)
   interface LocalizationMessages {
     avg?: string;
@@ -1038,8 +1242,14 @@ module TableSummaryRow {
     min?: string;
     sum?: string;
   }
-
 }
+
+// @public
+declare const TableSummaryRow: React.ComponentType<TableSummaryRowProps> & {
+  TREE_ROW_TYPE: symbol;
+  GROUP_ROW_TYPE: symbol;
+  TOTAL_ROW_TYPE: symbol;
+};
 
 // @public (undocumented)
 interface TableSummaryRowProps {
@@ -1058,36 +1268,50 @@ interface TableSummaryRowProps {
 }
 
 // @public (undocumented)
-module TableTreeColumn {
+namespace TableTreeColumn {
   interface CellProps extends Table.CellProps {
     children?: React.ReactNode;
     column: Column;
     row: any;
     value: any;
   }
+}
 
+// @public (undocumented)
+namespace TableTreeColumn {
+  interface ContentProps {
+    children?: React.ReactNode;
+  }
+}
+
+// @public (undocumented)
+namespace TableTreeColumn {
+  interface IndentProps {
+    level: number;
+  }
+}
+
+// @public (undocumented)
+namespace TableTreeColumn {
+  interface ExpandButtonProps {
+    expanded: boolean;
+    onToggle: () => void;
+    visible: boolean;
+  }
+}
+
+// @public (undocumented)
+namespace TableTreeColumn {
   interface CheckboxProps {
     checked: boolean;
     disabled: boolean;
     indeterminate: boolean;
-    onChange(): void;
+    onChange: () => void;
   }
-
-  interface ContentProps {
-    children?: React.ReactNode;
-  }
-
-  interface ExpandButtonProps {
-    expanded: boolean;
-    onToggle(): void;
-    visible: boolean;
-  }
-
-  interface IndentProps {
-    level: number;
-  }
-
 }
+
+// @public
+declare const TableTreeColumn: React.ComponentType<TableTreeColumnProps>;
 
 // @public (undocumented)
 interface TableTreeColumnProps {
@@ -1102,17 +1326,22 @@ interface TableTreeColumnProps {
 }
 
 // @public (undocumented)
-module Toolbar {
+namespace Toolbar {
   interface RootProps {
     children?: React.ReactNode;
   }
-
 }
+
+// @public
+declare const Toolbar: React.ComponentType<ToolbarProps>;
 
 // @public (undocumented)
 interface ToolbarProps {
   rootComponent: React.ComponentType<Toolbar.RootProps>;
 }
+
+// @public
+declare const TreeDataState: React.ComponentType<TreeDataStateProps>;
 
 // @public (undocumented)
 interface TreeDataStateProps {
@@ -1121,13 +1350,19 @@ interface TreeDataStateProps {
   onExpandedRowIdsChange?: (expandedRowIds: Array<number | string>) => void;
 }
 
+// @public
+declare const VirtualTable: React.ComponentType<VirtualTableProps> & {
+  COLUMN_TYPE: symbol;
+  ROW_TYPE: symbol;
+  NODATA_ROW_TYPE: symbol;
+};
+
 // @public (undocumented)
 interface VirtualTableProps {
   bodyComponent: React.ComponentType<object>;
   cellComponent: React.ComponentType<Table.DataCellProps>;
   columnExtensions?: Array<Table.ColumnExtension>;
   containerComponent: React.ComponentType<object>;
-  // (undocumented)
   estimatedRowHeight: number;
   footerComponent: React.ComponentType<object>;
   headComponent: React.ComponentType<object>;
@@ -1142,31 +1377,5 @@ interface VirtualTableProps {
   tableComponent: React.ComponentType<object>;
 }
 
-// WARNING: Unsupported export: PagingState
-// WARNING: Unsupported export: IntegratedPaging
-// WARNING: Unsupported export: CustomPaging
-// WARNING: Unsupported export: CustomGrouping
-// WARNING: Unsupported export: SelectionState
-// WARNING: Unsupported export: IntegratedSelection
-// WARNING: Unsupported export: TableColumnReordering
-// WARNING: Unsupported export: RowDetailState
-// WARNING: Unsupported export: TableColumnResizing
-// WARNING: Unsupported export: TreeDataState
-// WARNING: Unsupported export: CustomTreeData
-// WARNING: Unsupported export: SearchState
-// WARNING: Unsupported export: SummaryState
-// WARNING: Unsupported export: IntegratedSummary
-// WARNING: Unsupported export: CustomSummary
-// WARNING: Unsupported export: VirtualTable
-// WARNING: Unsupported export: IntegratedFilteringProps
-// WARNING: Unsupported export: DefaultPredicateFn
-// WARNING: Unsupported export: TreeDataStateState
-// WARNING: Unsupported export: Row
-// WARNING: Unsupported export: RowId
-// WARNING: Unsupported export: GetCellValueFn
-// WARNING: Unsupported export: FilterOperation
-// WARNING: Unsupported export: GroupKey
-// WARNING: Unsupported export: SortingDirection
-// WARNING: Unsupported export: GridColumnExtension
-// WARNING: Unsupported export: SummaryType
-// (No @packagedocumentation comment for this package)
+
+// (No @packageDocumentation comment for this package)

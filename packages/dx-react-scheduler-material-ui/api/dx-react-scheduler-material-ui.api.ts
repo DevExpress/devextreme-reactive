@@ -1,72 +1,196 @@
-// WARNING: Unsupported export: CellData
-// WARNING: Unsupported export: LayoutProps
-// WARNING: Unsupported export: CellProps
-// WARNING: Unsupported export: RowProps
-// WARNING: Unsupported export: TitleCellProps
-// WARNING: Unsupported export: AppointmentLayerProps
 // @public (undocumented)
-module AllDayPanel {
+namespace AllDayPanel {
+  type CellData = AllDayPanel_2.CellData;
 }
+
+// @public (undocumented)
+namespace AllDayPanel {
+  type LayoutProps = AllDayPanel_2.LayoutProps;
+}
+
+// @public (undocumented)
+namespace AllDayPanel {
+  type CellProps = AllDayPanel_2.CellProps;
+}
+
+// @public (undocumented)
+namespace AllDayPanel {
+  type RowProps = AllDayPanel_2.RowProps;
+}
+
+// @public (undocumented)
+namespace AllDayPanel {
+  type TitleCellProps = AllDayPanel_2.TitleCellProps;
+}
+
+// @public (undocumented)
+namespace AllDayPanel {
+  type AppointmentLayerProps = AllDayPanel_2.AppointmentLayerProps;
+}
+
+// @public
+declare const AllDayPanel: React.ComponentType<AllDayPanelProps> & {
+  Layout: React.ComponentType<React.ComponentType<AllDayPanel_2.LayoutProps> & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  Cell: React.ComponentType<React.ComponentType<AllDayPanel_2.CellProps> & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  Row: React.ComponentType<React.ComponentType<AllDayPanel_2.RowProps> & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  TitleCell: React.ComponentType<React.ComponentType<AllDayPanel_2.TitleCellProps> & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  AppointmentLayer: React.ComponentType<React.ComponentType<AllDayPanel_2.AppointmentLayerProps> & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+};
 
 // @public (undocumented)
 interface AllDayPanelProps {
-  appointmentLayerComponent?: React.ComponentType<AllDayPanelBase.AppointmentLayerProps>;
-  cellComponent?: React.ComponentType<AllDayPanelBase.CellProps>;
-  layoutComponent?: React.ComponentType<AllDayPanelBase.LayoutProps>;
-  messages?: AllDayPanelBase.LocalizationMessages;
-  rowComponent?: React.ComponentType<AllDayPanelBase.RowProps>;
-  titleCellComponent?: React.ComponentType<AllDayPanelBase.TitleCellProps>;
+  appointmentLayerComponent?: React.ComponentType<AllDayPanel_2.AppointmentLayerProps>;
+  cellComponent?: React.ComponentType<AllDayPanel_2.CellProps>;
+  layoutComponent?: React.ComponentType<AllDayPanel_2.LayoutProps>;
+  messages?: AllDayPanel_2.LocalizationMessages;
+  rowComponent?: React.ComponentType<AllDayPanel_2.RowProps>;
+  titleCellComponent?: React.ComponentType<AllDayPanel_2.TitleCellProps>;
 }
 
-// WARNING: Unsupported export: PopupProps
-// WARNING: Unsupported export: ContainerProps
-// WARNING: Unsupported export: ScrollableAreaProps
-// WARNING: Unsupported export: StaticAreaProps
 // @public (undocumented)
-module AppointmentForm {
+namespace AppointmentForm {
+  type PopupProps = AppointmentForm_2.PopupProps;
 }
+
+// @public (undocumented)
+namespace AppointmentForm {
+  type ContainerProps = AppointmentForm_2.ContainerProps;
+}
+
+// @public (undocumented)
+namespace AppointmentForm {
+  type ScrollableAreaProps = AppointmentForm_2.ScrollableAreaProps;
+}
+
+// @public (undocumented)
+namespace AppointmentForm {
+  type StaticAreaProps = AppointmentForm_2.StaticAreaProps;
+}
+
+// @public
+declare const AppointmentForm: React.ComponentType<AppointmentFormProps> & {
+  Popup: React.ComponentType<AppointmentForm_2.PopupProps & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  Container: React.ComponentType<AppointmentForm_2.ContainerProps & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  ScrollableArea: React.ComponentType<AppointmentForm_2.ScrollableAreaProps & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  StaticArea: React.ComponentType<AppointmentForm_2.StaticAreaProps & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+};
 
 // @public (undocumented)
 interface AppointmentFormProps {
   appointmentData?: AppointmentModel;
-  containerComponent?: React.ComponentType<AppointmentFormBase.ContainerProps>;
-  messages?: AppointmentFormBase.LocalizationMessages;
+  containerComponent?: React.ComponentType<AppointmentForm_2.ContainerProps>;
+  messages?: AppointmentForm_2.LocalizationMessages;
   onAppointmentDataChange?: (appointmentData: AppointmentModel) => void;
   onVisibilityChange?: (visible: boolean) => void;
-  popupComponent?: React.ComponentType<AppointmentFormBase.PopupProps>;
+  popupComponent?: React.ComponentType<AppointmentForm_2.PopupProps>;
   readOnly?: boolean;
-  scrollableAreaComponent?: React.ComponentType<AppointmentFormBase.ScrollableAreaProps>;
-  staticAreaComponent?: React.ComponentType<AppointmentFormBase.StaticAreaProps>;
+  scrollableAreaComponent?: React.ComponentType<AppointmentForm_2.ScrollableAreaProps>;
+  staticAreaComponent?: React.ComponentType<AppointmentForm_2.StaticAreaProps>;
   visible?: boolean;
 }
 
-// WARNING: Unsupported export: AppointmentProps
-// WARNING: Unsupported export: AppointmentContentProps
 // @public (undocumented)
-module Appointments {
+namespace Appointments {
+  type AppointmentProps = Appointments_2.AppointmentProps;
 }
+
+// @public (undocumented)
+namespace Appointments {
+  type AppointmentContentProps = Appointments_2.AppointmentContentProps;
+}
+
+// @public
+declare const Appointments: React.ComponentType<AppointmentsProps> & {
+  Appointment: React.ComponentType<Appointments_2.AppointmentProps & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  AppointmentContent: React.ComponentType<Appointments_2.AppointmentContentProps & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+};
 
 // @public (undocumented)
 interface AppointmentsProps {
-  appointmentComponent?: React.ComponentType<AppointmentsBase.AppointmentProps>;
-  appointmentContentComponent?: React.ComponentType<AppointmentsBase.AppointmentContentProps>;
+  appointmentComponent?: React.ComponentType<Appointments_2.AppointmentProps>;
+  appointmentContentComponent?: React.ComponentType<Appointments_2.AppointmentContentProps>;
 }
 
-// WARNING: Unsupported export: LayoutProps
-// WARNING: Unsupported export: HeaderProps
-// WARNING: Unsupported export: ContentProps
-// WARNING: Unsupported export: CommandButtonProps
 // @public (undocumented)
-module AppointmentTooltip {
+namespace AppointmentTooltip {
+  type LayoutProps = AppointmentTooltip_2.LayoutProps;
 }
+
+// @public (undocumented)
+namespace AppointmentTooltip {
+  type HeaderProps = AppointmentTooltip_2.HeaderProps;
+}
+
+// @public (undocumented)
+namespace AppointmentTooltip {
+  type ContentProps = AppointmentTooltip_2.ContentProps;
+}
+
+// @public (undocumented)
+namespace AppointmentTooltip {
+  type CommandButtonProps = AppointmentTooltip_2.CommandButtonProps;
+}
+
+// @public
+declare const AppointmentTooltip: React.ComponentType<AppointmentTooltipProps> & {
+  Layout: React.ComponentType<React.ComponentType<AppointmentTooltip_2.LayoutProps> & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  Header: React.ComponentType<React.ComponentType<AppointmentTooltip_2.HeaderProps> & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  Content: React.ComponentType<React.ComponentType<AppointmentTooltip_2.ContentProps> & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  CommandButton: React.ComponentType<React.ComponentType<AppointmentTooltip_2.CommandButtonProps> & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+};
 
 // @public (undocumented)
 interface AppointmentTooltipProps {
   appointmentMeta?: AppointmentMeta;
-  commandButtonComponent?: React.ComponentType<AppointmentTooltipBase.CommandButtonProps>;
-  contentComponent?: React.ComponentType<AppointmentTooltipBase.ContentProps>;
-  headerComponent?: React.ComponentType<AppointmentTooltipBase.HeaderProps>;
-  layoutComponent?: React.ComponentType<AppointmentTooltipBase.LayoutProps>;
+  commandButtonComponent?: React.ComponentType<AppointmentTooltip_2.CommandButtonProps>;
+  contentComponent?: React.ComponentType<AppointmentTooltip_2.ContentProps>;
+  headerComponent?: React.ComponentType<AppointmentTooltip_2.HeaderProps>;
+  layoutComponent?: React.ComponentType<AppointmentTooltip_2.LayoutProps>;
   onAppointmentMetaChange?: (appointmentMeta: AppointmentMeta) => void;
   onVisibilityChange?: (visible: boolean) => void;
   showCloseButton?: boolean;
@@ -75,154 +199,447 @@ interface AppointmentTooltipProps {
   visible?: boolean;
 }
 
-// WARNING: Unsupported export: RootProps
-// WARNING: Unsupported export: OverlayProps
-// WARNING: Unsupported export: OpenButtonProps
-// WARNING: Unsupported export: NavigationButtonProps
 // @public (undocumented)
-module DateNavigator {
+namespace DateNavigator {
+  type RootProps = DateNavigator_2.RootProps;
 }
+
+// @public (undocumented)
+namespace DateNavigator {
+  type OverlayProps = DateNavigator_2.OverlayProps;
+}
+
+// @public (undocumented)
+namespace DateNavigator {
+  type OpenButtonProps = DateNavigator_2.OpenButtonProps;
+}
+
+// @public (undocumented)
+namespace DateNavigator {
+  type NavigationButtonProps = DateNavigator_2.NavigationButtonProps;
+}
+
+// @public
+declare const DateNavigator: React.ComponentType<DateNavigatorProps> & {
+  Root: React.ComponentType<DateNavigator_2.RootProps & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  Overlay: React.ComponentType<DateNavigator_2.OverlayProps & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  OpenButton: React.ComponentType<DateNavigator_2.OpenButtonProps & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  NavigationButton: React.ComponentType<DateNavigator_2.NavigationButtonProps & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+};
 
 // @public (undocumented)
 interface DateNavigatorProps {
-  navigationButtonComponent?: React.ComponentType<DateNavigatorBase.NavigationButtonProps>;
-  openButtonComponent?: React.ComponentType<DateNavigatorBase.OpenButtonProps>;
-  overlayComponent?: React.ComponentType<DateNavigatorBase.OverlayProps>;
-  rootComponent?: React.ComponentType<DateNavigatorBase.RootProps>;
+  navigationButtonComponent?: React.ComponentType<DateNavigator_2.NavigationButtonProps>;
+  openButtonComponent?: React.ComponentType<DateNavigator_2.OpenButtonProps>;
+  overlayComponent?: React.ComponentType<DateNavigator_2.OverlayProps>;
+  rootComponent?: React.ComponentType<DateNavigator_2.RootProps>;
 }
 
-// WARNING: Unsupported export: CellData
-// WARNING: Unsupported export: LayoutProps
-// WARNING: Unsupported export: TimeScaleLayoutProps
-// WARNING: Unsupported export: TimeScaleCellProps
-// WARNING: Unsupported export: DayScaleLayoutProps
-// WARNING: Unsupported export: DayScaleCellProps
-// WARNING: Unsupported export: DayScaleEmptyCellProps
-// WARNING: Unsupported export: TimeTableLayoutProps
-// WARNING: Unsupported export: TimeTableCellProps
-// WARNING: Unsupported export: AppointmentLayerProps
-// WARNING: Unsupported export: RowProps
 // @public (undocumented)
-module DayView {
+namespace DayView {
+  type CellData = DayView_2.CellData;
 }
+
+// @public (undocumented)
+namespace DayView {
+  type LayoutProps = DayView_2.LayoutProps;
+}
+
+// @public (undocumented)
+namespace DayView {
+  type TimeScaleLayoutProps = DayView_2.TimeScaleLayoutProps;
+}
+
+// @public (undocumented)
+namespace DayView {
+  type TimeScaleCellProps = DayView_2.TimeScaleCellProps;
+}
+
+// @public (undocumented)
+namespace DayView {
+  type DayScaleLayoutProps = DayView_2.DayScaleLayoutProps;
+}
+
+// @public (undocumented)
+namespace DayView {
+  type DayScaleCellProps = DayView_2.DayScaleCellProps;
+}
+
+// @public (undocumented)
+namespace DayView {
+  type DayScaleEmptyCellProps = DayView_2.DayScaleEmptyCellProps;
+}
+
+// @public (undocumented)
+namespace DayView {
+  type TimeTableLayoutProps = DayView_2.TimeTableLayoutProps;
+}
+
+// @public (undocumented)
+namespace DayView {
+  type TimeTableCellProps = DayView_2.TimeTableCellProps;
+}
+
+// @public (undocumented)
+namespace DayView {
+  type AppointmentLayerProps = DayView_2.AppointmentLayerProps;
+}
+
+// @public (undocumented)
+namespace DayView {
+  type RowProps = DayView_2.RowProps;
+}
+
+// @public
+declare const DayView: React.ComponentType<DayViewProps> & {
+  Layout: React.ComponentType<React.ComponentType<DayView_2.LayoutProps> & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  TimeScaleLayout: React.ComponentType<React.ComponentType<DayView_2.TimeScaleLayoutProps> & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  TimeScaleCell: React.ComponentType<React.ComponentType<DayView_2.TimeScaleCellProps> & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  DayScaleLayout: React.ComponentType<React.ComponentType<DayView_2.DayScaleLayoutProps> & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  DayScaleCell: React.ComponentType<React.ComponentType<DayView_2.DayScaleCellProps> & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  DayScaleEmptyCell: React.ComponentType<React.ComponentType<DayView_2.DayScaleEmptyCellProps> & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  TimeTableLayout: React.ComponentType<React.ComponentType<DayView_2.TimeTableLayoutProps> & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  TimeTableCell: React.ComponentType<React.ComponentType<DayView_2.TimeTableCellProps> & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  Row: React.ComponentType<React.ComponentType<DayView_2.RowProps> & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  AppointmentLayer: React.ComponentType<React.ComponentType<DayView_2.AppointmentLayerProps> & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+};
 
 // @public (undocumented)
 interface DayViewProps {
-  appointmentLayerComponent?: React.ComponentType<DayViewBase.AppointmentLayerProps>;
+  appointmentLayerComponent?: React.ComponentType<DayView_2.AppointmentLayerProps>;
   cellDuration?: number;
-  dayScaleCellComponent?: React.ComponentType<DayViewBase.DayScaleCellProps>;
-  dayScaleEmptyCellComponent?: React.ComponentType<DayViewBase.DayScaleEmptyCellProps>;
-  dayScaleLayoutComponent?: React.ComponentType<DayViewBase.DayScaleLayoutProps>;
-  dayScaleRowComponent?: React.ComponentType<DayViewBase.RowProps>;
+  dayScaleCellComponent?: React.ComponentType<DayView_2.DayScaleCellProps>;
+  dayScaleEmptyCellComponent?: React.ComponentType<DayView_2.DayScaleEmptyCellProps>;
+  dayScaleLayoutComponent?: React.ComponentType<DayView_2.DayScaleLayoutProps>;
+  dayScaleRowComponent?: React.ComponentType<DayView_2.RowProps>;
   endDayHour?: number;
   intervalCount?: number;
-  layoutComponent?: React.ComponentType<DayViewBase.LayoutProps>;
+  layoutComponent?: React.ComponentType<DayView_2.LayoutProps>;
   name?: string;
   startDayHour?: number;
-  timeScaleCellComponent?: React.ComponentType<DayViewBase.TimeScaleCellProps>;
-  timeScaleLayoutComponent?: React.ComponentType<DayViewBase.TimeScaleLayoutProps>;
-  timeScaleRowComponent?: React.ComponentType<DayViewBase.RowProps>;
-  timeTableCellComponent?: React.ComponentType<DayViewBase.TimeTableCellProps>;
-  timeTableLayoutComponent?: React.ComponentType<DayViewBase.TimeTableLayoutProps>;
-  timeTableRowComponent?: React.ComponentType<DayViewBase.RowProps>;
+  timeScaleCellComponent?: React.ComponentType<DayView_2.TimeScaleCellProps>;
+  timeScaleLayoutComponent?: React.ComponentType<DayView_2.TimeScaleLayoutProps>;
+  timeScaleRowComponent?: React.ComponentType<DayView_2.RowProps>;
+  timeTableCellComponent?: React.ComponentType<DayView_2.TimeTableCellProps>;
+  timeTableLayoutComponent?: React.ComponentType<DayView_2.TimeTableLayoutProps>;
+  timeTableRowComponent?: React.ComponentType<DayView_2.RowProps>;
 }
 
-// WARNING: Unsupported export: CellData
-// WARNING: Unsupported export: LayoutProps
-// WARNING: Unsupported export: DayScaleLayoutProps
-// WARNING: Unsupported export: DayScaleCellProps
-// WARNING: Unsupported export: TimeTableLayoutProps
-// WARNING: Unsupported export: TimeTableCellProps
-// WARNING: Unsupported export: AppointmentLayerProps
-// WARNING: Unsupported export: RowProps
 // @public (undocumented)
-module MonthView {
+namespace MonthView {
+  type CellData = MonthView_2.CellData;
 }
+
+// @public (undocumented)
+namespace MonthView {
+  type LayoutProps = MonthView_2.LayoutProps;
+}
+
+// @public (undocumented)
+namespace MonthView {
+  type DayScaleLayoutProps = MonthView_2.DayScaleLayoutProps;
+}
+
+// @public (undocumented)
+namespace MonthView {
+  type DayScaleCellProps = MonthView_2.DayScaleCellProps;
+}
+
+// @public (undocumented)
+namespace MonthView {
+  type TimeTableLayoutProps = MonthView_2.TimeTableLayoutProps;
+}
+
+// @public (undocumented)
+namespace MonthView {
+  type TimeTableCellProps = MonthView_2.TimeTableCellProps;
+}
+
+// @public (undocumented)
+namespace MonthView {
+  type AppointmentLayerProps = MonthView_2.AppointmentLayerProps;
+}
+
+// @public (undocumented)
+namespace MonthView {
+  type RowProps = MonthView_2.RowProps;
+}
+
+// @public
+declare const MonthView: React.ComponentType<MonthViewProps> & {
+  Layout: React.ComponentType<React.ComponentType<MonthView_2.LayoutProps> & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  DayScaleLayout: React.ComponentType<React.ComponentType<MonthView_2.DayScaleLayoutProps> & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  DayScaleCell: React.ComponentType<React.ComponentType<MonthView_2.DayScaleCellProps> & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  TimeTableLayout: React.ComponentType<React.ComponentType<MonthView_2.TimeTableLayoutProps> & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  TimeTableCell: React.ComponentType<React.ComponentType<MonthView_2.TimeTableCellProps> & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  Row: React.ComponentType<React.ComponentType<MonthView_2.RowProps> & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  AppointmentLayer: React.ComponentType<React.ComponentType<MonthView_2.AppointmentLayerProps> & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+};
 
 // @public (undocumented)
 interface MonthViewProps {
-  appointmentLayerComponent?: React.ComponentType<MonthViewBase.AppointmentLayerProps>;
-  dayScaleCellComponent?: React.ComponentType<MonthViewBase.DayScaleCellProps>;
-  dayScaleLayoutComponent?: React.ComponentType<MonthViewBase.DayScaleLayoutProps>;
-  dayScaleRowComponent?: React.ComponentType<MonthViewBase.RowProps>;
+  appointmentLayerComponent?: React.ComponentType<MonthView_2.AppointmentLayerProps>;
+  dayScaleCellComponent?: React.ComponentType<MonthView_2.DayScaleCellProps>;
+  dayScaleLayoutComponent?: React.ComponentType<MonthView_2.DayScaleLayoutProps>;
+  dayScaleRowComponent?: React.ComponentType<MonthView_2.RowProps>;
   firstDayOfWeek?: number;
   intervalCount?: number;
-  layoutComponent?: React.ComponentType<MonthViewBase.LayoutProps>;
+  layoutComponent?: React.ComponentType<MonthView_2.LayoutProps>;
   name?: string;
-  timeTableCellComponent?: React.ComponentType<MonthViewBase.TimeTableCellProps>;
-  timeTableLayoutComponent?: React.ComponentType<MonthViewBase.TimeTableLayoutProps>;
-  timeTableRowComponent?: React.ComponentType<MonthViewBase.RowProps>;
+  timeTableCellComponent?: React.ComponentType<MonthView_2.TimeTableCellProps>;
+  timeTableLayoutComponent?: React.ComponentType<MonthView_2.TimeTableLayoutProps>;
+  timeTableRowComponent?: React.ComponentType<MonthView_2.RowProps>;
 }
 
-// WARNING: Unsupported export: RootProps
 // @public (undocumented)
-module Scheduler {
+namespace Scheduler {
+  type RootProps = Scheduler_2.RootProps;
 }
+
+// @public
+declare const Scheduler: React.ComponentType<SchedulerProps> & {
+  Root: React.ComponentType<Scheduler_2.RootProps & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+};
 
 // @public (undocumented)
 interface SchedulerProps {
   data?: Array<AppointmentModel>;
-  rootComponent?: React.ComponentType<SchedulerBase.RootProps>;
+  rootComponent?: React.ComponentType<Scheduler_2.RootProps>;
 }
 
-// WARNING: Unsupported export: RootProps
-// WARNING: Unsupported export: FlexibleSpaceProps
 // @public (undocumented)
-module Toolbar {
+namespace Toolbar {
+  type RootProps = Toolbar_2.RootProps;
 }
+
+// @public (undocumented)
+namespace Toolbar {
+  type FlexibleSpaceProps = Toolbar_2.FlexibleSpaceProps;
+}
+
+// @public
+declare const Toolbar: React.ComponentType<ToolbarProps> & {
+  Root: React.ComponentType<Toolbar_2.RootProps & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  FlexibleSpace: React.ComponentType<Toolbar_2.FlexibleSpaceProps & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+};
 
 // @public (undocumented)
 interface ToolbarProps {
-  flexibleSpaceComponent?: React.ComponentType<ToolbarBase.FlexibleSpaceProps>;
-  rootComponent?: React.ComponentType<ToolbarBase.RootProps>;
+  flexibleSpaceComponent?: React.ComponentType<Toolbar_2.FlexibleSpaceProps>;
+  rootComponent?: React.ComponentType<Toolbar_2.RootProps>;
 }
 
-// WARNING: Unsupported export: SwitcherProps
 // @public (undocumented)
-module ViewSwitcher {
+namespace ViewSwitcher {
+  type SwitcherProps = ViewSwitcher_2.SwitcherProps;
 }
+
+// @public
+declare const ViewSwitcher: React.ComponentType<ViewSwitcherProps> & {
+  Switcher: React.ComponentType<ViewSwitcher_2.SwitcherProps & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+};
 
 // @public (undocumented)
 interface ViewSwitcherProps {
-  switcherComponent?: React.ComponentType<ViewSwitcherBase.SwitcherProps>;
+  switcherComponent?: React.ComponentType<ViewSwitcher_2.SwitcherProps>;
 }
 
-// WARNING: Unsupported export: CellData
-// WARNING: Unsupported export: LayoutProps
-// WARNING: Unsupported export: TimeScaleLayoutProps
-// WARNING: Unsupported export: TimeScaleCellProps
-// WARNING: Unsupported export: DayScaleLayoutProps
-// WARNING: Unsupported export: DayScaleCellProps
-// WARNING: Unsupported export: DayScaleEmptyCellProps
-// WARNING: Unsupported export: TimeTableLayoutProps
-// WARNING: Unsupported export: TimeTableCellProps
-// WARNING: Unsupported export: AppointmentLayerProps
-// WARNING: Unsupported export: RowProps
 // @public (undocumented)
-module WeekView {
+namespace WeekView {
+  type CellData = WeekView_2.CellData;
 }
+
+// @public (undocumented)
+namespace WeekView {
+  type LayoutProps = WeekView_2.LayoutProps;
+}
+
+// @public (undocumented)
+namespace WeekView {
+  type TimeScaleLayoutProps = WeekView_2.TimeScaleLayoutProps;
+}
+
+// @public (undocumented)
+namespace WeekView {
+  type TimeScaleCellProps = WeekView_2.TimeScaleCellProps;
+}
+
+// @public (undocumented)
+namespace WeekView {
+  type DayScaleLayoutProps = WeekView_2.DayScaleLayoutProps;
+}
+
+// @public (undocumented)
+namespace WeekView {
+  type DayScaleCellProps = WeekView_2.DayScaleCellProps;
+}
+
+// @public (undocumented)
+namespace WeekView {
+  type DayScaleEmptyCellProps = WeekView_2.DayScaleEmptyCellProps;
+}
+
+// @public (undocumented)
+namespace WeekView {
+  type TimeTableLayoutProps = WeekView_2.TimeTableLayoutProps;
+}
+
+// @public (undocumented)
+namespace WeekView {
+  type TimeTableCellProps = WeekView_2.TimeTableCellProps;
+}
+
+// @public (undocumented)
+namespace WeekView {
+  type AppointmentLayerProps = WeekView_2.AppointmentLayerProps;
+}
+
+// @public (undocumented)
+namespace WeekView {
+  type RowProps = WeekView_2.RowProps;
+}
+
+// @public
+declare const WeekView: React.ComponentType<WeekViewProps> & {
+  Layout: React.ComponentType<React.ComponentType<WeekView_2.LayoutProps> & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  TimeScaleLayout: React.ComponentType<React.ComponentType<WeekView_2.TimeScaleLayoutProps> & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  TimeScaleCell: React.ComponentType<React.ComponentType<WeekView_2.TimeScaleCellProps> & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  DayScaleLayout: React.ComponentType<React.ComponentType<WeekView_2.DayScaleLayoutProps> & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  DayScaleCell: React.ComponentType<React.ComponentType<WeekView_2.DayScaleCellProps> & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  DayScaleEmptyCell: React.ComponentType<React.ComponentType<WeekView_2.DayScaleEmptyCellProps> & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  TimeTableLayout: React.ComponentType<React.ComponentType<WeekView_2.TimeTableLayoutProps> & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  TimeTableCell: React.ComponentType<React.ComponentType<WeekView_2.TimeTableCellProps> & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  Row: React.ComponentType<React.ComponentType<WeekView_2.RowProps> & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  AppointmentLayer: React.ComponentType<React.ComponentType<WeekView_2.AppointmentLayerProps> & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+};
 
 // @public (undocumented)
 interface WeekViewProps {
-  appointmentLayerComponent?: React.ComponentType<WeekViewBase.AppointmentLayerProps>;
+  appointmentLayerComponent?: React.ComponentType<WeekView_2.AppointmentLayerProps>;
   cellDuration?: number;
-  dayScaleCellComponent?: React.ComponentType<WeekViewBase.DayScaleCellProps>;
-  dayScaleEmptyCellComponent?: React.ComponentType<WeekViewBase.DayScaleEmptyCellProps>;
-  dayScaleLayoutComponent?: React.ComponentType<WeekViewBase.DayScaleLayoutProps>;
-  dayScaleRowComponent?: React.ComponentType<WeekViewBase.RowProps>;
+  dayScaleCellComponent?: React.ComponentType<WeekView_2.DayScaleCellProps>;
+  dayScaleEmptyCellComponent?: React.ComponentType<WeekView_2.DayScaleEmptyCellProps>;
+  dayScaleLayoutComponent?: React.ComponentType<WeekView_2.DayScaleLayoutProps>;
+  dayScaleRowComponent?: React.ComponentType<WeekView_2.RowProps>;
   endDayHour?: number;
   excludedDays?: Array<number>;
   firstDayOfWeek?: number;
   intervalCount?: number;
-  layoutComponent?: React.ComponentType<WeekViewBase.LayoutProps>;
+  layoutComponent?: React.ComponentType<WeekView_2.LayoutProps>;
   name?: string;
   startDayHour?: number;
-  timeScaleCellComponent?: React.ComponentType<WeekViewBase.TimeScaleCellProps>;
-  timeScaleLayoutComponent?: React.ComponentType<WeekViewBase.TimeScaleLayoutProps>;
-  timeScaleRowComponent?: React.ComponentType<WeekViewBase.RowProps>;
-  timeTableCellComponent?: React.ComponentType<WeekViewBase.TimeTableCellProps>;
-  timeTableLayoutComponent?: React.ComponentType<WeekViewBase.TimeTableLayoutProps>;
-  timeTableRowComponent?: React.ComponentType<WeekViewBase.RowProps>;
+  timeScaleCellComponent?: React.ComponentType<WeekView_2.TimeScaleCellProps>;
+  timeScaleLayoutComponent?: React.ComponentType<WeekView_2.TimeScaleLayoutProps>;
+  timeScaleRowComponent?: React.ComponentType<WeekView_2.RowProps>;
+  timeTableCellComponent?: React.ComponentType<WeekView_2.TimeTableCellProps>;
+  timeTableLayoutComponent?: React.ComponentType<WeekView_2.TimeTableLayoutProps>;
+  timeTableRowComponent?: React.ComponentType<WeekView_2.RowProps>;
 }
 
-// (No @packagedocumentation comment for this package)
+
+// (No @packageDocumentation comment for this package)

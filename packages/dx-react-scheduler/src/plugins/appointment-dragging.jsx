@@ -130,21 +130,9 @@ export class AppointmentDragging extends React.PureComponent {
     this.offsetTimeTop = null;
   }
 
-  onPayloadChange({ payload, clientOffset }, commitChangedAppointment) {
-    // AUTO SCROLL
-    if (clientOffset) {
-      const [layout] = document.getElementsByClassName('dx-layout');
-      const layoutHeaderRect = document.getElementsByClassName('dx-layout-header')[0].getBoundingClientRect();
-
-      if ((clientOffset.y - SCROLL_OFFSET < layoutHeaderRect.height + layoutHeaderRect.top) && (clientOffset.y > layoutHeaderRect.height + layoutHeaderRect.top)) {
-        layout.scrollTop -= SCROLL_SPEED_PX;
-      }
-      if (layout.clientHeight - SCROLL_OFFSET < clientOffset.y - layout.offsetTop) {
-        layout.scrollTop += SCROLL_SPEED_PX;
-      }
-    }
-
+  onPayloadChange({ payload }, commitChangedAppointment) {
     if (payload) return;
+
     const { payload: prevPayload } = this.state;
     if (prevPayload) {
       commitChangedAppointment({ appointmentId: prevPayload.id });
@@ -157,11 +145,24 @@ export class AppointmentDragging extends React.PureComponent {
   handleOver(
     { payload, clientOffset },
     {
-      viewCellsData, startViewDate, endViewDate, excludedDays,
+      viewCellsData, startViewDate, endViewDate, excludedDays, timeTableElement, layoutElement, layoutHeaderElement,
     },
     { changeAppointment },
   ) {
-    const timeTableCells = Array.from(document.getElementsByClassName('dx-time-table')[0].querySelectorAll('td'));
+    // AUTO SCROLL
+    if (clientOffset) {
+      const layout = layoutElement.current;
+      const layoutHeaderRect = layoutHeaderElement.current.getBoundingClientRect();
+
+      if ((clientOffset.y - SCROLL_OFFSET < layoutHeaderRect.height + layoutHeaderRect.top) && (clientOffset.y > layoutHeaderRect.height + layoutHeaderRect.top)) {
+        layout.scrollTop -= SCROLL_SPEED_PX;
+      }
+      if (layout.clientHeight - SCROLL_OFFSET < clientOffset.y - layout.offsetTop) {
+        layout.scrollTop += SCROLL_SPEED_PX;
+      }
+    }
+
+    const timeTableCells = Array.from(timeTableElement.current.querySelectorAll('td'));
     const allDayCells = Array.from(document.querySelectorAll('th'));
 
     const timeTableIndex = tableIndex(timeTableCells, clientOffset);
@@ -279,12 +280,12 @@ export class AppointmentDragging extends React.PureComponent {
         <Template name="body">
           <TemplateConnector>
             {({
-              viewCellsData, startViewDate, endViewDate, excludedDays,
+              viewCellsData, startViewDate, endViewDate, excludedDays, timeTableElement, layoutElement, layoutHeaderElement,
             }, { commitChangedAppointment, changeAppointment }) => (
               <DropTarget
                 onOver={this.onOver2(
                   {
-                    viewCellsData, startViewDate, endViewDate, excludedDays,
+                    viewCellsData, startViewDate, endViewDate, excludedDays, timeTableElement, layoutElement, layoutHeaderElement,
                   },
                   { changeAppointment },
                 )}
@@ -322,7 +323,6 @@ export class AppointmentDragging extends React.PureComponent {
                 dataItem, type, ...geometry
               }, index) => {
                 const rect = getAppointmentStyle(geometry);
-                if (payload === undefined) return null;
                 return (
                   <DraftAppointment
                     key={index.toString()}

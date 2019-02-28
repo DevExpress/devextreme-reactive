@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import classNames from 'classnames';
+import RootRef from '@material-ui/core/RootRef';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -28,28 +28,35 @@ export class HorizontalViewLayoutBase extends React.PureComponent {
       dayScaleComponent: Navbar,
       timeTableComponent: Main,
       classes,
+
+      layoutRef,
+      layoutHeaderRef,
     } = this.props;
 
     return (
-      <Grid
-        className={classNames(classes.container, 'dx-layout')}
-        container
-        direction="column"
-        wrap="nowrap"
-      >
+      <RootRef rootRef={layoutRef}>
         <Grid
-          item
-          className={classNames(classes.stickyHeader, 'dx-layout-header')}
+          className={classes.container}
+          container
+          direction="column"
+          wrap="nowrap"
         >
-          <Navbar />
+          <RootRef rootRef={layoutHeaderRef}>
+            <Grid
+              item
+              className={classes.stickyHeader}
+            >
+              <Navbar />
+            </Grid>
+          </RootRef>
+          <Grid
+            item
+            className={classes.main}
+          >
+            <Main />
+          </Grid>
         </Grid>
-        <Grid
-          item
-          className={classNames(classes.main, 'dx-time-table')}
-        >
-          <Main />
-        </Grid>
-      </Grid>
+      </RootRef>
     );
   }
 }

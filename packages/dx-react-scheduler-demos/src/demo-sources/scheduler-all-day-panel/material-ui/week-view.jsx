@@ -66,6 +66,12 @@ export default class Demo extends React.PureComponent {
             startDayHour={9}
             endDayHour={19}
           />
+          <WeekView
+            name="Work Week"
+            startDayHour={9}
+            endDayHour={19}
+            excludedDays={[0, 6]}
+          />
           <MonthView />
           <Appointments />
           <AllDayPanel />

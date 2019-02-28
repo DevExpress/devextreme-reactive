@@ -34,6 +34,9 @@ export class MonthView extends React.PureComponent {
       name: viewName, firstDayOfWeek, intervalCount,
     } = this.props;
 
+    this.timeTable = { current: null };
+    this.layout = React.createRef();
+    this.layoutHeader = React.createRef();
     this.timeTableRef = this.timeTableRef.bind(this);
     this.dayScalePlaceholder = () => <TemplatePlaceholder name="navbar" />;
     this.timeTablePlaceholder = () => <TemplatePlaceholder name="main" />;
@@ -48,6 +51,16 @@ export class MonthView extends React.PureComponent {
       currentDate, firstDayOfWeek,
       intervalCount, Date.now(),
     );
+
+    this.timeTableElementComputed = () => {
+      return this.timeTable;
+    };
+    this.layoutElementComputed = () => {
+      return this.layout;
+    };
+    this.layoutHeaderElementComputed = () => {
+      return this.layoutHeader;
+    };
 
     this.currentViewComputed = ({ currentView }) => (
       currentView && currentView.name !== viewName
@@ -72,9 +85,26 @@ export class MonthView extends React.PureComponent {
     this.viewCellsData = getters => computed(
       getters, viewName, this.viewCellsDataComputed, getters.viewCellsData,
     );
+
+    this.timeTableElement = (getters) => {
+      return computed(
+        getters, viewName, this.timeTableElementComputed, getters.timeTableElement,
+      );
+    };
+    this.layoutElement = (getters) => {
+      return computed(
+        getters, viewName, this.layoutElementComputed, getters.layoutElement,
+      );
+    };
+    this.layoutHeaderElement = (getters) => {
+      return computed(
+        getters, viewName, this.layoutHeaderElementComputed, getters.layoutHeaderElement,
+      );
+    };
   }
 
   timeTableRef(timeTableRef) {
+    this.timeTable.current = timeTableRef;
     this.setState({ timeTableRef });
   }
 
@@ -104,6 +134,10 @@ export class MonthView extends React.PureComponent {
         <Getter name="startViewDate" computed={this.startViewDateCore} />
         <Getter name="endViewDate" computed={this.endViewDateComputed} />
 
+        <Getter name="timeTableElement" computed={this.timeTableElement} />
+        <Getter name="layoutElement" computed={this.layoutElement} />
+        <Getter name="layoutHeaderElement" computed={this.layoutHeaderElement} />
+
         <Template name="body">
           <TemplateConnector>
             {({ currentView }) => {
@@ -112,6 +146,9 @@ export class MonthView extends React.PureComponent {
                 <ViewLayout
                   dayScaleComponent={this.dayScalePlaceholder}
                   timeTableComponent={this.timeTablePlaceholder}
+
+                  layoutRef={this.layout}
+                  layoutHeaderRef={this.layoutHeader}
                 />
               );
             }}

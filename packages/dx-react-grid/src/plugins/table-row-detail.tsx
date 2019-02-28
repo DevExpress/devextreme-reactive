@@ -118,4 +118,10 @@ class TableRowDetailBase extends React.PureComponent<TableRowDetailProps> {
   }
 }
 
-export const TableRowDetail: React.ComponentType<TableRowDetailProps> = TableRowDetailBase;
+/** A plugin that renders detail rows. */
+export const TableRowDetail: React.ComponentType<TableRowDetailProps> & {
+  /** The detail column type's identifier. */
+  COLUMN_TYPE: symbol;
+  /** The detail row type's indentifier. */
+  ROW_TYPE: symbol;
+} = TableRowDetailBase;

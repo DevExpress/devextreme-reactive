@@ -276,4 +276,12 @@ class TableSummaryRowBase extends React.PureComponent<TableSummaryRowProps> {
   }
 }
 
-export const TableSummaryRow: React.ComponentType<TableSummaryRowProps> = TableSummaryRowBase;
+/** A plugin that renders table rows that display a total, group, and tree summary. */
+export const TableSummaryRow: React.ComponentType<TableSummaryRowProps> & {
+  /** The tree summary row type's indentifier. */
+  TREE_ROW_TYPE: symbol;
+  /** The group summary row type's indentifier. */
+  GROUP_ROW_TYPE: symbol;
+  /** The total row type's indentifier. */
+  TOTAL_ROW_TYPE: symbol;
+} = TableSummaryRowBase;

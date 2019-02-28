@@ -225,4 +225,16 @@ class TableBase extends React.PureComponent<TableProps> {
   }
 }
 
-export const Table: React.ComponentType<TableProps> = TableBase;
+/***
+ * A plugin that renders Grid data as a table. This plugin enables you to customize
+ * table rows and columns, and contains the Table Row and Table Cell components
+ * that can be extended by other plugins
+ * */
+export const Table: React.ComponentType<TableProps> & {
+  /** The data column type's indentifier. */
+  COLUMN_TYPE: symbol;
+  /** The data row type's indentifier. */
+  ROW_TYPE: symbol;
+  /** The nodata row type's indentifier. */
+  NODATA_ROW_TYPE: symbol;
+} = TableBase;

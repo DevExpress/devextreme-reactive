@@ -121,4 +121,11 @@ class TableSelectionBase extends React.PureComponent<TableSelectionProps> {
   }
 }
 
-export const TableSelection: React.ComponentType<TableSelectionProps> = TableSelectionBase;
+/***
+ * A plugin that visualizes table rows' selection state by rendering selection checkboxes
+ * and highlighting the selected rows.
+ * */
+export const TableSelection: React.ComponentType<TableSelectionProps> & {
+  /** The selection column type's indentifier. */
+  COLUMN_TYPE: symbol;
+} = TableSelectionBase;

@@ -179,4 +179,8 @@ class TableFilterRowBase extends React.PureComponent<TableFilterRowProps, TableF
   }
 }
 
-export const TableFilterRow: React.ComponentType<TableFilterRowProps> = TableFilterRowBase;
+/** A plugin that renders a filter row. */
+export const TableFilterRow: React.ComponentType<TableFilterRowProps> & {
+  /** The filter row type's identifier. */
+  ROW_TYPE: symbol;
+} = TableFilterRowBase;

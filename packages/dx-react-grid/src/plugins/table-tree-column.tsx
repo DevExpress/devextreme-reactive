@@ -130,4 +130,5 @@ class TableTreeColumnBase extends React.PureComponent<TableTreeColumnProps> {
   }
 }
 
+/** A plugin that renders a table column with a toggle button and sorting indicators. */
 export const TableTreeColumn: React.ComponentType<TableTreeColumnProps> = TableTreeColumnBase;

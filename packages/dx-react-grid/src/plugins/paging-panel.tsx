@@ -60,4 +60,5 @@ class PagingPanelBase extends React.PureComponent<PagingPanelProps> {
   }
 }
 
+/** A plugin that renders the paging panel used for navigation through data pages. */
 export const PagingPanel: React.ComponentType<PagingPanelProps> = PagingPanelBase;

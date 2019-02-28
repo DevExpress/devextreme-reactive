@@ -37,4 +37,8 @@ class IntegratedPagingBase extends React.PureComponent<IntegratedPagingProps> {
   }
 }
 
+/***
+ * A plugin that performs built-in data paging. It also changes the current page if the provided
+ * one cannot be applied due to fewer available pages.
+ * */
 export const IntegratedPaging: React.ComponentType<IntegratedPagingProps> = IntegratedPagingBase;

@@ -75,4 +75,5 @@ class FilteringStateBase extends React.PureComponent<FilteringStateProps, Filter
   }
 }
 
+/** A plugin that manages the filtering state. */
 export const FilteringState: React.ComponentType<FilteringStateProps> = FilteringStateBase;

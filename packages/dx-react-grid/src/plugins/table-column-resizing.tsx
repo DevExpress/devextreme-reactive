@@ -114,5 +114,7 @@ class TableColumnResizingBase extends React.PureComponent<TableColumnResizingPro
   }
 }
 
-// tslint:disable-next-line: max-line-length
+/* tslint:disable: max-line-length */
+/** A plugin that manages table column widths. */
 export const TableColumnResizing: React.ComponentType<TableColumnResizingProps> = TableColumnResizingBase;
+/* tslint:enable: max-line-length */

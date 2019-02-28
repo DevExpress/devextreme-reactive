@@ -7,10 +7,9 @@ import {
   getColumnExtension,
   defaultFilterPredicate,
   FilterPredicate,
-  Filter,
 } from '@devexpress/dx-grid-core';
 import { PureComputed } from '@devexpress/dx-core';
-import { IntegratedFilteringProps } from '../types';
+import { IntegratedFilteringProps, DefaultPredicateFn } from '../types';
 
 const pluginDependencies = [
   { name: 'FilteringState', optional: true },
@@ -21,7 +20,7 @@ const getCollapsedRowsComputed = ({ rows }: Getters) => filteredCollapsedRowsGet
 const unwrappedRowsComputed = ({ rows }: Getters) => unwrappedFilteredRows(rows);
 
 class IntegratedFilteringBase extends React.PureComponent<IntegratedFilteringProps> {
-  static defaultPredicate: (value: any, filter: Filter, row: any) => boolean;
+  static defaultPredicate: DefaultPredicateFn;
 
   render() {
     const { columnExtensions } = this.props;
@@ -61,5 +60,10 @@ class IntegratedFilteringBase extends React.PureComponent<IntegratedFilteringPro
 
 IntegratedFilteringBase.defaultPredicate = defaultFilterPredicate;
 
-// tslint:disable-next-line: max-line-length
-export const IntegratedFiltering: React.ComponentType<IntegratedFilteringProps> = IntegratedFilteringBase;
+export const IntegratedFiltering: React.ComponentType<IntegratedFilteringProps> & {
+  /***
+   * The built-in filter predicate.
+   * The `filter` parameter accepts an object containing the 'value' field.
+   **/
+  defaultPredicate: DefaultPredicateFn;
+} = IntegratedFilteringBase;

@@ -81,4 +81,8 @@ class IntegratedSummaryBase extends React.PureComponent<IntegratedSummaryProps> 
   }
 }
 
-export const IntegratedSummary: React.ComponentType<IntegratedSummaryProps> = IntegratedSummaryBase;
+/** A plugin that performs a built-in data summary calculation. */
+export const IntegratedSummary: React.ComponentType<IntegratedSummaryProps> & {
+  /** The built-in summary calculator. */
+  defaultCalculator: SummaryCalculator;
+} = IntegratedSummaryBase;

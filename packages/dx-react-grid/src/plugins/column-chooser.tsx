@@ -108,4 +108,9 @@ class ColumnChooserBase extends React.PureComponent<ColumnChooserProps, ColumnCh
   }
 }
 
+/***
+ * The ColumnChooser plugin allows a user to toggle grid columns' visibility at runtime.
+ * The column chooser lists columns with checkboxes that control a corresponding
+ * column's visibility.
+ * */
 export const ColumnChooser: React.ComponentType<ColumnChooserProps> = ColumnChooserBase;

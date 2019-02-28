@@ -146,4 +146,5 @@ class TableFixedColumnsBase extends React.PureComponent<TableFixedColumnsProps, 
   }
 }
 
+/** A plugin that enables you to fix columns to the left and right sides of the grid. */
 export const TableFixedColumns: React.ComponentType<TableFixedColumnsProps> = TableFixedColumnsBase;

@@ -25,4 +25,5 @@ class CustomPagingBase extends React.PureComponent<CustomPagingProps> {
   }
 }
 
+/** A plugin that allows implementing a custom totalCount calculation logic. */
 export const CustomPaging: React.ComponentType<CustomPagingProps> = CustomPagingBase;

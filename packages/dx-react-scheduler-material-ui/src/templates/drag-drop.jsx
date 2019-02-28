@@ -44,8 +44,6 @@ ContainerBase.propTypes = {
 };
 
 ContainerBase.defaultProps = {
-  style: null,
-  left: undefined,
   className: undefined,
   children: undefined,
 };
@@ -55,16 +53,16 @@ export const Container = withStyles(styles, { name: 'Container' })(ContainerBase
 const DraftAppointmentBase = ({
   classes,
   className,
-  rect,
+  style,
+  data,
   ...restProps
 }) => (
   <Appointment
     className={classes.column}
-    style={rect}
+    style={style}
   >
     <VerticalAppointment
-          // className={classNames(classes.column, className)}
-      // data={appointmentData}
+      data={data}
       {...restProps}
     />
   </Appointment>
@@ -73,14 +71,16 @@ const DraftAppointmentBase = ({
 DraftAppointmentBase.propTypes = {
   children: PropTypes.node,
   classes: PropTypes.object.isRequired,
-  rect: PropTypes.object,
+  style: PropTypes.object,
   className: PropTypes.string,
+  data: PropTypes.object,
 };
 
 DraftAppointmentBase.defaultProps = {
-  rect: {},
+  style: {},
   className: undefined,
   children: undefined,
+  data: {},
 };
 
 export const DraftAppointment = withStyles(styles, { name: 'DraftAppointment' })(DraftAppointmentBase);
@@ -97,7 +97,6 @@ const DraggingAppointmentBase = ({
     style={style}
   >
     <VerticalAppointment
-        // className={classNames(classes.column, className)}
       data={data}
       {...restProps}
     />

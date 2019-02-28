@@ -314,12 +314,12 @@ export class AppointmentDragging extends React.PureComponent {
               {this.allDayRects.map(({
                 dataItem, type, ...geometry
               }, index) => {
-                const rect = getAppointmentStyle(geometry);
+                const style = getAppointmentStyle(geometry);
                 return (
                   <DraftAppointment
                     key={index.toString()}
                     data={{ ...payload, startDate: this.appointmentStartTime, endDate: this.appointmentEndTime }}
-                    rect={rect}
+                    style={style}
                   />
                 );
               })}
@@ -336,12 +336,12 @@ export class AppointmentDragging extends React.PureComponent {
               {this.timeTableRects.map(({
                 dataItem, type, ...geometry
               }, index) => {
-                const rect = getAppointmentStyle(geometry);
+                const style = getAppointmentStyle(geometry);
                 return (
                   <DraftAppointment
                     key={index.toString()}
                     data={{ ...payload, startDate: this.appointmentStartTime, endDate: this.appointmentEndTime }}
-                    rect={rect}
+                    style={style}
                   />
                 );
               })}

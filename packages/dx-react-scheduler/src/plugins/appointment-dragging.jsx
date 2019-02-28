@@ -46,7 +46,9 @@ const cellData = (timeTableIndex, allDayIndex, viewCellsData) => {
   }
 };
 
-const allDayRects = (draftAppointments, startViewDate, endViewDate, excludedDays, viewCellsData, cellElements) => {
+const allDayRects = (
+  draftAppointments, startViewDate, endViewDate, excludedDays, viewCellsData, cellElements,
+) => {
   const intervals = calculateAllDayDateIntervals(
     draftAppointments, startViewDate, endViewDate, excludedDays,
   );
@@ -68,7 +70,10 @@ const allDayRects = (draftAppointments, startViewDate, endViewDate, excludedDays
 };
 
 
-const verticalTimeTableRects = (draftAppointments, startViewDate, endViewDate, excludedDays, viewCellsData, cellDuration, cellElements) => {
+const verticalTimeTableRects = (
+  draftAppointments, startViewDate, endViewDate, excludedDays,
+  viewCellsData, cellDuration, cellElements,
+) => {
   const intervals = calculateWeekDateIntervals(
     draftAppointments, startViewDate, endViewDate, excludedDays,
   );
@@ -89,7 +94,9 @@ const verticalTimeTableRects = (draftAppointments, startViewDate, endViewDate, e
   );
 };
 
-const horizontalTimeTableRects = (draftAppointments, startViewDate, endViewDate, excludedDays, viewCellsData, cellElements) => {
+const horizontalTimeTableRects = (
+  draftAppointments, startViewDate, endViewDate, excludedDays, viewCellsData, cellElements,
+) => {
   const intervals = calculateMonthDateIntervals(
     draftAppointments, startViewDate, endViewDate,
   );
@@ -142,7 +149,8 @@ export class AppointmentDragging extends React.PureComponent {
   handleOver(
     { payload, clientOffset },
     {
-      viewCellsData, startViewDate, endViewDate, excludedDays, timeTableElement, layoutElement, layoutHeaderElement,
+      viewCellsData, startViewDate, endViewDate, excludedDays,
+      timeTableElement, layoutElement, layoutHeaderElement,
     },
     { changeAppointment },
   ) {
@@ -199,26 +207,37 @@ export class AppointmentDragging extends React.PureComponent {
       this.appointmentEndTime = moment(targetData.endDate).add(insideOffset, 'seconds');
     }
 
-    const draftAppointments = [{ ...payload, start: this.appointmentStartTime, end: this.appointmentEndTime }];
+    const draftAppointments = [{
+      ...payload, start: this.appointmentStartTime, end: this.appointmentEndTime,
+    }];
 
     if (allDayIndex !== -1) {
-      this.allDayRects = allDayRects(draftAppointments, startViewDate, endViewDate, excludedDays, viewCellsData, allDayCells);
+      this.allDayRects = allDayRects(
+        draftAppointments, startViewDate, endViewDate, excludedDays, viewCellsData, allDayCells,
+      );
     } else {
       this.allDayRects = [];
     }
 
     if (timeTableIndex !== -1 && allDayIndex === -1) {
       if (targetType === 'vertical') {
-        this.timeTableRects = verticalTimeTableRects(draftAppointments, startViewDate, endViewDate, excludedDays, viewCellsData, cellDuration, timeTableCells);
+        this.timeTableRects = verticalTimeTableRects(
+          draftAppointments, startViewDate, endViewDate,
+          excludedDays, viewCellsData, cellDuration, timeTableCells,
+        );
       } else {
-        this.timeTableRects = horizontalTimeTableRects(draftAppointments, startViewDate, endViewDate, excludedDays, viewCellsData, timeTableCells);
+        this.timeTableRects = horizontalTimeTableRects(
+          draftAppointments, startViewDate, endViewDate,
+          excludedDays, viewCellsData, timeTableCells,
+        );
       }
     } else {
       this.timeTableRects = [];
     }
 
     const { startTime, endTime } = this.state;
-    if (startTime && moment(startTime).isSame(this.appointmentStartTime) && moment(endTime).isSame(this.appointmentEndTime)) return;
+    if (moment(startTime).isSame(this.appointmentStartTime)
+      && moment(endTime).isSame(this.appointmentEndTime)) return;
 
     changeAppointment({
       change: {
@@ -248,15 +267,17 @@ export class AppointmentDragging extends React.PureComponent {
   }
 
   render() {
-    const {
-      payload,
-    } = this.state;
+    const { payload } = this.state;
     const {
       containerComponent: Container,
       draftAppointmentComponent: DraftAppointment,
       draggingAppointmentComponent: DraggingAppointment,
       draggingPredicate,
     } = this.props;
+
+    const draftData = {
+      ...payload, startDate: this.appointmentStartTime, endDate: this.appointmentEndTime,
+    };
 
     return (
       <Plugin
@@ -318,7 +339,7 @@ export class AppointmentDragging extends React.PureComponent {
                 return (
                   <DraftAppointment
                     key={index.toString()}
-                    data={{ ...payload, startDate: this.appointmentStartTime, endDate: this.appointmentEndTime }}
+                    data={draftData}
                     style={style}
                   />
                 );
@@ -340,7 +361,7 @@ export class AppointmentDragging extends React.PureComponent {
                 return (
                   <DraftAppointment
                     key={index.toString()}
-                    data={{ ...payload, startDate: this.appointmentStartTime, endDate: this.appointmentEndTime }}
+                    data={draftData}
                     style={style}
                   />
                 );

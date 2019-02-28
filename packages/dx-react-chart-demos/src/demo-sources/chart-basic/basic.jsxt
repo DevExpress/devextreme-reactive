@@ -1,5 +1,8 @@
 import * as React from 'react';<%&additionalImports%>
 import {
+  ArgumentScale,
+} from '@devexpress/dx-react-chart';
+import {
   ArgumentAxis,
   ValueAxis,
   Chart,
@@ -18,9 +21,12 @@ const data = [
   { arg: 4.8, val: 2.8 },
 ];
 
-const initialRangeStart = 0;
-const initialRangeEnd = 10;
-const minRangeDelta = 2;
+const minRangePosition = 0;
+const maxRangePosition = 5;
+const minRangeSize = 2;
+const maxRangeSize = 10;
+
+const getRange = (position, size) => [position - size / 2, position + size / 2];
 
 const sliderStyle = {
   width: '400px',
@@ -30,20 +36,24 @@ export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      rangeStart: initialRangeStart,
-      rangeEnd: initialRangeEnd,
+      rangePosition: 2,
+      rangeSize: 3,
     };
-    this.changeRangeStart = (e) => {
+    this.changeRangePosition = (e) => {
       const value = Number(e.target.value);
-      this.setState(({ rangeEnd }) => (
-        value < rangeEnd - minRangeDelta ? { rangeStart: value } : null
+      this.setState(() => (
+        minRangePosition <= value && value <= maxRangePosition ? { rangePosition: value } : null
       ));
     };
-    this.changeRangeEnd = (e) => {
+    this.changeRangeSize = (e) => {
       const value = Number(e.target.value);
-      this.setState(({ rangeStart }) => (
-        value > rangeStart + minRangeDelta ? { rangeEnd: value } : null
+      this.setState(() => (
+        minRangeSize <= value && value <= maxRangeSize ? { rangeSize: value } : null
       ));
+    };
+    this.modifyArgumentDomain = () => {
+      const { rangePosition, rangeSize } = this.state;
+      return getRange(rangePosition, rangeSize);
     };
   }
 
@@ -54,6 +64,7 @@ export default class Demo extends React.PureComponent {
           data={data}
         >
           <Title text="Born amount" />
+          <ArgumentScale modifyDomain={this.modifyArgumentDomain} />
           <ArgumentAxis />
           <ValueAxis />
 
@@ -68,18 +79,22 @@ export default class Demo extends React.PureComponent {
           <div>
             <input
               type="range"
+              id="range-position"
               style={sliderStyle}
-              min={initialRangeStart} max={initialRangeEnd} step={0.1}
-              value={this.state.rangeStart} onChange={this.changeRangeStart}
+              min={minRangePosition} max={maxRangePosition} step={0.1}
+              value={this.state.rangePosition} onChange={this.changeRangePosition}
             />
+            <label htmlFor="range-position">Position</label>
           </div>
           <div>
             <input
               type="range"
+              id="range-size"
               style={sliderStyle}
-              min={initialRangeStart} max={initialRangeEnd} step={0.1}
-              value={this.state.rangeEnd} onChange={this.changeRangeEnd}
+              min={minRangeSize} max={maxRangeSize} step={0.1}
+              value={this.state.rangeSize} onChange={this.changeRangeSize}
             />
+            <label htmlFor="range-size">Size</label>
           </div>
         </div>
       </<%&wrapperTag%>>

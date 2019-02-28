@@ -16,8 +16,9 @@ const DIV_STYLE: React.CSSProperties = {
   flex: 1, zIndex: 1, position: 'relative', width: '100%',
 };
 
+
 const SVG_STYLE: React.CSSProperties = {
-  position: 'absolute', left: 0, top: 0, overflow: 'visible',
+  position: 'absolute', left: 0, top: 0, overflow: 'hidden',
 };
 
 const SizerContainer: React.SFC = ({ children }) => (

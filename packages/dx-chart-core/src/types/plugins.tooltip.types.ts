@@ -5,7 +5,7 @@ export interface TooltipReference {
   readonly clientHeight: number;
   getBoundingClientRect(): ClientRect;
 }
-
+/** @internal */
 export type TooltipParameters = {
   readonly element: Rect;
   readonly text: string;

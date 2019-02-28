@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { findDOMNode } from 'react-dom';
 import { RefHolder } from './ref-holder';
+import { SizerProps, Size } from './types';
 
 const styles = {
   root: {
@@ -44,18 +45,6 @@ const styles = {
     width: '200%',
     height: '200%',
   },
-};
-
-type Size = {
-  width: number;
-  height: number;
-};
-
-type SizerProps = {
-  onSizeChange: (size: Size) => void;
-  onScroll?: (e) => void;
-  containerComponent?: any;
-  style?: object;
 };
 
 /** @internal */

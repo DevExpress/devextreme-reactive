@@ -290,21 +290,20 @@ export class AppointmentDragging extends React.PureComponent {
           </TemplateConnector>
         </Template>
 
-        <Template name="appointment">
+        <Template
+          name="appointment"
+          predicate={({ data }) => draggingPredicate(data)}
+        >
           {params => (
-            draggingPredicate(params.data) ? (
-              <DragSource
-                payload={{ ...params.data, type: params.type }}
-              >
-                {payload && params.data.id === payload.id ? (
-                  <DraggingAppointment {...params} />
-                ) : (
-                  <TemplatePlaceholder params={{ ...params, style: { ...params.style, cursor: 'pointer' } }} />
-                )}
-              </DragSource>
-            ) : (
-              <TemplatePlaceholder />
-            )
+            <DragSource
+              payload={{ ...params.data, type: params.type }}
+            >
+              {payload && params.data.id === payload.id ? (
+                <DraggingAppointment {...params} />
+              ) : (
+                <TemplatePlaceholder params={{ ...params, style: { ...params.style, cursor: 'pointer' } }} />
+              )}
+            </DragSource>
           )}
         </Template>
 

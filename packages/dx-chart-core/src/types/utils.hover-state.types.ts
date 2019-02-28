@@ -1,6 +1,6 @@
 import {
-  Target,
+  SeriesRef,
 } from './chart-core.types';
-
-export type ProcessedTarget = Target | null | undefined;
-export type NotifyPointerMoveFn = (target: Target | null) => void;
+/** @internal */
+export type ProcessedTarget = SeriesRef | null | undefined;
+export type NotifyPointerMoveFn = (target: SeriesRef | null) => void;

@@ -14,6 +14,7 @@ const isSinglePieSeriesCase = (series: SeriesList) => (
   series.length === 1 && 'innerRadius' in series[0] && 'outerRadius' in series[0]
 );
 
+/** @internal */
 export const getLegendItems = (series: SeriesList) => (
   (isSinglePieSeriesCase(series) ? getPieLegendItems : getDefaultLegendItems)(series)
 );

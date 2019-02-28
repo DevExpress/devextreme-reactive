@@ -11,3 +11,4 @@ export * from './utils/legend';
 export * from './utils/event-tracker';
 export * from './utils/hover-state';
 export * from './constants';
+export * from './types';

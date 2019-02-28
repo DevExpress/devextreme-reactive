@@ -163,6 +163,7 @@ export class AppointmentDragging extends React.PureComponent {
   ) {
     const timeTableCells = Array.from(document.getElementsByClassName('dx-time-table')[0].querySelectorAll('td'));
     const allDayCells = Array.from(document.querySelectorAll('th'));
+
     const timeTableIndex = tableIndex(timeTableCells, clientOffset);
     const allDayIndex = tableIndex(allDayCells, clientOffset);
 
@@ -182,8 +183,8 @@ export class AppointmentDragging extends React.PureComponent {
     }
 
     // CURSOR POSITION
-    const divisionTime = 15 * 60;
-    const insideOffset = targetType === 'vertical' ? insidePart * divisionTime : 0;
+    const cellDuration = moment(targetData.endDate).diff(targetData.startDate, 'minutes');
+    const insideOffset = targetType === 'vertical' ? insidePart * cellDuration * 60 / 2 : 0;
 
     if (this.offsetTimeTop === null) {
       this.offsetTimeTop = moment(targetData.startDate).diff(payload.startDate, 'seconds') + insideOffset;
@@ -209,7 +210,6 @@ export class AppointmentDragging extends React.PureComponent {
     }
 
     if (timeTableIndex !== -1 && allDayIndex === -1) {
-      const cellDuration = moment(targetData.endDate).diff(targetData.startDate, 'minutes');
       if (targetType === 'vertical') {
         this.timeTableRects = verticalTimeTableRects(draftAppointments, startViewDate, endViewDate, excludedDays, viewCellsData, cellDuration, timeTableCells);
       } else {

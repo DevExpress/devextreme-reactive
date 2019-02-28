@@ -265,18 +265,22 @@ export class AppointmentDragging extends React.PureComponent {
         <Template name="body">
           <TemplateConnector>
             {({
-              viewCellsData, startViewDate, endViewDate, excludedDays, timeTableElement, layoutElement, layoutHeaderElement,
+              viewCellsData, startViewDate, endViewDate, excludedDays,
+              timeTableElement, layoutElement, layoutHeaderElement,
             }, { commitChangedAppointment, changeAppointment }) => (
               <DragDropProviderCore
                 onChange={this.onPayloadChange(commitChangedAppointment)}
               >
                 <DropTarget
-                  onOver={this.onOver(
-                    {
-                      viewCellsData, startViewDate, endViewDate, excludedDays, timeTableElement, layoutElement, layoutHeaderElement,
-                    },
-                    { changeAppointment },
-                  )}
+                  onOver={this.onOver({
+                    viewCellsData,
+                    startViewDate,
+                    endViewDate,
+                    excludedDays,
+                    timeTableElement,
+                    layoutElement,
+                    layoutHeaderElement,
+                  }, { changeAppointment })}
                   onDrop={this.onDrop(commitChangedAppointment)}
                 >
                   <TemplatePlaceholder />

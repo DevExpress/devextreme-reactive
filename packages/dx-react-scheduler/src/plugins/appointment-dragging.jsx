@@ -14,6 +14,7 @@ import {
   verticalTimeTableRects,
   horizontalTimeTableRects,
   getAppointmentStyle,
+  intervalDuration,
 } from '@devexpress/dx-scheduler-core';
 
 const SCROLL_OFFSET = 50;
@@ -34,6 +35,10 @@ export class AppointmentDragging extends React.PureComponent {
     this.onPayloadChange = action => args => this.onPayloadChange2.bind(this)(args, action);
 
     this.offsetTimeTop = null;
+    this.timeTableRects = [];
+    this.allDayRects = [];
+    this.appointmentStartTime = null;
+    this.appointmentEndTime = null;
   }
 
   onPayloadChange2({ payload }, commitChangedAppointment) {
@@ -42,8 +47,9 @@ export class AppointmentDragging extends React.PureComponent {
     const { payload: prevPayload } = this.state;
     if (prevPayload) {
       commitChangedAppointment({ appointmentId: prevPayload.id });
-      // RESET
       this.offsetTimeTop = null;
+      this.timeTableRects = [];
+      this.allDayRects = [];
     }
     this.setState({ payload });
   }
@@ -61,7 +67,8 @@ export class AppointmentDragging extends React.PureComponent {
       const layout = layoutElement.current;
       const layoutHeaderRect = layoutHeaderElement.current.getBoundingClientRect();
 
-      if ((clientOffset.y - SCROLL_OFFSET < layoutHeaderRect.height + layoutHeaderRect.top) && (clientOffset.y > layoutHeaderRect.height + layoutHeaderRect.top)) {
+      if ((clientOffset.y - SCROLL_OFFSET < layoutHeaderRect.height + layoutHeaderRect.top)
+        && (clientOffset.y > layoutHeaderRect.height + layoutHeaderRect.top)) {
         layout.scrollTop -= SCROLL_SPEED_PX;
       }
       if (layout.clientHeight - SCROLL_OFFSET < clientOffset.y - layout.offsetTop) {
@@ -77,7 +84,7 @@ export class AppointmentDragging extends React.PureComponent {
 
     if (allDayIndex === -1 && timeTableIndex === -1) return;
 
-    const appointmentDuration = moment(payload.endDate).diff(moment(payload.startDate), 'seconds');
+    const appointmentDuration = intervalDuration(payload, 'seconds');
     const targetData = cellData(timeTableIndex, allDayIndex, viewCellsData);
     const targetType = moment(targetData.startDate).isSame(targetData.endDate, 'day')
       ? 'vertical' : 'horizontal';
@@ -91,7 +98,7 @@ export class AppointmentDragging extends React.PureComponent {
     }
 
     // CURSOR POSITION
-    const cellDuration = moment(targetData.endDate).diff(targetData.startDate, 'minutes');
+    const cellDuration = intervalDuration(targetData, 'minutes');
     const insideOffset = targetType === 'vertical' ? insidePart * cellDuration * 60 / 2 : 0;
 
     if (this.offsetTimeTop === null) {
@@ -160,6 +167,10 @@ export class AppointmentDragging extends React.PureComponent {
     commitChangedAppointment({ appointmentId: payload.id });
 
     this.offsetTimeTop = null;
+    this.timeTableRects = [];
+    this.allDayRects = [];
+    this.appointmentStartTime = null;
+    this.appointmentEndTime = null;
 
     this.setState({
       payload: undefined,

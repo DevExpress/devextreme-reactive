@@ -1,4 +1,5 @@
-import { ViewCell, Appointment } from '../../types';
+import moment from 'moment';
+import { ViewCell, Appointment, AppointmentModel } from '../../types';
 import { allDayCells as allDayCellsCore } from '../common/computeds';
 import { calculateRectByDateIntervals } from '../../utils';
 import { calculateWeekDateIntervals } from '../week-view/computeds';
@@ -9,10 +10,15 @@ import { calculateAllDayDateIntervals } from '../all-day-panel/computeds';
 
 const clamp = (value: number, min: number, max: number) => Math.max(Math.min(value, max), min);
 
+
 type clientOffset = {
   x: number;
   y: number;
 };
+
+export const intervalDuration = (
+  data: AppointmentModel, type: 'seconds' | 'minutes',
+) => moment(data.endDate).diff(data.startDate, type);
 
 export const cellIndex = (
   timeTableCells: Element[], clientOffset: clientOffset,

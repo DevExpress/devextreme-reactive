@@ -6,7 +6,7 @@ import {
   WeekView,
   Appointments,
   AllDayPanel,
-  AppointmentDragging,
+  DragDropProvider,
   ViewSwitcher,
   Toolbar,
   MonthView,
@@ -79,7 +79,7 @@ export default class Demo extends React.PureComponent {
           <Toolbar />
           <ViewSwitcher />
 
-          <AppointmentDragging
+          <DragDropProvider
             draggingPredicate={({ title }) => title !== 'DRAGGING DISABLED'}
           />
         </Scheduler>

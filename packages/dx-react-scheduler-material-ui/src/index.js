@@ -9,4 +9,4 @@ export * from './plugins/appointment-tooltip';
 export * from './plugins/view-switcher';
 export * from './plugins/all-day-panel';
 export * from './plugins/appointment-form';
-export * from './plugins/appointment-dragging';
+export * from './plugins/drag-drop-provider';

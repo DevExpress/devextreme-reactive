@@ -20,7 +20,13 @@ import {
 const SCROLL_OFFSET = 50;
 const SCROLL_SPEED_PX = 30;
 
-export class AppointmentDragging extends React.PureComponent {
+const pluginDependencies = [
+  { name: 'EditingState' },
+  { name: 'Appointments' },
+  { name: 'AllDayPanel', optional: true },
+];
+
+export class DragDropProvider extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -196,7 +202,8 @@ export class AppointmentDragging extends React.PureComponent {
 
     return (
       <Plugin
-        name="AppointmentDragging"
+        name="DragDropProvider"
+        dependencies={pluginDependencies}
       >
         <Template name="body">
           <TemplateConnector>
@@ -291,18 +298,18 @@ export class AppointmentDragging extends React.PureComponent {
   }
 }
 
-AppointmentDragging.propTypes = {
+DragDropProvider.propTypes = {
   containerComponent: PropTypes.func.isRequired,
   draftAppointmentComponent: PropTypes.func.isRequired,
   draggingAppointmentComponent: PropTypes.func.isRequired,
   draggingPredicate: PropTypes.func,
 };
 
-AppointmentDragging.defaultProps = {
+DragDropProvider.defaultProps = {
   draggingPredicate: () => true,
 };
 
-AppointmentDragging.components = {
+DragDropProvider.components = {
   containerComponent: 'Container',
   draftAppointmentComponent: 'DraftAppointment',
   draggingAppointmentComponent: 'DraggingAppointment',

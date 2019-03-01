@@ -8,113 +8,16 @@ import {
   DragDropProvider as DragDropProviderCore,
 } from '@devexpress/dx-react-core';
 import {
-  allDayCells as allDayCellsCore,
-  calculateRectByDateIntervals,
-  calculateWeekDateIntervals,
-  getVerticalRectByDates,
+  cellIndex,
+  cellData,
+  allDayRects,
+  verticalTimeTableRects,
+  horizontalTimeTableRects,
   getAppointmentStyle,
-  getHorizontalRectByDates,
-  calculateMonthDateIntervals,
-  calculateAllDayDateIntervals,
 } from '@devexpress/dx-scheduler-core';
 
 const SCROLL_OFFSET = 50;
 const SCROLL_SPEED_PX = 30;
-
-const clamp = (value, min, max) => Math.max(Math.min(value, max), min);
-
-const tableIndex = (timeTableCells, clientOffset) => timeTableCells.findIndex((timeTableCell) => {
-  const {
-    left, top,
-    right, bottom,
-  } = timeTableCell.getBoundingClientRect();
-  const isOver = clientOffset
-      && clamp(clientOffset.x, left, right) === clientOffset.x
-      && clamp(clientOffset.y, top, bottom) === clientOffset.y;
-  return isOver;
-});
-
-const cellData = (timeTableIndex, allDayIndex, viewCellsData) => {
-  if (allDayIndex !== -1) {
-    const allDayCellsData = allDayCellsCore(viewCellsData);
-    return allDayCellsData[allDayIndex];
-  }
-  if (timeTableIndex !== -1) {
-    const firstIndex = Math.floor(timeTableIndex / viewCellsData[0].length);
-    const secondIndex = timeTableIndex % viewCellsData[0].length;
-    return viewCellsData[firstIndex][secondIndex];
-  }
-};
-
-const allDayRects = (
-  draftAppointments, startViewDate, endViewDate, excludedDays, viewCellsData, cellElements,
-) => {
-  const intervals = calculateAllDayDateIntervals(
-    draftAppointments, startViewDate, endViewDate, excludedDays,
-  );
-  return calculateRectByDateIntervals(
-    {
-      growDirection: 'horizontal',
-      multiline: false,
-    },
-    intervals,
-    getHorizontalRectByDates,
-    {
-      startViewDate,
-      endViewDate,
-      viewCellsData,
-      cellElements,
-      excludedDays,
-    },
-  );
-};
-
-
-const verticalTimeTableRects = (
-  draftAppointments, startViewDate, endViewDate, excludedDays,
-  viewCellsData, cellDuration, cellElements,
-) => {
-  const intervals = calculateWeekDateIntervals(
-    draftAppointments, startViewDate, endViewDate, excludedDays,
-  );
-  return calculateRectByDateIntervals(
-    {
-      growDirection: 'vertical',
-      multiline: false,
-    },
-    intervals,
-    getVerticalRectByDates,
-    {
-      startViewDate,
-      endViewDate,
-      viewCellsData,
-      cellDuration,
-      cellElements,
-    },
-  );
-};
-
-const horizontalTimeTableRects = (
-  draftAppointments, startViewDate, endViewDate, excludedDays, viewCellsData, cellElements,
-) => {
-  const intervals = calculateMonthDateIntervals(
-    draftAppointments, startViewDate, endViewDate,
-  );
-  return calculateRectByDateIntervals(
-    {
-      growDirection: 'horizontal',
-      multiline: true,
-    },
-    intervals,
-    getHorizontalRectByDates,
-    {
-      startViewDate,
-      endViewDate,
-      viewCellsData,
-      cellElements,
-    },
-  );
-};
 
 export class AppointmentDragging extends React.PureComponent {
   constructor(props) {
@@ -125,7 +28,6 @@ export class AppointmentDragging extends React.PureComponent {
       endTime: null,
       payload: undefined,
     };
-
 
     this.onOver = (getters, actions) => args => this.handleOver.bind(this)(args, getters, actions);
     this.onDrop = action => () => this.handleDrop.bind(this)(action);
@@ -170,8 +72,8 @@ export class AppointmentDragging extends React.PureComponent {
     const timeTableCells = Array.from(timeTableElement.current.querySelectorAll('td'));
     const allDayCells = Array.from(document.querySelectorAll('th'));
 
-    const timeTableIndex = tableIndex(timeTableCells, clientOffset);
-    const allDayIndex = tableIndex(allDayCells, clientOffset);
+    const timeTableIndex = cellIndex(timeTableCells, clientOffset);
+    const allDayIndex = cellIndex(allDayCells, clientOffset);
 
     if (allDayIndex === -1 && timeTableIndex === -1) return;
 

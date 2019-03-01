@@ -3,29 +3,33 @@ export type DataItems = ReadonlyArray<DataItem>;
 
 export type DomainItems = ReadonlyArray<any>;
 
+export type NumberArray = [number, number];
+
 // TODO: Find a way to use types from "d3-scale".
 export interface ScaleObject {
   (value: any): number;
   /** A function that returns an array of ticks  */
-  ticks?: (ticks?: number) => DomainItems;
-  /** A function that sets (if the domain parameter is an array) or */
-  /** gets (if the domain parameter is undefined) the current domain. */
-  domain: (domain?: DomainItems) => any;
-  /** A function that returns a tick formatter function. */
-  tickFormat?: (count?: number, format?: string) => GetFormatFn;
-  /** A function that returns each band’s width. */
-  bandwidth?: () => number;
-  /** A function that sets (if the range parameter is an array) or */
-  /** gets (if the range parameter is undefined) the scale’s current range. */
-  range: (range?: DomainItems) => any;
+  ticks?(ticks?: number): DomainItems;
+  /** A function that sets the current domain */
+  domain(domain: DomainItems): this;
+  /** A function that gets the current domain */
+  domain(): DomainItems;
+  /** A function that returns a tick formatter function */
+  tickFormat?(count?: number, format?: string): GetFormatFn;
+  /** A function that returns each band’s width */
+  bandwidth?(): number;
+  /** A function that sets the current range */
+  range(range: NumberArray): this;
+  /** A function that gets the current range */
+  range(): NumberArray;
   /** Returns an exact copy of this scale */
-  copy: () => ScaleObject;
+  copy(): this;
   /** Enables or disables clamping */
-  clamp?: (clamp: boolean) => ScaleObject;
+  clamp?(clamp: boolean): this;
   /** A function that sets a scale’s inner padding and returns the current scale */
-  paddingInner?: (arg: number) => ScaleObject;
+  paddingInner?(arg: number): this;
   /** A function that sets a scale’s outer padding and returns the current scale */
-  paddingOuter?: (arg: number) => ScaleObject;
+  paddingOuter?(arg: number): this;
 }
 
 /** @internal */
@@ -134,7 +138,6 @@ export type PointDistance = {
   readonly index: number,
   readonly distance: number,
 };
-export type NumberArray = [number, number];
 export type Location = Readonly<NumberArray>;
 type HitTestResult = {
   readonly points: ReadonlyArray<PointDistance>;

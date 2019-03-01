@@ -113,10 +113,9 @@ export const buildScales: BuildScalesFn = (domains, { width, height }) => {
   const scales = {};
   Object.keys(domains).forEach((name) => {
     const { factory, domain } = domains[name];
-    const scale = (factory || scaleLinear)();
-    scale.domain(domain);
-    scale.range(isHorizontal(name) ? [0, width] : [height, 0]);
-    scales[name] = scale;
+    scales[name] = (factory || scaleLinear)()
+      .domain(domain)
+      .range(isHorizontal(name) ? [0, width] : [height, 0]);
   });
   return scales;
 };

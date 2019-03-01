@@ -10,7 +10,7 @@ export type DomainInfo = {
   readonly modifyDomain?: ModifyDomainFn;
   readonly domain: DomainItems;
   readonly factory?: FactoryFn;
-  readonly isDiscrete?: boolean;
+  readonly isDiscrete: boolean;
 };
 /** @internal */
 export type DomainInfoCache = {

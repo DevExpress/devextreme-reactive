@@ -11,6 +11,7 @@ import {
 const makeDomain = ({ factory, modifyDomain }: DomainOptions): DomainInfo => ({
   domain: [],
   factory,
+  isDiscrete: !!(factory && isDiscrete(factory)),
   modifyDomain,
 });
 
@@ -44,7 +45,7 @@ const getArgument: GetItemFn = point => point.argument;
 const getValue: GetItemFn = point => point.value;
 
 /** @internal */
-export const scaleLinear: FactoryFn = d3ScaleLinear;
+export const scaleLinear: FactoryFn = d3ScaleLinear as any;
 /** @internal */
 export const scaleBand: FactoryFn = () => (
   d3ScaleBand().paddingInner(0.3).paddingOuter(0.15) as any
@@ -54,6 +55,8 @@ const guessFactory = (points: PointList, getItem: GetItemFn) => (
   points.length && typeof getItem(points[0]) === 'string' ? scaleBand : scaleLinear
 );
 
+const isDiscrete = (factory: FactoryFn) => 'bandwidth' in factory();
+
 const updateDomainFactory = (domain: DomainInfo, series: Series, getItem: GetItemFn) => {
   if (domain.factory) {
     return domain;
@@ -62,7 +65,7 @@ const updateDomainFactory = (domain: DomainInfo, series: Series, getItem: GetIte
   return {
     ...domain,
     factory,
-    isDiscrete: 'bandwidth' in factory(),
+    isDiscrete: isDiscrete(factory),
   };
 };
 

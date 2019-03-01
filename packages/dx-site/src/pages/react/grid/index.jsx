@@ -4,28 +4,15 @@ import Layout from '../../../components/layout';
 import Header from '../../../components/header';
 import ProductLogo from '../../../components/logos/product';
 import LandingHeaderAddon from '../../../components/landing/header-addon';
-import LandingLayout from '../../../components/landing/layout';
-import LandingTitle from '../../../components/landing/title';
-import LandingIconFeature from '../../../components/landing/icon-feature';
-import LandingImageFeature from '../../../components/landing/image-feature';
 import LandingMaintainence from '../../../components/landing/maintainence';
 import LandingLink from '../../../components/landing/link';
 import LandingReadyToLearnMore from '../../../components/landing/ready-to-learn-more';
-
 import LandingAlternatedBackground from '../../../components/landing/alternated-background';
 import LandingChessBoardLayout from '../../../components/landing/chess-board-layout';
 import LandingFeatureDescription from '../../../components/landing/feature-description';
 import LandingFeaturePreview from '../../../components/landing/feature-preview';
-
 import imageBoxLink from '../../images/image-box.png';
-
 import headerLink from './images/header.png';
-import bootstrapThemeLink from './images/bootstrap-theme.png';
-import materialThemeLink from './images/material-theme.png';
-import profilerLink from './images/profiler.png';
-import virtualScrollingLink from './images/virtual-scrolling.png';
-import sortingLink from './images/sorting.png';
-import groupingLink from './images/grouping.png';
 
 const IndexPage = () => (
   <Layout>

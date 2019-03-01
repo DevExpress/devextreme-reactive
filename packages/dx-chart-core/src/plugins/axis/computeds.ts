@@ -7,7 +7,7 @@ import {
   GetGridCoordinatesFn,
 } from '../../types';
 
-const getTicks = (scale: ScaleObject): any[] => (scale.ticks ? scale.ticks() : scale.domain());
+const getTicks = (scale: ScaleObject) => (scale.ticks ? scale.ticks() : scale.domain());
 
 const createTicks = <T>(scale: ScaleObject, callback: ProcessTickFn<T>): ReadonlyArray<T> => {
   const fixedScale = fixOffset(scale);

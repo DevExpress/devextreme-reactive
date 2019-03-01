@@ -270,15 +270,15 @@ interface RawAxisProps {
 interface ScaleObject {
   // (undocumented)
   (value: any): number;
-  bandwidth?: () => number;
-  clamp?: (clamp: boolean) => ScaleObject;
-  copy: () => ScaleObject;
-  domain: (domain?: DomainItems) => any;
-  paddingInner?: (arg: number) => ScaleObject;
-  paddingOuter?: (arg: number) => ScaleObject;
-  range: (range?: DomainItems) => any;
-  tickFormat?: (count?: number, format?: string) => GetFormatFn;
-  ticks?: (ticks?: number) => DomainItems;
+  bandwidth?(): number;
+  clamp?(clamp: boolean): this;
+  copy(): this;
+  domain(domain: DomainItems): this;
+  paddingInner?(arg: number): this;
+  paddingOuter?(arg: number): this;
+  range(range: NumberArray): this;
+  tickFormat?(count?: number, format?: string): GetFormatFn;
+  ticks?(ticks?: number): DomainItems;
 }
 
 // @public (undocumented)
@@ -452,11 +452,11 @@ interface ValueScaleProps extends ScaleProps {
 // WARNING: Unsupported export: DataItem
 // WARNING: Unsupported export: DataItems
 // WARNING: Unsupported export: DomainItems
+// WARNING: Unsupported export: NumberArray
 // WARNING: Unsupported export: TargetList
 // WARNING: Unsupported export: GetFormatFn
 // WARNING: Unsupported export: Colors
 // WARNING: Unsupported export: PointDistance
-// WARNING: Unsupported export: NumberArray
 // WARNING: Unsupported export: Location
 // WARNING: Unsupported export: HitTestResult
 // WARNING: Unsupported export: HitTestFn

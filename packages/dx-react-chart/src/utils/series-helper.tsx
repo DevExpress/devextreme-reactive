@@ -52,7 +52,7 @@ export const declareSeries = <T extends SeriesProps>(
       }: Getters) => addSeries(series, data, palette, seriesItem, restProps);
       const getDomains = ({
         series,
-        domains
+        domains,
       }: Getters) => extendDomains(domains, findSeriesByName(symbolName, series));
       return (
         <Plugin name={pluginName}>

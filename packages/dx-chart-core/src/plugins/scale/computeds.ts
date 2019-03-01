@@ -27,10 +27,18 @@ export const addDomain: AddDomainFn = (domains, name, options) => ({
 
 const getSeriesValueDomainName = (series: Series) => getValueDomainName(series.scaleName);
 
-const mergeContinuousDomains: MergeDomainsFn = (domain, items) =>
-  extent([...domain, ...items]);
-const mergeDiscreteDomains: MergeDomainsFn = (domain, items) =>
-  Array.from(new Set([...domain, ...items]));
+const floatsEqual = (a: number, b: number) => Math.abs(a - b) < Number.EPSILON;
+
+const mergeContinuousDomains: MergeDomainsFn = (domain, items) => {
+  const newDomain = extent([...domain, ...items]);
+  return floatsEqual(newDomain[0], domain[0]) && floatsEqual(newDomain[1], domain[1])
+    ? domain : newDomain;
+};
+
+const mergeDiscreteDomains: MergeDomainsFn = (domain, items) => {
+  const newDomain = Array.from(new Set([...domain, ...items]));
+  return newDomain.length === domain.length ? domain : newDomain;
+};
 
 const getArgument: GetItemFn = point => point.argument;
 const getValue: GetItemFn = point => point.value;
@@ -61,7 +69,7 @@ const updateDomainFactory = (domain: DomainInfo, series: Series, getItem: GetIte
 const updateDomainItems = (domain: DomainInfo, items: DomainItems): DomainInfo => {
   const merge = domain.isDiscrete ? mergeDiscreteDomains : mergeContinuousDomains;
   const merged = merge(domain.domain, items);
-  return {
+  return merged === domain.domain ? domain : {
     ...domain,
     domain: domain.modifyDomain ? domain.modifyDomain(merged) : merged,
   };

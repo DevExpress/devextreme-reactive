@@ -16,6 +16,10 @@ import {
   ExtraSeriesParameters, SeriesProps, PathComponentProps, Scales,
 } from '../types';
 
+const getDomains = ({
+  series, domains,
+}: Getters) => extendDomains(domains, series[series.length - 1]);
+
 /** @internal */
 export const declareSeries = <T extends SeriesProps>(
   pluginName: string,

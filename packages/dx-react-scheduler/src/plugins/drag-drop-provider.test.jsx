@@ -66,7 +66,7 @@ const defaultDeps = {
     allDayPanel: {},
     main: {},
   },
-  plugins: ['EditingState, Appointments'],
+  plugins: ['EditingState', 'Appointments'],
 };
 
 const defaultProps = {
@@ -80,7 +80,7 @@ describe('DragDropProvider', () => {
   beforeEach(() => {
     cellIndex.mockImplementation(() => 1);
     cellData.mockImplementation(() => ({ startDate: new Date('2018-06-25'), endDate: new Date('2018-06-26') }));
-    allDayRects.mockImplementation();
+    allDayRects.mockImplementation(() => []);
     verticalTimeTableRects.mockImplementation();
     horizontalTimeTableRects.mockImplementation();
     getAppointmentStyle.mockImplementation();
@@ -152,7 +152,6 @@ describe('DragDropProvider', () => {
 
   describe('Dragging', () => {
     it('should work', () => {
-      debugger
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -162,7 +161,6 @@ describe('DragDropProvider', () => {
         </PluginHost>
       ));
 
-      debugger
       const onOver = tree.find(DropTarget).prop('onOver');
       onOver({ payload: 1, clientOffset: 1 });
     });

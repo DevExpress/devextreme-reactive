@@ -10,7 +10,6 @@ import { calculateAllDayDateIntervals } from '../all-day-panel/computeds';
 
 const clamp = (value: number, min: number, max: number) => Math.max(Math.min(value, max), min);
 
-
 type clientOffset = {
   x: number;
   y: number;

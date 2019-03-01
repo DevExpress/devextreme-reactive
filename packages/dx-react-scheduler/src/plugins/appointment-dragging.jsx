@@ -30,28 +30,35 @@ export class AppointmentDragging extends React.PureComponent {
       payload: undefined,
     };
 
+    this.resetCash = this.resetCash.bind(this);
     this.onOver = (getters, actions) => args => this.handleOver.bind(this)(args, getters, actions);
     this.onDrop = action => () => this.handleDrop.bind(this)(action);
-    this.onPayloadChange = action => args => this.onPayloadChange2.bind(this)(args, action);
+    this.onPayloadChange = action => args => this.handlePayloadChange.bind(this)(args, action);
 
-    this.offsetTimeTop = null;
     this.timeTableRects = [];
     this.allDayRects = [];
+    this.offsetTimeTop = null;
     this.appointmentStartTime = null;
     this.appointmentEndTime = null;
   }
 
-  onPayloadChange2({ payload }, commitChangedAppointment) {
+  resetCash() {
+    this.timeTableRects = [];
+    this.allDayRects = [];
+    this.offsetTimeTop = null;
+    this.appointmentStartTime = null;
+    this.appointmentEndTime = null;
+  }
+
+  handlePayloadChange({ payload }, commitChangedAppointment) {
     if (payload) return;
+    this.setState({ payload });
 
     const { payload: prevPayload } = this.state;
-    if (prevPayload) {
-      commitChangedAppointment({ appointmentId: prevPayload.id });
-      this.offsetTimeTop = null;
-      this.timeTableRects = [];
-      this.allDayRects = [];
-    }
-    this.setState({ payload });
+    if (!prevPayload) return;
+
+    commitChangedAppointment({ appointmentId: prevPayload.id });
+    this.resetCash();
   }
 
   handleOver(
@@ -165,12 +172,7 @@ export class AppointmentDragging extends React.PureComponent {
   handleDrop(commitChangedAppointment) {
     const { payload } = this.state;
     commitChangedAppointment({ appointmentId: payload.id });
-
-    this.offsetTimeTop = null;
-    this.timeTableRects = [];
-    this.allDayRects = [];
-    this.appointmentStartTime = null;
-    this.appointmentEndTime = null;
+    this.resetCash();
 
     this.setState({
       payload: undefined,
@@ -243,7 +245,7 @@ export class AppointmentDragging extends React.PureComponent {
 
         <Template name="allDayPanel">
           <TemplatePlaceholder />
-          {(payload ? (
+          {(this.allDayRects.length > 0 ? (
             <Container>
               {this.allDayRects.map(({
                 dataItem, type, ...geometry
@@ -265,7 +267,7 @@ export class AppointmentDragging extends React.PureComponent {
 
         <Template name="main">
           <TemplatePlaceholder />
-          {(payload ? (
+          {(this.timeTableRects.length > 0 ? (
             <Container>
               {this.timeTableRects.map(({
                 dataItem, type, ...geometry

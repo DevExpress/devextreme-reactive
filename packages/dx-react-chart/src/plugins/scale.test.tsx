@@ -26,7 +26,7 @@ describe('Scale', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <Scale name="scale-1" factory={mockFactory} modifyDomain={mockModify as any} />
+        <Scale name="scale-1" factory={mockFactory as any} modifyDomain={mockModify as any} />
       </PluginHost>
     ));
 

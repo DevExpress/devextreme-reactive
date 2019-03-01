@@ -1,13 +1,16 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { findSeriesByName, addSeries, getValueDomainName } from '@devexpress/dx-chart-core';
+import {
+  findSeriesByName, addSeries, extendDomains, getValueDomainName,
+} from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing';
 import { declareSeries } from './series-helper';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   findSeriesByName: jest.fn(),
   addSeries: jest.fn(),
+  extendDomains: jest.fn(),
   ARGUMENT_DOMAIN: 'test_argument_domain',
   getValueDomainName: jest.fn(),
 }));
@@ -43,12 +46,14 @@ describe('#declareSeries', () => {
     styles: 'styles',
   });
   (addSeries as jest.Mock).mockReturnValue('extended-series');
+  (extendDomains as jest.Mock).mockReturnValue('extended-domains');
   (getValueDomainName as jest.Mock).mockReturnValue('value_domain');
 
   afterEach(jest.clearAllMocks);
 
   const defaultDeps = {
     getter: {
+      domains: 'test-domains',
       series: 'test-series',
       data: 'test-data',
       palette: 'test-palette',
@@ -92,7 +97,7 @@ describe('#declareSeries', () => {
     });
   });
 
-  it('should add series to list', () => {
+  it('should add series to list and extend domains', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -111,9 +116,12 @@ describe('#declareSeries', () => {
       seriesComponent: TestComponentPath,
       pointComponent: TestComponentPoint,
     }, {});
+    expect(extendDomains)
+      .toBeCalledWith('test-domains', (findSeriesByName as jest.Mock).mock.results[0].value);
     expect(getComputedState(tree)).toEqual({
       ...defaultDeps.getter,
       series: 'extended-series',
+      domains: 'extended-domains',
     });
   });
 

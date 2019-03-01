@@ -16,10 +16,6 @@ import {
   ExtraSeriesParameters, SeriesProps, PathComponentProps, Scales,
 } from '../types';
 
-const getDomains = ({
-  series, domains,
-}: Getters) => extendDomains(domains, series[series.length - 1]);
-
 /** @internal */
 export const declareSeries = <T extends SeriesProps>(
   pluginName: string,
@@ -54,6 +50,10 @@ export const declareSeries = <T extends SeriesProps>(
         data,
         palette,
       }: Getters) => addSeries(series, data, palette, seriesItem, restProps);
+      const getDomains = ({
+        series,
+        domains
+      }: Getters) => extendDomains(domains, findSeriesByName(symbolName, series));
       return (
         <Plugin name={pluginName}>
           <Getter name="series" computed={getSeries} />

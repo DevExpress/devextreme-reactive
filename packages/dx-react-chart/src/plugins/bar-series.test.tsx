@@ -9,6 +9,7 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   dBar: jest.fn(),
   findSeriesByName: jest.fn(),
   addSeries: jest.fn(),
+  extendDomains: jest.fn(),
   ARGUMENT_DOMAIN: 'test_argument_domain',
   getValueDomainName: () => 'test_value_domain',
 }));

@@ -257,12 +257,12 @@ export class DragDropProvider extends React.PureComponent {
               {this.allDayRects.map(({
                 dataItem, type, ...geometry
               }, index) => {
-                const style = getAppointmentStyle(geometry);
                 return (
                   <DraftAppointment
                     key={index.toString()}
                     data={draftData}
-                    style={style}
+                    style={getAppointmentStyle(geometry)}
+                    type={type}
                   />
                 );
               })}
@@ -279,12 +279,12 @@ export class DragDropProvider extends React.PureComponent {
               {this.timeTableRects.map(({
                 dataItem, type, ...geometry
               }, index) => {
-                const style = getAppointmentStyle(geometry);
                 return (
                   <DraftAppointment
                     key={index.toString()}
                     data={draftData}
-                    style={style}
+                    style={getAppointmentStyle(geometry)}
+                    type={type}
                   />
                 );
               })}

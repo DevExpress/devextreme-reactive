@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-import { VerticalAppointment } from './appointment/vertical-appointment';
+import { AppointmentContent } from './appointment/appointment-content';
 import { Appointment } from './appointment/appointment';
 
 const styles = theme => ({
@@ -51,53 +51,47 @@ ContainerBase.defaultProps = {
 export const Container = withStyles(styles, { name: 'Container' })(ContainerBase);
 
 const DraftAppointmentBase = ({
-  classes,
-  className,
-  style,
-  data,
-  ...restProps
+  classes, className, style,
+  data, type, ...restProps
 }) => (
   <Appointment
     className={classes.column}
     style={style}
   >
-    <VerticalAppointment
+    <AppointmentContent
       data={data}
+      type={type}
       {...restProps}
     />
   </Appointment>
 );
 
 DraftAppointmentBase.propTypes = {
-  children: PropTypes.node,
   classes: PropTypes.object.isRequired,
-  style: PropTypes.object,
+  style: PropTypes.object.isRequired,
+  data: PropTypes.object.isRequired,
   className: PropTypes.string,
-  data: PropTypes.object,
+  type: PropTypes.string,
 };
 
 DraftAppointmentBase.defaultProps = {
-  style: {},
   className: undefined,
-  children: undefined,
-  data: {},
+  type: undefined,
 };
 
 export const DraftAppointment = withStyles(styles, { name: 'DraftAppointment' })(DraftAppointmentBase);
 
 const DraggingAppointmentBase = ({
-  classes,
-  className,
-  style,
-  data,
-  ...restProps
+  classes, className, style,
+  data, type, ...restProps
 }) => (
   <Appointment
     className={classes.draggingAppointment}
     style={style}
   >
-    <VerticalAppointment
+    <AppointmentContent
       data={data}
+      type={type}
       {...restProps}
     />
   </Appointment>
@@ -108,10 +102,12 @@ DraggingAppointmentBase.propTypes = {
   classes: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
   className: PropTypes.string,
+  type: PropTypes.string,
 };
 
 DraggingAppointmentBase.defaultProps = {
   className: undefined,
+  type: undefined,
 };
 
 export const DraggingAppointment = withStyles(styles, { name: 'DraggingAppointment' })(DraggingAppointmentBase);

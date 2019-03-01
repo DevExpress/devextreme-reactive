@@ -6,7 +6,6 @@ import ProductLogo from '../../../components/logos/product';
 import LandingHeaderAddon from '../../../components/landing/header-addon';
 import LandingLayout from '../../../components/landing/layout';
 import LandingTitle from '../../../components/landing/title';
-import LandingHr from '../../../components/landing/hr';
 import LandingIconFeature from '../../../components/landing/icon-feature';
 import LandingImageFeature from '../../../components/landing/image-feature';
 import LandingMaintainence from '../../../components/landing/maintainence';
@@ -66,7 +65,6 @@ const IndexPage = () => (
         title="Material Design React Grid"
         description="We ship additional Material-UI packages that allow you to utilize the familiar approaches and appearance."
       />
-      <LandingHr />
       <LandingTitle
         text="And Things That Also Matter..."
       />

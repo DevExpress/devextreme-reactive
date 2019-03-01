@@ -1,4 +1,5 @@
 @import '../../constants';
+@import '../../typography';
 
 .layout {
   padding-top: 40px;
@@ -14,6 +15,9 @@
   padding-right: $inner-offset;
 }
 
+.title {
+  @include title-large();
+}
 
 @media (max-width: 1360px) {
   .reversed {

@@ -6,25 +6,24 @@ import {
   DragDropProvider as DragDropProviderCore,
 } from '@devexpress/dx-react-core';
 import {
-  computed,
-  viewCellsData,
-  startViewDate,
-  endViewDate,
-  getHorizontalRectByDates,
-  calculateMonthDateIntervals,
-  monthCellsData,
+  cellIndex,
+  cellData,
+  allDayRects,
+  verticalTimeTableRects,
+  horizontalTimeTableRects,
+  getAppointmentStyle,
+  intervalDuration,
 } from '@devexpress/dx-scheduler-core';
 import { DragDropProvider } from './drag-drop-provider';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
-  computed: jest.fn(),
-  viewCellsData: jest.fn(),
-  startViewDate: jest.fn(),
-  availableViewNames: jest.fn(),
-  endViewDate: jest.fn(),
-  getHorizontalRectByDates: jest.fn(),
-  calculateMonthDateIntervals: jest.fn(),
-  monthCellsData: jest.fn(),
+  cellIndex: jest.fn(),
+  cellData: jest.fn(),
+  allDayRects: jest.fn(),
+  verticalTimeTableRects: jest.fn(),
+  horizontalTimeTableRects: jest.fn(),
+  getAppointmentStyle: jest.fn(),
+  intervalDuration: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -34,6 +33,30 @@ const defaultDeps = {
       [{ startDate: new Date('2018-06-25') }, {}],
       [{}, { startDate: new Date('2018-08-05') }],
     ],
+    startViewDate: new Date('2018-06-25'),
+    endViewDate: new Date('2018-08-05'),
+    excludedDays: [],
+    timeTableElement: {
+      current: {
+        querySelectorAll: () => [{}, {
+          getBoundingClientRect: () => ({ height: 1, top: 1 }),
+        }],
+      },
+    },
+    layoutElement: {
+      current: {
+        getBoundingClientRect: () => ({ height: 1, top: 1 }),
+      },
+    },
+    layoutHeaderElement: {
+      current: {
+        getBoundingClientRect: () => ({ offsetTop: 1, clientHeight: 1 }),
+      },
+    },
+  },
+  action: {
+    commitChangedAppointment: jest.fn(),
+    changeAppointment: jest.fn(),
   },
   template: {
     body: {},
@@ -43,6 +66,7 @@ const defaultDeps = {
     allDayPanel: {},
     main: {},
   },
+  plugins: ['EditingState, Appointments'],
 };
 
 const defaultProps = {
@@ -54,20 +78,13 @@ const defaultProps = {
 
 describe('DragDropProvider', () => {
   beforeEach(() => {
-    computed.mockImplementation(
-      (getters, viewName, baseComputed) => baseComputed(getters, viewName),
-    );
-    viewCellsData.mockImplementation(() => ([
-      [{ startDate: new Date('2018-06-25') }, {}],
-      [{}, { startDate: new Date('2018-08-05') }],
-    ]));
-    startViewDate.mockImplementation(() => new Date('2018-06-25'));
-    endViewDate.mockImplementation(() => new Date('2018-08-06'));
-    getHorizontalRectByDates.mockImplementation(() => [{
-      x: 1, y: 2, width: 100, height: 150, dataItem: 'data',
-    }]);
-    calculateMonthDateIntervals.mockImplementation(() => []);
-    monthCellsData.mockImplementation(() => []);
+    cellIndex.mockImplementation(() => 1);
+    cellData.mockImplementation(() => ({ startDate: new Date('2018-06-25'), endDate: new Date('2018-06-26') }));
+    allDayRects.mockImplementation();
+    verticalTimeTableRects.mockImplementation();
+    horizontalTimeTableRects.mockImplementation();
+    getAppointmentStyle.mockImplementation();
+    intervalDuration.mockImplementation();
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -130,6 +147,24 @@ describe('DragDropProvider', () => {
         .toBeFalsy();
       expect(predicate)
         .toBeCalledWith('appointment data');
+    });
+  });
+
+  describe('Dragging', () => {
+    it('should work', () => {
+      debugger
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <DragDropProvider
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      debugger
+      const onOver = tree.find(DropTarget).prop('onOver');
+      onOver({ payload: 1, clientOffset: 1 });
     });
   });
 });

@@ -21,11 +21,9 @@ The user can edit appointments as follows:
 
 ### Update an Appointment
 
-Double-click an appointment to open the appointment editing form.
-
-OR
-
-Click an appointment for the appointment tooltip to appear, and then click Edit in the tooltip to open the appointment editing form.
+- Double-click an appointment to open the appointment editing form
+- Click an appointment for the appointment tooltip to appear, and then click Edit in the tooltip to open the appointment editing form
+- Reschedule an appointment by moving it to another cell. This functionality will be available after add the `DragDropProvider` plugin
 
 ### Delete an Appointment
 
@@ -64,3 +62,9 @@ To validate user input or prevent user actions, handle the `EditingState` plugin
 For example, you can show a confirmation dialog before an appointment is removed. To detect an attempt to remove an appointment, check the `deleted` parameter's value in the `commitChanges` handler:
 
 .embedded-demo({ "path": "scheduler-editing/delete-confirmation", "showThemeSelector": true })
+
+## Editing By Move
+
+Use the `DragDropProvider` plugin for editing appointments by move them. Also this plugin allows you to customize special drag appointment components.
+
+.embedded-demo({ "path": "scheduler-editing/drag-drop", "showThemeSelector": true })

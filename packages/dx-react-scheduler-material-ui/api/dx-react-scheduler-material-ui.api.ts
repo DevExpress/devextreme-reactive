@@ -127,6 +127,21 @@ interface DayViewProps {
   timeTableRowComponent?: React.ComponentType<DayViewBase.RowProps>;
 }
 
+// WARNING: Unsupported export: ContainerProps
+// WARNING: Unsupported export: DraftAppointmentProps
+// WARNING: Unsupported export: SourceAppointmentProps
+// @public (undocumented)
+module DragDropProvider {
+}
+
+// @public (undocumented)
+interface DragDropProviderProps {
+  containerComponent?: React.ComponentType<DragDropProviderBase.ContainerProps>;
+  draftAppointmentComponent?: React.ComponentType<DragDropProviderBase.DraftAppointmentProps>;
+  draggingPredicate?: (AppointmentModel) => boolean;
+  sourceAppointmentComponent?: React.ComponentType<DragDropProviderBase.SourceAppointmentProps>;
+}
+
 // WARNING: Unsupported export: CellData
 // WARNING: Unsupported export: LayoutProps
 // WARNING: Unsupported export: DayScaleLayoutProps

@@ -314,6 +314,34 @@ interface DayViewProps {
 }
 
 // @public (undocumented)
+module DragDropProvider {
+  interface ContainerProps {
+    children: React.ReactNode;
+  }
+
+  interface DraftAppointmentProps {
+    data: AppointmentModel;
+    style: object;
+    type: string;
+  }
+
+  interface SourceAppointmentProps {
+    data: AppointmentModel;
+    style: object;
+    type: string;
+  }
+
+}
+
+// @public (undocumented)
+interface DragDropProviderProps {
+  containerComponent: React.ComponentType<DragDropProvider.ContainerProps>;
+  draftAppointmentComponent: React.ComponentType<DragDropProvider.DraftAppointmentProps>;
+  draggingPredicate: (AppointmentModel) => boolean;
+  sourceAppointmentComponent: React.ComponentType<DragDropProvider.SourceAppointmentProps>;
+}
+
+// @public (undocumented)
 interface EditingStateProps {
   addedAppointment?: object;
   appointmentChanges?: {

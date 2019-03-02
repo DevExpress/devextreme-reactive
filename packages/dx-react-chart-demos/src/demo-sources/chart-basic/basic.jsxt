@@ -1,7 +1,11 @@
 import * as React from 'react';<%&additionalImports%>
 import {
-  ArgumentScale,
-} from '@devexpress/dx-react-chart';
+  Plugin,
+  Getter,
+} from '@devexpress/dx-react-core';
+import {
+  ARGUMENT_DOMAIN,
+} from '@devexpress/dx-chart-core';
 import {
   ArgumentAxis,
   ValueAxis,
@@ -32,6 +36,19 @@ const sliderStyle = {
   width: '400px',
 };
 
+const X1 = ({ domain }) => {
+  const adjustDomain = ({ domains }) => ({
+    ...domains,
+    [ARGUMENT_DOMAIN]: domain,
+  });
+  return (
+    <Plugin name="x1">
+      <Getter name="domains" computed={adjustDomain} />
+    </Plugin>
+  );
+};
+
+
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -51,9 +68,11 @@ export default class Demo extends React.PureComponent {
         minRangeSize <= value && value <= maxRangeSize ? { rangeSize: value } : null
       ));
     };
-    this.modifyArgumentDomain = () => {
-      const { rangePosition, rangeSize } = this.state;
-      return getRange(rangePosition, rangeSize);
+  }
+
+  static getDerivedStateFromProps(props, { rangePosition, rangeSize }) {
+    return {
+      domain: getRange(rangePosition, rangeSize),
     };
   }
 
@@ -64,7 +83,6 @@ export default class Demo extends React.PureComponent {
           data={data}
         >
           <Title text="Born amount" />
-          <ArgumentScale modifyDomain={this.modifyArgumentDomain} />
           <ArgumentAxis />
           <ValueAxis />
 
@@ -73,6 +91,8 @@ export default class Demo extends React.PureComponent {
             valueField="val"
             argumentField="arg"
           />
+
+          <X1 domain={this.state.domain} />
         </Chart>
 
         <div>

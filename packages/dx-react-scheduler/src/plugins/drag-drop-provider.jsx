@@ -194,7 +194,7 @@ export class DragDropProvider extends React.PureComponent {
     const {
       containerComponent: Container,
       draftAppointmentComponent: DraftAppointment,
-      draggingAppointmentComponent: DraggingAppointment,
+      sourceAppointmentComponent: SourceAppointment,
       draggingPredicate,
     } = this.props;
 
@@ -247,7 +247,7 @@ export class DragDropProvider extends React.PureComponent {
               payload={{ ...params.data, type: params.type }}
             >
               {payload && params.data.id === payload.id ? (
-                <DraggingAppointment {...params} />
+                <SourceAppointment {...params} />
               ) : (
                 <TemplatePlaceholder params={{ ...params, style: { ...params.style, cursor: 'pointer' } }} />
               )}
@@ -302,7 +302,7 @@ export class DragDropProvider extends React.PureComponent {
 DragDropProvider.propTypes = {
   containerComponent: PropTypes.func.isRequired,
   draftAppointmentComponent: PropTypes.func.isRequired,
-  draggingAppointmentComponent: PropTypes.func.isRequired,
+  sourceAppointmentComponent: PropTypes.func.isRequired,
   draggingPredicate: PropTypes.func,
 };
 
@@ -313,5 +313,5 @@ DragDropProvider.defaultProps = {
 DragDropProvider.components = {
   containerComponent: 'Container',
   draftAppointmentComponent: 'DraftAppointment',
-  draggingAppointmentComponent: 'DraggingAppointment',
+  sourceAppointmentComponent: 'SourceAppointment',
 };

@@ -81,7 +81,7 @@ DraftAppointmentBase.defaultProps = {
 
 export const DraftAppointment = withStyles(styles, { name: 'DraftAppointment' })(DraftAppointmentBase);
 
-const DraggingAppointmentBase = ({
+const SourceAppointmentBase = ({
   classes, className, style,
   data, type, ...restProps
 }) => (
@@ -97,7 +97,7 @@ const DraggingAppointmentBase = ({
   </Appointment>
 );
 
-DraggingAppointmentBase.propTypes = {
+SourceAppointmentBase.propTypes = {
   style: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
@@ -105,9 +105,9 @@ DraggingAppointmentBase.propTypes = {
   type: PropTypes.string,
 };
 
-DraggingAppointmentBase.defaultProps = {
+SourceAppointmentBase.defaultProps = {
   className: undefined,
   type: undefined,
 };
 
-export const DraggingAppointment = withStyles(styles, { name: 'DraggingAppointment' })(DraggingAppointmentBase);
+export const SourceAppointment = withStyles(styles, { name: 'SourceAppointment' })(SourceAppointmentBase);

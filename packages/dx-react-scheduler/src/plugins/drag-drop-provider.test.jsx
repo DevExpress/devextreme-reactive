@@ -51,12 +51,15 @@ const defaultDeps = {
     layoutHeaderElement: {
       current: {
         getBoundingClientRect: () => ({ offsetTop: 1, clientHeight: 1 }),
+        querySelectorAll: () => [],
       },
     },
   },
   action: {
     commitChangedAppointment: jest.fn(),
     changeAppointment: jest.fn(),
+    startEditAppointment: jest.fn(),
+    endEditAppointment: jest.fn(),
   },
   template: {
     body: {},
@@ -71,7 +74,7 @@ const defaultDeps = {
 
 const defaultProps = {
   draftAppointmentComponent: () => null,
-  draggingAppointmentComponent: () => null,
+  sourceAppointmentComponent: () => null,
   // eslint-disable-next-line react/prop-types, react/jsx-one-expression-per-line
   containerComponent: ({ children }) => <div>{children}</div>,
 };
@@ -163,6 +166,79 @@ describe('DragDropProvider', () => {
 
       const onOver = tree.find(DropTarget).prop('onOver');
       onOver({ payload: 1, clientOffset: 1 });
+    });
+
+    it('should render draft appointment template', () => {
+      allDayRects.mockImplementationOnce(() => [{}]);
+      const draftAppointment = () => <div className="custom-class" />;
+
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <DragDropProvider
+            {...defaultProps}
+            draftAppointmentComponent={draftAppointment}
+          />
+        </PluginHost>
+      ));
+
+      const onOver = tree.find(DropTarget).prop('onOver');
+      onOver({ payload: 1, clientOffset: 1 });
+
+      expect(tree.update().find('.custom-class').exists())
+        .toBeTruthy();
+    });
+
+    it('should render source appointment template', () => {
+      const deps = {
+        template: {
+          appointment: {
+            data: {
+              id: 1,
+            },
+          },
+        },
+      };
+      allDayRects.mockImplementationOnce(() => [{}]);
+      const sourceAppointment = () => <div className="custom-class" />;
+
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps, deps)}
+          <DragDropProvider
+            {...defaultProps}
+            sourceAppointmentComponent={sourceAppointment}
+          />
+        </PluginHost>
+      ));
+
+      const onOver = tree.find(DropTarget).prop('onOver');
+      onOver({ payload: { id: 1 }, clientOffset: 1 });
+      tree.update();
+
+      expect(tree.find('.custom-class').exists())
+        .toBeTruthy();
+    });
+
+    it('should call predicate before render appointment template', () => {
+      const predicate = jest.fn();
+      predicate.mockImplementation(() => false);
+      allDayRects.mockImplementationOnce(() => [{}]);
+
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <DragDropProvider
+            {...defaultProps}
+            draggingPredicate={predicate}
+          />
+        </PluginHost>
+      ));
+
+      expect(tree.find(DragSource).exists())
+        .toBeFalsy();
+      expect(predicate)
+        .toBeCalledWith(defaultDeps.template.appointment.data);
     });
   });
 });

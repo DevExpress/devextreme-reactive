@@ -1,4 +1,3 @@
-/* globals document:true */
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import moment from 'moment';
@@ -38,8 +37,8 @@ export class DragDropProvider extends React.PureComponent {
 
     this.resetCash = this.resetCash.bind(this);
     this.onOver = (getters, actions) => args => this.handleOver.bind(this)(args, getters, actions);
-    this.onDrop = action => () => this.handleDrop.bind(this)(action);
-    this.onPayloadChange = action => args => this.handlePayloadChange.bind(this)(args, action);
+    this.onDrop = actions => () => this.handleDrop.bind(this)(actions);
+    this.onPayloadChange = actions => args => this.handlePayloadChange.bind(this)(args, actions);
 
     this.timeTableRects = [];
     this.allDayRects = [];
@@ -56,13 +55,14 @@ export class DragDropProvider extends React.PureComponent {
     this.appointmentEndTime = null;
   }
 
-  handlePayloadChange({ payload }, commitChangedAppointment) {
+  handlePayloadChange({ payload }, { commitChangedAppointment, stopEditAppointment }) {
     if (payload) return;
     this.setState({ payload });
 
     const { payload: prevPayload } = this.state;
     if (!prevPayload) return;
 
+    stopEditAppointment({ appointmentId: prevPayload.id });
     commitChangedAppointment({ appointmentId: prevPayload.id });
     this.resetCash();
   }
@@ -73,7 +73,7 @@ export class DragDropProvider extends React.PureComponent {
       viewCellsData, startViewDate, endViewDate, excludedDays,
       timeTableElement, layoutElement, layoutHeaderElement,
     },
-    { changeAppointment },
+    { changeAppointment, startEditAppointment },
   ) {
     // AUTO SCROLL
     if (clientOffset) {
@@ -90,7 +90,7 @@ export class DragDropProvider extends React.PureComponent {
     }
 
     const timeTableCells = Array.from(timeTableElement.current.querySelectorAll('td'));
-    const allDayCells = Array.from(document.querySelectorAll('th'));
+    const allDayCells = Array.from(layoutHeaderElement.current.querySelectorAll('th'));
 
     const timeTableIndex = cellIndex(timeTableCells, clientOffset);
     const allDayIndex = cellIndex(allDayCells, clientOffset);
@@ -161,6 +161,7 @@ export class DragDropProvider extends React.PureComponent {
     if (moment(startTime).isSame(this.appointmentStartTime)
       && moment(endTime).isSame(this.appointmentEndTime)) return;
 
+    startEditAppointment({ appointmentId: payload.id });
     changeAppointment({
       change: {
         startDate: this.appointmentStartTime,
@@ -175,8 +176,9 @@ export class DragDropProvider extends React.PureComponent {
     });
   }
 
-  handleDrop(commitChangedAppointment) {
+  handleDrop({ commitChangedAppointment, stopEditAppointment }) {
     const { payload } = this.state;
+    stopEditAppointment({ appointmentId: payload.id });
     commitChangedAppointment({ appointmentId: payload.id });
     this.resetCash();
 
@@ -210,9 +212,12 @@ export class DragDropProvider extends React.PureComponent {
             {({
               viewCellsData, startViewDate, endViewDate, excludedDays,
               timeTableElement, layoutElement, layoutHeaderElement,
-            }, { commitChangedAppointment, changeAppointment }) => (
+            }, {
+              commitChangedAppointment, changeAppointment,
+              startEditAppointment, stopEditAppointment,
+            }) => (
               <DragDropProviderCore
-                onChange={this.onPayloadChange(commitChangedAppointment)}
+                onChange={this.onPayloadChange({ commitChangedAppointment, stopEditAppointment })}
               >
                 <DropTarget
                   onOver={this.onOver({
@@ -223,8 +228,8 @@ export class DragDropProvider extends React.PureComponent {
                     timeTableElement,
                     layoutElement,
                     layoutHeaderElement,
-                  }, { changeAppointment })}
-                  onDrop={this.onDrop(commitChangedAppointment)}
+                  }, { changeAppointment, startEditAppointment, stopEditAppointment })}
+                  onDrop={this.onDrop({ commitChangedAppointment, stopEditAppointment })}
                 >
                   <TemplatePlaceholder />
                 </DropTarget>

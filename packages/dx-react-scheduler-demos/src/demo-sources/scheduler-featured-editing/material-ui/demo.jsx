@@ -10,6 +10,7 @@ import {
   Appointments,
   AppointmentTooltip,
   AppointmentForm,
+  DragDropProvider,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { connectProps } from '@devexpress/dx-react-core';
 import { InlineDateTimePicker, MuiPickersUtilsProvider } from 'material-ui-pickers';
@@ -115,9 +116,13 @@ class AppointmentFormContainerBasic extends React.PureComponent {
       ...this.getAppointmentData(),
       ...this.getAppointmentChanges(),
     };
-    commitChanges({
-      [type]: type === 'deleted' ? appointment.id : appointment,
-    });
+    if (type === 'delete') {
+      commitChanges({ [type]: appointment.id });
+    } else if (type === 'changed') {
+      commitChanges({ [type]: { [appointment.id]: appointment } });
+    } else {
+      commitChanges({ [type]: appointment });
+    }
     this.setState({
       appointmentChanges: {},
     });
@@ -339,7 +344,7 @@ class Demo extends React.PureComponent {
     }
     if (changed) {
       data = data.map(appointment => (
-        changed.id === appointment.id ? { ...appointment, ...changed } : appointment));
+        changed[appointment.id] ? { ...appointment, ...changed[appointment.id] } : appointment));
     }
     if (deleted !== undefined) {
       this.setDeletedAppointmentId(deleted);
@@ -393,6 +398,7 @@ class Demo extends React.PureComponent {
             visible={editingFormVisible}
             onVisibilityChange={this.toggleEditingFormVisibility}
           />
+          <DragDropProvider />
         </Scheduler>
 
         <Dialog

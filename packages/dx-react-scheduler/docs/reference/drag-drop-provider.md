@@ -1,6 +1,6 @@
 # DragDropProvider Plugin Reference
 
-A plugin that implements the drag-and-drop functionality and visualizes appointments that are being dragged.
+A plugin that implements the drag-and-drop functionality and visualizes appointment that is being dragged and appointment that is source drag appointment.
 
 ## Import
 
@@ -22,26 +22,21 @@ import { DragDropProvider } from '@devexpress/dx-react-scheduler';
 
 - [EditingState](editing-state.md)
 - [Appointments](week-view.md)
+- [DayView](day-view.md) [Optional]
+- [WeekView](week-view.md) [Optional]
+- [MonthView](month-view.md) [Optional]
 - [AllDayPanel](all-day-panel.md) [Optional]
 
 ### Properties
 
 Name | Type | Default | Description
 -----|------|---------|------------
-draggingPredicate | ([AppointmentModel](./scheduler.md#appointmentmodel)) => boolean | () => `true` | A drag predicate. A function that specifies which appointments are draggable.
+draggingPredicate | (appointmentData: [AppointmentModel](./scheduler.md#appointmentmodel)) => boolean | () => true | A function that specifies which appointments are draggable.
 draftAppointmentComponent | ComponentType&lt;[DragDropProvider.DraftAppointmentProps](#dragdropproviderdraftappointmentprops)&gt; | | A component that renders a appointment being dragged.
-sourceAppointmentComponent | ComponentType&lt;[DragDropProvider.SourceAppointmentProps](#dragdropprovidersourceappointmentprops)&gt; | | A component that renders a source appointment.
+sourceAppointmentComponent | ComponentType&lt;[DragDropProvider.SourceAppointmentProps](#dragdropprovidersourceappointmentprops)&gt; | | A component that renders a source drag appointment.
 containerComponent | ComponentType&lt;[DragDropProvider.ContainerProps](#dragdropprovidercontainerprops)&gt; | | A component that renders a container for appointment being dragged.
 
 ## Interfaces
-
-### DragDropProvider.ContainerProps
-
-Describes properties of the component that renders a container for appointment being dragged.
-
-Field | Type | Description
-------|------|------------
-children | ReactNode | A React node representing appointment being dragged.
 
 ### DragDropProvider.DraftAppointmentProps
 
@@ -55,13 +50,21 @@ type | string | Specifies an appointment type.
 
 ### DragDropProvider.SourceAppointmentProps
 
-Describes properties of the component that renders a source appointment.
+Describes properties of the component that renders a source drag appointment.
 
 Field | Type | Description
 ------|------|------------
-data | [AppointmentModel](./scheduler.md#appointmentmodel) | Specifies a appointment's data that being dragged.
+data | [AppointmentModel](./scheduler.md#appointmentmodel) | Specifies a appointment's data that is source drag.
 style | object | An object that configures the appointment geometry and position.
 type | string | Specifies an appointment type.
+
+### DragDropProvider.ContainerProps
+
+Describes properties of the component that renders a container for appointment being dragged.
+
+Field | Type | Description
+------|------|------------
+children | ReactNode | A React node representing appointment being dragged.
 
 ## Plugin Components
 

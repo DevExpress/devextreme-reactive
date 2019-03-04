@@ -66,6 +66,6 @@ For example, you can show a confirmation dialog before an appointment is removed
 
 ## Editing By Move
 
-Use the [DragDropProvider](../reference/drag-drop-provider.md) plugin for editing appointments by move them. Use the `draggingPredicate` property to prevent dragging for special appointments. Also this plugin allows you to customize special drag appointment components via override properties `draftAppointmentComponent` and `sourceAppointmentComponent`.
+Use the [DragDropProvider](../reference/drag-drop-provider.md) plugin for editing appointments by move them. You can prevent dragging for special appointments by using the `draggingPredicate` property. Also this plugin allows you to customize special drag appointment components via override properties `draftAppointmentComponent` and `sourceAppointmentComponent`.
 
 .embedded-demo({ "path": "scheduler-editing/drag-drop", "showThemeSelector": true })

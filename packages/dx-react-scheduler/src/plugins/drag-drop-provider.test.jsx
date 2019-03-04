@@ -45,12 +45,18 @@ const defaultDeps = {
     },
     layoutElement: {
       current: {
+        scrollTop: 10,
+        offsetTop: 10,
+        clientHeight: 100,
         getBoundingClientRect: () => ({ height: 1, top: 1 }),
       },
     },
     layoutHeaderElement: {
       current: {
-        getBoundingClientRect: () => ({ offsetTop: 1, clientHeight: 1 }),
+        getBoundingClientRect: () => ({
+          height: 10,
+          top: 10,
+        }),
         querySelectorAll: () => [],
       },
     },
@@ -154,20 +160,6 @@ describe('DragDropProvider', () => {
   });
 
   describe('Dragging', () => {
-    it('should work', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <DragDropProvider
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      const onOver = tree.find(DropTarget).prop('onOver');
-      onOver({ payload: 1, clientOffset: 1 });
-    });
-
     it('should render draft appointment template', () => {
       allDayRects.mockImplementationOnce(() => [{}]);
       const draftAppointment = () => <div className="custom-class" />;
@@ -220,25 +212,155 @@ describe('DragDropProvider', () => {
         .toBeTruthy();
     });
 
-    it('should call predicate before render appointment template', () => {
-      const predicate = jest.fn();
-      predicate.mockImplementation(() => false);
+    it('should render source appointment template', () => {
+      const deps = {
+        template: {
+          appointment: {
+            data: {
+              id: 1,
+            },
+          },
+        },
+      };
       allDayRects.mockImplementationOnce(() => [{}]);
+      const sourceAppointment = () => <div className="custom-class" />;
 
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps, deps)}
+          <DragDropProvider
+            {...defaultProps}
+            sourceAppointmentComponent={sourceAppointment}
+          />
+        </PluginHost>
+      ));
+
+      const onOver = tree.find(DropTarget).prop('onOver');
+      onOver({ payload: { id: 1 }, clientOffset: 1 });
+      tree.update();
+
+      expect(tree.find('.custom-class').exists())
+        .toBeTruthy();
+    });
+  });
+
+  describe('Auto Scroll', () => {
+    it('should scroll up', () => {
+      const deps = {
+        getter: {
+          layoutElement: {
+            current: {
+              scrollTop: 10,
+              offsetTop: 10,
+              clientHeight: 100,
+              getBoundingClientRect: () => ({ height: 1, top: 1 }),
+            },
+          },
+        },
+      };
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps, deps)}
+          <DragDropProvider
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      const onOver = tree.find(DropTarget).prop('onOver');
+      onOver({ payload: { id: 1 }, clientOffset: { x: 1, y: 21 } });
+      tree.update();
+
+      expect(deps.getter.layoutElement.current.scrollTop)
+        .toBe(-20);
+    });
+
+    it('should scroll down', () => {
+      const deps = {
+        getter: {
+          layoutElement: {
+            current: {
+              scrollTop: 10,
+              offsetTop: 10,
+              clientHeight: 200,
+              getBoundingClientRect: () => ({ height: 1, top: 1 }),
+            },
+          },
+        },
+      };
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps, deps)}
+          <DragDropProvider
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      const onOver = tree.find(DropTarget).prop('onOver');
+      onOver({ payload: { id: 1 }, clientOffset: { x: 1, y: 161 } });
+      tree.update();
+
+      expect(deps.getter.layoutElement.current.scrollTop)
+        .toBe(40);
+    });
+
+    it('should not scroll up under table header', () => {
+      const deps = {
+        getter: {
+          layoutElement: {
+            current: {
+              scrollTop: 0,
+            },
+          },
+          layoutHeaderElement: {
+            current: {
+              getBoundingClientRect: () => ({
+                height: 20,
+                top: 10,
+              }),
+              querySelectorAll: () => [],
+            },
+          },
+        },
+      };
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps, deps)}
+          <DragDropProvider
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      const onOver = tree.find(DropTarget).prop('onOver');
+      onOver({ payload: { id: 1 }, clientOffset: { x: 1, y: 25 } });
+      tree.update();
+
+      expect(deps.getter.layoutElement.current.scrollTop)
+        .toBe(0);
+    });
+  });
+
+  describe('calculate appointment boundaries', () => {
+    it('for time table', () => {
+      cellIndex.mockImplementationOnce(() => 1);
+      cellData.mockImplementationOnce(() => ({ startDate: new Date() });
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <DragDropProvider
             {...defaultProps}
-            draggingPredicate={predicate}
           />
         </PluginHost>
       ));
 
-      expect(tree.find(DragSource).exists())
-        .toBeFalsy();
-      expect(predicate)
-        .toBeCalledWith(defaultDeps.template.appointment.data);
+      const onOver = tree.find(DropTarget).prop('onOver');
+      onOver({ payload: { id: 1 }, clientOffset: { x: 1, y: 25 } });
+      tree.update();
+
+      expect(defaultDeps.action.changeAppointment)
+        .toBeCalledWith({ change: { startDate: undefined, endDate: undefined } });
     });
   });
 });

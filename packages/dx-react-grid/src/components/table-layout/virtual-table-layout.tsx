@@ -128,6 +128,7 @@ export class VirtualTableLayout extends React.PureComponent<VirtualTableLayoutPr
     const collapsedBodyGrid = getCollapsedGridBlock(
       bRows || [], visibleBoundaries.bodyRows, totalRowCount, loadedRowsStart,
     );
+    // console.log('total count', totalRowCount, 'bounds', visibleBoundaries.columns, 'collapsed', collapsedBodyGrid)
     const collapsedFooterGrid = getCollapsedGridBlock(footerRows || [], null);//visibleBoundaries.footerRows);
     const bodyBottomMargin = Math.max(0, containerHeight - headerHeight - bodyHeight - footerHeight);
     // console.log(containerHeight, headerHeight, bodyHeight, footerHeight);

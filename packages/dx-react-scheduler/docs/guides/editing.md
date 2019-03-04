@@ -74,6 +74,6 @@ For example, you can show a confirmation dialog before an appointment is removed
 
 Add the [DragDropProvider](../reference/drag-drop-provider.md) plugin to enable users to drag and drop appointments. Use its `draggingPredicate` property to disallow dragging specific appointments.
 
-This plugin also allows you to customize the appointment being dragged (via the `draftAppointmentComponent` property) and its translucent copy displayed in the former location (via `sourceAppointmentComponent`).
+This plugin also allows you to customize the appointment being dragged (via the `draftAppointmentComponent` property) and its copy displayed in the former location (via `sourceAppointmentComponent`).
 
 .embedded-demo({ "path": "scheduler-editing/drag-drop", "showThemeSelector": true })

@@ -8,6 +8,7 @@ const titles = {
   'react/core': 'React Core',
   'react/grid': 'React Grid',
   'react/chart': 'React Chart',
+  'react/scheduler': 'React Scheduler',
 };
 
 const Product = ({ link }) => (

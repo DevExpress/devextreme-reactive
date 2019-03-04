@@ -75,7 +75,7 @@ const IndexPage = () => (
                 React Components
               </React.Fragment>
             )}
-            additional="for Bootstrap and Material Design"
+            additional="for Bootstrap and Material-UI"
             imageLink={headerLink}
           />
         )}

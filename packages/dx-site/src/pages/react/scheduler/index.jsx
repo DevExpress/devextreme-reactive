@@ -4,10 +4,27 @@ import Layout from '../../../components/layout';
 import Header from '../../../components/header';
 import ProductLogo from '../../../components/logos/product';
 import LandingHeaderAddon from '../../../components/landing/header-addon';
-import LandingLayout from '../../../components/landing/layout';
+import LandingChessBoardLayoutList from '../../../components/landing/chess-board-layout-list';
 import LandingMaintainence from '../../../components/landing/maintainence';
 import LandingLink from '../../../components/landing/link';
 import LandingReadyToLearnMore from '../../../components/landing/ready-to-learn-more';
+import imageBoxLink from '../../images/image-box.png';
+
+const pageData = [
+  {
+    alternative: true,
+    sectionTitle: 'Supported Features',
+    title: 'Different Appointment Types',
+    description: 'Description....',
+    imageLink: imageBoxLink,
+  },
+  {
+    reversed: true,
+    title: 'Editing',
+    description: 'Description....',
+    imageLink: imageBoxLink,
+  },
+];
 
 const IndexPage = () => (
   <Layout>
@@ -19,7 +36,7 @@ const IndexPage = () => (
           main="React Scheduler"
           additional={(
             <React.Fragment>
-              for Material UI
+              for Material-UI
               <br />
               <br />
               <LandingLink
@@ -43,7 +60,7 @@ const IndexPage = () => (
         />
       )}
     />
-    <LandingLayout />
+    <LandingChessBoardLayoutList data={pageData} />
     <LandingMaintainence />
     <LandingReadyToLearnMore
       links={(

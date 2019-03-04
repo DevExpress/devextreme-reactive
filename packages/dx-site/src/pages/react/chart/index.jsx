@@ -7,12 +7,38 @@ import LandingHeaderAddon from '../../../components/landing/header-addon';
 import LandingMaintainence from '../../../components/landing/maintainence';
 import LandingLink from '../../../components/landing/link';
 import LandingReadyToLearnMore from '../../../components/landing/ready-to-learn-more';
-import LandingAlternatedBackground from '../../../components/landing/alternated-background';
-import LandingChessBoardLayout from '../../../components/landing/chess-board-layout';
-import LandingFeatureDescription from '../../../components/landing/feature-description';
-import LandingFeaturePreview from '../../../components/landing/feature-preview';
+import LandingChessBoardLayoutList from '../../../components/landing/chess-board-layout-list';
 import imageBoxLink from '../../images/image-box.png';
 import headerLink from './images/header.png';
+
+const pageData = [
+  {
+    alternative: true,
+    sectionTitle: '10 Built-in Series Types',
+    title: 'React Bar Chart',
+    description: 'Description....',
+    imageLink: imageBoxLink,
+  },
+  {
+    reversed: true,
+    title: 'React Pie Chart',
+    description: 'Description....',
+    imageLink: imageBoxLink,
+  },
+  {
+    alternative: true,
+    sectionTitle: 'Unlimited Chart Customization',
+    title: 'HTML/CSS Layout Customization',
+    description: 'Description....',
+    imageLink: imageBoxLink,
+  },
+  {
+    reversed: true,
+    title: 'D3 Compatible',
+    description: 'Description....',
+    imageLink: imageBoxLink,
+  },
+];
 
 const IndexPage = () => (
   <Layout>
@@ -49,102 +75,7 @@ const IndexPage = () => (
         />
       )}
     />
-    <LandingChessBoardLayout
-      title="10 Built-in Series Types"
-      firstChild={(
-        <LandingFeatureDescription
-          title="React Bar Chart"
-          description="Description...."
-        />
-        )}
-      secondChild={(
-        <LandingFeaturePreview
-          title="React Bar Chart"
-          imageLink={imageBoxLink}
-        />
-        )}
-    />
-    <LandingAlternatedBackground>
-      <LandingChessBoardLayout
-        reversed
-        firstChild={(
-          <LandingFeatureDescription
-            title="React Pie Chart"
-            description="Description...."
-          />
-          )}
-        secondChild={(
-          <LandingFeaturePreview
-            title="React Pie Chart"
-            imageLink={imageBoxLink}
-          />
-          )}
-      />
-    </LandingAlternatedBackground>
-    <LandingChessBoardLayout
-      title="Unlimited Chart Customization"
-      firstChild={(
-        <LandingFeatureDescription
-          title="HTML/CSS Layout Customization"
-          description="Description...."
-        />
-        )}
-      secondChild={(
-        <LandingFeaturePreview
-          title="HTML/CSS Layout Customization"
-          imageLink={imageBoxLink}
-        />
-        )}
-    />
-    <LandingAlternatedBackground>
-      <LandingChessBoardLayout
-        reversed
-        firstChild={(
-          <LandingFeatureDescription
-            title="D3 Compatible"
-            description="Description...."
-          />
-          )}
-        secondChild={(
-          <LandingFeaturePreview
-            title="D3 Compatible"
-            imageLink={imageBoxLink}
-          />
-          )}
-      />
-    </LandingAlternatedBackground>
-    <LandingChessBoardLayout
-      title="Hibrid Rendering & Seamless Theming"
-      firstChild={(
-        <LandingFeatureDescription
-          title="Twitter Bootstrap React Chart"
-          description="Use any existing or create your custom Bootstrap theme. No need for any additional configuration."
-        />
-        )}
-      secondChild={(
-        <LandingFeaturePreview
-          title="Twitter Bootstrap React Chart"
-          imageLink={imageBoxLink}
-        />
-        )}
-    />
-    <LandingAlternatedBackground>
-      <LandingChessBoardLayout
-        reversed
-        firstChild={(
-          <LandingFeatureDescription
-            title="Material Design React Chart"
-            description="We ship additional Material-UI packages that allow you to utilize the familiar approaches and appearance."
-          />
-          )}
-        secondChild={(
-          <LandingFeaturePreview
-            title="Material Design React Chart"
-            imageLink={imageBoxLink}
-          />
-          )}
-      />
-    </LandingAlternatedBackground>
+    <LandingChessBoardLayoutList data={pageData} />
     <LandingMaintainence />
     <LandingReadyToLearnMore
       links={(

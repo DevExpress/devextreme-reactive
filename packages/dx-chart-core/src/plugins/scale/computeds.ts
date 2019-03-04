@@ -26,8 +26,6 @@ export const addDomain: AddDomainFn = (domains, name, options) => ({
   [name]: makeDomain(options),
 });
 
-const getSeriesValueDomainName = (series: Series) => getValueDomainName(series.scaleName);
-
 const floatsEqual = (a: number, b: number) => Math.abs(a - b) < Number.EPSILON;
 
 const mergeContinuousDomains: MergeDomainsFn = (domain, items) => {
@@ -98,7 +96,7 @@ const updateDomain = (
 export const extendDomains: ExtendDomainsFn = (domains, series) => {
   const argumentDomain = updateDomain(
     domains[ARGUMENT_DOMAIN], series, getArgument, getArgumentDomainItems);
-  const valueDomainName = getSeriesValueDomainName(series);
+  const valueDomainName = getValueDomainName(series.scaleName);
   const valueDomain = updateDomain(
     domains[valueDomainName], series, getValue, getValueDomainItems);
   const changes = {};

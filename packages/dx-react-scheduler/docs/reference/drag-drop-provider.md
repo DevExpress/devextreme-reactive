@@ -33,7 +33,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 draggingPredicate | (appointmentData: [AppointmentModel](./scheduler.md#appointmentmodel)) => boolean | () => true | A function that specifies draggable appointments.
 draftAppointmentComponent | ComponentType&lt;[DragDropProvider.DraftAppointmentProps](#dragdropproviderdraftappointmentprops)&gt; | | A component that renders the appointment being dragged.
-sourceAppointmentComponent | ComponentType&lt;[DragDropProvider.SourceAppointmentProps](#dragdropprovidersourceappointmentprops)&gt; | | A component that renders the translucent copy of the appointment being dragged.
+sourceAppointmentComponent | ComponentType&lt;[DragDropProvider.SourceAppointmentProps](#dragdropprovidersourceappointmentprops)&gt; | | A component that renders the copy of the appointment being dragged in the former location.
 containerComponent | ComponentType&lt;[DragDropProvider.ContainerProps](#dragdropprovidercontainerprops)&gt; | | A component that renders a container for the appointment being dragged.
 
 ## Interfaces
@@ -50,7 +50,7 @@ type | string | Specifies the appointment's type.
 
 ### DragDropProvider.SourceAppointmentProps
 
-Describes properties of the component that renders the translucent copy of the appointment being dragged.
+Describes properties of the component that renders the copy of the appointment being dragged in the former location.
 
 Field | Type | Description
 ------|------|------------
@@ -71,7 +71,7 @@ children | ReactNode | Represents the appointment being dragged.
 Name | Properties | Description
 -----|------------|------------
 DragDropProvider.DraftAppointment | [DragDropProvider.DraftAppointmentProps](#dragdropproviderdraftappointmentprops) | A component that renders the appointment being dragged.
-DragDropProvider.SourceAppointment | [DragDropProvider.SourceAppointmentProps](#dragdropprovidersourceappointmentprops) | A component that renders the translucent copy of the appointment being dragged.
+DragDropProvider.SourceAppointment | [DragDropProvider.SourceAppointmentProps](#dragdropprovidersourceappointmentprops) | A component that renders the copy of the appointment being dragged in the former location.
 DragDropProvider.Container | [DragDropProvider.ContainerProps](#dragdropprovidercontainerprops) | A component that renders a container for the appointment being dragged.
 
 Additional properties are added to the component's root element.

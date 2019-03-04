@@ -199,7 +199,7 @@ export class DragDropProvider extends React.PureComponent {
       containerComponent: Container,
       draftAppointmentComponent: DraftAppointment,
       sourceAppointmentComponent: SourceAppointment,
-      draggingPredicate,
+      allowDrag,
     } = this.props;
 
     const draftData = {
@@ -244,7 +244,7 @@ export class DragDropProvider extends React.PureComponent {
 
         <Template
           name="appointment"
-          predicate={({ data }) => draggingPredicate(data)}
+          predicate={({ data }) => allowDrag(data)}
         >
           {params => (
             <DragSource
@@ -307,11 +307,11 @@ DragDropProvider.propTypes = {
   containerComponent: PropTypes.func.isRequired,
   draftAppointmentComponent: PropTypes.func.isRequired,
   sourceAppointmentComponent: PropTypes.func.isRequired,
-  draggingPredicate: PropTypes.func,
+  allowDrag: PropTypes.func,
 };
 
 DragDropProvider.defaultProps = {
-  draggingPredicate: () => true,
+  allowDrag: () => true,
 };
 
 DragDropProvider.components = {

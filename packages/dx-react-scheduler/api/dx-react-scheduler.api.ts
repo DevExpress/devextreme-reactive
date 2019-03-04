@@ -335,9 +335,9 @@ module DragDropProvider {
 
 // @public (undocumented)
 interface DragDropProviderProps {
+  allowDrag: (appointmentData: AppointmentModel) => boolean;
   containerComponent: React.ComponentType<DragDropProvider.ContainerProps>;
   draftAppointmentComponent: React.ComponentType<DragDropProvider.DraftAppointmentProps>;
-  draggingPredicate: (appointmentData: AppointmentModel) => boolean;
   sourceAppointmentComponent: React.ComponentType<DragDropProvider.SourceAppointmentProps>;
 }
 

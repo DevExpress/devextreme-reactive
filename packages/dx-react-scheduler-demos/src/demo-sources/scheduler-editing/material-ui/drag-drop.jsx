@@ -17,7 +17,7 @@ const appointmentComponent = (props) => {
     return <Appointments.Appointment {...props} style={{ ...props.style, cursor: 'not-allowed' }} />;
   } return <Appointments.Appointment {...props} />;
 };
-const draggingPredicate = ({ id }) => dragDisableIds.findIndex(elemId => elemId === id) === -1;
+const allowDrag = ({ id }) => dragDisableIds.findIndex(elemId => elemId === id) === -1;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -76,7 +76,7 @@ export default class Demo extends React.PureComponent {
           />
 
           <DragDropProvider
-            draggingPredicate={draggingPredicate}
+            allowDrag={allowDrag}
           />
         </Scheduler>
       </Paper>

@@ -80,7 +80,7 @@ export default class Demo extends React.PureComponent {
           <ViewSwitcher />
 
           <DragDropProvider
-            draggingPredicate={({ title }) => title !== 'DRAGGING DISABLED'}
+            allowDrag={({ title }) => title !== 'DRAGGING DISABLED'}
           />
         </Scheduler>
       </Paper>

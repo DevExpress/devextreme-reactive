@@ -148,7 +148,7 @@ describe('DragDropProvider', () => {
           {pluginDepsToComponents(defaultDeps)}
           <DragDropProvider
             {...defaultProps}
-            draggingPredicate={predicate}
+            allowDrag={predicate}
           />
         </PluginHost>
       ));

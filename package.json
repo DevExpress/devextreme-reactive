@@ -57,7 +57,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "yarn update-api"
+      "pre-push": "yarn build:ts && yarn update-api"
     }
   },
   "workspaces": [

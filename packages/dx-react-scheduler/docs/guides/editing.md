@@ -9,7 +9,7 @@ The following plugins implement this feature:
 - [EditingState](../reference/editing-state.md) - controls the editing state
 - [AppointmentTooltip](../reference/appointment-tooltip.md) - renders a tooltip with controls that manage the appointment
 - [AppointmentForm](../reference/appointment-form.md) - renders a form that allows a user to edit an appointment
-- [DragDropProvider](../reference/drag-drop-provider.md) - implements the drag-and-drop functionality and visualizes appointment that is being dragged and appointment that is source drag appointment
+- [DragDropProvider](../reference/drag-drop-provider.md) - implements drag-and-drop editing
 
 ## User Interaction
 
@@ -22,9 +22,15 @@ The user can edit appointments as follows:
 
 ### Update an Appointment
 
-- Double-click an appointment to open the appointment editing form
-- Click an appointment for the appointment tooltip to appear, and then click Edit in the tooltip to open the appointment editing form
-- Reschedule an appointment by moving it to another cell. This functionality will be available after add the [DragDropProvider](../reference/drag-drop-provider.md) plugin
+Double-click an appointment to open the appointment editing form.
+
+OR
+
+Click an appointment for the appointment tooltip to appear, and then click Edit in the tooltip to open the appointment editing form.
+
+OR
+
+Reschedule an appointment by dragging it to another cell. This functionality requires the [DragDropProvider](../reference/drag-drop-provider.md) plugin.
 
 ### Delete an Appointment
 
@@ -64,8 +70,10 @@ For example, you can show a confirmation dialog before an appointment is removed
 
 .embedded-demo({ "path": "scheduler-editing/delete-confirmation", "showThemeSelector": true })
 
-## Editing By Move
+## Drag-and-Drop Editing
 
-Use the [DragDropProvider](../reference/drag-drop-provider.md) plugin for editing appointments by move them. You can prevent dragging for special appointments by using the `draggingPredicate` property. Also this plugin allows you to customize special drag appointment components via override properties `draftAppointmentComponent` and `sourceAppointmentComponent`.
+Add the [DragDropProvider](../reference/drag-drop-provider.md) plugin to enable users to drag and drop appointments. Use its `draggingPredicate` property to disallow dragging specific appointments.
 
 .embedded-demo({ "path": "scheduler-editing/drag-drop", "showThemeSelector": true })
+
+The `DragDropProvider` plugin also allows you to customize the appointment being dragged (via the `draftAppointmentComponent` property) and its copy displayed in the former location (via `sourceAppointmentComponent`).

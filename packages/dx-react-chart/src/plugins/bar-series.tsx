@@ -1,3 +1,4 @@
+import * as React from 'react';
 import {
   getBarPointTransformer as getPointTransformer,
   createBarHitTester as createHitTester,
@@ -7,7 +8,8 @@ import { PointCollection as Path } from '../templates/series/point-collection';
 import { Bar as Point } from '../templates/series/bar';
 import { BarSeriesProps } from '../types';
 
-export const BarSeries = declareSeries<BarSeriesProps>('BarSeries', {
+// tslint:disable-next-line: max-line-length
+export const BarSeries: React.ComponentType<BarSeriesProps> = declareSeries<BarSeriesProps>('BarSeries', {
   getPointTransformer,
   createHitTester,
   components: { Path, Point },

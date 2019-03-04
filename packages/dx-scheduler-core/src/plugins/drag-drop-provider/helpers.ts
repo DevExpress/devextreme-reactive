@@ -7,6 +7,7 @@ import { getVerticalRectByDates } from '../vertical-rect/helpers';
 import { getHorizontalRectByDates } from '../horizontal-rect/helpers';
 import { calculateMonthDateIntervals } from '../month-view/computeds';
 import { calculateAllDayDateIntervals } from '../all-day-panel/computeds';
+import { VERTICAL_TYPE, HORIZONTAL_TYPE } from '../../constants';
 
 const clamp = (value: number, min: number, max: number) => Math.max(Math.min(value, max), min);
 
@@ -14,6 +15,9 @@ type clientOffset = {
   x: number;
   y: number;
 };
+
+export const cellType = (data: AppointmentModel) => moment(data.startDate)
+  .isSame(data.endDate, 'day') ? VERTICAL_TYPE : HORIZONTAL_TYPE;
 
 export const intervalDuration = (
   data: AppointmentModel, type: 'seconds' | 'minutes',

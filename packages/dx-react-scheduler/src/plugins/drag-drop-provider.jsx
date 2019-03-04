@@ -9,6 +9,7 @@ import {
 import {
   cellIndex,
   cellData,
+  cellType,
   allDayRects,
   verticalTimeTableRects,
   horizontalTimeTableRects,
@@ -19,7 +20,6 @@ import {
 const SCROLL_OFFSET = 50;
 const SCROLL_SPEED_PX = 30;
 const VERTICAL_TYPE = 'vertical';
-const HORIZONTAL_TYPE = 'horizontal';
 const SECONDS = 'seconds';
 
 const pluginDependencies = [
@@ -102,8 +102,7 @@ export class DragDropProvider extends React.PureComponent {
 
     const appointmentDuration = intervalDuration(payload, SECONDS);
     const targetData = cellData(timeTableIndex, allDayIndex, viewCellsData);
-    const targetType = moment(targetData.startDate).isSame(targetData.endDate, 'day')
-      ? VERTICAL_TYPE : HORIZONTAL_TYPE;
+    const targetType = cellType(targetData);
     const sourceType = payload.type;
 
     // CALCULATE INSIDE OFFSET
@@ -130,8 +129,8 @@ export class DragDropProvider extends React.PureComponent {
       this.appointmentEndTime = moment(end)
         .add((appointmentDuration - this.offsetTimeTop), SECONDS).toDate();
     } else {
-      this.appointmentStartTime = moment(targetData.startDate).add(insideOffset, SECONDS);
-      this.appointmentEndTime = moment(targetData.endDate).add(insideOffset, SECONDS);
+      this.appointmentStartTime = moment(targetData.startDate).add(insideOffset, SECONDS).toDate();
+      this.appointmentEndTime = moment(targetData.endDate).add(insideOffset, SECONDS).toDate();
     }
 
     const draftAppointments = [{

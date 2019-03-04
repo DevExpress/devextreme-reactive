@@ -16,8 +16,8 @@ const virtualRowsComputed = ({
   } else if (currentStart + rows.length === cache.start) {
     result = rows.concat(cache.rows);
   }
-  console.log(`virtual rows, cache.start ${cache.start} current start ${currentStart}, rows length %c ${result.length}`, "color: red;");
-  // console.log('virtual rows', result)
+  // console.log(`virtual rows, cache.start ${cache.start} current start ${currentStart}, rows length %c ${result.length}`, "color: red;");
+  console.log('virtual rows', result)
   return result;
 };
 
@@ -25,22 +25,28 @@ const loadedRowsStartComputed = (
   { start, virtualPageSize, virtualRowsCache: cache }: Getters,
 ) => {
   const cacheStart = cache.start !== undefined ? cache.start : start;
-  // console.log('loaded start', cacheStart, start, virtualPageSize, Math.abs(start - cacheStart))
-  if (virtualPageSize < Math.abs(start - cacheStart)) {
-    return start;
+  let result;
+  // debugger
+  if (virtualPageSize * 2 < Math.abs(start - cacheStart)) {
+    result = start;
+  } else {
+    result = Math.min(start, cacheStart)
   }
-  return Math.min(start, cacheStart)
-}
+  console.log('loaded start=',result, 'cache start', cacheStart, 'start', start, virtualPageSize, Math.abs(start - cacheStart))
+  // console.log('loaded start', result)
+  return result;
+
+};
 
 const loadedRowsCountComputed = ({ rows, virtualRowsCache: cache }: Getters) => {
   return rows.length + (cache.rows && cache.rows.length || 0);
-}
+};
 
 const rowIdGetterComputed = ({
   rows: getterRows,
 }: Getters) => {
   return rowIdGetter(null!, getterRows);
-}
+};
 
 // tslint:disable-next-line: max-line-length
 export class VirtualTableState extends React.PureComponent<VirtualTableStateProps, VirtualTableStateState> {
@@ -58,7 +64,7 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
       start: props.start || 0,
       viewportTop: 0,
       virtualRowsCache: { start: 0, rows: [] },
-      requestedStartIndex: undefined,
+      requestedPageIndex: undefined,
       currentVirtualPageTop: 0,
       lastQueryTime: 0,
       // rowsCache: [],
@@ -77,16 +83,28 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
       },
     );
 
+    // const snapToVirtualPage = (index, pageSize) => (
+
+    // )
+
     this.requestNextPageAction = (rowIndex: any,
-      { virtualPageSize, virtualPageOverscan, rawRows, virtualRowsCache },
+      { virtualPageSize, loadedRowsStart, loadedRowsCount, rawRows },
       ) => {
-      const { requestedStartIndex } = this.state;
+      const { requestedPageIndex, virtualRowsCache } = this.state;
       const { start, getRows } = this.props;
 
-      let newAdjustedIndex = Math.round(rowIndex / virtualPageSize) * virtualPageSize;
-      if (newAdjustedIndex < virtualRowsCache.start + virtualRowsCache.rows.length) {
-        newAdjustedIndex += virtualPageSize;
-      }
+      const loadDownPage = rowIndex > loadedRowsStart + virtualPageSize || loadedRowsStart === 0;
+// debugger
+      const adjustedIndex = loadDownPage
+        ? loadedRowsStart + loadedRowsCount + virtualPageSize / 2
+        : rowIndex - virtualPageSize;
+      const newPageIndex = Math.floor(adjustedIndex / virtualPageSize);
+      const pageStart = newPageIndex * virtualPageSize;
+
+      // let newAdjustedIndex = Math.round(rowIndex / virtualPageSize) * virtualPageSize;
+      // if (newAdjustedIndex < virtualRowsCache.start + virtualRowsCache.rows.length) {
+      //   newAdjustedIndex += virtualPageSize;
+      // }
 
       // let newAdjustedIndex = rowIndex > start + virtualPageSize / 2
       //   ? start + virtualPageSize
@@ -98,27 +116,31 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
       //   newAdjustedIndex = rowIndex + virtualPageOverscan;
       // }
 
-      if (newAdjustedIndex !== requestedStartIndex) {
+      if (newPageIndex !== requestedPageIndex) {
         if (this.requestTimer !== 0) {
           clearTimeout(this.requestTimer);
         }
         this.requestTimer = setTimeout(() => {
-          // const rsi = requestedStartIndex;
-          // if (newAdjustedIndex % 100 !== 0) debugger
-          console.log(rowIndex, ' get rows, skip', newAdjustedIndex, 'current start', start)
-          getRows(newAdjustedIndex, virtualPageSize);
+          console.log(rowIndex, ' get rows, skip', pageStart, 'current start', start, 'page index', newPageIndex)
+          getRows(pageStart, virtualPageSize);
           // console.log(now - lastQueryTime)
+
+          const cacheStart = loadedRowsCount > 2 * virtualPageSize
+            ? loadDownPage
+              ? virtualRowsCache.start + virtualPageSize
+              : virtualRowsCache.start - virtualPageSize
+            : virtualRowsCache.start;
+
           this.setState({
-            requestedStartIndex: newAdjustedIndex,
+            requestedPageIndex: newPageIndex,
             lastQueryTime: Date.now(),
             virtualRowsCache: {
-              start,
-              rows: rawRows,
+              start: cacheStart,
+              rows: rawRows.slice(virtualPageSize),
             },
           });
         }, 50);
       }
-
     };
   }
 

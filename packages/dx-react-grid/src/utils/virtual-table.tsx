@@ -302,23 +302,29 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
       /** how many rows up and down before next page request */
       const currentVirtualPageBoundaryComputed = ({
         visibleBoundaries, loadedRowsStart, virtualPageOverscan, virtualPageSize,
-        loadedRowsCount,
+        rows, loadedRowsCount,
       }: Getters) => {
-        if (loadedRowsCount === 0) {
+        if (rows.length === 0) {
           return [0, -1];
         }
 
-        const { viewportTop } = this.state;
+        // const middleIndex = loadedRowsStart + Math.round(virtualPageSize / 2);
+        const topTriggerIndex = loadedRowsStart > 0 ? loadedRowsStart + virtualPageSize : 0;
+        const bottomTriggerIndex = loadedRowsStart + loadedRowsCount - virtualPageSize;
         const firstRowIndex = visibleBoundaries.bodyRows[0];
         const visibleCount = visibleBoundaries.bodyRows[1] - visibleBoundaries.bodyRows[0];
+
+        const topOffset = firstRowIndex - topTriggerIndex;
+        const bottomOffset = bottomTriggerIndex - firstRowIndex - visibleCount;
+
         // const topIndexOffset = firstRowIndex - loadedRowsStart;
         // const topBoundaryOffset = loadedRowsStart > 0 ? topIndexOffset - virtualPageOverscan : 0;
         // const bottomBoundaryOffset = loadedRowsCount - virtualPageOverscan - topIndexOffset - visibleCount;
 
-        const topBoundaryOffset = firstRowIndex - loadedRowsStart - virtualPageSize - virtualPageOverscan;
-        const bottomBoundaryOffset =
+        // const topBoundaryOffset = firstRowIndex - loadedRowsStart - virtualPageSize - virtualPageOverscan;
+        // const bottomBoundaryOffset =
 
-        return [topBoundaryOffset, bottomBoundaryOffset];
+        return [topOffset, bottomOffset];
       };
 
       return (

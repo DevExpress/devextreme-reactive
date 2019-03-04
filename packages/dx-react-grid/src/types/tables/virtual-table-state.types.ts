@@ -13,7 +13,7 @@ export type VirtualTableStateState = {
   start: number;
   rowCount?: number;
   viewportTop: number;
-  requestedStartIndex?: number,
+  requestedPageIndex?: number,
   currentVirtualPageTop: number;
   lastQueryTime: number;
   // rowsCache: any[],

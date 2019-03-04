@@ -24,7 +24,7 @@ const SVG_STYLE: React.CSSProperties = {
 };
 
 const adjustScaleRange = (scale: ScaleObject, [width, height]: NumberArray) => {
-  const range = scale.range().slice();
+  const range = scale.range().slice() as NumberArray;
   if (Math.abs(range[0] - range[1]) < 0.01) {
     return scale;
   }

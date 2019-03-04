@@ -3,125 +3,120 @@ import { scaleLinear as d3ScaleLinear, scaleBand as d3ScaleBand } from 'd3-scale
 import { isHorizontal, getValueDomainName } from '../../utils/scale';
 import { ARGUMENT_DOMAIN, VALUE_DOMAIN } from '../../constants';
 import {
-  Series, ScaleObject, SeriesList, PointList, DomainItems, DomainInfoCache, BuildScalesFn,
-  AddDomainFn, MergeDomainsFn, GetItemFn, DomainInfo, FactoryFn, ComputeDomainsFn,
+  Series, PointList, DomainItems, DomainInfoCache, BuildScalesFn, DomainInfo, DomainOptions,
+  AddDomainFn, MergeDomainsFn, GetItemFn, GetDomainItemsFn,
+  FactoryFn, ExtendDomainsFn,
 } from '../../types';
+
+const makeDomain = ({ factory, modifyDomain }: DomainOptions): DomainInfo => ({
+  domain: [],
+  factory,
+  isDiscrete: !!(factory && isDiscrete(factory)),
+  modifyDomain,
+});
 
 /** @internal */
 export const defaultDomains: DomainInfoCache = {
-  [ARGUMENT_DOMAIN]: { domain: [] },
-  [VALUE_DOMAIN]: { domain: [] },
+  [ARGUMENT_DOMAIN]: makeDomain({}),
+  [VALUE_DOMAIN]: makeDomain({}),
 };
 /** @internal */
-export const addDomain: AddDomainFn = (domains, name, props) => ({
+export const addDomain: AddDomainFn = (domains, name, options) => ({
   ...domains,
-  [name]: props,
+  [name]: makeDomain(options),
 });
 
-const copy = (domains: DomainInfoCache): DomainInfoCache => {
-  const result = {};
-  Object.keys(domains).forEach((name) => {
-    result[name] = { ...domains[name], domain: [] };
-  });
-  return result;
+const floatsEqual = (a: number, b: number) => Math.abs(a - b) < Number.EPSILON;
+
+const mergeContinuousDomains: MergeDomainsFn = (domain, items) => {
+  const newDomain = extent([...domain, ...items]);
+  return floatsEqual(newDomain[0], domain[0]) && floatsEqual(newDomain[1], domain[1])
+    ? domain : newDomain;
 };
 
-const getSeriesValueDomainName = (series: Series) => getValueDomainName(series.scaleName);
-
-const mergeContinuousDomains: MergeDomainsFn = (domain, items) =>
-  extent([...domain, ...items]);
-const mergeDiscreteDomains: MergeDomainsFn = (domain, items) =>
-  Array.from(new Set([...domain, ...items]));
+const mergeDiscreteDomains: MergeDomainsFn = (domain, items) => {
+  const newDomain = Array.from(new Set([...domain, ...items]));
+  return newDomain.length === domain.length ? domain : newDomain;
+};
 
 const getArgument: GetItemFn = point => point.argument;
 const getValue: GetItemFn = point => point.value;
 
-const extendDomain = (target: DomainInfo, items: DomainItems) => {
-  const merge = target.isDiscrete ? mergeDiscreteDomains : mergeContinuousDomains;
-  Object.assign(target, { domain: merge(target.domain, items) });
-};
-
-const calculateDomains = (domains: DomainInfoCache, seriesList: SeriesList) => {
-  seriesList.forEach((seriesItem) => {
-    const valueDomainName = getSeriesValueDomainName(seriesItem);
-    const { points } = seriesItem;
-    // TODO: This is a temporary workaround for Stack plugin.
-    // Once scales (or domains) are exposed for modification Stack will modify scale and
-    // this code will be removed.
-    const valueDomainItems = seriesItem.getValueDomain
-      ? seriesItem.getValueDomain(points) : points.map(getValue);
-    extendDomain(domains[valueDomainName], valueDomainItems);
-    extendDomain(domains[ARGUMENT_DOMAIN], points.map(getArgument));
-  });
-};
 /** @internal */
-export const scaleLinear: FactoryFn = d3ScaleLinear;
+export const scaleLinear: FactoryFn = d3ScaleLinear as any;
 /** @internal */
 export const scaleBand: FactoryFn = () => (
-  d3ScaleBand().paddingInner(0.3).paddingOuter(0.15) as any as ScaleObject
+  d3ScaleBand().paddingInner(0.3).paddingOuter(0.15) as any
 );
 
-const guessFactory = (points: PointList, getItem: GetItemFn) => {
-  if (points.length && typeof getItem(points[0]) === 'string') {
-    return scaleBand as any as FactoryFn;
+const guessFactory = (points: PointList, getItem: GetItemFn) => (
+  points.length && typeof getItem(points[0]) === 'string' ? scaleBand : scaleLinear
+);
+
+const isDiscrete = (factory: FactoryFn) => 'bandwidth' in factory();
+
+const updateDomainFactory = (domain: DomainInfo, series: Series, getItem: GetItemFn) => {
+  if (domain.factory) {
+    return domain;
   }
-  return scaleLinear;
+  const factory = guessFactory(series.points, getItem);
+  return {
+    ...domain,
+    factory,
+    isDiscrete: isDiscrete(factory),
+  };
 };
 
-const collectDomainsFromSeries = (domains: DomainInfoCache, seriesList: SeriesList) => {
-  seriesList.forEach((seriesItem) => {
-    if (!domains[ARGUMENT_DOMAIN].factory) {
-      Object.assign(domains[ARGUMENT_DOMAIN], {
-        factory: guessFactory(seriesItem.points, getArgument),
-      });
-    }
-    const valueDomainName = getSeriesValueDomainName(seriesItem);
-    const obj = domains[valueDomainName];
-    if (!obj.factory) {
-      obj.factory = guessFactory(seriesItem.points, getValue);
-    }
-    // TODO: It is to be removed together with *TODO* from above.
-    if (seriesItem.getPointTransformer.isStartedFromZero && obj.domain.length === 0) {
-      obj.domain = [0];
-    }
-  });
-  Object.keys(domains).forEach((name) => {
-    const obj = domains[name];
-    if (!obj.factory) {
-      obj.factory = scaleLinear;
-    }
-    obj.isDiscrete = !!obj.factory().bandwidth;
-  });
-  return domains;
+const updateDomainItems = (domain: DomainInfo, items: DomainItems): DomainInfo => {
+  const merge = domain.isDiscrete ? mergeDiscreteDomains : mergeContinuousDomains;
+  const merged = merge(domain.domain, items);
+  return merged === domain.domain ? domain : {
+    ...domain,
+    domain: domain.modifyDomain ? domain.modifyDomain(merged) : merged,
+  };
 };
 
-const customizeDomains = (domains: DomainInfoCache) => {
-  Object.keys(domains).forEach((name) => {
-    const obj = domains[name];
-    if (obj.modifyDomain) {
-      obj.domain = obj.modifyDomain(obj.domain);
-    }
-  });
+const getArgumentDomainItems: GetDomainItemsFn = series => series.points.map(getArgument);
+
+const getValueDomainItems: GetDomainItemsFn = (series) => {
+  // TODO: This is a temporary workaround for Stack plugin.
+  // Once scales (or domains) are exposed for modification Stack will modify scale and
+  // this code will be removed.
+  const items = series.getValueDomain
+    ? series.getValueDomain(series.points) : series.points.map(getValue);
+  // TODO: It is also a part of that workaround.
+  return series.getPointTransformer.isStartedFromZero ? [0, ...items] : items;
 };
+
+const updateDomain = (
+  domain: DomainInfo, series: Series, getItem: GetItemFn, getDomainItems: GetDomainItemsFn,
+) => updateDomainItems(updateDomainFactory(domain, series, getItem), getDomainItems(series));
 
 /** @internal */
-export const computeDomains: ComputeDomainsFn = (domains, seriesList) => {
-  const result = copy(domains);
-  collectDomainsFromSeries(result, seriesList);
-  calculateDomains(result, seriesList);
-  customizeDomains(result);
-  return result;
+export const extendDomains: ExtendDomainsFn = (domains, series) => {
+  const argumentDomain = updateDomain(
+    domains[ARGUMENT_DOMAIN], series, getArgument, getArgumentDomainItems);
+  const valueDomainName = getValueDomainName(series.scaleName);
+  const valueDomain = updateDomain(
+    domains[valueDomainName], series, getValue, getValueDomainItems);
+  const changes = {};
+  if (argumentDomain !== domains[ARGUMENT_DOMAIN]) {
+    changes[ARGUMENT_DOMAIN] = argumentDomain;
+  }
+  if (valueDomain !== domains[valueDomainName]) {
+    changes[valueDomainName] = valueDomain;
+  }
+  return Object.keys(changes).length ? { ...domains, ...changes } : domains;
 };
 
 /** @internal */
 export const buildScales: BuildScalesFn = (domains, { width, height }) => {
   const scales = {};
   Object.keys(domains).forEach((name) => {
-    const obj = domains[name];
-    const scale = obj.factory!();
-    scale.domain(obj.domain);
-    scale.range(isHorizontal(name) ? [0, width] : [height, 0]);
-    scales[name] = scale;
+    const { factory, domain } = domains[name];
+    scales[name] = (factory || scaleLinear)()
+      .domain(domain)
+      .range(isHorizontal(name) ? [0, width] : [height, 0]);
   });
   return scales;
 };

@@ -384,15 +384,17 @@ interface RawAxisProps {
 interface ScaleObject {
   // (undocumented)
   (value: any): number;
-  bandwidth?: () => number;
-  clamp?: (clamp: boolean) => ScaleObject;
-  copy: () => ScaleObject;
-  domain: (domain?: DomainItems) => any;
-  paddingInner?: (arg: number) => ScaleObject;
-  paddingOuter?: (arg: number) => ScaleObject;
-  range: (range?: DomainItems) => any;
-  tickFormat?: (count?: number, format?: string) => GetFormatFn;
-  ticks?: (ticks?: number) => DomainItems;
+  bandwidth?(): number;
+  clamp?(clamp: boolean): this;
+  copy(): this;
+  domain(domain: DomainItems): this;
+  domain(): DomainItems;
+  paddingInner?(arg: number): this;
+  paddingOuter?(arg: number): this;
+  range(): NumberArray;
+  range(range: NumberArray): this;
+  tickFormat?(count?: number, format?: string): GetFormatFn;
+  ticks?(ticks?: number): DomainItems;
 }
 
 // @public (undocumented)

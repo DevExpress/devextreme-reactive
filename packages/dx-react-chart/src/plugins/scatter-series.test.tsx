@@ -8,6 +8,7 @@ import { ScatterSeries } from './scatter-series';
 jest.mock('@devexpress/dx-chart-core', () => ({
   findSeriesByName: jest.fn(),
   addSeries: jest.fn(),
+  extendDomains: jest.fn(),
   ARGUMENT_DOMAIN: 'test_argument_domain',
   getValueDomainName: () => 'test_value_domain',
   checkZeroStart: jest.fn(),

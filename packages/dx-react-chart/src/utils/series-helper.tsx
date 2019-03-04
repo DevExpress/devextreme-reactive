@@ -10,7 +10,7 @@ import {
   PluginComponents,
 } from '@devexpress/dx-react-core';
 import {
-  findSeriesByName, addSeries, getValueDomainName, ARGUMENT_DOMAIN,
+  findSeriesByName, addSeries, extendDomains, getValueDomainName, ARGUMENT_DOMAIN,
 } from '@devexpress/dx-chart-core';
 import {
   ExtraSeriesParameters, SeriesProps, PathComponentProps, Scales,
@@ -50,9 +50,14 @@ export const declareSeries = <T extends SeriesProps>(
         data,
         palette,
       }: Getters) => addSeries(series, data, palette, seriesItem, restProps);
+      const getDomains = ({
+        series,
+        domains,
+      }: Getters) => extendDomains(domains, findSeriesByName(symbolName, series));
       return (
         <Plugin name={pluginName}>
           <Getter name="series" computed={getSeries} />
+          <Getter name="domains" computed={getDomains} />
           <Template name="series">
             <TemplatePlaceholder />
             <TemplateConnector>

@@ -4,6 +4,7 @@ import {
 import { TableRow } from './table.types';
 import { PureComputed, CustomFunction } from '@devexpress/dx-core';
 
+/** Describes the summary item associated with a column. */
 export interface SummaryItem {
   /** The name of a column associated with the current summary item. */
   columnName: string;

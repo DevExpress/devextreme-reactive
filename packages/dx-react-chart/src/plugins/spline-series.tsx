@@ -1,3 +1,4 @@
+import * as React from 'react';
 import {
   getLinePointTransformer as getPointTransformer,
   createSplineHitTester as createHitTester,
@@ -6,7 +7,8 @@ import { declareSeries } from '../utils';
 import { Spline as Path } from '../templates/series/spline';
 import { AreaSeriesProps } from '../types';
 
-export const SplineSeries = declareSeries<AreaSeriesProps>('SplineSeries', {
+// tslint:disable-next-line: max-line-length
+export const SplineSeries: React.ReactType<AreaSeriesProps> = declareSeries<AreaSeriesProps>('SplineSeries', {
   getPointTransformer,
   createHitTester,
   components: { Path },

@@ -1,3 +1,4 @@
+import * as React from 'react';
 import {
   getScatterPointTransformer as getPointTransformer,
   createScatterHitTester as createHitTester,
@@ -7,7 +8,8 @@ import { PointCollection as Path } from '../templates/series/point-collection';
 import { Point } from '../templates/series/point';
 import { ScatterSeriesProps } from '../types';
 
-export const ScatterSeries = declareSeries<ScatterSeriesProps>('ScatterSeries', {
+// tslint:disable-next-line: max-line-length
+export const ScatterSeries: React.ComponentType<ScatterSeriesProps> = declareSeries<ScatterSeriesProps>('ScatterSeries', {
   getPointTransformer,
   createHitTester,
   components: { Path, Point },

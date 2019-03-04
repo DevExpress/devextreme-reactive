@@ -1,15 +1,48 @@
 // @public (undocumented)
+declare const Action: React.ComponentType<ActionProps>;
+
+// @public (undocumented)
 interface ActionProps {
   action: (payload: any, getters: Getters, actions: Actions) => void;
   name: string;
 }
 
 // @public (undocumented)
+type Actions = {
+    // (undocumented)
+    [actionName: string]: (payload?: any) => void;
+};
+
+// @public
+declare const connectProps: (WrappedComponent: React.ComponentType<any>, getAdditionalProps: () => object) => (React.ComponentClass<any, any> & {
+  // (undocumented)
+  update(): void;
+}) | (React.FunctionComponent<any> & {
+  // (undocumented)
+  update(): void;
+});
+
+// @public (undocumented)
+declare const Getter: React.ComponentType<GetterProps>;
+
+// @public (undocumented)
 interface GetterProps {
-  computed?: (getters: Getters, actions: Actions) => any;
-  name: string;
-  value?: any;
+    computed?: (getters: Getters, actions: Actions) => any;
+    name: string;
+    value?: any;
 }
+
+// @public (undocumented)
+type Getters = {
+    // (undocumented)
+    readonly [getterName: string]: any;
+};
+
+// @public (undocumented)
+declare const Plugin: React.ComponentType<PluginProps>;
+
+// @public (undocumented)
+declare const PluginHost: React.ComponentType<PluginHostProps>;
 
 // @public (undocumented)
 interface PluginHostProps {
@@ -25,10 +58,19 @@ interface PluginProps {
   name?: string;
 }
 
+// @public
+declare const Template: React.ComponentType<TemplateProps>;
+
+// @public
+declare const TemplateConnector: React.ComponentType<TemplateConnectorProps>;
+
 // @public (undocumented)
 interface TemplateConnectorProps {
   children: (getters: Getters, actions: Actions) => React.ReactNode;
 }
+
+// @public
+declare const TemplatePlaceholder: React.ComponentType<TemplatePlaceholderProps>;
 
 // @public (undocumented)
 interface TemplatePlaceholderProps {
@@ -40,19 +82,10 @@ interface TemplatePlaceholderProps {
 
 // @public (undocumented)
 interface TemplateProps {
-  children: React.ReactNode | ((params: object) => React.ReactNode);
-  name: string;
-  predicate?: (params: object) => boolean;
+    children: React.ReactNode | ((params: object) => React.ReactNode);
+    name: string;
+    predicate?: (params: object) => boolean;
 }
 
-// WARNING: Unsupported export: Plugin
-// WARNING: Unsupported export: PluginHost
-// WARNING: Unsupported export: Action
-// WARNING: Unsupported export: Getters
-// WARNING: Unsupported export: Actions
-// WARNING: Unsupported export: Getter
-// WARNING: Unsupported export: Template
-// WARNING: Unsupported export: TemplatePlaceholder
-// WARNING: Unsupported export: TemplateConnector
-// WARNING: Unsupported export: connectProps
-// (No @packagedocumentation comment for this package)
+
+// (No @packageDocumentation comment for this package)

@@ -26,11 +26,11 @@ Double-click an appointment to open the appointment editing form.
 
 OR
 
-Click an appointment for the appointment tooltip to appear, and then click Edit in the tooltip to open the appointment editing form.
+Click an appointment to show its tooltip, and then click Edit in the tooltip to open the appointment editing form.
 
 OR
 
-Reschedule an appointment by dragging it to another cell. This functionality requires the [DragDropProvider](../reference/drag-drop-provider.md) plugin.
+Drag an appointment to another cell to reschedule it. This functionality requires the [DragDropProvider](../reference/drag-drop-provider.md) plugin.
 
 ### Delete an Appointment
 

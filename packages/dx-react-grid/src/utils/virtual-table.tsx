@@ -191,7 +191,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
         || nodeVerticalOffset > Math.max(node.scrollHeight, node.clientHeight)) {
         return;
       }
-      // console.log(currentVirtualPageBoundary)
+      console.log(`%c ${currentVirtualPageBoundary}`, 'color: gray')
 
       if (currentVirtualPageBoundary[0] < 0 || currentVirtualPageBoundary[1] < 0) {
         // console.log('request next page. boundary is', currentVirtualPageBoundary);
@@ -308,14 +308,16 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
           return [0, -1];
         }
 
-        // const middleIndex = loadedRowsStart + Math.round(virtualPageSize / 2);
         const topTriggerIndex = loadedRowsStart > 0 ? loadedRowsStart + virtualPageSize : 0;
         const bottomTriggerIndex = loadedRowsStart + loadedRowsCount - virtualPageSize;
         const firstRowIndex = visibleBoundaries.bodyRows[0];
         const visibleCount = visibleBoundaries.bodyRows[1] - visibleBoundaries.bodyRows[0];
+        const middleIndex = firstRowIndex + Math.round(visibleCount / 2);
 
-        const topOffset = firstRowIndex - topTriggerIndex;
-        const bottomOffset = bottomTriggerIndex - firstRowIndex - visibleCount;
+        const topOffset = middleIndex - topTriggerIndex;
+        const bottomOffset = bottomTriggerIndex - middleIndex;
+
+        // console.log(`%c ${firstRowIndex} - ${topTriggerIndex}`, 'color: lightgray')
 
         // const topIndexOffset = firstRowIndex - loadedRowsStart;
         // const topBoundaryOffset = loadedRowsStart > 0 ? topIndexOffset - virtualPageOverscan : 0;

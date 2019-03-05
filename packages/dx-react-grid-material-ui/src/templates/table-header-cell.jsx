@@ -94,7 +94,7 @@ const styles = theme => ({
 class TableHeaderCellBase extends React.PureComponent {
   constructor(props) {
     super(props);
-
+    console.log('=== create header cell')
     this.state = {
       dragging: false,
     };

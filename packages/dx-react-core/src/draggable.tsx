@@ -20,7 +20,7 @@ export class Draggable extends React.Component<DraggableProps> {
 
   constructor(props, context) {
     super(props, context);
-
+    console.log('create draggable');
     const delegate = {
       onStart: ({ x, y }) => {
         const { onStart } = this.props;

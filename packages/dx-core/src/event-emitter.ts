@@ -9,6 +9,7 @@ export class EventEmitter {
   }
 
   emit(e) {
+    // console.log('emit')
     this.handlers.forEach(handler => handler(e));
   }
 

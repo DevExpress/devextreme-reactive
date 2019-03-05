@@ -16,6 +16,7 @@ export type VirtualTableStateState = {
   requestedPageIndex?: number,
   currentVirtualPageTop: number;
   lastQueryTime: number;
+  loadedRowsStart: number;
   // rowsCache: any[],
   // visibleBoundaries: any,
 };

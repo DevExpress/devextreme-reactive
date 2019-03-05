@@ -26,7 +26,7 @@ Double-click an appointment to open the appointment editing form.
 
 OR
 
-Click an appointment to show its tooltip, and then click Edit in the tooltip to open the appointment editing form.
+Click an appointment to invoke its tooltip, and then click Edit in the tooltip to open the appointment editing form.
 
 OR
 
@@ -34,7 +34,7 @@ Drag an appointment to another cell to reschedule it. This functionality require
 
 ### Delete an Appointment
 
-Click an appointment to invoke the appointment tooltip, and then click Delete in the tooltip to remove the appointment.
+Click an appointment to invoke its tooltip, and then click Delete in the tooltip to remove the appointment.
 
 ## Basic Setup
 

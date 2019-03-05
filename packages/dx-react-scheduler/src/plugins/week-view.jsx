@@ -51,7 +51,7 @@ export class WeekView extends React.PureComponent {
       cellDuration,
       excludedDays,
       intervalCount,
-    } = this.props;
+    } = props;
 
     this.endViewDateBaseComputed = ({
       viewCellsData,
@@ -68,17 +68,9 @@ export class WeekView extends React.PureComponent {
       Date.now(),
     );
 
-    // this.timeTableElementComputed = this.timeTableElementComputed.bind(this);
-
-    this.timeTableElementComputed = () => {
-      return this.timeTable;
-    };
-    this.layoutElementComputed = () => {
-      return this.layout;
-    };
-    this.layoutHeaderElementComputed = () => {
-      return this.layoutHeader;
-    };
+    this.timeTableElementComputed = () => this.timeTable;
+    this.layoutElementComputed = () => this.layout;
+    this.layoutHeaderElementComputed = () => this.layoutHeader;
 
     this.currentViewComputed = ({ currentView }) => (
       currentView && currentView.name !== viewName
@@ -107,21 +99,15 @@ export class WeekView extends React.PureComponent {
       getters, viewName, this.viewCellsDataComputed, getters.viewCellsData,
     );
 
-    this.timeTableElement = (getters) => {
-      return computed(
-        getters, viewName, this.timeTableElementComputed, getters.timeTableElement,
-      );
-    };
-    this.layoutElement = (getters) => {
-      return computed(
-        getters, viewName, this.layoutElementComputed, getters.layoutElement,
-      );
-    };
-    this.layoutHeaderElement = (getters) => {
-      return computed(
-        getters, viewName, this.layoutHeaderElementComputed, getters.layoutHeaderElement,
-      );
-    };
+    this.timeTableElement = getters => computed(
+      getters, viewName, this.timeTableElementComputed, getters.timeTableElement,
+    );
+    this.layoutElement = getters => computed(
+      getters, viewName, this.layoutElementComputed, getters.layoutElement,
+    );
+    this.layoutHeaderElement = getters => computed(
+      getters, viewName, this.layoutHeaderElementComputed, getters.layoutHeaderElement,
+    );
   }
 
   timeTableRef(timeTableRef) {
@@ -161,7 +147,6 @@ export class WeekView extends React.PureComponent {
         <Getter name="viewCellsData" computed={this.viewCellsData} />
         <Getter name="startViewDate" computed={this.startViewDateComputed} />
         <Getter name="endViewDate" computed={this.endViewDateComputed} />
-
         <Getter name="timeTableElement" computed={this.timeTableElement} />
         <Getter name="layoutElement" computed={this.layoutElement} />
         <Getter name="layoutHeaderElement" computed={this.layoutHeaderElement} />
@@ -176,7 +161,6 @@ export class WeekView extends React.PureComponent {
                   dayScaleEmptyCellComponent={this.dayScaleEmptyCellPlaceholder}
                   timeTableComponent={this.timeTablePlaceholder}
                   timeScaleComponent={this.sidebarPlaceholder}
-
                   layoutRef={this.layout}
                   layoutHeaderRef={this.layoutHeader}
                 />

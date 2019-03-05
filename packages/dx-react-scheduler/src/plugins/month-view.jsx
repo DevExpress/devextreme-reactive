@@ -32,12 +32,13 @@ export class MonthView extends React.PureComponent {
 
     const {
       name: viewName, firstDayOfWeek, intervalCount,
-    } = this.props;
+    } = props;
 
     this.timeTable = { current: null };
     this.layout = React.createRef();
     this.layoutHeader = React.createRef();
     this.timeTableRef = this.timeTableRef.bind(this);
+
     this.dayScalePlaceholder = () => <TemplatePlaceholder name="navbar" />;
     this.timeTablePlaceholder = () => <TemplatePlaceholder name="main" />;
     this.appointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
@@ -52,15 +53,9 @@ export class MonthView extends React.PureComponent {
       intervalCount, Date.now(),
     );
 
-    this.timeTableElementComputed = () => {
-      return this.timeTable;
-    };
-    this.layoutElementComputed = () => {
-      return this.layout;
-    };
-    this.layoutHeaderElementComputed = () => {
-      return this.layoutHeader;
-    };
+    this.timeTableElementComputed = () => this.timeTable;
+    this.layoutElementComputed = () => this.layout;
+    this.layoutHeaderElementComputed = () => this.layoutHeader;
 
     this.currentViewComputed = ({ currentView }) => (
       currentView && currentView.name !== viewName
@@ -86,21 +81,15 @@ export class MonthView extends React.PureComponent {
       getters, viewName, this.viewCellsDataComputed, getters.viewCellsData,
     );
 
-    this.timeTableElement = (getters) => {
-      return computed(
-        getters, viewName, this.timeTableElementComputed, getters.timeTableElement,
-      );
-    };
-    this.layoutElement = (getters) => {
-      return computed(
-        getters, viewName, this.layoutElementComputed, getters.layoutElement,
-      );
-    };
-    this.layoutHeaderElement = (getters) => {
-      return computed(
-        getters, viewName, this.layoutHeaderElementComputed, getters.layoutHeaderElement,
-      );
-    };
+    this.timeTableElement = getters => computed(
+      getters, viewName, this.timeTableElementComputed, getters.timeTableElement,
+    );
+    this.layoutElement = getters => computed(
+      getters, viewName, this.layoutElementComputed, getters.layoutElement,
+    );
+    this.layoutHeaderElement = getters => computed(
+      getters, viewName, this.layoutHeaderElementComputed, getters.layoutHeaderElement,
+    );
   }
 
   timeTableRef(timeTableRef) {

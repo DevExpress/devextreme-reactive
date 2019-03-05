@@ -189,6 +189,52 @@ describe('Day View', () => {
       expect(getComputedState(tree).currentView)
         .toEqual({ name: 'Day', type: 'day' });
     });
+
+    it('should provide "timeTableElement" getter', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <DayView
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).timeTableElement)
+        .toEqual({ current: expect.any(Object) });
+    });
+
+    it('should provide "layoutElement" getter', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <DayView
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).layoutElement)
+        .toEqual({ current: expect.any(Object) });
+      expect(tree.find(defaultProps.layoutComponent).prop('layoutRef'))
+        .toBe(getComputedState(tree).layoutElement);
+    });
+
+    it('should provide "layoutHeaderElement" getter', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <DayView
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).layoutHeaderElement)
+        .toEqual({ current: expect.any(Object) });
+      expect(tree.find(defaultProps.layoutComponent).prop('layoutHeaderRef'))
+        .toBe(getComputedState(tree).layoutHeaderElement);
+    });
   });
 
   describe('Templates', () => {

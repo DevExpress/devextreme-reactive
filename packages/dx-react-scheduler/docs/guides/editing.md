@@ -76,4 +76,4 @@ Add the [DragDropProvider](../reference/drag-drop-provider.md) plugin to enable 
 
 .embedded-demo({ "path": "scheduler-editing/drag-drop", "showThemeSelector": true })
 
-The `DragDropProvider` plugin also allows you to customize the appointment being dragged (via the `draftAppointmentComponent` property) and its copy displayed in the former location (via `sourceAppointmentComponent`).
+The `DragDropProvider` plugin also allows you to customize the appointment being dragged (via the `draftAppointmentComponent` property) and its copy displayed in its previous location (via `sourceAppointmentComponent`).

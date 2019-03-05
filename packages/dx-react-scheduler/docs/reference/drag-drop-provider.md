@@ -50,7 +50,7 @@ type | string | Specifies the appointment's type.
 
 ### DragDropProvider.SourceAppointmentProps
 
-Describes properties of the component that renders the copy of the appointment being dragged in the former location.
+Describes properties of the component that renders a copy of the appointment being dragged in its previous location.
 
 Field | Type | Description
 ------|------|------------

@@ -100,42 +100,50 @@ describe('DragDropProvider', () => {
     jest.resetAllMocks();
   });
 
+  const mountPlugin = (props, deps) => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps, deps)}
+        <DragDropProvider
+          {...defaultProps}
+          {...props}
+        />
+      </PluginHost>
+    ));
+
+    const onOver = tree.find(DropTarget).prop('onOver');
+    const onDrop = tree.find(DropTarget).prop('onDrop');
+    const onChange = tree.find(DragDropProviderCore).prop('onChange');
+
+    return ({
+      tree, onOver, onDrop, onChange,
+    });
+  };
+
   describe('Templates', () => {
+    const renderPlugin = props => mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <DragDropProvider
+          {...defaultProps}
+          {...props}
+        />
+      </PluginHost>
+    ));
     it('should add drag drop provider', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <DragDropProvider
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
+      const tree = renderPlugin();
 
       expect(tree.find(DragDropProviderCore).exists())
         .toBeTruthy();
     });
     it('should add drop target', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <DragDropProvider
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
+      const tree = renderPlugin();
 
       expect(tree.find(DropTarget).exists())
         .toBeTruthy();
     });
     it('should wrap appointment into drag source', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <DragDropProvider
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
+      const tree = renderPlugin();
 
       expect(tree.find(DragSource).exists())
         .toBeTruthy();
@@ -143,15 +151,7 @@ describe('DragDropProvider', () => {
     it('should do not wrap appointment into drag source by predicate', () => {
       const predicate = jest.fn();
       predicate.mockImplementation(() => false);
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <DragDropProvider
-            {...defaultProps}
-            allowDrag={predicate}
-          />
-        </PluginHost>
-      ));
+      const tree = renderPlugin({ allowDrag: predicate });
 
       expect(tree.find(DragSource).exists())
         .toBeFalsy();
@@ -165,17 +165,8 @@ describe('DragDropProvider', () => {
       allDayRects.mockImplementationOnce(() => [{}]);
       const draftAppointment = () => <div className="custom-class" />;
 
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <DragDropProvider
-            {...defaultProps}
-            draftAppointmentComponent={draftAppointment}
-          />
-        </PluginHost>
-      ));
+      const { tree, onOver } = mountPlugin({ draftAppointmentComponent: draftAppointment });
 
-      const onOver = tree.find(DropTarget).prop('onOver');
       onOver({ payload: 1, clientOffset: 1 });
 
       expect(tree.update().find('.custom-class').exists())
@@ -195,17 +186,8 @@ describe('DragDropProvider', () => {
       allDayRects.mockImplementationOnce(() => [{}]);
       const sourceAppointment = () => <div className="custom-class" />;
 
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps, deps)}
-          <DragDropProvider
-            {...defaultProps}
-            sourceAppointmentComponent={sourceAppointment}
-          />
-        </PluginHost>
-      ));
+      const { tree, onOver } = mountPlugin({ sourceAppointmentComponent: sourceAppointment }, deps);
 
-      const onOver = tree.find(DropTarget).prop('onOver');
       onOver({ payload: { id: 1 }, clientOffset: 1 });
       tree.update();
 
@@ -220,17 +202,8 @@ describe('DragDropProvider', () => {
       // eslint-disable-next-line react/prop-types, react/jsx-one-expression-per-line
       const container = ({ children }) => <div className="custom-class">{children}</div>;
 
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <DragDropProvider
-            {...defaultProps}
-            containerComponent={container}
-          />
-        </PluginHost>
-      ));
+      const { tree, onOver } = mountPlugin({ containerComponent: container });
 
-      const onOver = tree.find(DropTarget).prop('onOver');
       onOver({ payload: { id: 1 }, clientOffset: 1 });
       tree.update();
 
@@ -253,16 +226,8 @@ describe('DragDropProvider', () => {
           },
         },
       };
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps, deps)}
-          <DragDropProvider
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
+      const { tree, onOver } = mountPlugin({}, deps);
 
-      const onOver = tree.find(DropTarget).prop('onOver');
       onOver({ payload: { id: 1 }, clientOffset: { x: 1, y: 21 } });
       tree.update();
 
@@ -283,16 +248,8 @@ describe('DragDropProvider', () => {
           },
         },
       };
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps, deps)}
-          <DragDropProvider
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
+      const { tree, onOver } = mountPlugin({ }, deps);
 
-      const onOver = tree.find(DropTarget).prop('onOver');
       onOver({ payload: { id: 1 }, clientOffset: { x: 1, y: 161 } });
       tree.update();
 
@@ -319,16 +276,8 @@ describe('DragDropProvider', () => {
           },
         },
       };
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps, deps)}
-          <DragDropProvider
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
+      const { tree, onOver } = mountPlugin({}, deps);
 
-      const onOver = tree.find(DropTarget).prop('onOver');
       onOver({ payload: { id: 1 }, clientOffset: { x: 1, y: 25 } });
       tree.update();
 
@@ -347,16 +296,8 @@ describe('DragDropProvider', () => {
       };
       cellIndex.mockImplementationOnce(() => 1);
       cellIndex.mockImplementationOnce(() => -1);
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <DragDropProvider
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
+      const { onOver } = mountPlugin({});
 
-      const onOver = tree.find(DropTarget).prop('onOver');
       onOver({ payload, clientOffset: { x: 1, y: 25 } });
 
       expect(defaultDeps.action.changeAppointment)
@@ -381,16 +322,8 @@ describe('DragDropProvider', () => {
       cellIndex.mockImplementationOnce(() => 1);
       cellType.mockImplementationOnce(() => 'horizontal');
       cellData.mockImplementationOnce(() => ({ startDate: new Date('2018-06-25'), endDate: new Date('2018-06-26') }));
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <DragDropProvider
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
+      const { onOver } = mountPlugin({});
 
-      const onOver = tree.find(DropTarget).prop('onOver');
       onOver({ payload, clientOffset: { x: 1, y: 25 } });
 
       expect(defaultDeps.action.changeAppointment)
@@ -410,16 +343,8 @@ describe('DragDropProvider', () => {
       cellIndex.mockImplementationOnce(() => 1);
       cellType.mockImplementationOnce(() => 'horizontal');
       cellData.mockImplementationOnce(() => ({ startDate: new Date('2018-06-25'), endDate: new Date('2018-06-26') }));
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <DragDropProvider
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
+      const { onOver } = mountPlugin({});
 
-      const onOver = tree.find(DropTarget).prop('onOver');
       onOver({ payload, clientOffset: { x: 1, y: 25 } });
 
       expect(defaultDeps.action.changeAppointment)
@@ -439,16 +364,8 @@ describe('DragDropProvider', () => {
       cellIndex.mockImplementationOnce(() => 1);
       cellType.mockImplementationOnce(() => 'horizontal');
       cellData.mockImplementationOnce(() => ({ startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00') }));
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <DragDropProvider
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
+      const { onOver } = mountPlugin({});
 
-      const onOver = tree.find(DropTarget).prop('onOver');
       onOver({ payload, clientOffset: { x: 1, y: 25 } });
 
       expect(defaultDeps.action.changeAppointment)
@@ -485,16 +402,9 @@ describe('DragDropProvider', () => {
       cellType.mockImplementationOnce(() => 'vertical');
       cellData.mockImplementationOnce(() => ({ startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00') }));
       cellData.mockImplementationOnce(() => ({ startDate: new Date('2018-06-25 9:00'), endDate: new Date('2018-06-25 10:00') }));
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps, deps)}
-          <DragDropProvider
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
 
-      const onOver = tree.find(DropTarget).prop('onOver');
+      const { tree, onOver } = mountPlugin({}, deps);
+
       onOver({ payload, clientOffset: { x: 1, y: 25 } });
       tree.update();
       onOver({ payload, clientOffset: { x: 1, y: 17 } });
@@ -517,16 +427,9 @@ describe('DragDropProvider', () => {
       cellIndex.mockImplementationOnce(() => -1);
       cellType.mockImplementationOnce(() => 'vertical');
       cellData.mockImplementationOnce(() => ({ startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00') }));
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <DragDropProvider
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
 
-      const onOver = tree.find(DropTarget).prop('onOver');
+      const { tree, onOver } = mountPlugin({});
+
       onOver({ payload, clientOffset: { x: 1, y: 35 } });
       tree.update();
       onOver({ payload, clientOffset: { x: 1, y: 25 } });
@@ -553,16 +456,9 @@ describe('DragDropProvider', () => {
       cellIndex.mockImplementationOnce(() => -1);
       cellType.mockImplementationOnce(() => 'vertical');
       cellData.mockImplementationOnce(() => ({ startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00') }));
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <DragDropProvider
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
 
-      const onOver = tree.find(DropTarget).prop('onOver');
+      const { tree, onOver } = mountPlugin({});
+
       onOver({ payload, clientOffset: { x: 1, y: 35 } });
       tree.update();
       onOver({ payload, clientOffset: { x: 1, y: 35 } });
@@ -588,16 +484,9 @@ describe('DragDropProvider', () => {
       cellType.mockImplementationOnce(() => 'vertical');
       cellData.mockImplementationOnce(() => ({ startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00') }));
       cellData.mockImplementationOnce(() => ({ startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00') }));
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <DragDropProvider
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
 
-      const onOver = tree.find(DropTarget).prop('onOver');
+      const { tree, onOver } = mountPlugin({});
+
       onOver({ payload, clientOffset: { x: 1, y: 35 } });
       tree.update();
       onOver({ payload, clientOffset: { x: 1, y: 37 } });
@@ -620,17 +509,8 @@ describe('DragDropProvider', () => {
       cellIndex.mockImplementationOnce(() => -1);
       cellType.mockImplementationOnce(() => 'vertical');
       cellData.mockImplementationOnce(() => ({ startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00') }));
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <DragDropProvider
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
 
-      const onOver = tree.find(DropTarget).prop('onOver');
-      const onDrop = tree.find(DropTarget).prop('onDrop');
+      const { tree, onOver, onDrop } = mountPlugin({});
 
       onOver({ payload, clientOffset: { x: 1, y: 35 } });
       tree.update();
@@ -654,17 +534,8 @@ describe('DragDropProvider', () => {
       cellIndex.mockImplementationOnce(() => -1);
       cellType.mockImplementationOnce(() => 'vertical');
       cellData.mockImplementationOnce(() => ({ startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00') }));
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <DragDropProvider
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
 
-      const onOver = tree.find(DropTarget).prop('onOver');
-      const onChange = tree.find(DragDropProviderCore).prop('onChange');
+      const { tree, onOver, onChange } = mountPlugin({});
 
       onOver({ payload, clientOffset: { x: 1, y: 35 } });
       tree.update();
@@ -701,19 +572,11 @@ describe('DragDropProvider', () => {
       allDayRects.mockImplementationOnce(() => [{}, {}]);
       verticalTimeTableRects.mockImplementationOnce(() => [{}, {}]);
       horizontalTimeTableRects.mockImplementationOnce(() => [{}, {}]);
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps, deps)}
-          <DragDropProvider
-            {...defaultProps}
-            draftAppointmentComponent={draftAppointment}
-            sourceAppointmentComponent={sourceAppointment}
-          />
-        </PluginHost>
-      ));
 
-      const onOver = tree.find(DropTarget).prop('onOver');
-      const onChange = tree.find(DragDropProviderCore).prop('onChange');
+      const { tree, onOver, onChange } = mountPlugin({
+        draftAppointmentComponent: draftAppointment,
+        sourceAppointmentComponent: sourceAppointment,
+      }, deps);
 
       onOver({ payload, clientOffset: { x: 1, y: 35 } });
       tree.update();
@@ -751,19 +614,11 @@ describe('DragDropProvider', () => {
       allDayRects.mockImplementationOnce(() => [{}, {}]);
       verticalTimeTableRects.mockImplementationOnce(() => [{}, {}]);
       horizontalTimeTableRects.mockImplementationOnce(() => [{}, {}]);
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps, deps)}
-          <DragDropProvider
-            {...defaultProps}
-            draftAppointmentComponent={draftAppointment}
-            sourceAppointmentComponent={sourceAppointment}
-          />
-        </PluginHost>
-      ));
 
-      const onOver = tree.find(DropTarget).prop('onOver');
-      const onDrop = tree.find(DropTarget).prop('onDrop');
+      const { tree, onOver, onDrop } = mountPlugin({
+        draftAppointmentComponent: draftAppointment,
+        sourceAppointmentComponent: sourceAppointment,
+      }, deps);
 
       onOver({ payload, clientOffset: { x: 1, y: 35 } });
       tree.update();

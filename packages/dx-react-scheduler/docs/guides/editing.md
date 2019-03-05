@@ -26,7 +26,7 @@ Double-click an appointment to open the appointment editing form.
 
 OR
 
-Click an appointment for the appointment tooltip to appear, and then click Edit in the tooltip to open the appointment editing form.
+Click an appointment to show its tooltip, and then click Edit in the tooltip to open the appointment editing form.
 
 OR
 

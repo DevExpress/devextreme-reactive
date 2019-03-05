@@ -71,7 +71,7 @@ children | ReactNode | Represents the appointment being dragged.
 Name | Properties | Description
 -----|------------|------------
 DragDropProvider.DraftAppointment | [DragDropProvider.DraftAppointmentProps](#dragdropproviderdraftappointmentprops) | A component that renders the appointment being dragged.
-DragDropProvider.SourceAppointment | [DragDropProvider.SourceAppointmentProps](#dragdropprovidersourceappointmentprops) | A component that renders the copy of the appointment being dragged in the former location.
+DragDropProvider.SourceAppointment | [DragDropProvider.SourceAppointmentProps](#dragdropprovidersourceappointmentprops) | A component that renders a copy of the appointment being dragged in its previous location.
 DragDropProvider.Container | [DragDropProvider.ContainerProps](#dragdropprovidercontainerprops) | A component that renders a container for the appointment being dragged.
 
 Additional properties are added to the component's root element.

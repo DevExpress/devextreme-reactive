@@ -30,7 +30,6 @@ export class VerticalViewLayoutBase extends React.PureComponent {
       timeTableComponent: TimeTable,
       dayScaleEmptyCellComponent: DayScaleEmptyCell,
       classes,
-
       layoutRef,
       layoutHeaderRef,
     } = this.props;
@@ -78,6 +77,8 @@ VerticalViewLayoutBase.propTypes = {
   timeTableComponent: PropTypes.func.isRequired,
   dayScaleEmptyCellComponent: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
+  layoutRef: PropTypes.object.isRequired,
+  layoutHeaderRef: PropTypes.object.isRequired,
 };
 
 export const VerticalViewLayout = withStyles(styles, { name: 'VerticalViewLayout' })(VerticalViewLayoutBase);

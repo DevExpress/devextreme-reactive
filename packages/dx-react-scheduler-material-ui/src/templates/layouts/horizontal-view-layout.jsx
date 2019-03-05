@@ -28,7 +28,6 @@ export class HorizontalViewLayoutBase extends React.PureComponent {
       dayScaleComponent: Navbar,
       timeTableComponent: Main,
       classes,
-
       layoutRef,
       layoutHeaderRef,
     } = this.props;
@@ -65,6 +64,8 @@ HorizontalViewLayoutBase.propTypes = {
   dayScaleComponent: PropTypes.func.isRequired,
   timeTableComponent: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
+  layoutRef: PropTypes.object.isRequired,
+  layoutHeaderRef: PropTypes.object.isRequired,
 };
 
 export const HorizontalViewLayout = withStyles(styles, { name: 'HorizontalViewLayout' })(HorizontalViewLayoutBase);

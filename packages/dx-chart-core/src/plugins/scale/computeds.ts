@@ -1,11 +1,11 @@
 import { extent } from 'd3-array';
 import { scaleLinear as d3ScaleLinear, scaleBand as d3ScaleBand } from 'd3-scale';
-import { isHorizontal, getValueDomainName } from '../../utils/scale';
+import { getValueDomainName } from '../../utils/scale';
 import { ARGUMENT_DOMAIN, VALUE_DOMAIN } from '../../constants';
 import {
   Series, PointList, DomainItems, DomainInfoCache, BuildScalesFn, DomainInfo, DomainOptions,
   AddDomainFn, MergeDomainsFn, GetItemFn, GetDomainItemsFn,
-  FactoryFn, ExtendDomainsFn,
+  FactoryFn, ExtendDomainsFn, NumberArray,
 } from '../../types';
 
 const makeDomain = ({ factory, modifyDomain }: DomainOptions): DomainInfo => ({
@@ -110,13 +110,13 @@ export const extendDomains: ExtendDomainsFn = (domains, series) => {
 };
 
 /** @internal */
-export const buildScales: BuildScalesFn = (domains, { width, height }) => {
+export const buildScales: BuildScalesFn = (domains, ranges) => {
   const scales = {};
   Object.keys(domains).forEach((name) => {
     const { factory, domain } = domains[name];
     scales[name] = (factory || scaleLinear)()
       .domain(domain)
-      .range(isHorizontal(name) ? [0, width] : [height, 0]);
+      .range(ranges[name === ARGUMENT_DOMAIN ? ARGUMENT_DOMAIN : VALUE_DOMAIN] as NumberArray);
   });
   return scales;
 };

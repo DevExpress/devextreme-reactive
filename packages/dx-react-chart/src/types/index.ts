@@ -4,7 +4,7 @@ export {
   TransformedPoint, GetPointTransformerFn, CreateHitTesterFn, Series,
   ScaleObject, TooltipReference,
   FactoryFn, ModifyDomainFn,
-  BBox, BBoxes, BBoxesChange,
+  BBoxes, BBoxesChange,
   StackList, StacksOptions, OffsetFn, OrderFn,
   EventHandlers,
   DomainBounds,

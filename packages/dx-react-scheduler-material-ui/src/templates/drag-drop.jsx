@@ -14,13 +14,13 @@ const styles = theme => ({
     width: '100%',
     cursor: 'move',
   },
-  column: {
+  draft: {
     boxShadow: '0px 1px 5px 0px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.12)',
     cursor: 'move',
     overflow: 'hidden',
     backgroundColor: theme.palette.primary[600],
   },
-  draggingAppointment: {
+  source: {
     opacity: 0.5,
   },
 });
@@ -30,7 +30,7 @@ const ContainerBase = ({
   ...restProps
 }) => (
   <div
-    className={classNames(classes.container, 'CONTAINER')}
+    className={classNames(classes.container, className)}
     {...restProps}
   >
     {children}
@@ -55,13 +55,13 @@ const DraftAppointmentBase = ({
   data, type, ...restProps
 }) => (
   <Appointment
-    className={classes.column}
+    className={classNames(classes.draft, className)}
     style={style}
+    {...restProps}
   >
     <AppointmentContent
       data={data}
       type={type}
-      {...restProps}
     />
   </Appointment>
 );
@@ -86,13 +86,13 @@ const SourceAppointmentBase = ({
   data, type, ...restProps
 }) => (
   <Appointment
-    className={classes.draggingAppointment}
+    className={classNames(classes.source, className)}
     style={style}
+    {...restProps}
   >
     <AppointmentContent
       data={data}
       type={type}
-      {...restProps}
     />
   </Appointment>
 );

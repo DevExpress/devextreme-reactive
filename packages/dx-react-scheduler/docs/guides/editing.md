@@ -30,7 +30,7 @@ Click an appointment to show its tooltip, and then click Edit in the tooltip to 
 
 OR
 
-Reschedule an appointment by dragging it to another cell. This functionality requires the [DragDropProvider](../reference/drag-drop-provider.md) plugin.
+Drag an appointment to another cell to reschedule it. This functionality requires the [DragDropProvider](../reference/drag-drop-provider.md) plugin.
 
 ### Delete an Appointment
 

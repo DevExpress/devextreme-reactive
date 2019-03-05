@@ -66,7 +66,7 @@ const defaultDeps = {
     commitChangedAppointment: jest.fn(),
     changeAppointment: jest.fn(),
     startEditAppointment: jest.fn(),
-    endEditAppointment: jest.fn(),
+    stopEditAppointment: jest.fn(),
   },
   template: {
     body: {},
@@ -213,25 +213,19 @@ describe('DragDropProvider', () => {
         .toBeTruthy();
     });
 
-    it('should render source appointment template', () => {
-      const deps = {
-        template: {
-          appointment: {
-            data: {
-              id: 1,
-            },
-          },
-        },
-      };
-      allDayRects.mockImplementationOnce(() => [{}]);
-      const sourceAppointment = () => <div className="custom-class" />;
+    it('should render only one container component', () => {
+      allDayRects.mockImplementationOnce(() => [{}, {}]);
+      verticalTimeTableRects.mockImplementationOnce(() => [{}, {}]);
+      horizontalTimeTableRects.mockImplementationOnce(() => [{}, {}]);
+      // eslint-disable-next-line react/prop-types, react/jsx-one-expression-per-line
+      const container = ({ children }) => <div className="custom-class">{children}</div>;
 
       const tree = mount((
         <PluginHost>
-          {pluginDepsToComponents(defaultDeps, deps)}
+          {pluginDepsToComponents(defaultDeps)}
           <DragDropProvider
             {...defaultProps}
-            sourceAppointmentComponent={sourceAppointment}
+            containerComponent={container}
           />
         </PluginHost>
       ));
@@ -240,8 +234,8 @@ describe('DragDropProvider', () => {
       onOver({ payload: { id: 1 }, clientOffset: 1 });
       tree.update();
 
-      expect(tree.find('.custom-class').exists())
-        .toBeTruthy();
+      expect(tree.find('.custom-class').length)
+        .toBe(1);
     });
   });
 
@@ -461,6 +455,325 @@ describe('DragDropProvider', () => {
         .toBeCalledTimes(1);
       expect(defaultDeps.action.changeAppointment)
         .toBeCalledWith({ change: { startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00') } }, expect.any(Object), expect.any(Object));
+    });
+  });
+
+  describe('should dragging', () => {
+    it('to other cell', () => {
+      const getBoundingClientRect = jest.fn();
+      getBoundingClientRect.mockImplementationOnce(() => ({ height: 20, top: 20, bottom: 40 }));
+      getBoundingClientRect.mockImplementationOnce(() => ({ height: 20, top: 0, bottom: 20 }));
+      const deps = {
+        getter: {
+          timeTableElement: {
+            current: {
+              querySelectorAll: () => [{}, {
+                getBoundingClientRect,
+              }],
+            },
+          },
+        },
+      };
+      const payload = {
+        id: 1,
+        type: 'vertical',
+        startDate: new Date('2018-06-25 10:00'),
+        endDate: new Date('2018-06-25 11:00'),
+      };
+      cellIndex.mockImplementationOnce(() => 1);
+      cellIndex.mockImplementationOnce(() => -1);
+      cellType.mockImplementationOnce(() => 'vertical');
+      cellData.mockImplementationOnce(() => ({ startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00') }));
+      cellData.mockImplementationOnce(() => ({ startDate: new Date('2018-06-25 9:00'), endDate: new Date('2018-06-25 10:00') }));
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps, deps)}
+          <DragDropProvider
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      const onOver = tree.find(DropTarget).prop('onOver');
+      onOver({ payload, clientOffset: { x: 1, y: 25 } });
+      tree.update();
+      onOver({ payload, clientOffset: { x: 1, y: 17 } });
+      tree.update();
+
+      expect(defaultDeps.action.changeAppointment)
+        .toBeCalledWith({ change: { startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00') } }, expect.any(Object), expect.any(Object));
+      expect(defaultDeps.action.changeAppointment)
+        .toBeCalledWith({ change: { startDate: new Date('2018-06-25 9:30'), endDate: new Date('2018-06-25 10:30') } }, expect.any(Object), expect.any(Object));
+    });
+
+    it('with save initial cursor position', () => {
+      const payload = {
+        id: 1,
+        type: 'vertical',
+        startDate: new Date('2018-06-25 10:00'),
+        endDate: new Date('2018-06-25 11:00'),
+      };
+      cellIndex.mockImplementationOnce(() => 1);
+      cellIndex.mockImplementationOnce(() => -1);
+      cellType.mockImplementationOnce(() => 'vertical');
+      cellData.mockImplementationOnce(() => ({ startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00') }));
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <DragDropProvider
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      const onOver = tree.find(DropTarget).prop('onOver');
+      onOver({ payload, clientOffset: { x: 1, y: 35 } });
+      tree.update();
+      onOver({ payload, clientOffset: { x: 1, y: 25 } });
+      tree.update();
+
+      expect(defaultDeps.action.changeAppointment)
+        .toBeCalledWith({ change: { startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00') } }, expect.any(Object), expect.any(Object));
+      expect(defaultDeps.action.changeAppointment)
+        .toBeCalledWith({ change: { startDate: new Date('2018-06-25 9:30'), endDate: new Date('2018-06-25 10:30') } }, expect.any(Object), expect.any(Object));
+    });
+  });
+
+  describe('drop', () => {
+    it('should not change data over outside the cells', () => {
+      const payload = {
+        id: 1,
+        type: 'vertical',
+        startDate: new Date('2018-06-25 10:00'),
+        endDate: new Date('2018-06-25 11:00'),
+      };
+      cellIndex.mockImplementationOnce(() => 1);
+      cellIndex.mockImplementationOnce(() => -1);
+      cellIndex.mockImplementationOnce(() => -1);
+      cellIndex.mockImplementationOnce(() => -1);
+      cellType.mockImplementationOnce(() => 'vertical');
+      cellData.mockImplementationOnce(() => ({ startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00') }));
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <DragDropProvider
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      const onOver = tree.find(DropTarget).prop('onOver');
+      onOver({ payload, clientOffset: { x: 1, y: 35 } });
+      tree.update();
+      onOver({ payload, clientOffset: { x: 1, y: 35 } });
+      tree.update();
+
+      expect(defaultDeps.action.changeAppointment)
+        .toBeCalledTimes(1);
+      expect(defaultDeps.action.changeAppointment)
+        .toBeCalledWith({ change: { startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00') } }, expect.any(Object), expect.any(Object));
+    });
+
+    it('should not call actions if over inside an one cell', () => {
+      const payload = {
+        id: 1,
+        type: 'vertical',
+        startDate: new Date('2018-06-25 10:00'),
+        endDate: new Date('2018-06-25 11:00'),
+      };
+      cellIndex.mockImplementationOnce(() => 1);
+      cellIndex.mockImplementationOnce(() => -1);
+      cellIndex.mockImplementationOnce(() => 1);
+      cellIndex.mockImplementationOnce(() => -1);
+      cellType.mockImplementationOnce(() => 'vertical');
+      cellData.mockImplementationOnce(() => ({ startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00') }));
+      cellData.mockImplementationOnce(() => ({ startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00') }));
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <DragDropProvider
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      const onOver = tree.find(DropTarget).prop('onOver');
+      onOver({ payload, clientOffset: { x: 1, y: 35 } });
+      tree.update();
+      onOver({ payload, clientOffset: { x: 1, y: 37 } });
+      tree.update();
+
+      expect(defaultDeps.action.changeAppointment)
+        .toBeCalledTimes(1);
+      expect(defaultDeps.action.changeAppointment)
+        .toBeCalledWith({ change: { startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00') } }, expect.any(Object), expect.any(Object));
+    });
+
+    it('should commit changes if drop inside cell', () => {
+      const payload = {
+        id: 1,
+        type: 'vertical',
+        startDate: new Date('2018-06-25 10:00'),
+        endDate: new Date('2018-06-25 11:00'),
+      };
+      cellIndex.mockImplementationOnce(() => 1);
+      cellIndex.mockImplementationOnce(() => -1);
+      cellType.mockImplementationOnce(() => 'vertical');
+      cellData.mockImplementationOnce(() => ({ startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00') }));
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <DragDropProvider
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      const onOver = tree.find(DropTarget).prop('onOver');
+      const onDrop = tree.find(DropTarget).prop('onDrop');
+
+      onOver({ payload, clientOffset: { x: 1, y: 35 } });
+      tree.update();
+      onDrop({ payload: undefined, clientOffset: undefined });
+      tree.update();
+
+      expect(defaultDeps.action.stopEditAppointment)
+        .toBeCalledTimes(1);
+      expect(defaultDeps.action.commitChangedAppointment)
+        .toBeCalledWith({ appointmentId: payload.id }, expect.any(Object), expect.any(Object));
+    });
+
+    it('should commit changes if drop outside cell', () => {
+      const payload = {
+        id: 1,
+        type: 'vertical',
+        startDate: new Date('2018-06-25 10:00'),
+        endDate: new Date('2018-06-25 11:00'),
+      };
+      cellIndex.mockImplementationOnce(() => 1);
+      cellIndex.mockImplementationOnce(() => -1);
+      cellType.mockImplementationOnce(() => 'vertical');
+      cellData.mockImplementationOnce(() => ({ startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00') }));
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <DragDropProvider
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      const onOver = tree.find(DropTarget).prop('onOver');
+      const onChange = tree.find(DragDropProviderCore).prop('onChange');
+
+      onOver({ payload, clientOffset: { x: 1, y: 35 } });
+      tree.update();
+      onChange({ payload: undefined });
+
+      expect(defaultDeps.action.stopEditAppointment)
+        .toBeCalledTimes(1);
+      expect(defaultDeps.action.commitChangedAppointment)
+        .toBeCalledWith({ appointmentId: payload.id }, expect.any(Object), expect.any(Object));
+    });
+
+    it('should reset cash if drop outside a cell', () => {
+      const deps = {
+        template: {
+          appointment: {
+            data: {
+              id: 1,
+            },
+          },
+        },
+      };
+      const draftAppointment = () => <div className="draft" />;
+      const sourceAppointment = () => <div className="source" />;
+      const payload = {
+        id: 1,
+        type: 'vertical',
+        startDate: new Date('2018-06-25 10:00'),
+        endDate: new Date('2018-06-25 11:00'),
+      };
+      cellIndex.mockImplementationOnce(() => 1);
+      cellIndex.mockImplementationOnce(() => -1);
+      cellType.mockImplementationOnce(() => 'vertical');
+      cellData.mockImplementationOnce(() => ({ startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00') }));
+      allDayRects.mockImplementationOnce(() => [{}, {}]);
+      verticalTimeTableRects.mockImplementationOnce(() => [{}, {}]);
+      horizontalTimeTableRects.mockImplementationOnce(() => [{}, {}]);
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps, deps)}
+          <DragDropProvider
+            {...defaultProps}
+            draftAppointmentComponent={draftAppointment}
+            sourceAppointmentComponent={sourceAppointment}
+          />
+        </PluginHost>
+      ));
+
+      const onOver = tree.find(DropTarget).prop('onOver');
+      const onChange = tree.find(DragDropProviderCore).prop('onChange');
+
+      onOver({ payload, clientOffset: { x: 1, y: 35 } });
+      tree.update();
+      onChange({ payload: undefined });
+      tree.update();
+
+      expect(tree.find('.source').exists())
+        .toBeFalsy();
+      expect(tree.find('.draft').exists())
+        .toBeFalsy();
+    });
+
+    it('should reset cash if drop inside a cell', () => {
+      const deps = {
+        template: {
+          appointment: {
+            data: {
+              id: 1,
+            },
+          },
+        },
+      };
+      const draftAppointment = () => <div className="draft" />;
+      const sourceAppointment = () => <div className="source" />;
+      const payload = {
+        id: 1,
+        type: 'vertical',
+        startDate: new Date('2018-06-25 10:00'),
+        endDate: new Date('2018-06-25 11:00'),
+      };
+      cellIndex.mockImplementationOnce(() => 1);
+      cellIndex.mockImplementationOnce(() => -1);
+      cellType.mockImplementationOnce(() => 'vertical');
+      cellData.mockImplementationOnce(() => ({ startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00') }));
+      allDayRects.mockImplementationOnce(() => [{}, {}]);
+      verticalTimeTableRects.mockImplementationOnce(() => [{}, {}]);
+      horizontalTimeTableRects.mockImplementationOnce(() => [{}, {}]);
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps, deps)}
+          <DragDropProvider
+            {...defaultProps}
+            draftAppointmentComponent={draftAppointment}
+            sourceAppointmentComponent={sourceAppointment}
+          />
+        </PluginHost>
+      ));
+
+      const onOver = tree.find(DropTarget).prop('onOver');
+      const onDrop = tree.find(DropTarget).prop('onDrop');
+
+      onOver({ payload, clientOffset: { x: 1, y: 35 } });
+      tree.update();
+      onDrop({ payload: undefined, clientOffset: undefined });
+      tree.update();
+
+      expect(tree.find('.source').exists())
+        .toBeFalsy();
+      expect(tree.find('.draft').exists())
+        .toBeFalsy();
     });
   });
 });

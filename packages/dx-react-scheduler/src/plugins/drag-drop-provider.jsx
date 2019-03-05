@@ -56,14 +56,18 @@ export class DragDropProvider extends React.PureComponent {
     this.offsetTimeTop = null;
     this.appointmentStartTime = null;
     this.appointmentEndTime = null;
+
+    this.setState({
+      payload: null,
+      startTime: null,
+      endTime: null,
+    });
   }
 
   handlePayloadChange({ payload }, { commitChangedAppointment, stopEditAppointment }) {
     if (payload) return;
-    this.setState({ payload });
 
     const { payload: prevPayload } = this.state;
-    if (!prevPayload) return;
 
     stopEditAppointment({ appointmentId: prevPayload.id });
     commitChangedAppointment({ appointmentId: prevPayload.id });
@@ -185,12 +189,6 @@ export class DragDropProvider extends React.PureComponent {
     stopEditAppointment({ appointmentId: payload.id });
     commitChangedAppointment({ appointmentId: payload.id });
     this.resetCash();
-
-    this.setState({
-      payload: undefined,
-      startTime: null,
-      endTime: null,
-    });
   }
 
   render() {
@@ -256,7 +254,8 @@ export class DragDropProvider extends React.PureComponent {
                 <TemplatePlaceholder params={{ ...params, style: { ...params.style, cursor: 'pointer' } }} />
               )}
             </DragSource>
-          )}
+          )
+          }
         </Template>
 
         <Template name="allDayPanel">

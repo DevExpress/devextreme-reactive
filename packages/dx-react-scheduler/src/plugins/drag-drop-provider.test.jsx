@@ -544,7 +544,7 @@ describe('DragDropProvider', () => {
         .toBeCalledWith({ appointmentId: payload.id }, expect.any(Object), expect.any(Object));
     });
 
-    it('should reset cash if drop outside a cell', () => {
+    it('should reset cache if drop outside a cell', () => {
       const deps = {
         template: {
           appointment: {
@@ -586,7 +586,7 @@ describe('DragDropProvider', () => {
         .toBeFalsy();
     });
 
-    it('should reset cash if drop inside a cell', () => {
+    it('should reset cache if drop inside a cell', () => {
       const deps = {
         template: {
           appointment: {

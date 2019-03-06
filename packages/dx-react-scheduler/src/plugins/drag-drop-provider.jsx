@@ -38,7 +38,7 @@ export class DragDropProvider extends React.PureComponent {
       payload: undefined,
     };
 
-    this.resetCash = this.resetCash.bind(this);
+    this.resetCache = this.resetCache.bind(this);
     this.onOver = (getters, actions) => args => this.handleOver.bind(this)(args, getters, actions);
     this.onDrop = actions => () => this.handleDrop.bind(this)(actions);
     this.onPayloadChange = actions => args => this.handlePayloadChange.bind(this)(args, actions);
@@ -50,7 +50,7 @@ export class DragDropProvider extends React.PureComponent {
     this.appointmentEndTime = null;
   }
 
-  resetCash() {
+  resetCache() {
     this.timeTableRects = [];
     this.allDayRects = [];
     this.offsetTimeTop = null;
@@ -71,7 +71,7 @@ export class DragDropProvider extends React.PureComponent {
 
     stopEditAppointment({ appointmentId: prevPayload.id });
     commitChangedAppointment({ appointmentId: prevPayload.id });
-    this.resetCash();
+    this.resetCache();
   }
 
   handleOver(
@@ -188,7 +188,7 @@ export class DragDropProvider extends React.PureComponent {
     const { payload } = this.state;
     stopEditAppointment({ appointmentId: payload.id });
     commitChangedAppointment({ appointmentId: payload.id });
-    this.resetCash();
+    this.resetCache();
   }
 
   render() {

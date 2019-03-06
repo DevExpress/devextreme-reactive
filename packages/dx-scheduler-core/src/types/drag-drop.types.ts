@@ -1,7 +1,6 @@
 import { PureComputed } from '@devexpress/dx-core';
-import { Appointment, ViewCell,  } from './scheduler-core.types';
-import { ElementRect,  } from './utils.types';
-
+import { Appointment, ViewCell } from './scheduler-core.types';
+import { ElementRect } from './utils.types';
 
 export type ClientOffset = {
   x: number;

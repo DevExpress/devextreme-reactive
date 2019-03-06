@@ -38,10 +38,11 @@ const defaultProps = {
   // eslint-disable-next-line react/prop-types, react/jsx-one-expression-per-line
   rowComponent: ({ children }) => <tr>{children}</tr>,
   titleCellComponent: () => null,
-  // eslint-disable-next-line react/prop-types, react/jsx-one-expression-per-line
   appointmentLayerComponent: () => null,
   // eslint-disable-next-line react/prop-types, react/jsx-one-expression-per-line
   layoutComponent: ({ children }) => <div>{children}</div>,
+  // eslint-disable-next-line react/prop-types, react/jsx-one-expression-per-line
+  wrapperComponent: ({ children }) => <div>{children}</div>,
 };
 
 describe('AllDayPanel', () => {

@@ -54,6 +54,7 @@ export class AllDayPanel extends React.PureComponent {
       cellComponent: Cell,
       rowComponent: Row,
       titleCellComponent: TitleCell,
+      wrapperComponent: Wrapper,
       messages,
     } = this.props;
     const { tableRef } = this.state;
@@ -82,9 +83,9 @@ export class AllDayPanel extends React.PureComponent {
             {({ currentView }) => {
               if (currentView === MONTH) return null;
               return (
-                <div style={{ position: 'relative' }}>
+                <Wrapper>
                   <AllDayPanelPlaceholder />
-                </div>
+                </Wrapper>
               );
             }}
           </TemplateConnector>
@@ -155,6 +156,7 @@ AllDayPanel.propTypes = {
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
   titleCellComponent: PropTypes.func.isRequired,
+  wrapperComponent: PropTypes.func.isRequired,
   messages: PropTypes.shape({
     allDay: PropTypes.string,
   }),
@@ -170,4 +172,5 @@ AllDayPanel.components = {
   cellComponent: 'Cell',
   rowComponent: 'Row',
   titleCellComponent: 'TitleCell',
+  wrapperComponent: 'Wrapper',
 };

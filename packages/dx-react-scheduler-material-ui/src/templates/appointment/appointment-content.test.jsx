@@ -33,7 +33,7 @@ describe('AppointmentContent', () => {
         .toBeTruthy();
     });
 
-    it('should render horizontal type', () => {
+    it('should render vertical type', () => {
       const tree = mount((
         <AppointmentContent {...defaultProps} type="vertical" />
       ));

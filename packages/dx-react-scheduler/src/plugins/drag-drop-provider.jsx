@@ -24,6 +24,9 @@ import {
 const pluginDependencies = [
   { name: 'EditingState' },
   { name: 'Appointments' },
+  { name: 'DayView', optional: true },
+  { name: 'WeekView', optional: true },
+  { name: 'MonthView', optional: true },
   { name: 'AllDayPanel', optional: true },
 ];
 

@@ -1,6 +1,23 @@
 import {
-  isHorizontal, getWidth, getValueDomainName, fixOffset,
+  isHorizontal, getWidth, getValueDomainName, fixOffset, scaleLinear, scaleBand,
 } from './scale';
+
+jest.mock('d3-scale', () => ({
+  scaleLinear: () => ({ tag: 'scale-linear' }),
+  scaleBand: () => {
+    const ret = { tag: 'scale-band' } as any;
+    ret.paddingInner = (value) => {
+      ret.inner = value;
+      return ret;
+    };
+    ret.paddingOuter = (value) => {
+      ret.outer = value;
+      return ret;
+    };
+    ret.bandwidth = () => 0;
+    return ret;
+  },
+}));
 
 describe('#isHorizontal', () => {
   it('should consider argument scale horizontal', () => {
@@ -46,5 +63,22 @@ describe('#fixOffset', () => {
     expect(wrapped).not.toBe(mock);
     expect(wrapped(0)).toEqual(2);
     expect(wrapped(3)).toEqual(8);
+  });
+});
+
+describe('default scales', () => {
+  it('should provide linear scale', () => {
+    expect(scaleLinear()).toEqual({ tag: 'scale-linear' });
+  });
+
+  it('should provide band scale', () => {
+    expect(scaleBand()).toEqual({
+      tag: 'scale-band',
+      inner: 0.3,
+      outer: 0.15,
+      paddingInner: expect.any(Function),
+      paddingOuter: expect.any(Function),
+      bandwidth: expect.any(Function),
+    });
   });
 });

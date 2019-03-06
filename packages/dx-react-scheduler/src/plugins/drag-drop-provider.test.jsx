@@ -120,7 +120,7 @@ describe('DragDropProvider', () => {
     });
   };
 
-  describe('Templates', () => {
+  describe('Templates: ', () => {
     const renderPlugin = props => mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -130,25 +130,25 @@ describe('DragDropProvider', () => {
         />
       </PluginHost>
     ));
-    it('should add drag drop provider', () => {
+    it('should add drag drop provider plugin', () => {
       const tree = renderPlugin();
 
       expect(tree.find(DragDropProviderCore).exists())
         .toBeTruthy();
     });
-    it('should add drop target', () => {
+    it('should add drop target plugin', () => {
       const tree = renderPlugin();
 
       expect(tree.find(DropTarget).exists())
         .toBeTruthy();
     });
-    it('should wrap appointment into drag source', () => {
+    it('should wrap appointment into drag source plugin', () => {
       const tree = renderPlugin();
 
       expect(tree.find(DragSource).exists())
         .toBeTruthy();
     });
-    it('should do not wrap appointment into drag source by predicate', () => {
+    it('should not wrap appointment into drag source by predicate', () => {
       const predicate = jest.fn();
       predicate.mockImplementation(() => false);
       const tree = renderPlugin({ allowDrag: predicate });
@@ -158,9 +158,6 @@ describe('DragDropProvider', () => {
       expect(predicate)
         .toBeCalledWith('appointment data');
     });
-  });
-
-  describe('Dragging', () => {
     it('should render draft appointment template', () => {
       allDayRects.mockImplementationOnce(() => [{}]);
       const draftAppointment = () => <div className="custom-class" />;
@@ -257,7 +254,7 @@ describe('DragDropProvider', () => {
         .toBe(40);
     });
 
-    it('should not scroll up under table header', () => {
+    it('should not scroll up if cursor is under of table header', () => {
       const deps = {
         getter: {
           layoutElement: {
@@ -286,7 +283,7 @@ describe('DragDropProvider', () => {
     });
   });
 
-  describe('calculate appointment boundaries', () => {
+  describe('Calculate appointment boundaries', () => {
     it('for vertical appointment and vertical cell', () => {
       const payload = {
         id: 1,
@@ -375,7 +372,7 @@ describe('DragDropProvider', () => {
     });
   });
 
-  describe('should dragging', () => {
+  describe('Should drag', () => {
     it('to other cell', () => {
       const getBoundingClientRect = jest.fn();
       getBoundingClientRect.mockImplementationOnce(() => ({ height: 20, top: 20, bottom: 40 }));
@@ -442,8 +439,8 @@ describe('DragDropProvider', () => {
     });
   });
 
-  describe('drop', () => {
-    it('should not change data over outside the cells', () => {
+  describe('Should drop', () => {
+    it('should not change data if cursor is over and outside cells', () => {
       const payload = {
         id: 1,
         type: 'vertical',
@@ -470,7 +467,7 @@ describe('DragDropProvider', () => {
         .toBeCalledWith({ change: { startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00') } }, expect.any(Object), expect.any(Object));
     });
 
-    it('should not call actions if over inside an one cell', () => {
+    it('should not call actions if cursor is over and inside an one cell', () => {
       const payload = {
         id: 1,
         type: 'vertical',
@@ -498,7 +495,7 @@ describe('DragDropProvider', () => {
         .toBeCalledWith({ change: { startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00') } }, expect.any(Object), expect.any(Object));
     });
 
-    it('should commit changes if drop inside cell', () => {
+    it('should commit changes if drop inside a cell', () => {
       const payload = {
         id: 1,
         type: 'vertical',
@@ -523,7 +520,7 @@ describe('DragDropProvider', () => {
         .toBeCalledWith({ appointmentId: payload.id }, expect.any(Object), expect.any(Object));
     });
 
-    it('should commit changes if drop outside cell', () => {
+    it('should commit changes if drop outside a cell', () => {
       const payload = {
         id: 1,
         type: 'vertical',

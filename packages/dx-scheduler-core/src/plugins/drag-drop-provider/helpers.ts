@@ -1,5 +1,9 @@
 import moment from 'moment';
-import { ViewCell, Appointment, AppointmentModel } from '../../types';
+import { PureComputed } from '@devexpress/dx-core';
+import {
+  ViewCell, AppointmentModel, ClientOffset, TimeType,
+  AllDayRects, VerticalRects, HorizontalRects, AllDayCell,
+} from '../../types';
 import { allDayCells as allDayCellsCore } from '../common/computeds';
 import { calculateRectByDateIntervals } from '../../utils';
 import { calculateWeekDateIntervals } from '../week-view/computeds';
@@ -9,23 +13,22 @@ import { calculateMonthDateIntervals } from '../month-view/computeds';
 import { calculateAllDayDateIntervals } from '../all-day-panel/computeds';
 import { VERTICAL_TYPE, HORIZONTAL_TYPE } from '../../constants';
 
-const clamp = (value: number, min: number, max: number) => Math.max(Math.min(value, max), min);
+const clamp: PureComputed<
+  [number, number, number]
+> = (value, min, max) => Math.max(Math.min(value, max), min);
 
-type clientOffset = {
-  x: number;
-  y: number;
-};
+export const cellType: PureComputed<
+  [AppointmentModel], string
+> = data => moment(data.startDate as Date)
+  .isSame(data.endDate as Date, 'day') ? VERTICAL_TYPE : HORIZONTAL_TYPE;
 
-export const cellType = (data: AppointmentModel) => moment(data.startDate)
-  .isSame(data.endDate, 'day') ? VERTICAL_TYPE : HORIZONTAL_TYPE;
+export const intervalDuration: PureComputed<
+  [AppointmentModel, TimeType], number
+> = (data, type) => moment(data.endDate as Date).diff(data.startDate as Date, type);
 
-export const intervalDuration = (
-  data: AppointmentModel, type: 'seconds' | 'minutes',
-) => moment(data.endDate).diff(data.startDate, type);
-
-export const cellIndex = (
-  timeTableCells: Element[], clientOffset: clientOffset,
-) => timeTableCells.findIndex((timeTableCell) => {
+export const cellIndex: PureComputed<
+  [Element[], ClientOffset], number
+> = (timeTableCells, clientOffset) => timeTableCells.findIndex((timeTableCell) => {
   const {
     left, top,
     right, bottom,
@@ -36,29 +39,28 @@ export const cellIndex = (
   return isOver;
 });
 
-export const cellData = (
-  timeTableIndex: number, allDayIndex: number, viewCellsData: ViewCell[][],
-) => {
+export const cellData: PureComputed<
+  [number, number, ViewCell[][]], ViewCell | AllDayCell
+> = (timeTableIndex, allDayIndex, viewCellsData) => {
   if (allDayIndex !== -1) {
     const allDayCellsData = allDayCellsCore(viewCellsData);
     return allDayCellsData[allDayIndex];
   }
-  // timeTableIndex !== -1
   const firstIndex = Math.floor(timeTableIndex / viewCellsData[0].length);
   const secondIndex = timeTableIndex % viewCellsData[0].length;
   return viewCellsData[firstIndex][secondIndex];
 };
 
-export const allDayRects = (
-  draftAppointments: Appointment[], startViewDate: Date, endViewDate: Date,
-  excludedDays: number[], viewCellsData: ViewCell[][], cellElements: Element[][],
+export const allDayRects: AllDayRects = (
+  draftAppointments, startViewDate, endViewDate,
+  excludedDays, viewCellsData, cellElements,
 ) => {
   const intervals = calculateAllDayDateIntervals(
     draftAppointments, startViewDate, endViewDate, excludedDays,
   );
   return calculateRectByDateIntervals(
     {
-      growDirection: 'horizontal',
+      growDirection: HORIZONTAL_TYPE,
       multiline: false,
     },
     intervals,
@@ -73,16 +75,16 @@ export const allDayRects = (
   );
 };
 
-export const verticalTimeTableRects = (
-  draftAppointments: Appointment[], startViewDate: Date, endViewDate: Date, excludedDays: number[],
-  viewCellsData: ViewCell[][], cellDuration: number, cellElements: Element[][],
+export const verticalTimeTableRects: VerticalRects = (
+  draftAppointments, startViewDate, endViewDate, excludedDays,
+  viewCellsData, cellDuration, cellElements,
 ) => {
   const intervals = calculateWeekDateIntervals(
     draftAppointments, startViewDate, endViewDate, excludedDays,
   );
   return calculateRectByDateIntervals(
     {
-      growDirection: 'vertical',
+      growDirection: VERTICAL_TYPE,
       multiline: false,
     },
     intervals,
@@ -97,16 +99,16 @@ export const verticalTimeTableRects = (
   );
 };
 
-export const horizontalTimeTableRects = (
-  draftAppointments: Appointment[], startViewDate: Date, endViewDate: Date,
-  excludedDays: number[], viewCellsData: ViewCell[][], cellElements: Element[][],
+export const horizontalTimeTableRects: HorizontalRects = (
+  draftAppointments, startViewDate, endViewDate,
+  excludedDays, viewCellsData, cellElements,
 ) => {
   const intervals = calculateMonthDateIntervals(
     draftAppointments, startViewDate, endViewDate,
   );
   return calculateRectByDateIntervals(
     {
-      growDirection: 'horizontal',
+      growDirection: HORIZONTAL_TYPE,
       multiline: true,
     },
     intervals,

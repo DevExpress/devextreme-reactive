@@ -1,6 +1,35 @@
-import { intervalDuration, cellIndex, cellData } from './helpers';
+import { intervalDuration, cellIndex, cellData, cellType } from './helpers';
 
 describe('DragDropProvider', () => {
+  describe('#cellType', () => {
+    it('should work with day cell interval', () => {
+      const data = {
+        startDate: new Date('2019-3-6'),
+        endDate: new Date('2019-3-7'),
+      };
+      expect(cellType(data))
+        .toEqual('horizontal');
+    });
+
+    it('should work with long cell interval', () => {
+      const data = {
+        startDate: new Date('2019-3-5'),
+        endDate: new Date('2019-3-7'),
+      };
+      expect(cellType(data))
+        .toEqual('horizontal');
+    });
+
+    it('should work with short cell interval', () => {
+      const data = {
+        startDate: new Date('2019-3-5'),
+        endDate: new Date('2019-3-5 23:59:59'),
+      };
+      expect(cellType(data))
+        .toEqual('vertical');
+    });
+  });
+
   describe('#intervalDuration', () => {
     const data = {
       startDate: new Date('2019-3-1 10:00'),

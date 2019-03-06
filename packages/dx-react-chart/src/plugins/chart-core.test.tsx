@@ -17,7 +17,7 @@ describe('Chart Core', () => {
     getter: {
       domains: 'test-domains',
       series: 'test-series',
-      layouts: { pane: 'test-pane' },
+      ranges: 'test-ranges',
     },
   };
 
@@ -34,7 +34,7 @@ describe('Chart Core', () => {
       scales: 'built-scales',
       series: 'scaled-series',
     });
-    expect(buildScales).toBeCalledWith('test-domains', 'test-pane');
+    expect(buildScales).toBeCalledWith('test-domains', 'test-ranges');
     expect(scaleSeriesPoints).toBeCalledWith('test-series', 'built-scales');
   });
 });

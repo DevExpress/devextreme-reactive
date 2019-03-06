@@ -13,7 +13,7 @@ import { appointments } from '../../../demo-data/appointments';
 const dragDisableIds = [3, 8, 10, 12];
 
 const appointmentComponent = (props) => {
-  if (dragDisableIds.findIndex(id => id === props.data.id) !== -1) {
+  if (dragDisableIds.indexOf(props.data.id) !== -1) {
     return <Appointments.Appointment {...props} style={{ ...props.style, cursor: 'not-allowed' }} />;
   } return <Appointments.Appointment {...props} />;
 };

@@ -1,6 +1,7 @@
 import { extent } from 'd3-array';
-import { scaleLinear as d3ScaleLinear, scaleBand as d3ScaleBand } from 'd3-scale';
-import { getValueDomainName } from '../../utils/scale';
+import {
+  getValueDomainName, scaleLinear, scaleBand, makeScale,
+} from '../../utils/scale';
 import { ARGUMENT_DOMAIN, VALUE_DOMAIN } from '../../constants';
 import {
   Series, PointList, DomainItems, DomainInfoCache, BuildScalesFn, DomainInfo, DomainOptions,
@@ -41,13 +42,6 @@ const mergeDiscreteDomains: MergeDomainsFn = (domain, items) => {
 
 const getArgument: GetItemFn = point => point.argument;
 const getValue: GetItemFn = point => point.value;
-
-/** @internal */
-export const scaleLinear: FactoryFn = d3ScaleLinear as any;
-/** @internal */
-export const scaleBand: FactoryFn = () => (
-  d3ScaleBand().paddingInner(0.3).paddingOuter(0.15) as any
-);
 
 const guessFactory = (points: PointList, getItem: GetItemFn) => (
   points.length && typeof getItem(points[0]) === 'string' ? scaleBand : scaleLinear
@@ -113,10 +107,10 @@ export const extendDomains: ExtendDomainsFn = (domains, series) => {
 export const buildScales: BuildScalesFn = (domains, ranges) => {
   const scales = {};
   Object.keys(domains).forEach((name) => {
-    const { factory, domain } = domains[name];
-    scales[name] = (factory || scaleLinear)()
-      .domain(domain)
-      .range(ranges[name === ARGUMENT_DOMAIN ? ARGUMENT_DOMAIN : VALUE_DOMAIN] as NumberArray);
+    scales[name] = makeScale(
+      domains[name],
+      ranges[name === ARGUMENT_DOMAIN ? ARGUMENT_DOMAIN : VALUE_DOMAIN] as NumberArray,
+    );
   });
   return scales;
 };

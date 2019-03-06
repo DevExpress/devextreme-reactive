@@ -4,7 +4,7 @@ import {
   Getter,
   Getters,
 } from '@devexpress/dx-react-core';
-import { adjustDomains } from '@devexpress/dx-chart-core';
+import { adjustLayout } from '@devexpress/dx-chart-core';
 import { ViewportProps } from '../types';
 
 class ViewportBase extends React.PureComponent<ViewportProps> {
@@ -14,12 +14,13 @@ class ViewportBase extends React.PureComponent<ViewportProps> {
       valueBounds,
       scaleName,
     } = this.props;
-    const doAdjustBounds = ({
+    const doAdjustLayout = ({
       domains,
-    }: Getters) => adjustDomains(domains, argumentBounds, scaleName, valueBounds);
+      ranges,
+    }: Getters) => adjustLayout(domains, ranges, { argumentBounds, scaleName, valueBounds });
     return (
       <Plugin name="viewport">
-        <Getter name="domains" computed={doAdjustBounds} />
+        <Getter name="ranges" computed={doAdjustLayout} />
       </Plugin>
     );
   }

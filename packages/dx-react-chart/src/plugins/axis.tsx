@@ -10,9 +10,8 @@ import {
 } from '@devexpress/dx-react-core';
 import {
   axisCoordinates, LEFT, BOTTOM, ARGUMENT_DOMAIN, getValueDomainName, getGridCoordinates,
-  NumberArray,
 } from '@devexpress/dx-chart-core';
-import { RawAxisProps, ArgumentAxisProps, ValueAxisProps, ScaleObject } from '../types';
+import { RawAxisProps, ArgumentAxisProps, ValueAxisProps } from '../types';
 import { Root } from '../templates/axis/root';
 import { Label } from '../templates/axis/label';
 import { Line } from '../templates/axis/line';
@@ -20,20 +19,7 @@ import { Line } from '../templates/axis/line';
 import { withPatchedProps } from '../utils';
 
 const SVG_STYLE: React.CSSProperties = {
-  position: 'absolute', left: 0, top: 0, overflow: 'visible',
-};
-
-const adjustScaleRange = (scale: ScaleObject, [width, height]: NumberArray) => {
-  const range = scale.range().slice() as NumberArray;
-  if (Math.abs(range[0] - range[1]) < 0.01) {
-    return scale;
-  }
-  if (range[1] > 0) {
-    range[1] = width;
-  } else {
-    range[0] = height;
-  }
-  return scale.copy().range(range);
+  position: 'absolute', left: 0, top: 0, overflow: 'hidden',
 };
 
 class RawAxis extends React.PureComponent<RawAxisProps> {
@@ -89,8 +75,7 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
                 tickSize: tickSize!,
                 tickFormat,
                 indentFromAxis: indentFromAxis!,
-                // Isn't it too late to adjust sizes?
-                scale: adjustScaleRange(scale, [this.adjustedWidth, this.adjustedHeight]),
+                scale,
               });
               const handleSizeChange: onSizeChangeFn = (size) => {
                 // The callback is called when DOM is available -

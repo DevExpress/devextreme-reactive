@@ -1,51 +1,71 @@
 import {
-  ARGUMENT_DOMAIN,
+  ARGUMENT_DOMAIN, VALUE_DOMAIN,
 } from '../../constants';
 import {
-  getValueDomainName,
+  getValueDomainName, makeScale, scaleBounds,
 } from '../../utils/scale';
 import {
   DomainInfoCache,
+  RangesCache,
   DomainInfo,
   DomainBounds,
-  DomainItems,
+  NumberArray,
+  ViewportOptions,
 } from '../../types';
 
+// TODO: Copypaste!
 const floatsEqual = (a: number, b: number) => Math.abs(a - b) < Number.EPSILON;
 
-const adjustContinuousDomain = (domain: DomainItems, bounds: DomainBounds): DomainItems => (
-  floatsEqual(domain[0], bounds[0]) && floatsEqual(domain[1], bounds[1]) ? domain : bounds.slice()
-);
-
-const adjustDiscreteDomain = (domain: DomainItems, bounds: DomainBounds): DomainItems => {
-  const i = domain.indexOf(bounds[0]);
-  const j = domain.indexOf(bounds[1]);
-  return i > 0 || j < domain.length - 1 ? domain.slice(i, j + 1) : domain;
+// Given original scale
+//   f(domain) = range
+//   f(subDomain) = subRange
+// Find extended scale
+//   g(domain) = extendedRange
+//   g(subDomain) = range
+// Original "range" is linearly extended so that
+//   extendedRange : range === range : subRange
+// y = p * x + q
+//   subRange = p * range + q => p, q
+//   range = p * extendedRange + q => extendedRange
+const proportionallyExtendRange = (range: NumberArray, subRange: NumberArray): NumberArray => {
+  const p = (subRange[0] - subRange[1]) / (range[0] - range[1]);
+  const q = subRange[0] - p * range[0];
+  return [
+    (range[0] - q) / p,
+    (range[1] - q) / p,
+  ];
 };
 
-const adjustDomain = (domain: DomainInfo, bounds: DomainBounds): DomainInfo => {
-  const adjust = domain.isDiscrete ? adjustDiscreteDomain : adjustContinuousDomain;
-  const newItems = adjust(domain.domain, bounds);
-  return newItems === domain.domain ? domain : { ...domain, domain: newItems };
+const adjustRange = (domain: DomainInfo, bounds: DomainBounds, range: NumberArray) => {
+  const scale = makeScale(domain, range);
+  const subRange = scaleBounds(scale, bounds);
+  if (floatsEqual(subRange[0], range[0]) && floatsEqual(subRange[1], range[1])) {
+    return range;
+  }
+  return proportionallyExtendRange(range, subRange);
 };
 
-export const adjustDomains = (
+const update = (
+  ranges: RangesCache, changes: any, key: string, domain: DomainInfo, bounds: DomainBounds,
+) => {
+  const newRange = adjustRange(domain, bounds, ranges[key]);
+  if (newRange !== ranges[key]) {
+    changes[key] = newRange;
+  }
+};
+
+/** @internal */
+export const adjustLayout = (
   domains: DomainInfoCache,
-  argumentBounds?: DomainBounds, scaleName?: string, valueBounds?: DomainBounds,
+  ranges: RangesCache,
+  { argumentBounds, scaleName, valueBounds }: ViewportOptions,
 ) => {
   const changes = {};
   if (argumentBounds) {
-    const newDomain = adjustDomain(domains[ARGUMENT_DOMAIN], argumentBounds);
-    if (newDomain !== domains[ARGUMENT_DOMAIN]) {
-      changes[ARGUMENT_DOMAIN] = newDomain;
-    }
+    update(ranges, changes, ARGUMENT_DOMAIN, domains[ARGUMENT_DOMAIN], argumentBounds);
   }
   if (valueBounds) {
-    const valueDomainName = getValueDomainName(scaleName);
-    const newDomain = adjustDomain(domains[valueDomainName], valueBounds);
-    if (newDomain !== domains[valueDomainName]) {
-      changes[valueDomainName] = newDomain;
-    }
+    update(ranges, changes, VALUE_DOMAIN, domains[getValueDomainName(scaleName)], valueBounds);
   }
-  return Object.keys(changes).length ? { ...domains, ...changes } : domains;
+  return Object.keys(changes).length ? { ...ranges, ...changes } : ranges;
 };

@@ -15,12 +15,11 @@ import {
   horizontalTimeTableRects,
   getAppointmentStyle,
   intervalDuration,
+  VERTICAL_TYPE,
+  SCROLL_OFFSET,
+  SCROLL_SPEED_PX,
+  SECONDS,
 } from '@devexpress/dx-scheduler-core';
-
-const SCROLL_OFFSET = 50;
-const SCROLL_SPEED_PX = 30;
-const VERTICAL_TYPE = 'vertical';
-const SECONDS = 'seconds';
 
 const pluginDependencies = [
   { name: 'EditingState' },

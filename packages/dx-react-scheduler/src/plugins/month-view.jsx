@@ -122,7 +122,6 @@ export class MonthView extends React.PureComponent {
         <Getter name="viewCellsData" computed={this.viewCellsData} />
         <Getter name="startViewDate" computed={this.startViewDateCore} />
         <Getter name="endViewDate" computed={this.endViewDateComputed} />
-
         <Getter name="timeTableElement" computed={this.timeTableElement} />
         <Getter name="layoutElement" computed={this.layoutElement} />
         <Getter name="layoutHeaderElement" computed={this.layoutHeaderElement} />

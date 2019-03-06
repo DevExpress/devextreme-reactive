@@ -18,6 +18,7 @@
     "react",
     "scheduler",
     "material",
+    "material-ui",
     "react-component"
   ],
   "license": "SEE LICENSE IN README.md",

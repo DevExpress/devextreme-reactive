@@ -4,7 +4,7 @@ import * as PropTypes from 'prop-types';
 import styles from './image-feature.module.scss';
 
 const ImageFeature = ({
-  iconLink,
+  iconLink, imageLink,
   title, description,
 }) => (
   <div className="col-lg-6 col-md-6 col-sm-6">
@@ -26,25 +26,27 @@ const ImageFeature = ({
           </div>
         </div>
       </div>
-      {/* {imageLink && (
+      {imageLink && (
         <img
           className={styles.image}
           alt="title"
           src={imageLink}
         />
-      )} */}
+      )}
     </div>
   </div>
 );
 
 ImageFeature.propTypes = {
   iconLink: PropTypes.string,
+  imageLink: PropTypes.string,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
 };
 
 ImageFeature.defaultProps = {
   iconLink: undefined,
+  imageLink: undefined,
 };
 
 export default ImageFeature;

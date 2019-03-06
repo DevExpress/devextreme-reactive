@@ -191,15 +191,13 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
         || nodeVerticalOffset > Math.max(node.scrollHeight, node.clientHeight)) {
         return;
       }
-      console.log(`%c ${currentVirtualPageBoundary}`, 'color: gray')
 
-      if (currentVirtualPageBoundary[0] < 0 || currentVirtualPageBoundary[1] < 0) {
-        // console.log('request next page. boundary is', currentVirtualPageBoundary);
-        requestNextPage(Math.round(node.scrollTop / this.props.estimatedRowHeight));
-        // console.log('height', this.state.rowHeights, this.props.estimatedRowHeight)
+      const {
+        topTriggerIndex, bottomTriggerIndex, middleIndex,
+      } = currentVirtualPageBoundary;
+      if (middleIndex <= topTriggerIndex || bottomTriggerIndex <= middleIndex) {
+        requestNextPage(middleIndex);
       }
-
-      // console.log('---- scrolltop -----', node.scrollTop)
 
       this.setState({
         viewportTop: node.scrollTop,
@@ -209,10 +207,6 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
 
     handleContainerSizeChange(currentVirtualPageBoundary, requestNextPage,{ width, height }) {
       this.setState({ width, containerHeight: height });
-    }
-    setState(newState) {
-      // console.log('== set state', newState)
-      super.setState(newState);
     }
 
     handleTableUpdate() {
@@ -314,19 +308,16 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
         const visibleCount = visibleBoundaries.bodyRows[1] - visibleBoundaries.bodyRows[0];
         const middleIndex = firstRowIndex + Math.round(visibleCount / 2);
 
-        const topOffset = middleIndex - topTriggerIndex;
-        const bottomOffset = bottomTriggerIndex - middleIndex;
+        // const topOffset = middleIndex - topTriggerIndex;
+        // const bottomOffset = bottomTriggerIndex - middleIndex;
 
-        // console.log(`%c ${firstRowIndex} - ${topTriggerIndex}`, 'color: lightgray')
+        return {
+          topTriggerIndex,
+          bottomTriggerIndex,
+          middleIndex,
+        };
 
-        // const topIndexOffset = firstRowIndex - loadedRowsStart;
-        // const topBoundaryOffset = loadedRowsStart > 0 ? topIndexOffset - virtualPageOverscan : 0;
-        // const bottomBoundaryOffset = loadedRowsCount - virtualPageOverscan - topIndexOffset - visibleCount;
-
-        // const topBoundaryOffset = firstRowIndex - loadedRowsStart - virtualPageSize - virtualPageOverscan;
-        // const bottomBoundaryOffset =
-
-        return [topOffset, bottomOffset];
+        // return [topOffset, bottomOffset];
       };
 
       return (

@@ -87,9 +87,45 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
       },
     );
 
-    // const snapToVirtualPage = (index, pageSize) => (
+    const mergeRows = (pageIndexes, cache, rows, start, pageSize) => {
+      const startPage = pageIndexes.start;
+      const cacheStart = Math.floor(cache.start / pageSize);
+      const cacheEnd = cacheStart + Math.floor(cache.rows.length / pageSize);
 
-    // )
+      let result = [];
+      for (let index = pageIndexes.start; index <= pageIndexes.end; index += 1) {
+        const rowIndex = index * pageSize;
+        if (rowIndex === start) {
+          result = result.concat(rows);
+        } else if (cacheStart <= index && index < cacheEnd) {
+          const skip = (index - startPage) * pageSize;
+          result = result.concat(cache.rows.slice(skip, pageSize));
+        }
+      }
+      return result;
+    };
+
+    const rowToPageIndex = (rowIndex, pageSize) => Math.floor(rowIndex / pageSize);
+    const recalculatePageIndexes = (loadedStart, loadedCount, middleIndex, pageSize) => {
+      const firstPageIndex = rowToPageIndex(loadedStart, pageSize);
+      const lastPageIndex = firstPageIndex + rowToPageIndex(loadedCount, pageSize);
+      const currentPageIndex = rowToPageIndex(middleIndex, pageSize);
+      // const offset = currentPageIndex - firstPageIndex;
+
+      const newFirstIndex = Math.max(0, currentPageIndex - 1);
+      const newLastIndex = currentPageIndex + 1;
+      const offset = Math.abs(newFirstIndex - firstPageIndex);
+
+
+
+      // const offset = currentPageIndex === firstPageIndex ? -1 : 1;
+
+      return {
+        start: firstPageIndex + offset,
+        end: lastPageIndex + offset,
+        requestedRange: currentPageIndex + offset,
+      };
+    };
 
     this.requestNextPageAction = (rowIndex: any,
       { virtualPageSize, loadedRowsStart, loadedRowsCount, rawRows },
@@ -97,42 +133,21 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
       const { requestedPageIndex, virtualRowsCache } = this.state;
       const { start, getRows } = this.props;
 
-      const loadDownPage = rowIndex > loadedRowsStart + virtualPageSize || loadedRowsStart === 0;
-// debugger
-      let adjustedIndex = rowIndex;
-      let loadCount = virtualPageSize;
-      if (rowIndex < loadedRowsStart + loadedRowsCount) {
-        adjustedIndex = loadDownPage
-          ? loadedRowsStart + loadedRowsCount + virtualPageSize / 2
-          : rowIndex - virtualPageSize;
-      } else {
-        loadCount = virtualPageSize * 2;
-      }
+      const pageIndexes = recalculatePageIndexes(
+        loadedRowsStart, loadedRowsCount, rowIndex, virtualPageSize,
+      );
+      console.log(pageIndexes)
 
-      const newPageIndex = Math.floor(adjustedIndex / virtualPageSize);
+      const newPageIndex = pageIndexes.requested;
       const pageStart = newPageIndex * virtualPageSize;
-
-      // let newAdjustedIndex = Math.round(rowIndex / virtualPageSize) * virtualPageSize;
-      // if (newAdjustedIndex < virtualRowsCache.start + virtualRowsCache.rows.length) {
-      //   newAdjustedIndex += virtualPageSize;
-      // }
-
-      // let newAdjustedIndex = rowIndex > start + virtualPageSize / 2
-      //   ? start + virtualPageSize
-      //   : start - virtualPageSize;
-
-      // if (rowIndex >= start + virtualPageSize) {
-      //   newAdjustedIndex = rowIndex - virtualPageOverscan;
-      // } else if (rowIndex <= start - virtualPageSize) {
-      //   newAdjustedIndex = rowIndex + virtualPageOverscan;
-      // }
+      const loadCount = (3 - pageIndexes.end + pageIndexes.start) * virtualPageSize;
 
       if (newPageIndex !== requestedPageIndex) {
         if (this.requestTimer !== 0) {
           clearTimeout(this.requestTimer);
         }
         this.requestTimer = setTimeout(() => {
-          getRows(pageStart, virtualPageSize);
+          getRows(pageStart, loadCount);
           // console.log(now - lastQueryTime)
 
           const loadedPages = Math.floor(loadedRowsCount / virtualPageSize);
@@ -159,7 +174,7 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
           this.setState({
             loadedRowsStart: newLoadedRowsStart,
             requestedPageIndex: newPageIndex,
-            lastQueryTime: Date.now(),
+            // lastQueryTime: Date.now(),
             virtualRowsCache: {
               start: cacheStart,
               rows: cacheRows,

@@ -4,6 +4,7 @@
 // WARNING: Unsupported export: RowProps
 // WARNING: Unsupported export: TitleCellProps
 // WARNING: Unsupported export: AppointmentLayerProps
+// WARNING: Unsupported export: WrapperProps
 // @public (undocumented)
 module AllDayPanel {
 }
@@ -16,6 +17,7 @@ interface AllDayPanelProps {
   messages?: AllDayPanelBase.LocalizationMessages;
   rowComponent?: React.ComponentType<AllDayPanelBase.RowProps>;
   titleCellComponent?: React.ComponentType<AllDayPanelBase.TitleCellProps>;
+  wrapperComponent?: React.ComponentType<AllDayPanelBase.WrapperProps>;
 }
 
 // WARNING: Unsupported export: PopupProps

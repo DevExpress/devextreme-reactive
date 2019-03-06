@@ -32,6 +32,7 @@ cellComponent | ComponentType&lt;[AllDayPanel.CellProps](#alldaypanelcellprops)&
 rowComponent | ComponentType&lt;[AllDayPanel.RowProps](#alldaypanelrowprops)&gt; | | A component that renders an All Day panel row.
 titleCellComponent | ComponentType&lt;[AllDayPanel.TitleCellProps](#alldaypaneltitlecellprops)&gt; | | A component that renders a title cell.
 appointmentLayerComponent | ComponentType&lt;[AllDayPanel.AppointmentLayerProps](#alldaypanelappointmentlayerprops)&gt; | | A component that renders the appointment layer.
+wrapperComponent | ComponentType&lt;[AllDayPanel.WrapperProps](#alldaypanelwrapperprops)&gt; | | A component that renders wrapper for All Day panel.
 messages? | [AllDayPanel.LocalizationMessages](#localization-messages) | | An object that specifies localization messages.
 
 ## Interfaces
@@ -89,6 +90,14 @@ Field | Type | Description
 ------|------|------------
 children? | ReactNode | A React node used to render the row content.
 
+### AllDayPanel.WrapperProps
+
+Describes properties passed to a component that renders wrapper for All Day panel.
+
+Field | Type | Description
+------|------|------------
+children | ReactNode | A React node used to render the row content.
+
 ## Localization Messages
 
 Field | Type | Default | Description
@@ -104,5 +113,6 @@ AllDayPanel.Cell | ComponentType&lt;[AllDayPanel.CellProps](#alldaypanelcellprop
 AllDayPanel.Row | ComponentType&lt;[AllDayPanel.RowProps](#alldaypanelrowprops)&gt; | A component that renders an All Day panel row.
 AllDayPanel.TitleCell | ComponentType&lt;[AllDayPanel.TitleCellProps](#alldaypaneltitlecellprops)&gt; | A component that renders a title cell.
 AllDayPanel.AppointmentLayer | ComponentType&lt;[AllDayPanel.AppointmentLayerProps](#alldaypanelappointmentlayerprops)&gt; | A component that renders the appointment layer.
+AllDayPanel.Wrapper | ComponentType&lt;[AllDayPanel.WrapperProps](#alldaypanelwrapperprops)&gt; | A component that renders wrapper for All Day panel.
 
 Additional properties are added to the component's root element.

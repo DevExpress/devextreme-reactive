@@ -34,6 +34,10 @@ module AllDayPanel {
     getMessage: (messageKey: string) => string;
   }
 
+  interface WrapperProps {
+    children: React.ReactNode;
+  }
+
 }
 
 // @public (undocumented)
@@ -44,6 +48,7 @@ interface AllDayPanelProps {
   messages?: AllDayPanel.LocalizationMessages;
   rowComponent: React.ComponentType<AllDayPanel.RowProps>;
   titleCellComponent: React.ComponentType<AllDayPanel.TitleCellProps>;
+  wrapperComponent: React.ComponentType<AllDayPanel.WrapperProps>;
 }
 
 // @public (undocumented)

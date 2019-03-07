@@ -29,6 +29,18 @@
   }
 }
 
+.menu-sandwich {
+  background: url(../pages/images/icon-sandwich.svg) no-repeat 0 0;
+  width: 24px;
+  height: 24px;
+  border: none;
+  cursor: pointer;
+  margin-right: 20px;
+  &.clicked {
+    background: url(../pages/images/icon-close.svg) no-repeat 0 0;
+  }
+}
+
 @media(max-width: 800px) {
   .links {
     transition: right .1s linear;

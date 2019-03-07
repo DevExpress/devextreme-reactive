@@ -1,23 +1,12 @@
 import * as React from 'react';<%&additionalImports%>
 import {
-  Plugin,
-  Getter,
-} from '@devexpress/dx-react-core';
-import {
-  ARGUMENT_DOMAIN,
-} from '@devexpress/dx-chart-core';
-import {
   Viewport,
 } from '@devexpress/dx-react-chart';
 import {
   ArgumentAxis,
   ValueAxis,
   Chart,
-  Legend,
   LineSeries,
-  AreaSeries,
-  SplineSeries,
-  Title,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 
 const data = [
@@ -33,16 +22,9 @@ const data = [
   { arg: 'J', val: 2.4 },
 ];
 
-const minRangePosition = 0;
-const maxRangePosition = 5;
-const minRangeSize = 2;
-const maxRangeSize = 10;
-
 const CATEGORIES = data.map(item => item.arg);
 const MIN_VAL = 0;
 const MAX_VAL = 6;
-
-const getRange = (position, size) => [position - size / 2, position + size / 2];
 
 const sliderStyle = {
   width: '400px',
@@ -52,7 +34,7 @@ const MIN_SLIDER_VALUE = 0;
 const MAX_SLIDER_VALUE = 100;
 const SLIDER_STEP = 1;
 
-const translate = (sliderValue) => (
+const translate = sliderValue => (
   (sliderValue - MIN_SLIDER_VALUE) / (MAX_SLIDER_VALUE - MIN_SLIDER_VALUE)
 );
 
@@ -89,6 +71,30 @@ const getValueRange = (positionSlider, sizeSlider) => {
   ];
 };
 
+const renderSlider = (value, onChange) => (
+  <div>
+    <input
+      type="range"
+      style={sliderStyle}
+      min={MIN_SLIDER_VALUE}
+      max={MAX_SLIDER_VALUE}
+      step={SLIDER_STEP}
+      value={value}
+      onChange={onChange}
+    />
+  </div>
+);
+
+const renderLabel = (text, [min, max]) => {
+  const info = `[${min} .. ${max}]`;
+  return (
+    <div>
+      <span>{text}</span>
+      <span>{info}</span>
+    </div>
+  );
+};
+
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -105,12 +111,6 @@ export default class Demo extends React.PureComponent {
     this.changeValSizeSlider = this.makeHandler('valSizeSlider');
   }
 
-  makeHandler(name) {
-    return (e) => this.setState({
-      [name]: e.target.value,
-    });
-  }
-
   static getDerivedStateFromProps(props, {
     argPositionSlider, argSizeSlider, valPositionSlider, valSizeSlider,
   }) {
@@ -120,39 +120,20 @@ export default class Demo extends React.PureComponent {
     };
   }
 
-  renderSlider(value, onChange) {
-    return (
-      <div>
-        <input
-          type="range"
-          style={sliderStyle}
-          min={MIN_SLIDER_VALUE}
-          max={MAX_SLIDER_VALUE}
-          step={SLIDER_STEP}
-          value={value}
-          onChange={onChange}
-        />
-      </div>
-    );
-  }
-
-  renderLabel(text, [min, max]) {
-    const data = `[${min} .. ${max}]`;
-    return (
-      <div>
-        <span>{text}</span>
-        <span>{data}</span>
-      </div>
-    )
+  makeHandler(name) {
+    return e => this.setState({
+      [name]: e.target.value,
+    });
   }
 
   render() {
+    const {
+      argBounds, valBounds,
+      argPositionSlider, argSizeSlider, valPositionSlider, valSizeSlider,
+    } = this.state;
     return (
       <<%&wrapperTag%><%&wrapperAttributes%>>
-        <Chart
-          data={data}
-        >
-          <Title text="Born amount" />
+        <Chart data={data}>
           <ArgumentAxis />
           <ValueAxis />
 
@@ -164,19 +145,19 @@ export default class Demo extends React.PureComponent {
 
           <Viewport
             viewport={{
-              argumentBounds: this.state.argBounds,
-              valueBounds: this.state.valBounds,
+              argumentBounds: argBounds,
+              valueBounds: valBounds,
             }}
           />
         </Chart>
 
         <div>
-          {this.renderSlider(this.state.argPositionSlider, this.changeArgPositionSlider)}
-          {this.renderSlider(this.state.argSizeSlider, this.changeArgSizeSlider)}
-          {this.renderLabel('ARG', this.state.argBounds)}
-          {this.renderSlider(this.state.valPositionSlider, this.changeValPositionSlider)}
-          {this.renderSlider(this.state.valSizeSlider, this.changeValSizeSlider)}
-          {this.renderLabel('VAL', this.state.valBounds)}
+          {renderSlider(argPositionSlider, this.changeArgPositionSlider)}
+          {renderSlider(argSizeSlider, this.changeArgSizeSlider)}
+          {renderLabel('ARG', argBounds)}
+          {renderSlider(valPositionSlider, this.changeValPositionSlider)}
+          {renderSlider(valSizeSlider, this.changeValSizeSlider)}
+          {renderLabel('VAL', valBounds)}
         </div>
       </<%&wrapperTag%>>
     );

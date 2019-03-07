@@ -294,7 +294,7 @@ describe('Scale', () => {
         'test-domain': { domain: 'test-domain-3', factory: () => mockScale3 },
       }, {
         [ARGUMENT_DOMAIN]: [0, 400],
-        [VALUE_DOMAIN]: [300, 0]
+        [VALUE_DOMAIN]: [300, 0],
       });
 
       expect(scales).toEqual({

@@ -1,12 +1,5 @@
 import * as React from 'react';<%&additionalImports%>
 import {
-  Plugin,
-  Getter,
-} from '@devexpress/dx-react-core';
-import {
-  ARGUMENT_DOMAIN,
-} from '@devexpress/dx-chart-core';
-import {
   ArgumentAxis,
   ValueAxis,
   Chart,
@@ -17,106 +10,46 @@ import {
   Title,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 
-const data = [
-  { arg: 0.2, val: 0.4 },
-  { arg: 1.4, val: 2.3 },
-  { arg: 2.7, val: 3.8 },
-  { arg: 3.2, val: 1.1 },
-  { arg: 4.8, val: 2.8 },
-];
-
-const minRangePosition = 0;
-const maxRangePosition = 5;
-const minRangeSize = 2;
-const maxRangeSize = 10;
-
-const getRange = (position, size) => [position - size / 2, position + size / 2];
-
-const sliderStyle = {
-  width: '400px',
-};
-
-const X1 = ({ domain }) => {
-  const adjustDomain = ({ domains }) => ({
-    ...domains,
-    [ARGUMENT_DOMAIN]: domain,
-  });
-  return (
-    <Plugin name="x1">
-      <Getter name="domains" computed={adjustDomain} />
-    </Plugin>
-  );
-};
-
+import { born as data } from '../../../demo-data/data-vizualization';
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      rangePosition: 2,
-      rangeSize: 3,
-    };
-    this.changeRangePosition = (e) => {
-      const value = Number(e.target.value);
-      this.setState(() => (
-        minRangePosition <= value && value <= maxRangePosition ? { rangePosition: value } : null
-      ));
-    };
-    this.changeRangeSize = (e) => {
-      const value = Number(e.target.value);
-      this.setState(() => (
-        minRangeSize <= value && value <= maxRangeSize ? { rangeSize: value } : null
-      ));
-    };
-  }
 
-  static getDerivedStateFromProps(props, { rangePosition, rangeSize }) {
-    return {
-      domain: getRange(rangePosition, rangeSize),
+    this.state = {
+      data,
     };
   }
 
   render() {
+    const { data: chartData } = this.state;
+
     return (
       <<%&wrapperTag%><%&wrapperAttributes%>>
         <Chart
-          data={data}
+          data={chartData}
         >
           <Title text="Born amount" />
-          <ArgumentAxis />
+          <Legend placeholder="right" />
+          <ArgumentAxis position="top" />
           <ValueAxis />
 
           <LineSeries
             name="Russia"
-            valueField="val"
-            argumentField="arg"
+            valueField="ru"
+            argumentField="year"
           />
-
-          <X1 domain={this.state.domain} />
+          <SplineSeries
+            name="China"
+            valueField="ch"
+            argumentField="year"
+          />
+          <AreaSeries
+            name="USA"
+            valueField="us"
+            argumentField="year"
+          />
         </Chart>
-
-        <div>
-          <div>
-            <input
-              type="range"
-              id="range-position"
-              style={sliderStyle}
-              min={minRangePosition} max={maxRangePosition} step={0.1}
-              value={this.state.rangePosition} onChange={this.changeRangePosition}
-            />
-            <label htmlFor="range-position">Position</label>
-          </div>
-          <div>
-            <input
-              type="range"
-              id="range-size"
-              style={sliderStyle}
-              min={minRangeSize} max={maxRangeSize} step={0.1}
-              value={this.state.rangeSize} onChange={this.changeRangeSize}
-            />
-            <label htmlFor="range-size">Size</label>
-          </div>
-        </div>
       </<%&wrapperTag%>>
     );
   }

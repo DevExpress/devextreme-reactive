@@ -163,8 +163,10 @@ export default class Demo extends React.PureComponent {
           />
 
           <Viewport
-            argumentBounds={this.state.argBounds}
-            valueBounds={this.state.valBounds}
+            viewport={{
+              argumentBounds: this.state.argBounds,
+              valueBounds: this.state.valBounds,
+            }}
           />
         </Chart>
 

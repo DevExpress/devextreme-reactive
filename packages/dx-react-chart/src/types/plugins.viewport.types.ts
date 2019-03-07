@@ -1,12 +1,16 @@
 import {
-  DomainBounds,
+  ViewportOptions,
 } from './index';
 
 export interface ViewportProps {
-  /** An argument bounds */
-  argumentBounds?: DomainBounds;
-  /** A scale name */
-  scaleName?: string;
-  /** A value bounds */
-  valueBounds?: DomainBounds;
+  /** A default viewport */
+  defaultViewport?: ViewportOptions;
+  /** A viewport */
+  viewport?: ViewportOptions;
+  /** A function that is executed when viewport changes */
+  onViewportChange?: (viewport: ViewportOptions) => void;
 }
+
+export type ViewportState = {
+  viewport?: ViewportOptions;
+};

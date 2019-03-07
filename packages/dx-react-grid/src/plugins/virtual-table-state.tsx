@@ -138,23 +138,28 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
           end: currentRange.start,
         };
       }
+      return {};
+    };
+
+    const recalculateCache = (cache, rows, start, pageIndexes) => {
+
     };
 
     this.requestNextPageAction = (rowIndex: any,
       { virtualPageSize, loadedRowsStart, loadedRowsCount, rawRows },
       ) => {
-      const { requestedPageIndex, virtualRowsCache } = this.state;
+      const { requestedPageIndex, virtualRowsCache, pageIndexes } = this.state;
       const { start, getRows } = this.props;
 
       const newPageIndexes = recalculatePageIndexes(
         loadedRowsStart, loadedRowsCount, rowIndex, virtualPageSize,
       );
       console.log(pageIndexes)
-      const requestedRange =
+      const requestedRange = calculateRequestedRange(pageIndexes, newPageIndexes, rowIndex);
 
-      const newPageIndex = pageIndexes.requested;
+      const newPageIndex = requestedRange.start;
       const pageStart = newPageIndex * virtualPageSize;
-      const loadCount = (3 - pageIndexes.end + pageIndexes.start) * virtualPageSize;
+      const loadCount = (requestedRange.end + requestedRange.start + 1) * virtualPageSize;
 
       if (newPageIndex !== requestedPageIndex) {
         if (this.requestTimer !== 0) {

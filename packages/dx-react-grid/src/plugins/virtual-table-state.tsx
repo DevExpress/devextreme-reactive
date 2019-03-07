@@ -3,7 +3,7 @@ import {
   Getter, Action, Plugin, createStateHelper, StateHelper, ActionFn, Getters, Actions,
 } from '@devexpress/dx-react-core';
 import { VirtualTableStateProps, VirtualTableStateState } from '../types';
-import { rowIdGetter } from '@devexpress/dx-grid-core';
+import { rowIdGetter, intervalUtil, Interval } from '@devexpress/dx-grid-core';
 
 const rawRowsComputed = ({ rows }: Getters) => rows;
 
@@ -88,15 +88,16 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
       },
     );
 
-    const mergeRows = (pageIndexes, cache, rows, start, pageSize) => {
+    const mergeRows = (pageIndexes, cache, rows, rowsStart, pageSize) => {
       const startPage = pageIndexes.start;
       const cacheStart = Math.floor(cache.start / pageSize);
       const cacheEnd = cacheStart + Math.floor(cache.rows.length / pageSize);
 
       let result = [];
+      let start = null;
       for (let index = pageIndexes.start; index <= pageIndexes.end; index += 1) {
         const rowIndex = index * pageSize;
-        if (rowIndex === start) {
+        if (rowIndex === rowsStart) {
           result = result.concat(rows);
         } else if (cacheStart <= index && index < cacheEnd) {
           const skip = (index - startPage) * pageSize;
@@ -141,8 +142,31 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
       return {};
     };
 
-    const recalculateCache = (cache, rows, start, pageIndexes) => {
+    const recalculateCache = (cache, rows, start, pageIndexes, pageSize) => {
+      const prevCacheInterval = intervalUtil
+        .createIntervalSet(cache.start / pageSize, cache.rows.length / pageSize);
+      const prevRowsInterval = intervalUtil
+        .createIntervalSet(start / pageSize, rows.length / pageSize);
+      const targetInterval = intervalUtil
+        .createIntervalSet(pageIndexes.start, pageIndexes.end);
 
+      const cacheInterval = intervalUtil.intersect(pageIndexes, prevCacheInterval);
+      const rowsInterval = intervalUtil.intersect(pageIndexes, prevRowsInterval);
+      const resultCacheIndexes = [...intervalUtil.union(cacheInterval, rowsInterval)].sort();
+
+      let cacheRows = [];
+      const firstIndex = resultCacheIndexes[0];
+      for (const index of resultCacheIndexes) {
+        const source = rowsInterval.has(index) ? rows : cache.rows;
+        const skip = (index - firstIndex) * pageSize;
+        const chunk = source.slice(skip, pageSize);
+        cacheRows = cacheRows.concat(chunk);
+      }
+
+      return {
+        start: firstIndex,
+        rows: cacheRows,
+      };
     };
 
     this.requestNextPageAction = (rowIndex: any,
@@ -169,35 +193,37 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
           getRows(pageStart, loadCount);
           // console.log(now - lastQueryTime)
 
-          const loadedPages = Math.floor(loadedRowsCount / virtualPageSize);
-          let cacheStart = start;
-          let cacheRows = rawRows;
-          if (loadedPages > 2) {
-            cacheStart = loadDownPage
-            ? virtualRowsCache.start + virtualPageSize
-            : virtualRowsCache.start - virtualPageSize;
+          const newCache = recalculateCache(virtualRowsCache, rawRows, start, pageIndexes, virtualPageSize);
+          // const loadedPages = Math.floor(loadedRowsCount / virtualPageSize);
+          // let cacheStart = start;
+          // let cacheRows = rawRows;
+          // if (loadedPages > 2) {
+          //   cacheStart = loadDownPage
+          //   ? virtualRowsCache.start + virtualPageSize
+          //   : virtualRowsCache.start - virtualPageSize;
 
-            cacheRows = virtualRowsCache.rows.slice(virtualPageSize).concat(rawRows);
-          }
-          const newLoadedRowsStart = Math.min(cacheStart, start);
+          //   cacheRows = virtualRowsCache.rows.slice(virtualPageSize).concat(rawRows);
+          // }
+          // const newLoadedRowsStart = Math.min(cacheStart, start);
           console.log(
             rowIndex, ' get rows, skip', pageStart,
             'current start', start,
             'page index', newPageIndex,
-            `cache start ${virtualRowsCache.start} -> ${cacheStart}`,
-            `loaded start ${loadedRowsStart} -> ${newLoadedRowsStart}`,
+            `cache start ${virtualRowsCache.start} -> ${newCache.start}`,
+            `loaded start ${loadedRowsStart} -> ${newCache.start}`,
             // 'raw rows', rawRows.length,
             // 'cache start', cacheStart, 'rows', cacheRows.length,
           )
 
           this.setState({
-            loadedRowsStart: newLoadedRowsStart,
+            loadedRowsStart: newCache.start,
             requestedPageIndex: newPageIndex,
             // lastQueryTime: Date.now(),
-            virtualRowsCache: {
-              start: cacheStart,
-              rows: cacheRows,
-            },
+            virtualRowsCache: newCache,
+            // virtualRowsCache: {
+            //   start: cacheStart,
+            //   rows: cacheRows,
+            // },
           });
         }, 50);
       }

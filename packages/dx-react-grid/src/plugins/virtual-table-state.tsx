@@ -71,6 +71,7 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
       currentVirtualPageTop: 0,
       lastQueryTime: 0,
       loadedRowsStart: 0,
+      pageIndexes: { start: 0, end: 2 },
       // rowsCache: [],
     };
 
@@ -107,24 +108,36 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
 
     const rowToPageIndex = (rowIndex, pageSize) => Math.floor(rowIndex / pageSize);
     const recalculatePageIndexes = (loadedStart, loadedCount, middleIndex, pageSize) => {
-      const firstPageIndex = rowToPageIndex(loadedStart, pageSize);
-      const lastPageIndex = firstPageIndex + rowToPageIndex(loadedCount, pageSize);
       const currentPageIndex = rowToPageIndex(middleIndex, pageSize);
-      // const offset = currentPageIndex - firstPageIndex;
 
       const newFirstIndex = Math.max(0, currentPageIndex - 1);
       const newLastIndex = currentPageIndex + 1;
-      const offset = Math.abs(newFirstIndex - firstPageIndex);
-
-
-
-      // const offset = currentPageIndex === firstPageIndex ? -1 : 1;
 
       return {
-        start: firstPageIndex + offset,
-        end: lastPageIndex + offset,
-        requestedRange: currentPageIndex + offset,
+        start: newFirstIndex,
+        end: newLastIndex,
+        // requestedRange: currentPageIndex + offset,
       };
+    };
+
+    const calculateRequestedRange = (currentRange, newRange, middleIndex) => {
+      if (Math.abs(currentRange.start - newRange.start) > 2) {
+        const useFirstHalf = middleIndex % 100 < 50;
+        const start = useFirstHalf ? newRange.start : newRange.start + 1;
+        return { start, end: start + 1 };
+      }
+      if (currentRange.start < newRange.start && newRange.start < currentRange.end) {
+        return {
+          start: currentRange.end,
+          end: newRange.end,
+        };
+      }
+      if (newRange.start < currentRange.start && currentRange.start < newRange.end) {
+        return {
+          start: newRange.start,
+          end: currentRange.start,
+        };
+      }
     };
 
     this.requestNextPageAction = (rowIndex: any,
@@ -133,10 +146,11 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
       const { requestedPageIndex, virtualRowsCache } = this.state;
       const { start, getRows } = this.props;
 
-      const pageIndexes = recalculatePageIndexes(
+      const newPageIndexes = recalculatePageIndexes(
         loadedRowsStart, loadedRowsCount, rowIndex, virtualPageSize,
       );
       console.log(pageIndexes)
+      const requestedRange =
 
       const newPageIndex = pageIndexes.requested;
       const pageStart = newPageIndex * virtualPageSize;

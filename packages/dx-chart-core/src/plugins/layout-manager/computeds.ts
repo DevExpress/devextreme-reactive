@@ -17,6 +17,7 @@ export const bBoxes = (prevBBoxes: BBoxes, { bBox, placeholder }: BBoxesChange) 
   return { ...prevBBoxes, [placeholder]: bBox };
 };
 
+/** @internal */
 export const getRanges = (paneSize: Size): RangesCache => ({
   [ARGUMENT_DOMAIN]: [0, paneSize.width],
   [VALUE_DOMAIN]: [paneSize.height, 0],

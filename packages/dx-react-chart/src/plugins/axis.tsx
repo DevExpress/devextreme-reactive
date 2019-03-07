@@ -9,7 +9,8 @@ import {
   onSizeChangeFn,
 } from '@devexpress/dx-react-core';
 import {
-  axisCoordinates, LEFT, BOTTOM, ARGUMENT_DOMAIN, getValueDomainName, getGridCoordinates,
+  ARGUMENT_DOMAIN, getValueDomainName,
+  axisCoordinates, createTickFilter, LEFT, BOTTOM, getGridCoordinates,
 } from '@devexpress/dx-chart-core';
 import { RawAxisProps, ArgumentAxisProps, ValueAxisProps } from '../types';
 import { Root } from '../templates/axis/root';
@@ -19,7 +20,7 @@ import { Line } from '../templates/axis/line';
 import { withPatchedProps } from '../utils';
 
 const SVG_STYLE: React.CSSProperties = {
-  position: 'absolute', left: 0, top: 0, overflow: 'hidden',
+  position: 'absolute', left: 0, top: 0, overflow: 'visible',
 };
 
 class RawAxis extends React.PureComponent<RawAxisProps> {
@@ -77,6 +78,15 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
                 indentFromAxis: indentFromAxis!,
                 scale,
               });
+              // This is a workaround for a case when only a part of domain is visible.
+              // "overflow: hidden" cannot be used for <svg> element because edge labels would
+              // be truncated by half then.
+              // Looks like some margins should be added to <svg> width/height but for now it is
+              // not clear how to achieve it.
+              // The solution is considered temporary by now.
+              // Let's see if anything could be done to improve the situation.
+              const visibleTicks = ticks
+                .filter(createTickFilter([dx * this.adjustedWidth, dy * this.adjustedHeight]));
               const handleSizeChange: onSizeChangeFn = (size) => {
                 // The callback is called when DOM is available -
                 // *rootRef.current* can be surely accessed.
@@ -111,7 +121,7 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
                       dy={dy}
                       onSizeChange={handleSizeChange}
                     >
-                      {showTicks && ticks.map(({
+                      {showTicks && visibleTicks.map(({
                         x1, x2, y1, y2, key,
                       }) => (
                         <TickComponent
@@ -130,7 +140,7 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
                           y2={dy * this.adjustedHeight}
                         />
                       )}
-                      {showLabels && ticks.map(({
+                      {showLabels && visibleTicks.map(({
                         text,
                         xText,
                         yText,

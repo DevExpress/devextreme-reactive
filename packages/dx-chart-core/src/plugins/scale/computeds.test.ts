@@ -111,28 +111,6 @@ describe('Scale', () => {
       });
     });
 
-    it('should compute domains from series points (temporary workaround for Stack)', () => {
-      const getValueDomain = jest.fn().mockReturnValue([11, 15, 19, 23]);
-      const points = [
-        { argument: 1, value: 9 },
-        { argument: 2, value: 2 },
-        { argument: 3, value: 7 },
-      ];
-      const domains = extendDomains(testDomains as any, {
-        getPointTransformer, getValueDomain, points,
-      } as any);
-
-      expect(domains).toEqual({
-        [ARGUMENT_DOMAIN]: {
-          domain: [1, 3], factory: scaleLinear, isDiscrete: false,
-        },
-        [VALUE_DOMAIN]: {
-          domain: [11, 23], factory: scaleLinear, isDiscrete: false,
-        },
-      });
-      expect(getValueDomain).toBeCalledWith(points);
-    });
-
     it('should compute domains from series points, negative values', () => {
       const domains = extendDomains(testDomains as any, {
         getPointTransformer, points: [{ argument: 1, value: 9 }, { argument: 2, value: -10 }],

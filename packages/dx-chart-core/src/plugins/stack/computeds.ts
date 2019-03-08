@@ -34,7 +34,7 @@ const getStackedPointTransformer = (getPointTransformer: GetPointTransformerFn) 
     };
   };
   // Preserve static fields of original transformer.
-  Object.assign(wrapper, getPointTransformer, { isStacked: true });
+  Object.assign(wrapper, getPointTransformer);
   return wrapper as GetPointTransformerFn;
 };
 
@@ -82,6 +82,7 @@ const buildStackedSeries = (series: Series, dataItems: StackedDataItems): Series
   const stackedSeries = {
     ...series,
     points,
+    isStacked: true,
   };
   if (series.getPointTransformer.isStartedFromZero) {
     stackedSeries.getPointTransformer = getStackedPointTransformer(series.getPointTransformer);
@@ -179,7 +180,7 @@ const resetDomainItems = (domains: DomainInfoCache): DomainInfoCache => {
   const result = {};
   Object.keys(domains).forEach((key) => {
     result[key] = { ...domains[key], domain: [] };
-  })
+  });
   return result;
 };
 
@@ -194,10 +195,12 @@ const extendDomainsWithAdditionalItems = (domains: DomainInfoCache, series: Seri
 // and recalculated from the new stacked data.
 /** @internal */
 export const getStackedDomains: GetStackedDomainsFn = (domains, seriesList) => {
+  const stackedSeries = seriesList.filter(series => series.isStacked);
+  if (!stackedSeries.length) {
+    return domains;
+  }
   // Recalculate domains in a common way.
   const rebuiltDomains = seriesList.reduce(extendDomains, resetDomainItems(domains));
   // Take additional "value0" fields into account.
-  return seriesList
-    .filter(series => (series.getPointTransformer as any).isStacked)
-    .reduce(extendDomainsWithAdditionalItems, rebuiltDomains);
+  return stackedSeries.reduce(extendDomainsWithAdditionalItems, rebuiltDomains);
 };

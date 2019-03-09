@@ -195,7 +195,7 @@ const extendDomainsWithAdditionalItems = (domains: DomainInfoCache, series: Seri
 // and recalculated from the new stacked data.
 /** @internal */
 export const getStackedDomains: GetStackedDomainsFn = (domains, seriesList) => {
-  const stackedSeries = seriesList.filter(series => series.isStacked);
+  const stackedSeries = seriesList.filter(series => (series as any).isStacked);
   if (!stackedSeries.length) {
     return domains;
   }

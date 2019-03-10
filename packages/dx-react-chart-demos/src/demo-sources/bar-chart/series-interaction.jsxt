@@ -23,7 +23,7 @@ const tooltipContentTitleStyle = {
 const tooltipContentBodyStyle = {
   paddingTop: 0,
 };
-const format = d3Format.format(',.2r');
+const formatTooltip = d3Format.format(',.2r');
 const TooltipContent = (props) => {
   const { targetItem, text, ...restProps } = props;
   return (
@@ -39,7 +39,7 @@ const TooltipContent = (props) => {
         <Tooltip.Content
           {...restProps}
           style={tooltipContentBodyStyle}
-          text={format(data[targetItem.point][targetItem.series])}
+          text={formatTooltip(data[targetItem.point][targetItem.series])}
         />
       </div>
     </div>
@@ -48,6 +48,24 @@ const TooltipContent = (props) => {
 
 const titleTextStyle = { marginRight: '120px' };
 const TitleText = props => <Title.Text {...props} style={titleTextStyle} />;
+
+const formatInfo = ({ series, point }) => `${series}: ${data[point].year} - ${data[point][series]}`;
+const infoRootStyle = { marginLeft: '70px' };
+const infoPrimaryStyle = { fontWeight: 'bold' };
+const infoSecondaryStyle = { fontWeight: 'italic' };
+const Info = ({ hover, selection }) => {
+  const selectionNode = (
+    <span style={infoPrimaryStyle}>{selection ? formatInfo(selection) : 'N/A'}</span>
+  );
+  const hoverNode = (
+    hover && <span style={infoSecondaryStyle}>{`( ${formatInfo(hover)} )`}</span>
+  );
+  return (
+    <div style={infoRootStyle}>
+      Focus | {selectionNode} {hoverNode}
+    </div>
+  );
+};
 
 const compareTargets = (
   { series, point }, { series: targetSeries, point: targetPoint },
@@ -58,6 +76,7 @@ export default class Demo extends React.PureComponent {
     super(props);
 
     this.state = {
+      hover: null,
       selection: [],
     };
 
@@ -69,10 +88,11 @@ export default class Demo extends React.PureComponent {
         }));
       }
     };
+    this.changeHover = hover => this.setState({ hover });
   }
 
   render() {
-    const { selection } = this.state;
+    const { hover, selection } = this.state;
 
     return (
       <<%&wrapperTag%><%&wrapperAttributes%>>
@@ -101,11 +121,12 @@ export default class Demo extends React.PureComponent {
           <Stack />
           <Legend />
           <EventTracker onClick={this.click} />
-          <HoverState />
+          <HoverState hover={hover} onHoverChange={this.changeHover} />
           <Tooltip contentComponent={TooltipContent} />
           <SelectionState selection={selection} />
           <Animation />
         </Chart>
+        <Info hover={hover} selection={selection[0]} />
       </<%&wrapperTag%>>
     );
   }

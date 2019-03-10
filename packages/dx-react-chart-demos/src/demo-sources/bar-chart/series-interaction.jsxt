@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from 'react';<%&additionalImports%>
 import {
   Chart,
   BarSeries,
@@ -7,33 +7,49 @@ import {
   Title,
   Legend,
   Tooltip,
-} from '@devexpress/dx-react-chart-bootstrap4';
+} from '@devexpress/dx-react-chart-<%&themeName%>';
 import * as d3Format from 'd3-format';
 import { scaleBand } from '@devexpress/dx-chart-core';
 import {
   ArgumentScale, Stack, Animation, EventTracker, HoverState, SelectionState,
 } from '@devexpress/dx-react-chart';
 
-import { annualVehiclesSales } from '../../../demo-data/data-vizualization';
+import { annualVehiclesSales as data } from '../../../demo-data/data-vizualization';
 
-const ContentComponent = (props) => {
-  const { targetItem } = props;
+const tooltipContentTitleStyle = {
+  fontWeight: 'bold',
+  paddingBottom: 0,
+};
+const tooltipContentBodyStyle = {
+  paddingTop: 0,
+};
+const format = d3Format.format(',.2r');
+const TooltipContent = (props) => {
+  const { targetItem, text, ...restProps } = props;
   return (
     <div>
-      <p className="mb-0 font-weight-bold">
-        {`${targetItem.series}`}
-      </p>
-      <p className="mb-0">
-        {d3Format.format(',.2r')(annualVehiclesSales[targetItem.point][targetItem.series])}
-      </p>
+      <div>
+        <Tooltip.Content
+          {...restProps}
+          style={tooltipContentTitleStyle}
+          text={targetItem.series}
+        />
+      </div>
+      <div>
+        <Tooltip.Content
+          {...restProps}
+          style={tooltipContentBodyStyle}
+          text={format(data[targetItem.point][targetItem.series])}
+        />
+      </div>
     </div>
   );
 };
 
-const titleStyle = { marginRight: '120px' };
-const TitleText = props => <Title.Text {...props} style={titleStyle} />;
+const titleTextStyle = { marginRight: '120px' };
+const TitleText = props => <Title.Text {...props} style={titleTextStyle} />;
 
-const compare = (
+const compareTargets = (
   { series, point }, { series: targetSeries, point: targetPoint },
 ) => series === targetSeries && point === targetPoint;
 
@@ -42,7 +58,6 @@ export default class Demo extends React.PureComponent {
     super(props);
 
     this.state = {
-      data: annualVehiclesSales,
       selection: [],
     };
 
@@ -50,19 +65,19 @@ export default class Demo extends React.PureComponent {
       const target = targets[0];
       if (target) {
         this.setState(({ selection }) => ({
-          selection: selection[0] && compare(selection[0], target) ? [] : [target],
+          selection: selection[0] && compareTargets(selection[0], target) ? [] : [target],
         }));
       }
     };
   }
 
   render() {
-    const { data: chartData, selection } = this.state;
+    const { selection } = this.state;
 
     return (
-      <div className="card">
+      <<%&wrapperTag%><%&wrapperAttributes%>>
         <Chart
-          data={chartData}
+          data={data}
         >
           <ArgumentScale factory={scaleBand} />
           <ArgumentAxis />
@@ -87,11 +102,11 @@ export default class Demo extends React.PureComponent {
           <Legend />
           <EventTracker onClick={this.click} />
           <HoverState />
-          <Tooltip contentComponent={ContentComponent} />
+          <Tooltip contentComponent={TooltipContent} />
           <SelectionState selection={selection} />
           <Animation />
         </Chart>
-      </div>
+      </<%&wrapperTag%>>
     );
   }
 }

@@ -5,7 +5,7 @@ export const changeColumnFilter: PureReducer<Filter[], ChangeFilterPayload> = (
   filters, { columnName, config },
 ) => {
   const filterIndex = filters.findIndex(f => f.columnName === columnName);
-  const nextState = filters.slice();
+  const nextState = Array.prototype.slice.call(filters);
 
   if (config) {
     const filter = { columnName, ...config };

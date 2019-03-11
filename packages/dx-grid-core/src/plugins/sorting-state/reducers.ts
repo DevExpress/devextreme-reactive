@@ -9,10 +9,10 @@ export const changeColumnSorting: PureReducer<ColumnSortingState, ChangeSortingP
 
   let nextSorting: any[] = [];
   if (keepOther === true) {
-    nextSorting = sorting.slice();
+    nextSorting = Array.prototype.slice.call(sorting);
   }
   if (Array.isArray(keepOther)) {
-    nextSorting = sorting.slice()
+    nextSorting = Array.prototype.slice.call(sorting)
       .filter(s =>
         keepOther.indexOf(s.columnName) > -1);
   }

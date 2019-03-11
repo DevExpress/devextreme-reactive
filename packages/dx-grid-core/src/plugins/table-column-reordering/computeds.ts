@@ -30,7 +30,7 @@ export const draftOrder: DraftOrderComputed = (order, sourceColumnIndex, targetC
     return order;
   }
 
-  const result = order.slice();
+  const result = Array.prototype.slice.call(order);
   const sourceColumn = order[sourceColumnIndex];
   result.splice(sourceColumnIndex, 1);
   result.splice(targetColumnIndex, 0, sourceColumn);

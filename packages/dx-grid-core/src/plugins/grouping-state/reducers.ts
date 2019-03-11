@@ -8,7 +8,7 @@ import {
 const applyColumnGrouping: PureReducer<Grouping[], ChangeGroupingPayload> = (
   grouping, { columnName, groupIndex },
 ) => {
-  const nextGrouping = grouping.slice();
+  const nextGrouping = Array.prototype.slice.call(grouping);
   const groupingIndex = nextGrouping.findIndex(g => g.columnName === columnName);
   let targetIndex = groupIndex;
 
@@ -59,7 +59,7 @@ export const changeColumnGrouping: PureReducer<ColumnGroupingState, ChangeGroupi
 export const toggleExpandedGroups: PureReducer<ColumnGroupingState, ToggleGroupPayload> = (
   state, { groupKey },
 ) => {
-  const expandedGroups = state.expandedGroups!.slice();
+  const expandedGroups = Array.prototype.slice.call(state.expandedGroups);
   const groupKeyIndex = expandedGroups.indexOf(groupKey);
 
   if (groupKeyIndex > -1) {

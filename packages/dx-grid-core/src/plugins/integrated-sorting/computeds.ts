@@ -22,7 +22,7 @@ const defaultCompare = (a: any, b: any) => {
 
 const createCompare: CreateCompareFn = (
   sorting, getColumnCompare, getComparableValue,
-) => sorting.slice()
+) => Array.prototype.slice.call(sorting)
   .reverse()
   .reduce(
     (prevCompare, columnSorting) => {

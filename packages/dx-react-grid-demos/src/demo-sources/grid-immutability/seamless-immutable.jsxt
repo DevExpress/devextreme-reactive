@@ -64,7 +64,7 @@ const Sorting = ({
   onSortingChange,
 }) => (
   <SortingState
-    sorting={sorting.asMutable()}
+    sorting={sorting}
     onSortingChange={onSortingChange}
   />
 );
@@ -87,7 +87,7 @@ const Selection = ({
   onSelectionChange,
 }) => (
   <SelectionState
-    selection={selection.asMutable()}
+    selection={selection}
     onSelectionChange={onSelectionChange}
   />
 );

@@ -6,7 +6,7 @@ export const changeColumnOrder: PureReducer<ColumnOrder, ChangeColumnOrderPayloa
 ) => {
   const sourceColumnIndex = order.indexOf(sourceColumnName);
   const targetColumnIndex = order.indexOf(targetColumnName);
-  const newOrder = order.slice();
+  const newOrder = Array.prototype.slice.call(order);
 
   newOrder.splice(sourceColumnIndex, 1);
   newOrder.splice(targetColumnIndex, 0, sourceColumnName);

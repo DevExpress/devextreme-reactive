@@ -4,7 +4,7 @@ export const changeTableColumnWidth: ColumnWidthReducer = (
   state, { columnName, shift, minColumnWidth ,
 }) => {
   const { columnWidths } = state;
-  const nextColumnWidth = columnWidths.slice();
+  const nextColumnWidth = Array.prototype.slice.call(columnWidths);
   const index = nextColumnWidth.findIndex(elem => elem.columnName === columnName);
   const updatedColumn = nextColumnWidth[index];
   const size = Math.max(minColumnWidth, updatedColumn.width + shift);

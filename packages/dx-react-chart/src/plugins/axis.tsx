@@ -9,10 +9,10 @@ import {
   onSizeChangeFn,
 } from '@devexpress/dx-react-core';
 import {
-  axisCoordinates, LEFT, BOTTOM, ARGUMENT_DOMAIN, getValueDomainName, getGridCoordinates,
-  NumberArray,
+  ARGUMENT_DOMAIN, getValueDomainName,
+  axisCoordinates, createTickFilter, LEFT, BOTTOM, getGridCoordinates,
 } from '@devexpress/dx-chart-core';
-import { RawAxisProps, ArgumentAxisProps, ValueAxisProps, ScaleObject } from '../types';
+import { RawAxisProps, ArgumentAxisProps, ValueAxisProps } from '../types';
 import { Root } from '../templates/axis/root';
 import { Label } from '../templates/axis/label';
 import { Line } from '../templates/axis/line';
@@ -21,19 +21,6 @@ import { withPatchedProps } from '../utils';
 
 const SVG_STYLE: React.CSSProperties = {
   position: 'absolute', left: 0, top: 0, overflow: 'visible',
-};
-
-const adjustScaleRange = (scale: ScaleObject, [width, height]: NumberArray) => {
-  const range = scale.range().slice() as NumberArray;
-  if (Math.abs(range[0] - range[1]) < 0.01) {
-    return scale;
-  }
-  if (range[1] > 0) {
-    range[1] = width;
-  } else {
-    range[0] = height;
-  }
-  return scale.copy().range(range);
 };
 
 class RawAxis extends React.PureComponent<RawAxisProps> {
@@ -89,9 +76,17 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
                 tickSize: tickSize!,
                 tickFormat,
                 indentFromAxis: indentFromAxis!,
-                // Isn't it too late to adjust sizes?
-                scale: adjustScaleRange(scale, [this.adjustedWidth, this.adjustedHeight]),
+                scale,
               });
+              // This is a workaround for a case when only a part of domain is visible.
+              // "overflow: hidden" cannot be used for <svg> element because edge labels would
+              // be truncated by half then.
+              // Looks like some margins should be added to <svg> width/height but for now it is
+              // not clear how to achieve it.
+              // The solution is considered temporary by now.
+              // Let's see if anything could be done to improve the situation.
+              const visibleTicks = ticks
+                .filter(createTickFilter([dx * this.adjustedWidth, dy * this.adjustedHeight]));
               const handleSizeChange: onSizeChangeFn = (size) => {
                 // The callback is called when DOM is available -
                 // *rootRef.current* can be surely accessed.
@@ -126,7 +121,7 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
                       dy={dy}
                       onSizeChange={handleSizeChange}
                     >
-                      {showTicks && ticks.map(({
+                      {showTicks && visibleTicks.map(({
                         x1, x2, y1, y2, key,
                       }) => (
                         <TickComponent
@@ -145,7 +140,7 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
                           y2={dy * this.adjustedHeight}
                         />
                       )}
-                      {showLabels && ticks.map(({
+                      {showLabels && visibleTicks.map(({
                         text,
                         xText,
                         yText,

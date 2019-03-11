@@ -1,6 +1,24 @@
 import {
   isHorizontal, getWidth, getValueDomainName, fixOffset,
+  scaleLinear, scaleBand, makeScale, scaleBounds,
 } from './scale';
+
+jest.mock('d3-scale', () => ({
+  scaleLinear: () => ({ tag: 'scale-linear' }),
+  scaleBand: () => {
+    const ret = { tag: 'scale-band' } as any;
+    ret.paddingInner = (value) => {
+      ret.inner = value;
+      return ret;
+    };
+    ret.paddingOuter = (value) => {
+      ret.outer = value;
+      return ret;
+    };
+    ret.bandwidth = () => 0;
+    return ret;
+  },
+}));
 
 describe('#isHorizontal', () => {
   it('should consider argument scale horizontal', () => {
@@ -46,5 +64,67 @@ describe('#fixOffset', () => {
     expect(wrapped).not.toBe(mock);
     expect(wrapped(0)).toEqual(2);
     expect(wrapped(3)).toEqual(8);
+  });
+});
+
+describe('default scales', () => {
+  it('should provide linear scale', () => {
+    expect(scaleLinear()).toEqual({ tag: 'scale-linear' });
+  });
+
+  it('should provide band scale', () => {
+    expect(scaleBand()).toEqual({
+      tag: 'scale-band',
+      inner: 0.3,
+      outer: 0.15,
+      paddingInner: expect.any(Function),
+      paddingOuter: expect.any(Function),
+      bandwidth: expect.any(Function),
+    });
+  });
+});
+
+describe('#makeScale', () => {
+  it('should create scale', () => {
+    const mock: { domain?: any, range?: any } = {};
+    mock.domain = jest.fn().mockReturnValue(mock);
+    mock.range = jest.fn().mockReturnValue(mock);
+    const factory = jest.fn().mockReturnValue(mock);
+
+    const scale = makeScale({ factory, domain: 'test-domain' } as any, [10, 20]);
+
+    expect(scale).toBe(mock);
+    expect(factory).toBeCalledWith();
+    expect(mock.domain).toBeCalledWith('test-domain');
+    expect(mock.range).toBeCalledWith([10, 20]);
+  });
+});
+
+describe('#scaleBounds', () => {
+  it('should measure continuous scale', () => {
+    const scale = jest.fn();
+    scale.mockReturnValueOnce(30);
+    scale.mockReturnValueOnce(40);
+
+    const range = scaleBounds(scale as any, [1, 2]);
+
+    expect(range).toEqual([30, 40]);
+    expect(scale.mock.calls).toEqual([
+      [1], [2],
+    ]);
+  });
+
+  it('should measure discrete scale', () => {
+    const scale = jest.fn();
+    scale.mockReturnValueOnce(30);
+    scale.mockReturnValueOnce(40);
+    (scale as any).bandwidth = () => 5;
+
+    const range = scaleBounds(scale as any, [1, 2]);
+
+    expect(range).toEqual([30, 45]);
+    expect(scale.mock.calls).toEqual([
+      [1], [2],
+    ]);
   });
 });

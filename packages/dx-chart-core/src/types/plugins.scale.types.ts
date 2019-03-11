@@ -2,6 +2,9 @@ import { PureComputed } from '@devexpress/dx-core';
 import {
   ScaleObject, DomainItems, ScalesCache, Point, Series,
 } from './chart-core.types';
+import {
+  RangesCache,
+} from './plugins.layout-manager.types';
 
 export type FactoryFn = () => ScaleObject;
 export type ModifyDomainFn = (domain: DomainItems) => DomainItems;
@@ -32,9 +35,4 @@ export type GetItemFn = (point: Point) => any;
 /** @internal */
 export type GetDomainItemsFn = (series: Series) => DomainItems;
 /** @internal */
-export type Layout = {
-  width: number;
-  height: number;
-};
-/** @internal */
-export type BuildScalesFn = PureComputed<[DomainInfoCache, Layout], ScalesCache>;
+export type BuildScalesFn = PureComputed<[DomainInfoCache, RangesCache], ScalesCache>;

@@ -1,14 +1,17 @@
-/** @internal */
-export type BBox = {
-  readonly width: number;
-  readonly height: number;
-};
+import { Size } from '@devexpress/dx-react-core';
+import { NumberArray } from './chart-core.types';
+
 /** @internal */
 export type BBoxes = {
-  readonly [placeholder: string]: BBox;
+  readonly [placeholder: string]: Size;
 };
 /** @internal */
 export type BBoxesChange = {
-  readonly bBox: BBox;
+  readonly bBox: Size;
   readonly placeholder: string;
+};
+
+/** @internal */
+export type RangesCache = {
+  readonly [name: string]: NumberArray;
 };

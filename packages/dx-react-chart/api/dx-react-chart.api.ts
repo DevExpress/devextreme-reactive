@@ -143,6 +143,9 @@ declare type DataItem = {
 declare type DataItems = ReadonlyArray<DataItem>;
 
 // @public (undocumented)
+declare type DomainBounds = Readonly<[any, any]>;
+
+// @public (undocumented)
 declare type DomainItems = ReadonlyArray<any>;
 
 // @public (undocumented)
@@ -602,6 +605,32 @@ declare const ValueScale: React.ComponentType<ValueScaleProps>;
 // @public (undocumented)
 interface ValueScaleProps extends ScaleProps {
 }
+
+// @public (undocumented)
+declare const Viewport: React.ComponentType<ViewportProps>;
+
+// @public (undocumented)
+declare type ViewportOptions = {
+  // (undocumented)
+  readonly argumentBounds?: DomainBounds;
+  // (undocumented)
+  readonly scaleName?: string;
+  // (undocumented)
+  readonly valueBounds?: DomainBounds;
+};
+
+// @public (undocumented)
+interface ViewportProps {
+  defaultViewport?: ViewportOptions;
+  onViewportChange?: (viewport: ViewportOptions) => void;
+  viewport?: ViewportOptions;
+}
+
+// @public (undocumented)
+type ViewportState = {
+  // (undocumented)
+  viewport?: ViewportOptions;
+};
 
 
 // (No @packageDocumentation comment for this package)

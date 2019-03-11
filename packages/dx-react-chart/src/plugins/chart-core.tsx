@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Plugin, Getter, Getters } from '@devexpress/dx-react-core';
 import { buildScales, scaleSeriesPoints } from '@devexpress/dx-chart-core';
 
-const getScales = ({ domains, layouts }: Getters) => buildScales(domains, layouts.pane);
+const getScales = ({ domains, ranges }: Getters) => buildScales(domains, ranges);
 
 const getSeries = ({ series, scales }: Getters) => scaleSeriesPoints(series, scales);
 

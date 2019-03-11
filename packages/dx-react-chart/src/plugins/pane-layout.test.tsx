@@ -27,7 +27,7 @@ describe('PaneLayout', () => {
       width: 400,
       height: 300,
       style: {
-        left: 0, top: 0, overflow: 'visible', position: 'absolute',
+        left: 0, top: 0, overflow: 'hidden', position: 'absolute',
       },
       children: expect.anything(),
     });

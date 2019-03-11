@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing';
 import { stackOrderNone, stackOffsetDiverging } from 'd3-shape';
-import { getStackedSeries } from '@devexpress/dx-chart-core';
+import { getStackedSeries, getStackedDomains } from '@devexpress/dx-chart-core';
 import { Stack } from './stack';
 
 jest.mock('d3-shape', () => ({
@@ -13,6 +13,7 @@ jest.mock('d3-shape', () => ({
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   getStackedSeries: jest.fn().mockReturnValue('stacked-series'),
+  getStackedDomains: jest.fn().mockReturnValue('stacked-domains'),
 }));
 
 describe('Stack', () => {
@@ -20,6 +21,7 @@ describe('Stack', () => {
 
   const deps = {
     getter: {
+      domains: 'test-domains',
       series: 'test-series',
       data: 'test-data',
     },
@@ -41,14 +43,16 @@ describe('Stack', () => {
     ));
 
     expect(getComputedState(tree)).toEqual({
-      data: 'test-data',
+      ...deps.getter,
       series: 'stacked-series',
+      domains: 'stacked-domains',
     });
     expect(getStackedSeries).toBeCalledWith('test-series', 'test-data', {
       stacks: testStacks,
       offset: testOffset,
       order: testOrder,
     });
+    expect(getStackedDomains).toBeCalledWith('test-domains', 'stacked-series');
   });
 
   it('should provide default options', () => {
@@ -60,13 +64,15 @@ describe('Stack', () => {
     ));
 
     expect(getComputedState(tree)).toEqual({
-      data: 'test-data',
+      ...deps.getter,
       series: 'stacked-series',
+      domains: 'stacked-domains',
     });
     expect(getStackedSeries).toBeCalledWith('test-series', 'test-data', {
       stacks: [],
       offset: stackOffsetDiverging,
       order: stackOrderNone,
     });
+    expect(getStackedDomains).toBeCalledWith('test-domains', 'stacked-series');
   });
 });

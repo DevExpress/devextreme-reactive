@@ -1,10 +1,13 @@
 import { stack } from 'd3-shape';
 import { scaleBand } from 'd3-scale';
 import {
-  SeriesList, Series, PointList, Point, GetPointTransformerFn, DataItems, DomainItems,
+  SeriesList, Series, Point, GetPointTransformerFn, DataItems, DomainInfoCache,
   StackList, GetPointTransformerFnRaw, BarSeries, StackedPoint, StackMap, GetStackedSeriesFn,
-  SeriesPositions, StacksKeys, StackedDataItems, OffsetFn, OrderFn, StackedData,
+  SeriesPositions, StacksKeys, StackedDataItems, OffsetFn, OrderFn,
+  StackedData, GetStackedDomainsFn,
 } from '../../types';
+import { extendDomains, updateDomainItems } from '../scale/computeds';
+import { getValueDomainName } from '../../utils/scale';
 
 // "Stack" plugin relies on "data" and "series" getters and
 // knowledge about "getPointTransformer" and "path" functions behavior.
@@ -33,15 +36,6 @@ const getStackedPointTransformer = (getPointTransformer: GetPointTransformerFn) 
   // Preserve static fields of original transformer.
   Object.assign(wrapper, getPointTransformer);
   return wrapper as GetPointTransformerFn;
-};
-
-// TODO: Temporary - see corresponding note in *computeDomains*.
-const getValueDomain = (points: PointList): DomainItems => {
-  const items: any[] = [];
-  points.forEach((point) => {
-    items.push(point.value, (point as StackedPoint).value0);
-  });
-  return items;
 };
 
 const collectStacks = (
@@ -88,10 +82,10 @@ const buildStackedSeries = (series: Series, dataItems: StackedDataItems): Series
   const stackedSeries = {
     ...series,
     points,
+    isStacked: true,
   };
   if (series.getPointTransformer.isStartedFromZero) {
     stackedSeries.getPointTransformer = getStackedPointTransformer(series.getPointTransformer);
-    stackedSeries.getValueDomain = getValueDomain;
   }
   return stackedSeries;
 };
@@ -180,4 +174,33 @@ export const getStackedSeries: GetStackedSeriesFn = (
   const stackedSeriesList = applyStacking(seriesList, dataItems, map, offset, order);
   const groupedSeriesList = applyGrouping(stackedSeriesList, map);
   return groupedSeriesList;
+};
+
+const resetDomainItems = (domains: DomainInfoCache): DomainInfoCache => {
+  const result = {};
+  Object.keys(domains).forEach((key) => {
+    result[key] = { ...domains[key], domain: [] };
+  });
+  return result;
+};
+
+const extendDomainsWithAdditionalItems = (domains: DomainInfoCache, series: Series) => {
+  const items = series.points.map(point => (point as StackedPoint).value0);
+  const key = getValueDomainName(series.scaleName);
+  const domain = updateDomainItems(domains[key], items);
+  return domain !== domains[key] ? { ...domains, [key]: domain } : domains;
+};
+
+// Stacking changes data - so computed domains have to be discarded
+// and recalculated from the new stacked data.
+/** @internal */
+export const getStackedDomains: GetStackedDomainsFn = (domains, seriesList) => {
+  const stackedSeries = seriesList.filter(series => (series as any).isStacked);
+  if (!stackedSeries.length) {
+    return domains;
+  }
+  // Recalculate domains in a common way.
+  const rebuiltDomains = seriesList.reduce(extendDomains, resetDomainItems(domains));
+  // Take additional "value0" fields into account.
+  return stackedSeries.reduce(extendDomainsWithAdditionalItems, rebuiltDomains);
 };

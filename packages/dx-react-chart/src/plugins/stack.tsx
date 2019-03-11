@@ -1,11 +1,13 @@
 import * as React from 'react';
 import { Plugin, Getter, Getters } from '@devexpress/dx-react-core';
-import { getStackedSeries } from '@devexpress/dx-chart-core';
+import { getStackedSeries, getStackedDomains } from '@devexpress/dx-chart-core';
 import { StackProps, StacksOptions, OffsetFn, OrderFn } from '../types';
 import {
   stackOrderNone,
   stackOffsetDiverging,
 } from 'd3-shape';
+
+const getDomains = ({ domains, series }: Getters) => getStackedDomains(domains, series);
 
 class StackBase extends React.PureComponent<StackProps> {
   static defaultProps: Partial<StackProps> = {
@@ -25,6 +27,7 @@ class StackBase extends React.PureComponent<StackProps> {
     return (
       <Plugin name="Stack">
         <Getter name="series" computed={getSeries} />
+        <Getter name="domains" computed={getDomains} />
       </Plugin>
     );
   }

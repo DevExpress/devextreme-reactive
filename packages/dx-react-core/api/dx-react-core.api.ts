@@ -39,6 +39,14 @@ type Getters = {
 };
 
 // @public (undocumented)
+interface IDependency {
+  // (undocumented)
+  name: string;
+  // (undocumented)
+  optional?: boolean;
+}
+
+// @public (undocumented)
 declare const Plugin: React.ComponentType<PluginProps>;
 
 // @public (undocumented)

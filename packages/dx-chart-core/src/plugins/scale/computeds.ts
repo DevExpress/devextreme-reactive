@@ -1,11 +1,12 @@
 import { extent } from 'd3-array';
-import { scaleLinear as d3ScaleLinear, scaleBand as d3ScaleBand } from 'd3-scale';
-import { isHorizontal, getValueDomainName } from '../../utils/scale';
+import {
+  getValueDomainName, scaleLinear, scaleBand, makeScale,
+} from '../../utils/scale';
 import { ARGUMENT_DOMAIN, VALUE_DOMAIN } from '../../constants';
 import {
   Series, PointList, DomainItems, DomainInfoCache, BuildScalesFn, DomainInfo, DomainOptions,
   AddDomainFn, MergeDomainsFn, GetItemFn, GetDomainItemsFn,
-  FactoryFn, ExtendDomainsFn,
+  FactoryFn, ExtendDomainsFn, NumberArray,
 } from '../../types';
 
 const makeDomain = ({ factory, modifyDomain }: DomainOptions): DomainInfo => ({
@@ -42,13 +43,6 @@ const mergeDiscreteDomains: MergeDomainsFn = (domain, items) => {
 const getArgument: GetItemFn = point => point.argument;
 const getValue: GetItemFn = point => point.value;
 
-/** @internal */
-export const scaleLinear: FactoryFn = d3ScaleLinear as any;
-/** @internal */
-export const scaleBand: FactoryFn = () => (
-  d3ScaleBand().paddingInner(0.3).paddingOuter(0.15) as any
-);
-
 const guessFactory = (points: PointList, getItem: GetItemFn) => (
   points.length && typeof getItem(points[0]) === 'string' ? scaleBand : scaleLinear
 );
@@ -67,7 +61,8 @@ const updateDomainFactory = (domain: DomainInfo, series: Series, getItem: GetIte
   };
 };
 
-const updateDomainItems = (domain: DomainInfo, items: DomainItems): DomainInfo => {
+/** @internal */
+export const updateDomainItems = (domain: DomainInfo, items: DomainItems): DomainInfo => {
   const merge = domain.isDiscrete ? mergeDiscreteDomains : mergeContinuousDomains;
   const merged = merge(domain.domain, items);
   return merged === domain.domain ? domain : {
@@ -79,12 +74,7 @@ const updateDomainItems = (domain: DomainInfo, items: DomainItems): DomainInfo =
 const getArgumentDomainItems: GetDomainItemsFn = series => series.points.map(getArgument);
 
 const getValueDomainItems: GetDomainItemsFn = (series) => {
-  // TODO: This is a temporary workaround for Stack plugin.
-  // Once scales (or domains) are exposed for modification Stack will modify scale and
-  // this code will be removed.
-  const items = series.getValueDomain
-    ? series.getValueDomain(series.points) : series.points.map(getValue);
-  // TODO: It is also a part of that workaround.
+  const items = series.points.map(getValue);
   return series.getPointTransformer.isStartedFromZero ? [0, ...items] : items;
 };
 
@@ -110,13 +100,13 @@ export const extendDomains: ExtendDomainsFn = (domains, series) => {
 };
 
 /** @internal */
-export const buildScales: BuildScalesFn = (domains, { width, height }) => {
+export const buildScales: BuildScalesFn = (domains, ranges) => {
   const scales = {};
   Object.keys(domains).forEach((name) => {
-    const { factory, domain } = domains[name];
-    scales[name] = (factory || scaleLinear)()
-      .domain(domain)
-      .range(isHorizontal(name) ? [0, width] : [height, 0]);
+    scales[name] = makeScale(
+      domains[name],
+      ranges[name === ARGUMENT_DOMAIN ? ARGUMENT_DOMAIN : VALUE_DOMAIN] as NumberArray,
+    );
   });
   return scales;
 };

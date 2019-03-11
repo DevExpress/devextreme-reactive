@@ -4,27 +4,27 @@ import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = () => ({
-  wrapper: {
+  container: {
     position: 'relative',
   },
 });
 
-export const WrapperBase = ({
+const ContainerBase = ({
   children, classes, className, ...restProps
 }) => (
-  <div className={classNames(classes.wrapper, className)} {...restProps}>
+  <div className={classNames(classes.container, className)} {...restProps}>
     {children}
   </div>
 );
 
-WrapperBase.propTypes = {
+ContainerBase.propTypes = {
   classes: PropTypes.object.isRequired,
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
 };
 
-WrapperBase.defaultProps = {
+ContainerBase.defaultProps = {
   className: undefined,
 };
 
-export const Wrapper = withStyles(styles, { name: 'TitleCell' })(WrapperBase);
+export const Container = withStyles(styles, { name: 'TitleCell' })(ContainerBase);

@@ -4,7 +4,7 @@
 // WARNING: Unsupported export: RowProps
 // WARNING: Unsupported export: TitleCellProps
 // WARNING: Unsupported export: AppointmentLayerProps
-// WARNING: Unsupported export: WrapperProps
+// WARNING: Unsupported export: containerProps
 // @public (undocumented)
 module AllDayPanel {
 }
@@ -13,11 +13,11 @@ module AllDayPanel {
 interface AllDayPanelProps {
   appointmentLayerComponent?: React.ComponentType<AllDayPanelBase.AppointmentLayerProps>;
   cellComponent?: React.ComponentType<AllDayPanelBase.CellProps>;
+  containerComponent?: React.ComponentType<AllDayPanelBase.containerProps>;
   layoutComponent?: React.ComponentType<AllDayPanelBase.LayoutProps>;
   messages?: AllDayPanelBase.LocalizationMessages;
   rowComponent?: React.ComponentType<AllDayPanelBase.RowProps>;
   titleCellComponent?: React.ComponentType<AllDayPanelBase.TitleCellProps>;
-  wrapperComponent?: React.ComponentType<AllDayPanelBase.WrapperProps>;
 }
 
 // WARNING: Unsupported export: PopupProps

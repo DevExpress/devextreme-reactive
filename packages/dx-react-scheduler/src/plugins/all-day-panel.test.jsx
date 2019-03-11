@@ -42,7 +42,7 @@ const defaultProps = {
   // eslint-disable-next-line react/prop-types, react/jsx-one-expression-per-line
   layoutComponent: ({ children }) => <div>{children}</div>,
   // eslint-disable-next-line react/prop-types, react/jsx-one-expression-per-line
-  wrapperComponent: ({ children }) => <div>{children}</div>,
+  containerComponent: ({ children }) => <div>{children}</div>,
 };
 
 describe('AllDayPanel', () => {

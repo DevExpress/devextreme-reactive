@@ -10,9 +10,6 @@ const styles = {
   table: {
     tableLayout: 'fixed',
   },
-  wrapper: {
-    position: 'relative',
-  },
 };
 
 const LayoutBase = ({

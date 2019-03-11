@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
-import { Wrapper } from './wrapper';
+import { Container } from './container';
 
 describe('AllDayPanel', () => {
   let classes;
@@ -11,40 +11,40 @@ describe('AllDayPanel', () => {
   };
   beforeAll(() => {
     classes = getClasses(
-      <Wrapper {...defaultProps}>
+      <Container {...defaultProps}>
         <div />
-      </Wrapper>,
+      </Container>,
     );
     shallow = createShallow({ dive: true });
   });
-  describe('Wrapper', () => {
+  describe('Container', () => {
     it('should pass className to the root element', () => {
       const tree = shallow((
-        <Wrapper {...defaultProps} className="custom-class">
+        <Container {...defaultProps} className="custom-class">
           <div />
-        </Wrapper>
+        </Container>
       ));
 
       expect(tree.find('.custom-class'))
         .toBeTruthy();
-      expect(tree.find(`.${classes.wrapper}`))
+      expect(tree.find(`.${classes.container}`))
         .toBeTruthy();
     });
     it('should pass rest props to the root element', () => {
       const tree = shallow((
-        <Wrapper {...defaultProps} data={{ a: 1 }}>
+        <Container {...defaultProps} data={{ a: 1 }}>
           <div />
-        </Wrapper>
+        </Container>
       ));
 
-      expect(tree.find(`.${classes.wrapper}`).props().data)
+      expect(tree.find(`.${classes.container}`).props().data)
         .toMatchObject({ a: 1 });
     });
     it('should render children inside', () => {
       const tree = shallow((
-        <Wrapper {...defaultProps} data={{ a: 1 }}>
+        <Container {...defaultProps} data={{ a: 1 }}>
           <div className="child" />
-        </Wrapper>
+        </Container>
       ));
 
       expect(tree.find('.child').exists())

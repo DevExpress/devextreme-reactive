@@ -14,6 +14,10 @@ module AllDayPanel {
     startDate: Date;
   }
 
+  interface containerProps {
+    children: React.ReactNode;
+  }
+
   interface LayoutProps {
     allDayPanelRef: (ref: React.ReactInstance) => void;
     cellComponent: React.ComponentType<AllDayPanel.CellProps>;
@@ -34,21 +38,17 @@ module AllDayPanel {
     getMessage: (messageKey: string) => string;
   }
 
-  interface WrapperProps {
-    children: React.ReactNode;
-  }
-
 }
 
 // @public (undocumented)
 interface AllDayPanelProps {
   appointmentLayerComponent: React.ComponentType<AllDayPanel.AppointmentLayerProps>;
   cellComponent: React.ComponentType<AllDayPanel.CellProps>;
+  containerComponent: React.ComponentType<AllDayPanel.containerProps>;
   layoutComponent: React.ComponentType<AllDayPanel.LayoutProps>;
   messages?: AllDayPanel.LocalizationMessages;
   rowComponent: React.ComponentType<AllDayPanel.RowProps>;
   titleCellComponent: React.ComponentType<AllDayPanel.TitleCellProps>;
-  wrapperComponent: React.ComponentType<AllDayPanel.WrapperProps>;
 }
 
 // @public (undocumented)

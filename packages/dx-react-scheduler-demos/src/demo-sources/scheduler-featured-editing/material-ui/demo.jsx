@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-state */
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
 import { ViewState, EditingState } from '@devexpress/dx-react-scheduler';
@@ -324,33 +325,32 @@ class Demo extends React.PureComponent {
   }
 
   commitDeletedAppointment() {
-    const { data, deletedAppointmentId } = this.state;
-    const nextData = data.filter(appointment => appointment.id !== deletedAppointmentId);
-    this.setState({ data: nextData, deletedAppointmentId: null });
+    this.setState((state) => {
+      const { data, deletedAppointmentId } = state;
+      const nextData = data.filter(appointment => appointment.id !== deletedAppointmentId);
+
+      return { data: nextData, deletedAppointmentId: null };
+    });
     this.toggleConfirmationVisible();
   }
 
   commitChanges({ added, changed, deleted }) {
-    let { data } = this.state;
-    if (added) {
-      const startingAddedId = data.length > 0 ? data[data.length - 1].id + 1 : 0;
-      data = [
-        ...data,
-        {
-          id: startingAddedId,
-          ...added,
-        },
-      ];
-    }
-    if (changed) {
-      data = data.map(appointment => (
-        changed[appointment.id] ? { ...appointment, ...changed[appointment.id] } : appointment));
-    }
-    if (deleted !== undefined) {
-      this.setDeletedAppointmentId(deleted);
-      this.toggleConfirmationVisible();
-    }
-    this.setState({ data, addedAppointment: {} });
+    this.setState((state) => {
+      let { data } = state;
+      if (added) {
+        const startingAddedId = data.length > 0 ? data[data.length - 1].id + 1 : 0;
+        data = [...data, { id: startingAddedId, ...added }];
+      }
+      if (changed) {
+        data = data.map(appointment => (
+          changed[appointment.id] ? { ...appointment, ...changed[appointment.id] } : appointment));
+      }
+      if (deleted !== undefined) {
+        this.setDeletedAppointmentId(deleted);
+        this.toggleConfirmationVisible();
+      }
+      return { data, addedAppointment: {} };
+    });
   }
 
   render() {

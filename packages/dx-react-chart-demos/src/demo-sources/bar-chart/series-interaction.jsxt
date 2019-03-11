@@ -49,23 +49,57 @@ const TooltipContent = (props) => {
 const titleTextStyle = { marginRight: '120px' };
 const TitleText = props => <Title.Text {...props} style={titleTextStyle} />;
 
-const formatInfo = ({ series, point }) => `${series}: ${data[point].year} - ${data[point][series]}`;
-const infoRootStyle = { marginLeft: '70px' };
-const infoPrimaryStyle = { fontWeight: 'bold' };
-const infoSecondaryStyle = { fontWeight: 'italic' };
-const Info = ({ hover, selection }) => {
-  const selectionNode = (
-    <span style={infoPrimaryStyle}>{selection ? formatInfo(selection) : 'N/A'}</span>
-  );
-  const hoverNode = (
-    hover && <span style={infoSecondaryStyle}>{`( ${formatInfo(hover)} )`}</span>
-  );
-  return (
-    <div style={infoRootStyle}>
-      Focus | {selectionNode} {hoverNode}
-    </div>
-  );
+const formatInfo = (target) => {
+  if (!target) {
+    return '';
+  }
+  const { series, point } = target;
+  const value = data[point][series];
+  const argument = data[point].year;
+  return `${series} : ${value} / ${argument}`;
 };
+
+const auxiliaryPaneStyle = { marginLeft: '70px' };
+const auxiliaryRootStyle = { display: 'flex', flexDirection: 'row' };
+const auxiliaryNameStyle = { width: '100px' };
+const auxiliaryDataStyle = { width: '180px' };
+const auxiliaryButtonStyle = { padding: '2px' };
+
+const AuxiliaryRoot = props => <div style={auxiliaryRootStyle} {...props} />;
+const AuxiliaryName = props => <span style={auxiliaryNameStyle} {...props} />;
+const AuxiliaryData = props => <span style={auxiliaryDataStyle} {...props} />;
+// eslint-disable-next-line jsx-a11y/anchor-has-content
+const AuxiliaryButton = props => <a href="#" style={auxiliaryButtonStyle} {...props} />;
+
+const AuxiliarySelection = ({
+  target, clear, turnPrev, turnNext,
+}) => (
+  <AuxiliaryRoot>
+    <AuxiliaryName>Selection</AuxiliaryName>
+    <AuxiliaryData>{formatInfo(target)}</AuxiliaryData>
+    <AuxiliaryButton onClick={clear}>clear</AuxiliaryButton>
+    <AuxiliaryButton onClick={turnPrev}>&lt;</AuxiliaryButton>
+    <AuxiliaryButton onClick={turnNext}>&gt;</AuxiliaryButton>
+  </AuxiliaryRoot>
+);
+
+const AuxiliaryHover = ({ target }) => (
+  <AuxiliaryRoot>
+    <AuxiliaryName>Hover</AuxiliaryName>
+    <AuxiliaryData>{formatInfo(target)}</AuxiliaryData>
+  </AuxiliaryRoot>
+);
+
+const AuxiliaryTooltip = ({ enabled, toggle }) => (
+  <AuxiliaryRoot>
+    <AuxiliaryName>Tooltip</AuxiliaryName>
+    <AuxiliaryData>&nbsp;</AuxiliaryData>
+    <AuxiliaryButton onClick={toggle}>{enabled ? 'disable' : 'enable'}</AuxiliaryButton>
+  </AuxiliaryRoot>
+);
+
+const encodeTarget = ({ series, point }) => (2 * point + Number(series === 'China'));
+const decodeTarget = code => ({ series: code % 2 ? 'China' : 'USA', point: Math.floor(code / 2) });
 
 const compareTargets = (
   { series, point }, { series: targetSeries, point: targetPoint },
@@ -78,6 +112,7 @@ export default class Demo extends React.PureComponent {
     this.state = {
       hover: null,
       selection: [],
+      tooltipEnabled: true,
     };
 
     this.click = ({ targets }) => {
@@ -89,10 +124,32 @@ export default class Demo extends React.PureComponent {
       }
     };
     this.changeHover = hover => this.setState({ hover });
+
+    this.clearSelection = () => this.setState({ selection: [] });
+    this.turnPrevSelection = () => this.setState(({ selection }) => {
+      const target = selection[0];
+      if (!target) {
+        return null;
+      }
+      const newTarget = decodeTarget(Math.max(encodeTarget(target) - 1, 0));
+      return { selection: [newTarget] };
+    });
+    this.turnNextSelection = () => this.setState(({ selection }) => {
+      const target = selection[0];
+      if (!target) {
+        return null;
+      }
+      const newTarget = decodeTarget(Math.min(encodeTarget(target) + 1, 2 * data.length - 1));
+      return { selection: [newTarget] };
+    });
+
+    this.toggleTooltip = () => this.setState(({ tooltipEnabled }) => ({
+      tooltipEnabled: !tooltipEnabled,
+    }));
   }
 
   render() {
-    const { hover, selection } = this.state;
+    const { hover, selection, tooltipEnabled } = this.state;
 
     return (
       <<%&wrapperTag%><%&wrapperAttributes%>>
@@ -122,11 +179,23 @@ export default class Demo extends React.PureComponent {
           <Legend />
           <EventTracker onClick={this.click} />
           <HoverState hover={hover} onHoverChange={this.changeHover} />
-          <Tooltip contentComponent={TooltipContent} />
+          {tooltipEnabled && <Tooltip contentComponent={TooltipContent} />}
           <SelectionState selection={selection} />
           <Animation />
         </Chart>
-        <Info hover={hover} selection={selection[0]} />
+        <div style={auxiliaryPaneStyle}>
+          <AuxiliarySelection
+            target={selection[0]}
+            clear={this.clearSelection}
+            turnPrev={this.turnPrevSelection}
+            turnNext={this.turnNextSelection}
+          />
+          <AuxiliaryHover target={hover} />
+          <AuxiliaryTooltip
+            enabled={tooltipEnabled}
+            toggle={this.toggleTooltip}
+          />
+        </div>
       </<%&wrapperTag%>>
     );
   }

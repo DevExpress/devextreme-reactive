@@ -7,7 +7,7 @@ import {
   stackOffsetDiverging,
 } from 'd3-shape';
 
-const doGetStackedDomains = ({ domains, series }: Getters) => getStackedDomains(domains, series);
+const getDomains = ({ domains, series }: Getters) => getStackedDomains(domains, series);
 
 class StackBase extends React.PureComponent<StackProps> {
   static defaultProps: Partial<StackProps> = {
@@ -27,7 +27,7 @@ class StackBase extends React.PureComponent<StackProps> {
     return (
       <Plugin name="Stack">
         <Getter name="series" computed={getSeries} />
-        <Getter name="domains" computed={doGetStackedDomains} />
+        <Getter name="domains" computed={getDomains} />
       </Plugin>
     );
   }

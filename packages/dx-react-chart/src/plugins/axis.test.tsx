@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { axisCoordinates, getGridCoordinates } from '@devexpress/dx-chart-core';
+import { axisCoordinates, createTickFilter, getGridCoordinates } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-testing';
 import { Axis } from './axis';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   axisCoordinates: jest.fn(),
+  createTickFilter: jest.fn().mockReturnValue(() => true),
   LEFT: 'left',
   BOTTOM: 'bottom',
   getGridCoordinates: jest.fn(),
@@ -249,6 +250,7 @@ describe('Axis', () => {
       tickFormat: mockTickFormat,
       indentFromAxis: 10,
     });
+    expect(createTickFilter).toBeCalledWith([0, 0]);
   });
 
   it('should pass axisCoordinates method correct parameters, vertical orientation', () => {
@@ -268,6 +270,7 @@ describe('Axis', () => {
       tickSize: 6,
       indentFromAxis: 3,
     });
+    expect(createTickFilter).toBeCalledWith([0, 0]);
   });
 
   it('should render tick component', () => {

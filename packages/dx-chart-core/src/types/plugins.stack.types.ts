@@ -2,6 +2,7 @@ import { PureComputed } from '@devexpress/dx-core';
 import {
   Point, SeriesList, DataItems,
 } from './chart-core.types';
+import { DomainInfoCache } from './plugins.scale.types';
 
 /** @internal */
 export interface StackedPoint extends Point {
@@ -45,3 +46,5 @@ export type StacksOptions = {
 };
 /** @internal */
 export type GetStackedSeriesFn = PureComputed<[SeriesList, DataItems, StacksOptions]>;
+/** @internal */
+export type GetStackedDomainsFn = PureComputed<[DomainInfoCache, SeriesList]>;

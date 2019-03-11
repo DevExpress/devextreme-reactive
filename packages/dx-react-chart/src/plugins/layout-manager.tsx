@@ -6,10 +6,13 @@ import {
   Template,
   TemplatePlaceholder,
   createStateHelper,
+  Getters,
   ActionFn,
 } from '@devexpress/dx-react-core';
-import { bBoxes } from '@devexpress/dx-chart-core';
+import { bBoxes, getRanges } from '@devexpress/dx-chart-core';
 import { LayoutManagerProps, LayoutManagerState, BBoxesChange } from '../types';
+
+const doGetRanges = ({ layouts }: Getters) => getRanges(layouts.pane);
 
 export class LayoutManager extends React.Component<LayoutManagerProps, LayoutManagerState> {
   static defaultProps: Partial<LayoutManagerProps> = {
@@ -40,6 +43,7 @@ export class LayoutManager extends React.Component<LayoutManagerProps, LayoutMan
     return (
       <Plugin>
         <Getter name="layouts" value={stateBBoxes} />
+        <Getter name="ranges" computed={doGetRanges} />
         <Action name="changeBBox" action={this.changeBBox} />
 
         <Template name="root">

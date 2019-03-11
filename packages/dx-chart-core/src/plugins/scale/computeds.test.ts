@@ -1,24 +1,10 @@
 import {
-  defaultDomains, addDomain, extendDomains, buildScales, scaleLinear, scaleBand,
+  defaultDomains, addDomain, extendDomains, buildScales,
 } from './computeds';
+import {
+  scaleLinear, scaleBand,
+} from '../../utils/scale';
 import { ARGUMENT_DOMAIN, VALUE_DOMAIN } from '../../constants';
-
-jest.mock('d3-scale', () => ({
-  scaleLinear: () => ({ tag: 'scale-linear' }),
-  scaleBand: () => {
-    const ret = { tag: 'scale-band' } as any;
-    ret.paddingInner = (value) => {
-      ret.inner = value;
-      return ret;
-    };
-    ret.paddingOuter = (value) => {
-      ret.outer = value;
-      return ret;
-    };
-    ret.bandwidth = () => 0;
-    return ret;
-  },
-}));
 
 describe('Scale', () => {
   describe('defaultDomains', () => {
@@ -67,23 +53,6 @@ describe('Scale', () => {
     });
   });
 
-  describe('default scales', () => {
-    it('should provide linear scale', () => {
-      expect(scaleLinear()).toEqual({ tag: 'scale-linear' });
-    });
-
-    it('should provide band scale', () => {
-      expect(scaleBand()).toEqual({
-        tag: 'scale-band',
-        inner: 0.3,
-        outer: 0.15,
-        paddingInner: expect.any(Function),
-        paddingOuter: expect.any(Function),
-        bandwidth: expect.any(Function),
-      });
-    });
-  });
-
   describe('extendDomains', () => {
     const testDomains = {
       [ARGUMENT_DOMAIN]: { domain: [] },
@@ -109,28 +78,6 @@ describe('Scale', () => {
           domain: [2, 9], factory: scaleLinear, isDiscrete: false,
         },
       });
-    });
-
-    it('should compute domains from series points (temporary workaround for Stack)', () => {
-      const getValueDomain = jest.fn().mockReturnValue([11, 15, 19, 23]);
-      const points = [
-        { argument: 1, value: 9 },
-        { argument: 2, value: 2 },
-        { argument: 3, value: 7 },
-      ];
-      const domains = extendDomains(testDomains as any, {
-        getPointTransformer, getValueDomain, points,
-      } as any);
-
-      expect(domains).toEqual({
-        [ARGUMENT_DOMAIN]: {
-          domain: [1, 3], factory: scaleLinear, isDiscrete: false,
-        },
-        [VALUE_DOMAIN]: {
-          domain: [11, 23], factory: scaleLinear, isDiscrete: false,
-        },
-      });
-      expect(getValueDomain).toBeCalledWith(points);
     });
 
     it('should compute domains from series points, negative values', () => {
@@ -323,7 +270,10 @@ describe('Scale', () => {
         [ARGUMENT_DOMAIN]: { domain: 'test-domain-1', factory: () => mockScale1 },
         [VALUE_DOMAIN]: { domain: 'test-domain-2', factory: () => mockScale2 },
         'test-domain': { domain: 'test-domain-3', factory: () => mockScale3 },
-      } as any, { width: 400, height: 300 });
+      }, {
+        [ARGUMENT_DOMAIN]: [0, 400],
+        [VALUE_DOMAIN]: [300, 0],
+      });
 
       expect(scales).toEqual({
         [ARGUMENT_DOMAIN]: mockScale1,

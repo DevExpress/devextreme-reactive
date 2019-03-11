@@ -4,7 +4,7 @@ import {
 } from '../../constants';
 import {
   ScaleObject, GetFormatFn, ProcessTickFn, TickFormatFn, AxisCoordinatesFn,
-  GetGridCoordinatesFn,
+  GetGridCoordinatesFn, Tick, NumberArray,
 } from '../../types';
 
 const getTicks = (scale: ScaleObject) => (scale.ticks ? scale.ticks() : scale.domain());
@@ -75,6 +75,14 @@ export const axisCoordinates: AxisCoordinatesFn = ({
     sides: [Number(isHor), Number(!isHor)],
   };
 };
+
+// It is a part of a temporary walkaround. See note in Axis plugin.
+/** @internal */
+export const createTickFilter = ([width, height]: NumberArray) => (
+  width > 0
+    ? (tick: Tick) => tick.x1 >= 0 && tick.x1 <= width
+    : (tick: Tick) => tick.y1 >= 0 && tick.y1 <= height
+);
 
 const horizontalGridOptions = { y: 0, dy: 1 };
 const verticalGridOptions = { x: 0, dx: 1 };

@@ -1,0 +1,39 @@
+import * as React from 'react';<%&additionalImports%>
+import {
+  Chart,
+  ArgumentAxis,
+  ValueAxis,
+  LineSeries,
+  Title,
+  Legend,
+} from '@devexpress/dx-react-chart-<%&themeName%>';
+import { ZoomAndPan } from '@devexpress/dx-react-chart';
+
+const generateData = n => {
+  let ret = [];
+  let y = 0;
+  for (let i = 0; i < n; i++) {
+    y += Math.round(Math.random() * 10 - 5);
+    ret.push({ x: i, y: y });
+  }
+  return ret;
+};
+const data = generateData(100);
+
+export default class Demo extends React.PureComponent {
+  render() {
+    return (
+      <<%&wrapperTag%><%&wrapperAttributes%>>
+        <Chart
+          data={data}
+        >
+          <ArgumentAxis />
+          <ValueAxis />
+
+          <LineSeries valueField="y" argumentField="x" />
+          <ZoomAndPan />
+        </Chart>
+      </<%&wrapperTag%>>
+    );
+  }
+}

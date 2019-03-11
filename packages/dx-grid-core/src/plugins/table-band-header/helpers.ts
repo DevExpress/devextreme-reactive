@@ -16,7 +16,7 @@ export const isNoDataColumn = (columnType: symbol) => columnType !== TABLE_DATA_
 export const getColumnMeta: GetColumnBandMetaFn = (
   columnName, bands, tableRowLevel,
   level = 0, title = null, result = null,
-) => bands.reduce((acc, column) => {
+) => Array.prototype.slice.call(bands).reduce((acc, column) => {
   if (column.columnName === columnName) {
     acc.title = title;
     acc.level = level;

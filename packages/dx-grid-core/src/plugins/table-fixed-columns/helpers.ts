@@ -34,7 +34,7 @@ export const calculateFixedColumnProps: CalculateFixedColumnPropsFn = (
   const side = tableColumn.fixed!;
   const targetArray = side === FIXED_COLUMN_LEFT_SIDE
     ? getFixedColumnKeys(tableColumns, leftColumns)
-    : getFixedColumnKeys(tableColumns, rightColumns).slice().reverse();
+    : Array.prototype.slice.call(getFixedColumnKeys(tableColumns, rightColumns)).reverse();
 
   const index = tableColumns.findIndex(({ key }) => key === tableColumn.key);
   const fixedIndex = targetArray.indexOf(tableColumn.key);

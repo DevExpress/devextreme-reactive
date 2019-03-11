@@ -17,7 +17,7 @@ export const tableRowsWithEditing: TableRowsWithEditingFn = (
         : tableRow
     ));
 
-  const addedTableRows = addedRows
+  const addedTableRows = Array.prototype.slice.call(addedRows)
     .map((row, rowIndex) => ({
       row,
       key: `${TABLE_ADDED_TYPE.toString()}_${rowIndex}`,

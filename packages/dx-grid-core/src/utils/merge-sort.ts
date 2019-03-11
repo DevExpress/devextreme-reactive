@@ -57,8 +57,8 @@ export default (
     return 0;
   },
 ) => {
-  const result = array.slice();
-  const auxiliary = array.slice();
+  const result = Array.prototype.slice.call(array);
+  const auxiliary = Array.prototype.slice.call(array);
   sortAuxiliaryToArray(result, auxiliary, 0, result.length - 1, compare);
   return result;
 };

@@ -61,7 +61,8 @@ const updateDomainFactory = (domain: DomainInfo, series: Series, getItem: GetIte
   };
 };
 
-const updateDomainItems = (domain: DomainInfo, items: DomainItems): DomainInfo => {
+/** @internal */
+export const updateDomainItems = (domain: DomainInfo, items: DomainItems): DomainInfo => {
   const merge = domain.isDiscrete ? mergeDiscreteDomains : mergeContinuousDomains;
   const merged = merge(domain.domain, items);
   return merged === domain.domain ? domain : {
@@ -73,12 +74,7 @@ const updateDomainItems = (domain: DomainInfo, items: DomainItems): DomainInfo =
 const getArgumentDomainItems: GetDomainItemsFn = series => series.points.map(getArgument);
 
 const getValueDomainItems: GetDomainItemsFn = (series) => {
-  // TODO: This is a temporary workaround for Stack plugin.
-  // Once scales (or domains) are exposed for modification Stack will modify scale and
-  // this code will be removed.
-  const items = series.getValueDomain
-    ? series.getValueDomain(series.points) : series.points.map(getValue);
-  // TODO: It is also a part of that workaround.
+  const items = series.points.map(getValue);
   return series.getPointTransformer.isStartedFromZero ? [0, ...items] : items;
 };
 

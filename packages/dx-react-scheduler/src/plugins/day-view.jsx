@@ -50,13 +50,13 @@ export class DayView extends React.PureComponent {
       intervalCount,
     } = props;
 
-    this.startViewDateBaseComputed = ({
+    const startViewDateBaseComputed = ({
       viewCellsData,
     }) => startViewDateCore(viewCellsData);
-    this.endViewDateBaseComputed = ({
+    const endViewDateBaseComputed = ({
       viewCellsData,
     }) => endViewDateCore(viewCellsData);
-    this.viewCellsDataComputed = ({
+    const viewCellsDataComputed = ({
       currentDate,
     }) => viewCellsDataCore(
       currentDate, undefined,
@@ -65,15 +65,15 @@ export class DayView extends React.PureComponent {
       Date.now(),
     );
 
-    this.timeTableElementComputed = () => this.timeTable;
-    this.layoutElementComputed = () => this.layout;
-    this.layoutHeaderElementComputed = () => this.layoutHeader;
+    const timeTableElementComputed = () => this.timeTable;
+    const layoutElementComputed = () => this.layout;
+    const layoutHeaderElementComputed = () => this.layoutHeader;
 
     this.startViewDateComputed = getters => computed(
-      getters, viewName, this.startViewDateBaseComputed, getters.startViewDate,
+      getters, viewName, startViewDateBaseComputed, getters.startViewDate,
     );
     this.endViewDateComputed = getters => computed(
-      getters, viewName, this.endViewDateBaseComputed, getters.endViewDate,
+      getters, viewName, endViewDateBaseComputed, getters.endViewDate,
     );
     this.availableViewNamesComputed = ({ availableViewNames }) => availableViewNamesCore(
       availableViewNames, viewName,
@@ -90,16 +90,16 @@ export class DayView extends React.PureComponent {
       getters, viewName, () => cellDuration, getters.cellDuration,
     );
     this.viewCellsData = getters => computed(
-      getters, viewName, this.viewCellsDataComputed, getters.viewCellsData,
+      getters, viewName, viewCellsDataComputed, getters.viewCellsData,
     );
     this.timeTableElement = getters => computed(
-      getters, viewName, this.timeTableElementComputed, getters.timeTableElement,
+      getters, viewName, timeTableElementComputed, getters.timeTableElement,
     );
     this.layoutElement = getters => computed(
-      getters, viewName, this.layoutElementComputed, getters.layoutElement,
+      getters, viewName, layoutElementComputed, getters.layoutElement,
     );
     this.layoutHeaderElement = getters => computed(
-      getters, viewName, this.layoutHeaderElementComputed, getters.layoutHeaderElement,
+      getters, viewName, layoutHeaderElementComputed, getters.layoutHeaderElement,
     );
   }
 

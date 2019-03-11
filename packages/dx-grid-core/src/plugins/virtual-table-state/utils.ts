@@ -3,7 +3,7 @@ const empty = {
   end: Number.NEGATIVE_INFINITY,
 };
 
-type Interval = {
+export type Interval = {
   start: number,
   end: number,
 };
@@ -26,10 +26,14 @@ export const intervalUtil = {
   },
 
   difference: (a: Interval, b: Interval, globalBounds: Interval) => {
-    if (empty === intervalUtil.intersect(a, b)) {
+    // if (empty === intervalUtil.intersect(a, b)) {
       return empty;
-    }
-
+    // }
 
   },
+
+  normalize: (a: Interval, start: number) => ({
+    start: a.start - start,
+    end: a.end - start,
+  }),
 };

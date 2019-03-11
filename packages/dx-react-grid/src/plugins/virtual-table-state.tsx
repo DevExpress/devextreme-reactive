@@ -4,6 +4,7 @@ import {
 } from '@devexpress/dx-react-core';
 import { VirtualTableStateProps, VirtualTableStateState } from '../types';
 import { rowIdGetter, intervalUtil, Interval } from '@devexpress/dx-grid-core';
+import { shallowEqual } from '@devexpress/dx-core';
 
 const rawRowsComputed = ({ rows }: Getters) => rows;
 
@@ -64,15 +65,12 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
 
     this.state = {
       rowCount: props.rowCount || 0,
-      start: props.start || 0,
       viewportTop: 0,
       virtualRowsCache: { start: 0, rows: [] },
       requestedPageIndex: undefined,
       currentVirtualPageTop: 0,
       lastQueryTime: 0,
       loadedRowsStart: 0,
-      pageIndexes: { start: 0, end: 2 },
-      // rowsCache: [],
     };
 
     const stateHelper: StateHelper = createStateHelper(
@@ -108,135 +106,141 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
     };
 
     const rowToPageIndex = (rowIndex, pageSize) => Math.floor(rowIndex / pageSize);
-    const recalculatePageIndexes = (loadedStart, loadedCount, middleIndex, pageSize) => {
+    const recalculateBounds = (middleIndex, pageSize) => {
       const currentPageIndex = rowToPageIndex(middleIndex, pageSize);
 
       const newFirstIndex = Math.max(0, currentPageIndex - 1);
-      const newLastIndex = currentPageIndex + 1;
+      const newLastIndex = currentPageIndex + 2;
 
       return {
-        start: newFirstIndex,
-        end: newLastIndex,
+        start: newFirstIndex * pageSize,
+        end: newLastIndex * pageSize,
         // requestedRange: currentPageIndex + offset,
       };
     };
 
-    const calculateRequestedRange = (currentRange, newRange, middleIndex) => {
-      if (Math.abs(currentRange.start - newRange.start) > 2) {
-        const useFirstHalf = middleIndex % 100 < 50;
+    const calculateRequestedRange = (loadedInterval, newRange, middleIndex, pageSize) => {
+      if (Math.abs(loadedInterval.start - newRange.start) > 2 * pageSize) {
+        const useFirstHalf = middleIndex % pageSize < 50;
         const start = useFirstHalf ? newRange.start : newRange.start + 1;
-        return { start, end: start + 1 };
+        return { start, end: start + 2 * pageSize };
       }
-      if (currentRange.start < newRange.start && newRange.start < currentRange.end) {
+      if (loadedInterval.start <= newRange.start && newRange.start <= loadedInterval.end) {
         return {
-          start: currentRange.end,
+          start: loadedInterval.end,
           end: newRange.end,
         };
       }
-      if (newRange.start < currentRange.start && currentRange.start < newRange.end) {
+      if (newRange.start <= loadedInterval.start && loadedInterval.start <= newRange.end) {
         return {
           start: newRange.start,
-          end: currentRange.start,
+          end: loadedInterval.start,
         };
       }
       return {};
     };
 
-    const recalculateCache = (cache, rows, start, pageIndexes, pageSize) => {
-      const prevCacheInterval = intervalUtil
-        .createIntervalSet(cache.start / pageSize, cache.rows.length / pageSize);
-      const prevRowsInterval = intervalUtil
-        .createIntervalSet(start / pageSize, rows.length / pageSize);
-      const targetInterval = intervalUtil
-        .createIntervalSet(pageIndexes.start, pageIndexes.end);
+    const recalculateCache = (cache, rows, start, currentInterval, pageSize) => {
+      // const currentInterval = {
+      //   start: pageIndexes.start * pageSize,
+      //   end: pageIndexes.end * pageSize,
+      // };
+      const cacheInterval = {
+        start: cache.start,
+        end: cache.start + cache.rows.length,
+      };
+      const rowsInterval = {
+        start,
+        end: start + rows.length,
+      };
 
-      const cacheInterval = intervalUtil.intersect(pageIndexes, prevCacheInterval);
-      const rowsInterval = intervalUtil.intersect(pageIndexes, prevRowsInterval);
-      const resultCacheIndexes = [...intervalUtil.union(cacheInterval, rowsInterval)].sort();
+      const clippedCacheInterval = intervalUtil.intersect(cacheInterval, currentInterval);
+      const clippedRowsInterval = intervalUtil.intersect(rowsInterval, currentInterval);
+      console.log(currentInterval, 'cache', cacheInterval, clippedCacheInterval, 'rows', rowsInterval, clippedRowsInterval)
+
+      const breakpoints = [
+        clippedRowsInterval.start,
+        clippedRowsInterval.end,
+        clippedCacheInterval.start,
+        clippedCacheInterval.end,
+      ]
+        .filter(i => 0 <= i && i < Number.POSITIVE_INFINITY)
+        .sort();
 
       let cacheRows = [];
-      const firstIndex = resultCacheIndexes[0];
-      for (const index of resultCacheIndexes) {
-        const source = rowsInterval.has(index) ? rows : cache.rows;
-        const skip = (index - firstIndex) * pageSize;
-        const chunk = source.slice(skip, pageSize);
-        cacheRows = cacheRows.concat(chunk);
+      console.log('bp', breakpoints)
+
+      const pluckSubarray = (source, sourceStart, left, right) => (
+        source.slice(left - sourceStart, right - sourceStart)
+      );
+
+      if (breakpoints.length > 1) {
+        for (let i = 0; i < breakpoints.length - 1; i += 1) {
+          const left = breakpoints[i];
+          const right = breakpoints[i + 1];
+          const chunk = clippedRowsInterval.start <= left && right <= clippedRowsInterval.end
+            ? pluckSubarray(rows, start, left, right)
+            : pluckSubarray(cache.rows, cache.start, left, right);
+          cacheRows = cacheRows.concat(chunk);
+        }
       }
 
-      return {
-        start: firstIndex,
+      const res = {
+        start: breakpoints[0],
         rows: cacheRows,
       };
+      console.log('new cache', res);
+      return res;
     };
 
     this.requestNextPageAction = (rowIndex: any,
       { virtualPageSize, loadedRowsStart, loadedRowsCount, rawRows },
-      ) => {
-      const { requestedPageIndex, virtualRowsCache, pageIndexes } = this.state;
+    ) => {
+      const { requestedPageIndex, virtualRowsCache } = this.state;
       const { start, getRows } = this.props;
 
-      const newPageIndexes = recalculatePageIndexes(
-        loadedRowsStart, loadedRowsCount, rowIndex, virtualPageSize,
+      const newBounds = recalculateBounds(rowIndex, virtualPageSize);
+      const loadedInterval = { start: loadedRowsStart, end: loadedRowsStart + loadedRowsCount };
+
+      const requestedRange = calculateRequestedRange(
+        loadedInterval, newBounds, rowIndex, virtualPageSize,
       );
-      console.log(pageIndexes)
-      const requestedRange = calculateRequestedRange(pageIndexes, newPageIndexes, rowIndex);
 
       const newPageIndex = requestedRange.start;
-      const pageStart = newPageIndex * virtualPageSize;
-      const loadCount = (requestedRange.end + requestedRange.start + 1) * virtualPageSize;
+      const pageStart = newPageIndex;
+      const loadCount = (requestedRange.end - requestedRange.start);
 
-      if (newPageIndex !== requestedPageIndex) {
+      console.log(
+        rowIndex, newBounds, requestedRange, 'req', newPageIndex, requestedPageIndex, loadCount,
+      );
+
+      if (newPageIndex !== requestedPageIndex && loadCount > 0) {
         if (this.requestTimer !== 0) {
           clearTimeout(this.requestTimer);
         }
         this.requestTimer = setTimeout(() => {
           getRows(pageStart, loadCount);
-          // console.log(now - lastQueryTime)
+          console.log('get rows')
 
-          const newCache = recalculateCache(virtualRowsCache, rawRows, start, pageIndexes, virtualPageSize);
-          // const loadedPages = Math.floor(loadedRowsCount / virtualPageSize);
-          // let cacheStart = start;
-          // let cacheRows = rawRows;
-          // if (loadedPages > 2) {
-          //   cacheStart = loadDownPage
-          //   ? virtualRowsCache.start + virtualPageSize
-          //   : virtualRowsCache.start - virtualPageSize;
+          const newCache = recalculateCache(virtualRowsCache, rawRows, start, newBounds, virtualPageSize);
 
-          //   cacheRows = virtualRowsCache.rows.slice(virtualPageSize).concat(rawRows);
-          // }
-          // const newLoadedRowsStart = Math.min(cacheStart, start);
-          console.log(
-            rowIndex, ' get rows, skip', pageStart,
-            'current start', start,
-            'page index', newPageIndex,
-            `cache start ${virtualRowsCache.start} -> ${newCache.start}`,
-            `loaded start ${loadedRowsStart} -> ${newCache.start}`,
-            // 'raw rows', rawRows.length,
-            // 'cache start', cacheStart, 'rows', cacheRows.length,
-          )
+          // console.log(
+          //   rowIndex, ' get rows, skip', pageStart,
+          //   'current start', start,
+          //   'page index', newPageIndex,
+          //   `cache start ${virtualRowsCache.start} -> ${newCache.start}`,
+          console.log(`loaded start ${loadedRowsStart} -> ${newCache.start}, start: ${start}, rows`, rawRows)
+          //   // 'raw rows', rawRows.length,
+          //   // 'cache start', cacheStart, 'rows', cacheRows.length,
+          // )
 
           this.setState({
             loadedRowsStart: newCache.start,
             requestedPageIndex: newPageIndex,
-            // lastQueryTime: Date.now(),
             virtualRowsCache: newCache,
-            // virtualRowsCache: {
-            //   start: cacheStart,
-            //   rows: cacheRows,
-            // },
           });
         }, 50);
       }
-    };
-  }
-
-  static getDerivedStateFromProps(nextProps, prevState) {
-    const {
-      start = prevState.start,
-    } = nextProps;
-
-    return {
-      start,
     };
   }
 
@@ -245,13 +249,33 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
     getRows(0, 200);
   }
 
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   const { virtualRowsCache: currentCache } = this.state;
+  //   if (nextState.virtualRowsCache !== currentCache) {
+  //     return false;
+  //   }
+
+  //   return (
+  //     !shallowEqual(this.props, nextProps) || !shallowEqual(this.state, nextState)
+  //   );
+  // }
+
   render() {
     const {
-      viewportTop,
       virtualRowsCache,
       loadedRowsStart,
     } = this.state;
     const { start, rowCount } = this.props;
+
+
+    const cacheComputed = ({ virtualRowsCache, rows }) => {
+
+    };
+
+    // here we should save virtual rows to cache
+    // then compute virtual rows as cache + rows
+    // thus even single row change would be cached
+    // and real-time data changes would be possible
 
     return (
       <Plugin
@@ -265,8 +289,8 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
         <Getter name="loadedRowsCount" computed={loadedRowsCountComputed} />
         <Getter name="rawRows" computed={rawRowsComputed} />
         <Getter name="rows" computed={virtualRowsComputed} />
-        <Getter name="loadedRowsStart" value={loadedRowsStart} />
-        {/* <Getter name="loadedRowsStart" computed={loadedRowsStartComputed} /> */}
+        {/* <Getter name="loadedRowsStart" value={loadedRowsStart} /> */}
+        <Getter name="loadedRowsStart" computed={loadedRowsStartComputed} />
         <Getter name="getRowId" computed={rowIdGetterComputed} />
 
         <Action name="requestNextPage" action={this.requestNextPageAction} />

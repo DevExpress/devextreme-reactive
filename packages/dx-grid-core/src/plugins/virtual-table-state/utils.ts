@@ -1,0 +1,35 @@
+const empty = {
+  start: Number.POSITIVE_INFINITY,
+  end: Number.NEGATIVE_INFINITY,
+};
+
+type Interval = {
+  start: number,
+  end: number,
+};
+
+export const intervalUtil = {
+  createIntervalSet: () => {
+
+  },
+  empty,
+
+  intersect: (a: Interval, b: Interval) => {
+    if (a.end < b.start || b.end < a.start) {
+      return empty;
+    }
+
+    return {
+      start: Math.max(a.start, b.start),
+      end: Math.min(a.end, b.end),
+    };
+  },
+
+  difference: (a: Interval, b: Interval, globalBounds: Interval) => {
+    if (empty === intervalUtil.intersect(a, b)) {
+      return empty;
+    }
+
+
+  },
+};

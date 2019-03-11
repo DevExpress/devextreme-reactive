@@ -27,7 +27,7 @@ export const groupedRows: GroupedRowsFn = (
   const { columnName } = grouping[0];
   const groupCriteria = (getColumnCriteria && getColumnCriteria(columnName))
     || defaultColumnCriteria;
-  const groups = rows
+  const groups = Array.prototype.slice.call(rows)
     .reduce((acc, row) => {
       const rawValue = getCellValue(row, columnName);
       const { key, value } = groupCriteria(rawValue, row);

@@ -9,9 +9,6 @@ export type Interval = {
 };
 
 export const intervalUtil = {
-  createIntervalSet: () => {
-
-  },
   empty,
 
   intersect: (a: Interval, b: Interval) => {
@@ -27,7 +24,7 @@ export const intervalUtil = {
 
   difference: (a: Interval, b: Interval, globalBounds: Interval) => {
     // if (empty === intervalUtil.intersect(a, b)) {
-      return empty;
+    return empty;
     // }
 
   },

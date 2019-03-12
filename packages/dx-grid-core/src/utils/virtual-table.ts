@@ -21,7 +21,7 @@ export const getVisibleBoundaryWithFixed: GetVisibleBoundaryWithFixedFn = (
 }, [visibleBoundary] as [VisibleBoundary]);
 
 export const getVisibleBoundary: GetVisibleBoundaryFn = (
-  items, viewportStart, viewportSize, getItemSize, offset, itemSize = 0,// overscan,
+  items, viewportStart, viewportSize, getItemSize, offset, itemSize = 0,
 ) => {
   let start: number | null = null;
   let end: number | null = null;
@@ -35,7 +35,6 @@ export const getVisibleBoundary: GetVisibleBoundaryFn = (
     start = Math.round(viewportStart / itemSize) - offset;
     end = start + items.length;
   }
-  // const topOffset = offset * itemSize;
 
   while (end === null && index < items.length) {
     const item = items[index];
@@ -59,12 +58,6 @@ export const getVisibleBoundary: GetVisibleBoundaryFn = (
 
   start = start === null ? 0 : start;
   end = end === null ? 0 : end;
-  // console.log('st, e', start, end)
-
-  // if (overscan) {
-  //   start = Math.max(0, start - overscan);
-  //   end = Math.min(items.length - 1, end + overscan);
-  // }
 
   return [start + offset, end + offset];
 };
@@ -73,7 +66,6 @@ export const getRenderBoundary: GetRenderBoundaryFn = (itemsCount, visibleBounda
   let [start, end] = visibleBoundary;
   start = Math.max(0, start - overscan);
   end = Math.min(itemsCount - 1, end + overscan);
-  // end = end + overscan;
 
   return [start, end];
 };
@@ -82,7 +74,7 @@ export const getColumnsVisibleBoundary: PureComputed<
   [TableColumn[], number, number, GetColumnWidthFn], VisibleBoundary[]
 > = (columns, left, width, getColumnWidth) => (
   getVisibleBoundaryWithFixed(
-    getVisibleBoundary(columns, left, width, getColumnWidth, 0),//, 1),
+    getVisibleBoundary(columns, left, width, getColumnWidth, 0),
     columns,
   )
 );
@@ -90,17 +82,21 @@ export const getRowsVisibleBoundary: PureComputed<
 [TableRow[], number, number, GetColumnWidthFn, number, number], VisibleBoundary
 > = (rows, top, height, getRowHeight, offset, rowHeight) => {
   return (
-    getVisibleBoundary(rows, top, height, getRowHeight, offset, rowHeight)//, 3)
+    getVisibleBoundary(rows, top, height, getRowHeight, offset, rowHeight)
   );
 };
 
 type GetRenderBoundaryFn = PureComputed<[number, number[], number], number[]>;
 
-export const getColumnsRenderBoundary: GetRenderBoundaryFn = (columns, visibleBoundary, overscan) => (
+export const getColumnsRenderBoundary: GetRenderBoundaryFn = (
+  columns, visibleBoundary, overscan,
+) => (
   getRenderBoundary(columns, visibleBoundary, 1)
 );
 
-export const getRowsRenderBoundary: GetRenderBoundaryFn = (rowsCount, visibleBoundary, overscan) => (
+export const getRowsRenderBoundary: GetRenderBoundaryFn = (
+  rowsCount, visibleBoundary, overscan,
+) => (
   getRenderBoundary(rowsCount, visibleBoundary, overscan)
 );
 
@@ -126,11 +122,8 @@ export const collapseBoundaries: CollapseBoundariesFn = (
 ) => {
 
   const testboundaries: VisibleBoundary[] = [];
-  // const boundaries: VisibleBoundary[] = [];
-  // console.log('collapse boundaries')
   let min = itemsCount;
   let max = 0;
-  /* const visiblePoints = */
   visibleBoundaries.reduce((acc: number[], boundary) => {
     for (let point = boundary[0]; point <= boundary[1]; point += 1) {
       acc.push(point);
@@ -151,8 +144,6 @@ export const collapseBoundaries: CollapseBoundariesFn = (
       spanStartPoints.add(boundary[0]);
       spanEndPoints.add(boundary[1]);
     }));
-  // console.log(itemsCount, offset)
-  // const start = performance.now();
 
   if (min > 0) {
     testboundaries.push([0, min - 1]);
@@ -165,48 +156,8 @@ export const collapseBoundaries: CollapseBoundariesFn = (
   if (max < itemsCount - 1) {
     testboundaries.push([max + 1, itemsCount - 1]);
   }
-  // console.log(testboundaries)
 
   return testboundaries;
-
-  // console.log('visiblePoints', visiblePoints)
-
-
-/*
-  let lastPoint: number | undefined;
-  for (let index = 0; index < itemsCount + offset; index += 1) {
-    if (visiblePoints.indexOf(index) !== -1) {
-      if (lastPoint !== undefined) {
-        boundaries.push([lastPoint, index - 1]);
-        lastPoint = undefined;
-      }
-      boundaries.push([index, index]);
-    } else if (spanStartPoints.has(index)) {
-      if (index > 0) {
-        boundaries.push([
-          lastPoint !== undefined ? lastPoint : index,
-          index - 1,
-        ]);
-      }
-      lastPoint = index;
-    } else if (spanEndPoints.has(index)) {
-      boundaries.push([
-        lastPoint !== undefined ? lastPoint : index,
-        index,
-      ]);
-      lastPoint = undefined;
-    } else if (lastPoint === undefined) {
-      lastPoint = index;
-    }
-  }
-
-  if (lastPoint !== undefined) {
-    boundaries.push([lastPoint, itemsCount - 1]);
-  }
-  console.log(boundaries, testboundaries, itemsCount, max, visibleBoundaries, visiblePoints, spanBoundaries)
-  // console.log('collapse', performance.now() - start);
-
-  return testboundaries; */
 };
 
 const getColumnsSize: GetColumnsSizeFn = (columns, startIndex, endIndex, getColumnSize) => {
@@ -258,7 +209,6 @@ export const getCollapsedRows: GetCollapsedAndStubRowsFn = (
         cells: getCells(row),
       });
     } else {
-      // console.log('COLLAPSE ROWS', boundary[0], boundary[1])
       collapsedRows.push({
         row: {
           key: `${TABLE_STUB_TYPE.toString()}_${boundary[0]}_${boundary[1]}`,
@@ -326,12 +276,7 @@ export const getCollapsedGrid: GetCollapsedGridFn = ({
     };
   }
 
-  // console.log('get collapsed grid');
   const boundaries = rowsVisibleBoundary || [0, rows.length];
-  // const slicedRows = rowsVisibleBoundary
-  //   ? rows.slice(rowsVisibleBoundary[0], rowsVisibleBoundary[1])
-  //   : rows.slice();
-// console.log(columnsVisibleBoundary, rowsVisibleBoundary)
 
   const rowSpanBoundaries = rows
     .slice(boundaries[0], boundaries[1])
@@ -348,7 +293,6 @@ export const getCollapsedGrid: GetCollapsedGridFn = ({
   );
 
   const rowBoundaries = collapseBoundaries(totalRowCount!, [boundaries], [], offset);
-  // console.log('collapse boundaries', totalRowCount, boundaries)
 
   return {
     columns: getCollapsedColumns(

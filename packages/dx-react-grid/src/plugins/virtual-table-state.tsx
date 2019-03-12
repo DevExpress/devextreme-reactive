@@ -1,36 +1,29 @@
 import * as React from 'react';
 import {
-  Getter, Action, Plugin, createStateHelper, StateHelper, ActionFn, Getters, Actions,
+  Getter, Action, Plugin, Getters, Actions,
 } from '@devexpress/dx-react-core';
 import { VirtualTableStateProps, VirtualTableStateState } from '../types';
 import {
-  rowIdGetter, intervalUtil, Interval, mergeRows, recalculateBounds,
-  calculateRequestedRange, recalculateCache,
+  rowIdGetter, recalculateBounds,
+  calculateRequestedRange, recalculateCache, virtualRowsWithCache,
 } from '@devexpress/dx-grid-core';
-// import { shallowEqual } from '@devexpress/dx-core';
+import { shallowEqual } from '@devexpress/dx-core';
 
 const rawRowsComputed = ({ rows }: Getters) => rows;
 
-const virtualRowsComputed = ({
-  start, rows, virtualRowsCache: cache, virtualPageSize,
-}: Getters) => {
-  const rowsInterval = { start, end: start + rows.length };
-  const cacheInterval = { start: cache.start, end: cache.start + cache.rows.length };
-  let result = mergeRows(rowsInterval, cacheInterval, rows, cache.rows, start, cache.start);
-
-  // console.log('virtual rows start', result.start, result.rows.length)
-
-  return result;
-};
+const virtualRowsComputed = (
+  { start, rows, virtualRowsCache }: Getters,
+) => virtualRowsWithCache(start, rows, virtualRowsCache);
 
 const rowsComputed = ({ virtualRows }: Getters) => virtualRows.rows;
+
 const loadedRowsStartComputed = ({ virtualRows }: Getters) => virtualRows.start;
 
 const loadedRowsCountComputed = ({ virtualRows }: Getters) => virtualRows.rows.length;
 
-const rowIdGetterComputed = ({
-  rows: getterRows,
-}: Getters) => {
+const rowIdGetterComputed = (
+  { rows: getterRows }: Getters,
+) => {
   return rowIdGetter(null!, getterRows);
 };
 
@@ -55,20 +48,6 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
       loadedRowsStart: 0,
     };
 
-    const stateHelper: StateHelper = createStateHelper(
-      this,
-      {
-        viewportTop: () => {
-          const { onViewportTopChange } = this.props;
-          return onViewportTopChange;
-        },
-        visibleBoundaries: () => {
-          return () => {}
-        },
-      },
-    );
-
-
     this.requestNextPageAction = (rowIndex: any,
       { virtualPageSize, loadedRowsStart, loadedRowsCount, rawRows, totalRowCount },
     ) => {
@@ -86,10 +65,6 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
       const pageStart = newPageIndex;
       const loadCount = (requestedRange.end - requestedRange.start);
 
-      // console.log(
-      //   rowIndex, newBounds, 'requested', requestedRange, 'loaded', loadedInterval, 'req', newPageIndex, requestedPageIndex, loadCount,
-      // );
-
       if (newPageIndex !== requestedPageIndex && loadCount > 0) {
         if (this.requestTimer !== 0) {
           clearTimeout(this.requestTimer);
@@ -97,6 +72,7 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
         this.requestTimer = setTimeout(() => {
           getRows(pageStart, loadCount);
 
+          // trim to new bounds
           const newCache = recalculateCache(virtualRowsCache, rawRows, start, newBounds);
 
           this.setState({
@@ -113,21 +89,20 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
     getRows(0, 200);
   }
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   const { virtualRowsCache: currentCache } = this.state;
-  //   if (nextState.virtualRowsCache !== currentCache) {
-  //     return false;
-  //   }
+  shouldComponentUpdate(nextProps, nextState) {
+    const { virtualRowsCache: currentCache } = this.state;
+    if (nextState.virtualRowsCache !== currentCache) {
+      return false;
+    }
 
-  //   return (
-  //     !shallowEqual(this.props, nextProps) || !shallowEqual(this.state, nextState)
-  //   );
-  // }
+    return (
+      !shallowEqual(this.props, nextProps) || !shallowEqual(this.state, nextState)
+    );
+  }
 
   render() {
     const {
       virtualRowsCache,
-      loadedRowsStart,
     } = this.state;
     const { start, rowCount } = this.props;
 
@@ -137,15 +112,14 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
       >
         <Getter name="start" value={start} />
         <Getter name="virtualRowsCache" value={virtualRowsCache} />
-        <Getter name="virtualPageSize" value={100} />
-        {/* <Getter name="virtualPageOverscan" value={20} /> */}
+        <Getter name="virtualPageSize" value={100} /> to prop
         <Getter name="totalRowCount" value={rowCount} />
-        <Getter name="rawRows" computed={rawRowsComputed} />
+        <Getter name="rawRows" computed={rawRowsComputed} /> to delete
         <Getter name="virtualRows" computed={virtualRowsComputed} />
         <Getter name="rows" computed={rowsComputed} />
-        <Getter name="loadedRowsStart" computed={loadedRowsStartComputed} />
-        <Getter name="loadedRowsCount" computed={loadedRowsCountComputed} />
-        <Getter name="getRowId" computed={rowIdGetterComputed} />
+        {/* <Getter name="loadedRowsStart" computed={loadedRowsStartComputed} />
+        <Getter name="loadedRowsCount" computed={loadedRowsCountComputed} /> */}
+        <Getter name="getRowId" computed={rowIdGetterComputed} /> to delete
 
         <Action name="requestNextPage" action={this.requestNextPageAction} />
       </Plugin>

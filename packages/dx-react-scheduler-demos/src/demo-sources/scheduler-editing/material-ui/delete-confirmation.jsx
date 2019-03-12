@@ -70,9 +70,9 @@ export default class Demo extends React.PureComponent {
     this.setState((state) => {
       const { data, deletedAppointmentId } = state;
       const nextData = data.filter(appointment => appointment.id !== deletedAppointmentId);
+      this.toggleConfirmationVisibility();
       return { data: nextData, deletedAppointmentId: null };
     });
-    this.toggleConfirmationVisibility();
   }
 
   commitChanges({ added, changed, deleted }) {

@@ -117,7 +117,7 @@ class AppointmentFormContainerBasic extends React.PureComponent {
       ...this.getAppointmentData(),
       ...this.getAppointmentChanges(),
     };
-    if (type === 'delete') {
+    if (type === 'deleted') {
       commitChanges({ [type]: appointment.id });
     } else if (type === 'changed') {
       commitChanges({ [type]: { [appointment.id]: appointment } });

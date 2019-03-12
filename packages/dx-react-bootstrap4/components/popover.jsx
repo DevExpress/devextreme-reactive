@@ -102,7 +102,10 @@ export class Popover extends React.PureComponent {
 }
 
 Popover.propTypes = {
-  container: PropTypes.string,
+  container: PropTypes.oneOfType([
+    PropTypes.instanceOf((typeof Element !== 'undefined') ? Element : Object),
+    PropTypes.string,
+  ]),
   placement: PropTypes.string,
   isOpen: PropTypes.bool,
   children: PropTypes.node.isRequired,

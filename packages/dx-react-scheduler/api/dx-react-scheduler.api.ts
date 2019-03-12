@@ -153,6 +153,7 @@ interface AppointmentModel {
 namespace Appointments {
   interface AppointmentProps {
     children: React.ReactNode;
+    clickable: boolean;
     data: object;
     onClick?: (e: object) => void;
     onDoubleClick?: (e: object) => void;

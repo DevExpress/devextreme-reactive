@@ -149,7 +149,7 @@ describe('DragDropProvider', () => {
       expect(tree.find(DragSource).exists())
         .toBeTruthy();
     });
-    fit('should pass clickable property to appointment template', () => {
+    it('should pass clickable property to appointment template', () => {
       const tree = renderPlugin();
 
       expect(tree.find(TemplatePlaceholder).findWhere(element => element.prop('params') && element.prop('params').clickable === true).exists())

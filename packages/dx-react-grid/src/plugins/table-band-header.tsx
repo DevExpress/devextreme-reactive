@@ -124,4 +124,8 @@ TableBandHeaderBase.components = {
   invisibleCellComponent: 'InvisibleCell',
 };
 
-export const TableBandHeader: React.ComponentType<TableBandHeaderProps> = TableBandHeaderBase;
+/** A plugin that renders the banded cells. */
+export const TableBandHeader: React.ComponentType<TableBandHeaderProps> & {
+  /** The band row type's identifier. */
+  ROW_TYPE: symbol;
+} = TableBandHeaderBase;

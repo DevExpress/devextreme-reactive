@@ -10,11 +10,6 @@ import {
   TableFixedColumns, TableSummaryRow,
 } from '@devexpress/dx-react-grid-material-ui';
 import Paper from '@material-ui/core/Paper';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Input from '@material-ui/core/Input';
@@ -71,7 +66,15 @@ const EditButton = ({ onExecute }) => (
 );
 
 const DeleteButton = ({ onExecute }) => (
-  <IconButton onClick={onExecute} title="Delete row">
+  <IconButton
+    onClick={() => {
+      // eslint-disable-next-line
+      if (window.confirm('Are you sure you want to delete this row?')) {
+        onExecute();
+      }
+    }}
+    title="Delete row"
+  >
     <DeleteIcon />
   </IconButton>
 );
@@ -188,7 +191,6 @@ class DemoBase extends React.PureComponent {
       addedRows: [],
       rowChanges: {},
       currentPage: 0,
-      deletingRows: [],
       pageSize: 0,
       pageSizes: [5, 10, 0],
       columnOrder: ['product', 'region', 'amount', 'discount', 'saleDate', 'customer'],
@@ -199,10 +201,6 @@ class DemoBase extends React.PureComponent {
         { columnName: 'discount', type: 'avg' },
         { columnName: 'amount', type: 'sum' },
       ],
-    };
-    const getStateDeletingRows = () => {
-      const { deletingRows } = this.state;
-      return deletingRows;
     };
     const getStateRows = () => {
       const { rows } = this.state;
@@ -239,18 +237,20 @@ class DemoBase extends React.PureComponent {
       if (changed) {
         rows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
       }
-      this.setState({ rows, deletingRows: deleted || getStateDeletingRows() });
+      if (deleted) {
+        rows = this.deleteRows(deleted);
+      }
+      this.setState({ rows });
     };
-    this.cancelDelete = () => this.setState({ deletingRows: [] });
-    this.deleteRows = () => {
+    this.deleteRows = (deletedIds) => {
       const rows = getStateRows().slice();
-      getStateDeletingRows().forEach((rowId) => {
+      deletedIds.forEach((rowId) => {
         const index = rows.findIndex(row => row.id === rowId);
         if (index > -1) {
           rows.splice(index, 1);
         }
       });
-      this.setState({ rows, deletingRows: [] });
+      return rows;
     };
     this.changeColumnOrder = (order) => {
       this.setState({ columnOrder: order });
@@ -258,9 +258,6 @@ class DemoBase extends React.PureComponent {
   }
 
   render() {
-    const {
-      classes,
-    } = this.props;
     const {
       rows,
       columns,
@@ -270,7 +267,6 @@ class DemoBase extends React.PureComponent {
       addedRows,
       rowChanges,
       currentPage,
-      deletingRows,
       pageSize,
       pageSizes,
       columnOrder,
@@ -346,43 +342,6 @@ class DemoBase extends React.PureComponent {
             pageSizes={pageSizes}
           />
         </Grid>
-
-        <Dialog
-          open={!!deletingRows.length}
-          onClose={this.cancelDelete}
-          classes={{ paper: classes.dialog }}
-        >
-          <DialogTitle>
-            Delete Row
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Are you sure you want to delete the following row?
-            </DialogContentText>
-            <Paper>
-              <Grid
-                rows={rows.filter(row => deletingRows.indexOf(row.id) > -1)}
-                columns={columns}
-              >
-                <CurrencyTypeProvider for={currencyColumns} />
-                <PercentTypeProvider for={percentColumns} />
-                <Table
-                  columnExtensions={tableColumnExtensions}
-                  cellComponent={Cell}
-                />
-                <TableHeaderRow />
-              </Grid>
-            </Paper>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.cancelDelete} color="primary">
-              Cancel
-            </Button>
-            <Button onClick={this.deleteRows} color="secondary">
-              Delete
-            </Button>
-          </DialogActions>
-        </Dialog>
       </Paper>
     );
   }

@@ -18,4 +18,5 @@ class SummaryStateBase extends React.PureComponent<SummaryStateProps> {
   }
 }
 
+/** A plugin that provides items for total, group, and tree summaries. */
 export const SummaryState: React.ComponentType<SummaryStateProps> = SummaryStateBase;

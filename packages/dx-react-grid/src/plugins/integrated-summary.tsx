@@ -7,7 +7,7 @@ import {
   treeSummaryValues,
   SummaryCalculator,
 } from '@devexpress/dx-grid-core';
-import { IntegratedSummaryProps } from '../types';
+import { IntegratedSummaryProps, SummaryType } from '../types';
 
 const pluginDependencies = [
   { name: 'SummaryState' },
@@ -81,4 +81,8 @@ class IntegratedSummaryBase extends React.PureComponent<IntegratedSummaryProps> 
   }
 }
 
-export const IntegratedSummary: React.ComponentType<IntegratedSummaryProps> = IntegratedSummaryBase;
+/** A plugin that performs a built-in data summary calculation. */
+export const IntegratedSummary: React.ComponentType<IntegratedSummaryProps> & {
+  /** The built-in summary calculator. */
+  defaultCalculator: (type: SummaryType, rows: Array<any>, getValue: (row: any) => any) => any;
+} = IntegratedSummaryBase;

@@ -29,4 +29,5 @@ class IntegratedSortingBase extends React.PureComponent<IntegratedSortingProps> 
   }
 }
 
+/** A plugin that performs built-in data sorting. */
 export const IntegratedSorting: React.ComponentType<IntegratedSortingProps> = IntegratedSortingBase;

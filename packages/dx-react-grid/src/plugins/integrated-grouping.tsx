@@ -47,5 +47,7 @@ class IntegratedGroupingBase extends React.PureComponent<IntegratedGroupingProps
   }
 }
 
-// tslint:disable-next-line: max-line-length
+/* tslint:disable: max-line-length */
+/** A plugin that performs built-in grouping and group expanding/collapsing. */
 export const IntegratedGrouping: React.ComponentType<IntegratedGroupingProps> = IntegratedGroupingBase;
+/* tslint:enable: max-line-length */

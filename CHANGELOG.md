@@ -1,3 +1,45 @@
+# [1.10.4](https://github.com/DevExpress/devextreme-reactive/compare/v1.10.3...v1.10.4) (2019-03-11)
+
+
+### Bug Fixes
+
+* **react-core:** correct IDependency definition ([#1891](https://github.com/DevExpress/devextreme-reactive/issues/1891)) ([c9d0f44](https://github.com/DevExpress/devextreme-reactive/commit/c9d0f44))
+* **react-grid:** correct typescript definitions ([#1876](https://github.com/DevExpress/devextreme-reactive/issues/1876)) ([404a239](https://github.com/DevExpress/devextreme-reactive/commit/404a239))
+
+
+
+# [1.10.3](https://github.com/DevExpress/devextreme-reactive/compare/v1.10.2...v1.10.3) (2019-02-27)
+
+
+### Bug Fixes
+
+* **react-grid:** fix dependencies ([#1873](https://github.com/DevExpress/devextreme-reactive/issues/1873)) ([1f3d9ae](https://github.com/DevExpress/devextreme-reactive/commit/1f3d9ae))
+
+
+
+# [1.10.2](https://github.com/DevExpress/devextreme-reactive/compare/v1.10.1...v1.10.2) (2019-02-27)
+
+
+### Bug Fixes
+
+* **grid-core:** fix equal/notEqual filtering operations ([#1834](https://github.com/DevExpress/devextreme-reactive/issues/1834)) ([8ff84e6](https://github.com/DevExpress/devextreme-reactive/commit/8ff84e6))
+* **grid-core:** fix filter selector value calculation ([#1831](https://github.com/DevExpress/devextreme-reactive/issues/1831)) ([5ab35a5](https://github.com/DevExpress/devextreme-reactive/commit/5ab35a5))
+* **react-core:** notify Sizer content when container size is increasing ([#1828](https://github.com/DevExpress/devextreme-reactive/issues/1828)) ([b58e1bd](https://github.com/DevExpress/devextreme-reactive/commit/b58e1bd))
+* **react-chart:** fix line target element getter ([#1847](https://github.com/DevExpress/devextreme-reactive/issues/1847)) ([688a8e9](https://github.com/DevExpress/devextreme-reactive/commit/688a8e9))
+* **react-grid:** fix borders of fixed columns in Edge ([#1849](https://github.com/DevExpress/devextreme-reactive/issues/1849)) ([5d1763e](https://github.com/DevExpress/devextreme-reactive/commit/5d1763e))
+* **react-grid:** fix virtual table column width in Edge ([#1866](https://github.com/DevExpress/devextreme-reactive/issues/1866)) ([5d58a58](https://github.com/DevExpress/devextreme-reactive/commit/5d58a58))
+* **react-grid:** prevent converting group row value to a string if it is undefined ([#1824](https://github.com/DevExpress/devextreme-reactive/issues/1824)) ([c878d33](https://github.com/DevExpress/devextreme-reactive/commit/c878d33))
+* **react-grid-material-ui:** fix page size selector alignment in FF ([#1839](https://github.com/DevExpress/devextreme-reactive/issues/1839)) ([5a79b30](https://github.com/DevExpress/devextreme-reactive/commit/5a79b30))
+
+### Code Refactoring
+
+* **chart-core**: migrate chart core to TS ([#1816](https://github.com/DevExpress/devextreme-reactive/issues/1816)) ([23a17e8](https://github.com/DevExpress/devextreme-reactive/commit/23a17e8))
+* **scheduler-core**: migrate to TypeScript ([#1809](https://github.com/DevExpress/devextreme-reactive/issues/1809)) ([4c5c52](https://github.com/DevExpress/devextreme-reactive/commit/4c5c52))
+* **react-grid**: migrate to TS ([#1832](https://github.com/DevExpress/devextreme-reactive/issues/1832)) ([4bacf20](https://github.com/DevExpress/devextreme-reactive/commit/4bacf20))
+* **react-grid**: fix sorting state props type ([#1850](https://github.com/DevExpress/devextreme-reactive/issues/1850)) ([7b5b720](https://github.com/DevExpress/devextreme-reactive/commit/7b5b720))
+* **react-grid-demos**: replace modal dialog with confirmation in featured editing demo ([#1871](https://github.com/DevExpress/devextreme-reactive/issues/1871)) ([66faabf](https://github.com/DevExpress/devextreme-reactive/commit/66faabf))
+
+
 # [1.10.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.10.0...v1.10.1) (2019-02-06)
 
 

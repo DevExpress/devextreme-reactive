@@ -56,4 +56,5 @@ class SearchStateBase extends React.PureComponent<SearchStateProps, SearchStateS
   }
 }
 
+/** A plugin that manages the search state. */
 export const SearchState: React.ComponentType<SearchStateProps> = SearchStateBase;

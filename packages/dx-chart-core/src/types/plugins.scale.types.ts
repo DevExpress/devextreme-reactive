@@ -1,28 +1,38 @@
 import { PureComputed } from '@devexpress/dx-core';
 import {
-  Scale, DomainItems, ScalesCache, SeriesList, Point,
+  ScaleObject, DomainItems, ScalesCache, Point, Series,
 } from './chart-core.types';
+import {
+  RangesCache,
+} from './plugins.layout-manager.types';
 
-export type FactoryFn = () => Scale;
-type ModifyDomainFn = (domain: DomainItems) => DomainItems;
+export type FactoryFn = () => ScaleObject;
+export type ModifyDomainFn = (domain: DomainItems) => DomainItems;
+/** @internal */
 export type DomainInfo = {
   readonly modifyDomain?: ModifyDomainFn;
-  domain: DomainItems;
-  factory?: FactoryFn;
-  isDiscrete?: boolean;
+  readonly domain: DomainItems;
+  readonly factory?: FactoryFn;
+  readonly isDiscrete: boolean;
 };
+/** @internal */
 export type DomainInfoCache = {
   readonly [name: string]: DomainInfo;
 };
-export type AddDomain = PureComputed<[DomainInfoCache, string, any]>;
-
-export type MergeDomainsFn = (domain: DomainItems, items: DomainItems) => DomainItems;
-export type GetItemFn = (point: Point) => any;
-
-export type ComputeDomains = PureComputed<[DomainInfoCache, SeriesList]>;
-export type Layout = {
-  width: number;
-  height: number;
+/** @internal */
+export type DomainOptions = {
+  readonly modifyDomain?: ModifyDomainFn;
+  readonly factory?: FactoryFn;
 };
-
-export type BuildScales = PureComputed<[DomainInfoCache, Layout], ScalesCache>;
+/** @internal */
+export type AddDomainFn = PureComputed<[DomainInfoCache, string, DomainOptions]>;
+/** @internal */
+export type ExtendDomainsFn = PureComputed<[DomainInfoCache, Series]>;
+/** @internal */
+export type MergeDomainsFn = (domain: DomainItems, items: DomainItems) => DomainItems;
+/** @internal */
+export type GetItemFn = (point: Point) => any;
+/** @internal */
+export type GetDomainItemsFn = (series: Series) => DomainItems;
+/** @internal */
+export type BuildScalesFn = PureComputed<[DomainInfoCache, RangesCache], ScalesCache>;

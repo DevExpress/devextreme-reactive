@@ -4,7 +4,6 @@ export {
   GroupKey, Grouping, GroupingPanelItem, Filter, ColumnFilterOperations,
   Sorting, TargetColumnGeometry, FilterOperation, ColumnChooserItem,
   TableColumnWidthInfo, RowId,
-// } from '@devexpress/dx-grid-core';
 } from '../../../dx-grid-core/src/index';
 
 /** @internal */

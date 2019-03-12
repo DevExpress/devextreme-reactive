@@ -1,5 +1,5 @@
 import { isHorizontal } from '../../utils/scale';
-import { axisCoordinates, getGridCoordinates } from './computeds';
+import { axisCoordinates, getGridCoordinates, createTickFilter } from './computeds';
 
 jest.mock('../../utils/scale', () => ({
   isHorizontal: jest.fn(),
@@ -297,5 +297,21 @@ describe('getGridCoordinates', () => {
         key: '3', x: 0, y: 56, dx: 1, dy: 0,
       },
     ]);
+  });
+});
+
+describe('createTickFilter', () => {
+  it('should filter horizontal ticks', () => {
+    const filter = createTickFilter([10, 0]);
+    expect(filter({ x1: -1, y1: 5 } as any)).toEqual(false);
+    expect(filter({ x1: 4, y1: 5 } as any)).toEqual(true);
+    expect(filter({ x1: 11, y1: 5 } as any)).toEqual(false);
+  });
+
+  it('should filter vertical ticks', () => {
+    const filter = createTickFilter([0, 10]);
+    expect(filter({ x1: 5, y1: -1 } as any)).toEqual(false);
+    expect(filter({ x1: 5, y1: 4 } as any)).toEqual(true);
+    expect(filter({ x1: 5, y1: 11 } as any)).toEqual(false);
   });
 });

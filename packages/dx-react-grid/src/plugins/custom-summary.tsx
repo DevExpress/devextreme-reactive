@@ -23,4 +23,5 @@ class CustomSummaryBase extends React.PureComponent<CustomSummaryProps> {
   }
 }
 
+/** A plugin that allows you to calculate a custom summary. */
 export const CustomSummary: React.ComponentType<CustomSummaryProps> = CustomSummaryBase;

@@ -5,7 +5,7 @@ import {
 import { rowIdGetter, cellValueGetter } from '@devexpress/dx-grid-core';
 import { GridProps } from '../types';
 
-class GridCoreBase extends React.PureComponent<GridProps> {
+export class GridCore extends React.PureComponent<GridProps> {
   render() {
     const {
       rows,
@@ -32,5 +32,3 @@ class GridCoreBase extends React.PureComponent<GridProps> {
     );
   }
 }
-
-export const GridCore: React.ComponentType<GridProps> = GridCoreBase;

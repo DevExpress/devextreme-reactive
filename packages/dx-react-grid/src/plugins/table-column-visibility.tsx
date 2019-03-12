@@ -127,5 +127,7 @@ TableColumnVisibilityBase.components = {
   emptyMessageComponent: 'EmptyMessage',
 };
 
-// tslint:disable-next-line: max-line-length
+/* tslint:disable: max-line-length */
+/** A plugin that manages Grid columns' visibility. */
 export const TableColumnVisibility: React.ComponentType<TableColumnVisibilityProps> = TableColumnVisibilityBase;
+/* tslint:enable: max-line-length */

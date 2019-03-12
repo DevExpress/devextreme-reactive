@@ -57,4 +57,8 @@ class CustomTreeDataBase extends React.PureComponent<CustomTreeDataProps> {
   }
 }
 
+/***
+ * A plugin that converts custom formatted tree data to a supported format and performs
+ * local row expanding/collapsing.
+ * */
 export const CustomTreeData: React.ComponentType<CustomTreeDataProps> = CustomTreeDataBase;

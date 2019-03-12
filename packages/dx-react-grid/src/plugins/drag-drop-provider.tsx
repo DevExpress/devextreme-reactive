@@ -74,4 +74,6 @@ class DragDropProviderBase extends React.PureComponent<DragDropProviderProps, Dr
   }
 }
 
+// tslint:disable-next-line: max-line-length
+/** A plugin that implements the drag-and-drop functionality and visualizes columns that are being dragged. */
 export const DragDropProvider: React.ComponentType<DragDropProviderProps> = DragDropProviderBase;

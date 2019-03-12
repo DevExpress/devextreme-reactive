@@ -55,4 +55,6 @@ class DataTypeProviderBase extends React.PureComponent<DataTypeProviderProps> {
   }
 }
 
+// tslint:disable-next-line: max-line-length
+/** A plugin that allows you to customize formatting options and editors depending on the data type. */
 export const DataTypeProvider: React.ComponentType<DataTypeProviderProps> = DataTypeProviderBase;

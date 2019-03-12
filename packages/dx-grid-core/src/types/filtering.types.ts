@@ -2,6 +2,8 @@
 import { PureComputed } from '@devexpress/dx-core';
 import { Row, GetCellValueFn, GetRowLevelKeyFn, GetCollapsedRowsFn } from './grid-core.types';
 import { RowsWithCollapsedRowsMetaMap } from './tree-data.types';
+
+/** Describes a filter. */
 export interface Filter {
   /** Specifies the name of a column whose value is used for filtering. */
   columnName: string;

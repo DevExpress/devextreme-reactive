@@ -1,3 +1,9 @@
+---
+name: Bug Report
+about: Report a bug to help us improve
+
+---
+
 <!--
     We cannot guarantee a quick answer on GitHub.
     If you have an active DevExtreme license, contact us in the Support Center (https://www.devexpress.com/ask)

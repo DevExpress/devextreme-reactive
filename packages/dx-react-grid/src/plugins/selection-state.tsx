@@ -56,4 +56,5 @@ class SelectionStateBase extends React.PureComponent<SelectionStateProps, Select
   }
 }
 
+/** A plugin that manages the selection state. */
 export const SelectionState: React.ComponentType<SelectionStateProps> = SelectionStateBase;

@@ -51,4 +51,5 @@ class SearchPanelBase extends React.PureComponent<SearchPanelProps> {
   }
 }
 
+/** A plugin that renders the Search Panel. */
 export const SearchPanel: React.ComponentType<SearchPanelProps> = SearchPanelBase;

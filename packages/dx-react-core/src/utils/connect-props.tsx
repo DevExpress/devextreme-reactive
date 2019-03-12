@@ -9,7 +9,7 @@ type RenderComponentProps = {
  */
 export const connectProps = (
   WrappedComponent: React.ComponentType<any>, getAdditionalProps: () => object,
-): typeof WrappedComponent & { update(): void } => {
+): React.ComponentType<any> & { update(): void } => {
   let storedAdditionalProps = getAdditionalProps();
   const components = new Set();
   class RenderComponent extends React.PureComponent<RenderComponentProps> {

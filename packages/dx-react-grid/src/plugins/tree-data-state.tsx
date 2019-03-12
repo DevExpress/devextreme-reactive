@@ -58,4 +58,5 @@ class TreeDataStateBase extends React.PureComponent<TreeDataStateProps, TreeData
   }
 }
 
+/** A plugin that manages the expanded state for tree rows. */
 export const TreeDataState: React.ComponentType<TreeDataStateProps> = TreeDataStateBase;

@@ -14,7 +14,7 @@ module AllDayPanel {
     startDate: Date;
   }
 
-  interface containerProps {
+  interface ContainerProps {
     children: React.ReactNode;
   }
 
@@ -44,7 +44,7 @@ module AllDayPanel {
 interface AllDayPanelProps {
   appointmentLayerComponent: React.ComponentType<AllDayPanel.AppointmentLayerProps>;
   cellComponent: React.ComponentType<AllDayPanel.CellProps>;
-  containerComponent: React.ComponentType<AllDayPanel.containerProps>;
+  containerComponent: React.ComponentType<AllDayPanel.ContainerProps>;
   layoutComponent: React.ComponentType<AllDayPanel.LayoutProps>;
   messages?: AllDayPanel.LocalizationMessages;
   rowComponent: React.ComponentType<AllDayPanel.RowProps>;

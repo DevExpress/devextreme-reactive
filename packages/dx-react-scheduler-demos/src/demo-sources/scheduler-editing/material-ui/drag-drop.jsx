@@ -12,12 +12,12 @@ import { appointments } from '../../../demo-data/appointments';
 
 const dragDisableIds = new Set([3, 8, 10, 12]);
 
-const appointmentComponent = (props) => {
-  if (dragDisableIds.has(props.data.id)) {
-    return <Appointments.Appointment {...props} style={{ ...props.style, cursor: 'not-allowed' }} />;
-  } return <Appointments.Appointment {...props} />;
-};
 const allowDrag = ({ id }) => !dragDisableIds.has(id);
+const appointmentComponent = (props) => {
+  if (allowDrag(props.data)) {
+    return <Appointments.Appointment {...props} />;
+  } return <Appointments.Appointment {...props} style={{ ...props.style, cursor: 'not-allowed' }} />;
+};
 
 export default class Demo extends React.PureComponent {
   constructor(props) {

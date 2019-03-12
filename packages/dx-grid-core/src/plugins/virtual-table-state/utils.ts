@@ -11,6 +11,8 @@ export type Interval = {
 export const intervalUtil = {
   empty,
 
+  getLength: (a: Interval) => a.end - a.start,
+
   intersect: (a: Interval, b: Interval) => {
     if (a.end < b.start || b.end < a.start) {
       return empty;

@@ -12,6 +12,7 @@ import {
   TABLE_FLEX_TYPE,
   TABLE_STUB_TYPE,
   isHeaderStubTableCell,
+  rowsOffsetToPx,
 } from '@devexpress/dx-grid-core';
 import {
   VirtualTableProps, VirtualTableLayoutProps, VirtualTableLayoutState, TableLayoutProps,
@@ -98,11 +99,10 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
         ? 0
         : column.width || minColumnWidth);
 
-      const getRowsBoundary = (blockRows, top, blockHeight, start, rowHeight) => {
-        return getRowsVisibleBoundary(
+      const getRowsBoundary = (blockRows, top, blockHeight, start, rowHeight) => (
+        getRowsVisibleBoundary(
           blockRows, top, blockHeight, this.getRowHeight, start, rowHeight,
-        )
-      };
+        ));
 
       this.visibleBoundariesComputed = memoize(
         state => ({
@@ -178,9 +178,12 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
       }
 
       const {
-        topTriggerIndex, bottomTriggerIndex, middleIndex,
+        topTriggerOffset, bottomTriggerOffset, middleIndex,
       } = currentVirtualPageBoundary;
-      if (middleIndex <= topTriggerIndex || bottomTriggerIndex <= middleIndex) {
+
+      console.log(topTriggerOffset, bottomTriggerOffset, middleIndex)
+
+      if (topTriggerOffset < 0 || bottomTriggerOffset < 0) {
         requestNextPage(middleIndex);
       }
 
@@ -274,26 +277,35 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
       const visibleBoundariesComputed = this.visibleBoundariesComputed(this.state);
 
       /** how many rows up and down before next page request */
-      const currentVirtualPageBoundaryComputed = ({
-        visibleBoundaries, loadedRowsStart, virtualPageSize,
-        rows, loadedRowsCount,
-      }: Getters,
-      { requestNextPage, }: Actions) => {
-        if (rows.length === 0) {
+      const currentVirtualPageBoundaryComputed = (
+        { visibleBoundaries, virtualPageSize, virtualRows }: Getters) => {
+        const loadedStart = virtualRows.start;
+        const loadedCount = virtualRows.rows.length;
+
+        if (loadedCount === 0) {
           return [0, -1];
         }
 
-        const topTriggerIndex = loadedRowsStart > 0 ? loadedRowsStart + virtualPageSize : 0;
-        const bottomTriggerIndex = loadedRowsStart + loadedRowsCount - virtualPageSize;
+        const topTriggerIndex = loadedStart > 0 ? loadedStart + virtualPageSize : 0;
+        const bottomTriggerIndex = loadedStart + loadedCount - virtualPageSize;
         const firstRowIndex = visibleBoundaries.bodyRows[0];
         const visibleCount = visibleBoundaries.bodyRows[1] - visibleBoundaries.bodyRows[0];
         const middleIndex = firstRowIndex + Math.round(visibleCount / 2);
 
+        const getTriggerOffset = rowsOffset => rowsOffsetToPx(
+          middleIndex, rowsOffset, virtualRows,
+          this.getRowHeight, estimatedRowHeight,
+        );
+
+        const topTriggerOffset = getTriggerOffset(middleIndex - topTriggerIndex);
+        // debugger
+        const bottomTriggerOffset = getTriggerOffset(bottomTriggerIndex - middleIndex);
+
         // transform indexes to px and pass to scroll handler
 
         return {
-          topTriggerIndex,
-          bottomTriggerIndex,
+          topTriggerOffset,
+          bottomTriggerOffset,
           middleIndex,
         };
       };

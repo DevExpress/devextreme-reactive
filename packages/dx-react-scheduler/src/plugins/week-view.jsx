@@ -22,6 +22,12 @@ import {
 
 const DAYS_IN_WEEK = 7;
 const TYPE = 'week';
+const endViewDateBaseComputed = ({
+  viewCellsData,
+}) => endViewDateCore(viewCellsData);
+const startViewDateBaseComputed = ({
+  viewCellsData,
+}) => startViewDateCore(viewCellsData);
 
 export class WeekView extends React.PureComponent {
   constructor(props) {
@@ -53,12 +59,6 @@ export class WeekView extends React.PureComponent {
       intervalCount,
     } = props;
 
-    const endViewDateBaseComputed = ({
-      viewCellsData,
-    }) => endViewDateCore(viewCellsData);
-    const startViewDateBaseComputed = ({
-      viewCellsData,
-    }) => startViewDateCore(viewCellsData);
     const viewCellsDataComputed = ({
       currentDate,
     }) => viewCellsDataCore(

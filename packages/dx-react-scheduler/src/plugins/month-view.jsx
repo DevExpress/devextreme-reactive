@@ -21,6 +21,8 @@ import {
 } from '@devexpress/dx-scheduler-core';
 
 const TYPE = 'month';
+const startViewDateBaseComputed = ({ viewCellsData }) => startViewDateCore(viewCellsData);
+const endViewDateBaseComputed = ({ viewCellsData }) => endViewDateCore(viewCellsData);
 
 export class MonthView extends React.PureComponent {
   constructor(props) {
@@ -44,8 +46,6 @@ export class MonthView extends React.PureComponent {
     this.appointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
     this.cellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
 
-    const startViewDateBaseComputed = ({ viewCellsData }) => startViewDateCore(viewCellsData);
-    const endViewDateBaseComputed = ({ viewCellsData }) => endViewDateCore(viewCellsData);
     const viewCellsDataComputed = ({
       currentDate,
     }) => monthCellsData(

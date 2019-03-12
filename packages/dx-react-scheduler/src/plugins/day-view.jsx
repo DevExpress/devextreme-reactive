@@ -21,6 +21,12 @@ import {
 } from '@devexpress/dx-scheduler-core';
 
 const TYPE = 'day';
+const startViewDateBaseComputed = ({
+  viewCellsData,
+}) => startViewDateCore(viewCellsData);
+const endViewDateBaseComputed = ({
+  viewCellsData,
+}) => endViewDateCore(viewCellsData);
 
 export class DayView extends React.PureComponent {
   constructor(props) {
@@ -50,12 +56,6 @@ export class DayView extends React.PureComponent {
       intervalCount,
     } = props;
 
-    const startViewDateBaseComputed = ({
-      viewCellsData,
-    }) => startViewDateCore(viewCellsData);
-    const endViewDateBaseComputed = ({
-      viewCellsData,
-    }) => endViewDateCore(viewCellsData);
     const viewCellsDataComputed = ({
       currentDate,
     }) => viewCellsDataCore(

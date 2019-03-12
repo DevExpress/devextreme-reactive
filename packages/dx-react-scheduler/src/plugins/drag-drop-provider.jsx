@@ -40,16 +40,23 @@ export class DragDropProvider extends React.PureComponent {
       payload: undefined,
     };
 
-    this.resetCache = this.resetCache.bind(this);
-    this.onOver = (getters, actions) => args => this.handleOver.bind(this)(args, getters, actions);
-    this.onDrop = actions => () => this.handleDrop.bind(this)(actions);
-    this.onPayloadChange = actions => args => this.handlePayloadChange.bind(this)(args, actions);
-
     this.timeTableRects = [];
     this.allDayRects = [];
     this.offsetTimeTop = null;
     this.appointmentStartTime = null;
     this.appointmentEndTime = null;
+  }
+
+  onOver(getters, actions) {
+    return args => this.handleOver(args, getters, actions);
+  }
+
+  onDrop(actions) {
+    return () => this.handleDrop(actions);
+  }
+
+  onPayloadChange(actions) {
+    return args => this.handlePayloadChange(args, actions);
   }
 
   resetCache() {

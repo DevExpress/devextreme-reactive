@@ -32,6 +32,7 @@ const AppointmentBase = ({
   children,
   data,
   onClick: handleClick,
+  clickable,
   ...restProps
 }) => {
   const onClick = handleClick
@@ -41,12 +42,12 @@ const AppointmentBase = ({
       },
     }
     : null;
-  const clickable = onClick || restProps.onDoubleClick;
+  const clickable1 = onClick || restProps.onDoubleClick || clickable;
   return (
     <div
       className={classNames({
         [classes.appointment]: true,
-        [classes.clickableAppointment]: clickable,
+        [classes.clickableAppointment]: clickable1,
       }, className)}
       style={style}
       {...onClick}
@@ -64,12 +65,14 @@ AppointmentBase.propTypes = {
   className: PropTypes.string,
   data: PropTypes.object,
   onClick: PropTypes.func,
+  clickable: PropTypes.bool,
 };
 
 AppointmentBase.defaultProps = {
   onClick: undefined,
   className: undefined,
   data: {},
+  clickable: false,
 };
 
 export const Appointment = withStyles(styles, { name: 'Appointment' })(AppointmentBase);

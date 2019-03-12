@@ -4,6 +4,7 @@ import { pluginDepsToComponents } from '@devexpress/dx-testing';
 import {
   PluginHost, DropTarget, DragSource,
   DragDropProvider as DragDropProviderCore,
+  TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 import {
   cellIndex,
@@ -146,6 +147,12 @@ describe('DragDropProvider', () => {
       const tree = renderPlugin();
 
       expect(tree.find(DragSource).exists())
+        .toBeTruthy();
+    });
+    fit('should pass clickable property to appointment template', () => {
+      const tree = renderPlugin();
+
+      expect(tree.find(TemplatePlaceholder).findWhere(element => element.prop('params') && element.prop('params').clickable === true).exists())
         .toBeTruthy();
     });
     it('should not wrap appointment into drag source by predicate', () => {

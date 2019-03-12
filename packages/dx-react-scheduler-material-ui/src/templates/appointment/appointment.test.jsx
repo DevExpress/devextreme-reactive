@@ -100,5 +100,19 @@ describe('Appointment', () => {
       expect(tree.is(`.${classes.clickableAppointment}`))
         .toBeTruthy();
     });
+
+    it('should apply clickable class if clickable is true', () => {
+      const tree = shallow((
+        <Appointment
+          {...defaultProps}
+          clickable
+        >
+          <div />
+        </Appointment>
+      ));
+
+      expect(tree.is(`.${classes.clickableAppointment}`))
+        .toBeTruthy();
+    });
   });
 });

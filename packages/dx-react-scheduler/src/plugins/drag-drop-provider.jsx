@@ -260,7 +260,7 @@ export class DragDropProvider extends React.PureComponent {
               {payload && params.data.id === payload.id ? (
                 <SourceAppointment {...params} />
               ) : (
-                <TemplatePlaceholder params={{ ...params, style: { ...params.style, cursor: 'pointer' } }} />
+                <TemplatePlaceholder params={{ ...params, clickable: true }} />
               )}
             </DragSource>
           )

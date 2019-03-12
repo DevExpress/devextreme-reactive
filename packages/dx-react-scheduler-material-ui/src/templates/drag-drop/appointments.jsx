@@ -14,11 +14,11 @@ const draftStyles = theme => ({
   },
 });
 
-const sourceStyles = () => ({
+const sourceStyles = {
   appointment: {
     opacity: 0.5,
   },
-});
+};
 
 const DraftAppointmentBase = ({
   classes, className, style,

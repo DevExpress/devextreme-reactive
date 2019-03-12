@@ -1,7 +1,7 @@
 import { withStyles } from '@material-ui/core/styles';
 import { ContainerBase } from '../common/container';
 
-const styles = () => ({
+const styles = {
   container: {
     position: 'absolute',
     left: 0,
@@ -10,6 +10,6 @@ const styles = () => ({
     width: '100%',
     cursor: 'move',
   },
-});
+};
 
 export const Container = withStyles(styles, { name: 'DragDropContainer' })(ContainerBase);

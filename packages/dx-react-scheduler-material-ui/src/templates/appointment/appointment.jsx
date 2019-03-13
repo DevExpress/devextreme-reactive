@@ -32,7 +32,7 @@ const AppointmentBase = ({
   children,
   data,
   onClick: handleClick,
-  clickable,
+  draggable,
   ...restProps
 }) => {
   const onClick = handleClick
@@ -42,7 +42,7 @@ const AppointmentBase = ({
       },
     }
     : null;
-  const clickable1 = onClick || restProps.onDoubleClick || clickable;
+  const clickable1 = onClick || restProps.onDoubleClick || draggable;
   return (
     <div
       className={classNames({
@@ -65,14 +65,14 @@ AppointmentBase.propTypes = {
   className: PropTypes.string,
   data: PropTypes.object,
   onClick: PropTypes.func,
-  clickable: PropTypes.bool,
+  draggable: PropTypes.bool,
 };
 
 AppointmentBase.defaultProps = {
   onClick: undefined,
   className: undefined,
   data: {},
-  clickable: false,
+  draggable: false,
 };
 
 export const Appointment = withStyles(styles, { name: 'Appointment' })(AppointmentBase);

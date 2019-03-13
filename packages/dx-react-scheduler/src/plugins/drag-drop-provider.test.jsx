@@ -149,10 +149,10 @@ describe('DragDropProvider', () => {
       expect(tree.find(DragSource).exists())
         .toBeTruthy();
     });
-    it('should pass clickable property to appointment template', () => {
+    it('should pass draggable property to appointment template', () => {
       const tree = renderPlugin();
 
-      expect(tree.find(TemplatePlaceholder).findWhere(element => element.prop('params') && element.prop('params').clickable === true).exists())
+      expect(tree.find(TemplatePlaceholder).findWhere(element => element.prop('params') && element.prop('params').draggable === true).exists())
         .toBeTruthy();
     });
     it('should not wrap appointment into drag source by predicate', () => {

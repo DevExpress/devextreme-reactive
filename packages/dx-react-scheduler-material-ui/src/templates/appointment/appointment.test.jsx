@@ -101,11 +101,11 @@ describe('Appointment', () => {
         .toBeTruthy();
     });
 
-    it('should apply clickable class if clickable is true', () => {
+    it('should apply draggable class if clickable is true', () => {
       const tree = shallow((
         <Appointment
           {...defaultProps}
-          clickable
+          draggable
         >
           <div />
         </Appointment>

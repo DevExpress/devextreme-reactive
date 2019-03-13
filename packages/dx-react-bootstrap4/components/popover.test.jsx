@@ -114,7 +114,7 @@ describe('BS4 Popover', () => {
     let popoverTree;
     const mountPopover = () => {
       popoverTree = shallow((
-        <Popover target={target} isOpen>
+        <Popover target={target} isOpen toggle={() => {}}>
           <Content />
         </Popover>
       ));
@@ -122,7 +122,7 @@ describe('BS4 Popover', () => {
       clickHandler = popoverTree.instance().handleClick;
     };
 
-    it('should handle a click event if popover is isOpen', () => {
+    it('should handle a click event if popover is isOpen and toggle is defined', () => {
       mountPopover();
 
       expect(addEventListener.mock.calls).toEqual([
@@ -131,12 +131,24 @@ describe('BS4 Popover', () => {
       ]);
     });
 
-    it('should detach handlers if popover become invisible', () => {
+    it('should detach handlers if popover becomes invisible', () => {
       mountPopover();
-      addEventListener.mockClear();
 
       popoverTree.setProps({
         isOpen: false,
+      });
+
+      expect(removeEventListener.mock.calls).toEqual([
+        ['click', clickHandler, true],
+        ['touchstart', clickHandler, true],
+      ]);
+    });
+
+    it('should detach handlers if toggle is not defined', () => {
+      mountPopover();
+
+      popoverTree.setProps({
+        toggle: null,
       });
 
       expect(removeEventListener.mock.calls).toEqual([

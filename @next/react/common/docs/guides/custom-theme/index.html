@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>React Components - Create a Custom Theme - DevExtreme Reactive Components</title>
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="prefetch" href="/devextreme-reactive/@next/fonts/OpenSansCondensedBold.woff">
+    <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/@next/favicon.ico" >
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.min.css" type="text/css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/addon/fold/foldgutter.min.css" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/syntax.css">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/site.css?v=1552479059">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/embedded-demos.css?v=1552479059">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-1384678-22', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-static-top navbar-main">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/devextreme-reactive/@next/react/common/">
+            <div>
+              <img src="/devextreme-reactive/@next/img/core-logo.svg" alt="React Components">
+              <div class="logo-container">
+                <h3 class="logo-team">DevExtreme</h3>
+                <h3 class="logo-product">React Components</h3>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            
+            <li class="active"><a href="/devextreme-reactive/@next/react/common/docs/guides/performance-optimization/">Docs</a></li>
+            <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+            <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
+
+    <div class="container docs-container">
+  <div class="row">
+    <div class="col-sm-9 col-sm-push-3 docs-content">
+        <h1 id="react-components---create-a-custom-theme">React Components - Create a Custom Theme</h1>
+
+<p><a href="https://devexpress.github.io/devextreme-reactive/react/">React Components</a> include Bootstrap and Material-UI themes that can be customized. However, there are situations when you want to develop a custom theme. For example, when your site does not abide by Bootstrap or Material-UI guidelines.</p>
+
+<h2 id="how-themes-work">How Themes Work</h2>
+<p>A theme is a set of React UI components that implement the representation logic. All the internal routines are encapsulated in plugins and contained in core packages: <code class="highlighter-rouge">dx-react-grid</code>, <code class="highlighter-rouge">dx-react-scheduler</code>, and <code class="highlighter-rouge">dx-react-chart</code>. A core package exports “bare” UI plugins that a theme package can fill with visual components via <a href="https://reactjs.org/docs/render-props.html">Render Props</a>. To stylize such a plugin, you should provide necessary theme components to it.</p>
+
+<h2 id="implement-a-custom-theme">Implement a Custom Theme</h2>
+<p>In this tutorial, we create a grid theme based on the <a href="https://react.semantic-ui.com/">Semantic UI</a> framework. This theme stylizes three main plugins: <a href="https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/grid/">Grid</a>, <a href="https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table/">Table</a>, and <a href="https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-header-row/">TableHeader</a>. Theme sources and preview are available in this <a href="https://codesandbox.io/s/jmqwvjqw3">CodeSandbox</a>.</p>
+
+<h3 id="theme-structure">Theme Structure</h3>
+<p>The theme consists of two directories: <code class="highlighter-rouge">plugins</code> (plugins that we customize) and <code class="highlighter-rouge">templates</code> (components provided to the plugins). Both of them are located in the <code class="highlighter-rouge">semantic-ui-theme</code> directory under <code class="highlighter-rouge">src</code>.</p>
+
+<h3 id="components">Components</h3>
+<p>As we mentioned earlier, plugins render UI elements via render props. All render props have the postfix <code class="highlighter-rouge">Component</code>. For instance, the <a href="https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table/">Table</a> plugin contains the <code class="highlighter-rouge">tableComponent</code>, <code class="highlighter-rouge">headComponent</code>, <code class="highlighter-rouge">cellComponent</code>, and others.</p>
+
+<h4 id="handle-the-props">Handle the Props</h4>
+<p>If props are of the <code class="highlighter-rouge">object</code> type, you can pass them to the theme component “as is”:</p>
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Table</span> <span class="k">as</span> <span class="nx">TableSUI</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'semantic-ui-react'</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">TableHead</span> <span class="o">=</span> <span class="nx">props</span> <span class="o">=&gt;</span> <span class="p">&lt;</span><span class="nc">TableSUI</span><span class="p">.</span><span class="nc">Header</span> <span class="err">{</span><span class="p">...</span><span class="nt">props</span><span class="err">}</span> <span class="p">/&gt;;</span>
+</code></pre></div></div>
+
+<p>Otherwise, you need to destructure the props. Let’s look at the <code class="highlighter-rouge">cellComponent</code> <a href="https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table/#properties">prop of the <code class="highlighter-rouge">Table</code> plugin</a> for example. It receives <a href="https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table/#tabledatacellprops">Table.DataCellProps</a>. Some of them, such as <code class="highlighter-rouge">tableColumn</code>, <code class="highlighter-rouge">row</code>, and <code class="highlighter-rouge">value</code>, are specific to the Grid and unknown to React. They should not be passed to the theme component and need to be removed from the props. The following example illustrates the process:</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Table</span> <span class="k">as</span> <span class="nx">TableSUI</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'semantic-ui-react'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">TableCell</span> <span class="o">=</span> <span class="p">({</span>
+  <span class="nx">tableColumn</span><span class="p">,</span> <span class="nx">tableRow</span><span class="p">,</span>
+  <span class="nx">column</span><span class="p">,</span> <span class="nx">row</span><span class="p">,</span>
+  <span class="nx">children</span><span class="p">,</span> <span class="nx">value</span><span class="p">,</span>
+  <span class="p">...</span><span class="nx">restProps</span>
+<span class="p">})</span> <span class="o">=&gt;</span> <span class="p">(</span>
+  <span class="p">&lt;</span><span class="nc">TableSUI</span><span class="p">.</span><span class="nc">Cell</span>
+    <span class="na">textAlign=</span><span class="si">{</span><span class="nx">tableColumn</span><span class="p">.</span><span class="nx">align</span><span class="si">}</span>
+    <span class="na">singleLine=</span><span class="si">{</span><span class="o">!</span><span class="nx">tableColumn</span><span class="p">.</span><span class="nx">wordWrapEnabled</span><span class="si">}</span>
+    <span class="err">{</span><span class="p">...</span><span class="nt">restProps</span><span class="err">}</span>
+  <span class="p">&gt;</span>
+    <span class="si">{</span> <span class="nx">children</span> <span class="o">||</span> <span class="nx">value</span> <span class="si">}</span>
+  <span class="p">&lt;/</span><span class="nc">TableSUI</span><span class="p">.</span><span class="nc">Cell</span><span class="p">&gt;</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="plugins">Plugins</h3>
+<p>Once you implement all the required components, create a theme plugin. Inside of it, import a base plugin from the core package and provide your theme components to it:</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">TableHeaderRow</span> <span class="k">as</span> <span class="nx">TableHeaderRowBase</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@devexpress/dx-react-grid'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">TableRow</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'../templates/table-row'</span><span class="p">;</span>
+<span class="c1">// ... other components</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">TableHeaderRow</span> <span class="o">=</span> <span class="nx">props</span> <span class="o">=&gt;</span> <span class="p">(</span>
+  <span class="p">&lt;</span><span class="nc">TableHeaderRowBase</span>
+    <span class="na">rowComponent=</span><span class="si">{</span><span class="nx">TableRow</span><span class="si">}</span>
+    <span class="c1">// ... other components</span>
+    <span class="err">{</span><span class="p">...</span><span class="nt">props</span><span class="err">}</span>
+  <span class="p">/&gt;</span>
+</code></pre></div></div>
+
+<p>If you look at the code of our themes, you may notice that we do the same with a not-yet-documented HOC, <code class="highlighter-rouge">withComponents</code>. The previous code looks like this if you use this HOC too:</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">withComponents</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@devexpress/dx-react-core'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">TableHeaderRow</span> <span class="k">as</span> <span class="nx">TableHeaderRowBase</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@devexpress/dx-react-grid'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">TableRow</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'../templates/table-row'</span><span class="p">;</span>
+<span class="c1">// ... other components</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">TableHeaderRow</span> <span class="o">=</span> <span class="nx">withComponents</span><span class="p">({</span>
+  <span class="nx">TableRow</span><span class="p">,</span>
+  <span class="c1">// ... other components</span>
+<span class="p">})(</span><span class="nx">TableHeaderRowBase</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>A number of our components, like <a href="https://github.com/DevExpress/devextreme-reactive/blob/master/packages/dx-react-grid/src/components/table-layout.jsx">TableLayout</a>, are still to be documented. When you implement a custom theme, we recommend consulting our <a href="https://github.com/DevExpress/devextreme-reactive">repository code</a> as well as the docs.</p>
+
+    </div>
+
+    <div class="col-sm-3 col-sm-pull-9 main-menu">
+      <ul class="list-unstyled">
+        <li>
+          <input id="docsearch" type="text" class="form-control" placeholder="Search...">
+        </li>
+      </ul>
+      <ul class="list-unstyled version">
+        <li>
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.11.0-alpha.1">
+            Version
+            <span>1.11.0-alpha.1</span>
+          </a>
+        </li>
+      </ul>
+      <hr />
+      
+        <h3>Common Concepts</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/common/docs/guides/performance-optimization/">Optimize Performance</a></li>
+          
+
+        
+          
+          
+
+          
+          <li>Create a Custom Theme</li>
+          
+
+        
+        </ul>
+      
+        <h3>Related Docs</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/core/docs/guides/fundamentals/">React Core</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/grid/docs/guides/getting-started/">React Grid</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/guides/getting-started/">React Chart</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/scheduler/docs/guides/getting-started/">React Scheduler</a></li>
+          
+
+        
+        </ul>
+      
+    </div>
+  </div>
+</div>
+
+<script src="/devextreme-reactive/@next/react/common/dist/index.js?v=1552479059"></script>
+
+<script
+  type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"
+  onload="docsearch({
+    apiKey: '4cd7a76d4bc286ae69fe26182a8d4b18',
+    indexName: 'devextreme_reactive',
+    inputSelector: '#docsearch',
+    algoliaOptions: { 'facetFilters': ['techno:react', 'tool: common'] },
+    debug: false
+  })"
+  async
+>
+</script>
+</script>
+
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <ul class="list-inline">
+                      
+                      <li class="active"><a href="/devextreme-reactive/@next/react/common/docs/guides/performance-optimization/">Docs</a></li>
+                      <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+                      <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-9 copyright">
+                  <p>
+                    Copyright © 2011-2019 Developer Express Inc.<br />
+                    All trademarks or registered trademarks are property of their respective owners.
+                    <div class="links">
+                      <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
+                      <br>
+                      <a href="https://js.devexpress.com/Licensing/">Licensing</a>
+                  </div>
+                  <p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+      // Remove unexpected global variable generated by kramdown to fix js-cookie
+      // <h3 id="exports">Exports</h3>
+      window.exports = undefined;
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
+
+    <script src="/devextreme-reactive/@next/js/tracking.js?v=1552479059"></script>
+    <script>
+        trackingCookie.notice();
+    </script>
+
+  </body>
+</html>

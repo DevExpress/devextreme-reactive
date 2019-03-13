@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
+    
     <title>Chart Reference - DevExtreme Reactive Components</title>
     
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -10,9 +11,11 @@
     <link rel="prefetch" href="/devextreme-reactive/@next/fonts/OpenSansCondensedBold.woff">
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/@next/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.min.css" type="text/css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/addon/fold/foldgutter.min.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="/devextreme-reactive/@next/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/@next/css/site.css?v=1536308110">
-    <link rel="stylesheet" href="/devextreme-reactive/@next/css/embedded-demos.css?v=1536308110">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/site.css?v=1552479059">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/embedded-demos.css?v=1552479059">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <script>
@@ -48,7 +51,7 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             
-            <li><a href="/devextreme-reactive/@next/react/chart/demos/featured/component-customization/">Demos</a></li>
+            <li><a href="/devextreme-reactive/@next/react/chart/demos/overview/multiple-axes/">Demos</a></li>
             
             <li class="active"><a href="/devextreme-reactive/@next/react/chart/docs/guides/getting-started/">Docs</a></li>
             <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
@@ -57,6 +60,7 @@
         </div>
       </div>
     </nav>
+    
 
     <div class="container docs-container">
   <div class="row">
@@ -142,6 +146,56 @@
   </tbody>
 </table>
 
+<h3 id="chartlabelprops">Chart.LabelProps</h3>
+
+<p>Describes properties passed to a component that renders the chart’s label.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>children</td>
+      <td>string | number</td>
+      <td>The label text.</td>
+    </tr>
+    <tr>
+      <td>x</td>
+      <td>number</td>
+      <td>The x coordinate of the label’s top left corner.</td>
+    </tr>
+    <tr>
+      <td>y</td>
+      <td>number</td>
+      <td>The y coordinate of the label’s top left corner.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="plugin-components">Plugin Components</h2>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Properties</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Chart.Label</td>
+      <td><a href="#chartlabelprops">Chart.LabelProps</a></td>
+      <td>A component that renders the chart’s label.</td>
+    </tr>
+  </tbody>
+</table>
+
     </div>
 
     <div class="col-sm-3 col-sm-pull-9 main-menu">
@@ -152,13 +206,36 @@
       </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.8.0-beta.1">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.11.0-alpha.1">
             Version
-            <span>1.8.0-beta.1</span>
+            <span>1.11.0-alpha.1</span>
           </a>
         </li>
       </ul>
       <hr />
+      
+        <h3>Common Concepts</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/common/docs/guides/performance-optimization/">Optimize Performance</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/common/docs/guides/custom-theme/">Create a Custom Theme</a></li>
+          
+
+        
+        </ul>
       
         <h3>Guides</h3>
 
@@ -213,12 +290,60 @@
           
 
         
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/guides/palette/">Palette</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/guides/animation/">Animation</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/guides/hover-and-selection/">Hover and Selection</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/guides/tooltip/">Tooltip</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/guides/typescript/">TypeScript</a></li>
+          
+
+        
         </ul>
       
         <h3>API Reference</h3>
 
         <ul class="list-unstyled">
         
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/animation/">Animation</a></li>
+          
+
         
           
           
@@ -233,6 +358,14 @@
 
           
           <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/argument-axis/">ArgumentAxis</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/argument-scale/">ArgumentScale</a></li>
           
 
         
@@ -256,7 +389,15 @@
           
 
           
-          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/grid/">Grid</a></li>
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/event-tracker/">EventTracker</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/hover-state/">HoverState</a></li>
           
 
         
@@ -280,6 +421,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/palette/">Palette</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/pie-series/">PieSeries</a></li>
           
 
@@ -288,7 +437,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/scale/">Scale</a></li>
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/scatter-series/">ScatterSeries</a></li>
           
 
         
@@ -296,7 +445,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/scatter-series/">ScatterSeries</a></li>
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/selection-state/">SelectionState</a></li>
           
 
         
@@ -328,7 +477,23 @@
           
 
           
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/tooltip/">Tooltip</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/value-axis/">ValueAxis</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/value-scale/">ValueScale</a></li>
           
 
         
@@ -359,7 +524,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/@next/vue/grid/docs/guides/getting-started/">Vue Grid</a></li>
+          <li><a href="/devextreme-reactive/@next/react/scheduler/docs/guides/getting-started/">React Scheduler</a></li>
           
 
         
@@ -369,17 +534,21 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/@next/react/chart/demos/dist/index.js?v=1536308110"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script src="/devextreme-reactive/@next/react/common/dist/index.js?v=1552479059"></script>
 
-<script type="text/javascript">
-  docsearch({
+<script
+  type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"
+  onload="docsearch({
     apiKey: '4cd7a76d4bc286ae69fe26182a8d4b18',
     indexName: 'devextreme_reactive',
     inputSelector: '#docsearch',
-    algoliaOptions: { 'facetFilters': ["techno:react", "tool:chart"] },
+    algoliaOptions: { 'facetFilters': ['techno:react', 'tool: chart'] },
     debug: false
-  });
+  })"
+  async
+>
+</script>
 </script>
 
 
@@ -389,7 +558,7 @@
                 <div class="col-md-3">
                     <ul class="list-inline">
                       
-                      <li><a href="/devextreme-reactive/@next/react/chart/demos/featured/component-customization">Demos</a></li>
+                      <li><a href="/devextreme-reactive/@next/react/chart/demos/overview/multiple-axes/">Demos</a></li>
                       
                       <li class="active"><a href="/devextreme-reactive/@next/react/chart/docs/guides/getting-started/">Docs</a></li>
                       <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
@@ -398,7 +567,7 @@
                 </div>
                 <div class="col-md-9 copyright">
                   <p>
-                    Copyright © 2011-2018 Developer Express Inc.<br />
+                    Copyright © 2011-2019 Developer Express Inc.<br />
                     All trademarks or registered trademarks are property of their respective owners.
                     <div class="links">
                       <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
@@ -419,9 +588,9 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/@next/js/tracking.js?v=1536308110"></script>
+    <script src="/devextreme-reactive/@next/js/tracking.js?v=1552479059"></script>
     <script>
         trackingCookie.notice();
     </script>

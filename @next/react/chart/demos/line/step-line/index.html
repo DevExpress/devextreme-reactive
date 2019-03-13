@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>React Chart Step Line - DevExtreme Reactive Components</title>
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="prefetch" href="/devextreme-reactive/@next/fonts/OpenSansCondensedBold.woff">
+    <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/@next/favicon.ico" >
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.min.css" type="text/css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/addon/fold/foldgutter.min.css" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/syntax.css">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/site.css?v=1552479059">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/embedded-demos.css?v=1552479059">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-1384678-22', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-static-top navbar-main">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/devextreme-reactive/@next/react/chart/">
+            <div>
+              <img src="/devextreme-reactive/@next/img/chart-logo.svg" alt="React Chart">
+              <div class="logo-container">
+                <h3 class="logo-team">DevExtreme</h3>
+                <h3 class="logo-product">React Chart</h3>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            
+            <li class="active"><a href="/devextreme-reactive/@next/react/chart/demos/overview/multiple-axes/">Demos</a></li>
+            
+            <li><a href="/devextreme-reactive/@next/react/chart/docs/guides/getting-started/">Docs</a></li>
+            <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+            <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
+
+    <style>
+  body {
+    overflow-y: scroll;
+  }
+</style>
+
+<div class="container demos-container">
+  <div class="row">
+    <div class="col-sm-9 col-sm-push-3 docs-content">
+      <h1 id="react-chart-step-line">React Chart Step Line</h1>
+
+<p>The demo shows how to configure a <a href="/devextreme-reactive/@next/react/chart/docs/reference/line-series/">Line Series</a> to display a Step Line Sereies.</p>
+
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/line-chart/step-line&quot;,&quot;showThemeSelector&quot;:true,&quot;showThemeVariants&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/chart/demos/dist/index.js?v=1552479059&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive/@next//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1552479059&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>
+
+    </div>
+
+    <div class="col-sm-3 col-sm-pull-9 main-menu">
+      
+        <h3>Demos</h3>
+
+        <ul class="list-unstyled">
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/demos/overview/multiple-axes/">Overview</a></li>
+          
+
+        
+        </ul>
+
+      
+        <h3>Area Chart</h3>
+
+        <ul class="list-unstyled">
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/demos/area/simple-area/">Simple Area</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/demos/area/spline-area/">Spline Area</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/demos/area/stacked-area/">Stacked Area</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/demos/area/step-area/">Step Area</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/demos/area/streamgraph/">Streamgraph</a></li>
+          
+
+        
+        </ul>
+
+      
+        <h3>Bar Chart</h3>
+
+        <ul class="list-unstyled">
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/demos/bar/simple-bar/">Simple Bar</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/demos/bar/side-by-side/">Side-By-Side Bars</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/demos/bar/side-by-side-stacked-bar/">Side-By-Side Stacked Bars</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/demos/bar/stacked-bar/">Stacked Bar</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/demos/bar/fullstacked-bar/">Fullstacked Bar</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/demos/bar/component-customization/">Component Customization</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/demos/bar/series-interaction/">Series Interaction</a></li>
+          
+
+        
+        </ul>
+
+      
+        <h3>Line Chart</h3>
+
+        <ul class="list-unstyled">
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/demos/line/line/">Simple Line</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/demos/line/spline/">Spline</a></li>
+          
+
+        
+          
+          
+
+          
+          <li>Step Line</li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/demos/line/step-line-with-gaps/">Step Line With Gaps</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/demos/line/log-time-axes/">Axes Type Customization</a></li>
+          
+
+        
+        </ul>
+
+      
+        <h3>Point Chart</h3>
+
+        <ul class="list-unstyled">
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/demos/point/scatter/">Scatter Series</a></li>
+          
+
+        
+        </ul>
+
+      
+        <h3>Pie Chart</h3>
+
+        <ul class="list-unstyled">
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/demos/pie/pie/">Pie Chart</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/demos/pie/doughnut/">Doughnut Chart</a></li>
+          
+
+        
+        </ul>
+
+      
+        <h3>Combination</h3>
+
+        <ul class="list-unstyled">
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/demos/combination/multiple-axes/">Multiple Axes</a></li>
+          
+
+        
+        </ul>
+
+      
+    </div>
+  </div>
+</div>
+
+<script src="/devextreme-reactive/@next/react/chart/demos/dist/index.js?v=1552479059"></script>
+
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <ul class="list-inline">
+                      
+                      <li class="active"><a href="/devextreme-reactive/@next/react/chart/demos/overview/multiple-axes/">Demos</a></li>
+                      
+                      <li><a href="/devextreme-reactive/@next/react/chart/docs/guides/getting-started/">Docs</a></li>
+                      <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+                      <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-9 copyright">
+                  <p>
+                    Copyright © 2011-2019 Developer Express Inc.<br />
+                    All trademarks or registered trademarks are property of their respective owners.
+                    <div class="links">
+                      <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
+                      <br>
+                      <a href="https://js.devexpress.com/Licensing/">Licensing</a>
+                  </div>
+                  <p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+      // Remove unexpected global variable generated by kramdown to fix js-cookie
+      // <h3 id="exports">Exports</h3>
+      window.exports = undefined;
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
+
+    <script src="/devextreme-reactive/@next/js/tracking.js?v=1552479059"></script>
+    <script>
+        trackingCookie.notice();
+    </script>
+
+  </body>
+</html>

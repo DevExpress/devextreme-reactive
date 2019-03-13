@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
+    
     <title>React Grid - Fixed Columns - DevExtreme Reactive Components</title>
     
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -10,9 +11,11 @@
     <link rel="prefetch" href="/devextreme-reactive/@next/fonts/OpenSansCondensedBold.woff">
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/@next/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.min.css" type="text/css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/addon/fold/foldgutter.min.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="/devextreme-reactive/@next/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/@next/css/site.css?v=1536308110">
-    <link rel="stylesheet" href="/devextreme-reactive/@next/css/embedded-demos.css?v=1536308110">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/site.css?v=1552479059">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/embedded-demos.css?v=1552479059">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <script>
@@ -57,6 +60,7 @@
         </div>
       </div>
     </nav>
+    
 
     <div class="container docs-container">
   <div class="row">
@@ -68,13 +72,20 @@
 <p><strong>Browser Support Notes:</strong></p>
 
 <ul>
-  <li>The following browsers do not support fixed columns because they do not support <code class="highlighter-rouge">position: sticky</code>:</li>
-  <li>Android Browser before 5.0</li>
-  <li>WebView for Android before 5.0</li>
-  <li>
-    <p>Internet Explorer</p>
+  <li>The following browsers do not support fixed columns because they do not support <code class="highlighter-rouge">position: sticky</code>:
+    <ul>
+      <li>Android Browser before 5.0</li>
+      <li>WebView for Android before 5.0</li>
+      <li>Internet Explorer</li>
+    </ul>
   </li>
-  <li>Currently, there is an issue with column fixing in Microsoft Edge. See this <a href="https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/16792336/">issue</a> for more information.</li>
+  <li>Currently, there are issues with fixed columns support in Microsoft Edge:
+    <ul>
+      <li><a href="https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/18769340/">sticky elements flicker on scroll</a></li>
+      <li><a href="https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/18940617/">nested sticky positioning element will not stick</a></li>
+      <li><a href="https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/16792336/">sticky causes border to dissapear on table elements</a></li>
+    </ul>
+  </li>
 </ul>
 
 <h2 id="related-plugins">Related Plugins</h2>
@@ -87,29 +98,29 @@
 
 <h2 id="basic-setup">Basic Setup</h2>
 
-<p>Import the <a href="/devextreme-reactive/@next/react/grid/docs/reference/table-fixed-columns/">TableFixedColumns</a> plugin and specify the names of the columns that should be fixed. The <code class="highlighter-rouge">beforeColumnNames</code> property specifies columns fixed at the grid’s left side, the <code class="highlighter-rouge">afterColumnNames</code> property - at the right side.</p>
+<p>Import the <a href="/devextreme-reactive/@next/react/grid/docs/reference/table-fixed-columns/">TableFixedColumns</a> plugin and specify the names of the columns that should be fixed. The <code class="highlighter-rouge">leftColumns</code> property specifies columns fixed at the grid’s left side, the <code class="highlighter-rouge">rightColumns</code> property - at the right side.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-fixed-columns/basic&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/grid/demos/dist/index.js?v=1536308110&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-fixed-columns/basic&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/grid/demos/dist/index.js?v=1552479059&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive/@next//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1552479059&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
         </div>
 
-<h2 id="fixing-service-columns">Fixing Service Columns</h2>
+<h2 id="fix-service-columns">Fix Service Columns</h2>
 
-<p>You can also use the <code class="highlighter-rouge">beforeColumnTypes</code> and <code class="highlighter-rouge">afterColumnTypes</code> properties to fix service columns, such as Selection Column or Editing Column.</p>
+<p>You can also use the <code class="highlighter-rouge">leftColumns</code> and <code class="highlighter-rouge">rightColumns</code> properties to fix service columns, such as Selection Column or Editing Column.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-fixed-columns/with-selection&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/grid/demos/dist/index.js?v=1536308110&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-fixed-columns/with-selection&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/grid/demos/dist/index.js?v=1552479059&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive/@next//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1552479059&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
         </div>
 
-<h2 id="compatibility-with-other-plugins">Compatibility With Other Plugins</h2>
+<h2 id="compatibility-with-other-plugins">Compatibility with Other Plugins</h2>
 
 <p>You can use the <a href="/devextreme-reactive/@next/react/grid/docs/reference/table-fixed-columns/">TableFixedColumns</a> plugin with other plugins.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-fixed-columns/bands&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/grid/demos/dist/index.js?v=1536308110&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-fixed-columns/bands&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/grid/demos/dist/index.js?v=1552479059&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive/@next//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1552479059&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -119,7 +130,7 @@
 
 <p>The plugin works smoothly with both regular and virtual tables.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-fixed-columns/virtual-table&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/grid/demos/dist/index.js?v=1536308110&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-fixed-columns/virtual-table&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/grid/demos/dist/index.js?v=1552479059&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive/@next//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1552479059&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -135,13 +146,36 @@
       </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.8.0-beta.1">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.11.0-alpha.1">
             Version
-            <span>1.8.0-beta.1</span>
+            <span>1.11.0-alpha.1</span>
           </a>
         </li>
       </ul>
       <hr />
+      
+        <h3>Common Concepts</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/common/docs/guides/performance-optimization/">Optimize Performance</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/common/docs/guides/custom-theme/">Create a Custom Theme</a></li>
+          
+
+        
+        </ul>
       
         <h3>Guides</h3>
 
@@ -336,7 +370,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/@next/react/grid/docs/guides/immutable-data/">Immutable Data</a></li>
+          <li><a href="/devextreme-reactive/@next/react/grid/docs/guides/typescript/">TypeScript</a></li>
           
 
         
@@ -344,7 +378,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/@next/react/grid/docs/guides/typescript/">TypeScript</a></li>
+          <li><a href="/devextreme-reactive/@next/react/grid/docs/guides/custom-plugin-development/">Custom Plugin Development</a></li>
           
 
         
@@ -734,7 +768,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/@next/vue/grid/docs/guides/getting-started/">Vue Grid</a></li>
+          <li><a href="/devextreme-reactive/@next/react/scheduler/docs/guides/getting-started/">React Scheduler</a></li>
           
 
         
@@ -744,17 +778,21 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/@next/react/grid/demos/dist/index.js?v=1536308110"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script src="/devextreme-reactive/@next/react/common/dist/index.js?v=1552479059"></script>
 
-<script type="text/javascript">
-  docsearch({
+<script
+  type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"
+  onload="docsearch({
     apiKey: '4cd7a76d4bc286ae69fe26182a8d4b18',
     indexName: 'devextreme_reactive',
     inputSelector: '#docsearch',
-    algoliaOptions: { 'facetFilters': ["techno:react", "tool:grid"] },
+    algoliaOptions: { 'facetFilters': ['techno:react', 'tool: grid'] },
     debug: false
-  });
+  })"
+  async
+>
+</script>
 </script>
 
 
@@ -764,7 +802,7 @@
                 <div class="col-md-3">
                     <ul class="list-inline">
                       
-                      <li><a href="/devextreme-reactive/@next/react/grid/demos/featured/integrated-data-shaping">Demos</a></li>
+                      <li><a href="/devextreme-reactive/@next/react/grid/demos/featured/integrated-data-shaping/">Demos</a></li>
                       
                       <li class="active"><a href="/devextreme-reactive/@next/react/grid/docs/guides/getting-started/">Docs</a></li>
                       <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
@@ -773,7 +811,7 @@
                 </div>
                 <div class="col-md-9 copyright">
                   <p>
-                    Copyright © 2011-2018 Developer Express Inc.<br />
+                    Copyright © 2011-2019 Developer Express Inc.<br />
                     All trademarks or registered trademarks are property of their respective owners.
                     <div class="links">
                       <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
@@ -794,9 +832,9 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/@next/js/tracking.js?v=1536308110"></script>
+    <script src="/devextreme-reactive/@next/js/tracking.js?v=1552479059"></script>
     <script>
         trackingCookie.notice();
     </script>

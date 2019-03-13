@@ -2,7 +2,8 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>React Grid - Controlled (stateless) and Uncontrolled (stateful) Modes - DevExtreme Reactive Components</title>
+    
+    <title>React Grid - Controlled (Stateless) and Uncontrolled (Stateful) Modes - DevExtreme Reactive Components</title>
     
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,9 +11,11 @@
     <link rel="prefetch" href="/devextreme-reactive/@next/fonts/OpenSansCondensedBold.woff">
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/@next/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.min.css" type="text/css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/addon/fold/foldgutter.min.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="/devextreme-reactive/@next/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/@next/css/site.css?v=1536308110">
-    <link rel="stylesheet" href="/devextreme-reactive/@next/css/embedded-demos.css?v=1536308110">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/site.css?v=1552479059">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/embedded-demos.css?v=1552479059">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <script>
@@ -57,23 +60,24 @@
         </div>
       </div>
     </nav>
+    
 
     <div class="container docs-container">
   <div class="row">
     <div class="col-sm-9 col-sm-push-3 docs-content">
-        <h1 id="react-grid---controlled-stateless-and-uncontrolled-stateful-modes">React Grid - Controlled (stateless) and Uncontrolled (stateful) Modes</h1>
+        <h1 id="react-grid---controlled-stateless-and-uncontrolled-stateful-modes">React Grid - Controlled (Stateless) and Uncontrolled (Stateful) Modes</h1>
 
-<p>The Grid UI plugins typically render only a part of the whole Grid’s state. The plugins automatically manage that part of the state or leave this job to the state management plugins (the plugins whose name ends with “…State”). In the uncontrolled (stateful) mode, UI or state management plugins manage the state internally. In the controlled (stateless) mode, the state is managed externally via the plugins’ props.</p>
+<p>The Grid UI plugins typically render only a part of the whole Grid’s state. The plugins automatically manage that part of the state or leave this job to the state management plugins (the plugins whose name ends with “…State”). In uncontrolled (stateful) mode, UI or state management plugins manage the state internally. In controlled (stateless) mode, the state is managed externally via the plugins’ props.</p>
 
 <h2 id="controlled-mode">Controlled Mode</h2>
 
-<p>In the controlled mode, the Grid’s state is managed externally (for example, in the parent component, Redux store, etc.). Refer to the <a href="https://facebook.github.io/react/docs/forms.html#controlled-components">React documentation</a> for more information about the controlled components concept.</p>
+<p>In controlled mode, the Grid’s state is managed externally (for example, in the parent component, Redux store, etc.). Refer to the <a href="https://facebook.github.io/react/docs/forms.html#controlled-components">React documentation</a> for more information about the controlled components concept.</p>
 
 <p>This mode allows you to access the Grid’s state from other application parts. For example, you can persist the state and restore it when required, or change it via an external UI.</p>
 
 <p>Use the appropriate state management plugin properties to set the Grid’s configuration and handle configuration changes a user makes via the Grid’s UI. In the example below, sorting configuration is passed to the <code class="highlighter-rouge">SortingState</code> plugin’s <code class="highlighter-rouge">sorting</code> property, and the function passed to the <code class="highlighter-rouge">onSortingChanged</code> property handles the sorting configuration changes.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-sorting/controlled-mode&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/grid/demos/dist/index.js?v=1536308110&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-sorting/controlled-mode&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/grid/demos/dist/index.js?v=1552479059&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive/@next//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1552479059&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -85,19 +89,19 @@
 
 <h2 id="uncontrolled-mode">Uncontrolled Mode</h2>
 
-<p>In the uncontrolled state mode, the Grid component manages its state internally. In this case, you should only add the required state management plugins and optionally define the initial configuration using properties with the <code class="highlighter-rouge">default</code> prefix (for example, the <code class="highlighter-rouge">SortingState</code> plugin’s <code class="highlighter-rouge">defaultSorting</code> property).</p>
+<p>In uncontrolled state mode, the Grid component manages its state internally. In this case, you should only add the required state management plugins and optionally define the initial configuration using properties with the <code class="highlighter-rouge">default</code> prefix (for example, the <code class="highlighter-rouge">SortingState</code> plugin’s <code class="highlighter-rouge">defaultSorting</code> property).</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-sorting/header-sorting&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/grid/demos/dist/index.js?v=1536308110&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-sorting/header-sorting&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/grid/demos/dist/index.js?v=1552479059&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive/@next//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1552479059&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
         </div>
 
-<h2 id="partially-controlled-mode">Partially Controlled mode</h2>
+<h2 id="partially-controlled-mode">Partially Controlled Mode</h2>
 
 <p>You can control only certain parts of the Grid’s configuration. In this case, apply the <a href="#controlled-mode">controlled mode</a> only to plugins whose state you want to control externally and the <a href="#uncontrolled-mode">uncontrolled mode</a> to other plugins.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-selection/select-all-by-all-pages&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/grid/demos/dist/index.js?v=1536308110&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-selection/select-all-by-all-pages&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/grid/demos/dist/index.js?v=1552479059&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive/@next//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1552479059&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -115,13 +119,36 @@
       </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.8.0-beta.1">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.11.0-alpha.1">
             Version
-            <span>1.8.0-beta.1</span>
+            <span>1.11.0-alpha.1</span>
           </a>
         </li>
       </ul>
       <hr />
+      
+        <h3>Common Concepts</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/common/docs/guides/performance-optimization/">Optimize Performance</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/common/docs/guides/custom-theme/">Create a Custom Theme</a></li>
+          
+
+        
+        </ul>
       
         <h3>Guides</h3>
 
@@ -316,7 +343,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/@next/react/grid/docs/guides/immutable-data/">Immutable Data</a></li>
+          <li><a href="/devextreme-reactive/@next/react/grid/docs/guides/typescript/">TypeScript</a></li>
           
 
         
@@ -324,7 +351,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/@next/react/grid/docs/guides/typescript/">TypeScript</a></li>
+          <li><a href="/devextreme-reactive/@next/react/grid/docs/guides/custom-plugin-development/">Custom Plugin Development</a></li>
           
 
         
@@ -714,7 +741,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/@next/vue/grid/docs/guides/getting-started/">Vue Grid</a></li>
+          <li><a href="/devextreme-reactive/@next/react/scheduler/docs/guides/getting-started/">React Scheduler</a></li>
           
 
         
@@ -724,17 +751,21 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/@next/react/grid/demos/dist/index.js?v=1536308110"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script src="/devextreme-reactive/@next/react/common/dist/index.js?v=1552479059"></script>
 
-<script type="text/javascript">
-  docsearch({
+<script
+  type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"
+  onload="docsearch({
     apiKey: '4cd7a76d4bc286ae69fe26182a8d4b18',
     indexName: 'devextreme_reactive',
     inputSelector: '#docsearch',
-    algoliaOptions: { 'facetFilters': ["techno:react", "tool:grid"] },
+    algoliaOptions: { 'facetFilters': ['techno:react', 'tool: grid'] },
     debug: false
-  });
+  })"
+  async
+>
+</script>
 </script>
 
 
@@ -744,7 +775,7 @@
                 <div class="col-md-3">
                     <ul class="list-inline">
                       
-                      <li><a href="/devextreme-reactive/@next/react/grid/demos/featured/integrated-data-shaping">Demos</a></li>
+                      <li><a href="/devextreme-reactive/@next/react/grid/demos/featured/integrated-data-shaping/">Demos</a></li>
                       
                       <li class="active"><a href="/devextreme-reactive/@next/react/grid/docs/guides/getting-started/">Docs</a></li>
                       <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
@@ -753,7 +784,7 @@
                 </div>
                 <div class="col-md-9 copyright">
                   <p>
-                    Copyright © 2011-2018 Developer Express Inc.<br />
+                    Copyright © 2011-2019 Developer Express Inc.<br />
                     All trademarks or registered trademarks are property of their respective owners.
                     <div class="links">
                       <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
@@ -774,9 +805,9 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/@next/js/tracking.js?v=1536308110"></script>
+    <script src="/devextreme-reactive/@next/js/tracking.js?v=1552479059"></script>
     <script>
         trackingCookie.notice();
     </script>

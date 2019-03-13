@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
+    
     <title>ValueAxis Plugin Reference - DevExtreme Reactive Components</title>
     
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -10,9 +11,11 @@
     <link rel="prefetch" href="/devextreme-reactive/@next/fonts/OpenSansCondensedBold.woff">
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/@next/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.min.css" type="text/css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/addon/fold/foldgutter.min.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="/devextreme-reactive/@next/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/@next/css/site.css?v=1536308110">
-    <link rel="stylesheet" href="/devextreme-reactive/@next/css/embedded-demos.css?v=1536308110">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/site.css?v=1552479059">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/embedded-demos.css?v=1552479059">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <script>
@@ -48,7 +51,7 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             
-            <li><a href="/devextreme-reactive/@next/react/chart/demos/featured/component-customization/">Demos</a></li>
+            <li><a href="/devextreme-reactive/@next/react/chart/demos/overview/multiple-axes/">Demos</a></li>
             
             <li class="active"><a href="/devextreme-reactive/@next/react/chart/docs/guides/getting-started/">Docs</a></li>
             <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
@@ -57,6 +60,7 @@
         </div>
       </div>
     </nav>
+    
 
     <div class="container docs-container">
   <div class="row">
@@ -105,10 +109,10 @@
       <td>The axis position.</td>
     </tr>
     <tr>
-      <td>name</td>
+      <td>scaleName?</td>
       <td>string</td>
       <td> </td>
-      <td>The axis name.</td>
+      <td>The scale name.</td>
     </tr>
     <tr>
       <td>indentFromAxis?</td>
@@ -117,16 +121,34 @@
       <td>The indent from the axis.</td>
     </tr>
     <tr>
-      <td>type?</td>
-      <td>‘band’ | ‘linear’</td>
-      <td>‘linear’</td>
-      <td>Axis type.</td>
-    </tr>
-    <tr>
-      <td>tickForamt?</td>
-      <td>(scale: object) =&gt; (tick: string) =&gt; string</td>
+      <td>tickFormat?</td>
+      <td>(scale: <a href="/devextreme-reactive/@next/react/chart/docs/reference/argument-scale/#scaleobject">ScaleObject</a>) =&gt; (tick: string) =&gt; string</td>
       <td> </td>
       <td>A function that returns a tick formatter function.</td>
+    </tr>
+    <tr>
+      <td>showTicks?</td>
+      <td>boolean</td>
+      <td>false</td>
+      <td>Specifies whether to render ticks.</td>
+    </tr>
+    <tr>
+      <td>showGrid?</td>
+      <td>boolean</td>
+      <td>true</td>
+      <td>Specifies whether to render the grid.</td>
+    </tr>
+    <tr>
+      <td>showLine?</td>
+      <td>boolean</td>
+      <td>false</td>
+      <td>Specifies whether to render the axis’s line.</td>
+    </tr>
+    <tr>
+      <td>showLabels?</td>
+      <td>boolean</td>
+      <td>true</td>
+      <td>Specifies whether to render the axis’s labels.</td>
     </tr>
     <tr>
       <td>rootComponent</td>
@@ -136,7 +158,7 @@
     </tr>
     <tr>
       <td>tickComponent</td>
-      <td>ComponentType&lt;<a href="#valueaxistickprops">ValueAxis.TickProps</a>&gt;</td>
+      <td>ComponentType&lt;<a href="#valueaxislineprops">ValueAxis.LineProps</a>&gt;</td>
       <td> </td>
       <td>A component that renders a tick.</td>
     </tr>
@@ -151,6 +173,12 @@
       <td>ComponentType&lt;<a href="#valueaxislineprops">ValueAxis.LineProps</a>&gt;</td>
       <td> </td>
       <td>A component that renders the axis line.</td>
+    </tr>
+    <tr>
+      <td>gridComponent</td>
+      <td>ComponentType&lt;<a href="#valueaxislineprops">ValueAxis.LineProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders the grid.</td>
     </tr>
   </tbody>
 </table>
@@ -188,9 +216,9 @@
   </tbody>
 </table>
 
-<h3 id="valueaxistickprops">ValueAxis.TickProps</h3>
+<h3 id="valueaxislineprops">ValueAxis.LineProps</h3>
 
-<p>Describes properties passed to a component that renders a tick line.</p>
+<p>Describes properties passed to a component that renders the axis’s line, ticks and grid.</p>
 
 <table class="table table-bordered table-striped">
   <thead>
@@ -265,37 +293,6 @@
   </tbody>
 </table>
 
-<h3 id="valueaxislineprops">ValueAxis.LineProps</h3>
-
-<p>Describes properties passed to a component that renders the axis line.</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>width</td>
-      <td>number</td>
-      <td>The line width.</td>
-    </tr>
-    <tr>
-      <td>height</td>
-      <td>number</td>
-      <td>The line height.</td>
-    </tr>
-    <tr>
-      <td>orientation</td>
-      <td>‘horizontal’ | ‘vertical’</td>
-      <td>The axis orientation.</td>
-    </tr>
-  </tbody>
-</table>
-
 <h2 id="plugin-components">Plugin Components</h2>
 
 <table class="table table-bordered table-striped">
@@ -314,7 +311,7 @@
     </tr>
     <tr>
       <td>ValueAxis.Tick</td>
-      <td><a href="#valueaxistickprops">ValueAxis.TickProps</a></td>
+      <td><a href="#valueaxislineprops">ValueAxis.LineProps</a></td>
       <td>A component that renders the tick.</td>
     </tr>
     <tr>
@@ -326,6 +323,11 @@
       <td>ValueAxis.Line</td>
       <td><a href="#valueaxislineprops">ValueAxis.LineProps</a></td>
       <td>A component that renders the axis line.</td>
+    </tr>
+    <tr>
+      <td>ValueAxis.Grid</td>
+      <td><a href="#valueaxislineprops">ValueAxis.LineProps</a></td>
+      <td>A component that renders the grid.</td>
     </tr>
   </tbody>
 </table>
@@ -340,13 +342,36 @@
       </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.8.0-beta.1">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.11.0-alpha.1">
             Version
-            <span>1.8.0-beta.1</span>
+            <span>1.11.0-alpha.1</span>
           </a>
         </li>
       </ul>
       <hr />
+      
+        <h3>Common Concepts</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/common/docs/guides/performance-optimization/">Optimize Performance</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/common/docs/guides/custom-theme/">Create a Custom Theme</a></li>
+          
+
+        
+        </ul>
       
         <h3>Guides</h3>
 
@@ -401,12 +426,60 @@
           
 
         
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/guides/palette/">Palette</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/guides/animation/">Animation</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/guides/hover-and-selection/">Hover and Selection</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/guides/tooltip/">Tooltip</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/guides/typescript/">TypeScript</a></li>
+          
+
+        
         </ul>
       
         <h3>API Reference</h3>
 
         <ul class="list-unstyled">
         
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/animation/">Animation</a></li>
+          
+
         
           
           
@@ -421,6 +494,14 @@
 
           
           <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/argument-axis/">ArgumentAxis</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/argument-scale/">ArgumentScale</a></li>
           
 
         
@@ -444,7 +525,15 @@
           
 
           
-          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/grid/">Grid</a></li>
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/event-tracker/">EventTracker</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/hover-state/">HoverState</a></li>
           
 
         
@@ -468,6 +557,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/palette/">Palette</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/pie-series/">PieSeries</a></li>
           
 
@@ -476,7 +573,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/scale/">Scale</a></li>
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/scatter-series/">ScatterSeries</a></li>
           
 
         
@@ -484,7 +581,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/scatter-series/">ScatterSeries</a></li>
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/selection-state/">SelectionState</a></li>
           
 
         
@@ -516,7 +613,23 @@
           
 
           
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/tooltip/">Tooltip</a></li>
+          
+
+        
+          
+          
+
+          
           <li>ValueAxis</li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/value-scale/">ValueScale</a></li>
           
 
         
@@ -547,7 +660,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/@next/vue/grid/docs/guides/getting-started/">Vue Grid</a></li>
+          <li><a href="/devextreme-reactive/@next/react/scheduler/docs/guides/getting-started/">React Scheduler</a></li>
           
 
         
@@ -557,17 +670,21 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/@next/react/chart/demos/dist/index.js?v=1536308110"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script src="/devextreme-reactive/@next/react/common/dist/index.js?v=1552479059"></script>
 
-<script type="text/javascript">
-  docsearch({
+<script
+  type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"
+  onload="docsearch({
     apiKey: '4cd7a76d4bc286ae69fe26182a8d4b18',
     indexName: 'devextreme_reactive',
     inputSelector: '#docsearch',
-    algoliaOptions: { 'facetFilters': ["techno:react", "tool:chart"] },
+    algoliaOptions: { 'facetFilters': ['techno:react', 'tool: chart'] },
     debug: false
-  });
+  })"
+  async
+>
+</script>
 </script>
 
 
@@ -577,7 +694,7 @@
                 <div class="col-md-3">
                     <ul class="list-inline">
                       
-                      <li><a href="/devextreme-reactive/@next/react/chart/demos/featured/component-customization">Demos</a></li>
+                      <li><a href="/devextreme-reactive/@next/react/chart/demos/overview/multiple-axes/">Demos</a></li>
                       
                       <li class="active"><a href="/devextreme-reactive/@next/react/chart/docs/guides/getting-started/">Docs</a></li>
                       <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
@@ -586,7 +703,7 @@
                 </div>
                 <div class="col-md-9 copyright">
                   <p>
-                    Copyright © 2011-2018 Developer Express Inc.<br />
+                    Copyright © 2011-2019 Developer Express Inc.<br />
                     All trademarks or registered trademarks are property of their respective owners.
                     <div class="links">
                       <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
@@ -607,9 +724,9 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/@next/js/tracking.js?v=1536308110"></script>
+    <script src="/devextreme-reactive/@next/js/tracking.js?v=1552479059"></script>
     <script>
         trackingCookie.notice();
     </script>

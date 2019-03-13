@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
+    
     <title>React Chart - Getting Started - DevExtreme Reactive Components</title>
     
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -10,9 +11,11 @@
     <link rel="prefetch" href="/devextreme-reactive/@next/fonts/OpenSansCondensedBold.woff">
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/@next/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.min.css" type="text/css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/addon/fold/foldgutter.min.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="/devextreme-reactive/@next/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/@next/css/site.css?v=1536308110">
-    <link rel="stylesheet" href="/devextreme-reactive/@next/css/embedded-demos.css?v=1536308110">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/site.css?v=1552479059">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/embedded-demos.css?v=1552479059">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <script>
@@ -48,7 +51,7 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             
-            <li><a href="/devextreme-reactive/@next/react/chart/demos/featured/component-customization/">Demos</a></li>
+            <li><a href="/devextreme-reactive/@next/react/chart/demos/overview/multiple-axes/">Demos</a></li>
             
             <li class="active"><a href="/devextreme-reactive/@next/react/chart/docs/guides/getting-started/">Docs</a></li>
             <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
@@ -57,26 +60,25 @@
         </div>
       </div>
     </nav>
+    
 
     <div class="container docs-container">
   <div class="row">
     <div class="col-sm-9 col-sm-push-3 docs-content">
         <h1 id="react-chart---getting-started">React Chart - Getting Started</h1>
 
-<p>Project status: <strong>CTP</strong></p>
+<p>Project status: <strong>Beta</strong></p>
 
 <h2 id="overview">Overview</h2>
 
-<p>The DevExtreme React Chart is a component that visualizes data using a variety of series types, including bar, line, area, scatter, pie, and more. It is a stateless component - it relies on properties and works in controlled mode only. The DevExtreme React Chart has a composable and extendable architecture in which plugins provide additional elements (such as axes, legend, grid). Twitter Bootstrap and Material-UI rendering and theming are supported out of the box.</p>
+<p>The DevExtreme React Chart is a data visualization component that provides different series types, including bar, line, area, scatter, pie, and so on. It can function in uncontrolled and controlled state modes. In uncontrolled mode, the UI plugins manage the state internally. In controlled mode, the state is managed externally via plugin props. The DevExtreme React Chart has a composable and extendable architecture in which plugins provide additional elements (such as a legend, grid, and axes). It also supports Twitter Bootstrap and Material-UI rendering and theming.</p>
 
 <h2 id="installation">Installation</h2>
 
-<p>Install the dx-react-chart package and its dependencies using the following command:</p>
+<p>Install the <code class="highlighter-rouge">dx-react-chart</code> package and its dependencies using the following command:</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm i --save @devexpress/dx-react-core@next @devexpress/dx-react-chart@next
 </code></pre></div></div>
-
-<p><em>Note: <a href="https://www.npmjs.com/package/react">react</a> &gt;=16.3.0 and <a href="https://www.npmjs.com/package/react">react-dom</a> &gt;=16.3.0 are peer dependencies.</em></p>
 
 <p>This package does not contain visual components. In the examples below, visual components are rendered using the Material-UI package. However, you can use any of the following:</p>
 
@@ -87,8 +89,6 @@
     <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm i --save @devexpress/dx-react-chart-material-ui@next
 </code></pre></div>    </div>
 
-    <p><em>Note: <a href="https://www.npmjs.com/package/@material-ui/core">@material-ui/core</a> &gt;=1.1.0 and <a href="https://www.npmjs.com/package/@material-ui/icons">@material-ui/icons</a> &gt;=1.1.0 are peer dependencies.</em></p>
-
     <p>Make sure that the <a href="https://material-ui.com/">Material-UI</a> dependencies are installed and properly configured. Check the Material-UI’s <a href="https://material-ui.com/getting-started/installation">Getting Started</a> article for configuration details.</p>
   </li>
   <li>
@@ -97,9 +97,7 @@
     <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm i --save @devexpress/dx-react-chart-bootstrap4@next
 </code></pre></div>    </div>
 
-    <p><em>Note: <a href="https://www.npmjs.com/package/reactstrap">reactstrap</a> &gt;=6.3.0 is a peer dependency.</em></p>
-
-    <p>Make sure that <a href="https://reactstrap.github.io/">reactstrap</a> dependencies are installed and properly configured. Check the reactstrap’s <a href="https://reactstrap.github.io/">Getting Started</a> article for configuration details. You also need the <a href="https://useiconic.com/open">OpenIconic</a> icons in your project.</p>
+    <p>Make sure that the <a href="https://useiconic.com/open">OpenIconic</a> icons are installed and properly configured.</p>
 
     <p>Add the DevExtreme React Chart styles in the root .js file:</p>
 
@@ -120,9 +118,9 @@
 
 <p>React Chart uses the latest web platform standards and does not support older browsers like IE11 and Android 4. Use the ES2015 (ES6) polyfill to support these browsers. We recommend <a href="https://babeljs.io/docs/usage/polyfill/">BABEL Polyfill</a>, but you can use an alternative.</p>
 
-<h2 id="using-the-chart-component">Using the Chart Component</h2>
+<h2 id="use-the-chart-component">Use the Chart Component</h2>
 
-<p>The Chart component’s functionality is implemented in plugins. You need a <a href="/devextreme-reactive/@next/react/chart/docs/guides/series/">series</a> plugin and the <code class="highlighter-rouge">ArgumentAxis</code>, <code class="highlighter-rouge">ValuesAxis</code>, and <code class="highlighter-rouge">Scale</code> plugins to draw a simple chart. The following code shows how to configure a simple line chart:</p>
+<p>The Chart component’s functionality is implemented in plugins. To draw a simple chart, use the <code class="highlighter-rouge">ArgumentAxis</code> and <code class="highlighter-rouge">ValueAxis</code> plugins and one of the <a href="/devextreme-reactive/@next/react/chart/docs/guides/series/">series</a> plugins. The following code shows how to configure a simple line chart:</p>
 
 <div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Chart</span><span class="p">,</span> <span class="nx">ArgumentAxis</span><span class="p">,</span> <span class="nx">ValueAxis</span><span class="p">,</span> <span class="nx">LineSeries</span> <span class="p">}</span> <span class="k">from</span> <span class="s2">"@devexpress/dx-react-chart-material-ui"</span><span class="p">;</span>
 <span class="c1">// import { Chart, ArgumentAxis, ValueAxis, LineSeries } from "@devexpress/dx-react-chart-bootstrap4";</span>
@@ -138,13 +136,12 @@
       <span class="p">&lt;</span><span class="nc">ArgumentAxis</span> <span class="p">/&gt;</span>
       <span class="p">&lt;</span><span class="nc">ValueAxis</span> <span class="p">/&gt;</span>
       <span class="p">&lt;</span><span class="nc">LineSeries</span> <span class="na">valueField=</span><span class="s2">"value"</span> <span class="na">argumentField=</span><span class="s2">"argument"</span> <span class="p">/&gt;</span>
-      <span class="p">&lt;</span><span class="nc">Scale</span> <span class="p">/&gt;</span>
     <span class="p">&lt;/</span><span class="nc">Chart</span><span class="p">&gt;</span>
 <span class="p">);</span>
 
 </code></pre></div></div>
 
-<h2 id="try-out-the-react-chart">Try Out The React Chart</h2>
+<h2 id="try-out-the-react-chart">Try Out the React Chart</h2>
 
 <p>Follow the links below to try out the React Chart:</p>
 
@@ -167,13 +164,36 @@
       </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.8.0-beta.1">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.11.0-alpha.1">
             Version
-            <span>1.8.0-beta.1</span>
+            <span>1.11.0-alpha.1</span>
           </a>
         </li>
       </ul>
       <hr />
+      
+        <h3>Common Concepts</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/common/docs/guides/performance-optimization/">Optimize Performance</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/common/docs/guides/custom-theme/">Create a Custom Theme</a></li>
+          
+
+        
+        </ul>
       
         <h3>Guides</h3>
 
@@ -228,12 +248,60 @@
           
 
         
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/guides/palette/">Palette</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/guides/animation/">Animation</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/guides/hover-and-selection/">Hover and Selection</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/guides/tooltip/">Tooltip</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/guides/typescript/">TypeScript</a></li>
+          
+
+        
         </ul>
       
         <h3>API Reference</h3>
 
         <ul class="list-unstyled">
         
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/animation/">Animation</a></li>
+          
+
         
           
           
@@ -248,6 +316,14 @@
 
           
           <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/argument-axis/">ArgumentAxis</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/argument-scale/">ArgumentScale</a></li>
           
 
         
@@ -271,7 +347,15 @@
           
 
           
-          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/grid/">Grid</a></li>
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/event-tracker/">EventTracker</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/hover-state/">HoverState</a></li>
           
 
         
@@ -295,6 +379,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/palette/">Palette</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/pie-series/">PieSeries</a></li>
           
 
@@ -303,7 +395,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/scale/">Scale</a></li>
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/scatter-series/">ScatterSeries</a></li>
           
 
         
@@ -311,7 +403,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/scatter-series/">ScatterSeries</a></li>
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/selection-state/">SelectionState</a></li>
           
 
         
@@ -343,7 +435,23 @@
           
 
           
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/tooltip/">Tooltip</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/value-axis/">ValueAxis</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/value-scale/">ValueScale</a></li>
           
 
         
@@ -374,7 +482,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/@next/vue/grid/docs/guides/getting-started/">Vue Grid</a></li>
+          <li><a href="/devextreme-reactive/@next/react/scheduler/docs/guides/getting-started/">React Scheduler</a></li>
           
 
         
@@ -384,17 +492,21 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/@next/react/chart/demos/dist/index.js?v=1536308110"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script src="/devextreme-reactive/@next/react/common/dist/index.js?v=1552479059"></script>
 
-<script type="text/javascript">
-  docsearch({
+<script
+  type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"
+  onload="docsearch({
     apiKey: '4cd7a76d4bc286ae69fe26182a8d4b18',
     indexName: 'devextreme_reactive',
     inputSelector: '#docsearch',
-    algoliaOptions: { 'facetFilters': ["techno:react", "tool:chart"] },
+    algoliaOptions: { 'facetFilters': ['techno:react', 'tool: chart'] },
     debug: false
-  });
+  })"
+  async
+>
+</script>
 </script>
 
 
@@ -404,7 +516,7 @@
                 <div class="col-md-3">
                     <ul class="list-inline">
                       
-                      <li><a href="/devextreme-reactive/@next/react/chart/demos/featured/component-customization">Demos</a></li>
+                      <li><a href="/devextreme-reactive/@next/react/chart/demos/overview/multiple-axes/">Demos</a></li>
                       
                       <li class="active"><a href="/devextreme-reactive/@next/react/chart/docs/guides/getting-started/">Docs</a></li>
                       <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
@@ -413,7 +525,7 @@
                 </div>
                 <div class="col-md-9 copyright">
                   <p>
-                    Copyright © 2011-2018 Developer Express Inc.<br />
+                    Copyright © 2011-2019 Developer Express Inc.<br />
                     All trademarks or registered trademarks are property of their respective owners.
                     <div class="links">
                       <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
@@ -434,9 +546,9 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/@next/js/tracking.js?v=1536308110"></script>
+    <script src="/devextreme-reactive/@next/js/tracking.js?v=1552479059"></script>
     <script>
         trackingCookie.notice();
     </script>

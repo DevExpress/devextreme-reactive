@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>AppointmentForm Plugin Reference - DevExtreme Reactive Components</title>
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="prefetch" href="/devextreme-reactive/@next/fonts/OpenSansCondensedBold.woff">
+    <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/@next/favicon.ico" >
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.min.css" type="text/css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/addon/fold/foldgutter.min.css" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/syntax.css">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/site.css?v=1552479059">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/embedded-demos.css?v=1552479059">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-1384678-22', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-static-top navbar-main">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/devextreme-reactive/@next/react/scheduler/">
+            <div>
+              <img src="/devextreme-reactive/@next/img/scheduler-logo.svg" alt="React Scheduler">
+              <div class="logo-container">
+                <h3 class="logo-team">DevExtreme</h3>
+                <h3 class="logo-product">React Scheduler</h3>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            
+            <li><a href="/devextreme-reactive/@next/react/scheduler/demos/featured/data-editing/">Demos</a></li>
+            
+            <li class="active"><a href="/devextreme-reactive/@next/react/scheduler/docs/guides/getting-started/">Docs</a></li>
+            <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+            <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
+
+    <div class="container docs-container">
+  <div class="row">
+    <div class="col-sm-9 col-sm-push-3 docs-content">
+        <h1 id="appointmentform-plugin-reference">AppointmentForm Plugin Reference</h1>
+
+<p>The AppointmentForm plugin renders a form that visualizes appointment’s data and allows a user to modify this data.</p>
+
+<h2 id="import">Import</h2>
+
+<p>Use the following statement to import a plugin with embedded theme components:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">AppointmentForm</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@devexpress/dx-react-scheduler-material-ui'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>You can import the themeless plugin if you want to use custom components:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">AppointmentForm</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@devexpress/dx-react-scheduler'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h2 id="user-reference">User reference</h2>
+
+<h3 id="dependencies">Dependencies</h3>
+
+<ul>
+  <li><a href="/devextreme-reactive/@next/react/scheduler/docs/reference/editing-state/">EditingState</a> [Optional]</li>
+  <li><a href="/devextreme-reactive/@next/react/scheduler/docs/reference/appointments/">Appointments</a> [Optional]</li>
+  <li><a href="/devextreme-reactive/@next/react/scheduler/docs/reference/appointment-tooltip/">AppointmentTooltip</a> [Optional]</li>
+</ul>
+
+<h3 id="properties">Properties</h3>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>visible?</td>
+      <td>boolean</td>
+      <td> </td>
+      <td>Specifies the appointment form’s visibility.</td>
+    </tr>
+    <tr>
+      <td>onVisibilityChange?</td>
+      <td>(visible: boolean) =&gt; void</td>
+      <td> </td>
+      <td>Handles changes to the appointment form’s visibility.</td>
+    </tr>
+    <tr>
+      <td>appointmentData?</td>
+      <td><a href="/devextreme-reactive/@next/react/scheduler/docs/reference/scheduler/#appointmentmodel">AppointmentModel</a></td>
+      <td> </td>
+      <td>Specifies the appointment’s data that the form displays.</td>
+    </tr>
+    <tr>
+      <td>onAppointmentDataChange?</td>
+      <td>(appointmentData: <a href="/devextreme-reactive/@next/react/scheduler/docs/reference/scheduler/#appointmentmodel">AppointmentModel</a>) =&gt; void</td>
+      <td> </td>
+      <td>Handles changes to the appointment’s data.</td>
+    </tr>
+    <tr>
+      <td>readOnly?</td>
+      <td>boolean</td>
+      <td>false</td>
+      <td>Specifies the appointment form is read-only.</td>
+    </tr>
+    <tr>
+      <td>popupComponent</td>
+      <td>ComponentType&lt;<a href="#appointmentformpopupprops">AppointmentForm.PopupProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders the appointment form’s popup.</td>
+    </tr>
+    <tr>
+      <td>containerComponent</td>
+      <td>ComponentType&lt;<a href="#appointmentformcontainerprops">AppointmentForm.ContainerProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders the appointment form’s container.</td>
+    </tr>
+    <tr>
+      <td>scrollableAreaComponent</td>
+      <td>ComponentType&lt;<a href="#appointmentformscrollableareaprops">AppointmentForm.ScrollableAreaProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders the appointment form’s scrollable area.</td>
+    </tr>
+    <tr>
+      <td>staticAreaComponent</td>
+      <td>ComponentType&lt;<a href="#appointmentformstaticareaprops">AppointmentForm.StaticAreaProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders the appointment form’s static area.</td>
+    </tr>
+    <tr>
+      <td>messages?</td>
+      <td><a href="#localization-messages">AppointmentForm.LocalizationMessages</a></td>
+      <td> </td>
+      <td>An object that specifies localization messages.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="interfaces">Interfaces</h2>
+
+<h3 id="appointmentformpopupprops">AppointmentForm.PopupProps</h3>
+
+<p>Properties passed to a component that renders the appointment form’s popup.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>visible?</td>
+      <td>boolean</td>
+      <td>Specifies whether the popup is visible.</td>
+    </tr>
+    <tr>
+      <td>children</td>
+      <td>ReactNode</td>
+      <td>A React node used to render the popup content.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="appointmentformcontainerprops">AppointmentForm.ContainerProps</h3>
+
+<p>Properties passed to a component that renders the appointment form’s container.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>children</td>
+      <td>ReactNode</td>
+      <td>A React node used to render the container content.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="appointmentformscrollableareaprops">AppointmentForm.ScrollableAreaProps</h3>
+
+<p>Properties passed to a component that renders the appointment form’s scrollable area.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>children</td>
+      <td>ReactNode</td>
+      <td>A React node used to render the scrollable area content.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="appointmentformstaticareaprops">AppointmentForm.StaticAreaProps</h3>
+
+<p>Properties passed to a component that renders the appointment form’s static area.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>children</td>
+      <td>ReactNode</td>
+      <td>A React node used to render the static area content.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="localization-messages">Localization Messages</h2>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>allDayLabel?</td>
+      <td>string</td>
+      <td>‘All Day’</td>
+      <td>The all day editor’s label text.</td>
+    </tr>
+    <tr>
+      <td>titleLabel?</td>
+      <td>string</td>
+      <td>‘Title’</td>
+      <td>The title editor’s label text.</td>
+    </tr>
+    <tr>
+      <td>startDateLabel?</td>
+      <td>string</td>
+      <td>‘Start Date’</td>
+      <td>The start date editor’s label text.</td>
+    </tr>
+    <tr>
+      <td>endDateLabel?</td>
+      <td>string</td>
+      <td>‘End Date’</td>
+      <td>The end date editor’s label text.</td>
+    </tr>
+    <tr>
+      <td>commitCommand?</td>
+      <td>string</td>
+      <td>‘Save’</td>
+      <td>The commit button’s text.</td>
+    </tr>
+    <tr>
+      <td>cancelCommand?</td>
+      <td>string</td>
+      <td>‘Cancel’</td>
+      <td>The cancel button’s text.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="plugin-components">Plugin Components</h2>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Properties</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>AppointmentForm.Popup</td>
+      <td><a href="#appointmentformpopupprops">AppointmentForm.PopupProps</a></td>
+      <td>A component that renders the appointment form’s popup.</td>
+    </tr>
+    <tr>
+      <td>AppointmentForm.Container</td>
+      <td><a href="#appointmentformcontainerprops">AppointmentForm.ContainerProps</a></td>
+      <td>A component that renders the appointment form’s container.</td>
+    </tr>
+    <tr>
+      <td>AppointmentForm.ScrollableArea</td>
+      <td><a href="#appointmentformscrollableareaprops">AppointmentForm.ScrollableAreaProps</a></td>
+      <td>A component that renders the appointment form’s scrollable area.</td>
+    </tr>
+    <tr>
+      <td>AppointmentForm.StaticArea</td>
+      <td><a href="#appointmentformstaticareaprops">AppointmentForm.StaticAreaProps</a></td>
+      <td>A component that renders the appointment form’s static area.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Additional properties are added to a component’s root element.</p>
+
+    </div>
+
+    <div class="col-sm-3 col-sm-pull-9 main-menu">
+      <ul class="list-unstyled">
+        <li>
+          <input id="docsearch" type="text" class="form-control" placeholder="Search...">
+        </li>
+      </ul>
+      <ul class="list-unstyled version">
+        <li>
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.11.0-alpha.1">
+            Version
+            <span>1.11.0-alpha.1</span>
+          </a>
+        </li>
+      </ul>
+      <hr />
+      
+        <h3>Common Concepts</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/common/docs/guides/performance-optimization/">Optimize Performance</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/common/docs/guides/custom-theme/">Create a Custom Theme</a></li>
+          
+
+        
+        </ul>
+      
+        <h3>Guides</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/scheduler/docs/guides/getting-started/">Getting Started</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/scheduler/docs/guides/fundamentals/">Fundamentals</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/scheduler/docs/guides/views/">Views</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/scheduler/docs/guides/appointments/">Appointments</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/scheduler/docs/guides/view-switching/">View Switching</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/scheduler/docs/guides/date-navigation/">Date Navigation</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/scheduler/docs/guides/editing/">Editing</a></li>
+          
+
+        
+        </ul>
+      
+        <h3>API Reference</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/scheduler/docs/reference/all-day-panel/">AllDayPanel</a></li>
+          
+
+        
+          
+          
+
+          
+          <li>AppointmentForm</li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/scheduler/docs/reference/appointment-tooltip/">AppointmentTooltip</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/scheduler/docs/reference/appointments/">Appointments</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/scheduler/docs/reference/date-navigator/">DateNavigator</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/scheduler/docs/reference/day-view/">DayView</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/scheduler/docs/reference/drag-drop-provider/">DragDropProvider</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/scheduler/docs/reference/editing-state/">EditingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/scheduler/docs/reference/month-view/">MonthView</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/scheduler/docs/reference/scheduler/">Scheduler</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/scheduler/docs/reference/toolbar/">Toolbar</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/scheduler/docs/reference/view-state/">ViewState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/scheduler/docs/reference/view-switcher/">ViewSwitcher</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/scheduler/docs/reference/week-view/">WeekView</a></li>
+          
+
+        
+        </ul>
+      
+        <h3>Related Docs</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/core/docs/guides/fundamentals/">React Core</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/grid/docs/guides/getting-started/">React Grid</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/guides/getting-started/">React Chart</a></li>
+          
+
+        
+        </ul>
+      
+    </div>
+  </div>
+</div>
+
+<script src="/devextreme-reactive/@next/react/common/dist/index.js?v=1552479059"></script>
+
+<script
+  type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"
+  onload="docsearch({
+    apiKey: '4cd7a76d4bc286ae69fe26182a8d4b18',
+    indexName: 'devextreme_reactive',
+    inputSelector: '#docsearch',
+    algoliaOptions: { 'facetFilters': ['techno:react', 'tool: scheduler'] },
+    debug: false
+  })"
+  async
+>
+</script>
+</script>
+
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <ul class="list-inline">
+                      
+                      <li><a href="/devextreme-reactive/@next/react/scheduler/demos/featured/data-editing/">Demos</a></li>
+                      
+                      <li class="active"><a href="/devextreme-reactive/@next/react/scheduler/docs/guides/getting-started/">Docs</a></li>
+                      <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+                      <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-9 copyright">
+                  <p>
+                    Copyright © 2011-2019 Developer Express Inc.<br />
+                    All trademarks or registered trademarks are property of their respective owners.
+                    <div class="links">
+                      <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
+                      <br>
+                      <a href="https://js.devexpress.com/Licensing/">Licensing</a>
+                  </div>
+                  <p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+      // Remove unexpected global variable generated by kramdown to fix js-cookie
+      // <h3 id="exports">Exports</h3>
+      window.exports = undefined;
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
+
+    <script src="/devextreme-reactive/@next/js/tracking.js?v=1552479059"></script>
+    <script>
+        trackingCookie.notice();
+    </script>
+
+  </body>
+</html>

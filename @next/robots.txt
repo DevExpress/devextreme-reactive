@@ -1,0 +1,1 @@
+Sitemap: https://devexpress.github.io/devextreme-reactive/@next/sitemap.xml

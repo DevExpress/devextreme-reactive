@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
+    
     <title>React Grid - Summary Row - DevExtreme Reactive Components</title>
     
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -10,9 +11,11 @@
     <link rel="prefetch" href="/devextreme-reactive/@next/fonts/OpenSansCondensedBold.woff">
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/@next/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.min.css" type="text/css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/addon/fold/foldgutter.min.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="/devextreme-reactive/@next/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/@next/css/site.css?v=1536308110">
-    <link rel="stylesheet" href="/devextreme-reactive/@next/css/embedded-demos.css?v=1536308110">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/site.css?v=1552479059">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/embedded-demos.css?v=1552479059">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <script>
@@ -57,6 +60,7 @@
         </div>
       </div>
     </nav>
+    
 
     <div class="container docs-container">
   <div class="row">
@@ -82,13 +86,13 @@
 
 <p>Use the <code class="highlighter-rouge">SummaryState</code>, <code class="highlighter-rouge">IntegratedSummary</code> (or <code class="highlighter-rouge">CustomSummary</code>) and <code class="highlighter-rouge">TableSummaryRow</code> plugins to set up a Grid that displays a data summary.</p>
 
-<h3 id="built-in-data-summaries-calculation">Built-in Data Summaries Calculation</h3>
+<h3 id="calculate-built-in-data-summaries">Calculate Built-in Data Summaries</h3>
 
 <p>The <code class="highlighter-rouge">IntegratedSummary</code> plugin performs the built-in summary calculation.</p>
 
 <p>In the following example, the summary items array is passed to the <code class="highlighter-rouge">SummaryState</code> plugin’s <code class="highlighter-rouge">totalItems</code> property to calculate the total summary internally.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-summary/total-summary&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/grid/demos/dist/index.js?v=1536308110&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-summary/total-summary&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/grid/demos/dist/index.js?v=1552479059&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive/@next//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1552479059&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -96,7 +100,7 @@
 
 <p>Pass the summary items array to the <code class="highlighter-rouge">SummaryState</code> plugin’s <code class="highlighter-rouge">groupItems</code> property to display group summary rows as demonstrated in the following example:</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-summary/group-summary&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/grid/demos/dist/index.js?v=1536308110&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-summary/group-summary&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/grid/demos/dist/index.js?v=1552479059&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive/@next//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1552479059&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -104,13 +108,13 @@
 
 <p>The following example demonstrates tree summary rows. In this example, the summary items array is passed to the <code class="highlighter-rouge">SummaryState</code> plugin’s <code class="highlighter-rouge">treeItems</code> property.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-summary/tree-summary&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/grid/demos/dist/index.js?v=1536308110&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-summary/tree-summary&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/grid/demos/dist/index.js?v=1552479059&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive/@next//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1552479059&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
         </div>
 
-<h3 id="custom-data-summaries-calculation">Custom Data Summaries Calculation</h3>
+<h3 id="calculate-custom-data-summaries">Calculate Custom Data Summaries</h3>
 
 <p>The <code class="highlighter-rouge">CustomSummary</code> plugin allows you to calculate a data summary on a remote server or local machine.</p>
 
@@ -118,7 +122,7 @@
 
 <p>Select several rows to calculate a summary for them.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-summary/custom-summary&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/grid/demos/dist/index.js?v=1536308110&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-summary/custom-summary&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/grid/demos/dist/index.js?v=1552479059&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive/@next//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1552479059&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -126,21 +130,21 @@
 
 <p>Use the <code class="highlighter-rouge">CustomSummary</code> plugin’s <code class="highlighter-rouge">groupValues</code> and <code class="highlighter-rouge">treeValues</code> properties to calculate a custom group and tree summary.</p>
 
-<h2 id="custom-algorithms">Custom Algorithms</h2>
+<h2 id="implement-a-custom-algorithm">Implement a Custom Algorithm</h2>
 
 <p>The <code class="highlighter-rouge">IntegratedSummary</code> plugin allows you to extend the built-in summary types (<code class="highlighter-rouge">count</code>, <code class="highlighter-rouge">sum</code>, <code class="highlighter-rouge">max</code>, <code class="highlighter-rouge">min</code>, <code class="highlighter-rouge">avg</code>) with custom types. The following example shows a custom <code class="highlighter-rouge">median</code> summary type:</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-summary/custom-algorithm&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/grid/demos/dist/index.js?v=1536308110&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-summary/custom-algorithm&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/grid/demos/dist/index.js?v=1552479059&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive/@next//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1552479059&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
         </div>
 
-<h2 id="avoiding-summary-formatting">Avoiding Summary Formatting</h2>
+<h2 id="prevent-summary-formatting">Prevent Summary Formatting</h2>
 
 <p>If a <code class="highlighter-rouge">DataTypeProvider</code> plugin is assigned to a column, its value formatting component is applied to a summary row. Use the <code class="highlighter-rouge">formattlessSummaryTypes</code> property to specify summary types that should not be formatted. The following example shows a custom <code class="highlighter-rouge">overprice</code> summary type that is not formatted:</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-summary/formatless-custom-algorithm&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/grid/demos/dist/index.js?v=1536308110&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-summary/formatless-custom-algorithm&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/grid/demos/dist/index.js?v=1552479059&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive/@next//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1552479059&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -156,13 +160,36 @@
       </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.8.0-beta.1">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.11.0-alpha.1">
             Version
-            <span>1.8.0-beta.1</span>
+            <span>1.11.0-alpha.1</span>
           </a>
         </li>
       </ul>
       <hr />
+      
+        <h3>Common Concepts</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/common/docs/guides/performance-optimization/">Optimize Performance</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/common/docs/guides/custom-theme/">Create a Custom Theme</a></li>
+          
+
+        
+        </ul>
       
         <h3>Guides</h3>
 
@@ -357,7 +384,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/@next/react/grid/docs/guides/immutable-data/">Immutable Data</a></li>
+          <li><a href="/devextreme-reactive/@next/react/grid/docs/guides/typescript/">TypeScript</a></li>
           
 
         
@@ -365,7 +392,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/@next/react/grid/docs/guides/typescript/">TypeScript</a></li>
+          <li><a href="/devextreme-reactive/@next/react/grid/docs/guides/custom-plugin-development/">Custom Plugin Development</a></li>
           
 
         
@@ -755,7 +782,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/@next/vue/grid/docs/guides/getting-started/">Vue Grid</a></li>
+          <li><a href="/devextreme-reactive/@next/react/scheduler/docs/guides/getting-started/">React Scheduler</a></li>
           
 
         
@@ -765,17 +792,21 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/@next/react/grid/demos/dist/index.js?v=1536308110"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script src="/devextreme-reactive/@next/react/common/dist/index.js?v=1552479059"></script>
 
-<script type="text/javascript">
-  docsearch({
+<script
+  type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"
+  onload="docsearch({
     apiKey: '4cd7a76d4bc286ae69fe26182a8d4b18',
     indexName: 'devextreme_reactive',
     inputSelector: '#docsearch',
-    algoliaOptions: { 'facetFilters': ["techno:react", "tool:grid"] },
+    algoliaOptions: { 'facetFilters': ['techno:react', 'tool: grid'] },
     debug: false
-  });
+  })"
+  async
+>
+</script>
 </script>
 
 
@@ -785,7 +816,7 @@
                 <div class="col-md-3">
                     <ul class="list-inline">
                       
-                      <li><a href="/devextreme-reactive/@next/react/grid/demos/featured/integrated-data-shaping">Demos</a></li>
+                      <li><a href="/devextreme-reactive/@next/react/grid/demos/featured/integrated-data-shaping/">Demos</a></li>
                       
                       <li class="active"><a href="/devextreme-reactive/@next/react/grid/docs/guides/getting-started/">Docs</a></li>
                       <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
@@ -794,7 +825,7 @@
                 </div>
                 <div class="col-md-9 copyright">
                   <p>
-                    Copyright © 2011-2018 Developer Express Inc.<br />
+                    Copyright © 2011-2019 Developer Express Inc.<br />
                     All trademarks or registered trademarks are property of their respective owners.
                     <div class="links">
                       <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
@@ -815,9 +846,9 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/@next/js/tracking.js?v=1536308110"></script>
+    <script src="/devextreme-reactive/@next/js/tracking.js?v=1552479059"></script>
     <script>
         trackingCookie.notice();
     </script>

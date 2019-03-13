@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
+    
     <title>React Core - Fundamentals - DevExtreme Reactive Components</title>
     
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -10,9 +11,11 @@
     <link rel="prefetch" href="/devextreme-reactive/@next/fonts/OpenSansCondensedBold.woff">
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/@next/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.min.css" type="text/css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/addon/fold/foldgutter.min.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="/devextreme-reactive/@next/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/@next/css/site.css?v=1536308110">
-    <link rel="stylesheet" href="/devextreme-reactive/@next/css/embedded-demos.css?v=1536308110">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/site.css?v=1552479059">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/embedded-demos.css?v=1552479059">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <script>
@@ -55,6 +58,7 @@
         </div>
       </div>
     </nav>
+    
 
     <div class="container docs-container">
   <div class="row">
@@ -67,7 +71,7 @@
 
 <p>A plugin-based component should adhere to the following principles:</p>
 
-<h5 id="inversion-of-control"><a href="https://en.wikipedia.org/wiki/Inversion_of_control" target="_blank">Inversion of Control</a></h5>
+<h3 id="inversion-of-control"><a href="https://en.wikipedia.org/wiki/Inversion_of_control" target="_blank">Inversion of Control</a></h3>
 
 <p>A plugin shares its items (Getters, Actions, Templates) within an IoC (Inversion of Control) container and can use the ones other plugins share.</p>
 
@@ -75,38 +79,36 @@
 
 <ul>
   <li>
-    <p>Plugin Host component<br />
- A component that hosts plugins.</p>
+    <p><strong>Plugin Host component</strong>. A component that hosts plugins.</p>
   </li>
   <li>
-    <p>Plugin components<br />
- Each plugin is a React component that defines a markup, stores a state and provides state modification actions.</p>
+    <p><strong>Plugin components</strong>. Each plugin is a React component that defines a markup, stores a state and provides state modification actions.</p>
   </li>
 </ul>
 
-<h5 id="state-managment"><a href="https://en.wikipedia.org/wiki/State_management" target="_blank">State Managment</a></h5>
+<h3 id="state-management"><a href="https://en.wikipedia.org/wiki/State_management" target="_blank">State Management</a></h3>
 
 <p>The component provides the means for state storing and mutation.</p>
 
 <p>The plugin based component’s state is an aggregation of plugin states which keep data <a href="http://redux.js.org/docs/recipes/reducers/NormalizingStateShape.html">normalized</a> and immutable. The state can only be changed through executing an action.</p>
 
-<h5 id="data-piping"><a href="https://en.wikipedia.org/wiki/Pipeline_(computing)" target="_blank">Data Piping</a></h5>
+<h3 id="data-piping"><a href="https://en.wikipedia.org/wiki/Pipeline_(computing)" target="_blank">Data Piping</a></h3>
 
 <p>The component provides a mechanism for communication between plugins.</p>
 
 <p>The plugin application order depends on plugins’ defined order in the parent component. The higher it is, the earlier it is applied.</p>
 
-<h3 id="plugin-host-component">Plugin Host Component</h3>
+<h2 id="pluginhost-component">PluginHost Component</h2>
 
 <p>A <a href="/devextreme-reactive/@next/react/core/docs/reference/plugin-host/">PluginHost</a> is an auxiliary component used as a single communication point for all plugins and adheres to the principles listed above. If a React component contains a PluginHost in the root, it is called a plugin host component.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/core-basic/plugin-host-component&quot;,&quot;defaultTab&quot;:&quot;source&quot;,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/grid/demos/dist/index.js?v=1536308110&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/core-basic/plugin-host-component&quot;,&quot;defaultTab&quot;:&quot;source&quot;,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//dist/index.js?v=1552479059&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive/@next//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1552479059&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
         </div>
 
-<p>The PluginHost component’s content is called <strong>plugin root</strong>. It should contain only <strong>plugin primitives</strong> and plugin components.</p>
+<p>The PluginHost component’s content is called <strong>plugin root</strong>. It must contain only <strong>plugin primitives</strong> and plugin components.</p>
 
 <p><strong>Plugin primitives</strong> are React Core components that can be declared within a plugin based component or plugin. They are initialized when the plugin host is being mounted. The following plugin primitives are available:</p>
 
@@ -125,11 +127,11 @@
   <li><a href="/devextreme-reactive/@next/react/core/docs/reference/template-connector/">TemplateConnector</a>. Connects values and actions the Getter and Action define.</li>
 </ul>
 
-<h3 id="plugin-component">Plugin Component</h3>
+<h2 id="plugin-component">Plugin Component</h2>
 
 <p>A <a href="/devextreme-reactive/@next/react/core/docs/reference/plugin/">Plugin</a> is an auxiliary component that stores plugin primitives or nested plugins. If a React component’s root element is a plugin, this component is a plugin component.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/core-basic/plugin-component&quot;,&quot;defaultTab&quot;:&quot;source&quot;,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/grid/demos/dist/index.js?v=1536308110&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/core-basic/plugin-component&quot;,&quot;defaultTab&quot;:&quot;source&quot;,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//dist/index.js?v=1552479059&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive/@next//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1552479059&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -145,9 +147,9 @@
       </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.8.0-beta.1">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.11.0-alpha.1">
             Version
-            <span>1.8.0-beta.1</span>
+            <span>1.11.0-alpha.1</span>
           </a>
         </li>
       </ul>
@@ -170,7 +172,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/@next/react/core/docs/guides/rendering-markup/">Rendering Markup</a></li>
+          <li><a href="/devextreme-reactive/@next/react/core/docs/guides/rendering-markup/">Render Markup</a></li>
           
 
         
@@ -178,7 +180,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/@next/react/core/docs/guides/providing-values/">Providing Values</a></li>
+          <li><a href="/devextreme-reactive/@next/react/core/docs/guides/providing-values/">Provide Values</a></li>
           
 
         
@@ -186,7 +188,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/@next/react/core/docs/guides/providing-actions/">Providing Actions</a></li>
+          <li><a href="/devextreme-reactive/@next/react/core/docs/guides/providing-actions/">Provide Actions</a></li>
           
 
         
@@ -253,6 +255,14 @@
           
 
         
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/core/docs/reference/connect-props/">connectProps</a></li>
+          
+
+        
         </ul>
       
         <h3>Related Docs</h3>
@@ -280,7 +290,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/@next/vue/grid/docs/guides/getting-started/">Vue Grid</a></li>
+          <li><a href="/devextreme-reactive/@next/react/scheduler/docs/guides/getting-started/">React Scheduler</a></li>
           
 
         
@@ -290,17 +300,21 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/@next/react/grid/demos/dist/index.js?v=1536308110"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script src="/devextreme-reactive/@next/react/common/dist/index.js?v=1552479059"></script>
 
-<script type="text/javascript">
-  docsearch({
+<script
+  type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"
+  onload="docsearch({
     apiKey: '4cd7a76d4bc286ae69fe26182a8d4b18',
     indexName: 'devextreme_reactive',
     inputSelector: '#docsearch',
-    algoliaOptions: { 'facetFilters': ["techno:react", "tool:core"] },
+    algoliaOptions: { 'facetFilters': ['techno:react', 'tool: core'] },
     debug: false
-  });
+  })"
+  async
+>
+</script>
 </script>
 
 
@@ -317,7 +331,7 @@
                 </div>
                 <div class="col-md-9 copyright">
                   <p>
-                    Copyright © 2011-2018 Developer Express Inc.<br />
+                    Copyright © 2011-2019 Developer Express Inc.<br />
                     All trademarks or registered trademarks are property of their respective owners.
                     <div class="links">
                       <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
@@ -338,9 +352,9 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/@next/js/tracking.js?v=1536308110"></script>
+    <script src="/devextreme-reactive/@next/js/tracking.js?v=1552479059"></script>
     <script>
         trackingCookie.notice();
     </script>

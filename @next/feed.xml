@@ -1,4 +1,48 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="/devextreme-reactive/@next/feed.xml" rel="self" type="application/atom+xml" /><link href="/devextreme-reactive/@next/" rel="alternate" type="text/html" /><updated>2018-09-07T11:15:10+03:00</updated><id>/devextreme-reactive/@next/</id><title type="html">DevExtreme Reactive Components</title><entry><title type="html">We want your feedback</title><link href="/devextreme-reactive/@next/landinggrid/2017/01/01/50-feedback/" rel="alternate" type="text/html" title="We want your feedback" /><published>2017-01-01T00:00:00+03:00</published><updated>2017-01-01T00:00:00+03:00</updated><id>/devextreme-reactive/@next/landinggrid/2017/01/01/50-feedback</id><content type="html" xml:base="/devextreme-reactive/@next/landinggrid/2017/01/01/50-feedback/">&lt;p&gt;Feel free to download your copy and tell us what you think about its current feature set. We’d love to hear about your business use-case scenarios and how you’d like us to improve our Grid’s going forward.&lt;/p&gt;</content><author><name></name></author><category term="LandingGrid" /><summary type="html">Feel free to download your copy and tell us what you think about its current feature set. We’d love to hear about your business use-case scenarios and how you’d like us to improve our Grid’s going forward.</summary></entry><entry><title type="html">Core Features Designed toFit Any Business at Any Scale</title><link href="/devextreme-reactive/@next/landinggridvue/2017/01/01/40-vue-features-set/" rel="alternate" type="text/html" title="Core Features Designed to&lt;br/&gt;Fit Any Business at Any Scale" /><published>2017-01-01T00:00:00+03:00</published><updated>2017-01-01T00:00:00+03:00</updated><id>/devextreme-reactive/@next/landinggridvue/2017/01/01/40-vue-features-set</id><content type="html" xml:base="/devextreme-reactive/@next/landinggridvue/2017/01/01/40-vue-features-set/">&lt;p&gt;&lt;strong&gt;Our Vue Grid ships with the following features:&lt;/strong&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://devexpress.github.io/devextreme-reactive/@next/feed.xml" rel="self" type="application/atom+xml" /><link href="https://devexpress.github.io/devextreme-reactive/@next/" rel="alternate" type="text/html" /><updated>2019-03-13T15:10:59+03:00</updated><id>https://devexpress.github.io/devextreme-reactive/@next/feed.xml</id><title type="html">DevExtreme Reactive Components</title><entry><title type="html">We want your feedback</title><link href="https://devexpress.github.io/devextreme-reactive/@next/landinggrid/2017/01/01/50-feedback/" rel="alternate" type="text/html" title="We want your feedback" /><published>2017-01-01T00:00:00+03:00</published><updated>2017-01-01T00:00:00+03:00</updated><id>https://devexpress.github.io/devextreme-reactive/@next/landinggrid/2017/01/01/50-feedback</id><content type="html" xml:base="https://devexpress.github.io/devextreme-reactive/@next/landinggrid/2017/01/01/50-feedback/">&lt;p&gt;Feel free to download your copy and tell us what you think about its current feature set. We’d love to hear about your business use-case scenarios and how you’d like us to improve our Grid’s going forward.&lt;/p&gt;</content><author><name></name></author><category term="LandingGrid" /><summary type="html">Feel free to download your copy and tell us what you think about its current feature set. We’d love to hear about your business use-case scenarios and how you’d like us to improve our Grid’s going forward.</summary></entry><entry><title type="html">Twitter Bootstrap and Material-UIwith Seamless Theming</title><link href="https://devexpress.github.io/devextreme-reactive/@next/landinggridreact/2017/01/01/10-react-theming/" rel="alternate" type="text/html" title="Twitter Bootstrap and Material-UI&lt;br/&gt;with Seamless Theming" /><published>2017-01-01T00:00:00+03:00</published><updated>2017-01-01T00:00:00+03:00</updated><id>https://devexpress.github.io/devextreme-reactive/@next/landinggridreact/2017/01/01/10-react-theming</id><content type="html" xml:base="https://devexpress.github.io/devextreme-reactive/@next/landinggridreact/2017/01/01/10-react-theming/">&lt;p&gt;&lt;strong&gt;Native Rendering&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Use native Twitter Bootstrap and Material-UI renderings and apply themes automatically - without unnecessary configuration.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Individual UI Templates&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;UI templates are implemented and shipped as separate packages so you can customize them as needed or roll your own when necessary.&lt;/p&gt;</content><author><name></name></author><category term="LandingGridReact" /><summary type="html">Native Rendering</summary></entry><entry><title type="html">Twitter Bootstrapwith Seamless Theming</title><link href="https://devexpress.github.io/devextreme-reactive/@next/landinggridvue/2017/01/01/10-vue-theming/" rel="alternate" type="text/html" title="Twitter Bootstrap&lt;br/&gt;with Seamless Theming" /><published>2017-01-01T00:00:00+03:00</published><updated>2017-01-01T00:00:00+03:00</updated><id>https://devexpress.github.io/devextreme-reactive/@next/landinggridvue/2017/01/01/10-vue-theming</id><content type="html" xml:base="https://devexpress.github.io/devextreme-reactive/@next/landinggridvue/2017/01/01/10-vue-theming/">&lt;p&gt;&lt;strong&gt;Native Rendering&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Use native Twitter Bootstrap  renderings and apply themes automatically - without unnecessary configuration.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Individual UI Templates&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;UI templates are implemented and shipped as separate packages so you can customize them as needed or roll your own when necessary.&lt;/p&gt;</content><author><name></name></author><category term="LandingGridVue" /><summary type="html">Native Rendering</summary></entry><entry><title type="html">Our Grid Loves Redux by DesignControlled Uncontrolled Modes are Inside</title><link href="https://devexpress.github.io/devextreme-reactive/@next/landinggridreact/2017/01/01/20-react-redux/" rel="alternate" type="text/html" title="Our Grid Loves Redux by Design&lt;br/&gt;Controlled Uncontrolled Modes are Inside" /><published>2017-01-01T00:00:00+03:00</published><updated>2017-01-01T00:00:00+03:00</updated><id>https://devexpress.github.io/devextreme-reactive/@next/landinggridreact/2017/01/01/20-react-redux</id><content type="html" xml:base="https://devexpress.github.io/devextreme-reactive/@next/landinggridreact/2017/01/01/20-react-redux/">&lt;p&gt;&lt;strong&gt;Controlled State Mode&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Fully control React Grid state and treat it as a pure view component. Effortlessly enable state persistence and time-traveling without side-effects.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Uncontrolled State Mode&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Our React Grid can manage its state internally helping you write less code, so you focus on more important business tasks.&lt;/p&gt;</content><author><name></name></author><category term="LandingGridReact" /><summary type="html">Controlled State Mode</summary></entry><entry><title type="html">100% Native ReactFully Optimized</title><link href="https://devexpress.github.io/devextreme-reactive/@next/landinggridreact/2017/01/01/30-native-react/" rel="alternate" type="text/html" title="100% Native React&lt;br/&gt;Fully Optimized" /><published>2017-01-01T00:00:00+03:00</published><updated>2017-01-01T00:00:00+03:00</updated><id>https://devexpress.github.io/devextreme-reactive/@next/landinggridreact/2017/01/01/30-native-react</id><content type="html" xml:base="https://devexpress.github.io/devextreme-reactive/@next/landinggridreact/2017/01/01/30-native-react/">&lt;p&gt;&lt;strong&gt;Best Practices Inside&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;We’ve focused our energy on performance and leveraged the best practice recommendations offered by the React team.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Based on a Functional Approach&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Through immutability and pure functions, we can apply memoization and built-in React optimizations to achieve outstanding performance.&lt;/p&gt;</content><author><name></name></author><category term="LandingGridReact" /><summary type="html">Best Practices Inside</summary></entry><entry><title type="html">100% Native VueFully Optimized</title><link href="https://devexpress.github.io/devextreme-reactive/@next/landinggridvue/2017/01/01/30-native-vue/" rel="alternate" type="text/html" title="100% Native Vue&lt;br/&gt;Fully Optimized" /><published>2017-01-01T00:00:00+03:00</published><updated>2017-01-01T00:00:00+03:00</updated><id>https://devexpress.github.io/devextreme-reactive/@next/landinggridvue/2017/01/01/30-native-vue</id><content type="html" xml:base="https://devexpress.github.io/devextreme-reactive/@next/landinggridvue/2017/01/01/30-native-vue/">&lt;p&gt;&lt;strong&gt;Best Practices Inside&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;We’ve focused our energy on performance and leveraged the best practice recommendations offered by the Vue team.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Based on a Functional Approach&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Through immutability and pure functions, we can apply memoization and built-in Vue optimizations to achieve outstanding performance.&lt;/p&gt;</content><author><name></name></author><category term="LandingGridVue" /><summary type="html">Best Practices Inside</summary></entry><entry><title type="html">Core Features Designed toFit Any Business at Any Scale</title><link href="https://devexpress.github.io/devextreme-reactive/@next/landinggridreact/2017/01/01/40-react-features-set/" rel="alternate" type="text/html" title="Core Features Designed to&lt;br/&gt;Fit Any Business at Any Scale" /><published>2017-01-01T00:00:00+03:00</published><updated>2017-01-01T00:00:00+03:00</updated><id>https://devexpress.github.io/devextreme-reactive/@next/landinggridreact/2017/01/01/40-react-features-set</id><content type="html" xml:base="https://devexpress.github.io/devextreme-reactive/@next/landinggridreact/2017/01/01/40-react-features-set/">&lt;p&gt;&lt;strong&gt;Our React Grid ships with the following features:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Integrated sorting, paging, and data grouping&lt;/li&gt;
+  &lt;li&gt;Built-in data filtering, selection, and editing&lt;/li&gt;
+  &lt;li&gt;Advanced UI elements such as a filter row and record detail row&lt;/li&gt;
+  &lt;li&gt;Virtual record scrolling&lt;/li&gt;
+  &lt;li&gt;Bootstrap and &lt;a href=&quot;https://material-ui.com/&quot;&gt;Material-UI&lt;/a&gt; templates&lt;/li&gt;
+  &lt;li&gt;Column resizing/reordering&lt;/li&gt;
+  &lt;li&gt;Column chooser&lt;/li&gt;
+  &lt;li&gt;Keyboard navigation&lt;/li&gt;
+  &lt;li&gt;Bands (column groups)&lt;/li&gt;
+  &lt;li&gt;Header filter&lt;/li&gt;
+  &lt;li&gt;Fixed columns&lt;/li&gt;
+&lt;/ul&gt;</content><author><name></name></author><category term="LandingGridReact" /><summary type="html">Our React Grid ships with the following features:</summary></entry><entry><title type="html">Core Features Designed toFit Any Business at Any Scale</title><link href="https://devexpress.github.io/devextreme-reactive/@next/landinggridvue/2017/01/01/40-vue-features-set/" rel="alternate" type="text/html" title="Core Features Designed to&lt;br/&gt;Fit Any Business at Any Scale" /><published>2017-01-01T00:00:00+03:00</published><updated>2017-01-01T00:00:00+03:00</updated><id>https://devexpress.github.io/devextreme-reactive/@next/landinggridvue/2017/01/01/40-vue-features-set</id><content type="html" xml:base="https://devexpress.github.io/devextreme-reactive/@next/landinggridvue/2017/01/01/40-vue-features-set/">&lt;p&gt;&lt;strong&gt;Our Vue Grid ships with the following features:&lt;/strong&gt;&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;Integrated sorting, paging, and data grouping&lt;/li&gt;
@@ -17,56 +61,7 @@
   &lt;li&gt;Fixed columns/rows&lt;/li&gt;
   &lt;li&gt;Header filter&lt;/li&gt;
   &lt;li&gt;Bands (column groups)&lt;/li&gt;
-&lt;/ul&gt;</content><author><name></name></author><category term="LandingGridVue" /><summary type="html">Our Vue Grid ships with the following features:</summary></entry><entry><title type="html">Core Features Designed toFit Any Business at Any Scale</title><link href="/devextreme-reactive/@next/landinggridreact/2017/01/01/40-react-features-set/" rel="alternate" type="text/html" title="Core Features Designed to&lt;br/&gt;Fit Any Business at Any Scale" /><published>2017-01-01T00:00:00+03:00</published><updated>2017-01-01T00:00:00+03:00</updated><id>/devextreme-reactive/@next/landinggridreact/2017/01/01/40-react-features-set</id><content type="html" xml:base="/devextreme-reactive/@next/landinggridreact/2017/01/01/40-react-features-set/">&lt;p&gt;&lt;strong&gt;Our React Grid ships with the following features:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Integrated sorting, paging, and data grouping&lt;/li&gt;
-  &lt;li&gt;Built-in data filtering, selection, and editing&lt;/li&gt;
-  &lt;li&gt;Advanced UI elements such as a filter row and record detail row&lt;/li&gt;
-  &lt;li&gt;Virtual record scrolling&lt;/li&gt;
-  &lt;li&gt;Bootstrap and Material-UI templates&lt;/li&gt;
-  &lt;li&gt;Column resizing/reordering&lt;/li&gt;
-  &lt;li&gt;Column chooser&lt;/li&gt;
-  &lt;li&gt;Keyboard navigation&lt;/li&gt;
-  &lt;li&gt;Bands (column groups)&lt;/li&gt;
-  &lt;li&gt;Header filter&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Features we expect to ship shortly:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Fixed columns/rows&lt;/li&gt;
-&lt;/ul&gt;</content><author><name></name></author><category term="LandingGridReact" /><summary type="html">Our React Grid ships with the following features:</summary></entry><entry><title type="html">100% Native VueFully Optimized</title><link href="/devextreme-reactive/@next/landinggridvue/2017/01/01/30-native-vue/" rel="alternate" type="text/html" title="100% Native Vue&lt;br/&gt;Fully Optimized" /><published>2017-01-01T00:00:00+03:00</published><updated>2017-01-01T00:00:00+03:00</updated><id>/devextreme-reactive/@next/landinggridvue/2017/01/01/30-native-vue</id><content type="html" xml:base="/devextreme-reactive/@next/landinggridvue/2017/01/01/30-native-vue/">&lt;p&gt;&lt;strong&gt;Best Practices Inside&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;We’ve focused our energy on performance and leveraged the best practice recommendations offered by the Vue team.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Based on a Functional Approach&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Through immutability and pure functions, we can apply memoization and built-in Vue optimizations to achieve outstanding performance.&lt;/p&gt;</content><author><name></name></author><category term="LandingGridVue" /><summary type="html">Best Practices Inside</summary></entry><entry><title type="html">100% Native ReactFully Optimized</title><link href="/devextreme-reactive/@next/landinggridreact/2017/01/01/30-native-react/" rel="alternate" type="text/html" title="100% Native React&lt;br/&gt;Fully Optimized" /><published>2017-01-01T00:00:00+03:00</published><updated>2017-01-01T00:00:00+03:00</updated><id>/devextreme-reactive/@next/landinggridreact/2017/01/01/30-native-react</id><content type="html" xml:base="/devextreme-reactive/@next/landinggridreact/2017/01/01/30-native-react/">&lt;p&gt;&lt;strong&gt;Best Practices Inside&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;We’ve focused our energy on performance and leveraged the best practice recommendations offered by the React team.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Based on a Functional Approach&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Through immutability and pure functions, we can apply memoization and built-in React optimizations to achieve outstanding performance.&lt;/p&gt;</content><author><name></name></author><category term="LandingGridReact" /><summary type="html">Best Practices Inside</summary></entry><entry><title type="html">Our Grid Loves Redux by DesignControlled Uncontrolled Modes are Inside</title><link href="/devextreme-reactive/@next/landinggridreact/2017/01/01/20-react-redux/" rel="alternate" type="text/html" title="Our Grid Loves Redux by Design&lt;br/&gt;Controlled Uncontrolled Modes are Inside" /><published>2017-01-01T00:00:00+03:00</published><updated>2017-01-01T00:00:00+03:00</updated><id>/devextreme-reactive/@next/landinggridreact/2017/01/01/20-react-redux</id><content type="html" xml:base="/devextreme-reactive/@next/landinggridreact/2017/01/01/20-react-redux/">&lt;p&gt;&lt;strong&gt;Controlled State Mode&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Fully control React Grid state and treat it as a pure view component. Effortlessly enable state persistence and time-traveling without side-effects.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Uncontrolled State Mode&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Our React Grid can manage its state internally helping you write less code, so you focus on more important business tasks.&lt;/p&gt;</content><author><name></name></author><category term="LandingGridReact" /><summary type="html">Controlled State Mode</summary></entry><entry><title type="html">Twitter Bootstrapwith Seamless Theming</title><link href="/devextreme-reactive/@next/landinggridvue/2017/01/01/10-vue-theming/" rel="alternate" type="text/html" title="Twitter Bootstrap&lt;br/&gt;with Seamless Theming" /><published>2017-01-01T00:00:00+03:00</published><updated>2017-01-01T00:00:00+03:00</updated><id>/devextreme-reactive/@next/landinggridvue/2017/01/01/10-vue-theming</id><content type="html" xml:base="/devextreme-reactive/@next/landinggridvue/2017/01/01/10-vue-theming/">&lt;p&gt;&lt;strong&gt;Native Rendering&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Use native Twitter Bootstrap  renderings and apply themes automatically - without unnecessary configuration.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Individual UI Templates&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;UI templates are implemented and shipped as separate packages so you can customize them as needed or roll your own when necessary.&lt;/p&gt;</content><author><name></name></author><category term="LandingGridVue" /><summary type="html">Native Rendering</summary></entry><entry><title type="html">Twitter Bootstrap and Material UIwith Seamless Theming</title><link href="/devextreme-reactive/@next/landinggridreact/2017/01/01/10-react-theming/" rel="alternate" type="text/html" title="Twitter Bootstrap and Material UI&lt;br/&gt;with Seamless Theming" /><published>2017-01-01T00:00:00+03:00</published><updated>2017-01-01T00:00:00+03:00</updated><id>/devextreme-reactive/@next/landinggridreact/2017/01/01/10-react-theming</id><content type="html" xml:base="/devextreme-reactive/@next/landinggridreact/2017/01/01/10-react-theming/">&lt;p&gt;&lt;strong&gt;Native Rendering&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Use native Twitter Bootstrap and Material UI renderings and apply themes automatically - without unnecessary configuration.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Individual UI Templates&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;UI templates are implemented and shipped as separate packages so you can customize them as needed or roll your own when necessary.&lt;/p&gt;</content><author><name></name></author><category term="LandingGridReact" /><summary type="html">Native Rendering</summary></entry><entry><title type="html">Composable and ExtensiblePlugin-based Architecture</title><link href="/devextreme-reactive/@next/landinggrid/2017/01/01/00-composable-grid/" rel="alternate" type="text/html" title="Composable and Extensible&lt;br/&gt;Plugin-based Architecture" /><published>2017-01-01T00:00:00+03:00</published><updated>2017-01-01T00:00:00+03:00</updated><id>/devextreme-reactive/@next/landinggrid/2017/01/01/00-composable-grid</id><content type="html" xml:base="/devextreme-reactive/@next/landinggrid/2017/01/01/00-composable-grid/">&lt;p&gt;&lt;strong&gt;Your Data Grid, Your Way&lt;/strong&gt;&lt;/p&gt;
+&lt;/ul&gt;</content><author><name></name></author><category term="LandingGridVue" /><summary type="html">Our Vue Grid ships with the following features:</summary></entry><entry><title type="html">Composable and ExtensiblePlugin-based Architecture</title><link href="https://devexpress.github.io/devextreme-reactive/@next/landinggrid/2017/01/01/00-composable-grid/" rel="alternate" type="text/html" title="Composable and Extensible&lt;br/&gt;Plugin-based Architecture" /><published>2017-01-01T00:00:00+03:00</published><updated>2017-01-01T00:00:00+03:00</updated><id>https://devexpress.github.io/devextreme-reactive/@next/landinggrid/2017/01/01/00-composable-grid</id><content type="html" xml:base="https://devexpress.github.io/devextreme-reactive/@next/landinggrid/2017/01/01/00-composable-grid/">&lt;p&gt;&lt;strong&gt;Your Data Grid, Your Way&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;You can incorporate our Grid by adding only those features you require. This allows you to maintain the optimal bundle size, and reduce app load/execution time.&lt;/p&gt;
 

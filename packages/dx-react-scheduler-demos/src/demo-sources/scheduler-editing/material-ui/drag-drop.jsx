@@ -1,25 +1,34 @@
+/* eslint-disable react/destructuring-assignment */
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
 import { ViewState, EditingState } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
-  DayView,
+  WeekView,
   Appointments,
-  AppointmentForm,
-  AppointmentTooltip,
+  DragDropProvider,
 } from '@devexpress/dx-react-scheduler-material-ui';
-
 import { appointments } from '../../../demo-data/appointments';
+
+const dragDisableIds = new Set([3, 8, 10, 12]);
+
+const allowDrag = ({ id }) => !dragDisableIds.has(id);
+const appointmentComponent = (props) => {
+  if (allowDrag(props.data)) {
+    return <Appointments.Appointment {...props} />;
+  } return <Appointments.Appointment {...props} style={{ ...props.style, cursor: 'not-allowed' }} />;
+};
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
+
     this.state = {
       data: appointments,
-      currentDate: '2018-06-27',
+      currentDate: new Date('2018-06-27'),
     };
 
-    this.commitChanges = this.commitChanges.bind(this);
+    this.onCommitChanges = this.commitChanges.bind(this);
   }
 
   commitChanges({ added, changed, deleted }) {
@@ -41,7 +50,7 @@ export default class Demo extends React.PureComponent {
   }
 
   render() {
-    const { currentDate, data } = this.state;
+    const { data, currentDate } = this.state;
 
     return (
       <Paper>
@@ -49,21 +58,22 @@ export default class Demo extends React.PureComponent {
           data={data}
         >
           <ViewState
-            currentDate={currentDate}
+            defaultCurrentDate={currentDate}
           />
           <EditingState
-            onCommitChanges={this.commitChanges}
+            onCommitChanges={this.onCommitChanges}
           />
-          <DayView
+          <WeekView
             startDayHour={9}
             endDayHour={19}
           />
-          <Appointments />
-          <AppointmentTooltip
-            showOpenButton
-            showDeleteButton
+          <Appointments
+            appointmentComponent={appointmentComponent}
           />
-          <AppointmentForm />
+
+          <DragDropProvider
+            allowDrag={allowDrag}
+          />
         </Scheduler>
       </Paper>
     );

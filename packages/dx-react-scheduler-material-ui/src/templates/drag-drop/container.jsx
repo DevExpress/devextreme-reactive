@@ -4,10 +4,12 @@ import { ContainerBase } from '../common/container';
 const styles = {
   container: {
     position: 'absolute',
-    width: '100%',
-    top: 0,
     left: 0,
+    top: 0,
+    height: '100%',
+    width: '100%',
+    cursor: 'move',
   },
 };
 
-export const Container = withStyles(styles, { name: 'AppointmentsContainer' })(ContainerBase);
+export const Container = withStyles(styles, { name: 'DragDropContainer' })(ContainerBase);

@@ -43,6 +43,7 @@ Field | Type | Description
 children | ReactNode | A React node used to render the appointment content.
 style | object | An object that configures the appointment geometry and position.
 data | object | An object that specifies the appointment data.
+draggable | boolean | Specifies whether the appointment is draggable.
 onClick? | (e: object) => void | A function that handles a click on the appointment.
 onDoubleClick? | (e: object) => void | A function that handles a double click on the appointment.
 

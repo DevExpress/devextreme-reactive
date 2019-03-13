@@ -70,7 +70,7 @@ export const expandedTreeRows: ExpandedTreeRowsFn = (
 
   let currentExpanded = true;
   let currentLevel = 0;
-  return rows.reduce((acc, row) => {
+  return Array.prototype.slice.call(rows).reduce((acc, row) => {
     const rowMeta = treeMeta.get(row);
     const level = rowMeta && rowMeta.level;
     if (level === undefined && currentExpanded) {

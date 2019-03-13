@@ -32,7 +32,7 @@ cellComponent | ComponentType&lt;[AllDayPanel.CellProps](#alldaypanelcellprops)&
 rowComponent | ComponentType&lt;[AllDayPanel.RowProps](#alldaypanelrowprops)&gt; | | A component that renders an All Day panel row.
 titleCellComponent | ComponentType&lt;[AllDayPanel.TitleCellProps](#alldaypaneltitlecellprops)&gt; | | A component that renders a title cell.
 appointmentLayerComponent | ComponentType&lt;[AllDayPanel.AppointmentLayerProps](#alldaypanelappointmentlayerprops)&gt; | | A component that renders the appointment layer.
-containerComponent | ComponentType&lt;[AllDayPanel.ContainerProps](#alldaypanelcontainerprops)&gt; | | A component that renders container for All Day panel.
+containerComponent | ComponentType&lt;[AllDayPanel.ContainerProps](#alldaypanelcontainerprops)&gt; | | A component that renders an All Day panel container.
 messages? | [AllDayPanel.LocalizationMessages](#localization-messages) | | An object that specifies localization messages.
 
 ## Interfaces
@@ -92,7 +92,7 @@ children? | ReactNode | A React node used to render the row content.
 
 ### AllDayPanel.ContainerProps
 
-Describes properties passed to a component that renders container for All Day panel.
+Describes properties passed to a component that renders an All Day panel container.
 
 Field | Type | Description
 ------|------|------------
@@ -113,6 +113,6 @@ AllDayPanel.Cell | ComponentType&lt;[AllDayPanel.CellProps](#alldaypanelcellprop
 AllDayPanel.Row | ComponentType&lt;[AllDayPanel.RowProps](#alldaypanelrowprops)&gt; | A component that renders an All Day panel row.
 AllDayPanel.TitleCell | ComponentType&lt;[AllDayPanel.TitleCellProps](#alldaypaneltitlecellprops)&gt; | A component that renders a title cell.
 AllDayPanel.AppointmentLayer | ComponentType&lt;[AllDayPanel.AppointmentLayerProps](#alldaypanelappointmentlayerprops)&gt; | A component that renders the appointment layer.
-AllDayPanel.Container | ComponentType&lt;[AllDayPanel.ContainerProps](#alldaypanelcontainerprops)&gt; | A component that renders container for All Day panel.
+AllDayPanel.Container | ComponentType&lt;[AllDayPanel.ContainerProps](#alldaypanelcontainerprops)&gt; | A component that renders an All Day panel container.
 
 Additional properties are added to the component's root element.

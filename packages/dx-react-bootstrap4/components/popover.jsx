@@ -14,11 +14,19 @@ export class Popover extends React.PureComponent {
   }
 
   componentDidMount() {
-    this.toggleSubscribtions();
+    const { isOpen } = this.props;
+    if (isOpen) {
+      this.attachDocumentEvents();
+    }
   }
 
   componentDidUpdate() {
-    this.toggleSubscribtions();
+    const { isOpen } = this.props;
+    if (isOpen) {
+      this.attachDocumentEvents();
+    } else {
+      this.detachDocumentEvents();
+    }
   }
 
   componentWillUnmount() {
@@ -35,22 +43,18 @@ export class Popover extends React.PureComponent {
     }
   }
 
-  toggleSubscribtions() {
-    const { isOpen } = this.props;
-
-    if (isOpen) {
-      this.attachDocumentEvents();
-    } else {
-      this.detachDocumentEvents();
+  attachDocumentEvents() {
+    if (!this.listenersAttached) {
+      this.toggleDocumentEvents('addEventListener');
+      this.listenersAttached = true;
     }
   }
 
-  attachDocumentEvents() {
-    this.toggleDocumentEvents('addEventListener');
-  }
-
   detachDocumentEvents() {
-    this.toggleDocumentEvents('removeEventListener');
+    if (this.listenersAttached) {
+      this.toggleDocumentEvents('removeEventListener');
+      this.listenersAttached = false;
+    }
   }
 
   toggleDocumentEvents(method) {

@@ -94,17 +94,20 @@ describe('BS4 Popover', () => {
   });
 
   describe('global click handler', () => {
-    let handlers = {};
-    beforeEach(() => {
-      handlers = {};
-      document.addEventListener = jest.fn((event, handler) => {
-        handlers[event] = handler;
-      });
-      document.removeEventListener = jest.fn((event, handler) => {
-        if (handlers[event] === handler) {
-          delete handlers[event];
-        }
-      });
+    let addEventListener;
+    let removeEventListener;
+
+    beforeAll(() => {
+      addEventListener = jest.spyOn(document, 'addEventListener').mockImplementation(() => 0);
+      removeEventListener = jest.spyOn(document, 'removeEventListener').mockImplementation(() => 0);
+    });
+    afterAll(() => {
+      addEventListener.mockRestore();
+      removeEventListener.mockRestore();
+    });
+    afterEach(() => {
+      addEventListener.mockReset();
+      removeEventListener.mockReset();
     });
 
     let clickHandler;
@@ -118,27 +121,28 @@ describe('BS4 Popover', () => {
 
       clickHandler = popoverTree.instance().handleClick;
     };
-    const expectHandlersDetached = () => {
-      expect(handlers).toEqual({});
-    };
 
     it('should handle a click event if popover is isOpen', () => {
       mountPopover();
 
-      expect(document.addEventListener)
-        .toHaveBeenCalledWith('touchstart', clickHandler, true);
-      expect(document.addEventListener)
-        .toHaveBeenCalledWith('click', clickHandler, true);
+      expect(addEventListener.mock.calls).toEqual([
+        ['click', clickHandler, true],
+        ['touchstart', clickHandler, true],
+      ]);
     });
 
     it('should detach handlers if popover become invisible', () => {
       mountPopover();
+      addEventListener.mockClear();
 
       popoverTree.setProps({
         isOpen: false,
       });
 
-      expectHandlersDetached();
+      expect(removeEventListener.mock.calls).toEqual([
+        ['click', clickHandler, true],
+        ['touchstart', clickHandler, true],
+      ]);
     });
 
     it('should detach handlers on unmount', () => {
@@ -146,7 +150,36 @@ describe('BS4 Popover', () => {
 
       popoverTree.unmount();
 
-      expectHandlersDetached();
+      expect(removeEventListener.mock.calls).toEqual([
+        ['click', clickHandler, true],
+        ['touchstart', clickHandler, true],
+      ]);
+    });
+
+    it('should add event listeners only once', () => {
+      mountPopover();
+
+      popoverTree.setProps({
+        children: <div />,
+      });
+
+      expect(addEventListener.mock.calls).toEqual([
+        ['click', clickHandler, true],
+        ['touchstart', clickHandler, true],
+      ]);
+    });
+
+    it('should remove event listerners only once', () => {
+      mountPopover();
+
+      popoverTree.setProps({ isOpen: false });
+      popoverTree.unmount();
+
+      expect(removeEventListener).toBeCalledTimes(2);
+      expect(removeEventListener.mock.calls).toEqual([
+        ['click', clickHandler, true],
+        ['touchstart', clickHandler, true],
+      ]);
     });
   });
 

@@ -42,12 +42,12 @@ const AppointmentBase = ({
       },
     }
     : null;
-  const clickable1 = onClick || restProps.onDoubleClick || draggable;
+  const clickable = onClick || restProps.onDoubleClick || draggable;
   return (
     <div
       className={classNames({
         [classes.appointment]: true,
-        [classes.clickableAppointment]: clickable1,
+        [classes.clickableAppointment]: clickable,
       }, className)}
       style={style}
       {...onClick}

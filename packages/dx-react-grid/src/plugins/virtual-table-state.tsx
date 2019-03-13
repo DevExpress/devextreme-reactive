@@ -20,10 +20,6 @@ const virtualRowsComputed = (
 
 const rowsComputed = ({ virtualRows }: Getters) => virtualRows.rows;
 
-const loadedRowsStartComputed = ({ virtualRows }: Getters) => virtualRows.start;
-
-const loadedRowsCountComputed = ({ virtualRows }: Getters) => virtualRows.rows.length;
-
 const rowIdGetterComputed = (
   { rows: getterRows }: Getters,
 ) => {
@@ -67,7 +63,10 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
       const pageStart = newPageIndex;
       const loadCount = (requestedRange.end - requestedRange.start);
 
-      console.log('----- get rows', rowIndex, newBounds, loadedInterval, requestedRange,  pageStart, loadCount)
+      console.log('----- get rows', rowIndex,
+      'new bounds', newBounds,
+      'loaded', loadedInterval,
+      'requested', requestedRange, pageStart, loadCount);
 
       if (newPageIndex !== requestedPageIndex && loadCount > 0) {
         if (this.requestTimer !== 0) {

@@ -114,6 +114,7 @@ export class VirtualTableLayout extends React.PureComponent<VirtualTableLayoutPr
     // console.log('get grid, rows =', loadedRowsStart, bodyRows)
     //const bRows =  Array.from({ length: loadedRowsStart }).concat(bodyRows || []);
     const bRows = bodyRows;
+    console.log('get collapsed grid', bRows, visibleBoundaries.bodyRows)
     const collapsedBodyGrid = getCollapsedGridBlock(
       bRows || [], visibleBoundaries.bodyRows, totalRowCount, loadedRowsStart,
     );

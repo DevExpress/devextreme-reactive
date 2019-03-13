@@ -24,11 +24,24 @@ export const intervalUtil = {
     };
   },
 
-  difference: (a: Interval, b: Interval, globalBounds: Interval) => {
-    // if (empty === intervalUtil.intersect(a, b)) {
-    return empty;
-    // }
+  difference: (a: Interval, b: Interval) => {
+    if (empty === intervalUtil.intersect(a, b)) {
+      return a;
+    }
 
+    if (b.end < a.end) {
+      return {
+        start: b.end,
+        end: a.end,
+      };
+    }
+    if (a.start < b.start) {
+      return {
+        start: a.start,
+        end: b.start,
+      };
+    }
+    return empty;
   },
 
   normalize: (a: Interval, start: number) => ({

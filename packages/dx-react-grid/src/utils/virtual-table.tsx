@@ -122,10 +122,10 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
               loadedRowsStart, this.props.estimatedRowHeight,
             ),
           };
-          console.log('visible bounds', res.bodyRows)
+          console.log('visible bounds', res.bodyRows, viewportTop)
           const diff = res.bodyRows[1] - res.bodyRows[0];
-          if (diff === 0 || diff < 5 || diff > 50) {
-            console.log(' !!!!! incorrect bounds',
+          if (diff === 0 ) {
+            console.log(' !!!!! incorrect bounds: ', res.bodyRows,
               'body rows', tableBodyRows.length, 'start', loadedRowsStart,
               'body height', containerHeight - headerHeight - footerHeight,
             )
@@ -191,25 +191,42 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
         return;
       }
 
-      const {
-        topTriggerOffset, bottomTriggerOffset, middleIndex,
-      } = currentVirtualPageBoundary;
+      console.log('++SCROLL', node.scrollTop)
 
-      console.log(topTriggerOffset, bottomTriggerOffset, middleIndex)
-
-      if (topTriggerOffset < 0 || bottomTriggerOffset < 0) {
-        const { estimatedRowHeight } = this.props;
-        const rowsOffset = topTriggerOffset < 0
-          ? topTriggerOffset / estimatedRowHeight
-          : - bottomTriggerOffset / estimatedRowHeight;
-        console.log('reached bound', middleIndex, rowsOffset)
-        requestNextPage(middleIndex + Math.round(rowsOffset));
-      }
+      this.ensureNextPage(currentVirtualPageBoundary, requestNextPage, node.scrollTop);
 
       this.setState({
         viewportTop: node.scrollTop,
         viewportLeft: node.scrollLeft,
       });
+    }
+
+    ensureNextPage(currentVirtualPageBoundary, requestNextPage, scrollTop) {
+      const {
+        topTriggerPosition, bottomTriggerPosition, topTriggerIndex, bottomTriggerIndex,
+      } = currentVirtualPageBoundary;
+      const { containerHeight } = this.state;
+      const { estimatedRowHeight } = this.props;
+      const referencePosition = scrollTop + containerHeight / 2;
+
+      const getReferenceIndex = (triggetIndex, triggerPosition) => (
+        triggetIndex + Math.round((referencePosition - triggerPosition) / estimatedRowHeight)
+      );
+
+      let referenceIndex = null;
+      if (referencePosition < topTriggerPosition) {
+        referenceIndex = getReferenceIndex(topTriggerIndex, topTriggerPosition);
+      }
+      if (bottomTriggerPosition < referencePosition) {
+        referenceIndex = getReferenceIndex(bottomTriggerIndex, bottomTriggerPosition);
+      }
+
+      if (referenceIndex !== null) {
+        console.log(
+          'request next page, reference is', referenceIndex,
+          'top trigger', topTriggerIndex, topTriggerPosition)
+        requestNextPage(referenceIndex);
+      }
     }
 
     handleContainerSizeChange(currentVirtualPageBoundary, requestNextPage, { width, height }) {
@@ -311,21 +328,32 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
         const visibleCount = visibleBoundaries.bodyRows[1] - visibleBoundaries.bodyRows[0];
         const middleIndex = firstRowIndex + Math.round(visibleCount / 2);
 
-        const getTriggerOffset = rowsOffset => rowsOffsetToPx(
-          middleIndex, rowsOffset, virtualRows,
-          this.getRowHeight, estimatedRowHeight,
-        );
+        // const getTriggerOffset = rowsOffset => rowsOffsetToPx(
+        //   middleIndex, rowsOffset, virtualRows,
+        //   this.getRowHeight, estimatedRowHeight,
+        // );
 
-        const topTriggerOffset = getTriggerOffset(middleIndex - topTriggerIndex);
+        //const topTriggerOffset = getTriggerOffset(middleIndex - topTriggerIndex);
         // debugger
-        const bottomTriggerOffset = getTriggerOffset(bottomTriggerIndex - middleIndex);
+        // const bottomTriggerOffset2 = getTriggerOffset(bottomTriggerIndex - middleIndex);
 
+        const { viewportTop } = this.state;
+        const middlePosition = viewportTop + containerHeight / 2;
+
+        const topTriggerOffset = (middleIndex - topTriggerIndex) * estimatedRowHeight;
+        const bottomTriggerOffset = (bottomTriggerIndex - middleIndex) * estimatedRowHeight;
+        const topTriggerPosition = middlePosition - topTriggerOffset;
+        const bottomTriggerPosition = middlePosition + bottomTriggerOffset;
+
+        // console.log('calc scroll bounds', bottomTriggerOffset, bottomTriggerOffset2)
         // transform indexes to px and pass to scroll handler
 
         return {
-          topTriggerOffset,
-          bottomTriggerOffset,
-          middleIndex,
+          topTriggerIndex,
+          topTriggerPosition,
+          bottomTriggerIndex,
+          bottomTriggerPosition,
+          // middleIndex,
         };
       };
 

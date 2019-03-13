@@ -41,25 +41,17 @@ export const mergeRows = (rowsInterval, cacheInterval, rows, cacheRows, rowsStar
   };
 };
 
-export const calculateRequestedRange = (loadedInterval, newRange, middleIndex, pageSize) => {
-  if (Math.abs(loadedInterval.start - newRange.start) > 2 * pageSize) {
-    const useFirstHalf = middleIndex % pageSize < 50;
-    const start = useFirstHalf ? newRange.start : newRange.start + pageSize;
-    return { start, end: start + 2 * pageSize };
+export const calculateRequestedRange = (loadedInterval, newRange, referenceIndex, pageSize) => {
+  if (Math.abs(loadedInterval.start - newRange.start) >= 2 * pageSize) {
+    const useFirstHalf = referenceIndex % pageSize < 50;
+    const start = useFirstHalf
+      ? newRange.start
+      : newRange.start + pageSize;
+    const end = Math.min(newRange.end, start + 2 * pageSize);
+
+    return { start, end };
   }
-  if (loadedInterval.start <= newRange.start && newRange.start <= loadedInterval.end) {
-    return {
-      start: loadedInterval.end,
-      end: newRange.end,
-    };
-  }
-  if (newRange.start <= loadedInterval.start && loadedInterval.start <= newRange.end) {
-    return {
-      start: newRange.start,
-      end: loadedInterval.start,
-    };
-  }
-  return intervalUtil.empty;
+  return intervalUtil.difference(newRange, loadedInterval);
 };
 
 export const rowToPageIndex = (rowIndex, pageSize) => Math.floor(rowIndex / pageSize);

@@ -172,6 +172,40 @@ describe('VirtualTableState helpers', () => {
         expect(calculateRequestedRange(loadedInterval, newInterval, 310, pageSize))
           .toEqual({ start: 100, end: 200 });
       });
+
+      it('next 2 pages', () => {
+        const loadedInterval = createInterval(100, 400);
+        const newInterval = createInterval(400, 700);
+
+        expect(calculateRequestedRange(loadedInterval, newInterval, 580, pageSize))
+          .toEqual({ start: 500, end: 700 });
+      });
+
+      it('previous 2 pages', () => {
+        const loadedInterval = createInterval(300, 600);
+        const newInterval = createInterval(100, 400);
+
+        expect(calculateRequestedRange(loadedInterval, newInterval, 270, pageSize))
+          .toEqual({ start: 200, end: 400 });
+      });
+    });
+
+    describe('edge cases', () => {
+      it('should correctly process start of page', () => {
+        const loadedInterval = createInterval(0, 200);
+        const newInterval = createInterval(200, 500);
+
+        expect(calculateRequestedRange(loadedInterval, newInterval, 300, pageSize))
+          .toEqual({ start: 200, end: 400 });
+      });
+
+      it('should correctly process end of page', () => {
+        const loadedInterval = createInterval(0, 200);
+        const newInterval = createInterval(200, 500);
+
+        expect(calculateRequestedRange(loadedInterval, newInterval, 399, pageSize))
+          .toEqual({ start: 300, end: 500 });
+      });
     });
 
     describe('fast scroll', () => {
@@ -204,6 +238,20 @@ describe('VirtualTableState helpers', () => {
       expect(recalculateBounds(350, 100, 1000)).toEqual({
         start: 200,
         end: 500,
+      });
+    });
+
+    it('should correctly process start index of page', () => {
+      expect(recalculateBounds(300, 100, 1000)).toEqual({
+        start: 200,
+        end: 500,
+      });
+    });
+
+    it('should correctly process end index of page', () => {
+      expect(recalculateBounds(299, 100, 1000)).toEqual({
+        start: 100,
+        end: 400,
       });
     });
 

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import RootRef from '@material-ui/core/RootRef';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -27,28 +28,34 @@ export class HorizontalViewLayoutBase extends React.PureComponent {
       dayScaleComponent: Navbar,
       timeTableComponent: Main,
       classes,
+      layoutRef,
+      layoutHeaderRef,
     } = this.props;
 
     return (
-      <Grid
-        className={classes.container}
-        container
-        direction="column"
-        wrap="nowrap"
-      >
+      <RootRef rootRef={layoutRef}>
         <Grid
-          item
-          className={classes.stickyHeader}
+          className={classes.container}
+          container
+          direction="column"
+          wrap="nowrap"
         >
-          <Navbar />
+          <RootRef rootRef={layoutHeaderRef}>
+            <Grid
+              item
+              className={classes.stickyHeader}
+            >
+              <Navbar />
+            </Grid>
+          </RootRef>
+          <Grid
+            item
+            className={classes.main}
+          >
+            <Main />
+          </Grid>
         </Grid>
-        <Grid
-          item
-          className={classes.main}
-        >
-          <Main />
-        </Grid>
-      </Grid>
+      </RootRef>
     );
   }
 }
@@ -57,6 +64,8 @@ HorizontalViewLayoutBase.propTypes = {
   dayScaleComponent: PropTypes.func.isRequired,
   timeTableComponent: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
+  layoutRef: PropTypes.object.isRequired,
+  layoutHeaderRef: PropTypes.object.isRequired,
 };
 
 export const HorizontalViewLayout = withStyles(styles, { name: 'HorizontalViewLayout' })(HorizontalViewLayoutBase);

@@ -28,6 +28,11 @@ namespace AllDayPanel {
   type AppointmentLayerProps = AllDayPanel_2.AppointmentLayerProps;
 }
 
+// @public (undocumented)
+namespace AllDayPanel {
+  type ContainerProps = AllDayPanel_2.ContainerProps;
+}
+
 // @public
 declare const AllDayPanel: React.ComponentType<AllDayPanelProps> & {
   Layout: React.ComponentType<React.ComponentType<AllDayPanel_2.LayoutProps> & { // (undocumented)
@@ -50,12 +55,17 @@ declare const AllDayPanel: React.ComponentType<AllDayPanelProps> & {
  className?: string; // (undocumented)
  style?: React.CSSProperties; // (undocumented)
  [x: string]: any }>;
+  Container: React.ComponentType<React.ComponentType<AllDayPanel_2.ContainerProps> & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
 };
 
 // @public (undocumented)
 interface AllDayPanelProps {
   appointmentLayerComponent?: React.ComponentType<AllDayPanel_2.AppointmentLayerProps>;
   cellComponent?: React.ComponentType<AllDayPanel_2.CellProps>;
+  containerComponent?: React.ComponentType<AllDayPanel_2.ContainerProps>;
   layoutComponent?: React.ComponentType<AllDayPanel_2.LayoutProps>;
   messages?: AllDayPanel_2.LocalizationMessages;
   rowComponent?: React.ComponentType<AllDayPanel_2.RowProps>;
@@ -365,6 +375,45 @@ interface DayViewProps {
   timeTableCellComponent?: React.ComponentType<DayView_2.TimeTableCellProps>;
   timeTableLayoutComponent?: React.ComponentType<DayView_2.TimeTableLayoutProps>;
   timeTableRowComponent?: React.ComponentType<DayView_2.RowProps>;
+}
+
+// @public (undocumented)
+namespace DragDropProvider {
+  type DraftAppointmentProps = DragDropProvider_2.DraftAppointmentProps;
+}
+
+// @public (undocumented)
+namespace DragDropProvider {
+  type SourceAppointmentProps = DragDropProvider_2.SourceAppointmentProps;
+}
+
+// @public (undocumented)
+namespace DragDropProvider {
+  type ContainerProps = DragDropProvider_2.ContainerProps;
+}
+
+// @public
+declare const DragDropProvider: React.ComponentType<DragDropProviderProps> & {
+  DraftAppointment: React.ComponentType<DragDropProvider_2.DraftAppointmentProps & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  SourceAppointment: React.ComponentType<DragDropProvider_2.SourceAppointmentProps & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  Container: React.ComponentType<DragDropProvider_2.ContainerProps & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+};
+
+// @public (undocumented)
+interface DragDropProviderProps {
+  allowDrag?: (appointmentData: AppointmentModel) => boolean;
+  containerComponent?: React.ComponentType<DragDropProvider_2.ContainerProps>;
+  draftAppointmentComponent?: React.ComponentType<DragDropProvider_2.DraftAppointmentProps>;
+  sourceAppointmentComponent?: React.ComponentType<DragDropProvider_2.SourceAppointmentProps>;
 }
 
 // @public (undocumented)

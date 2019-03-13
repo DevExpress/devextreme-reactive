@@ -24,10 +24,10 @@ const AUTO_HEIGHT = 'auto';
 const renderBoundariesComputed = ({
   visibleBoundaries,
   tableBodyRows,
-  loadedRowsStart,
+  virtualRows,
 }: Getters) => ({
   bodyRows: getRowsRenderBoundary(
-    loadedRowsStart + tableBodyRows.length - 1, visibleBoundaries.bodyRows, 3,
+    virtualRows.start + tableBodyRows.length - 1, visibleBoundaries.bodyRows, 3,
   ),
   columns: visibleBoundaries.columns,
 });
@@ -108,12 +108,13 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
         state => ({
           tableBodyRows,
           columns,
-          loadedRowsStart,
+          virtualRows,
         }: Getters,
         ) => {
           const {
             viewportLeft, width, viewportTop, containerHeight, headerHeight, footerHeight,
           } = this.state;
+          const loadedRowsStart = virtualRows.start;
           const res = {
             columns: getColumnsVisibleBoundary(columns, viewportLeft, width, this.getColumnWidth),
             bodyRows: getRowsBoundary(
@@ -121,6 +122,19 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
               loadedRowsStart, this.props.estimatedRowHeight,
             ),
           };
+          console.log('visible bounds', res.bodyRows)
+          const diff = res.bodyRows[1] - res.bodyRows[0];
+          if (diff === 0 || diff < 5 || diff > 50) {
+            console.log(' !!!!! incorrect bounds',
+              'body rows', tableBodyRows.length, 'start', loadedRowsStart,
+              'body height', containerHeight - headerHeight - footerHeight,
+            )
+            debugger;
+            const ff = getRowsBoundary(
+              tableBodyRows, viewportTop, containerHeight - headerHeight - footerHeight,
+              loadedRowsStart, this.props.estimatedRowHeight,
+            );
+          }
 
           return res;
         },
@@ -184,7 +198,12 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
       console.log(topTriggerOffset, bottomTriggerOffset, middleIndex)
 
       if (topTriggerOffset < 0 || bottomTriggerOffset < 0) {
-        requestNextPage(middleIndex);
+        const { estimatedRowHeight } = this.props;
+        const rowsOffset = topTriggerOffset < 0
+          ? topTriggerOffset / estimatedRowHeight
+          : - bottomTriggerOffset / estimatedRowHeight;
+        console.log('reached bound', middleIndex, rowsOffset)
+        requestNextPage(middleIndex + Math.round(rowsOffset));
       }
 
       this.setState({
@@ -325,7 +344,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
               return (
                 <TemplateConnector>
                   {(
-                    { currentVirtualPageBoundary, totalRowCount, loadedRowsStart,
+                    { currentVirtualPageBoundary, totalRowCount, virtualRows,
                       renderBoundaries,
                     },
                     { requestNextPage },
@@ -333,6 +352,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
                     const {
                       containerComponent: Container,
                     } = params;
+                    const loadedRowsStart = virtualRows.start;
 
                     return (
                       <Sizer

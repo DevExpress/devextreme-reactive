@@ -11,21 +11,17 @@ import { VirtualTableLayoutProps, VirtualTableLayoutState } from '../../types';
 export class VirtualTableLayout extends React.PureComponent<VirtualTableLayoutProps, VirtualTableLayoutState> {
   componentDidMount() {
     const { onUpdate } = this.props;
-    // console.log('layout did mount')
     onUpdate();
   }
 
   componentDidUpdate() {
     const { onUpdate } = this.props;
-    // console.log('layout did update')
     onUpdate();
   }
 
   renderRowsBlock(name, collapsedGrid, Table, Body, blockRef?, marginBottom?) {
     const {
       minWidth,
-      // rowComponent: Row,
-      // cellComponent: Cell,
       blockRefsHandler = () => {},
       rowRefsHandler = () => {},
     } = this.props;
@@ -98,13 +94,6 @@ export class VirtualTableLayout extends React.PureComponent<VirtualTableLayoutPr
       tableRef,
     } = this.props;
 
-    // const visibleBoundaries = {
-    //   columns: [[0, 7]],
-    //   headerRows: [0, 0],
-    //   bodyRows: [0, 0],
-    //   footerRows: [0, 0],
-    // }
-
     const getColSpan = (
       tableRow, tableColumn,
     ) => getCellColSpan!({ tableRow, tableColumn, tableColumns: columns });
@@ -128,6 +117,7 @@ export class VirtualTableLayout extends React.PureComponent<VirtualTableLayoutPr
     const collapsedBodyGrid = getCollapsedGridBlock(
       bRows || [], visibleBoundaries.bodyRows, totalRowCount, loadedRowsStart,
     );
+    console.log('render layout', collapsedBodyGrid.rows)
     // console.log('total count', totalRowCount, 'bounds', visibleBoundaries.columns, 'collapsed', collapsedBodyGrid)
     const collapsedFooterGrid = getCollapsedGridBlock(footerRows || [], null);//visibleBoundaries.footerRows);
     const bodyBottomMargin = Math.max(0, containerHeight - headerHeight - bodyHeight - footerHeight);

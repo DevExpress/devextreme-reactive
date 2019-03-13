@@ -13,7 +13,10 @@ const rawRowsComputed = ({ rows }: Getters) => rows;
 
 const virtualRowsComputed = (
   { start, rows, virtualRowsCache }: Getters,
-) => virtualRowsWithCache(start, rows, virtualRowsCache);
+) => {
+  console.log('virtual rows. start', start, 'cache start', virtualRowsCache.start);
+  return virtualRowsWithCache(start, rows, virtualRowsCache);
+}
 
 const rowsComputed = ({ virtualRows }: Getters) => virtualRows.rows;
 
@@ -43,19 +46,18 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
       viewportTop: 0,
       virtualRowsCache: { start: 0, rows: [] },
       requestedPageIndex: undefined,
-      currentVirtualPageTop: 0,
-      lastQueryTime: 0,
-      loadedRowsStart: 0,
     };
 
     this.requestNextPageAction = (rowIndex: any,
-      { virtualPageSize, loadedRowsStart, loadedRowsCount, rawRows, totalRowCount },
+      { virtualRows, virtualPageSize, rawRows, totalRowCount },
     ) => {
       const { requestedPageIndex, virtualRowsCache } = this.state;
       const { start, getRows } = this.props;
 
       const newBounds = recalculateBounds(rowIndex, virtualPageSize, totalRowCount);
-      const loadedInterval = { start: loadedRowsStart, end: loadedRowsStart + loadedRowsCount };
+      const loadedStart = virtualRows.start;
+      const loadedCount = virtualRows.rows.length;
+      const loadedInterval = { start: loadedStart, end: loadedStart + loadedCount };
 
       const requestedRange = calculateRequestedRange(
         loadedInterval, newBounds, rowIndex, virtualPageSize,
@@ -64,6 +66,8 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
       const newPageIndex = requestedRange.start;
       const pageStart = newPageIndex;
       const loadCount = (requestedRange.end - requestedRange.start);
+
+      console.log('----- get rows', rowIndex, newBounds, loadedInterval, requestedRange,  pageStart, loadCount)
 
       if (newPageIndex !== requestedPageIndex && loadCount > 0) {
         if (this.requestTimer !== 0) {

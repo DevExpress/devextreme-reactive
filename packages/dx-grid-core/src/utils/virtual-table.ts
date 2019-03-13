@@ -67,7 +67,7 @@ export const getVisibleBoundary: GetVisibleBoundaryFn = (
     beforePosition = viewportStart;
     index = items.length;
     start = Math.round(viewportStart / itemSize) - offset;
-    end = start + items.length;
+    end = start;// + items.length;
   }
 
   while (end === null && index < items.length) {

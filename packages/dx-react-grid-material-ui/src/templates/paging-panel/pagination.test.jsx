@@ -186,5 +186,19 @@ describe('Pagination', () => {
       expect(next.props().disabled).toBeTruthy();
       expect(onCurrentPageChange.mock.calls).toHaveLength(1);
     });
+
+    it('should render aria-labels', () => {
+      const arrows = mountPagination({
+        totalPages: 10,
+        currentPage: 9,
+        totalCount: 96,
+        pageSize: 5,
+      }).find('IconButton');
+      const prew = arrows.at(0);
+      const next = arrows.at(1);
+
+      expect(prew.prop('aria-label')).toBe('Previous');
+      expect(next.prop('aria-label')).toBe('Next');
+    });
   });
 });

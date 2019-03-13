@@ -95,6 +95,7 @@ export const Pagination = ({
         <PagerBS3.Item
           disabled={currentPage === 0}
           onClick={() => onCurrentPageChange(currentPage - 1)}
+          aria-label="Previous"
         >
           &laquo;
         </PagerBS3.Item>
@@ -102,6 +103,7 @@ export const Pagination = ({
         <PagerBS3.Item
           disabled={currentPage === totalPages - 1 || totalCount === 0}
           onClick={() => onCurrentPageChange(currentPage + 1)}
+          aria-label="Next"
         >
           &raquo;
         </PagerBS3.Item>

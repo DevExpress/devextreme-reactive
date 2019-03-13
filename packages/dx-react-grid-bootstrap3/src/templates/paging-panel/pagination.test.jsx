@@ -90,4 +90,19 @@ describe('Pagination', () => {
     expect(next.hasClass('disabled')).toBeTruthy();
     expect(onCurrentPageChange.mock.calls).toHaveLength(1);
   });
+
+  it('should render aria-labels', () => {
+    const arrows = mount((
+      <Pagination
+        {...defaultProps}
+        currentPage={9}
+        pageSize={5}
+      />
+    )).find('.pager li a');
+    const prew = arrows.at(0);
+    const next = arrows.at(1);
+
+    expect(prew.prop('aria-label')).toBe('Previous');
+    expect(next.prop('aria-label')).toBe('Next');
+  });
 });

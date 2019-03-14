@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { RefHolder } from '@devexpress/dx-react-core';
 import {
-  getCollapsedGrid,
+  getCollapsedGrid, intervalUtil, TABLE_STUB_TYPE,
 } from '@devexpress/dx-grid-core';
 import { ColumnGroup } from './column-group';
 import { VirtualRowLayout } from './virtual-row-layout';
@@ -19,7 +19,7 @@ export class VirtualTableLayout extends React.PureComponent<VirtualTableLayoutPr
     onUpdate();
   }
 
-  renderRowsBlock(name, collapsedGrid, Table, Body, blockRef?, marginBottom?) {
+  renderRowsBlock(name, collapsedGrid, Table, Body, blockRef?, marginBottom?, bodyHeight?) {
     const {
       minWidth,
       blockRefsHandler = () => {},
@@ -27,7 +27,6 @@ export class VirtualTableLayout extends React.PureComponent<VirtualTableLayoutPr
     } = this.props;
 
     const tableRef = blockRef || React.createRef();
-    // console.log('render layout')
 
     return (
       <RefHolder
@@ -46,17 +45,31 @@ export class VirtualTableLayout extends React.PureComponent<VirtualTableLayoutPr
           <Body>
             {collapsedGrid.rows.map((visibleRow) => {
               const { row, cells = [] } = visibleRow;
+
               return (
                 <RefHolder
                   key={row.key}
                   ref={ref => rowRefsHandler(row, ref)}
                 >
-                  <VirtualRowLayout
-                    row={row}
-                    cells={cells}
-                    rowComponent={rowComponent}
-                    cellComponent={cellComponent}
-                  />
+                  <Row
+                    tableRow={row}
+                    style={row.height !== undefined
+                      ? { height: `${(row.height === 'auto' ? bodyHeight : row.height)}px`}
+                      : undefined}
+                  >
+                    {cells.map((cell) => {
+                      const { column } = cell;
+                      return (
+                        <Cell
+                          key={column.key}
+                          tableRow={row}
+                          tableColumn={column}
+                          style={column.animationState}
+                          colSpan={cell.colSpan}
+                        />
+                      );
+                    })}
+                  </Row>
                 </RefHolder>
               );
             })}
@@ -114,11 +127,17 @@ export class VirtualTableLayout extends React.PureComponent<VirtualTableLayoutPr
     // console.log('get grid, rows =', loadedRowsStart, bodyRows)
     //const bRows =  Array.from({ length: loadedRowsStart }).concat(bodyRows || []);
     const bRows = bodyRows;
-    console.log('get collapsed grid', bRows, visibleBoundaries.bodyRows)
-    const collapsedBodyGrid = getCollapsedGridBlock(
-      bRows || [], visibleBoundaries.bodyRows, totalRowCount, loadedRowsStart,
+    // console.log('get collapsed grid', bRows, visibleBoundaries.bodyRows)
+    const adjustedInterval = intervalUtil.intersect(
+      { start: visibleBoundaries.bodyRows[0], end: visibleBoundaries.bodyRows[1] },
+      { start: loadedRowsStart, end: loadedRowsStart + bodyRows.length },
     );
-    console.log('render layout', collapsedBodyGrid.rows)
+    const adjustedBounds = [adjustedInterval.start, adjustedInterval.end];
+
+    const collapsedBodyGrid = getCollapsedGridBlock(
+      bRows || [], adjustedBounds, totalRowCount, loadedRowsStart,
+    );
+    // console.log('render layout', collapsedBodyGrid.rows)
     // console.log('total count', totalRowCount, 'bounds', visibleBoundaries.columns, 'collapsed', collapsedBodyGrid)
     const collapsedFooterGrid = getCollapsedGridBlock(footerRows || [], null);//visibleBoundaries.footerRows);
     const bodyBottomMargin = Math.max(0, containerHeight - headerHeight - bodyHeight - footerHeight);
@@ -127,7 +146,7 @@ export class VirtualTableLayout extends React.PureComponent<VirtualTableLayoutPr
     return (
       <React.Fragment>
         {!!headerRows.length && this.renderRowsBlock('header', collapsedHeaderGrid, HeadTable, Head)}
-        {this.renderRowsBlock('body', collapsedBodyGrid, Table, Body, tableRef, bodyBottomMargin)}
+        {this.renderRowsBlock('body', collapsedBodyGrid, Table, Body, tableRef, bodyBottomMargin, containerHeight - headerHeight)}
         {!!footerRows.length && this.renderRowsBlock('footer', collapsedFooterGrid, FootTable, Footer)}
       </React.Fragment>
     );

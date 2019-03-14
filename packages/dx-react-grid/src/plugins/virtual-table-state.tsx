@@ -14,9 +14,8 @@ const rawRowsComputed = ({ rows }: Getters) => rows;
 const virtualRowsComputed = (
   { start, rows, virtualRowsCache }: Getters,
 ) => {
-  console.log('virtual rows. start', start, 'cache start', virtualRowsCache.start);
   return virtualRowsWithCache(start, rows, virtualRowsCache);
-}
+};
 
 const rowsComputed = ({ virtualRows }: Getters) => virtualRows.rows;
 
@@ -62,11 +61,6 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
       const newPageIndex = requestedRange.start;
       const pageStart = newPageIndex;
       const loadCount = (requestedRange.end - requestedRange.start);
-
-      console.log('----- get rows', rowIndex,
-      'new bounds', newBounds,
-      'loaded', loadedInterval,
-      'requested', requestedRange, pageStart, loadCount);
 
       if (newPageIndex !== requestedPageIndex && loadCount > 0) {
         if (this.requestTimer !== 0) {
@@ -115,14 +109,12 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
       >
         <Getter name="start" value={start} />
         <Getter name="virtualRowsCache" value={virtualRowsCache} />
-        <Getter name="virtualPageSize" value={100} /> to prop
+        <Getter name="virtualPageSize" value={100} /> {/*to prop*/}
         <Getter name="totalRowCount" value={rowCount} />
-        <Getter name="rawRows" computed={rawRowsComputed} /> to delete
+        <Getter name="rawRows" computed={rawRowsComputed} /> {/*to delete*/}
         <Getter name="virtualRows" computed={virtualRowsComputed} />
         <Getter name="rows" computed={rowsComputed} />
-        {/* <Getter name="loadedRowsStart" computed={loadedRowsStartComputed} />
-        <Getter name="loadedRowsCount" computed={loadedRowsCountComputed} /> */}
-        <Getter name="getRowId" computed={rowIdGetterComputed} /> to delete
+        <Getter name="getRowId" computed={rowIdGetterComputed} /> {/*to delete*/}
 
         <Action name="requestNextPage" action={this.requestNextPageAction} />
       </Plugin>

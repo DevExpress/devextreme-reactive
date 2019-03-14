@@ -67,11 +67,8 @@ export const getVisibleBoundary: GetVisibleBoundaryFn = (
     beforePosition = viewportStart;
     index = items.length;
     start = Math.round(viewportStart / itemSize) - offset;
-    end = start;// + items.length;
+    end = start;
   }
-  // if (beforePosition > viewportStart) {
-  //   start =
-  // }
 
   while (end === null && index < items.length) {
     const item = items[index];
@@ -157,7 +154,6 @@ export const getSpanBoundary: GetSpanBoundaryFn = (
 export const collapseBoundaries: CollapseBoundariesFn = (
   itemsCount, visibleBoundaries, spanBoundaries, offset = 0,
 ) => {
-
   const testboundaries: VisibleBoundary[] = [];
   let min = itemsCount;
   let max = 0;
@@ -190,7 +186,7 @@ export const collapseBoundaries: CollapseBoundariesFn = (
     testboundaries.push([i, i]);
   }
 
-  if (max < itemsCount - 1) {
+  if (min - 1 < max && max < itemsCount - 1) {
     testboundaries.push([max + 1, itemsCount - 1]);
   }
 
@@ -246,12 +242,18 @@ export const getCollapsedRows: GetCollapsedAndStubRowsFn = (
         cells: getCells(row),
       });
     } else {
+      const row = {};
+      const rowCount = boundary[1] - boundary[0];
       collapsedRows.push({
         row: {
           key: `${TABLE_STUB_TYPE.toString()}_${boundary[0]}_${boundary[1]}`,
           type: TABLE_STUB_TYPE,
-          height: getColumnsSize(rows, boundary[0], boundary[1], getRowHeight),
+          height: (rowCount === 0
+            ? 'auto'
+            : getColumnsSize(rows, boundary[0], boundary[1], getRowHeight)
+          ),
         },
+        cells: getCells(row),
       });
     }
   });
@@ -315,7 +317,6 @@ export const getCollapsedGrid: GetCollapsedGridFn = ({
 
   const boundaries = rowsVisibleBoundary || [0, rows.length];
 
-  console.log('rows length', rows.length, 'boundaries', boundaries)
   const rowSpanBoundaries = rows
     .slice(boundaries[0], boundaries[1])
     .map(row => getSpanBoundary(
@@ -331,12 +332,6 @@ export const getCollapsedGrid: GetCollapsedGridFn = ({
   );
 
   const rowBoundaries = collapseBoundaries(totalRowCount!, [boundaries], [], offset);
-
-  console.log(
-    'collapse grid rows bounds', rowBoundaries,
-    'rowSpanBounds', rowSpanBoundaries,
-    'rowsVisibleBoundary', rowsVisibleBoundary,
-  )
 
   return {
     columns: getCollapsedColumns(

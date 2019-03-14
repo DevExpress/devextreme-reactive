@@ -16,7 +16,6 @@ export const mergeRows = (rowsInterval, cacheInterval, rows, cacheRows, rowsStar
     .filter(i => 0 <= i && i < Number.POSITIVE_INFINITY)
     .sort((a, b) => a - b);
 
-  console.log('bp', breakpoints)
   let result = [];
 
   const pluckSubarray = (source, sourceStart, left, right) => (

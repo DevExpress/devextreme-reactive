@@ -3,7 +3,7 @@ import { findDOMNode } from 'react-dom';
 import {
   connectProps, Plugin, TemplatePlaceholder, Sizer, Template,
   Getter,
-  TemplateConnector, PluginComponents, Getters, Actions,
+  TemplateConnector, PluginComponents, Getters,
 } from '@devexpress/dx-react-core';
 import {
   getColumnsVisibleBoundary,
@@ -11,11 +11,11 @@ import {
   getRowsRenderBoundary,
   TABLE_FLEX_TYPE,
   TABLE_STUB_TYPE,
-  isHeaderStubTableCell,
-  rowsOffsetToPx,
+  isStubTableCell,
 } from '@devexpress/dx-grid-core';
 import {
   VirtualTableProps, VirtualTableLayoutProps, VirtualTableLayoutState, TableLayoutProps,
+  Table as TableNS,
 } from '../types';
 import { memoize, Memoized } from '@devexpress/dx-core';
 
@@ -27,7 +27,7 @@ const renderBoundariesComputed = ({
   virtualRows,
 }: Getters) => ({
   bodyRows: getRowsRenderBoundary(
-    virtualRows.start + tableBodyRows.length - 1, visibleBoundaries.bodyRows, 3,
+    virtualRows.start + tableBodyRows.length, visibleBoundaries.bodyRows, 3,
   ),
   columns: visibleBoundaries.columns,
 });
@@ -40,6 +40,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
   defaultEstimatedRowHeight,
   defaultHeight,
   minColumnWidth,
+  StubCell,
 }) => {
   class VirtualTable extends React.PureComponent<VirtualTableProps, VirtualTableLayoutState> {
     static defaultProps = {
@@ -122,19 +123,6 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
               loadedRowsStart, this.props.estimatedRowHeight,
             ),
           };
-          console.log('visible bounds', res.bodyRows, viewportTop)
-          const diff = res.bodyRows[1] - res.bodyRows[0];
-          if (diff === 0 ) {
-            console.log(' !!!!! incorrect bounds: ', res.bodyRows,
-              'body rows', tableBodyRows.length, 'start', loadedRowsStart,
-              'body height', containerHeight - headerHeight - footerHeight,
-            )
-            debugger;
-            const ff = getRowsBoundary(
-              tableBodyRows, viewportTop, containerHeight - headerHeight - footerHeight,
-              loadedRowsStart, this.props.estimatedRowHeight,
-            );
-          }
 
           return res;
         },
@@ -191,8 +179,6 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
         return;
       }
 
-      console.log('++SCROLL', node.scrollTop)
-
       this.ensureNextPage(currentVirtualPageBoundary, requestNextPage, node.scrollTop);
 
       this.setState({
@@ -222,9 +208,6 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
       }
 
       if (referenceIndex !== null) {
-        console.log(
-          'request next page, reference is', referenceIndex,
-          'top trigger', topTriggerIndex, topTriggerPosition)
         requestNextPage(referenceIndex);
       }
     }
@@ -328,15 +311,6 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
         const visibleCount = visibleBoundaries.bodyRows[1] - visibleBoundaries.bodyRows[0];
         const middleIndex = firstRowIndex + Math.round(visibleCount / 2);
 
-        // const getTriggerOffset = rowsOffset => rowsOffsetToPx(
-        //   middleIndex, rowsOffset, virtualRows,
-        //   this.getRowHeight, estimatedRowHeight,
-        // );
-
-        //const topTriggerOffset = getTriggerOffset(middleIndex - topTriggerIndex);
-        // debugger
-        // const bottomTriggerOffset2 = getTriggerOffset(bottomTriggerIndex - middleIndex);
-
         const { viewportTop } = this.state;
         const middlePosition = viewportTop + containerHeight / 2;
 
@@ -345,15 +319,11 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
         const topTriggerPosition = middlePosition - topTriggerOffset;
         const bottomTriggerPosition = middlePosition + bottomTriggerOffset;
 
-        // console.log('calc scroll bounds', bottomTriggerOffset, bottomTriggerOffset2)
-        // transform indexes to px and pass to scroll handler
-
         return {
           topTriggerIndex,
           topTriggerPosition,
           bottomTriggerIndex,
           bottomTriggerPosition,
-          // middleIndex,
         };
       };
 
@@ -373,7 +343,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
                 <TemplateConnector>
                   {(
                     { currentVirtualPageBoundary, totalRowCount, virtualRows,
-                      renderBoundaries,
+                      renderBoundaries, visibleBoundaries,
                     },
                     { requestNextPage },
                   ) => {
@@ -421,10 +391,14 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
             }}
           </Template>
 
-          {/* <Template
-            name="tableCell" predicate={isStubTableCell()}>
-
-          </Template> */}
+          <Template
+            name="tableCell"
+            predicate={({ tableRow }: any) => !!isStubTableCell(tableRow)}
+          >
+            {(params: TableNS.CellProps) => (
+              <StubCell {...params} />
+            )}
+          </Template>
         </Plugin>
       );
     }

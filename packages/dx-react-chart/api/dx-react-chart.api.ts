@@ -134,6 +134,14 @@ interface CommonComponentProps {
 }
 
 // @public (undocumented)
+declare type Coordinates = {
+  // (undocumented)
+  readonly x: number;
+  // (undocumented)
+  readonly y: number;
+};
+
+// @public (undocumented)
 declare type DataItem = {
   // (undocumented)
   readonly [field: string]: any;
@@ -143,7 +151,7 @@ declare type DataItem = {
 declare type DataItems = ReadonlyArray<DataItem>;
 
 // @public (undocumented)
-declare type DomainBounds = Readonly<[any, any]>;
+declare type DomainBounds = Readonly<any[]>;
 
 // @public (undocumented)
 declare type DomainItems = ReadonlyArray<any>;
@@ -169,6 +177,12 @@ declare type GetAnimationStyleFn = (scales: Scales, point?: PointComponentProps)
 };
 
 // @public (undocumented)
+declare const getBounds: (name: string, scales: ScaleObject, delta: number, type: string, viewport?: ViewportOptions | undefined) => any[];
+
+// @public (undocumented)
+declare const getDeltaForTouches: (deltaX: number, deltaY: number) => number;
+
+// @public (undocumented)
 declare type GetFormatFn = (tick: any) => string;
 
 // @public (undocumented)
@@ -176,6 +190,12 @@ type GetPointerMoveHandlersFn = PureComputed<[Getters], HandlerFnList>;
 
 // @public (undocumented)
 declare type GetPointFieldFn = (point: PointComponentProps) => number;
+
+// @public (undocumented)
+declare const getPrevBounds: (name: string, scale: ScaleObject, viewport?: ViewportOptions | undefined) => any;
+
+// @public (undocumented)
+declare const getValueScaleName: (viewport?: ViewportOptions | undefined) => string;
 
 // @public (undocumented)
 declare type HandlerFn = (arg: TargetData) => void;
@@ -207,6 +227,14 @@ type HoverStateState = {
   // (undocumented)
   hover?: SeriesRef;
 };
+
+// @public (undocumented)
+type LastCoordinates = {
+  // (undocumented)
+  x: number;
+  // (undocumented)
+  y: number;
+} | null;
 
 // @public (undocumented)
 declare const Legend: React.ComponentType<LegendProps>;
@@ -263,6 +291,14 @@ declare type NotifyPointerMoveFn = (target: SeriesRef | null) => void;
 
 // @public (undocumented)
 declare type NumberArray = [number, number];
+
+// @public (undocumented)
+declare const offsetCoordinates: (coordinates: Coordinates, offset: [number, number]) => {
+  // (undocumented)
+  x: number;
+  // (undocumented)
+  y: number;
+};
 
 // @public (undocumented)
 declare type OffsetFn = (series: StackData, order: number[]) => void;
@@ -392,6 +428,7 @@ interface ScaleObject {
   copy(): this;
   domain(domain: DomainItems): this;
   domain(): DomainItems;
+  invert(value: number): any;
   paddingInner?(arg: number): this;
   paddingOuter?(arg: number): this;
   range(): NumberArray;
@@ -630,6 +667,32 @@ interface ViewportProps {
 type ViewportState = {
   // (undocumented)
   viewport?: ViewportOptions;
+};
+
+// @public (undocumented)
+declare const ZoomAndPan: React.ComponentType<ZoomAndPanProps>;
+
+// @public (undocumented)
+interface ZoomAndPanProps {
+  defaultViewport?: ViewportOptions;
+  viewport?: ViewportOptions;
+}
+
+// @public (undocumented)
+type ZoomAndPanState = {
+  // (undocumented)
+  viewport?: ViewportOptions;
+  // (undocumented)
+  rectBox?: {
+    // (undocumented)
+    x: number;
+    // (undocumented)
+    y: number;
+    // (undocumented)
+    width: number;
+    // (undocumented)
+    height: number;
+  };
 };
 
 

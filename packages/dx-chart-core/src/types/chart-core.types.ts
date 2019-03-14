@@ -30,6 +30,8 @@ export interface ScaleObject {
   paddingInner?(arg: number): this;
   /** A function that sets a scale’s outer padding and returns the current scale */
   paddingOuter?(arg: number): this;
+  /** A function that returns the corresponding value from the domain */
+  invert(value: number): any;
 }
 
 /** @internal */

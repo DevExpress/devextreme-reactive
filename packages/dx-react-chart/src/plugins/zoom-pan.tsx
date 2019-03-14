@@ -11,12 +11,11 @@ import {
   Getter,
 } from '@devexpress/dx-react-core';
 import {
-  ARGUMENT_DOMAIN, VALUE_DOMAIN, adjustLayout, getRootOffset, getDeltaForTouches, offsetCoordinates,
-  isCoords, getBounds, pan, zoom, adjustBounds, getPrevBounds,
+  ARGUMENT_DOMAIN, adjustLayout, getRootOffset, getDeltaForTouches, offsetCoordinates,
+  getBounds, adjustBounds, getPrevBounds, getValueScaleName,
 } from '@devexpress/dx-chart-core';
-import { ZoomAndPanProps, ZoomAndPanState } from '../types';
-
-type LastCoordinates = {x: number, y: number} | null;
+import { ZoomAndPanProps, ZoomAndPanState, LastCoordinates,
+  NumberArray } from '../types';
 
 class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanState> {
   lastCoordinates: LastCoordinates = null;
@@ -36,7 +35,6 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
     this.handleMouseMove = this.handleMouseMove.bind(this);
     this.handleStart = this.handleStart.bind(this);
     this.handleMouseUp = this.handleMouseUp.bind(this);
-    this.handleTouchMove = this.handleTouchMove.bind(this);
   }
 
   static getDerivedStateFromProps(props: ZoomAndPanProps, state: ZoomAndPanState): ZoomAndPanState {
@@ -46,34 +44,30 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
     };
   }
 
-  handleTouchMove = (scales, deltaX, deltaY) => {
-    this.zoom(scales, getDeltaForTouches(deltaX, deltaY));
-  }
-
   handleStart = (e) => {
     this.offset = getRootOffset(e.currentTarget);
     if (e.nativeEvent.shiftKey) {
       this.drawRectange = true;
     }
-    if (e.targetTouches.length === 2) {
+    if (e.targetTouches && e.targetTouches.length === 2) {
       this.multiTouch = true;
     }
   }
 
   handleMouseMove = (scales, clientOffset) => {
-    const coords = offsetCoordinates(clientOffset, this.offset);
-    if (!isCoords(this.lastCoordinates)) {
+    const coords = offsetCoordinates(clientOffset, this.offset as NumberArray);
+    if (!this.lastCoordinates) {
       this.lastCoordinates = coords;
       if (this.drawRectange) {
         this.rectangle = coords;
       }
       return;
     }
-    const deltaX = coords.x - this.lastCoordinates!.x;
-    const deltaY = coords.y - this.lastCoordinates!.y;
+    const deltaX = coords.x - this.lastCoordinates.x;
+    const deltaY = coords.y - this.lastCoordinates.y;
 
     if (this.multiTouch) {
-      this.handleTouchMove(scales, deltaX, deltaY);
+      this.zoom(scales, getDeltaForTouches(deltaX, deltaY));
       if (this.lastCoordinates) {
         this.lastCoordinates = coords;
       }
@@ -94,12 +88,11 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
           },
         };
       }
-      const scaleName = viewport && viewport.scaleName || VALUE_DOMAIN;
       return {
         viewport: {
           ...viewport,
-          argumentBounds: getBounds(ARGUMENT_DOMAIN, scales, viewport, deltaX, pan),
-          valueBounds: getBounds(scaleName, scales, viewport, deltaY, pan),
+          argumentBounds: getBounds(ARGUMENT_DOMAIN, scales, deltaX, 'pan', viewport),
+          valueBounds: getBounds(getValueScaleName(viewport), scales, deltaY, 'pan', viewport),
         },
       };
     });
@@ -111,7 +104,7 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
     if (this.drawRectange) {
       this.setState(({ viewport, rectBox }) => {
         this.drawRectange = false;
-        const scaleName = viewport && viewport.scaleName || VALUE_DOMAIN;
+        const scaleName = getValueScaleName(viewport);
         const argumentScale = scales[ARGUMENT_DOMAIN];
         const valueScale = scales[scaleName];
         return {
@@ -121,12 +114,15 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
             argumentBounds: adjustBounds(
               argumentScale,
               [rectBox!.x, rectBox!.x + rectBox!.width],
-              getPrevBounds(ARGUMENT_DOMAIN, viewport, argumentScale),
+              getPrevBounds(ARGUMENT_DOMAIN, argumentScale, viewport),
+              'zoom',
             ),
             valueBounds: adjustBounds(
               valueScale,
               [rectBox!.y + rectBox!.height, rectBox!.y],
-              getPrevBounds(scaleName, viewport, valueScale)),
+              getPrevBounds(scaleName, valueScale, viewport),
+              'zoom',
+            ),
           },
         };
       });
@@ -135,12 +131,11 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
 
   zoom = (scales, delta) => {
     this.setState(({ viewport }) => {
-      const scaleName = viewport && viewport.scaleName || VALUE_DOMAIN;
       return {
         viewport: {
           ...viewport,
-          argumentBounds: getBounds(ARGUMENT_DOMAIN, scales, viewport, delta, zoom),
-          valueBounds: getBounds(scaleName, scales, viewport, delta, zoom),
+          argumentBounds: getBounds(ARGUMENT_DOMAIN, scales, delta, 'zoom', viewport),
+          valueBounds: getBounds(getValueScaleName(viewport), scales, delta, 'zoom', viewport),
         },
       };
     });
@@ -167,6 +162,7 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
               <DropTarget
                 onOver={({ _, clientOffset }) => this.handleMouseMove(scales, clientOffset)}
                 onDrop={() => this.handleMouseUp(scales)}
+                onLeave={() => this.handleMouseUp(scales)}
               >
                 <DragSource payload={null}>
                   <TemplatePlaceholder />

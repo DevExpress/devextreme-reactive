@@ -13,3 +13,5 @@ export type ZoomAndPanState = {
   viewport?: ViewportOptions;
   rectBox?: {x: number, y: number, width: number, height: number};
 };
+
+export type LastCoordinates = {x: number, y: number} | null;

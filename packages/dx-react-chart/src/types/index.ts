@@ -6,7 +6,7 @@ export {
   FactoryFn, ModifyDomainFn,
   BBoxes, BBoxesChange,
   StackList, StacksOptions, OffsetFn, OrderFn,
-  EventHandlers,
+  EventHandlers, NumberArray,
   DomainBounds, ViewportOptions,
 
   AreaSeries, LineSeries, SplineSeries, BarSeries, ScatterSeries, PieSeries,

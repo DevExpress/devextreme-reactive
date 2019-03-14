@@ -74,8 +74,8 @@ export const viewPredicate: ViewPredicateFn = (
 
 export const sortAppointments: PureComputed<
   [AppointmentMoment[], boolean], AppointmentMoment[]
-> = (appointments, byDay = false) => Array.prototype.slice.call(appointments)
-  .sort((a, b) => {
+> = (appointments, byDay = false) => appointments
+  .slice().sort((a, b) => {
     const compareValue = byDay ? 'day' : undefined;
     if (a.start.isBefore(b.start, compareValue)) return -1;
     if (a.start.isAfter(b.start, compareValue)) return 1;
@@ -160,7 +160,7 @@ export const calculateFirstDateOfWeek: CalculateFirstDateOfWeekFn = (
   });
   const firstDateOfWeek = moment(currentDate as Date).startOf('week');
   if (excludedDays.indexOf(firstDayOfWeek) !== -1) {
-    Array.prototype.slice.call(excludedDays).sort().forEach((day) => {
+    excludedDays.slice().sort().forEach((day) => {
       if (day === firstDateOfWeek.day()) {
         firstDateOfWeek.add(1, 'days');
       }

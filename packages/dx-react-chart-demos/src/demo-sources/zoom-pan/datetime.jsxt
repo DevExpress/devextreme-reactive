@@ -1,0 +1,50 @@
+import * as React from 'react';<%&additionalImports%>
+import {
+  Chart,
+  ArgumentAxis,
+  ValueAxis,
+  LineSeries,
+} from '@devexpress/dx-react-chart-<%&themeName%>';
+import { scaleTime } from 'd3-scale';
+import { ZoomAndPan, ArgumentScale } from '@devexpress/dx-react-chart';
+
+const generateData = (n) => {
+  const ret = [];
+  let y = 0;
+  const dt = new Date(2017, 2, 10);
+  for (let i = 0; i < n; i += 1) {
+    y += Math.round(Math.random() * 10 - 5);
+    ret.push({ x: new Date(dt.setDate(dt.getDate() + 1)), y });
+  }
+  return ret;
+};
+const data = generateData(100);
+
+
+export default class Demo extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      data,
+    };
+  }
+
+  render() {
+    const { data: chartData } = this.state;
+    return (
+      <<%&wrapperTag%><%&wrapperAttributes%>>
+        <Chart
+          data={chartData}
+        >
+          <ArgumentScale factory={scaleTime} />
+          <ArgumentAxis />
+          <ValueAxis />
+
+          <LineSeries valueField="y" argumentField="x" />
+          <ZoomAndPan />
+        </Chart>
+      </<%&wrapperTag%>>
+    );
+  }
+}

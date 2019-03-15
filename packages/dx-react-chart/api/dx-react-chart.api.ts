@@ -98,6 +98,9 @@ interface BasicDataProps {
 }
 
 // @public (undocumented)
+declare type BoundsFn = (scale: ScaleObject, bounds: NumberArray, delta: number, name: string, type: string) => any[];
+
+// @public (undocumented)
 declare type BuildAnimatedStyleGetterFn = PureComputed<[any, GetAnimationStyleFn, Scales, PointComponentProps?]>;
 
 // @public (undocumented)
@@ -177,7 +180,7 @@ declare type GetAnimationStyleFn = (scales: Scales, point?: PointComponentProps)
 };
 
 // @public (undocumented)
-declare const getBounds: (name: string, scales: ScaleObject, delta: number, type: string, viewport?: ViewportOptions | undefined) => any[];
+declare const getBounds: BoundsFn;
 
 // @public (undocumented)
 declare const getDeltaForTouches: (deltaX: number, deltaY: number) => number;
@@ -190,9 +193,6 @@ type GetPointerMoveHandlersFn = PureComputed<[Getters], HandlerFnList>;
 
 // @public (undocumented)
 declare type GetPointFieldFn = (point: PointComponentProps) => number;
-
-// @public (undocumented)
-declare const getPrevBounds: (name: string, scale: ScaleObject, viewport?: ViewportOptions | undefined) => any;
 
 // @public (undocumented)
 declare const getValueScaleName: (viewport?: ViewportOptions | undefined) => string;
@@ -420,6 +420,18 @@ interface RawAxisProps {
 }
 
 // @public (undocumented)
+type RectBox = {
+  // (undocumented)
+  x: number;
+  // (undocumented)
+  y: number;
+  // (undocumented)
+  width: number;
+  // (undocumented)
+  height: number;
+};
+
+// @public (undocumented)
 interface ScaleObject {
   // (undocumented)
   (value: any): number;
@@ -450,6 +462,12 @@ declare type Scales = {
   readonly xScale: ScaleObject;
   // (undocumented)
   readonly yScale: ScaleObject;
+};
+
+// @public (undocumented)
+declare type ScalesCache = {
+  // (undocumented)
+  readonly [key: string]: ScaleObject;
 };
 
 // @public (undocumented)
@@ -674,7 +692,10 @@ declare const ZoomAndPan: React.ComponentType<ZoomAndPanProps>;
 
 // @public (undocumented)
 interface ZoomAndPanProps {
+  allowForArgument?: boolean;
+  allowForValue?: boolean;
   defaultViewport?: ViewportOptions;
+  dragBoxComponent: React.ComponentType<ZoomPan.DragBoxProps>;
   onViewportChange?: (viewport: ViewportOptions) => void;
   viewport?: ViewportOptions;
 }
@@ -684,17 +705,21 @@ type ZoomAndPanState = {
   // (undocumented)
   viewport?: ViewportOptions;
   // (undocumented)
-  rectBox?: {
-    // (undocumented)
-    x: number;
-    // (undocumented)
-    y: number;
-    // (undocumented)
-    width: number;
-    // (undocumented)
-    height: number;
-  };
+  rectBox?: RectBox;
 };
+
+// @public (undocumented)
+namespace ZoomPan {
+  // (undocumented)
+  interface DragBoxProps {
+    // (undocumented)
+    color: string;
+    // (undocumented)
+    opacity: number;
+    // (undocumented)
+    rectBox: RectBox;
+  }
+}
 
 
 // (No @packageDocumentation comment for this package)

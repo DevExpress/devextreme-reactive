@@ -34,7 +34,6 @@ export interface ScaleObject {
   invert(value: number): any;
 }
 
-/** @internal */
 export type ScalesCache = {
   readonly [key: string]: ScaleObject,
 };

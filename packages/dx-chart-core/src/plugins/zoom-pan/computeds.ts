@@ -35,6 +35,7 @@ const getPrevBounds = (
 export const getValueScaleName = (viewport?: ViewportOptions) =>
 viewport && viewport.scaleName || VALUE_DOMAIN;
 
+/** @internal */
 export const adjustBounds = (name: string, scales: ScalesCache, allowChange: boolean,
   type: string, getCurrentBounds: BoundsFn, delta: number, viewport?: ViewportOptions) => {
   const scale = scales[name];

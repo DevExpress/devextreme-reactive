@@ -12,6 +12,8 @@ import {
   TABLE_FLEX_TYPE,
   TABLE_STUB_TYPE,
   isStubTableCell,
+  visibleBounds,
+  pageTriggerPositions,
 } from '@devexpress/dx-grid-core';
 import {
   VirtualTableProps, VirtualTableLayoutProps, VirtualTableLayoutState, TableLayoutProps,
@@ -55,7 +57,10 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
     rowRefs: Map<any, any>;
     blockRefs: Map<any, any>;
     visibleBoundariesComputed: Memoized<VirtualTableLayoutState, Function>;
+    pageTriggerPositionsComputed: Memoized<VirtualTableLayoutState, Function>;
     getColumnWidth: (column: any) => any;
+    getScrollHandler: (...args: any[]) => (e: any) => void;
+    getSizeChangeHandler: (...args: any[]) => (e: any) => void;
 
     constructor(props) {
       super(props);
@@ -100,34 +105,27 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
         ? 0
         : column.width || minColumnWidth);
 
-      const getRowsBoundary = (blockRows, top, blockHeight, start, rowHeight) => (
-        getRowsVisibleBoundary(
-          blockRows, top, blockHeight, this.getRowHeight, start, rowHeight,
-        ));
-
       this.visibleBoundariesComputed = memoize(
-        state => ({
-          tableBodyRows,
-          columns,
-          virtualRows,
-        }: Getters,
-        ) => {
-          const {
-            viewportLeft, width, viewportTop, containerHeight, headerHeight, footerHeight,
-          } = this.state;
-          const loadedRowsStart = virtualRows.start;
-          const res = {
-            columns: getColumnsVisibleBoundary(columns, viewportLeft, width, this.getColumnWidth),
-            bodyRows: getRowsBoundary(
-              tableBodyRows, viewportTop, containerHeight - headerHeight - footerHeight,
-              loadedRowsStart, this.props.estimatedRowHeight,
-            ),
-          };
-
-          return res;
-        },
+        state => (getters: Getters) => (
+          visibleBounds(
+            state, getters, estimatedRowHeight, this.getColumnWidth, this.getRowHeight,
+          )
+        ),
       );
 
+      this.pageTriggerPositionsComputed = memoize(
+        state => (getters: Getters) => (
+          pageTriggerPositions(state, getters, estimatedRowHeight)
+        ),
+      );
+
+      this.getScrollHandler = (currentVirtualPageBoundary, requestNextPage) => (
+        e => this.updateViewport(currentVirtualPageBoundary, requestNextPage, e)
+      );
+
+      this.getSizeChangeHandler = (currentVirtualPageBoundary, requestNextPage) => (
+        e => this.handleContainerSizeChange(currentVirtualPageBoundary, requestNextPage, e)
+      );
     }
 
     componentDidUpdate() {
@@ -294,38 +292,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
       } = this.state;
 
       const visibleBoundariesComputed = this.visibleBoundariesComputed(this.state);
-
-      /** how many rows up and down before next page request */
-      const currentVirtualPageBoundaryComputed = (
-        { visibleBoundaries, virtualPageSize, virtualRows }: Getters) => {
-        const loadedStart = virtualRows.start;
-        const loadedCount = virtualRows.rows.length;
-
-        if (loadedCount === 0) {
-          return [0, -1];
-        }
-
-        const topTriggerIndex = loadedStart > 0 ? loadedStart + virtualPageSize : 0;
-        const bottomTriggerIndex = loadedStart + loadedCount - virtualPageSize;
-        const firstRowIndex = visibleBoundaries.bodyRows[0];
-        const visibleCount = visibleBoundaries.bodyRows[1] - visibleBoundaries.bodyRows[0];
-        const middleIndex = firstRowIndex + Math.round(visibleCount / 2);
-
-        const { viewportTop } = this.state;
-        const middlePosition = viewportTop + containerHeight / 2;
-
-        const topTriggerOffset = (middleIndex - topTriggerIndex) * estimatedRowHeight;
-        const bottomTriggerOffset = (bottomTriggerIndex - middleIndex) * estimatedRowHeight;
-        const topTriggerPosition = middlePosition - topTriggerOffset;
-        const bottomTriggerPosition = middlePosition + bottomTriggerOffset;
-
-        return {
-          topTriggerIndex,
-          topTriggerPosition,
-          bottomTriggerIndex,
-          bottomTriggerPosition,
-        };
-      };
+      const pageTriggerPositionsComputed = this.pageTriggerPositionsComputed(this.state);
 
       return (
         <Plugin name="VirtualTable">
@@ -334,7 +301,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
           <Getter name="visibleBoundaries" computed={visibleBoundariesComputed} />
           <Getter name="renderBoundaries" computed={renderBoundariesComputed} />
 
-          <Getter name="currentVirtualPageBoundary" computed={currentVirtualPageBoundaryComputed} />
+          <Getter name="currentVirtualPageBoundary" computed={pageTriggerPositionsComputed} />
 
           <Template name="tableLayout">
             {(params: TableLayoutProps) => {
@@ -355,16 +322,14 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
                     return (
                       <Sizer
                         onSizeChange={
-                          this.handleContainerSizeChange
-                            .bind(this, currentVirtualPageBoundary, requestNextPage)
+                          this.getSizeChangeHandler(currentVirtualPageBoundary, requestNextPage)
                         }
                         containerComponent={Container}
                         style={{
                           ...(propHeight === AUTO_HEIGHT ? null : { height: `${propHeight}px` }),
                         }}
                         onScroll={
-                          this.updateViewport
-                            .bind(this, currentVirtualPageBoundary, requestNextPage)
+                          this.getScrollHandler(currentVirtualPageBoundary, requestNextPage)
                         }
                       >
                         <TemplatePlaceholder

@@ -7,7 +7,6 @@ import {
   rowIdGetter, recalculateBounds,
   calculateRequestedRange, recalculateCache, virtualRowsWithCache,
 } from '@devexpress/dx-grid-core';
-import { shallowEqual } from '@devexpress/dx-core';
 
 const rawRowsComputed = ({ rows }: Getters) => rows;
 
@@ -43,6 +42,11 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
       requestedPageIndex: undefined,
     };
 
+    const getLoadedInterval = virtualRows => ({
+      start: virtualRows.start,
+      end: virtualRows.start + virtualRows.rows.length,
+    });
+
     this.requestNextPageAction = (rowIndex: any,
       { virtualRows, virtualPageSize, rawRows, totalRowCount },
     ) => {
@@ -50,9 +54,7 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
       const { start, getRows } = this.props;
 
       const newBounds = recalculateBounds(rowIndex, virtualPageSize, totalRowCount);
-      const loadedStart = virtualRows.start;
-      const loadedCount = virtualRows.rows.length;
-      const loadedInterval = { start: loadedStart, end: loadedStart + loadedCount };
+      const loadedInterval = getLoadedInterval(virtualRows);
 
       const requestedRange = calculateRequestedRange(
         loadedInterval, newBounds, rowIndex, virtualPageSize,
@@ -84,17 +86,6 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
   componentDidMount() {
     const { getRows } = this.props;
     getRows(0, 200);
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    const { virtualRowsCache: currentCache } = this.state;
-    if (nextState.virtualRowsCache !== currentCache) {
-      return false;
-    }
-
-    return (
-      !shallowEqual(this.props, nextProps) || !shallowEqual(this.state, nextState)
-    );
   }
 
   render() {

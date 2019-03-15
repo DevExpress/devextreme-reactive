@@ -270,7 +270,7 @@ describe('VirtualTableState helpers', () => {
     });
   });
 
-  describe('#recalculateCache', () => {
+  describe('#trimRowsToInterval', () => {
 
   });
 });

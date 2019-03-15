@@ -1,17 +1,16 @@
-import { intervalUtil } from './utils';
+import { intervalUtil, Interval } from './utils';
 import { Row } from '../../types';
+import { PureComputed } from '@devexpress/dx-core';
 
 export type VirtualRows = {
-  start: number,
+  start?: number,
   rows: Row[],
 };
 
 export const mergeRows = (rowsInterval, cacheInterval, rows, cacheRows, rowsStart, cacheStart) => {
   const breakpoints = [
-    rowsInterval.start,
-    rowsInterval.end,
-    cacheInterval.start,
-    cacheInterval.end,
+    rowsInterval.start, rowsInterval.end,
+    cacheInterval.start, cacheInterval.end,
   ]
     .filter(i => 0 <= i && i < Number.POSITIVE_INFINITY)
     .sort((a, b) => a - b);
@@ -68,20 +67,20 @@ export const recalculateBounds = (middleIndex, pageSize, totalCount) => {
   };
 };
 
-export const recalculateCache = (cache, rows, start, currentInterval) => {
-  const cacheInterval = {
-    start: cache.start,
-    end: cache.start + cache.rows.length,
-  };
-  const rowsInterval = {
-    start,
-    end: start + rows.length,
-  };
+type TrimRowsToIntervalFn = PureComputed<[VirtualRows, Interval]>;
+export const trimRowsToInterval: TrimRowsToIntervalFn = (virtualRows, targetInterval) => {
+  const rowsInterval = intervalUtil.getRowsInterval(virtualRows);
+  const intersection = intervalUtil.intersect(rowsInterval, targetInterval);
+  if (intervalUtil.empty === intersection) {
+    return { start: undefined, rows: [] };
+  }
 
-  const clippedCacheInterval = intervalUtil.intersect(cacheInterval, currentInterval);
-  const clippedRowsInterval = intervalUtil.intersect(rowsInterval, currentInterval);
+  const relativeStart = intersection.start - virtualRows.start;
+  const relativeEnd = intersection.end - virtualRows.start;
+  const rows = virtualRows.rows.slice(relativeStart, relativeEnd);
 
-  return mergeRows(
-    clippedRowsInterval, clippedCacheInterval, rows, cache.rows, start, cache.start,
-  );
+  return {
+    rows,
+    start: intersection.start,
+  };
 };

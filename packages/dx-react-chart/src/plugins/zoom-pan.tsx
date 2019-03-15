@@ -11,7 +11,10 @@ import {
   Getter,
   Action,
   ActionFn,
+  PluginComponents,
+  withComponents,
 } from '@devexpress/dx-react-core';
+import { DragBox } from '../templates/drag-box';
 import {
   ARGUMENT_DOMAIN, adjustLayout, getRootOffset, getDeltaForTouches, offsetCoordinates,
   getBounds, adjustBounds, getPrevBounds, getValueScaleName,
@@ -27,6 +30,9 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
   drawRectange = false;
   offset: number[] = [0, 0];
   multiTouch = false;
+  static components: PluginComponents = {
+    dragBoxComponent: 'DragBox',
+  };
 
   changeViewport: ActionFn<ViewportOptions> = (viewport) => {
     this.setState((state, { onViewportChange }) => {
@@ -161,6 +167,7 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
 
   render() {
     const { viewport, rectBox } = this.state;
+    const { dragBoxComponent: DragBoxComponent } = this.props;
     const getAdjustedLayout = ({
       domains,
       ranges,
@@ -201,20 +208,19 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
 
         <Template name="series">
           <TemplatePlaceholder />
-            <svg>
-              <rect
-                x={rectBox!.x}
-                y={rectBox!.y}
-                width={rectBox!.width}
-                height={rectBox!.height}
-                fill="gray"
-                opacity={0.3}
-              />
-            </svg>
+          {
+          <DragBoxComponent
+            rectBox={rectBox!}
+            color={'gray'}
+            opacity={0.3}
+          />
+          }
         </Template>
       </Plugin >
     );
   }
 }
 
-export const ZoomAndPan: React.ComponentType<ZoomAndPanProps> = ZoomAndPanBase;
+export const ZoomAndPan: React.ComponentType<
+  ZoomAndPanProps
+> =  withComponents({ DragBox })(ZoomAndPanBase);

@@ -11,6 +11,8 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   adjustLayout: jest.fn().mockReturnValue('adjusted-ranges'),
 }));
 
+const DragBoxComponent = () => null;
+
 describe('ZoomAndPan', () => {
   const defaultDeps = {
     getter: {
@@ -26,6 +28,7 @@ describe('ZoomAndPan', () => {
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <ZoomAndPan
+          dragBoxComponent={DragBoxComponent}
           viewport={{
             argumentBounds: 'test-arg-bounds' as any,
             scaleName: 'scale-1',
@@ -51,6 +54,7 @@ describe('ZoomAndPan', () => {
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <ZoomAndPan
+          dragBoxComponent={DragBoxComponent}
           defaultViewport={{
             argumentBounds: 'test-arg-bounds' as any,
             scaleName: 'scale-1',
@@ -72,6 +76,7 @@ describe('ZoomAndPan', () => {
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <ZoomAndPan
+          dragBoxComponent={DragBoxComponent}
           viewport={{
             argumentBounds: 'test-arg-bounds' as any,
             scaleName: 'scale-1',

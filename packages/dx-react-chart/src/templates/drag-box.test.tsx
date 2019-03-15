@@ -13,13 +13,13 @@ describe('DragBox', () => {
     const tree = shallow(<DragBox {...defaultProps}/>);
 
     const {
-      x, y, width, height, color, opacity,
+      x, y, width, height, fill, opacity,
     } = tree.find('rect').props();
     expect(x).toBe(1);
     expect(y).toBe(2);
     expect(width).toBe(3);
     expect(height).toBe(4);
-    expect(color).toBe('color');
+    expect(fill).toBe('color');
     expect(opacity).toBe(0.3);
   });
 });

@@ -9,6 +9,10 @@ export interface ZoomAndPanProps {
   viewport?: ViewportOptions;
   /** A function that is executed when viewport changes */
   onViewportChange?: (viewport: ViewportOptions) => void;
+  /** Allow zoom/pan argument */
+  allowForArgument?: boolean;
+  /** Allow zoom/pan value */
+  allowForValue?: boolean;
   /** A component that renders the drag box */
   dragBoxComponent: React.ComponentType<ZoomPan.DragBoxProps>;
 }

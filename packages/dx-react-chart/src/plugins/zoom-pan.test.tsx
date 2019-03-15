@@ -65,4 +65,33 @@ describe('ZoomAndPan', () => {
       ranges: 'adjusted-ranges',
     });
   });
+
+  it('should provide action', () => {
+    const mock = jest.fn();
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <ZoomAndPan
+          viewport={{
+            argumentBounds: 'test-arg-bounds' as any,
+            scaleName: 'scale-1',
+            valueBounds: 'test-val-bounds' as any,
+          }}
+          onViewportChange={mock}
+        />
+      </PluginHost>
+    ));
+
+    executeComputedAction(tree, actions => actions.changeViewport({
+      argumentBounds: 'new-arg-bounds' as any,
+      scaleName: 'scale-2',
+      valueBounds: 'new-val-bounds' as any,
+    }));
+
+    expect(mock).toBeCalledWith({
+      argumentBounds: 'new-arg-bounds',
+      scaleName: 'scale-2',
+      valueBounds: 'new-val-bounds',
+    });
+  });
 });

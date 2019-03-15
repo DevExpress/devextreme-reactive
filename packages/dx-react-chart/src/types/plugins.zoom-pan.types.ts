@@ -7,6 +7,8 @@ export interface ZoomAndPanProps {
   defaultViewport?: ViewportOptions;
   /** A viewport */
   viewport?: ViewportOptions;
+  /** A function that is executed when viewport changes */
+  onViewportChange?: (viewport: ViewportOptions) => void;
 }
 
 export type ZoomAndPanState = {

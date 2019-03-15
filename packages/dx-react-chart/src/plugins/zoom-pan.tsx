@@ -9,13 +9,17 @@ import {
   TemplateConnector,
   Getters,
   Getter,
+  Action,
+  ActionFn,
 } from '@devexpress/dx-react-core';
 import {
   ARGUMENT_DOMAIN, adjustLayout, getRootOffset, getDeltaForTouches, offsetCoordinates,
   getBounds, adjustBounds, getPrevBounds, getValueScaleName,
 } from '@devexpress/dx-chart-core';
-import { ZoomAndPanProps, ZoomAndPanState, LastCoordinates,
-  NumberArray } from '../types';
+import {
+  ZoomAndPanProps, ZoomAndPanState, LastCoordinates,
+  NumberArray, ViewportOptions,
+} from '../types';
 
 class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanState> {
   lastCoordinates: LastCoordinates = null;
@@ -23,6 +27,20 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
   drawRectange = false;
   offset: number[] = [0, 0];
   multiTouch = false;
+
+  changeViewport: ActionFn<ViewportOptions> = (viewport) => {
+    this.setState((state, { onViewportChange }) => {
+      // There should be some check that viewport is actually changed.
+      // But *viewport* is built outside and most like will always be new instance.
+      // So it should be fieldwise equality check.
+      // For now action is expected to be called only when *viewport* is really changed.
+      if (onViewportChange) {
+        onViewportChange(viewport as ViewportOptions);
+      }
+      return { viewport: viewport as ViewportOptions };
+    });
+  }
+
   constructor(props: ZoomAndPanProps) {
     super(props);
 
@@ -155,6 +173,7 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
     return (
       <Plugin name="zoomAndPan">
       <Getter name="ranges" computed={getAdjustedLayout} />
+      <Action name="changeViewport" action={this.changeViewport} />
         <Template name="root">
           <TemplateConnector>
             {({ scales }) =>

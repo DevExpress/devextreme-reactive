@@ -4,28 +4,36 @@ import {
   ArgumentAxis,
   ValueAxis,
   LineSeries,
-  Title,
-  Legend,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 import { ZoomAndPan } from '@devexpress/dx-react-chart';
 
-const generateData = n => {
-  let ret = [];
+const generateData = (n) => {
+  const ret = [];
   let y = 0;
-  for (let i = 0; i < n; i++) {
+  for (let i = 0; i < n; i += 1) {
     y += Math.round(Math.random() * 10 - 5);
-    ret.push({ x: i, y: y });
+    ret.push({ x: i, y });
   }
   return ret;
 };
 const data = generateData(100);
 
+
 export default class Demo extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      data,
+    };
+  }
+
   render() {
+    const { data: chartData } = this.state;
     return (
       <<%&wrapperTag%><%&wrapperAttributes%>>
         <Chart
-          data={data}
+          data={chartData}
         >
           <ArgumentAxis />
           <ValueAxis />

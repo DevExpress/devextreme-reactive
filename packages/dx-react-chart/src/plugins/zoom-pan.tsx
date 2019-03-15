@@ -48,11 +48,6 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
       viewport: props.viewport || props.defaultViewport,
       rectBox: { x: 0, y: 0, width: 0, height: 0 },
     };
-
-    this.handleScroll = this.handleScroll.bind(this);
-    this.handleMouseMove = this.handleMouseMove.bind(this);
-    this.handleStart = this.handleStart.bind(this);
-    this.handleMouseUp = this.handleMouseUp.bind(this);
   }
 
   static getDerivedStateFromProps(props: ZoomAndPanProps, state: ZoomAndPanState): ZoomAndPanState {

@@ -675,6 +675,7 @@ declare const ZoomAndPan: React.ComponentType<ZoomAndPanProps>;
 // @public (undocumented)
 interface ZoomAndPanProps {
   defaultViewport?: ViewportOptions;
+  onViewportChange?: (viewport: ViewportOptions) => void;
   viewport?: ViewportOptions;
 }
 
@@ -697,3 +698,4 @@ type ZoomAndPanState = {
 
 
 // (No @packageDocumentation comment for this package)
+

@@ -16,8 +16,7 @@ import {
   getAppointmentStyle,
   intervalDuration,
   VERTICAL_TYPE,
-  SCROLL_OFFSET,
-  SCROLL_SPEED_PX,
+  autoScroll,
   SECONDS,
 } from '@devexpress/dx-scheduler-core';
 
@@ -91,18 +90,8 @@ export class DragDropProvider extends React.PureComponent {
     },
     { changeAppointment, startEditAppointment },
   ) {
-    // AUTO SCROLL
     if (clientOffset) {
-      const layout = layoutElement.current;
-      const layoutHeaderRect = layoutHeaderElement.current.getBoundingClientRect();
-
-      if ((clientOffset.y < layoutHeaderRect.height + layoutHeaderRect.top + SCROLL_OFFSET)
-        && (clientOffset.y > layoutHeaderRect.height + layoutHeaderRect.top)) {
-        layout.scrollTop -= SCROLL_SPEED_PX;
-      }
-      if (layout.clientHeight - SCROLL_OFFSET < clientOffset.y - layout.offsetTop) {
-        layout.scrollTop += SCROLL_SPEED_PX;
-      }
+      autoScroll(clientOffset, layoutElement, layoutHeaderElement);
     }
 
     const timeTableCells = Array.from(timeTableElement.current.querySelectorAll('td'));

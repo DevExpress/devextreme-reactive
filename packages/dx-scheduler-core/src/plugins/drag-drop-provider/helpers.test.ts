@@ -1,4 +1,7 @@
-import { intervalDuration, cellIndex, cellData, cellType } from './helpers';
+import {
+  intervalDuration, cellIndex, cellData, cellType, autoScroll,
+} from './helpers';
+import { allDayRects } from '../../../dist/dx-scheduler-core.umd';
 
 describe('DragDropProvider', () => {
   describe('#cellType', () => {
@@ -78,6 +81,50 @@ describe('DragDropProvider', () => {
     it('should work with only time table index', () => {
       expect(cellData(2, -1, cellsData).startDate)
         .toEqual(new Date('2019-3-1 11:00'));
+    });
+  });
+
+  describe('#autoScroll', () => {
+    const layoutHeaderElementBase = rects => ({
+      current: {
+        getBoundingClientRect: () => rects,
+      },
+    });
+    const layoutElementBase = {
+      current: {
+        scrollTop: 10,
+        offsetTop: 10,
+        clientHeight: 200,
+      },
+    };
+    it('should scroll up', () => {
+      const clientOffset = { x: 1, y: 21 };
+      const layoutElement = JSON.parse(JSON.stringify(layoutElementBase));
+      const layoutHeaderElement = layoutHeaderElementBase({ height: 10, top: 10 });
+
+      autoScroll(clientOffset, layoutElement, layoutHeaderElement);
+      expect(layoutElement.current.scrollTop)
+        .toBe(-20);
+    });
+
+    it('should scroll down', () => {
+      const clientOffset = { x: 1, y: 161 };
+      const layoutElement = JSON.parse(JSON.stringify(layoutElementBase));
+      const layoutHeaderElement = layoutHeaderElementBase({ height: 10, top: 10 });
+
+      autoScroll(clientOffset, layoutElement, layoutHeaderElement);
+      expect(layoutElement.current.scrollTop)
+        .toBe(40);
+    });
+
+    it('should not scroll up if cursor is under of header element', () => {
+      const clientOffset = { x: 1, y: 25 };
+      const layoutElement = { current: { scrollTop: 0 } };
+      const layoutHeaderElement = layoutHeaderElementBase({ height: 20, top: 10 });
+
+      autoScroll(clientOffset, layoutElement, layoutHeaderElement);
+      expect(layoutElement.current.scrollTop)
+        .toBe(0);
     });
   });
 });

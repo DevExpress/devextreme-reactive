@@ -14,11 +14,13 @@ import {
   verticalTimeTableRects,
   horizontalTimeTableRects,
   getAppointmentStyle,
+  autoScroll,
 } from '@devexpress/dx-scheduler-core';
 import { DragDropProvider } from './drag-drop-provider';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   ...require.requireActual('@devexpress/dx-scheduler-core'),
+  autoScroll: jest.fn(),
   cellIndex: jest.fn(),
   cellData: jest.fn(),
   cellType: jest.fn(),
@@ -89,6 +91,7 @@ const defaultProps = {
 
 describe('DragDropProvider', () => {
   beforeEach(() => {
+    autoScroll.mockImplementation(() => undefined);
     cellIndex.mockImplementation(() => 1);
     cellType.mockImplementation(() => 'vertical');
     cellData.mockImplementation(() => ({ startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-26 11:00') }));
@@ -217,76 +220,17 @@ describe('DragDropProvider', () => {
   });
 
   describe('Auto Scroll', () => {
-    it('should scroll up', () => {
-      const deps = {
-        getter: {
-          layoutElement: {
-            current: {
-              scrollTop: 10,
-              offsetTop: 10,
-              clientHeight: 100,
-              getBoundingClientRect: () => ({ height: 1, top: 1 }),
-            },
-          },
-        },
-      };
-      const { tree, onOver } = mountPlugin({}, deps);
+    it('should call autoScroll with correct arguments', () => {
+      const clientOffset = { x: 1, y: 21 };
+      const { tree, onOver } = mountPlugin({});
 
-      onOver({ payload: { id: 1 }, clientOffset: { x: 1, y: 21 } });
+      onOver({ payload: { id: 1 }, clientOffset });
       tree.update();
 
-      expect(deps.getter.layoutElement.current.scrollTop)
-        .toBe(-20);
-    });
-
-    it('should scroll down', () => {
-      const deps = {
-        getter: {
-          layoutElement: {
-            current: {
-              scrollTop: 10,
-              offsetTop: 10,
-              clientHeight: 200,
-              getBoundingClientRect: () => ({ height: 1, top: 1 }),
-            },
-          },
-        },
-      };
-      const { tree, onOver } = mountPlugin({ }, deps);
-
-      onOver({ payload: { id: 1 }, clientOffset: { x: 1, y: 161 } });
-      tree.update();
-
-      expect(deps.getter.layoutElement.current.scrollTop)
-        .toBe(40);
-    });
-
-    it('should not scroll up if cursor is under of table header', () => {
-      const deps = {
-        getter: {
-          layoutElement: {
-            current: {
-              scrollTop: 0,
-            },
-          },
-          layoutHeaderElement: {
-            current: {
-              getBoundingClientRect: () => ({
-                height: 20,
-                top: 10,
-              }),
-              querySelectorAll: () => [],
-            },
-          },
-        },
-      };
-      const { tree, onOver } = mountPlugin({}, deps);
-
-      onOver({ payload: { id: 1 }, clientOffset: { x: 1, y: 25 } });
-      tree.update();
-
-      expect(deps.getter.layoutElement.current.scrollTop)
-        .toBe(0);
+      expect(autoScroll)
+        .toBeCalledWith(
+          clientOffset, defaultDeps.getter.layoutElement, defaultDeps.getter.layoutHeaderElement,
+        );
     });
   });
 

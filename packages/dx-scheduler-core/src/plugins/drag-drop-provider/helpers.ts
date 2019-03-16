@@ -11,7 +11,7 @@ import { getVerticalRectByDates } from '../vertical-rect/helpers';
 import { getHorizontalRectByDates } from '../horizontal-rect/helpers';
 import { calculateMonthDateIntervals } from '../month-view/computeds';
 import { calculateAllDayDateIntervals } from '../all-day-panel/computeds';
-import { VERTICAL_TYPE, HORIZONTAL_TYPE } from '../../constants';
+import { VERTICAL_TYPE, HORIZONTAL_TYPE, SCROLL_OFFSET, SCROLL_SPEED_PX } from '../../constants';
 
 const clamp: PureComputed<
   [number, number, number]
@@ -120,4 +120,17 @@ export const horizontalTimeTableRects: HorizontalRects = (
       cellElements,
     },
   );
+};
+
+export const autoScroll = (clientOffset: any, layoutElement: any, layoutHeaderElement: any) => {
+  const layout = layoutElement.current;
+  const layoutHeaderRect = layoutHeaderElement.current.getBoundingClientRect();
+
+  if ((clientOffset.y < layoutHeaderRect.height + layoutHeaderRect.top + SCROLL_OFFSET)
+    && (clientOffset.y > layoutHeaderRect.height + layoutHeaderRect.top)) {
+    layout.scrollTop -= SCROLL_SPEED_PX;
+  }
+  if (layout.clientHeight - SCROLL_OFFSET < clientOffset.y - layout.offsetTop) {
+    layout.scrollTop += SCROLL_SPEED_PX;
+  }
 };

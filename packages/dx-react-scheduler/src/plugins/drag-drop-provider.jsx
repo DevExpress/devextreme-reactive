@@ -59,6 +59,7 @@ const calculateAppointmentTimeBoundaries = (
   return {
     appointmentStartTime,
     appointmentEndTime,
+    offsetTimeTop,
   };
 };
 
@@ -149,29 +150,12 @@ export class DragDropProvider extends React.PureComponent {
 
     // CURSOR POSITION
     const cellDuration = intervalDuration(targetData, 'minutes');
-    const insideOffset = targetType === VERTICAL_TYPE ? insidePart * cellDuration * 60 / 2 : 0;
-
-    if (this.offsetTimeTop === null) {
-      this.offsetTimeTop = moment(targetData.startDate)
-        .diff(payload.startDate, SECONDS) + insideOffset;
-    }
-
-    const start = moment(targetData.startDate).add(insideOffset, SECONDS);
-    const end = moment(start);
-
-    if (sourceType === targetType) {
-      this.appointmentStartTime = moment(start).add((this.offsetTimeTop) * (-1), SECONDS).toDate();
-      this.appointmentEndTime = moment(end)
-        .add((appointmentDuration - this.offsetTimeTop), SECONDS).toDate();
-    } else {
-      this.appointmentStartTime = moment(targetData.startDate).add(insideOffset, SECONDS).toDate();
-      this.appointmentEndTime = moment(targetData.endDate).add(insideOffset, SECONDS).toDate();
-    }
-    const { appointmentStartTime, appointmentEndTime } = calculateAppointmentTimeBoundaries(
-      payload, targetData, targetType, sourceType, cellDuration, appointmentDuration, insidePart, this.offsetTimeTopBase,
+    const { appointmentStartTime, appointmentEndTime, offsetTimeTop } = calculateAppointmentTimeBoundaries(
+      payload, targetData, targetType, sourceType, cellDuration, appointmentDuration, insidePart, this.offsetTimeTop,
     );
-    // this.appointmentStartTime = appointmentStartTime;
-    // this.appointmentEndTime = appointmentEndTime;
+    this.appointmentStartTime = appointmentStartTime;
+    this.appointmentEndTime = appointmentEndTime;
+    this.offsetTimeTop = offsetTimeTop;
 
     const draftAppointments = [{
       ...payload, start: this.appointmentStartTime, end: this.appointmentEndTime,

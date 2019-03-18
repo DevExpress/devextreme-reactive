@@ -7,7 +7,6 @@ import {
   TableColumnVisibility,
   Toolbar,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
-import Immutable from 'seamless-immutable';
 
 import { generateRows } from '../../../demo-data/generator';
 
@@ -16,13 +15,13 @@ export default class Demo extends React.PureComponent {
     super(props);
 
     this.state = {
-      columns: Immutable([
+      columns: [
         { name: 'name', title: 'Name' },
         { name: 'sex', title: 'Sex' },
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
-      ]),
-      rows: Immutable(generateRows({ length: 6 })),
+      ],
+      rows: generateRows({ length: 6 }),
       defaultHiddenColumnNames: ['sex', 'car'],
       tableColumnVisibilityColumnExtensions: [
         { columnName: 'city', togglingEnabled: false },

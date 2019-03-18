@@ -10,6 +10,8 @@ import {
   BoundsFn,
 } from '../../types';
 
+const COEF = 30;
+
 const getCorrectRange = (range: NumberArray, name: string): any[] => {
   return name !== ARGUMENT_DOMAIN ? range.reverse() : range;
 };
@@ -43,8 +45,11 @@ export const adjustBounds = (name: string, scales: ScalesCache, allowChange: boo
   if (!allowChange) {
     return bounds;
   }
-  const range = getCurrentBounds(scale, bounds, delta, name, type);
   const initialBounds = scale.domain();
+  if (scale.bandwidth) {
+    return getCategories(type, bounds, initialBounds, delta);
+  }
+  const range = getCurrentBounds(scale, bounds, delta, name, type);
   const minDelta = (initialBounds[1] - initialBounds[0]) * 0.01;
   const value1 = scale.invert(range[0]);
   const value2 = scale.invert(range[1]);
@@ -56,6 +61,31 @@ export const adjustBounds = (name: string, scales: ScalesCache, allowChange: boo
   return [
     value1 < initialBounds[0] ? initialBounds[0] : value1,
     value2 > initialBounds[1] ? initialBounds[1] : value2,
+  ];
+};
+
+const getCategories = (type: string, currentRange: any, initialRange: any, delta: number) => {
+  const count = Math.round(delta / COEF);
+  const rangeLength = initialRange.length - 1;
+  const currentBounds = [currentRange[0], currentRange[currentRange.length - 1]];
+  const func = type === 'zoom' ? zoom : pan;
+  const firstIndex = initialRange.findIndex((element) => {
+    return currentBounds[0] === element;
+  });
+  const lastIndex = initialRange.findIndex((element) => {
+    return currentBounds[1] === element;
+  });
+  const indexes = [0, rangeLength];
+  const newIndexes = func(firstIndex, lastIndex, count, 1);
+  if (type === 'zoom' && firstIndex === lastIndex && count > 0) {
+    return currentBounds;
+  }
+  if (type === 'pan' && (newIndexes[0] < indexes[0] || newIndexes[1] > indexes[1])) {
+    return currentBounds;
+  }
+  return [
+    newIndexes[0] < indexes[0] ? initialRange[0] : initialRange[newIndexes[0]],
+    newIndexes[1] > indexes[1] ? initialRange[rangeLength] : initialRange[newIndexes[1]],
   ];
 };
 

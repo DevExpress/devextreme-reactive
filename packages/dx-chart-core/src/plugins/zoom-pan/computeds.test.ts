@@ -91,3 +91,44 @@ describe('Zoom and Pan', () => {
     expect(mock).toBeCalledWith(scales[ARGUMENT_DOMAIN], [10, 20], 2, ARGUMENT_DOMAIN, 'pan');
   });
 });
+
+describe('Zoom and Pan for categories', () => {
+  const singleScale = jest.fn(value => value);
+  (singleScale as any).domain = jest.fn(() => ['cat1', 'cat2', 'cat3', 'cat4', 'cat5']);
+  (singleScale as any).bandwidth = jest.fn();
+  const scales = { [ARGUMENT_DOMAIN]: singleScale, [VALUE_DOMAIN]: singleScale };
+  const viewport = { argumentBounds: [10, 15], valueBounds: [20, 25] };
+
+  it('should return bounds, zoom', () => {
+    expect(adjustBounds(ARGUMENT_DOMAIN, scales as any, true, 'zoom',
+    jest.fn(), 32)).toEqual(['cat2', 'cat4']);
+  });
+
+  it('should return prev bounds if one categories, zoom', () => {
+    expect(adjustBounds(ARGUMENT_DOMAIN, scales as any, true, 'zoom',
+    jest.fn(), 32, { argumentBounds: ['cat2', 'cat2'] })).toEqual(['cat2', 'cat2']);
+  });
+
+  it('should return bounds if one categories, unzoom', () => {
+    expect(adjustBounds(ARGUMENT_DOMAIN, scales as any, true, 'zoom',
+    jest.fn(), -32, { argumentBounds: ['cat2', 'cat2'] })).toEqual(['cat1', 'cat3']);
+  });
+
+  it('should return initial bounds, unzoom', () => {
+    expect(adjustBounds(ARGUMENT_DOMAIN, scales as any, true, 'zoom',
+      jest.fn(), -32)).toEqual(['cat1', 'cat5']);
+  });
+
+  it('should return bounds, pan', () => {
+    expect(adjustBounds(ARGUMENT_DOMAIN, scales as any, true, 'pan',
+      jest.fn(), 32, { argumentBounds: ['cat2', 'cat4'] })).toEqual(['cat1', 'cat3']);
+  });
+
+  it('should return prev bounds if bounds is out, pan', () => {
+    expect(adjustBounds(ARGUMENT_DOMAIN, scales as any, true, 'pan',
+      jest.fn(), 32, { argumentBounds: ['cat1', 'cat2'] })).toEqual(['cat1', 'cat2']);
+
+    expect(adjustBounds(ARGUMENT_DOMAIN, scales as any, true, 'pan',
+      jest.fn(), -32, { argumentBounds: ['cat3', 'cat5'] })).toEqual(['cat3', 'cat5']);
+  });
+});

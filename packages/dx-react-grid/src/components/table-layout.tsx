@@ -65,8 +65,7 @@ class TableLayoutBase extends React.PureComponent<TableLayoutCoreProps, TableLay
 
     const isFixedWidth = columns.filter(column => column.width === undefined).length === 0;
     if (isFixedWidth) {
-      result = Array.prototype.slice.call(result);
-      result.push({ key: TABLE_FLEX_TYPE.toString(), type: TABLE_FLEX_TYPE });
+      result = [...result, { key: TABLE_FLEX_TYPE.toString(), type: TABLE_FLEX_TYPE }];
     }
 
     if (animationState.size) {

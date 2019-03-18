@@ -233,7 +233,7 @@ describe('TableLayout', () => {
           .toHaveBeenLastCalledWith(expect.anything(), expect.anything(), 400, new Map());
       });
 
-      it('should not reset width if animations not finished', () => {
+      it('should work with immutable state', () => {
         const immutableColumns = Immutable([
           { key: 'a', column: { name: 'a' }, width: 100 },
           { key: 'b', column: { name: 'b' }, width: 100 },

@@ -6,6 +6,7 @@ describe('Sizer', () => {
   const divProto = (document.createElement('div') as HTMLDivElement).constructor.prototype;
   let addEventListener: any;
   let removeEventListener: any;
+  const Container = () => <div className="container" />;
 
   beforeAll(() => {
     addEventListener = divProto.addEventListener;
@@ -25,7 +26,6 @@ describe('Sizer', () => {
   });
 
   it('should add listeners on mount', () => {
-    const Container = () => <div className="container" />;
     const tree = mount(
       <Sizer
         onSizeChange={() => void 0}
@@ -45,7 +45,6 @@ describe('Sizer', () => {
   });
 
   it('should remove listeners on unmount', () => {
-    const Container = () => <div className="container" />;
     const tree = mount(
       <Sizer
         onSizeChange={() => void 0}
@@ -67,7 +66,6 @@ describe('Sizer', () => {
   });
 
   it('should set a 2px scroll offset to notifiers', () => {
-    const Container = () => <div className="container"  />;
     const tree = mount(
       <Sizer
         onSizeChange={() => void 0}
@@ -84,6 +82,5 @@ describe('Sizer', () => {
     const expandNotifier = expandTrigger.firstChild as HTMLElement;
     expect(expandNotifier.style.width).toBe('2px');
     expect(expandNotifier.style.height).toBe('2px');
-
   });
 });

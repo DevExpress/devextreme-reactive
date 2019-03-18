@@ -21,6 +21,8 @@ import {
 } from '@devexpress/dx-scheduler-core';
 
 const TYPE = 'month';
+const startViewDateBaseComputed = ({ viewCellsData }) => startViewDateCore(viewCellsData);
+const endViewDateBaseComputed = ({ viewCellsData }) => endViewDateCore(viewCellsData);
 
 export class MonthView extends React.PureComponent {
   constructor(props) {
@@ -32,22 +34,28 @@ export class MonthView extends React.PureComponent {
 
     const {
       name: viewName, firstDayOfWeek, intervalCount,
-    } = this.props;
+    } = props;
 
+    this.timeTable = { current: null };
+    this.layout = React.createRef();
+    this.layoutHeader = React.createRef();
     this.timeTableRef = this.timeTableRef.bind(this);
+
     this.dayScalePlaceholder = () => <TemplatePlaceholder name="navbar" />;
     this.timeTablePlaceholder = () => <TemplatePlaceholder name="main" />;
     this.appointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
     this.cellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
 
-    this.startViewDateBaseComputed = ({ viewCellsData }) => startViewDateCore(viewCellsData);
-    this.endViewDateBaseComputed = ({ viewCellsData }) => endViewDateCore(viewCellsData);
-    this.viewCellsDataComputed = ({
+    const viewCellsDataComputed = ({
       currentDate,
     }) => monthCellsData(
       currentDate, firstDayOfWeek,
       intervalCount, Date.now(),
     );
+
+    const timeTableElementComputed = () => this.timeTable;
+    const layoutElementComputed = () => this.layout;
+    const layoutHeaderElementComputed = () => this.layoutHeader;
 
     this.currentViewComputed = ({ currentView }) => (
       currentView && currentView.name !== viewName
@@ -64,17 +72,28 @@ export class MonthView extends React.PureComponent {
       getters, viewName, () => firstDayOfWeek, getters.firstDayOfWeek,
     );
     this.startViewDateCore = getters => computed(
-      getters, viewName, this.startViewDateBaseComputed, getters.startViewDate,
+      getters, viewName, startViewDateBaseComputed, getters.startViewDate,
     );
     this.endViewDateComputed = getters => computed(
-      getters, viewName, this.endViewDateBaseComputed, getters.endViewDate,
+      getters, viewName, endViewDateBaseComputed, getters.endViewDate,
     );
     this.viewCellsData = getters => computed(
-      getters, viewName, this.viewCellsDataComputed, getters.viewCellsData,
+      getters, viewName, viewCellsDataComputed, getters.viewCellsData,
+    );
+
+    this.timeTableElement = getters => computed(
+      getters, viewName, timeTableElementComputed, getters.timeTableElement,
+    );
+    this.layoutElement = getters => computed(
+      getters, viewName, layoutElementComputed, getters.layoutElement,
+    );
+    this.layoutHeaderElement = getters => computed(
+      getters, viewName, layoutHeaderElementComputed, getters.layoutHeaderElement,
     );
   }
 
   timeTableRef(timeTableRef) {
+    this.timeTable.current = timeTableRef;
     this.setState({ timeTableRef });
   }
 
@@ -103,6 +122,9 @@ export class MonthView extends React.PureComponent {
         <Getter name="viewCellsData" computed={this.viewCellsData} />
         <Getter name="startViewDate" computed={this.startViewDateCore} />
         <Getter name="endViewDate" computed={this.endViewDateComputed} />
+        <Getter name="timeTableElement" computed={this.timeTableElement} />
+        <Getter name="layoutElement" computed={this.layoutElement} />
+        <Getter name="layoutHeaderElement" computed={this.layoutHeaderElement} />
 
         <Template name="body">
           <TemplateConnector>
@@ -112,6 +134,9 @@ export class MonthView extends React.PureComponent {
                 <ViewLayout
                   dayScaleComponent={this.dayScalePlaceholder}
                   timeTableComponent={this.timeTablePlaceholder}
+
+                  layoutRef={this.layout}
+                  layoutHeaderRef={this.layoutHeader}
                 />
               );
             }}

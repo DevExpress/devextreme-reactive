@@ -21,6 +21,12 @@ import {
 } from '@devexpress/dx-scheduler-core';
 
 const TYPE = 'day';
+const startViewDateBaseComputed = ({
+  viewCellsData,
+}) => startViewDateCore(viewCellsData);
+const endViewDateBaseComputed = ({
+  viewCellsData,
+}) => endViewDateCore(viewCellsData);
 
 export class DayView extends React.PureComponent {
   constructor(props) {
@@ -30,6 +36,9 @@ export class DayView extends React.PureComponent {
       timeTableRef: null,
     };
 
+    this.timeTable = { current: null };
+    this.layout = React.createRef();
+    this.layoutHeader = React.createRef();
     this.timeTableRef = this.timeTableRef.bind(this);
 
     this.sidebarPlaceholder = () => <TemplatePlaceholder name="sidebar" />;
@@ -45,15 +54,9 @@ export class DayView extends React.PureComponent {
       endDayHour,
       cellDuration,
       intervalCount,
-    } = this.props;
+    } = props;
 
-    this.startViewDateBaseComputed = ({
-      viewCellsData,
-    }) => startViewDateCore(viewCellsData);
-    this.endViewDateBaseComputed = ({
-      viewCellsData,
-    }) => endViewDateCore(viewCellsData);
-    this.viewCellsDataComputed = ({
+    const viewCellsDataComputed = ({
       currentDate,
     }) => viewCellsDataCore(
       currentDate, undefined,
@@ -62,11 +65,15 @@ export class DayView extends React.PureComponent {
       Date.now(),
     );
 
+    const timeTableElementComputed = () => this.timeTable;
+    const layoutElementComputed = () => this.layout;
+    const layoutHeaderElementComputed = () => this.layoutHeader;
+
     this.startViewDateComputed = getters => computed(
-      getters, viewName, this.startViewDateBaseComputed, getters.startViewDate,
+      getters, viewName, startViewDateBaseComputed, getters.startViewDate,
     );
     this.endViewDateComputed = getters => computed(
-      getters, viewName, this.endViewDateBaseComputed, getters.endViewDate,
+      getters, viewName, endViewDateBaseComputed, getters.endViewDate,
     );
     this.availableViewNamesComputed = ({ availableViewNames }) => availableViewNamesCore(
       availableViewNames, viewName,
@@ -83,11 +90,21 @@ export class DayView extends React.PureComponent {
       getters, viewName, () => cellDuration, getters.cellDuration,
     );
     this.viewCellsData = getters => computed(
-      getters, viewName, this.viewCellsDataComputed, getters.viewCellsData,
+      getters, viewName, viewCellsDataComputed, getters.viewCellsData,
+    );
+    this.timeTableElement = getters => computed(
+      getters, viewName, timeTableElementComputed, getters.timeTableElement,
+    );
+    this.layoutElement = getters => computed(
+      getters, viewName, layoutElementComputed, getters.layoutElement,
+    );
+    this.layoutHeaderElement = getters => computed(
+      getters, viewName, layoutHeaderElementComputed, getters.layoutHeaderElement,
     );
   }
 
   timeTableRef(timeTableRef) {
+    this.timeTable.current = timeTableRef;
     this.setState({ timeTableRef });
   }
 
@@ -121,6 +138,9 @@ export class DayView extends React.PureComponent {
         <Getter name="viewCellsData" computed={this.viewCellsData} />
         <Getter name="startViewDate" computed={this.startViewDateComputed} />
         <Getter name="endViewDate" computed={this.endViewDateComputed} />
+        <Getter name="timeTableElement" computed={this.timeTableElement} />
+        <Getter name="layoutElement" computed={this.layoutElement} />
+        <Getter name="layoutHeaderElement" computed={this.layoutHeaderElement} />
 
         <Template name="body">
           <TemplateConnector>
@@ -132,6 +152,8 @@ export class DayView extends React.PureComponent {
                   dayScaleEmptyCellComponent={this.dayScaleEmptyCellPlaceholder}
                   timeTableComponent={this.timeTablePlaceholder}
                   timeScaleComponent={this.sidebarPlaceholder}
+                  layoutRef={this.layout}
+                  layoutHeaderRef={this.layoutHeader}
                 />
               );
             }}

@@ -10,13 +10,9 @@ const styles = {
   table: {
     tableLayout: 'fixed',
   },
-  wrapper: {
-    position: 'relative',
-  },
 };
 
 const LayoutBase = ({
-  children,
   cellsData,
   allDayPanelRef,
   classes, className,
@@ -24,34 +20,30 @@ const LayoutBase = ({
   rowComponent: Row,
   ...restProps
 }) => (
-  <div className={classes.wrapper}>
-    <RootRef rootRef={allDayPanelRef}>
-      <Table
-        className={classNames(classes.table, className)}
-        {...restProps}
-      >
-        <TableHead>
-          <Row>
-            {cellsData.map(({
-              startDate,
-              endDate,
-            }) => (
-              <Cell
-                key={startDate}
-                startDate={startDate}
-                endDate={endDate}
-              />
-            ))}
-          </Row>
-        </TableHead>
-      </Table>
-    </RootRef>
-    {children}
-  </div>
+  <RootRef rootRef={allDayPanelRef}>
+    <Table
+      className={classNames(classes.table, className)}
+      {...restProps}
+    >
+      <TableHead>
+        <Row>
+          {cellsData.map(({
+            startDate,
+            endDate,
+          }) => (
+            <Cell
+              key={startDate}
+              startDate={startDate}
+              endDate={endDate}
+            />
+          ))}
+        </Row>
+      </TableHead>
+    </Table>
+  </RootRef>
 );
 
 LayoutBase.propTypes = {
-  children: PropTypes.node.isRequired,
   allDayPanelRef: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   cellsData: PropTypes.arrayOf(Array).isRequired,

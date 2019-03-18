@@ -1,3 +1,4 @@
+import * as Immutable from 'seamless-immutable';
 import {
   changeColumnGrouping,
   draftColumnGrouping,
@@ -17,6 +18,13 @@ describe('GroupingState reducers', () => {
         .toEqual({
           grouping: [{ columnName: 'test' }],
         });
+    });
+
+    it('can group by column with immutable state', () => {
+      const state = { grouping: Immutable([{ columnName: 'test' }]), expandedGroups: [] };
+      const payload = { columnName: 'test' };
+
+      expect(() => changeColumnGrouping(state, payload)).not.toThrow();
     });
 
     it('can ungroup by column', () => {
@@ -77,6 +85,13 @@ describe('GroupingState reducers', () => {
         .toEqual({
           expandedGroups: ['a', 'b', 'c'],
         });
+    });
+
+    it('should work with immutable state', () => {
+      const state = { expandedGroups: Immutable(['a', 'b']) };
+      const payload = { groupKey: 'c' };
+
+      expect(() => toggleExpandedGroups(state, payload)).not.toThrow();
     });
 
     it('should remove a closed group', () => {

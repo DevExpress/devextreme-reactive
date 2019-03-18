@@ -12,6 +12,7 @@ import {
   AppointmentTooltip,
   AppointmentForm,
   DragDropProvider,
+  AllDayPanel,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { connectProps } from '@devexpress/dx-react-core';
 import { InlineDateTimePicker, MuiPickersUtilsProvider } from 'material-ui-pickers';
@@ -392,6 +393,7 @@ class Demo extends React.PureComponent {
             showDeleteButton
           />
           <Toolbar />
+          <AllDayPanel />
           <ViewSwitcher />
           <AppointmentForm
             popupComponent={this.appointmentForm}

@@ -29,6 +29,39 @@ const pluginDependencies = [
   { name: 'AllDayPanel', optional: true },
 ];
 
+const calculateAppointmentTimeBoundaries = (
+  payload, targetData, targetType, sourceType, cellDuration, appointmentDuration, insidePart, offsetTimeTopBase,
+) => {
+  const insideOffset = targetType === VERTICAL_TYPE ? insidePart * cellDuration * 60 / 2 : 0;
+  let offsetTimeTop;
+
+  if (offsetTimeTopBase === null) {
+    offsetTimeTop = moment(targetData.startDate)
+      .diff(payload.startDate, SECONDS) + insideOffset;
+  } else {
+    offsetTimeTop = offsetTimeTopBase;
+  }
+
+  const start = moment(targetData.startDate).add(insideOffset, SECONDS);
+  const end = moment(start);
+
+  let appointmentStartTime;
+  let appointmentEndTime;
+  if (sourceType === targetType) {
+    appointmentStartTime = moment(start).add((offsetTimeTop) * (-1), SECONDS).toDate();
+    appointmentEndTime = moment(end)
+      .add((appointmentDuration - offsetTimeTop), SECONDS).toDate();
+  } else {
+    appointmentStartTime = moment(targetData.startDate).add(insideOffset, SECONDS).toDate();
+    appointmentEndTime = moment(targetData.endDate).add(insideOffset, SECONDS).toDate();
+  }
+
+  return {
+    appointmentStartTime,
+    appointmentEndTime,
+  };
+};
+
 export class DragDropProvider extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -134,6 +167,11 @@ export class DragDropProvider extends React.PureComponent {
       this.appointmentStartTime = moment(targetData.startDate).add(insideOffset, SECONDS).toDate();
       this.appointmentEndTime = moment(targetData.endDate).add(insideOffset, SECONDS).toDate();
     }
+    const { appointmentStartTime, appointmentEndTime } = calculateAppointmentTimeBoundaries(
+      payload, targetData, targetType, sourceType, cellDuration, appointmentDuration, insidePart, this.offsetTimeTopBase,
+    );
+    // this.appointmentStartTime = appointmentStartTime;
+    // this.appointmentEndTime = appointmentEndTime;
 
     const draftAppointments = [{
       ...payload, start: this.appointmentStartTime, end: this.appointmentEndTime,

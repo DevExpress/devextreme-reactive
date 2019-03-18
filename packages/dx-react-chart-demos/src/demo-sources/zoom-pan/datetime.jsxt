@@ -38,7 +38,7 @@ export default class Demo extends React.PureComponent {
     const argument = document.getElementById('argument').checked;
     this.setState({
       isValue: value,
-      isArgument:argument
+      isArgument: argument,
     });
   }
 
@@ -60,14 +60,18 @@ export default class Demo extends React.PureComponent {
           />
         </Chart>
         <p>
-          <input type="checkbox" id="argument" />
-          <label>Zoom/scroll argument</label>
+          <label htmlFor="argument">
+            <input type="checkbox" id="argument" />
+              Zoom/scroll argument
+          </label>
         </p>
         <p>
-          <input type="checkbox" id="value" />
-          <label>Zoom/scroll value</label>
+          <label htmlFor="value">
+            <input type="checkbox" id="value" />
+            Zoom/scroll value
+          </label>
         </p>
-        <button onClick={this.submit}>Done</button>
+        <button type="submit" onClick={this.submit}>Done</button>
       </<%&wrapperTag%>>
     );
   }

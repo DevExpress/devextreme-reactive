@@ -1,3 +1,22 @@
+# [1.11.0-alpha.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.10.4...v1.11.0-alpha.1) (2019-03-13)
+
+
+### Features
+
+* **react-scheduler:** add editing by dragging ([#1870](https://github.com/DevExpress/devextreme-reactive/issues/1870)) ([238f696](https://github.com/DevExpress/devextreme-reactive/commit/238f696))
+
+
+
+# [1.10.4](https://github.com/DevExpress/devextreme-reactive/compare/v1.10.3...v1.10.4) (2019-03-11)
+
+
+### Bug Fixes
+
+* **react-core:** correct IDependency definition ([#1891](https://github.com/DevExpress/devextreme-reactive/issues/1891)) ([c9d0f44](https://github.com/DevExpress/devextreme-reactive/commit/c9d0f44))
+* **react-grid:** correct typescript definitions ([#1876](https://github.com/DevExpress/devextreme-reactive/issues/1876)) ([404a239](https://github.com/DevExpress/devextreme-reactive/commit/404a239))
+
+
+
 # [1.10.3](https://github.com/DevExpress/devextreme-reactive/compare/v1.10.2...v1.10.3) (2019-02-27)
 
 

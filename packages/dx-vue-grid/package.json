@@ -1,7 +1,7 @@
 {
   "name": "@devexpress/dx-vue-grid",
   "private": true,
-  "version": "1.10.3",
+  "version": "1.11.0-alpha.1",
   "description": "Composable plugin-based data grid component for Vue",
   "author": {
     "name": "Developer Express Inc.",
@@ -40,7 +40,7 @@
     "lint:fix": "yarn run lint -- --fix"
   },
   "devDependencies": {
-    "@devexpress/dx-testing": "1.10.3",
+    "@devexpress/dx-testing": "1.11.0-alpha.1",
     "@vue/test-utils": "1.0.0-beta.12",
     "babel-core": "^6.26.3",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
@@ -68,11 +68,11 @@
     "vue-template-compiler": "^2.5.17"
   },
   "dependencies": {
-    "@devexpress/dx-core": "1.10.3",
-    "@devexpress/dx-grid-core": "1.10.3"
+    "@devexpress/dx-core": "1.11.0-alpha.1",
+    "@devexpress/dx-grid-core": "1.11.0-alpha.1"
   },
   "peerDependencies": {
-    "@devexpress/dx-vue-core": "1.10.3",
+    "@devexpress/dx-vue-core": "1.11.0-alpha.1",
     "vue": ">=2.5.16"
   }
 }

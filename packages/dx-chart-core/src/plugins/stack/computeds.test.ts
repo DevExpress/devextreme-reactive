@@ -1,6 +1,7 @@
 import { stack } from 'd3-shape';
 import { scaleBand } from 'd3-scale';
-import { getStackedSeries } from './computeds';
+import { extendDomains, updateDomainItems } from '../scale/computeds';
+import { getStackedSeries, getStackedDomains } from './computeds';
 
 jest.mock('d3-shape', () => ({
   stack: jest.fn(),
@@ -8,6 +9,11 @@ jest.mock('d3-shape', () => ({
 
 jest.mock('d3-scale', () => ({
   scaleBand: jest.fn(),
+}));
+
+jest.mock('../scale/computeds', () => ({
+  extendDomains: jest.fn(),
+  updateDomainItems: jest.fn(),
 }));
 
 describe('Stack', () => {
@@ -70,6 +76,7 @@ describe('Stack', () => {
           { ...series1.points[0], value0: '1a', value: '1b' },
           { ...series1.points[1], value0: '1c', value: '1d' },
         ],
+        isStacked: true,
       });
       expect(result[1]).toEqual({
         ...series2,
@@ -78,6 +85,7 @@ describe('Stack', () => {
           { ...series2.points[1], value0: '2c', value: '2d' },
           { ...series2.points[2], value0: '2e', value: '2f' },
         ],
+        isStacked: true,
       });
       expect(result[2]).toEqual({
         ...series3,
@@ -85,6 +93,7 @@ describe('Stack', () => {
           { ...series3.points[0], value0: '3a', value: '3b' },
           { ...series3.points[1], value0: '3c', value: '3d' },
         ],
+        isStacked: true,
       });
       expect((stack as any).mock.calls.length).toEqual(1);
       expect(mockStack.keys).toBeCalledWith(['val1', 'val2', 'val3']);
@@ -222,13 +231,6 @@ describe('Stack', () => {
       expect(result[4].getPointTransformer.isStartedFromZero).toEqual(true);
       expect((result[4].getPointTransformer as any).a).toEqual('A');
       expect((result[4].getPointTransformer as any).b).toEqual('B');
-
-      // TODO: Temporary - see note for *getValueDomainCalculator*.
-      expect(result[0].getValueDomain).toBeUndefined();
-      expect(result[1].getValueDomain).toBeUndefined();
-      expect(result[2].getValueDomain).toEqual(expect.any(Function));
-      expect(result[3].getValueDomain).toEqual(expect.any(Function));
-      expect(result[4].getValueDomain).toEqual(expect.any(Function));
     });
 
     it('should update *y1* in wrapped *getPointTransformer*', () => {
@@ -259,28 +261,6 @@ describe('Stack', () => {
         tag: '#t',
         y1: 'v2#',
       });
-    });
-
-    // TODO: Temporary - see note for *getValueDomainCalculator*.
-    it('should collect values in *getValueDomain*', () => {
-      mockStack.mockReturnValue([]);
-      const getPointTransformer = () => null;
-      getPointTransformer.isStartedFromZero = true;
-
-      const result = getStackedSeries([
-        makeSeries('1', { getPointTransformer }),
-        makeSeries('2', { getPointTransformer }),
-      ], 'test-data' as any, {
-        stacks: makeStacks('1', '2'),
-        offset: 'test-offset' as any,
-        order: 'test-order' as any,
-      });
-
-      expect(result[0].getValueDomain([
-        { value: 2, value0: 1 } as any,
-        { value: 4, value0: 3 },
-        { value: 8, value0: 7 },
-      ])).toEqual([2, 1, 4, 3, 8, 7]);
     });
 
     it('should arrange groups', () => {
@@ -408,6 +388,93 @@ describe('Stack', () => {
         ['0'],
         ['group-5'],
       ]);
+    });
+  });
+
+  describe('getStackedDomains', () => {
+    afterEach(() => {
+      (extendDomains as jest.Mock).mockReset();
+      (updateDomainItems as jest.Mock).mockReset();
+    });
+
+    it('should recalculate domains', () => {
+      const domains = {
+        'domain-1': {
+          domain: [1, 2],
+        },
+        'domain-2': {
+          domain: ['A'],
+        },
+      };
+      const series = [
+        {
+          name: 's-1', isStacked: true, scaleName: 'domain-1',
+          points: [{ value0: 3 }, { value0: 4 }],
+        },
+        { name: 's-2' },
+        {
+          name: 's-3', isStacked: true, scaleName: 'domain-2',
+          points: [{ value0: 'C' }, { value0: 'D' }],
+        },
+      ];
+      (extendDomains as jest.Mock).mockReturnValueOnce('test-domains-1');
+      (extendDomains as jest.Mock).mockReturnValueOnce('test-domains-2');
+      (extendDomains as jest.Mock).mockReturnValueOnce({
+        'domain-1': { tag: 'domain-1' },
+        'domain-2': { tag: 'domain-2' },
+      });
+      (updateDomainItems as jest.Mock).mockReturnValueOnce({ items: 'extended-1' });
+      (updateDomainItems as jest.Mock).mockReturnValueOnce({ items: 'extended-2' });
+
+      const result = getStackedDomains(domains, series);
+
+      expect(result).toEqual({
+        'domain-1': { items: 'extended-1' },
+        'domain-2': { items: 'extended-2' },
+      });
+      expect((extendDomains as jest.Mock).mock.calls).toEqual([
+        [
+          {
+            'domain-1': { domain: [] },
+            'domain-2': { domain: [] },
+          },
+          series[0], expect.anything(), expect.anything(),
+        ],
+        [
+          'test-domains-1', series[1], expect.anything(), expect.anything(),
+        ],
+        [
+          'test-domains-2', series[2], expect.anything(), expect.anything(),
+        ],
+      ]);
+      expect((updateDomainItems as jest.Mock).mock.calls).toEqual([
+        [
+          { tag: 'domain-1' }, [3, 4],
+        ],
+        [
+          { tag: 'domain-2' }, ['C', 'D'],
+        ],
+      ]);
+    });
+
+    it('should return original domains if there are no stacked series', () => {
+      const domains = {
+        'domain-1': {
+          domain: [1, 2],
+        },
+        'domain-2': {
+          domain: ['A'],
+        },
+      };
+      const series = [
+        { name: 's-1' },
+        { name: 's-2' },
+        { name: 's-3' },
+      ];
+
+      const result = getStackedDomains(domains, series);
+
+      expect(result).toBe(domains);
     });
   });
 });

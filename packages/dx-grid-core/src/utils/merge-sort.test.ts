@@ -1,9 +1,15 @@
+import * as Immutable from 'seamless-immutable';
 import mergeSort from './merge-sort';
 
 describe('margeSort', () => {
   it('sorts correctly', () => {
     const data = [1, 5, 6, 3, 0, 2, 7];
     expect(mergeSort(data)).toEqual([0, 1, 2, 3, 5, 6, 7]);
+  });
+
+  it('should work with immutable state', () => {
+    const data = Immutable([1, 5, 6, 3, 0, 2, 7]);
+    expect(() => mergeSort(data)).not.toThrow();
   });
 
   it('sorts stable', () => {

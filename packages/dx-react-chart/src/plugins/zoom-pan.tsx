@@ -29,10 +29,10 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
   rectangle = { x: 0, y: 0 };
   drawRectange = false;
   offset: number[] = [0, 0];
-  multiTouch = false;
   static components: PluginComponents = {
     dragBoxComponent: 'DragBox',
   };
+  multiTouchDelta: number | null = null;
 
   changeViewport: ActionFn<ViewportOptions> = (viewport) => {
     this.setState((state, { onViewportChange }) => {
@@ -68,12 +68,29 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
     if (e.nativeEvent.shiftKey) {
       this.drawRectange = true;
     }
-    if (e.targetTouches && e.targetTouches.length === 2) {
-      this.multiTouch = true;
+    if (e.touches && e.touches.length === 2) {
+      this.multiTouchDelta = getDeltaForTouches(
+        e.touches[0].pageX - e.touches[1].pageX,
+        e.touches[0].pageY - e.touches[1].pageY,
+      );
     }
   }
 
+  handleTouchMove = (scales, allowForArgument, allowForValue) => (e) => {
+    const currentDelta = getDeltaForTouches(
+      e.touches[0].pageX - e.touches[1].pageX,
+      e.touches[0].pageY - e.touches[1].pageY,
+    );
+
+    this.zoom(scales, currentDelta - this.multiTouchDelta!, allowForArgument, allowForValue);
+    this.multiTouchDelta = currentDelta;
+  }
+
   handleMouseMove = (scales, clientOffset, allowForArgument, allowForValue) => {
+    if (this.multiTouchDelta) {
+      return;
+    }
+
     const coords = offsetCoordinates(clientOffset, this.offset as NumberArray);
     if (!this.lastCoordinates) {
       this.lastCoordinates = coords;
@@ -84,14 +101,6 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
     }
     const deltaX = coords.x - this.lastCoordinates.x;
     const deltaY = coords.y - this.lastCoordinates.y;
-
-    if (this.multiTouch) {
-      this.zoom(scales, getDeltaForTouches(deltaX, deltaY), allowForArgument, allowForValue);
-      if (this.lastCoordinates) {
-        this.lastCoordinates = coords;
-      }
-      return;
-    }
 
     this.setState(({ viewport, rectBox }) => {
       if (this.lastCoordinates) {
@@ -123,7 +132,7 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
 
   handleMouseUp = (scales, allowForArgument, allowForValue) => {
     this.lastCoordinates = null;
-    this.multiTouch = false;
+    this.multiTouchDelta = null;
     if (this.drawRectange) {
       this.setState(({ viewport, rectBox }) => {
         this.drawRectange = false;
@@ -207,6 +216,7 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
                   onWheel: this.handleScroll(scales, allowForArgument, allowForValue),
                   onMouseDown: this.handleStart,
                   onTouchStart: this.handleStart,
+                  onTouchMove: this.handleTouchMove(scales, allowForArgument, allowForValue),
                 }}
               />}
           </TemplateConnector>

@@ -515,7 +515,7 @@ describe('VirtualTableLayout utils', () => {
         .toEqual(result);
     });
 
-    it('should work with colspan', () => {
+    fit('should work with colspan', () => {
       const args = {
         rows: [
           { key: 0, height: 40 }, // visible
@@ -535,10 +535,8 @@ describe('VirtualTableLayout utils', () => {
           { key: 7, width: 40 }, // stub ┘
           { key: 8, width: 40 }, // stub
         ],
-        top: 0,
-        left: 160,
-        height: 40,
-        width: 40,
+        rowsVisibleBoundary: [0, 3],
+        columnsVisibleBoundary: [[3, 5]],
         getColSpan: (row, column) => {
           if (row.key === 0 && column.key === 2) return 2;
           if (row.key === 0 && column.key === 5) return 3;
@@ -546,6 +544,8 @@ describe('VirtualTableLayout utils', () => {
           if (row.key === 2 && column.key === 0) return 9;
           return 1;
         },
+        totalRowCount: 5,
+        offset: 0,
       };
 
       const result = getCollapsedGrid(args);

@@ -1,8 +1,9 @@
 import { mergeRows } from './helpers';
+import { intervalUtil } from './utils';
 
 export const virtualRowsWithCache = (start, rows, cache) => {
-  const rowsInterval = { start, end: start + rows.length };
-  const cacheInterval = { start: cache.start, end: cache.start + cache.rows.length };
+  const rowsInterval = intervalUtil.getRowsInterval({ start, rows });
+  const cacheInterval = intervalUtil.getRowsInterval(cache);
 
   return mergeRows(rowsInterval, cacheInterval, rows, cache.rows, start, cache.start);
 };

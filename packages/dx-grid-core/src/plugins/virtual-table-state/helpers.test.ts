@@ -1,14 +1,11 @@
-import { mergeRows, calculateRequestedRange, rowToPageIndex, recalculateBounds } from './helpers';
+import {
+  mergeRows, calculateRequestedRange, rowToPageIndex,
+  recalculateBounds, trimRowsToInterval,
+} from './helpers';
 import { intervalUtil } from './utils';
+import { createInterval, generateRows, createVirtualRows } from './test-utils';
 
 describe('VirtualTableState helpers', () => {
-  const createInterval = (start, end) => ({ start, end });
-  const generateRows = (interval, type) => (
-    Array
-      .from({ length: interval.end - interval.start })
-      .map((_, i) => ({ id: interval.start + i, type }))
-  );
-
   describe('#mergeRows', () => {
     describe('nonoverlapping', () => {
       it('cache before rows', () => {
@@ -271,6 +268,55 @@ describe('VirtualTableState helpers', () => {
   });
 
   describe('#trimRowsToInterval', () => {
+    it('should trim right side', () => {
+      const rowsInterval = createInterval(10, 20);
+      const targetInterval = createInterval(5, 15);
+      const virtualRows = createVirtualRows(rowsInterval);
+
+      expect(trimRowsToInterval(virtualRows, targetInterval)).toEqual({
+        start: 10,
+        rows: [
+          ...virtualRows.rows.slice(0, 5),
+        ],
+      });
+    });
+
+    it('should trim left side', () => {
+      const rowsInterval = createInterval(10, 20);
+      const targetInterval = createInterval(15, 25);
+      const virtualRows = createVirtualRows(rowsInterval);
+
+      expect(trimRowsToInterval(virtualRows, targetInterval)).toEqual({
+        start: 15,
+        rows: [
+          ...virtualRows.rows.slice(5, 10),
+        ],
+      });
+    });
+
+    it('should trim both sides', () => {
+      const rowsInterval = createInterval(10, 30);
+      const targetInterval = createInterval(15, 25);
+      const virtualRows = createVirtualRows(rowsInterval);
+
+      expect(trimRowsToInterval(virtualRows, targetInterval)).toEqual({
+        start: 15,
+        rows: [
+          ...virtualRows.rows.slice(5, 15),
+        ],
+      });
+    });
+
+    it('should return empty if target interval does not contain rows', () => {
+      const rowsInterval = createInterval(10, 20);
+      const targetInterval = createInterval(25, 35);
+      const virtualRows = createVirtualRows(rowsInterval);
+
+      expect(trimRowsToInterval(virtualRows, targetInterval)).toEqual({
+        start: undefined,
+        rows: [],
+      });
+    });
 
   });
 });

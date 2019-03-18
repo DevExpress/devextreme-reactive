@@ -55,7 +55,7 @@ export const rowsOffsetToPx: RowsOffsetToPxFn = (
 };
 
 export const getVisibleBoundary: GetVisibleBoundaryFn = (
-  items, viewportStart, viewportSize, getItemSize, offset, itemSize = 0,
+  items, viewportStart, viewportSize, getItemSize, offset = 0, itemSize = 0,
 ) => {
   let start: number | null = null;
   let end: number | null = null;
@@ -304,7 +304,7 @@ export const getCollapsedGrid: GetCollapsedGridFn = ({
   columnsVisibleBoundary,
   getColumnWidth = (column: any) => column.width,
   getRowHeight = (row: any) => row.height,
-  getColSpan = (row, column) => 1,
+  getColSpan = () => 1,
   totalRowCount,
   offset,
 }) => {

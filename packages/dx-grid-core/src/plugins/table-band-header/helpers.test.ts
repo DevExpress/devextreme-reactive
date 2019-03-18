@@ -1,3 +1,4 @@
+import * as Immutable from 'seamless-immutable';
 import {
   TABLE_BAND_TYPE, BAND_GROUP_CELL, BAND_HEADER_CELL, BAND_EMPTY_CELL, BAND_DUPLICATE_RENDER,
 } from './constants';
@@ -100,6 +101,10 @@ describe('TableBandHeader Plugin helpers', () => {
     it('should return correct column meta for the deeper children levels', () => {
       expect(getColumnMeta('a', columnBands, 2))
         .toEqual({ title: 'Band B', level: 2 });
+    });
+
+    it('should work with immutable state', () => {
+      expect(() => getColumnMeta('d', Immutable(columnBands), 2)).not.toThrow();
     });
   });
 

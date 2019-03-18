@@ -15,7 +15,7 @@ export const tableRowsWithBands: PureComputed<
 ) => {
   const tableDataColumns = tableColumns.filter(column => column.type === TABLE_DATA_TYPE);
   const getMaxNestedLevel: GetMaxNestedLevelFn = (bands, level = 0, result = null) => (
-    bands.reduce((acc, column) => {
+    Array.prototype.slice.call(bands).reduce((acc, column) => {
       if (column.children !== undefined) {
         return getMaxNestedLevel(column.children, level + 1, acc);
       }

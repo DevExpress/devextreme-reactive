@@ -1,3 +1,4 @@
+import * as Immutable from 'seamless-immutable';
 import {
   groupRowChecker,
   groupRowLevelKeyGetter,
@@ -125,6 +126,11 @@ describe('IntegratedGrouping computeds', () => {
 
     it('can group by several columns', () => {
       expect(groupedRows(rows, secondGrouping, getCellValue))
+        .toEqual(secondGroupedRows);
+    });
+
+    it('can group with immutable state', () => {
+      expect(groupedRows(Immutable(rows), secondGrouping, getCellValue))
         .toEqual(secondGroupedRows);
     });
 

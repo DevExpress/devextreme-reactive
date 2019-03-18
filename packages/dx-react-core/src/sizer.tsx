@@ -89,10 +89,11 @@ export class Sizer extends React.PureComponent<SizerProps> {
     this.contractTrigger.scrollTop = size.height;
     this.contractTrigger.scrollLeft = size.width;
 
-    this.expandNotifier.style.width = `${size.width + 2}px`;
-    this.expandNotifier.style.height = `${size.height + 2}px`;
-    this.expandTrigger.scrollTop = 2;
-    this.expandTrigger.scrollLeft = 2;
+    const scrollOffset = 2;
+    this.expandNotifier.style.width = `${size.width + scrollOffset}px`;
+    this.expandNotifier.style.height = `${size.height + scrollOffset}px`;
+    this.expandTrigger.scrollTop = scrollOffset;
+    this.expandTrigger.scrollLeft = scrollOffset;
 
     const { onSizeChange } = this.props;
     onSizeChange(size);

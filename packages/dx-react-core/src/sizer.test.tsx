@@ -65,4 +65,25 @@ describe('Sizer', () => {
       root.firstChild!.childNodes[1],
     ]);
   });
+
+  it('should set a 2px scroll offset to notifiers', () => {
+    const Container = () => <div className="container"  />;
+    const tree = mount(
+      <Sizer
+        onSizeChange={() => void 0}
+        containerComponent={Container}
+      />,
+    );
+
+    const root = tree.find('.container').getDOMNode();
+
+    const expandTrigger = root.firstChild!.childNodes[0] as Element;
+    expect(expandTrigger.scrollTop).toBe(2);
+    expect(expandTrigger.scrollLeft).toBe(2);
+
+    const expandNotifier = expandTrigger.firstChild as HTMLElement;
+    expect(expandNotifier.style.width).toBe('2px');
+    expect(expandNotifier.style.height).toBe('2px');
+
+  });
 });

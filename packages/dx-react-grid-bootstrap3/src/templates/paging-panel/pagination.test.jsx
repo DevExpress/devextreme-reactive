@@ -36,14 +36,14 @@ describe('Pagination', () => {
       />
     )).find('.pager li');
 
-    const prew = arrows.at(0);
+    const prev = arrows.at(0);
     const next = arrows.at(1);
 
-    prew.find('a').simulate('click');
+    prev.find('a').simulate('click');
     next.find('a').simulate('click');
 
     expect(arrows).toHaveLength(2);
-    expect(prew.hasClass('disabled')).toBeFalsy();
+    expect(prev.hasClass('disabled')).toBeFalsy();
     expect(next.hasClass('disabled')).toBeFalsy();
     expect(onCurrentPageChange.mock.calls).toHaveLength(2);
   });
@@ -58,13 +58,13 @@ describe('Pagination', () => {
       />
     )).find('.pager li');
 
-    const prew = arrows.at(0);
+    const prev = arrows.at(0);
     const next = arrows.at(1);
 
-    prew.find('a').simulate('click');
+    prev.find('a').simulate('click');
     next.find('a').simulate('click');
 
-    expect(prew.hasClass('disabled')).toBeTruthy();
+    expect(prev.hasClass('disabled')).toBeTruthy();
     expect(next.hasClass('disabled')).toBeFalsy();
     expect(onCurrentPageChange.mock.calls).toHaveLength(1);
   });
@@ -80,13 +80,13 @@ describe('Pagination', () => {
       />
     )).find('.pager li');
 
-    const prew = arrows.at(0);
+    const prev = arrows.at(0);
     const next = arrows.at(1);
 
-    prew.find('a').simulate('click');
+    prev.find('a').simulate('click');
     next.find('a').simulate('click');
 
-    expect(prew.hasClass('disabled')).toBeFalsy();
+    expect(prev.hasClass('disabled')).toBeFalsy();
     expect(next.hasClass('disabled')).toBeTruthy();
     expect(onCurrentPageChange.mock.calls).toHaveLength(1);
   });
@@ -99,10 +99,10 @@ describe('Pagination', () => {
         pageSize={5}
       />
     )).find('.pager li a');
-    const prew = arrows.at(0);
+    const prev = arrows.at(0);
     const next = arrows.at(1);
 
-    expect(prew.prop('aria-label')).toBe('Previous');
+    expect(prev.prop('aria-label')).toBe('Previous');
     expect(next.prop('aria-label')).toBe('Next');
   });
 });

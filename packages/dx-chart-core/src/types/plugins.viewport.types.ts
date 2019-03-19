@@ -3,9 +3,11 @@ import { ScaleObject, NumberArray } from './chart-core.types';
 export type DomainBounds = Readonly<any[]>;
 
 export type ViewportOptions = {
-  readonly argumentBounds?: DomainBounds;
+  readonly argumentStart?: any;
+  readonly argumentEnd?: any;
   readonly scaleName?: string;
-  readonly valueBounds?: DomainBounds;
+  readonly valueStart?: any;
+  readonly valueEnd?: any;
 };
 
 export type Coordinates = {

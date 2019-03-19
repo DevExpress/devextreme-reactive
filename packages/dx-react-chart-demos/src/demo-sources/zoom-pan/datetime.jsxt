@@ -20,6 +20,18 @@ const generateData = (n) => {
 };
 const data = generateData(100);
 
+const getMode = (zoom, pan) => {
+  if (zoom && pan) {
+    return 'both';
+  }
+  if (zoom && !pan) {
+    return 'zoom';
+  }
+  if (!zoom && pan) {
+    return 'pan';
+  }
+  return 'none';
+};
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -27,26 +39,35 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       data,
-      isValue: false,
-      isArgument: true,
+      zoomValue: false,
+      panValue: false,
+      zoomArgument: true,
+      panArgument: true,
     };
     this.submit = this.submit.bind(this);
   }
 
   submit() {
-    const value = document.getElementById('value').checked;
-    const argument = document.getElementById('argument').checked;
+    const zoomValue = document.getElementById('zoomValue').checked;
+    const panValue = document.getElementById('panValue').checked;
+    const zoomArgument = document.getElementById('zoomArgument').checked;
+    const panArgument = document.getElementById('panArgument').checked;
     this.setState({
-      isValue: value,
-      isArgument: argument,
+      zoomValue,
+      panValue,
+      zoomArgument,
+      panArgument,
     });
   }
 
   render() {
-    const { data: chartData, isValue, isArgument } = this.state;
+    const {
+      data: chartData, zoomValue, panValue, zoomArgument, panArgument,
+    } = this.state;
     return (
       <<%&wrapperTag%><%&wrapperAttributes%>>
         <Chart
+          width={500}
           data={chartData}
         >
           <ArgumentScale factory={scaleTime} />
@@ -55,20 +76,32 @@ export default class Demo extends React.PureComponent {
 
           <LineSeries valueField="y" argumentField="x" />
           <ZoomAndPan
-            allowForArgument={isArgument}
-            allowForValue={isValue}
+            interactionWithArguments={getMode(zoomArgument, panArgument)}
+            interactionWithValues={getMode(zoomValue, panValue)}
           />
         </Chart>
         <p>
           <label htmlFor="argument">
-            <input type="checkbox" id="argument" checked={isArgument} onChange={this.submit} />
-              Zoom/scroll argument
+            <input type="checkbox" id="zoomArgument" checked={zoomArgument} onChange={this.submit} />
+              Zoom argument
+          </label>
+        </p>
+        <p>
+          <label htmlFor="argument">
+            <input type="checkbox" id="panArgument" checked={panArgument} onChange={this.submit} />
+              Scroll argument
           </label>
         </p>
         <p>
           <label htmlFor="value">
-            <input type="checkbox" id="value" checked={isValue} onChange={this.submit} />
-            Zoom/scroll value
+            <input type="checkbox" id="zoomValue" checked={zoomValue} onChange={this.submit} />
+            Zoom value
+          </label>
+        </p>
+        <p>
+          <label htmlFor="value">
+            <input type="checkbox" id="panValue" checked={panValue} onChange={this.submit} />
+            Scroll value
           </label>
         </p>
       </<%&wrapperTag%>>

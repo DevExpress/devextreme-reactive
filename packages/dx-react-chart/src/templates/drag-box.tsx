@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { ZoomPan } from '../types';
+import { ZoomAndPan } from '../types';
 
-export class DragBox extends React.PureComponent<ZoomPan.DragBoxProps> {
+export class DragBox extends React.PureComponent<ZoomAndPan.DragBoxProps> {
   render() {
     const {
       rectBox, color, opacity, ...restProps

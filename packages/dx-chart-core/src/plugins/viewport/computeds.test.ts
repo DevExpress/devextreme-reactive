@@ -42,7 +42,8 @@ describe('Viewport', () => {
         [ARGUMENT_DOMAIN]: [0, 100],
         [VALUE_DOMAIN]: 'test-range',
       } as any, {
-        argumentBounds: 'test-bounds',
+        argumentStart: 'test-start-arg',
+        argumentEnd: 'test-end-arg',
       } as any);
 
       expect(result).toEqual({
@@ -50,7 +51,7 @@ describe('Viewport', () => {
         [VALUE_DOMAIN]: 'test-range',
       });
       expect(makeScale).toBeCalledWith('test-domain', [0, 100]);
-      expect(scaleBounds).toBeCalledWith('test-scale', 'test-bounds');
+      expect(scaleBounds).toBeCalledWith('test-scale', ['test-start-arg', 'test-end-arg']);
     });
 
     it('should change only value range', () => {
@@ -65,7 +66,8 @@ describe('Viewport', () => {
         [VALUE_DOMAIN]: [0, 100],
       } as any, {
         scaleName: 'scale-1',
-        valueBounds: 'test-bounds',
+        valueStart: 'test-start-val',
+        valueEnd: 'test-end-val',
       } as any);
 
       expect(result).toEqual({
@@ -73,7 +75,7 @@ describe('Viewport', () => {
         [VALUE_DOMAIN]: [matchFloat(-66.67), matchFloat(266.67)],
       });
       expect(makeScale).toBeCalledWith('test-domain', [0, 100]);
-      expect(scaleBounds).toBeCalledWith('test-scale', 'test-bounds');
+      expect(scaleBounds).toBeCalledWith('test-scale', ['test-start-val', 'test-end-val']);
       expect(getValueDomainName).toBeCalledWith('scale-1');
     });
 
@@ -91,9 +93,11 @@ describe('Viewport', () => {
         [ARGUMENT_DOMAIN]: [200, 400],
         [VALUE_DOMAIN]: [50, 150],
       } as any, {
-        argumentBounds: 'test-arg-bounds',
+        argumentStart: 'test-start-arg',
+        argumentEnd: 'test-end-arg',
         scaleName: 'scale-1',
-        valueBounds: 'test-val-bounds',
+        valueStart: 'test-start-val',
+        valueEnd: 'test-end-val',
       } as any);
 
       expect(result).toEqual({
@@ -105,8 +109,8 @@ describe('Viewport', () => {
         ['test-val-domain', [50, 150]],
       ]);
       expect((scaleBounds as jest.Mock).mock.calls).toEqual([
-        ['test-arg-scale', 'test-arg-bounds'],
-        ['test-val-scale', 'test-val-bounds'],
+        ['test-arg-scale', ['test-start-arg', 'test-end-arg']],
+        ['test-val-scale', ['test-start-val', 'test-end-val']],
       ]);
       expect(getValueDomainName).toBeCalledWith('scale-1');
     });
@@ -122,12 +126,13 @@ describe('Viewport', () => {
       const result = adjustLayout({
         [ARGUMENT_DOMAIN]: 'test-domain',
       } as any, ranges as any, {
-        argumentBounds: 'test-bounds',
+        argumentStart: 'test-start-arg',
+        argumentEnd: 'test-end-arg',
       } as any);
 
       expect(result).toBe(ranges);
       expect(makeScale).toBeCalledWith('test-domain', [0, 100]);
-      expect(scaleBounds).toBeCalledWith('test-scale', 'test-bounds');
+      expect(scaleBounds).toBeCalledWith('test-scale', ['test-start-arg', 'test-end-arg']);
     });
   });
 });

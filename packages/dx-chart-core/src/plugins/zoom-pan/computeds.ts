@@ -30,19 +30,19 @@ const getPrevBounds = (
   viewport?: ViewportOptions,
 ): any => {
   return viewport ? (name === ARGUMENT_DOMAIN ?
-    viewport.argumentBounds :
-    viewport.valueBounds) : scale.domain();
+    [viewport.argumentStart, viewport.argumentEnd] :
+    [viewport.valueStart, viewport.valueEnd]) : scale.domain();
 };
 
 export const getValueScaleName = (viewport?: ViewportOptions) =>
 viewport && viewport.scaleName || VALUE_DOMAIN;
 
 /** @internal */
-export const adjustBounds = (name: string, scales: ScalesCache, allowChange: boolean,
+export const adjustBounds = (name: string, scales: ScalesCache, interaction: string,
   type: string, getCurrentBounds: BoundsFn, delta: number, viewport?: ViewportOptions) => {
   const scale = scales[name];
   const bounds = getPrevBounds(name, scale, viewport);
-  if (!allowChange) {
+  if (interaction !== type && interaction !== 'both') {
     return bounds;
   }
   const initialBounds = scale.domain();
@@ -106,6 +106,12 @@ export const offsetCoordinates = (coordinates: Coordinates, offset: NumberArray)
   };
 };
 
-export const getDeltaForTouches = (deltaX: number, deltaY: number) => {
+export const getDeltaForTouches = (touches: Touch[]) => {
+  const deltaX = touches[0].pageX - touches[1].pageX;
+  const deltaY = touches[0].pageY - touches[1].pageY;
   return Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
+};
+
+export const checkDragToZoom = (dragToZoom: boolean, panKey: string, event: MouseEvent) => {
+  return dragToZoom && event[`${panKey}Key`];
 };

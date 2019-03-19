@@ -17,7 +17,7 @@ import {
 import { DragBox } from '../templates/drag-box';
 import {
   ARGUMENT_DOMAIN, adjustLayout, getRootOffset, getDeltaForTouches, offsetCoordinates,
-  getValueScaleName, getBounds, adjustBounds,
+  getValueScaleName, getBounds, adjustBounds, checkDragToZoom,
 } from '@devexpress/dx-chart-core';
 import {
   ZoomAndPanProps, ZoomAndPanState, LastCoordinates,
@@ -33,6 +33,12 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
     dragBoxComponent: 'DragBox',
   };
   multiTouchDelta: number | null = null;
+  static defaultProps: Partial<ZoomAndPanProps> = {
+    interactionWithValues: 'none',
+    interactionWithArguments: 'both',
+    panKey: 'shift',
+    dragToZoom: false,
+  };
 
   changeViewport: ActionFn<ViewportOptions> = (viewport) => {
     this.setState((state, { onViewportChange }) => {
@@ -63,24 +69,16 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
     };
   }
 
-  handleStart = (e) => {
+  handleStart = (dragToZoom, panKey) => (e) => {
     this.offset = getRootOffset(e.currentTarget);
-    if (e.nativeEvent.shiftKey) {
-      this.drawRectange = true;
-    }
+    this.drawRectange = checkDragToZoom(dragToZoom, panKey, e.nativeEvent);
     if (e.touches && e.touches.length === 2) {
-      this.multiTouchDelta = getDeltaForTouches(
-        e.touches[0].pageX - e.touches[1].pageX,
-        e.touches[0].pageY - e.touches[1].pageY,
-      );
+      this.multiTouchDelta = getDeltaForTouches(e.touches);
     }
   }
 
   handleTouchMove = (scales, allowForArgument, allowForValue) => (e) => {
-    const currentDelta = getDeltaForTouches(
-      e.touches[0].pageX - e.touches[1].pageX,
-      e.touches[0].pageY - e.touches[1].pageY,
-    );
+    const currentDelta = getDeltaForTouches(e.touches);
 
     this.zoom(scales, currentDelta - this.multiTouchDelta!, allowForArgument, allowForValue);
     this.multiTouchDelta = currentDelta;
@@ -116,15 +114,18 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
           },
         };
       }
+      const argumentBounds = adjustBounds(
+        ARGUMENT_DOMAIN, scales, allowForArgument, 'pan', getBounds, deltaX, viewport,
+      );
+      const valueBounds = adjustBounds(
+        getValueScaleName(viewport), scales, allowForValue, 'pan', getBounds, deltaY, viewport,
+      );
       return {
         viewport: {
-          ...viewport,
-          argumentBounds: adjustBounds(
-            ARGUMENT_DOMAIN, scales, allowForArgument, 'pan', getBounds, deltaX, viewport,
-          ),
-          valueBounds: adjustBounds(
-            getValueScaleName(viewport), scales, allowForValue, 'pan', getBounds, deltaY, viewport,
-          ),
+          argumentStart: argumentBounds[0],
+          argumentEnd: argumentBounds[1],
+          valueStart: valueBounds[0],
+          valueEnd: valueBounds[1],
         },
       };
     });
@@ -136,18 +137,21 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
     if (this.drawRectange) {
       this.setState(({ viewport, rectBox }) => {
         this.drawRectange = false;
+        const argumentBounds = adjustBounds(
+          ARGUMENT_DOMAIN, scales, allowForArgument, 'zoom',
+          () => [rectBox!.x, rectBox!.x + rectBox!.width], 0, viewport,
+        );
+        const valueBounds = adjustBounds(
+          getValueScaleName(viewport), scales, allowForValue, 'zoom',
+          () => [rectBox!.y + rectBox!.height, rectBox!.y], 0, viewport,
+        );
         return {
           rectBox: { x: 0, y: 0, width: 0, height: 0 },
           viewport: {
-            ...viewport,
-            argumentBounds: adjustBounds(
-              ARGUMENT_DOMAIN, scales, allowForArgument, 'zoom',
-              () => [rectBox!.x, rectBox!.x + rectBox!.width], 0, viewport,
-            ),
-            valueBounds: adjustBounds(
-              getValueScaleName(viewport), scales, allowForValue, 'zoom',
-              () => [rectBox!.y + rectBox!.height, rectBox!.y], 0, viewport,
-            ),
+            argumentStart: argumentBounds[0],
+            argumentEnd: argumentBounds[1],
+            valueStart: valueBounds[0],
+            valueEnd: valueBounds[1],
           },
         };
       });
@@ -156,15 +160,18 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
 
   zoom = (scales, delta, allowForArgument, allowForValue) => {
     this.setState(({ viewport }) => {
+      const argumentBounds = adjustBounds(
+        ARGUMENT_DOMAIN, scales, allowForArgument, 'zoom', getBounds, delta, viewport,
+      );
+      const valueBounds = adjustBounds(
+        getValueScaleName(viewport), scales, allowForValue, 'zoom', getBounds, delta, viewport,
+      );
       return {
         viewport: {
-          ...viewport,
-          argumentBounds: adjustBounds(
-            ARGUMENT_DOMAIN, scales, allowForArgument, 'zoom', getBounds, delta, viewport,
-          ),
-          valueBounds: adjustBounds(
-            getValueScaleName(viewport), scales, allowForValue, 'zoom', getBounds, delta, viewport,
-          ),
+          argumentStart: argumentBounds[0],
+          argumentEnd: argumentBounds[1],
+          valueStart: valueBounds[0],
+          valueEnd: valueBounds[1],
         },
       };
     });
@@ -179,8 +186,10 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
     const { viewport, rectBox } = this.state;
     const {
       dragBoxComponent: DragBoxComponent,
-      allowForArgument = true,
-      allowForValue = false,
+      interactionWithValues,
+      interactionWithArguments,
+      dragToZoom,
+      panKey,
      } = this.props;
     const getAdjustedLayout = ({
       domains,
@@ -196,9 +205,12 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
             <DragDropProvider>
               <DropTarget
                 onOver={({ _, clientOffset }) =>
-                this.handleMouseMove(scales, clientOffset, allowForArgument, allowForValue)}
-                onDrop={() => this.handleMouseUp(scales, allowForArgument, allowForValue)}
-                onLeave={() => this.handleMouseUp(scales, allowForArgument, allowForValue)}
+                this.handleMouseMove(
+                  scales, clientOffset, interactionWithArguments, interactionWithValues,
+                )}
+                onDrop={() => this.handleMouseUp(
+                  scales, interactionWithArguments, interactionWithValues,
+                )}
               >
                 <DragSource payload={null}>
                   <TemplatePlaceholder />
@@ -213,10 +225,14 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
             {({ scales }) =>
               <TemplatePlaceholder
                 params={{
-                  onWheel: this.handleScroll(scales, allowForArgument, allowForValue),
-                  onMouseDown: this.handleStart,
+                  onWheel: this.handleScroll(
+                    scales, interactionWithArguments, interactionWithValues,
+                  ),
+                  onMouseDown: this.handleStart(dragToZoom, panKey),
                   onTouchStart: this.handleStart,
-                  onTouchMove: this.handleTouchMove(scales, allowForArgument, allowForValue),
+                  onTouchMove: this.handleTouchMove(
+                    scales, interactionWithArguments, interactionWithValues,
+                  ),
                 }}
               />}
           </TemplateConnector>
@@ -224,13 +240,11 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
 
         <Template name="series">
           <TemplatePlaceholder />
-          {
           <DragBoxComponent
             rectBox={rectBox!}
             color={'gray'}
             opacity={0.3}
           />
-          }
         </Template>
       </Plugin >
     );

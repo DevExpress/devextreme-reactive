@@ -20,6 +20,16 @@ describe('ZoomAndPan', () => {
       ranges: 'test-ranges',
     },
   };
+  const defaultProps = {
+    dragBoxComponent: DragBoxComponent,
+    viewport: {
+      argumentStart: 'test-arg-start-bound',
+      argumentEnd: 'test-arg-end-bound',
+      valueStart: 'test-val-start-bound',
+      valueEnd: 'test-val-end-bound',
+      scaleName: 'scale-1',
+    },
+  };
 
   afterEach(jest.clearAllMocks);
 
@@ -27,14 +37,7 @@ describe('ZoomAndPan', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <ZoomAndPan
-          dragBoxComponent={DragBoxComponent}
-          viewport={{
-            argumentBounds: 'test-arg-bounds' as any,
-            scaleName: 'scale-1',
-            valueBounds: 'test-val-bounds' as any,
-          }}
-        />
+        <ZoomAndPan  {...defaultProps} />
       </PluginHost>
     ));
 
@@ -42,25 +45,14 @@ describe('ZoomAndPan', () => {
       ...defaultDeps.getter,
       ranges: 'adjusted-ranges',
     });
-    expect(adjustLayout).toBeCalledWith('test-domains', 'test-ranges', {
-      argumentBounds: 'test-arg-bounds',
-      scaleName: 'scale-1',
-      valueBounds: 'test-val-bounds',
-    });
+    expect(adjustLayout).toBeCalledWith('test-domains', 'test-ranges', defaultProps.viewport);
   });
 
   it('should handle *defaultViewport* property', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <ZoomAndPan
-          dragBoxComponent={DragBoxComponent}
-          defaultViewport={{
-            argumentBounds: 'test-arg-bounds' as any,
-            scaleName: 'scale-1',
-            valueBounds: 'test-val-bounds' as any,
-          }}
-        />
+        <ZoomAndPan  {...defaultProps} />
       </PluginHost>
     ));
 
@@ -75,28 +67,12 @@ describe('ZoomAndPan', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <ZoomAndPan
-          dragBoxComponent={DragBoxComponent}
-          viewport={{
-            argumentBounds: 'test-arg-bounds' as any,
-            scaleName: 'scale-1',
-            valueBounds: 'test-val-bounds' as any,
-          }}
-          onViewportChange={mock}
-        />
+        <ZoomAndPan  {...defaultProps}  onViewportChange={mock} />
       </PluginHost>
     ));
 
-    executeComputedAction(tree, actions => actions.changeViewport({
-      argumentBounds: 'new-arg-bounds' as any,
-      scaleName: 'scale-2',
-      valueBounds: 'new-val-bounds' as any,
-    }));
+    executeComputedAction(tree, actions => actions.changeViewport(defaultProps.viewport));
 
-    expect(mock).toBeCalledWith({
-      argumentBounds: 'new-arg-bounds',
-      scaleName: 'scale-2',
-      valueBounds: 'new-val-bounds',
-    });
+    expect(mock).toBeCalledWith(defaultProps.viewport);
   });
 });

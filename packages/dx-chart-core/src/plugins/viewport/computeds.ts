@@ -58,14 +58,16 @@ const update = (
 export const adjustLayout = (
   domains: DomainInfoCache,
   ranges: RangesCache,
-  { argumentBounds, scaleName, valueBounds }: ViewportOptions,
+  { argumentStart, argumentEnd, scaleName, valueStart, valueEnd }: ViewportOptions,
 ) => {
   const changes = {};
-  if (argumentBounds) {
-    update(ranges, changes, ARGUMENT_DOMAIN, domains[ARGUMENT_DOMAIN], argumentBounds);
+  if (argumentStart && argumentEnd) {
+    update(ranges, changes, ARGUMENT_DOMAIN,
+      domains[ARGUMENT_DOMAIN], [argumentStart, argumentEnd]);
   }
-  if (valueBounds) {
-    update(ranges, changes, VALUE_DOMAIN, domains[getValueDomainName(scaleName)], valueBounds);
+  if (valueStart && valueEnd) {
+    update(ranges, changes, VALUE_DOMAIN,
+      domains[getValueDomainName(scaleName)], [valueStart, valueEnd]);
   }
   return Object.keys(changes).length ? { ...ranges, ...changes } : ranges;
 };

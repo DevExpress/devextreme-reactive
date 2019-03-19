@@ -1,5 +1,5 @@
 import { PureComputed } from '@devexpress/dx-core';
-import { Appointment, ViewCell } from './scheduler-core.types';
+import { Appointment, ViewCell, AppointmentModel } from './scheduler-core.types';
 import { ElementRect } from './utils.types';
 
 export type ClientOffset = {
@@ -19,4 +19,15 @@ export type VerticalRects = PureComputed<
 
 export type HorizontalRects = PureComputed<
   [Appointment[], Date,  Date, number[], ViewCell[][], Element[][]], ElementRect[]
+>;
+
+type AppointmentBoundaries = {
+  appointmentStartTime: Date,
+  appointmentEndTime: Date,
+  offsetTimeTop: number,
+};
+
+export type CalculateAppointmentTimeBoundaries = PureComputed<
+  [AppointmentModel, AppointmentModel, string, string, number, number, number, number],
+  AppointmentBoundaries
 >;

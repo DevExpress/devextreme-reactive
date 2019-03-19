@@ -18,6 +18,7 @@ import {
   VERTICAL_TYPE,
   autoScroll,
   SECONDS,
+  calculateAppointmentTimeBoundaries,
 } from '@devexpress/dx-scheduler-core';
 
 const pluginDependencies = [
@@ -28,40 +29,6 @@ const pluginDependencies = [
   { name: 'MonthView', optional: true },
   { name: 'AllDayPanel', optional: true },
 ];
-
-const calculateAppointmentTimeBoundaries = (
-  payload, targetData, targetType, sourceType, cellDuration, appointmentDuration, insidePart, offsetTimeTopBase,
-) => {
-  const insideOffset = targetType === VERTICAL_TYPE ? insidePart * cellDuration * 60 / 2 : 0;
-  let offsetTimeTop;
-
-  if (offsetTimeTopBase === null) {
-    offsetTimeTop = moment(targetData.startDate)
-      .diff(payload.startDate, SECONDS) + insideOffset;
-  } else {
-    offsetTimeTop = offsetTimeTopBase;
-  }
-
-  const start = moment(targetData.startDate).add(insideOffset, SECONDS);
-  const end = moment(start);
-
-  let appointmentStartTime;
-  let appointmentEndTime;
-  if (sourceType === targetType) {
-    appointmentStartTime = moment(start).add((offsetTimeTop) * (-1), SECONDS).toDate();
-    appointmentEndTime = moment(end)
-      .add((appointmentDuration - offsetTimeTop), SECONDS).toDate();
-  } else {
-    appointmentStartTime = moment(targetData.startDate).add(insideOffset, SECONDS).toDate();
-    appointmentEndTime = moment(targetData.endDate).add(insideOffset, SECONDS).toDate();
-  }
-
-  return {
-    appointmentStartTime,
-    appointmentEndTime,
-    offsetTimeTop,
-  };
-};
 
 export class DragDropProvider extends React.PureComponent {
   constructor(props) {
@@ -150,8 +117,11 @@ export class DragDropProvider extends React.PureComponent {
 
     // CURSOR POSITION
     const cellDuration = intervalDuration(targetData, 'minutes');
-    const { appointmentStartTime, appointmentEndTime, offsetTimeTop } = calculateAppointmentTimeBoundaries(
-      payload, targetData, targetType, sourceType, cellDuration, appointmentDuration, insidePart, this.offsetTimeTop,
+    const {
+      appointmentStartTime, appointmentEndTime, offsetTimeTop,
+    } = calculateAppointmentTimeBoundaries(
+      payload, targetData, targetType, sourceType, cellDuration,
+      appointmentDuration, insidePart, this.offsetTimeTop,
     );
     this.appointmentStartTime = appointmentStartTime;
     this.appointmentEndTime = appointmentEndTime;

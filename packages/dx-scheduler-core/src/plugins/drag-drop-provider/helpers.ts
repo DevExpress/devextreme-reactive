@@ -3,6 +3,7 @@ import { PureComputed } from '@devexpress/dx-core';
 import {
   ViewCell, AppointmentModel, ClientOffset, TimeType,
   AllDayRects, VerticalRects, HorizontalRects, AllDayCell,
+  CalculateAppointmentTimeBoundaries,
 } from '../../types';
 import { allDayCells as allDayCellsCore } from '../common/computeds';
 import { calculateRectByDateIntervals } from '../../utils';
@@ -11,7 +12,9 @@ import { getVerticalRectByDates } from '../vertical-rect/helpers';
 import { getHorizontalRectByDates } from '../horizontal-rect/helpers';
 import { calculateMonthDateIntervals } from '../month-view/computeds';
 import { calculateAllDayDateIntervals } from '../all-day-panel/computeds';
-import { VERTICAL_TYPE, HORIZONTAL_TYPE, SCROLL_OFFSET, SCROLL_SPEED_PX } from '../../constants';
+import {
+  VERTICAL_TYPE, HORIZONTAL_TYPE, SCROLL_OFFSET, SCROLL_SPEED_PX, SECONDS,
+} from '../../constants';
 
 const clamp: PureComputed<
   [number, number, number]
@@ -133,4 +136,39 @@ export const autoScroll = (clientOffset: any, layoutElement: any, layoutHeaderEl
   if (layout.clientHeight - SCROLL_OFFSET < clientOffset.y - layout.offsetTop) {
     layout.scrollTop += SCROLL_SPEED_PX;
   }
+};
+
+export const calculateAppointmentTimeBoundaries: CalculateAppointmentTimeBoundaries = (
+  payload, targetData, targetType, sourceType,
+  cellDuration, appointmentDuration, insidePart, offsetTimeTopBase,
+) => {
+  const insideOffset = targetType === VERTICAL_TYPE ? insidePart * cellDuration * 60 / 2 : 0;
+  let offsetTimeTop;
+
+  if (offsetTimeTopBase === null) {
+    offsetTimeTop = moment(targetData.startDate as Date)
+      .diff(payload.startDate as Date, SECONDS) + insideOffset;
+  } else {
+    offsetTimeTop = offsetTimeTopBase;
+  }
+
+  const start = moment(targetData.startDate as Date).add(insideOffset, SECONDS);
+  const end = moment(start);
+
+  let appointmentStartTime;
+  let appointmentEndTime;
+  if (sourceType === targetType) {
+    appointmentStartTime = moment(start).add((offsetTimeTop) * (-1), SECONDS).toDate();
+    appointmentEndTime = moment(end)
+      .add((appointmentDuration - offsetTimeTop), SECONDS).toDate();
+  } else {
+    appointmentStartTime = moment(targetData.startDate as Date).add(insideOffset, SECONDS).toDate();
+    appointmentEndTime = moment(targetData.endDate as Date).add(insideOffset, SECONDS).toDate();
+  }
+
+  return {
+    appointmentStartTime,
+    appointmentEndTime,
+    offsetTimeTop,
+  };
 };

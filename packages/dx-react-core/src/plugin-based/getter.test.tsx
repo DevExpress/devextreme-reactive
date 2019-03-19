@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import { mount } from 'enzyme';
 
 import { PluginHost } from './plugin-host';
@@ -151,9 +150,6 @@ describe('Getter', () => {
         <Getter name="test" value={text} />
       </PluginHost>
     );
-    Test.propTypes = {
-      text: PropTypes.string.isRequired,
-    };
 
     const tree = mount(<Test text="extended" />);
     tree.setProps({ text: 'new' });
@@ -194,9 +190,6 @@ describe('Getter', () => {
         <EncapsulatedPlugin />
       </PluginHost>
     );
-    Test.propTypes = {
-      value: PropTypes.any.isRequired,
-    };
 
     const tree = mount(<Test value={1} />);
     tree.setProps({ value: 1 });

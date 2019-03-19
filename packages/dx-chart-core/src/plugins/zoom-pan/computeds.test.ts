@@ -285,6 +285,6 @@ describe('Zoom and Pan for categories', () => {
     expect(checkDragToZoom(false, 'shift', { shiftKey: true } as any)).toBeFalsy();
     expect(checkDragToZoom(true, 'shift', { shiftKey: true } as any)).toBeTruthy();
     expect(checkDragToZoom(true, 'shift', { shiftKey: false } as any)).toBeFalsy();
-    expect(checkDragToZoom(true, 'alt', { altKey: false } as any)).toBeTruthy();
+    expect(checkDragToZoom(true, 'alt', { altKey: true } as any)).toBeTruthy();
   });
 });

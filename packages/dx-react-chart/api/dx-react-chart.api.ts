@@ -129,6 +129,9 @@ interface ChartProps {
 }
 
 // @public (undocumented)
+declare const checkDragToZoom: (dragToZoom: boolean, panKey: string, event: MouseEvent) => any;
+
+// @public (undocumented)
 declare type Colors = ReadonlyArray<string>;
 
 // @public (undocumented)
@@ -183,7 +186,7 @@ declare type GetAnimationStyleFn = (scales: Scales, point?: PointComponentProps)
 declare const getBounds: BoundsFn;
 
 // @public (undocumented)
-declare const getDeltaForTouches: (deltaX: number, deltaY: number) => number;
+declare const getDeltaForTouches: (touches: Touch[]) => number;
 
 // @public (undocumented)
 declare type GetFormatFn = (tick: any) => string;
@@ -662,54 +665,24 @@ interface ValueScaleProps extends ScaleProps {
 }
 
 // @public (undocumented)
-declare const Viewport: React.ComponentType<ViewportProps>;
-
-// @public (undocumented)
 declare type ViewportOptions = {
   // (undocumented)
-  readonly argumentBounds?: DomainBounds;
+  readonly argumentStart?: any;
+  // (undocumented)
+  readonly argumentEnd?: any;
   // (undocumented)
   readonly scaleName?: string;
   // (undocumented)
-  readonly valueBounds?: DomainBounds;
-};
-
-// @public (undocumented)
-interface ViewportProps {
-  defaultViewport?: ViewportOptions;
-  onViewportChange?: (viewport: ViewportOptions) => void;
-  viewport?: ViewportOptions;
-}
-
-// @public (undocumented)
-type ViewportState = {
+  readonly valueStart?: any;
   // (undocumented)
-  viewport?: ViewportOptions;
+  readonly valueEnd?: any;
 };
 
 // @public (undocumented)
 declare const ZoomAndPan: React.ComponentType<ZoomAndPanProps>;
 
 // @public (undocumented)
-interface ZoomAndPanProps {
-  allowForArgument?: boolean;
-  allowForValue?: boolean;
-  defaultViewport?: ViewportOptions;
-  dragBoxComponent: React.ComponentType<ZoomPan.DragBoxProps>;
-  onViewportChange?: (viewport: ViewportOptions) => void;
-  viewport?: ViewportOptions;
-}
-
-// @public (undocumented)
-type ZoomAndPanState = {
-  // (undocumented)
-  viewport?: ViewportOptions;
-  // (undocumented)
-  rectBox?: RectBox;
-};
-
-// @public (undocumented)
-namespace ZoomPan {
+namespace ZoomAndPan {
   // (undocumented)
   interface DragBoxProps {
     // (undocumented)
@@ -720,6 +693,26 @@ namespace ZoomPan {
     rectBox: RectBox;
   }
 }
+
+// @public (undocumented)
+interface ZoomAndPanProps {
+  defaultViewport?: ViewportOptions;
+  dragBoxComponent: React.ComponentType<ZoomAndPan.DragBoxProps>;
+  dragToZoom?: boolean;
+  interactionWithArguments?: 'none' | 'pan' | 'zoom' | 'both';
+  interactionWithValues?: 'none' | 'pan' | 'zoom' | 'both';
+  onViewportChange?: (viewport: ViewportOptions) => void;
+  panKey?: 'shift' | 'alt' | 'ctrl';
+  viewport?: ViewportOptions;
+}
+
+// @public (undocumented)
+type ZoomAndPanState = {
+  // (undocumented)
+  viewport?: ViewportOptions;
+  // (undocumented)
+  rectBox?: RectBox;
+};
 
 
 // (No @packageDocumentation comment for this package)

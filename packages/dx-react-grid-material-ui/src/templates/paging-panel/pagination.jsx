@@ -181,6 +181,7 @@ const PaginationBase = ({
         className={classNames(classes.arrowButton, classes.prev)}
         disabled={currentPage === 0}
         onClick={() => (currentPage > 0) && onCurrentPageChange(currentPage - 1)}
+        aria-label="Previous"
       >
         <ChevronLeft />
       </IconButton>
@@ -189,6 +190,7 @@ const PaginationBase = ({
         className={classNames(classes.arrowButton, classes.next)}
         disabled={currentPage === totalPages - 1 || totalCount === 0}
         onClick={() => currentPage < totalPages - 1 && onCurrentPageChange(currentPage + 1)}
+        aria-label="Next"
       >
         <ChevronRight />
       </IconButton>

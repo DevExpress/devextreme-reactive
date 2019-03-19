@@ -5,7 +5,6 @@ export * from './plugins/series/computeds';
 export * from './plugins/stack/computeds';
 export * from './plugins/animation/computeds';
 export * from './plugins/tooltip/computeds';
-export * from './plugins/viewport/computeds';
 export * from './plugins/zoom-pan/computeds';
 export * from './utils/series';
 export * from './utils/scale';

@@ -131,11 +131,12 @@ describe('DragDropProvider', () => {
   describe('#calculateAppointmentTimeBoundaries', () => {
     it('should work with vertical appointment and vertical cell', () => {
       const payload = {
+        type: 'vertical',
         startDate: new Date('2018-06-25 10:00'),
         endDate: new Date('2018-06-25 11:00'),
       };
       const targetData = {
-        startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-26 11:00'),
+        startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00'),
       };
       const targetType = 'vertical';
       const cellDurationMinutes = 60;
@@ -153,9 +154,9 @@ describe('DragDropProvider', () => {
           offsetTimeTop: 0,
         });
     });
-
     it('should work with horizontal appointment and horizontal cell', () => {
       const payload = {
+        type: 'horizontal',
         startDate: new Date('2018-06-25'),
         endDate: new Date('2018-06-26'),
       };
@@ -176,6 +177,56 @@ describe('DragDropProvider', () => {
           appointmentStartTime: new Date('2018-06-25'),
           appointmentEndTime: new Date('2018-06-26'),
           offsetTimeTop: 0,
+        });
+    });
+    it('should work with vertical appointment and horizontal cell', () => {
+      const payload = {
+        type: 'vertical',
+        startDate: new Date('2018-06-10 10:00'),
+        endDate: new Date('2018-06-10 11:00'),
+      };
+      const targetData = {
+        startDate: new Date('2018-06-25'), endDate: new Date('2018-06-26'),
+      };
+      const targetType = 'horizontal';
+      const cellDurationMinutes = 24 * 60;
+      const insidePart = 0;
+      const offsetTimeTopBase = null;
+
+      const result = calculateAppointmentTimeBoundaries(
+        payload, targetData, targetType,
+        cellDurationMinutes, insidePart, offsetTimeTopBase,
+      );
+      expect(result)
+        .toEqual({
+          appointmentStartTime: new Date('2018-06-25'),
+          appointmentEndTime: new Date('2018-06-26'),
+          offsetTimeTop: 1270800,
+        });
+    });
+    it('should work with horizontal appointment and vertical cell', () => {
+      const payload = {
+        type: 'horizontal',
+        startDate: new Date('2018-06-10'),
+        endDate: new Date('2018-06-10'),
+      };
+      const targetData = {
+        startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00'),
+      };
+      const targetType = 'vertical';
+      const cellDurationMinutes = 60;
+      const insidePart = 0;
+      const offsetTimeTopBase = null;
+
+      const result = calculateAppointmentTimeBoundaries(
+        payload, targetData, targetType,
+        cellDurationMinutes, insidePart, offsetTimeTopBase,
+      );
+      expect(result)
+        .toEqual({
+          appointmentStartTime: new Date('2018-06-25 10:00'),
+          appointmentEndTime: new Date('2018-06-25 11:00'),
+          offsetTimeTop: 1321200,
         });
     });
   });

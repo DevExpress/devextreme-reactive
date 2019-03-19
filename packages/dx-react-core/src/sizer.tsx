@@ -47,19 +47,6 @@ const styles = {
   },
 };
 
-type Size = {
-  width: number;
-  height: number;
-};
-
-type SizerProps = {
-  onSizeChange: (size: Size) => void;
-  onScroll?: (e) => void;
-  containerComponent?: any;
-  style?: object;
-  scrollTop?: number;
-};
-
 /** @internal */
 export class Sizer extends React.PureComponent<SizerProps> {
   static defaultProps = {
@@ -146,7 +133,6 @@ export class Sizer extends React.PureComponent<SizerProps> {
       onSizeChange,
       containerComponent: Container,
       style,
-      scrollTop,
       ...restProps
     } = this.props;
 

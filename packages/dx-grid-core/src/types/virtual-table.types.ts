@@ -18,7 +18,7 @@ type CollapsedRow = TableRow & { cells: any[], height: number };
 export type VisibleBoundary =  ReadonlyArray<number>;
 /** @internal */
 export type GetVisibleBoundaryFn = PureComputed<
-  [ReadonlyArray<any>, number, number, (item: any) => number, number, number?],//, number],
+  [ReadonlyArray<any>, number, number, (item: any) => number | null, number, number?],//, number],
   VisibleBoundary
 >;
 

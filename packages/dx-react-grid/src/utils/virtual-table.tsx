@@ -18,7 +18,7 @@ import {
   VirtualTableProps, VirtualTableLayoutProps, VirtualTableLayoutState, TableLayoutProps,
   Table as TableNS,
 } from '../types';
-import { memoize, Memoized } from '@devexpress/dx-core';
+import { memoize, MemoizedComputed } from '@devexpress/dx-core';
 
 const AUTO_HEIGHT = 'auto';
 
@@ -56,8 +56,10 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
     layoutRenderComponent: React.ComponentType<VirtualTableLayoutProps> & { update(): void; };
     rowRefs: Map<any, any>;
     blockRefs: Map<any, any>;
-    visibleBoundariesComputed: Memoized<VirtualTableLayoutState, Function>;
-    pageTriggerPositionsComputed: Memoized<VirtualTableLayoutState, Function>;
+    visibleBoundariesComputed: MemoizedComputed<VirtualTableLayoutState, typeof visibleBounds>;
+    pageTriggerPositionsComputed: MemoizedComputed<
+      VirtualTableLayoutState, typeof pageTriggerPositions
+    >;
     getColumnWidth: (column: any) => any;
     getScrollHandler: (...args: any[]) => (e: any) => void;
     getSizeChangeHandler: (...args: any[]) => (e: any) => void;

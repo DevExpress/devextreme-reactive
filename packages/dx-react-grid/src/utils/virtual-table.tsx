@@ -6,8 +6,6 @@ import {
   TemplateConnector, PluginComponents, Getters,
 } from '@devexpress/dx-react-core';
 import {
-  getColumnsVisibleBoundary,
-  getRowsVisibleBoundary,
   getRowsRenderBoundary,
   TABLE_FLEX_TYPE,
   TABLE_STUB_TYPE,
@@ -124,7 +122,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
       this.getScrollHandler = (remoteDataEnabled, currentVirtualPageBoundary, requestNextPage) => (
         remoteDataEnabled
           ? e => this.updateViewport(e, currentVirtualPageBoundary, requestNextPage)
-          : e => this.updateViewport(e)
+          : e => this.updateViewport(e, null, null)
       );
 
       this.getSizeChangeHandler = (currentVirtualPageBoundary, requestNextPage) => (
@@ -165,7 +163,6 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
 
     updateViewport(e, currentVirtualPageBoundary?, requestNextPage?) {
       const node = e.target;
-
       // NOTE: prevent nested scroll to update viewport
       if (node !== e.currentTarget) {
         return;
@@ -315,15 +312,14 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
               return (
                 <TemplateConnector>
                   {(
-                    { currentVirtualPageBoundary, totalRowCount, virtualRows,
-                      renderBoundaries, visibleBoundaries, loadedRowsStart,
+                    { currentVirtualPageBoundary, totalRowCount,
+                      renderBoundaries, remoteDataEnabled, loadedRowsStart,
                     },
                     { requestNextPage },
                   ) => {
                     const {
                       containerComponent: Container,
                     } = params;
-                    console.log(renderBoundaries, visibleBoundaries,)
 
                     return (
                       <Sizer
@@ -335,7 +331,9 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
                           ...(propHeight === AUTO_HEIGHT ? null : { height: `${propHeight}px` }),
                         }}
                         onScroll={
-                          this.getScrollHandler(currentVirtualPageBoundary, requestNextPage)
+                          this.getScrollHandler(
+                            remoteDataEnabled, currentVirtualPageBoundary, requestNextPage,
+                          )
                         }
                       >
                         <TemplatePlaceholder

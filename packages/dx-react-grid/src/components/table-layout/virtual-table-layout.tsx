@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { RefHolder } from '@devexpress/dx-react-core';
 import {
-  getCollapsedGrid, intervalUtil, TABLE_STUB_TYPE,
+  getCollapsedGrid, intervalUtil,
 } from '@devexpress/dx-grid-core';
 import { ColumnGroup } from './column-group';
 import { VirtualRowLayout } from './virtual-row-layout';
@@ -85,17 +85,14 @@ export class VirtualTableLayout extends React.PureComponent<VirtualTableLayoutPr
       bodyRows,
       footerRows,
       columns,
-      getCellColSpan, // ^ getter in table template
-      // minColumnWidth, // table layout component [theme]
-      // height: propHeight,
+      getCellColSpan,
       headTableComponent: HeadTable,
-      footerTableComponent: FootTable, // ^ VirtualTable connected props
-      // containerComponent: Container,
+      footerTableComponent: FootTable,
       tableComponent: Table,
       headComponent: Head,
       bodyComponent: Body,
-      footerComponent: Footer, // ^ Table component
-      visibleBoundaries,//: rwb,
+      footerComponent: Footer,
+      visibleBoundaries,
       totalRowCount,
       loadedRowsStart,
       getRowHeight,
@@ -121,22 +118,19 @@ export class VirtualTableLayout extends React.PureComponent<VirtualTableLayoutPr
       totalRowCount: rowCount,
       offset,
     });
-    // console.log(headerRows)
-    const collapsedHeaderGrid = getCollapsedGridBlock(headerRows || [], null);// visibleBoundaries.headerRows);
-    // console.log('get grid, rows =', loadedRowsStart, bodyRows)
-    const bRows = bodyRows;
+
     const adjustedInterval = intervalUtil.intersect(
       { start: visibleBoundaries.bodyRows[0], end: visibleBoundaries.bodyRows[1] },
       { start: loadedRowsStart, end: loadedRowsStart + bodyRows.length },
     );
     const adjustedBounds = [adjustedInterval.start, adjustedInterval.end];
-
-    const collapsedBodyGrid = getCollapsedGridBlock(
-      bRows || [], adjustedBounds, totalRowCount, loadedRowsStart,
-    );
-
-    const collapsedFooterGrid = getCollapsedGridBlock(footerRows || [], null);//visibleBoundaries.footerRows);
     const bodyBottomMargin = Math.max(0, containerHeight - headerHeight - bodyHeight - footerHeight);
+
+    const collapsedHeaderGrid = getCollapsedGridBlock(headerRows || [], null);
+    const collapsedBodyGrid = getCollapsedGridBlock(
+      bodyRows || [], adjustedBounds, totalRowCount, loadedRowsStart,
+    );
+    const collapsedFooterGrid = getCollapsedGridBlock(footerRows || [], null);
 
     return (
       <React.Fragment>

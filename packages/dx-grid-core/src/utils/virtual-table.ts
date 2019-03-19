@@ -1,3 +1,4 @@
+import { PureComputed } from '@devexpress/dx-core';
 import {
   GetVisibleBoundaryWithFixedFn, VisibleBoundary, GetVisibleBoundaryFn, GetSpanBoundaryFn,
   CollapseBoundariesFn, GetColumnsSizeFn, GetCollapsedColumnsFn, CollapsedColumn,
@@ -10,9 +11,6 @@ import {
 import { TABLE_FLEX_TYPE } from '..';
 
 export const TABLE_STUB_TYPE = Symbol('stub');
-import { PureComputed } from '@devexpress/dx-core';
-import { intervalUtil } from '../plugins/virtual-table-state/utils';
-import { VirtualRows } from '../plugins/virtual-table-state/helpers';
 
 export const getVisibleBoundaryWithFixed: GetVisibleBoundaryWithFixedFn = (
   visibleBoundary, items,

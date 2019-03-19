@@ -11,10 +11,14 @@ export type Interval = {
   end: number,
 };
 
-const getRowsInterval: PureComputed<[VirtualRows], Interval> = r => ({
-  start: r.start,
-  end: (r.start || 0) + r.rows.length,
-});
+const getRowsInterval: PureComputed<[VirtualRows], Interval> = r => (
+  r.start !== undefined
+    ? {
+      start: r.start,
+      end: r.start + r.rows.length,
+    }
+    : empty
+);
 
 export const intervalUtil = {
   empty,

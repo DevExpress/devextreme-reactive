@@ -5,7 +5,7 @@ import { Popover } from '../../../../dx-react-bootstrap4/components';
 
 const defaultProps = {
   onHide: () => {},
-  target: () => {},
+  target: {},
 };
 
 describe('Overlay', () => {
@@ -35,6 +35,19 @@ describe('Overlay', () => {
 
     expect(tree.props().data)
       .toMatchObject({ a: 1 });
+  });
+
+  it('should not render popover in body', () => {
+    const renderInBody = shallow((
+      <Overlay
+        {...defaultProps}
+      >
+        <div />
+      </Overlay>
+    )).find(Popover).prop('renderInBody');
+
+    expect(renderInBody)
+      .toBeFalsy();
   });
 
   describe('onHide', () => {

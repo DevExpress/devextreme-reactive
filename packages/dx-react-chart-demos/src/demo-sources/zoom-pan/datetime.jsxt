@@ -28,7 +28,7 @@ export default class Demo extends React.PureComponent {
     this.state = {
       data,
       isValue: false,
-      isArgument: false,
+      isArgument: true,
     };
     this.submit = this.submit.bind(this);
   }
@@ -61,17 +61,16 @@ export default class Demo extends React.PureComponent {
         </Chart>
         <p>
           <label htmlFor="argument">
-            <input type="checkbox" id="argument" />
+            <input type="checkbox" id="argument" checked={isArgument} onChange={this.submit} />
               Zoom/scroll argument
           </label>
         </p>
         <p>
           <label htmlFor="value">
-            <input type="checkbox" id="value" />
+            <input type="checkbox" id="value" checked={isValue} onChange={this.submit} />
             Zoom/scroll value
           </label>
         </p>
-        <button type="submit" onClick={this.submit}>Done</button>
       </<%&wrapperTag%>>
     );
   }

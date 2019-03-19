@@ -12,6 +12,8 @@ const virtualRowsComputed = (
 
 const rowsComputed = ({ virtualRows }: Getters) => virtualRows.rows;
 
+const loadedRowsStartComputed = ({ virtualRows }: Getters) => virtualRows.start;
+
 // tslint:disable-next-line: max-line-length
 export class VirtualTableState extends React.PureComponent<VirtualTableStateProps, VirtualTableStateState> {
   requestTimer: any = 0;
@@ -75,12 +77,14 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
       <Plugin
         name="VirtualTableState"
       >
+        <Getter name="remoteDataEnabled" value />
         <Getter name="start" value={start} />
         <Getter name="virtualRowsCache" value={virtualRowsCache} />
         <Getter name="virtualPageSize" value={100} /> {/*to prop*/}
         <Getter name="totalRowCount" value={rowCount} />
         <Getter name="virtualRows" computed={virtualRowsComputed} />
         <Getter name="rows" computed={rowsComputed} />
+        <Getter name="loadedRowsStart" computed={loadedRowsStartComputed} />
 
         <Action name="requestNextPage" action={this.requestNextPageAction} />
       </Plugin>

@@ -9,9 +9,8 @@ export const visibleBounds = (
     viewportLeft, width, viewportTop, containerHeight, headerHeight, footerHeight,
   } = state;
   const {
-    virtualRows, columns, tableBodyRows,
+    loadedRowsStart, columns, tableBodyRows,
   } = getters;
-  const loadedRowsStart = virtualRows.start;
 
   return {
     columns: getColumnsVisibleBoundary(columns, viewportLeft, width, getColumnWidth),
@@ -26,17 +25,24 @@ export const visibleBounds = (
 export const pageTriggerPositions = (
   state, getters, estimatedRowHeight,
 ) => {
+  const {
+    visibleBoundaries, virtualPageSize, virtualRows,
+    loadedRowsStart, remoteDataEnabled,
+  } = getters;
+
+  if (!remoteDataEnabled) {
+    return [];
+  }
+
   const { viewportTop, containerHeight } = state;
-  const { visibleBoundaries, virtualPageSize, virtualRows } = getters;
-  const loadedStart = virtualRows.start;
   const loadedCount = virtualRows.rows.length;
 
   if (loadedCount === 0) {
     return [0, -1];
   }
 
-  const topTriggerIndex = loadedStart > 0 ? loadedStart + virtualPageSize : 0;
-  const bottomTriggerIndex = loadedStart + loadedCount - virtualPageSize;
+  const topTriggerIndex = loadedRowsStart > 0 ? loadedRowsStart + virtualPageSize : 0;
+  const bottomTriggerIndex = loadedRowsStart + loadedCount - virtualPageSize;
   const firstRowIndex = visibleBoundaries.bodyRows[0];
   const visibleCount = visibleBoundaries.bodyRows[1] - visibleBoundaries.bodyRows[0];
   const middleIndex = firstRowIndex + Math.round(visibleCount / 2);
@@ -54,4 +60,4 @@ export const pageTriggerPositions = (
     bottomTriggerIndex,
     bottomTriggerPosition,
   };
-}
+};

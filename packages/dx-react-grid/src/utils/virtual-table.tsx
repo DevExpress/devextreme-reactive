@@ -14,6 +14,7 @@ import {
   isStubTableCell,
   visibleBounds,
   pageTriggerPositions,
+  getColumnsRenderBoundary,
 } from '@devexpress/dx-grid-core';
 import {
   VirtualTableProps, VirtualTableLayoutProps, VirtualTableLayoutState, TableLayoutProps,
@@ -25,13 +26,14 @@ const AUTO_HEIGHT = 'auto';
 
 const renderBoundariesComputed = ({
   visibleBoundaries,
+  loadedRowsStart,
   tableBodyRows,
-  virtualRows,
+  columns,
 }: Getters) => ({
   bodyRows: getRowsRenderBoundary(
-    virtualRows.start + tableBodyRows.length, visibleBoundaries.bodyRows, 3,
+    loadedRowsStart + tableBodyRows.length, visibleBoundaries.bodyRows,
   ),
-  columns: visibleBoundaries.columns,
+  columns: [getColumnsRenderBoundary(columns.length, visibleBoundaries.columns[0])],
 });
 
 /** @internal */
@@ -119,8 +121,10 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
         ),
       );
 
-      this.getScrollHandler = (currentVirtualPageBoundary, requestNextPage) => (
-        e => this.updateViewport(currentVirtualPageBoundary, requestNextPage, e)
+      this.getScrollHandler = (remoteDataEnabled, currentVirtualPageBoundary, requestNextPage) => (
+        remoteDataEnabled
+          ? e => this.updateViewport(e, currentVirtualPageBoundary, requestNextPage)
+          : e => this.updateViewport(e)
       );
 
       this.getSizeChangeHandler = (currentVirtualPageBoundary, requestNextPage) => (
@@ -159,7 +163,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
       }
     }
 
-    updateViewport(currentVirtualPageBoundary, requestNextPage, e) {
+    updateViewport(e, currentVirtualPageBoundary?, requestNextPage?) {
       const node = e.target;
 
       // NOTE: prevent nested scroll to update viewport
@@ -186,6 +190,8 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
     }
 
     ensureNextPage(currentVirtualPageBoundary, requestNextPage, scrollTop) {
+      if (!(currentVirtualPageBoundary && requestNextPage)) return; // remote data disabled
+
       const {
         topTriggerPosition, bottomTriggerPosition, topTriggerIndex, bottomTriggerIndex,
       } = currentVirtualPageBoundary;
@@ -310,14 +316,14 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
                 <TemplateConnector>
                   {(
                     { currentVirtualPageBoundary, totalRowCount, virtualRows,
-                      renderBoundaries, visibleBoundaries,
+                      renderBoundaries, visibleBoundaries, loadedRowsStart,
                     },
                     { requestNextPage },
                   ) => {
                     const {
                       containerComponent: Container,
                     } = params;
-                    const loadedRowsStart = virtualRows.start;
+                    console.log(renderBoundaries, visibleBoundaries,)
 
                     return (
                       <Sizer

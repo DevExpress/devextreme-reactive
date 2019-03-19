@@ -63,7 +63,8 @@ export const getVisibleBoundary: GetVisibleBoundaryFn = (
   const viewportEnd = viewportStart + viewportSize;
   let index = 0;
   let beforePosition = offset * itemSize;
-  if (beforePosition + items.length * itemSize < viewportStart || beforePosition > viewportStart) {
+  if (itemSize > 0 && beforePosition + items.length * itemSize < viewportStart
+    || viewportStart < beforePosition) {
     beforePosition = viewportStart;
     index = items.length;
     start = Math.round(viewportStart / itemSize) - offset;
@@ -121,17 +122,18 @@ export const getRowsVisibleBoundary: PureComputed<
 };
 
 type GetRenderBoundaryFn = PureComputed<[number, number[], number], number[]>;
+type GetSpecificRenderBoundaryFn = PureComputed<[number, number[]], number[]>;
 
-export const getColumnsRenderBoundary: GetRenderBoundaryFn = (
-  columns, visibleBoundary, overscan,
+export const getColumnsRenderBoundary: GetSpecificRenderBoundaryFn = (
+  columnCount, visibleBoundary,
 ) => (
-  getRenderBoundary(columns, visibleBoundary, 1)
+  getRenderBoundary(columnCount, visibleBoundary, 1)
 );
 
-export const getRowsRenderBoundary: GetRenderBoundaryFn = (
-  rowsCount, visibleBoundary, overscan,
+export const getRowsRenderBoundary: GetSpecificRenderBoundaryFn = (
+  rowsCount, visibleBoundary,
 ) => (
-  getRenderBoundary(rowsCount, visibleBoundary, overscan)
+  getRenderBoundary(rowsCount, visibleBoundary, 3)
 );
 
 export const getSpanBoundary: GetSpanBoundaryFn = (
@@ -242,7 +244,7 @@ export const getCollapsedRows: GetCollapsedAndStubRowsFn = (
         cells: getCells(row),
       });
     } else {
-      const row = {};
+      const row = {} as any;
       const rowCount = boundary[1] - boundary[0];
       collapsedRows.push({
         row: {
@@ -332,6 +334,14 @@ export const getCollapsedGrid: GetCollapsedGridFn = ({
   );
 
   const rowBoundaries = collapseBoundaries(totalRowCount!, [boundaries], [], offset);
+
+
+  const cols = getCollapsedColumns(
+    columns,
+    columnsVisibleBoundary,
+    columnBoundaries,
+    getColumnWidth,
+  );
 
   return {
     columns: getCollapsedColumns(

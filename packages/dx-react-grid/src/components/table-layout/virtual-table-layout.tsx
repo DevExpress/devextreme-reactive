@@ -123,11 +123,8 @@ export class VirtualTableLayout extends React.PureComponent<VirtualTableLayoutPr
     });
     // console.log(headerRows)
     const collapsedHeaderGrid = getCollapsedGridBlock(headerRows || [], null);// visibleBoundaries.headerRows);
-    // debugger
     // console.log('get grid, rows =', loadedRowsStart, bodyRows)
-    //const bRows =  Array.from({ length: loadedRowsStart }).concat(bodyRows || []);
     const bRows = bodyRows;
-    // console.log('get collapsed grid', bRows, visibleBoundaries.bodyRows)
     const adjustedInterval = intervalUtil.intersect(
       { start: visibleBoundaries.bodyRows[0], end: visibleBoundaries.bodyRows[1] },
       { start: loadedRowsStart, end: loadedRowsStart + bodyRows.length },
@@ -137,12 +134,10 @@ export class VirtualTableLayout extends React.PureComponent<VirtualTableLayoutPr
     const collapsedBodyGrid = getCollapsedGridBlock(
       bRows || [], adjustedBounds, totalRowCount, loadedRowsStart,
     );
-    // console.log('render layout', collapsedBodyGrid.rows)
-    // console.log('total count', totalRowCount, 'bounds', visibleBoundaries.columns, 'collapsed', collapsedBodyGrid)
+
     const collapsedFooterGrid = getCollapsedGridBlock(footerRows || [], null);//visibleBoundaries.footerRows);
     const bodyBottomMargin = Math.max(0, containerHeight - headerHeight - bodyHeight - footerHeight);
-    // console.log(containerHeight, headerHeight, bodyHeight, footerHeight);
-    // console.log('body grid', collapsedBodyGrid)
+
     return (
       <React.Fragment>
         {!!headerRows.length && this.renderRowsBlock('header', collapsedHeaderGrid, HeadTable, Head)}

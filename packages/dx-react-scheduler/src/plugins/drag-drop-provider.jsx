@@ -18,6 +18,7 @@ import {
   VERTICAL_TYPE,
   autoScroll,
   calculateAppointmentTimeBoundaries,
+  calculateInsidePart,
 } from '@devexpress/dx-scheduler-core';
 
 const pluginDependencies = [
@@ -99,7 +100,6 @@ export class DragDropProvider extends React.PureComponent {
     if (clientOffset) {
       autoScroll(clientOffset, layoutElement, layoutHeaderElement);
     }
-
     const timeTableCells = Array.from(timeTableElement.current.querySelectorAll('td'));
     const allDayCells = Array.from(layoutHeaderElement.current.querySelectorAll('th'));
 
@@ -110,15 +110,9 @@ export class DragDropProvider extends React.PureComponent {
 
     const targetData = cellData(timeTableIndex, allDayIndex, viewCellsData);
     const targetType = cellType(targetData);
-
-    // CALCULATE INSIDE OFFSET
-    let insidePart = 0;
-    if (timeTableIndex !== -1) {
-      const cellRect = timeTableCells[timeTableIndex].getBoundingClientRect();
-      insidePart = clientOffset.y > cellRect.top + (cellRect.bottom - cellRect.top) / 2 ? 1 : 0;
-    }
-
+    const insidePart = calculateInsidePart(clientOffset.y, timeTableCells, timeTableIndex);
     const cellDurationMinutes = intervalDuration(targetData, 'minutes');
+
     const {
       appointmentStartTime, appointmentEndTime, offsetTimeTop,
     } = calculateAppointmentTimeBoundaries(
@@ -154,7 +148,7 @@ export class DragDropProvider extends React.PureComponent {
       } else {
         this.timeTableRects = horizontalTimeTableRects(
           draftAppointments, startViewDate, endViewDate,
-          excludedDays, viewCellsData, timeTableCells,
+          viewCellsData, timeTableCells,
         );
       }
     } else {

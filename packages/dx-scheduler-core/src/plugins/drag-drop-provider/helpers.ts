@@ -104,7 +104,7 @@ export const verticalTimeTableRects: VerticalRects = (
 
 export const horizontalTimeTableRects: HorizontalRects = (
   draftAppointments, startViewDate, endViewDate,
-  excludedDays, viewCellsData, cellElements,
+  viewCellsData, cellElements,
 ) => {
   const intervals = calculateMonthDateIntervals(
     draftAppointments, startViewDate, endViewDate,
@@ -125,7 +125,9 @@ export const horizontalTimeTableRects: HorizontalRects = (
   );
 };
 
-export const autoScroll = (clientOffset: any, layoutElement: any, layoutHeaderElement: any) => {
+export const autoScroll: PureComputed<
+  [ClientOffset, any, any], void
+> = (clientOffset, layoutElement, layoutHeaderElement) => {
   const layout = layoutElement.current;
   const layoutHeaderRect = layoutHeaderElement.current.getBoundingClientRect();
 
@@ -173,4 +175,14 @@ export const calculateAppointmentTimeBoundaries: CalculateAppointmentTimeBoundar
     appointmentEndTime,
     offsetTimeTop,
   };
+};
+
+export const calculateInsidePart: PureComputed<
+  [number, Element[], number]
+> = (top, timeTableCells, timeTableIndex) => {
+  if (timeTableIndex !== undefined && timeTableIndex !== -1) {
+    const cellRect = timeTableCells[timeTableIndex].getBoundingClientRect();
+    return top > cellRect.top + cellRect.height / 2 ? 1 : 0;
+  }
+  return 0;
 };

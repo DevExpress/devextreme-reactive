@@ -18,7 +18,7 @@ export type VerticalRects = PureComputed<
 >;
 
 export type HorizontalRects = PureComputed<
-  [Appointment[], Date,  Date, number[], ViewCell[][], Element[][]], ElementRect[]
+  [Appointment[], Date,  Date, ViewCell[][], Element[][]], ElementRect[]
 >;
 
 type AppointmentBoundaries = {

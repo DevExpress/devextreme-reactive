@@ -1,6 +1,6 @@
 import {
   intervalDuration, cellIndex, cellData, cellType, autoScroll,
-  calculateAppointmentTimeBoundaries,
+  calculateAppointmentTimeBoundaries, calculateInsidePart,
 } from './helpers';
 
 describe('DragDropProvider', () => {
@@ -228,6 +228,24 @@ describe('DragDropProvider', () => {
           appointmentEndTime: new Date('2018-06-25 11:00'),
           offsetTimeTop: 1321200,
         });
+    });
+  });
+
+  describe('#calculateInsidePart', () => {
+    it('should not throw error without timeTableIndex', () => {
+      expect(() => calculateInsidePart(undefined, undefined, undefined)).not.toThrow();
+    });
+    it('should return top', () => {
+      const tileTableIndex = 0;
+      const timeTableCells = [{ getBoundingClientRect: () => ({ top: 10, height: 20 }) }];
+      expect(calculateInsidePart(15, timeTableCells, tileTableIndex))
+        .toEqual(0);
+    });
+    it('should return bottom', () => {
+      const tileTableIndex = 0;
+      const timeTableCells = [{ getBoundingClientRect: () => ({ top: 10, height: 20 }) }];
+      expect(calculateInsidePart(25, timeTableCells, tileTableIndex))
+        .toEqual(1);
     });
   });
 });

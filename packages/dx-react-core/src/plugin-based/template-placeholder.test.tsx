@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import { mount, render } from 'enzyme';
 
 import { PluginHost } from './plugin-host';
@@ -71,9 +70,6 @@ describe('TemplatePlaceholder', () => {
         </Template>
       </PluginHost>
     );
-    Test.propTypes = {
-      text: PropTypes.string.isRequired,
-    };
 
     const tree = mount(<Test text="old" />);
 
@@ -128,9 +124,6 @@ describe('TemplatePlaceholder', () => {
         </Template>
       </PluginHost>
     );
-    Test.propTypes = {
-      param: PropTypes.string.isRequired,
-    };
 
     const tree = mount(<Test param="text" />);
     tree.setProps({ param: 'new' });
@@ -248,9 +241,6 @@ describe('TemplatePlaceholder', () => {
         </Template>
       </PluginHost>
     );
-    Test.propTypes = {
-      param: PropTypes.string.isRequired,
-    };
 
     const tree = mount(<Test param="text" />);
     tree.setProps({ param: 'new' });

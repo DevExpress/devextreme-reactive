@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import { mount } from 'enzyme';
 
 import { PluginHost } from './plugin-host';
@@ -44,9 +43,6 @@ describe('Template', () => {
         </Template>
       </PluginHost>
     );
-    Test.propTypes = {
-      text: PropTypes.string.isRequired,
-    };
 
     const tree = mount(<Test text="test" />);
     tree.setProps({ text: 'new' });
@@ -71,9 +67,6 @@ describe('Template', () => {
         )}
       </PluginHost>
     );
-    Test.propTypes = {
-      showSecond: PropTypes.bool.isRequired,
-    };
 
     const tree = mount(<Test showSecond={false} />);
     tree.setProps({ showSecond: true });
@@ -98,9 +91,6 @@ describe('Template', () => {
         )}
       </PluginHost>
     );
-    Test.propTypes = {
-      showSecond: PropTypes.bool.isRequired,
-    };
 
     const tree = mount(<Test showSecond />);
     tree.setProps({ showSecond: false });

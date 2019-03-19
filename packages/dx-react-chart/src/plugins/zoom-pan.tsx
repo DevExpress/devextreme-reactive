@@ -77,14 +77,15 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
     }
   }
 
-  handleTouchMove = (scales, allowForArgument, allowForValue) => (e) => {
+  handleTouchMove = (scales, interactionWithArguments, interactionWithValues) => (e) => {
     const currentDelta = getDeltaForTouches(e.touches);
 
-    this.zoom(scales, currentDelta - this.multiTouchDelta!, allowForArgument, allowForValue);
+    this.zoom(scales, currentDelta - this.multiTouchDelta!,
+      interactionWithArguments, interactionWithValues);
     this.multiTouchDelta = currentDelta;
   }
 
-  handleMouseMove = (scales, clientOffset, allowForArgument, allowForValue) => {
+  handleMouseMove = (scales, clientOffset, interactionWithArguments, interactionWithValues) => {
     if (this.multiTouchDelta) {
       return;
     }
@@ -115,10 +116,11 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
         };
       }
       const argumentBounds = adjustBounds(
-        ARGUMENT_DOMAIN, scales, allowForArgument, 'pan', getBounds, deltaX, viewport,
+        ARGUMENT_DOMAIN, scales, interactionWithArguments, 'pan', getBounds, deltaX, viewport,
       );
       const valueBounds = adjustBounds(
-        getValueScaleName(viewport), scales, allowForValue, 'pan', getBounds, deltaY, viewport,
+        getValueScaleName(viewport), scales,
+        interactionWithValues, 'pan', getBounds, deltaY, viewport,
       );
       return {
         viewport: {
@@ -131,18 +133,18 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
     });
   }
 
-  handleMouseUp = (scales, allowForArgument, allowForValue) => {
+  handleMouseUp = (scales, interactionWithArguments, interactionWithValues) => {
     this.lastCoordinates = null;
     this.multiTouchDelta = null;
     if (this.drawRectange) {
       this.setState(({ viewport, rectBox }) => {
         this.drawRectange = false;
         const argumentBounds = adjustBounds(
-          ARGUMENT_DOMAIN, scales, allowForArgument, 'zoom',
+          ARGUMENT_DOMAIN, scales, interactionWithArguments, 'zoom',
           () => [rectBox!.x, rectBox!.x + rectBox!.width], 0, viewport,
         );
         const valueBounds = adjustBounds(
-          getValueScaleName(viewport), scales, allowForValue, 'zoom',
+          getValueScaleName(viewport), scales, interactionWithValues, 'zoom',
           () => [rectBox!.y + rectBox!.height, rectBox!.y], 0, viewport,
         );
         return {
@@ -158,13 +160,14 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
     }
   }
 
-  zoom = (scales, delta, allowForArgument, allowForValue) => {
+  zoom = (scales, delta, interactionWithArguments, interactionWithValues) => {
     this.setState(({ viewport }) => {
       const argumentBounds = adjustBounds(
-        ARGUMENT_DOMAIN, scales, allowForArgument, 'zoom', getBounds, delta, viewport,
+        ARGUMENT_DOMAIN, scales, interactionWithArguments, 'zoom', getBounds, delta, viewport,
       );
       const valueBounds = adjustBounds(
-        getValueScaleName(viewport), scales, allowForValue, 'zoom', getBounds, delta, viewport,
+        getValueScaleName(viewport), scales,
+        interactionWithValues, 'zoom', getBounds, delta, viewport,
       );
       return {
         viewport: {
@@ -177,9 +180,9 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
     });
   }
 
-  handleScroll = (scales, allowForArgument, allowForValue) => (e) => {
+  handleScroll = (scales, interactionWithArguments, interactionWithValues) => (e) => {
     e.preventDefault();
-    this.zoom(scales, e.nativeEvent.wheelDelta, allowForArgument, allowForValue);
+    this.zoom(scales, e.nativeEvent.wheelDelta, interactionWithArguments, interactionWithValues);
   }
 
   render() {

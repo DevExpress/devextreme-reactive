@@ -6,7 +6,6 @@ import {
   TableColumn, TableRow,
   CollapsedCell,
   GetColumnWidthGetterFn,
-  GetRowHeightFn,
 } from '../types';
 import { TABLE_FLEX_TYPE } from '..';
 
@@ -20,37 +19,6 @@ export const getVisibleBoundaryWithFixed: GetVisibleBoundaryWithFixedFn = (
   }
   return acc;
 }, [visibleBoundary] as [VisibleBoundary]);
-
-type RowsOffsetToPxFn = PureComputed<[number, number, VirtualRows, GetRowHeightFn, number], number>;
-export const rowsOffsetToPx: RowsOffsetToPxFn = (
-  middleIndex, offsetCount, virtualRows, getRowHeight, estimatedRowHeight,
-) => {
-  const targetRowIndex = middleIndex + offsetCount;
-
-  const start = Math.min(middleIndex, targetRowIndex);
-  const end = Math.max(middleIndex, targetRowIndex);
-
-  const interval = { start, end };
-  const rowsStart = virtualRows.start;
-  const rowsInterval = { start: rowsStart, end: rowsStart + virtualRows.rows.length };
-  const loadedInterval = intervalUtil.intersect(interval, rowsInterval);
-  const notLoadedCount = intervalUtil.getLength(interval) - intervalUtil.getLength(loadedInterval);
-
-  let result = 0;
-  if (0 !== notLoadedCount) {
-    result += notLoadedCount * estimatedRowHeight;
-  }
-  if (intervalUtil.empty !== loadedInterval) {
-    const relativeStart = loadedInterval.start - rowsStart;
-    const relativeEnd = loadedInterval.end - rowsStart;
-
-    for (let i = relativeStart; i <= relativeEnd; i += 1) {
-      result += getRowHeight(virtualRows.rows[i]);
-    }
-  }
-
-  return offsetCount > 0 ? result : -result;
-};
 
 export const getVisibleBoundary: GetVisibleBoundaryFn = (
   items, viewportStart, viewportSize, getItemSize, offset = 0, itemSize = 0,
@@ -332,14 +300,6 @@ export const getCollapsedGrid: GetCollapsedGridFn = ({
   );
 
   const rowBoundaries = collapseBoundaries(totalRowCount!, [boundaries], [], offset);
-
-
-  const cols = getCollapsedColumns(
-    columns,
-    columnsVisibleBoundary,
-    columnBoundaries,
-    getColumnWidth,
-  );
 
   return {
     columns: getCollapsedColumns(

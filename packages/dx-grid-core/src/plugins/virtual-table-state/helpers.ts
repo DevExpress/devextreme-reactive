@@ -3,8 +3,12 @@ import { Row } from '../../types';
 import { PureComputed } from '@devexpress/dx-core';
 
 export type VirtualRows = {
-  start?: number,
+  start: number,
   rows: Row[],
+};
+export const emptyVirtualRows: VirtualRows = {
+  start: Number.POSITIVE_INFINITY,
+  rows: [],
 };
 
 export const mergeRows = (rowsInterval, cacheInterval, rows, cacheRows, rowsStart, cacheStart) => {
@@ -72,7 +76,7 @@ export const trimRowsToInterval: TrimRowsToIntervalFn = (virtualRows, targetInte
   const rowsInterval = intervalUtil.getRowsInterval(virtualRows);
   const intersection = intervalUtil.intersect(rowsInterval, targetInterval);
   if (intervalUtil.empty === intersection) {
-    return { start: undefined, rows: [] };
+    return emptyVirtualRows;
   }
 
   const relativeStart = intersection.start - virtualRows.start;

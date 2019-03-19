@@ -1,4 +1,4 @@
-import { VirtualRows } from './helpers';
+import { VirtualRows, emptyVirtualRows } from './helpers';
 import { PureComputed } from '@devexpress/dx-core';
 
 const empty = {
@@ -12,12 +12,12 @@ export type Interval = {
 };
 
 const getRowsInterval: PureComputed<[VirtualRows], Interval> = r => (
-  r.start !== undefined
-    ? {
+  r === emptyVirtualRows
+    ? empty
+    : {
       start: r.start,
       end: r.start + r.rows.length,
     }
-    : empty
 );
 
 export const intervalUtil = {

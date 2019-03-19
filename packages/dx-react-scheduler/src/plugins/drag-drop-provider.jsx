@@ -17,7 +17,6 @@ import {
   intervalDuration,
   VERTICAL_TYPE,
   autoScroll,
-  SECONDS,
   calculateAppointmentTimeBoundaries,
 } from '@devexpress/dx-scheduler-core';
 
@@ -73,6 +72,12 @@ export class DragDropProvider extends React.PureComponent {
     });
   }
 
+  applyChanges(startTime, endTime, payload, startEditAppointment, changeAppointment) {
+    startEditAppointment({ appointmentId: payload.id });
+    changeAppointment({ change: { startDate: startTime, endDate: endTime } });
+    this.setState({ startTime, endTime, payload });
+  }
+
   handlePayloadChange({ payload }, { commitChangedAppointment, stopEditAppointment }) {
     if (payload) return;
 
@@ -103,10 +108,8 @@ export class DragDropProvider extends React.PureComponent {
 
     if (allDayIndex === -1 && timeTableIndex === -1) return;
 
-    const appointmentDurationSeconds = intervalDuration(payload, SECONDS);
     const targetData = cellData(timeTableIndex, allDayIndex, viewCellsData);
     const targetType = cellType(targetData);
-    const sourceType = payload.type;
 
     // CALCULATE INSIDE OFFSET
     let insidePart = 0;
@@ -115,17 +118,20 @@ export class DragDropProvider extends React.PureComponent {
       insidePart = clientOffset.y > cellRect.top + (cellRect.bottom - cellRect.top) / 2 ? 1 : 0;
     }
 
-    // CURSOR POSITION
     const cellDurationMinutes = intervalDuration(targetData, 'minutes');
     const {
       appointmentStartTime, appointmentEndTime, offsetTimeTop,
     } = calculateAppointmentTimeBoundaries(
-      payload, targetData, targetType, sourceType, cellDurationMinutes,
-      appointmentDurationSeconds, insidePart, this.offsetTimeTop,
+      payload, targetData, targetType, cellDurationMinutes,
+      insidePart, this.offsetTimeTop,
     );
     this.appointmentStartTime = appointmentStartTime;
     this.appointmentEndTime = appointmentEndTime;
     this.offsetTimeTop = offsetTimeTop;
+
+    const { startTime, endTime } = this.state;
+    if (moment(startTime).isSame(this.appointmentStartTime)
+      && moment(endTime).isSame(this.appointmentEndTime)) return;
 
     const draftAppointments = [{
       ...payload, start: this.appointmentStartTime, end: this.appointmentEndTime,
@@ -155,23 +161,10 @@ export class DragDropProvider extends React.PureComponent {
       this.timeTableRects = [];
     }
 
-    const { startTime, endTime } = this.state;
-    if (moment(startTime).isSame(this.appointmentStartTime)
-      && moment(endTime).isSame(this.appointmentEndTime)) return;
-
-    startEditAppointment({ appointmentId: payload.id });
-    changeAppointment({
-      change: {
-        startDate: this.appointmentStartTime,
-        endDate: this.appointmentEndTime,
-      },
-    });
-
-    this.setState({
-      startTime: this.appointmentStartTime,
-      endTime: this.appointmentEndTime,
-      payload,
-    });
+    this.applyChanges(
+      this.appointmentStartTime, this.appointmentEndTime,
+      payload, startEditAppointment, changeAppointment,
+    );
   }
 
   handleDrop({ commitChangedAppointment, stopEditAppointment }) {

@@ -28,6 +28,6 @@ type AppointmentBoundaries = {
 };
 
 export type CalculateAppointmentTimeBoundaries = PureComputed<
-  [AppointmentModel, AppointmentModel, string, string, number, number, number, number],
+  [AppointmentModel, AppointmentModel, string, number, number, number],
   AppointmentBoundaries
 >;

@@ -139,9 +139,11 @@ export const autoScroll = (clientOffset: any, layoutElement: any, layoutHeaderEl
 };
 
 export const calculateAppointmentTimeBoundaries: CalculateAppointmentTimeBoundaries = (
-  payload, targetData, targetType, sourceType,
-  cellDurationMinutes, appointmentDurationSeconds, insidePart, offsetTimeTopBase,
+  payload, targetData, targetType,
+  cellDurationMinutes, insidePart, offsetTimeTopBase,
 ) => {
+  const appointmentDurationSeconds = intervalDuration(payload, SECONDS);
+  const sourceType = payload.type;
   const insideOffset = targetType === VERTICAL_TYPE ? insidePart * cellDurationMinutes * 60 / 2 : 0;
   let offsetTimeTop;
 

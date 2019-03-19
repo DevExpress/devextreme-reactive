@@ -138,15 +138,13 @@ describe('DragDropProvider', () => {
         startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-26 11:00'),
       };
       const targetType = 'vertical';
-      const sourceType = 'vertical';
       const cellDurationMinutes = 60;
-      const appointmentDurationSeconds = 3600;
       const insidePart = 0;
       const offsetTimeTopBase = null;
 
       const result = calculateAppointmentTimeBoundaries(
-        payload, targetData, targetType, sourceType,
-        cellDurationMinutes, appointmentDurationSeconds, insidePart, offsetTimeTopBase,
+        payload, targetData, targetType,
+        cellDurationMinutes, insidePart, offsetTimeTopBase,
       );
       expect(result)
         .toEqual({
@@ -165,15 +163,13 @@ describe('DragDropProvider', () => {
         startDate: new Date('2018-06-25'), endDate: new Date('2018-06-26'),
       };
       const targetType = 'horizontal';
-      const sourceType = 'horizontal';
       const cellDurationMinutes = 24 * 60;
-      const appointmentDurationSeconds = 24 * 60 * 60;
       const insidePart = 0;
       const offsetTimeTopBase = null;
 
       const result = calculateAppointmentTimeBoundaries(
-        payload, targetData, targetType, sourceType,
-        cellDurationMinutes, appointmentDurationSeconds, insidePart, offsetTimeTopBase,
+        payload, targetData, targetType,
+        cellDurationMinutes, insidePart, offsetTimeTopBase,
       );
       expect(result)
         .toEqual({

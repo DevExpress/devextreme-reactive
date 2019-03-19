@@ -27,20 +27,20 @@ export const groupedRows: GroupedRowsFn = (
   const { columnName } = grouping[0];
   const groupCriteria = (getColumnCriteria && getColumnCriteria(columnName))
     || defaultColumnCriteria;
-  const groups = Array.prototype.slice.call(rows)
-    .reduce((acc, row) => {
-      const rawValue = getCellValue(row, columnName);
-      const { key, value } = groupCriteria(rawValue, row);
-      const sameKeyItems = acc.get(key);
 
-      if (!sameKeyItems) {
-        const groupingValue = value === rawValue ? value : value || key;
-        acc.set(key, [groupingValue, key, [row]]);
-      } else {
-        sameKeyItems[2].push(row);
-      }
-      return acc;
-    }, new Map());
+  const groups = new Map();
+  rows.forEach((row) => {
+    const rawValue = getCellValue(row, columnName);
+    const { key, value } = groupCriteria(rawValue, row);
+    const sameKeyItems = groups.get(key);
+
+    if (!sameKeyItems) {
+      const groupingValue = value === rawValue ? value : value || key;
+      groups.set(key, [groupingValue, key, [row]]);
+    } else {
+      sameKeyItems[2].push(row);
+    }
+  });
 
   const groupedBy = grouping[0].columnName;
   const nestedGrouping = grouping.slice(1);

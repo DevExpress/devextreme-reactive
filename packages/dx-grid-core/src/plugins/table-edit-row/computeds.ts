@@ -17,7 +17,7 @@ export const tableRowsWithEditing: TableRowsWithEditingFn = (
         : tableRow
     ));
 
-  const addedTableRows = Array.prototype.slice.call(addedRows)
+  const addedTableRows = addedRows
     .map((row, rowIndex) => ({
       row,
       key: `${TABLE_ADDED_TYPE.toString()}_${rowIndex}`,
@@ -27,7 +27,7 @@ export const tableRowsWithEditing: TableRowsWithEditingFn = (
     }));
 
   return [
-    ...addedTableRows.reverse(),
+    ...Array.prototype.slice.call(addedTableRows).reverse(),
     ...editedTableRows,
   ];
 };

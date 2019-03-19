@@ -70,32 +70,36 @@ export const expandedTreeRows: ExpandedTreeRowsFn = (
 
   let currentExpanded = true;
   let currentLevel = 0;
-  return Array.prototype.slice.call(rows).reduce((acc, row) => {
+
+  const collapsedRowsMeta = new Map();
+  const resultRows: object[] = [];
+
+  rows.forEach((row) => {
     const rowMeta = treeMeta.get(row);
     const level = rowMeta && rowMeta.level;
     if (level === undefined && currentExpanded) {
-      acc.rows.push(row);
-      return acc;
-    }
-
-    if (!currentExpanded && (level === undefined || level > currentLevel)) {
-      const lastRow = acc.rows[acc.rows.length - 1];
-      let collapsedItems = acc.collapsedRowsMeta.get(lastRow);
+      resultRows.push(row);
+    } else if (!currentExpanded && (level === undefined || level > currentLevel)) {
+      const lastRow = resultRows[resultRows.length - 1];
+      let collapsedItems = collapsedRowsMeta.get(lastRow);
       if (!collapsedItems) {
         collapsedItems = [];
-        acc.collapsedRowsMeta.set(lastRow, collapsedItems);
+        collapsedRowsMeta.set(lastRow, collapsedItems);
       }
       collapsedItems.push(row);
-      return acc;
+    } else {
+      currentExpanded = expandedRowIdsSet.has(getRowId(row));
+      currentLevel = level!;
+
+      resultRows.push(row);
     }
+  });
 
-    currentExpanded = expandedRowIdsSet.has(getRowId(row));
-    currentLevel = level!;
-
-    acc.rows.push(row);
-
-    return acc;
-  }, { treeMeta, rows: [], collapsedRowsMeta: new Map() });
+  return {
+    treeMeta,
+    collapsedRowsMeta,
+    rows: resultRows,
+  };
 };
 
 export const collapsedTreeRowsGetter: PureComputed<

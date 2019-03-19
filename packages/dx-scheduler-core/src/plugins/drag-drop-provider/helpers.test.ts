@@ -1,7 +1,7 @@
 import {
   intervalDuration, cellIndex, cellData, cellType, autoScroll,
+  calculateAppointmentTimeBoundaries,
 } from './helpers';
-import { allDayRects } from '../../../dist/dx-scheduler-core.umd';
 
 describe('DragDropProvider', () => {
   describe('#cellType', () => {
@@ -125,6 +125,62 @@ describe('DragDropProvider', () => {
       autoScroll(clientOffset, layoutElement, layoutHeaderElement);
       expect(layoutElement.current.scrollTop)
         .toBe(0);
+    });
+  });
+
+  describe('#calculateAppointmentTimeBoundaries', () => {
+    it('should work with vertical appointment and vertical cell', () => {
+      const payload = {
+        startDate: new Date('2018-06-25 10:00'),
+        endDate: new Date('2018-06-25 11:00'),
+      };
+      const targetData = {
+        startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-26 11:00'),
+      };
+      const targetType = 'vertical';
+      const sourceType = 'vertical';
+      const cellDurationMinutes = 60;
+      const appointmentDurationSeconds = 3600;
+      const insidePart = 0;
+      const offsetTimeTopBase = null;
+
+      const result = calculateAppointmentTimeBoundaries(
+        payload, targetData, targetType, sourceType,
+        cellDurationMinutes, appointmentDurationSeconds, insidePart, offsetTimeTopBase,
+      );
+      expect(result)
+        .toEqual({
+          appointmentStartTime: new Date('2018-06-25 10:00'),
+          appointmentEndTime: new Date('2018-06-25 11:00'),
+          offsetTimeTop: 0,
+        });
+    });
+
+    it('should work with horizontal appointment and horizontal cell', () => {
+      const payload = {
+        startDate: new Date('2018-06-25'),
+        endDate: new Date('2018-06-26'),
+      };
+      const targetData = {
+        startDate: new Date('2018-06-25'), endDate: new Date('2018-06-26'),
+      };
+      const targetType = 'horizontal';
+      const sourceType = 'horizontal';
+      const cellDurationMinutes = 24 * 60;
+      const appointmentDurationSeconds = 24 * 60 * 60;
+      const insidePart = 0;
+      const offsetTimeTopBase = null;
+
+      const result = calculateAppointmentTimeBoundaries(
+        payload, targetData, targetType, sourceType,
+        cellDurationMinutes, appointmentDurationSeconds, insidePart, offsetTimeTopBase,
+      );
+      expect(result)
+        .toEqual({
+          appointmentStartTime: new Date('2018-06-25'),
+          appointmentEndTime: new Date('2018-06-26'),
+          offsetTimeTop: 0,
+        });
     });
   });
 });

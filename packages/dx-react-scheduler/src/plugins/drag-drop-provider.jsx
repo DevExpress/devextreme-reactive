@@ -103,7 +103,7 @@ export class DragDropProvider extends React.PureComponent {
 
     if (allDayIndex === -1 && timeTableIndex === -1) return;
 
-    const appointmentDuration = intervalDuration(payload, SECONDS);
+    const appointmentDurationSeconds = intervalDuration(payload, SECONDS);
     const targetData = cellData(timeTableIndex, allDayIndex, viewCellsData);
     const targetType = cellType(targetData);
     const sourceType = payload.type;
@@ -116,12 +116,12 @@ export class DragDropProvider extends React.PureComponent {
     }
 
     // CURSOR POSITION
-    const cellDuration = intervalDuration(targetData, 'minutes');
+    const cellDurationMinutes = intervalDuration(targetData, 'minutes');
     const {
       appointmentStartTime, appointmentEndTime, offsetTimeTop,
     } = calculateAppointmentTimeBoundaries(
-      payload, targetData, targetType, sourceType, cellDuration,
-      appointmentDuration, insidePart, this.offsetTimeTop,
+      payload, targetData, targetType, sourceType, cellDurationMinutes,
+      appointmentDurationSeconds, insidePart, this.offsetTimeTop,
     );
     this.appointmentStartTime = appointmentStartTime;
     this.appointmentEndTime = appointmentEndTime;
@@ -143,7 +143,7 @@ export class DragDropProvider extends React.PureComponent {
       if (targetType === VERTICAL_TYPE) {
         this.timeTableRects = verticalTimeTableRects(
           draftAppointments, startViewDate, endViewDate,
-          excludedDays, viewCellsData, cellDuration, timeTableCells,
+          excludedDays, viewCellsData, cellDurationMinutes, timeTableCells,
         );
       } else {
         this.timeTableRects = horizontalTimeTableRects(

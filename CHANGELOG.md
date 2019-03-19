@@ -1,3 +1,12 @@
+# [1.11.0-alpha.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.10.4...v1.11.0-alpha.1) (2019-03-13)
+
+
+### Features
+
+* **react-scheduler:** add editing by dragging ([#1870](https://github.com/DevExpress/devextreme-reactive/issues/1870)) ([238f696](https://github.com/DevExpress/devextreme-reactive/commit/238f696))
+
+
+
 # [1.10.4](https://github.com/DevExpress/devextreme-reactive/compare/v1.10.3...v1.10.4) (2019-03-11)
 
 

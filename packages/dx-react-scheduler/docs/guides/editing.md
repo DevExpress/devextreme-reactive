@@ -9,6 +9,7 @@ The following plugins implement this feature:
 - [EditingState](../reference/editing-state.md) - controls the editing state
 - [AppointmentTooltip](../reference/appointment-tooltip.md) - renders a tooltip with controls that manage the appointment
 - [AppointmentForm](../reference/appointment-form.md) - renders a form that allows a user to edit an appointment
+- [DragDropProvider](../reference/drag-drop-provider.md) - implements drag-and-drop editing
 
 ## User Interaction
 
@@ -25,11 +26,15 @@ Double-click an appointment to open the appointment editing form.
 
 OR
 
-Click an appointment for the appointment tooltip to appear, and then click Edit in the tooltip to open the appointment editing form.
+Click an appointment to invoke its tooltip, and then click Edit in the tooltip to open the appointment editing form.
+
+OR
+
+Drag an appointment to another cell to reschedule it. This functionality requires the [DragDropProvider](../reference/drag-drop-provider.md) plugin.
 
 ### Delete an Appointment
 
-Click an appointment to invoke the appointment tooltip, and then click Delete in the tooltip to remove the appointment.
+Click an appointment to invoke its tooltip, and then click Delete in the tooltip to remove the appointment.
 
 ## Basic Setup
 
@@ -64,3 +69,11 @@ To validate user input or prevent user actions, handle the `EditingState` plugin
 For example, you can show a confirmation dialog before an appointment is removed. To detect an attempt to remove an appointment, check the `deleted` parameter's value in the `commitChanges` handler:
 
 .embedded-demo({ "path": "scheduler-editing/delete-confirmation", "showThemeSelector": true })
+
+## Drag-and-Drop Editing
+
+Add the [DragDropProvider](../reference/drag-drop-provider.md) plugin to enable users to drag and drop appointments. Use its `allowDrag` property to disallow dragging specific appointments.
+
+.embedded-demo({ "path": "scheduler-editing/drag-drop", "showThemeSelector": true })
+
+The `DragDropProvider` plugin also allows you to customize the appointment being dragged (via the `draftAppointmentComponent` property) and its copy displayed in its previous location (via `sourceAppointmentComponent`).

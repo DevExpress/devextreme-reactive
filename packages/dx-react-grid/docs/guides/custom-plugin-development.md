@@ -702,4 +702,4 @@ export class ToolbarFilter extends React.PureComponent {
 }
 ```
 
-[Here](https://codesandbox.io/s/0ymwn2lm8w) you can find the full project with custom plugins.
+[Here](https://codesandbox.io/s/zqlr2lmxz3) you can find the full project with custom plugins.

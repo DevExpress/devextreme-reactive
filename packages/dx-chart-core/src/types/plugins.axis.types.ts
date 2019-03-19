@@ -13,6 +13,7 @@ export type AxisCoordinatesArg = {
   tickSize: number;
   tickFormat?: TickFormatFn;
   indentFromAxis: number;
+  paneSize: NumberArray;
 };
 /** @internal */
 export type Tick = {
@@ -38,6 +39,7 @@ export type AxisCoordinatesFn = PureComputed<[AxisCoordinatesArg], AxisCoordinat
 export type GridCoordinatesArg = {
   scaleName: string;
   scale: ScaleObject;
+  paneSize: NumberArray;
 };
 /** @internal */
 export type Grid = {

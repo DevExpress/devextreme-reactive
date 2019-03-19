@@ -67,7 +67,6 @@ export default class Demo extends React.PureComponent {
     return (
       <<%&wrapperTag%><%&wrapperAttributes%>>
         <Chart
-          width={500}
           data={chartData}
         >
           <ArgumentScale factory={scaleTime} />

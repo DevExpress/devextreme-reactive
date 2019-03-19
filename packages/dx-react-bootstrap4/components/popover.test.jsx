@@ -61,7 +61,7 @@ describe('BS4 Popover', () => {
 
     it('should render outside a container if container is body', () => {
       mount((
-        <Popover target={target} container="body" isOpen>
+        <Popover target={target} renderInBody isOpen>
           <Content />
         </Popover>
       ), { attachTo: container });
@@ -72,7 +72,7 @@ describe('BS4 Popover', () => {
 
     it('should render inside a container if container is not body', () => {
       mount((
-        <Popover target={target} container="inline" isOpen>
+        <Popover target={target} renderInBody={false} isOpen>
           <Content />
         </Popover>
       ), { attachTo: container });

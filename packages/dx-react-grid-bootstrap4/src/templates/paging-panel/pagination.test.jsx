@@ -42,14 +42,14 @@ describe('Pagination', () => {
     )).find(PaginationBS4);
 
     const arrows = paginations.at(1).find(PaginationItem);
-    const prew = arrows.at(0);
+    const prev = arrows.at(0);
     const next = arrows.at(1);
 
-    prew.find(PaginationLink).simulate('click', { preventDefault: jest.fn() });
+    prev.find(PaginationLink).simulate('click', { preventDefault: jest.fn() });
     next.find(PaginationLink).simulate('click', { preventDefault: jest.fn() });
 
     expect(arrows).toHaveLength(2);
-    expect(prew.props('previews')).toBeTruthy();
+    expect(prev.props('previews')).toBeTruthy();
     expect(next.props('next')).toBeTruthy();
     expect(onCurrentPageChange.mock.calls).toHaveLength(2);
   });
@@ -63,10 +63,10 @@ describe('Pagination', () => {
     )).find(PaginationBS4);
 
     const arrows = paginations.at(1).find(PaginationItem);
-    const prew = arrows.at(0);
+    const prev = arrows.at(0);
     const next = arrows.at(1);
 
-    expect(prew.props().disabled).toBeTruthy();
+    expect(prev.props().disabled).toBeTruthy();
     expect(next.props().disabled).toBeFalsy();
   });
 
@@ -80,10 +80,10 @@ describe('Pagination', () => {
     )).find(PaginationBS4);
 
     const arrows = paginations.at(1).find(PaginationItem);
-    const prew = arrows.at(0);
+    const prev = arrows.at(0);
     const next = arrows.at(1);
 
-    expect(prew.props().disabled).toBeFalsy();
+    expect(prev.props().disabled).toBeFalsy();
     expect(next.props().disabled).toBeTruthy();
   });
 });

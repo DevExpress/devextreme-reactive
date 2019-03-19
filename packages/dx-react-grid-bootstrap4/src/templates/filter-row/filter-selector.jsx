@@ -48,7 +48,6 @@ export class FilterSelector extends React.PureComponent {
               placement="bottom"
               isOpen={opened}
               target={this.targetElement}
-              container={undefined}
               toggle={this.handleOverlayToggle}
             >
               <div className="py-2">

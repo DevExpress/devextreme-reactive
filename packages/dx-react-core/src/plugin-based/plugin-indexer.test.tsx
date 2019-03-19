@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import { mount } from 'enzyme';
 
 import { PluginIndexer } from './plugin-indexer';
@@ -34,9 +33,6 @@ describe('PluginIndexer', () => {
         <TestWrapper />
       </PluginIndexer>
     );
-    Test1.propTypes = {
-      enableGetter: PropTypes.bool.isRequired,
-    };
 
     const tree = mount(<Test1 enableGetter={false} />);
 
@@ -73,9 +69,6 @@ describe('PluginIndexer', () => {
         {enableGetter && <TestWrapper />}
       </PluginIndexer>
     );
-    Test1.propTypes = {
-      enableGetter: PropTypes.bool.isRequired,
-    };
 
     const tree = mount(<Test1 enableGetter={false} />);
     const { position } = tree.find(Test).at(0).props();

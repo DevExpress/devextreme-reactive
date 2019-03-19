@@ -69,7 +69,7 @@ export class Popover extends React.PureComponent {
 
   renderPopper() {
     const {
-      children, target, container, ...restProps
+      children, target, renderInBody, ...restProps
     } = this.props;
 
     return (
@@ -93,12 +93,12 @@ export class Popover extends React.PureComponent {
 
   render() {
     const {
-      isOpen, container,
+      isOpen, renderInBody,
     } = this.props;
 
     if (!isOpen) return null;
 
-    return container === 'body'
+    return renderInBody
       ? (
         ReactDOM.createPortal(
           this.renderPopper(),
@@ -110,7 +110,7 @@ export class Popover extends React.PureComponent {
 }
 
 Popover.propTypes = {
-  container: PropTypes.string,
+  renderInBody: PropTypes.bool,
   placement: PropTypes.string,
   isOpen: PropTypes.bool,
   children: PropTypes.node.isRequired,
@@ -123,7 +123,7 @@ Popover.propTypes = {
 
 Popover.defaultProps = {
   target: null,
-  container: 'body',
+  renderInBody: true,
   isOpen: false,
   placement: 'auto',
   toggle: undefined,

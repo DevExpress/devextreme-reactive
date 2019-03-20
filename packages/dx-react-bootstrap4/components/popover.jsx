@@ -9,16 +9,28 @@ export class Popover extends React.PureComponent {
   constructor(props) {
     super(props);
 
+    // These two fields should be created only if `isOpen && toggle` condition is true
+    // and destroyed when condition turns false.
+    // But it would require usage of `this.state` and other code complications.
+    // So let's not change it for now. Maybe a better solution would be found.
     this.contentRef = React.createRef();
     this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
-    this.toggleSubscribtions();
+    const { isOpen, toggle } = this.props;
+    if (isOpen && toggle) {
+      this.attachDocumentEvents();
+    }
   }
 
   componentDidUpdate() {
-    this.toggleSubscribtions();
+    const { isOpen, toggle } = this.props;
+    if (isOpen && toggle) {
+      this.attachDocumentEvents();
+    } else {
+      this.detachDocumentEvents();
+    }
   }
 
   componentWillUnmount() {
@@ -35,22 +47,18 @@ export class Popover extends React.PureComponent {
     }
   }
 
-  toggleSubscribtions() {
-    const { isOpen } = this.props;
-
-    if (isOpen) {
-      this.attachDocumentEvents();
-    } else {
-      this.detachDocumentEvents();
+  attachDocumentEvents() {
+    if (!this.listenersAttached) {
+      this.toggleDocumentEvents('addEventListener');
+      this.listenersAttached = true;
     }
   }
 
-  attachDocumentEvents() {
-    this.toggleDocumentEvents('addEventListener');
-  }
-
   detachDocumentEvents() {
-    this.toggleDocumentEvents('removeEventListener');
+    if (this.listenersAttached) {
+      this.toggleDocumentEvents('removeEventListener');
+      this.listenersAttached = false;
+    }
   }
 
   toggleDocumentEvents(method) {
@@ -61,7 +69,7 @@ export class Popover extends React.PureComponent {
 
   renderPopper() {
     const {
-      children, target, container, ...restProps
+      children, target, renderInBody, ...restProps
     } = this.props;
 
     return (
@@ -85,12 +93,12 @@ export class Popover extends React.PureComponent {
 
   render() {
     const {
-      isOpen, container,
+      isOpen, renderInBody,
     } = this.props;
 
     if (!isOpen) return null;
 
-    return container === 'body'
+    return renderInBody
       ? (
         ReactDOM.createPortal(
           this.renderPopper(),
@@ -102,7 +110,7 @@ export class Popover extends React.PureComponent {
 }
 
 Popover.propTypes = {
-  container: PropTypes.string,
+  renderInBody: PropTypes.bool,
   placement: PropTypes.string,
   isOpen: PropTypes.bool,
   children: PropTypes.node.isRequired,
@@ -115,8 +123,8 @@ Popover.propTypes = {
 
 Popover.defaultProps = {
   target: null,
-  container: 'body',
+  renderInBody: true,
   isOpen: false,
   placement: 'auto',
-  toggle: () => {},
+  toggle: undefined,
 };

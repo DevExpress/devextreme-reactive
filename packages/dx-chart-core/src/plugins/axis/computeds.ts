@@ -7,11 +7,16 @@ import {
   GetGridCoordinatesFn, Tick, NumberArray,
 } from '../../types';
 
-const getTicks = (scale: ScaleObject) => (scale.ticks ? scale.ticks() : scale.domain());
+const getTicks = (scale: ScaleObject, count: number) => (
+  scale.ticks ? scale.ticks(count) : scale.domain()
+);
 
-const createTicks = <T>(scale: ScaleObject, callback: ProcessTickFn<T>): ReadonlyArray<T> => {
+const createTicks = <T>(
+  scale: ScaleObject, count: number, callback: ProcessTickFn<T>,
+): ReadonlyArray<T> => {
   const fixedScale = fixOffset(scale);
-  return getTicks(scale).map((tick, index) => callback(fixedScale(tick), String(index), tick));
+  return getTicks(scale, count)
+    .map((tick, index) => callback(fixedScale(tick), String(index), tick));
 };
 
 const getFormat = (scale: ScaleObject, tickFormat?: TickFormatFn): GetFormatFn => {
@@ -45,6 +50,14 @@ const createVerticalOptions = (position: string, tickSize: number, indentFromAxi
   };
 };
 
+// Constant is selected to preserve original behavior described in
+// https://github.com/d3/d3-scale#continuous_ticks.
+const DEFAULT_TICK_COUNT = 10;
+const getTickCount = (scaleRange: NumberArray, paneSize: number) => {
+  const rangeToPaneRatio = Math.abs(scaleRange[0] - scaleRange[1]) / paneSize || 1;
+  return Math.round(DEFAULT_TICK_COUNT * rangeToPaneRatio);
+};
+
 /** @internal */
 export const axisCoordinates: AxisCoordinatesFn = ({
   scaleName,
@@ -53,13 +66,15 @@ export const axisCoordinates: AxisCoordinatesFn = ({
   tickSize,
   tickFormat,
   indentFromAxis,
+  paneSize,
 })  => {
   const isHor = isHorizontal(scaleName);
   const options = (isHor ? createHorizontalOptions : createVerticalOptions)(
     position, tickSize, indentFromAxis,
   );
+  const tickCount = getTickCount(scale.range(), paneSize[1 - Number(isHor)]);
   const formatTick = getFormat(scale, tickFormat);
-  const ticks = createTicks(scale, (coordinates, key, tick) => ({
+  const ticks = createTicks(scale, tickCount, (coordinates, key, tick) => ({
     key,
     x1: coordinates,
     x2: coordinates,
@@ -89,11 +104,12 @@ const verticalGridOptions = { x: 0, dx: 1 };
 
 /** @internal */
 export const getGridCoordinates: GetGridCoordinatesFn = ({
-  scaleName, scale,
+  scaleName, scale, paneSize,
 }) => {
   const isHor = isHorizontal(scaleName);
+  const tickCount = getTickCount(scale.range(), paneSize[1 - Number(isHor)]);
   const options = isHor ? horizontalGridOptions : verticalGridOptions;
-  return createTicks(scale, (coordinates, key) => ({
+  return createTicks(scale, tickCount, (coordinates, key) => ({
     key,
     x: coordinates,
     y: coordinates,

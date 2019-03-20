@@ -43,7 +43,7 @@ export default class Demo extends React.PureComponent {
             argumentField="year"
           />
           <Title text="World population" />
-          <ZoomAndPan />
+          <ZoomAndPan dragToZoom={true}/>
         </Chart>
       </<%&wrapperTag%>>
     );

@@ -72,7 +72,7 @@ describe('TableSummaryRow', () => {
         { row: { a: 1 } },
         { key: `${TABLE_GROUP_SUMMARY_TYPE.toString()}_a1|b2`, type: TABLE_GROUP_SUMMARY_TYPE, row: { levelKey: 'b', compoundKey: 'a1|b2', group: true } },
         { row: { levelKey: 'b', compoundKey: 'a1|b3', group: true } },
-        { row: { 'a': 2 } },
+        { row: { a: 2 } },
         { key: `${TABLE_GROUP_SUMMARY_TYPE.toString()}_a1|b3`, type: TABLE_GROUP_SUMMARY_TYPE, row: { levelKey: 'b', compoundKey: 'a1|b3', group: true } },
         { key: `${TABLE_GROUP_SUMMARY_TYPE.toString()}_a1`, type: TABLE_GROUP_SUMMARY_TYPE, row: { levelKey: 'a', compoundKey: 'a1', group: true } },
         { row: { levelKey: 'a', compoundKey: 'a2', group: true } },

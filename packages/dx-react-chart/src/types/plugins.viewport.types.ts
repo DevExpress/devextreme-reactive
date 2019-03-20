@@ -11,6 +11,7 @@ export interface ViewportProps {
   onViewportChange?: (viewport: ViewportOptions) => void;
 }
 
+/** @internal */
 export type ViewportState = {
   viewport?: ViewportOptions;
 };

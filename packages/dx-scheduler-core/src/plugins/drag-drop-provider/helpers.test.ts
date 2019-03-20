@@ -1,5 +1,5 @@
 import {
-  intervalDuration, cellIndex, cellData, cellType, autoScroll,
+  intervalDuration, cellIndex, cellData, autoScroll, cellType,
   calculateAppointmentTimeBoundaries, calculateInsidePart,
 } from './helpers';
 

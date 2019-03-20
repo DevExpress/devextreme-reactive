@@ -47,16 +47,16 @@ export class DragDropProvider extends React.PureComponent {
     this.appointmentEndTime = null;
   }
 
-  onOver(getters, actions) {
-    return args => this.handleOver(args, getters, actions);
-  }
-
   onDrop(actions) {
     return () => this.handleDrop(actions);
   }
 
   onPayloadChange(actions) {
     return args => this.handlePayloadChange(args, actions);
+  }
+
+  calculateNextBoundaries(getters, actions) {
+    return args => this.calculateBoundaries(args, getters, actions);
   }
 
   resetCache() {
@@ -89,7 +89,7 @@ export class DragDropProvider extends React.PureComponent {
     this.resetCache();
   }
 
-  handleOver(
+  calculateBoundaries(
     { payload, clientOffset },
     {
       viewCellsData, startViewDate, endViewDate, excludedDays,
@@ -194,26 +194,30 @@ export class DragDropProvider extends React.PureComponent {
             }, {
               commitChangedAppointment, changeAppointment,
               startEditAppointment, stopEditAppointment,
-            }) => (
-              <DragDropProviderCore
-                onChange={this.onPayloadChange({ commitChangedAppointment, stopEditAppointment })}
-              >
-                <DropTarget
-                  onOver={this.onOver({
-                    viewCellsData,
-                    startViewDate,
-                    endViewDate,
-                    excludedDays,
-                    timeTableElement,
-                    layoutElement,
-                    layoutHeaderElement,
-                  }, { changeAppointment, startEditAppointment, stopEditAppointment })}
-                  onDrop={this.onDrop({ commitChangedAppointment, stopEditAppointment })}
+            }) => {
+              const calculateBoundariesByMove = this.calculateNextBoundaries({
+                viewCellsData,
+                startViewDate,
+                endViewDate,
+                excludedDays,
+                timeTableElement,
+                layoutElement,
+                layoutHeaderElement,
+              }, { changeAppointment, startEditAppointment, stopEditAppointment });
+              return (
+                <DragDropProviderCore
+                  onChange={this.onPayloadChange({ commitChangedAppointment, stopEditAppointment })}
                 >
-                  <TemplatePlaceholder />
-                </DropTarget>
-              </DragDropProviderCore>
-            )}
+                  <DropTarget
+                    onOver={calculateBoundariesByMove}
+                    onEnter={calculateBoundariesByMove}
+                    onDrop={this.onDrop({ commitChangedAppointment, stopEditAppointment })}
+                  >
+                    <TemplatePlaceholder />
+                  </DropTarget>
+                </DragDropProviderCore>
+              );
+            }}
           </TemplateConnector>
         </Template>
 

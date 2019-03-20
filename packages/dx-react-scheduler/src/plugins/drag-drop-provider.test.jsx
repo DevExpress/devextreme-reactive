@@ -116,11 +116,12 @@ describe('DragDropProvider', () => {
     ));
 
     const onOver = tree.find(DropTarget).prop('onOver');
+    const onEnter = tree.find(DropTarget).prop('onEnter');
     const onDrop = tree.find(DropTarget).prop('onDrop');
     const onChange = tree.find(DragDropProviderCore).prop('onChange');
 
     return ({
-      tree, onOver, onDrop, onChange,
+      tree, onOver, onEnter, onDrop, onChange,
     });
   };
 
@@ -234,8 +235,43 @@ describe('DragDropProvider', () => {
     });
   });
 
-  describe('Should drag', () => {
-    it('to other cell', () => {
+  describe('Drag', () => {
+    it('should calculate appointment boundaries by onEnter event fire', () => {
+      const getBoundingClientRect = jest.fn();
+      getBoundingClientRect.mockImplementationOnce(() => ({ height: 20, top: 20, bottom: 40 }));
+      getBoundingClientRect.mockImplementationOnce(() => ({ height: 20, top: 0, bottom: 20 }));
+      const deps = {
+        getter: {
+          timeTableElement: {
+            current: {
+              querySelectorAll: () => [{}, {
+                getBoundingClientRect,
+              }],
+            },
+          },
+        },
+      };
+      const payload = {
+        id: 1,
+        type: 'vertical',
+        startDate: new Date('2018-06-25 10:00'),
+        endDate: new Date('2018-06-25 11:00'),
+      };
+      cellIndex.mockImplementationOnce(() => 1);
+      cellIndex.mockImplementationOnce(() => -1);
+      cellType.mockImplementationOnce(() => 'vertical');
+      cellData.mockImplementationOnce(() => ({ startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00') }));
+      cellData.mockImplementationOnce(() => ({ startDate: new Date('2018-06-25 9:00'), endDate: new Date('2018-06-25 10:00') }));
+
+      const { tree, onEnter } = mountPlugin({}, deps);
+
+      onEnter({ payload, clientOffset: { x: 1, y: 25 } });
+      tree.update();
+
+      expect(defaultDeps.action.changeAppointment)
+        .toBeCalledWith({ change: { startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00') } }, expect.any(Object), expect.any(Object));
+    });
+    it('should drag to other cell', () => {
       const getBoundingClientRect = jest.fn();
       getBoundingClientRect.mockImplementationOnce(() => ({ height: 20, top: 20, bottom: 40 }));
       getBoundingClientRect.mockImplementationOnce(() => ({ height: 20, top: 0, bottom: 20 }));
@@ -275,7 +311,7 @@ describe('DragDropProvider', () => {
         .toBeCalledWith({ change: { startDate: new Date('2018-06-25 9:30'), endDate: new Date('2018-06-25 10:30') } }, expect.any(Object), expect.any(Object));
     });
 
-    it('with save initial cursor position', () => {
+    it('should drag with save initial cursor position', () => {
       const payload = {
         id: 1,
         type: 'vertical',
@@ -301,7 +337,7 @@ describe('DragDropProvider', () => {
     });
   });
 
-  describe('Should drop', () => {
+  describe('Drop', () => {
     it('should not change data if cursor is over and outside cells', () => {
       const payload = {
         id: 1,

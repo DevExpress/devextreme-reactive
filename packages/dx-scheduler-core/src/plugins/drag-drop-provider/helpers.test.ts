@@ -157,11 +157,11 @@ describe('DragDropProvider', () => {
     it('should work with horizontal appointment and horizontal cell', () => {
       const payload = {
         type: 'horizontal',
-        startDate: new Date('2018-06-25'),
-        endDate: new Date('2018-06-26'),
+        startDate: new Date('2018-06-25 00:00'),
+        endDate: new Date('2018-06-26 00:00'),
       };
       const targetData = {
-        startDate: new Date('2018-06-25'), endDate: new Date('2018-06-26'),
+        startDate: new Date('2018-06-25 00:00'), endDate: new Date('2018-06-26 00:00'),
       };
       const targetType = 'horizontal';
       const cellDurationMinutes = 24 * 60;
@@ -174,8 +174,8 @@ describe('DragDropProvider', () => {
       );
       expect(result)
         .toEqual({
-          appointmentStartTime: new Date('2018-06-25'),
-          appointmentEndTime: new Date('2018-06-26'),
+          appointmentStartTime: new Date('2018-06-25 00:00'),
+          appointmentEndTime: new Date('2018-06-26 00:00'),
           offsetTimeTop: 0,
         });
     });
@@ -207,8 +207,8 @@ describe('DragDropProvider', () => {
     it('should work with horizontal appointment and vertical cell', () => {
       const payload = {
         type: 'horizontal',
-        startDate: new Date('2018-06-10'),
-        endDate: new Date('2018-06-10'),
+        startDate: new Date('2018-06-10 00:00'),
+        endDate: new Date('2018-06-10 00:00'),
       };
       const targetData = {
         startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00'),
@@ -226,7 +226,7 @@ describe('DragDropProvider', () => {
         .toEqual({
           appointmentStartTime: new Date('2018-06-25 10:00'),
           appointmentEndTime: new Date('2018-06-25 11:00'),
-          offsetTimeTop: 1321200,
+          offsetTimeTop: 1332000,
         });
     });
   });

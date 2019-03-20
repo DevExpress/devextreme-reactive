@@ -1,5 +1,6 @@
-import { TableColumn, TableRow } from './table.types';
 import { PureComputed } from '@devexpress/dx-core';
+import { Getters } from '@devexpress/dx-react-core';
+import { TableColumn, TableRow } from './table.types';
 
 /** @internal */
 export type GetColumnWidthFn = PureComputed<[TableColumn, number?], number | null>;
@@ -82,4 +83,24 @@ export type GetCollapsedGridFn = PureComputed<
 export type GetColumnWidthGetterFn = PureComputed<
   [TableColumn[], number, number],
   GetColumnWidthFn
+>;
+
+export type GridVisibleBounds = {
+  columns: ReadonlyArray<number[]>;
+  bodyRows: number[];
+};
+
+export type VisibleBoundsFn = PureComputed<
+  [any, Getters, number, GetColumnWidthFn, GetRowHeightFn], GridVisibleBounds
+>;
+
+type PageTriggersMeta = {
+  topTriggerIndex?: number,
+  topTriggerPosition?: number,
+  bottomTriggerIndex?: number,
+  bottomTriggerPosition?: number,
+};
+
+export type PageTriggersMetaFn = PureComputed<
+  [any, Getters, number], PageTriggersMeta
 >;

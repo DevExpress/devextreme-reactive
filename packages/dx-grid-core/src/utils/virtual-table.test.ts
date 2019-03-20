@@ -171,7 +171,7 @@ describe('VirtualTableLayout utils', () => {
     });
   });
 
-  describe('#collapseBoundaries', () => {
+  fdescribe('#collapseBoundaries', () => {
     it('should work in a simple case', () => {
       const itemsCount = 9;
       const visibleBoundary = [[3, 4]];
@@ -188,7 +188,7 @@ describe('VirtualTableLayout utils', () => {
         ]);
     });
 
-    it('should work with spans before visible area', () => {
+    fit('should work with spans before visible area', () => {
       const itemsCount = 9;
       const visibleBoundary = [[3, 5]];
       const spanBoundaries = [
@@ -196,7 +196,11 @@ describe('VirtualTableLayout utils', () => {
         [[2, 5]], // row 1
       ];
 
-      expect(collapseBoundaries(itemsCount, visibleBoundary, spanBoundaries))
+      debugger
+      const collapsed = collapseBoundaries(itemsCount, visibleBoundary, spanBoundaries);
+      console.log(collapsed)
+
+      expect(collapsed)
         .toEqual([
           [0, 0], // stub
           [1, 1], // stub
@@ -515,7 +519,7 @@ describe('VirtualTableLayout utils', () => {
         .toEqual(result);
     });
 
-    fit('should work with colspan', () => {
+    it('should work with colspan', () => {
       const args = {
         rows: [
           { key: 0, height: 40 }, // visible

@@ -122,6 +122,21 @@ export const getSpanBoundary: GetSpanBoundaryFn = (
 export const collapseBoundaries: CollapseBoundariesFn = (
   itemsCount, visibleBoundaries, spanBoundaries, offset = 0,
 ) => {
+  const breakpoints = new Set();
+  spanBoundaries.forEach(rowBoundaries => rowBoundaries
+    .forEach((boundary) => {
+      breakpoints.add(boundary[0]);
+      breakpoints.add(boundary[1]);
+    }));
+
+  visibleBoundaries.forEach((boundary) => {
+    for (let point = boundary[0]; point <= boundary[1]; point += 1) {
+      breakpoints.add(point);
+    }
+  });
+
+  const breakpointsArr = [...breakpoints].sort((a, b) => a - b);
+
   const testboundaries: VisibleBoundary[] = [];
   let min = itemsCount;
   let max = 0;

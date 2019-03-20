@@ -1,8 +1,9 @@
 import {
   getColumnsVisibleBoundary, getRowsVisibleBoundary,
 } from '../../utils/virtual-table';
+import { VisibleBoundsFn, PageTriggersMetaFn } from '../../types';
 
-export const visibleBounds = (
+export const visibleBounds: VisibleBoundsFn = (
   state, getters, estimatedRowHeight, getColumnWidth, getRowHeight,
 ) => {
   const {
@@ -22,7 +23,7 @@ export const visibleBounds = (
 };
 
 /** how many rows up and down before next page request */
-export const pageTriggerPositions = (
+export const pageTriggersMeta: PageTriggersMetaFn = (
   state, getters, estimatedRowHeight,
 ) => {
   const {
@@ -31,14 +32,14 @@ export const pageTriggerPositions = (
   } = getters;
 
   if (!remoteDataEnabled) {
-    return [];
+    return {};
   }
 
   const { viewportTop, containerHeight } = state;
   const loadedCount = virtualRows.rows.length;
 
   if (loadedCount === 0) {
-    return [0, -1];
+    return {};
   }
 
   const topTriggerIndex = loadedRowsStart > 0 ? loadedRowsStart + virtualPageSize : 0;

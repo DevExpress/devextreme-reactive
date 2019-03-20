@@ -1,11 +1,6 @@
-import { intervalUtil, Interval } from './utils';
-import { Row } from '../../types';
-import { PureComputed } from '@devexpress/dx-core';
+import { intervalUtil } from './utils';
+import { VirtualRows, TrimRowsToIntervalFn } from '../../types';
 
-export type VirtualRows = {
-  start: number,
-  rows: Row[],
-};
 export const emptyVirtualRows: VirtualRows = {
   start: Number.POSITIVE_INFINITY,
   rows: [],
@@ -19,12 +14,11 @@ export const mergeRows = (rowsInterval, cacheInterval, rows, cacheRows, rowsStar
     .filter(i => 0 <= i && i < Number.POSITIVE_INFINITY)
     .sort((a, b) => a - b);
 
-  let result = [];
-
   const pluckSubarray = (source, sourceStart, left, right) => (
     source.slice(left - sourceStart, right - sourceStart)
   );
 
+  let result = [];
   if (breakpoints.length > 1) {
     for (let i = 0; i < breakpoints.length - 1; i += 1) {
       const left = breakpoints[i];
@@ -71,7 +65,6 @@ export const recalculateBounds = (middleIndex, pageSize, totalCount) => {
   };
 };
 
-type TrimRowsToIntervalFn = PureComputed<[VirtualRows, Interval]>;
 export const trimRowsToInterval: TrimRowsToIntervalFn = (virtualRows, targetInterval) => {
   const rowsInterval = intervalUtil.getRowsInterval(virtualRows);
   const intersection = intervalUtil.intersect(rowsInterval, targetInterval);

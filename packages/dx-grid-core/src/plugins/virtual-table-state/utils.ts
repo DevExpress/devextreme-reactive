@@ -1,14 +1,10 @@
-import { VirtualRows, emptyVirtualRows } from './helpers';
 import { PureComputed } from '@devexpress/dx-core';
+import { emptyVirtualRows } from './helpers';
+import { Interval, VirtualRows } from '../../types';
 
 const empty = {
   start: Number.POSITIVE_INFINITY,
   end: Number.NEGATIVE_INFINITY,
-};
-
-export type Interval = {
-  start: number,
-  end: number,
 };
 
 const getRowsInterval: PureComputed<[VirtualRows], Interval> = r => (

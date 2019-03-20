@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { findDOMNode } from 'react-dom';
+import { memoize, MemoizedComputed } from '@devexpress/dx-core';
 import {
   connectProps, Plugin, TemplatePlaceholder, Sizer, Template,
-  Getter,
-  TemplateConnector, PluginComponents, Getters,
+  Getter, TemplateConnector, PluginComponents, Getters,
 } from '@devexpress/dx-react-core';
 import {
   getRowsRenderBoundary,
@@ -11,14 +11,13 @@ import {
   TABLE_STUB_TYPE,
   isStubTableCell,
   visibleBounds,
-  pageTriggerPositions,
+  pageTriggersMeta,
   getColumnsRenderBoundary,
 } from '@devexpress/dx-grid-core';
 import {
   VirtualTableProps, VirtualTableLayoutProps, VirtualTableLayoutState, TableLayoutProps,
   Table as TableNS,
 } from '../types';
-import { memoize, MemoizedComputed } from '@devexpress/dx-core';
 
 const AUTO_HEIGHT = 'auto';
 
@@ -57,8 +56,8 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
     rowRefs: Map<any, any>;
     blockRefs: Map<any, any>;
     visibleBoundariesComputed: MemoizedComputed<VirtualTableLayoutState, typeof visibleBounds>;
-    pageTriggerPositionsComputed: MemoizedComputed<
-      VirtualTableLayoutState, typeof pageTriggerPositions
+    pageTriggersMetaComputed: MemoizedComputed<
+      VirtualTableLayoutState, typeof pageTriggersMeta
     >;
     getColumnWidth: (column: any) => any;
     getScrollHandler: (...args: any[]) => (e: any) => void;
@@ -115,9 +114,9 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
         ),
       );
 
-      this.pageTriggerPositionsComputed = memoize(
+      this.pageTriggersMetaComputed = memoize(
         state => (getters: Getters) => (
-          pageTriggerPositions(state, getters, estimatedRowHeight)
+          pageTriggersMeta(state, getters, estimatedRowHeight)
         ),
       );
 
@@ -163,7 +162,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
       }
     }
 
-    updateViewport(e, currentVirtualPageBoundary?, requestNextPage?) {
+    updateViewport(e, currentPageTriggersMeta?, requestNextPage?) {
       const node = e.target;
       // NOTE: prevent nested scroll to update viewport
       if (node !== e.currentTarget) {
@@ -180,7 +179,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
         return;
       }
 
-      this.ensureNextPage(currentVirtualPageBoundary, requestNextPage, node.scrollTop);
+      this.ensureNextPage(currentPageTriggersMeta, requestNextPage, node.scrollTop);
 
       this.setState({
         viewportTop: node.scrollTop,
@@ -188,12 +187,12 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
       });
     }
 
-    ensureNextPage(currentVirtualPageBoundary, requestNextPage, scrollTop) {
-      if (!(currentVirtualPageBoundary && requestNextPage)) return; // remote data disabled
+    ensureNextPage(currentPageTriggersMeta, requestNextPage, scrollTop) {
+      if (!(currentPageTriggersMeta && requestNextPage)) return; // remote data disabled
 
       const {
         topTriggerPosition, bottomTriggerPosition, topTriggerIndex, bottomTriggerIndex,
-      } = currentVirtualPageBoundary;
+      } = currentPageTriggersMeta;
       const { containerHeight } = this.state;
       const { estimatedRowHeight } = this.props;
       const referencePosition = scrollTop + containerHeight / 2;
@@ -297,7 +296,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
       } = this.state;
 
       const visibleBoundariesComputed = this.visibleBoundariesComputed(this.state);
-      const pageTriggerPositionsComputed = this.pageTriggerPositionsComputed(this.state);
+      const pageTriggerMetaComputed = this.pageTriggersMetaComputed(this.state);
 
       return (
         <Plugin name="VirtualTable">
@@ -306,7 +305,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
           <Getter name="visibleBoundaries" computed={visibleBoundariesComputed} />
           <Getter name="renderBoundaries" computed={renderBoundariesComputed} />
 
-          <Getter name="currentVirtualPageBoundary" computed={pageTriggerPositionsComputed} />
+          <Getter name="currentVirtualPageBoundary" computed={pageTriggerMetaComputed} />
 
           <Template name="tableLayout">
             {(params: TableLayoutProps) => {

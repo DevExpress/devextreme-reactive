@@ -201,7 +201,7 @@ describe('DragDropProvider', () => {
         .toEqual({
           appointmentStartTime: new Date('2018-06-25'),
           appointmentEndTime: new Date('2018-06-26'),
-          offsetTimeTop: 1270800,
+          offsetTimeTop: 1209600,
         });
     });
     it('should work with horizontal appointment and vertical cell', () => {

@@ -150,8 +150,13 @@ export const calculateAppointmentTimeBoundaries: CalculateAppointmentTimeBoundar
   let offsetTimeTop;
 
   if (offsetTimeTopBase === null) {
-    offsetTimeTop = moment(targetData.startDate as Date)
-      .diff(payload.startDate as Date, SECONDS) + insideOffset;
+    if (targetType === VERTICAL_TYPE) {
+      offsetTimeTop = moment(targetData.startDate as Date)
+        .diff(payload.startDate as Date, SECONDS) + insideOffset;
+    } else {
+      offsetTimeTop = moment(targetData.startDate as Date)
+        .diff(payload.startDate as Date, 'days') * 24 * 60 * 60 + insideOffset;
+    }
   } else {
     offsetTimeTop = offsetTimeTopBase;
   }

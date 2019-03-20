@@ -77,6 +77,7 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
                 tickFormat,
                 indentFromAxis: indentFromAxis!,
                 scale,
+                paneSize: [this.adjustedWidth, this.adjustedHeight],
               });
               // This is a workaround for a case when only a part of domain is visible.
               // "overflow: hidden" cannot be used for <svg> element because edge labels would
@@ -175,7 +176,11 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
               }
 
               const { width, height } = layouts.pane;
-              const ticks = getGridCoordinates({ scaleName: scaleName!, scale });
+              const ticks = getGridCoordinates({
+                scaleName: scaleName!,
+                scale,
+                paneSize: [this.adjustedWidth, this.adjustedHeight],
+              });
               return ((
                 <React.Fragment>
                   {ticks.map(({

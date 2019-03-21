@@ -35,9 +35,13 @@ export const makeScale = ({ factory, domain }: DomainInfo, range: NumberArray) =
 // it resides here so that internal scale specifics (*getWidth*)
 // are encapsulated in this utility file.
 /** @internal */
-export const scaleBounds = (scale: ScaleObject, bounds: DomainBounds): NumberArray => (
-  [scale(bounds[0]), scale(bounds[1]) + getWidth(scale)]
-);
+export const scaleBounds = (scale: ScaleObject, bounds: DomainBounds): NumberArray => {
+  if (scale.bandwidth) {
+    const cleanScale = scale.copy().paddingInner!(0).paddingOuter!(0);
+    return [cleanScale(bounds[0]), cleanScale(bounds[1]) + cleanScale.bandwidth!()];
+  }
+  return bounds.map(scale) as NumberArray;
+};
 
 /** @internal */
 export const fixOffset = (scale: ScaleObject): ((value: number) => number) => {

@@ -188,7 +188,7 @@ describe('VirtualTableLayout utils', () => {
         ]);
     });
 
-    fit('should work with spans before visible area', () => {
+    it('should work with spans before visible area', () => {
       const itemsCount = 9;
       const visibleBoundary = [[3, 5]];
       const spanBoundaries = [
@@ -229,6 +229,28 @@ describe('VirtualTableLayout utils', () => {
           [6, 6], // stub
           [7, 7], // stub
           [8, 8], // stub
+        ]);
+    });
+
+    it('should work with spans after visible area', () => {
+      const itemsCount = 11;
+      const visibleBoundary = [[1, 2]];
+      const spanBoundaries = [
+        [[4, 6]], // row 1
+        [[4, 7]], // row 0
+        [[4, 8]], // row 0
+      ];
+
+      expect(collapseBoundaries(itemsCount, visibleBoundary, spanBoundaries))
+        .toEqual([
+          [0, 0], // stub
+          [1, 1], // stub
+          [2, 2], // stub
+          [3, 3], // visible
+          [4, 6], // visible
+          [7, 7], // stub
+          [8, 8], // stub
+          [9, 10], // stub
         ]);
     });
 

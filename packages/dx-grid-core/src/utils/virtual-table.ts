@@ -120,60 +120,38 @@ export const getSpanBoundary: GetSpanBoundaryFn = (
   });
 
 export const collapseBoundaries: CollapseBoundariesFn = (
-  itemsCount, visibleBoundaries, spanBoundaries, offset = 0,
+  itemsCount, visibleBoundaries, spanBoundaries,
 ) => {
-  const breakpoints = new Set();
+  const breakpoints = new Set([0, itemsCount]);
   spanBoundaries.forEach(rowBoundaries => rowBoundaries
     .forEach((boundary) => {
       breakpoints.add(boundary[0]);
-      breakpoints.add(boundary[1]);
+      if (boundary[1] - 1 < itemsCount) {
+        // next interval starts after span end point
+        breakpoints.add(boundary[1] + 1);
+      }
     }));
 
   visibleBoundaries.forEach((boundary) => {
     for (let point = boundary[0]; point <= boundary[1]; point += 1) {
       breakpoints.add(point);
     }
+    if (boundary[1] + 1 < itemsCount) {
+      // close last visible point
+      breakpoints.add(boundary[1] + 1);
+    }
   });
 
-  const breakpointsArr = [...breakpoints].sort((a, b) => a - b);
-
-  const testboundaries: VisibleBoundary[] = [];
-  let min = itemsCount;
-  let max = 0;
-  visibleBoundaries.reduce((acc: number[], boundary) => {
-    for (let point = boundary[0]; point <= boundary[1]; point += 1) {
-      acc.push(point);
-      if (point < min) {
-        min = point;
-      }
-      if (max < point && point < itemsCount) {
-        max = point;
-      }
-    }
-    return acc;
-  }, []);
-
-  const spanStartPoints = new Set();
-  const spanEndPoints = new Set();
-  spanBoundaries.forEach(rowBoundaries => rowBoundaries
-    .forEach((boundary) => {
-      spanStartPoints.add(boundary[0]);
-      spanEndPoints.add(boundary[1]);
-    }));
-
-  if (min > 0) {
-    testboundaries.push([0, min - 1]);
+  const bp = [...breakpoints].sort((a, b) => a - b);
+  const bounds = [];
+  for (let i = 0; i < bp.length - 1; i += 1) {
+    bounds.push([
+      bp[i],
+      bp[i + 1] - 1,
+    ]);
   }
 
-  for (let i = min; i <= max; i += 1) {
-    testboundaries.push([i, i]);
-  }
-
-  if (min - 1 < max && max < itemsCount - 1) {
-    testboundaries.push([max + 1, itemsCount - 1]);
-  }
-
-  return testboundaries;
+  return bounds;
 };
 
 const getColumnsSize: GetColumnsSizeFn = (columns, startIndex, endIndex, getColumnSize) => {

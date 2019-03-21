@@ -313,7 +313,7 @@ describe('VirtualTableState helpers', () => {
       const virtualRows = createVirtualRows(rowsInterval);
 
       expect(trimRowsToInterval(virtualRows, targetInterval)).toEqual({
-        start: undefined,
+        start: Number.POSITIVE_INFINITY,
         rows: [],
       });
     });

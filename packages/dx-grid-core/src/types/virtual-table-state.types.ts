@@ -9,8 +9,13 @@ export type VirtualRows = {
   start: number,
   rows: Row[],
 };
-export type TrimRowsToIntervalFn = PureComputed<[VirtualRows, Interval]>;
 
 export type VirtualRowsWithCacheFn = PureComputed<
   [number, Row[], VirtualRows], VirtualRows
 >;
+
+export type MergeRowsFn = PureComputed<
+  [Interval, Interval, Row[], Row[], number, number], VirtualRows
+>;
+
+export type CalculateRequestedRangeFn = PureComputed<[Interval, Interval, number, number]>;

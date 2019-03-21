@@ -1,12 +1,17 @@
 import { intervalUtil } from './utils';
-import { VirtualRows, TrimRowsToIntervalFn } from '../../types';
+import {
+  VirtualRows, Row, MergeRowsFn, CalculateRequestedRangeFn, Interval,
+} from '../../types';
+import { PureComputed } from '@devexpress/dx-core';
 
 export const emptyVirtualRows: VirtualRows = {
   start: Number.POSITIVE_INFINITY,
   rows: [],
 };
 
-export const mergeRows = (rowsInterval, cacheInterval, rows, cacheRows, rowsStart, cacheStart) => {
+export const mergeRows: MergeRowsFn = (
+  rowsInterval, cacheInterval, rows, cacheRows, rowsStart, cacheStart,
+) => {
   const breakpoints = [
     rowsInterval.start, rowsInterval.end,
     cacheInterval.start, cacheInterval.end,
@@ -14,11 +19,11 @@ export const mergeRows = (rowsInterval, cacheInterval, rows, cacheRows, rowsStar
     .filter(i => 0 <= i && i < Number.POSITIVE_INFINITY)
     .sort((a, b) => a - b);
 
-  const pluckSubarray = (source, sourceStart, left, right) => (
+  const pluckSubarray: PureComputed<[Row[], ...number[]]> = (source, sourceStart, left, right) => (
     source.slice(left - sourceStart, right - sourceStart)
   );
 
-  let result = [];
+  let result: Row[] = [];
   if (breakpoints.length > 1) {
     for (let i = 0; i < breakpoints.length - 1; i += 1) {
       const left = breakpoints[i];
@@ -37,7 +42,9 @@ export const mergeRows = (rowsInterval, cacheInterval, rows, cacheRows, rowsStar
   };
 };
 
-export const calculateRequestedRange = (loadedInterval, newRange, referenceIndex, pageSize) => {
+export const calculateRequestedRange: CalculateRequestedRangeFn = (
+  loadedInterval, newRange, referenceIndex, pageSize,
+) => {
   if (Math.abs(loadedInterval.start - newRange.start) >= 2 * pageSize) {
     const useFirstHalf = referenceIndex % pageSize < 50;
     const start = useFirstHalf
@@ -50,8 +57,13 @@ export const calculateRequestedRange = (loadedInterval, newRange, referenceIndex
   return intervalUtil.difference(newRange, loadedInterval);
 };
 
-export const rowToPageIndex = (rowIndex, pageSize) => Math.floor(rowIndex / pageSize);
-export const recalculateBounds = (middleIndex, pageSize, totalCount) => {
+export const rowToPageIndex: PureComputed<[number, number]> = (
+  rowIndex, pageSize,
+) => Math.floor(rowIndex / pageSize);
+
+export const recalculateBounds: PureComputed<[number, number, number], Interval> = (
+  middleIndex, pageSize, totalCount,
+) => {
   const currentPageIndex = rowToPageIndex(middleIndex, pageSize);
 
   const prevPageIndex = currentPageIndex - 1;
@@ -65,7 +77,9 @@ export const recalculateBounds = (middleIndex, pageSize, totalCount) => {
   };
 };
 
-export const trimRowsToInterval: TrimRowsToIntervalFn = (virtualRows, targetInterval) => {
+export const trimRowsToInterval: PureComputed<[VirtualRows, Interval]> = (
+  virtualRows, targetInterval,
+) => {
   const rowsInterval = intervalUtil.getRowsInterval(virtualRows);
   const intersection = intervalUtil.intersect(rowsInterval, targetInterval);
   if (intervalUtil.empty === intersection) {

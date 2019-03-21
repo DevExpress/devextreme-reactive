@@ -31,24 +31,6 @@ const pluginDependencies = [
   { name: 'AllDayPanel', optional: true },
 ];
 
-class ResizeControl extends React.PureComponent {
-  render() {
-    const { type, data } = this.props;
-    return (
-      <DragSource
-        payload={{ type, ...data }}
-      >
-        <div
-          style={{ cursor: 'ns-resize', textAlign: 'center' }}
-        >
-          =======
-        </div>
-      </DragSource>
-    );
-  }
-}
-
-/* eslint-disable react/no-multi-comp */
 export class DragDropProvider extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -238,14 +220,14 @@ export class DragDropProvider extends React.PureComponent {
       containerComponent: Container,
       draftAppointmentComponent: DraftAppointment,
       sourceAppointmentComponent: SourceAppointment,
+      resizeComponent: Resize,
       allowDrag,
+      allowResize,
     } = this.props;
 
     const draftData = {
       ...payload, startDate: this.appointmentStartTime, endDate: this.appointmentEndTime,
     };
-
-    console.log('render');
 
     return (
       <Plugin
@@ -304,8 +286,7 @@ export class DragDropProvider extends React.PureComponent {
                 <TemplatePlaceholder params={{ ...params, draggable: true, resizable: true }} />
               </DragSource>
             </React.Fragment>
-          )
-          }
+          )}
         </Template>
 
         <Template name="appointmentContent">
@@ -322,25 +303,33 @@ export class DragDropProvider extends React.PureComponent {
 
         <Template
           name="appointmentTop"
-          predicate={params => !params.predicate}
+          predicate={params => !params.predicate && allowResize(params.data)}
         >
-          {params => (
-            <React.Fragment>
-              <ResizeControl data={params.data} type="resize-top" />
+          {({ data, type }) => (
+            <div style={{ position: 'absolute', top: 0, width: '100%' }}>
+              <DragSource
+                payload={{ type: 'resize-top', ...data }}
+              >
+                <Resize data={data} type={type} />
+              </DragSource>
               <TemplatePlaceholder />
-            </React.Fragment>
+            </div>
           )}
         </Template>
 
         <Template
           name="appointmentBottom"
-          predicate={params => !params.predicate}
+          predicate={params => !params.predicate && allowResize(params.data)}
         >
-          {params => (
+          {({ data, type }) => (
             <React.Fragment>
               <div style={{ position: 'absolute', bottom: 0, width: '100%' }}>
                 <TemplatePlaceholder />
-                <ResizeControl data={params.data} type="resize-bottom" />
+                <DragSource
+                  payload={{ type: 'resize-bottom', ...data }}
+                >
+                  <Resize data={data} type={type} />
+                </DragSource>
               </div>
             </React.Fragment>
           )}
@@ -394,15 +383,19 @@ DragDropProvider.propTypes = {
   containerComponent: PropTypes.func.isRequired,
   draftAppointmentComponent: PropTypes.func.isRequired,
   sourceAppointmentComponent: PropTypes.func.isRequired,
+  resizeComponent: PropTypes.func.isRequired,
   allowDrag: PropTypes.func,
+  allowResize: PropTypes.func,
 };
 
 DragDropProvider.defaultProps = {
   allowDrag: () => true,
+  allowResize: () => true,
 };
 
 DragDropProvider.components = {
   containerComponent: 'Container',
   draftAppointmentComponent: 'DraftAppointment',
   sourceAppointmentComponent: 'SourceAppointment',
+  resizeComponent: 'Resize',
 };

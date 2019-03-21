@@ -236,6 +236,7 @@ export class WeekView extends React.PureComponent {
                 },
               ) : [];
 
+              console.log(rects);
               const { appointmentPlaceholder: AppointmentPlaceholder } = this;
               return (
                 <React.Fragment>
@@ -247,12 +248,14 @@ export class WeekView extends React.PureComponent {
                   />
                   <AppointmentLayer>
                     {rects.map(({
-                      dataItem, type, ...geometry
+                      dataItem, type, leftSlice, rightSlice, ...geometry
                     }, index) => (
                       <AppointmentPlaceholder
                         key={index.toString()}
                         type={type}
                         data={dataItem}
+                        leftSlice={leftSlice}
+                        rightSlice={rightSlice}
                         style={getAppointmentStyle(geometry)}
                       />
                     ))}

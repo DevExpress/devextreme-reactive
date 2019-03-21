@@ -19,6 +19,7 @@ import {
   SCROLL_OFFSET,
   SCROLL_SPEED_PX,
   SECONDS,
+  HORIZONTAL_TYPE,
 } from '@devexpress/dx-scheduler-core';
 
 const pluginDependencies = [
@@ -30,6 +31,24 @@ const pluginDependencies = [
   { name: 'AllDayPanel', optional: true },
 ];
 
+class ResizeControl extends React.PureComponent {
+  render() {
+    const { type, data } = this.props;
+    return (
+      <DragSource
+        payload={{ type, ...data }}
+      >
+        <div
+          style={{ cursor: 'ns-resize', textAlign: 'center' }}
+        >
+          =======
+        </div>
+      </DragSource>
+    );
+  }
+}
+
+/* eslint-disable react/no-multi-comp */
 export class DragDropProvider extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -60,6 +79,7 @@ export class DragDropProvider extends React.PureComponent {
   }
 
   resetCache() {
+    console.log('reset');
     this.timeTableRects = [];
     this.allDayRects = [];
     this.offsetTimeTop = null;
@@ -117,6 +137,7 @@ export class DragDropProvider extends React.PureComponent {
     const targetData = cellData(timeTableIndex, allDayIndex, viewCellsData);
     const targetType = cellType(targetData);
     const sourceType = payload.type;
+    console.log(sourceType);
 
     // CALCULATE INSIDE OFFSET
     let insidePart = 0;
@@ -137,17 +158,28 @@ export class DragDropProvider extends React.PureComponent {
     const start = moment(targetData.startDate).add(insideOffset, SECONDS);
     const end = moment(start);
 
-    if (sourceType === targetType) {
-      this.appointmentStartTime = moment(start).add((this.offsetTimeTop) * (-1), SECONDS).toDate();
-      this.appointmentEndTime = moment(end)
-        .add((appointmentDuration - this.offsetTimeTop), SECONDS).toDate();
-    } else {
+    if (sourceType === VERTICAL_TYPE || sourceType === HORIZONTAL_TYPE) {
+      if (sourceType === targetType) {
+        this.appointmentStartTime = moment(start).add((this.offsetTimeTop) * (-1), SECONDS).toDate();
+        this.appointmentEndTime = moment(end)
+          .add((appointmentDuration - this.offsetTimeTop), SECONDS).toDate();
+      } else {
+        this.appointmentStartTime = moment(targetData.startDate).add(insideOffset, SECONDS).toDate();
+        this.appointmentEndTime = moment(targetData.endDate).add(insideOffset, SECONDS).toDate();
+      }
+    }
+
+    if (sourceType === 'resize-top') {
       this.appointmentStartTime = moment(targetData.startDate).add(insideOffset, SECONDS).toDate();
+      this.appointmentEndTime = moment(payload.endDate).toDate();
+    }
+    if (sourceType === 'resize-bottom') {
+      this.appointmentStartTime = moment(payload.startDate).toDate();
       this.appointmentEndTime = moment(targetData.endDate).add(insideOffset, SECONDS).toDate();
     }
 
     const draftAppointments = [{
-      ...payload, start: this.appointmentStartTime, end: this.appointmentEndTime,
+      dataItem: payload, start: this.appointmentStartTime, end: this.appointmentEndTime,
     }];
 
     if (allDayIndex !== -1) {
@@ -213,6 +245,8 @@ export class DragDropProvider extends React.PureComponent {
       ...payload, startDate: this.appointmentStartTime, endDate: this.appointmentEndTime,
     };
 
+    console.log('render');
+
     return (
       <Plugin
         name="DragDropProvider"
@@ -240,6 +274,15 @@ export class DragDropProvider extends React.PureComponent {
                     layoutElement,
                     layoutHeaderElement,
                   }, { changeAppointment, startEditAppointment, stopEditAppointment })}
+                  onEnter={this.onOver({
+                    viewCellsData,
+                    startViewDate,
+                    endViewDate,
+                    excludedDays,
+                    timeTableElement,
+                    layoutElement,
+                    layoutHeaderElement,
+                  }, { changeAppointment, startEditAppointment, stopEditAppointment })}
                   onDrop={this.onDrop({ commitChangedAppointment, stopEditAppointment })}
                 >
                   <TemplatePlaceholder />
@@ -254,17 +297,53 @@ export class DragDropProvider extends React.PureComponent {
           predicate={({ data }) => allowDrag(data)}
         >
           {params => (
-            <DragSource
-              payload={{ ...params.data, type: params.type }}
-            >
+            <React.Fragment>
+              <DragSource
+                payload={{ ...params.data, type: params.type }}
+              >
+                <TemplatePlaceholder params={{ ...params, draggable: true, resizable: true }} />
+              </DragSource>
+            </React.Fragment>
+          )
+          }
+        </Template>
+
+        <Template name="appointmentContent">
+          {params => (
+            <React.Fragment>
               {payload && params.data.id === payload.id ? (
                 <SourceAppointment {...params} />
               ) : (
-                <TemplatePlaceholder params={{ ...params, draggable: true }} />
+                <TemplatePlaceholder params={{ ...params, draggable: true, resizable: true }} />
               )}
-            </DragSource>
-          )
-          }
+            </React.Fragment>
+          )}
+        </Template>
+
+        <Template
+          name="appointmentTop"
+          predicate={params => !params.predicate}
+        >
+          {params => (
+            <React.Fragment>
+              <ResizeControl data={params.data} type="resize-top" />
+              <TemplatePlaceholder />
+            </React.Fragment>
+          )}
+        </Template>
+
+        <Template
+          name="appointmentBottom"
+          predicate={params => !params.predicate}
+        >
+          {params => (
+            <React.Fragment>
+              <div style={{ position: 'absolute', bottom: 0, width: '100%' }}>
+                <TemplatePlaceholder />
+                <ResizeControl data={params.data} type="resize-bottom" />
+              </div>
+            </React.Fragment>
+          )}
         </Template>
 
         <Template name="allDayPanel">

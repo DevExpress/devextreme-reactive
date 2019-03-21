@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import {
-  Plugin, Template,
+  Plugin, Template, TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 import { createClickHandlers } from '@devexpress/dx-core';
 
@@ -28,21 +28,46 @@ export class Appointments extends React.PureComponent {
         >
           {({
             onClick, onDoubleClick,
-            data, type, style,
+            data, type, style, leftSlice, rightSlice,
             ...restParams
           }) => (
             <Appointment
               style={style}
               data={data}
+              // leftSlice={leftSlice}
+              // rightSlice={rightSlice}
               {...createClickHandlers(onClick, onDoubleClick)}
               {...restParams}
             >
-              <AppointmentContent
-                data={data}
-                type={type}
-              />
+              <TemplatePlaceholder name="appointmentTop" params={{ data, predicate: leftSlice }} />
+              <TemplatePlaceholder name="appointmentContent" params={{ data, type }} />
+              <TemplatePlaceholder name="appointmentBottom" params={{ data, predicate: rightSlice }} />
             </Appointment>
           )}
+        </Template>
+
+
+        <Template
+          name="appointmentTop"
+          predicate={params => params.predicate}
+        >
+          {props => <div {...props} style={{ textAlign: 'center' }}>~~~~~</div>}
+        </Template>
+
+        <Template name="appointmentContent">
+          {props => (
+            <AppointmentContent
+              data={props.data}
+              type={props.type}
+            />
+          )}
+        </Template>
+
+        <Template
+          name="appointmentBottom"
+          predicate={params => params.predicate}
+        >
+          {props => <div {...props} style={{ position: 'absolute', bottom: 0, textAlign: 'center', width: '100%' }}>~~~~~</div>}
         </Template>
       </Plugin>
     );

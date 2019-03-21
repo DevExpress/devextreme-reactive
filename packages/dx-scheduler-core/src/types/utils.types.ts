@@ -19,6 +19,8 @@ export type AppointmentGroup = {
 
 export interface AppointmentUnwrappedGroup extends GroupItem {
   reduceValue: number;
+  leftSlice: boolean;
+  rightSlice: boolean;
 }
 
 export interface ElementRect extends Rect {

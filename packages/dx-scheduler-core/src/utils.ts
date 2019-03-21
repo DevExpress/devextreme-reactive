@@ -180,6 +180,8 @@ export const unwrapGroups: PureComputed<
     dataItem: appointment.dataItem,
     offset: appointment.offset,
     reduceValue,
+    leftSlice: !moment(appointment.dataItem.startDate).isSame(appointment.start), // difference < 1 sec
+    rightSlice: !moment(appointment.dataItem.endDate).isSame(appointment.end),
   })));
   return acc;
 }, [] as AppointmentUnwrappedGroup[]);
@@ -235,6 +237,8 @@ const horizontalRectCalculator: CustomFunction<
     left: toPercentage(left, parentWidth),
     width: toPercentage(width, parentWidth),
     dataItem: appointment.dataItem,
+    leftSlice: appointment.leftSlice,
+    rightSlice: appointment.rightSlice,
     type: HORIZONTAL_TYPE,
   };
 };
@@ -277,6 +281,8 @@ const verticalRectCalculator: CustomFunction<
     left: toPercentage(left + (widthInPx * appointment.offset), parentWidth),
     width: toPercentage(widthInPx, parentWidth),
     dataItem: appointment.dataItem,
+    leftSlice: appointment.leftSlice,
+    rightSlice: appointment.rightSlice,
     type: VERTICAL_TYPE,
   };
 };

@@ -27,8 +27,10 @@ const DraftAppointmentBase = ({
   <Appointment
     className={classNames(classes.appointment, className)}
     style={style}
+    resizable
     {...restProps}
   >
+    {console.log(restProps.leftSlice)}
     <AppointmentContent
       data={data}
       type={type}

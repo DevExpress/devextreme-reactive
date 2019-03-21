@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
+import { DragSource } from '@devexpress/dx-react-core';
 
 const styles = ({ palette, typography, spacing }) => ({
   appointment: {
@@ -33,6 +34,9 @@ const AppointmentBase = ({
   data,
   onClick: handleClick,
   draggable,
+  leftSlice,
+  rightSlice,
+  resizable,
   ...restProps
 }) => {
   const onClick = handleClick
@@ -66,6 +70,9 @@ AppointmentBase.propTypes = {
   data: PropTypes.object,
   onClick: PropTypes.func,
   draggable: PropTypes.bool,
+  resizable: PropTypes.bool,
+  rightSlice: PropTypes.bool,
+  leftSlice: PropTypes.bool,
 };
 
 AppointmentBase.defaultProps = {
@@ -73,6 +80,9 @@ AppointmentBase.defaultProps = {
   className: undefined,
   data: {},
   draggable: false,
+  resizable: false,
+  rightSlice: false,
+  leftSlice: false,
 };
 
 export const Appointment = withStyles(styles, { name: 'Appointment' })(AppointmentBase);

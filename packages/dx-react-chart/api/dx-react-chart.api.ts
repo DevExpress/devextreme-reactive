@@ -98,9 +98,6 @@ interface BasicDataProps {
 }
 
 // @public (undocumented)
-declare type BuildAnimatedStyleGetterFn = PureComputed<[any, GetAnimationStyleFn, Scales, PointComponentProps?]>;
-
-// @public (undocumented)
 declare const Chart: React.ComponentType<ChartProps>;
 
 // @public (undocumented)
@@ -161,18 +158,7 @@ interface EventTrackerProps {
 declare type FactoryFn = () => ScaleObject;
 
 // @public (undocumented)
-declare type GetAnimationStyleFn = (scales: Scales, point?: PointComponentProps) => {
-  // (undocumented)
-  readonly animation: string;
-  // (undocumented)
-  readonly transformOrigin?: string;
-};
-
-// @public (undocumented)
 declare type GetFormatFn = (tick: any) => string;
-
-// @public (undocumented)
-type GetPointerMoveHandlersFn = PureComputed<[Getters], HandlerFnList>;
 
 // @public (undocumented)
 declare type GetPointFieldFn = (point: PointComponentProps) => number;
@@ -201,12 +187,6 @@ interface HoverStateProps {
   hover?: SeriesRef;
   onHoverChange?: NotifyPointerMoveFn;
 }
-
-// @public (undocumented)
-type HoverStateState = {
-  // (undocumented)
-  hover?: SeriesRef;
-};
 
 // @public (undocumented)
 declare const Legend: React.ComponentType<LegendProps>;
@@ -406,14 +386,6 @@ interface ScaleProps {
   modifyDomain?: ModifyDomainFn;
   name?: string;
 }
-
-// @public (undocumented)
-declare type Scales = {
-  // (undocumented)
-  readonly xScale: ScaleObject;
-  // (undocumented)
-  readonly yScale: ScaleObject;
-};
 
 // @public (undocumented)
 declare const ScatterSeries: React.ComponentType<ScatterSeriesProps>;
@@ -625,12 +597,6 @@ interface ViewportProps {
   onViewportChange?: (viewport: ViewportOptions) => void;
   viewport?: ViewportOptions;
 }
-
-// @public (undocumented)
-type ViewportState = {
-  // (undocumented)
-  viewport?: ViewportOptions;
-};
 
 
 // (No @packageDocumentation comment for this package)

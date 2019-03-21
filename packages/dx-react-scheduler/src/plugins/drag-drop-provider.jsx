@@ -10,15 +10,12 @@ import {
   cellIndex,
   cellData,
   cellType,
-  allDayRects,
-  verticalTimeTableRects,
-  horizontalTimeTableRects,
   getAppointmentStyle,
   intervalDuration,
-  VERTICAL_TYPE,
   autoScroll,
   calculateAppointmentTimeBoundaries,
   calculateInsidePart,
+  calculateDraftAppointments,
 } from '@devexpress/dx-scheduler-core';
 
 const pluginDependencies = [
@@ -40,8 +37,8 @@ export class DragDropProvider extends React.PureComponent {
       payload: undefined,
     };
 
-    this.timeTableRects = [];
-    this.allDayRects = [];
+    this.timeTableDraftAppointments = [];
+    this.allDayDraftAppointments = [];
     this.offsetTimeTop = null;
     this.appointmentStartTime = null;
     this.appointmentEndTime = null;
@@ -60,8 +57,8 @@ export class DragDropProvider extends React.PureComponent {
   }
 
   resetCache() {
-    this.timeTableRects = [];
-    this.allDayRects = [];
+    this.timeTableDraftAppointments = [];
+    this.allDayDraftAppointments = [];
     this.offsetTimeTop = null;
     this.appointmentStartTime = null;
     this.appointmentEndTime = null;
@@ -131,29 +128,16 @@ export class DragDropProvider extends React.PureComponent {
       ...payload, start: this.appointmentStartTime, end: this.appointmentEndTime,
     }];
 
-    if (allDayIndex !== -1) {
-      this.allDayRects = allDayRects(
-        draftAppointments, startViewDate, endViewDate, excludedDays, viewCellsData, allDayCells,
-      );
-    } else {
-      this.allDayRects = [];
-    }
-
-    if (timeTableIndex !== -1 && allDayIndex === -1) {
-      if (targetType === VERTICAL_TYPE) {
-        this.timeTableRects = verticalTimeTableRects(
-          draftAppointments, startViewDate, endViewDate,
-          excludedDays, viewCellsData, cellDurationMinutes, timeTableCells,
-        );
-      } else {
-        this.timeTableRects = horizontalTimeTableRects(
-          draftAppointments, startViewDate, endViewDate,
-          viewCellsData, timeTableCells,
-        );
-      }
-    } else {
-      this.timeTableRects = [];
-    }
+    const {
+      allDayDraftAppointments,
+      timeTableDraftAppointments,
+    } = calculateDraftAppointments(
+      allDayIndex, timeTableIndex, draftAppointments, startViewDate,
+      endViewDate, excludedDays, viewCellsData, allDayCells,
+      targetType, cellDurationMinutes, timeTableCells,
+    );
+    this.allDayDraftAppointments = allDayDraftAppointments;
+    this.timeTableDraftAppointments = timeTableDraftAppointments;
 
     this.applyChanges(
       this.appointmentStartTime, this.appointmentEndTime,
@@ -241,9 +225,9 @@ export class DragDropProvider extends React.PureComponent {
 
         <Template name="allDayPanel">
           <TemplatePlaceholder />
-          {(this.allDayRects.length > 0 ? (
+          {(this.allDayDraftAppointments.length > 0 ? (
             <Container>
-              {this.allDayRects.map(({
+              {this.allDayDraftAppointments.map(({
                 dataItem, type, ...geometry
               }, index) => (
                 <DraftAppointment
@@ -261,9 +245,9 @@ export class DragDropProvider extends React.PureComponent {
 
         <Template name="main">
           <TemplatePlaceholder />
-          {(this.timeTableRects.length > 0 ? (
+          {(this.timeTableDraftAppointments.length > 0 ? (
             <Container>
-              {this.timeTableRects.map(({
+              {this.timeTableDraftAppointments.map(({
                 dataItem, type, ...geometry
               }, index) => (
                 <DraftAppointment

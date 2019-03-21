@@ -2,19 +2,13 @@ import moment from 'moment';
 import { PureComputed } from '@devexpress/dx-core';
 import {
   ViewCell, AppointmentModel, ClientOffset, TimeType,
-  AllDayRects, VerticalRects, HorizontalRects, AllDayCell,
-  CalculateAppointmentTimeBoundaries,
+  AllDayCell, CalculateAppointmentTimeBoundaries,
 } from '../../types';
 import { allDayCells as allDayCellsCore } from '../common/computeds';
-import { calculateRectByDateIntervals } from '../../utils';
-import { calculateWeekDateIntervals } from '../week-view/computeds';
-import { getVerticalRectByDates } from '../vertical-rect/helpers';
-import { getHorizontalRectByDates } from '../horizontal-rect/helpers';
-import { calculateMonthDateIntervals } from '../month-view/computeds';
-import { calculateAllDayDateIntervals } from '../all-day-panel/computeds';
 import {
   VERTICAL_TYPE, HORIZONTAL_TYPE, SCROLL_OFFSET, SCROLL_SPEED_PX, SECONDS,
 } from '../../constants';
+import { allDayRects, horizontalTimeTableRects, verticalTimeTableRects } from './calculate-rects';
 
 const clamp: PureComputed<
   [number, number, number]
@@ -52,77 +46,6 @@ export const cellData: PureComputed<
   const firstIndex = Math.floor(timeTableIndex / viewCellsData[0].length);
   const secondIndex = timeTableIndex % viewCellsData[0].length;
   return viewCellsData[firstIndex][secondIndex];
-};
-
-export const allDayRects: AllDayRects = (
-  draftAppointments, startViewDate, endViewDate,
-  excludedDays, viewCellsData, cellElements,
-) => {
-  const intervals = calculateAllDayDateIntervals(
-    draftAppointments, startViewDate, endViewDate, excludedDays,
-  );
-  return calculateRectByDateIntervals(
-    {
-      growDirection: HORIZONTAL_TYPE,
-      multiline: false,
-    },
-    intervals,
-    getHorizontalRectByDates,
-    {
-      startViewDate,
-      endViewDate,
-      viewCellsData,
-      cellElements,
-      excludedDays,
-    },
-  );
-};
-
-export const verticalTimeTableRects: VerticalRects = (
-  draftAppointments, startViewDate, endViewDate, excludedDays,
-  viewCellsData, cellDuration, cellElements,
-) => {
-  const intervals = calculateWeekDateIntervals(
-    draftAppointments, startViewDate, endViewDate, excludedDays,
-  );
-  return calculateRectByDateIntervals(
-    {
-      growDirection: VERTICAL_TYPE,
-      multiline: false,
-    },
-    intervals,
-    getVerticalRectByDates,
-    {
-      startViewDate,
-      endViewDate,
-      viewCellsData,
-      cellDuration,
-      cellElements,
-    },
-  );
-};
-
-export const horizontalTimeTableRects: HorizontalRects = (
-  draftAppointments, startViewDate, endViewDate,
-  viewCellsData, cellElements,
-) => {
-  const intervals = calculateMonthDateIntervals(
-    draftAppointments, startViewDate, endViewDate,
-  );
-  return calculateRectByDateIntervals(
-    {
-      growDirection: HORIZONTAL_TYPE,
-      multiline: true,
-    },
-    intervals,
-    getHorizontalRectByDates,
-    {
-      startViewDate,
-      endViewDate,
-      viewCellsData,
-      cellElements,
-    },
-  );
 };
 
 export const autoScroll: PureComputed<
@@ -190,4 +113,42 @@ export const calculateInsidePart: PureComputed<
     return top > cellRect.top + cellRect.height / 2 ? 1 : 0;
   }
   return 0;
+};
+
+export const calculateDraftAppointments = (
+  allDayIndex: number, timeTableIndex: number, draftAppointments: any, startViewDate: Date,
+  endViewDate: Date, excludedDays: number[], viewCellsData: any, allDayCells: any,
+  targetType: string, cellDurationMinutes: number, timeTableCells: any,
+) => {
+  let allDayDraftAppointments: any = [];
+  let timeTableDraftAppointments: any = [];
+
+  if (allDayIndex !== -1) {
+    allDayDraftAppointments = allDayRects(
+      draftAppointments, startViewDate, endViewDate, excludedDays, viewCellsData, allDayCells,
+    );
+  } else {
+    allDayDraftAppointments = [];
+  }
+
+  if (timeTableIndex !== -1 && allDayIndex === -1) {
+    if (targetType === VERTICAL_TYPE) {
+      timeTableDraftAppointments = verticalTimeTableRects(
+        draftAppointments, startViewDate, endViewDate,
+        excludedDays, viewCellsData, cellDurationMinutes, timeTableCells,
+      );
+    } else {
+      timeTableDraftAppointments = horizontalTimeTableRects(
+        draftAppointments, startViewDate, endViewDate,
+        viewCellsData, timeTableCells,
+      );
+    }
+  } else {
+    timeTableDraftAppointments = [];
+  }
+
+  return {
+    allDayDraftAppointments,
+    timeTableDraftAppointments,
+  };
 };

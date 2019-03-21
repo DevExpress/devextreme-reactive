@@ -10,23 +10,19 @@ import {
   cellIndex,
   cellData,
   cellType,
-  allDayRects,
-  verticalTimeTableRects,
-  horizontalTimeTableRects,
   getAppointmentStyle,
   autoScroll,
+  calculateDraftAppointments,
 } from '@devexpress/dx-scheduler-core';
 import { DragDropProvider } from './drag-drop-provider';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   ...require.requireActual('@devexpress/dx-scheduler-core'),
+  calculateDraftAppointments: jest.fn(),
   autoScroll: jest.fn(),
   cellIndex: jest.fn(),
   cellData: jest.fn(),
   cellType: jest.fn(),
-  allDayRects: jest.fn(),
-  verticalTimeTableRects: jest.fn(),
-  horizontalTimeTableRects: jest.fn(),
   getAppointmentStyle: jest.fn(),
 }));
 
@@ -95,9 +91,10 @@ describe('DragDropProvider', () => {
     cellIndex.mockImplementation(() => 1);
     cellType.mockImplementation(() => 'vertical');
     cellData.mockImplementation(() => ({ startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-26 11:00') }));
-    allDayRects.mockImplementation(() => []);
-    verticalTimeTableRects.mockImplementation(() => []);
-    horizontalTimeTableRects.mockImplementation(() => []);
+    calculateDraftAppointments.mockImplementation(() => ({
+      allDayDraftAppointments: [{}],
+      timeTableDraftAppointments: [{}],
+    }));
     getAppointmentStyle.mockImplementation();
   });
   afterEach(() => {
@@ -170,7 +167,6 @@ describe('DragDropProvider', () => {
         .toBeCalledWith('appointment data');
     });
     it('should render draft appointment template', () => {
-      allDayRects.mockImplementationOnce(() => [{}]);
       const draftAppointment = () => <div className="custom-class" />;
 
       const { tree, onOver } = mountPlugin({ draftAppointmentComponent: draftAppointment });
@@ -191,7 +187,6 @@ describe('DragDropProvider', () => {
           },
         },
       };
-      allDayRects.mockImplementationOnce(() => [{}]);
       const sourceAppointment = () => <div className="custom-class" />;
 
       const { tree, onOver } = mountPlugin({ sourceAppointmentComponent: sourceAppointment }, deps);
@@ -201,22 +196,6 @@ describe('DragDropProvider', () => {
 
       expect(tree.find('.custom-class').exists())
         .toBeTruthy();
-    });
-
-    it('should render only one container component', () => {
-      allDayRects.mockImplementationOnce(() => [{}, {}]);
-      verticalTimeTableRects.mockImplementationOnce(() => [{}, {}]);
-      horizontalTimeTableRects.mockImplementationOnce(() => [{}, {}]);
-      // eslint-disable-next-line react/prop-types, react/jsx-one-expression-per-line
-      const container = ({ children }) => <div className="custom-class">{children}</div>;
-
-      const { tree, onOver } = mountPlugin({ containerComponent: container });
-
-      onOver({ payload: { id: 1 }, clientOffset: 1 });
-      tree.update();
-
-      expect(tree.find('.custom-class').length)
-        .toBe(1);
     });
   });
 
@@ -464,9 +443,6 @@ describe('DragDropProvider', () => {
       cellIndex.mockImplementationOnce(() => -1);
       cellType.mockImplementationOnce(() => 'vertical');
       cellData.mockImplementationOnce(() => ({ startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00') }));
-      allDayRects.mockImplementationOnce(() => [{}, {}]);
-      verticalTimeTableRects.mockImplementationOnce(() => [{}, {}]);
-      horizontalTimeTableRects.mockImplementationOnce(() => [{}, {}]);
 
       const { tree, onOver, onChange } = mountPlugin({
         draftAppointmentComponent: draftAppointment,
@@ -506,9 +482,6 @@ describe('DragDropProvider', () => {
       cellIndex.mockImplementationOnce(() => -1);
       cellType.mockImplementationOnce(() => 'vertical');
       cellData.mockImplementationOnce(() => ({ startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00') }));
-      allDayRects.mockImplementationOnce(() => [{}, {}]);
-      verticalTimeTableRects.mockImplementationOnce(() => [{}, {}]);
-      horizontalTimeTableRects.mockImplementationOnce(() => [{}, {}]);
 
       const { tree, onOver, onDrop } = mountPlugin({
         draftAppointmentComponent: draftAppointment,

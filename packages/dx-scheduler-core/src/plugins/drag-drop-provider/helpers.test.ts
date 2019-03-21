@@ -1,9 +1,29 @@
 import {
   intervalDuration, cellIndex, cellData, autoScroll, cellType,
   calculateAppointmentTimeBoundaries, calculateInsidePart,
+  calculateDraftAppointments,
 } from './helpers';
+import {
+  allDayRects, horizontalTimeTableRects, verticalTimeTableRects,
+} from './calculate-rects';
+
+jest.mock('./calculate-rects', () => ({
+  ...require.requireActual('./calculate-rects'),
+  allDayRects: jest.fn(),
+  verticalTimeTableRects: jest.fn(),
+  horizontalTimeTableRects: jest.fn(),
+}));
 
 describe('DragDropProvider', () => {
+  beforeEach(() => {
+    allDayRects.mockImplementation(() => [{}]);
+    verticalTimeTableRects.mockImplementation(() => [{}]);
+    horizontalTimeTableRects.mockImplementation(() => [{}]);
+  });
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
+
   describe('#cellType', () => {
     it('should work with day cell interval', () => {
       const data = {
@@ -246,6 +266,44 @@ describe('DragDropProvider', () => {
       const timeTableCells = [{ getBoundingClientRect: () => ({ top: 10, height: 20 }) }];
       expect(calculateInsidePart(25, timeTableCells, tileTableIndex))
         .toEqual(1);
+    });
+  });
+
+  describe('#calculateDraftAppointments', () => {
+    const allDayIndex = 0;
+    const timeTableIndex = 0;
+    const draftAppointments = [];
+    const startViewDate = new Date();
+    const endViewDate = new Date();
+    const excludedDays = [];
+    const viewCellsData = [];
+    const allDayCells = [];
+    const targetType = 'vertical';
+    const cellDurationMinutes = 0;
+    const timeTableCells = 0;
+    it('should return only one array', () => {
+      expect(calculateDraftAppointments(
+        allDayIndex, timeTableIndex, draftAppointments, startViewDate,
+        endViewDate, excludedDays, viewCellsData, allDayCells,
+        targetType, cellDurationMinutes, timeTableCells,
+      ))
+      .toEqual({
+        allDayDraftAppointments: [{}],
+        timeTableDraftAppointments: [],
+      });
+    });
+
+    it('should return time table array', () => {
+      const nextAllDayIndex = -1;
+      expect(calculateDraftAppointments(
+        nextAllDayIndex, timeTableIndex, draftAppointments, startViewDate,
+        endViewDate, excludedDays, viewCellsData, allDayCells,
+        targetType, cellDurationMinutes, timeTableCells,
+      ))
+      .toEqual({
+        allDayDraftAppointments: [],
+        timeTableDraftAppointments: [{}],
+      });
     });
   });
 });

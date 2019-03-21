@@ -25,18 +25,20 @@ export const getVisibleBoundary: GetVisibleBoundaryFn = (
 ) => {
   let start: number | null = null;
   let end: number | null = null;
-
-  const viewportEnd = viewportStart + viewportSize;
   let index = 0;
   let beforePosition = offset * itemSize;
-  if (itemSize > 0 && beforePosition + items.length * itemSize < viewportStart
-    || viewportStart < beforePosition) {
+  const noVisibleRowsLoaded = itemSize > 0 &&
+    beforePosition + items.length * itemSize < viewportStart ||
+    viewportStart < beforePosition;
+
+  if (noVisibleRowsLoaded) {
     beforePosition = viewportStart;
     index = items.length;
     start = Math.round(viewportStart / itemSize) - offset;
     end = start;
   }
 
+  const viewportEnd = viewportStart + viewportSize;
   while (end === null && index < items.length) {
     const item = items[index];
     const afterPosition = beforePosition + getItemSize(item)!;
@@ -132,15 +134,17 @@ export const collapseBoundaries: CollapseBoundariesFn = (
       }
     }));
 
-  visibleBoundaries.forEach((boundary) => {
-    for (let point = boundary[0]; point <= boundary[1]; point += 1) {
-      breakpoints.add(point);
-    }
-    if (boundary[1] + 1 < itemsCount) {
-      // close last visible point
-      breakpoints.add(boundary[1] + 1);
-    }
-  });
+  visibleBoundaries
+    .filter(boundary => boundary.every(bound => 0 <= bound && bound < itemsCount))
+    .forEach((boundary) => {
+      for (let point = boundary[0]; point <= boundary[1]; point += 1) {
+        breakpoints.add(point);
+      }
+      if (boundary[1] + 1 < itemsCount) {
+        // close last visible point
+        breakpoints.add(boundary[1] + 1);
+      }
+    });
 
   const bp = [...breakpoints].sort((a, b) => a - b);
   const bounds = [];

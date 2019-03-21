@@ -10,6 +10,7 @@ import {
   getCollapsedGrid,
   TABLE_STUB_TYPE,
   getColumnWidthGetter,
+  getRenderBoundary,
 } from './virtual-table';
 
 describe('VirtualTableLayout utils', () => {
@@ -29,10 +30,8 @@ describe('VirtualTableLayout utils', () => {
         .toEqual([2, 4]);
     });
 
-    it('should work with overscan', () => {
+    it('should consider rows start offset and default height', () => {
       const items = [
-        { size: 40 },
-        { size: 40 },
         { size: 40 },
         { size: 40 },
         { size: 40 },
@@ -40,8 +39,35 @@ describe('VirtualTableLayout utils', () => {
         { size: 40 },
       ];
 
-      expect(getVisibleBoundary(items, 80, 120, item => item.size, 1))
-        .toEqual([1, 5]);
+      expect(getVisibleBoundary(items, 600, 120, item => item.size, 20, 30))
+        .toEqual([20, 22]);
+    });
+
+    it('should work when rows are not loaded', () => {
+      const items = [
+        { size: 40 },
+        { size: 40 },
+        { size: 40 },
+        { size: 40 },
+        { size: 40 },
+      ];
+
+      expect(getVisibleBoundary(items, 240, 120, item => item.size, 0, 40))
+        .toEqual([6, 6]);
+    });
+  });
+
+  describe('#getRenderBoundary', () => {
+    it('should correctly add overscan in simple case', () => {
+      expect(getRenderBoundary(20, [5, 10], 3)).toEqual([2, 13]);
+    });
+
+    it('should correctly add overscan when grid is scrolled to top', () => {
+      expect(getRenderBoundary(10, [0, 5], 3)).toEqual([0, 8]);
+    });
+
+    it('should correctly add overscan when grid is scrolled to bottom', () => {
+      expect(getRenderBoundary(10, [5, 9], 3)).toEqual([2, 9]);
     });
   });
 
@@ -171,7 +197,7 @@ describe('VirtualTableLayout utils', () => {
     });
   });
 
-  fdescribe('#collapseBoundaries', () => {
+  describe('#collapseBoundaries', () => {
     it('should work in a simple case', () => {
       const itemsCount = 9;
       const visibleBoundary = [[3, 4]];
@@ -196,11 +222,7 @@ describe('VirtualTableLayout utils', () => {
         [[2, 5]], // row 1
       ];
 
-      debugger
-      const collapsed = collapseBoundaries(itemsCount, visibleBoundary, spanBoundaries);
-      console.log(collapsed)
-
-      expect(collapsed)
+      expect(collapseBoundaries(itemsCount, visibleBoundary, spanBoundaries))
         .toEqual([
           [0, 0], // stub
           [1, 1], // stub
@@ -229,28 +251,6 @@ describe('VirtualTableLayout utils', () => {
           [6, 6], // stub
           [7, 7], // stub
           [8, 8], // stub
-        ]);
-    });
-
-    it('should work with spans after visible area', () => {
-      const itemsCount = 11;
-      const visibleBoundary = [[1, 2]];
-      const spanBoundaries = [
-        [[4, 6]], // row 1
-        [[4, 7]], // row 0
-        [[4, 8]], // row 0
-      ];
-
-      expect(collapseBoundaries(itemsCount, visibleBoundary, spanBoundaries))
-        .toEqual([
-          [0, 0], // stub
-          [1, 1], // stub
-          [2, 2], // stub
-          [3, 3], // visible
-          [4, 6], // visible
-          [7, 7], // stub
-          [8, 8], // stub
-          [9, 10], // stub
         ]);
     });
 
@@ -295,6 +295,17 @@ describe('VirtualTableLayout utils', () => {
           [6, 6], // visible
           [7, 8], // stub (for colspan [4, 8])
           [9, 9], // visible
+        ]);
+    });
+
+    it('should work when visible rows not loaded', () => {
+      const itemsCount = 100;
+      const visibleBoundary = [[Infinity, -Infinity]];
+      const spanBoundaries = [];
+
+      expect(collapseBoundaries(itemsCount, visibleBoundary, spanBoundaries))
+        .toEqual([
+          [0, 99], // stub
         ]);
     });
   });
@@ -479,10 +490,10 @@ describe('VirtualTableLayout utils', () => {
           { key: 3, width: 40 }, // visible (overscan)
           { key: 4, width: 40 },
         ],
-        top: 160,
-        left: 80,
-        height: 40,
-        width: 40,
+        rowsVisibleBoundary: [1, 7],
+        columnsVisibleBoundary: [[1, 3]],
+        totalRowCount: 9,
+        offset: 0,
       };
 
       const result = getCollapsedGrid(args);

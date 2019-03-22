@@ -61,7 +61,6 @@ export class DragDropProvider extends React.PureComponent {
   }
 
   resetCache() {
-    console.log('reset');
     this.timeTableRects = [];
     this.allDayRects = [];
     this.offsetTimeTop = null;
@@ -119,7 +118,6 @@ export class DragDropProvider extends React.PureComponent {
     const targetData = cellData(timeTableIndex, allDayIndex, viewCellsData);
     const targetType = cellType(targetData);
     const sourceType = payload.type;
-    console.log(sourceType);
 
     // CALCULATE INSIDE OFFSET
     let insidePart = 0;
@@ -188,7 +186,6 @@ export class DragDropProvider extends React.PureComponent {
       this.timeTableRects = [];
     }
 
-    console.log(this.timeTableRects);
     const { startTime, endTime } = this.state;
     if (moment(startTime).isSame(this.appointmentStartTime)
       && moment(endTime).isSame(this.appointmentEndTime)) return;
@@ -341,13 +338,19 @@ export class DragDropProvider extends React.PureComponent {
           {(this.allDayRects.length > 0 ? (
             <Container>
               {this.allDayRects.map(({
-                dataItem, type, ...geometry
+                dataItem, type, leftSlice, rightSlice, ...geometry
               }, index) => (
-                <DraftAppointment
+                <TemplatePlaceholder
+                  name="appointment"
                   key={index.toString()}
-                  data={draftData}
-                  style={getAppointmentStyle(geometry)}
-                  type={type}
+                  params={{
+                    data: draftData,
+                    style: getAppointmentStyle(geometry),
+                    type,
+                    draft: true,
+                    leftSlice,
+                    rightSlice,
+                  }}
                 />
               ))}
             </Container>
@@ -361,19 +364,34 @@ export class DragDropProvider extends React.PureComponent {
           {(this.timeTableRects.length > 0 ? (
             <Container>
               {this.timeTableRects.map(({
-                dataItem, type, ...geometry
+                dataItem, type, leftSlice, rightSlice, ...geometry
               }, index) => (
-                <DraftAppointment
+                <TemplatePlaceholder
                   key={index.toString()}
-                  data={draftData}
-                  style={getAppointmentStyle(geometry)}
-                  type={type}
+                  name="appointment"
+                  params={{
+                    data: draftData,
+                    style: getAppointmentStyle(geometry),
+                    type,
+                    draft: true,
+                    leftSlice,
+                    rightSlice,
+                  }}
                 />
               ))}
             </Container>
           ) : (
             null
           ))}
+        </Template>
+
+        <Template
+          name="appointmentContent"
+          predicate={({ draft }) => draft}
+        >
+          {params => (
+            <DraftAppointment {...params} />
+          )}
         </Template>
       </Plugin>
     );

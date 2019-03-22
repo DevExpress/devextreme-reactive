@@ -37,9 +37,9 @@ export class Appointments extends React.PureComponent {
               {...createClickHandlers(onClick, onDoubleClick)}
               {...restParams}
             >
-              <TemplatePlaceholder name="appointmentTop" params={{ data, predicate: leftSlice }} />
-              <TemplatePlaceholder name="appointmentContent" params={{ data, type }} />
-              <TemplatePlaceholder name="appointmentBottom" params={{ data, predicate: rightSlice }} />
+              <TemplatePlaceholder name="appointmentTop" params={{ ...restParams, data, predicate: leftSlice }} />
+              <TemplatePlaceholder name="appointmentContent" params={{ ...restParams, data, type }} />
+              <TemplatePlaceholder name="appointmentBottom" params={{ ...restParams, data, predicate: rightSlice }} />
             </Appointment>
           )}
         </Template>

@@ -1,5 +1,7 @@
 import {
   ViewportOptions,
+  OnViewportChange,
+  RectBox,
 } from './index';
 
 export interface ZoomAndPanProps {
@@ -8,7 +10,7 @@ export interface ZoomAndPanProps {
   /** A viewport */
   viewport?: ViewportOptions;
   /** A function that is executed when viewport changes */
-  onViewportChange?: (viewport: ViewportOptions) => void;
+  onViewportChange?: OnViewportChange;
   /** Interaction with arguments */
   interactionWithArguments?: 'none' | 'pan' | 'zoom' | 'both';
   /** Interaction with values */
@@ -16,12 +18,8 @@ export interface ZoomAndPanProps {
   /** A component that renders the drag box */
   dragBoxComponent: React.ComponentType<ZoomAndPan.DragBoxProps>;
   /** Specifies the key that enables panning */
-  panKey?: 'shift' | 'alt' | 'ctrl';
-  /** Enables users to zoom the chart by selecting an area with the drag gesture */
-  dragToZoom?: boolean;
+  zoomRegionKey?: 'shift' | 'alt' | 'ctrl';
 }
-
-type RectBox = {x: number, y: number, width: number, height: number};
 
 export type ZoomAndPanState = {
   viewport?: ViewportOptions;

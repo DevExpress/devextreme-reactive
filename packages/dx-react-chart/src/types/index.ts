@@ -7,7 +7,7 @@ export {
   BBoxes, BBoxesChange,
   StackList, StacksOptions, OffsetFn, OrderFn,
   EventHandlers, NumberArray,
-  DomainBounds, ViewportOptions,
+  DomainBounds, ViewportOptions, OnViewportChange, RectBox,
 
   AreaSeries, LineSeries, SplineSeries, BarSeries, ScatterSeries, PieSeries,
   SeriesProps, PathComponentProps, PathComponentPathProps, PointComponentProps,

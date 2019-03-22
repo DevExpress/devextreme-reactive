@@ -77,7 +77,7 @@ export default class Demo extends React.PureComponent {
           <ZoomAndPan
             interactionWithArguments={getMode(zoomArgument, panArgument)}
             interactionWithValues={getMode(zoomValue, panValue)}
-            dragToZoom={true}
+            onViewportChange={()=> {console.log('changed')}}
           />
         </Chart>
         <p>

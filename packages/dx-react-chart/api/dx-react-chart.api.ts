@@ -98,10 +98,24 @@ interface BasicDataProps {
 }
 
 // @public (undocumented)
-declare type BoundsFn = (scale: ScaleObject, bounds: NumberArray, delta: number, name: string, type: string) => any[];
+declare type BoundsFn = (name: string, scale: ScaleObject, bounds: NumberArray, delta: number, changeBounds: ChangeBoundsFn) => any[];
+
+// @public (undocumented)
+declare type BoundsForScaleFn = {
+  // (undocumented)
+  current?: any[];
+  // (undocumented)
+  prev?: any[];
+};
+
+// @public (undocumented)
+declare type BoundsRectFn = (rectBox: RectBox, name: string) => any[];
 
 // @public (undocumented)
 declare type BuildAnimatedStyleGetterFn = PureComputed<[any, GetAnimationStyleFn, Scales, PointComponentProps?]>;
+
+// @public (undocumented)
+declare type ChangeBoundsFn = (from: number, to: number, delta: number, sign: number) => any[];
 
 // @public (undocumented)
 declare const Chart: React.ComponentType<ChartProps>;
@@ -129,7 +143,7 @@ interface ChartProps {
 }
 
 // @public (undocumented)
-declare const checkDragToZoom: (dragToZoom: boolean, panKey: string, event: MouseEvent) => any;
+declare const checkDragToZoom: (zoomRegionKey: string, event: MouseEvent) => any;
 
 // @public (undocumented)
 declare type Colors = ReadonlyArray<string>;
@@ -138,6 +152,9 @@ declare type Colors = ReadonlyArray<string>;
 interface CommonComponentProps {
   color: string;
 }
+
+// @public (undocumented)
+declare type CompareBoundsFn = (prev: any[], current: any[], initial: ReadonlyArray<any>, minDelta?: number) => boolean;
 
 // @public (undocumented)
 declare type Coordinates = {
@@ -183,9 +200,6 @@ declare type GetAnimationStyleFn = (scales: Scales, point?: PointComponentProps)
 };
 
 // @public (undocumented)
-declare const getBounds: BoundsFn;
-
-// @public (undocumented)
 declare const getDeltaForTouches: (touches: Touch[]) => number;
 
 // @public (undocumented)
@@ -196,9 +210,6 @@ type GetPointerMoveHandlersFn = PureComputed<[Getters], HandlerFnList>;
 
 // @public (undocumented)
 declare type GetPointFieldFn = (point: PointComponentProps) => number;
-
-// @public (undocumented)
-declare const getValueScaleName: (viewport?: ViewportOptions | undefined) => string;
 
 // @public (undocumented)
 declare type HandlerFn = (arg: TargetData) => void;
@@ -305,6 +316,9 @@ declare const offsetCoordinates: (coordinates: Coordinates, offset: [number, num
 
 // @public (undocumented)
 declare type OffsetFn = (series: StackData, order: number[]) => void;
+
+// @public (undocumented)
+declare type OnViewportChange = (viewport: ViewportOptions) => void;
 
 // @public (undocumented)
 declare type OrderFn = (series: StackData) => number[];
@@ -423,7 +437,7 @@ interface RawAxisProps {
 }
 
 // @public (undocumented)
-type RectBox = {
+declare type RectBox = {
   // (undocumented)
   x: number;
   // (undocumented)
@@ -698,12 +712,11 @@ namespace ZoomAndPan {
 interface ZoomAndPanProps {
   defaultViewport?: ViewportOptions;
   dragBoxComponent: React.ComponentType<ZoomAndPan.DragBoxProps>;
-  dragToZoom?: boolean;
   interactionWithArguments?: 'none' | 'pan' | 'zoom' | 'both';
   interactionWithValues?: 'none' | 'pan' | 'zoom' | 'both';
-  onViewportChange?: (viewport: ViewportOptions) => void;
-  panKey?: 'shift' | 'alt' | 'ctrl';
+  onViewportChange?: OnViewportChange;
   viewport?: ViewportOptions;
+  zoomRegionKey?: 'shift' | 'alt' | 'ctrl';
 }
 
 // @public (undocumented)

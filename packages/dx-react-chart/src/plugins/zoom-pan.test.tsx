@@ -61,18 +61,4 @@ describe('ZoomAndPan', () => {
       ranges: 'adjusted-ranges',
     });
   });
-
-  it('should provide action', () => {
-    const mock = jest.fn();
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <ZoomAndPan  {...defaultProps}  onViewportChange={mock} />
-      </PluginHost>
-    ));
-
-    executeComputedAction(tree, actions => actions.changeViewport(defaultProps.viewport));
-
-    expect(mock).toBeCalledWith(defaultProps.viewport);
-  });
 });

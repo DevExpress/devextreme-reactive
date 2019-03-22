@@ -34,8 +34,6 @@ export class Appointments extends React.PureComponent {
             <Appointment
               style={style}
               data={data}
-              // leftSlice={leftSlice}
-              // rightSlice={rightSlice}
               {...createClickHandlers(onClick, onDoubleClick)}
               {...restParams}
             >

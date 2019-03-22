@@ -188,6 +188,7 @@ export class DragDropProvider extends React.PureComponent {
       this.timeTableRects = [];
     }
 
+    console.log(this.timeTableRects);
     const { startTime, endTime } = this.state;
     if (moment(startTime).isSame(this.appointmentStartTime)
       && moment(endTime).isSame(this.appointmentEndTime)) return;
@@ -283,7 +284,7 @@ export class DragDropProvider extends React.PureComponent {
               <DragSource
                 payload={{ ...params.data, type: params.type }}
               >
-                <TemplatePlaceholder params={{ ...params, draggable: true, resizable: true }} />
+                <TemplatePlaceholder params={{ ...params, draggable: true }} />
               </DragSource>
             </React.Fragment>
           )}
@@ -295,7 +296,7 @@ export class DragDropProvider extends React.PureComponent {
               {payload && params.data.id === payload.id ? (
                 <SourceAppointment {...params} />
               ) : (
-                <TemplatePlaceholder params={{ ...params, draggable: true, resizable: true }} />
+                <TemplatePlaceholder params={{ ...params, draggable: true }} />
               )}
             </React.Fragment>
           )}

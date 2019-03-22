@@ -2,7 +2,7 @@ import {
   ARGUMENT_DOMAIN, VALUE_DOMAIN,
 } from '../../constants';
 import {
-  getValueDomainName, makeScale, scaleBounds,
+  getValueDomainName, makeScale, scaleBounds, rangesEqual,
 } from '../../utils/scale';
 import { scaleQuantize } from 'd3-scale';
 import {
@@ -182,9 +182,6 @@ const getRectBounds: BoundsRectFn = (rectBox, name) => {
   return [rectBox!.y + rectBox!.height, rectBox!.y];
 };
 
-// TODO: Copypaste!
-const floatsEqual = (a: number, b: number) => Math.abs(a - b) < Number.EPSILON;
-
 // Given original scale
 //   f(domain) = range
 //   f(subDomain) = subRange
@@ -208,10 +205,7 @@ const proportionallyExtendRange = (range: NumberArray, subRange: NumberArray): N
 const adjustRange = (domain: DomainInfo, bounds: DomainBounds, range: NumberArray) => {
   const scale = makeScale(domain, range);
   const subRange = scaleBounds(scale, bounds);
-  if (floatsEqual(subRange[0], range[0]) && floatsEqual(subRange[1], range[1])) {
-    return range;
-  }
-  return proportionallyExtendRange(range, subRange);
+  return rangesEqual(subRange, range) ? range : proportionallyExtendRange(range, subRange);
 };
 
 const update = (

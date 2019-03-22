@@ -106,25 +106,33 @@ describe('#scaleBounds', () => {
     scale.mockReturnValueOnce(30);
     scale.mockReturnValueOnce(40);
 
-    const range = scaleBounds(scale as any, [1, 2]);
+    const range = scaleBounds(scale as any, [40, 30]);
 
     expect(range).toEqual([30, 40]);
     expect(scale.mock.calls).toEqual([
-      [1], [2],
+      [40, 0, expect.anything()],
+      [30, 1, expect.anything()],
     ]);
   });
 
   it('should measure discrete scale', () => {
-    const scale = jest.fn();
+    const scale = jest.fn() as any;
+    scale.copy = jest.fn().mockReturnThis();
+    scale.paddingInner = jest.fn().mockReturnThis();
+    scale.paddingOuter = jest.fn().mockReturnThis();
     scale.mockReturnValueOnce(30);
     scale.mockReturnValueOnce(40);
-    (scale as any).bandwidth = () => 5;
+    scale.bandwidth = () => 5;
 
-    const range = scaleBounds(scale as any, [1, 2]);
+    const range = scaleBounds(scale, ['A', 'B']);
 
     expect(range).toEqual([30, 45]);
     expect(scale.mock.calls).toEqual([
-      [1], [2],
+      ['A'],
+      ['B'],
     ]);
+    expect(scale.copy).toBeCalledWith();
+    expect(scale.paddingInner).toBeCalledWith(0);
+    expect(scale.paddingOuter).toBeCalledWith(0);
   });
 });

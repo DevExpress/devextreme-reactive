@@ -10,7 +10,9 @@ export interface HoverStateProps {
   /** A function that is executed when the hover target is changed */
   onHoverChange?: NotifyPointerMoveFn;
 }
+/** @internal */
 export type HoverStateState = {
   hover?: SeriesRef;
 };
+/** @internal */
 export type GetPointerMoveHandlersFn = PureComputed<[Getters], HandlerFnList>;

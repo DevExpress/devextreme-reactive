@@ -10,6 +10,7 @@ import {
 import { scaleQuantize } from 'd3-scale';
 
 jest.mock('../../utils/scale', () => ({
+  ...require.requireActual('../../utils/scale'),  // for `rangesEqual`
   getValueDomainName: jest.fn(),
   makeScale: jest.fn(),
   scaleBounds: jest.fn(),

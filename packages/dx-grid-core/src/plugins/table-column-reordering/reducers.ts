@@ -1,4 +1,4 @@
-import { PureReducer } from '@devexpress/dx-core';
+import { PureReducer, slice } from '@devexpress/dx-core';
 import { ColumnOrder, ChangeColumnOrderPayload } from '../../types';
 
 export const changeColumnOrder: PureReducer<ColumnOrder, ChangeColumnOrderPayload> = (
@@ -6,7 +6,7 @@ export const changeColumnOrder: PureReducer<ColumnOrder, ChangeColumnOrderPayloa
 ) => {
   const sourceColumnIndex = order.indexOf(sourceColumnName);
   const targetColumnIndex = order.indexOf(targetColumnName);
-  const newOrder = Array.prototype.slice.call(order);
+  const newOrder = slice(order);
 
   newOrder.splice(sourceColumnIndex, 1);
   newOrder.splice(targetColumnIndex, 0, sourceColumnName);

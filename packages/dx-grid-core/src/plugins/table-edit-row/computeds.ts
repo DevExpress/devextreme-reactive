@@ -1,3 +1,4 @@
+import { slice } from '@devexpress/dx-core';
 import { TABLE_ADDED_TYPE, TABLE_EDIT_TYPE } from './constants';
 import { TABLE_DATA_TYPE } from '../table/constants';
 import { TableRowsWithEditingFn } from '../../types';
@@ -27,7 +28,7 @@ export const tableRowsWithEditing: TableRowsWithEditingFn = (
     }));
 
   return [
-    ...Array.prototype.slice.call(addedTableRows).reverse(),
+    ...slice(addedTableRows).reverse(),
     ...editedTableRows,
   ];
 };

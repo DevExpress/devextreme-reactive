@@ -1,4 +1,4 @@
-import { PureComputed } from '@devexpress/dx-core';
+import { PureComputed, slice } from '@devexpress/dx-core';
 import mergeSort from '../../utils/merge-sort';
 import { NODE_CHECK, rowsToTree, treeToRows } from '../../utils/hierarchical-data';
 import {
@@ -22,7 +22,7 @@ const defaultCompare = (a: any, b: any) => {
 
 const createCompare: CreateCompareFn = (
   sorting, getColumnCompare, getComparableValue,
-) => Array.prototype.slice.call(sorting)
+) => slice(sorting)
   .reverse()
   .reduce(
     (prevCompare, columnSorting) => {

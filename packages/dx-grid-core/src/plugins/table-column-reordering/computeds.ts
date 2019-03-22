@@ -1,4 +1,4 @@
-import { PureComputed } from '@devexpress/dx-core';
+import { PureComputed, slice } from '@devexpress/dx-core';
 import mergeSort from '../../utils/merge-sort';
 import { TABLE_DATA_TYPE } from '../table/constants';
 import { TABLE_REORDERING_TYPE } from './constants';
@@ -30,7 +30,7 @@ export const draftOrder: DraftOrderComputed = (order, sourceColumnIndex, targetC
     return order;
   }
 
-  const result = Array.prototype.slice.call(order);
+  const result = slice(order);
   const sourceColumn = order[sourceColumnIndex];
   result.splice(sourceColumnIndex, 1);
   result.splice(targetColumnIndex, 0, sourceColumn);

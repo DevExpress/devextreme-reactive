@@ -1,3 +1,4 @@
+import { slice } from '@devexpress/dx-core';
 import {
   TABLE_BAND_TYPE, BAND_GROUP_CELL, BAND_HEADER_CELL, BAND_EMPTY_CELL, BAND_DUPLICATE_RENDER,
 } from './constants';
@@ -16,7 +17,7 @@ export const isNoDataColumn = (columnType: symbol) => columnType !== TABLE_DATA_
 export const getColumnMeta: GetColumnBandMetaFn = (
   columnName, bands, tableRowLevel,
   level = 0, title = null, result = null,
-) => Array.prototype.slice.call(bands).reduce((acc, column) => {
+) => slice(bands).reduce((acc, column) => {
   if (column.columnName === columnName) {
     return { ...acc, title, level };
   }

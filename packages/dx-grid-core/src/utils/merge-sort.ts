@@ -1,3 +1,4 @@
+import { slice } from '@devexpress/dx-core';
 import { MergeFn, SortArrayToAuxiliaryFn, CompareFn } from '../types';
 
 /* eslint-disable no-plusplus, no-param-reassign, no-use-before-define, no-constant-condition */
@@ -57,8 +58,8 @@ export default (
     return 0;
   },
 ) => {
-  const result = Array.prototype.slice.call(array);
-  const auxiliary = Array.prototype.slice.call(array);
+  const result = slice(array);
+  const auxiliary = slice(array);
   sortAuxiliaryToArray(result, auxiliary, 0, result.length - 1, compare);
   return result;
 };

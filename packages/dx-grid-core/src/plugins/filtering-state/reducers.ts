@@ -1,11 +1,11 @@
 import { Filter, ChangeFilterPayload } from '../../types';
-import { PureReducer } from '@devexpress/dx-core';
+import { PureReducer, slice } from '@devexpress/dx-core';
 
 export const changeColumnFilter: PureReducer<Filter[], ChangeFilterPayload> = (
   filters, { columnName, config },
 ) => {
   const filterIndex = filters.findIndex(f => f.columnName === columnName);
-  const nextState = Array.prototype.slice.call(filters);
+  const nextState = slice(filters);
 
   if (config) {
     const filter = { columnName, ...config };

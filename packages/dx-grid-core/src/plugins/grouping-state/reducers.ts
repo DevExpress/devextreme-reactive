@@ -8,18 +8,20 @@ import {
 const applyColumnGrouping: PureReducer<Grouping[], ChangeGroupingPayload> = (
   grouping, { columnName, groupIndex },
 ) => {
-  const nextGrouping = slice(grouping);
+  let nextGrouping = grouping;
   const groupingIndex = nextGrouping.findIndex(g => g.columnName === columnName);
   let targetIndex = groupIndex;
 
   if (groupingIndex > -1) {
-    nextGrouping.splice(groupingIndex, 1);
+    nextGrouping = slice(grouping);
+    (nextGrouping as Grouping[]).splice(groupingIndex, 1);
   } else if (groupIndex === undefined) {
     targetIndex = nextGrouping.length;
   }
 
   if (targetIndex > -1) {
-    nextGrouping.splice(targetIndex, 0, {
+    nextGrouping = slice(nextGrouping);
+    (nextGrouping as Grouping[]).splice(targetIndex, 0, {
       columnName,
     });
   }

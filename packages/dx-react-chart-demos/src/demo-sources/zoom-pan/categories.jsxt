@@ -44,7 +44,7 @@ export default class Demo extends React.PureComponent {
             argumentField="year"
           />
           <Title text="World population" />
-          <ZoomAndPan onViewportChange={()=> {console.log('changed')}}/>
+          <ZoomAndPan />
         </Chart>
       </<%&wrapperTag%>>
     );

@@ -26,6 +26,12 @@ export const getWidth = (scale: ScaleObject) => (
 /** @internal */
 export const getValueDomainName = (name?: string) => name || VALUE_DOMAIN;
 
+const floatsEqual = (a: number, b: number) => Math.abs(a - b) < Number.EPSILON;
+
+/** @internal */
+export const rangesEqual = (r1: NumberArray, r2: NumberArray) =>
+  floatsEqual(r1[0], r2[0]) && floatsEqual(r1[1], r2[1]);
+
 /** @internal */
 export const makeScale = ({ factory, domain }: DomainInfo, range: NumberArray) => (
   (factory || scaleLinear)().domain(domain).range(range)
@@ -35,9 +41,13 @@ export const makeScale = ({ factory, domain }: DomainInfo, range: NumberArray) =
 // it resides here so that internal scale specifics (*getWidth*)
 // are encapsulated in this utility file.
 /** @internal */
-export const scaleBounds = (scale: ScaleObject, bounds: DomainBounds): NumberArray => (
-  [scale(bounds[0]), scale(bounds[1]) + getWidth(scale)]
-);
+export const scaleBounds = (scale: ScaleObject, bounds: DomainBounds): NumberArray => {
+  if (scale.bandwidth) {
+    const cleanScale = scale.copy().paddingInner!(0).paddingOuter!(0);
+    return [cleanScale(bounds[0]), cleanScale(bounds[1]) + cleanScale.bandwidth!()];
+  }
+  return bounds.map(scale) as NumberArray;
+};
 
 /** @internal */
 export const fixOffset = (scale: ScaleObject): ((value: number) => number) => {

@@ -16,6 +16,9 @@ const loadedRowsStartComputed = ({ virtualRows }: Getters) => virtualRows.start;
 
 // tslint:disable-next-line: max-line-length
 export class VirtualTableState extends React.PureComponent<VirtualTableStateProps, VirtualTableStateState> {
+  static defaultProps = {
+    virtualPageSize: 100,
+  };
   requestTimer: any = 0;
 
   constructor(props) {
@@ -38,13 +41,11 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
 
     const newBounds = recalculateBounds(rowIndex, virtualPageSize, totalRowCount);
     const loadedInterval = intervalUtil.getRowsInterval(virtualRows);
-
     const requestedRange = calculateRequestedRange(
       loadedInterval, newBounds, rowIndex, virtualPageSize,
     );
 
     const newPageIndex = requestedRange.start;
-    const pageStart = newPageIndex;
     const loadCount = (requestedRange.end - requestedRange.start);
 
     if (newPageIndex !== requestedPageIndex && loadCount > 0) {
@@ -52,7 +53,7 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
         clearTimeout(this.requestTimer);
       }
       this.requestTimer = setTimeout(() => {
-        getRows(pageStart, loadCount);
+        getRows(newPageIndex, loadCount);
 
         const virtualRowsCache = trimRowsToInterval(virtualRows, newBounds);
 
@@ -62,16 +63,16 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
         });
       }, 50);
     }
-  };
+  }
 
   componentDidMount() {
-    const { getRows } = this.props;
-    getRows(0, 200);
+    const { getRows, virtualPageSize } = this.props;
+    getRows(0, 2 * virtualPageSize!);
   }
 
   render() {
     const { virtualRowsCache } = this.state;
-    const { start, rowCount } = this.props;
+    const { start, rowCount, virtualPageSize } = this.props;
 
     return (
       <Plugin
@@ -80,8 +81,9 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
         <Getter name="remoteDataEnabled" value />
         <Getter name="start" value={start} />
         <Getter name="virtualRowsCache" value={virtualRowsCache} />
-        <Getter name="virtualPageSize" value={100} /> {/*to prop*/}
+        <Getter name="virtualPageSize" value={virtualPageSize} />
         <Getter name="totalRowCount" value={rowCount} />
+
         <Getter name="virtualRows" computed={virtualRowsComputed} />
         <Getter name="rows" computed={rowsComputed} />
         <Getter name="loadedRowsStart" computed={loadedRowsStartComputed} />

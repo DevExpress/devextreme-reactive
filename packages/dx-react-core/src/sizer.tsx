@@ -83,10 +83,6 @@ export class Sizer extends React.PureComponent<SizerProps> {
     this.contractTrigger.removeEventListener('scroll', this.setupListeners);
   }
 
-  componentDidUpdate() {
-    // this.rootNode.scrollTop = this.props.scrollTop;
-  }
-
   setupListeners() {
     const size: Size = { height: this.rootNode.clientHeight, width: this.rootNode.clientWidth };
 

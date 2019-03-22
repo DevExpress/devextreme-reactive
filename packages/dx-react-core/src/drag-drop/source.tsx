@@ -33,7 +33,6 @@ export class DragSource extends React.Component<DragSourceProps & DragSourceDefa
           onStart({ clientOffset: { x, y } });
         }}
         onUpdate={({ x, y }) => {
-          console.log('update drag')
           dragDropProvider.update({ x, y });
           onUpdate({ clientOffset: { x, y } });
         }}

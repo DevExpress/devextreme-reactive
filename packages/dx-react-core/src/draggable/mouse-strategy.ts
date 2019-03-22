@@ -20,7 +20,6 @@ export class MouseStrategy {
     this.delegate = delegate;
     this.mouseInitialOffset = null;
     this.dragging = false;
-    console.log('create mouse strategy')
   }
 
   isDragging() {

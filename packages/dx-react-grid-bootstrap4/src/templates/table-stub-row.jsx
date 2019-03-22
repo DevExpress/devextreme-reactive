@@ -8,9 +8,7 @@ export const TableStubRow = ({
   <tr
     {...restProps}
   >
-    {/* <td colSpan="7" style={{ backgroundColor: 'lightgray'}}> */}
     {children}
-    {/* </td> */}
   </tr>
 );
 

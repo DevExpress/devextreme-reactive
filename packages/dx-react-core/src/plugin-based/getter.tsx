@@ -60,7 +60,6 @@ class GetterBase extends React.PureComponent<GetterProps & PluginContextProps> {
         lastComputed = computed;
         lastTrackedDependencies = trackedDependencies;
         lastResult = computed(getters, actions);
-        // console.log(name, getters, computed);
         return lastResult;
       },
     };

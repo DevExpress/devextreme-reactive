@@ -13,7 +13,6 @@ const warnIfRowIdUndefined: PureComputed<[GetRowIdFn]> = getRowId => (row) => {
 
 export const rowIdGetter: PureComputed<[GetRowIdFn, Row[]]> = (getRowId, rows) => {
   if (!getRowId) {
-    // console.log("INITIALIZE ID MAP", rows.length)
     const map = new Map(rows.map((row, rowIndex) => [row, rowIndex]) as [any, number]);
     return (row: Row) => map.get(row) as RowId;
   }

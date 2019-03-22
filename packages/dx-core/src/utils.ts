@@ -20,7 +20,6 @@ export const insertPlugin = (array, newItem) => {
   const alreadyExists = (targetIndex >= 0 && targetIndex < array.length)
     && compare(newItem, array[targetIndex]) === 0;
   result.splice(targetIndex, alreadyExists ? 1 : 0, newItem);
-  // console.log(newItem, targetIndex, alreadyExists)
   return result;
 };
 

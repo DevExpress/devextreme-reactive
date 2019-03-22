@@ -1,6 +1,6 @@
 import { mergeRows } from './helpers';
 import { intervalUtil } from './utils';
-import { VirtualRowsWithCacheFn } from '../../types';
+import { VirtualRowsWithCacheFn, PlainRowsFn, LoadedRowsStartFn } from '../../types';
 
 export const virtualRowsWithCache: VirtualRowsWithCacheFn = (start, rows, cache) => {
   const rowsInterval = intervalUtil.getRowsInterval({ start, rows });
@@ -8,3 +8,7 @@ export const virtualRowsWithCache: VirtualRowsWithCacheFn = (start, rows, cache)
 
   return mergeRows(rowsInterval, cacheInterval, rows, cache.rows, start, cache.start);
 };
+
+export const plainRows: PlainRowsFn = virtualRows => virtualRows.rows;
+
+export const loadedRowsStart: LoadedRowsStartFn = virtualRows => virtualRows.start;

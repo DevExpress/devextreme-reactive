@@ -14,6 +14,10 @@ export type VirtualRowsWithCacheFn = PureComputed<
   [number, Row[], VirtualRows], VirtualRows
 >;
 
+export type PlainRowsFn = PureComputed<[VirtualRows], Row[]>;
+
+export type LoadedRowsStartFn = PureComputed<[VirtualRows], number>;
+
 export type MergeRowsFn = PureComputed<
   [Interval, Interval, Row[], Row[], number, number], VirtualRows
 >;

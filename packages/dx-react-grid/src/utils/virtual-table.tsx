@@ -68,7 +68,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
 
       this.state = {
         rowHeights: new Map(),
-        viewportTop: props.viewportTop || 0,
+        viewportTop: 0,
         viewportLeft: 0,
         width: 800,
         containerHeight: 600,
@@ -267,16 +267,6 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
           footerHeight,
         });
       }
-    }
-
-    static getDerivedStateFromProps(nextProps, prevState) {
-      const {
-        viewportTop = prevState.viewportTop,
-      } = nextProps;
-
-      return {
-        viewportTop,
-      };
     }
 
     render() {

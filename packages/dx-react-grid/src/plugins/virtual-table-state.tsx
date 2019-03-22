@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Getter, Action, Plugin, Getters } from '@devexpress/dx-react-core';
 import {
   recalculateBounds, calculateRequestedRange, virtualRowsWithCache,
-  trimRowsToInterval, intervalUtil,
+  trimRowsToInterval, intervalUtil, emptyVirtualRows, plainRows, loadedRowsStart,
 } from '@devexpress/dx-grid-core';
 import { VirtualTableStateProps, VirtualTableStateState } from '../types';
 
@@ -10,9 +10,9 @@ const virtualRowsComputed = (
   { start, rows, virtualRowsCache }: Getters,
 ) => virtualRowsWithCache(start, rows, virtualRowsCache);
 
-const rowsComputed = ({ virtualRows }: Getters) => virtualRows.rows;
+const rowsComputed = ({ virtualRows }: Getters) => plainRows(virtualRows);
 
-const loadedRowsStartComputed = ({ virtualRows }: Getters) => virtualRows.start;
+const loadedRowsStartComputed = ({ virtualRows }: Getters) => loadedRowsStart(virtualRows);
 
 // tslint:disable-next-line: max-line-length
 export class VirtualTableState extends React.PureComponent<VirtualTableStateProps, VirtualTableStateState> {
@@ -27,7 +27,7 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
     this.state = {
       rowCount: props.rowCount || 0,
       viewportTop: 0,
-      virtualRowsCache: { start: undefined, rows: [] },
+      virtualRowsCache: emptyVirtualRows,
       requestedPageIndex: undefined,
     };
   }

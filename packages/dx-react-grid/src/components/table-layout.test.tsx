@@ -233,7 +233,7 @@ describe('TableLayout', () => {
           .toHaveBeenLastCalledWith(expect.anything(), expect.anything(), 400, new Map());
       });
 
-      it('should work with immutable state', () => {
+      it('should work with immutable properties', () => {
         const immutableColumns = Immutable([
           { key: 'a', column: { name: 'a' }, width: 100 },
           { key: 'b', column: { name: 'b' }, width: 100 },

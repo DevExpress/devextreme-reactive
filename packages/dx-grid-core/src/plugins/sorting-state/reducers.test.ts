@@ -72,7 +72,7 @@ describe('SortingState reducers', () => {
         });
     });
 
-    it('should work with immutable state', () => {
+    it('should work with immutable properties', () => {
       const state = { sorting: Immutable([{ columnName: 'test', direction: 'asc' }]) };
 
       expect(() => changeColumnSorting(state, { columnName: 'test2', keepOther: true }))

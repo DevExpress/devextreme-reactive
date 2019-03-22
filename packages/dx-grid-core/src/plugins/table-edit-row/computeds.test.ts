@@ -47,7 +47,7 @@ describe('TableEditRow Plugin computeds', () => {
         ]);
     });
 
-    it('should work with immutable state', () => {
+    it('should work with immutable properties', () => {
       const addedRows = Immutable([{ id: 3 }, { id: 4 }]);
       expect(() => tableRowsWithEditing(tableRows, editingRowIds, addedRows, 100)).not.toThrow();
     });

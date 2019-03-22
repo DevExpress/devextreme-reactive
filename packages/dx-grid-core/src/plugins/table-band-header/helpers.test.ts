@@ -103,7 +103,7 @@ describe('TableBandHeader Plugin helpers', () => {
         .toEqual({ title: 'Band B', level: 2 });
     });
 
-    it('should work with immutable state', () => {
+    it('should work with immutable properties', () => {
       expect(() => getColumnMeta('d', Immutable(columnBands), 2)).not.toThrow();
     });
   });

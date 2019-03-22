@@ -21,7 +21,7 @@ describe('IntegratedSorting computeds', () => {
         expect(sorted).toBe(rows);
       });
 
-      it('should work with immutable state', () => {
+      it('should work with immutable properties', () => {
         const sorting = Immutable([{ columnName: 'a', direction: 'asc' }]);
 
         expect(() => sortedRows(rows, sorting, getCellValue)).not.toThrow();

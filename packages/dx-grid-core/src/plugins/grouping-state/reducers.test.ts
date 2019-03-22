@@ -20,7 +20,7 @@ describe('GroupingState reducers', () => {
         });
     });
 
-    it('can group by column with immutable state', () => {
+    it('can group by column with immutable properties', () => {
       const state = { grouping: Immutable([{ columnName: 'test' }]), expandedGroups: [] };
       const payload = { columnName: 'test' };
 
@@ -87,7 +87,7 @@ describe('GroupingState reducers', () => {
         });
     });
 
-    it('should work with immutable state', () => {
+    it('should work with immutable properties', () => {
       const state = { expandedGroups: Immutable(['a', 'b']) };
       const payload = { groupKey: 'c' };
 

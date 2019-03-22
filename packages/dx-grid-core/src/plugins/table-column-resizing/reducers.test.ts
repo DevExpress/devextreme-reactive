@@ -29,7 +29,7 @@ describe('TableColumnResizing Plugin reducers', () => {
         });
     });
 
-    it('should work with immutable state', () => {
+    it('should work with immutable properties', () => {
       const state = {
         columnWidths: Immutable([{ columnName: 'a', width: 40 }, { columnName: 'b', width: 60 }]),
       };

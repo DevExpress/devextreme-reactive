@@ -129,7 +129,7 @@ describe('IntegratedGrouping computeds', () => {
         .toEqual(secondGroupedRows);
     });
 
-    it('can group with immutable state', () => {
+    it('can group with immutable properties', () => {
       expect(groupedRows(Immutable(rows), secondGrouping, getCellValue))
         .toEqual(secondGroupedRows);
     });

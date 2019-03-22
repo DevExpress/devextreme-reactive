@@ -7,7 +7,7 @@ describe('margeSort', () => {
     expect(mergeSort(data)).toEqual([0, 1, 2, 3, 5, 6, 7]);
   });
 
-  it('should work with immutable state', () => {
+  it('should work with immutable properties', () => {
     const data = Immutable([1, 5, 6, 3, 0, 2, 7]);
     expect(() => mergeSort(data)).not.toThrow();
   });

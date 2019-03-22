@@ -101,7 +101,7 @@ describe('TableColumnReordering computeds', () => {
         .toBe(columns);
     });
 
-    it('should work with immutable state', () => {
+    it('should work with immutable properties', () => {
       expect(() => draftOrder(Immutable(columns), 1, 3)).not.toThrow();
     });
   });

@@ -5,6 +5,9 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = ({ palette, typography, spacing }) => ({
   appointment: {
+    position: 'absolute',
+    height: '100%',
+    width: '100%',
     overflow: 'hidden',
     boxSizing: 'border-box',
     borderRight: '1px solid transparent',
@@ -56,7 +59,9 @@ const AppointmentBase = ({
       {...onClick}
       {...restProps}
     >
+      {leftSlice && <div style={{ textAlign: 'center' }}>~~~~~</div>}
       {children}
+      {rightSlice && <div style={{ textAlign: 'center' }}>~~~~~</div>}
     </div>
   );
 };

@@ -43,8 +43,9 @@ export class Appointments extends React.PureComponent {
             ...restParams
           }) => (
             <Appointment
-              style={{ height: '100%', width: '100%', position: 'absolute' }}
               data={data}
+              leftSlice={leftSlice}
+              rightSlice={rightSlice}
               {...createClickHandlers(onClick, onDoubleClick)}
               {...restParams}
             >
@@ -53,42 +54,6 @@ export class Appointments extends React.PureComponent {
                 type={type}
               />
             </Appointment>
-          )}
-        </Template>
-
-        <Template
-          name="appointmentTop"
-          predicate={(params) => { debugger; return (params.predicate); }}
-        >
-          {({ predicate }) => {
-            debugger;
-            return (<div style={{ textAlign: 'center' }}>~~~~~</div>
-            );
-          }}
-        </Template>
-
-        {/* <Template name="appointmentContent">
-          {props => (
-            <AppointmentContent
-              data={props.data}
-              type={props.type}
-            />
-          )}
-        </Template> */}
-
-        <Template
-          name="appointmentBottom"
-          predicate={params => params.predicate}
-        >
-          {({ predicate, ...restProps }) => (
-            <div
-              {...restProps}
-              style={{
-                position: 'absolute', bottom: 0, textAlign: 'center', width: '100%',
-              }}
-            >
-              ~~~~~
-            </div>
           )}
         </Template>
       </Plugin>

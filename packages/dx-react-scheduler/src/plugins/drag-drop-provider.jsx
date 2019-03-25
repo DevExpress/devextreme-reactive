@@ -282,12 +282,12 @@ export class DragDropProvider extends React.PureComponent {
           name="appointmentContent"
           predicate={({ data }) => allowDrag(data)}
         >
-          {params => (
+          {({ style, ...params }) => (
             <DragSource
               payload={{ ...params.data, type: params.type }}
             >
               {payload && params.data.id === payload.id ? (
-                <SourceAppointment {...params} style={{ height: '100%', width: '100%', position: 'absolute' }} />
+                <SourceAppointment {...params} />
               ) : (
                 <TemplatePlaceholder params={{ ...params, draggable: true }} />
               )}
@@ -363,7 +363,6 @@ export class DragDropProvider extends React.PureComponent {
                   data={draftData}
                   style={getAppointmentStyle(geometry)}
                   type={type}
-                  // draft
                   leftSlice={leftSlice}
                   rightSlice={rightSlice}
                 />

@@ -159,7 +159,13 @@ export class DragDropProvider extends React.PureComponent {
     }
 
     const draftAppointments = [{
-      dataItem: payload, start: this.appointmentStartTime, end: this.appointmentEndTime,
+      dataItem: {
+        ...payload,
+        startDate: this.appointmentStartTime,
+        endDate: this.appointmentEndTime,
+      },
+      start: this.appointmentStartTime,
+      end: this.appointmentEndTime,
     }];
 
     if (allDayIndex !== -1) {
@@ -273,29 +279,19 @@ export class DragDropProvider extends React.PureComponent {
         </Template>
 
         <Template
-          name="appointment"
+          name="appointmentContent"
           predicate={({ data }) => allowDrag(data)}
         >
           {params => (
-            <React.Fragment>
-              <DragSource
-                payload={{ ...params.data, type: params.type }}
-              >
-                <TemplatePlaceholder params={{ ...params, draggable: true }} />
-              </DragSource>
-            </React.Fragment>
-          )}
-        </Template>
-
-        <Template name="appointmentContent">
-          {params => (
-            <React.Fragment>
+            <DragSource
+              payload={{ ...params.data, type: params.type }}
+            >
               {payload && params.data.id === payload.id ? (
-                <SourceAppointment {...params} />
+                <SourceAppointment {...params} style={{ height: '100%', width: '100%', position: 'absolute' }} />
               ) : (
                 <TemplatePlaceholder params={{ ...params, draggable: true }} />
               )}
-            </React.Fragment>
+            </DragSource>
           )}
         </Template>
 
@@ -303,34 +299,30 @@ export class DragDropProvider extends React.PureComponent {
           name="appointmentTop"
           predicate={params => !params.predicate && allowResize(params.data)}
         >
-          {({ data, type }) => (
-            <div style={{ position: 'absolute', top: 0, width: '100%' }}>
+          {({ data }) => {
+            return (
               <DragSource
-                payload={{ type: 'resize-top', ...data }}
+                payload={{ ...data, type: 'resize-top' }}
               >
-                <Resize data={data} type={type} />
+                <Resize type="resize-top" style={{ top: 0 }} />
               </DragSource>
-              <TemplatePlaceholder />
-            </div>
-          )}
+            );
+          }}
         </Template>
 
         <Template
           name="appointmentBottom"
           predicate={params => !params.predicate && allowResize(params.data)}
         >
-          {({ data, type }) => (
-            <React.Fragment>
-              <div style={{ position: 'absolute', bottom: 0, width: '100%' }}>
-                <TemplatePlaceholder />
-                <DragSource
-                  payload={{ type: 'resize-bottom', ...data }}
-                >
-                  <Resize data={data} type={type} />
-                </DragSource>
-              </div>
-            </React.Fragment>
-          )}
+          {({ data }) => {
+            return (
+              <DragSource
+                payload={{ ...data, type: 'resize-bottom' }}
+              >
+                <Resize type="resize-bottom" style={{ bottom: 0 }} />
+              </DragSource>
+            );
+          }}
         </Template>
 
         <Template name="allDayPanel">
@@ -366,32 +358,20 @@ export class DragDropProvider extends React.PureComponent {
               {this.timeTableRects.map(({
                 dataItem, type, leftSlice, rightSlice, ...geometry
               }, index) => (
-                <TemplatePlaceholder
+                <DraftAppointment
                   key={index.toString()}
-                  name="appointment"
-                  params={{
-                    data: draftData,
-                    style: getAppointmentStyle(geometry),
-                    type,
-                    draft: true,
-                    leftSlice,
-                    rightSlice,
-                  }}
+                  data={draftData}
+                  style={getAppointmentStyle(geometry)}
+                  type={type}
+                  // draft
+                  leftSlice={leftSlice}
+                  rightSlice={rightSlice}
                 />
               ))}
             </Container>
           ) : (
             null
           ))}
-        </Template>
-
-        <Template
-          name="appointmentContent"
-          predicate={({ draft }) => draft}
-        >
-          {params => (
-            <DraftAppointment {...params} />
-          )}
         </Template>
       </Plugin>
     );

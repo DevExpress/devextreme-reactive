@@ -236,7 +236,6 @@ export class WeekView extends React.PureComponent {
                 },
               ) : [];
 
-              console.log(rects);
               const { appointmentPlaceholder: AppointmentPlaceholder } = this;
               return (
                 <React.Fragment>

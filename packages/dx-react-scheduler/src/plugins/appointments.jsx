@@ -26,46 +26,70 @@ export class Appointments extends React.PureComponent {
         <Template
           name="appointment"
         >
+          {params => (
+            <div style={{ ...params.style }}>
+              <TemplatePlaceholder name="appointmentTop" params={{ data: params.data, predicate: params.leftSlice }} />
+              <TemplatePlaceholder name="appointmentContent" params={params} />
+              <TemplatePlaceholder name="appointmentBottom" params={{ data: params.data, predicate: params.rightSlice }} />
+            </div>
+          )}
+        </Template>
+
+
+        <Template name="appointmentContent">
           {({
             onClick, onDoubleClick,
             data, type, style, leftSlice, rightSlice,
             ...restParams
           }) => (
             <Appointment
-              style={style}
+              style={{ height: '100%', width: '100%', position: 'absolute' }}
               data={data}
               {...createClickHandlers(onClick, onDoubleClick)}
               {...restParams}
             >
-              <TemplatePlaceholder name="appointmentTop" params={{ ...restParams, data, predicate: leftSlice }} />
-              <TemplatePlaceholder name="appointmentContent" params={{ ...restParams, data, type }} />
-              <TemplatePlaceholder name="appointmentBottom" params={{ ...restParams, data, predicate: rightSlice }} />
+              <AppointmentContent
+                data={data}
+                type={type}
+              />
             </Appointment>
           )}
         </Template>
 
-
         <Template
           name="appointmentTop"
-          predicate={params => params.predicate}
+          predicate={(params) => { debugger; return (params.predicate); }}
         >
-          {props => <div {...props} style={{ textAlign: 'center' }}>~~~~~</div>}
+          {({ predicate }) => {
+            debugger;
+            return (<div style={{ textAlign: 'center' }}>~~~~~</div>
+            );
+          }}
         </Template>
 
-        <Template name="appointmentContent">
+        {/* <Template name="appointmentContent">
           {props => (
             <AppointmentContent
               data={props.data}
               type={props.type}
             />
           )}
-        </Template>
+        </Template> */}
 
         <Template
           name="appointmentBottom"
           predicate={params => params.predicate}
         >
-          {props => <div {...props} style={{ position: 'absolute', bottom: 0, textAlign: 'center', width: '100%' }}>~~~~~</div>}
+          {({ predicate, ...restProps }) => (
+            <div
+              {...restProps}
+              style={{
+                position: 'absolute', bottom: 0, textAlign: 'center', width: '100%',
+              }}
+            >
+              ~~~~~
+            </div>
+          )}
         </Template>
       </Plugin>
     );

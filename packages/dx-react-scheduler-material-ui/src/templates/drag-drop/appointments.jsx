@@ -22,7 +22,7 @@ const sourceStyles = {
 
 const DraftAppointmentBase = ({
   classes, className, style,
-  data, type, ...restProps
+  data, type, children, ...restProps
 }) => (
   <Appointment
     className={classNames(classes.appointment, className)}
@@ -30,7 +30,6 @@ const DraftAppointmentBase = ({
     resizable
     {...restProps}
   >
-    {console.log(restProps.leftSlice)}
     <AppointmentContent
       data={data}
       type={type}

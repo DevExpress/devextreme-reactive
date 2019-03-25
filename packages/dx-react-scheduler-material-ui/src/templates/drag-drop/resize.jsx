@@ -5,6 +5,8 @@ import classNames from 'classnames';
 
 const styles = {
   resize: {
+    position: 'absolute',
+    zIndex: 100,
     cursor: 'ns-resize',
     width: '100%',
     height: '6px',
@@ -13,9 +15,9 @@ const styles = {
 
 const ResizeBase = ({
   classes, className,
-  data, type, ...restProps
+  data, type, style, ...restProps
 }) => (
-  <div {...restProps} className={classNames(classes.resize, className)} />
+  <div {...restProps} className={classNames(classes.resize, className)} style={style} />
 );
 
 ResizeBase.propTypes = {

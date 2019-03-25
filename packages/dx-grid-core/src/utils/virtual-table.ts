@@ -273,14 +273,14 @@ export const getCollapsedGrid: GetCollapsedGridFn = ({
   totalRowCount,
   offset,
 }) => {
-  if (!rows.length || !columns.length) {
+  if (!columns.length) {
     return {
       columns: [],
       rows: [],
     };
   }
 
-  const boundaries = rowsVisibleBoundary || [0, rows.length];
+  const boundaries = rowsVisibleBoundary || [0, rows.length || 1];
 
   const rowSpanBoundaries = rows
     .slice(boundaries[0], boundaries[1])

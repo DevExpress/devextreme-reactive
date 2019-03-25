@@ -95,3 +95,11 @@ export const trimRowsToInterval: PureComputed<[VirtualRows, Interval]> = (
     start: intersection.start,
   };
 };
+
+export const getAvailableRowCount = (
+  infiniteScroll, newCount, lastCount, totalRowCount,
+) => (
+  infiniteScroll
+    ? Math.max(newCount, lastCount)
+    : totalRowCount
+);

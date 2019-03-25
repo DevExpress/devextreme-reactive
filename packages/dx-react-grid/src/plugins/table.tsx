@@ -27,8 +27,8 @@ const RowPlaceholder = props => <TemplatePlaceholder name="tableRow" params={pro
 const CellPlaceholder = props => <TemplatePlaceholder name="tableCell" params={props} />;
 
 const tableHeaderRows = [];
-const tableBodyRowsComputed = ({ rows, getRowId }: Getters) => (
-  tableRowsWithDataRows(rows, getRowId)
+const tableBodyRowsComputed = ({ rows, getRowId, remoteDataLoading }: Getters) => (
+  tableRowsWithDataRows(rows, getRowId, remoteDataLoading)
 );
 const tableFooterRows = [];
 

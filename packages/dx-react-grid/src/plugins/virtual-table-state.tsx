@@ -25,21 +25,21 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
     super(props);
 
     this.state = {
-      rowCount: props.rowCount || 0,
       viewportTop: 0,
       virtualRowsCache: emptyVirtualRows,
       requestedPageIndex: undefined,
+      availableRowCount: props.rowCount || 0,
     };
   }
 
   requestNextPageAction = (
     rowIndex: number,
-    { virtualRows, virtualPageSize, totalRowCount }: Getters,
+    { virtualRows, virtualPageSize }: Getters,
   ) => {
-    const { requestedPageIndex } = this.state;
-    const { getRows } = this.props;
+    const { requestedPageIndex, availableRowCount: stateAvailableCount } = this.state;
+    const { getRows, rowCount, infinite } = this.props;
 
-    const newBounds = recalculateBounds(rowIndex, virtualPageSize, totalRowCount);
+    const newBounds = recalculateBounds(rowIndex, virtualPageSize, rowCount);
     const loadedInterval = intervalUtil.getRowsInterval(virtualRows);
     const requestedRange = calculateRequestedRange(
       loadedInterval, newBounds, rowIndex, virtualPageSize,
@@ -57,8 +57,14 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
 
         const virtualRowsCache = trimRowsToInterval(virtualRows, newBounds);
 
+        const newRowCount = infinite
+          ? Math.max(newBounds.end + loadCount, stateAvailableCount)
+          : rowCount;
+        console.log('row count', newRowCount)
+
         this.setState({
           virtualRowsCache,
+          availableRowCount: newRowCount,
           requestedPageIndex: newPageIndex,
         });
       }, 50);
@@ -66,23 +72,33 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
   }
 
   componentDidMount() {
-    const { getRows, virtualPageSize } = this.props;
+    const { getRows, virtualPageSize, infinite, rowCount } = this.props;
     getRows(0, 2 * virtualPageSize!);
+
+    const newRowCount = infinite ? 2 * virtualPageSize! : rowCount;
+    this.setState({
+      availableRowCount: newRowCount,
+    });
   }
 
   render() {
-    const { virtualRowsCache } = this.state;
-    const { start, rowCount, virtualPageSize } = this.props;
+    const { virtualRowsCache, availableRowCount: stateRowCount } = this.state;
+    const { start, virtualPageSize, loading, infinite, rowCount } = this.props;
+    console.log('render', loading)
+
+    const availableRowCount = infinite ? stateRowCount : rowCount;
 
     return (
       <Plugin
         name="VirtualTableState"
       >
         <Getter name="remoteDataEnabled" value />
+        <Getter name="remoteDataLoading" value={loading} />
+        <Getter name="infiniteScrollingMode" value={infinite} />
         <Getter name="start" value={start} />
         <Getter name="virtualRowsCache" value={virtualRowsCache} />
         <Getter name="virtualPageSize" value={virtualPageSize} />
-        <Getter name="totalRowCount" value={rowCount} />
+        <Getter name="availableRowCount" value={availableRowCount} />
 
         <Getter name="virtualRows" computed={virtualRowsComputed} />
         <Getter name="rows" computed={rowsComputed} />

@@ -303,7 +303,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
               return (
                 <TemplateConnector>
                   {(
-                    { currentVirtualPageBoundary, totalRowCount,
+                    { currentVirtualPageBoundary, availableRowCount,
                       renderBoundaries, remoteDataEnabled, loadedRowsStart,
                     },
                     { requestNextPage },
@@ -340,7 +340,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
                             bodyHeight,
                             footerHeight,
                             containerHeight,
-                            totalRowCount,
+                            totalRowCount: availableRowCount,
                             loadedRowsStart,
                           }}
                         />

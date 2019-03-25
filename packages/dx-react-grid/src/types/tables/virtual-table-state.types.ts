@@ -1,19 +1,17 @@
 export interface VirtualTableStateProps {
+  infinite: boolean;
   start: number;
   rowCount: number;
   virtualPageSize?: number;
+  loading: boolean;
   getRows: (skip: number, take: number) => void;
-  onFirstRowIndexChange?: (index: number) => void;
-  onViewportTopChange?: (top: number) => void;
+  // onFirstRowIndexChange?: (index: number) => void;
+  // onViewportTopChange?: (top: number) => void;
 }
 
 export type VirtualTableStateState = {
   virtualRowsCache: any,
-  rowCount?: number;
   viewportTop: number;
   requestedPageIndex?: number,
-  // currentVirtualPageTop: number;
-  // lastQueryTime: number;
-  // rowsCache: any[],
-  // visibleBoundaries: any,
+  availableRowCount: number,
 };

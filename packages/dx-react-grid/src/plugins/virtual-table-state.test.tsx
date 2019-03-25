@@ -83,12 +83,13 @@ describe('VirtualTableState', () => {
         </PluginHost>
       ));
       tree.find(VirtualTableState).setState({ virtualRowsCache: 'virtualRowsCache' });
+      tree.update();
 
-      expect(getComputedState(tree))
+      expect(getComputedState(tree).virtualRowsCache)
         .toBe('virtualRowsCache');
     });
 
-    fit('should provide rows merged with cached rows', () => {
+    it('should provide rows merged with cached rows', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -99,7 +100,7 @@ describe('VirtualTableState', () => {
       ));
       tree.find(VirtualTableState).setState({ virtualRowsCache: 'virtualRowsCache' });
 
-      expect(getComputedState(tree))
+      expect(getComputedState(tree).virtualRows)
         .toBe('virtualRowsWithCache');
       expect(virtualRowsWithCache)
         .toBeCalledWith(

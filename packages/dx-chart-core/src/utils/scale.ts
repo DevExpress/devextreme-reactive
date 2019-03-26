@@ -152,12 +152,13 @@ export const moveBounds = (
 );
 
 const growLinearScaleBounds = (
-  scale: ScaleObject, bounds: DomainBounds, delta: number,
+  scale: ScaleObject, bounds: DomainBounds, delta: number, anchor: number,
 ): DomainBounds => {
   const range = scaleBounds(scale, bounds);
   const sign = Math.sign(range[1] - range[0]);
-  let new0 = invert(scale, range[0] + sign * delta);
-  let new1 = invert(scale, range[1] - sign * delta);
+  const t = Math.abs((anchor - range[0]) / (range[1] - range[0]));
+  let new0 = invert(scale, range[0] + sign * delta * 2 * t);
+  let new1 = invert(scale, range[1] - sign * delta * 2 * (1 - t));
   if (new0 === undefined) {
     new0 = scale.domain()[0];
   }
@@ -173,8 +174,10 @@ const adjustBandScaleGrowStep = (delta: number, step: number) => {
   return Math.sign(delta) * Math.sign(step);
 };
 
+const adjustAnchoredBandStep = (step: number, t: number) => Math.round(2 * t * step);
+
 const growBandScaleBounds = (
-  scale: ScaleObject, bounds: DomainBounds, delta: number,
+  scale: ScaleObject, bounds: DomainBounds, delta: number, anchor: number,
 ): DomainBounds => {
   const domain = scale.domain();
   const fullRange = scale.range();
@@ -186,8 +189,9 @@ const growBandScaleBounds = (
   const range = scaleBounds(scale, bounds);
   const range0 = Math.round((range[0] - fullRange[0]) / step);
   const range1 = range0 + Math.round((range[1] - range[0]) / step) - 1;
-  let new0 = range0 + rangeStep;
-  let new1 = range1 - rangeStep;
+  const t = Math.abs((anchor - range[0]) / (range[1] - range[0]));
+  let new0 = range0 + adjustAnchoredBandStep(rangeStep, t);
+  let new1 = range1 - adjustAnchoredBandStep(rangeStep, 1 - t);
   if (new0 < 0) {
     new0 = 0;
   }
@@ -202,9 +206,9 @@ const growBandScaleBounds = (
 
 /** @internal */
 export const growBounds = (
-  scale: ScaleObject, bounds: DomainBounds, delta: number,
+  scale: ScaleObject, bounds: DomainBounds, delta: number, anchor: number,
 ) => (
-  (scale.bandwidth ? growBandScaleBounds : growLinearScaleBounds)(scale, bounds, delta)
+  (scale.bandwidth ? growBandScaleBounds : growLinearScaleBounds)(scale, bounds, delta, anchor)
 );
 
 /** @internal */

@@ -113,7 +113,7 @@ const getDefaultBounds = (scale: ScaleObject): DomainBounds => {
 
 const boundsForScale = (
   name: string, scales: ScalesCache, currentBounds: DomainBounds | null,
-  interaction: string, type: string, delta: number, range?: NumberArray,
+  interaction: string, type: string, delta: number, anchor: number, range?: NumberArray,
 ): DomainBounds | null => {
   if (interaction !== type && interaction !== 'both') {
     return null;
@@ -127,7 +127,7 @@ const boundsForScale = (
     if (range) {
       newBounds = invertBoundsRange(scale, range);
     } else {
-      newBounds = growBounds(scale, bounds, delta);
+      newBounds = growBounds(scale, bounds, delta, anchor);
     }
   }
   return newBounds! !== bounds ? newBounds! : null;
@@ -144,17 +144,23 @@ const boundsForScale = (
 export const getViewport = (
   scales: ScalesCache,
   interactions: Readonly<[string, string]>, type: string,
-  deltas: Readonly<[number, number]> | null, ranges?: Readonly<[NumberArray, NumberArray]> | null,
+  deltas: Readonly<[number, number]> | null,
+  anchors: Readonly<[number, number]> | null,
+  ranges: Readonly<[NumberArray, NumberArray]> | null,
   viewport?: ViewportOptions, onViewportChange?: OnViewportChange,
 ) => {
   const changes: any = {};
   const argumentBounds = boundsForScale(
     ARGUMENT_DOMAIN, scales, getArgumentBounds(viewport),
-    interactions[0], type, deltas ? deltas[0] : 0, ranges ? ranges[0] : undefined,
+    interactions[0], type,
+    deltas ? deltas[0] : 0, anchors ? anchors[0] : 0,
+    ranges ? ranges[0] : undefined,
   );
   const valueBounds = boundsForScale(
     getValueScaleName(viewport), scales, getValueBounds(viewport),
-    interactions[1], type, deltas ? deltas[1] : 0, ranges ? ranges[1] : undefined,
+    interactions[1], type,
+    deltas ? deltas[1] : 0, anchors ? anchors[1] : 0,
+    ranges ? ranges[1] : undefined,
   );
   if (argumentBounds) {
     changes.argumentStart = argumentBounds[0];

@@ -64,7 +64,7 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
   handleTouchMove = (scales, interactions) => (e) => {
     const currentDelta = getDeltaForTouches(e.touches);
 
-    this.zoom(scales, currentDelta - this.multiTouchDelta!, interactions);
+    this.zoom(scales, currentDelta - this.multiTouchDelta!, null, interactions);
     this.multiTouchDelta = currentDelta;
   }
 
@@ -101,7 +101,7 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
       return getViewport(
         scales, interactions, 'pan',
         // In event coords space vertical direction goes down, in chart space - up.
-        [+deltaX, -deltaY], null, viewport, onViewportChange,
+        [+deltaX, -deltaY], null, null, viewport, onViewportChange,
       );
     });
   }
@@ -118,6 +118,7 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
           ...getViewport(
             scales, interactions, 'zoom',
             null,
+            null,
             [
               [rectBox!.x, rectBox!.x + rectBox!.width],
               // In event coords space vertical direction goes down, in chart space - up.
@@ -130,18 +131,20 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
     }
   }
 
-  zoom = (scales, delta, interactions) => {
+  zoom = (scales, delta, anchors, interactions) => {
     this.setState(({ viewport }, { onViewportChange }) => {
       return getViewport(
         scales, interactions, 'zoom',
-        [delta, delta], null, viewport, onViewportChange,
+        [delta, delta], anchors, null, viewport, onViewportChange,
       );
     });
   }
 
   handleScroll = (scales, interactions) => (e) => {
     e.preventDefault();
-    this.zoom(scales, e.nativeEvent.wheelDelta, interactions);
+    const offset = getRootOffset(e.currentTarget);
+    const center = [e.clientX - offset[0], e.clientY - offset[1]];
+    this.zoom(scales, e.nativeEvent.wheelDelta, center, interactions);
   }
 
   render() {

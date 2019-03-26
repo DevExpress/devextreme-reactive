@@ -1,4 +1,5 @@
 /** @internal */
+import { remoteRowsCache } from './utils/remote-rows-cache';
 export * from './plugins/grid-core/computeds';
 
 /** @internal */
@@ -199,5 +200,7 @@ export * from './plugins/virtual-table/computeds';
 export * from './plugins/virtual-table-state/computeds';
 export * from './plugins/virtual-table-state/utils';
 export * from './plugins/virtual-table-state/helpers';
+
+export * from './utils/remote-rows-cache';
 
 export * from './types';

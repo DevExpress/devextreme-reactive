@@ -100,7 +100,8 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
       }
       return getViewport(
         scales, interactions, 'pan',
-        null, [deltaX, deltaY], viewport, onViewportChange,
+        // In event coords space vertical direction goes down, in chart space - up.
+        [+deltaX, -deltaY], null, viewport, onViewportChange,
       );
     });
   }
@@ -116,7 +117,13 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
           rectBox: { x: 0, y: 0, width: 0, height: 0 },
           ...getViewport(
             scales, interactions, 'zoom',
-            rectBox!, [0, 0], viewport, onViewportChange,
+            null,
+            [
+              [rectBox!.x, rectBox!.x + rectBox!.width],
+              // In event coords space vertical direction goes down, in chart space - up.
+              [rectBox!.y + rectBox!.height, rectBox!.y],
+            ],
+            viewport, onViewportChange,
           ),
         };
       });
@@ -127,7 +134,7 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
     this.setState(({ viewport }, { onViewportChange }) => {
       return getViewport(
         scales, interactions, 'zoom',
-        null, [delta, delta], viewport, onViewportChange,
+        [delta, delta], null, viewport, onViewportChange,
       );
     });
   }
@@ -149,7 +156,7 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
     const getAdjustedLayout = ({
       domains,
       ranges,
-    }: Getters) => adjustLayout(domains, ranges, viewport || {});
+    }: Getters) => adjustLayout(domains, ranges, viewport);
     return (
       <Plugin name="zoomAndPan">
       <Getter name="ranges" computed={getAdjustedLayout} />

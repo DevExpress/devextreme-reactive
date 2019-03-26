@@ -1,6 +1,6 @@
 import { ScaleObject, NumberArray } from './chart-core.types';
 
-export type DomainBounds = Readonly<any[]>;
+export type DomainBounds = Readonly<[any, any]>;
 
 export type ViewportOptions = {
   readonly argumentStart?: any;

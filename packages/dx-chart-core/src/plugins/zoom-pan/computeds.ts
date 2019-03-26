@@ -3,184 +3,228 @@ import {
 } from '../../constants';
 import {
   getValueDomainName, makeScale, scaleBounds, rangesEqual,
+  moveBounds, growBounds, invertBoundsRange,
 } from '../../utils/scale';
-import { scaleQuantize } from 'd3-scale';
+// import { scaleQuantize } from 'd3-scale';
 import {
   NumberArray,
   ViewportOptions,
   ScalesCache,
   Coordinates,
-  BoundsFn,
-  ChangeBoundsFn,
+  // BoundsFn,
+  // ChangeBoundsFn,
   DomainInfoCache,
   RangesCache,
   DomainInfo,
   DomainBounds,
   OnViewportChange,
-  BoundsRectFn,
-  RectBox,
-  BoundsForScaleFn,
-  CompareBoundsFn,
+  // BoundsRectFn,
+  // RectBox,
+  // CompareBoundsFn,
+  ScaleObject,
 } from '../../types';
 
-const COEF = 30;
+// const COEF = 30;
 
-const getCorrectRange = (range: any[], name: string): any[] => {
-  return name !== ARGUMENT_DOMAIN ? range.reverse() : range;
+// const getCorrectRange = (range: any[], name: string): any[] => {
+//   return name !== ARGUMENT_DOMAIN ? range.reverse() : range;
+// };
+
+// const panChangeBounds: ChangeBoundsFn = (from, to, delta, sign) =>
+// [from - delta * sign, to - delta * sign];
+
+// const panCompareBounds: CompareBoundsFn = (prev, current, initial) =>
+// ((current[0] < initial[0] && initial[0] - prev[0] === 0) ||
+//   (current[1] > initial[1] && initial[1] - prev[1] === 0));
+
+// const zoomChangeBounds: ChangeBoundsFn = (from, to, delta, sign) =>
+// [from + delta * sign, to - delta * sign];
+
+// const zoomCompareBounds: CompareBoundsFn = (
+//   prev, current, initial, minDelta,
+// ) =>
+// ((current[0] < initial[0] && initial[0] - prev[0] === 0) &&
+// (current[1] > initial[1] && initial[1] - prev[1] === 0)) ||
+// (current[1] - current[0] < minDelta!);
+
+const getArgumentBounds = (viewport?: ViewportOptions): DomainBounds | null => (
+  viewport && viewport.argumentStart !== undefined && viewport.argumentEnd !== undefined
+    ? [viewport.argumentStart, viewport.argumentEnd] : null
+);
+
+const getValueBounds = (viewport?: ViewportOptions): DomainBounds | null => (
+  viewport && viewport.valueStart !== undefined && viewport.valueEnd !== undefined
+    ? [viewport.valueStart, viewport.valueEnd] : null
+);
+
+const getValueScaleName = (viewport?: ViewportOptions) => (
+  getValueDomainName(viewport && viewport.scaleName)
+);
+
+const getDefaultBounds = (scale: ScaleObject): DomainBounds => {
+  const domain = scale.domain();
+  return [domain[0], domain[domain.length - 1]];
 };
 
-const panChangeBounds: ChangeBoundsFn = (from, to, delta, sign) =>
-[from - delta * sign, to - delta * sign];
+// const scrollBounds = (
+//   scale: ScaleObject, bounds: DomainBounds, delta: number,
+// ): DomainBounds => {
+//   const range = scaleBounds(scale, bounds);
+//   const sign = Math.sign(range[1] - range[0]);
+//   let newStart = invert(scale, range[0] - sign * delta);
+//   let newEnd = invert(scale, range[1] - sign * delta);
+//   const defaultBounds = getDefaultBounds(scale);
+//   if (newStart === undefined) {
+//     newStart = defaultBounds[0];
+//     newEnd = invert(scale, scale.range()[0] + range[1] - range[0]);
+//   }
+//   if (newEnd === undefined) {
+//     newEnd = defaultBounds[1];
+//     newStart = invert(scale, scale.range()[1] - range[1] + range[0]);
+//   }
+//   return [newStart, newEnd];
+// };
 
-const panCompareBounds: CompareBoundsFn = (prev, current, initial) =>
-((current[0] < initial[0] && initial[0] - prev[0] === 0) ||
-  (current[1] > initial[1] && initial[1] - prev[1] === 0));
+// const zoomBounds = (
+//   scale: ScaleObject, bounds: DomainBounds, delta: number,
+// ): DomainBounds => {
+//   const range = scaleBounds(scale, bounds);
+//   const sign = Math.sign(range[1] - range[0]);
+//   const newStart = invert(scale, range[0] + sign * delta);
+//   const newEnd = invert(scale, range[1] - sign * delta);
+//   const defaultBounds = getDefaultBounds(scale);
+//   return [
+//     newStart !== undefined ? newStart : defaultBounds[0],
+//     newEnd !== undefined ? newEnd : defaultBounds[1],
+//   ];
+// };
 
-const zoomChangeBounds: ChangeBoundsFn = (from, to, delta, sign) =>
-[from + delta * sign, to - delta * sign];
+// const applyRange = (
+//   scale: ScaleObject, bounds: DomainBounds, [start, end]: NumberArray,
+// ): DomainBounds => {
+//   const newStart = invert(scale, start);
+//   const newEnd = invert(scale, end);
+//   const defaultBounds = getDefaultBounds(scale);
+//   return [
+//     newStart !== undefined ? newStart : defaultBounds[0],
+//     newEnd !== undefined ? newEnd : defaultBounds[1],
+//   ];
+// };
 
-const zoomCompareBounds: CompareBoundsFn = (
-  prev, current, initial, minDelta,
-) =>
-((current[0] < initial[0] && initial[0] - prev[0] === 0) &&
-(current[1] > initial[1] && initial[1] - prev[1] === 0)) ||
-(current[1] - current[0] < minDelta!);
-
-const getPrevBounds = (
-  name: string,
-  initialBounds: ReadonlyArray<any>,
-  viewport?: ViewportOptions,
-): any => {
-  return viewport ? (name === ARGUMENT_DOMAIN ?
-    [viewport.argumentStart, viewport.argumentEnd] :
-    [viewport.valueStart, viewport.valueEnd]) :
-    [initialBounds[0], initialBounds[initialBounds.length - 1]];
-};
-
-const getValueScaleName = (viewport?: ViewportOptions) =>
-viewport && viewport.scaleName || VALUE_DOMAIN;
-
-const boundsForScale = (name: string, scales: ScalesCache, interaction: string,
-  type: string, rect: RectBox | null, delta: number,
-  viewport?: ViewportOptions): BoundsForScaleFn => {
-
-  const changeBounds = type === 'zoom' ? zoomChangeBounds : panChangeBounds;
-  const compareBounds = type === 'zoom' ? zoomCompareBounds : panCompareBounds;
-  const scale = scales[name];
-  const initialBounds = scale.domain();
-  const bounds = getPrevBounds(name, initialBounds, viewport);
+const boundsForScale = (
+  name: string, scales: ScalesCache, currentBounds: DomainBounds | null,
+  interaction: string, type: string, delta: number, range?: NumberArray,
+): DomainBounds | null => {
   if (interaction !== type && interaction !== 'both') {
-    return { prev: bounds };
+    return null;
   }
-
-  if (scale.bandwidth) {
-    return rect ?
-    getRectDiscreteBounds(scale, bounds, rect, name) :
-    getDiscreteBounds(changeBounds, compareBounds, bounds, initialBounds, delta);
+  const scale = scales[name];
+  const bounds = currentBounds || getDefaultBounds(scale);
+  let newBounds: DomainBounds;
+  if (type === 'pan') {
+    newBounds = moveBounds(scale, bounds, delta);
+  } else if (type === 'zoom') {
+    if (range) {
+      newBounds = invertBoundsRange(scale, range);
+    } else {
+      newBounds = growBounds(scale, bounds, delta);
+    }
   }
-  const range = rect ?
-    getRectBounds(rect, name) :
-    getBounds(name, scale, bounds, delta, changeBounds);
-  const minDelta = (initialBounds[1] - initialBounds[0]) * 0.01;
-  const value1 = scale.invert(range[0]);
-  const value2 = scale.invert(range[1]);
-
-  if (compareBounds(bounds, [value1, value2], initialBounds, minDelta)) {
-    return { prev: bounds };
-  }
-  return {
-    current: adjustBounds([value1, value2], initialBounds),
-  };
+  return newBounds! !== bounds ? newBounds! : null;
 };
-const adjustBounds = (current, initial) => {
-  return [
-    current[0] < initial[0] ? initial[0] : current[0],
-    current[1] > initial[1] ? initial[1] : current[1],
-  ];
-};
+
+// const adjustBounds = (current, initial) => {
+//   return [
+//     current[0] < initial[0] ? initial[0] : current[0],
+//     current[1] > initial[1] ? initial[1] : current[1],
+//   ];
+// };
 
 /** @internal */
 export const getViewport = (
-  scales: ScalesCache, interactions: string[],
-  type: string, rect: RectBox | null, deltas: number[],
+  scales: ScalesCache,
+  interactions: Readonly<[string, string]>, type: string,
+  deltas: Readonly<[number, number]> | null, ranges?: Readonly<[NumberArray, NumberArray]> | null,
   viewport?: ViewportOptions, onViewportChange?: OnViewportChange,
 ) => {
+  const changes: any = {};
   const argumentBounds = boundsForScale(
-    ARGUMENT_DOMAIN, scales, interactions[0], type, rect, deltas[0], viewport,
+    ARGUMENT_DOMAIN, scales, getArgumentBounds(viewport),
+    interactions[0], type, deltas ? deltas[0] : 0, ranges ? ranges[0] : undefined,
   );
   const valueBounds = boundsForScale(
-    getValueScaleName(viewport), scales, interactions[1], type,
-    rect, deltas[1], viewport,
+    getValueScaleName(viewport), scales, getValueBounds(viewport),
+    interactions[1], type, deltas ? deltas[1] : 0, ranges ? ranges[1] : undefined,
   );
-  if (argumentBounds.current || valueBounds.current) {
-    const bounds = {
-      argumentStart: argumentBounds.current ? argumentBounds.current[0] : argumentBounds.prev![0],
-      argumentEnd: argumentBounds.current ? argumentBounds.current[1] : argumentBounds.prev![1],
-      valueStart: valueBounds.current ? valueBounds.current[0] : valueBounds.prev![0],
-      valueEnd: valueBounds.current ? valueBounds.current[1] : valueBounds.prev![1],
-      scaleName: viewport ? viewport.scaleName : undefined,
-    };
+  if (argumentBounds) {
+    changes.argumentStart = argumentBounds[0];
+    changes.argumentEnd = argumentBounds[1];
+  }
+  if (valueBounds) {
+    changes.valueStart = valueBounds[0];
+    changes.valueEnd = valueBounds[1];
+  }
+  if (Object.keys(changes).length) {
+    const newViewport = { ...viewport, ...changes };
     if (onViewportChange) {
-      onViewportChange(bounds);
+      onViewportChange(newViewport);
     }
-    return { viewport: bounds };
+    return { viewport: newViewport };
   }
   return null;
 };
 
-const getDiscreteBounds = (
-  changeBounds: ChangeBoundsFn, compareBounds,
-  bounds: any[], initialRange: ReadonlyArray<any>, delta: number,
-) => {
-  const count = Math.round(delta / COEF);
-  const firstIndex = initialRange.findIndex((element) => {
-    return bounds[0] === element;
-  });
-  const lastIndex = initialRange.findIndex((element) => {
-    return bounds[1] === element;
-  });
-  const indexes = [0, initialRange.length - 1];
+// const getDiscreteBounds = (
+//   changeBounds: ChangeBoundsFn, compareBounds,
+//   bounds: any[], initialRange: ReadonlyArray<any>, delta: number,
+// ): DomainBounds | null => {
+//   const count = Math.round(delta / COEF);
+//   const firstIndex = initialRange.findIndex((element) => {
+//     return bounds[0] === element;
+//   });
+//   const lastIndex = initialRange.findIndex((element) => {
+//     return bounds[1] === element;
+//   });
+//   const indexes = [0, initialRange.length - 1];
 
-  if (lastIndex - firstIndex === 1 && count > 0) {
-    return { current: [initialRange[lastIndex], initialRange[lastIndex]] };
-  }
+//   if (lastIndex - firstIndex === 1 && count > 0) {
+//     return [initialRange[lastIndex], initialRange[lastIndex]];
+//   }
 
-  const newIndexes = changeBounds(firstIndex, lastIndex, count, 1);
-  if (compareBounds([firstIndex, lastIndex], newIndexes, indexes, 1)) {
-    return { prev: bounds };
-  }
-  const adjustedIndexes = adjustBounds(newIndexes, indexes);
-  return {
-    current: [initialRange[adjustedIndexes[0]], initialRange[adjustedIndexes[1]]],
-  };
-};
+//   const newIndexes = changeBounds(firstIndex, lastIndex, count, 1);
+//   if (compareBounds([firstIndex, lastIndex], newIndexes, indexes, 1)) {
+//     return null;
+//   }
+//   const adjustedIndexes = adjustBounds(newIndexes, indexes);
+//   return [initialRange[adjustedIndexes[0]], initialRange[adjustedIndexes[1]]];
+// };
 
-const getRectDiscreteBounds = (scale, bounds, rect, name) => {
-  const range = getRectBounds(rect, name);
-  const scaleQuant = scaleQuantize().domain(scale.range()).range(scale.domain());
-  const val1 = scaleQuant(range[0]);
-  const val2 = scaleQuant(range[1]);
-  if (bounds[0] !== val1 || bounds[1] !== val2) {
-    return { current: [val1, val2] };
-  }
-  return { prev: bounds };
-};
+// const getRectDiscreteBounds = (scale, bounds, rect, name): DomainBounds | null => {
+//   const range = getRectBounds(rect, name);
+//   const scaleQuant = scaleQuantize().domain(scale.range()).range(scale.domain());
+//   const val1 = scaleQuant(range[0]);
+//   const val2 = scaleQuant(range[1]);
+//   if (bounds[0] !== val1 || bounds[1] !== val2) {
+//     return [val1, val2];
+//   }
+//   return null;
+// };
 
-const getBounds: BoundsFn = (name, scale, bounds, delta, changeBounds) => {
-  const [from, to] = getCorrectRange([
-    scale(bounds![0]),
-    scale(bounds![1]),
-  ], name);
-  const sign = to - from > 0 ? +1 : -1;
-  return getCorrectRange(changeBounds(from, to, delta, sign), name);
-};
+// const getBounds: BoundsFn = (name, scale, bounds, delta, changeBounds) => {
+//   const [from, to] = getCorrectRange([
+//     scale(bounds![0]),
+//     scale(bounds![1]),
+//   ], name);
+//   const sign = to - from > 0 ? +1 : -1;
+//   return getCorrectRange(changeBounds(from, to, delta, sign), name);
+// };
 
-const getRectBounds: BoundsRectFn = (rectBox, name) => {
-  if (name === ARGUMENT_DOMAIN) {
-    return [rectBox.x, rectBox.x + rectBox.width];
-  }
-  return [rectBox!.y + rectBox!.height, rectBox!.y];
-};
+// const getRectBounds: BoundsRectFn = (rectBox, name) => {
+//   if (name === ARGUMENT_DOMAIN) {
+//     return [rectBox.x, rectBox.x + rectBox.width];
+//   }
+//   return [rectBox!.y + rectBox!.height, rectBox!.y];
+// };
 
 // Given original scale
 //   f(domain) = range
@@ -217,20 +261,23 @@ const update = (
   }
 };
 
+// const getFullBounds = (scale: ScaleObject): DomainBounds => {
+//   const domain = scale.domain();
+//   return [domain[0], domain[domain.length - 1]];
+// };
+
 /** @internal */
 export const adjustLayout = (
-  domains: DomainInfoCache,
-  ranges: RangesCache,
-  { argumentStart, argumentEnd, scaleName, valueStart, valueEnd }: ViewportOptions,
+  domains: DomainInfoCache, ranges: RangesCache, viewport?: ViewportOptions,
 ) => {
   const changes = {};
-  if (argumentStart && argumentEnd) {
-    update(ranges, changes, ARGUMENT_DOMAIN,
-      domains[ARGUMENT_DOMAIN], [argumentStart, argumentEnd]);
+  const argumentBounds = getArgumentBounds(viewport);
+  if (argumentBounds) {
+    update(ranges, changes, ARGUMENT_DOMAIN, domains[ARGUMENT_DOMAIN], argumentBounds);
   }
-  if (valueStart && valueEnd) {
-    update(ranges, changes, VALUE_DOMAIN,
-      domains[getValueDomainName(scaleName)], [valueStart, valueEnd]);
+  const valueBounds = getValueBounds(viewport);
+  if (valueBounds) {
+    update(ranges, changes, VALUE_DOMAIN, domains[getValueScaleName(viewport)], valueBounds);
   }
   return Object.keys(changes).length ? { ...ranges, ...changes } : ranges;
 };
@@ -251,3 +298,33 @@ export const getDeltaForTouches = (touches: Touch[]) => {
 export const checkDragToZoom = (zoomRegionKey: string, event: MouseEvent) => {
   return event[`${zoomRegionKey}Key`];
 };
+
+// const canScroll = (interact: any) => interact === 'pan' || interact === 'both';
+// const canZoom = (interact: any) => interact === 'zoom' || interact === 'both';
+
+// /** @internal */
+// export const scrollViewport = (
+//   scales: ScalesCache, viewport: ViewportOptions,
+//   argumentOffset: number, valueOffset: number,
+//   argumentFlag: any, valueFlag: any,
+// ) => {
+//   const changes: any = {};
+//   if (canScroll(argumentFlag)) {
+//     const scale = scales[ARGUMENT_DOMAIN];
+//     const bounds = getArgumentBounds(viewport) || getFullBounds(scale);
+//     const newBounds = scrollBounds(scale, bounds, argumentOffset);
+//     if (newBounds) {
+//       changes.argumentStart = newBounds[0];
+//       changes.argumentEnd = newBounds[1];
+//     }
+//   }
+//   if (canScroll(valueFlag)) {
+//     const scale = scales[getValueDomainName(viewport.scaleName)];
+//     const bounds = getValueBounds(viewport) || getFullBounds(scale);
+//     const newBounds = scrollBounds(scale, bounds, valueOffset);
+//     if (newBounds) {
+//       changes.valueStart = newBounds[0];
+//       changes.valueEnd = newBounds[1];
+//     }
+//   }
+// };

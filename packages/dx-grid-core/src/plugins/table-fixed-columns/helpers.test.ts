@@ -1,3 +1,4 @@
+import * as Immutable from 'seamless-immutable';
 import { TABLE_DATA_TYPE } from '../table/constants';
 import { FIXED_COLUMN_LEFT_SIDE, FIXED_COLUMN_RIGHT_SIDE, TABLE_FIXED_TYPE } from './constants';
 import { getFixedColumnKeys, isFixedTableRow, calculateFixedColumnProps } from './helpers';
@@ -111,6 +112,15 @@ describe('TableFixedColumns Plugin helpers', () => {
         extendedColumnChains,
       ));
 
+      it('should work with immutable properties', () => {
+        expect(() => calculateFixedColumnProps(
+          { tableColumn: findColumnByName('e1') },
+          { leftColumns: ['a', 'b0', 'b1', 'b2', 'c'], rightColumns: ['d', 'e0', 'e1', 'e2', 'f'] },
+          Immutable(extendedTableColumns),
+          {},
+          extendedColumnChains,
+        )).not.toThrow();
+      });
       it('should be visible for standalone left column', () => {
         const { showLeftDivider, showRightDivider } = calculateDividers(findColumnByName('c'));
 

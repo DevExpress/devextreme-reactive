@@ -18,9 +18,7 @@ export const getColumnMeta: GetColumnBandMetaFn = (
   level = 0, title = null, result = null,
 ) => bands.reduce((acc, column) => {
   if (column.columnName === columnName) {
-    acc.title = title;
-    acc.level = level;
-    return acc;
+    return { ...acc, title, level };
   }
   if (column.children !== undefined) {
     return getColumnMeta(

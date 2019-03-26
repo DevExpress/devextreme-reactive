@@ -1,3 +1,4 @@
+import * as Immutable from 'seamless-immutable';
 import { GRID_TREE_NODE_TYPE } from './constants';
 import {
   customTreeRowsWithMeta,
@@ -230,6 +231,7 @@ describe('CustomTreeData Plugin computeds', () => {
   });
 
   describe('#expandedTreeRows', () => {
+    const expandedRowIds = [1];
     it('should collapse rows', () => {
       /* tslint:disable ter-indent align */
       const rows = [
@@ -255,7 +257,52 @@ describe('CustomTreeData Plugin computeds', () => {
         ]),
       };
       const getRowId = row => rows.indexOf(row);
-      const expandedRowIds = [1];
+
+      const expandedLinearizedRows = {
+        /* tslint:disable ter-indent align */
+        rows: [
+          { a: 0 },
+          { a: 1 },
+            { a: 1, b: 1 },
+          { a: 2 },
+        ],
+        /* tslint:enable ter-indent align */
+        treeMeta: linearizedRows.treeMeta,
+        collapsedRowsMeta: new Map([
+          [rows[2], [rows[3]]],
+          [rows[4], [rows[5], rows[6]]],
+        ]),
+      };
+
+      expect(expandedTreeRows(linearizedRows, getRowId, expandedRowIds))
+        .toEqual(expandedLinearizedRows);
+    });
+
+    it('should collapse Immutable rows', () => {
+      /* tslint:disable ter-indent align */
+      const rows = Immutable([
+        { a: 0 },
+        { a: 1 },
+          { a: 1, b: 1 },
+            { a: 1, b: 1, c: 1 },
+        { a: 2 },
+          { a: 2, b: 1 },
+            { a: 2, b: 1, c: 1 },
+      ]);
+      /* tslint:enable ter-indent align */
+      const linearizedRows = {
+        rows,
+        treeMeta: new Map([
+          [rows[0], { level: 0 }],
+          [rows[1], { level: 0 }],
+          [rows[2], { level: 1 }],
+          [rows[3], { level: 2 }],
+          [rows[4], { level: 0 }],
+          [rows[5], { level: 1 }],
+          [rows[6], { level: 2 }],
+        ]),
+      };
+      const getRowId = row => rows.indexOf(row);
 
       const expandedLinearizedRows = {
         /* tslint:disable ter-indent align */

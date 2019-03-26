@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import { mount } from 'enzyme';
 import { pluginDepsToComponents, getComputedState, setupConsole } from '@devexpress/dx-testing';
 import { PluginHost, Template } from '@devexpress/dx-react-core';
@@ -40,9 +39,6 @@ describe('Grid', () => {
         {children}
       </div>
     );
-    Root.propTypes = {
-      children: PropTypes.node.isRequired,
-    };
 
     const tree = mount((
       <PluginHost>
@@ -84,7 +80,7 @@ describe('Grid', () => {
   });
 
   it('should provide getRowId', () => {
-    const getRowId = () => {};
+    const getRowId = () => '';
 
     const tree = mount((
       <PluginHost>

@@ -50,7 +50,7 @@ const script = async () => {
   execSync('npm login', { stdio: 'inherit' });
 
   console.log('Publishing npm...');
-  execSync(`"./node_modules/.bin/lerna" publish --npm-tag ${npmTag} --yes`, { stdio: 'ignore' });
+  execSync(`"./node_modules/.bin/lerna" publish from-package --dist-tag ${npmTag} --yes`, { stdio: 'ignore' });
 
   console.log('Logout from npm...');
   execSync('npm logout', { stdio: 'ignore' });

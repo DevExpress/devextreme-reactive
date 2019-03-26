@@ -180,8 +180,8 @@ export const unwrapGroups: PureComputed<
     dataItem: appointment.dataItem,
     offset: appointment.offset,
     reduceValue,
-    leftSlice: !moment(appointment.dataItem.startDate).isSame(appointment.start), // difference < 1 sec
-    rightSlice: !moment(appointment.dataItem.endDate).isSame(appointment.end),
+    leftSlice: moment(appointment.start).diff(appointment.dataItem.startDate, 'minutes') > 1,
+    rightSlice: moment(appointment.dataItem.endDate).diff(appointment.end, 'minutes') > 1,
   })));
   return acc;
 }, [] as AppointmentUnwrappedGroup[]);

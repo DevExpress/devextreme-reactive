@@ -7,6 +7,8 @@ describe('DragDrop', () => {
     style: {},
     data: {},
     type: 'horizontal',
+    leftSlice: false,
+    rightSlice: false,
   };
   describe('DraftAppointment', () => {
     let shallow;

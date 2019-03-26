@@ -31,7 +31,6 @@ const styles = ({ palette, typography, spacing }) => ({
 
 const AppointmentBase = ({
   classes, className,
-  // style,
   children,
   data,
   onClick: handleClick,
@@ -54,7 +53,6 @@ const AppointmentBase = ({
         [classes.appointment]: true,
         [classes.clickableAppointment]: clickable,
       }, className)}
-      // style={style}
       {...onClick}
       {...restProps}
     >
@@ -66,7 +64,6 @@ const AppointmentBase = ({
 AppointmentBase.propTypes = {
   classes: PropTypes.object.isRequired,
   children: PropTypes.node.isRequired,
-  // style: PropTypes.object,
   className: PropTypes.string,
   data: PropTypes.object,
   onClick: PropTypes.func,

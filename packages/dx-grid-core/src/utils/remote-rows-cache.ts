@@ -1,95 +1,111 @@
-class SimpleCache {
-  protected pageSize: number;
-  protected pages: Map<number, any[]> = new Map();
+class Node {
+  start: number;
+  rows: ReadonlyArray<any>;
+  prev: Node | null = null;
+  next: Node | null = null;
 
-  constructor(pageSize: number) {
-    this.pageSize = pageSize;
-  }
-
-  addPage(pageStart: number, rows: any[]) {
-    this.pages.set(pageStart, rows);
-  }
-
-  getPage(pageStart: number) {
-    return this.pages.get(pageStart);
-  }
-
-  clear() {
-    this.pages.clear();
+  constructor(start: number, rows: ReadonlyArray<any>) {
+    this.start = start;
+    this.rows = rows;
   }
 }
 
 // tslint:disable-next-line:max-classes-per-file
-class LRUCacheDecorator extends SimpleCache {
-  maxSize: number;
-  indexes: number[] = [];
-  indexesMap: Map<number, number> = new Map();
+class LRUCache {
+  pageSize: number;
+  capacity: number;
+  head!: Node;
+  tail!: Node;
+  pages: Map<number, Node> = new Map();
 
-  constructor(pageSize: number, maxSize = 0) {
-    super(pageSize);
-
-    this.maxSize = maxSize;
+  constructor(pageSize: number, capacity = 0) {
+    this.pageSize = pageSize;
+    this.capacity = capacity || Number.POSITIVE_INFINITY;
+    this.initList();
   }
 
-  addPage(pageStart: number, rows: any[]) {
-    super.addPage(pageStart, rows);
+  initList() {
+    this.head = new Node(-1, []);
+    this.tail = new Node(-1, []);
+    this.head.next = this.tail;
+    this.tail.prev = this.head;
+  }
 
-    this.indexes.push(pageStart);
-    if (this.indexes.length > this.maxSize) {
-      const deleted = this.indexes.shift();
-      if (deleted !== undefined) {
-        this.pages.delete(deleted);
-        this.indexesMap.delete(deleted);
-      }
+  addPage(pageStart: number, rows: ReadonlyArray<any>) {
+    if (this.pages.has(pageStart)) {
+      this.removePage(pageStart);
     }
+
+    const node = new Node(pageStart, rows);
+    const last = this.tail.prev!;
+    last.next = node;
+    node.next = this.tail;
+    node.prev = last;
+    this.tail.prev = node;
+    this.pages.set(pageStart, node);
+
+    if (this.pages.size > this.capacity) {
+      this.removePage(this.head.next!.start);
+    }
+  }
+
+  removePage(start: number) {
+    const node = this.pages.get(start)!;
+    node.prev!.next = node.next;
+    node.next!.prev = node.prev;
+
+    this.pages.delete(start);
   }
 
   getPage(pageStart: number) {
-    const ind = this.indexesMap.get(pageStart);
-    if (ind !== undefined) {
-      const lastIndex = this.indexes.length - 1;
-      const tmp = this.indexes[ind];
-      this.indexes[ind] = this.indexes[lastIndex];
-      this.indexes[lastIndex] = tmp;
+    if (!this.pages.has(pageStart)) {
+      return null;
     }
 
-    return super.getPage(pageStart);
+    const { rows } = this.pages.get(pageStart)!;
+    this.removePage(pageStart);
+    this.addPage(pageStart, rows);
+
+    return rows;
   }
 
   clear() {
-    super.clear();
-
-    this.indexes = [];
+    this.pages.clear();
+    this.initList();
   }
 }
 
-export const createRemoteRowsCache = (pageSize: number, maxSize = 0) => {
-  const cache = maxSize
-    ? new LRUCacheDecorator(pageSize, maxSize)
-    : new SimpleCache(pageSize);
+export const createRemoteRowsCache = (pageSize: number, capacity = 0) => {
+  const cache = new LRUCache(pageSize, capacity / pageSize);
 
   return {
-    getRows: (start, count) => {
+    getRows: (start: number, count: number) => {
       let result: any[] = [];
-      for (let i = 0; i < count / pageSize; i += 1) {
+      const pageCount = Math.ceil(count / pageSize);
+      for (let i = 0; i < pageCount; i += 1) {
         const pageStart = start + i * pageSize;
         const chunk = cache.getPage(pageStart);
-        if (chunk === undefined) {
-          return null;
+
+        // add incomplete page to result only if it is last one
+        if (chunk === null || (i !== pageCount - 1 && chunk.length !== pageSize)) {
+          return result;
         }
         result = result.concat(chunk);
       }
       return result;
     },
-    setRows: (start, rows) => {
-      for (let i = 0; i < rows.length / pageSize; i += 1) {
+    setRows: (start: number, rows: ReadonlyArray<any>) => {
+      const pageCount = Math.ceil(rows.length / pageSize);
+      for (let i = 0; i < pageCount; i += 1) {
         const pageStart = i * pageSize;
         const rowsChunk = rows.slice(pageStart, pageStart + pageSize);
 
-        cache.addPage(pageStart + start, rowsChunk);
+        // put incomplete page only if it is last one
+        if (rowsChunk.length === pageSize || i === pageCount - 1) {
+          cache.addPage(pageStart + start, rowsChunk);
+        }
       }
     },
     invalidate: () => cache.clear(),
-    cache,
   };
 };

@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import { AppointmentContent } from '../appointment/appointment-content';
 import { Appointment } from '../appointment/appointment';
+import { Slice } from '../appointment/slice';
 
 const draftStyles = theme => ({
   appointment: {
@@ -22,18 +23,20 @@ const sourceStyles = {
 
 const DraftAppointmentBase = ({
   classes, className, style,
-  data, type, children, ...restProps
+  data, type, leftSlice, rightSlice, ...restProps
 }) => (
   <Appointment
     className={classNames(classes.appointment, className)}
     style={style}
-    resizable
+    type={type}
     {...restProps}
   >
+    {leftSlice && <Slice position="top" appointmentType={type} />}
     <AppointmentContent
       data={data}
       type={type}
     />
+    {rightSlice && <Slice position="bottom" appointmentType={type} />}
   </Appointment>
 );
 
@@ -41,6 +44,8 @@ DraftAppointmentBase.propTypes = {
   classes: PropTypes.object.isRequired,
   style: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
+  leftSlice: PropTypes.bool.isRequired,
+  rightSlice: PropTypes.bool.isRequired,
   className: PropTypes.string,
   type: PropTypes.string,
 };

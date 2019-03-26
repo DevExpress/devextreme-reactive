@@ -1,54 +1,56 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
+import { withStyles } from '@material-ui/core/styles';
 import { VERTICAL_TYPE } from '@devexpress/dx-scheduler-core';
 
 const verticalStyles = {
   width: '100%',
-  height: '6px',
-  cursor: 'ns-resize',
+  height: '10px',
 };
 
 const horizontalStyles = {
-  width: '6px',
+  top: 0,
+  width: '10px',
   height: '100%',
-  cursor: 'ew-resize',
 };
 
 const styles = {
-  resize: {
+  slice: {
     position: 'absolute',
-    zIndex: 100,
+    zIndex: 50,
   },
   verticalTop: {
     ...verticalStyles,
-    top: 0,
+    top: '-10px',
+    boxShadow: '0 10px 40px black',
   },
   verticalBottom: {
     ...verticalStyles,
-    bottom: 0,
+    bottom: '-10px',
+    boxShadow: '0 -10px 40px black',
   },
   horizontalTop: {
     ...horizontalStyles,
-    left: 0,
+    left: '-10px',
+    boxShadow: '10px 0 40px black',
   },
   horizontalBottom: {
     ...horizontalStyles,
-    right: 0,
+    right: '-10px',
+    boxShadow: '-10px 0 40px black',
   },
 };
 
-const ResizeBase = ({
-  classes, className,
-  type, appointmentType, ...restProps
+const SliceBase = ({
+  position, appointmentType, classes, className, ...restProps
 }) => {
   const vertical = appointmentType === VERTICAL_TYPE;
-  const top = type === 'top';
+  const top = position === 'top';
   return (
     <div
       className={classNames({
-        [classes.resize]: true,
+        [classes.slice]: true,
         [classes.verticalTop]: vertical && top,
         [classes.verticalBottom]: vertical && !top,
         [classes.horizontalTop]: !vertical && top,
@@ -59,16 +61,15 @@ const ResizeBase = ({
   );
 };
 
-
-ResizeBase.propTypes = {
+SliceBase.propTypes = {
   classes: PropTypes.object.isRequired,
-  type: PropTypes.string.isRequired,
   appointmentType: PropTypes.string.isRequired,
+  position: PropTypes.string.isRequired,
   className: PropTypes.string,
 };
 
-ResizeBase.defaultProps = {
+SliceBase.defaultProps = {
   className: undefined,
 };
 
-export const Resize = withStyles(styles, { name: 'Resize' })(ResizeBase);
+export const Slice = withStyles(styles, { name: 'AppointmentsContainer' })(SliceBase);

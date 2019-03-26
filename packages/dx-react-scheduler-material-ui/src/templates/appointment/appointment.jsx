@@ -31,14 +31,13 @@ const styles = ({ palette, typography, spacing }) => ({
 
 const AppointmentBase = ({
   classes, className,
-  style,
+  // style,
   children,
   data,
   onClick: handleClick,
   draggable,
   leftSlice,
   rightSlice,
-  resizable,
   ...restProps
 }) => {
   const onClick = handleClick
@@ -55,13 +54,11 @@ const AppointmentBase = ({
         [classes.appointment]: true,
         [classes.clickableAppointment]: clickable,
       }, className)}
-      style={style}
+      // style={style}
       {...onClick}
       {...restProps}
     >
-      {leftSlice && <div style={{ textAlign: 'center' }}>~~~~~</div>}
       {children}
-      {rightSlice && <div style={{ textAlign: 'center' }}>~~~~~</div>}
     </div>
   );
 };
@@ -69,12 +66,11 @@ const AppointmentBase = ({
 AppointmentBase.propTypes = {
   classes: PropTypes.object.isRequired,
   children: PropTypes.node.isRequired,
-  style: PropTypes.object.isRequired,
+  // style: PropTypes.object,
   className: PropTypes.string,
   data: PropTypes.object,
   onClick: PropTypes.func,
   draggable: PropTypes.bool,
-  resizable: PropTypes.bool,
   rightSlice: PropTypes.bool,
   leftSlice: PropTypes.bool,
 };
@@ -84,7 +80,6 @@ AppointmentBase.defaultProps = {
   className: undefined,
   data: {},
   draggable: false,
-  resizable: false,
   rightSlice: false,
   leftSlice: false,
 };

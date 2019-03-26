@@ -124,6 +124,7 @@ export class DragDropProvider extends React.PureComponent {
     if (timeTableIndex !== -1) {
       const cellRect = timeTableCells[timeTableIndex].getBoundingClientRect();
       insidePart = clientOffset.y > cellRect.top + (cellRect.bottom - cellRect.top) / 2 ? 1 : 0;
+      console.log(insidePart);
     }
 
     // CURSOR POSITION
@@ -150,12 +151,22 @@ export class DragDropProvider extends React.PureComponent {
     }
 
     if (sourceType === 'resize-top') {
-      this.appointmentStartTime = moment(targetData.startDate).add(insideOffset, SECONDS).toDate();
+      if (targetType === payload.appointmentType) {
+        this.appointmentStartTime = moment(targetData.startDate).add(insideOffset, SECONDS).toDate();
+      }
       this.appointmentEndTime = moment(payload.endDate).toDate();
     }
     if (sourceType === 'resize-bottom') {
+      if (targetType === payload.appointmentType) {
+        const insideOffsetResize = insidePart === 0 ? cellDuration * 60 / 2 : 0;
+        this.appointmentEndTime = moment(targetData.endDate).add(-insideOffsetResize, SECONDS).toDate();
+      }
       this.appointmentStartTime = moment(payload.startDate).toDate();
-      this.appointmentEndTime = moment(targetData.endDate).add(insideOffset, SECONDS).toDate();
+    }
+    // keep origin appointment duration if coordinates are wrong
+    if (moment(this.appointmentEndTime).diff(this.appointmentStartTime, 'minutes') < 1) {
+      this.appointmentStartTime = moment(payload.startDate).toDate();
+      this.appointmentEndTime = moment(payload.endDate).toDate();
     }
 
     const draftAppointments = [{
@@ -168,7 +179,7 @@ export class DragDropProvider extends React.PureComponent {
       end: this.appointmentEndTime,
     }];
 
-    if (allDayIndex !== -1) {
+    if (allDayIndex !== -1 || (allDayCells.length && intervalDuration(draftAppointments[0].dataItem, 'hours') > 23)) {
       this.allDayRects = allDayRects(
         draftAppointments, startViewDate, endViewDate, excludedDays, viewCellsData, allDayCells,
       );
@@ -176,8 +187,8 @@ export class DragDropProvider extends React.PureComponent {
       this.allDayRects = [];
     }
 
-    if (timeTableIndex !== -1 && allDayIndex === -1) {
-      if (targetType === VERTICAL_TYPE) {
+    if (timeTableIndex !== -1 || allDayIndex !== -1) {
+      if (targetType === VERTICAL_TYPE || allDayIndex !== -1) {
         this.timeTableRects = verticalTimeTableRects(
           draftAppointments, startViewDate, endViewDate,
           excludedDays, viewCellsData, cellDuration, timeTableCells,
@@ -299,12 +310,12 @@ export class DragDropProvider extends React.PureComponent {
           name="appointmentTop"
           predicate={params => !params.predicate && allowResize(params.data)}
         >
-          {({ data }) => {
+          {({ data, type }) => {
             return (
               <DragSource
-                payload={{ ...data, type: 'resize-top' }}
+                payload={{ ...data, type: 'resize-top', appointmentType: type }}
               >
-                <Resize type="resize-top" style={{ top: 0 }} />
+                <Resize type="top" appointmentType={type} />
               </DragSource>
             );
           }}
@@ -314,12 +325,12 @@ export class DragDropProvider extends React.PureComponent {
           name="appointmentBottom"
           predicate={params => !params.predicate && allowResize(params.data)}
         >
-          {({ data }) => {
+          {({ data, type }) => {
             return (
               <DragSource
-                payload={{ ...data, type: 'resize-bottom' }}
+                payload={{ ...data, type: 'resize-bottom', appointmentType: type }}
               >
-                <Resize type="resize-bottom" style={{ bottom: 0 }} />
+                <Resize type="bottom" appointmentType={type} />
               </DragSource>
             );
           }}
@@ -332,17 +343,13 @@ export class DragDropProvider extends React.PureComponent {
               {this.allDayRects.map(({
                 dataItem, type, leftSlice, rightSlice, ...geometry
               }, index) => (
-                <TemplatePlaceholder
-                  name="appointment"
+                <DraftAppointment
                   key={index.toString()}
-                  params={{
-                    data: draftData,
-                    style: getAppointmentStyle(geometry),
-                    type,
-                    draft: true,
-                    leftSlice,
-                    rightSlice,
-                  }}
+                  data={draftData}
+                  style={getAppointmentStyle(geometry)}
+                  type={type}
+                  leftSlice={leftSlice}
+                  rightSlice={rightSlice}
                 />
               ))}
             </Container>

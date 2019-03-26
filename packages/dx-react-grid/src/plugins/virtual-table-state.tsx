@@ -60,7 +60,6 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
         const newRowCount = infinite
           ? Math.max(newBounds.end + loadCount, stateAvailableCount)
           : rowCount;
-        console.log('row count', newRowCount)
 
         this.setState({
           virtualRowsCache,
@@ -84,7 +83,6 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
   render() {
     const { virtualRowsCache, availableRowCount: stateRowCount } = this.state;
     const { start, virtualPageSize, loading, infinite, rowCount } = this.props;
-    console.log('render', loading)
 
     const availableRowCount = infinite ? stateRowCount : rowCount;
 

@@ -1,29 +1,27 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
 
-export const TableStubCell = ({
-  style,
+export const TableSkeletonCell = ({
+  className,
   tableRow,
   tableColumn,
   ...restProps
 }) => (
   <td
-    style={{
-      padding: 0,
-      ...style,
-    }}
+    className={classNames('dx-g-bs4-skeleton-cell', className)}
     {...restProps}
   />
 );
 
-TableStubCell.propTypes = {
-  style: PropTypes.object,
+TableSkeletonCell.propTypes = {
+  className: PropTypes.string,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
 };
 
-TableStubCell.defaultProps = {
-  style: null,
+TableSkeletonCell.defaultProps = {
+  className: undefined,
   tableRow: undefined,
   tableColumn: undefined,
 };

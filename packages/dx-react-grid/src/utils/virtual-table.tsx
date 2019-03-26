@@ -38,10 +38,10 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
   VirtualLayout,
   FixedHeader,
   FixedFooter,
+  SkeletonCell,
   defaultEstimatedRowHeight,
   defaultHeight,
   minColumnWidth,
-  StubCell,
 }) => {
   class VirtualTable extends React.PureComponent<VirtualTableProps, VirtualTableLayoutState> {
     static defaultProps = {
@@ -49,9 +49,11 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
       height: defaultHeight,
       headTableComponent: FixedHeader,
       footerTableComponent: FixedFooter,
+      skeletonCellComponent: SkeletonCell,
     };
     static FixedHeader: React.ComponentType;
     static FixedFooter: React.ComponentType;
+    static SkeletonCell: React.ComponentType;
     layoutRenderComponent: React.ComponentType<VirtualTableLayoutProps> & { update(): void; };
     rowRefs: Map<any, any>;
     blockRefs: Map<any, any>;
@@ -274,6 +276,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
         height: propHeight,
         estimatedRowHeight,
         headTableComponent,
+        skeletonCellComponent: SkeletonStubCell,
         children,
         ...restProps
       } = this.props;
@@ -356,7 +359,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
             predicate={({ tableRow }: any) => !!isStubTableCell(tableRow)}
           >
             {(params: TableNS.CellProps) => (
-              <StubCell {...params} />
+              <SkeletonStubCell {...params} />
             )}
           </Template>
         </Plugin>
@@ -370,6 +373,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
 
   VirtualTable.FixedHeader = FixedHeader;
   VirtualTable.FixedFooter = FixedFooter;
+  VirtualTable.SkeletonCell = SkeletonCell;
 
   return VirtualTable;
 };

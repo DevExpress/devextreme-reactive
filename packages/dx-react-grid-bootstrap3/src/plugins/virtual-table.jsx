@@ -3,7 +3,7 @@ import { makeVirtualTable } from '@devexpress/dx-react-grid';
 import { Table } from './table';
 import { Table as TableComponent } from '../templates/table';
 import { VirtualTableLayout as VirtualLayout } from '../templates/virtual-table-layout';
-import { TableStubCell as StubCell } from '../templates/table-stub-cell';
+import { TableSkeletonCell as SkeletonCell } from '../templates/table-skeleton-cell';
 
 const FixedHeader = props => <TableComponent use="head" {...props} />;
 const FixedFooter = props => <TableComponent use="foot" {...props} />;
@@ -12,7 +12,7 @@ export const VirtualTable = makeVirtualTable(Table, {
   VirtualLayout,
   FixedHeader,
   FixedFooter,
-  StubCell,
+  SkeletonCell,
   defaultEstimatedRowHeight: 37,
   defaultHeight: 530,
   minColumnWidth: 120,

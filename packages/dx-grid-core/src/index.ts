@@ -1,5 +1,4 @@
 /** @internal */
-import { remoteRowsCache } from './utils/remote-rows-cache';
 export * from './plugins/grid-core/computeds';
 
 /** @internal */

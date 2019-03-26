@@ -17,6 +17,7 @@ export class Appointments extends React.PureComponent {
       sliceComponent: Slice,
       appointmentComponent: Appointment,
       appointmentContentComponent: AppointmentContent,
+      containerComponent: Container,
     } = this.props;
 
     return (
@@ -28,11 +29,11 @@ export class Appointments extends React.PureComponent {
           name="appointment"
         >
           {params => (
-            <div style={{ ...params.style }}>
+            <Container style={params.style}>
               <TemplatePlaceholder name="appointmentTop" params={{ data: params.data, type: params.type, predicate: params.leftSlice }} />
               <TemplatePlaceholder name="appointmentContent" params={params} />
               <TemplatePlaceholder name="appointmentBottom" params={{ data: params.data, type: params.type, predicate: params.rightSlice }} />
-            </div>
+            </Container>
           )}
         </Template>
 
@@ -41,25 +42,22 @@ export class Appointments extends React.PureComponent {
             onClick, onDoubleClick,
             data, type, style, leftSlice, rightSlice,
             ...restParams
-          }) => {
-            return (
-              <Appointment
+          }) => (
+            <Appointment
+              data={data}
+              leftSlice={leftSlice}
+              rightSlice={rightSlice}
+              {...createClickHandlers(onClick, onDoubleClick)}
+              {...restParams}
+            >
+              {leftSlice && <Slice position="top" appointmentType={type} />}
+              <AppointmentContent
                 data={data}
-                leftSlice={leftSlice}
-                rightSlice={rightSlice}
-                {...createClickHandlers(onClick, onDoubleClick)}
-                {...restParams}
-              >
-                {leftSlice && <Slice position="top" appointmentType={type} />}
-                <AppointmentContent
-                  data={data}
-                  type={type}
-                />
-                {rightSlice && <Slice position="bottom" appointmentType={type} />}
-              </Appointment>
-            )
-          }
-          }
+                type={type}
+              />
+              {rightSlice && <Slice position="bottom" appointmentType={type} />}
+            </Appointment>
+          )}
         </Template>
       </Plugin>
     );
@@ -68,6 +66,8 @@ export class Appointments extends React.PureComponent {
 
 Appointments.propTypes = {
   sliceComponent: PropTypes.func.isRequired,
+  contentComponent: PropTypes.func.isRequired,
+  containerComponent: PropTypes.func.isRequired,
   appointmentComponent: PropTypes.func.isRequired,
   appointmentContentComponent: PropTypes.func.isRequired,
 };
@@ -76,4 +76,5 @@ Appointments.components = {
   sliceComponent: 'Slice',
   appointmentComponent: 'Appointment',
   appointmentContentComponent: 'AppointmentContent',
+  containerComponent: 'Container',
 };

@@ -124,7 +124,6 @@ export class DragDropProvider extends React.PureComponent {
     if (timeTableIndex !== -1) {
       const cellRect = timeTableCells[timeTableIndex].getBoundingClientRect();
       insidePart = clientOffset.y > cellRect.top + (cellRect.bottom - cellRect.top) / 2 ? 1 : 0;
-      console.log(insidePart);
     }
 
     // CURSOR POSITION

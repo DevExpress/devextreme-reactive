@@ -514,16 +514,16 @@ describe('VirtualTableLayout utils', () => {
         .toEqual([...Array.from({ length: 5 }).map(() => 1)]);
     });
 
-    it('should return empty result when there are no columns', () => {
+    it('should return empty result when there are no rows', () => {
       const args = {
         rows: [],
         columns: [
           { key: 0, width: 40 },
         ],
-        top: 0,
-        left: 0,
-        height: 80,
-        width: 80,
+        rowsVisibleBoundary: [Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY],
+        columnsVisibleBoundary: [[0, 1]],
+        totalRowCount: 1,
+        offset: 0,
       };
       const result = {
         columns: [],
@@ -533,7 +533,7 @@ describe('VirtualTableLayout utils', () => {
         .toEqual(result);
     });
 
-    it('should return empty result when there are no rows', () => {
+    it('should return empty result when there are no columns', () => {
       const args = {
         rows: [
           { key: 0, height: 40 },

@@ -138,7 +138,7 @@ export class DragDropProvider extends React.PureComponent {
       allDayDraftAppointments,
       timeTableDraftAppointments,
     } = calculateDraftAppointments(
-      allDayIndex, timeTableIndex, draftAppointments, startViewDate,
+      allDayIndex, draftAppointments, startViewDate,
       endViewDate, excludedDays, viewCellsData, allDayCells,
       targetType, cellDurationMinutes, timeTableCells,
     );

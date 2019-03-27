@@ -276,7 +276,6 @@ describe('DragDropProvider', () => {
 
   describe('#calculateDraftAppointments', () => {
     const allDayIndex = 0;
-    const timeTableIndex = 0;
     const draftAppointments = [];
     const startViewDate = new Date();
     const endViewDate = new Date();
@@ -288,7 +287,7 @@ describe('DragDropProvider', () => {
     const timeTableCells = 0;
     it('should return only one array', () => {
       expect(calculateDraftAppointments(
-        allDayIndex, timeTableIndex, draftAppointments, startViewDate,
+        allDayIndex, draftAppointments, startViewDate,
         endViewDate, excludedDays, viewCellsData, allDayCells,
         targetType, cellDurationMinutes, timeTableCells,
       ))
@@ -301,7 +300,7 @@ describe('DragDropProvider', () => {
     it('should return time table array', () => {
       const nextAllDayIndex = -1;
       expect(calculateDraftAppointments(
-        nextAllDayIndex, timeTableIndex, draftAppointments, startViewDate,
+        nextAllDayIndex, draftAppointments, startViewDate,
         endViewDate, excludedDays, viewCellsData, allDayCells,
         targetType, cellDurationMinutes, timeTableCells,
       ))

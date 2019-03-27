@@ -153,7 +153,7 @@ export const calculateInsidePart: PureComputed<
 };
 
 export const calculateDraftAppointments = (
-  allDayIndex: number, timeTableIndex: number, draftAppointments: any, startViewDate: Date,
+  allDayIndex: number, draftAppointments: any, startViewDate: Date,
   endViewDate: Date, excludedDays: number[], viewCellsData: any, allDayCells: any,
   targetType: string, cellDurationMinutes: number, timeTableCells: any,
 ) => {

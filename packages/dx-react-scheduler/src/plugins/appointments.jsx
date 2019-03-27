@@ -66,7 +66,6 @@ export class Appointments extends React.PureComponent {
 
 Appointments.propTypes = {
   sliceComponent: PropTypes.func.isRequired,
-  contentComponent: PropTypes.func.isRequired,
   containerComponent: PropTypes.func.isRequired,
   appointmentComponent: PropTypes.func.isRequired,
   appointmentContentComponent: PropTypes.func.isRequired,
@@ -74,7 +73,7 @@ Appointments.propTypes = {
 
 Appointments.components = {
   sliceComponent: 'Slice',
+  containerComponent: 'Container',
   appointmentComponent: 'Appointment',
   appointmentContentComponent: 'AppointmentContent',
-  containerComponent: 'Container',
 };

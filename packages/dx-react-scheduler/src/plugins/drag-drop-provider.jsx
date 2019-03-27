@@ -309,30 +309,26 @@ export class DragDropProvider extends React.PureComponent {
           name="appointmentTop"
           predicate={params => !params.predicate && allowResize(params.data)}
         >
-          {({ data, type }) => {
-            return (
-              <DragSource
-                payload={{ ...data, type: 'resize-top', appointmentType: type }}
-              >
-                <Resize type="top" appointmentType={type} />
-              </DragSource>
-            );
-          }}
+          {({ data, type }) => (
+            <DragSource
+              payload={{ ...data, type: 'resize-top', appointmentType: type }}
+            >
+              <Resize type="top" appointmentType={type} />
+            </DragSource>
+          )}
         </Template>
 
         <Template
           name="appointmentBottom"
           predicate={params => !params.predicate && allowResize(params.data)}
         >
-          {({ data, type }) => {
-            return (
-              <DragSource
-                payload={{ ...data, type: 'resize-bottom', appointmentType: type }}
-              >
-                <Resize type="bottom" appointmentType={type} />
-              </DragSource>
-            );
-          }}
+          {({ data, type }) => (
+            <DragSource
+              payload={{ ...data, type: 'resize-bottom', appointmentType: type }}
+            >
+              <Resize type="bottom" appointmentType={type} />
+            </DragSource>
+          )}
         </Template>
 
         <Template name="allDayPanel">

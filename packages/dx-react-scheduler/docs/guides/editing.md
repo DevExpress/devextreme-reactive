@@ -22,15 +22,13 @@ The user can edit appointments as follows:
 
 ### Update an Appointment
 
-Double-click an appointment to open the appointment editing form.
+- Double-click an appointment to open the appointment editing form.
 
-OR
+- Click an appointment to invoke its tooltip, and then click Edit in the tooltip to open the appointment editing form.
 
-Click an appointment to invoke its tooltip, and then click Edit in the tooltip to open the appointment editing form.
+- Drag an appointment to another cell to reschedule it. This functionality requires the [DragDropProvider](../reference/drag-drop-provider.md) plugin.
 
-OR
-
-Drag an appointment to another cell to reschedule it. This functionality requires the [DragDropProvider](../reference/drag-drop-provider.md) plugin.
+- Extend or shorten an appointment by dragging its top or bottom border.
 
 ### Delete an Appointment
 
@@ -72,8 +70,8 @@ For example, you can show a confirmation dialog before an appointment is removed
 
 ## Drag-and-Drop Editing
 
-Add the [DragDropProvider](../reference/drag-drop-provider.md) plugin to enable users to drag and drop appointments. Use its `allowDrag` property to disallow dragging specific appointments.
+Add the [DragDropProvider](../reference/drag-drop-provider.md) plugin to enable users to drag and drop appointments. Use its `allowDrag` and `allowResizing` properties to disallow dragging and resizing specific appointments.
 
 .embedded-demo({ "path": "scheduler-editing/drag-drop", "showThemeSelector": true })
 
-The `DragDropProvider` plugin also allows you to customize the appointment being dragged (via the `draftAppointmentComponent` property) and its copy displayed in its previous location (via `sourceAppointmentComponent`).
+The [DragDropProvider](../reference/drag-drop-provider.md) plugin also allows you to customize the appointment being dragged (via the `draftAppointmentComponent` property) and its copy displayed in its previous location (via `sourceAppointmentComponent`). Use the `resizeComponent` property to customize handle of resizing.

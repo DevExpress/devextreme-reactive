@@ -1,7 +1,7 @@
 import {
   intervalDuration, cellIndex, cellData, autoScroll, cellType,
   timeBoundariesByDrag, calculateInsidePart,
-  calculateDraftAppointments,
+  calculateDraftAppointments, timeBoundariesByResize,
 } from './helpers';
 import {
   allDayRects, horizontalTimeTableRects, verticalTimeTableRects,
@@ -150,6 +150,171 @@ describe('DragDropProvider', () => {
       autoScroll(clientOffset, layoutElement, layoutHeaderElement);
       expect(layoutElement.current.scrollTop)
         .toBe(0);
+    });
+  });
+
+  describe('#timeBoundariesByResize', () => {
+    it('should not resize if appointment type and cell type are equal', () => {
+      const targetType = 'vertical';
+      const payload = {
+        type: 'resize-top',
+        appointmentType: 'horizontal',
+        startDate: new Date('2018-06-25 10:00'),
+        endDate: new Date('2018-06-25 11:00'),
+      };
+      const targetData = {
+        startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00'),
+      };
+      const cellDurationMinutes = 60;
+      const insidePart = 0;
+
+      const result = timeBoundariesByResize(
+        payload, targetData, targetType, cellDurationMinutes, insidePart,
+      );
+
+      expect(result)
+        .toEqual({
+          appointmentStartTime: undefined,
+          appointmentEndTime: undefined,
+        });
+    });
+
+    it('should resize if appointment type is vertical and resize handle is top', () => {
+      const targetType = 'vertical';
+      const payload = {
+        type: 'resize-top',
+        appointmentType: targetType,
+        startDate: new Date('2018-06-25 11:00'),
+        endDate: new Date('2018-06-25 11:30'),
+      };
+      const targetData = {
+        startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00'),
+      };
+      const cellDurationMinutes = 60;
+      let insidePart = 1;
+
+      expect(timeBoundariesByResize(
+        payload, targetData, targetType, cellDurationMinutes, insidePart,
+      )).toEqual({
+        appointmentStartTime: new Date('2018-06-25 10:30'),
+        appointmentEndTime: new Date('2018-06-25 11:30'),
+      });
+
+      insidePart = 0;
+      expect(timeBoundariesByResize(
+        payload, targetData, targetType, cellDurationMinutes, 0,
+      )).toEqual({
+        appointmentStartTime: new Date('2018-06-25 10:00'),
+        appointmentEndTime: new Date('2018-06-25 11:30'),
+      });
+    });
+
+    it('should resize if appointment type is vertical and resize handle is bottom', () => {
+      const targetType = 'vertical';
+      const payload = {
+        type: 'resize-bottom',
+        appointmentType: targetType,
+        startDate: new Date('2018-06-25 9:00'),
+        endDate: new Date('2018-06-25 9:30'),
+      };
+      const targetData = {
+        startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00'),
+      };
+      const cellDurationMinutes = 60;
+      let insidePart = 1;
+
+      expect(timeBoundariesByResize(
+        payload, targetData, targetType, cellDurationMinutes, insidePart,
+      )).toEqual({
+        appointmentStartTime: new Date('2018-06-25 9:00'),
+        appointmentEndTime: new Date('2018-06-25 11:00'),
+      });
+
+      insidePart = 0;
+      expect(timeBoundariesByResize(
+        payload, targetData, targetType, cellDurationMinutes, insidePart,
+      )).toEqual({
+        appointmentStartTime: new Date('2018-06-25 9:00'),
+        appointmentEndTime: new Date('2018-06-25 10:30'),
+      });
+    });
+
+    it('should resize if appointment type is horizontal and resize handle is top', () => {
+      const targetType = 'horizontal';
+      const payload = {
+        type: 'resize-top',
+        appointmentType: targetType,
+        startDate: new Date('2018-06-27 10:00'),
+        endDate: new Date('2018-06-29 11:00'),
+      };
+      const targetData = {
+        startDate: new Date('2018-06-25 00:00'), endDate: new Date('2018-06-26 00:00'),
+      };
+      const cellDurationMinutes = 60 * 24;
+      let insidePart = 1;
+
+      const result = {
+        appointmentStartTime: new Date('2018-06-25 00:00'),
+        appointmentEndTime: new Date('2018-06-29 11:00'),
+      };
+      expect(timeBoundariesByResize(
+        payload, targetData, targetType, cellDurationMinutes, insidePart,
+      )).toEqual(result);
+
+      insidePart = 0;
+      expect(timeBoundariesByResize(
+        payload, targetData, targetType, cellDurationMinutes, insidePart,
+      )).toEqual(result);
+    });
+
+    it('should resize if appointment type is horizontal and resize handle is bottom', () => {
+      const targetType = 'horizontal';
+      const payload = {
+        type: 'resize-bottom',
+        appointmentType: targetType,
+        startDate: new Date('2018-06-22 10:00'),
+        endDate: new Date('2018-06-24 11:00'),
+      };
+      const targetData = {
+        startDate: new Date('2018-06-25 00:00'), endDate: new Date('2018-06-26 00:00'),
+      };
+      const cellDurationMinutes = 60 * 24;
+      let insidePart = 1;
+
+      const result = {
+        appointmentStartTime: new Date('2018-06-22 10:00'),
+        appointmentEndTime: new Date('2018-06-26 00:00'),
+      };
+      expect(timeBoundariesByResize(
+        payload, targetData, targetType, cellDurationMinutes, insidePart,
+      )).toEqual(result);
+
+      insidePart = 0;
+      expect(timeBoundariesByResize(
+        payload, targetData, targetType, cellDurationMinutes, insidePart,
+      )).toEqual(result);
+    });
+
+    it('should not resize if draft appointment duration less 1 minute', () => {
+      const targetType = 'vertical';
+      const payload = {
+        type: 'resize-bottom',
+        appointmentType: targetType,
+        startDate: new Date('2018-06-25 10:00'),
+        endDate: new Date('2018-06-25 11:00'),
+      };
+      const targetData = {
+        startDate: new Date('2018-06-25 8:00'), endDate: new Date('2018-06-25 9:00'),
+      };
+      const cellDurationMinutes = 60 * 24;
+      const insidePart = 1;
+
+      expect(timeBoundariesByResize(
+        payload, targetData, targetType, cellDurationMinutes, insidePart,
+      )).toEqual({
+        appointmentStartTime: payload.startDate,
+        appointmentEndTime: payload.endDate,
+      });
     });
   });
 

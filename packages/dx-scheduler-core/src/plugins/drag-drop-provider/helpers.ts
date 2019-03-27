@@ -63,11 +63,13 @@ export const autoScroll: PureComputed<
   }
 };
 
-const timeBoundariesByResize = (
+export const timeBoundariesByResize = (
   payload: any, targetData: any, targetType: any,
   cellDurationMinutes: any, insidePart: any,
 ) => {
-  if (targetType !== payload.appointmentType) return {};
+  if (targetType !== payload.appointmentType) {
+    return { appointmentStartTime: undefined, appointmentEndTime: undefined };
+  }
 
   let appointmentStartTime;
   let appointmentEndTime;

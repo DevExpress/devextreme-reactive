@@ -29,6 +29,8 @@ import { Appointments } from '@devexpress/dx-react-scheduler';
 
 Name | Type | Default | Description
 -----|------|---------|------------
+sliceComponent | ComponentType&lt;[Appointments.SliceProps](#appointmentssliceprops)&gt; | | A component that rendered if appointment is sliced by time table.
+containerComponent | ComponentType&lt;[Appointments.ContainerProps](#appointmentscontainerprops)&gt; | | A component that renders an container for appointment.
 appointmentComponent | ComponentType&lt;[Appointments.AppointmentProps](#appointmentsappointmentprops)&gt; | | A component that renders an appointment.
 appointmentContentComponent | ComponentType&lt;[Appointments.AppointmentContentProps](#appointmentsappointmentcontentprops)&gt; | | A component that renders the appointment content.
 
@@ -41,7 +43,6 @@ Properties passed to a component that renders an appointment.
 Field | Type | Description
 ------|------|------------
 children | ReactNode | A React node used to render the appointment content.
-style | object | An object that configures the appointment geometry and position.
 data | object | An object that specifies the appointment data.
 draggable | boolean | Specifies whether the appointment is draggable.
 onClick? | (e: object) => void | A function that handles a click on the appointment.
@@ -56,9 +57,28 @@ Field | Type | Description
 children | ReactNode | A React node used to render the appointment content.
 data | object | An object that represents appointment data.
 
+### Appointments.SliceProps
+
+Properties passed to a component that renders a slice.
+
+Field | Type | Description
+------|------|------------
+position | 'top' 'bottom' | Specifies where appointment is sliced.
+appointmentType | 'horizontal' | 'vertical' | Specifies an appointment type.
+
+### Appointments.ContainerProps
+
+Properties passed to a component that renders a container.
+
+Field | Type | Description
+------|------|------------
+style | object | An object that configures the appointment geometry and position.
+
 ## Plugin Components
 
 Name | Properties | Description
 -----|------------|------------
+sliceComponent | [Appointments.SliceProps](#appointmentssliceprops) | A component that rendered if appointment is sliced by time table.
+containerComponent | [Appointments.ContainerProps](#appointmentscontainerprops) | A component that renders an container for appointment.
 Appointments.Appointment | [Appointments.AppointmentProps](#appointmentsappointmentprops) | A component that renders an appointment.
 Appointments.AppointmentContent | [Appointments.AppointmentContentProps](#appointmentsappointmentcontentprops) | A component that renders the appointment content.

@@ -238,7 +238,7 @@ export class DragDropProvider extends React.PureComponent {
             <DragSource
               payload={{ ...data, type: 'resize-top', appointmentType: type }}
             >
-              <Resize type="top" appointmentType={type} />
+              <Resize position="top" appointmentType={type} />
             </DragSource>
           )}
         </Template>
@@ -251,7 +251,7 @@ export class DragDropProvider extends React.PureComponent {
             <DragSource
               payload={{ ...data, type: 'resize-bottom', appointmentType: type }}
             >
-              <Resize type="bottom" appointmentType={type} />
+              <Resize position="bottom" appointmentType={type} />
             </DragSource>
           )}
         </Template>

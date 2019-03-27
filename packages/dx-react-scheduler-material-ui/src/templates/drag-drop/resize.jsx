@@ -41,10 +41,10 @@ const styles = {
 
 const ResizeBase = ({
   classes, className,
-  type, appointmentType, ...restProps
+  position, appointmentType, ...restProps
 }) => {
   const vertical = appointmentType === VERTICAL_TYPE;
-  const top = type === 'top';
+  const top = position === 'top';
   return (
     <div
       className={classNames({
@@ -62,7 +62,7 @@ const ResizeBase = ({
 
 ResizeBase.propTypes = {
   classes: PropTypes.object.isRequired,
-  type: PropTypes.string.isRequired,
+  position: PropTypes.string.isRequired,
   appointmentType: PropTypes.string.isRequired,
   className: PropTypes.string,
 };

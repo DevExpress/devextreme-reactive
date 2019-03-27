@@ -4,7 +4,7 @@ import { Resize } from './resize';
 
 describe('DragDrop', () => {
   const defaultProps = {
-    type: 'top',
+    position: 'top',
     appointmentType: 'vertical',
   };
   describe('Resize', () => {
@@ -36,21 +36,21 @@ describe('DragDrop', () => {
     });
     it('should manage classes by props', () => {
       let tree = shallow((
-        <Resize type="top" appointmentType="horizontal" />
+        <Resize position="top" appointmentType="horizontal" />
       ));
 
       expect(tree.is(`.${classes.horizontalTop}`))
         .toBeTruthy();
 
       tree = shallow((
-        <Resize type="bottom" appointmentType="horizontal" />
+        <Resize position="bottom" appointmentType="horizontal" />
       ));
 
       expect(tree.is(`.${classes.horizontalBottom}`))
         .toBeTruthy();
 
       tree = shallow((
-        <Resize type="bottom" appointmentType="vertical" />
+        <Resize position="bottom" appointmentType="vertical" />
       ));
 
       expect(tree.is(`.${classes.verticalBottom}`))

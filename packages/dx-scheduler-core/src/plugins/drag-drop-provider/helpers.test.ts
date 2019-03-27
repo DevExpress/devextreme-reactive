@@ -376,7 +376,7 @@ describe('DragDropProvider', () => {
         endDate: new Date('2018-06-10 11:00'),
       };
       const targetData = {
-        startDate: new Date('2018-06-25'), endDate: new Date('2018-06-26'),
+        startDate: new Date('2018-06-25 00:00'), endDate: new Date('2018-06-26 00:00'),
       };
       const targetType = 'horizontal';
       const cellDurationMinutes = 24 * 60;
@@ -389,8 +389,8 @@ describe('DragDropProvider', () => {
       );
       expect(result)
         .toEqual({
-          appointmentStartTime: new Date('2018-06-25'),
-          appointmentEndTime: new Date('2018-06-26'),
+          appointmentStartTime: new Date('2018-06-25 00:00'),
+          appointmentEndTime: new Date('2018-06-26 00:00'),
           offsetTimeTop: 1270800,
         });
     });

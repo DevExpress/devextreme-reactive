@@ -116,9 +116,9 @@ export class DragDropProvider extends React.PureComponent {
       payload, targetData, targetType, cellDurationMinutes,
       insidePart, this.offsetTimeTop,
     );
-    this.appointmentStartTime = appointmentStartTime;
-    this.appointmentEndTime = appointmentEndTime;
-    this.offsetTimeTop = offsetTimeTop;
+    this.appointmentStartTime = appointmentStartTime || this.appointmentStartTime;
+    this.appointmentEndTime = appointmentEndTime || this.appointmentEndTime;
+    this.offsetTimeTop = offsetTimeTop || this.offsetTimeTop;
 
     const { startTime, endTime } = this.state;
     if (moment(startTime).isSame(this.appointmentStartTime)

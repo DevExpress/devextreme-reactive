@@ -223,12 +223,12 @@ describe('DragDropProvider', () => {
       expect(resizeComponents.at(0).props())
         .toEqual({
           appointmentType: 'appt-bottom',
-          type: 'bottom',
+          position: 'bottom',
         });
       expect(resizeComponents.at(1).props())
         .toEqual({
           appointmentType: 'appt-top',
-          type: 'top',
+          position: 'top',
         });
     });
 

@@ -157,7 +157,6 @@ namespace Appointments {
     draggable: boolean;
     onClick?: (e: object) => void;
     onDoubleClick?: (e: object) => void;
-    style: object;
   }
 }
 
@@ -169,6 +168,21 @@ namespace Appointments {
   }
 }
 
+// @public (undocumented)
+namespace Appointments {
+  interface SliceProps {
+    appointmentType: 'horizontal'; // (undocumented)
+ 'bottom'; position: 'top'
+  }
+}
+
+// @public (undocumented)
+namespace Appointments {
+  interface ContainerProps {
+    style: object;
+  }
+}
+
 // @public
 declare const Appointments: React.ComponentType<AppointmentsProps>;
 
@@ -176,6 +190,8 @@ declare const Appointments: React.ComponentType<AppointmentsProps>;
 interface AppointmentsProps {
   appointmentComponent: React.ComponentType<Appointments.AppointmentProps>;
   appointmentContentComponent: React.ComponentType<Appointments.AppointmentContentProps>;
+  containerComponent: React.ComponentType<Appointments.ContainerProps>;
+  sliceComponent: React.ComponentType<Appointments.SliceProps>;
 }
 
 // @public (undocumented)
@@ -433,6 +449,14 @@ namespace DragDropProvider {
 
 // @public (undocumented)
 namespace DragDropProvider {
+  interface ResizeProps {
+    appointmentType: 'horizontal'; // (undocumented)
+ 'bottom'; position: 'top'
+  }
+}
+
+// @public (undocumented)
+namespace DragDropProvider {
   interface ContainerProps {
     children: React.ReactNode;
   }
@@ -444,8 +468,10 @@ declare const DragDropProvider: React.ComponentType<DragDropProviderProps>;
 // @public (undocumented)
 interface DragDropProviderProps {
   allowDrag?: (appointmentData: AppointmentModel) => boolean;
+  allowResize?: (appointmentData: AppointmentModel) => boolean;
   containerComponent: React.ComponentType<DragDropProvider.ContainerProps>;
   draftAppointmentComponent: React.ComponentType<DragDropProvider.DraftAppointmentProps>;
+  resizeComponent: React.ComponentType<DragDropProvider.ResizeProps>;
   sourceAppointmentComponent: React.ComponentType<DragDropProvider.SourceAppointmentProps>;
 }
 

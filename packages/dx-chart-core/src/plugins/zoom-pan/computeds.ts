@@ -10,7 +10,7 @@ import {
   NumberArray,
   ViewportOptions,
   ScalesCache,
-  Coordinates,
+  // Coordinates,
   // BoundsFn,
   // ChangeBoundsFn,
   DomainInfoCache,
@@ -288,19 +288,19 @@ export const adjustLayout = (
   return Object.keys(changes).length ? { ...ranges, ...changes } : ranges;
 };
 
-export const offsetCoordinates = (coordinates: Coordinates, offset: NumberArray) => {
-  return {
-    x: coordinates.x - offset[0],
-    y: coordinates.y - offset[1],
-  };
-};
-
+/** @internal */
 export const getDeltaForTouches = (touches: Touch[]) => {
   const deltaX = touches[0].pageX - touches[1].pageX;
   const deltaY = touches[0].pageY - touches[1].pageY;
-  return Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
+  const delta = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+  const center: NumberArray = [
+    (touches[0].pageX + touches[1].pageX) / 2,
+    (touches[0].pageY + touches[1].pageY) / 2,
+  ];
+  return { delta, center };
 };
 
+/** @internal */
 export const checkDragToZoom = (zoomRegionKey: string, event: MouseEvent) => {
   return event[`${zoomRegionKey}Key`];
 };

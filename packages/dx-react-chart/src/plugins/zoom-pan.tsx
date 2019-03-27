@@ -14,16 +14,15 @@ import {
 } from '@devexpress/dx-react-core';
 import { DragBox } from '../templates/drag-box';
 import {
-  adjustLayout, getRootOffset, getDeltaForTouches, offsetCoordinates,
+  adjustLayout, getRootOffset, getDeltaForTouches,
   getViewport, checkDragToZoom,
 } from '@devexpress/dx-chart-core';
 import {
-  ZoomAndPanProps, ZoomAndPanState, LastCoordinates,
-  NumberArray,
+  ZoomAndPanProps, ZoomAndPanState, NumberArray,
 } from '../types';
 
 class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanState> {
-  lastCoordinates: LastCoordinates = null;
+  lastCoordinates: NumberArray | null = null;
   rectangle = { x: 0, y: 0 };
   drawRectange = false;
   offset: number[] = [0, 0];
@@ -57,15 +56,16 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
     this.offset = getRootOffset(e.currentTarget);
     this.drawRectange = checkDragToZoom(zoomRegionKey, e.nativeEvent);
     if (e.touches && e.touches.length === 2) {
-      this.multiTouchDelta = getDeltaForTouches(e.touches);
+      this.multiTouchDelta = getDeltaForTouches(e.touches).delta;
     }
   }
 
   handleTouchMove = (scales, interactions) => (e) => {
-    const currentDelta = getDeltaForTouches(e.touches);
-
-    this.zoom(scales, currentDelta - this.multiTouchDelta!, null, interactions);
-    this.multiTouchDelta = currentDelta;
+    if (e.touches && e.touches.length === 2) {
+      const current = getDeltaForTouches(e.touches);
+      this.zoom(scales, current.delta - this.multiTouchDelta!, current.center, interactions);
+      this.multiTouchDelta = current.delta;
+    }
   }
 
   handleMouseMove = (scales, clientOffset, interactions) => {
@@ -73,16 +73,16 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
       return;
     }
 
-    const coords = offsetCoordinates(clientOffset, this.offset as NumberArray);
+    const coords: NumberArray = [clientOffset.x - this.offset[0], clientOffset.y - this.offset[1]];
     if (!this.lastCoordinates) {
       this.lastCoordinates = coords;
       if (this.drawRectange) {
-        this.rectangle = coords;
+        this.rectangle = { x: coords[0], y: coords[1] };
       }
       return;
     }
-    const deltaX = coords.x - this.lastCoordinates.x;
-    const deltaY = coords.y - this.lastCoordinates.y;
+    const deltaX = coords[0] - this.lastCoordinates[0];
+    const deltaY = coords[1] - this.lastCoordinates[1];
 
     this.setState(({ viewport, rectBox }, { onViewportChange }) => {
       if (this.lastCoordinates) {

@@ -1,3 +1,4 @@
+import * as Immutable from 'seamless-immutable';
 import { changeColumnOrder } from './reducers';
 
 describe('TableColumnReordering reducers', () => {
@@ -9,6 +10,10 @@ describe('TableColumnReordering reducers', () => {
       const nextOrder = changeColumnOrder(order, payload);
 
       expect(nextOrder).toEqual(['b', 'a', 'c']);
+    });
+
+    it('should work', () => {
+      expect(() => changeColumnOrder(Immutable(order), payload)).not.toThrow();
     });
   });
 });

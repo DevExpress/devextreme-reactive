@@ -45,7 +45,7 @@ export const tableRowsWithSummaries: TableRowsWithSummariesFn = (
     if (levelKey) {
       const levelIndex = levels.findIndex(level => level.levelKey === levelKey);
       if (levelIndex > -1) {
-        levels.slice(levelIndex).forEach(closeLevel);
+        levels.slice(levelIndex).reverse().forEach(closeLevel);
         levels = levels.slice(0, levelIndex);
       }
       if (!isGroupRow || !isGroupRow(row)) {

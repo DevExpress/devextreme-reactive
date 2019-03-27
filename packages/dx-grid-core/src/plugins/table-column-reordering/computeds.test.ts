@@ -1,3 +1,4 @@
+import * as Immutable from 'seamless-immutable';
 import { TABLE_DATA_TYPE } from '../table/constants';
 import { TABLE_REORDERING_TYPE } from './constants';
 import {
@@ -75,14 +76,13 @@ describe('TableColumnReordering computeds', () => {
   });
 
   describe('#draftOrder', () => {
+    const columns = [
+      { type: TABLE_DATA_TYPE, column: { name: 'a' } },
+      { type: TABLE_DATA_TYPE, column: { name: 'b' } },
+      { type: TABLE_DATA_TYPE, column: { name: 'c' } },
+      { type: TABLE_DATA_TYPE, column: { name: 'd' } },
+    ];
     it('should return reordered columns', () => {
-      const columns = [
-        { type: TABLE_DATA_TYPE, column: { name: 'a' } },
-        { type: TABLE_DATA_TYPE, column: { name: 'b' } },
-        { type: TABLE_DATA_TYPE, column: { name: 'c' } },
-        { type: TABLE_DATA_TYPE, column: { name: 'd' } },
-      ];
-
       expect(draftOrder(columns, 1, 3))
         .toEqual([
           { type: TABLE_DATA_TYPE, column: { name: 'a' } },
@@ -93,19 +93,16 @@ describe('TableColumnReordering computeds', () => {
     });
 
     it('should return the array passed if no changes are possible', () => {
-      const columns = [
-        { type: TABLE_DATA_TYPE, column: { name: 'a' } },
-        { type: TABLE_DATA_TYPE, column: { name: 'b' } },
-        { type: TABLE_DATA_TYPE, column: { name: 'c' } },
-        { type: TABLE_DATA_TYPE, column: { name: 'd' } },
-      ];
-
       expect(draftOrder(columns, -1, -1))
         .toBe(columns);
       expect(draftOrder(columns, -1, 1))
         .toBe(columns);
       expect(draftOrder(columns, 1, 1))
         .toBe(columns);
+    });
+
+    it('should work with immutable properties', () => {
+      expect(() => draftOrder(Immutable(columns), 1, 3)).not.toThrow();
     });
   });
 });

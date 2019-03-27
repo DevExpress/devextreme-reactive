@@ -1,3 +1,4 @@
+import * as Immutable from 'seamless-immutable';
 import { sortedRows } from './computeds';
 import { Sorting } from '../../types';
 
@@ -18,6 +19,12 @@ describe('IntegratedSorting computeds', () => {
 
         const sorted = sortedRows(rows, sorting, getCellValue);
         expect(sorted).toBe(rows);
+      });
+
+      it('should work with immutable properties', () => {
+        const sorting = Immutable([{ columnName: 'a', direction: 'asc' }]);
+
+        expect(() => sortedRows(rows, sorting, getCellValue)).not.toThrow();
       });
 
       it('can sort ascending by one column', () => {

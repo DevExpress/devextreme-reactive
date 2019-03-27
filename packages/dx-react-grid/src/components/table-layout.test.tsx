@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { findDOMNode } from 'react-dom';
 import { shallow, mount } from 'enzyme';
+import * as Immutable from 'seamless-immutable';
 import {
   getAnimations,
   filterActiveAnimations,
@@ -230,6 +231,19 @@ describe('TableLayout', () => {
         expect(getAnimations).toHaveBeenCalledTimes(2);
         expect(getAnimations)
           .toHaveBeenLastCalledWith(expect.anything(), expect.anything(), 400, new Map());
+      });
+
+      it('should work with immutable properties', () => {
+        const immutableColumns = Immutable([
+          { key: 'a', column: { name: 'a' }, width: 100 },
+          { key: 'b', column: { name: 'b' }, width: 100 },
+        ]);
+        expect(() => mount((
+          <TableLayout
+            {...animationDefaultProps}
+            columns={immutableColumns}
+          />
+        ))).not.toThrow();
       });
     });
   });

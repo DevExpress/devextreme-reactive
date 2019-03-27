@@ -23,8 +23,7 @@ export const tableRowsWithBands: PureComputed<
         dataColumn => !!dataColumn.column && dataColumn.column.name === column.columnName,
       ) > -1;
       if (level > acc.level && isDataColumn) {
-        acc.level = level;
-        return acc;
+        return { ...acc, level };
       }
       return acc;
     }, result || { level: 0 })

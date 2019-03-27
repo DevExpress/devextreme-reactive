@@ -1,6 +1,6 @@
 import { extent } from 'd3-array';
 import {
-  getValueDomainName, scaleLinear, scaleBand, makeScale,
+  getValueDomainName, scaleLinear, scaleBand, rangesEqual, makeScale,
 } from '../../utils/scale';
 import { ARGUMENT_DOMAIN, VALUE_DOMAIN } from '../../constants';
 import {
@@ -27,12 +27,9 @@ export const addDomain: AddDomainFn = (domains, name, options) => ({
   [name]: makeDomain(options),
 });
 
-const floatsEqual = (a: number, b: number) => Math.abs(a - b) < Number.EPSILON;
-
 const mergeContinuousDomains: MergeDomainsFn = (domain, items) => {
   const newDomain = extent([...domain, ...items]);
-  return floatsEqual(newDomain[0], domain[0]) && floatsEqual(newDomain[1], domain[1])
-    ? domain : newDomain;
+  return rangesEqual(newDomain as any, domain as any) ? domain : newDomain;
 };
 
 const mergeDiscreteDomains: MergeDomainsFn = (domain, items) => {

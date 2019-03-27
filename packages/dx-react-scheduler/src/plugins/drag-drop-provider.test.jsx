@@ -198,6 +198,99 @@ describe('DragDropProvider', () => {
       expect(tree.find('.custom-class').exists())
         .toBeTruthy();
     });
+
+    it('should render resize templates', () => {
+      const deps = {
+        template: {
+          appointmentTop: {
+            type: 'appt-top',
+            predicate: false,
+          },
+          appointmentBottom: {
+            type: 'appt-bottom',
+            predicate: false,
+          },
+        },
+      };
+      const resizeAppointment = () => <div className="custom-class" />;
+
+      const { tree, onOver } = mountPlugin({ resizeComponent: resizeAppointment }, deps);
+
+      onOver({ payload: { id: 1 }, clientOffset: 1 });
+      tree.update();
+
+      const resizeComponents = tree.find(resizeAppointment);
+      expect(resizeComponents.at(0).props())
+        .toEqual({
+          appointmentType: 'appt-bottom',
+          type: 'bottom',
+        });
+      expect(resizeComponents.at(1).props())
+        .toEqual({
+          appointmentType: 'appt-top',
+          type: 'top',
+        });
+    });
+
+    it('should wrap resize components into DragSource', () => {
+      const deps = {
+        template: {
+          appointmentTop: {
+            type: 'appt-top',
+            predicate: false,
+            data: { a: 1 },
+          },
+          appointmentBottom: {
+            type: 'appt-bottom',
+            predicate: false,
+            data: { a: 1 },
+          },
+        },
+      };
+      const resizeAppointment = () => <div className="custom-class" />;
+
+      const { tree, onOver } = mountPlugin({ resizeComponent: resizeAppointment }, deps);
+
+      onOver({ payload: { id: 1 }, clientOffset: 1 });
+      tree.update();
+
+      const resizeComponents = tree.find(DragSource);
+      expect(resizeComponents.at(0).prop('payload'))
+        .toEqual({
+          appointmentType: 'appt-bottom',
+          type: 'resize-bottom',
+          a: 1,
+        });
+      expect(resizeComponents.at(1).prop('payload'))
+        .toEqual({
+          appointmentType: 'appt-top',
+          type: 'resize-top',
+          a: 1,
+        });
+    });
+
+    it('should not render resize template of allowResize => false', () => {
+      const allowResize = jest.fn();
+      allowResize.mockImplementation(() => false);
+      const deps = {
+        template: {
+          appointmentTop: {
+            data: {},
+          },
+        },
+      };
+      const resizeAppointment = () => <div className="custom-class" />;
+
+      const { tree, onOver } = mountPlugin({ allowResize }, deps);
+
+      onOver({ payload: { id: 1 }, clientOffset: 1 });
+      tree.update();
+
+      expect(tree.find(resizeAppointment).exists())
+        .toBeFalsy();
+      expect(allowResize)
+        .toBeCalledWith(deps.template.appointmentTop.data);
+    });
   });
 
   describe('Auto Scroll', () => {

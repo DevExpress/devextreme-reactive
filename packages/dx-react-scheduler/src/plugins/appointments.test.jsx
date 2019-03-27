@@ -8,8 +8,13 @@ import { Appointments } from './appointments';
 // eslint-disable-next-line react/prop-types
 const Appointment = ({ children }) => <div>{ children }</div>;
 const AppointmentContent = () => null;
+const Slice = () => null;
+// eslint-disable-next-line react/prop-types
+const Container = ({ children }) => <div>{ children }</div>;
 
 const defaultProps = {
+  sliceComponent: Slice,
+  containerComponent: Container,
   appointmentComponent: Appointment,
   appointmentContentComponent: AppointmentContent,
 };
@@ -51,7 +56,28 @@ describe('Appointments', () => {
   afterEach(() => {
     jest.resetAllMocks();
   });
-  it('should render appointments', () => {
+  it('should render container component', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <Appointments
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    const container = tree.find(Container);
+
+    expect(container).toHaveLength(1);
+    expect(container.prop('style')).toEqual({
+      height: 150,
+      width: '60%',
+      transform: 'translateY(10px)',
+      left: '20%',
+      position: 'absolute',
+    });
+  });
+  it('should render appointment content template', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -62,19 +88,12 @@ describe('Appointments', () => {
     ));
     const appointment = tree.find(Appointment);
     const appointmentContent = tree.find(AppointmentContent);
-    const { style, data: appointmentData } = appointment.props();
+    const { data: appointmentData } = appointment.props();
     const { type, data: appointmentContentData } = appointmentContent.props();
 
     expect(appointment).toHaveLength(1);
     expect(appointmentContent).toHaveLength(1);
 
-    expect(style).toEqual({
-      height: 150,
-      width: '60%',
-      transform: 'translateY(10px)',
-      left: '20%',
-      position: 'absolute',
-    });
     expect(type).toBe('horizontal');
     expect(appointmentData.title).toBe('a');
     expect(appointmentData.endDate).toBe('2018-07-05');
@@ -83,7 +102,6 @@ describe('Appointments', () => {
     expect(appointmentContentData.endDate).toBe('2018-07-05');
     expect(appointmentContentData.startDate).toBe('2018-07-06');
   });
-
   it('should pass correct event handlers', () => {
     const appointment = mount((
       <PluginHost>
@@ -106,5 +124,132 @@ describe('Appointments', () => {
 
     expect(onClick).toBe('onClick');
     expect(onDoubleClick).toBe('onDoubleClick');
+  });
+  it('should pass correct event handlers', () => {
+    const appointment = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <Appointments
+          {...defaultProps}
+        />
+      </PluginHost>
+    )).find(Appointment);
+
+    expect(createClickHandlers)
+      .toHaveBeenCalledWith(
+        defaultDeps.template.appointment.onClick,
+        defaultDeps.template.appointment.onDoubleClick,
+      );
+
+    const {
+      onClick, onDoubleClick,
+    } = appointment.props();
+
+    expect(onClick).toBe('onClick');
+    expect(onDoubleClick).toBe('onDoubleClick');
+  });
+  it('should render define appointmentTop template', () => {
+    const deps = {
+      template: {
+        appointment: {
+          leftSlice: true,
+          type: 'horizontal',
+          data: {},
+        },
+      },
+    };
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps, deps)}
+        <Appointments
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    const appointmentTop = tree.findWhere(node => node.prop('name') === 'appointmentTop').at(0);
+
+    expect(appointmentTop.prop('params')).toEqual({
+      slice: true,
+      type: 'horizontal',
+      data: {},
+    });
+  });
+  it('should render define appointmentBottom template', () => {
+    const deps = {
+      template: {
+        appointment: {
+          rightSlice: true,
+          type: 'horizontal',
+          data: {},
+        },
+      },
+    };
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps, deps)}
+        <Appointments
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    const appointmentTop = tree.findWhere(node => node.prop('name') === 'appointmentBottom').at(0);
+
+    expect(appointmentTop.prop('params')).toEqual({
+      slice: true,
+      type: 'horizontal',
+      data: {},
+    });
+  });
+  it('should render slice top component', () => {
+    const deps = {
+      template: {
+        appointment: {
+          leftSlice: true,
+          type: 'horizontal',
+        },
+      },
+    };
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps, deps)}
+        <Appointments
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    const slice = tree.find(Slice);
+
+    expect(slice.props()).toEqual({
+      position: 'top',
+      appointmentType: 'horizontal',
+    });
+  });
+  it('should render slice bottom component', () => {
+    const deps = {
+      template: {
+        appointment: {
+          rightSlice: true,
+          type: 'horizontal',
+        },
+      },
+    };
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps, deps)}
+        <Appointments
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    const slice = tree.find(Slice);
+
+    expect(slice.props()).toEqual({
+      position: 'bottom',
+      appointmentType: 'horizontal',
+    });
   });
 });

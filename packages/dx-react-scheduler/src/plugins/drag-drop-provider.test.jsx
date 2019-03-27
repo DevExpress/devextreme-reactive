@@ -69,7 +69,7 @@ const defaultDeps = {
   },
   template: {
     body: {},
-    appointment: {
+    appointmentContent: {
       data: 'appointment data',
     },
     allDayPanel: {},
@@ -79,6 +79,7 @@ const defaultDeps = {
 };
 
 const defaultProps = {
+  resizeComponent: () => null,
   draftAppointmentComponent: () => null,
   sourceAppointmentComponent: () => null,
   // eslint-disable-next-line react/prop-types, react/jsx-one-expression-per-line
@@ -180,7 +181,7 @@ describe('DragDropProvider', () => {
     it('should render source appointment template', () => {
       const deps = {
         template: {
-          appointment: {
+          appointmentContent: {
             data: {
               id: 1,
             },

@@ -118,7 +118,7 @@ export class DragDropProvider extends React.PureComponent {
     );
     this.appointmentStartTime = appointmentStartTime || this.appointmentStartTime;
     this.appointmentEndTime = appointmentEndTime || this.appointmentEndTime;
-    this.offsetTimeTop = offsetTimeTop || this.offsetTimeTop;
+    this.offsetTimeTop = offsetTimeTop;
 
     const { startTime, endTime } = this.state;
     if (moment(startTime).isSame(this.appointmentStartTime)

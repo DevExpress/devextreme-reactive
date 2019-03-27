@@ -63,54 +63,28 @@ export const autoScroll: PureComputed<
   }
 };
 
-export const calculateAppointmentTimeBoundaries: CalculateAppointmentTimeBoundaries = (
-  payload, targetData, targetType,
-  cellDurationMinutes, insidePart, offsetTimeTopBase,
+const timeBoundariesByResize = (
+  payload: any, targetData: any, targetType: any,
+  cellDurationMinutes: any, insidePart: any,
 ) => {
-  const appointmentDurationSeconds = intervalDuration(payload, SECONDS);
-  const sourceType = payload.type;
-  const insideOffset = targetType === VERTICAL_TYPE ? insidePart * cellDurationMinutes * 60 / 2 : 0;
-  let offsetTimeTop;
-
-  if (offsetTimeTopBase === null) {
-    if (targetType === VERTICAL_TYPE) {
-      offsetTimeTop = moment(targetData.startDate as Date)
-        .diff(payload.startDate as Date, SECONDS) + insideOffset;
-    } else {
-      offsetTimeTop = moment(targetData.startDate as Date)
-        .diff(payload.startDate as Date, 'days') * 24 * 60 * 60 + insideOffset;
-    }
-  } else {
-    offsetTimeTop = offsetTimeTopBase;
-  }
-
-  const start = moment(targetData.startDate as Date).add(insideOffset, SECONDS);
-  const end = moment(start);
+  if (targetType !== payload.appointmentType) return {};
 
   let appointmentStartTime;
   let appointmentEndTime;
-  if (sourceType === VERTICAL_TYPE || sourceType === HORIZONTAL_TYPE) {
-    if (sourceType === targetType) {
-      appointmentStartTime = moment(start).add((offsetTimeTop) * (-1), SECONDS).toDate();
-      appointmentEndTime = moment(end)
-        .add((appointmentDurationSeconds - offsetTimeTop), SECONDS).toDate();
-    } else {
-      appointmentStartTime = moment(targetData.startDate as Date).add(insideOffset, SECONDS).toDate();
-      appointmentEndTime = moment(targetData.endDate as Date).add(insideOffset, SECONDS).toDate();
-    }
-  }
+  const sourceType = payload.type;
 
   if (sourceType === 'resize-top') {
-    if (targetType === payload.appointmentType) {
-      appointmentStartTime = moment(targetData.startDate as Date).add(insideOffset, SECONDS).toDate();
-    }
+    const insideTopOffset = targetType === VERTICAL_TYPE
+      ? insidePart * cellDurationMinutes * 60 / 2 : 0;
+    appointmentStartTime = moment(targetData.startDate as Date)
+      .add(insideTopOffset, SECONDS).toDate();
     appointmentEndTime = moment(payload.endDate as Date).toDate();
   }
   if (sourceType === 'resize-bottom') {
-    if (targetType === payload.appointmentType) {
-      const insideOffsetResize = insidePart === 0 ? cellDurationMinutes * 60 / 2 : 0;
-      appointmentEndTime = moment(targetData.endDate as Date).add(-insideOffsetResize, SECONDS).toDate();
-    }
+    const insideBottomOffset = insidePart === 0 && targetType === VERTICAL_TYPE
+      ? cellDurationMinutes * 60 / 2 : 0;
+    appointmentEndTime = moment(targetData.endDate as Date)
+      .add(-insideBottomOffset, SECONDS).toDate();
     appointmentStartTime = moment(payload.startDate as Date).toDate();
   }
   // keep origin appointment duration if coordinates are wrong
@@ -118,12 +92,54 @@ export const calculateAppointmentTimeBoundaries: CalculateAppointmentTimeBoundar
     appointmentStartTime = moment(payload.startDate as Date).toDate();
     appointmentEndTime = moment(payload.endDate as Date).toDate();
   }
+  return { appointmentStartTime, appointmentEndTime };
+};
 
-  return {
-    appointmentStartTime,
-    appointmentEndTime,
-    offsetTimeTop,
-  };
+export const timeBoundariesByDrag = (
+  payload: any, targetData: any, targetType: any,
+  cellDurationMinutes: any, insidePart: any, offsetTimeTopBase: any,
+) => {
+  let offsetTimeTop;
+  let appointmentStartTime;
+  let appointmentEndTime;
+
+  const insideOffset = targetType === VERTICAL_TYPE ? insidePart * cellDurationMinutes * 60 / 2 : 0;
+  const start = moment(targetData.startDate as Date).add(insideOffset, SECONDS);
+  const end = moment(start);
+
+  if (offsetTimeTopBase === null) {
+    offsetTimeTop = moment(targetData.startDate as Date)
+      .diff(payload.startDate as Date, SECONDS) + insideOffset;
+  } else {
+    offsetTimeTop = offsetTimeTopBase;
+  }
+
+  if (payload.type === targetType) {
+    const appointmentDurationSeconds = intervalDuration(payload, SECONDS);
+    appointmentStartTime = moment(start).add((offsetTimeTop) * (-1), SECONDS).toDate();
+    appointmentEndTime = moment(end)
+      .add((appointmentDurationSeconds - offsetTimeTop), SECONDS).toDate();
+  } else {
+    appointmentStartTime = moment(targetData.startDate as Date)
+      .add(insideOffset, SECONDS).toDate();
+    appointmentEndTime = moment(targetData.endDate as Date).add(insideOffset, SECONDS).toDate();
+  }
+
+  return { appointmentStartTime, appointmentEndTime, offsetTimeTop };
+};
+
+export const calculateAppointmentTimeBoundaries: CalculateAppointmentTimeBoundaries = (
+  payload, targetData, targetType,
+  cellDurationMinutes, insidePart, offsetTimeTopBase,
+) => {
+  const isDragging = (payload.type === VERTICAL_TYPE || payload.type === HORIZONTAL_TYPE);
+
+  return(isDragging
+    ? timeBoundariesByDrag(
+        payload, targetData, targetType, cellDurationMinutes, insidePart, offsetTimeTopBase,
+      )
+    : timeBoundariesByResize(payload, targetData, targetType, cellDurationMinutes, insidePart)
+  );
 };
 
 export const calculateInsidePart: PureComputed<
@@ -141,35 +157,30 @@ export const calculateDraftAppointments = (
   endViewDate: Date, excludedDays: number[], viewCellsData: any, allDayCells: any,
   targetType: string, cellDurationMinutes: number, timeTableCells: any,
 ) => {
-  let allDayDraftAppointments: any = [];
-  let timeTableDraftAppointments: any = [];
-
-  if (allDayIndex !== -1 || (allDayCells.length && intervalDuration(draftAppointments[0].dataItem, 'hours') > 23)) {
-    allDayDraftAppointments = allDayRects(
-      draftAppointments, startViewDate, endViewDate, excludedDays, viewCellsData, allDayCells,
-    );
-  } else {
-    allDayDraftAppointments = [];
+  if (allDayIndex !== -1
+    || (allDayCells.length && intervalDuration(draftAppointments[0].dataItem, 'hours') > 23)) {
+    return {
+      allDayDraftAppointments: allDayRects(
+        draftAppointments, startViewDate, endViewDate, excludedDays, viewCellsData, allDayCells,
+      ),
+      timeTableDraftAppointments: [],
+    };
   }
 
-  if (timeTableIndex !== -1 || allDayIndex !== -1) {
-    if (targetType === VERTICAL_TYPE || allDayIndex !== -1) {
-      timeTableDraftAppointments = verticalTimeTableRects(
+  if (targetType === VERTICAL_TYPE || allDayIndex !== -1) {
+    return {
+      allDayDraftAppointments: [],
+      timeTableDraftAppointments: verticalTimeTableRects(
         draftAppointments, startViewDate, endViewDate,
         excludedDays, viewCellsData, cellDurationMinutes, timeTableCells,
-      );
-    } else {
-      timeTableDraftAppointments = horizontalTimeTableRects(
-        draftAppointments, startViewDate, endViewDate,
-        viewCellsData, timeTableCells,
-      );
-    }
-  } else {
-    timeTableDraftAppointments = [];
+      ),
+    };
   }
-
   return {
-    allDayDraftAppointments,
-    timeTableDraftAppointments,
+    allDayDraftAppointments: [],
+    timeTableDraftAppointments: horizontalTimeTableRects(
+      draftAppointments, startViewDate, endViewDate,
+      viewCellsData, timeTableCells,
+    ),
   };
 };

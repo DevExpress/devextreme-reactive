@@ -1,6 +1,6 @@
 import {
   intervalDuration, cellIndex, cellData, autoScroll, cellType,
-  calculateAppointmentTimeBoundaries, calculateInsidePart,
+  timeBoundariesByDrag, calculateInsidePart,
   calculateDraftAppointments,
 } from './helpers';
 import {
@@ -81,6 +81,11 @@ describe('DragDropProvider', () => {
         .toEqual(0);
     });
 
+    it('should work without array', () => {
+      expect(cellIndex([], { x: 10, y: 10 }))
+        .toEqual(-1);
+    });
+
     it('should take only one cell by condition', () => {
       expect(cellIndex(cells as Element[], { x: 50, y: 10 }))
         .toEqual(0);
@@ -148,7 +153,7 @@ describe('DragDropProvider', () => {
     });
   });
 
-  describe('#calculateAppointmentTimeBoundaries', () => {
+  describe('#timeBoundariesByDrag', () => {
     it('should work with vertical appointment and vertical cell', () => {
       const payload = {
         type: 'vertical',
@@ -163,7 +168,7 @@ describe('DragDropProvider', () => {
       const insidePart = 0;
       const offsetTimeTopBase = null;
 
-      const result = calculateAppointmentTimeBoundaries(
+      const result = timeBoundariesByDrag(
         payload, targetData, targetType,
         cellDurationMinutes, insidePart, offsetTimeTopBase,
       );
@@ -188,7 +193,7 @@ describe('DragDropProvider', () => {
       const insidePart = 0;
       const offsetTimeTopBase = null;
 
-      const result = calculateAppointmentTimeBoundaries(
+      const result = timeBoundariesByDrag(
         payload, targetData, targetType,
         cellDurationMinutes, insidePart, offsetTimeTopBase,
       );
@@ -213,7 +218,7 @@ describe('DragDropProvider', () => {
       const insidePart = 0;
       const offsetTimeTopBase = null;
 
-      const result = calculateAppointmentTimeBoundaries(
+      const result = timeBoundariesByDrag(
         payload, targetData, targetType,
         cellDurationMinutes, insidePart, offsetTimeTopBase,
       );
@@ -221,7 +226,7 @@ describe('DragDropProvider', () => {
         .toEqual({
           appointmentStartTime: new Date('2018-06-25'),
           appointmentEndTime: new Date('2018-06-26'),
-          offsetTimeTop: 1209600,
+          offsetTimeTop: 1270800,
         });
     });
     it('should work with horizontal appointment and vertical cell', () => {
@@ -238,7 +243,7 @@ describe('DragDropProvider', () => {
       const insidePart = 0;
       const offsetTimeTopBase = null;
 
-      const result = calculateAppointmentTimeBoundaries(
+      const result = timeBoundariesByDrag(
         payload, targetData, targetType,
         cellDurationMinutes, insidePart, offsetTimeTopBase,
       );

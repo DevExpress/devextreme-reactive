@@ -22,12 +22,20 @@ export type HorizontalRects = PureComputed<
 >;
 
 type AppointmentBoundaries = {
-  appointmentStartTime: Date | any | undefined,
-  appointmentEndTime: Date | any | undefined,
-  offsetTimeTop: number | any,
+  appointmentStartTime: Date | undefined,
+  appointmentEndTime: Date | undefined,
+  offsetTimeTop?: number | any,
 };
 
 export type CalculateAppointmentTimeBoundaries = PureComputed<
   [AppointmentModel, AppointmentModel, string, number, number, number],
-  AppointmentBoundaries | any
+  AppointmentBoundaries
+>;
+
+export type TimeBoundariesByDrag = PureComputed<
+  [AppointmentModel, AppointmentModel,  string, number, number, number], AppointmentBoundaries
+>;
+
+export type TimeBoundariesByResize = PureComputed<
+  [AppointmentModel, AppointmentModel,  string, number, number], AppointmentBoundaries
 >;

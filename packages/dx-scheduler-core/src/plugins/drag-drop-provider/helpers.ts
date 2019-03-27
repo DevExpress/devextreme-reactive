@@ -3,6 +3,7 @@ import { PureComputed } from '@devexpress/dx-core';
 import {
   ViewCell, AppointmentModel, ClientOffset, TimeType,
   AllDayCell, CalculateAppointmentTimeBoundaries,
+  TimeBoundariesByDrag, TimeBoundariesByResize,
 } from '../../types';
 import { allDayCells as allDayCellsCore } from '../common/computeds';
 import {
@@ -63,9 +64,8 @@ export const autoScroll: PureComputed<
   }
 };
 
-export const timeBoundariesByResize = (
-  payload: any, targetData: any, targetType: any,
-  cellDurationMinutes: any, insidePart: any,
+export const timeBoundariesByResize: TimeBoundariesByResize = (
+  payload, targetData, targetType, cellDurationMinutes, insidePart,
 ) => {
   if (targetType !== payload.appointmentType) {
     return { appointmentStartTime: undefined, appointmentEndTime: undefined };
@@ -97,9 +97,9 @@ export const timeBoundariesByResize = (
   return { appointmentStartTime, appointmentEndTime };
 };
 
-export const timeBoundariesByDrag = (
-  payload: any, targetData: any, targetType: any,
-  cellDurationMinutes: any, insidePart: any, offsetTimeTopBase: any,
+export const timeBoundariesByDrag: TimeBoundariesByDrag = (
+  payload, targetData, targetType,
+  cellDurationMinutes, insidePart, offsetTimeTopBase,
 ) => {
   let offsetTimeTop;
   let appointmentStartTime;

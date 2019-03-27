@@ -157,14 +157,14 @@ describe('DragDropProvider', () => {
       expect(tree.find(TemplatePlaceholder).findWhere(element => element.prop('params') && element.prop('params').draggable === true).exists())
         .toBeTruthy();
     });
-    it('should not wrap appointment into drag source by predicate', () => {
-      const predicate = jest.fn();
-      predicate.mockImplementation(() => false);
-      const tree = renderPlugin({ allowDrag: predicate });
+    it('should not wrap appointment into drag source by allowDrag', () => {
+      const allowDrag = jest.fn();
+      allowDrag.mockImplementation(() => false);
+      const tree = renderPlugin({ allowDrag });
 
       expect(tree.find(DragSource).exists())
         .toBeFalsy();
-      expect(predicate)
+      expect(allowDrag)
         .toBeCalledWith('appointment data');
     });
     it('should render draft appointment template', () => {
@@ -204,11 +204,11 @@ describe('DragDropProvider', () => {
         template: {
           appointmentTop: {
             type: 'appt-top',
-            predicate: false,
+            slice: false,
           },
           appointmentBottom: {
             type: 'appt-bottom',
-            predicate: false,
+            slice: false,
           },
         },
       };
@@ -237,12 +237,12 @@ describe('DragDropProvider', () => {
         template: {
           appointmentTop: {
             type: 'appt-top',
-            predicate: false,
+            slice: false,
             data: { a: 1 },
           },
           appointmentBottom: {
             type: 'appt-bottom',
-            predicate: false,
+            slice: false,
             data: { a: 1 },
           },
         },

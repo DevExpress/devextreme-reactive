@@ -30,9 +30,9 @@ export class Appointments extends React.PureComponent {
         >
           {params => (
             <Container style={params.style}>
-              <TemplatePlaceholder name="appointmentTop" params={{ data: params.data, type: params.type, predicate: params.leftSlice }} />
+              <TemplatePlaceholder name="appointmentTop" params={{ data: params.data, type: params.type, slice: params.leftSlice }} />
               <TemplatePlaceholder name="appointmentContent" params={params} />
-              <TemplatePlaceholder name="appointmentBottom" params={{ data: params.data, type: params.type, predicate: params.rightSlice }} />
+              <TemplatePlaceholder name="appointmentBottom" params={{ data: params.data, type: params.type, slice: params.rightSlice }} />
             </Container>
           )}
         </Template>

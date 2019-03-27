@@ -232,7 +232,7 @@ export class DragDropProvider extends React.PureComponent {
 
         <Template
           name="appointmentTop"
-          predicate={params => !params.predicate && allowResize(params.data)}
+          predicate={params => !params.slice && allowResize(params.data)}
         >
           {({ data, type }) => (
             <DragSource
@@ -245,7 +245,7 @@ export class DragDropProvider extends React.PureComponent {
 
         <Template
           name="appointmentBottom"
-          predicate={params => !params.predicate && allowResize(params.data)}
+          predicate={params => !params.slice && allowResize(params.data)}
         >
           {({ data, type }) => (
             <DragSource

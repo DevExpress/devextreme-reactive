@@ -249,6 +249,7 @@ describe('Axis', () => {
       tickSize: 5,
       tickFormat: mockTickFormat,
       indentFromAxis: 10,
+      paneSize: [0, 0],
     });
     expect(createTickFilter).toBeCalledWith([0, 0]);
   });
@@ -269,6 +270,7 @@ describe('Axis', () => {
       position: 'bottom',
       tickSize: 6,
       indentFromAxis: 3,
+      paneSize: [0, 0],
     });
     expect(createTickFilter).toBeCalledWith([0, 0]);
   });

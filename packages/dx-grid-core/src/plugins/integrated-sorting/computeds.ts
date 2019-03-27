@@ -22,27 +22,22 @@ const defaultCompare = (a: any, b: any) => {
 
 const createCompare: CreateCompareFn = (
   sorting, getColumnCompare, getComparableValue,
-) => sorting.slice()
-  .reverse()
-  .reduce(
-    (prevCompare, columnSorting) => {
-      const { columnName } = columnSorting;
-      const inverse = columnSorting.direction === 'desc';
-      const columnCompare = (getColumnCompare && getColumnCompare(columnName)) || defaultCompare;
+) => sorting.reduceRight((prevCompare, columnSorting) => {
+  const { columnName } = columnSorting;
+  const inverse = columnSorting.direction === 'desc';
+  const columnCompare = (getColumnCompare && getColumnCompare(columnName)) || defaultCompare;
 
-      return (aRow: Row, bRow: Row) => {
-        const a = getComparableValue(aRow, columnName);
-        const b = getComparableValue(bRow, columnName);
-        const result = columnCompare(a, b);
+  return (aRow: Row, bRow: Row) => {
+    const a = getComparableValue(aRow, columnName);
+    const b = getComparableValue(bRow, columnName);
+    const result = columnCompare(a, b);
 
-        if (result !== 0) {
-          return inverse ? -result : result;
-        }
-        return prevCompare(aRow, bRow);
-      };
-    },
-    (...args: any[]) => 0,
-  );
+    if (result !== 0) {
+      return inverse ? -result : result;
+    }
+    return prevCompare(aRow, bRow);
+  };
+}, (...args: any[]) => 0);
 
 const sortTree: PureComputed<[TreeNode[], CompareFn]> = (tree, compare) => {
   const sortedTree = tree.map((node) => {

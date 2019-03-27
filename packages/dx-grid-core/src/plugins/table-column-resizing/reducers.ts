@@ -1,10 +1,11 @@
+import { slice } from '@devexpress/dx-core';
 import { ColumnWidthReducer } from '../../types';
 
 export const changeTableColumnWidth: ColumnWidthReducer = (
   state, { columnName, shift, minColumnWidth ,
 }) => {
   const { columnWidths } = state;
-  const nextColumnWidth = columnWidths.slice();
+  const nextColumnWidth = slice(columnWidths);
   const index = nextColumnWidth.findIndex(elem => elem.columnName === columnName);
   const updatedColumn = nextColumnWidth[index];
   const size = Math.max(minColumnWidth, updatedColumn.width + shift);

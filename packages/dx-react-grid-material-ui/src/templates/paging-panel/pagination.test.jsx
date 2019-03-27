@@ -133,14 +133,14 @@ describe('Pagination', () => {
         onCurrentPageChange,
       }).find('IconButton');
 
-      const prew = arrows.at(0);
+      const prev = arrows.at(0);
       const next = arrows.at(1);
 
-      prew.simulate('click');
+      prev.simulate('click');
       next.simulate('click');
 
       expect(arrows).toHaveLength(2);
-      expect(prew.props().disabled).toBeFalsy();
+      expect(prev.props().disabled).toBeFalsy();
       expect(next.props().disabled).toBeFalsy();
       expect(onCurrentPageChange.mock.calls).toHaveLength(2);
     });
@@ -155,13 +155,13 @@ describe('Pagination', () => {
         onCurrentPageChange,
       }).find('IconButton');
 
-      const prew = arrows.at(0);
+      const prev = arrows.at(0);
       const next = arrows.at(1);
 
-      prew.simulate('click');
+      prev.simulate('click');
       next.simulate('click');
 
-      expect(prew.props().disabled).toBeTruthy();
+      expect(prev.props().disabled).toBeTruthy();
       expect(next.props().disabled).toBeFalsy();
       expect(onCurrentPageChange.mock.calls).toHaveLength(1);
     });
@@ -176,15 +176,29 @@ describe('Pagination', () => {
         onCurrentPageChange,
       }).find('IconButton');
 
-      const prew = arrows.at(0);
+      const prev = arrows.at(0);
       const next = arrows.at(1);
 
-      prew.simulate('click');
+      prev.simulate('click');
       next.simulate('click');
 
-      expect(prew.props().disabled).toBeFalsy();
+      expect(prev.props().disabled).toBeFalsy();
       expect(next.props().disabled).toBeTruthy();
       expect(onCurrentPageChange.mock.calls).toHaveLength(1);
+    });
+
+    it('should render aria-labels', () => {
+      const arrows = mountPagination({
+        totalPages: 10,
+        currentPage: 9,
+        totalCount: 96,
+        pageSize: 5,
+      }).find('IconButton');
+      const prev = arrows.at(0);
+      const next = arrows.at(1);
+
+      expect(prev.prop('aria-label')).toBe('Previous');
+      expect(next.prop('aria-label')).toBe('Next');
     });
   });
 });

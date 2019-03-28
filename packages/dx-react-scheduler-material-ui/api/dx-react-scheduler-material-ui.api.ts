@@ -148,13 +148,19 @@ namespace Appointments {
 
 // @public
 declare const Appointments: React.ComponentType<AppointmentsProps> & {
-  sliceComponent: Appointments_2.SliceProps;
-  containerComponent: Appointments_2.ContainerProps;
   Appointment: React.ComponentType<Appointments_2.AppointmentProps & { // (undocumented)
  className?: string; // (undocumented)
  style?: React.CSSProperties; // (undocumented)
  [x: string]: any }>;
   AppointmentContent: React.ComponentType<Appointments_2.AppointmentContentProps & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  Slice: React.ComponentType<Appointments_2.SliceProps & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  Container: React.ComponentType<Appointments_2.ContainerProps & { // (undocumented)
  className?: string; // (undocumented)
  style?: React.CSSProperties; // (undocumented)
  [x: string]: any }>;

@@ -7,11 +7,6 @@ import {
   WeekView,
   Appointments,
   DragDropProvider,
-  AllDayPanel,
-  Toolbar,
-  ViewSwitcher,
-  MonthView,
-  DayView,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { appointments } from '../../../demo-data/appointments';
 
@@ -72,17 +67,9 @@ export default class Demo extends React.PureComponent {
             startDayHour={9}
             endDayHour={19}
           />
-          <MonthView />
-          <DayView
-            startDayHour={9}
-            endDayHour={19}
-          />
           <Appointments
             appointmentComponent={appointmentComponent}
           />
-          <AllDayPanel />
-          <Toolbar />
-          <ViewSwitcher />
 
           <DragDropProvider
             allowDrag={allowDrag}

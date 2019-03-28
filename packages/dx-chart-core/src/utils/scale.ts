@@ -169,41 +169,47 @@ const growLinearScaleBounds = (
   return rangesEqual(bounds, newBounds) ? bounds : newBounds;
 };
 
-// Let it be always 1 for now.
-const adjustBandScaleGrowStep = (delta: number, step: number) => {
-  return Math.sign(delta) * Math.sign(step);
-};
-
-const adjustAnchoredBandStep = (step: number, t: number) => Math.round(2 * t * step);
-
 const growBandScaleBounds = (
   scale: ScaleObject, bounds: DomainBounds, delta: number, anchor: number,
 ): DomainBounds => {
   const domain = scale.domain();
   const fullRange = scale.range();
   const step = (fullRange[1] - fullRange[0]) / domain.length;
-  const rangeStep = adjustBandScaleGrowStep(delta, step);
-  if (rangeStep === 0) {
-    return bounds;
-  }
   const range = scaleBounds(scale, bounds);
   const range0 = Math.round((range[0] - fullRange[0]) / step);
   const range1 = range0 + Math.round((range[1] - range[0]) / step) - 1;
+  // Let it be always 1 for now.
+  const rangeStep = Math.sign(delta);
+  if (
+    (rangeStep === 0) ||
+    (rangeStep > 0 && range0 === range1) ||
+    (rangeStep < 0 && range0 === 0 && range1 === domain.length - 1)
+  ) {
+    return bounds;
+  }
   const t = Math.abs((anchor - range[0]) / (range[1] - range[0]));
-  let new0 = range0 + adjustAnchoredBandStep(rangeStep, t);
-  let new1 = range1 - adjustAnchoredBandStep(rangeStep, 1 - t);
+  let new0 = range0 + Math.round(rangeStep * 2 * t);
+  let new1 = range1 - Math.round(rangeStep * 2 * (1 - t));
   if (new0 < 0) {
     new0 = 0;
   }
   if (new1 > domain.length - 1) {
     new1 = domain.length - 1;
   }
-  if ((new0 === range0 && new1 === range1) || new0 > new1) {
+  if (new0 > new1) {
+    if (t <= 0.5) {
+      new1 = new0;
+    } else {
+      new0 = new1;
+    }
+  }
+  if (new0 === range0 && new1 === range1) {
     return bounds;
   }
   return [domain[new0], domain[new1]];
 };
 
+// "scaleBounds" would be a better name but "scale" is already occupied.
 /** @internal */
 export const growBounds = (
   scale: ScaleObject, bounds: DomainBounds, delta: number, anchor: number,

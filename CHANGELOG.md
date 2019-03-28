@@ -1,3 +1,20 @@
+# [1.10.5](https://github.com/DevExpress/devextreme-reactive/compare/v1.10.4...v1.10.5) (2019-03-28)
+
+
+### Bug Fixes
+
+* **grid-core:** fix group summary rows order ([#1926](https://github.com/DevExpress/devextreme-reactive/issues/1926)) ([d5a97f8](https://github.com/DevExpress/devextreme-reactive/commit/d5a97f8))
+* **react-chart:** fix generated dts ([#1927](https://github.com/DevExpress/devextreme-reactive/issues/1927)) ([1937b19](https://github.com/DevExpress/devextreme-reactive/commit/1937b19))
+* **react-core:** ensure onSizeChange is triggered when browser zoom less than 100 ([#1900](https://github.com/DevExpress/devextreme-reactive/issues/1900)) ([c107311](https://github.com/DevExpress/devextreme-reactive/commit/c107311))
+* **react-grid-bootstrap4:** correct Popover prop types ([#1901](https://github.com/DevExpress/devextreme-reactive/issues/1901)) ([adcd2e5](https://github.com/DevExpress/devextreme-reactive/commit/adcd2e5))
+
+
+### Features
+
+* **react-grid:** add aria-labels for pager buttons ([#1906](https://github.com/DevExpress/devextreme-reactive/issues/1906)) ([f370826](https://github.com/DevExpress/devextreme-reactive/commit/f370826))
+
+
+
 # [1.10.4](https://github.com/DevExpress/devextreme-reactive/compare/v1.10.3...v1.10.4) (2019-03-11)
 
 

@@ -98,23 +98,31 @@ const moveLinearScaleBounds = (
   return rangesEqual(bounds, newBounds) ? bounds : newBounds;
 };
 
+// This is pointer "delta" processing specific for "band" scale.
+// If pointer delta is significantly smaller than band size (0.3) then movement should be skipped
+// and current delta should be added to a next one (from a new "move" event).
+// Now there is no code that accumulates deltas.
+// In order to allow band scrolling at least somehow the following is applied - if pointer delta
+// is at least greater than 30 pixel then minimal movement is performed.
+// TODO: Make proper delta accumulation!
 const adjustBandScaleMoveStep = (delta: number, step: number) => {
-  const sign = Math.sign(step);
-  const val = delta / step;
-  if (val < 0.3) {
-    return 0;
+  const ratio = Math.abs(delta / step);
+  const sign = Math.sign(delta / step);
+  if (ratio >= 0.5) {
+    return sign * Math.round(ratio);
   }
-  if (val < 0.5) {
+  if (ratio >= 0.3) {
     return sign;
   }
-  return Math.round(val) * sign;
+  if (Math.abs(delta) > 30) {
+    return sign;
+  }
+  return 0;
 };
 
-// Band case is processed separately to preserve to preserve categories amount in the bounds range.
+// Band case is processed separately to preserve categories amount in the bounds range.
 // If common inversion mechanism is used start and end bounds cannot be inverted independently
 // because of rounding issues which may add or remove categories to the new bounds.
-// Another reason is step processing - while small values (less than 0.3) can be discarded, ones
-// that are not so small but not big enough to be rounded up, cannot.
 const moveBandScaleBounds = (
   scale: ScaleObject, bounds: DomainBounds, delta: number,
 ): DomainBounds => {
@@ -128,8 +136,8 @@ const moveBandScaleBounds = (
   const range = scaleBounds(scale, bounds);
   const range0 = Math.round((range[0] - fullRange[0]) / step);
   const range1 = range0 + Math.round((range[1] - range[0]) / step) - 1;
-  let new0 = range0 + rangeStep;
-  let new1 = range1 + rangeStep;
+  let new0 = range0 - rangeStep;
+  let new1 = range1 - rangeStep;
   if (new0 < 0) {
     new0 = 0;
     new1 = new0 + range1 - range0;

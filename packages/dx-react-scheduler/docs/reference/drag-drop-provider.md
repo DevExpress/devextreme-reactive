@@ -49,6 +49,8 @@ Field | Type | Description
 data | [AppointmentModel](./scheduler.md#appointmentmodel) | Specifies the appointment's data.
 style | object | Configures the appointment's geometry and position.
 type | string | Specifies the appointment's type.
+leftSlice | boolean | True if an appointment does not start on the current view.
+rightSlice | boolean | True if an appointment does not end on the current view.
 
 ### DragDropProvider.SourceAppointmentProps
 
@@ -57,7 +59,6 @@ Describes properties of the component that renders a copy of the appointment bei
 Field | Type | Description
 ------|------|------------
 data | [AppointmentModel](./scheduler.md#appointmentmodel) | Specifies the appointment's data.
-style | object | Configures the appointment's geometry and position.
 type | string | Specifies the appointment's type.
 
 ### DragDropProvider.ResizeProps
@@ -66,8 +67,8 @@ Describes properties of the component that renders a handler of resize appointme
 
 Field | Type | Description
 ------|------|------------
-position | 'top' 'bottom' | Specifies a position for handler of resize.
-appointmentType | 'horizontal' | 'vertical' | Specifies an appointment type.
+position | string | Specifies a position for handler of resize.
+appointmentType | string | Specifies an appointment type.
 
 ### DragDropProvider.ContainerProps
 

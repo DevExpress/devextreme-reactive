@@ -7,7 +7,8 @@ import {
 } from '../../types';
 import { allDayCells as allDayCellsCore } from '../common/computeds';
 import {
-  VERTICAL_TYPE, HORIZONTAL_TYPE, SCROLL_OFFSET, SCROLL_SPEED_PX, SECONDS,
+  VERTICAL_TYPE, HORIZONTAL_TYPE, SCROLL_OFFSET, MINUTES,
+  SCROLL_SPEED_PX, SECONDS, RESIZE_TOP, RESIZE_BOTTOM, HOURS,
 } from '../../constants';
 import { allDayRects, horizontalTimeTableRects, verticalTimeTableRects } from './calculate-rects';
 
@@ -75,14 +76,14 @@ export const timeBoundariesByResize: TimeBoundariesByResize = (
   let appointmentEndTime;
   const sourceType = payload.type;
 
-  if (sourceType === 'resize-top') {
+  if (sourceType === RESIZE_TOP) {
     const insideTopOffset = targetType === VERTICAL_TYPE
       ? insidePart * cellDurationMinutes * 60 / 2 : 0;
     appointmentStartTime = moment(targetData.startDate as Date)
       .add(insideTopOffset, SECONDS).toDate();
     appointmentEndTime = moment(payload.endDate as Date).toDate();
   }
-  if (sourceType === 'resize-bottom') {
+  if (sourceType === RESIZE_BOTTOM) {
     const insideBottomOffset = insidePart === 0 && targetType === VERTICAL_TYPE
       ? cellDurationMinutes * 60 / 2 : 0;
     appointmentEndTime = moment(targetData.endDate as Date)
@@ -90,7 +91,7 @@ export const timeBoundariesByResize: TimeBoundariesByResize = (
     appointmentStartTime = moment(payload.startDate as Date).toDate();
   }
   // keep origin appointment duration if coordinates are wrong
-  if (moment(appointmentEndTime).diff(appointmentStartTime, 'minutes') < 1) {
+  if (moment(appointmentEndTime).diff(appointmentStartTime, MINUTES) < 1) {
     appointmentStartTime = moment(payload.startDate as Date).toDate();
     appointmentEndTime = moment(payload.endDate as Date).toDate();
   }
@@ -160,7 +161,7 @@ export const calculateDraftAppointments = (
   targetType: string, cellDurationMinutes: number, timeTableCells: any,
 ) => {
   if (allDayIndex !== -1
-    || (allDayCells.length && intervalDuration(draftAppointments[0].dataItem, 'hours') > 23)) {
+    || (allDayCells.length && intervalDuration(draftAppointments[0].dataItem, HOURS) > 23)) {
     return {
       allDayDraftAppointments: allDayRects(
         draftAppointments, startViewDate, endViewDate, excludedDays, viewCellsData, allDayCells,

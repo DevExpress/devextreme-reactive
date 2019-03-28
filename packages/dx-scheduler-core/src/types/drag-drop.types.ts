@@ -24,7 +24,7 @@ export type HorizontalRects = PureComputed<
 type AppointmentBoundaries = {
   appointmentStartTime: Date | undefined,
   appointmentEndTime: Date | undefined,
-  offsetTimeTop?: number | any,
+  offsetTimeTop?: number,
 };
 
 export type CalculateAppointmentTimeBoundaries = PureComputed<

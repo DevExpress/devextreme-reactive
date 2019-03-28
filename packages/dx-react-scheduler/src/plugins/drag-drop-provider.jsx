@@ -16,6 +16,10 @@ import {
   calculateAppointmentTimeBoundaries,
   calculateInsidePart,
   calculateDraftAppointments,
+  RESIZE_TOP,
+  RESIZE_BOTTOM,
+  POSITION_TOP,
+  POSITION_BOTTOM,
 } from '@devexpress/dx-scheduler-core';
 
 const pluginDependencies = [
@@ -236,9 +240,9 @@ export class DragDropProvider extends React.PureComponent {
         >
           {({ data, type }) => (
             <DragSource
-              payload={{ ...data, type: 'resize-top', appointmentType: type }}
+              payload={{ ...data, type: RESIZE_TOP, appointmentType: type }}
             >
-              <Resize position="top" appointmentType={type} />
+              <Resize position={POSITION_TOP} appointmentType={type} />
             </DragSource>
           )}
         </Template>
@@ -249,9 +253,9 @@ export class DragDropProvider extends React.PureComponent {
         >
           {({ data, type }) => (
             <DragSource
-              payload={{ ...data, type: 'resize-bottom', appointmentType: type }}
+              payload={{ ...data, type: RESIZE_BOTTOM, appointmentType: type }}
             >
-              <Resize position="bottom" appointmentType={type} />
+              <Resize position={POSITION_BOTTOM} appointmentType={type} />
             </DragSource>
           )}
         </Template>

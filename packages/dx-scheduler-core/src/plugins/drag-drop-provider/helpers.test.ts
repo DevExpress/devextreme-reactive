@@ -33,7 +33,6 @@ describe('DragDropProvider', () => {
       expect(cellType(data))
         .toEqual('horizontal');
     });
-
     it('should work with long cell interval', () => {
       const data = {
         startDate: new Date('2019-3-5'),
@@ -42,7 +41,6 @@ describe('DragDropProvider', () => {
       expect(cellType(data))
         .toEqual('horizontal');
     });
-
     it('should work with short cell interval', () => {
       const data = {
         startDate: new Date('2019-3-5'),
@@ -58,12 +56,10 @@ describe('DragDropProvider', () => {
       startDate: new Date('2019-3-1 10:00'),
       endDate: new Date('2019-3-1 11:00'),
     };
-
     it('should work with minutes', () => {
       expect(intervalDuration(data, 'minutes'))
         .toEqual(60);
     });
-
     it('should work with seconds', () => {
       expect(intervalDuration(data, 'seconds'))
         .toEqual(60 * 60);
@@ -75,17 +71,14 @@ describe('DragDropProvider', () => {
       { getBoundingClientRect: () => ({ top: 0, left: 0, right: 50, bottom: 50 }) },
       { getBoundingClientRect: () => ({ top: 0, left: 50, right: 100, bottom: 50 }) },
     ];
-
     it('should work', () => {
       expect(cellIndex(cells as Element[], { x: 10, y: 10 }))
         .toEqual(0);
     });
-
     it('should work without array', () => {
       expect(cellIndex([], { x: 10, y: 10 }))
         .toEqual(-1);
     });
-
     it('should take only one cell by condition', () => {
       expect(cellIndex(cells as Element[], { x: 50, y: 10 }))
         .toEqual(0);
@@ -97,12 +90,10 @@ describe('DragDropProvider', () => {
       [{ startDate: new Date('2019-3-1 10:00') }, { startDate: new Date('2019-3-2 10:00') }],
       [{ startDate: new Date('2019-3-1 11:00') }, { startDate: new Date('2019-3-2 11:00') }],
     ];
-
     it('should work with both indexes', () => {
       expect(cellData(1, 1, cellsData).startDate)
         .toEqual(new Date('2019-3-2 00:00'));
     });
-
     it('should work with only time table index', () => {
       expect(cellData(2, -1, cellsData).startDate)
         .toEqual(new Date('2019-3-1 11:00'));
@@ -131,7 +122,6 @@ describe('DragDropProvider', () => {
       expect(layoutElement.current.scrollTop)
         .toBe(-20);
     });
-
     it('should scroll down', () => {
       const clientOffset = { x: 1, y: 161 };
       const layoutElement = JSON.parse(JSON.stringify(layoutElementBase));
@@ -141,7 +131,6 @@ describe('DragDropProvider', () => {
       expect(layoutElement.current.scrollTop)
         .toBe(40);
     });
-
     it('should not scroll up if cursor is under of header element', () => {
       const clientOffset = { x: 1, y: 25 };
       const layoutElement = { current: { scrollTop: 0 } };
@@ -178,7 +167,6 @@ describe('DragDropProvider', () => {
           appointmentEndTime: undefined,
         });
     });
-
     it('should resize if appointment type is vertical and resize handle is top', () => {
       const targetType = 'vertical';
       const payload = {
@@ -208,7 +196,6 @@ describe('DragDropProvider', () => {
         appointmentEndTime: new Date('2018-06-25 11:30'),
       });
     });
-
     it('should resize if appointment type is vertical and resize handle is bottom', () => {
       const targetType = 'vertical';
       const payload = {
@@ -238,7 +225,6 @@ describe('DragDropProvider', () => {
         appointmentEndTime: new Date('2018-06-25 10:30'),
       });
     });
-
     it('should resize if appointment type is horizontal and resize handle is top', () => {
       const targetType = 'horizontal';
       const payload = {
@@ -266,7 +252,6 @@ describe('DragDropProvider', () => {
         payload, targetData, targetType, cellDurationMinutes, insidePart,
       )).toEqual(result);
     });
-
     it('should resize if appointment type is horizontal and resize handle is bottom', () => {
       const targetType = 'horizontal';
       const payload = {
@@ -294,7 +279,6 @@ describe('DragDropProvider', () => {
         payload, targetData, targetType, cellDurationMinutes, insidePart,
       )).toEqual(result);
     });
-
     it('should not resize if draft appointment duration less 1 minute', () => {
       const targetType = 'vertical';
       const payload = {
@@ -461,7 +445,6 @@ describe('DragDropProvider', () => {
         timeTableDraftAppointments: [],
       });
     });
-
     it('should return time table array', () => {
       const nextAllDayIndex = -1;
       expect(calculateDraftAppointments(

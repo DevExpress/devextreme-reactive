@@ -4,8 +4,6 @@ import { DraftAppointment, SourceAppointment } from '../templates/drag-drop/appo
 import { Container } from '../templates/drag-drop/container';
 import { Resize } from '../templates/drag-drop/resize';
 
-export const DragDropProvider = withComponents(
-  {
-    DraftAppointment, SourceAppointment, Container, Resize,
-  },
-)(DragDropProviderBase);
+export const DragDropProvider = withComponents({
+  DraftAppointment, SourceAppointment, Container, Resize,
+})(DragDropProviderBase);

@@ -42,15 +42,16 @@ const DraftAppointmentBase = ({
 
 DraftAppointmentBase.propTypes = {
   classes: PropTypes.object.isRequired,
-  style: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
   leftSlice: PropTypes.bool.isRequired,
   rightSlice: PropTypes.bool.isRequired,
+  style: PropTypes.object,
   className: PropTypes.string,
   type: PropTypes.string,
 };
 
 DraftAppointmentBase.defaultProps = {
+  style: undefined,
   className: undefined,
   type: undefined,
 };

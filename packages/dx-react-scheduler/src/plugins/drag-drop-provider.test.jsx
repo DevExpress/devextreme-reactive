@@ -167,7 +167,7 @@ describe('DragDropProvider', () => {
       expect(allowDrag)
         .toBeCalledWith('appointment data');
     });
-    it('should render draft appointment template', () => {
+    it('should render draft appointment component', () => {
       const draftAppointment = () => <div className="custom-class" />;
 
       const { tree, onOver } = mountPlugin({ draftAppointmentComponent: draftAppointment });
@@ -177,8 +177,7 @@ describe('DragDropProvider', () => {
       expect(tree.update().find('.custom-class').exists())
         .toBeTruthy();
     });
-
-    it('should render source appointment template', () => {
+    it('should render source appointment component', () => {
       const deps = {
         template: {
           appointmentContent: {
@@ -198,8 +197,7 @@ describe('DragDropProvider', () => {
       expect(tree.find('.custom-class').exists())
         .toBeTruthy();
     });
-
-    it('should render resize templates', () => {
+    it('should render resize component', () => {
       const deps = {
         template: {
           appointmentTop: {
@@ -231,7 +229,6 @@ describe('DragDropProvider', () => {
           position: 'top',
         });
     });
-
     it('should wrap resize components into DragSource', () => {
       const deps = {
         template: {
@@ -268,7 +265,6 @@ describe('DragDropProvider', () => {
           a: 1,
         });
     });
-
     it('should not render resize template of allowResize => false', () => {
       const allowResize = jest.fn();
       allowResize.mockImplementation(() => false);
@@ -383,7 +379,6 @@ describe('DragDropProvider', () => {
       expect(defaultDeps.action.changeAppointment)
         .toBeCalledWith({ change: { startDate: new Date('2018-06-25 9:30'), endDate: new Date('2018-06-25 10:30') } }, expect.any(Object), expect.any(Object));
     });
-
     it('should drag with save initial cursor position', () => {
       const payload = {
         id: 1,
@@ -437,7 +432,6 @@ describe('DragDropProvider', () => {
       expect(defaultDeps.action.changeAppointment)
         .toBeCalledWith({ change: { startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00') } }, expect.any(Object), expect.any(Object));
     });
-
     it('should not call actions if cursor is over and inside an one cell', () => {
       const payload = {
         id: 1,
@@ -465,7 +459,6 @@ describe('DragDropProvider', () => {
       expect(defaultDeps.action.changeAppointment)
         .toBeCalledWith({ change: { startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00') } }, expect.any(Object), expect.any(Object));
     });
-
     it('should commit changes if drop inside a cell', () => {
       const payload = {
         id: 1,
@@ -490,7 +483,6 @@ describe('DragDropProvider', () => {
       expect(defaultDeps.action.commitChangedAppointment)
         .toBeCalledWith({ appointmentId: payload.id }, expect.any(Object), expect.any(Object));
     });
-
     it('should commit changes if drop outside a cell', () => {
       const payload = {
         id: 1,
@@ -514,7 +506,6 @@ describe('DragDropProvider', () => {
       expect(defaultDeps.action.commitChangedAppointment)
         .toBeCalledWith({ appointmentId: payload.id }, expect.any(Object), expect.any(Object));
     });
-
     it('should reset cache if drop outside a cell', () => {
       const deps = {
         template: {
@@ -553,7 +544,6 @@ describe('DragDropProvider', () => {
       expect(tree.find('.draft').exists())
         .toBeFalsy();
     });
-
     it('should reset cache if drop inside a cell', () => {
       const deps = {
         template: {

@@ -23,22 +23,22 @@ const styles = {
   verticalTop: {
     ...verticalStyles,
     top: '-10px',
-    boxShadow: '0 10px 40px black',
+    boxShadow: '0 10px 15px rgba(0,0,0,0.2)',
   },
   verticalBottom: {
     ...verticalStyles,
     bottom: '-10px',
-    boxShadow: '0 -10px 40px black',
+    boxShadow: '0 -10px 15px rgba(0,0,0,0.2)',
   },
   horizontalTop: {
     ...horizontalStyles,
     left: '-10px',
-    boxShadow: '10px 0 40px black',
+    boxShadow: '10px 0 15px rgba(0,0,0,0.2)',
   },
   horizontalBottom: {
     ...horizontalStyles,
     right: '-10px',
-    boxShadow: '-10px 0 40px black',
+    boxShadow: '-10px 0 15px rgba(0,0,0,0.2)',
   },
 };
 

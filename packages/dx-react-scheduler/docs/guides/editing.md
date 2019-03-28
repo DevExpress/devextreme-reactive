@@ -22,17 +22,14 @@ The user can edit appointments as follows:
 
 ### Update an Appointment
 
-- Double-click an appointment to open the appointment editing form.
-
-- Click an appointment to invoke its tooltip, and then click Edit in the tooltip to open the appointment editing form.
-
-- Drag an appointment to another cell to reschedule it. This functionality requires the [DragDropProvider](../reference/drag-drop-provider.md) plugin.
-
-- Extend or shorten an appointment by dragging its top or bottom border.
+- Double-click an appointment to open the appointment editing form;
+- Click an appointment to invoke its tooltip, and then click Edit in the tooltip to open the appointment editing form;
+- Drag an appointment to another cell to reschedule it. This functionality requires the [DragDropProvider](../reference/drag-drop-provider.md) plugin;
+- Extend or shorten an appointment by dragging its top or bottom (left or right for horizontal appointments) border.
 
 ### Delete an Appointment
 
-Click an appointment to invoke its tooltip, and then click Delete in the tooltip to remove the appointment.
+- Click an appointment to invoke its tooltip, and then click Delete in the tooltip to remove the appointment.
 
 ## Basic Setup
 

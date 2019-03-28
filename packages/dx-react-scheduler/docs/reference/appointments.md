@@ -29,10 +29,10 @@ import { Appointments } from '@devexpress/dx-react-scheduler';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-sliceComponent | ComponentType&lt;[Appointments.SliceProps](#appointmentssliceprops)&gt; | | A component that rendered if appointment is sliced by time table.
-containerComponent | ComponentType&lt;[Appointments.ContainerProps](#appointmentscontainerprops)&gt; | | A component that renders a container for appointment.
 appointmentComponent | ComponentType&lt;[Appointments.AppointmentProps](#appointmentsappointmentprops)&gt; | | A component that renders an appointment.
 appointmentContentComponent | ComponentType&lt;[Appointments.AppointmentContentProps](#appointmentsappointmentcontentprops)&gt; | | A component that renders the appointment content.
+sliceComponent | ComponentType&lt;[Appointments.SliceProps](#appointmentssliceprops)&gt; | | A component that rendered if appointment is sliced by time table.
+containerComponent | ComponentType&lt;[Appointments.ContainerProps](#appointmentscontainerprops)&gt; | | A component that renders a container for appointment.
 
 ## Interfaces
 
@@ -78,9 +78,9 @@ style | object | An object that configures the appointment geometry and position
 
 Name | Properties | Description
 -----|------------|------------
-sliceComponent | [Appointments.SliceProps](#appointmentssliceprops) | A component that rendered if appointment is sliced by time table.
-containerComponent | [Appointments.ContainerProps](#appointmentscontainerprops) | A component that renders a container for appointment.
 Appointments.Appointment | [Appointments.AppointmentProps](#appointmentsappointmentprops) | A component that renders an appointment.
 Appointments.AppointmentContent | [Appointments.AppointmentContentProps](#appointmentsappointmentcontentprops) | A component that renders the appointment content.
+Appointments.Slice | [Appointments.SliceProps](#appointmentssliceprops) | A component that rendered if appointment is sliced by time table.
+Appointments.Container | [Appointments.ContainerProps](#appointmentscontainerprops) | A component that renders a container for appointment.
 
 Additional properties are added to the component's root element.

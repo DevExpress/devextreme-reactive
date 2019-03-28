@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import * as React from 'react';
 import { mount } from 'enzyme';
+import { PluginHost } from '@devexpress/dx-react-core';
 import { makeVirtualTable } from './virtual-table';
 
 describe('#makeVirtualTable', () => {
@@ -12,12 +13,17 @@ describe('#makeVirtualTable', () => {
     <div height={height} />
   );
 
-  it('should update layout height from props', () => {
+  fit('should update layout height from props', () => {
     const VirtualTable = makeVirtualTable(TableMock, {
       VirtualLayout: VirtualTableMock,
     });
+    const WrappedVirtualTable = ({ height }) => (
+      <PluginHost>
+        <VirtualTable height={height} />
+      </PluginHost>
+    );
     const tree = mount((
-      <VirtualTable height={200} />
+      <WrappedVirtualTable height={200} />
     ));
     expect(tree.find(VirtualTableMock).prop('height'))
       .toBe(200);

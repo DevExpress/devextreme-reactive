@@ -69,7 +69,7 @@ describe('VirtualTableState', () => {
         </PluginHost>
       ));
 
-      expect(getComputedState(tree).totalRowCount)
+      expect(getComputedState(tree).availableRowCount)
         .toBe(2000);
     });
 

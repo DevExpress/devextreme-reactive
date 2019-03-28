@@ -522,11 +522,11 @@ describe('VirtualTableLayout utils', () => {
         ],
         rowsVisibleBoundary: [Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY],
         columnsVisibleBoundary: [[0, 1]],
-        totalRowCount: 1,
+        totalRowCount: 0,
         offset: 0,
       };
       const result = {
-        columns: [],
+        columns: args.columns,
         rows: [],
       };
       expect(getCollapsedGrid(args))

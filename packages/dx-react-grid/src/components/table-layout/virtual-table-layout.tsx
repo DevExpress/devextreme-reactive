@@ -128,7 +128,7 @@ export class VirtualTableLayout extends React.PureComponent<VirtualTableLayoutPr
 
     const collapsedHeaderGrid = getCollapsedGridBlock(headerRows || [], null);
     const collapsedBodyGrid = getCollapsedGridBlock(
-      bodyRows || [], adjustedBounds, totalRowCount, loadedRowsStart,
+      bodyRows || [], adjustedBounds, totalRowCount || 1, loadedRowsStart,
     );
     const collapsedFooterGrid = getCollapsedGridBlock(footerRows || [], null);
 

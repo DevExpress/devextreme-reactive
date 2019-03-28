@@ -171,8 +171,8 @@ namespace Appointments {
 // @public (undocumented)
 namespace Appointments {
   interface SliceProps {
-    appointmentType: 'horizontal'; // (undocumented)
- 'bottom'; position: 'top'
+    appointmentType: string;
+    position: string;
   }
 }
 
@@ -433,6 +433,8 @@ interface DayViewProps {
 namespace DragDropProvider {
   interface DraftAppointmentProps {
     data: AppointmentModel;
+    leftSlice: boolean;
+    rightSlice: boolean;
     style: object;
     type: string;
   }
@@ -442,7 +444,6 @@ namespace DragDropProvider {
 namespace DragDropProvider {
   interface SourceAppointmentProps {
     data: AppointmentModel;
-    style: object;
     type: string;
   }
 }
@@ -450,8 +451,8 @@ namespace DragDropProvider {
 // @public (undocumented)
 namespace DragDropProvider {
   interface ResizeProps {
-    appointmentType: 'horizontal'; // (undocumented)
- 'bottom'; position: 'top'
+    appointmentType: string;
+    position: string;
   }
 }
 

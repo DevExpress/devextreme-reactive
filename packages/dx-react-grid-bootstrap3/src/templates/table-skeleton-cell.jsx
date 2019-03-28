@@ -3,6 +3,8 @@ import * as PropTypes from 'prop-types';
 
 export const TableSkeletonCell = ({
   style,
+  tableRow,
+  tableColumn,
   ...restProps
 }) => (
   <td

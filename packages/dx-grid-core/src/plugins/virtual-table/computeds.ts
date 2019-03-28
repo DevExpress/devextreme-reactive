@@ -10,11 +10,11 @@ export const visibleBounds: VisibleBoundsFn = (
     viewportLeft, width, viewportTop, containerHeight, headerHeight, footerHeight,
   } = state;
   const {
-    loadedRowsStart, columns, tableBodyRows,
+    loadedRowsStart, tableColumns, tableBodyRows,
   } = getters;
 
   return {
-    columns: getColumnsVisibleBoundary(columns, viewportLeft, width, getColumnWidth),
+    columns: getColumnsVisibleBoundary(tableColumns, viewportLeft, width, getColumnWidth),
     bodyRows: getRowsVisibleBoundary(
       tableBodyRows, viewportTop, containerHeight - headerHeight - footerHeight,
       getRowHeight, loadedRowsStart, estimatedRowHeight,

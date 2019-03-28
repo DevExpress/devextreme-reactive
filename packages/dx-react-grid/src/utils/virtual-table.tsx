@@ -1,18 +1,20 @@
 import * as React from 'react';
 import { findDOMNode } from 'react-dom';
-import { memoize, MemoizedComputed } from '@devexpress/dx-core';
+import { memoize, MemoizedComputed, MemoizedFunction } from '@devexpress/dx-core';
 import {
   connectProps, Plugin, TemplatePlaceholder, Sizer, Template,
   Getter, TemplateConnector, PluginComponents, Getters,
 } from '@devexpress/dx-react-core';
 import {
   getRowsRenderBoundary,
-  TABLE_FLEX_TYPE,
   TABLE_STUB_TYPE,
   isStubTableCell,
   visibleBounds,
   pageTriggersMeta,
   getColumnsRenderBoundary,
+  getColumnWidthGetter,
+  TableColumn,
+  GetColumnWidthFn,
 } from '@devexpress/dx-grid-core';
 import {
   VirtualTableProps, VirtualTableLayoutProps, VirtualTableLayoutState, TableLayoutProps,
@@ -61,7 +63,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
     pageTriggersMetaComputed: MemoizedComputed<
       VirtualTableLayoutState, typeof pageTriggersMeta
     >;
-    getColumnWidth: (column: any) => any;
+    getColumnWidthGetter: MemoizedFunction<[TableColumn[], number, number], GetColumnWidthFn>;
     getScrollHandler: (...args: any[]) => (e: any) => void;
     getSizeChangeHandler: (...args: any[]) => (e: any) => void;
 
@@ -80,19 +82,22 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
         footerHeight: 0,
       };
 
-      const {
-        height,
-        estimatedRowHeight,
-        headTableComponent,
-        footerTableComponent,
-      } = props;
-      this.layoutRenderComponent = connectProps(VirtualLayout, () => ({
-        height,
-        estimatedRowHeight,
-        headTableComponent,
-        footerTableComponent,
-        minColumnWidth,
-      }));
+      this.layoutRenderComponent = connectProps(VirtualLayout, () => {
+        const {
+          height,
+          estimatedRowHeight,
+          headTableComponent,
+          footerTableComponent,
+        } = this.props;
+
+        return {
+          height,
+          estimatedRowHeight,
+          headTableComponent,
+          footerTableComponent,
+        };
+      });
+      const { estimatedRowHeight: propsEstimatedRowHeight } = this.props;
 
       this.rowRefs = new Map();
       this.blockRefs = new Map();
@@ -104,21 +109,27 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
       this.handleContainerSizeChange = this.handleContainerSizeChange.bind(this);
       this.handleTableUpdate = this.handleTableUpdate.bind(this);
 
-      this.getColumnWidth = column => (column.type === TABLE_FLEX_TYPE
-        ? 0
-        : column.width || minColumnWidth);
+      this.getColumnWidthGetter = memoize(
+        (tableColumns, tableWidth, minColWidth) => (
+          getColumnWidthGetter(tableColumns, tableWidth, minColWidth)
+        ),
+      );
 
       this.visibleBoundariesComputed = memoize(
-        state => (getters: Getters) => (
+        (state: VirtualTableLayoutState) => (getters: Getters) => (
           visibleBounds(
-            state, getters, estimatedRowHeight, this.getColumnWidth, this.getRowHeight,
+            state, getters, propsEstimatedRowHeight,
+            this.getColumnWidthGetter(
+              getters.tableColumns, state.width, minColumnWidth,
+            ),
+            this.getRowHeight,
           )
         ),
       );
 
       this.pageTriggersMetaComputed = memoize(
         state => (getters: Getters) => (
-          pageTriggersMeta(state, getters, estimatedRowHeight)
+          pageTriggersMeta(state, getters, propsEstimatedRowHeight)
         ),
       );
 
@@ -308,12 +319,17 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
                   {(
                     { currentVirtualPageBoundary, availableRowCount,
                       renderBoundaries, remoteDataEnabled, loadedRowsStart,
+                      tableColumns,
                     },
                     { requestNextPage },
                   ) => {
                     const {
                       containerComponent: Container,
                     } = params;
+                    const { width } = this.state;
+                    const getColumnWidth = this.getColumnWidthGetter(
+                      tableColumns, width, minColumnWidth,
+                    );
 
                     return (
                       <Sizer
@@ -338,7 +354,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
                             onUpdate: this.handleTableUpdate,
                             visibleBoundaries: renderBoundaries,
                             getRowHeight: this.getRowHeight,
-                            getColumnWidth: this.getColumnWidth,
+                            getColumnWidth,
                             headerHeight,
                             bodyHeight,
                             footerHeight,

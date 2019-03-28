@@ -191,6 +191,7 @@ export {
   getRowsVisibleBoundary,
   getColumnsRenderBoundary,
   getRowsRenderBoundary,
+  getColumnWidthGetter,
   TABLE_STUB_TYPE,
 } from './utils/virtual-table';
 

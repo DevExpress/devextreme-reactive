@@ -23,7 +23,7 @@ export interface ZoomAndPanProps {
 
 export type ZoomAndPanState = {
   viewport?: ViewportOptions;
-  rectBox?: RectBox;
+  rectBox?: RectBox | null;
 };
 
 export type LastCoordinates = {x: number, y: number} | null;

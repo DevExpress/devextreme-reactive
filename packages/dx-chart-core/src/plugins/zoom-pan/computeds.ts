@@ -301,9 +301,7 @@ export const getDeltaForTouches = (touches: Touch[]) => {
 };
 
 /** @internal */
-export const checkDragToZoom = (zoomRegionKey: string, event: MouseEvent) => {
-  return event[`${zoomRegionKey}Key`];
-};
+export const isKeyPressed = (event: MouseEvent, key: string) => event[`${key}Key`];
 
 // const canScroll = (interact: any) => interact === 'pan' || interact === 'both';
 // const canZoom = (interact: any) => interact === 'zoom' || interact === 'both';

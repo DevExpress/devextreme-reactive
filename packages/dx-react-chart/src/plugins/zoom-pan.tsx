@@ -14,8 +14,7 @@ import {
 } from '@devexpress/dx-react-core';
 import { DragBox } from '../templates/drag-box';
 import {
-  adjustLayout, getRootOffset, getDeltaForTouches,
-  getViewport, checkDragToZoom,
+  adjustLayout, getViewport, isKeyPressed, getRootOffset, getDeltaForTouches,
 } from '@devexpress/dx-chart-core';
 import {
   ZoomAndPanProps, ZoomAndPanState, NumberArray,
@@ -23,9 +22,8 @@ import {
 
 class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanState> {
   lastCoordinates: NumberArray | null = null;
-  rectangle = { x: 0, y: 0 };
-  drawRectange = false;
-  offset: number[] = [0, 0];
+  rectOrigin: NumberArray | null = null;
+  offset: NumberArray = [0, 0];
   static components: PluginComponents = {
     dragBoxComponent: 'DragBox',
   };
@@ -41,20 +39,21 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
 
     this.state = {
       viewport: props.viewport || props.defaultViewport,
-      rectBox: { x: 0, y: 0, width: 0, height: 0 },
+      rectBox: null,
     };
   }
 
   static getDerivedStateFromProps(props: ZoomAndPanProps, state: ZoomAndPanState): ZoomAndPanState {
     return {
       viewport: props.viewport !== undefined ? props.viewport : state.viewport,
-      rectBox: state.rectBox,
     };
   }
 
   handleStart = zoomRegionKey => (e) => {
     this.offset = getRootOffset(e.currentTarget);
-    this.drawRectange = checkDragToZoom(zoomRegionKey, e.nativeEvent);
+    if (isKeyPressed(e.nativeEvent, zoomRegionKey)) {
+      this.rectOrigin = [e.pageX - this.offset[0], e.pageY - this.offset[1]];
+    }
     if (e.touches && e.touches.length === 2) {
       this.multiTouchDelta = getDeltaForTouches(e.touches).delta;
     }
@@ -76,25 +75,22 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
     const coords: NumberArray = [clientOffset.x - this.offset[0], clientOffset.y - this.offset[1]];
     if (!this.lastCoordinates) {
       this.lastCoordinates = coords;
-      if (this.drawRectange) {
-        this.rectangle = { x: coords[0], y: coords[1] };
-      }
       return;
     }
     const deltaX = coords[0] - this.lastCoordinates[0];
     const deltaY = coords[1] - this.lastCoordinates[1];
 
-    this.setState(({ viewport, rectBox }, { onViewportChange }) => {
+    this.setState(({ viewport }, { onViewportChange }) => {
       if (this.lastCoordinates) {
         this.lastCoordinates = coords;
       }
-      if (this.drawRectange) {
+      if (this.rectOrigin) {
         return {
           rectBox: {
-            x: this.rectangle.x,
-            y: this.rectangle.y,
-            width: rectBox!.width + deltaX,
-            height: rectBox!.height + deltaY,
+            x: Math.min(this.rectOrigin[0], coords[0]),
+            y: Math.min(this.rectOrigin[1], coords[1]),
+            width: Math.abs(this.rectOrigin[0] - coords[0]),
+            height: Math.abs(this.rectOrigin[1] - coords[1]),
           },
         };
       }
@@ -109,12 +105,11 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
   handleMouseUp = (scales, interactions) => {
     this.lastCoordinates = null;
     this.multiTouchDelta = null;
-    if (this.drawRectange) {
+    if (this.rectOrigin) {
       this.setState(({ viewport, rectBox }, { onViewportChange }) => {
-        this.drawRectange = false;
-
+        this.rectOrigin = null;
         return {
-          rectBox: { x: 0, y: 0, width: 0, height: 0 },
+          rectBox:  null,
           ...getViewport(
             scales, interactions, 'zoom',
             null,
@@ -143,7 +138,7 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
   handleScroll = (scales, interactions) => (e) => {
     e.preventDefault();
     const offset = getRootOffset(e.currentTarget);
-    const center = [e.clientX - offset[0], e.clientY - offset[1]];
+    const center = [e.pageX - offset[0], e.pageY - offset[1]];
     this.zoom(scales, e.nativeEvent.wheelDelta, center, interactions);
   }
 
@@ -196,11 +191,13 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
 
         <Template name="series">
           <TemplatePlaceholder />
-          <DragBoxComponent
-            rectBox={rectBox!}
-            color={'gray'}
-            opacity={0.3}
-          />
+          {rectBox ? (
+              <DragBoxComponent
+                rectBox={rectBox!}
+                color={'gray'}
+                opacity={0.3}
+              />
+          ) : null}
         </Template>
       </Plugin >
     );

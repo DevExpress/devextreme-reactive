@@ -60,20 +60,20 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
       if (e.touches && e.touches.length === 2) {
         this.multiTouchDelta = getDeltaForTouches(e.touches).delta;
       }
-    }
+    };
   }
 
-  handleTouchMove(scales: ScalesCache, interactions) {
+  handleTouchMove(scales: ScalesCache) {
     return (e: any) => {
       if (e.touches && e.touches.length === 2) {
         const current = getDeltaForTouches(e.touches);
-        this.zoom(scales, current.delta - this.multiTouchDelta!, current.center, interactions);
+        this.zoom(scales, current.delta - this.multiTouchDelta!, current.center);
         this.multiTouchDelta = current.delta;
       }
-    }
+    };
   }
 
-  handleMouseMove(scales: ScalesCache, clientOffset, interactions) {
+  handleMouseMove(scales: ScalesCache, clientOffset: { x: number, y: number }) {
     if (this.multiTouchDelta) {
       return;
     }
@@ -86,7 +86,9 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
     const deltaX = coords[0] - this.lastCoordinates[0];
     const deltaY = coords[1] - this.lastCoordinates[1];
 
-    this.setState(({ viewport }, { onViewportChange }) => {
+    this.setState((
+      { viewport }, { onViewportChange, interactionWithArguments, interactionWithValues },
+    ) => {
       if (this.lastCoordinates) {
         this.lastCoordinates = coords;
       }
@@ -101,22 +103,25 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
         };
       }
       return getViewport(
-        scales, interactions, 'pan',
+        scales, [interactionWithArguments!, interactionWithValues!], 'pan',
         [-deltaX, -deltaY], null, null, viewport, onViewportChange,
       );
     });
   }
 
-  handleMouseUp(scales: ScalesCache, interactions) {
+  handleMouseUp(scales: ScalesCache) {
     this.lastCoordinates = null;
     this.multiTouchDelta = null;
     if (this.rectOrigin) {
-      this.setState(({ viewport, rectBox }, { onViewportChange }) => {
+      this.setState((
+        { viewport, rectBox },
+        { onViewportChange, interactionWithArguments, interactionWithValues },
+      ) => {
         this.rectOrigin = null;
         return {
           rectBox:  null,
           ...getViewport(
-            scales, interactions, 'zoom',
+            scales, [interactionWithArguments!, interactionWithValues!], 'zoom',
             null,
             null,
             [
@@ -130,33 +135,32 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
     }
   }
 
-  zoom(scales: ScalesCache, delta: number, anchors: [number, number], interactions) {
-    this.setState(({ viewport }, { onViewportChange }) => {
+  zoom(scales: ScalesCache, delta: number, anchors: [number, number]) {
+    this.setState((
+      { viewport }, { onViewportChange, interactionWithArguments, interactionWithValues },
+    ) => {
       return getViewport(
-        scales, interactions, 'zoom',
+        scales, [interactionWithArguments!, interactionWithValues!], 'zoom',
         [delta, delta], anchors, null, viewport, onViewportChange,
       );
     });
   }
 
-  handleScroll(scales: ScalesCache, interactions) {
+  handleScroll(scales: ScalesCache) {
     return (e: any) => {
       e.preventDefault();
       const offset = getRootOffset(e.currentTarget);
       const center: NumberArray = [e.pageX - offset[0], e.pageY - offset[1]];
-      this.zoom(scales, e.nativeEvent.wheelDelta, center, interactions);
-    }
+      this.zoom(scales, e.nativeEvent.wheelDelta, center);
+    };
   }
 
   render() {
     const { viewport, rectBox } = this.state;
     const {
       dragBoxComponent: DragBoxComponent,
-      interactionWithValues,
-      interactionWithArguments,
       zoomRegionKey,
      } = this.props;
-    const interactions = [interactionWithArguments, interactionWithValues];
     const getAdjustedLayout = ({
       domains,
       ranges,
@@ -169,9 +173,8 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
             {({ scales }) =>
             <DragDropProvider>
               <DropTarget
-                onOver={({ _, clientOffset }) =>
-                this.handleMouseMove(scales, clientOffset, interactions)}
-                onDrop={() => this.handleMouseUp(scales, interactions)}
+                onOver={({ _, clientOffset }) => this.handleMouseMove(scales, clientOffset)}
+                onDrop={() => this.handleMouseUp(scales)}
               >
                 <DragSource payload={null}>
                   <TemplatePlaceholder />
@@ -186,10 +189,10 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
             {({ scales }) =>
               <TemplatePlaceholder
                 params={{
-                  onWheel: this.handleScroll(scales, interactions),
+                  onWheel: this.handleScroll(scales),
                   onMouseDown: this.handleStart(zoomRegionKey!),
                   onTouchStart: this.handleStart('none'),
-                  onTouchMove: this.handleTouchMove(scales, interactions),
+                  onTouchMove: this.handleTouchMove(scales),
                 }}
               />}
           </TemplateConnector>

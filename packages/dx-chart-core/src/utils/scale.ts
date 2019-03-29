@@ -216,9 +216,10 @@ export const growBounds = (
 const invertLinearScaleBounds = (scale: ScaleObject, range: NumberArray): DomainBounds => {
   const fullRange = scale.range();
   const match = Math.sign(fullRange[1] - fullRange[0]) === Math.sign(range[1] - range[0]);
-  let new0 = scale.invert(range[match ? 0 : 1]);
-  let new1 = scale.invert(range[match ? 1 : 0]);
-  return [new0, new1];
+  return [
+    scale.invert(range[match ? 0 : 1]),
+    scale.invert(range[match ? 1 : 0]),
+  ];
 };
 
 const matchPointToBand = (domain: DomainItems, range: NumberArray, p: number) => {
@@ -229,12 +230,13 @@ const matchPointToBand = (domain: DomainItems, range: NumberArray, p: number) =>
 const invertBandScaleBounds = (scale: ScaleObject, range: NumberArray): DomainBounds => {
   const domain = scale.domain();
   const fullRange = scale.range();
-  let new0 = matchPointToBand(domain, fullRange, range[0]);
-  let new1 = matchPointToBand(domain, fullRange, range[1]);
-  return [new0, new1];
+  return [
+    matchPointToBand(domain, fullRange, range[0]),
+    matchPointToBand(domain, fullRange, range[1]),
+  ];
 };
 
 /** @internal */
-export const invertBoundsRange = (scale: ScaleObject, range: NumberArray)=> (
+export const invertBoundsRange = (scale: ScaleObject, range: NumberArray) => (
   (scale.bandwidth ? invertBandScaleBounds : invertLinearScaleBounds)(scale, range)
 );

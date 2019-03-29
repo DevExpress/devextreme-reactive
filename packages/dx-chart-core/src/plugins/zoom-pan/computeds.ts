@@ -124,11 +124,7 @@ const boundsForScale = (
   if (type === 'pan') {
     newBounds = moveBounds(scale, bounds, delta);
   } else if (type === 'zoom') {
-    if (range) {
-      newBounds = invertBoundsRange(scale, range);
-    } else {
-      newBounds = growBounds(scale, bounds, delta, anchor);
-    }
+    newBounds = range ? invertBoundsRange(scale, range) : growBounds(scale, bounds, delta, anchor);
   }
   return newBounds! !== bounds ? newBounds! : null;
 };

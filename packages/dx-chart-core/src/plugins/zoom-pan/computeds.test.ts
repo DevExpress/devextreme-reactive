@@ -180,7 +180,7 @@ describe('ZoomAndPan', () => {
       (moveBounds as jest.Mock).mockReturnValueOnce([3, 5]);
 
       const ret = getViewport(
-        scales, ['both', 'both'], 'pan', [10, 5], [40, 30], null, viewport, mock
+        scales, ['both', 'both'], 'pan', [10, 5], [40, 30], null, viewport, mock,
       );
 
       expect(ret).toEqual({
@@ -202,7 +202,7 @@ describe('ZoomAndPan', () => {
       (growBounds as jest.Mock).mockReturnValueOnce([3, 5]);
 
       const ret = getViewport(
-        scales, ['both', 'both'], 'zoom', [10, 5], [40, 30], null, viewport, mock
+        scales, ['both', 'both'], 'zoom', [10, 5], [40, 30], null, viewport, mock,
       );
 
       expect(ret).toEqual({
@@ -226,7 +226,7 @@ describe('ZoomAndPan', () => {
       const ret = getViewport(
         scales, ['both', 'both'], 'zoom', [10, 5], [40, 30],
         [[11, 12], [13, 14]],
-        { ...viewport, scaleName: 'test' }, mock
+        { ...viewport, scaleName: 'test' }, mock,
       );
 
       expect(ret).toEqual({
@@ -255,7 +255,7 @@ describe('ZoomAndPan', () => {
       });
 
       const ret = getViewport(
-        scales, ['both', 'both'], 'pan', [10, 5], [40, 30], null, viewport, mock
+        scales, ['both', 'both'], 'pan', [10, 5], [40, 30], null, viewport, mock,
       );
 
       expect(ret).toEqual({
@@ -279,7 +279,7 @@ describe('ZoomAndPan', () => {
       });
 
       const ret = getViewport(
-        scales, ['both', 'both'], 'zoom', [10, 5], [40, 30], null, viewport, mock
+        scales, ['both', 'both'], 'zoom', [10, 5], [40, 30], null, viewport, mock,
       );
 
       expect(ret).toEqual({
@@ -296,7 +296,7 @@ describe('ZoomAndPan', () => {
       (moveBounds as jest.Mock).mockImplementation((_, bounds) => bounds);
 
       const ret = getViewport(
-        scales, ['both', 'both'], 'pan', [10, 5], [40, 30], null, viewport, mock
+        scales, ['both', 'both'], 'pan', [10, 5], [40, 30], null, viewport, mock,
       );
 
       expect(ret).toEqual(null);
@@ -308,7 +308,7 @@ describe('ZoomAndPan', () => {
       const mock = jest.fn();
 
       const ret = getViewport(
-        scales, ['none', 'zoom'], 'pan', [10, 5], [40, 30], null, viewport, mock
+        scales, ['none', 'zoom'], 'pan', [10, 5], [40, 30], null, viewport, mock,
       );
 
       expect(ret).toEqual(null);
@@ -323,7 +323,7 @@ describe('ZoomAndPan', () => {
       } as any;
 
       getViewport(
-        scales1, ['both', 'both'], 'zoom', [10, 5], [40, 30], null, {} as any, () => {}
+        scales1, ['both', 'both'], 'zoom', [10, 5], [40, 30], null, {} as any, () => {},
       );
 
       expect((growBounds as jest.Mock).mock.calls[0][1]).toEqual(['Q', 'T']);

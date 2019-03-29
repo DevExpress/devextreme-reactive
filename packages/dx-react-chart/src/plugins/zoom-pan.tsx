@@ -54,6 +54,10 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
   handleStart(zoomRegionKey: string) {
     return (e: any) => {
       this.offset = getRootOffset(e.currentTarget);
+      // Rectangle mode should be canceled if "zoomRegionKey" is released during mouse movevent or
+      // not pressed when mouse is up. To do it access to "event" object is required in
+      // "handleMouseMove" and "handleMouseUp".
+      // TODO: Provide rectangle mode canceling.
       if (isKeyPressed(e.nativeEvent, zoomRegionKey)) {
         this.rectOrigin = [e.pageX - this.offset[0], e.pageY - this.offset[1]];
       }

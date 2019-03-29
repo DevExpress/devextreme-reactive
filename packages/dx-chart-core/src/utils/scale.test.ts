@@ -111,6 +111,8 @@ describe('#makeScale', () => {
   });
 });
 
+// Regarding commented "target2" cases for band scales - see note for "scaleBounds".
+
 describe('#scaleBounds', () => {
   it('should measure continuous scale', () => {
     const target1 = realD3.scaleLinear().domain([0, 10]).range([0, 100]);

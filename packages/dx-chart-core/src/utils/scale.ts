@@ -46,14 +46,24 @@ export const makeScale = ({ factory, domain }: DomainInfo, range: NumberArray) =
 // Though this function is used only in *Viewport* plugin (and so should be placed right there),
 // it resides here so that internal scale specifics (*getWidth*)
 // are encapsulated in this utility file.
+//
 /** @internal */
 export const scaleBounds = (scale: ScaleObject, bounds: DomainBounds): NumberArray => {
+  // There is an issue - when range is "inverted" values are scaled incorrectly.
+  //   scaleBand().domain(['a', 'b', 'c']).range([0, 60])('b') === 20
+  //   scaleBand().domain(['a', 'b', 'c']).range([60, 0])('b') === 20 (should be 40)
+  // Because of it bounds for reversed band scale are scaled wrong.
+  // Fixing it would introduce an utility "scale" function and complicates the code.
+  // Since for now we do not have "reversed" band scales the issue is left as-is.
   if (scale.bandwidth) {
     const cleanScale = scale.copy().paddingInner!(0).paddingOuter!(0);
     return [cleanScale(bounds[0]), cleanScale(bounds[1]) + cleanScale.bandwidth!()];
   }
   return bounds.map(scale) as NumberArray;
 };
+
+// Because of "scaleBands" issue moving and growing for "reversed" band scales
+// are not supported now.
 
 const moveLinearScaleBounds = (
   scale: ScaleObject, bounds: DomainBounds, delta: number,

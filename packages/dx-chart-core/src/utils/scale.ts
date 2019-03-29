@@ -5,7 +5,7 @@ import {
   ARGUMENT_DOMAIN, VALUE_DOMAIN,
 } from '../constants';
 import {
-  ScaleObject, FactoryFn, DomainInfo, NumberArray, DomainBounds,
+  ScaleObject, FactoryFn, DomainInfo, NumberArray, DomainBounds, DomainItems,
 } from '../types';
 
 /** @internal */
@@ -22,6 +22,12 @@ export const isHorizontal = (name: string) => name === ARGUMENT_DOMAIN;
 export const getWidth = (scale: ScaleObject) => (
   scale.bandwidth ? scale.bandwidth() : 0
 );
+
+/** @internal */
+export const fixOffset = (scale: ScaleObject): ((value: number) => number) => {
+  const offset = getWidth(scale) / 2;
+  return offset > 0 ? value => scale(value) + offset : scale;
+};
 
 /** @internal */
 export const getValueDomainName = (name?: string) => name || VALUE_DOMAIN;
@@ -48,36 +54,6 @@ export const scaleBounds = (scale: ScaleObject, bounds: DomainBounds): NumberArr
   }
   return bounds.map(scale) as NumberArray;
 };
-
-const getRangePointRatio = (scale: ScaleObject, value: number) => {
-  const range = scale.range();
-  return (value - range[0]) / (range[1] - range[0]);
-}
-
-const invertLinearScale = (scale: ScaleObject, value: number) => {
-  const ratio = getRangePointRatio(scale, value);
-  return 0 <= ratio && ratio <= 1 ? scale.invert(value) : undefined;
-};
-
-const invertBandscaleRange = (scale: ScaleObject, value: number) => {
-  const ratio = getRangePointRatio(scale, value);
-  if (0 <= ratio && ratio <= 1) {
-    const domain = scale.domain();
-    const pos = Math.floor(ratio * domain.length);
-    return domain[pos] || domain[domain.length];
-  }
-  return undefined;
-};
-
-/** @internal */
-export const invert = (scale: ScaleObject, value: number) => (
-  (scale.bandwidth ? invertBandscaleRange : invertLinearScale)(scale, value)
-);
-
-/** @internal */
-export const boundsEqual = (scale: ScaleObject, b1: DomainBounds, b2: DomainBounds) => (
-  scale.bandwidth ? b1[0] === b2[0] && b1[1] === b2[1] : rangesEqual(b1, b2)
-);
 
 const moveLinearScaleBounds = (
   scale: ScaleObject, bounds: DomainBounds, delta: number,
@@ -245,9 +221,16 @@ const invertLinearScaleBounds = (scale: ScaleObject, range: NumberArray): Domain
   return [new0, new1];
 };
 
+const matchPointToBand = (domain: DomainItems, range: NumberArray, p: number) => {
+  const i = Math.floor(domain.length * (p - range[0]) / (range[1] - range[0]));
+  return domain[Math.min(i, domain.length - 1)];
+};
+
 const invertBandScaleBounds = (scale: ScaleObject, range: NumberArray): DomainBounds => {
-  let new0 = invertBandscaleRange(scale, range[0]);
-  let new1 = invertBandscaleRange(scale, range[1]);
+  const domain = scale.domain();
+  const fullRange = scale.range();
+  let new0 = matchPointToBand(domain, fullRange, range[0]);
+  let new1 = matchPointToBand(domain, fullRange, range[1]);
   return [new0, new1];
 };
 
@@ -255,9 +238,3 @@ const invertBandScaleBounds = (scale: ScaleObject, range: NumberArray): DomainBo
 export const invertBoundsRange = (scale: ScaleObject, range: NumberArray)=> (
   (scale.bandwidth ? invertBandScaleBounds : invertLinearScaleBounds)(scale, range)
 );
-
-/** @internal */
-export const fixOffset = (scale: ScaleObject): ((value: number) => number) => {
-  const offset = getWidth(scale) / 2;
-  return offset > 0 ? value => scale(value) + offset : scale;
-};

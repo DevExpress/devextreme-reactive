@@ -98,23 +98,6 @@ interface BasicDataProps {
 }
 
 // @public (undocumented)
-declare type BoundsFn = (name: string, scale: ScaleObject, bounds: NumberArray, delta: number, changeBounds: ChangeBoundsFn) => any[];
-
-// @public (undocumented)
-declare type BoundsForScaleFn = {
-  // (undocumented)
-  current?: any[];
-  // (undocumented)
-  prev?: any[];
-};
-
-// @public (undocumented)
-declare type BoundsRectFn = (rectBox: RectBox, name: string) => any[];
-
-// @public (undocumented)
-declare type ChangeBoundsFn = (from: number, to: number, delta: number, sign: number) => any[];
-
-// @public (undocumented)
 declare const Chart: React.ComponentType<ChartProps>;
 
 // @public (undocumented)
@@ -140,26 +123,12 @@ interface ChartProps {
 }
 
 // @public (undocumented)
-declare const checkDragToZoom: (zoomRegionKey: string, event: MouseEvent) => any;
-
-// @public (undocumented)
 declare type Colors = ReadonlyArray<string>;
 
 // @public (undocumented)
 interface CommonComponentProps {
   color: string;
 }
-
-// @public (undocumented)
-declare type CompareBoundsFn = (prev: any[], current: any[], initial: ReadonlyArray<any>, minDelta?: number) => boolean;
-
-// @public (undocumented)
-declare type Coordinates = {
-  // (undocumented)
-  readonly x: number;
-  // (undocumented)
-  readonly y: number;
-};
 
 // @public (undocumented)
 declare type DataItem = {
@@ -169,9 +138,6 @@ declare type DataItem = {
 
 // @public (undocumented)
 declare type DataItems = ReadonlyArray<DataItem>;
-
-// @public (undocumented)
-declare type DomainBounds = Readonly<any[]>;
 
 // @public (undocumented)
 declare type DomainItems = ReadonlyArray<any>;
@@ -187,9 +153,6 @@ interface EventTrackerProps {
 
 // @public (undocumented)
 declare type FactoryFn = () => ScaleObject;
-
-// @public (undocumented)
-declare const getDeltaForTouches: (touches: Touch[]) => number;
 
 // @public (undocumented)
 declare type GetFormatFn = (tick: any) => string;
@@ -221,14 +184,6 @@ interface HoverStateProps {
   hover?: SeriesRef;
   onHoverChange?: NotifyPointerMoveFn;
 }
-
-// @public (undocumented)
-type LastCoordinates = {
-  // (undocumented)
-  x: number;
-  // (undocumented)
-  y: number;
-} | null;
 
 // @public (undocumented)
 declare const Legend: React.ComponentType<LegendProps>;
@@ -287,18 +242,10 @@ declare type NotifyPointerMoveFn = (target: SeriesRef | null) => void;
 declare type NumberArray = [number, number];
 
 // @public (undocumented)
-declare const offsetCoordinates: (coordinates: Coordinates, offset: [number, number]) => {
-  // (undocumented)
-  x: number;
-  // (undocumented)
-  y: number;
-};
-
-// @public (undocumented)
 declare type OffsetFn = (series: StackData, order: number[]) => void;
 
 // @public (undocumented)
-declare type OnViewportChange = (viewport: ViewportOptions) => void;
+declare type OnViewportChangeFn = (viewport: ViewportOptions) => void;
 
 // @public (undocumented)
 declare type OrderFn = (series: StackData) => number[];
@@ -415,18 +362,6 @@ interface RawAxisProps {
   tickFormat?: TickFormatFn;
   tickSize?: number;
 }
-
-// @public (undocumented)
-declare type RectBox = {
-  // (undocumented)
-  x: number;
-  // (undocumented)
-  y: number;
-  // (undocumented)
-  width: number;
-  // (undocumented)
-  height: number;
-};
 
 // @public (undocumented)
 interface ScaleObject {
@@ -671,12 +606,6 @@ declare const ZoomAndPan: React.ComponentType<ZoomAndPanProps>;
 namespace ZoomAndPan {
   // (undocumented)
   interface DragBoxProps {
-    // (undocumented)
-    color: string;
-    // (undocumented)
-    opacity: number;
-    // (undocumented)
-    rectBox: RectBox;
   }
 }
 
@@ -686,18 +615,10 @@ interface ZoomAndPanProps {
   dragBoxComponent: React.ComponentType<ZoomAndPan.DragBoxProps>;
   interactionWithArguments?: 'none' | 'pan' | 'zoom' | 'both';
   interactionWithValues?: 'none' | 'pan' | 'zoom' | 'both';
-  onViewportChange?: OnViewportChange;
+  onViewportChange?: OnViewportChangeFn;
   viewport?: ViewportOptions;
   zoomRegionKey?: 'shift' | 'alt' | 'ctrl';
 }
-
-// @public (undocumented)
-type ZoomAndPanState = {
-  // (undocumented)
-  viewport?: ViewportOptions;
-  // (undocumented)
-  rectBox?: RectBox;
-};
 
 
 // (No @packageDocumentation comment for this package)

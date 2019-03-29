@@ -17,7 +17,7 @@ import {
   RangesCache,
   DomainInfo,
   DomainBounds,
-  OnViewportChange,
+  OnViewportChangeFn,
   // BoundsRectFn,
   // RectBox,
   // CompareBoundsFn,
@@ -143,7 +143,7 @@ export const getViewport = (
   deltas: Readonly<[number, number]> | null,
   anchors: Readonly<[number, number]> | null,
   ranges: Readonly<[NumberArray, NumberArray]> | null,
-  viewport?: ViewportOptions, onViewportChange?: OnViewportChange,
+  viewport?: ViewportOptions, onViewportChange?: OnViewportChangeFn,
 ) => {
   const changes: any = {};
   const argumentBounds = boundsForScale(

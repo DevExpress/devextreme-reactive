@@ -21,18 +21,19 @@ import {
 } from '../types';
 
 class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanState> {
-  lastCoordinates: NumberArray | null = null;
-  rectOrigin: NumberArray | null = null;
-  offset: NumberArray = [0, 0];
   static components: PluginComponents = {
     dragBoxComponent: 'DragBox',
   };
-  multiTouchDelta: number | null = null;
   static defaultProps: Partial<ZoomAndPanProps> = {
     interactionWithValues: 'none',
     interactionWithArguments: 'both',
     zoomRegionKey: 'shift',
   };
+
+  multiTouchDelta: number | null = null;
+  lastCoordinates: NumberArray | null = null;
+  rectOrigin: NumberArray | null = null;
+  offset: NumberArray = [0, 0];
 
   constructor(props: ZoomAndPanProps) {
     super(props);

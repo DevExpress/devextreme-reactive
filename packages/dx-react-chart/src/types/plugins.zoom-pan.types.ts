@@ -1,7 +1,6 @@
 import {
   ViewportOptions,
-  OnViewportChange,
-  RectBox,
+  OnViewportChangeFn,
 } from './index';
 
 export interface ZoomAndPanProps {
@@ -10,7 +9,7 @@ export interface ZoomAndPanProps {
   /** A viewport */
   viewport?: ViewportOptions;
   /** A function that is executed when viewport changes */
-  onViewportChange?: OnViewportChange;
+  onViewportChange?: OnViewportChangeFn;
   /** Interaction with arguments */
   interactionWithArguments?: 'none' | 'pan' | 'zoom' | 'both';
   /** Interaction with values */
@@ -21,18 +20,22 @@ export interface ZoomAndPanProps {
   zoomRegionKey?: 'shift' | 'alt' | 'ctrl';
 }
 
+type RectBox = { x: number; y: number; width: number; height: number; }
+
+/** @internal */
 export type ZoomAndPanState = {
   viewport?: ViewportOptions;
   rectBox?: RectBox | null;
 };
 
-export type LastCoordinates = {x: number, y: number} | null;
-
 // tslint:disable-next-line: no-namespace
 export namespace ZoomAndPan {
   export interface DragBoxProps {
+    /** @internal */
     rectBox: RectBox;
+    /** @internal */
     color: string;
+    /** @internal */
     opacity: number;
   }
 }

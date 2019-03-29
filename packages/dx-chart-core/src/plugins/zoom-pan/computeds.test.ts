@@ -3,24 +3,28 @@ import {
 } from '../../constants';
 import {
   getValueDomainName, makeScale, scaleBounds,
+  moveBounds, growBounds, invertBoundsRange,
 } from '../../utils/scale';
 import {
-  checkDragToZoom, offsetCoordinates, getDeltaForTouches, adjustLayout, getViewport,
+  adjustLayout, getViewport, getDeltaForTouches, isKeyPressed,
 } from './computeds';
-import { scaleQuantize } from 'd3-scale';
+import { ScalesCache, ViewportOptions } from '../../types';
 
 jest.mock('../../utils/scale', () => ({
   ...require.requireActual('../../utils/scale'),  // for `rangesEqual`
   getValueDomainName: jest.fn(),
   makeScale: jest.fn(),
   scaleBounds: jest.fn(),
+  moveBounds: jest.fn(),
+  growBounds: jest.fn(),
+  invertBoundsRange: jest.fn(),
 }));
 
 jest.mock('d3-scale', () => ({
   scaleQuantize: jest.fn(),
 }));
 
-describe('Viewport', () => {
+describe('ZoomAndPan', () => {
   const matchFloat = expected => ({
     $$typeof: Symbol.for('jest.asymmetricMatcher'),
 
@@ -29,7 +33,7 @@ describe('Viewport', () => {
     toAsymmetricMatcher: () => `~${expected}`,
   });
 
-  describe('adjustLayout', () => {
+  describe('#adjustLayout', () => {
     afterEach(jest.clearAllMocks);
 
     it('should return original ranges', () => {
@@ -143,307 +147,203 @@ describe('Viewport', () => {
       expect(scaleBounds).toBeCalledWith('test-scale', ['test-start-arg', 'test-end-arg']);
     });
   });
-});
 
-describe('Zoom and Pan', () => {
-  const singleScale = jest.fn(value => value);
-  (singleScale as any).invert = jest.fn(value => value);
-  (singleScale as any).domain = jest.fn(() => [5, 30]);
-  const scales = { [ARGUMENT_DOMAIN]: singleScale, [VALUE_DOMAIN]: singleScale };
-  const viewport = {
-    argumentStart: 10, argumentEnd: 15,
-    valueStart: 20, valueEnd: 25,
-  };
-
-  it('#offsetCoordinates', () => {
-    expect(offsetCoordinates({ x: 10, y: 15 }, [2, 4])).toEqual({ x: 8, y: 11 });
-  });
-
-  it('#getDeltaForTouches', () => {
-    expect(getDeltaForTouches([{ pageX: 20, pageY: 120 }, { pageX: 10, pageY: 110 }] as any[]))
-    .toBeCloseTo(14.14);
-  });
-
-  it('#checkDragToZoom', () => {
-    expect(checkDragToZoom('none', { shiftKey: true } as any)).toBeFalsy();
-    expect(checkDragToZoom('shift', { shiftKey: true } as any)).toBeTruthy();
-    expect(checkDragToZoom('shift', { shiftKey: false } as any)).toBeFalsy();
-    expect(checkDragToZoom('alt', { altKey: true } as any)).toBeTruthy();
-  });
-
-  it('should return viewport, zoom', () => {
-    const mock = jest.fn();
-    expect(getViewport(scales as any, ['both', 'both'], 'zoom', null, [2, 3], undefined, mock))
-    .toEqual({ viewport: {
-      argumentStart: 7, argumentEnd: 28, valueStart: 8, valueEnd: 27, scaleName: undefined,
-    } });
-    expect(mock).toBeCalled();
-  });
-
-  it('should return viewport, unzoom', () => {
-    const mock = jest.fn();
-    expect(
-      getViewport(scales as any, ['both', 'both'], 'zoom', null, [-2, -3], viewport, mock),
-    )
-    .toEqual({ viewport: {
-      argumentStart: 8, argumentEnd: 17, valueStart: 17, valueEnd: 28,
-      scaleName: undefined,
-    } });
-    expect(mock).toBeCalled();
-  });
-
-  it('should return viewport, pan in one side', () => {
-    const mock = jest.fn();
-    expect(
-      getViewport(scales as any, ['both', 'both'], 'pan', null, [2, 3], viewport, mock),
-    )
-    .toEqual({ viewport: {
-      argumentStart: 8, argumentEnd: 13, valueStart: 23, valueEnd: 28, scaleName: undefined,
-    } });
-    expect(mock).toBeCalled();
-  });
-
-  it('should return viewport, pan in another side', () => {
-    const mock = jest.fn();
-    expect(
-      getViewport(scales as any, ['both', 'both'], 'pan', null, [-2, -3], viewport, mock),
-    )
-    .toEqual({ viewport: {
-      argumentStart: 12, argumentEnd: 17, valueStart: 17, valueEnd: 22, scaleName: undefined,
-    } });
-    expect(mock).toBeCalled();
-  });
-
-  it('should return null, pan but mode is zoom', () => {
-    const mock = jest.fn();
-    expect(
-      getViewport(scales as any, ['zoom', 'zoom'], 'pan', null, [-2, -3], viewport, mock),
-    )
-    .toBe(null);
-    expect(mock).toHaveBeenCalledTimes(0);
-  });
-
-  it('should return null, zoom but mode is none', () => {
-    const mock = jest.fn();
-    expect(
-      getViewport(scales as any, ['none', 'none'], 'pan', null, [-2, -3], viewport, mock),
-    )
-    .toBe(null);
-    expect(mock).toHaveBeenCalledTimes(0);
-  });
-
-  it('should return viewport, one of the scale is changed', () => {
-    const mock = jest.fn();
-    expect(
-      getViewport(scales as any, ['both', 'none'], 'pan', null, [-2, -3], viewport, mock),
-    )
-    .toEqual({ viewport: { argumentStart: 12, argumentEnd: 17, valueStart: 20, valueEnd: 25 } });
-    expect(mock).toBeCalled();
-  });
-
-  it('should return viewport, scaleName is specify', () => {
-    const mock = jest.fn();
-    const viewportTest = {
-      argumentStart: 10, argumentEnd: 15,
-      valueStart: 20, valueEnd: 25,
-      scaleName: 'scaleName',
-    };
-    const scalesTest = { [ARGUMENT_DOMAIN]: singleScale, scaleName: singleScale };
-    expect(
-      getViewport(scalesTest as any, ['both', 'none'], 'pan', null, [-2, -3], viewportTest, mock),
-    )
-    .toEqual({
-      viewport: {
-        argumentStart: 12, argumentEnd: 17, valueStart: 20, valueEnd: 25, scaleName: 'scaleName',
-      },
+  describe('#getViewport', () => {
+    beforeAll(() => {
+      (getValueDomainName as jest.Mock).mockReturnValue('domain-1');
     });
-    expect(mock).toBeCalled();
-  });
-
-  it('should return viewport, unzoom, left side is out', () => {
-    const mock = jest.fn();
-    const viewportTest = {
-      argumentStart: 5, argumentEnd: 15,
-      valueStart: 20, valueEnd: 25,
-    };
-    expect(getViewport(scales as any, ['zoom', 'none'], 'zoom', null, [-2, -3], viewportTest, mock))
-    .toEqual({ viewport: {
-      argumentStart: 5, argumentEnd: 17, valueStart: 20, valueEnd: 25, scaleName: undefined,
-    } });
-    expect(mock).toBeCalled();
-  });
-
-  it('should return viewport, unzoom, right side is out', () => {
-    const mock = jest.fn();
-    const viewportTest = {
-      argumentStart: 15, argumentEnd: 30,
-      valueStart: 20, valueEnd: 25,
-    };
-    expect(getViewport(scales as any, ['zoom', 'none'], 'zoom', null, [-2, -3], viewportTest, mock))
-    .toEqual({ viewport: {
-      argumentStart: 13, argumentEnd: 30, valueStart: 20, valueEnd: 25, scaleName: undefined,
-    } });
-    expect(mock).toBeCalled();
-  });
-
-  it('should return null, zoom, too small viewport', () => {
-    const mock = jest.fn();
-    const viewportTest = {
-      argumentStart: 10, argumentEnd: 10.1,
-      valueStart: 20, valueEnd: 25,
-    };
-    expect(getViewport(scales as any, ['zoom', 'none'], 'zoom', null, [2, 3], viewportTest, mock))
-    .toBe(null);
-    expect(mock).toHaveBeenCalledTimes(0);
-  });
-
-  it('should return null, unzoom, two of the sides is out', () => {
-    const mock = jest.fn();
-    const viewportTest = {
-      argumentStart: 5, argumentEnd: 30,
-      valueStart: 20, valueEnd: 25,
-    };
-    expect(getViewport(scales as any, ['zoom', 'none'], 'zoom', null, [-2, -3], viewportTest, mock))
-    .toBe(null);
-    expect(mock).toHaveBeenCalledTimes(0);
-  });
-
-  it('should return viewport, unzoom, two of the sides is out, prev bounds not initial', () => {
-    const mock = jest.fn();
-    const viewportTest = {
-      argumentStart: 6, argumentEnd: 29,
-      valueStart: 20, valueEnd: 25,
-    };
-    expect(getViewport(scales as any, ['zoom', 'none'], 'zoom', null, [-2, -3], viewportTest, mock))
-    .toEqual({ viewport: {
-      argumentStart: 5, argumentEnd: 30, valueStart: 20, valueEnd: 25, scaleName: undefined,
-    } });
-    expect(mock).toBeCalled();
-  });
-
-  it('should return null, pan, left side is out', () => {
-    const mock = jest.fn();
-    const viewportTest = {
-      argumentStart: 5, argumentEnd: 15,
-      valueStart: 20, valueEnd: 25,
-    };
-    expect(getViewport(scales as any, ['pan', 'none'], 'pan', null, [2, 3], viewportTest, mock))
-    .toBe(null);
-    expect(mock).toHaveBeenCalledTimes(0);
-  });
-
-  it('should return null, pan, right side is out', () => {
-    const mock = jest.fn();
-    const viewportTest = {
-      argumentStart: 15, argumentEnd: 30,
-      valueStart: 20, valueEnd: 25,
-    };
-    expect(getViewport(scales as any, ['pan', 'none'], 'pan', null, [-2, -3], viewportTest, mock))
-    .toBe(null);
-    expect(mock).toHaveBeenCalledTimes(0);
-  });
-
-  it('should return viewport, pan, right side is out, prev bounds not initial', () => {
-    const mock = jest.fn();
-    const viewportTest = {
-      argumentStart: 15, argumentEnd: 29,
-      valueStart: 20, valueEnd: 25,
-    };
-    expect(getViewport(scales as any, ['zoom', 'none'], 'zoom', null, [-2, -3], viewportTest, mock))
-    .toEqual({ viewport: {
-      argumentStart: 13, argumentEnd: 30, valueStart: 20, valueEnd: 25, scaleName: undefined,
-    } });
-    expect(mock).toBeCalled();
-  });
-
-  it('should return viewport, zoom by rect', () => {
-    const mock = jest.fn();
-    const viewportTest = {
-      argumentStart: 10, argumentEnd: 29,
-      valueStart: 6, valueEnd: 25,
-    };
-    const rect = { x: 12, y: 15, width: 5, height: -2 };
-    expect(getViewport(scales as any, ['zoom', 'zoom'], 'zoom', rect, [0, 0], viewportTest, mock))
-    .toEqual({ viewport: {
-      argumentStart: 12, argumentEnd: 17, valueStart: 13, valueEnd: 15, scaleName: undefined,
-    } });
-    expect(mock).toBeCalled();
-  });
-});
-
-describe('Zoom and Pan for categories', () => {
-  const singleScale = jest.fn(value => value);
-  (singleScale as any).domain = jest.fn(() => ['cat1', 'cat2', 'cat3', 'cat4', 'cat5', 'cat6']);
-  (singleScale as any).bandwidth = jest.fn();
-  (singleScale as any).range = jest.fn(() => [0, 40]);
-  const scales = { [ARGUMENT_DOMAIN]: singleScale, [VALUE_DOMAIN]: singleScale };
-  const viewport = {
-    argumentStart: 'cat2', argumentEnd: 'cat4', valueStart: 'cat2', valueEnd: 'cat6',
-  };
-
-  it('should return viewport, zoom', () => {
-    const mock = jest.fn();
-    expect(getViewport(scales as any, ['both', 'both'], 'zoom', null, [33, 63], undefined, mock))
-    .toEqual({ viewport: {
-      argumentStart: 'cat2', argumentEnd: 'cat5', valueStart: 'cat3', valueEnd: 'cat4',
-      scaleName: undefined,
-    },
+    afterAll(() => {
+      (getValueDomainName as jest.Mock).mockReset();
     });
-    expect(mock).toBeCalled();
-  });
 
-  it('should return viewport, pan', () => {
-    const mock = jest.fn();
-    expect(getViewport(scales as any, ['both', 'both'], 'pan', null, [33, 63], viewport, mock))
-    .toEqual({ viewport: {
-      argumentStart: 'cat1', argumentEnd: 'cat3', valueStart: 'cat1', valueEnd: 'cat4',
-      scaleName: undefined,
-    },
+    afterEach(() => {
+      jest.clearAllMocks();
+      (moveBounds as jest.Mock).mockReset();
+      (growBounds as jest.Mock).mockReset();
+      (invertBoundsRange as jest.Mock).mockReset();
     });
-    expect(mock).toBeCalled();
-  });
 
-  it('should return viewport, zoom, two elements -> one', () => {
-    const mock = jest.fn();
-    const viewportTest = {
-      argumentStart: 'cat2', argumentEnd: 'cat3', valueStart: 'cat2', valueEnd: 'cat6',
+    const argScale = { tag: 'arg-scale' };
+    const valScale = { tag: 'val-scale' };
+    const scales: ScalesCache = {
+      [ARGUMENT_DOMAIN]: argScale,
+      'domain-1': valScale,
+    } as any;
+    const viewport: ViewportOptions = {
+      argumentStart: 'A', argumentEnd: 'B',
+      valueStart: 100, valueEnd: 200,
     };
-    expect(getViewport(scales as any, ['both', 'none'], 'zoom', null, [33, 63], viewportTest, mock))
-    .toEqual({ viewport: {
-      argumentStart: 'cat3', argumentEnd: 'cat3', valueStart: 'cat2', valueEnd: 'cat6',
-      scaleName: undefined,
-    },
+
+    it('should pan bounds', () => {
+      const mock = jest.fn();
+      (moveBounds as jest.Mock).mockReturnValueOnce(['E', 'F']);
+      (moveBounds as jest.Mock).mockReturnValueOnce([3, 5]);
+
+      const ret = getViewport(
+        scales, ['both', 'both'], 'pan', [10, 5], [40, 30], null, viewport, mock
+      );
+
+      expect(ret).toEqual({
+        viewport: {
+          argumentStart: 'E', argumentEnd: 'F',
+          valueStart: 3, valueEnd: 5,
+        },
+      });
+      expect((moveBounds as jest.Mock).mock.calls).toEqual([
+        [argScale, ['A', 'B'], 10],
+        [valScale, [100, 200], 5],
+      ]);
+      expect(mock).toBeCalledWith(ret.viewport);
     });
-    expect(mock).toBeCalled();
+
+    it('should zoom bounds', () => {
+      const mock = jest.fn();
+      (growBounds as jest.Mock).mockReturnValueOnce(['E', 'F']);
+      (growBounds as jest.Mock).mockReturnValueOnce([3, 5]);
+
+      const ret = getViewport(
+        scales, ['both', 'both'], 'zoom', [10, 5], [40, 30], null, viewport, mock
+      );
+
+      expect(ret).toEqual({
+        viewport: {
+          argumentStart: 'E', argumentEnd: 'F',
+          valueStart: 3, valueEnd: 5,
+        },
+      });
+      expect((growBounds as jest.Mock).mock.calls).toEqual([
+        [argScale, ['A', 'B'], 10, 40],
+        [valScale, [100, 200], 5, 30],
+      ]);
+      expect(mock).toBeCalledWith(ret.viewport);
+    });
+
+    it('should apply bounds from range', () => {
+      const mock = jest.fn();
+      (invertBoundsRange as jest.Mock).mockReturnValueOnce(['E', 'F']);
+      (invertBoundsRange as jest.Mock).mockReturnValueOnce([3, 5]);
+
+      const ret = getViewport(
+        scales, ['both', 'both'], 'zoom', [10, 5], [40, 30],
+        [[11, 12], [13, 14]],
+        { ...viewport, scaleName: 'test' }, mock
+      );
+
+      expect(ret).toEqual({
+        viewport: {
+          scaleName: 'test',
+          argumentStart: 'E', argumentEnd: 'F',
+          valueStart: 3, valueEnd: 5,
+        },
+      });
+      expect((invertBoundsRange as jest.Mock).mock.calls).toEqual([
+        [argScale, [11, 12]],
+        [valScale, [13, 14]],
+      ]);
+      expect(mock).toBeCalledWith(ret.viewport);
+    });
+
+    it('should change only argument bounds', () => {
+      const mock = jest.fn();
+      (moveBounds as jest.Mock).mockImplementation((scale, bounds) => {
+        if (scale === argScale) {
+          return ['E', 'F'];
+        }
+        if (scale === valScale) {
+          return bounds;
+        }
+      });
+
+      const ret = getViewport(
+        scales, ['both', 'both'], 'pan', [10, 5], [40, 30], null, viewport, mock
+      );
+
+      expect(ret).toEqual({
+        viewport: {
+          ...viewport,
+          argumentStart: 'E', argumentEnd: 'F',
+        },
+      });
+      expect(mock).toBeCalledWith(ret.viewport);
+    });
+
+    it('should change only value bounds', () => {
+      const mock = jest.fn();
+      (growBounds as jest.Mock).mockImplementation((scale, bounds) => {
+        if (scale === argScale) {
+          return bounds;
+        }
+        if (scale === valScale) {
+          return [3, 5];
+        }
+      });
+
+      const ret = getViewport(
+        scales, ['both', 'both'], 'zoom', [10, 5], [40, 30], null, viewport, mock
+      );
+
+      expect(ret).toEqual({
+        viewport: {
+          ...viewport,
+          valueStart: 3, valueEnd: 5,
+        },
+      });
+      expect(mock).toBeCalledWith(ret.viewport);
+    });
+
+    it('should not change viewport if bounds are not changed', () => {
+      const mock = jest.fn();
+      (moveBounds as jest.Mock).mockImplementation((_, bounds) => bounds);
+
+      const ret = getViewport(
+        scales, ['both', 'both'], 'pan', [10, 5], [40, 30], null, viewport, mock
+      );
+
+      expect(ret).toEqual(null);
+      expect(mock).not.toBeCalled();
+      expect(moveBounds).toBeCalledTimes(2);
+    });
+
+    it('should not change viewport if interaction is not allowed', () => {
+      const mock = jest.fn();
+
+      const ret = getViewport(
+        scales, ['none', 'zoom'], 'pan', [10, 5], [40, 30], null, viewport, mock
+      );
+
+      expect(ret).toEqual(null);
+      expect(mock).not.toBeCalled();
+      expect(moveBounds).not.toBeCalled();
+    });
+
+    it('should take default bounds if viewport is empty', () => {
+      const scales1: ScalesCache = {
+        [ARGUMENT_DOMAIN]: { domain: () => ['Q', 'W', 'R', 'T'] },
+        'domain-1': { domain: () => [1, 2] },
+      } as any;
+
+      getViewport(
+        scales1, ['both', 'both'], 'zoom', [10, 5], [40, 30], null, {} as any, () => {}
+      );
+
+      expect((growBounds as jest.Mock).mock.calls[0][1]).toEqual(['Q', 'T']);
+      expect((growBounds as jest.Mock).mock.calls[1][1]).toEqual([1, 2]);
+    });
   });
 
-  it('should return null, viewport is out', () => {
-    const mock = jest.fn();
-    const viewportTest = {
-      argumentStart: 'cat1', argumentEnd: 'cat6', valueStart: 'cat2', valueEnd: 'cat6',
-    };
-    expect(
-      getViewport(scales as any, ['both', 'none'], 'zoom', null, [-33, -63], viewportTest, mock),
-    )
-    .toBe(null);
-    expect(mock).toHaveBeenCalledTimes(0);
+  describe('#getDeltaForTouches', () => {
+    it('should return delta and center', () => {
+      expect(getDeltaForTouches([{ pageX: 20, pageY: 120 }, { pageX: 10, pageY: 110 }] as any[]))
+        .toEqual({ center: [15, 115], delta: matchFloat(14.14) });
+    });
   });
 
-  it('should return viewport, zoom by rect', () => {
-    const mockScale = jest.fn(value => value.toString()) as any;
-    mockScale.domain = jest.fn().mockReturnValue(mockScale);
-    mockScale.range = jest.fn().mockReturnValue(mockScale);
-    (scaleQuantize as jest.Mock).mockReturnValue(mockScale);
-
-    const mock = jest.fn();
-    const rect = { x: 12, y: 15, width: 5, height: -2 };
-    expect(getViewport(scales as any, ['zoom', 'zoom'], 'zoom', rect, [0, 0], viewport, mock))
-    .toEqual({
-      viewport: {
-        argumentStart: '12', argumentEnd: '17', valueStart: '13', valueEnd: '15',
-        scaleName: undefined,
-      },
+  describe('#isKeyPressed', () => {
+    it('should return true if key is pressed', () => {
+      expect(isKeyPressed({ shiftKey: true } as any, 'none')).toBeFalsy();
+      expect(isKeyPressed({ shiftKey: true } as any, 'shift')).toBeTruthy();
+      expect(isKeyPressed({ shiftKey: false } as any, 'shift')).toBeFalsy();
+      expect(isKeyPressed({ altKey: true } as any, 'alt')).toBeTruthy();
     });
-    expect(mock).toBeCalled();
   });
 });

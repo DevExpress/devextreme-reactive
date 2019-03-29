@@ -96,8 +96,7 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
       }
       return getViewport(
         scales, interactions, 'pan',
-        // In event coords space vertical direction goes down, in chart space - up.
-        [+deltaX, -deltaY], null, null, viewport, onViewportChange,
+        [-deltaX, -deltaY], null, null, viewport, onViewportChange,
       );
     });
   }
@@ -116,8 +115,7 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
             null,
             [
               [rectBox!.x, rectBox!.x + rectBox!.width],
-              // In event coords space vertical direction goes down, in chart space - up.
-              [rectBox!.y + rectBox!.height, rectBox!.y],
+              [rectBox!.y, rectBox!.y + rectBox!.height],
             ],
             viewport, onViewportChange,
           ),

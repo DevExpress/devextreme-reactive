@@ -82,19 +82,22 @@ export const boundsEqual = (scale: ScaleObject, b1: DomainBounds, b2: DomainBoun
 const moveLinearScaleBounds = (
   scale: ScaleObject, bounds: DomainBounds, delta: number,
 ): DomainBounds => {
+  const fullRange = scale.range();
+  const sign = Math.sign(fullRange[1] - fullRange[0]);
   const range = scaleBounds(scale, bounds);
-  const sign = Math.sign(range[1] - range[0]);
-  let new0 = invert(scale, range[0] - sign * delta);
-  let new1 = invert(scale, range[1] - sign * delta);
-  if (new0 === undefined) {
-    new0 = scale.domain()[0];
-    new1 = invert(scale, scale.range()[0] + range[1] - range[0]);
+  let r0 = range[0] + delta;
+  let r1 = range[1] + delta;
+  // Check if new range is outside of the left border.
+  if (Math.sign(r0 - fullRange[0]) !== sign) {
+    r0 = fullRange[0];
+    r1 = r0 + range[1] - range[0];
   }
-  if (new1 === undefined) {
-    new1 = scale.domain()[1];
-    new0 = invert(scale, scale.range()[1] - range[1] + range[0]);
+  // Check if new range is outside of the right border.
+  if (Math.sign(fullRange[1] - r1) !== sign) {
+    r1 = fullRange[1];
+    r0 = r1 - range[1] + range[0];
   }
-  const newBounds: DomainBounds = [new0, new1];
+  const newBounds: DomainBounds = [scale.invert(r0), scale.invert(r1)];
   return rangesEqual(bounds, newBounds) ? bounds : newBounds;
 };
 
@@ -136,8 +139,8 @@ const moveBandScaleBounds = (
   const range = scaleBounds(scale, bounds);
   const range0 = Math.round((range[0] - fullRange[0]) / step);
   const range1 = range0 + Math.round((range[1] - range[0]) / step) - 1;
-  let new0 = range0 - rangeStep;
-  let new1 = range1 - rangeStep;
+  let new0 = range0 + rangeStep;
+  let new1 = range1 + rangeStep;
   if (new0 < 0) {
     new0 = 0;
     new1 = new0 + range1 - range0;
@@ -162,18 +165,27 @@ export const moveBounds = (
 const growLinearScaleBounds = (
   scale: ScaleObject, bounds: DomainBounds, delta: number, anchor: number,
 ): DomainBounds => {
+  const fullRange = scale.range();
+  const sign = Math.sign(fullRange[1] - fullRange[0]);
   const range = scaleBounds(scale, bounds);
-  const sign = Math.sign(range[1] - range[0]);
   const t = Math.abs((anchor - range[0]) / (range[1] - range[0]));
-  let new0 = invert(scale, range[0] + sign * delta * 2 * t);
-  let new1 = invert(scale, range[1] - sign * delta * 2 * (1 - t));
-  if (new0 === undefined) {
-    new0 = scale.domain()[0];
+  let r0 = range[0] + sign * delta * 2 * t;
+  let r1 = range[1] - sign * delta * 2 * (1 - t);
+  // Check if new range is outside of the left border.
+  if (Math.sign(r0 - fullRange[0]) !== sign) {
+    r0 = fullRange[0];
   }
-  if (new1 === undefined) {
-    new1 = scale.domain()[1];
+  // Check if new range is outside of the right border.
+  if (Math.sign(fullRange[1] - r1) !== sign) {
+    r1 = fullRange[1];
   }
-  const newBounds: DomainBounds = [new0, new1];
+  const minRangeThreshold = (fullRange[1] - fullRange[0]) / 100;
+  // Check if new range is too small.
+  if (Math.sign(r1 - r0) !== sign || Math.abs(r1 - r0) < Math.abs(minRangeThreshold)) {
+    r0 = anchor - minRangeThreshold / 2;
+    r1 = anchor + minRangeThreshold / 2;
+  }
+  const newBounds: DomainBounds = [scale.invert(r0), scale.invert(r1)];
   return rangesEqual(bounds, newBounds) ? bounds : newBounds;
 };
 
@@ -225,18 +237,24 @@ export const growBounds = (
   (scale.bandwidth ? growBandScaleBounds : growLinearScaleBounds)(scale, bounds, delta, anchor)
 );
 
-/** @internal */
-export const invertBoundsRange = (scale: ScaleObject, range: NumberArray): DomainBounds => {
-  let new0 = invert(scale, range[0]);
-  let new1 = invert(scale, range[1]);
-  if (new0 === undefined) {
-    new0 = scale.domain()[0];
-  }
-  if (new1 === undefined) {
-    new1 = scale.domain()[1];
-  }
+const invertLinearScaleBounds = (scale: ScaleObject, range: NumberArray): DomainBounds => {
+  const fullRange = scale.range();
+  const match = Math.sign(fullRange[1] - fullRange[0]) === Math.sign(range[1] - range[0]);
+  let new0 = scale.invert(range[match ? 0 : 1]);
+  let new1 = scale.invert(range[match ? 1 : 0]);
   return [new0, new1];
 };
+
+const invertBandScaleBounds = (scale: ScaleObject, range: NumberArray): DomainBounds => {
+  let new0 = invertBandscaleRange(scale, range[0]);
+  let new1 = invertBandscaleRange(scale, range[1]);
+  return [new0, new1];
+};
+
+/** @internal */
+export const invertBoundsRange = (scale: ScaleObject, range: NumberArray)=> (
+  (scale.bandwidth ? invertBandScaleBounds : invertLinearScaleBounds)(scale, range)
+);
 
 /** @internal */
 export const fixOffset = (scale: ScaleObject): ((value: number) => number) => {

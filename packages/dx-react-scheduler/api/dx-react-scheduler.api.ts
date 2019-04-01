@@ -171,8 +171,8 @@ namespace Appointments {
 // @public (undocumented)
 namespace Appointments {
   interface SliceProps {
-    appointmentType: string;
-    position: string;
+    appointmentType: 'vertical' | 'horizontal';
+    position: 'top' | 'bottom';
   }
 }
 
@@ -451,8 +451,8 @@ namespace DragDropProvider {
 // @public (undocumented)
 namespace DragDropProvider {
   interface ResizeProps {
-    appointmentType: string;
-    position: string;
+    appointmentType: 'vertical' | 'horizontal';
+    position: 'top' | 'bottom';
   }
 }
 

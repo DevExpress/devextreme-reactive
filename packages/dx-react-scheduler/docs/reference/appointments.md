@@ -63,8 +63,8 @@ Properties passed to a component that renders a slice.
 
 Field | Type | Description
 ------|------|------------
-position | string | Specifies where appointment is sliced.
-appointmentType | string | Specifies an appointment type.
+position | 'top' &#124; 'bottom' | Specifies where appointment is sliced.
+appointmentType | 'vertical' &#124; 'horizontal' | Specifies an appointment type.
 
 ### Appointments.ContainerProps
 

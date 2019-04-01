@@ -67,8 +67,8 @@ Describes properties of the component that renders a handler of resize appointme
 
 Field | Type | Description
 ------|------|------------
-position | string | Specifies a position for handler of resize.
-appointmentType | string | Specifies an appointment type.
+position | 'top' &#124; 'bottom' | Specifies a position for handler of resize.
+appointmentType | 'vertical' &#124; 'horizontal' | Specifies an appointment type.
 
 ### DragDropProvider.ContainerProps
 

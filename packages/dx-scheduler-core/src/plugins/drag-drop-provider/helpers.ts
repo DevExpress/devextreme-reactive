@@ -92,8 +92,8 @@ export const timeBoundariesByResize: TimeBoundariesByResize = (
   }
   // keep origin appointment duration if coordinates are wrong
   if (moment(appointmentEndTime).diff(appointmentStartTime, MINUTES) < 1) {
-    appointmentStartTime = moment(payload.startDate as Date).toDate();
-    appointmentEndTime = moment(payload.endDate as Date).toDate();
+    appointmentStartTime = new Date(payload.startDate as Date);
+    appointmentEndTime = new Date(payload.endDate as Date);
   }
   return { appointmentStartTime, appointmentEndTime };
 };

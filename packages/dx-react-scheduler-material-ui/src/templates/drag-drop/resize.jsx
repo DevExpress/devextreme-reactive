@@ -2,7 +2,10 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
-import { VERTICAL_TYPE } from '@devexpress/dx-scheduler-core';
+import {
+  VERTICAL_TYPE, HORIZONTAL_TYPE,
+  POSITION_TOP, POSITION_BOTTOM,
+} from '@devexpress/dx-scheduler-core';
 
 const verticalStyles = {
   width: '100%',
@@ -44,7 +47,7 @@ const ResizeBase = ({
   position, appointmentType, ...restProps
 }) => {
   const vertical = appointmentType === VERTICAL_TYPE;
-  const top = position === 'top';
+  const top = position === POSITION_TOP;
   return (
     <div
       className={classNames({
@@ -62,8 +65,8 @@ const ResizeBase = ({
 
 ResizeBase.propTypes = {
   classes: PropTypes.object.isRequired,
-  position: PropTypes.string.isRequired,
-  appointmentType: PropTypes.string.isRequired,
+  position: PropTypes.oneOf([POSITION_TOP, POSITION_BOTTOM]).isRequired,
+  appointmentType: PropTypes.oneOf([HORIZONTAL_TYPE, VERTICAL_TYPE]).isRequired,
   className: PropTypes.string,
 };
 

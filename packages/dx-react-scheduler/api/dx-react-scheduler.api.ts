@@ -172,7 +172,7 @@ namespace Appointments {
 namespace Appointments {
   interface SliceProps {
     appointmentType: 'vertical' | 'horizontal';
-    position: 'top' | 'bottom';
+    position: 'start' | 'end';
   }
 }
 
@@ -452,7 +452,7 @@ namespace DragDropProvider {
 namespace DragDropProvider {
   interface ResizeProps {
     appointmentType: 'vertical' | 'horizontal';
-    position: 'top' | 'bottom';
+    position: 'start' | 'end';
   }
 }
 

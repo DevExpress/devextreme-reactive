@@ -75,7 +75,7 @@ describe('DragDropProvider', () => {
       expect(cellIndex(cells as Element[], { x: 10, y: 10 }))
         .toEqual(0);
     });
-    it('should work without array', () => {
+    it('should work with empty array', () => {
       expect(cellIndex([], { x: 10, y: 10 }))
         .toEqual(-1);
     });

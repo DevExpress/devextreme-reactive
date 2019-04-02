@@ -45,7 +45,7 @@ export default class Demo extends React.PureComponent {
       zoomValue: false,
       panValue: false,
     };
-    this.submit = (e) => this.setState({
+    this.submit = e => this.setState({
       [e.target.id]: e.target.checked,
     });
   }

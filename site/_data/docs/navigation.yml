@@ -238,6 +238,8 @@
         path: /react/chart/docs/guides/hover-and-selection
       - title: Tooltip
         path: /react/chart/docs/guides/tooltip
+      - title: Zoom and Pan
+        path: /react/chart/docs/guides/zoom-and-pan
       - title: TypeScript
         path: /react/chart/docs/guides/typescript
   - title: API Reference
@@ -282,6 +284,8 @@
         path: /react/chart/docs/reference/value-axis
       - title: ValueScale
         path: /react/chart/docs/reference/value-scale
+      - title: ZoomAndPan
+        path: /react/chart/docs/reference/zoom-and-pan
   - title: Related Docs
     items:
       - title: React Core

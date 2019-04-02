@@ -19,7 +19,7 @@ export class GridCore extends React.PureComponent<GridProps> {
       <Plugin>
         <Getter name="start" value={0} />
         <Getter name="loadedRowsStart" value={0} />
-        <Getter name="totalRowCount" value={rows.length} />
+        <Getter name="availableRowCount" value={rows.length} />
         <Getter name="rows" value={rows} />
         <Getter name="getRowId" value={rowIdGetter(getRowId!, rows)} />
         <Getter name="columns" value={columns} />

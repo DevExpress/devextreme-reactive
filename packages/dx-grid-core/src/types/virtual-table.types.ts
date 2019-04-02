@@ -85,13 +85,8 @@ export type GetColumnWidthGetterFn = PureComputed<
   GetColumnWidthFn
 >;
 
-export type GridVisibleBounds = {
-  columns: ReadonlyArray<number[]>;
-  bodyRows: number[];
-};
-
 export type VisibleBoundsFn = PureComputed<
-  [any, Getters, number, GetColumnWidthFn, GetRowHeightFn], GridVisibleBounds
+  [any, Getters, number, GetColumnWidthFn, GetRowHeightFn], number[]
 >;
 
 type PageTriggersMeta = {

@@ -9,9 +9,8 @@ import {
   getRowsRenderBoundary,
   TABLE_STUB_TYPE,
   isStubTableCell,
-  visibleBounds,
+  visibleRowsBounds,
   pageTriggersMeta,
-  getColumnsRenderBoundary,
   getColumnWidthGetter,
   TableColumn,
   GetColumnWidthFn,
@@ -27,13 +26,11 @@ const renderBoundariesComputed = ({
   visibleBoundaries,
   loadedRowsStart,
   tableBodyRows,
-  columns,
-}: Getters) => ({
-  bodyRows: getRowsRenderBoundary(
-    loadedRowsStart + tableBodyRows.length, visibleBoundaries.bodyRows,
-  ),
-  columns: [getColumnsRenderBoundary(columns.length, visibleBoundaries.columns[0])],
-});
+}: Getters) => (
+  getRowsRenderBoundary(
+    loadedRowsStart + tableBodyRows.length, visibleBoundaries,
+  )
+);
 
 /** @internal */
 export const makeVirtualTable: (...args: any) => any = (Table, {
@@ -59,7 +56,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
     layoutRenderComponent: React.ComponentType<VirtualTableLayoutProps> & { update(): void; };
     rowRefs: Map<any, any>;
     blockRefs: Map<any, any>;
-    visibleBoundariesComputed: MemoizedComputed<VirtualTableLayoutState, typeof visibleBounds>;
+    visibleBoundariesComputed: MemoizedComputed<VirtualTableLayoutState, typeof visibleRowsBounds>;
     pageTriggersMetaComputed: MemoizedComputed<
       VirtualTableLayoutState, typeof pageTriggersMeta
     >;
@@ -117,7 +114,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
 
       this.visibleBoundariesComputed = memoize(
         (state: VirtualTableLayoutState) => (getters: Getters) => (
-          visibleBounds(
+          visibleRowsBounds(
             state, getters, propsEstimatedRowHeight,
             this.getColumnWidthGetter(
               getters.tableColumns, state.width, minColumnWidth,
@@ -294,6 +291,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
 
       const {
         containerHeight,
+        width: containerWidth,
         headerHeight,
         bodyHeight,
         footerHeight,
@@ -319,14 +317,14 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
                   {(
                     { currentVirtualPageBoundary, availableRowCount,
                       renderBoundaries, remoteDataEnabled, loadedRowsStart,
-                      tableColumns,
+                      tableColumns, visibleBoundaries,
                     },
                     { requestNextPage },
                   ) => {
                     const {
                       containerComponent: Container,
                     } = params;
-                    const { width } = this.state;
+                    const { width, viewportLeft } = this.state;
                     const getColumnWidth = this.getColumnWidthGetter(
                       tableColumns, width, minColumnWidth,
                     );
@@ -352,13 +350,15 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
                             blockRefsHandler: this.registerBlockRef,
                             rowRefsHandler: this.registerRowRef,
                             onUpdate: this.handleTableUpdate,
-                            visibleBoundaries: renderBoundaries,
+                            visibleRowBoundaries: renderBoundaries,
                             getRowHeight: this.getRowHeight,
                             getColumnWidth,
                             headerHeight,
                             bodyHeight,
                             footerHeight,
                             containerHeight,
+                            containerWidth,
+                            viewportLeft,
                             totalRowCount: availableRowCount,
                             loadedRowsStart,
                           }}

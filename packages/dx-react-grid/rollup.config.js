@@ -19,7 +19,8 @@ export default {
   plugins: [
     typescriptRollup({
       typescript,
-      useTsconfigDeclarationDir: true
+      useTsconfigDeclarationDir: true,
+      abortOnError: false,
     }),
     replace({
       "/** @class */": "/*#__PURE__*/",

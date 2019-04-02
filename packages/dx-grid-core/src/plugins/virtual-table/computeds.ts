@@ -1,25 +1,22 @@
 import {
-  getColumnsVisibleBoundary, getRowsVisibleBoundary,
+  getRowsVisibleBoundary,
 } from '../../utils/virtual-table';
 import { VisibleBoundsFn, PageTriggersMetaFn } from '../../types';
 
-export const visibleBounds: VisibleBoundsFn = (
+export const visibleRowsBounds: VisibleBoundsFn = (
   state, getters, estimatedRowHeight, getColumnWidth, getRowHeight,
 ) => {
   const {
-    viewportLeft, width, viewportTop, containerHeight, headerHeight, footerHeight,
+    viewportTop, containerHeight, headerHeight, footerHeight,
   } = state;
   const {
-    loadedRowsStart, tableColumns, tableBodyRows,
+    loadedRowsStart, tableBodyRows,
   } = getters;
 
-  return {
-    columns: getColumnsVisibleBoundary(tableColumns, viewportLeft, width, getColumnWidth),
-    bodyRows: getRowsVisibleBoundary(
+  return getRowsVisibleBoundary(
       tableBodyRows, viewportTop, containerHeight - headerHeight - footerHeight,
       getRowHeight, loadedRowsStart, estimatedRowHeight,
-    ),
-  };
+    );
 };
 
 /** how many rows up and down before next page request */
@@ -27,7 +24,7 @@ export const pageTriggersMeta: PageTriggersMetaFn = (
   state, getters, estimatedRowHeight,
 ) => {
   const {
-    visibleBoundaries, virtualPageSize, virtualRows,
+    visibleBoundaries: rowsBoundaries, virtualPageSize, virtualRows,
     loadedRowsStart, remoteDataEnabled,
   } = getters;
 
@@ -44,8 +41,8 @@ export const pageTriggersMeta: PageTriggersMetaFn = (
 
   const topTriggerIndex = loadedRowsStart > 0 ? loadedRowsStart + virtualPageSize : 0;
   const bottomTriggerIndex = loadedRowsStart + loadedCount - virtualPageSize;
-  const firstRowIndex = visibleBoundaries.bodyRows[0];
-  const visibleCount = visibleBoundaries.bodyRows[1] - visibleBoundaries.bodyRows[0];
+  const firstRowIndex = rowsBoundaries[0];
+  const visibleCount = rowsBoundaries[1] - rowsBoundaries[0];
   const middleIndex = firstRowIndex + Math.round(visibleCount / 2);
 
   const middlePosition = viewportTop + containerHeight / 2;

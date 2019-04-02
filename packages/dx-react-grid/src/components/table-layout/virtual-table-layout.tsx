@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { RefHolder } from '@devexpress/dx-react-core';
 import {
-  getCollapsedGrid, intervalUtil,
+  getCollapsedGrid, intervalUtil, getColumnsRenderBoundary, getColumnsVisibleBoundary,
 } from '@devexpress/dx-grid-core';
 import { ColumnGroup } from './column-group';
 import { VirtualRowLayout } from './virtual-row-layout';
@@ -92,7 +92,8 @@ export class VirtualTableLayout extends React.PureComponent<VirtualTableLayoutPr
       headComponent: Head,
       bodyComponent: Body,
       footerComponent: Footer,
-      visibleBoundaries,
+      visibleRowBoundaries,
+      visibleColumnsBoundaries,
       totalRowCount,
       loadedRowsStart,
       getRowHeight,
@@ -101,17 +102,29 @@ export class VirtualTableLayout extends React.PureComponent<VirtualTableLayoutPr
       bodyHeight,
       footerHeight,
       containerHeight,
+      containerWidth,
+      viewportLeft,
       tableRef,
     } = this.props;
 
     const getColSpan = (
       tableRow, tableColumn,
-    ) => getCellColSpan!({ tableRow, tableColumn, tableColumns: columns });
+    ) => getCellColSpan!({
+      tableRow, tableColumn, tableColumns: columns,
+    });
+    const visibleColumnBoundaries = [
+      getColumnsRenderBoundary(
+        columns.length,
+        getColumnsVisibleBoundary(
+          columns, viewportLeft, containerWidth, getColumnWidth,
+        )[0],
+      ),
+    ];
     const getCollapsedGridBlock = (rows, rowsVisibleBoundary, rowCount = rows.length, offset = 0) => getCollapsedGrid({
       rows,
       columns,
       rowsVisibleBoundary,
-      columnsVisibleBoundary: visibleBoundaries.columns,
+      columnsVisibleBoundary: visibleColumnBoundaries,
       getColumnWidth,
       getRowHeight,
       getColSpan,
@@ -120,7 +133,7 @@ export class VirtualTableLayout extends React.PureComponent<VirtualTableLayoutPr
     });
 
     const adjustedInterval = intervalUtil.intersect(
-      { start: visibleBoundaries.bodyRows[0], end: visibleBoundaries.bodyRows[1] },
+      { start: visibleRowBoundaries[0], end: visibleRowBoundaries[1] },
       { start: loadedRowsStart, end: loadedRowsStart + bodyRows.length },
     );
     const adjustedBounds = [adjustedInterval.start, adjustedInterval.end];

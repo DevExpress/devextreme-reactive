@@ -160,10 +160,8 @@ export const collapseBoundaries: CollapseBoundariesFn = (
 
 const getColumnsSize: GetColumnsSizeFn = (columns, startIndex, endIndex, getColumnSize) => {
   let size = 0;
-  let index;
-  const loopEndIndex = endIndex + 1;
-  for (index = startIndex; index < loopEndIndex; index += 1) {
-    size += getColumnSize(columns[index], 0) || 0;
+  for (let i = startIndex; i <= endIndex; i += 1) {
+    size += getColumnSize(columns[i], 0) || 0;
   }
   return size;
 };
@@ -213,7 +211,7 @@ export const getCollapsedRows: GetCollapsedAndStubRowsFn = (
         row: {
           key: `${TABLE_STUB_TYPE.toString()}_${boundary[0]}_${boundary[1]}`,
           type: TABLE_STUB_TYPE,
-          height: (rowCount === 0
+          height: (rowCount === 0 && boundary[0] === Number.POSITIVE_INFINITY
             ? 'auto'
             : getColumnsSize(rows, boundary[0], boundary[1], getRowHeight)
           ),

@@ -5,7 +5,6 @@ import { isEdgeBrowser } from '@devexpress/dx-core';
 import { Sizer } from '@devexpress/dx-react-core';
 import {
   getCollapsedGrid,
-  getColumnWidthGetter,
   TABLE_FLEX_TYPE,
 } from '@devexpress/dx-grid-core';
 import { setupConsole } from '@devexpress/dx-testing';
@@ -440,19 +439,5 @@ describe('VirtualTableLayout', () => {
     });
   });
 
-  it('should use getColumnWidthGetter', () => {
-    const getColumnWidth = () => 0;
-    getColumnWidthGetter.mockImplementationOnce(() => getColumnWidth);
 
-    mount((
-      <VirtualTableLayout
-        {...defaultProps}
-      />
-    ));
-
-    expect(getCollapsedGrid.mock.calls[0][0])
-      .toMatchObject({
-        getColumnWidth,
-      });
-  });
 });

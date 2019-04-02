@@ -30,6 +30,7 @@ export type TableLayoutCoreProps = TableLayoutProps & {
   layoutComponent: React.ComponentType<TableLayoutProps>,
   minColumnWidth: number,
   columns: TableColumn[],
+  visibleBoundaries: any,
 };
 /** @internal */
 export type TableLayoutCoreState = {

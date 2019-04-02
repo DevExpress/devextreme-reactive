@@ -147,7 +147,7 @@ export const collapseBoundaries: CollapseBoundariesFn = (
     });
 
   const bp = [...breakpoints].sort((a, b) => a - b);
-  const bounds = [];
+  const bounds: any[] = [];
   for (let i = 0; i < bp.length - 1; i += 1) {
     bounds.push([
       bp[i],

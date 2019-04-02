@@ -31,7 +31,7 @@ describe('DragDrop', () => {
         .toBeTruthy();
       expect(tree.is(`.${classes.resize}`))
         .toBeTruthy();
-      expect(tree.is(`.${classes.verticalTop}`))
+      expect(tree.is(`.${classes.verticalStart}`))
         .toBeTruthy();
     });
     it('should manage classes by props', () => {
@@ -39,21 +39,21 @@ describe('DragDrop', () => {
         <Resize position="start" appointmentType="horizontal" />
       ));
 
-      expect(tree.is(`.${classes.horizontalTop}`))
+      expect(tree.is(`.${classes.horizontalStart}`))
         .toBeTruthy();
 
       tree = shallow((
         <Resize position="end" appointmentType="horizontal" />
       ));
 
-      expect(tree.is(`.${classes.horizontalBottom}`))
+      expect(tree.is(`.${classes.horizontalEnd}`))
         .toBeTruthy();
 
       tree = shallow((
         <Resize position="end" appointmentType="vertical" />
       ));
 
-      expect(tree.is(`.${classes.verticalBottom}`))
+      expect(tree.is(`.${classes.verticalEnd}`))
         .toBeTruthy();
     });
   });

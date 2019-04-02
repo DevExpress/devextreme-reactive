@@ -202,7 +202,7 @@ describe('Appointments', () => {
       data: {},
     });
   });
-  it('should render slice top component', () => {
+  it('should render slice start component', () => {
     const deps = {
       template: {
         appointment: {
@@ -223,11 +223,11 @@ describe('Appointments', () => {
     const slice = tree.find(Slice);
 
     expect(slice.props()).toEqual({
-      position: 'top',
+      position: 'start',
       appointmentType: 'horizontal',
     });
   });
-  it('should render slice bottom component', () => {
+  it('should render slice end component', () => {
     const deps = {
       template: {
         appointment: {
@@ -248,7 +248,7 @@ describe('Appointments', () => {
     const slice = tree.find(Slice);
 
     expect(slice.props()).toEqual({
-      position: 'bottom',
+      position: 'end',
       appointmentType: 'horizontal',
     });
   });

@@ -31,7 +31,7 @@ describe('Appointment', () => {
         .toBeTruthy();
       expect(tree.is(`.${classes.slice}`))
         .toBeTruthy();
-      expect(tree.is(`.${classes.verticalTop}`))
+      expect(tree.is(`.${classes.verticalStart}`))
         .toBeTruthy();
     });
     it('should manage classes by props', () => {
@@ -39,21 +39,21 @@ describe('Appointment', () => {
         <Slice position="start" appointmentType="horizontal" />
       ));
 
-      expect(tree.is(`.${classes.horizontalTop}`))
+      expect(tree.is(`.${classes.horizontalStart}`))
         .toBeTruthy();
 
       tree = shallow((
         <Slice position="end" appointmentType="horizontal" />
       ));
 
-      expect(tree.is(`.${classes.horizontalBottom}`))
+      expect(tree.is(`.${classes.horizontalEnd}`))
         .toBeTruthy();
 
       tree = shallow((
         <Slice position="end" appointmentType="vertical" />
       ));
 
-      expect(tree.is(`.${classes.verticalBottom}`))
+      expect(tree.is(`.${classes.verticalEnd}`))
         .toBeTruthy();
     });
   });

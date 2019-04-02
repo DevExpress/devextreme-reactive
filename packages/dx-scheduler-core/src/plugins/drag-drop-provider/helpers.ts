@@ -108,7 +108,6 @@ export const timeBoundariesByDrag: TimeBoundariesByDrag = (
 
   const insideOffset = targetType === VERTICAL_TYPE ? insidePart * cellDurationMinutes * 60 / 2 : 0;
   const start = moment(targetData.startDate as Date).add(insideOffset, SECONDS);
-  const end = moment(start);
 
   if (offsetTimeTopBase === null) {
     offsetTimeTop = moment(targetData.startDate as Date)
@@ -120,7 +119,7 @@ export const timeBoundariesByDrag: TimeBoundariesByDrag = (
   if (payload.type === targetType) {
     const appointmentDurationSeconds = intervalDuration(payload, SECONDS);
     appointmentStartTime = moment(start).add((offsetTimeTop) * (-1), SECONDS).toDate();
-    appointmentEndTime = moment(end)
+    appointmentEndTime = moment(start)
       .add((appointmentDurationSeconds - offsetTimeTop), SECONDS).toDate();
   } else {
     appointmentStartTime = moment(targetData.startDate as Date)

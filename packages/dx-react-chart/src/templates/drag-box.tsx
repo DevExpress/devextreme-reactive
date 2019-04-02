@@ -16,7 +16,7 @@ export class DragBox extends React.PureComponent<ZoomAndPan.DragBoxProps> {
         fill={color}
         opacity={opacity}
         {...restProps}
-        />
+      />
     );
   }
 }

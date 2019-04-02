@@ -20,7 +20,7 @@ export interface ZoomAndPanProps {
   zoomRegionKey?: 'shift' | 'alt' | 'ctrl';
 }
 
-type Rect = { x: number; y: number; width: number; height: number; }
+type Rect = { x: number; y: number; width: number; height: number; };
 
 /** @internal */
 export type ZoomAndPanState = {

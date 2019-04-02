@@ -19,9 +19,9 @@ Name | Type | Default | Description
 defaultViewport? | [Viewport](#viewport) | A default viewport.
 viewport? | [Viewport](#viewport) | A viewport.
 onViewportChange? | (viewport: [Viewport](#viewport)) => void | A function that is executed when the viewport changes.
-interactionWithArguments? | 'none' \| 'pan' \| 'zoom' \| 'both' | A type of interaction available for the argument scale.
-interactionWithValues? | 'none' \| 'pan' \| 'zoom' \| 'both' | A type of interaction available for the value scale.
-zoomRegionKey? | 'shift' \| 'alt' \| 'ctrl' | A key the enables zoom region mode.
+interactionWithArguments? | 'none' &#124; 'pan' &#124; 'zoom' &#124; 'both' | A type of interaction available for the argument scale.
+interactionWithValues? | 'none' &#124; 'pan' &#124; 'zoom' &#124; 'both' | A type of interaction available for the value scale.
+zoomRegionKey? | 'shift' &#124; 'alt' &#124; 'ctrl' | A key the enables zoom region mode.
 dragBoxComponent? | ComponentType&lt;[Viewport.DragBoxProps](#viewportdragboxprops)&gt; | A component that renders zoom region rect.
 
 ## Interfaces

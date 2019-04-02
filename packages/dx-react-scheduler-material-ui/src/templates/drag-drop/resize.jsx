@@ -7,39 +7,43 @@ import {
   POSITION_TOP, POSITION_BOTTOM,
 } from '@devexpress/dx-scheduler-core';
 
-const verticalStyles = {
+const verticalStyles = spacing => ({
   width: '100%',
-  height: '6px',
+  height: spacing.unit,
   cursor: 'ns-resize',
-};
+});
 
-const horizontalStyles = {
-  width: '6px',
+const horizontalStyles = spacing => ({
+  width: spacing.unit,
   height: '100%',
   cursor: 'ew-resize',
-};
+});
 
-const styles = {
-  resize: {
-    position: 'absolute',
-    zIndex: 100,
-  },
-  verticalTop: {
-    ...verticalStyles,
-    top: 0,
-  },
-  verticalBottom: {
-    ...verticalStyles,
-    bottom: 0,
-  },
-  horizontalTop: {
-    ...horizontalStyles,
-    left: 0,
-  },
-  horizontalBottom: {
-    ...horizontalStyles,
-    right: 0,
-  },
+const styles = ({ spacing }) => {
+  const vertical = verticalStyles(spacing);
+  const horizontal = horizontalStyles(spacing);
+  return ({
+    resize: {
+      position: 'absolute',
+      zIndex: 100,
+    },
+    verticalTop: {
+      ...vertical,
+      top: 0,
+    },
+    verticalBottom: {
+      ...vertical,
+      bottom: 0,
+    },
+    horizontalTop: {
+      ...horizontal,
+      left: 0,
+    },
+    horizontalBottom: {
+      ...horizontal,
+      right: 0,
+    },
+  });
 };
 
 const ResizeBase = ({

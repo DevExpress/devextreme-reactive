@@ -22,12 +22,11 @@ const sourceStyles = {
 };
 
 const DraftAppointmentBase = ({
-  classes, className, style,
-  data, type, leftSlice, rightSlice, ...restProps
+  classes, className, data,
+  type, leftSlice, rightSlice, ...restProps
 }) => (
   <Appointment
     className={classNames(classes.appointment, className)}
-    style={style}
     type={type}
     {...restProps}
   >
@@ -45,13 +44,11 @@ DraftAppointmentBase.propTypes = {
   data: PropTypes.object.isRequired,
   leftSlice: PropTypes.bool.isRequired,
   rightSlice: PropTypes.bool.isRequired,
-  style: PropTypes.object,
   className: PropTypes.string,
   type: PropTypes.string,
 };
 
 DraftAppointmentBase.defaultProps = {
-  style: undefined,
   className: undefined,
   type: undefined,
 };

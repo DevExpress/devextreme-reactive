@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "downlevelIteration": true,
+    "outDir": "./dist"
+  },
+  "include": [
+    "./src"
+  ]
+ }

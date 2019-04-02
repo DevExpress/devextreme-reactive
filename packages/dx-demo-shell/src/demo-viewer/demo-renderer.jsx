@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { EmbeddedDemoContext } from '../context';
+import { wrapDemo } from './perf-wrapper';
 
 export class DemoRenderer extends React.Component {
   constructor(props) {
@@ -23,6 +24,7 @@ export class DemoRenderer extends React.Component {
       demoName,
       themeName,
       variantName,
+      perfSamplesCount,
     } = this.props;
     const {
       renderDemo,
@@ -55,7 +57,7 @@ export class DemoRenderer extends React.Component {
 
     renderDemo({
       element: rootElement,
-      demo: demoSource,
+      demo: perfSamplesCount > 0 ? wrapDemo(demoSource, perfSamplesCount) : demoSource,
       demoContainer: demoContainerSource,
     });
     this.demoRenderSkipped = false;
@@ -75,6 +77,11 @@ DemoRenderer.propTypes = {
   demoName: PropTypes.string.isRequired,
   themeName: PropTypes.string.isRequired,
   variantName: PropTypes.string.isRequired,
+  perfSamplesCount: PropTypes.number,
+};
+
+DemoRenderer.defaultProps = {
+  perfSamplesCount: undefined,
 };
 
 DemoRenderer.contextType = EmbeddedDemoContext;

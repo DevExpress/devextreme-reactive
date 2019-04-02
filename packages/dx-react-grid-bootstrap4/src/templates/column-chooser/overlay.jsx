@@ -14,7 +14,7 @@ export const Overlay = ({
         placement="bottom"
         isOpen={visible}
         target={target}
-        container={target ? target.parentElement : undefined}
+        renderInBody={false}
         toggle={handleToggle}
         {...restProps}
       >

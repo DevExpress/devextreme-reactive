@@ -10,4 +10,6 @@ export * from './easings';
 /** @internal */
 export { getMessagesFormatter } from './messages-formatter';
 /** @internal */
-export { createClickHandlers, isEdgeBrowser } from './utils';
+export { createClickHandlers, isEdgeBrowser, slice } from './utils';
+/** @internal */
+export * from './types';

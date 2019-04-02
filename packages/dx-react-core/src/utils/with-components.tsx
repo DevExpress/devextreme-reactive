@@ -13,10 +13,11 @@ const makeBoundComponent = (Target, components, exposed: object) => {
   return Component;
 };
 
-type PluginComponents = { [key: string]: string };
-interface ITargetComponent {
+export type PluginComponents = { [key: string]: string };
+export interface ITargetComponent {
   components: PluginComponents;
 }
+// type ITargetComponentStatic = new() => ITargetComponent;
 
 /** @internal */
 export const withComponents = components => (Target) => {

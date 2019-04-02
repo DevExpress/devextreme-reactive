@@ -63,7 +63,6 @@ onWidthChange | (parameters: { shift: number }) => void | An event that initiate
 onWidthDraft | (parameters: { shift: number }) => void | An event that changes the column width used for preview. The initial column width increases by the `shift` value or decreases if `shift` is less than zero.
 onWidthDraftCancel | () => void | An event that cancels the column width change used for preview.
 draggingEnabled | boolean | Specifies whether drag-and-drop is enabled.
-getMessage | ([messageKey](#localization-messages): string) => string | Returns the sort label's text.
 children | ReactNode | The header cell's children.
 showSortingControls | boolean | **@deprecated** <br/> Specifies whether to render controls that toggle the column's sorting state.
 sortingEnabled | boolean | **@deprecated** <br/> Specifies whether sorting by the column is enabled.
@@ -100,7 +99,7 @@ Describes properties used to render a group button.
 
 Field | Type | Description
 ------|------|------------
-disabled | string | Specifies whether the group button is disabled.
+disabled | boolean | Specifies whether the group button is disabled.
 onGroup | () => void | An event that invokes grouping by the associated column.
 
 ## Localization Messages

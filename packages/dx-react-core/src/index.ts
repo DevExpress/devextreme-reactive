@@ -1,7 +1,7 @@
 export { Plugin } from './plugin-based/plugin';
 export { PluginHost } from './plugin-based/plugin-host';
 export { Action } from './plugin-based/action';
-export { Getter } from './plugin-based/getter';
+export { Getter, Actions } from './plugin-based/getter';
 export { Template } from './plugin-based/template';
 export { TemplatePlaceholder } from './plugin-based/template-placeholder';
 export { TemplateConnector } from './plugin-based/template-connector';
@@ -28,6 +28,11 @@ export { connectProps } from './utils/connect-props';
 /** @internal */
 export { createStateHelper } from './utils/state-helper';
 /** @internal */
-export { withComponents } from './utils/with-components';
+export {
+  withComponents, ITargetComponent, PluginComponents,
+} from './utils/with-components';
 
 export { RefType } from './utils/ref-type';
+
+/** @internal */
+export * from './types';

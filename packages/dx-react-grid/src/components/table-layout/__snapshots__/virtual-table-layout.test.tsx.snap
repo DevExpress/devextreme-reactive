@@ -1,0 +1,1255 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VirtualTableLayout should render correct layout 1`] = `
+<containerComponent
+  onScroll={[Function]}
+  style={
+    Object {
+      "height": "100px",
+    }
+  }
+>
+  <RefHolder>
+    <headTableComponent
+      style={
+        Object {
+          "minWidth": "400px",
+        }
+      }
+      tableRef={
+        Object {
+          "current": null,
+        }
+      }
+    >
+      <ColumnGroup
+        columns={
+          Array [
+            Object {
+              "column": Object {
+                "name": "a",
+              },
+              "key": "a",
+              "width": 160,
+            },
+            Object {
+              "column": Object {
+                "name": "b",
+              },
+              "key": "b",
+              "width": 160,
+            },
+            Object {
+              "column": Object {
+                "name": "c",
+              },
+              "key": "c",
+              "width": 160,
+            },
+            Object {
+              "column": Object {
+                "name": "d",
+              },
+              "key": "d",
+              "width": 160,
+            },
+            Object {
+              "column": Object {
+                "name": "e",
+              },
+              "key": "e",
+              "width": 160,
+            },
+          ]
+        }
+      />
+      <headComponent>
+        <RefHolder
+          key="1"
+        >
+          <rowComponent
+            tableRow={
+              Object {
+                "key": 1,
+              }
+            }
+          >
+            <cellComponent
+              colSpan={1}
+              key="a"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "a",
+                  },
+                  "key": "a",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 1,
+                }
+              }
+            />
+            <cellComponent
+              colSpan={1}
+              key="b"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "b",
+                  },
+                  "key": "b",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 1,
+                }
+              }
+            />
+            <cellComponent
+              colSpan={1}
+              key="c"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "c",
+                  },
+                  "key": "c",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 1,
+                }
+              }
+            />
+            <cellComponent
+              colSpan={1}
+              key="d"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "d",
+                  },
+                  "key": "d",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 1,
+                }
+              }
+            />
+            <cellComponent
+              colSpan={1}
+              key="e"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "e",
+                  },
+                  "key": "e",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 1,
+                }
+              }
+            />
+          </rowComponent>
+        </RefHolder>
+      </headComponent>
+    </headTableComponent>
+  </RefHolder>
+  <RefHolder>
+    <tableComponent
+      style={
+        Object {
+          "marginBottom": "600px",
+          "minWidth": "400px",
+        }
+      }
+      tableRef={
+        Object {
+          "current": null,
+        }
+      }
+    >
+      <ColumnGroup
+        columns={
+          Array [
+            Object {
+              "column": Object {
+                "name": "a",
+              },
+              "key": "a",
+              "width": 160,
+            },
+            Object {
+              "column": Object {
+                "name": "b",
+              },
+              "key": "b",
+              "width": 160,
+            },
+            Object {
+              "column": Object {
+                "name": "c",
+              },
+              "key": "c",
+              "width": 160,
+            },
+            Object {
+              "column": Object {
+                "name": "d",
+              },
+              "key": "d",
+              "width": 160,
+            },
+            Object {
+              "column": Object {
+                "name": "e",
+              },
+              "key": "e",
+              "width": 160,
+            },
+          ]
+        }
+      />
+      <bodyComponent>
+        <RefHolder
+          key="1"
+        >
+          <rowComponent
+            tableRow={
+              Object {
+                "key": 1,
+              }
+            }
+          >
+            <cellComponent
+              colSpan={1}
+              key="a"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "a",
+                  },
+                  "key": "a",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 1,
+                }
+              }
+            />
+            <cellComponent
+              colSpan={1}
+              key="b"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "b",
+                  },
+                  "key": "b",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 1,
+                }
+              }
+            />
+            <cellComponent
+              colSpan={1}
+              key="c"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "c",
+                  },
+                  "key": "c",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 1,
+                }
+              }
+            />
+            <cellComponent
+              colSpan={1}
+              key="d"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "d",
+                  },
+                  "key": "d",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 1,
+                }
+              }
+            />
+            <cellComponent
+              colSpan={1}
+              key="e"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "e",
+                  },
+                  "key": "e",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 1,
+                }
+              }
+            />
+          </rowComponent>
+        </RefHolder>
+        <RefHolder
+          key="2"
+        >
+          <rowComponent
+            tableRow={
+              Object {
+                "key": 2,
+              }
+            }
+          >
+            <cellComponent
+              colSpan={1}
+              key="a"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "a",
+                  },
+                  "key": "a",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 2,
+                }
+              }
+            />
+            <cellComponent
+              colSpan={1}
+              key="b"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "b",
+                  },
+                  "key": "b",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 2,
+                }
+              }
+            />
+            <cellComponent
+              colSpan={1}
+              key="c"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "c",
+                  },
+                  "key": "c",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 2,
+                }
+              }
+            />
+            <cellComponent
+              colSpan={1}
+              key="d"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "d",
+                  },
+                  "key": "d",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 2,
+                }
+              }
+            />
+            <cellComponent
+              colSpan={1}
+              key="e"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "e",
+                  },
+                  "key": "e",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 2,
+                }
+              }
+            />
+          </rowComponent>
+        </RefHolder>
+        <RefHolder
+          key="3"
+        >
+          <rowComponent
+            tableRow={
+              Object {
+                "key": 3,
+              }
+            }
+          >
+            <cellComponent
+              colSpan={1}
+              key="a"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "a",
+                  },
+                  "key": "a",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 3,
+                }
+              }
+            />
+            <cellComponent
+              colSpan={1}
+              key="b"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "b",
+                  },
+                  "key": "b",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 3,
+                }
+              }
+            />
+            <cellComponent
+              colSpan={1}
+              key="c"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "c",
+                  },
+                  "key": "c",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 3,
+                }
+              }
+            />
+            <cellComponent
+              colSpan={1}
+              key="d"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "d",
+                  },
+                  "key": "d",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 3,
+                }
+              }
+            />
+            <cellComponent
+              colSpan={1}
+              key="e"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "e",
+                  },
+                  "key": "e",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 3,
+                }
+              }
+            />
+          </rowComponent>
+        </RefHolder>
+        <RefHolder
+          key="4"
+        >
+          <rowComponent
+            tableRow={
+              Object {
+                "key": 4,
+              }
+            }
+          >
+            <cellComponent
+              colSpan={1}
+              key="a"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "a",
+                  },
+                  "key": "a",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 4,
+                }
+              }
+            />
+            <cellComponent
+              colSpan={1}
+              key="b"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "b",
+                  },
+                  "key": "b",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 4,
+                }
+              }
+            />
+            <cellComponent
+              colSpan={1}
+              key="c"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "c",
+                  },
+                  "key": "c",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 4,
+                }
+              }
+            />
+            <cellComponent
+              colSpan={1}
+              key="d"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "d",
+                  },
+                  "key": "d",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 4,
+                }
+              }
+            />
+            <cellComponent
+              colSpan={1}
+              key="e"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "e",
+                  },
+                  "key": "e",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 4,
+                }
+              }
+            />
+          </rowComponent>
+        </RefHolder>
+        <RefHolder
+          key="5"
+        >
+          <rowComponent
+            tableRow={
+              Object {
+                "key": 5,
+              }
+            }
+          >
+            <cellComponent
+              colSpan={1}
+              key="a"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "a",
+                  },
+                  "key": "a",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 5,
+                }
+              }
+            />
+            <cellComponent
+              colSpan={1}
+              key="b"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "b",
+                  },
+                  "key": "b",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 5,
+                }
+              }
+            />
+            <cellComponent
+              colSpan={1}
+              key="c"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "c",
+                  },
+                  "key": "c",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 5,
+                }
+              }
+            />
+            <cellComponent
+              colSpan={1}
+              key="d"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "d",
+                  },
+                  "key": "d",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 5,
+                }
+              }
+            />
+            <cellComponent
+              colSpan={1}
+              key="e"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "e",
+                  },
+                  "key": "e",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 5,
+                }
+              }
+            />
+          </rowComponent>
+        </RefHolder>
+        <RefHolder
+          key="6"
+        >
+          <rowComponent
+            tableRow={
+              Object {
+                "key": 6,
+              }
+            }
+          >
+            <cellComponent
+              colSpan={1}
+              key="a"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "a",
+                  },
+                  "key": "a",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 6,
+                }
+              }
+            />
+            <cellComponent
+              colSpan={1}
+              key="b"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "b",
+                  },
+                  "key": "b",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 6,
+                }
+              }
+            />
+            <cellComponent
+              colSpan={1}
+              key="c"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "c",
+                  },
+                  "key": "c",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 6,
+                }
+              }
+            />
+            <cellComponent
+              colSpan={1}
+              key="d"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "d",
+                  },
+                  "key": "d",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 6,
+                }
+              }
+            />
+            <cellComponent
+              colSpan={1}
+              key="e"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "e",
+                  },
+                  "key": "e",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 6,
+                }
+              }
+            />
+          </rowComponent>
+        </RefHolder>
+        <RefHolder
+          key="7"
+        >
+          <rowComponent
+            tableRow={
+              Object {
+                "key": 7,
+              }
+            }
+          >
+            <cellComponent
+              colSpan={1}
+              key="a"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "a",
+                  },
+                  "key": "a",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 7,
+                }
+              }
+            />
+            <cellComponent
+              colSpan={1}
+              key="b"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "b",
+                  },
+                  "key": "b",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 7,
+                }
+              }
+            />
+            <cellComponent
+              colSpan={1}
+              key="c"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "c",
+                  },
+                  "key": "c",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 7,
+                }
+              }
+            />
+            <cellComponent
+              colSpan={1}
+              key="d"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "d",
+                  },
+                  "key": "d",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 7,
+                }
+              }
+            />
+            <cellComponent
+              colSpan={1}
+              key="e"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "e",
+                  },
+                  "key": "e",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 7,
+                }
+              }
+            />
+          </rowComponent>
+        </RefHolder>
+        <RefHolder
+          key="8"
+        >
+          <rowComponent
+            tableRow={
+              Object {
+                "key": 8,
+              }
+            }
+          >
+            <cellComponent
+              colSpan={1}
+              key="a"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "a",
+                  },
+                  "key": "a",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 8,
+                }
+              }
+            />
+            <cellComponent
+              colSpan={1}
+              key="b"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "b",
+                  },
+                  "key": "b",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 8,
+                }
+              }
+            />
+            <cellComponent
+              colSpan={1}
+              key="c"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "c",
+                  },
+                  "key": "c",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 8,
+                }
+              }
+            />
+            <cellComponent
+              colSpan={1}
+              key="d"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "d",
+                  },
+                  "key": "d",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 8,
+                }
+              }
+            />
+            <cellComponent
+              colSpan={1}
+              key="e"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "e",
+                  },
+                  "key": "e",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 8,
+                }
+              }
+            />
+          </rowComponent>
+        </RefHolder>
+        <RefHolder
+          key="9"
+        >
+          <rowComponent
+            tableRow={
+              Object {
+                "key": 9,
+              }
+            }
+          >
+            <cellComponent
+              colSpan={1}
+              key="a"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "a",
+                  },
+                  "key": "a",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 9,
+                }
+              }
+            />
+            <cellComponent
+              colSpan={1}
+              key="b"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "b",
+                  },
+                  "key": "b",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 9,
+                }
+              }
+            />
+            <cellComponent
+              colSpan={1}
+              key="c"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "c",
+                  },
+                  "key": "c",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 9,
+                }
+              }
+            />
+            <cellComponent
+              colSpan={1}
+              key="d"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "d",
+                  },
+                  "key": "d",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 9,
+                }
+              }
+            />
+            <cellComponent
+              colSpan={1}
+              key="e"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "e",
+                  },
+                  "key": "e",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 9,
+                }
+              }
+            />
+          </rowComponent>
+        </RefHolder>
+      </bodyComponent>
+    </tableComponent>
+  </RefHolder>
+  <RefHolder>
+    <footerTableComponent
+      style={
+        Object {
+          "minWidth": "400px",
+        }
+      }
+      tableRef={
+        Object {
+          "current": null,
+        }
+      }
+    >
+      <ColumnGroup
+        columns={
+          Array [
+            Object {
+              "column": Object {
+                "name": "a",
+              },
+              "key": "a",
+              "width": 160,
+            },
+            Object {
+              "column": Object {
+                "name": "b",
+              },
+              "key": "b",
+              "width": 160,
+            },
+            Object {
+              "column": Object {
+                "name": "c",
+              },
+              "key": "c",
+              "width": 160,
+            },
+            Object {
+              "column": Object {
+                "name": "d",
+              },
+              "key": "d",
+              "width": 160,
+            },
+            Object {
+              "column": Object {
+                "name": "e",
+              },
+              "key": "e",
+              "width": 160,
+            },
+          ]
+        }
+      />
+      <footerComponent>
+        <RefHolder
+          key="1"
+        >
+          <rowComponent
+            tableRow={
+              Object {
+                "key": 1,
+              }
+            }
+          >
+            <cellComponent
+              colSpan={1}
+              key="a"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "a",
+                  },
+                  "key": "a",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 1,
+                }
+              }
+            />
+            <cellComponent
+              colSpan={1}
+              key="b"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "b",
+                  },
+                  "key": "b",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 1,
+                }
+              }
+            />
+            <cellComponent
+              colSpan={1}
+              key="c"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "c",
+                  },
+                  "key": "c",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 1,
+                }
+              }
+            />
+            <cellComponent
+              colSpan={1}
+              key="d"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "d",
+                  },
+                  "key": "d",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 1,
+                }
+              }
+            />
+            <cellComponent
+              colSpan={1}
+              key="e"
+              tableColumn={
+                Object {
+                  "column": Object {
+                    "name": "e",
+                  },
+                  "key": "e",
+                }
+              }
+              tableRow={
+                Object {
+                  "key": 1,
+                }
+              }
+            />
+          </rowComponent>
+        </RefHolder>
+      </footerComponent>
+    </footerTableComponent>
+  </RefHolder>
+</containerComponent>
+`;

@@ -3,13 +3,14 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 
-const styles = ({ palette, typography }) => ({
+const styles = ({ palette, typography, spacing }) => ({
   appointment: {
     overflow: 'hidden',
     boxSizing: 'border-box',
     borderRight: '1px solid transparent',
     borderBottom: '1px solid transparent',
     backgroundClip: 'padding-box',
+    borderRadius: spacing.unit / 2,
     backgroundColor: palette.primary[300],
     ...typography.caption,
     '&:hover': {
@@ -31,6 +32,7 @@ const AppointmentBase = ({
   children,
   data,
   onClick: handleClick,
+  draggable,
   ...restProps
 }) => {
   const onClick = handleClick
@@ -40,7 +42,7 @@ const AppointmentBase = ({
       },
     }
     : null;
-  const clickable = onClick || restProps.onDoubleClick;
+  const clickable = onClick || restProps.onDoubleClick || draggable;
   return (
     <div
       className={classNames({
@@ -63,12 +65,14 @@ AppointmentBase.propTypes = {
   className: PropTypes.string,
   data: PropTypes.object,
   onClick: PropTypes.func,
+  draggable: PropTypes.bool,
 };
 
 AppointmentBase.defaultProps = {
   onClick: undefined,
   className: undefined,
   data: {},
+  draggable: false,
 };
 
 export const Appointment = withStyles(styles, { name: 'Appointment' })(AppointmentBase);

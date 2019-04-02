@@ -27,13 +27,14 @@ const Line = props => (
 );
 
 const Text = (props) => {
-  const { text, subtext, ...restProps } = props;
+  const { text } = props;
+  const [mainText, subText] = text.split('\\n');
   return (
-    <div {...restProps}>
+    <div className="w-100 text-center mb-2">
       <h3>
-        {text}
+        {mainText}
       </h3>
-      <p>{subtext}</p>
+      <p>{subText}</p>
     </div>
   );
 };
@@ -110,10 +111,8 @@ export default class Demo extends React.PureComponent {
           />
           <Legend position="bottom" rootComponent={Root} itemComponent={Item} labelComponent={Label} />
           <Title
-            text="Energy Consumption in 2004"
-            subtext="(Millions of Tons, Oil Equivalent)"
+            text="Energy Consumption in 2004\n(Millions of Tons, Oil Equivalent)"
             textComponent={Text}
-            className="w-100 text-center mb-2"
           />
           <Animation />
         </Chart>

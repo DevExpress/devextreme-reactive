@@ -1,3 +1,94 @@
+# [1.11.0-alpha.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.10.4...v1.11.0-alpha.1) (2019-03-13)
+
+
+### Features
+
+* **react-scheduler:** add editing by dragging ([#1870](https://github.com/DevExpress/devextreme-reactive/issues/1870)) ([238f696](https://github.com/DevExpress/devextreme-reactive/commit/238f696))
+
+
+
+# [1.10.4](https://github.com/DevExpress/devextreme-reactive/compare/v1.10.3...v1.10.4) (2019-03-11)
+
+
+### Bug Fixes
+
+* **react-core:** correct IDependency definition ([#1891](https://github.com/DevExpress/devextreme-reactive/issues/1891)) ([c9d0f44](https://github.com/DevExpress/devextreme-reactive/commit/c9d0f44))
+* **react-grid:** correct typescript definitions ([#1876](https://github.com/DevExpress/devextreme-reactive/issues/1876)) ([404a239](https://github.com/DevExpress/devextreme-reactive/commit/404a239))
+
+
+
+# [1.10.3](https://github.com/DevExpress/devextreme-reactive/compare/v1.10.2...v1.10.3) (2019-02-27)
+
+
+### Bug Fixes
+
+* **react-grid:** fix dependencies ([#1873](https://github.com/DevExpress/devextreme-reactive/issues/1873)) ([1f3d9ae](https://github.com/DevExpress/devextreme-reactive/commit/1f3d9ae))
+
+
+
+# [1.10.2](https://github.com/DevExpress/devextreme-reactive/compare/v1.10.1...v1.10.2) (2019-02-27)
+
+
+### Bug Fixes
+
+* **grid-core:** fix equal/notEqual filtering operations ([#1834](https://github.com/DevExpress/devextreme-reactive/issues/1834)) ([8ff84e6](https://github.com/DevExpress/devextreme-reactive/commit/8ff84e6))
+* **grid-core:** fix filter selector value calculation ([#1831](https://github.com/DevExpress/devextreme-reactive/issues/1831)) ([5ab35a5](https://github.com/DevExpress/devextreme-reactive/commit/5ab35a5))
+* **react-core:** notify Sizer content when container size is increasing ([#1828](https://github.com/DevExpress/devextreme-reactive/issues/1828)) ([b58e1bd](https://github.com/DevExpress/devextreme-reactive/commit/b58e1bd))
+* **react-chart:** fix line target element getter ([#1847](https://github.com/DevExpress/devextreme-reactive/issues/1847)) ([688a8e9](https://github.com/DevExpress/devextreme-reactive/commit/688a8e9))
+* **react-grid:** fix borders of fixed columns in Edge ([#1849](https://github.com/DevExpress/devextreme-reactive/issues/1849)) ([5d1763e](https://github.com/DevExpress/devextreme-reactive/commit/5d1763e))
+* **react-grid:** fix virtual table column width in Edge ([#1866](https://github.com/DevExpress/devextreme-reactive/issues/1866)) ([5d58a58](https://github.com/DevExpress/devextreme-reactive/commit/5d58a58))
+* **react-grid:** prevent converting group row value to a string if it is undefined ([#1824](https://github.com/DevExpress/devextreme-reactive/issues/1824)) ([c878d33](https://github.com/DevExpress/devextreme-reactive/commit/c878d33))
+* **react-grid-material-ui:** fix page size selector alignment in FF ([#1839](https://github.com/DevExpress/devextreme-reactive/issues/1839)) ([5a79b30](https://github.com/DevExpress/devextreme-reactive/commit/5a79b30))
+
+### Code Refactoring
+
+* **chart-core**: migrate chart core to TS ([#1816](https://github.com/DevExpress/devextreme-reactive/issues/1816)) ([23a17e8](https://github.com/DevExpress/devextreme-reactive/commit/23a17e8))
+* **scheduler-core**: migrate to TypeScript ([#1809](https://github.com/DevExpress/devextreme-reactive/issues/1809)) ([4c5c52](https://github.com/DevExpress/devextreme-reactive/commit/4c5c52))
+* **react-grid**: migrate to TS ([#1832](https://github.com/DevExpress/devextreme-reactive/issues/1832)) ([4bacf20](https://github.com/DevExpress/devextreme-reactive/commit/4bacf20))
+* **react-grid**: fix sorting state props type ([#1850](https://github.com/DevExpress/devextreme-reactive/issues/1850)) ([7b5b720](https://github.com/DevExpress/devextreme-reactive/commit/7b5b720))
+* **react-grid-demos**: replace modal dialog with confirmation in featured editing demo ([#1871](https://github.com/DevExpress/devextreme-reactive/issues/1871)) ([66faabf](https://github.com/DevExpress/devextreme-reactive/commit/66faabf))
+
+
+# [1.10.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.10.0...v1.10.1) (2019-02-06)
+
+
+### Bug Fixes
+
+* **react-chart:** fix hovered and selected scatter point size ([#1808](https://github.com/DevExpress/devextreme-reactive/issues/1808)) ([647a0d8](https://github.com/DevExpress/devextreme-reactive/commit/647a0d8))
+* **react-chart:** fix-event-handlers-in-safari ([#1803](https://github.com/DevExpress/devextreme-reactive/issues/1803)) ([cc90bc0](https://github.com/DevExpress/devextreme-reactive/commit/cc90bc0))
+* **react-chart-bootstrap4:** fix dependencies section ([#1774](https://github.com/DevExpress/devextreme-reactive/issues/1774)) ([12e9f6f](https://github.com/DevExpress/devextreme-reactive/commit/12e9f6f))
+* **react-grid:** disallow rendering a checkbox in incorrect column when grouping is enabled ([#1793](https://github.com/DevExpress/devextreme-reactive/issues/1793)) ([96b7de0](https://github.com/DevExpress/devextreme-reactive/commit/96b7de0))
+* **react-grid:** fix column width in virtual table ([#1783](https://github.com/DevExpress/devextreme-reactive/issues/1783)) ([f3c481c](https://github.com/DevExpress/devextreme-reactive/commit/f3c481c))
+* **react-grid:** prevent tree column header text from overflowing a container ([#1731](https://github.com/DevExpress/devextreme-reactive/issues/1731)) ([af3629c](https://github.com/DevExpress/devextreme-reactive/commit/af3629c))
+* **react-grid:** stretch table container to a container size ([#1796](https://github.com/DevExpress/devextreme-reactive/issues/1796)) ([a36b109](https://github.com/DevExpress/devextreme-reactive/commit/a36b109))
+
+
+### Code Refactoring
+
+* **react-chart:** move point coordinates calculations specifics down to the pointComponent ([#1753](https://github.com/DevExpress/devextreme-reactive/issues/1753)) ([fde7756](https://github.com/DevExpress/devextreme-reactive/commit/fde7756))
+
+
+### Features
+
+* **react-grid:** throw warning if getRowId returns undefined ([#1679](https://github.com/DevExpress/devextreme-reactive/issues/1679)) ([d10397e](https://github.com/DevExpress/devextreme-reactive/commit/d10397e))
+
+
+### Performance Improvements
+
+* **react-core:** optimize position context calculation ([#1813](https://github.com/DevExpress/devextreme-reactive/issues/1813)) ([b2ea6e7](https://github.com/DevExpress/devextreme-reactive/commit/b2ea6e7))
+
+
+### BREAKING CHANGES
+
+* **react-chart:**
+  Previously, `pointComponent` of `BarSeries` and `PieSeries` accepted precalculated fields (`width` and `d`, respectively). Now, `pointComponent` accepts fields that provide raw data for calculation. This makes `pointComponent` more flexible as the `width` and `d` fields can now be calculated the way you need.
+
+  The following substitutions took place:
+ 
+  - `width` => `barWidth` and `maxBarWidth`
+  - `d` => `innerRadius`, `outerRadius`, `maxRadius`, `startAngle`, and `endAngle`
+
+
 # [1.10.0](https://github.com/DevExpress/devextreme-reactive/compare/v1.9.1...v1.10.0) (2018-12-25)
 
 
@@ -27,7 +118,7 @@
 ### BREAKING CHANGES
 
 * **react-chart:**
-Previously the `ArgumenAxis`, `ValueAxis`, and `Scale` plugins allowed you to customize argument and value scales. In this release, we have implemented the `ArgumentScale` and `ValueScale` plugins for this purpose to make the API more clear. 
+Previously the `ArgumentAxis`, `ValueAxis`, and `Scale` plugins allowed you to customize argument and value scales. In this release, we have implemented the `ArgumentScale` and `ValueScale` plugins for this purpose.
 
 * **react-chart:**
 The `showGrids` *Axis* property is renamed to `showGrid`.
@@ -36,16 +127,16 @@ The `showGrids` *Axis* property is renamed to `showGrid`.
 The `min` and `max` scale properties are replaced with the `modifyDomain` property because the *band* scale domain cannot be customized in *min* and *max* terms.
 
   Replace this
-  
+
   ```javascript
   <ArgumentScale min={0} max={10} ... />
   ```
-  
+
   with this
-  
+
   ```javascript
   const modifyDomain = () => [0, 10];
-  
+
   <ArgumentScale modifyDomain={modifyDomain} ... />
   ```
 
@@ -216,7 +307,10 @@ To configure a band scale, use the `Scale` plugin as follows:
 * **react-grid:** extract sorting control ([#881](https://github.com/DevExpress/devextreme-reactive/issues/881)) ([2a6dd1a](https://github.com/DevExpress/devextreme-reactive/commit/2a6dd1a))
 * **react-grid:** support columns fixing ([#1305](https://github.com/DevExpress/devextreme-reactive/issues/1305)) ([81c13a4](https://github.com/DevExpress/devextreme-reactive/commit/81c13a4))
 
+### BREAKING CHANGES
 
+* **react-grid:**
+Because we extracted the sorting control, the `getMessage` property was moved from the `TableHeaderRow.CellProps` interface to `TableHeaderRow.SortLabelProps`. This property returns the sort label's text.
 
 <a name="1.7.2"></a>
 # [1.7.2](https://github.com/DevExpress/devextreme-reactive/compare/v1.7.1...v1.7.2) (2018-08-31)

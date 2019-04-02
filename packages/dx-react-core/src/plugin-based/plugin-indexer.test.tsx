@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import { mount } from 'enzyme';
 
 import { PluginIndexer } from './plugin-indexer';
@@ -34,9 +33,6 @@ describe('PluginIndexer', () => {
         <TestWrapper />
       </PluginIndexer>
     );
-    Test1.propTypes = {
-      enableGetter: PropTypes.bool.isRequired,
-    };
 
     const tree = mount(<Test1 enableGetter={false} />);
 
@@ -64,5 +60,22 @@ describe('PluginIndexer', () => {
     expect([tests.at(0), tests.at(1), tests.at(2)]
       .map(wrapper => wrapper.props().position()))
       .toEqual([[0, 0], [0, 1], [1]]);
+  });
+
+  it('should memoize position context function', () => {
+    const Test1 = ({ enableGetter }) => (
+      <PluginIndexer>
+        <TestWrapper />
+        {enableGetter && <TestWrapper />}
+      </PluginIndexer>
+    );
+
+    const tree = mount(<Test1 enableGetter={false} />);
+    const { position } = tree.find(Test).at(0).props();
+
+    tree.setProps({ enableGetter: true });
+
+    expect(tree.find(Test).at(0).props().position)
+      .toBe(position);
   });
 });

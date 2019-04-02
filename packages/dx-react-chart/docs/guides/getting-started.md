@@ -4,11 +4,11 @@ Project status: **Beta**
 
 ## Overview
 
-The DevExtreme React Chart is a component that visualizes data using a variety of series types, including bar, line, area, scatter, pie, and more. It is a stateless component - it relies on properties and works in controlled mode only. The DevExtreme React Chart has a composable and extendable architecture in which plugins provide additional elements (such as axes, legend, grid). Twitter Bootstrap and Material-UI rendering and theming are supported out of the box.
+The DevExtreme React Chart is a data visualization component that provides different series types, including bar, line, area, scatter, pie, and so on. It can function in uncontrolled and controlled state modes. In uncontrolled mode, the UI plugins manage the state internally. In controlled mode, the state is managed externally via plugin props. The DevExtreme React Chart has a composable and extendable architecture in which plugins provide additional elements (such as a legend, grid, and axes). It also supports Twitter Bootstrap and Material-UI rendering and theming.
 
 ## Installation
 
-Install the dx-react-chart package and its dependencies using the following command:
+Install the `dx-react-chart` package and its dependencies using the following command:
 
 ```
 npm i --save @devexpress/dx-react-core.npm-tag() @devexpress/dx-react-chart.npm-tag()
@@ -50,9 +50,9 @@ React Chart can work in other browsers if they use the latest version of WebKit,
 
 React Chart uses the latest web platform standards and does not support older browsers like IE11 and Android 4. Use the ES2015 (ES6) polyfill to support these browsers. We recommend [BABEL Polyfill](https://babeljs.io/docs/usage/polyfill/), but you can use an alternative.
 
-## Using the Chart Component
+## Use the Chart Component
 
-The Chart component's functionality is implemented in plugins. You need a [series](series.md) plugin and the `ArgumentAxis`, `ValuesAxis`, and `Scale` plugins to draw a simple chart. The following code shows how to configure a simple line chart:
+The Chart component's functionality is implemented in plugins. To draw a simple chart, use the `ArgumentAxis` and `ValueAxis` plugins and one of the [series](series.md) plugins. The following code shows how to configure a simple line chart:
 
 ```jsx
 import { Chart, ArgumentAxis, ValueAxis, LineSeries } from "@devexpress/dx-react-chart-material-ui";
@@ -74,7 +74,7 @@ const App = () => (
 
 ```
 
-## Try Out The React Chart
+## Try Out the React Chart
 
 Follow the links below to try out the React Chart:
 

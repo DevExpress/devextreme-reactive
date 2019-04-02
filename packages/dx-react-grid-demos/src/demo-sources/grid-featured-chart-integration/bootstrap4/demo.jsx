@@ -25,7 +25,7 @@ import { citiesCount, regionsCount } from '../../../demo-data/chart-data';
 
 const currencyFormatter = ({ value }) => `$${value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
 const AxisLabel = ({ text, ...restProps }) => (
-  <ValueAxis.Label text={currencyFormatter({ value: text })} {...restProps} />
+  <ValueAxis.Label {...restProps} text={currencyFormatter({ value: text })} />
 );
 
 const CurrencyTypeProvider = props => (

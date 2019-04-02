@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-state */
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
 import { ViewState, EditingState } from '@devexpress/dx-react-scheduler';
@@ -10,6 +11,7 @@ import {
   Appointments,
   AppointmentTooltip,
   AppointmentForm,
+  DragDropProvider,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { connectProps } from '@devexpress/dx-react-core';
 import { InlineDateTimePicker, MuiPickersUtilsProvider } from 'material-ui-pickers';
@@ -115,9 +117,13 @@ class AppointmentFormContainerBasic extends React.PureComponent {
       ...this.getAppointmentData(),
       ...this.getAppointmentChanges(),
     };
-    commitChanges({
-      [type]: type === 'deleted' ? appointment.id : appointment,
-    });
+    if (type === 'deleted') {
+      commitChanges({ [type]: appointment.id });
+    } else if (type === 'changed') {
+      commitChanges({ [type]: { [appointment.id]: appointment } });
+    } else {
+      commitChanges({ [type]: appointment });
+    }
     this.setState({
       appointmentChanges: {},
     });
@@ -208,17 +214,18 @@ class AppointmentFormContainerBasic extends React.PureComponent {
           </div>
           <div className={classes.buttonGroup}>
             {!isNewAppointment && (
-            <Button
-              variant="outlined"
-              color="secondary"
-              className={classes.button}
-              onClick={() => {
-                visibleChange();
-                this.commitAppointment('deleted');
-              }}
-            >
-              Delete
-            </Button>)}
+              <Button
+                variant="outlined"
+                color="secondary"
+                className={classes.button}
+                onClick={() => {
+                  visibleChange();
+                  this.commitAppointment('deleted');
+                }}
+              >
+                Delete
+              </Button>
+            )}
             <Button
               variant="outlined"
               color="primary"
@@ -318,33 +325,32 @@ class Demo extends React.PureComponent {
   }
 
   commitDeletedAppointment() {
-    const { data, deletedAppointmentId } = this.state;
-    const nextData = data.filter(appointment => appointment.id !== deletedAppointmentId);
-    this.setState({ data: nextData, deletedAppointmentId: null });
+    this.setState((state) => {
+      const { data, deletedAppointmentId } = state;
+      const nextData = data.filter(appointment => appointment.id !== deletedAppointmentId);
+
+      return { data: nextData, deletedAppointmentId: null };
+    });
     this.toggleConfirmationVisible();
   }
 
   commitChanges({ added, changed, deleted }) {
-    let { data } = this.state;
-    if (added) {
-      const startingAddedId = data.length > 0 ? data[data.length - 1].id + 1 : 0;
-      data = [
-        ...data,
-        {
-          id: startingAddedId,
-          ...added,
-        },
-      ];
-    }
-    if (changed) {
-      data = data.map(appointment => (
-        changed.id === appointment.id ? { ...appointment, ...changed } : appointment));
-    }
-    if (deleted !== undefined) {
-      this.setDeletedAppointmentId(deleted);
-      this.toggleConfirmationVisible();
-    }
-    this.setState({ data, addedAppointment: {} });
+    this.setState((state) => {
+      let { data } = state;
+      if (added) {
+        const startingAddedId = data.length > 0 ? data[data.length - 1].id + 1 : 0;
+        data = [...data, { id: startingAddedId, ...added }];
+      }
+      if (changed) {
+        data = data.map(appointment => (
+          changed[appointment.id] ? { ...appointment, ...changed[appointment.id] } : appointment));
+      }
+      if (deleted !== undefined) {
+        this.setDeletedAppointmentId(deleted);
+        this.toggleConfirmationVisible();
+      }
+      return { data, addedAppointment: {} };
+    });
   }
 
   render() {
@@ -392,6 +398,7 @@ class Demo extends React.PureComponent {
             visible={editingFormVisible}
             onVisibilityChange={this.toggleEditingFormVisibility}
           />
+          <DragDropProvider />
         </Scheduler>
 
         <Dialog

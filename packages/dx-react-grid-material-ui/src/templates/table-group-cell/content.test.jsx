@@ -61,6 +61,19 @@ describe('TableGroupCell', () => {
         .toBeTruthy();
     });
 
+    it('should cast value to string', () => {
+      const tree = mount((
+        <Content
+          {...defaultProps}
+          column={{ title: 'Title' }}
+          row={{ value: undefined }}
+        />
+      ));
+
+      expect(tree.text())
+        .toMatch(/Title.*:.*undefined/);
+    });
+
     it('should pass rest props to the root component', () => {
       const tree = shallow((
         <Content

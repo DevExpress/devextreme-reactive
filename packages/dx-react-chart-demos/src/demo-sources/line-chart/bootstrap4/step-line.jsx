@@ -30,10 +30,10 @@ const Root = props => (
 );
 
 const Marker = (props) => {
-  const { className, color, ...restProps } = props;
+  const { className, color } = props;
   return (
-    <svg className={className} fill={color} width="10" height="10" {...restProps}>
-      <rect x={0} y={0} width={10} height={10} {...restProps} />
+    <svg className={className} fill={color} width="10" height="10">
+      <rect x={0} y={0} width={10} height={10} />
     </svg>
   );
 };

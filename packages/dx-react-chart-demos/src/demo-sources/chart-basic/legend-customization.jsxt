@@ -13,12 +13,16 @@ import OriginalSignalIcon from '../../../demo-data/images/originalSignal.svg';
 
 const SpecialMarkerComponent = ({ name, color }) => {
   const Icon = name === 'Noisy signal' ? NoisySignalIcon : OriginalSignalIcon;
+  // xlinkHref is use for safari
   return (
     <svg width={18} height={18} viewBox={Icon.viewBox}>
-      <use fill={color} href={`#${Icon.id}`} />
+      <use fill={color} xlinkHref={`#${Icon.id}`} />
     </svg>
   );
 };
+
+const titleStyle = { margin: 'auto' };
+const TitleText = props => <Title.Text {...props} style={titleStyle} />;
 
 const generateData = (start, end, step) => {
   const data = [];
@@ -64,7 +68,10 @@ export default class Demo extends React.PureComponent {
             argumentField="argument"
           />
 
-          <Title text="Noisy and Original signals" style={{ margin: 'auto' }} />
+          <Title
+            text="Noisy and Original signals"
+            textComponent={TitleText}
+          />
           <Legend
             markerComponent={SpecialMarkerComponent}
           />

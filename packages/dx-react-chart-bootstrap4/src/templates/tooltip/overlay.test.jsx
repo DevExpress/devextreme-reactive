@@ -4,7 +4,7 @@ import { Overlay } from './overlay';
 
 describe('Overlay', () => {
   const defaultProps = {
-    target: () => {},
+    target: 'test-target',
   };
 
   it('should render Popover', () => {
@@ -16,6 +16,14 @@ describe('Overlay', () => {
       </Overlay>
     ));
 
+    expect(tree.find('Popover').props()).toMatchObject({
+      placement: 'top',
+      isOpen: true,
+      target: 'test-target',
+      modifiers: {
+        flip: { enabled: false },
+      },
+    });
     expect(tree.find('.content')).toBeTruthy();
   });
 });

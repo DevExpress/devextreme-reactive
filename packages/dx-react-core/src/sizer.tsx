@@ -3,8 +3,12 @@
 import * as React from 'react';
 import { findDOMNode } from 'react-dom';
 import { RefHolder } from './ref-holder';
+import { SizerProps, Size } from './types';
 
 const styles = {
+  root: {
+    position: 'relative',
+  },
   triggersRoot: {
     position: 'absolute',
     top: 0,
@@ -43,12 +47,6 @@ const styles = {
   },
 };
 
-type SizerProps = {
-  onSizeChange: (size) => void;
-  // containerComponent?: React.ComponentType;
-  containerComponent?: any;
-};
-
 /** @internal */
 export class Sizer extends React.PureComponent<SizerProps> {
   static defaultProps = {
@@ -56,11 +54,14 @@ export class Sizer extends React.PureComponent<SizerProps> {
   };
 
   rootRef: React.RefObject<RefHolder>;
-  contractTrigger: any;
-  expandNotifier: any;
-  expandTrigger: any;
-  triggersRoot?: HTMLDivElement;
-  contractNotifier?: HTMLDivElement;
+  // Though there properties cannot be assigned in constructor
+  // they will be assigned when component is mount.
+  rootNode!: HTMLElement;
+  triggersRoot!: HTMLDivElement;
+  expandTrigger!: HTMLDivElement;
+  expandNotifier!: HTMLDivElement;
+  contractTrigger!: HTMLDivElement;
+  contractNotifier!: HTMLDivElement;
 
   constructor(props) {
     super(props);
@@ -74,28 +75,36 @@ export class Sizer extends React.PureComponent<SizerProps> {
     this.setupListeners();
   }
 
+  // There is no need to remove listeners as divs are removed from DOM when component is unmount.
+  // But there is a little chance that component unmounting and 'scroll' event happen roughly
+  // at the same time so that `setupListeners` is called after component is unmount.
+  componentWillUnmount() {
+    this.expandTrigger.removeEventListener('scroll', this.setupListeners);
+    this.contractTrigger.removeEventListener('scroll', this.setupListeners);
+  }
+
   setupListeners() {
-    const rootNode = findDOMNode(this.rootRef.current!) as Element;
-    const size = { height: rootNode.clientHeight, width: rootNode.clientWidth };
+    const size: Size = { height: this.rootNode.clientHeight, width: this.rootNode.clientWidth };
 
     this.contractTrigger.scrollTop = size.height;
     this.contractTrigger.scrollLeft = size.width;
 
-    this.expandNotifier.style.width = `${size.width + 1}px`;
-    this.expandNotifier.style.height = `${size.height + 1}px`;
-    this.expandTrigger.scrollTop = 1;
-    this.expandTrigger.scrollLeft = 1;
+    const scrollOffset = 2;
+    this.expandNotifier.style.width = `${size.width + scrollOffset}px`;
+    this.expandNotifier.style.height = `${size.height + scrollOffset}px`;
+    this.expandTrigger.scrollTop = scrollOffset;
+    this.expandTrigger.scrollLeft = scrollOffset;
 
     const { onSizeChange } = this.props;
     onSizeChange(size);
   }
 
   createListeners() {
-    const rootNode = findDOMNode(this.rootRef.current!) as Element;
+    this.rootNode = findDOMNode(this.rootRef.current!) as HTMLElement;
 
     this.triggersRoot = document.createElement('div');
     Object.assign(this.triggersRoot.style, styles.triggersRoot);
-    rootNode.appendChild(this.triggersRoot);
+    this.rootNode.appendChild(this.triggersRoot);
 
     this.expandTrigger = document.createElement('div');
     Object.assign(this.expandTrigger.style, styles.expandTrigger);
@@ -119,6 +128,7 @@ export class Sizer extends React.PureComponent<SizerProps> {
     const {
       onSizeChange,
       containerComponent: Container,
+      style,
       ...restProps
     } = this.props;
 
@@ -127,6 +137,7 @@ export class Sizer extends React.PureComponent<SizerProps> {
         ref={this.rootRef}
       >
         <Container // NOTE: should have `position: relative`
+          style={style ? { ...styles.root, ...style } : styles.root}
           {...restProps}
         />
       </RefHolder>

@@ -18,7 +18,7 @@ Import the `SelectionState` and `TableSelection` plugins to set up a simple Grid
 
 .embedded-demo({ "path": "grid-selection/basic", "showThemeSelector": true })
 
-## Select by Row Click
+## Select on a Row Click
 
 A user can select a row using a checkbox click by default. Set the `TableSelection` plugin's `selectByRowClick` property to true to check/uncheck a checkbox by a row click as demonstrated in the following example:
 

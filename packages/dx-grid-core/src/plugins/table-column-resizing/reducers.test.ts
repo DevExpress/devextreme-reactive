@@ -1,3 +1,4 @@
+import * as Immutable from 'seamless-immutable';
 import {
   changeTableColumnWidth,
   draftTableColumnWidth,
@@ -26,6 +27,16 @@ describe('TableColumnResizing Plugin reducers', () => {
         .toEqual({
           columnWidths: [{ columnName: 'a', width: 40 }, { columnName: 'b', width: 40 }],
         });
+    });
+
+    it('should work with immutable properties', () => {
+      const state = {
+        columnWidths: Immutable([{ columnName: 'a', width: 40 }, { columnName: 'b', width: 60 }]),
+      };
+
+      expect(() => changeTableColumnWidth(
+          state, { columnName: 'b', shift: -25, minColumnWidth: 40 }),
+        ).not.toThrow();
     });
   });
 

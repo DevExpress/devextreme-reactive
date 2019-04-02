@@ -1,5 +1,5 @@
-import { ColumnSortingState, ChangeSortingPayload } from '../../types';
-import { PureReducer } from '@devexpress/dx-core';
+import { ColumnSortingState, ChangeSortingPayload, Sorting } from '../../types';
+import { PureReducer, slice } from '@devexpress/dx-core';
 
 export const changeColumnSorting: PureReducer<ColumnSortingState, ChangeSortingPayload> = (
   state, {
@@ -9,10 +9,10 @@ export const changeColumnSorting: PureReducer<ColumnSortingState, ChangeSortingP
 
   let nextSorting: any[] = [];
   if (keepOther === true) {
-    nextSorting = sorting.slice();
+    nextSorting = sorting as Sorting[];
   }
   if (Array.isArray(keepOther)) {
-    nextSorting = sorting.slice()
+    nextSorting = slice(sorting)
       .filter(s =>
         keepOther.indexOf(s.columnName) > -1);
   }
@@ -26,12 +26,14 @@ export const changeColumnSorting: PureReducer<ColumnSortingState, ChangeSortingP
   };
 
   if (columnSortingIndex > -1) {
+    nextSorting = slice(nextSorting);
     nextSorting.splice(columnSortingIndex, 1);
   }
 
   if (direction !== null) {
     const newIndexFallback = columnSortingIndex > -1 ? columnSortingIndex : nextSorting.length;
     const newIndex = sortIndex !== undefined ? sortIndex : newIndexFallback;
+    nextSorting = slice(nextSorting);
     nextSorting.splice(newIndex, 0, newColumnSorting);
   }
 

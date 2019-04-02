@@ -1,3 +1,4 @@
+import * as Immutable from 'seamless-immutable';
 import { ReadonlyObject } from '@devexpress/dx-core';
 import { changeColumnSorting } from './reducers';
 import { ColumnSortingState, ChangeSortingPayload } from '../../types';
@@ -69,6 +70,16 @@ describe('SortingState reducers', () => {
             { columnName: 'test2', direction: 'asc' },
           ],
         });
+    });
+
+    it('should work with immutable properties', () => {
+      const state = { sorting: Immutable([{ columnName: 'test', direction: 'asc' }]) };
+
+      expect(() => changeColumnSorting(state, { columnName: 'test2', keepOther: true }))
+        .not.toThrow();
+
+      expect(() => changeColumnSorting(state, { columnName: 'test2', keepOther: ['test'] }))
+        .not.toThrow();
     });
 
     it('can initiate multi-column sorting by keepOther option with array', () => {

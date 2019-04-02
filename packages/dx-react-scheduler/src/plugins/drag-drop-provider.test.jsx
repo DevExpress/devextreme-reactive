@@ -10,21 +10,19 @@ import {
   cellIndex,
   cellData,
   cellType,
-  allDayRects,
-  verticalTimeTableRects,
-  horizontalTimeTableRects,
   getAppointmentStyle,
+  autoScroll,
+  calculateDraftAppointments,
 } from '@devexpress/dx-scheduler-core';
 import { DragDropProvider } from './drag-drop-provider';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   ...require.requireActual('@devexpress/dx-scheduler-core'),
+  calculateDraftAppointments: jest.fn(),
+  autoScroll: jest.fn(),
   cellIndex: jest.fn(),
   cellData: jest.fn(),
   cellType: jest.fn(),
-  allDayRects: jest.fn(),
-  verticalTimeTableRects: jest.fn(),
-  horizontalTimeTableRects: jest.fn(),
   getAppointmentStyle: jest.fn(),
 }));
 
@@ -89,12 +87,14 @@ const defaultProps = {
 
 describe('DragDropProvider', () => {
   beforeEach(() => {
+    autoScroll.mockImplementation(() => undefined);
     cellIndex.mockImplementation(() => 1);
     cellType.mockImplementation(() => 'vertical');
     cellData.mockImplementation(() => ({ startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-26 11:00') }));
-    allDayRects.mockImplementation(() => []);
-    verticalTimeTableRects.mockImplementation(() => []);
-    horizontalTimeTableRects.mockImplementation(() => []);
+    calculateDraftAppointments.mockImplementation(() => ({
+      allDayDraftAppointments: [{}],
+      timeTableDraftAppointments: [{}],
+    }));
     getAppointmentStyle.mockImplementation();
   });
   afterEach(() => {
@@ -113,11 +113,12 @@ describe('DragDropProvider', () => {
     ));
 
     const onOver = tree.find(DropTarget).prop('onOver');
+    const onEnter = tree.find(DropTarget).prop('onEnter');
     const onDrop = tree.find(DropTarget).prop('onDrop');
     const onChange = tree.find(DragDropProviderCore).prop('onChange');
 
     return ({
-      tree, onOver, onDrop, onChange,
+      tree, onOver, onEnter, onDrop, onChange,
     });
   };
 
@@ -166,7 +167,6 @@ describe('DragDropProvider', () => {
         .toBeCalledWith('appointment data');
     });
     it('should render draft appointment template', () => {
-      allDayRects.mockImplementationOnce(() => [{}]);
       const draftAppointment = () => <div className="custom-class" />;
 
       const { tree, onOver } = mountPlugin({ draftAppointmentComponent: draftAppointment });
@@ -187,7 +187,6 @@ describe('DragDropProvider', () => {
           },
         },
       };
-      allDayRects.mockImplementationOnce(() => [{}]);
       const sourceAppointment = () => <div className="custom-class" />;
 
       const { tree, onOver } = mountPlugin({ sourceAppointmentComponent: sourceAppointment }, deps);
@@ -198,100 +197,39 @@ describe('DragDropProvider', () => {
       expect(tree.find('.custom-class').exists())
         .toBeTruthy();
     });
-
-    it('should render only one container component', () => {
-      allDayRects.mockImplementationOnce(() => [{}, {}]);
-      verticalTimeTableRects.mockImplementationOnce(() => [{}, {}]);
-      horizontalTimeTableRects.mockImplementationOnce(() => [{}, {}]);
-      // eslint-disable-next-line react/prop-types, react/jsx-one-expression-per-line
-      const container = ({ children }) => <div className="custom-class">{children}</div>;
-
-      const { tree, onOver } = mountPlugin({ containerComponent: container });
-
-      onOver({ payload: { id: 1 }, clientOffset: 1 });
-      tree.update();
-
-      expect(tree.find('.custom-class').length)
-        .toBe(1);
-    });
   });
 
   describe('Auto Scroll', () => {
-    it('should scroll up', () => {
-      const deps = {
-        getter: {
-          layoutElement: {
-            current: {
-              scrollTop: 10,
-              offsetTop: 10,
-              clientHeight: 100,
-              getBoundingClientRect: () => ({ height: 1, top: 1 }),
-            },
-          },
-        },
-      };
-      const { tree, onOver } = mountPlugin({}, deps);
+    it('should call autoScroll with correct arguments', () => {
+      const clientOffset = { x: 1, y: 21 };
+      const { tree, onOver } = mountPlugin({});
 
-      onOver({ payload: { id: 1 }, clientOffset: { x: 1, y: 21 } });
+      onOver({ payload: { id: 1 }, clientOffset });
       tree.update();
 
-      expect(deps.getter.layoutElement.current.scrollTop)
-        .toBe(-20);
-    });
-
-    it('should scroll down', () => {
-      const deps = {
-        getter: {
-          layoutElement: {
-            current: {
-              scrollTop: 10,
-              offsetTop: 10,
-              clientHeight: 200,
-              getBoundingClientRect: () => ({ height: 1, top: 1 }),
-            },
-          },
-        },
-      };
-      const { tree, onOver } = mountPlugin({ }, deps);
-
-      onOver({ payload: { id: 1 }, clientOffset: { x: 1, y: 161 } });
-      tree.update();
-
-      expect(deps.getter.layoutElement.current.scrollTop)
-        .toBe(40);
-    });
-
-    it('should not scroll up if cursor is under of table header', () => {
-      const deps = {
-        getter: {
-          layoutElement: {
-            current: {
-              scrollTop: 0,
-            },
-          },
-          layoutHeaderElement: {
-            current: {
-              getBoundingClientRect: () => ({
-                height: 20,
-                top: 10,
-              }),
-              querySelectorAll: () => [],
-            },
-          },
-        },
-      };
-      const { tree, onOver } = mountPlugin({}, deps);
-
-      onOver({ payload: { id: 1 }, clientOffset: { x: 1, y: 25 } });
-      tree.update();
-
-      expect(deps.getter.layoutElement.current.scrollTop)
-        .toBe(0);
+      expect(autoScroll)
+        .toBeCalledWith(
+          clientOffset, defaultDeps.getter.layoutElement, defaultDeps.getter.layoutHeaderElement,
+        );
     });
   });
 
-  describe('Calculate appointment boundaries', () => {
-    it('for vertical appointment and vertical cell', () => {
+  describe('Drag', () => {
+    it('should calculate appointment boundaries by onEnter event fire', () => {
+      const getBoundingClientRect = jest.fn();
+      getBoundingClientRect.mockImplementationOnce(() => ({ height: 20, top: 20, bottom: 40 }));
+      getBoundingClientRect.mockImplementationOnce(() => ({ height: 20, top: 0, bottom: 20 }));
+      const deps = {
+        getter: {
+          timeTableElement: {
+            current: {
+              querySelectorAll: () => [{}, {
+                getBoundingClientRect,
+              }],
+            },
+          },
+        },
+      };
       const payload = {
         id: 1,
         type: 'vertical',
@@ -300,87 +238,19 @@ describe('DragDropProvider', () => {
       };
       cellIndex.mockImplementationOnce(() => 1);
       cellIndex.mockImplementationOnce(() => -1);
-      const { onOver } = mountPlugin({});
-
-      onOver({ payload, clientOffset: { x: 1, y: 25 } });
-
-      expect(defaultDeps.action.changeAppointment)
-        .toBeCalledTimes(1);
-      expect(defaultDeps.action.changeAppointment)
-        .toBeCalledWith({ change: { startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00') } }, expect.any(Object), expect.any(Object));
-
-      expect(defaultDeps.action.startEditAppointment)
-        .toBeCalledTimes(1);
-      expect(defaultDeps.action.startEditAppointment)
-        .toBeCalledWith({ appointmentId: 1 }, expect.any(Object), expect.any(Object));
-    });
-
-    it('for horizontal appointment and horizontal cell', () => {
-      const payload = {
-        id: 1,
-        type: 'horizontal',
-        startDate: new Date('2018-06-25'),
-        endDate: new Date('2018-06-26'),
-      };
-      cellIndex.mockImplementationOnce(() => -1);
-      cellIndex.mockImplementationOnce(() => 1);
-      cellType.mockImplementationOnce(() => 'horizontal');
-      cellData.mockImplementationOnce(() => ({ startDate: new Date('2018-06-25'), endDate: new Date('2018-06-26') }));
-      const { onOver } = mountPlugin({});
-
-      onOver({ payload, clientOffset: { x: 1, y: 25 } });
-
-      expect(defaultDeps.action.changeAppointment)
-        .toBeCalledTimes(1);
-      expect(defaultDeps.action.changeAppointment)
-        .toBeCalledWith({ change: { startDate: new Date('2018-06-25'), endDate: new Date('2018-06-26') } }, expect.any(Object), expect.any(Object));
-    });
-
-    it('for vertical appointment and horizontal cell', () => {
-      const payload = {
-        id: 1,
-        type: 'vertical',
-        startDate: new Date('2018-06-10 10:00'),
-        endDate: new Date('2018-06-10 11:00'),
-      };
-      cellIndex.mockImplementationOnce(() => -1);
-      cellIndex.mockImplementationOnce(() => 1);
-      cellType.mockImplementationOnce(() => 'horizontal');
-      cellData.mockImplementationOnce(() => ({ startDate: new Date('2018-06-25'), endDate: new Date('2018-06-26') }));
-      const { onOver } = mountPlugin({});
-
-      onOver({ payload, clientOffset: { x: 1, y: 25 } });
-
-      expect(defaultDeps.action.changeAppointment)
-        .toBeCalledTimes(1);
-      expect(defaultDeps.action.changeAppointment)
-        .toBeCalledWith({ change: { startDate: new Date('2018-06-25'), endDate: new Date('2018-06-26') } }, expect.any(Object), expect.any(Object));
-    });
-
-    it('for horizontal appointment and vertical cell', () => {
-      const payload = {
-        id: 1,
-        type: 'vertical',
-        startDate: new Date('2018-06-10'),
-        endDate: new Date('2018-06-10'),
-      };
-      cellIndex.mockImplementationOnce(() => -1);
-      cellIndex.mockImplementationOnce(() => 1);
-      cellType.mockImplementationOnce(() => 'horizontal');
+      cellType.mockImplementationOnce(() => 'vertical');
       cellData.mockImplementationOnce(() => ({ startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00') }));
-      const { onOver } = mountPlugin({});
+      cellData.mockImplementationOnce(() => ({ startDate: new Date('2018-06-25 9:00'), endDate: new Date('2018-06-25 10:00') }));
 
-      onOver({ payload, clientOffset: { x: 1, y: 25 } });
+      const { tree, onEnter } = mountPlugin({}, deps);
 
-      expect(defaultDeps.action.changeAppointment)
-        .toBeCalledTimes(1);
+      onEnter({ payload, clientOffset: { x: 1, y: 25 } });
+      tree.update();
+
       expect(defaultDeps.action.changeAppointment)
         .toBeCalledWith({ change: { startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00') } }, expect.any(Object), expect.any(Object));
     });
-  });
-
-  describe('Should drag', () => {
-    it('to other cell', () => {
+    it('should drag to other cell', () => {
       const getBoundingClientRect = jest.fn();
       getBoundingClientRect.mockImplementationOnce(() => ({ height: 20, top: 20, bottom: 40 }));
       getBoundingClientRect.mockImplementationOnce(() => ({ height: 20, top: 0, bottom: 20 }));
@@ -420,7 +290,7 @@ describe('DragDropProvider', () => {
         .toBeCalledWith({ change: { startDate: new Date('2018-06-25 9:30'), endDate: new Date('2018-06-25 10:30') } }, expect.any(Object), expect.any(Object));
     });
 
-    it('with save initial cursor position', () => {
+    it('should drag with save initial cursor position', () => {
       const payload = {
         id: 1,
         type: 'vertical',
@@ -446,7 +316,7 @@ describe('DragDropProvider', () => {
     });
   });
 
-  describe('Should drop', () => {
+  describe('Drop', () => {
     it('should not change data if cursor is over and outside cells', () => {
       const payload = {
         id: 1,
@@ -573,9 +443,6 @@ describe('DragDropProvider', () => {
       cellIndex.mockImplementationOnce(() => -1);
       cellType.mockImplementationOnce(() => 'vertical');
       cellData.mockImplementationOnce(() => ({ startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00') }));
-      allDayRects.mockImplementationOnce(() => [{}, {}]);
-      verticalTimeTableRects.mockImplementationOnce(() => [{}, {}]);
-      horizontalTimeTableRects.mockImplementationOnce(() => [{}, {}]);
 
       const { tree, onOver, onChange } = mountPlugin({
         draftAppointmentComponent: draftAppointment,
@@ -615,9 +482,6 @@ describe('DragDropProvider', () => {
       cellIndex.mockImplementationOnce(() => -1);
       cellType.mockImplementationOnce(() => 'vertical');
       cellData.mockImplementationOnce(() => ({ startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00') }));
-      allDayRects.mockImplementationOnce(() => [{}, {}]);
-      verticalTimeTableRects.mockImplementationOnce(() => [{}, {}]);
-      horizontalTimeTableRects.mockImplementationOnce(() => [{}, {}]);
 
       const { tree, onOver, onDrop } = mountPlugin({
         draftAppointmentComponent: draftAppointment,

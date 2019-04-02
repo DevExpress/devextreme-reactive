@@ -11,5 +11,5 @@ export const HOURS = 'hours';
 export const RESIZE_TOP = 'resize-start';
 export const RESIZE_BOTTOM = 'resize-end';
 
-export const POSITION_TOP = 'start';
-export const POSITION_BOTTOM = 'end';
+export const POSITION_START = 'start';
+export const POSITION_END = 'end';

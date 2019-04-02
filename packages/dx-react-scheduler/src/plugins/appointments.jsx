@@ -4,6 +4,7 @@ import {
   Plugin, Template, TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 import { createClickHandlers } from '@devexpress/dx-core';
+import { POSITION_START, POSITION_END } from '@devexpress/dx-scheduler-core';
 
 const pluginDependencies = [
   { name: 'DayView', optional: true },
@@ -48,12 +49,12 @@ export class Appointments extends React.PureComponent {
               {...createClickHandlers(onClick, onDoubleClick)}
               {...restParams}
             >
-              {leftSlice && <Slice position="top" appointmentType={type} />}
+              {leftSlice && <Slice position={POSITION_START} appointmentType={type} />}
               <AppointmentContent
                 data={data}
                 type={type}
               />
-              {rightSlice && <Slice position="bottom" appointmentType={type} />}
+              {rightSlice && <Slice position={POSITION_END} appointmentType={type} />}
             </Appointment>
           )}
         </Template>

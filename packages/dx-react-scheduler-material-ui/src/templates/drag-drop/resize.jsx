@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import {
   VERTICAL_TYPE, HORIZONTAL_TYPE,
-  POSITION_TOP, POSITION_BOTTOM,
+  POSITION_START, POSITION_END,
 } from '@devexpress/dx-scheduler-core';
 
 const verticalStyles = spacing => ({
@@ -27,19 +27,19 @@ const styles = ({ spacing }) => {
       position: 'absolute',
       zIndex: 100,
     },
-    verticalTop: {
+    verticalStart: {
       ...vertical,
       top: 0,
     },
-    verticalBottom: {
+    verticalEnd: {
       ...vertical,
       bottom: 0,
     },
-    horizontalTop: {
+    horizontalStart: {
       ...horizontal,
       left: 0,
     },
-    horizontalBottom: {
+    horizontalEnd: {
       ...horizontal,
       right: 0,
     },
@@ -51,15 +51,15 @@ const ResizeBase = ({
   position, appointmentType, ...restProps
 }) => {
   const vertical = appointmentType === VERTICAL_TYPE;
-  const top = position === POSITION_TOP;
+  const start = position === POSITION_START;
   return (
     <div
       className={classNames({
         [classes.resize]: true,
-        [classes.verticalTop]: vertical && top,
-        [classes.verticalBottom]: vertical && !top,
-        [classes.horizontalTop]: !vertical && top,
-        [classes.horizontalBottom]: !vertical && !top,
+        [classes.verticalStart]: vertical && start,
+        [classes.verticalEnd]: vertical && !start,
+        [classes.horizontalStart]: !vertical && start,
+        [classes.horizontalEnd]: !vertical && !start,
       }, className)}
       {...restProps}
     />
@@ -69,7 +69,7 @@ const ResizeBase = ({
 
 ResizeBase.propTypes = {
   classes: PropTypes.object.isRequired,
-  position: PropTypes.oneOf([POSITION_TOP, POSITION_BOTTOM]).isRequired,
+  position: PropTypes.oneOf([POSITION_START, POSITION_END]).isRequired,
   appointmentType: PropTypes.oneOf([HORIZONTAL_TYPE, VERTICAL_TYPE]).isRequired,
   className: PropTypes.string,
 };

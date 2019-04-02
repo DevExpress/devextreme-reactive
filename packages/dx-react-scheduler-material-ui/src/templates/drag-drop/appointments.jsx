@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { POSITION_START, POSITION_END } from '@devexpress/dx-scheduler-core';
 import { withStyles } from '@material-ui/core/styles';
 import { AppointmentContent } from '../appointment/appointment-content';
 import { Appointment } from '../appointment/appointment';
@@ -30,12 +31,12 @@ const DraftAppointmentBase = ({
     type={type}
     {...restProps}
   >
-    {leftSlice && <Slice position="top" appointmentType={type} />}
+    {leftSlice && <Slice position={POSITION_START} appointmentType={type} />}
     <AppointmentContent
       data={data}
       type={type}
     />
-    {rightSlice && <Slice position="bottom" appointmentType={type} />}
+    {rightSlice && <Slice position={POSITION_END} appointmentType={type} />}
   </Appointment>
 );
 

@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import {
   VERTICAL_TYPE, HORIZONTAL_TYPE,
-  POSITION_TOP, POSITION_BOTTOM,
+  POSITION_START, POSITION_END,
 } from '@devexpress/dx-scheduler-core';
 
 const verticalStyles = {
@@ -23,22 +23,22 @@ const styles = {
     position: 'absolute',
     zIndex: 50,
   },
-  verticalTop: {
+  verticalStart: {
     ...verticalStyles,
     top: '-10px',
     boxShadow: '0 10px 15px rgba(0,0,0,0.2)',
   },
-  verticalBottom: {
+  verticalEnd: {
     ...verticalStyles,
     bottom: '-10px',
     boxShadow: '0 -10px 15px rgba(0,0,0,0.2)',
   },
-  horizontalTop: {
+  horizontalStart: {
     ...horizontalStyles,
     left: '-10px',
     boxShadow: '10px 0 15px rgba(0,0,0,0.2)',
   },
-  horizontalBottom: {
+  horizontalEnd: {
     ...horizontalStyles,
     right: '-10px',
     boxShadow: '-10px 0 15px rgba(0,0,0,0.2)',
@@ -49,15 +49,15 @@ const SliceBase = ({
   position, appointmentType, classes, className, ...restProps
 }) => {
   const vertical = appointmentType === VERTICAL_TYPE;
-  const top = position === POSITION_TOP;
+  const start = position === POSITION_START;
   return (
     <div
       className={classNames({
         [classes.slice]: true,
-        [classes.verticalTop]: vertical && top,
-        [classes.verticalBottom]: vertical && !top,
-        [classes.horizontalTop]: !vertical && top,
-        [classes.horizontalBottom]: !vertical && !top,
+        [classes.verticalStart]: vertical && start,
+        [classes.verticalEnd]: vertical && !start,
+        [classes.horizontalStart]: !vertical && start,
+        [classes.horizontalEnd]: !vertical && !start,
       }, className)}
       {...restProps}
     />
@@ -67,7 +67,7 @@ const SliceBase = ({
 SliceBase.propTypes = {
   classes: PropTypes.object.isRequired,
   appointmentType: PropTypes.oneOf([VERTICAL_TYPE, HORIZONTAL_TYPE]).isRequired,
-  position: PropTypes.oneOf([POSITION_TOP, POSITION_BOTTOM]).isRequired,
+  position: PropTypes.oneOf([POSITION_START, POSITION_END]).isRequired,
   className: PropTypes.string,
 };
 

@@ -81,14 +81,14 @@ export const timeBoundariesByResize: TimeBoundariesByResize = (
       ? insidePart * cellDurationMinutes * 60 / 2 : 0;
     appointmentStartTime = moment(targetData.startDate as Date)
       .add(insideTopOffset, SECONDS).toDate();
-    appointmentEndTime = moment(payload.endDate as Date).toDate();
+    appointmentEndTime = new Date(payload.endDate as Date);
   }
   if (sourceType === RESIZE_BOTTOM) {
     const insideBottomOffset = insidePart === 0 && targetType === VERTICAL_TYPE
       ? cellDurationMinutes * 60 / 2 : 0;
     appointmentEndTime = moment(targetData.endDate as Date)
       .add(-insideBottomOffset, SECONDS).toDate();
-    appointmentStartTime = moment(payload.startDate as Date).toDate();
+    appointmentStartTime = new Date(payload.startDate as Date);
   }
   // keep origin appointment duration if coordinates are wrong
   if (moment(appointmentEndTime).diff(appointmentStartTime, MINUTES) < 1) {

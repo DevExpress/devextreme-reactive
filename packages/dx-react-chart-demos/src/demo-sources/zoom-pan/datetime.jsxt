@@ -13,8 +13,9 @@ const generateData = (n) => {
   let y = 0;
   const dt = new Date(2017, 2, 10);
   for (let i = 0; i < n; i += 1) {
+    dt.setDate(dt.getDate() + 1);
     y += Math.round(Math.random() * 10 - 5);
-    ret.push({ x: new Date(dt.setDate(dt.getDate() + 1)), y });
+    ret.push({ x: new Date(dt), y });
   }
   return ret;
 };
@@ -39,25 +40,26 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       data,
-      zoomValue: false,
-      panValue: false,
       zoomArgument: true,
       panArgument: true,
+      zoomValue: false,
+      panValue: false,
     };
-    this.submit = this.submit.bind(this);
+    this.submit = (e) => this.setState({
+      [e.target.id]: e.target.checked,
+    });
   }
 
-  submit() {
-    const zoomValue = document.getElementById('zoomValue').checked;
-    const panValue = document.getElementById('panValue').checked;
-    const zoomArgument = document.getElementById('zoomArgument').checked;
-    const panArgument = document.getElementById('panArgument').checked;
-    this.setState({
-      zoomValue,
-      panValue,
-      zoomArgument,
-      panArgument,
-    });
+  renderInput(id, label) {
+    const { [id]: checked } = this.state;
+    return (
+      <p>
+        <label htmlFor={id}>
+          <input type="checkbox" id={id} checked={checked} onChange={this.submit} />
+          {label}
+        </label>
+      </p>
+    );
   }
 
   render() {
@@ -66,9 +68,7 @@ export default class Demo extends React.PureComponent {
     } = this.state;
     return (
       <<%&wrapperTag%><%&wrapperAttributes%>>
-        <Chart
-          data={chartData}
-        >
+        <Chart data={chartData}>
           <ArgumentScale factory={scaleTime} />
           <ArgumentAxis />
           <ValueAxis />
@@ -79,30 +79,11 @@ export default class Demo extends React.PureComponent {
             interactionWithValues={getMode(zoomValue, panValue)}
           />
         </Chart>
-        <p>
-          <label htmlFor="argument">
-            <input type="checkbox" id="zoomArgument" checked={zoomArgument} onChange={this.submit} />
-              Zoom argument
-          </label>
-        </p>
-        <p>
-          <label htmlFor="argument">
-            <input type="checkbox" id="panArgument" checked={panArgument} onChange={this.submit} />
-              Scroll argument
-          </label>
-        </p>
-        <p>
-          <label htmlFor="value">
-            <input type="checkbox" id="zoomValue" checked={zoomValue} onChange={this.submit} />
-            Zoom value
-          </label>
-        </p>
-        <p>
-          <label htmlFor="value">
-            <input type="checkbox" id="panValue" checked={panValue} onChange={this.submit} />
-            Scroll value
-          </label>
-        </p>
+
+        {this.renderInput('zoomArgument', 'Zoom argument')}
+        {this.renderInput('panArgument', 'Pan argument')}
+        {this.renderInput('zoomValue', 'Zoom value')}
+        {this.renderInput('panValue', 'Pan value')}
       </<%&wrapperTag%>>
     );
   }

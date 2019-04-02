@@ -20,19 +20,18 @@ export interface ZoomAndPanProps {
   zoomRegionKey?: 'shift' | 'alt' | 'ctrl';
 }
 
-type RectBox = { x: number; y: number; width: number; height: number; };
+type Rect = { x: number; y: number; width: number; height: number; }
 
 /** @internal */
 export type ZoomAndPanState = {
   viewport?: ViewportOptions;
-  rectBox?: RectBox | null;
+  rectBox?: Rect | null;
 };
 
 // tslint:disable-next-line: no-namespace
 export namespace ZoomAndPan {
   export interface DragBoxProps {
-    /** @internal */
-    rectBox: RectBox;
+    rect: Rect;
     /** @internal */
     color: string;
     /** @internal */

@@ -364,6 +364,18 @@ interface RawAxisProps {
 }
 
 // @public (undocumented)
+type Rect = {
+  // (undocumented)
+  x: number;
+  // (undocumented)
+  y: number;
+  // (undocumented)
+  width: number;
+  // (undocumented)
+  height: number;
+};
+
+// @public (undocumented)
 interface ScaleObject {
   // (undocumented)
   (value: any): number;
@@ -606,6 +618,8 @@ declare const ZoomAndPan: React.ComponentType<ZoomAndPanProps>;
 namespace ZoomAndPan {
   // (undocumented)
   interface DragBoxProps {
+    // (undocumented)
+    rect: Rect;
   }
 }
 

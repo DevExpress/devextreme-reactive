@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import { DragBox } from './drag-box';
 
 const defaultProps = {
-  rectBox: { x: 1, y: 2, width: 3, height: 4 },
+  rect: { x: 1, y: 2, width: 3, height: 4 },
   color: 'color',
   opacity: 0.3,
 };

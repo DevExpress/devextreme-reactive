@@ -5,20 +5,18 @@ import { ZoomAndPan } from '../types';
 export class DragBox extends React.PureComponent<ZoomAndPan.DragBoxProps> {
   render() {
     const {
-      rectBox, color, opacity, ...restProps
+      rect, color, opacity, ...restProps
     } = this.props;
     return (
-      <svg>
-        <rect
-          x={rectBox.x}
-          y={rectBox.y}
-          width={rectBox.width}
-          height={rectBox.height}
-          fill={color}
-          opacity={opacity}
-          {...restProps}
+      <rect
+        x={rect.x}
+        y={rect.y}
+        width={rect.width}
+        height={rect.height}
+        fill={color}
+        opacity={opacity}
+        {...restProps}
         />
-      </svg>
     );
   }
 }

@@ -8,8 +8,8 @@ export const SECONDS = 'seconds';
 export const MINUTES = 'minutes';
 export const HOURS = 'hours';
 
-export const RESIZE_TOP = 'resize-top';
-export const RESIZE_BOTTOM = 'resize-bottom';
+export const RESIZE_TOP = 'resize-start';
+export const RESIZE_BOTTOM = 'resize-end';
 
-export const POSITION_TOP = 'top';
-export const POSITION_BOTTOM = 'bottom';
+export const POSITION_TOP = 'start';
+export const POSITION_BOTTOM = 'end';

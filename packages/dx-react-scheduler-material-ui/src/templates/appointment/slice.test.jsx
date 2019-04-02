@@ -4,7 +4,7 @@ import { Slice } from './slice';
 
 describe('Appointment', () => {
   const defaultProps = {
-    position: 'top',
+    position: 'start',
     appointmentType: 'vertical',
   };
   describe('Slice', () => {
@@ -36,21 +36,21 @@ describe('Appointment', () => {
     });
     it('should manage classes by props', () => {
       let tree = shallow((
-        <Slice position="top" appointmentType="horizontal" />
+        <Slice position="start" appointmentType="horizontal" />
       ));
 
       expect(tree.is(`.${classes.horizontalTop}`))
         .toBeTruthy();
 
       tree = shallow((
-        <Slice position="bottom" appointmentType="horizontal" />
+        <Slice position="end" appointmentType="horizontal" />
       ));
 
       expect(tree.is(`.${classes.horizontalBottom}`))
         .toBeTruthy();
 
       tree = shallow((
-        <Slice position="bottom" appointmentType="vertical" />
+        <Slice position="end" appointmentType="vertical" />
       ));
 
       expect(tree.is(`.${classes.verticalBottom}`))

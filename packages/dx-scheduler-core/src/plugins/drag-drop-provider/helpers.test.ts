@@ -167,10 +167,10 @@ describe('DragDropProvider', () => {
           appointmentEndTime: undefined,
         });
     });
-    it('should resize if appointment type is vertical and resize handle is top', () => {
+    it('should resize if appointment type is vertical and resize handle is start', () => {
       const targetType = 'vertical';
       const payload = {
-        type: 'resize-top',
+        type: 'resize-start',
         appointmentType: targetType,
         startDate: new Date('2018-06-25 11:00'),
         endDate: new Date('2018-06-25 11:30'),
@@ -196,10 +196,10 @@ describe('DragDropProvider', () => {
         appointmentEndTime: new Date('2018-06-25 11:30'),
       });
     });
-    it('should resize if appointment type is vertical and resize handle is bottom', () => {
+    it('should resize if appointment type is vertical and resize handle is end', () => {
       const targetType = 'vertical';
       const payload = {
-        type: 'resize-bottom',
+        type: 'resize-end',
         appointmentType: targetType,
         startDate: new Date('2018-06-25 9:00'),
         endDate: new Date('2018-06-25 9:30'),
@@ -225,10 +225,10 @@ describe('DragDropProvider', () => {
         appointmentEndTime: new Date('2018-06-25 10:30'),
       });
     });
-    it('should resize if appointment type is horizontal and resize handle is top', () => {
+    it('should resize if appointment type is horizontal and resize handle is start', () => {
       const targetType = 'horizontal';
       const payload = {
-        type: 'resize-top',
+        type: 'resize-start',
         appointmentType: targetType,
         startDate: new Date('2018-06-27 10:00'),
         endDate: new Date('2018-06-29 11:00'),
@@ -252,10 +252,10 @@ describe('DragDropProvider', () => {
         payload, targetData, targetType, cellDurationMinutes, insidePart,
       )).toEqual(result);
     });
-    it('should resize if appointment type is horizontal and resize handle is bottom', () => {
+    it('should resize if appointment type is horizontal and resize handle is end', () => {
       const targetType = 'horizontal';
       const payload = {
-        type: 'resize-bottom',
+        type: 'resize-end',
         appointmentType: targetType,
         startDate: new Date('2018-06-22 10:00'),
         endDate: new Date('2018-06-24 11:00'),

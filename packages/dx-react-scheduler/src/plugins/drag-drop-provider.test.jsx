@@ -221,12 +221,12 @@ describe('DragDropProvider', () => {
       expect(resizeComponents.at(0).props())
         .toEqual({
           appointmentType: 'appt-bottom',
-          position: 'bottom',
+          position: 'end',
         });
       expect(resizeComponents.at(1).props())
         .toEqual({
           appointmentType: 'appt-top',
-          position: 'top',
+          position: 'start',
         });
     });
     it('should wrap resize components into DragSource', () => {
@@ -255,13 +255,13 @@ describe('DragDropProvider', () => {
       expect(resizeComponents.at(0).prop('payload'))
         .toEqual({
           appointmentType: 'appt-bottom',
-          type: 'resize-bottom',
+          type: 'resize-end',
           a: 1,
         });
       expect(resizeComponents.at(1).prop('payload'))
         .toEqual({
           appointmentType: 'appt-top',
-          type: 'resize-top',
+          type: 'resize-start',
           a: 1,
         });
     });

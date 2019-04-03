@@ -278,7 +278,7 @@ export const getCollapsedGrid: GetCollapsedGridFn = ({
     };
   }
 
-  const boundaries = rowsVisibleBoundary || [0, rows.length || 1];
+  const boundaries = rowsVisibleBoundary || [0, rows.length - 1 || 1];
 
   const rowSpanBoundaries = rows
     .slice(boundaries[0], boundaries[1])

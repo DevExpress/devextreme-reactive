@@ -86,7 +86,7 @@ export type GetColumnWidthGetterFn = PureComputed<
 >;
 
 export type VisibleBoundsFn = PureComputed<
-  [any, Getters, number, GetColumnWidthFn, GetRowHeightFn], number[]
+  [any, Getters, number, GetRowHeightFn], number[]
 >;
 
 type PageTriggersMeta = {

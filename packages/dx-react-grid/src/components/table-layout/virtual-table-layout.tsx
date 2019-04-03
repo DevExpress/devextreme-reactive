@@ -93,7 +93,6 @@ export class VirtualTableLayout extends React.PureComponent<VirtualTableLayoutPr
       bodyComponent: Body,
       footerComponent: Footer,
       visibleRowBoundaries,
-      visibleColumnsBoundaries,
       totalRowCount,
       loadedRowsStart,
       getRowHeight,

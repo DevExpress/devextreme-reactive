@@ -4,7 +4,7 @@ import {
 import { VisibleBoundsFn, PageTriggersMetaFn } from '../../types';
 
 export const visibleRowsBounds: VisibleBoundsFn = (
-  state, getters, estimatedRowHeight, getColumnWidth, getRowHeight,
+  state, getters, estimatedRowHeight, getRowHeight,
 ) => {
   const {
     viewportTop, containerHeight, headerHeight, footerHeight,

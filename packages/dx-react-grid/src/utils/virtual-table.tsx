@@ -317,7 +317,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
                   {(
                     { currentVirtualPageBoundary, availableRowCount,
                       renderBoundaries, remoteDataEnabled, loadedRowsStart,
-                      tableColumns, visibleBoundaries,
+                      tableColumns, tableBodyRows,
                     },
                     { requestNextPage },
                   ) => {
@@ -327,6 +327,13 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
                     const { width, viewportLeft } = this.state;
                     const getColumnWidth = this.getColumnWidthGetter(
                       tableColumns, width, minColumnWidth,
+                    );
+                    const visibleRowBoundaries = visibleRowsBounds(
+                      this.state, { loadedRowsStart, tableBodyRows },
+                      estimatedRowHeight, this.getRowHeight,
+                    );
+                    const renderRowBoundaries = getRowsRenderBoundary(
+                      loadedRowsStart + tableBodyRows.length, visibleRowBoundaries,
                     );
 
                     return (
@@ -350,7 +357,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
                             blockRefsHandler: this.registerBlockRef,
                             rowRefsHandler: this.registerRowRef,
                             onUpdate: this.handleTableUpdate,
-                            visibleRowBoundaries: renderBoundaries,
+                            visibleRowBoundaries: renderRowBoundaries,
                             getRowHeight: this.getRowHeight,
                             getColumnWidth,
                             headerHeight,

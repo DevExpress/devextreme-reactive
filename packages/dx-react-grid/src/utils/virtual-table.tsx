@@ -335,6 +335,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
                     const renderRowBoundaries = getRowsRenderBoundary(
                       loadedRowsStart + tableBodyRows.length, visibleRowBoundaries,
                     );
+                    const totalRowCount = availableRowCount || tableBodyRows.length;
 
                     return (
                       <Sizer
@@ -366,7 +367,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
                             containerHeight,
                             containerWidth,
                             viewportLeft,
-                            totalRowCount: availableRowCount,
+                            totalRowCount,
                             loadedRowsStart,
                           }}
                         />

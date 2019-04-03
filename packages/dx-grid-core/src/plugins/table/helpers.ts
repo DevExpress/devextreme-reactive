@@ -2,6 +2,7 @@ import { TABLE_DATA_TYPE, TABLE_NODATA_TYPE } from './constants';
 import {
   IsSpecificCellFn, IsSpecificRowFn, TableRow, TableColumn,
 } from '../../types';
+import { TABLE_STUB_TYPE } from '../../utils/virtual-table';
 
 export const isDataTableCell: IsSpecificCellFn = (
   tableRow, tableColumn,
@@ -15,5 +16,5 @@ export const isNoDataTableCell: IsSpecificCellFn<TableColumn, TableColumn[]> = (
   tableColumn, tableColumns,
 ) => tableColumns.indexOf(tableColumn as any) === 0;
 export const isStubTableCell: IsSpecificRowFn = tableRow => (
-  !(isDataTableRow(tableRow) || isNoDataTableRow(tableRow))
+  tableRow.type === TABLE_STUB_TYPE
 );

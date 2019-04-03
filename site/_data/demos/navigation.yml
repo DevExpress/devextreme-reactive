@@ -74,6 +74,10 @@
     items:
       - title: Multiple Axes
         path: /react/chart/demos/combination/multiple-axes
+  - title: More Features
+    items:
+      - title: Export
+        path: /react/chart/demos/export/demo
 /react/scheduler:
   - title: Demos
     items:

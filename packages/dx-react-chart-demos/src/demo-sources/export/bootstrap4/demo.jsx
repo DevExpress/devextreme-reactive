@@ -26,6 +26,7 @@ const options = [
 const Export = () => {
   const [anchorEl, setAnchorEl] = useState(null);
 
+
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -99,7 +100,7 @@ const Export = () => {
           type="button"
           id="iconButton"
           onClick={handleClick}
-          className="btn btn-outline-secondary btn btn-primary btn-sm my-2 mx-2"
+          className="btn btn-outline-secondary btn btn-primary btn-sm my-4"
         >
           <span className="oi oi-menu" />
         </button>

@@ -16,6 +16,11 @@ const clamp: PureComputed<
   [number, number, number]
 > = (value, min, max) => Math.max(Math.min(value, max), min);
 
+const calculateInsideOffset: PureComputed<
+  [string, number, number], number
+> = (targetType, insidePart, cellDurationMinutes) => targetType === VERTICAL_TYPE
+  ? insidePart * cellDurationMinutes * 60 / 2 : 0;
+
 export const cellType: PureComputed<
   [AppointmentModel], string
 > = data => moment(data.startDate as Date)
@@ -77,8 +82,7 @@ export const timeBoundariesByResize: TimeBoundariesByResize = (
   const sourceType = payload.type;
 
   if (sourceType === RESIZE_TOP) {
-    const insideTopOffset = targetType === VERTICAL_TYPE
-      ? insidePart * cellDurationMinutes * 60 / 2 : 0;
+    const insideTopOffset = calculateInsideOffset(targetType, insidePart, cellDurationMinutes);
     appointmentStartTime = moment(targetData.startDate as Date)
       .add(insideTopOffset, SECONDS).toDate();
     appointmentEndTime = new Date(payload.endDate as Date);
@@ -106,7 +110,7 @@ export const timeBoundariesByDrag: TimeBoundariesByDrag = (
   let appointmentStartTime;
   let appointmentEndTime;
 
-  const insideOffset = targetType === VERTICAL_TYPE ? insidePart * cellDurationMinutes * 60 / 2 : 0;
+  const insideOffset = calculateInsideOffset(targetType, insidePart, cellDurationMinutes);
   const start = moment(targetData.startDate as Date).add(insideOffset, SECONDS);
 
   if (offsetTimeTopBase === null) {

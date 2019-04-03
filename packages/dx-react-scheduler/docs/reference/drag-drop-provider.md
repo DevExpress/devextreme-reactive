@@ -84,7 +84,7 @@ Name | Properties | Description
 -----|------------|------------
 DragDropProvider.DraftAppointment | [DragDropProvider.DraftAppointmentProps](#dragdropproviderdraftappointmentprops) | A component that renders the appointment being dragged.
 DragDropProvider.SourceAppointment | [DragDropProvider.SourceAppointmentProps](#dragdropprovidersourceappointmentprops) | A component that renders a copy of the appointment being dragged in its previous location.
-DragDropProvider.Resize | [DragDropProvider.ResizeProps](#dragdropproviderresizeprops) | A component that renders a handler of resize appointment.
+DragDropProvider.Resize | [DragDropProvider.ResizeProps](#dragdropproviderresizeprops) | A component that renders a handle of an appointment being resized.
 DragDropProvider.Container | [DragDropProvider.ContainerProps](#dragdropprovidercontainerprops) | A component that renders a container for the appointment being dragged.
 
 Additional properties are added to the component's root element.

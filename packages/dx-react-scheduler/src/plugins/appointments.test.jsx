@@ -148,7 +148,7 @@ describe('Appointments', () => {
     expect(onClick).toBe('onClick');
     expect(onDoubleClick).toBe('onDoubleClick');
   });
-  it('should render define appointmentTop template', () => {
+  it('should render appointmentTop template', () => {
     const deps = {
       template: {
         appointment: {
@@ -175,7 +175,7 @@ describe('Appointments', () => {
       data: {},
     });
   });
-  it('should render define appointmentBottom template', () => {
+  it('should render appointmentBottom template', () => {
     const deps = {
       template: {
         appointment: {

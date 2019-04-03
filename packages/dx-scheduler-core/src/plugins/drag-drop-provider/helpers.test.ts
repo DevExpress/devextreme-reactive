@@ -143,7 +143,7 @@ describe('DragDropProvider', () => {
   });
 
   describe('#timeBoundariesByResize', () => {
-    it('should not resize if appointment type and cell type are equal', () => {
+    it('should not resize if appointment type and cell type are different', () => {
       const targetType = 'vertical';
       const payload = {
         type: 'resize-top',

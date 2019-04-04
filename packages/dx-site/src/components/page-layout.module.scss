@@ -1,3 +1,5 @@
+@import '../constants';
+
 .page-layout {
   margin-top: 50px;
   margin-bottom: 50px;
@@ -14,4 +16,12 @@
 
 .search {
   margin-bottom: 20px;
+}
+
+.sidebar {
+  padding-left: $inner-offset;
+}
+
+.content {
+  padding-right: $inner-offset;
 }

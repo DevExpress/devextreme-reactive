@@ -81,50 +81,54 @@ class PageLayout extends React.PureComponent {
           <div className="container">
             <div className="row">
               <div className="col-md-9 order-md-2">
-                {children}
+                <div className={styles.content}>
+                  {children}
+                </div>
               </div>
               <div className="col-md-3 order-md-1">
-                {sectionName === 'docs' ? (
-                  <React.Fragment>
-                    <StaticQuery
-                      query={graphql`
-                        query {
-                          site {
-                            siteMetadata {
-                              version
+                <div className={styles.sidebar}>
+                  {sectionName === 'docs' ? (
+                    <React.Fragment>
+                      <StaticQuery
+                        query={graphql`
+                          query {
+                            site {
+                              siteMetadata {
+                                version
+                              }
                             }
                           }
-                        }
-                      `}
-                      render={data => (
-                        <div className={styles.versionLink}>
-                          <a
-                            href={`https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#${data.site.siteMetadata.version}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            Version
-                            {' '}
-                            <span className={styles.version}>
-                              {data.site.siteMetadata.version}
-                            </span>
-                          </a>
-                        </div>
-                      )}
+                        `}
+                        render={data => (
+                          <div className={styles.versionLink}>
+                            <a
+                              href={`https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#${data.site.siteMetadata.version}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              Version
+                              {' '}
+                              <span className={styles.version}>
+                                {data.site.siteMetadata.version}
+                              </span>
+                            </a>
+                          </div>
+                        )}
+                      />
+                      <input
+                        id="docsearch"
+                        className={`form-control ${styles.search}`}
+                        placeholder="Search..."
+                      />
+                    </React.Fragment>
+                  ) : null}
+                  {navigation[technologyName][sectionName].map(section => (
+                    <Section
+                      key={section.title}
+                      section={section}
                     />
-                    <input
-                      id="docsearch"
-                      className={`form-control ${styles.search}`}
-                      placeholder="Search..."
-                    />
-                  </React.Fragment>
-                ) : null}
-                {navigation[technologyName][sectionName].map(section => (
-                  <Section
-                    key={section.title}
-                    section={section}
-                  />
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           </div>

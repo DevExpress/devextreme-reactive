@@ -6,18 +6,21 @@ The React Chart allows to set viewport. It supports mouse and touch events on it
 
 Import the [ZoomAndPan](../reference/zoom-and-pan.md) plugin and add it to the Chart component to enable the feature.
 
-.embedded-demo({ "path": "zoom-pan/categories", "showThemeSelector": true })
-
 Note that the [plugin order](./plugin-overview.md#plugin-order) is important.
 
+### Uncontrolled Mode
 
-## Usage
+In uncontrolled mode, add `ZoomAndPan` plugin to the Chart component.
 
-### Basics
+.embedded-demo({ "path": "zoom-pan/uncontrolled", "showThemeSelector": true })
 
-Use the `viewport` and `onViewportChange` properties to use zoom and pan in a controlled mode and the `defaultViewport` property for an uncontrolled mode.
+### Controlled Mode
 
-### Particular setup for a scale
+In controlled mode, pass the options to the `ZoomAndPan` plugin's `viewport` property and handle `onViewportChange` event to control zoom and pan externally.
+
+.embedded-demo({ "path": "zoom-pan/controlled", "showThemeSelector": true })
+
+## Particular setup for a scale
 
 Use the `interactionWithArguments` and `interactionWithValues` properties to enable only zooming or only panning for a corresponding scale.
 

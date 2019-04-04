@@ -53,7 +53,7 @@ export default class Demo extends React.PureComponent {
   renderInput(id, label) {
     const { [id]: checked } = this.state;
     return (
-      <p>
+      <p style={{margin: '20px'}}>
         <label htmlFor={id}>
           <input type="checkbox" id={id} checked={checked} onChange={this.submit} />
           {label}
@@ -68,7 +68,7 @@ export default class Demo extends React.PureComponent {
     } = this.state;
     return (
       <<%&wrapperTag%><%&wrapperAttributes%>>
-        <Chart data={chartData}>
+        <Chart data={chartData} style={{ marginRight: '20px' }}>
           <ArgumentScale factory={scaleTime} />
           <ArgumentAxis />
           <ValueAxis />
@@ -79,11 +79,16 @@ export default class Demo extends React.PureComponent {
             interactionWithValues={getMode(zoomValue, panValue)}
           />
         </Chart>
-
-        {this.renderInput('zoomArgument', 'Zoom argument')}
-        {this.renderInput('panArgument', 'Pan argument')}
-        {this.renderInput('zoomValue', 'Zoom value')}
-        {this.renderInput('panValue', 'Pan value')}
+        <div style={{
+            display: 'flex',
+            flexDIrection: 'row',
+            justifyContent: 'center',
+          }}>
+          {this.renderInput('zoomArgument', 'Zoom argument')}
+          {this.renderInput('panArgument', 'Pan argument')}
+          {this.renderInput('zoomValue', 'Zoom value')}
+          {this.renderInput('panValue', 'Pan value')}
+        </div>
       </<%&wrapperTag%>>
     );
   }

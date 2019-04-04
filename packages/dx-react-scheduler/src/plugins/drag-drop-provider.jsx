@@ -265,15 +265,15 @@ export class DragDropProvider extends React.PureComponent {
           {(this.allDayDraftAppointments.length > 0 ? (
             <Container>
               {this.allDayDraftAppointments.map(({
-                dataItem, type, leftSlice, rightSlice, ...geometry
+                dataItem, type, fromPrev, toNext, ...geometry
               }, index) => (
                 <DraftAppointment
                   key={index.toString()}
                   data={draftData}
                   style={getAppointmentStyle(geometry)}
                   type={type}
-                  leftSlice={leftSlice}
-                  rightSlice={rightSlice}
+                  fromPrev={fromPrev}
+                  toNext={toNext}
                 />
               ))}
             </Container>
@@ -287,15 +287,15 @@ export class DragDropProvider extends React.PureComponent {
           {(this.timeTableDraftAppointments.length > 0 ? (
             <Container>
               {this.timeTableDraftAppointments.map(({
-                dataItem, type, leftSlice, rightSlice, ...geometry
+                dataItem, type, fromPrev, toNext, ...geometry
               }, index) => (
                 <DraftAppointment
                   key={index.toString()}
                   data={draftData}
                   style={getAppointmentStyle(geometry)}
                   type={type}
-                  leftSlice={leftSlice}
-                  rightSlice={rightSlice}
+                  fromPrev={fromPrev}
+                  toNext={toNext}
                 />
               ))}
             </Container>

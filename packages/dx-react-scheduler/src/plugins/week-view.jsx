@@ -247,14 +247,14 @@ export class WeekView extends React.PureComponent {
                   />
                   <AppointmentLayer>
                     {rects.map(({
-                      dataItem, type, leftSlice, rightSlice, ...geometry
+                      dataItem, type, fromPrev, toNext, ...geometry
                     }, index) => (
                       <AppointmentPlaceholder
                         key={index.toString()}
                         type={type}
                         data={dataItem}
-                        leftSlice={leftSlice}
-                        rightSlice={rightSlice}
+                        fromPrev={fromPrev}
+                        toNext={toNext}
                         style={getAppointmentStyle(geometry)}
                       />
                     ))}

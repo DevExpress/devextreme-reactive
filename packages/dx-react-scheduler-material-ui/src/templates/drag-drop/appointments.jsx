@@ -24,27 +24,27 @@ const sourceStyles = {
 
 const DraftAppointmentBase = ({
   classes, className, data,
-  type, leftSlice, rightSlice, ...restProps
+  type, fromPrev, toNext, ...restProps
 }) => (
   <Appointment
     className={classNames(classes.appointment, className)}
     type={type}
     {...restProps}
   >
-    {leftSlice && <SplitIndicator position={POSITION_START} appointmentType={type} />}
+    {fromPrev && <SplitIndicator position={POSITION_START} appointmentType={type} />}
     <AppointmentContent
       data={data}
       type={type}
     />
-    {rightSlice && <SplitIndicator position={POSITION_END} appointmentType={type} />}
+    {toNext && <SplitIndicator position={POSITION_END} appointmentType={type} />}
   </Appointment>
 );
 
 DraftAppointmentBase.propTypes = {
   classes: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
-  leftSlice: PropTypes.bool.isRequired,
-  rightSlice: PropTypes.bool.isRequired,
+  fromPrev: PropTypes.bool.isRequired,
+  toNext: PropTypes.bool.isRequired,
   className: PropTypes.string,
   type: PropTypes.string,
 };

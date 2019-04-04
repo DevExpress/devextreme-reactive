@@ -49,8 +49,8 @@ Field | Type | Description
 data | [AppointmentModel](./scheduler.md#appointmentmodel) | Specifies the appointment's data.
 style | object | Configures the appointment's geometry and position.
 type | string | Specifies the appointment's type.
-leftSlice | boolean | **true** if the appointment is continued from the previous day/week/month/year.
-rightSlice | boolean | **true** if the appointment continues on the next day/week/month/year.
+fromPrev | boolean | **true** if the appointment is continued from the previous day/week/month/year.
+toNext | boolean | **true** if the appointment continues on the next day/week/month/year.
 
 ### DragDropProvider.SourceAppointmentProps
 

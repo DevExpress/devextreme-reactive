@@ -31,9 +31,9 @@ export class Appointments extends React.PureComponent {
         >
           {params => (
             <Container style={params.style}>
-              <TemplatePlaceholder name="appointmentTop" params={{ data: params.data, type: params.type, slice: params.leftSlice }} />
+              <TemplatePlaceholder name="appointmentTop" params={{ data: params.data, type: params.type, slice: params.fromPrev }} />
               <TemplatePlaceholder name="appointmentContent" params={params} />
-              <TemplatePlaceholder name="appointmentBottom" params={{ data: params.data, type: params.type, slice: params.rightSlice }} />
+              <TemplatePlaceholder name="appointmentBottom" params={{ data: params.data, type: params.type, slice: params.toNext }} />
             </Container>
           )}
         </Template>
@@ -41,7 +41,7 @@ export class Appointments extends React.PureComponent {
         <Template name="appointmentContent">
           {({
             onClick, onDoubleClick,
-            data, type, style, leftSlice, rightSlice,
+            data, type, style, fromPrev, toNext,
             ...restParams
           }) => (
             <Appointment
@@ -49,12 +49,12 @@ export class Appointments extends React.PureComponent {
               {...createClickHandlers(onClick, onDoubleClick)}
               {...restParams}
             >
-              {leftSlice && <SplitIndicator position={POSITION_START} appointmentType={type} />}
+              {fromPrev && <SplitIndicator position={POSITION_START} appointmentType={type} />}
               <AppointmentContent
                 data={data}
                 type={type}
               />
-              {rightSlice && <SplitIndicator position={POSITION_END} appointmentType={type} />}
+              {toNext && <SplitIndicator position={POSITION_END} appointmentType={type} />}
             </Appointment>
           )}
         </Template>

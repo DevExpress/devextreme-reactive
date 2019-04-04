@@ -152,7 +152,7 @@ describe('Appointments', () => {
     const deps = {
       template: {
         appointment: {
-          leftSlice: true,
+          fromPrev: true,
           type: 'horizontal',
           data: {},
         },
@@ -179,7 +179,7 @@ describe('Appointments', () => {
     const deps = {
       template: {
         appointment: {
-          rightSlice: true,
+          toNext: true,
           type: 'horizontal',
           data: {},
         },
@@ -206,7 +206,7 @@ describe('Appointments', () => {
     const deps = {
       template: {
         appointment: {
-          leftSlice: true,
+          fromPrev: true,
           type: 'horizontal',
         },
       },
@@ -231,7 +231,7 @@ describe('Appointments', () => {
     const deps = {
       template: {
         appointment: {
-          rightSlice: true,
+          toNext: true,
           type: 'horizontal',
         },
       },

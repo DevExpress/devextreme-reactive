@@ -300,26 +300,26 @@ describe('Utils', () => {
         .toEqual([
           {
             ...appointmentsGroups[0].items[0],
-            leftSlice: false,
-            rightSlice: false,
+            fromPrev: false,
+            toNext: false,
             reduceValue: 1,
           },
           {
             ...appointmentsGroups[0].items[1],
-            leftSlice: false,
-            rightSlice: true,
+            fromPrev: false,
+            toNext: true,
             reduceValue: 1,
           },
           {
             ...appointmentsGroups[1].items[0],
-            leftSlice: true,
-            rightSlice: false,
+            fromPrev: true,
+            toNext: false,
             reduceValue: 2,
           },
           {
             ...appointmentsGroups[1].items[1],
-            leftSlice: false,
-            rightSlice: true,
+            fromPrev: false,
+            toNext: true,
             reduceValue: 2,
           },
         ]);

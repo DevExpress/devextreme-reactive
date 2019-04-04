@@ -128,15 +128,15 @@ export class AllDayPanel extends React.PureComponent {
                   />
                   <AppointmentLayer>
                     {rects.map(({
-                      dataItem, type, leftSlice, rightSlice, ...geometry
+                      dataItem, type, fromPrev, toNext, ...geometry
                     }, index) => (
                       <AppointmentPlaceholder
                         style={getAppointmentStyle(geometry)}
                         type={type}
                         key={index.toString()}
                         data={dataItem}
-                        leftSlice={leftSlice}
-                        rightSlice={rightSlice}
+                        fromPrev={fromPrev}
+                        toNext={toNext}
                       />
                     ))}
                   </AppointmentLayer>

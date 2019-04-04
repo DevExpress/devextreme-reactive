@@ -433,8 +433,8 @@ interface DayViewProps {
 namespace DragDropProvider {
   interface DraftAppointmentProps {
     data: AppointmentModel;
-    leftSlice: boolean;
-    rightSlice: boolean;
+    fromPrev: boolean;
+    toNext: boolean;
     style: object;
     type: string;
   }

@@ -6,8 +6,8 @@ describe('DragDrop', () => {
   const defaultProps = {
     data: {},
     type: 'horizontal',
-    leftSlice: false,
-    rightSlice: false,
+    fromPrev: false,
+    toNext: false,
   };
   describe('DraftAppointment', () => {
     let shallow;

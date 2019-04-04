@@ -170,7 +170,7 @@ namespace Appointments {
 
 // @public (undocumented)
 namespace Appointments {
-  interface SliceProps {
+  interface SplitIndicatorProps {
     appointmentType: 'vertical' | 'horizontal';
     position: 'start' | 'end';
   }
@@ -191,7 +191,7 @@ interface AppointmentsProps {
   appointmentComponent: React.ComponentType<Appointments.AppointmentProps>;
   appointmentContentComponent: React.ComponentType<Appointments.AppointmentContentProps>;
   containerComponent: React.ComponentType<Appointments.ContainerProps>;
-  sliceComponent: React.ComponentType<Appointments.SliceProps>;
+  splitIndicatorComponent: React.ComponentType<Appointments.SplitIndicatorProps>;
 }
 
 // @public (undocumented)
@@ -434,8 +434,8 @@ namespace DragDropProvider {
   interface DraftAppointmentProps {
     data: AppointmentModel;
     fromPrev: boolean;
-    toNext: boolean;
     style: object;
+    toNext: boolean;
     type: string;
   }
 }

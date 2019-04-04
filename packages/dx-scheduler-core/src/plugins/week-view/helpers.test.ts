@@ -4,6 +4,8 @@ import {
   dayBoundaryPredicate,
   reduceAppointmentByDayBounds,
 } from './helpers';
+import { recurringViewPredicate } from './computeds';
+import { access } from 'fs-extra';
 
 describe('Week view helpers', () => {
   describe('Rect calculation helper', () => {
@@ -150,6 +152,21 @@ describe('Week view helpers', () => {
           .toBe(moment('2018-07-12 03:00').format());
         expect(appointemnt.end.format())
           .toBe(moment('2018-07-12 11:00').format());
+      });
+    });
+
+    describe('#recurringViewPredicate', () => {
+      fit('should work', () => {
+        const leftBoundary = new Date('2019-04-01 00:00');
+        const rightBoundary = new Date('2019-04-04 00:00');
+        const appointments = [
+          { start: new Date('2019-04-1 03:00'), end: new Date('2019-04-1 04:00') },
+          { start: new Date('2019-04-1 03:00'), end: new Date('2019-04-1 04:00'), rRule: 'FREQ=DAILY;COUNT=10' },
+          { start: new Date('2019-04-2 03:00'), end: new Date('2019-04-2 04:00') },
+        ];
+
+        const appts = appointments.reduce((acc, appointment) => [...acc, ...recurringViewPredicate(appointment, leftBoundary, rightBoundary)], []);
+        debugger
       });
     });
   });

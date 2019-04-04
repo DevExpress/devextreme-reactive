@@ -28,6 +28,8 @@ export interface Appointment {
   end: Date | string | number;
   /** The all day flag. */
   allDay?: boolean;
+  /** The recurrence rule. */
+  rRule?: string;
   /** The all appointment data */
   dataItem: AppointmentModel;
 }

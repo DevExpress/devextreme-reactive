@@ -25,7 +25,7 @@ The user can edit appointments as follows:
 - Double-click an appointment to open the appointment editing form;
 - Click an appointment to invoke its tooltip, and then click Edit in the tooltip to open the appointment editing form;
 - Drag an appointment to another cell to reschedule it. This functionality requires the [DragDropProvider](../reference/drag-drop-provider.md) plugin;
-- Extend or shorten an appointment by dragging its top or bottom (left or right for horizontal appointments) border.
+- Drag an appointment's top or bottom border (left or right border for horizontal appointments) to change the appointment's duration.
 
 ### Delete an Appointment
 
@@ -71,4 +71,4 @@ Add the [DragDropProvider](../reference/drag-drop-provider.md) plugin to enable 
 
 .embedded-demo({ "path": "scheduler-editing/drag-drop", "showThemeSelector": true })
 
-The [DragDropProvider](../reference/drag-drop-provider.md) plugin also allows you to customize the appointment being dragged (via the `draftAppointmentComponent` property) and its copy displayed in its previous location (via `sourceAppointmentComponent`). Use the `resizeComponent` property to customize handle of resizing.
+The [DragDropProvider](../reference/drag-drop-provider.md) plugin also allows you to customize the appointment being dragged (via the `draftAppointmentComponent` property) and its copy displayed in its previous location (via `sourceAppointmentComponent`). In addition, it provides the `resizeComponent` property that allows you to customize the handles used to resize appointments.

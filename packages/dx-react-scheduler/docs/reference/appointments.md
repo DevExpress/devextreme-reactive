@@ -31,8 +31,8 @@ Name | Type | Default | Description
 -----|------|---------|------------
 appointmentComponent | ComponentType&lt;[Appointments.AppointmentProps](#appointmentsappointmentprops)&gt; | | A component that renders an appointment.
 appointmentContentComponent | ComponentType&lt;[Appointments.AppointmentContentProps](#appointmentsappointmentcontentprops)&gt; | | A component that renders the appointment content.
-sliceComponent | ComponentType&lt;[Appointments.SliceProps](#appointmentssliceprops)&gt; | | A component that rendered if appointment is sliced by time table.
-containerComponent | ComponentType&lt;[Appointments.ContainerProps](#appointmentscontainerprops)&gt; | | A component that renders a container for appointment.
+sliceComponent | ComponentType&lt;[Appointments.SliceProps](#appointmentssliceprops)&gt; | | A component that renders an element indicating that the appointment is split by the timetable.
+containerComponent | ComponentType&lt;[Appointments.ContainerProps](#appointmentscontainerprops)&gt; | | A component that renders a container for the appointment.
 
 ## Interfaces
 
@@ -59,20 +59,20 @@ data | object | An object that represents appointment data.
 
 ### Appointments.SliceProps
 
-Properties passed to a component that renders a slice.
+Properties passed to a component that renders an element indicating that the appointment is split by the timetable.
 
 Field | Type | Description
 ------|------|------------
-position | 'start' &#124; 'end' | Specifies where appointment is sliced.
-appointmentType | 'vertical' &#124; 'horizontal' | Specifies an appointment type.
+position | 'start' &#124; 'end' | Specifies whether the element is rendered at the start or end of the split appointment.
+appointmentType | 'vertical' &#124; 'horizontal' | Specifies whether the appointment is vertical or horizontal.
 
 ### Appointments.ContainerProps
 
-Properties passed to a component that renders a container for appointment.
+Properties passed to a component that renders a container for the appointment.
 
 Field | Type | Description
 ------|------|------------
-style | object | An object that configures the appointment geometry and position.
+style | object | An object that configures the appointment's geometry and position.
 
 ## Plugin Components
 
@@ -80,7 +80,7 @@ Name | Properties | Description
 -----|------------|------------
 Appointments.Appointment | [Appointments.AppointmentProps](#appointmentsappointmentprops) | A component that renders an appointment.
 Appointments.AppointmentContent | [Appointments.AppointmentContentProps](#appointmentsappointmentcontentprops) | A component that renders the appointment content.
-Appointments.Slice | [Appointments.SliceProps](#appointmentssliceprops) | A component that rendered if appointment is sliced by time table.
-Appointments.Container | [Appointments.ContainerProps](#appointmentscontainerprops) | A component that renders a container for appointment.
+Appointments.Slice | [Appointments.SliceProps](#appointmentssliceprops) | A component that renders an element indicating that the appointment is split by the timetable.
+Appointments.Container | [Appointments.ContainerProps](#appointmentscontainerprops) | A component that renders a container for the appointment.
 
 Additional properties are added to the component's root element.

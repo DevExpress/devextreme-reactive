@@ -27,6 +27,31 @@ const options = [
   'PDF',
 ];
 
+const addKeyframe = (name, def) => {
+  if (typeof document === 'undefined') {
+    return;
+  }
+  const head = document.getElementsByTagName('head')[0];
+  let style = Array.from(head.getElementsByTagName('style'))
+    .find(node => node.dataset[Symbol('animation')]);
+  if (!style) {
+    style = document.createElement('style');
+    style.type = 'text/css';
+    style.dataset[Symbol('animation')] = true;
+    head.appendChild(style);
+  }
+  const content = style.textContent;
+  if (!content.includes(name)) {
+    style.textContent += `\n@keyframes ${name} ${def}\n`;
+  }
+};
+
+const getLabelAnimationName = () => {
+  const name = 'animation_label_opacity';
+  addKeyframe(name, '{ from { opacity: 0; } }');
+  return name;
+};
+
 const ITEM_HEIGHT = 48;
 
 const Export = () => {
@@ -136,7 +161,7 @@ const BarWithLabel = ({
       y={(restProps.y + restProps.y1) / 2}
       dominantBaseline="middle"
       textAnchor="middle"
-      style={{ fill: '#ffffff' }}
+      style={{ fill: '#ffffff', animation: `${getLabelAnimationName()} 1s cubic-bezier(.84,1.11,.78,.91)` }}
     >
       {`${value}%`}
     </Chart.Label>

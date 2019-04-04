@@ -72,10 +72,10 @@ export type VirtualTableLayoutState = {
   rowHeights: Map<any, number>,
   viewportTop: number,
   viewportLeft: number,
-  width: number,
   height: number,
   headerHeight: number,
   bodyHeight: number,
   footerHeight: number,
+  containerWidth: number,
   containerHeight: number,
 };

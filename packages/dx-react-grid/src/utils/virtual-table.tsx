@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { findDOMNode } from 'react-dom';
-import { memoize, MemoizedComputed, MemoizedFunction } from '@devexpress/dx-core';
+import { isEdgeBrowser, memoize, MemoizedComputed, MemoizedFunction } from '@devexpress/dx-core';
 import {
   connectProps, Plugin, TemplatePlaceholder, Sizer, Template,
   Getter, TemplateConnector, PluginComponents, Getters,
@@ -53,6 +53,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
     static FixedHeader: React.ComponentType;
     static FixedFooter: React.ComponentType;
     static SkeletonCell: React.ComponentType;
+    isEdgeBrowser = false;
     layoutRenderComponent: React.ComponentType<VirtualTableLayoutProps> & { update(): void; };
     rowRefs: Map<any, any>;
     blockRefs: Map<any, any>;
@@ -71,7 +72,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
         rowHeights: new Map(),
         viewportTop: 0,
         viewportLeft: 0,
-        width: 800,
+        containerWidth: 800,
         containerHeight: 600,
         height: 0,
         headerHeight: 0,
@@ -116,9 +117,6 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
         (state: VirtualTableLayoutState) => (getters: Getters) => (
           visibleRowsBounds(
             state, getters, propsEstimatedRowHeight,
-            this.getColumnWidthGetter(
-              getters.tableColumns, state.width, minColumnWidth,
-            ),
             this.getRowHeight,
           )
         ),
@@ -139,6 +137,10 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
       this.getSizeChangeHandler = (currentVirtualPageBoundary, requestNextPage) => (
         e => this.handleContainerSizeChange(currentVirtualPageBoundary, requestNextPage, e)
       );
+    }
+
+    componentDidMount() {
+      this.isEdgeBrowser = isEdgeBrowser();
     }
 
     componentDidUpdate() {
@@ -172,20 +174,31 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
       }
     }
 
-    updateViewport(e, currentPageTriggersMeta?, requestNextPage?) {
+    shouldSkipScrollEvent(e) {
       const node = e.target;
+
       // NOTE: prevent nested scroll to update viewport
       if (node !== e.currentTarget) {
-        return;
+        return true;
       }
-
       // NOTE: prevent iOS to flicker in bounces and correct rendering on high dpi screens
-      const nodeHorizontalOffset = parseInt(node.scrollLeft + node.clientWidth, 10);
-      const nodeVerticalOffset = parseInt(node.scrollTop + node.clientHeight, 10);
+      const correction = this.isEdgeBrowser ? 1 : 0;
+      const nodeHorizontalOffset = parseInt(node.scrollLeft + node.clientWidth, 10) - correction;
+      const nodeVerticalOffset = parseInt(node.scrollTop + node.clientHeight, 10) - correction;
       if (node.scrollTop < 0
         || node.scrollLeft < 0
         || nodeHorizontalOffset > Math.max(node.scrollWidth, node.clientWidth)
         || nodeVerticalOffset > Math.max(node.scrollHeight, node.clientHeight)) {
+        return true;
+      }
+
+      return false;
+    }
+
+    updateViewport(e) {
+      const node = e.target;
+
+      if (this.shouldSkipScrollEvent(e)) {
         return;
       }
 
@@ -198,7 +211,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
     }
 
     ensureNextPage(currentPageTriggersMeta, requestNextPage, scrollTop) {
-      if (!(currentPageTriggersMeta && requestNextPage)) return; // remote data disabled
+      if (!(currentPageTriggersMeta && requestNextPage)) return; // remote data is disabled
 
       const {
         topTriggerPosition, bottomTriggerPosition, topTriggerIndex, bottomTriggerIndex,
@@ -225,7 +238,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
     }
 
     handleContainerSizeChange(currentVirtualPageBoundary, requestNextPage, { width, height }) {
-      this.setState({ width, containerHeight: height });
+      this.setState({ containerWidth: width, containerHeight: height });
     }
 
     handleTableUpdate() {
@@ -291,7 +304,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
 
       const {
         containerHeight,
-        width: containerWidth,
+        containerWidth,
         headerHeight,
         bodyHeight,
         footerHeight,
@@ -324,7 +337,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
                     const {
                       containerComponent: Container,
                     } = params;
-                    const { width, viewportLeft } = this.state;
+                    const { containerWidth: width, viewportLeft } = this.state;
                     const getColumnWidth = this.getColumnWidthGetter(
                       tableColumns, width, minColumnWidth,
                     );

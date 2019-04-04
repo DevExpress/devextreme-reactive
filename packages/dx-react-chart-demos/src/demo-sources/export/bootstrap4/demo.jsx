@@ -44,7 +44,7 @@ const addKeyframe = (name, def) => {
 
 const getLabelAnimationName = () => {
   const name = 'animation_label_opacity';
-  addKeyframe(name, '{ from { opacity: 0; } }');
+  addKeyframe(name, '{ 0% { opacity: 0; } 99% { opacity: 0; } 100% { opacity: 1; } }');
   return name;
 };
 
@@ -124,7 +124,8 @@ const Export = () => {
           type="button"
           id="iconButton"
           onClick={handleClick}
-          className="btn btn-outline-secondary btn btn-primary btn-sm my-4"
+          className="btn btn-outline-secondary btn btn-primary btn-sm mt-0"
+          style={{ width: '32px', height: '32px' }}
         >
           <span className="oi oi-menu" />
         </button>
@@ -166,7 +167,11 @@ const BarWithLabel = ({
       y={(restProps.y + restProps.y1) / 2}
       dominantBaseline="middle"
       textAnchor="middle"
-      style={{ fill: '#ffffff', animation: `${getLabelAnimationName()} 1s cubic-bezier(.84,1.11,.78,.91)` }}
+      style={{
+        fill: '#ffffff',
+        animation: `${getLabelAnimationName()} 1s`,
+        fontSize: '10px',
+      }}
     >
       {`${value}%`}
     </Chart.Label>
@@ -197,6 +202,26 @@ const legendLabelStyle = {
 const LegendLabel = props => (
   <Legend.Label {...props} style={legendLabelStyle} />
 );
+const Marker = (props) => {
+  const { className, color } = props;
+  return (
+    <svg className={className} fill={color} width="16" height="16">
+      <circle cx={8} cy={8} r={8} />
+    </svg>
+  );
+};
+const Text = (props) => {
+  const { text } = props;
+  const [mainText, subText] = text.split('\n');
+  return (
+    <div className="w-100 text-center mb-2">
+      <h3>
+        {mainText}
+      </h3>
+      <p>{subText}</p>
+    </div>
+  );
+};
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -215,12 +240,16 @@ export default class Demo extends React.PureComponent {
         <Chart
           data={chartData}
         >
-          <Title text="Estimated global gaming software revenue by platform in 2018" />
+          <Title
+            text={'Estimated global gaming software\n(revenue by platform, in 2018)'}
+            textComponent={Text}
+          />
           <Legend
             position="bottom"
             rootComponent={LegendRoot}
             itemComponent={LegendItem}
             labelComponent={LegendLabel}
+            markerComponent={Marker}
           />
           <ArgumentScale factory={scaleBand} />
           <ArgumentAxis />

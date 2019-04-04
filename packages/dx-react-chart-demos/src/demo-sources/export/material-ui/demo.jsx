@@ -17,6 +17,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { scaleBand } from '@devexpress/dx-chart-core';
 import { ArgumentScale, Stack, Animation } from '@devexpress/dx-react-chart';
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 
 import { gaming as data } from '../../../demo-data/data-vizualization';
 
@@ -26,6 +28,13 @@ const options = [
   'JPEG',
   'PDF',
 ];
+
+const styles = () => ({
+  button: {
+    width: '50px',
+    height: '50px',
+  },
+});
 
 const addKeyframe = (name, def) => {
   if (typeof document === 'undefined') {
@@ -48,13 +57,13 @@ const addKeyframe = (name, def) => {
 
 const getLabelAnimationName = () => {
   const name = 'animation_label_opacity';
-  addKeyframe(name, '{ from { opacity: 0; } }');
+  addKeyframe(name, '{ 0% { opacity: 0; } 99% { opacity: 0; } 100% { opacity: 1; } }');
   return name;
 };
 
 const ITEM_HEIGHT = 48;
 
-const Export = () => {
+const ExportBase = (props) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -118,7 +127,9 @@ const Export = () => {
     }
     handleClose();
   };
+
   const open = Boolean(anchorEl);
+  const { classes } = props;
   return (
     <Plugin name="Export">
       <Template name="top">
@@ -126,6 +137,7 @@ const Export = () => {
         <IconButton
           id="iconButton"
           onClick={handleClick}
+          className={classes.button}
         >
           <MoreVertIcon />
         </IconButton>
@@ -151,9 +163,15 @@ const Export = () => {
   );
 };
 
-const BarWithLabel = ({
-  value, ...restProps
-}) => (
+const Export = withStyles(styles)(ExportBase);
+
+const BarWithLabel = withStyles({
+  label: {
+    fill: '#ffffff',
+    fontSize: '10px',
+    animation: `${getLabelAnimationName()} 1s`,
+  },
+})(({ classes, value, ...restProps }) => (
   <React.Fragment>
     <BarSeries.Point {...restProps} />
     <Chart.Label
@@ -161,38 +179,64 @@ const BarWithLabel = ({
       y={(restProps.y + restProps.y1) / 2}
       dominantBaseline="middle"
       textAnchor="middle"
-      style={{ fill: '#ffffff', animation: `${getLabelAnimationName()} 1s cubic-bezier(.84,1.11,.78,.91)` }}
+      className={classes.label}
     >
       {`${value}%`}
     </Chart.Label>
   </React.Fragment>
-);
+));
+const LegendRoot = withStyles({
+  root: {
+    display: 'flex',
+    margin: 'auto',
+    flexDirection: 'row',
+  },
+})(({ classes, ...restProps }) => (
+  <Legend.Root {...restProps} className={classes.root} />
+));
 
-const legendRootStyle = {
-  display: 'flex',
-  margin: 'auto',
-  flexDirection: 'row',
+const LegendItemRoot = withStyles({
+  item: {
+    flexDirection: 'column',
+    marginLeft: '-2px',
+    marginRight: '-2px',
+  },
+})(({ classes, ...restProps }) => (
+  <Legend.Item {...restProps} className={classes.item} />
+));
+const LegendLabelRoot = withStyles({
+  label: {
+    whiteSpace: 'nowrap',
+  },
+})(({ classes, ...restProps }) => (
+  <Legend.Label {...restProps} className={classes.label} />
+));
+const Marker = (props) => {
+  const { className, color } = props;
+  return (
+    <svg className={className} fill={color} width="16" height="16">
+      <circle cx={8} cy={8} r={8} />
+    </svg>
+  );
 };
-const LegendRoot = props => (
-  <Legend.Root {...props} style={legendRootStyle} />
-);
-
-const legendItemStyle = {
-  flexDirection: 'column',
-  marginLeft: '-2px',
-  marginRight: '-2px',
-};
-const LegendItem = props => (
-  <Legend.Item {...props} style={legendItemStyle} />
-);
-
-const legendLabelStyle = {
-  whiteSpace: 'nowrap',
-};
-const LegendLabel = props => (
-  <Legend.Label {...props} style={legendLabelStyle} />
-);
-
+const TitleText = withStyles({
+  title: {
+    textAlign: 'center',
+    width: '100%',
+    marginBottom: '10px',
+  },
+})((props) => {
+  const { text, classes } = props;
+  const [mainText, subText] = text.split('\n');
+  return (
+    <div className={classes.title}>
+      <Typography component="h3" variant="h5">
+        {mainText}
+      </Typography>
+      <Typography variant="subtitle1">{subText}</Typography>
+    </div>
+  );
+});
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -210,12 +254,16 @@ export default class Demo extends React.PureComponent {
         <Chart
           data={chartData}
         >
-          <Title text="Estimated global gaming software revenue by platform in 2018" />
+          <Title
+            text={`Estimated global gaming software ${'\n'}(revenue by platform, in 2018)`}
+            textComponent={TitleText}
+          />
           <Legend
             position="bottom"
             rootComponent={LegendRoot}
-            itemComponent={LegendItem}
-            labelComponent={LegendLabel}
+            itemComponent={LegendItemRoot}
+            labelComponent={LegendLabelRoot}
+            markerComponent={Marker}
           />
           <ArgumentScale factory={scaleBand} />
           <ArgumentAxis />

@@ -138,7 +138,7 @@ namespace Appointments {
 
 // @public (undocumented)
 namespace Appointments {
-  type SliceProps = Appointments_2.SliceProps;
+  type SplitIndicatorProps = Appointments_2.SplitIndicatorProps;
 }
 
 // @public (undocumented)
@@ -156,7 +156,7 @@ declare const Appointments: React.ComponentType<AppointmentsProps> & {
  className?: string; // (undocumented)
  style?: React.CSSProperties; // (undocumented)
  [x: string]: any }>;
-  Slice: React.ComponentType<Appointments_2.SliceProps & { // (undocumented)
+  SplitIndicator: React.ComponentType<Appointments_2.SplitIndicatorProps & { // (undocumented)
  className?: string; // (undocumented)
  style?: React.CSSProperties; // (undocumented)
  [x: string]: any }>;
@@ -171,7 +171,7 @@ interface AppointmentsProps {
   appointmentComponent?: React.ComponentType<Appointments_2.AppointmentProps>;
   appointmentContentComponent?: React.ComponentType<Appointments_2.AppointmentContentProps>;
   containerComponent?: React.ComponentType<Appointments_2.ContainerProps>;
-  sliceComponent?: React.ComponentType<Appointments_2.SliceProps>;
+  splitIndicatorComponent?: React.ComponentType<Appointments_2.SplitIndicatorProps>;
 }
 
 // @public (undocumented)

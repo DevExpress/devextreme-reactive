@@ -1,22 +1,22 @@
 import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
-import { Slice } from './slice';
+import { SplitIndicator } from './split-indicator';
 
 describe('Appointment', () => {
   const defaultProps = {
     position: 'start',
     appointmentType: 'vertical',
   };
-  describe('Slice', () => {
+  describe('SplitIndicator', () => {
     let shallow;
     let classes;
     beforeAll(() => {
-      classes = getClasses(<Slice {...defaultProps} />);
+      classes = getClasses(<SplitIndicator {...defaultProps} />);
       shallow = createShallow({ dive: true });
     });
     it('should pass rest props to the root element', () => {
       const tree = shallow((
-        <Slice {...defaultProps} a={{ a: 1 }} />
+        <SplitIndicator {...defaultProps} a={{ a: 1 }} />
       ));
 
       expect(tree.props().a)
@@ -24,7 +24,7 @@ describe('Appointment', () => {
     });
     it('should pass className', () => {
       const tree = shallow((
-        <Slice {...defaultProps} className="custom-class" />
+        <SplitIndicator {...defaultProps} className="custom-class" />
       ));
 
       expect(tree.is('.custom-class'))
@@ -36,21 +36,21 @@ describe('Appointment', () => {
     });
     it('should manage classes by props', () => {
       let tree = shallow((
-        <Slice position="start" appointmentType="horizontal" />
+        <SplitIndicator position="start" appointmentType="horizontal" />
       ));
 
       expect(tree.is(`.${classes.horizontalStart}`))
         .toBeTruthy();
 
       tree = shallow((
-        <Slice position="end" appointmentType="horizontal" />
+        <SplitIndicator position="end" appointmentType="horizontal" />
       ));
 
       expect(tree.is(`.${classes.horizontalEnd}`))
         .toBeTruthy();
 
       tree = shallow((
-        <Slice position="end" appointmentType="vertical" />
+        <SplitIndicator position="end" appointmentType="vertical" />
       ));
 
       expect(tree.is(`.${classes.verticalEnd}`))

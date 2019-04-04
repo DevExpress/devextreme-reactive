@@ -5,7 +5,7 @@ import { POSITION_START, POSITION_END } from '@devexpress/dx-scheduler-core';
 import { withStyles } from '@material-ui/core/styles';
 import { AppointmentContent } from '../appointment/appointment-content';
 import { Appointment } from '../appointment/appointment';
-import { Slice } from '../appointment/slice';
+import { SplitIndicator } from '../appointment/split-indicator';
 
 const draftStyles = theme => ({
   appointment: {
@@ -31,12 +31,12 @@ const DraftAppointmentBase = ({
     type={type}
     {...restProps}
   >
-    {leftSlice && <Slice position={POSITION_START} appointmentType={type} />}
+    {leftSlice && <SplitIndicator position={POSITION_START} appointmentType={type} />}
     <AppointmentContent
       data={data}
       type={type}
     />
-    {rightSlice && <Slice position={POSITION_END} appointmentType={type} />}
+    {rightSlice && <SplitIndicator position={POSITION_END} appointmentType={type} />}
   </Appointment>
 );
 

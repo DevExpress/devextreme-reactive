@@ -31,7 +31,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 appointmentComponent | ComponentType&lt;[Appointments.AppointmentProps](#appointmentsappointmentprops)&gt; | | A component that renders an appointment.
 appointmentContentComponent | ComponentType&lt;[Appointments.AppointmentContentProps](#appointmentsappointmentcontentprops)&gt; | | A component that renders the appointment content.
-sliceComponent | ComponentType&lt;[Appointments.SliceProps](#appointmentssliceprops)&gt; | | A component that renders an element indicating that the appointment is split by the timetable.
+splitIndicatorComponent | ComponentType&lt;[Appointments.SplitIndicatorProps](#appointmentssplitindicatorprops)&gt; | | A component that renders an element indicating that the appointment is split by the timetable.
 containerComponent | ComponentType&lt;[Appointments.ContainerProps](#appointmentscontainerprops)&gt; | | A component that renders a container for the appointment.
 
 ## Interfaces
@@ -57,7 +57,7 @@ Field | Type | Description
 children | ReactNode | A React node used to render the appointment content.
 data | object | An object that represents appointment data.
 
-### Appointments.SliceProps
+### Appointments.SplitIndicatorProps
 
 Properties passed to a component that renders an element indicating that the appointment is split by the timetable.
 
@@ -80,7 +80,7 @@ Name | Properties | Description
 -----|------------|------------
 Appointments.Appointment | [Appointments.AppointmentProps](#appointmentsappointmentprops) | A component that renders an appointment.
 Appointments.AppointmentContent | [Appointments.AppointmentContentProps](#appointmentsappointmentcontentprops) | A component that renders the appointment content.
-Appointments.Slice | [Appointments.SliceProps](#appointmentssliceprops) | A component that renders an element indicating that the appointment is split by the timetable.
+Appointments.SplitIndicator | [Appointments.SplitIndicatorProps](#appointmentssplitindicatorprops) | A component that renders an element indicating that the appointment is split by the timetable.
 Appointments.Container | [Appointments.ContainerProps](#appointmentscontainerprops) | A component that renders a container for the appointment.
 
 Additional properties are added to the component's root element.

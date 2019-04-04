@@ -45,7 +45,7 @@ const styles = {
   },
 };
 
-const SliceBase = ({
+const SplitIndicatorBase = ({
   position, appointmentType, classes, className, ...restProps
 }) => {
   const vertical = appointmentType === VERTICAL_TYPE;
@@ -64,15 +64,15 @@ const SliceBase = ({
   );
 };
 
-SliceBase.propTypes = {
+SplitIndicatorBase.propTypes = {
   classes: PropTypes.object.isRequired,
   appointmentType: PropTypes.oneOf([VERTICAL_TYPE, HORIZONTAL_TYPE]).isRequired,
   position: PropTypes.oneOf([POSITION_START, POSITION_END]).isRequired,
   className: PropTypes.string,
 };
 
-SliceBase.defaultProps = {
+SplitIndicatorBase.defaultProps = {
   className: undefined,
 };
 
-export const Slice = withStyles(styles, { name: 'AppointmentsContainer' })(SliceBase);
+export const SplitIndicator = withStyles(styles, { name: 'AppointmentsContainer' })(SplitIndicatorBase);

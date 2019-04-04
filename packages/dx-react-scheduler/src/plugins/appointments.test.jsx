@@ -8,12 +8,12 @@ import { Appointments } from './appointments';
 // eslint-disable-next-line react/prop-types
 const Appointment = ({ children }) => <div>{ children }</div>;
 const AppointmentContent = () => null;
-const Slice = () => null;
+const SplitIndicator = () => null;
 // eslint-disable-next-line react/prop-types
 const Container = ({ children }) => <div>{ children }</div>;
 
 const defaultProps = {
-  sliceComponent: Slice,
+  splitIndicatorComponent: SplitIndicator,
   containerComponent: Container,
   appointmentComponent: Appointment,
   appointmentContentComponent: AppointmentContent,
@@ -220,7 +220,7 @@ describe('Appointments', () => {
       </PluginHost>
     ));
 
-    const slice = tree.find(Slice);
+    const slice = tree.find(SplitIndicator);
 
     expect(slice.props()).toEqual({
       position: 'start',
@@ -245,7 +245,7 @@ describe('Appointments', () => {
       </PluginHost>
     ));
 
-    const slice = tree.find(Slice);
+    const slice = tree.find(SplitIndicator);
 
     expect(slice.props()).toEqual({
       position: 'end',

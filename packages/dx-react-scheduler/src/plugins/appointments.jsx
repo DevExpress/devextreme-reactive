@@ -15,7 +15,7 @@ const pluginDependencies = [
 export class Appointments extends React.PureComponent {
   render() {
     const {
-      sliceComponent: Slice,
+      splitIndicatorComponent: SplitIndicator,
       appointmentComponent: Appointment,
       appointmentContentComponent: AppointmentContent,
       containerComponent: Container,
@@ -49,12 +49,12 @@ export class Appointments extends React.PureComponent {
               {...createClickHandlers(onClick, onDoubleClick)}
               {...restParams}
             >
-              {leftSlice && <Slice position={POSITION_START} appointmentType={type} />}
+              {leftSlice && <SplitIndicator position={POSITION_START} appointmentType={type} />}
               <AppointmentContent
                 data={data}
                 type={type}
               />
-              {rightSlice && <Slice position={POSITION_END} appointmentType={type} />}
+              {rightSlice && <SplitIndicator position={POSITION_END} appointmentType={type} />}
             </Appointment>
           )}
         </Template>
@@ -64,14 +64,14 @@ export class Appointments extends React.PureComponent {
 }
 
 Appointments.propTypes = {
-  sliceComponent: PropTypes.func.isRequired,
+  splitIndicatorComponent: PropTypes.func.isRequired,
   containerComponent: PropTypes.func.isRequired,
   appointmentComponent: PropTypes.func.isRequired,
   appointmentContentComponent: PropTypes.func.isRequired,
 };
 
 Appointments.components = {
-  sliceComponent: 'Slice',
+  splitIndicatorComponent: 'SplitIndicator',
   containerComponent: 'Container',
   appointmentComponent: 'Appointment',
   appointmentContentComponent: 'AppointmentContent',

@@ -47,6 +47,9 @@ describe('#createReference', () => {
       getBoundingClientRect: () => ({ left: 10, top: 5 }),
       ownerDocument: {
         defaultView: { pageXOffset: 120, pageYOffset: 110 },
+        documentElement: {
+          getBoundingClientRect: () => ({ left: 3, top: 2 }),
+        },
       },
     };
 
@@ -58,10 +61,10 @@ describe('#createReference', () => {
       getBoundingClientRect: expect.any(Function),
     });
     expect(obj.getBoundingClientRect()).toEqual({
-      left: 171,
-      top: 147,
-      right: 175,
-      bottom: 149,
+      left: 174,
+      top: 149,
+      right: 178,
+      bottom: 151,
       width: 0,
       height: 0,
     });

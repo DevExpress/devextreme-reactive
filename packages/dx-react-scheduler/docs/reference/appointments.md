@@ -59,11 +59,11 @@ data | object | An object that represents appointment data.
 
 ### Appointments.SplitIndicatorProps
 
-Properties passed to a component that renders an element indicating that the appointment is split by the timetable.
+Properties passed to a component that renders an element which indicates the appointment is divided.
 
 Field | Type | Description
 ------|------|------------
-position | 'start' &#124; 'end' | Specifies whether the element is rendered at the start or end of the split appointment.
+position | 'start' &#124; 'end' | Specifies whether the element is rendered at the start or end of the divided appointment.
 appointmentType | 'vertical' &#124; 'horizontal' | Specifies whether the appointment is vertical or horizontal.
 
 ### Appointments.ContainerProps
@@ -80,7 +80,7 @@ Name | Properties | Description
 -----|------------|------------
 Appointments.Appointment | [Appointments.AppointmentProps](#appointmentsappointmentprops) | A component that renders an appointment.
 Appointments.AppointmentContent | [Appointments.AppointmentContentProps](#appointmentsappointmentcontentprops) | A component that renders the appointment content.
-Appointments.SplitIndicator | [Appointments.SplitIndicatorProps](#appointmentssplitindicatorprops) | A component that renders an element indicating that the appointment is split by the timetable.
+Appointments.SplitIndicator | [Appointments.SplitIndicatorProps](#appointmentssplitindicatorprops) | A component that renders an element which indicates the appointment is divided.
 Appointments.Container | [Appointments.ContainerProps](#appointmentscontainerprops) | A component that renders a container for the appointment.
 
 Additional properties are added to the component's root element.

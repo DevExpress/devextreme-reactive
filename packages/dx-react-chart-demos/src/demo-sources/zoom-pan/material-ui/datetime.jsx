@@ -1,13 +1,17 @@
-import * as React from 'react';<%&additionalImports%>
+import * as React from 'react';
+import Paper from '@material-ui/core/Paper';
 import {
   Chart,
   ArgumentAxis,
   ValueAxis,
   LineSeries,
   ZoomAndPan,
-} from '@devexpress/dx-react-chart-<%&themeName%>';
+} from '@devexpress/dx-react-chart-material-ui';
 import { scaleTime } from 'd3-scale';
 import { ArgumentScale } from '@devexpress/dx-react-chart';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 
 const generateData = (n) => {
   const ret = [];
@@ -54,12 +58,24 @@ export default class Demo extends React.PureComponent {
   renderInput(id, label) {
     const { [id]: checked } = this.state;
     return (
-      <p style={{ margin: '20px' }}>
-        <label htmlFor={id}>
-          <input type="checkbox" id={id} checked={checked} onChange={this.submit} />
-          {label}
-        </label>
-      </p>
+      <FormControlLabel
+        control={(
+          <Checkbox
+            id={id}
+            checked={checked}
+            onChange={this.submit}
+            value="checkedB"
+            color="primary"
+          />
+        )}
+        label={label}
+      />
+    // <p style={{ margin: '20px' }}>
+    //   <label htmlFor={id}>
+    //     <input type="checkbox" id={id} checked={checked} onChange={this.submit} />
+    //     {label}
+    //   </label>
+    // </p>
     );
   }
 
@@ -68,7 +84,7 @@ export default class Demo extends React.PureComponent {
       data: chartData, zoomValue, panValue, zoomArgument, panArgument,
     } = this.state;
     return (
-      <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Paper>
         <Chart data={chartData} style={{ marginRight: '20px' }}>
           <ArgumentScale factory={scaleTime} />
           <ArgumentAxis />
@@ -80,18 +96,13 @@ export default class Demo extends React.PureComponent {
             interactionWithValues={getMode(zoomValue, panValue)}
           />
         </Chart>
-        <div style={{
-          display: 'flex',
-          flexDIrection: 'row',
-          justifyContent: 'center',
-        }}
-        >
+        <FormGroup style={{ justifyContent: 'center' }} row>
           {this.renderInput('zoomArgument', 'Zoom argument')}
           {this.renderInput('panArgument', 'Pan argument')}
           {this.renderInput('zoomValue', 'Zoom value')}
           {this.renderInput('panValue', 'Pan value')}
-        </div>
-      </<%&wrapperTag%>>
+        </FormGroup>
+      </Paper>
     );
   }
 }

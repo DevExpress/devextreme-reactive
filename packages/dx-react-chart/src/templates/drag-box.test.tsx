@@ -4,7 +4,7 @@ import { DragBox } from './drag-box';
 
 const defaultProps = {
   rect: { x: 1, y: 2, width: 3, height: 4 },
-  color: 'color',
+  fill: 'color',
   opacity: 0.3,
 };
 

@@ -4,9 +4,10 @@ import { DraftAppointment, SourceAppointment } from './appointments';
 
 describe('DragDrop', () => {
   const defaultProps = {
-    style: {},
     data: {},
     type: 'horizontal',
+    fromPrev: false,
+    toNext: false,
   };
   describe('DraftAppointment', () => {
     let shallow;

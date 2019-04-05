@@ -81,10 +81,11 @@ export default class Demo extends React.PureComponent {
           />
         </Chart>
         <div style={{
-            display: 'flex',
-            flexDIrection: 'row',
-            justifyContent: 'center',
-          }}>
+          display: 'flex',
+          flexDIrection: 'row',
+          justifyContent: 'center',
+        }}
+        >
           {this.renderInput('zoomArgument', 'Zoom argument')}
           {this.renderInput('panArgument', 'Pan argument')}
           {this.renderInput('zoomValue', 'Zoom value')}

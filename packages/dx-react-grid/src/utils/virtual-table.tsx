@@ -195,7 +195,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
       return false;
     }
 
-    updateViewport(e) {
+    updateViewport(e, currentPageTriggersMeta, requestNextPage) {
       const node = e.target;
 
       if (this.shouldSkipScrollEvent(e)) {

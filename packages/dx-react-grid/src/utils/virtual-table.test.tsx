@@ -56,12 +56,13 @@ describe('#makeVirtualTable', () => {
   const VirtualLayoutMock = ({ height }) => (
     <div height={height} />
   );
-  const VirtualTable = makeVirtualTable(TableMock, {
+  const defaultVirtualTableProps = {
     VirtualLayout: VirtualLayoutMock,
     defaultEstimatedRowHeight: 30,
     defaultHeight: 400,
     minColumnWidth: 100,
-  });
+  };
+  const VirtualTable = makeVirtualTable(TableMock, defaultVirtualTableProps);
   const defaultDeps = {
     getter: {
       getRowId: row => row.key,
@@ -76,12 +77,11 @@ describe('#makeVirtualTable', () => {
         { key: 1 },
         { key: 2 },
         { key: 3 },
-        { key: 4 },
-        { key: 5 },
-        { key: 6 },
-        { key: 7 },
-        { key: 8 },
-        { key: 9 },
+      ],
+      tableBodyRows: [
+        { key: 1 },
+        { key: 2 },
+        { key: 3 },
       ],
       loadedRowsStart: 'loadedRowsStart',
     },
@@ -125,16 +125,19 @@ describe('#makeVirtualTable', () => {
   });
 
   describe('Sizer container', () => {
-    // it('should handle container resizing', () => {
-    //   const tree = mount((
-    //     <PluginHost>
-    //       {pluginDepsToComponents(defaultDeps)}
-    //       <VirtualTable {...defaultProps}/>
-    //     </PluginHost>
-    //   ));
+    const RealVirtualTable = makeVirtualTable(Table, defaultVirtualTableProps);
 
-    //   expect(tree.find(VirtualTable))
-    // });
+    it('should apply auto height', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <RealVirtualTable {...defaultProps} height={'auto'}/>
+        </PluginHost>
+      ));
+
+      expect(tree.find(Sizer).prop('style').height)
+        .toBeUndefined();
+    });
   });
 
   describe('VirtualTableLayout template', () => {
@@ -173,7 +176,7 @@ describe('#makeVirtualTable', () => {
       expect(tree.find(VirtualLayoutMock).props())
         .toMatchObject({
           visibleRowBoundaries: [NaN, NaN],
-          totalRowCount: 9,
+          totalRowCount: 3,
           loadedRowsStart: 'loadedRowsStart',
         });
     });

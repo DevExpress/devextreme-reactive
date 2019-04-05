@@ -33,6 +33,5 @@ export namespace ZoomAndPan {
   export interface DragBoxProps {
     /** The rect’s coordinate */
     rect: Rect;
-    opacity: number;
   }
 }

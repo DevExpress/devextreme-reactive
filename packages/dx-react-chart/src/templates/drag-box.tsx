@@ -5,7 +5,7 @@ import { ZoomAndPan } from '../types';
 export class DragBox extends React.PureComponent<ZoomAndPan.DragBoxProps> {
   render() {
     const {
-      rect, opacity, ...restProps
+      rect, ...restProps
     } = this.props;
     return (
       <rect
@@ -13,7 +13,6 @@ export class DragBox extends React.PureComponent<ZoomAndPan.DragBoxProps> {
         y={rect.y}
         width={rect.width}
         height={rect.height}
-        opacity={opacity}
         {...restProps}
       />
     );

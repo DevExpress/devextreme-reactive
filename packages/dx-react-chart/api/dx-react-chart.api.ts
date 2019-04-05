@@ -618,8 +618,6 @@ declare const ZoomAndPan: React.ComponentType<ZoomAndPanProps>;
 namespace ZoomAndPan {
   // (undocumented)
   interface DragBoxProps {
-    // (undocumented)
-    opacity: number;
     rect: Rect;
   }
 }

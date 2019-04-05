@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-for */
 import * as React from 'react';
 import {
   Chart,
@@ -67,7 +68,7 @@ export default class Demo extends React.PureComponent {
     } = this.state;
     return (
       <div className="card">
-        <Chart data={chartData} style={{ marginRight: '20px' }}>
+        <Chart data={chartData} className="mr-3">
           <ArgumentScale factory={scaleTime} />
           <ArgumentAxis />
           <ValueAxis />

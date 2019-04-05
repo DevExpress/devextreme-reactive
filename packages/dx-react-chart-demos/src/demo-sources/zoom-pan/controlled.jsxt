@@ -4,8 +4,8 @@ import {
   ArgumentAxis,
   ValueAxis,
   LineSeries,
+  ZoomAndPan,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
-import { ZoomAndPan } from '@devexpress/dx-react-chart';
 
 const generateData = (n) => {
   const ret = [];

@@ -31,10 +31,8 @@ export type ZoomAndPanState = {
 // tslint:disable-next-line: no-namespace
 export namespace ZoomAndPan {
   export interface DragBoxProps {
+    /** The rect’s coordinate */
     rect: Rect;
-    /** @internal */
-    color: string;
-    /** @internal */
     opacity: number;
   }
 }

@@ -4,7 +4,14 @@ The `ZoomAndPan` plugin allows you to set chart viewport and to change it in res
 
 ## Import
 
-Use the following statement to import the plugin:
+Use the following statement to import the plugin with embedded theme components:
+
+```js
+import { ZoomAndPan } from '@devexpress/dx-react-chart-material-ui';
+//import { ZoomAndPan } from '@devexpress/dx-react-chart-bootstrap4';
+```
+
+If you want to use custom components, you can import the themeless plugin:
 
 ```js
 import { ZoomAndPan } from '@devexpress/dx-react-chart';
@@ -42,4 +49,4 @@ scaleName | string | Specifies the value scale where *start* and *end* are appli
 
 Field | Type | Description
 ------|------|------------
-rect | `{ x: number, y: number, width: number, height: number }` | The rect's coordinates.
+rect | { x: number, y: number, width: number, height: number } | The rect's coordinates.

@@ -4,9 +4,10 @@ import {
   ArgumentAxis,
   ValueAxis,
   LineSeries,
+  ZoomAndPan,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 import { scaleTime } from 'd3-scale';
-import { ZoomAndPan, ArgumentScale } from '@devexpress/dx-react-chart';
+import { ArgumentScale } from '@devexpress/dx-react-chart';
 
 const generateData = (n) => {
   const ret = [];

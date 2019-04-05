@@ -207,7 +207,6 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
           {rectBox ? (
               <DragBoxComponent
                 rect={rectBox!}
-                color={'gray'}
                 opacity={0.3}
               />
           ) : null}

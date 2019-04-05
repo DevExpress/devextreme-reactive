@@ -16,6 +16,10 @@ import {
   calculateAppointmentTimeBoundaries,
   calculateInsidePart,
   calculateDraftAppointments,
+  RESIZE_TOP,
+  RESIZE_BOTTOM,
+  POSITION_START,
+  POSITION_END,
 } from '@devexpress/dx-scheduler-core';
 
 const pluginDependencies = [
@@ -116,8 +120,8 @@ export class DragDropProvider extends React.PureComponent {
       payload, targetData, targetType, cellDurationMinutes,
       insidePart, this.offsetTimeTop,
     );
-    this.appointmentStartTime = appointmentStartTime;
-    this.appointmentEndTime = appointmentEndTime;
+    this.appointmentStartTime = appointmentStartTime || this.appointmentStartTime;
+    this.appointmentEndTime = appointmentEndTime || this.appointmentEndTime;
     this.offsetTimeTop = offsetTimeTop;
 
     const { startTime, endTime } = this.state;
@@ -125,14 +129,20 @@ export class DragDropProvider extends React.PureComponent {
       && moment(endTime).isSame(this.appointmentEndTime)) return;
 
     const draftAppointments = [{
-      ...payload, start: this.appointmentStartTime, end: this.appointmentEndTime,
+      dataItem: {
+        ...payload,
+        startDate: this.appointmentStartTime,
+        endDate: this.appointmentEndTime,
+      },
+      start: this.appointmentStartTime,
+      end: this.appointmentEndTime,
     }];
 
     const {
       allDayDraftAppointments,
       timeTableDraftAppointments,
     } = calculateDraftAppointments(
-      allDayIndex, timeTableIndex, draftAppointments, startViewDate,
+      allDayIndex, draftAppointments, startViewDate,
       endViewDate, excludedDays, viewCellsData, allDayCells,
       targetType, cellDurationMinutes, timeTableCells,
     );
@@ -158,7 +168,9 @@ export class DragDropProvider extends React.PureComponent {
       containerComponent: Container,
       draftAppointmentComponent: DraftAppointment,
       sourceAppointmentComponent: SourceAppointment,
+      resizeComponent: Resize,
       allowDrag,
+      allowResize,
     } = this.props;
 
     const draftData = {
@@ -206,10 +218,10 @@ export class DragDropProvider extends React.PureComponent {
         </Template>
 
         <Template
-          name="appointment"
+          name="appointmentContent"
           predicate={({ data }) => allowDrag(data)}
         >
-          {params => (
+          {({ style, ...params }) => (
             <DragSource
               payload={{ ...params.data, type: params.type }}
             >
@@ -219,8 +231,33 @@ export class DragDropProvider extends React.PureComponent {
                 <TemplatePlaceholder params={{ ...params, draggable: true }} />
               )}
             </DragSource>
-          )
-          }
+          )}
+        </Template>
+
+        <Template
+          name="appointmentTop"
+          predicate={params => !params.slice && allowResize(params.data)}
+        >
+          {({ data, type }) => (
+            <DragSource
+              payload={{ ...data, type: RESIZE_TOP, appointmentType: type }}
+            >
+              <Resize position={POSITION_START} appointmentType={type} />
+            </DragSource>
+          )}
+        </Template>
+
+        <Template
+          name="appointmentBottom"
+          predicate={params => !params.slice && allowResize(params.data)}
+        >
+          {({ data, type }) => (
+            <DragSource
+              payload={{ ...data, type: RESIZE_BOTTOM, appointmentType: type }}
+            >
+              <Resize position={POSITION_END} appointmentType={type} />
+            </DragSource>
+          )}
         </Template>
 
         <Template name="allDayPanel">
@@ -228,13 +265,15 @@ export class DragDropProvider extends React.PureComponent {
           {(this.allDayDraftAppointments.length > 0 ? (
             <Container>
               {this.allDayDraftAppointments.map(({
-                dataItem, type, ...geometry
+                dataItem, type, fromPrev, toNext, ...geometry
               }, index) => (
                 <DraftAppointment
                   key={index.toString()}
                   data={draftData}
                   style={getAppointmentStyle(geometry)}
                   type={type}
+                  fromPrev={fromPrev}
+                  toNext={toNext}
                 />
               ))}
             </Container>
@@ -248,13 +287,15 @@ export class DragDropProvider extends React.PureComponent {
           {(this.timeTableDraftAppointments.length > 0 ? (
             <Container>
               {this.timeTableDraftAppointments.map(({
-                dataItem, type, ...geometry
+                dataItem, type, fromPrev, toNext, ...geometry
               }, index) => (
                 <DraftAppointment
                   key={index.toString()}
                   data={draftData}
                   style={getAppointmentStyle(geometry)}
                   type={type}
+                  fromPrev={fromPrev}
+                  toNext={toNext}
                 />
               ))}
             </Container>
@@ -271,15 +312,19 @@ DragDropProvider.propTypes = {
   containerComponent: PropTypes.func.isRequired,
   draftAppointmentComponent: PropTypes.func.isRequired,
   sourceAppointmentComponent: PropTypes.func.isRequired,
+  resizeComponent: PropTypes.func.isRequired,
   allowDrag: PropTypes.func,
+  allowResize: PropTypes.func,
 };
 
 DragDropProvider.defaultProps = {
   allowDrag: () => true,
+  allowResize: () => true,
 };
 
 DragDropProvider.components = {
   containerComponent: 'Container',
   draftAppointmentComponent: 'DraftAppointment',
   sourceAppointmentComponent: 'SourceAppointment',
+  resizeComponent: 'Resize',
 };

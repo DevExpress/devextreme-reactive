@@ -147,6 +147,7 @@ describe('axisCoordinates', () => {
           textAnchor: 'middle',
           y1: 0, y2: -5, x1: 25, x2: 25,
         }]);
+        expect(scale.tickFormat).toBeCalledWith(10);
       } finally {
         delete scale.tickFormat;
       }
@@ -175,6 +176,7 @@ describe('axisCoordinates', () => {
           textAnchor: 'middle',
           y1: 0, y2: -5, x1: 25, x2: 25,
         }]);
+        expect(userFormat).toBeCalledWith(scale, 10);
       } finally {
         delete scale.tickFormat;
       }

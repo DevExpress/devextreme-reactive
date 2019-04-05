@@ -509,7 +509,7 @@ interface TargetData {
 declare type TargetList = ReadonlyArray<SeriesRef>;
 
 // @public (undocumented)
-declare type TickFormatFn = (scale: ScaleObject) => GetFormatFn;
+declare type TickFormatFn = (scale: ScaleObject, count?: number) => GetFormatFn;
 
 // @public (undocumented)
 declare const Title: React.ComponentType<TitleProps>;

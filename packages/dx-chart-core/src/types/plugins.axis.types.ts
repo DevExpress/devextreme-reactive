@@ -4,7 +4,7 @@ import {
 } from './chart-core.types';
 /** @internal */
 export type ProcessTickFn<T> = (coord: number, key: string, tick: any) => T;
-export type TickFormatFn = (scale: ScaleObject) => GetFormatFn;
+export type TickFormatFn = (scale: ScaleObject, count?: number) => GetFormatFn;
 /** @internal */
 export type AxisCoordinatesArg = {
   scaleName: string;

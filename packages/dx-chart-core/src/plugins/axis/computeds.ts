@@ -19,9 +19,9 @@ const createTicks = <T>(
     .map((tick, index) => callback(fixedScale(tick), String(index), tick));
 };
 
-const getFormat = (scale: ScaleObject, tickFormat?: TickFormatFn): GetFormatFn => {
+const getFormat = (scale: ScaleObject, count: number, tickFormat?: TickFormatFn): GetFormatFn => {
   if (scale.tickFormat) {
-    return tickFormat ? tickFormat(scale) : scale.tickFormat();
+    return tickFormat ? tickFormat(scale, count) : scale.tickFormat(count);
   }
   return tick => tick;
 };
@@ -73,7 +73,7 @@ export const axisCoordinates: AxisCoordinatesFn = ({
     position, tickSize, indentFromAxis,
   );
   const tickCount = getTickCount(scale.range(), paneSize[1 - Number(isHor)]);
-  const formatTick = getFormat(scale, tickFormat);
+  const formatTick = getFormat(scale, tickCount, tickFormat);
   const ticks = createTicks(scale, tickCount, (coordinates, key, tick) => ({
     key,
     x1: coordinates,

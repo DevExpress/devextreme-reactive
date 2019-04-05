@@ -7,8 +7,8 @@ import {
 const getEventCoords = (e: any): Location => {
   const offset = getOffset(e.currentTarget);
   return [
-    e.clientX - offset[0],
-    e.clientY - offset[1],
+    e.pageX - offset[0],
+    e.pageY - offset[1],
   ];
 };
 

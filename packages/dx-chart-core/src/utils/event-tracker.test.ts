@@ -51,8 +51,8 @@ describe('EventTracker', () => {
       const func = call();
       func({
         currentTarget,
-        clientX: 454,
-        clientY: 343,
+        pageX: 454,
+        pageY: 343,
       });
 
       expect(series1.createHitTester).toBeCalledWith('coordinates-1');
@@ -81,8 +81,8 @@ describe('EventTracker', () => {
       const func = call();
       func({
         currentTarget,
-        clientX: 352,
-        clientY: 421,
+        pageX: 352,
+        pageY: 421,
         nativeEvent: 'nativeEvent',
       });
 
@@ -123,8 +123,8 @@ describe('EventTracker', () => {
       const func = call();
       func({
         currentTarget,
-        clientX: 481,
-        clientY: 324,
+        pageX: 481,
+        pageY: 324,
         nativeEvent: 'nativeEvent',
       });
 
@@ -182,8 +182,8 @@ describe('EventTracker', () => {
       });
       mouseleave({
         currentTarget,
-        clientX: 572,
-        clientY: 421,
+        pageX: 572,
+        pageY: 421,
       });
 
       expect(handler1).toBeCalledWith({ location: [412, 281], targets: [] });

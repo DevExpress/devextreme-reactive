@@ -31,7 +31,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 appointmentComponent | ComponentType&lt;[Appointments.AppointmentProps](#appointmentsappointmentprops)&gt; | | A component that renders an appointment.
 appointmentContentComponent | ComponentType&lt;[Appointments.AppointmentContentProps](#appointmentsappointmentcontentprops)&gt; | | A component that renders the appointment content.
-splitIndicatorComponent | ComponentType&lt;[Appointments.SplitIndicatorProps](#appointmentssplitindicatorprops)&gt; | | A component that renders an element indicating that the appointment is split by the timetable.
+splitIndicatorComponent | ComponentType&lt;[Appointments.SplitIndicatorProps](#appointmentssplitindicatorprops)&gt; | | A component that renders an element which indicates the appointment is divided.
 containerComponent | ComponentType&lt;[Appointments.ContainerProps](#appointmentscontainerprops)&gt; | | A component that renders a container for the appointment.
 
 ## Interfaces

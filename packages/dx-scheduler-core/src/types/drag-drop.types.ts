@@ -7,7 +7,7 @@ export type ClientOffset = {
   y: number;
 };
 
-export type TimeType = 'seconds' | 'minutes';
+export type TimeType = 'seconds' | 'minutes' | 'hours';
 
 export type AllDayRects = PureComputed<
   [Appointment[], Date,  Date, number[], ViewCell[][], Element[][]], ElementRect[]
@@ -22,12 +22,20 @@ export type HorizontalRects = PureComputed<
 >;
 
 type AppointmentBoundaries = {
-  appointmentStartTime: Date,
-  appointmentEndTime: Date,
-  offsetTimeTop: number,
+  appointmentStartTime?: Date,
+  appointmentEndTime?: Date,
+  offsetTimeTop?: number,
 };
 
 export type CalculateAppointmentTimeBoundaries = PureComputed<
   [AppointmentModel, AppointmentModel, string, number, number, number],
   AppointmentBoundaries
+>;
+
+export type TimeBoundariesByDrag = PureComputed<
+  [AppointmentModel, AppointmentModel,  string, number, number, number], AppointmentBoundaries
+>;
+
+export type TimeBoundariesByResize = PureComputed<
+  [AppointmentModel, AppointmentModel,  string, number, number], AppointmentBoundaries
 >;

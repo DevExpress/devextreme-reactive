@@ -255,13 +255,19 @@ describe('Utils', () => {
             {
               start: moment('2017-07-20 08:00'),
               end: moment('2017-07-20 08:30'),
-              dataItem: {},
+              dataItem: {
+                startDate: new Date('2017-07-20 08:00'),
+                endDate: new Date('2017-07-20 08:30'),
+              },
               offset: 1,
             },
             {
               start: moment('2017-07-20 08:30'),
               end: moment('2017-07-20 09:00'),
-              dataItem: {},
+              dataItem: {
+                startDate: new Date('2017-07-20 08:30'),
+                endDate: new Date('2017-07-20 09:30'),
+              },
               offset: 2,
             },
           ],
@@ -272,13 +278,19 @@ describe('Utils', () => {
             {
               start: moment('2017-04-20 08:00'),
               end: moment('2017-04-22 08:30'),
-              dataItem: {},
+              dataItem: {
+                startDate: new Date('2017-04-20 07:00'),
+                endDate: new Date('2017-04-22 08:30'),
+              },
               offset: 0,
             },
             {
               start: moment('2017-05-25 08:00'),
               end: moment('2017-05-25 09:15'),
-              dataItem: {},
+              dataItem: {
+                startDate: new Date('2017-05-25 07:59'),
+                endDate: new Date('2017-05-25 09:17'),
+              },
               offset: 1,
             },
           ],
@@ -288,18 +300,26 @@ describe('Utils', () => {
         .toEqual([
           {
             ...appointmentsGroups[0].items[0],
+            fromPrev: false,
+            toNext: false,
             reduceValue: 1,
           },
           {
             ...appointmentsGroups[0].items[1],
+            fromPrev: false,
+            toNext: true,
             reduceValue: 1,
           },
           {
             ...appointmentsGroups[1].items[0],
+            fromPrev: true,
+            toNext: false,
             reduceValue: 2,
           },
           {
             ...appointmentsGroups[1].items[1],
+            fromPrev: false,
+            toNext: true,
             reduceValue: 2,
           },
         ]);

@@ -69,7 +69,7 @@ const defaultDeps = {
   },
   template: {
     body: {},
-    appointment: {
+    appointmentContent: {
       data: 'appointment data',
     },
     allDayPanel: {},
@@ -79,6 +79,7 @@ const defaultDeps = {
 };
 
 const defaultProps = {
+  resizeComponent: () => null,
   draftAppointmentComponent: () => null,
   sourceAppointmentComponent: () => null,
   // eslint-disable-next-line react/prop-types, react/jsx-one-expression-per-line
@@ -156,17 +157,17 @@ describe('DragDropProvider', () => {
       expect(tree.find(TemplatePlaceholder).findWhere(element => element.prop('params') && element.prop('params').draggable === true).exists())
         .toBeTruthy();
     });
-    it('should not wrap appointment into drag source by predicate', () => {
-      const predicate = jest.fn();
-      predicate.mockImplementation(() => false);
-      const tree = renderPlugin({ allowDrag: predicate });
+    it('should not wrap appointment into drag source by allowDrag', () => {
+      const allowDrag = jest.fn();
+      allowDrag.mockImplementation(() => false);
+      const tree = renderPlugin({ allowDrag });
 
       expect(tree.find(DragSource).exists())
         .toBeFalsy();
-      expect(predicate)
+      expect(allowDrag)
         .toBeCalledWith('appointment data');
     });
-    it('should render draft appointment template', () => {
+    it('should render draft appointment component', () => {
       const draftAppointment = () => <div className="custom-class" />;
 
       const { tree, onOver } = mountPlugin({ draftAppointmentComponent: draftAppointment });
@@ -176,11 +177,10 @@ describe('DragDropProvider', () => {
       expect(tree.update().find('.custom-class').exists())
         .toBeTruthy();
     });
-
-    it('should render source appointment template', () => {
+    it('should render source appointment component', () => {
       const deps = {
         template: {
-          appointment: {
+          appointmentContent: {
             data: {
               id: 1,
             },
@@ -196,6 +196,96 @@ describe('DragDropProvider', () => {
 
       expect(tree.find('.custom-class').exists())
         .toBeTruthy();
+    });
+    it('should render resize component', () => {
+      const deps = {
+        template: {
+          appointmentTop: {
+            type: 'appt-top',
+            slice: false,
+          },
+          appointmentBottom: {
+            type: 'appt-bottom',
+            slice: false,
+          },
+        },
+      };
+      const resizeAppointment = () => <div className="custom-class" />;
+
+      const { tree, onOver } = mountPlugin({ resizeComponent: resizeAppointment }, deps);
+
+      onOver({ payload: { id: 1 }, clientOffset: 1 });
+      tree.update();
+
+      const resizeComponents = tree.find(resizeAppointment);
+      expect(resizeComponents.at(0).props())
+        .toEqual({
+          appointmentType: 'appt-bottom',
+          position: 'end',
+        });
+      expect(resizeComponents.at(1).props())
+        .toEqual({
+          appointmentType: 'appt-top',
+          position: 'start',
+        });
+    });
+    it('should wrap resize components into DragSource', () => {
+      const deps = {
+        template: {
+          appointmentTop: {
+            type: 'appt-top',
+            slice: false,
+            data: { a: 1 },
+          },
+          appointmentBottom: {
+            type: 'appt-bottom',
+            slice: false,
+            data: { a: 1 },
+          },
+        },
+      };
+      const resizeAppointment = () => <div className="custom-class" />;
+
+      const { tree, onOver } = mountPlugin({ resizeComponent: resizeAppointment }, deps);
+
+      onOver({ payload: { id: 1 }, clientOffset: 1 });
+      tree.update();
+
+      const resizeComponents = tree.find(DragSource);
+      expect(resizeComponents.at(0).prop('payload'))
+        .toEqual({
+          appointmentType: 'appt-bottom',
+          type: 'resize-end',
+          a: 1,
+        });
+      expect(resizeComponents.at(1).prop('payload'))
+        .toEqual({
+          appointmentType: 'appt-top',
+          type: 'resize-start',
+          a: 1,
+        });
+    });
+    it('should not render resize template of allowResize => false', () => {
+      const allowResize = jest.fn();
+      allowResize.mockImplementation(() => false);
+      const deps = {
+        template: {
+          appointmentTop: {
+            data: {},
+          },
+        },
+      };
+      const resizeAppointment = () => <div className="custom-class" />;
+
+      const { tree, onOver } = mountPlugin({ allowResize }, deps);
+
+      onOver({ payload: { id: 1 }, clientOffset: 1 });
+      tree.update();
+
+      expect(tree.find(resizeAppointment).exists())
+        .toBeFalsy();
+      expect(allowResize)
+        .toBeCalledWith(deps.template.appointmentTop.data);
     });
   });
 
@@ -289,7 +379,6 @@ describe('DragDropProvider', () => {
       expect(defaultDeps.action.changeAppointment)
         .toBeCalledWith({ change: { startDate: new Date('2018-06-25 9:30'), endDate: new Date('2018-06-25 10:30') } }, expect.any(Object), expect.any(Object));
     });
-
     it('should drag with save initial cursor position', () => {
       const payload = {
         id: 1,
@@ -343,7 +432,6 @@ describe('DragDropProvider', () => {
       expect(defaultDeps.action.changeAppointment)
         .toBeCalledWith({ change: { startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00') } }, expect.any(Object), expect.any(Object));
     });
-
     it('should not call actions if cursor is over and inside an one cell', () => {
       const payload = {
         id: 1,
@@ -371,7 +459,6 @@ describe('DragDropProvider', () => {
       expect(defaultDeps.action.changeAppointment)
         .toBeCalledWith({ change: { startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00') } }, expect.any(Object), expect.any(Object));
     });
-
     it('should commit changes if drop inside a cell', () => {
       const payload = {
         id: 1,
@@ -396,7 +483,6 @@ describe('DragDropProvider', () => {
       expect(defaultDeps.action.commitChangedAppointment)
         .toBeCalledWith({ appointmentId: payload.id }, expect.any(Object), expect.any(Object));
     });
-
     it('should commit changes if drop outside a cell', () => {
       const payload = {
         id: 1,
@@ -420,7 +506,6 @@ describe('DragDropProvider', () => {
       expect(defaultDeps.action.commitChangedAppointment)
         .toBeCalledWith({ appointmentId: payload.id }, expect.any(Object), expect.any(Object));
     });
-
     it('should reset cache if drop outside a cell', () => {
       const deps = {
         template: {
@@ -459,7 +544,6 @@ describe('DragDropProvider', () => {
       expect(tree.find('.draft').exists())
         .toBeFalsy();
     });
-
     it('should reset cache if drop inside a cell', () => {
       const deps = {
         template: {

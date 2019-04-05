@@ -15,6 +15,8 @@ export interface TableRow {
   row?: any;
   /** Specifies the table row height. */
   height?: number;
+  /** @internal */
+  dataIndex?: number;
 }
 
 /** Describes properties of a table column that the Table plugin renders. */

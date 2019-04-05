@@ -27,6 +27,7 @@ export const getVisibleBoundary: GetVisibleBoundaryFn = (
   let end: number | null = null;
   let index = 0;
   let beforePosition = offset * itemSize;
+  debugger
   const noVisibleRowsLoaded = itemSize > 0 &&
     beforePosition + items.length * itemSize < viewportStart ||
     viewportStart < beforePosition;
@@ -37,6 +38,8 @@ export const getVisibleBoundary: GetVisibleBoundaryFn = (
     start = Math.round(viewportStart / itemSize) - offset;
     end = start;
   }
+  let startDataIndex;
+  let endDataIndex;
 
   const viewportEnd = viewportStart + viewportSize;
   while (end === null && index < items.length) {
@@ -47,9 +50,11 @@ export const getVisibleBoundary: GetVisibleBoundaryFn = (
       || (beforePosition < viewportStart && afterPosition > viewportEnd);
     if (isVisible && start === null) {
       start = index;
+      startDataIndex = item.dataIndex;
     }
     if (!isVisible && start !== null) {
       end = index - 1;
+      endDataIndex = item.dataIndex;
       break;
     }
     index += 1;
@@ -57,12 +62,13 @@ export const getVisibleBoundary: GetVisibleBoundaryFn = (
   }
   if (start !== null && end === null) {
     end = index - 1;
+    endDataIndex = end;
   }
 
   start = start === null ? 0 : start;
   end = end === null ? 0 : end;
 
-  return [start + offset, end + offset];
+  return [start + offset, end + offset, startDataIndex + offset, endDataIndex + offset];
 };
 
 export const getRenderBoundary: GetRenderBoundaryFn = (itemsCount, visibleBoundary, overscan) => {

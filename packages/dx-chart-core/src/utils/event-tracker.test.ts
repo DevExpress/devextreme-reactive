@@ -1,8 +1,4 @@
 import { buildEventHandlers } from './event-tracker';
-// @ts-ignore
-window.pageXOffset = 120;
-// @ts-ignore
-window.pageYOffset = 110;
 
 describe('EventTracker', () => {
   describe('#buildEventHandlers', () => {
@@ -35,6 +31,9 @@ describe('EventTracker', () => {
 
     const currentTarget = {
       getBoundingClientRect: () => ({ left: 40, top: 30 }),
+      ownerDocument: {
+        defaultView: { pageXOffset: 120, pageYOffset: 110 },
+      },
     };
 
     const call = () => buildEventHandlers([series1, series2, series3] as any, {

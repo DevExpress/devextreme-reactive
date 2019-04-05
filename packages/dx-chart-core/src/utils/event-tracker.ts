@@ -1,11 +1,11 @@
-import { getRootOffset } from './root-offset';
+import { getOffset } from './root-offset';
 import {
   TrackerTarget, HandlerFnList, SeriesList, HitTesters, Location,
   EventHandlerFn, TargetData, EventHandlers, HandlersObject,
 } from '../types';
 
 const getEventCoords = (e: any): Location => {
-  const offset = getRootOffset(e.currentTarget);
+  const offset = getOffset(e.currentTarget);
   return [
     e.clientX - offset[0],
     e.clientY - offset[1],

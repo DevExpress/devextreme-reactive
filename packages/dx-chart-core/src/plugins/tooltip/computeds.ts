@@ -1,5 +1,5 @@
 import { processPointerMove } from '../../utils/hover-state';
-import { getRootOffset } from '../../utils/root-offset';
+import { getOffset } from '../../utils/root-offset';
 import {
   SeriesList, SeriesRef, TransformedPoint, TargetList, NotifyPointerMoveFn,
   TooltipParameters, TooltipReference, Rect,
@@ -26,7 +26,7 @@ export const createReference = (
   getBoundingClientRect() {
     // This function is expected to be called (by the *Popper*) when DOM is ready -
     // so *rootRef.current* can be accessed.
-    const offset = getRootOffset(rootRef.current!);
+    const offset = getOffset(rootRef.current!);
     return {
       left: rect[0] + offset[0],
       top: rect[1] + offset[1],

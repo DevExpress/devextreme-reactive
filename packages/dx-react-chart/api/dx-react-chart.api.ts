@@ -619,6 +619,7 @@ namespace ZoomAndPan {
   // (undocumented)
   interface DragBoxProps {
     // (undocumented)
+    opacity: number;
     rect: Rect;
   }
 }

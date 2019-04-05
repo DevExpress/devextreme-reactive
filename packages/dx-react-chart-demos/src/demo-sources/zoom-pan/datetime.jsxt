@@ -54,7 +54,7 @@ export default class Demo extends React.PureComponent {
   renderInput(id, label) {
     const { [id]: checked } = this.state;
     return (
-      <p style={{margin: '20px'}}>
+      <p style={{ margin: '20px' }}>
         <label htmlFor={id}>
           <input type="checkbox" id={id} checked={checked} onChange={this.submit} />
           {label}

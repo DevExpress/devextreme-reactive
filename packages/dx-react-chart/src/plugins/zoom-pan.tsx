@@ -152,7 +152,6 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
 
   handleScroll(scales: ScalesCache) {
     return (e: any) => {
-      e.preventDefault();
       const offset = getRootOffset(e.currentTarget);
       const center: NumberArray = [e.pageX - offset[0], e.pageY - offset[1]];
       this.zoom(scales, e.nativeEvent.wheelDelta, center);

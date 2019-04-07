@@ -39,8 +39,12 @@ const getMode = (zoom, pan) => {
   return 'none';
 };
 
-const chartStyle = { marginRight: '20px' };
+const chartRootStyle = { marginRight: '20px' };
 const inputsContainerStyle = { justifyContent: 'center' };
+
+const ChartRoot = props => (
+  <Chart.Root {...props} style={chartRootStyle} />
+);
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -88,7 +92,7 @@ export default class Demo extends React.PureComponent {
     } = this.state;
     return (
       <Paper>
-        <Chart data={chartData} style={chartStyle}>
+        <Chart data={chartData} rootComponent={ChartRoot}>
           <ArgumentScale factory={scaleTime} />
           <ArgumentAxis />
           <ValueAxis />

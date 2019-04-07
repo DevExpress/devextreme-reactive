@@ -42,6 +42,10 @@ const inputsContainerStyle = {
   justifyContent: 'center',
 };
 
+const ChartRoot = props => (
+  <Chart.Root {...props} className="mr-3" />
+);
+
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -74,7 +78,7 @@ export default class Demo extends React.PureComponent {
     } = this.state;
     return (
       <div className="card">
-        <Chart data={chartData} className="mr-3">
+        <Chart data={chartData} rootComponent={ChartRoot}>
           <ArgumentScale factory={scaleTime} />
           <ArgumentAxis />
           <ValueAxis />

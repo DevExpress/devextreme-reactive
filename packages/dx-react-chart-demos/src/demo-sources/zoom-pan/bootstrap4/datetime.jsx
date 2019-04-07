@@ -36,6 +36,12 @@ const getMode = (zoom, pan) => {
   return 'none';
 };
 
+const inputsContainerStyle = {
+  display: 'flex',
+  flexDIrection: 'row',
+  justifyContent: 'center',
+};
+
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -79,12 +85,7 @@ export default class Demo extends React.PureComponent {
             interactionWithValues={getMode(zoomValue, panValue)}
           />
         </Chart>
-        <div style={{
-          display: 'flex',
-          flexDIrection: 'row',
-          justifyContent: 'center',
-        }}
-        >
+        <div style={inputsContainerStyle}>
           {this.renderInput('zoomArgument', 'Zoom argument')}
           {this.renderInput('panArgument', 'Pan argument')}
           {this.renderInput('zoomValue', 'Zoom value')}

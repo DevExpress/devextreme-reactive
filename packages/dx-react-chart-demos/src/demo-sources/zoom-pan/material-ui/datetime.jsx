@@ -39,6 +39,9 @@ const getMode = (zoom, pan) => {
   return 'none';
 };
 
+const chartStyle = { marginRight: '20px' };
+const inputsContainerStyle = { justifyContent: 'center' };
+
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -85,7 +88,7 @@ export default class Demo extends React.PureComponent {
     } = this.state;
     return (
       <Paper>
-        <Chart data={chartData} style={{ marginRight: '20px' }}>
+        <Chart data={chartData} style={chartStyle}>
           <ArgumentScale factory={scaleTime} />
           <ArgumentAxis />
           <ValueAxis />
@@ -96,7 +99,7 @@ export default class Demo extends React.PureComponent {
             interactionWithValues={getMode(zoomValue, panValue)}
           />
         </Chart>
-        <FormGroup style={{ justifyContent: 'center' }} row>
+        <FormGroup style={inputsContainerStyle} row>
           {this.renderInput('zoomArgument', 'Zoom argument')}
           {this.renderInput('panArgument', 'Pan argument')}
           {this.renderInput('zoomValue', 'Zoom value')}

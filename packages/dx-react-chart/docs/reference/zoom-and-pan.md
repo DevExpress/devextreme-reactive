@@ -1,6 +1,6 @@
 # ZoomAndPan Plugin Reference
 
-The `ZoomAndPan` plugin allows you to set chart viewport and to change it in response to mouse and touch events.
+The `ZoomAndPan` plugin allows you to set the chart's viewport and change it in response to mouse and touch events.
 
 ## Import
 
@@ -23,30 +23,32 @@ import { ZoomAndPan } from '@devexpress/dx-react-chart';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-defaultViewport? | [Viewport](#viewport) | A default viewport.
-viewport? | [Viewport](#viewport) | A viewport.
+defaultViewport? | [Viewport](#viewport) | The default viewport.
+viewport? | [Viewport](#viewport) | The viewport.
 onViewportChange? | (viewport: [Viewport](#viewport)) => void | A function that is executed when the viewport changes.
-interactionWithArguments? | 'none' &#124; 'pan' &#124; 'zoom' &#124; 'both' | A type of interaction available for the argument scale.
-interactionWithValues? | 'none' &#124; 'pan' &#124; 'zoom' &#124; 'both' | A type of interaction available for the value scale.
-zoomRegionKey? | 'shift' &#124; 'alt' &#124; 'ctrl' | A key the enables zoom region mode.
-dragBoxComponent? | ComponentType&lt;[Viewport.DragBoxProps](#viewportdragboxprops)&gt; | A component that renders zoom region rect.
+interactionWithArguments? | 'none' &#124; 'pan' &#124; 'zoom' &#124; 'both' | The type of interaction available for the argument scale.
+interactionWithValues? | 'none' &#124; 'pan' &#124; 'zoom' &#124; 'both' | The type of interaction available for the value scale.
+zoomRegionKey? | 'shift' &#124; 'alt' &#124; 'ctrl' | The key the allows a user to zoom a region by selecting it with the mouse drag gesture.
+dragBoxComponent? | ComponentType&lt;[Viewport.DragBoxProps](#viewportdragboxprops)&gt; | A component that renders the rectangle that appears when a user zooms a region.
 
 ## Interfaces
 
 ### Viewport
 
-The viewport data.
+The viewport configuration.
 
 Field | Type | Description
 ------|------|------------
-argumentStart | any | The start bound on the argument scale.
-argumentEnd | any | The end bound on the argument scale.
-valueStart | any | The start bound on the value scale.
-valueEnd | any | The end bound on the value scale.
-scaleName | string | Specifies the value scale where *start* and *end* are applied.
+argumentStart | any | The viewport's start coordinate on the argument scale.
+argumentEnd | any | The viewport's end coordinate on the argument scale.
+valueStart | any | The viewport's start coordinate on the value scale.
+valueEnd | any | The viewport's end coordinate on the value scale.
+scaleName | string | The scale on which `valueStart` and `valueEnd` should be applied.
 
 ### Viewport.DragBoxProps
 
+Describes properties passed to a component that renders the rectangle appearing when a user zooms a region with the mouse drag gesture.
+
 Field | Type | Description
 ------|------|------------
-rect | { x: number, y: number, width: number, height: number } | The rect's coordinates.
+rect | { x: number, y: number, width: number, height: number } | The rectangle's coordinates.

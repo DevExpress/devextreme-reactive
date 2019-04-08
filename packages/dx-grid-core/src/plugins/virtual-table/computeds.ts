@@ -24,7 +24,7 @@ export const pageTriggersMeta: PageTriggersMetaFn = (
   state, getters, estimatedRowHeight,
 ) => {
   const {
-    visibleBoundaries: rowsBoundaries, virtualPageSize, virtualRows,
+    visibleRowBoundaries: rowsBoundaries, virtualPageSize, virtualRows,
     loadedRowsStart, remoteDataEnabled,
   } = getters;
 

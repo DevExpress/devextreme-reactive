@@ -2,9 +2,9 @@ import * as React from 'react';
 import { Plugin, Action, Getters, Actions } from '@devexpress/dx-react-core';
 
 export class RemoteDataLoader extends React.PureComponent<any, any> {
-
+// move triggers meta here
   ensureNextVirtualPage = (
-    { currentPageTriggersMeta, scrollTop },
+    { currentPageTriggersMeta, scrollTop, containerHeight },
     { remoteDataEnabled }: Getters,
     { requestNextPage }: Actions,
   ) => {
@@ -13,7 +13,6 @@ export class RemoteDataLoader extends React.PureComponent<any, any> {
     const {
       topTriggerPosition, bottomTriggerPosition, topTriggerIndex, bottomTriggerIndex,
     } = currentPageTriggersMeta;
-    const { containerHeight } = this.state;
     const { estimatedRowHeight } = this.props;
     const referencePosition = scrollTop + containerHeight / 2;
 
@@ -32,7 +31,6 @@ export class RemoteDataLoader extends React.PureComponent<any, any> {
     if (referenceIndex !== null) {
       requestNextPage(referenceIndex);
     }
-    console.log('ensure page', params, requestNextPage)
   }
 
   render() {

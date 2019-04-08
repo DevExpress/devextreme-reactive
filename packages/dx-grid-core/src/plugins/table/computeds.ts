@@ -22,7 +22,6 @@ export const tableColumnsWithDataRows: PureComputed<[any[], GridColumnExtension[
 export const tableRowsWithDataRows: PureComputed<[Row[], GetRowIdFn, number]> = (
   rows, getRowId, isRemoteRowsLoading,
 ) => {
-  debugger;
   return (
   !rows.length && !isRemoteRowsLoading
     ? [{ key: TABLE_NODATA_TYPE.toString(), type: TABLE_NODATA_TYPE }]

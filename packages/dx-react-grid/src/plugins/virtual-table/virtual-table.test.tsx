@@ -7,7 +7,7 @@ import {
   getColumnWidthGetter,
 } from '@devexpress/dx-grid-core';
 import { makeVirtualTable } from './virtual-table';
-import { Table } from '../plugins/table';
+import { Table } from '../table';
 import { pluginDepsToComponents } from '@devexpress/dx-testing';
 
 jest.mock('react-dom', () => ({

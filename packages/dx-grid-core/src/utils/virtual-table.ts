@@ -27,7 +27,6 @@ export const getVisibleBoundary: GetVisibleBoundaryFn = (
   let end: number | null = null;
   let index = 0;
   let beforePosition = offset * itemSize;
-  debugger
   const noVisibleRowsLoaded = itemSize > 0 &&
     beforePosition + items.length * itemSize < viewportStart ||
     viewportStart < beforePosition;

@@ -4,7 +4,7 @@ import {
   recalculateBounds, calculateRequestedRange, virtualRowsWithCache,
   trimRowsToInterval, intervalUtil, emptyVirtualRows, plainRows, loadedRowsStart,
 } from '@devexpress/dx-grid-core';
-import { VirtualTableStateProps, VirtualTableStateState } from '../types';
+import { VirtualTableStateProps, VirtualTableStateState } from '../../types';
 
 const virtualRowsComputed = (
   { start, rows, virtualRowsCache }: Getters,

@@ -191,12 +191,14 @@ export class MonthView extends React.PureComponent {
                   />
                   <AppointmentLayer>
                     {rects.map(({
-                      dataItem, type, ...geometry
+                      dataItem, type, fromPrev, toNext, ...geometry
                     }, index) => (
                       <AppointmentPlaceholder
                         key={index.toString()}
                         type={type}
                         data={dataItem}
+                        fromPrev={fromPrev}
+                        toNext={toNext}
                         style={getAppointmentStyle(geometry)}
                       />
                     ))}

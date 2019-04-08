@@ -181,6 +181,8 @@ export const unwrapGroups: PureComputed<
     dataItem: appointment.dataItem,
     offset: appointment.offset,
     reduceValue,
+    fromPrev: moment(appointment.start).diff(appointment.dataItem.startDate, 'minutes') > 1,
+    toNext: moment(appointment.dataItem.endDate).diff(appointment.end, 'minutes') > 1,
   })));
   return acc;
 }, [] as AppointmentUnwrappedGroup[]);
@@ -236,6 +238,8 @@ const horizontalRectCalculator: CustomFunction<
     left: toPercentage(left, parentWidth),
     width: toPercentage(width, parentWidth),
     dataItem: appointment.dataItem,
+    fromPrev: appointment.fromPrev,
+    toNext: appointment.toNext,
     type: HORIZONTAL_TYPE,
   };
 };
@@ -278,6 +282,8 @@ const verticalRectCalculator: CustomFunction<
     left: toPercentage(left + (widthInPx * appointment.offset), parentWidth),
     width: toPercentage(widthInPx, parentWidth),
     dataItem: appointment.dataItem,
+    fromPrev: appointment.fromPrev,
+    toNext: appointment.toNext,
     type: VERTICAL_TYPE,
   };
 };

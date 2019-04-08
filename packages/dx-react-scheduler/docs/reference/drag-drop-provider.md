@@ -32,8 +32,10 @@ import { DragDropProvider } from '@devexpress/dx-react-scheduler';
 Name | Type | Default | Description
 -----|------|---------|------------
 allowDrag? | (appointmentData: [AppointmentModel](./scheduler.md#appointmentmodel)) => boolean | () => true | A function that specifies draggable appointments.
+allowResize? | (appointmentData: [AppointmentModel](./scheduler.md#appointmentmodel)) => boolean | () => true | A function that specifies resizable appointments.
 draftAppointmentComponent | ComponentType&lt;[DragDropProvider.DraftAppointmentProps](#dragdropproviderdraftappointmentprops)&gt; | | A component that renders the appointment being dragged.
 sourceAppointmentComponent | ComponentType&lt;[DragDropProvider.SourceAppointmentProps](#dragdropprovidersourceappointmentprops)&gt; | | A component that renders a copy of the appointment being dragged in its previous location.
+resizeComponent | ComponentType&lt;[DragDropProvider.ResizeProps](#dragdropproviderresizeprops)&gt; | | A component that renders a handle used to resize the appointment.
 containerComponent | ComponentType&lt;[DragDropProvider.ContainerProps](#dragdropprovidercontainerprops)&gt; | | A component that renders a container for the appointment being dragged.
 
 ## Interfaces
@@ -47,6 +49,8 @@ Field | Type | Description
 data | [AppointmentModel](./scheduler.md#appointmentmodel) | Specifies the appointment's data.
 style | object | Configures the appointment's geometry and position.
 type | string | Specifies the appointment's type.
+fromPrev | boolean | **true** if the appointment is continued from the previous day/week/month/year.
+toNext | boolean | **true** if the appointment continues on the next day/week/month/year.
 
 ### DragDropProvider.SourceAppointmentProps
 
@@ -55,8 +59,16 @@ Describes properties of the component that renders a copy of the appointment bei
 Field | Type | Description
 ------|------|------------
 data | [AppointmentModel](./scheduler.md#appointmentmodel) | Specifies the appointment's data.
-style | object | Configures the appointment's geometry and position.
 type | string | Specifies the appointment's type.
+
+### DragDropProvider.ResizeProps
+
+Describes properties of the component that renders a handle used to resize the appointment.
+
+Field | Type | Description
+------|------|------------
+position | 'start' &#124; 'end' | Specifies the handle's position in the appointment.
+appointmentType | 'vertical' &#124; 'horizontal' | Specifies whether the appointment is vertical or horizontal.
 
 ### DragDropProvider.ContainerProps
 
@@ -72,6 +84,7 @@ Name | Properties | Description
 -----|------------|------------
 DragDropProvider.DraftAppointment | [DragDropProvider.DraftAppointmentProps](#dragdropproviderdraftappointmentprops) | A component that renders the appointment being dragged.
 DragDropProvider.SourceAppointment | [DragDropProvider.SourceAppointmentProps](#dragdropprovidersourceappointmentprops) | A component that renders a copy of the appointment being dragged in its previous location.
+DragDropProvider.Resize | [DragDropProvider.ResizeProps](#dragdropproviderresizeprops) | A component that renders the handle of the appointment being resized.
 DragDropProvider.Container | [DragDropProvider.ContainerProps](#dragdropprovidercontainerprops) | A component that renders a container for the appointment being dragged.
 
 Additional properties are added to the component's root element.

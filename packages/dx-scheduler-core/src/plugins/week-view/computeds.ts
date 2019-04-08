@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { RRule, RRuleSet } from 'rrule';
+import { RRule, rrulestr, RRuleSet } from 'rrule';
 import { PureComputed } from '@devexpress/dx-core';
 import { CalculateWeekDateIntervalsFn, AppointmentMoment } from '../../types';
 import {
@@ -7,9 +7,6 @@ import {
 } from './helpers';
 import { intervalDuration } from '../drag-drop-provider/helpers';
 import { viewPredicate } from '../../utils';
-
-// rRule
-// exDate
 
 export const recurringConvert = (appts: any[]) => {
   appts.reduce((acc, appointment) => {
@@ -31,16 +28,18 @@ export const recurringViewPredicate: PureComputed<
   [any, Date, Date], AppointmentMoment[]
 > = (appointment, leftBound, rightBound) => {
   if (appointment.rRule === undefined) return [appointment];
-  const rruleSet = new RRuleSet();
+
   const options = {
     ...RRule.parseString(appointment.rRule),
     dtstart: moment(appointment.start).toDate(), // toUTCString() ???
   };
-  rruleSet.rrule(new RRule(options));
-  debugger
+  let rruleSet = new RRuleSet();
   if (appointment.exDate) {
-    rruleSet.exdate(appointment.exDate);
+    rruleSet = rrulestr(`EXDATE:${appointment.exDate}`, { forceset: true }) as RRuleSet;
   }
+
+  rruleSet.rrule(new RRule(options));
+
   const datesInBoundaries = rruleSet.between(leftBound as Date, rightBound as Date);
   if (datesInBoundaries.length === 0) return [];
 

@@ -3,6 +3,7 @@ import * as PropTypes from 'prop-types';
 import moment from 'moment';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
+import Repeat from '@material-ui/icons/Repeat';
 
 const styles = ({ palette, spacing }) => ({
   title: {
@@ -28,6 +29,14 @@ const styles = ({ palette, spacing }) => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
+    display: 'flex',
+  },
+  recurRule: {
+    width: 'calc(100% - 16px)',
+  },
+  image: {
+    width: '16px',
+    height: '16px',
   },
 });
 
@@ -37,26 +46,32 @@ const VerticalAppointmentBase = ({
   children,
   className,
   ...restProps
-}) => (
-  children || (
+}) => {
+  const repeat = !!data.rRule;
+  return (
+    children || (
     <div className={classNames(classes.content, className)} {...restProps}>
-      <div className={classes.title}>
-        {data.title}
+      <div className={classNames({ [classes.recurRule]: repeat })}>
+        <div className={classes.title}>
+          {data.title}
+        </div>
+        <div className={classes.textContainer}>
+          <div className={classes.time}>
+            {moment(data.startDate).format('h:mm A')}
+          </div>
+          <div className={classes.time}>
+            {' - '}
+          </div>
+          <div className={classes.time}>
+            {moment(data.endDate).format('h:mm A')}
+          </div>
+        </div>
       </div>
-      <div className={classes.textContainer}>
-        <div className={classes.time}>
-          {moment(data.startDate).format('h:mm A')}
-        </div>
-        <div className={classes.time}>
-          {' - '}
-        </div>
-        <div className={classes.time}>
-          {moment(data.endDate).format('h:mm A')}
-        </div>
-      </div>
+      {repeat ? (<Repeat className={classes.image} />) : undefined}
     </div>
-  )
-);
+    )
+  );
+};
 
 VerticalAppointmentBase.propTypes = {
   classes: PropTypes.object.isRequired,

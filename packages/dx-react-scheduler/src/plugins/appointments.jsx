@@ -58,6 +58,13 @@ export class Appointments extends React.PureComponent {
             </Appointment>
           )}
         </Template>
+
+        <Template
+          name="appointmentTop"
+          predicate={params => params.data.rRule}
+        >
+          {() => <div>+++</div>}
+        </Template>
       </Plugin>
     );
   }

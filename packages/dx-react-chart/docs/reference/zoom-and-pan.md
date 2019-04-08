@@ -39,10 +39,10 @@ The viewport configuration.
 
 Field | Type | Description
 ------|------|------------
-argumentStart | any | The viewport's start coordinate on the argument scale.
-argumentEnd | any | The viewport's end coordinate on the argument scale.
-valueStart | any | The viewport's start coordinate on the value scale.
-valueEnd | any | The viewport's end coordinate on the value scale.
+argumentStart | any | The viewport's start boundary on the argument scale.
+argumentEnd | any | The viewport's end boundary on the argument scale.
+valueStart | any | The viewport's start boundary on the value scale.
+valueEnd | any | The viewport's end boundary on the value scale.
 scaleName | string | The scale on which `valueStart` and `valueEnd` should be applied.
 
 ### Viewport.DragBoxProps

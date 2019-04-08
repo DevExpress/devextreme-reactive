@@ -4,7 +4,10 @@ import { ViewState } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
   WeekView,
+  MonthView,
   Appointments,
+  ViewSwitcher,
+  Toolbar,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
 // 'DTSTART:20120201T023000Z',
@@ -63,7 +66,11 @@ export default class Demo extends React.PureComponent {
             startDayHour={9}
             endDayHour={19}
           />
+          <MonthView />
           <Appointments />
+
+          <Toolbar />
+          <ViewSwitcher />
         </Scheduler>
       </Paper>
     );

@@ -3,7 +3,7 @@ import {
   MonthCellsDataComputedFn,
   CalculateMonthDateIntervalsFn, AppointmentMoment,
 } from '../../types';
-import { viewPredicate } from '../../utils';
+import { viewPredicate, recurringViewPredicate } from '../../utils';
 import { sliceAppointmentByWeek } from './helpers';
 
 const DAY_COUNT = 7;
@@ -52,6 +52,10 @@ export const calculateMonthDateIntervals: CalculateMonthDateIntervalsFn = (
   appointments, leftBound, rightBound,
 ) => appointments
   .map(({ start, end, ...restArgs }) => ({ start: moment(start), end: moment(end), ...restArgs }))
+  .reduce((acc, appointment) =>
+    [...acc, ...recurringViewPredicate(appointment, leftBound, rightBound)],
+    [] as AppointmentMoment[],
+  )
   .filter(appointment => viewPredicate(appointment, leftBound, rightBound))
   .reduce((acc, appointment) => ([
     ...acc,

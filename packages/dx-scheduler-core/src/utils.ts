@@ -1,5 +1,6 @@
 import moment from 'moment';
 import { CustomFunction, PureComputed } from '@devexpress/dx-core';
+import { RRule, rrulestr, RRuleSet } from 'rrule';
 import { HORIZONTAL_TYPE, VERTICAL_TYPE } from './constants';
 import {
   ComputedHelperFn, ViewPredicateFn,
@@ -295,3 +296,32 @@ export const calculateRectByDateIntervals: CalculateRectByDateIntervalsFn = (
   return unwrapGroups(adjustAppointments(grouped, multiline))
     .map(appointment => rectCalculator(appointment, { rectByDates, multiline, rectByDatesMeta }));
 };
+
+export const recurringViewPredicate: PureComputed<
+  [AppointmentMoment, Date, Date], AppointmentMoment[]
+> = (appointment, leftBound, rightBound) => {
+  if (appointment.rRule === undefined) return [appointment];
+
+  const options = {
+    ...RRule.parseString(appointment.rRule),
+    dtstart: moment(appointment.start).toDate(), // toUTCString() ???
+  };
+  let rruleSet = new RRuleSet();
+  if (appointment.exDate) {
+    rruleSet = rrulestr(`EXDATE:${appointment.exDate}`, { forceset: true }) as RRuleSet;
+  }
+
+  rruleSet.rrule(new RRule(options));
+
+  const datesInBoundaries = rruleSet.between(leftBound as Date, rightBound as Date);
+  if (datesInBoundaries.length === 0) return [];
+
+  const appointmentDuration = moment(appointment.end)
+    .diff(appointment.start, 'minutes');
+  return datesInBoundaries.map((startDate: any) => ({
+    ...appointment,
+    start: moment(startDate),
+    end: moment(startDate).add(appointmentDuration, 'minutes'),
+  }));
+};
+

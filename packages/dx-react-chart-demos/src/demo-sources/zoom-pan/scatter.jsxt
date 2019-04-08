@@ -13,20 +13,33 @@ import {
   Tooltip,
   ZoomAndPan,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
+import { format } from 'd3-format';
 
 import { dataGenerator } from '../../../demo-data/generator';
 
 const adjustDomain = ([start, end]) => [Math.floor(start), Math.ceil(end)];
 
+const formatTooltipValue = format('.2f');
+const TooltipContent = ({ targetItem, data, ...restProps}) => {
+  const item = data[targetItem.point];
+  const arg = item[targetItem.series === 'Series 1' ? 'arg1' : 'arg2'];
+  const val = item[targetItem.series === 'Series 1' ? 'val1' : 'val2'];
+  const text = `${formatTooltipValue(arg)} | ${formatTooltipValue(val)}`;
+  return <Tooltip.Content {...restProps} text={text} />;
+};
+
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 
+    const data = dataGenerator(200);
     this.state = {
-      data: dataGenerator(200),
+      data,
       viewport: undefined,
     };
     this.changeViewport = viewport => this.setState({ viewport });
+
+    this.TooltipContent = allProps => <TooltipContent {...allProps} data={data} />;
   }
 
   render() {
@@ -52,7 +65,7 @@ export default class Demo extends React.PureComponent {
 
           <EventTracker />
           <HoverState />
-          <Tooltip />
+          <Tooltip contentComponent={this.TooltipContent} />
 
           <ZoomAndPan
             viewport={viewport}

@@ -1,5 +1,10 @@
 import * as React from 'react';<%&additionalImports%>
 import {
+  Plugin,
+  Template,
+  TemplatePlaceholder,
+} from '@devexpress/dx-react-core';
+import {
   ArgumentScale,
   ValueScale,
   EventTracker,
@@ -28,6 +33,24 @@ const TooltipContent = ({ targetItem, data, ...restProps}) => {
   return <Tooltip.Content {...restProps} text={text} />;
 };
 
+const buttonTextStyle = {
+  fontWeight: 'bold',
+  fontSize: 18,
+  cursor: 'default'
+};
+const Button = ({ onClick }) => (
+  <Plugin name="Button">
+    <Template name="series">
+      <TemplatePlaceholder />
+      <g className="reset-button">
+        <Chart.Label x="95%" y="20" style={buttonTextStyle} onClick={onClick}>
+          Reset
+        </Chart.Label>
+      </g>
+    </Template>
+  </Plugin>
+);
+
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -35,9 +58,10 @@ export default class Demo extends React.PureComponent {
     const data = dataGenerator(200);
     this.state = {
       data,
-      viewport: undefined,
+      viewport: null,
     };
     this.changeViewport = viewport => this.setState({ viewport });
+    this.resetViewport = () => this.setState({ viewport: null });
 
     this.TooltipContent = allProps => <TooltipContent {...allProps} data={data} />;
   }
@@ -69,9 +93,10 @@ export default class Demo extends React.PureComponent {
 
           <ZoomAndPan
             viewport={viewport}
-            onViewportChange={this.viewportChange}
+            onViewportChange={this.changeViewport}
             interactionWithValues="both"
           />
+          <Button onClick={this.resetViewport} />
         </Chart>
       </<%&wrapperTag%>>
     );

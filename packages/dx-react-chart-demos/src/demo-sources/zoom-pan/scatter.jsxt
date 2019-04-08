@@ -1,5 +1,7 @@
 import * as React from 'react';<%&additionalImports%>
 import {
+  ArgumentScale,
+  ValueScale,
   EventTracker,
   HoverState,
 } from '@devexpress/dx-react-chart';
@@ -13,6 +15,8 @@ import {
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 
 import { dataGenerator } from '../../../demo-data/generator';
+
+const adjustDomain = ([start, end]) => [Math.floor(start), Math.ceil(end)];
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -30,6 +34,8 @@ export default class Demo extends React.PureComponent {
     return (
       <<%&wrapperTag%><%&wrapperAttributes%>>
         <Chart data={data}>
+          <ArgumentScale modifyDomain={adjustDomain} />
+          <ValueScale modifyDomain={adjustDomain} />
           <ArgumentAxis />
           <ValueAxis />
 

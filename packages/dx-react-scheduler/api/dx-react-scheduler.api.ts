@@ -157,7 +157,6 @@ namespace Appointments {
     draggable: boolean;
     onClick?: (e: object) => void;
     onDoubleClick?: (e: object) => void;
-    style: object;
   }
 }
 
@@ -169,6 +168,21 @@ namespace Appointments {
   }
 }
 
+// @public (undocumented)
+namespace Appointments {
+  interface SplitIndicatorProps {
+    appointmentType: 'vertical' | 'horizontal';
+    position: 'start' | 'end';
+  }
+}
+
+// @public (undocumented)
+namespace Appointments {
+  interface ContainerProps {
+    style: object;
+  }
+}
+
 // @public
 declare const Appointments: React.ComponentType<AppointmentsProps>;
 
@@ -176,6 +190,8 @@ declare const Appointments: React.ComponentType<AppointmentsProps>;
 interface AppointmentsProps {
   appointmentComponent: React.ComponentType<Appointments.AppointmentProps>;
   appointmentContentComponent: React.ComponentType<Appointments.AppointmentContentProps>;
+  containerComponent: React.ComponentType<Appointments.ContainerProps>;
+  splitIndicatorComponent: React.ComponentType<Appointments.SplitIndicatorProps>;
 }
 
 // @public (undocumented)
@@ -417,7 +433,9 @@ interface DayViewProps {
 namespace DragDropProvider {
   interface DraftAppointmentProps {
     data: AppointmentModel;
+    fromPrev: boolean;
     style: object;
+    toNext: boolean;
     type: string;
   }
 }
@@ -426,8 +444,15 @@ namespace DragDropProvider {
 namespace DragDropProvider {
   interface SourceAppointmentProps {
     data: AppointmentModel;
-    style: object;
     type: string;
+  }
+}
+
+// @public (undocumented)
+namespace DragDropProvider {
+  interface ResizeProps {
+    appointmentType: 'vertical' | 'horizontal';
+    position: 'start' | 'end';
   }
 }
 
@@ -444,8 +469,10 @@ declare const DragDropProvider: React.ComponentType<DragDropProviderProps>;
 // @public (undocumented)
 interface DragDropProviderProps {
   allowDrag?: (appointmentData: AppointmentModel) => boolean;
+  allowResize?: (appointmentData: AppointmentModel) => boolean;
   containerComponent: React.ComponentType<DragDropProvider.ContainerProps>;
   draftAppointmentComponent: React.ComponentType<DragDropProvider.DraftAppointmentProps>;
+  resizeComponent: React.ComponentType<DragDropProvider.ResizeProps>;
   sourceAppointmentComponent: React.ComponentType<DragDropProvider.SourceAppointmentProps>;
 }
 

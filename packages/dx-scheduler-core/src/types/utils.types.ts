@@ -19,6 +19,8 @@ export type AppointmentGroup = {
 
 export interface AppointmentUnwrappedGroup extends GroupItem {
   reduceValue: number;
+  fromPrev: boolean;
+  toNext: boolean;
 }
 
 export interface ElementRect extends Rect {

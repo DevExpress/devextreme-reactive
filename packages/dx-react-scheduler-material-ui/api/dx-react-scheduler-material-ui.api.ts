@@ -136,6 +136,16 @@ namespace Appointments {
   type AppointmentContentProps = Appointments_2.AppointmentContentProps;
 }
 
+// @public (undocumented)
+namespace Appointments {
+  type SplitIndicatorProps = Appointments_2.SplitIndicatorProps;
+}
+
+// @public (undocumented)
+namespace Appointments {
+  type ContainerProps = Appointments_2.ContainerProps;
+}
+
 // @public
 declare const Appointments: React.ComponentType<AppointmentsProps> & {
   Appointment: React.ComponentType<Appointments_2.AppointmentProps & { // (undocumented)
@@ -146,12 +156,22 @@ declare const Appointments: React.ComponentType<AppointmentsProps> & {
  className?: string; // (undocumented)
  style?: React.CSSProperties; // (undocumented)
  [x: string]: any }>;
+  SplitIndicator: React.ComponentType<Appointments_2.SplitIndicatorProps & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  Container: React.ComponentType<Appointments_2.ContainerProps & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
 };
 
 // @public (undocumented)
 interface AppointmentsProps {
   appointmentComponent?: React.ComponentType<Appointments_2.AppointmentProps>;
   appointmentContentComponent?: React.ComponentType<Appointments_2.AppointmentContentProps>;
+  containerComponent?: React.ComponentType<Appointments_2.ContainerProps>;
+  splitIndicatorComponent?: React.ComponentType<Appointments_2.SplitIndicatorProps>;
 }
 
 // @public (undocumented)
@@ -389,6 +409,11 @@ namespace DragDropProvider {
 
 // @public (undocumented)
 namespace DragDropProvider {
+  type ResizeProps = DragDropProvider_2.ResizeProps;
+}
+
+// @public (undocumented)
+namespace DragDropProvider {
   type ContainerProps = DragDropProvider_2.ContainerProps;
 }
 
@@ -402,6 +427,10 @@ declare const DragDropProvider: React.ComponentType<DragDropProviderProps> & {
  className?: string; // (undocumented)
  style?: React.CSSProperties; // (undocumented)
  [x: string]: any }>;
+  Resize: React.ComponentType<DragDropProvider_2.ResizeProps & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
   Container: React.ComponentType<DragDropProvider_2.ContainerProps & { // (undocumented)
  className?: string; // (undocumented)
  style?: React.CSSProperties; // (undocumented)
@@ -411,8 +440,10 @@ declare const DragDropProvider: React.ComponentType<DragDropProviderProps> & {
 // @public (undocumented)
 interface DragDropProviderProps {
   allowDrag?: (appointmentData: AppointmentModel) => boolean;
+  allowResize?: (appointmentData: AppointmentModel) => boolean;
   containerComponent?: React.ComponentType<DragDropProvider_2.ContainerProps>;
   draftAppointmentComponent?: React.ComponentType<DragDropProvider_2.DraftAppointmentProps>;
+  resizeComponent?: React.ComponentType<DragDropProvider_2.ResizeProps>;
   sourceAppointmentComponent?: React.ComponentType<DragDropProvider_2.SourceAppointmentProps>;
 }
 

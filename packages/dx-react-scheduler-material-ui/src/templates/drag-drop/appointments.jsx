@@ -1,9 +1,11 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { POSITION_START, POSITION_END } from '@devexpress/dx-scheduler-core';
 import { withStyles } from '@material-ui/core/styles';
 import { AppointmentContent } from '../appointment/appointment-content';
 import { Appointment } from '../appointment/appointment';
+import { SplitIndicator } from '../appointment/split-indicator';
 
 const draftStyles = theme => ({
   appointment: {
@@ -21,25 +23,28 @@ const sourceStyles = {
 };
 
 const DraftAppointmentBase = ({
-  classes, className, style,
-  data, type, ...restProps
+  classes, className, data,
+  type, fromPrev, toNext, ...restProps
 }) => (
   <Appointment
     className={classNames(classes.appointment, className)}
-    style={style}
+    type={type}
     {...restProps}
   >
+    {fromPrev && <SplitIndicator position={POSITION_START} appointmentType={type} />}
     <AppointmentContent
       data={data}
       type={type}
     />
+    {toNext && <SplitIndicator position={POSITION_END} appointmentType={type} />}
   </Appointment>
 );
 
 DraftAppointmentBase.propTypes = {
   classes: PropTypes.object.isRequired,
-  style: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
+  fromPrev: PropTypes.bool.isRequired,
+  toNext: PropTypes.bool.isRequired,
   className: PropTypes.string,
   type: PropTypes.string,
 };

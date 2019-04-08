@@ -16,20 +16,85 @@ import { ArgumentScale, Stack, Animation } from '@devexpress/dx-react-chart';
 
 import { gaming as data } from '../../../demo-data/data-vizualization';
 
+const rootContainerId = 'widget-container';
+const iconButton = 'exportIconButton';
+const ANIMATIONS = Symbol('animation');
+const filter = node => (node.id !== iconButton);
+
+const exportToImage = async (chart, format) => {
+  try {
+    await domtoimage[`to${format.charAt(0).toUpperCase() + format.slice(1)}`](chart, { filter })
+      .then((dataUrl) => {
+        const link = document.createElement('a');
+        link.download = `chart.${format}`;
+        link.href = dataUrl;
+        link.click();
+      });
+  } catch (err) {
+    console.error('oops, something went wrong!', err);
+  }
+};
+
+const exportToJpeg = (chart) => {
+  exportToImage(chart, 'jpeg');
+};
+
+const exportToPng = (chart) => {
+  exportToImage(chart, 'png');
+};
+
+const exportToPdf = async (chart) => {
+  const width = chart.offsetWidth;
+  const height = chart.offsetHeight;
+  try {
+    await domtoimage.toJpeg(chart, { filter })
+      .then((dataUrl) => {
+      // @ts-ignore
+        const doc = new JsPDF({
+          orientation: 'landscape',
+          unit: 'px',
+          format: [width, height],
+        });
+        const pdfWidth = doc.internal.pageSize.getWidth();
+        const pdfHeight = doc.internal.pageSize.getHeight();
+        doc.addImage(dataUrl, 'JPEG', 0, 0, pdfWidth, pdfHeight);
+        doc.save('chart');
+      });
+  } catch (err) {
+    console.error('oops, something went wrong!', err);
+  }
+};
+
+const print = async (chart) => {
+  try {
+    await domtoimage.toJpeg(chart, { filter })
+      .then((dataUrl) => {
+        let html = '<html><head><title></title></head>';
+        html += '<body style="width: 100%; padding: 0; margin: 0;"';
+        html += ' onload="window.focus(); window.print(); window.close()">';
+        html += `<img src="${dataUrl}" /></body></html>`;
+
+        const printWindow = window.open('', 'print');
+        printWindow.document.open();
+        printWindow.document.write(html);
+        printWindow.document.close();
+      });
+  } catch (err) {
+    console.error('oops, something went wrong!', err);
+  }
+};
+
 const options = [
-  'Print',
-  'PNG',
-  'JPEG',
-  'PDF',
+  { key: 'Print', action: print, text: 'Print' },
+  { key: 'JPEG', action: exportToJpeg, text: 'Save as JPEG' },
+  { key: 'PNG', action: exportToPng, text: 'Save as PNG' },
+  { key: 'PDF', action: exportToPdf, text: 'Save as PDF' },
 ];
 
 const buttonStyle = {
   width: '32px',
   height: '32px',
 };
-
-const iconButton = 'exportIconButton';
-const ANIMATIONS = Symbol('animation');
 
 const addKeyframe = (name, def) => {
   if (typeof document === 'undefined') {
@@ -70,60 +135,10 @@ const Export = () => {
     }
   };
 
-  const handleExport = option => () => {
-    const filter = node => (node.id !== iconButton);
-    const chart = document.body.childNodes[4];
-    const width = chart.offsetWidth;
-    const height = chart.offsetHeight;
+  const handleExport = ({ action }) => () => {
+    const chart = document.querySelector(`#${rootContainerId}`);
     handleClose();
-    switch (option) {
-      case 'JPEG':
-        domtoimage.toJpeg(chart, { filter })
-          .then((dataUrl) => {
-            const link = document.createElement('a');
-            link.download = 'chart.jpeg';
-            link.href = dataUrl;
-            link.click();
-          });
-        break;
-      case 'PNG':
-        domtoimage.toPng(chart, { filter })
-          .then((dataUrl) => {
-            const link = document.createElement('a');
-            link.download = 'chart.png';
-            link.href = dataUrl;
-            link.click();
-          });
-        break;
-      case 'PDF':
-        domtoimage.toJpeg(chart, { filter })
-          .then((dataUrl) => {
-            // @ts-ignore
-            const doc = new JsPDF({
-              orientation: 'landscape',
-              unit: 'px',
-              format: [width, height],
-            });
-            const pdfWidth = doc.internal.pageSize.getWidth();
-            const pdfHeight = doc.internal.pageSize.getHeight();
-            doc.addImage(dataUrl, 'JPEG', 0, 0, pdfWidth, pdfHeight);
-            doc.save('chart');
-          });
-        break;
-      default:
-        domtoimage.toJpeg(chart, { filter })
-          .then((dataUrl) => {
-            let html = '<html><head><title></title></head>';
-            html += '<body style="width: 100%; padding: 0; margin: 0;"';
-            html += ' onload="window.focus(); window.print(); window.close()">';
-            html += `<img src="${dataUrl}" /></body></html>`;
-
-            const printWindow = window.open('', 'print');
-            printWindow.document.open();
-            printWindow.document.write(html);
-            printWindow.document.close();
-          });
-    }
+    action(chart);
   };
   return (
     <Plugin name="Export">
@@ -153,7 +168,7 @@ const Export = () => {
                     onClick={handleExport(option)}
                     className="dropdown-item"
                   >
-                    {option === 'Print' ? option : `Save as ${option}`}
+                    {option.text}
                   </button>
                 ))
               }
@@ -245,7 +260,7 @@ export default class Demo extends React.PureComponent {
     const { data: chartData } = this.state;
 
     return (
-      <div className="card">
+      <div className="card" id={rootContainerId}>
         <Chart
           data={chartData}
         >

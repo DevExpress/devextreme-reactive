@@ -23,17 +23,25 @@ const options = [
   'PDF',
 ];
 
+const buttonStyle = {
+  width: '32px',
+  height: '32px',
+};
+
+const iconButton = 'exportIconButton';
+const ANIMATIONS = Symbol('animation');
+
 const addKeyframe = (name, def) => {
   if (typeof document === 'undefined') {
     return;
   }
   const head = document.getElementsByTagName('head')[0];
   let style = Array.from(head.getElementsByTagName('style'))
-    .find(node => node.dataset[Symbol('animation')]);
+    .find(node => node.dataset[ANIMATIONS]);
   if (!style) {
     style = document.createElement('style');
     style.type = 'text/css';
-    style.dataset[Symbol('animation')] = true;
+    style.dataset[ANIMATIONS] = true;
     head.appendChild(style);
   }
   const content = style.textContent;
@@ -63,10 +71,11 @@ const Export = () => {
   };
 
   const handleExport = option => () => {
-    const filter = node => (node.id !== 'iconButton');
+    const filter = node => (node.id !== iconButton);
     const chart = document.body.childNodes[4];
     const width = chart.offsetWidth;
     const height = chart.offsetHeight;
+    handleClose();
     switch (option) {
       case 'JPEG':
         domtoimage.toJpeg(chart, { filter })
@@ -89,6 +98,7 @@ const Export = () => {
       case 'PDF':
         domtoimage.toJpeg(chart, { filter })
           .then((dataUrl) => {
+            // @ts-ignore
             const doc = new JsPDF({
               orientation: 'landscape',
               unit: 'px',
@@ -114,7 +124,6 @@ const Export = () => {
             printWindow.document.close();
           });
     }
-    handleClose();
   };
   return (
     <Plugin name="Export">
@@ -122,10 +131,10 @@ const Export = () => {
         <TemplatePlaceholder />
         <button
           type="button"
-          id="iconButton"
+          id={iconButton}
           onClick={handleClick}
           className="btn btn-outline-secondary btn btn-primary btn-sm mt-0"
-          style={{ width: '32px', height: '32px' }}
+          style={buttonStyle}
         >
           <span className="oi oi-menu" />
         </button>

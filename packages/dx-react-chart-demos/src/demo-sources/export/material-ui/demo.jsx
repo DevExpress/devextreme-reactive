@@ -29,12 +29,21 @@ const options = [
   'PDF',
 ];
 
-const styles = () => ({
+const styles = {
   button: {
     width: '50px',
     height: '50px',
   },
-});
+};
+
+const ITEM_HEIGHT = 48;
+const iconButton = 'exportIconButton';
+const paperProps = {
+  style: {
+    maxHeight: ITEM_HEIGHT * 4.5,
+    width: 150,
+  },
+};
 
 const addKeyframe = (name, def) => {
   if (typeof document === 'undefined') {
@@ -61,8 +70,6 @@ const getLabelAnimationName = () => {
   return name;
 };
 
-const ITEM_HEIGHT = 48;
-
 const ExportBase = (props) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClick = (event) => {
@@ -74,10 +81,11 @@ const ExportBase = (props) => {
   };
 
   const handleExport = option => () => {
-    const filter = node => (node.id !== 'iconButton');
+    const filter = node => (node.id !== iconButton);
     const chart = document.body.childNodes[4];
     const width = chart.offsetWidth;
     const height = chart.offsetHeight;
+    handleClose();
     switch (option) {
       case 'JPEG':
         domtoimage.toJpeg(chart, { filter })
@@ -100,6 +108,7 @@ const ExportBase = (props) => {
       case 'PDF':
         domtoimage.toJpeg(chart, { filter })
           .then((dataUrl) => {
+            // @ts-ignore
             const doc = new JsPDF({
               orientation: 'landscape',
               unit: 'px',
@@ -125,7 +134,6 @@ const ExportBase = (props) => {
             printWindow.document.close();
           });
     }
-    handleClose();
   };
 
   const open = Boolean(anchorEl);
@@ -135,7 +143,7 @@ const ExportBase = (props) => {
       <Template name="top">
         <TemplatePlaceholder />
         <IconButton
-          id="iconButton"
+          id={iconButton}
           onClick={handleClick}
           className={classes.button}
         >
@@ -145,12 +153,7 @@ const ExportBase = (props) => {
           anchorEl={anchorEl}
           open={open}
           onClose={handleClose}
-          PaperProps={{
-            style: {
-              maxHeight: ITEM_HEIGHT * 4.5,
-              width: 150,
-            },
-          }}
+          PaperProps={paperProps}
         >
           {options.map(option => (
             <MenuItem key={option} onClick={handleExport(option)}>
@@ -255,7 +258,7 @@ export default class Demo extends React.PureComponent {
           data={chartData}
         >
           <Title
-            text={`Estimated global gaming software ${'\n'}(revenue by platform, in 2018)`}
+            text={'Estimated global gaming software\n(revenue by platform, in 2018)'}
             textComponent={TitleText}
           />
           <Legend

@@ -74,6 +74,10 @@
     items:
       - title: Multiple Axes
         path: /react/chart/demos/combination/multiple-axes
+  - title: Zoom and Pan
+    items:
+      - title: Zoom and Pan
+        path: /react/chart/demos/zoom-and-pan/scatter
 /react/scheduler:
   - title: Demos
     items:

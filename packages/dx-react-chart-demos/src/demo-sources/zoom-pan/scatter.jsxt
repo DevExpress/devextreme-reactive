@@ -25,7 +25,7 @@ import { dataGenerator } from '../../../demo-data/generator';
 const adjustDomain = ([start, end]) => [Math.floor(start), Math.ceil(end)];
 
 const formatTooltipValue = format('.2f');
-const TooltipContent = ({ targetItem, data, ...restProps}) => {
+const TooltipContent = ({ targetItem, data, ...restProps }) => {
   const item = data[targetItem.point];
   const arg = item[targetItem.series === 'Series 1' ? 'arg1' : 'arg2'];
   const val = item[targetItem.series === 'Series 1' ? 'val1' : 'val2'];
@@ -36,14 +36,14 @@ const TooltipContent = ({ targetItem, data, ...restProps}) => {
 const buttonTextStyle = {
   fontWeight: 'bold',
   fontSize: 18,
-  cursor: 'default'
+  cursor: 'default',
 };
 const Button = ({ onClick }) => (
   <Plugin name="Button">
     <Template name="series">
       <TemplatePlaceholder />
       <g className="reset-button">
-        <Chart.Label x="95%" y="20" style={buttonTextStyle} onClick={onClick}>
+        <Chart.Label x="90%" y="20" style={buttonTextStyle} onClick={onClick}>
           Reset
         </Chart.Label>
       </g>

@@ -39,12 +39,17 @@ class EventTrackerBase extends React.PureComponent<EventTrackerProps> {
         <Getter name="clickHandlers" value={wrapToList(onClick)} />
         <Getter name="pointerMoveHandlers" value={wrapToList(onPointerMove)} />
         <Template name="canvas">
-          <TemplateConnector>
-            {({ series, clickHandlers, pointerMoveHandlers }) => {
-              const handlers = buildEventHandlers(series, { clickHandlers, pointerMoveHandlers });
-              return <TemplatePlaceholder params={translateEventNames(handlers)} />;
-            }}
-          </TemplateConnector>
+          {params => (
+            <TemplateConnector>
+              {({ series, clickHandlers, pointerMoveHandlers }) => {
+                const handlers = buildEventHandlers(series, { clickHandlers, pointerMoveHandlers });
+                // TODO: Conflicts are still possible. Improve this code.
+                return (
+                  <TemplatePlaceholder params={{ ...params, ...translateEventNames(handlers) }} />
+                );
+              }}
+            </TemplateConnector>
+          )}
         </Template>
       </Plugin>
     );

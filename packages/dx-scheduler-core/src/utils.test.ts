@@ -504,13 +504,13 @@ describe('Utils', () => {
         .toBe(1);
     });
     it('should work recurrence appointment with EXDATE', () => {
-      const leftBoundTest = new Date('2019-04-9 00:00');
-      const rightBoundTest = new Date('2019-04-12 00:00');
+      const leftBoundTest = new Date(Date.UTC(2019, 3, 9, 0, 0));
+      const rightBoundTest = new Date(Date.UTC(2019, 3, 12, 0, 0));
       const appointment = {
-        start: new Date('2019-04-9 10:00'),
-        end: new Date('2019-04-9 11:00'),
+        start: moment(Date.UTC(2019, 3, 9, 10, 0)),
+        end: moment(Date.UTC(2019, 3, 9, 11, 0)),
         rRule: 'FREQ=DAILY;COUNT=3',
-        exDate: '20190410T070000Z',
+        exDate: '20190410T100000Z',
       };
       const result = recurringViewPredicate(appointment, leftBoundTest, rightBoundTest);
 
@@ -519,16 +519,16 @@ describe('Utils', () => {
       expect(result[0])
         .toMatchObject({
           dataItem: {
-            startDate: new Date('2019-04-9 10:00'),
-            endDate: new Date('2019-04-9 11:00'),
+            startDate: new Date(Date.UTC(2019, 3, 9, 10, 0)),
+            endDate: new Date(Date.UTC(2019, 3, 9, 11, 0)),
             childId: 0,
           },
         });
       expect(result[1])
         .toMatchObject({
           dataItem: {
-            startDate: new Date('2019-04-11 10:00'),
-            endDate: new Date('2019-04-11 11:00'),
+            startDate: new Date(Date.UTC(2019, 3, 11, 10, 0)),
+            endDate: new Date(Date.UTC(2019, 3, 11, 11, 0)),
             childId: 1,
           },
         });

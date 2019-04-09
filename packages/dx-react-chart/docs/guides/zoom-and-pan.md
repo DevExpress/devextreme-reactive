@@ -22,7 +22,7 @@ In the controlled mode, pass the viewport's boundaries to the `ZoomAndPan` plugi
 
 ## Enable Zooming or Panning Inidividually
 
-Use the `interactionWithArguments` and `interactionWithValues` properties to enable zooming or panning individually for corresponding scales.
+Use the `interactionWithArguments` and `interactionWithValues` properties to enable zooming and/or panning for individual scales.
 
 .embedded-demo({ "path": "zoom-pan/datetime", "showThemeSelector": true })
 

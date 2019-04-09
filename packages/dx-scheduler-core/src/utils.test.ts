@@ -9,6 +9,7 @@ import {
   unwrapGroups,
   getAppointmentStyle,
   calculateRectByDateIntervals,
+  recurringViewPredicate,
 } from './utils';
 
 describe('Utils', () => {
@@ -429,6 +430,65 @@ describe('Utils', () => {
 
       expect(computed(getters, viewName, baseComputed, defaultValue))
         .toEqual('baseComputed');
+    });
+  });
+  describe('#recurringViewPredicate', () => {
+    const leftBound = new Date('2019-04-9 00:00');
+    const rightBound = new Date('2019-04-11 00:00');
+    it('should work with no recurrence appointment', () => {
+      const appointment = {
+        start: new Date('2019-04-9 10:00'),
+        end: new Date('2019-04-9 11:00'),
+      };
+      const result = recurringViewPredicate(appointment, leftBound, rightBound);
+
+      expect(result)
+        .toEqual([appointment]);
+    });
+    it('should work with recurrence appointment', () => {
+      const appointment = {
+        start: new Date('2019-04-9 10:00'),
+        end: new Date('2019-04-9 11:00'),
+        rRule: 'FREQ=DAILY;COUNT=2',
+        customField: 'a',
+        dataItem: {
+          startDate: new Date('2019-04-9 10:00'),
+          endDate: new Date('2019-04-9 11:00'),
+          data: 1,
+        },
+      };
+      const result = recurringViewPredicate(appointment, leftBound, rightBound);
+
+      expect(result[0].start.toString())
+        .toBe(moment(new Date('2019-04-9 10:00')).toString());
+      expect(result[0].end.toString())
+        .toBe(moment(new Date('2019-04-9 11:00')).toString());
+
+      expect(result[1].start.toString())
+        .toBe(moment(new Date('2019-04-10 10:00')).toString());
+      expect(result[1].end.toString())
+        .toBe(moment(new Date('2019-04-10 11:00')).toString());
+
+      expect(result)
+        .toMatchObject([{
+          dataItem: {
+            startDate: new Date('2019-04-9 10:00'),
+            endDate: new Date('2019-04-9 11:00'),
+            data: 1,
+            childId: 0,
+          },
+          customField: 'a',
+          rRule: 'FREQ=DAILY;COUNT=2',
+        }, {
+          dataItem: {
+            startDate: new Date('2019-04-10 10:00'),
+            endDate: new Date('2019-04-10 11:00'),
+            data: 1,
+            childId: 1,
+          },
+          customField: 'a',
+          rRule: 'FREQ=DAILY;COUNT=2',
+        }]);
     });
   });
 });

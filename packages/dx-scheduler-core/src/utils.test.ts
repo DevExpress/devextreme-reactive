@@ -490,5 +490,48 @@ describe('Utils', () => {
           rRule: 'FREQ=DAILY;COUNT=2',
         }]);
     });
+    it('should filter recurrence appointment', () => {
+      const leftBoundTest = new Date('2019-04-9 00:00');
+      const rightBoundTest = new Date('2019-04-10 00:00');
+      const appointment = {
+        start: new Date('2019-04-9 10:00'),
+        end: new Date('2019-04-10 9:00'),
+        rRule: 'FREQ=DAILY;COUNT=2',
+      };
+      const result = recurringViewPredicate(appointment, leftBoundTest, rightBoundTest);
+
+      expect(result.length)
+        .toBe(1);
+    });
+    it('should work recurrence appointment with EXDATE', () => {
+      const leftBoundTest = new Date('2019-04-9 00:00');
+      const rightBoundTest = new Date('2019-04-12 00:00');
+      const appointment = {
+        start: new Date('2019-04-9 10:00'),
+        end: new Date('2019-04-9 11:00'),
+        rRule: 'FREQ=DAILY;COUNT=3',
+        exDate: '20190410T070000Z',
+      };
+      const result = recurringViewPredicate(appointment, leftBoundTest, rightBoundTest);
+
+      expect(result.length)
+        .toBe(2);
+      expect(result[0])
+        .toMatchObject({
+          dataItem: {
+            startDate: new Date('2019-04-9 10:00'),
+            endDate: new Date('2019-04-9 11:00'),
+            childId: 0,
+          },
+        });
+      expect(result[1])
+        .toMatchObject({
+          dataItem: {
+            startDate: new Date('2019-04-11 10:00'),
+            endDate: new Date('2019-04-11 11:00'),
+            childId: 1,
+          },
+        });
+    });
   });
 });

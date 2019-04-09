@@ -3,7 +3,6 @@ import * as PropTypes from 'prop-types';
 import moment from 'moment';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
-import Repeat from '@material-ui/icons/Repeat';
 
 const styles = ({ palette, spacing }) => ({
   title: {
@@ -31,12 +30,16 @@ const styles = ({ palette, spacing }) => ({
     whiteSpace: 'nowrap',
     display: 'flex',
   },
-  recurRule: {
+  recurContainer: {
     width: 'calc(100% - 16px)',
   },
-  image: {
+  imageContainer: {
     width: '16px',
     height: '16px',
+  },
+  image: {
+    width: '100%',
+    height: '100%',
   },
 });
 
@@ -45,13 +48,14 @@ const VerticalAppointmentBase = ({
   data,
   children,
   className,
+  recurringIconComponent: RecurringIcon,
   ...restProps
 }) => {
   const repeat = !!data.rRule;
   return (
     children || (
     <div className={classNames(classes.content, className)} {...restProps}>
-      <div className={classNames({ [classes.recurRule]: repeat })}>
+      <div className={classNames({ [classes.recurContainer]: repeat })}>
         <div className={classes.title}>
           {data.title}
         </div>
@@ -67,13 +71,18 @@ const VerticalAppointmentBase = ({
           </div>
         </div>
       </div>
-      {repeat ? (<Repeat className={classes.image} />) : undefined}
+      {repeat ? (
+        <div className={classes.imageContainer}>
+          <RecurringIcon className={classes.image} />
+        </div>
+      ) : undefined}
     </div>
     )
   );
 };
 
 VerticalAppointmentBase.propTypes = {
+  recurringIconComponent: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
   children: PropTypes.node,

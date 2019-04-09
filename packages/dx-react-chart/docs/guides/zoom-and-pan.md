@@ -16,7 +16,7 @@ In uncontrolled mode, add the `ZoomAndPan` plugin to the `Chart` component.
 
 ### Controlled Mode
 
-In controlled mode, pass the viewport's boundaries to the `ZoomAndPan` plugin's `viewport` property and handle `onViewportChange` event to control zoom and pan externally.
+In the controlled mode, pass the viewport's boundaries to the `ZoomAndPan` plugin's `viewport` property and handle the `onViewportChange` event to control zoom and pan.
 
 .embedded-demo({ "path": "zoom-pan/controlled", "showThemeSelector": true })
 

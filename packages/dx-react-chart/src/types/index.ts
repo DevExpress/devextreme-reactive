@@ -6,8 +6,8 @@ export {
   FactoryFn, ModifyDomainFn,
   BBoxes, BBoxesChange,
   StackList, StacksOptions, OffsetFn, OrderFn,
-  EventHandlers,
-  DomainBounds, ViewportOptions,
+  EventHandlers, NumberArray,
+  DomainBounds, ViewportOptions, OnViewportChangeFn,
 
   AreaSeries, LineSeries, SplineSeries, BarSeries, ScatterSeries, PieSeries,
   SeriesProps, PathComponentProps, PathComponentPathProps, PointComponentProps,
@@ -33,7 +33,7 @@ export * from './plugins.space-filling-rects.types';
 export * from './plugins.stack.types';
 export * from './plugins.title.types';
 export * from './plugins.tooltip.types';
-export * from './plugins.viewport.types';
+export * from './plugins.zoom-pan.types';
 export * from './utils.series-helpers.types';
 export * from './templates.axis.types';
 export * from './templates.core.types';

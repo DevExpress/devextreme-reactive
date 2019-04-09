@@ -3,7 +3,6 @@ import { CalculateWeekDateIntervalsFn, AppointmentMoment } from '../../types';
 import {
   sliceAppointmentByDay, dayBoundaryPredicate, reduceAppointmentByDayBounds,
 } from './helpers';
-// import { intervalDuration } from '../drag-drop-provider/helpers';
 import { viewPredicate, recurringViewPredicate } from '../../utils';
 
 export const calculateWeekDateIntervals: CalculateWeekDateIntervalsFn = (
@@ -21,4 +20,4 @@ export const calculateWeekDateIntervals: CalculateWeekDateIntervalsFn = (
     [...acc, ...sliceAppointmentByDay(appointment)]), [] as AppointmentMoment[],
   )
   .filter(appointment => dayBoundaryPredicate(appointment, leftBound, rightBound, excludedDays))
-  .map(appointment => reduceAppointmentByDayBounds(appointment, leftBound, rightBound))
+  .map(appointment => reduceAppointmentByDayBounds(appointment, leftBound, rightBound));

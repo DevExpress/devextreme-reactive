@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { POSITION_START, POSITION_END } from '@devexpress/dx-scheduler-core';
 import { withStyles } from '@material-ui/core/styles';
 import { AppointmentContent } from '../appointment/appointment-content';
+import { RecurringIcon } from '../appointment/recurring-icon';
 import { Appointment } from '../appointment/appointment';
 import { SplitIndicator } from '../appointment/split-indicator';
 
@@ -35,6 +36,7 @@ const DraftAppointmentBase = ({
     <AppointmentContent
       data={data}
       type={type}
+      recurringIconComponent={RecurringIcon}
     />
     {toNext && <SplitIndicator position={POSITION_END} appointmentType={type} />}
   </Appointment>

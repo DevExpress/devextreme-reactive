@@ -10,6 +10,7 @@ import {
   Toolbar,
   AppointmentTooltip,
   AppointmentForm,
+  DragDropProvider,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
 // 'DTSTART:20120201T023000Z',
@@ -57,6 +58,7 @@ export default class Demo extends React.PureComponent {
 
   commitChanges({ added, changed, deleted }) {
     this.setState((state) => {
+      debugger
       let { data } = state;
       if (added) {
         const startingAddedId = data.length > 0 ? data[data.length - 1].id + 1 : 0;
@@ -102,6 +104,8 @@ export default class Demo extends React.PureComponent {
           <AppointmentForm />
           <Toolbar />
           <ViewSwitcher />
+
+          <DragDropProvider />
         </Scheduler>
       </Paper>
     );

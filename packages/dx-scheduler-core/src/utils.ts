@@ -306,7 +306,7 @@ export const calculateRectByDateIntervals: CalculateRectByDateIntervalsFn = (
 export const recurringViewPredicate: PureComputed<
   [AppointmentMoment, Date, Date], AppointmentMoment[]
 > = (appointment, leftBound, rightBound) => {
-  if (appointment.rRule === undefined) return [appointment];
+  if (!appointment.rRule) return [appointment];
 
   const options = {
     ...RRule.parseString(appointment.rRule),
@@ -324,10 +324,15 @@ export const recurringViewPredicate: PureComputed<
 
   const appointmentDuration = moment(appointment.end)
     .diff(appointment.start, 'minutes');
-  return datesInBoundaries.map((startDate: any) => ({
+  return datesInBoundaries.map((startDate, index) => ({
     ...appointment,
+    dataItem: {
+      ...appointment.dataItem,
+      startDate: moment(startDate).toDate(),
+      endDate: moment(startDate).add(appointmentDuration, 'minutes').toDate(),
+      childId: index,
+    },
     start: moment(startDate),
     end: moment(startDate).add(appointmentDuration, 'minutes'),
   }));
 };
-

@@ -6,6 +6,7 @@ import {
   TableColumn, TableRow,
   CollapsedCell,
   GetColumnWidthGetterFn,
+  RowsVisibleBoundary,
 } from '../types';
 import { TABLE_FLEX_TYPE } from '..';
 
@@ -37,8 +38,6 @@ export const getVisibleBoundary: GetVisibleBoundaryFn = (
     start = Math.round(viewportStart / itemSize) - offset;
     end = start;
   }
-  let startDataIndex;
-  let endDataIndex;
 
   const viewportEnd = viewportStart + viewportSize;
   while (end === null && index < items.length) {
@@ -49,11 +48,9 @@ export const getVisibleBoundary: GetVisibleBoundaryFn = (
       || (beforePosition < viewportStart && afterPosition > viewportEnd);
     if (isVisible && start === null) {
       start = index;
-      startDataIndex = item.dataIndex;
     }
     if (!isVisible && start !== null) {
       end = index - 1;
-      endDataIndex = item.dataIndex;
       break;
     }
     index += 1;
@@ -61,13 +58,12 @@ export const getVisibleBoundary: GetVisibleBoundaryFn = (
   }
   if (start !== null && end === null) {
     end = index - 1;
-    endDataIndex = end;
   }
 
   start = start === null ? 0 : start;
   end = end === null ? 0 : end;
 
-  return [start + offset, end + offset, startDataIndex + offset, endDataIndex + offset];
+  return [start + offset, end + offset];
 };
 
 export const getRenderBoundary: GetRenderBoundaryFn = (itemsCount, visibleBoundary, overscan) => {
@@ -87,11 +83,17 @@ export const getColumnsVisibleBoundary: PureComputed<
   )
 );
 export const getRowsVisibleBoundary: PureComputed<
-[TableRow[], number, number, GetColumnWidthFn, number, number], VisibleBoundary
+[TableRow[], number, number, GetColumnWidthFn, number, number], RowsVisibleBoundary
 > = (rows, top, height, getRowHeight, offset, rowHeight) => {
-  return (
-    getVisibleBoundary(rows, top, height, getRowHeight, offset, rowHeight)
-  );
+  const boundaries = getVisibleBoundary(rows, top, height, getRowHeight, offset, rowHeight);
+  const start = boundaries[0];
+  const end = boundaries[1];
+
+  return {
+    start,
+    end,
+    viewportTop: top,
+  };
 };
 
 type GetRenderBoundaryFn = PureComputed<[number, number[], number], number[]>;
@@ -99,15 +101,11 @@ type GetSpecificRenderBoundaryFn = PureComputed<[number, number[]], number[]>;
 
 export const getColumnsRenderBoundary: GetSpecificRenderBoundaryFn = (
   columnCount, visibleBoundary,
-) => (
-  getRenderBoundary(columnCount, visibleBoundary, 1)
-);
+) => getRenderBoundary(columnCount, visibleBoundary, 1);
 
 export const getRowsRenderBoundary: GetSpecificRenderBoundaryFn = (
   rowsCount, visibleBoundary,
-) => (
-  getRenderBoundary(rowsCount, visibleBoundary, 3)
-);
+) => getRenderBoundary(rowsCount, visibleBoundary, 3);
 
 export const getSpanBoundary: GetSpanBoundaryFn = (
   items, visibleBoundaries, getItemSpan,

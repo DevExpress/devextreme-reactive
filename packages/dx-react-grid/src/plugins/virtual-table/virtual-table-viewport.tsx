@@ -52,9 +52,9 @@ export class VirtualTableViewport extends React.PureComponent<any, any> {
   }
 
   getScrollHandler = (
-    currentVirtualPageBoundary, ensureNextVirtualPage,
+    currentVirtualPageBoundary, viewportTop, ensureNextVirtualPage,
   ) => (
-      e => this.updateViewport(e, currentVirtualPageBoundary, ensureNextVirtualPage)
+      e => this.updateViewport(e, currentVirtualPageBoundary, viewportTop, ensureNextVirtualPage)
   )
 
   getSizeChangeHandler = (currentVirtualPageBoundary, requestNextPage) => (
@@ -147,7 +147,7 @@ export class VirtualTableViewport extends React.PureComponent<any, any> {
     }
   }
 
-  updateViewport(e, visibleRowBoundaries, ensureNextVirtualPage) {
+  updateViewport(e, visibleRowBoundaries, viewportTop, ensureNextVirtualPage) {
     const node = e.target;
 
     if (this.shouldSkipScrollEvent(e)) {
@@ -159,6 +159,7 @@ export class VirtualTableViewport extends React.PureComponent<any, any> {
       estimatedRowHeight,
       visibleRowBoundaries,
       viewportTop: node.scrollTop,
+      prevTop: viewportTop,
       containerHeight: this.state.containerHeight,
     });
 
@@ -220,7 +221,7 @@ export class VirtualTableViewport extends React.PureComponent<any, any> {
                     const {
                       containerComponent: Container,
                     } = params;
-                    const { containerWidth: width, viewportLeft } = this.state;
+                    const { containerWidth: width, viewportLeft, viewportTop } = this.state;
                     const getColumnWidth = this.getColumnWidthGetter(
                       tableColumns, width, minColumnWidth,
                     );
@@ -229,7 +230,8 @@ export class VirtualTableViewport extends React.PureComponent<any, any> {
                       estimatedRowHeight, this.getRowHeight,
                     );
                     const renderRowBoundaries = getRowsRenderBoundary(
-                      loadedRowsStart + tableBodyRows.length, visibleRowBoundaries,
+                      loadedRowsStart + tableBodyRows.length,
+                      [visibleRowBoundaries.start, visibleRowBoundaries.end],
                     );
                     const totalRowCount = availableRowCount || tableBodyRows.length;
 
@@ -246,7 +248,7 @@ export class VirtualTableViewport extends React.PureComponent<any, any> {
                         }}
                         onScroll={
                           this.getScrollHandler(
-                            visibleRowBoundaries, ensureNextVirtualPage,
+                            visibleRowBoundaries, viewportTop, ensureNextVirtualPage,
                           )
                         }
                       >
@@ -256,8 +258,8 @@ export class VirtualTableViewport extends React.PureComponent<any, any> {
                             blockRefsHandler: this.registerBlockRef,
                             rowRefsHandler: this.registerRowRef,
                             onUpdate: this.handleTableUpdate,
-                            visibleRowBoundaries: renderRowBoundaries,
                             getRowHeight: this.getRowHeight,
+                            renderRowBoundaries,
                             getColumnWidth,
                             headerHeight,
                             bodyHeight,

@@ -1,9 +1,9 @@
 import {
   getRowsVisibleBoundary,
 } from '../../utils/virtual-table';
-import { VisibleBoundsFn, PageTriggersMetaFn } from '../../types';
+import { RowsVisibleBoundaryFn, PageTriggersMetaFn } from '../../types';
 
-export const visibleRowsBounds: VisibleBoundsFn = (
+export const visibleRowsBounds: RowsVisibleBoundaryFn = (
   state, getters, estimatedRowHeight, getRowHeight,
 ) => {
   const {
@@ -14,14 +14,14 @@ export const visibleRowsBounds: VisibleBoundsFn = (
   } = getters;
 
   return getRowsVisibleBoundary(
-      tableBodyRows, viewportTop, containerHeight - headerHeight - footerHeight,
-      getRowHeight, loadedRowsStart, estimatedRowHeight,
-    );
+    tableBodyRows, viewportTop, containerHeight - headerHeight - footerHeight,
+    getRowHeight, loadedRowsStart, estimatedRowHeight,
+  );
 };
 
 /** how many rows up and down before next page request */
 export const pageTriggersMeta: PageTriggersMetaFn = (
-  { viewportTop, containerHeight, visibleRowBoundaries, estimatedRowHeight },
+  { containerHeight, visibleRowBoundaries, estimatedRowHeight },
   { virtualPageSize, virtualRows, loadedRowsStart },
 ) => {
   const loadedCount = virtualRows.rows.length;
@@ -32,11 +32,11 @@ export const pageTriggersMeta: PageTriggersMetaFn = (
 
   const topTriggerIndex = loadedRowsStart > 0 ? loadedRowsStart + virtualPageSize : 0;
   const bottomTriggerIndex = loadedRowsStart + loadedCount - virtualPageSize;
-  const firstRowIndex = visibleRowBoundaries[0];
-  const visibleCount = visibleRowBoundaries[1] - visibleRowBoundaries[0];
+  const firstRowIndex = visibleRowBoundaries.start;
+  const visibleCount = visibleRowBoundaries.end - visibleRowBoundaries.start;
   const middleIndex = firstRowIndex + Math.round(visibleCount / 2);
 
-  const middlePosition = viewportTop + containerHeight / 2;
+  const middlePosition = visibleRowBoundaries.viewportTop + containerHeight / 2;
 
   const topTriggerOffset = (middleIndex - topTriggerIndex) * estimatedRowHeight;
   const bottomTriggerOffset = (bottomTriggerIndex - middleIndex) * estimatedRowHeight;

@@ -52,7 +52,7 @@ export interface VirtualTableLayoutProps extends TableLayoutProps {
   headTableComponent: React.ComponentType<object>;
   footerTableComponent: React.ComponentType<object>;
   onUpdate: () => void;
-  visibleRowBoundaries: VisibleBoundary;
+  renderRowBoundaries: VisibleBoundary;
   visibleColumnsBoundaries: VisibleBoundary[];
   getRowHeight: GetRowHeightFn;
   getColumnWidth: GetColumnWidthFn;

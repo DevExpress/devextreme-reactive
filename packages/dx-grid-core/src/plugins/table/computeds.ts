@@ -21,21 +21,19 @@ export const tableColumnsWithDataRows: PureComputed<[any[], GridColumnExtension[
 
 export const tableRowsWithDataRows: PureComputed<[Row[], GetRowIdFn, number]> = (
   rows, getRowId, isRemoteRowsLoading,
-) => {
-  return (
+) => (
   !rows.length && !isRemoteRowsLoading
     ? [{ key: TABLE_NODATA_TYPE.toString(), type: TABLE_NODATA_TYPE }]
     : rows.map((row, dataIndex) => {
       const rowId = getRowId(row);
       return {
         row,
-        dataIndex,
+        // dataIndex,
         rowId,
         type: TABLE_DATA_TYPE,
         key: `${TABLE_DATA_TYPE.toString()}_${rowId}`,
       };
     }));
-  }
 
 export const tableCellColSpanGetter: GetCellColSpanFn = (params) => {
   const { tableRow, tableColumns, tableColumn } = params;

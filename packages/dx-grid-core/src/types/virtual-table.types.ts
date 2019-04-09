@@ -16,7 +16,13 @@ export type CollapsedCell = { column: Pick<TableColumn, 'key' | 'type'>, colSpan
 type CollapsedRow = TableRow & { cells: any[], height: number };
 
 /** @internal */
-export type VisibleBoundary =  ReadonlyArray<number>;
+export type VisibleBoundary = ReadonlyArray<number>;
+/** @internal */
+export type RowsVisibleBoundary = {
+  start: number;
+  end: number;
+  viewportTop: number;
+};
 /** @internal */
 export type GetVisibleBoundaryFn = PureComputed<
   [ReadonlyArray<any>, number, number, (item: any) => number | null, number, number?],
@@ -85,8 +91,8 @@ export type GetColumnWidthGetterFn = PureComputed<
   GetColumnWidthFn
 >;
 
-export type VisibleBoundsFn = PureComputed<
-  [any, Getters, number, GetRowHeightFn], number[]
+export type RowsVisibleBoundaryFn = PureComputed<
+  [any, Getters, number, GetRowHeightFn], RowsVisibleBoundary
 >;
 
 type PageTriggersMeta = {
@@ -99,7 +105,7 @@ type PageTriggersMeta = {
 export type GridGeometry = {
   viewportTop: number;
   containerHeight: number;
-  visibleRowBoundaries: number;
+  visibleRowBoundaries: RowsVisibleBoundary;
   estimatedRowHeight: number;
 };
 

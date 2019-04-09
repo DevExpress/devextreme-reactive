@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Plugin, Action, Getters, Actions } from '@devexpress/dx-react-core';
-import { pageTriggersMeta, GridGeometry } from '@devexpress/dx-grid-core';
+import { pageTriggersMeta } from '@devexpress/dx-grid-core';
 
 export class RemoteDataLoader extends React.PureComponent<any, any> {
   ensureNextVirtualPage = (
-    payload: GridGeometry,
+    payload: any,
     getters: Getters,
     { requestNextPage }: Actions,
   ) => {
@@ -37,7 +37,6 @@ export class RemoteDataLoader extends React.PureComponent<any, any> {
     }
 
     if (referenceIndex !== null) {
-      console.log(triggersMeta, payload, referenceIndex)
       requestNextPage(referenceIndex);
     }
   }

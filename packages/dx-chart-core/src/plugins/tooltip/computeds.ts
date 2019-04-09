@@ -1,5 +1,5 @@
 import { processPointerMove } from '../../utils/hover-state';
-import { getRootOffset } from '../../utils/root-offset';
+import { getOffset } from '../../utils/root-offset';
 import {
   SeriesList, SeriesRef, TransformedPoint, TargetList, NotifyPointerMoveFn,
   TooltipParameters, TooltipReference, Rect,
@@ -26,12 +26,16 @@ export const createReference = (
   getBoundingClientRect() {
     // This function is expected to be called (by the *Popper*) when DOM is ready -
     // so *rootRef.current* can be accessed.
-    const offset = getRootOffset(rootRef.current!);
+    const offset = getOffset(rootRef.current!);
+    // *getBoundingClientRect* of a real html element is affected by window scrolling.
+    // *popper.js* subscribes "html -> getBoundingClientRect -> (left, top)" from
+    // "reference -> getBoundingClientRect" - so here it is added.
+    const htmlRect = rootRef.current!.ownerDocument!.documentElement.getBoundingClientRect();
     return {
-      left: rect[0] + offset[0],
-      top: rect[1] + offset[1],
-      right: rect[2] + offset[0],
-      bottom: rect[3] + offset[1],
+      left: rect[0] + offset[0] + htmlRect.left,
+      top: rect[1] + offset[1] + htmlRect.top,
+      right: rect[2] + offset[0] + htmlRect.left,
+      bottom: rect[3] + offset[1] + htmlRect.top,
       width: 0,
       height: 0,
     };

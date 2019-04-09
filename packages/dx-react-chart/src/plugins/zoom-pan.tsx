@@ -14,7 +14,7 @@ import {
 } from '@devexpress/dx-react-core';
 import { DragBox } from '../templates/drag-box';
 import {
-  adjustLayout, getViewport, isKeyPressed, getRootOffset, getDeltaForTouches,
+  adjustLayout, getViewport, isKeyPressed, getOffset, getDeltaForTouches,
   ScalesCache,
 } from '@devexpress/dx-chart-core';
 import {
@@ -53,7 +53,7 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
 
   handleStart(zoomRegionKey: string) {
     return (e: any) => {
-      this.offset = getRootOffset(e.currentTarget);
+      this.offset = getOffset(e.currentTarget);
       // Rectangle mode should be canceled if "zoomRegionKey" is released during mouse movevent or
       // not pressed when mouse is up. To do it access to "event" object is required in
       // "handleMouseMove" and "handleMouseUp".
@@ -152,7 +152,7 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
 
   handleScroll(scales: ScalesCache) {
     return (e: any) => {
-      const offset = getRootOffset(e.currentTarget);
+      const offset = getOffset(e.currentTarget);
       const center: NumberArray = [e.pageX - offset[0], e.pageY - offset[1]];
       this.zoom(scales, e.nativeEvent.wheelDelta, center);
     };

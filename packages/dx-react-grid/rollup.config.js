@@ -20,6 +20,7 @@ export default {
     typescriptRollup({
       typescript,
       useTsconfigDeclarationDir: true,
+      abortOnError: false // TODO: do not forget
     }),
     replace({
       "/** @class */": "/*#__PURE__*/",

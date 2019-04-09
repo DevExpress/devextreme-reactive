@@ -47,7 +47,7 @@ scaleName | string | The scale on which `valueStart` and `valueEnd` should be ap
 
 ### Viewport.DragBoxProps
 
-Describes properties passed to a component that renders the rectangle appearing when a user zooms a region with the mouse drag gesture.
+Describes properties passed to a component that renders the rectangle around the area a user zooms with the mouse drag gesture.
 
 Field | Type | Description
 ------|------|------------

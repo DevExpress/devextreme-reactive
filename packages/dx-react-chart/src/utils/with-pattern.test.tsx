@@ -17,7 +17,7 @@ describe('#withPattern', () => {
   it('should render base element and pattern', () => {
     const tree = mount(<TestComponent x={11} y={12} color="c1" />);
 
-    expect(tree.find(BaseComponent).props()).toEqual({ x: 11, y: 12, fill: 'url(#11-12)' });
+    expect(tree.find(BaseComponent).props()).toEqual({ x: 11, y: 12, color: 'url(#11-12)' });
     expect(tree.find(Pattern).props()).toEqual({
       a: 1, b: 2, id: '11-12', color: 'c1',
     });

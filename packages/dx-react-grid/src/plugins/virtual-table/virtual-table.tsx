@@ -74,9 +74,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
       return (
         <Plugin name="VirtualTable">
           <Table layoutComponent={this.layoutRenderComponent} {...restProps} />
-          <RemoteDataLoader
-            estimatedRowHeight={estimatedRowHeight}
-          />
+          <RemoteDataLoader />
           <VirtualTableViewport
             estimatedRowHeight={estimatedRowHeight}
             minColumnWidth={minColumnWidth}

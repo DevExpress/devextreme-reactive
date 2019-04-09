@@ -21,7 +21,7 @@ export type VisibleBoundary = ReadonlyArray<number>;
 export type RowsVisibleBoundary = {
   start: number;
   end: number;
-  viewportTop: number;
+  viewportTop: number; // to anchor a boundary to specific coords
 };
 /** @internal */
 export type GetVisibleBoundaryFn = PureComputed<

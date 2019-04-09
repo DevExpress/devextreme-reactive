@@ -1,7 +1,6 @@
-/* eslint-disable react/prop-types */
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { PluginHost, Sizer } from '@devexpress/dx-react-core';
+import { PluginHost } from '@devexpress/dx-react-core';
 import {
   getCollapsedGrid,
   getColumnWidthGetter,
@@ -9,60 +8,26 @@ import {
 import { makeVirtualTable } from './virtual-table';
 import { Table } from '../table';
 import { pluginDepsToComponents } from '@devexpress/dx-testing';
-
-jest.mock('react-dom', () => ({
-  findDOMNode: jest.fn(),
-}));
-jest.mock('@devexpress/dx-react-core', () => {
-  const { Component } = require.requireActual('react');
-  return {
-    ...require.requireActual('@devexpress/dx-react-core'),
-    Sizer: class extends React.Component {
-      componentDidMount() {
-        const { onSizeChange } = this.props;
-        onSizeChange({ width: 600, height: 120 });
-      }
-
-      render() {
-        const { containerComponent: Container, onSizeChange, ...restProps } = this.props;
-        return (
-          <Container {...restProps} />
-        );
-      }
-    },
-    // tslint:disable-next-line: max-classes-per-file
-    RefHolder: class extends Component {
-      render() {
-        const { children: propsChildren } = this.props;
-        return propsChildren;
-      }
-    },
-  };
-});
-
-jest.mock('@devexpress/dx-grid-core', () => {
-  const actual = require.requireActual('@devexpress/dx-grid-core');
-  jest.spyOn(actual, 'getCollapsedGrid');
-  jest.spyOn(actual, 'getColumnWidthGetter');
-  jest.spyOn(actual, 'getRowsRenderBoundary');
-  return actual;
-});
+import { RemoteDataLoader } from './remote-data';
+import { VirtualTableViewport } from './virtual-table-viewport';
 
 describe('#makeVirtualTable', () => {
+  const VirtualLayoutMock = ({ height }) => (
+    <div style={{ height }} />
+  );
   const TableMock = ({ layoutComponent: LayoutComponent }) => (
     <LayoutComponent />
   );
   TableMock.components = [];
-  const VirtualLayoutMock = ({ height }) => (
-    <div height={height} />
-  );
   const defaultVirtualTableProps = {
     VirtualLayout: VirtualLayoutMock,
+    FixedHeader: () => null,
+    FixedFooter: () => null,
+    SkeletonCell: () => null,
     defaultEstimatedRowHeight: 30,
     defaultHeight: 400,
     minColumnWidth: 100,
   };
-  const VirtualTable = makeVirtualTable(TableMock, defaultVirtualTableProps);
   const defaultDeps = {
     getter: {
       getRowId: row => row.key,
@@ -70,170 +35,126 @@ describe('#makeVirtualTable', () => {
         { key: 'a', column: { name: 'a' } },
         { key: 'b', column: { name: 'b' } },
         { key: 'c', column: { name: 'c' } },
-        { key: 'd', column: { name: 'd' } },
-        { key: 'e', column: { name: 'e' } },
       ],
       rows: [
         { key: 1 },
         { key: 2 },
         { key: 3 },
       ],
-      tableBodyRows: [
-        { key: 1 },
-        { key: 2 },
-        { key: 3 },
-      ],
-      loadedRowsStart: 'loadedRowsStart',
     },
     template: {
       body: undefined,
     },
   };
-  const defaultProps = {
-    minWidth: 400,
-    minColumnWidth: 120,
-    height: 100,
-    estimatedRowHeight: 40,
-    containerComponent: props => <div {...props} />,
-    headTableComponent: ({ tableRef, ...props }) => <table {...props} />,
-    tableComponent: ({ tableRef, ...props }) => <table {...props} />,
-    headComponent: props => <thead {...props} />,
-    bodyComponent: props => <tbody {...props} />,
-    rowComponent: () => null,
-    cellComponent: () => null,
-    getCellColSpan: () => 1,
-    tableRef: React.createRef<HTMLTableElement>(),
-  };
 
-  it('should update layout height from props', () => {
-    const WrappedVirtualTable = ({ height }) => (
-      <PluginHost>
-        <VirtualTable height={height} />
-      </PluginHost>
-    );
-    const tree = mount((
-      <WrappedVirtualTable height={200} />
-    ));
-    expect(tree.find(VirtualLayoutMock).prop('height'))
-      .toBe(200);
-
-    tree.setProps({ height: 300 });
-    tree.update();
-
-    expect(tree.find(VirtualLayoutMock).prop('height'))
-      .toBe(300);
-  });
-
-  describe('Sizer container', () => {
-    const RealVirtualTable = makeVirtualTable(Table, defaultVirtualTableProps);
-
-    it('should apply auto height', () => {
+  describe('Table layout', () => {
+    const VirtualTable = makeVirtualTable(TableMock, defaultVirtualTableProps);
+    it('should pass initial props', () => {
       const tree = mount((
         <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <RealVirtualTable {...defaultProps} height={'auto'}/>
-        </PluginHost>
-      ));
-
-      expect(tree.find(Sizer).prop('style').height)
-        .toBeUndefined();
-    });
-  });
-
-  describe('VirtualTableLayout template', () => {
-    const RealVirtualTable = makeVirtualTable(Table, {
-      VirtualLayout: VirtualLayoutMock,
-      defaultEstimatedRowHeight: 30,
-      defaultHeight: 400,
-      minColumnWidth: 100,
-    });
-
-    it('should pass handler functions', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <RealVirtualTable {...defaultProps} />
+          <VirtualTable />
         </PluginHost>
       ));
 
       expect(tree.find(VirtualLayoutMock).props())
-        .toMatchObject({
-          blockRefsHandler: expect.any(Function),
-          rowRefsHandler: expect.any(Function),
-          onUpdate: expect.any(Function),
-          getRowHeight: expect.any(Function),
+        .toEqual({
+          height: defaultVirtualTableProps.defaultHeight,
+          estimatedRowHeight: defaultVirtualTableProps.defaultEstimatedRowHeight,
+          headTableComponent: defaultVirtualTableProps.FixedHeader,
+          footerTableComponent: defaultVirtualTableProps.FixedFooter,
         });
     });
 
-    it('should pass remote data info', () => {
-      const tree = mount((
+    it('should update connected props', () => {
+      const WrappedVirtualTable = ({ height }) => (
         <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <RealVirtualTable {...defaultProps} />
+          <VirtualTable height={height} />
         </PluginHost>
-      ));
-
-      expect(tree.find(VirtualLayoutMock).props())
-        .toMatchObject({
-          visibleRowBoundaries: [NaN, NaN],
-          totalRowCount: 3,
-          loadedRowsStart: 'loadedRowsStart',
-        });
-    });
-
-    it('should pass container dimensions from state', () => {
+      );
       const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <RealVirtualTable {...defaultProps} />
-        </PluginHost>
+        <WrappedVirtualTable height={200} />
       ));
+      expect(tree.find(VirtualLayoutMock).prop('height'))
+        .toBe(200);
 
-      expect(tree.find(VirtualLayoutMock).props())
-        .toMatchObject({
-          containerHeight: 120,
-          containerWidth: 600,
-        });
-    });
-
-    it('should pass grid dimension from state', () => {
-      const gridDimensions = {
-        headerHeight: 80,
-        bodyHeight: 500,
-        footerHeight: 100,
-        containerHeight: 900,
-        containerWidth: 1000,
-        viewportLeft: 200,
-      };
-
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <RealVirtualTable {...defaultProps} />
-        </PluginHost>
-      ));
-
-      tree.find(RealVirtualTable).setState(gridDimensions);
+      tree.setProps({ height: 300 });
       tree.update();
 
-      expect(tree.find(VirtualLayoutMock).props())
-        .toMatchObject(gridDimensions);
-    });
-
-    it('should use getColumnWidthGetter', () => {
-      const getColumnWidth = () => 0;
-      getColumnWidthGetter.mockImplementation(() => getColumnWidth);
-
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <RealVirtualTable {...defaultProps} />
-        </PluginHost>
-      ));
-
-      expect(tree.find(VirtualLayoutMock).prop('getColumnWidth'))
-        .toBe(getColumnWidth);
+      expect(tree.find(VirtualLayoutMock).prop('height'))
+        .toBe(300);
     });
   });
 
+  describe('inner plugins', () => {
+    describe('Table', () => {
+      it('should pass layoutComponent', () => {
+        const defaultProps = {
+          tableComponent: () => null,
+          headComponent: () => null,
+        };
+        const VirtualTable = makeVirtualTable(Table, defaultVirtualTableProps);
+        const tree = mount((
+          <PluginHost>
+            {pluginDepsToComponents(defaultDeps)}
+            <VirtualTable
+              {...defaultProps}
+            />
+          </PluginHost>
+        ));
+
+        expect(tree.find(VirtualLayoutMock).props())
+          .toMatchObject(defaultProps);
+      });
+
+      it('should pass rest props to a Table', () => {
+        const columnExtensions = [{ name: 'a', width: 0 }];
+        const VirtualTable = makeVirtualTable(TableMock, defaultVirtualTableProps);
+        const tree = mount((
+          <PluginHost>
+            <VirtualTable columnExtensions={columnExtensions} />
+          </PluginHost>
+        ));
+
+        expect(tree.find(TableMock).prop('columnExtensions'))
+          .toEqual(columnExtensions);
+      });
+    });
+
+    describe('VirtualTableViewport', () => {
+      it('should pass props to viewport plugin', () => {
+        const VirtualTable = makeVirtualTable(TableMock, defaultVirtualTableProps);
+        const tree = mount((
+          <PluginHost>
+            <VirtualTable
+              estimatedRowHeight={40}
+              minColumnWidth={100}
+            />
+          </PluginHost>
+        ));
+
+        expect(tree.find(VirtualTableViewport).props())
+          .toEqual({
+            estimatedRowHeight: 40,
+            minColumnWidth: 100,
+          });
+      });
+    });
+
+    it('should add RemoteDataLoadedPlugin', () => {
+      const VirtualTable = makeVirtualTable(TableMock, defaultVirtualTableProps);
+      const tree = mount((
+        <PluginHost>
+          <VirtualTable />
+        </PluginHost>
+      ));
+
+      expect(tree.find(RemoteDataLoader))
+        .toBeTruthy();
+    });
+
+  });
+
+  it('should render skeleton stub cell using skeletonCellComponent', () => {
+
+  });
 });

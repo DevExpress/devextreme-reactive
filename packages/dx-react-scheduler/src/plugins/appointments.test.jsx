@@ -9,14 +9,17 @@ import { Appointments } from './appointments';
 const Appointment = ({ children }) => <div>{ children }</div>;
 const AppointmentContent = () => null;
 const SplitIndicator = () => null;
+const RecurringIcon = () => null;
 // eslint-disable-next-line react/prop-types
 const Container = ({ children }) => <div>{ children }</div>;
+
 
 const defaultProps = {
   splitIndicatorComponent: SplitIndicator,
   containerComponent: Container,
   appointmentComponent: Appointment,
   appointmentContentComponent: AppointmentContent,
+  recurringIconComponent: RecurringIcon,
 };
 
 jest.mock('@devexpress/dx-core', () => ({
@@ -89,7 +92,9 @@ describe('Appointments', () => {
     const appointment = tree.find(Appointment);
     const appointmentContent = tree.find(AppointmentContent);
     const { data: appointmentData } = appointment.props();
-    const { type, data: appointmentContentData } = appointmentContent.props();
+    const {
+      type, data: appointmentContentData, recurringIconComponent,
+    } = appointmentContent.props();
 
     expect(appointment).toHaveLength(1);
     expect(appointmentContent).toHaveLength(1);
@@ -101,6 +106,8 @@ describe('Appointments', () => {
     expect(appointmentContentData.title).toBe('a');
     expect(appointmentContentData.endDate).toBe('2018-07-05');
     expect(appointmentContentData.startDate).toBe('2018-07-06');
+
+    expect(recurringIconComponent).toBe(defaultProps.recurringIconComponent);
   });
   it('should pass correct event handlers', () => {
     const appointment = mount((

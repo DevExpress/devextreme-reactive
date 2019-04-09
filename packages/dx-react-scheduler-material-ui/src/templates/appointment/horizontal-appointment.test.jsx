@@ -7,6 +7,7 @@ describe('HorizontalAppointment', () => {
     data: {
       title: 'title',
     },
+    recurringIconComponent: () => <div />,
   };
 
   let classes;
@@ -55,11 +56,32 @@ describe('HorizontalAppointment', () => {
 
     it('should pass rest props to the root element', () => {
       const tree = mount((
-        <HorizontalAppointment {...defaultProps} data={{ a: 1 }} />
+        <HorizontalAppointment {...defaultProps} customData={{ a: 1 }} />
       ));
 
-      expect(tree.props().data)
+      expect(tree.props().customData)
         .toMatchObject({ a: 1 });
+    });
+
+    it('should render icon if appointment is recurring', () => {
+      const data = {
+        title: 'title',
+        startDate: new Date('2018-07-27 13:10'),
+        endDate: new Date('2018-07-27 17:10'),
+        rRule: 'FREQ=DAILY;COUNT=6',
+      };
+      let tree = mount((
+        <HorizontalAppointment {...defaultProps} data={data} />
+      ));
+
+      expect(tree.find(defaultProps.recurringIconComponent).exists())
+        .toBeTruthy();
+
+      tree = mount((
+        <HorizontalAppointment {...defaultProps} />
+      ));
+      expect(tree.find(defaultProps.recurringIconComponent).exists())
+        .toBeFalsy();
     });
   });
 });

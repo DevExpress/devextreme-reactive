@@ -82,7 +82,7 @@ const VerticalAppointmentBase = ({
 };
 
 VerticalAppointmentBase.propTypes = {
-  recurringIconComponent: PropTypes.object.isRequired,
+  recurringIconComponent: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
   children: PropTypes.node,

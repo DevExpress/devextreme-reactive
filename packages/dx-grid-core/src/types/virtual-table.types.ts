@@ -90,12 +90,19 @@ export type VisibleBoundsFn = PureComputed<
 >;
 
 type PageTriggersMeta = {
-  topTriggerIndex?: number,
-  topTriggerPosition?: number,
-  bottomTriggerIndex?: number,
-  bottomTriggerPosition?: number,
+  topTriggerIndex: number,
+  topTriggerPosition: number,
+  bottomTriggerIndex: number,
+  bottomTriggerPosition: number,
+};
+/** @internal */
+export type GridGeometry = {
+  viewportTop: number;
+  containerHeight: number;
+  visibleRowBoundaries: number;
+  estimatedRowHeight: number;
 };
 
 export type PageTriggersMetaFn = PureComputed<
-  [any, Getters, number], PageTriggersMeta
+  [GridGeometry, Getters], PageTriggersMeta | null
 >;

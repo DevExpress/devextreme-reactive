@@ -21,28 +21,19 @@ export const visibleRowsBounds: VisibleBoundsFn = (
 
 /** how many rows up and down before next page request */
 export const pageTriggersMeta: PageTriggersMetaFn = (
-  state, getters, estimatedRowHeight,
+  { viewportTop, containerHeight, visibleRowBoundaries, estimatedRowHeight },
+  { virtualPageSize, virtualRows, loadedRowsStart },
 ) => {
-  const {
-    visibleRowBoundaries: rowsBoundaries, virtualPageSize, virtualRows,
-    loadedRowsStart, remoteDataEnabled,
-  } = getters;
-
-  if (!remoteDataEnabled) {
-    return {};
-  }
-
-  const { viewportTop, containerHeight } = state;
   const loadedCount = virtualRows.rows.length;
 
   if (loadedCount === 0) {
-    return {};
+    return null;
   }
 
   const topTriggerIndex = loadedRowsStart > 0 ? loadedRowsStart + virtualPageSize : 0;
   const bottomTriggerIndex = loadedRowsStart + loadedCount - virtualPageSize;
-  const firstRowIndex = rowsBoundaries[0];
-  const visibleCount = rowsBoundaries[1] - rowsBoundaries[0];
+  const firstRowIndex = visibleRowBoundaries[0];
+  const visibleCount = visibleRowBoundaries[1] - visibleRowBoundaries[0];
   const middleIndex = firstRowIndex + Math.round(visibleCount / 2);
 
   const middlePosition = viewportTop + containerHeight / 2;

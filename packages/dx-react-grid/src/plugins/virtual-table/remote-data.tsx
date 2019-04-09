@@ -1,20 +1,28 @@
 import * as React from 'react';
 import { Plugin, Action, Getters, Actions } from '@devexpress/dx-react-core';
+import { pageTriggersMeta, GridGeometry } from '@devexpress/dx-grid-core';
 
 export class RemoteDataLoader extends React.PureComponent<any, any> {
-// move triggers meta here
   ensureNextVirtualPage = (
-    { currentPageTriggersMeta, scrollTop, containerHeight },
-    { remoteDataEnabled }: Getters,
+    payload: GridGeometry,
+    getters: Getters,
     { requestNextPage }: Actions,
   ) => {
-    if (!remoteDataEnabled) return;
+    const { remoteDataEnabled } = getters;
+    if (!remoteDataEnabled) {
+      return;
+    }
+
+    const triggersMeta = pageTriggersMeta(payload, getters);
+    if (triggersMeta === null) {
+      return;
+    }
 
     const {
       topTriggerPosition, bottomTriggerPosition, topTriggerIndex, bottomTriggerIndex,
-    } = currentPageTriggersMeta;
-    const { estimatedRowHeight } = this.props;
-    const referencePosition = scrollTop + containerHeight / 2;
+    } = triggersMeta;
+    const { viewportTop, estimatedRowHeight, containerHeight } = payload;
+    const referencePosition = viewportTop + containerHeight / 2;
 
     const getReferenceIndex = (triggetIndex, triggerPosition) => (
       triggetIndex + Math.round((referencePosition - triggerPosition) / estimatedRowHeight)
@@ -29,6 +37,7 @@ export class RemoteDataLoader extends React.PureComponent<any, any> {
     }
 
     if (referenceIndex !== null) {
+      console.log(triggersMeta, payload, referenceIndex)
       requestNextPage(referenceIndex);
     }
   }

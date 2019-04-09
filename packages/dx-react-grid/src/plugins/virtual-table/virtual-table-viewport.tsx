@@ -2,12 +2,12 @@ import * as React from 'react';
 import { findDOMNode } from 'react-dom';
 import {
   Plugin, Template, TemplateConnector,
-  Sizer, TemplatePlaceholder, Getters,
+  Sizer, TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 import { isEdgeBrowser, MemoizedFunction, memoize } from '@devexpress/dx-core';
 import {
   TABLE_STUB_TYPE, TableColumn, GetColumnWidthFn, getColumnWidthGetter,
-  visibleRowsBounds, getRowsRenderBoundary, pageTriggersMeta,
+  visibleRowsBounds, getRowsRenderBoundary,
 } from '@devexpress/dx-grid-core';
 import { TableLayoutProps } from '../../types';
 
@@ -18,7 +18,6 @@ export class VirtualTableViewport extends React.PureComponent<any, any> {
   blockRefs: Map<any, any>;
   isEdgeBrowser = false;
   getColumnWidthGetter: MemoizedFunction<[TableColumn[], number, number], GetColumnWidthFn>;
-  pageTriggersMetaComputed: (...args: any[]) => any;
 
   constructor(props) {
     super(props);
@@ -48,13 +47,6 @@ export class VirtualTableViewport extends React.PureComponent<any, any> {
     this.getColumnWidthGetter = memoize(
       (tableColumns, tableWidth, minColWidth) => (
         getColumnWidthGetter(tableColumns, tableWidth, minColWidth)
-      ),
-    );
-
-    const { estimatedRowHeight } = this.props;
-    this.pageTriggersMetaComputed = memoize(
-      state => (getters: Getters) => (
-        pageTriggersMeta(state, getters, estimatedRowHeight)
       ),
     );
   }
@@ -155,16 +147,18 @@ export class VirtualTableViewport extends React.PureComponent<any, any> {
     }
   }
 
-  updateViewport(e, currentPageTriggersMeta, ensureNextVirtualPage) {
+  updateViewport(e, visibleRowBoundaries, ensureNextVirtualPage) {
     const node = e.target;
 
     if (this.shouldSkipScrollEvent(e)) {
       return;
     }
 
+    const { estimatedRowHeight } = this.props;
     ensureNextVirtualPage({
-      currentPageTriggersMeta,
-      scrollTop: node.scrollTop,
+      estimatedRowHeight,
+      visibleRowBoundaries,
+      viewportTop: node.scrollTop,
       containerHeight: this.state.containerHeight,
     });
 
@@ -210,8 +204,6 @@ export class VirtualTableViewport extends React.PureComponent<any, any> {
       footerHeight,
     } = this.state;
 
-    const pageTriggersMetaComputed = this.pageTriggersMetaComputed(this.state);
-
     return (
       <Plugin name="VirtualTableViewport">
         <Template name="tableLayout">
@@ -220,9 +212,7 @@ export class VirtualTableViewport extends React.PureComponent<any, any> {
               return (
                 <TemplateConnector>
                   {(
-                    { currentVirtualPageBoundary, availableRowCount,
-                      loadedRowsStart, virtualPageSize, virtualRows,
-                      remoteDataEnabled,
+                    { availableRowCount, loadedRowsStart,
                       tableColumns, tableBodyRows,
                     },
                     { ensureNextVirtualPage },
@@ -242,16 +232,12 @@ export class VirtualTableViewport extends React.PureComponent<any, any> {
                       loadedRowsStart + tableBodyRows.length, visibleRowBoundaries,
                     );
                     const totalRowCount = availableRowCount || tableBodyRows.length;
-                    const triggersMeta = pageTriggersMetaComputed({
-                      visibleRowBoundaries, loadedRowsStart, virtualPageSize, virtualRows,
-                      remoteDataEnabled,
-                    });
 
                     return (
                       <Sizer
                         onSizeChange={
                           this.getSizeChangeHandler(
-                            triggersMeta, ensureNextVirtualPage,
+                            visibleRowBoundaries, ensureNextVirtualPage,
                           )
                         }
                         containerComponent={Container}
@@ -260,7 +246,7 @@ export class VirtualTableViewport extends React.PureComponent<any, any> {
                         }}
                         onScroll={
                           this.getScrollHandler(
-                            triggersMeta, ensureNextVirtualPage,
+                            visibleRowBoundaries, ensureNextVirtualPage,
                           )
                         }
                       >

@@ -28,4 +28,4 @@ Use the `interactionWithArguments` and `interactionWithValues` properties to ena
 
 ## Zoom by Selecting a Region
 
-Users can zoom a region by selecting it with the mouse drag gesture while pressing the `zoomRegionKey`. Zooming is applied when the mouse button is released.
+Users can drag the mouse across an area while pressing the `zoomRegionKey` to zoom this area. Zooming is applied when the mouse button is released.

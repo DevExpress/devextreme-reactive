@@ -1,6 +1,23 @@
 import * as React from 'react';
+import { argumentsShallowEqual } from '@devexpress/dx-core';
 
 export class VirtualRowLayout extends React.Component<any, any> {
+  shouldComponentUpdate(nextProps) {
+    const { cells: prevCells, row: prevRow } = this.props;
+    const { cells: nextCells, row: nextRow } = nextProps;
+    const nextCollapsedColumns = nextCells.reduce((acc, { column }) => {
+      acc.push(column);
+      return acc;
+    }, []);
+    const prevCollapsedColumns = prevCells.reduce((acc, { column }) => {
+      acc.push(column);
+      return acc;
+    }, []);
+
+    const res = argumentsShallowEqual(nextCollapsedColumns, prevCollapsedColumns)
+      && prevRow === nextRow;
+    return !res;
+  }
   render() {
     const { row, cells, rowComponent: Row, cellComponent: Cell } = this.props;
     return (

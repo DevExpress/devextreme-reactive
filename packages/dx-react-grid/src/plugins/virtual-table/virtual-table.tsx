@@ -10,7 +10,7 @@ import {
   VirtualTableProps, VirtualTableLayoutProps, VirtualTableLayoutState,
   Table as TableNS,
 } from '../../types';
-import { RemoteDataLoader } from './remote-data';
+import { RemoteDataLoader } from './remote-data-loader';
 import { VirtualTableViewport } from './virtual-table-viewport';
 
 /** @internal */

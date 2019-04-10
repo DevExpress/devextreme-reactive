@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { RemoteDataLoader } from './remote-data';
+import { RemoteDataLoader } from './remote-data-loader';
 import { pluginDepsToComponents, executeComputedAction } from '@devexpress/dx-testing';
 import { nextPageReferenceIndex } from '@devexpress/dx-grid-core';
 

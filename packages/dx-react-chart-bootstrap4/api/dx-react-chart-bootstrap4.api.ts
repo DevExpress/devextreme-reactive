@@ -320,7 +320,16 @@ namespace Tooltip {
 }
 
 // @public
-declare const Tooltip: React.ComponentType<TooltipProps>;
+declare const Tooltip: React.ComponentType<TooltipProps> & {
+  Overlay: React.ComponentType<Tooltip_2.OverlayProps & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+  Content: React.ComponentType<Tooltip_2.ContentProps & { // (undocumented)
+ className?: string; // (undocumented)
+ style?: React.CSSProperties; // (undocumented)
+ [x: string]: any }>;
+};
 
 // @public (undocumented)
 interface TooltipProps {

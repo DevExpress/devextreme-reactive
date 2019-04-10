@@ -196,6 +196,7 @@ export {
 } from './utils/virtual-table';
 
 export * from './plugins/virtual-table/computeds';
+export * from './plugins/virtual-table/helpers';
 
 export * from './plugins/virtual-table-state/computeds';
 export * from './plugins/virtual-table-state/utils';

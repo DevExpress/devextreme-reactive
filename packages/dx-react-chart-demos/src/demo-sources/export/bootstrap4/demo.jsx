@@ -21,45 +21,37 @@ const iconButton = 'exportIconButton';
 const ANIMATIONS = Symbol('animation');
 const filter = node => (node.id !== iconButton);
 
-const exportToImage = async (chart, format) => {
+const exportToImage = async (chart, format, exportFunc) => {
   try {
-    await domtoimage[`to${format.charAt(0).toUpperCase() + format.slice(1)}`](chart, { filter })
-      .then((dataUrl) => {
-        const link = document.createElement('a');
-        link.download = `chart.${format}`;
-        link.href = dataUrl;
-        link.click();
-      });
+    const dataUrl = await exportFunc(chart, { filter });
+    const link = document.createElement('a');
+    link.download = `chart.${format}`;
+    link.href = dataUrl;
+    link.click();
   } catch (err) {
     console.error('oops, something went wrong!', err);
   }
 };
 
-const exportToJpeg = (chart) => {
-  exportToImage(chart, 'jpeg');
-};
+const exportToJpeg = chart => exportToImage(chart, 'jpeg', domtoimage.toJpeg);
 
-const exportToPng = (chart) => {
-  exportToImage(chart, 'png');
-};
+const exportToPng = chart => exportToImage(chart, 'png', domtoimage.toPng);
 
 const exportToPdf = async (chart) => {
   const width = chart.offsetWidth;
   const height = chart.offsetHeight;
   try {
-    await domtoimage.toJpeg(chart, { filter })
-      .then((dataUrl) => {
-      // @ts-ignore
-        const doc = new JsPDF({
-          orientation: 'landscape',
-          unit: 'px',
-          format: [width, height],
-        });
-        const pdfWidth = doc.internal.pageSize.getWidth();
-        const pdfHeight = doc.internal.pageSize.getHeight();
-        doc.addImage(dataUrl, 'JPEG', 0, 0, pdfWidth, pdfHeight);
-        doc.save('chart');
-      });
+    const dataUrl = await domtoimage.toJpeg(chart, { filter });
+    // @ts-ignore
+    const doc = new JsPDF({
+      orientation: 'landscape',
+      unit: 'px',
+      format: [width, height],
+    });
+    const pdfWidth = doc.internal.pageSize.getWidth();
+    const pdfHeight = doc.internal.pageSize.getHeight();
+    doc.addImage(dataUrl, 'JPEG', 0, 0, pdfWidth, pdfHeight);
+    doc.save('chart');
   } catch (err) {
     console.error('oops, something went wrong!', err);
   }
@@ -67,18 +59,16 @@ const exportToPdf = async (chart) => {
 
 const print = async (chart) => {
   try {
-    await domtoimage.toJpeg(chart, { filter })
-      .then((dataUrl) => {
-        let html = '<html><head><title></title></head>';
-        html += '<body style="width: 100%; padding: 0; margin: 0;"';
-        html += ' onload="window.focus(); window.print(); window.close()">';
-        html += `<img src="${dataUrl}" /></body></html>`;
+    const dataUrl = await domtoimage.toJpeg(chart, { filter });
+    let html = '<html><head><title></title></head>';
+    html += '<body style="width: 100%; padding: 0; margin: 0;"';
+    html += ' onload="window.focus(); window.print(); window.close()">';
+    html += `<img src="${dataUrl}" /></body></html>`;
 
-        const printWindow = window.open('', 'print');
-        printWindow.document.open();
-        printWindow.document.write(html);
-        printWindow.document.close();
-      });
+    const printWindow = window.open('', 'print');
+    printWindow.document.open();
+    printWindow.document.write(html);
+    printWindow.document.close();
   } catch (err) {
     console.error('oops, something went wrong!', err);
   }
@@ -119,6 +109,12 @@ const getLabelAnimationName = () => {
   const name = 'animation_label_opacity';
   addKeyframe(name, '{ 0% { opacity: 0; } 99% { opacity: 0; } 100% { opacity: 1; } }');
   return name;
+};
+
+const labelStyle = {
+  fill: '#ffffff',
+  animation: `${getLabelAnimationName()} 1s`,
+  fontSize: '10px',
 };
 
 const Export = () => {
@@ -191,11 +187,7 @@ const BarWithLabel = ({
       y={(restProps.y + restProps.y1) / 2}
       dominantBaseline="middle"
       textAnchor="middle"
-      style={{
-        fill: '#ffffff',
-        animation: `${getLabelAnimationName()} 1s`,
-        fontSize: '10px',
-      }}
+      style={labelStyle}
     >
       {`${value}%`}
     </Chart.Label>

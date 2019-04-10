@@ -38,6 +38,8 @@ endDate | Date &#124; string &#124; number | The end date.
 title? | string | The title.
 allDay? | boolean | The all day flag.
 id? | number &#124; string | The identifier.
+rRule? | string | Specifies the recurring appointment rule. Follow the [iCalendar RRULE](https://tools.ietf.org/html/rfc5545#section-3.3.10) format.
+exDate? | string | Specifies the recurring appointment exception dates. Follow the [iCalendar EXDATE](https://tools.ietf.org/html/rfc5545#section-3.8.5.1) format.
 [propertyName: string] | any | Any other properties.
 
 ### Scheduler.RootProps

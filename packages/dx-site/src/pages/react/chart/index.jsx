@@ -11,6 +11,12 @@ import LandingChessBoardLayoutList from '../../../components/landing/chess-board
 import imageBoxLink from '../../images/image-box.png';
 import headerLink from './images/header.png';
 
+import LandingLayout from '../../../components/landing/layout';
+import LandingTitle from '../../../components/landing/title';
+import LandingImageFeature from '../../../components/landing/image-feature';
+import bootstrapThemeLink from './images/bootstrap-theme.png';
+import materialThemeLink from './images/material-theme.png';
+
 const pageData = [
   {
     alternative: true,
@@ -21,21 +27,40 @@ const pageData = [
   },
   {
     reversed: true,
-    title: 'React Pie Chart',
-    description: 'Description....',
+    sectionTitle: 'Interactivity At Your Full Control',
+    title: 'Series/Point Selection',
+    description: 'React Chart supports both programmatic and interactive series/point selection. The selected elements can be automatically highlighted and the associated data is exposed to your application for use. The both single and multiple selection are supported.',
     imageLink: imageBoxLink,
   },
   {
     alternative: true,
-    sectionTitle: 'Unlimited Chart Customization',
-    title: 'HTML/CSS Layout Customization',
-    description: 'Description....',
+    title: 'Series/Point Hover & Event Tracking',
+    description: 'Hover Tracking allows you to know which series or point is hovered and reflect this information in your application UI. For instance, you can show a point details in a separate or popup form. You can also track and handle other series/point mouse/touch events.',
     imageLink: imageBoxLink,
   },
   {
     reversed: true,
-    title: 'D3 Compatible',
-    description: 'Description....',
+    title: 'Zooming and Scrolling',
+    description: 'End-users can effeciently analyse long point series using the React Chart zooming and scrolling capabilities. We support instant zooming using mouse wheel or zoom gestures and zoom to a square region. Horizontal scrolling/panning is also available.',
+    imageLink: imageBoxLink,
+  },
+  {
+    alternative: true,
+    sectionTitle: 'Wide Customization Capabilities',
+    title: 'Customize Chart via HTML/CSS',
+    description: 'The React Chart uses a hybrid rendering mechanism that combines HTML and SVG. This means that you can use HTML and CSS to influence layout and appearance of chart building blocks such as title and legend.',
+    imageLink: imageBoxLink,
+  },
+  {
+    reversed: true,
+    title: 'Customize Chart Rendering',
+    description: 'The React Chart UI plugins allow you to use custom React components to render particular pieces of the React Chart UI in a custom way. All you need is to pass your custom components to the required plugins via their props.',
+    imageLink: imageBoxLink,
+  },
+  {
+    alternative: true,
+    title: 'Customize Chart via HTML/CSS',
+    description: 'The React Chart uses a hybrid rendering mechanism that combines HTML and SVG. This means that you can use HTML and CSS to influence layout and appearance of chart building blocks such as title and legend.',
     imageLink: imageBoxLink,
   },
 ];
@@ -76,6 +101,19 @@ const IndexPage = () => (
       )}
     />
     <LandingChessBoardLayoutList data={pageData} />
+    <LandingLayout>
+      <LandingTitle text="Native Support for the UI Library of Your Choice" />
+      <LandingImageFeature
+        imageLink={bootstrapThemeLink}
+        title="Twitter Bootstrap React Grid"
+        description="Use any existing or create your custom bootstrap theme. No need for any additional configuration."
+      />
+      <LandingImageFeature
+        imageLink={materialThemeLink}
+        title="Material-UI React Grid"
+        description="We ship additional Material-UI packages that allow you to utilize the familiar approaches and appearance."
+      />
+    </LandingLayout>
     <LandingMaintainence />
     <LandingReadyToLearnMore
       links={(

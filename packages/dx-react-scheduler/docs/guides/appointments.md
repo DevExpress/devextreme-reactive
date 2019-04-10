@@ -19,6 +19,12 @@ All-day appointments last for the entire day or multiple days. They are displaye
 
 .embedded-demo({ "path": "scheduler-all-day-panel/week-view", "showThemeSelector": true })
 
+## Recurring Appointments
+
+A recurring appointment is an appointment that repeats after a specified period of time. An object defining a recurring appointment should contain the `rRule` field that follows the [iCalendar RRULE](https://tools.ietf.org/html/rfc5545#section-3.3.10) 5545 specification. To exclude dates from a recurrence, specify exceptions to the current recurring appointment using the `exDate` option follows the [iCalendar EXDATE](https://tools.ietf.org/html/rfc5545#section-3.8.5.1).
+
+.embedded-demo({ "path": "scheduler-recurrence/basic", "showThemeSelector": true })
+
 ## Customize the Appearance
 
 The [Appointments](../reference/appointments.md) plugin allows you to customize the appearance of appointments. Override the plugin's `appointmentComponent` with a custom component. Use the [AppointmentProps](../reference/appointments.md#appointmentsappointmentprops) when you implement the custom component. The following example shows how to use this approach to add custom styles to appointments:

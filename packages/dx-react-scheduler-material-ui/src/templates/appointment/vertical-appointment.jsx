@@ -30,6 +30,9 @@ const styles = ({ palette, spacing }) => ({
     whiteSpace: 'nowrap',
     display: 'flex',
   },
+  container: {
+    width: '100%',
+  },
   recurContainer: {
     width: 'calc(100% - 16px)',
   },
@@ -55,7 +58,7 @@ const VerticalAppointmentBase = ({
   return (
     children || (
     <div className={classNames(classes.content, className)} {...restProps}>
-      <div className={classNames({ [classes.recurContainer]: repeat })}>
+      <div className={repeat ? classes.recurContainer : classes.container}>
         <div className={classes.title}>
           {data.title}
         </div>

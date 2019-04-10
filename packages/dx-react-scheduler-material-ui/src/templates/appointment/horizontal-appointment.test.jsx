@@ -76,12 +76,20 @@ describe('HorizontalAppointment', () => {
 
       expect(tree.find(defaultProps.recurringIconComponent).exists())
         .toBeTruthy();
+      expect(tree.find(`.${classes.recurContainer}`).exists())
+        .toBeTruthy();
+      expect(tree.find(`.${classes.container}`).exists())
+        .toBeFalsy();
 
       tree = mount((
         <HorizontalAppointment {...defaultProps} />
       ));
       expect(tree.find(defaultProps.recurringIconComponent).exists())
         .toBeFalsy();
+      expect(tree.find(`.${classes.recurContainer}`).exists())
+        .toBeFalsy();
+      expect(tree.find(`.${classes.container}`).exists())
+        .toBeTruthy();
     });
   });
 });

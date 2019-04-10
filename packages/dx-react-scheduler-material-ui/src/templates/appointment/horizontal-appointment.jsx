@@ -17,6 +17,9 @@ const styles = ({ palette, spacing }) => ({
     whiteSpace: 'nowrap',
     display: 'flex',
   },
+  container: {
+    width: '100%',
+  },
   recurContainer: {
     width: 'calc(100% - 16px)',
   },
@@ -43,7 +46,7 @@ const HorizontalAppointmentBase = ({
     <div className={classNames(classes.content, className)} {...restProps}>
       {children || (
         <React.Fragment>
-          <div className={classNames({ [classes.recurContainer]: repeat })}>
+          <div className={repeat ? classes.recurContainer : classes.container}>
             <div className={classes.title}>
               {data.title}
             </div>

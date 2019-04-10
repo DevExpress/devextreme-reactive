@@ -36,7 +36,7 @@ Describes properties passed to a component that renders the tooltip.
 Field | Type | Description
 ------|------|------------
 target | [referenceObject](https://popper.js.org/popper-documentation.html#referenceObject) | An object that provides an API to position the tooltip.
-children | ReactNode | A React node used to render the content.
+children | ReactNode | A React node used to render the tooltip's content.
 
 ### Tooltip.ContentProps
 
@@ -52,4 +52,4 @@ targetItem | [SeriesRef](./event-tracker.md#seriesref) | An item for which the t
 Name | Properties | Description
 -----|------------|------------
 Tooltip.Overlay | [Tooltip.OverlayProps](#tooltipoverlayprops) | A component that renders the tooltip.
-Tooltip.Content | [Tooltip.ContentProps](#tooltipcontentprops) | A component that renders the tooltip content.
+Tooltip.Content | [Tooltip.ContentProps](#tooltipcontentprops) | A component that renders the tooltip's content.

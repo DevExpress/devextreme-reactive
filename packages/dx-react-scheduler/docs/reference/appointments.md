@@ -32,7 +32,7 @@ Name | Type | Default | Description
 appointmentComponent | ComponentType&lt;[Appointments.AppointmentProps](#appointmentsappointmentprops)&gt; | | A component that renders an appointment.
 appointmentContentComponent | ComponentType&lt;[Appointments.AppointmentContentProps](#appointmentsappointmentcontentprops)&gt; | | A component that renders the appointment content.
 splitIndicatorComponent | ComponentType&lt;[Appointments.SplitIndicatorProps](#appointmentssplitindicatorprops)&gt; | | A component that renders an element which indicates the appointment is divided.
-recurringIconComponent | Component | | A component that renders an icon for recurring appointments.
+recurringIconComponent | function | | A component that renders an icon for recurring appointments.
 containerComponent | ComponentType&lt;[Appointments.ContainerProps](#appointmentscontainerprops)&gt; | | A component that renders a container for the appointment.
 
 ## Interfaces
@@ -57,7 +57,7 @@ Field | Type | Description
 ------|------|------------
 children | ReactNode | A React node used to render the appointment content.
 data | object | An object that represents appointment data.
-recurringIconComponent | Component | A component that renders an icon for recurring appointments.
+recurringIconComponent | function | A component that renders an icon for recurring appointments.
 
 ### Appointments.SplitIndicatorProps
 

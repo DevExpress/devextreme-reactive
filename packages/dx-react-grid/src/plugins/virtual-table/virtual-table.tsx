@@ -42,15 +42,11 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
 
       this.layoutRenderComponent = connectProps(VirtualLayout, () => {
         const {
-          height,
-          estimatedRowHeight,
           headTableComponent,
           footerTableComponent,
         } = this.props;
 
         return {
-          height,
-          estimatedRowHeight,
           headTableComponent,
           footerTableComponent,
         };
@@ -63,7 +59,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
 
     render() {
       const {
-        height: propHeight,
+        height,
         estimatedRowHeight,
         headTableComponent,
         skeletonCellComponent: SkeletonStubCell,
@@ -78,6 +74,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
           <VirtualTableViewport
             estimatedRowHeight={estimatedRowHeight}
             minColumnWidth={minColumnWidth}
+            height={height}
           />
 
           <Template

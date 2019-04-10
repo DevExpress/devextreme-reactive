@@ -7,7 +7,7 @@ import {
 import { isEdgeBrowser, MemoizedFunction, memoize } from '@devexpress/dx-core';
 import {
   TABLE_STUB_TYPE, TableColumn, GetColumnWidthFn, getColumnWidthGetter,
-  visibleRowsBounds, getRowsRenderBoundary,
+  getVisibleRowsBounds, getRowsRenderBoundary,
 } from '@devexpress/dx-grid-core';
 import { TableLayoutProps } from '../../types';
 
@@ -225,7 +225,7 @@ export class VirtualTableViewport extends React.PureComponent<any, any> {
                     const getColumnWidth = this.getColumnWidthGetter(
                       tableColumns, width, minColumnWidth,
                     );
-                    const visibleRowBoundaries = visibleRowsBounds(
+                    const visibleRowBoundaries = getVisibleRowsBounds(
                       this.state, { loadedRowsStart, tableBodyRows },
                       estimatedRowHeight, this.getRowHeight,
                     );

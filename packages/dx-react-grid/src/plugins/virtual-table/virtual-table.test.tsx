@@ -2,14 +2,24 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
-  getCollapsedGrid,
-  getColumnWidthGetter,
+  isStubTableCell,
+  tableRowsWithDataRows,
+  visibleRowsBounds,
 } from '@devexpress/dx-grid-core';
 import { makeVirtualTable } from './virtual-table';
 import { Table } from '../table';
 import { pluginDepsToComponents } from '@devexpress/dx-testing';
-import { RemoteDataLoader } from './remote-data';
+import { RemoteDataLoader } from './remote-data-loader';
 import { VirtualTableViewport } from './virtual-table-viewport';
+
+jest.mock('@devexpress/dx-grid-core', () => ({
+  tableColumnsWithDataRows: jest.fn(),
+  tableRowsWithDataRows: jest.fn(),
+  getColumnWidthGetter: jest.fn(),
+  visibleRowsBounds: jest.fn(),
+  getRowsRenderBoundary: jest.fn(),
+  isStubTableCell: jest.fn(),
+}));
 
 describe('#makeVirtualTable', () => {
   const VirtualLayoutMock = ({ height }) => (
@@ -18,7 +28,7 @@ describe('#makeVirtualTable', () => {
   const TableMock = ({ layoutComponent: LayoutComponent }) => (
     <LayoutComponent />
   );
-  TableMock.components = [];
+  TableMock.components = {} as any;
   const defaultVirtualTableProps = {
     VirtualLayout: VirtualLayoutMock,
     FixedHeader: () => null,
@@ -46,6 +56,11 @@ describe('#makeVirtualTable', () => {
       body: undefined,
     },
   };
+
+  beforeEach(() => {
+    tableRowsWithDataRows.mockImplementation(() => 'tableRowsWithDataRows');
+    visibleRowsBounds.mockImplementation(() => []);
+  });
 
   describe('Table layout', () => {
     const VirtualTable = makeVirtualTable(TableMock, defaultVirtualTableProps);
@@ -155,6 +170,42 @@ describe('#makeVirtualTable', () => {
   });
 
   it('should render skeleton stub cell using skeletonCellComponent', () => {
+    isStubTableCell.mockImplementation(() => true);
+    const VirtualTable = makeVirtualTable(TableMock, defaultVirtualTableProps);
+    const deps = {
+      template: {
+        tableCell: {
+          tableRow: { type: 'undefined', rowId: 1, row: 'row' },
+          tableColumn: { type: 'undefined', column: 'column' },
+          style: {},
+        },
+        tableRow: {
+          tableRow: { type: 'undefined', rowId: 1, row: 'row' },
+          style: {},
+        },
+      },
+    };
 
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps, deps)}
+        <VirtualTable />
+      </PluginHost>
+    ));
+
+    expect(isStubTableCell)
+      .toBeCalledWith(deps.template.tableCell.tableRow);
+    expect(tree.find(defaultVirtualTableProps.SkeletonCell).props())
+      .toMatchObject(deps.template.tableCell);
+  });
+
+  it('should expose Table components', () => {
+    TableMock.components = {
+      someComponent: 'SomeComponent',
+    };
+    TableMock.SomeComponent = () => null;
+    const VirtualTable = makeVirtualTable(TableMock, defaultVirtualTableProps);
+
+    expect(VirtualTable.SomeComponent).toBe(TableMock.SomeComponent);
   });
 });

@@ -1,10 +1,23 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { PluginHost, Sizer } from '@devexpress/dx-react-core';
+import { isEdgeBrowser } from '@devexpress/dx-core';
+import { PluginHost, Sizer, Template } from '@devexpress/dx-react-core';
+import {
+  getColumnWidthGetter,
+  getRowsRenderBoundary,
+} from '@devexpress/dx-grid-core';
+import { pluginDepsToComponents } from '@devexpress/dx-testing';
+import { VirtualTableViewport } from './virtual-table-viewport';
 
 jest.mock('react-dom', () => ({
   findDOMNode: jest.fn(),
 }));
+jest.mock('@devexpress/dx-core', () => {
+  return {
+    ...require.requireActual('@devexpress/dx-core'),
+    isEdgeBrowser: jest.fn(),
+  };
+});
 jest.mock('@devexpress/dx-react-core', () => {
   const { Component } = require.requireActual('react');
   return {
@@ -40,21 +53,8 @@ jest.mock('@devexpress/dx-grid-core', () => {
   return actual;
 });
 
-describe('#makeVirtualTable', () => {
-  const TableMock = ({ layoutComponent: LayoutComponent }) => (
-    <LayoutComponent />
-  );
-  TableMock.components = [];
-  const VirtualLayoutMock = ({ height }) => (
-    <div height={height} />
-  );
-  const defaultVirtualTableProps = {
-    VirtualLayout: VirtualLayoutMock,
-    defaultEstimatedRowHeight: 30,
-    defaultHeight: 400,
-    minColumnWidth: 100,
-  };
-  const VirtualTable = makeVirtualTable(TableMock, defaultVirtualTableProps);
+describe('VirtualTableViewport', () => {
+  const Container = props => <div {...props} />;
   const defaultDeps = {
     getter: {
       getRowId: row => row.key,
@@ -62,8 +62,11 @@ describe('#makeVirtualTable', () => {
         { key: 'a', column: { name: 'a' } },
         { key: 'b', column: { name: 'b' } },
         { key: 'c', column: { name: 'c' } },
-        { key: 'd', column: { name: 'd' } },
-        { key: 'e', column: { name: 'e' } },
+      ],
+      tableColumns: [
+        { key: 'a', column: { name: 'a' } },
+        { key: 'b', column: { name: 'b' } },
+        { key: 'c', column: { name: 'c' } },
       ],
       rows: [
         { key: 1 },
@@ -77,78 +80,171 @@ describe('#makeVirtualTable', () => {
       ],
       loadedRowsStart: 'loadedRowsStart',
     },
+    action: {
+      ensureNextVirtualPage: jest.fn(),
+    },
     template: {
-      body: undefined,
+      tableLayout: {
+        containerComponent: Container,
+      },
     },
   };
   const defaultProps = {
-    minWidth: 400,
     minColumnWidth: 120,
     height: 100,
     estimatedRowHeight: 40,
-    containerComponent: props => <div {...props} />,
-    headTableComponent: ({ tableRef, ...props }) => <table {...props} />,
-    tableComponent: ({ tableRef, ...props }) => <table {...props} />,
-    headComponent: props => <thead {...props} />,
-    bodyComponent: props => <tbody {...props} />,
-    rowComponent: () => null,
-    cellComponent: () => null,
-    getCellColSpan: () => 1,
-    tableRef: React.createRef<HTMLTableElement>(),
   };
 
-  it('should update layout height from props', () => {
-    const WrappedVirtualTable = ({ height }) => (
-      <PluginHost>
-        <VirtualTable height={height} />
-      </PluginHost>
-    );
-    const tree = mount((
-      <WrappedVirtualTable height={200} />
-    ));
-    expect(tree.find(VirtualLayoutMock).prop('height'))
-      .toBe(200);
-
-    tree.setProps({ height: 300 });
-    tree.update();
-
-    expect(tree.find(VirtualLayoutMock).prop('height'))
-      .toBe(300);
-  });
-
   describe('Sizer container', () => {
-    const RealVirtualTable = makeVirtualTable(Table, defaultVirtualTableProps);
+    const simulateScroll = (tree, props) => {
+      const target = {
+        scrollTop: 0,
+        scrollLeft: 0,
+        ...props,
+      };
+
+      const eventData = {
+        target,
+        currentTarget: target,
+      };
+
+      tree
+        .find(Container)
+        .prop('onScroll')(eventData);
+      tree.update();
+    };
+
+    it('should update layout height from props', () => {
+      const WrappedViewport = ({ height }) => (
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <VirtualTableViewport height={height} />
+        </PluginHost>
+      );
+      const tree = mount((
+        <WrappedViewport height={200} />
+      ));
+      expect(tree.find(Container).prop('style'))
+        .toMatchObject({
+          height: '200px',
+        });
+
+      tree.setProps({ height: 300 });
+      tree.update();
+
+      expect(tree.find(Container).prop('style'))
+      .toMatchObject({
+        height: '300px',
+      });
+    });
 
     it('should apply auto height', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
-          <RealVirtualTable {...defaultProps} height={'auto'}/>
+          <VirtualTableViewport {...defaultProps} height={'auto'}/>
         </PluginHost>
       ));
 
-      expect(tree.find(Sizer).prop('style').height)
+      expect(tree.find(Container).prop('style').height)
         .toBeUndefined();
+    });
+
+    describe('scroll bounce', () => {
+      let tableLayoutTemplateMock;
+      let Tree;
+      beforeEach(() => {
+        tableLayoutTemplateMock = jest.fn().mockReturnValue(null);
+        Tree = (
+          <PluginHost>
+            {pluginDepsToComponents(defaultDeps)}
+            <Template name="tableLayout">
+              {tableLayoutTemplateMock}
+            </Template>
+            <VirtualTableViewport {...defaultProps} />
+          </PluginHost>
+        );
+      });
+
+      afterEach(jest.resetAllMocks);
+
+      const assertRerenderOnBounce = (shouldRerender, scrollArgs) => {
+        const tree = mount(Tree);
+        const initialCallsCount = tableLayoutTemplateMock.mock.calls.length;
+
+        simulateScroll(tree, scrollArgs);
+
+        if (shouldRerender) {
+          expect(tableLayoutTemplateMock.mock.calls.length).toBeGreaterThan(initialCallsCount);
+        } else {
+          expect(tableLayoutTemplateMock.mock.calls.length).toBe(initialCallsCount);
+        }
+      };
+
+      it('should not re-render on horizontal scroll bounce', () => {
+        assertRerenderOnBounce(false, {
+          scrollLeft: 200,
+          clientWidth: 400,
+          scrollWidth: 500,
+          scrollTop: 0,
+        });
+      });
+
+      it('should not re-render on vertical scroll bounce', () => {
+        assertRerenderOnBounce(false, {
+          scrollTop: 200,
+          clientHeight: 400,
+          scrollHeight: 500,
+          scrollLeft: 0,
+        });
+      });
+
+      it('should normalize scroll position in the Edge browser', () => {
+        isEdgeBrowser.mockReturnValue(true);
+
+        assertRerenderOnBounce(true, {
+          scrollLeft: 201,
+          clientWidth: 200,
+          scrollWidth: 400,
+          scrollTop: 0,
+        });
+      });
+
+      it('should normalize scroll position in the Edge by 1px only', () => {
+        isEdgeBrowser.mockReturnValue(true);
+
+        assertRerenderOnBounce(false, {
+          scrollLeft: 202,
+          clientWidth: 200,
+          scrollWidth: 400,
+          scrollTop: 0,
+        });
+      });
     });
   });
 
   describe('VirtualTableLayout template', () => {
-    const RealVirtualTable = makeVirtualTable(Table, {
-      VirtualLayout: VirtualLayoutMock,
-      defaultEstimatedRowHeight: 30,
-      defaultHeight: 400,
-      minColumnWidth: 100,
-    });
-
-    it('should pass handler functions', () => {
-      const tree = mount((
+    let tableLayoutTemplateMock;
+    let Tree;
+    beforeEach(() => {
+      tableLayoutTemplateMock = jest.fn().mockReturnValue(null);
+      Tree = (
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
-          <RealVirtualTable {...defaultProps} />
+          <Template name="tableLayout">
+            {tableLayoutTemplateMock}
+          </Template>
+          <VirtualTableViewport {...defaultProps} />
         </PluginHost>
-      ));
+      );
+    });
 
-      expect(tree.find(VirtualLayoutMock).props())
+    afterEach(jest.resetAllMocks);
+
+    it('should pass handler functions', () => {
+      mount(Tree);
+
+      expect(tableLayoutTemplateMock.mock.calls[0][0])
         .toMatchObject({
           blockRefsHandler: expect.any(Function),
           rowRefsHandler: expect.any(Function),
@@ -158,33 +254,25 @@ describe('#makeVirtualTable', () => {
     });
 
     it('should pass remote data info', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <RealVirtualTable {...defaultProps} />
-        </PluginHost>
-      ));
+      getRowsRenderBoundary.mockReturnValue('rowsRenderBoundary');
 
-      expect(tree.find(VirtualLayoutMock).props())
+      mount(Tree);
+
+      expect(tableLayoutTemplateMock.mock.calls[0][0])
         .toMatchObject({
-          visibleRowBoundaries: [NaN, NaN],
+          renderRowBoundaries: 'rowsRenderBoundary',
           totalRowCount: 3,
           loadedRowsStart: 'loadedRowsStart',
         });
     });
 
     it('should pass container dimensions from state', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <RealVirtualTable {...defaultProps} />
-        </PluginHost>
-      ));
+      mount(Tree);
 
-      expect(tree.find(VirtualLayoutMock).props())
+      expect(tableLayoutTemplateMock.mock.calls[0][0])
         .toMatchObject({
-          containerHeight: 120,
-          containerWidth: 600,
+          containerHeight: 600,
+          containerWidth: 800,
         });
     });
 
@@ -198,17 +286,12 @@ describe('#makeVirtualTable', () => {
         viewportLeft: 200,
       };
 
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <RealVirtualTable {...defaultProps} />
-        </PluginHost>
-      ));
+      const tree = mount(Tree);
 
-      tree.find(RealVirtualTable).setState(gridDimensions);
+      tree.find(VirtualTableViewport).setState(gridDimensions);
       tree.update();
 
-      expect(tree.find(VirtualLayoutMock).props())
+      expect(tableLayoutTemplateMock.mock.calls[tableLayoutTemplateMock.mock.calls.length - 1][0])
         .toMatchObject(gridDimensions);
     });
 
@@ -216,14 +299,9 @@ describe('#makeVirtualTable', () => {
       const getColumnWidth = () => 0;
       getColumnWidthGetter.mockImplementation(() => getColumnWidth);
 
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <RealVirtualTable {...defaultProps} />
-        </PluginHost>
-      ));
+      mount(Tree);
 
-      expect(tree.find(VirtualLayoutMock).prop('getColumnWidth'))
+      expect(tableLayoutTemplateMock.mock.calls[0][0].getColumnWidth)
         .toBe(getColumnWidth);
     });
   });

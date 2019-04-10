@@ -91,6 +91,7 @@ export type GetColumnWidthGetterFn = PureComputed<
   GetColumnWidthFn
 >;
 
+/** @internal */
 export type RowsVisibleBoundaryFn = PureComputed<
   [any, Getters, number, GetRowHeightFn], RowsVisibleBoundary
 >;
@@ -109,6 +110,7 @@ export type GridGeometry = {
   estimatedRowHeight: number;
 };
 
+/** @internal */
 export type PageTriggersMetaFn = PureComputed<
   [GridGeometry, Getters], PageTriggersMeta | null
 >;

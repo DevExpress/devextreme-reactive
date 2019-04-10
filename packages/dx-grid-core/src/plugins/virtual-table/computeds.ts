@@ -5,7 +5,7 @@ import {
 import { RowsVisibleBoundaryFn } from '../../types';
 import { pageTriggersMeta } from './helpers';
 
-export const visibleRowsBounds: RowsVisibleBoundaryFn = (
+export const getVisibleRowsBounds: RowsVisibleBoundaryFn = (
   state, getters, estimatedRowHeight, getRowHeight,
 ) => {
   const {

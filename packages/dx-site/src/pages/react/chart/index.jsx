@@ -105,12 +105,12 @@ const IndexPage = () => (
       <LandingTitle text="Native Support for the UI Library of Your Choice" />
       <LandingImageFeature
         imageLink={bootstrapThemeLink}
-        title="Twitter Bootstrap React Grid"
+        title="Twitter Bootstrap Rendering"
         description="Use any existing or create your custom bootstrap theme. No need for any additional configuration."
       />
       <LandingImageFeature
         imageLink={materialThemeLink}
-        title="Material-UI React Grid"
+        title="Material Design Rendering"
         description="We ship additional Material-UI packages that allow you to utilize the familiar approaches and appearance."
       />
     </LandingLayout>

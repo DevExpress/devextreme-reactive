@@ -29,7 +29,7 @@ export const mergeRows: MergeRowsFn = (
       const left = breakpoints[i];
       const right = breakpoints[i + 1];
       const chunk = rowsInterval.start <= left && right <= rowsInterval.end
-        ? pluckSubarray(rows, rowsStart, left, right)
+        ? pluckSubarray(rows, rowsStart, left, right) // rows have higher priority
         : pluckSubarray(cacheRows, cacheStart, left, right);
 
       result = result.concat(chunk);
@@ -46,7 +46,7 @@ export const calculateRequestedRange: CalculateRequestedRangeFn = (
   loadedInterval, newRange, referenceIndex, pageSize,
 ) => {
   if (Math.abs(loadedInterval.start - newRange.start) >= 2 * pageSize) {
-    const useFirstHalf = referenceIndex % pageSize < 50;
+    const useFirstHalf = referenceIndex % pageSize < pageSize / 2;
     const start = useFirstHalf
       ? newRange.start
       : newRange.start + pageSize;

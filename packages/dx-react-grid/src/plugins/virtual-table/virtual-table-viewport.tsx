@@ -4,10 +4,9 @@ import {
   Plugin, Template, TemplateConnector,
   Sizer, TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
-import { isEdgeBrowser, MemoizedFunction, memoize } from '@devexpress/dx-core';
+import { isEdgeBrowser } from '@devexpress/dx-core';
 import {
-  TABLE_STUB_TYPE, TableColumn, GetColumnWidthFn, getColumnWidthGetter,
-  getVisibleRowsBounds, getRowsRenderBoundary,
+  TABLE_STUB_TYPE, getVisibleRowsBounds, getRowsRenderBoundary,
 } from '@devexpress/dx-grid-core';
 import { TableLayoutProps } from '../../types';
 
@@ -17,7 +16,6 @@ export class VirtualTableViewport extends React.PureComponent<any, any> {
   rowRefs: Map<any, any>;
   blockRefs: Map<any, any>;
   isEdgeBrowser = false;
-  getColumnWidthGetter: MemoizedFunction<[TableColumn[], number, number], GetColumnWidthFn>;
 
   constructor(props) {
     super(props);
@@ -43,12 +41,6 @@ export class VirtualTableViewport extends React.PureComponent<any, any> {
     this.updateViewport = this.updateViewport.bind(this);
     this.handleContainerSizeChange = this.handleContainerSizeChange.bind(this);
     this.handleTableUpdate = this.handleTableUpdate.bind(this);
-
-    this.getColumnWidthGetter = memoize(
-      (tableColumns, tableWidth, minColWidth) => (
-        getColumnWidthGetter(tableColumns, tableWidth, minColWidth)
-      ),
-    );
   }
 
   getScrollHandler = (
@@ -193,7 +185,6 @@ export class VirtualTableViewport extends React.PureComponent<any, any> {
     const {
       height: propHeight,
       estimatedRowHeight,
-      minColumnWidth,
     } = this.props;
 
     const {
@@ -208,22 +199,16 @@ export class VirtualTableViewport extends React.PureComponent<any, any> {
       <Plugin name="VirtualTableViewport">
         <Template name="tableLayout">
             {(params: TableLayoutProps) => {
-
               return (
                 <TemplateConnector>
                   {(
-                    { availableRowCount, loadedRowsStart,
-                      tableColumns, tableBodyRows,
-                    },
+                    { availableRowCount, loadedRowsStart, tableBodyRows },
                     { ensureNextVirtualPage },
                   ) => {
                     const {
                       containerComponent: Container,
                     } = params;
-                    const { containerWidth: width, viewportLeft, viewportTop } = this.state;
-                    const getColumnWidth = this.getColumnWidthGetter(
-                      tableColumns, width, minColumnWidth,
-                    );
+                    const { viewportLeft, viewportTop } = this.state;
                     const visibleRowBoundaries = getVisibleRowsBounds(
                       this.state, { loadedRowsStart, tableBodyRows },
                       estimatedRowHeight, this.getRowHeight,
@@ -259,7 +244,6 @@ export class VirtualTableViewport extends React.PureComponent<any, any> {
                             onUpdate: this.handleTableUpdate,
                             getRowHeight: this.getRowHeight,
                             renderRowBoundaries,
-                            getColumnWidth,
                             headerHeight,
                             bodyHeight,
                             footerHeight,

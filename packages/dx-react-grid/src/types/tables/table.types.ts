@@ -105,7 +105,6 @@ export interface TableProps {
   messages?: Table.LocalizationMessages;
   /** @internal */
   layoutComponent: React.ComponentType<TableLayoutProps>;
-  minColumnWidth: number;
 }
 
 /** @internal */

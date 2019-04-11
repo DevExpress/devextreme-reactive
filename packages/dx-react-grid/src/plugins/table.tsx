@@ -88,7 +88,6 @@ class TableBase extends React.PureComponent<TableProps> {
       headComponent,
       bodyComponent,
       footerComponent,
-      minColumnWidth,
     } = this.props;
 
     const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
@@ -129,7 +128,6 @@ class TableBase extends React.PureComponent<TableProps> {
                   bodyRows,
                   footerRows,
                   columns,
-                  minColumnWidth,
                   rowComponent: RowPlaceholder,
                   cellComponent: CellPlaceholder,
                   getCellColSpan: getTableCellColSpan,

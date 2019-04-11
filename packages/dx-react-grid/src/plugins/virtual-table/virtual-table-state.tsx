@@ -15,7 +15,7 @@ const rowsComputed = ({ virtualRows }: Getters) => plainRows(virtualRows);
 const loadedRowsStartComputed = ({ virtualRows }: Getters) => loadedRowsStart(virtualRows);
 
 // tslint:disable-next-line: max-line-length
-export class VirtualTableState extends React.PureComponent<VirtualTableStateProps, VirtualTableStateState> {
+class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, VirtualTableStateState> {
   static defaultProps = {
     virtualPageSize: 100,
   };
@@ -107,3 +107,5 @@ export class VirtualTableState extends React.PureComponent<VirtualTableStateProp
     );
   }
 }
+
+export const VirtualTableState: React.ComponentType<VirtualTableStateProps> = VirtualTableStateBase;

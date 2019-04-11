@@ -195,13 +195,16 @@ export {
   TABLE_STUB_TYPE,
 } from './utils/virtual-table';
 
+/** @internal */
 export * from './plugins/virtual-table/computeds';
+/** @internal */
 export * from './plugins/virtual-table/helpers';
 
+/** @internal */
 export * from './plugins/virtual-table-state/computeds';
+/** @internal */
 export * from './plugins/virtual-table-state/utils';
+/** @internal */
 export * from './plugins/virtual-table-state/helpers';
-
-export * from './utils/remote-rows-cache';
 
 export * from './types';

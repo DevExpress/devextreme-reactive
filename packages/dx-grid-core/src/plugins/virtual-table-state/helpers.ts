@@ -96,7 +96,7 @@ export const trimRowsToInterval: PureComputed<[VirtualRows, Interval]> = (
   };
 };
 
-export const getAvailableRowCount = (
+export const getAvailableRowCount: PureComputed<[boolean, number, number, number], number> = (
   infiniteScroll, newCount, lastCount, totalRowCount,
 ) => (
   infiniteScroll

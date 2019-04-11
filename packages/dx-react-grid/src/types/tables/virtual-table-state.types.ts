@@ -5,8 +5,6 @@ export interface VirtualTableStateProps {
   virtualPageSize?: number;
   loading: boolean;
   getRows: (skip: number, take: number) => void;
-  // onFirstRowIndexChange?: (index: number) => void;
-  // onViewportTopChange?: (top: number) => void;
 }
 
 export type VirtualTableStateState = {

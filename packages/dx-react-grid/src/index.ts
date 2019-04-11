@@ -53,4 +53,4 @@ export * from './plugins/virtual-table/virtual-table';
 
 export * from './types/tables/virtual-table.types';
 
-export { createRemoteRowsCache } from '@devexpress/dx-grid-core';
+export * from './utils/remote-rows-cache';

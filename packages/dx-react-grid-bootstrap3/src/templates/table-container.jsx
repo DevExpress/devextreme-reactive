@@ -16,6 +16,8 @@ export const TableContainer = ({
       WebkitOverflowScrolling: 'touch',
       border: 0,
       margin: 0,
+      // NOTE: fix sticky positioning in Safari
+      width: '100%',
       flexDirection: 'column',
       ...style,
     }}

@@ -1,30 +1,16 @@
-/* globals document:true */
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { RefType } from '@devexpress/dx-react-core';
 import { ThemeColors } from './layout';
-
-let globalStickyProp;
-const testCSSProp = (property, value, noPrefixes) => {
-  const prop = `${property}:`;
-  const el = document.createElement('test');
-  const mStyle = el.style;
-
-  if (!noPrefixes) {
-    mStyle.cssText = `${prop + ['-webkit-', '-moz-', '-ms-', '-o-', ''].join(`${value};${prop}`) + value};`;
-  } else {
-    mStyle.cssText = prop + value;
-  }
-  return mStyle[property];
-};
+import { getStickyPosition } from '../utils/css-fallback-properties';
 
 export class Table extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      stickyProp: globalStickyProp,
+      stickyPosition: getStickyPosition(),
     };
     this.tableRef = React.createRef();
   }
@@ -34,11 +20,11 @@ export class Table extends React.Component {
   }
 
   checkStyles() {
-    globalStickyProp = testCSSProp('position', 'sticky');
-    const { stickyProp } = this.state;
+    const { stickyPosition } = this.state;
+    const realStickyPosition = getStickyPosition();
 
-    if (stickyProp !== globalStickyProp) {
-      this.setState({ stickyProp: globalStickyProp });
+    if (stickyPosition !== realStickyPosition) {
+      this.setState({ stickyPosition: realStickyPosition });
     }
   }
 
@@ -46,7 +32,7 @@ export class Table extends React.Component {
     const {
       children, use, style, className, tableRef, ...restProps
     } = this.props;
-    const { stickyProp } = this.state;
+    const { stickyPosition } = this.state;
     const { backgroundColor } = this.context;
     return (
       <table
@@ -60,7 +46,7 @@ export class Table extends React.Component {
           borderCollapse: 'separate',
           marginBottom: 0,
           ...use ? {
-            position: stickyProp,
+            position: stickyPosition,
             zIndex: 500,
             background: backgroundColor,
           } : null,

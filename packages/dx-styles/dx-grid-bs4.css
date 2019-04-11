@@ -218,6 +218,7 @@ button.dx-g-bs4-table-edit-command-cell {
 }
 .dx-g-bs4-fixed-block {
   display: inline-block;
+  position: -webkit-sticky;
   position: sticky;
   left: 50%;
 }

@@ -7,6 +7,7 @@ import {
   ValueScale,
   EventTracker,
   HoverState,
+  Animation,
 } from '@devexpress/dx-react-chart';
 import {
   Chart,
@@ -86,6 +87,7 @@ export default class Demo extends React.PureComponent {
               onViewportChange={this.changeViewport}
               interactionWithValues="both"
             />
+            <Animation />
           </Chart>
         </Paper>
       </React.Fragment>

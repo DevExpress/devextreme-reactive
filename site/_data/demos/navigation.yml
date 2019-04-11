@@ -76,6 +76,8 @@
         path: /react/chart/demos/combination/multiple-axes
   - title: More Features
     items:
+      - title: Export
+        path: /react/chart/demos/export/demo
       - title: Zoom and Pan
         path: /react/chart/demos/more_features/zoom-and-pan
 /react/scheduler:

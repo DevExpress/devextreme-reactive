@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
-import { ViewState, EditingState } from '@devexpress/dx-react-scheduler';
+import { ViewState } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
   WeekView,
@@ -8,9 +8,6 @@ import {
   Appointments,
   ViewSwitcher,
   Toolbar,
-  AppointmentTooltip,
-  AppointmentForm,
-  DragDropProvider,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
 const appointments = [{

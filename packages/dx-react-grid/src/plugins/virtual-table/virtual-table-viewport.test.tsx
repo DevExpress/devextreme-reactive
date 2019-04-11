@@ -1,9 +1,11 @@
 import * as React from 'react';
+import { findDOMNode } from 'react-dom';
 import { mount } from 'enzyme';
 import { isEdgeBrowser } from '@devexpress/dx-core';
 import { PluginHost, Sizer, Template } from '@devexpress/dx-react-core';
 import {
   getColumnWidthGetter,
+  getVisibleRowsBounds,
   getRowsRenderBoundary,
 } from '@devexpress/dx-grid-core';
 import { pluginDepsToComponents } from '@devexpress/dx-testing';
@@ -49,11 +51,18 @@ jest.mock('@devexpress/dx-grid-core', () => {
   const actual = require.requireActual('@devexpress/dx-grid-core');
   jest.spyOn(actual, 'getCollapsedGrid');
   jest.spyOn(actual, 'getColumnWidthGetter');
+  jest.spyOn(actual, 'getVisibleRowsBounds');
   jest.spyOn(actual, 'getRowsRenderBoundary');
   return actual;
 });
 
 describe('VirtualTableViewport', () => {
+  beforeEach(() => {
+    getVisibleRowsBounds.mockReturnValue({ start: 0, end: 0 });
+  });
+
+  afterEach(jest.resetAllMocks);
+
   const Container = props => <div {...props} />;
   const defaultDeps = {
     getter: {
@@ -93,6 +102,22 @@ describe('VirtualTableViewport', () => {
     minColumnWidth: 120,
     height: 100,
     estimatedRowHeight: 40,
+  };
+  const createViewportWithMock = () => {
+    const tableLayoutTemplateMock = jest.fn().mockReturnValue(null);
+    const Viewport = (
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <Template name="tableLayout">
+          {tableLayoutTemplateMock}
+        </Template>
+        <VirtualTableViewport {...defaultProps} />
+      </PluginHost>
+    );
+    return {
+      Viewport,
+      tableLayoutTemplateMock,
+    };
   };
 
   describe('Sizer container', () => {
@@ -150,26 +175,36 @@ describe('VirtualTableViewport', () => {
         .toBeUndefined();
     });
 
+    it('should recompute row render boundaries on scroll', () => {
+      const { Viewport, tableLayoutTemplateMock } = createViewportWithMock();
+      getVisibleRowsBounds.mockImplementation(({ viewportTop }) => ({
+        start: viewportTop,
+        end: viewportTop,
+      }));
+      getRowsRenderBoundary.mockImplementation((_, visibleBounds) => (visibleBounds));
+      const tree = mount(Viewport);
+
+      simulateScroll(tree, { scrollTop: 100, scrollLeft: 50 });
+
+      const calls = tableLayoutTemplateMock.mock.calls;
+      expect(calls[calls.length - 2][0].renderRowBoundaries)
+        .toEqual([0, 0]);
+
+      expect(calls[calls.length - 1][0].renderRowBoundaries)
+        .toEqual([100, 100]);
+    });
+
     describe('scroll bounce', () => {
       let tableLayoutTemplateMock;
-      let Tree;
+      let Viewport;
       beforeEach(() => {
-        tableLayoutTemplateMock = jest.fn().mockReturnValue(null);
-        Tree = (
-          <PluginHost>
-            {pluginDepsToComponents(defaultDeps)}
-            <Template name="tableLayout">
-              {tableLayoutTemplateMock}
-            </Template>
-            <VirtualTableViewport {...defaultProps} />
-          </PluginHost>
-        );
+        const vp = createViewportWithMock();
+        tableLayoutTemplateMock = vp.tableLayoutTemplateMock;
+        Viewport = vp.Viewport;
       });
 
-      afterEach(jest.resetAllMocks);
-
       const assertRerenderOnBounce = (shouldRerender, scrollArgs) => {
-        const tree = mount(Tree);
+        const tree = mount(Viewport);
         const initialCallsCount = tableLayoutTemplateMock.mock.calls.length;
 
         simulateScroll(tree, scrollArgs);
@@ -225,24 +260,15 @@ describe('VirtualTableViewport', () => {
 
   describe('VirtualTableLayout template', () => {
     let tableLayoutTemplateMock;
-    let Tree;
+    let Viewport;
     beforeEach(() => {
-      tableLayoutTemplateMock = jest.fn().mockReturnValue(null);
-      Tree = (
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <Template name="tableLayout">
-            {tableLayoutTemplateMock}
-          </Template>
-          <VirtualTableViewport {...defaultProps} />
-        </PluginHost>
-      );
+      const vp = createViewportWithMock();
+      tableLayoutTemplateMock = vp.tableLayoutTemplateMock;
+      Viewport = vp.Viewport;
     });
 
-    afterEach(jest.resetAllMocks);
-
     it('should pass handler functions', () => {
-      mount(Tree);
+      mount(Viewport);
 
       expect(tableLayoutTemplateMock.mock.calls[0][0])
         .toMatchObject({
@@ -256,7 +282,7 @@ describe('VirtualTableViewport', () => {
     it('should pass remote data info', () => {
       getRowsRenderBoundary.mockReturnValue('rowsRenderBoundary');
 
-      mount(Tree);
+      mount(Viewport);
 
       expect(tableLayoutTemplateMock.mock.calls[0][0])
         .toMatchObject({
@@ -267,7 +293,7 @@ describe('VirtualTableViewport', () => {
     });
 
     it('should pass container dimensions from state', () => {
-      mount(Tree);
+      mount(Viewport);
 
       expect(tableLayoutTemplateMock.mock.calls[0][0])
         .toMatchObject({
@@ -286,7 +312,7 @@ describe('VirtualTableViewport', () => {
         viewportLeft: 200,
       };
 
-      const tree = mount(Tree);
+      const tree = mount(Viewport);
 
       tree.find(VirtualTableViewport).setState(gridDimensions);
       tree.update();
@@ -299,11 +325,166 @@ describe('VirtualTableViewport', () => {
       const getColumnWidth = () => 0;
       getColumnWidthGetter.mockImplementation(() => getColumnWidth);
 
-      mount(Tree);
+      mount(Viewport);
 
       expect(tableLayoutTemplateMock.mock.calls[0][0].getColumnWidth)
         .toBe(getColumnWidth);
     });
   });
 
+  describe('row heights', () => {
+    let tableLayoutTemplateMock;
+    let Viewport;
+    beforeEach(() => {
+      const vp = createViewportWithMock();
+      Viewport = vp.Viewport;
+      tableLayoutTemplateMock = vp.tableLayoutTemplateMock;
+    });
+
+    it('should specify correct row height at startup', () => {
+      expect.hasAssertions();
+
+      const rows = [
+        { key: 1 },
+        { key: 2, height: 10 },
+      ];
+
+      tableLayoutTemplateMock
+        .mockImplementation(({ getRowHeight }) => {
+          expect(getRowHeight(rows[0]))
+            .toEqual(defaultProps.estimatedRowHeight);
+          expect(getRowHeight(rows[1]))
+            .toEqual(10);
+        });
+
+      mount(Viewport);
+    });
+
+    it('should store row height when rendered', () => {
+      const rows = [
+        { key: 1 },
+        { key: 2, height: 10 },
+      ];
+      findDOMNode.mockImplementation(() => ({
+        getBoundingClientRect: () => ({
+          height: 50,
+        }),
+      }));
+
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <VirtualTableViewport {...defaultProps} />
+        </PluginHost>
+      ));
+
+      mount(Viewport);
+      const {
+        getRowHeight, rowRefsHandler, onUpdate,
+      } = tableLayoutTemplateMock.mock.calls[0][0];
+      rows.forEach(rowRefsHandler); // simulate rendering
+      onUpdate();
+
+      expect(getRowHeight(rows[0]))
+        .toEqual(50);
+      expect(getRowHeight(rows[1]))
+        .toEqual(50);
+    });
+
+    fit('should clear row heights when rows updated', () => {
+      const rows = [
+        { key: 11 },
+        { key: 12 },
+      ];
+      findDOMNode.mockImplementation(() => ({
+        getBoundingClientRect: () => ({
+          height: 50,
+        }),
+      }));
+
+      mount(Viewport);
+      const {
+        getRowHeight, rowRefsHandler, onUpdate,
+      } = tableLayoutTemplateMock.mock.calls[0][0];
+      rows.forEach((row) => {
+        rowRefsHandler(row, {}); // simulate rendering
+      });
+      onUpdate();
+      rowRefsHandler(rows[0], {}); // row rerendered
+      rowRefsHandler(rows[1], null); // row removed
+      onUpdate();
+
+      expect(getRowHeight(rows[1]))
+        .toEqual(defaultProps.estimatedRowHeight);
+    });
+
+    it('should clear row height when headerRows updated', () => {
+      const rows = [
+        { key: 11 },
+        { key: 12 },
+      ];
+
+      findDOMNode.mockImplementation(() => ({
+        getBoundingClientRect: () => ({
+          height: 50,
+        }),
+      }));
+
+      const tree = mount((
+        <VirtualTableLayout
+          {...defaultProps}
+          headerRows={rows.slice(0, 2)}
+          bodyRows={rows.slice(2, 1)}
+        />
+      ));
+      tree.setProps({ headerRows: [rows[0]] });
+
+      const { getRowHeight } = getCollapsedGrid.mock.calls[0][0];
+      expect(getRowHeight(rows[1]))
+        .toEqual(defaultProps.estimatedRowHeight);
+    });
+
+    it('should clear row height when footerRows updated', () => {
+      const rows = [
+        { key: 11 },
+        { key: 12 },
+      ];
+
+      findDOMNode.mockImplementation(() => ({
+        getBoundingClientRect: () => ({
+          height: 50,
+        }),
+      }));
+
+      const tree = mount((
+        <VirtualTableLayout
+          {...defaultProps}
+          bodyRows={rows.slice(2, 1)}
+          footerRows={rows.slice(0, 2)}
+        />
+      ));
+      tree.setProps({ footerRows: [rows[0]] });
+
+      const calls = getCollapsedGrid.mock.calls;
+      const { getRowHeight } = getCollapsedGrid.mock.calls[0][0];
+      expect(getRowHeight(rows[1]))
+        .toEqual(defaultProps.estimatedRowHeight);
+    });
+  });
+
+  it('should use getColumnWidthGetter', () => {
+    const getColumnWidth = () => 0;
+    getColumnWidthGetter.mockImplementationOnce(() => getColumnWidth);
+
+    mount((
+      <VirtualTableLayout
+        {...defaultProps}
+      />
+    ));
+
+    expect(getCollapsedGrid.mock.calls[0][0])
+      .toMatchObject({
+        getColumnWidth,
+      });
+  });
 });

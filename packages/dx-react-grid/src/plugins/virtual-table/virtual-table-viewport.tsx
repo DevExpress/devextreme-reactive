@@ -159,7 +159,6 @@ export class VirtualTableViewport extends React.PureComponent<any, any> {
       estimatedRowHeight,
       visibleRowBoundaries,
       viewportTop: node.scrollTop,
-      // prevTop: viewportTop,
       containerHeight: this.state.containerHeight,
     });
 

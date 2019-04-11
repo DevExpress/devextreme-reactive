@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { argumentsShallowEqual } from '@devexpress/dx-core';
 
-const reducer = (acc, { column }) => {
-  acc.push(column);
+const reducer = (acc, { column, colSpan }) => {
+  const [columns, colSpans] = acc;
+  columns.push(column);
+  colSpans.push(colSpan);
   return acc;
 };
 
@@ -10,12 +12,13 @@ export class VirtualRowLayout extends React.Component<any, any> {
   shouldComponentUpdate(nextProps) {
     const { cells: prevCells, row: prevRow } = this.props;
     const { cells: nextCells, row: nextRow } = nextProps;
-    const nextCollapsedColumns = nextCells.reduce(reducer, []);
-    const prevCollapsedColumns = prevCells.reduce(reducer, []);
+    const [nextColumns, nextColSpans] = nextCells.reduce(reducer, [[], []]);
+    const [prevColumns, prevColSpans] = prevCells.reduce(reducer, [[], []]);
 
-    const res = argumentsShallowEqual(nextCollapsedColumns, prevCollapsedColumns)
+    const propsAreEqual = argumentsShallowEqual(nextColumns, prevColumns)
+      && argumentsShallowEqual(nextColSpans, prevColSpans)
       && prevRow === nextRow;
-    return !res;
+    return !propsAreEqual;
   }
   render() {
     const { row, cells, rowComponent: Row, cellComponent: Cell } = this.props;

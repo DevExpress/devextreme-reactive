@@ -28,7 +28,7 @@
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.12.4",
-    "rollup": "^1.2.3",
+    "rollup": "^1.7.4",
     "rollup-plugin-babel": "^4.3.2",
     "rollup-plugin-license": "^0.8.1",
     "rollup-plugin-node-resolve": "^4.0.1"

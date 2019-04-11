@@ -8,7 +8,7 @@ import { createInterval, generateRows, createVirtualRows } from './test-utils';
 describe('VirtualTableState helpers', () => {
   describe('#mergeRows', () => {
     describe('nonoverlapping', () => {
-      it('cache before rows', () => {
+      it('should merge rows when cache is before rows', () => {
         const cacheInterval = createInterval(10, 14);
         const rowsInterval = createInterval(14, 18);
         const cache = generateRows(cacheInterval, 'cache');
@@ -22,7 +22,7 @@ describe('VirtualTableState helpers', () => {
         });
       });
 
-      it('rows before cache', () => {
+      it('should merge rows when rows are before cache', () => {
         const cacheInterval = createInterval(14, 18);
         const rowsInterval = createInterval(10, 14);
         const cache = generateRows(cacheInterval, 'cache');
@@ -38,7 +38,7 @@ describe('VirtualTableState helpers', () => {
     });
 
     describe('overlapping', () => {
-      it('cache before rows', () => {
+      it('should merge rows when cache is before rows', () => {
         const cacheInterval = createInterval(10, 20);
         const rowsInterval = createInterval(15, 25);
         const cache = generateRows(cacheInterval, 'cache');
@@ -52,7 +52,7 @@ describe('VirtualTableState helpers', () => {
         });
       });
 
-      it('rows before cache', () => {
+      it('should merge rows when rows are before cache', () => {
         const cacheInterval = createInterval(15, 25);
         const rowsInterval = createInterval(10, 20);
         const cache = generateRows(cacheInterval, 'cache');
@@ -66,7 +66,7 @@ describe('VirtualTableState helpers', () => {
         });
       });
 
-      it('cache contains rows', () => {
+      it('should merge rows when cache contains rows', () => {
         const cacheInterval = createInterval(10, 30);
         const rowsInterval = createInterval(15, 25);
         const cache = generateRows(cacheInterval, 'cache');
@@ -80,7 +80,7 @@ describe('VirtualTableState helpers', () => {
         });
       });
 
-      it('rows contain cache', () => {
+      it('should merge rows when rows contain cache', () => {
         const cacheInterval = createInterval(15, 25);
         const rowsInterval = createInterval(10, 30);
         const cache = generateRows(cacheInterval, 'cache');
@@ -94,7 +94,7 @@ describe('VirtualTableState helpers', () => {
     });
 
     describe('empty interval', () => {
-      it('empty cache interval', () => {
+      it('should merge rows when cache is empty', () => {
         const cacheInterval = intervalUtil.empty;
         const rowsInterval = createInterval(10, 20);
         const cache = generateRows(cacheInterval, 'cache');
@@ -106,7 +106,7 @@ describe('VirtualTableState helpers', () => {
         });
       });
 
-      it('empty rows interval', () => {
+      it('should merge rows when rows are empty', () => {
         const cacheInterval = createInterval(10, 20);
         const rowsInterval = intervalUtil.empty;
         const cache = generateRows(cacheInterval, 'cache');
@@ -118,7 +118,7 @@ describe('VirtualTableState helpers', () => {
         });
       });
 
-      it('both intervals empty', () => {
+      it('should merge rows when both rows and cache are empty', () => {
         const cacheInterval = intervalUtil.empty;
         const rowsInterval = intervalUtil.empty;
         const cache = generateRows(cacheInterval, 'cache');
@@ -154,7 +154,7 @@ describe('VirtualTableState helpers', () => {
     const pageSize = 100;
 
     describe('simple cases', () => {
-      it('next page', () => {
+      it('should caclulate requested range for next page', () => {
         const loadedInterval = createInterval(100, 400);
         const newInterval = createInterval(200, 500);
 
@@ -162,7 +162,7 @@ describe('VirtualTableState helpers', () => {
           .toEqual({ start: 400, end: 500 });
       });
 
-      it('previous page', () => {
+      it('should caclulate requested range for previous page', () => {
         const loadedInterval = createInterval(200, 500);
         const newInterval = createInterval(100, 400);
 
@@ -170,7 +170,7 @@ describe('VirtualTableState helpers', () => {
           .toEqual({ start: 100, end: 200 });
       });
 
-      it('next 2 pages', () => {
+      it('should caclulate requested range for next 2 pages', () => {
         const loadedInterval = createInterval(100, 400);
         const newInterval = createInterval(400, 700);
 
@@ -178,7 +178,7 @@ describe('VirtualTableState helpers', () => {
           .toEqual({ start: 500, end: 700 });
       });
 
-      it('previous 2 pages', () => {
+      it('should caclulate requested range for previous 2 pages', () => {
         const loadedInterval = createInterval(300, 600);
         const newInterval = createInterval(100, 400);
 
@@ -317,6 +317,5 @@ describe('VirtualTableState helpers', () => {
         rows: [],
       });
     });
-
   });
 });

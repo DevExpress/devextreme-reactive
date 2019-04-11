@@ -1,5 +1,5 @@
 # React Chart Zoom and Pan
 
-The demo shows how to setup zoom and pan for a chart both for arguments and values. Chart can also be zoomed be specifying desired rectangular region.
+In this demo, zooming and panning are enabled for argument and value scales. You can also zoom a specific chart area by selecting it with the mouse drag gesture.
 
 .embedded-demo({ "path": "zoom-pan/scatter", "showThemeSelector": true, "showThemeVariants": true })

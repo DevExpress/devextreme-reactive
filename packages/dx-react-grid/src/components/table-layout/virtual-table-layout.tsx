@@ -213,9 +213,9 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
   renderRowsBlock(name, collapsedGrid, Table, Body, blockRef?, marginBottom?) {
     const {
       minWidth,
+      rowComponent,
+      cellComponent,
     } = this.props;
-    const Row = this.props.rowComponent as React.ComponentType<any>;
-    const Cell = this.props.cellComponent as React.ComponentType<any>;
 
     const tableRef = blockRef || React.createRef();
 
@@ -244,8 +244,8 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
                   <VirtualRowLayout
                     row={row}
                     cells={cells}
-                    rowComponent={Row}
-                    cellComponent={Cell}
+                    rowComponent={rowComponent}
+                    cellComponent={cellComponent}
                   />
                 </RefHolder>
               );

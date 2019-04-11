@@ -30,6 +30,8 @@ export interface Appointment {
   allDay?: boolean;
   /** The recurrence rule. */
   rRule?: string;
+  /** The exception date-times. */
+  exDate?: string;
   /** The all appointment data */
   dataItem: AppointmentModel;
 }

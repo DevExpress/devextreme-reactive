@@ -13,12 +13,6 @@ import {
   DragDropProvider,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
-// 'DTSTART:20120201T023000Z',
-// 'RRULE:FREQ=MONTHLY;COUNT=5',
-// 'RDATE:20120701T023000Z,20120702T023000Z',
-// 'EXRULE:FREQ=MONTHLY;COUNT=2',
-// 'EXDATE:20120601T023000Z'
-
 const appointments = [{
   title: 'Website Re-Design Plan',
   startDate: new Date(2018, 5, 25, 9, 35),
@@ -39,11 +33,6 @@ const appointments = [{
   endDate: new Date(2018, 5, 25, 15, 35),
   id: 2,
   rRule: 'FREQ=DAILY;COUNT=5',
-}, {
-  title: 'Single Appt',
-  startDate: new Date(2018, 5, 30, 12, 30),
-  endDate: new Date(2018, 5, 30, 14, 20),
-  id: 3,
 }];
 
 export default class Demo extends React.PureComponent {
@@ -52,26 +41,6 @@ export default class Demo extends React.PureComponent {
     this.state = {
       data: appointments,
     };
-
-    this.commitChanges = this.commitChanges.bind(this);
-  }
-
-  commitChanges({ added, changed, deleted }) {
-    this.setState((state) => {
-      let { data } = state;
-      if (added) {
-        const startingAddedId = data.length > 0 ? data[data.length - 1].id + 1 : 0;
-        data = [...data, { id: startingAddedId, ...added }];
-      }
-      if (changed) {
-        data = data.map(appointment => (
-          changed[appointment.id] ? { ...appointment, ...changed[appointment.id] } : appointment));
-      }
-      if (deleted !== undefined) {
-        data = data.filter(appointment => appointment.id !== deleted);
-      }
-      return { data };
-    });
   }
 
   render() {
@@ -85,9 +54,6 @@ export default class Demo extends React.PureComponent {
           <ViewState
             defaultCurrentDate="2018-06-25"
           />
-          <EditingState
-            onCommitChanges={this.commitChanges}
-          />
           <WeekView
             startDayHour={9}
             endDayHour={19}
@@ -95,16 +61,8 @@ export default class Demo extends React.PureComponent {
           <MonthView />
           <Appointments />
 
-          <AppointmentTooltip
-            showCloseButton
-            showDeleteButton
-          />
-
-          <AppointmentForm />
           <Toolbar />
           <ViewSwitcher />
-
-          <DragDropProvider />
         </Scheduler>
       </Paper>
     );

@@ -21,12 +21,34 @@ import { dataGenerator } from '../../../demo-data/generator';
 const adjustDomain = ([start, end]) => [Math.floor(start), Math.ceil(end)];
 
 const formatTooltipValue = format('.2f');
+const tooltipContentArgStyle = {
+  paddingBottom: 0,
+};
+const tooltipContentValStyle = {
+  paddingTop: 0,
+};
 const TooltipContent = ({ targetItem, data, ...restProps }) => {
   const item = data[targetItem.point];
   const arg = item[targetItem.series === 'Series 1' ? 'arg1' : 'arg2'];
   const val = item[targetItem.series === 'Series 1' ? 'val1' : 'val2'];
-  const text = `${formatTooltipValue(arg)} | ${formatTooltipValue(val)}`;
-  return <Tooltip.Content {...restProps} text={text} />;
+  return (
+    <div>
+      <div>
+        <Tooltip.Content
+          {...restProps}
+          style={tooltipContentArgStyle}
+          text={`X: ${formatTooltipValue(arg)}`}
+        />
+      </div>
+      <div>
+        <Tooltip.Content
+          {...restProps}
+          style={tooltipContentValStyle}
+          text={`Y: ${formatTooltipValue(val)}`}
+        />
+      </div>
+    </div>
+  );
 };
 
 const ResetButton = props => (

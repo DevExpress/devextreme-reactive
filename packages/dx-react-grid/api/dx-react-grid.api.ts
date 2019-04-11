@@ -69,6 +69,16 @@ interface ColumnChooserProps {
     toggleButtonComponent: React.ComponentType<ColumnChooser.ToggleButtonProps>;
 }
 
+// @public (undocumented)
+declare const createRemoteRowsCache: (pageSize: number, capacity?: number) => {
+  // (undocumented)
+  getRows: (start: number, count: number) => any[];
+  // (undocumented)
+  setRows: (start: number, rows: ReadonlyArray<any>) => void;
+  // (undocumented)
+  invalidate: () => void;
+};
+
 // @public
 declare const CustomGrouping: React.ComponentType<CustomGroupingProps>;
 
@@ -966,9 +976,8 @@ namespace TableHeaderRow {
     children: React.ReactNode;
     column: Column;
     draggingEnabled: boolean;
-    getMessage: (messageKey: string) => string;
     groupingEnabled: boolean;
-    onGroup: () => void;
+    onGroup(): void;
     onSort: (parameters: {
       // (undocumented)
       direction?: 'asc' | 'desc' | null;
@@ -997,7 +1006,7 @@ namespace TableHeaderRow {
   }
   interface GroupButtonProps {
     disabled: boolean;
-    onGroup: () => void;
+    onGroup(): void;
   }
   // (undocumented)
   interface LocalizationMessages {
@@ -1087,7 +1096,7 @@ namespace TableRowDetail {
 // @public (undocumented)
 interface TableRowDetailProps {
   cellComponent: React.ComponentType<TableRowDetail.CellProps>;
-  contentComponent: React.ComponentType<TableRowDetail.ContentProps>;
+  contentComponent?: React.ComponentType<TableRowDetail.ContentProps>;
   rowComponent: React.ComponentType<TableRowDetail.RowProps>;
   rowHeight?: number;
   toggleCellComponent: React.ComponentType<TableRowDetail.ToggleCellProps>;
@@ -1115,7 +1124,7 @@ namespace TableSelection {
   // (undocumented)
   interface RowProps extends Table.RowProps {
     // (undocumented)
-    onToggle: () => void;
+    onToggle(): void;
     // (undocumented)
     selectByRowClick?: boolean;
     // (undocumented)
@@ -1282,10 +1291,31 @@ interface VirtualTableProps {
     noDataCellComponent: React.ComponentType<Table.NoDataCellProps>;
     noDataRowComponent: React.ComponentType<Table.RowProps>;
     rowComponent: React.ComponentType<Table.DataRowProps>;
+    // (undocumented)
+    skeletonCellComponent: React.ComponentType<Table.CellProps>;
     stubCellComponent: React.ComponentType<Table.CellProps>;
     stubHeaderCellComponent: React.ComponentType<Table.CellProps>;
     stubRowComponent: React.ComponentType<Table.RowProps>;
     tableComponent: React.ComponentType<object>;
+}
+
+// @public (undocumented)
+declare const VirtualTableState: React.ComponentType<VirtualTableStateProps>;
+
+// @public (undocumented)
+interface VirtualTableStateProps {
+  // (undocumented)
+  getRows: (skip: number, take: number) => void;
+  // (undocumented)
+  infinite: boolean;
+  // (undocumented)
+  loading: boolean;
+  // (undocumented)
+  rowCount: number;
+  // (undocumented)
+  start: number;
+  // (undocumented)
+  virtualPageSize?: number;
 }
 
 

@@ -1,9 +1,8 @@
 import * as React from 'react';<%&additionalImports%>
 import {
   VirtualTableState,
-  DataTypeProvider,
   createRemoteRowsCache,
-} from "@devexpress/dx-react-grid";
+} from '@devexpress/dx-react-grid';
 import {
   Grid,
   VirtualTable,
@@ -19,13 +18,13 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       columns: [
-        { name: 'id', title: 'Id', getCellValue: row => row['Id'] },
-        { name: 'store', title: 'Store', getCellValue: row => row['StoreName'] },
-        { name: 'category', title: 'Category', getCellValue: row => row['ProductCategoryName'] },
-        { name: 'product', title: 'Product', getCellValue: row => row['ProductName'] },
-        { name: 'date', title: 'Date', getCellValue: row => row['DateKey'] },
-        { name: 'price', title: 'Unit price', getCellValue: row => row['UnitPrice'] },
-        { name: 'amount', title: 'Amount', getCellValue: row => row['SalesAmount'] },
+        { name: 'id', title: 'Id', getCellValue: row => row.Id },
+        { name: 'store', title: 'Store', getCellValue: row => row.StoreName },
+        { name: 'category', title: 'Category', getCellValue: row => row.ProductCategoryName },
+        { name: 'product', title: 'Product', getCellValue: row => row.ProductName },
+        { name: 'date', title: 'Date', getCellValue: row => row.DateKey },
+        { name: 'price', title: 'Unit price', getCellValue: row => row.UnitPrice },
+        { name: 'amount', title: 'Amount', getCellValue: row => row.SalesAmount },
       ],
       rows: [],
       tableColumnExtensions: [
@@ -44,24 +43,7 @@ export default class Demo extends React.PureComponent {
     };
 
     const cache = createRemoteRowsCache(VIRTUAL_PAGE_SIZE);
-    const url = "https://js.devexpress.com/Demos/WidgetsGalleryDataService/api/Sales";
-
-    this.getRemoteRows = (skip, take) => {
-      const cached = cache.getRows(skip, take);
-      if (cached.length) {
-        setRows(skip, take);
-      } else {
-        this.setState({ loading: true })
-        const query = url + `?requireTotalCount=true&skip=${skip}&take=${take}`;
-        fetch(query, { mode: 'cors'})
-          .then(response => response.json())
-          .then((data) => {
-            cache.setRows(skip, data.data);
-            setRows(skip, take);
-          })
-          .catch(() => this.setState({ loading: false }));
-      }
-    };
+    const url = 'https://js.devexpress.com/Demos/WidgetsGalleryDataService/api/Sales';
 
     const setRows = (start, count) => {
       const rows = cache.getRows(start, count);
@@ -71,7 +53,24 @@ export default class Demo extends React.PureComponent {
         totalCount: 20000,
         loading: false,
       });
-    }
+    };
+
+    this.getRemoteRows = (skip, take) => {
+      const cached = cache.getRows(skip, take);
+      if (cached.length) {
+        setRows(skip, take);
+      } else {
+        this.setState({ loading: true });
+        const query = `${url}?requireTotalCount=true&skip=${skip}&take=${take}`;
+        fetch(query, { mode: 'cors' })
+          .then(response => response.json())
+          .then((data) => {
+            cache.setRows(skip, data.data);
+            setRows(skip, take);
+          })
+          .catch(() => this.setState({ loading: false }));
+      }
+    };
   }
 
   render() {

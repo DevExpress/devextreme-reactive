@@ -69,7 +69,7 @@ export class VirtualTableLayout extends React.PureComponent<VirtualTableLayoutPr
                   <Row
                     tableRow={row}
                     style={row.height !== undefined
-                      ? { height: `${(row.height === 'auto' ? bodyHeight : row.height)}px`}
+                      ? { height: `${(row.height === 'auto' ? bodyHeight : row.height)}px` }
                       : undefined}
                   >
                     {cells.map((cell) => {

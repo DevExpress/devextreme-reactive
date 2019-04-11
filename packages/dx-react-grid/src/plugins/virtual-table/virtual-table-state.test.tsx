@@ -141,8 +141,5 @@ describe('VirtualTableState', () => {
       expect(plainRows)
         .toBeCalledWith('virtualRowsWithCache');
     });
-
-
   });
-
 });

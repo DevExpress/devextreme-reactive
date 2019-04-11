@@ -7,6 +7,7 @@ export interface VirtualTableStateProps {
   getRows: (skip: number, take: number) => void;
 }
 
+/** @internal */
 export type VirtualTableStateState = {
   virtualRowsCache: any,
   viewportTop: number;

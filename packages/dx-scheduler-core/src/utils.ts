@@ -303,10 +303,14 @@ export const calculateRectByDateIntervals: CalculateRectByDateIntervalsFn = (
     .map(appointment => rectCalculator(appointment, { rectByDates, multiline, rectByDatesMeta }));
 };
 
-export const recurringViewPredicate: PureComputed<
-  [AppointmentMoment, Date, Date], AppointmentMoment[]
-> = (appointment, leftBound, rightBound) => {
-  if (!appointment.rRule) return [appointment];
+export const filterByViewBoundaries: PureComputed<
+  [AppointmentMoment, Date, Date, number[], boolean], AppointmentMoment[]
+> = (appointment, leftBound, rightBound, excludedDays, keepAllDay) => {
+  if (!appointment.rRule) {
+    return viewPredicate(appointment, leftBound, rightBound, excludedDays, keepAllDay)
+      ? [appointment]
+      : [];
+  }
 
   const options = {
     ...RRule.parseString(appointment.rRule),

@@ -9,7 +9,7 @@ import {
   unwrapGroups,
   getAppointmentStyle,
   calculateRectByDateIntervals,
-  recurringViewPredicate,
+  filterByViewBoundaries,
 } from './utils';
 
 describe('Utils', () => {
@@ -432,23 +432,33 @@ describe('Utils', () => {
         .toEqual('baseComputed');
     });
   });
-  describe('#recurringViewPredicate', () => {
+  describe('#filterByViewBoundaries', () => {
     const leftBound = new Date('2019-04-9 00:00');
     const rightBound = new Date('2019-04-11 00:00');
+    it('should filter if appointment not in a view', () => {
+      const appointment = {
+        start: moment(new Date('2019-04-4 10:00')),
+        end: moment(new Date('2019-04-4 11:00')),
+      };
+      const result = filterByViewBoundaries(appointment, leftBound, rightBound);
+
+      expect(result)
+        .toEqual([]);
+    });
     it('should work with no recurrence appointment', () => {
       const appointment = {
-        start: new Date('2019-04-9 10:00'),
-        end: new Date('2019-04-9 11:00'),
+        start: moment(new Date('2019-04-9 10:00')),
+        end: moment(new Date('2019-04-9 11:00')),
       };
-      const result = recurringViewPredicate(appointment, leftBound, rightBound);
+      const result = filterByViewBoundaries(appointment, leftBound, rightBound);
 
       expect(result)
         .toEqual([appointment]);
     });
     it('should work with recurrence appointment', () => {
       const appointment = {
-        start: new Date('2019-04-9 10:00'),
-        end: new Date('2019-04-9 11:00'),
+        start: moment(new Date('2019-04-9 10:00')),
+        end: moment(new Date('2019-04-9 11:00')),
         rRule: 'FREQ=DAILY;COUNT=2',
         customField: 'a',
         dataItem: {
@@ -457,7 +467,7 @@ describe('Utils', () => {
           data: 1,
         },
       };
-      const result = recurringViewPredicate(appointment, leftBound, rightBound);
+      const result = filterByViewBoundaries(appointment, leftBound, rightBound);
 
       expect(result[0].start.toString())
         .toBe(moment(new Date('2019-04-9 10:00')).toString());
@@ -494,11 +504,11 @@ describe('Utils', () => {
       const leftBoundTest = new Date('2019-04-9 00:00');
       const rightBoundTest = new Date('2019-04-10 00:00');
       const appointment = {
-        start: new Date('2019-04-9 10:00'),
-        end: new Date('2019-04-10 9:00'),
+        start: moment(new Date('2019-04-9 10:00')),
+        end: moment(new Date('2019-04-10 9:00')),
         rRule: 'FREQ=DAILY;COUNT=2',
       };
-      const result = recurringViewPredicate(appointment, leftBoundTest, rightBoundTest);
+      const result = filterByViewBoundaries(appointment, leftBoundTest, rightBoundTest);
 
       expect(result.length)
         .toBe(1);
@@ -512,7 +522,7 @@ describe('Utils', () => {
         rRule: 'FREQ=DAILY;COUNT=3',
         exDate: '20190410T100000Z',
       };
-      const result = recurringViewPredicate(appointment, leftBoundTest, rightBoundTest);
+      const result = filterByViewBoundaries(appointment, leftBoundTest, rightBoundTest);
 
       expect(result.length)
         .toBe(2);

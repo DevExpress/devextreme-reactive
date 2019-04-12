@@ -14,12 +14,13 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "build:generator": "node ../dx-demo-shell/generate-demos.js",
-    "build": "yarn run build:generator && webpack --env",
-    "build:prod": "yarn run build:generator && webpack --env.production",
-    "build:watch:generator": "nodemon --exec \"yarn run build:generator\" --watch \"src/demo-sources/**/*\" --ignore \"**/*.g.jsx\"  --ignore \"**/*.g.test.jsx\" --watch \"src/theme-sources/*/demo-source-data.json\" --watch \"generate-demos.js\" --ext js,jsx,jsxt,json,ts,tsx,tsxt",
-    "build:watch": "concurrently \"yarn run build:watch:generator\" \"webpack-dev-server --env\"",
-    "lint": "eslint \"src/**/*.{js,jsx}\"",
-    "lint:fix": "yarn run lint -- --fix"
+    "build": "yarn build:generator && webpack --env",
+    "build:prod": "yarn build:generator && webpack --env.production",
+    "build:watch:generator": "nodemon --exec \"yarn build:generator\" --watch \"src/demo-sources/**/*\" --ignore \"**/*.g.jsx\"  --ignore \"**/*.g.test.jsx\" --watch \"src/theme-sources/*/demo-source-data.json\" --watch \"generate-demos.js\" --ext js,jsx,jsxt,json,ts,tsx,tsxt",
+    "build:watch": "concurrently \"yarn build:watch:generator\" \"yarn start-demo-server\"",
+    "start-demo-server": "webpack-dev-server --env",
+    "lint": "eslint \"src/**/*.{js,jsx}\" --ignore-pattern \"**/*.testcafe.js\"",
+    "lint:fix": "yarn lint -- --fix"
   },
   "dependencies": {
     "@date-io/moment": "^1.1.0",

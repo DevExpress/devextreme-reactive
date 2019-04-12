@@ -10,9 +10,10 @@
   "license": "SEE LICENSE IN README.md",
   "main": "index.js",
   "scripts": {
-    "build": "yarn run webpack --env",
-    "build:prod": "yarn run webpack --env.production",
-    "build:watch": "concurrently \"webpack-dev-server --env\""
+    "build": "yarn webpack --env",
+    "build:prod": "yarn webpack --env.production",
+    "build:watch": "yarn start-demo-server",
+    "start-demo-server": "webpack-dev-server --env"
   },
   "dependencies": {
     "@devexpress/dx-demo-shell": "1.11.0-alpha.1",

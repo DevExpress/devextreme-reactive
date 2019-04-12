@@ -1,7 +1,6 @@
 import {
   TableRow, TableColumn, ColumnAnimationStyleMap, GetCellColSpanFn, TableProps,
 } from '../index';
-import { GetRowHeightFn, VisibleBoundary } from '@devexpress/dx-grid-core';
 
 type tableLayoutComponents = 'containerComponent' | 'tableComponent'
   | 'headComponent' | 'bodyComponent' | 'footerComponent';
@@ -42,20 +41,9 @@ export interface VirtualTableLayoutProps extends TableLayoutProps {
   estimatedRowHeight: number;
   headTableComponent: React.ComponentType<object>;
   footerTableComponent: React.ComponentType<object>;
-  onUpdate: () => void;
-  renderRowBoundaries: VisibleBoundary;
-  visibleColumnsBoundaries: VisibleBoundary[];
-  getRowHeight: GetRowHeightFn;
-  headerHeight: number;
-  bodyHeight: number;
-  footerHeight: number;
-  containerHeight: number;
-  containerWidth: number;
-  viewportLeft: number;
-  blockRefsHandler: (name: string, ref: React.ReactInstance | null) => void;
-  rowRefsHandler: (row: any, ref?: React.ReactInstance | null) => void;
   totalRowCount: number;
   loadedRowsStart: number;
+  ensureNextVirtualPage: (payload?: any) => void;
 }
 /** @internal */
 export type VirtualTableLayoutState = {
@@ -68,4 +56,18 @@ export type VirtualTableLayoutState = {
   footerHeight: number,
   containerWidth: number,
   containerHeight: number,
+};
+
+type virtualBlockProps = placeholderComponents | 'tableRef' | 'minWidth' | 'bodyComponent';
+/** @internal */
+export type VirtualTableLayoutBlockProps = Pick<VirtualTableLayoutProps, virtualBlockProps> & {
+  name: string,
+  collapsedGrid: {
+    columns: any,
+    rows: any,
+  },
+  blockRefsHandler: (name: string, ref: React.ReactInstance | null) => void,
+  rowRefsHandler: (row: any, ref?: React.ReactInstance | null) => void,
+  marginBottom?: number,
+  tableComponent: React.ComponentType<any>,
 };

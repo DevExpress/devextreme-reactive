@@ -2,6 +2,8 @@ import * as React from 'react';
 import {
   connectProps, Plugin, Template,
   PluginComponents,
+  TemplateConnector,
+  TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 import {
   isStubTableCell,
@@ -9,9 +11,9 @@ import {
 import {
   VirtualTableProps, VirtualTableLayoutProps, VirtualTableLayoutState,
   Table as TableNS,
+  TableLayoutProps,
 } from '../../types';
 import { RemoteDataLoader } from './remote-data-loader';
-import { VirtualTableViewport } from './virtual-table-viewport';
 
 /** @internal */
 export const makeVirtualTable: (...args: any) => any = (Table, {
@@ -71,11 +73,36 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
         <Plugin name="VirtualTable">
           <Table layoutComponent={this.layoutRenderComponent} {...restProps} />
           <RemoteDataLoader />
-          <VirtualTableViewport
-            estimatedRowHeight={estimatedRowHeight}
-            minColumnWidth={minColumnWidth}
-            height={height}
-          />
+
+          <Template name="tableLayout">
+            {(params: TableLayoutProps) => {
+              return (
+                <TemplateConnector>
+                  {(
+                    { availableRowCount, loadedRowsStart, tableBodyRows },
+                    { ensureNextVirtualPage },
+                  ) => {
+
+                    const totalRowCount = availableRowCount || tableBodyRows.length;
+
+                    return (
+                      <TemplatePlaceholder
+                        params={{
+                          ...params,
+                          totalRowCount,
+                          loadedRowsStart,
+                          height,
+                          minColumnWidth,
+                          estimatedRowHeight,
+                          ensureNextVirtualPage,
+                        }}
+                      />
+                    );
+                  }}
+                </TemplateConnector>
+              );
+            }}
+          </Template>
 
           <Template
             name="tableCell"

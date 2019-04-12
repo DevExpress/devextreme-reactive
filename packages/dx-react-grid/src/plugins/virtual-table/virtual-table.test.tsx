@@ -10,7 +10,6 @@ import { makeVirtualTable } from './virtual-table';
 import { Table } from '../table';
 import { pluginDepsToComponents } from '@devexpress/dx-testing';
 import { RemoteDataLoader } from './remote-data-loader';
-import { VirtualTableViewport } from './virtual-table-viewport';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableColumnsWithDataRows: jest.fn(),
@@ -136,7 +135,7 @@ describe('#makeVirtualTable', () => {
     });
 
     describe('VirtualTableViewport', () => {
-      it('should pass props to viewport plugin', () => {
+      it('should pass props to tableLayout template', () => {
         const VirtualTable = makeVirtualTable(TableMock, defaultVirtualTableProps);
         const tree = mount((
           <PluginHost>
@@ -147,7 +146,7 @@ describe('#makeVirtualTable', () => {
           </PluginHost>
         ));
 
-        expect(tree.find(VirtualTableViewport).props())
+        expect(tree.find(VirtualLayoutMock).props())
           .toEqual({
             estimatedRowHeight: 40,
             minColumnWidth: 100,

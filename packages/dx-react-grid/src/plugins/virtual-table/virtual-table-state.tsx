@@ -70,6 +70,12 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
     }
   }
 
+  invalidateVirtalRowsCache = () => {
+    this.setState({
+      virtualRowsCache: emptyVirtualRows,
+    });
+  }
+
   componentDidMount() {
     const { getRows, virtualPageSize, infinite, rowCount } = this.props;
     getRows(0, 2 * virtualPageSize!);
@@ -103,6 +109,10 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
         <Getter name="loadedRowsStart" computed={loadedRowsStartComputed} />
 
         <Action name="requestNextPage" action={this.requestNextPageAction} />
+        <Action
+          name="invalidateVirtalRowsCache"
+          action={this.invalidateVirtalRowsCache}
+        />
       </Plugin>
     );
   }

@@ -1,6 +1,6 @@
 import { PureComputed } from '@devexpress/dx-core';
 import { Getters } from '@devexpress/dx-react-core';
-import { TableColumn, TableRow } from './table.types';
+import { TableColumn, TableRow, GetCellColSpanFn } from './table.types';
 
 /** @internal */
 export type GetColumnWidthFn = PureComputed<[TableColumn, number?], number | null>;
@@ -76,13 +76,39 @@ export type GetCollapsedCellsFn = PureComputed<
 export type GetCollapsedGridFn = PureComputed<
   [{
     rows: TableRow[], columns: TableColumn[],
-    rowsVisibleBoundary: VisibleBoundary, columnsVisibleBoundary: VisibleBoundary[],
+    rowsVisibleBoundary?: VisibleBoundary, columnsVisibleBoundary: VisibleBoundary[],
     getColumnWidth: GetColumnWidthFn, getRowHeight: GetRowHeightFn,
     getColSpan: GetColSpanFn,
     totalRowCount: number,
     offset: number,
   }],
   { columns: CollapsedColumn[], rows: CollapsedRow[] }
+>;
+
+/** @internal */
+export type CollapsedGrid = { columns: CollapsedColumn[], rows: CollapsedRow[] };
+/** @internal */
+export type GetCollapsedGridsFn = PureComputed<
+  [
+    {
+      headerRows: TableRow[],
+      bodyRows: TableRow[],
+      footerRows: TableRow[],
+      columns: TableColumn[],
+      getCellColSpan?: GetCellColSpanFn,
+      totalRowCount: number,
+      loadedRowsStart: number,
+    },
+    { viewportLeft: number, containerWidth: number },
+    RowsVisibleBoundary,
+    GetColumnWidthFn,
+    GetRowHeightFn,
+  ],
+  {
+    headerGrid: CollapsedGrid,
+    bodyGrid: CollapsedGrid,
+    footerGrid: CollapsedGrid,
+  }
 >;
 
 /** @internal */

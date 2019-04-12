@@ -7,8 +7,10 @@ import {
   CollapsedCell,
   GetColumnWidthGetterFn,
   RowsVisibleBoundary,
+  GetCollapsedGridsFn,
+  CollapsedGrid,
 } from '../types';
-import { TABLE_FLEX_TYPE } from '..';
+import { TABLE_FLEX_TYPE, intervalUtil } from '..';
 
 export const TABLE_STUB_TYPE = Symbol('stub');
 
@@ -209,15 +211,11 @@ export const getCollapsedRows: GetCollapsedAndStubRowsFn = (
       });
     } else {
       const row = {} as any;
-      const rowCount = boundary[1] - boundary[0];
       collapsedRows.push({
         row: {
           key: `${TABLE_STUB_TYPE.toString()}_${boundary[0]}_${boundary[1]}`,
           type: TABLE_STUB_TYPE,
-          height: (rowCount === 0 && boundary[0] === Number.POSITIVE_INFINITY
-            ? 'auto'
-            : getColumnsSize(rows, boundary[0], boundary[1], getRowHeight)
-          ),
+          height: getColumnsSize(rows, boundary[0], boundary[1], getRowHeight),
         },
         cells: getCells(row),
       });
@@ -337,4 +335,72 @@ export const getColumnWidthGetter: GetColumnWidthGetterFn = (
   return column => (column.type === TABLE_FLEX_TYPE
     ? null
     : column.width || autoColWidth);
+};
+
+export const getCollapsedGrids: GetCollapsedGridsFn = ({
+    headerRows,
+    bodyRows,
+    footerRows,
+    columns,
+    loadedRowsStart,
+    totalRowCount,
+    getCellColSpan,
+  }, {
+    viewportLeft,
+    containerWidth,
+  },
+  visibleRowBoundaries,
+  getColumnWidth,
+  getRowHeight,
+) => {
+  const renderRowBoundaries = getRowsRenderBoundary(
+    loadedRowsStart + bodyRows.length,
+    [visibleRowBoundaries.start, visibleRowBoundaries.end],
+  );
+
+  const getColSpan = (
+    tableRow: any, tableColumn: any,
+  ) => getCellColSpan!({ tableRow, tableColumn, tableColumns: columns });
+
+  const visibleColumnBoundaries = [
+    getColumnsRenderBoundary(
+      columns.length,
+      getColumnsVisibleBoundary(
+        columns, viewportLeft, containerWidth, getColumnWidth,
+      )[0],
+    ),
+  ];
+  const getCollapsedGridBlock: PureComputed<
+    [any[], any[]?, number?, number?], CollapsedGrid
+  > = (
+    rows, rowsVisibleBoundary, rowCount = rows.length, offset = 0,
+  ) => getCollapsedGrid({
+    rows,
+    columns,
+    rowsVisibleBoundary,
+    columnsVisibleBoundary: visibleColumnBoundaries,
+    getColumnWidth,
+    getRowHeight,
+    getColSpan,
+    totalRowCount: rowCount,
+    offset,
+  });
+
+  const adjustedInterval = intervalUtil.intersect(
+    { start: renderRowBoundaries[0], end: renderRowBoundaries[1] },
+    { start: loadedRowsStart, end: loadedRowsStart + bodyRows.length },
+  );
+  const adjustedBounds = [adjustedInterval.start, adjustedInterval.end];
+
+  const headerGrid = getCollapsedGridBlock(headerRows || []);
+  const bodyGrid = getCollapsedGridBlock(
+    bodyRows || [], adjustedBounds, totalRowCount || 1, loadedRowsStart,
+  );
+  const footerGrid = getCollapsedGridBlock(footerRows || []);
+
+  return {
+    headerGrid,
+    bodyGrid,
+    footerGrid,
+  };
 };

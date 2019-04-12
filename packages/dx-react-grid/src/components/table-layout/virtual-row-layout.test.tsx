@@ -1,0 +1,60 @@
+import * as React from 'react';
+import { shallow } from 'enzyme';
+import { setupConsole } from '@devexpress/dx-testing';
+import { VirtualRowLayout } from './virtual-row-layout';
+
+const defaultProps = {
+  row: { key: 1, rowId: 1, height: 20 },
+  cells: [
+    { column: { key: 'a', column: { name: 'a' } }, colSpan: 1 },
+    { column: { key: 'b', column: { name: 'b' } }, colSpan: 1 },
+    { column: { key: 'c', column: { name: 'c' } }, colSpan: 1 },
+    { column: { key: 'd', column: { name: 'd' } }, colSpan: 1 },
+  ],
+  rowComponent: () => null,
+  cellComponent: () => null,
+};
+
+describe('RowLayout', () => {
+  let resetConsole;
+  beforeEach(() => {
+    resetConsole = setupConsole();
+  });
+
+  afterEach(() => {
+    resetConsole();
+    jest.resetAllMocks();
+  });
+
+  it('should render the "rowComponent" with correct properties', () => {
+    const tree = shallow((
+      <VirtualRowLayout
+        {...defaultProps}
+      />
+    ));
+
+    expect(tree.find(defaultProps.rowComponent).at(0).props())
+      .toMatchObject({
+        tableRow: defaultProps.row,
+        style: { height: '20px' },
+      });
+  });
+
+  it('should render the "cellComponent" for each column', () => {
+    const tree = shallow((
+      <VirtualRowLayout
+        {...defaultProps}
+      />
+    ));
+
+    tree.find(defaultProps.rowComponent).at(0).children().forEach((cell, index) => {
+      const { column, colSpan } = defaultProps.cells[index];
+      expect(cell.props())
+        .toMatchObject({
+          tableRow: defaultProps.row,
+          tableColumn: column,
+          colSpan,
+        });
+    });
+  });
+});

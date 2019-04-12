@@ -63,7 +63,6 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
       const {
         height,
         estimatedRowHeight,
-        headTableComponent,
         skeletonCellComponent: SkeletonStubCell,
         children,
         ...restProps

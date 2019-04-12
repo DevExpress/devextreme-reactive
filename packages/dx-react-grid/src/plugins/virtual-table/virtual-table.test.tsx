@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { PluginHost } from '@devexpress/dx-react-core';
+import { PluginHost, Template } from '@devexpress/dx-react-core';
 import {
   isStubTableCell,
   tableRowsWithDataRows,
@@ -21,11 +21,14 @@ jest.mock('@devexpress/dx-grid-core', () => ({
 }));
 
 describe('#makeVirtualTable', () => {
-  const VirtualLayoutMock = ({ height }) => (
+  const VirtualLayoutMock = ({ height = 0 }) => (
     <div style={{ height }} />
   );
-  const TableMock = ({ layoutComponent: LayoutComponent }) => (
-    <LayoutComponent />
+  const Container = props => <div {...props} />;
+  const TableMock = () => (
+    <Template name="tableLayout">
+      {params => <VirtualLayoutMock {...params} />}
+    </Template>
   );
   TableMock.components = {} as any;
   const defaultVirtualTableProps = {
@@ -39,8 +42,15 @@ describe('#makeVirtualTable', () => {
   };
   const defaultDeps = {
     getter: {
+      loadedRowsStart: 'loadedRowsStart',
+      availableRowCount: 100,
       getRowId: row => row.key,
       columns: [
+        { key: 'a', column: { name: 'a' } },
+        { key: 'b', column: { name: 'b' } },
+        { key: 'c', column: { name: 'c' } },
+      ],
+      tableColumns: [
         { key: 'a', column: { name: 'a' } },
         { key: 'b', column: { name: 'b' } },
         { key: 'c', column: { name: 'c' } },
@@ -50,9 +60,19 @@ describe('#makeVirtualTable', () => {
         { key: 2 },
         { key: 3 },
       ],
+      tableBodyRows: [
+        { key: 1 },
+        { key: 2 },
+        { key: 3 },
+      ],
+    },
+    action: {
+      ensureNextVirtualPage: jest.fn(),
     },
     template: {
-      body: undefined,
+      tableLayout: {
+        containerComponent: Container,
+      },
     },
   };
 
@@ -66,22 +86,32 @@ describe('#makeVirtualTable', () => {
     it('should pass initial props', () => {
       const tree = mount((
         <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
           <VirtualTable />
         </PluginHost>
       ));
 
       expect(tree.find(VirtualLayoutMock).props())
-        .toEqual({
+        .toMatchObject({
           height: defaultVirtualTableProps.defaultHeight,
           estimatedRowHeight: defaultVirtualTableProps.defaultEstimatedRowHeight,
           headTableComponent: defaultVirtualTableProps.FixedHeader,
           footerTableComponent: defaultVirtualTableProps.FixedFooter,
+          totalRowCount: defaultDeps.getter.availableRowCount,
+          loadedRowsStart: defaultDeps.getter.loadedRowsStart,
+          ensureNextVirtualPage: defaultDeps.action.ensureNextVirtualPage,
         });
+      const ensureNextVirtualPage = tree.find(VirtualLayoutMock).prop('ensureNextVirtualPage');
+      const payload = {};
+      ensureNextVirtualPage(payload);
+      expect()
+
     });
 
     it('should update connected props', () => {
       const WrappedVirtualTable = ({ height }) => (
         <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
           <VirtualTable height={height} />
         </PluginHost>
       );
@@ -101,10 +131,10 @@ describe('#makeVirtualTable', () => {
 
   describe('inner plugins', () => {
     describe('Table', () => {
-      it('should pass layoutComponent', () => {
+      it('should pass layoutComponent to the Table', () => {
         const defaultProps = {
-          tableComponent: () => null,
-          headComponent: () => null,
+          footerTableComponent: () => null,
+          headTableComponent: () => null,
         };
         const VirtualTable = makeVirtualTable(Table, defaultVirtualTableProps);
         const tree = mount((
@@ -131,26 +161,6 @@ describe('#makeVirtualTable', () => {
 
         expect(tree.find(TableMock).prop('columnExtensions'))
           .toEqual(columnExtensions);
-      });
-    });
-
-    describe('VirtualTableViewport', () => {
-      it('should pass props to tableLayout template', () => {
-        const VirtualTable = makeVirtualTable(TableMock, defaultVirtualTableProps);
-        const tree = mount((
-          <PluginHost>
-            <VirtualTable
-              estimatedRowHeight={40}
-              minColumnWidth={100}
-            />
-          </PluginHost>
-        ));
-
-        expect(tree.find(VirtualLayoutMock).props())
-          .toEqual({
-            estimatedRowHeight: 40,
-            minColumnWidth: 100,
-          });
       });
     });
 

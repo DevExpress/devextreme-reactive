@@ -74,7 +74,7 @@
     "react-test-renderer": "^16.8.3",
     "rollup": "^1.2.3",
     "rollup-plugin-babel": "^4.3.2",
-    "rollup-plugin-css-only": "^1.0.0",
+    "rollup-plugin-less": "^1.1.2",
     "rollup-plugin-license": "^0.8.1",
     "rollup-plugin-node-resolve": "^4.0.1"
   },

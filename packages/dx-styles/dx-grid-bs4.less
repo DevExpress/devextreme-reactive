@@ -1,10 +1,23 @@
+// Mixins
+.user-select-none() {
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: 'none';
+}
+.sticky-position() {
+  position: -webkit-sticky;
+  position: sticky;
+}
+.ellipsis-overflow() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .dx-g-bs4-cursor-pointer {
   cursor: pointer;
 }
 .dx-g-bs4-user-select-none {
-  user-select: none;
-  -moz-user-select: none;
-  -webkit-user-select: 'none';
+  .user-select-none();
 }
 .dx-g-bs4-inactive:after {
   content: "";
@@ -48,10 +61,6 @@ span.dx-g-bs4-group-panel-item-icon {
   top: 0;
   margin-right: 10px;
 }
-.dx-g-bs4-table-cell {
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
 .dx-g-bs4-table {
   table-layout: fixed;
   border-collapse: separate;
@@ -59,8 +68,7 @@ span.dx-g-bs4-group-panel-item-icon {
   margin: 0;
 }
 .dx-g-bs4-table-sticky {
-  position: -webkit-sticky;
-  position: sticky;
+  .sticky-position();
   z-index: 500;
 }
 .dx-g-bs4-table-head {
@@ -83,8 +91,7 @@ span.dx-g-bs4-group-panel-item-icon {
   padding: 5px;
 }
 .dx-g-bs4-table-header-cell-wrapper {
-  overflow: hidden;
-  text-overflow: ellipsis;
+  .ellipsis-overflow();
   margin: -5px;
   padding: 5px;
   flex: 1;
@@ -123,19 +130,15 @@ button.dx-g-bs4-table-edit-command-cell {
   opacity: 0;
   cursor: default;
 }
-.dx-g-bs4-sorting-control-text {
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.dx-g-bs4-table-tree-content {
-  overflow: hidden;
-  text-overflow: ellipsis;
+.dx-g-bs4-sorting-control-text,
+.dx-g-bs4-table-tree-content,
+.dx-g-bs4-table-cell,
+.dx-rg-bs4-table-header-title {
+  .ellipsis-overflow();
 }
 .dx-g-bs4-resizing-control-wrapper {
+  .user-select-none();
   position: absolute;
-  user-select: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
   width: 16px;
   top: 0;
   right: -8px;
@@ -148,9 +151,7 @@ button.dx-g-bs4-table-edit-command-cell {
   right: 0;
   width: 8px;
 }
-.dx-g-bs4-resizing-control-wrapper-active {
-  opacity: 1;
-}
+.dx-g-bs4-resizing-control-wrapper-active,
 .dx-g-bs4-header-cell:hover .dx-g-bs4-resizing-control-wrapper {
   opacity: 1;
 }
@@ -206,10 +207,6 @@ button.dx-g-bs4-table-edit-command-cell {
 .dx-g-bs4-table-invisible-row {
   visibility: hidden;
 }
-.dx-rg-bs4-table-header-title {
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
 .dx-g-bs4-header-cell-content {
   min-width: 0;
 }
@@ -217,9 +214,8 @@ button.dx-g-bs4-table-edit-command-cell {
   opacity: 0;
 }
 .dx-g-bs4-fixed-block {
+  .sticky-position();
   display: inline-block;
-  position: -webkit-sticky;
-  position: sticky;
   left: 50%;
 }
 .dx-g-bs4-fixed-block .text-muted {

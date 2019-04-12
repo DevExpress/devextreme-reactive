@@ -13,3 +13,4 @@ export { ValueAxis } from './plugins/value-axis';
 export { ArgumentAxis } from './plugins/argument-axis';
 
 export { Tooltip } from './plugins/tooltip';
+export { ZoomAndPan } from './plugins/zoom-pan';

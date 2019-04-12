@@ -2,20 +2,24 @@ import moment from 'moment';
 import { PureComputed } from '@devexpress/dx-core';
 import {
   ViewCell, AppointmentModel, ClientOffset, TimeType,
-  AllDayRects, VerticalRects, HorizontalRects, AllDayCell,
+  AllDayCell, CalculateAppointmentTimeBoundaries,
+  TimeBoundariesByDrag, TimeBoundariesByResize,
 } from '../../types';
 import { allDayCells as allDayCellsCore } from '../common/computeds';
-import { calculateRectByDateIntervals } from '../../utils';
-import { calculateWeekDateIntervals } from '../week-view/computeds';
-import { getVerticalRectByDates } from '../vertical-rect/helpers';
-import { getHorizontalRectByDates } from '../horizontal-rect/helpers';
-import { calculateMonthDateIntervals } from '../month-view/computeds';
-import { calculateAllDayDateIntervals } from '../all-day-panel/computeds';
-import { VERTICAL_TYPE, HORIZONTAL_TYPE } from '../../constants';
+import {
+  VERTICAL_TYPE, HORIZONTAL_TYPE, SCROLL_OFFSET, MINUTES,
+  SCROLL_SPEED_PX, SECONDS, RESIZE_TOP, RESIZE_BOTTOM, HOURS,
+} from '../../constants';
+import { allDayRects, horizontalTimeTableRects, verticalTimeTableRects } from './calculate-rects';
 
 const clamp: PureComputed<
   [number, number, number]
 > = (value, min, max) => Math.max(Math.min(value, max), min);
+
+const calculateInsideOffset: PureComputed<
+  [string, number, number], number
+> = (targetType, insidePart, cellDurationMinutes) => targetType === VERTICAL_TYPE
+  ? insidePart * cellDurationMinutes * 60 / 2 : 0;
 
 export const cellType: PureComputed<
   [AppointmentModel], string
@@ -51,73 +55,138 @@ export const cellData: PureComputed<
   return viewCellsData[firstIndex][secondIndex];
 };
 
-export const allDayRects: AllDayRects = (
-  draftAppointments, startViewDate, endViewDate,
-  excludedDays, viewCellsData, cellElements,
+export const autoScroll: PureComputed<
+  [ClientOffset, any, any], void
+> = (clientOffset, layoutElement, layoutHeaderElement) => {
+  const layout = layoutElement.current;
+  const layoutHeaderRect = layoutHeaderElement.current.getBoundingClientRect();
+
+  if ((clientOffset.y < layoutHeaderRect.height + layoutHeaderRect.top + SCROLL_OFFSET)
+    && (clientOffset.y > layoutHeaderRect.height + layoutHeaderRect.top)) {
+    layout.scrollTop -= SCROLL_SPEED_PX;
+  }
+  if (layout.clientHeight - SCROLL_OFFSET < clientOffset.y - layout.offsetTop) {
+    layout.scrollTop += SCROLL_SPEED_PX;
+  }
+};
+
+export const timeBoundariesByResize: TimeBoundariesByResize = (
+  payload, targetData, targetType, cellDurationMinutes, insidePart,
 ) => {
-  const intervals = calculateAllDayDateIntervals(
-    draftAppointments, startViewDate, endViewDate, excludedDays,
-  );
-  return calculateRectByDateIntervals(
-    {
-      growDirection: HORIZONTAL_TYPE,
-      multiline: false,
-    },
-    intervals,
-    getHorizontalRectByDates,
-    {
-      startViewDate,
-      endViewDate,
-      viewCellsData,
-      cellElements,
-      excludedDays,
-    },
+  if (targetType !== payload.appointmentType) {
+    return { appointmentStartTime: undefined, appointmentEndTime: undefined };
+  }
+
+  let appointmentStartTime;
+  let appointmentEndTime;
+  const sourceType = payload.type;
+
+  if (sourceType === RESIZE_TOP) {
+    const insideTopOffset = calculateInsideOffset(targetType, insidePart, cellDurationMinutes);
+    appointmentStartTime = moment(targetData.startDate as Date)
+      .add(insideTopOffset, SECONDS).toDate();
+    appointmentEndTime = new Date(payload.endDate as Date);
+  }
+  if (sourceType === RESIZE_BOTTOM) {
+    const insideBottomOffset = insidePart === 0 && targetType === VERTICAL_TYPE
+      ? cellDurationMinutes * 60 / 2 : 0;
+    appointmentEndTime = moment(targetData.endDate as Date)
+      .add(-insideBottomOffset, SECONDS).toDate();
+    appointmentStartTime = new Date(payload.startDate as Date);
+  }
+  // keep origin appointment duration if coordinates are wrong
+  if (moment(appointmentEndTime).diff(appointmentStartTime, MINUTES) < 1) {
+    appointmentStartTime = new Date(payload.startDate as Date);
+    appointmentEndTime = new Date(payload.endDate as Date);
+  }
+  return { appointmentStartTime, appointmentEndTime };
+};
+
+export const timeBoundariesByDrag: TimeBoundariesByDrag = (
+  payload, targetData, targetType,
+  cellDurationMinutes, insidePart, offsetTimeTopBase,
+) => {
+  let offsetTimeTop;
+  let appointmentStartTime;
+  let appointmentEndTime;
+
+  const insideOffset = calculateInsideOffset(targetType, insidePart, cellDurationMinutes);
+  const start = moment(targetData.startDate as Date).add(insideOffset, SECONDS);
+
+  if (offsetTimeTopBase === null) {
+    offsetTimeTop = moment(targetData.startDate as Date)
+      .diff(payload.startDate as Date, SECONDS) + insideOffset;
+  } else {
+    offsetTimeTop = offsetTimeTopBase;
+  }
+
+  if (payload.type === targetType) {
+    const appointmentDurationSeconds = intervalDuration(payload, SECONDS);
+    appointmentStartTime = moment(start).add((offsetTimeTop) * (-1), SECONDS).toDate();
+    appointmentEndTime = moment(start)
+      .add((appointmentDurationSeconds - offsetTimeTop), SECONDS).toDate();
+  } else {
+    appointmentStartTime = moment(targetData.startDate as Date)
+      .add(insideOffset, SECONDS).toDate();
+    appointmentEndTime = moment(targetData.endDate as Date).add(insideOffset, SECONDS).toDate();
+  }
+
+  return { appointmentStartTime, appointmentEndTime, offsetTimeTop };
+};
+
+export const calculateAppointmentTimeBoundaries: CalculateAppointmentTimeBoundaries = (
+  payload, targetData, targetType,
+  cellDurationMinutes, insidePart, offsetTimeTopBase,
+) => {
+  const isDragging = (payload.type === VERTICAL_TYPE || payload.type === HORIZONTAL_TYPE);
+
+  return(isDragging
+    ? timeBoundariesByDrag(
+        payload, targetData, targetType, cellDurationMinutes, insidePart, offsetTimeTopBase,
+      )
+    : timeBoundariesByResize(payload, targetData, targetType, cellDurationMinutes, insidePart)
   );
 };
 
-export const verticalTimeTableRects: VerticalRects = (
-  draftAppointments, startViewDate, endViewDate, excludedDays,
-  viewCellsData, cellDuration, cellElements,
-) => {
-  const intervals = calculateWeekDateIntervals(
-    draftAppointments, startViewDate, endViewDate, excludedDays,
-  );
-  return calculateRectByDateIntervals(
-    {
-      growDirection: VERTICAL_TYPE,
-      multiline: false,
-    },
-    intervals,
-    getVerticalRectByDates,
-    {
-      startViewDate,
-      endViewDate,
-      viewCellsData,
-      cellDuration,
-      cellElements,
-    },
-  );
+export const calculateInsidePart: PureComputed<
+  [number, Element[], number]
+> = (top, timeTableCells, timeTableIndex) => {
+  if (timeTableIndex !== undefined && timeTableIndex !== -1) {
+    const cellRect = timeTableCells[timeTableIndex].getBoundingClientRect();
+    return top > cellRect.top + cellRect.height / 2 ? 1 : 0;
+  }
+  return 0;
 };
 
-export const horizontalTimeTableRects: HorizontalRects = (
-  draftAppointments, startViewDate, endViewDate,
-  excludedDays, viewCellsData, cellElements,
+export const calculateDraftAppointments = (
+  allDayIndex: number, draftAppointments: any, startViewDate: Date,
+  endViewDate: Date, excludedDays: number[], viewCellsData: any, allDayCells: any,
+  targetType: string, cellDurationMinutes: number, timeTableCells: any,
 ) => {
-  const intervals = calculateMonthDateIntervals(
-    draftAppointments, startViewDate, endViewDate,
-  );
-  return calculateRectByDateIntervals(
-    {
-      growDirection: HORIZONTAL_TYPE,
-      multiline: true,
-    },
-    intervals,
-    getHorizontalRectByDates,
-    {
-      startViewDate,
-      endViewDate,
-      viewCellsData,
-      cellElements,
-    },
-  );
+  if (allDayIndex !== -1
+    || (allDayCells.length && intervalDuration(draftAppointments[0].dataItem, HOURS) > 23)) {
+    return {
+      allDayDraftAppointments: allDayRects(
+        draftAppointments, startViewDate, endViewDate, excludedDays, viewCellsData, allDayCells,
+      ),
+      timeTableDraftAppointments: [],
+    };
+  }
+
+  if (targetType === VERTICAL_TYPE || allDayIndex !== -1) {
+    return {
+      allDayDraftAppointments: [],
+      timeTableDraftAppointments: verticalTimeTableRects(
+        draftAppointments, startViewDate, endViewDate,
+        excludedDays, viewCellsData, cellDurationMinutes, timeTableCells,
+      ),
+    };
+  }
+  return {
+    allDayDraftAppointments: [],
+    timeTableDraftAppointments: horizontalTimeTableRects(
+      draftAppointments, startViewDate, endViewDate,
+      viewCellsData, timeTableCells,
+    ),
+  };
 };

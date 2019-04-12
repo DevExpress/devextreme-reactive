@@ -140,9 +140,6 @@ declare type DataItem = {
 declare type DataItems = ReadonlyArray<DataItem>;
 
 // @public (undocumented)
-declare type DomainBounds = Readonly<[any, any]>;
-
-// @public (undocumented)
 declare type DomainItems = ReadonlyArray<any>;
 
 // @public (undocumented)
@@ -246,6 +243,9 @@ declare type NumberArray = [number, number];
 
 // @public (undocumented)
 declare type OffsetFn = (series: StackData, order: number[]) => void;
+
+// @public (undocumented)
+declare type OnViewportChangeFn = (viewport: ViewportOptions) => void;
 
 // @public (undocumented)
 declare type OrderFn = (series: StackData) => number[];
@@ -364,6 +364,18 @@ interface RawAxisProps {
 }
 
 // @public (undocumented)
+type Rect = {
+  // (undocumented)
+  x: number;
+  // (undocumented)
+  y: number;
+  // (undocumented)
+  width: number;
+  // (undocumented)
+  height: number;
+};
+
+// @public (undocumented)
 interface ScaleObject {
   // (undocumented)
   (value: any): number;
@@ -372,6 +384,7 @@ interface ScaleObject {
   copy(): this;
   domain(domain: DomainItems): this;
   domain(): DomainItems;
+  invert(value: number): any;
   paddingInner?(arg: number): this;
   paddingOuter?(arg: number): this;
   range(): NumberArray;
@@ -386,6 +399,12 @@ interface ScaleProps {
   modifyDomain?: ModifyDomainFn;
   name?: string;
 }
+
+// @public (undocumented)
+declare type ScalesCache = {
+  // (undocumented)
+  readonly [key: string]: ScaleObject;
+};
 
 // @public (undocumented)
 declare const ScatterSeries: React.ComponentType<ScatterSeriesProps>;
@@ -490,7 +509,7 @@ interface TargetData {
 declare type TargetList = ReadonlyArray<SeriesRef>;
 
 // @public (undocumented)
-declare type TickFormatFn = (scale: ScaleObject) => GetFormatFn;
+declare type TickFormatFn = (scale: ScaleObject, count?: number) => GetFormatFn;
 
 // @public (undocumented)
 declare const Title: React.ComponentType<TitleProps>;
@@ -579,23 +598,39 @@ interface ValueScaleProps extends ScaleProps {
 }
 
 // @public (undocumented)
-declare const Viewport: React.ComponentType<ViewportProps>;
-
-// @public (undocumented)
 declare type ViewportOptions = {
   // (undocumented)
-  readonly argumentBounds?: DomainBounds;
+  readonly argumentStart?: any;
+  // (undocumented)
+  readonly argumentEnd?: any;
   // (undocumented)
   readonly scaleName?: string;
   // (undocumented)
-  readonly valueBounds?: DomainBounds;
+  readonly valueStart?: any;
+  // (undocumented)
+  readonly valueEnd?: any;
 };
 
 // @public (undocumented)
-interface ViewportProps {
+declare const ZoomAndPan: React.ComponentType<ZoomAndPanProps>;
+
+// @public (undocumented)
+namespace ZoomAndPan {
+  // (undocumented)
+  interface DragBoxProps {
+    rect: Rect;
+  }
+}
+
+// @public (undocumented)
+interface ZoomAndPanProps {
   defaultViewport?: ViewportOptions;
-  onViewportChange?: (viewport: ViewportOptions) => void;
+  dragBoxComponent: React.ComponentType<ZoomAndPan.DragBoxProps>;
+  interactionWithArguments?: 'none' | 'pan' | 'zoom' | 'both';
+  interactionWithValues?: 'none' | 'pan' | 'zoom' | 'both';
+  onViewportChange?: OnViewportChangeFn;
   viewport?: ViewportOptions;
+  zoomRegionKey?: 'shift' | 'alt' | 'ctrl';
 }
 
 

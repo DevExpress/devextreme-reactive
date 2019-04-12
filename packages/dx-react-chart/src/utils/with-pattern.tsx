@@ -11,7 +11,7 @@ export const withPattern = <T extends any>(
   return (
     <React.Fragment>
       <Target
-        fill={`url(#${patternId})`}
+        color={`url(#${patternId})`}
         {...restProps}
       />
       <Pattern

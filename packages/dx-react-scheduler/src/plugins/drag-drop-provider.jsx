@@ -10,15 +10,16 @@ import {
   cellIndex,
   cellData,
   cellType,
-  allDayRects,
-  verticalTimeTableRects,
-  horizontalTimeTableRects,
   getAppointmentStyle,
   intervalDuration,
-  VERTICAL_TYPE,
-  SCROLL_OFFSET,
-  SCROLL_SPEED_PX,
-  SECONDS,
+  autoScroll,
+  calculateAppointmentTimeBoundaries,
+  calculateInsidePart,
+  calculateDraftAppointments,
+  RESIZE_TOP,
+  RESIZE_BOTTOM,
+  POSITION_START,
+  POSITION_END,
 } from '@devexpress/dx-scheduler-core';
 
 const pluginDependencies = [
@@ -40,15 +41,11 @@ export class DragDropProvider extends React.PureComponent {
       payload: undefined,
     };
 
-    this.timeTableRects = [];
-    this.allDayRects = [];
+    this.timeTableDraftAppointments = [];
+    this.allDayDraftAppointments = [];
     this.offsetTimeTop = null;
     this.appointmentStartTime = null;
     this.appointmentEndTime = null;
-  }
-
-  onOver(getters, actions) {
-    return args => this.handleOver(args, getters, actions);
   }
 
   onDrop(actions) {
@@ -59,9 +56,13 @@ export class DragDropProvider extends React.PureComponent {
     return args => this.handlePayloadChange(args, actions);
   }
 
+  calculateNextBoundaries(getters, actions) {
+    return args => this.calculateBoundaries(args, getters, actions);
+  }
+
   resetCache() {
-    this.timeTableRects = [];
-    this.allDayRects = [];
+    this.timeTableDraftAppointments = [];
+    this.allDayDraftAppointments = [];
     this.offsetTimeTop = null;
     this.appointmentStartTime = null;
     this.appointmentEndTime = null;
@@ -71,6 +72,12 @@ export class DragDropProvider extends React.PureComponent {
       startTime: null,
       endTime: null,
     });
+  }
+
+  applyChanges(startTime, endTime, payload, startEditAppointment, changeAppointment) {
+    startEditAppointment({ appointmentId: payload.id });
+    changeAppointment({ change: { startDate: startTime, endDate: endTime } });
+    this.setState({ startTime, endTime, payload });
   }
 
   handlePayloadChange({ payload }, { commitChangedAppointment, stopEditAppointment }) {
@@ -83,7 +90,7 @@ export class DragDropProvider extends React.PureComponent {
     this.resetCache();
   }
 
-  handleOver(
+  calculateBoundaries(
     { payload, clientOffset },
     {
       viewCellsData, startViewDate, endViewDate, excludedDays,
@@ -91,20 +98,9 @@ export class DragDropProvider extends React.PureComponent {
     },
     { changeAppointment, startEditAppointment },
   ) {
-    // AUTO SCROLL
     if (clientOffset) {
-      const layout = layoutElement.current;
-      const layoutHeaderRect = layoutHeaderElement.current.getBoundingClientRect();
-
-      if ((clientOffset.y < layoutHeaderRect.height + layoutHeaderRect.top + SCROLL_OFFSET)
-        && (clientOffset.y > layoutHeaderRect.height + layoutHeaderRect.top)) {
-        layout.scrollTop -= SCROLL_SPEED_PX;
-      }
-      if (layout.clientHeight - SCROLL_OFFSET < clientOffset.y - layout.offsetTop) {
-        layout.scrollTop += SCROLL_SPEED_PX;
-      }
+      autoScroll(clientOffset, layoutElement, layoutHeaderElement);
     }
-
     const timeTableCells = Array.from(timeTableElement.current.querySelectorAll('td'));
     const allDayCells = Array.from(layoutHeaderElement.current.querySelectorAll('th'));
 
@@ -113,84 +109,50 @@ export class DragDropProvider extends React.PureComponent {
 
     if (allDayIndex === -1 && timeTableIndex === -1) return;
 
-    const appointmentDuration = intervalDuration(payload, SECONDS);
     const targetData = cellData(timeTableIndex, allDayIndex, viewCellsData);
     const targetType = cellType(targetData);
-    const sourceType = payload.type;
+    const insidePart = calculateInsidePart(clientOffset.y, timeTableCells, timeTableIndex);
+    const cellDurationMinutes = intervalDuration(targetData, 'minutes');
 
-    // CALCULATE INSIDE OFFSET
-    let insidePart = 0;
-    if (timeTableIndex !== -1) {
-      const cellRect = timeTableCells[timeTableIndex].getBoundingClientRect();
-      insidePart = clientOffset.y > cellRect.top + (cellRect.bottom - cellRect.top) / 2 ? 1 : 0;
-    }
-
-    // CURSOR POSITION
-    const cellDuration = intervalDuration(targetData, 'minutes');
-    const insideOffset = targetType === VERTICAL_TYPE ? insidePart * cellDuration * 60 / 2 : 0;
-
-    if (this.offsetTimeTop === null) {
-      this.offsetTimeTop = moment(targetData.startDate)
-        .diff(payload.startDate, SECONDS) + insideOffset;
-    }
-
-    const start = moment(targetData.startDate).add(insideOffset, SECONDS);
-    const end = moment(start);
-
-    if (sourceType === targetType) {
-      this.appointmentStartTime = moment(start).add((this.offsetTimeTop) * (-1), SECONDS).toDate();
-      this.appointmentEndTime = moment(end)
-        .add((appointmentDuration - this.offsetTimeTop), SECONDS).toDate();
-    } else {
-      this.appointmentStartTime = moment(targetData.startDate).add(insideOffset, SECONDS).toDate();
-      this.appointmentEndTime = moment(targetData.endDate).add(insideOffset, SECONDS).toDate();
-    }
-
-    const draftAppointments = [{
-      ...payload, start: this.appointmentStartTime, end: this.appointmentEndTime,
-    }];
-
-    if (allDayIndex !== -1) {
-      this.allDayRects = allDayRects(
-        draftAppointments, startViewDate, endViewDate, excludedDays, viewCellsData, allDayCells,
-      );
-    } else {
-      this.allDayRects = [];
-    }
-
-    if (timeTableIndex !== -1 && allDayIndex === -1) {
-      if (targetType === VERTICAL_TYPE) {
-        this.timeTableRects = verticalTimeTableRects(
-          draftAppointments, startViewDate, endViewDate,
-          excludedDays, viewCellsData, cellDuration, timeTableCells,
-        );
-      } else {
-        this.timeTableRects = horizontalTimeTableRects(
-          draftAppointments, startViewDate, endViewDate,
-          excludedDays, viewCellsData, timeTableCells,
-        );
-      }
-    } else {
-      this.timeTableRects = [];
-    }
+    const {
+      appointmentStartTime, appointmentEndTime, offsetTimeTop,
+    } = calculateAppointmentTimeBoundaries(
+      payload, targetData, targetType, cellDurationMinutes,
+      insidePart, this.offsetTimeTop,
+    );
+    this.appointmentStartTime = appointmentStartTime || this.appointmentStartTime;
+    this.appointmentEndTime = appointmentEndTime || this.appointmentEndTime;
+    this.offsetTimeTop = offsetTimeTop;
 
     const { startTime, endTime } = this.state;
     if (moment(startTime).isSame(this.appointmentStartTime)
       && moment(endTime).isSame(this.appointmentEndTime)) return;
 
-    startEditAppointment({ appointmentId: payload.id });
-    changeAppointment({
-      change: {
+    const draftAppointments = [{
+      dataItem: {
+        ...payload,
         startDate: this.appointmentStartTime,
         endDate: this.appointmentEndTime,
       },
-    });
+      start: this.appointmentStartTime,
+      end: this.appointmentEndTime,
+    }];
 
-    this.setState({
-      startTime: this.appointmentStartTime,
-      endTime: this.appointmentEndTime,
-      payload,
-    });
+    const {
+      allDayDraftAppointments,
+      timeTableDraftAppointments,
+    } = calculateDraftAppointments(
+      allDayIndex, draftAppointments, startViewDate,
+      endViewDate, excludedDays, viewCellsData, allDayCells,
+      targetType, cellDurationMinutes, timeTableCells,
+    );
+    this.allDayDraftAppointments = allDayDraftAppointments;
+    this.timeTableDraftAppointments = timeTableDraftAppointments;
+
+    this.applyChanges(
+      this.appointmentStartTime, this.appointmentEndTime,
+      payload, startEditAppointment, changeAppointment,
+    );
   }
 
   handleDrop({ commitChangedAppointment, stopEditAppointment }) {
@@ -206,7 +168,9 @@ export class DragDropProvider extends React.PureComponent {
       containerComponent: Container,
       draftAppointmentComponent: DraftAppointment,
       sourceAppointmentComponent: SourceAppointment,
+      resizeComponent: Resize,
       allowDrag,
+      allowResize,
     } = this.props;
 
     const draftData = {
@@ -226,34 +190,38 @@ export class DragDropProvider extends React.PureComponent {
             }, {
               commitChangedAppointment, changeAppointment,
               startEditAppointment, stopEditAppointment,
-            }) => (
-              <DragDropProviderCore
-                onChange={this.onPayloadChange({ commitChangedAppointment, stopEditAppointment })}
-              >
-                <DropTarget
-                  onOver={this.onOver({
-                    viewCellsData,
-                    startViewDate,
-                    endViewDate,
-                    excludedDays,
-                    timeTableElement,
-                    layoutElement,
-                    layoutHeaderElement,
-                  }, { changeAppointment, startEditAppointment, stopEditAppointment })}
-                  onDrop={this.onDrop({ commitChangedAppointment, stopEditAppointment })}
+            }) => {
+              const calculateBoundariesByMove = this.calculateNextBoundaries({
+                viewCellsData,
+                startViewDate,
+                endViewDate,
+                excludedDays,
+                timeTableElement,
+                layoutElement,
+                layoutHeaderElement,
+              }, { changeAppointment, startEditAppointment, stopEditAppointment });
+              return (
+                <DragDropProviderCore
+                  onChange={this.onPayloadChange({ commitChangedAppointment, stopEditAppointment })}
                 >
-                  <TemplatePlaceholder />
-                </DropTarget>
-              </DragDropProviderCore>
-            )}
+                  <DropTarget
+                    onOver={calculateBoundariesByMove}
+                    onEnter={calculateBoundariesByMove}
+                    onDrop={this.onDrop({ commitChangedAppointment, stopEditAppointment })}
+                  >
+                    <TemplatePlaceholder />
+                  </DropTarget>
+                </DragDropProviderCore>
+              );
+            }}
           </TemplateConnector>
         </Template>
 
         <Template
-          name="appointment"
+          name="appointmentContent"
           predicate={({ data }) => allowDrag(data)}
         >
-          {params => (
+          {({ style, ...params }) => (
             <DragSource
               payload={{ ...params.data, type: params.type }}
             >
@@ -263,22 +231,49 @@ export class DragDropProvider extends React.PureComponent {
                 <TemplatePlaceholder params={{ ...params, draggable: true }} />
               )}
             </DragSource>
-          )
-          }
+          )}
+        </Template>
+
+        <Template
+          name="appointmentTop"
+          predicate={params => !params.slice && allowResize(params.data)}
+        >
+          {({ data, type }) => (
+            <DragSource
+              payload={{ ...data, type: RESIZE_TOP, appointmentType: type }}
+            >
+              <Resize position={POSITION_START} appointmentType={type} />
+            </DragSource>
+          )}
+        </Template>
+
+        <Template
+          name="appointmentBottom"
+          predicate={params => !params.slice && allowResize(params.data)}
+        >
+          {({ data, type }) => (
+            <DragSource
+              payload={{ ...data, type: RESIZE_BOTTOM, appointmentType: type }}
+            >
+              <Resize position={POSITION_END} appointmentType={type} />
+            </DragSource>
+          )}
         </Template>
 
         <Template name="allDayPanel">
           <TemplatePlaceholder />
-          {(this.allDayRects.length > 0 ? (
+          {(this.allDayDraftAppointments.length > 0 ? (
             <Container>
-              {this.allDayRects.map(({
-                dataItem, type, ...geometry
+              {this.allDayDraftAppointments.map(({
+                dataItem, type, fromPrev, toNext, ...geometry
               }, index) => (
                 <DraftAppointment
                   key={index.toString()}
                   data={draftData}
                   style={getAppointmentStyle(geometry)}
                   type={type}
+                  fromPrev={fromPrev}
+                  toNext={toNext}
                 />
               ))}
             </Container>
@@ -289,16 +284,18 @@ export class DragDropProvider extends React.PureComponent {
 
         <Template name="main">
           <TemplatePlaceholder />
-          {(this.timeTableRects.length > 0 ? (
+          {(this.timeTableDraftAppointments.length > 0 ? (
             <Container>
-              {this.timeTableRects.map(({
-                dataItem, type, ...geometry
+              {this.timeTableDraftAppointments.map(({
+                dataItem, type, fromPrev, toNext, ...geometry
               }, index) => (
                 <DraftAppointment
                   key={index.toString()}
                   data={draftData}
                   style={getAppointmentStyle(geometry)}
                   type={type}
+                  fromPrev={fromPrev}
+                  toNext={toNext}
                 />
               ))}
             </Container>
@@ -315,15 +312,19 @@ DragDropProvider.propTypes = {
   containerComponent: PropTypes.func.isRequired,
   draftAppointmentComponent: PropTypes.func.isRequired,
   sourceAppointmentComponent: PropTypes.func.isRequired,
+  resizeComponent: PropTypes.func.isRequired,
   allowDrag: PropTypes.func,
+  allowResize: PropTypes.func,
 };
 
 DragDropProvider.defaultProps = {
   allowDrag: () => true,
+  allowResize: () => true,
 };
 
 DragDropProvider.components = {
   containerComponent: 'Container',
   draftAppointmentComponent: 'DraftAppointment',
   sourceAppointmentComponent: 'SourceAppointment',
+  resizeComponent: 'Resize',
 };

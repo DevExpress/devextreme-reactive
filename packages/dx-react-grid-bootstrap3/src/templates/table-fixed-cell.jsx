@@ -1,8 +1,21 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { ThemeColors } from './layout';
+import { getStickyPosition } from '../utils/css-fallback-properties';
 
 export class FixedCell extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      stickyPosition: getStickyPosition(),
+    };
+  }
+
+  componentDidMount() {
+    this.setState({ stickyPosition: getStickyPosition() });
+  }
+
   render() {
     const {
       component: CellPlaceholder,
@@ -14,12 +27,13 @@ export class FixedCell extends React.PureComponent {
       ...restProps
     } = this.props;
     const { backgroundColor, borderColor } = this.context;
+    const { stickyPosition } = this.state;
 
     return (
       <CellPlaceholder
         style={{
           ...style,
-          position: 'sticky',
+          position: stickyPosition,
           backgroundClip: 'padding-box',
           zIndex: 300,
           backgroundColor,

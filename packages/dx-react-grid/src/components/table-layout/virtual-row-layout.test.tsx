@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { VirtualRowLayout } from './virtual-row-layout';
 
@@ -56,5 +56,22 @@ describe('RowLayout', () => {
           colSpan,
         });
     });
+  });
+
+  it('should not rerender row if its props are the same', () => {
+    const Row = jest.fn(() => null);
+    const props = { ...defaultProps, rowComponent: Row };
+    const tree = mount((
+      <VirtualRowLayout
+        {...props}
+      />
+    ));
+    tree.setProps({
+      row: defaultProps.row,
+      cells: defaultProps.cells.map(({ column, colSpan }) => ({ column, colSpan })),
+    });
+
+    expect(Row.mock.calls)
+      .toHaveLength(1);
   });
 });

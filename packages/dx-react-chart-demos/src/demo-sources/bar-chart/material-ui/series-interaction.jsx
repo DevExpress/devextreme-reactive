@@ -1,4 +1,5 @@
-import * as React from 'react';<%&additionalImports%>
+import * as React from 'react';
+import Paper from '@material-ui/core/Paper';
 import {
   Chart,
   BarSeries,
@@ -7,14 +8,55 @@ import {
   Title,
   Legend,
   Tooltip,
-} from '@devexpress/dx-react-chart-<%&themeName%>';
+} from '@devexpress/dx-react-chart-material-ui';
 import * as d3Format from 'd3-format';
 import { scaleBand } from '@devexpress/dx-chart-core';
 import {
   ArgumentScale, Stack, Animation, EventTracker, HoverState, SelectionState,
 } from '@devexpress/dx-react-chart';
+import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
+import {
+  NavigateBefore, NavigateNext,
+} from '@material-ui/icons/';
+import Typography from '@material-ui/core/Typography';
 
 import { annualVehiclesSales as data } from '../../../demo-data/data-vizualization';
+
+const styles = theme => ({
+  primaryButton: {
+    margin: theme.spacing.unit,
+    width: '120px',
+  },
+  secondaryButton: {
+    margin: theme.spacing.unit,
+    width: '170px',
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit,
+    marginBottom: '1px',
+  },
+  rightIcon: {
+    marginLeft: theme.spacing.unit,
+    marginBottom: '1px',
+  },
+  text: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  group: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  hoverGroup: {
+    width: '300px',
+  },
+  name: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+  },
+});
 
 const tooltipContentTitleStyle = {
   fontWeight: 'bold',
@@ -45,57 +87,77 @@ const TooltipContent = (props) => {
     </div>
   );
 };
+const Root = withStyles({
+  root: {
+    display: 'flex',
+    margin: 'auto',
+    flexDirection: 'row',
+  },
+})(({ classes, ...restProps }) => (
+  <Legend.Root {...restProps} className={classes.root} />
+));
+const Label = withStyles({
+  label: {
+    whiteSpace: 'nowrap',
+  },
+})(({ classes, ...restProps }) => (
+  <Legend.Label className={classes.label} {...restProps} />
+));
 
-const titleTextStyle = { marginRight: '120px' };
-const TitleText = props => <Title.Text {...props} style={titleTextStyle} />;
+const TitleText = withStyles({ title: { marginBottom: '30px' } })(({ classes, ...restProps }) => (
+  <Title.Text {...restProps} className={classes.title} />
+));
 
 const formatInfo = (target) => {
   if (!target) {
-    return '';
+    return 'None';
   }
   const { series, point } = target;
   const value = data[point][series];
   const argument = data[point].year;
-  return `${series} : ${value} / ${argument}`;
+  return `${series} ${value} sales in ${argument}`;
 };
 
-const auxiliaryPaneStyle = { marginLeft: '70px' };
-const auxiliaryRootStyle = { display: 'flex', flexDirection: 'row' };
-const auxiliaryNameStyle = { width: '100px' };
-const auxiliaryDataStyle = { width: '180px' };
-const auxiliaryButtonStyle = { padding: '2px' };
-
-const AuxiliaryRoot = props => <div style={auxiliaryRootStyle} {...props} />;
-const AuxiliaryName = props => <span style={auxiliaryNameStyle} {...props} />;
-const AuxiliaryData = props => <span style={auxiliaryDataStyle} {...props} />;
-// eslint-disable-next-line jsx-a11y/anchor-has-content
-const AuxiliaryButton = props => <a href="#" style={auxiliaryButtonStyle} {...props} />;
+const AuxiliaryButton = props => (
+  <Button variant="outlined" {...props} />
+);
 
 const AuxiliarySelection = ({
-  target, clear, turnPrev, turnNext,
+  classes, target, turnNext, turnPrev, clear,
 }) => (
-  <AuxiliaryRoot>
-    <AuxiliaryName>Selection</AuxiliaryName>
-    <AuxiliaryData>{formatInfo(target)}</AuxiliaryData>
-    <AuxiliaryButton onClick={clear}>clear</AuxiliaryButton>
-    <AuxiliaryButton onClick={turnPrev}>&lt;</AuxiliaryButton>
-    <AuxiliaryButton onClick={turnNext}>&gt;</AuxiliaryButton>
-  </AuxiliaryRoot>
+  <div>
+    <div className={classes.group}>
+      <AuxiliaryButton onClick={turnPrev} className={classes.primaryButton} color="primary">
+        <NavigateBefore className={classes.leftIcon} />
+        Previous
+      </AuxiliaryButton>
+      <AuxiliaryButton onClick={clear} className={classes.secondaryButton}>
+        Clear Selection
+      </AuxiliaryButton>
+      <AuxiliaryButton onClick={turnNext} className={classes.primaryButton} color="primary">
+        Next
+        <NavigateNext className={classes.rightIcon} />
+      </AuxiliaryButton>
+    </div>
+    <div className={classes.text}>
+      <Typography color="textSecondary" variant="body2" className={classes.name}>Selected:</Typography>
+      <Typography>{formatInfo(target)}</Typography>
+    </div>
+  </div>
 );
 
-const AuxiliaryHover = ({ target }) => (
-  <AuxiliaryRoot>
-    <AuxiliaryName>Hover</AuxiliaryName>
-    <AuxiliaryData>{formatInfo(target)}</AuxiliaryData>
-  </AuxiliaryRoot>
-);
-
-const AuxiliaryTooltip = ({ enabled, toggle }) => (
-  <AuxiliaryRoot>
-    <AuxiliaryName>Tooltip</AuxiliaryName>
-    <AuxiliaryData>&nbsp;</AuxiliaryData>
-    <AuxiliaryButton onClick={toggle}>{enabled ? 'disable' : 'enable'}</AuxiliaryButton>
-  </AuxiliaryRoot>
+const AuxiliaryHover = ({
+  classes, target, enabled, toggle,
+}) => (
+  <div className={classes.hoverGroup}>
+    <AuxiliaryButton onClick={toggle} className={classes.secondaryButton}>
+      {enabled ? 'Disable tooltip' : 'Enable tooltip'}
+    </AuxiliaryButton>
+    <div className={classes.text}>
+      <Typography color="textSecondary" variant="body2" className={classes.name}>Hovered:</Typography>
+      <Typography>{formatInfo(target)}</Typography>
+    </div>
+  </div>
 );
 
 const encodeTarget = ({ series, point }) => (2 * point + Number(series === 'China'));
@@ -105,13 +167,13 @@ const compareTargets = (
   { series, point }, { series: targetSeries, point: targetPoint },
 ) => series === targetSeries && point === targetPoint;
 
-export default class Demo extends React.PureComponent {
+class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
       hover: null,
-      selection: [],
+      selection: [{ series: 'USA', point: 3 }],
       tooltipEnabled: true,
     };
 
@@ -150,9 +212,10 @@ export default class Demo extends React.PureComponent {
 
   render() {
     const { hover, selection, tooltipEnabled } = this.state;
+    const { classes } = this.props;
 
     return (
-      <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Paper>
         <Chart
           data={data}
         >
@@ -176,27 +239,31 @@ export default class Demo extends React.PureComponent {
             argumentField="year"
           />
           <Stack />
-          <Legend />
+          <Legend position="bottom" rootComponent={Root} labelComponent={Label} />
           <EventTracker onClick={this.click} />
           <HoverState hover={hover} onHoverChange={this.changeHover} />
           {tooltipEnabled && <Tooltip contentComponent={TooltipContent} />}
           <SelectionState selection={selection} />
           <Animation />
         </Chart>
-        <div style={auxiliaryPaneStyle}>
+        <div className={classes.group}>
+          <AuxiliaryHover
+            classes={classes}
+            target={hover}
+            enabled={tooltipEnabled}
+            toggle={this.toggleTooltip}
+          />
           <AuxiliarySelection
+            classes={classes}
             target={selection[0]}
             clear={this.clearSelection}
             turnPrev={this.turnPrevSelection}
             turnNext={this.turnNextSelection}
           />
-          <AuxiliaryHover target={hover} />
-          <AuxiliaryTooltip
-            enabled={tooltipEnabled}
-            toggle={this.toggleTooltip}
-          />
         </div>
-      </<%&wrapperTag%>>
+      </Paper>
     );
   }
 }
+
+export default withStyles(styles)(Demo);

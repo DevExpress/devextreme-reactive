@@ -20,25 +20,25 @@ interface TemplateHostContextProps {
   [TEMPLATE_HOST_CONTEXT: string]: TemplateHostInterface;
 }
 
-class TemplatePlaceholderBase extends React.Component<
-  TemplatePlaceholderProps & PluginContextProps & TemplateHostContextProps
-> {
+type Props = TemplatePlaceholderProps & PluginContextProps & TemplateHostContextProps;
+
+class TemplatePlaceholderBase extends React.Component<Props> {
   subscription: { [key: string]: (args) => void };
   template: TemplateBase | null = null;
   params: object = {};
   restTemplates: TemplateBase[] = [];
 
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
-    const { name: propsName } = this.props;
+    const { name: propsName } = props;
 
     this.subscription = {
-      [RERENDER_TEMPLATE_EVENT]: (id) => {
+      [RERENDER_TEMPLATE_EVENT]: (id: number) => {
         if (this.template && this.template.id === id) {
           this.forceUpdate();
         }
       },
-      [RERENDER_TEMPLATE_SCOPE_EVENT]: (name) => {
+      [RERENDER_TEMPLATE_SCOPE_EVENT]: (name: string) => {
         if (propsName === name) {
           this.forceUpdate();
         }
@@ -51,7 +51,7 @@ class TemplatePlaceholderBase extends React.Component<
     pluginHost.registerSubscription(this.subscription);
   }
 
-  shouldComponentUpdate(nextProps) {
+  shouldComponentUpdate(nextProps: Props) {
     const { params } = this.getRenderingData(nextProps);
     const { children } = this.props;
     return !shallowEqual(params, this.params) || children !== nextProps.children;
@@ -62,7 +62,7 @@ class TemplatePlaceholderBase extends React.Component<
     pluginHost.unregisterSubscription(this.subscription);
   }
 
-  getRenderingData(props) {
+  getRenderingData(props: Props) {
     const { name, params } = props;
     if (name) {
       const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.props;
@@ -87,7 +87,7 @@ class TemplatePlaceholderBase extends React.Component<
     [this.template] = templates;
     this.restTemplates = templates.slice(1);
 
-    let content: ((...args) => any)| null = null;
+    let content: ((...args) => any) | null = null;
     if (this.template) {
       const { children: templateContent } = this.template;
 

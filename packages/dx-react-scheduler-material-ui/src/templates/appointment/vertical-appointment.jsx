@@ -37,8 +37,8 @@ const styles = ({ palette, spacing }) => ({
     width: `calc(100% - ${spacing.unit * 2}px)`,
   },
   imageContainer: {
-    width: '16px',
-    height: '16px',
+    width: `${spacing.unit * 2}px`,
+    height: `${spacing.unit * 2}px`,
   },
   image: {
     width: '100%',

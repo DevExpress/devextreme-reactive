@@ -510,8 +510,8 @@ describe('Utils', () => {
       };
       const result = filterByViewBoundaries(appointment, leftBoundTest, rightBoundTest);
 
-      expect(result.length)
-        .toBe(1);
+      expect(result)
+        .toHaveLength(1);
     });
     it('should work recurrence appointment with EXDATE', () => {
       const leftBoundTest = new Date(Date.UTC(2019, 3, 9, 0, 0));
@@ -524,8 +524,8 @@ describe('Utils', () => {
       };
       const result = filterByViewBoundaries(appointment, leftBoundTest, rightBoundTest);
 
-      expect(result.length)
-        .toBe(2);
+      expect(result)
+        .toHaveLength(2);
       expect(result[0])
         .toMatchObject({
           dataItem: {

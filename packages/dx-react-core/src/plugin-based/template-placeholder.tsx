@@ -22,6 +22,24 @@ interface TemplateHostContextProps {
 
 type Props = TemplatePlaceholderProps & PluginContextProps & TemplateHostContextProps;
 
+const getRenderingData = (props: Props): { params?: object, templates: TemplateBase[] } => {
+  const { name, params } = props;
+  if (name) {
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = props;
+    return {
+      params,
+      templates: pluginHost.collect(`${name}Template`)
+        .filter(template => template.predicate(params))
+        .reverse(),
+    };
+  }
+  const { [TEMPLATE_HOST_CONTEXT]: templateHost } = props;
+  return {
+    params: params || templateHost.params(),
+    templates: templateHost.templates(),
+  };
+};
+
 class TemplatePlaceholderBase extends React.Component<Props> {
   subscription = {
     [RERENDER_TEMPLATE_EVENT]: (id: number) => {
@@ -37,7 +55,7 @@ class TemplatePlaceholderBase extends React.Component<Props> {
     },
   };
   template: TemplateBase | null = null;
-  params: object = {};
+  params?: object = {};
 
   componentDidMount() {
     const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.props;
@@ -45,7 +63,7 @@ class TemplatePlaceholderBase extends React.Component<Props> {
   }
 
   shouldComponentUpdate(nextProps: Props) {
-    const { params } = this.getRenderingData(nextProps);
+    const { params } = getRenderingData(nextProps);
     const { children } = this.props;
     return !shallowEqual(params, this.params) || children !== nextProps.children;
   }
@@ -55,26 +73,8 @@ class TemplatePlaceholderBase extends React.Component<Props> {
     pluginHost.unregisterSubscription(this.subscription);
   }
 
-  getRenderingData(props: Props) {
-    const { name, params } = props;
-    if (name) {
-      const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.props;
-      return {
-        params,
-        templates: pluginHost.collect(`${name}Template`)
-          .filter(template => template.predicate(params))
-          .reverse(),
-      };
-    }
-    const { [TEMPLATE_HOST_CONTEXT]: templateHost } = this.props;
-    return {
-      params: params || templateHost.params(),
-      templates: templateHost.templates(),
-    };
-  }
-
   render() {
-    const { params, templates } = this.getRenderingData(this.props);
+    const { params, templates } = getRenderingData(this.props);
 
     this.params = params;
     [this.template] = templates;

@@ -23,28 +23,22 @@ interface TemplateHostContextProps {
 type Props = TemplatePlaceholderProps & PluginContextProps & TemplateHostContextProps;
 
 class TemplatePlaceholderBase extends React.Component<Props> {
-  subscription: { [key: string]: (args) => void };
+  subscription = {
+    [RERENDER_TEMPLATE_EVENT]: (id: number) => {
+      if (this.template && this.template.id === id) {
+        this.forceUpdate();
+      }
+    },
+    [RERENDER_TEMPLATE_SCOPE_EVENT]: (name: string) => {
+      const { name: propsName } = this.props;
+      if (propsName === name) {
+        this.forceUpdate();
+      }
+    },
+  };
   template: TemplateBase | null = null;
   params: object = {};
   restTemplates: TemplateBase[] = [];
-
-  constructor(props: Props) {
-    super(props);
-    const { name: propsName } = props;
-
-    this.subscription = {
-      [RERENDER_TEMPLATE_EVENT]: (id: number) => {
-        if (this.template && this.template.id === id) {
-          this.forceUpdate();
-        }
-      },
-      [RERENDER_TEMPLATE_SCOPE_EVENT]: (name: string) => {
-        if (propsName === name) {
-          this.forceUpdate();
-        }
-      },
-    };
-  }
 
   componentDidMount() {
     const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.props;

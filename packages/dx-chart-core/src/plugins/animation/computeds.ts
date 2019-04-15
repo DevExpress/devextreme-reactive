@@ -43,6 +43,8 @@ const getDefaultAreaAnimationOptions = () => '1s';
 
 const getDefaultPieAnimationOptions = ({ index }: Point) => `${0.7 + index * 0.1}s`;
 
+const getDefaultScatterAnimationOptions = () => '1.6s';
+
 /** @internal */
 export const getAreaAnimationStyle: GetAnimationStyleFn = (scales) => {
   const animationStyle = {
@@ -65,7 +67,7 @@ export const getPieAnimationStyle: GetAnimationStyleFn = (_, point) => {
 
 /** @internal */
 export const getScatterAnimationStyle: GetAnimationStyleFn = () => {
-  const options = getDefaultAreaAnimationOptions();
+  const options = getDefaultScatterAnimationOptions();
   return {
     animation: `${getScatterAnimationName()} ${options}`,
   };

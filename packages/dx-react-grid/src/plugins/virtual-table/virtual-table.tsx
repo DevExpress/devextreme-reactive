@@ -23,7 +23,6 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
   SkeletonCell,
   defaultEstimatedRowHeight,
   defaultHeight,
-  minColumnWidth,
 }) => {
   class VirtualTable extends React.PureComponent<VirtualTableProps, VirtualTableLayoutState> {
     static defaultProps = {
@@ -91,7 +90,6 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
                           totalRowCount,
                           loadedRowsStart,
                           height,
-                          minColumnWidth,
                           estimatedRowHeight,
                           ensureNextVirtualPage,
                         }}

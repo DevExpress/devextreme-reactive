@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Getter, Action, Plugin, Getters } from '@devexpress/dx-react-core';
+import { Getter, Action, Plugin, Getters, Actions } from '@devexpress/dx-react-core';
 import {
   recalculateBounds, calculateRequestedRange, virtualRowsWithCache,
   trimRowsToInterval, intervalUtil, emptyVirtualRows, plainRows, loadedRowsStart,
@@ -33,22 +33,24 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
   }
 
   requestNextPageAction = (
-    rowIndex: number,
+    { referenceIndex, forceReload },
     { virtualRows, virtualPageSize }: Getters,
   ) => {
     const { requestedPageIndex, availableRowCount: stateAvailableCount } = this.state;
     const { getRows, rowCount, infinite } = this.props;
 
-    const newBounds = recalculateBounds(rowIndex, virtualPageSize, rowCount);
-    const loadedInterval = intervalUtil.getRowsInterval(virtualRows);
+    const newBounds = recalculateBounds(referenceIndex, virtualPageSize, rowCount);
+    const loadedInterval = forceReload
+      ? intervalUtil.empty
+      : intervalUtil.getRowsInterval(virtualRows);
     const requestedRange = calculateRequestedRange(
-      loadedInterval, newBounds, rowIndex, virtualPageSize,
+      loadedInterval, newBounds, referenceIndex, virtualPageSize,
     );
 
     const newPageIndex = requestedRange.start;
     const loadCount = (requestedRange.end - requestedRange.start);
 
-    if (newPageIndex !== requestedPageIndex && loadCount > 0) {
+    if ((newPageIndex !== requestedPageIndex && loadCount > 0) || forceReload) {
       if (this.requestTimer !== 0) {
         clearTimeout(this.requestTimer);
       }
@@ -70,10 +72,16 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
     }
   }
 
-  invalidateVirtalRowsCache = () => {
+  invalidateVirtalRowsCache = (
+    payload: any,
+    { start, virtualPageSize }: Getters,
+    { requestNextPage }: Actions,
+  ) => {
     this.setState({
       virtualRowsCache: emptyVirtualRows,
     });
+    const referenceIndex = start + 3 * virtualPageSize / 4;
+    requestNextPage({ referenceIndex, forceReload: true });
   }
 
   componentDidMount() {
@@ -84,6 +92,12 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
     this.setState({
       availableRowCount: newRowCount,
     });
+  }
+
+  componentWillUnmount() {
+    if (this.requestTimer !== 0) {
+      clearTimeout(this.requestTimer);
+    }
   }
 
   render() {
@@ -113,6 +127,8 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
           name="invalidateVirtalRowsCache"
           action={this.invalidateVirtalRowsCache}
         />
+        <Action name="changeColumnSorting" action={this.invalidateVirtalRowsCache} />
+        <Action name="changeColumnFilter" action={this.invalidateVirtalRowsCache} />
       </Plugin>
     );
   }

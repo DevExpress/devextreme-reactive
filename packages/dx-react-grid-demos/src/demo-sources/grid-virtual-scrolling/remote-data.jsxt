@@ -1,16 +1,55 @@
 import * as React from 'react';<%&additionalImports%>
 import {
   VirtualTableState,
+  DataTypeProvider,
+  FilteringState,
+  SortingState,
   createRemoteRowsCache,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
   VirtualTable,
   TableHeaderRow,
+  TableFilterRow,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
+import { Loading } from '../../../theme-sources/<%&themeName%>/components/loading';
 
-const getRowId = row => row.Id;
 const VIRTUAL_PAGE_SIZE = 100;
+const MAX_ROWS = 50000;
+const URL = 'https://js.devexpress.com/Demos/WidgetsGalleryDataService/api/Sales';
+const getRowId = row => row.Id;
+
+const CurrencyFormatter = ({ value }) => (
+  <b style={{ color: 'darkblue' }}>
+$
+    {value}
+  </b>
+);
+
+const CurrencyTypeProvider = props => (
+  <DataTypeProvider
+    formatterComponent={CurrencyFormatter}
+    {...props}
+  />
+);
+
+const DateFormatter = ({ value }) => value.replace(/(\d{4})-(\d{2})-(\d{2})(T.*)/, '$3.$2.$1');
+
+const DateTypeProvider = props => (
+  <DataTypeProvider
+    formatterComponent={DateFormatter}
+    {...props}
+  />
+);
+
+const columnToData = {
+  category: 'ProductCategoryName',
+  store: 'StoreName',
+  product: 'ProductName',
+  date: 'DateKey',
+  price: 'UnitPrice',
+  amount: 'SalesAmount',
+}
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -19,63 +58,88 @@ export default class Demo extends React.PureComponent {
     this.state = {
       columns: [
         { name: 'id', title: 'Id', getCellValue: row => row.Id },
-        { name: 'store', title: 'Store', getCellValue: row => row.StoreName },
         { name: 'category', title: 'Category', getCellValue: row => row.ProductCategoryName },
+        { name: 'store', title: 'Store', getCellValue: row => row.StoreName },
         { name: 'product', title: 'Product', getCellValue: row => row.ProductName },
         { name: 'date', title: 'Date', getCellValue: row => row.DateKey },
-        { name: 'price', title: 'Unit price', getCellValue: row => row.UnitPrice },
         { name: 'amount', title: 'Amount', getCellValue: row => row.SalesAmount },
       ],
       rows: [],
       tableColumnExtensions: [
-        { columnName: 'id', width: 90 },
+        { columnName: 'id', width: 80 },
         { columnName: 'store', width: 220 },
         { columnName: 'category', width: 220 },
         { columnName: 'subcategory', width: 220 },
         { columnName: 'date', width: 150 },
         { columnName: 'amount', width: 120 },
         { columnName: 'price', width: 120 },
-        { columnName: 'name15', width: 100 },
       ],
       start: 0,
-      totalCount: 50000,
+      totalCount: MAX_ROWS,
       loading: true,
+      filters: [],
+      sorting: [],
     };
 
     const cache = createRemoteRowsCache(VIRTUAL_PAGE_SIZE);
-    const url = 'https://js.devexpress.com/Demos/WidgetsGalleryDataService/api/Sales';
-
-    const setRows = (start, count) => {
-      const rows = cache.getRows(start, count);
-      this.setState({
-        rows,
-        start,
-        totalCount: 20000,
-        loading: false,
-      });
-    };
 
     this.getRemoteRows = (skip, take) => {
       const cached = cache.getRows(skip, take);
+      console.log('get rows', cached)
       if (cached.length) {
         setRows(skip, take);
       } else {
         this.setState({ loading: true });
-        const query = `${url}?requireTotalCount=true&skip=${skip}&take=${take}`;
+        const query = this.buildQueryString(skip, take);
         fetch(query, { mode: 'cors' })
           .then(response => response.json())
-          .then((data) => {
-            cache.setRows(skip, data.data);
-            setRows(skip, take);
+          .then(({ data, totalCount }) => {
+            cache.setRows(skip, data);
+            setRows(skip, take, totalCount);
           })
           .catch(() => this.setState({ loading: false }));
       }
     };
+
+    const setRows = (start, count, totalCount) => {
+      const rows = cache.getRows(start, count);
+      this.setState({
+        rows,
+        start,
+        totalCount: totalCount < MAX_ROWS ? totalCount : MAX_ROWS,
+        loading: false,
+      });
+    }
+
+    this.changeFilters = filters => {
+      cache.invalidate();
+      this.setState({ filters })
+    };
+
+    this.changeSorting = sorting => {
+      console.log('change sorting, invalidate cache')
+      cache.invalidate();
+      this.setState({ sorting });
+    };
+  }
+
+  buildQueryString(skip, take) {
+    const { filters, sorting } = this.state;
+    const filterStr = filters.map(({ columnName, value, operation }) =>
+      `["${columnToData[columnName]}","${operation}","${value}"]`
+    ).join(',"and",');
+    const sortingStr = sorting.map(({ columnName, direction }) =>
+      `{"selector":"${columnToData[columnName]}","desc":"${direction === 'desc' ? 'true' : 'false'}"}`
+    ).join(',');
+    const filterQuery = filterStr ? `&filter=${escape(filterStr)}` : '';
+    const sortQuery = sortingStr ? `&sort=${escape(`[${sortingStr}]`)}` : '';
+
+    return `${URL}?requireTotalCount=true&skip=${skip}&take=${take}${filterQuery}${sortQuery}`;
   }
 
   render() {
     const {
-      rows, columns, start, totalCount, tableColumnExtensions, loading,
+      rows, columns, start, totalCount, tableColumnExtensions, loading, filters, sorting,
     } = this.state;
 
     return (
@@ -85,6 +149,8 @@ export default class Demo extends React.PureComponent {
           columns={columns}
           getRowId={getRowId}
         >
+          <CurrencyTypeProvider for={['amount', 'price']} />
+          <DateTypeProvider for={['date']} />
           <VirtualTableState
             loading={loading}
             rowCount={totalCount}
@@ -92,9 +158,19 @@ export default class Demo extends React.PureComponent {
             start={start}
             getRows={this.getRemoteRows}
           />
+          <SortingState
+            sorting={sorting}
+            onSortingChange={this.changeSorting}
+          />
+          <FilteringState
+            filters={filters}
+            onFiltersChange={this.changeFilters}
+          />
           <VirtualTable columnExtensions={tableColumnExtensions} />
-          <TableHeaderRow />
+          <TableHeaderRow showSortingControls />
+          <TableFilterRow />
         </Grid>
+        {loading && <Loading />}
       </<%&wrapperTag%>>
     );
   }

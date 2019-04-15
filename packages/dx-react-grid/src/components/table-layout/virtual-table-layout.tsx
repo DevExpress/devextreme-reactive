@@ -12,7 +12,7 @@ import { VirtualTableLayoutBlock } from './virtual-table-layout-block';
 const AUTO_HEIGHT = 'auto';
 
 /** @internal */
-/* tslint:disable max-line-length */
+// tslint:disable-next-line: max-line-length
 export class VirtualTableLayout extends React.PureComponent<VirtualTableLayoutProps, VirtualTableLayoutState> {
   getColumnWidthGetter: MemoizedFunction<[TableColumn[], number, number], GetColumnWidthFn>;
   rowRefs = new Map();
@@ -34,6 +34,17 @@ export class VirtualTableLayout extends React.PureComponent<VirtualTableLayoutPr
       footerHeight: 0,
     };
 
+    const headerHeight = props.headerRows
+      .reduce((acc, row) => acc + this.getRowHeight(row), 0);
+    const footerHeight = props.footerRows
+      .reduce((acc, row) => acc + this.getRowHeight(row), 0);
+
+    this.state = {
+      headerHeight,
+      footerHeight,
+      ...this.state,
+    };
+
     this.getColumnWidthGetter = memoize(
       (tableColumns, tableWidth, minColumnWidth) => (
         getColumnWidthGetter(tableColumns, tableWidth, minColumnWidth)
@@ -51,6 +62,22 @@ export class VirtualTableLayout extends React.PureComponent<VirtualTableLayoutPr
   componentDidUpdate() {
     this.storeRowHeights();
     this.storeBlockHeights();
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { rowHeights: prevRowHeight } = prevState;
+    const rowHeights = [...nextProps.headerRows, ...nextProps.bodyRows, ...nextProps.footerRows]
+      .reduce(
+        (acc, row) => {
+          const rowHeight = prevRowHeight.get(row.key);
+          if (rowHeight !== undefined) {
+            acc.set(row.key, rowHeight);
+          }
+          return acc;
+        },
+        new Map(),
+      );
+    return { rowHeights };
   }
 
   getRowHeight = (row) => {
@@ -82,7 +109,6 @@ export class VirtualTableLayout extends React.PureComponent<VirtualTableLayoutPr
 
   storeRowHeights() {
     const rowsWithChangedHeights = Array.from(this.rowRefs.entries())
-      // eslint-disable-next-line react/no-find-dom-node
       .map(([row, ref]) => [row, findDOMNode(ref)])
       .filter(([, node]) => !!node)
       .map(([row, node]) => [row, node.getBoundingClientRect().height])
@@ -134,16 +160,18 @@ export class VirtualTableLayout extends React.PureComponent<VirtualTableLayoutPr
     }
 
     const { estimatedRowHeight } = this.props;
+    const { containerHeight } = this.state;
+    const { scrollTop: viewportTop, scrollLeft: viewportLeft } = node;
     ensureNextVirtualPage({
       estimatedRowHeight,
       visibleRowBoundaries,
-      viewportTop: node.scrollTop,
-      containerHeight: this.state.containerHeight,
+      viewportTop,
+      containerHeight,
     });
 
     this.setState({
-      viewportTop: node.scrollTop,
-      viewportLeft: node.scrollLeft,
+      viewportTop,
+      viewportLeft,
     });
   }
 
@@ -213,7 +241,7 @@ export class VirtualTableLayout extends React.PureComponent<VirtualTableLayoutPr
       headerRows,
       footerRows,
       ensureNextVirtualPage,
-      minWidth,
+      minColumnWidth,
       cellComponent,
       rowComponent,
     } = this.props;
@@ -226,8 +254,7 @@ export class VirtualTableLayout extends React.PureComponent<VirtualTableLayoutPr
 
     const visibleRowBoundaries = this.getVisibleBoundaries();
     const collapsedGrids = this.getCollapsedGrids(visibleRowBoundaries);
-
-    const commonProps = { cellComponent, rowComponent, minWidth };
+    const commonProps = { cellComponent, rowComponent, minColumnWidth };
 
     return (
       <Sizer
@@ -273,6 +300,5 @@ export class VirtualTableLayout extends React.PureComponent<VirtualTableLayoutPr
         }
       </Sizer>
     );
-    /* tslint:enable max-line-length */
   }
 }

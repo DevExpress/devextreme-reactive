@@ -15,7 +15,7 @@ export class RemoteDataLoader extends React.PureComponent<any, any> {
 
     const referenceIndex = nextPageReferenceIndex(payload, getters);
     if (referenceIndex !== null) {
-      requestNextPage(referenceIndex);
+      requestNextPage({ referenceIndex });
     }
   }
 

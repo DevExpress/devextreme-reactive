@@ -38,7 +38,6 @@ class TemplatePlaceholderBase extends React.Component<Props> {
   };
   template: TemplateBase | null = null;
   params: object = {};
-  restTemplates: TemplateBase[] = [];
 
   componentDidMount() {
     const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.props;
@@ -79,7 +78,7 @@ class TemplatePlaceholderBase extends React.Component<Props> {
 
     this.params = params;
     [this.template] = templates;
-    this.restTemplates = templates.slice(1);
+    const restTemplates = templates.slice(1);
 
     let content: ((...args) => any) | null = null;
     if (this.template) {
@@ -95,7 +94,7 @@ class TemplatePlaceholderBase extends React.Component<Props> {
     return (
       <TemplateHostContext.Provider
         value={{
-          templates: () => this.restTemplates,
+          templates: () => restTemplates,
           params: () => this.params,
         }}
       >

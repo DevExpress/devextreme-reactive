@@ -1,4 +1,4 @@
-import '../../dx-styles/dx-chart-bs4.less';
+import '../../dx-styles/dx-chart-bs4.scss';
 
 export { Chart } from './chart';
 export { Legend } from './plugins/legend';

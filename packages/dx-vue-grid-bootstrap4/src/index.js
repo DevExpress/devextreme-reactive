@@ -1,4 +1,4 @@
-import '../../dx-styles/dx-grid-bs4.less';
+import '../../dx-styles/dx-grid-bs4.scss';
 
 export * from './grid';
 export * from './plugins/table';

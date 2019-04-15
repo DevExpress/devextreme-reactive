@@ -322,4 +322,40 @@ describe('TemplatePlaceholder', () => {
     expect(() => { wrapper.unmount(); })
       .not.toThrow();
   });
+
+  it('should return content of the associated template', () => {
+    const Tester = ({ name }) => {
+      return (
+        <Plugin name="Tester">
+          <Template name="test">
+            <TemplatePlaceholder />
+            <div className={name}>{name}</div>
+          </Template>
+        </Plugin>
+      );
+    };
+
+    const Root = ({ enabled }) => (
+      <div className="container">
+        <PluginHost>
+          <Template name="root">
+            <TemplatePlaceholder  name="test" />
+          </Template>
+          <Template name="test">
+            <div className="root">root</div>
+          </Template>
+
+          <Tester name="t1" />
+          {enabled && <Tester name="t2" />}
+        </PluginHost>
+      </div>
+    );
+
+    const tree = mount(<Root enabled={true} />);
+    tree.setProps({ enabled: false });
+
+    expect(tree.find('.container').html()).toEqual((
+      '<div class="container"><div class="root">root</div><div class="t1">t1</div></div>'
+    ));
+  });
 });

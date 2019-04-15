@@ -517,8 +517,8 @@ describe('Utils', () => {
       const leftBoundTest = new Date(Date.UTC(2019, 3, 9, 0, 0));
       const rightBoundTest = new Date(Date.UTC(2019, 3, 12, 0, 0));
       const appointment = {
-        start: moment(Date.UTC(2019, 3, 9, 10, 0)),
-        end: moment(Date.UTC(2019, 3, 9, 11, 0)),
+        start: moment('2019-04-09T10:00:00.000Z'),
+        end: moment('2019-04-09T11:00:00.000Z'),
         rRule: 'FREQ=DAILY;COUNT=3',
         exDate: '20190410T100000Z',
       };
@@ -529,16 +529,16 @@ describe('Utils', () => {
       expect(result[0])
         .toMatchObject({
           dataItem: {
-            startDate: new Date(Date.UTC(2019, 3, 9, 10, 0)),
-            endDate: new Date(Date.UTC(2019, 3, 9, 11, 0)),
+            startDate: new Date('2019-04-09T10:00:00.000Z'),
+            endDate: new Date('2019-04-09T11:00:00.000Z'),
             childId: 0,
           },
         });
       expect(result[1])
         .toMatchObject({
           dataItem: {
-            startDate: new Date(Date.UTC(2019, 3, 11, 10, 0)),
-            endDate: new Date(Date.UTC(2019, 3, 11, 11, 0)),
+            startDate: new Date('2019-04-11T10:00:00.000Z'),
+            endDate: new Date('2019-04-11T11:00:00.000Z'),
             childId: 1,
           },
         });

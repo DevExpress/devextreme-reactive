@@ -20,17 +20,19 @@
 .dx-g-bs4-user-select-none {
   @include user-select-none();
 }
-.dx-g-bs4-inactive:after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: white;
-  opacity: 0.7;
-  pointer-events: none;
-  z-index: 400;
+.dx-g-bs4-inactive {
+  &:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: white;
+    opacity: 0.7;
+    pointer-events: none;
+    z-index: 400;
+  }
 }
 .dx-g-bs4-overflow-hidden {
   overflow: hidden;
@@ -148,14 +150,19 @@ button.dx-g-bs4-table-edit-command-cell {
   z-index: 100;
   opacity: 0;
 }
-.dx-g-bs4-header-cell:nth-last-child(2) .dx-g-bs4-resizing-control-wrapper {
-  right: 0;
-  width: 8px;
-}
-.dx-g-bs4-resizing-control-wrapper-active,
-.dx-g-bs4-header-cell:hover .dx-g-bs4-resizing-control-wrapper {
-  opacity: 1;
-}
+.dx-g-bs4-header-cell {
+  &:nth-last-child(2) {
+    .dx-g-bs4-resizing-control-wrapper {
+      right: 0;
+      width: 8px;
+    }
+  }
+  &:hover {
+    .dx-g-bs4-resizing-control-wrapper {
+      opacity: 1;
+    }
+  }
+ }
 .dx-g-bs4-resize-control-line {
   opacity: 1;
   position: absolute;
@@ -175,20 +182,22 @@ button.dx-g-bs4-table-edit-command-cell {
   height: calc(100% - 4px);
   top: 2px;
 }
-.dx-g-bs4-banded-header-cell:last-child {
-  border-right: 0!important;
+.dx-g-bs4-banded-header-cell {
+  &:last-child {
+    border-right: 0!important;
+  }
 }
 .dx-g-bs4-banded-cell {
+  &:last-child {
+    border-right: none!important;
+  }
   border-bottom: none!important;
-}
-.dx-g-bs4-banded-cell:last-child {
-  border-right: none!important;
 }
 .dx-g-bs4-filter-selector-item {
   font-size: initial;
-}
-.dx-g-bs4-filter-selector-item:focus {
-  outline: none;
+  &:focus {
+    outline: none;
+  }
 }
 .dx-g-bs4-filter-selector-item-text {
   margin-left: 10px;
@@ -218,8 +227,8 @@ button.dx-g-bs4-table-edit-command-cell {
   @include sticky-position();
   display: inline-block;
   left: 50%;
-}
-.dx-g-bs4-fixed-block .text-muted {
-  display: inline-block;
-  transform: translateX(-50%);
+  .text-muted {
+    display: inline-block;
+    transform: translateX(-50%);
+  }
 }

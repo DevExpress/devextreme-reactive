@@ -8,8 +8,8 @@ export class RemoteDataLoader extends React.PureComponent<any, any> {
     getters: Getters,
     { requestNextPage }: Actions,
   ) => {
-    const { remoteDataEnabled } = getters;
-    if (!remoteDataEnabled) {
+    const { isDataRemote } = getters;
+    if (!isDataRemote) {
       return;
     }
 

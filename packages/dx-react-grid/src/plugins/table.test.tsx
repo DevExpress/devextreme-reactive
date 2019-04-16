@@ -31,7 +31,7 @@ const defaultDeps = {
     rows: [{ field: 1 }],
     getRowId: () => {},
     getCellValue: () => {},
-    remoteDataLoading: false,
+    isDataLoading: false,
   },
   template: {
     body: undefined,
@@ -92,7 +92,7 @@ describe('Table', () => {
         .toBeCalledWith(
           defaultDeps.getter.rows,
           defaultDeps.getter.getRowId,
-          defaultDeps.getter.remoteDataLoading,
+          defaultDeps.getter.isDataLoading,
         );
       expect(getComputedState(tree).tableBodyRows)
         .toBe('tableRowsWithDataRows');

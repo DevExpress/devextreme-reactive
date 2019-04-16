@@ -19,7 +19,7 @@ export const generateArguments = ({
       start: loadedRowsStart,
       rows: Array.from({ length: rowsLength }).map(() => {}),
     },
-    virtualPageSize: 100,
+    pageSize: 100,
   },
 });
 

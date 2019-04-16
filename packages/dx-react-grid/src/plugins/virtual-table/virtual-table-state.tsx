@@ -18,7 +18,7 @@ const loadedRowsStartComputed = ({ virtualRows }: Getters) => loadedRowsStart(vi
 // tslint:disable-next-line: max-line-length
 class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, VirtualTableStateState> {
   static defaultProps = {
-    virtualPageSize: 100,
+    pageSize: 100,
   };
   requestTimer: any = 0;
 
@@ -29,23 +29,23 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
       viewportTop: 0,
       virtualRowsCache: emptyVirtualRows,
       requestedPageIndex: undefined,
-      availableRowCount: props.rowCount || 0,
+      availableRowCount: props.totalRowCount || 0,
     };
   }
 
   requestNextPageAction = (
     { referenceIndex, forceReload },
-    { virtualRows, virtualPageSize }: Getters,
+    { virtualRows, pageSize }: Getters,
   ) => {
     const { requestedPageIndex } = this.state;
-    const { rowCount } = this.props;
+    const { totalRowCount } = this.props;
 
-    const newBounds = recalculateBounds(referenceIndex, virtualPageSize, rowCount);
+    const newBounds = recalculateBounds(referenceIndex, pageSize, totalRowCount);
     const loadedInterval = forceReload
       ? intervalUtil.empty
       : intervalUtil.getRowsInterval(virtualRows);
     const requestedRange = calculateRequestedRange(
-      loadedInterval, newBounds, referenceIndex, virtualPageSize,
+      loadedInterval, newBounds, referenceIndex, pageSize,
     );
 
     const newPageIndex = requestedRange.start;
@@ -60,7 +60,7 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
   requestNextPage(
     newPageIndex: number, loadCount: number, virtualRows: VirtualRows, newBounds: Interval,
   ) {
-    const { getRows, infinite, rowCount } = this.props;
+    const { getRows, infiniteScrolling, totalRowCount } = this.props;
     const { availableRowCount: stateAvailableCount } = this.state;
 
     if (this.requestTimer !== 0) {
@@ -70,9 +70,9 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
       getRows(newPageIndex, loadCount);
 
       const virtualRowsCache = trimRowsToInterval(virtualRows, newBounds);
-      const newRowCount = infinite
+      const newRowCount = infiniteScrolling
         ? Math.max(newBounds.end + loadCount, stateAvailableCount)
-        : rowCount;
+        : totalRowCount;
 
       this.setState({
         virtualRowsCache,
@@ -82,23 +82,23 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
     }, 50);
   }
 
-  invalidateVirtalRowsCacheAction = (
+  clearRowsCacheAction = (
     _: any,
-    { start, virtualPageSize }: Getters,
+    { start, pageSize }: Getters,
     { requestNextPage }: Actions,
   ) => {
     this.setState({
       virtualRowsCache: emptyVirtualRows,
     });
-    const referenceIndex = start + 3 * virtualPageSize / 4; // ensure that page remains the same
+    const referenceIndex = start + 3 * pageSize / 4; // ensure that page remains the same
     requestNextPage({ referenceIndex, forceReload: true });
   }
 
   componentDidMount() {
-    const { getRows, virtualPageSize, infinite, rowCount } = this.props;
-    getRows(0, 2 * virtualPageSize!);
+    const { getRows, pageSize, infiniteScrolling, totalRowCount } = this.props;
+    getRows(0, 2 * pageSize!);
 
-    const newRowCount = infinite ? 2 * virtualPageSize! : rowCount;
+    const newRowCount = infiniteScrolling ? 2 * pageSize! : totalRowCount;
     this.setState({
       availableRowCount: newRowCount,
     });
@@ -112,20 +112,20 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
 
   render() {
     const { virtualRowsCache, availableRowCount: stateRowCount } = this.state;
-    const { start, virtualPageSize, loading, infinite, rowCount } = this.props;
+    const { start, pageSize, loading, infiniteScrolling, totalRowCount } = this.props;
 
-    const availableRowCount = infinite ? stateRowCount : rowCount;
+    const availableRowCount = infiniteScrolling ? stateRowCount : totalRowCount;
 
     return (
       <Plugin
         name="VirtualTableState"
       >
-        <Getter name="remoteDataEnabled" value />
-        <Getter name="remoteDataLoading" value={loading} />
-        <Getter name="infiniteScrollingMode" value={infinite} />
+        <Getter name="isDataRemote" value />
+        <Getter name="isDataLoading" value={loading} />
+        <Getter name="isScrollingInfinite" value={infiniteScrolling} />
         <Getter name="start" value={start} />
         <Getter name="virtualRowsCache" value={virtualRowsCache} />
-        <Getter name="virtualPageSize" value={virtualPageSize} />
+        <Getter name="pageSize" value={pageSize} />
         <Getter name="availableRowCount" value={availableRowCount} />
 
         <Getter name="virtualRows" computed={virtualRowsComputed} />
@@ -133,12 +133,9 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
         <Getter name="loadedRowsStart" computed={loadedRowsStartComputed} />
 
         <Action name="requestNextPage" action={this.requestNextPageAction} />
-        <Action
-          name="invalidateVirtalRowsCache"
-          action={this.invalidateVirtalRowsCacheAction}
-        />
-        <Action name="changeColumnSorting" action={this.invalidateVirtalRowsCacheAction} />
-        <Action name="changeColumnFilter" action={this.invalidateVirtalRowsCacheAction} />
+        <Action name="clearRowsCache" action={this.clearRowsCacheAction} />
+        <Action name="changeColumnSorting" action={this.clearRowsCacheAction} />
+        <Action name="changeColumnFilter" action={this.clearRowsCacheAction} />
       </Plugin>
     );
   }

@@ -3,7 +3,7 @@ import { PageTriggersMetaFn } from '../../types';
 /** how many rows up and down before next page request */
 export const pageTriggersMeta: PageTriggersMetaFn = (
   { containerHeight, visibleRowBoundaries, estimatedRowHeight },
-  { virtualPageSize, virtualRows },
+  { pageSize, virtualRows },
 ) => {
   const loadedCount = virtualRows.rows.length;
   if (loadedCount === 0) {
@@ -11,8 +11,8 @@ export const pageTriggersMeta: PageTriggersMetaFn = (
   }
 
   const loadedRowsStart = virtualRows.start;
-  const topTriggerIndex = loadedRowsStart > 0 ? loadedRowsStart + virtualPageSize : 0;
-  const bottomTriggerIndex = loadedRowsStart + loadedCount - virtualPageSize;
+  const topTriggerIndex = loadedRowsStart > 0 ? loadedRowsStart + pageSize : 0;
+  const bottomTriggerIndex = loadedRowsStart + loadedCount - pageSize;
   const firstRowIndex = visibleRowBoundaries.start;
   const visibleCount = visibleRowBoundaries.end - visibleRowBoundaries.start;
   const middleIndex = firstRowIndex + Math.round(visibleCount / 2);

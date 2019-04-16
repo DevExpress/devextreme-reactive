@@ -152,8 +152,8 @@ export default class Demo extends React.PureComponent {
           <DateTypeProvider for={['date']} />
           <VirtualTableState
             loading={loading}
-            rowCount={totalCount}
-            virtualPageSize={VIRTUAL_PAGE_SIZE}
+            totalRowCount={totalCount}
+            pageSize={VIRTUAL_PAGE_SIZE}
             start={start}
             getRows={this.getRemoteRows}
           />

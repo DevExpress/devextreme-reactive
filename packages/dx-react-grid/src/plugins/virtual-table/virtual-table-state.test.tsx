@@ -30,7 +30,7 @@ const defaultDeps = {
 
 const defaultProps = {
   start: 100,
-  rowCount: 1000,
+  totalRowCount: 1000,
   getRows: () => {},
 };
 
@@ -61,13 +61,13 @@ describe('VirtualTableState', () => {
         .toBe(200);
     });
 
-    it('should provide value from "rowCount" property', () => {
+    it('should provide value from "totalRowCount" property', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <VirtualTableState
             {...defaultProps}
-            rowCount={2000}
+            totalRowCount={2000}
           />
         </PluginHost>
       ));

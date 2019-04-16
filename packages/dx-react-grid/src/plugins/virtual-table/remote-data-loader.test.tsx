@@ -18,8 +18,8 @@ describe('RemoteDataLoader', () => {
     const createRows = length => Array.from({ length }).map((_, id) => ({ id }));
     const defaultDeps = {
       getter: {
-        remoteDataEnabled: true,
-        virtualPageSize: 10,
+        isDataRemote: true,
+        pageSize: 10,
         virtualRows: {
           start: 0,
           rows: createRows(20),
@@ -44,7 +44,7 @@ describe('RemoteDataLoader', () => {
     it('should not request next page when remote data is disabled', () => {
       const deps = {
         getter: {
-          remoteDataEnabled: false,
+          isDataRemote: false,
         },
       };
       const tree = mount((

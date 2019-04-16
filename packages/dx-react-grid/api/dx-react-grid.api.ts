@@ -1307,15 +1307,15 @@ interface VirtualTableStateProps {
   // (undocumented)
   getRows: (skip: number, take: number) => void;
   // (undocumented)
-  infinite: boolean;
+  infiniteScrolling: boolean;
   // (undocumented)
   loading: boolean;
   // (undocumented)
-  rowCount: number;
+  totalRowCount: number;
   // (undocumented)
   start: number;
   // (undocumented)
-  virtualPageSize?: number;
+  pageSize?: number;
 }
 
 

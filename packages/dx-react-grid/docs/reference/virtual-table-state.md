@@ -44,4 +44,4 @@ isDataLoading | [Getter](../../../dx-react-core/docs/reference/getter.md) | bool
 isScrollingInfinite | [Getter](../../../dx-react-core/docs/reference/getter.md) | boolean | Indicates whether the infinite scrolling mode is enabled.
 start | [Getter](../../../dx-react-core/docs/reference/getter.md) | number | The index that the first row of the current chunk has in the entire data set.
 requestNextPage | [Action](../../../dx-react-core/docs/reference/action.md) | (skip: number, take: number) => void | Starts to load the next data chunk.
-clearRowsCache | [Action](../../../dx-react-core/docs/reference/action.md) | () => void | Removes loaded rows from the cache.
+clearRowCache | [Action](../../../dx-react-core/docs/reference/action.md) | () => void | Removes loaded rows from the cache.

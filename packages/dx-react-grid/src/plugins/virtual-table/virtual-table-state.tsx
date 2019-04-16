@@ -133,7 +133,7 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
         <Getter name="loadedRowsStart" computed={loadedRowsStartComputed} />
 
         <Action name="requestNextPage" action={this.requestNextPageAction} />
-        <Action name="clearRowsCache" action={this.clearRowsCacheAction} />
+        <Action name="clearRowCache" action={this.clearRowsCacheAction} />
         <Action name="changeColumnSorting" action={this.clearRowsCacheAction} />
         <Action name="changeColumnFilter" action={this.clearRowsCacheAction} />
       </Plugin>

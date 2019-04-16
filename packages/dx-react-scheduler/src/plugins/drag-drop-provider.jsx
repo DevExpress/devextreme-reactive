@@ -77,7 +77,7 @@ export class DragDropProvider extends React.PureComponent {
   applyChanges(startTime, endTime, payload, startEditAppointment, changeAppointment) {
     startEditAppointment({ appointmentId: payload.id });
     changeAppointment({
-      change: { startDate: startTime, endDate: endTime, childId: payload.childId },
+      change: { startDate: startTime, endDate: endTime },
     });
     this.setState({ startTime, endTime, payload });
   }

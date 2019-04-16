@@ -485,7 +485,6 @@ describe('Utils', () => {
             startDate: new Date('2019-04-9 10:00'),
             endDate: new Date('2019-04-9 11:00'),
             data: 1,
-            childId: 0,
           },
           customField: 'a',
           rRule: 'FREQ=DAILY;COUNT=2',
@@ -494,7 +493,6 @@ describe('Utils', () => {
             startDate: new Date('2019-04-10 10:00'),
             endDate: new Date('2019-04-10 11:00'),
             data: 1,
-            childId: 1,
           },
           customField: 'a',
           rRule: 'FREQ=DAILY;COUNT=2',
@@ -531,7 +529,6 @@ describe('Utils', () => {
           dataItem: {
             startDate: new Date('2019-04-09T10:00:00.000Z'),
             endDate: new Date('2019-04-09T11:00:00.000Z'),
-            childId: 0,
           },
         });
       expect(result[1])
@@ -539,7 +536,6 @@ describe('Utils', () => {
           dataItem: {
             startDate: new Date('2019-04-11T10:00:00.000Z'),
             endDate: new Date('2019-04-11T11:00:00.000Z'),
-            childId: 1,
           },
         });
     });

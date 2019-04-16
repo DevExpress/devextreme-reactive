@@ -334,7 +334,6 @@ export const filterByViewBoundaries: PureComputed<
       ...appointment.dataItem,
       startDate: moment(startDate).toDate(),
       endDate: moment(startDate).add(appointmentDuration, 'minutes').toDate(),
-      childId: index,
     },
     start: moment(startDate),
     end: moment(startDate).add(appointmentDuration, 'minutes'),

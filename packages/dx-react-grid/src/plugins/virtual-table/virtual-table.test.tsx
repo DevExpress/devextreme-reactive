@@ -25,9 +25,9 @@ describe('#makeVirtualTable', () => {
     <div style={{ height }} />
   );
   const Container = props => <div {...props} />;
-  const TableMock = () => (
+  const TableMock = ({ layoutComponent: LayoutComponent }) => (
     <Template name="tableLayout">
-      {params => <VirtualLayoutMock {...params} />}
+      {params => <LayoutComponent {...params} />}
     </Template>
   );
   TableMock.components = {} as any;
@@ -99,13 +99,23 @@ describe('#makeVirtualTable', () => {
           footerTableComponent: defaultVirtualTableProps.FixedFooter,
           totalRowCount: defaultDeps.getter.availableRowCount,
           loadedRowsStart: defaultDeps.getter.loadedRowsStart,
-          ensureNextVirtualPage: defaultDeps.action.ensureNextVirtualPage,
         });
-      const ensureNextVirtualPage = tree.find(VirtualLayoutMock).prop('ensureNextVirtualPage');
-      const payload = {};
-      ensureNextVirtualPage(payload);
-      expect()
+    });
 
+    it('should pass the ensureNextVirtualPage action', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <VirtualTable />
+        </PluginHost>
+      ));
+      const ensureNextVirtualPage = tree.find(VirtualLayoutMock)
+        .prop('ensureNextVirtualPage') as () => void;
+
+      ensureNextVirtualPage();
+
+      expect(defaultDeps.action.ensureNextVirtualPage)
+        .toHaveBeenCalled();
     });
 
     it('should update connected props', () => {

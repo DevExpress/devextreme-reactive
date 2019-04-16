@@ -89,7 +89,7 @@ describe('RemoteDataLoader', () => {
       executeComputedAction(tree, actions => actions.ensureNextVirtualPage(payload));
 
       expect(defaultDeps.action.requestNextPage.mock.calls[0][0])
-        .toEqual('nextPageReferenceIndex');
+        .toMatchObject({ referenceIndex: 'nextPageReferenceIndex' });
     });
 
     it('should not invoke requestNextPage action if reference index is null', () => {

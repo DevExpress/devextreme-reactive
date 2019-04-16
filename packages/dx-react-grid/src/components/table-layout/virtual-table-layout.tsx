@@ -11,9 +11,20 @@ import { VirtualTableLayoutBlock } from './virtual-table-layout-block';
 
 const AUTO_HEIGHT = 'auto';
 
+const defaultProps = {
+  headerRows: [],
+  footerRows: [],
+  headComponent: () => null,
+  headTableComponent: () => null,
+  footerComponent: () => null,
+  footerTableComponent: () => null,
+};
+type PropsType = VirtualTableLayoutProps & typeof defaultProps;
+
 /** @internal */
 // tslint:disable-next-line: max-line-length
-export class VirtualTableLayout extends React.PureComponent<VirtualTableLayoutProps, VirtualTableLayoutState> {
+export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTableLayoutState> {
+  static defaultProps = defaultProps;
   getColumnWidthGetter: MemoizedFunction<[TableColumn[], number, number], GetColumnWidthFn>;
   rowRefs = new Map();
   blockRefs = new Map();
@@ -214,17 +225,28 @@ export class VirtualTableLayout extends React.PureComponent<VirtualTableLayoutPr
   }
 
   getCollapsedGrids(visibleRowBoundaries) {
-    const { columns, minColumnWidth } = this.props;
-    const { containerWidth } = this.state;
+    const { viewportLeft, containerWidth } = this.state;
+    const {
+      headerRows, bodyRows, footerRows,
+      columns, loadedRowsStart, totalRowCount,
+      getCellColSpan, minColumnWidth,
+    } = this.props;
     const getColumnWidth = this.getColumnWidthGetter(columns, containerWidth, minColumnWidth!);
 
-    return getCollapsedGrids(
-      this.props,
-      this.state,
+    return getCollapsedGrids({
+      headerRows,
+      bodyRows,
+      footerRows,
+      columns,
+      loadedRowsStart,
+      totalRowCount,
+      getCellColSpan,
+      viewportLeft,
+      containerWidth,
       visibleRowBoundaries,
       getColumnWidth,
-      this.getRowHeight,
-    );
+      getRowHeight: this.getRowHeight,
+    });
   }
 
   render() {

@@ -345,13 +345,12 @@ export const getCollapsedGrids: GetCollapsedGridsFn = ({
     loadedRowsStart,
     totalRowCount,
     getCellColSpan,
-  }, {
     viewportLeft,
     containerWidth,
+    visibleRowBoundaries,
+    getColumnWidth,
+    getRowHeight,
   },
-  visibleRowBoundaries,
-  getColumnWidth,
-  getRowHeight,
 ) => {
   const renderRowBoundaries = getRowsRenderBoundary(
     loadedRowsStart + bodyRows.length,

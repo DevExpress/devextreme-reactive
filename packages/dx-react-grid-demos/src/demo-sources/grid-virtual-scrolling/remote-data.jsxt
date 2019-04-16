@@ -49,7 +49,7 @@ const columnToData = {
   date: 'DateKey',
   price: 'UnitPrice',
   amount: 'SalesAmount',
-}
+};
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -82,10 +82,18 @@ export default class Demo extends React.PureComponent {
     };
 
     const cache = createRemoteRowsCache(VIRTUAL_PAGE_SIZE);
+    const setRows = (start, count, totalCount) => {
+      const rows = cache.getRows(start, count);
+      this.setState({
+        rows,
+        start,
+        totalCount: totalCount < MAX_ROWS ? totalCount : MAX_ROWS,
+        loading: false,
+      });
+    };
 
     this.getRemoteRows = (skip, take) => {
       const cached = cache.getRows(skip, take);
-      console.log('get rows', cached)
       if (cached.length) {
         setRows(skip, take);
       } else {
@@ -101,23 +109,12 @@ export default class Demo extends React.PureComponent {
       }
     };
 
-    const setRows = (start, count, totalCount) => {
-      const rows = cache.getRows(start, count);
-      this.setState({
-        rows,
-        start,
-        totalCount: totalCount < MAX_ROWS ? totalCount : MAX_ROWS,
-        loading: false,
-      });
-    }
-
-    this.changeFilters = filters => {
+    this.changeFilters = (filters) => {
       cache.invalidate();
-      this.setState({ filters })
+      this.setState({ filters });
     };
 
-    this.changeSorting = sorting => {
-      console.log('change sorting, invalidate cache')
+    this.changeSorting = (sorting) => {
       cache.invalidate();
       this.setState({ sorting });
     };
@@ -125,12 +122,14 @@ export default class Demo extends React.PureComponent {
 
   buildQueryString(skip, take) {
     const { filters, sorting } = this.state;
-    const filterStr = filters.map(({ columnName, value, operation }) =>
-      `["${columnToData[columnName]}","${operation}","${value}"]`
-    ).join(',"and",');
-    const sortingStr = sorting.map(({ columnName, direction }) =>
-      `{"selector":"${columnToData[columnName]}","desc":"${direction === 'desc' ? 'true' : 'false'}"}`
-    ).join(',');
+    const filterStr = filters
+      .map(({ columnName, value, operation }) => (
+        `["${columnToData[columnName]}","${operation}","${value}"]`
+      )).join(',"and",');
+    const sortingStr = sorting
+      .map(({ columnName, direction }) => (
+        `{"selector":"${columnToData[columnName]}","desc":"${direction === 'desc' ? 'true' : 'false'}"}`
+      )).join(',');
     const filterQuery = filterStr ? `&filter=${escape(filterStr)}` : '';
     const sortQuery = sortingStr ? `&sort=${escape(`[${sortingStr}]`)}` : '';
 

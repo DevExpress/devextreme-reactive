@@ -89,21 +89,20 @@ export type GetCollapsedGridFn = PureComputed<
 export type CollapsedGrid = { columns: CollapsedColumn[], rows: CollapsedRow[] };
 /** @internal */
 export type GetCollapsedGridsFn = PureComputed<
-  [
-    {
-      headerRows: TableRow[],
-      bodyRows: TableRow[],
-      footerRows: TableRow[],
-      columns: TableColumn[],
-      getCellColSpan?: GetCellColSpanFn,
-      totalRowCount: number,
-      loadedRowsStart: number,
-    },
-    { viewportLeft: number, containerWidth: number },
-    RowsVisibleBoundary,
-    GetColumnWidthFn,
-    GetRowHeightFn,
-  ],
+  [{
+    headerRows: TableRow[],
+    bodyRows: TableRow[],
+    footerRows: TableRow[],
+    columns: TableColumn[],
+    loadedRowsStart: number,
+    totalRowCount: number,
+    getCellColSpan?: GetCellColSpanFn,
+    viewportLeft: number,
+    containerWidth: number,
+    visibleRowBoundaries: RowsVisibleBoundary,
+    getColumnWidth: GetColumnWidthFn,
+    getRowHeight: GetRowHeightFn,
+  }],
   {
     headerGrid: CollapsedGrid,
     bodyGrid: CollapsedGrid,

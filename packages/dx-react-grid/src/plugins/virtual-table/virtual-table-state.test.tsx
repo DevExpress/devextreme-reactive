@@ -8,10 +8,13 @@ import {
 } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { mount } from 'enzyme';
-import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing';
+import {
+  pluginDepsToComponents, getComputedState, executeComputedAction,
+} from '@devexpress/dx-testing';
 import { VirtualTableState } from './virtual-table-state';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
+  ...require.requireActual('@devexpress/dx-grid-core'),
   virtualRowsWithCache: jest.fn(),
   plainRows: jest.fn(),
   loadedRowsStart: jest.fn(),
@@ -140,6 +143,56 @@ describe('VirtualTableState', () => {
         .toBe('loadedRowsStart');
       expect(plainRows)
         .toBeCalledWith('virtualRowsWithCache');
+    });
+
+    describe('Reload rows', () => {
+      beforeEach(() => {
+        jest.useFakeTimers();
+        virtualRowsWithCache.mockImplementation(() => ({
+          start: 100,
+          rows: Array.from({ length: 200 }),
+        }));
+      });
+
+      it('should reload rows when sorting changed', () => {
+        const getRows = jest.fn();
+        const tree = mount((
+          <PluginHost>
+            {pluginDepsToComponents(defaultDeps)}
+            <VirtualTableState
+              {...defaultProps}
+              getRows={getRows}
+            />
+          </PluginHost>
+        ));
+
+        executeComputedAction(tree, actions => actions.changeColumnSorting({}));
+        jest.runAllTimers();
+
+        expect(getRows).toHaveBeenCalledTimes(2);
+        expect(getRows)
+          .toHaveBeenCalledWith(100, 200); // reload visible range
+      });
+
+      it('should reload rows when filters changed', () => {
+        const getRows = jest.fn();
+        const tree = mount((
+          <PluginHost>
+            {pluginDepsToComponents(defaultDeps)}
+            <VirtualTableState
+              {...defaultProps}
+              getRows={getRows}
+            />
+          </PluginHost>
+        ));
+
+        executeComputedAction(tree, actions => actions.changeColumnFilter({}));
+        jest.runAllTimers();
+
+        expect(getRows).toHaveBeenCalledTimes(2);
+        expect(getRows)
+          .toHaveBeenCalledWith(100, 200); // reload visible range
+      });
     });
   });
 });

@@ -37,7 +37,7 @@ describe('Animation styles', () => {
   describe('#getScatterAnimationStyle', () => {
     it('should return style', () => {
       expect(getScatterAnimationStyle({} as any)).toEqual({
-        animation: 'animation_scatter 1s',
+        animation: 'animation_scatter 1.6s',
       });
     });
   });

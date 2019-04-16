@@ -21,7 +21,7 @@ All-day appointments last for the entire day or multiple days. They are displaye
 
 ## Recurring Appointments
 
-A recurring appointment is an appointment that repeats after a specified period of time. An object defining a recurring appointment should contain the `rRule` field that follows the [iCalendar RRULE](https://tools.ietf.org/html/rfc5545#section-3.3.10) 5545 specification. To exclude dates from a recurrence, specify exceptions to the current recurring appointment using the `exDate` option follows the [iCalendar EXDATE](https://tools.ietf.org/html/rfc5545#section-3.8.5.1).
+A recurring appointment is an appointment repeated after a specified period of time. An object that defines such an appointment should contain the `rRule` field whose value has the [iCalendar RRULE](https://tools.ietf.org/html/rfc5545#section-3.8.5.3) format. To exclude specific dates from recurrence, specify the exceptions in the `exDate` field. Its values should have the [iCalendar EXDATE](https://tools.ietf.org/html/rfc5545#section-3.8.5.1) format.
 
 .embedded-demo({ "path": "scheduler-recurrence/basic", "showThemeSelector": true })
 

@@ -1311,11 +1311,11 @@ interface VirtualTableStateProps {
   // (undocumented)
   loading: boolean;
   // (undocumented)
-  totalRowCount: number;
+  pageSize?: number;
   // (undocumented)
   start: number;
   // (undocumented)
-  pageSize?: number;
+  totalRowCount: number;
 }
 
 

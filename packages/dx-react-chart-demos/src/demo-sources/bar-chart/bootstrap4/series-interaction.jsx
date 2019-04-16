@@ -124,6 +124,7 @@ export default class Demo extends React.PureComponent {
     this.state = {
       hover: null,
       selection: [{ series: 'USA', point: 3 }],
+      tooltipTarget: null,
       tooltipEnabled: true,
     };
 
@@ -136,6 +137,7 @@ export default class Demo extends React.PureComponent {
       }
     };
     this.changeHover = hover => this.setState({ hover });
+    this.changeTooltip = targetItem => this.setState({ tooltipTarget: targetItem });
 
     this.clearSelection = () => this.setState({ selection: [] });
     this.turnPrevSelection = () => this.setState(({ selection }) => {
@@ -157,11 +159,14 @@ export default class Demo extends React.PureComponent {
 
     this.toggleTooltip = () => this.setState(({ tooltipEnabled }) => ({
       tooltipEnabled: !tooltipEnabled,
+      tooltipTarget: null,
     }));
   }
 
   render() {
-    const { hover, selection, tooltipEnabled } = this.state;
+    const {
+      hover, selection, tooltipTarget, tooltipEnabled,
+    } = this.state;
 
     return (
       <div className="card">
@@ -191,7 +196,11 @@ export default class Demo extends React.PureComponent {
           <Legend position="bottom" rootComponent={Root} />
           <EventTracker onClick={this.click} />
           <HoverState hover={hover} onHoverChange={this.changeHover} />
-          {tooltipEnabled && <Tooltip contentComponent={TooltipContent} />}
+          <Tooltip
+            targetItem={tooltipEnabled ? tooltipTarget : null}
+            onTargetItemChange={this.changeTooltip}
+            contentComponent={TooltipContent}
+          />
           <SelectionState selection={selection} />
           <Animation />
         </Chart>

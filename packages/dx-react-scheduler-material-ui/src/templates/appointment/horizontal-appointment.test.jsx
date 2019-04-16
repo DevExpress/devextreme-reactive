@@ -70,7 +70,7 @@ describe('HorizontalAppointment', () => {
         endDate: new Date('2018-07-27 17:10'),
         rRule: 'FREQ=DAILY;COUNT=6',
       };
-      let tree = mount((
+      const tree = mount((
         <HorizontalAppointment {...defaultProps} data={data} />
       ));
 
@@ -80,10 +80,13 @@ describe('HorizontalAppointment', () => {
         .toBeTruthy();
       expect(tree.find(`.${classes.container}`).exists())
         .toBeFalsy();
+    });
 
-      tree = mount((
+    it('should not render recurring icon if appointment is simple', () => {
+      const tree = mount((
         <HorizontalAppointment {...defaultProps} />
       ));
+
       expect(tree.find(defaultProps.recurringIconComponent).exists())
         .toBeFalsy();
       expect(tree.find(`.${classes.recurringContainer}`).exists())

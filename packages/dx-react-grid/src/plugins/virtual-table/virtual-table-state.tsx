@@ -26,7 +26,6 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
     super(props);
 
     this.state = {
-      viewportTop: 0,
       virtualRowsCache: emptyVirtualRows,
       requestedPageIndex: undefined,
       availableRowCount: props.totalRowCount || 0,
@@ -35,19 +34,23 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
 
   requestNextPageAction = (
     { referenceIndex, forceReload },
-    { virtualRows, pageSize }: Getters,
+    { virtualRows, start }: Getters,
   ) => {
+    const { pageSize, totalRowCount } = this.props;
+
+    let newBounds;
+    let requestedRange;
+    if (forceReload) {
+      newBounds = requestedRange = { start, end: start + pageSize! * 2 };
+    } else {
+      const loadedInterval = intervalUtil.getRowsInterval(virtualRows);
+      newBounds = recalculateBounds(referenceIndex, pageSize!, totalRowCount);
+      requestedRange = calculateRequestedRange(
+        loadedInterval, newBounds, referenceIndex, pageSize!,
+      );
+    }
+
     const { requestedPageIndex } = this.state;
-    const { totalRowCount } = this.props;
-
-    const newBounds = recalculateBounds(referenceIndex, pageSize, totalRowCount);
-    const loadedInterval = forceReload
-      ? intervalUtil.empty
-      : intervalUtil.getRowsInterval(virtualRows);
-    const requestedRange = calculateRequestedRange(
-      loadedInterval, newBounds, referenceIndex, pageSize,
-    );
-
     const newPageIndex = requestedRange.start;
     const loadCount = (requestedRange.end - requestedRange.start);
     const shouldLoadRows = (newPageIndex !== requestedPageIndex && loadCount > 0) || forceReload;
@@ -84,14 +87,23 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
 
   clearRowsCacheAction = (
     _: any,
-    { start, pageSize }: Getters,
+    __: Getters,
     { requestNextPage }: Actions,
   ) => {
     this.setState({
       virtualRowsCache: emptyVirtualRows,
     });
-    const referenceIndex = start + 3 * pageSize / 4; // ensure that page remains the same
-    requestNextPage({ referenceIndex, forceReload: true });
+    requestNextPage({ forceReload: true });
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const {
+      availableRowCount = prevState.availableRowCount,
+    } = nextProps;
+
+    return {
+      availableRowCount,
+    };
   }
 
   componentDidMount() {

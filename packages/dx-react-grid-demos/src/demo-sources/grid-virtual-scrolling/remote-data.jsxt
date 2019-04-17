@@ -67,12 +67,10 @@ export default class Demo extends React.PureComponent {
       rows: [],
       tableColumnExtensions: [
         { columnName: 'id', width: 80 },
-        { columnName: 'store', width: 220 },
         { columnName: 'category', width: 220 },
-        { columnName: 'subcategory', width: 220 },
+        { columnName: 'store', width: 220 },
         { columnName: 'date', width: 150 },
         { columnName: 'amount', width: 120 },
-        { columnName: 'price', width: 120 },
       ],
       start: 0,
       totalCount: MAX_ROWS,

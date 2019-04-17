@@ -9,6 +9,10 @@ export const emptyVirtualRows: VirtualRows = {
   rows: [],
 };
 
+const pluckSubarray: PureComputed<[Row[], ...number[]]> = (source, sourceStart, left, right) => (
+  source.slice(left - sourceStart, right - sourceStart)
+);
+
 export const mergeRows: MergeRowsFn = (
   rowsInterval, cacheInterval, rows, cacheRows, rowsStart, cacheStart,
 ) => {
@@ -18,10 +22,6 @@ export const mergeRows: MergeRowsFn = (
   ]
     .filter(i => 0 <= i && i < Number.POSITIVE_INFINITY)
     .sort((a, b) => a - b);
-
-  const pluckSubarray: PureComputed<[Row[], ...number[]]> = (source, sourceStart, left, right) => (
-    source.slice(left - sourceStart, right - sourceStart)
-  );
 
   let result: Row[] = [];
   if (breakpoints.length > 1) {
@@ -86,9 +86,9 @@ export const trimRowsToInterval: PureComputed<[VirtualRows, Interval]> = (
     return emptyVirtualRows;
   }
 
-  const relativeStart = intersection.start - virtualRows.start;
-  const relativeEnd = intersection.end - virtualRows.start;
-  const rows = virtualRows.rows.slice(relativeStart, relativeEnd);
+  const rows = pluckSubarray(
+    virtualRows.rows, virtualRows.start, intersection.start, intersection.end,
+  );
 
   return {
     rows,

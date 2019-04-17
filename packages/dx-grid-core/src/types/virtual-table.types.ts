@@ -121,6 +121,11 @@ export type RowsVisibleBoundaryFn = PureComputed<
   [any, Getters, number, GetRowHeightFn], RowsVisibleBoundary
 >;
 
+/** @internal */
+export type GetRenderBoundaryFn = PureComputed<[number, number[], number], number[]>;
+/** @internal */
+export type GetSpecificRenderBoundaryFn = PureComputed<[number, number[]], number[]>;
+
 type PageTriggersMeta = {
   topTriggerIndex: number,
   topTriggerPosition: number,

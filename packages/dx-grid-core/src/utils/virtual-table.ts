@@ -9,6 +9,8 @@ import {
   RowsVisibleBoundary,
   GetCollapsedGridsFn,
   CollapsedGrid,
+  GetRenderBoundaryFn,
+  GetSpecificRenderBoundaryFn,
 } from '../types';
 import { TABLE_FLEX_TYPE, intervalUtil } from '..';
 
@@ -97,9 +99,6 @@ export const getRowsVisibleBoundary: PureComputed<
     viewportTop: top,
   };
 };
-
-type GetRenderBoundaryFn = PureComputed<[number, number[], number], number[]>;
-type GetSpecificRenderBoundaryFn = PureComputed<[number, number[]], number[]>;
 
 export const getColumnsRenderBoundary: GetSpecificRenderBoundaryFn = (
   columnCount, visibleBoundary,
@@ -372,7 +371,7 @@ export const getCollapsedGrids: GetCollapsedGridsFn = ({
   const getCollapsedGridBlock: PureComputed<
     [any[], any[]?, number?, number?], CollapsedGrid
   > = (
-    rows, rowsVisibleBoundary, totalRowCount = rows.length, offset = 0,
+    rows, rowsVisibleBoundary, rowCount = rows.length, offset = 0,
   ) => getCollapsedGrid({
     rows,
     columns,
@@ -381,7 +380,7 @@ export const getCollapsedGrids: GetCollapsedGridsFn = ({
     getColumnWidth,
     getRowHeight,
     getColSpan,
-    totalRowCount,
+    totalRowCount: rowCount,
     offset,
   });
 

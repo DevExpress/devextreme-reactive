@@ -20,7 +20,7 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
   static defaultProps = {
     pageSize: 100,
   };
-  requestTimer: any = 0;
+  requestTimer: number = 0;
 
   constructor(props) {
     super(props);
@@ -66,7 +66,7 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
     if (this.requestTimer !== 0) {
       clearTimeout(this.requestTimer);
     }
-    this.requestTimer = setTimeout(() => {
+    this.requestTimer = window.setTimeout(() => {
       getRows(newPageIndex, loadCount);
 
       const virtualRowsCache = trimRowsToInterval(virtualRows, newBounds);
@@ -106,7 +106,7 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
 
   componentWillUnmount() {
     if (this.requestTimer !== 0) {
-      clearTimeout(this.requestTimer);
+      window.clearTimeout(this.requestTimer);
     }
   }
 

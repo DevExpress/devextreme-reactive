@@ -2,7 +2,7 @@ import { PureComputed } from '@devexpress/dx-core';
 import { emptyVirtualRows } from './helpers';
 import { Interval, VirtualRows } from '../../types';
 
-const empty = {
+const empty: Interval = {
   start: Number.POSITIVE_INFINITY,
   end: Number.NEGATIVE_INFINITY,
 };

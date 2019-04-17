@@ -16,11 +16,11 @@ class LRUCache {
   capacity: number;
   head!: Node;
   tail!: Node;
-  pages: Map<number, Node> = new Map();
+  pages = new Map<number, Node>();
 
-  constructor(pageSize: number, capacity = 0) {
+  constructor(pageSize: number, capacity = Number.POSITIVE_INFINITY) {
     this.pageSize = pageSize;
-    this.capacity = capacity || Number.POSITIVE_INFINITY;
+    this.capacity = capacity;
     this.initList();
   }
 

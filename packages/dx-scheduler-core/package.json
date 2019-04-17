@@ -59,6 +59,7 @@
     "@devexpress/dx-core": "1.11.0-alpha.1"
   },
   "dependencies": {
-    "moment": "^2.24.0"
+    "moment": "^2.24.0",
+    "rrule": "^2.6.0"
   }
 }

@@ -171,6 +171,7 @@ interface AppointmentsProps {
   appointmentComponent?: React.ComponentType<Appointments_2.AppointmentProps>;
   appointmentContentComponent?: React.ComponentType<Appointments_2.AppointmentContentProps>;
   containerComponent?: React.ComponentType<Appointments_2.ContainerProps>;
+  recurringIconComponent?: React.ComponentType<object>;
   splitIndicatorComponent?: React.ComponentType<Appointments_2.SplitIndicatorProps>;
 }
 

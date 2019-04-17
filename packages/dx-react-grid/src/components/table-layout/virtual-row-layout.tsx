@@ -1,43 +1,36 @@
 import * as React from 'react';
-import { argumentsShallowEqual } from '@devexpress/dx-core';
 import { VirtualRowLayoutProps } from '../../types';
-
-const reducer = (acc, { column, colSpan }) => {
-  const [columns, colSpans] = acc;
-  columns.push(column);
-  colSpans.push(colSpan);
-  return acc;
-};
+import { getRowStyle } from '../../utils/helpers';
 
 export class VirtualRowLayout extends React.Component<VirtualRowLayoutProps> {
   shouldComponentUpdate(nextProps) {
     const { cells: prevCells, row: prevRow } = this.props;
     const { cells: nextCells, row: nextRow } = nextProps;
-    const [nextColumns, nextColSpans] = nextCells.reduce(reducer, [[], []]);
-    const [prevColumns, prevColSpans] = prevCells.reduce(reducer, [[], []]);
+    if (prevRow !== nextRow || prevCells.length !== nextCells.length) {
+      return true;
+    }
 
-    const propsAreEqual = argumentsShallowEqual(nextColumns, prevColumns)
-      && argumentsShallowEqual(nextColSpans, prevColSpans)
-      && prevRow === nextRow;
-    return !propsAreEqual;
+    const propsAreNotEqual = nextCells.some((nextCell, i) => {
+      const prevCell = prevCells[i];
+      return prevCell.column !== nextCell.column || prevCell.colSpan !== nextCell.colSpan;
+    });
+
+    return propsAreNotEqual;
   }
   render() {
     const { row, cells, rowComponent: Row, cellComponent: Cell } = this.props;
     return (
       <Row
         tableRow={row}
-        style={row.height !== undefined
-          ? { height: `${row.height}px` }
-          : undefined}
+        style={getRowStyle({ row })}
       >
-        {cells.map((cell) => {
-          const { column } = cell;
+        {cells.map(({ column, colSpan }) => {
           return (
             <Cell
               key={column.key}
               tableRow={row}
               tableColumn={column}
-              colSpan={cell.colSpan}
+              colSpan={colSpan}
             />
           );
         })}

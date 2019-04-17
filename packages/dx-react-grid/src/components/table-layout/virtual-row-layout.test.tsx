@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
-import { setupConsole } from '@devexpress/dx-testing';
 import { VirtualRowLayout } from './virtual-row-layout';
 
 const defaultProps = {
@@ -15,14 +14,8 @@ const defaultProps = {
   cellComponent: () => null,
 };
 
-describe('RowLayout', () => {
-  let resetConsole;
-  beforeEach(() => {
-    resetConsole = setupConsole();
-  });
-
+describe('VirtualRowLayout', () => {
   afterEach(() => {
-    resetConsole();
     jest.resetAllMocks();
   });
 
@@ -47,6 +40,9 @@ describe('RowLayout', () => {
       />
     ));
 
+    const cells = tree.find(defaultProps.rowComponent).at(0).children();
+    expect(cells)
+      .toHaveLength(4);
     tree.find(defaultProps.rowComponent).at(0).children().forEach((cell, index) => {
       const { column, colSpan } = defaultProps.cells[index];
       expect(cell.props())

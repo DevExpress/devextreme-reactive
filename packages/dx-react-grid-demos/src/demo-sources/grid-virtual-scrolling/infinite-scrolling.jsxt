@@ -1,0 +1,102 @@
+import * as React from 'react';<%&additionalImports%>
+import {
+  VirtualTableState,
+  createRemoteRowsCache,
+} from '@devexpress/dx-react-grid';
+import {
+  Grid,
+  VirtualTable,
+  TableHeaderRow,
+} from '@devexpress/dx-react-grid-<%&themeName%>';
+
+const VIRTUAL_PAGE_SIZE = 100;
+const MAX_ROWS = 50000;
+const URL = 'https://js.devexpress.com/Demos/WidgetsGalleryDataService/api/Sales';
+const getRowId = row => row.Id;
+
+export default class Demo extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      columns: [
+        { name: 'id', title: 'Id', getCellValue: row => row.Id },
+        { name: 'category', title: 'Category', getCellValue: row => row.ProductCategoryName },
+        { name: 'store', title: 'Store', getCellValue: row => row.StoreName },
+        { name: 'product', title: 'Product', getCellValue: row => row.ProductName },
+        { name: 'date', title: 'Date', getCellValue: row => row.DateKey },
+        { name: 'amount', title: 'Amount', getCellValue: row => row.SalesAmount },
+      ],
+      rows: [],
+      tableColumnExtensions: [
+        { columnName: 'id', width: 80 },
+        { columnName: 'category', width: 220 },
+        { columnName: 'store', width: 220 },
+        { columnName: 'date', width: 150 },
+        { columnName: 'amount', width: 120 },
+      ],
+      start: 0,
+      totalCount: MAX_ROWS,
+      loading: true,
+    };
+
+    const cache = createRemoteRowsCache(VIRTUAL_PAGE_SIZE);
+    const setRows = (start, count, totalCount) => {
+      const rows = cache.getRows(start, count);
+      this.setState({
+        rows,
+        start,
+        totalCount: totalCount < MAX_ROWS ? totalCount : MAX_ROWS,
+        loading: false,
+      });
+    };
+
+    this.getRemoteRows = (skip, take) => {
+      const cached = cache.getRows(skip, take);
+      if (cached.length) {
+        setRows(skip, take);
+      } else {
+        this.setState({ loading: true });
+        const query = this.buildQueryString(skip, take);
+        fetch(query, { mode: 'cors' })
+          .then(response => response.json())
+          .then(({ data, totalCount }) => {
+            cache.setRows(skip, data);
+            setRows(skip, take, totalCount);
+          })
+          .catch(() => this.setState({ loading: false }));
+      }
+    };
+  }
+
+  buildQueryString(skip, take) {
+    return `${URL}?requireTotalCount=true&skip=${skip}&take=${take}`;
+  }
+
+  render() {
+    const {
+      rows, columns, start, totalCount, tableColumnExtensions, loading,
+    } = this.state;
+
+    return (
+      <<%&wrapperTag%><%&wrapperAttributes%>>
+        <Grid
+          rows={rows}
+          columns={columns}
+          getRowId={getRowId}
+        >
+          <VirtualTableState
+            infiniteScrolling
+            loading={loading}
+            totalRowCount={totalCount}
+            pageSize={VIRTUAL_PAGE_SIZE}
+            start={start}
+            getRows={this.getRemoteRows}
+          />
+          <VirtualTable columnExtensions={tableColumnExtensions} />
+          <TableHeaderRow />
+        </Grid>
+      </<%&wrapperTag%>>
+    );
+  }
+}

@@ -53,12 +53,6 @@
       - title: React Scheduler
         path: /react/scheduler/docs/guides/getting-started
 /react/grid:
-  - title: Common Concepts
-    items:
-      - title: Optimize Performance
-        path: /react/common/docs/guides/performance-optimization
-      - title: Create a Custom Theme
-        path: /react/common/docs/guides/custom-theme
   - title: Guides
     items:
       - title: Getting Started
@@ -111,6 +105,12 @@
         path: /react/grid/docs/guides/typescript
       - title: Custom Plugin Development
         path: /react/grid/docs/guides/custom-plugin-development
+  - title: Common Concepts
+    items:
+      - title: Optimize Performance
+        path: /react/common/docs/guides/performance-optimization
+      - title: Create a Custom Theme
+        path: /react/common/docs/guides/custom-theme
   - title: API Reference
     items:
       - title: Grid
@@ -210,12 +210,6 @@
       - title: React Scheduler
         path: /react/scheduler/docs/guides/getting-started
 /react/chart:
-  - title: Common Concepts
-    items:
-      - title: Optimize Performance
-        path: /react/common/docs/guides/performance-optimization
-      - title: Create a Custom Theme
-        path: /react/common/docs/guides/custom-theme
   - title: Guides
     items:
       - title: Getting Started
@@ -238,8 +232,16 @@
         path: /react/chart/docs/guides/hover-and-selection
       - title: Tooltip
         path: /react/chart/docs/guides/tooltip
+      - title: Zoom and Pan
+        path: /react/chart/docs/guides/zoom-and-pan
       - title: TypeScript
         path: /react/chart/docs/guides/typescript
+  - title: Common Concepts
+    items:
+      - title: Optimize Performance
+        path: /react/common/docs/guides/performance-optimization
+      - title: Create a Custom Theme
+        path: /react/common/docs/guides/custom-theme
   - title: API Reference
     items:
       - title: Animation
@@ -282,6 +284,8 @@
         path: /react/chart/docs/reference/value-axis
       - title: ValueScale
         path: /react/chart/docs/reference/value-scale
+      - title: ZoomAndPan
+        path: /react/chart/docs/reference/zoom-and-pan
   - title: Related Docs
     items:
       - title: React Core
@@ -291,12 +295,6 @@
       - title: React Scheduler
         path: /react/scheduler/docs/guides/getting-started
 /react/scheduler:
-  - title: Common Concepts
-    items:
-      - title: Optimize Performance
-        path: /react/common/docs/guides/performance-optimization
-      - title: Create a Custom Theme
-        path: /react/common/docs/guides/custom-theme
   - title: Guides
     items:
       - title: Getting Started
@@ -313,6 +311,12 @@
         path: /react/scheduler/docs/guides/date-navigation
       - title: Editing
         path: /react/scheduler/docs/guides/editing
+  - title: Common Concepts
+    items:
+      - title: Optimize Performance
+        path: /react/common/docs/guides/performance-optimization
+      - title: Create a Custom Theme
+        path: /react/common/docs/guides/custom-theme
   - title: API Reference
     items:
       - title: AllDayPanel

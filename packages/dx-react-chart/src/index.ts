@@ -17,10 +17,10 @@ export { SplineSeries } from './plugins/spline-series';
 export { Axis, ArgumentAxis, ValueAxis } from './plugins/axis';
 export { Tooltip } from './plugins/tooltip';
 
+export * from './plugins/zoom-pan';
+
 export * from './plugins/event-tracker';
 export * from './plugins/hover-state';
 export * from './plugins/selection-state';
-
-export * from './plugins/viewport';
 
 export { withPatchedProps } from './utils';

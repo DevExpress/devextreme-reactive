@@ -7,8 +7,10 @@ export const generateArguments = ({
   gridGeometry: {
     visibleRowBoundaries: {
       viewportTop,
-      start: visibleRowsStart,
-      end: visibleRowsEnd,
+      body: {
+        start: visibleRowsStart,
+        end: visibleRowsEnd,
+      },
     },
     viewportTop,
     containerHeight: 400,

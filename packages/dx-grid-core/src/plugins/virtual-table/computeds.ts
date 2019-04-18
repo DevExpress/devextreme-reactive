@@ -12,13 +12,27 @@ export const getVisibleRowsBounds: RowsVisibleBoundaryFn = (
     viewportTop, containerHeight, headerHeight, footerHeight,
   } = state;
   const {
-    loadedRowsStart, tableBodyRows,
+    loadedRowsStart,
+    bodyRows,
+    headerRows = [],
+    footerRows = [],
   } = getters;
 
-  return getRowsVisibleBoundary(
-    tableBodyRows, viewportTop, containerHeight - headerHeight - footerHeight,
-    getRowHeight, loadedRowsStart, estimatedRowHeight,
-  );
+  return {
+    viewportTop,
+    header: getRowsVisibleBoundary(
+      headerRows, 0, headerHeight,
+      getRowHeight, 0, estimatedRowHeight,
+    ),
+    body: getRowsVisibleBoundary(
+      bodyRows, viewportTop, containerHeight - headerHeight - footerHeight,
+      getRowHeight, loadedRowsStart, estimatedRowHeight,
+    ),
+    footer: getRowsVisibleBoundary(
+      footerRows, 0, footerHeight,
+      getRowHeight, 0, estimatedRowHeight,
+    ),
+  };
 };
 
 export const nextPageReferenceIndex = (

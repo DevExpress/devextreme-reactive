@@ -13,8 +13,9 @@ export const pageTriggersMeta: PageTriggersMetaFn = (
   const loadedRowsStart = virtualRows.start;
   const topTriggerIndex = loadedRowsStart > 0 ? loadedRowsStart + pageSize : 0;
   const bottomTriggerIndex = loadedRowsStart + loadedCount - pageSize;
-  const firstRowIndex = visibleRowBoundaries.start;
-  const visibleCount = visibleRowBoundaries.end - visibleRowBoundaries.start;
+  const bodyBoundaries = visibleRowBoundaries.body;
+  const firstRowIndex = bodyBoundaries.start;
+  const visibleCount = bodyBoundaries.end - bodyBoundaries.start;
   const middleIndex = firstRowIndex + Math.round(visibleCount / 2);
 
   const middlePosition = visibleRowBoundaries.viewportTop + containerHeight / 2;

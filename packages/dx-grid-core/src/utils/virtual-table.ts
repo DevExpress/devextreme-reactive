@@ -96,7 +96,6 @@ export const getRowsVisibleBoundary: PureComputed<
   return {
     start,
     end,
-    viewportTop: top,
   };
 };
 
@@ -337,9 +336,9 @@ export const getColumnWidthGetter: GetColumnWidthGetterFn = (
 };
 
 export const getCollapsedGrids: GetCollapsedGridsFn = ({
-    headerRows,
-    bodyRows,
-    footerRows,
+    headerRows = [],
+    bodyRows = [],
+    footerRows = [],
     columns,
     loadedRowsStart,
     totalRowCount,
@@ -351,11 +350,6 @@ export const getCollapsedGrids: GetCollapsedGridsFn = ({
     getRowHeight,
   },
 ) => {
-  const renderRowBoundaries = getRowsRenderBoundary(
-    loadedRowsStart + bodyRows.length,
-    [visibleRowBoundaries.start, visibleRowBoundaries.end],
-  );
-
   const getColSpan = (
     tableRow: any, tableColumn: any,
   ) => getCellColSpan!({ tableRow, tableColumn, tableColumns: columns });
@@ -384,21 +378,44 @@ export const getCollapsedGrids: GetCollapsedGridsFn = ({
     offset,
   });
 
-  const adjustedInterval = intervalUtil.intersect(
-    { start: renderRowBoundaries[0], end: renderRowBoundaries[1] },
-    { start: loadedRowsStart, end: loadedRowsStart + bodyRows.length },
+  const headerGrid = getCollapsedGridBlock(
+    headerRows, getRenderRowBounds(visibleRowBoundaries.header, headerRows.length),
   );
-  const adjustedBounds = [adjustedInterval.start, adjustedInterval.end];
-
-  const headerGrid = getCollapsedGridBlock(headerRows || []);
   const bodyGrid = getCollapsedGridBlock(
-    bodyRows || [], adjustedBounds, totalRowCount || 1, loadedRowsStart,
+    bodyRows,
+    adjustedRenderRowBounds(
+      visibleRowBoundaries.body, bodyRows.length, loadedRowsStart,
+    ),
+    totalRowCount || 1,
+    loadedRowsStart,
   );
-  const footerGrid = getCollapsedGridBlock(footerRows || []);
+  const footerGrid = getCollapsedGridBlock(
+    footerRows, getRenderRowBounds(visibleRowBoundaries.footer, footerRows.length),
+  );
 
   return {
     headerGrid,
     bodyGrid,
     footerGrid,
   };
+};
+
+const getRenderRowBounds: PureComputed<[RowsVisibleBoundary, number], number[]> = (
+  visibleBounds, rowCount,
+) => getRowsRenderBoundary(
+  rowCount,
+  [visibleBounds.start, visibleBounds.end],
+);
+
+const adjustedRenderRowBounds: PureComputed<[RowsVisibleBoundary, number, number], number[]> = (
+  visibleBounds, rowCount, loadedRowsStart,
+) => {
+  const renderRowBoundaries = getRenderRowBounds(
+    visibleBounds, loadedRowsStart + rowCount,
+  );
+  const adjustedInterval = intervalUtil.intersect(
+    { start: renderRowBoundaries[0], end: renderRowBoundaries[1] },
+    { start: loadedRowsStart, end: loadedRowsStart + rowCount },
+  );
+  return [adjustedInterval.start, adjustedInterval.end];
 };

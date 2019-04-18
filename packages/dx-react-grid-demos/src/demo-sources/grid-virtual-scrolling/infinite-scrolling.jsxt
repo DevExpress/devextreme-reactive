@@ -12,6 +12,10 @@ import {
 const VIRTUAL_PAGE_SIZE = 100;
 const MAX_ROWS = 50000;
 const URL = 'https://js.devexpress.com/Demos/WidgetsGalleryDataService/api/Sales';
+
+const buildQueryString = (skip, take) => (
+  `${URL}?requireTotalCount=true&skip=${skip}&take=${take}`
+);
 const getRowId = row => row.Id;
 
 export default class Demo extends React.PureComponent {
@@ -57,7 +61,7 @@ export default class Demo extends React.PureComponent {
         setRows(skip, take);
       } else {
         this.setState({ loading: true });
-        const query = this.buildQueryString(skip, take);
+        const query = buildQueryString(skip, take);
         fetch(query, { mode: 'cors' })
           .then(response => response.json())
           .then(({ data, totalCount }) => {
@@ -67,10 +71,6 @@ export default class Demo extends React.PureComponent {
           .catch(() => this.setState({ loading: false }));
       }
     };
-  }
-
-  buildQueryString(skip, take) {
-    return `${URL}?requireTotalCount=true&skip=${skip}&take=${take}`;
   }
 
   render() {

@@ -3,7 +3,7 @@ import { Sizer } from '@devexpress/dx-react-core';
 import { MemoizedFunction, memoize, isEdgeBrowser } from '@devexpress/dx-core';
 import {
   TableColumn, GetColumnWidthFn, getCollapsedGrids,
-  getColumnWidthGetter, TABLE_STUB_TYPE, getVisibleRowsBounds,
+  getColumnWidthGetter, TABLE_STUB_TYPE, getVisibleRowsBounds, GridRowsBoundaries,
 } from '@devexpress/dx-grid-core';
 import { VirtualTableLayoutState, VirtualTableLayoutProps } from '../../types';
 import { findDOMNode } from 'react-dom';
@@ -18,6 +18,7 @@ const defaultProps = {
   headTableComponent: () => null,
   footerComponent: () => null,
   footerTableComponent: () => null,
+  ensureNextVirtualPage: () => void 0,
 };
 type PropsType = VirtualTableLayoutProps & typeof defaultProps;
 
@@ -214,17 +215,19 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
   getVisibleBoundaries() {
     const {
       loadedRowsStart,
-      bodyRows: tableBodyRows,
+      bodyRows,
+      headerRows,
+      footerRows,
       estimatedRowHeight,
     } = this.props;
 
     return getVisibleRowsBounds(
-      this.state, { loadedRowsStart, tableBodyRows },
+      this.state, { loadedRowsStart, bodyRows, headerRows, footerRows },
       estimatedRowHeight, this.getRowHeight,
     );
   }
 
-  getCollapsedGrids(visibleRowBoundaries) {
+  getCollapsedGrids(visibleRowBoundaries: GridRowsBoundaries) {
     const { viewportLeft, containerWidth } = this.state;
     const {
       headerRows, bodyRows, footerRows,
@@ -276,7 +279,13 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
 
     const visibleRowBoundaries = this.getVisibleBoundaries();
     const collapsedGrids = this.getCollapsedGrids(visibleRowBoundaries);
-    const commonProps = { cellComponent, rowComponent, minColumnWidth };
+    const commonProps = {
+      cellComponent,
+      rowComponent,
+      minColumnWidth,
+      blockRefsHandler: this.registerBlockRef,
+      rowRefsHandler: this.registerRowRef,
+    };
 
     return (
       <Sizer

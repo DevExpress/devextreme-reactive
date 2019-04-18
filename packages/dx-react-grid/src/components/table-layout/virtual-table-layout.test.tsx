@@ -80,6 +80,8 @@ const defaultProps = {
     { key: 8 },
     { key: 9 },
   ],
+  loadedRowsStart: 0,
+  totalRowCount: 9,
   containerComponent: props => <div {...props} />,
   headTableComponent: ({ tableRef, ...props }) => <table {...props} />,
   tableComponent: ({ tableRef, ...props }) => <table {...props} />,
@@ -147,11 +149,11 @@ describe('VirtualTableLayout', () => {
     ];
     const rows = [{ key: 0 }];
 
-    getCollapsedGrid
+    getCollapsedGrids
       .mockImplementationOnce((args) => {
-        const result = require.requireActual('@devexpress/dx-grid-core').getCollapsedGrid(args);
+        const result = require.requireActual('@devexpress/dx-grid-core').getCollapsedGrids(args);
 
-        expect(result.columns.find(col => col.key === 'col_flex').width)
+        expect(result.bodyGrid.columns.find(col => col.key === 'col_flex').width)
           .toBe(null);
 
         return result;
@@ -171,34 +173,34 @@ describe('VirtualTableLayout', () => {
       const tree = mount((
         <VirtualTableLayout
           {...defaultProps}
-          headerRows={defaultProps.bodyRows.slice(0, 1)}
-          footerRows={defaultProps.bodyRows.slice(0, 1)}
+          headerRows={defaultProps.bodyRows.slice(0, 2)}
+          footerRows={defaultProps.bodyRows.slice(0, 2)}
         />
       ));
 
       expect(tree.find(defaultProps.containerComponent).props().style)
-        .toMatchObject({ height: `${defaultProps.height}px` });
+        .toMatchObject({ height: defaultProps.height });
 
-      expect(getCollapsedGrid.mock.calls[getCollapsedGrid.mock.calls.length - 3][0])
+      expect(getCollapsedGrids).toBeCalledTimes(2);
+      expect(getCollapsedGrids.mock.calls[getCollapsedGrids.mock.calls.length - 1][0])
         .toMatchObject({
-          top: 0,
-          left: 0,
-          height: defaultProps.estimatedRowHeight,
-          width: 400,
-        });
-      expect(getCollapsedGrid.mock.calls[getCollapsedGrid.mock.calls.length - 2][0])
-        .toMatchObject({
-          top: 0,
-          left: 0,
-          height: 120 - (defaultProps.estimatedRowHeight * 2),
-          width: 400,
-        });
-      expect(getCollapsedGrid.mock.calls[getCollapsedGrid.mock.calls.length - 1][0])
-        .toMatchObject({
-          top: 0,
-          left: 0,
-          height: defaultProps.estimatedRowHeight,
-          width: 400,
+          viewportLeft: 0,
+          containerWidth: 400,
+          visibleRowBoundaries: {
+            header: {
+              start: 0,
+              end: 0,
+            },
+            body: {
+              start: 0,
+              end: 0,
+            },
+            footer: {
+              start: 0,
+              end: 0,
+            },
+            viewportTop: 0,
+          },
         });
     });
 
@@ -224,22 +226,25 @@ describe('VirtualTableLayout', () => {
       ));
 
       simulateScroll(tree, { scrollTop: 100, scrollLeft: 50 });
-      const calls = getCollapsedGrid.mock.calls;
 
-      expect(getCollapsedGrid.mock.calls[getCollapsedGrid.mock.calls.length - 3][0])
+      expect(getCollapsedGrids.mock.calls[getCollapsedGrids.mock.calls.length - 1][0])
         .toMatchObject({
-          top: 0,
-          left: 50,
-        });
-      expect(getCollapsedGrid.mock.calls[getCollapsedGrid.mock.calls.length - 2][0])
-        .toMatchObject({
-          top: 100,
-          left: 50,
-        });
-      expect(getCollapsedGrid.mock.calls[getCollapsedGrid.mock.calls.length - 1][0])
-        .toMatchObject({
-          top: 0,
-          left: 50,
+          viewportLeft: 50,
+          visibleRowBoundaries: {
+            header: {
+              start: 0,
+              end: 0,
+            },
+            body: {
+              start: 2,
+              end: 4,
+            },
+            footer: {
+              start: 0,
+              end: 0,
+            },
+            viewportTop: 100,
+          },
         });
     });
 
@@ -251,14 +256,14 @@ describe('VirtualTableLayout', () => {
             headerRows={defaultProps.bodyRows.slice(0, 1)}
           />
         ));
-        const initialCallsCount = getCollapsedGrid.mock.calls.length;
+        const initialCallsCount = getCollapsedGrids.mock.calls.length;
 
         simulateScroll(tree, scrollArgs);
 
         if (shouldRerender) {
-          expect(getCollapsedGrid.mock.calls.length).toBeGreaterThan(initialCallsCount);
+          expect(getCollapsedGrids.mock.calls.length).toBeGreaterThan(initialCallsCount);
         } else {
-          expect(getCollapsedGrid.mock.calls.length).toBe(initialCallsCount);
+          expect(getCollapsedGrids.mock.calls.length).toBe(initialCallsCount);
         }
       };
 

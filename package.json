@@ -60,8 +60,8 @@
     "publish:npm": "yarn && node ./scripts/publish-npm.js",
     "publish:site": "yarn && node ./scripts/publish-site.js",
     "update-api": "lerna run update-api",
-    "start-demo-servers": "lerna run --parallel start-demo-server",
-    "stop-demo-servers:mac": "concurrently \"kill $(lsof -t -i :3001)\" \"kill $(lsof -t -i :3002)\" \"kill $(lsof -t -i :3003)\" \"kill $(lsof -t -i :3004)\" \"kill $(lsof -t -i :3005)\""
+    "start-demo-servers": "lerna run --parallel start-demo-server --ignore @devexpress/dx-vue-*",
+    "stop-demo-servers:mac": "concurrently \"kill $(lsof -t -i :3001)\" \"kill $(lsof -t -i :3002)\" \"kill $(lsof -t -i :3004)\" \"kill $(lsof -t -i :3005)\""
   },
   "husky": {
     "hooks": {

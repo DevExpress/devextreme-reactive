@@ -12,8 +12,7 @@
   "scripts": {
     "build": "yarn webpack --env",
     "build:prod": "yarn webpack --env.production",
-    "build:watch": "yarn start-demo-server",
-    "start-demo-server": "webpack-dev-server --env"
+    "build:watch": "webpack-dev-server --env"
   },
   "dependencies": {
     "@devexpress/dx-demo-shell": "1.11.0-alpha.1",

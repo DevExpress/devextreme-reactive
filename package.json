@@ -29,6 +29,7 @@
     "rimraf": "^2.6.3",
     "run-sequence": "^2.2.1",
     "semver": "^5.6.0",
+    "start-server-and-test": "^1.7.13",
     "testcafe": "^1.1.2",
     "testcafe-reporter-xunit": "^2.1.0",
     "typescript": "^3.3.3333"
@@ -50,18 +51,17 @@
     "lint:ci": "lerna run lint:ci",
     "test": "lerna run test --ignore @devexpress/dx-vue-* && yarn test:bs4",
     "test:ci": "yarn update-api && lerna run test --ignore @devexpress/dx-vue-* -- -- --maxWorkers=2 && yarn test:bs4",
-    "testcafe:ci": "yarn start-demo-servers & sleep 60; testcafe",
-    "testcafe:local:mac": "yarn testcafe:local && yarn stop-demo-servers:mac",
-    "testcafe:local": "yarn start-demo-servers & sleep 60; yarn testcafe:local:fast",
-    "testcafe:local:fast": "testcafe chrome ./**/*.testcafe.js --skip-js-errors",
+    "testcafe:ci": "start-server-and-test start-demo-servers \"3001|3002|3004|3005\" testcafe:ci:start",
+    "testcafe:ci:start": "testcafe",
+    "testcafe:local": "start-server-and-test start-demo-servers \"3001|3002|3004|3005\" testcafe:local:start",
+    "testcafe:local:start": "testcafe chrome ./**/*.testcafe.js --skip-js-errors",
     "test:bs4": "jest packages/dx-react-bootstrap4 --ci --silent --runInBand --bail",
     "test:watch": "jest --watch",
     "publish:prepare": "yarn && node ./scripts/prepare-commit.js",
     "publish:npm": "yarn && node ./scripts/publish-npm.js",
     "publish:site": "yarn && node ./scripts/publish-site.js",
     "update-api": "lerna run update-api",
-    "start-demo-servers": "lerna run --parallel start-demo-server --ignore @devexpress/dx-vue-*",
-    "stop-demo-servers:mac": "concurrently \"kill $(lsof -t -i :3001)\" \"kill $(lsof -t -i :3002)\" \"kill $(lsof -t -i :3004)\" \"kill $(lsof -t -i :3005)\""
+    "start-demo-servers": "lerna run --parallel start-demo-server --ignore @devexpress/dx-vue-*"
   },
   "husky": {
     "hooks": {

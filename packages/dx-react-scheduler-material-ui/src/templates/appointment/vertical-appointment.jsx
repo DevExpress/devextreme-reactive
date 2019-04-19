@@ -36,6 +36,7 @@ const VerticalAppointmentBase = ({
   data,
   children,
   className,
+  dateFormat,
   ...restProps
 }) => (
   children || (
@@ -45,13 +46,13 @@ const VerticalAppointmentBase = ({
       </div>
       <div className={classes.textContainer}>
         <div className={classes.time}>
-          {moment(data.startDate).format('h:mm A')}
+          {dateFormat(data.startDate, { hour: 'numeric', minute: 'numeric' })}
         </div>
         <div className={classes.time}>
           {' - '}
         </div>
         <div className={classes.time}>
-          {moment(data.endDate).format('h:mm A')}
+          {dateFormat(data.endDate, { hour: 'numeric', minute: 'numeric' })}
         </div>
       </div>
     </div>

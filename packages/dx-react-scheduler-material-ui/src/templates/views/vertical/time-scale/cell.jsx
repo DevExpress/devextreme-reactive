@@ -29,16 +29,18 @@ const CellBase = ({
   className,
   startDate,
   endDate,
+  dateFormat,
   ...restProps
 }) => {
-  const currentTime = moment(endDate);
+  // const currentTime = moment(endDate);
   return (
     <TableCell
       className={classNames(classes.cell, className)}
       {...restProps}
     >
       <span className={classes.text}>
-        {currentTime.format('h:mm A')}
+        {/* {currentTime.format('h:mm A')} */}
+        {dateFormat(endDate, { hour: 'numeric', minute: 'numeric' })}
       </span>
     </TableCell>
   );

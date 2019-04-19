@@ -29,9 +29,10 @@ const CellBase = ({
   startDate,
   endDate,
   today,
+  dateFormat,
   ...restProps
 }) => {
-  const currentDate = moment(startDate);
+  // const currentDate = moment(startDate);
   return (
     <TableCell
       className={classNames(classes.cell, className)}
@@ -43,7 +44,7 @@ const CellBase = ({
           [classes.highlightCell]: today,
         })}
       >
-        {currentDate.format('ddd')}
+        {dateFormat(startDate, { weekday: 'short' })}
       </p>
       <span
         className={classNames({
@@ -51,7 +52,7 @@ const CellBase = ({
           [classes.highlightCell]: today,
         })}
       >
-        {currentDate.format('D')}
+        {dateFormat(startDate, { day: 'numeric' })}
       </span>
     </TableCell>
   );

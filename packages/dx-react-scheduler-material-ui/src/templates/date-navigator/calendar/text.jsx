@@ -16,6 +16,7 @@ const TextBase = ({
   classes,
   className,
   currentDate,
+  dateFormat,
   ...restProps
 }) => (
   <Typography
@@ -25,7 +26,7 @@ const TextBase = ({
     }, className)}
     {...restProps}
   >
-    {moment(currentDate).format('MMMM YYYY')}
+    {dateFormat(new Date(currentDate), { month: 'long', year: 'numeric' })}
   </Typography>
 );
 

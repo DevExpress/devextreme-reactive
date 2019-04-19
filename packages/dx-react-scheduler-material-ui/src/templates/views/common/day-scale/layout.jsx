@@ -17,6 +17,7 @@ const LayoutBase = ({
   cellsData,
   className,
   classes,
+  dateFormat,
   ...restProps
 }) => (
   <TableMUI
@@ -35,6 +36,7 @@ const LayoutBase = ({
             startDate={startDate}
             endDate={endDate}
             today={today}
+            dateFormat={dateFormat}
           />
         ))}
       </Row>

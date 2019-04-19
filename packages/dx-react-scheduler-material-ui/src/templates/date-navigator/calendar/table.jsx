@@ -25,6 +25,7 @@ const TableBase = ({
   headerCells,
   selectedDate,
   onCellClick,
+  dateFormat,
   ...restProps
 }) => {
   const comparableSelectedDate = moment(selectedDate);
@@ -36,7 +37,7 @@ const TableBase = ({
       <TableHead>
         <HeaderRow>
           {headerCells.map((cell) => {
-            const key = moment(cell.startDate).format('ddd');
+            const key = dateFormat(cell.startDate, { weekday: 'short' });
             return (
               <HeaderCell
                 key={key}
@@ -68,7 +69,7 @@ const TableBase = ({
                     onCellClick(startDate);
                   }}
                 >
-                  {moment(startDate).format('D')}
+                  {dateFormat(startDate, { day: 'numeric' })} {/* startDate.getDate() by current locale? */}
                 </Cell>
               );
             })}

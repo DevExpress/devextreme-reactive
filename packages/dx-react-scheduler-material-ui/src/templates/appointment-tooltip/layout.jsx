@@ -47,6 +47,7 @@ const LayoutBase = ({
   commandButtonIds,
   onOpenButtonClick,
   onDeleteButtonClick,
+  dateFormat,
   classes,
   ...restProps
 }) => {
@@ -92,7 +93,7 @@ const LayoutBase = ({
           </Grid>
           <Grid item xs={10}>
             <div className={classes.text}>
-              {`${moment(data.startDate).format('h:mm A')} - ${moment(data.endDate).format('h:mm A')}`}
+              {`${dateFormat(data.startDate, { hour: 'numeric', minute: 'numeric' })} - ${dateFormat(data.endDate, { hour: 'numeric', minute: 'numeric' })}`}
             </div>
           </Grid>
         </Grid>

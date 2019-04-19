@@ -17,6 +17,7 @@ const LayoutBase = ({
   cellsData,
   classes,
   className,
+  dateFormat,
   ...restProps
 }) => (
   <Table {...restProps} className={classNames(classes.table, className)}>
@@ -30,6 +31,7 @@ const LayoutBase = ({
                 rowSpan="2"
                 startDate={days[0].startDate}
                 endDate={days[0].endDate}
+                dateFormat={dateFormat}
               />
             )}
         </Row>

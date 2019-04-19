@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import {
-  Plugin, Template, TemplatePlaceholder,
+  Plugin, Template, TemplatePlaceholder, TemplateConnector,
 } from '@devexpress/dx-react-core';
 import { createClickHandlers } from '@devexpress/dx-core';
 import { POSITION_START, POSITION_END } from '@devexpress/dx-scheduler-core';
@@ -44,18 +44,23 @@ export class Appointments extends React.PureComponent {
             data, type, style, fromPrev, toNext,
             ...restParams
           }) => (
-            <Appointment
-              data={data}
-              {...createClickHandlers(onClick, onDoubleClick)}
-              {...restParams}
-            >
-              {fromPrev && <SplitIndicator position={POSITION_START} appointmentType={type} />}
-              <AppointmentContent
-                data={data}
-                type={type}
-              />
-              {toNext && <SplitIndicator position={POSITION_END} appointmentType={type} />}
-            </Appointment>
+            <TemplateConnector>
+              {({ dateFormat }) => (
+                <Appointment
+                  data={data}
+                  {...createClickHandlers(onClick, onDoubleClick)}
+                  {...restParams}
+                >
+                  {fromPrev && <SplitIndicator position={POSITION_START} appointmentType={type} />}
+                  <AppointmentContent
+                    data={data}
+                    type={type}
+                    dateFormat={dateFormat()}
+                  />
+                  {toNext && <SplitIndicator position={POSITION_END} appointmentType={type} />}
+                </Appointment>
+              )}
+            </TemplateConnector>
           )}
         </Template>
       </Plugin>

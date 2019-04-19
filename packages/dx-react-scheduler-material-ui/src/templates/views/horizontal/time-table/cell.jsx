@@ -48,6 +48,7 @@ const CellBase = ({
   endDate,
   today,
   otherMonth,
+  dateFormat,
   ...restProps
 }) => (
   <TableCell
@@ -62,7 +63,8 @@ const CellBase = ({
         [classes.otherMonth]: otherMonth && !today,
       })}
     >
-      {moment(startDate).format('D')}
+      {dateFormat(startDate, { day: 'numeric' })}
+
     </div>
   </TableCell>
 );

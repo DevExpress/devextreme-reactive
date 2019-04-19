@@ -197,7 +197,7 @@ export default class Demo extends React.PureComponent {
           <EventTracker onClick={this.click} />
           <HoverState hover={hover} onHoverChange={this.changeHover} />
           <Tooltip
-            targetItem={tooltipEnabled ? tooltipTarget : null}
+            targetItem={tooltipEnabled && tooltipTarget}
             onTargetItemChange={this.changeTooltip}
             contentComponent={TooltipContent}
           />

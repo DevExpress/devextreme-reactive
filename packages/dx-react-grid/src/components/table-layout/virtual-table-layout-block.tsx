@@ -2,6 +2,7 @@ import * as React from 'react';
 import { RefHolder } from '@devexpress/dx-react-core';
 import { ColumnGroup } from './column-group';
 import { VirtualTableLayoutBlockProps } from '../../types';
+import { VirtualRowLayout } from './virtual-row-layout';
 
 // tslint:disable-next-line: max-line-length
 export class VirtualTableLayoutBlock extends React.PureComponent<VirtualTableLayoutBlockProps, any> {
@@ -21,10 +22,10 @@ export class VirtualTableLayoutBlock extends React.PureComponent<VirtualTableLay
       rowRefsHandler,
       tableComponent: Table,
       bodyComponent: Body,
+      cellComponent,
+      rowComponent,
       marginBottom,
     } = this.props;
-    const Row = this.props.rowComponent as React.ComponentType<any>;
-    const Cell = this.props.cellComponent as React.ComponentType<any>;
 
     return (
       <RefHolder
@@ -49,25 +50,12 @@ export class VirtualTableLayoutBlock extends React.PureComponent<VirtualTableLay
                   key={row.key}
                   ref={ref => rowRefsHandler(row, ref)}
                 >
-                  <Row
-                    tableRow={row}
-                    style={row.height !== undefined
-                      ? { height: `${row.height}px` }
-                      : undefined}
-                  >
-                    {cells.map((cell) => {
-                      const { column } = cell;
-                      return (
-                        <Cell
-                          key={column.key}
-                          tableRow={row}
-                          tableColumn={column}
-                          style={column.animationState}
-                          colSpan={cell.colSpan}
-                        />
-                      );
-                    })}
-                  </Row>
+                  <VirtualRowLayout
+                    row={row}
+                    cells={cells}
+                    rowComponent={rowComponent}
+                    cellComponent={cellComponent}
+                  />
                 </RefHolder>
               );
             })}

@@ -59,10 +59,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "a",
-                    },
-                    "key": "a",
+                    "name": "a",
                   },
                   "key": "a",
                 },
@@ -71,10 +68,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "b",
-                    },
-                    "key": "b",
+                    "name": "b",
                   },
                   "key": "b",
                 },
@@ -83,10 +77,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "c",
-                    },
-                    "key": "c",
+                    "name": "c",
                   },
                   "key": "c",
                 },
@@ -95,10 +86,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "d",
-                    },
-                    "key": "d",
+                    "name": "d",
                   },
                   "key": "d",
                 },
@@ -107,10 +95,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "e",
-                    },
-                    "key": "e",
+                    "name": "e",
                   },
                   "key": "e",
                 },
@@ -184,10 +169,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "a",
-                    },
-                    "key": "a",
+                    "name": "a",
                   },
                   "key": "a",
                 },
@@ -196,10 +178,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "b",
-                    },
-                    "key": "b",
+                    "name": "b",
                   },
                   "key": "b",
                 },
@@ -208,10 +187,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "c",
-                    },
-                    "key": "c",
+                    "name": "c",
                   },
                   "key": "c",
                 },
@@ -220,10 +196,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "d",
-                    },
-                    "key": "d",
+                    "name": "d",
                   },
                   "key": "d",
                 },
@@ -232,10 +205,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "e",
-                    },
-                    "key": "e",
+                    "name": "e",
                   },
                   "key": "e",
                 },
@@ -251,10 +221,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "a",
-                    },
-                    "key": "a",
+                    "name": "a",
                   },
                   "key": "a",
                 },
@@ -263,10 +230,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "b",
-                    },
-                    "key": "b",
+                    "name": "b",
                   },
                   "key": "b",
                 },
@@ -275,10 +239,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "c",
-                    },
-                    "key": "c",
+                    "name": "c",
                   },
                   "key": "c",
                 },
@@ -287,10 +248,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "d",
-                    },
-                    "key": "d",
+                    "name": "d",
                   },
                   "key": "d",
                 },
@@ -299,10 +257,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "e",
-                    },
-                    "key": "e",
+                    "name": "e",
                   },
                   "key": "e",
                 },
@@ -318,10 +273,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "a",
-                    },
-                    "key": "a",
+                    "name": "a",
                   },
                   "key": "a",
                 },
@@ -330,10 +282,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "b",
-                    },
-                    "key": "b",
+                    "name": "b",
                   },
                   "key": "b",
                 },
@@ -342,10 +291,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "c",
-                    },
-                    "key": "c",
+                    "name": "c",
                   },
                   "key": "c",
                 },
@@ -354,10 +300,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "d",
-                    },
-                    "key": "d",
+                    "name": "d",
                   },
                   "key": "d",
                 },
@@ -366,10 +309,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "e",
-                    },
-                    "key": "e",
+                    "name": "e",
                   },
                   "key": "e",
                 },
@@ -385,10 +325,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "a",
-                    },
-                    "key": "a",
+                    "name": "a",
                   },
                   "key": "a",
                 },
@@ -397,10 +334,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "b",
-                    },
-                    "key": "b",
+                    "name": "b",
                   },
                   "key": "b",
                 },
@@ -409,10 +343,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "c",
-                    },
-                    "key": "c",
+                    "name": "c",
                   },
                   "key": "c",
                 },
@@ -421,10 +352,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "d",
-                    },
-                    "key": "d",
+                    "name": "d",
                   },
                   "key": "d",
                 },
@@ -433,10 +361,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "e",
-                    },
-                    "key": "e",
+                    "name": "e",
                   },
                   "key": "e",
                 },
@@ -452,10 +377,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "a",
-                    },
-                    "key": "a",
+                    "name": "a",
                   },
                   "key": "a",
                 },
@@ -464,10 +386,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "b",
-                    },
-                    "key": "b",
+                    "name": "b",
                   },
                   "key": "b",
                 },
@@ -476,10 +395,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "c",
-                    },
-                    "key": "c",
+                    "name": "c",
                   },
                   "key": "c",
                 },
@@ -488,10 +404,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "d",
-                    },
-                    "key": "d",
+                    "name": "d",
                   },
                   "key": "d",
                 },
@@ -500,10 +413,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "e",
-                    },
-                    "key": "e",
+                    "name": "e",
                   },
                   "key": "e",
                 },
@@ -519,10 +429,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "a",
-                    },
-                    "key": "a",
+                    "name": "a",
                   },
                   "key": "a",
                 },
@@ -531,10 +438,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "b",
-                    },
-                    "key": "b",
+                    "name": "b",
                   },
                   "key": "b",
                 },
@@ -543,10 +447,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "c",
-                    },
-                    "key": "c",
+                    "name": "c",
                   },
                   "key": "c",
                 },
@@ -555,10 +456,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "d",
-                    },
-                    "key": "d",
+                    "name": "d",
                   },
                   "key": "d",
                 },
@@ -567,10 +465,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "e",
-                    },
-                    "key": "e",
+                    "name": "e",
                   },
                   "key": "e",
                 },
@@ -586,10 +481,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "a",
-                    },
-                    "key": "a",
+                    "name": "a",
                   },
                   "key": "a",
                 },
@@ -598,10 +490,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "b",
-                    },
-                    "key": "b",
+                    "name": "b",
                   },
                   "key": "b",
                 },
@@ -610,10 +499,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "c",
-                    },
-                    "key": "c",
+                    "name": "c",
                   },
                   "key": "c",
                 },
@@ -622,10 +508,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "d",
-                    },
-                    "key": "d",
+                    "name": "d",
                   },
                   "key": "d",
                 },
@@ -634,10 +517,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "e",
-                    },
-                    "key": "e",
+                    "name": "e",
                   },
                   "key": "e",
                 },
@@ -653,10 +533,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "a",
-                    },
-                    "key": "a",
+                    "name": "a",
                   },
                   "key": "a",
                 },
@@ -665,10 +542,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "b",
-                    },
-                    "key": "b",
+                    "name": "b",
                   },
                   "key": "b",
                 },
@@ -677,10 +551,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "c",
-                    },
-                    "key": "c",
+                    "name": "c",
                   },
                   "key": "c",
                 },
@@ -689,10 +560,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "d",
-                    },
-                    "key": "d",
+                    "name": "d",
                   },
                   "key": "d",
                 },
@@ -701,10 +569,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "e",
-                    },
-                    "key": "e",
+                    "name": "e",
                   },
                   "key": "e",
                 },
@@ -720,10 +585,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "a",
-                    },
-                    "key": "a",
+                    "name": "a",
                   },
                   "key": "a",
                 },
@@ -732,10 +594,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "b",
-                    },
-                    "key": "b",
+                    "name": "b",
                   },
                   "key": "b",
                 },
@@ -744,10 +603,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "c",
-                    },
-                    "key": "c",
+                    "name": "c",
                   },
                   "key": "c",
                 },
@@ -756,10 +612,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "d",
-                    },
-                    "key": "d",
+                    "name": "d",
                   },
                   "key": "d",
                 },
@@ -768,10 +621,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "e",
-                    },
-                    "key": "e",
+                    "name": "e",
                   },
                   "key": "e",
                 },
@@ -846,10 +696,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "a",
-                    },
-                    "key": "a",
+                    "name": "a",
                   },
                   "key": "a",
                 },
@@ -858,10 +705,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "b",
-                    },
-                    "key": "b",
+                    "name": "b",
                   },
                   "key": "b",
                 },
@@ -870,10 +714,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "c",
-                    },
-                    "key": "c",
+                    "name": "c",
                   },
                   "key": "c",
                 },
@@ -882,10 +723,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "d",
-                    },
-                    "key": "d",
+                    "name": "d",
                   },
                   "key": "d",
                 },
@@ -894,10 +732,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "colSpan": 1,
                 "column": Object {
                   "column": Object {
-                    "column": Object {
-                      "name": "e",
-                    },
-                    "key": "e",
+                    "name": "e",
                   },
                   "key": "e",
                 },

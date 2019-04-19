@@ -1,31 +1,40 @@
 version: 2
 
 jobs:
+  Build Source:
+    docker:
+      - image: circleci/node:8
+    working_directory: ~/circleci
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/circleci
+
+      - run: sudo npm i -g yarn
+      - run: sudo chmod a+rwx /usr/local/bin/yarn
+
+      - run: yarn --no-progress
+      - run: yarn build
+
+      - run: chmod -R 777 ~/circleci
+      - persist_to_workspace:
+          root: .
+          paths: .
   Site:
     docker:
       - image: circleci/node:8
-
+    working_directory: ~/circleci
     steps:
-      - checkout
-
-      - run: sudo npm i -g yarn
-      - run: sudo chmod a+rwx /usr/local/bin/yarn
-
-      - run: yarn --no-progress
-      - run: yarn build
+      - attach_workspace:
+          at: ~/circleci
       - run: yarn build:site:docs
-  Jest Tests:
+  Jest Tests & Linter:
     docker:
       - image: circleci/node:8
-
+    working_directory: ~/circleci
     steps:
-      - checkout
-
-      - run: sudo npm i -g yarn
-      - run: sudo chmod a+rwx /usr/local/bin/yarn
-
-      - run: yarn --no-progress
-      - run: yarn build
+      - attach_workspace:
+          at: ~/circleci
       - run: yarn lint
       - run: yarn test:ci
   TestCafe Tests:
@@ -48,6 +57,11 @@ workflows:
   version: 2
   tests:
     jobs:
-      - Jest Tests
+      - Build Source
+      - Jest Tests & Linter:
+          requires:
+            - Build Source
       - TestCafe Tests
-      - Site
+      - Site:
+          requires:
+            - Build Source

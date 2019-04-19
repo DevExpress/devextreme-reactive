@@ -10,6 +10,7 @@ import {
   TableColumn,
 } from '@devexpress/dx-grid-core';
 import { ColumnGroup } from './column-group';
+import { VirtualRowLayout } from './virtual-row-layout';
 import { VirtualTableLayoutProps, VirtualTableLayoutState } from '../../types';
 
 const AUTO_HEIGHT = 'auto';
@@ -212,9 +213,9 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
   renderRowsBlock(name, collapsedGrid, Table, Body, blockRef?, marginBottom?) {
     const {
       minWidth,
+      rowComponent,
+      cellComponent,
     } = this.props;
-    const Row = this.props.rowComponent as React.ComponentType<any>;
-    const Cell = this.props.cellComponent as React.ComponentType<any>;
 
     const tableRef = blockRef || React.createRef();
 
@@ -240,25 +241,12 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
                   key={row.key}
                   ref={ref => this.registerRowRef(row, ref)}
                 >
-                  <Row
-                    tableRow={row}
-                    style={row.height !== undefined
-                      ? { height: `${row.height}px` }
-                      : undefined}
-                  >
-                    {cells.map((cell) => {
-                      const { column } = cell;
-                      return (
-                        <Cell
-                          key={column.key}
-                          tableRow={row}
-                          tableColumn={column}
-                          style={column.animationState}
-                          colSpan={cell.colSpan}
-                        />
-                      );
-                    })}
-                  </Row>
+                  <VirtualRowLayout
+                    row={row}
+                    cells={cells}
+                    rowComponent={rowComponent}
+                    cellComponent={cellComponent}
+                  />
                 </RefHolder>
               );
             })}

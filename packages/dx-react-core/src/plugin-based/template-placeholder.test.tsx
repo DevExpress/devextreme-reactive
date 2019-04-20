@@ -339,7 +339,7 @@ describe('TemplatePlaceholder', () => {
       <div className="container">
         <PluginHost>
           <Template name="root">
-            <TemplatePlaceholder  name="test" />
+            <TemplatePlaceholder name="test" />
           </Template>
           <Template name="test">
             <div className="root">root</div>

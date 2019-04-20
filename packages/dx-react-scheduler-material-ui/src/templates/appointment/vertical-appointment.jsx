@@ -28,6 +28,21 @@ const styles = ({ palette, spacing }) => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
+    display: 'flex',
+  },
+  container: {
+    width: '100%',
+  },
+  recurringContainer: {
+    width: `calc(100% - ${spacing.unit * 2}px)`,
+  },
+  imageContainer: {
+    width: `${spacing.unit * 2}px`,
+    height: `${spacing.unit * 2}px`,
+  },
+  image: {
+    width: '100%',
+    height: '100%',
   },
 });
 
@@ -36,29 +51,41 @@ const VerticalAppointmentBase = ({
   data,
   children,
   className,
+  recurringIconComponent: RecurringIcon,
   ...restProps
-}) => (
-  children || (
+}) => {
+  const repeat = !!data.rRule;
+  return (
+    children || (
     <div className={classNames(classes.content, className)} {...restProps}>
-      <div className={classes.title}>
-        {data.title}
+      <div className={repeat ? classes.recurringContainer : classes.container}>
+        <div className={classes.title}>
+          {data.title}
+        </div>
+        <div className={classes.textContainer}>
+          <div className={classes.time}>
+            {moment(data.startDate).format('h:mm A')}
+          </div>
+          <div className={classes.time}>
+            {' - '}
+          </div>
+          <div className={classes.time}>
+            {moment(data.endDate).format('h:mm A')}
+          </div>
+        </div>
       </div>
-      <div className={classes.textContainer}>
-        <div className={classes.time}>
-          {moment(data.startDate).format('h:mm A')}
+      {repeat ? (
+        <div className={classes.imageContainer}>
+          <RecurringIcon className={classes.image} />
         </div>
-        <div className={classes.time}>
-          {' - '}
-        </div>
-        <div className={classes.time}>
-          {moment(data.endDate).format('h:mm A')}
-        </div>
-      </div>
+      ) : undefined}
     </div>
-  )
-);
+    )
+  );
+};
 
 VerticalAppointmentBase.propTypes = {
+  recurringIconComponent: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
   children: PropTypes.node,

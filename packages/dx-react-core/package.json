@@ -39,7 +39,7 @@
     "dts": "tsc -p tsconfig.dts.json && node ./merge-dts.js",
     "update-api": "api-extractor run",
     "lint": "tslint -p tsconfig.lint.json",
-    "lint:fix": "yarn run lint -- --fix",
+    "lint:fix": "yarn lint -- --fix",
     "tsc": "tsc"
   },
   "devDependencies": {

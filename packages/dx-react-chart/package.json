@@ -41,7 +41,7 @@
     "update-api": "api-extractor run",
     "dts": "tsc -p tsconfig.dts.json && node ./merge-dts.js",
     "lint": "tslint -p tsconfig.lint.json",
-    "lint:fix": "yarn run lint -- --fix"
+    "lint:fix": "yarn lint -- --fix"
   },
   "devDependencies": {
     "@devexpress/dx-testing": "1.11.0-alpha.1",

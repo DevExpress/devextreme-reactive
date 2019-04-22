@@ -42,35 +42,26 @@ const DateTypeProvider = props => (
   />
 );
 
-const columnToData = {
-  category: 'ProductCategoryName',
-  store: 'StoreName',
-  product: 'ProductName',
-  date: 'DateKey',
-  price: 'UnitPrice',
-  amount: 'SalesAmount',
-};
-
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
       columns: [
-        { name: 'id', title: 'Id', getCellValue: row => row.Id },
-        { name: 'category', title: 'Category', getCellValue: row => row.ProductCategoryName },
-        { name: 'store', title: 'Store', getCellValue: row => row.StoreName },
-        { name: 'product', title: 'Product', getCellValue: row => row.ProductName },
-        { name: 'date', title: 'Date', getCellValue: row => row.DateKey },
-        { name: 'amount', title: 'Amount', getCellValue: row => row.SalesAmount },
+        { name: 'Id', title: 'Id', getCellValue: row => row.Id },
+        { name: 'ProductCategoryName', title: 'Category', getCellValue: row => row.ProductCategoryName },
+        { name: 'StoreName', title: 'Store', getCellValue: row => row.StoreName },
+        { name: 'ProductName', title: 'Product', getCellValue: row => row.ProductName },
+        { name: 'DateKey', title: 'Date', getCellValue: row => row.DateKey },
+        { name: 'SalesAmount', title: 'Amount', getCellValue: row => row.SalesAmount },
       ],
       rows: [],
       tableColumnExtensions: [
-        { columnName: 'id', width: 80 },
-        { columnName: 'category', width: 220 },
-        { columnName: 'store', width: 220 },
-        { columnName: 'date', width: 150 },
-        { columnName: 'amount', width: 120 },
+        { columnName: 'Id', width: 80 },
+        { columnName: 'ProductCategoryName', width: 220 },
+        { columnName: 'StoreName', width: 220 },
+        { columnName: 'DateKey', width: 150 },
+        { columnName: 'SalesAmount', width: 120 },
       ],
       start: 0,
       totalCount: MAX_ROWS,
@@ -109,12 +100,12 @@ export default class Demo extends React.PureComponent {
 
     this.changeFilters = (filters) => {
       cache.invalidate();
-      this.setState({ filters });
+      this.setState({ filters, rows: [] });
     };
 
     this.changeSorting = (sorting) => {
       cache.invalidate();
-      this.setState({ sorting });
+      this.setState({ sorting, rows: [] });
     };
   }
 
@@ -122,14 +113,16 @@ export default class Demo extends React.PureComponent {
     const { filters, sorting } = this.state;
     const filterStr = filters
       .map(({ columnName, value, operation }) => (
-        `["${columnToData[columnName]}","${operation}","${value}"]`
+        `["${columnName}","${operation}","${value}"]`
       )).join(',"and",');
-    const sortingStr = sorting
-      .map(({ columnName, direction }) => (
-        `{"selector":"${columnToData[columnName]}","desc":"${direction === 'desc' ? 'true' : 'false'}"}`
-      )).join(',');
+    const sortingConfig = sorting
+      .map(({ columnName, direction }) => ({
+        selector: columnName,
+        desc: direction === 'desc'
+      }));
+    const sortingStr = JSON.stringify(sortingConfig);
     const filterQuery = filterStr ? `&filter=${escape(filterStr)}` : '';
-    const sortQuery = sortingStr ? `&sort=${escape(`[${sortingStr}]`)}` : '';
+    const sortQuery = sortingStr ? `&sort=${escape(`${sortingStr}`)}` : '';
 
     return `${URL}?requireTotalCount=true&skip=${skip}&take=${take}${filterQuery}${sortQuery}`;
   }

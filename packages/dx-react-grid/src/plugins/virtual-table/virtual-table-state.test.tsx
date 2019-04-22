@@ -18,7 +18,6 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   virtualRowsWithCache: jest.fn(),
   plainRows: jest.fn(),
   loadedRowsStart: jest.fn(),
-  emptyVirtualRows: 'emptyRows',
 }));
 
 const defaultDeps = {

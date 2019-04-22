@@ -40,8 +40,10 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
 
     let newBounds;
     let requestedRange;
+    let actualVirtualRows = virtualRows;
     if (forceReload) {
       newBounds = requestedRange = { start, end: start + pageSize! * 2 };
+      actualVirtualRows = emptyVirtualRows;
     } else {
       const loadedInterval = intervalUtil.getRowsInterval(virtualRows);
       newBounds = recalculateBounds(referenceIndex, pageSize!, totalRowCount);
@@ -56,7 +58,7 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
     const shouldLoadRows = (newPageIndex !== requestedPageIndex && loadCount > 0) || forceReload;
 
     if (shouldLoadRows) {
-      this.requestNextPage(newPageIndex, loadCount, virtualRows, newBounds);
+      this.requestNextPage(newPageIndex, loadCount, actualVirtualRows, newBounds);
     }
   }
 

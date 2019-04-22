@@ -16,6 +16,7 @@
     "noLib": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "downlevelIteration": true,
     "sourceMap": true,
     "lib": ["es6", "es7", "es2017.object", "dom"],
     "baseUrl": "./",

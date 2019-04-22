@@ -95,6 +95,44 @@ describe('TableLayout', () => {
       minColumnWidth: 100,
     };
 
+    it('should not be updated if columns were not changed', () => {
+      const tree = mount((
+        <TableLayout
+          {...animationDefaultProps}
+        />
+      ));
+
+      tree.setProps({ columns: columns.slice() });
+      rafCallback();
+      tree.setProps({ columns: columns.slice() });
+      tree.update();
+      rafCallback();
+
+      expect(getAnimations).not.toBeCalled();
+    });
+
+    it('should be updated if an active animation is in progress', () => {
+      filterActiveAnimations.mockImplementation(() => new Map([['col', {}]]));
+      getAnimations.mockImplementation(() => new Map([['col', {}]]));
+      evalAnimations.mockImplementation(() => new Map());
+      const nextColumns = [columns[1], columns[0]];
+      const tree = mount((
+        <TableLayout
+          {...animationDefaultProps}
+        />
+      ));
+
+      tree.setProps({ columns: nextColumns });
+      rafCallback();
+      getAnimations.mockClear();
+
+      tree.setProps({ columns: nextColumns.slice() });
+      tree.update();
+      rafCallback();
+
+      expect(getAnimations).toBeCalled();
+    });
+
     it('should be updated on the "columns" property change', () => {
       filterActiveAnimations.mockImplementation(() => new Map());
       evalAnimations.mockImplementation(() => new Map());
@@ -141,7 +179,10 @@ describe('TableLayout', () => {
     });
 
     describe('cache table width', () => {
-      const nextColumns = columns.slice(0, 2);
+      const nextColumnsWithSize = width => ([
+        columns[0],
+        { ...columns[1], width },
+      ]);
       const tableDimensions = { scrollWidth: 300, offsetWidth: 200 };
 
       it('should not reset width if scroll width changed', () => {
@@ -156,9 +197,9 @@ describe('TableLayout', () => {
           .mockReturnValue(tableDimensions);
         filterActiveAnimations.mockImplementation(() => new Map());
 
-        tree.setProps({ columns: nextColumns });
+        tree.setProps({ columns: nextColumnsWithSize(200) });
         rafCallback();
-        tree.setProps({ columns: nextColumns.slice() });
+        tree.setProps({ columns: nextColumnsWithSize(100) });
         tree.update();
         rafCallback();
 
@@ -179,9 +220,9 @@ describe('TableLayout', () => {
           .mockReturnValue(tableDimensions);
         filterActiveAnimations.mockImplementation(() => new Map());
 
-        tree.setProps({ columns: nextColumns });
+        tree.setProps({ columns: nextColumnsWithSize(200) });
         rafCallback();
-        tree.setProps({ columns: nextColumns.slice() });
+        tree.setProps({ columns: nextColumnsWithSize(100) });
         rafCallback();
 
         expect(getAnimations).toHaveBeenCalledTimes(2);
@@ -201,7 +242,7 @@ describe('TableLayout', () => {
           .mockReturnValue(tableDimensions);
         filterActiveAnimations.mockImplementation(() => new Map());
 
-        tree.setProps({ columns: nextColumns });
+        tree.setProps({ columns: nextColumnsWithSize(200) });
         rafCallback();
         tree.setProps({ columns: columns.slice(1) });
         rafCallback();
@@ -223,7 +264,7 @@ describe('TableLayout', () => {
           .mockReturnValue(tableDimensions);
         filterActiveAnimations.mockImplementation(() => new Map());
 
-        tree.setProps({ columns: nextColumns });
+        tree.setProps({ columns: nextColumnsWithSize(200) });
         rafCallback();
         tree.setProps({ columns: columns.slice(0, 1) });
         rafCallback();

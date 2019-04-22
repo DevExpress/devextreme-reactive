@@ -15,7 +15,7 @@ import { TableHeaderRowProps, TableCellProps, TableRowProps } from '../types';
 
 const tableHeaderRowsComputed = (
   { tableHeaderRows }: Getters,
-) => tableRowsWithHeading(tableHeaderRows);
+) => tableRowsWithHeading(tableHeaderRows || []);
 
 class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {
   static ROW_TYPE = TABLE_HEADING_TYPE;

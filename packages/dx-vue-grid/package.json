@@ -37,7 +37,7 @@
     "build": "rollup -c rollup.config.js",
     "build:watch": "rollup -c rollup.config.js -w",
     "lint": "eslint \"src/**\"",
-    "lint:fix": "yarn run lint -- --fix"
+    "lint:fix": "yarn lint -- --fix"
   },
   "devDependencies": {
     "@devexpress/dx-testing": "1.11.0-alpha.1",

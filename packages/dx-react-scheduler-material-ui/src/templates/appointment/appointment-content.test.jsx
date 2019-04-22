@@ -10,6 +10,7 @@ describe('AppointmentContent', () => {
   const defaultProps = {
     data: {},
     type: 'horizontal',
+    recurringIconComponent: () => <div />,
   };
   beforeAll(() => {
     shallow = createShallow({ dive: true });

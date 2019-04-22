@@ -15,6 +15,21 @@ const styles = ({ palette, spacing }) => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
+    display: 'flex',
+  },
+  container: {
+    width: '100%',
+  },
+  recurringContainer: {
+    width: `calc(100% - ${spacing.unit * 2}px)`,
+  },
+  imageContainer: {
+    width: `${spacing.unit * 2}px`,
+    height: `${spacing.unit * 2}px`,
+  },
+  image: {
+    width: '100%',
+    height: '100%',
   },
 });
 
@@ -23,18 +38,33 @@ const HorizontalAppointmentBase = ({
   data,
   children,
   className,
+  recurringIconComponent: RecurringIcon,
   ...restProps
-}) => (
-  <div className={classNames(classes.content, className)} {...restProps}>
-    {children || (
-      <div className={classes.title}>
-        {data.title}
-      </div>
-    )}
-  </div>
-);
+}) => {
+  const repeat = !!data.rRule;
+  return (
+    <div className={classNames(classes.content, className)} {...restProps}>
+      {children || (
+        <React.Fragment>
+          <div className={repeat ? classes.recurringContainer : classes.container}>
+            <div className={classes.title}>
+              {data.title}
+            </div>
+          </div>
+
+          {repeat ? (
+            <div className={classes.imageContainer}>
+              <RecurringIcon className={classes.image} />
+            </div>
+          ) : undefined}
+        </React.Fragment>
+      )}
+    </div>
+  );
+};
 
 HorizontalAppointmentBase.propTypes = {
+  recurringIconComponent: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
   children: PropTypes.node,

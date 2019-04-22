@@ -1,13 +1,10 @@
 import * as React from 'react';
 import { RowLayoutProps } from '../../types';
+import { getRowStyle } from '../../utils/helpers';
 
 const getColumnStyle = ({ column }) => column.animationState;
 
-const getRowStyle = ({ row }) => (row.height !== undefined
-  ? ({ height: `${row.height}px` })
-  : undefined);
-
-  /** @internal */
+/** @internal */
 export class RowLayout extends React.PureComponent<RowLayoutProps> {
   render() {
     const {

@@ -11,8 +11,8 @@ const getRowsInterval: PureComputed<[VirtualRows], Interval> = r => (
   r === emptyVirtualRows
     ? empty
     : {
-      start: r.start,
-      end: r.start + r.rows.length,
+      start: r.skip,
+      end: r.skip + r.rows.length,
     }
 );
 

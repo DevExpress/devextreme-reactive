@@ -8,7 +8,7 @@ export type Interval = {
 };
 /** @internal */
 export type VirtualRows = {
-  start: number,
+  skip: number,
   rows: Row[],
 };
 

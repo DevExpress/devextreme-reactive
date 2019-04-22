@@ -11,14 +11,14 @@ describe('VirtualTableState computeds', () => {
     it('should call mergeRows with correct parameters', () => {
       const rowsInterval = createInterval(20, 30);
       const cacheInterval = createInterval(15, 25);
-      const { start, rows } = createVirtualRows(rowsInterval);
+      const { skip, rows } = createVirtualRows(rowsInterval);
       const cache = createVirtualRows(cacheInterval);
 
-      virtualRowsWithCache(start, rows, cache);
+      virtualRowsWithCache(skip, rows, cache);
 
       expect(mergeRows).toHaveBeenCalledWith(
-        { start: 20, end: 30 },
-        { start: 15, end: 25 },
+        { skip: 20, end: 30 },
+        { skip: 15, end: 25 },
         rows,
         cache.rows,
         20,

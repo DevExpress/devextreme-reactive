@@ -5,7 +5,7 @@ import {
 import { PureComputed } from '@devexpress/dx-core';
 
 export const emptyVirtualRows: VirtualRows = {
-  start: Number.POSITIVE_INFINITY,
+  skip: Number.POSITIVE_INFINITY,
   rows: [],
 };
 
@@ -37,7 +37,7 @@ export const mergeRows: MergeRowsFn = (
   }
 
   return {
-    start: breakpoints[0],
+    skip: breakpoints[0],
     rows: result,
   };
 };
@@ -87,12 +87,12 @@ export const trimRowsToInterval: PureComputed<[VirtualRows, Interval]> = (
   }
 
   const rows = pluckSubarray(
-    virtualRows.rows, virtualRows.start, intersection.start, intersection.end,
+    virtualRows.rows, virtualRows.skip, intersection.start, intersection.end,
   );
 
   return {
     rows,
-    start: intersection.start,
+    skip: intersection.start,
   };
 };
 

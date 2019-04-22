@@ -7,6 +7,6 @@ export const generateRows = (interval: Interval, type = 'rows') => (
     .map((_, i) => ({ id: interval.start + i, type }))
 );
 export const createVirtualRows = (interval: Interval): VirtualRows => ({
-  start: interval.start,
+  skip: interval.start,
   rows: generateRows(interval),
 });

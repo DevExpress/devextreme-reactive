@@ -21,7 +21,7 @@ describe('RemoteDataLoader', () => {
         isDataRemote: true,
         pageSize: 10,
         virtualRows: {
-          start: 0,
+          skip: 0,
           rows: createRows(20),
         },
         loadedRowsStart: 0,

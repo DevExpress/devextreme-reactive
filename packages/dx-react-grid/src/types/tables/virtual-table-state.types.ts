@@ -1,6 +1,6 @@
 export interface VirtualTableStateProps {
   infiniteScrolling: boolean;
-  start: number;
+  skip: number;
   totalRowCount: number;
   pageSize?: number;
   loading: boolean;

@@ -10,7 +10,7 @@ export const pageTriggersMeta: PageTriggersMetaFn = (
     return null;
   }
 
-  const loadedRowsStart = virtualRows.start;
+  const loadedRowsStart = virtualRows.skip;
   const topTriggerIndex = loadedRowsStart > 0 ? loadedRowsStart + pageSize : 0;
   const bottomTriggerIndex = loadedRowsStart + loadedCount - pageSize;
   const bodyBoundaries = visibleRowBoundaries.body;

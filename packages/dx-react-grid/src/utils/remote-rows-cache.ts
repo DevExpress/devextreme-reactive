@@ -79,11 +79,11 @@ export const createRemoteRowsCache = (pageSize: number, capacity = Number.POSITI
   const cache = new LRUCache(pageSize, capacity / pageSize);
 
   return {
-    getRows: (start: number, count: number) => {
+    getRows: (skip: number, count: number) => {
       let result: any[] = [];
       const pageCount = Math.ceil(count / pageSize);
       for (let i = 0; i < pageCount; i += 1) {
-        const pageStart = start + i * pageSize;
+        const pageStart = skip + i * pageSize;
         const chunk = cache.getPage(pageStart);
 
         // add incomplete page to result only if it is last one
@@ -94,7 +94,7 @@ export const createRemoteRowsCache = (pageSize: number, capacity = Number.POSITI
       }
       return result;
     },
-    setRows: (start: number, rows: ReadonlyArray<any>) => {
+    setRows: (skip: number, rows: ReadonlyArray<any>) => {
       const pageCount = Math.ceil(rows.length / pageSize);
       for (let i = 0; i < pageCount; i += 1) {
         const pageStart = i * pageSize;
@@ -102,7 +102,7 @@ export const createRemoteRowsCache = (pageSize: number, capacity = Number.POSITI
 
         // put incomplete page only if it is last one
         if (rowsChunk.length === pageSize || i === pageCount - 1) {
-          cache.addPage(pageStart + start, rowsChunk);
+          cache.addPage(pageStart + skip, rowsChunk);
         }
       }
     },

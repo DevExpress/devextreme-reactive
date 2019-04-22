@@ -28,7 +28,7 @@ const defaultDeps = {
 };
 
 const defaultProps = {
-  start: 100,
+  skip: 100,
   totalRowCount: 1000,
   getRows: () => {},
 };
@@ -45,18 +45,18 @@ describe('VirtualTableState', () => {
   });
 
   describe('getters', () => {
-    it('should provide value from "start" property', () => {
+    it('should provide value from "skip" property', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <VirtualTableState
             {...defaultProps}
-            start={200}
+            skip={200}
           />
         </PluginHost>
       ));
 
-      expect(getComputedState(tree).start)
+      expect(getComputedState(tree).skip)
         .toBe(200);
     });
 
@@ -106,7 +106,7 @@ describe('VirtualTableState', () => {
         .toBe('virtualRowsWithCache');
       expect(virtualRowsWithCache)
         .toBeCalledWith(
-          defaultProps.start,
+          defaultProps.skip,
           defaultDeps.getter.rows,
           'virtualRowsCache',
         );
@@ -148,7 +148,7 @@ describe('VirtualTableState', () => {
       beforeEach(() => {
         jest.useFakeTimers();
         virtualRowsWithCache.mockImplementation(() => ({
-          start: 100,
+          skip: 100,
           rows: Array.from({ length: 200 }),
         }));
       });

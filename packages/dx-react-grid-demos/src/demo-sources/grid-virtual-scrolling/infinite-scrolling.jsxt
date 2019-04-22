@@ -39,17 +39,17 @@ export default class Demo extends React.PureComponent {
         { columnName: 'date', width: 150 },
         { columnName: 'amount', width: 120 },
       ],
-      start: 0,
+      skip: 0,
       totalCount: MAX_ROWS,
       loading: true,
     };
 
     const cache = createRemoteRowsCache(VIRTUAL_PAGE_SIZE);
-    const setRows = (start, count, totalCount) => {
-      const rows = cache.getRows(start, count);
+    const setRows = (skip, count, totalCount) => {
+      const rows = cache.getRows(skip, count);
       this.setState({
         rows,
-        start,
+        skip,
         totalCount: totalCount < MAX_ROWS ? totalCount : MAX_ROWS,
         loading: false,
       });
@@ -75,7 +75,7 @@ export default class Demo extends React.PureComponent {
 
   render() {
     const {
-      rows, columns, start, totalCount, tableColumnExtensions, loading,
+      rows, columns, skip, totalCount, tableColumnExtensions, loading,
     } = this.state;
 
     return (
@@ -90,7 +90,7 @@ export default class Demo extends React.PureComponent {
             loading={loading}
             totalRowCount={totalCount}
             pageSize={VIRTUAL_PAGE_SIZE}
-            start={start}
+            skip={skip}
             getRows={this.getRemoteRows}
           />
           <VirtualTable columnExtensions={tableColumnExtensions} />

@@ -72,9 +72,9 @@ interface ColumnChooserProps {
 // @public (undocumented)
 declare const createRemoteRowsCache: (pageSize: number, capacity?: number) => {
   // (undocumented)
-  getRows: (start: number, count: number) => any[];
+  getRows: (skip: number, count: number) => any[];
   // (undocumented)
-  setRows: (start: number, rows: ReadonlyArray<any>) => void;
+  setRows: (skip: number, rows: ReadonlyArray<any>) => void;
   // (undocumented)
   invalidate: () => void;
 };
@@ -1313,7 +1313,7 @@ interface VirtualTableStateProps {
   // (undocumented)
   pageSize?: number;
   // (undocumented)
-  start: number;
+  skip: number;
   // (undocumented)
   totalRowCount: number;
 }

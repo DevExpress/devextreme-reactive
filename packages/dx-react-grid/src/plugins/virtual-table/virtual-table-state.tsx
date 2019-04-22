@@ -8,8 +8,8 @@ import {
 import { VirtualTableStateProps, VirtualTableStateState } from '../../types';
 
 const virtualRowsComputed = (
-  { start, rows, virtualRowsCache }: Getters,
-) => virtualRowsWithCache(start, rows, virtualRowsCache);
+  { skip, rows, virtualRowsCache }: Getters,
+) => virtualRowsWithCache(skip, rows, virtualRowsCache);
 
 const rowsComputed = ({ virtualRows }: Getters) => plainRows(virtualRows);
 
@@ -34,7 +34,7 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
 
   requestNextPageAction = (
     { referenceIndex, forceReload },
-    { virtualRows, start }: Getters,
+    { virtualRows, skip }: Getters,
   ) => {
     const { pageSize, totalRowCount } = this.props;
 
@@ -42,7 +42,7 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
     let requestedRange;
     let actualVirtualRows = virtualRows;
     if (forceReload) {
-      newBounds = requestedRange = { start, end: start + pageSize! * 2 };
+      newBounds = requestedRange = { start: skip, end: skip + pageSize! * 2 };
       actualVirtualRows = emptyVirtualRows;
     } else {
       const loadedInterval = intervalUtil.getRowsInterval(virtualRows);
@@ -126,7 +126,7 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
 
   render() {
     const { virtualRowsCache, availableRowCount: stateRowCount } = this.state;
-    const { start, pageSize, loading, infiniteScrolling, totalRowCount } = this.props;
+    const { skip, pageSize, loading, infiniteScrolling, totalRowCount } = this.props;
 
     const availableRowCount = infiniteScrolling ? stateRowCount : totalRowCount;
 
@@ -137,7 +137,7 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
         <Getter name="isDataRemote" value />
         <Getter name="isDataLoading" value={loading} />
         <Getter name="isScrollingInfinite" value={infiniteScrolling} />
-        <Getter name="start" value={start} />
+        <Getter name="skip" value={skip} />
         <Getter name="virtualRowsCache" value={virtualRowsCache} />
         <Getter name="pageSize" value={pageSize} />
         <Getter name="availableRowCount" value={availableRowCount} />

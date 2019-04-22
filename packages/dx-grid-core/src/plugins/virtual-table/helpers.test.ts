@@ -18,7 +18,7 @@ export const generateArguments = ({
   },
   getters: {
     virtualRows: {
-      start: loadedRowsStart,
+      skip: loadedRowsStart,
       rows: Array.from({ length: rowsLength }).map(() => {}),
     },
     pageSize: 100,
@@ -62,7 +62,7 @@ describe('#pageTriggersMeta', () => {
         });
     });
 
-    it('should consider virtual rows start', () => {
+    it('should consider virtual rows skip', () => {
       const { gridGeometry, getters } = generateArguments({
         visibleRowsStart: 230,
         visibleRowsEnd: 250,

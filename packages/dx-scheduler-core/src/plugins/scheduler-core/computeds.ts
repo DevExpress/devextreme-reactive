@@ -12,22 +12,22 @@ export const appointments: PureComputed<
   dataItem: appointment,
 }));
 
-const dateTimeFormatInstance = (locale: any, formatOptions: any) => {
-  return new Intl.DateTimeFormat(locale, formatOptions);
-};
+const dateTimeFormatInstance: any = (
+  locale: string | string[], formatOptions: Intl.DateTimeFormatOptions,
+) => new Intl.DateTimeFormat(locale, formatOptions);
 
-export const dateTimeFormat: any = (local: string) => {
+export const dateTimeFormat: any = (locale: string | string[]) => {
   const cache = new Map();
 
-  const formatter = (nextDate: Date, nextOptions: any) => {
+  const formatter = (nextDate: Date, nextOptions: Intl.DateTimeFormatOptions) => {
     if (nextDate === undefined) return;
-    const key = JSON.stringify(nextOptions) + local;
+    const key = JSON.stringify(nextOptions) + locale;
 
     if (cache.has(key)) {
       return cache.get(key).format(nextDate);
     }
 
-    const formatInstance = dateTimeFormatInstance(local, nextOptions);
+    const formatInstance = dateTimeFormatInstance(locale, nextOptions);
     cache.set(key, formatInstance);
     return formatInstance.format(nextDate);
   };

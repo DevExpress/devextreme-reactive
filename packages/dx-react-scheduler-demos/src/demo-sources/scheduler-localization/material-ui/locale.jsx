@@ -34,6 +34,7 @@ export default class Demo extends React.PureComponent {
           // locale="en-GB"
           // locale="ru-RU"
           // locale="en-US"
+          locale="fr-FR"
         >
           <ViewState
             defaultCurrentDate={currentDate}

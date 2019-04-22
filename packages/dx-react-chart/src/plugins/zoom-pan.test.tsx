@@ -77,7 +77,7 @@ describe('ZoomAndPan', () => {
         <ZoomAndPan  {...defaultProps} />
       </PluginHost>
     ));
-    expect(addEventListener).toBeCalledTimes(4);
-    expect(removeEventListener).toBeCalledTimes(4);
+    expect(addEventListener).toBeCalledTimes(5);
+    expect(removeEventListener).toBeCalledTimes(5);
   });
 });

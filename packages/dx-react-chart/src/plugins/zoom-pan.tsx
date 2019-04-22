@@ -22,71 +22,47 @@ import {
 } from '../types';
 
 const events = {
-  wheel: 'mouseWheel',
-  onDown: 'onDown',
-  touchmove: 'touchMove',
-  touchend: 'touchEnd',
+  wheel: 'onWheel',
+  mousedown: 'onDown',
+  touchstart: 'onDown',
+  touchmove: 'onTouchMove',
+  touchend: 'onTouchEnd',
 };
 
 class ZoomPanProvider extends React.PureComponent<ZoomPanProviderProps> {
-  static defaultProps: Partial<ZoomPanProviderProps> = {
-    onWheel: (args) => {},
-    onDown: (args) => {},
-    onTouchMove: (args) => {},
-    onTouchEnd: (args) => {},
-  };
-
+  ref: Element | undefined = undefined;
   componentDidMount() {
-    this.detachDocumentEvents();
-    this.attachDocumentEvents();
-  }
-
-  componentDidUpdate() {
+    this.ref = this.props.rootRef.current!;
+    if (!this.ref) return;
     this.detachDocumentEvents();
     this.attachDocumentEvents();
   }
 
   attachDocumentEvents() {
-    const { rootRef } = this.props;
     Object.keys(events).forEach((el) => {
-      rootRef.current!.addEventListener(el, this[events[el]], { passive: false });
+      this.ref!.addEventListener(el, this.handler(el), { passive: false });
     });
   }
 
   detachDocumentEvents() {
-    const { rootRef } = this.props;
     Object.keys(events).forEach((el) => {
-      rootRef.current!.removeEventListener(el, this[events[el]]);
+      this.ref!.removeEventListener(el, this.handler(el));
     });
   }
 
   componentWillUnmount() {
+    if (!this.ref) return;
     this.detachDocumentEvents();
   }
 
-  mouseWheel = (e) => {
-    const { onWheel } = this.props;
-    onWheel(e);
-  }
-
-  onDown = (e) => {
-    const { onDown } = this.props;
-    onDown(e);
-  }
-
-  touchMove = (e) => {
-    const { onTouchMove } = this.props;
-    onTouchMove(e);
-  }
-
-  touchEnd = (e) => {
-    const { onTouchEnd } = this.props;
-    onTouchEnd(e);
+  handler(key: string) {
+    return (e: any) => {
+      this.props[events[key]](e);
+    };
   }
 
   render() {
-    const { children } = this.props;
-    return children;
+    return null;
   }
 }
 
@@ -136,6 +112,7 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
   }
 
   handleTouchMove(scales: ScalesCache, e: any) {
+    e.preventDefault();
     if (e.touches && e.touches.length === 2) {
       const current = getDeltaForTouches(e.touches);
       this.zoom(scales, current.delta - this.multiTouchDelta!, current.center);
@@ -143,7 +120,6 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
     } else {
       this.handleMouseMove(scales, { x: e.touches[0].clientX, y: e.touches[0].clientY });
     }
-    e.preventDefault();
   }
 
   handleMouseMove(scales: ScalesCache, clientOffset: { x: number, y: number }) {
@@ -219,10 +195,10 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
   }
 
   handleScroll(scales: ScalesCache, e: any) {
+    e.preventDefault();
     const offset = getOffset(e.currentTarget);
     const center: NumberArray = [e.pageX - offset[0], e.pageY - offset[1]];
     this.zoom(scales, e.wheelDelta, center);
-    e.preventDefault();
   }
 
   render() {
@@ -240,25 +216,26 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
       <Getter name="ranges" computed={getAdjustedLayout} />
         <Template name="root">
           <TemplateConnector>
-            {({ scales, rootRef }) =>
+            {({ scales, rootRef }) => (
+            <React.Fragment>
             <DragDropProvider>
               <DropTarget
                 onOver={({ _, clientOffset }) => this.handleMouseMove(scales, clientOffset)}
                 onDrop={() => this.handleMouseUp(scales)}
               >
-                <DragSource payload={null}>
-                  <ZoomPanProvider
-                    rootRef={rootRef}
-                    onWheel={e => this.handleScroll(scales, e)}
-                    onDown={e => this.handleStart(zoomRegionKey!, e)}
-                    onTouchMove={e => this.handleTouchMove(scales, e)}
-                    onTouchEnd={e => this.handleMouseUp(scales)}
-                  >
-                    <TemplatePlaceholder/>
-                  </ZoomPanProvider>
-                </DragSource>
+              <DragSource payload={null}>
+                  <TemplatePlaceholder/>
+             </DragSource>
               </DropTarget>
-            </DragDropProvider>}
+            </DragDropProvider>
+            <ZoomPanProvider
+              rootRef={rootRef}
+              onWheel={e => this.handleScroll(scales, e)}
+              onDown={e => this.handleStart(zoomRegionKey!, e)}
+              onTouchMove={e => this.handleTouchMove(scales, e)}
+              onTouchEnd={e => this.handleMouseUp(scales)}
+            />
+            </React.Fragment>)}
           </TemplateConnector>
         </Template>
 

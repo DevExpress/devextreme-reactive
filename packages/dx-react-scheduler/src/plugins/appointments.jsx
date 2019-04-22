@@ -55,7 +55,7 @@ export class Appointments extends React.PureComponent {
                   <AppointmentContent
                     data={data}
                     type={type}
-                    dateFormat={dateFormat()}
+                    dateFormat={dateFormat}
                   />
                   {toNext && <SplitIndicator position={POSITION_END} appointmentType={type} />}
                 </Appointment>

@@ -178,7 +178,7 @@ export class WeekView extends React.PureComponent {
                   cellComponent={DayScaleCell}
                   rowComponent={DayScaleRow}
                   cellsData={viewCellsData}
-                  dateFormat={dateFormat()}
+                  dateFormat={dateFormat}
                 />
               );
             }}
@@ -205,7 +205,7 @@ export class WeekView extends React.PureComponent {
                   rowComponent={TimeScaleRow}
                   cellComponent={TimeScaleCell}
                   cellsData={viewCellsData}
-                  dateFormat={dateFormat()}
+                  dateFormat={dateFormat}
                 />
               );
             }}

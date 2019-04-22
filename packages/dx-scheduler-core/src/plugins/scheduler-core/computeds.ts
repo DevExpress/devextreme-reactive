@@ -14,34 +14,43 @@ export const appointments: PureComputed<
 }));
 
 let callCount = 0;
-export const dateTimeFormat: any = (local: string) => () => {
+export const dateTimeFormat: any = (local: string) => {
   console.log('Main call');
   let lastDate: any = null;
   let lastOptions: any = null;
   let lastResult: any = null;
 
-
+  const cache = new Map();
 
   const aaa = (aa: any, bb: any, cc: any) => {
-    // console.log('call');
-    callCount += 1;
-    console.log(callCount);
     return Intl.DateTimeFormat(aa, bb).format(cc);
   };
 
   const a = (nextDate: Date, nextOptions: any) => {
-    if (lastDate === null
-        || lastOptions === null
-        || !datesAreEqual(lastDate, nextDate)
-        || !objectsAreEqual(lastOptions, nextOptions)
-      ) {
-      lastResult = aaa(local, nextOptions, nextDate);
+    if (nextDate === undefined) return;
+    const key = JSON.stringify(nextOptions) + nextDate.getTime();
+
+    // debugger
+    if (cache.has(key)) {
+      return cache.get(key);
     }
+
+    const value = aaa(local, nextOptions, nextDate);
+    cache.set(key, value);
+    return value;
+
+    // if (lastDate === null
+    //     || lastOptions === null
+    //     || !datesAreEqual(lastDate, nextDate)
+    //     || !objectsAreEqual(lastOptions, nextOptions)
+    //   ) {
+    //   lastResult = aaa(local, nextOptions, nextDate);
+    // }
     // lastResult = aaa(local, nextOptions, nextDate);
 
-    lastDate = nextDate;
-    lastOptions = nextOptions;
-    return lastResult;
+    // lastDate = nextDate;
+    // lastOptions = nextOptions;
+    // return lastResult;
   };
   return a;
 };

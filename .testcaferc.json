@@ -1,0 +1,12 @@
+{
+  "browsers": ["chrome:headless --disable-features=VizDisplayCompositor"],
+  "src": "./**/*.testcafe.js",
+  "reporter": [
+    "spec",
+    {
+      "name": "xunit",
+      "output": "/tmp/testcafe-test-results/res.xml"
+    }
+  ],
+  "skipJsErrors" : true
+}

@@ -9,6 +9,7 @@ describe('VerticalAppointment', () => {
       startDate: new Date('2018-07-27 13:10'),
       endDate: new Date('2018-07-27 17:10'),
     },
+    recurringIconComponent: () => <div />,
   };
 
   let classes;
@@ -70,11 +71,43 @@ describe('VerticalAppointment', () => {
 
     it('should pass rest props to the root element', () => {
       const tree = mount((
-        <VerticalAppointment {...defaultProps} data={{ a: 1 }} />
+        <VerticalAppointment {...defaultProps} customData={{ a: 1 }} />
       ));
 
-      expect(tree.props().data)
+      expect(tree.props().customData)
         .toMatchObject({ a: 1 });
+    });
+
+    it('should render icon if appointment is recurring', () => {
+      const data = {
+        title: 'title',
+        startDate: new Date('2018-07-27 13:10'),
+        endDate: new Date('2018-07-27 17:10'),
+        rRule: 'FREQ=DAILY;COUNT=6',
+      };
+      const tree = mount((
+        <VerticalAppointment {...defaultProps} data={data} />
+      ));
+
+      expect(tree.find(defaultProps.recurringIconComponent).exists())
+        .toBeTruthy();
+      expect(tree.find(`.${classes.recurringContainer}`).exists())
+        .toBeTruthy();
+      expect(tree.find(`.${classes.container}`).exists())
+        .toBeFalsy();
+    });
+
+    it('should not render recurring icon if appointment is simple', () => {
+      const tree = mount((
+        <VerticalAppointment {...defaultProps} />
+      ));
+
+      expect(tree.find(defaultProps.recurringIconComponent).exists())
+        .toBeFalsy();
+      expect(tree.find(`.${classes.recurringContainer}`).exists())
+        .toBeFalsy();
+      expect(tree.find(`.${classes.container}`).exists())
+        .toBeTruthy();
     });
   });
 });

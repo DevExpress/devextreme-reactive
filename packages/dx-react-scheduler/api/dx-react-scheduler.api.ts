@@ -144,7 +144,9 @@ interface AppointmentModel {
   [propertyName: string]: any;
   allDay?: boolean;
   endDate: Date | string | number;
+  exDate?: string;
   id?: number | string;
+  rRule?: string;
   startDate: Date | string | number;
   title?: string;
 }
@@ -165,6 +167,7 @@ namespace Appointments {
   interface AppointmentContentProps {
     children: React.ReactNode;
     data: object;
+    recurringIconComponent: React.ComponentType<object>;
   }
 }
 
@@ -191,6 +194,7 @@ interface AppointmentsProps {
   appointmentComponent: React.ComponentType<Appointments.AppointmentProps>;
   appointmentContentComponent: React.ComponentType<Appointments.AppointmentContentProps>;
   containerComponent: React.ComponentType<Appointments.ContainerProps>;
+  recurringIconComponent: React.ComponentType<object>;
   splitIndicatorComponent: React.ComponentType<Appointments.SplitIndicatorProps>;
 }
 

@@ -20,41 +20,54 @@ interface TemplateHostContextProps {
   [TEMPLATE_HOST_CONTEXT: string]: TemplateHostInterface;
 }
 
-class TemplatePlaceholderBase extends React.Component<
-  TemplatePlaceholderProps & PluginContextProps & TemplateHostContextProps
-> {
-  subscription: { [key: string]: (args) => void };
-  template: TemplateBase | null = null;
-  params: object = {};
-  restTemplates: TemplateBase[] = [];
+type Props = TemplatePlaceholderProps & PluginContextProps & TemplateHostContextProps;
 
-  constructor(props) {
-    super(props);
-    const { name: propsName } = this.props;
-
-    this.subscription = {
-      [RERENDER_TEMPLATE_EVENT]: (id) => {
-        if (this.template && this.template.id === id) {
-          this.forceUpdate();
-        }
-      },
-      [RERENDER_TEMPLATE_SCOPE_EVENT]: (name) => {
-        if (propsName === name) {
-          this.forceUpdate();
-        }
-      },
+const getRenderingData = (props: Props): { params?: object, templates: TemplateBase[] } => {
+  const { name, params } = props;
+  if (name) {
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = props;
+    return {
+      params,
+      templates: pluginHost.collect(`${name}Template`)
+        .filter(template => template.predicate(params))
+        .reverse(),
     };
   }
+  const { [TEMPLATE_HOST_CONTEXT]: templateHost } = props;
+  return {
+    params: params || templateHost.params(),
+    templates: templateHost.templates(),
+  };
+};
+
+class TemplatePlaceholderBase extends React.Component<Props> {
+  subscription = {
+    [RERENDER_TEMPLATE_EVENT]: (id: number) => {
+      if (this.template && this.template.id === id) {
+        this.forceUpdate();
+      }
+    },
+    [RERENDER_TEMPLATE_SCOPE_EVENT]: (name: string) => {
+      const { name: propsName } = this.props;
+      if (propsName === name) {
+        this.forceUpdate();
+      }
+    },
+  };
+  template: TemplateBase | null = null;
+  params?: object = {};
 
   componentDidMount() {
     const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.props;
     pluginHost.registerSubscription(this.subscription);
   }
 
-  shouldComponentUpdate(nextProps) {
-    const { params } = this.getRenderingData(nextProps);
+  shouldComponentUpdate(nextProps: Props) {
+    const { params, templates } = getRenderingData(nextProps);
     const { children } = this.props;
-    return !shallowEqual(params, this.params) || children !== nextProps.children;
+    const [template] = templates;
+    return children !== nextProps.children || this.template !== template
+      || !shallowEqual(this.params, params);
   }
 
   componentWillUnmount() {
@@ -62,32 +75,14 @@ class TemplatePlaceholderBase extends React.Component<
     pluginHost.unregisterSubscription(this.subscription);
   }
 
-  getRenderingData(props) {
-    const { name, params } = props;
-    if (name) {
-      const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.props;
-      return {
-        params,
-        templates: pluginHost.collect(`${name}Template`)
-          .filter(template => template.predicate(params))
-          .reverse(),
-      };
-    }
-    const { [TEMPLATE_HOST_CONTEXT]: templateHost } = this.props;
-    return {
-      params: params || templateHost.params(),
-      templates: templateHost.templates(),
-    };
-  }
-
   render() {
-    const { params, templates } = this.getRenderingData(this.props);
+    const { params, templates } = getRenderingData(this.props);
 
     this.params = params;
     [this.template] = templates;
-    this.restTemplates = templates.slice(1);
+    const restTemplates = templates.slice(1);
 
-    let content: ((...args) => any)| null = null;
+    let content: ((...args) => any) | null = null;
     if (this.template) {
       const { children: templateContent } = this.template;
 
@@ -101,7 +96,7 @@ class TemplatePlaceholderBase extends React.Component<
     return (
       <TemplateHostContext.Provider
         value={{
-          templates: () => this.restTemplates,
+          templates: () => restTemplates,
           params: () => this.params,
         }}
       >

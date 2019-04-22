@@ -1,6 +1,5 @@
-import { PureComputed, memoize, argumentsShallowEqual } from '@devexpress/dx-core';
+import { PureComputed } from '@devexpress/dx-core';
 import { AppointmentModel, Appointment } from '../../types';
-import { objectsAreEqual, datesAreEqual } from './helpers';
 
 export const appointments: PureComputed<
   [AppointmentModel[]], Appointment[]
@@ -13,44 +12,24 @@ export const appointments: PureComputed<
   dataItem: appointment,
 }));
 
-let callCount = 0;
-export const dateTimeFormat: any = (local: string) => {
-  console.log('Main call');
-  let lastDate: any = null;
-  let lastOptions: any = null;
-  let lastResult: any = null;
+const dateTimeFormatInstance = (locale: any, formatOptions: any) => {
+  return new Intl.DateTimeFormat(locale, formatOptions);
+};
 
+export const dateTimeFormat: any = (local: string) => {
   const cache = new Map();
 
-  const aaa = (aa: any, bb: any, cc: any) => {
-    return Intl.DateTimeFormat(aa, bb).format(cc);
-  };
-
-  const a = (nextDate: Date, nextOptions: any) => {
+  const formatter = (nextDate: Date, nextOptions: any) => {
     if (nextDate === undefined) return;
-    const key = JSON.stringify(nextOptions) + nextDate.getTime();
+    const key = JSON.stringify(nextOptions) + local;
 
-    // debugger
     if (cache.has(key)) {
-      return cache.get(key);
+      return cache.get(key).format(nextDate);
     }
 
-    const value = aaa(local, nextOptions, nextDate);
-    cache.set(key, value);
-    return value;
-
-    // if (lastDate === null
-    //     || lastOptions === null
-    //     || !datesAreEqual(lastDate, nextDate)
-    //     || !objectsAreEqual(lastOptions, nextOptions)
-    //   ) {
-    //   lastResult = aaa(local, nextOptions, nextDate);
-    // }
-    // lastResult = aaa(local, nextOptions, nextDate);
-
-    // lastDate = nextDate;
-    // lastOptions = nextOptions;
-    // return lastResult;
+    const formatInstance = dateTimeFormatInstance(local, nextOptions);
+    cache.set(key, formatInstance);
+    return formatInstance.format(nextDate);
   };
-  return a;
+  return formatter;
 };

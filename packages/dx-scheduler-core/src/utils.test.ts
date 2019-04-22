@@ -9,6 +9,7 @@ import {
   unwrapGroups,
   getAppointmentStyle,
   calculateRectByDateIntervals,
+  filterByViewBoundaries,
 } from './utils';
 
 describe('Utils', () => {
@@ -429,6 +430,114 @@ describe('Utils', () => {
 
       expect(computed(getters, viewName, baseComputed, defaultValue))
         .toEqual('baseComputed');
+    });
+  });
+  describe('#filterByViewBoundaries', () => {
+    const leftBound = new Date('2019-04-9 00:00');
+    const rightBound = new Date('2019-04-11 00:00');
+    it('should filter if appointment not in a view', () => {
+      const appointment = {
+        start: moment(new Date('2019-04-4 10:00')),
+        end: moment(new Date('2019-04-4 11:00')),
+      };
+      const result = filterByViewBoundaries(appointment, leftBound, rightBound);
+
+      expect(result)
+        .toEqual([]);
+    });
+    it('should work with no recurrence appointment', () => {
+      const appointment = {
+        start: moment(new Date('2019-04-9 10:00')),
+        end: moment(new Date('2019-04-9 11:00')),
+      };
+      const result = filterByViewBoundaries(appointment, leftBound, rightBound);
+
+      expect(result)
+        .toEqual([appointment]);
+    });
+    it('should work with recurrence appointment', () => {
+      const appointment = {
+        start: moment(new Date('2019-04-9 10:00')),
+        end: moment(new Date('2019-04-9 11:00')),
+        rRule: 'FREQ=DAILY;COUNT=2',
+        customField: 'a',
+        dataItem: {
+          startDate: new Date('2019-04-9 10:00'),
+          endDate: new Date('2019-04-9 11:00'),
+          data: 1,
+        },
+      };
+      const result = filterByViewBoundaries(appointment, leftBound, rightBound);
+
+      expect(result[0].start.toString())
+        .toBe(moment(new Date('2019-04-9 10:00')).toString());
+      expect(result[0].end.toString())
+        .toBe(moment(new Date('2019-04-9 11:00')).toString());
+
+      expect(result[1].start.toString())
+        .toBe(moment(new Date('2019-04-10 10:00')).toString());
+      expect(result[1].end.toString())
+        .toBe(moment(new Date('2019-04-10 11:00')).toString());
+
+      expect(result)
+        .toMatchObject([{
+          dataItem: {
+            startDate: new Date('2019-04-9 10:00'),
+            endDate: new Date('2019-04-9 11:00'),
+            data: 1,
+          },
+          customField: 'a',
+          rRule: 'FREQ=DAILY;COUNT=2',
+        }, {
+          dataItem: {
+            startDate: new Date('2019-04-10 10:00'),
+            endDate: new Date('2019-04-10 11:00'),
+            data: 1,
+          },
+          customField: 'a',
+          rRule: 'FREQ=DAILY;COUNT=2',
+        }]);
+    });
+    it('should filter recurrence appointment', () => {
+      const leftBoundTest = new Date('2019-04-9 00:00');
+      const rightBoundTest = new Date('2019-04-10 00:00');
+      const appointment = {
+        start: moment(new Date('2019-04-9 10:00')),
+        end: moment(new Date('2019-04-10 9:00')),
+        rRule: 'FREQ=DAILY;COUNT=2',
+      };
+      const result = filterByViewBoundaries(appointment, leftBoundTest, rightBoundTest);
+
+      expect(result)
+        .toHaveLength(1);
+    });
+    it('should work recurrence appointment with EXDATE', () => {
+      const leftBoundTest = new Date(Date.UTC(2019, 3, 9, 0, 0));
+      const rightBoundTest = new Date(Date.UTC(2019, 3, 12, 0, 0));
+      const appointment = {
+        start: moment('2019-04-09T10:00:00.000Z'),
+        end: moment('2019-04-09T11:00:00.000Z'),
+        rRule: 'FREQ=DAILY;COUNT=3',
+        exDate: '20190410T100000Z',
+      };
+      const result = filterByViewBoundaries(appointment, leftBoundTest, rightBoundTest);
+
+      expect(result)
+        .toHaveLength(2);
+      expect(result[0])
+        .toMatchObject({
+          dataItem: {
+            startDate: new Date('2019-04-09T10:00:00.000Z'),
+            endDate: new Date('2019-04-09T11:00:00.000Z'),
+          },
+        });
+      expect(result[1])
+        .toMatchObject({
+          dataItem: {
+            startDate: new Date('2019-04-11T10:00:00.000Z'),
+            endDate: new Date('2019-04-11T11:00:00.000Z'),
+          },
+        });
     });
   });
 });

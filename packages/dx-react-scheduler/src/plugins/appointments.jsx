@@ -19,6 +19,7 @@ export class Appointments extends React.PureComponent {
       appointmentComponent: Appointment,
       appointmentContentComponent: AppointmentContent,
       containerComponent: Container,
+      recurringIconComponent,
     } = this.props;
 
     return (
@@ -55,6 +56,7 @@ export class Appointments extends React.PureComponent {
                   <AppointmentContent
                     data={data}
                     type={type}
+                    recurringIconComponent={recurringIconComponent}
                     dateFormat={dateFormat}
                   />
                   {toNext && <SplitIndicator position={POSITION_END} appointmentType={type} />}
@@ -73,6 +75,7 @@ Appointments.propTypes = {
   containerComponent: PropTypes.func.isRequired,
   appointmentComponent: PropTypes.func.isRequired,
   appointmentContentComponent: PropTypes.func.isRequired,
+  recurringIconComponent: PropTypes.func.isRequired,
 };
 
 Appointments.components = {
@@ -80,4 +83,5 @@ Appointments.components = {
   containerComponent: 'Container',
   appointmentComponent: 'Appointment',
   appointmentContentComponent: 'AppointmentContent',
+  recurringIconComponent: 'RecurringIcon',
 };

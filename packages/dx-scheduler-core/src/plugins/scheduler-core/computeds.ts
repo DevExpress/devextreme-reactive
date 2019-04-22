@@ -9,6 +9,12 @@ export const appointments: PureComputed<
   ...appointment.allDay !== undefined && {
     allDay: appointment.allDay,
   },
+  ...appointment.rRule !== undefined && {
+    rRule: appointment.rRule,
+  },
+  ...appointment.exDate !== undefined && {
+    exDate: appointment.exDate,
+  },
   dataItem: appointment,
 }));
 

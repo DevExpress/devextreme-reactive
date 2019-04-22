@@ -17,8 +17,8 @@ describe('VirtualTableState computeds', () => {
       virtualRowsWithCache(skip, rows, cache);
 
       expect(mergeRows).toHaveBeenCalledWith(
-        { skip: 20, end: 30 },
-        { skip: 15, end: 25 },
+        { start: 20, end: 30 },
+        { start: 15, end: 25 },
         rows,
         cache.rows,
         20,

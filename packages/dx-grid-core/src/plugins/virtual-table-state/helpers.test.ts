@@ -15,7 +15,7 @@ describe('VirtualTableState helpers', () => {
         const rows = generateRows(rowsInterval, 'rows');
 
         expect(mergeRows(rowsInterval, cacheInterval, rows, cache, 14, 10)).toEqual({
-          start: 10,
+          skip: 10,
           rows: [
             ...cache, ...rows,
           ],
@@ -29,7 +29,7 @@ describe('VirtualTableState helpers', () => {
         const rows = generateRows(rowsInterval, 'rows');
 
         expect(mergeRows(rowsInterval, cacheInterval, rows, cache, 10, 14)).toEqual({
-          start: 10,
+          skip: 10,
           rows: [
             ...rows, ...cache,
           ],
@@ -45,7 +45,7 @@ describe('VirtualTableState helpers', () => {
         const rows = generateRows(rowsInterval, 'rows');
 
         expect(mergeRows(rowsInterval, cacheInterval, rows, cache, 15, 10)).toEqual({
-          start: 10,
+          skip: 10,
           rows: [
             ...cache.slice(0, 5), ...rows,
           ],
@@ -59,7 +59,7 @@ describe('VirtualTableState helpers', () => {
         const rows = generateRows(rowsInterval, 'rows');
 
         expect(mergeRows(rowsInterval, cacheInterval, rows, cache, 10, 15)).toEqual({
-          start: 10,
+          skip: 10,
           rows: [
             ...rows, ...cache.slice(5),
           ],
@@ -73,7 +73,7 @@ describe('VirtualTableState helpers', () => {
         const rows = generateRows(rowsInterval, 'rows');
 
         expect(mergeRows(rowsInterval, cacheInterval, rows, cache, 15, 10)).toEqual({
-          start: 10,
+          skip: 10,
           rows: [
             ...cache.slice(0, 5), ...rows, ...cache.slice(15),
           ],
@@ -87,7 +87,7 @@ describe('VirtualTableState helpers', () => {
         const rows = generateRows(rowsInterval, 'rows');
 
         expect(mergeRows(rowsInterval, cacheInterval, rows, cache, 10, 15)).toEqual({
-          start: 10,
+          skip: 10,
           rows,
         });
       });
@@ -101,7 +101,7 @@ describe('VirtualTableState helpers', () => {
         const rows = generateRows(rowsInterval, 'rows');
 
         expect(mergeRows(rowsInterval, cacheInterval, rows, cache, 10, 15)).toEqual({
-          start: 10,
+          skip: 10,
           rows,
         });
       });
@@ -113,7 +113,7 @@ describe('VirtualTableState helpers', () => {
         const rows = generateRows(rowsInterval, 'rows');
 
         expect(mergeRows(rowsInterval, cacheInterval, rows, cache, 15, 10)).toEqual({
-          start: 10,
+          skip: 10,
           rows: cache,
         });
       });
@@ -125,7 +125,7 @@ describe('VirtualTableState helpers', () => {
         const rows = generateRows(rowsInterval, 'rows');
 
         expect(mergeRows(rowsInterval, cacheInterval, rows, cache, 15, 10)).toEqual({
-          start: undefined,
+          skip: undefined,
           rows: [],
         });
       });
@@ -141,7 +141,7 @@ describe('VirtualTableState helpers', () => {
         const visibleRowsInterval = createInterval(20, 40);
 
         expect(mergeRows(visibleRowsInterval, visibleCacheInterval, rows, cache, 20, 0)).toEqual({
-          start: 10,
+          skip: 10,
           rows: [
             ...cache.slice(10, 20), ...rows.slice(0, 20),
           ],
@@ -274,7 +274,7 @@ describe('VirtualTableState helpers', () => {
       const virtualRows = createVirtualRows(rowsInterval);
 
       expect(trimRowsToInterval(virtualRows, targetInterval)).toEqual({
-        start: 10,
+        skip: 10,
         rows: [
           ...virtualRows.rows.slice(0, 5),
         ],
@@ -287,7 +287,7 @@ describe('VirtualTableState helpers', () => {
       const virtualRows = createVirtualRows(rowsInterval);
 
       expect(trimRowsToInterval(virtualRows, targetInterval)).toEqual({
-        start: 15,
+        skip: 15,
         rows: [
           ...virtualRows.rows.slice(5, 10),
         ],
@@ -300,7 +300,7 @@ describe('VirtualTableState helpers', () => {
       const virtualRows = createVirtualRows(rowsInterval);
 
       expect(trimRowsToInterval(virtualRows, targetInterval)).toEqual({
-        start: 15,
+        skip: 15,
         rows: [
           ...virtualRows.rows.slice(5, 15),
         ],
@@ -313,7 +313,7 @@ describe('VirtualTableState helpers', () => {
       const virtualRows = createVirtualRows(rowsInterval);
 
       expect(trimRowsToInterval(virtualRows, targetInterval)).toEqual({
-        start: Number.POSITIVE_INFINITY,
+        skip: Number.POSITIVE_INFINITY,
         rows: [],
       });
     });

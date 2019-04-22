@@ -42,12 +42,15 @@ export * from './plugins/summary-state';
 export * from './plugins/integrated-summary';
 export * from './plugins/custom-summary';
 export * from './plugins/table-summary-row';
+export * from './plugins/virtual-table/virtual-table-state';
 
 export * from './components/table-layout';
 export * from './components/table-layout/virtual-table-layout';
 export * from './components/table-layout/static-table-layout';
 export * from './components/group-panel-layout';
 
-export * from './utils/virtual-table';
+export * from './plugins/virtual-table/virtual-table';
 
 export * from './types/tables/virtual-table.types';
+
+export * from './utils/remote-rows-cache';

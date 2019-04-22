@@ -38,7 +38,7 @@
   "typings": "dist/dx-react-grid.d.ts",
   "scripts": {
     "test": "jest",
-    "test:watch": "jest --watch",
+    "test:watch": "jest --watch --runInBand",
     "test:coverage": "jest --coverage",
     "build": "rollup -c rollup.config.js",
     "build:watch": "rollup -c rollup.config.js -w",

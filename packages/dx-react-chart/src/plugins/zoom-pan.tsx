@@ -18,7 +18,7 @@ import {
   ScalesCache,
 } from '@devexpress/dx-chart-core';
 import {
-  ZoomAndPanProps, ZoomAndPanState, NumberArray, ZoomPanProviderProps, Handlers,
+  ZoomAndPanProps, ZoomAndPanState, NumberArray, ZoomPanProviderProps, EventHandlers,
 } from '../types';
 
 const events = {
@@ -31,32 +31,32 @@ const events = {
 
 class ZoomPanProvider extends React.PureComponent<ZoomPanProviderProps> {
   ref!: Element;
-  handlers!: Handlers;
+  handlers!: EventHandlers;
   componentDidMount() {
     this.ref = this.props.rootRef.current!;
     this.handlers = Object.keys(events).reduce((prev, key) => {
       return {
         ...prev,
-        [key]:(e: any) => { this.props[events[key]](e); },
+        [key]: (e: any) => { this.props[events[key]](e); },
       };
-    }, {}) as Handlers;
-    this.attachDocumentEvents();
+    }, {});
+    this.attachEvents();
   }
 
-  attachDocumentEvents() {
-    Object.keys(events).forEach((el) => {
+  attachEvents() {
+    Object.keys(this.handlers).forEach((el) => {
       this.ref.addEventListener(el, this.handlers[el], { passive: false });
     });
   }
 
-  detachDocumentEvents() {
-    Object.keys(events).forEach((el) => {
+  detachEvents() {
+    Object.keys(this.handlers).forEach((el) => {
       this.ref.removeEventListener(el, this.handlers[el]);
     });
   }
 
   componentWillUnmount() {
-    this.detachDocumentEvents();
+    this.detachEvents();
   }
 
   render() {

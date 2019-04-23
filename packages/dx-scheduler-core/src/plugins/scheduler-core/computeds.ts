@@ -22,17 +22,18 @@ export const appointments: PureComputed<
 export const dateTimeFormatComputed: any = (locale: string | string[]) => {
   const cache = new Map();
 
-  const formatter = (nextDate: Date, nextOptions: Intl.DateTimeFormatOptions) => {
+  const formatter = (nextDate: Date | string | number, nextOptions: Intl.DateTimeFormatOptions) => {
     if (nextDate === undefined) return;
+    const date = (typeof nextDate) === 'object' ? nextDate : new Date(nextDate);
     const key = JSON.stringify(nextOptions);
 
     if (cache.has(key)) {
-      return cache.get(key).format(nextDate);
+      return cache.get(key).format(date);
     }
 
     const formatInstance = dateTimeFormatInstance(locale, nextOptions);
     cache.set(key, formatInstance);
-    return formatInstance.format(nextDate);
+    return formatInstance.format(date);
   };
   return formatter;
 };

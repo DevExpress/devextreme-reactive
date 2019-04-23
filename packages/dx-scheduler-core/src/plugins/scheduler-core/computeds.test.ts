@@ -91,5 +91,33 @@ describe('SchedulerCore computeds', () => {
       expect(dateTimeFormatInstance)
         .toHaveBeenCalledTimes(2);
     });
+
+    it('should work with strings', () => {
+      dateTimeFormatInstance.mockImplementation(
+        () => new Intl.DateTimeFormat('en-US', { day: 'numeric' }),
+      );
+      const formatterInstance = dateTimeFormatComputed(locale);
+      const date = '2019-04-19 10:00';
+      const options1 = { day: 'numeric' };
+
+      formatterInstance(date, options1);
+
+      expect(dateTimeFormatInstance)
+        .toHaveBeenCalledTimes(1);
+    });
+
+    it('should work with numbers', () => {
+      dateTimeFormatInstance.mockImplementation(
+        () => new Intl.DateTimeFormat('en-US', { day: 'numeric' }),
+      );
+      const formatterInstance = dateTimeFormatComputed(locale);
+      const date = 100000000;
+      const options1 = { day: 'numeric' };
+
+      formatterInstance(date, options1);
+
+      expect(dateTimeFormatInstance)
+        .toHaveBeenCalledTimes(1);
+    });
   });
 });

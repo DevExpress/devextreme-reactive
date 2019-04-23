@@ -162,13 +162,14 @@ export class DayView extends React.PureComponent {
 
         <Template name="navbar">
           <TemplateConnector>
-            {({ currentView, viewCellsData }) => {
+            {({ currentView, viewCellsData, dateFormat }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
                 <DayScale
                   cellComponent={DayScaleCell}
                   rowComponent={DayScaleRow}
                   cellsData={viewCellsData}
+                  dateFormat={dateFormat}
                 />
               );
             }}
@@ -188,13 +189,14 @@ export class DayView extends React.PureComponent {
 
         <Template name="sidebar">
           <TemplateConnector>
-            {({ currentView, viewCellsData }) => {
+            {({ currentView, viewCellsData, dateFormat }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
                 <TimeScale
                   rowComponent={TimeScaleRow}
                   cellComponent={TimeScaleCell}
                   cellsData={viewCellsData}
+                  dateFormat={dateFormat}
                 />
               );
             }}

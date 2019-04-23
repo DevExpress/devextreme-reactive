@@ -30,19 +30,19 @@ describe('VerticalAppointment', () => {
         .toBe('title');
     });
 
-    it('should render appointment times', () => {
-      const tree = mount((
+    it('should call time format function', () => {
+      const dateFormat = jest.fn();
+      mount((
         <VerticalAppointment
           {...defaultProps}
+          dateFormat={dateFormat}
         />
       ));
 
-      expect(tree.find(`.${classes.time}`).at(0).text())
-        .toBe('1:10 PM');
-      expect(tree.find(`.${classes.time}`).at(1).text())
-        .toBe(' - ');
-      expect(tree.find(`.${classes.time}`).at(2).text())
-        .toBe('5:10 PM');
+      expect(dateFormat)
+        .toHaveBeenCalledWith(defaultProps.data.startDate, { hour: 'numeric', minute: 'numeric' });
+      expect(dateFormat)
+        .toHaveBeenCalledWith(defaultProps.data.startDate, { hour: 'numeric', minute: 'numeric' });
     });
 
     it('should render children', () => {

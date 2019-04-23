@@ -48,10 +48,12 @@ NavigatorBase.propTypes = {
   ]).isRequired,
   className: PropTypes.string,
   onNavigate: PropTypes.func,
+  dateFormat: PropTypes.func,
 };
 
 NavigatorBase.defaultProps = {
   className: undefined,
+  dateFormat: () => '',
   onNavigate: () => {},
 };
 

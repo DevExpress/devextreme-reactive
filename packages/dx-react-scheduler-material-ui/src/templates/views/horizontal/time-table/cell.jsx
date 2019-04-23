@@ -1,11 +1,12 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import moment from 'moment';
 import TableCell from '@material-ui/core/TableCell';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
 import { getBorder } from '../../../utils';
+
+const day = { day: 'numeric' };
 
 const styles = theme => ({
   cell: {
@@ -63,8 +64,7 @@ const CellBase = ({
         [classes.otherMonth]: otherMonth && !today,
       })}
     >
-      {dateFormat(startDate, { day: 'numeric' })}
-
+      {dateFormat(startDate, day)}
     </div>
   </TableCell>
 );
@@ -76,9 +76,11 @@ CellBase.propTypes = {
   endDate: PropTypes.instanceOf(Date),
   today: PropTypes.bool,
   otherMonth: PropTypes.bool,
+  dateFormat: PropTypes.func,
 };
 
 CellBase.defaultProps = {
+  dateFormat: () => '',
   endDate: undefined,
   className: undefined,
   today: false,

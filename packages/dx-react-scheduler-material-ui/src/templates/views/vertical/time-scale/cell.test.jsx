@@ -31,5 +31,14 @@ describe('Vertical view TimePanel', () => {
       expect(tree.props().data)
         .toMatchObject({ a: 1 });
     });
+    it('should call date format function', () => {
+      const dateFormat = jest.fn();
+      shallow((
+        <Cell {...defaultProps} dateFormat={dateFormat} />
+      ));
+
+      expect(dateFormat)
+        .toHaveBeenCalledWith(defaultProps.endDate, { hour: 'numeric', minute: 'numeric' });
+    });
   });
 });

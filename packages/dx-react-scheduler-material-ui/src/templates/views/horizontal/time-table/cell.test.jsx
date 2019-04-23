@@ -66,4 +66,13 @@ describe('Horizontal view TimeTable', () => {
     expect(tree.find(`.${classes.otherMonth}`))
       .toHaveLength(1);
   });
+  it('should call date format function', () => {
+    const dateFormat = jest.fn();
+    shallow((
+      <Cell {...defaultProps} dateFormat={dateFormat} />
+    ));
+
+    expect(dateFormat)
+      .toHaveBeenCalledWith(defaultProps.startDate, { day: 'numeric' });
+  });
 });

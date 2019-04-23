@@ -29,6 +29,7 @@ const defaultDeps = {
     currentDate: '2018-07-04',
     availableViewNames: [],
     currentView: { name: 'Week' },
+    dateFormat: jest.fn(),
   },
   template: {
     body: {},
@@ -303,13 +304,15 @@ describe('Week View', () => {
           {pluginDepsToComponents(defaultDeps)}
           <WeekView
             {...defaultProps}
-            dayScaleLayoutComponent={() => <div className="day-scale" />}
+            dayScaleLayoutComponent={({ dateFormat }) => <div dateFormat={dateFormat} className="day-scale" />}
           />
         </PluginHost>
       ));
 
       expect(tree.find('.day-scale').exists())
         .toBeTruthy();
+      expect(tree.find('.day-scale').props().dateFormat)
+        .toBe(defaultDeps.getter.dateFormat);
     });
 
     it('should render time scale', () => {
@@ -318,13 +321,15 @@ describe('Week View', () => {
           {pluginDepsToComponents(defaultDeps)}
           <WeekView
             {...defaultProps}
-            timeScaleLayoutComponent={() => <div className="time-scale" />}
+            timeScaleLayoutComponent={({ dateFormat }) => <div dateFormat={dateFormat} className="time-scale" />}
           />
         </PluginHost>
       ));
 
       expect(tree.find('.time-scale').exists())
         .toBeTruthy();
+      expect(tree.find('.time-scale').props().dateFormat)
+        .toBe(defaultDeps.getter.dateFormat);
     });
 
     it('should render time table', () => {

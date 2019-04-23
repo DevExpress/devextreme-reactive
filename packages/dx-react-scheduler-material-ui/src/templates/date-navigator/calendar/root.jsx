@@ -86,9 +86,11 @@ Root.propTypes = {
   ]).isRequired,
   firstDayOfWeek: PropTypes.number,
   onSelectedDateChange: PropTypes.func,
+  dateFormat: PropTypes.func,
 };
 
 Root.defaultProps = {
   onSelectedDateChange: () => {},
+  dateFormat: () => '',
   firstDayOfWeek: 0,
 };

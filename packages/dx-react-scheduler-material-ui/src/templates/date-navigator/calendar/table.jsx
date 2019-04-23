@@ -7,6 +7,9 @@ import TableBody from '@material-ui/core/TableBody';
 import TableHead from '@material-ui/core/TableHead';
 import { withStyles } from '@material-ui/core/styles';
 
+const weekDay = { weekday: 'short' };
+const day = { day: 'numeric' };
+
 const styles = {
   table: {
     width: '320px',
@@ -37,7 +40,7 @@ const TableBase = ({
       <TableHead>
         <HeaderRow>
           {headerCells.map((cell) => {
-            const key = dateFormat(cell.startDate, { weekday: 'short' });
+            const key = dateFormat(cell.startDate, weekDay);
             return (
               <HeaderCell
                 key={key}
@@ -69,7 +72,7 @@ const TableBase = ({
                     onCellClick(startDate);
                   }}
                 >
-                  {dateFormat(startDate, { day: 'numeric' })} {/* startDate.getDate() by current locale? */}
+                  {dateFormat(startDate, day)}
                 </Cell>
               );
             })}
@@ -95,12 +98,14 @@ TableBase.propTypes = {
   headerCells: PropTypes.array,
   className: PropTypes.string,
   onCellClick: PropTypes.func,
+  dateFormat: PropTypes.func,
 };
 
 TableBase.defaultProps = {
   className: undefined,
   headerCells: [],
   onCellClick: () => {},
+  dateFormat: () => '',
   selectedDate: undefined,
 };
 

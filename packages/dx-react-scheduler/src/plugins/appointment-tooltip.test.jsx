@@ -16,6 +16,9 @@ describe('AppointmentTooltip', () => {
       appointment: {},
     },
     plugins: ['Appointments'],
+    getter: {
+      dateFormat: () => undefined,
+    },
   };
   const defaultProps = {
     layoutComponent: () => <div />,
@@ -88,6 +91,8 @@ describe('AppointmentTooltip', () => {
       .filterWhere(node => node.props().name === 'tooltip').last();
 
     expect(templatePlaceholder.props().params.onDeleteButtonClick)
+      .toEqual(expect.any(Function));
+    expect(templatePlaceholder.props().params.dateFormat)
       .toEqual(expect.any(Function));
 
     templatePlaceholder.props().params.onDeleteButtonClick();

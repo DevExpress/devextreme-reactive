@@ -3,8 +3,10 @@ import * as PropTypes from 'prop-types';
 import Popover from '@material-ui/core/Popover';
 import AccessTime from '@material-ui/icons/AccessTime';
 import Grid from '@material-ui/core/Grid';
-import moment from 'moment';
 import { withStyles } from '@material-ui/core/styles';
+
+const hourMinuteOptions = { hour: 'numeric', minute: 'numeric' };
+const verticalTopHorizontalCenterOptions = { vertical: 'top', horizontal: 'center' };
 
 const styles = theme => ({
   text: {
@@ -62,8 +64,8 @@ const LayoutBase = ({
       open={visible}
       anchorEl={target}
       onClose={onHide}
-      anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-      transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+      anchorOrigin={verticalTopHorizontalCenterOptions}
+      transformOrigin={verticalTopHorizontalCenterOptions}
       {...restProps}
     >
       <Header appointmentData={data}>
@@ -93,7 +95,7 @@ const LayoutBase = ({
           </Grid>
           <Grid item xs={10}>
             <div className={classes.text}>
-              {`${dateFormat(data.startDate, { hour: 'numeric', minute: 'numeric' })} - ${dateFormat(data.endDate, { hour: 'numeric', minute: 'numeric' })}`}
+              {`${dateFormat(data.startDate, hourMinuteOptions)} - ${dateFormat(data.endDate, hourMinuteOptions)}`}
             </div>
           </Grid>
         </Grid>
@@ -122,6 +124,7 @@ LayoutBase.propTypes = {
   }),
   visible: PropTypes.bool,
   onHide: PropTypes.func,
+  dateFormat: PropTypes.func,
 };
 LayoutBase.defaultProps = {
   onOpenButtonClick: () => undefined,
@@ -129,6 +132,7 @@ LayoutBase.defaultProps = {
   onHide: () => undefined,
   appointmentMeta: {},
   visible: false,
+  dateFormat: () => '',
 };
 
 export const Layout = withStyles(styles, { name: 'Layout' })(LayoutBase);

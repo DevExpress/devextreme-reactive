@@ -3,7 +3,8 @@ import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import classNames from 'classnames';
-import moment from 'moment';
+
+const monthYear = { month: 'long', year: 'numeric' };
 
 const styles = {
   text: {
@@ -26,7 +27,7 @@ const TextBase = ({
     }, className)}
     {...restProps}
   >
-    {dateFormat(new Date(currentDate), { month: 'long', year: 'numeric' })}
+    {dateFormat(new Date(currentDate), monthYear)}
   </Typography>
 );
 
@@ -38,9 +39,11 @@ TextBase.propTypes = {
     PropTypes.instanceOf(Date),
   ]).isRequired,
   className: PropTypes.string,
+  dateFormat: PropTypes.func,
 };
 
 TextBase.defaultProps = {
+  dateFormat: () => '',
   className: undefined,
 };
 

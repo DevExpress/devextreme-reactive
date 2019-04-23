@@ -36,13 +36,14 @@ describe('Calendar', () => {
       expect(tree.props().data)
         .toMatchObject({ a: 1 });
     });
-    it('should render current date', () => {
-      const currentDate = shallow((
-        <Text {...defaultProps} />
-      )).dive().dive().text();
+    it('should call date format function', () => {
+      const dateFormat = jest.fn();
+      shallow((
+        <Text {...defaultProps} dateFormat={dateFormat} />
+      ));
 
-      expect(currentDate)
-        .toBe('July 2018');
+      expect(dateFormat)
+        .toHaveBeenCalledWith(new Date(defaultProps.currentDate), { month: 'long', year: 'numeric' });
     });
   });
 });

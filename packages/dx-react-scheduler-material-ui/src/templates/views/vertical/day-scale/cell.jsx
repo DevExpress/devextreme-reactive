@@ -1,10 +1,12 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import moment from 'moment';
 import classNames from 'classnames';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
 import { getBorder } from '../../../utils';
+
+const weekDay = { weekday: 'short' };
+const day = { day: 'numeric' };
 
 const styles = theme => ({
   cell: {
@@ -31,32 +33,29 @@ const CellBase = ({
   today,
   dateFormat,
   ...restProps
-}) => {
-  // const currentDate = moment(startDate);
-  return (
-    <TableCell
-      className={classNames(classes.cell, className)}
-      {...restProps}
+}) => (
+  <TableCell
+    className={classNames(classes.cell, className)}
+    {...restProps}
+  >
+    <p
+      className={classNames({
+        [classes.dayOfWeek]: true,
+        [classes.highlightCell]: today,
+      })}
     >
-      <p
-        className={classNames({
-          [classes.dayOfWeek]: true,
-          [classes.highlightCell]: today,
-        })}
-      >
-        {dateFormat(startDate, { weekday: 'short' })}
-      </p>
-      <span
-        className={classNames({
-          [classes.dayOfMonth]: true,
-          [classes.highlightCell]: today,
-        })}
-      >
-        {dateFormat(startDate, { day: 'numeric' })}
-      </span>
-    </TableCell>
-  );
-};
+      {dateFormat(startDate, weekDay)}
+    </p>
+    <span
+      className={classNames({
+        [classes.dayOfMonth]: true,
+        [classes.highlightCell]: today,
+      })}
+    >
+      {dateFormat(startDate, day)}
+    </span>
+  </TableCell>
+);
 
 CellBase.propTypes = {
   classes: PropTypes.object.isRequired,
@@ -64,9 +63,11 @@ CellBase.propTypes = {
   endDate: PropTypes.instanceOf(Date),
   className: PropTypes.string,
   today: PropTypes.bool,
+  dateFormat: PropTypes.func,
 };
 
 CellBase.defaultProps = {
+  dateFormat: () => '',
   className: undefined,
   endDate: undefined,
   today: false,

@@ -50,8 +50,10 @@ LayoutBase.propTypes = {
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
   className: PropTypes.string,
+  dateFormat: PropTypes.func,
 };
 LayoutBase.defaultProps = {
+  dateFormat: () => '',
   className: undefined,
 };
 

@@ -3,6 +3,8 @@ import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 
+const hourMinute = { hour: 'numeric', minute: 'numeric' };
+
 const styles = ({ palette, spacing }) => ({
   title: {
     fontWeight: 'bold',
@@ -64,13 +66,13 @@ const VerticalAppointmentBase = ({
         </div>
         <div className={classes.textContainer}>
           <div className={classes.time}>
-            {dateFormat(data.startDate, { hour: 'numeric', minute: 'numeric' })}
+            {dateFormat(data.startDate, hourMinute)}
           </div>
           <div className={classes.time}>
             {' - '}
           </div>
           <div className={classes.time}>
-            {dateFormat(data.endDate, { hour: 'numeric', minute: 'numeric' })}
+            {dateFormat(data.endDate, hourMinute)}
           </div>
         </div>
       </div>
@@ -90,9 +92,11 @@ VerticalAppointmentBase.propTypes = {
   data: PropTypes.object.isRequired,
   children: PropTypes.node,
   className: PropTypes.string,
+  dateFormat: PropTypes.func,
 };
 
 VerticalAppointmentBase.defaultProps = {
+  dateFormat: () => '',
   children: undefined,
   className: undefined,
 };

@@ -41,5 +41,16 @@ describe('Vertical view DayPanel', () => {
       expect(tree.find(`span.${classes.highlightCell}`).exists())
         .toBeTruthy();
     });
+    it('should call dateFormat function', () => {
+      const dateFormat = jest.fn();
+      shallow((
+        <Cell {...defaultProps} dateFormat={dateFormat} />
+      ));
+
+      expect(dateFormat)
+        .toHaveBeenCalledWith(defaultProps.startDate, { weekday: 'short' });
+      expect(dateFormat)
+        .toHaveBeenCalledWith(defaultProps.startDate, { day: 'numeric' });
+    });
   });
 });

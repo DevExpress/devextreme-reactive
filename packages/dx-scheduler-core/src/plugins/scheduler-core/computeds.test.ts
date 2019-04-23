@@ -1,6 +1,14 @@
 import { appointments, dateTimeFormat } from './computeds';
+import { dateTimeFormatInstance } from './helpers';
+
+jest.mock('./helpers', () => ({
+  dateTimeFormatInstance: jest.fn(),
+}));
 
 describe('SchedulerCore computeds', () => {
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
   describe('#appointments', () => {
     const data = [
       { startDate: '2018-06-27 09:00', endDate: '2018-06-27 10:00' },
@@ -52,16 +60,36 @@ describe('SchedulerCore computeds', () => {
   describe('#dateTimeFormat', () => {
     const locale = 'en-US';
     it('should work with same arguments', () => {
-      const localizationFormatter = dateTimeFormat(locale);
-      const formatterInstance = localizationFormatter();
-
-      const date = new Date('2019-04-19 10:00');
+      dateTimeFormatInstance.mockImplementation(
+        () => new Intl.DateTimeFormat('en-US', { day: 'numeric' }),
+      );
+      const formatterInstance = dateTimeFormat(locale);
       const options = { day: 'numeric' };
 
-      expect(formatterInstance(date, options))
-        .toEqual('19');
-      expect(formatterInstance(date, options))
-        .toEqual('19');
+      formatterInstance(new Date('2019-04-19 10:00'), options);
+      formatterInstance(new Date('2019-04-20 10:00'), options);
+
+      expect(dateTimeFormatInstance)
+        .toBeCalledWith(locale, options);
+      expect(dateTimeFormatInstance)
+        .toHaveBeenCalledTimes(1);
+    });
+
+    it('should work with another options', () => {
+      dateTimeFormatInstance.mockImplementation(
+        () => new Intl.DateTimeFormat('en-US', { day: 'numeric' }),
+      );
+      const formatterInstance = dateTimeFormat(locale);
+      const date = new Date('2019-04-19 10:00');
+      const options1 = { day: 'numeric' };
+      const options2 = { weekDay: 'numeric' };
+
+      formatterInstance(date, options1);
+      formatterInstance(date, options2);
+      formatterInstance(date, options1);
+
+      expect(dateTimeFormatInstance)
+        .toHaveBeenCalledTimes(2);
     });
   });
 });

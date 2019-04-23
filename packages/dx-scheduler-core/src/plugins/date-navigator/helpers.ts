@@ -2,6 +2,16 @@ import moment from 'moment';
 import { PureComputed } from '@devexpress/dx-core';
 import { ViewBoundTextFn } from '../../types';
 
+const day = { day: 'numeric' };
+const shortMonth = { month: 'short' };
+const dayShortMonth = { day: 'numeric', month: 'short' };
+const dayShortMonthLongYear = { day: 'numeric', month: 'short', year: 'numeric' };
+const dayShortMonthShortYear = { day: 'numeric', month: 'short', year: '2-digit' };
+const dayLongMonthLongYear = { day: 'numeric', month: 'long', year: 'numeric' };
+const shortMonthLongYear = { month: 'short', year: 'numeric' };
+const shortMonthShortYear = { month: 'short', year: '2-digit' };
+const longMonthLongYear = { month: 'long', year: 'numeric' };
+
 const calculateTextByDays: PureComputed<
   [Date, Date, any], string
 > = (startViewDate, endViewDate, dateFormat) => {
@@ -9,40 +19,56 @@ const calculateTextByDays: PureComputed<
   const momentEndViewDate = moment(endViewDate as Date);
 
   if (momentStartViewDate.isSame(momentEndViewDate, 'day')) {
-    // return momentStartViewDate.format('D MMMM YYYY');
-    return dateFormat(momentStartViewDate.toDate(), { day: 'numeric', month: 'long', year: 'numeric' });
+    return dateFormat(momentStartViewDate.toDate(), dayLongMonthLongYear);
   }
   if (momentStartViewDate.isSame(momentEndViewDate, 'year')) {
     if (momentStartViewDate.isSame(momentEndViewDate, 'month')) {
-      return `${dateFormat(momentStartViewDate.toDate(), { day: 'numeric' })}-${dateFormat(momentEndViewDate.toDate(), { day: 'numeric', month: 'long', year: 'numeric' })}`;
+      return `${
+        dateFormat(momentStartViewDate.toDate(), day)
+      }-${
+        dateFormat(momentEndViewDate.toDate(), day)
+      } ${
+        dateFormat(momentEndViewDate.toDate(), longMonthLongYear)
+      }`;
     }
-    // return `${momentStartViewDate.format('D MMM')} - ${momentEndViewDate.format('D MMM YYYY')}`;
-    return `${dateFormat(momentStartViewDate.toDate(), { day: 'numeric', month: 'long' })} - ${dateFormat(momentEndViewDate.toDate(), { day: 'numeric', month: 'long', year: 'numeric' })}`;
+    return `${
+      dateFormat(momentStartViewDate.toDate(), dayShortMonth)
+    } - ${
+      dateFormat(momentEndViewDate.toDate(), dayShortMonthLongYear)
+    }`;
   }
-  // return `${momentStartViewDate.format('D MMM YY')} - ${momentEndViewDate.format('D MMM YY')}`;
-  return `${dateFormat(momentStartViewDate.toDate(), { day: 'numeric', month: 'long', year: '2-digit' })} - ${dateFormat(momentEndViewDate.toDate(), { day: 'numeric', month: 'long', year: '2-digit' })}`;
+  return `${
+    dateFormat(momentStartViewDate.toDate(), dayShortMonthShortYear)
+  } - ${
+    dateFormat(momentEndViewDate.toDate(), dayShortMonthShortYear)
+  }`;
 };
 
 const calculateTextByMonths: PureComputed<
-  [Date, number, (any1: any, any2: any) => string], string
+  [Date, number, any], string
 > = (currentDate, intervalCount, dateFormat) => {
   const momentCurrentDate = moment(currentDate as Date);
 
   if (intervalCount === 1) {
-    // return momentCurrentDate.format('MMMM YYYY');
-    return dateFormat(currentDate, { month: 'short', year: 'numeric' });
+    return dateFormat(momentCurrentDate.toDate(), longMonthLongYear);
   }
   const lastMonth = momentCurrentDate.clone().add(intervalCount - 1, 'month');
   if (momentCurrentDate.isSame(lastMonth, 'year')) {
-    // return `${momentCurrentDate.format('MMM')}-${lastMonth.format('MMM YYYY')}`;
-    return `${dateFormat(currentDate, { month: 'short' })}-${dateFormat(lastMonth.toDate(), { month: 'short', year: 'numeric' })}`;
+    return `${
+      dateFormat(momentCurrentDate.toDate(), shortMonth)
+    }-${
+      dateFormat(lastMonth.toDate(), shortMonthLongYear)
+    }`;
   }
-  // return `${momentCurrentDate.format('MMM YY')} - ${lastMonth.format('MMM YY')}`;
-  return `${dateFormat(currentDate, { month: 'short', year: '2-digit' })} - ${dateFormat(lastMonth.toDate(), { month: 'short', year: '2-digit' })}`;
+  return `${
+    dateFormat(momentCurrentDate.toDate(), shortMonthShortYear)
+  } - ${
+    dateFormat(lastMonth.toDate(), shortMonthShortYear)
+  }`;
 };
 
-export const viewBoundText = (
-  startViewDate: any, endViewDate: any, step: any, currentDate: any, intervalCount: any, dateFormat: any,
+export const viewBoundText: ViewBoundTextFn = (
+  startViewDate, endViewDate, step, currentDate, intervalCount, dateFormat,
 ) => (
   step !== 'month'
     ? calculateTextByDays(startViewDate, endViewDate, dateFormat)

@@ -1,5 +1,6 @@
 import { PureComputed } from '@devexpress/dx-core';
 import { AppointmentModel, Appointment } from '../../types';
+import { dateTimeFormatInstance } from './helpers';
 
 export const appointments: PureComputed<
   [AppointmentModel[]], Appointment[]
@@ -18,16 +19,12 @@ export const appointments: PureComputed<
   dataItem: appointment,
 }));
 
-const dateTimeFormatInstance: any = (
-  locale: string | string[], formatOptions: Intl.DateTimeFormatOptions,
-) => new Intl.DateTimeFormat(locale, formatOptions);
-
 export const dateTimeFormat: any = (locale: string | string[]) => {
   const cache = new Map();
 
   const formatter = (nextDate: Date, nextOptions: Intl.DateTimeFormatOptions) => {
     if (nextDate === undefined) return;
-    const key = JSON.stringify(nextOptions) + locale;
+    const key = JSON.stringify(nextOptions);
 
     if (cache.has(key)) {
       return cache.get(key).format(nextDate);

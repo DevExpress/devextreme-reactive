@@ -13,19 +13,18 @@ import {
 
 import { appointments } from '../../../demo-data/appointments';
 
-const currentDate = '2018-06-27';
-
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
       data: appointments,
+      currentDate: '2018-06-27',
     };
   }
 
   render() {
-    const { data } = this.state;
+    const { data, currentDate } = this.state;
 
     return (
       <Paper>
@@ -34,7 +33,7 @@ export default class Demo extends React.PureComponent {
           // locale="en-GB"
           // locale="ru-RU"
           // locale="en-US"
-          locale="fr-FR"
+          // locale="fr-FR"
         >
           <ViewState
             defaultCurrentDate={currentDate}

@@ -70,7 +70,7 @@ describe('ZoomAndPan', () => {
     });
   });
 
-  it('should attach/detach events', () => {
+  it('should attach events', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -78,6 +78,17 @@ describe('ZoomAndPan', () => {
       </PluginHost>
     ));
     expect(addEventListener).toBeCalledTimes(5);
+  });
+
+  it('should detach events', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <ZoomAndPan  {...defaultProps} />
+      </PluginHost>
+    ));
+
+    tree.unmount();
     expect(removeEventListener).toBeCalledTimes(5);
   });
 });

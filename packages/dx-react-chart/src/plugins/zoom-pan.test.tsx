@@ -14,10 +14,18 @@ jest.mock('@devexpress/dx-chart-core', () => ({
 const DragBoxComponent = () => null;
 
 describe('ZoomAndPan', () => {
+  const addEventListener = jest.fn();
+  const removeEventListener = jest.fn();
   const defaultDeps = {
     getter: {
       domains: 'test-domains',
       ranges: 'test-ranges',
+      rootRef: {
+        current: {
+          addEventListener,
+          removeEventListener,
+        },
+      },
     },
   };
   const defaultProps = {
@@ -60,5 +68,27 @@ describe('ZoomAndPan', () => {
       ...defaultDeps.getter,
       ranges: 'adjusted-ranges',
     });
+  });
+
+  it('should attach events', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <ZoomAndPan  {...defaultProps} />
+      </PluginHost>
+    ));
+    expect(addEventListener).toBeCalledTimes(5);
+  });
+
+  it('should detach events', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <ZoomAndPan  {...defaultProps} />
+      </PluginHost>
+    ));
+
+    tree.unmount();
+    expect(removeEventListener).toBeCalledTimes(5);
   });
 });

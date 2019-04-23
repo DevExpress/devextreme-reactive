@@ -77,12 +77,6 @@ export default class Demo extends React.PureComponent {
         )}
         label={label}
       />
-    // <p style={{ margin: '20px' }}>
-    //   <label htmlFor={id}>
-    //     <input type="checkbox" id={id} checked={checked} onChange={this.submit} />
-    //     {label}
-    //   </label>
-    // </p>
     );
   }
 

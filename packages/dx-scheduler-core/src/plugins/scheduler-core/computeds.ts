@@ -19,7 +19,7 @@ export const appointments: PureComputed<
   dataItem: appointment,
 }));
 
-export const dateTimeFormat: any = (locale: string | string[]) => {
+export const dateTimeFormatComputed: any = (locale: string | string[]) => {
   const cache = new Map();
 
   const formatter = (nextDate: Date, nextOptions: Intl.DateTimeFormatOptions) => {

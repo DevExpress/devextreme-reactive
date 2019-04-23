@@ -1,9 +1,9 @@
 import { viewBoundText } from './helpers';
-import { dateTimeFormat } from '../scheduler-core/computeds';
+import { dateTimeFormatComputed } from '../scheduler-core/computeds';
 
 describe('DateNavigator helpers', () => {
   describe('viewBoundText', () => {
-    const dateTimeFormatter = dateTimeFormat('en-US');
+    const dateTimeFormatter = dateTimeFormatComputed('en-US');
     describe('Week text', () => {
       it('should calculate text for single day view', () => {
         const text = viewBoundText(

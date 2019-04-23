@@ -69,6 +69,16 @@ interface ColumnChooserProps {
     toggleButtonComponent: React.ComponentType<ColumnChooser.ToggleButtonProps>;
 }
 
+// @public (undocumented)
+declare const createRemoteRowsCache: (pageSize: number, capacity?: number) => {
+  // (undocumented)
+  getRows: (skip: number, count: number) => any[];
+  // (undocumented)
+  setRows: (skip: number, rows: ReadonlyArray<any>) => void;
+  // (undocumented)
+  invalidate: () => void;
+};
+
 // @public
 declare const CustomGrouping: React.ComponentType<CustomGroupingProps>;
 
@@ -1281,10 +1291,31 @@ interface VirtualTableProps {
     noDataCellComponent: React.ComponentType<Table.NoDataCellProps>;
     noDataRowComponent: React.ComponentType<Table.RowProps>;
     rowComponent: React.ComponentType<Table.DataRowProps>;
+    // (undocumented)
+    skeletonCellComponent: React.ComponentType<Table.CellProps>;
     stubCellComponent: React.ComponentType<Table.CellProps>;
     stubHeaderCellComponent: React.ComponentType<Table.CellProps>;
     stubRowComponent: React.ComponentType<Table.RowProps>;
     tableComponent: React.ComponentType<object>;
+}
+
+// @public (undocumented)
+declare const VirtualTableState: React.ComponentType<VirtualTableStateProps>;
+
+// @public (undocumented)
+interface VirtualTableStateProps {
+  // (undocumented)
+  getRows: (skip: number, take: number) => void;
+  // (undocumented)
+  infiniteScrolling: boolean;
+  // (undocumented)
+  loading: boolean;
+  // (undocumented)
+  pageSize?: number;
+  // (undocumented)
+  skip: number;
+  // (undocumented)
+  totalRowCount: number;
 }
 
 

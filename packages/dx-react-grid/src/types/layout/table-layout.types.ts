@@ -41,15 +41,33 @@ export interface VirtualTableLayoutProps extends TableLayoutProps {
   estimatedRowHeight: number;
   headTableComponent: React.ComponentType<object>;
   footerTableComponent: React.ComponentType<object>;
+  totalRowCount: number;
+  loadedRowsStart: number;
+  ensureNextVirtualPage: (payload?: any) => void;
 }
 /** @internal */
 export type VirtualTableLayoutState = {
   rowHeights: Map<any, number>,
   viewportTop: number,
   viewportLeft: number,
-  width: number,
   height: number,
   headerHeight: number,
   bodyHeight: number,
   footerHeight: number,
+  containerWidth: number,
+  containerHeight: number,
+};
+
+type virtualBlockProps = placeholderComponents | 'tableRef' | 'minWidth' | 'bodyComponent';
+/** @internal */
+export type VirtualTableLayoutBlockProps = Pick<VirtualTableLayoutProps, virtualBlockProps> & {
+  name: string,
+  collapsedGrid: {
+    columns: any,
+    rows: any,
+  },
+  blockRefsHandler: (name: string, ref: React.ReactInstance | null) => void,
+  rowRefsHandler: (row: any, ref?: React.ReactInstance | null) => void,
+  marginBottom?: number,
+  tableComponent: React.ComponentType<any>,
 };

@@ -6,6 +6,7 @@ export class VirtualRowLayout extends React.Component<VirtualRowLayoutProps> {
   shouldComponentUpdate(nextProps) {
     const { cells: prevCells, row: prevRow } = this.props;
     const { cells: nextCells, row: nextRow } = nextProps;
+
     if (prevRow !== nextRow || prevCells.length !== nextCells.length) {
       return true;
     }
@@ -17,6 +18,7 @@ export class VirtualRowLayout extends React.Component<VirtualRowLayoutProps> {
 
     return propsAreNotEqual;
   }
+
   render() {
     const { row, cells, rowComponent: Row, cellComponent: Cell } = this.props;
     return (

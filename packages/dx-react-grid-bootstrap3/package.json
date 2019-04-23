@@ -41,7 +41,7 @@
     "build:watch": "rollup -c rollup.config.js -w",
     "update-api": "api-extractor run",
     "lint": "eslint \"src/**\"",
-    "lint:fix": "yarn run lint -- --fix"
+    "lint:fix": "yarn lint -- --fix"
   },
   "devDependencies": {
     "@babel/core": "^7.3.3",

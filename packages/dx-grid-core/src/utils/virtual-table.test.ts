@@ -10,6 +10,7 @@ import {
   getCollapsedGrid,
   TABLE_STUB_TYPE,
   getColumnWidthGetter,
+  getRenderBoundary,
 } from './virtual-table';
 
 describe('VirtualTableLayout utils', () => {
@@ -29,10 +30,8 @@ describe('VirtualTableLayout utils', () => {
         .toEqual([2, 4]);
     });
 
-    it('should work with overscan', () => {
+    it('should consider rows start offset and default height', () => {
       const items = [
-        { size: 40 },
-        { size: 40 },
         { size: 40 },
         { size: 40 },
         { size: 40 },
@@ -40,8 +39,35 @@ describe('VirtualTableLayout utils', () => {
         { size: 40 },
       ];
 
-      expect(getVisibleBoundary(items, 80, 120, item => item.size, 1))
-        .toEqual([1, 5]);
+      expect(getVisibleBoundary(items, 600, 120, item => item.size, 20, 30))
+        .toEqual([20, 22]);
+    });
+
+    it('should work when rows are not loaded', () => {
+      const items = [
+        { size: 40 },
+        { size: 40 },
+        { size: 40 },
+        { size: 40 },
+        { size: 40 },
+      ];
+
+      expect(getVisibleBoundary(items, 240, 120, item => item.size, 0, 40))
+        .toEqual([6, 6]);
+    });
+  });
+
+  describe('#getRenderBoundary', () => {
+    it('should correctly add overscan in simple case', () => {
+      expect(getRenderBoundary(20, [5, 10], 3)).toEqual([2, 13]);
+    });
+
+    it('should correctly add overscan when grid is scrolled to top', () => {
+      expect(getRenderBoundary(10, [0, 5], 3)).toEqual([0, 8]);
+    });
+
+    it('should correctly add overscan when grid is scrolled to bottom', () => {
+      expect(getRenderBoundary(10, [5, 9], 3)).toEqual([2, 9]);
     });
   });
 
@@ -271,6 +297,17 @@ describe('VirtualTableLayout utils', () => {
           [9, 9], // visible
         ]);
     });
+
+    it('should work when visible rows not loaded', () => {
+      const itemsCount = 100;
+      const visibleBoundary = [[Infinity, -Infinity]];
+      const spanBoundaries = [];
+
+      expect(collapseBoundaries(itemsCount, visibleBoundary, spanBoundaries))
+        .toEqual([
+          [0, 99], // stub
+        ]);
+    });
   });
 
   describe('#getCollapsedColumns', () => {
@@ -453,10 +490,10 @@ describe('VirtualTableLayout utils', () => {
           { key: 3, width: 40 }, // visible (overscan)
           { key: 4, width: 40 },
         ],
-        top: 160,
-        left: 80,
-        height: 40,
-        width: 40,
+        rowsVisibleBoundary: [1, 7],
+        columnsVisibleBoundary: [[1, 3]],
+        totalRowCount: 9,
+        offset: 0,
       };
 
       const result = getCollapsedGrid(args);
@@ -477,26 +514,26 @@ describe('VirtualTableLayout utils', () => {
         .toEqual([...Array.from({ length: 5 }).map(() => 1)]);
     });
 
-    it('should return empty result when there are no columns', () => {
+    it('should return empty result when there are no rows', () => {
       const args = {
         rows: [],
         columns: [
           { key: 0, width: 40 },
         ],
-        top: 0,
-        left: 0,
-        height: 80,
-        width: 80,
+        rowsVisibleBoundary: [Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY],
+        columnsVisibleBoundary: [[0, 1]],
+        totalRowCount: 0,
+        offset: 0,
       };
       const result = {
-        columns: [],
+        columns: args.columns,
         rows: [],
       };
       expect(getCollapsedGrid(args))
         .toEqual(result);
     });
 
-    it('should return empty result when there are no rows', () => {
+    it('should return empty result when there are no columns', () => {
       const args = {
         rows: [
           { key: 0, height: 40 },
@@ -535,10 +572,8 @@ describe('VirtualTableLayout utils', () => {
           { key: 7, width: 40 }, // stub ┘
           { key: 8, width: 40 }, // stub
         ],
-        top: 0,
-        left: 160,
-        height: 40,
-        width: 40,
+        rowsVisibleBoundary: [0, 3],
+        columnsVisibleBoundary: [[3, 5]],
         getColSpan: (row, column) => {
           if (row.key === 0 && column.key === 2) return 2;
           if (row.key === 0 && column.key === 5) return 3;
@@ -546,6 +581,8 @@ describe('VirtualTableLayout utils', () => {
           if (row.key === 2 && column.key === 0) return 9;
           return 1;
         },
+        totalRowCount: 5,
+        offset: 0,
       };
 
       const result = getCollapsedGrid(args);

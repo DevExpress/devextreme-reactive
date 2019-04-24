@@ -78,6 +78,7 @@ Field | Type | Description
 cellsData | Array&lt;Array&lt;[WeekView.CellData](#weekviewcelldata)&gt;&gt; | Specifies the cells meta data.
 cellComponent | ComponentType&lt;[WeekView.TimeScaleCellProps](#weekviewtimescalecellprops)&gt; | A component that renders a time scale cell.
 rowComponent | ComponentType&lt;[WeekView.RowProps](#weekviewrowprops)&gt; | A component that renders a time scale row.
+formatDate | (date: Date, options: any) => string | A function that format a date by locale.
 
 ### WeekView.TimeScaleCellProps
 
@@ -87,6 +88,7 @@ Field | Type | Description
 ------|------|------------
 endDate | Date | Specifies the cell end time.
 startDate? | Date | Specifies the cell start time.
+formatDate? | (date: Date, options: any) => string | A function that format a date by locale.
 
 ### WeekView.DayScaleLayoutProps
 
@@ -97,6 +99,7 @@ Field | Type | Description
 cellsData | Array&lt;Array&lt;[WeekView.CellData](#weekviewcelldata)&gt;&gt; | Specifies the cells meta data.
 cellComponent | ComponentType&lt;[WeekView.DayScaleCellProps](#weekviewdayscalecellprops)&gt; | A component that renders a day scale cell.
 rowComponent | ComponentType&lt;[WeekView.RowProps](#weekviewrowprops)&gt; | A component that renders a day scale row.
+formatDate | (date: Date, options: any) => string | A function that format a date by locale.
 
 ### WeekView.DayScaleCellProps
 
@@ -107,6 +110,7 @@ Field | Type | Description
 startDate | Date | Specifies the cell start time.
 endDate? | Date | Specifies the cell end time.
 today? | boolean | Indicates whether the cell's date is today.
+formatDate? | (date: Date, options: any) => string | A function that format a date by locale.
 
 ### WeekView.DayScaleEmptyCellProps
 
@@ -126,6 +130,7 @@ cellsData | Array&lt;Array&lt;[WeekView.CellData](#weekviewcelldata)&gt;&gt; | S
 tableRef | (ref: ReactInstance) => void | A function that accepts the table root React element.
 cellComponent | ComponentType&lt;[WeekView.TimeTableCellProps](#weekviewtimetablecellprops)&gt; | A component that renders a time table cell.
 rowComponent | ComponentType&lt;[WeekView.RowProps](#weekviewrowprops)&gt; | A component that renders a time table row.
+formatDate | (date: Date, options: any) => string | A function that format a date by locale.
 
 ### WeekView.TimeTableCellProps
 
@@ -136,6 +141,7 @@ Field | Type | Description
 startDate? | Date | Specifies the cell a start time.
 endDate? | Date | Specifies the cell end time.
 children? | ReactNode | A React node used to render the time table cell content.
+formatDate? | (date: Date, options: any) => string | A function that format a date by locale.
 
 ### WeekView.AppointmentLayerProps
 

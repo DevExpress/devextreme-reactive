@@ -24,6 +24,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 data | Array&lt;[AppointmentModel](#appointmentmodel)&gt; | | An array of appointment data objects.
 rootComponent | ComponentType&lt;[Scheduler.RootProps](#schedulerrootprops)&gt; | | A component that renders the root layout.
+locale | string | 'en-US' | A string that specifies a locale for date formatting.
 
 ## Interfaces
 

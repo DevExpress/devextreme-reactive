@@ -113,6 +113,7 @@ LayoutBase.propTypes = {
   showDeleteButton: PropTypes.bool.isRequired,
   commandButtonIds: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
+  formatDate: PropTypes.func.isRequired,
   onOpenButtonClick: PropTypes.func,
   onDeleteButtonClick: PropTypes.func,
   appointmentMeta: PropTypes.shape({
@@ -124,7 +125,6 @@ LayoutBase.propTypes = {
   }),
   visible: PropTypes.bool,
   onHide: PropTypes.func,
-  formatDate: PropTypes.func,
 };
 LayoutBase.defaultProps = {
   onOpenButtonClick: () => undefined,
@@ -132,7 +132,6 @@ LayoutBase.defaultProps = {
   onHide: () => undefined,
   appointmentMeta: {},
   visible: false,
-  formatDate: () => '',
 };
 
 export const Layout = withStyles(styles, { name: 'Layout' })(LayoutBase);

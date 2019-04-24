@@ -57,6 +57,7 @@ Field | Type | Description
 ------|------|------------
 children | ReactNode | A React node used to render the appointment content.
 data | object | An object that represents appointment data.
+formatDate | (date: Date, options: any) => string | A function that format a date by locale.
 recurringIconComponent | ComponentType&lt;object&gt; | A component that renders an icon for recurring appointments.
 
 ### Appointments.SplitIndicatorProps

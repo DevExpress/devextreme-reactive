@@ -84,13 +84,12 @@ Root.propTypes = {
     PropTypes.string,
     PropTypes.instanceOf(Date),
   ]).isRequired,
+  formatDate: PropTypes.func.isRequired,
   firstDayOfWeek: PropTypes.number,
   onSelectedDateChange: PropTypes.func,
-  formatDate: PropTypes.func,
 };
 
 Root.defaultProps = {
   onSelectedDateChange: () => {},
-  formatDate: () => '',
   firstDayOfWeek: 0,
 };

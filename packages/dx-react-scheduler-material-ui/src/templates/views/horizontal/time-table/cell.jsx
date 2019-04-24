@@ -49,7 +49,7 @@ const CellBase = ({
   endDate,
   today,
   otherMonth,
-  dateFormat,
+  formatDate,
   ...restProps
 }) => (
   <TableCell
@@ -64,7 +64,7 @@ const CellBase = ({
         [classes.otherMonth]: otherMonth && !today,
       })}
     >
-      {dateFormat(startDate, day)}
+      {formatDate(startDate, day)}
     </div>
   </TableCell>
 );
@@ -76,11 +76,11 @@ CellBase.propTypes = {
   endDate: PropTypes.instanceOf(Date),
   today: PropTypes.bool,
   otherMonth: PropTypes.bool,
-  dateFormat: PropTypes.func,
+  formatDate: PropTypes.func,
 };
 
 CellBase.defaultProps = {
-  dateFormat: () => '',
+  formatDate: () => '',
   endDate: undefined,
   className: undefined,
   today: false,

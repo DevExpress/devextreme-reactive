@@ -17,7 +17,7 @@ describe('AppointmentTooltip', () => {
     },
     plugins: ['Appointments'],
     getter: {
-      dateFormat: () => undefined,
+      formatDate: () => undefined,
     },
   };
   const defaultProps = {
@@ -92,7 +92,7 @@ describe('AppointmentTooltip', () => {
 
     expect(templatePlaceholder.props().params.onDeleteButtonClick)
       .toEqual(expect.any(Function));
-    expect(templatePlaceholder.props().params.dateFormat)
+    expect(templatePlaceholder.props().params.formatDate)
       .toEqual(expect.any(Function));
 
     templatePlaceholder.props().params.onDeleteButtonClick();

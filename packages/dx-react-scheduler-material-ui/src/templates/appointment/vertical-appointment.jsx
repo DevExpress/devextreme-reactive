@@ -52,7 +52,7 @@ const VerticalAppointmentBase = ({
   data,
   children,
   className,
-  dateFormat,
+  formatDate,
   recurringIconComponent: RecurringIcon,
   ...restProps
 }) => {
@@ -66,13 +66,13 @@ const VerticalAppointmentBase = ({
         </div>
         <div className={classes.textContainer}>
           <div className={classes.time}>
-            {dateFormat(data.startDate, hourMinute)}
+            {formatDate(data.startDate, hourMinute)}
           </div>
           <div className={classes.time}>
             {' - '}
           </div>
           <div className={classes.time}>
-            {dateFormat(data.endDate, hourMinute)}
+            {formatDate(data.endDate, hourMinute)}
           </div>
         </div>
       </div>
@@ -92,11 +92,11 @@ VerticalAppointmentBase.propTypes = {
   data: PropTypes.object.isRequired,
   children: PropTypes.node,
   className: PropTypes.string,
-  dateFormat: PropTypes.func,
+  formatDate: PropTypes.func,
 };
 
 VerticalAppointmentBase.defaultProps = {
-  dateFormat: () => '',
+  formatDate: () => '',
   children: undefined,
   className: undefined,
 };

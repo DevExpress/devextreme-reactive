@@ -31,7 +31,7 @@ const CellBase = ({
   startDate,
   endDate,
   today,
-  dateFormat,
+  formatDate,
   ...restProps
 }) => (
   <TableCell
@@ -44,7 +44,7 @@ const CellBase = ({
         [classes.highlightCell]: today,
       })}
     >
-      {dateFormat(startDate, weekDay)}
+      {formatDate(startDate, weekDay)}
     </p>
     <span
       className={classNames({
@@ -52,7 +52,7 @@ const CellBase = ({
         [classes.highlightCell]: today,
       })}
     >
-      {dateFormat(startDate, day)}
+      {formatDate(startDate, day)}
     </span>
   </TableCell>
 );
@@ -63,11 +63,11 @@ CellBase.propTypes = {
   endDate: PropTypes.instanceOf(Date),
   className: PropTypes.string,
   today: PropTypes.bool,
-  dateFormat: PropTypes.func,
+  formatDate: PropTypes.func,
 };
 
 CellBase.defaultProps = {
-  dateFormat: () => '',
+  formatDate: () => '',
   className: undefined,
   endDate: undefined,
   today: false,

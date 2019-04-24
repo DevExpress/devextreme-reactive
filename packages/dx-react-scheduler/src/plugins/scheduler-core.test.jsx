@@ -42,7 +42,7 @@ describe('Scheduler Core', () => {
       ]);
   });
 
-  it('should provide the "dateFormat" getter', () => {
+  it('should provide the "formatDate" getter', () => {
     const tree = mount((
       <PluginHost>
         <SchedulerCore
@@ -53,7 +53,7 @@ describe('Scheduler Core', () => {
       </PluginHost>
     ));
 
-    expect(getComputedState(tree).dateFormat)
+    expect(getComputedState(tree).formatDate)
       .toEqual('fr-FR');
   });
 

@@ -37,12 +37,12 @@ describe('Calendar', () => {
         .toMatchObject({ a: 1 });
     });
     it('should call date format function', () => {
-      const dateFormat = jest.fn();
+      const formatDate = jest.fn();
       shallow((
-        <Text {...defaultProps} dateFormat={dateFormat} />
+        <Text {...defaultProps} formatDate={formatDate} />
       ));
 
-      expect(dateFormat)
+      expect(formatDate)
         .toHaveBeenCalledWith(new Date(defaultProps.currentDate), { month: 'long', year: 'numeric' });
     });
   });

@@ -30,7 +30,7 @@ const CellBase = ({
   className,
   startDate,
   endDate,
-  dateFormat,
+  formatDate,
   ...restProps
 }) => (
   <TableCell
@@ -38,7 +38,7 @@ const CellBase = ({
     {...restProps}
   >
     <span className={classes.text}>
-      {dateFormat(endDate, hourMinute)}
+      {formatDate(endDate, hourMinute)}
     </span>
   </TableCell>
 );
@@ -48,11 +48,11 @@ CellBase.propTypes = {
   startDate: PropTypes.instanceOf(Date),
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
-  dateFormat: PropTypes.func,
+  formatDate: PropTypes.func,
 };
 
 CellBase.defaultProps = {
-  dateFormat: () => '',
+  formatDate: () => '',
   className: undefined,
   startDate: undefined,
 };

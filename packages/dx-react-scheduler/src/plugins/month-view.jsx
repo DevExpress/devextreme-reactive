@@ -145,14 +145,14 @@ export class MonthView extends React.PureComponent {
 
         <Template name="navbar">
           <TemplateConnector>
-            {({ currentView, viewCellsData, dateFormat }) => {
+            {({ currentView, viewCellsData, formatDate }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
                 <DayScale
                   cellComponent={DayScaleCell}
                   rowComponent={DayScaleRow}
                   cellsData={viewCellsData}
-                  dateFormat={dateFormat}
+                  formatDate={formatDate}
                 />
               );
             }}

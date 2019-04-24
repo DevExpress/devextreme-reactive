@@ -17,7 +17,7 @@ const LayoutBase = ({
   cellsData,
   className,
   classes,
-  dateFormat,
+  formatDate,
   ...restProps
 }) => (
   <TableMUI
@@ -36,7 +36,7 @@ const LayoutBase = ({
             startDate={startDate}
             endDate={endDate}
             today={today}
-            dateFormat={dateFormat}
+            formatDate={formatDate}
           />
         ))}
       </Row>
@@ -50,10 +50,10 @@ LayoutBase.propTypes = {
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
   className: PropTypes.string,
-  dateFormat: PropTypes.func,
+  formatDate: PropTypes.func,
 };
 LayoutBase.defaultProps = {
-  dateFormat: () => '',
+  formatDate: () => '',
   className: undefined,
 };
 

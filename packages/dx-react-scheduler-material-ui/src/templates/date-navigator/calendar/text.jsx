@@ -17,7 +17,7 @@ const TextBase = ({
   classes,
   className,
   currentDate,
-  dateFormat,
+  formatDate,
   ...restProps
 }) => (
   <Typography
@@ -27,7 +27,7 @@ const TextBase = ({
     }, className)}
     {...restProps}
   >
-    {dateFormat(new Date(currentDate), monthYear)}
+    {formatDate(new Date(currentDate), monthYear)}
   </Typography>
 );
 
@@ -39,11 +39,11 @@ TextBase.propTypes = {
     PropTypes.instanceOf(Date),
   ]).isRequired,
   className: PropTypes.string,
-  dateFormat: PropTypes.func,
+  formatDate: PropTypes.func,
 };
 
 TextBase.defaultProps = {
-  dateFormat: () => '',
+  formatDate: () => '',
   className: undefined,
 };
 

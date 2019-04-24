@@ -31,17 +31,17 @@ describe('VerticalAppointment', () => {
     });
 
     it('should call time format function', () => {
-      const dateFormat = jest.fn();
+      const formatDate = jest.fn();
       mount((
         <VerticalAppointment
           {...defaultProps}
-          dateFormat={dateFormat}
+          formatDate={formatDate}
         />
       ));
 
-      expect(dateFormat)
+      expect(formatDate)
         .toHaveBeenCalledWith(defaultProps.data.startDate, { hour: 'numeric', minute: 'numeric' });
-      expect(dateFormat)
+      expect(formatDate)
         .toHaveBeenCalledWith(defaultProps.data.startDate, { hour: 'numeric', minute: 'numeric' });
     });
 

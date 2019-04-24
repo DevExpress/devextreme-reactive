@@ -32,12 +32,12 @@ describe('Vertical view TimePanel', () => {
         .toMatchObject({ a: 1 });
     });
     it('should call date format function', () => {
-      const dateFormat = jest.fn();
+      const formatDate = jest.fn();
       shallow((
-        <Cell {...defaultProps} dateFormat={dateFormat} />
+        <Cell {...defaultProps} formatDate={formatDate} />
       ));
 
-      expect(dateFormat)
+      expect(formatDate)
         .toHaveBeenCalledWith(defaultProps.endDate, { hour: 'numeric', minute: 'numeric' });
     });
   });

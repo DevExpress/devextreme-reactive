@@ -29,7 +29,7 @@ const defaultDeps = {
     currentDate: '2018-07-04',
     availableViewNames: [],
     currentView: { name: 'Week' },
-    dateFormat: jest.fn(),
+    formatDate: jest.fn(),
   },
   template: {
     body: {},
@@ -304,15 +304,15 @@ describe('Week View', () => {
           {pluginDepsToComponents(defaultDeps)}
           <WeekView
             {...defaultProps}
-            dayScaleLayoutComponent={({ dateFormat }) => <div dateFormat={dateFormat} className="day-scale" />}
+            dayScaleLayoutComponent={({ formatDate }) => <div formatDate={formatDate} className="day-scale" />}
           />
         </PluginHost>
       ));
 
       expect(tree.find('.day-scale').exists())
         .toBeTruthy();
-      expect(tree.find('.day-scale').props().dateFormat)
-        .toBe(defaultDeps.getter.dateFormat);
+      expect(tree.find('.day-scale').props().formatDate)
+        .toBe(defaultDeps.getter.formatDate);
     });
 
     it('should render time scale', () => {
@@ -321,15 +321,15 @@ describe('Week View', () => {
           {pluginDepsToComponents(defaultDeps)}
           <WeekView
             {...defaultProps}
-            timeScaleLayoutComponent={({ dateFormat }) => <div dateFormat={dateFormat} className="time-scale" />}
+            timeScaleLayoutComponent={({ formatDate }) => <div formatDate={formatDate} className="time-scale" />}
           />
         </PluginHost>
       ));
 
       expect(tree.find('.time-scale').exists())
         .toBeTruthy();
-      expect(tree.find('.time-scale').props().dateFormat)
-        .toBe(defaultDeps.getter.dateFormat);
+      expect(tree.find('.time-scale').props().formatDate)
+        .toBe(defaultDeps.getter.formatDate);
     });
 
     it('should render time table', () => {

@@ -31,7 +31,7 @@ const defaultDeps = {
       [{ startDate: new Date('2018-06-25') }, {}],
       [{}, { startDate: new Date('2018-08-05') }],
     ],
-    dateFormat: jest.fn(),
+    formatDate: jest.fn(),
   },
   template: {
     body: {},
@@ -292,15 +292,15 @@ describe('Month View', () => {
           {pluginDepsToComponents(defaultDeps)}
           <MonthView
             {...defaultProps}
-            dayScaleLayoutComponent={({ dateFormat }) => <div dateFormat={dateFormat} className="day-scale" />}
+            dayScaleLayoutComponent={({ formatDate }) => <div formatDate={formatDate} className="day-scale" />}
           />
         </PluginHost>
       ));
 
       expect(tree.find('.day-scale').exists())
         .toBeTruthy();
-      expect(tree.find('.day-scale').props().dateFormat)
-        .toBe(defaultDeps.getter.dateFormat);
+      expect(tree.find('.day-scale').props().formatDate)
+        .toBe(defaultDeps.getter.formatDate);
     });
 
     it('should render time table', () => {

@@ -41,15 +41,15 @@ describe('Vertical view DayPanel', () => {
       expect(tree.find(`span.${classes.highlightCell}`).exists())
         .toBeTruthy();
     });
-    it('should call dateFormat function', () => {
-      const dateFormat = jest.fn();
+    it('should call formatDate function', () => {
+      const formatDate = jest.fn();
       shallow((
-        <Cell {...defaultProps} dateFormat={dateFormat} />
+        <Cell {...defaultProps} formatDate={formatDate} />
       ));
 
-      expect(dateFormat)
+      expect(formatDate)
         .toHaveBeenCalledWith(defaultProps.startDate, { weekday: 'short' });
-      expect(dateFormat)
+      expect(formatDate)
         .toHaveBeenCalledWith(defaultProps.startDate, { day: 'numeric' });
     });
   });

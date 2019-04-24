@@ -14,63 +14,63 @@ const longMonthLongYear = { month: 'long', year: 'numeric' };
 
 const calculateTextByDays: PureComputed<
   [Date, Date, any], string
-> = (startViewDate, endViewDate, dateFormat) => {
+> = (startViewDate, endViewDate, formatDate) => {
   const momentStartViewDate = moment(startViewDate as Date);
   const momentEndViewDate = moment(endViewDate as Date);
 
   if (momentStartViewDate.isSame(momentEndViewDate, 'day')) {
-    return dateFormat(momentStartViewDate.toDate(), dayLongMonthLongYear);
+    return formatDate(momentStartViewDate.toDate(), dayLongMonthLongYear);
   }
   if (momentStartViewDate.isSame(momentEndViewDate, 'year')) {
     if (momentStartViewDate.isSame(momentEndViewDate, 'month')) {
       return `${
-        dateFormat(momentStartViewDate.toDate(), day)
+        formatDate(momentStartViewDate.toDate(), day)
       }-${
-        dateFormat(momentEndViewDate.toDate(), day)
+        formatDate(momentEndViewDate.toDate(), day)
       } ${
-        dateFormat(momentEndViewDate.toDate(), longMonthLongYear)
+        formatDate(momentEndViewDate.toDate(), longMonthLongYear)
       }`;
     }
     return `${
-      dateFormat(momentStartViewDate.toDate(), dayShortMonth)
+      formatDate(momentStartViewDate.toDate(), dayShortMonth)
     } - ${
-      dateFormat(momentEndViewDate.toDate(), dayShortMonthLongYear)
+      formatDate(momentEndViewDate.toDate(), dayShortMonthLongYear)
     }`;
   }
   return `${
-    dateFormat(momentStartViewDate.toDate(), dayShortMonthShortYear)
+    formatDate(momentStartViewDate.toDate(), dayShortMonthShortYear)
   } - ${
-    dateFormat(momentEndViewDate.toDate(), dayShortMonthShortYear)
+    formatDate(momentEndViewDate.toDate(), dayShortMonthShortYear)
   }`;
 };
 
 const calculateTextByMonths: PureComputed<
   [Date, number, any], string
-> = (currentDate, intervalCount, dateFormat) => {
+> = (currentDate, intervalCount, formatDate) => {
   const momentCurrentDate = moment(currentDate as Date);
 
   if (intervalCount === 1) {
-    return dateFormat(momentCurrentDate.toDate(), longMonthLongYear);
+    return formatDate(momentCurrentDate.toDate(), longMonthLongYear);
   }
   const lastMonth = momentCurrentDate.clone().add(intervalCount - 1, 'month');
   if (momentCurrentDate.isSame(lastMonth, 'year')) {
     return `${
-      dateFormat(momentCurrentDate.toDate(), shortMonth)
+      formatDate(momentCurrentDate.toDate(), shortMonth)
     }-${
-      dateFormat(lastMonth.toDate(), shortMonthLongYear)
+      formatDate(lastMonth.toDate(), shortMonthLongYear)
     }`;
   }
   return `${
-    dateFormat(momentCurrentDate.toDate(), shortMonthShortYear)
+    formatDate(momentCurrentDate.toDate(), shortMonthShortYear)
   } - ${
-    dateFormat(lastMonth.toDate(), shortMonthShortYear)
+    formatDate(lastMonth.toDate(), shortMonthShortYear)
   }`;
 };
 
 export const viewBoundText: ViewBoundTextFn = (
-  startViewDate, endViewDate, step, currentDate, intervalCount, dateFormat,
+  startViewDate, endViewDate, step, currentDate, intervalCount, formatDate,
 ) => (
   step !== 'month'
-    ? calculateTextByDays(startViewDate, endViewDate, dateFormat)
-    : calculateTextByMonths(currentDate, intervalCount, dateFormat)
+    ? calculateTextByDays(startViewDate, endViewDate, formatDate)
+    : calculateTextByMonths(currentDate, intervalCount, formatDate)
 );

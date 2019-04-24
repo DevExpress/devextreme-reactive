@@ -16,7 +16,7 @@ const defaultDeps = {
     firstDayOfWeek: 1,
     currentView: { type: 'month' },
     intervalCount: 3,
-    dateFormat: jest.fn(),
+    formatDate: jest.fn(),
   },
   action: {
     changeCurrentDate: jest.fn(),
@@ -143,7 +143,7 @@ describe('DateNavigator', () => {
       headerCellComponent,
       navigatorComponent,
       onSelectedDateChange,
-      dateFormat,
+      formatDate,
     } = calendar.props();
 
     onSelectedDateChange();
@@ -151,7 +151,7 @@ describe('DateNavigator', () => {
     expect(calendar.exists()).toBeTruthy();
     expect(selectedDate).toBe('2018-07-05');
     expect(firstDayOfWeek).toBe(1);
-    expect(dateFormat).toBe(defaultDeps.getter.dateFormat);
+    expect(formatDate).toBe(defaultDeps.getter.formatDate);
     expect(textComponent).toBe(CalendarTextComponent);
     expect(navigationButtonComponent).toBe(CalendarNavigationButtonComponent);
     expect(rowComponent).toBe(CalendarRow);

@@ -28,7 +28,7 @@ const TableBase = ({
   headerCells,
   selectedDate,
   onCellClick,
-  dateFormat,
+  formatDate,
   ...restProps
 }) => {
   const comparableSelectedDate = moment(selectedDate);
@@ -40,7 +40,7 @@ const TableBase = ({
       <TableHead>
         <HeaderRow>
           {headerCells.map((cell) => {
-            const key = dateFormat(cell.startDate, weekDay);
+            const key = formatDate(cell.startDate, weekDay);
             return (
               <HeaderCell
                 key={key}
@@ -72,7 +72,7 @@ const TableBase = ({
                     onCellClick(startDate);
                   }}
                 >
-                  {dateFormat(startDate, day)}
+                  {formatDate(startDate, day)}
                 </Cell>
               );
             })}
@@ -98,14 +98,14 @@ TableBase.propTypes = {
   headerCells: PropTypes.array,
   className: PropTypes.string,
   onCellClick: PropTypes.func,
-  dateFormat: PropTypes.func,
+  formatDate: PropTypes.func,
 };
 
 TableBase.defaultProps = {
   className: undefined,
   headerCells: [],
   onCellClick: () => {},
-  dateFormat: () => '',
+  formatDate: () => '',
   selectedDate: undefined,
 };
 

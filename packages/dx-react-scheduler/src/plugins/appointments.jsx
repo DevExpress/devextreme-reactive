@@ -46,7 +46,7 @@ export class Appointments extends React.PureComponent {
             ...restParams
           }) => (
             <TemplateConnector>
-              {({ dateFormat }) => (
+              {({ formatDate }) => (
                 <Appointment
                   data={data}
                   {...createClickHandlers(onClick, onDoubleClick)}
@@ -57,7 +57,7 @@ export class Appointments extends React.PureComponent {
                     data={data}
                     type={type}
                     recurringIconComponent={recurringIconComponent}
-                    dateFormat={dateFormat}
+                    formatDate={formatDate}
                   />
                   {toNext && <SplitIndicator position={POSITION_END} appointmentType={type} />}
                 </Appointment>

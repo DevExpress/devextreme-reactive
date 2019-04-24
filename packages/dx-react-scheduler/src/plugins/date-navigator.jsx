@@ -80,7 +80,7 @@ export class DateNavigator extends React.PureComponent {
               firstDayOfWeek,
               currentView,
               intervalCount,
-              dateFormat,
+              formatDate,
             }, {
               changeCurrentDate,
             }) => {
@@ -95,7 +95,7 @@ export class DateNavigator extends React.PureComponent {
                 currentView,
                 currentDate,
                 intervalCount,
-                dateFormat,
+                formatDate,
               );
               return (
                 <React.Fragment>
@@ -124,7 +124,7 @@ export class DateNavigator extends React.PureComponent {
                       headerCellComponent={CalendarHeaderCell}
                       navigatorComponent={CalendarNavigator}
                       onSelectedDateChange={calendarDateChanged}
-                      dateFormat={dateFormat}
+                      formatDate={formatDate}
                     />
                   </Overlay>
                 </React.Fragment>

@@ -18,7 +18,7 @@ export class SchedulerCore extends React.PureComponent {
         name="SchedulerCore"
       >
         <Getter name="appointments" value={appointments(data)} />
-        <Getter name="dateFormat" value={dateTimeFormatComputed(locale)} />
+        <Getter name="formatDate" value={dateTimeFormatComputed(locale)} />
         <Template name="root">
           <Root>
             <TemplatePlaceholder name="header" />

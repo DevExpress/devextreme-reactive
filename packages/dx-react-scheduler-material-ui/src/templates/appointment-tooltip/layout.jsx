@@ -49,7 +49,7 @@ const LayoutBase = ({
   commandButtonIds,
   onOpenButtonClick,
   onDeleteButtonClick,
-  dateFormat,
+  formatDate,
   classes,
   ...restProps
 }) => {
@@ -95,7 +95,7 @@ const LayoutBase = ({
           </Grid>
           <Grid item xs={10}>
             <div className={classes.text}>
-              {`${dateFormat(data.startDate, hourMinuteOptions)} - ${dateFormat(data.endDate, hourMinuteOptions)}`}
+              {`${formatDate(data.startDate, hourMinuteOptions)} - ${formatDate(data.endDate, hourMinuteOptions)}`}
             </div>
           </Grid>
         </Grid>
@@ -124,7 +124,7 @@ LayoutBase.propTypes = {
   }),
   visible: PropTypes.bool,
   onHide: PropTypes.func,
-  dateFormat: PropTypes.func,
+  formatDate: PropTypes.func,
 };
 LayoutBase.defaultProps = {
   onOpenButtonClick: () => undefined,
@@ -132,7 +132,7 @@ LayoutBase.defaultProps = {
   onHide: () => undefined,
   appointmentMeta: {},
   visible: false,
-  dateFormat: () => '',
+  formatDate: () => '',
 };
 
 export const Layout = withStyles(styles, { name: 'Layout' })(LayoutBase);

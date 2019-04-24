@@ -124,7 +124,7 @@ describe('Appointment Tooltip', () => {
     it('should call dates format function', () => {
       const dateTimeFormat = jest.fn();
       shallow((
-        <Layout {...defaultProps} dateFormat={dateTimeFormat} />
+        <Layout {...defaultProps} formatDate={dateTimeFormat} />
       ));
 
       expect(dateTimeFormat)

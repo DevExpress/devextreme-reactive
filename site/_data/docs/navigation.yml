@@ -95,6 +95,8 @@
         path: /react/grid/docs/guides/fixed-columns
       - title: Virtual Scrolling
         path: /react/grid/docs/guides/virtual-scrolling
+      - title: Remote Virtual Scrolling
+        path: /react/grid/docs/guides/remote-virtual-scrolling
       - title: Tree Data
         path: /react/grid/docs/guides/tree-data
       - title: Summary Row

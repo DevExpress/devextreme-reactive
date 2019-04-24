@@ -9,7 +9,7 @@ import {
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
 
-const VIRTUAL_PAGE_SIZE = 100;
+const VIRTUAL_PAGE_SIZE = 50;
 const MAX_ROWS = 50000;
 const URL = 'https://js.devexpress.com/Demos/WidgetsGalleryDataService/api/Sales';
 

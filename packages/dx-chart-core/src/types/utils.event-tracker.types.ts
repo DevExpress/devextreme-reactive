@@ -8,15 +8,7 @@ export type HandlersObject = {
   readonly pointerMoveHandlers: HandlerFnList;
 };
 /** @internal */
-export type EventHandlers = {
-  click?: EventHandlerFn;
-  pointermove?: EventHandlerFn;
-  pointerleave?: EventHandlerFn;
-  touchmove?: EventHandlerFn;
-  touchleave?: EventHandlerFn;
-  mousemove?: EventHandlerFn;
-  mouseleave?: EventHandlerFn;
-};
+export type EventHandlers = { [key: string]: EventHandlerFn };
 /** @internal */
 export type EventHandlerFn = (e: any) => void;
 /** The click event data */

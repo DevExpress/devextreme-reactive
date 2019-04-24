@@ -13,7 +13,12 @@ export class SpaceFillingRects extends React.PureComponent<SpaceFillingRectsProp
               {({ layouts }) => {
                 const [, horizontal, postfix] = name.split('-');
                 const key = horizontal + (postfix ? `-${postfix}` : '');
-                const { width } = (layouts as BBoxes)[key] || { width: undefined };
+                const width = Object.keys(layouts as BBoxes).reduce((prev, cur) => {
+                  if (cur.includes(key)) {
+                    return prev + layouts[cur].width;
+                  }
+                  return prev;
+                }, 0);
                 return <div id={name} style={{ width }} />;
               }}
             </TemplateConnector>

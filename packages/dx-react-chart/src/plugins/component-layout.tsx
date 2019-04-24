@@ -10,7 +10,7 @@ export const ComponentLayout: React.SFC = () => (
       <div id={`${TOP}-container`} style={{ display: 'flex', flexDirection: 'row' }}>
         <TemplatePlaceholder name={`${TOP}-${LEFT}`} />
         <TemplatePlaceholder name={TOP} />
-        <TemplatePlaceholder name={`${TOP}-${LEFT}`} />
+        <TemplatePlaceholder name={`${TOP}-${RIGHT}`} />
       </div>
       <div id="center-container" style={{ display: 'flex', flexDirection: 'row', flexGrow: 1 }}>
         <TemplatePlaceholder name={LEFT} />
@@ -20,6 +20,7 @@ export const ComponentLayout: React.SFC = () => (
       <div id={`${BOTTOM}-container`} style={{ display: 'flex', flexDirection: 'row' }}>
         <TemplatePlaceholder name={`${BOTTOM}-${LEFT}`} />
         <TemplatePlaceholder name={BOTTOM} />
+        <TemplatePlaceholder name={`${BOTTOM}-${RIGHT}`} />
       </div>
     </Template>
   </Plugin>

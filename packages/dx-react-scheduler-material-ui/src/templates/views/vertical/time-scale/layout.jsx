@@ -45,11 +45,10 @@ LayoutBase.propTypes = {
   cellsData: PropTypes.arrayOf(Array).isRequired,
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
+  formatDate: PropTypes.func.isRequired,
   className: PropTypes.string,
-  formatDate: PropTypes.func,
 };
 LayoutBase.defaultProps = {
-  formatDate: () => '',
   className: undefined,
 };
 

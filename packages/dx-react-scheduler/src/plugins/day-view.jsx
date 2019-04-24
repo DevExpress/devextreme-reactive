@@ -206,7 +206,7 @@ export class DayView extends React.PureComponent {
         <Template name="main">
           <TemplateConnector>
             {({
-              appointments, startViewDate,
+              appointments, startViewDate, formatDate,
               endViewDate, currentView, currentDate,
               viewCellsData,
             }) => {
@@ -238,6 +238,7 @@ export class DayView extends React.PureComponent {
                     cellComponent={this.cellPlaceholder}
                     tableRef={this.timeTableRef}
                     cellsData={viewCellsData}
+                    formatDate={formatDate}
                   />
                   <AppointmentLayer>
                     {rects.map(({

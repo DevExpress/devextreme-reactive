@@ -338,13 +338,15 @@ describe('Week View', () => {
           {pluginDepsToComponents(defaultDeps)}
           <WeekView
             {...defaultProps}
-            timeTableLayoutComponent={() => <div className="time-table" />}
+            timeTableLayoutComponent={({ formatDate }) => <div formatDate={formatDate} className="time-table" />}
           />
         </PluginHost>
       ));
 
       expect(tree.find('.time-table').exists())
         .toBeTruthy();
+      expect(tree.find('.time-table').props().formatDate)
+        .toBe(defaultDeps.getter.formatDate);
     });
 
     it('should render appointment layer', () => {

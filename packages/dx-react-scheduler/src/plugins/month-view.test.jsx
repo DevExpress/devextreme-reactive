@@ -309,13 +309,15 @@ describe('Month View', () => {
           {pluginDepsToComponents(defaultDeps)}
           <MonthView
             {...defaultProps}
-            timeTableLayoutComponent={() => <div className="time-table" />}
+            timeTableLayoutComponent={({ formatDate }) => <div className="time-table" formatDate={formatDate} />}
           />
         </PluginHost>
       ));
 
       expect(tree.find('.time-table').exists())
         .toBeTruthy();
+      expect(tree.find('.time-table').props().formatDate)
+        .toBe(defaultDeps.getter.formatDate);
     });
 
     it('should render appointment layer', () => {

@@ -294,13 +294,15 @@ describe('Day View', () => {
           {pluginDepsToComponents(defaultDeps)}
           <DayView
             {...defaultProps}
-            timeTableLayoutComponent={() => <div className="time-table" />}
+            timeTableLayoutComponent={({ formatDate }) => <div formatDate={formatDate} className="time-table" />}
           />
         </PluginHost>
       ));
 
       expect(tree.find('.time-table').exists())
         .toBeTruthy();
+      expect(tree.find('.time-table').props().formatDate)
+        .toBe(defaultDeps.getter.formatDate);
     });
 
     it('should render day scale empty cell', () => {

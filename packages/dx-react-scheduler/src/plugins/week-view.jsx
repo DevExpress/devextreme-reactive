@@ -215,7 +215,7 @@ export class WeekView extends React.PureComponent {
         <Template name="main">
           <TemplateConnector>
             {({
-              appointments, startViewDate,
+              appointments, startViewDate, formatDate,
               endViewDate, currentView, viewCellsData,
             }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
@@ -246,6 +246,7 @@ export class WeekView extends React.PureComponent {
                     cellComponent={this.cellPlaceholder}
                     tableRef={this.timeTableRef}
                     cellsData={viewCellsData}
+                    formatDate={formatDate}
                   />
                   <AppointmentLayer>
                     {rects.map(({

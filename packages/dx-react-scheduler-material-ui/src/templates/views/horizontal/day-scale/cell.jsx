@@ -1,10 +1,11 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import moment from 'moment';
 import classNames from 'classnames';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
 import { getBorder } from '../../../utils';
+
+const weekDay = { weekday: 'short' };
 
 const styles = theme => ({
   cell: {
@@ -24,20 +25,18 @@ const CellBase = ({
   startDate,
   endDate,
   today,
+  formatDate,
   ...restProps
-}) => {
-  const currentDate = moment(startDate);
-  return (
-    <TableCell
-      className={classNames(classes.cell, className)}
-      {...restProps}
-    >
-      <div className={classes.dayOfWeek}>
-        {currentDate.format('ddd')}
-      </div>
-    </TableCell>
-  );
-};
+}) => (
+  <TableCell
+    className={classNames(classes.cell, className)}
+    {...restProps}
+  >
+    <div className={classes.dayOfWeek}>
+      {formatDate(startDate, weekDay)}
+    </div>
+  </TableCell>
+);
 
 CellBase.propTypes = {
   classes: PropTypes.object.isRequired,
@@ -45,9 +44,11 @@ CellBase.propTypes = {
   endDate: PropTypes.instanceOf(Date),
   className: PropTypes.string,
   today: PropTypes.bool,
+  formatDate: PropTypes.func,
 };
 
 CellBase.defaultProps = {
+  formatDate: () => '',
   className: undefined,
   endDate: undefined,
   today: false,

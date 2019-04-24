@@ -44,15 +44,14 @@ const CellBase = ({
 );
 
 CellBase.propTypes = {
+  formatDate: PropTypes.func.isRequired,
   endDate: PropTypes.instanceOf(Date).isRequired,
   startDate: PropTypes.instanceOf(Date),
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
-  formatDate: PropTypes.func,
 };
 
 CellBase.defaultProps = {
-  formatDate: () => '',
   className: undefined,
   startDate: undefined,
 };

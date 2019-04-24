@@ -79,7 +79,7 @@ Field | Type | Description
 ------|------|------------
 startDate | Date | Specifies the cell start time.
 endDate? | Date | Specifies the cell end time.
-formatDate? | (date: Date, options: any) => string | A function that format a date by locale.
+formatDate | (date: Date, options: any) => string | A function that format a date by locale.
 
 ### MonthView.TimeTableLayoutProps
 
@@ -103,7 +103,7 @@ startDate | Date | Specifies the cell start time.
 endDate? | Date | Specifies the cell end time.
 otherMonth? | boolean | Indicates whether the cell's date is not in the current month.
 today? | boolean | Indicates whether the cell's date is today.
-formatDate? | (date: Date, options: any) => string | A function that format a date by locale.
+formatDate | (date: Date, options: any) => string | A function that format a date by locale.
 
 ### MonthView.AppointmentLayerProps
 

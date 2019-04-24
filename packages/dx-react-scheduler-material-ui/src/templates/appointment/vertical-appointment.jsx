@@ -90,13 +90,12 @@ VerticalAppointmentBase.propTypes = {
   recurringIconComponent: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
+  formatDate: PropTypes.func.isRequired,
   children: PropTypes.node,
   className: PropTypes.string,
-  formatDate: PropTypes.func,
 };
 
 VerticalAppointmentBase.defaultProps = {
-  formatDate: () => '',
   children: undefined,
   className: undefined,
 };

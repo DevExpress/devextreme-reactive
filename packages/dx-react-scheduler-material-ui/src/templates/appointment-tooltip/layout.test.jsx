@@ -24,6 +24,7 @@ describe('Appointment Tooltip', () => {
       close: 'close',
       delete: 'delete',
     },
+    formatDate: () => undefined,
   };
   beforeAll(() => {
     classes = getClasses(<Layout {...defaultProps} />);

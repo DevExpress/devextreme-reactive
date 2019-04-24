@@ -88,7 +88,7 @@ Field | Type | Description
 ------|------|------------
 endDate | Date | Specifies the cell end time.
 startDate? | Date | Specifies the cell start time.
-formatDate? | (date: Date, options: any) => string | A function that format a date by locale.
+formatDate | (date: Date, options: any) => string | A function that format a date by locale.
 
 ### WeekView.DayScaleLayoutProps
 
@@ -110,7 +110,7 @@ Field | Type | Description
 startDate | Date | Specifies the cell start time.
 endDate? | Date | Specifies the cell end time.
 today? | boolean | Indicates whether the cell's date is today.
-formatDate? | (date: Date, options: any) => string | A function that format a date by locale.
+formatDate | (date: Date, options: any) => string | A function that format a date by locale.
 
 ### WeekView.DayScaleEmptyCellProps
 
@@ -141,7 +141,6 @@ Field | Type | Description
 startDate? | Date | Specifies the cell a start time.
 endDate? | Date | Specifies the cell end time.
 children? | ReactNode | A React node used to render the time table cell content.
-formatDate? | (date: Date, options: any) => string | A function that format a date by locale.
 
 ### WeekView.AppointmentLayerProps
 

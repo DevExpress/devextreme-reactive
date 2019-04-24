@@ -10,6 +10,7 @@ describe('VerticalAppointment', () => {
       endDate: new Date('2018-07-27 17:10'),
     },
     recurringIconComponent: () => <div />,
+    formatDate: () => undefined,
   };
 
   let classes;

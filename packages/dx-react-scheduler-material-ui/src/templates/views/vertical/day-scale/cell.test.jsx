@@ -5,6 +5,7 @@ import { Cell } from './cell';
 describe('Vertical view DayPanel', () => {
   const defaultProps = {
     startDate: new Date(2018, 6, 7, 16, 20),
+    formatDate: () => undefined,
   };
   let classes;
   let shallow;

@@ -71,16 +71,15 @@ const CellBase = ({
 
 CellBase.propTypes = {
   classes: PropTypes.object.isRequired,
-  className: PropTypes.string,
+  formatDate: PropTypes.func.isRequired,
   startDate: PropTypes.instanceOf(Date).isRequired,
   endDate: PropTypes.instanceOf(Date),
+  className: PropTypes.string,
   today: PropTypes.bool,
   otherMonth: PropTypes.bool,
-  formatDate: PropTypes.func,
 };
 
 CellBase.defaultProps = {
-  formatDate: () => '',
   endDate: undefined,
   className: undefined,
   today: false,

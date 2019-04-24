@@ -311,6 +311,8 @@
         path: /react/scheduler/docs/guides/date-navigation
       - title: Editing
         path: /react/scheduler/docs/guides/editing
+      - title: Localization
+        path: /react/scheduler/docs/guides/localization
   - title: Common Concepts
     items:
       - title: Optimize Performance

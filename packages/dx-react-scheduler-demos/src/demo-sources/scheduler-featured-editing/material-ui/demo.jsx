@@ -5,7 +5,7 @@ import { ViewState, EditingState } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
   Toolbar,
-  DayView,
+  MonthView,
   WeekView,
   ViewSwitcher,
   Appointments,
@@ -381,10 +381,7 @@ class Demo extends React.PureComponent {
             startDayHour={startDayHour}
             endDayHour={endDayHour}
           />
-          <DayView
-            startDayHour={startDayHour}
-            endDayHour={endDayHour}
-          />
+          <MonthView />
           <Appointments />
           <AppointmentTooltip
             showOpenButton

@@ -19,6 +19,7 @@ describe('Calendar', () => {
     selectedDate: '2018-07-16',
     firstDayOfWeek: 1,
     getCells: () => [],
+    formatDate: () => undefined,
   };
   describe('Root', () => {
     let mount;

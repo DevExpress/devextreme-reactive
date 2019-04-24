@@ -57,11 +57,11 @@ export default class Demo extends React.PureComponent {
       ],
       rows: [],
       tableColumnExtensions: [
-        { columnName: 'Id', width: 80 },
-        { columnName: 'ProductCategoryName', width: 220 },
+        { columnName: 'Id', width: 70 },
+        { columnName: 'ProductCategoryName', width: 200 },
         { columnName: 'StoreName', width: 220 },
-        { columnName: 'DateKey', width: 150 },
-        { columnName: 'SalesAmount', width: 120 },
+        { columnName: 'DateKey', width: 100 },
+        { columnName: 'SalesAmount', width: 110 },
       ],
       skip: 0,
       totalCount: MAX_ROWS,
@@ -139,8 +139,8 @@ export default class Demo extends React.PureComponent {
           columns={columns}
           getRowId={getRowId}
         >
-          <CurrencyTypeProvider for={['amount', 'price']} />
-          <DateTypeProvider for={['date']} />
+          <CurrencyTypeProvider for={['SalesAmount']} />
+          <DateTypeProvider for={['DateKey']} />
           <VirtualTableState
             loading={loading}
             totalRowCount={totalCount}

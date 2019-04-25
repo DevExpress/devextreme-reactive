@@ -39,7 +39,7 @@
     "test:coverage": "jest --coverage",
     "build": "rollup -c rollup.config.js",
     "build:watch": "rollup -c rollup.config.js -w",
-    "dts": "tsc -p tsconfig.dts.json && node ./merge-dts.js",
+    "dts": "tsc -p tsconfig.dts.json",
     "update-api": "api-extractor run",
     "lint": "tslint -p tsconfig.lint.json",
     "lint:fix": "yarn lint -- --fix",

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing';
 import { PluginHost, Template } from '@devexpress/dx-react-core';
-import { appointments, dateTimeFormatComputed } from '@devexpress/dx-scheduler-core';
+import { appointments, formatDateTimeGetter } from '@devexpress/dx-scheduler-core';
 import { SchedulerCore } from './scheduler-core';
 
 const defaultProps = {
@@ -12,7 +12,7 @@ const defaultProps = {
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   appointments: jest.fn(),
-  dateTimeFormatComputed: jest.fn(),
+  formatDateTimeGetter: jest.fn(),
 }));
 
 describe('Scheduler Core', () => {
@@ -20,7 +20,7 @@ describe('Scheduler Core', () => {
     appointments.mockImplementation(() => [
       { startDate: '2018-07-24', endDate: '2018-07-25' },
     ]);
-    dateTimeFormatComputed.mockImplementation(locale => locale);
+    formatDateTimeGetter.mockImplementation(locale => locale);
   });
   afterEach(() => {
     jest.resetAllMocks();

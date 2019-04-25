@@ -52,9 +52,9 @@ const LocaleSwitcher = withStyles(styles, { name: 'LocaleSwitcher' })(
         value={currentLocale}
         onChange={onLocaleChange}
       >
-        <MenuItem value="fr-FR">Le français (fr-FR)</MenuItem>
-        <MenuItem value="de-GR">Deutsch (de-GR)</MenuItem>
-        <MenuItem value="en-US">American (en-US)</MenuItem>
+        <MenuItem value="fr-FR">Le français (France)</MenuItem>
+        <MenuItem value="de-GR">Deutsch (German)</MenuItem>
+        <MenuItem value="en-US">English (United States)</MenuItem>
       </TextField>
     </div>
   ),
@@ -70,7 +70,7 @@ export default class Demo extends React.PureComponent {
       locale: 'fr-FR',
     };
 
-    this.localeChange = event => this.setState({ locale: event.target.value });
+    this.changeLocale = event => this.setState({ locale: event.target.value });
   }
 
   render() {
@@ -80,7 +80,7 @@ export default class Demo extends React.PureComponent {
       <div>
         <LocaleSwitcher
           currentLocale={locale}
-          onLocaleChange={this.localeChange}
+          onLocaleChange={this.changeLocale}
         />
         <Paper>
           <Scheduler

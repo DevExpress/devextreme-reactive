@@ -1,4 +1,4 @@
-import { appointments, dateTimeFormatComputed } from './computeds';
+import { appointments, formatDateTimeGetter } from './computeds';
 import { dateTimeFormatInstance } from './helpers';
 
 jest.mock('./helpers', () => ({
@@ -57,13 +57,13 @@ describe('SchedulerCore computeds', () => {
     });
   });
 
-  describe('#dateTimeFormatComputed', () => {
+  describe('#formatDateTimeGetter', () => {
     const locale = 'en-US';
     it('should work with same arguments', () => {
       dateTimeFormatInstance.mockImplementation(
         () => new Intl.DateTimeFormat('en-US', { day: 'numeric' }),
       );
-      const formatterInstance = dateTimeFormatComputed(locale);
+      const formatterInstance = formatDateTimeGetter(locale);
       const options = { day: 'numeric' };
 
       formatterInstance(new Date('2019-04-19 10:00'), options);
@@ -79,7 +79,7 @@ describe('SchedulerCore computeds', () => {
       dateTimeFormatInstance.mockImplementation(
         () => new Intl.DateTimeFormat('en-US', { day: 'numeric' }),
       );
-      const formatterInstance = dateTimeFormatComputed(locale);
+      const formatterInstance = formatDateTimeGetter(locale);
       const date = new Date('2019-04-19 10:00');
       const options1 = { day: 'numeric' };
       const options2 = { weekDay: 'numeric' };
@@ -96,7 +96,7 @@ describe('SchedulerCore computeds', () => {
       dateTimeFormatInstance.mockImplementation(
         () => new Intl.DateTimeFormat('en-US', { day: 'numeric' }),
       );
-      const formatterInstance = dateTimeFormatComputed(locale);
+      const formatterInstance = formatDateTimeGetter(locale);
       const date = '2019-04-19 10:00';
       const options1 = { day: 'numeric' };
 
@@ -110,7 +110,7 @@ describe('SchedulerCore computeds', () => {
       dateTimeFormatInstance.mockImplementation(
         () => new Intl.DateTimeFormat('en-US', { day: 'numeric' }),
       );
-      const formatterInstance = dateTimeFormatComputed(locale);
+      const formatterInstance = formatDateTimeGetter(locale);
       const date = 100000000;
       const options1 = { day: 'numeric' };
 

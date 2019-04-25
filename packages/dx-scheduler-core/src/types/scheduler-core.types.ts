@@ -75,4 +75,4 @@ export type FormatterFn = (
   nextDate: Date | string | number | undefined, nextOptions: Intl.DateTimeFormatOptions,
 ) => string;
 
-export type DateTimeFormatComputedFn = (locale: string | string[]) => FormatterFn;
+export type FormatDateTimeGetterFn = (locale: string | string[]) => FormatterFn;

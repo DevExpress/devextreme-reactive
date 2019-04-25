@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import classNames from 'classnames';
 
-const monthYear = { month: 'long', year: 'numeric' };
+const monthYearOptions = { month: 'long', year: 'numeric' };
 
 const styles = {
   text: {
@@ -27,7 +27,7 @@ const TextBase = ({
     }, className)}
     {...restProps}
   >
-    {formatDate(new Date(currentDate), monthYear)}
+    {formatDate(new Date(currentDate), monthYearOptions)}
   </Typography>
 );
 
@@ -38,12 +38,11 @@ TextBase.propTypes = {
     PropTypes.string,
     PropTypes.instanceOf(Date),
   ]).isRequired,
+  formatDate: PropTypes.func.isRequired,
   className: PropTypes.string,
-  formatDate: PropTypes.func,
 };
 
 TextBase.defaultProps = {
-  formatDate: () => '',
   className: undefined,
 };
 

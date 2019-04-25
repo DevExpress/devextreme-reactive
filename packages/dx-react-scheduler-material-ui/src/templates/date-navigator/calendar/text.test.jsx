@@ -9,6 +9,7 @@ describe('Calendar', () => {
   let shallow;
   const defaultProps = {
     currentDate: '2018-07-12',
+    formatDate: () => '',
   };
   beforeAll(() => {
     classes = getClasses(<Text {...defaultProps} />);

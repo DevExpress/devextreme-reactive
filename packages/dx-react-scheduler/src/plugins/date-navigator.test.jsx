@@ -132,35 +132,27 @@ describe('DateNavigator', () => {
     const calendar = tree.find(CalendarComponent);
     const dateNavigator = tree.find(DateNavigator);
     dateNavigator.instance().setState({ visible: true });
-    const {
-      selectedDate,
-      firstDayOfWeek,
-      textComponent,
-      navigationButtonComponent,
-      rowComponent,
-      cellComponent,
-      headerRowComponent,
-      headerCellComponent,
-      navigatorComponent,
-      onSelectedDateChange,
-      formatDate,
-    } = calendar.props();
+    const { onSelectedDateChange } = calendar.props();
 
     onSelectedDateChange();
 
     expect(calendar.exists()).toBeTruthy();
-    expect(selectedDate).toBe('2018-07-05');
-    expect(firstDayOfWeek).toBe(1);
-    expect(formatDate).toBe(defaultDeps.getter.formatDate);
-    expect(textComponent).toBe(CalendarTextComponent);
-    expect(navigationButtonComponent).toBe(CalendarNavigationButtonComponent);
-    expect(rowComponent).toBe(CalendarRow);
-    expect(cellComponent).toBe(CalendarCell);
-    expect(headerRowComponent).toBe(CalendarHeaderRow);
-    expect(headerCellComponent).toBe(CalendarHeaderCell);
-    expect(navigatorComponent).toBe(CalendarNavigatorComponent);
     expect(defaultDeps.action.changeCurrentDate).toHaveBeenCalled();
     expect(dateNavigator.instance().state.visible).toBeFalsy();
+
+    expect(calendar.props())
+      .toMatchObject({
+        selectedDate: '2018-07-05',
+        firstDayOfWeek: 1,
+        formatDate: defaultDeps.getter.formatDate,
+        textComponent: CalendarTextComponent,
+        navigationButtonComponent: CalendarNavigationButtonComponent,
+        rowComponent: CalendarRow,
+        cellComponent: CalendarCell,
+        headerRowComponent: CalendarHeaderRow,
+        headerCellComponent: CalendarHeaderCell,
+        navigatorComponent: CalendarNavigatorComponent,
+      });
   });
 
   it('should calculate calendar cells via the "monthCells" computed', () => {

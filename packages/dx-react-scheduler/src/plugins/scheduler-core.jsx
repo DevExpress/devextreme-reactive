@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import {
   Plugin, Getter, Template, TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
-import { appointments, dateTimeFormatComputed } from '@devexpress/dx-scheduler-core';
+import { appointments, formatDateTimeGetter } from '@devexpress/dx-scheduler-core';
 
 export class SchedulerCore extends React.PureComponent {
   render() {
@@ -18,7 +18,7 @@ export class SchedulerCore extends React.PureComponent {
         name="SchedulerCore"
       >
         <Getter name="appointments" value={appointments(data)} />
-        <Getter name="formatDate" value={dateTimeFormatComputed(locale)} />
+        <Getter name="formatDate" value={formatDateTimeGetter(locale)} />
         <Template name="root">
           <Root>
             <TemplatePlaceholder name="header" />

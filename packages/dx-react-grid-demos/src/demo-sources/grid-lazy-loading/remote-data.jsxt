@@ -4,7 +4,7 @@ import {
   DataTypeProvider,
   FilteringState,
   SortingState,
-  createRemoteRowsCache,
+  createRowCache,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -70,7 +70,7 @@ export default class Demo extends React.PureComponent {
       sorting: [],
     };
 
-    const cache = createRemoteRowsCache(VIRTUAL_PAGE_SIZE);
+    const cache = createRowCache(VIRTUAL_PAGE_SIZE);
     const setRows = (skip, count, totalCount) => {
       const rows = cache.getRows(skip, count);
       this.setState({

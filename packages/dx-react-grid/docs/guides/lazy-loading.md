@@ -21,7 +21,7 @@ Lazy loading is initiated by the `getRows` function that accepts the `skip` and 
 
 The `loading` property should indicate whether there is an active request. Once the request is completed, pass the loaded rows to the `Grid` plugin's `rows` property. In addition, pass the `skip` value to the `VirtualTableState` plugin's `skip` property so that the Grid can understand where to start rendering the rows.
 
-.embedded-demo({ "path": "grid-virtual-scrolling/remote-data-basic", "showThemeSelector": true })
+.embedded-demo({ "path": "grid-lazy-loading/remote-data-basic", "showThemeSelector": true })
 
 ## Row Caching
 
@@ -34,10 +34,10 @@ If users are allowed to sort or filter rows, clear the row cache each time the s
 
 In the following demo, the Grid allows you to sort and filter rows. Loaded rows are cached.
 
-.embedded-demo({ "path": "grid-virtual-scrolling/remote-data", "showThemeSelector": true })
+.embedded-demo({ "path": "grid-lazy-loading/remote-data", "showThemeSelector": true })
 
 ## Infinite Scrolling
 
 In infinite scrolling mode, rows are loaded in sequence. To enable this mode, set the `VirtualTableState` plugin's `infiniteScrolling` property to `true`.
 
-.embedded-demo({ "path": "grid-virtual-scrolling/infinite-scrolling", "showThemeSelector": true })
+.embedded-demo({ "path": "grid-lazy-loading/infinite-scrolling", "showThemeSelector": true })

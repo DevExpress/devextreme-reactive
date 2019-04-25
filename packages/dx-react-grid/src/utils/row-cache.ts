@@ -75,7 +75,7 @@ class LRUCache {
   }
 }
 
-export const createRemoteRowsCache = (pageSize: number, capacity = Number.POSITIVE_INFINITY) => {
+export const createRowCache = (pageSize: number, capacity = Number.POSITIVE_INFINITY) => {
   const cache = new LRUCache(pageSize, capacity / pageSize);
 
   return {

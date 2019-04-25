@@ -1,5 +1,5 @@
 import { PureComputed } from '@devexpress/dx-core';
-import { AppointmentModel, Appointment } from '../../types';
+import { AppointmentModel, Appointment, DateTimeFormatComputedFn, FormatterFn } from '../../types';
 import { dateTimeFormatInstance } from './helpers';
 
 export const appointments: PureComputed<
@@ -19,21 +19,20 @@ export const appointments: PureComputed<
   dataItem: appointment,
 }));
 
-export const dateTimeFormatComputed: any = (locale: string | string[]) => {
+export const dateTimeFormatComputed: DateTimeFormatComputedFn = (locale) => {
   const cache = new Map();
 
-  const formatter = (nextDate: Date | string | number, nextOptions: Intl.DateTimeFormatOptions) => {
+  const formatter: FormatterFn = (nextDate, nextOptions) => {
     if (nextDate === undefined) return;
-    const date = (typeof nextDate) === 'object' ? nextDate : new Date(nextDate);
-    const key = JSON.stringify(nextOptions);
+    const date = new Date(nextDate);
+    const key = nextOptions;
 
-    if (cache.has(key)) {
-      return cache.get(key).format(date);
+    if (!cache.has(key)) {
+      const formatInstance = dateTimeFormatInstance(locale, nextOptions);
+      cache.set(key, formatInstance);
     }
 
-    const formatInstance = dateTimeFormatInstance(locale, nextOptions);
-    cache.set(key, formatInstance);
-    return formatInstance.format(date);
+    return cache.get(key).format(date);
   };
   return formatter;
 };

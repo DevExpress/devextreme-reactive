@@ -1,6 +1,6 @@
 import moment from 'moment';
 import { PureComputed } from '@devexpress/dx-core';
-import { ViewBoundTextFn } from '../../types';
+import { ViewBoundTextFn, FormatterFn } from '../../types';
 
 const day = { day: 'numeric' };
 const shortMonth = { month: 'short' };
@@ -13,7 +13,7 @@ const shortMonthShortYear = { month: 'short', year: '2-digit' };
 const longMonthLongYear = { month: 'long', year: 'numeric' };
 
 const calculateTextByDays: PureComputed<
-  [Date, Date, any], string
+  [Date, Date, FormatterFn], string
 > = (startViewDate, endViewDate, formatDate) => {
   const momentStartViewDate = moment(startViewDate as Date);
   const momentEndViewDate = moment(endViewDate as Date);
@@ -45,7 +45,7 @@ const calculateTextByDays: PureComputed<
 };
 
 const calculateTextByMonths: PureComputed<
-  [Date, number, any], string
+  [Date, number, FormatterFn], string
 > = (currentDate, intervalCount, formatDate) => {
   const momentCurrentDate = moment(currentDate as Date);
 

@@ -45,7 +45,7 @@ const LocaleSwitcher = withStyles(styles, { name: 'LocaleSwitcher' })(
   ({ onLocaleChange, currentLocale, classes }) => (
     <div className={classes.container}>
       <div className={classes.text}>
-      Locale:
+        Locale:
       </div>
       <TextField
         select

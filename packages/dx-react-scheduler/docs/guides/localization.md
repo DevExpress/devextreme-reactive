@@ -22,6 +22,6 @@ The following example demonstrates how to change the scheduler localization by s
 
 To change built-in date formating texts you should override our components and pass into them custom date formating function into a `formatDate` property. In the following example we use full week day names in the day scale and use times with seconds in the time scale. In the sample we create a custom formating functions and use a `moment.js` library.
 
-.embedded-demo({ "path": "scheduler-localization/locale", "showThemeSelector": true })
+.embedded-demo({ "path": "scheduler-localization/custom-formating", "showThemeSelector": true })
 
 NOTE: How to override built-in UI components see the [Fundamentals guide](./fundamentals.md#customize-the-appearance).

@@ -11,8 +11,7 @@ export class SpaceFillingRects extends React.PureComponent<SpaceFillingRectsProp
           <Template name={name} key={name}>
             <TemplateConnector>
               {({ layouts }) => {
-                const [, horizontal, postfix] = name.split('-');
-                const key = horizontal + (postfix ? `-${postfix}` : '');
+                const key = name.slice(name.indexOf('-') + 1);
                 const width = Object.keys(layouts as BBoxes).reduce((prev, cur) => {
                   if (cur.includes(key)) {
                     return prev + layouts[cur].width;

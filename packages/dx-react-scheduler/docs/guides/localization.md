@@ -12,6 +12,16 @@ The UI plugins of the Scheduler control often render formated date texts depende
 
 Almost each UI plugin accepts the `messages` option bag that specifies localized messages. These messages specifies special support texts.
 
+## Basic Setup
+
 The following example demonstrates how to change the scheduler localization by specify `messages` and `locale` properties.
 
 .embedded-demo({ "path": "scheduler-localization/locale", "showThemeSelector": true })
+
+## Customize Date Formating
+
+To change built-in date formating texts you should override our components and pass into them custom date formating function into a `formatDate` property. In the following example we use full week day names in the day scale and use times with seconds in the time scale. In the sample we create a custom formating functions and use a `moment.js` library.
+
+.embedded-demo({ "path": "scheduler-localization/locale", "showThemeSelector": true })
+
+NOTE: How to override built-in UI components see the [Fundamentals guide](./fundamentals.md#customize-the-appearance).

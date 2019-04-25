@@ -33,7 +33,8 @@ describe('VerticalAppointment', () => {
 
     it('should call time format function', () => {
       const formatDate = jest.fn();
-      mount((
+      formatDate.mockImplementation(() => 'time');
+      const tree = mount((
         <VerticalAppointment
           {...defaultProps}
           formatDate={formatDate}
@@ -44,6 +45,10 @@ describe('VerticalAppointment', () => {
         .toHaveBeenCalledWith(defaultProps.data.startDate, { hour: 'numeric', minute: 'numeric' });
       expect(formatDate)
         .toHaveBeenCalledWith(defaultProps.data.startDate, { hour: 'numeric', minute: 'numeric' });
+      expect(tree.find(`.${classes.time}`).at(0).props().children)
+        .toBeTruthy();
+      expect(tree.find(`.${classes.time}`).at(2).props().children)
+        .toBeTruthy();
     });
 
     it('should render children', () => {

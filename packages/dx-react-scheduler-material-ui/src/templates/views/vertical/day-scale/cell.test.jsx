@@ -44,7 +44,8 @@ describe('Vertical view DayPanel', () => {
     });
     it('should call formatDate function', () => {
       const formatDate = jest.fn();
-      shallow((
+      formatDate.mockImplementation(() => 'time');
+      const tree = shallow((
         <Cell {...defaultProps} formatDate={formatDate} />
       ));
 
@@ -52,6 +53,10 @@ describe('Vertical view DayPanel', () => {
         .toHaveBeenCalledWith(defaultProps.startDate, { weekday: 'short' });
       expect(formatDate)
         .toHaveBeenCalledWith(defaultProps.startDate, { day: 'numeric' });
+      expect(tree.find(`.${classes.dayOfWeek}`).props().children)
+        .toBeTruthy();
+      expect(tree.find(`.${classes.dayOfMonth}`).props().children)
+        .toBeTruthy();
     });
   });
 });

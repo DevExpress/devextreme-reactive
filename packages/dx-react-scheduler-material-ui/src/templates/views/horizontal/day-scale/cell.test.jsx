@@ -34,12 +34,15 @@ describe('Horizontal view DayScale', () => {
     });
     it('should call formatDate function', () => {
       const formatDate = jest.fn();
-      shallow((
+      formatDate.mockImplementation(() => 'time');
+      const tree = shallow((
         <Cell {...defaultProps} formatDate={formatDate} />
       ));
 
       expect(formatDate)
         .toHaveBeenCalledWith(defaultProps.startDate, { weekday: 'short' });
+      expect(tree.find(`.${classes.dayOfWeek}`).props().children)
+        .toBeTruthy();
     });
   });
 });

@@ -27,7 +27,7 @@ const TextBase = ({
     }, className)}
     {...restProps}
   >
-    {formatDate(new Date(currentDate), monthYearOptions)}
+    {formatDate(currentDate, monthYearOptions)}
   </Typography>
 );
 

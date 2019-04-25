@@ -124,7 +124,7 @@ describe('Appointment Tooltip', () => {
 
     it('should call dates format function', () => {
       const dateTimeFormat = jest.fn();
-      shallow((
+      const tree = shallow((
         <Layout {...defaultProps} formatDate={dateTimeFormat} />
       ));
 
@@ -134,6 +134,8 @@ describe('Appointment Tooltip', () => {
         .toHaveBeenCalledWith(defaultProps.appointmentMeta.data.startDate, { hour: 'numeric', minute: 'numeric' });
       expect(dateTimeFormat)
         .toHaveBeenCalledWith(defaultProps.appointmentMeta.data.endDate, { hour: 'numeric', minute: 'numeric' });
+      expect(tree.find(`.${classes.text}`).props().children)
+        .toBeTruthy();
     });
   });
 });

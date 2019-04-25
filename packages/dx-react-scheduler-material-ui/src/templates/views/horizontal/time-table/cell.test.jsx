@@ -69,11 +69,14 @@ describe('Horizontal view TimeTable', () => {
   });
   it('should call date format function', () => {
     const formatDate = jest.fn();
-    shallow((
+    formatDate.mockImplementation(() => 'time');
+    const tree = shallow((
       <Cell {...defaultProps} formatDate={formatDate} />
     ));
 
     expect(formatDate)
       .toHaveBeenCalledWith(defaultProps.startDate, { day: 'numeric' });
+    expect(tree.find(`.${classes.text}`).props().children)
+      .toBeTruthy();
   });
 });

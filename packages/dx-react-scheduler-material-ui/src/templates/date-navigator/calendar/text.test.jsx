@@ -39,12 +39,15 @@ describe('Calendar', () => {
     });
     it('should call date format function', () => {
       const formatDate = jest.fn();
-      shallow((
+      formatDate.mockImplementation(() => 'time');
+      const tree = shallow((
         <Text {...defaultProps} formatDate={formatDate} />
       ));
 
       expect(formatDate)
-        .toHaveBeenCalledWith(new Date(defaultProps.currentDate), { month: 'long', year: 'numeric' });
+        .toHaveBeenCalledWith(defaultProps.currentDate, { month: 'long', year: 'numeric' });
+      expect(tree.props().children)
+        .toBeTruthy();
     });
   });
 });

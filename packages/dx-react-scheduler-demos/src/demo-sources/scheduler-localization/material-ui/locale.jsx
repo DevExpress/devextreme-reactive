@@ -52,7 +52,7 @@ const LocaleSwitcher = withStyles(styles, { name: 'LocaleSwitcher' })(
         value={currentLocale}
         onChange={onLocaleChange}
       >
-        <MenuItem value="fr-FR">Le français (France)</MenuItem>
+        <MenuItem value="fr-FR">Le français (French)</MenuItem>
         <MenuItem value="de-GR">Deutsch (German)</MenuItem>
         <MenuItem value="en-US">English (United States)</MenuItem>
       </TextField>

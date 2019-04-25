@@ -1,27 +1,15 @@
-import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import Repeat from '@material-ui/icons/Repeat';
 import { withComponents } from '@devexpress/dx-react-core';
 import { Appointments as AppointmentsBase } from '@devexpress/dx-react-scheduler';
-import { HORIZONTAL_TYPE, VERTICAL_TYPE } from '@devexpress/dx-scheduler-core';
-import { HorizontalAppointment } from '../templates/appointment/horizontal-appointment';
-import { VerticalAppointment } from '../templates/appointment/vertical-appointment';
-
+import { AppointmentContent } from '../templates/appointment/appointment-content';
 import { Appointment } from '../templates/appointment/appointment';
-
-const AppointmentContent = ({ type, ...restProps }) => (
-  type === HORIZONTAL_TYPE
-    ? <HorizontalAppointment {...restProps} />
-    : <VerticalAppointment {...restProps} />
-);
-
-AppointmentContent.propTypes = {
-  type: PropTypes.oneOf([
-    HORIZONTAL_TYPE,
-    VERTICAL_TYPE,
-  ]).isRequired,
-};
+import { SplitIndicator } from '../templates/appointment/split-indicator';
+import { AppointmentContainer as Container } from '../templates/appointment/appointment-container';
 
 export const Appointments = withComponents({
   Appointment,
   AppointmentContent,
+  Container,
+  SplitIndicator,
+  RecurringIcon: Repeat,
 })(AppointmentsBase);

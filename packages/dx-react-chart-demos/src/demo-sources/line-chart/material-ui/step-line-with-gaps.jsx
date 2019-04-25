@@ -14,24 +14,16 @@ import { Animation } from '@devexpress/dx-react-chart';
 import {
   line,
   curveStep,
-  symbol,
-  symbolCircle,
 } from 'd3-shape';
 
 import { australianMedals as data } from '../../../demo-data/data-vizualization';
 
+const pointOptions = { point: { size: 10 } };
 const Point = (props) => {
-  const {
-    x, y, value, color, style,
-  } = props;
+  const { value } = props;
   if (value) {
     return (
-      <path
-        fill={color}
-        transform={`translate(${x} ${y})`}
-        d={symbol().size([10 ** 2]).type(symbolCircle)()}
-        style={style}
-      />
+      <ScatterSeries.Point {...props} {...pointOptions} />
     );
   }
   return null;

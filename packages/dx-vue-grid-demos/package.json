@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@devexpress/dx-vue-grid-demos",
-  "version": "1.10.1",
+  "version": "1.11.0-beta.1",
   "description": "DevExtreme Vue Components Demos",
   "author": {
     "name": "Developer Express Inc.",
@@ -14,23 +14,24 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "build:generator": "node ../dx-demo-shell/generate-demos.js",
-    "build": "yarn run build:generator && webpack --env",
-    "build:prod": "yarn run build:generator && webpack --env.production",
-    "build:watch:generator": "nodemon --exec \"yarn run build:generator\" --watch \"src/demo-sources/**/*\" --ignore \"**/*.g.jsx\"  --ignore \"**/*.g.test.jsx\" --watch \"src/theme-sources/*/demo-source-data.json\" --watch \"generate-demos.js\" --ext js,jsx,jsxt,json,ts,tsx,tsxt",
-    "build:watch": "concurrently \"yarn run build:watch:generator\" \"webpack-dev-server --env\"",
-    "lint": "eslint \"src/**/*.{js,jsx}\"",
-    "lint:fix": "yarn run lint -- --fix"
+    "build": "yarn build:generator && webpack --env",
+    "build:prod": "yarn build:generator && webpack --env.production",
+    "build:watch:generator": "nodemon --exec \"yarn build:generator\" --watch \"src/demo-sources/**/*\" --ignore \"**/*.g.jsx\"  --ignore \"**/*.g.test.jsx\" --watch \"src/theme-sources/*/demo-source-data.json\" --watch \"generate-demos.js\" --ext js,jsx,jsxt,json,ts,tsx,tsxt",
+    "build:watch": "concurrently \"yarn build:watch:generator\" \"yarn start-demo-server\"",
+    "start-demo-server": "webpack-dev-server --env",
+    "lint": "eslint \"src/**/*.{js,jsx}\" --ignore-pattern \"**/*.testcafe.js\"",
+    "lint:fix": "yarn lint -- --fix"
   },
   "dependencies": {
-    "@devexpress/dx-demo-shell": "1.10.1",
-    "@devexpress/dx-vue-core": "1.10.1",
-    "@devexpress/dx-vue-grid": "1.10.1",
-    "@devexpress/dx-vue-grid-bootstrap4": "1.10.1",
+    "@devexpress/dx-demo-shell": "1.11.0-beta.1",
+    "@devexpress/dx-vue-core": "1.11.0-beta.1",
+    "@devexpress/dx-vue-grid": "1.11.0-beta.1",
+    "@devexpress/dx-vue-grid-bootstrap4": "1.11.0-beta.1",
     "babel-polyfill": "^6.26.0",
     "codemirror": "^5.42.0",
     "prop-types": "^15.6.2",
     "react": "^16.6.3",
-    "react-bootstrap": "^0.32.4",
+    "react-bootstrap": "=0.32.4",
     "react-dom": "^16.6.3",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
@@ -38,7 +39,7 @@
     "vuex": "^3.0.1"
   },
   "devDependencies": {
-    "@devexpress/dx-testing": "1.10.1",
+    "@devexpress/dx-testing": "1.11.0-beta.1",
     "@vue/test-utils": "1.0.0-beta.12",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
     "babel-jest": "^23.4.2",

@@ -11,16 +11,21 @@ export interface ColumnBands {
   children?: ColumnBands[];
 }
 
+/** @internal */
 type NestedLevel = { level: number };
+/** @internal */
 export type BandHeaderRow = TableRow & NestedLevel;
+/** @internal */
 export type GetMaxNestedLevelFn = (
   bands: ColumnBands[],
   level?: number,
   result?: NestedLevel | null,
 ) => NestedLevel;
 
+/** @internal */
 type ColumnBandMeta = { level: number; title: string | null };
 
+/** @internal */
 export type GetColumnBandMetaFn = (
   columnName: string,
   bands: ReadonlyArray<ColumnBands>,
@@ -30,6 +35,7 @@ export type GetColumnBandMetaFn = (
   result?: ColumnBandMeta | null,
 ) => ColumnBandMeta;
 
+/** @internal */
 type BandComponentPayload = {
   colSpan?: number;
   rowSpan?: number;
@@ -37,6 +43,7 @@ type BandComponentPayload = {
   column?: ColumnBandMeta;
   beforeBorder?: boolean;
 };
+/** @internal */
 export type GetBandComponentFn = (
   params: { tableColumn: TableColumn; tableRow: TableRow; rowSpan?: number },
   tableHeaderRows: TableRow[],

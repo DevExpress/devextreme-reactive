@@ -1,4 +1,4 @@
-import { PureReducer } from '@devexpress/dx-core';
+import { PureReducer, slice } from '@devexpress/dx-core';
 import { Getters } from '@devexpress/dx-react-core';
 import { GROUP_KEY_SEPARATOR } from './constants';
 import {
@@ -8,18 +8,20 @@ import {
 const applyColumnGrouping: PureReducer<Grouping[], ChangeGroupingPayload> = (
   grouping, { columnName, groupIndex },
 ) => {
-  const nextGrouping = grouping.slice();
+  let nextGrouping = grouping;
   const groupingIndex = nextGrouping.findIndex(g => g.columnName === columnName);
   let targetIndex = groupIndex;
 
   if (groupingIndex > -1) {
-    nextGrouping.splice(groupingIndex, 1);
+    nextGrouping = slice(grouping);
+    (nextGrouping as Grouping[]).splice(groupingIndex, 1);
   } else if (groupIndex === undefined) {
     targetIndex = nextGrouping.length;
   }
 
   if (targetIndex > -1) {
-    nextGrouping.splice(targetIndex, 0, {
+    nextGrouping = slice(nextGrouping);
+    (nextGrouping as Grouping[]).splice(targetIndex, 0, {
       columnName,
     });
   }
@@ -59,7 +61,7 @@ export const changeColumnGrouping: PureReducer<ColumnGroupingState, ChangeGroupi
 export const toggleExpandedGroups: PureReducer<ColumnGroupingState, ToggleGroupPayload> = (
   state, { groupKey },
 ) => {
-  const expandedGroups = state.expandedGroups!.slice();
+  const expandedGroups = slice(state.expandedGroups);
   const groupKeyIndex = expandedGroups.indexOf(groupKey);
 
   if (groupKeyIndex > -1) {

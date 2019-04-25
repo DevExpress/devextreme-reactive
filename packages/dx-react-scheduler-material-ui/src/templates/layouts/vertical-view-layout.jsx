@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
+import RootRef from '@material-ui/core/RootRef';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
@@ -29,37 +30,43 @@ export class VerticalViewLayoutBase extends React.PureComponent {
       timeTableComponent: TimeTable,
       dayScaleEmptyCellComponent: DayScaleEmptyCell,
       classes,
+      layoutRef,
+      layoutHeaderRef,
     } = this.props;
 
     return (
-      <Grid
-        container
-        className={classes.container}
-      >
+      <RootRef rootRef={layoutRef}>
         <Grid
           container
-          direction="row"
-          className={classes.stickyHeader}
+          className={classes.container}
         >
-          <Grid item xs={1} className={classes.emptySpace}>
-            <DayScaleEmptyCell />
-          </Grid>
+          <RootRef rootRef={layoutHeaderRef}>
+            <Grid
+              container
+              direction="row"
+              className={classes.stickyHeader}
+            >
+              <Grid item xs={1} className={classes.emptySpace}>
+                <DayScaleEmptyCell />
+              </Grid>
 
-          <Grid item xs={11}>
-            <DayScale />
+              <Grid item xs={11}>
+                <DayScale />
+              </Grid>
+            </Grid>
+          </RootRef>
+
+          <Grid container direction="row">
+            <Grid item xs={1}>
+              <TimeScale />
+            </Grid>
+
+            <Grid item xs={11} className={classes.timeTable}>
+              <TimeTable />
+            </Grid>
           </Grid>
         </Grid>
-
-        <Grid container direction="row">
-          <Grid item xs={1}>
-            <TimeScale />
-          </Grid>
-
-          <Grid item xs={11} className={classes.timeTable}>
-            <TimeTable />
-          </Grid>
-        </Grid>
-      </Grid>
+      </RootRef>
     );
   }
 }
@@ -70,6 +77,8 @@ VerticalViewLayoutBase.propTypes = {
   timeTableComponent: PropTypes.func.isRequired,
   dayScaleEmptyCellComponent: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
+  layoutRef: PropTypes.object.isRequired,
+  layoutHeaderRef: PropTypes.object.isRequired,
 };
 
 export const VerticalViewLayout = withStyles(styles, { name: 'VerticalViewLayout' })(VerticalViewLayoutBase);

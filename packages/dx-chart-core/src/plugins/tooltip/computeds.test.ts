@@ -11,11 +11,6 @@ jest.mock('../../utils/hover-state', () => ({
   processPointerMove: jest.fn().mockReturnValue('test-target'),
 }));
 
-// @ts-ignore
-window.pageXOffset = 120;
-// @ts-ignore
-window.pageYOffset = 110;
-
 describe('#getParameters', () => {
   const createSeries = name => ({
     name,
@@ -50,6 +45,12 @@ describe('#createReference', () => {
   it('should return reference object', () => {
     const root = {
       getBoundingClientRect: () => ({ left: 10, top: 5 }),
+      ownerDocument: {
+        defaultView: { pageXOffset: 120, pageYOffset: 110 },
+        documentElement: {
+          getBoundingClientRect: () => ({ left: 3, top: 2 }),
+        },
+      },
     };
 
     const obj = createReference([41, 32, 45, 34], { current: root as any });
@@ -60,10 +61,10 @@ describe('#createReference', () => {
       getBoundingClientRect: expect.any(Function),
     });
     expect(obj.getBoundingClientRect()).toEqual({
-      left: 171,
-      top: 147,
-      right: 175,
-      bottom: 149,
+      left: 174,
+      top: 149,
+      right: 178,
+      bottom: 151,
       width: 0,
       height: 0,
     });

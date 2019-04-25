@@ -1,14 +1,14 @@
-import { getRootOffset } from './root-offset';
+import { getOffset } from './root-offset';
 import {
   TrackerTarget, HandlerFnList, SeriesList, HitTesters, Location,
-  EventHandlerFn, HandlerArg, EventHandlers, HandlersObject,
+  EventHandlerFn, TargetData, EventHandlers, HandlersObject,
 } from '../types';
 
 const getEventCoords = (e: any): Location => {
-  const offset = getRootOffset(e.currentTarget);
+  const offset = getOffset(e.currentTarget);
   return [
-    e.clientX - offset[0],
-    e.clientY - offset[1],
+    e.pageX - offset[0],
+    e.pageY - offset[1],
   ];
 };
 
@@ -29,7 +29,8 @@ const buildEventHandler = (seriesList: SeriesList, handlers: HandlerFnList): Eve
   const createHitTesters = () => {
     const obj: HitTesters = {};
     seriesList.forEach((seriesItem) => {
-      obj[seriesItem.symbolName] = seriesItem.createHitTester(seriesItem.points);
+      obj[seriesItem.symbolName as unknown as string] = seriesItem
+      .createHitTester(seriesItem.points);
     });
     return obj;
   };
@@ -39,7 +40,7 @@ const buildEventHandler = (seriesList: SeriesList, handlers: HandlerFnList): Eve
     hitTesters = hitTesters || createHitTesters();
     const targets: TrackerTarget[] = [];
     seriesList.forEach(({ name: series, index: order, symbolName }) => {
-      const status = hitTesters![symbolName](location);
+      const status = hitTesters![symbolName as unknown as string](location);
       if (status) {
         targets.push(...status.points.map(
           point => ({
@@ -49,19 +50,20 @@ const buildEventHandler = (seriesList: SeriesList, handlers: HandlerFnList): Eve
       }
     });
     targets.sort(compareHitTargets);
-    const arg: HandlerArg = { location, targets, event: e.nativeEvent };
+    const arg: TargetData = { location, targets, event: e.nativeEvent };
     handlers.forEach(handler => handler(arg));
   };
 };
 
 const buildLeaveEventHandler = (handlers: HandlerFnList): EventHandlerFn => (e) => {
   const location = getEventCoords(e);
-  const arg: HandlerArg = { location, targets: [] };
+  const arg: TargetData = { location, targets: [] };
   handlers.forEach(handler => handler(arg));
 };
 
 // The result is of Map<string, Function> type.
 // Keys are DOM event names (https://developer.mozilla.org/en-US/docs/Web/Events).
+/** @internal */
 export const buildEventHandlers = (
   seriesList: SeriesList, { clickHandlers, pointerMoveHandlers }: HandlersObject,
 ) => {

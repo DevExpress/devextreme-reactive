@@ -18,8 +18,9 @@ The Chart component uses plugin components to visualize data specified via the `
 - `EventTracker` - allows you to handle a click on a point or series.
 - `HoverState` - implements the *hovered* state for points and series.
 - `SelectionState` - implements the *selected* state for points and series.
+- `ZoomAndPan` - allows you to set the chart's viewport and change it in response to mouse and touch events.
 
-## Data processing plugins
+## Data Processing Plugins
 
 - `ArgumentScale` - allows you to customize the argument scale.
 - `ValueScale` - allows you to customize the value scale and display multiple value scales.

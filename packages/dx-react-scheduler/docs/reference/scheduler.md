@@ -29,7 +29,7 @@ rootComponent | ComponentType&lt;[Scheduler.RootProps](#schedulerrootprops)&gt; 
 
 ### AppointmentModel
 
-Describes an appointment data object that the `mapAppointmentData` function should return.
+Describes an appointment data object. If you use another data structure, map it to this structure as shown in [this](https://devexpress.github.io/devextreme-reactive/react/scheduler/demos/featured/remote-data/) demo.
 
 Field | Type | Description
 ------|------|------------
@@ -38,6 +38,8 @@ endDate | Date &#124; string &#124; number | The end date.
 title? | string | The title.
 allDay? | boolean | The all day flag.
 id? | number &#124; string | The identifier.
+rRule? | string | Specifies the appointment recurrence rule. Follows the [iCalendar RRULE](https://tools.ietf.org/html/rfc5545#section-3.8.5.3) format.
+exDate? | string | Specifies dates excluded from recurrence. Follows the [iCalendar EXDATE](https://tools.ietf.org/html/rfc5545#section-3.8.5.1) format.
 [propertyName: string] | any | Any other properties.
 
 ### Scheduler.RootProps

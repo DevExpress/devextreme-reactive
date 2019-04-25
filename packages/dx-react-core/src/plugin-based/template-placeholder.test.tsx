@@ -1,6 +1,5 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
-import { mount } from 'enzyme';
+import { mount, render } from 'enzyme';
 
 import { PluginHost } from './plugin-host';
 import { Plugin } from './plugin';
@@ -29,7 +28,7 @@ describe('TemplatePlaceholder', () => {
   });
 
   it('can accept a content render function as a child', () => {
-    const tree = mount((
+    const tree = render((
       <PluginHost>
         <Template name="test">
           <span>
@@ -49,7 +48,7 @@ describe('TemplatePlaceholder', () => {
       </PluginHost>
     ));
 
-    expect(tree.render().find('h1 > span')).toHaveLength(1);
+    expect(tree.find('h1 > span')).toHaveLength(1);
   });
 
   it('should update on content render function change', () => {
@@ -71,9 +70,6 @@ describe('TemplatePlaceholder', () => {
         </Template>
       </PluginHost>
     );
-    Test.propTypes = {
-      text: PropTypes.string.isRequired,
-    };
 
     const tree = mount(<Test text="old" />);
 
@@ -128,9 +124,6 @@ describe('TemplatePlaceholder', () => {
         </Template>
       </PluginHost>
     );
-    Test.propTypes = {
-      param: PropTypes.string.isRequired,
-    };
 
     const tree = mount(<Test param="text" />);
     tree.setProps({ param: 'new' });
@@ -248,9 +241,6 @@ describe('TemplatePlaceholder', () => {
         </Template>
       </PluginHost>
     );
-    Test.propTypes = {
-      param: PropTypes.string.isRequired,
-    };
 
     const tree = mount(<Test param="text" />);
     tree.setProps({ param: 'new' });
@@ -331,5 +321,41 @@ describe('TemplatePlaceholder', () => {
 
     expect(() => { wrapper.unmount(); })
       .not.toThrow();
+  });
+
+  it('should return content of the associated template', () => {
+    const Tester = ({ name }) => {
+      return (
+        <Plugin name="Tester">
+          <Template name="test">
+            <TemplatePlaceholder />
+            <div className={name}>{name}</div>
+          </Template>
+        </Plugin>
+      );
+    };
+
+    const Root = ({ enabled }) => (
+      <div className="container">
+        <PluginHost>
+          <Template name="root">
+            <TemplatePlaceholder name="test" />
+          </Template>
+          <Template name="test">
+            <div className="root">root</div>
+          </Template>
+
+          <Tester name="t1" />
+          {enabled && <Tester name="t2" />}
+        </PluginHost>
+      </div>
+    );
+
+    const tree = mount(<Root enabled={true} />);
+    tree.setProps({ enabled: false });
+
+    expect(tree.find('.container').html()).toEqual((
+      '<div class="container"><div class="root">root</div><div class="t1">t1</div></div>'
+    ));
   });
 });

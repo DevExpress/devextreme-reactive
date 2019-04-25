@@ -1,3 +1,105 @@
+# [1.11.0-beta.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.11.0-alpha.1...v1.11.0-beta.1) (2019-04-24)
+
+
+### Bug Fixes
+
+* **grid-core:** fix group summary rows order ([#1926](https://github.com/DevExpress/devextreme-reactive/issues/1926)) ([e9f3c60](https://github.com/DevExpress/devextreme-reactive/commit/e9f3c60))
+* **react-chart:** fix event coordinates calculation in a scrolled container ([#1950](https://github.com/DevExpress/devextreme-reactive/issues/1950)) ([498969f](https://github.com/DevExpress/devextreme-reactive/commit/498969f))
+* **react-chart:** fix generated dts ([#1927](https://github.com/DevExpress/devextreme-reactive/issues/1927)) ([5598e3c](https://github.com/DevExpress/devextreme-reactive/commit/5598e3c))
+* **react-core:** ensure onSizeChange is triggered when browser zoom less than 100 ([#1900](https://github.com/DevExpress/devextreme-reactive/issues/1900)) ([b85b017](https://github.com/DevExpress/devextreme-reactive/commit/b85b017))
+* **react-grid-bootstrap3:** add fallback position sticky css property for Safari ([#1964](https://github.com/DevExpress/devextreme-reactive/issues/1964)) ([7a1f4aa](https://github.com/DevExpress/devextreme-reactive/commit/7a1f4aa))
+* **react-grid-bootstrap4:** correct Popover prop types ([#1901](https://github.com/DevExpress/devextreme-reactive/issues/1901)) ([c6131fc](https://github.com/DevExpress/devextreme-reactive/commit/c6131fc))
+
+
+### Features
+
+* **react-chart:** add zoom and pan for chart ([#1917](https://github.com/DevExpress/devextreme-reactive/issues/1917)) ([6c30b95](https://github.com/DevExpress/devextreme-reactive/commit/6c30b95))
+* **react-grid:** add aria-labels for pager buttons ([#1906](https://github.com/DevExpress/devextreme-reactive/issues/1906)) ([0d2cf72](https://github.com/DevExpress/devextreme-reactive/commit/0d2cf72))
+* **react-grid:** remote virtual scrolling ([#1936](https://github.com/DevExpress/devextreme-reactive/pull/1936)) ([43c967c0](https://github.com/DevExpress/devextreme-reactive/commit/43c967c0))
+* **react-scheduler:** allow appointment resizing ([#1932](https://github.com/DevExpress/devextreme-reactive/issues/1932)) ([785f8a1](https://github.com/DevExpress/devextreme-reactive/commit/785f8a1))
+* **react-scheduler:** allow recurrence appointment rendering ([#1956](https://github.com/DevExpress/devextreme-reactive/issues/1956)) ([c75f584](https://github.com/DevExpress/devextreme-reactive/commit/c75f584))
+
+
+### Performance Improvements
+
+* **react-grid:** avoid unnecessary row rerendering ([#1959](https://github.com/DevExpress/devextreme-reactive/issues/1959)) ([5225f4a](https://github.com/DevExpress/devextreme-reactive/commit/5225f4a)), closes [#1925](https://github.com/DevExpress/devextreme-reactive/issues/1925)
+
+### BREAKING CHANGES
+
+* **react-scheduler:**
+  The `Appointment` component of the `Appointments` plugin has not received a `style` property. These styles have passed to the `Container` component of the `Appointments` plugin.
+
+  Before
+  ```html
+  ...
+  <Appointments
+    appointmentComponent={({ style, children, data, onClick?, onDoubleClick? }) => ... }
+    ...
+  />
+  ...
+  ```
+  After
+  ```html
+  ...
+  <Appointments
+    appointmentComponent={({ children, data, onClick?, onDoubleClick? }) => ... }
+    containerComponent={({ style, children }) => ... }
+    ...
+  />
+  ...
+  ```
+
+# [1.11.0-alpha.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.10.4...v1.11.0-alpha.1) (2019-03-13)
+
+
+### Features
+
+* **react-scheduler:** add editing by dragging ([#1870](https://github.com/DevExpress/devextreme-reactive/issues/1870)) ([238f696](https://github.com/DevExpress/devextreme-reactive/commit/238f696))
+
+
+
+# [1.10.4](https://github.com/DevExpress/devextreme-reactive/compare/v1.10.3...v1.10.4) (2019-03-11)
+
+
+### Bug Fixes
+
+* **react-core:** correct IDependency definition ([#1891](https://github.com/DevExpress/devextreme-reactive/issues/1891)) ([c9d0f44](https://github.com/DevExpress/devextreme-reactive/commit/c9d0f44))
+* **react-grid:** correct typescript definitions ([#1876](https://github.com/DevExpress/devextreme-reactive/issues/1876)) ([404a239](https://github.com/DevExpress/devextreme-reactive/commit/404a239))
+
+
+
+# [1.10.3](https://github.com/DevExpress/devextreme-reactive/compare/v1.10.2...v1.10.3) (2019-02-27)
+
+
+### Bug Fixes
+
+* **react-grid:** fix dependencies ([#1873](https://github.com/DevExpress/devextreme-reactive/issues/1873)) ([1f3d9ae](https://github.com/DevExpress/devextreme-reactive/commit/1f3d9ae))
+
+
+
+# [1.10.2](https://github.com/DevExpress/devextreme-reactive/compare/v1.10.1...v1.10.2) (2019-02-27)
+
+
+### Bug Fixes
+
+* **grid-core:** fix equal/notEqual filtering operations ([#1834](https://github.com/DevExpress/devextreme-reactive/issues/1834)) ([8ff84e6](https://github.com/DevExpress/devextreme-reactive/commit/8ff84e6))
+* **grid-core:** fix filter selector value calculation ([#1831](https://github.com/DevExpress/devextreme-reactive/issues/1831)) ([5ab35a5](https://github.com/DevExpress/devextreme-reactive/commit/5ab35a5))
+* **react-core:** notify Sizer content when container size is increasing ([#1828](https://github.com/DevExpress/devextreme-reactive/issues/1828)) ([b58e1bd](https://github.com/DevExpress/devextreme-reactive/commit/b58e1bd))
+* **react-chart:** fix line target element getter ([#1847](https://github.com/DevExpress/devextreme-reactive/issues/1847)) ([688a8e9](https://github.com/DevExpress/devextreme-reactive/commit/688a8e9))
+* **react-grid:** fix borders of fixed columns in Edge ([#1849](https://github.com/DevExpress/devextreme-reactive/issues/1849)) ([5d1763e](https://github.com/DevExpress/devextreme-reactive/commit/5d1763e))
+* **react-grid:** fix virtual table column width in Edge ([#1866](https://github.com/DevExpress/devextreme-reactive/issues/1866)) ([5d58a58](https://github.com/DevExpress/devextreme-reactive/commit/5d58a58))
+* **react-grid:** prevent converting group row value to a string if it is undefined ([#1824](https://github.com/DevExpress/devextreme-reactive/issues/1824)) ([c878d33](https://github.com/DevExpress/devextreme-reactive/commit/c878d33))
+* **react-grid-material-ui:** fix page size selector alignment in FF ([#1839](https://github.com/DevExpress/devextreme-reactive/issues/1839)) ([5a79b30](https://github.com/DevExpress/devextreme-reactive/commit/5a79b30))
+
+### Code Refactoring
+
+* **chart-core**: migrate chart core to TS ([#1816](https://github.com/DevExpress/devextreme-reactive/issues/1816)) ([23a17e8](https://github.com/DevExpress/devextreme-reactive/commit/23a17e8))
+* **scheduler-core**: migrate to TypeScript ([#1809](https://github.com/DevExpress/devextreme-reactive/issues/1809)) ([4c5c52](https://github.com/DevExpress/devextreme-reactive/commit/4c5c52))
+* **react-grid**: migrate to TS ([#1832](https://github.com/DevExpress/devextreme-reactive/issues/1832)) ([4bacf20](https://github.com/DevExpress/devextreme-reactive/commit/4bacf20))
+* **react-grid**: fix sorting state props type ([#1850](https://github.com/DevExpress/devextreme-reactive/issues/1850)) ([7b5b720](https://github.com/DevExpress/devextreme-reactive/commit/7b5b720))
+* **react-grid-demos**: replace modal dialog with confirmation in featured editing demo ([#1871](https://github.com/DevExpress/devextreme-reactive/issues/1871)) ([66faabf](https://github.com/DevExpress/devextreme-reactive/commit/66faabf))
+
+
 # [1.10.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.10.0...v1.10.1) (2019-02-06)
 
 

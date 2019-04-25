@@ -1,4 +1,4 @@
-import '../../dx-styles/dx-chart-bs4.css';
+import '../../dx-styles/dx-chart-bs4.scss';
 
 export { Chart } from './chart';
 export { Legend } from './plugins/legend';
@@ -15,3 +15,4 @@ export { ValueAxis } from './plugins/value-axis';
 export { ArgumentAxis } from './plugins/argument-axis';
 
 export { Tooltip } from './plugins/tooltip';
+export { ZoomAndPan } from './plugins/zoom-pan';

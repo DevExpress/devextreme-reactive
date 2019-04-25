@@ -49,5 +49,38 @@ describe('TableSummaryRow', () => {
       expect(tableRowsWithSummaries(tableRows, getRowLevelKey, isGroupRow, getRowId))
         .toEqual(result);
     });
+
+    it('should sort group summary rows correctly', () => {
+      const tableRows = [
+        { row: { levelKey: 'a', compoundKey: 'a1', group: true } },
+        { row: { levelKey: 'b', compoundKey: 'a1|b1', group: true } },
+        { row: { levelKey: 'b', compoundKey: 'a1|b2', group: true } },
+        { row: { a: 1 } },
+        { row: { levelKey: 'b', compoundKey: 'a1|b3', group: true } },
+        { row: { a: 2 } },
+        { row: { levelKey: 'a', compoundKey: 'a2', group: true } },
+      ];
+      const getRowLevelKey = row => row.levelKey;
+      const isGroupRow = row => row.group;
+      const getRowId = row => row.a;
+
+      /* tslint:disable: max-line-length */
+      const expectedResult = [
+        { row: { levelKey: 'a', compoundKey: 'a1', group: true } },
+        { row: { levelKey: 'b', compoundKey: 'a1|b1', group: true } },
+        { row: { levelKey: 'b', compoundKey: 'a1|b2', group: true } },
+        { row: { a: 1 } },
+        { key: `${TABLE_GROUP_SUMMARY_TYPE.toString()}_a1|b2`, type: TABLE_GROUP_SUMMARY_TYPE, row: { levelKey: 'b', compoundKey: 'a1|b2', group: true } },
+        { row: { levelKey: 'b', compoundKey: 'a1|b3', group: true } },
+        { row: { a: 2 } },
+        { key: `${TABLE_GROUP_SUMMARY_TYPE.toString()}_a1|b3`, type: TABLE_GROUP_SUMMARY_TYPE, row: { levelKey: 'b', compoundKey: 'a1|b3', group: true } },
+        { key: `${TABLE_GROUP_SUMMARY_TYPE.toString()}_a1`, type: TABLE_GROUP_SUMMARY_TYPE, row: { levelKey: 'a', compoundKey: 'a1', group: true } },
+        { row: { levelKey: 'a', compoundKey: 'a2', group: true } },
+      ];
+      /* tslint:enable: max-line-length */
+
+      expect(tableRowsWithSummaries(tableRows, getRowLevelKey, isGroupRow, getRowId))
+        .toEqual(expectedResult);
+    });
   });
 });

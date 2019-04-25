@@ -1,13 +1,18 @@
 import { PureComputed } from '@devexpress/dx-core';
-import {
-  Scale, Point,
-} from './chart-core.types';
+import { ScaleObject } from './chart-core.types';
+import { PointComponentProps } from './plugins.series.types';
+
+/** @internal */
 export type Scales = {
-  readonly xScale: Scale;
-  readonly yScale: Scale;
+  readonly xScale: ScaleObject;
+  readonly yScale: ScaleObject;
 };
-export type GetAnimationStyleFn = (scales: Scales, point?: Point) => {
+/** @internal */
+export type GetAnimationStyleFn = (scales: Scales, point?: PointComponentProps) => {
   readonly animation: string;
   readonly transformOrigin?: string;
 };
-export type BuildAnimatedStyleGetter = PureComputed<[any, GetAnimationStyleFn, Scales, Point]>;
+/** @internal */
+export type BuildAnimatedStyleGetterFn = PureComputed<
+  [any, GetAnimationStyleFn, Scales, PointComponentProps?]
+>;

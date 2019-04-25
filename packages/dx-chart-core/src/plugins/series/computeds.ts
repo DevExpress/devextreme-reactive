@@ -8,30 +8,36 @@ import {
   pie,
 } from 'd3-shape';
 import {
-  SeriesList, Series, PointList, Point, DataItems, AddSeries, ScalesCache, ScaleSeriesPoints,
-  GetPointTransformerFn, TransformedPoint, BarPoint, PiePoint, ScatterPoint, Palette, Rect,
+  SeriesList, Series, PointList, Point, DataItems, AddSeriesFn, ScalesCache, ScaleSeriesPointsFn,
+  GetPointTransformerFn, Colors, Rect,
+  BarSeries, ScatterSeries, PieSeries,
+  PointComponentProps, PathFn,
 } from '../../types';
 import { ARGUMENT_DOMAIN } from '../../constants';
 import { getWidth, getValueDomainName, fixOffset } from '../../utils/scale';
 
-const getX = ({ x }: TransformedPoint) => x;
-const getY = ({ y }: TransformedPoint) => y;
-const getY1 = ({ y1 }: TransformedPoint) => y1!;
+const getX = ({ x }: PointComponentProps) => x;
+const getY = ({ y }: PointComponentProps) => y;
+const getY1 = ({ y1 }: PointComponentProps) => y1!;
 
-export const dArea = area<TransformedPoint>()
+/** @internal */
+export const dArea: PathFn = area<PointComponentProps>()
   .x(getX)
   .y1(getY)
-  .y0(getY1);
+  .y0(getY1) as any;
 
-export const dLine = line<TransformedPoint>()
+/** @internal */
+export const dLine: PathFn = line<PointComponentProps>()
   .x(getX)
-  .y(getY);
+  .y(getY) as any;
 
-export const dSpline = line<TransformedPoint>()
+/** @internal */
+export const dSpline: PathFn = line<PointComponentProps>()
   .x(getX)
   .y(getY)
-  .curve(curveMonotoneX);
+  .curve(curveMonotoneX) as any;
 
+/** @internal */
 export const getPiePointTransformer: GetPointTransformerFn = ({
   argumentScale, valueScale, points,
 }) => {
@@ -52,6 +58,7 @@ export const getPiePointTransformer: GetPointTransformerFn = ({
   };
 };
 
+/** @internal */
 export const getLinePointTransformer: GetPointTransformerFn = ({
   argumentScale, valueScale,
 }) => {
@@ -63,8 +70,14 @@ export const getLinePointTransformer: GetPointTransformerFn = ({
   });
 };
 
-export const getScatterPointTransformer = getLinePointTransformer;
+// Though transformations for line and scatter are the same,
+// separate function instance is required as it contains additional static fields.
+/** @internal */
+export const getScatterPointTransformer: GetPointTransformerFn = (
+  ...args
+) => getLinePointTransformer(...args);
 
+/** @internal */
 export const getAreaPointTransformer: GetPointTransformerFn = (series) => {
   const transform = getLinePointTransformer(series);
   const y1 = series.valueScale(0);
@@ -76,6 +89,7 @@ export const getAreaPointTransformer: GetPointTransformerFn = (series) => {
 // Used for domain calculation and stacking.
 getAreaPointTransformer.isStartedFromZero = true;
 
+/** @internal */
 export const getBarPointTransformer: GetPointTransformerFn = ({
   argumentScale, valueScale,
 }) => {
@@ -96,25 +110,30 @@ getBarPointTransformer.isBroad = true;
 
 getPiePointTransformer.getPointColor = (palette, index) => palette[index % palette.length];
 
+/** @internal */
 export const findSeriesByName = (
-  name: string, series: SeriesList,
-) => series.find(seriesItem => seriesItem.symbolName === name);
+  name: symbol, series: SeriesList,
+): Series => series.find(seriesItem => seriesItem.symbolName === name) as Series;
 
+/** @internal */
 export const dBar = ({
-  x, y, y1, width,
-}: TransformedPoint & { width: number }) => ({
-  x: x - width / 2, y: Math.min(y, y1!), width: width || 2, height: Math.abs(y1! - y),
-});
+  x, y, y1, barWidth, maxBarWidth,
+}: BarSeries.PointProps) => {
+  const width = barWidth * maxBarWidth;
+  return {
+    x: x - width / 2, y: Math.min(y, y1!), width: width || 2, height: Math.abs(y1! - y),
+  };
+};
 
+/** @internal */
 export const dSymbol = (
-  { size }: { size: number },
+  { size }: ScatterSeries.PointOptions,
 ) => symbol().size(size ** 2).type(symbolCircle)()!;
 
+/** @internal */
 export const dPie = ({
   maxRadius, innerRadius, outerRadius, startAngle, endAngle,
-}: {
-  maxRadius: number, innerRadius: number, outerRadius: number, startAngle: number, endAngle: number,
-}) => arc()({
+}: PieSeries.PointProps) => arc()({
   startAngle,
   endAngle,
   innerRadius: innerRadius * maxRadius,
@@ -126,7 +145,7 @@ const getRect = (cx: number, cy: number, dx: number, dy: number): Rect => (
 );
 
 getBarPointTransformer.getTargetElement = (point) => {
-  const { x, y, y1, barWidth, maxBarWidth } = point as BarPoint;
+  const { x, y, y1, barWidth, maxBarWidth } = point as BarSeries.PointProps;
   const width = barWidth * maxBarWidth;
   const height = Math.abs(y1! - y);
   return getRect(x, y + height / 2, width / 2, height / 2);
@@ -135,7 +154,7 @@ getBarPointTransformer.getTargetElement = (point) => {
 getPiePointTransformer.getTargetElement = (point) => {
   const {
     x, y, innerRadius, outerRadius, maxRadius, startAngle, endAngle,
-  } = point as PiePoint;
+  } = point as PieSeries.PointProps;
   const center = arc().centroid({
     startAngle,
     endAngle,
@@ -152,7 +171,7 @@ getAreaPointTransformer.getTargetElement = ({ x, y }) => getRect(x, y, 1, 1);
 getLinePointTransformer.getTargetElement = getAreaPointTransformer.getTargetElement;
 
 getScatterPointTransformer.getTargetElement = (arg) => {
-  const { x, y, point } = arg as ScatterPoint;
+  const { x, y, point } = arg as ScatterSeries.PointProps;
   const t = point.size / 2;
   return getRect(x, y, t, t);
 };
@@ -173,7 +192,7 @@ const createPoints = (
   {
     argumentField, valueField, getPointTransformer,
   }: Series,
-  data: DataItems, props: any, palette: Palette,
+  data: DataItems, props: any, palette: Colors,
 ): PointList => {
   const points: Point[] = [];
   data.forEach((dataItem, index) => {
@@ -193,7 +212,8 @@ const createPoints = (
   return points;
 };
 
-export const addSeries: AddSeries = (
+/** @internal */
+export const addSeries: AddSeriesFn = (
   series, data, palette, props, restProps,
 ) => {
   // It is used to generate unique series dependent attribute names for patterns.
@@ -224,6 +244,7 @@ const scalePoints = (series: Series, scales: ScalesCache) => {
   return ret;
 };
 
-export const scaleSeriesPoints: ScaleSeriesPoints = (
+/** @internal */
+export const scaleSeriesPoints: ScaleSeriesPointsFn = (
   series, scales,
 ) => series.map(seriesItem => scalePoints(seriesItem, scales));

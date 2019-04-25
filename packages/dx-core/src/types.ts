@@ -33,6 +33,9 @@ export type PureComputed<TArgs extends any[], TReturn = TupleHead<TArgs>> =
 export type CustomFunction<TArgs extends any[], TReturn = TupleHead<TArgs>> =
   (...args: TArgs) => TReturn;
 
-export type Memoized<TArg, T extends (...args: any[]) => any> =
+export type MemoizedFunction<TArg extends any[], T extends (...args: any[]) => any> =
+  (...args: TArg) => T;
+
+export type MemoizedComputed<TArg, T extends (...args: any[]) => any> =
   (arg: TArg) =>
     (...args: [Getters, Actions]) => ReturnType<T>;

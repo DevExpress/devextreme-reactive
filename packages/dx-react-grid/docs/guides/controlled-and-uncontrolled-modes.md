@@ -1,10 +1,10 @@
-# React Grid - Controlled (stateless) and Uncontrolled (stateful) Modes
+# React Grid - Controlled (Stateless) and Uncontrolled (Stateful) Modes
 
-The Grid UI plugins typically render only a part of the whole Grid's state. The plugins automatically manage that part of the state or leave this job to the state management plugins (the plugins whose name ends with "...State"). In the uncontrolled (stateful) mode, UI or state management plugins manage the state internally. In the controlled (stateless) mode, the state is managed externally via the plugins' props.
+The Grid UI plugins typically render only a part of the whole Grid's state. The plugins automatically manage that part of the state or leave this job to the state management plugins (the plugins whose name ends with "...State"). In uncontrolled (stateful) mode, UI or state management plugins manage the state internally. In controlled (stateless) mode, the state is managed externally via the plugins' props.
 
 ## Controlled Mode
 
-In the controlled mode, the Grid's state is managed externally (for example, in the parent component, Redux store, etc.). Refer to the [React documentation](https://facebook.github.io/react/docs/forms.html#controlled-components) for more information about the controlled components concept.
+In controlled mode, the Grid's state is managed externally (for example, in the parent component, Redux store, etc.). Refer to the [React documentation](https://facebook.github.io/react/docs/forms.html#controlled-components) for more information about the controlled components concept.
 
 This mode allows you to access the Grid's state from other application parts. For example, you can persist the state and restore it when required, or change it via an external UI.
 
@@ -18,11 +18,11 @@ Note that all the state management plugins use a serializable state. This means 
 
 ## Uncontrolled Mode
 
-In the uncontrolled state mode, the Grid component manages its state internally. In this case, you should only add the required state management plugins and optionally define the initial configuration using properties with the `default` prefix (for example, the `SortingState` plugin's `defaultSorting` property).
+In uncontrolled state mode, the Grid component manages its state internally. In this case, you should only add the required state management plugins and optionally define the initial configuration using properties with the `default` prefix (for example, the `SortingState` plugin's `defaultSorting` property).
 
 .embedded-demo({ "path": "grid-sorting/header-sorting", "showThemeSelector": true })
 
-## Partially Controlled mode
+## Partially Controlled Mode
 
 You can control only certain parts of the Grid's configuration. In this case, apply the [controlled mode](#controlled-mode) only to plugins whose state you want to control externally and the [uncontrolled mode](#uncontrolled-mode) to other plugins.
 

@@ -1,11 +1,12 @@
 import { processPointerMove } from '../../utils/hover-state';
-import { getRootOffset } from '../../utils/root-offset';
+import { getOffset } from '../../utils/root-offset';
 import {
-  SeriesList, Target, TransformedPoint, TargetList, NotifyPointerMoveFn,
+  SeriesList, SeriesRef, TransformedPoint, TargetList, NotifyPointerMoveFn,
   TooltipParameters, TooltipReference, Rect,
 } from '../../types';
 
-export const getParameters = (series: SeriesList, target: Target): TooltipParameters => {
+/** @internal */
+export const getParameters = (series: SeriesList, target: SeriesRef): TooltipParameters => {
   const currentSeries = series.find(({ name }) => target.series === name)!;
   const item = currentSeries.points.find(point => point.index === target.point) as TransformedPoint;
   return {
@@ -14,6 +15,7 @@ export const getParameters = (series: SeriesList, target: Target): TooltipParame
   };
 };
 
+/** @internal */
 export const createReference = (
   rect: Rect, rootRef: React.RefObject<Element>,
 ): TooltipReference => ({
@@ -24,20 +26,25 @@ export const createReference = (
   getBoundingClientRect() {
     // This function is expected to be called (by the *Popper*) when DOM is ready -
     // so *rootRef.current* can be accessed.
-    const offset = getRootOffset(rootRef.current!);
+    const offset = getOffset(rootRef.current!);
+    // *getBoundingClientRect* of a real html element is affected by window scrolling.
+    // *popper.js* subscribes "html -> getBoundingClientRect -> (left, top)" from
+    // "reference -> getBoundingClientRect" - so here it is added.
+    const htmlRect = rootRef.current!.ownerDocument!.documentElement.getBoundingClientRect();
     return {
-      left: rect[0] + offset[0],
-      top: rect[1] + offset[1],
-      right: rect[2] + offset[0],
-      bottom: rect[3] + offset[1],
+      left: rect[0] + offset[0] + htmlRect.left,
+      top: rect[1] + offset[1] + htmlRect.top,
+      right: rect[2] + offset[0] + htmlRect.left,
+      bottom: rect[3] + offset[1] + htmlRect.top,
       width: 0,
       height: 0,
     };
   },
 });
 
+/** @internal */
 export const processHandleTooltip = (
-  targets: TargetList, currentTarget: Target, onTargetItemChange: NotifyPointerMoveFn,
+  targets: TargetList, currentTarget: SeriesRef, onTargetItemChange?: NotifyPointerMoveFn,
 ) => {
   const filterTargets = targets.filter(target => target.point !== undefined);
   return processPointerMove(filterTargets, currentTarget, onTargetItemChange);

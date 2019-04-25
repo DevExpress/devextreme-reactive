@@ -19,11 +19,15 @@ export type AppointmentGroup = {
 
 export interface AppointmentUnwrappedGroup extends GroupItem {
   reduceValue: number;
+  fromPrev: boolean;
+  toNext: boolean;
 }
 
 export interface ElementRect extends Rect {
   dataItem: AppointmentModel;
   type: string;
+  fromPrev: boolean;
+  toNext: boolean;
 }
 
 export type ComputedHelperFn = PureComputed<

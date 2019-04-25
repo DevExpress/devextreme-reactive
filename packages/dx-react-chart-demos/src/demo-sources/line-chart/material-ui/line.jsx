@@ -64,6 +64,15 @@ const ValueLabel = (props) => {
   );
 };
 
+const titleStyles = {
+  title: {
+    whiteSpace: 'pre',
+  },
+};
+const TitleText = withStyles(titleStyles)(({ classes, ...props }) => (
+  <Title.Text {...props} className={classes.title} />
+));
+
 class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -107,7 +116,7 @@ class Demo extends React.PureComponent {
           <Legend position="bottom" rootComponent={Root} itemComponent={Item} labelComponent={Label} />
           <Title
             text={`Confidence in Institutions in American society ${'\n'}(Great deal)`}
-            className={classes.title}
+            textComponent={TitleText}
           />
           <Animation />
         </Chart>

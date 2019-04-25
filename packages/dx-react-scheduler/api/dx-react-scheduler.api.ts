@@ -1,45 +1,73 @@
 // @public (undocumented)
-module AllDayPanel {
-  interface AppointmentLayerProps {
-    children?: React.ReactNode;
-  }
-
+namespace AllDayPanel {
   interface CellData {
     endDate: Date;
     startDate: Date;
   }
+}
 
-  interface CellProps {
-    endDate: Date;
-    startDate: Date;
-  }
-
+// @public (undocumented)
+namespace AllDayPanel {
   interface LayoutProps {
     allDayPanelRef: (ref: React.ReactInstance) => void;
     cellComponent: React.ComponentType<AllDayPanel.CellProps>;
     cellsData: Array<Array<AllDayPanel.CellData>>;
     rowComponent: React.ComponentType<AllDayPanel.RowProps>;
   }
+}
 
+// @public (undocumented)
+namespace AllDayPanel {
+  interface CellProps {
+    endDate: Date;
+    startDate: Date;
+  }
+}
+
+// @public (undocumented)
+namespace AllDayPanel {
+  interface RowProps {
+    children?: React.ReactNode;
+  }
+}
+
+// @public (undocumented)
+namespace AllDayPanel {
+  interface TitleCellProps {
+    getMessage: (messageKey: string) => string;
+  }
+}
+
+// @public (undocumented)
+namespace AllDayPanel {
+  interface AppointmentLayerProps {
+    children?: React.ReactNode;
+  }
+}
+
+// @public (undocumented)
+namespace AllDayPanel {
+  interface ContainerProps {
+    children: React.ReactNode;
+  }
+}
+
+// @public (undocumented)
+namespace AllDayPanel {
   // (undocumented)
   interface LocalizationMessages {
     allDay?: string;
   }
-
-  interface RowProps {
-    children?: React.ReactNode;
-  }
-
-  interface TitleCellProps {
-    getMessage: (messageKey: string) => string;
-  }
-
 }
+
+// @public
+declare const AllDayPanel: React.ComponentType<AllDayPanelProps>;
 
 // @public (undocumented)
 interface AllDayPanelProps {
   appointmentLayerComponent: React.ComponentType<AllDayPanel.AppointmentLayerProps>;
   cellComponent: React.ComponentType<AllDayPanel.CellProps>;
+  containerComponent: React.ComponentType<AllDayPanel.ContainerProps>;
   layoutComponent: React.ComponentType<AllDayPanel.LayoutProps>;
   messages?: AllDayPanel.LocalizationMessages;
   rowComponent: React.ComponentType<AllDayPanel.RowProps>;
@@ -47,11 +75,36 @@ interface AllDayPanelProps {
 }
 
 // @public (undocumented)
-module AppointmentForm {
+namespace AppointmentForm {
+  interface PopupProps {
+    children: React.ReactNode;
+    visible?: boolean;
+  }
+}
+
+// @public (undocumented)
+namespace AppointmentForm {
   interface ContainerProps {
     children: React.ReactNode;
   }
+}
 
+// @public (undocumented)
+namespace AppointmentForm {
+  interface ScrollableAreaProps {
+    children: React.ReactNode;
+  }
+}
+
+// @public (undocumented)
+namespace AppointmentForm {
+  interface StaticAreaProps {
+    children: React.ReactNode;
+  }
+}
+
+// @public (undocumented)
+namespace AppointmentForm {
   // (undocumented)
   interface LocalizationMessages {
     allDayLabel?: string;
@@ -61,21 +114,10 @@ module AppointmentForm {
     startDateLabel?: string;
     titleLabel?: string;
   }
-
-  interface PopupProps {
-    children: React.ReactNode;
-    visible?: boolean;
-  }
-
-  interface ScrollableAreaProps {
-    children: React.ReactNode;
-  }
-
-  interface StaticAreaProps {
-    children: React.ReactNode;
-  }
-
 }
+
+// @public
+declare const AppointmentForm: React.ComponentType<AppointmentFormProps>;
 
 // @public (undocumented)
 interface AppointmentFormProps {
@@ -102,52 +144,62 @@ interface AppointmentModel {
   [propertyName: string]: any;
   allDay?: boolean;
   endDate: Date | string | number;
+  exDate?: string;
   id?: number | string;
+  rRule?: string;
   startDate: Date | string | number;
-  // (undocumented)
   title?: string;
 }
 
 // @public (undocumented)
-module Appointments {
-  interface AppointmentContentProps {
-    children: React.ReactNode;
-    data: object;
-  }
-
+namespace Appointments {
   interface AppointmentProps {
     children: React.ReactNode;
     data: object;
+    draggable: boolean;
     onClick?: (e: object) => void;
     onDoubleClick?: (e: object) => void;
+  }
+}
+
+// @public (undocumented)
+namespace Appointments {
+  interface AppointmentContentProps {
+    children: React.ReactNode;
+    data: object;
+    recurringIconComponent: React.ComponentType<object>;
+  }
+}
+
+// @public (undocumented)
+namespace Appointments {
+  interface SplitIndicatorProps {
+    appointmentType: 'vertical' | 'horizontal';
+    position: 'start' | 'end';
+  }
+}
+
+// @public (undocumented)
+namespace Appointments {
+  interface ContainerProps {
     style: object;
   }
-
 }
+
+// @public
+declare const Appointments: React.ComponentType<AppointmentsProps>;
 
 // @public (undocumented)
 interface AppointmentsProps {
   appointmentComponent: React.ComponentType<Appointments.AppointmentProps>;
   appointmentContentComponent: React.ComponentType<Appointments.AppointmentContentProps>;
+  containerComponent: React.ComponentType<Appointments.ContainerProps>;
+  recurringIconComponent: React.ComponentType<object>;
+  splitIndicatorComponent: React.ComponentType<Appointments.SplitIndicatorProps>;
 }
 
 // @public (undocumented)
-module AppointmentTooltip {
-  interface CommandButtonProps {
-    id?: `open` | `delete` | `close`;
-    onExecute?: () => void;
-  }
-
-  interface ContentProps {
-    appointmentData?: AppointmentModel;
-    children?: React.ReactNode;
-  }
-
-  interface HeaderProps {
-    appointmentData?: AppointmentModel;
-    children?: React.ReactNode;
-  }
-
+namespace AppointmentTooltip {
   interface LayoutProps {
     appointmentMeta?: AppointmentMeta;
     commandButtonComponent: React.ComponentType<AppointmentTooltip.CommandButtonProps>;
@@ -162,8 +214,34 @@ module AppointmentTooltip {
     showOpenButton: boolean;
     visible?: boolean;
   }
-
 }
+
+// @public (undocumented)
+namespace AppointmentTooltip {
+  interface HeaderProps {
+    appointmentData?: AppointmentModel;
+    children?: React.ReactNode;
+  }
+}
+
+// @public (undocumented)
+namespace AppointmentTooltip {
+  interface ContentProps {
+    appointmentData?: AppointmentModel;
+    children?: React.ReactNode;
+  }
+}
+
+// @public (undocumented)
+namespace AppointmentTooltip {
+  interface CommandButtonProps {
+    id?: `open` | `delete` | `close`;
+    onExecute?: () => void;
+  }
+}
+
+// @public
+declare const AppointmentTooltip: React.ComponentType<AppointmentTooltipProps>;
 
 // @public (undocumented)
 interface AppointmentTooltipProps {
@@ -183,31 +261,13 @@ interface AppointmentTooltipProps {
 // @public
 interface ChangeSet {
   added?: AppointmentModel;
-  changed?: {
-    [key: string]: object
-  }
+  changed?: { // (undocumented)
+ [key: string]: object };
   deleted?: number | string;
 }
 
 // @public (undocumented)
-module DateNavigator {
-  interface NavigationButtonProps {
-    onClick?: (e: object) => void;
-    type: 'forward' | 'back';
-  }
-
-  interface OpenButtonProps {
-    onVisibilityToggle: () => void;
-    text?: string;
-  }
-
-  interface OverlayProps {
-    children: React.ReactNode;
-    onHide: () => void;
-    target?: React.ReactInstance;
-    visible?: boolean;
-  }
-
+namespace DateNavigator {
   interface RootProps {
     navigationButtonComponent: React.ComponentType<DateNavigator.NavigationButtonProps>;
     navigatorText?: string;
@@ -216,8 +276,36 @@ module DateNavigator {
     openButtonComponent: React.ComponentType<DateNavigator.OpenButtonProps>;
     rootRef: (ref: React.ReactInstance) => void;
   }
-
 }
+
+// @public (undocumented)
+namespace DateNavigator {
+  interface OverlayProps {
+    children: React.ReactNode;
+    onHide: () => void;
+    target?: React.ReactInstance;
+    visible?: boolean;
+  }
+}
+
+// @public (undocumented)
+namespace DateNavigator {
+  interface OpenButtonProps {
+    onVisibilityToggle: () => void;
+    text?: string;
+  }
+}
+
+// @public (undocumented)
+namespace DateNavigator {
+  interface NavigationButtonProps {
+    onClick?: (e: object) => void;
+    type: 'forward' | 'back';
+  }
+}
+
+// @public
+declare const DateNavigator: React.ComponentType<DateNavigatorProps>;
 
 // @public (undocumented)
 interface DateNavigatorProps {
@@ -228,69 +316,101 @@ interface DateNavigatorProps {
 }
 
 // @public (undocumented)
-module DayView {
-  interface AppointmentLayerProps {
-    children?: React.ReactNode;
-  }
-
+namespace DayView {
   interface CellData {
     endDate: Date;
     startDate: Date;
     today: boolean;
   }
+}
 
-  interface DayScaleCellProps {
-    endDate?: Date;
-    startDate: Date;
-    today?: boolean;
-  }
-
-  interface DayScaleEmptyCellProps {
-    children?: React.ReactNode;
-  }
-
-  interface DayScaleLayoutProps {
-    cellComponent: React.ComponentType<DayView.DayScaleCellProps>;
-    cellsData: Array<Array<DayView.CellData>>;
-    rowComponent: React.ComponentType<DayView.RowProps>;
-  }
-
+// @public (undocumented)
+namespace DayView {
   interface LayoutProps {
     dayScaleComponent: React.ComponentType<DayView.DayScaleLayoutProps>;
     dayScaleEmptyCellComponent: React.ComponentType<DayView.DayScaleEmptyCellProps>;
     timeScaleComponent: React.ComponentType<DayView.TimeScaleLayoutProps>;
     timeTableComponent: React.ComponentType<DayView.TimeTableLayoutProps>;
   }
+}
 
-  interface RowProps {
-    children?: React.ReactNode;
-  }
-
-  interface TimeScaleCellProps {
-    endDate: Date;
-    startDate?: Date;
-  }
-
+// @public (undocumented)
+namespace DayView {
   interface TimeScaleLayoutProps {
     cellComponent: React.ComponentType<DayView.TimeScaleCellProps>;
     cellsData: Array<Array<DayView.CellData>>;
     rowComponent: React.ComponentType<DayView.RowProps>;
   }
+}
 
-  interface TimeTableCellProps {
-    children?: React.ReactNode;
-    endDate?: Date;
+// @public (undocumented)
+namespace DayView {
+  interface TimeScaleCellProps {
+    endDate: Date;
     startDate?: Date;
   }
+}
 
+// @public (undocumented)
+namespace DayView {
+  interface DayScaleLayoutProps {
+    cellComponent: React.ComponentType<DayView.DayScaleCellProps>;
+    cellsData: Array<Array<DayView.CellData>>;
+    rowComponent: React.ComponentType<DayView.RowProps>;
+  }
+}
+
+// @public (undocumented)
+namespace DayView {
+  interface DayScaleCellProps {
+    endDate?: Date;
+    startDate: Date;
+    today?: boolean;
+  }
+}
+
+// @public (undocumented)
+namespace DayView {
+  interface DayScaleEmptyCellProps {
+    children?: React.ReactNode;
+  }
+}
+
+// @public (undocumented)
+namespace DayView {
   interface TimeTableLayoutProps {
     cellComponent: React.ComponentType<DayView.TimeTableCellProps>;
     cellsData: Array<Array<DayView.CellData>>;
     rowComponent: React.ComponentType<DayView.RowProps>;
     tableRef: (ref: React.ReactInstance) => void;
   }
-
 }
+
+// @public (undocumented)
+namespace DayView {
+  interface TimeTableCellProps {
+    children?: React.ReactNode;
+    endDate?: Date;
+    startDate?: Date;
+  }
+}
+
+// @public (undocumented)
+namespace DayView {
+  interface AppointmentLayerProps {
+    children?: React.ReactNode;
+  }
+}
+
+// @public (undocumented)
+namespace DayView {
+  interface RowProps {
+    children?: React.ReactNode;
+  }
+}
+
+// @public
+declare const DayView: React.ComponentType<DayViewProps>;
 
 // @public (undocumented)
 interface DayViewProps {
@@ -314,71 +434,143 @@ interface DayViewProps {
 }
 
 // @public (undocumented)
+namespace DragDropProvider {
+  interface DraftAppointmentProps {
+    data: AppointmentModel;
+    fromPrev: boolean;
+    style: object;
+    toNext: boolean;
+    type: string;
+  }
+}
+
+// @public (undocumented)
+namespace DragDropProvider {
+  interface SourceAppointmentProps {
+    data: AppointmentModel;
+    type: string;
+  }
+}
+
+// @public (undocumented)
+namespace DragDropProvider {
+  interface ResizeProps {
+    appointmentType: 'vertical' | 'horizontal';
+    position: 'start' | 'end';
+  }
+}
+
+// @public (undocumented)
+namespace DragDropProvider {
+  interface ContainerProps {
+    children: React.ReactNode;
+  }
+}
+
+// @public
+declare const DragDropProvider: React.ComponentType<DragDropProviderProps>;
+
+// @public (undocumented)
+interface DragDropProviderProps {
+  allowDrag?: (appointmentData: AppointmentModel) => boolean;
+  allowResize?: (appointmentData: AppointmentModel) => boolean;
+  containerComponent: React.ComponentType<DragDropProvider.ContainerProps>;
+  draftAppointmentComponent: React.ComponentType<DragDropProvider.DraftAppointmentProps>;
+  resizeComponent: React.ComponentType<DragDropProvider.ResizeProps>;
+  sourceAppointmentComponent: React.ComponentType<DragDropProvider.SourceAppointmentProps>;
+}
+
+// @public
+declare const EditingState: React.ComponentType<EditingStateProps>;
+
+// @public (undocumented)
 interface EditingStateProps {
   addedAppointment?: object;
-  appointmentChanges?: {
-    [key: string]: object
-  }
+  appointmentChanges?: { // (undocumented)
+ [key: string]: object };
   defaultAddedAppointment?: object;
-  defaultAppointmentChanges?: {
-    [key: string]: object
-  }
+  defaultAppointmentChanges?: { // (undocumented)
+ [key: string]: object };
   defaultEditingAppointmentId?: number | string;
   editingAppointmentId?: number | string;
   onAddedAppointmentChange?: (addedAppointment: object) => void;
-  onAppointmentChangesChange?: (appointmentChanges: { [key: string]: any }) => void;
+  onAppointmentChangesChange?: (appointmentChanges: { // (undocumented)
+ [key: string]: any }) => void;
   onCommitChanges: (changes: ChangeSet) => void;
   onEditingAppointmentIdChange?: (editingAppointmentId: number | string) => void;
 }
 
 // @public (undocumented)
-module MonthView {
-  interface AppointmentLayerProps {
-    children?: React.ReactNode;
-  }
-
+namespace MonthView {
   interface CellData {
     endDate: Date;
     otherMonth: boolean;
     startDate: Date;
     today: boolean;
   }
+}
 
-  interface DayScaleCellProps {
-    endDate?: Date;
-    startDate: Date;
+// @public (undocumented)
+namespace MonthView {
+  interface LayoutProps {
+    dayScaleComponent: React.ComponentType<MonthView.DayScaleLayoutProps>;
+    timeTableComponent: React.ComponentType<MonthView.TimeTableLayoutProps>;
   }
+}
 
+// @public (undocumented)
+namespace MonthView {
   interface DayScaleLayoutProps {
     cellComponent: React.ComponentType<MonthView.DayScaleCellProps>;
     cellsData: Array<Array<MonthView.CellData>>;
     rowComponent: React.ComponentType<MonthView.RowProps>;
   }
+}
 
-  interface LayoutProps {
-    dayScaleComponent: React.ComponentType<MonthView.DayScaleLayoutProps>;
-    timeTableComponent: React.ComponentType<MonthView.TimeTableLayoutProps>;
-  }
-
-  interface RowProps {
-    children?: React.ReactNode;
-  }
-
-  interface TimeTableCellProps {
+// @public (undocumented)
+namespace MonthView {
+  interface DayScaleCellProps {
     endDate?: Date;
-    otherMonth?: boolean;
     startDate: Date;
-    today?: boolean;
   }
+}
 
+// @public (undocumented)
+namespace MonthView {
   interface TimeTableLayoutProps {
     cellComponent: React.ComponentType<MonthView.TimeTableCellProps>;
     cellsData: Array<Array<MonthView.CellData>>;
     rowComponent: React.ComponentType<MonthView.RowProps>;
     tableRef: (ref: React.ReactInstance) => void;
   }
-
 }
+
+// @public (undocumented)
+namespace MonthView {
+  interface TimeTableCellProps {
+    endDate?: Date;
+    otherMonth?: boolean;
+    startDate: Date;
+    today?: boolean;
+  }
+}
+
+// @public (undocumented)
+namespace MonthView {
+  interface AppointmentLayerProps {
+    children?: React.ReactNode;
+  }
+}
+
+// @public (undocumented)
+namespace MonthView {
+  interface RowProps {
+    children?: React.ReactNode;
+  }
+}
+
+// @public
+declare const MonthView: React.ComponentType<MonthViewProps>;
 
 // @public (undocumented)
 interface MonthViewProps {
@@ -396,12 +588,14 @@ interface MonthViewProps {
 }
 
 // @public (undocumented)
-module Scheduler {
+namespace Scheduler {
   interface RootProps {
     children?: React.ReactNode;
   }
-
 }
+
+// @public
+declare const Scheduler: React.ComponentType<SchedulerProps>;
 
 // @public (undocumented)
 interface SchedulerProps {
@@ -410,22 +604,30 @@ interface SchedulerProps {
 }
 
 // @public (undocumented)
-module Toolbar {
-  interface FlexibleSpaceProps {
-    children?: React.ReactNode;
-  }
-
+namespace Toolbar {
   interface RootProps {
     children?: React.ReactNode;
   }
-
 }
+
+// @public (undocumented)
+namespace Toolbar {
+  interface FlexibleSpaceProps {
+    children?: React.ReactNode;
+  }
+}
+
+// @public
+declare const Toolbar: React.ComponentType<ToolbarProps>;
 
 // @public (undocumented)
 interface ToolbarProps {
   flexibleSpaceComponent: React.ComponentType<Toolbar.FlexibleSpaceProps>;
   rootComponent: React.ComponentType<Toolbar.RootProps>;
 }
+
+// @public
+declare const ViewState: React.ComponentType<ViewStateProps>;
 
 // @public (undocumented)
 interface ViewStateProps {
@@ -438,14 +640,16 @@ interface ViewStateProps {
 }
 
 // @public (undocumented)
-module ViewSwitcher {
+namespace ViewSwitcher {
   interface SwitcherProps {
     availableViewNames: Array<string>;
     currentViewName: string;
     onChange: (nextViewName: string) => void;
   }
-
 }
+
+// @public
+declare const ViewSwitcher: React.ComponentType<ViewSwitcherProps>;
 
 // @public (undocumented)
 interface ViewSwitcherProps {
@@ -453,69 +657,101 @@ interface ViewSwitcherProps {
 }
 
 // @public (undocumented)
-module WeekView {
-  interface AppointmentLayerProps {
-    children?: React.ReactNode;
-  }
-
+namespace WeekView {
   interface CellData {
     endDate: Date;
     startDate: Date;
     today: boolean;
   }
+}
 
-  interface DayScaleCellProps {
-    endDate?: Date;
-    startDate: Date;
-    today?: boolean;
-  }
-
-  interface DayScaleEmptyCellProps {
-    children?: React.ReactNode;
-  }
-
-  interface DayScaleLayoutProps {
-    cellComponent: React.ComponentType<WeekView.DayScaleCellProps>;
-    cellsData: Array<Array<WeekView.CellData>>;
-    rowComponent: React.ComponentType<WeekView.RowProps>;
-  }
-
+// @public (undocumented)
+namespace WeekView {
   interface LayoutProps {
     dayScaleComponent: React.ComponentType<WeekView.DayScaleLayoutProps>;
     dayScaleEmptyCellComponent: React.ComponentType<WeekView.DayScaleEmptyCellProps>;
     timeScaleComponent: React.ComponentType<WeekView.TimeScaleLayoutProps>;
     timeTableComponent: React.ComponentType<WeekView.TimeTableLayoutProps>;
   }
+}
 
-  interface RowProps {
-    children?: React.ReactNode;
-  }
-
-  interface TimeScaleCellProps {
-    endDate: Date;
-    startDate?: Date;
-  }
-
+// @public (undocumented)
+namespace WeekView {
   interface TimeScaleLayoutProps {
     cellComponent: React.ComponentType<WeekView.TimeScaleCellProps>;
     cellsData: Array<Array<WeekView.CellData>>;
     rowComponent: React.ComponentType<WeekView.RowProps>;
   }
+}
 
-  interface TimeTableCellProps {
-    children?: React.ReactNode;
-    endDate?: Date;
+// @public (undocumented)
+namespace WeekView {
+  interface TimeScaleCellProps {
+    endDate: Date;
     startDate?: Date;
   }
+}
 
+// @public (undocumented)
+namespace WeekView {
+  interface DayScaleLayoutProps {
+    cellComponent: React.ComponentType<WeekView.DayScaleCellProps>;
+    cellsData: Array<Array<WeekView.CellData>>;
+    rowComponent: React.ComponentType<WeekView.RowProps>;
+  }
+}
+
+// @public (undocumented)
+namespace WeekView {
+  interface DayScaleCellProps {
+    endDate?: Date;
+    startDate: Date;
+    today?: boolean;
+  }
+}
+
+// @public (undocumented)
+namespace WeekView {
+  interface DayScaleEmptyCellProps {
+    children?: React.ReactNode;
+  }
+}
+
+// @public (undocumented)
+namespace WeekView {
   interface TimeTableLayoutProps {
     cellComponent: React.ComponentType<WeekView.TimeTableCellProps>;
     cellsData: Array<Array<WeekView.CellData>>;
     rowComponent: React.ComponentType<WeekView.RowProps>;
     tableRef: (ref: React.ReactInstance) => void;
   }
-
 }
+
+// @public (undocumented)
+namespace WeekView {
+  interface TimeTableCellProps {
+    children?: React.ReactNode;
+    endDate?: Date;
+    startDate?: Date;
+  }
+}
+
+// @public (undocumented)
+namespace WeekView {
+  interface AppointmentLayerProps {
+    children?: React.ReactNode;
+  }
+}
+
+// @public (undocumented)
+namespace WeekView {
+  interface RowProps {
+    children?: React.ReactNode;
+  }
+}
+
+// @public
+declare const WeekView: React.ComponentType<WeekViewProps>;
 
 // @public (undocumented)
 interface WeekViewProps {
@@ -540,6 +776,5 @@ interface WeekViewProps {
   timeTableRowComponent: React.ComponentType<WeekView.RowProps>;
 }
 
-// WARNING: Unsupported export: EditingState
-// WARNING: Unsupported export: ViewState
-// (No @packagedocumentation comment for this package)
+
+// (No @packageDocumentation comment for this package)

@@ -1,0 +1,33 @@
+.dx-c-bs4-container {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.dx-c-bs4-fill-current-color {
+  fill: currentColor;
+}
+
+.dx-c-bs4-stroke-current-color {
+  stroke: currentColor;
+}
+
+.dx-c-bs4-fill-background-color {
+  fill: #ffffff;
+}
+
+.dx-c-bs4-crisp-edges {
+  shape-rendering: crispEdges;
+}
+
+.dx-c-bs4-label {
+  font-size: 12px;
+}
+
+.dx-c-bs4-axis-opacity {
+  opacity: 0.15;
+}
+
+.dx-c-bs4-rect-opacity {
+  opacity: 0.2;
+}

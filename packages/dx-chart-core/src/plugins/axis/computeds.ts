@@ -3,20 +3,25 @@ import {
   LEFT, BOTTOM, MIDDLE, END, START,
 } from '../../constants';
 import {
-  Scale, GetFormatFn, ProcessTickFn, TickFormatFn, AxisCoordinates,
-  GetGridCoordinates,
+  ScaleObject, GetFormatFn, ProcessTickFn, TickFormatFn, AxisCoordinatesFn,
+  GetGridCoordinatesFn, Tick, NumberArray,
 } from '../../types';
 
-const getTicks = (scale: Scale): any[] => (scale.ticks ? scale.ticks() : scale.domain());
+const getTicks = (scale: ScaleObject, count: number) => (
+  scale.ticks ? scale.ticks(count) : scale.domain()
+);
 
-const createTicks = <T>(scale: Scale, callback: ProcessTickFn<T>): ReadonlyArray<T> => {
+const createTicks = <T>(
+  scale: ScaleObject, count: number, callback: ProcessTickFn<T>,
+): ReadonlyArray<T> => {
   const fixedScale = fixOffset(scale);
-  return getTicks(scale).map((tick, index) => callback(fixedScale(tick), String(index), tick));
+  return getTicks(scale, count)
+    .map((tick, index) => callback(fixedScale(tick), String(index), tick));
 };
 
-const getFormat = (scale: Scale, tickFormat: TickFormatFn): GetFormatFn => {
+const getFormat = (scale: ScaleObject, count: number, tickFormat?: TickFormatFn): GetFormatFn => {
   if (scale.tickFormat) {
-    return tickFormat ? tickFormat(scale) : scale.tickFormat();
+    return tickFormat ? tickFormat(scale, count) : scale.tickFormat(count);
   }
   return tick => tick;
 };
@@ -45,20 +50,31 @@ const createVerticalOptions = (position: string, tickSize: number, indentFromAxi
   };
 };
 
-export const axisCoordinates: AxisCoordinates = ({
+// Constant is selected to preserve original behavior described in
+// https://github.com/d3/d3-scale#continuous_ticks.
+const DEFAULT_TICK_COUNT = 10;
+const getTickCount = (scaleRange: NumberArray, paneSize: number) => {
+  const rangeToPaneRatio = Math.abs(scaleRange[0] - scaleRange[1]) / paneSize || 1;
+  return Math.round(DEFAULT_TICK_COUNT * rangeToPaneRatio);
+};
+
+/** @internal */
+export const axisCoordinates: AxisCoordinatesFn = ({
   scaleName,
   scale,
   position,
   tickSize,
   tickFormat,
   indentFromAxis,
+  paneSize,
 })  => {
   const isHor = isHorizontal(scaleName);
   const options = (isHor ? createHorizontalOptions : createVerticalOptions)(
     position, tickSize, indentFromAxis,
   );
-  const formatTick = getFormat(scale, tickFormat);
-  const ticks = createTicks(scale, (coordinates, key, tick) => ({
+  const tickCount = getTickCount(scale.range(), paneSize[1 - Number(isHor)]);
+  const formatTick = getFormat(scale, tickCount, tickFormat);
+  const ticks = createTicks(scale, tickCount, (coordinates, key, tick) => ({
     key,
     x1: coordinates,
     x2: coordinates,
@@ -75,15 +91,25 @@ export const axisCoordinates: AxisCoordinates = ({
   };
 };
 
+// It is a part of a temporary walkaround. See note in Axis plugin.
+/** @internal */
+export const createTickFilter = ([width, height]: NumberArray) => (
+  width > 0
+    ? (tick: Tick) => tick.x1 >= 0 && tick.x1 <= width
+    : (tick: Tick) => tick.y1 >= 0 && tick.y1 <= height
+);
+
 const horizontalGridOptions = { y: 0, dy: 1 };
 const verticalGridOptions = { x: 0, dx: 1 };
 
-export const getGridCoordinates: GetGridCoordinates = ({
-  scaleName, scale,
+/** @internal */
+export const getGridCoordinates: GetGridCoordinatesFn = ({
+  scaleName, scale, paneSize,
 }) => {
   const isHor = isHorizontal(scaleName);
+  const tickCount = getTickCount(scale.range(), paneSize[1 - Number(isHor)]);
   const options = isHor ? horizontalGridOptions : verticalGridOptions;
-  return createTicks(scale, (coordinates, key) => ({
+  return createTicks(scale, tickCount, (coordinates, key) => ({
     key,
     x: coordinates,
     y: coordinates,

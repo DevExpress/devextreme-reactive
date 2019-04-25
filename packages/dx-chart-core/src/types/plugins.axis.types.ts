@@ -1,19 +1,21 @@
 import { PureComputed } from '@devexpress/dx-core';
 import {
-  Scale, GetFormatFn,
+  ScaleObject, GetFormatFn, NumberArray,
 } from './chart-core.types';
-
+/** @internal */
 export type ProcessTickFn<T> = (coord: number, key: string, tick: any) => T;
-export type TickFormatFn = (scale: Scale) => GetFormatFn;
-
+export type TickFormatFn = (scale: ScaleObject, count?: number) => GetFormatFn;
+/** @internal */
 export type AxisCoordinatesArg = {
   scaleName: string;
-  scale: Scale;
+  scale: ScaleObject;
   position: string;
   tickSize: number;
-  tickFormat: TickFormatFn;
+  tickFormat?: TickFormatFn;
   indentFromAxis: number;
+  paneSize: NumberArray;
 };
+/** @internal */
 export type Tick = {
   readonly key: string;
   readonly x1: number;
@@ -26,17 +28,20 @@ export type Tick = {
   readonly textAnchor: string;
   readonly text: string;
 };
+/** @internal */
 export type AxisCoordinatesResult = {
   ticks: Tick[];
-  sides: [number, number];
+  sides: NumberArray;
 };
-
-export type AxisCoordinates = PureComputed<[AxisCoordinatesArg], AxisCoordinatesResult>;
-
+/** @internal */
+export type AxisCoordinatesFn = PureComputed<[AxisCoordinatesArg], AxisCoordinatesResult>;
+/** @internal */
 export type GridCoordinatesArg = {
   scaleName: string;
-  scale: Scale;
+  scale: ScaleObject;
+  paneSize: NumberArray;
 };
+/** @internal */
 export type Grid = {
   readonly key: string;
   readonly x: number;
@@ -44,5 +49,5 @@ export type Grid = {
   readonly dx: number;
   readonly dy: number;
 };
-
-export type GetGridCoordinates = PureComputed<[GridCoordinatesArg], Grid[]>;
+/** @internal */
+export type GetGridCoordinatesFn = PureComputed<[GridCoordinatesArg], Grid[]>;

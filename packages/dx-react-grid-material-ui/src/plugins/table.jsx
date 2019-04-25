@@ -28,6 +28,8 @@ export const Table = withComponents({
   StubHeaderCell: StubCell,
 })(TableBase);
 
+Table.components = TableBase.components;
+
 Table.COLUMN_TYPE = TableBase.COLUMN_TYPE;
 Table.ROW_TYPE = TableBase.ROW_TYPE;
 Table.NODATA_ROW_TYPE = TableBase.NODATA_ROW_TYPE;

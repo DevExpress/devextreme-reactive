@@ -37,7 +37,7 @@ export interface VerticalViewProps {
 
 /** @internal */
 export type ViewState = {
-  timeTableRef: HTMLElement;
+  timeTableRef: HTMLElement | null;
 };
 
 // tslint:disable-next-line: no-namespace
@@ -52,6 +52,8 @@ export namespace VerticalView {
     timeTableComponent: React.ComponentType<VerticalView.TimeTableLayoutProps>;
     /** A component that renders a day scale empty cell. */
     dayScaleEmptyCellComponent: React.ComponentType<VerticalView.DayScaleEmptyCellProps>;
+    layoutRef: React.RefObject<HTMLElement>;
+    layoutHeaderRef: React.RefObject<HTMLElement>;
   }
   /** Describes properties passed to a component that renders a time scale layout. */
   export interface TimeScaleLayoutProps {

@@ -1,4 +1,5 @@
 import { changeColumnFilter } from './reducers';
+import * as Immutable from 'seamless-immutable';
 
 describe('FilteringState reducers', () => {
   describe('#changeColumnFilter', () => {
@@ -16,6 +17,13 @@ describe('FilteringState reducers', () => {
 
       const nextFilters = changeColumnFilter(filters, payload);
       expect(nextFilters).toEqual([{ columnName: 'column', value: 'new value' }]);
+    });
+
+    it('should work with immutable column filter', () => {
+      const filters = Immutable([{ columnName: 'column', value: 'value' }]);
+      const payload = { columnName: 'column', config: { value: 'new value' } };
+
+      expect(() => changeColumnFilter(filters, payload)).not.toThrow();
     });
 
     it('can add column filter', () => {

@@ -17,6 +17,7 @@ export * from './plugins/editing-state/reducers';
 export * from './plugins/editing-state/computeds';
 export * from './plugins/horizontal-rect/helpers';
 export * from './plugins/vertical-rect/helpers';
+export * from './plugins/drag-drop-provider/helpers';
 export * from './constants';
 export * from './utils';
 

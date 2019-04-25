@@ -5,7 +5,7 @@ export type AppointmentDate = Date | number | string;
 export type AppointmentId = number | string;
 export type CellElement = React.ReactInstance;
 
-/** Describes an appointment data object that the `mapAppointmentData` function should return. */
+/** Describes an appointment data object. */
 export interface AppointmentModel {
   /** The start date. */
   startDate: Date | string | number;
@@ -28,6 +28,10 @@ export interface Appointment {
   end: Date | string | number;
   /** The all day flag. */
   allDay?: boolean;
+  /** The recurrence rule. */
+  rRule?: string;
+  /** The exception date-times. */
+  exDate?: string;
   /** The all appointment data */
   dataItem: AppointmentModel;
 }

@@ -5,6 +5,9 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = ({ palette, typography, spacing }) => ({
   appointment: {
+    position: 'absolute',
+    height: '100%',
+    width: '100%',
     overflow: 'hidden',
     boxSizing: 'border-box',
     borderRight: '1px solid transparent',
@@ -28,10 +31,10 @@ const styles = ({ palette, typography, spacing }) => ({
 
 const AppointmentBase = ({
   classes, className,
-  style,
   children,
   data,
   onClick: handleClick,
+  draggable,
   ...restProps
 }) => {
   const onClick = handleClick
@@ -41,14 +44,13 @@ const AppointmentBase = ({
       },
     }
     : null;
-  const clickable = onClick || restProps.onDoubleClick;
+  const clickable = onClick || restProps.onDoubleClick || draggable;
   return (
     <div
       className={classNames({
         [classes.appointment]: true,
         [classes.clickableAppointment]: clickable,
       }, className)}
-      style={style}
       {...onClick}
       {...restProps}
     >
@@ -60,16 +62,17 @@ const AppointmentBase = ({
 AppointmentBase.propTypes = {
   classes: PropTypes.object.isRequired,
   children: PropTypes.node.isRequired,
-  style: PropTypes.object.isRequired,
   className: PropTypes.string,
   data: PropTypes.object,
   onClick: PropTypes.func,
+  draggable: PropTypes.bool,
 };
 
 AppointmentBase.defaultProps = {
   onClick: undefined,
   className: undefined,
   data: {},
+  draggable: false,
 };
 
 export const Appointment = withStyles(styles, { name: 'Appointment' })(AppointmentBase);

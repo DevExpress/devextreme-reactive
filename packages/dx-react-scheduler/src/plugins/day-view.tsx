@@ -23,25 +23,21 @@ import {
 import { VerticalViewProps, ViewState } from '../types';
 
 const TYPE = 'day';
-
-const SidebarPlaceholder = () => <TemplatePlaceholder name="sidebar" />;
-const DayScalePlaceholder = () => <TemplatePlaceholder name="navbar" />;
-const DayScaleEmptyCellPlaceholder = () => <TemplatePlaceholder name="dayScaleEmptyCell" />;
-const TimeTablePlaceholder = () => <TemplatePlaceholder name="main" />;
-const AppointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
-const CellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
+const startViewDateBaseComputed = ({
+  viewCellsData,
+}) => startViewDateCore(viewCellsData);
+const endViewDateBaseComputed = ({
+  viewCellsData,
+}) => endViewDateCore(viewCellsData);
 
 export class DayView extends React.PureComponent<VerticalViewProps, ViewState> {
-  startViewDateBaseComputed;
-  endViewDateBaseComputed;
-  viewCellsDataComputed;
-  startViewDateComputed;
-  endViewDateComputed;
-  availableViewNamesComputed;
-  currentViewComputed;
-  intervalCountComputed;
-  cellDurationComputed;
-  viewCellsData;
+  static defaultProps = {
+    name: 'Day',
+    startDayHour: 0,
+    endDayHour: 24,
+    cellDuration: 30,
+    intervalCount: 1,
+  };
 
   static components = {
     layoutComponent: 'Layout',
@@ -57,16 +53,34 @@ export class DayView extends React.PureComponent<VerticalViewProps, ViewState> {
     timeTableCellComponent: 'TimeTableCell',
     timeTableRowComponent: 'TimeTableRow',
   };
-  static defaultProps = {
-    name: 'Day',
-    startDayHour: 0,
-    endDayHour: 24,
-    cellDuration: 30,
-    intervalCount: 1,
-  };
+
+  startViewDateComputed;
+  endViewDateComputed;
+  availableViewNamesComputed;
+  currentViewComputed;
+  intervalCountComputed;
+  cellDurationComputed;
+  viewCellsData;
+  timeTable;
+  layout;
+  layoutHeader;
+  timeTableRef;
+  sidebarPlaceholder;
+  dayScalePlaceholder;
+  dayScaleEmptyCellPlaceholder;
+  timeTablePlaceholder;
+  appointmentPlaceholder;
+  cellPlaceholder;
+  timeTableElement;
+  layoutElement;
+  layoutHeaderElement;
 
   constructor(props) {
     super(props);
+
+    this.state = {
+      timeTableRef: null,
+    };
 
     const {
       name: viewName,
@@ -74,22 +88,37 @@ export class DayView extends React.PureComponent<VerticalViewProps, ViewState> {
       endDayHour,
       cellDuration,
       intervalCount,
-    } = this.props;
+    } = props;
 
-    this.startViewDateBaseComputed = ({ viewCellsData }) => startViewDateCore(viewCellsData);
-    this.endViewDateBaseComputed = ({ viewCellsData }) => endViewDateCore(viewCellsData);
-    this.viewCellsDataComputed = ({ currentDate }) => viewCellsDataCore(
+    const viewCellsDataComputed = ({
+      currentDate,
+    }) => viewCellsDataCore(
       currentDate, undefined,
       intervalCount, [],
       startDayHour!, endDayHour!, cellDuration!,
       Date.now(),
     );
+    const timeTableElementComputed = () => this.timeTable;
+    const layoutElementComputed = () => this.layout;
+    const layoutHeaderElementComputed = () => this.layoutHeader;
+
+    this.timeTable = { current: null };
+    this.layout = React.createRef();
+    this.layoutHeader = React.createRef();
+    this.timeTableRef = this.setTimeTableRef.bind(this);
+    this.sidebarPlaceholder = () => <TemplatePlaceholder name="sidebar" />;
+    this.dayScalePlaceholder = () => <TemplatePlaceholder name="navbar" />;
+    this.dayScaleEmptyCellPlaceholder = () => <TemplatePlaceholder name="dayScaleEmptyCell" />;
+    this.timeTablePlaceholder = () => <TemplatePlaceholder name="main" />;
+    this.appointmentPlaceholder = params =>
+      <TemplatePlaceholder name="appointment" params={params} />;
+    this.cellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
 
     this.startViewDateComputed = (getters: Getters) => computed(
-      getters, viewName!, this.startViewDateBaseComputed, getters.startViewDate,
+      getters, viewName!, startViewDateBaseComputed, getters.startViewDate,
     );
     this.endViewDateComputed = (getters: Getters) => computed(
-      getters, viewName!, this.endViewDateBaseComputed, getters.endViewDate,
+      getters, viewName!, endViewDateBaseComputed, getters.endViewDate,
     );
     this.availableViewNamesComputed = ({ availableViewNames }) => availableViewNamesCore(
       availableViewNames, viewName!,
@@ -106,11 +135,21 @@ export class DayView extends React.PureComponent<VerticalViewProps, ViewState> {
       getters, viewName!, () => cellDuration, getters.cellDuration,
     );
     this.viewCellsData = (getters: Getters) => computed(
-      getters, viewName!, this.viewCellsDataComputed, getters.viewCellsData,
+      getters, viewName!, viewCellsDataComputed, getters.viewCellsData,
+    );
+    this.timeTableElement = getters => computed(
+      getters, viewName, timeTableElementComputed, getters.timeTableElement,
+    );
+    this.layoutElement = getters => computed(
+      getters, viewName, layoutElementComputed, getters.layoutElement,
+    );
+    this.layoutHeaderElement = getters => computed(
+      getters, viewName, layoutHeaderElementComputed, getters.layoutHeaderElement,
     );
   }
 
   setTimeTableRef(timeTableRef) {
+    this.timeTable.current = timeTableRef;
     this.setState({ timeTableRef });
   }
 
@@ -144,6 +183,9 @@ export class DayView extends React.PureComponent<VerticalViewProps, ViewState> {
         <Getter name="viewCellsData" computed={this.viewCellsData} />
         <Getter name="startViewDate" computed={this.startViewDateComputed} />
         <Getter name="endViewDate" computed={this.endViewDateComputed} />
+        <Getter name="timeTableElement" computed={this.timeTableElement} />
+        <Getter name="layoutElement" computed={this.layoutElement} />
+        <Getter name="layoutHeaderElement" computed={this.layoutHeaderElement} />
 
         <Template name="body">
           <TemplateConnector>
@@ -151,10 +193,12 @@ export class DayView extends React.PureComponent<VerticalViewProps, ViewState> {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
                 <ViewLayout
-                  dayScaleComponent={DayScalePlaceholder}
-                  dayScaleEmptyCellComponent={DayScaleEmptyCellPlaceholder}
-                  timeTableComponent={TimeTablePlaceholder}
-                  timeScaleComponent={SidebarPlaceholder}
+                  dayScaleComponent={this.dayScalePlaceholder}
+                  dayScaleEmptyCellComponent={this.dayScaleEmptyCellPlaceholder}
+                  timeTableComponent={this.timeTablePlaceholder}
+                  timeScaleComponent={this.sidebarPlaceholder}
+                  layoutRef={this.layout}
+                  layoutHeaderRef={this.layoutHeader}
                 />
               );
             }}
@@ -229,22 +273,25 @@ export class DayView extends React.PureComponent<VerticalViewProps, ViewState> {
                   cellElements: stateTimeTableRef.querySelectorAll('td'),
                 },
               ) : [];
+              const { appointmentPlaceholder: AppointmentPlaceholder } = this;
               return (
                 <React.Fragment>
                   <TimeTable
                     rowComponent={TimeTableRow}
-                    cellComponent={CellPlaceholder}
+                    cellComponent={this.cellPlaceholder}
                     tableRef={this.setTimeTableRef}
                     cellsData={viewCellsData}
                   />
                   <AppointmentLayer>
                     {rects.map(({
-                      dataItem, type, ...geometry
+                      dataItem, type, fromPrev, toNext, ...geometry
                     }, index) => (
                       <AppointmentPlaceholder
                         key={index.toString()}
                         type={type}
                         data={dataItem}
+                        fromPrev={fromPrev}
+                        toNext={toNext}
                         style={getAppointmentStyle(geometry)}
                       />
                     ))}

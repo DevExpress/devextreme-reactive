@@ -1,7 +1,5 @@
-import * as React from 'react';
-import * as PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
+import { ContainerBase } from '../common/container';
 
 const styles = {
   container: {
@@ -12,29 +10,4 @@ const styles = {
   },
 };
 
-export const ContainerBase = ({
-  classes,
-  className,
-  children,
-  ...restProps
-}) => (
-  <div
-    className={classNames(classes.container, className)}
-    {...restProps}
-  >
-    {children}
-  </div>
-);
-
-ContainerBase.propTypes = {
-  classes: PropTypes.object.isRequired,
-  children: PropTypes.node,
-  className: PropTypes.string,
-};
-
-ContainerBase.defaultProps = {
-  className: undefined,
-  children: null,
-};
-
-export const Container = withStyles(styles, { name: 'Container' })(ContainerBase);
+export const Container = withStyles(styles, { name: 'AppointmentsContainer' })(ContainerBase);

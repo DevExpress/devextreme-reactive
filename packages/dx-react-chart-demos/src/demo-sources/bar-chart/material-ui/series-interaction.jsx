@@ -9,96 +9,220 @@ import {
   Legend,
   Tooltip,
 } from '@devexpress/dx-react-chart-material-ui';
-import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Popover from '@material-ui/core/Popover';
 import * as d3Format from 'd3-format';
 import { scaleBand } from '@devexpress/dx-chart-core';
 import {
   ArgumentScale, Stack, Animation, EventTracker, HoverState, SelectionState,
 } from '@devexpress/dx-react-chart';
+import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
+import {
+  NavigateBefore, NavigateNext,
+} from '@material-ui/icons/';
+import Typography from '@material-ui/core/Typography';
 
-import { annualVehiclesSales } from '../../../demo-data/data-vizualization';
+import { annualVehiclesSales as data } from '../../../demo-data/data-vizualization';
 
-const overlayStyles = theme => ({
-  paper: {
-    border: `1px solid ${theme.palette.divider}`,
+const styles = theme => ({
+  primaryButton: {
+    margin: theme.spacing.unit,
+    width: '120px',
+  },
+  secondaryButton: {
+    margin: theme.spacing.unit,
+    width: '170px',
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit,
+    marginBottom: '1px',
+  },
+  rightIcon: {
+    marginLeft: theme.spacing.unit,
+    marginBottom: '1px',
+  },
+  text: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  group: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  hoverGroup: {
+    width: '300px',
+  },
+  name: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
   },
 });
-const overlayBase = (props) => {
-  const {
-    children, target, ...restProps
-  } = props;
-  return (
-    <Popover
-      open
-      anchorEl={target}
-      anchorOrigin={{ vertical: 'center', horizontal: 'center' }}
-      transformOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-      {...restProps}
-    >
-      {children}
-    </Popover>
-  );
+
+const tooltipContentTitleStyle = {
+  fontWeight: 'bold',
+  paddingBottom: 0,
 };
-const OverlayComponent = withStyles(overlayStyles, { name: 'overlayStyles' })(overlayBase);
-const contentStyles = theme => ({
-  head: {
-    fontSize: 14,
-    fontWeight: 'bold',
-  },
-  body: {
-    fontSize: 14,
-  },
-  root: {
-    padding: theme.spacing.unit * 0.5,
-  },
-});
-const contentBase = ({ classes, ...props }) => {
-  const { targetItem } = props;
+const tooltipContentBodyStyle = {
+  paddingTop: 0,
+};
+const formatTooltip = d3Format.format(',.2r');
+const TooltipContent = (props) => {
+  const { targetItem, text, ...restProps } = props;
   return (
-    <div className={classes.root}>
-      <Typography className={classes.head}>
-        {`${targetItem.series}`}
-      </Typography>
-      <Typography className={classes.body}>
-        {d3Format.format(',.2r')(annualVehiclesSales[targetItem.point][targetItem.series])}
-      </Typography>
+    <div>
+      <div>
+        <Tooltip.Content
+          {...restProps}
+          style={tooltipContentTitleStyle}
+          text={targetItem.series}
+        />
+      </div>
+      <div>
+        <Tooltip.Content
+          {...restProps}
+          style={tooltipContentBodyStyle}
+          text={formatTooltip(data[targetItem.point][targetItem.series])}
+        />
+      </div>
     </div>
   );
 };
-const ContentComponent = withStyles(contentStyles, { name: 'contentStyles' })(contentBase);
+const Root = withStyles({
+  root: {
+    display: 'flex',
+    margin: 'auto',
+    flexDirection: 'row',
+  },
+})(({ classes, ...restProps }) => (
+  <Legend.Root {...restProps} className={classes.root} />
+));
+const Label = withStyles({
+  label: {
+    whiteSpace: 'nowrap',
+  },
+})(({ classes, ...restProps }) => (
+  <Legend.Label className={classes.label} {...restProps} />
+));
 
-const compare = (
+const TitleText = withStyles({ title: { marginBottom: '30px' } })(({ classes, ...restProps }) => (
+  <Title.Text {...restProps} className={classes.title} />
+));
+
+const formatInfo = (target) => {
+  if (!target) {
+    return 'None';
+  }
+  const { series, point } = target;
+  const value = data[point][series];
+  const argument = data[point].year;
+  return `${series} ${value} sales in ${argument}`;
+};
+
+const AuxiliaryButton = props => (
+  <Button variant="outlined" {...props} />
+);
+
+const AuxiliarySelection = ({
+  classes, target, turnNext, turnPrev, clear,
+}) => (
+  <div>
+    <div className={classes.group}>
+      <AuxiliaryButton onClick={turnPrev} className={classes.primaryButton} color="primary">
+        <NavigateBefore className={classes.leftIcon} />
+        Previous
+      </AuxiliaryButton>
+      <AuxiliaryButton onClick={clear} className={classes.secondaryButton}>
+        Clear Selection
+      </AuxiliaryButton>
+      <AuxiliaryButton onClick={turnNext} className={classes.primaryButton} color="primary">
+        Next
+        <NavigateNext className={classes.rightIcon} />
+      </AuxiliaryButton>
+    </div>
+    <div className={classes.text}>
+      <Typography color="textSecondary" variant="body2" className={classes.name}>Selected:</Typography>
+      <Typography>{formatInfo(target)}</Typography>
+    </div>
+  </div>
+);
+
+const AuxiliaryHover = ({
+  classes, target, enabled, toggle,
+}) => (
+  <div className={classes.hoverGroup}>
+    <AuxiliaryButton onClick={toggle} className={classes.secondaryButton}>
+      {enabled ? 'Disable tooltip' : 'Enable tooltip'}
+    </AuxiliaryButton>
+    <div className={classes.text}>
+      <Typography color="textSecondary" variant="body2" className={classes.name}>Hovered:</Typography>
+      <Typography>{formatInfo(target)}</Typography>
+    </div>
+  </div>
+);
+
+const encodeTarget = ({ series, point }) => (2 * point + Number(series === 'China'));
+const decodeTarget = code => ({ series: code % 2 ? 'China' : 'USA', point: Math.floor(code / 2) });
+
+const compareTargets = (
   { series, point }, { series: targetSeries, point: targetPoint },
 ) => series === targetSeries && point === targetPoint;
 
-export default class Demo extends React.PureComponent {
+class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      data: annualVehiclesSales,
-      selection: [],
+      hover: null,
+      selection: [{ series: 'USA', point: 3 }],
+      tooltipTarget: null,
+      tooltipEnabled: true,
     };
 
     this.click = ({ targets }) => {
       const target = targets[0];
       if (target) {
         this.setState(({ selection }) => ({
-          selection: selection[0] && compare(selection[0], target) ? [] : [target],
+          selection: selection[0] && compareTargets(selection[0], target) ? [] : [target],
         }));
       }
     };
+    this.changeHover = hover => this.setState({ hover });
+    this.changeTooltip = targetItem => this.setState({ tooltipTarget: targetItem });
+
+    this.clearSelection = () => this.setState({ selection: [] });
+    this.turnPrevSelection = () => this.setState(({ selection }) => {
+      const target = selection[0];
+      if (!target) {
+        return null;
+      }
+      const newTarget = decodeTarget(Math.max(encodeTarget(target) - 1, 0));
+      return { selection: [newTarget] };
+    });
+    this.turnNextSelection = () => this.setState(({ selection }) => {
+      const target = selection[0];
+      if (!target) {
+        return null;
+      }
+      const newTarget = decodeTarget(Math.min(encodeTarget(target) + 1, 2 * data.length - 1));
+      return { selection: [newTarget] };
+    });
+
+    this.toggleTooltip = () => this.setState(({ tooltipEnabled }) => ({
+      tooltipEnabled: !tooltipEnabled,
+      tooltipTarget: null,
+    }));
   }
 
   render() {
-    const { data: chartData, selection } = this.state;
+    const {
+      hover, selection, tooltipTarget, tooltipEnabled,
+    } = this.state;
+    const { classes } = this.props;
 
     return (
       <Paper>
         <Chart
-          data={chartData}
+          data={data}
         >
           <ArgumentScale factory={scaleBand} />
           <ArgumentAxis />
@@ -106,7 +230,7 @@ export default class Demo extends React.PureComponent {
 
           <Title
             text="USA and Chinese annual sales of plug-in electric vehicles"
-            style={{ marginRight: '120px' }}
+            textComponent={TitleText}
           />
 
           <BarSeries
@@ -120,14 +244,35 @@ export default class Demo extends React.PureComponent {
             argumentField="year"
           />
           <Stack />
-          <Legend />
+          <Legend position="bottom" rootComponent={Root} labelComponent={Label} />
           <EventTracker onClick={this.click} />
-          <HoverState />
-          <Tooltip contentComponent={ContentComponent} overlayComponent={OverlayComponent} />
+          <HoverState hover={hover} onHoverChange={this.changeHover} />
+          <Tooltip
+            targetItem={tooltipEnabled && tooltipTarget}
+            onTargetItemChange={this.changeTooltip}
+            contentComponent={TooltipContent}
+          />
           <SelectionState selection={selection} />
           <Animation />
         </Chart>
+        <div className={classes.group}>
+          <AuxiliaryHover
+            classes={classes}
+            target={hover}
+            enabled={tooltipEnabled}
+            toggle={this.toggleTooltip}
+          />
+          <AuxiliarySelection
+            classes={classes}
+            target={selection[0]}
+            clear={this.clearSelection}
+            turnPrev={this.turnPrevSelection}
+            turnNext={this.turnNextSelection}
+          />
+        </div>
       </Paper>
     );
   }
 }
+
+export default withStyles(styles)(Demo);

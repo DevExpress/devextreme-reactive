@@ -49,7 +49,7 @@ Describes the grouping panel item properties.
 Field | Type | Description
 ------|------|------------
 column | [Column](grid.md#column) | A column associated with the item.
-draft? | string | The item preview mode. Contains the "add", "remove" or "reorder" value.
+draft? | boolean | Specifies if the item is in preview mode.
 
 ### GroupingPanel.ContainerProps
 
@@ -71,7 +71,7 @@ showSortingControls | boolean | Specifies whether to render controls that toggle
 groupingEnabled | boolean | Specifies whether grouping by a column is enabled.
 sortingEnabled | boolean | Specifies whether sorting by a column is enabled.
 sortingDirection? | 'asc' &#124; 'desc' | Specifies the sorting direction.
-onSort | (parameters: { direction?: 'asc' &#124; 'desc' &#124; null }) => void | An event that initiates changing the column sorting direction. Cancels sorting by the current column if `direction` is set to null.
+onSort | (parameters: { direction?: 'asc' &#124; 'desc' &#124; null, keepOther?: boolean }) => void | An event that initiates changing the column sorting direction. Cancels sorting by the current column if `direction` is set to null.
 onGroup | () => void | An event that initiates grouping by column.
 
 ### GroupingPanel.EmptyMessageProps

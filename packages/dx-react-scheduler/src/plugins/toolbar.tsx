@@ -1,13 +1,16 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
-
 import {
   Template,
   Plugin,
   TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
+import { ToolbarProps } from '../types';
 
-export class Toolbar extends React.PureComponent {
+class ToolbarBase extends React.PureComponent<ToolbarProps> {
+  static components = {
+    rootComponent: 'Root',
+    flexibleSpaceComponent: 'FlexibleSpace',
+  };
   render() {
     const {
       rootComponent: Root,
@@ -31,12 +34,4 @@ export class Toolbar extends React.PureComponent {
   }
 }
 
-Toolbar.propTypes = {
-  rootComponent: PropTypes.func.isRequired,
-  flexibleSpaceComponent: PropTypes.func.isRequired,
-};
-
-Toolbar.components = {
-  rootComponent: 'Root',
-  flexibleSpaceComponent: 'FlexibleSpace',
-};
+export const Toolbar: React.ComponentType<ToolbarProps> = ToolbarBase;

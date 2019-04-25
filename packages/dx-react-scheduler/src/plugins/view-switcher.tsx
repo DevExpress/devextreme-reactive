@@ -1,22 +1,23 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import {
   Plugin,
   Template,
   TemplatePlaceholder,
   TemplateConnector,
 } from '@devexpress/dx-react-core';
+import { ViewSwitcherProps } from '../types/view-switcher';
 
 const pluginDependencies = [
   { name: 'Toolbar' },
   { name: 'ViewState' },
 ];
 
-export class ViewSwitcher extends React.PureComponent {
+class ViewSwitcherBase extends React.PureComponent<ViewSwitcherProps> {
+  static components = {
+    switcherComponent: 'Switcher',
+  };
   render() {
-    const {
-      switcherComponent: Switcher,
-    } = this.props;
+    const { switcherComponent: Switcher } = this.props;
 
     return (
       <Plugin
@@ -45,10 +46,4 @@ export class ViewSwitcher extends React.PureComponent {
   }
 }
 
-ViewSwitcher.propTypes = {
-  switcherComponent: PropTypes.func.isRequired,
-};
-
-ViewSwitcher.components = {
-  switcherComponent: 'Switcher',
-};
+export const ViewSwitcher: React.ComponentType<ViewSwitcherProps> = ViewSwitcherBase;

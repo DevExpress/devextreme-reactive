@@ -76,3 +76,7 @@ export type FormatterFn = (
 ) => string;
 
 export type FormatDateTimeGetterFn = (locale: string | string[]) => FormatterFn;
+
+export type DateTimeFormatInstanceFn = (
+  locale: string | string[], formatOptions: Intl.DateTimeFormatOptions,
+) => Intl.DateTimeFormat;

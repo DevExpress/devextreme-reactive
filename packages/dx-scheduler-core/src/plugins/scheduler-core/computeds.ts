@@ -20,10 +20,10 @@ export const appointments: PureComputed<
 }));
 
 export const formatDateTimeGetter: FormatDateTimeGetterFn = (locale) => {
-  const cache = new Map();
+  const cache = new Map<Intl.DateTimeFormatOptions, Intl.DateTimeFormat>(); // any -> type
 
   const formatter: FormatterFn = (nextDate, nextOptions) => {
-    if (nextDate === undefined) return;
+    if (nextDate === undefined) return '';
     const date = new Date(nextDate);
     const key = nextOptions;
     let formatInstance = cache.get(key);

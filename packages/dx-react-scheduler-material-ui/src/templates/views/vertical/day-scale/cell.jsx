@@ -3,10 +3,8 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
+import { WEEK_DAY_OPTIONS, DAY_OPTIONS } from '@devexpress/dx-scheduler-core';
 import { getBorder } from '../../../utils';
-
-const weekDay = { weekday: 'short' };
-const day = { day: 'numeric' };
 
 const styles = theme => ({
   cell: {
@@ -44,7 +42,7 @@ const CellBase = ({
         [classes.highlightCell]: today,
       })}
     >
-      {formatDate(startDate, weekDay)}
+      {formatDate(startDate, WEEK_DAY_OPTIONS)}
     </p>
     <span
       className={classNames({
@@ -52,7 +50,7 @@ const CellBase = ({
         [classes.highlightCell]: today,
       })}
     >
-      {formatDate(startDate, day)}
+      {formatDate(startDate, DAY_OPTIONS)}
     </span>
   </TableCell>
 );

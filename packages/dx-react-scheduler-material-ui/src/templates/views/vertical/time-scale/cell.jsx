@@ -3,8 +3,7 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
-
-const hourMinute = { hour: 'numeric', minute: 'numeric' };
+import { HOUR_MINUTE_OPTIONS } from '@devexpress/dx-scheduler-core';
 
 const styles = theme => ({
   cell: {
@@ -38,7 +37,7 @@ const CellBase = ({
     {...restProps}
   >
     <span className={classes.text}>
-      {formatDate(endDate, hourMinute)}
+      {formatDate(endDate, HOUR_MINUTE_OPTIONS)}
     </span>
   </TableCell>
 );

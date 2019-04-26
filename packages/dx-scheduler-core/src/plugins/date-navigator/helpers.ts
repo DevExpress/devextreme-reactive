@@ -1,16 +1,17 @@
 import moment from 'moment';
 import { PureComputed } from '@devexpress/dx-core';
 import { ViewBoundTextFn, FormatterFn } from '../../types';
-
-const day = { day: 'numeric' };
-const shortMonth = { month: 'short' };
-const dayShortMonth = { day: 'numeric', month: 'short' };
-const dayShortMonthLongYear = { day: 'numeric', month: 'short', year: 'numeric' };
-const dayShortMonthShortYear = { day: 'numeric', month: 'short', year: '2-digit' };
-const dayLongMonthLongYear = { day: 'numeric', month: 'long', year: 'numeric' };
-const shortMonthLongYear = { month: 'short', year: 'numeric' };
-const shortMonthShortYear = { month: 'short', year: '2-digit' };
-const longMonthLongYear = { month: 'long', year: 'numeric' };
+import {
+  DAY_OPTIONS,
+  SHORT_MONTH_OPTIONS,
+  DAY_SHORT_MONTH_OPTIONS,
+  SHORT_MONTH_LONG_YEAR_OPTIONS,
+  SHORT_MONTH_SHORT_YEAR_OPTIONS,
+  MONTH_YEAR_OPTIONS,
+  DAY_LONG_MONTH_LONG_YEAR_OPTIONS,
+  DAY_SHORT_MONTH_SHORT_YEAR_OPTIONS,
+  DAY_SHORT_MONTH_LONG_YEAR_OPTIONS,
+} from '../../constants';
 
 const calculateTextByDays: PureComputed<
   [Date, Date, FormatterFn], string
@@ -19,28 +20,28 @@ const calculateTextByDays: PureComputed<
   const momentEndViewDate = moment(endViewDate as Date);
 
   if (momentStartViewDate.isSame(momentEndViewDate, 'day')) {
-    return formatDate(momentStartViewDate.toDate(), dayLongMonthLongYear);
+    return formatDate(momentStartViewDate.toDate(), DAY_LONG_MONTH_LONG_YEAR_OPTIONS);
   }
   if (momentStartViewDate.isSame(momentEndViewDate, 'year')) {
     if (momentStartViewDate.isSame(momentEndViewDate, 'month')) {
       return `${
-        formatDate(momentStartViewDate.toDate(), day)
+        formatDate(momentStartViewDate.toDate(), DAY_OPTIONS)
       }-${
-        formatDate(momentEndViewDate.toDate(), day)
+        formatDate(momentEndViewDate.toDate(), DAY_OPTIONS)
       } ${
-        formatDate(momentEndViewDate.toDate(), longMonthLongYear)
+        formatDate(momentEndViewDate.toDate(), MONTH_YEAR_OPTIONS)
       }`;
     }
     return `${
-      formatDate(momentStartViewDate.toDate(), dayShortMonth)
+      formatDate(momentStartViewDate.toDate(), DAY_SHORT_MONTH_OPTIONS)
     } - ${
-      formatDate(momentEndViewDate.toDate(), dayShortMonthLongYear)
+      formatDate(momentEndViewDate.toDate(), DAY_SHORT_MONTH_LONG_YEAR_OPTIONS)
     }`;
   }
   return `${
-    formatDate(momentStartViewDate.toDate(), dayShortMonthShortYear)
+    formatDate(momentStartViewDate.toDate(), DAY_SHORT_MONTH_SHORT_YEAR_OPTIONS)
   } - ${
-    formatDate(momentEndViewDate.toDate(), dayShortMonthShortYear)
+    formatDate(momentEndViewDate.toDate(), DAY_SHORT_MONTH_SHORT_YEAR_OPTIONS)
   }`;
 };
 
@@ -50,20 +51,20 @@ const calculateTextByMonths: PureComputed<
   const momentCurrentDate = moment(currentDate as Date);
 
   if (intervalCount === 1) {
-    return formatDate(momentCurrentDate.toDate(), longMonthLongYear);
+    return formatDate(momentCurrentDate.toDate(), MONTH_YEAR_OPTIONS);
   }
   const lastMonth = momentCurrentDate.clone().add(intervalCount - 1, 'month');
   if (momentCurrentDate.isSame(lastMonth, 'year')) {
     return `${
-      formatDate(momentCurrentDate.toDate(), shortMonth)
+      formatDate(momentCurrentDate.toDate(), SHORT_MONTH_OPTIONS)
     }-${
-      formatDate(lastMonth.toDate(), shortMonthLongYear)
+      formatDate(lastMonth.toDate(), SHORT_MONTH_LONG_YEAR_OPTIONS)
     }`;
   }
   return `${
-    formatDate(momentCurrentDate.toDate(), shortMonthShortYear)
+    formatDate(momentCurrentDate.toDate(), SHORT_MONTH_SHORT_YEAR_OPTIONS)
   } - ${
-    formatDate(lastMonth.toDate(), shortMonthShortYear)
+    formatDate(lastMonth.toDate(), SHORT_MONTH_SHORT_YEAR_OPTIONS)
   }`;
 };
 

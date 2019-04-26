@@ -3,8 +3,7 @@ import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import classNames from 'classnames';
-
-const monthYearOptions = { month: 'long', year: 'numeric' };
+import { MONTH_YEAR_OPTIONS } from '@devexpress/dx-scheduler-core';
 
 const styles = {
   text: {
@@ -27,7 +26,7 @@ const TextBase = ({
     }, className)}
     {...restProps}
   >
-    {formatDate(currentDate, monthYearOptions)}
+    {formatDate(currentDate, MONTH_YEAR_OPTIONS)}
   </Typography>
 );
 

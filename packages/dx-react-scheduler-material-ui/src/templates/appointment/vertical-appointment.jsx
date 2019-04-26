@@ -2,8 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
-
-const hourMinute = { hour: 'numeric', minute: 'numeric' };
+import { HOUR_MINUTE_OPTIONS } from '@devexpress/dx-scheduler-core';
 
 const styles = ({ palette, spacing }) => ({
   title: {
@@ -66,13 +65,13 @@ const VerticalAppointmentBase = ({
         </div>
         <div className={classes.textContainer}>
           <div className={classes.time}>
-            {formatDate(data.startDate, hourMinute)}
+            {formatDate(data.startDate, HOUR_MINUTE_OPTIONS)}
           </div>
           <div className={classes.time}>
             {' - '}
           </div>
           <div className={classes.time}>
-            {formatDate(data.endDate, hourMinute)}
+            {formatDate(data.endDate, HOUR_MINUTE_OPTIONS)}
           </div>
         </div>
       </div>

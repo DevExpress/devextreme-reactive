@@ -6,9 +6,7 @@ import TableMUI from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableHead from '@material-ui/core/TableHead';
 import { withStyles } from '@material-ui/core/styles';
-
-const weekDayOptions = { weekday: 'short' };
-const dayOptions = { day: 'numeric' };
+import { WEEK_DAY_OPTIONS, DAY_OPTIONS } from '@devexpress/dx-scheduler-core';
 
 const styles = {
   table: {
@@ -40,7 +38,7 @@ const TableBase = ({
       <TableHead>
         <HeaderRow>
           {headerCells.map((cell) => {
-            const key = formatDate(cell.startDate, weekDayOptions);
+            const key = formatDate(cell.startDate, WEEK_DAY_OPTIONS);
             return (
               <HeaderCell
                 key={key}
@@ -72,7 +70,7 @@ const TableBase = ({
                     onCellClick(startDate);
                   }}
                 >
-                  {formatDate(startDate, dayOptions)}
+                  {formatDate(startDate, DAY_OPTIONS)}
                 </Cell>
               );
             })}

@@ -4,9 +4,8 @@ import classNames from 'classnames';
 import TableCell from '@material-ui/core/TableCell';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
+import { DAY_OPTIONS } from '@devexpress/dx-scheduler-core';
 import { getBorder } from '../../../utils';
-
-const day = { day: 'numeric' };
 
 const styles = theme => ({
   cell: {
@@ -64,7 +63,7 @@ const CellBase = ({
         [classes.otherMonth]: otherMonth && !today,
       })}
     >
-      {formatDate(startDate, day)}
+      {formatDate(startDate, DAY_OPTIONS)}
     </div>
   </TableCell>
 );

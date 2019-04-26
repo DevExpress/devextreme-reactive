@@ -4,8 +4,8 @@ import Popover from '@material-ui/core/Popover';
 import AccessTime from '@material-ui/icons/AccessTime';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
+import { HOUR_MINUTE_OPTIONS } from '@devexpress/dx-scheduler-core';
 
-const hourMinuteOptions = { hour: 'numeric', minute: 'numeric' };
 const verticalTopHorizontalCenterOptions = { vertical: 'top', horizontal: 'center' };
 
 const styles = theme => ({
@@ -95,7 +95,7 @@ const LayoutBase = ({
           </Grid>
           <Grid item xs={10}>
             <div className={classes.text}>
-              {`${formatDate(data.startDate, hourMinuteOptions)} - ${formatDate(data.endDate, hourMinuteOptions)}`}
+              {`${formatDate(data.startDate, HOUR_MINUTE_OPTIONS)} - ${formatDate(data.endDate, HOUR_MINUTE_OPTIONS)}`}
             </div>
           </Grid>
         </Grid>

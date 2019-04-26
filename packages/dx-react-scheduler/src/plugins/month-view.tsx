@@ -43,6 +43,25 @@ export class MonthView extends React.PureComponent<MonthViewProps, ViewState> {
     timeTableRowComponent: 'TimeTableRow',
   };
 
+  timeTable;
+  layout;
+  layoutHeader;
+  timeTableRef;
+  dayScalePlaceholder;
+  timeTablePlaceholder;
+  appointmentPlaceholder;
+  cellPlaceholder;
+  currentViewComputed;
+  availableViewNamesComputed;
+  intervalCountComputed;
+  firstDayOfWeekComputed;
+  startViewDateCore;
+  endViewDateComputed;
+  viewCellsData;
+  timeTableElement;
+  layoutElement;
+  layoutHeaderElement;
+
   constructor(props) {
     super(props);
 
@@ -106,7 +125,7 @@ export class MonthView extends React.PureComponent<MonthViewProps, ViewState> {
     );
   }
 
-  timeTableRef(timeTableRef) {
+  setTimeTableRef(timeTableRef) {
     this.timeTable.current = timeTableRef;
     this.setState({ timeTableRef });
   }

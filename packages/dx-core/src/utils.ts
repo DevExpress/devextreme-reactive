@@ -1,7 +1,5 @@
-/** @internal */
 const DELAY = 200;
 
-/** @internal */
 const compare = (a, b) => {
   const aPosition = a.position();
   const bPosition = b.position();
@@ -21,6 +19,12 @@ export const insertPlugin = (array, newItem) => {
     && compare(newItem, array[targetIndex]) === 0;
   result.splice(targetIndex, alreadyExists ? 1 : 0, newItem);
   return result;
+};
+
+/** @internal */
+export const removePlugin = (array, item) => {
+  const i = array.indexOf(item);
+  return i >= 0 ? [...array.slice(0, i), ...array.slice(i + 1)] : array;
 };
 
 /** @internal */

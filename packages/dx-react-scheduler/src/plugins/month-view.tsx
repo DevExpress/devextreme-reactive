@@ -167,7 +167,6 @@ export class MonthView extends React.PureComponent<MonthViewProps, ViewState> {
                 <ViewLayout
                   dayScaleComponent={this.dayScalePlaceholder}
                   timeTableComponent={this.timeTablePlaceholder}
-
                   layoutRef={this.layout}
                   layoutHeaderRef={this.layoutHeader}
                 />

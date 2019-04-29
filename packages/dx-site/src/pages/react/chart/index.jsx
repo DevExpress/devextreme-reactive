@@ -7,7 +7,7 @@ import LandingHeaderAddon from '../../../components/landing/header-addon';
 import LandingMaintainence from '../../../components/landing/maintainence';
 import LandingLink from '../../../components/landing/link';
 import LandingReadyToLearnMore from '../../../components/landing/ready-to-learn-more';
-import LandingChessBoardLayoutList from '../../../components/landing/chess-board-layout-list';
+import LandingChessBoardLayoutList from '../../../components/landing/features-list';
 import imageBoxLink from '../../images/image-box.png';
 import headerLink from './images/header.png';
 
@@ -100,7 +100,7 @@ const IndexPage = () => (
         />
       )}
     />
-    <LandingChessBoardLayoutList data={pageData} />
+    <LandingChessBoardLayoutList data={pageData} colSize={6} />
     <LandingLayout>
       <LandingTitle text="Native Support for the UI Library of Your Choice" />
       <LandingImageFeature

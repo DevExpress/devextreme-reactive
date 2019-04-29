@@ -7,7 +7,7 @@ import LandingHeaderAddon from '../../../components/landing/header-addon';
 import LandingMaintainence from '../../../components/landing/maintainence';
 import LandingLink from '../../../components/landing/link';
 import LandingReadyToLearnMore from '../../../components/landing/ready-to-learn-more';
-import LandingChessBoardLayoutList from '../../../components/landing/chess-board-layout-list';
+import LandingChessBoardLayoutList from '../../../components/landing/features-list';
 import imageBoxLink from '../../images/image-box.png';
 import headerLink from './images/header.png';
 
@@ -20,27 +20,23 @@ import materialThemeLink from './images/material-theme.png';
 
 const pageData = [
   {
-    alternative: true,
     sectionTitle: 'Performance at its Best',
     title: '100% Pure React',
     description: 'We\'ve focused our energy on performance and leveraged the best practice recommendations offered by the React team. Through immutability and pure functions, we can apply memoization and built-in React optimizations to achieve outstanding performance.',
     imageLink: imageBoxLink,
   },
   {
-    reversed: true,
     title: 'Virtual Scrolling',
     description: 'Virtual scrolling allows the Grid component to display thousands of records on a single page. It can render only the records that are currently visible to a user and remove them from DOM once the user scroll them out of visible range.',
     imageLink: imageBoxLink,
   },
   {
-    alternative: true,
     sectionTitle: 'Shape and Analyse Data as You Need',
     title: 'Milti-column Sorting',
     description: 'Allow a user to sort data in the Grid by any number of columns. It is possible to apply and remove soring for a specific column using the command keys on your keyboard. You can also perform sorting operations on the server-side.',
     imageLink: imageBoxLink,
   },
   {
-    reversed: true,
     title: 'Multi-column Grouping',
     description: 'Data grouping is a highly effective way to summarize information for end-users. You can enable grouping by one or several columns programmatically or let your end-users do it via mouse, keyboard or touch gestures on mobile devices.',
     imageLink: imageBoxLink,
@@ -64,7 +60,6 @@ const pageData = [
     imageLink: imageBoxLink,
   },
   {
-    reversed: true,
     sectionTitle: 'Manage Complex Data Structures',
     title: 'Tree View Mode',
     description: 'The Tree View plugin allows you to display hierarchical data sets of any structures withing the React Grid. It smoothly integrates with other Grid plugins enabling sorting, paging, filtering and other features of a regular plain data grid.',
@@ -77,14 +72,12 @@ const pageData = [
     imageLink: imageBoxLink,
   },
   {
-    reversed: true,
     sectionTitle: 'Data Editing at Your Full Control',
     title: 'Built-in Edit Action Column',
     description: 'From a read-only to an editable React Grid in a couple lines of code. The Grid ships with a ready-to-use set of plugins that enable data editing capabilities for your end-users. As a developer, you have full control over data editing process via the plugin API.',
     imageLink: imageBoxLink,
   },
   {
-    alternative: true,
     title: 'Customizable Inplace Cell Editors',
     description: 'The React Grid ships with the Data Type Provider plugin that allows you to show custom inplace cell editors depending on a specific data type. Use what you need in your app - from standard textboxes, to date pickers and everything in between.',
     imageLink: imageBoxLink,
@@ -102,32 +95,27 @@ const pageData = [
     imageLink: imageBoxLink,
   },
   {
-    reversed: true,
     sectionTitle: 'UI Customization For Your Users and You',
     title: 'Column Resizing/Reordering',
     description: 'End-users can resize and reorder columns while working with your application. Use the \'controlled state\' mode to expose the current customization state to your application logic for persistence. Save and restore it when a user leaves and returns to your app.',
     imageLink: imageBoxLink,
   },
   {
-    alternative: true,
     title: 'Column Chooser',
     description: 'Our React Grid ships with a column chooser UI. It allows your users to show/hide required columns at runtime. You can predefine the set of visible columns and save/restore the customizations made by a end-user to the browser local storage or into a remote database.',
     imageLink: imageBoxLink,
   },
   {
-    reversed: true,
     title: 'Fixed Columns',
     description: 'Fixed Columns allow you to anchor columns to the left or rightmost edge of the Grid. These fixed columns are never scrolled horizontally and as such, allow you to create solutions that offer improved readability and visual clarity.',
     imageLink: imageBoxLink,
   },
   {
-    alternative: true,
     title: 'Column Bands',
     description: 'Improve your Grid UI readability via grouping your column headers into bands. Multi-level column groups are supported via a corresponding plugin that we ship with the React Grid.',
     imageLink: imageBoxLink,
   },
   {
-    reversed: true,
     title: 'Custom UI Rendering',
     description: 'We know that your requirements may go far behind the built-in React Grid capabilities. That\'s why we made everything possible to simplify UI and behavior customization. Override, modify or extend the built-in functionality according to your business needs.',
     imageLink: imageBoxLink,
@@ -169,7 +157,7 @@ const IndexPage = () => (
         />
       )}
     />
-    <LandingChessBoardLayoutList data={pageData} />
+    <LandingChessBoardLayoutList data={pageData} colSize={6} />
 
     <LandingLayout>
       <LandingTitle text="Native Support for the UI Library of Your Choice" />

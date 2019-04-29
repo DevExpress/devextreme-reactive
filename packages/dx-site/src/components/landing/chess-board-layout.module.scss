@@ -6,41 +6,6 @@
   padding-bottom: 40px;
 }
 
-.reversed {
-  flex-direction: row-reverse;
-}
-
-.child {
-  padding-left: $inner-offset;
-  padding-right: $inner-offset;
-}
-
 .title {
   @include title-large();
-}
-
-@media (max-width: 1360px) {
-  .reversed {
-    :last-child {
-      position: relative;
-      min-height: 280px;
-      & > img {
-        position: absolute;
-        right: $inner-offset;
-      }
-    }
-  }
-}
-
-@media (max-width: 800px) {
-  .reversed {
-    :last-child {
-      position: static;
-      min-height: auto;
-      & > img {
-        position: static;
-        right: auto;
-      }
-    }
-  }
 }

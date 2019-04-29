@@ -1,49 +1,30 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import LandingChessBoardLayout from './chess-board-layout';
-import LandingFeatureDescription from './feature-description';
-import LandingFeaturePreview from './feature-preview';
+
 import LandingAlternatedBackground from './alternated-background';
+import LandingLayoutItem from './layout-item';
 
 const ChessBoardLayoutList = ({ data }) => (
   data.map(({
-    alternative,
-    reversed,
-    title,
-    description,
-    imageLink,
+    items,
     sectionTitle,
   }, i) => {
+    const [firstChild, secondChild] = items.map((item) => (
+      <LandingLayoutItem {...item} />
+    ));
+
     const itemProps = {
-      reversed,
-      firstChild: (
-        <LandingFeatureDescription
-          title={title}
-          description={description}
-        />
-      ),
-      secondChild: (
-        <LandingFeaturePreview
-          title={title}
-          imageLink={imageLink}
-        />
-      ),
+      firstChild,
+      secondChild,
       ...sectionTitle ? { title: sectionTitle } : null,
     };
     const key = i.toString();
-    return (alternative
-      ? (
-        <LandingAlternatedBackground key={key}>
-          <LandingChessBoardLayout {...itemProps} />
-        </LandingAlternatedBackground>
-      )
-      : <LandingChessBoardLayout {...itemProps} key={key} />);
+    return <LandingChessBoardLayout {...itemProps} key={key} />;
   }));
 
 ChessBoardLayoutList.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({
-    alternative: PropTypes.bool,
-    reversed: PropTypes.bool,
     title: PropTypes.string,
     description: PropTypes.string,
     imageLink: PropTypes.string,

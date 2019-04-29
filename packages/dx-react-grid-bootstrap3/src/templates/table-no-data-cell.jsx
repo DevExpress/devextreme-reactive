@@ -47,6 +47,7 @@ export class TableNoDataCell extends React.PureComponent {
             style={{
               display: 'inline-block',
               transform: 'translateX(-50%)',
+              msTransform: 'translateX(-50%)',
             }}
           >
             {getMessage('noData')}

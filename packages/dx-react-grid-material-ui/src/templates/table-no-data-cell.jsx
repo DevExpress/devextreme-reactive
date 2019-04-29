@@ -15,6 +15,7 @@ const styles = theme => ({
   },
   text: {
     transform: 'translateX(-50%)',
+    msTransform: 'translateX(-50%)',
     display: 'inline-block',
   },
 });

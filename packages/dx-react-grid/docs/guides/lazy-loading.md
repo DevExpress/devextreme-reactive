@@ -1,6 +1,6 @@
 # React Grid - Virtual Scrolling with Remote Data: Lazy Loading
 
-Lazy loading enables the Grid component to load row data in portions, once rows enter the viewport.
+Lazy loading enables the React Grid component to load row data in parts&mdash;once rows enter the viewport.
 
 ## Related Plugins
 
@@ -13,13 +13,13 @@ Note that the [plugin order](./plugin-overview.md#plugin-order) is important.
 
 ## Basic Setup
 
-This feature works only in [controlled mode](controlled-and-uncontrolled-modes.md).
+This feature functions only in [controlled mode](controlled-and-uncontrolled-modes.md).
 
-Grid rows are loaded in pages. The Grid maintains the visible, the previous, and the next page. The number of rows in each page is specified in the `pageSize` property. The less the `pageSize` is, the more frequently the Grid requests rows. The total number of rows in the data set is specified in the `totalRowCount` property.
+Grid rows are loaded in pages. The Grid maintains only three pages at a time: the visible page and two neighboring pages. The number of rows on each page is specified by the `pageSize` property. The smaller the `pageSize` is, the more frequently the Grid requests rows. The total number of rows in the data set is specified in the `totalRowCount` property.
 
 Lazy loading is initiated by the `getRows` function that accepts the `skip` and `take` parameters. They specify how many rows to skip from the start of the data set and how many rows to load.
 
-The `loading` property should indicate whether there is an active request. Once the request is completed, pass the loaded rows to the `Grid` plugin's `rows` property. In addition, pass the `skip` value to the `VirtualTableState` plugin's `skip` property so that the Grid can understand where to start rendering the rows.
+The `loading` property should indicate whether there is an active request. Once the request is completed, pass the loaded rows to the `Grid` plugin's `rows` property. In addition, pass the `skip` value to the `VirtualTableState` plugin's `skip` property, so that the Grid can understand where to begin rendering rows.
 
 .embedded-demo({ "path": "grid-lazy-loading/remote-data-basic", "showThemeSelector": true })
 

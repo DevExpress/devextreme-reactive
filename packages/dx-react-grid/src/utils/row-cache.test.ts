@@ -1,4 +1,4 @@
-import { createRemoteRowsCache } from './remote-rows-cache';
+import { createRowCache } from './row-cache';
 
 describe('Remote rows cache', () => {
   const createRows = length => (
@@ -7,7 +7,7 @@ describe('Remote rows cache', () => {
 
   it('should store and retrieve rows', () => {
     const rows = createRows(6);
-    const cache = createRemoteRowsCache(3);
+    const cache = createRowCache(3);
 
     cache.setRows(0, rows);
 
@@ -17,7 +17,7 @@ describe('Remote rows cache', () => {
 
   it('should store and retrive arbitary rows', () => {
     const rows = createRows(9);
-    const cache = createRemoteRowsCache(3);
+    const cache = createRowCache(3);
 
     cache.setRows(15, rows.slice(3));
     cache.setRows(12, rows.slice(0, 3));
@@ -28,7 +28,7 @@ describe('Remote rows cache', () => {
 
   it('should overwrite rows with the same start', () => {
     const rows = createRows(6);
-    const cache = createRemoteRowsCache(3);
+    const cache = createRowCache(3);
 
     cache.setRows(15, rows.slice(0, 6));
     cache.setRows(18, rows.slice(1, 4));
@@ -41,7 +41,7 @@ describe('Remote rows cache', () => {
 
   it('should not discard incomplete pages', () => {
     const rows = createRows(8);
-    const cache = createRemoteRowsCache(3);
+    const cache = createRowCache(3);
 
     cache.setRows(3, rows);
 
@@ -51,7 +51,7 @@ describe('Remote rows cache', () => {
 
   it('should return consistent rows', () => {
     const rows = createRows(12);
-    const cache = createRemoteRowsCache(3);
+    const cache = createRowCache(3);
 
     cache.setRows(0, rows.slice(0, 5));
     cache.setRows(6, rows.slice(6, 12));
@@ -62,7 +62,7 @@ describe('Remote rows cache', () => {
 
   it('should invalidate all pages', () => {
     const rows = createRows(9);
-    const cache = createRemoteRowsCache(3);
+    const cache = createRowCache(3);
 
     cache.setRows(0, rows);
     cache.setRows(9, rows);
@@ -75,7 +75,7 @@ describe('Remote rows cache', () => {
   describe('pages replacement', () => {
     it('should discard least reacently used page ', () => {
       const rows = createRows(20);
-      const cache = createRemoteRowsCache(4, 16);
+      const cache = createRowCache(4, 16);
 
       cache.setRows(0, rows);
 
@@ -87,7 +87,7 @@ describe('Remote rows cache', () => {
 
     it('should update page recently used info on retirieve', () => {
       const rows = createRows(16);
-      const cache = createRemoteRowsCache(4, 12);
+      const cache = createRowCache(4, 12);
 
       cache.setRows(0, rows);
       cache.getRows(8, 4);

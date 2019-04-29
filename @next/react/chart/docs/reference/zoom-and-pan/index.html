@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>ZoomAndPan Plugin Reference - DevExtreme Reactive Components</title>
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="prefetch" href="/devextreme-reactive/@next/fonts/OpenSansCondensedBold.woff">
+    <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/@next/favicon.ico" >
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.min.css" type="text/css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/addon/fold/foldgutter.min.css" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/syntax.css">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/site.css?v=1556529055">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/embedded-demos.css?v=1556529055">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-1384678-22', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-static-top navbar-main">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/devextreme-reactive/@next/react/chart/">
+            <div>
+              <img src="/devextreme-reactive/@next/img/chart-logo.svg" alt="React Chart">
+              <div class="logo-container">
+                <h3 class="logo-team">DevExtreme</h3>
+                <h3 class="logo-product">React Chart</h3>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            
+            <li><a href="/devextreme-reactive/@next/react/chart/demos/overview/multiple-axes/">Demos</a></li>
+            
+            <li class="active"><a href="/devextreme-reactive/@next/react/chart/docs/guides/getting-started/">Docs</a></li>
+            <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+            <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
+
+    <div class="container docs-container">
+  <div class="row">
+    <div class="col-sm-9 col-sm-push-3 docs-content">
+        <h1 id="zoomandpan-plugin-reference">ZoomAndPan Plugin Reference</h1>
+
+<p>The <code class="highlighter-rouge">ZoomAndPan</code> plugin allows you to set the chart’s viewport and change it in response to mouse and touch events.</p>
+
+<h2 id="import">Import</h2>
+
+<p>Use the following statement to import the plugin with embedded theme components:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">ZoomAndPan</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@devexpress/dx-react-chart-material-ui'</span><span class="p">;</span>
+<span class="c1">//import { ZoomAndPan } from '@devexpress/dx-react-chart-bootstrap4';</span>
+</code></pre></div></div>
+
+<p>If you want to use custom components, you can import the themeless plugin:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">ZoomAndPan</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@devexpress/dx-react-chart'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h2 id="user-reference">User Reference</h2>
+
+<h3 id="properties">Properties</h3>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>defaultViewport?</td>
+      <td><a href="#viewport">Viewport</a></td>
+      <td>The default viewport.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>viewport?</td>
+      <td><a href="#viewport">Viewport</a></td>
+      <td>The viewport.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>onViewportChange?</td>
+      <td>(viewport: <a href="#viewport">Viewport</a>) =&gt; void</td>
+      <td>A function that is executed when the viewport changes.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>interactionWithArguments?</td>
+      <td>‘none’ | ‘pan’ | ‘zoom’ | ‘both’</td>
+      <td>The type of interaction available for the argument scale.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>interactionWithValues?</td>
+      <td>‘none’ | ‘pan’ | ‘zoom’ | ‘both’</td>
+      <td>The type of interaction available for the value scale.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>zoomRegionKey?</td>
+      <td>‘shift’ | ‘alt’ | ‘ctrl’</td>
+      <td>The key the allows a user to zoom a region by selecting it with the mouse drag gesture.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>dragBoxComponent?</td>
+      <td>ComponentType&lt;<a href="#viewportdragboxprops">Viewport.DragBoxProps</a>&gt;</td>
+      <td>A component that renders the rectangle that appears when a user zooms a region.</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="interfaces">Interfaces</h2>
+
+<h3 id="viewport">Viewport</h3>
+
+<p>The viewport configuration.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>argumentStart</td>
+      <td>any</td>
+      <td>The viewport’s start boundary on the argument scale.</td>
+    </tr>
+    <tr>
+      <td>argumentEnd</td>
+      <td>any</td>
+      <td>The viewport’s end boundary on the argument scale.</td>
+    </tr>
+    <tr>
+      <td>valueStart</td>
+      <td>any</td>
+      <td>The viewport’s start boundary on the value scale.</td>
+    </tr>
+    <tr>
+      <td>valueEnd</td>
+      <td>any</td>
+      <td>The viewport’s end boundary on the value scale.</td>
+    </tr>
+    <tr>
+      <td>scaleName</td>
+      <td>string</td>
+      <td>The scale on which <code class="highlighter-rouge">valueStart</code> and <code class="highlighter-rouge">valueEnd</code> should be applied.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="viewportdragboxprops">Viewport.DragBoxProps</h3>
+
+<p>Describes properties passed to a component that renders the rectangle around the area a user zooms with the mouse drag gesture.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>rect</td>
+      <td>{ x: number, y: number, width: number, height: number }</td>
+      <td>The rectangle’s coordinates.</td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+
+    <div class="col-sm-3 col-sm-pull-9 main-menu">
+      <ul class="list-unstyled">
+        <li>
+          <input id="docsearch" type="text" class="form-control" placeholder="Search...">
+        </li>
+      </ul>
+      <ul class="list-unstyled version">
+        <li>
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.11.0-beta.1">
+            Version
+            <span>1.11.0-beta.1</span>
+          </a>
+        </li>
+      </ul>
+      <hr />
+      
+        <h3>Guides</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/guides/getting-started/">Getting Started</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/guides/plugin-overview/">Plugin Overview</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/guides/series/">Series</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/guides/axes/">Axes</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/guides/legend_title/">Legend and Title</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/guides/stacked-series/">Stacked Series</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/guides/palette/">Palette</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/guides/animation/">Animation</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/guides/hover-and-selection/">Hover and Selection</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/guides/tooltip/">Tooltip</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/guides/zoom-and-pan/">Zoom and Pan</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/guides/typescript/">TypeScript</a></li>
+          
+
+        
+        </ul>
+      
+        <h3>Common Concepts</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/common/docs/guides/performance-optimization/">Optimize Performance</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/common/docs/guides/custom-theme/">Create a Custom Theme</a></li>
+          
+
+        
+        </ul>
+      
+        <h3>API Reference</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/animation/">Animation</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/area-series/">AreaSeries</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/argument-axis/">ArgumentAxis</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/argument-scale/">ArgumentScale</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/bar-series/">BarSeries</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/chart/">Chart</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/event-tracker/">EventTracker</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/hover-state/">HoverState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/legend/">Legend</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/line-series/">LineSeries</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/palette/">Palette</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/pie-series/">PieSeries</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/scatter-series/">ScatterSeries</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/selection-state/">SelectionState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/spline-series/">SplineSeries</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/stack/">Stack</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/title/">Title</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/tooltip/">Tooltip</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/value-axis/">ValueAxis</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/value-scale/">ValueScale</a></li>
+          
+
+        
+          
+          
+
+          
+          <li>ZoomAndPan</li>
+          
+
+        
+        </ul>
+      
+        <h3>Related Docs</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/core/docs/guides/fundamentals/">React Core</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/grid/docs/guides/getting-started/">React Grid</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/scheduler/docs/guides/getting-started/">React Scheduler</a></li>
+          
+
+        
+        </ul>
+      
+    </div>
+  </div>
+</div>
+
+<script src="/devextreme-reactive/@next/react/common/dist/index.js?v=1556529055"></script>
+
+<script
+  type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"
+  onload="docsearch({
+    apiKey: '4cd7a76d4bc286ae69fe26182a8d4b18',
+    indexName: 'devextreme_reactive',
+    inputSelector: '#docsearch',
+    algoliaOptions: { 'facetFilters': ['techno:react', 'tool: chart'] },
+    debug: false
+  })"
+  async
+>
+</script>
+</script>
+
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <ul class="list-inline">
+                      
+                      <li><a href="/devextreme-reactive/@next/react/chart/demos/overview/multiple-axes/">Demos</a></li>
+                      
+                      <li class="active"><a href="/devextreme-reactive/@next/react/chart/docs/guides/getting-started/">Docs</a></li>
+                      <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+                      <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-9 copyright">
+                  <p>
+                    Copyright © 2011-2019 Developer Express Inc.<br />
+                    All trademarks or registered trademarks are property of their respective owners.
+                    <div class="links">
+                      <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
+                      <br>
+                      <a href="https://js.devexpress.com/Licensing/">Licensing</a>
+                  </div>
+                  <p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+      // Remove unexpected global variable generated by kramdown to fix js-cookie
+      // <h3 id="exports">Exports</h3>
+      window.exports = undefined;
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
+
+    <script src="/devextreme-reactive/@next/js/tracking.js?v=1556529055"></script>
+    <script>
+        trackingCookie.notice();
+    </script>
+
+  </body>
+</html>

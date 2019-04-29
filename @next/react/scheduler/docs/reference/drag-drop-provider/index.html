@@ -14,8 +14,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.min.css" type="text/css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/addon/fold/foldgutter.min.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="/devextreme-reactive/@next/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/@next/css/site.css?v=1552479059">
-    <link rel="stylesheet" href="/devextreme-reactive/@next/css/embedded-demos.css?v=1552479059">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/site.css?v=1556529055">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/embedded-demos.css?v=1556529055">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <script>
@@ -113,6 +113,12 @@
       <td>A function that specifies draggable appointments.</td>
     </tr>
     <tr>
+      <td>allowResize?</td>
+      <td>(appointmentData: <a href="/devextreme-reactive/@next/react/scheduler/docs/reference/scheduler/#appointmentmodel">AppointmentModel</a>) =&gt; boolean</td>
+      <td>() =&gt; true</td>
+      <td>A function that specifies resizable appointments.</td>
+    </tr>
+    <tr>
       <td>draftAppointmentComponent</td>
       <td>ComponentType&lt;<a href="#dragdropproviderdraftappointmentprops">DragDropProvider.DraftAppointmentProps</a>&gt;</td>
       <td> </td>
@@ -123,6 +129,12 @@
       <td>ComponentType&lt;<a href="#dragdropprovidersourceappointmentprops">DragDropProvider.SourceAppointmentProps</a>&gt;</td>
       <td> </td>
       <td>A component that renders a copy of the appointment being dragged in its previous location.</td>
+    </tr>
+    <tr>
+      <td>resizeComponent</td>
+      <td>ComponentType&lt;<a href="#dragdropproviderresizeprops">DragDropProvider.ResizeProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders a handle used to resize the appointment.</td>
     </tr>
     <tr>
       <td>containerComponent</td>
@@ -163,6 +175,16 @@
       <td>string</td>
       <td>Specifies the appointment’s type.</td>
     </tr>
+    <tr>
+      <td>fromPrev</td>
+      <td>boolean</td>
+      <td><strong>true</strong> if the appointment is continued from the previous day/week/month/year.</td>
+    </tr>
+    <tr>
+      <td>toNext</td>
+      <td>boolean</td>
+      <td><strong>true</strong> if the appointment continues on the next day/week/month/year.</td>
+    </tr>
   </tbody>
 </table>
 
@@ -185,14 +207,35 @@
       <td>Specifies the appointment’s data.</td>
     </tr>
     <tr>
-      <td>style</td>
-      <td>object</td>
-      <td>Configures the appointment’s geometry and position.</td>
-    </tr>
-    <tr>
       <td>type</td>
       <td>string</td>
       <td>Specifies the appointment’s type.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="dragdropproviderresizeprops">DragDropProvider.ResizeProps</h3>
+
+<p>Describes properties of the component that renders a handle used to resize the appointment.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>position</td>
+      <td>‘start’ | ‘end’</td>
+      <td>Specifies the handle’s position in the appointment.</td>
+    </tr>
+    <tr>
+      <td>appointmentType</td>
+      <td>‘vertical’ | ‘horizontal’</td>
+      <td>Specifies whether the appointment is vertical or horizontal.</td>
     </tr>
   </tbody>
 </table>
@@ -240,6 +283,11 @@
       <td>A component that renders a copy of the appointment being dragged in its previous location.</td>
     </tr>
     <tr>
+      <td>DragDropProvider.Resize</td>
+      <td><a href="#dragdropproviderresizeprops">DragDropProvider.ResizeProps</a></td>
+      <td>A component that renders the handle of the appointment being resized.</td>
+    </tr>
+    <tr>
       <td>DragDropProvider.Container</td>
       <td><a href="#dragdropprovidercontainerprops">DragDropProvider.ContainerProps</a></td>
       <td>A component that renders a container for the appointment being dragged.</td>
@@ -259,36 +307,13 @@
       </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.11.0-alpha.1">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.11.0-beta.1">
             Version
-            <span>1.11.0-alpha.1</span>
+            <span>1.11.0-beta.1</span>
           </a>
         </li>
       </ul>
       <hr />
-      
-        <h3>Common Concepts</h3>
-
-        <ul class="list-unstyled">
-        
-        
-          
-          
-
-          
-          <li><a href="/devextreme-reactive/@next/react/common/docs/guides/performance-optimization/">Optimize Performance</a></li>
-          
-
-        
-          
-          
-
-          
-          <li><a href="/devextreme-reactive/@next/react/common/docs/guides/custom-theme/">Create a Custom Theme</a></li>
-          
-
-        
-        </ul>
       
         <h3>Guides</h3>
 
@@ -348,6 +373,29 @@
 
           
           <li><a href="/devextreme-reactive/@next/react/scheduler/docs/guides/editing/">Editing</a></li>
+          
+
+        
+        </ul>
+      
+        <h3>Common Concepts</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/common/docs/guides/performance-optimization/">Optimize Performance</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/common/docs/guides/custom-theme/">Create a Custom Theme</a></li>
           
 
         
@@ -507,7 +555,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/@next/react/common/dist/index.js?v=1552479059"></script>
+<script src="/devextreme-reactive/@next/react/common/dist/index.js?v=1556529055"></script>
 
 <script
   type="text/javascript"
@@ -563,7 +611,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/@next/js/tracking.js?v=1552479059"></script>
+    <script src="/devextreme-reactive/@next/js/tracking.js?v=1556529055"></script>
     <script>
         trackingCookie.notice();
     </script>

@@ -70,7 +70,7 @@ interface ColumnChooserProps {
 }
 
 // @public (undocumented)
-declare const createRemoteRowsCache: (pageSize: number, capacity?: number) => {
+declare const createRowCache: (pageSize: number, capacity?: number) => {
   // (undocumented)
   getRows: (skip: number, count: number) => any[];
   // (undocumented)

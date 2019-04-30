@@ -12,8 +12,8 @@ import { appointments } from '../../../demo-data/appointments';
 
 const formatDayScaleDate = (date, options) => {
   const momentDate = moment(date);
-  if (options.weekday) return momentDate.format('dddd');
-  return momentDate.format('D');
+  const { weekday } = options;
+  return momentDate.format(weekday ? 'dddd' : 'D');
 };
 const formatTimeScaleDate = date => moment(date).format('hh:mm:ss');
 

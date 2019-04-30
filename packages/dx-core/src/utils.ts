@@ -23,8 +23,8 @@ export const insertPlugin = (array, newItem) => {
 
 /** @internal */
 export const removePlugin = (array, item) => {
-  const i = array.indexOf(item);
-  return i >= 0 ? [...array.slice(0, i), ...array.slice(i + 1)] : array;
+  const itemIndex = array.indexOf(item);
+  return itemIndex >= 0 ? [...array.slice(0, itemIndex), ...array.slice(itemIndex + 1)] : array;
 };
 
 /** @internal */

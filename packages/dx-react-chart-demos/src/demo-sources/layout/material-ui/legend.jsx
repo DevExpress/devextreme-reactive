@@ -38,7 +38,9 @@ const styles = {
 
 const RootWithTitle = withStyles(styles)(({ classes, ...restProps }) => (
   <div className={classes.root}>
-    <h2 className={classes.title}>👪 Population </h2>
+    <h2 className={classes.title}>
+      <span role="img" aria-label="family">👪 Population</span>
+    </h2>
     <Legend.Root {...restProps} className={classes.legendRoot} />
   </div>
 ));

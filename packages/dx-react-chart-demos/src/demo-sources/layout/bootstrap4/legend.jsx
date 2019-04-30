@@ -13,7 +13,9 @@ import { ageStructure } from '../../../demo-data/data-vizualization';
 
 const RootWithTitle = props => (
   <div className="m-auto">
-    <h4 className="m-0 text-center">👪 Population</h4>
+    <h4 className="m-0 text-center">
+      <span role="img" aria-label="family">👪 Population</span>
+    </h4>
     <Legend.Root {...props} className="flex-row" />
   </div>
 );

@@ -47,9 +47,9 @@ describe('Calendar', () => {
         .toMatchObject({ a: 1 });
     });
     it('should render navigator', () => {
-      const defaultDateFormat = jest.fn();
+      const defaultFormatDate = jest.fn();
       const navigator = mount((
-        <Root {...defaultProps} formatDate={defaultDateFormat} />
+        <Root {...defaultProps} formatDate={defaultFormatDate} />
       )).find(defaultProps.navigatorComponent);
 
       const {
@@ -63,7 +63,7 @@ describe('Calendar', () => {
       expect(currentDate).toBe('2018-07-16');
       expect(textComponent).toBe(defaultProps.textComponent);
       expect(navigationButtonComponent).toBe(defaultProps.navigationButtonComponent);
-      expect(formatDate).toBe(defaultDateFormat);
+      expect(formatDate).toBe(defaultFormatDate);
     });
     it('should navigate to the prev and next month', () => {
       const tree = mount((
@@ -84,8 +84,8 @@ describe('Calendar', () => {
         .toBe(defaultProps.selectedDate);
     });
     it('should render calendar table', () => {
-      const defaultDateFormat = jest.fn();
-      const tree = mount(<Root {...defaultProps} formatDate={defaultDateFormat} />);
+      const defaultFormatDate = jest.fn();
+      const tree = mount(<Root {...defaultProps} formatDate={defaultFormatDate} />);
       const {
         cells,
         rowComponent,
@@ -108,7 +108,7 @@ describe('Calendar', () => {
       expect(headerCellComponent)
         .toBe(defaultProps.headerCellComponent);
       expect(formatDate)
-        .toBe(defaultDateFormat);
+        .toBe(defaultFormatDate);
     });
     it('should handle table cell click', () => {
       const onSelectedDateChangeMock = jest.fn();

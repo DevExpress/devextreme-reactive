@@ -25,12 +25,11 @@ export const formatDateTimeGetter: FormatDateTimeGetterFn = (locale) => {
   const formatter: FormatterFn = (nextDate, nextOptions) => {
     if (nextDate === undefined) return '';
     const date = new Date(nextDate);
-    const key = nextOptions;
-    let formatInstance = cache.get(key);
+    let formatInstance = cache.get(nextOptions);
 
     if (!formatInstance) {
       formatInstance = dateTimeFormatInstance(locale, nextOptions);
-      cache.set(key, formatInstance);
+      cache.set(nextOptions, formatInstance);
     }
 
     return formatInstance.format(date);

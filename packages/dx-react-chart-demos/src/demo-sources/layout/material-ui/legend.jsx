@@ -6,7 +6,6 @@ import {
   ValueAxis,
   BarSeries,
   Legend,
-  Title,
 } from '@devexpress/dx-react-chart-material-ui';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -22,6 +21,7 @@ const styles = {
   },
   title: {
     margin: '0px',
+    textAlign: 'center',
   },
   legendRoot: {
     display: 'flex',
@@ -38,7 +38,7 @@ const styles = {
 
 const RootWithTitle = withStyles(styles)(({ classes, ...restProps }) => (
   <div className={classes.root}>
-    <Title.Text className={classes.title} text="👪 Population" />
+    <h2 className={classes.title}>👪 Population </h2>
     <Legend.Root {...restProps} className={classes.legendRoot} />
   </div>
 ));
@@ -50,6 +50,10 @@ const Item = withStyles(styles)(({ classes, ...restProps }) => (
 const Label = withStyles(styles)(({ classes, ...restProps }) => (
   <Legend.Label {...restProps} className={classes.label} />
 ));
+
+const stacks = [
+  { series: ['Young', 'Adult', 'Old'] },
+];
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -87,9 +91,7 @@ export default class Demo extends React.PureComponent {
             argumentField="state"
           />
           <Stack
-            stacks={[
-              { series: ['Young', 'Adult', 'Old'] },
-            ]}
+            stacks={stacks}
           />
           <Legend
             position="top"

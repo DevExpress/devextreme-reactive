@@ -24,6 +24,10 @@ const TextComponent = withStyles(styles)(({ classes, ...restProps }) => (
   <Title.Text {...restProps} className={classes.titleText} />
 ));
 
+const stacks = [
+  { series: ['Young', 'Adult', 'Old'] },
+];
+
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -60,9 +64,7 @@ export default class Demo extends React.PureComponent {
             argumentField="state"
           />
           <Stack
-            stacks={[
-              { series: ['Young', 'Adult', 'Old'] },
-            ]}
+            stacks={stacks}
           />
           <Title text="👪 Population" textComponent={TextComponent} />
           <Legend />

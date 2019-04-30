@@ -5,7 +5,6 @@ import {
   ValueAxis,
   BarSeries,
   Legend,
-  Title,
 } from '@devexpress/dx-react-chart-bootstrap4';
 
 import { Stack } from '@devexpress/dx-react-chart';
@@ -14,7 +13,7 @@ import { ageStructure } from '../../../demo-data/data-vizualization';
 
 const RootWithTitle = props => (
   <div className="m-auto">
-    <Title.Text className="m-0" text="👪 Population" />
+    <h4 className="m-0 text-center">👪 Population</h4>
     <Legend.Root {...props} className="flex-row" />
   </div>
 );
@@ -26,6 +25,10 @@ const Item = props => (
 const Label = props => (
   <Legend.Label {...props} className="m-2" />
 );
+
+const stacks = [
+  { series: ['Young', 'Adult', 'Old'] },
+];
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -63,9 +66,7 @@ export default class Demo extends React.PureComponent {
             argumentField="state"
           />
           <Stack
-            stacks={[
-              { series: ['Young', 'Adult', 'Old'] },
-            ]}
+            stacks={stacks}
           />
           <Legend
             position="top"

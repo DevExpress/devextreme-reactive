@@ -4,12 +4,12 @@ import { Axis } from '../../types';
 export class Label extends React.PureComponent<Axis.LabelProps> {
   render() {
     const {
-      text, x, y, dominantBaseline, textAnchor, ...restProps
+      text, x, y, dy, textAnchor, ...restProps
     } = this.props;
 
     return (
       <text
-        dominantBaseline={dominantBaseline}
+        dy={dy}
         textAnchor={textAnchor}
         x={x}
         y={y}

@@ -230,6 +230,7 @@ button.dx-g-bs4-table-edit-command-cell {
   .text-muted {
     display: inline-block;
     transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
   }
 }
 .dx-g-bs4-skeleton-cell {

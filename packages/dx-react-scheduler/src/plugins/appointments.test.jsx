@@ -42,6 +42,7 @@ const defaultDeps = {
         height: 150,
         width: '60%',
         transform: 'translateY(10px)',
+        msTransform: 'translateY(10px)',
         left: '20%',
         position: 'absolute',
       },
@@ -76,6 +77,7 @@ describe('Appointments', () => {
       height: 150,
       width: '60%',
       transform: 'translateY(10px)',
+      msTransform: 'translateY(10px)',
       left: '20%',
       position: 'absolute',
     });

@@ -13,6 +13,7 @@ describe('Container', () => {
     expect(tree.find('ul').prop('style'))
       .toMatchObject({
         transform: 'translate(calc(10px - 50%), calc(20px - 50%))',
+        msTransform: 'translateX(10px) translateX(-50%) translateY(20px) translateY(-50%)',
         left: 0,
         top: 0,
       });
@@ -29,6 +30,7 @@ describe('Container', () => {
     expect(tree.find('ul').prop('style'))
       .toMatchObject({
         transform: 'translate(calc(10px - 50%), calc(20px - 50%))',
+        msTransform: 'translateX(10px) translateX(-50%) translateY(20px) translateY(-50%)',
         color: 'red',
       });
   });

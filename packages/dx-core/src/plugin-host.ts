@@ -1,4 +1,4 @@
-import { insertPlugin } from './utils';
+import { insertPlugin, removePlugin } from './utils';
 import { Getters } from '@devexpress/dx-react-core';
 
 const getDependencyError = (
@@ -65,7 +65,7 @@ export class PluginHost {
   }
 
   unregisterPlugin(plugin) {
-    this.plugins.splice(this.plugins.indexOf(plugin), 1);
+    this.plugins = removePlugin(this.plugins, plugin);
     this.cleanPluginsCache();
   }
 

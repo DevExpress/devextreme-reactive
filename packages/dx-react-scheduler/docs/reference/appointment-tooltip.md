@@ -60,7 +60,7 @@ showOpenButton | boolean | Specifies the Open button's visibility.
 showCloseButton | boolean | Specifies the Close button's visibility.
 showDeleteButton | boolean | Specifies the Delete button's visibility.
 commandButtonIds | Array&lt;string&gt; | A command button's identifier list.
-formatDate | (date: Date, options: any) => string | A function that format a date by locale.
+formatDate | (date: Date, options: any) => string | A function that formats dates according to the locale.
 onOpenButtonClick? | () => void | An event raised when the Open button is clicked. The event handler should open the appointment form.
 onDeleteButtonClick? | () => void | An event raised when the Open button is clicked. The event handler should delete an appointment.
 appointmentMeta? | [AppointmentMeta](#appointmentmeta) | The appointment's displayed metadata.

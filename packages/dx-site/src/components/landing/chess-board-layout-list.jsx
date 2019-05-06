@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import LandingChessBoardLayout from './chess-board-layout';
 
 import LandingAlternatedBackground from './alternated-background';
-import LandingLayoutItem from './layout-item';
+import LandingLayoutItem from './feature-list/layout-item';
 
 const ChessBoardLayoutList = ({ data }) => (
   data.map(({

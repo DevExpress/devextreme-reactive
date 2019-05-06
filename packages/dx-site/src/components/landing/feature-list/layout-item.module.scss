@@ -1,0 +1,5 @@
+@import './mixins';
+
+.child {
+  @include feature-item(23px);
+}

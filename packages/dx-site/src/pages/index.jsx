@@ -8,7 +8,7 @@ import LandingAlternatedBackground from '../components/landing/alternated-backgr
 import LandingLayout from '../components/landing/layout';
 import LandingTitle from '../components/landing/title';
 import LandingImageFeature from '../components/landing/image-feature';
-import LandingChessBoardLayoutList from '../components/landing/chess-board-layout-list';
+import LandingChessBoardLayoutList from '../components/landing/features-list';
 import LandingMaintainence from '../components/landing/maintainence';
 import LandingProductLayout from '../components/landing/product-layout';
 import LandingProductBlock from '../components/landing/product-block';

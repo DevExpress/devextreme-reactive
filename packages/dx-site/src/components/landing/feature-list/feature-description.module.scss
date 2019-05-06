@@ -1,0 +1,10 @@
+@import './mixins';
+
+.title {
+  @include feature-title;
+  margin-bottom: 12px;
+}
+
+.description {
+  @include feature-description;
+}

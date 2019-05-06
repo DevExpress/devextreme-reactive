@@ -8,7 +8,9 @@ import LandingMaintainence from '../../../components/landing/maintainence';
 import LandingLink from '../../../components/landing/link';
 import LandingReadyToLearnMore from '../../../components/landing/ready-to-learn-more';
 import LandingChessBoardLayoutList from '../../../components/landing/features-list';
+import LandingChessBoardSmallLayoutList from '../../../components/landing/features-list-small';
 import imageBoxLink from '../../images/image-box.png';
+import smallImageBoxLink from '../../images/image-box-small.png';
 import headerLink from './images/header.png';
 
 import LandingLayout from '../../../components/landing/layout';
@@ -17,14 +19,58 @@ import LandingImageFeature from '../../../components/landing/image-feature';
 import bootstrapThemeLink from './images/bootstrap-theme.png';
 import materialThemeLink from './images/material-theme.png';
 
-const pageData = [
+const chartTypes = [
   {
-    alternative: true,
-    sectionTitle: '10 Built-in Series Types',
-    title: 'React Bar Chart',
-    description: 'Description....',
-    imageLink: imageBoxLink,
+    title: 'Bar',
+    imageLink: smallImageBoxLink,
+    description: 'The React Chart uses a hybrid rendering mechanism that combines HTML and SVG.',
   },
+  {
+    title: 'Line',
+    imageLink: smallImageBoxLink,
+    description: 'The React Chart uses a hybrid rendering mechanism that combines HTML and SVG.',
+  },
+  {
+    title: 'Spline',
+    imageLink: smallImageBoxLink,
+    description: 'The React Chart uses a hybrid rendering mechanism that combines HTML and SVG.',
+  },
+  {
+    title: 'Area',
+    imageLink: smallImageBoxLink,
+    description: 'The React Chart uses a hybrid rendering mechanism that combines HTML and SVG.',
+  },
+  {
+    title: 'Scatter',
+    imageLink: smallImageBoxLink,
+    description: 'The React Chart uses a hybrid rendering mechanism that combines HTML and SVG.',
+  },
+  {
+    title: 'Stacked Bar',
+    imageLink: smallImageBoxLink,
+    description: 'The React Chart uses a hybrid rendering mechanism that combines HTML and SVG.',
+  },
+  {
+    title: 'Stacked Line',
+    imageLink: smallImageBoxLink,
+    description: 'The React Chart uses a hybrid rendering mechanism that combines HTML and SVG.',
+  },
+  {
+    title: 'Stacked Spline',
+    imageLink: smallImageBoxLink,
+    description: 'The React Chart uses a hybrid rendering mechanism that combines HTML and SVG.',
+  },
+  {
+    title: 'Stacked Area',
+    imageLink: smallImageBoxLink,
+    description: 'The React Chart uses a hybrid rendering mechanism that combines HTML and SVG.',
+  },
+  {
+    title: 'Pie',
+    imageLink: smallImageBoxLink,
+  },
+];
+const pageData = [
   {
     reversed: true,
     sectionTitle: 'Interactivity At Your Full Control',
@@ -100,7 +146,8 @@ const IndexPage = () => (
         />
       )}
     />
-    <LandingChessBoardLayoutList data={pageData} colSize={6} />
+    <LandingChessBoardSmallLayoutList data={chartTypes} />
+    <LandingChessBoardLayoutList data={pageData} />
     <LandingLayout>
       <LandingTitle text="Native Support for the UI Library of Your Choice" />
       <LandingImageFeature

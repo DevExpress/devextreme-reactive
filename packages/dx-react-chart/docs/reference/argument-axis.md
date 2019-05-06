@@ -69,7 +69,7 @@ Field | Type | Description
 text | string &#124; number | The label text.
 x | number | The x coordinate of the label's top left corner.
 y | number | The y coordinate of the label's top left corner.
-dy | string | The label's offset from baseline in css units.
+dy | string | The label's offset from the baseline in CSS units.
 textAnchor | 'start' &#124; 'middle' &#124; 'end' | The label's text alignment.
 
 ## Plugin Components

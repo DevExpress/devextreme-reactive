@@ -46,7 +46,7 @@ React Chart supports the latest stable releases of all major browsers: Google Ch
 
 React Chart can work in other browsers if they use the latest version of WebKit, Blink, or Gecko, whether directly or via the platform's web view API. Some of these browsers may require adding [polyfills](#polyfills). However, correct operation in such browsers, including Internet Explorer, is not guaranteed.
 
-React Chart uses [d3](https://d3js.org) packages. Browser restrictions of those packages extend to React Chart as well.
+Because React Chart is build upon the [D3](https://d3js.org) library, the library's [browser support restrictions](https://github.com/d3/d3/wiki#supported-environments) apply to React Chart as well.
 
 ## Polyfills
 

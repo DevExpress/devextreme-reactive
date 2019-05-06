@@ -53,7 +53,7 @@ interface ArgumentScaleProps extends ScaleProps {
 namespace Axis {
   // (undocumented)
   interface LabelProps {
-    dominantBaseline: string;
+    dy: string;
     text: string | number;
     textAnchor: string;
     x: number;
@@ -635,3 +635,4 @@ interface ZoomAndPanProps {
 
 
 // (No @packageDocumentation comment for this package)
+

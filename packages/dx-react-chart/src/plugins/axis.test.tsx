@@ -78,7 +78,7 @@ describe('Axis', () => {
       y2: 4,
       xText: 'xText1',
       yText: 'yText1',
-      dominantBaseline: 'dominantBaseline1',
+      dy: 'dy1',
       textAnchor: 'textAnchor1',
       key: '1',
     },
@@ -90,7 +90,7 @@ describe('Axis', () => {
       y2: 44,
       xText: 'xText2',
       yText: 'yText2',
-      dominantBaseline: 'dominantBaseline2',
+      dy: 'dy2',
       textAnchor: 'textAnchor2',
       key: '2',
     },
@@ -332,7 +332,7 @@ describe('Axis', () => {
     expect(tree.find(LabelComponent).get(0).props).toEqual({
       x: 'xText1',
       y: 'yText1',
-      dominantBaseline: 'dominantBaseline1',
+      dy: 'dy1',
       textAnchor: 'textAnchor1',
       text: 'text1',
     });
@@ -340,7 +340,7 @@ describe('Axis', () => {
     expect(tree.find(LabelComponent).get(1).props).toEqual({
       x: 'xText2',
       y: 'yText2',
-      dominantBaseline: 'dominantBaseline2',
+      dy: 'dy2',
       textAnchor: 'textAnchor2',
       text: 'text2',
     });

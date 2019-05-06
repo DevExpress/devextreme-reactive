@@ -24,7 +24,7 @@ export type Tick = {
   readonly y2: number;
   readonly xText: number;
   readonly yText: number;
-  readonly dominantBaseline: string;
+  readonly dy: string;
   readonly textAnchor: string;
   readonly text: string;
 };

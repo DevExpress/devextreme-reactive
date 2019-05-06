@@ -9,7 +9,7 @@ export namespace Axis {
     x: number;
     /** The y coordinate of the label’s top left corner */
     y: number;
-    /** The label's offset from baseline in css units */
+    /** The label's offset from the baseline in CSS units */
     dy: string;
     /** The label’s text alignment */
     textAnchor: string;

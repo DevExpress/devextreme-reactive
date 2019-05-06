@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import {
   Plugin,
   Template,
@@ -11,19 +10,37 @@ import {
   viewBoundText,
 } from '@devexpress/dx-scheduler-core';
 
+import { DateNavigatorProps, DateNavigatorState } from '../types';
+
 const pluginDependencies = [
   { name: 'Toolbar' },
   { name: 'ViewState' },
 ];
 
-const navigate = (action, currentView, intervalCount) => (direction, nextDate) => action({
+const navigate = (action, currentView, intervalCount) => (direction: 'forward' | 'back', nextDate) => action({
   direction,
   nextDate,
   amount: intervalCount,
   step: currentView.type,
 });
 
-export class DateNavigator extends React.PureComponent {
+class DateNavigatorBase extends React.PureComponent<DateNavigatorProps, DateNavigatorState> {
+  static components = {
+    rootComponent: 'Root',
+    overlayComponent: 'Overlay',
+    openButtonComponent: 'OpenButton',
+    navigationButtonComponent: 'NavigationButton',
+    calendarComponent: 'Calendar',
+    calendarRowComponent: 'CalendarRow',
+    calendarCellComponent: 'CalendarCell',
+    calendarHeaderRowComponent: 'CalendarHeaderRow',
+    calendarHeaderCellComponent: 'CalendarHeaderCell',
+    calendarTextComponent: 'CalendarText',
+    calendarNavigatorComponent: 'CalendarNavigator',
+    calendarNavigationButtonComponent: 'CalendarNavigationButton',
+  };
+  target;
+
   constructor(props) {
     super(props);
 
@@ -135,32 +152,5 @@ export class DateNavigator extends React.PureComponent {
   }
 }
 
-DateNavigator.propTypes = {
-  rootComponent: PropTypes.func.isRequired,
-  overlayComponent: PropTypes.func.isRequired,
-  openButtonComponent: PropTypes.func.isRequired,
-  navigationButtonComponent: PropTypes.func.isRequired,
-  calendarComponent: PropTypes.func.isRequired,
-  calendarRowComponent: PropTypes.func.isRequired,
-  calendarCellComponent: PropTypes.func.isRequired,
-  calendarHeaderRowComponent: PropTypes.func.isRequired,
-  calendarHeaderCellComponent: PropTypes.func.isRequired,
-  calendarTextComponent: PropTypes.func.isRequired,
-  calendarNavigationButtonComponent: PropTypes.func.isRequired,
-  calendarNavigatorComponent: PropTypes.func.isRequired,
-};
-
-DateNavigator.components = {
-  rootComponent: 'Root',
-  overlayComponent: 'Overlay',
-  openButtonComponent: 'OpenButton',
-  navigationButtonComponent: 'NavigationButton',
-  calendarComponent: 'Calendar',
-  calendarRowComponent: 'CalendarRow',
-  calendarCellComponent: 'CalendarCell',
-  calendarHeaderRowComponent: 'CalendarHeaderRow',
-  calendarHeaderCellComponent: 'CalendarHeaderCell',
-  calendarTextComponent: 'CalendarText',
-  calendarNavigatorComponent: 'CalendarNavigator',
-  calendarNavigationButtonComponent: 'CalendarNavigationButton',
-};
+/** A plugin that renders the Scheduler’s date navigator. */
+export const DateNavigator: React.ComponentType<DateNavigatorProps> = DateNavigatorBase;

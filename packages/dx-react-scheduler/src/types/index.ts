@@ -5,3 +5,4 @@ export * from './toolbar';
 export * from './editing';
 export * from './drag-drop';
 export * from './date-navigator';
+export * from './appointments';

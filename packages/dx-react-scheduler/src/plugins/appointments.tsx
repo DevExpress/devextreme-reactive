@@ -1,10 +1,11 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import {
   Plugin, Template, TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 import { createClickHandlers } from '@devexpress/dx-core';
 import { POSITION_START, POSITION_END } from '@devexpress/dx-scheduler-core';
+
+import { AppointmentsProps } from '../types';
 
 const pluginDependencies = [
   { name: 'DayView', optional: true },
@@ -12,7 +13,15 @@ const pluginDependencies = [
   { name: 'MonthView', optional: true },
 ];
 
-export class Appointments extends React.PureComponent {
+class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
+  static components = {
+    splitIndicatorComponent: 'SplitIndicator',
+    containerComponent: 'Container',
+    appointmentComponent: 'Appointment',
+    appointmentContentComponent: 'AppointmentContent',
+    recurringIconComponent: 'RecurringIcon',
+  };
+
   render() {
     const {
       splitIndicatorComponent: SplitIndicator,
@@ -30,7 +39,7 @@ export class Appointments extends React.PureComponent {
         <Template
           name="appointment"
         >
-          {params => (
+          {(params: any) => (
             <Container style={params.style}>
               <TemplatePlaceholder name="appointmentTop" params={{ data: params.data, type: params.type, slice: params.fromPrev }} />
               <TemplatePlaceholder name="appointmentContent" params={params} />
@@ -44,7 +53,7 @@ export class Appointments extends React.PureComponent {
             onClick, onDoubleClick,
             data, type, style, fromPrev, toNext,
             ...restParams
-          }) => (
+          }: any) => (
             <Appointment
               data={data}
               {...createClickHandlers(onClick, onDoubleClick)}
@@ -65,18 +74,5 @@ export class Appointments extends React.PureComponent {
   }
 }
 
-Appointments.propTypes = {
-  splitIndicatorComponent: PropTypes.func.isRequired,
-  containerComponent: PropTypes.func.isRequired,
-  appointmentComponent: PropTypes.func.isRequired,
-  appointmentContentComponent: PropTypes.func.isRequired,
-  recurringIconComponent: PropTypes.func.isRequired,
-};
-
-Appointments.components = {
-  splitIndicatorComponent: 'SplitIndicator',
-  containerComponent: 'Container',
-  appointmentComponent: 'Appointment',
-  appointmentContentComponent: 'AppointmentContent',
-  recurringIconComponent: 'RecurringIcon',
-};
+/** A plugin that renders appointments. */
+export const Appointments: React.ComponentType<AppointmentsProps> = AppointmentsBase;

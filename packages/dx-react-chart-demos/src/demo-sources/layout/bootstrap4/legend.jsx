@@ -13,7 +13,7 @@ import { ageStructure } from '../../../demo-data/data-vizualization';
 
 const RootWithTitle = props => (
   <div>
-    <h4 style={{ marginLeft: '1.5rem' }}>
+    <h4 style={{ marginLeft: '1.5rem', marginBottom: 0 }}>
       <span role="img" aria-label="family">👪 Population</span>
     </h4>
     <Legend.Root {...props} />
@@ -25,7 +25,7 @@ const Item = props => (
 );
 
 const Label = props => (
-  <Legend.Label {...props} className="text-center w-100" />
+  <Legend.Label {...props} className="text-right" />
 );
 
 const stacks = [

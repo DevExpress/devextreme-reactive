@@ -16,12 +16,13 @@ import { ageStructure } from '../../../demo-data/data-vizualization';
 const styles = {
   title: {
     marginLeft: '1.5rem',
+    marginBottom: 0,
   },
   item: {
     flexDirection: 'row-reverse',
   },
   label: {
-    textAlign: 'center',
+    textAlign: 'right',
   },
 };
 

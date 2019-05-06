@@ -22,12 +22,12 @@ const calculateInsideOffset: PureComputed<
   ? insidePart * cellDurationMinutes * 60 / 2 : 0;
 
 export const cellType: PureComputed<
-  [AppointmentModel], string
+  [ViewCell | AllDayCell], string
 > = data => moment(data.startDate as Date)
   .isSame(data.endDate as Date, 'day') ? VERTICAL_TYPE : HORIZONTAL_TYPE;
 
 export const intervalDuration: PureComputed<
-  [AppointmentModel, TimeType], number
+  [ViewCell | AllDayCell, TimeType], number
 > = (data, type) => moment(data.endDate as Date).diff(data.startDate as Date, type);
 
 export const cellIndex: PureComputed<

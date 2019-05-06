@@ -22,6 +22,8 @@ import {
   POSITION_END,
 } from '@devexpress/dx-scheduler-core';
 
+import { DragDropProviderProps, DragDropProviderState } from '../types';
+
 const pluginDependencies = [
   { name: 'EditingState' },
   { name: 'Appointments' },
@@ -31,14 +33,30 @@ const pluginDependencies = [
   { name: 'AllDayPanel', optional: true },
 ];
 
-export class DragDropProvider extends React.PureComponent {
+class DragDropProviderBase extends React.PureComponent<DragDropProviderProps, DragDropProviderState> {
+  static components = {
+    containerComponent: 'Container',
+    draftAppointmentComponent: 'DraftAppointment',
+    sourceAppointmentComponent: 'SourceAppointment',
+    resizeComponent: 'Resize',
+  };
+  static defaultProps = {
+    allowDrag: () => true,
+    allowResize: () => true,
+  };
+  timeTableDraftAppointments;
+  allDayDraftAppointments;
+  offsetTimeTop;
+  appointmentStartTime;
+  appointmentEndTime
+
   constructor(props) {
     super(props);
 
     this.state = {
       startTime: null,
       endTime: null,
-      payload: undefined,
+      payload: null,
     };
 
     this.timeTableDraftAppointments = [];
@@ -103,8 +121,8 @@ export class DragDropProvider extends React.PureComponent {
     if (clientOffset) {
       autoScroll(clientOffset, layoutElement, layoutHeaderElement);
     }
-    const timeTableCells = Array.from(timeTableElement.current.querySelectorAll('td'));
-    const allDayCells = Array.from(layoutHeaderElement.current.querySelectorAll('th'));
+    const timeTableCells: Element[] = Array.from(timeTableElement.current.querySelectorAll('td'));
+    const allDayCells: Element[] = Array.from(layoutHeaderElement.current.querySelectorAll('th'));
 
     const timeTableIndex = cellIndex(timeTableCells, clientOffset);
     const allDayIndex = cellIndex(allDayCells, clientOffset);
@@ -221,9 +239,9 @@ export class DragDropProvider extends React.PureComponent {
 
         <Template
           name="appointmentContent"
-          predicate={({ data }) => allowDrag(data)}
+          predicate={({ data }: any) => allowDrag!(data)}
         >
-          {({ style, ...params }) => (
+          {({ style, ...params }: any) => (
             <DragSource
               payload={{ ...params.data, type: params.type }}
             >
@@ -238,9 +256,9 @@ export class DragDropProvider extends React.PureComponent {
 
         <Template
           name="appointmentTop"
-          predicate={params => !params.slice && allowResize(params.data)}
+          predicate={(params: any) => !params.slice && allowResize!(params.data)}
         >
-          {({ data, type }) => (
+          {({ data, type }: any) => (
             <DragSource
               payload={{ ...data, type: RESIZE_TOP, appointmentType: type }}
             >
@@ -251,9 +269,9 @@ export class DragDropProvider extends React.PureComponent {
 
         <Template
           name="appointmentBottom"
-          predicate={params => !params.slice && allowResize(params.data)}
+          predicate={(params: any) => !params.slice && allowResize!(params.data)}
         >
-          {({ data, type }) => (
+          {({ data, type }: any) => (
             <DragSource
               payload={{ ...data, type: RESIZE_BOTTOM, appointmentType: type }}
             >
@@ -310,23 +328,5 @@ export class DragDropProvider extends React.PureComponent {
   }
 }
 
-DragDropProvider.propTypes = {
-  containerComponent: PropTypes.func.isRequired,
-  draftAppointmentComponent: PropTypes.func.isRequired,
-  sourceAppointmentComponent: PropTypes.func.isRequired,
-  resizeComponent: PropTypes.func.isRequired,
-  allowDrag: PropTypes.func,
-  allowResize: PropTypes.func,
-};
-
-DragDropProvider.defaultProps = {
-  allowDrag: () => true,
-  allowResize: () => true,
-};
-
-DragDropProvider.components = {
-  containerComponent: 'Container',
-  draftAppointmentComponent: 'DraftAppointment',
-  sourceAppointmentComponent: 'SourceAppointment',
-  resizeComponent: 'Resize',
-};
+/** A plugin that enables users to edit appointments via drag-and-drop. */
+export const DragDropProvider: React.ComponentType<DragDropProviderProps> = DragDropProviderBase;

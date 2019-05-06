@@ -147,7 +147,7 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
                         text,
                         xText,
                         yText,
-                        dominantBaseline,
+                        dy: delta,
                         textAnchor,
                         key,
                       }) => (
@@ -156,7 +156,7 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
                           text={text}
                           x={xText}
                           y={yText}
-                          dominantBaseline={dominantBaseline}
+                          dy={delta}
                           textAnchor={textAnchor}
                         />
                       ))}

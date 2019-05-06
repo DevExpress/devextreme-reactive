@@ -1,8 +1,6 @@
 # React Scheduler - Localization
 
 The React Scheduler provides an API that allows you to format dates and localize messages.
-- format dates;
-- localization messages.
 
 **Format Dates**
 

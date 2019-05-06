@@ -14,34 +14,23 @@ import { Stack } from '@devexpress/dx-react-chart';
 import { ageStructure } from '../../../demo-data/data-vizualization';
 
 const styles = {
-  root: {
-    width: '60%',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-  },
   title: {
-    margin: '0px',
-    textAlign: 'center',
-  },
-  legendRoot: {
-    display: 'flex',
-    flexDirection: 'row',
+    marginLeft: '1.5rem',
   },
   item: {
-    flexDirection: 'column',
-    margin: 'auto',
+    flexDirection: 'row-reverse',
   },
   label: {
-    margin: '10px',
+    textAlign: 'center',
   },
 };
 
 const RootWithTitle = withStyles(styles)(({ classes, ...restProps }) => (
-  <div className={classes.root}>
+  <div>
     <h2 className={classes.title}>
       <span role="img" aria-label="family">👪 Population</span>
     </h2>
-    <Legend.Root {...restProps} className={classes.legendRoot} />
+    <Legend.Root {...restProps} />
   </div>
 ));
 
@@ -96,7 +85,6 @@ export default class Demo extends React.PureComponent {
             stacks={stacks}
           />
           <Legend
-            position="top"
             rootComponent={RootWithTitle}
             itemComponent={Item}
             labelComponent={Label}

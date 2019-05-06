@@ -12,20 +12,20 @@ import { Stack } from '@devexpress/dx-react-chart';
 import { ageStructure } from '../../../demo-data/data-vizualization';
 
 const RootWithTitle = props => (
-  <div className="m-auto">
-    <h4 className="m-0 text-center">
+  <div>
+    <h4 style={{ marginLeft: '1.5rem' }}>
       <span role="img" aria-label="family">👪 Population</span>
     </h4>
-    <Legend.Root {...props} className="flex-row" />
+    <Legend.Root {...props} />
   </div>
 );
 
 const Item = props => (
-  <Legend.Item {...props} className="m-auto flex-column" />
+  <Legend.Item {...props} className="flex-row-reverse" />
 );
 
 const Label = props => (
-  <Legend.Label {...props} className="m-2" />
+  <Legend.Label {...props} className="text-center w-100" />
 );
 
 const stacks = [
@@ -71,7 +71,6 @@ export default class Demo extends React.PureComponent {
             stacks={stacks}
           />
           <Legend
-            position="top"
             rootComponent={RootWithTitle}
             itemComponent={Item}
             labelComponent={Label}

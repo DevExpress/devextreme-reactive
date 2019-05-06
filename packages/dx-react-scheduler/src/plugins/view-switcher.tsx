@@ -46,4 +46,5 @@ class ViewSwitcherBase extends React.PureComponent<ViewSwitcherProps> {
   }
 }
 
+/** A plugin that renders the Scheduler's view switcher. */
 export const ViewSwitcher: React.ComponentType<ViewSwitcherProps> = ViewSwitcherBase;

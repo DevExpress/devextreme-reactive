@@ -5,6 +5,7 @@ import {
   Getter,
   TemplateConnector,
   TemplatePlaceholder,
+  Getters,
 } from '@devexpress/dx-react-core';
 import {
   computed,
@@ -30,7 +31,7 @@ const startViewDateBaseComputed = ({
   viewCellsData,
 }) => startViewDateCore(viewCellsData);
 
-export class WeekView extends React.PureComponent<WeekViewProps, ViewState> {
+class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
   startViewDateBaseComputed;
   viewCellsDataComputed;
   currentViewComputed;
@@ -131,32 +132,32 @@ export class WeekView extends React.PureComponent<WeekViewProps, ViewState> {
     this.availableViewNamesComputed = ({ availableViewNames }) => availableViewNamesCore(
       availableViewNames, viewName!,
     );
-    this.intervalCountComputed = getters => computed(
+    this.intervalCountComputed = (getters: Getters) => computed(
       getters, viewName!, () => intervalCount, getters.intervalCount,
     );
-    this.firstDayOfWeekComputed = getters => computed(
+    this.firstDayOfWeekComputed = (getters: Getters) => computed(
       getters, viewName!, () => firstDayOfWeek, getters.firstDayOfWeek,
     );
-    this.excludedDaysComputed = getters => computed(
+    this.excludedDaysComputed = (getters: Getters) => computed(
       getters, viewName!, () => excludedDays, getters.excludedDays,
     );
-    this.startViewDateComputed = getters => computed(
+    this.startViewDateComputed = (getters: Getters) => computed(
       getters, viewName, startViewDateBaseComputed, getters.startViewDate,
     );
-    this.endViewDateComputed = getters => computed(
+    this.endViewDateComputed = (getters: Getters) => computed(
       getters, viewName, endViewDateBaseComputed, getters.endViewDate,
     );
-    this.viewCellsData = getters => computed(
+    this.viewCellsData = (getters: Getters) => computed(
       getters, viewName, viewCellsDataComputed, getters.viewCellsData,
     );
 
-    this.timeTableElement = getters => computed(
+    this.timeTableElement = (getters: Getters) => computed(
       getters, viewName, timeTableElementComputed, getters.timeTableElement,
     );
-    this.layoutElement = getters => computed(
+    this.layoutElement = (getters: Getters) => computed(
       getters, viewName, layoutElementComputed, getters.layoutElement,
     );
-    this.layoutHeaderElement = getters => computed(
+    this.layoutHeaderElement = (getters: Getters) => computed(
       getters, viewName, layoutHeaderElementComputed, getters.layoutHeaderElement,
     );
   }
@@ -332,3 +333,6 @@ export class WeekView extends React.PureComponent<WeekViewProps, ViewState> {
     );
   }
 }
+
+/** A plugin that renders the Scheduler's week view. This plugin arranges appointments from top to bottom. If their time intervals overlap, their width is decreased and they are placed next to each other. */
+export const WeekView: React.ComponentType<WeekViewProps> = WeekViewBase;

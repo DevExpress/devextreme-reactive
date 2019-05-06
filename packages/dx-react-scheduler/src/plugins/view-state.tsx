@@ -80,4 +80,5 @@ class ViewStateBase extends React.PureComponent<ViewStateProps, ViewStateState> 
   }
 }
 
+/** A plugin that manages the view state. It specifies the current date and the displayed view. */
 export const ViewState: React.ComponentType<ViewStateProps> = ViewStateBase;

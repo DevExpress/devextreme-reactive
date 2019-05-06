@@ -1,7 +1,6 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import {
-  Action, Plugin, Getter, createStateHelper,
+  Action, Plugin, Getter, createStateHelper, StateHelper,
 } from '@devexpress/dx-react-core';
 import {
   addAppointment,
@@ -13,7 +12,33 @@ import {
   changedAppointmentById,
 } from '@devexpress/dx-scheduler-core';
 
-export class EditingState extends React.PureComponent {
+import { EditingStateProps, EditingStateState } from '../types';
+
+class EditingStateBase extends React.PureComponent<EditingStateProps, EditingStateState> {
+  static defaultProps = {
+    editingAppointmentId: undefined,
+    defaultEditingAppointmentId: undefined,
+    onEditingAppointmentIdChange: undefined,
+
+    appointmentChanges: undefined,
+    defaultAppointmentChanges: {},
+    onAppointmentChangesChange: undefined,
+
+    addedAppointment: undefined,
+    defaultAddedAppointment: {},
+    onAddedAppointmentChange: undefined,
+  };
+  startEditAppointment;
+  stopEditAppointment;
+  changeAppointment;
+  cancelChangedAppointment;
+  commitChangedAppointment;
+  addAppointment;
+  changeAddedAppointment;
+  cancelAddedAppointment;
+  commitAddedAppointment;
+  commitDeletedAppointment;
+
   constructor(props) {
     super(props);
 
@@ -23,7 +48,7 @@ export class EditingState extends React.PureComponent {
       appointmentChanges: props.appointmentChanges || props.defaultAppointmentChanges,
     };
 
-    const stateHelper = createStateHelper(
+    const stateHelper: StateHelper = createStateHelper(
       this,
       {
         editingAppointmentId: () => {
@@ -96,9 +121,7 @@ export class EditingState extends React.PureComponent {
   }
 
   render() {
-    const {
-      addedAppointment, editingAppointmentId, appointmentChanges,
-    } = this.state;
+    const { addedAppointment, editingAppointmentId, appointmentChanges } = this.state;
 
     return (
       <Plugin
@@ -125,32 +148,5 @@ export class EditingState extends React.PureComponent {
   }
 }
 
-EditingState.propTypes = {
-  editingAppointmentId: PropTypes.number,
-  defaultEditingAppointmentId: PropTypes.number,
-  onEditingAppointmentIdChange: PropTypes.func,
-
-  addedAppointment: PropTypes.object,
-  defaultAddedAppointment: PropTypes.object,
-  onAddedAppointmentChange: PropTypes.func,
-
-  appointmentChanges: PropTypes.object,
-  defaultAppointmentChanges: PropTypes.object,
-  onAppointmentChangesChange: PropTypes.func,
-
-  onCommitChanges: PropTypes.func.isRequired,
-};
-
-EditingState.defaultProps = {
-  editingAppointmentId: undefined,
-  defaultEditingAppointmentId: undefined,
-  onEditingAppointmentIdChange: undefined,
-
-  appointmentChanges: undefined,
-  defaultAppointmentChanges: {},
-  onAppointmentChangesChange: undefined,
-
-  addedAppointment: undefined,
-  defaultAddedAppointment: {},
-  onAddedAppointmentChange: undefined,
-};
+/** A plugin that manages the scheduler appointment editing state. */
+export const EditingState: React.ComponentType<EditingStateProps> = EditingStateBase;

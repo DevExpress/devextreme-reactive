@@ -30,7 +30,7 @@ const endViewDateBaseComputed = ({
   viewCellsData,
 }) => endViewDateCore(viewCellsData);
 
-export class DayView extends React.PureComponent<VerticalViewProps, ViewState> {
+class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
   static defaultProps = {
     name: 'Day',
     startDayHour: 0,
@@ -318,3 +318,6 @@ export class DayView extends React.PureComponent<VerticalViewProps, ViewState> {
     );
   }
 }
+
+/** A plugin that renders Scheduler data for a day. This plugin arranges appointments from top to bottom. If their time intervals overlap, their width is decreased and they are placed next to each other. */
+export const DayView: React.ComponentType<VerticalViewProps> = DayViewBase;

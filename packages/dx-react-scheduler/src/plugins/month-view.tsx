@@ -5,6 +5,7 @@ import {
   Getter,
   TemplateConnector,
   TemplatePlaceholder,
+  Getters,
 } from '@devexpress/dx-react-core';
 import {
   computed,
@@ -25,7 +26,7 @@ const TYPE = 'month';
 const startViewDateBaseComputed = ({ viewCellsData }) => startViewDateCore(viewCellsData);
 const endViewDateBaseComputed = ({ viewCellsData }) => endViewDateCore(viewCellsData);
 
-export class MonthView extends React.PureComponent<MonthViewProps, ViewState> {
+class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
   static defaultProps = {
     intervalCount: 1,
     firstDayOfWeek: 0,
@@ -98,29 +99,29 @@ export class MonthView extends React.PureComponent<MonthViewProps, ViewState> {
     this.availableViewNamesComputed = ({ availableViewNames }) => availableViewNamesCore(
       availableViewNames, viewName,
     );
-    this.intervalCountComputed = getters => computed(
+    this.intervalCountComputed = (getters: Getters) => computed(
       getters, viewName, () => intervalCount, getters.intervalCount,
     );
-    this.firstDayOfWeekComputed = getters => computed(
+    this.firstDayOfWeekComputed = (getters: Getters) => computed(
       getters, viewName, () => firstDayOfWeek, getters.firstDayOfWeek,
     );
-    this.startViewDateCore = getters => computed(
+    this.startViewDateCore = (getters: Getters) => computed(
       getters, viewName, startViewDateBaseComputed, getters.startViewDate,
     );
-    this.endViewDateComputed = getters => computed(
+    this.endViewDateComputed = (getters: Getters) => computed(
       getters, viewName, endViewDateBaseComputed, getters.endViewDate,
     );
-    this.viewCellsData = getters => computed(
+    this.viewCellsData = (getters: Getters) => computed(
       getters, viewName, viewCellsDataComputed, getters.viewCellsData,
     );
 
-    this.timeTableElement = getters => computed(
+    this.timeTableElement = (getters: Getters) => computed(
       getters, viewName, timeTableElementComputed, getters.timeTableElement,
     );
-    this.layoutElement = getters => computed(
+    this.layoutElement = (getters: Getters) => computed(
       getters, viewName, layoutElementComputed, getters.layoutElement,
     );
-    this.layoutHeaderElement = getters => computed(
+    this.layoutHeaderElement = (getters: Getters) => computed(
       getters, viewName, layoutHeaderElementComputed, getters.layoutHeaderElement,
     );
   }
@@ -257,3 +258,6 @@ export class MonthView extends React.PureComponent<MonthViewProps, ViewState> {
     );
   }
 }
+
+/** A plugin that renders Scheduler data for a month. This plugin arranges appointments from left to right. An appointment's size depends on its duration in days. However, it occupies the entire day cell if an appointment lasts only for several hours or minutes. The time scale and all-day panel are not available in this view. */
+export const MonthView: React.ComponentType<MonthViewProps> = MonthViewBase;

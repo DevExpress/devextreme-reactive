@@ -30,7 +30,8 @@
     "object-shorthand-properties-first": false,
     "prefer-array-literal": [true, { "allow-type-parameters": true }],
     "array-type": false,
-    "member-ordering": false
+    "member-ordering": false,
+    "no-this-assignment": false,
   },
   "jsRules": {
     "object-literal-sort-keys": false

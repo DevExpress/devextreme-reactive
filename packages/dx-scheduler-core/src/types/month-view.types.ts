@@ -18,7 +18,7 @@ export interface MonthCellData {
 }
 
 export type MonthCellsDataComputedFn = PureComputed<
-  [Date, number, number, Date], MonthCellData[][]
+  [Date, number, number, Date | number], MonthCellData[][]
 >;
 
 export type CalculateMonthDateIntervalsFn = PureComputed<

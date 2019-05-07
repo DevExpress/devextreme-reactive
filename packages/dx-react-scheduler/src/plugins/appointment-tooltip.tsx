@@ -1,11 +1,11 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import {
   Plugin,
   Template,
   TemplatePlaceholder,
   TemplateConnector,
   createStateHelper,
+  StateHelper,
 } from '@devexpress/dx-react-core';
 import {
   OPEN_COMMAND_BUTTON,
@@ -13,6 +13,8 @@ import {
   DELETE_COMMAND_BUTTON,
   setAppointmentMeta,
 } from '@devexpress/dx-scheduler-core';
+
+import { AppointmentTooltipProps, AppointmentTooltipState } from '../types';
 
 const pluginDependencies = [
   { name: 'Appointments' },
@@ -25,7 +27,26 @@ const commandButtonIds = {
   delete: DELETE_COMMAND_BUTTON,
 };
 
-export class AppointmentTooltip extends React.PureComponent {
+class AppointmentTooltipBase extends React.PureComponent<AppointmentTooltipProps, AppointmentTooltipState> {
+  static components = {
+    layoutComponent: 'Layout',
+    headerComponent: 'Header',
+    contentComponent: 'Content',
+    commandButtonComponent: 'CommandButton',
+  };
+  static defaultProps = {
+    onAppointmentMetaChange: undefined,
+    onVisibilityChange: undefined,
+    appointmentMeta: undefined,
+    visible: undefined,
+    showOpenButton: false,
+    showDeleteButton: false,
+    showCloseButton: false,
+  };
+  toggleVisibility;
+  setAppointmentMeta;
+  onAppointmentClick;
+
   constructor(props) {
     super(props);
 
@@ -34,7 +55,7 @@ export class AppointmentTooltip extends React.PureComponent {
       appointmentMeta: props.appointmentMeta,
     };
 
-    const stateHelper = createStateHelper(
+    const stateHelper: StateHelper = createStateHelper(
       this,
       {
         visible: () => {
@@ -127,7 +148,7 @@ export class AppointmentTooltip extends React.PureComponent {
         </Template>
 
         <Template name="tooltip">
-          {params => <Layout {...params} />}
+          {(params: any) => <Layout {...params} />}
         </Template>
 
         <Template name="appointment">
@@ -147,39 +168,5 @@ export class AppointmentTooltip extends React.PureComponent {
   }
 }
 
-AppointmentTooltip.propTypes = {
-  layoutComponent: PropTypes.func.isRequired,
-  headerComponent: PropTypes.func.isRequired,
-  contentComponent: PropTypes.func.isRequired,
-  commandButtonComponent: PropTypes.func.isRequired,
-  showOpenButton: PropTypes.bool,
-  showDeleteButton: PropTypes.bool,
-  showCloseButton: PropTypes.bool,
-  visible: PropTypes.bool,
-  appointmentMeta: PropTypes.shape({
-    target: PropTypes.oneOfType([
-      PropTypes.object,
-      PropTypes.func,
-    ]),
-    data: PropTypes.object,
-  }),
-  onVisibilityChange: PropTypes.func,
-  onAppointmentMetaChange: PropTypes.func,
-};
-
-AppointmentTooltip.defaultProps = {
-  onAppointmentMetaChange: undefined,
-  onVisibilityChange: undefined,
-  appointmentMeta: undefined,
-  visible: undefined,
-  showOpenButton: false,
-  showDeleteButton: false,
-  showCloseButton: false,
-};
-
-AppointmentTooltip.components = {
-  layoutComponent: 'Layout',
-  headerComponent: 'Header',
-  contentComponent: 'Content',
-  commandButtonComponent: 'CommandButton',
-};
+/** The AppointmentTooltip plugin allows you to display information about an appointment in a tooltip. */
+export const AppointmentTooltip: React.ComponentType<AppointmentTooltipProps> = AppointmentTooltipBase;

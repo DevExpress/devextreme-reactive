@@ -4,6 +4,7 @@ import {
   Action,
   Plugin,
   createStateHelper,
+  StateHelper,
 } from '@devexpress/dx-react-core';
 import {
   changeCurrentDate,
@@ -28,7 +29,7 @@ class ViewStateBase extends React.PureComponent<ViewStateProps, ViewStateState> 
       currentViewName: props.currentViewName || props.defaultCurrentViewName,
     };
 
-    const stateHelper = createStateHelper(
+    const stateHelper: StateHelper = createStateHelper(
       this,
       {
         currentDate: () => {

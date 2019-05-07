@@ -11,6 +11,7 @@ describe('AppointmentContent', () => {
     data: {},
     type: 'horizontal',
     recurringIconComponent: () => <div />,
+    formatDate: () => undefined,
   };
   beforeAll(() => {
     shallow = createShallow({ dive: true });

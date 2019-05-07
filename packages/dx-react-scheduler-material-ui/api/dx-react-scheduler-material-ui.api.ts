@@ -551,6 +551,7 @@ declare const Scheduler: React.ComponentType<SchedulerProps> & {
 // @public (undocumented)
 interface SchedulerProps {
   data?: Array<AppointmentModel>;
+  locale?: string;
   rootComponent?: React.ComponentType<Scheduler_2.RootProps>;
 }
 

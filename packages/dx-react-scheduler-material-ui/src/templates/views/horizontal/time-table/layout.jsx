@@ -19,6 +19,7 @@ const LayoutBase = ({
   tableRef,
   className,
   cellsData,
+  formatDate,
   ...restProps
 }) => (
   <RootRef rootRef={tableRef}>
@@ -41,6 +42,7 @@ const LayoutBase = ({
                 endDate={endDate}
                 today={today}
                 otherMonth={otherMonth}
+                formatDate={formatDate}
               />
             ))}
           </Row>
@@ -56,6 +58,7 @@ LayoutBase.propTypes = {
   classes: PropTypes.object.isRequired,
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
+  formatDate: PropTypes.func.isRequired,
   className: PropTypes.string,
 };
 LayoutBase.defaultProps = {

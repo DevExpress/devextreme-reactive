@@ -15,7 +15,7 @@ export namespace DateNavigator {
     /** An event raised when the date navigator should be shown or hidden. */
     onVisibilityToggle: () => void;
     /** An event raised when a navigation button is clicked. The event handler should switch the date navigator to the next or previous date. */
-    onNavigate: (direction: 'forward' | 'back') => void;
+    onNavigate: (direction: 'forward' | 'back' | undefined, nextDate: string | Date | number) => any;
   }
   /** Properties passed to a component that renders the date navigator’s overlay element. */
   export interface OverlayProps {
@@ -54,6 +54,7 @@ export namespace DateNavigator {
     headerRowComponent: React.ComponentType<any>;
     headerCellComponent: React.ComponentType<any>;
     navigatorComponent: React.ComponentType<any>;
+    onSelectedDateChange: (nextDate: Date | string | number) => void;
     formatDate: (date: Date, options: any) => string;
   }
 }

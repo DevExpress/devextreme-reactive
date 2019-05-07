@@ -17,7 +17,7 @@ const pluginDependencies = [
   { name: 'ViewState' },
 ];
 
-const navigate = (action, currentView, intervalCount) => (direction: 'forward' | 'back', nextDate) => action({
+const navigate = (action, currentView, intervalCount) => (direction, nextDate) => action({
   direction,
   nextDate,
   amount: intervalCount,

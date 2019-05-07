@@ -1,9 +1,9 @@
 import moment from 'moment';
 import { PureComputed } from '@devexpress/dx-core';
 import {
-  ViewCell, AppointmentModel, ClientOffset, TimeType,
+  ViewCell, ClientOffset, TimeType,
   AllDayCell, CalculateAppointmentTimeBoundaries,
-  TimeBoundariesByDrag, TimeBoundariesByResize,
+  TimeBoundariesByDrag, TimeBoundariesByResize, AppointmentModel,
 } from '../../types';
 import { allDayCells as allDayCellsCore } from '../common/computeds';
 import {
@@ -142,9 +142,9 @@ export const calculateAppointmentTimeBoundaries: CalculateAppointmentTimeBoundar
 
   return(isDragging
     ? timeBoundariesByDrag(
-        payload, targetData, targetType, cellDurationMinutes, insidePart, offsetTimeTopBase,
+        payload, targetData as AppointmentModel, targetType, cellDurationMinutes, insidePart, offsetTimeTopBase,
       )
-    : timeBoundariesByResize(payload, targetData, targetType, cellDurationMinutes, insidePart)
+    : timeBoundariesByResize(payload, targetData as AppointmentModel, targetType, cellDurationMinutes, insidePart)
   );
 };
 

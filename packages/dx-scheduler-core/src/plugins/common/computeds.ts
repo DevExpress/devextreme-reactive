@@ -16,7 +16,7 @@ export const dayScale: DayScaleFn = (
   dayCount,
   excluded = [],
 ) => {
-  const result = [];
+  const result: Date[] = [];
   const date = firstDayOfWeek !== undefined
     ? moment(calculateFirstDateOfWeek(currentDate, firstDayOfWeek, excluded) as Date)
     : moment(currentDate as Date);

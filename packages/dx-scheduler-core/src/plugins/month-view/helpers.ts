@@ -1,11 +1,11 @@
 import moment from 'moment';
 import {
-  SliceAppointmentByWeekFn, GetMonthCellIndexByDateFn, AppointmentDate,
+  SliceAppointmentByWeekFn, GetMonthCellIndexByDateFn, AppointmentDate, AppointmentMoment,
 } from '../../types';
 
 export const sliceAppointmentByWeek: SliceAppointmentByWeekFn = (timeBounds, appointment, step) => {
   const { left, right } = timeBounds;
-  const pieces = [];
+  const pieces: AppointmentMoment[] = [];
   const { start, end, ...restFields } = appointment;
   let apptStart = start;
   let apptEnd = end;

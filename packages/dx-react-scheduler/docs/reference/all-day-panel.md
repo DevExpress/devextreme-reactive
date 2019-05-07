@@ -88,7 +88,7 @@ Describes properties passed to a component that renders the appointment layer.
 
 Field | Type | Description
 ------|------|------------
-children? | ReactNode | A React node used to render the row content.
+children? | ReactNode | A React node used to render the appointment layer content.
 
 ### AllDayPanel.ContainerProps
 
@@ -96,7 +96,7 @@ Describes properties passed to a component that renders an All Day panel contain
 
 Field | Type | Description
 ------|------|------------
-children | ReactNode | A React node used to render the row content.
+children | ReactNode | A React node used to render the All Day panel container content.
 
 ## Localization Messages
 

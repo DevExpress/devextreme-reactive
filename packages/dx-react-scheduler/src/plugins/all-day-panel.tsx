@@ -16,6 +16,8 @@ import {
   HORIZONTAL_TYPE,
 } from '@devexpress/dx-scheduler-core';
 
+import { AllDayPanelProps, AllDayPanelState } from '../types';
+
 const pluginDependencies = [
   { name: 'DayView', optional: true },
   { name: 'WeekView', optional: true },
@@ -27,7 +29,22 @@ const defaultMessages = {
 
 const MONTH = 'Month';
 
-export class AllDayPanel extends React.PureComponent {
+class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelState> {
+  static components = {
+    appointmentLayerComponent: 'AppointmentLayer',
+    layoutComponent: 'Layout',
+    cellComponent: 'Cell',
+    rowComponent: 'Row',
+    titleCellComponent: 'TitleCell',
+    containerComponent: 'Container',
+  };
+  static defaultProps = {
+    messages: {},
+  };
+  appointmentPlaceholder;
+  cellPlaceholder;
+  allDayPanelPlaceholder;
+
   constructor(props) {
     super(props);
 
@@ -147,12 +164,14 @@ export class AllDayPanel extends React.PureComponent {
         </Template>
 
         <Template name="allDayPanelCell">
-          {params => <Cell {...params} />}
+          {(params: any) => <Cell {...params} />}
         </Template>
       </Plugin>
     );
   }
 }
+
+export const AllDayPanel: React.ComponentType<AllDayPanelProps> = AllDayPanelBase;
 
 AllDayPanel.propTypes = {
   appointmentLayerComponent: PropTypes.func.isRequired,
@@ -164,17 +183,4 @@ AllDayPanel.propTypes = {
   messages: PropTypes.shape({
     allDay: PropTypes.string,
   }),
-};
-
-AllDayPanel.defaultProps = {
-  messages: {},
-};
-
-AllDayPanel.components = {
-  appointmentLayerComponent: 'AppointmentLayer',
-  layoutComponent: 'Layout',
-  cellComponent: 'Cell',
-  rowComponent: 'Row',
-  titleCellComponent: 'TitleCell',
-  containerComponent: 'Container',
 };

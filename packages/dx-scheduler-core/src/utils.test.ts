@@ -349,6 +349,7 @@ describe('Utils', () => {
           height: 30,
           width: '40%',
           transform: 'translateY(10px)',
+          msTransform: 'translateY(10px)',
           left: '20%',
           position: 'absolute',
         });

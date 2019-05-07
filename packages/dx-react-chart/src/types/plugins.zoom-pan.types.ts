@@ -1,6 +1,7 @@
 import {
   ViewportOptions,
   OnViewportChangeFn,
+  EventHandlerFn,
 } from './index';
 
 export interface ZoomAndPanProps {
@@ -35,3 +36,12 @@ export namespace ZoomAndPan {
     rect: Rect;
   }
 }
+
+/** @internal */
+export type ZoomPanProviderProps = {
+  rootRef: React.RefObject<Element>;
+  onWheel: EventHandlerFn;
+  onDown: EventHandlerFn,
+  onTouchMove: EventHandlerFn,
+  onTouchEnd: EventHandlerFn
+};

@@ -33,7 +33,7 @@ export class PluginIndexer extends React.PureComponent<PluginIndexerProps> {
             const childPosition = this.memoize(index, positionContext);
 
             return (
-              <PositionContext.Provider value={childPosition}>
+              <PositionContext.Provider key={String(index)} value={childPosition}>
                 {child}
               </PositionContext.Provider>
             );

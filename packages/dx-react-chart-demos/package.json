@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@devexpress/dx-react-chart-demos",
-  "version": "1.11.0-alpha.1",
+  "version": "1.11.0-beta.1",
   "description": "DevExtreme React Components Demos",
   "author": {
     "name": "Developer Express Inc.",
@@ -26,12 +26,12 @@
     "lint:fix": "yarn escheck -- --fix && yarn tscheck -- --fix"
   },
   "dependencies": {
-    "@devexpress/dx-chart-core": "1.11.0-alpha.1",
-    "@devexpress/dx-demo-shell": "1.11.0-alpha.1",
-    "@devexpress/dx-react-chart": "1.11.0-alpha.1",
-    "@devexpress/dx-react-chart-bootstrap4": "1.11.0-alpha.1",
-    "@devexpress/dx-react-chart-material-ui": "1.11.0-alpha.1",
-    "@devexpress/dx-react-core": "1.11.0-alpha.1",
+    "@devexpress/dx-chart-core": "1.11.0-beta.1",
+    "@devexpress/dx-demo-shell": "1.11.0-beta.1",
+    "@devexpress/dx-react-chart": "1.11.0-beta.1",
+    "@devexpress/dx-react-chart-bootstrap4": "1.11.0-beta.1",
+    "@devexpress/dx-react-chart-material-ui": "1.11.0-beta.1",
+    "@devexpress/dx-react-core": "1.11.0-beta.1",
     "@material-ui/core": "^3.9.2",
     "@material-ui/icons": "^3.0.2",
     "@types/react": "^16.8.4",
@@ -67,7 +67,7 @@
     "@babel/polyfill": "^7.2.5",
     "@babel/preset-env": "^7.3.1",
     "@babel/preset-react": "^7.0.0",
-    "@devexpress/dx-testing": "1.11.0-alpha.1",
+    "@devexpress/dx-testing": "1.11.0-beta.1",
     "@types/jest": "^24.0.6",
     "awesome-typescript-loader": "^5.2.1",
     "babel-core": "^7.0.0-bridge.0",

@@ -10,6 +10,7 @@ const styles = theme => ({
     padding: `${theme.spacing.unit}px ${theme.spacing.unit}px`,
     margin: '0 auto',
     transform: 'translateY(20%)',
+    msTransform: 'translateY(20%)',
   },
 });
 

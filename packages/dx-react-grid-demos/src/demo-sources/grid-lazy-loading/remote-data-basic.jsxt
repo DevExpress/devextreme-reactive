@@ -1,0 +1,83 @@
+import * as React from 'react';<%&additionalImports%>
+import {
+  VirtualTableState,
+} from '@devexpress/dx-react-grid';
+import {
+  Grid,
+  VirtualTable,
+  TableHeaderRow,
+} from '@devexpress/dx-react-grid-<%&themeName%>';
+
+const VIRTUAL_PAGE_SIZE = 100;
+const MAX_ROWS = 50000;
+const URL = 'https://js.devexpress.com/Demos/WidgetsGalleryDataService/api/Sales';
+const getRowId = row => row.Id;
+const buildQueryString = (skip, take) => `${URL}?skip=${skip}&take=${take}`;
+
+export default class Demo extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      columns: [
+        { name: 'Id', title: 'Id', getCellValue: row => row.Id },
+        { name: 'ProductCategoryName', title: 'Category', getCellValue: row => row.ProductCategoryName },
+        { name: 'StoreName', title: 'Store', getCellValue: row => row.StoreName },
+        { name: 'ProductName', title: 'Product', getCellValue: row => row.ProductName },
+        { name: 'SalesAmount', title: 'Amount', getCellValue: row => row.SalesAmount },
+      ],
+      rows: [],
+      tableColumnExtensions: [
+        { columnName: 'Id', width: 80 },
+        { columnName: 'ProductCategoryName', width: 220 },
+        { columnName: 'StoreName', width: 220 },
+        { columnName: 'SalesAmount', width: 120 },
+      ],
+      skip: 0,
+      totalCount: MAX_ROWS,
+      loading: true,
+    };
+
+    this.getRemoteRows = (skip, take) => {
+      this.setState({ loading: true });
+      const query = buildQueryString(skip, take);
+      fetch(query, { mode: 'cors' })
+        .then(response => response.json())
+        .then(({ data }) => {
+          this.setState({
+            skip,
+            rows: data,
+            loading: false,
+            totalCount: MAX_ROWS,
+          });
+        })
+        .catch(() => this.setState({ loading: false }));
+    };
+  }
+
+  render() {
+    const {
+      rows, columns, skip, totalCount, tableColumnExtensions, loading,
+    } = this.state;
+
+    return (
+      <<%&wrapperTag%><%&wrapperAttributes%>>
+        <Grid
+          rows={rows}
+          columns={columns}
+          getRowId={getRowId}
+        >
+          <VirtualTableState
+            loading={loading}
+            totalRowCount={totalCount}
+            pageSize={VIRTUAL_PAGE_SIZE}
+            skip={skip}
+            getRows={this.getRemoteRows}
+          />
+          <VirtualTable columnExtensions={tableColumnExtensions} />
+          <TableHeaderRow />
+        </Grid>
+      </<%&wrapperTag%>>
+    );
+  }
+}

@@ -1,13 +1,14 @@
-import { insertPlugin, createClickHandlers, isEdgeBrowser } from './utils';
+import { insertPlugin, removePlugin, createClickHandlers, isEdgeBrowser } from './utils';
 
 describe('utils', () => {
   afterEach(() => {
     jest.resetAllMocks();
   });
-  describe('#insertPlugin', () => {
+
+  describe('#insertPlugin and #removePlugin', () => {
     const mapPlugins = plugins => plugins.map(p => p.position().join());
 
-    it('should work correctly', () => {
+    it('should correctly insert plugin', () => {
       const plugins = [
         { position: () => [1] },
         { position: () => [5, 3] },
@@ -25,6 +26,23 @@ describe('utils', () => {
         .toEqual(['1', '5,3', '7']);
       expect(mapPlugins(insertPlugin(plugins, { position: () => [1] })))
         .toEqual(['1', '5,3']);
+    });
+
+    it('should correctly remove plugin', () => {
+      const plugins = [
+        { position: () => [1] },
+        { position: () => [5, 3] },
+        { position: () => [5, 4] },
+        { position: () => [6] },
+        { position: () => [6, 1] },
+      ];
+
+      expect(mapPlugins(removePlugin(plugins, plugins[1])))
+        .toEqual(['1', '5,4', '6', '6,1']);
+      expect(mapPlugins(removePlugin(plugins, plugins[4])))
+        .toEqual(['1', '5,3', '5,4', '6']);
+      expect(mapPlugins(removePlugin(plugins, { ...plugins[4] })))
+        .toEqual(['1', '5,3', '5,4', '6', '6,1']);
     });
   });
 

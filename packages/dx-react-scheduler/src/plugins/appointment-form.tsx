@@ -14,6 +14,7 @@ import {
   callActionIfExists,
   COMMIT_COMMAND_BUTTON,
   CANCEL_COMMAND_BUTTON,
+  AppointmentModel,
 } from '@devexpress/dx-scheduler-core';
 
 import { AppointmentFormProps, AppointmentFormState } from '../types';
@@ -53,9 +54,9 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
     onAppointmentDataChange: () => undefined,
     messages: {},
   };
-  toggleVisibility;
-  setAppointmentData;
-  openFormHandler;
+  toggleVisibility: (payload?: any) => void;
+  setAppointmentData: (payload: any) => void;
+  openFormHandler: (payload: AppointmentModel) => void;
 
   constructor(props) {
     super(props);

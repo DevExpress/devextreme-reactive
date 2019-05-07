@@ -39,7 +39,7 @@ class DateNavigatorBase extends React.PureComponent<DateNavigatorProps, DateNavi
     calendarNavigatorComponent: 'CalendarNavigator',
     calendarNavigationButtonComponent: 'CalendarNavigationButton',
   };
-  target;
+  target!: React.ReactInstance;
 
   constructor(props) {
     super(props);

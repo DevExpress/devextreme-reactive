@@ -15,6 +15,7 @@ import {
 } from '@devexpress/dx-scheduler-core';
 
 import { AppointmentTooltipProps, AppointmentTooltipState } from '../types';
+import { AppointmentMeta } from '@devexpress/dx-scheduler-core/src';
 
 const pluginDependencies = [
   { name: 'Appointments' },
@@ -43,9 +44,9 @@ class AppointmentTooltipBase extends React.PureComponent<AppointmentTooltipProps
     showDeleteButton: false,
     showCloseButton: false,
   };
-  toggleVisibility;
-  setAppointmentMeta;
-  onAppointmentClick;
+  toggleVisibility: () => void;
+  setAppointmentMeta: (appointmentMeta: AppointmentMeta) => void;
+  onAppointmentClick: (appointmentMeta: AppointmentMeta) => void;
 
   constructor(props) {
     super(props);

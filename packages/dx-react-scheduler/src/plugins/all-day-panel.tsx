@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import { getMessagesFormatter } from '@devexpress/dx-core';
 import {
   Plugin,
@@ -41,9 +40,9 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
   static defaultProps = {
     messages: {},
   };
-  appointmentPlaceholder;
-  cellPlaceholder;
-  allDayPanelPlaceholder;
+  appointmentPlaceholder: any;
+  cellPlaceholder: any;
+  allDayPanelPlaceholder: any;
 
   constructor(props) {
     super(props);
@@ -172,15 +171,3 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
 }
 
 export const AllDayPanel: React.ComponentType<AllDayPanelProps> = AllDayPanelBase;
-
-AllDayPanel.propTypes = {
-  appointmentLayerComponent: PropTypes.func.isRequired,
-  layoutComponent: PropTypes.func.isRequired,
-  cellComponent: PropTypes.func.isRequired,
-  rowComponent: PropTypes.func.isRequired,
-  titleCellComponent: PropTypes.func.isRequired,
-  containerComponent: PropTypes.func.isRequired,
-  messages: PropTypes.shape({
-    allDay: PropTypes.string,
-  }),
-};

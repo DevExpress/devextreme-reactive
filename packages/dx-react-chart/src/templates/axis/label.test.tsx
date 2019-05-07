@@ -6,7 +6,7 @@ const defaultProps = {
   x: 1,
   y: 2,
   text: 'a',
-  dominantBaseline: 'middle',
+  dy: '1em',
   textAnchor: 'end',
 };
 
@@ -15,11 +15,11 @@ describe('Label', () => {
     const tree = shallow(<Label {...defaultProps} />);
 
     const {
-      x, y, dominantBaseline, textAnchor,
+      x, y, dy, textAnchor,
     } = tree.find('text').props();
     expect(x).toBe(1);
     expect(y).toBe(2);
-    expect(dominantBaseline).toBe('middle');
+    expect(dy).toBe('1em');
     expect(textAnchor).toBe('end');
     expect(tree.text()).toBe('a');
   });

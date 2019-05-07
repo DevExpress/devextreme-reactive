@@ -1,10 +1,10 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import moment from 'moment';
 import TableCell from '@material-ui/core/TableCell';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
+import { DAY_OPTIONS } from '@devexpress/dx-scheduler-core';
 import { getBorder } from '../../../utils';
 
 const styles = theme => ({
@@ -48,6 +48,7 @@ const CellBase = ({
   endDate,
   today,
   otherMonth,
+  formatDate,
   ...restProps
 }) => (
   <TableCell
@@ -62,16 +63,17 @@ const CellBase = ({
         [classes.otherMonth]: otherMonth && !today,
       })}
     >
-      {moment(startDate).format('D')}
+      {formatDate(startDate, DAY_OPTIONS)}
     </div>
   </TableCell>
 );
 
 CellBase.propTypes = {
   classes: PropTypes.object.isRequired,
-  className: PropTypes.string,
+  formatDate: PropTypes.func.isRequired,
   startDate: PropTypes.instanceOf(Date).isRequired,
   endDate: PropTypes.instanceOf(Date),
+  className: PropTypes.string,
   today: PropTypes.bool,
   otherMonth: PropTypes.bool,
 };

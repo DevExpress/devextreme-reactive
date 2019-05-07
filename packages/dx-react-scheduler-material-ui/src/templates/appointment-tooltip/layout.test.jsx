@@ -24,6 +24,7 @@ describe('Appointment Tooltip', () => {
       close: 'close',
       delete: 'delete',
     },
+    formatDate: () => undefined,
   };
   beforeAll(() => {
     classes = getClasses(<Layout {...defaultProps} />);
@@ -121,14 +122,20 @@ describe('Appointment Tooltip', () => {
         .toBeTruthy();
     });
 
-    it('should render appointment dates', () => {
+    it('should call dates format function', () => {
+      const dateTimeFormat = jest.fn();
       const tree = shallow((
-        <Layout {...defaultProps} />
+        <Layout {...defaultProps} formatDate={dateTimeFormat} />
       ));
-      const text = tree.find(defaultProps.contentComponent).find(`.${classes.text}`).text();
 
-      expect(text)
-        .toEqual('10:00 AM - 11:00 AM');
+      expect(dateTimeFormat)
+        .toBeCalledTimes(2);
+      expect(dateTimeFormat)
+        .toHaveBeenCalledWith(defaultProps.appointmentMeta.data.startDate, { hour: 'numeric', minute: 'numeric' });
+      expect(dateTimeFormat)
+        .toHaveBeenCalledWith(defaultProps.appointmentMeta.data.endDate, { hour: 'numeric', minute: 'numeric' });
+      expect(tree.find(`.${classes.text}`).props().children)
+        .toBeTruthy();
     });
   });
 });

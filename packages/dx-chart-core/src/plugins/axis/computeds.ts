@@ -33,7 +33,7 @@ const createHorizontalOptions = (position: string, tickSize: number, indentFromA
     y1: 0,
     y2: isStart ? +tickSize : -tickSize,
     yText: isStart ? +indentFromAxis : -indentFromAxis,
-    dominantBaseline: isStart ? 'hanging' : 'baseline',
+    dy: isStart ? '1em' : '0em',
     textAnchor: MIDDLE,
   };
 };
@@ -45,7 +45,7 @@ const createVerticalOptions = (position: string, tickSize: number, indentFromAxi
     x1: 0,
     x2: isStart ? -tickSize : +tickSize,
     xText: isStart ? -indentFromAxis : +indentFromAxis,
-    dominantBaseline: MIDDLE,
+    dy: '0.3em',
     textAnchor: isStart ? END : START,
   };
 };

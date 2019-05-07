@@ -3,8 +3,10 @@ import * as PropTypes from 'prop-types';
 import Popover from '@material-ui/core/Popover';
 import AccessTime from '@material-ui/icons/AccessTime';
 import Grid from '@material-ui/core/Grid';
-import moment from 'moment';
 import { withStyles } from '@material-ui/core/styles';
+import { HOUR_MINUTE_OPTIONS } from '@devexpress/dx-scheduler-core';
+
+const verticalTopHorizontalCenterOptions = { vertical: 'top', horizontal: 'center' };
 
 const styles = theme => ({
   text: {
@@ -47,6 +49,7 @@ const LayoutBase = ({
   commandButtonIds,
   onOpenButtonClick,
   onDeleteButtonClick,
+  formatDate,
   classes,
   ...restProps
 }) => {
@@ -61,8 +64,8 @@ const LayoutBase = ({
       open={visible}
       anchorEl={target}
       onClose={onHide}
-      anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-      transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+      anchorOrigin={verticalTopHorizontalCenterOptions}
+      transformOrigin={verticalTopHorizontalCenterOptions}
       {...restProps}
     >
       <Header appointmentData={data}>
@@ -92,7 +95,7 @@ const LayoutBase = ({
           </Grid>
           <Grid item xs={10}>
             <div className={classes.text}>
-              {`${moment(data.startDate).format('h:mm A')} - ${moment(data.endDate).format('h:mm A')}`}
+              {`${formatDate(data.startDate, HOUR_MINUTE_OPTIONS)} - ${formatDate(data.endDate, HOUR_MINUTE_OPTIONS)}`}
             </div>
           </Grid>
         </Grid>
@@ -110,6 +113,7 @@ LayoutBase.propTypes = {
   showDeleteButton: PropTypes.bool.isRequired,
   commandButtonIds: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
+  formatDate: PropTypes.func.isRequired,
   onOpenButtonClick: PropTypes.func,
   onDeleteButtonClick: PropTypes.func,
   appointmentMeta: PropTypes.shape({

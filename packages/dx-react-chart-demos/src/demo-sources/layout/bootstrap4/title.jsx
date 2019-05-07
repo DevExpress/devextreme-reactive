@@ -19,7 +19,7 @@ const TextComponent = ({ text, ...restProps }) => (
 );
 
 const stacks = [
-  { series: ['Young', 'Adult', 'Old'] },
+  { series: ['👶 Young', '🧑 Adult', '🧓 Old'] },
 ];
 
 export default class Demo extends React.PureComponent {

@@ -13,7 +13,7 @@ import { ageStructure } from '../../../demo-data/data-vizualization';
 
 const RootWithTitle = props => (
   <div>
-    <h4 style={{ marginLeft: '1.5rem', marginBottom: 0 }}>
+    <h4 className="ml-4 mb-0 mr-4">
       <span role="img" aria-label="family">👪 Population</span>
     </h4>
     <Legend.Root {...props} />
@@ -29,7 +29,7 @@ const Label = props => (
 );
 
 const stacks = [
-  { series: ['Young', 'Adult', 'Old'] },
+  { series: ['👶 Young', '🧑 Adult', '🧓 Old'] },
 ];
 
 export default class Demo extends React.PureComponent {

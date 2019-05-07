@@ -13,10 +13,11 @@ import { Stack } from '@devexpress/dx-react-chart';
 
 import { ageStructure } from '../../../demo-data/data-vizualization';
 
-const styles = {
+const styles = theme => ({
   title: {
-    marginLeft: '1.5rem',
+    marginLeft: theme.spacing.unit * 2,
     marginBottom: 0,
+    marginRight: theme.spacing.unit * 2,
   },
   item: {
     flexDirection: 'row-reverse',
@@ -24,7 +25,7 @@ const styles = {
   label: {
     textAlign: 'right',
   },
-};
+});
 
 const RootWithTitle = withStyles(styles)(({ classes, ...restProps }) => (
   <div>
@@ -44,7 +45,7 @@ const Label = withStyles(styles)(({ classes, ...restProps }) => (
 ));
 
 const stacks = [
-  { series: ['Young', 'Adult', 'Old'] },
+  { series: ['👶 Young', '🧑 Adult', '🧓 Old'] },
 ];
 
 export default class Demo extends React.PureComponent {

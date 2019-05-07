@@ -18,6 +18,7 @@ const LayoutBase = ({
   cellComponent: Cell,
   rowComponent: Row,
   cellsData,
+  formatDate,
   ...restProps
 }) => (
   <RootRef rootRef={tableRef}>
@@ -48,6 +49,7 @@ LayoutBase.propTypes = {
   cellsData: PropTypes.arrayOf(Array).isRequired,
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
+  formatDate: PropTypes.func.isRequired,
   className: PropTypes.string,
 };
 LayoutBase.defaultProps = {

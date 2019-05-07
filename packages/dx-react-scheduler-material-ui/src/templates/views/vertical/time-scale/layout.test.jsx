@@ -18,6 +18,7 @@ describe('Vertical view TimePanel', () => {
     ],
     cellComponent: () => undefined,
     rowComponent: () => undefined,
+    formatDate: () => undefined,
   };
   beforeAll(() => {
     classes = getClasses(<Layout {...defaultProps} />);

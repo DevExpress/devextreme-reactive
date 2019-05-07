@@ -28,6 +28,9 @@ jest.mock('@devexpress/dx-core', () => ({
 }));
 
 const defaultDeps = {
+  getter: {
+    formatDate: jest.fn(),
+  },
   template: {
     appointment: {
       type: 'horizontal',
@@ -95,7 +98,8 @@ describe('Appointments', () => {
     const appointmentContent = tree.find(AppointmentContent);
     const { data: appointmentData } = appointment.props();
     const {
-      type, data: appointmentContentData, recurringIconComponent,
+      type, data: appointmentContentData,
+      recurringIconComponent, formatDate,
     } = appointmentContent.props();
 
     expect(appointment).toHaveLength(1);
@@ -113,6 +117,7 @@ describe('Appointments', () => {
     });
 
     expect(recurringIconComponent).toBe(defaultProps.recurringIconComponent);
+    expect(formatDate).toBe(defaultDeps.getter.formatDate);
   });
   it('should pass correct event handlers', () => {
     const appointment = mount((

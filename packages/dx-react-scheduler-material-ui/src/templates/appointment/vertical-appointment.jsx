@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import moment from 'moment';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
+import { HOUR_MINUTE_OPTIONS } from '@devexpress/dx-scheduler-core';
 
 const styles = ({ palette, spacing }) => ({
   title: {
@@ -51,6 +51,7 @@ const VerticalAppointmentBase = ({
   data,
   children,
   className,
+  formatDate,
   recurringIconComponent: RecurringIcon,
   ...restProps
 }) => {
@@ -64,13 +65,13 @@ const VerticalAppointmentBase = ({
         </div>
         <div className={classes.textContainer}>
           <div className={classes.time}>
-            {moment(data.startDate).format('h:mm A')}
+            {formatDate(data.startDate, HOUR_MINUTE_OPTIONS)}
           </div>
           <div className={classes.time}>
             {' - '}
           </div>
           <div className={classes.time}>
-            {moment(data.endDate).format('h:mm A')}
+            {formatDate(data.endDate, HOUR_MINUTE_OPTIONS)}
           </div>
         </div>
       </div>
@@ -88,6 +89,7 @@ VerticalAppointmentBase.propTypes = {
   recurringIconComponent: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
+  formatDate: PropTypes.func.isRequired,
   children: PropTypes.node,
   className: PropTypes.string,
 };

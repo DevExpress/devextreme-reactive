@@ -93,7 +93,9 @@ export class AppointmentTooltip extends React.PureComponent {
         <Template name="main">
           <TemplatePlaceholder />
           <TemplateConnector>
-            {(getters, {
+            {({
+              formatDate,
+            }, {
               commitDeletedAppointment,
             }) => {
               const onDeleteButtonClick = () => {
@@ -119,6 +121,7 @@ export class AppointmentTooltip extends React.PureComponent {
                     ...commitDeletedAppointment && {
                       onDeleteButtonClick,
                     },
+                    formatDate,
                   }}
                 />
               );

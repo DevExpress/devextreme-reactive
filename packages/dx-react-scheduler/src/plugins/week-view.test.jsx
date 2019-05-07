@@ -29,6 +29,7 @@ const defaultDeps = {
     currentDate: '2018-07-04',
     availableViewNames: [],
     currentView: { name: 'Week' },
+    formatDate: jest.fn(),
   },
   template: {
     body: {},
@@ -303,13 +304,15 @@ describe('Week View', () => {
           {pluginDepsToComponents(defaultDeps)}
           <WeekView
             {...defaultProps}
-            dayScaleLayoutComponent={() => <div className="day-scale" />}
+            dayScaleLayoutComponent={({ formatDate }) => <div formatDate={formatDate} className="day-scale" />}
           />
         </PluginHost>
       ));
 
       expect(tree.find('.day-scale').exists())
         .toBeTruthy();
+      expect(tree.find('.day-scale').props().formatDate)
+        .toBe(defaultDeps.getter.formatDate);
     });
 
     it('should render time scale', () => {
@@ -318,13 +321,15 @@ describe('Week View', () => {
           {pluginDepsToComponents(defaultDeps)}
           <WeekView
             {...defaultProps}
-            timeScaleLayoutComponent={() => <div className="time-scale" />}
+            timeScaleLayoutComponent={({ formatDate }) => <div formatDate={formatDate} className="time-scale" />}
           />
         </PluginHost>
       ));
 
       expect(tree.find('.time-scale').exists())
         .toBeTruthy();
+      expect(tree.find('.time-scale').props().formatDate)
+        .toBe(defaultDeps.getter.formatDate);
     });
 
     it('should render time table', () => {
@@ -333,13 +338,15 @@ describe('Week View', () => {
           {pluginDepsToComponents(defaultDeps)}
           <WeekView
             {...defaultProps}
-            timeTableLayoutComponent={() => <div className="time-table" />}
+            timeTableLayoutComponent={({ formatDate }) => <div formatDate={formatDate} className="time-table" />}
           />
         </PluginHost>
       ));
 
       expect(tree.find('.time-table').exists())
         .toBeTruthy();
+      expect(tree.find('.time-table').props().formatDate)
+        .toBe(defaultDeps.getter.formatDate);
     });
 
     it('should render appointment layer', () => {

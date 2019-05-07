@@ -9,6 +9,7 @@ describe('Calendar', () => {
   let shallow;
   const defaultProps = {
     currentDate: '2018-07-12',
+    formatDate: () => '',
   };
   beforeAll(() => {
     classes = getClasses(<Text {...defaultProps} />);
@@ -36,13 +37,17 @@ describe('Calendar', () => {
       expect(tree.props().data)
         .toMatchObject({ a: 1 });
     });
-    it('should render current date', () => {
-      const currentDate = shallow((
-        <Text {...defaultProps} />
-      )).dive().dive().text();
+    it('should call date format function', () => {
+      const formatDate = jest.fn();
+      formatDate.mockImplementation(() => 'time');
+      const tree = shallow((
+        <Text {...defaultProps} formatDate={formatDate} />
+      ));
 
-      expect(currentDate)
-        .toBe('July 2018');
+      expect(formatDate)
+        .toHaveBeenCalledWith(defaultProps.currentDate, { month: 'long', year: 'numeric' });
+      expect(tree.props().children)
+        .toBeTruthy();
     });
   });
 });

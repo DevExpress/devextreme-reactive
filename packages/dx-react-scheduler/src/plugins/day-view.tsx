@@ -54,26 +54,26 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
     timeTableRowComponent: 'TimeTableRow',
   };
 
-  startViewDateComputed;
-  endViewDateComputed;
-  availableViewNamesComputed;
-  currentViewComputed;
-  intervalCountComputed;
-  cellDurationComputed;
-  viewCellsData;
-  timeTable;
-  layout;
-  layoutHeader;
-  timeTableRef;
-  sidebarPlaceholder;
-  dayScalePlaceholder;
-  dayScaleEmptyCellPlaceholder;
-  timeTablePlaceholder;
-  appointmentPlaceholder;
-  cellPlaceholder;
-  timeTableElement;
-  layoutElement;
-  layoutHeaderElement;
+  startViewDateComputed: (getters: Getters) => any;
+  endViewDateComputed: (getters: Getters) => any;
+  availableViewNamesComputed: (getters: Getters) => any;
+  currentViewComputed: (getters: Getters) => any;
+  intervalCountComputed: (getters: Getters) => any;
+  cellDurationComputed: (getters: Getters) => any;
+  viewCellsDataComputed: (getters: Getters) => any;
+  timeTable: any;
+  layout: any;
+  layoutHeader: any;
+  timeTableRef: any;
+  sidebarPlaceholder: any;
+  dayScalePlaceholder: any;
+  dayScaleEmptyCellPlaceholder: any;
+  timeTablePlaceholder: any;
+  appointmentPlaceholder: any;
+  cellPlaceholder: any;
+  timeTableElement: any;
+  layoutElement: any;
+  layoutHeaderElement: any;
 
   constructor(props) {
     super(props);
@@ -90,7 +90,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
       intervalCount,
     } = props;
 
-    const viewCellsDataComputed = ({
+    const viewCellsDataBaseComputed = ({
       currentDate,
     }) => viewCellsDataCore(
       currentDate, undefined,
@@ -123,7 +123,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
     this.availableViewNamesComputed = ({ availableViewNames }) => availableViewNamesCore(
       availableViewNames, viewName!,
     );
-    this.currentViewComputed = ({ currentView }) => (
+    this.currentViewComputed = ({ currentView }: Getters) => (
       currentView && currentView.name !== viewName
         ? currentView
         : { name: viewName, type: TYPE }
@@ -134,16 +134,16 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
     this.cellDurationComputed = (getters: Getters) => computed(
       getters, viewName!, () => cellDuration, getters.cellDuration,
     );
-    this.viewCellsData = (getters: Getters) => computed(
-      getters, viewName!, viewCellsDataComputed, getters.viewCellsData,
+    this.viewCellsDataComputed = (getters: Getters) => computed(
+      getters, viewName!, viewCellsDataBaseComputed, getters.viewCellsData,
     );
-    this.timeTableElement = getters => computed(
+    this.timeTableElement = (getters: Getters) => computed(
       getters, viewName, timeTableElementComputed, getters.timeTableElement,
     );
-    this.layoutElement = getters => computed(
+    this.layoutElement = (getters: Getters) => computed(
       getters, viewName, layoutElementComputed, getters.layoutElement,
     );
-    this.layoutHeaderElement = getters => computed(
+    this.layoutHeaderElement = (getters: Getters) => computed(
       getters, viewName, layoutHeaderElementComputed, getters.layoutHeaderElement,
     );
   }
@@ -180,7 +180,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
         <Getter name="currentView" computed={this.currentViewComputed} />
         <Getter name="intervalCount" computed={this.intervalCountComputed} />
         <Getter name="cellDuration" computed={this.cellDurationComputed} />
-        <Getter name="viewCellsData" computed={this.viewCellsData} />
+        <Getter name="viewCellsData" computed={this.viewCellsDataComputed} />
         <Getter name="startViewDate" computed={this.startViewDateComputed} />
         <Getter name="endViewDate" computed={this.endViewDateComputed} />
         <Getter name="timeTableElement" computed={this.timeTableElement} />

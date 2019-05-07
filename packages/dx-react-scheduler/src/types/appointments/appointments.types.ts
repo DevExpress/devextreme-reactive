@@ -25,6 +25,8 @@ export namespace Appointments {
     recurringIconComponent: React.ComponentType<any>
     /** Specifies whether the appointment is vertical or horizontal. */
     type: 'vertical' | 'horizontal';
+    /** A function that formats dates according to the locale. */
+    formatDate: (date: Date, options: any) => string;
   }
   /** Properties passed to a component that renders an element which indicates the appointment is divided. */
   export interface SplitIndicatorProps {

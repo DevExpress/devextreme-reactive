@@ -54,6 +54,7 @@ export namespace DateNavigator {
     headerRowComponent: React.ComponentType<any>;
     headerCellComponent: React.ComponentType<any>;
     navigatorComponent: React.ComponentType<any>;
+    formatDate: (date: Date, options: any) => string;
   }
 }
 

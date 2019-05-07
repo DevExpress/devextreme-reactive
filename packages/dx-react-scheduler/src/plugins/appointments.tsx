@@ -54,20 +54,24 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
             data, type, style, fromPrev, toNext,
             ...restParams
           }: any) => (
-            <Appointment
-              data={data}
-              {...createClickHandlers(onClick, onDoubleClick)}
-              {...restParams}
-            >
-              {fromPrev && <SplitIndicator position={POSITION_START} appointmentType={type} />}
-              <AppointmentContent
-                data={data}
-                type={type}
-                recurringIconComponent={recurringIconComponent}
-                formatDate={formatDate}
-              />
-              {toNext && <SplitIndicator position={POSITION_END} appointmentType={type} />}
-            </Appointment>
+            <TemplateConnector>
+              {({ formatDate }) => (
+                <Appointment
+                  data={data}
+                  {...createClickHandlers(onClick, onDoubleClick)}
+                  {...restParams}
+                >
+                  {fromPrev && <SplitIndicator position={POSITION_START} appointmentType={type} />}
+                  <AppointmentContent
+                    data={data}
+                    type={type}
+                    recurringIconComponent={recurringIconComponent}
+                    formatDate={formatDate}
+                  />
+                  {toNext && <SplitIndicator position={POSITION_END} appointmentType={type} />}
+                </Appointment>
+              )}
+            </TemplateConnector>
           )}
         </Template>
       </Plugin>

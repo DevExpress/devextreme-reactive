@@ -14,4 +14,6 @@ export interface SchedulerProps {
   data: AppointmentModel[];
   /** A component that renders the root layout. */
   rootComponent: React.ComponentType<Scheduler.RootProps>;
+  /** The locale according to which dates should be formatted. */
+  locale: string;
 }

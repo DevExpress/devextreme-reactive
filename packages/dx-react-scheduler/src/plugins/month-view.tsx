@@ -44,24 +44,24 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
     timeTableRowComponent: 'TimeTableRow',
   };
 
-  timeTable;
-  layout;
-  layoutHeader;
-  timeTableRef;
-  dayScalePlaceholder;
-  timeTablePlaceholder;
-  appointmentPlaceholder;
-  cellPlaceholder;
-  currentViewComputed;
-  availableViewNamesComputed;
-  intervalCountComputed;
-  firstDayOfWeekComputed;
-  startViewDateCore;
-  endViewDateComputed;
-  viewCellsData;
-  timeTableElement;
-  layoutElement;
-  layoutHeaderElement;
+  timeTable: any;
+  layout: any;
+  layoutHeader: any;
+  timeTableRef: any;
+  dayScalePlaceholder: any;
+  timeTablePlaceholder: any;
+  appointmentPlaceholder: any;
+  cellPlaceholder: any;
+  currentViewComputed: (getters: Getters) => any;
+  availableViewNamesComputed: (getters: Getters) => any;
+  intervalCountComputed: (getters: Getters) => any;
+  firstDayOfWeekComputed: (getters: Getters) => any;
+  startViewDateComputed: (getters: Getters) => any;
+  endViewDateComputed: (getters: Getters) => any;
+  viewCellsDataComputed: (getters: Getters) => any;
+  timeTableElement: any;
+  layoutElement: any;
+  layoutHeaderElement: any;
 
   constructor(props) {
     super(props);
@@ -80,7 +80,7 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
     this.appointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
     this.cellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
 
-    const viewCellsDataComputed = ({
+    const viewCellsDataBaseComputed = ({
       currentDate,
     }) => monthCellsData(
       currentDate, firstDayOfWeek,
@@ -105,14 +105,14 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
     this.firstDayOfWeekComputed = (getters: Getters) => computed(
       getters, viewName, () => firstDayOfWeek, getters.firstDayOfWeek,
     );
-    this.startViewDateCore = (getters: Getters) => computed(
+    this.startViewDateComputed = (getters: Getters) => computed(
       getters, viewName, startViewDateBaseComputed, getters.startViewDate,
     );
     this.endViewDateComputed = (getters: Getters) => computed(
       getters, viewName, endViewDateBaseComputed, getters.endViewDate,
     );
-    this.viewCellsData = (getters: Getters) => computed(
-      getters, viewName, viewCellsDataComputed, getters.viewCellsData,
+    this.viewCellsDataComputed = (getters: Getters) => computed(
+      getters, viewName, viewCellsDataBaseComputed, getters.viewCellsData,
     );
 
     this.timeTableElement = (getters: Getters) => computed(
@@ -153,8 +153,8 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
         <Getter name="currentView" computed={this.currentViewComputed} />
         <Getter name="firstDayOfWeek" computed={this.firstDayOfWeekComputed} />
         <Getter name="intervalCount" computed={this.intervalCountComputed} />
-        <Getter name="viewCellsData" computed={this.viewCellsData} />
-        <Getter name="startViewDate" computed={this.startViewDateCore} />
+        <Getter name="viewCellsData" computed={this.viewCellsDataComputed} />
+        <Getter name="startViewDate" computed={this.startViewDateComputed} />
         <Getter name="endViewDate" computed={this.endViewDateComputed} />
         <Getter name="timeTableElement" computed={this.timeTableElement} />
         <Getter name="layoutElement" computed={this.layoutElement} />

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import moment from 'moment';
 import {
   Plugin, Template, TemplatePlaceholder,
@@ -44,11 +43,11 @@ class DragDropProviderBase extends React.PureComponent<DragDropProviderProps, Dr
     allowDrag: () => true,
     allowResize: () => true,
   };
-  timeTableDraftAppointments;
-  allDayDraftAppointments;
-  offsetTimeTop;
-  appointmentStartTime;
-  appointmentEndTime
+  timeTableDraftAppointments: any;
+  allDayDraftAppointments: any;
+  offsetTimeTop: number | null;
+  appointmentStartTime: any;
+  appointmentEndTime: any;
 
   constructor(props) {
     super(props);
@@ -138,11 +137,11 @@ class DragDropProviderBase extends React.PureComponent<DragDropProviderProps, Dr
       appointmentStartTime, appointmentEndTime, offsetTimeTop,
     } = calculateAppointmentTimeBoundaries(
       payload, targetData, targetType, cellDurationMinutes,
-      insidePart, this.offsetTimeTop,
+      insidePart, this.offsetTimeTop!,
     );
     this.appointmentStartTime = appointmentStartTime || this.appointmentStartTime;
     this.appointmentEndTime = appointmentEndTime || this.appointmentEndTime;
-    this.offsetTimeTop = offsetTimeTop;
+    this.offsetTimeTop = offsetTimeTop!;
 
     const { startTime, endTime } = this.state;
     if (moment(startTime).isSame(this.appointmentStartTime)

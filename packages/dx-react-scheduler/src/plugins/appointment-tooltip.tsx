@@ -44,7 +44,7 @@ class AppointmentTooltipBase extends React.PureComponent<AppointmentTooltipProps
     showDeleteButton: false,
     showCloseButton: false,
   };
-  toggleVisibility: () => void;
+  toggleVisibility: (payload?: any) => void;
   setAppointmentMeta: (appointmentMeta: AppointmentMeta) => void;
   onAppointmentClick: (appointmentMeta: AppointmentMeta) => void;
 

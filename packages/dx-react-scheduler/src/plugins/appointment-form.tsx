@@ -1,10 +1,10 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import { getMessagesFormatter } from '@devexpress/dx-core';
 import {
   Plugin,
   Template,
   createStateHelper,
+  StateHelper,
   TemplateConnector,
   TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
@@ -15,6 +15,8 @@ import {
   COMMIT_COMMAND_BUTTON,
   CANCEL_COMMAND_BUTTON,
 } from '@devexpress/dx-scheduler-core';
+
+import { AppointmentFormProps, AppointmentFormState } from '../types';
 
 const defaultMessages = {
   allDayLabel: 'All Day',
@@ -31,7 +33,30 @@ const pluginDependencies = [
   { name: 'AppointmentTooltip', optional: true },
 ];
 
-export class AppointmentForm extends React.PureComponent {
+class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, AppointmentFormState> {
+  static components = {
+    popupComponent: 'Popup',
+    containerComponent: 'Container',
+    startDateComponent: 'StartDateEditor',
+    endDateComponent: 'EndDateEditor',
+    titleComponent: 'TitleEditor',
+    allDayComponent: 'AllDayEditor',
+    commandButtonComponent: 'CommandButton',
+    scrollableAreaComponent: 'ScrollableArea',
+    staticAreaComponent: 'StaticArea',
+  };
+  static defaultProps = {
+    readOnly: false,
+    visible: undefined,
+    appointmentData: undefined,
+    onVisibilityChange: () => undefined,
+    onAppointmentDataChange: () => undefined,
+    messages: {},
+  };
+  toggleVisibility;
+  setAppointmentData;
+  openFormHandler;
+
   constructor(props) {
     super(props);
 
@@ -40,7 +65,7 @@ export class AppointmentForm extends React.PureComponent {
       appointmentData: props.appointmentData || {},
     };
 
-    const stateHelper = createStateHelper(
+    const stateHelper: StateHelper = createStateHelper(
       this,
       {
         visible: () => {
@@ -212,7 +237,7 @@ export class AppointmentForm extends React.PureComponent {
         </Template>
 
         <Template name="tooltip">
-          {params => (
+          {(params: any) => (
             <TemplateConnector>
               {(getters, {
                 startEditAppointment,
@@ -234,7 +259,7 @@ export class AppointmentForm extends React.PureComponent {
         </Template>
 
         <Template name="appointment">
-          {params => (
+          {(params: any) => (
             <TemplateConnector>
               {(getters, {
                 startEditAppointment,
@@ -256,7 +281,7 @@ export class AppointmentForm extends React.PureComponent {
         </Template>
 
         <Template name="cell">
-          {params => (
+          {(params: any) => (
             <TemplateConnector>
               {(getters, {
                 addAppointment,
@@ -287,48 +312,5 @@ export class AppointmentForm extends React.PureComponent {
   }
 }
 
-AppointmentForm.propTypes = {
-  popupComponent: PropTypes.func.isRequired,
-  startDateComponent: PropTypes.func.isRequired,
-  endDateComponent: PropTypes.func.isRequired,
-  titleComponent: PropTypes.func.isRequired,
-  commandButtonComponent: PropTypes.func.isRequired,
-  allDayComponent: PropTypes.func.isRequired,
-  containerComponent: PropTypes.func.isRequired,
-  scrollableAreaComponent: PropTypes.func.isRequired,
-  staticAreaComponent: PropTypes.func.isRequired,
-  readOnly: PropTypes.bool,
-  visible: PropTypes.bool,
-  appointmentData: PropTypes.object,
-  onVisibilityChange: PropTypes.func,
-  onAppointmentDataChange: PropTypes.func,
-  messages: PropTypes.shape({
-    allDayLabel: PropTypes.string,
-    titleLabel: PropTypes.string,
-    startDateLabel: PropTypes.string,
-    endDateLabel: PropTypes.string,
-    commitCommand: PropTypes.string,
-    cancelCommand: PropTypes.string,
-  }),
-};
-
-AppointmentForm.defaultProps = {
-  readOnly: false,
-  visible: undefined,
-  appointmentData: undefined,
-  onVisibilityChange: () => undefined,
-  onAppointmentDataChange: () => undefined,
-  messages: {},
-};
-
-AppointmentForm.components = {
-  popupComponent: 'Popup',
-  containerComponent: 'Container',
-  startDateComponent: 'StartDateEditor',
-  endDateComponent: 'EndDateEditor',
-  titleComponent: 'TitleEditor',
-  allDayComponent: 'AllDayEditor',
-  commandButtonComponent: 'CommandButton',
-  scrollableAreaComponent: 'ScrollableArea',
-  staticAreaComponent: 'StaticArea',
-};
+/** The AppointmentForm plugin renders a form that visualizes appointment’s data and allows a user to modify this data. */
+export const AppointmentForm: React.ComponentType<AppointmentFormProps> = AppointmentFormBase;

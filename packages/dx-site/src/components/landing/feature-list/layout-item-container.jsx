@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-const LayoutItemContainer = ({ colSize, children }) => (
-  <div className={`col-md-${colSize} col-sm-${colSize}`}>
+const LayoutItemContainer = ({ md, sm = md, children, className }) => (
+  <div className={`${className} col-md-${md} col-sm-${sm}`}>
     {children}
   </div>
 );

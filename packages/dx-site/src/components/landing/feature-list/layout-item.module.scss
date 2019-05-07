@@ -3,3 +3,8 @@
 .child {
   @include feature-item(23px);
 }
+
+.layout-item {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}

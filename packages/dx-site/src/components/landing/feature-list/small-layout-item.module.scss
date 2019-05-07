@@ -3,3 +3,8 @@
 .smallChild {
   @include feature-item(13px);
 }
+
+.small-layout-item {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}

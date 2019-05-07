@@ -11,7 +11,7 @@ const SmallLayoutItem = ({
   description,
   imageLink,
 }) => (
-  <LayoutItemContainer colSize={3}>
+  <LayoutItemContainer md={3} sm={6} className={styles.smallLayoutItem}>
     <div className={styles.smallChild}>
       <LandingFeaturePreview
         title={title}

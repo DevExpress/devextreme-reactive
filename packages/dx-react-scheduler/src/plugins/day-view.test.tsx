@@ -30,6 +30,7 @@ const defaultDeps = {
       [{ startDate: new Date('2018-06-25') }, {}],
       [{}, { startDate: new Date('2018-08-05') }],
     ],
+    formatDate: jest.fn(),
   },
   template: {
     body: {},
@@ -259,13 +260,32 @@ describe('Day View', () => {
           {pluginDepsToComponents(defaultDeps)}
           <DayView
             {...defaultProps}
-            timeScaleLayoutComponent={() => <div className="time-panel" />}
+            timeScaleLayoutComponent={({ formatDate }) => <div formatDate={formatDate} className="time-panel" />}
           />
         </PluginHost>
       ));
 
       expect(tree.find('.time-panel').exists())
         .toBeTruthy();
+      expect(tree.find('.time-panel').props().formatDate)
+        .toBe(defaultDeps.getter.formatDate);
+    });
+
+    it('should render day scale', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <DayView
+            {...defaultProps}
+            dayScaleLayoutComponent={({ formatDate }) => <div formatDate={formatDate} className="day-scale" />}
+          />
+        </PluginHost>
+      ));
+
+      expect(tree.find('.day-scale').exists())
+        .toBeTruthy();
+      expect(tree.find('.day-scale').props().formatDate)
+        .toBe(defaultDeps.getter.formatDate);
     });
 
     it('should render time table', () => {
@@ -274,13 +294,15 @@ describe('Day View', () => {
           {pluginDepsToComponents(defaultDeps)}
           <DayView
             {...defaultProps}
-            timeTableLayoutComponent={() => <div className="time-table" />}
+            timeTableLayoutComponent={({ formatDate }) => <div formatDate={formatDate} className="time-table" />}
           />
         </PluginHost>
       ));
 
       expect(tree.find('.time-table').exists())
         .toBeTruthy();
+      expect(tree.find('.time-table').props().formatDate)
+        .toBe(defaultDeps.getter.formatDate);
     });
 
     it('should render day scale empty cell', () => {

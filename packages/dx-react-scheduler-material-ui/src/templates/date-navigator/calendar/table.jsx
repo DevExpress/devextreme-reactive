@@ -6,6 +6,7 @@ import TableMUI from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableHead from '@material-ui/core/TableHead';
 import { withStyles } from '@material-ui/core/styles';
+import { WEEK_DAY_OPTIONS, DAY_OPTIONS } from '@devexpress/dx-scheduler-core';
 
 const styles = {
   table: {
@@ -25,6 +26,7 @@ const TableBase = ({
   headerCells,
   selectedDate,
   onCellClick,
+  formatDate,
   ...restProps
 }) => {
   const comparableSelectedDate = moment(selectedDate);
@@ -36,7 +38,7 @@ const TableBase = ({
       <TableHead>
         <HeaderRow>
           {headerCells.map((cell) => {
-            const key = moment(cell.startDate).format('ddd');
+            const key = formatDate(cell.startDate, WEEK_DAY_OPTIONS);
             return (
               <HeaderCell
                 key={key}
@@ -68,7 +70,7 @@ const TableBase = ({
                     onCellClick(startDate);
                   }}
                 >
-                  {moment(startDate).format('D')}
+                  {formatDate(startDate, DAY_OPTIONS)}
                 </Cell>
               );
             })}
@@ -91,6 +93,7 @@ TableBase.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]),
+  formatDate: PropTypes.func.isRequired,
   headerCells: PropTypes.array,
   className: PropTypes.string,
   onCellClick: PropTypes.func,

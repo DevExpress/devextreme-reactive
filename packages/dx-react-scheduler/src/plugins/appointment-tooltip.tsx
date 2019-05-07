@@ -115,7 +115,9 @@ class AppointmentTooltipBase extends React.PureComponent<AppointmentTooltipProps
         <Template name="main">
           <TemplatePlaceholder />
           <TemplateConnector>
-            {(getters, {
+            {({
+              formatDate,
+            }, {
               commitDeletedAppointment,
             }) => {
               const onDeleteButtonClick = () => {
@@ -141,6 +143,7 @@ class AppointmentTooltipBase extends React.PureComponent<AppointmentTooltipProps
                     ...commitDeletedAppointment && {
                       onDeleteButtonClick,
                     },
+                    formatDate,
                   }}
                 />
               );

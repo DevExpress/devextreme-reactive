@@ -49,6 +49,7 @@ describe('TableNoDataCell', () => {
       .toEqual({
         display: 'inline-block',
         transform: 'translateX(-50%)',
+        msTransform: 'translateX(-50%)',
       });
   });
 });

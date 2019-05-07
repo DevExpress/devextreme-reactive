@@ -69,6 +69,7 @@ Field | Type | Description
 cellsData | Array&lt;Array&lt;[MonthView.CellData](#monthviewcelldata)&gt;&gt; | Specifies the cells meta data.
 cellComponent | ComponentType&lt;[MonthView.DayScaleCellProps](#monthviewdayscalecellprops)&gt; | A component that renders a day scale cell.
 rowComponent | ComponentType&lt;[MonthView.RowProps](#monthviewrowprops)&gt; | A component that renders a day scale row.
+formatDate | (date: Date, options: any) => string | A function that format a date by locale.
 
 ### MonthView.DayScaleCellProps
 
@@ -78,6 +79,7 @@ Field | Type | Description
 ------|------|------------
 startDate | Date | Specifies the cell start time.
 endDate? | Date | Specifies the cell end time.
+formatDate | (date: Date, options: any) => string | A function that format a date by locale.
 
 ### MonthView.TimeTableLayoutProps
 
@@ -89,6 +91,7 @@ cellsData | Array&lt;Array&lt;[MonthView.CellData](#monthviewcelldata)&gt;&gt; |
 tableRef | (ref: ReactInstance) => void | A function that accepts the table's root React element.
 cellComponent | ComponentType&lt;[MonthView.TimeTableCellProps](#monthviewtimetablecellprops)&gt; | A component that renders a time table cell.
 rowComponent | ComponentType&lt;[MonthView.RowProps](#monthviewrowprops)&gt; | A component that renders a time table row.
+formatDate | (date: Date, options: any) => string | A function that format a date by locale.
 
 ### MonthView.TimeTableCellProps
 
@@ -100,6 +103,7 @@ startDate | Date | Specifies the cell start time.
 endDate? | Date | Specifies the cell end time.
 otherMonth? | boolean | Indicates whether the cell's date is not in the current month.
 today? | boolean | Indicates whether the cell's date is today.
+formatDate | (date: Date, options: any) => string | A function that format a date by locale.
 
 ### MonthView.AppointmentLayerProps
 

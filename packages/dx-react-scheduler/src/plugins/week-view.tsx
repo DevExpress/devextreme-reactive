@@ -223,13 +223,14 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
 
         <Template name="navbar">
           <TemplateConnector>
-            {({ currentView, viewCellsData }) => {
+            {({ currentView, viewCellsData, formatDate }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
                 <DayScale
                   cellComponent={DayScaleCell}
                   rowComponent={DayScaleRow}
                   cellsData={viewCellsData}
+                  formatDate={formatDate}
                 />
               );
             }}
@@ -249,13 +250,14 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
 
         <Template name="sidebar">
           <TemplateConnector>
-            {({ currentView, viewCellsData }) => {
+            {({ currentView, viewCellsData, formatDate }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
                 <TimeScale
                   rowComponent={TimeScaleRow}
                   cellComponent={TimeScaleCell}
                   cellsData={viewCellsData}
+                  formatDate={formatDate}
                 />
               );
             }}
@@ -265,7 +267,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
         <Template name="main">
           <TemplateConnector>
             {({
-              appointments, startViewDate,
+              appointments, startViewDate, formatDate,
               endViewDate, currentView, viewCellsData,
             }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
@@ -296,6 +298,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
                     cellComponent={this.cellPlaceholder}
                     tableRef={this.timeTableRef}
                     cellsData={viewCellsData}
+                    formatDate={formatDate}
                   />
                   <AppointmentLayer>
                     {rects.map(({

@@ -1,7 +1,7 @@
 import * as React from 'react';<%&additionalImports%>
 import {
   VirtualTableState,
-  createRemoteRowsCache,
+  createRowCache,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -9,7 +9,7 @@ import {
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
 
-const VIRTUAL_PAGE_SIZE = 100;
+const VIRTUAL_PAGE_SIZE = 50;
 const MAX_ROWS = 50000;
 const URL = 'https://js.devexpress.com/Demos/WidgetsGalleryDataService/api/Sales';
 
@@ -28,7 +28,6 @@ export default class Demo extends React.PureComponent {
         { name: 'category', title: 'Category', getCellValue: row => row.ProductCategoryName },
         { name: 'store', title: 'Store', getCellValue: row => row.StoreName },
         { name: 'product', title: 'Product', getCellValue: row => row.ProductName },
-        { name: 'date', title: 'Date', getCellValue: row => row.DateKey },
         { name: 'amount', title: 'Amount', getCellValue: row => row.SalesAmount },
       ],
       rows: [],
@@ -36,7 +35,6 @@ export default class Demo extends React.PureComponent {
         { columnName: 'id', width: 80 },
         { columnName: 'category', width: 220 },
         { columnName: 'store', width: 220 },
-        { columnName: 'date', width: 150 },
         { columnName: 'amount', width: 120 },
       ],
       skip: 0,
@@ -44,7 +42,7 @@ export default class Demo extends React.PureComponent {
       loading: true,
     };
 
-    const cache = createRemoteRowsCache(VIRTUAL_PAGE_SIZE);
+    const cache = createRowCache(VIRTUAL_PAGE_SIZE);
     const setRows = (skip, count, totalCount) => {
       const rows = cache.getRows(skip, count);
       this.setState({

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  Plugin, Template, TemplatePlaceholder,
+  Plugin, Template, TemplatePlaceholder, TemplateConnector,
 } from '@devexpress/dx-react-core';
 import { createClickHandlers } from '@devexpress/dx-core';
 import { POSITION_START, POSITION_END } from '@devexpress/dx-scheduler-core';
@@ -64,6 +64,7 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
                 data={data}
                 type={type}
                 recurringIconComponent={recurringIconComponent}
+                formatDate={formatDate}
               />
               {toNext && <SplitIndicator position={POSITION_END} appointmentType={type} />}
             </Appointment>

@@ -178,13 +178,14 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
 
         <Template name="navbar">
           <TemplateConnector>
-            {({ currentView, viewCellsData }) => {
+            {({ currentView, viewCellsData, formatDate }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
                 <DayScale
                   cellComponent={DayScaleCell}
                   rowComponent={DayScaleRow}
                   cellsData={viewCellsData}
+                  formatDate={formatDate}
                 />
               );
             }}
@@ -193,7 +194,7 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
         <Template name="main">
           <TemplateConnector>
             {({
-              appointments, startViewDate, endViewDate, currentView, viewCellsData,
+              appointments, startViewDate, endViewDate, currentView, viewCellsData, formatDate,
             }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               const intervals = calculateMonthDateIntervals(
@@ -221,6 +222,7 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
                     cellComponent={this.cellPlaceholder}
                     tableRef={this.timeTableRef}
                     cellsData={viewCellsData}
+                    formatDate={formatDate}
                   />
                   <AppointmentLayer>
                     {rects.map(({

@@ -207,13 +207,14 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
 
         <Template name="navbar">
           <TemplateConnector>
-            {({ currentView, viewCellsData }) => {
+            {({ currentView, viewCellsData, formatDate }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
                 <DayScale
                   cellComponent={DayScaleCell}
                   rowComponent={DayScaleRow}
                   cellsData={viewCellsData}
+                  formatDate={formatDate}
                 />
               );
             }}
@@ -233,13 +234,14 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
 
         <Template name="sidebar">
           <TemplateConnector>
-            {({ currentView, viewCellsData }) => {
+            {({ currentView, viewCellsData, formatDate }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
                 <TimeScale
                   rowComponent={TimeScaleRow}
                   cellComponent={TimeScaleCell}
                   cellsData={viewCellsData}
+                  formatDate={formatDate}
                 />
               );
             }}
@@ -249,7 +251,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
         <Template name="main">
           <TemplateConnector>
             {({
-              appointments, startViewDate,
+              appointments, startViewDate, formatDate,
               endViewDate, currentView, currentDate,
               viewCellsData,
             }) => {
@@ -281,6 +283,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
                     cellComponent={this.cellPlaceholder}
                     tableRef={this.setTimeTableRef}
                     cellsData={viewCellsData}
+                    formatDate={formatDate}
                   />
                   <AppointmentLayer>
                     {rects.map(({

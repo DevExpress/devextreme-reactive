@@ -38,6 +38,7 @@ export class Root extends React.PureComponent {
       headerRowComponent: HeaderRow,
       headerCellComponent: HeaderCell,
       onSelectedDateChange,
+      formatDate,
       ...restProps
     } = this.props;
     const { selectedDate: selectedDateState, currentDate } = this.state;
@@ -51,6 +52,7 @@ export class Root extends React.PureComponent {
           textComponent={Text}
           navigationButtonComponent={NavigationButton}
           onNavigate={this.onNavigate}
+          formatDate={formatDate}
         />
         <Table
           headerCells={cellsData[0]}
@@ -61,6 +63,7 @@ export class Root extends React.PureComponent {
           headerRowComponent={HeaderRow}
           headerCellComponent={HeaderCell}
           onCellClick={this.onCellClick}
+          formatDate={formatDate}
         />
       </div>
     );
@@ -81,6 +84,7 @@ Root.propTypes = {
     PropTypes.string,
     PropTypes.instanceOf(Date),
   ]).isRequired,
+  formatDate: PropTypes.func.isRequired,
   firstDayOfWeek: PropTypes.number,
   onSelectedDateChange: PropTypes.func,
 };

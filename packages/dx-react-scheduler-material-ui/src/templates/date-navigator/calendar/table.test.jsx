@@ -19,6 +19,7 @@ describe('Calendar', () => {
     cellComponent: () => <td />,
     headerCellComponent: () => <th className="header-cell" />,
     cells: [],
+    formatDate: () => '',
   };
   let classes;
   let shallow;

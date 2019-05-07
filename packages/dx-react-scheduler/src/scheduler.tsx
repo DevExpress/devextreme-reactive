@@ -7,11 +7,13 @@ export const Scheduler: React.SFC<SchedulerProps> = ({
   data,
   rootComponent,
   children,
+  locale,
 }) => (
   <PluginHost>
     <SchedulerCore
       data={data}
       rootComponent={rootComponent}
+      locale={locale}
     />
     {children}
   </PluginHost>

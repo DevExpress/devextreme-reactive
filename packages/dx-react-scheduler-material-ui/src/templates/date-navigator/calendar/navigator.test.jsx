@@ -36,14 +36,17 @@ describe('Calendar', () => {
         .toMatchObject({ a: 1 });
     });
     it('should render text', () => {
+      const formatDate = jest.fn();
       const text = shallow((
-        <Navigator {...defaultProps} />
+        <Navigator {...defaultProps} formatDate={formatDate} />
       )).find(Text);
 
       expect(text.exists())
         .toBeTruthy();
       expect(text.prop('currentDate'))
         .toBe('2018-07-12');
+      expect(text.prop('formatDate'))
+        .toBe(formatDate);
     });
     it('should render navigation buttons', () => {
       const buttons = shallow((

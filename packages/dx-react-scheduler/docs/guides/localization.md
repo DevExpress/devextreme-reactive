@@ -18,7 +18,7 @@ The following example demonstrates how to localize the Scheduler by specifying t
 
 ## Customize Date Formatting
 
-To customize how dates are formatted in a component, [override it](./fundamentals.md#customize-the-appearance) and set the `formatDate` property to a function that formats dates. The following example illustrates the case. Note that in this example, we use the [Moment.js](https://momentjs.com/) library to work with dates.
+To customize how dates are formatted in a component, [override the component](./fundamentals.md#customize-the-appearance) and set the `formatDate` property to a function that formats dates. The following example illustrates these actions. Note that in this example, the [Moment.js](https://momentjs.com/) library is used to work with dates.
 
 .embedded-demo({ "path": "scheduler-localization/custom-formatting", "showThemeSelector": true })
 

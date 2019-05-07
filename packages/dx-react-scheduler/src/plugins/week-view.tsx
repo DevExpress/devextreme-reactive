@@ -43,7 +43,6 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
   timeTable: any;
   layout: any;
   layoutHeader: any;
-  timeTableRef: any;
   timeTableElement: any;
   layoutElement: any;
   layoutHeaderElement: any;
@@ -89,7 +88,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
     this.timeTable = { current: null };
     this.layout = React.createRef();
     this.layoutHeader = React.createRef();
-    this.timeTableRef = this.setTimeTableRef.bind(this);
+    this.setTimeTableRef = this.setTimeTableRef.bind(this);
 
     const {
       name: viewName,
@@ -183,7 +182,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
       name: viewName,
       appointmentLayerComponent: AppointmentLayer,
     } = this.props;
-    const { timeTableRef } = this.state;
+    const { timeTableRef: stateTimeTableRef } = this.state;
 
     return (
       <Plugin
@@ -272,7 +271,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
               const intervals = calculateWeekDateIntervals(
                 appointments, startViewDate, endViewDate, excludedDays!,
               );
-              const rects = timeTableRef ? calculateRectByDateIntervals(
+              const rects = stateTimeTableRef ? calculateRectByDateIntervals(
                 {
                   growDirection: VERTICAL_TYPE,
                   multiline: false,
@@ -284,7 +283,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
                   endViewDate,
                   viewCellsData,
                   cellDuration,
-                  cellElements: timeTableRef.querySelectorAll('td'),
+                  cellElements: stateTimeTableRef.querySelectorAll('td'),
                 },
               ) : [];
               const { appointmentPlaceholder: AppointmentPlaceholder } = this;
@@ -294,7 +293,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
                   <TimeTable
                     rowComponent={TimeTableRow}
                     cellComponent={this.cellPlaceholder}
-                    tableRef={this.timeTableRef}
+                    tableRef={this.setTimeTableRef}
                     cellsData={viewCellsData}
                     formatDate={formatDate}
                   />

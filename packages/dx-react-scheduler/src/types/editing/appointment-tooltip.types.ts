@@ -1,4 +1,4 @@
-import { AppointmentMeta, AppointmentModel } from "@devexpress/dx-scheduler-core/src";
+import { AppointmentMeta, AppointmentModel } from "@devexpress/dx-scheduler-core";
 
 export namespace AppointmentTooltip {
   /** Describes properties passed to a component that renders a tooltip layout. */

@@ -1,4 +1,4 @@
-import { AllDayCell } from "@devexpress/dx-scheduler-core/src";
+import { AllDayCell } from "@devexpress/dx-scheduler-core";
 
 export namespace AllDayPanel {
   /** Describes a cell data configuration object. */
@@ -11,7 +11,7 @@ export namespace AllDayPanel {
   /** Describes properties passed to a component that renders an All Day panel layout. */
   export interface LayoutProps {
     /** Cells’ meta data. */
-    cellsData: readonly AllDayCell[];
+    cellsData: AllDayCell[];
     /** A function that accepts the All Day panel’s root React element. */
     allDayPanelRef: (ref: React.ReactInstance) => void;
     /** A component that renders an All Day panel cell. */

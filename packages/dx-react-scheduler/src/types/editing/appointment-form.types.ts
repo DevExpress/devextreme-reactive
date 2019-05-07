@@ -1,4 +1,4 @@
-import { AppointmentModel } from "@devexpress/dx-scheduler-core/src";
+import { AppointmentModel } from "@devexpress/dx-scheduler-core";
 
 export namespace AppointmentForm {
   /** Properties passed to a component that renders the appointment form’s popup. */

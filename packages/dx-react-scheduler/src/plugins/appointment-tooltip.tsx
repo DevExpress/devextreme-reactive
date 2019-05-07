@@ -15,7 +15,7 @@ import {
 } from '@devexpress/dx-scheduler-core';
 
 import { AppointmentTooltipProps, AppointmentTooltipState } from '../types';
-import { AppointmentMeta } from '@devexpress/dx-scheduler-core/src';
+import { AppointmentMeta } from '@devexpress/dx-scheduler-core';
 
 const pluginDependencies = [
   { name: 'Appointments' },

@@ -1,4 +1,4 @@
-import { AppointmentModel } from "@devexpress/dx-scheduler-core/src";
+import { AppointmentModel } from "@devexpress/dx-scheduler-core";
 
 /* tslint:disable no-namespace max-line-length */
 export namespace DragDropProvider {
@@ -12,7 +12,7 @@ export namespace DragDropProvider {
     /** Specifies the appointment’s data. */
     data: AppointmentModel;
     /** Configures the appointment’s geometry and position. */
-    style: object;
+    style: React.CSSProperties;
     /** Specifies the appointment’s type. */
     type: string;
     /**	true if the appointment is continued from the previous day/week/month/year. */

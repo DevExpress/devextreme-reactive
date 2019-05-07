@@ -64,7 +64,6 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
   timeTable: any;
   layout: any;
   layoutHeader: any;
-  timeTableRef: any;
   sidebarPlaceholder: any;
   dayScalePlaceholder: any;
   dayScaleEmptyCellPlaceholder: any;
@@ -105,7 +104,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
     this.timeTable = { current: null };
     this.layout = React.createRef();
     this.layoutHeader = React.createRef();
-    this.timeTableRef = this.setTimeTableRef.bind(this);
+    this.setTimeTableRef = this.setTimeTableRef.bind(this);
     this.sidebarPlaceholder = () => <TemplatePlaceholder name="sidebar" />;
     this.dayScalePlaceholder = () => <TemplatePlaceholder name="navbar" />;
     this.dayScaleEmptyCellPlaceholder = () => <TemplatePlaceholder name="dayScaleEmptyCell" />;

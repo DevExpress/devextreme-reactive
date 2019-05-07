@@ -13,6 +13,7 @@ import {
   calculateAllDayDateIntervals,
   getHorizontalRectByDates,
   HORIZONTAL_TYPE,
+  AllDayCell,
 } from '@devexpress/dx-scheduler-core';
 
 import { AllDayPanelProps, AllDayPanelState } from '../types';
@@ -140,7 +141,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
                     allDayPanelRef={this.allDayPanelRef}
                     cellComponent={this.cellPlaceholder}
                     rowComponent={Row}
-                    cellsData={allDayCells(viewCellsData)}
+                    cellsData={allDayCells(viewCellsData) as AllDayCell[]}
                   />
                   <AppointmentLayer>
                     {rects.map(({

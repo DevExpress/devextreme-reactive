@@ -1,5 +1,5 @@
 import * as React from 'react';
-import moment from 'moment';
+import * as _moment from 'moment';
 import {
   Plugin, Template, TemplatePlaceholder,
   TemplateConnector, DropTarget, DragSource,
@@ -19,9 +19,12 @@ import {
   RESIZE_BOTTOM,
   POSITION_START,
   POSITION_END,
+  Rect,
 } from '@devexpress/dx-scheduler-core';
 
 import { DragDropProviderProps, DragDropProviderState } from '../types';
+
+const moment = _moment;
 
 const pluginDependencies = [
   { name: 'EditingState' },
@@ -144,8 +147,8 @@ class DragDropProviderBase extends React.PureComponent<DragDropProviderProps, Dr
     this.offsetTimeTop = offsetTimeTop!;
 
     const { startTime, endTime } = this.state;
-    if (moment(startTime).isSame(this.appointmentStartTime)
-      && moment(endTime).isSame(this.appointmentEndTime)) return;
+    if (moment(startTime as Date).isSame(this.appointmentStartTime)
+      && moment(endTime as Date).isSame(this.appointmentEndTime)) return;
 
     const draftAppointments = [{
       dataItem: {
@@ -289,7 +292,7 @@ class DragDropProviderBase extends React.PureComponent<DragDropProviderProps, Dr
                 <DraftAppointment
                   key={index.toString()}
                   data={draftData}
-                  style={getAppointmentStyle(geometry)}
+                  style={getAppointmentStyle(geometry as Rect)}
                   type={type}
                   fromPrev={fromPrev}
                   toNext={toNext}
@@ -311,7 +314,7 @@ class DragDropProviderBase extends React.PureComponent<DragDropProviderProps, Dr
                 <DraftAppointment
                   key={index.toString()}
                   data={draftData}
-                  style={getAppointmentStyle(geometry)}
+                  style={getAppointmentStyle(geometry as Rect)}
                   type={type}
                   fromPrev={fromPrev}
                   toNext={toNext}

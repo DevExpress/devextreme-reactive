@@ -1,4 +1,4 @@
-import { MonthCellsDataComputedFn } from "@devexpress/dx-scheduler-core/src";
+import { MonthCellsDataComputedFn } from "@devexpress/dx-scheduler-core";
 
 // tslint:disable-next-line:no-namespace
 export namespace DateNavigator {

@@ -95,6 +95,8 @@
         path: /react/grid/docs/guides/fixed-columns
       - title: Virtual Scrolling
         path: /react/grid/docs/guides/virtual-scrolling
+      - title: Lazy Loading
+        path: /react/grid/docs/guides/lazy-loading
       - title: Tree Data
         path: /react/grid/docs/guides/tree-data
       - title: Summary Row
@@ -311,6 +313,8 @@
         path: /react/scheduler/docs/guides/date-navigation
       - title: Editing
         path: /react/scheduler/docs/guides/editing
+      - title: Localization
+        path: /react/scheduler/docs/guides/localization
   - title: Common Concepts
     items:
       - title: Optimize Performance

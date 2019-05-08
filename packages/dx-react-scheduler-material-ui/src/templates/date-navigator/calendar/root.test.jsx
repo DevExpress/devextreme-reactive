@@ -19,6 +19,7 @@ describe('Calendar', () => {
     selectedDate: '2018-07-16',
     firstDayOfWeek: 1,
     getCells: () => [],
+    formatDate: () => undefined,
   };
   describe('Root', () => {
     let mount;
@@ -46,20 +47,23 @@ describe('Calendar', () => {
         .toMatchObject({ a: 1 });
     });
     it('should render navigator', () => {
+      const defaultFormatDate = jest.fn();
       const navigator = mount((
-        <Root {...defaultProps} />
+        <Root {...defaultProps} formatDate={defaultFormatDate} />
       )).find(defaultProps.navigatorComponent);
 
       const {
         currentDate,
         textComponent,
         navigationButtonComponent,
+        formatDate,
       } = navigator.props();
 
       expect(navigator.exists()).toBeTruthy();
       expect(currentDate).toBe('2018-07-16');
       expect(textComponent).toBe(defaultProps.textComponent);
       expect(navigationButtonComponent).toBe(defaultProps.navigationButtonComponent);
+      expect(formatDate).toBe(defaultFormatDate);
     });
     it('should navigate to the prev and next month', () => {
       const tree = mount((
@@ -80,13 +84,15 @@ describe('Calendar', () => {
         .toBe(defaultProps.selectedDate);
     });
     it('should render calendar table', () => {
-      const tree = mount(<Root {...defaultProps} />);
+      const defaultFormatDate = jest.fn();
+      const tree = mount(<Root {...defaultProps} formatDate={defaultFormatDate} />);
       const {
         cells,
         rowComponent,
         cellComponent,
         headerRowComponent,
         headerCellComponent,
+        formatDate,
       } = Table.mock.calls[0][0];
 
       expect(tree.find('.table').exists())
@@ -101,6 +107,8 @@ describe('Calendar', () => {
         .toBe(defaultProps.headerRowComponent);
       expect(headerCellComponent)
         .toBe(defaultProps.headerCellComponent);
+      expect(formatDate)
+        .toBe(defaultFormatDate);
     });
     it('should handle table cell click', () => {
       const onSelectedDateChangeMock = jest.fn();

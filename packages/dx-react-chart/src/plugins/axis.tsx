@@ -69,7 +69,9 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
                 return null;
               }
 
-              const { width, height } = layouts[placeholder] || { width: 0, height: 0 };
+              const layoutName = `${placeholder}-${scaleName}`;
+
+              const { width, height } = layouts[layoutName] || { width: 0, height: 0 };
               const { sides: [dx, dy], ticks } = axisCoordinates({
                 scaleName: scaleName!,
                 position: position!,
@@ -99,7 +101,7 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
                 // Template rerender is provided by *changeBBox* invocation.
                 this.adjustedWidth = rect.width;
                 this.adjustedHeight = rect.height;
-                changeBBox({ placeholder, bBox: size });
+                changeBBox({ placeholder: layoutName, bBox: size });
               };
 
               return (
@@ -145,7 +147,7 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
                         text,
                         xText,
                         yText,
-                        dominantBaseline,
+                        dy: delta,
                         textAnchor,
                         key,
                       }) => (
@@ -154,7 +156,7 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
                           text={text}
                           x={xText}
                           y={yText}
-                          dominantBaseline={dominantBaseline}
+                          dy={delta}
                           textAnchor={textAnchor}
                         />
                       ))}

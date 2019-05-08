@@ -16,6 +16,7 @@ export const Container = ({
       top: 0,
       display: 'inline-block',
       transform: `translate(calc(${clientOffset.x}px - 50%), calc(${clientOffset.y}px - 50%))`,
+      msTransform: `translateX(${clientOffset.x}px) translateX(-50%) translateY(${clientOffset.y}px) translateY(-50%)`,
       ...style,
     }}
     {...restProps}

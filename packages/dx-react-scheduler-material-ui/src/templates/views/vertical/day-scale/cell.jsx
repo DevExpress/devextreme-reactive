@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import moment from 'moment';
 import classNames from 'classnames';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
+import { WEEK_DAY_OPTIONS, DAY_OPTIONS } from '@devexpress/dx-scheduler-core';
 import { getBorder } from '../../../utils';
 
 const styles = theme => ({
@@ -29,36 +29,35 @@ const CellBase = ({
   startDate,
   endDate,
   today,
+  formatDate,
   ...restProps
-}) => {
-  const currentDate = moment(startDate);
-  return (
-    <TableCell
-      className={classNames(classes.cell, className)}
-      {...restProps}
+}) => (
+  <TableCell
+    className={classNames(classes.cell, className)}
+    {...restProps}
+  >
+    <p
+      className={classNames({
+        [classes.dayOfWeek]: true,
+        [classes.highlightCell]: today,
+      })}
     >
-      <p
-        className={classNames({
-          [classes.dayOfWeek]: true,
-          [classes.highlightCell]: today,
-        })}
-      >
-        {currentDate.format('ddd')}
-      </p>
-      <span
-        className={classNames({
-          [classes.dayOfMonth]: true,
-          [classes.highlightCell]: today,
-        })}
-      >
-        {currentDate.format('D')}
-      </span>
-    </TableCell>
-  );
-};
+      {formatDate(startDate, WEEK_DAY_OPTIONS)}
+    </p>
+    <span
+      className={classNames({
+        [classes.dayOfMonth]: true,
+        [classes.highlightCell]: today,
+      })}
+    >
+      {formatDate(startDate, DAY_OPTIONS)}
+    </span>
+  </TableCell>
+);
 
 CellBase.propTypes = {
   classes: PropTypes.object.isRequired,
+  formatDate: PropTypes.func.isRequired,
   startDate: PropTypes.instanceOf(Date).isRequired,
   endDate: PropTypes.instanceOf(Date),
   className: PropTypes.string,

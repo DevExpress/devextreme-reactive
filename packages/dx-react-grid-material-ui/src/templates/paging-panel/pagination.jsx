@@ -26,6 +26,7 @@ const styles = theme => ({
   arrowButton: {
     display: 'inline-block',
     transform: theme.direction === 'rtl' ? 'rotate(180deg)' : null,
+    msTransform: theme.direction === 'rtl' ? 'rotate(180deg)' : null,
   },
   prev: {
     marginRight: 0,

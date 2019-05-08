@@ -167,6 +167,7 @@ namespace Appointments {
   interface AppointmentContentProps {
     children: React.ReactNode;
     data: object;
+    formatDate: (date: Date, options: any) => string;
     recurringIconComponent: React.ComponentType<object>;
   }
 }
@@ -205,6 +206,7 @@ namespace AppointmentTooltip {
     commandButtonComponent: React.ComponentType<AppointmentTooltip.CommandButtonProps>;
     commandButtonIds: Array<string>;
     contentComponent: React.ComponentType<AppointmentTooltip.ContentProps>;
+    formatDate: (date: Date, options: any) => string;
     headerComponent: React.ComponentType<AppointmentTooltip.HeaderProps>;
     onDeleteButtonClick?: () => void;
     onHide?: () => void;
@@ -339,6 +341,7 @@ namespace DayView {
   interface TimeScaleLayoutProps {
     cellComponent: React.ComponentType<DayView.TimeScaleCellProps>;
     cellsData: Array<Array<DayView.CellData>>;
+    formatDate: (date: Date, options: any) => string;
     rowComponent: React.ComponentType<DayView.RowProps>;
   }
 }
@@ -347,6 +350,7 @@ namespace DayView {
 namespace DayView {
   interface TimeScaleCellProps {
     endDate: Date;
+    formatDate: (date: Date, options: any) => string;
     startDate?: Date;
   }
 }
@@ -356,6 +360,7 @@ namespace DayView {
   interface DayScaleLayoutProps {
     cellComponent: React.ComponentType<DayView.DayScaleCellProps>;
     cellsData: Array<Array<DayView.CellData>>;
+    formatDate: (date: Date, options: any) => string;
     rowComponent: React.ComponentType<DayView.RowProps>;
   }
 }
@@ -364,6 +369,7 @@ namespace DayView {
 namespace DayView {
   interface DayScaleCellProps {
     endDate?: Date;
+    formatDate: (date: Date, options: any) => string;
     startDate: Date;
     today?: boolean;
   }
@@ -381,6 +387,7 @@ namespace DayView {
   interface TimeTableLayoutProps {
     cellComponent: React.ComponentType<DayView.TimeTableCellProps>;
     cellsData: Array<Array<DayView.CellData>>;
+    formatDate: (date: Date, options: any) => string;
     rowComponent: React.ComponentType<DayView.RowProps>;
     tableRef: (ref: React.ReactInstance) => void;
   }
@@ -523,6 +530,7 @@ namespace MonthView {
   interface DayScaleLayoutProps {
     cellComponent: React.ComponentType<MonthView.DayScaleCellProps>;
     cellsData: Array<Array<MonthView.CellData>>;
+    formatDate: (date: Date, options: any) => string;
     rowComponent: React.ComponentType<MonthView.RowProps>;
   }
 }
@@ -531,6 +539,7 @@ namespace MonthView {
 namespace MonthView {
   interface DayScaleCellProps {
     endDate?: Date;
+    formatDate: (date: Date, options: any) => string;
     startDate: Date;
   }
 }
@@ -540,6 +549,7 @@ namespace MonthView {
   interface TimeTableLayoutProps {
     cellComponent: React.ComponentType<MonthView.TimeTableCellProps>;
     cellsData: Array<Array<MonthView.CellData>>;
+    formatDate: (date: Date, options: any) => string;
     rowComponent: React.ComponentType<MonthView.RowProps>;
     tableRef: (ref: React.ReactInstance) => void;
   }
@@ -549,6 +559,7 @@ namespace MonthView {
 namespace MonthView {
   interface TimeTableCellProps {
     endDate?: Date;
+    formatDate: (date: Date, options: any) => string;
     otherMonth?: boolean;
     startDate: Date;
     today?: boolean;
@@ -600,6 +611,7 @@ declare const Scheduler: React.ComponentType<SchedulerProps>;
 // @public (undocumented)
 interface SchedulerProps {
   data: Array<AppointmentModel>;
+  locale: string;
   rootComponent: React.ComponentType<Scheduler.RootProps>;
 }
 
@@ -680,6 +692,7 @@ namespace WeekView {
   interface TimeScaleLayoutProps {
     cellComponent: React.ComponentType<WeekView.TimeScaleCellProps>;
     cellsData: Array<Array<WeekView.CellData>>;
+    formatDate: (date: Date, options: any) => string;
     rowComponent: React.ComponentType<WeekView.RowProps>;
   }
 }
@@ -688,6 +701,7 @@ namespace WeekView {
 namespace WeekView {
   interface TimeScaleCellProps {
     endDate: Date;
+    formatDate: (date: Date, options: any) => string;
     startDate?: Date;
   }
 }
@@ -697,6 +711,7 @@ namespace WeekView {
   interface DayScaleLayoutProps {
     cellComponent: React.ComponentType<WeekView.DayScaleCellProps>;
     cellsData: Array<Array<WeekView.CellData>>;
+    formatDate: (date: Date, options: any) => string;
     rowComponent: React.ComponentType<WeekView.RowProps>;
   }
 }
@@ -705,6 +720,7 @@ namespace WeekView {
 namespace WeekView {
   interface DayScaleCellProps {
     endDate?: Date;
+    formatDate: (date: Date, options: any) => string;
     startDate: Date;
     today?: boolean;
   }
@@ -722,6 +738,7 @@ namespace WeekView {
   interface TimeTableLayoutProps {
     cellComponent: React.ComponentType<WeekView.TimeTableCellProps>;
     cellsData: Array<Array<WeekView.CellData>>;
+    formatDate: (date: Date, options: any) => string;
     rowComponent: React.ComponentType<WeekView.RowProps>;
     tableRef: (ref: React.ReactInstance) => void;
   }

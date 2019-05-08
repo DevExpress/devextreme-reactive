@@ -70,3 +70,13 @@ export type ViewCellsDataFn = PureComputed<
   [Date, number, number, number[],
     number, number, number, CurrentTime], ViewCell[][]
 >;
+
+export type FormatterFn = (
+  nextDate: Date | string | number | undefined, nextOptions: Intl.DateTimeFormatOptions,
+) => string;
+
+export type FormatDateTimeGetterFn = (locale: string | string[]) => FormatterFn;
+
+export type DateTimeFormatInstanceFn = (
+  locale: string | string[], formatOptions: Intl.DateTimeFormatOptions,
+) => Intl.DateTimeFormat;

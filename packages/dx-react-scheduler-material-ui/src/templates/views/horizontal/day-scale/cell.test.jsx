@@ -5,6 +5,7 @@ import { Cell } from './cell';
 describe('Horizontal view DayScale', () => {
   const defaultProps = {
     startDate: new Date(2018, 6, 7, 16, 20),
+    formatDate: () => undefined,
   };
   let classes;
   let shallow;
@@ -30,6 +31,18 @@ describe('Horizontal view DayScale', () => {
 
       expect(tree.props().data)
         .toMatchObject({ a: 1 });
+    });
+    it('should call formatDate function', () => {
+      const formatDate = jest.fn();
+      formatDate.mockImplementation(() => 'time');
+      const tree = shallow((
+        <Cell {...defaultProps} formatDate={formatDate} />
+      ));
+
+      expect(formatDate)
+        .toHaveBeenCalledWith(defaultProps.startDate, { weekday: 'short' });
+      expect(tree.find(`.${classes.dayOfWeek}`).props().children)
+        .toBeTruthy();
     });
   });
 });

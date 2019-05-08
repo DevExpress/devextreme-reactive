@@ -18,6 +18,7 @@ const NavigatorBase = ({
   textComponent: Text,
   navigationButtonComponent: NavigationButton,
   onNavigate,
+  formatDate,
   ...restProps
 }) => (
   <Toolbar
@@ -28,7 +29,7 @@ const NavigatorBase = ({
       type="back"
       onClick={() => { onNavigate({ back: true }); }}
     />
-    <Text currentDate={currentDate} />
+    <Text currentDate={currentDate} formatDate={formatDate} />
     <NavigationButton
       type="forward"
       onClick={() => { onNavigate({ back: false }); }}
@@ -45,6 +46,7 @@ NavigatorBase.propTypes = {
     PropTypes.string,
     PropTypes.instanceOf(Date),
   ]).isRequired,
+  formatDate: PropTypes.func.isRequired,
   className: PropTypes.string,
   onNavigate: PropTypes.func,
 };

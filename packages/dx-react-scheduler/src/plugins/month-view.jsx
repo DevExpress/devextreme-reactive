@@ -145,13 +145,14 @@ export class MonthView extends React.PureComponent {
 
         <Template name="navbar">
           <TemplateConnector>
-            {({ currentView, viewCellsData }) => {
+            {({ currentView, viewCellsData, formatDate }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
                 <DayScale
                   cellComponent={DayScaleCell}
                   rowComponent={DayScaleRow}
                   cellsData={viewCellsData}
+                  formatDate={formatDate}
                 />
               );
             }}
@@ -160,7 +161,7 @@ export class MonthView extends React.PureComponent {
         <Template name="main">
           <TemplateConnector>
             {({
-              appointments, startViewDate, endViewDate, currentView, viewCellsData,
+              appointments, startViewDate, endViewDate, currentView, viewCellsData, formatDate,
             }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               const intervals = calculateMonthDateIntervals(
@@ -188,6 +189,7 @@ export class MonthView extends React.PureComponent {
                     cellComponent={this.cellPlaceholder}
                     tableRef={this.timeTableRef}
                     cellsData={viewCellsData}
+                    formatDate={formatDate}
                   />
                   <AppointmentLayer>
                     {rects.map(({

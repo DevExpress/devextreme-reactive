@@ -196,6 +196,7 @@ export const getAppointmentStyle: PureComputed<
   height,
   width: `${width}%`,
   transform: `translateY(${top}px)`,
+  msTransform: `translateY(${top}px)`,
   left: `${left}%`,
   position: 'absolute',
 });

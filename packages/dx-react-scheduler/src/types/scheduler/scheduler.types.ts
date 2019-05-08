@@ -1,4 +1,4 @@
-import { AppointmentModel } from '@devexpress/dx-scheduler-core';
+import { AppointmentModel } from '../index';
 
 // tslint:disable-next-line:no-namespace
 export namespace Scheduler {

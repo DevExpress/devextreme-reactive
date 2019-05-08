@@ -19,7 +19,7 @@ export interface MonthViewProps extends MonthViewPropsType {
   layoutComponent: React.ComponentType<HorizontalView.LayoutProps>;
 }
 
-namespace MonthView {
+export namespace MonthView {
   /** Describes a cell data configuration object. */
   export interface CellData {
     /** Specifies the cell start time. */

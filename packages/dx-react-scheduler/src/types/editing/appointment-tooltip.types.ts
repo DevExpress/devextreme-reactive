@@ -1,4 +1,4 @@
-import { AppointmentMeta, AppointmentModel } from '@devexpress/dx-scheduler-core';
+import { AppointmentMeta, AppointmentModel } from '../index';
 
 /* tslint:disable no-namespace max-line-length */
 export namespace AppointmentTooltip {

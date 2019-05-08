@@ -1,4 +1,4 @@
-import { AppointmentModel } from '@devexpress/dx-scheduler-core';
+import { AppointmentModel } from '../index';
 
 /* tslint:disable no-namespace max-line-length */
 export namespace DragDropProvider {

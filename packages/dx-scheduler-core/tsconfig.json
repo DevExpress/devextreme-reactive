@@ -4,8 +4,7 @@
     "outDir": "./dist",
     "downlevelIteration": true,
     "noImplicitAny": true,
-    "esModuleInterop": true,
-    "moduleResolution": "node"
+    "allowSyntheticDefaultImports": true,
   },
   "include": [
     "./src"

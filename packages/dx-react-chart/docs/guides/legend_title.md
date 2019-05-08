@@ -25,7 +25,7 @@ You can customize a legend marker and title as demonstrated in the following exa
 
 Using css styles you can easy to arrange elements relative to each other.
 
-In the example below demonstrates how to change position legend items and labels using the [flexbox](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox) and class names:
+Use CSS styles to rearrange legend items and labels, as shown in the following example:
 
 .embedded-demo({ "path": "layout/legend", "showThemeSelector": true })
 

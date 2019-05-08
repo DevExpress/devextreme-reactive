@@ -15,6 +15,9 @@ import { ComponentLayout } from './plugins/component-layout';
 import { Palette } from './plugins/palette';
 import { Root } from './templates/layout';
 import { Label } from './templates/label';
+import { ClipPath } from './plugins/clip-path';
+
+const clipPathId = `clip_path_${Math.round(Math.random() * 100)}`;
 
 class RawChart extends React.PureComponent<ChartProps> {
   static defaultProps: Partial<ChartProps> = {
@@ -43,7 +46,7 @@ class RawChart extends React.PureComponent<ChartProps> {
           rootComponent={rootComponent}
           {...restProps}
         />
-        <PaneLayout />
+        <PaneLayout id={clipPathId} />
         <AxesLayout />
         <ComponentLayout />
         <SpaceFillingRects
@@ -58,6 +61,7 @@ class RawChart extends React.PureComponent<ChartProps> {
             `${BOTTOM}-${RIGHT}-axis`,
           ]}
         />
+        <ClipPath id={clipPathId} />
         {children}
         <ChartCore />
 

@@ -13,12 +13,13 @@ describe('PaneLayout', () => {
       layouts: { pane: { width: 400, height: 300 } },
     },
   };
+  const id = 'defaultId';
 
   it('should render Pane with correct props', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <PaneLayout />
+        <PaneLayout id={id} />
         <TemplatePlaceholder name="canvas" />
       </PluginHost>
     ));
@@ -27,7 +28,7 @@ describe('PaneLayout', () => {
       width: 400,
       height: 300,
       style: {
-        left: 0, top: 0, overflow: 'hidden', position: 'absolute',
+        left: 0, top: 0, overflow: 'visible', position: 'absolute', clipPath: 'url(#defaultId)',
       },
       children: expect.anything(),
     });
@@ -41,7 +42,7 @@ describe('PaneLayout', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <PaneLayout />
+        <PaneLayout id={id} />
         <TemplatePlaceholder name="canvas" />
       </PluginHost>
     ));

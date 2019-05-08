@@ -34,6 +34,8 @@ export * from './plugins.stack.types';
 export * from './plugins.title.types';
 export * from './plugins.tooltip.types';
 export * from './plugins.zoom-pan.types';
+export * from './plugins.pane-layout.types';
+export * from './plugins.clip-path.types';
 export * from './utils.series-helpers.types';
 export * from './templates.axis.types';
 export * from './templates.core.types';

@@ -1,7 +1,7 @@
 import { VerticalViewProps, VerticalView } from './view.types';
 import { WeekViewProps } from './week-view.types';
 
-/* tslint:disable no-namespace max-line-length */
+/* tslint:disable no-namespace max-line-length no-empty-interface */
 type MonthViewPropsType =
   Pick<
     VerticalViewProps,
@@ -13,7 +13,6 @@ type MonthViewPropsType =
   &
   Pick<WeekViewProps, 'firstDayOfWeek'>;
 
-// tslint:disable-next-line: no-empty-interface
 export interface MonthViewProps extends MonthViewPropsType {
   /** A component that renders a view layout. */
   layoutComponent: React.ComponentType<MonthView.LayoutProps>;

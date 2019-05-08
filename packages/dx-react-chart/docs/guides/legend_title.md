@@ -21,7 +21,7 @@ You can customize a legend marker and title as demonstrated in the following exa
 
 .embedded-demo({ "path": "chart-basic/legend-customization", "showThemeSelector": true })
 
-## Customize Legend Layout
+## Customize the Legend Layout
 
 
 Use CSS styles to rearrange legend items and labels, as shown in the following example:

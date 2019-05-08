@@ -30,7 +30,7 @@ Use CSS styles to rearrange legend items and labels, as shown in the following e
 
 ## Customize Title Layout
 
-There is posibility to change title alignment using class names:
+Like the legend layout, the title layout is customized using CSS styles. The following example shows how to align the title to the left:
 
 .embedded-demo({ "path": "layout/title", "showThemeSelector": true })
 

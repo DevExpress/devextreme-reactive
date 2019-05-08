@@ -2,5 +2,5 @@
 @import '../../../typography';
 
 .title {
-  @include title-large();
+  @include title-large(0);
 }

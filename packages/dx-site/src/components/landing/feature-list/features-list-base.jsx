@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
 const FeaturesList = ({
-  data, rowLength,
+  data,
   layoutItemComponent: LayoutItem,
   layoutRowComponent: LayoutRow,
 }) => {
@@ -19,7 +19,12 @@ const FeaturesList = ({
     const sectionTitle = rowItems[0].sectionTitle;
     const items = rowItems.map((item) => <LayoutItem {...item} />);
 
-    return <LayoutRow items={items} title={sectionTitle} />
+    return (
+      <>
+        <LayoutRow items={items} title={sectionTitle} />
+        <hr />
+      </>
+    );
   });
 };
 

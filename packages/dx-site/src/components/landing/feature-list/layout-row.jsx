@@ -5,9 +5,9 @@ import LayoutRowContent from './layout-row-content';
 import styles from './layout-row.module.scss';
 
 const LayoutRow = props => (
-  // <div className={styles.layoutRow }>
+  <div className={styles.layoutRow }>
     <LayoutRowContent {...props}/>
-  // </div>
+  </div>
 );
 
 LayoutRow.propTypes = {

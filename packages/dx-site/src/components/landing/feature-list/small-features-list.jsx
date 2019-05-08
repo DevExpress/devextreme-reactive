@@ -7,7 +7,6 @@ import SmallLayoutRow from './small-layout-row';
 const FeaturesList = props => (
   <FeaturesListBase
     {...props}
-    rowLength={4}
     layoutRowComponent={SmallLayoutRow}
     layoutItemComponent={LandingSmallLayoutItem}
   />

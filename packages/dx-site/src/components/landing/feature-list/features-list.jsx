@@ -7,7 +7,6 @@ import LandingLayoutRow from './layout-row';
 const FeaturesList = props => (
   <FeaturesListBase
     {...props}
-    rowLength={2}
     layoutRowComponent={LandingLayoutRow}
     layoutItemComponent={LandingLayoutItem}
   />

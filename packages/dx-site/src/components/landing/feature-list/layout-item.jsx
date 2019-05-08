@@ -11,7 +11,7 @@ const LayoutItem = ({
   description,
   imageLink,
 }) => (
-  <LayoutItemContainer md={6} className={styles.layoutItem}>
+  <LayoutItemContainer md={6} className={`${styles.layoutItem} d-flex flex-column justify-content-between`}>
     <div className={styles.child}>
       <LandingFeatureDescription
         title={title}

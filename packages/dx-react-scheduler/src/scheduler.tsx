@@ -21,10 +21,12 @@ const SchedulerBase: React.SFC<SchedulerProps> = ({
 
 SchedulerBase.defaultProps = {
   data: [],
-  locale: 'en-US'
+  locale: 'en-US',
 };
 
-/** The Scheduler is a root container component designed to process
+// tslint:disable: max-line-length
+/***
+ * The Scheduler is a root container component designed to process
  * and display the specified data. The Scheduler’s functionality
  * (data visualization and processing) is implemented in several plugins specified as child components.
  * */

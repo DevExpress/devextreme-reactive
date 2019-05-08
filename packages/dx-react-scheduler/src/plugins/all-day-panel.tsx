@@ -53,9 +53,11 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
     };
     this.allDayPanelRef = this.allDayPanelRef.bind(this);
 
-    this.appointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
+    this.appointmentPlaceholder = params =>
+    <TemplatePlaceholder name="appointment" params={params} />;
+    this.allDayPanelPlaceholder = params =>
+    <TemplatePlaceholder name="allDayPanel" params={params} />;
     this.cellPlaceholder = params => <TemplatePlaceholder name="allDayPanelCell" params={params} />;
-    this.allDayPanelPlaceholder = params => <TemplatePlaceholder name="allDayPanel" params={params} />;
   }
 
   allDayPanelRef(ref) {
@@ -119,7 +121,9 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
               const intervals = calculateAllDayDateIntervals(
                 appointments, startViewDate, endViewDate, excludedDays,
               );
-              const rects = tableRef && tableRef.querySelectorAll('th').length === viewCellsData[0].length ? calculateRectByDateIntervals(
+              const rects = tableRef
+              && tableRef.querySelectorAll('th').length === viewCellsData[0].length
+              ? calculateRectByDateIntervals(
                 {
                   growDirection: HORIZONTAL_TYPE,
                   multiline: false,

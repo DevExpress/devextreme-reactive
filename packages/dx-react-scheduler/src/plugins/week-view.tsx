@@ -334,5 +334,9 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
   }
 }
 
-/** A plugin that renders the Scheduler's week view. This plugin arranges appointments from top to bottom. If their time intervals overlap, their width is decreased and they are placed next to each other. */
+// tslint:disable: max-line-length
+/***
+ * A plugin that renders the Scheduler's week view. This plugin arranges appointments from top to bottom.
+ * If their time intervals overlap, their width is decreased and they are placed next to each other.
+ * */
 export const WeekView: React.ComponentType<WeekViewProps> = WeekViewBase;

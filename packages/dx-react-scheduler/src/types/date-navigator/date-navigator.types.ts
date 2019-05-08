@@ -1,4 +1,4 @@
-import { MonthCellsDataComputedFn } from "@devexpress/dx-scheduler-core";
+import { MonthCellsDataComputedFn } from '@devexpress/dx-scheduler-core';
 
 // tslint:disable-next-line:no-namespace
 export namespace DateNavigator {
@@ -14,7 +14,11 @@ export namespace DateNavigator {
     rootRef: (ref: React.ReactInstance) => void;
     /** An event raised when the date navigator should be shown or hidden. */
     onVisibilityToggle: () => void;
-    /** An event raised when a navigation button is clicked. The event handler should switch the date navigator to the next or previous date. */
+    /***
+     * An event raised when a navigation button is clicked.
+     * The event handler should switch the date navigator to the next or previous date.
+     * */
+    // tslint:disable-next-line: max-line-length
     onNavigate: (direction: 'forward' | 'back' | undefined, nextDate: string | Date | number) => any;
   }
   /** Properties passed to a component that renders the date navigator’s overlay element. */
@@ -88,5 +92,5 @@ export interface DateNavigatorProps {
 
 /** @internal */
 export interface DateNavigatorState {
-  visible: boolean,
+  visible: boolean;
 }

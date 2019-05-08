@@ -13,6 +13,7 @@ import {
 } from '@devexpress/dx-scheduler-core';
 import { MonthView } from './month-view';
 
+// tslint:disable: max-line-length
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   computed: jest.fn(),
   viewCellsData: jest.fn(),

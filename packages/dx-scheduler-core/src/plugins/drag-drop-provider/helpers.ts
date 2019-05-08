@@ -142,9 +142,12 @@ export const calculateAppointmentTimeBoundaries: CalculateAppointmentTimeBoundar
 
   return(isDragging
     ? timeBoundariesByDrag(
-        payload, targetData as AppointmentModel, targetType, cellDurationMinutes, insidePart, offsetTimeTopBase,
+        payload, targetData as AppointmentModel, targetType,
+        cellDurationMinutes, insidePart, offsetTimeTopBase,
       )
-    : timeBoundariesByResize(payload, targetData as AppointmentModel, targetType, cellDurationMinutes, insidePart)
+    : timeBoundariesByResize(
+        payload, targetData as AppointmentModel, targetType, cellDurationMinutes, insidePart,
+      )
   );
 };
 

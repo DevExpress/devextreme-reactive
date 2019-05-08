@@ -313,5 +313,6 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
   }
 }
 
+// tslint:disable-next-line: max-line-length
 /** The AppointmentForm plugin renders a form that visualizes appointment’s data and allows a user to modify this data. */
 export const AppointmentForm: React.ComponentType<AppointmentFormProps> = AppointmentFormBase;

@@ -1,6 +1,7 @@
 import { VerticalViewProps } from './view.types';
 import { WeekViewProps } from './week-view.types';
 
+/* tslint:disable no-namespace max-line-length */
 type MonthViewPropsType =
   Pick<
     VerticalViewProps,

@@ -1,5 +1,6 @@
-import { AppointmentModel } from "@devexpress/dx-scheduler-core";
+import { AppointmentModel } from '@devexpress/dx-scheduler-core';
 
+/* tslint:disable no-namespace max-line-length */
 export namespace AppointmentForm {
   /** Properties passed to a component that renders the appointment form’s popup. */
   export interface PopupProps {
@@ -42,13 +43,13 @@ export namespace AppointmentForm {
 export interface AppointmentFormProps {
   /** Specifies the appointment form’s visibility. */
   visible?: boolean;
-  /**	Handles changes to the appointment form’s visibility. */
+  /** Handles changes to the appointment form’s visibility. */
   onVisibilityChange?: (visible: boolean) => void;
   /** Specifies the appointment’s data that the form displays. */
   appointmentData?: AppointmentModel;
   /** Handles changes to the appointment’s data. */
   onAppointmentDataChange?: (appointmentData: AppointmentModel) => void;
-  /**	Specifies the appointment form is read-only. */
+  /** Specifies the appointment form is read-only. */
   readOnly?: boolean;
   /** A component that renders the appointment form’s popup. */
   popupComponent: React.ComponentType<AppointmentForm.PopupProps>;
@@ -76,4 +77,4 @@ export interface AppointmentFormProps {
 export type AppointmentFormState = {
   visible: boolean;
   appointmentData: AppointmentModel;
-}
+};

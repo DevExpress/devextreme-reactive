@@ -12,6 +12,7 @@ import {
 } from '@devexpress/dx-scheduler-core';
 import { DayView } from './day-view';
 
+/* tslint:disable max-line-length */
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   computed: jest.fn(),
   viewCellsData: jest.fn(),
@@ -277,6 +278,7 @@ describe('Day View', () => {
           {pluginDepsToComponents(defaultDeps)}
           <DayView
             {...defaultProps}
+            // tslint:disable-next-line: max-line-length
             dayScaleLayoutComponent={({ formatDate }) => <div formatDate={formatDate} className="day-scale" />}
           />
         </PluginHost>
@@ -294,6 +296,7 @@ describe('Day View', () => {
           {pluginDepsToComponents(defaultDeps)}
           <DayView
             {...defaultProps}
+            // tslint:disable-next-line: max-line-length
             timeTableLayoutComponent={({ formatDate }) => <div formatDate={formatDate} className="time-table" />}
           />
         </PluginHost>

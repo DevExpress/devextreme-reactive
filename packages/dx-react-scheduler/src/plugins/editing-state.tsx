@@ -28,16 +28,16 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
     defaultAddedAppointment: {},
     onAddedAppointmentChange: undefined,
   };
-  startEditAppointment: (payload: any) => void;;
-  stopEditAppointment: (payload?: any) => void;;
-  changeAppointment: (payload: any) => void;;
-  cancelChangedAppointment: (payload?: any) => void;;
-  commitChangedAppointment: (payload: any) => void;;
-  addAppointment: (payload: any) => void;;
-  changeAddedAppointment: (payload: any) => void;;
-  cancelAddedAppointment: (payload?: any) => void;;
-  commitAddedAppointment: (payload: any) => void;;
-  commitDeletedAppointment: (payload: any) => void;;
+  startEditAppointment: (payload: any) => void;
+  stopEditAppointment: (payload?: any) => void;
+  changeAppointment: (payload: any) => void;
+  cancelChangedAppointment: (payload?: any) => void;
+  commitChangedAppointment: (payload: any) => void;
+  addAppointment: (payload: any) => void;
+  changeAddedAppointment: (payload: any) => void;
+  cancelAddedAppointment: (payload?: any) => void;
+  commitAddedAppointment: (payload: any) => void;
+  commitDeletedAppointment: (payload: any) => void;
 
   constructor(props) {
     super(props);

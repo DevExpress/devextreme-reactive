@@ -12,10 +12,10 @@ import {
   CLOSE_COMMAND_BUTTON,
   DELETE_COMMAND_BUTTON,
   setAppointmentMeta,
+  AppointmentMeta,
 } from '@devexpress/dx-scheduler-core';
 
 import { AppointmentTooltipProps, AppointmentTooltipState } from '../types';
-import { AppointmentMeta } from '@devexpress/dx-scheduler-core';
 
 const pluginDependencies = [
   { name: 'Appointments' },
@@ -28,7 +28,9 @@ const commandButtonIds = {
   delete: DELETE_COMMAND_BUTTON,
 };
 
-class AppointmentTooltipBase extends React.PureComponent<AppointmentTooltipProps, AppointmentTooltipState> {
+class AppointmentTooltipBase extends React.PureComponent<
+  AppointmentTooltipProps, AppointmentTooltipState
+> {
   static components = {
     layoutComponent: 'Layout',
     headerComponent: 'Header',
@@ -172,5 +174,6 @@ class AppointmentTooltipBase extends React.PureComponent<AppointmentTooltipProps
   }
 }
 
+// tslint:disable: max-line-length
 /** The AppointmentTooltip plugin allows you to display information about an appointment in a tooltip. */
 export const AppointmentTooltip: React.ComponentType<AppointmentTooltipProps> = AppointmentTooltipBase;

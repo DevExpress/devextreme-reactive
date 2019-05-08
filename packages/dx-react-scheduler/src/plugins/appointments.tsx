@@ -41,9 +41,15 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
         >
           {(params: any) => (
             <Container style={params.style}>
-              <TemplatePlaceholder name="appointmentTop" params={{ data: params.data, type: params.type, slice: params.fromPrev }} />
+              <TemplatePlaceholder
+                name="appointmentTop"
+                params={{ data: params.data, type: params.type, slice: params.fromPrev }}
+              />
               <TemplatePlaceholder name="appointmentContent" params={params} />
-              <TemplatePlaceholder name="appointmentBottom" params={{ data: params.data, type: params.type, slice: params.toNext }} />
+              <TemplatePlaceholder
+                name="appointmentBottom"
+                params={{ data: params.data, type: params.type, slice: params.toNext }}
+              />
             </Container>
           )}
         </Template>

@@ -1,4 +1,4 @@
-import { AppointmentModel } from "@devexpress/dx-scheduler-core";
+import { AppointmentModel } from '@devexpress/dx-scheduler-core';
 
 // tslint:disable-next-line:no-namespace
 export namespace Appointments {
@@ -22,13 +22,16 @@ export namespace Appointments {
     /** An object that represents appointment data. */
     data: AppointmentModel;
     /** A component that renders an icon for recurring appointments. */
-    recurringIconComponent: React.ComponentType<any>
+    recurringIconComponent: React.ComponentType<any>;
     /** Specifies whether the appointment is vertical or horizontal. */
     type: 'vertical' | 'horizontal';
     /** A function that formats dates according to the locale. */
     formatDate: (date: Date, options: any) => string;
   }
-  /** Properties passed to a component that renders an element which indicates the appointment is divided. */
+  /***
+   * Properties passed to a component that renders an element
+   * which indicates the appointment is divided.
+   * */
   export interface SplitIndicatorProps {
     /** Specifies whether the element is rendered at the start or end of the divided appointment. */
     position: 'start' | 'end';
@@ -43,7 +46,7 @@ export namespace Appointments {
 }
 
 export interface AppointmentsProps {
-  /**	A component that renders an appointment. */
+  /** A component that renders an appointment. */
   appointmentComponent: React.ComponentType<Appointments.AppointmentProps>;
   /** A component that renders the appointment content. */
   appointmentContentComponent: React.ComponentType<Appointments.AppointmentContentProps>;

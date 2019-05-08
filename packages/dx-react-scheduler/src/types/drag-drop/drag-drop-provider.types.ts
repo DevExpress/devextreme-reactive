@@ -1,4 +1,4 @@
-import { AppointmentModel } from "@devexpress/dx-scheduler-core";
+import { AppointmentModel } from '@devexpress/dx-scheduler-core';
 
 /* tslint:disable no-namespace max-line-length */
 export namespace DragDropProvider {
@@ -15,7 +15,10 @@ export namespace DragDropProvider {
     style: React.CSSProperties;
     /** Specifies the appointment’s type. */
     type: string;
-    /**	true if the appointment is continued from the previous day/week/month/year. */
+    /***
+     * true if the appointment is continued from
+     * the previous day/week/month/year.
+     * */
     fromPrev: boolean;
     /** true if the appointment continues on the next day/week/month/year. */
     toNext: boolean;
@@ -47,9 +50,11 @@ export interface DragDropProviderProps {
   sourceAppointmentComponent: React.ComponentType<DragDropProvider.SourceAppointmentProps>;
   /** A component that renders a handle used to resize the appointment. */
   resizeComponent: React.ComponentType<DragDropProvider.ResizeProps>;
-  /**	A component that renders a container for the appointment being dragged. */
+  /***
+   * A component that renders a container for the appointment being dragged.
+   * */
   containerComponent: React.ComponentType<DragDropProvider.ContainerProps>;
-};
+}
 
 /** @internal */
 export type DragDropProviderState = {

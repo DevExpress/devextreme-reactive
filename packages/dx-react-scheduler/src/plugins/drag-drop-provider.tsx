@@ -33,7 +33,9 @@ const pluginDependencies = [
   { name: 'AllDayPanel', optional: true },
 ];
 
-class DragDropProviderBase extends React.PureComponent<DragDropProviderProps, DragDropProviderState> {
+class DragDropProviderBase extends React.PureComponent<
+  DragDropProviderProps, DragDropProviderState
+> {
   static components = {
     containerComponent: 'Container',
     draftAppointmentComponent: 'DraftAppointment',

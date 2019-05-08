@@ -1,5 +1,6 @@
-import { AppointmentMeta, AppointmentModel } from "@devexpress/dx-scheduler-core";
+import { AppointmentMeta, AppointmentModel } from '@devexpress/dx-scheduler-core';
 
+/* tslint:disable no-namespace max-line-length */
 export namespace AppointmentTooltip {
   /** Describes properties passed to a component that renders a tooltip layout. */
   export interface LayoutProps {
@@ -80,4 +81,4 @@ export interface AppointmentTooltipProps {
 export type AppointmentTooltipState = {
   visible: boolean;
   appointmentMeta: AppointmentMeta;
-}
+};

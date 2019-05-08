@@ -80,8 +80,9 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
 
     this.dayScalePlaceholder = () => <TemplatePlaceholder name="navbar" />;
     this.timeTablePlaceholder = () => <TemplatePlaceholder name="main" />;
-    this.appointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
     this.cellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
+    this.appointmentPlaceholder = params =>
+      <TemplatePlaceholder name="appointment" params={params} />;
 
     const viewCellsDataBaseComputed = ({
       currentDate,
@@ -264,5 +265,11 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
   }
 }
 
-/** A plugin that renders Scheduler data for a month. This plugin arranges appointments from left to right. An appointment's size depends on its duration in days. However, it occupies the entire day cell if an appointment lasts only for several hours or minutes. The time scale and all-day panel are not available in this view. */
+// tslint:disable: max-line-length
+/***
+ * A plugin that renders Scheduler data for a month. This plugin arranges appointments from left to right.
+ * An appointment's size depends on its duration in days.
+ * However, it occupies the entire day cell if an appointment lasts only for several hours or minutes.
+ * The time scale and all-day panel are not available in this view.
+ * */
 export const MonthView: React.ComponentType<MonthViewProps> = MonthViewBase;

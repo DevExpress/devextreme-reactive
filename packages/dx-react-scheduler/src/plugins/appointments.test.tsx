@@ -6,13 +6,12 @@ import { createClickHandlers } from '@devexpress/dx-core';
 import { Appointments } from './appointments';
 
 // eslint-disable-next-line react/prop-types
-const Appointment = ({ children }) => <div>{ children }</div>;
+const Appointment = ({ children }) => <div>{children}</div>;
 const AppointmentContent = () => null;
 const SplitIndicator = () => null;
 const RecurringIcon = () => null;
 // eslint-disable-next-line react/prop-types
-const Container = ({ children }) => <div>{ children }</div>;
-
+const Container = ({ children }) => <div>{children}</div>;
 
 const defaultProps = {
   splitIndicatorComponent: SplitIndicator,

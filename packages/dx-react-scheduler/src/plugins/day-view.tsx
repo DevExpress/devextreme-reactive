@@ -321,5 +321,8 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
   }
 }
 
-/** A plugin that renders Scheduler data for a day. This plugin arranges appointments from top to bottom. If their time intervals overlap, their width is decreased and they are placed next to each other. */
+// tslint:disable-next-line: max-line-length
+/*** A plugin that renders Scheduler data for a day. This plugin arranges appointments from top to bottom.
+ * If their time intervals overlap, their width is decreased and they are placed next to each other.
+ * */
 export const DayView: React.ComponentType<VerticalViewProps> = DayViewBase;

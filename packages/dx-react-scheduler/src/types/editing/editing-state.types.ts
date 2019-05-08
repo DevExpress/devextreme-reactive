@@ -28,7 +28,7 @@ export interface EditingStateProps {
   defaultAppointmentChanges?: { [key: string]: object };
   /** Handles changes to the appointmentChanges property value. */
   onAppointmentChangesChange?: (appointmentChanges: { [key: string]: any }) => void;
-  /**	Handles commiting appointment changes. */
+  /** Handles commiting appointment changes. */
   onCommitChanges: (changes: ChangeSet) => void;
 }
 

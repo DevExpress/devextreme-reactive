@@ -12,6 +12,7 @@ import {
 } from '@devexpress/dx-scheduler-core';
 import { WeekView } from './week-view';
 
+// tslint:disable: max-line-length
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   computed: jest.fn(),
   viewCellsData: jest.fn(),

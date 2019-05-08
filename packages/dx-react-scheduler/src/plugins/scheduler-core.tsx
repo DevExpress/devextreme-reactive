@@ -31,8 +31,10 @@ class SchedulerCoreBase extends React.PureComponent<SchedulerProps> {
   }
 }
 
-/** The Scheduler is a root container component designed to process
+/***
+ * The Scheduler is a root container component designed to process
  * and display the specified data. The Scheduler's functionality
  * (data visualization and processing) is implemented in several plugins
- * specified as child components. */
+ * specified as child components.
+ * */
 export const SchedulerCore: React.ComponentType<SchedulerProps> = SchedulerCoreBase;

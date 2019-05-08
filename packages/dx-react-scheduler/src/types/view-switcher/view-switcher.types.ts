@@ -5,7 +5,7 @@ export namespace ViewSwitcher {
     /** A React node to be placed in the root layout. */
     currentViewName: string;
     availableViewNames: string[];
-    onChange: Function;
+    onChange: (payload?: any) => void;
   }
 }
 

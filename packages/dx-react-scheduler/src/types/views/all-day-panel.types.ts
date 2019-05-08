@@ -1,5 +1,6 @@
-import { AllDayCell } from "@devexpress/dx-scheduler-core";
+import { AllDayCell } from '@devexpress/dx-scheduler-core';
 
+/* tslint:disable no-namespace max-line-length */
 export namespace AllDayPanel {
   /** Describes a cell data configuration object. */
   export interface CellData {

@@ -2,6 +2,8 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "./dist",
+    "downlevelIteration": true,
+    "esModuleInterop": true,
     "moduleResolution": "node"
   },
   "include": [

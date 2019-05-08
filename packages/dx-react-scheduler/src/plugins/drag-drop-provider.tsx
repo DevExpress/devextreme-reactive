@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as _moment from 'moment';
+import moment from 'moment';
 import {
   Plugin, Template, TemplatePlaceholder,
   TemplateConnector, DropTarget, DragSource,
@@ -23,8 +23,6 @@ import {
 } from '@devexpress/dx-scheduler-core';
 
 import { DragDropProviderProps, DragDropProviderState } from '../types';
-
-const moment = _moment;
 
 const pluginDependencies = [
   { name: 'EditingState' },

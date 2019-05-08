@@ -30,4 +30,4 @@ SchedulerBase.defaultProps = {
  * and display the specified data. The Scheduler’s functionality
  * (data visualization and processing) is implemented in several plugins specified as child components.
  * */
-export const Grid: React.ComponentType<SchedulerProps> = SchedulerBase;
+export const Scheduler: React.ComponentType<SchedulerProps> = SchedulerBase;

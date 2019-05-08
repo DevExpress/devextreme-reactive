@@ -1,4 +1,4 @@
-import { VerticalViewProps } from './view.types';
+import { VerticalViewProps, VerticalView } from './view.types';
 import { WeekViewProps } from './week-view.types';
 
 /* tslint:disable no-namespace max-line-length */
@@ -16,10 +16,13 @@ type MonthViewPropsType =
 // tslint:disable-next-line: no-empty-interface
 export interface MonthViewProps extends MonthViewPropsType {
   /** A component that renders a view layout. */
-  layoutComponent: React.ComponentType<HorizontalView.LayoutProps>;
+  layoutComponent: React.ComponentType<MonthView.LayoutProps>;
 }
 
 export namespace MonthView {
+  export interface DayScaleEmptyCellProps extends VerticalView.DayScaleEmptyCellProps {}
+  export interface AppointmentLayerProps extends VerticalView.AppointmentLayerProps {}
+
   /** Describes a cell data configuration object. */
   export interface CellData {
     /** Specifies the cell start time. */
@@ -55,10 +58,7 @@ export namespace MonthView {
     /** A React node used to render the row content. */
     children?: React.ReactNode;
   }
-}
 
-// tslint:disable-next-line: no-namespace
-export namespace HorizontalView {
   /** Describes properties passed to a component that renders a day scale layout. */
   export interface DayScaleLayoutProps {
     /** 	Specifies the cells meta data. */
@@ -82,9 +82,9 @@ export namespace HorizontalView {
   }
   export interface LayoutProps {
     /** A component that renders a day scale layout. */
-    dayScaleComponent: React.ComponentType<HorizontalView.DayScaleLayoutProps>;
+    dayScaleComponent: React.ComponentType<MonthView.DayScaleLayoutProps>;
     /** A component that renders a time table layout. */
-    timeTableComponent: React.ComponentType<HorizontalView.TimeTableLayoutProps>;
+    timeTableComponent: React.ComponentType<MonthView.TimeTableLayoutProps>;
     /** A component that renders a day scale empty cell. */
     layoutRef: React.RefObject<HTMLElement>;
     layoutHeaderRef: React.RefObject<HTMLElement>;

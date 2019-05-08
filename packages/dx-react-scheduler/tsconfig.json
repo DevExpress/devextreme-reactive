@@ -2,8 +2,8 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "./dist",
-    "allowSyntheticDefaultImports": true,
-    "moduleResolution": "node"
+    "downlevelIteration": true,
+    "esModuleInterop": true
   },
   "include": [
     "./src"

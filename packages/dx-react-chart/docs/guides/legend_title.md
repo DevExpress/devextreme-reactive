@@ -23,7 +23,6 @@ You can customize a legend marker and title as demonstrated in the following exa
 
 ## Customize Legend Layout
 
-Using css styles you can easy to arrange elements relative to each other.
 
 Use CSS styles to rearrange legend items and labels, as shown in the following example:
 

@@ -175,4 +175,5 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
   }
 }
 
+/** A plugin that renders the All Day Panel. */
 export const AllDayPanel: React.ComponentType<AllDayPanelProps> = AllDayPanelBase;

@@ -7,7 +7,7 @@ type MonthViewPropsType =
     VerticalViewProps,
     Exclude<
       keyof VerticalViewProps,
-      'timeScaleLayoutComponent' | 'timeScaleRowComponent' | 'timeScaleCellComponent' | 'layoutComponent'
+      'timeScaleLayoutComponent' | 'timeScaleRowComponent' | 'timeScaleCellComponent' | 'layoutComponent' | 'dayScaleEmptyCellComponent'
     >
   >
   &
@@ -19,7 +19,7 @@ export interface MonthViewProps extends MonthViewPropsType {
 }
 
 export namespace MonthView {
-  export interface DayScaleEmptyCellProps extends VerticalView.DayScaleEmptyCellProps {}
+  /** Describes properties passed to a component that renders the appointment layer. */
   export interface AppointmentLayerProps extends VerticalView.AppointmentLayerProps {}
 
   /** Describes a cell data configuration object. */

@@ -52,15 +52,17 @@ describe('VerticalAppointment', () => {
     });
 
     it('should render children', () => {
-      const child = mount((
+      const tree = mount((
         <VerticalAppointment
           {...defaultProps}
         >
           <div className="child" />
         </VerticalAppointment>
-      )).find('.child');
+      ));
 
-      expect(child.exists())
+      expect(tree.find('.child').exists())
+        .toBeTruthy();
+      expect(tree.find(`.${classes.content}`).exists())
         .toBeTruthy();
     });
 

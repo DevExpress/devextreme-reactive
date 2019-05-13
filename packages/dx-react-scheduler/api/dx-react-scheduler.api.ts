@@ -15,7 +15,7 @@ declare type AllDayCell = {
   endDate: Date | string | number;
 };
 
-// @public (undocumented)
+// @public
 declare const AllDayPanel: React.ComponentType<AllDayPanelProps>;
 
 // @public (undocumented)
@@ -426,39 +426,28 @@ declare type DayScaleFn = PureComputed<[Date, number, number, number[]], Date[]>
 // @public
 declare const DayView: React.ComponentType<VerticalViewProps>;
 
-// @public
+// @public (undocumented)
 namespace DayView {
-  // (undocumented)
   interface AppointmentLayerProps extends VerticalView.AppointmentLayerProps {
   }
-  // (undocumented)
   interface CellData extends VerticalView.CellData {
   }
-  // (undocumented)
   interface DayScaleCellProps extends VerticalView.DayScaleCellProps {
   }
-  // (undocumented)
   interface DayScaleEmptyCellProps extends VerticalView.DayScaleEmptyCellProps {
   }
-  // (undocumented)
   interface DayScaleLayoutProps extends VerticalView.DayScaleLayoutProps {
   }
-  // (undocumented)
   interface LayoutProps extends VerticalView.LayoutProps {
   }
-  // (undocumented)
   interface RowProps extends VerticalView.RowProps {
   }
-  // (undocumented)
   interface TimeScaleCellProps extends VerticalView.TimeScaleCellProps {
   }
-  // (undocumented)
   interface TimeScaleLayoutProps extends VerticalView.TimeScaleLayoutProps {
   }
-  // (undocumented)
   interface TimeTableCellProps extends VerticalView.TimeTableCellProps {
   }
-  // (undocumented)
   interface TimeTableLayoutProps extends VerticalView.TimeTableLayoutProps {
   }
 }
@@ -622,7 +611,6 @@ declare const MonthView: React.ComponentType<MonthViewProps>;
 
 // @public (undocumented)
 namespace MonthView {
-  // (undocumented)
   interface AppointmentLayerProps extends VerticalView.AppointmentLayerProps {
   }
   interface CellData {
@@ -634,9 +622,6 @@ namespace MonthView {
   interface DayScaleCellProps {
     endDate?: Date;
     startDate: Date;
-  }
-  // (undocumented)
-  interface DayScaleEmptyCellProps extends VerticalView.DayScaleEmptyCellProps {
   }
   interface DayScaleLayoutProps {
     cellComponent: React.ComponentType<MonthView.DayScaleCellProps>;
@@ -674,7 +659,7 @@ interface MonthViewProps extends MonthViewPropsType {
 }
 
 // @public (undocumented)
-type MonthViewPropsType = Pick<VerticalViewProps, Exclude<keyof VerticalViewProps, 'timeScaleLayoutComponent' | 'timeScaleRowComponent' | 'timeScaleCellComponent' | 'layoutComponent'>> & Pick<WeekViewProps, 'firstDayOfWeek'>;
+type MonthViewPropsType = Pick<VerticalViewProps, Exclude<keyof VerticalViewProps, 'timeScaleLayoutComponent' | 'timeScaleRowComponent' | 'timeScaleCellComponent' | 'layoutComponent' | 'dayScaleEmptyCellComponent'>> & Pick<WeekViewProps, 'firstDayOfWeek'>;
 
 // @public (undocumented)
 interface ParentRect extends Coordinates {
@@ -940,39 +925,28 @@ interface ViewSwitcherProps {
 // @public
 declare const WeekView: React.ComponentType<WeekViewProps>;
 
-// @public
+// @public (undocumented)
 namespace WeekView {
-  // (undocumented)
   interface AppointmentLayerProps extends VerticalView.AppointmentLayerProps {
   }
-  // (undocumented)
   interface CellData extends VerticalView.CellData {
   }
-  // (undocumented)
   interface DayScaleCellProps extends VerticalView.DayScaleCellProps {
   }
-  // (undocumented)
   interface DayScaleEmptyCellProps extends VerticalView.DayScaleEmptyCellProps {
   }
-  // (undocumented)
   interface DayScaleLayoutProps extends VerticalView.DayScaleLayoutProps {
   }
-  // (undocumented)
   interface LayoutProps extends VerticalView.LayoutProps {
   }
-  // (undocumented)
   interface RowProps extends VerticalView.RowProps {
   }
-  // (undocumented)
   interface TimeScaleCellProps extends VerticalView.TimeScaleCellProps {
   }
-  // (undocumented)
   interface TimeScaleLayoutProps extends VerticalView.TimeScaleLayoutProps {
   }
-  // (undocumented)
   interface TimeTableCellProps extends VerticalView.TimeTableCellProps {
   }
-  // (undocumented)
   interface TimeTableLayoutProps extends VerticalView.TimeTableLayoutProps {
   }
 }

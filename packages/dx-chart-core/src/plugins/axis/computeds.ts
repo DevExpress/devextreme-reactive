@@ -54,8 +54,8 @@ const createVerticalOptions = (position: string, tickSize: number, indentFromAxi
 // https://github.com/d3/d3-scale#continuous_ticks.
 const DEFAULT_TICK_COUNT = 10;
 const getTickCount = (scaleRange: NumberArray, paneSize: number) => {
-  const rangeToPaneRatio = Math.abs(scaleRange[0] - scaleRange[1]) / paneSize || 1;
-  return Math.round(DEFAULT_TICK_COUNT * rangeToPaneRatio);
+  const rangeToPaneRatio = Math.abs(scaleRange[0] - scaleRange[1]) / paneSize;
+  return Math.round(DEFAULT_TICK_COUNT * (isFinite(rangeToPaneRatio) ? rangeToPaneRatio : 1));
 };
 
 /** @internal */

@@ -32,26 +32,9 @@ const startViewDateBaseComputed = ({
 }) => startViewDateCore(viewCellsData);
 
 class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
-  viewCellsDataComputed: (getters: Getters) => any;
-  currentViewComputed: (getters: Getters) => any;
-  availableViewNamesComputed: (getters: Getters) => any;
-  intervalCountComputed: (getters: Getters) => any;
-  firstDayOfWeekComputed: (getters: Getters) => any;
-  excludedDaysComputed: (getters: Getters) => any;
-  startViewDateComputed: (getters: Getters) => any;
-  endViewDateComputed: (getters: Getters) => any;
   timeTable: any;
-  layout: any;
-  layoutHeader: any;
-  timeTableElement: any;
-  layoutElement: any;
-  layoutHeaderElement: any;
-  sidebarPlaceholder: any;
-  dayScalePlaceholder: any;
-  timeTablePlaceholder: any;
-  dayScaleEmptyCellPlaceholder: any;
-  appointmentPlaceholder: any;
-  cellPlaceholder: any;
+  layout: React.RefObject<HTMLElement>;
+  layoutHeader: React.RefObject<HTMLElement>;
 
   static defaultProps = {
     startDayHour: 0,
@@ -88,78 +71,138 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
     this.timeTable = { current: null };
     this.layout = React.createRef();
     this.layoutHeader = React.createRef();
-    this.setTimeTableRef = this.setTimeTableRef.bind(this);
+  }
 
+  layoutHeaderElement = (getters: Getters) => {
+    const { name: viewName } = this.props;
+    return computed(
+      getters, viewName!, this.layoutHeaderElementComputed, getters.layoutHeaderElement,
+    );
+  }
+
+  layoutElement = (getters: Getters) => {
+    const { name: viewName } = this.props;
+    return computed(
+      getters, viewName!, this.layoutElementComputed, getters.layoutElement,
+    );
+  }
+
+  timeTableElement = (getters: Getters) => {
+    const { name: viewName } = this.props;
+    return computed(
+      getters, viewName!, this.timeTableElementComputed, getters.timeTableElement,
+    );
+  }
+
+  viewCellsDataBaseComputed = ({
+    currentDate,
+  }) => {
     const {
-      name: viewName,
-      firstDayOfWeek,
-      startDayHour,
-      endDayHour,
-      cellDuration,
-      excludedDays,
-      intervalCount,
-    } = props;
-
-    const viewCellsDataBaseComputed = ({
-      currentDate,
-    }) => viewCellsDataCore(
+      firstDayOfWeek, intervalCount, excludedDays, startDayHour, endDayHour, cellDuration,
+    } = this.props;
+    return viewCellsDataCore(
       currentDate, firstDayOfWeek,
       intervalCount! * DAYS_IN_WEEK, excludedDays!,
       startDayHour!, endDayHour!, cellDuration!,
       Date.now(),
     );
+  }
 
-    const timeTableElementComputed = () => this.timeTable;
-    const layoutElementComputed = () => this.layout;
-    const layoutHeaderElementComputed = () => this.layoutHeader;
-
-    this.sidebarPlaceholder = () => <TemplatePlaceholder name="sidebar" />;
-    this.dayScalePlaceholder = () => <TemplatePlaceholder name="navbar" />;
-    this.timeTablePlaceholder = () => <TemplatePlaceholder name="main" />;
-    this.dayScaleEmptyCellPlaceholder = () => <TemplatePlaceholder name="dayScaleEmptyCell" />;
-    this.appointmentPlaceholder = params =>
-      <TemplatePlaceholder name="appointment" params={params} />;
-    this.cellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
-
-    this.currentViewComputed = ({ currentView }: Getters) => (
-      currentView && currentView.name !== viewName
-        ? currentView
-        : { name: viewName, type: TYPE }
-    );
-    this.availableViewNamesComputed = ({ availableViewNames }: Getters) => availableViewNamesCore(
-      availableViewNames, viewName!,
-    );
-    this.intervalCountComputed = (getters: Getters) => computed(
-      getters, viewName!, () => intervalCount, getters.intervalCount,
-    );
-    this.firstDayOfWeekComputed = (getters: Getters) => computed(
-      getters, viewName!, () => firstDayOfWeek, getters.firstDayOfWeek,
-    );
-    this.excludedDaysComputed = (getters: Getters) => computed(
-      getters, viewName!, () => excludedDays, getters.excludedDays,
-    );
-    this.startViewDateComputed = (getters: Getters) => computed(
-      getters, viewName, startViewDateBaseComputed, getters.startViewDate,
-    );
-    this.endViewDateComputed = (getters: Getters) => computed(
-      getters, viewName, endViewDateBaseComputed, getters.endViewDate,
-    );
-    this.viewCellsDataComputed = (getters: Getters) => computed(
-      getters, viewName, viewCellsDataBaseComputed, getters.viewCellsData,
-    );
-
-    this.timeTableElement = (getters: Getters) => computed(
-      getters, viewName, timeTableElementComputed, getters.timeTableElement,
-    );
-    this.layoutElement = (getters: Getters) => computed(
-      getters, viewName, layoutElementComputed, getters.layoutElement,
-    );
-    this.layoutHeaderElement = (getters: Getters) => computed(
-      getters, viewName, layoutHeaderElementComputed, getters.layoutHeaderElement,
+  viewCellsDataComputed = (getters: Getters) => {
+    const { name: viewName } = this.props;
+    return computed(
+      getters, viewName!, this.viewCellsDataBaseComputed, getters.viewCellsData,
     );
   }
 
-  setTimeTableRef(timeTableRef) {
+  endViewDateComputed = (getters: Getters) => {
+    const { name: viewName } = this.props;
+    return computed(
+      getters, viewName!, endViewDateBaseComputed, getters.endViewDate,
+    );
+  }
+
+  startViewDateComputed = (getters: Getters) => {
+    const { name: viewName } = this.props;
+    return computed(
+      getters, viewName!, startViewDateBaseComputed, getters.startViewDate,
+    );
+  }
+
+  excludedDaysComputed = (getters: Getters) => {
+    const { name: viewName, excludedDays } = this.props;
+    return computed(
+      getters, viewName!, () => excludedDays, getters.excludedDays,
+    );
+  }
+
+  firstDayOfWeekComputed = (getters: Getters) => {
+    const { name: viewName, firstDayOfWeek } = this.props;
+    return computed(
+      getters, viewName!, () => firstDayOfWeek, getters.firstDayOfWeek,
+    );
+  }
+
+  intervalCountComputed = (getters: Getters) => {
+    const { name: viewName, intervalCount } = this.props;
+    return computed(
+      getters, viewName!, () => intervalCount, getters.intervalCount,
+    );
+  }
+
+  availableViewNamesComputed = ({ availableViewNames }: Getters) => {
+    const { name: viewName } = this.props;
+    return availableViewNamesCore(
+      availableViewNames, viewName!,
+    );
+  }
+
+  timeTableElementComputed = () => {
+    return this.timeTable;
+  }
+
+  layoutElementComputed = () => {
+    return this.layout;
+  }
+
+  layoutHeaderElementComputed = () => {
+    return this.layoutHeader;
+  }
+
+  currentViewComputed = ({ currentView }: Getters) => {
+    const { name: viewName } = this.props;
+    return (
+    currentView && currentView.name !== viewName
+      ? currentView
+      : { name: viewName, type: TYPE }
+    );
+  }
+
+  sidebarPlaceholder() {
+    return <TemplatePlaceholder name="sidebar" />;
+  }
+
+  dayScalePlaceholder() {
+    return <TemplatePlaceholder name="navbar" />;
+  }
+
+  timeTablePlaceholder() {
+    return <TemplatePlaceholder name="main" />;
+  }
+
+  dayScaleEmptyCellPlaceholder() {
+    return <TemplatePlaceholder name="dayScaleEmptyCell" />;
+  }
+
+  appointmentPlaceholder(params) {
+    return <TemplatePlaceholder name="appointment" params={params} />;
+  }
+
+  cellPlaceholder(params) {
+    return <TemplatePlaceholder name="cell" params={params} />;
+  }
+
+  setTimeTableRef = (timeTableRef) => {
     this.timeTable.current = timeTableRef;
     this.setState({ timeTableRef });
   }

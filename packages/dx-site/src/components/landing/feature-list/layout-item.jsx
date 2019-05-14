@@ -10,15 +10,16 @@ const LayoutItem = ({
   title,
   description,
   imageLink,
+  md,
 }) => (
-  <LayoutItemContainer md={6} className={`${styles.layoutItem} d-flex flex-column justify-content-between`}>
+  <LayoutItemContainer md={md} className={`${styles.layoutItem} d-flex flex-column justify-content-between`}>
     <div className={styles.child}>
       <LandingFeatureDescription
         title={title}
         description={description}
       />
     </div>
-    <div className={styles.child}>
+    <div className={`${styles.child} mx-sm-auto ${styles.imageContainer}`}>
       <LandingFeaturePreview
         title={title}
         imageLink={imageLink}

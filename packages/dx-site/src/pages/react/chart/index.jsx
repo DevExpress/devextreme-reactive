@@ -150,7 +150,7 @@ const IndexPage = () => (
     />
     <div className="mt-3"/>
     <LandingChessBoardSmallLayoutList data={chartTypes} />
-    <LandingChessBoardLayoutList data={pageData} />
+    <LandingChessBoardLayoutList data={pageData} columns={3} />
     <LandingLayout>
       <LandingTitle text="Native Support for the UI Library of Your Choice" />
       <LandingImageFeature

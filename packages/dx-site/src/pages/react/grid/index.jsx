@@ -139,6 +139,7 @@ const IndexPage = () => (
                 to="/react/grid/docs/guides/getting-started/"
                 variant="button"
                 title="Getting Started"
+                wide
               >
                 Getting Started
               </LandingLink>
@@ -148,6 +149,7 @@ const IndexPage = () => (
                 type="react"
                 variant="button"
                 title="Demos"
+                wide
               >
                 Demos
               </LandingLink>

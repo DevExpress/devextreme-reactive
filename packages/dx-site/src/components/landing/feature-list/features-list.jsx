@@ -12,4 +12,12 @@ const FeaturesList = props => (
   />
 );
 
+FeaturesList.propTypes = {
+  columns: PropTypes.number,
+};
+
+FeaturesList.defaultProps = {
+  columns: 2,
+};
+
 export default FeaturesList;

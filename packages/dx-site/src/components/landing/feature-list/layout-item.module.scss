@@ -8,3 +8,10 @@
   padding-top: 40px;
   padding-bottom: 40px;
 }
+
+@media (max-width: 800px) {
+  .image-container {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

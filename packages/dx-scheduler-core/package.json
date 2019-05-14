@@ -44,7 +44,7 @@
     "@devexpress/dx-core": "1.11.0-beta.1",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^24.1.0",
-    "core-js": "^2.6.5",
+    "core-js": "^3.0.1",
     "eslint": "^5.14.1",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-filenames": "^1.3.2",

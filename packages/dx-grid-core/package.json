@@ -41,11 +41,11 @@
   },
   "devDependencies": {
     "@devexpress/dx-core": "1.11.0-beta.1",
-    "core-js": "^2.6.5",
+    "core-js": "^3.0.1",
     "jest": "^24.1.0",
     "rollup": "^1.2.3",
     "rollup-plugin-license": "^0.8.1",
-    "rollup-plugin-typescript2": "^0.19.2",
+    "rollup-plugin-typescript2": "^0.21.0",
     "seamless-immutable": "^7.1.4",
     "tslint": "^5.13.0",
     "tslint-config-airbnb": "^5.11.1",

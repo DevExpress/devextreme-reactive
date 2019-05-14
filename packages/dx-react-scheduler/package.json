@@ -51,7 +51,7 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^24.1.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
-    "core-js": "^2.6.5",
+    "core-js": "^3.0.1",
     "enzyme": "3.9.0",
     "enzyme-adapter-react-16": "^1.9.1",
     "enzyme-to-json": "^3.3.5",

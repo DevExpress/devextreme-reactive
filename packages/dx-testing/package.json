@@ -37,7 +37,7 @@
     "@devexpress/dx-react-core": "1.11.0-beta.1",
     "enzyme": "3.9.0",
     "react": "^16.8.3",
-    "util": "^0.11.1"
+    "util": "^0.12.0"
   },
   "peerDependencies": {
     "jest": "^23.6.0"

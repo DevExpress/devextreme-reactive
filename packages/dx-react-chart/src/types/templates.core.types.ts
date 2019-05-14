@@ -1,5 +1,3 @@
-import { ClipPathPropsBase } from './plugins.clip-path.types';
-
 /** @internal */
 export interface RootLayoutProps {
   children?: React.ReactNode;
@@ -17,7 +15,8 @@ export interface PatternProps {
 }
 
 /** @internal */
-export interface ClipPathProps extends ClipPathPropsBase {
+export interface ClipPathProps {
+  id: string;
   width: number;
   height: number;
 }

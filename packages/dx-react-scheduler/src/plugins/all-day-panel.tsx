@@ -41,9 +41,6 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
   static defaultProps = {
     messages: {},
   };
-  appointmentPlaceholder: any;
-  cellPlaceholder: any;
-  allDayPanelPlaceholder: any;
 
   constructor(props) {
     super(props);
@@ -51,16 +48,18 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
     this.state = {
       tableRef: null,
     };
-    this.allDayPanelRef = this.allDayPanelRef.bind(this);
-
-    this.appointmentPlaceholder = params =>
-    <TemplatePlaceholder name="appointment" params={params} />;
-    this.allDayPanelPlaceholder = params =>
-    <TemplatePlaceholder name="allDayPanel" params={params} />;
-    this.cellPlaceholder = params => <TemplatePlaceholder name="allDayPanelCell" params={params} />;
   }
 
-  allDayPanelRef(ref) {
+  appointmentPlaceholder = params =>
+    <TemplatePlaceholder name="appointment" params={params} />
+
+  allDayPanelPlaceholder = params =>
+    <TemplatePlaceholder name="allDayPanel" params={params} />
+
+  cellPlaceholder = params =>
+    <TemplatePlaceholder name="allDayPanelCell" params={params} />
+
+  allDayPanelRef = (ref) => {
     this.setState({
       tableRef: ref,
     });

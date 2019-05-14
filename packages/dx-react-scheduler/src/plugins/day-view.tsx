@@ -31,6 +31,10 @@ const endViewDateBaseComputed = ({
 }) => endViewDateCore(viewCellsData);
 
 class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
+  timeTable: { current: HTMLElement | null };
+  layout: React.RefObject<HTMLElement>;
+  layoutHeader: React.RefObject<HTMLElement>;
+
   static defaultProps = {
     name: 'Day',
     startDayHour: 0,
@@ -54,26 +58,6 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
     timeTableRowComponent: 'TimeTableRow',
   };
 
-  startViewDateComputed: (getters: Getters) => any;
-  endViewDateComputed: (getters: Getters) => any;
-  availableViewNamesComputed: (getters: Getters) => any;
-  currentViewComputed: (getters: Getters) => any;
-  intervalCountComputed: (getters: Getters) => any;
-  cellDurationComputed: (getters: Getters) => any;
-  viewCellsDataComputed: (getters: Getters) => any;
-  timeTable: any;
-  layout: any;
-  layoutHeader: any;
-  sidebarPlaceholder: any;
-  dayScalePlaceholder: any;
-  dayScaleEmptyCellPlaceholder: any;
-  timeTablePlaceholder: any;
-  appointmentPlaceholder: any;
-  cellPlaceholder: any;
-  timeTableElement: any;
-  layoutElement: any;
-  layoutHeaderElement: any;
-
   constructor(props) {
     super(props);
 
@@ -81,73 +65,113 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
       timeTableRef: null,
     };
 
-    const {
-      name: viewName,
-      startDayHour,
-      endDayHour,
-      cellDuration,
-      intervalCount,
-    } = props;
+    this.timeTable = { current: null };
+    this.layout = React.createRef();
+    this.layoutHeader = React.createRef();
+  }
 
-    const viewCellsDataBaseComputed = ({
-      currentDate,
-    }) => viewCellsDataCore(
+  viewCellsDataBaseComputed = ({
+    currentDate,
+  }) => {
+    const { intervalCount, startDayHour, endDayHour, cellDuration } = this.props;
+    return viewCellsDataCore(
       currentDate, undefined,
       intervalCount, [],
       startDayHour!, endDayHour!, cellDuration!,
       Date.now(),
     );
-    const timeTableElementComputed = () => this.timeTable;
-    const layoutElementComputed = () => this.layout;
-    const layoutHeaderElementComputed = () => this.layoutHeader;
+  }
 
-    this.timeTable = { current: null };
-    this.layout = React.createRef();
-    this.layoutHeader = React.createRef();
-    this.setTimeTableRef = this.setTimeTableRef.bind(this);
-    this.sidebarPlaceholder = () => <TemplatePlaceholder name="sidebar" />;
-    this.dayScalePlaceholder = () => <TemplatePlaceholder name="navbar" />;
-    this.dayScaleEmptyCellPlaceholder = () => <TemplatePlaceholder name="dayScaleEmptyCell" />;
-    this.timeTablePlaceholder = () => <TemplatePlaceholder name="main" />;
-    this.appointmentPlaceholder = params =>
-      <TemplatePlaceholder name="appointment" params={params} />;
-    this.cellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
+  timeTableElementComputed = () => this.timeTable;
+  layoutElementComputed = () => this.layout;
+  layoutHeaderElementComputed = () => this.layoutHeader;
 
-    this.startViewDateComputed = (getters: Getters) => computed(
-      getters, viewName!, startViewDateBaseComputed, getters.startViewDate,
+  layoutHeaderElement = (getters: Getters) => {
+    const { name: viewName } = this.props;
+    return computed(
+      getters, viewName!, this.layoutHeaderElementComputed, getters.layoutHeaderElement,
     );
-    this.endViewDateComputed = (getters: Getters) => computed(
-      getters, viewName!, endViewDateBaseComputed, getters.endViewDate,
+  }
+
+  layoutElement = (getters: Getters) => {
+    const { name: viewName } = this.props;
+    return computed(
+      getters, viewName!, this.layoutElementComputed, getters.layoutElement,
     );
-    this.availableViewNamesComputed = ({ availableViewNames }) => availableViewNamesCore(
-      availableViewNames, viewName!,
+  }
+
+  timeTableElement = (getters: Getters) => {
+    const { name: viewName } = this.props;
+    return computed(
+      getters, viewName!, this.timeTableElementComputed, getters.timeTableElement,
     );
-    this.currentViewComputed = ({ currentView }: Getters) => (
+  }
+
+  viewCellsDataComputed = (getters: Getters) => {
+    const { name: viewName } = this.props;
+    return computed(
+      getters, viewName!, this.viewCellsDataBaseComputed, getters.viewCellsData,
+    );
+  }
+
+  cellDurationComputed = (getters: Getters) => {
+    const { name: viewName, cellDuration } = this.props;
+    return computed(
+      getters, viewName!, () => cellDuration, getters.cellDuration,
+    );
+  }
+
+  intervalCountComputed = (getters: Getters) => {
+    const { name: viewName, intervalCount } = this.props;
+    return computed(
+      getters, viewName!, () => intervalCount, getters.intervalCount,
+    );
+  }
+
+  currentViewComputed = ({ currentView }: Getters) => {
+    const { name: viewName } = this.props;
+    return (
       currentView && currentView.name !== viewName
         ? currentView
         : { name: viewName, type: TYPE }
     );
-    this.intervalCountComputed = (getters: Getters) => computed(
-      getters, viewName!, () => intervalCount, getters.intervalCount,
-    );
-    this.cellDurationComputed = (getters: Getters) => computed(
-      getters, viewName!, () => cellDuration, getters.cellDuration,
-    );
-    this.viewCellsDataComputed = (getters: Getters) => computed(
-      getters, viewName!, viewCellsDataBaseComputed, getters.viewCellsData,
-    );
-    this.timeTableElement = (getters: Getters) => computed(
-      getters, viewName, timeTableElementComputed, getters.timeTableElement,
-    );
-    this.layoutElement = (getters: Getters) => computed(
-      getters, viewName, layoutElementComputed, getters.layoutElement,
-    );
-    this.layoutHeaderElement = (getters: Getters) => computed(
-      getters, viewName, layoutHeaderElementComputed, getters.layoutHeaderElement,
+  }
+
+  availableViewNamesComputed = ({ availableViewNames }: Getters) => {
+    const { name: viewName } = this.props;
+    return availableViewNamesCore(
+      availableViewNames, viewName!,
     );
   }
 
-  setTimeTableRef(timeTableRef) {
+  endViewDateComputed = (getters: Getters) => {
+    const { name: viewName } = this.props;
+    return computed(
+      getters, viewName!, endViewDateBaseComputed, getters.endViewDate,
+    );
+  }
+
+  startViewDateComputed = (getters: Getters) => {
+    const { name: viewName } = this.props;
+    return computed(
+      getters, viewName!, startViewDateBaseComputed, getters.startViewDate,
+    );
+  }
+
+  cellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
+
+  appointmentPlaceholder = params =>
+    <TemplatePlaceholder name="appointment" params={params} />
+
+  timeTablePlaceholder = () => <TemplatePlaceholder name="main" />;
+
+  dayScaleEmptyCellPlaceholder = () => <TemplatePlaceholder name="dayScaleEmptyCell" />;
+
+  dayScalePlaceholder = () => <TemplatePlaceholder name="navbar" />;
+
+  sidebarPlaceholder = () => <TemplatePlaceholder name="sidebar" />;
+
+  setTimeTableRef = (timeTableRef) => {
     this.timeTable.current = timeTableRef;
     this.setState({ timeTableRef });
   }

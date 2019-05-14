@@ -32,7 +32,7 @@ const startViewDateBaseComputed = ({
 }) => startViewDateCore(viewCellsData);
 
 class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
-  timeTable: any;
+  timeTable: { current: HTMLElement | null };
   layout: React.RefObject<HTMLElement>;
   layoutHeader: React.RefObject<HTMLElement>;
 

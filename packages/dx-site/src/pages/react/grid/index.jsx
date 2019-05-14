@@ -15,6 +15,7 @@ import LandingIconFeature from '../../../components/landing/icon-feature';
 import LandingLayout from '../../../components/landing/layout';
 import LandingTitle from '../../../components/landing/title';
 import LandingImageFeature from '../../../components/landing/image-feature';
+import LandingProductFloatImage from '../../../components/landing/product-float-image';
 import bootstrapThemeLink from './images/bootstrap-theme.png';
 import materialThemeLink from './images/material-theme.png';
 
@@ -155,10 +156,11 @@ const IndexPage = () => (
               </LandingLink>
             </React.Fragment>
           )}
-          imageLink={headerLink}
+          // imageLink={headerLink}
         />
       )}
     />
+    <LandingProductFloatImage imageLink={headerLink} />
     <LandingChessBoardLayoutList data={pageData} colSize={6} />
 
     <LandingLayout>

@@ -8,25 +8,26 @@
 }
 
 .button {
+  display: inline-block;
   background-color: white;
-  padding: 17px 20px;
+  padding: 15px 20px;
   color: black;
   border-radius: 3px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, .3);
-  margin: 0 auto 20px;
+  margin: 0 auto 15px;
   width: 100%;
   &:hover {
     color: #fff;
     background-color: #0b4249;
   }
-  &.wide {
-    padding-left: 50px;
-    padding-right: 50px;
+  &.large {
+    padding: 17px 50px;
   }
 }
 
 .plain {
   color: #fff;
+  margin: auto;
   &:hover {
     color: #0b4249;
   }
@@ -38,6 +39,6 @@
 
 @media (min-width: 768px) {
   .button {
-    width: 185px;
+    width: 220px;
   }
 }

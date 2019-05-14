@@ -23,17 +23,17 @@ import { ZoomAndPan } from '@devexpress/dx-react-chart';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-defaultViewport? | [Viewport](#viewport) | The default viewport.
-viewport? | [Viewport](#viewport) | The viewport.
-onViewportChange? | (viewport: [Viewport](#viewport)) => void | A function that is executed when the viewport changes.
+defaultViewport? | [ZoomAndPan.Viewport](#zoomandpanviewport) | The default viewport.
+viewport? | [ZoomAndPan.Viewport](#zoomandpanviewport) | The viewport.
+onViewportChange? | (viewport: [ZoomAndPan.Viewport](#zoomandpanviewport)) => void | A function that is executed when the viewport changes.
 interactionWithArguments? | 'none' &#124; 'pan' &#124; 'zoom' &#124; 'both' | The type of interaction available for the argument scale.
 interactionWithValues? | 'none' &#124; 'pan' &#124; 'zoom' &#124; 'both' | The type of interaction available for the value scale.
 zoomRegionKey? | 'shift' &#124; 'alt' &#124; 'ctrl' | The key the allows a user to zoom a region by selecting it with the mouse drag gesture.
-dragBoxComponent? | ComponentType&lt;[Viewport.DragBoxProps](#viewportdragboxprops)&gt; | A component that renders the rectangle that appears when a user zooms a region.
+dragBoxComponent? | ComponentType&lt;[ZoomAndPan.DragBoxProps](#zoomandpandragboxprops)&gt; | A component that renders the rectangle that appears when a user zooms a region.
 
 ## Interfaces
 
-### Viewport
+### ZoomAndPan.Viewport
 
 The viewport configuration.
 
@@ -45,10 +45,16 @@ valueStart | any | The viewport's start boundary on the value scale.
 valueEnd | any | The viewport's end boundary on the value scale.
 scaleName | string | The scale on which `valueStart` and `valueEnd` should be applied.
 
-### Viewport.DragBoxProps
+### ZoomAndPan.DragBoxProps
 
 Describes properties passed to a component that renders the rectangle around the area a user zooms with the mouse drag gesture.
 
 Field | Type | Description
 ------|------|------------
 rect | { x: number, y: number, width: number, height: number } | The rectangle's coordinates.
+
+## Plugin Components
+
+Name | Properties | Description
+-----|------------|------------
+ZoomAndPan.DragBox | [ZoomAndPan.DragBoxProps](#zoomandpandragboxprops) | A component that renders the rectangle that appears when a user zooms a region.

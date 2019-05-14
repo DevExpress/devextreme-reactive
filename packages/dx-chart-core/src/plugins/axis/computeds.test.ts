@@ -130,6 +130,24 @@ describe('axisCoordinates', () => {
       expect(isHorizontal).toBeCalledWith('test-name');
     });
 
+    it('should generate ticks when pane size is zero, horizontal', () => {
+      (isHorizontal as jest.Mock).mockReturnValue(true);
+      const coordinates = axisCoordinates({
+        scale, tickSize, indentFromAxis, scaleName: 'test-name', position: 'top',
+        paneSize: [0, 0],
+      } as any);
+      expect(scale.ticks).toBeCalledWith(10);
+    });
+
+    it('should generate ticks when pane size is zero, vertical', () => {
+      (isHorizontal as jest.Mock).mockReturnValue(false);
+      const coordinates = axisCoordinates({
+        scale, tickSize, indentFromAxis, scaleName: 'test-name', position: 'top',
+        paneSize: [0, 0],
+      } as any);
+      expect(scale.ticks).toBeCalledWith(10);
+    });
+
     it('should format ticks', () => {
       (isHorizontal as jest.Mock).mockReturnValue(true);
       scale.tickFormat = jest.fn(() => tick => `format ${tick}`);

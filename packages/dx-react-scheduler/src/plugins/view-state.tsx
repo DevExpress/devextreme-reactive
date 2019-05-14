@@ -14,12 +14,12 @@ import {
 import { ViewStateProps, ViewStateState } from '../types';
 
 class ViewStateBase extends React.PureComponent<ViewStateProps, ViewStateState> {
-  static defaultProps = {
-    defaultCurrentDate: new Date(),
-    defaultCurrentViewName: undefined,
-  };
   changeCurrentDate: (payload: ChangeCurrentDatePayload) => void;
   setCurrentViewName: (payload: string) => void;
+
+  static defaultProps = {
+    defaultCurrentDate: new Date(),
+  };
 
   constructor(props) {
     super(props);

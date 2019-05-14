@@ -36,6 +36,12 @@ const pluginDependencies = [
 class DragDropProviderBase extends React.PureComponent<
   DragDropProviderProps, DragDropProviderState
 > {
+  timeTableDraftAppointments: any;
+  allDayDraftAppointments: any;
+  offsetTimeTop: number | null;
+  appointmentStartTime: any;
+  appointmentEndTime: any;
+
   static components = {
     containerComponent: 'Container',
     draftAppointmentComponent: 'DraftAppointment',
@@ -46,11 +52,6 @@ class DragDropProviderBase extends React.PureComponent<
     allowDrag: () => true,
     allowResize: () => true,
   };
-  timeTableDraftAppointments: any;
-  allDayDraftAppointments: any;
-  offsetTimeTop: number | null;
-  appointmentStartTime: any;
-  appointmentEndTime: any;
 
   constructor(props) {
     super(props);

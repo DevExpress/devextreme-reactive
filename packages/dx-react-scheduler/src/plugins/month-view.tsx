@@ -64,7 +64,7 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
   timeTablePlaceholder = () => <TemplatePlaceholder name="main" />;
   cellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
   appointmentPlaceholder = params =>
-    <TemplatePlaceholder name="appointment" params={params} />;
+    <TemplatePlaceholder name="appointment" params={params} />
 
   layoutHeaderElement = (getters: Getters) => {
     const { name: viewName } = this.props;

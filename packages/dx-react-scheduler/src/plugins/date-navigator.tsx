@@ -25,6 +25,8 @@ const navigate = (action, currentView, intervalCount) => (direction, nextDate) =
 });
 
 class DateNavigatorBase extends React.PureComponent<DateNavigatorProps, DateNavigatorState> {
+  target!: React.ReactInstance;
+
   static components = {
     rootComponent: 'Root',
     overlayComponent: 'Overlay',
@@ -39,7 +41,6 @@ class DateNavigatorBase extends React.PureComponent<DateNavigatorProps, DateNavi
     calendarNavigatorComponent: 'CalendarNavigator',
     calendarNavigationButtonComponent: 'CalendarNavigationButton',
   };
-  target!: React.ReactInstance;
 
   constructor(props) {
     super(props);
@@ -47,22 +48,18 @@ class DateNavigatorBase extends React.PureComponent<DateNavigatorProps, DateNavi
     this.state = {
       visible: false,
     };
-
-    this.handleVisibilityToggle = this.handleVisibilityToggle.bind(this);
-    this.handleHide = this.handleHide.bind(this);
-    this.setRootRef = this.setRootRef.bind(this);
   }
 
-  setRootRef(target) {
+  setRootRef = (target) => {
     this.target = target;
   }
 
-  handleVisibilityToggle() {
+  handleVisibilityToggle = () => {
     const { visible } = this.state;
     this.setState({ visible: !visible });
   }
 
-  handleHide() {
+  handleHide = () => {
     this.setState({ visible: false });
   }
 

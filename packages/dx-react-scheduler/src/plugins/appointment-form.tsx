@@ -35,6 +35,10 @@ const pluginDependencies = [
 ];
 
 class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, AppointmentFormState> {
+  toggleVisibility: (payload?: any) => void;
+  setAppointmentData: (payload: any) => void;
+  openFormHandler: (payload: AppointmentModel) => void;
+
   static components = {
     popupComponent: 'Popup',
     containerComponent: 'Container',
@@ -47,16 +51,11 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
     staticAreaComponent: 'StaticArea',
   };
   static defaultProps = {
+    messages: {},
     readOnly: false,
-    visible: undefined,
-    appointmentData: undefined,
     onVisibilityChange: () => undefined,
     onAppointmentDataChange: () => undefined,
-    messages: {},
   };
-  toggleVisibility: (payload?: any) => void;
-  setAppointmentData: (payload: any) => void;
-  openFormHandler: (payload: AppointmentModel) => void;
 
   constructor(props) {
     super(props);

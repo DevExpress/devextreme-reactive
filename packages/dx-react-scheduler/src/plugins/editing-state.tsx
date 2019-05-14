@@ -15,19 +15,6 @@ import {
 import { EditingStateProps, EditingStateState } from '../types';
 
 class EditingStateBase extends React.PureComponent<EditingStateProps, EditingStateState> {
-  static defaultProps = {
-    editingAppointmentId: undefined,
-    defaultEditingAppointmentId: undefined,
-    onEditingAppointmentIdChange: undefined,
-
-    appointmentChanges: undefined,
-    defaultAppointmentChanges: {},
-    onAppointmentChangesChange: undefined,
-
-    addedAppointment: undefined,
-    defaultAddedAppointment: {},
-    onAddedAppointmentChange: undefined,
-  };
   startEditAppointment: (payload: any) => void;
   stopEditAppointment: (payload?: any) => void;
   changeAppointment: (payload: any) => void;
@@ -38,6 +25,11 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
   cancelAddedAppointment: (payload?: any) => void;
   commitAddedAppointment: (payload: any) => void;
   commitDeletedAppointment: (payload: any) => void;
+
+  static defaultProps = {
+    defaultAppointmentChanges: {},
+    defaultAddedAppointment: {},
+  };
 
   constructor(props) {
     super(props);

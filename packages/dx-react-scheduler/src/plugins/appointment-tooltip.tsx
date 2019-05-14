@@ -31,6 +31,10 @@ const commandButtonIds = {
 class AppointmentTooltipBase extends React.PureComponent<
   AppointmentTooltipProps, AppointmentTooltipState
 > {
+  toggleVisibility: (payload?: any) => void;
+  setAppointmentMeta: (appointmentMeta: AppointmentMeta) => void;
+  onAppointmentClick: (appointmentMeta: AppointmentMeta) => void;
+
   static components = {
     layoutComponent: 'Layout',
     headerComponent: 'Header',
@@ -38,17 +42,10 @@ class AppointmentTooltipBase extends React.PureComponent<
     commandButtonComponent: 'CommandButton',
   };
   static defaultProps = {
-    onAppointmentMetaChange: undefined,
-    onVisibilityChange: undefined,
-    appointmentMeta: undefined,
-    visible: undefined,
     showOpenButton: false,
     showDeleteButton: false,
     showCloseButton: false,
   };
-  toggleVisibility: (payload?: any) => void;
-  setAppointmentMeta: (appointmentMeta: AppointmentMeta) => void;
-  onAppointmentClick: (appointmentMeta: AppointmentMeta) => void;
 
   constructor(props) {
     super(props);

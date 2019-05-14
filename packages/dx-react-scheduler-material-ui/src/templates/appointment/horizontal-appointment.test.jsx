@@ -33,13 +33,15 @@ describe('HorizontalAppointment', () => {
     });
 
     it('should render children', () => {
-      const child = mount((
+      const tree = mount((
         <HorizontalAppointment {...defaultProps}>
           <div className="child" />
         </HorizontalAppointment>
-      )).find('.child');
+      ));
 
-      expect(child.exists())
+      expect(tree.exists())
+        .toBeTruthy();
+      expect(tree.find(`.${classes.content}`).exists())
         .toBeTruthy();
     });
 

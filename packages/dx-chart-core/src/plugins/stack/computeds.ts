@@ -4,7 +4,7 @@ import {
   SeriesList, Series, Point, GetPointTransformerFn, DataItems, DomainInfoCache,
   StackList, GetPointTransformerFnRaw, BarSeries, StackedPoint, StackMap, GetStackedSeriesFn,
   SeriesPositions, StacksKeys, StackedDataItems, OffsetFn, OrderFn,
-  StackedData, GetStackedDomainsFn, Stack,
+  StackedData, GetStackedDomainsFn,
 } from '../../types';
 import { extendDomains, updateDomainItems } from '../scale/computeds';
 import { getValueDomainName } from '../../utils/scale';
@@ -170,7 +170,7 @@ const applyGrouping = (seriesList: SeriesList, seriesToStackMap: StackMap): Seri
 export const getStackedSeries: GetStackedSeriesFn = (
   seriesList, dataItems, { stacks, offset, order },
 ) => {
-  const map = buildSeriesToStackMap(stacks as Stack[]);
+  const map = buildSeriesToStackMap(stacks);
   const stackedSeriesList = applyStacking(seriesList, dataItems, map, offset, order);
   const groupedSeriesList = applyGrouping(stackedSeriesList, map);
   return groupedSeriesList;

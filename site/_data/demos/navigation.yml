@@ -28,7 +28,9 @@
         path: /react/chart/demos/area/spline-area
       - title: Stacked Area
         path: /react/chart/demos/area/stacked-area
-      - title: Step Area
+      - title: Fullstacked Area
+        path: /react/chart/demos/area/fullstacked-area
+      - title: Step Areacd
         path: /react/chart/demos/area/step-area
       - title: Streamgraph
         path: /react/chart/demos/area/streamgraph

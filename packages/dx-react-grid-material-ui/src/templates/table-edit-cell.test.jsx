@@ -16,8 +16,15 @@ describe('EditCell', () => {
 
   beforeAll(() => {
     classes = getClasses(<EditCell onValueChange={() => {}} />);
-    mount = createMount();
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
+  });
+
+  beforeEach(() => {
+    mount = createMount();
+  });
+
+  afterEach(() => {
+    mount.cleanUp();
   });
 
   afterAll(() => {
@@ -112,6 +119,7 @@ describe('EditCell', () => {
         height: '10px',
       });
   });
+
 
   it('should render children if passed', () => {
     const tree = mount((

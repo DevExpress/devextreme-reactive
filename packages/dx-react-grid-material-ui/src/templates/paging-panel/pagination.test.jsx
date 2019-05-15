@@ -7,9 +7,9 @@ describe('Pagination', () => {
   let resetConsole;
   let mount;
   let classes;
+
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['SheetsRegistry'] });
-    mount = createMount();
     classes = getClasses(<Pagination
       totalPages={1}
       currentPage={0}
@@ -19,9 +19,14 @@ describe('Pagination', () => {
       onCurrentPageChange={() => {}}
     />);
   });
+  beforeEach(() => {
+    mount = createMount();
+  });
+  afterEach(() => {
+    mount.cleanUp();
+  });
   afterAll(() => {
     resetConsole();
-    mount.cleanUp();
   });
 
   describe('#render', () => {

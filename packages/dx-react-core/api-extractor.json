@@ -1,6 +1,4 @@
 {
   "extends": "../../api-extractor.json",
-  "project": {
-    "entryPointSourceFile": "dist/dx-react-core.d.ts"
-  }
+  "mainEntryPointFilePath": "dist/dx-react-core.d.ts"
 }

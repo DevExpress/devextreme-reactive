@@ -11,13 +11,17 @@ describe('TableSelectAllCell', () => {
   let classes;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
-    mount = createMount();
     shallow = createShallow({ dive: true });
     classes = getClasses(<TableSelectAllCell />);
   });
+  beforeEach(() => {
+    mount = createMount();
+  });
+  afterEach(() => {
+    mount.cleanUp();
+  });
   afterAll(() => {
     resetConsole();
-    mount.cleanUp();
   });
 
   it('should render indeterminate state checkbox if the `someSelected` property is true', () => {

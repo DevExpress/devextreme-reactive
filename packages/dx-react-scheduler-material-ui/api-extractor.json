@@ -1,6 +1,4 @@
 {
   "extends": "../../api-extractor.json",
-  "project": {
-    "entryPointSourceFile": "dist/dx-react-scheduler-material-ui.d.ts"
-  }
+  "mainEntryPointFilePath": "dist/dx-react-scheduler-material-ui.d.ts"
 }

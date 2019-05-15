@@ -15,7 +15,7 @@ import {
 import { DragBox } from '../templates/drag-box';
 import {
   adjustLayout, getViewport, isKeyPressed, getOffset, getDeltaForTouches,
-  ScalesCache,
+  ScalesCache, getDelta,
 } from '@devexpress/dx-chart-core';
 import {
   ZoomAndPanProps, ZoomAndPanState, NumberArray, ZoomPanProviderProps, EventHandlers,
@@ -196,7 +196,7 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
     e.preventDefault();
     const offset = getOffset(e.currentTarget);
     const center: NumberArray = [e.pageX - offset[0], e.pageY - offset[1]];
-    this.zoom(scales, e.wheelDelta || e.deltaY * -30, center);
+    this.zoom(scales, getDelta(e), center);
   }
 
   render() {

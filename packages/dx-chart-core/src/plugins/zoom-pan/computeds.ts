@@ -148,3 +148,10 @@ export const getDeltaForTouches = (touches: Touch[]) => {
 
 /** @internal */
 export const isKeyPressed = (event: MouseEvent, key: string) => event[`${key}Key`];
+
+/** @internal */
+export const getDelta = (
+  { wheelDelta, deltaY }: {wheelDelta?: number, deltaY?: number},
+): number => {
+  return wheelDelta !== undefined ? wheelDelta : deltaY! * -30; // deltaY for FF
+};

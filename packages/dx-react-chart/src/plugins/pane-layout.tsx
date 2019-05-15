@@ -53,11 +53,12 @@ export class PaneLayout extends React.PureComponent {
                       {...params}
                       width={width}
                       height={height}
-                      clipPath={`url(#${this.clipPathId})`}
                       style={SVG_STYLE}
                     >
-                      <TemplatePlaceholder name="series" />
-                      <ClipPath id={this.clipPathId} width={width} height={height} />
+                      <g clipPath={`url(#${this.clipPathId})`}>
+                        <TemplatePlaceholder name="series" />
+                        <ClipPath id={this.clipPathId} width={width} height={height} />
+                      </g>
                     </svg>
                   </UpdatableSizer>
                 );

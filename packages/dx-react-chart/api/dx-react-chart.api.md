@@ -450,7 +450,7 @@ export interface SeriesRef {
 }
 
 // @public (undocumented)
-export const SplineSeries: React.ReactType<AreaSeriesProps>;
+export const SplineSeries: React.ComponentType<AreaSeriesProps>;
 
 // @public (undocumented)
 export namespace SplineSeries {

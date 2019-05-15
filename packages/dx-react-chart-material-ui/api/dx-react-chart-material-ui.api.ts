@@ -304,7 +304,7 @@ declare const Title: React.ComponentType<TitleProps> & {
 
 // @public (undocumented)
 interface TitleProps {
-  position?: 'top' | 'bottom' | 'left' | 'right';
+  position?: 'top' | 'bottom';
   text?: string;
   textComponent?: React.ComponentType<Title_2.TextProps>;
 }

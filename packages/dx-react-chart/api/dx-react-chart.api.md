@@ -6,7 +6,7 @@
 
 import * as React from 'react';
 
-// @public
+// @public (undocumented)
 export const Animation: React.ComponentType<AnimationProps>;
 
 // @public (undocumented)
@@ -14,376 +14,500 @@ export interface AnimationProps {
 }
 
 // @public (undocumented)
-export namespace AreaSeries {
-  export interface SeriesProps {
-    color: string;
-    coordinates: Array<{ x: number, y: number, y1: number }>;
-  }
-}
-
-// @public (undocumented)
-export namespace AreaSeries {
-  export interface PathSeriesProps extends AreaSeries.SeriesProps {
-    path?: (coordinates: Array<{ x: number, y: number, y1: number }>) => string;
-  }
-}
-
-// @public
 export const AreaSeries: React.ComponentType<AreaSeriesProps>;
 
 // @public (undocumented)
-export interface AreaSeriesProps {
-  argumentField: string;
-  color?: string;
-  name: string;
-  scaleName?: string;
-  seriesComponent: React.ComponentType<AreaSeries.SeriesProps>;
-  valueField: string;
-}
-
-// @public (undocumented)
-export namespace ArgumentAxis {
-  export interface RootProps {
-    children: React.ReactNode;
-    x: number;
-    y: number;
+export namespace AreaSeries {
+  export interface PathSeriesProps extends SeriesProps {
+  }
+  export interface SeriesProps extends PathComponentPathProps {
   }
 }
 
 // @public (undocumented)
+export interface AreaSeriesProps extends SeriesProps {
+  seriesComponent?: React.ComponentType<AreaSeries.SeriesProps>;
+}
+
+// @public (undocumented)
+export const ArgumentAxis: React.ComponentType<ArgumentAxisProps>;
+
+// @public (undocumented)
 export namespace ArgumentAxis {
+  // (undocumented)
+  export interface LabelProps extends Axis.LabelProps {
+  }
+  // (undocumented)
+  export interface LineProps extends Axis.LineProps {
+  }
+  // (undocumented)
+  export interface RootProps extends Axis.RootProps {
+  }
+}
+
+// @public (undocumented)
+export interface ArgumentAxisProps extends RawAxisProps {
+  position?: 'top' | 'bottom';
+}
+
+// @public (undocumented)
+export const ArgumentScale: React.ComponentType<ArgumentScaleProps>;
+
+// @public (undocumented)
+export interface ArgumentScaleProps extends ScaleProps {
+}
+
+// @public (undocumented)
+export namespace Axis {
+  // (undocumented)
+  export interface LabelProps {
+    dy: string;
+    text: string | number;
+    textAnchor: string;
+    x: number;
+    y: number;
+  }
+  // (undocumented)
   export interface LineProps {
     x1: number;
     x2: number;
     y1: number;
     y2: number;
   }
-}
-
-// @public (undocumented)
-export namespace ArgumentAxis {
-  export interface LabelProps {
-    dy: string;
-    text: string | number;
-    textAnchor: 'start' | 'middle' | 'end';
-    x: number;
-    y: number;
+  // (undocumented)
+  export interface RootProps {
+    children: React.ReactNode;
+    dx: number;
+    dy: number;
   }
 }
 
-// @public
-export const ArgumentAxis: React.ComponentType<ArgumentAxisProps>;
-
 // @public (undocumented)
-export interface ArgumentAxisProps {
-  gridComponent: React.ComponentType<ArgumentAxis.LineProps>;
-  indentFromAxis?: number;
-  labelComponent: React.ComponentType<ArgumentAxis.LabelProps>;
-  lineComponent: React.ComponentType<ArgumentAxis.LineProps>;
-  position?: 'bottom' | 'top';
-  rootComponent: React.ComponentType<ArgumentAxis.RootProps>;
-  showGrid?: boolean;
-  showLabels?: boolean;
-  showLine?: boolean;
-  showTicks?: boolean;
-  tickComponent: React.ComponentType<ArgumentAxis.LineProps>;
-  tickFormat?: (scale: ScaleObject) => (tick: string) => string;
-  tickSize?: number;
-}
-
-// @public
-export const ArgumentScale: React.ComponentType<ArgumentScaleProps>;
-
-// @public (undocumented)
-export interface ArgumentScaleProps {
-  factory?: () => ScaleObject;
-  modifyDomain?: (domain: Array<any>) => Array<any>;
-}
-
-// @public (undocumented)
-export namespace BarSeries {
-  export interface PointProps {
-    barWidth: number;
-    color: string;
-    index: number;
-    maxBarWidth: number;
-    value: number;
-    x: number;
-    y: number;
-    y1: number;
-  }
-}
-
-// @public
 export const BarSeries: React.ComponentType<BarSeriesProps>;
 
 // @public (undocumented)
-export interface BarSeriesProps {
-  argumentField: string;
-  barWidth?: number;
-  color?: string;
-  name: string;
-  pointComponent: React.ComponentType<BarSeries.PointProps>;
-  scaleName?: string;
-  valueField: string;
+export namespace BarSeries {
+  export interface PointProps extends PointComponentProps {
+    barWidth: number;
+    maxBarWidth: number;
+  }
 }
 
 // @public (undocumented)
+export interface BarSeriesProps extends SeriesProps {
+  barWidth?: number;
+  pointComponent?: React.ComponentType<BarSeries.PointProps>;
+}
+
+// @public (undocumented)
+export interface BasicDataProps {
+  // (undocumented)
+  data: DataItems;
+}
+
+// @public (undocumented)
+export const Chart: React.ComponentType<ChartProps>;
+
+// @public (undocumented)
 export namespace Chart {
+  // (undocumented)
+  export interface LabelProps {
+    children: string | number;
+    x: number;
+    y: number;
+  }
+  // (undocumented)
   export interface RootProps {
     children: React.ReactNode;
   }
 }
 
 // @public (undocumented)
-export namespace Chart {
-  export interface LabelProps {
-    children: string | number;
-    x: number;
-    y: number;
-  }
-}
-
-// @public
-export const Chart: React.ComponentType<ChartProps>;
-
-// @public (undocumented)
 export interface ChartProps {
-  data: Array<any>;
+  data: DataItems;
   height?: number;
   rootComponent: React.ComponentType<Chart.RootProps>;
   width?: number;
 }
 
-// @public
+// @public (undocumented)
+export type Colors = ReadonlyArray<string>;
+
+// @public (undocumented)
+export interface CommonComponentProps {
+  color: string;
+}
+
+// @public (undocumented)
+export type DataItem = {
+  readonly [field: string]: any;
+};
+
+// @public (undocumented)
+export type DataItems = ReadonlyArray<DataItem>;
+
+// @public (undocumented)
+export type DomainItems = ReadonlyArray<any>;
+
+// @public (undocumented)
 export const EventTracker: React.ComponentType<EventTrackerProps>;
 
 // @public (undocumented)
 export interface EventTrackerProps {
-  onClick?: (target: TargetData) => void;
-  onPointerMove ?: (target: TargetData) => void;
+  onClick?: HandlerFn;
+  onPointerMove?: HandlerFn;
 }
 
-// @public
+// @public (undocumented)
+export type FactoryFn = () => ScaleObject;
+
+// @public (undocumented)
+export type GetFormatFn = (tick: any) => string;
+
+// @public (undocumented)
+export type GetPointFieldFn = (point: PointComponentProps) => number;
+
+// @public (undocumented)
+export type HandlerFn = (arg: TargetData) => void;
+
+// @public (undocumented)
+export type HandlerFnList = ReadonlyArray<HandlerFn>;
+
+// @public (undocumented)
+export type HitTestFn = (location: Location) => HitTestResult;
+
+// @public (undocumented)
+export type HitTestResult = {
+  readonly points: ReadonlyArray<PointDistance>;
+} | null;
+
+// @public (undocumented)
 export const HoverState: React.ComponentType<HoverStateProps>;
 
 // @public (undocumented)
 export interface HoverStateProps {
   defaultHover?: SeriesRef;
   hover?: SeriesRef;
-  onHoverChange?: (target: SeriesRef) => void;
+  onHoverChange?: NotifyPointerMoveFn;
 }
 
 // @public (undocumented)
-export namespace Legend {
-  export interface LabelProps {
-    text: string | number;
-  }
-}
-
-// @public (undocumented)
-export namespace Legend {
-  export interface RootProps {
-    children: React.ReactNode;
-  }
-}
+export const Legend: React.ComponentType<LegendProps>;
 
 // @public (undocumented)
 export namespace Legend {
   export interface ItemProps {
     children: React.ReactNode;
   }
+  export interface LabelProps {
+    text: string | number;
+  }
+  // (undocumented)
+  export interface MarkerProps {
+  }
+  export interface RootProps {
+    children: React.ReactNode;
+  }
 }
-
-// @public
-export const Legend: React.ComponentType<LegendProps>;
 
 // @public (undocumented)
 export interface LegendProps {
   itemComponent: React.ComponentType<Legend.ItemProps>;
   labelComponent: React.ComponentType<Legend.LabelProps>;
-  markerComponent: React.ComponentType<object>;
+  markerComponent: React.ComponentType<Legend.MarkerProps>;
   position?: 'left' | 'right' | 'top' | 'bottom';
   rootComponent: React.ComponentType<Legend.RootProps>;
 }
 
 // @public (undocumented)
+export const LineSeries: React.ComponentType<AreaSeriesProps>;
+
+// @public (undocumented)
 export namespace LineSeries {
-  export interface SeriesProps {
-    color: string;
-    coordinates: Array<{ x: number, y: number }>;
+  export interface PathSeriesProps extends SeriesProps {
+  }
+  export interface SeriesProps extends PathComponentPathProps {
   }
 }
 
 // @public (undocumented)
-export namespace LineSeries {
-  export interface PathSeriesProps extends LineSeries.SeriesProps {
-    path?: (coordinates: Array<{ x: number, y: number }>) => string;
-  }
+export interface LineSeriesProps extends SeriesProps {
+  seriesComponent?: React.ComponentType<LineSeries.SeriesProps>;
 }
-
-// @public
-export const LineSeries: React.ComponentType<LineSeriesProps>;
 
 // @public (undocumented)
-export interface LineSeriesProps {
-  argumentField: string;
-  color?: string;
-  name: string;
-  scaleName?: string;
-  seriesComponent: React.ComponentType<LineSeries.SeriesProps>;
-  valueField: string;
-}
+export type Location = Readonly<NumberArray>;
 
-// @public
+// @public (undocumented)
+export type ModifyDomainFn = (domain: DomainItems) => DomainItems;
+
+// @public (undocumented)
+export type NotifyPointerMoveFn = (target: SeriesRef | null) => void;
+
+// @public (undocumented)
+export type NumberArray = [number, number];
+
+// @public (undocumented)
+export type OffsetFn = (series: StackData, order: number[]) => void;
+
+// @public (undocumented)
+export type OnViewportChangeFn = (viewport: ViewportOptions) => void;
+
+// @public (undocumented)
+export type OrderFn = (series: StackData) => number[];
+
+// @public (undocumented)
 export const Palette: React.ComponentType<PaletteProps>;
 
 // @public (undocumented)
 export interface PaletteProps {
-  scheme: Array<string>;
+  scheme: Colors;
 }
 
 // @public (undocumented)
+export interface PathComponentPathProps extends PathComponentProps {
+  path?: PathFn;
+}
+
+// @public (undocumented)
+export interface PathComponentProps extends CommonComponentProps {
+  coordinates: PathPoints;
+}
+
+// @public (undocumented)
+export interface PathFn {
+  // (undocumented)
+  (points: PathPoints): string;
+  // (undocumented)
+  context(ctx: any): this;
+  // (undocumented)
+  curve?(): any;
+  // (undocumented)
+  curve?(c: any): this;
+  // (undocumented)
+  x(f: GetPointFieldFn): this;
+  // (undocumented)
+  x(): GetPointFieldFn;
+  // (undocumented)
+  y(): GetPointFieldFn;
+  // (undocumented)
+  y(f: GetPointFieldFn): this;
+  // (undocumented)
+  y0?(): GetPointFieldFn;
+  // (undocumented)
+  y0?(f: GetPointFieldFn): this;
+  // (undocumented)
+  y1?(): GetPointFieldFn;
+  // (undocumented)
+  y1?(f: GetPointFieldFn): this;
+}
+
+// @public (undocumented)
+export type PathPoints = ReadonlyArray<PointComponentProps>;
+
+// @public (undocumented)
+export const PieSeries: React.ComponentType<PieSeriesProps>;
+
+// @public (undocumented)
 export namespace PieSeries {
-  export interface PointProps {
-    color: string;
+  export interface PointProps extends PointComponentProps {
     endAngle: number;
-    index: number;
     innerRadius: number;
     maxRadius: number;
     outerRadius: number;
     startAngle: number;
-    value: number;
-    x: number;
-    y: number;
   }
 }
 
-// @public
-export const PieSeries: React.ComponentType<PieSeriesProps>;
+// @public (undocumented)
+export interface PieSeriesProps extends SeriesProps {
+  innerRadius?: number;
+  outerRadius?: number;
+  pointComponent?: React.ComponentType<PieSeries.PointProps>;
+}
 
 // @public (undocumented)
-export interface PieSeriesProps {
-  argumentField: string;
-  innerRadius?: number;
-  name: string;
-  outerRadius?: number;
-  pointComponent: React.ComponentType<PieSeries.PointProps>;
-  valueField: string;
+export interface Point {
+  readonly color: string;
+  readonly index: number;
+  readonly value: any;
 }
+
+// @public (undocumented)
+export interface PointComponentProps extends CommonComponentProps {
+  argument: any;
+  index: number;
+  value: any;
+  x: number;
+  y: number;
+  y1?: number;
+}
+
+// @public (undocumented)
+export type PointDistance = {
+  readonly index: number;
+  readonly distance: number;
+};
+
+// @public (undocumented)
+export interface RawAxisProps {
+  gridComponent: React.ComponentType<Axis.LineProps>;
+  indentFromAxis?: number;
+  labelComponent: React.ComponentType<Axis.LabelProps>;
+  lineComponent: React.ComponentType<Axis.LineProps>;
+  position?: 'left' | 'top' | 'right' | 'bottom';
+  rootComponent: React.ComponentType<Axis.RootProps>;
+  scaleName?: string;
+  showGrid?: boolean;
+  showLabels?: boolean;
+  showLine?: boolean;
+  showTicks?: boolean;
+  tickComponent: React.ComponentType<Axis.LineProps>;
+  tickFormat?: TickFormatFn;
+  tickSize?: number;
+}
+
+// @public (undocumented)
+export type Rect = {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+};
 
 // @public (undocumented)
 export interface ScaleObject {
-  bandWidth?: () => number;
-  domain: (domain?: Array<any>) => ScaleObject | Array<any>;
-  paddingInner?: (padding: number) => ScaleObject;
-  paddingOuter?: (padding: number) => ScaleObject;
-  range: () => (range?: Array<any>) => ScaleObject | Array<any>;
-  tickFormat?: (count: number, specifier: string) => (tick: any) => string;
-  ticks?: (count: number) => Array<any>;
+  // (undocumented)
+  (value: any): number;
+  bandwidth?(): number;
+  clamp?(clamp: boolean): this;
+  copy(): this;
+  domain(domain: DomainItems): this;
+  domain(): DomainItems;
+  invert(value: number): any;
+  paddingInner?(arg: number): this;
+  paddingOuter?(arg: number): this;
+  range(): NumberArray;
+  range(range: NumberArray): this;
+  tickFormat?(count?: number, format?: string): GetFormatFn;
+  ticks?(ticks?: number): DomainItems;
 }
 
 // @public (undocumented)
-export namespace ScatterSeries {
-  export interface PointProps {
-    color: string;
-    index: number;
-    point: { size : number };
-    value: number;
-    x: number;
-    y: number;
-  }
+export interface ScaleProps {
+  factory?: FactoryFn;
+  modifyDomain?: ModifyDomainFn;
+  name?: string;
 }
 
 // @public (undocumented)
-export namespace ScatterSeries {
-  export interface SeriesProps {
-    coordinates: Array<{ x: number, y: number }>;
-    point?: { size : number };
-    pointComponent: React.ComponentType<ScatterSeries.PointProps>;
-  }
-}
+export type ScalesCache = {
+  readonly [key: string]: ScaleObject;
+};
 
-// @public
+// @public (undocumented)
 export const ScatterSeries: React.ComponentType<ScatterSeriesProps>;
 
 // @public (undocumented)
-export interface ScatterSeriesProps {
-  argumentField: string;
-  color?: string;
-  name: string;
-  point?: { size : number };
-  pointComponent: React.ComponentType<ScatterSeries.PointProps>;
-  scaleName?: string;
-  valueField: string;
+export namespace ScatterSeries {
+  export type PointOptions = {
+    size: number;
+  };
+  export interface PointProps extends PointComponentProps {
+    point: PointOptions;
+  }
+  export interface SeriesProps extends PathComponentProps {
+  }
 }
 
-// @public
+// @public (undocumented)
+export interface ScatterSeriesProps extends SeriesProps {
+  point?: ScatterSeries.PointOptions;
+  pointComponent?: React.ComponentType<ScatterSeries.PointProps>;
+}
+
+// @public (undocumented)
 export const SelectionState: React.ComponentType<SelectionStateProps>;
 
 // @public (undocumented)
 export interface SelectionStateProps {
-  selection?: Array<SeriesRef>;
-}
-
-// @public
-export type SeriesData = Array<number>;
-
-// @public
-export interface SeriesRef {
-  point: number;
-  series: string;
+  selection?: TargetList;
 }
 
 // @public (undocumented)
-export namespace SplineSeries {
-  export interface SeriesProps {
-    color: string;
-    coordinates: Array<{ x: number, y: number }>;
-  }
-}
-
-// @public (undocumented)
-export namespace SplineSeries {
-  export interface PathSeriesProps extends SplineSeries.SeriesProps {
-    path?: (coordinates: Array<{ x: number, y: number }>) => string;
-  }
-}
-
-// @public
-export const SplineSeries: React.ComponentType<SplineSeriesProps>;
-
-// @public (undocumented)
-export interface SplineSeriesProps {
+export interface SeriesProps {
   argumentField: string;
   color?: string;
-  name: string;
+  name?: string;
   scaleName?: string;
-  seriesComponent: React.ComponentType<SplineSeries.SeriesProps>;
   valueField: string;
 }
 
 // @public
+export interface SeriesRef {
+  readonly point: number;
+  readonly series: string;
+}
+
+// @public (undocumented)
+export const SplineSeries: React.ReactType<AreaSeriesProps>;
+
+// @public (undocumented)
+export namespace SplineSeries {
+  export interface PathSeriesProps extends SeriesProps {
+  }
+  export interface SeriesProps extends PathComponentPathProps {
+  }
+}
+
+// @public (undocumented)
+export interface SplineSeriesProps extends SeriesProps {
+  seriesComponent?: React.ComponentType<SplineSeries.SeriesProps>;
+}
+
+// @public (undocumented)
 export const Stack: React.ComponentType<StackProps>;
 
 // @public (undocumented)
-export interface StackData {
-  series: Array<string>;
+export interface Stack {
+  readonly series: string[];
 }
 
 // @public (undocumented)
+export type StackData = ReadonlyArray<ReadonlyArray<number>>;
+
+// @public (undocumented)
+export type StackList = ReadonlyArray<Stack>;
+
+// @public (undocumented)
 export interface StackProps {
-  offset?: (data: Array<SeriesData>, order: Array<number>) => void;
-  order?: (data: Array<SeriesData>) => Array<number>;
-  stacks?: Array<StackData>;
+  offset?: OffsetFn;
+  order?: OrderFn;
+  stacks?: StackList;
 }
+
+// @public (undocumented)
+export type StacksOptions = {
+  stacks: StackList;
+  offset: OffsetFn;
+  order: OrderFn;
+};
 
 // @public
 export interface TargetData {
-  event: object;
-  location: Array<number>;
-  targets: Array<SeriesRef>;
+  readonly event?: any;
+  readonly location: Location;
+  readonly targets: TargetList;
 }
+
+// @public (undocumented)
+export type TargetList = ReadonlyArray<SeriesRef>;
+
+// @public (undocumented)
+export type TickFormatFn = (scale: ScaleObject, count?: number) => GetFormatFn;
+
+// @public (undocumented)
+export const Title: React.ComponentType<TitleProps>;
 
 // @public (undocumented)
 export namespace Title {
@@ -391,9 +515,6 @@ export namespace Title {
     text: string;
   }
 }
-
-// @public
-export const Title: React.ComponentType<TitleProps>;
 
 // @public (undocumented)
 export interface TitleProps {
@@ -403,12 +524,7 @@ export interface TitleProps {
 }
 
 // @public (undocumented)
-export namespace Tooltip {
-  export interface OverlayProps {
-    children: React.ReactNode;
-    target: {getBoundingClientRect: () => ClientRect, clientHeight: number, clientWidth: number};
-  }
-}
+export const Tooltip: React.ComponentType<TooltipProps>;
 
 // @public (undocumented)
 export namespace Tooltip {
@@ -416,108 +532,94 @@ export namespace Tooltip {
     targetItem: SeriesRef;
     text: string;
   }
+  export interface OverlayProps {
+    children: React.ReactNode;
+    target: TooltipReference;
+  }
 }
-
-// @public
-export const Tooltip: React.ComponentType<TooltipProps>;
 
 // @public (undocumented)
 export interface TooltipProps {
   contentComponent: React.ComponentType<Tooltip.ContentProps>;
   defaultTargetItem?: SeriesRef;
-  onTargetItemChange?: (target: SeriesRef) => void;
+  onTargetItemChange?: NotifyPointerMoveFn;
   overlayComponent: React.ComponentType<Tooltip.OverlayProps>;
   targetItem?: SeriesRef;
 }
 
 // @public (undocumented)
-export namespace ValueAxis {
-  export interface RootProps {
-    children: React.ReactNode;
-    x: number;
-    y: number;
-  }
+export interface TooltipReference {
+  // (undocumented)
+  readonly clientHeight: number;
+  // (undocumented)
+  readonly clientWidth: number;
+  // (undocumented)
+  getBoundingClientRect(): ClientRect;
 }
 
 // @public (undocumented)
-export namespace ValueAxis {
-  export interface LineProps {
-    x1: number;
-    x2: number;
-    y1: number;
-    y2: number;
-  }
+export interface TransformedPoint extends Point {
+  readonly x: number;
+  readonly y: number;
+  readonly y1?: number;
 }
 
 // @public (undocumented)
-export namespace ValueAxis {
-  export interface LabelProps {
-    dy: string;
-    text: string | number;
-    textAnchor: 'start' | 'middle' | 'end';
-    x: number;
-    y: number;
-  }
-}
-
-// @public
 export const ValueAxis: React.ComponentType<ValueAxisProps>;
 
 // @public (undocumented)
-export interface ValueAxisProps {
-  gridComponent: React.ComponentType<ValueAxis.LineProps>;
-  indentFromAxis?: number;
-  labelComponent: React.ComponentType<ValueAxis.LabelProps>;
-  lineComponent: React.ComponentType<ValueAxis.LineProps>;
-  position?: 'left' | 'right';
-  rootComponent: React.ComponentType<ValueAxis.RootProps>;
-  scaleName?: string;
-  showGrid?: boolean;
-  showLabels?: boolean;
-  showLine?: boolean;
-  showTicks?: boolean;
-  tickComponent: React.ComponentType<ValueAxis.LineProps>;
-  tickFormat?: (scale: ScaleObject) => (tick: string) => string;
-  tickSize?: number;
-}
-
-// @public
-export const ValueScale: React.ComponentType<ValueScaleProps>;
-
-// @public (undocumented)
-export interface ValueScaleProps {
-  factory?: () => ScaleObject;
-  modifyDomain?: (domain: Array<any>) => Array<any>;
-  name?: string;
-}
-
-// @public
-export interface Viewport {
-  argumentEnd: any;
-  argumentStart: any;
-  scaleName: string;
-  valueEnd: any;
-  valueStart: any;
-}
-
-// @public (undocumented)
-export namespace Viewport {
-  export interface DragBoxProps {
-    rect: { x: number, y: number, width: number, height: number };
+export namespace ValueAxis {
+  // (undocumented)
+  export interface LabelProps extends Axis.LabelProps {
+  }
+  // (undocumented)
+  export interface LineProps extends Axis.LineProps {
+  }
+  // (undocumented)
+  export interface RootProps extends Axis.RootProps {
   }
 }
 
-// @public
+// @public (undocumented)
+export interface ValueAxisProps extends RawAxisProps {
+  position?: 'left' | 'right';
+}
+
+// @public (undocumented)
+export const ValueScale: React.ComponentType<ValueScaleProps>;
+
+// @public (undocumented)
+export interface ValueScaleProps extends ScaleProps {
+}
+
+// @public (undocumented)
+export type ViewportOptions = {
+  readonly argumentStart?: any;
+  readonly argumentEnd?: any;
+  readonly scaleName?: string;
+  readonly valueStart?: any;
+  readonly valueEnd?: any;
+};
+
+// @public (undocumented)
 export const ZoomAndPan: React.ComponentType<ZoomAndPanProps>;
 
 // @public (undocumented)
+export namespace ZoomAndPan {
+  // (undocumented)
+  export interface DragBoxProps {
+    rect: Rect;
+  }
+}
+
+// @public (undocumented)
 export interface ZoomAndPanProps {
-  defaultViewport?: Viewport;
-  dragBoxComponent?: React.ComponentType<Viewport.DragBoxProps>;
+  defaultViewport?: ViewportOptions;
+  dragBoxComponent: React.ComponentType<ZoomAndPan.DragBoxProps>;
   interactionWithArguments?: 'none' | 'pan' | 'zoom' | 'both';
   interactionWithValues?: 'none' | 'pan' | 'zoom' | 'both';
-  onViewportChange?: (viewport: Viewport) => void;
-  viewport?: Viewport;
+  onViewportChange?: OnViewportChangeFn;
+  viewport?: ViewportOptions;
   zoomRegionKey?: 'shift' | 'alt' | 'ctrl';
 }
 

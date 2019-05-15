@@ -6,32 +6,54 @@
 
 import * as React from 'react';
 
-// @public
+// @public (undocumented)
 export const Action: React.ComponentType<ActionProps>;
 
 // @public (undocumented)
 export interface ActionProps {
-  action: (payload?: any) => void;
+  action: (payload: any, getters: Getters, actions: Actions) => void;
   name: string;
 }
 
-// @public
-export function connectProps(WrappedComponent: React.ComponentType<any>, getAdditionalProps: () => object): React.ComponentType<any>;
+// @public (undocumented)
+export type Actions = {
+    [actionName: string]: (payload?: any) => void;
+};
 
 // @public
+export const connectProps: (WrappedComponent: React.ComponentType<any>, getAdditionalProps: () => object) => (React.ComponentClass<any, any> & {
+  update(): void;
+}) | (React.FunctionComponent<any> & {
+  update(): void;
+});
+
+// @public (undocumented)
 export const Getter: React.ComponentType<GetterProps>;
 
 // @public (undocumented)
 export interface GetterProps {
-  computed?: (getters: { [getterName: string]: any }) => any;
-  name: string;
-  value?: any;
+    computed?: (getters: Getters, actions: Actions) => any;
+    name: string;
+    value?: any;
 }
 
-// @public
+// @public (undocumented)
+export type Getters = {
+    readonly [getterName: string]: any;
+};
+
+// @public (undocumented)
+export interface IDependency {
+  // (undocumented)
+  name: string;
+  // (undocumented)
+  optional?: boolean;
+}
+
+// @public (undocumented)
 export const Plugin: React.ComponentType<PluginProps>;
 
-// @public
+// @public (undocumented)
 export const PluginHost: React.ComponentType<PluginHostProps>;
 
 // @public (undocumented)
@@ -42,6 +64,10 @@ export interface PluginHostProps {
 // @public (undocumented)
 export interface PluginProps {
   children: React.ReactNode;
+  // (undocumented)
+  dependencies?: IDependency[];
+  // (undocumented)
+  name?: string;
 }
 
 // @public
@@ -52,7 +78,7 @@ export const TemplateConnector: React.ComponentType<TemplateConnectorProps>;
 
 // @public (undocumented)
 export interface TemplateConnectorProps {
-  children: (getters: { [getterName: string]: any }, actions: { [actionName: string]: (payload?: any) => void }) => React.ReactNode;
+  children: (getters: Getters, actions: Actions) => React.ReactNode;
 }
 
 // @public
@@ -60,15 +86,17 @@ export const TemplatePlaceholder: React.ComponentType<TemplatePlaceholderProps>;
 
 // @public (undocumented)
 export interface TemplatePlaceholderProps {
+  // (undocumented)
+  children?: (content: any) => any;
   name?: string;
   params?: object;
 }
 
 // @public (undocumented)
 export interface TemplateProps {
-  children: React.ReactNode | ((params: object) => React.ReactNode);
-  name: string;
-  predicate?: (params: object) => boolean;
+    children: React.ReactNode | ((params: object) => React.ReactNode);
+    name: string;
+    predicate?: (params: object) => boolean;
 }
 
 

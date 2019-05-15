@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Paper from '@material-ui/core/Paper';
 import {
   Chart,
   ArgumentAxis,
@@ -6,25 +7,36 @@ import {
   AreaSeries,
   Title,
   Legend,
-} from '@devexpress/dx-react-chart-bootstrap4';
+} from '@devexpress/dx-react-chart-material-ui';
+import classnames from 'classnames';
+import { withStyles } from '@material-ui/core/styles';
 import { Stack, Animation } from '@devexpress/dx-react-chart';
+import { stackOffsetExpand } from 'd3-shape';
 import { carbonEmmision as data } from '../../../demo-data/data-vizualization';
 
-const LegendRoot = props => (
-  <Legend.Root
-    {...props}
-    className="m-auto flex-row"
-  />
-);
+const setStyle = (style) => {
+  const wrap = withStyles({ root: style });
+  return Target => wrap(({ classes, className, ...restProps }) => (
+    <Target className={classnames(classes.root, className)} {...restProps} />
+  ));
+};
 
-const ChartRoot = props => (
-  <Chart.Root
-    {...props}
-    className="pr-3"
-  />
-);
+const LegendRoot = setStyle({
+  display: 'flex',
+  margin: 'auto',
+  flexDirection: 'row',
+})(Legend.Root);
+
+const LegendLabel = setStyle({
+  whiteSpace: 'nowrap',
+})(Legend.Label);
+
+const ChartRoot = setStyle({
+  paddingRight: '20px',
+})(Chart.Root);
 
 const format = () => tick => tick;
+const formatForFullstack = scale => scale.tickFormat(null, '%');
 const stacks = [{
   series: ['Liquids', 'Solids', 'Gas', 'Cement Production', 'Gas Flaring'],
 }];
@@ -41,14 +53,13 @@ export default class Demo extends React.PureComponent {
   render() {
     const { data: chartData } = this.state;
     return (
-      <div className="card">
+      <Paper>
         <Chart
           data={chartData}
           rootComponent={ChartRoot}
         >
           <ArgumentAxis tickFormat={format} />
-          <ValueAxis />
-
+          <ValueAxis tickFormat={formatForFullstack} />
           <AreaSeries
             name="Liquids"
             valueField="liquids"
@@ -75,11 +86,11 @@ export default class Demo extends React.PureComponent {
             argumentField="year"
           />
           <Animation />
-          <Legend position="bottom" rootComponent={LegendRoot} />
+          <Legend position="bottom" rootComponent={LegendRoot} labelComponent={LegendLabel} />
           <Title text="Carbon Emission Estimates" />
-          <Stack stacks={stacks} />
+          <Stack stacks={stacks} offset={stackOffsetExpand} />
         </Chart>
-      </div>
+      </Paper>
     );
   }
 }

@@ -8,6 +8,8 @@ import {
   Legend,
 } from '@devexpress/dx-react-chart-bootstrap4';
 import { Stack, Animation } from '@devexpress/dx-react-chart';
+import { stackOffsetExpand } from 'd3-shape';
+
 import { carbonEmmision as data } from '../../../demo-data/data-vizualization';
 
 const LegendRoot = props => (
@@ -25,6 +27,7 @@ const ChartRoot = props => (
 );
 
 const format = () => tick => tick;
+const formatForFullstack = scale => scale.tickFormat(null, '%');
 const stacks = [{
   series: ['Liquids', 'Solids', 'Gas', 'Cement Production', 'Gas Flaring'],
 }];
@@ -47,7 +50,7 @@ export default class Demo extends React.PureComponent {
           rootComponent={ChartRoot}
         >
           <ArgumentAxis tickFormat={format} />
-          <ValueAxis />
+          <ValueAxis tickFormat={formatForFullstack} />
 
           <AreaSeries
             name="Liquids"
@@ -77,7 +80,7 @@ export default class Demo extends React.PureComponent {
           <Animation />
           <Legend position="bottom" rootComponent={LegendRoot} />
           <Title text="Carbon Emission Estimates" />
-          <Stack stacks={stacks} />
+          <Stack stacks={stacks} offset={stackOffsetExpand} />
         </Chart>
       </div>
     );

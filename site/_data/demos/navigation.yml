@@ -30,7 +30,7 @@
         path: /react/chart/demos/area/stacked-area
       - title: Fullstacked Area
         path: /react/chart/demos/area/fullstacked-area
-      - title: Step Areacd
+      - title: Step Area
         path: /react/chart/demos/area/step-area
       - title: Streamgraph
         path: /react/chart/demos/area/streamgraph

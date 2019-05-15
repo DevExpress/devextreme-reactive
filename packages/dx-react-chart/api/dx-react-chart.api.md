@@ -285,9 +285,9 @@ export interface PathFn {
   // (undocumented)
   curve?(c: any): this;
   // (undocumented)
-  x(f: GetPointFieldFn): this;
-  // (undocumented)
   x(): GetPointFieldFn;
+  // (undocumented)
+  x(f: GetPointFieldFn): this;
   // (undocumented)
   y(): GetPointFieldFn;
   // (undocumented)
@@ -387,8 +387,8 @@ export interface ScaleObject {
   invert(value: number): any;
   paddingInner?(arg: number): this;
   paddingOuter?(arg: number): this;
-  range(): NumberArray;
   range(range: NumberArray): this;
+  range(): NumberArray;
   tickFormat?(count?: number, format?: string): GetFormatFn;
   ticks?(ticks?: number): DomainItems;
 }

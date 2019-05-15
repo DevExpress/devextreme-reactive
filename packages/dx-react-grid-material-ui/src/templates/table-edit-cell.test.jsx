@@ -120,7 +120,6 @@ describe('EditCell', () => {
       });
   });
 
-
   it('should render children if passed', () => {
     const tree = mount((
       <EditCell

@@ -11,7 +11,7 @@
   },
   "license": "SEE LICENSE IN README.md",
   "devDependencies": {
-    "@microsoft/api-extractor": "7.1.5",
+    "@microsoft/api-extractor": "^7.1.5",
     "check-node-version": "^3.2.0",
     "concurrently": "^4.1.0",
     "conventional-changelog-cli": "^2.0.12",

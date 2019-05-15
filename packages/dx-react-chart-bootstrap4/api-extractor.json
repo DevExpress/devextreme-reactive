@@ -1,4 +1,3 @@
 {
-  "extends": "../../api-extractor.json",
-  "mainEntryPointFilePath": "dist/dx-react-chart-bootstrap4.d.ts"
+  "extends": "../../api-extractor.json"
 }

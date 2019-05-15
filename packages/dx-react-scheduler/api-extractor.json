@@ -1,4 +1,3 @@
 {
-  "extends": "../../api-extractor.json",
-  "mainEntryPointFilePath": "dist/dx-react-scheduler.d.ts"
+  "extends": "../../api-extractor.json"
 }

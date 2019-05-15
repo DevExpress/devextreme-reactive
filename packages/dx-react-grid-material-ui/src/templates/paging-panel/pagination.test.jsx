@@ -7,7 +7,6 @@ describe('Pagination', () => {
   let resetConsole;
   let mount;
   let classes;
-
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['SheetsRegistry'] });
     classes = getClasses(<Pagination

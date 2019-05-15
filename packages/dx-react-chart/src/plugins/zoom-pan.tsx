@@ -216,23 +216,23 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
           <TemplateConnector>
             {({ scales, rootRef }) => (
             <React.Fragment>
-            <DragDropProvider>
-              <DropTarget
-                onOver={({ _, clientOffset }) => this.handleMouseMove(scales, clientOffset)}
-                onDrop={() => this.handleMouseUp(scales)}
-              >
-              <DragSource payload={null}>
-                  <TemplatePlaceholder/>
-             </DragSource>
-              </DropTarget>
-            </DragDropProvider>
-            <ZoomPanProvider
-              rootRef={rootRef}
-              onWheel={e => this.handleScroll(scales, e)}
-              onDown={e => this.handleStart(zoomRegionKey!, e)}
-              onTouchMove={e => this.handleTouchMove(scales, e)}
-              onTouchEnd={e => this.handleMouseUp(scales)}
-            />
+              <DragDropProvider>
+                <DropTarget
+                  onOver={({ _, clientOffset }) => this.handleMouseMove(scales, clientOffset)}
+                  onDrop={() => this.handleMouseUp(scales)}
+                >
+                  <DragSource payload={null}>
+                    <TemplatePlaceholder/>
+                  </DragSource>
+                </DropTarget>
+              </DragDropProvider>
+              <ZoomPanProvider
+                rootRef={rootRef}
+                onWheel={e => this.handleScroll(scales, e)}
+                onDown={e => this.handleStart(zoomRegionKey!, e)}
+                onTouchMove={e => this.handleTouchMove(scales, e)}
+                onTouchEnd={e => this.handleMouseUp(scales)}
+              />
             </React.Fragment>)}
           </TemplateConnector>
         </Template>
@@ -245,7 +245,7 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
               />
           ) : null}
         </Template>
-      </Plugin >
+      </Plugin>
     );
   }
 }

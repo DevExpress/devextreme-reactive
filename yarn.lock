@@ -1621,7 +1621,7 @@
     "@microsoft/tsdoc" "0.12.9"
     "@types/node" "8.5.8"
 
-"@microsoft/api-extractor@7.1.5":
+"@microsoft/api-extractor@^7.1.5":
   version "7.1.5"
   resolved "https://registry.yarnpkg.com/@microsoft/api-extractor/-/api-extractor-7.1.5.tgz#d739db944986b5b51255cc2bcc30d53678ab68ec"
   integrity sha512-MalxwkoaIKIc9vHMHFuGnM8egVNKBVI4OUr5Af97KvkO4NsshaHylIBvmxGtqM03G7ch1C3BL2oAF79a6TaFPw==
@@ -4184,9 +4184,9 @@ cheerio@^1.0.0-rc.2:
     parse5 "^3.0.1"
 
 chokidar@^2.0.0, chokidar@^2.0.2, chokidar@^2.1.5:
-  version "2.1.5"
-  resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-2.1.5.tgz#0ae8434d962281a5f56c72869e79cb6d9d86ad4d"
-  integrity sha512-i0TprVWp+Kj4WRPtInjexJ8Q+BqTE909VpH8xVhXrJkoc5QC8VO9TryGOqTr+2hljzc1sC62t22h5tZePodM/A==
+  version "2.1.6"
+  resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-2.1.6.tgz#b6cad653a929e244ce8a834244164d241fa954c5"
+  integrity sha512-V2jUo67OKkc6ySiRpJrjlpJKl9kDuG+Xb8VgsGzb+aEouhgS1D0weyPU4lEzdAcsCAvrih2J2BqyXqHWvVLw5g==
   dependencies:
     anymatch "^2.0.0"
     async-each "^1.0.1"

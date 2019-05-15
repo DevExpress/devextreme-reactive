@@ -11,21 +11,28 @@ import {
 // *UpdatableSizer* implements *componentDidUpdate* and forces internal *Sizer* size calculation.
 // It allows to run chart size recalculation by calling *forceUpdate* on chart instance.
 import { UpdatableSizer } from '../utils/updatable-sizer';
+import { ClipPath } from '../templates/clip-path';
 
 const DIV_STYLE: React.CSSProperties = {
   flex: 1, zIndex: 1, position: 'relative', width: '100%',
 };
 
 const SVG_STYLE: React.CSSProperties = {
-  position: 'absolute', left: 0, top: 0, overflow: 'hidden',
+  position: 'absolute', left: 0, top: 0, overflow: 'visible',
 };
 
 const SizerContainer: React.SFC = ({ children }) => (
   <div style={DIV_STYLE}>{children}</div>
 );
 
+let numDefs = 0;
+const getUniqueId = () => {
+  numDefs += 1;
+  return numDefs;
+};
 export class PaneLayout extends React.PureComponent {
   ref = React.createRef<SVGSVGElement>();
+  clipPathId = `clip_path_${getUniqueId()}`;
 
   render() {
     return (
@@ -46,9 +53,11 @@ export class PaneLayout extends React.PureComponent {
                       {...params}
                       width={width}
                       height={height}
+                      clipPath={`url(#${this.clipPathId})`}
                       style={SVG_STYLE}
                     >
                       <TemplatePlaceholder name="series" />
+                      <ClipPath id={this.clipPathId} width={width} height={height} />
                     </svg>
                   </UpdatableSizer>
                 );

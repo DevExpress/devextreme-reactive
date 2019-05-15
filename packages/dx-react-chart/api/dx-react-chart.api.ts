@@ -523,7 +523,7 @@ namespace Title {
 
 // @public (undocumented)
 interface TitleProps {
-  position?: 'top' | 'bottom' | 'left' | 'right';
+  position?: 'top' | 'bottom';
   text: string;
   textComponent: React.ComponentType<Title.TextProps>;
 }

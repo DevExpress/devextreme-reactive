@@ -31,38 +31,38 @@ export class Appointments extends React.PureComponent {
           name="appointment"
         >
           {params => (
-            <Container style={params.style}>
-              <TemplatePlaceholder name="appointmentTop" params={{ data: params.data, type: params.type, slice: params.fromPrev }} />
-              <TemplatePlaceholder name="appointmentContent" params={params} />
-              <TemplatePlaceholder name="appointmentBottom" params={{ data: params.data, type: params.type, slice: params.toNext }} />
-            </Container>
+            <TemplateConnector>
+              {({ formatDate }) => (
+                <Container style={params.style}>
+                  <TemplatePlaceholder name="appointmentTop" params={{ data: params.data, type: params.type, slice: params.fromPrev }} />
+                  <TemplatePlaceholder name="appointmentContent" params={{ ...params, formatDate }} />
+                  <TemplatePlaceholder name="appointmentBottom" params={{ data: params.data, type: params.type, slice: params.toNext }} />
+                </Container>
+              )}
+            </TemplateConnector>
           )}
         </Template>
 
         <Template name="appointmentContent">
           {({
-            onClick, onDoubleClick,
+            onClick, onDoubleClick, formatDate,
             data, type, style, fromPrev, toNext,
             ...restParams
           }) => (
-            <TemplateConnector>
-              {({ formatDate }) => (
-                <Appointment
-                  data={data}
-                  {...createClickHandlers(onClick, onDoubleClick)}
-                  {...restParams}
-                >
-                  {fromPrev && <SplitIndicator position={POSITION_START} appointmentType={type} />}
-                  <AppointmentContent
-                    data={data}
-                    type={type}
-                    recurringIconComponent={recurringIconComponent}
-                    formatDate={formatDate}
-                  />
-                  {toNext && <SplitIndicator position={POSITION_END} appointmentType={type} />}
-                </Appointment>
-              )}
-            </TemplateConnector>
+            <Appointment
+              data={data}
+              {...createClickHandlers(onClick, onDoubleClick)}
+              {...restParams}
+            >
+              {fromPrev && <SplitIndicator position={POSITION_START} appointmentType={type} />}
+              <AppointmentContent
+                data={data}
+                type={type}
+                recurringIconComponent={recurringIconComponent}
+                formatDate={formatDate}
+              />
+              {toNext && <SplitIndicator position={POSITION_END} appointmentType={type} />}
+            </Appointment>
           )}
         </Template>
       </Plugin>

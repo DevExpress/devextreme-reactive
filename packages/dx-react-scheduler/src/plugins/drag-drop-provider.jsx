@@ -22,6 +22,28 @@ import {
   POSITION_END,
 } from '@devexpress/dx-scheduler-core';
 
+const renderAppointmentItems = (items, formatDate, data, Wrapper, Appointment) => (
+  items.length > 0 ? (
+    <Wrapper>
+      {items.map(({
+        dataItem, type, fromPrev, toNext, ...geometry
+      }, index) => (
+        <Appointment
+          key={index.toString()}
+          data={data}
+          style={getAppointmentStyle(geometry)}
+          type={type}
+          fromPrev={fromPrev}
+          toNext={toNext}
+          formatDate={formatDate}
+        />
+      ))}
+    </Wrapper>
+  ) : (
+    null
+  )
+);
+
 const pluginDependencies = [
   { name: 'EditingState' },
   { name: 'Appointments' },
@@ -264,46 +286,20 @@ export class DragDropProvider extends React.PureComponent {
 
         <Template name="allDayPanel">
           <TemplatePlaceholder />
-          {(this.allDayDraftAppointments.length > 0 ? (
-            <Container>
-              {this.allDayDraftAppointments.map(({
-                dataItem, type, fromPrev, toNext, ...geometry
-              }, index) => (
-                <DraftAppointment
-                  key={index.toString()}
-                  data={draftData}
-                  style={getAppointmentStyle(geometry)}
-                  type={type}
-                  fromPrev={fromPrev}
-                  toNext={toNext}
-                />
-              ))}
-            </Container>
-          ) : (
-            null
-          ))}
+          <TemplateConnector>
+            {({ formatDate }) => renderAppointmentItems(
+              this.allDayDraftAppointments, formatDate, draftData, Container, DraftAppointment,
+            )}
+          </TemplateConnector>
         </Template>
 
         <Template name="main">
           <TemplatePlaceholder />
-          {(this.timeTableDraftAppointments.length > 0 ? (
-            <Container>
-              {this.timeTableDraftAppointments.map(({
-                dataItem, type, fromPrev, toNext, ...geometry
-              }, index) => (
-                <DraftAppointment
-                  key={index.toString()}
-                  data={draftData}
-                  style={getAppointmentStyle(geometry)}
-                  type={type}
-                  fromPrev={fromPrev}
-                  toNext={toNext}
-                />
-              ))}
-            </Container>
-          ) : (
-            null
-          ))}
+          <TemplateConnector>
+            {({ formatDate }) => renderAppointmentItems(
+              this.timeTableDraftAppointments, formatDate, draftData, Container, DraftAppointment,
+            )}
+          </TemplateConnector>
         </Template>
       </Plugin>
     );

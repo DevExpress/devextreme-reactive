@@ -517,7 +517,7 @@ export namespace Title {
 }
 
 // @public (undocumented)
-interface TitleProps {
+export interface TitleProps {
   position?: 'top' | 'bottom';
   text: string;
   textComponent: React.ComponentType<Title.TextProps>;

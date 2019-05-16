@@ -351,7 +351,7 @@ describe('ZoomAndPan', () => {
     it('should return delta', () => {
       expect(getDelta({ wheelDelta: 2 })).toBe(2);
       expect(getDelta({ wheelDelta: 0 })).toBe(0);
-      expect(getDelta({ deltaY: 3 })).toBe(3);
+      expect(getDelta({ deltaY: 3 })).toBe(-90);
     });
   });
 });

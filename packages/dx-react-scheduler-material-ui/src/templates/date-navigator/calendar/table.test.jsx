@@ -27,7 +27,12 @@ describe('Calendar', () => {
   beforeAll(() => {
     classes = getClasses(<Table {...defaultProps} />);
     shallow = createShallow({ dive: true });
+  });
+  beforeEach(() => {
     mount = createMount();
+  });
+  afterEach(() => {
+    mount.cleanUp();
   });
   describe('Table', () => {
     it('should pass className to the root element', () => {

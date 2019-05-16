@@ -5,10 +5,10 @@ import { BooleanEditor } from './boolean-editor';
 
 describe('Appointment Form', () => {
   let mount;
-  beforeAll(() => {
+  beforeEach(() => {
     mount = createMount();
   });
-  afterAll(() => {
+  afterEach(() => {
     mount.cleanUp();
   });
   describe('BooleanEditor', () => {

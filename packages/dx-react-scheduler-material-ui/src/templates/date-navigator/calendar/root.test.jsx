@@ -23,16 +23,12 @@ describe('Calendar', () => {
   };
   describe('Root', () => {
     let mount;
-    beforeAll(() => {
-      mount = createMount();
-    });
-    afterAll(() => {
-      mount.cleanUp();
-    });
     beforeEach(() => {
+      mount = createMount();
       Table.mockImplementation(() => <div className="table" />);
     });
     afterEach(() => {
+      mount.cleanUp();
       jest.clearAllMocks();
     });
     it('should pass rest props to the root element', () => {

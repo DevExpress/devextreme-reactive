@@ -13,3 +13,10 @@ export interface PatternProps {
   id: string;
   color: string;
 }
+
+/** @internal */
+export interface ClipPathProps {
+  id: string;
+  width: number;
+  height: number;
+}

@@ -188,7 +188,7 @@ export { getGroupCellTargetIndex } from './utils/group-panel';
 export {
   getCollapsedGrid,
   getCollapsedGrids,
-  getColumnsVisibleBoundary,
+  getColumnBoundaries,
   getRowsVisibleBoundary,
   getColumnsRenderBoundary,
   getRowsRenderBoundary,

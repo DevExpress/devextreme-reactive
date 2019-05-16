@@ -7,8 +7,16 @@ describe('Text', () => {
   const defaultProps = {
     text: 'chart',
   };
-  const mount = createMount();
+  let mount;
   const classes = getClasses(<Text {...defaultProps} />);
+
+  beforeEach(() => {
+    mount = createMount();
+  });
+
+  afterEach(() => {
+    mount.cleanUp();
+  });
 
   it('should render root element', () => {
     const tree = mount(<Text {...defaultProps} />);

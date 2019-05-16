@@ -8,88 +8,56 @@ import {
   Title,
   Legend,
 } from '@devexpress/dx-react-chart-material-ui';
+import classnames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import NativeSelect from '@material-ui/core/NativeSelect';
-import FormControl from '@material-ui/core/FormControl';
 import { Stack, Animation } from '@devexpress/dx-react-chart';
-import { stackOffsetExpand } from 'd3-shape';
 import { carbonEmmision as data } from '../../../demo-data/data-vizualization';
 
-const legendStyles = () => ({
-  root: {
-    display: 'flex',
-    margin: 'auto',
-    flexDirection: 'row',
-  },
-});
-const legendRootBase = ({ classes, ...restProps }) => (
-  <Legend.Root {...restProps} className={classes.root} />
-);
-const Root = withStyles(legendStyles, { name: 'LegendRoot' })(legendRootBase);
-const legendLabelStyles = () => ({
-  label: {
-    whiteSpace: 'nowrap',
-  },
-});
-const legendLabelBase = ({ classes, ...restProps }) => (
-  <Legend.Label className={classes.label} {...restProps} />
-);
-const Label = withStyles(legendLabelStyles, { name: 'LegendLabel' })(legendLabelBase);
-const demoStyles = () => ({
-  chart: {
-    paddingRight: '20px',
-  },
-  typography: {
-    marginTop: '0px',
-    marginBottom: '8px',
-  },
-  div: {
-    width: '200px',
-    marginLeft: '50px',
-    paddingBottom: '30px',
-  },
-});
+const setStyle = (style) => {
+  const wrap = withStyles({ root: style });
+  return Target => wrap(({ classes, className, ...restProps }) => (
+    <Target className={classnames(classes.root, className)} {...restProps} />
+  ));
+};
+
+const LegendRoot = setStyle({
+  display: 'flex',
+  margin: 'auto',
+  flexDirection: 'row',
+})(Legend.Root);
+
+const LegendLabel = setStyle({
+  whiteSpace: 'nowrap',
+})(Legend.Label);
+
+const ChartRoot = setStyle({
+  paddingRight: '20px',
+})(Chart.Root);
 
 const format = () => tick => tick;
-const formatForFullstack = scale => scale.tickFormat(null, '%');
+const stacks = [{
+  series: ['Liquids', 'Solids', 'Gas', 'Cement Production', 'Gas Flaring'],
+}];
 
-class Demo extends React.PureComponent {
+export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
       data,
-      offset: null,
-      valueFormat: null,
     };
-
-    this.changeSeriesType = this.changeSeriesType.bind(this);
-  }
-
-  changeSeriesType(e) {
-    if (e.target.value === '1') {
-      this.setState({ offset: null, valueFormat: null });
-    } else {
-      this.setState({ offset: stackOffsetExpand, valueFormat: formatForFullstack });
-    }
   }
 
   render() {
-    const {
-      data: chartData, offset, valueFormat,
-    } = this.state;
-    const { classes } = this.props;
+    const { data: chartData } = this.state;
     return (
       <Paper>
         <Chart
           data={chartData}
-          className={classes.chart}
+          rootComponent={ChartRoot}
         >
           <ArgumentAxis tickFormat={format} />
-          <ValueAxis
-            tickFormat={valueFormat}
-          />
+          <ValueAxis />
           <AreaSeries
             name="Liquids"
             valueField="liquids"
@@ -116,27 +84,11 @@ class Demo extends React.PureComponent {
             argumentField="year"
           />
           <Animation />
-          <Legend position="bottom" rootComponent={Root} labelComponent={Label} />
+          <Legend position="bottom" rootComponent={LegendRoot} labelComponent={LegendLabel} />
           <Title text="Carbon Emission Estimates" />
-          <Stack
-            stacks={[{
-              series: ['Liquids', 'Solids', 'Gas', 'Cement Production', 'Gas Flaring'],
-            }]}
-            offset={offset}
-          />
+          <Stack stacks={stacks} />
         </Chart>
-        <div className={classes.div}>
-          <Typography component="h5" variant="h5" className={classes.typography}>Series Type</Typography>
-          <FormControl>
-            <NativeSelect onChange={this.changeSeriesType} defaultValue={1}>
-              <option value={1}>Stacked Area</option>
-              <option value={2}>Fullstacked Area</option>
-            </NativeSelect>
-          </FormControl>
-        </div>
       </Paper>
     );
   }
 }
-
-export default withStyles(demoStyles, { name: 'Demo' })(Demo);

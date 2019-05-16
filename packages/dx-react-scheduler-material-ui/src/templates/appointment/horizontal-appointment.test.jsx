@@ -14,9 +14,11 @@ describe('HorizontalAppointment', () => {
   let mount;
   beforeAll(() => {
     classes = getClasses(<HorizontalAppointment {...defaultProps} />);
+  });
+  beforeEach(() => {
     mount = createMount();
   });
-  afterAll(() => {
+  afterEach(() => {
     mount.cleanUp();
   });
 

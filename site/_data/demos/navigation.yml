@@ -28,7 +28,7 @@
         path: /react/chart/demos/area/spline-area
       - title: Stacked Area
         path: /react/chart/demos/area/stacked-area
-      - title: Fullstacked Area
+      - title: Full-Stacked Area
         path: /react/chart/demos/area/fullstacked-area
       - title: Step Area
         path: /react/chart/demos/area/step-area
@@ -44,7 +44,7 @@
         path: /react/chart/demos/bar/side-by-side-stacked-bar
       - title: Stacked Bar
         path: /react/chart/demos/bar/stacked-bar
-      - title: Fullstacked Bar
+      - title: Full-Stacked Bar
         path: /react/chart/demos/bar/fullstacked-bar
       - title: Component Customization
         path: /react/chart/demos/bar/component-customization

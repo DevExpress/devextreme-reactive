@@ -31,10 +31,13 @@ describe('PaneLayout', () => {
     expect(tree.find('svg').props()).toEqual({
       width: 400,
       height: 300,
-      clipPath: 'url(#clip_path_1)',
       style: {
         left: 0, top: 0, overflow: 'visible', position: 'absolute',
       },
+      children: expect.anything(),
+    });
+    expect(tree.find('g').props()).toEqual({
+      clipPath: 'url(#clip_path_1)',
       children: [expect.anything(), expect.anything()],
     });
     expect(tree.find(ClipPath).props()).toEqual({

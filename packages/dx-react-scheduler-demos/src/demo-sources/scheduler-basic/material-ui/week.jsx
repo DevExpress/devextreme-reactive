@@ -13,19 +13,27 @@ export default class Demo extends React.PureComponent {
     super(props);
     this.state = {
       data: appointments,
+      startDayHour: 9,
     };
+
+    this.changeStartDayHour = this.changeStartDayHour.bind(this);
+  }
+
+  changeStartDayHour({ target }) {
+    this.setState({ startDayHour: parseInt(target.value) });
   }
 
   render() {
-    const { data } = this.state;
+    const { data, startDayHour } = this.state;
 
     return (
       <Paper>
+        <input onChange={this.changeStartDayHour} />
         <Scheduler
           data={data}
         >
           <WeekView
-            startDayHour={9}
+            startDayHour={startDayHour}
             endDayHour={19}
           />
           <Appointments />

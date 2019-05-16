@@ -20,28 +20,31 @@ const LayoutBase = ({
   cellsData,
   formatDate,
   ...restProps
-}) => (
-  <RootRef rootRef={tableRef}>
-    <Table
-      className={classNames(classes.table, className)}
-      {...restProps}
-    >
-      <TableBody>
-        {cellsData.map((days, index) => (
-          <Row key={index.toString()}>
-            {days.map(({ startDate, endDate }) => (
-              <Cell
-                key={startDate}
-                startDate={startDate}
-                endDate={endDate}
-              />
-            ))}
-          </Row>
-        ))}
-      </TableBody>
-    </Table>
-  </RootRef>
-);
+}) => {
+  debugger
+  return (
+    <RootRef rootRef={(target) => { debugger; tableRef(target); }}>
+      <Table
+        className={classNames(classes.table, className)}
+        {...restProps}
+      >
+        <TableBody>
+          {cellsData.map((days, index) => (
+            <Row key={index.toString()}>
+              {days.map(({ startDate, endDate }) => (
+                <Cell
+                  key={startDate}
+                  startDate={startDate}
+                  endDate={endDate}
+                />
+              ))}
+            </Row>
+          ))}
+        </TableBody>
+      </Table>
+    </RootRef>
+  );
+};
 
 LayoutBase.propTypes = {
   tableRef: PropTypes.func.isRequired,

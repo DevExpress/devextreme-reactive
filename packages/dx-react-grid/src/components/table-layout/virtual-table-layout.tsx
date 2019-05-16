@@ -267,6 +267,7 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
       footerRows,
       ensureNextVirtualPage,
       minColumnWidth,
+      minWidth,
       cellComponent,
       rowComponent,
     } = this.props;
@@ -283,6 +284,7 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
       cellComponent,
       rowComponent,
       minColumnWidth,
+      minWidth,
       blockRefsHandler: this.registerBlockRef,
       rowRefsHandler: this.registerRowRef,
     };

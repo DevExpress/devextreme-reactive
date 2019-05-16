@@ -17,7 +17,12 @@ describe('VerticalAppointment', () => {
   let mount;
   beforeAll(() => {
     classes = getClasses(<VerticalAppointment {...defaultProps} />);
+  });
+  beforeEach(() => {
     mount = createMount({ dive: true });
+  });
+  afterEach(() => {
+    mount.cleanUp();
   });
   describe('VerticalAppointment', () => {
     it('should render title', () => {

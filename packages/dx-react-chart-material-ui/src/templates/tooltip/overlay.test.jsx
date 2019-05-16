@@ -6,9 +6,16 @@ describe('Overlay', () => {
   const defaultProps = {
     target: () => ({ }),
   };
-
+  let mount;
   const classes = getClasses(<Overlay {...defaultProps}>Test</Overlay>);
-  const mount = createMount();
+
+  beforeEach(() => {
+    mount = createMount();
+  });
+
+  afterEach(() => {
+    mount.cleanUp();
+  });
 
   it('should render Popover', () => {
     const tree = mount((

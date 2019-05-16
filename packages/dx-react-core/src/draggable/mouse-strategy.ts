@@ -38,8 +38,9 @@ export class MouseStrategy {
     if (!this.dragging && this.mouseInitialOffset) {
       if (isBoundExceeded(this.mouseInitialOffset, { x, y })) {
         this.delegate.onStart(this.mouseInitialOffset);
-        if (window.getSelection) {
-          window.getSelection().removeAllRanges();
+        const selection = window.getSelection && window.getSelection();
+        if (selection && selection.removeAllRanges) {
+          selection.removeAllRanges();
         }
         dragStarted = true;
         this.dragging = true;

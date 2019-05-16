@@ -7,7 +7,6 @@ describe('PageSizeSelector', () => {
   let mount;
   let classes;
   beforeAll(() => {
-    mount = createMount();
     classes = getClasses(<PageSizeSelector
       pageSize={0}
       pageSizes={[]}
@@ -15,7 +14,10 @@ describe('PageSizeSelector', () => {
       onPageSizeChange={() => {}}
     />);
   });
-  afterAll(() => {
+  beforeEach(() => {
+    mount = createMount();
+  });
+  afterEach(() => {
     mount.cleanUp();
   });
 

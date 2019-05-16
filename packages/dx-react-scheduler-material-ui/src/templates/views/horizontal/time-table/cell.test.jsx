@@ -5,6 +5,7 @@ import { Cell } from './cell';
 describe('Horizontal view TimeTable', () => {
   const defaultProps = {
     startDate: new Date(2018, 6, 7, 16),
+    formatDate: () => undefined,
   };
   let classes;
   let shallow;
@@ -65,5 +66,17 @@ describe('Horizontal view TimeTable', () => {
 
     expect(tree.find(`.${classes.otherMonth}`))
       .toHaveLength(1);
+  });
+  it('should call date format function', () => {
+    const formatDate = jest.fn();
+    formatDate.mockImplementation(() => 'time');
+    const tree = shallow((
+      <Cell {...defaultProps} formatDate={formatDate} />
+    ));
+
+    expect(formatDate)
+      .toHaveBeenCalledWith(defaultProps.startDate, { day: 'numeric' });
+    expect(tree.find(`.${classes.text}`).props().children)
+      .toBeTruthy();
   });
 });

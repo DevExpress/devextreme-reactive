@@ -11,6 +11,7 @@ import {
   TABLE_STUB_TYPE,
   getColumnWidthGetter,
   getRenderBoundary,
+  getColumnBoundaries,
 } from './virtual-table';
 
 describe('VirtualTableLayout utils', () => {
@@ -54,6 +55,43 @@ describe('VirtualTableLayout utils', () => {
 
       expect(getVisibleBoundary(items, 240, 120, item => item.size, 0, 40))
         .toEqual([6, 6]);
+    });
+  });
+
+  describe('#getColumnBoundaries', () => {
+    it('should return correct boundaries in simple case', () => {
+      const columns =  [
+        { size: 40 },
+        { size: 40 },
+        { size: 40 },
+        { size: 40 },
+        { size: 40 },
+        { size: 40 },
+        { size: 40 },
+      ];
+
+      expect(getColumnBoundaries(columns, 90, 100, col => col.size))
+        .toEqual([[1, 5]]);
+    });
+
+    it('should take fixed columns into account', () => {
+      const columns =  [
+        { size: 40, fixed: 'left' },
+        { size: 40 },
+        { size: 40 },
+        { size: 40 },
+        { size: 40 },
+        { size: 40 },
+        { size: 40 },
+        { size: 40, fixed: 'right' },
+      ];
+
+      expect(getColumnBoundaries(columns, 120, 80, col => col.size))
+        .toEqual([
+          [2, 5],
+          [0, 0],
+          [7, 7],
+        ]);
     });
   });
 

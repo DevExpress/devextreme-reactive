@@ -31,7 +31,7 @@ describe('axisCoordinates', () => {
           xText: 25,
           yText: -10,
           text: 1,
-          dominantBaseline: 'baseline',
+          dy: '0em',
           textAnchor: 'middle',
           y1: 0, y2: -5, x1: 25, x2: 25,
         }],
@@ -53,7 +53,7 @@ describe('axisCoordinates', () => {
           xText: 25,
           yText: 10,
           text: 1,
-          dominantBaseline: 'hanging',
+          dy: '1em',
           textAnchor: 'middle',
           y1: 0, y2: 5, x1: 25, x2: 25,
         }],
@@ -62,7 +62,7 @@ describe('axisCoordinates', () => {
       expect(scale.ticks).toBeCalledWith(5);
     });
 
-    it('should pass correct domain to scale, horizontal', () => {
+    it('should pass correct domain to scale', () => {
       (isHorizontal as jest.Mock).mockReturnValue(true);
       axisCoordinates({
         scale, tickSize, indentFromAxis, scaleName: 'test-name', position: 'top',
@@ -88,7 +88,7 @@ describe('axisCoordinates', () => {
           xText: -10,
           yText: 25,
           x1: 0, x2: -5, y1: 25, y2: 25,
-          dominantBaseline: 'middle',
+          dy: '0.3em',
           textAnchor: 'end',
         }],
       });
@@ -110,7 +110,7 @@ describe('axisCoordinates', () => {
           xText: 10,
           yText: 25,
           x1: 0, x2: 5, y1: 25, y2: 25,
-          dominantBaseline: 'middle',
+          dy: '0.3em',
           textAnchor: 'start',
         }],
       });
@@ -118,16 +118,13 @@ describe('axisCoordinates', () => {
       expect(scale.ticks).toBeCalledWith(5);
     });
 
-    it('should pass correct domain to scale, vertical', () => {
-      (isHorizontal as jest.Mock).mockReturnValue(false);
+    it('should generate ticks when pane size is zero', () => {
+      (isHorizontal as jest.Mock).mockReturnValue(true);
       axisCoordinates({
-        scale,  tickSize, indentFromAxis, scaleName: 'test-name', position: 'left',
-        paneSize: [0, 80],
+        scale, tickSize, indentFromAxis, scaleName: 'test-name', position: 'top',
+        paneSize: [0, 0],
       } as any);
-      expect(scale.mock.calls).toEqual([
-        [1],
-      ]);
-      expect(isHorizontal).toBeCalledWith('test-name');
+      expect(scale.ticks).toBeCalledWith(10);
     });
 
     it('should format ticks', () => {
@@ -143,7 +140,7 @@ describe('axisCoordinates', () => {
           xText: 25,
           yText: -10,
           text: 'format 1',
-          dominantBaseline: 'baseline',
+          dy: '0em',
           textAnchor: 'middle',
           y1: 0, y2: -5, x1: 25, x2: 25,
         }]);
@@ -172,7 +169,7 @@ describe('axisCoordinates', () => {
           xText: 25,
           yText: -10,
           text: 'user format 1',
-          dominantBaseline: 'baseline',
+          dy: '0em',
           textAnchor: 'middle',
           y1: 0, y2: -5, x1: 25, x2: 25,
         }]);
@@ -212,7 +209,7 @@ describe('axisCoordinates', () => {
           xText: 25,
           yText: 10,
           text: 'a',
-          dominantBaseline: 'hanging',
+          dy: '1em',
           textAnchor: 'middle',
           y1: 0, y2: 5, x1: 25, x2: 25,
         }],
@@ -232,7 +229,7 @@ describe('axisCoordinates', () => {
           xText: 25,
           yText: -10,
           text: 'a',
-          dominantBaseline: 'baseline',
+          dy: '0em',
           textAnchor: 'middle',
           y1: 0, y2: -5, x1: 25, x2: 25,
         }],
@@ -253,7 +250,7 @@ describe('axisCoordinates', () => {
           xText: -10,
           yText: 25,
           x1: 0, x2: -5, y1: 25, y2: 25,
-          dominantBaseline: 'middle',
+          dy: '0.3em',
           textAnchor: 'end',
         }],
       });
@@ -273,7 +270,7 @@ describe('axisCoordinates', () => {
           xText: 10,
           yText: 25,
           x1: 0, x2: 5, y1: 25, y2: 25,
-          dominantBaseline: 'middle',
+          dy: '0.3em',
           textAnchor: 'start',
         }],
       });

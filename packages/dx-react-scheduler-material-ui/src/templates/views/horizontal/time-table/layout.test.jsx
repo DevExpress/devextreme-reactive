@@ -17,6 +17,7 @@ describe('Horizontal view TimeTable', () => {
     ],
     cellComponent: () => undefined,
     rowComponent: () => undefined,
+    formatDate: () => undefined,
   };
   let classes;
   let shallow;

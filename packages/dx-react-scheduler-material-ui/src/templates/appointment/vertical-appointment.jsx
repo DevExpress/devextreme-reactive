@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import moment from 'moment';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
+import { HOUR_MINUTE_OPTIONS } from '@devexpress/dx-scheduler-core';
 
 const styles = ({ palette, spacing }) => ({
   title: {
@@ -51,36 +51,39 @@ const VerticalAppointmentBase = ({
   data,
   children,
   className,
+  formatDate,
   recurringIconComponent: RecurringIcon,
   ...restProps
 }) => {
   const repeat = !!data.rRule;
   return (
-    children || (
     <div className={classNames(classes.content, className)} {...restProps}>
-      <div className={repeat ? classes.recurringContainer : classes.container}>
-        <div className={classes.title}>
-          {data.title}
-        </div>
-        <div className={classes.textContainer}>
-          <div className={classes.time}>
-            {moment(data.startDate).format('h:mm A')}
+      {children || (
+        <React.Fragment>
+          <div className={repeat ? classes.recurringContainer : classes.container}>
+            <div className={classes.title}>
+              {data.title}
+            </div>
+            <div className={classes.textContainer}>
+              <div className={classes.time}>
+                {formatDate(data.startDate, HOUR_MINUTE_OPTIONS)}
+              </div>
+              <div className={classes.time}>
+                {' - '}
+              </div>
+              <div className={classes.time}>
+                {formatDate(data.endDate, HOUR_MINUTE_OPTIONS)}
+              </div>
+            </div>
           </div>
-          <div className={classes.time}>
-            {' - '}
-          </div>
-          <div className={classes.time}>
-            {moment(data.endDate).format('h:mm A')}
-          </div>
-        </div>
-      </div>
-      {repeat ? (
-        <div className={classes.imageContainer}>
-          <RecurringIcon className={classes.image} />
-        </div>
-      ) : undefined}
+          {repeat ? (
+            <div className={classes.imageContainer}>
+              <RecurringIcon className={classes.image} />
+            </div>
+          ) : undefined}
+        </React.Fragment>
+      )}
     </div>
-    )
   );
 };
 
@@ -88,6 +91,7 @@ VerticalAppointmentBase.propTypes = {
   recurringIconComponent: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
+  formatDate: PropTypes.func.isRequired,
   children: PropTypes.node,
   className: PropTypes.string,
 };

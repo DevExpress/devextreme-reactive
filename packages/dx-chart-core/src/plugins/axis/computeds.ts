@@ -33,7 +33,7 @@ const createHorizontalOptions = (position: string, tickSize: number, indentFromA
     y1: 0,
     y2: isStart ? +tickSize : -tickSize,
     yText: isStart ? +indentFromAxis : -indentFromAxis,
-    dominantBaseline: isStart ? 'hanging' : 'baseline',
+    dy: isStart ? '1em' : '0em',
     textAnchor: MIDDLE,
   };
 };
@@ -45,7 +45,7 @@ const createVerticalOptions = (position: string, tickSize: number, indentFromAxi
     x1: 0,
     x2: isStart ? -tickSize : +tickSize,
     xText: isStart ? -indentFromAxis : +indentFromAxis,
-    dominantBaseline: MIDDLE,
+    dy: '0.3em',
     textAnchor: isStart ? END : START,
   };
 };
@@ -54,8 +54,8 @@ const createVerticalOptions = (position: string, tickSize: number, indentFromAxi
 // https://github.com/d3/d3-scale#continuous_ticks.
 const DEFAULT_TICK_COUNT = 10;
 const getTickCount = (scaleRange: NumberArray, paneSize: number) => {
-  const rangeToPaneRatio = Math.abs(scaleRange[0] - scaleRange[1]) / paneSize || 1;
-  return Math.round(DEFAULT_TICK_COUNT * rangeToPaneRatio);
+  const rangeToPaneRatio = Math.abs(scaleRange[0] - scaleRange[1]) / paneSize;
+  return Math.round(DEFAULT_TICK_COUNT * (isFinite(rangeToPaneRatio) ? rangeToPaneRatio : 1));
 };
 
 /** @internal */

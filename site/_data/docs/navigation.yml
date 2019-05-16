@@ -203,6 +203,8 @@
         path: /react/grid/docs/reference/custom-summary
       - title: TableSummaryRow
         path: /react/grid/docs/reference/table-summary-row
+      - title: VirtualTableState
+        path: /react/grid/docs/reference/virtual-table-state
   - title: Related Docs
     items:
       - title: React Core
@@ -313,6 +315,8 @@
         path: /react/scheduler/docs/guides/date-navigation
       - title: Editing
         path: /react/scheduler/docs/guides/editing
+      - title: Localization
+        path: /react/scheduler/docs/guides/localization
   - title: Common Concepts
     items:
       - title: Optimize Performance

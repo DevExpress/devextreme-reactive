@@ -5,6 +5,7 @@ import { Cell } from './cell';
 describe('Vertical view DayPanel', () => {
   const defaultProps = {
     startDate: new Date(2018, 6, 7, 16, 20),
+    formatDate: () => undefined,
   };
   let classes;
   let shallow;
@@ -39,6 +40,22 @@ describe('Vertical view DayPanel', () => {
       expect(tree.find(`p.${classes.highlightCell}`).exists())
         .toBeTruthy();
       expect(tree.find(`span.${classes.highlightCell}`).exists())
+        .toBeTruthy();
+    });
+    it('should call formatDate function', () => {
+      const formatDate = jest.fn();
+      formatDate.mockImplementation(() => 'time');
+      const tree = shallow((
+        <Cell {...defaultProps} formatDate={formatDate} />
+      ));
+
+      expect(formatDate)
+        .toHaveBeenCalledWith(defaultProps.startDate, { weekday: 'short' });
+      expect(formatDate)
+        .toHaveBeenCalledWith(defaultProps.startDate, { day: 'numeric' });
+      expect(tree.find(`.${classes.dayOfWeek}`).props().children)
+        .toBeTruthy();
+      expect(tree.find(`.${classes.dayOfMonth}`).props().children)
         .toBeTruthy();
     });
   });

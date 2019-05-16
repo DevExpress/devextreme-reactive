@@ -10,13 +10,19 @@ describe('VerticalAppointment', () => {
       endDate: new Date('2018-07-27 17:10'),
     },
     recurringIconComponent: () => <div />,
+    formatDate: () => undefined,
   };
 
   let classes;
   let mount;
   beforeAll(() => {
     classes = getClasses(<VerticalAppointment {...defaultProps} />);
+  });
+  beforeEach(() => {
     mount = createMount({ dive: true });
+  });
+  afterEach(() => {
+    mount.cleanUp();
   });
   describe('VerticalAppointment', () => {
     it('should render title', () => {
@@ -30,31 +36,38 @@ describe('VerticalAppointment', () => {
         .toBe('title');
     });
 
-    it('should render appointment times', () => {
+    it('should call time format function', () => {
+      const formatDate = jest.fn();
+      formatDate.mockImplementation(() => 'time');
       const tree = mount((
         <VerticalAppointment
           {...defaultProps}
+          formatDate={formatDate}
         />
       ));
 
-      expect(tree.find(`.${classes.time}`).at(0).text())
-        .toBe('1:10 PM');
-      expect(tree.find(`.${classes.time}`).at(1).text())
-        .toBe(' - ');
-      expect(tree.find(`.${classes.time}`).at(2).text())
-        .toBe('5:10 PM');
+      expect(formatDate)
+        .toHaveBeenCalledWith(defaultProps.data.startDate, { hour: 'numeric', minute: 'numeric' });
+      expect(formatDate)
+        .toHaveBeenCalledWith(defaultProps.data.startDate, { hour: 'numeric', minute: 'numeric' });
+      expect(tree.find(`.${classes.time}`).at(0).props().children)
+        .toBeTruthy();
+      expect(tree.find(`.${classes.time}`).at(2).props().children)
+        .toBeTruthy();
     });
 
     it('should render children', () => {
-      const child = mount((
+      const tree = mount((
         <VerticalAppointment
           {...defaultProps}
         >
           <div className="child" />
         </VerticalAppointment>
-      )).find('.child');
+      ));
 
-      expect(child.exists())
+      expect(tree.find('.child').exists())
+        .toBeTruthy();
+      expect(tree.find(`.${classes.content}`).exists())
         .toBeTruthy();
     });
 

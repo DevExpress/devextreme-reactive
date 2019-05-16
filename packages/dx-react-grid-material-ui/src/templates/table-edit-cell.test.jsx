@@ -16,8 +16,15 @@ describe('EditCell', () => {
 
   beforeAll(() => {
     classes = getClasses(<EditCell onValueChange={() => {}} />);
-    mount = createMount();
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
+  });
+
+  beforeEach(() => {
+    mount = createMount();
+  });
+
+  afterEach(() => {
+    mount.cleanUp();
   });
 
   afterAll(() => {

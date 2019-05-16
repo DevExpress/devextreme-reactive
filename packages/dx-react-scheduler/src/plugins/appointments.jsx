@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import {
-  Plugin, Template, TemplatePlaceholder,
+  Plugin, Template, TemplatePlaceholder, TemplateConnector,
 } from '@devexpress/dx-react-core';
 import { createClickHandlers } from '@devexpress/dx-core';
 import { POSITION_START, POSITION_END } from '@devexpress/dx-scheduler-core';
@@ -31,17 +31,21 @@ export class Appointments extends React.PureComponent {
           name="appointment"
         >
           {params => (
-            <Container style={params.style}>
-              <TemplatePlaceholder name="appointmentTop" params={{ data: params.data, type: params.type, slice: params.fromPrev }} />
-              <TemplatePlaceholder name="appointmentContent" params={params} />
-              <TemplatePlaceholder name="appointmentBottom" params={{ data: params.data, type: params.type, slice: params.toNext }} />
-            </Container>
+            <TemplateConnector>
+              {({ formatDate }) => (
+                <Container style={params.style}>
+                  <TemplatePlaceholder name="appointmentTop" params={{ data: params.data, type: params.type, slice: params.fromPrev }} />
+                  <TemplatePlaceholder name="appointmentContent" params={{ ...params, formatDate }} />
+                  <TemplatePlaceholder name="appointmentBottom" params={{ data: params.data, type: params.type, slice: params.toNext }} />
+                </Container>
+              )}
+            </TemplateConnector>
           )}
         </Template>
 
         <Template name="appointmentContent">
           {({
-            onClick, onDoubleClick,
+            onClick, onDoubleClick, formatDate,
             data, type, style, fromPrev, toNext,
             ...restParams
           }) => (
@@ -55,6 +59,7 @@ export class Appointments extends React.PureComponent {
                 data={data}
                 type={type}
                 recurringIconComponent={recurringIconComponent}
+                formatDate={formatDate}
               />
               {toNext && <SplitIndicator position={POSITION_END} appointmentType={type} />}
             </Appointment>

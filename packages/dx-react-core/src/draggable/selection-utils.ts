@@ -2,11 +2,13 @@
 
 /** @internal */
 export const clear = () => {
-  if (window.getSelection) {
-    if (window.getSelection().empty) {
-      window.getSelection().empty();
-    } else if (window.getSelection().removeAllRanges) {
-      window.getSelection().removeAllRanges();
+  const selection = window.getSelection && window.getSelection();
+
+  if (selection) {
+    if (selection.empty) {
+      selection.empty();
+    } else if (selection.removeAllRanges) {
+      selection.removeAllRanges();
     }
   }
 };

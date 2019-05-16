@@ -15,7 +15,7 @@ import {
 import { DragBox } from '../templates/drag-box';
 import {
   adjustLayout, getViewport, isKeyPressed, getOffset, getDeltaForTouches,
-  ScalesCache,
+  ScalesCache, getWheelDelta,
 } from '@devexpress/dx-chart-core';
 import {
   ZoomAndPanProps, ZoomAndPanState, NumberArray, ZoomPanProviderProps, EventHandlers,
@@ -196,7 +196,7 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
     e.preventDefault();
     const offset = getOffset(e.currentTarget);
     const center: NumberArray = [e.pageX - offset[0], e.pageY - offset[1]];
-    this.zoom(scales, e.wheelDelta, center);
+    this.zoom(scales, getWheelDelta(e), center);
   }
 
   render() {
@@ -216,23 +216,23 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
           <TemplateConnector>
             {({ scales, rootRef }) => (
             <React.Fragment>
-            <DragDropProvider>
-              <DropTarget
-                onOver={({ _, clientOffset }) => this.handleMouseMove(scales, clientOffset)}
-                onDrop={() => this.handleMouseUp(scales)}
-              >
-              <DragSource payload={null}>
-                  <TemplatePlaceholder/>
-             </DragSource>
-              </DropTarget>
-            </DragDropProvider>
-            <ZoomPanProvider
-              rootRef={rootRef}
-              onWheel={e => this.handleScroll(scales, e)}
-              onDown={e => this.handleStart(zoomRegionKey!, e)}
-              onTouchMove={e => this.handleTouchMove(scales, e)}
-              onTouchEnd={e => this.handleMouseUp(scales)}
-            />
+              <DragDropProvider>
+                <DropTarget
+                  onOver={({ _, clientOffset }) => this.handleMouseMove(scales, clientOffset)}
+                  onDrop={() => this.handleMouseUp(scales)}
+                >
+                  <DragSource payload={null}>
+                    <TemplatePlaceholder/>
+                  </DragSource>
+                </DropTarget>
+              </DragDropProvider>
+              <ZoomPanProvider
+                rootRef={rootRef}
+                onWheel={e => this.handleScroll(scales, e)}
+                onDown={e => this.handleStart(zoomRegionKey!, e)}
+                onTouchMove={e => this.handleTouchMove(scales, e)}
+                onTouchEnd={e => this.handleMouseUp(scales)}
+              />
             </React.Fragment>)}
           </TemplateConnector>
         </Template>
@@ -245,7 +245,7 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
               />
           ) : null}
         </Template>
-      </Plugin >
+      </Plugin>
     );
   }
 }

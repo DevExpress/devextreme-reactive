@@ -11,6 +11,7 @@ type Immutable<T> =
   T extends (infer P)[] ? ReadonlyArray<P> :
   T extends Map<infer TKey, infer TValue> ? ReadonlyMap<TKey, TValue> :
   T extends ReadonlyMap<any, any> ? T :
+  T extends ReadonlyArray<any> ? T :
 // tslint:disable-next-line: ban-types
   T extends Function ? T :
   T extends object ? ReadonlyObject<T> :

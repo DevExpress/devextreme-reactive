@@ -28,6 +28,7 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
 
 const defaultDeps = {
   getter: {
+    formatDate: jest.fn(),
     currentDate: '2018-07-04',
     viewCellsData: [
       [{ startDate: new Date('2018-06-25') }, {}],
@@ -168,14 +169,17 @@ describe('DragDropProvider', () => {
         .toBeCalledWith('appointment data');
     });
     it('should render draft appointment component', () => {
-      const draftAppointment = () => <div className="custom-class" />;
+      const draftAppointment = props => <div {...props} className="custom-class" />;
 
       const { tree, onOver } = mountPlugin({ draftAppointmentComponent: draftAppointment });
 
       onOver({ payload: 1, clientOffset: 1 });
 
-      expect(tree.update().find('.custom-class').exists())
+      const draftAppt = tree.update().find('.custom-class');
+      expect(draftAppt.exists())
         .toBeTruthy();
+      expect(draftAppt.at(1).prop('formatDate'))
+        .toBe(defaultDeps.getter.formatDate);
     });
     it('should render source appointment component', () => {
       const deps = {
@@ -184,18 +188,22 @@ describe('DragDropProvider', () => {
             data: {
               id: 1,
             },
+            formatDate: jest.fn(),
           },
         },
       };
-      const sourceAppointment = () => <div className="custom-class" />;
+      const sourceAppointment = props => <div {...props} className="custom-class" />;
 
       const { tree, onOver } = mountPlugin({ sourceAppointmentComponent: sourceAppointment }, deps);
 
       onOver({ payload: { id: 1 }, clientOffset: 1 });
       tree.update();
 
-      expect(tree.find('.custom-class').exists())
+      const sourceAppt = tree.update().find('.custom-class');
+      expect(sourceAppt.exists())
         .toBeTruthy();
+      expect(sourceAppt.at(0).prop('formatDate'))
+        .toBe(deps.template.appointmentContent.formatDate);
     });
     it('should render resize component', () => {
       const deps = {

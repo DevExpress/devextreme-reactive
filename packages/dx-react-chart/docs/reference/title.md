@@ -25,7 +25,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 textComponent | ComponentType&lt;[Title.TextProps](#titletextprops)&gt; | | A component that renders the title.
 text | string | | The title text.
-position? | 'top' &#124; 'bottom' &#124; 'left' &#124; 'right' | 'top' | The title position.
+position? | 'top' &#124; 'bottom' | 'top' | The title position.
 
 ## Interfaces
 

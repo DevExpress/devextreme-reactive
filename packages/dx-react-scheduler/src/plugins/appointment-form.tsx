@@ -7,6 +7,7 @@ import {
   StateHelper,
   TemplateConnector,
   TemplatePlaceholder,
+  PluginComponents,
 } from '@devexpress/dx-react-core';
 import {
   setAppointmentData,
@@ -39,7 +40,13 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
   setAppointmentData: (payload: any) => void;
   openFormHandler: (payload: AppointmentModel) => void;
 
-  static components = {
+  static defaultProps: Partial<AppointmentFormProps> = {
+    messages: {},
+    readOnly: false,
+    onVisibilityChange: () => undefined,
+    onAppointmentDataChange: () => undefined,
+  };
+  static components: PluginComponents = {
     popupComponent: 'Popup',
     containerComponent: 'Container',
     startDateComponent: 'StartDateEditor',
@@ -49,12 +56,6 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
     commandButtonComponent: 'CommandButton',
     scrollableAreaComponent: 'ScrollableArea',
     staticAreaComponent: 'StaticArea',
-  };
-  static defaultProps = {
-    messages: {},
-    readOnly: false,
-    onVisibilityChange: () => undefined,
-    onAppointmentDataChange: () => undefined,
   };
 
   constructor(props) {

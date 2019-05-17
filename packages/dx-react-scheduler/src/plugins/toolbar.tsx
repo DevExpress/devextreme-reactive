@@ -3,11 +3,12 @@ import {
   Template,
   Plugin,
   TemplatePlaceholder,
+  PluginComponents,
 } from '@devexpress/dx-react-core';
 import { ToolbarProps } from '../types';
 
 class ToolbarBase extends React.PureComponent<ToolbarProps> {
-  static components = {
+  static components: PluginComponents = {
     rootComponent: 'Root',
     flexibleSpaceComponent: 'FlexibleSpace',
   };

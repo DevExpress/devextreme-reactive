@@ -17,7 +17,7 @@ class ViewStateBase extends React.PureComponent<ViewStateProps, ViewStateState> 
   changeCurrentDate: (payload: ChangeCurrentDatePayload) => void;
   setCurrentViewName: (payload: string) => void;
 
-  static defaultProps = {
+  static defaultProps: Partial<ViewStateProps> = {
     defaultCurrentDate: new Date(),
   };
 

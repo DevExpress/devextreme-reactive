@@ -6,6 +6,7 @@ import {
   TemplateConnector,
   TemplatePlaceholder,
   Getters,
+  PluginComponents,
 } from '@devexpress/dx-react-core';
 import {
   computed,
@@ -39,13 +40,13 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
     timeTableRef: null,
   };
 
-  static defaultProps = {
+  static defaultProps: Partial<MonthViewProps> = {
     intervalCount: 1,
     firstDayOfWeek: 0,
     name: 'Month',
   };
 
-  static components = {
+  static components: PluginComponents = {
     layoutComponent: 'Layout',
     appointmentLayerComponent: 'AppointmentLayer',
     dayScaleLayoutComponent: 'DayScaleLayout',

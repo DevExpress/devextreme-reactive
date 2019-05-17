@@ -4,6 +4,7 @@ import {
   Template,
   TemplatePlaceholder,
   TemplateConnector,
+  PluginComponents,
 } from '@devexpress/dx-react-core';
 import { ViewSwitcherProps } from '../types/view-switcher';
 
@@ -13,7 +14,7 @@ const pluginDependencies = [
 ];
 
 class ViewSwitcherBase extends React.PureComponent<ViewSwitcherProps> {
-  static components = {
+  static components: PluginComponents = {
     switcherComponent: 'Switcher',
   };
   render() {

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  Plugin, Template, TemplatePlaceholder, TemplateConnector,
+  Plugin, Template, TemplatePlaceholder, TemplateConnector, PluginComponents,
 } from '@devexpress/dx-react-core';
 import { createClickHandlers } from '@devexpress/dx-core';
 import { POSITION_START, POSITION_END } from '@devexpress/dx-scheduler-core';
@@ -14,7 +14,7 @@ const pluginDependencies = [
 ];
 
 class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
-  static components = {
+  static components: PluginComponents = {
     splitIndicatorComponent: 'SplitIndicator',
     containerComponent: 'Container',
     appointmentComponent: 'Appointment',
@@ -39,13 +39,22 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
         <Template
           name="appointment"
         >
-          {(params: any) => (
+          {({ style, ...params }: any) => (
             <TemplateConnector>
               {({ formatDate }) => (
-                <Container style={params.style}>
-                  <TemplatePlaceholder name="appointmentTop" params={{ data: params.data, type: params.type, slice: params.fromPrev }} />
-                  <TemplatePlaceholder name="appointmentContent" params={{ ...params, formatDate }} />
-                  <TemplatePlaceholder name="appointmentBottom" params={{ data: params.data, type: params.type, slice: params.toNext }} />
+                <Container style={style}>
+                  <TemplatePlaceholder
+                    name="appointmentTop"
+                    params={{ data: params.data, type: params.type, slice: params.fromPrev }}
+                  />
+                  <TemplatePlaceholder
+                    name="appointmentContent"
+                    params={{ ...params, formatDate }}
+                  />
+                  <TemplatePlaceholder
+                    name="appointmentBottom"
+                    params={{ data: params.data, type: params.type, slice: params.toNext }}
+                  />
                 </Container>
               )}
             </TemplateConnector>
@@ -55,7 +64,7 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
         <Template name="appointmentContent">
           {({
             onClick, onDoubleClick, formatDate,
-            data, type, style, fromPrev, toNext,
+            data, type, fromPrev, toNext,
             ...restParams
           }: any) => (
             <Appointment

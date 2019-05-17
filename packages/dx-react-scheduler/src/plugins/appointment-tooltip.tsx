@@ -6,6 +6,7 @@ import {
   TemplateConnector,
   createStateHelper,
   StateHelper,
+  PluginComponents,
 } from '@devexpress/dx-react-core';
 import {
   OPEN_COMMAND_BUTTON,
@@ -35,16 +36,16 @@ class AppointmentTooltipBase extends React.PureComponent<
   setAppointmentMeta: (appointmentMeta: AppointmentMeta) => void;
   onAppointmentClick: (appointmentMeta: AppointmentMeta) => void;
 
-  static components = {
+  static defaultProps: Partial<AppointmentTooltipProps> = {
+    showOpenButton: false,
+    showDeleteButton: false,
+    showCloseButton: false,
+  };
+  static components: PluginComponents = {
     layoutComponent: 'Layout',
     headerComponent: 'Header',
     contentComponent: 'Content',
     commandButtonComponent: 'CommandButton',
-  };
-  static defaultProps = {
-    showOpenButton: false,
-    showDeleteButton: false,
-    showCloseButton: false,
   };
 
   constructor(props) {

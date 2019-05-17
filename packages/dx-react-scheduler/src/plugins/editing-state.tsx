@@ -26,7 +26,7 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
   commitAddedAppointment: (payload: any) => void;
   commitDeletedAppointment: (payload: any) => void;
 
-  static defaultProps = {
+  static defaultProps: Partial<EditingStateProps> = {
     defaultAppointmentChanges: {},
     defaultAddedAppointment: {},
   };

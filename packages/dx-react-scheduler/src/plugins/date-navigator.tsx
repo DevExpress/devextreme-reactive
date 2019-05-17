@@ -4,6 +4,7 @@ import {
   Template,
   TemplatePlaceholder,
   TemplateConnector,
+  PluginComponents,
 } from '@devexpress/dx-react-core';
 import {
   monthCellsData,
@@ -27,7 +28,10 @@ const navigate = (action, currentView, intervalCount) => (direction, nextDate) =
 class DateNavigatorBase extends React.PureComponent<DateNavigatorProps, DateNavigatorState> {
   target!: React.ReactInstance;
 
-  static components = {
+  state = {
+    visible: false,
+  };
+  static components: PluginComponents = {
     rootComponent: 'Root',
     overlayComponent: 'Overlay',
     openButtonComponent: 'OpenButton',
@@ -41,14 +45,6 @@ class DateNavigatorBase extends React.PureComponent<DateNavigatorProps, DateNavi
     calendarNavigatorComponent: 'CalendarNavigator',
     calendarNavigationButtonComponent: 'CalendarNavigationButton',
   };
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      visible: false,
-    };
-  }
 
   setRootRef = (target) => {
     this.target = target;

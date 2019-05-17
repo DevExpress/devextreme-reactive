@@ -5,6 +5,7 @@ import {
   Template,
   TemplatePlaceholder,
   TemplateConnector,
+  PluginComponents,
 } from '@devexpress/dx-react-core';
 import {
   allDayCells,
@@ -22,15 +23,22 @@ const pluginDependencies = [
   { name: 'DayView', optional: true },
   { name: 'WeekView', optional: true },
 ];
-
 const defaultMessages = {
   allDay: 'All Day',
 };
-
 const MONTH = 'Month';
+const AppointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
+const AllDayPanelPlaceholder = params => <TemplatePlaceholder name="allDayPanel" params={params} />;
+const CellPlaceholder = params => <TemplatePlaceholder name="allDayPanelCell" params={params} />;
 
 class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelState> {
-  static components = {
+  state = {
+    tableRef: null,
+  };
+  static defaultProps: Partial<AllDayPanelProps> = {
+    messages: {},
+  };
+  static components: PluginComponents = {
     appointmentLayerComponent: 'AppointmentLayer',
     layoutComponent: 'Layout',
     cellComponent: 'Cell',
@@ -38,26 +46,6 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
     titleCellComponent: 'TitleCell',
     containerComponent: 'Container',
   };
-  static defaultProps = {
-    messages: {},
-  };
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      tableRef: null,
-    };
-  }
-
-  appointmentPlaceholder = params =>
-    <TemplatePlaceholder name="appointment" params={params} />
-
-  allDayPanelPlaceholder = params =>
-    <TemplatePlaceholder name="allDayPanel" params={params} />
-
-  cellPlaceholder = params =>
-    <TemplatePlaceholder name="allDayPanelCell" params={params} />
 
   allDayPanelRef = (ref) => {
     this.setState({
@@ -77,7 +65,6 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
     } = this.props;
     const { tableRef } = this.state;
     const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
-    const { allDayPanelPlaceholder: AllDayPanelPlaceholder } = this;
 
     return (
       <Plugin
@@ -121,7 +108,8 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
                 appointments, startViewDate, endViewDate, excludedDays,
               );
               const rects = tableRef
-              && tableRef.querySelectorAll('th').length === viewCellsData[0].length
+              && (tableRef! as HTMLElement)
+                .querySelectorAll('th').length === viewCellsData[0].length
               ? calculateRectByDateIntervals(
                 {
                   growDirection: HORIZONTAL_TYPE,
@@ -134,15 +122,14 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
                   endViewDate,
                   excludedDays,
                   viewCellsData,
-                  cellElements: tableRef.querySelectorAll('th'),
+                  cellElements: (tableRef! as HTMLElement).querySelectorAll('th'),
                 },
               ) : [];
-              const { appointmentPlaceholder: AppointmentPlaceholder } = this;
               return (
                 <React.Fragment>
                   <Layout
                     allDayPanelRef={this.allDayPanelRef}
-                    cellComponent={this.cellPlaceholder}
+                    cellComponent={CellPlaceholder}
                     rowComponent={Row}
                     cellsData={allDayCells(viewCellsData) as AllDayCell[]}
                   />

@@ -202,7 +202,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
         <Getter name="currentView" computed={this.currentViewComputed} />
         <Getter name="intervalCount" computed={this.intervalCountComputed} />
         <Getter name="firstDayOfWeek" computed={this.firstDayOfWeekComputed} />
-        <Getter name="excludedDays" value={this.excludedDaysComputed} />
+        <Getter name="excludedDays" computed={this.excludedDaysComputed} />
         <Getter name="viewCellsData" computed={this.viewCellsDataComputed} />
         <Getter name="startViewDate" computed={this.startViewDateComputed} />
         <Getter name="endViewDate" computed={this.endViewDateComputed} />

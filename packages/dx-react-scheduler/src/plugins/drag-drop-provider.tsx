@@ -4,6 +4,7 @@ import {
   Plugin, Template, TemplatePlaceholder,
   TemplateConnector, DropTarget, DragSource,
   DragDropProvider as DragDropProviderCore,
+  PluginComponents,
 } from '@devexpress/dx-react-core';
 import {
   cellIndex,
@@ -56,38 +57,27 @@ const pluginDependencies = [
 class DragDropProviderBase extends React.PureComponent<
   DragDropProviderProps, DragDropProviderState
 > {
-  timeTableDraftAppointments: any;
-  allDayDraftAppointments: any;
-  offsetTimeTop: number | null;
-  appointmentStartTime: any;
-  appointmentEndTime: any;
+  timeTableDraftAppointments: any = [];
+  allDayDraftAppointments: any = [];
+  offsetTimeTop: number | null = null;
+  appointmentStartTime: any = null;
+  appointmentEndTime: any = null;
 
-  static components = {
+  state = {
+    startTime: null,
+    endTime: null,
+    payload: null,
+  };
+  static components: PluginComponents = {
     containerComponent: 'Container',
     draftAppointmentComponent: 'DraftAppointment',
     sourceAppointmentComponent: 'SourceAppointment',
     resizeComponent: 'Resize',
   };
-  static defaultProps = {
+  static defaultProps: Partial<DragDropProviderProps> = {
     allowDrag: () => true,
     allowResize: () => true,
   };
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      startTime: null,
-      endTime: null,
-      payload: null,
-    };
-
-    this.timeTableDraftAppointments = [];
-    this.allDayDraftAppointments = [];
-    this.offsetTimeTop = null;
-    this.appointmentStartTime = null;
-    this.appointmentEndTime = null;
-  }
 
   onDrop(actions) {
     return () => this.handleDrop(actions);
@@ -128,8 +118,8 @@ class DragDropProviderBase extends React.PureComponent<
 
     const { payload: prevPayload } = this.state;
 
-    stopEditAppointment({ appointmentId: prevPayload.id });
-    commitChangedAppointment({ appointmentId: prevPayload.id });
+    stopEditAppointment({ appointmentId: (prevPayload as any).id });
+    commitChangedAppointment({ appointmentId: (prevPayload as any).id });
     this.resetCache();
   }
 
@@ -168,8 +158,8 @@ class DragDropProviderBase extends React.PureComponent<
     this.offsetTimeTop = offsetTimeTop!;
 
     const { startTime, endTime } = this.state;
-    if (moment(startTime as Date).isSame(this.appointmentStartTime)
-      && moment(endTime as Date).isSame(this.appointmentEndTime)) return;
+    if (moment(startTime!).isSame(this.appointmentStartTime)
+      && moment(endTime!).isSame(this.appointmentEndTime)) return;
 
     const draftAppointments = [{
       dataItem: {
@@ -200,8 +190,8 @@ class DragDropProviderBase extends React.PureComponent<
 
   handleDrop({ commitChangedAppointment, stopEditAppointment }) {
     const { payload } = this.state;
-    stopEditAppointment({ appointmentId: payload.id });
-    commitChangedAppointment({ appointmentId: payload.id });
+    stopEditAppointment({ appointmentId: (payload as any).id });
+    commitChangedAppointment({ appointmentId: (payload as any).id });
     this.resetCache();
   }
 
@@ -217,7 +207,7 @@ class DragDropProviderBase extends React.PureComponent<
     } = this.props;
 
     const draftData = {
-      ...payload, startDate: this.appointmentStartTime, endDate: this.appointmentEndTime,
+      ...(payload as any), startDate: this.appointmentStartTime, endDate: this.appointmentEndTime,
     };
 
     return (
@@ -264,11 +254,11 @@ class DragDropProviderBase extends React.PureComponent<
           name="appointmentContent"
           predicate={({ data }: any) => allowDrag!(data)}
         >
-          {({ style, ...params }: any) => (
+          {({ styles, ...params }: any) => (
             <DragSource
               payload={{ ...params.data, type: params.type }}
             >
-              {payload && params.data.id === payload.id ? (
+              {payload && params.data.id === (payload as any).id ? (
                 <SourceAppointment {...params} />
               ) : (
                 <TemplatePlaceholder params={{ ...params, draggable: true }} />

@@ -7,7 +7,7 @@ import {
 import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from './constants';
 import { withHostAndPosition } from '../utils/with-props-from-context';
 import { PluginContextProps } from './plugin-context-prop-types';
-import { Actions, Getters } from './getter';
+import { Getters, Actions } from '../types';
 
 export interface ActionProps {
   /** The action name. */

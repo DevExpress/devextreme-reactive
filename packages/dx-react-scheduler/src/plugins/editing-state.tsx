@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  Action, Plugin, Getter, createStateHelper, StateHelper,
+  Action, Plugin, Getter, createStateHelper, StateHelper, ComputedFn, ActionFn,
 } from '@devexpress/dx-react-core';
 import {
   addAppointment,
@@ -15,16 +15,16 @@ import {
 import { EditingStateProps, EditingStateState } from '../types';
 
 class EditingStateBase extends React.PureComponent<EditingStateProps, EditingStateState> {
-  startEditAppointment: (payload: any) => void;
-  stopEditAppointment: (payload?: any) => void;
-  changeAppointment: (payload: any) => void;
-  cancelChangedAppointment: (payload?: any) => void;
-  commitChangedAppointment: (payload: any) => void;
-  addAppointment: (payload: any) => void;
-  changeAddedAppointment: (payload: any) => void;
-  cancelAddedAppointment: (payload?: any) => void;
-  commitAddedAppointment: (payload: any) => void;
-  commitDeletedAppointment: (payload: any) => void;
+  startEditAppointment: ComputedFn;
+  stopEditAppointment: ComputedFn;
+  changeAppointment: ComputedFn;
+  cancelChangedAppointment: ComputedFn;
+  commitChangedAppointment: ActionFn<any>;
+  addAppointment: ComputedFn;
+  changeAddedAppointment: ComputedFn;
+  cancelAddedAppointment: ComputedFn;
+  commitAddedAppointment: ComputedFn;
+  commitDeletedAppointment: ActionFn<any>;
 
   static defaultProps: Partial<EditingStateProps> = {
     defaultAppointmentChanges: {},

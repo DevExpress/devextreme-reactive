@@ -5,6 +5,8 @@ import {
   Plugin,
   createStateHelper,
   StateHelper,
+  ActionFn,
+  ComputedFn,
 } from '@devexpress/dx-react-core';
 import {
   changeCurrentDate,
@@ -14,8 +16,8 @@ import {
 import { ViewStateProps, ViewStateState } from '../types';
 
 class ViewStateBase extends React.PureComponent<ViewStateProps, ViewStateState> {
-  changeCurrentDate: (payload: ChangeCurrentDatePayload) => void;
-  setCurrentViewName: (payload: string) => void;
+  changeCurrentDate: ActionFn<ChangeCurrentDatePayload>;
+  setCurrentViewName: ActionFn<string>;
 
   static defaultProps: Partial<ViewStateProps> = {
     defaultCurrentDate: new Date(),
@@ -63,7 +65,7 @@ class ViewStateBase extends React.PureComponent<ViewStateProps, ViewStateState> 
 
   render() {
     const { currentDate, currentViewName: stateCurrentViewName } = this.state;
-    const currentViewComputed = () => (
+    const currentViewComputed: ComputedFn = () => (
       stateCurrentViewName
         ? { name: stateCurrentViewName }
         : undefined

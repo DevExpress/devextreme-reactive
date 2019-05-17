@@ -1,5 +1,11 @@
 .container {
   position: absolute;
   right: 0;
-  top: 120px;
+  top: 130px;
+}
+
+@media(max-width: 1359px) {
+  .container {
+    top: 170px;
+  }
 }

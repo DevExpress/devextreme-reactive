@@ -10,12 +10,15 @@ import LandingLink from '../../../components/landing/link';
 import LandingReadyToLearnMore from '../../../components/landing/ready-to-learn-more';
 import imageBoxLink from '../../images/image-box.png';
 
+import LandingThingsThatMatter from '../../../components/landing/things-that-matter';
+import ButtonLinksContainer from '../../../components/landing/button-links-container';
 import LandingIconFeature from '../../../components/landing/icon-feature';
 import LandingLayout from '../../../components/landing/layout';
 import LandingTitle from '../../../components/landing/title';
 import LandingImageFeature from '../../../components/landing/image-feature';
 import bootstrapThemeLink from './images/bootstrap-theme.png';
 import materialThemeLink from './images/material-theme.png';
+import AlternatedBackground from '../../../components/landing/alternated-background';
 
 const pageData = [
   {
@@ -56,6 +59,8 @@ const pageData = [
     description: 'The Month View displays a snapshot of appointments across an entire month. As you would expect, because of the number of days the Scheduler control displays within an application, the view itself is the least detailed of all available.',
     imageLink: imageBoxLink,
   },
+];
+const comingSoonItems = [
   {
     alternative: true,
     sectionTitle: 'More Coming Soon',
@@ -84,66 +89,59 @@ const IndexPage = () => (
               for Bootstrap and Material-UI
               <br />
               <br />
-              <LandingLink
-                to="/react/scheduler/docs/guides/getting-started/"
-                variant="button"
-                title="Getting Started"
-              >
-                Getting Started
-              </LandingLink>
-              {' '}
-              <LandingLink
-                to="/react/scheduler/demos/"
-                type="react"
-                variant="button"
-                title="Demos"
-              >
-                Demos
-              </LandingLink>
+              <br />
+              <ButtonLinksContainer>
+                <LandingLink
+                  to="/react/scheduler/docs/guides/getting-started/"
+                  variant="button"
+                  title="Getting Started"
+                  wide
+                >
+                  Getting Started
+                </LandingLink>
+                {' '}
+                <LandingLink
+                  to="/react/scheduler/demos/"
+                  type="react"
+                  variant="button"
+                  title="Demos"
+                  wide
+                >
+                  Demos
+                </LandingLink>
+              </ButtonLinksContainer>
             </React.Fragment>
           )}
         />
       )}
     />
-    <LandingChessBoardLayoutList data={pageData} colSize={6} />
-    <LandingLayout>
-      <LandingTitle text="Native Support for the UI Library of Your Choice" />
-      <LandingImageFeature
-        imageLink={bootstrapThemeLink}
-        title="Twitter Bootstrap (Coming Soon)"
-        description="Use any existing or create your custom bootstrap theme. No need for any additional configuration."
-      />
-      <LandingImageFeature
-        imageLink={materialThemeLink}
-        title="Material Design Rendering"
-        description="We ship additional Material-UI packages that allow you to utilize the familiar approaches and appearance."
-      />
-    </LandingLayout>
+    <div className="row my-3" />
+    <LandingChessBoardLayoutList data={pageData} columns={3} />
+    <LandingChessBoardLayoutList data={comingSoonItems} />
+
+    <AlternatedBackground>
+      <LandingLayout>
+        <LandingTitle text="Native Support for the UI Library of Your Choice" />
+        <LandingImageFeature
+          imageLink={bootstrapThemeLink}
+          title="Twitter Bootstrap (Coming Soon)"
+          description="Use any existing or create your custom bootstrap theme. No need for any additional configuration."
+        />
+        <LandingImageFeature
+          imageLink={materialThemeLink}
+          title="Material Design Rendering"
+          description="We ship additional Material-UI packages that allow you to utilize the familiar approaches and appearance."
+        />
+      </LandingLayout>
+    </AlternatedBackground>
 
     <LandingLayout>
-      <LandingTitle text="And Things That Also Matter..." />
+      <LandingThingsThatMatter />
     </LandingLayout>
 
-    <LandingLayout>
-      <LandingIconFeature
-        title="Customization"
-        description="Wide customization and extensibility capabilities. From template React components to custom plugins."
-      />
-      <LandingIconFeature
-        title="Localization"
-        description="Every textual piece of our React components is customizable. Localize or globalize your react app with ease."
-      />
-      <LandingIconFeature
-        title="TypeScript"
-        description="Create easy-to-maintain and bug-free React applications with our autogenerated TypeScript definitions."
-      />
-      <LandingIconFeature
-        title="Docs & Examples"
-        description="Improve your productivity using our comprehensive and simple docs with live React demos and code examples."
-      />
-    </LandingLayout>
-
-    <LandingMaintainence />
+    <AlternatedBackground style={{ paddingTop: '10px', paddingBottom: '10px' }}>
+      <LandingMaintainence />
+    </AlternatedBackground>
     <LandingReadyToLearnMore
       links={(
         <React.Fragment>
@@ -151,6 +149,7 @@ const IndexPage = () => (
             to="/react/scheduler/docs/guides/getting-started/"
             variant="button"
             title="Getting Started"
+            wide
           >
             Getting Started
           </LandingLink>
@@ -160,6 +159,7 @@ const IndexPage = () => (
             type="react"
             variant="button"
             title="Demos"
+            wide
           >
             Demos
           </LandingLink>

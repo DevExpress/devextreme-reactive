@@ -4,7 +4,6 @@
   background-image: url("./images/header-background.png");
   background-size: cover;
   background-position: center top;
-  padding-bottom: 65px;
 }
 
 .header-container {
@@ -74,5 +73,11 @@
         margin-bottom: 25px;
       }
     }
+  }
+}
+
+@media (min-width: 800px) {
+  .header {
+    padding-bottom: 65px;
   }
 }

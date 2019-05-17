@@ -35,14 +35,14 @@
 }
 
 @media screen and (max-width: 1024px) {
-  .productBlock {
+  .container {
     margin-bottom: 20px;
   }
 }
 
 @media screen and (max-width: 800px) {
-  .productBlock {
-    margin-left: 20px;
-    margin-right: 20px;
+  .container {
+    margin-left: 10px;
+    margin-right: 10px;
   }
 }

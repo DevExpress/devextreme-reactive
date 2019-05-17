@@ -6,7 +6,7 @@ import styles from './header-addon.module.scss';
 const HeaderAddon = ({ main, additional, imageLink }) => (
   <div className={styles.cropper}>
     <div className="container">
-      <div className={`row ${styles.container}`}>
+      <div className={`row ${styles.container} ${imageLink !== undefined ? styles.withImage : ''}`}>
         <div className={`col-md-6 col-sm-6 ${styles.block}`}>
           <div className={styles.main}>
             {main}

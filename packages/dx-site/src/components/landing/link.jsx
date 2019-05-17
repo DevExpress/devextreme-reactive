@@ -8,7 +8,7 @@ const Link = ({
   children, type, to, variant, title, wide,
 }) => (
   <GatsbyLink
-    className={`${styles.link} ${type ? styles[type] : ''} ${styles[variant]} ${wide ? styles.wide : ''}`}
+    className={`${styles.link} ${type ? styles[type] : ''} ${styles[variant]} ${wide ? styles.large : ''}`}
     to={to}
     {...title ? { title } : null}
   >

@@ -10,5 +10,10 @@
 .links {
   display: inline-block;
   position: relative;
-  top: -6px;
+}
+
+@media (min-width: 1000px) {
+  .links {
+    top: -6px;
+  }
 }

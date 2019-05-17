@@ -33,7 +33,6 @@ const FeaturesList = ({
           )
           : <LayoutRow items={items} title={sectionTitle} />
         )}
-        {/* <hr /> */}
       </>
     );
   });

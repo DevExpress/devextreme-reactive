@@ -13,6 +13,8 @@ import LandingMaintainence from '../components/landing/maintainence';
 import LandingProductLayout from '../components/landing/product-layout';
 import LandingProductBlock from '../components/landing/product-block';
 import LandingLink from '../components/landing/link';
+import AlternatedBackground from '../components/landing/alternated-background';
+
 import headerLink from './images/header.png';
 import bootstrapLogo from './images/bootstrap-logo.svg';
 import materialUiLogo from './images/material-ui-logo.svg';
@@ -174,7 +176,9 @@ const IndexPage = () => (
       </LandingLayout>
     </LandingAlternatedBackground>
     <LandingChessBoardLayoutList data={pageData} />
-    <LandingMaintainence />
+    <AlternatedBackground style={{ paddingTop: '10px', paddingBottom: '10px' }}>
+      <LandingMaintainence />
+    </AlternatedBackground>
     <LandingProductLayout
       position="footer"
     >

@@ -10,6 +10,19 @@
 
 @media screen and (max-width: 800px) {
   .header {
-    margin-top: -210px;
+    margin-top: -420px;
+  }
+}
+
+@media (max-width: 640px) {
+  .header {
+    margin-top: -220px;
+  }
+}
+
+@media screen and (min-width: 1000px) and (max-width: 1280px) {
+  .header {
+    margin-top: -255px;
+    margin-bottom: 14px;
   }
 }

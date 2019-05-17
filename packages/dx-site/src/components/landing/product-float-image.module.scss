@@ -1,11 +1,25 @@
 .container {
-  position: absolute;
-  right: 0;
-  top: 130px;
+  float: right;
 }
 
-@media(max-width: 1359px) {
-  .container {
-    top: 170px;
+.relativeWrapper {
+  position: relative;
+}
+
+.image {
+  position: absolute;
+  top: -370px;
+  left: 0;
+}
+
+@media (max-width: 720px) {
+  .image {
+    left: 20px;
+  }
+}
+
+@media (max-width: 680px) {
+  .image {
+    left: 40px;
   }
 }

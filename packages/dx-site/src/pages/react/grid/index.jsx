@@ -130,6 +130,7 @@ const IndexPage = () => (
   <Layout>
     <Helmet title="React Grid" />
     <Header
+      page="productPage"
       logo={<ProductLogo link="react/grid" />}
       addon={(
         <LandingHeaderAddon
@@ -145,7 +146,7 @@ const IndexPage = () => (
                   to="/react/grid/docs/guides/getting-started/"
                   variant="button"
                   title="Getting Started"
-                  wide
+                  fixedWidth
                 >
                   Getting Started
                 </LandingLink>
@@ -155,7 +156,7 @@ const IndexPage = () => (
                   type="react"
                   variant="button"
                   title="Demos"
-                  wide
+                  fixedWidth
                 >
                   Demos
                 </LandingLink>
@@ -165,8 +166,8 @@ const IndexPage = () => (
         />
       )}
     />
-    <div className="row my-3" />
     <LandingProductFloatImage imageLink={headerLink} />
+    <div className="row my-3" />
     <LandingChessBoardLayoutList data={pageData} colSize={6} />
 
     <LandingLayout>

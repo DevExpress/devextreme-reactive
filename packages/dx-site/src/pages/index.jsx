@@ -91,6 +91,7 @@ const IndexPage = () => (
         position="header"
       >
         <LandingProductBlock
+          condensed
           type="react"
           iconLink={reactGridIcon}
           title={'React\nGrid'}
@@ -113,6 +114,7 @@ const IndexPage = () => (
           ]}
         />
         <LandingProductBlock
+          condensed
           type="react"
           iconLink={reactChartIcon}
           title={'React\nChart'}
@@ -135,6 +137,7 @@ const IndexPage = () => (
           ]}
         />
         <LandingProductBlock
+          condensed
           type="react"
           iconLink={reactSchedulerIcon}
           title={'React\nScheduler'}
@@ -176,9 +179,10 @@ const IndexPage = () => (
       </LandingLayout>
     </LandingAlternatedBackground>
     <LandingChessBoardLayoutList data={pageData} />
-    <AlternatedBackground style={{ paddingTop: '10px', paddingBottom: '10px' }}>
+    <AlternatedBackground style={{ paddingTop: '10px', paddingBottom: '20px' }}>
       <LandingMaintainence />
     </AlternatedBackground>
+
     <LandingProductLayout
       position="footer"
     >

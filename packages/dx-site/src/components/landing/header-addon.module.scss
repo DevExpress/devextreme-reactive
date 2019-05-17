@@ -51,3 +51,12 @@
     padding-bottom: 220px;
   }
 }
+
+@media screen and (max-width: 1280px) {
+  .main {
+    font-size: 42px;
+  }
+  .additional {
+    font-size: 28px;
+  }
+}

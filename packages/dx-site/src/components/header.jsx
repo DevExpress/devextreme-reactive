@@ -35,10 +35,10 @@ class Header extends React.Component {
   }
 
   render() {
-    const { logo, links, addon } = this.props;
+    const { logo, links, addon, page } = this.props;
     const { menuVisibility } = this.state;
     return (
-      <header className={styles.header}>
+      <header className={`${styles.header} ${styles[page]} `}>
         <div className={`container ${styles.headerContainer}`}>
           <div className="row align-items-center">
             <div className="col-auto mr-auto">

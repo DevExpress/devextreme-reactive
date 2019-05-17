@@ -16,4 +16,7 @@
   .links {
     top: -6px;
   }
+  .links > a {
+    display: initial;
+  }
 }

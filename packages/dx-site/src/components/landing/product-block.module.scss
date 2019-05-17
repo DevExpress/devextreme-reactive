@@ -7,10 +7,6 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
 }
 
-.titleWrapper {
-  margin-bottom: 37px;
-}
-
 .icon {
   margin-right: 10px;
 }
@@ -34,7 +30,20 @@
   background-color: rgb(89, 208, 240);
 }
 
-@media screen and (max-width: 1024px) {
+.links {
+  text-align: center;
+}
+.links > a {
+  display: inline-block;
+}
+
+.divider {
+  min-width: 1px;
+  height: 100%;
+  background-color: #ace8f8;
+}
+
+@media screen and (max-width: 1000px) {
   .container {
     margin-bottom: 20px;
   }
@@ -44,5 +53,49 @@
   .container {
     margin-left: 10px;
     margin-right: 10px;
+  }
+}
+
+@media (min-width: 530px) and (max-width: 639.9px) {
+  .container {
+    height: 150px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .titleWrapper,
+  .links {
+    flex: 0 0 50%;
+    max-width: 50%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .titleWrapper {
+    margin-top: -4px;
+    padding-right: 30px;
+  }
+
+  .links {
+    padding-left: 30px;
+  }
+
+  .divider {
+    display: block;
+  }
+}
+
+
+@media (max-width: 530px), (min-width: 640px) {
+  .container {
+    flex-direction: column !important;
+  }
+
+  .titleWrapper {
+    margin-bottom: 37px;
+  }
+
+  .divider {
+    display: none;
   }
 }

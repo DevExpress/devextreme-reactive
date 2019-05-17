@@ -136,7 +136,7 @@ const IndexPage = () => (
                   to="/react/chart/docs/guides/getting-started/"
                   variant="button"
                   title="Getting Started"
-                  wide
+                  fixedWidth
                 >
                   Getting Started
                 </LandingLink>
@@ -146,7 +146,7 @@ const IndexPage = () => (
                   type="react"
                   variant="button"
                   title="Demos"
-                  wide
+                  fixedWidth
                 >
                   Demos
                 </LandingLink>

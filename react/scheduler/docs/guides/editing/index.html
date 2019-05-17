@@ -14,8 +14,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.min.css" type="text/css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/addon/fold/foldgutter.min.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1553778960">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1553778960">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1558079891">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1558079891">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <script>
@@ -77,6 +77,7 @@
   <li><a href="/devextreme-reactive/react/scheduler/docs/reference/editing-state/">EditingState</a> - controls the editing state</li>
   <li><a href="/devextreme-reactive/react/scheduler/docs/reference/appointment-tooltip/">AppointmentTooltip</a> - renders a tooltip with controls that manage the appointment</li>
   <li><a href="/devextreme-reactive/react/scheduler/docs/reference/appointment-form/">AppointmentForm</a> - renders a form that allows a user to edit an appointment</li>
+  <li><a href="/devextreme-reactive/react/scheduler/docs/reference/drag-drop-provider/">DragDropProvider</a> - implements drag-and-drop editing</li>
 </ul>
 
 <h2 id="user-interaction">User Interaction</h2>
@@ -92,15 +93,18 @@
 
 <h3 id="update-an-appointment">Update an Appointment</h3>
 
-<p>Double-click an appointment to open the appointment editing form.</p>
-
-<p>OR</p>
-
-<p>Click an appointment for the appointment tooltip to appear, and then click Edit in the tooltip to open the appointment editing form.</p>
+<ul>
+  <li>Double-click an appointment to open the appointment editing form;</li>
+  <li>Click an appointment to invoke its tooltip, and then click Edit in the tooltip to open the appointment editing form;</li>
+  <li>Drag an appointment to another cell to reschedule it. This functionality requires the <a href="/devextreme-reactive/react/scheduler/docs/reference/drag-drop-provider/">DragDropProvider</a> plugin;</li>
+  <li>Drag an appointment’s top or bottom border (left or right border for horizontal appointments) to change the appointment’s duration.</li>
+</ul>
 
 <h3 id="delete-an-appointment">Delete an Appointment</h3>
 
-<p>Click an appointment to invoke the appointment tooltip, and then click Delete in the tooltip to remove the appointment.</p>
+<ul>
+  <li>Click an appointment to invoke its tooltip, and then click Delete in the tooltip to remove the appointment.</li>
+</ul>
 
 <h2 id="basic-setup">Basic Setup</h2>
 
@@ -116,7 +120,7 @@
   <li><code class="highlighter-rouge">defaultAppointmentChanges</code> - changes made to the appointment</li>
 </ul>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/scheduler-editing/uncontrolled&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/scheduler/demos/dist/index.js?v=1553778960&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1553778960&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/scheduler-editing/uncontrolled&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/scheduler/demos/dist/index.js?v=1558079891&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1558079891&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -134,7 +138,7 @@
 
 <p>You can also use the <code class="highlighter-rouge">onAddedAppointmentChange</code> event to initialize a new appointment’s properties with default values.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/scheduler-editing/controlled&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/scheduler/demos/dist/index.js?v=1553778960&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1553778960&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/scheduler-editing/controlled&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/scheduler/demos/dist/index.js?v=1558079891&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1558079891&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -146,11 +150,23 @@
 
 <p>For example, you can show a confirmation dialog before an appointment is removed. To detect an attempt to remove an appointment, check the <code class="highlighter-rouge">deleted</code> parameter’s value in the <code class="highlighter-rouge">commitChanges</code> handler:</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/scheduler-editing/delete-confirmation&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/scheduler/demos/dist/index.js?v=1553778960&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1553778960&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/scheduler-editing/delete-confirmation&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/scheduler/demos/dist/index.js?v=1558079891&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1558079891&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
         </div>
+
+<h2 id="drag-and-drop-editing">Drag-and-Drop Editing</h2>
+
+<p>Add the <a href="/devextreme-reactive/react/scheduler/docs/reference/drag-drop-provider/">DragDropProvider</a> plugin to enable users to drag and drop appointments. Use its <code class="highlighter-rouge">allowDrag</code> and <code class="highlighter-rouge">allowResize</code> properties to disallow dragging and resizing specific appointments.</p>
+
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/scheduler-editing/drag-drop&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/scheduler/demos/dist/index.js?v=1558079891&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1558079891&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>
+
+<p>The <a href="/devextreme-reactive/react/scheduler/docs/reference/drag-drop-provider/">DragDropProvider</a> plugin also allows you to customize the appointment being dragged (via the <code class="highlighter-rouge">draftAppointmentComponent</code> property) and its copy displayed in its previous location (via <code class="highlighter-rouge">sourceAppointmentComponent</code>). In addition, it provides the <code class="highlighter-rouge">resizeComponent</code> property that allows you to customize the handles used to resize appointments.</p>
 
     </div>
 
@@ -162,36 +178,13 @@
       </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.10.5">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.11.0">
             Version
-            <span>1.10.5</span>
+            <span>1.11.0</span>
           </a>
         </li>
       </ul>
       <hr />
-      
-        <h3>Common Concepts</h3>
-
-        <ul class="list-unstyled">
-        
-        
-          
-          
-
-          
-          <li><a href="/devextreme-reactive/react/common/docs/guides/performance-optimization/">Optimize Performance</a></li>
-          
-
-        
-          
-          
-
-          
-          <li><a href="/devextreme-reactive/react/common/docs/guides/custom-theme/">Create a Custom Theme</a></li>
-          
-
-        
-        </ul>
       
         <h3>Guides</h3>
 
@@ -254,6 +247,37 @@
           
 
         
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/guides/localization/">Localization</a></li>
+          
+
+        
+        </ul>
+      
+        <h3>Common Concepts</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/common/docs/guides/performance-optimization/">Optimize Performance</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/common/docs/guides/custom-theme/">Create a Custom Theme</a></li>
+          
+
+        
         </ul>
       
         <h3>API Reference</h3>
@@ -306,6 +330,14 @@
 
           
           <li><a href="/devextreme-reactive/react/scheduler/docs/reference/day-view/">DayView</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/reference/drag-drop-provider/">DragDropProvider</a></li>
           
 
         
@@ -402,7 +434,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/common/dist/index.js?v=1553778960"></script>
+<script src="/devextreme-reactive/react/common/dist/index.js?v=1558079891"></script>
 
 <script
   type="text/javascript"
@@ -458,7 +490,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1553778960"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1558079891"></script>
     <script>
         trackingCookie.notice();
     </script>

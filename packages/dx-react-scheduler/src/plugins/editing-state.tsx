@@ -16,13 +16,13 @@ import { EditingStateProps, EditingStateState } from '../types';
 
 class EditingStateBase extends React.PureComponent<EditingStateProps, EditingStateState> {
   startEditAppointment: ComputedFn;
-  stopEditAppointment: ComputedFn;
+  stopEditAppointment: (payload?: any) => void;
   changeAppointment: ComputedFn;
-  cancelChangedAppointment: ComputedFn;
+  cancelChangedAppointment: (payload?: any) => void;
   commitChangedAppointment: ActionFn<any>;
   addAppointment: ComputedFn;
   changeAddedAppointment: ComputedFn;
-  cancelAddedAppointment: ComputedFn;
+  cancelAddedAppointment: (payload?: any) => void;
   commitAddedAppointment: ComputedFn;
   commitDeletedAppointment: ActionFn<any>;
 

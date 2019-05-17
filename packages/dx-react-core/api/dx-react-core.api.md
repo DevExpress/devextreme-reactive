@@ -17,8 +17,11 @@ export interface ActionProps {
 
 // @public (undocumented)
 export type Actions = {
-    [actionName: string]: (payload?: any) => void;
+  [actionName: string]: (payload?: any) => void;
 };
+
+// @public (undocumented)
+export type ComputedFn = (getters: Getters, actions: Actions) => void;
 
 // @public
 export const connectProps: (WrappedComponent: React.ComponentType<any>, getAdditionalProps: () => object) => (React.ComponentClass<any, any> & {
@@ -32,14 +35,14 @@ export const Getter: React.ComponentType<GetterProps>;
 
 // @public (undocumented)
 export interface GetterProps {
-    computed?: (getters: Getters, actions: Actions) => any;
+    computed?: ComputedFn;
     name: string;
     value?: any;
 }
 
 // @public (undocumented)
 export type Getters = {
-    readonly [getterName: string]: any;
+  readonly [getterName: string]: any;
 };
 
 // @public (undocumented)

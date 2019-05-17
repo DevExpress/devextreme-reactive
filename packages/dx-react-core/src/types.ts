@@ -34,4 +34,4 @@ export type SizerProps = {
 
 export type Getters = { readonly [getterName: string]: any };
 export type Actions = { [actionName: string]: (payload?: any) => void };
-export type ComputedFn = (getters?: Getters, actions?: Actions) => void;
+export type ComputedFn = (getters: Getters, actions: Actions) => void;

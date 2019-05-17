@@ -12,5 +12,5 @@ export interface TitleProps {
   /** A component that renders the title */
   textComponent: React.ComponentType<Title.TextProps>;
   /** The title position */
-  position?: 'top' | 'bottom' | 'left' | 'right';
+  position?: 'top' | 'bottom';
 }

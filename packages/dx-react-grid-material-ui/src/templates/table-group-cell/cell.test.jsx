@@ -22,12 +22,15 @@ describe('TableGroupCell', () => {
     classes = getClasses(<TableGroupCell {...defaultProps} />);
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
     shallow = createShallow({ dive: true });
+  });
+  beforeEach(() => {
     mount = createMount();
   });
-
+  afterEach(() => {
+    mount.cleanUp();
+  });
   afterAll(() => {
     resetConsole();
-    mount.cleanUp();
   });
 
   it('should render children inside content component if passed', () => {

@@ -1,6 +1,6 @@
 import babel from 'rollup-plugin-babel';
 import resolve from 'rollup-plugin-node-resolve';
-import css from 'rollup-plugin-css-only'
+import sass from 'rollup-plugin-sass';
 import { external } from '../../tools/rollup-utils';
 import pkg from './package.json';
 
@@ -11,7 +11,7 @@ export default {
   ],
   external: external(__dirname),
   plugins: [
-    css({ output: pkg.styles }),
+    sass({ output: pkg.styles, include: ['../**/*.css'] }),
     resolve({
       main: false,
       extensions: ['.js', '.jsx'],
@@ -19,6 +19,7 @@ export default {
     babel({
       runtimeHelpers: true,
       exclude: 'node_modules/**',
+      rootMode: 'upward',
     }),
   ],
 };

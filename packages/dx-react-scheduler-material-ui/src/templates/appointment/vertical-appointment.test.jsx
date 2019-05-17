@@ -17,7 +17,12 @@ describe('VerticalAppointment', () => {
   let mount;
   beforeAll(() => {
     classes = getClasses(<VerticalAppointment {...defaultProps} />);
+  });
+  beforeEach(() => {
     mount = createMount({ dive: true });
+  });
+  afterEach(() => {
+    mount.cleanUp();
   });
   describe('VerticalAppointment', () => {
     it('should render title', () => {
@@ -52,15 +57,17 @@ describe('VerticalAppointment', () => {
     });
 
     it('should render children', () => {
-      const child = mount((
+      const tree = mount((
         <VerticalAppointment
           {...defaultProps}
         >
           <div className="child" />
         </VerticalAppointment>
-      )).find('.child');
+      ));
 
-      expect(child.exists())
+      expect(tree.find('.child').exists())
+        .toBeTruthy();
+      expect(tree.find(`.${classes.content}`).exists())
         .toBeTruthy();
     });
 

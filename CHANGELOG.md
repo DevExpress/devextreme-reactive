@@ -1,3 +1,29 @@
+# [1.11.0](https://github.com/DevExpress/devextreme-reactive/compare/v1.11.0-beta.1...v1.11.0) (2019-05-17)
+
+
+### Bug Fixes
+
+* **react-chart:** fix layout of the value axes ([#1996](https://github.com/DevExpress/devextreme-reactive/issues/1996)) ([030f4b1](https://github.com/DevExpress/devextreme-reactive/commit/030f4b1))
+* **react-chart:** fix spacing on axis labels in Edge ([#2006](https://github.com/DevExpress/devextreme-reactive/issues/2006)) ([568ba8a](https://github.com/DevExpress/devextreme-reactive/commit/568ba8a))
+* **react-core:** prevent Getter losing on Plugin adding ([#2002](https://github.com/DevExpress/devextreme-reactive/issues/2002)) ([89f4e87](https://github.com/DevExpress/devextreme-reactive/commit/89f4e87))
+* **react-grid:** add transform style for IE11 ([#2001](https://github.com/DevExpress/devextreme-reactive/issues/2001)) ([ef75b9c](https://github.com/DevExpress/devextreme-reactive/commit/ef75b9c))
+* **react-grid:** consider fixed columns when columns are virtualized ([#2014](https://github.com/DevExpress/devextreme-reactive/issues/2014)) ([f13c525](https://github.com/DevExpress/devextreme-reactive/commit/f13c525))
+* **react-grid:** provide minWidth to virtual table in Safari ([#2034](https://github.com/DevExpress/devextreme-reactive/issues/2034)) ([55a9d3d](https://github.com/DevExpress/devextreme-reactive/commit/55a9d3d))
+* **react-scheduler:** move children inside ([#2018](https://github.com/DevExpress/devextreme-reactive/issues/2018)) ([bbd4198](https://github.com/DevExpress/devextreme-reactive/commit/bbd4198))
+* **react-scheduler:** pass formatDate func into DnD drafts ([#2031](https://github.com/DevExpress/devextreme-reactive/issues/2031)) ([63df375](https://github.com/DevExpress/devextreme-reactive/commit/63df375))
+
+
+### Features
+
+* **react-scheduler:** support scheduler localization capability ([#1985](https://github.com/DevExpress/devextreme-reactive/issues/1985)) ([286003e](https://github.com/DevExpress/devextreme-reactive/commit/286003e))
+
+
+### BREAKING CHANGES
+
+* **react-chart:** We have replaced the `dominantBaseline` option with the `dy` option for axis labels because Edge does not support the former. The `dy` option does not change the baseline position and simply shifts text up or down. 
+
+
+
 # [1.11.0-beta.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.11.0-alpha.1...v1.11.0-beta.1) (2019-04-24)
 
 

@@ -6,6 +6,7 @@ import {
   TemplateConnector,
   TemplatePlaceholder,
   Getters,
+  PluginComponents,
 } from '@devexpress/dx-react-core';
 import {
   computed,
@@ -30,13 +31,23 @@ const endViewDateBaseComputed = ({
 const startViewDateBaseComputed = ({
   viewCellsData,
 }) => startViewDateCore(viewCellsData);
+const cellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
+const AppointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
+const TimeTablePlaceholder = () => <TemplatePlaceholder name="main" />;
+const DayScalePlaceholder = () => <TemplatePlaceholder name="navbar" />;
+const DayScaleEmptyCellPlaceholder = () => <TemplatePlaceholder name="dayScaleEmptyCell" />;
+const SidebarPlaceholder = () => <TemplatePlaceholder name="sidebar" />;
 
 class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
-  timeTable: { current: HTMLElement | null };
-  layout: React.RefObject<HTMLElement>;
-  layoutHeader: React.RefObject<HTMLElement>;
+  timeTable: { current: HTMLElement | null } = { current: null };
+  layout = React.createRef<HTMLElement>();
+  layoutHeader = React.createRef<HTMLElement>();
 
-  static defaultProps = {
+  state = {
+    timeTableRef: null,
+  };
+
+  static defaultProps: Partial<WeekViewProps> = {
     startDayHour: 0,
     endDayHour: 24,
     cellDuration: 30,
@@ -46,7 +57,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
     name: 'Week',
   };
 
-  static components = {
+  static components: PluginComponents = {
     layoutComponent: 'Layout',
     appointmentLayerComponent: 'AppointmentLayer',
     dayScaleEmptyCellComponent: 'DayScaleEmptyCell',
@@ -61,17 +72,9 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
     timeTableRowComponent: 'TimeTableRow',
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      timeTableRef: null,
-    };
-
-    this.timeTable = { current: null };
-    this.layout = React.createRef();
-    this.layoutHeader = React.createRef();
-  }
+  timeTableElementComputed = () => this.timeTable;
+  layoutElementComputed = () => this.layout;
+  layoutHeaderElementComputed = () => this.layoutHeader;
 
   layoutHeaderElement = (getters: Getters) => {
     const { name: viewName } = this.props;
@@ -157,18 +160,6 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
     );
   }
 
-  timeTableElementComputed = () => {
-    return this.timeTable;
-  }
-
-  layoutElementComputed = () => {
-    return this.layout;
-  }
-
-  layoutHeaderElementComputed = () => {
-    return this.layoutHeader;
-  }
-
   currentViewComputed = ({ currentView }: Getters) => {
     const { name: viewName } = this.props;
     return (
@@ -176,30 +167,6 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
       ? currentView
       : { name: viewName, type: TYPE }
     );
-  }
-
-  sidebarPlaceholder() {
-    return <TemplatePlaceholder name="sidebar" />;
-  }
-
-  dayScalePlaceholder() {
-    return <TemplatePlaceholder name="navbar" />;
-  }
-
-  timeTablePlaceholder() {
-    return <TemplatePlaceholder name="main" />;
-  }
-
-  dayScaleEmptyCellPlaceholder() {
-    return <TemplatePlaceholder name="dayScaleEmptyCell" />;
-  }
-
-  appointmentPlaceholder(params) {
-    return <TemplatePlaceholder name="appointment" params={params} />;
-  }
-
-  cellPlaceholder(params) {
-    return <TemplatePlaceholder name="cell" params={params} />;
   }
 
   setTimeTableRef = (timeTableRef) => {
@@ -235,7 +202,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
         <Getter name="currentView" computed={this.currentViewComputed} />
         <Getter name="intervalCount" computed={this.intervalCountComputed} />
         <Getter name="firstDayOfWeek" computed={this.firstDayOfWeekComputed} />
-        <Getter name="excludedDays" computed={this.excludedDaysComputed} />
+        <Getter name="excludedDays" value={this.excludedDaysComputed} />
         <Getter name="viewCellsData" computed={this.viewCellsDataComputed} />
         <Getter name="startViewDate" computed={this.startViewDateComputed} />
         <Getter name="endViewDate" computed={this.endViewDateComputed} />
@@ -249,10 +216,10 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
                 <ViewLayout
-                  dayScaleComponent={this.dayScalePlaceholder}
-                  dayScaleEmptyCellComponent={this.dayScaleEmptyCellPlaceholder}
-                  timeTableComponent={this.timeTablePlaceholder}
-                  timeScaleComponent={this.sidebarPlaceholder}
+                  dayScaleComponent={DayScalePlaceholder}
+                  dayScaleEmptyCellComponent={DayScaleEmptyCellPlaceholder}
+                  timeTableComponent={TimeTablePlaceholder}
+                  timeScaleComponent={SidebarPlaceholder}
                   layoutRef={this.layout}
                   layoutHeaderRef={this.layoutHeader}
                 />
@@ -326,16 +293,15 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
                   endViewDate,
                   viewCellsData,
                   cellDuration,
-                  cellElements: stateTimeTableRef.querySelectorAll('td'),
+                  cellElements: (stateTimeTableRef! as HTMLElement).querySelectorAll('td'),
                 },
               ) : [];
-              const { appointmentPlaceholder: AppointmentPlaceholder } = this;
 
               return (
                 <React.Fragment>
                   <TimeTable
                     rowComponent={TimeTableRow}
-                    cellComponent={this.cellPlaceholder}
+                    cellComponent={cellPlaceholder}
                     tableRef={this.setTimeTableRef}
                     cellsData={viewCellsData}
                     formatDate={formatDate}

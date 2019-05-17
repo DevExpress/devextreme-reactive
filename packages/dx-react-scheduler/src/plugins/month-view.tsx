@@ -25,11 +25,19 @@ import { MonthViewProps, ViewState } from '../types';
 const TYPE = 'month';
 const startViewDateBaseComputed = ({ viewCellsData }) => startViewDateCore(viewCellsData);
 const endViewDateBaseComputed = ({ viewCellsData }) => endViewDateCore(viewCellsData);
+const DayScalePlaceholder = () => <TemplatePlaceholder name="navbar" />;
+const TimeTablePlaceholder = () => <TemplatePlaceholder name="main" />;
+const CellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
+const AppointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
 
 class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
-  timeTable: { current: HTMLElement | null };
-  layout: React.RefObject<HTMLElement>;
-  layoutHeader: React.RefObject<HTMLElement>;
+  timeTable: { current: HTMLElement | null } = { current: null };
+  layout = React.createRef<HTMLElement>();
+  layoutHeader = React.createRef<HTMLElement>();
+
+  state = {
+    timeTableRef: null,
+  };
 
   static defaultProps = {
     intervalCount: 1,
@@ -48,23 +56,9 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
     timeTableRowComponent: 'TimeTableRow',
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      timeTableRef: null,
-    };
-
-    this.timeTable = { current: null };
-    this.layout = React.createRef();
-    this.layoutHeader = React.createRef();
-  }
-
-  dayScalePlaceholder = () => <TemplatePlaceholder name="navbar" />;
-  timeTablePlaceholder = () => <TemplatePlaceholder name="main" />;
-  cellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
-  appointmentPlaceholder = params =>
-    <TemplatePlaceholder name="appointment" params={params} />
+  timeTableElementComputed = () => this.timeTable;
+  layoutElementComputed = () => this.layout;
+  layoutHeaderElementComputed = () => this.layoutHeader;
 
   layoutHeaderElement = (getters: Getters) => {
     const { name: viewName } = this.props;
@@ -148,10 +142,6 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
     );
   }
 
-  timeTableElementComputed = () => this.timeTable;
-  layoutElementComputed = () => this.layout;
-  layoutHeaderElementComputed = () => this.layoutHeader;
-
   setTimeTableRef = (timeTableRef) => {
     this.timeTable.current = timeTableRef;
     this.setState({ timeTableRef });
@@ -192,8 +182,8 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
                 <ViewLayout
-                  dayScaleComponent={this.dayScalePlaceholder}
-                  timeTableComponent={this.timeTablePlaceholder}
+                  dayScaleComponent={DayScalePlaceholder}
+                  timeTableComponent={TimeTablePlaceholder}
                   layoutRef={this.layout}
                   layoutHeaderRef={this.layoutHeader}
                 />
@@ -237,15 +227,14 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
                   startViewDate,
                   endViewDate,
                   viewCellsData,
-                  cellElements: stateTimeTableRef.querySelectorAll('td'),
+                  cellElements: (stateTimeTableRef! as HTMLElement).querySelectorAll('td'),
                 },
               ) : [];
-              const { appointmentPlaceholder: AppointmentPlaceholder } = this;
               return (
                 <React.Fragment>
                   <TimeTable
                     rowComponent={TimeTableRow}
-                    cellComponent={this.cellPlaceholder}
+                    cellComponent={CellPlaceholder}
                     tableRef={this.setTimeTableRef}
                     cellsData={viewCellsData}
                     formatDate={formatDate}

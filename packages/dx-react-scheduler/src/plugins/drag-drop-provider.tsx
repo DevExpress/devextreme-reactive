@@ -190,8 +190,8 @@ class DragDropProviderBase extends React.PureComponent<
 
   handleDrop({ commitChangedAppointment, stopEditAppointment }) {
     const { payload } = this.state;
-    stopEditAppointment({ appointmentId: (payload as any).id });
-    commitChangedAppointment({ appointmentId: (payload as any).id });
+    stopEditAppointment({ appointmentId: payload.id });
+    commitChangedAppointment({ appointmentId: payload.id });
     this.resetCache();
   }
 
@@ -207,7 +207,7 @@ class DragDropProviderBase extends React.PureComponent<
     } = this.props;
 
     const draftData = {
-      ...(payload as any), startDate: this.appointmentStartTime, endDate: this.appointmentEndTime,
+      ...payload, startDate: this.appointmentStartTime, endDate: this.appointmentEndTime,
     };
 
     return (
@@ -258,7 +258,7 @@ class DragDropProviderBase extends React.PureComponent<
             <DragSource
               payload={{ ...params.data, type: params.type }}
             >
-              {payload && params.data.id === (payload as any).id ? (
+              {payload && params.data.id === payload.id ? (
                 <SourceAppointment {...params} />
               ) : (
                 <TemplatePlaceholder params={{ ...params, draggable: true }} />

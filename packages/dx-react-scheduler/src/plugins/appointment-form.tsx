@@ -18,7 +18,9 @@ import {
   AppointmentModel,
 } from '@devexpress/dx-scheduler-core';
 
-import { AppointmentFormProps, AppointmentFormState } from '../types';
+import {
+  AppointmentFormProps, AppointmentFormState, AppointmentTooltip, Appointments,
+} from '../types';
 
 const defaultMessages = {
   allDayLabel: 'All Day',
@@ -238,7 +240,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
         </Template>
 
         <Template name="tooltip">
-          {(params: any) => (
+          {(params: AppointmentTooltip.LayoutProps) => (
             <TemplateConnector>
               {(getters, {
                 startEditAppointment,
@@ -247,9 +249,9 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                   params={{
                     ...params,
                     onOpenButtonClick: () => {
-                      this.openFormHandler(params.appointmentMeta.data);
+                      this.openFormHandler(params.appointmentMeta!.data);
                       callActionIfExists(startEditAppointment, {
-                        appointmentId: params.appointmentMeta.data.id,
+                        appointmentId: params.appointmentMeta!.data.id,
                       });
                     },
                   }}
@@ -260,7 +262,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
         </Template>
 
         <Template name="appointment">
-          {(params: any) => (
+          {(params: Appointments.AppointmentProps) => (
             <TemplateConnector>
               {(getters, {
                 startEditAppointment,

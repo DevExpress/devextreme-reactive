@@ -32,7 +32,7 @@ const AllDayPanelPlaceholder = params => <TemplatePlaceholder name="allDayPanel"
 const CellPlaceholder = params => <TemplatePlaceholder name="allDayPanelCell" params={params} />;
 
 class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelState> {
-  state = {
+  state: AllDayPanelState = {
     tableRef: null,
   };
   static defaultProps: Partial<AllDayPanelProps> = {
@@ -108,23 +108,22 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
                 appointments, startViewDate, endViewDate, excludedDays,
               );
               const rects = tableRef
-              && (tableRef! as HTMLElement)
-                .querySelectorAll('th').length === viewCellsData[0].length
-              ? calculateRectByDateIntervals(
-                {
-                  growDirection: HORIZONTAL_TYPE,
-                  multiline: false,
-                },
-                intervals,
-                getHorizontalRectByDates,
-                {
-                  startViewDate,
-                  endViewDate,
-                  excludedDays,
-                  viewCellsData,
-                  cellElements: (tableRef! as HTMLElement).querySelectorAll('th'),
-                },
-              ) : [];
+                && tableRef.querySelectorAll('th').length === viewCellsData[0].length
+                ? calculateRectByDateIntervals(
+                  {
+                    growDirection: HORIZONTAL_TYPE,
+                    multiline: false,
+                  },
+                  intervals,
+                  getHorizontalRectByDates,
+                  {
+                    startViewDate,
+                    endViewDate,
+                    excludedDays,
+                    viewCellsData,
+                    cellElements: tableRef.querySelectorAll('th'),
+                  },
+                ) : [];
               return (
                 <React.Fragment>
                   <Layout

@@ -36,7 +36,7 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
   layout = React.createRef<HTMLElement>();
   layoutHeader = React.createRef<HTMLElement>();
 
-  state = {
+  state: ViewState = {
     timeTableRef: null,
   };
 
@@ -228,7 +228,7 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
                   startViewDate,
                   endViewDate,
                   viewCellsData,
-                  cellElements: (stateTimeTableRef! as HTMLElement).querySelectorAll('td'),
+                  cellElements: stateTimeTableRef.querySelectorAll('td'),
                 },
               ) : [];
               return (

@@ -16,7 +16,7 @@ import {
   AppointmentMeta,
 } from '@devexpress/dx-scheduler-core';
 
-import { AppointmentTooltipProps, AppointmentTooltipState } from '../types';
+import { AppointmentTooltipProps, AppointmentTooltipState, Appointments } from '../types';
 
 const pluginDependencies = [
   { name: 'Appointments' },
@@ -156,7 +156,7 @@ class AppointmentTooltipBase extends React.PureComponent<
         </Template>
 
         <Template name="appointment">
-          {params => (
+          {(params: Appointments.AppointmentProps) => (
             <TemplatePlaceholder
               params={{
                 ...params,

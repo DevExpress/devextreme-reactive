@@ -43,7 +43,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
   layout = React.createRef<HTMLElement>();
   layoutHeader = React.createRef<HTMLElement>();
 
-  state = {
+  state: ViewState = {
     timeTableRef: null,
   };
 
@@ -293,7 +293,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
                   endViewDate,
                   viewCellsData,
                   cellDuration,
-                  cellElements: (stateTimeTableRef! as HTMLElement).querySelectorAll('td'),
+                  cellElements: stateTimeTableRef.querySelectorAll('td'),
                 },
               ) : [];
 

@@ -42,7 +42,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
   layout = React.createRef<HTMLElement>();
   layoutHeader = React.createRef<HTMLElement>();
 
-  state = {
+  state: ViewState = {
     timeTableRef: null,
   };
 
@@ -281,7 +281,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
                   cellDuration,
                   currentDate,
                   viewCellsData,
-                  cellElements: (stateTimeTableRef! as HTMLElement).querySelectorAll('td'),
+                  cellElements: stateTimeTableRef.querySelectorAll('td'),
                 },
               ) : [];
 

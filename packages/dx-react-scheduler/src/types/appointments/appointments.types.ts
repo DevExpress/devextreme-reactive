@@ -1,3 +1,4 @@
+import { FormatterFn } from '@devexpress/dx-scheduler-core';
 import { AppointmentModel } from '../index';
 
 // tslint:disable-next-line:no-namespace
@@ -26,7 +27,7 @@ export namespace Appointments {
     /** Specifies whether the appointment is vertical or horizontal. */
     type: 'vertical' | 'horizontal';
     /** A function that formats dates according to the locale. */
-    formatDate: (date: Date, options: any) => string;
+    formatDate: FormatterFn;
   }
   /***
    * Properties passed to a component that renders an element

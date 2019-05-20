@@ -76,7 +76,7 @@ Field | Type | Description
 cellsData | Array&lt;Array&lt;[DayView.CellData](#dayviewcelldata)&gt;&gt; | Specifies the cells meta data.
 cellComponent | ComponentType&lt;[DayView.TimeScaleCellProps](#dayviewtimescalecellprops)&gt; | A component that renders a time scale cell.
 rowComponent | ComponentType&lt;[DayView.RowProps](#dayviewrowprops)&gt; | A component that renders a time scale row.
-formatDate | (date: Date, options: any) => string | A function that formats dates according to the locale.
+formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that formats dates according to the locale.
 
 ### DayView.TimeScaleCellProps
 
@@ -86,7 +86,7 @@ Field | Type | Description
 ------|------|------------
 endDate | Date | Specifies the cell end time.
 startDate? | Date | Specifies the cell start time.
-formatDate | (date: Date, options: any) => string | A function that formats dates according to the locale.
+formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that formats dates according to the locale.
 
 ### DayView.DayScaleLayoutProps
 
@@ -97,7 +97,7 @@ Field | Type | Description
 cellsData | Array&lt;Array&lt;[DayView.CellData](#dayviewcelldata)&gt;&gt; | Specifies the cells meta data.
 cellComponent | ComponentType&lt;[DayView.DayScaleCellProps](#dayviewdayscalecellprops)&gt; | A component that renders a day scale cell.
 rowComponent | ComponentType&lt;[DayView.RowProps](#dayviewrowprops)&gt; | A component that renders a day scale row.
-formatDate | (date: Date, options: any) => string | A function that format a date by locale.
+formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that format a date by locale.
 
 ### DayView.DayScaleCellProps
 
@@ -108,7 +108,7 @@ Field | Type | Description
 startDate | Date | Specifies the cell end time.
 endDate? | Date | Specifies the cell start time.
 today? | boolean | Indicates whether the cell's date is today.
-formatDate | (date: Date, options: any) => string | A function that format a date by locale.
+formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that format a date by locale.
 
 ### DayView.DayScaleEmptyCellProps
 
@@ -128,7 +128,7 @@ cellsData | Array&lt;Array&lt;[DayView.CellData](#dayviewcelldata)&gt;&gt; | Spe
 tableRef | (ref: ReactInstance) => void | A function that accepts the table root React element.
 cellComponent | ComponentType&lt;[DayView.TimeTableCellProps](#dayviewtimetablecellprops)&gt; | A component that renders a time table cell.
 rowComponent | ComponentType&lt;[DayView.RowProps](#dayviewrowprops)&gt; | A component that renders a time table row.
-formatDate | (date: Date, options: any) => string | A function that format a date by locale.
+formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that format a date by locale.
 
 ### DayView.TimeTableCellProps
 

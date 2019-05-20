@@ -46,13 +46,12 @@ class DateNavigatorBase extends React.PureComponent<DateNavigatorProps, DateNavi
     calendarNavigationButtonComponent: 'CalendarNavigationButton',
   };
 
-  setRootRef = (target) => {
+  setRootRef = (target: React.ReactInstance) => {
     this.target = target;
   }
 
   handleVisibilityToggle = () => {
-    const { visible } = this.state;
-    this.setState({ visible: !visible });
+    this.setState(prevState => ({ visible: !prevState.visible }));
   }
 
   handleHide = () => {

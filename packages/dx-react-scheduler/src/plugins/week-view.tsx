@@ -5,8 +5,8 @@ import {
   Getter,
   TemplateConnector,
   TemplatePlaceholder,
-  Getters,
   PluginComponents,
+  ComputedFn,
 } from '@devexpress/dx-react-core';
 import {
   computed,
@@ -76,21 +76,21 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
   layoutElementComputed = () => this.layout;
   layoutHeaderElementComputed = () => this.layoutHeader;
 
-  layoutHeaderElement = (getters: Getters) => {
+  layoutHeaderElement: ComputedFn = (getters) => {
     const { name: viewName } = this.props;
     return computed(
       getters, viewName!, this.layoutHeaderElementComputed, getters.layoutHeaderElement,
     );
   }
 
-  layoutElement = (getters: Getters) => {
+  layoutElement: ComputedFn = (getters) => {
     const { name: viewName } = this.props;
     return computed(
       getters, viewName!, this.layoutElementComputed, getters.layoutElement,
     );
   }
 
-  timeTableElement = (getters: Getters) => {
+  timeTableElement: ComputedFn = (getters) => {
     const { name: viewName } = this.props;
     return computed(
       getters, viewName!, this.timeTableElementComputed, getters.timeTableElement,
@@ -111,56 +111,56 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
     );
   }
 
-  viewCellsDataComputed = (getters: Getters) => {
+  viewCellsDataComputed: ComputedFn = (getters) => {
     const { name: viewName } = this.props;
     return computed(
       getters, viewName!, this.viewCellsDataBaseComputed, getters.viewCellsData,
     );
   }
 
-  endViewDateComputed = (getters: Getters) => {
+  endViewDateComputed: ComputedFn = (getters) => {
     const { name: viewName } = this.props;
     return computed(
       getters, viewName!, endViewDateBaseComputed, getters.endViewDate,
     );
   }
 
-  startViewDateComputed = (getters: Getters) => {
+  startViewDateComputed: ComputedFn = (getters) => {
     const { name: viewName } = this.props;
     return computed(
       getters, viewName!, startViewDateBaseComputed, getters.startViewDate,
     );
   }
 
-  excludedDaysComputed = (getters: Getters) => {
+  excludedDaysComputed: ComputedFn = (getters) => {
     const { name: viewName, excludedDays } = this.props;
     return computed(
       getters, viewName!, () => excludedDays, getters.excludedDays,
     );
   }
 
-  firstDayOfWeekComputed = (getters: Getters) => {
+  firstDayOfWeekComputed: ComputedFn = (getters) => {
     const { name: viewName, firstDayOfWeek } = this.props;
     return computed(
       getters, viewName!, () => firstDayOfWeek, getters.firstDayOfWeek,
     );
   }
 
-  intervalCountComputed = (getters: Getters) => {
+  intervalCountComputed: ComputedFn = (getters) => {
     const { name: viewName, intervalCount } = this.props;
     return computed(
       getters, viewName!, () => intervalCount, getters.intervalCount,
     );
   }
 
-  availableViewNamesComputed = ({ availableViewNames }: Getters) => {
+  availableViewNamesComputed: ComputedFn = ({ availableViewNames }) => {
     const { name: viewName } = this.props;
     return availableViewNamesCore(
       availableViewNames, viewName!,
     );
   }
 
-  currentViewComputed = ({ currentView }: Getters) => {
+  currentViewComputed: ComputedFn = ({ currentView }) => {
     const { name: viewName } = this.props;
     return (
     currentView && currentView.name !== viewName

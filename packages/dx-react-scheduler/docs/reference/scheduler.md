@@ -51,6 +51,12 @@ Field | Type | Description
 ------|------|------------
 children? | ReactNode | A React node used to render the root layout.
 
+### FormatterFn
+
+Describes a function that format a date by locale.
+
+Type: `(nextDate: Date | string | number | undefined, nextOptions: Intl.DateTimeFormatOptions) => string`
+
 ## Plugin Components
 
 Name | Properties | Description

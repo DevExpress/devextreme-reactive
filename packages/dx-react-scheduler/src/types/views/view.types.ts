@@ -1,3 +1,5 @@
+import { FormatterFn } from '@devexpress/dx-scheduler-core';
+
 export interface VerticalViewProps {
   /** The view name. */
   name?: string;
@@ -64,7 +66,7 @@ export namespace VerticalView {
     /** A component that renders a time scale row. */
     rowComponent: React.ComponentType<VerticalView.RowProps>;
     /** A function that formats dates according to the locale. */
-    formatDate: (date: Date, options: any) => string;
+    formatDate: FormatterFn;
   }
 
   /** Describes properties passed to a component that renders a time table layout. */
@@ -78,7 +80,7 @@ export namespace VerticalView {
     /** A component that renders a time table row. */
     rowComponent: React.ComponentType<VerticalView.RowProps>;
     /** A function that formats dates according to the locale. */
-    formatDate: (date: Date, options: any) => string;
+    formatDate: FormatterFn;
   }
 
   /** Describes properties passed to a component that renders a time table cell. */
@@ -114,7 +116,7 @@ export namespace VerticalView {
     /** A component that renders a day scale row. */
     rowComponent:	React.ComponentType<VerticalView.RowProps>;
     /** A function that formats dates according to the locale. */
-    formatDate: (date: Date, options: any) => string;
+    formatDate: FormatterFn;
   }
   /** Describes properties passed to a component that renders a day scale cell. */
   export interface DayScaleCellProps {

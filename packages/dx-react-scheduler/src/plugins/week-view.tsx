@@ -40,7 +40,7 @@ const DayScaleEmptyCellPlaceholder = () => <TemplatePlaceholder name="dayScaleEm
 const SidebarPlaceholder = () => <TemplatePlaceholder name="sidebar" />;
 
 class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
-  timeTable: WritableRefObject<HTMLElement> = { current: null };
+  timeTable: WritableRefObject<HTMLElement> = React.createRef();
   layout = React.createRef<HTMLElement>();
   layoutHeader = React.createRef<HTMLElement>();
 

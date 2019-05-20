@@ -33,7 +33,7 @@ const CellPlaceholder = params => <TemplatePlaceholder name="cell" params={param
 const AppointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
 
 class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
-  timeTable: WritableRefObject<HTMLElement>  = { current: null };
+  timeTable: WritableRefObject<HTMLElement> = React.createRef();
   layout = React.createRef<HTMLElement>();
   layoutHeader = React.createRef<HTMLElement>();
 

@@ -39,7 +39,7 @@ const DayScalePlaceholder = () => <TemplatePlaceholder name="navbar" />;
 const SidebarPlaceholder = () => <TemplatePlaceholder name="sidebar" />;
 
 class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
-  timeTable: WritableRefObject<HTMLElement> = { current: null };
+  timeTable: WritableRefObject<HTMLElement> = React.createRef();
   layout = React.createRef<HTMLElement>();
   layoutHeader = React.createRef<HTMLElement>();
 

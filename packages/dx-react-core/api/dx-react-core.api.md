@@ -4,6 +4,7 @@
 
 ```ts
 
+import { Mutable } from '@devexpress/dx-core';
 import * as React from 'react';
 
 // @public (undocumented)
@@ -101,6 +102,9 @@ export interface TemplateProps {
     name: string;
     predicate?: (params: object) => boolean;
 }
+
+// @public (undocumented)
+export type WritableRefObject<T> = Mutable<React.RefObject<T>>;
 
 
 // (No @packageDocumentation comment for this package)

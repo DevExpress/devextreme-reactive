@@ -1,7 +1,6 @@
 import { PureComputed } from '@devexpress/dx-core';
 
 export type SchedulerTime = Date | number | string;
-/** @internal */
 export type AppointmentId = number | string;
 /** @internal */
 export type CellElement = React.ReactInstance;

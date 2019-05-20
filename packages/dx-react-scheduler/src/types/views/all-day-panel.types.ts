@@ -71,6 +71,7 @@ export interface AllDayPanelProps {
   messages?: AllDayPanel.LocalizationMessages;
 }
 
+/** @internal */
 export interface AllDayPanelState {
   tableRef: HTMLElement | null;
 }

@@ -1,7 +1,9 @@
 import { PureComputed } from '@devexpress/dx-core';
 
 export type SchedulerTime = Date | number | string;
+/** @internal */
 export type AppointmentId = number | string;
+/** @internal */
 export type CellElement = React.ReactInstance;
 
 /** Describes an appointment data object. */
@@ -45,26 +47,22 @@ export type AllDayCell = {
   endDate: SchedulerTime;
 };
 
-/** Describes a cell data configuration object. */
+/** @internal */
 export interface ViewCell {
-  /** Specifies the cell start time. */
   startDate: Date;
-  /** Specifies the cell end time. */
   endDate?: Date;
-  /** Indicates whether the cell's date is not in the current month. */
   otherMonth?: boolean;
-  /** Indicates whether the cell's date is today. */
   today?: boolean;
 }
-
+/** @internal */
 export type DayScaleFn = PureComputed<
   [Date, number, number, number[]], Date[]
 >;
-
+/** @internal */
 export type TimeScaleFn = PureComputed<
   [Date, number, number, number, number, number[]], TimeScale[]
 >;
-
+/** @internal */
 export type ViewCellsDataFn = PureComputed<
   [Date, number | undefined, number | undefined, number[],
     number, number, number, SchedulerTime], ViewCell[][]
@@ -73,9 +71,9 @@ export type ViewCellsDataFn = PureComputed<
 export type FormatterFn = (
   nextDate: SchedulerTime | undefined, nextOptions: Intl.DateTimeFormatOptions,
 ) => string;
-
+/** @internal */
 export type FormatDateTimeGetterFn = (locale: string | string[]) => FormatterFn;
-
+/** @internal */
 export type DateTimeFormatInstanceFn = (
   locale: string | string[], formatOptions: Intl.DateTimeFormatOptions,
 ) => Intl.DateTimeFormat;

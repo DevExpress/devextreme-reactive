@@ -23,7 +23,7 @@ export namespace Appointments {
     /** An object that represents appointment data. */
     data: AppointmentModel;
     /** A component that renders an icon for recurring appointments. */
-    recurringIconComponent: React.ComponentType<any>;
+    recurringIconComponent: React.ComponentType<object>;
     /** Specifies whether the appointment is vertical or horizontal. */
     type: 'vertical' | 'horizontal';
     /** A function that formats dates according to the locale. */
@@ -54,7 +54,7 @@ export interface AppointmentsProps {
   /** A component that renders an element which indicates the appointment is divided. */
   splitIndicatorComponent: React.ComponentType<Appointments.SplitIndicatorProps>;
   /** A component that renders an icon for recurring appointments. */
-  recurringIconComponent: React.ComponentType<any>;
+  recurringIconComponent: React.ComponentType<object>;
   /** A component that renders a container for the appointment. */
   containerComponent: React.ComponentType<Appointments.ContainerProps>;
 }

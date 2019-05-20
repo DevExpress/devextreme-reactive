@@ -52,13 +52,13 @@ export namespace DateNavigator {
     selectedDate: number | Date | string;
     firstDayOfWeek: number;
     getCells: MonthCellsDataComputedFn;
-    textComponent: React.ComponentType<any>;
-    navigationButtonComponent: React.ComponentType<any>;
-    rowComponent: React.ComponentType<any>;
-    cellComponent: React.ComponentType<any>;
-    headerRowComponent: React.ComponentType<any>;
-    headerCellComponent: React.ComponentType<any>;
-    navigatorComponent: React.ComponentType<any>;
+    textComponent: React.ComponentType<object>;
+    navigationButtonComponent: React.ComponentType<object>;
+    rowComponent: React.ComponentType<object>;
+    cellComponent: React.ComponentType<object>;
+    headerRowComponent: React.ComponentType<object>;
+    headerCellComponent: React.ComponentType<object>;
+    navigatorComponent: React.ComponentType<object>;
     onSelectedDateChange: (nextDate: SchedulerTime) => void;
     formatDate: FormatterFn;
   }

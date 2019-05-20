@@ -12,15 +12,15 @@ export interface AppointmentMoment {
   id?: number | string;
   [propertyName: string]: any;
 }
-
+/** @internal */
 export type CalculateAllDayDateIntervalsFn = PureComputed<
   [Appointment[], Date, Date, number[]], AppointmentMoment[]
 >;
-
+/** @internal */
 export type GetAllDayCellIndexByDateFn = PureComputed<
   [ViewCellData[][], SchedulerTime, boolean], number
 >;
-
+/** @internal */
 export type SliceAppointmentsByBoundariesFn = PureComputed<
   [AppointmentMoment, Date, Date, number[]], AppointmentMoment[]
 >;

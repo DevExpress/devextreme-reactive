@@ -62,15 +62,15 @@ export interface AppointmentFormProps {
   /** An object that specifies localization messages. */
   messages?: AppointmentForm.LocalizationMessages;
   /** @internal */
-  startDateComponent: React.ComponentType<any>;
+  startDateComponent: React.ComponentType<object>;
   /** @internal */
-  endDateComponent: React.ComponentType<any>;
+  endDateComponent: React.ComponentType<object>;
   /** @internal */
-  titleComponent: React.ComponentType<any>;
+  titleComponent: React.ComponentType<object>;
   /** @internal */
-  commandButtonComponent: React.ComponentType<any>;
+  commandButtonComponent: React.ComponentType<object>;
   /** @internal */
-  allDayComponent: React.ComponentType<any>;
+  allDayComponent: React.ComponentType<object>;
 }
 
 /** @internal */

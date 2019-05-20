@@ -308,7 +308,7 @@ export type CalculateWeekDateIntervalsFn = PureComputed<[Appointment[], Date, Da
 // @public (undocumented)
 export type CellByDate = {
   index: AppointmentId;
-  startDate: CurrentTime;
+  startDate: SchedulerTime;
 };
 
 // @public (undocumented)
@@ -368,7 +368,7 @@ export interface Coordinates {
 }
 
 // @public (undocumented)
-export type CurrentTime = Date | number | string;
+export type SchedulerTime = Date | number | string;
 
 // @public
 export const DateNavigator: React.ComponentType<DateNavigatorProps>;
@@ -866,7 +866,7 @@ export type ViewCellData = {
 };
 
 // @public (undocumented)
-export type ViewCellsDataFn = PureComputed<[Date, number | undefined, number | undefined, number[], number, number, number, CurrentTime], ViewCell[][]>;
+export type ViewCellsDataFn = PureComputed<[Date, number | undefined, number | undefined, number[], number, number, number, SchedulerTime], ViewCell[][]>;
 
 // @public (undocumented)
 export type ViewPredicateFn = PureComputed<[AppointmentMoment, Date, Date, number[]?, boolean?], boolean>;

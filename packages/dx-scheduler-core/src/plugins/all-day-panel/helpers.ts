@@ -2,7 +2,7 @@ import moment from 'moment';
 import { PureComputed } from '@devexpress/dx-core';
 import {
   AppointmentMoment, GetAllDayCellIndexByDateFn,
-  SliceAppointmentsByBoundariesFn, AppointmentDate,
+  SliceAppointmentsByBoundariesFn, SchedulerTime,
 } from '../../types';
 
 export const allDayPredicate: PureComputed<[AppointmentMoment], boolean> = appointment => (
@@ -13,7 +13,7 @@ export const allDayPredicate: PureComputed<[AppointmentMoment], boolean> = appoi
 export const getAllDayCellIndexByDate: GetAllDayCellIndexByDateFn = (
   viewCellsData, date, takePrev,
 ) => {
-  const currentDate = moment(date as AppointmentDate);
+  const currentDate = moment(date as SchedulerTime);
   let cellIndex = viewCellsData[0]
     .findIndex(day => moment(day.startDate).day() === currentDate.day());
   if (takePrev && currentDate.format() === currentDate.startOf('day').format()) {

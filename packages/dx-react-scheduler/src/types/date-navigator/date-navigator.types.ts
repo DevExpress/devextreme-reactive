@@ -1,4 +1,4 @@
-import { FormatterFn } from '@devexpress/dx-scheduler-core';
+import { FormatterFn, SchedulerTime } from '@devexpress/dx-scheduler-core';
 import { MonthCellsDataComputedFn } from '../index';
 
 // tslint:disable-next-line:no-namespace
@@ -59,7 +59,7 @@ export namespace DateNavigator {
     headerRowComponent: React.ComponentType<any>;
     headerCellComponent: React.ComponentType<any>;
     navigatorComponent: React.ComponentType<any>;
-    onSelectedDateChange: (nextDate: Date | string | number) => void;
+    onSelectedDateChange: (nextDate: SchedulerTime) => void;
     formatDate: FormatterFn;
   }
 }

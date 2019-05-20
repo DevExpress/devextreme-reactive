@@ -1,8 +1,8 @@
-import { AppointmentModel } from './scheduler-core.types';
+import { AppointmentModel, SchedulerTime } from './scheduler-core.types';
 
 export type Action = ([fieldName]?: any) => void;
-export type StartDate = Date | number | string;
-export type EndDate = Date | number | string;
+export type StartDate = SchedulerTime;
+export type EndDate = SchedulerTime;
 export type AppointmentDataPayload = {
   appointmentData: AppointmentModel;
 };

@@ -1,6 +1,6 @@
 import moment from 'moment';
 import {
-  SliceAppointmentByWeekFn, GetMonthCellIndexByDateFn, AppointmentDate, AppointmentMoment,
+  SliceAppointmentByWeekFn, GetMonthCellIndexByDateFn, SchedulerTime, AppointmentMoment,
 } from '../../types';
 
 export const sliceAppointmentByWeek: SliceAppointmentByWeekFn = (timeBounds, appointment, step) => {
@@ -38,7 +38,7 @@ export const getMonthCellIndexByDate: GetMonthCellIndexByDateFn = (
   viewCellsData, date, takePrev = false,
 ) => {
   const startViewDate = moment(viewCellsData[0][0].startDate);
-  const currentDate = moment(date as AppointmentDate);
+  const currentDate = moment(date as SchedulerTime);
   let cellIndex = currentDate.diff(startViewDate, 'days');
 
   if (takePrev && currentDate.format() === currentDate.startOf('day').format()) {

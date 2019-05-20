@@ -1,6 +1,6 @@
 import moment from 'moment';
 import { PureComputed } from '@devexpress/dx-core';
-import { Appointment, AppointmentDate } from './scheduler-core.types';
+import { Appointment, SchedulerTime } from './scheduler-core.types';
 
 export type ViewCellData = { startDate: Date; endDate: Date; };
 
@@ -18,7 +18,7 @@ export type CalculateAllDayDateIntervalsFn = PureComputed<
 >;
 
 export type GetAllDayCellIndexByDateFn = PureComputed<
-  [ViewCellData[][], AppointmentDate, boolean], number
+  [ViewCellData[][], SchedulerTime, boolean], number
 >;
 
 export type SliceAppointmentsByBoundariesFn = PureComputed<

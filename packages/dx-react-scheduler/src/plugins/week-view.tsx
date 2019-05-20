@@ -7,6 +7,7 @@ import {
   TemplatePlaceholder,
   PluginComponents,
   ComputedFn,
+  WritableRefObject,
 } from '@devexpress/dx-react-core';
 import {
   computed,
@@ -39,7 +40,7 @@ const DayScaleEmptyCellPlaceholder = () => <TemplatePlaceholder name="dayScaleEm
 const SidebarPlaceholder = () => <TemplatePlaceholder name="sidebar" />;
 
 class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
-  timeTable: { current: HTMLElement | null } = { current: null };
+  timeTable: WritableRefObject<HTMLElement> = { current: null };
   layout = React.createRef<HTMLElement>();
   layoutHeader = React.createRef<HTMLElement>();
 

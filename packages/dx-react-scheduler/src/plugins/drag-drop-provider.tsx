@@ -63,7 +63,7 @@ class DragDropProviderBase extends React.PureComponent<
   appointmentStartTime: any = null;
   appointmentEndTime: any = null;
 
-  state = {
+  state: DragDropProviderState = {
     startTime: null,
     endTime: null,
     payload: null,
@@ -118,8 +118,8 @@ class DragDropProviderBase extends React.PureComponent<
 
     const { payload: prevPayload } = this.state;
 
-    stopEditAppointment({ appointmentId: (prevPayload as any).id });
-    commitChangedAppointment({ appointmentId: (prevPayload as any).id });
+    stopEditAppointment({ appointmentId: prevPayload.id });
+    commitChangedAppointment({ appointmentId: prevPayload.id });
     this.resetCache();
   }
 

@@ -7,6 +7,7 @@ import {
   TemplatePlaceholder,
   PluginComponents,
   ComputedFn,
+  WritableRefObject,
 } from '@devexpress/dx-react-core';
 import {
   computed,
@@ -38,7 +39,7 @@ const DayScalePlaceholder = () => <TemplatePlaceholder name="navbar" />;
 const SidebarPlaceholder = () => <TemplatePlaceholder name="sidebar" />;
 
 class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
-  timeTable: { current: HTMLElement | null } = { current: null };
+  timeTable: WritableRefObject<HTMLElement> = { current: null };
   layout = React.createRef<HTMLElement>();
   layoutHeader = React.createRef<HTMLElement>();
 

@@ -7,6 +7,7 @@ import {
   TemplatePlaceholder,
   PluginComponents,
   ComputedFn,
+  WritableRefObject,
 } from '@devexpress/dx-react-core';
 import {
   computed,
@@ -32,7 +33,7 @@ const CellPlaceholder = params => <TemplatePlaceholder name="cell" params={param
 const AppointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
 
 class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
-  timeTable: { current: HTMLElement | null } = { current: null };
+  timeTable: WritableRefObject<HTMLElement>  = { current: null };
   layout = React.createRef<HTMLElement>();
   layoutHeader = React.createRef<HTMLElement>();
 

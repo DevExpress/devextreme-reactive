@@ -4,6 +4,7 @@
 
 ```ts
 
+import { FormatterFn as FormatterFn_2 } from '@devexpress/dx-scheduler-core';
 import moment from 'moment';
 import { PureComputed } from '@devexpress/dx-core';
 import * as React from 'react';
@@ -18,8 +19,8 @@ export type AddedAppointmentDataPayload = {
 
 // @public (undocumented)
 export type AllDayCell = {
-  startDate: Date | string | number;
-  endDate: Date | string | number;
+  startDate: SchedulerTime;
+  endDate: SchedulerTime;
 };
 
 // @public
@@ -82,10 +83,10 @@ export type AllDayRects = PureComputed<[Appointment[], Date, Date, number[], Vie
 export interface Appointment {
   allDay?: boolean;
   dataItem: AppointmentModel;
-  end: Date | string | number;
+  end: SchedulerTime;
   exDate?: string;
   rRule?: string;
-  start: Date | string | number;
+  start: SchedulerTime;
 }
 
 // @public (undocumented)
@@ -104,9 +105,6 @@ export type AppointmentChanges = {
 export type AppointmentDataPayload = {
   appointmentData: AppointmentModel;
 };
-
-// @public (undocumented)
-export type AppointmentDate = Date | number | string;
 
 // @public
 export const AppointmentForm: React.ComponentType<AppointmentFormProps>;
@@ -170,9 +168,9 @@ export interface AppointmentMeta {
 export interface AppointmentModel {
   [propertyName: string]: any;
   allDay?: boolean;
-  endDate: Date | string | number;
+  endDate: SchedulerTime;
   id?: number | string;
-  startDate: Date | string | number;
+  startDate: SchedulerTime;
   title?: string;
 }
 
@@ -200,7 +198,7 @@ export namespace Appointments {
     export interface AppointmentContentProps {
         children?: React.ReactNode;
         data: AppointmentModel;
-        formatDate: (date: Date, options: any) => string;
+        formatDate: FormatterFn_2;
         recurringIconComponent: React.ComponentType<any>;
         type: 'vertical' | 'horizontal';
     }
@@ -367,9 +365,6 @@ export interface Coordinates {
   width: number;
 }
 
-// @public (undocumented)
-export type SchedulerTime = Date | number | string;
-
 // @public
 export const DateNavigator: React.ComponentType<DateNavigatorProps>;
 
@@ -521,34 +516,34 @@ export interface ElementRect extends Rect {
 }
 
 // @public (undocumented)
-export type EndDate = Date | number | string;
+export type EndDate = SchedulerTime;
 
 // @public (undocumented)
-export type FormatDateTimeGetterFn = (locale: string | string[]) => FormatterFn;
+export type FormatDateTimeGetterFn = (locale: string | string[]) => FormatterFn_2;
 
 // @public (undocumented)
-export type FormatterFn = (nextDate: Date | string | number | undefined, nextOptions: Intl.DateTimeFormatOptions) => string;
+export type FormatterFn = (nextDate: SchedulerTime | undefined, nextOptions: Intl.DateTimeFormatOptions) => string;
 
 // @public (undocumented)
-export type GetAllDayCellIndexByDateFn = PureComputed<[ViewCellData[][], AppointmentDate, boolean], number>;
+export type GetAllDayCellIndexByDateFn = PureComputed<[ViewCellData[][], SchedulerTime, boolean], number>;
 
 // @public (undocumented)
-export type GetCellByDateFn = PureComputed<[ViewCellData[][], AppointmentDate, boolean], CellByDate>;
+export type GetCellByDateFn = PureComputed<[ViewCellData[][], SchedulerTime, boolean], CellByDate>;
 
 // @public (undocumented)
-export type GetCellRectHorizontalFn = PureComputed<[AppointmentDate, ViewCellData[][], CellElement[][], boolean, boolean], CellRect>;
+export type GetCellRectHorizontalFn = PureComputed<[SchedulerTime, ViewCellData[][], CellElement[][], boolean, boolean], CellRect>;
 
 // @public (undocumented)
-export type GetCellRectVerticalFn = PureComputed<[AppointmentDate, ViewCellData[][], number, CellElement[], boolean], VerticalCellRect>;
+export type GetCellRectVerticalFn = PureComputed<[SchedulerTime, ViewCellData[][], number, CellElement[], boolean], VerticalCellRect>;
 
 // @public (undocumented)
-export type GetHorizontalRectByDatesFn = PureComputed<[AppointmentDate, EndDate, HorizontalPayload], HorizontalCellRect>;
+export type GetHorizontalRectByDatesFn = PureComputed<[SchedulerTime, EndDate, HorizontalPayload], HorizontalCellRect>;
 
 // @public (undocumented)
-export type GetMonthCellIndexByDateFn = PureComputed<[ViewCellData[][], AppointmentDate, boolean], AppointmentId>;
+export type GetMonthCellIndexByDateFn = PureComputed<[ViewCellData[][], SchedulerTime, boolean], AppointmentId>;
 
 // @public (undocumented)
-export type GetVerticalRectByDatesFn = PureComputed<[AppointmentDate, EndDate, VerticalPayload], VerticalCellRectByDate>;
+export type GetVerticalRectByDatesFn = PureComputed<[SchedulerTime, EndDate, VerticalPayload], VerticalCellRectByDate>;
 
 // @public (undocumented)
 export interface GroupItem {
@@ -681,9 +676,12 @@ export namespace Scheduler {
 // @public (undocumented)
 export interface SchedulerProps {
   data: AppointmentModel[];
-  locale: string;
+  locale: string | string[];
   rootComponent: React.ComponentType<Scheduler.RootProps>;
 }
+
+// @public (undocumented)
+export type SchedulerTime = Date | number | string;
 
 // @public (undocumented)
 export type SliceAppointmentByWeekFn = PureComputed<[TimeBounds, AppointmentMoment, number], AppointmentMoment[]>;
@@ -692,7 +690,7 @@ export type SliceAppointmentByWeekFn = PureComputed<[TimeBounds, AppointmentMome
 export type SliceAppointmentsByBoundariesFn = PureComputed<[AppointmentMoment, Date, Date, number[]], AppointmentMoment[]>;
 
 // @public (undocumented)
-export type StartDate = Date | number | string;
+export type StartDate = SchedulerTime;
 
 // @public (undocumented)
 export type TimeBoundariesByDrag = PureComputed<[AppointmentModel, AppointmentModel, string, number, number, number], AppointmentBoundaries>;
@@ -787,7 +785,7 @@ export namespace VerticalView {
   export interface DayScaleLayoutProps {
     cellComponent: React.ComponentType<VerticalView.DayScaleCellProps>;
     cellsData: VerticalView.CellData[][];
-    formatDate: (date: Date, options: any) => string;
+    formatDate: FormatterFn_2;
     rowComponent: React.ComponentType<VerticalView.RowProps>;
   }
   export interface LayoutProps {
@@ -810,7 +808,7 @@ export namespace VerticalView {
   export interface TimeScaleLayoutProps {
     cellComponent: React.ComponentType<VerticalView.TimeScaleCellProps>;
     cellsData: VerticalView.CellData[][];
-    formatDate: (date: Date, options: any) => string;
+    formatDate: FormatterFn_2;
     rowComponent: React.ComponentType<VerticalView.RowProps>;
   }
   export interface TimeTableCellProps {
@@ -821,7 +819,7 @@ export namespace VerticalView {
   export interface TimeTableLayoutProps {
     cellComponent: React.ComponentType<VerticalView.TimeTableCellProps>;
     cellsData: VerticalView.CellData[][];
-    formatDate: (date: Date, options: any) => string;
+    formatDate: FormatterFn_2;
     rowComponent: React.ComponentType<VerticalView.RowProps>;
     tableRef: (ref: React.ReactInstance) => void;
   }
@@ -849,7 +847,7 @@ export interface VerticalViewProps {
 }
 
 // @public (undocumented)
-export type ViewBoundTextFn = PureComputed<[Date, Date, string, Date, number, FormatterFn], string>;
+export type ViewBoundTextFn = PureComputed<[Date, Date, string, Date, number, FormatterFn_2], string>;
 
 // @public
 export interface ViewCell {

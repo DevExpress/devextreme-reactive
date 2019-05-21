@@ -53,13 +53,13 @@ children? | ReactNode | A React node used to render the root layout.
 
 ### SchedulerTime
 
-Describes a scheduler time type.
+The type of date-time values in the Scheduler.
 
 Type: `Date | string | number`
 
 ### FormatterFn
 
-Describes a function that format a date by locale.
+A function that formats dates according to the set locale.
 
 Type: `(nextDate: Date | string | number | undefined, nextOptions: Intl.DateTimeFormatOptions) => string`
 

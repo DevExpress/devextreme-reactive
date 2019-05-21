@@ -22,3 +22,11 @@ export const isGroupIndentTableCell: PureComputed<[TableRow, TableColumn, Groupi
   return columnGroupIndex < rowGroupIndex;
 };
 export const isGroupTableRow = (tableRow: TableRow) => tableRow.type === TABLE_GROUP_TYPE;
+
+export const groupCellLeft: PureComputed<[TableColumn, Grouping[], number], number> = (
+  tableColumn, grouping, indentWidth,
+) => (
+  indentWidth * grouping.findIndex(
+    columnGrouping => !!tableColumn.column && columnGrouping.columnName === tableColumn.column.name,
+  )
+);

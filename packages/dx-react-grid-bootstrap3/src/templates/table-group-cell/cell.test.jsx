@@ -16,10 +16,12 @@ describe('TableGroupCell', () => {
   const defaultProps = {
     contentComponent: () => null,
     iconComponent: () => null,
+    containerComponent: ({ children }) => children,
     row: {},
     column: {},
     onToggle: jest.fn(),
     expanded: true,
+    left: '13px',
   };
 
   it('should render children inside content component if passed', () => {
@@ -60,6 +62,17 @@ describe('TableGroupCell', () => {
       .toMatchObject({
         column: defaultProps.column,
         row: defaultProps.row,
+      });
+  });
+
+  it('should render Container', () => {
+    const tree = mount((
+      <Cell {...defaultProps} />
+    ));
+
+    expect(tree.find(defaultProps.containerComponent).prop('style'))
+      .toMatchObject({
+        left: '13px',
       });
   });
 

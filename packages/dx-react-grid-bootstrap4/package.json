@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-react-grid-bootstrap4",
-  "version": "1.11.0",
+  "version": "1.10.5",
   "description": "Bootstrap 4 templates for DevExtreme React Grid component",
   "author": {
     "name": "Developer Express Inc.",
@@ -42,40 +42,40 @@
     "build:watch": "rollup -c rollup.config.js -w",
     "update-api": "api-extractor run",
     "lint": "eslint \"src/**\"",
-    "lint:fix": "yarn lint -- --fix"
+    "lint:fix": "yarn run lint -- --fix"
   },
   "devDependencies": {
-    "@babel/core": "^7.4.4",
-    "@babel/plugin-transform-runtime": "^7.4.4",
-    "@babel/preset-env": "^7.4.4",
+    "@babel/core": "^7.3.3",
+    "@babel/plugin-transform-runtime": "^7.2.0",
+    "@babel/preset-env": "^7.3.1",
     "@babel/preset-react": "^7.0.0",
-    "@devexpress/dx-grid-core": "1.11.0",
-    "@devexpress/dx-react-core": "1.11.0",
-    "@devexpress/dx-react-grid": "1.11.0",
-    "@devexpress/dx-testing": "1.11.0",
+    "@devexpress/dx-grid-core": "1.10.5",
+    "@devexpress/dx-react-core": "1.10.5",
+    "@devexpress/dx-react-grid": "1.10.5",
+    "@devexpress/dx-testing": "1.10.5",
     "babel-core": "^7.0.0-bridge.0",
-    "babel-jest": "^24.8.0",
+    "babel-jest": "^24.1.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
-    "core-js": "^3.0.1",
+    "core-js": "^2.6.5",
     "enzyme": "3.9.0",
-    "enzyme-adapter-react-16": "^1.13.0",
-    "eslint": "^5.16.0",
+    "enzyme-adapter-react-16": "^1.9.1",
+    "eslint": "^5.14.1",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-filenames": "^1.3.2",
-    "eslint-plugin-import": "^2.17.2",
-    "eslint-plugin-jest": "^22.5.1",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jest": "^22.3.0",
     "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-react": "^7.13.0",
-    "jest": "^24.8.0",
+    "eslint-plugin-react": "^7.12.4",
+    "jest": "^24.1.0",
     "react": "^16.8.3",
-    "react-dom": "^16.8.6",
-    "react-test-renderer": "^16.8.6",
-    "rollup": "^1.11.3",
+    "react-dom": "^16.8.3",
+    "react-test-renderer": "^16.8.3",
+    "rollup": "^1.2.3",
     "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-css-only": "^1.0.0",
     "rollup-plugin-license": "^0.8.1",
-    "rollup-plugin-node-resolve": "^4.2.4",
-    "rollup-plugin-sass": "^1.2.2"
+    "rollup-plugin-node-resolve": "^4.0.1"
   },
   "dependencies": {
     "classnames": "^2.2.6",
@@ -83,9 +83,10 @@
     "react-popper": "^1.3.3"
   },
   "peerDependencies": {
-    "@devexpress/dx-grid-core": "1.11.0",
-    "@devexpress/dx-react-core": "1.11.0",
-    "@devexpress/dx-react-grid": "1.11.0",
+    "@devexpress/dx-grid-core": "1.10.5",
+    "@devexpress/dx-react-core": "1.10.5",
+    "@devexpress/dx-react-grid": "1.10.5",
     "react": ">=16.8.3"
-  }
+  },
+  "gitHead": "a88f0951a1abeff9f79fb0dc0148cd28879541d5"
 }

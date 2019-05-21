@@ -920,6 +920,13 @@ export namespace TableGroupRow {
         columnName: string;
         showWhenGrouped?: boolean;
     }
+    // (undocumented)
+    export interface ContainerProps {
+        // (undocumented)
+        children: React.ReactNode;
+        // (undocumented)
+        style: object;
+    }
     export interface ContentProps {
         children?: React.ReactNode;
         column: Column;
@@ -941,6 +948,8 @@ export namespace TableGroupRow {
 export interface TableGroupRowProps {
     cellComponent: React.ComponentType<TableGroupRow.CellProps>;
     columnExtensions?: Array<TableGroupRow.ColumnExtension>;
+    containerComponent: React.ComponentType<TableGroupRow.ContainerProps>;
+    contentCellPadding: string;
     contentComponent: React.ComponentType<TableGroupRow.ContentProps>;
     iconComponent: React.ComponentType<TableGroupRow.IconProps>;
     indentCellComponent?: React.ComponentType<TableGroupRow.IndentCellProps>;

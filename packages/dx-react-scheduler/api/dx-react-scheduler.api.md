@@ -10,8 +10,8 @@ import * as React from 'react';
 
 // @public (undocumented)
 export type AllDayCell = {
-  startDate: SchedulerTime;
-  endDate: SchedulerTime;
+  startDate: SchedulerDateTime;
+  endDate: SchedulerDateTime;
 };
 
 // @public
@@ -65,10 +65,10 @@ export interface AllDayPanelProps {
 export interface Appointment {
   allDay?: boolean;
   dataItem: AppointmentModel;
-  end: SchedulerTime;
+  end: SchedulerDateTime;
   exDate?: string;
   rRule?: string;
-  start: SchedulerTime;
+  start: SchedulerDateTime;
 }
 
 // @public (undocumented)
@@ -132,9 +132,9 @@ export interface AppointmentMeta {
 export interface AppointmentModel {
   [propertyName: string]: any;
   allDay?: boolean;
-  endDate: SchedulerTime;
+  endDate: SchedulerDateTime;
   id?: number | string;
-  startDate: SchedulerTime;
+  startDate: SchedulerDateTime;
   title?: string;
 }
 
@@ -403,7 +403,7 @@ export interface EditingStateProps {
 }
 
 // @public (undocumented)
-export type FormatterFn = (nextDate: SchedulerTime | undefined, nextOptions: Intl.DateTimeFormatOptions) => string;
+export type FormatterFn = (nextDate: SchedulerDateTime | undefined, nextOptions: Intl.DateTimeFormatOptions) => string;
 
 // @public
 export interface MonthCellData {
@@ -479,14 +479,14 @@ export namespace Scheduler {
 }
 
 // @public (undocumented)
+export type SchedulerDateTime = Date | number | string;
+
+// @public (undocumented)
 export interface SchedulerProps {
   data: AppointmentModel[];
   locale: string | string[];
   rootComponent: React.ComponentType<Scheduler.RootProps>;
 }
-
-// @public (undocumented)
-export type SchedulerTime = Date | number | string;
 
 // @public (undocumented)
 export interface TimeScale {

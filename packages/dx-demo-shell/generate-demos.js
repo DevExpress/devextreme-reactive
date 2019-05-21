@@ -11,8 +11,11 @@ const TEST_FILE_TS = 'demo.test.tsxt';
 const SSR_TEST_FILE = 'demo.ssr.test.jsxt';
 const GENERATED_SUFFIX = '.g';
 const TEST_SUFFIX = '.test';
+const PARTIAL_SUFFIX = '.partial';
 const DEMOS_REGISTRY_FILE = './src/demo-registry.js';
 const productDemosFile = productName => `../dx-react-common/src/${productName}-demo-registry.js`;
+
+mustache.tags = ['<%', '%>'];
 
 const themeNames = [];
 const loadThemeNames = () => {
@@ -45,6 +48,7 @@ const getTestFileName = demoExtension => (
     ? TEST_FILE_TS
     : TEST_FILE
 );
+const removeSuffix = (str, suffix) => str.substring(0, str.length - suffix.length);
 
 const demos = [];
 const loadDemosToGenerate = () => {
@@ -57,7 +61,9 @@ const loadDemosToGenerate = () => {
         if (file.startsWith('.')) return;
         if (fs.lstatSync(path.join(DEMOS_FOLDER, sectionName, file)).isDirectory()) {
           fs.readdirSync(path.join(DEMOS_FOLDER, sectionName, file)).forEach((nestedFile) => {
-            if (nestedFile.startsWith('.')) return;
+            if (nestedFile.startsWith('.')) {
+              return;
+            }
             if (nestedFile.indexOf(GENERATED_SUFFIX) > -1) {
               filesToRemove.push(path.join(DEMOS_FOLDER, sectionName, file, nestedFile));
               return;
@@ -65,8 +71,11 @@ const loadDemosToGenerate = () => {
             if (nestedFile.indexOf(TEST_SUFFIX) > -1) {
               return;
             }
+            if (nestedFile.indexOf(PARTIAL_SUFFIX) > -1) {
+              return;
+            }
             const demoExtension = getDemoExtension(nestedFile);
-            const demoName = nestedFile.replace(`.${demoExtension}`, '');
+            const demoName = removeSuffix(nestedFile, `.${demoExtension}`);
             const testFile = fs.existsSync(path.join(DEMOS_FOLDER, sectionName, `${demoName}${TEST_SUFFIX}.jsxt`))
               ? path.join(DEMOS_FOLDER, sectionName, `${demoName}${TEST_SUFFIX}.jsxt`)
               : getTestFileName(demoExtension);
@@ -80,13 +89,18 @@ const loadDemosToGenerate = () => {
               demoExtension,
             });
           });
+          return;
         }
         const demoExtension = getDemoExtension(file);
         if (demoExtension && file.endsWith(`.${demoExtension}${TEMPLATE_EXT_POSTFIX}`)) {
           if (file.indexOf(TEST_SUFFIX) > -1) {
             return;
           }
-          const demoName = file.replace(`.${demoExtension}${TEMPLATE_EXT_POSTFIX}`, '');
+          let demoName = removeSuffix(file, `.${demoExtension}${TEMPLATE_EXT_POSTFIX}`);
+          const usePartialContent = demoName.endsWith(PARTIAL_SUFFIX);
+          if (usePartialContent) {
+            demoName = removeSuffix(demoName, PARTIAL_SUFFIX);
+          }
           const testFile = fs.existsSync(path.join(DEMOS_FOLDER, sectionName, `${demoName}${TEST_SUFFIX}.jsxt`))
             ? path.join(DEMOS_FOLDER, sectionName, `${demoName}${TEST_SUFFIX}.jsxt`)
             : getTestFileName(demoExtension);
@@ -99,6 +113,7 @@ const loadDemosToGenerate = () => {
               demoName,
               themeName,
               generateDemo: true,
+              usePartialContent,
               testFile,
               generateTest: true,
               generateSsrTest,
@@ -121,10 +136,22 @@ const overrideFileIfChanged = (filename, data) => {
 };
 const createFromTemplate = (sourceFilename, outputFilename, data) => {
   const source = fs.readFileSync(sourceFilename, 'utf-8');
-  mustache.tags = ['<%', '%>'];
   const output = mustache.render(source, data);
   overrideFileIfChanged(outputFilename, output);
   cancelFileRemoving(outputFilename);
+};
+const findSplitter = (content, index) => {
+  const k = content.indexOf(' from ', index + 1);
+  if (k >= 0) {
+    return findSplitter(content, k);
+  }
+  return index >= 0 ? content.indexOf('\n', index + 1) : -1;
+};
+const splitPartialContent = (content) => {
+  const index = findSplitter(content, -1);
+  const imports = index >= 0 ? content.substring(0, index).trim() : '';
+  const body = index >= 0 ? content.substring(index).trim() : content;
+  return { imports, body };
 };
 const generateDemos = () => {
   demos.forEach(({
@@ -133,6 +160,7 @@ const generateDemos = () => {
     demoExtension,
     themeName,
     generateDemo,
+    usePartialContent,
     testFile,
     generateTest,
     generateSsrTest,
@@ -149,10 +177,17 @@ const generateDemos = () => {
     } catch (e) {} // eslint-disable-line no-empty
 
     if (generateDemo) {
+      let baseName = demoName;
+      let data = demoSourceData;
+      if (usePartialContent) {
+        baseName = `${baseName}${PARTIAL_SUFFIX}`;
+        const partialContent = fs.readFileSync(path.join(DEMOS_FOLDER, sectionName, themeName, `${baseName}.${demoExtension}`), 'utf-8');
+        data = { ...data, ...splitPartialContent(partialContent) };
+      }
       createFromTemplate(
-        path.join(DEMOS_FOLDER, sectionName, `${demoName}.${demoExtension}${TEMPLATE_EXT_POSTFIX}`),
+        path.join(DEMOS_FOLDER, sectionName, `${baseName}.${demoExtension}${TEMPLATE_EXT_POSTFIX}`),
         path.join(DEMOS_FOLDER, sectionName, themeName, `${demoName}${GENERATED_SUFFIX}.${demoExtension}`),
-        demoSourceData,
+        data,
       );
     }
 

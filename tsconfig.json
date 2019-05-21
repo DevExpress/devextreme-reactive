@@ -31,5 +31,5 @@
     "**/*.test.ts*",
     "packages/**/dist",
     "packages/**/api"
-  ],
+  ]
  }

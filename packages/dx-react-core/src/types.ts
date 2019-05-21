@@ -1,4 +1,4 @@
-import { PureReducer, PureComputed } from '@devexpress/dx-core';
+import { PureReducer, PureComputed, Mutable } from '@devexpress/dx-core';
 
 export { IDependency } from '../../dx-core/src';
 
@@ -31,3 +31,9 @@ export type SizerProps = {
   containerComponent?: any;
   style?: object;
 };
+
+export type WritableRefObject<T> = Mutable<React.RefObject<T>>;
+
+export type Getters = { readonly [getterName: string]: any };
+export type Actions = { [actionName: string]: (payload?: any) => void };
+export type ComputedFn = (getters: Getters, actions: Actions) => void;

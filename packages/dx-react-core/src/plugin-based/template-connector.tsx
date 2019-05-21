@@ -6,7 +6,7 @@ import {
   getAvailableActions,
 } from './helpers';
 import { PluginHostContext } from './contexts';
-import { Getters, Actions } from './getter';
+import { Getters, Actions } from '../types';
 
 export interface TemplateConnectorProps {
   /** A function that renders a markup using Getters and Actions passed as arguments. */

@@ -24,7 +24,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 data | Array&lt;[AppointmentModel](#appointmentmodel)&gt; | | An array of appointment data objects.
 rootComponent | ComponentType&lt;[Scheduler.RootProps](#schedulerrootprops)&gt; | | A component that renders the root layout.
-locale | string | 'en-US' | The locale according to which dates should be formatted.
+locale | string &#124; Array&lt;string&gt; | 'en-US' | The locale according to which dates should be formatted.
 
 ## Interfaces
 
@@ -34,8 +34,8 @@ Describes an appointment data object. If you use another data structure, map it 
 
 Field | Type | Description
 ------|------|------------
-startDate | Date &#124; string &#124; number | The start date.
-endDate | Date &#124; string &#124; number | The end date.
+startDate | [SchedulerDateTime](#SchedulerDateTime) | The start date.
+endDate | [SchedulerDateTime](#SchedulerDateTime) | The end date.
 title? | string | The title.
 allDay? | boolean | The all day flag.
 id? | number &#124; string | The identifier.
@@ -50,6 +50,18 @@ Describes properties passed to a component that renders the root layout.
 Field | Type | Description
 ------|------|------------
 children? | ReactNode | A React node used to render the root layout.
+
+### SchedulerDateTime
+
+The type of date-time values in the Scheduler.
+
+Type: `Date | string | number`
+
+### FormatterFn
+
+A function that formats dates according to the set locale.
+
+Type: `(nextDate: Date | string | number | undefined, nextOptions: Intl.DateTimeFormatOptions) => string`
 
 ## Plugin Components
 

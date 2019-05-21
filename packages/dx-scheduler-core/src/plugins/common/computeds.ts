@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { PureComputed } from '@devexpress/dx-core';
 import {
-  TimeScale, CurrentTime, ViewCell,
+  TimeScale, SchedulerDateTime, ViewCell,
   DayScaleFn, TimeScaleFn, ViewCellsDataFn, AllDayCell,
 } from '../../types';
 import { calculateFirstDateOfWeek } from '../../utils';
@@ -16,7 +16,7 @@ export const dayScale: DayScaleFn = (
   dayCount,
   excluded = [],
 ) => {
-  const result = [];
+  const result: Date[] = [];
   const date = firstDayOfWeek !== undefined
     ? moment(calculateFirstDateOfWeek(currentDate, firstDayOfWeek, excluded) as Date)
     : moment(currentDate as Date);
@@ -71,11 +71,11 @@ export const viewCellsData: ViewCellsDataFn = (
   startDayHour, endDayHour,
   cellDuration, currTime,
 ) => {
-  const days = dayScale(currentDate, firstDayOfWeek, dayCount, excludedDays);
+  const days = dayScale(currentDate, firstDayOfWeek!, dayCount!, excludedDays);
   const times = timeScale(
-    currentDate, firstDayOfWeek, startDayHour, endDayHour, cellDuration, excludedDays,
+    currentDate, firstDayOfWeek!, startDayHour, endDayHour, cellDuration, excludedDays,
   );
-  const currentTime = moment(currTime as CurrentTime);
+  const currentTime = moment(currTime as SchedulerDateTime);
 
   return times.reduce((cellsAcc, time) => {
     const start = moment(time.start);

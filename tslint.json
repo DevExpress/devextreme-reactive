@@ -31,7 +31,8 @@
     "prefer-array-literal": [true, { "allow-type-parameters": true }],
     "array-type": false,
     "member-ordering": false,
-    "jsx-wrap-multiline": false
+    "jsx-wrap-multiline": false,
+    "no-this-assignment": [true, {"allow-destructuring": true}]
   },
   "jsRules": {
     "object-literal-sort-keys": false

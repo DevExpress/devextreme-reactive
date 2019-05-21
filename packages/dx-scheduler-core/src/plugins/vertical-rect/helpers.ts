@@ -1,6 +1,6 @@
 import moment from 'moment';
 import {
-  GetCellByDateFn, GetVerticalRectByDatesFn, GetCellRectVerticalFn, SchedulerTime,
+  GetCellByDateFn, GetVerticalRectByDatesFn, GetCellRectVerticalFn, SchedulerDateTime,
 } from '../../types';
 
 const CELL_GAP_PX = 10;
@@ -9,10 +9,10 @@ const CELL_BOUND_VERTICAL_OFFSET_PX = 4;
 
 export const getCellByDate: GetCellByDateFn = (viewCellsData, date, takePrev = false) => {
   const cellIndex =
-    viewCellsData[0].findIndex(timeCell => moment(date as SchedulerTime)
+    viewCellsData[0].findIndex(timeCell => moment(date as SchedulerDateTime)
       .isSame(timeCell.startDate, 'date'));
 
-  const rowIndex = viewCellsData.findIndex(timeCell => moment(date as SchedulerTime)
+  const rowIndex = viewCellsData.findIndex(timeCell => moment(date as SchedulerDateTime)
     .isBetween(
       timeCell[cellIndex].startDate,
       timeCell[cellIndex].endDate,
@@ -43,7 +43,7 @@ const getCellRect: GetCellRectVerticalFn = (
     height: cellHeight,
   } = cellElement.getBoundingClientRect();
 
-  const timeOffset = moment(date as SchedulerTime).diff(cellStartDate as Date, 'minutes');
+  const timeOffset = moment(date as SchedulerDateTime).diff(cellStartDate as Date, 'minutes');
   const topOffset = cellHeight * (timeOffset / cellDuration);
   let parentRect = { left: 0, top: 0, width: 0 };
   if (cellElement.offsetParent) {

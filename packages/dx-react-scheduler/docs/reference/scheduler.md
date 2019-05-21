@@ -34,8 +34,8 @@ Describes an appointment data object. If you use another data structure, map it 
 
 Field | Type | Description
 ------|------|------------
-startDate | [SchedulerTime](#schedulertime) | The start date.
-endDate | [SchedulerTime](#schedulertime) | The end date.
+startDate | [SchedulerDateTime](#SchedulerDateTime) | The start date.
+endDate | [SchedulerDateTime](#SchedulerDateTime) | The end date.
 title? | string | The title.
 allDay? | boolean | The all day flag.
 id? | number &#124; string | The identifier.
@@ -51,7 +51,7 @@ Field | Type | Description
 ------|------|------------
 children? | ReactNode | A React node used to render the root layout.
 
-### SchedulerTime
+### SchedulerDateTime
 
 The type of date-time values in the Scheduler.
 

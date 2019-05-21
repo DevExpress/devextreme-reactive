@@ -1,6 +1,6 @@
 import { PureComputed } from '@devexpress/dx-core';
 
-export type SchedulerTime = Date | number | string;
+export type SchedulerDateTime = Date | number | string;
 export type AppointmentId = number | string;
 /** @internal */
 export type CellElement = React.ReactInstance;
@@ -8,9 +8,9 @@ export type CellElement = React.ReactInstance;
 /** Describes an appointment data object. */
 export interface AppointmentModel {
   /** The start date. */
-  startDate: SchedulerTime;
+  startDate: SchedulerDateTime;
   /** The end date. */
-  endDate: SchedulerTime;
+  endDate: SchedulerDateTime;
   /** The title. */
   title?: string;
   /** The all day flag. */
@@ -23,9 +23,9 @@ export interface AppointmentModel {
 
 export interface Appointment {
   /** The start date. */
-  start: SchedulerTime;
+  start: SchedulerDateTime;
   /** The end date. */
-  end: SchedulerTime;
+  end: SchedulerDateTime;
   /** The all day flag. */
   allDay?: boolean;
   /** The recurrence rule. */
@@ -42,8 +42,8 @@ export interface TimeScale {
 }
 
 export type AllDayCell = {
-  startDate: SchedulerTime;
-  endDate: SchedulerTime;
+  startDate: SchedulerDateTime;
+  endDate: SchedulerDateTime;
 };
 
 /** @internal */
@@ -64,11 +64,11 @@ export type TimeScaleFn = PureComputed<
 /** @internal */
 export type ViewCellsDataFn = PureComputed<
   [Date, number | undefined, number | undefined, number[],
-    number, number, number, SchedulerTime], ViewCell[][]
+    number, number, number, SchedulerDateTime], ViewCell[][]
 >;
 
 export type FormatterFn = (
-  nextDate: SchedulerTime | undefined, nextOptions: Intl.DateTimeFormatOptions,
+  nextDate: SchedulerDateTime | undefined, nextOptions: Intl.DateTimeFormatOptions,
 ) => string;
 /** @internal */
 export type FormatDateTimeGetterFn = (locale: string | string[]) => FormatterFn;

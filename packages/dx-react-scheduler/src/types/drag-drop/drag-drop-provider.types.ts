@@ -1,4 +1,4 @@
-import { SchedulerTime } from '@devexpress/dx-scheduler-core';
+import { SchedulerDateTime } from '@devexpress/dx-scheduler-core';
 import { AppointmentModel } from '../index';
 
 /* tslint:disable no-namespace max-line-length */
@@ -59,7 +59,7 @@ export interface DragDropProviderProps {
 
 /** @internal */
 export type DragDropProviderState = {
-  startTime: SchedulerTime | null,
-  endTime: SchedulerTime | null,
+  startTime: SchedulerDateTime | null,
+  endTime: SchedulerDateTime | null,
   payload: any,
 };

@@ -39,6 +39,7 @@ contentComponent | ComponentType&lt;[TableGroupRow.ContentProps](#tablegrouprowc
 iconComponent | ComponentType&lt;[TableGroupRow.IconProps](#tablegrouprowiconprops)&gt; | | A component that renders a group expand icon.
 indentCellComponent? | ComponentType&lt;[TableGroupRow.IndentCellProps](#tablegrouprowindentcellprops)&gt; | null | A component that renders a group indent cell.
 indentColumnWidth | number | | The group indent column's width.
+contentCellPadding | string | | The group cell's left padding value.
 
 ## Interfaces
 

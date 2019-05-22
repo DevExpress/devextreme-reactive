@@ -98,7 +98,7 @@ export interface TableGroupRowProps {
   indentCellComponent?: React.ComponentType<TableGroupRow.IndentCellProps>;
   /** The group indent column's width. */
   indentColumnWidth: number;
-  /** The cell padding value */
+  /** The group cell's left padding value */
   contentCellPadding: string;
 }
 

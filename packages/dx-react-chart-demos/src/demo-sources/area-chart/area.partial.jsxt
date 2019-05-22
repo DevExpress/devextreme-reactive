@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from 'react';<%&additionalImports%>
 import {
   Chart,
   ArgumentAxis,
@@ -6,9 +6,10 @@ import {
   AreaSeries,
   Title,
   Legend,
-} from '@devexpress/dx-react-chart-bootstrap4';
+} from '@devexpress/dx-react-chart-<%&themeName%>';
 import { ArgumentScale, Animation } from '@devexpress/dx-react-chart';
 import { scalePoint } from 'd3-scale';
+<%&imports%>
 
 const data = [
   { year: '2010', android: 67225, ios: 46598 },
@@ -17,24 +18,8 @@ const data = [
   { year: '2015', android: 539318, ios: 189924 },
 ];
 
-const Root = props => (
-  <Legend.Root
-    {...props}
-    className="m-auto flex-row"
-  />
-);
-const Item = props => (
-  <Legend.Item
-    {...props}
-    className="flex-column"
-  />
-);
-const Label = props => (
-  <Legend.Label
-    {...props}
-    className="pt-2"
-  />
-);
+<%&body%>
+
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -46,12 +31,11 @@ export default class Demo extends React.PureComponent {
 
   render() {
     const { data: chartData } = this.state;
-
     return (
-      <div className="card">
+      <<%&wrapperTag%><%&wrapperAttributes%>>
         <Chart
           data={chartData}
-          className="pr-3"
+          rootComponent={ChartRoot}
         >
           <ArgumentScale factory={scalePoint} />
           <ArgumentAxis />
@@ -70,15 +54,15 @@ export default class Demo extends React.PureComponent {
           <Animation />
           <Legend
             position="bottom"
-            rootComponent={Root}
-            itemComponent={Item}
-            labelComponent={Label}
+            rootComponent={LegendRoot}
+            itemComponent={LegendItem}
+            labelComponent={LegendLabel}
           />
           <Title
             text="Worldwide Sales to End Users by OS"
           />
         </Chart>
-      </div>
+      </<%&wrapperTag%>>
     );
   }
 }

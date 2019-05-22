@@ -6,7 +6,7 @@ import {
   moveBounds, growBounds, invertBoundsRange,
 } from '../../utils/scale';
 import {
-  adjustLayout, getViewport, getDeltaForTouches, isKeyPressed, getWheelDelta,
+  adjustLayout, getViewport, getDeltaForTouches, isKeyPressed, getWheelDelta, isOver,
 } from './computeds';
 import { ScalesCache, ViewportOptions } from '../../types';
 
@@ -352,6 +352,15 @@ describe('ZoomAndPan', () => {
       expect(getWheelDelta({ wheelDelta: 2 })).toBe(2);
       expect(getWheelDelta({ wheelDelta: 0 })).toBe(0);
       expect(getWheelDelta({ deltaY: 3 })).toBe(-90);
+    });
+  });
+
+  describe('#isOver', () => {
+    it('should return true/false', () => {
+      expect(isOver({ clientX: 3, clientY: 5 }, { left: 1, right: 10, top: 2, bottom: 11 }))
+      .toBeTruthy();
+      expect(isOver({ clientX: 12, clientY: 5 }, { left: 1, right: 10, top: 2, bottom: 11 }))
+      .toBeFalsy();
     });
   });
 });

@@ -3,9 +3,6 @@ import {
   Plugin,
   TemplatePlaceholder,
   Template,
-  DragDropProvider,
-  DropTarget,
-  DragSource,
   TemplateConnector,
   Getters,
   Getter,
@@ -15,7 +12,7 @@ import {
 import { DragBox } from '../templates/drag-box';
 import {
   adjustLayout, getViewport, isKeyPressed, getOffset, getDeltaForTouches,
-  ScalesCache, getWheelDelta,
+  ScalesCache, getWheelDelta, isOver,
 } from '@devexpress/dx-chart-core';
 import {
   ZoomAndPanProps, ZoomAndPanState, NumberArray, ZoomPanProviderProps, EventHandlers,
@@ -23,17 +20,18 @@ import {
 
 const events = {
   wheel: 'onWheel',
-  mousedown: 'onDown',
-  touchstart: 'onDown',
-  touchmove: 'onTouchMove',
-  touchend: 'onTouchEnd',
+  mousedown: 'onStart',
+  touchstart: 'onStart',
+  touchend: 'onEnd',
+  mouseup: 'onEnd',
+  mousemove: 'onMove',
+  touchmove: 'onMove',
 };
 
 class ZoomPanProvider extends React.PureComponent<ZoomPanProviderProps> {
-  ref!: Element;
   handlers!: EventHandlers;
+
   componentDidMount() {
-    this.ref = this.props.rootRef.current!;
     this.handlers = Object.keys(events).reduce((prev, key) => {
       return {
         ...prev,
@@ -45,13 +43,13 @@ class ZoomPanProvider extends React.PureComponent<ZoomPanProviderProps> {
 
   attachEvents() {
     Object.keys(this.handlers).forEach((el) => {
-      this.ref.addEventListener(el, this.handlers[el], { passive: false });
+      window.addEventListener(el, this.handlers[el], { passive: false });
     });
   }
 
   detachEvents() {
     Object.keys(this.handlers).forEach((el) => {
-      this.ref.removeEventListener(el, this.handlers[el]);
+      window.removeEventListener(el, this.handlers[el]);
     });
   }
 
@@ -95,11 +93,14 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
     };
   }
 
-  handleStart(zoomRegionKey: string, e: any) {
-    this.offset = getOffset(e.currentTarget);
+  handleStart(zoomRegionKey: string, e: any, rootRef: React.RefObject<Element>) {
+    if (!isOver(e, rootRef.current!.getBoundingClientRect())) {
+      return;
+    }
+    this.offset = getOffset(rootRef.current!);
       // Rectangle mode should be canceled if "zoomRegionKey" is released during mouse movevent or
       // not pressed when mouse is up. To do it access to "event" object is required in
-      // "handleMouseMove" and "handleMouseUp".
+      // "handleMove" and "handleEnd".
       // TODO: Provide rectangle mode canceling.
     if (isKeyPressed(e, zoomRegionKey)) {
       this.rectOrigin = [e.pageX - this.offset[0], e.pageY - this.offset[1]];
@@ -107,37 +108,31 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
     if (e.touches && e.touches.length === 2) {
       this.multiTouchDelta = getDeltaForTouches(e.touches).delta;
     }
+    this.lastCoordinates = [e.clientX - this.offset[0], e.clientY - this.offset[1]];
   }
 
-  handleTouchMove(scales: ScalesCache, e: any) {
+  handleMove(scales: ScalesCache, e: any) {
     e.preventDefault();
+    if (!this.lastCoordinates) {
+      return;
+    }
     if (e.touches && e.touches.length === 2) {
       const current = getDeltaForTouches(e.touches);
       this.zoom(scales, current.delta - this.multiTouchDelta!, current.center);
       this.multiTouchDelta = current.delta;
     } else {
-      this.handleMouseMove(scales, { x: e.touches[0].clientX, y: e.touches[0].clientY });
+      this.scroll(scales, e.touches ? e.touches[0] : e);
     }
   }
 
-  handleMouseMove(scales: ScalesCache, clientOffset: { x: number, y: number }) {
-    if (this.multiTouchDelta) {
-      return;
-    }
-    const coords: NumberArray = [clientOffset.x - this.offset[0], clientOffset.y - this.offset[1]];
-    if (!this.lastCoordinates) {
-      this.lastCoordinates = coords;
-      return;
-    }
-    const deltaX = coords[0] - this.lastCoordinates[0];
-    const deltaY = coords[1] - this.lastCoordinates[1];
-
+  scroll(scales: ScalesCache, event: any) {
+    const coords: NumberArray = [event.clientX - this.offset[0], event.clientY - this.offset[1]];
+    const deltaX = coords[0] - this.lastCoordinates![0];
+    const deltaY = coords[1] - this.lastCoordinates![1];
+    this.lastCoordinates = coords;
     this.setState((
       { viewport }, { onViewportChange, interactionWithArguments, interactionWithValues },
     ) => {
-      if (this.lastCoordinates) {
-        this.lastCoordinates = coords;
-      }
       if (this.rectOrigin) {
         return {
           rectBox: {
@@ -155,7 +150,7 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
     });
   }
 
-  handleMouseUp(scales: ScalesCache) {
+  handleEnd(scales: ScalesCache) {
     this.lastCoordinates = null;
     this.multiTouchDelta = null;
     if (this.rectOrigin) {
@@ -165,7 +160,7 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
       ) => {
         this.rectOrigin = null;
         return {
-          rectBox:  null,
+          rectBox: null,
           ...getViewport(
             scales, [interactionWithArguments!, interactionWithValues!], 'zoom',
             null,
@@ -192,9 +187,12 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
     });
   }
 
-  handleScroll(scales: ScalesCache, e: any) {
+  handleZoom(scales: ScalesCache, e: any, rootRef: React.RefObject<Element>) {
     e.preventDefault();
-    const offset = getOffset(e.currentTarget);
+    if (!isOver(e.touches ? e.touches[0] : e, rootRef.current!.getBoundingClientRect())) {
+      return;
+    }
+    const offset = getOffset(rootRef.current!);
     const center: NumberArray = [e.pageX - offset[0], e.pageY - offset[1]];
     this.zoom(scales, getWheelDelta(e), center);
   }
@@ -213,30 +211,18 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
       <Plugin name="zoomAndPan">
       <Getter name="ranges" computed={getAdjustedLayout} />
         <Template name="root">
+        <TemplatePlaceholder />
           <TemplateConnector>
             {({ scales, rootRef }) => (
-            <React.Fragment>
-              <DragDropProvider>
-                <DropTarget
-                  onOver={({ _, clientOffset }) => this.handleMouseMove(scales, clientOffset)}
-                  onDrop={() => this.handleMouseUp(scales)}
-                >
-                  <DragSource payload={null}>
-                    <TemplatePlaceholder/>
-                  </DragSource>
-                </DropTarget>
-              </DragDropProvider>
-              <ZoomPanProvider
-                rootRef={rootRef}
-                onWheel={e => this.handleScroll(scales, e)}
-                onDown={e => this.handleStart(zoomRegionKey!, e)}
-                onTouchMove={e => this.handleTouchMove(scales, e)}
-                onTouchEnd={e => this.handleMouseUp(scales)}
-              />
-            </React.Fragment>)}
+                <ZoomPanProvider
+                  onWheel={e => this.handleZoom(scales, e, rootRef)}
+                  onStart={e => this.handleStart(zoomRegionKey!, e, rootRef)}
+                  onMove={e => this.handleMove(scales, e)}
+                  onEnd={e => this.handleEnd(scales)}
+                />
+              )}
           </TemplateConnector>
         </Template>
-
         <Template name="series">
           <TemplatePlaceholder />
           {rectBox ? (

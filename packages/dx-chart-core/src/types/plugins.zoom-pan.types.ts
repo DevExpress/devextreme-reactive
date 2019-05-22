@@ -10,3 +10,8 @@ export type ViewportOptions = {
 };
 
 export type OnViewportChangeFn = (viewport: ViewportOptions) => void;
+
+/** @internal */
+export type BBox = { left: number, right: number, top: number, bottom: number };
+/** @internal */
+export type EventCoordinates = { clientX: number, clientY: number };

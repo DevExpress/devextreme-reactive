@@ -39,9 +39,8 @@ export namespace ZoomAndPan {
 
 /** @internal */
 export type ZoomPanProviderProps = {
-  rootRef: React.RefObject<Element>;
   onWheel: EventHandlerFn;
-  onDown: EventHandlerFn,
-  onTouchMove: EventHandlerFn,
-  onTouchEnd: EventHandlerFn
+  onStart: EventHandlerFn,
+  onMove: EventHandlerFn,
+  onEnd: EventHandlerFn,
 };

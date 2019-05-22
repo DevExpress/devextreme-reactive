@@ -3,6 +3,7 @@ import {
   isGroupTableCell,
   isGroupIndentTableCell,
   isGroupTableRow,
+  calculateGroupCellLeft,
 } from './helpers';
 
 describe('TableRowDetail Plugin helpers', () => {
@@ -32,6 +33,7 @@ describe('TableRowDetail Plugin helpers', () => {
         .toBeFalsy();
     });
   });
+
   describe('#isGroupIndentTableCell', () => {
     it('should work', () => {
       expect(isGroupIndentTableCell(
@@ -66,10 +68,29 @@ describe('TableRowDetail Plugin helpers', () => {
         .toBeFalsy();
     });
   });
+
   describe('#isGroupTableRow', () => {
     it('should work', () => {
       expect(isGroupTableRow({ ...key, type: TABLE_GROUP_TYPE })).toBeTruthy();
       expect(isGroupTableRow({ ...key, type: Symbol('undefined') })).toBeFalsy();
+    });
+  });
+
+  describe('#calculateGroupCellLeft', () => {
+    const grouping = [
+      { columnName: 'a' },
+      { columnName: 'b' },
+      { columnName: 'c' },
+    ];
+
+    it('should calculate left position for first level', () => {
+      expect(calculateGroupCellLeft({ column: { name: 'a' } }, grouping, 30))
+        .toBe(0);
+    });
+
+    it('should calculate left position for nested group', () => {
+      expect(calculateGroupCellLeft({ column: { name: 'c' } }, grouping, 30))
+        .toBe(60);
     });
   });
 });

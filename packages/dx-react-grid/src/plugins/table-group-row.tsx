@@ -10,7 +10,7 @@ import {
   isGroupIndentTableCell,
   isGroupTableRow,
   TABLE_GROUP_TYPE,
-  groupCellLeft,
+  calculateGroupCellLeft,
 } from '@devexpress/dx-grid-core';
 import {
   TableGroupRowProps, ShowColumnWhenGroupedGetterFn, TableCellProps, TableRowProps,
@@ -98,7 +98,7 @@ class TableGroupRowBase extends React.PureComponent<TableGroupRowProps> {
             <TemplateConnector>
               {({ grouping, expandedGroups }, { toggleGroupExpanded }) => {
                 if (isGroupTableCell(params.tableRow, params.tableColumn)) {
-                  const cellLeft = groupCellLeft(params.tableColumn, grouping, indentColumnWidth);
+                  const cellLeft = calculateGroupCellLeft(params.tableColumn, grouping, indentColumnWidth);
                   const contentLeft = `calc(${cellLeft}px + ${contentCellPadding})`;
                   return (
                     <TemplatePlaceholder
@@ -130,7 +130,7 @@ class TableGroupRowBase extends React.PureComponent<TableGroupRowProps> {
                 }
                 if (isGroupIndentTableCell(params.tableRow, params.tableColumn, grouping)) {
                   const fixedProps = {
-                    left: groupCellLeft(params.tableColumn, grouping, indentColumnWidth),
+                    left: calculateGroupCellLeft(params.tableColumn, grouping, indentColumnWidth),
                   };
                   if (GroupIndentCell) {
                     return (

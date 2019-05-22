@@ -2,10 +2,13 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-import { getStickyCellStyle } from '../utils';
+import { getStickyCellStyle, getBorder } from '../utils';
 
 const styles = theme => ({
-  indentCell: getStickyCellStyle(theme),
+  indentCell: {
+    ...getStickyCellStyle(theme),
+    borderBottom: getBorder(theme),
+  },
 });
 
 const IndentCellBase = ({

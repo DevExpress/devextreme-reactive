@@ -14,27 +14,55 @@ export default class Demo extends React.PureComponent {
     this.state = {
       data: appointments,
       startDayHour: 9,
+      cellDuration: 30,
+      excludedDays: [],
+      intervalCount: 1,
+      firstDayOfWeek: 1,
+      endDayHour: 18,
     };
 
-    this.changeStartDayHour = this.changeStartDayHour.bind(this);
-  }
-
-  changeStartDayHour({ target }) {
-    this.setState({ startDayHour: parseInt(target.value) });
+    this.changeStartDayHour = field => ({ target }) => {
+      this.setState({ [field]: parseInt(target.value) });
+    };
   }
 
   render() {
-    const { data, startDayHour } = this.state;
+    const {
+      data,
+      startDayHour,
+      cellDuration,
+      excludedDays,
+      intervalCount,
+      firstDayOfWeek,
+      endDayHour,
+    } = this.state;
+
+    // cellDuration,
+    // excludedDays,
+    // name: viewName,
+    // intervalCount,
+    // firstDayOfWeek,
+    // startDayHour,
+    // endDayHour,
 
     return (
       <Paper>
-        <input onChange={this.changeStartDayHour} />
+        cellDuration: <input onChange={this.changeStartDayHour('cellDuration')} />
+        startDayHour: <input onChange={this.changeStartDayHour('startDayHour')} />
+        excludedDays: <input onChange={this.changeStartDayHour('excludedDays')} />
+        intervalCount: <input onChange={this.changeStartDayHour('intervalCount')} />
+        firstDayOfWeek: <input onChange={this.changeStartDayHour('firstDayOfWeek')} />
+        endDayHour: <input onChange={this.changeStartDayHour('endDayHour')} />
         <Scheduler
           data={data}
         >
           <WeekView
             startDayHour={startDayHour}
-            endDayHour={19}
+            endDayHour={endDayHour}
+            cellDuration={cellDuration}
+            excludedDays={excludedDays}
+            intervalCount={intervalCount}
+            firstDayOfWeek={firstDayOfWeek}
           />
           <Appointments />
         </Scheduler>

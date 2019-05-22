@@ -9,7 +9,7 @@ export const IndentCell = ({
   tableColumn,
   row, column,
   style,
-  ...restProps,
+  ...restProps
 }) => {
   const [position] = useState(getStickyPosition());
   const { backgroundColor } = useContext(ThemeColors);
@@ -39,7 +39,7 @@ IndentCell.propTypes = {
 };
 
 IndentCell.defaultProps = {
-  left: "",
+  left: '',
   tableRow: undefined,
   tableColumn: undefined,
   row: {},

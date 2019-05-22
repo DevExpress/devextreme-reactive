@@ -8,7 +8,7 @@ export const IndentCell = ({
   tableColumn,
   row, column,
   style, className,
-  ...restProps,
+  ...restProps
 }) => (
   <td
     className={classNames('position-sticky dx-g-bs4-fixed-cell', className)}
@@ -23,14 +23,16 @@ IndentCell.propTypes = {
   tableColumn: PropTypes.object,
   row: PropTypes.any,
   column: PropTypes.object,
+  className: PropTypes.string,
   style: PropTypes.object,
 };
 
 IndentCell.defaultProps = {
-  left: "",
+  left: '',
   tableRow: undefined,
   tableColumn: undefined,
   row: {},
   column: {},
+  className: undefined,
   style: null,
 };

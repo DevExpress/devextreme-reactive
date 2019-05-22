@@ -29,7 +29,7 @@ describe('TableGroupCell', () => {
     });
 
     it('should apply left position', () => {
-      const tree = shallow(<IndentCell left="13px"/>);
+      const tree = shallow(<IndentCell left="13px" />);
 
       expect(tree.prop('style'))
         .toMatchObject({

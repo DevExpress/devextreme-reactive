@@ -14,7 +14,7 @@ const IndentCellBase = ({
   tableColumn,
   row, column,
   style, className, classes,
-  ...restProps,
+  ...restProps
 }) => (
   <td
     className={classNames(classes.indentCell, className)}
@@ -35,7 +35,7 @@ IndentCellBase.propTypes = {
 };
 
 IndentCellBase.defaultProps = {
-  left: "",
+  left: '',
   tableRow: undefined,
   tableColumn: undefined,
   row: {},

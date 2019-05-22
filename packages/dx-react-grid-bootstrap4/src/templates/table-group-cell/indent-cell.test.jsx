@@ -12,7 +12,7 @@ describe('TableGroupCell', () => {
     });
 
     it('should apply left position', () => {
-      const tree = shallow(<IndentCell left="13px"/>);
+      const tree = shallow(<IndentCell left="13px" />);
 
       expect(tree.prop('style'))
         .toMatchObject({
@@ -38,7 +38,6 @@ describe('TableGroupCell', () => {
     it('should pass custom class to the root element', () => {
       const tree = shallow((
         <IndentCell
-          {...defaultProps}
           className="custom-class"
         />
       ));

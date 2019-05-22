@@ -11,7 +11,9 @@ const styles = theme => ({
   },
 });
 
-const ContainerBase = ({ children, style, classes, className, ...restProps }) => (
+const ContainerBase = ({
+  children, style, classes, className, ...restProps
+}) => (
   <div
     className={classNames(classes.wrapper, className)}
     style={style}
@@ -23,11 +25,14 @@ const ContainerBase = ({ children, style, classes, className, ...restProps }) =>
 
 ContainerBase.propTypes = {
   children: PropTypes.node,
+  classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
   style: PropTypes.object,
 };
 
 ContainerBase.defaultProps = {
   children: undefined,
+  className: undefined,
   style: null,
 };
 

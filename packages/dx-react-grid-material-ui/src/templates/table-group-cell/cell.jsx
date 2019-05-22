@@ -79,7 +79,7 @@ CellBase.defaultProps = {
   className: undefined,
   tableRow: undefined,
   tableColumn: undefined,
-  left: "",
+  left: '',
 };
 
 export const Cell = withStyles(styles, { name: 'TableGroupCell' })(CellBase);

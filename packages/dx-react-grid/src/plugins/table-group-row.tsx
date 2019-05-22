@@ -98,8 +98,11 @@ class TableGroupRowBase extends React.PureComponent<TableGroupRowProps> {
             <TemplateConnector>
               {({ grouping, expandedGroups }, { toggleGroupExpanded }) => {
                 if (isGroupTableCell(params.tableRow, params.tableColumn)) {
-                  const cellLeft = calculateGroupCellLeft(params.tableColumn, grouping, indentColumnWidth);
+                  const cellLeft = calculateGroupCellLeft(
+                    params.tableColumn, grouping, indentColumnWidth,
+                  );
                   const contentLeft = `calc(${cellLeft}px + ${contentCellPadding})`;
+
                   return (
                     <TemplatePlaceholder
                       name="valueFormatter"

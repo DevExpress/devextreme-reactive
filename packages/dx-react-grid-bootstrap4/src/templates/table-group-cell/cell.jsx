@@ -66,5 +66,5 @@ Cell.defaultProps = {
   children: undefined,
   tableRow: undefined,
   tableColumn: undefined,
-  left: "",
+  left: '',
 };

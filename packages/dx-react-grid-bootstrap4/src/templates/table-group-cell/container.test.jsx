@@ -31,7 +31,6 @@ describe('TableGroupCell', () => {
     it('should pass custom class to the root element', () => {
       const tree = shallow((
         <Container
-          {...defaultProps}
           className="custom-class"
         />
       ));
@@ -41,13 +40,11 @@ describe('TableGroupCell', () => {
     });
 
     it('should pass rest props to the root element', () => {
-      const tree = mount((
-        <ThemeColors.Provider value={themeColors}>
-          <Container data={{ a: 1 }} />
-        </ThemeColors.Provider>
+      const tree = shallow((
+        <Container data={{ a: 1 }} />
       ));
 
-      expect(tree.childAt(0).props().data)
+      expect(tree.props().data)
         .toMatchObject({ a: 1 });
     });
   });

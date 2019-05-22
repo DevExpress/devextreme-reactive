@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { findDOMNode } from 'react-dom';
 import * as PropTypes from 'prop-types';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -14,22 +13,32 @@ const styles = {
 };
 
 class LayoutBase extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.table = null;
+
+    this.saveReference = this.saveReference.bind(this);
+  }
+
   componentDidMount() {
     const { setCellElements } = this.props;
 
-    debugger
-    // eslint-disable-next-line react/no-find-dom-node
-    const cellElements = findDOMNode(this).querySelectorAll('td');
+    const cellElements = this.table.querySelectorAll('td');
     setCellElements(cellElements);
   }
 
   componentDidUpdate() {
     const { setCellElements } = this.props;
 
-    debugger
-    // eslint-disable-next-line react/no-find-dom-node
-    const cellElements = findDOMNode(this).querySelectorAll('td');
+    const cellElements = this.table.querySelectorAll('td');
     setCellElements(cellElements);
+  }
+
+  saveReference(ref) {
+    const { tableRef } = this.props;
+    this.table = ref;
+    tableRef(ref);
   }
 
   render() {
@@ -44,7 +53,7 @@ class LayoutBase extends React.PureComponent {
       ...restProps
     } = this.props;
     return (
-      <RootRef rootRef={tableRef}>
+      <RootRef rootRef={this.saveReference}>
         <Table
           className={classNames(classes.table, className)}
           {...restProps}

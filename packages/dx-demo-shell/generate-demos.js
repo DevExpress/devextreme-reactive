@@ -150,7 +150,7 @@ const findSplitter = (content, index) => {
 const splitPartialContent = (content) => {
   const index = findSplitter(content, -1);
   const imports = index >= 0 ? content.substring(0, index).trim() : '';
-  const body = index >= 0 ? content.substring(index).trim() : content;
+  const body = index >= 0 ? content.substring(index).trim() : content.trim();
   return { imports, body };
 };
 const generateDemos = () => {

@@ -1,11 +1,12 @@
-import * as React from 'react';
+import * as React from 'react';<%&additionalImports%>
 import { DataTypeProvider } from '@devexpress/dx-react-grid';
 import {
   Grid,
   Table,
   TableBandHeader,
   TableHeaderRow,
-} from '@devexpress/dx-react-grid-bootstrap3';
+} from '@devexpress/dx-react-grid-<%&themeName%>';
+<%&imports%>
 import { countries } from '../countries';
 
 const PercentFormatter = ({ value }) => (
@@ -22,33 +23,7 @@ const PercentTypeProvider = props => (
   />
 );
 
-const BandCell = ({
-  children, tableRow, tableColumn, column, ...restProps
-}) => {
-  let icon = 0;
-  if (column.title === 'Population') icon = 'user';
-  if (column.title === 'Nominal GDP') icon = 'stats';
-  if (column.title === 'By Sector') icon = 'globe';
-  return (
-    <TableBandHeader.Cell
-      {...restProps}
-      column={column}
-    >
-      {children}
-      <span
-        className={`glyphicon glyphicon-${icon}`}
-        style={{ marginLeft: '10px' }}
-      />
-    </TableBandHeader.Cell>
-  );
-};
-
-const HeaderCell = ({ className, ...restProps }) => (
-  <TableHeaderRow.Cell
-    {...restProps}
-    className={`text-info ${className}`}
-  />
-);
+<%&body%>
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -107,7 +82,7 @@ export default class Demo extends React.PureComponent {
     } = this.state;
 
     return (
-      <div>
+      <<%&wrapperTag%><%&wrapperAttributes%>>
         <Grid
           rows={countries}
           columns={columns}
@@ -126,7 +101,7 @@ export default class Demo extends React.PureComponent {
             cellComponent={BandCell}
           />
         </Grid>
-      </div>
+      </<%&wrapperTag%>>
     );
   }
 }

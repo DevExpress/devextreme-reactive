@@ -7,6 +7,9 @@ import {
   Appointments,
   Toolbar,
   ViewSwitcher,
+  MonthView,
+  DayView,
+  AllDayPanel,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
 import { appointments } from '../../../demo-data/month-appointments';
@@ -48,6 +51,10 @@ export default class Demo extends React.PureComponent {
             startDayHour={9}
             endDayHour={19}
           />
+          <MonthView />
+          <DayView />
+
+          <AllDayPanel />
 
           <Toolbar />
           <ViewSwitcher />

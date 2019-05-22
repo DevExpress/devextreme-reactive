@@ -1,16 +1,16 @@
 import { PureComputed } from '@devexpress/dx-core';
 
-export type CurrentTime = Date | number | string;
-export type AppointmentDate = Date | number | string;
+export type SchedulerDateTime = Date | number | string;
 export type AppointmentId = number | string;
+/** @internal */
 export type CellElement = React.ReactInstance;
 
 /** Describes an appointment data object. */
 export interface AppointmentModel {
   /** The start date. */
-  startDate: Date | string | number;
+  startDate: SchedulerDateTime;
   /** The end date. */
-  endDate: Date | string | number;
+  endDate: SchedulerDateTime;
   /** The title. */
   title?: string;
   /** The all day flag. */
@@ -23,9 +23,9 @@ export interface AppointmentModel {
 
 export interface Appointment {
   /** The start date. */
-  start: Date | string | number;
+  start: SchedulerDateTime;
   /** The end date. */
-  end: Date | string | number;
+  end: SchedulerDateTime;
   /** The all day flag. */
   allDay?: boolean;
   /** The recurrence rule. */
@@ -42,41 +42,37 @@ export interface TimeScale {
 }
 
 export type AllDayCell = {
-  startDate: Date | string | number;
-  endDate: Date | string | number;
+  startDate: SchedulerDateTime;
+  endDate: SchedulerDateTime;
 };
 
-/** Describes a cell data configuration object. */
+/** @internal */
 export interface ViewCell {
-  /** Specifies the cell start time. */
   startDate: Date;
-  /** Specifies the cell end time. */
   endDate?: Date;
-  /** Indicates whether the cell's date is not in the current month. */
   otherMonth?: boolean;
-  /** Indicates whether the cell's date is today. */
   today?: boolean;
 }
-
+/** @internal */
 export type DayScaleFn = PureComputed<
   [Date, number, number, number[]], Date[]
 >;
-
+/** @internal */
 export type TimeScaleFn = PureComputed<
   [Date, number, number, number, number, number[]], TimeScale[]
 >;
-
+/** @internal */
 export type ViewCellsDataFn = PureComputed<
-  [Date, number, number, number[],
-    number, number, number, CurrentTime], ViewCell[][]
+  [Date, number | undefined, number | undefined, number[],
+    number, number, number, SchedulerDateTime], ViewCell[][]
 >;
 
 export type FormatterFn = (
-  nextDate: Date | string | number | undefined, nextOptions: Intl.DateTimeFormatOptions,
+  nextDate: SchedulerDateTime | undefined, nextOptions: Intl.DateTimeFormatOptions,
 ) => string;
-
+/** @internal */
 export type FormatDateTimeGetterFn = (locale: string | string[]) => FormatterFn;
-
+/** @internal */
 export type DateTimeFormatInstanceFn = (
   locale: string | string[], formatOptions: Intl.DateTimeFormatOptions,
 ) => Intl.DateTimeFormat;

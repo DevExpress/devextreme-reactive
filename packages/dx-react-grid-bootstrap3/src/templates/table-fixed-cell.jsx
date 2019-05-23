@@ -19,11 +19,12 @@ export class FixedCell extends React.PureComponent {
   render() {
     const {
       component: CellPlaceholder,
-      side,
+      position,
+      selected,
       showLeftDivider,
       showRightDivider,
+      side,
       style,
-      position,
       ...restProps
     } = this.props;
     const { backgroundColor, borderColor } = this.context;
@@ -32,16 +33,16 @@ export class FixedCell extends React.PureComponent {
     return (
       <CellPlaceholder
         style={{
-          ...style,
-          position: stickyPosition,
           backgroundClip: 'padding-box',
+          backgroundColor: selected ? null : backgroundColor,
+          position: stickyPosition,
           zIndex: 300,
-          backgroundColor,
           [side]: position,
           ...borderColor ? {
             ...showLeftDivider ? { borderLeft: `1px solid ${borderColor}` } : null,
             ...showRightDivider ? { borderRight: `1px solid ${borderColor}` } : null,
           } : null,
+          ...style,
         }}
         {...restProps}
       />
@@ -52,17 +53,19 @@ export class FixedCell extends React.PureComponent {
 FixedCell.contextType = ThemeColors;
 
 FixedCell.propTypes = {
-  style: PropTypes.object,
   component: PropTypes.func.isRequired,
-  side: PropTypes.string.isRequired,
   position: PropTypes.number,
+  selected: PropTypes.bool,
   showLeftDivider: PropTypes.bool,
   showRightDivider: PropTypes.bool,
+  side: PropTypes.string.isRequired,
+  style: PropTypes.object,
 };
 
 FixedCell.defaultProps = {
-  style: null,
+  position: undefined,
+  selected: false,
   showLeftDivider: false,
   showRightDivider: false,
-  position: undefined,
+  style: null,
 };

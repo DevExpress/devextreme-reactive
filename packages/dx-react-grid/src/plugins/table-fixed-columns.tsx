@@ -98,7 +98,9 @@ class TableFixedColumnsBase extends React.PureComponent<TableFixedColumnsProps, 
         >
           {(params: TableCellProps) => (
             <TemplateConnector>
-              {({ tableColumns, tableHeaderColumnChains }) => {
+              {({ tableColumns, tableHeaderColumnChains, selection }) => {
+                const selected: boolean = selection &&
+                  selection.indexOf(params.tableRow.rowId) !== -1;
                 const { tableColumnDimensions } = this.state;
                 const fixedColumnProps = calculateFixedColumnProps(
                   params,
@@ -113,6 +115,7 @@ class TableFixedColumnsBase extends React.PureComponent<TableFixedColumnsProps, 
                     {...params}
                     {...fixedColumnProps}
                     component={CellPlaceholder}
+                    selected={selected}
                   />
                 );
               }}

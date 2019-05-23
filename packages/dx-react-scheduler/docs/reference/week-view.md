@@ -64,6 +64,7 @@ Describes properties passed to a component that renders a week view layout.
 
 Field | Type | Description
 ------|------|------------
+height | number | The layout's height.
 timeScaleComponent | ComponentType&lt;[WeekView.TimeScaleLayoutProps](#weekviewtimescalelayoutprops)&gt; | A component that renders a time scale layout.
 dayScaleComponent | ComponentType&lt;[WeekView.DayScaleLayoutProps](#weekviewdayscalelayoutprops)&gt; | A component that renders a day scale layout.
 timeTableComponent | ComponentType&lt;[WeekView.TimeTableLayoutProps](#weekviewtimetablelayoutprops)&gt; | A component that renders a time table layout.

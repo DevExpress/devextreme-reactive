@@ -16,4 +16,6 @@ export interface SchedulerProps {
   rootComponent: React.ComponentType<Scheduler.RootProps>;
   /** The locale according to which dates should be formatted. */
   locale: string | string[];
+  /** The scheduler's height */
+  height: number;
 }

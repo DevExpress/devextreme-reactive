@@ -26,8 +26,8 @@ const appointments = [{
   exDate: '20180627T091100Z',
 }, {
   title: 'Install New Router in Dev Room',
-  startDate: new Date(2018, 5, 25, 14, 30),
-  endDate: new Date(2018, 5, 25, 15, 35),
+  startDate: new Date(2018, 5, 25, 13, 30),
+  endDate: new Date(2018, 5, 25, 14, 35),
   id: 2,
   rRule: 'FREQ=DAILY;COUNT=5',
 }];
@@ -53,7 +53,7 @@ export default class Demo extends React.PureComponent {
           />
           <WeekView
             startDayHour={9}
-            endDayHour={19}
+            endDayHour={15}
           />
           <MonthView />
           <Appointments />

@@ -199,7 +199,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
 
         <Template name="body">
           <TemplateConnector>
-            {({ currentView }) => {
+            {({ currentView, layoutHeight }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
                 <ViewLayout
@@ -209,6 +209,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
                   timeScaleComponent={SidebarPlaceholder}
                   layoutRef={this.layout}
                   layoutHeaderRef={this.layoutHeader}
+                  height={layoutHeight}
                 />
               );
             }}

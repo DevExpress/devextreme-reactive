@@ -87,5 +87,7 @@ export namespace MonthView {
     /** A component that renders a day scale empty cell. */
     layoutRef: React.RefObject<HTMLElement>;
     layoutHeaderRef: React.RefObject<HTMLElement>;
+    /** The scheduler's height */
+    height: number;
   }
 }

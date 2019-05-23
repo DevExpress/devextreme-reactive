@@ -7,7 +7,6 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = theme => ({
   container: {
     overflowY: 'auto',
-    height: 700,
   },
   stickyHeader: {
     top: 0,
@@ -30,8 +29,10 @@ export class HorizontalViewLayoutBase extends React.PureComponent {
       classes,
       layoutRef,
       layoutHeaderRef,
+      height,
     } = this.props;
 
+    const containerStyle = height ? { height: `${height}px` } : undefined;
     return (
       <RootRef rootRef={layoutRef}>
         <Grid
@@ -39,6 +40,7 @@ export class HorizontalViewLayoutBase extends React.PureComponent {
           container
           direction="column"
           wrap="nowrap"
+          style={containerStyle}
         >
           <RootRef rootRef={layoutHeaderRef}>
             <Grid
@@ -66,6 +68,11 @@ HorizontalViewLayoutBase.propTypes = {
   classes: PropTypes.object.isRequired,
   layoutRef: PropTypes.object.isRequired,
   layoutHeaderRef: PropTypes.object.isRequired,
+  height: PropTypes.number,
+};
+
+HorizontalViewLayoutBase.defaultProps = {
+  height: undefined,
 };
 
 export const HorizontalViewLayout = withStyles(styles, { name: 'HorizontalViewLayout' })(HorizontalViewLayoutBase);

@@ -17,7 +17,6 @@ export {
   BarSeriesProps,
   ScatterSeriesProps,
   PieSeriesProps,
-  BBox,
 } from '../../../dx-chart-core/src/index';
 
 export * from './plugins.animation.types';

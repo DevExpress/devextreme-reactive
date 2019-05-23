@@ -12,49 +12,66 @@ import {
 import { DragBox } from '../templates/drag-box';
 import {
   adjustLayout, getViewport, isKeyPressed, getOffset, getDeltaForTouches,
-  ScalesCache, getWheelDelta, isOver,
+  ScalesCache, getWheelDelta, getCoordsWithOffset,
 } from '@devexpress/dx-chart-core';
 import {
   ZoomAndPanProps, ZoomAndPanState, NumberArray, ZoomPanProviderProps, EventHandlers,
 } from '../types';
 
 const events = {
-  wheel: 'onWheel',
-  mousedown: 'onStart',
-  touchstart: 'onStart',
-  touchend: 'onEnd',
-  mouseup: 'onEnd',
-  mousemove: 'onMove',
-  touchmove: 'onMove',
+  wheel: { func: 'onWheel' },
+  mousedown: {
+    func: 'onStart',
+    extraEvents: ['mousemove', 'mouseup'],
+  },
+  touchstart: {
+    func: 'onStart',
+    extraEvents: ['touchmove', 'touchend'],
+  },
 };
 
 class ZoomPanProvider extends React.PureComponent<ZoomPanProviderProps> {
   handlers!: EventHandlers;
+  ref!: Element;
 
   componentDidMount() {
+    this.ref = this.props.rootRef.current!;
     this.handlers = Object.keys(events).reduce((prev, key) => {
+      const extraEvents = events[key].extraEvents;
       return {
         ...prev,
-        [key]: (e: any) => { this.props[events[key]](e); },
+        [key]: (e: any) => {
+          this.props[events[key].func](e);
+          if (extraEvents) {
+            const extraHandlers = {
+              [extraEvents[0]]: (event: any) => { this.props.onMove(event); },
+              [extraEvents[1]]: (event: any) => {
+                this.props.onEnd(event);
+                this.detachEvents(window, extraHandlers);
+              },
+            };
+            this.attachEvents(window, extraHandlers);
+          }
+        },
       };
     }, {});
-    this.attachEvents();
+    this.attachEvents(this.ref, this.handlers);
   }
 
-  attachEvents() {
-    Object.keys(this.handlers).forEach((el) => {
-      window.addEventListener(el, this.handlers[el], { passive: false });
+  attachEvents(node, handlers) {
+    Object.keys(handlers).forEach((el) => {
+      node.addEventListener(el, handlers[el], { passive: false });
     });
   }
 
-  detachEvents() {
-    Object.keys(this.handlers).forEach((el) => {
-      window.removeEventListener(el, this.handlers[el]);
+  detachEvents(node, handlers) {
+    Object.keys(handlers).forEach((el) => {
+      node.removeEventListener(el, handlers[el]);
     });
   }
 
   componentWillUnmount() {
-    this.detachEvents();
+    this.detachEvents(this.ref, this.handlers);
   }
 
   render() {
@@ -93,29 +110,24 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
     };
   }
 
-  handleStart(zoomRegionKey: string, e: any, rootRef: React.RefObject<Element>) {
-    if (!isOver(e, rootRef.current!.getBoundingClientRect())) {
-      return;
-    }
-    this.offset = getOffset(rootRef.current!);
+  handleStart(zoomRegionKey: string, e: any) {
+    this.offset = getOffset(e.currentTarget);
+    const coords = getCoordsWithOffset(e, this.offset);
       // Rectangle mode should be canceled if "zoomRegionKey" is released during mouse movevent or
       // not pressed when mouse is up. To do it access to "event" object is required in
       // "handleMove" and "handleEnd".
       // TODO: Provide rectangle mode canceling.
     if (isKeyPressed(e, zoomRegionKey)) {
-      this.rectOrigin = [e.pageX - this.offset[0], e.pageY - this.offset[1]];
+      this.rectOrigin = coords;
     }
     if (e.touches && e.touches.length === 2) {
       this.multiTouchDelta = getDeltaForTouches(e.touches).delta;
     }
-    this.lastCoordinates = [e.clientX - this.offset[0], e.clientY - this.offset[1]];
+    this.lastCoordinates = coords;
   }
 
   handleMove(scales: ScalesCache, e: any) {
     e.preventDefault();
-    if (!this.lastCoordinates) {
-      return;
-    }
     if (e.touches && e.touches.length === 2) {
       const current = getDeltaForTouches(e.touches);
       this.zoom(scales, current.delta - this.multiTouchDelta!, current.center);
@@ -125,8 +137,8 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
     }
   }
 
-  scroll(scales: ScalesCache, event: any) {
-    const coords: NumberArray = [event.clientX - this.offset[0], event.clientY - this.offset[1]];
+  scroll(scales: ScalesCache, e: any) {
+    const coords: NumberArray = getCoordsWithOffset(e, this.offset);
     const deltaX = coords[0] - this.lastCoordinates![0];
     const deltaY = coords[1] - this.lastCoordinates![1];
     this.lastCoordinates = coords;
@@ -187,13 +199,10 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
     });
   }
 
-  handleZoom(scales: ScalesCache, e: any, rootRef: React.RefObject<Element>) {
+  handleZoom(scales: ScalesCache, e: any) {
     e.preventDefault();
-    if (!isOver(e.touches ? e.touches[0] : e, rootRef.current!.getBoundingClientRect())) {
-      return;
-    }
-    const offset = getOffset(rootRef.current!);
-    const center: NumberArray = [e.pageX - offset[0], e.pageY - offset[1]];
+    const offset = getOffset(e.currentTarget);
+    const center: NumberArray = getCoordsWithOffset(e, offset);
     this.zoom(scales, getWheelDelta(e), center);
   }
 
@@ -215,8 +224,9 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
           <TemplateConnector>
             {({ scales, rootRef }) => (
                 <ZoomPanProvider
-                  onWheel={e => this.handleZoom(scales, e, rootRef)}
-                  onStart={e => this.handleStart(zoomRegionKey!, e, rootRef)}
+                  rootRef={rootRef}
+                  onWheel={e => this.handleZoom(scales, e)}
+                  onStart={e => this.handleStart(zoomRegionKey!, e)}
                   onMove={e => this.handleMove(scales, e)}
                   onEnd={e => this.handleEnd(scales)}
                 />

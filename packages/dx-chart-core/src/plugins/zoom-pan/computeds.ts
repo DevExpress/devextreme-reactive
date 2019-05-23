@@ -15,7 +15,6 @@ import {
   DomainBounds,
   OnViewportChangeFn,
   ScaleObject,
-  BBox, EventCoordinates,
 } from '../../types';
 
 const getArgumentBounds = (viewport?: ViewportOptions): DomainBounds | null => (
@@ -156,8 +155,7 @@ export const getWheelDelta = ({ wheelDelta, deltaY }: { wheelDelta?: number, del
 };
 
 /** @internal */
-export const isOver = (
-  { clientX, clientY }: EventCoordinates,
-  { left, right, top, bottom }: BBox) => {
-  return clientX >= left && clientX <= right && clientY >= top && clientY <= bottom;
+export const getCoordsWithOffset = (e: any, offset: NumberArray): NumberArray => {
+  const { pageX, pageY } = e.touches ? e.touches[0] : e;
+  return [pageX - offset[0], pageY - offset[1]];
 };

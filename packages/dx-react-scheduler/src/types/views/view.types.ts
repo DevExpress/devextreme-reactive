@@ -46,7 +46,7 @@ export type ViewState = {
 export namespace VerticalView {
   /** Describes properties passed to a component that renders a day view layout. */
   export interface LayoutProps {
-    /** The scheduler's height */
+    /** The layout's height */
     height: number;
     /** A component that renders a time scale layout. */
     timeScaleComponent: React.ComponentType<VerticalView.TimeScaleLayoutProps>;

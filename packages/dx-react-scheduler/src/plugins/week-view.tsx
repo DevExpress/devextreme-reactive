@@ -47,7 +47,6 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
 
   state: ViewState = {
     timeTableRef: null,
-    // cellElements: [],
   };
 
   static defaultProps: Partial<WeekViewProps> = {
@@ -138,27 +137,6 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
     );
   }
 
-  excludedDaysComputed: ComputedFn = (getters) => {
-    const { name: viewName, excludedDays } = this.props;
-    return computed(
-      getters, viewName!, () => excludedDays, getters.excludedDays,
-    );
-  }
-
-  firstDayOfWeekComputed: ComputedFn = (getters) => {
-    const { name: viewName, firstDayOfWeek } = this.props;
-    return computed(
-      getters, viewName!, () => firstDayOfWeek, getters.firstDayOfWeek,
-    );
-  }
-
-  intervalCountComputed: ComputedFn = (getters) => {
-    const { name: viewName, intervalCount } = this.props;
-    return computed(
-      getters, viewName!, () => intervalCount, getters.intervalCount,
-    );
-  }
-
   availableViewNamesComputed: ComputedFn = ({ availableViewNames }) => {
     const { name: viewName } = this.props;
     return availableViewNamesCore(
@@ -214,7 +192,6 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
         <Getter name="availableViewNames" computed={this.availableViewNamesComputed} />
         <Getter name="currentView" computed={this.currentViewComputed} />
 
-
         <Getter name={`cellDuration${viewName}`} value={cellDuration} />
         <Getter name={`startDayHour${viewName}`} value={startDayHour} />
         <Getter name={`endDayHour${viewName}`} value={endDayHour} />
@@ -225,6 +202,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
         <Getter name="viewCellsData" computed={this.viewCellsDataComputed} />
         <Getter name="startViewDate" computed={this.startViewDateComputed} />
         <Getter name="endViewDate" computed={this.endViewDateComputed} />
+
         <Getter name="timeTableElement" computed={this.timeTableElement} />
         <Getter name="layoutElement" computed={this.layoutElement} />
         <Getter name="layoutHeaderElement" computed={this.layoutHeaderElement} />
@@ -296,10 +274,37 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
               formatDate,
               currentView,
               viewCellsData,
+              appointments, startViewDate, endViewDate,
             }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
-              debugger // TABLE
-              // setCellElements();
+
+              console.log('Table Render');
+
+              const cells = this.cellElements;
+              let rects = [];
+              if (cells.length !== 0) {
+                this.cellElements = [];
+
+                const intervals = calculateWeekDateIntervals(
+                  appointments, startViewDate, endViewDate, excludedDays!,
+                );
+
+                rects = calculateRectByDateIntervals(
+                  {
+                    growDirection: VERTICAL_TYPE,
+                    multiline: false,
+                  },
+                  intervals,
+                  getVerticalRectByDates,
+                  {
+                    startViewDate,
+                    endViewDate,
+                    viewCellsData,
+                    cellDuration,
+                    cellElements: cells,
+                  },
+                );
+              }
 
               return (
                 <React.Fragment>
@@ -311,58 +316,21 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
                     setCellElements={this.setCellElements}
                     formatDate={formatDate}
                   />
-                  <TemplatePlaceholder name="appts123" />
+                  <AppointmentLayer>
+                    {rects.map(({
+                      dataItem, type, fromPrev, toNext, ...geometry
+                    }, index) => (
+                      <AppointmentPlaceholder
+                        key={index.toString()}
+                        type={type}
+                        data={dataItem}
+                        fromPrev={fromPrev}
+                        toNext={toNext}
+                        style={getAppointmentStyle(geometry)}
+                      />
+                    ))}
+                  </AppointmentLayer>
                 </React.Fragment>
-              );
-            }}
-          </TemplateConnector>
-        </Template>
-
-        <Template name="appts123">
-          <TemplateConnector>
-            {({
-              appointments, startViewDate, endViewDate,
-              viewCellsData,
-            }) => {
-              debugger // Appointments
-
-              console.log('Table Render');
-              const intervals = calculateWeekDateIntervals(
-                appointments, startViewDate, endViewDate, excludedDays!,
-              );
-              const cells = [...this.cellElements];
-              this.cellElements = [];
-              const rects = cells.length !== 0 ? calculateRectByDateIntervals(
-                {
-                  growDirection: VERTICAL_TYPE,
-                  multiline: false,
-                },
-                intervals,
-                getVerticalRectByDates,
-                {
-                  startViewDate,
-                  endViewDate,
-                  viewCellsData,
-                  cellDuration,
-                  cellElements: cells,
-                },
-              ) : [];
-
-              return (
-                <AppointmentLayer>
-                  {rects.map(({
-                    dataItem, type, fromPrev, toNext, ...geometry
-                  }, index) => (
-                    <AppointmentPlaceholder
-                      key={index.toString()}
-                      type={type}
-                      data={dataItem}
-                      fromPrev={fromPrev}
-                      toNext={toNext}
-                      style={getAppointmentStyle(geometry)}
-                    />
-                  ))}
-                </AppointmentLayer>
               );
             }}
           </TemplateConnector>

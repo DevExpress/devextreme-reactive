@@ -41,6 +41,7 @@ export default class Demo extends React.PureComponent {
         <Scheduler
           data={data}
           locale={locale}
+          height={660}
         >
           <ViewState
             defaultCurrentDate={currentDate}

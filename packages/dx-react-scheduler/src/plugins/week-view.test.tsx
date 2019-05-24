@@ -31,6 +31,7 @@ const defaultDeps = {
     availableViewNames: [],
     currentView: { name: 'Week' },
     formatDate: jest.fn(),
+    layoutHeight: 300,
   },
   template: {
     body: {},
@@ -290,13 +291,15 @@ describe('Week View', () => {
           {pluginDepsToComponents(defaultDeps)}
           <WeekView
             {...defaultProps}
-            layoutComponent={() => <div className="view-layout" />}
+            layoutComponent={({ height }) => <div className="view-layout" height={height} />}
           />
         </PluginHost>
       ));
 
       expect(tree.find('.view-layout').exists())
         .toBeTruthy();
+      expect(tree.find('.view-layout').props().height)
+        .toBe(defaultDeps.getter.layoutHeight);
     });
 
     it('should render day scale', () => {

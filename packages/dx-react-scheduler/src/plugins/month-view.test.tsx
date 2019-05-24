@@ -33,6 +33,7 @@ const defaultDeps = {
       [{}, { startDate: new Date('2018-08-05') }],
     ],
     formatDate: jest.fn(),
+    layoutHeight: 300,
   },
   template: {
     body: {},
@@ -278,13 +279,15 @@ describe('Month View', () => {
           {pluginDepsToComponents(defaultDeps)}
           <MonthView
             {...defaultProps}
-            layoutComponent={() => <div className="view-layout" />}
+            layoutComponent={({ height }) => <div className="view-layout" height={height} />}
           />
         </PluginHost>
       ));
 
       expect(tree.find('.view-layout').exists())
         .toBeTruthy();
+      expect(tree.find('.view-layout').props().height)
+        .toBe(defaultDeps.getter.layoutHeight);
     });
 
     it('should render day scale', () => {

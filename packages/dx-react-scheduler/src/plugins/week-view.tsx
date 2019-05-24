@@ -213,7 +213,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
 
         <Template name="body">
           <TemplateConnector>
-            {({ currentView }) => {
+            {({ currentView, layoutHeight }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
                 <ViewLayout
@@ -223,6 +223,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
                   timeScaleComponent={SidebarPlaceholder}
                   layoutRef={this.layout}
                   layoutHeaderRef={this.layoutHeader}
+                  height={layoutHeight}
                 />
               );
             }}

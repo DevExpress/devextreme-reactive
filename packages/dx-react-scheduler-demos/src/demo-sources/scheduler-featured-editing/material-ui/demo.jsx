@@ -368,6 +368,7 @@ class Demo extends React.PureComponent {
       <Paper>
         <Scheduler
           data={data}
+          height={660}
         >
           <ViewState
             currentDate={currentDate}

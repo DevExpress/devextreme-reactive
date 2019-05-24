@@ -1,16 +1,13 @@
-import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import { ContainerBase } from './common/container';
 
-export const Root = ({ children, ...restProps }) => (
-  <div {...restProps}>
-    {children}
-  </div>
-);
-
-Root.propTypes = {
-  children: PropTypes.node,
+const styles = {
+  container: {
+    WebkitOverflowScrolling: 'touch',
+    // NOTE: fix sticky positioning in Safari
+    width: '100%',
+    height: '100%',
+  },
 };
 
-Root.defaultProps = {
-  children: undefined,
-};
+export const Root = withStyles(styles, { name: 'Root' })(ContainerBase);

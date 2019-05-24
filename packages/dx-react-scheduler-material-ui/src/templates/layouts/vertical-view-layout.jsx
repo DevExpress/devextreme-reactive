@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { AUTO_HEIGHT } from '@devexpress/dx-scheduler-core';
 import Grid from '@material-ui/core/Grid';
 import RootRef from '@material-ui/core/RootRef';
 import { withStyles } from '@material-ui/core/styles';
@@ -7,7 +8,6 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = theme => ({
   container: {
     overflowY: 'auto',
-    height: 700,
   },
   stickyHeader: {
     top: 0,
@@ -32,13 +32,18 @@ export class VerticalViewLayoutBase extends React.PureComponent {
       classes,
       layoutRef,
       layoutHeaderRef,
+      height,
     } = this.props;
 
+    const containerStyle = height === AUTO_HEIGHT ? { height: '100%' } : { height: `${height}px` };
     return (
       <RootRef rootRef={layoutRef}>
         <Grid
           container
           className={classes.container}
+          direction="column"
+          wrap="nowrap"
+          style={containerStyle}
         >
           <RootRef rootRef={layoutHeaderRef}>
             <Grid
@@ -79,6 +84,7 @@ VerticalViewLayoutBase.propTypes = {
   classes: PropTypes.object.isRequired,
   layoutRef: PropTypes.object.isRequired,
   layoutHeaderRef: PropTypes.object.isRequired,
+  height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
 };
 
 export const VerticalViewLayout = withStyles(styles, { name: 'VerticalViewLayout' })(VerticalViewLayoutBase);

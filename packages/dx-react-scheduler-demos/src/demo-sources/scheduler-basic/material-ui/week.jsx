@@ -23,6 +23,7 @@ export default class Demo extends React.PureComponent {
       <Paper>
         <Scheduler
           data={data}
+          height={660}
         >
           <WeekView
             startDayHour={9}

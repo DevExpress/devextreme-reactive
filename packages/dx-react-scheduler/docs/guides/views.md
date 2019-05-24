@@ -14,7 +14,7 @@ The `DayView` displays appointments for a specific date.
 
 The Scheduler arranges appointments from top to bottom. If their time intervals overlap, their widths decrease and they are placed next to each other.
 
-The [time scale](fundamentals.md#overview)'s duration is 24 hours. To change this value, define the `startDayHour` and `endDayHour` in the view plugin. In the following example, the time scale starts at 9 a.m. and ends at 7 p.m.
+The [time scale](fundamentals.md#overview)'s duration is 24 hours. To change this value, define the `startDayHour` and `endDayHour` in the view plugin. In the following example, the time scale starts at 9 a.m. and ends at 2 p.m.
 
 .embedded-demo({ "path": "scheduler-basic/day", "showThemeSelector": true })
 
@@ -28,7 +28,7 @@ You can use the [WeekView](../reference/week-view.md) plugin's `excludedDays` pr
 
 ## Month View
 
-The `MonthView` displays appointments for a month.
+The [MonthView](../reference/month-view.md) displays appointments for a month.
 
 The Scheduler arranges appointments left to right. An appointment's size depends on its duration in days. Appointments that last less than a day occupy the entire day cell.
 

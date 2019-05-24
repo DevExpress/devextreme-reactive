@@ -117,6 +117,7 @@ export default class Demo extends React.PureComponent {
       <Paper>
         <Scheduler
           data={formattedData}
+          height={660}
         >
           <ViewState
             currentDate={currentDate}
@@ -124,8 +125,14 @@ export default class Demo extends React.PureComponent {
             onCurrentViewNameChange={this.currentViewNameChange}
             onCurrentDateChange={this.currentDateChange}
           />
-          <DayView startDayHour={8} />
-          <WeekView startDayHour={8} />
+          <DayView
+            startDayHour={9}
+            endDayHour={18}
+          />
+          <WeekView
+            startDayHour={9}
+            endDayHour={18}
+          />
           <Appointments />
           <Toolbar
             {...loading ? { rootComponent: ToolbarWithLoading } : null}

@@ -180,7 +180,7 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
 
         <Template name="body">
           <TemplateConnector>
-            {({ currentView }) => {
+            {({ currentView, layoutHeight }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
                 <ViewLayout
@@ -188,6 +188,7 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
                   timeTableComponent={TimeTablePlaceholder}
                   layoutRef={this.layout}
                   layoutHeaderRef={this.layoutHeader}
+                  height={layoutHeight}
                 />
               );
             }}

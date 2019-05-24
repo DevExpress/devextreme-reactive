@@ -23,8 +23,9 @@ import { Scheduler } from '@devexpress/dx-react-scheduler';
 Name | Type | Default | Description
 -----|------|---------|------------
 data | Array&lt;[AppointmentModel](#appointmentmodel)&gt; | | An array of appointment data objects.
-rootComponent | ComponentType&lt;[Scheduler.RootProps](#schedulerrootprops)&gt; | | A component that renders the root layout.
+height | number &#124; `auto` | `auto` | The scheduler's height. If the property value is `auto` the Scheduler will have the same size as the container component.
 locale | string &#124; Array&lt;string&gt; | 'en-US' | The locale according to which dates should be formatted.
+rootComponent | ComponentType&lt;[Scheduler.RootProps](#schedulerrootprops)&gt; | | A component that renders the root layout.
 
 ## Interfaces
 

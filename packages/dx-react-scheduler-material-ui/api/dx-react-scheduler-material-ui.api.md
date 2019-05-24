@@ -441,6 +441,7 @@ export const Scheduler: React.ComponentType<SchedulerProps> & {
 // @public (undocumented)
 export interface SchedulerProps {
   data?: Array<AppointmentModel>;
+  height?: number | `auto`;
   locale?: string | Array<string>;
   rootComponent?: React.ComponentType<Scheduler_2.RootProps>;
 }

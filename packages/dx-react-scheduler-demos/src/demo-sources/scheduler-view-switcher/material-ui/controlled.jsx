@@ -9,7 +9,6 @@ import {
   ViewSwitcher,
   MonthView,
   DayView,
-  AllDayPanel,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
 import { appointments } from '../../../demo-data/month-appointments';
@@ -34,6 +33,7 @@ export default class Demo extends React.PureComponent {
       <Paper>
         <Scheduler
           data={data}
+          height={660}
         >
           <ViewState
             defaultCurrentDate="2018-07-25"
@@ -53,8 +53,6 @@ export default class Demo extends React.PureComponent {
           />
           <MonthView />
           <DayView />
-
-          <AllDayPanel />
 
           <Toolbar />
           <ViewSwitcher />

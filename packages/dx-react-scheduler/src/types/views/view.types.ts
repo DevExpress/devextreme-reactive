@@ -47,7 +47,7 @@ export namespace VerticalView {
   /** Describes properties passed to a component that renders a day view layout. */
   export interface LayoutProps {
     /** The layout's height */
-    height: number;
+    height: number | 'auto';
     /** A component that renders a time scale layout. */
     timeScaleComponent: React.ComponentType<VerticalView.TimeScaleLayoutProps>;
     /** A component that renders a day scale layout. */

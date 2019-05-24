@@ -19,7 +19,7 @@ export interface Coordinates {
 
 /** @internal */
 export interface Rect extends Coordinates {
-  height: number;
+  height: number | 'auto';
 }
 
 /** @internal */

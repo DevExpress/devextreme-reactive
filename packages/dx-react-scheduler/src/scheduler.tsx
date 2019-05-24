@@ -24,7 +24,7 @@ const SchedulerBase: React.SFC<SchedulerProps> = ({
 SchedulerBase.defaultProps = {
   data: [],
   locale: 'en-US',
-  height: undefined,
+  height: 'auto',
 };
 
 // tslint:disable: max-line-length

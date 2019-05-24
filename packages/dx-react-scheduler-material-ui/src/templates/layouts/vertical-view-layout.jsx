@@ -21,6 +21,8 @@ const styles = theme => ({
   },
 });
 
+const AUTO_HEIGHT = 'auto';
+
 export class VerticalViewLayoutBase extends React.PureComponent {
   render() {
     const {
@@ -34,7 +36,7 @@ export class VerticalViewLayoutBase extends React.PureComponent {
       height,
     } = this.props;
 
-    const containerStyle = height ? { height: `${height}px` } : undefined;
+    const containerStyle = height === AUTO_HEIGHT ? { height: '100%' } : { height: `${height}px` };
     return (
       <RootRef rootRef={layoutRef}>
         <Grid

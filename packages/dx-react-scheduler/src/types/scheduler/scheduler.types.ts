@@ -17,5 +17,5 @@ export interface SchedulerProps {
   /** The locale according to which dates should be formatted. */
   locale: string | string[];
   /** The scheduler's height */
-  height: number;
+  height: number | 'auto';
 }

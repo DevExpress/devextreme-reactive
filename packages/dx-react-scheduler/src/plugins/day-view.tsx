@@ -57,6 +57,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
 
   static components: PluginComponents = {
     layoutComponent: 'Layout',
+    layoutContainer: 'LayoutContainer',
     appointmentLayerComponent: 'AppointmentLayer',
     dayScaleEmptyCellComponent: 'DayScaleEmptyCell',
     timeScaleLayoutComponent: 'TimeScaleLayout',

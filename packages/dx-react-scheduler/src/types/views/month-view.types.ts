@@ -88,6 +88,6 @@ export namespace MonthView {
     layoutRef: React.RefObject<HTMLElement>;
     layoutHeaderRef: React.RefObject<HTMLElement>;
     /** The layout's height */
-    height: number;
+    height: number | 'auto';
   }
 }

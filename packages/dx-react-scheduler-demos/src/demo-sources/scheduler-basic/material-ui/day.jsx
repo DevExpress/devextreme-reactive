@@ -20,10 +20,9 @@ export default class Demo extends React.PureComponent {
     const { data } = this.state;
 
     return (
-      <Paper style={{ height: '400px' }}>
+      <Paper>
         <Scheduler
           data={data}
-          height="auto"
         >
           <DayView
             startDayHour={8}

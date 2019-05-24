@@ -37,9 +37,9 @@ const defaultDeps = {
   },
   template: {
     body: {},
-    navbar: {},
-    sidebar: {},
-    main: {},
+    dayScale: {},
+    timeScale: {},
+    timeTable: {},
   },
 };
 

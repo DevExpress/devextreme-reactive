@@ -1,13 +1,14 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { argumentsShallowEqual } from '@devexpress/dx-core';
 
-export const Cell = ({
+export const Cell = React.memo(({
   style, colSpan, row, column,
   expanded, onToggle,
   children, tableRow, tableColumn,
   iconComponent: Icon, contentComponent: Content,
   containerComponent: Container,
-  left,
+  side, position,
   ...restProps
 }) => (
   <td
@@ -19,7 +20,7 @@ export const Cell = ({
     onClick={onToggle}
     {...restProps}
   >
-    <Container style={{ left }}>
+    <Container side={side} position={position}>
       <Icon
         expanded={expanded}
         onToggle={onToggle}
@@ -35,7 +36,7 @@ export const Cell = ({
       </Content>
     </Container>
   </td>
-);
+), argumentsShallowEqual);
 
 Cell.propTypes = {
   style: PropTypes.object,
@@ -50,7 +51,8 @@ Cell.propTypes = {
   iconComponent: PropTypes.func.isRequired,
   contentComponent: PropTypes.func.isRequired,
   containerComponent: PropTypes.func.isRequired,
-  left: PropTypes.string,
+  side: PropTypes.string,
+  position: PropTypes.string,
 };
 
 Cell.defaultProps = {
@@ -63,5 +65,6 @@ Cell.defaultProps = {
   children: undefined,
   tableRow: undefined,
   tableColumn: undefined,
-  left: '',
+  side: 'left',
+  position: '',
 };

@@ -10,7 +10,7 @@ import {
   isGroupIndentTableCell,
   isGroupTableRow,
   TABLE_GROUP_TYPE,
-  calculateGroupCellLeft,
+  calculateGroupCellIndent,
 } from '@devexpress/dx-grid-core';
 import {
   TableGroupRowProps, ShowColumnWhenGroupedGetterFn, TableCellProps, TableRowProps,
@@ -22,6 +22,7 @@ const pluginDependencies = [
   { name: 'DataTypeProvider', optional: true },
   { name: 'TableSelection', optional: true },
 ];
+const side = 'left';
 
 const tableBodyRowsComputed = (
   { tableBodyRows, isGroupRow }: Getters,
@@ -98,10 +99,10 @@ class TableGroupRowBase extends React.PureComponent<TableGroupRowProps> {
             <TemplateConnector>
               {({ grouping, expandedGroups }, { toggleGroupExpanded }) => {
                 if (isGroupTableCell(params.tableRow, params.tableColumn)) {
-                  const cellLeft = calculateGroupCellLeft(
+                  const cellIndent = calculateGroupCellIndent(
                     params.tableColumn, grouping, indentColumnWidth,
                   );
-                  const contentLeft = `calc(${cellLeft}px + ${contentCellPadding})`;
+                  const contentIndent = `calc(${cellIndent}px + ${contentCellPadding})`;
 
                   return (
                     <TemplatePlaceholder
@@ -123,7 +124,8 @@ class TableGroupRowBase extends React.PureComponent<TableGroupRowProps> {
                           onToggle={() => toggleGroupExpanded(
                             { groupKey: params.tableRow.row.compoundKey },
                           )}
-                          left={contentLeft}
+                          position={contentIndent}
+                          side={side}
                         >
                           {content}
                         </GroupCell>
@@ -133,7 +135,10 @@ class TableGroupRowBase extends React.PureComponent<TableGroupRowProps> {
                 }
                 if (isGroupIndentTableCell(params.tableRow, params.tableColumn, grouping)) {
                   const fixedProps = {
-                    left: calculateGroupCellLeft(params.tableColumn, grouping, indentColumnWidth),
+                    side,
+                    position: calculateGroupCellIndent(
+                      params.tableColumn, grouping, indentColumnWidth,
+                    ),
                   };
                   if (GroupIndentCell) {
                     return (

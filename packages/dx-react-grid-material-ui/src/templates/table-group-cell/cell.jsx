@@ -3,6 +3,7 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
+import { argumentsShallowEqual } from '@devexpress/dx-core';
 
 const styles = theme => ({
   cell: {
@@ -13,7 +14,7 @@ const styles = theme => ({
   },
 });
 
-const CellBase = ({
+const CellBase = React.memo(({
   contentComponent: Content,
   iconComponent: Icon,
   containerComponent: Container,
@@ -22,7 +23,7 @@ const CellBase = ({
   onToggle,
   classes, children,
   className, tableRow,
-  tableColumn, left,
+  tableColumn, side, position,
   ...restProps
 }) => {
   const handleClick = () => onToggle();
@@ -35,7 +36,7 @@ const CellBase = ({
       onClick={handleClick}
       {...restProps}
     >
-      <Container style={{ left }}>
+      <Container side={side} position={position}>
         <Icon
           expanded={expanded}
         />
@@ -48,7 +49,7 @@ const CellBase = ({
       </Container>
     </TableCell>
   );
-};
+}, argumentsShallowEqual);
 
 CellBase.propTypes = {
   contentComponent: PropTypes.func.isRequired,
@@ -65,7 +66,8 @@ CellBase.propTypes = {
   className: PropTypes.string,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
-  left: PropTypes.string,
+  side: PropTypes.string,
+  position: PropTypes.string,
 };
 
 CellBase.defaultProps = {
@@ -79,7 +81,8 @@ CellBase.defaultProps = {
   className: undefined,
   tableRow: undefined,
   tableColumn: undefined,
-  left: '',
+  side: 'left',
+  position: '',
 };
 
 export const Cell = withStyles(styles, { name: 'TableGroupCell' })(CellBase);

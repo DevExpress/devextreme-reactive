@@ -12,11 +12,11 @@ const styles = theme => ({
 });
 
 const ContainerBase = ({
-  children, style, classes, className, ...restProps
+  children, style, classes, className, side, position, ...restProps
 }) => (
   <div
     className={classNames(classes.wrapper, className)}
-    style={style}
+    style={{ ...style, [side]: position }}
     {...restProps}
   >
     {children}
@@ -28,12 +28,16 @@ ContainerBase.propTypes = {
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   style: PropTypes.object,
+  side: PropTypes.string,
+  position: PropTypes.string,
 };
 
 ContainerBase.defaultProps = {
   children: undefined,
   className: undefined,
   style: null,
+  side: 'left',
+  position: '',
 };
 
 export const Container = withStyles(styles)(ContainerBase);

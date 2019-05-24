@@ -12,7 +12,7 @@ describe('TableGroupCell', () => {
     });
 
     it('should apply left position', () => {
-      const tree = shallow(<IndentCell left="13px" />);
+      const tree = shallow(<IndentCell position="13px" />);
 
       expect(tree.prop('style'))
         .toMatchObject({
@@ -24,7 +24,7 @@ describe('TableGroupCell', () => {
       const tree = shallow((
         <IndentCell
           style={{ background: 'yellow' }}
-          left="13px"
+          position="13px"
         />
       ));
 

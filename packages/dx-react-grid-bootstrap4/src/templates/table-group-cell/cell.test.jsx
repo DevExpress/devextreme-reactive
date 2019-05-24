@@ -20,7 +20,8 @@ describe('TableGroupCell', () => {
     column: {},
     onToggle: jest.fn(),
     expanded: true,
-    left: '13px',
+    position: '13px',
+    side: 'left',
   };
 
   it('should render children inside content component if passed', () => {
@@ -67,9 +68,10 @@ describe('TableGroupCell', () => {
       <Cell {...defaultProps} />
     ));
 
-    expect(tree.find(defaultProps.containerComponent).prop('style'))
+    expect(tree.find(defaultProps.containerComponent).props())
       .toMatchObject({
-        left: '13px',
+        position: '13px',
+        side: 'left',
       });
   });
 

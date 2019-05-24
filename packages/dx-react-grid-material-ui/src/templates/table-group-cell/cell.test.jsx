@@ -17,7 +17,8 @@ describe('TableGroupCell', () => {
     classes: {},
     column: {},
     row: {},
-    left: '13px',
+    position: '13px',
+    side: 'left',
   };
 
   beforeAll(() => {
@@ -77,9 +78,10 @@ describe('TableGroupCell', () => {
       <TableGroupCell {...defaultProps} />
     ));
 
-    expect(tree.find(defaultProps.containerComponent).prop('style'))
+    expect(tree.find(defaultProps.containerComponent).props())
       .toMatchObject({
-        left: '13px',
+        position: '13px',
+        side: 'left',
       });
   });
 

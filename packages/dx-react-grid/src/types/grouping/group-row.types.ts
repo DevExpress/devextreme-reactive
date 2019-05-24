@@ -29,7 +29,9 @@ export namespace TableGroupRow {
     /** @internal */
     containerComponent: React.ComponentType<ContainerProps>;
     /** @internal */
-    left: string;
+    position: string;
+    /** @internal */
+    side: string;
   }
 
   /** Describes properties passed to a component that renders a group row. */

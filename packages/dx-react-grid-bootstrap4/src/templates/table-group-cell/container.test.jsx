@@ -11,7 +11,7 @@ describe('TableGroupCell', () => {
     });
 
     it('should apply style', () => {
-      const tree = shallow(<Container style={{ left: '13px' }} />);
+      const tree = shallow(<Container position="13px" />);
 
       expect(tree.prop('style'))
         .toEqual({ left: '13px' });

@@ -2,12 +2,8 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { Container } from './container';
-import { ThemeColors } from '../layout';
-import { getStickyPosition } from '../../utils/css-fallback-properties';
+import { StyleContext } from '../layout';
 
-jest.mock('../../utils/css-fallback-properties', () => ({
-  getStickyPosition: jest.fn(),
-}));
 
 describe('TableGroupCell', () => {
   describe('Container', () => {
@@ -16,39 +12,49 @@ describe('TableGroupCell', () => {
       resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
     });
 
-    beforeEach(() => {
-      getStickyPosition.mockReturnValue('getStickyPosition');
-    });
-
     afterAll(() => {
       resetConsole();
     });
 
-    const themeColors = {
+    const styleVars = {
       backgroundColor: 'red',
+      stickyPosition: 'stickyPosition',
     };
 
     it('should have correct styles', () => {
       const tree = mount((
-        <ThemeColors.Provider value={themeColors}>
+        <StyleContext.Provider value={styleVars}>
           <Container />
-        </ThemeColors.Provider>
+        </StyleContext.Provider>
       ));
 
       expect(tree.childAt(0).prop('style'))
         .toMatchObject({
-          position: 'getStickyPosition',
+          position: 'stickyPosition',
           backgroundClip: 'padding-box',
           zIndex: 300,
           display: 'inline-block',
         });
     });
 
+    it('should apply position', () => {
+      const tree = mount((
+        <StyleContext.Provider value={styleVars}>
+          <Container position="13px" />
+        </StyleContext.Provider>
+      ));
+
+      expect(tree.childAt(0).prop('style'))
+        .toMatchObject({
+          left: '13px',
+        });
+    });
+
     it('should apply background color', () => {
       const tree = mount((
-        <ThemeColors.Provider value={themeColors}>
+        <StyleContext.Provider value={styleVars}>
           <Container />
-        </ThemeColors.Provider>
+        </StyleContext.Provider>
       ));
 
       expect(tree.childAt(0).prop('style'))
@@ -59,25 +65,25 @@ describe('TableGroupCell', () => {
 
     it('should merge custom style', () => {
       const tree = mount((
-        <ThemeColors.Provider value={themeColors}>
-          <Container style={{ left: '13px' }} />
-        </ThemeColors.Provider>
+        <StyleContext.Provider value={styleVars}>
+          <Container style={{ color: 'red' }} />
+        </StyleContext.Provider>
       ));
 
       expect(tree.childAt(0).prop('style'))
         .toMatchObject({
-          left: '13px',
-          position: 'getStickyPosition',
+          color: 'red',
+          position: 'stickyPosition',
         });
     });
 
     it('should render children', () => {
       const tree = mount((
-        <ThemeColors.Provider value={themeColors}>
+        <StyleContext.Provider value={styleVars}>
           <Container>
             <span className="child" />
           </Container>
-        </ThemeColors.Provider>
+        </StyleContext.Provider>
       ));
 
       expect(tree.find('.child'))
@@ -86,9 +92,9 @@ describe('TableGroupCell', () => {
 
     it('should pass rest props to the root element', () => {
       const tree = mount((
-        <ThemeColors.Provider value={themeColors}>
+        <StyleContext.Provider value={styleVars}>
           <Container data={{ a: 1 }} />
-        </ThemeColors.Provider>
+        </StyleContext.Provider>
       ));
 
       expect(tree.childAt(0).props().data)

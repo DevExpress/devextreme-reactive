@@ -3,7 +3,7 @@ import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { Container } from './container';
 
 describe('TableGroupCell', () => {
-  describe('Wrapper', () => {
+  describe('Container', () => {
     let shallow;
     let classes;
 
@@ -28,10 +28,10 @@ describe('TableGroupCell', () => {
     });
 
     it('should apply style', () => {
-      const tree = shallow(<Container style={{ left: 13 }} />);
+      const tree = shallow(<Container position="13px" />);
 
       expect(tree.prop('style'))
-        .toEqual({ left: 13 });
+        .toEqual({ left: '13px' });
     });
 
     it('should render children', () => {

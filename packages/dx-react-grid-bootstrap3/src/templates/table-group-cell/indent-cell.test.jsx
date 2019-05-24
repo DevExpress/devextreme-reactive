@@ -2,12 +2,7 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { IndentCell } from './indent-cell';
-import { ThemeColors } from '../layout';
-import { getStickyPosition } from '../../utils/css-fallback-properties';
-
-jest.mock('../../utils/css-fallback-properties', () => ({
-  getStickyPosition: jest.fn(),
-}));
+import { StyleContext } from '../layout';
 
 describe('TableGroupCell', () => {
   describe('IndentCell', () => {
@@ -16,28 +11,25 @@ describe('TableGroupCell', () => {
       resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
     });
 
-    beforeEach(() => {
-      getStickyPosition.mockReturnValue('getStickyPosition');
-    });
-
     afterAll(() => {
       resetConsole();
     });
 
-    const themeColors = {
+    const styleVars = {
       backgroundColor: 'red',
+      stickyPosition: 'stickyPosition',
     };
 
     it('should have correct styles', () => {
       const tree = mount((
-        <ThemeColors.Provider value={themeColors}>
+        <StyleContext.Provider value={styleVars}>
           <IndentCell />
-        </ThemeColors.Provider>
+        </StyleContext.Provider>
       ));
 
       expect(tree.childAt(0).prop('style'))
         .toMatchObject({
-          position: 'getStickyPosition',
+          position: 'stickyPosition',
           backgroundClip: 'padding-box',
           zIndex: 300,
         });
@@ -45,9 +37,9 @@ describe('TableGroupCell', () => {
 
     it('should apply left position', () => {
       const tree = mount((
-        <ThemeColors.Provider value={themeColors}>
-          <IndentCell left="13px" />
-        </ThemeColors.Provider>
+        <StyleContext.Provider value={styleVars}>
+          <IndentCell position="13px" />
+        </StyleContext.Provider>
       ));
 
       expect(tree.childAt(0).prop('style'))
@@ -58,9 +50,9 @@ describe('TableGroupCell', () => {
 
     it('should apply background color', () => {
       const tree = mount((
-        <ThemeColors.Provider value={themeColors}>
+        <StyleContext.Provider value={styleVars}>
           <IndentCell />
-        </ThemeColors.Provider>
+        </StyleContext.Provider>
       ));
 
       expect(tree.childAt(0).prop('style'))
@@ -71,12 +63,12 @@ describe('TableGroupCell', () => {
 
     it('should merge custom style', () => {
       const tree = mount((
-        <ThemeColors.Provider value={themeColors}>
+        <StyleContext.Provider value={styleVars}>
           <IndentCell
             style={{ color: 'yellow' }}
-            left="13px"
+            position="13px"
           />
-        </ThemeColors.Provider>
+        </StyleContext.Provider>
       ));
 
       expect(tree.childAt(0).prop('style'))
@@ -88,9 +80,9 @@ describe('TableGroupCell', () => {
 
     it('should pass rest props to root component', () => {
       const tree = mount((
-        <ThemeColors.Provider value={themeColors}>
+        <StyleContext.Provider value={styleVars}>
           <IndentCell data={{ a: 1 }} />
-        </ThemeColors.Provider>
+        </StyleContext.Provider>
       ));
 
       expect(tree.childAt(0).prop('data'))

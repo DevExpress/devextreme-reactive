@@ -1,17 +1,18 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import * as PropTypes from 'prop-types';
-import { getStickyPosition } from '../../utils/css-fallback-properties';
-import { ThemeColors } from '../layout';
+import { StyleContext } from '../layout';
 
-export const Container = ({ children, style, ...restProps }) => {
-  const [position] = useState(getStickyPosition());
-  const { backgroundColor } = useContext(ThemeColors);
+export const Container = ({
+  children, side, position, style, ...restProps
+}) => {
+  const { backgroundColor, stickyPosition } = useContext(StyleContext);
 
   return (
     <div
       style={{
         ...style,
-        position,
+        position: stickyPosition,
+        [side]: position,
         backgroundColor,
         backgroundClip: 'padding-box',
         zIndex: 300,
@@ -26,10 +27,14 @@ export const Container = ({ children, style, ...restProps }) => {
 
 Container.propTypes = {
   children: PropTypes.node,
+  side: PropTypes.string,
+  position: PropTypes.string,
   style: PropTypes.object,
 };
 
 Container.defaultProps = {
   children: undefined,
   style: null,
+  side: 'left',
+  position: '',
 };

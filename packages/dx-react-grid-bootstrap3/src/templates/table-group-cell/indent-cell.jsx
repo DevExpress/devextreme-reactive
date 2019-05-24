@@ -1,48 +1,48 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import * as PropTypes from 'prop-types';
-import { getStickyPosition } from '../../utils/css-fallback-properties';
-import { ThemeColors } from '../layout';
+import { argumentsShallowEqual } from '@devexpress/dx-core';
+import { StyleContext } from '../layout';
 
-export const IndentCell = ({
-  left,
+export const IndentCell = React.memo(({
   tableRow,
   tableColumn,
   row, column,
-  style,
+  style, position, side,
   ...restProps
 }) => {
-  const [position] = useState(getStickyPosition());
-  const { backgroundColor } = useContext(ThemeColors);
+  const { backgroundColor, stickyPosition } = useContext(StyleContext);
 
   return (
     <td
       style={{
         ...style,
-        position,
-        left,
+        [side]: position,
         backgroundColor,
         backgroundClip: 'padding-box',
+        position: stickyPosition,
         zIndex: 300,
       }}
       {...restProps}
     />
   );
-};
+}, argumentsShallowEqual);
 
 IndentCell.propTypes = {
-  left: PropTypes.string,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
   row: PropTypes.any,
   column: PropTypes.object,
   style: PropTypes.object,
+  side: PropTypes.string,
+  position: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 IndentCell.defaultProps = {
-  left: '',
   tableRow: undefined,
   tableColumn: undefined,
   row: {},
   column: {},
   style: null,
+  side: 'left',
+  position: '',
 };

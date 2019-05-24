@@ -28,7 +28,7 @@ export const isGroupIndentTableCell: PureComputed<[TableRow, TableColumn, Groupi
 };
 export const isGroupTableRow = (tableRow: TableRow) => tableRow.type === TABLE_GROUP_TYPE;
 
-export const calculateGroupCellLeft: PureComputed<[TableColumn, Grouping[], number], number> = (
+export const calculateGroupCellIndent: PureComputed<[TableColumn, Grouping[], number], number> = (
   tableColumn, grouping, indentWidth,
 ) => (
   indentWidth * getGroupIndexByColumn(grouping, tableColumn)

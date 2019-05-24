@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { AUTO_HEIGHT } from '@devexpress/dx-scheduler-core';
 import RootRef from '@material-ui/core/RootRef';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
@@ -20,8 +21,6 @@ const styles = theme => ({
     position: 'relative',
   },
 });
-
-const AUTO_HEIGHT = 'auto';
 
 export class HorizontalViewLayoutBase extends React.PureComponent {
   render() {
@@ -70,11 +69,7 @@ HorizontalViewLayoutBase.propTypes = {
   classes: PropTypes.object.isRequired,
   layoutRef: PropTypes.object.isRequired,
   layoutHeaderRef: PropTypes.object.isRequired,
-  height: PropTypes.number,
-};
-
-HorizontalViewLayoutBase.defaultProps = {
-  height: undefined,
+  height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
 };
 
 export const HorizontalViewLayout = withStyles(styles, { name: 'HorizontalViewLayout' })(HorizontalViewLayoutBase);

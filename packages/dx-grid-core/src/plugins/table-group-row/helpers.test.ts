@@ -3,7 +3,7 @@ import {
   isGroupTableCell,
   isGroupIndentTableCell,
   isGroupTableRow,
-  calculateGroupCellLeft,
+  calculateGroupCellIndent,
 } from './helpers';
 
 describe('TableRowDetail Plugin helpers', () => {
@@ -76,7 +76,7 @@ describe('TableRowDetail Plugin helpers', () => {
     });
   });
 
-  describe('#calculateGroupCellLeft', () => {
+  describe('#calculateGroupCellIndent', () => {
     const grouping = [
       { columnName: 'a' },
       { columnName: 'b' },
@@ -84,12 +84,12 @@ describe('TableRowDetail Plugin helpers', () => {
     ];
 
     it('should calculate left position for first level', () => {
-      expect(calculateGroupCellLeft({ column: { name: 'a' } }, grouping, 30))
+      expect(calculateGroupCellIndent({ column: { name: 'a' } }, grouping, 30))
         .toBe(0);
     });
 
     it('should calculate left position for nested group', () => {
-      expect(calculateGroupCellLeft({ column: { name: 'c' } }, grouping, 30))
+      expect(calculateGroupCellIndent({ column: { name: 'c' } }, grouping, 30))
         .toBe(60);
     });
   });

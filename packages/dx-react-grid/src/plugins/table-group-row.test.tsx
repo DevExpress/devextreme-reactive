@@ -9,7 +9,7 @@ import {
   isGroupTableCell,
   isGroupIndentTableCell,
   isGroupTableRow,
-  calculateGroupCellLeft,
+  calculateGroupCellIndent,
 } from '@devexpress/dx-grid-core';
 import { TableGroupRow } from './table-group-row';
 
@@ -20,7 +20,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   isGroupTableCell: jest.fn(),
   isGroupIndentTableCell: jest.fn(),
   isGroupTableRow: jest.fn(),
-  calculateGroupCellLeft: jest.fn(),
+  calculateGroupCellIndent: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -59,6 +59,7 @@ const defaultProps = {
   indentCellComponent: () => null,
   rowComponent: () => null,
   indentColumnWidth: 100,
+  contentCellPadding: 'contentCellPadding',
 };
 
 describe('TableGroupRow', () => {
@@ -78,7 +79,7 @@ describe('TableGroupRow', () => {
     isGroupTableCell.mockImplementation(() => false);
     isGroupIndentTableCell.mockImplementation(() => false);
     isGroupTableRow.mockImplementation(() => false);
-    calculateGroupCellLeft.mockReturnValue('groupCellLeft');
+    calculateGroupCellIndent.mockReturnValue('groupCellIndent');
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -306,6 +307,26 @@ describe('TableGroupRow', () => {
       .toMatchObject({
         contentComponent: defaultProps.contentComponent,
         iconComponent: defaultProps.iconComponent,
+      });
+  });
+
+  it('should calculate cell fixed position', () => {
+    isGroupTableRow.mockImplementation(() => true);
+    isGroupTableCell.mockImplementation(() => true);
+
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableGroupRow
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    expect(tree.find(defaultProps.cellComponent).props())
+      .toMatchObject({
+        position: 'calc(groupCellIndentpx + contentCellPadding)',
+        side: 'left',
       });
   });
 

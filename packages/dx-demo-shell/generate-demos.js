@@ -140,18 +140,38 @@ const createFromTemplate = (sourceFilename, outputFilename, data) => {
   overrideFileIfChanged(outputFilename, output);
   cancelFileRemoving(outputFilename);
 };
-const findSplitter = (content, index) => {
-  const k = content.indexOf(' from ', index + 1);
-  if (k >= 0) {
-    return findSplitter(content, k);
+const PARTIAL_BLOCK_PREFIX = '// BLOCK:';
+const processPartialContent = (content) => {
+  const lines = content.split('\n');
+  const { length } = lines;
+  const bag = {};
+  for (let position = 0; position < length;) {
+    let blockName;
+    let startIndex = -1;
+    for (let i = position; i < length; i += 1) {
+      if (lines[i].startsWith(PARTIAL_BLOCK_PREFIX)) {
+        blockName = lines[i].substring(PARTIAL_BLOCK_PREFIX.length);
+        startIndex = i;
+        break;
+      }
+    }
+    if (startIndex === -1) {
+      break;
+    }
+    let endIndex = -1;
+    for (let i = startIndex + 1; i < length; i += 1) {
+      if (lines[i] === PARTIAL_BLOCK_PREFIX + blockName) {
+        endIndex = i;
+        break;
+      }
+    }
+    if (endIndex === -1) {
+      break;
+    }
+    bag[blockName] = lines.slice(startIndex + 1, endIndex).join('\n');
+    position = endIndex + 1;
   }
-  return index >= 0 ? content.indexOf('\n', index + 1) : -1;
-};
-const splitPartialContent = (content) => {
-  const index = findSplitter(content, -1);
-  const imports = index >= 0 ? content.substring(0, index).trim() : '';
-  const body = index >= 0 ? content.substring(index).trim() : content.trim();
-  return { imports, body };
+  return bag;
 };
 const generateDemos = () => {
   demos.forEach(({
@@ -182,7 +202,7 @@ const generateDemos = () => {
       if (usePartialContent) {
         baseName = `${baseName}${PARTIAL_SUFFIX}`;
         const partialContent = fs.readFileSync(path.join(DEMOS_FOLDER, sectionName, themeName, `${baseName}.${demoExtension}`), 'utf-8');
-        data = { ...data, ...splitPartialContent(partialContent) };
+        data = { ...data, ...processPartialContent(partialContent) };
       }
       createFromTemplate(
         path.join(DEMOS_FOLDER, sectionName, `${baseName}.${demoExtension}${TEMPLATE_EXT_POSTFIX}`),

@@ -1,8 +1,11 @@
+// BLOCK:imports
 import { withStyles } from '@material-ui/core/styles';
 import Equalizer from '@material-ui/icons/Equalizer';
 import People from '@material-ui/icons/People';
 import PieChart from '@material-ui/icons/PieChart';
+// BLOCK:imports
 
+// BLOCK:body
 const cellStyles = theme => ({
   icon: {
     marginBottom: theme.spacing.unit / 2,
@@ -47,3 +50,4 @@ const HeaderCellBase = ({ classes, className, ...restProps }) => (
 );
 
 const HeaderCell = withStyles(headerCellStyles, { name: 'HeaderCellBase' })(HeaderCellBase);
+// BLOCK:body

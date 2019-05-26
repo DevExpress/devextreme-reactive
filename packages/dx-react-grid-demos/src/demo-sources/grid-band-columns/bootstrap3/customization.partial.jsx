@@ -1,3 +1,4 @@
+// BLOCK:body
 const BandCell = ({
   children, tableRow, tableColumn, column, ...restProps
 }) => {
@@ -25,3 +26,4 @@ const HeaderCell = ({ className, ...restProps }) => (
     className={`text-info ${className}`}
   />
 );
+// BLOCK:body

@@ -1,5 +1,8 @@
+// BLOCK:imports
 import { withStyles } from '@material-ui/core/styles';
+// BLOCK:imports
 
+// BLOCK:body
 const chartRootStyles = {
   chart: {
     paddingRight: '20px',
@@ -39,3 +42,4 @@ const ChartRoot = withStyles(chartRootStyles, { name: 'ChartRoot' })(ChartRootBa
 const LegendRoot = withStyles(legendStyles, { name: 'LegendRoot' })(LegendRootBase);
 const LegendLabel = withStyles(legendLabelStyles, { name: 'LegendLabel' })(LegendLabelBase);
 const LegendItem = withStyles(legendItemStyles, { name: 'LegendItem' })(LegendItemBase);
+// BLOCK:body

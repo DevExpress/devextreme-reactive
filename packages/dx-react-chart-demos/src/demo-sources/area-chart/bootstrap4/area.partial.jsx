@@ -1,3 +1,4 @@
+// BLOCK:body
 const ChartRoot = props => (
   <Chart.Root {...props} className="pr-3" />
 );
@@ -10,3 +11,4 @@ const LegendItem = props => (
 const LegendLabel = props => (
   <Legend.Label {...props} className="pt-2" />
 );
+// BLOCK:body

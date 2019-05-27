@@ -2,7 +2,7 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
-  pluginDepsToComponents, getComputedState, executeComputedAction,
+  pluginDepsToComponents, getComputedState,
 } from '@devexpress/dx-testing';
 import { adjustLayout } from '@devexpress/dx-chart-core';
 import { ZoomAndPan } from './zoom-pan';

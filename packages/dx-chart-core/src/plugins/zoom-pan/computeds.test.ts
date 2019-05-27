@@ -6,7 +6,7 @@ import {
   moveBounds, growBounds, invertBoundsRange,
 } from '../../utils/scale';
 import {
-  adjustLayout, getViewport, getDeltaForTouches, isKeyPressed, getWheelDelta, getCoordsWithOffset,
+  adjustLayout, getViewport, getDeltaForTouches, isKeyPressed, getWheelDelta, isMultiTouch,
 } from './computeds';
 import { ScalesCache, ViewportOptions } from '../../types';
 
@@ -355,10 +355,11 @@ describe('ZoomAndPan', () => {
     });
   });
 
-  describe('#getCoordsWithOffset', () => {
-    it('should return coordinates with offset', () => {
-      expect(getCoordsWithOffset({ pageX: 13, pageY: 15 }, [6, 7])).toEqual([7, 8]);
-      expect(getCoordsWithOffset({ touches: [{ pageX: 13, pageY: 15 }] }, [6, 7])).toEqual([7, 8]);
+  describe('#isMultiTouch', () => {
+    it('should check multi touch', () => {
+      expect(isMultiTouch({ pageX: 3 })).toBeFalsy();
+      expect(isMultiTouch({ touches: [{ pageX: 3 }] })).toBeFalsy();
+      expect(isMultiTouch({ touches: [{ pageX: 3 }, { pageX: 4 }] })).toBeTruthy();
     });
   });
 });

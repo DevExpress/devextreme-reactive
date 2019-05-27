@@ -155,7 +155,4 @@ export const getWheelDelta = ({ wheelDelta, deltaY }: { wheelDelta?: number, del
 };
 
 /** @internal */
-export const getCoordsWithOffset = (e: any, offset: NumberArray): NumberArray => {
-  const { pageX, pageY } = e.touches ? e.touches[0] : e;
-  return [pageX - offset[0], pageY - offset[1]];
-};
+export const isMultiTouch = (e: any) => e.touches && e.touches.length === 2;

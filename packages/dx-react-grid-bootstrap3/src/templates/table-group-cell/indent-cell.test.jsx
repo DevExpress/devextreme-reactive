@@ -38,13 +38,13 @@ describe('TableGroupCell', () => {
     it('should apply left position', () => {
       const tree = mount((
         <StyleContext.Provider value={styleVars}>
-          <IndentCell position="13px" />
+          <IndentCell position={13} />
         </StyleContext.Provider>
       ));
 
       expect(tree.childAt(0).prop('style'))
         .toMatchObject({
-          left: '13px',
+          left: 13,
         });
     });
 
@@ -66,7 +66,7 @@ describe('TableGroupCell', () => {
         <StyleContext.Provider value={styleVars}>
           <IndentCell
             style={{ color: 'yellow' }}
-            position="13px"
+            position={13}
           />
         </StyleContext.Provider>
       ));
@@ -74,7 +74,7 @@ describe('TableGroupCell', () => {
       expect(tree.childAt(0).prop('style'))
         .toMatchObject({
           color: 'yellow',
-          left: '13px',
+          left: 13,
         });
     });
 

@@ -1,9 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { argumentsShallowEqual } from '@devexpress/dx-core';
 
-export const Cell = React.memo(({
+export const Cell = ({
   className, colSpan, row, column,
   expanded, onToggle,
   children, tableRow, tableColumn,
@@ -36,7 +35,7 @@ export const Cell = React.memo(({
       </Container>
     </td>
   );
-}, argumentsShallowEqual);
+};
 
 Cell.propTypes = {
   contentComponent: PropTypes.func.isRequired,

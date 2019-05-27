@@ -1,8 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { argumentsShallowEqual } from '@devexpress/dx-core';
 
-export const Cell = React.memo(({
+export const Cell = ({
   style, colSpan, row, column,
   expanded, onToggle,
   children, tableRow, tableColumn,
@@ -36,7 +35,7 @@ export const Cell = React.memo(({
       </Content>
     </Container>
   </td>
-), argumentsShallowEqual);
+);
 
 Cell.propTypes = {
   style: PropTypes.object,

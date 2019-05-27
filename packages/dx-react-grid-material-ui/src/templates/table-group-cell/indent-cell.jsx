@@ -3,7 +3,6 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
-import { argumentsShallowEqual } from '@devexpress/dx-core';
 import { getStickyCellStyle, getBorder } from '../utils';
 
 const styles = theme => ({
@@ -13,7 +12,7 @@ const styles = theme => ({
   },
 });
 
-const IndentCellBase = React.memo(({
+const IndentCellBase = ({
   tableRow,
   tableColumn,
   row, column,
@@ -26,7 +25,7 @@ const IndentCellBase = React.memo(({
     style={{ ...style, [side]: position }}
     {...restProps}
   />
-), argumentsShallowEqual);
+);
 
 IndentCellBase.propTypes = {
   tableRow: PropTypes.object,
@@ -37,7 +36,7 @@ IndentCellBase.propTypes = {
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   side: PropTypes.string,
-  position: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  position: PropTypes.number,
 };
 
 IndentCellBase.defaultProps = {
@@ -48,7 +47,7 @@ IndentCellBase.defaultProps = {
   style: null,
   className: undefined,
   side: 'left',
-  position: '',
+  position: undefined,
 };
 
 export const IndentCell = withStyles(styles)(IndentCellBase);

@@ -1,9 +1,8 @@
 import React, { useContext } from 'react';
 import * as PropTypes from 'prop-types';
-import { argumentsShallowEqual } from '@devexpress/dx-core';
 import { StyleContext } from './layout';
 
-export const FixedCell = React.memo(({
+export const FixedCell = ({
   component: CellPlaceholder,
   position,
   selected,
@@ -32,7 +31,7 @@ export const FixedCell = React.memo(({
       {...restProps}
     />
   );
-}, argumentsShallowEqual);
+};
 
 FixedCell.propTypes = {
   component: PropTypes.func.isRequired,

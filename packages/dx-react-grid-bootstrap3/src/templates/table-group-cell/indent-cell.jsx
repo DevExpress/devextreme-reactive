@@ -1,9 +1,8 @@
 import React, { useContext } from 'react';
 import * as PropTypes from 'prop-types';
-import { argumentsShallowEqual } from '@devexpress/dx-core';
 import { StyleContext } from '../layout';
 
-export const IndentCell = React.memo(({
+export const IndentCell = ({
   tableRow,
   tableColumn,
   row, column,
@@ -25,7 +24,7 @@ export const IndentCell = React.memo(({
       {...restProps}
     />
   );
-}, argumentsShallowEqual);
+};
 
 IndentCell.propTypes = {
   tableRow: PropTypes.object,
@@ -34,7 +33,7 @@ IndentCell.propTypes = {
   column: PropTypes.object,
   style: PropTypes.object,
   side: PropTypes.string,
-  position: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  position: PropTypes.number,
 };
 
 IndentCell.defaultProps = {
@@ -44,5 +43,5 @@ IndentCell.defaultProps = {
   column: {},
   style: null,
   side: 'left',
-  position: '',
+  position: undefined,
 };

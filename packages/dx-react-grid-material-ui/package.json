@@ -49,7 +49,6 @@
     "@babel/plugin-transform-runtime": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
     "@babel/preset-react": "^7.0.0",
-    "@devexpress/dx-core": "1.11.0",
     "@devexpress/dx-grid-core": "1.11.0",
     "@devexpress/dx-react-core": "1.11.0",
     "@devexpress/dx-react-grid": "1.11.0",
@@ -85,7 +84,6 @@
     "prop-types": "^15.7.2"
   },
   "peerDependencies": {
-    "@devexpress/dx-core": "1.11.0",
     "@devexpress/dx-grid-core": "1.11.0",
     "@devexpress/dx-react-core": "1.11.0",
     "@devexpress/dx-react-grid": "1.11.0",

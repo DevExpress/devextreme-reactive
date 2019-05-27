@@ -3,7 +3,6 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
-import { argumentsShallowEqual } from '@devexpress/dx-core';
 
 const styles = theme => ({
   cell: {
@@ -14,7 +13,7 @@ const styles = theme => ({
   },
 });
 
-const CellBase = React.memo(({
+const CellBase = ({
   contentComponent: Content,
   iconComponent: Icon,
   containerComponent: Container,
@@ -49,7 +48,7 @@ const CellBase = React.memo(({
       </Container>
     </TableCell>
   );
-}, argumentsShallowEqual);
+};
 
 CellBase.propTypes = {
   contentComponent: PropTypes.func.isRequired,

@@ -75,7 +75,7 @@ const defaultDeps = {
       data: 'appointment data',
     },
     allDayPanel: {},
-    main: {},
+    timeTable: {},
   },
   plugins: ['EditingState', 'Appointments'],
 };

@@ -302,7 +302,7 @@ class DragDropProviderBase extends React.PureComponent<
           </TemplateConnector>
         </Template>
 
-        <Template name="main">
+        <Template name="timeTable">
           <TemplatePlaceholder />
           <TemplateConnector>
             {({ formatDate }) => renderAppointmentItems(

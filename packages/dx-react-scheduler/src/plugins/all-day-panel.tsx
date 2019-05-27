@@ -82,7 +82,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
           </TemplateConnector>
         </Template>
 
-        <Template name="navbar">
+        <Template name="dayScale">
           <TemplatePlaceholder />
           <TemplateConnector>
             {({ currentView }) => {

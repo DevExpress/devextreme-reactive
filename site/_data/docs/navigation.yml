@@ -313,6 +313,8 @@
         path: /react/scheduler/docs/guides/view-switching
       - title: Date Navigation
         path: /react/scheduler/docs/guides/date-navigation
+      - title: Appointment Detail
+        path: /react/scheduler/docs/guides/appointment-detail
       - title: Editing
         path: /react/scheduler/docs/guides/editing
       - title: Localization

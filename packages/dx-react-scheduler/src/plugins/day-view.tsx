@@ -33,10 +33,10 @@ const endViewDateBaseComputed = ({
 }) => endViewDateCore(viewCellsData);
 const CellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
 const AppointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
-const TimeTablePlaceholder = () => <TemplatePlaceholder name="main" />;
+const TimeTablePlaceholder = () => <TemplatePlaceholder name="timeTable" />;
 const DayScaleEmptyCellPlaceholder = () => <TemplatePlaceholder name="dayScaleEmptyCell" />;
-const DayScalePlaceholder = () => <TemplatePlaceholder name="navbar" />;
-const SidebarPlaceholder = () => <TemplatePlaceholder name="sidebar" />;
+const DayScalePlaceholder = () => <TemplatePlaceholder name="dayScale" />;
+const TimeScalePlaceholder = () => <TemplatePlaceholder name="timeScale" />;
 
 class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
   timeTable: WritableRefObject<HTMLElement> = React.createRef();
@@ -57,6 +57,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
 
   static components: PluginComponents = {
     layoutComponent: 'Layout',
+    layoutContainer: 'LayoutContainer',
     appointmentLayerComponent: 'AppointmentLayer',
     dayScaleEmptyCellComponent: 'DayScaleEmptyCell',
     timeScaleLayoutComponent: 'TimeScaleLayout',
@@ -199,23 +200,24 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
 
         <Template name="body">
           <TemplateConnector>
-            {({ currentView }) => {
+            {({ currentView, layoutHeight }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
                 <ViewLayout
                   dayScaleComponent={DayScalePlaceholder}
                   dayScaleEmptyCellComponent={DayScaleEmptyCellPlaceholder}
                   timeTableComponent={TimeTablePlaceholder}
-                  timeScaleComponent={SidebarPlaceholder}
+                  timeScaleComponent={TimeScalePlaceholder}
                   layoutRef={this.layout}
                   layoutHeaderRef={this.layoutHeader}
+                  height={layoutHeight}
                 />
               );
             }}
           </TemplateConnector>
         </Template>
 
-        <Template name="navbar">
+        <Template name="dayScale">
           <TemplateConnector>
             {({ currentView, viewCellsData, formatDate }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
@@ -242,7 +244,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
           </TemplateConnector>
         </Template>
 
-        <Template name="sidebar">
+        <Template name="timeScale">
           <TemplateConnector>
             {({ currentView, viewCellsData, formatDate }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
@@ -258,7 +260,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
           </TemplateConnector>
         </Template>
 
-        <Template name="main">
+        <Template name="timeTable">
           <TemplateConnector>
             {({
               appointments, startViewDate, formatDate,

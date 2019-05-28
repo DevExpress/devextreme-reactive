@@ -57,6 +57,7 @@ Describes properties passed to a component that renders a month view layout.
 
 Field | Type | Description
 ------|------|------------
+height | number &#124; `auto` | The layout's height.
 dayScaleComponent | ComponentType&lt;[MonthView.DayScaleLayoutProps](#monthviewdayscalelayoutprops)&gt; | A component that renders a day scale layout.
 timeTableComponent | ComponentType&lt;[MonthView.TimeTableLayoutProps](#monthviewtimetablelayoutprops)&gt; | A component that renders a time table layout.
 

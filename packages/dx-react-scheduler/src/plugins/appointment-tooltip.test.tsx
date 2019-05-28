@@ -12,7 +12,7 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
 describe('AppointmentTooltip', () => {
   const defaultDeps = {
     template: {
-      main: {},
+      timeTable: {},
       appointment: {},
     },
     plugins: ['Appointments'],

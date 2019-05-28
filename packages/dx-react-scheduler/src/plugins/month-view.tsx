@@ -27,8 +27,8 @@ import { MonthViewProps, ViewState } from '../types';
 const TYPE = 'month';
 const startViewDateBaseComputed = ({ viewCellsData }) => startViewDateCore(viewCellsData);
 const endViewDateBaseComputed = ({ viewCellsData }) => endViewDateCore(viewCellsData);
-const DayScalePlaceholder = () => <TemplatePlaceholder name="navbar" />;
-const TimeTablePlaceholder = () => <TemplatePlaceholder name="main" />;
+const DayScalePlaceholder = () => <TemplatePlaceholder name="dayScale" />;
+const TimeTablePlaceholder = () => <TemplatePlaceholder name="timeTable" />;
 const CellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
 const AppointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
 
@@ -180,7 +180,7 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
 
         <Template name="body">
           <TemplateConnector>
-            {({ currentView }) => {
+            {({ currentView, layoutHeight }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
                 <ViewLayout
@@ -188,13 +188,14 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
                   timeTableComponent={TimeTablePlaceholder}
                   layoutRef={this.layout}
                   layoutHeaderRef={this.layoutHeader}
+                  height={layoutHeight}
                 />
               );
             }}
           </TemplateConnector>
         </Template>
 
-        <Template name="navbar">
+        <Template name="dayScale">
           <TemplateConnector>
             {({ currentView, viewCellsData, formatDate }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
@@ -209,7 +210,7 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
             }}
           </TemplateConnector>
         </Template>
-        <Template name="main">
+        <Template name="timeTable">
           <TemplateConnector>
             {({
               appointments, startViewDate, endViewDate, currentView, viewCellsData, formatDate,

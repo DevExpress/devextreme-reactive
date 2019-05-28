@@ -8,12 +8,14 @@ const SchedulerBase: React.SFC<SchedulerProps> = ({
   rootComponent,
   children,
   locale,
+  height,
 }) => (
   <PluginHost>
     <SchedulerCore
       data={data}
       rootComponent={rootComponent}
       locale={locale}
+      height={height}
     />
     {children}
   </PluginHost>
@@ -22,6 +24,7 @@ const SchedulerBase: React.SFC<SchedulerProps> = ({
 SchedulerBase.defaultProps = {
   data: [],
   locale: 'en-US',
+  height: 'auto',
 };
 
 // tslint:disable: max-line-length

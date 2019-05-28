@@ -11,7 +11,7 @@ import { AppointmentForm } from './appointment-form';
 describe('AppointmentForm', () => {
   const defaultDeps = {
     template: {
-      main: {},
+      timeTable: {},
     },
     getter: {
       appointmentChanges: jest.fn(),

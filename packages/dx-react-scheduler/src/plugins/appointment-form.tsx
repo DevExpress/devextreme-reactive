@@ -130,7 +130,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
         name="AppointmentForm"
         dependencies={pluginDependencies}
       >
-        <Template name="main">
+        <Template name="timeTable">
           <TemplatePlaceholder />
           <TemplateConnector>
             {({

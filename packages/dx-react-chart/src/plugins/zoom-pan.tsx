@@ -12,7 +12,7 @@ import {
 import { DragBox } from '../templates/drag-box';
 import {
   adjustLayout, getViewport, isKeyPressed, getOffset, getDeltaForTouches,
-  ScalesCache, getWheelDelta, getEventCoords, isMultiTouch,
+  ScalesCache, getWheelDelta, getEventCoords, isMultiTouch, attachEvents, detachEvents,
 } from '@devexpress/dx-chart-core';
 import {
   ZoomAndPanProps, ZoomAndPanState, Location, NumberArray, ZoomPanProviderProps, EventHandlers,
@@ -33,7 +33,7 @@ const events = {
 class ZoomPanProvider extends React.PureComponent<ZoomPanProviderProps> {
   handlers!: EventHandlers;
   ref!: Element;
-  windowHandlers!: EventHandlers;
+  windowHandlers!: { [key: string]: EventHandlers};
 
   componentDidMount() {
     this.ref = this.props.rootRef.current!;
@@ -47,7 +47,7 @@ class ZoomPanProvider extends React.PureComponent<ZoomPanProviderProps> {
             [extraEvents[0]]: (event: any) => { this.props.onMove(event); },
             [extraEvents[1]]: (event: any) => {
               this.props.onEnd(event);
-              this.detachEvents(window, this.windowHandlers[key]);
+              detachEvents(window, this.windowHandlers[key]);
             },
           },
         };
@@ -61,30 +61,18 @@ class ZoomPanProvider extends React.PureComponent<ZoomPanProviderProps> {
         [key]: (e: any) => {
           this.props[events[key].func](e);
           if (events[key].extraEvents) {
-            this.attachEvents(window, this.windowHandlers[key]);
+            attachEvents(window, this.windowHandlers[key]);
           }
         },
       };
     }, {});
-    this.attachEvents(this.ref, this.handlers);
-  }
-
-  attachEvents(node, handlers) {
-    Object.keys(handlers).forEach((el) => {
-      node.addEventListener(el, handlers[el], { passive: false });
-    });
-  }
-
-  detachEvents(node, handlers) {
-    Object.keys(handlers).forEach((el) => {
-      node.removeEventListener(el, handlers[el]);
-    });
+    attachEvents(this.ref, this.handlers);
   }
 
   componentWillUnmount() {
-    this.detachEvents(this.ref, this.handlers);
+    detachEvents(this.ref, this.handlers);
     Object.keys(this.windowHandlers).forEach((el) => {
-      this.detachEvents(window, this.windowHandlers[el]);
+      detachEvents(window, this.windowHandlers[el]);
     });
   }
 

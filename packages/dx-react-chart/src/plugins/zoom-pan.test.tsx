@@ -4,27 +4,24 @@ import { PluginHost } from '@devexpress/dx-react-core';
 import {
   pluginDepsToComponents, getComputedState,
 } from '@devexpress/dx-testing';
-import { adjustLayout } from '@devexpress/dx-chart-core';
+import { adjustLayout, attachEvents, detachEvents } from '@devexpress/dx-chart-core';
 import { ZoomAndPan } from './zoom-pan';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   adjustLayout: jest.fn().mockReturnValue('adjusted-ranges'),
+  attachEvents: jest.fn(),
+  detachEvents: jest.fn(),
 }));
 
 const DragBoxComponent = () => null;
 
 describe('ZoomAndPan', () => {
-  const addEventListener = jest.fn();
-  const removeEventListener = jest.fn();
   const defaultDeps = {
     getter: {
       domains: 'test-domains',
       ranges: 'test-ranges',
       rootRef: {
-        current: {
-          addEventListener,
-          removeEventListener,
-        },
+        current: {},
       },
     },
   };
@@ -77,7 +74,7 @@ describe('ZoomAndPan', () => {
         <ZoomAndPan  {...defaultProps} />
       </PluginHost>
     ));
-    expect(addEventListener).toBeCalledTimes(3);
+    expect(attachEvents).toBeCalledTimes(1);
   });
 
   it('should detach events', () => {
@@ -89,6 +86,6 @@ describe('ZoomAndPan', () => {
     ));
 
     tree.unmount();
-    expect(removeEventListener).toBeCalledTimes(3);
+    expect(detachEvents).toBeCalledTimes(3);
   });
 });

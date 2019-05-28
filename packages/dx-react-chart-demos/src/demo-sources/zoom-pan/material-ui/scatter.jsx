@@ -16,10 +16,21 @@ import {
   ScatterSeries,
   Tooltip,
   ZoomAndPan,
+  Title,
+  Legend,
 } from '@devexpress/dx-react-chart-material-ui';
 import { format } from 'd3-format';
 
-import { dataGenerator } from '../../../demo-data/generator';
+import { lifeBirth } from '../../../demo-data/life-birth';
+
+const groupData = data => data.map(({
+  birthRate, lifeExp, year, country,
+}) => ({
+  [`birthRate_${year}`]: birthRate,
+  [`lifeExp_${year}`]: lifeExp,
+  year,
+  country,
+}));
 
 const adjustDomain = ([start, end]) => [Math.floor(start), Math.ceil(end)];
 
@@ -32,22 +43,24 @@ const tooltipContentValStyle = {
 };
 const TooltipContent = ({ targetItem, data, ...restProps }) => {
   const item = data[targetItem.point];
-  const arg = item[targetItem.series === 'Series 1' ? 'arg1' : 'arg2'];
-  const val = item[targetItem.series === 'Series 1' ? 'val1' : 'val2'];
+  const title = `${item.country} ${item.year}`;
+  const arg = item[`lifeExp_${targetItem.series}`];
+  const val = item[`birthRate_${targetItem.series}`];
   return (
     <div>
+      <div>{title}</div>
       <div>
         <Tooltip.Content
           {...restProps}
           style={tooltipContentArgStyle}
-          text={`X: ${formatTooltipValue(arg)}`}
+          text={`Life Expectancy: ${formatTooltipValue(arg)}`}
         />
       </div>
       <div>
         <Tooltip.Content
           {...restProps}
           style={tooltipContentValStyle}
-          text={`Y: ${formatTooltipValue(val)}`}
+          text={`Birth Rate: ${formatTooltipValue(val)}`}
         />
       </div>
     </div>
@@ -66,7 +79,7 @@ export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    const data = dataGenerator(200);
+    const data = groupData(lifeBirth);
     this.state = {
       data,
       viewport: null,
@@ -90,14 +103,14 @@ export default class Demo extends React.PureComponent {
             <ValueAxis />
 
             <ScatterSeries
-              name="Series 1"
-              valueField="val1"
-              argumentField="arg1"
+              name="1970"
+              valueField="birthRate_1970"
+              argumentField="lifeExp_1970"
             />
             <ScatterSeries
-              name="Series 2"
-              valueField="val2"
-              argumentField="arg2"
+              name="2010"
+              valueField="birthRate_2010"
+              argumentField="lifeExp_2010"
             />
 
             <EventTracker />
@@ -109,6 +122,8 @@ export default class Demo extends React.PureComponent {
               onViewportChange={this.changeViewport}
               interactionWithValues="both"
             />
+            <Title text="Life Expectancy vs. Birth Rates" />
+            <Legend />
             <Animation />
           </Chart>
         </Paper>

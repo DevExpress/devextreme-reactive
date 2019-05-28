@@ -100,43 +100,84 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
     );
   }
 
-  viewCellsDataBaseComputed = (getters) => {
-    const { name } = this.props;
-    const firstDayOfWeek = getters[`firstDayOfWeek${name}`];
-    const intervalCount = getters[`intervalCount${name}`];
-    const excludedDays = getters[`excludedDays${name}`];
-    const startDayHour = getters[`startDayHour${name}`];
-    const endDayHour = getters[`endDayHour${name}`];
-    const cellDuration = getters[`cellDuration${name}`];
+  excludedDaysComputed = (viewName, excludedDays) => (getters) => {
+    // const { name: viewName, excludedDays } = this.props;
+    return computed(
+      getters, viewName!, () => excludedDays, getters.excludedDays,
+    );
+  }
 
+  memoizedExcludedDays = memoize(this.excludedDaysComputed);
+
+  firstDayOfWeekComputed = (viewName, firstDayOfWeek) => (getters) => {
+    // const { name: viewName, firstDayOfWeek } = this.props;
+    return computed(
+      getters, viewName!, () => firstDayOfWeek, getters.firstDayOfWeek,
+    );
+  }
+  memoizedFirstDayOfWeek = memoize(this.firstDayOfWeekComputed);
+
+  intervalCountComputed = (viewName, intervalCount) => (getters) => {
+    // const { name: viewName, intervalCount } = this.props;
+    return computed(
+      getters, viewName!, () => intervalCount, getters.intervalCount,
+    );
+  }
+  memoizedIntervalCount = memoize(this.intervalCountComputed);
+
+  viewCellsDataBaseComputed = ({ firstDayOfWeek, intervalCount, excludedDays, startDayHour, endDayHour, cellDuration, currentDate }) => {
     return viewCellsDataCore(
-      getters.currentDate, firstDayOfWeek,
+      currentDate, firstDayOfWeek,
       intervalCount! * DAYS_IN_WEEK, excludedDays!,
       startDayHour!, endDayHour!, cellDuration!,
       Date.now(),
     );
   }
 
-  viewCellsDataComputed: ComputedFn = (getters) => {
-    const { name: viewName } = this.props;
+  viewCellsDataComputed = (viewName) => (getters) => {
+    // const { name: viewName } = this.props;
     return computed(
       getters, viewName!, this.viewCellsDataBaseComputed, getters.viewCellsData,
     );
   }
+  memoizedViewCellsData = memoize(this.viewCellsDataComputed);
 
-  endViewDateComputed: ComputedFn = (getters) => {
-    const { name: viewName } = this.props;
+  endViewDateComputed = (viewName) => (getters) => {
+    // const { name: viewName } = this.props;
     return computed(
       getters, viewName!, endViewDateBaseComputed, getters.endViewDate,
     );
   }
+  memoizedEndViewDate = memoize(this.endViewDateComputed);
 
-  startViewDateComputed: ComputedFn = (getters) => {
-    const { name: viewName } = this.props;
+  startViewDateComputed = (viewName) => (getters) => {
+    // const { name: viewName } = this.props;
     return computed(
       getters, viewName!, startViewDateBaseComputed, getters.startViewDate,
     );
   }
+  memoizedStartViewDate = memoize(this.startViewDateComputed);
+
+  cellDurationComputed = (viewName, cellDuration) => (getters) => {
+    return computed(
+      getters, viewName!, () => cellDuration, getters.intervalCount,
+    );
+  }
+  memoizedCellDuration = memoize(this.cellDurationComputed);
+
+  startDayHourComputed = (viewName, startDayHour) => (getters) => {
+    return computed(
+      getters, viewName!, () => startDayHour, getters.intervalCount,
+    );
+  }
+  memoizedStartDayHour = memoize(this.startDayHourComputed);
+
+  endDayHourComputed = (viewName, endDayHour) => (getters) => {
+    return computed(
+      getters, viewName!, () => endDayHour, getters.intervalCount,
+    );
+  }
+  memoizedEndDayHour = memoize(this.endDayHourComputed);
 
   availableViewNamesComputed: ComputedFn = ({ availableViewNames }) => {
     const { name: viewName } = this.props;
@@ -215,16 +256,16 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
         <Getter name="availableViewNames" computed={this.availableViewNamesComputed} />
         <Getter name="currentView" computed={this.currentViewComputed} />
 
-        <Getter name={`cellDuration${viewName}`} value={cellDuration} />
-        <Getter name={`startDayHour${viewName}`} value={startDayHour} />
-        <Getter name={`endDayHour${viewName}`} value={endDayHour} />
-        <Getter name={`intervalCount${viewName}`} value={intervalCount} />
-        <Getter name={`firstDayOfWeek${viewName}`} value={firstDayOfWeek} />
-        <Getter name={`excludedDays${viewName}`} value={excludedDays} />
+        <Getter name="cellDuration" computed={this.memoizedCellDuration(viewName, cellDuration)} />
+        <Getter name="startDayHour" computed={this.memoizedStartDayHour(viewName, startDayHour)} />
+        <Getter name="endDayHour" computed={this.memoizedEndDayHour(viewName, endDayHour)} />
+        <Getter name="intervalCount" computed={this.memoizedIntervalCount(viewName, intervalCount)} />
+        <Getter name="firstDayOfWeek" computed={this.memoizedFirstDayOfWeek(viewName, firstDayOfWeek)} />
+        <Getter name="excludedDays" computed={this.memoizedExcludedDays(viewName, excludedDays)} />
 
-        <Getter name="viewCellsData" computed={this.viewCellsDataComputed} />
-        <Getter name="startViewDate" computed={this.startViewDateComputed} />
-        <Getter name="endViewDate" computed={this.endViewDateComputed} />
+        <Getter name="viewCellsData" computed={this.memoizedViewCellsData(viewName)} />
+        <Getter name="startViewDate" computed={this.memoizedStartViewDate(viewName)} />
+        <Getter name="endViewDate" computed={this.memoizedEndViewDate(viewName)} />
 
         <Getter name="timeTableElement" computed={this.timeTableElement} />
         <Getter name="layoutElement" computed={this.layoutElement} />

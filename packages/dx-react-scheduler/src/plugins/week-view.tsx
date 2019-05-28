@@ -21,6 +21,7 @@ import {
   VERTICAL_TYPE,
   getAppointmentStyle,
 } from '@devexpress/dx-scheduler-core';
+import { memoize } from '@devexpress/dx-core';
 
 import { WeekViewProps, ViewState } from '../types';
 
@@ -43,10 +44,10 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
   timeTable: WritableRefObject<HTMLElement> = React.createRef();
   layout = React.createRef<HTMLElement>();
   layoutHeader = React.createRef<HTMLElement>();
-  cellElements = [];
 
   state: ViewState = {
     timeTableRef: null,
+    rects: [],
   };
 
   static defaultProps: Partial<WeekViewProps> = {
@@ -157,10 +158,31 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
     this.timeTable.current = timeTableRef;
   }
 
-  setCellElements = (cellElements) => {
-    this.cellElements = cellElements;
-    this.forceUpdate();
-  }
+  calculateRects = (appointments, startViewDate, endViewDate, excludedDays, viewCellsData, cellDuration) => cellElements => {
+    const intervals = calculateWeekDateIntervals(
+      appointments, startViewDate, endViewDate, excludedDays!,
+    );
+
+    const rects = calculateRectByDateIntervals(
+      {
+        growDirection: VERTICAL_TYPE,
+        multiline: false,
+      },
+      intervals,
+      getVerticalRectByDates,
+      {
+        startViewDate,
+        endViewDate,
+        viewCellsData,
+        cellDuration,
+        cellElements,
+      },
+    );
+
+    this.setState({ rects });
+  };
+
+  memoizedCalculateRects =  memoize(this.calculateRects);
 
   render() {
     const {
@@ -184,6 +206,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
       endDayHour,
       appointmentLayerComponent: AppointmentLayer,
     } = this.props;
+    const { rects } = this.state;
 
     return (
       <Plugin
@@ -278,33 +301,9 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
             }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
 
-              console.log('Table Render');
-
-              const cells = this.cellElements;
-              let rects = [];
-              if (cells.length !== 0) {
-                this.cellElements = [];
-
-                const intervals = calculateWeekDateIntervals(
-                  appointments, startViewDate, endViewDate, excludedDays!,
-                );
-
-                rects = calculateRectByDateIntervals(
-                  {
-                    growDirection: VERTICAL_TYPE,
-                    multiline: false,
-                  },
-                  intervals,
-                  getVerticalRectByDates,
-                  {
-                    startViewDate,
-                    endViewDate,
-                    viewCellsData,
-                    cellDuration,
-                    cellElements: cells,
-                  },
-                );
-              }
+              const setRects = this.memoizedCalculateRects(
+                appointments, startViewDate, endViewDate, excludedDays, viewCellsData, cellDuration,
+              );
 
               return (
                 <React.Fragment>
@@ -313,7 +312,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
                     cellComponent={cellPlaceholder}
                     tableRef={this.setTimeTableRef}
                     cellsData={viewCellsData}
-                    setCellElements={this.setCellElements}
+                    setCellElements={setRects}
                     formatDate={formatDate}
                   />
                   <AppointmentLayer>

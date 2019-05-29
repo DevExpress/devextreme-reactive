@@ -50,6 +50,7 @@ class LayoutBase extends React.PureComponent {
       className,
       cellsData,
       formatDate,
+      setCellElements,
       ...restProps
     } = this.props;
     return (

@@ -142,16 +142,24 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
   }
   memoizedCurrentView = memoize(this.currentViewComputed);
 
-  viewCellsDataBaseComputed = (firstDayOfWeek, intervalCount) => ({
-    currentDate,
-  }) => {
-    // const { firstDayOfWeek, intervalCount } = this.props;
+  viewCellsDataBaseComputed = (firstDayOfWeek, intervalCount) => ({ currentDate }) => {
     return monthCellsData(
-      currentDate, firstDayOfWeek!,
+      currentDate, firstDayOfWeek,
       intervalCount!, Date.now(),
     );
   }
-  memoizedViewCellsDataBase = memoize(this.viewCellsDataBaseComputed);
+
+  viewCellsDataComputed = (viewName, firstDayOfWeek, intervalCount) => (
+    getters,
+  ) => {
+    return computed(
+      getters,
+      viewName!,
+      this.viewCellsDataBaseComputed(firstDayOfWeek, intervalCount),
+      getters.viewCellsData,
+    );
+  }
+  memoizedViewCellsDataBase = memoize(this.viewCellsDataComputed);
 
   setTimeTableRef = (timeTableRef) => {
     this.timeTable.current = timeTableRef;
@@ -208,7 +216,7 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
 
         <Getter name="firstDayOfWeek" computed={this.memoizedFirstDayOfWeek(viewName, firstDayOfWeek)} />
         <Getter name="intervalCount" computed={this.memoizedIntervalCount(viewName, intervalCount)} />
-        <Getter name="viewCellsData" computed={this.memoizedViewCellsDataBase(firstDayOfWeek, intervalCount)} />
+        <Getter name="viewCellsData" computed={this.memoizedViewCellsDataBase(viewName, firstDayOfWeek, intervalCount)} />
         <Getter name="startViewDate" computed={this.startViewDateComputed} />
         <Getter name="endViewDate" computed={this.endViewDateComputed} />
 

@@ -244,7 +244,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
         <Getter name="startViewDate" computed={this.memoizedStartViewDate(viewName)} />
         <Getter name="endViewDate" computed={this.memoizedEndViewDate(viewName)} />
 
-        <Getter name="timeTableElement" computed={this.memoizedLayoutHeaderElement(viewName)} />
+        <Getter name="timeTableElement" computed={this.memoizedTimeTableElement(viewName)} />
         <Getter name="layoutElement" computed={this.memoizedLayoutElement(viewName)} />
         <Getter name="layoutHeaderElement" computed={this.memoizedLayoutHeaderElement(viewName)} />
 

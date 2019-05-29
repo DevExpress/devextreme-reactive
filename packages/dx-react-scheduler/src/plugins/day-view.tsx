@@ -152,21 +152,21 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
   }
   memoizedavailableViewNames = memoize(this.availableViewNamesComputed);
 
-  endViewDateComputed = (viewName) => (getters) => {
-    // const { name: viewName } = this.props;
+  endViewDateComputed = (getters) => {
+    const { name: viewName } = this.props;
     return computed(
       getters, viewName!, endViewDateBaseComputed, getters.endViewDate,
     );
   }
-  memoizedEndViewDate = memoize(this.endViewDateComputed);
+  // memoizedEndViewDate = memoize(this.endViewDateComputed);
 
-  startViewDateComputed = (viewName) => (getters) => {
-    // const { name: viewName } = this.props;
+  startViewDateComputed = (getters) => {
+    const { name: viewName } = this.props;
     return computed(
       getters, viewName!, startViewDateBaseComputed, getters.startViewDate,
     );
   }
-  memoizedStartViewDate = memoize(this.startViewDateComputed);
+  // memoizedStartViewDate = memoize(this.startViewDateComputed);
 
   setTimeTableRef = (timeTableRef) => {
     this.timeTable.current = timeTableRef;
@@ -231,8 +231,8 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
         <Getter name="intervalCount" computed={this.memoizedIntervalCount(viewName, intervalCount)} />
         <Getter name="cellDuration" computed={this.memoizedCellDuration(viewName, cellDuration)} />
         <Getter name="viewCellsData" computed={this.memoizedViewCellsData(viewName, startDayHour, endDayHour, cellDuration)} />
-        <Getter name="startViewDate" computed={this.memoizedStartViewDate(viewName)} />
-        <Getter name="endViewDate" computed={this.memoizedEndViewDate(viewName)} />
+        <Getter name="startViewDate" computed={this.startViewDateComputed} />
+        <Getter name="endViewDate" computed={this.endViewDateComputed} />
 
         <Getter name="timeTableElement" computed={this.memoizedTimeTableElement(viewName)} />
         <Getter name="layoutElement" computed={this.memoizedLayoutElement(viewName)} />

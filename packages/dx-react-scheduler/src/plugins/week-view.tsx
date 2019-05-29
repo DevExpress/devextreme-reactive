@@ -142,24 +142,24 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
   }
   memoizedViewCellsData = memoize(this.viewCellsDataComputed);
 
-  endViewDateComputed = (viewName) => (getters) => {
-    // const { name: viewName } = this.props;
+  endViewDateComputed = (getters) => {
+    const { name: viewName } = this.props;
     return computed(
       getters, viewName!, endViewDateBaseComputed, getters.endViewDate,
     );
   }
-  memoizedEndViewDate = memoize(this.endViewDateComputed);
+  // memoizedEndViewDate = memoize(this.endViewDateComputed);
 
-  startViewDateComputed = (viewName) => (getters) => {
-    // const { name: viewName } = this.props;
+  startViewDateComputed = (getters) => {
+    const { name: viewName } = this.props;
     return computed(
       getters, viewName!, startViewDateBaseComputed, getters.startViewDate,
     );
   }
-  memoizedStartViewDate = memoize(this.startViewDateComputed);
+  // memoizedStartViewDate = memoize(this.startViewDateComputed);
 
-  availableViewNamesComputed = (viewName) => ({ availableViewNames }) => {
-    // const { name: viewName } = this.props;
+  availableViewNamesComputed = ({ availableViewNames }) => {
+    const { name: viewName } = this.props;
     return availableViewNamesCore(
       availableViewNames, viewName!,
     );
@@ -241,8 +241,8 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
         <Getter name="firstDayOfWeek" computed={this.memoizedFirstDayOfWeek(viewName, firstDayOfWeek)} />
         <Getter name="excludedDays" computed={this.memoizedExcludedDays(viewName, excludedDays)} />
         <Getter name="viewCellsData" computed={this.memoizedViewCellsData(viewName, cellDuration, startDayHour, endDayHour)} />
-        <Getter name="startViewDate" computed={this.memoizedStartViewDate(viewName)} />
-        <Getter name="endViewDate" computed={this.memoizedEndViewDate(viewName)} />
+        <Getter name="startViewDate" computed={this.startViewDateComputed} />
+        <Getter name="endViewDate" computed={this.endViewDateComputed} />
 
         <Getter name="timeTableElement" computed={this.memoizedTimeTableElement(viewName)} />
         <Getter name="layoutElement" computed={this.memoizedLayoutElement(viewName)} />

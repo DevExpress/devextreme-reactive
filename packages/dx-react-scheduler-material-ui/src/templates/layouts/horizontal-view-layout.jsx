@@ -7,7 +7,7 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = theme => ({
   container: {
     overflowY: 'auto',
-    maxHeight: 700, // Can we remove?
+    height: 700,
   },
   stickyHeader: {
     top: 0,

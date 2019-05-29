@@ -1,16 +1,8 @@
-import { getOffset } from './root-offset';
+import { getEventCoords, getOffset } from './common';
 import {
-  TrackerTarget, HandlerFnList, SeriesList, HitTesters, Location,
+  TrackerTarget, HandlerFnList, SeriesList, HitTesters,
   EventHandlerFn, TargetData, EventHandlers, HandlersObject,
 } from '../types';
-
-const getEventCoords = (e: any): Location => {
-  const offset = getOffset(e.currentTarget);
-  return [
-    e.pageX - offset[0],
-    e.pageY - offset[1],
-  ];
-};
 
 const DISTANCE_THRESHOLD = 20;
 
@@ -36,7 +28,7 @@ const buildEventHandler = (seriesList: SeriesList, handlers: HandlerFnList): Eve
   };
 
   return (e) => {
-    const location = getEventCoords(e);
+    const location = getEventCoords(e, getOffset(e.currentTarget));
     hitTesters = hitTesters || createHitTesters();
     const targets: TrackerTarget[] = [];
     seriesList.forEach(({ name: series, index: order, symbolName }) => {
@@ -56,7 +48,7 @@ const buildEventHandler = (seriesList: SeriesList, handlers: HandlerFnList): Eve
 };
 
 const buildLeaveEventHandler = (handlers: HandlerFnList): EventHandlerFn => (e) => {
-  const location = getEventCoords(e);
+  const location = getEventCoords(e, getOffset(e.currentTarget));
   const arg: TargetData = { location, targets: [] };
   handlers.forEach(handler => handler(arg));
 };

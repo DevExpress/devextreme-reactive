@@ -15,6 +15,7 @@ import {
   DomainBounds,
   OnViewportChangeFn,
   ScaleObject,
+  EventHandlers,
 } from '../../types';
 
 const getArgumentBounds = (viewport?: ViewportOptions): DomainBounds | null => (
@@ -152,4 +153,21 @@ export const isKeyPressed = (event: MouseEvent, key: string) => event[`${key}Key
 /** @internal */
 export const getWheelDelta = ({ wheelDelta, deltaY }: { wheelDelta?: number, deltaY?: number }) => {
   return wheelDelta !== undefined ? wheelDelta : deltaY! * -30; // deltaY for FF
+};
+
+/** @internal */
+export const isMultiTouch = (e: any) => e.touches && e.touches.length === 2;
+
+/** @internal */
+export const attachEvents = (node: any, handlers: EventHandlers) => {
+  Object.keys(handlers).forEach((el) => {
+    node.addEventListener(el, handlers[el], { passive: false });
+  });
+};
+
+/** @internal */
+export const detachEvents = (node: any, handlers: EventHandlers) => {
+  Object.keys(handlers).forEach((el) => {
+    node.removeEventListener(el, handlers[el]);
+  });
 };

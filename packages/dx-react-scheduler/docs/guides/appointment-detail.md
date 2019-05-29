@@ -7,7 +7,7 @@ The React Scheduler component's `AppointmentTooltip` and `AppointmentForm` plugi
 The following plugins display an appointment data:
 
 - [AppointmentTooltip](../reference/appointment-tooltip.md) - displays an appointment information in a short form
-- [AppointmentForm](../reference/apppointment-form.md) - displays an all appointment information
+- [AppointmentForm](../reference/appointment-form.md) - displays an all appointment information
 
 ## Basic Usage
 

@@ -21,6 +21,7 @@ import {
   availableViewNames as availableViewNamesCore,
   VERTICAL_TYPE,
 } from '@devexpress/dx-scheduler-core';
+import { memoize } from '@devexpress/dx-core';
 
 import { VerticalViewProps, ViewState } from '../types';
 
@@ -44,7 +45,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
   layoutHeader = React.createRef<HTMLElement>();
 
   state: ViewState = {
-    timeTableRef: null,
+    rects: [],
   };
 
   static defaultProps: Partial<VerticalViewProps> = {
@@ -70,10 +71,9 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
     timeTableRowComponent: 'TimeTableRow',
   };
 
-  viewCellsDataBaseComputed = ({
-    currentDate,
+  viewCellsDataBaseComputed = (startDayHour, endDayHour, cellDuration) => ({
+    currentDate, intervalCount,
   }) => {
-    const { intervalCount, startDayHour, endDayHour, cellDuration } = this.props;
     return viewCellsDataCore(
       currentDate, undefined,
       intervalCount, [],
@@ -86,82 +86,118 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
   layoutElementComputed = () => this.layout;
   layoutHeaderElementComputed = () => this.layoutHeader;
 
-  layoutHeaderElement: ComputedFn = (getters) => {
-    const { name: viewName } = this.props;
+  layoutHeaderElement = (viewName) => (getters) => {
+    // const { name: viewName } = this.props;
     return computed(
       getters, viewName!, this.layoutHeaderElementComputed, getters.layoutHeaderElement,
     );
   }
+  memoizedLayoutHeaderElement = memoize(this.layoutHeaderElement);
 
-  layoutElement: ComputedFn = (getters) => {
-    const { name: viewName } = this.props;
+  layoutElement = (viewName) => (getters) => {
+    // const { name: viewName } = this.props;
     return computed(
       getters, viewName!, this.layoutElementComputed, getters.layoutElement,
     );
   }
+  memoizedLayoutElement = memoize(this.layoutElement);
 
-  timeTableElement: ComputedFn = (getters) => {
+  timeTableElement = (viewName) => (getters) => {
     const { name: viewName } = this.props;
     return computed(
       getters, viewName!, this.timeTableElementComputed, getters.timeTableElement,
     );
   }
+  memoizedTimeTableElement = memoize(this.timeTableElement);
 
-  viewCellsDataComputed: ComputedFn = (getters) => {
-    const { name: viewName } = this.props;
+  viewCellsDataComputed = (viewName, startDayHour, endDayHour, cellDuration) => (getters) => {
+    // const { name: viewName } = this.props;
     return computed(
-      getters, viewName!, this.viewCellsDataBaseComputed, getters.viewCellsData,
+      getters, viewName!, this.viewCellsDataBaseComputed(startDayHour, endDayHour, cellDuration), getters.viewCellsData,
     );
   }
+  memoizedViewCellsData = memoize(this.viewCellsDataComputed);
 
-  cellDurationComputed: ComputedFn = (getters) => {
-    const { name: viewName, cellDuration } = this.props;
+  cellDurationComputed = (viewName, cellDuration) => (getters) => {
+    // const { name: viewName, cellDuration } = this.props;
     return computed(
       getters, viewName!, () => cellDuration, getters.cellDuration,
     );
   }
+  memoizedCellDuration = memoize(this.cellDurationComputed);
 
-  intervalCountComputed: ComputedFn = (getters) => {
-    const { name: viewName, intervalCount } = this.props;
+  intervalCountComputed = (viewName, intervalCount) => (getters) => {
+    // const { name: viewName, intervalCount } = this.props;
     return computed(
       getters, viewName!, () => intervalCount, getters.intervalCount,
     );
   }
+  memoizedIntervalCount = memoize(this.intervalCountComputed);
 
-  currentViewComputed: ComputedFn = ({ currentView }) => {
-    const { name: viewName } = this.props;
+  currentViewComputed = (viewName) => ({ currentView }) => {
+    // const { name: viewName } = this.props;
     return (
       currentView && currentView.name !== viewName
         ? currentView
         : { name: viewName, type: TYPE }
     );
   }
+  memoizedCurrentView = memoize(this.currentViewComputed);
 
-  availableViewNamesComputed: ComputedFn = ({ availableViewNames }) => {
-    const { name: viewName } = this.props;
+  availableViewNamesComputed = (viewName) => ({ availableViewNames }) => {
+    // const { name: viewName } = this.props;
     return availableViewNamesCore(
       availableViewNames, viewName!,
     );
   }
+  memoizedavailableViewNames = memoize(this.availableViewNamesComputed);
 
-  endViewDateComputed: ComputedFn = (getters) => {
-    const { name: viewName } = this.props;
+  endViewDateComputed = (viewName) => (getters) => {
+    // const { name: viewName } = this.props;
     return computed(
       getters, viewName!, endViewDateBaseComputed, getters.endViewDate,
     );
   }
+  memoizedEndViewDate = memoize(this.endViewDateComputed);
 
-  startViewDateComputed: ComputedFn = (getters) => {
-    const { name: viewName } = this.props;
+  startViewDateComputed = (viewName) => (getters) => {
+    // const { name: viewName } = this.props;
     return computed(
       getters, viewName!, startViewDateBaseComputed, getters.startViewDate,
     );
   }
+  memoizedStartViewDate = memoize(this.startViewDateComputed);
 
   setTimeTableRef = (timeTableRef) => {
     this.timeTable.current = timeTableRef;
-    this.setState({ timeTableRef });
   }
+
+  calculateRects = (appointments, startViewDate, endViewDate, viewCellsData, cellDuration, currentDate) => cellElements => {
+    const intervals = calculateWeekDateIntervals(
+      appointments, startViewDate, endViewDate, [],
+    );
+
+    const rects = calculateRectByDateIntervals(
+      {
+        growDirection: VERTICAL_TYPE,
+        multiline: false,
+      },
+      intervals,
+      getVerticalRectByDates,
+      {
+        startViewDate,
+        endViewDate,
+        cellDuration,
+        currentDate,
+        viewCellsData,
+        cellElements,
+      },
+    );
+
+    this.setState({ rects });
+  }
+
+  memoizedCalculateRects =  memoize(this.calculateRects);
 
   render() {
     const {
@@ -179,23 +215,28 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
       appointmentLayerComponent: AppointmentLayer,
       cellDuration,
       name: viewName,
+      intervalCount,
+      startDayHour,
+      endDayHour,
     } = this.props;
-    const { timeTableRef: stateTimeTableRef } = this.state;
+    const { rects } = this.state;
 
     return (
       <Plugin
         name="DayView"
       >
-        <Getter name="availableViewNames" computed={this.availableViewNamesComputed} />
-        <Getter name="currentView" computed={this.currentViewComputed} />
-        <Getter name="intervalCount" computed={this.intervalCountComputed} />
-        <Getter name="cellDuration" computed={this.cellDurationComputed} />
-        <Getter name="viewCellsData" computed={this.viewCellsDataComputed} />
-        <Getter name="startViewDate" computed={this.startViewDateComputed} />
-        <Getter name="endViewDate" computed={this.endViewDateComputed} />
-        <Getter name="timeTableElement" computed={this.timeTableElement} />
-        <Getter name="layoutElement" computed={this.layoutElement} />
-        <Getter name="layoutHeaderElement" computed={this.layoutHeaderElement} />
+        <Getter name="availableViewNames" computed={this.memoizedavailableViewNames(viewName)} />
+        <Getter name="currentView" computed={this.memoizedCurrentView(viewName)} />
+
+        <Getter name="intervalCount" computed={this.memoizedIntervalCount(viewName, intervalCount)} />
+        <Getter name="cellDuration" computed={this.memoizedCellDuration(viewName, cellDuration)} />
+        <Getter name="viewCellsData" computed={this.memoizedViewCellsData(viewName, startDayHour, endDayHour, cellDuration)} />
+        <Getter name="startViewDate" computed={this.memoizedStartViewDate(viewName)} />
+        <Getter name="endViewDate" computed={this.memoizedEndViewDate(viewName)} />
+
+        <Getter name="timeTableElement" computed={this.memoizedTimeTableElement(viewName)} />
+        <Getter name="layoutElement" computed={this.memoizedLayoutElement(viewName)} />
+        <Getter name="layoutHeaderElement" computed={this.memoizedLayoutHeaderElement(viewName)} />
 
         <Template name="body">
           <TemplateConnector>
@@ -266,25 +307,9 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
               viewCellsData,
             }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
-              const intervals = calculateWeekDateIntervals(
-                appointments, startViewDate, endViewDate, [],
+              const setRects = this.memoizedCalculateRects(
+                appointments, startViewDate, endViewDate, viewCellsData, cellDuration, currentDate,
               );
-              const rects = stateTimeTableRef ? calculateRectByDateIntervals(
-                {
-                  growDirection: VERTICAL_TYPE,
-                  multiline: false,
-                },
-                intervals,
-                getVerticalRectByDates,
-                {
-                  startViewDate,
-                  endViewDate,
-                  cellDuration,
-                  currentDate,
-                  viewCellsData,
-                  cellElements: stateTimeTableRef.querySelectorAll('td'),
-                },
-              ) : [];
 
               return (
                 <React.Fragment>
@@ -293,6 +318,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
                     cellComponent={CellPlaceholder}
                     tableRef={this.setTimeTableRef}
                     cellsData={viewCellsData}
+                    setCellElements={setRects}
                     formatDate={formatDate}
                   />
                   <AppointmentLayer>

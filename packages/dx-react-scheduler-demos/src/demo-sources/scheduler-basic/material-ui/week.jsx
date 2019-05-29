@@ -3,6 +3,8 @@ import Paper from '@material-ui/core/Paper';
 import {
   Scheduler,
   WeekView,
+  DayView,
+  MonthView,
   Appointments,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
@@ -56,11 +58,18 @@ export default class Demo extends React.PureComponent {
         <Scheduler
           data={data}
         >
-          <WeekView
+          {/* <WeekView
             startDayHour={startDayHour}
             endDayHour={endDayHour}
             cellDuration={cellDuration}
             excludedDays={excludedDays}
+            intervalCount={intervalCount}
+            firstDayOfWeek={firstDayOfWeek}
+          /> */}
+          <MonthView
+            startDayHour={startDayHour}
+            endDayHour={endDayHour}
+            cellDuration={cellDuration}
             intervalCount={intervalCount}
             firstDayOfWeek={firstDayOfWeek}
           />

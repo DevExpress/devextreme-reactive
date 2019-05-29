@@ -11,7 +11,7 @@ The following plugins display an appointment data:
 
 ## Basic Usage
 
-Import the plugins listed above to enable a user to show an appointment information data. The `AppointmentTooltip` will be shown by a `click` on an appointment. The `AppointmentForm` will be shown by a `double click` on the appointment.
+Import the plugins listed above to enable a user to show an appointment information data. The appointment tooltip will be shown by a `click` on an appointment. The appointment form plugin will be shown by a `double click` on the appointment.
 
 ### Uncontrolled Mode
 

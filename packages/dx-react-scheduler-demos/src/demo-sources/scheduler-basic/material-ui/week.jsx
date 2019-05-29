@@ -66,7 +66,7 @@ export default class Demo extends React.PureComponent {
             intervalCount={intervalCount}
             firstDayOfWeek={firstDayOfWeek}
           /> */}
-          <DayView
+          <WeekView
             startDayHour={startDayHour}
             endDayHour={endDayHour}
             cellDuration={cellDuration}

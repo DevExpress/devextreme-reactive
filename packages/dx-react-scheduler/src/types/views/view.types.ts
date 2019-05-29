@@ -1,4 +1,4 @@
-import { FormatterFn } from '@devexpress/dx-scheduler-core';
+import { FormatterFn, ElementRect } from '@devexpress/dx-scheduler-core';
 
 export interface VerticalViewProps {
   /** The view name. */
@@ -39,7 +39,7 @@ export interface VerticalViewProps {
 
 /** @internal */
 export type ViewState = {
-  timeTableRef: HTMLElement | null;
+  rects: readonly ElementRect[];
 };
 
 // tslint:disable-next-line: no-namespace
@@ -81,6 +81,8 @@ export namespace VerticalView {
     rowComponent: React.ComponentType<VerticalView.RowProps>;
     /** A function that formats dates according to the locale. */
     formatDate: FormatterFn;
+    /** A callback function that provide time table cell elements into view plugin. */
+    setCellElements: (cellElements: HTMLElement[]) => void;
   }
 
   /** Describes properties passed to a component that renders a time table cell. */

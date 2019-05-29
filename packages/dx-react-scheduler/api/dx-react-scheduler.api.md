@@ -573,6 +573,7 @@ export namespace VerticalView {
     cellsData: VerticalView.CellData[][];
     formatDate: FormatterFn_2;
     rowComponent: React.ComponentType<VerticalView.RowProps>;
+    setCellElements: (cellElements: HTMLElement[]) => void;
     tableRef: (ref: React.ReactInstance) => void;
   }
 }

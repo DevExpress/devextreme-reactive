@@ -131,6 +131,7 @@ tableRef | (ref: ReactInstance) => void | A function that accepts the table root
 cellComponent | ComponentType&lt;[WeekView.TimeTableCellProps](#weekviewtimetablecellprops)&gt; | A component that renders a time table cell.
 rowComponent | ComponentType&lt;[WeekView.RowProps](#weekviewrowprops)&gt; | A component that renders a time table row.
 formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that formats dates according to the set locale.
+setCellElements | (cellElements: HTMLElement[]) => void | A callback function that provide time table cell elements into view plugin.
 
 ### WeekView.TimeTableCellProps
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import TableRowMUI from '@material-ui/core/TableRow';
-import { createShallow } from '@material-ui/core/test-utils';
+import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { TableSelectRow } from './table-select-row';
 
 const defaultProps = {
@@ -11,9 +11,11 @@ const defaultProps = {
 
 describe('TableSelectRow', () => {
   let shallow;
+  let classes;
 
   beforeAll(() => {
-    shallow = createShallow({ });
+    shallow = createShallow({ dive: true });
+    classes = getClasses(<TableSelectRow {...defaultProps} />);
   });
 
   it('should have correct selected prop', () => {
@@ -23,7 +25,7 @@ describe('TableSelectRow', () => {
       />
     ));
 
-    expect(tree.find(TableRowMUI).prop('selected'))
+    expect(tree.is(`.${classes.selected}`))
       .toBeFalsy();
 
     tree = shallow((
@@ -32,7 +34,8 @@ describe('TableSelectRow', () => {
         selected
       />
     ));
-    expect(tree.find(TableRowMUI).prop('selected'))
+
+    expect(tree.is(`.${classes.selected}`))
       .toBeTruthy();
   });
 

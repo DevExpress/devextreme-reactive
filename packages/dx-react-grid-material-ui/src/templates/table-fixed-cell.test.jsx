@@ -17,6 +17,16 @@ describe('FixedCell', () => {
     classes = getClasses(<FixedCell {...defaultProps} />);
   });
 
+  it('should apply selected styles for selected cell', () => {
+    const tree = shallow((
+      <FixedCell {...defaultProps} selected />
+    ));
+
+    expect(tree.is(`.${classes.selected}`))
+      .toBeTruthy();
+  });
+
+
   it('should apply left border if left divider exists', () => {
     const tree = shallow((
       <FixedCell {...defaultProps} showLeftDivider />

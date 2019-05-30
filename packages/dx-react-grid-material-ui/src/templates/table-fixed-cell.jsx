@@ -4,40 +4,45 @@ import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
-  fixedCell: {
-    backgroundColor: theme.palette.background.paper,
-    position: 'sticky',
-    zIndex: 300,
-    backgroundClip: 'padding-box',
-  },
   dividerRight: {
     borderRight: `1px solid ${theme.palette.divider}`,
   },
   dividerLeft: {
     borderLeft: `1px solid ${theme.palette.divider}`,
   },
+  fixedCell: {
+    backgroundColor: theme.palette.background.paper,
+    position: 'sticky',
+    zIndex: 300,
+    backgroundClip: 'padding-box',
+  },
+  selected: {
+    backgroundColor: 'inherit',
+  },
 });
 
 class FixedCellBase extends React.PureComponent {
   render() {
     const {
-      component: CellPlaceholder,
-      side,
-      showLeftDivider,
-      showRightDivider,
       className,
       classes,
-      style,
+      component: CellPlaceholder,
       position,
+      selected,
+      showLeftDivider,
+      showRightDivider,
+      side,
+      style,
       ...restProps
     } = this.props;
 
     return (
       <CellPlaceholder
         className={classNames({
-          [classes.fixedCell]: true,
           [classes.dividerLeft]: showLeftDivider,
           [classes.dividerRight]: showRightDivider,
+          [classes.fixedCell]: true,
+          [classes.selected]: selected,
         }, className)}
         style={{
           ...style,
@@ -50,22 +55,24 @@ class FixedCellBase extends React.PureComponent {
 }
 
 FixedCellBase.propTypes = {
-  className: PropTypes.string,
-  style: PropTypes.object,
   component: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
-  side: PropTypes.string.isRequired,
+  className: PropTypes.string,
   position: PropTypes.number,
+  selected: PropTypes.bool,
   showLeftDivider: PropTypes.bool,
   showRightDivider: PropTypes.bool,
+  side: PropTypes.string.isRequired,
+  style: PropTypes.object,
 };
 
 FixedCellBase.defaultProps = {
   className: undefined,
-  style: null,
+  position: undefined,
+  selected: false,
   showLeftDivider: false,
   showRightDivider: false,
-  position: undefined,
+  style: null,
 };
 
 export const FixedCell = withStyles(styles, { name: 'TableFixedCell' })(FixedCellBase);

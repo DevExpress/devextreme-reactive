@@ -21,11 +21,14 @@ import { format } from 'd3-format';
 
 import { lifeBirth } from '../../../demo-data/life-birth';
 
+const getArgField = name => `birthRate_${name}`;
+const getValField = name => `lifeExp_${name}`;
+
 const data = lifeBirth.map(({
   birthRate, lifeExp, year, country,
 }) => ({
-  [`birthRate_${year}`]: birthRate,
-  [`lifeExp_${year}`]: lifeExp,
+  [getArgField(year)]: birthRate,
+  [getValField(year)]: lifeExp,
   year,
   country,
 }));
@@ -36,18 +39,25 @@ const formatTooltipValue = format('.2f');
 
 <%&body%>
 
-const TooltipContent = ({ targetItem, ...restProps }) => {
+const TooltipContent = ({ targetItem }) => {
   const item = data[targetItem.point];
-  const title = `${item.country} ${item.year}`;
-  const arg = item[`lifeExp_${targetItem.series}`];
-  const val = item[`birthRate_${targetItem.series}`];
+  const arg = formatTooltipValue(item[getArgField(targetItem.series)]);
+  const val = formatTooltipValue(item[getValField(targetItem.series)]);
   return (
-    <TooltipContentBase
-      title={title}
-      arg={`Life Expectancy: ${formatTooltipValue(arg)}`}
-      val={`Birth Rate: ${formatTooltipValue(val)}`}
-      {...restProps}
-    />
+    <div>
+      <TooltipHeader>{`${item.country} ${item.year}`}</TooltipHeader>
+      <TooltipSplitter />
+      <table>
+        <tr>
+          <td><TooltipCell>Life Expectancy</TooltipCell></td>
+          <td><TooltipCell>{arg}</TooltipCell></td>
+        </tr>
+        <tr>
+          <td><TooltipCell>Birth Rate</TooltipCell></td>
+          <td><TooltipCell>{val}</TooltipCell></td>
+        </tr>
+      </table>
+    </div>
   );
 };
 
@@ -64,12 +74,12 @@ export default class Demo extends React.PureComponent {
   }
 
   render() {
-    const { data, viewport } = this.state;
+    const { data: chartData, viewport } = this.state;
     return (
       <React.Fragment>
         <ResetButton onClick={this.resetViewport} />
         <<%&wrapperTag%><%&wrapperAttributes%>>
-          <Chart data={data}>
+          <Chart data={chartData}>
             <ArgumentScale modifyDomain={adjustDomain} />
             <ValueScale modifyDomain={adjustDomain} />
             <ArgumentAxis />

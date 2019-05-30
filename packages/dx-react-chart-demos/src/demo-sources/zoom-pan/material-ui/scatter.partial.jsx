@@ -1,36 +1,37 @@
 // BLOCK:imports
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import classnames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 // BLOCK:imports
 
 // BLOCK:body
-const tooltipContentArgStyle = {
-  paddingBottom: 0,
+const tooltipCellStyle = {
+  style: {
+    paddingTop: 0,
+    paddingBottom: 0,
+  },
 };
-const tooltipContentValStyle = {
-  paddingTop: 0,
-};
-const TooltipContentBase = ({
-  title, arg, val, ...restProps
-}) => (
-  <div>
-    <div>{title}</div>
-    <div>
-      <Tooltip.Content
-        {...restProps}
-        style={tooltipContentArgStyle}
-        text={arg}
-      />
-    </div>
-    <div>
-      <Tooltip.Content
-        {...restProps}
-        style={tooltipContentValStyle}
-        text={val}
-      />
-    </div>
-  </div>
-);
+const TooltipCell = withStyles(tooltipCellStyle)(({ classes, className, ...props }) => (
+  <Typography className={classnames(classes.style, className)} {...props} />
+));
+const tooltipSplitterStyle = theme => ({
+  style: {
+    marginTop: theme.spacing.unit * 0.5,
+    marginBottom: theme.spacing.unit * 0.5,
+  },
+});
+const TooltipSplitter = withStyles(tooltipSplitterStyle)(({ classes, className, ...props }) => (
+  <hr className={classnames(classes.style, className)} {...props} />
+));
+const tooltipHeaderStyle = theme => ({
+  style: {
+    fontSize: theme.typography.pxToRem(16),
+  },
+});
+const TooltipHeader = withStyles(tooltipHeaderStyle)(({ classes, className, ...props }) => (
+  <Typography className={classnames(classes.style, className)} {...props} />
+));
 
 const ResetButton = withStyles(theme => ({
   button: {

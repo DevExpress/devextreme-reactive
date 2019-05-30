@@ -1,30 +1,16 @@
+// BLOCK:imports
+import classnames from 'classnames';
+// BLOCK:imports
+
 // BLOCK:body
-const tooltipContentArgStyle = {
-  paddingBottom: 0,
-};
-const tooltipContentValStyle = {
-  paddingTop: 0,
-};
-const TooltipContentBase = ({
-  title, arg, val, ...restProps
-}) => (
-  <div>
-    <div>{title}</div>
-    <div>
-      <Tooltip.Content
-        {...restProps}
-        style={tooltipContentArgStyle}
-        text={arg}
-      />
-    </div>
-    <div>
-      <Tooltip.Content
-        {...restProps}
-        style={tooltipContentValStyle}
-        text={val}
-      />
-    </div>
-  </div>
+const TooltipCell = props => (
+  <span {...props} />
+);
+const TooltipSplitter = ({ className, ...props }) => (
+  <hr className={classnames('mt-1 mb-1', className)} {...props} />
+);
+const TooltipHeader = props => (
+  <h6 {...props} /> // eslint-disable-line jsx-a11y/heading-has-content
 );
 
 const ResetButton = props => (

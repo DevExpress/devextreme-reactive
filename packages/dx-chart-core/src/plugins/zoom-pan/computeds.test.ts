@@ -7,7 +7,7 @@ import {
 } from '../../utils/scale';
 import {
   adjustLayout, getViewport, getDeltaForTouches, isKeyPressed, getWheelDelta, isMultiTouch,
-  attachEvents, detachEvents,
+  attachEvents, detachEvents, getRect,
 } from './computeds';
 import { ScalesCache, ViewportOptions } from '../../types';
 
@@ -383,6 +383,27 @@ describe('ZoomAndPan', () => {
       .toEqual(['handler_1', handlers.handler_1]);
       expect(node.removeEventListener.mock.calls[1])
       .toEqual(['handler_2', handlers.handler_2]);
+    });
+  });
+
+  describe('#getRect', () => {
+    const rootRef = { current: {
+      getBoundingClientRect: jest.fn().mockReturnValue({
+        left: 7, top: 9, width: 33, height: 44,
+      }),
+    } };
+    it('should return rect, interactions are zoom', () => {
+      expect(getRect('zoom', 'zoom', [14, 12], [3, 5], rootRef, [1, 2]))
+      .toEqual({ x: 3, y: 5, width: 11, height: 7 });
+      expect(getRect('both', 'both', [14, 12], [3, 5], rootRef, [1, 2]))
+      .toEqual({ x: 3, y: 5, width: 11, height: 7 });
+    });
+
+    it('should return rect, interaction are not zoom', () => {
+      expect(getRect('pan', 'pan', [14, 12], [3, 5], rootRef, [1, 2]))
+      .toEqual({ x: 6, y: 7, width: 33, height: 44 });
+      expect(getRect('none', 'none', [14, 12], [3, 5], rootRef, [1, 2]))
+      .toEqual({ x: 6, y: 7, width: 33, height: 44 });
     });
   });
 });

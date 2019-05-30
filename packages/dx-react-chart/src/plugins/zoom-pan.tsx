@@ -11,11 +11,12 @@ import {
 } from '@devexpress/dx-react-core';
 import { DragBox } from '../templates/drag-box';
 import {
-  adjustLayout, getViewport, isKeyPressed, getOffset, getDeltaForTouches,
+  adjustLayout, getViewport, isKeyPressed, getOffset, getDeltaForTouches, getRect,
   ScalesCache, getWheelDelta, getEventCoords, isMultiTouch, attachEvents, detachEvents,
 } from '@devexpress/dx-chart-core';
 import {
   ZoomAndPanProps, ZoomAndPanState, Location, NumberArray, ZoomPanProviderProps, EventHandlers,
+  RootRef,
 } from '../types';
 
 const events = {
@@ -128,18 +129,18 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
     this.lastCoordinates = coords;
   }
 
-  handleMove(scales: ScalesCache, e: any) {
+  handleMove(scales: ScalesCache, e: any, rootRef: RootRef) {
     e.preventDefault();
     if (isMultiTouch(e)) {
       const current = getDeltaForTouches(e.touches);
       this.zoom(scales, current.delta - this.multiTouchDelta!, current.center);
       this.multiTouchDelta = current.delta;
     } else {
-      this.scroll(scales, e);
+      this.scroll(scales, e, rootRef);
     }
   }
 
-  scroll(scales: ScalesCache, e: any) {
+  scroll(scales: ScalesCache, e: any, rootRef: RootRef) {
     const coords = getEventCoords(e, this.offset);
     const deltaX = coords[0] - this.lastCoordinates![0];
     const deltaY = coords[1] - this.lastCoordinates![1];
@@ -149,12 +150,14 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
     ) => {
       if (this.rectOrigin) {
         return {
-          rectBox: {
-            x: Math.min(this.rectOrigin[0], coords[0]),
-            y: Math.min(this.rectOrigin[1], coords[1]),
-            width: Math.abs(this.rectOrigin[0] - coords[0]),
-            height: Math.abs(this.rectOrigin[1] - coords[1]),
-          },
+          rectBox: getRect(
+            interactionWithArguments,
+            interactionWithValues,
+            this.rectOrigin,
+            coords,
+            rootRef,
+            this.offset,
+          ),
         };
       }
       return getViewport(
@@ -228,7 +231,7 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
                   rootRef={rootRef}
                   onWheel={e => this.handleZoom(scales, e)}
                   onStart={e => this.handleStart(zoomRegionKey!, e)}
-                  onMove={e => this.handleMove(scales, e)}
+                  onMove={e => this.handleMove(scales, e, rootRef)}
                   onEnd={e => this.handleEnd(scales)}
                 />
               )}

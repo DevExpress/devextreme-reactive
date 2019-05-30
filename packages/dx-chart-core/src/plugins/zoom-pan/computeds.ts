@@ -171,3 +171,19 @@ export const detachEvents = (node: any, handlers: EventHandlers) => {
     node.removeEventListener(el, handlers[el]);
   });
 };
+
+/** @internal */
+export const getRect = (
+  interactionWithArguments, interactionWithValues, prevCoords, nextCoords, rootRef, offset,
+) => {
+  const bbox = rootRef.current.getBoundingClientRect();
+  const isZoomArgument = interactionWithArguments === 'both' || interactionWithArguments === 'zoom';
+  const isZoomValue = interactionWithValues === 'both' || interactionWithValues === 'zoom';
+  const x = isZoomArgument ? Math.min(prevCoords[0], nextCoords[0]) : bbox.left - offset[0];
+  const width = isZoomArgument ? Math.abs(prevCoords[0] - nextCoords[0]) : bbox.width;
+  const y = isZoomValue ? Math.min(prevCoords[1], nextCoords[1]) : bbox.top - offset[1];
+  const height = isZoomValue ? Math.abs(prevCoords[1] - nextCoords[1]) : bbox.height;
+  return {
+    x, y, width, height,
+  };
+};

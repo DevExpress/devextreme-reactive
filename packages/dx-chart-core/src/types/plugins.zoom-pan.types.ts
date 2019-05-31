@@ -10,3 +10,8 @@ export type ViewportOptions = {
 };
 
 export type OnViewportChangeFn = (viewport: ViewportOptions) => void;
+
+/** @internal */
+export type Pane = { width: number, height: number };
+
+export type Interaction = 'none' | 'pan' | 'zoom' | 'both';

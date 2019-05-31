@@ -16,7 +16,7 @@ import {
 } from '@devexpress/dx-chart-core';
 import {
   ZoomAndPanProps, ZoomAndPanState, Location, NumberArray, ZoomPanProviderProps, EventHandlers,
-  RootRef,
+  Pane,
 } from '../types';
 
 const events = {
@@ -129,18 +129,18 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
     this.lastCoordinates = coords;
   }
 
-  handleMove(scales: ScalesCache, e: any, rootRef: RootRef) {
+  handleMove(scales: ScalesCache, e: any, pane: Pane) {
     e.preventDefault();
     if (isMultiTouch(e)) {
       const current = getDeltaForTouches(e.touches);
       this.zoom(scales, current.delta - this.multiTouchDelta!, current.center);
       this.multiTouchDelta = current.delta;
     } else {
-      this.scroll(scales, e, rootRef);
+      this.scroll(scales, e, pane);
     }
   }
 
-  scroll(scales: ScalesCache, e: any, rootRef: RootRef) {
+  scroll(scales: ScalesCache, e: any, pane: Pane) {
     const coords = getEventCoords(e, this.offset);
     const deltaX = coords[0] - this.lastCoordinates![0];
     const deltaY = coords[1] - this.lastCoordinates![1];
@@ -151,12 +151,11 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
       if (this.rectOrigin) {
         return {
           rectBox: getRect(
-            interactionWithArguments,
-            interactionWithValues,
+            interactionWithArguments!,
+            interactionWithValues!,
             this.rectOrigin,
             coords,
-            rootRef,
-            this.offset,
+            pane,
           ),
         };
       }
@@ -226,12 +225,12 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
         <Template name="root">
         <TemplatePlaceholder />
           <TemplateConnector>
-            {({ scales, rootRef }) => (
+            {({ scales, rootRef, layouts }) => (
                 <ZoomPanProvider
                   rootRef={rootRef}
                   onWheel={e => this.handleZoom(scales, e)}
                   onStart={e => this.handleStart(zoomRegionKey!, e)}
-                  onMove={e => this.handleMove(scales, e, rootRef)}
+                  onMove={e => this.handleMove(scales, e, layouts.pane)}
                   onEnd={e => this.handleEnd(scales)}
                 />
               )}

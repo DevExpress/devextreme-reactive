@@ -16,6 +16,8 @@ import {
   OnViewportChangeFn,
   ScaleObject,
   EventHandlers,
+  Location,
+  Pane, Interaction,
 } from '../../types';
 
 const getArgumentBounds = (viewport?: ViewportOptions): DomainBounds | null => (
@@ -81,7 +83,7 @@ const boundsForScale = (
   name: string, scales: ScalesCache, currentBounds: DomainBounds | null,
   interaction: string, type: string, delta: number, anchor: number, range?: NumberArray,
 ): DomainBounds | null => {
-  if (interaction !== type && interaction !== 'both') {
+  if (checkInteraction(interaction, type, 'both')) {
     return null;
   }
   const scale = scales[name];
@@ -174,16 +176,22 @@ export const detachEvents = (node: any, handlers: EventHandlers) => {
 
 /** @internal */
 export const getRect = (
-  interactionWithArguments, interactionWithValues, prevCoords, nextCoords, rootRef, offset,
+  interactionWithArguments: Interaction,
+  interactionWithValues: Interaction,
+  initial: Location,
+  current: Location,
+  pane: Pane,
 ) => {
-  const bbox = rootRef.current.getBoundingClientRect();
-  const isZoomArgument = interactionWithArguments === 'both' || interactionWithArguments === 'zoom';
-  const isZoomValue = interactionWithValues === 'both' || interactionWithValues === 'zoom';
-  const x = isZoomArgument ? Math.min(prevCoords[0], nextCoords[0]) : bbox.left - offset[0];
-  const width = isZoomArgument ? Math.abs(prevCoords[0] - nextCoords[0]) : bbox.width;
-  const y = isZoomValue ? Math.min(prevCoords[1], nextCoords[1]) : bbox.top - offset[1];
-  const height = isZoomValue ? Math.abs(prevCoords[1] - nextCoords[1]) : bbox.height;
+  const isZoomArgument = checkInteraction(interactionWithArguments, 'none', 'pan');
+  const isZoomValue = checkInteraction(interactionWithValues, 'none', 'pan');
+  const x = isZoomArgument ? Math.min(initial[0], current[0]) : 0;
+  const width = isZoomArgument ? Math.abs(initial[0] - current[0]) : pane.width;
+  const y = isZoomValue ? Math.min(initial[1], current[1]) : 0;
+  const height = isZoomValue ? Math.abs(initial[1] - current[1]) : pane.height;
   return {
     x, y, width, height,
   };
 };
+
+const checkInteraction = (interaction, value1, value2) =>
+interaction !== value1 && interaction !== value2;

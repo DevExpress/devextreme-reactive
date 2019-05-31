@@ -18,17 +18,19 @@ class LayoutBase extends React.PureComponent {
 
     this.table = null;
 
+    this.setCells = this.setCells.bind(this);
     this.saveReference = this.saveReference.bind(this);
   }
 
   componentDidMount() {
-    const { setCellElements } = this.props;
-
-    const cellElements = this.table.querySelectorAll('td');
-    setCellElements(cellElements);
+    this.setCells();
   }
 
   componentDidUpdate() {
+    this.setCells();
+  }
+
+  setCells() {
     const { setCellElements } = this.props;
 
     const cellElements = this.table.querySelectorAll('td');

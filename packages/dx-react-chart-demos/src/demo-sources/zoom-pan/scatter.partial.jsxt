@@ -49,11 +49,11 @@ const TooltipContent = ({ targetItem }) => {
       <TooltipSplitter />
       <table>
         <tr>
-          <td><TooltipLabelCell>Life Expectancy</TooltipLabelCell></td>
+          <td><TooltipLabelCell>Birth Rate</TooltipLabelCell></td>
           <td><TooltipValueCell>{arg}</TooltipValueCell></td>
         </tr>
         <tr>
-          <td><TooltipLabelCell>Birth Rate</TooltipLabelCell></td>
+          <td><TooltipLabelCell>Life Expectancy</TooltipLabelCell></td>
           <td><TooltipValueCell>{val}</TooltipValueCell></td>
         </tr>
       </table>
@@ -87,13 +87,13 @@ export default class Demo extends React.PureComponent {
 
             <ScatterSeries
               name="1970"
-              valueField="birthRate_1970"
-              argumentField="lifeExp_1970"
+              valueField={getValField('1970')}
+              argumentField={getArgField('1970')}
             />
             <ScatterSeries
               name="2010"
-              valueField="birthRate_2010"
-              argumentField="lifeExp_2010"
+              valueField={getValField('2010')}
+              argumentField={getArgField('2010')}
             />
 
             <EventTracker />

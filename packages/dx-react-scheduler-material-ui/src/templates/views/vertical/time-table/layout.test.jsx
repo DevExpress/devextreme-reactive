@@ -28,7 +28,7 @@ describe('Vertical view TimeTable', () => {
   });
   beforeEach(() => {
     mount = createMount();
-    jest.resetAllMocks();
+    defaultProps.setCellElements.mockClear();
   });
   afterEach(() => {
     mount.cleanUp();

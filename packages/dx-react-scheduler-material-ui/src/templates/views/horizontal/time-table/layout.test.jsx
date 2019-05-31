@@ -31,7 +31,7 @@ describe('Horizontal view TimeTable', () => {
     jest.resetAllMocks();
   });
   afterEach(() => {
-    mount.cleanUp();
+    defaultProps.setCellElements.mockClear();
   });
   describe('Layout', () => {
     it('should pass className to the root element', () => {

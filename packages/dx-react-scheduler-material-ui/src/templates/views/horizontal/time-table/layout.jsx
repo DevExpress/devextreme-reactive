@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import TableMUI from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import { withStyles } from '@material-ui/core/styles';
+import { TimeTableContainer } from '../../common/time-table/layout-container';
 
 const styles = {
   table: {
@@ -18,34 +19,41 @@ const LayoutBase = React.memo(({
   className,
   cellsData,
   formatDate,
+  tableRef,
+  setCellElements,
   ...restProps
 }) => (
-  <TableMUI
-    className={classNames(classes.table, className)}
-    {...restProps}
+  <TimeTableContainer
+    tableRef={tableRef}
+    setCellElements={setCellElements}
   >
-    <TableBody>
-      {cellsData.map(row => (
-        <Row key={row[0].startDate.toString()}>
-          {row.map(({
-            startDate,
-            endDate,
-            today,
-            otherMonth,
-          }) => (
-            <Cell
-              key={startDate}
-              startDate={startDate}
-              endDate={endDate}
-              today={today}
-              otherMonth={otherMonth}
-              formatDate={formatDate}
-            />
-          ))}
-        </Row>
-      ))}
-    </TableBody>
-  </TableMUI>
+    <TableMUI
+      className={classNames(classes.table, className)}
+      {...restProps}
+    >
+      <TableBody>
+        {cellsData.map(row => (
+          <Row key={row[0].startDate.toString()}>
+            {row.map(({
+              startDate,
+              endDate,
+              today,
+              otherMonth,
+            }) => (
+              <Cell
+                key={startDate}
+                startDate={startDate}
+                endDate={endDate}
+                today={today}
+                otherMonth={otherMonth}
+                formatDate={formatDate}
+              />
+            ))}
+          </Row>
+        ))}
+      </TableBody>
+    </TableMUI>
+  </TimeTableContainer>
 ));
 
 LayoutBase.propTypes = {
@@ -54,6 +62,8 @@ LayoutBase.propTypes = {
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
   formatDate: PropTypes.func.isRequired,
+  tableRef: PropTypes.func.isRequired,
+  setCellElements: PropTypes.func.isRequired,
   className: PropTypes.string,
 };
 LayoutBase.defaultProps = {

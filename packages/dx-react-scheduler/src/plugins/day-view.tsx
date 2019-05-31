@@ -66,7 +66,6 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
     dayScaleLayoutComponent: 'DayScaleLayout',
     dayScaleCellComponent: 'DayScaleCell',
     dayScaleRowComponent: 'DayScaleRow',
-    timeTableContainerComponent: 'TimeTableContainer',
     timeTableLayoutComponent: 'TimeTableLayout',
     timeTableCellComponent: 'TimeTableCell',
     timeTableRowComponent: 'TimeTableRow',
@@ -202,7 +201,6 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
       dayScaleLayoutComponent: DayScale,
       dayScaleCellComponent: DayScaleCell,
       dayScaleRowComponent: DayScaleRow,
-      timeTableContainerComponent: TimeTableContainer,
       timeTableLayoutComponent: TimeTable,
       timeTableRowComponent: TimeTableRow,
       timeTableCellComponent: TimeTableCell,
@@ -310,17 +308,14 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
 
               return (
                 <React.Fragment>
-                  <TimeTableContainer
+                  <TimeTable
+                    cellsData={viewCellsData}
+                    rowComponent={TimeTableRow}
+                    cellComponent={CellPlaceholder}
+                    formatDate={formatDate}
                     tableRef={this.setTimeTableRef}
                     setCellElements={setRects}
-                  >
-                    <TimeTable
-                      rowComponent={TimeTableRow}
-                      cellComponent={CellPlaceholder}
-                      cellsData={viewCellsData}
-                      formatDate={formatDate}
-                    />
-                  </TimeTableContainer>
+                  />
                   <AppointmentLayer>
                     {rects.map(({
                       dataItem, type, fromPrev, toNext, ...geometry

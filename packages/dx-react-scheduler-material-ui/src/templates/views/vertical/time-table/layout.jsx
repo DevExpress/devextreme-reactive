@@ -12,46 +12,41 @@ const styles = {
   },
 };
 
-class LayoutBase extends React.PureComponent {
-  render() {
-    const {
-      classes, className,
-      cellComponent: Cell,
-      rowComponent: Row,
-      cellsData,
-      formatDate,
-      tableRef,
-      setCellElements,
-      ...restProps
-    } = this.props;
-
-    return (
-      <TimeTableContainer
-        tableRef={tableRef}
-        setCellElements={setCellElements}
-      >
-        <Table
-          className={classNames(classes.table, className)}
-          {...restProps}
-        >
-          <TableBody>
-            {cellsData.map((days, index) => (
-              <Row key={index.toString()}>
-                {days.map(({ startDate, endDate }) => (
-                  <Cell
-                    key={startDate}
-                    startDate={startDate}
-                    endDate={endDate}
-                  />
-                ))}
-              </Row>
+const LayoutBase = React.memo(({
+  cellComponent: Cell,
+  rowComponent: Row,
+  classes,
+  className,
+  cellsData,
+  formatDate,
+  tableRef,
+  setCellElements,
+  ...restProps
+}) => (
+  <TimeTableContainer
+    tableRef={tableRef}
+    setCellElements={setCellElements}
+  >
+    <Table
+      className={classNames(classes.table, className)}
+      {...restProps}
+    >
+      <TableBody>
+        {cellsData.map((days, index) => (
+          <Row key={index.toString()}>
+            {days.map(({ startDate, endDate }) => (
+              <Cell
+                key={startDate}
+                startDate={startDate}
+                endDate={endDate}
+              />
             ))}
-          </TableBody>
-        </Table>
-      </TimeTableContainer>
-    );
-  }
-}
+          </Row>
+        ))}
+      </TableBody>
+    </Table>
+  </TimeTableContainer>
+));
 
 LayoutBase.propTypes = {
   classes: PropTypes.object.isRequired,
@@ -59,6 +54,8 @@ LayoutBase.propTypes = {
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
   formatDate: PropTypes.func.isRequired,
+  tableRef: PropTypes.func.isRequired,
+  setCellElements: PropTypes.func.isRequired,
   className: PropTypes.string,
 };
 LayoutBase.defaultProps = {

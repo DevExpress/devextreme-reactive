@@ -49,12 +49,12 @@ const TooltipContent = ({ targetItem }) => {
       <TooltipSplitter />
       <table>
         <tr>
-          <td><TooltipCell>Life Expectancy</TooltipCell></td>
-          <td><TooltipCell>{arg}</TooltipCell></td>
+          <td><TooltipLabelCell>Life Expectancy</TooltipLabelCell></td>
+          <td><TooltipValueCell>{arg}</TooltipValueCell></td>
         </tr>
         <tr>
-          <td><TooltipCell>Birth Rate</TooltipCell></td>
-          <td><TooltipCell>{val}</TooltipCell></td>
+          <td><TooltipLabelCell>Birth Rate</TooltipLabelCell></td>
+          <td><TooltipValueCell>{val}</TooltipValueCell></td>
         </tr>
       </table>
     </div>

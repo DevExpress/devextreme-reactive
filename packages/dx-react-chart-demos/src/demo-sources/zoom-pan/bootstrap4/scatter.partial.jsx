@@ -3,7 +3,10 @@ import classnames from 'classnames';
 // BLOCK:imports
 
 // BLOCK:body
-const TooltipCell = props => (
+const TooltipLabelCell = ({ className, ...props }) => (
+  <span className={classnames('text-black-50', className)} {...props} />
+);
+const TooltipValueCell = props => (
   <span {...props} />
 );
 const TooltipSplitter = ({ className, ...props }) => (

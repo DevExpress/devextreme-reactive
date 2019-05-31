@@ -6,17 +6,28 @@ import { withStyles } from '@material-ui/core/styles';
 // BLOCK:imports
 
 // BLOCK:body
-const tooltipCellStyle = {
+const tooltipLabelCellStyle = {
+  style: {
+    opacity: 0.6,
+    paddingTop: 0,
+    paddingBottom: 0,
+  },
+};
+const TooltipLabelCell = withStyles(tooltipLabelCellStyle)(({ classes, className, ...props }) => (
+  <Typography className={classnames(classes.style, className)} {...props} />
+));
+const tooltipValueCellStyle = {
   style: {
     paddingTop: 0,
     paddingBottom: 0,
   },
 };
-const TooltipCell = withStyles(tooltipCellStyle)(({ classes, className, ...props }) => (
+const TooltipValueCell = withStyles(tooltipValueCellStyle)(({ classes, className, ...props }) => (
   <Typography className={classnames(classes.style, className)} {...props} />
 ));
 const tooltipSplitterStyle = theme => ({
   style: {
+    opacity: 0.6,
     marginTop: theme.spacing.unit * 0.5,
     marginBottom: theme.spacing.unit * 0.5,
   },
@@ -27,6 +38,7 @@ const TooltipSplitter = withStyles(tooltipSplitterStyle)(({ classes, className, 
 const tooltipHeaderStyle = theme => ({
   style: {
     fontSize: theme.typography.pxToRem(16),
+    fontWeight: 500,
   },
 });
 const TooltipHeader = withStyles(tooltipHeaderStyle)(({ classes, className, ...props }) => (

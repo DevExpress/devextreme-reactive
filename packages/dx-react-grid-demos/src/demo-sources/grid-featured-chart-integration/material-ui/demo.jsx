@@ -22,19 +22,19 @@ import {
   Grid, Table, TableBandHeader, TableHeaderRow,
   TableRowDetail,
 } from '@devexpress/dx-react-grid-material-ui';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import { citiesCount, regionsCount } from '../../../demo-data/chart-data';
 
 const detailContainerStyles = theme => ({
   detailContainer: {
-    marginBottom: 3 * theme.spacing.unit,
+    marginBottom: theme.spacing(3),
   },
   title: {
     color: theme.palette.text.primary,
     fontSize: theme.typography.fontSize,
   },
   paper: {
-    paddingTop: 3.5 * theme.spacing.unit,
+    paddingTop: theme.spacing(3.5),
   },
 });
 const legendStyles = () => ({

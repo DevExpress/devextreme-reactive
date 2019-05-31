@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import Popper from '@material-ui/core/Popper';
 import Paper from '@material-ui/core/Paper';
 import classNames from 'classnames';
 
 const styles = (theme) => {
-  const { unit } = theme.spacing;
+  const unit = theme.spacing(1);
   const arrowSize = unit * 1.2;
   return {
     popper: {
@@ -58,5 +58,6 @@ export const Overlay = withStyles(styles)(({
       {children}
     </Paper>
     <div className={classes.arrow} />
+    {console.log(target)}
   </Popper>
 ));

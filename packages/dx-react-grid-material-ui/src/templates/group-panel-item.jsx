@@ -3,15 +3,15 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Chip from '@material-ui/core/Chip';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 
 const ENTER_KEY_CODE = 13;
 const SPACE_KEY_CODE = 32;
 
 const styles = theme => ({
   button: {
-    marginRight: theme.spacing.unit,
-    marginBottom: theme.spacing.unit * 1.5,
+    marginRight: theme.spacing(1),
+    marginBottom: theme.spacing(1.5),
   },
   draftCell: {
     opacity: 0.3,

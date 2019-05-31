@@ -3,26 +3,26 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Button from '@material-ui/core/Button';
 import TableCell from '@material-ui/core/TableCell';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 
 const styles = theme => ({
   button: {
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
     minWidth: 40,
   },
   headingCell: {
     whiteSpace: 'nowrap',
     textAlign: 'center',
-    padding: `0 ${theme.spacing.unit * 2}px 0 ${theme.spacing.unit * 3}px`,
+    padding: `0 ${theme.spacing(2)}px 0 ${theme.spacing(3)}px`,
   },
   cell: {
     whiteSpace: 'nowrap',
     textAlign: 'center',
-    padding: `0 ${theme.spacing.unit * 2}px 0 ${theme.spacing.unit * 3}px`,
+    padding: `0 ${theme.spacing(2)}px 0 ${theme.spacing(3)}px`,
   },
   alignWithRowSpan: {
     verticalAlign: 'bottom',
-    paddingBottom: theme.spacing.unit * 1.25,
+    paddingBottom: theme.spacing(1.25),
   },
 });
 

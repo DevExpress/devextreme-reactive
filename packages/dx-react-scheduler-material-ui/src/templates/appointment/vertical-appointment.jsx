@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import classNames from 'classnames';
 import { HOUR_MINUTE_OPTIONS } from '@devexpress/dx-scheduler-core';
 
@@ -12,7 +12,7 @@ const styles = ({ palette, spacing }) => ({
     whiteSpace: 'nowrap',
   },
   textContainer: {
-    lineHeight: `${spacing.unit * 1.5}px`,
+    lineHeight: `${spacing(1.5)}px`,
     whiteSpace: 'pre-wrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -24,7 +24,7 @@ const styles = ({ palette, spacing }) => ({
   },
   content: {
     color: palette.common.white,
-    padding: `${spacing.unit / 2}px ${spacing.unit}px`,
+    padding: `${spacing(0.5)}px ${spacing(1)}px`,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
@@ -34,11 +34,11 @@ const styles = ({ palette, spacing }) => ({
     width: '100%',
   },
   recurringContainer: {
-    width: `calc(100% - ${spacing.unit * 2}px)`,
+    width: `calc(100% - ${spacing(2)}px)`,
   },
   imageContainer: {
-    width: `${spacing.unit * 2}px`,
-    height: `${spacing.unit * 2}px`,
+    width: `${spacing(2)}px`,
+    height: `${spacing(2)}px`,
   },
   image: {
     width: '100%',

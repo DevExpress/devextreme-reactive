@@ -8,7 +8,7 @@ import {
   Title,
   Legend,
 } from '@devexpress/dx-react-chart-material-ui';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import { Animation } from '@devexpress/dx-react-chart';
 import { line, curveStep } from 'd3-shape';
 

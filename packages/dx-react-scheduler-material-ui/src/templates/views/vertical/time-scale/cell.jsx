@@ -2,20 +2,20 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import TableCell from '@material-ui/core/TableCell';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import { HOUR_MINUTE_OPTIONS } from '@devexpress/dx-scheduler-core';
 
 const styles = theme => ({
   cell: {
     border: 0,
-    padding: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit / 4,
+    padding: theme.spacing(1),
+    paddingLeft: theme.spacing(0.25),
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     textAlign: 'right',
     '&:last-child': {
-      padding: theme.spacing.unit,
-      paddingLeft: theme.spacing.unit / 4,
+      padding: theme.spacing(1),
+      paddingLeft: theme.spacing(0.25),
     },
   },
   text: {

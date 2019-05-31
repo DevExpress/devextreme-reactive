@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import classNames from 'classnames';
 import {
   VERTICAL_TYPE, HORIZONTAL_TYPE,
@@ -9,12 +9,12 @@ import {
 
 const verticalStyles = spacing => ({
   width: '100%',
-  height: spacing.unit,
+  height: spacing(1),
   cursor: 'ns-resize',
 });
 
 const horizontalStyles = spacing => ({
-  width: spacing.unit,
+  width: spacing(1),
   height: '100%',
   cursor: 'ew-resize',
 });

@@ -1,13 +1,13 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import classNames from 'classnames';
 
 const styles = theme => ({
   root: {
     display: 'flex',
     justifyContent: 'flex-end',
-    paddingTop: theme.spacing.unit,
+    paddingTop: theme.spacing(1),
   },
 });
 

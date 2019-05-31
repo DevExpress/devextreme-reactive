@@ -4,7 +4,7 @@ import {
   Chart,
   PieSeries,
 } from '@devexpress/dx-react-chart-material-ui';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import Typography from '@material-ui/core/Typography';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import FormControl from '@material-ui/core/FormControl';
@@ -36,8 +36,8 @@ const schemeCollection = [
 
 const demoStyles = theme => ({
   typography: {
-    marginTop: theme.spacing.unit * 0,
-    marginBottom: theme.spacing.unit,
+    marginTop: 0,
+    marginBottom: theme.spacing(1),
   },
   div: {
     width: '200px',
@@ -51,7 +51,7 @@ const demoStyles = theme => ({
   schemeConteiner: {
     display: 'flex',
     justifyContent: 'center',
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(1),
   },
 });
 

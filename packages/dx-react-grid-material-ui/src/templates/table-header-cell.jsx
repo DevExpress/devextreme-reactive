@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { DragSource } from '@devexpress/dx-react-core';
 
 import TableCell from '@material-ui/core/TableCell';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 
 import { ResizingControl } from './table-header-cell/resizing-control';
 
@@ -13,22 +13,22 @@ const styles = theme => ({
   plainTitle: {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    lineHeight: `${theme.spacing.unit * 3}px`,
+    lineHeight: `${theme.spacing(3)}px`,
   },
   cell: {
     outline: 'none',
     position: 'relative',
     overflow: 'visible',
-    paddingRight: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit,
+    paddingRight: theme.spacing(1),
+    paddingLeft: theme.spacing(1),
     '&:first-child': {
-      paddingLeft: theme.spacing.unit * 3,
+      paddingLeft: theme.spacing(3),
     },
     '&:hover $resizeHandleLine': {
       opacity: 1,
     },
     '&:nth-last-child(2) $resizeHandle': {
-      width: `${theme.spacing.unit}px`,
+      width: `${theme.spacing(1)}px`,
       right: '1px',
     },
   },
@@ -74,8 +74,8 @@ const styles = theme => ({
     },
   },
   cellRight: {
-    paddingLeft: theme.spacing.unit,
-    paddingRight: theme.spacing.unit,
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
     textAlign: 'right',
   },
   cellCenter: {

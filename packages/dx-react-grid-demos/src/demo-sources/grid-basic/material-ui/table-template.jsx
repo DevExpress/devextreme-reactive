@@ -6,7 +6,7 @@ import {
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-material-ui';
 import { fade } from '@material-ui/core/styles/colorManipulator';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import {
   generateRows,
   globalSalesValues,

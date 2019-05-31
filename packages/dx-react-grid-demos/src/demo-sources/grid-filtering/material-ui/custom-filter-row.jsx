@@ -2,7 +2,7 @@ import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
 import Input from '@material-ui/core/Input';
 import TableCell from '@material-ui/core/TableCell';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import {
   FilteringState,
   IntegratedFiltering,
@@ -22,8 +22,7 @@ import {
 const styles = theme => ({
   cell: {
     width: '100%',
-    paddingLeft: theme.spacing.unit,
-    paddingRight: theme.spacing.unit,
+    padding: theme.spacing(1),
   },
   input: {
     width: '100%',

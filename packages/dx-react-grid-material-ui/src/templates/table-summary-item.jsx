@@ -1,14 +1,13 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 
 const styles = theme => ({
   item: {
     fontWeight: theme.typography.fontWeightMedium,
     color: theme.palette.text.primary,
     fontSize: theme.typography.pxToRem(13),
-    margin: `${theme.spacing.unit}px 0`,
   },
 });
 

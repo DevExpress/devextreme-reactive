@@ -2,15 +2,15 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import CheckboxMUI from '@material-ui/core/Checkbox';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 
 const styles = theme => ({
   checkbox: {
     marginTop: '-1px',
     marginBottom: '-1px',
-    marginRight: theme.spacing.unit * 2,
-    marginLeft: -theme.spacing.unit * 2,
-    padding: theme.spacing.unit,
+    marginRight: theme.spacing(2),
+    marginLeft: -theme.spacing(2),
+    padding: theme.spacing(1),
   },
 });
 

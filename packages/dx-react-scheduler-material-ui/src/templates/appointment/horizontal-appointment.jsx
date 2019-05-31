@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import classNames from 'classnames';
 
 const styles = ({ palette, spacing }) => ({
@@ -11,7 +11,7 @@ const styles = ({ palette, spacing }) => ({
   },
   content: {
     color: palette.common.white,
-    padding: spacing.unit / 2,
+    padding: spacing(0.5),
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
@@ -21,11 +21,11 @@ const styles = ({ palette, spacing }) => ({
     width: '100%',
   },
   recurringContainer: {
-    width: `calc(100% - ${spacing.unit * 2}px)`,
+    width: `calc(100% - ${spacing(2)}px)`,
   },
   imageContainer: {
-    width: `${spacing.unit * 2}px`,
-    height: `${spacing.unit * 2}px`,
+    width: `${spacing(2)}px`,
+    height: `${spacing(2)}px`,
   },
   image: {
     width: '100%',

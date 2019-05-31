@@ -8,7 +8,7 @@ import {
   Title,
   Legend,
 } from '@devexpress/dx-react-chart-material-ui';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import Typography from '@material-ui/core/Typography';
 import { ArgumentScale, Animation } from '@devexpress/dx-react-chart';
 import {
@@ -58,7 +58,7 @@ const legendStyles = () => ({
 });
 const legendLabelStyles = theme => ({
   label: {
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
     whiteSpace: 'nowrap',
   },
 });

@@ -8,7 +8,7 @@ import {
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import appointments from '../../../demo-data/today-appointments';
 
 const styles = theme => ({
@@ -17,7 +17,7 @@ const styles = theme => ({
     padding: 0,
   },
   text: {
-    paddingTop: theme.spacing.unit,
+    paddingTop: theme.spacing(1),
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',

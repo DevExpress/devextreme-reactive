@@ -1,10 +1,10 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 
 const styles = theme => ({
   indent: {
-    marginLeft: theme.spacing.unit * 3,
+    marginLeft: theme.spacing(3),
   },
 });
 

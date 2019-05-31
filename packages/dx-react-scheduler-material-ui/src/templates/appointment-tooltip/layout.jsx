@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import Popover from '@material-ui/core/Popover';
 import AccessTime from '@material-ui/icons/AccessTime';
 import Grid from '@material-ui/core/Grid';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import { HOUR_MINUTE_OPTIONS } from '@devexpress/dx-scheduler-core';
 
 const verticalTopHorizontalCenterOptions = { vertical: 'top', horizontal: 'center' };
@@ -15,7 +15,7 @@ const styles = theme => ({
   },
   title: {
     ...theme.typography.h6,
-    paddingBottom: theme.spacing.unit * 1.75,
+    paddingBottom: theme.spacing(1.75),
     color: theme.palette.primary.contrastText,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -23,7 +23,7 @@ const styles = theme => ({
   },
   buttonsLeft: {
     position: 'relative',
-    bottom: -(theme.spacing.unit * 5) / 2,
+    bottom: -theme.spacing(2.5),
     textAlign: 'center',
   },
   buttonsRight: {

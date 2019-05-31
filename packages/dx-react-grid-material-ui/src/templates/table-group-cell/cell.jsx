@@ -2,14 +2,15 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import TableCell from '@material-ui/core/TableCell';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 
 const styles = theme => ({
   cell: {
     cursor: 'pointer',
-    paddingLeft: theme.spacing.unit,
-    paddingRight: theme.spacing.unit,
-    paddingTop: (theme.spacing.unit / 2) - 1,
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
+    paddingTop: theme.spacing(0.5),
+    paddingBottom: theme.spacing(0.5),
   },
 });
 
@@ -47,7 +48,7 @@ const CellBase = ({
 };
 
 CellBase.propTypes = {
-  contentComponent: PropTypes.func.isRequired,
+  contentComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   iconComponent: PropTypes.func.isRequired,
   style: PropTypes.object,
   colSpan: PropTypes.number,

@@ -2,12 +2,12 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import List from '@material-ui/icons/List';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 
 const styles = theme => ({
   root: {
     paddingLeft: 0,
-    height: theme.spacing.unit * 3,
+    height: theme.spacing(3),
     cursor: 'pointer',
   },
   disabled: {

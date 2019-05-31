@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import TableCell from '@material-ui/core/TableCell';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import ExpandLess from '@material-ui/icons/ExpandLess';
@@ -14,12 +14,12 @@ const styles = theme => ({
     textOverflow: 'initial',
     paddingTop: 0,
     paddingBottom: 0,
-    paddingLeft: theme.spacing.unit,
+    paddingLeft: theme.spacing(1),
   },
   toggleCellButton: {
     verticalAlign: 'middle',
     display: 'inline-block',
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
   },
 });
 

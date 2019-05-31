@@ -3,21 +3,21 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Checkbox from '@material-ui/core/Checkbox';
 import TableCell from '@material-ui/core/TableCell';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 
 const styles = theme => ({
   cell: {
     overflow: 'visible',
     paddingRight: 0,
-    paddingLeft: theme.spacing.unit,
+    paddingLeft: theme.spacing(1),
     textAlign: 'center',
   },
   checkbox: {
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
   },
   alignWithRowSpan: {
     verticalAlign: 'bottom',
-    paddingBottom: theme.spacing.unit / 2,
+    paddingBottom: theme.spacing(0.5),
   },
   pointer: {
     cursor: 'pointer',

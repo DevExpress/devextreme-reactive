@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import TableCell from '@material-ui/core/TableCell';
 import { fade } from '@material-ui/core/styles/colorManipulator';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import { DAY_OPTIONS } from '@devexpress/dx-scheduler-core';
 import { getBorder } from '../../../utils';
 
@@ -22,14 +22,14 @@ const styles = theme => ({
     },
   },
   text: {
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
   },
   today: {
-    margin: theme.spacing.unit / 2,
+    margin: theme.spacing(0.5),
     display: 'inline-block',
-    width: `${theme.spacing.unit * 3}px`,
-    height: `${theme.spacing.unit * 3}px`,
-    lineHeight: `${theme.spacing.unit * 3}px`,
+    width: `${theme.spacing(3)}px`,
+    height: `${theme.spacing(3)}px`,
+    lineHeight: `${theme.spacing(3)}px`,
     textAlign: 'center',
     borderRadius: '50%',
     background: theme.palette.primary.main,

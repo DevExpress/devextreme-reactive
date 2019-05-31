@@ -15,7 +15,7 @@ import {
   ArgumentScale, Stack, Animation, EventTracker, HoverState, SelectionState,
 } from '@devexpress/dx-react-chart';
 import Button from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import {
   NavigateBefore, NavigateNext,
 } from '@material-ui/icons/';
@@ -25,19 +25,19 @@ import { annualVehiclesSales as data } from '../../../demo-data/data-vizualizati
 
 const styles = theme => ({
   primaryButton: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing(1),
     width: '120px',
   },
   secondaryButton: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing(1),
     width: '170px',
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
     marginBottom: '1px',
   },
   rightIcon: {
-    marginLeft: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
     marginBottom: '1px',
   },
   text: {
@@ -53,8 +53,8 @@ const styles = theme => ({
     width: '300px',
   },
   name: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
   },
 });
 

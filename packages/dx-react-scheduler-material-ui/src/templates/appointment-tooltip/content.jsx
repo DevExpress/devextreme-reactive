@@ -1,11 +1,11 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 
 const styles = theme => ({
   content: {
-    padding: `${theme.spacing.unit * 3}px ${theme.spacing.unit}px`,
+    padding: `${theme.spacing(3)}px ${theme.spacing(1)}px`,
     backgroundColor: theme.palette.background.paper,
   },
   text: {

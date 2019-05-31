@@ -3,25 +3,25 @@ import * as PropTypes from 'prop-types';
 import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 
 const styles = theme => ({
   pageSizeSelector: {
     ...theme.typography.caption,
-    paddingRight: theme.spacing.unit * 5,
+    paddingRight: theme.spacing(5),
     // NOTE: fixes vertical alignment in FF
     display: 'flex',
     alignItems: 'center',
   },
   label: {
-    paddingRight: theme.spacing.unit * 3,
+    paddingRight: theme.spacing(3),
   },
   pageSizeTitle: {
     width: 'auto',
-    marginRight: theme.spacing.unit / 2,
+    marginRight: theme.spacing(2),
   },
   inputRoot: {
-    fontSize: theme.spacing.unit * 1.75,
+    fontSize: theme.spacing(1.75),
     textAlign: 'right',
   },
   selectIcon: {
@@ -32,7 +32,7 @@ const styles = theme => ({
       display: 'none',
     },
     pageSizeSelector: {
-      paddingRight: theme.spacing.unit * 2,
+      paddingRight: theme.spacing(2),
     },
   },
 });

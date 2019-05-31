@@ -1,13 +1,16 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import Input from '@material-ui/core/Input';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 
-const styles = {
+const styles = theme => ({
   input: {
     width: '100%',
   },
-};
+  root: {
+    margin: theme.spacing(1),
+  },
+});
 
 const EditorBase = ({
   value, disabled, getMessage, onChange, classes,
@@ -16,6 +19,7 @@ const EditorBase = ({
   <Input
     classes={{
       input: classes.input,
+      root: classes.root,
     }}
     fullWidth
     disabled={disabled}

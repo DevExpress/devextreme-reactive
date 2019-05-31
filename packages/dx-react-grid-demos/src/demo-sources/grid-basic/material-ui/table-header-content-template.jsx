@@ -7,7 +7,7 @@ import {
   Table,
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-material-ui';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import {
   generateRows,
   globalSalesValues,
@@ -15,7 +15,7 @@ import {
 
 const styles = theme => ({
   button: {
-    margin: `0 ${theme.spacing.unit}px`,
+    margin: `0 ${theme.spacing(1)}px`,
   },
 });
 

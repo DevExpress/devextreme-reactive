@@ -7,7 +7,7 @@ import {
   BarSeries,
   Legend,
 } from '@devexpress/dx-react-chart-material-ui';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 
 import { Stack } from '@devexpress/dx-react-chart';
 
@@ -15,9 +15,9 @@ import { ageStructure } from '../../../demo-data/data-vizualization';
 
 const styles = theme => ({
   title: {
-    marginLeft: theme.spacing.unit * 2,
+    marginLeft: theme.spacing(2),
     marginBottom: 0,
-    marginRight: theme.spacing.unit * 2,
+    marginRight: theme.spacing(2),
   },
   item: {
     flexDirection: 'row-reverse',

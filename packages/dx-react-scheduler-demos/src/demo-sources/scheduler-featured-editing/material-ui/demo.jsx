@@ -16,7 +16,7 @@ import {
 import { connectProps } from '@devexpress/dx-react-core';
 import { InlineDateTimePicker, MuiPickersUtilsProvider } from 'material-ui-pickers';
 import MomentUtils from '@date-io/moment';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -37,17 +37,17 @@ import { appointments } from '../../../demo-data/appointments';
 
 const containerStyles = theme => ({
   container: {
-    width: `${theme.spacing.unit * 68}px`,
+    width: `${theme.spacing(1) * 68}px`,
     padding: 0,
-    paddingBottom: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing(1) * 2,
   },
   content: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(1) * 2,
     paddingTop: 0,
   },
   header: {
     overflow: 'hidden',
-    paddingTop: theme.spacing.unit / 2,
+    paddingTop: theme.spacing(1) / 2,
   },
   closeButton: {
     float: 'right',
@@ -55,13 +55,13 @@ const containerStyles = theme => ({
   buttonGroup: {
     display: 'flex',
     justifyContent: 'flex-end',
-    padding: `0 ${theme.spacing.unit * 2}px`,
+    padding: `0 ${theme.spacing(1) * 2}px`,
   },
   button: {
-    marginLeft: theme.spacing.unit * 2,
+    marginLeft: theme.spacing(1) * 2,
   },
   picker: {
-    marginRight: theme.spacing.unit * 2,
+    marginRight: theme.spacing(1) * 2,
     '&:last-child': {
       marginRight: 0,
     },
@@ -69,11 +69,11 @@ const containerStyles = theme => ({
   wrapper: {
     display: 'flex',
     justifyContent: 'space-between',
-    padding: `${theme.spacing.unit}px 0px`,
+    padding: `${theme.spacing(1)}px 0px`,
   },
   icon: {
-    margin: `${theme.spacing.unit * 2}px 0`,
-    marginRight: `${theme.spacing.unit * 2}px`,
+    margin: `${theme.spacing(1) * 2}px 0`,
+    marginRight: `${theme.spacing(1) * 2}px`,
   },
   textField: {
     width: '100%',
@@ -249,8 +249,8 @@ const AppointmentFormContainer = withStyles(containerStyles, { name: 'Appointmen
 const styles = theme => ({
   addButton: {
     position: 'absolute',
-    bottom: theme.spacing.unit * 3,
-    right: theme.spacing.unit * 4,
+    bottom: theme.spacing(1) * 3,
+    right: theme.spacing(1) * 4,
   },
 });
 

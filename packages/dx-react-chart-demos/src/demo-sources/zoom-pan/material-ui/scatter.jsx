@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import {
   ArgumentScale,
   ValueScale,
@@ -56,7 +56,7 @@ const TooltipContent = ({ targetItem, data, ...restProps }) => {
 
 const ResetButton = withStyles(theme => ({
   button: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing(1),
   },
 }))(({ classes, ...props }) => (
   <Button variant="outlined" color="primary" className={classes.button} {...props}>Reset</Button>

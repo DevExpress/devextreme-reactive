@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import { getBorder } from '../utils';
 
 const styles = theme => ({
@@ -12,7 +12,7 @@ const styles = theme => ({
       borderRight: 0,
     },
     verticalAlign: 'bottom',
-    paddingBottom: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing(2),
   },
   beforeBorder: {
     borderLeft: getBorder(theme),

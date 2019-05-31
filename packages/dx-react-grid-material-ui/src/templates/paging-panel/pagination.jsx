@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import ChevronRight from '@material-ui/icons/ChevronRight';
 import { firstRowOnPage, lastRowOnPage, calculateStartPage } from '@devexpress/dx-grid-core';
@@ -14,10 +14,10 @@ const styles = theme => ({
   },
   rowsLabel: {
     ...theme.typography.caption,
-    paddingRight: theme.spacing.unit * 5,
+    paddingRight: theme.spacing(5),
   },
   button: {
-    minWidth: theme.spacing.unit * 2,
+    minWidth: theme.spacing(2),
   },
   activeButton: {
     fontWeight: 'bold',
@@ -39,13 +39,13 @@ const styles = theme => ({
       display: 'none',
     },
     prev: {
-      marginRight: theme.spacing.unit,
+      marginRight: theme.spacing(1),
     },
     next: {
-      marginLeft: theme.spacing.unit,
+      marginLeft: theme.spacing(1),
     },
     rowsLabel: {
-      paddingRight: theme.spacing.unit * 2,
+      paddingRight: theme.spacing(2),
     },
   },
 });

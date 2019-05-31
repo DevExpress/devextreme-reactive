@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 
 import ChevronRight from '@material-ui/icons/ChevronRight';
 import ExpandMore from '@material-ui/icons/ExpandMore';
@@ -11,9 +11,9 @@ const styles = theme => ({
   button: {
     marginTop: '-1px',
     marginBottom: '-1px',
-    marginLeft: -theme.spacing.unit,
-    marginRight: theme.spacing.unit * 2,
-    padding: theme.spacing.unit,
+    marginLeft: -theme.spacing(1),
+    marginRight: theme.spacing(2),
+    padding: theme.spacing(1),
   },
   hidden: {
     cursor: 'default',

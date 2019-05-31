@@ -1,14 +1,14 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 
 const styles = theme => ({
   panel: {
     display: 'flex',
     flexWrap: 'wrap',
     width: '100%',
-    marginTop: theme.spacing.unit * 1.5,
+    marginTop: theme.spacing(1.5),
   },
 });
 

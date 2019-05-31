@@ -1,5 +1,5 @@
 // BLOCK:imports
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 // BLOCK:imports
 
 // BLOCK:body
@@ -17,7 +17,7 @@ const legendStyles = {
 };
 const legendLabelStyles = theme => ({
   label: {
-    paddingTop: theme.spacing.unit,
+    paddingTop: theme.spacing(1),
   },
 });
 const legendItemStyles = {

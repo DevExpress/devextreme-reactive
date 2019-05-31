@@ -1,5 +1,5 @@
 import { ScatterSeries, withPatchedProps } from '@devexpress/dx-react-chart';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 import classNames from 'classnames';
 
 const styles = theme => ({

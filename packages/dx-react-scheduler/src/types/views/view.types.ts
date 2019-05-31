@@ -27,6 +27,8 @@ export interface VerticalViewProps {
   dayScaleRowComponent: React.ComponentType<VerticalView.RowProps>;
   /** A component that renders a day scale empty cell.  */
   dayScaleEmptyCellComponent: React.ComponentType<VerticalView.DayScaleEmptyCellProps>;
+  /** @internal */
+  timeTableContainerComponent: React.ComponentType<VerticalView.TimeTableContainerProps>;
   /** A component that renders a time table layout. */
   timeTableLayoutComponent: React.ComponentType<VerticalView.TimeTableLayoutProps>;
   /** A component that renders a time table cell. */
@@ -69,20 +71,26 @@ export namespace VerticalView {
     formatDate: FormatterFn;
   }
 
+  /** @internal */
+  export interface TimeTableContainerProps {
+    /** A React node used to render the content. */
+    children?: React.ReactNode;
+    /** A function that accepts the table root React element. */
+    tableRef: (ref: React.ReactInstance) => void;
+    /** A callback function that provide time table cell elements into view plugin. */
+    setCellElements: (cellElements: HTMLElement[]) => void;
+  }
+
   /** Describes properties passed to a component that renders a time table layout. */
   export interface TimeTableLayoutProps {
     /** Specifies the cells meta data. */
     cellsData:	VerticalView.CellData[][];
-    /** A function that accepts the table root React element. */
-    tableRef: (ref: React.ReactInstance) => void;
     /** A component that renders a time table cell. */
     cellComponent: React.ComponentType<VerticalView.TimeTableCellProps>;
     /** A component that renders a time table row. */
     rowComponent: React.ComponentType<VerticalView.RowProps>;
     /** A function that formats dates according to the locale. */
     formatDate: FormatterFn;
-    /** A callback function that provide time table cell elements into view plugin. */
-    setCellElements: (cellElements: HTMLElement[]) => void;
   }
 
   /** Describes properties passed to a component that renders a time table cell. */

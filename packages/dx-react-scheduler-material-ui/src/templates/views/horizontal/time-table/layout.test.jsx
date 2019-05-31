@@ -28,7 +28,7 @@ describe('Horizontal view TimeTable', () => {
   });
   beforeEach(() => {
     mount = createMount();
-    jest.resetAllMocks();
+    defaultProps.setCellElements.mockClear();
   });
   afterEach(() => {
     defaultProps.setCellElements.mockClear();
@@ -61,25 +61,6 @@ describe('Horizontal view TimeTable', () => {
         .toHaveLength(4);
       expect(tree.find(defaultProps.rowComponent))
         .toHaveLength(2);
-    });
-    it('should call setCellElements callback', () => {
-      const tree = mount((
-        <Layout
-          {...defaultProps}
-        />
-      ));
-
-      expect(defaultProps.setCellElements)
-        .toBeCalledTimes(1);
-      expect(defaultProps.setCellElements)
-        .toHaveBeenCalledWith(expect.arrayContaining([]));
-
-      tree.setProps({ a: 1 });
-
-      expect(defaultProps.setCellElements)
-        .toBeCalledTimes(2);
-      expect(defaultProps.setCellElements)
-        .toHaveBeenCalledWith(expect.arrayContaining([]));
     });
   });
 });

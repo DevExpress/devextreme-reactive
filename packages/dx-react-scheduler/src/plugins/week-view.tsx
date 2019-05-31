@@ -69,6 +69,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
     dayScaleLayoutComponent: 'DayScaleLayout',
     dayScaleCellComponent: 'DayScaleCell',
     dayScaleRowComponent: 'DayScaleRow',
+    timeTableContainerComponent: 'TimeTableContainer',
     timeTableLayoutComponent: 'TimeTableLayout',
     timeTableCellComponent: 'TimeTableCell',
     timeTableRowComponent: 'TimeTableRow',
@@ -212,6 +213,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
       dayScaleLayoutComponent: DayScale,
       dayScaleCellComponent: DayScaleCell,
       dayScaleRowComponent: DayScaleRow,
+      timeTableContainerComponent: TimeTableContainer,
       timeTableLayoutComponent: TimeTable,
       timeTableRowComponent: TimeTableRow,
       timeTableCellComponent: TimeTableCell,
@@ -320,6 +322,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
               appointments, startViewDate, endViewDate,
             }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
+              debugger
               const setRects = this.memoCalculateRects(
                 appointments, startViewDate, endViewDate, excludedDays, viewCellsData, cellDuration,
               );
@@ -327,12 +330,12 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
               return (
                 <React.Fragment>
                   <TimeTable
+                    cellsData={viewCellsData}
                     rowComponent={TimeTableRow}
                     cellComponent={cellPlaceholder}
-                    tableRef={this.setTimeTableRef}
-                    cellsData={viewCellsData}
-                    setCellElements={setRects}
                     formatDate={formatDate}
+                    tableRef={this.setTimeTableRef}
+                    setCellElements={setRects}
                   />
                   <AppointmentLayer>
                     {rects.map(({

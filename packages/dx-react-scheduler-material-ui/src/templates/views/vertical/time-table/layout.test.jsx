@@ -69,24 +69,5 @@ describe('Vertical view TimeTable', () => {
       expect(tree.find(row))
         .toHaveLength(2);
     });
-    it('should call setCellElements callback', () => {
-      const tree = mount((
-        <Layout
-          {...defaultProps}
-        />
-      ));
-
-      expect(defaultProps.setCellElements)
-        .toBeCalledTimes(1);
-      expect(defaultProps.setCellElements)
-        .toHaveBeenCalledWith(expect.arrayContaining([]));
-
-      tree.setProps({ a: 1 });
-
-      expect(defaultProps.setCellElements)
-        .toBeCalledTimes(2);
-      expect(defaultProps.setCellElements)
-        .toHaveBeenCalledWith(expect.arrayContaining([]));
-    });
   });
 });

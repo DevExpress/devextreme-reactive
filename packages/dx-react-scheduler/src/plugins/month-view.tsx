@@ -54,6 +54,7 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
     dayScaleLayoutComponent: 'DayScaleLayout',
     dayScaleCellComponent: 'DayScaleCell',
     dayScaleRowComponent: 'DayScaleRow',
+    timeTableContainerComponent: 'TimeTableContainer',
     timeTableLayoutComponent: 'TimeTableLayout',
     timeTableCellComponent: 'TimeTableCell',
     timeTableRowComponent: 'TimeTableRow',
@@ -178,6 +179,7 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
       dayScaleLayoutComponent: DayScale,
       dayScaleCellComponent: DayScaleCell,
       dayScaleRowComponent: DayScaleRow,
+      timeTableContainerComponent: TimeTableContainer,
       timeTableLayoutComponent: TimeTable,
       timeTableRowComponent: TimeTableRow,
       timeTableCellComponent: TimeTableCell,
@@ -250,14 +252,17 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
               );
               return (
                 <React.Fragment>
-                  <TimeTable
-                    rowComponent={TimeTableRow}
-                    cellComponent={CellPlaceholder}
+                  <TimeTableContainer
                     tableRef={this.setTimeTableRef}
-                    cellsData={viewCellsData}
                     setCellElements={setRects}
-                    formatDate={formatDate}
-                  />
+                  >
+                    <TimeTable
+                      rowComponent={TimeTableRow}
+                      cellComponent={CellPlaceholder}
+                      cellsData={viewCellsData}
+                      formatDate={formatDate}
+                    />
+                  </TimeTableContainer>
                   <AppointmentLayer>
                     {rects.map(({
                       dataItem, type, fromPrev, toNext, ...geometry

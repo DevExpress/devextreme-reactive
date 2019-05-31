@@ -58,6 +58,5 @@ export const Overlay = withStyles(styles)(({
       {children}
     </Paper>
     <div className={classes.arrow} />
-    {console.log(target)}
   </Popper>
 ));

@@ -9,6 +9,7 @@ const styles = ({ palette, spacing }) => ({
     border: 'none',
     cursor: 'pointer',
     padding: 0,
+    height: spacing(6),
     textAlign: 'center',
     verticalAlign: 'middle',
     '&:last-child': {

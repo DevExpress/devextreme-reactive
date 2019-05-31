@@ -74,7 +74,7 @@ const LayoutBase = ({
             && <CommandButton id={commandButtonIds.delete} onExecute={onDeleteButtonClick} />}
           {showCloseButton && <CommandButton id={commandButtonIds.close} onExecute={onHide} />}
         </div>
-        <Grid container spacing={8} alignItems="center">
+        <Grid container spacing={1} alignItems="center">
           <Grid item xs={2} className={classes.flexItem}>
             <div className={classes.buttonsLeft}>
               {showOpenButton
@@ -89,7 +89,7 @@ const LayoutBase = ({
         </Grid>
       </Header>
       <Content appointmentData={data}>
-        <Grid container spacing={8} alignItems="center">
+        <Grid container spacing={1} alignItems="center">
           <Grid item xs={2} className={classes.textCenter}>
             <AccessTime className={classes.icon} />
           </Grid>

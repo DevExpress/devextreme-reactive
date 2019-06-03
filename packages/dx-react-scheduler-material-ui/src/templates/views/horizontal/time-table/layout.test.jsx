@@ -31,7 +31,7 @@ describe('Horizontal view TimeTable', () => {
     defaultProps.setCellElements.mockClear();
   });
   afterEach(() => {
-    defaultProps.setCellElements.mockClear();
+    mount.cleanUp();
   });
   describe('Layout', () => {
     it('should pass className to the root element', () => {

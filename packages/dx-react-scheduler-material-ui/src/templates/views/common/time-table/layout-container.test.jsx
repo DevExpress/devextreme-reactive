@@ -12,8 +12,7 @@ describe('TableTable common', () => {
     mount = createMount();
   });
   afterEach(() => {
-    defaultProps.tableRef.mockClear();
-    defaultProps.setCellElements.mockClear();
+    mount.cleanUp();
   });
   describe('TimeTableContainer', () => {
     it('should call setCellElements callback', () => {
@@ -29,16 +28,19 @@ describe('TableTable common', () => {
         .toBeCalledTimes(1);
       expect(defaultProps.setCellElements)
         .toHaveBeenCalledWith(expect.arrayContaining([]));
+      defaultProps.setCellElements.mockClear();
 
       tree.setProps({ a: 1 });
 
       expect(defaultProps.setCellElements)
-        .toBeCalledTimes(2);
+        .toBeCalledTimes(1);
       expect(defaultProps.setCellElements)
         .toHaveBeenCalledWith(expect.arrayContaining([]));
+      defaultProps.setCellElements.mockClear();
     });
 
     it('should call tableRef function', () => {
+      defaultProps.tableRef.mockClear();
       mount((
         <TimeTableContainer
           {...defaultProps}

@@ -3,9 +3,6 @@ import {
   Plugin,
   TemplatePlaceholder,
   Template,
-  DragDropProvider,
-  DropTarget,
-  DragSource,
   TemplateConnector,
   Getters,
   Getter,
@@ -15,48 +12,68 @@ import {
 import { DragBox } from '../templates/drag-box';
 import {
   adjustLayout, getViewport, isKeyPressed, getOffset, getDeltaForTouches,
-  ScalesCache, getWheelDelta,
+  ScalesCache, getWheelDelta, getEventCoords, isMultiTouch, attachEvents, detachEvents,
 } from '@devexpress/dx-chart-core';
 import {
-  ZoomAndPanProps, ZoomAndPanState, NumberArray, ZoomPanProviderProps, EventHandlers,
+  ZoomAndPanProps, ZoomAndPanState, Location, NumberArray, ZoomPanProviderProps, EventHandlers,
 } from '../types';
 
 const events = {
-  wheel: 'onWheel',
-  mousedown: 'onDown',
-  touchstart: 'onDown',
-  touchmove: 'onTouchMove',
-  touchend: 'onTouchEnd',
+  wheel: { func: 'onWheel' },
+  mousedown: {
+    func: 'onStart',
+    extraEvents: ['mousemove', 'mouseup'],
+  },
+  touchstart: {
+    func: 'onStart',
+    extraEvents: ['touchmove', 'touchend'],
+  },
 };
 
 class ZoomPanProvider extends React.PureComponent<ZoomPanProviderProps> {
-  ref!: Element;
   handlers!: EventHandlers;
+  ref!: Element;
+  windowHandlers!: { [key: string]: EventHandlers};
+
   componentDidMount() {
     this.ref = this.props.rootRef.current!;
+
+    this.windowHandlers = Object.keys(events).reduce((prev, key) => {
+      const extraEvents = events[key].extraEvents;
+      if (extraEvents) {
+        return {
+          ...prev,
+          [key]: {
+            [extraEvents[0]]: (event: any) => { this.props.onMove(event); },
+            [extraEvents[1]]: (event: any) => {
+              this.props.onEnd(event);
+              detachEvents(window, this.windowHandlers[key]);
+            },
+          },
+        };
+      }
+      return prev;
+    }, {});
+
     this.handlers = Object.keys(events).reduce((prev, key) => {
       return {
         ...prev,
-        [key]: (e: any) => { this.props[events[key]](e); },
+        [key]: (e: any) => {
+          this.props[events[key].func](e);
+          if (events[key].extraEvents) {
+            attachEvents(window, this.windowHandlers[key]);
+          }
+        },
       };
     }, {});
-    this.attachEvents();
-  }
-
-  attachEvents() {
-    Object.keys(this.handlers).forEach((el) => {
-      this.ref.addEventListener(el, this.handlers[el], { passive: false });
-    });
-  }
-
-  detachEvents() {
-    Object.keys(this.handlers).forEach((el) => {
-      this.ref.removeEventListener(el, this.handlers[el]);
-    });
+    attachEvents(this.ref, this.handlers);
   }
 
   componentWillUnmount() {
-    this.detachEvents();
+    detachEvents(this.ref, this.handlers);
+    Object.keys(this.windowHandlers).forEach((el) => {
+      detachEvents(window, this.windowHandlers[el]);
+    });
   }
 
   render() {
@@ -76,8 +93,8 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
   };
 
   multiTouchDelta: number | null = null;
-  lastCoordinates: NumberArray | null = null;
-  rectOrigin: NumberArray | null = null;
+  lastCoordinates: Location | null = null;
+  rectOrigin: Location | null = null;
   offset: NumberArray = [0, 0];
 
   constructor(props: ZoomAndPanProps) {
@@ -97,47 +114,39 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
 
   handleStart(zoomRegionKey: string, e: any) {
     this.offset = getOffset(e.currentTarget);
+    const coords = getEventCoords(e, this.offset);
       // Rectangle mode should be canceled if "zoomRegionKey" is released during mouse movevent or
       // not pressed when mouse is up. To do it access to "event" object is required in
-      // "handleMouseMove" and "handleMouseUp".
+      // "handleMove" and "handleEnd".
       // TODO: Provide rectangle mode canceling.
     if (isKeyPressed(e, zoomRegionKey)) {
-      this.rectOrigin = [e.pageX - this.offset[0], e.pageY - this.offset[1]];
+      this.rectOrigin = coords;
     }
-    if (e.touches && e.touches.length === 2) {
+    if (isMultiTouch(e)) {
       this.multiTouchDelta = getDeltaForTouches(e.touches).delta;
     }
+    this.lastCoordinates = coords;
   }
 
-  handleTouchMove(scales: ScalesCache, e: any) {
+  handleMove(scales: ScalesCache, e: any) {
     e.preventDefault();
-    if (e.touches && e.touches.length === 2) {
+    if (isMultiTouch(e)) {
       const current = getDeltaForTouches(e.touches);
       this.zoom(scales, current.delta - this.multiTouchDelta!, current.center);
       this.multiTouchDelta = current.delta;
     } else {
-      this.handleMouseMove(scales, { x: e.touches[0].clientX, y: e.touches[0].clientY });
+      this.scroll(scales, e);
     }
   }
 
-  handleMouseMove(scales: ScalesCache, clientOffset: { x: number, y: number }) {
-    if (this.multiTouchDelta) {
-      return;
-    }
-    const coords: NumberArray = [clientOffset.x - this.offset[0], clientOffset.y - this.offset[1]];
-    if (!this.lastCoordinates) {
-      this.lastCoordinates = coords;
-      return;
-    }
-    const deltaX = coords[0] - this.lastCoordinates[0];
-    const deltaY = coords[1] - this.lastCoordinates[1];
-
+  scroll(scales: ScalesCache, e: any) {
+    const coords = getEventCoords(e, this.offset);
+    const deltaX = coords[0] - this.lastCoordinates![0];
+    const deltaY = coords[1] - this.lastCoordinates![1];
+    this.lastCoordinates = coords;
     this.setState((
       { viewport }, { onViewportChange, interactionWithArguments, interactionWithValues },
     ) => {
-      if (this.lastCoordinates) {
-        this.lastCoordinates = coords;
-      }
       if (this.rectOrigin) {
         return {
           rectBox: {
@@ -155,7 +164,7 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
     });
   }
 
-  handleMouseUp(scales: ScalesCache) {
+  handleEnd(scales: ScalesCache) {
     this.lastCoordinates = null;
     this.multiTouchDelta = null;
     if (this.rectOrigin) {
@@ -165,7 +174,7 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
       ) => {
         this.rectOrigin = null;
         return {
-          rectBox:  null,
+          rectBox: null,
           ...getViewport(
             scales, [interactionWithArguments!, interactionWithValues!], 'zoom',
             null,
@@ -181,7 +190,7 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
     }
   }
 
-  zoom(scales: ScalesCache, delta: number, anchors: [number, number]) {
+  zoom(scales: ScalesCache, delta: number, anchors: Location) {
     this.setState((
       { viewport }, { onViewportChange, interactionWithArguments, interactionWithValues },
     ) => {
@@ -192,10 +201,9 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
     });
   }
 
-  handleScroll(scales: ScalesCache, e: any) {
+  handleZoom(scales: ScalesCache, e: any) {
     e.preventDefault();
-    const offset = getOffset(e.currentTarget);
-    const center: NumberArray = [e.pageX - offset[0], e.pageY - offset[1]];
+    const center = getEventCoords(e, getOffset(e.currentTarget));
     this.zoom(scales, getWheelDelta(e), center);
   }
 
@@ -213,30 +221,19 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
       <Plugin name="zoomAndPan">
       <Getter name="ranges" computed={getAdjustedLayout} />
         <Template name="root">
+        <TemplatePlaceholder />
           <TemplateConnector>
             {({ scales, rootRef }) => (
-            <React.Fragment>
-              <DragDropProvider>
-                <DropTarget
-                  onOver={({ _, clientOffset }) => this.handleMouseMove(scales, clientOffset)}
-                  onDrop={() => this.handleMouseUp(scales)}
-                >
-                  <DragSource payload={null}>
-                    <TemplatePlaceholder/>
-                  </DragSource>
-                </DropTarget>
-              </DragDropProvider>
-              <ZoomPanProvider
-                rootRef={rootRef}
-                onWheel={e => this.handleScroll(scales, e)}
-                onDown={e => this.handleStart(zoomRegionKey!, e)}
-                onTouchMove={e => this.handleTouchMove(scales, e)}
-                onTouchEnd={e => this.handleMouseUp(scales)}
-              />
-            </React.Fragment>)}
+                <ZoomPanProvider
+                  rootRef={rootRef}
+                  onWheel={e => this.handleZoom(scales, e)}
+                  onStart={e => this.handleStart(zoomRegionKey!, e)}
+                  onMove={e => this.handleMove(scales, e)}
+                  onEnd={e => this.handleEnd(scales)}
+                />
+              )}
           </TemplateConnector>
         </Template>
-
         <Template name="series">
           <TemplatePlaceholder />
           {rectBox ? (

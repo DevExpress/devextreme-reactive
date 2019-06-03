@@ -33,7 +33,7 @@ const endViewDateBaseComputed: ComputedFn = ({
 const startViewDateBaseComputed: ComputedFn = ({
   viewCellsData,
 }) => startViewDateCore(viewCellsData);
-const cellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
+const CellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
 const AppointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
 const TimeTablePlaceholder = () => <TemplatePlaceholder name="main" />;
 const DayScalePlaceholder = () => <TemplatePlaceholder name="navbar" />;
@@ -320,7 +320,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
                   <TimeTable
                     cellsData={viewCellsData}
                     rowComponent={TimeTableRow}
-                    cellComponent={cellPlaceholder}
+                    cellComponent={CellPlaceholder}
                     formatDate={formatDate}
                     tableRef={this.setTimeTableRef}
                     setCellElements={setRects}

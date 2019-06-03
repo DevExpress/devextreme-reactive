@@ -14,6 +14,8 @@ export const RESIZE_BOTTOM = 'resize-end';
 export const POSITION_START = 'start';
 export const POSITION_END = 'end';
 
+export const AUTO_HEIGHT = 'auto';
+
 export const DAY_OPTIONS = { day: 'numeric' };
 export const WEEK_DAY_OPTIONS = { weekday: 'short' };
 export const SHORT_MONTH_OPTIONS = { month: 'short' };

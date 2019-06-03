@@ -57,6 +57,21 @@ describe('Scheduler Core', () => {
       .toEqual('fr-FR');
   });
 
+  it('should provide the "layoutHeight" getter', () => {
+    const tree = mount((
+      <PluginHost>
+        <SchedulerCore
+          {...defaultProps}
+          height={400}
+        />
+        {pluginDepsToComponents({})}
+      </PluginHost>
+    ));
+
+    expect(getComputedState(tree).layoutHeight)
+      .toEqual(400);
+  });
+
   it('should render root template', () => {
     const tree = mount((
       <PluginHost>

@@ -25,7 +25,7 @@ const defaultDeps = {
   },
   template: {
     body: {},
-    navbar: {},
+    dayScale: {},
     sidebar: {},
     main: {},
     dayScaleEmptyCell: {},

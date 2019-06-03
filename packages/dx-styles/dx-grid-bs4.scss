@@ -207,6 +207,9 @@ button.dx-g-bs4-table-edit-command-cell {
   height: 16px;
   fill: currentColor;
 }
+.table-active, .table-active>td, .table-active>th {
+  background-color: #f5f5f5;
+}
 .dx-g-bs4-fixed-cell {
   z-index: 300;
   background-clip: padding-box;

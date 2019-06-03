@@ -83,6 +83,17 @@ describe('FixedCell', () => {
     });
   });
 
+  it('should not apply background color for selected cells', () => {
+    const tree = mount((
+      <ThemeColors.Provider value={themeColors}>
+        <FixedCell {...defaultProps} selected />
+      </ThemeColors.Provider>
+    ));
+
+    expect(tree.childAt(0).prop('style').backgroundColor)
+      .toBeFalsy();
+  });
+
   it('should pass rest props to the root element', () => {
     const tree = shallow((
       <FixedCell {...defaultProps} data={{ a: 1 }} />

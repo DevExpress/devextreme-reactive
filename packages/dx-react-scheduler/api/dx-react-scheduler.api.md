@@ -438,6 +438,7 @@ export namespace MonthView {
   // (undocumented)
   export interface LayoutProps {
     dayScaleComponent: React.ComponentType<MonthView.DayScaleLayoutProps>;
+    height: number | 'auto';
     // (undocumented)
     layoutHeaderRef: React.RefObject<HTMLElement>;
     layoutRef: React.RefObject<HTMLElement>;
@@ -484,6 +485,7 @@ export type SchedulerDateTime = Date | number | string;
 // @public (undocumented)
 export interface SchedulerProps {
   data: AppointmentModel[];
+  height: number | 'auto';
   locale: string | string[];
   rootComponent: React.ComponentType<Scheduler.RootProps>;
 }
@@ -543,6 +545,7 @@ export namespace VerticalView {
   export interface LayoutProps {
     dayScaleComponent: React.ComponentType<VerticalView.DayScaleLayoutProps>;
     dayScaleEmptyCellComponent: React.ComponentType<VerticalView.DayScaleEmptyCellProps>;
+    height: number | 'auto';
     // (undocumented)
     layoutHeaderRef: React.RefObject<HTMLElement>;
     // (undocumented)

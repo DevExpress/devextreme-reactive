@@ -262,7 +262,10 @@ export default class Demo extends React.PureComponent {
 
     return (
       <Paper>
-        <Scheduler data={filterTasks(data, currentPriority)}>
+        <Scheduler
+          data={filterTasks(data, currentPriority)}
+          height={660}
+        >
           <ViewState
             currentDate={currentDate}
             currentViewName={currentViewName}

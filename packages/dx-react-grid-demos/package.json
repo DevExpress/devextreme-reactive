@@ -20,7 +20,7 @@
     "build:watch": "concurrently \"yarn build:watch:generator\" \"yarn start-demo-server\"",
     "start-demo-server": "webpack-dev-server --env",
     "start-demo-server:prod": "webpack-dev-server --env.production",
-    "escheck": "eslint \"src/**/*.{js,jsx}\" --ignore-pattern \"**/*.testcafe.js\"",
+    "escheck": "eslint \"src/**/*.{js,jsx}\" --ignore-pattern \"**/*.testcafe.js\" --ignore-pattern \"*.partial.jsx\"",
     "tscheck": "tslint \"src/**/*.{ts,tsx}\" --exclude \"src/**/*.g.test.tsx\"",
     "lint": "yarn escheck && yarn tscheck",
     "lint:fix": "yarn escheck -- --fix && yarn tscheck -- --fix"

@@ -1,10 +1,10 @@
 # React Scheduler - Appointment Tooltip
 
-The React Scheduler component's `AppointmentTooltip` plugin displays compact appointment data.
+The React Scheduler component's `AppointmentTooltip` plugin displays little appointment data. Also, the appointment tooltip contains built-in action buttons for data management.
 
 ## Related Plugins
 
-The following plugins display an appointment data:
+The following plugins display an appointment tooltip:
 
 - [AppointmentTooltip](../reference/appointment-tooltip.md) - displays an appointment information in a short form
 
@@ -26,6 +26,6 @@ In controlled mode, you should control the all/particular `AppointmentTooltip's`
 
 ### Customization
 
-To override default markup or add your own, you should define a `xxxComponent` properties, all list of these properties is available at plugin [API reference page](../reference/appointment-tooltip.md). In the following demo shows how to use `AppointmentTooltip's` `headerComponent` and `contentComponent` properties to make custom markup.
+To override default markup or add your own, you should define a `xxxComponent` properties, a list of these properties is available at plugin [API reference page](../reference/appointment-tooltip.md). The following demo shows how to use `AppointmentTooltip's` `headerComponent` and `contentComponent` properties to make custom markup.
 
 .embedded-demo({ "path": "scheduler-tooltip/custom", "showThemeSelector": true })

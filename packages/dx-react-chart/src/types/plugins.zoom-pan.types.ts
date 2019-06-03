@@ -2,6 +2,7 @@ import {
   ViewportOptions,
   OnViewportChangeFn,
   EventHandlerFn,
+  Interaction,
 } from './index';
 
 export interface ZoomAndPanProps {
@@ -12,9 +13,9 @@ export interface ZoomAndPanProps {
   /** A function that is executed when viewport changes */
   onViewportChange?: OnViewportChangeFn;
   /** Interaction with arguments */
-  interactionWithArguments?: 'none' | 'pan' | 'zoom' | 'both';
+  interactionWithArguments?: Interaction;
   /** Interaction with values */
-  interactionWithValues?: 'none' | 'pan' | 'zoom' | 'both';
+  interactionWithValues?: Interaction;
   /** A component that renders the drag box */
   dragBoxComponent: React.ComponentType<ZoomAndPan.DragBoxProps>;
   /** Specifies the key that enables panning */
@@ -38,8 +39,11 @@ export namespace ZoomAndPan {
 }
 
 /** @internal */
+export type RootRef = React.RefObject<Element>;
+
+/** @internal */
 export type ZoomPanProviderProps = {
-  rootRef: React.RefObject<Element>,
+  rootRef: RootRef,
   onWheel: EventHandlerFn;
   onStart: EventHandlerFn,
   onMove: EventHandlerFn,

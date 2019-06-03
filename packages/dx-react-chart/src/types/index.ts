@@ -17,6 +17,7 @@ export {
   BarSeriesProps,
   ScatterSeriesProps,
   PieSeriesProps,
+  Interaction,
 } from '../../../dx-chart-core/src/index';
 
 export * from './plugins.animation.types';

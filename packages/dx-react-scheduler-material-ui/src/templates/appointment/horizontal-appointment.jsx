@@ -65,7 +65,7 @@ const HorizontalAppointmentBase = ({
 };
 
 HorizontalAppointmentBase.propTypes = {
-  recurringIconComponent: PropTypes.func.isRequired,
+  recurringIconComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   classes: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
   children: PropTypes.node,

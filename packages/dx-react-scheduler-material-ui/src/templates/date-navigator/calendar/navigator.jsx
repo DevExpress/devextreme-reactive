@@ -39,8 +39,8 @@ const NavigatorBase = ({
 
 NavigatorBase.propTypes = {
   classes: PropTypes.object.isRequired,
-  textComponent: PropTypes.func.isRequired,
-  navigationButtonComponent: PropTypes.func.isRequired,
+  textComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  navigationButtonComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   currentDate: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.string,

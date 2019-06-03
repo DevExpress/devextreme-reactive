@@ -105,9 +105,9 @@ const LayoutBase = ({
 };
 
 LayoutBase.propTypes = {
-  commandButtonComponent: PropTypes.func.isRequired,
-  headerComponent: PropTypes.func.isRequired,
-  contentComponent: PropTypes.func.isRequired,
+  commandButtonComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  headerComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  contentComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   showOpenButton: PropTypes.bool.isRequired,
   showCloseButton: PropTypes.bool.isRequired,
   showDeleteButton: PropTypes.bool.isRequired,

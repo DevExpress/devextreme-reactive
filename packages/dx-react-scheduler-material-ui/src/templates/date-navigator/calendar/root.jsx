@@ -71,14 +71,14 @@ export class Root extends React.PureComponent {
 }
 
 Root.propTypes = {
-  textComponent: PropTypes.func.isRequired,
-  navigationButtonComponent: PropTypes.func.isRequired,
+  textComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  navigationButtonComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  headerRowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  headerCellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  navigatorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  rowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  cellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   getCells: PropTypes.func.isRequired,
-  rowComponent: PropTypes.func.isRequired,
-  cellComponent: PropTypes.func.isRequired,
-  headerRowComponent: PropTypes.func.isRequired,
-  headerCellComponent: PropTypes.func.isRequired,
-  navigatorComponent: PropTypes.func.isRequired,
   selectedDate: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.string,

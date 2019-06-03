@@ -49,7 +49,7 @@ const CellBase = ({
 
 CellBase.propTypes = {
   contentComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  iconComponent: PropTypes.func.isRequired,
+  iconComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   style: PropTypes.object,
   colSpan: PropTypes.number,
   row: PropTypes.any,

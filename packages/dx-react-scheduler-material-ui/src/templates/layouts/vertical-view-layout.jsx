@@ -77,10 +77,10 @@ export class VerticalViewLayoutBase extends React.PureComponent {
 }
 
 VerticalViewLayoutBase.propTypes = {
-  timeScaleComponent: PropTypes.func.isRequired,
-  dayScaleComponent: PropTypes.func.isRequired,
-  timeTableComponent: PropTypes.func.isRequired,
-  dayScaleEmptyCellComponent: PropTypes.func.isRequired,
+  timeScaleComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  dayScaleComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  timeTableComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  dayScaleEmptyCellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   classes: PropTypes.object.isRequired,
   layoutRef: PropTypes.object.isRequired,
   layoutHeaderRef: PropTypes.object.isRequired,

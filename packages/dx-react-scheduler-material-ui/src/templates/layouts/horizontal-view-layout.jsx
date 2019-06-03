@@ -64,8 +64,8 @@ export class HorizontalViewLayoutBase extends React.PureComponent {
 }
 
 HorizontalViewLayoutBase.propTypes = {
-  dayScaleComponent: PropTypes.func.isRequired,
-  timeTableComponent: PropTypes.func.isRequired,
+  dayScaleComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  timeTableComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   classes: PropTypes.object.isRequired,
   layoutRef: PropTypes.object.isRequired,
   layoutHeaderRef: PropTypes.object.isRequired,

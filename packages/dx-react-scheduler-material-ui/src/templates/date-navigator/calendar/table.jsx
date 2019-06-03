@@ -82,10 +82,10 @@ const TableBase = ({
 };
 
 TableBase.propTypes = {
-  rowComponent: PropTypes.func.isRequired,
-  cellComponent: PropTypes.func.isRequired,
-  headerRowComponent: PropTypes.func.isRequired,
-  headerCellComponent: PropTypes.func.isRequired,
+  rowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  cellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  headerRowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  headerCellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   cells: PropTypes.array.isRequired,
   classes: PropTypes.object.isRequired,
   selectedDate: PropTypes.oneOfType([

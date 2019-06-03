@@ -88,7 +88,7 @@ const VerticalAppointmentBase = ({
 };
 
 VerticalAppointmentBase.propTypes = {
-  recurringIconComponent: PropTypes.func.isRequired,
+  recurringIconComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   classes: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
   formatDate: PropTypes.func.isRequired,

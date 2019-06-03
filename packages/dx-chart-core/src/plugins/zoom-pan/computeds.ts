@@ -17,8 +17,9 @@ import {
   ScaleObject,
   EventHandlers,
   Location,
-  Pane, Interaction,
+  Interaction,
 } from '../../types';
+import { Size } from '@devexpress/dx-react-core';
 
 const getArgumentBounds = (viewport?: ViewportOptions): DomainBounds | null => (
   viewport && viewport.argumentStart !== undefined && viewport.argumentEnd !== undefined
@@ -81,7 +82,7 @@ export const adjustLayout = (
 
 const boundsForScale = (
   name: string, scales: ScalesCache, currentBounds: DomainBounds | null,
-  interaction: string, type: string, delta: number, anchor: number, range?: NumberArray,
+  interaction: Interaction, type: string, delta: number, anchor: number, range?: NumberArray,
 ): DomainBounds | null => {
   if (checkInteraction(interaction, type, 'both')) {
     return null;
@@ -100,7 +101,7 @@ const boundsForScale = (
 /** @internal */
 export const getViewport = (
   scales: ScalesCache,
-  interactions: Readonly<[string, string]>, type: string,
+  interactions: Readonly<[Interaction, Interaction]>, type: string,
   deltas: Readonly<[number, number]> | null,
   anchors: Readonly<[number, number]> | null,
   ranges: Readonly<[NumberArray, NumberArray]> | null,
@@ -180,7 +181,7 @@ export const getRect = (
   interactionWithValues: Interaction,
   initial: Location,
   current: Location,
-  pane: Pane,
+  pane: Size,
 ) => {
   const isZoomArgument = checkInteraction(interactionWithArguments, 'none', 'pan');
   const isZoomValue = checkInteraction(interactionWithValues, 'none', 'pan');
@@ -193,5 +194,5 @@ export const getRect = (
   };
 };
 
-const checkInteraction = (interaction, value1, value2) =>
+const checkInteraction = (interaction: Interaction, value1: string, value2: string) =>
 interaction !== value1 && interaction !== value2;

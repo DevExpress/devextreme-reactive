@@ -8,6 +8,7 @@ import {
   Getter,
   PluginComponents,
   withComponents,
+  Size,
 } from '@devexpress/dx-react-core';
 import { DragBox } from '../templates/drag-box';
 import {
@@ -16,7 +17,6 @@ import {
 } from '@devexpress/dx-chart-core';
 import {
   ZoomAndPanProps, ZoomAndPanState, Location, NumberArray, ZoomPanProviderProps, EventHandlers,
-  Pane,
 } from '../types';
 
 const events = {
@@ -129,7 +129,7 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
     this.lastCoordinates = coords;
   }
 
-  handleMove(scales: ScalesCache, e: any, pane: Pane) {
+  handleMove(scales: ScalesCache, e: any, pane: Size) {
     e.preventDefault();
     if (isMultiTouch(e)) {
       const current = getDeltaForTouches(e.touches);
@@ -140,7 +140,7 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
     }
   }
 
-  scroll(scales: ScalesCache, e: any, pane: Pane) {
+  scroll(scales: ScalesCache, e: any, pane: Size) {
     const coords = getEventCoords(e, this.offset);
     const deltaX = coords[0] - this.lastCoordinates![0];
     const deltaY = coords[1] - this.lastCoordinates![1];

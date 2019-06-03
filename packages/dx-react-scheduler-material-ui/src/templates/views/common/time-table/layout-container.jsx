@@ -8,7 +8,6 @@ export class TimeTableContainer extends React.PureComponent {
 
     this.table = null;
 
-    this.setCells = this.setCells.bind(this);
     this.saveReference = this.saveReference.bind(this);
   }
 

@@ -63,26 +63,23 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
   layoutElementComputed = () => this.layout;
   layoutHeaderElementComputed = () => this.layoutHeader;
 
-  layoutHeaderElement = viewName => (getters) => {
+  layoutHeaderElement = memoize(viewName => (getters) => {
     return computed(
       getters, viewName!, this.layoutHeaderElementComputed, getters.layoutHeaderElement,
     );
-  }
-  memoLayoutHeaderElement = memoize(this.layoutHeaderElement);
+  });
 
-  layoutElement = viewName => (getters) => {
+  layoutElement = memoize(viewName => (getters) => {
     return computed(
       getters, viewName!, this.layoutElementComputed, getters.layoutElement,
     );
-  }
-  memoLayoutElement = memoize(this.layoutElement);
+  });
 
-  timeTableElement = viewName => (getters) => {
+  timeTableElement = memoize(viewName => (getters) => {
     return computed(
       getters, viewName!, this.timeTableElementComputed, getters.timeTableElement,
     );
-  }
-  memoTimeTableElement = memoize(this.timeTableElement);
+  });
 
   endViewDateComputed: ComputedFn = (getters) => {
     const { name: viewName } = this.props;
@@ -98,35 +95,31 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
     );
   }
 
-  firstDayOfWeekComputed = (viewName, firstDayOfWeek) => (getters) => {
+  firstDayOfWeek = memoize((viewName, firstDayOfWeek) => (getters) => {
     return computed(
       getters, viewName!, () => firstDayOfWeek, getters.firstDayOfWeek,
     );
-  }
-  memoFirstDayOfWeek = memoize(this.firstDayOfWeekComputed);
+  });
 
-  intervalCountComputed = (viewName, intervalCount) => (getters) => {
+  intervalCount = memoize((viewName, intervalCount) => (getters) => {
     return computed(
       getters, viewName!, () => intervalCount, getters.intervalCount,
     );
-  }
-  memoIntervalCount = memoize(this.intervalCountComputed);
+  });
 
-  availableViewNamesComputed = viewName => ({ availableViewNames }) => {
+  availableViewNames = memoize(viewName => ({ availableViewNames }) => {
     return availableViewNamesCore(
       availableViewNames, viewName!,
     );
-  }
-  memoAvailableViewNames = memoize(this.availableViewNamesComputed);
+  });
 
-  currentViewComputed = viewName => ({ currentView }) => {
+  currentView = memoize(viewName => ({ currentView }) => {
     return (
       currentView && currentView.name !== viewName
         ? currentView
         : { name: viewName, type: TYPE }
     );
-  }
-  memoCurrentView = memoize(this.currentViewComputed);
+  });
 
   viewCellsDataBaseComputed = (firstDayOfWeek, intervalCount) => ({ currentDate }) => {
     return monthCellsData(
@@ -192,21 +185,21 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
       <Plugin
         name="MonthView"
       >
-        <Getter name="availableViewNames" computed={this.memoAvailableViewNames(viewName)} />
-        <Getter name="currentView" computed={this.memoCurrentView(viewName)} />
+        <Getter name="availableViewNames" computed={this.availableViewNames(viewName)} />
+        <Getter name="currentView" computed={this.currentView(viewName)} />
 
         <Getter
           name="firstDayOfWeek"
-          computed={this.memoFirstDayOfWeek(viewName, firstDayOfWeek)}
+          computed={this.firstDayOfWeek(viewName, firstDayOfWeek)}
         />
-        <Getter name="intervalCount" computed={this.memoIntervalCount(viewName, intervalCount)} />
+        <Getter name="intervalCount" computed={this.intervalCount(viewName, intervalCount)} />
         <Getter name="viewCellsData" computed={this.viewCellsDataComputed} />
         <Getter name="startViewDate" computed={this.startViewDateComputed} />
         <Getter name="endViewDate" computed={this.endViewDateComputed} />
 
-        <Getter name="timeTableElement" computed={this.memoTimeTableElement(viewName)} />
-        <Getter name="layoutElement" computed={this.memoLayoutElement(viewName)} />
-        <Getter name="layoutHeaderElement" computed={this.memoLayoutHeaderElement(viewName)} />
+        <Getter name="timeTableElement" computed={this.timeTableElement(viewName)} />
+        <Getter name="layoutElement" computed={this.layoutElement(viewName)} />
+        <Getter name="layoutHeaderElement" computed={this.layoutHeaderElement(viewName)} />
 
         <Template name="body">
           <TemplateConnector>

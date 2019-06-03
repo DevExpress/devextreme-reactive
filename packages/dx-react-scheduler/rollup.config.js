@@ -18,7 +18,6 @@ export default {
   external: external(__dirname),
   plugins: [
     typescriptRollup({
-      abortOnError: false,
       typescript,
       useTsconfigDeclarationDir: true,
     }),

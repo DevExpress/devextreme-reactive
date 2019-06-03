@@ -92,9 +92,9 @@ describe('FixedCell', () => {
 
   it('should not apply background color for selected cells', () => {
     const tree = mount((
-      <ThemeColors.Provider value={themeColors}>
+      <StyleContext.Provider value={styleVars}>
         <FixedCell {...defaultProps} selected />
-      </ThemeColors.Provider>
+      </StyleContext.Provider>
     ));
 
     expect(tree.childAt(0).prop('style').backgroundColor)

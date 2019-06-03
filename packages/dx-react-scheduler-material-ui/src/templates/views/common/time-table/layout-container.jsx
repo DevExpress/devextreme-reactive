@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import RootRef from '@material-ui/core/RootRef';
 
-export class TimeTableContainer extends React.PureComponent {
+export class TimeTableContainer extends React.Component {
   constructor(props) {
     super(props);
 

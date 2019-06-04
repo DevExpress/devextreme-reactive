@@ -82,8 +82,8 @@ export namespace VerticalView {
     /** A function that formats dates according to the locale. */
     formatDate: FormatterFn;
     /** A function that accepts the table root React element. */
-    tableRef: (ref: React.ReactInstance) => void;
-    /** A callback function that provide time table cell elements into view plugin. */
+    tableRef: React.RefObject<HTMLElement>;
+    /** @internal */
     setCellElements: (cellElements: HTMLElement[]) => void;
   }
 

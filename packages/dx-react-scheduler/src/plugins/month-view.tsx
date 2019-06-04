@@ -7,7 +7,6 @@ import {
   TemplatePlaceholder,
   PluginComponents,
   ComputedFn,
-  WritableRefObject,
 } from '@devexpress/dx-react-core';
 import {
   computed,
@@ -40,7 +39,7 @@ const CellPlaceholder = params => <TemplatePlaceholder name="cell" params={param
 const AppointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
 
 class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
-  timeTable: WritableRefObject<HTMLElement> = React.createRef();
+  timeTable = React.createRef<HTMLElement>();
   layout = React.createRef<HTMLElement>();
   layoutHeader = React.createRef<HTMLElement>();
 
@@ -134,10 +133,6 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
       viewCellsDataBaseComputed(getters.firstDayOfWeek, getters.intervalCount),
       getters.viewCellsData,
     );
-  }
-
-  setTimeTableRef = (timeTableRef) => {
-    this.timeTable.current = timeTableRef;
   }
 
   calculateRects = memoize((
@@ -249,7 +244,7 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
                     rowComponent={TimeTableRow}
                     cellComponent={CellPlaceholder}
                     formatDate={formatDate}
-                    tableRef={this.setTimeTableRef}
+                    tableRef={this.timeTable}
                     setCellElements={setRects}
                   />
                   <AppointmentLayer>

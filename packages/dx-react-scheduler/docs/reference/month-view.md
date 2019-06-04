@@ -93,7 +93,6 @@ tableRef | (ref: ReactInstance) => void | A function that accepts the table's ro
 cellComponent | ComponentType&lt;[MonthView.TimeTableCellProps](#monthviewtimetablecellprops)&gt; | A component that renders a time table cell.
 rowComponent | ComponentType&lt;[MonthView.RowProps](#monthviewrowprops)&gt; | A component that renders a time table row.
 formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that formats dates according to the set locale.
-setCellElements | (cellElements: HTMLElement[]) => void | A callback function that provide time table cell elements into view plugin.
 
 ### MonthView.TimeTableCellProps
 

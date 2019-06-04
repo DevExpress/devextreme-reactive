@@ -457,7 +457,7 @@ export namespace MonthView {
     cellComponent: React.ComponentType<MonthView.TimeTableCellProps>;
     cellsData: MonthView.CellData[][];
     rowComponent: React.ComponentType<MonthView.RowProps>;
-    tableRef: (ref: React.ReactInstance) => void;
+    tableRef: React.RefObject<HTMLElement>;
   }
 }
 
@@ -474,9 +474,9 @@ export const Scheduler: React.ComponentType<SchedulerProps>;
 
 // @public (undocumented)
 export namespace Scheduler {
-  export interface RootProps {
-    children?: React.ReactNode;
-  }
+    export interface RootProps {
+        children?: React.ReactNode;
+    }
 }
 
 // @public (undocumented)
@@ -484,10 +484,10 @@ export type SchedulerDateTime = Date | number | string;
 
 // @public (undocumented)
 export interface SchedulerProps {
-  data: AppointmentModel[];
-  height: number | 'auto';
-  locale: string | string[];
-  rootComponent: React.ComponentType<Scheduler.RootProps>;
+    data: AppointmentModel[];
+    height: number | 'auto';
+    locale: string | string[];
+    rootComponent: React.ComponentType<Scheduler.RootProps>;
 }
 
 // @public (undocumented)
@@ -576,8 +576,7 @@ export namespace VerticalView {
     cellsData: VerticalView.CellData[][];
     formatDate: FormatterFn_2;
     rowComponent: React.ComponentType<VerticalView.RowProps>;
-    setCellElements: (cellElements: HTMLElement[]) => void;
-    tableRef: (ref: React.ReactInstance) => void;
+    tableRef: React.RefObject<HTMLElement>;
   }
 }
 

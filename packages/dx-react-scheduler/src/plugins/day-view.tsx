@@ -7,7 +7,6 @@ import {
   TemplatePlaceholder,
   PluginComponents,
   ComputedFn,
-  WritableRefObject,
 } from '@devexpress/dx-react-core';
 import {
   computed,
@@ -50,7 +49,7 @@ const DayScalePlaceholder = () => <TemplatePlaceholder name="dayScale" />;
 const TimeScalePlaceholder = () => <TemplatePlaceholder name="timeScale" />;
 
 class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
-  timeTable: WritableRefObject<HTMLElement> = React.createRef();
+  timeTable = React.createRef<HTMLElement>();
   layout = React.createRef<HTMLElement>();
   layoutHeader = React.createRef<HTMLElement>();
 
@@ -150,10 +149,6 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
     return computed(
       getters, viewName!, startViewDateBaseComputed, getters.startViewDate,
     );
-  }
-
-  setTimeTableRef = (timeTableRef) => {
-    this.timeTable.current = timeTableRef;
   }
 
   calculateRects = memoize((
@@ -306,7 +301,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
                     rowComponent={TimeTableRow}
                     cellComponent={CellPlaceholder}
                     formatDate={formatDate}
-                    tableRef={this.setTimeTableRef}
+                    tableRef={this.timeTable}
                     setCellElements={setRects}
                   />
                   <AppointmentLayer>

@@ -37,17 +37,17 @@ import { appointments } from '../../../demo-data/appointments';
 
 const containerStyles = theme => ({
   container: {
-    width: `${theme.spacing(1) * 68}px`,
+    width: theme.spacing(68),
     padding: 0,
-    paddingBottom: theme.spacing(1) * 2,
+    paddingBottom: theme.spacing(2),
   },
   content: {
-    padding: theme.spacing(1) * 2,
+    padding: theme.spacing(2),
     paddingTop: 0,
   },
   header: {
     overflow: 'hidden',
-    paddingTop: theme.spacing(1) / 2,
+    paddingTop: theme.spacing(0.5),
   },
   closeButton: {
     float: 'right',
@@ -55,13 +55,13 @@ const containerStyles = theme => ({
   buttonGroup: {
     display: 'flex',
     justifyContent: 'flex-end',
-    padding: `0 ${theme.spacing(1) * 2}px`,
+    padding: theme.spacing(0, 2),
   },
   button: {
-    marginLeft: theme.spacing(1) * 2,
+    marginLeft: theme.spacing(2),
   },
   picker: {
-    marginRight: theme.spacing(1) * 2,
+    marginRight: theme.spacing(2),
     '&:last-child': {
       marginRight: 0,
     },
@@ -69,11 +69,11 @@ const containerStyles = theme => ({
   wrapper: {
     display: 'flex',
     justifyContent: 'space-between',
-    padding: `${theme.spacing(1)}px 0px`,
+    padding: theme.spacing(1, 0),
   },
   icon: {
-    margin: `${theme.spacing(1) * 2}px 0`,
-    marginRight: `${theme.spacing(1) * 2}px`,
+    margin: theme.spacing(2, 0),
+    marginRight: theme.spacing(2),
   },
   textField: {
     width: '100%',

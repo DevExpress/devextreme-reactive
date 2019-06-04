@@ -26,6 +26,12 @@ export namespace TableGroupRow {
     contentComponent: React.ComponentType<ContentProps>;
     /** @internal */
     iconComponent: React.ComponentType<IconProps>;
+    /** @internal */
+    containerComponent: React.ComponentType<ContainerProps>;
+    /** @internal */
+    position: string;
+    /** @internal */
+    side: string;
   }
 
   /** Describes properties passed to a component that renders a group row. */
@@ -48,6 +54,11 @@ export namespace TableGroupRow {
   export interface IconProps {
     /** Specifies whether the row is expanded. */
     expanded: boolean;
+  }
+
+  export interface ContainerProps {
+    children: React.ReactNode;
+    style: object;
   }
 
   /** Describes properties passed to a component that renders a group indent cell. */
@@ -83,10 +94,14 @@ export interface TableGroupRowProps {
   contentComponent: React.ComponentType<TableGroupRow.ContentProps>;
   /** A component that renders a group expand icon. */
   iconComponent: React.ComponentType<TableGroupRow.IconProps>;
+  /** A component that renders a content container */
+  containerComponent: React.ComponentType<TableGroupRow.ContainerProps>;
   /** A component that renders a group indent cell. */
   indentCellComponent?: React.ComponentType<TableGroupRow.IndentCellProps>;
   /** The group indent column's width. */
   indentColumnWidth: number;
+  /** The group cell's left padding value */
+  contentCellPadding: string;
 }
 
 /** @internal */

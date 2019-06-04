@@ -12,10 +12,13 @@ describe('TableGroupCell', () => {
   const defaultProps = {
     contentComponent: () => null,
     iconComponent: () => null,
+    containerComponent: ({ children }) => children,
     expanded: true,
     classes: {},
     column: {},
     row: {},
+    position: '13px',
+    side: 'left',
   };
 
   beforeAll(() => {
@@ -67,6 +70,18 @@ describe('TableGroupCell', () => {
       .toMatchObject({
         column: defaultProps.column,
         row: defaultProps.row,
+      });
+  });
+
+  it('should render Container', () => {
+    const tree = mount((
+      <TableGroupCell {...defaultProps} />
+    ));
+
+    expect(tree.find(defaultProps.containerComponent).props())
+      .toMatchObject({
+        position: '13px',
+        side: 'left',
       });
   });
 

@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Sizer } from '@devexpress/dx-react-core';
-import { withStyles } from '@material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import { TableStubCell } from './table-stub-cell';
 
 const styles = () => ({

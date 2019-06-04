@@ -9,7 +9,7 @@ import {
   Legend,
 } from '@devexpress/dx-react-chart-material-ui';
 import classnames from 'classnames';
-import { withStyles } from '@material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import { Stack, Animation } from '@devexpress/dx-react-chart';
 import { carbonEmmision as data } from '../../../demo-data/data-vizualization';
 

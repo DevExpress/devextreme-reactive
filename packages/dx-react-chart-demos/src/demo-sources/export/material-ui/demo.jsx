@@ -17,7 +17,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { scaleBand } from '@devexpress/dx-chart-core';
 import { ArgumentScale, Stack, Animation } from '@devexpress/dx-react-chart';
-import { withStyles } from '@material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
 import { gaming as data } from '../../../demo-data/data-vizualization';

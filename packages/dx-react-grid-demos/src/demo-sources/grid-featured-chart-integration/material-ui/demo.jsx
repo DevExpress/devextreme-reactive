@@ -22,7 +22,7 @@ import {
   Grid, Table, TableBandHeader, TableHeaderRow,
   TableRowDetail,
 } from '@devexpress/dx-react-grid-material-ui';
-import { withStyles } from '@material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import { citiesCount, regionsCount } from '../../../demo-data/chart-data';
 
 const detailContainerStyles = theme => ({

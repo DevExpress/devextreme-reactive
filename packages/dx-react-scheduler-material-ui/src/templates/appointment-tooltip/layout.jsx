@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import Popover from '@material-ui/core/Popover';
 import AccessTime from '@material-ui/icons/AccessTime';
 import Grid from '@material-ui/core/Grid';
-import { withStyles } from '@material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import { HOUR_MINUTE_OPTIONS } from '@devexpress/dx-scheduler-core';
 
 const verticalTopHorizontalCenterOptions = { vertical: 'top', horizontal: 'center' };

@@ -15,7 +15,7 @@ import {
   ArgumentScale, Stack, Animation, EventTracker, HoverState, SelectionState,
 } from '@devexpress/dx-react-chart';
 import Button from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import {
   NavigateBefore, NavigateNext,
 } from '@material-ui/icons/';

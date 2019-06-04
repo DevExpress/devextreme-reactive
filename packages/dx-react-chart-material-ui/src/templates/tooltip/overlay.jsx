@@ -1,19 +1,18 @@
 import * as React from 'react';
-import { withStyles } from '@material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Popper from '@material-ui/core/Popper';
 import Paper from '@material-ui/core/Paper';
 import classNames from 'classnames';
 
 const styles = (theme) => {
-  const unit = theme.spacing(1);
-  const arrowSize = unit * 1.2;
+  const arrowSize = theme.spacing(1.2);
   return {
     popper: {
       zIndex: 1,
       marginBottom: `${arrowSize}px`,
     },
     paper: {
-      padding: `${unit * 0.5}px ${unit}px`,
+      padding: theme.spacing(0.5, 1),
     },
     arrow: {
       width: `${arrowSize * 5}px`,

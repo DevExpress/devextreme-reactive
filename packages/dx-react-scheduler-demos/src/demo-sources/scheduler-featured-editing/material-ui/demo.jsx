@@ -14,9 +14,9 @@ import {
   DragDropProvider,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { connectProps } from '@devexpress/dx-react-core';
-import { InlineDateTimePicker, MuiPickersUtilsProvider } from 'material-ui-pickers';
+import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
-import { withStyles } from '@material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -158,10 +158,11 @@ class AppointmentFormContainerBasic extends React.PureComponent {
 
     const pickerEditorProps = field => ({
       className: classes.picker,
-      keyboard: true,
+      // keyboard: true,
+      ampm: false,
       value: displayAppointmentData[field],
       onChange: date => this.changeAppointment({ field: [field], changes: date.toDate() }),
-      variant: 'outlined',
+      inputVariant: 'outlined',
       format: 'DD/MM/YYYY HH:mm',
       mask: [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, ':', /\d/, /\d/],
     });
@@ -187,11 +188,11 @@ class AppointmentFormContainerBasic extends React.PureComponent {
             <div className={classes.wrapper}>
               <CalendarToday className={classes.icon} color="action" />
               <MuiPickersUtilsProvider utils={MomentUtils}>
-                <InlineDateTimePicker
+                <KeyboardDateTimePicker
                   label="Start Date"
                   {...pickerEditorProps('startDate')}
                 />
-                <InlineDateTimePicker
+                <KeyboardDateTimePicker
                   label="End Date"
                   {...pickerEditorProps('endDate')}
                 />

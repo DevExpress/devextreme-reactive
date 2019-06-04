@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import { AUTO_HEIGHT } from '@devexpress/dx-scheduler-core';
 import RootRef from '@material-ui/core/RootRef';
 import Grid from '@material-ui/core/Grid';
-import { withStyles } from '@material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   container: {

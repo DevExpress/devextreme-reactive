@@ -33,6 +33,16 @@ const endViewDateBaseComputed: ComputedFn = ({
 const startViewDateBaseComputed: ComputedFn = ({
   viewCellsData,
 }) => startViewDateCore(viewCellsData);
+const viewCellsDataBaseComputed = (
+  cellDuration, startDayHour, endDayHour,
+) => ({ firstDayOfWeek, intervalCount, excludedDays, currentDate }) => {
+  return viewCellsDataCore(
+    currentDate, firstDayOfWeek,
+    intervalCount! * DAYS_IN_WEEK, excludedDays!,
+    startDayHour!, endDayHour!, cellDuration!,
+    Date.now(),
+  );
+};
 const CellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
 const AppointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
 const TimeTablePlaceholder = () => <TemplatePlaceholder name="timeTable" />;
@@ -114,22 +124,11 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
     );
   });
 
-  viewCellsDataBaseComputed = (
-    cellDuration, startDayHour, endDayHour,
-  ) => ({ firstDayOfWeek, intervalCount, excludedDays, currentDate }) => {
-    return viewCellsDataCore(
-      currentDate, firstDayOfWeek,
-      intervalCount! * DAYS_IN_WEEK, excludedDays!,
-      startDayHour!, endDayHour!, cellDuration!,
-      Date.now(),
-    );
-  }
-
   viewCellsData = memoize((viewName, cellDuration, startDayHour, endDayHour) => (getters) => {
     return computed(
       getters,
       viewName,
-      this.viewCellsDataBaseComputed(cellDuration, startDayHour, endDayHour),
+      viewCellsDataBaseComputed(cellDuration, startDayHour, endDayHour),
       getters.viewCellsData,
     );
   });
@@ -166,7 +165,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
     this.timeTable.current = timeTableRef;
   }
 
-  calculateRects = (
+  calculateRects = memoize((
     appointments, startViewDate, endViewDate, excludedDays, viewCellsData, cellDuration,
   ) => (cellElements) => {
     const intervals = calculateWeekDateIntervals(
@@ -190,8 +189,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
     );
 
     this.setState({ rects });
-  }
-  memoCalculateRects =  memoize(this.calculateRects);
+  });
 
   render() {
     const {
@@ -312,7 +310,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
               appointments, startViewDate, endViewDate,
             }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
-              const setRects = this.memoCalculateRects(
+              const setRects = this.calculateRects(
                 appointments, startViewDate, endViewDate, excludedDays, viewCellsData, cellDuration,
               );
 

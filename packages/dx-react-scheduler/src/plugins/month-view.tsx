@@ -26,6 +26,12 @@ import { memoize } from '@devexpress/dx-core';
 import { MonthViewProps, ViewState } from '../types';
 
 const TYPE = 'month';
+const viewCellsDataBaseComputed = (firstDayOfWeek, intervalCount) => ({ currentDate }) => {
+  return monthCellsData(
+    currentDate, firstDayOfWeek,
+    intervalCount!, Date.now(),
+  );
+}
 const startViewDateBaseComputed = ({ viewCellsData }) => startViewDateCore(viewCellsData);
 const endViewDateBaseComputed = ({ viewCellsData }) => endViewDateCore(viewCellsData);
 const DayScalePlaceholder = () => <TemplatePlaceholder name="dayScale" />;
@@ -121,18 +127,11 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
     );
   });
 
-  viewCellsDataBaseComputed = (firstDayOfWeek, intervalCount) => ({ currentDate }) => {
-    return monthCellsData(
-      currentDate, firstDayOfWeek,
-      intervalCount!, Date.now(),
-    );
-  }
-
   viewCellsDataComputed: ComputedFn = (getters) => {
     return computed(
       getters,
       getters.viewName!,
-      this.viewCellsDataBaseComputed(getters.firstDayOfWeek, getters.intervalCount),
+      viewCellsDataBaseComputed(getters.firstDayOfWeek, getters.intervalCount),
       getters.viewCellsData,
     );
   }
@@ -141,7 +140,9 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
     this.timeTable.current = timeTableRef;
   }
 
-  calculateRects = (appointments, startViewDate, endViewDate, viewCellsData) => (cellElements) => {
+  calculateRects = memoize((
+    appointments, startViewDate, endViewDate, viewCellsData,
+  ) => (cellElements) => {
     const intervals = calculateMonthDateIntervals(
       appointments, startViewDate, endViewDate,
     );
@@ -162,8 +163,7 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
     );
 
     this.setState({ rects });
-  }
-  memoCalculateRects =  memoize(this.calculateRects);
+  });
 
   render() {
     const {
@@ -239,7 +239,7 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
               appointments, startViewDate, endViewDate, currentView, viewCellsData, formatDate,
             }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
-              const setRects = this.memoCalculateRects(
+              const setRects = this.calculateRects(
                 appointments, startViewDate, endViewDate, viewCellsData,
               );
               return (

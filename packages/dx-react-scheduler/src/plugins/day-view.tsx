@@ -32,6 +32,16 @@ const startViewDateBaseComputed = ({
 const endViewDateBaseComputed = ({
   viewCellsData,
 }) => endViewDateCore(viewCellsData);
+const viewCellsDataBaseComputed = (startDayHour, endDayHour, cellDuration) => ({
+  currentDate, intervalCount,
+}) => {
+  return viewCellsDataCore(
+    currentDate, undefined,
+    intervalCount, [],
+    startDayHour!, endDayHour!, cellDuration!,
+    Date.now(),
+  );
+};
 const CellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
 const AppointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
 const TimeTablePlaceholder = () => <TemplatePlaceholder name="timeTable" />;
@@ -94,21 +104,11 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
     );
   });
 
-  viewCellsDataBaseComputed = (startDayHour, endDayHour, cellDuration) => ({
-    currentDate, intervalCount,
-  }) => {
-    return viewCellsDataCore(
-      currentDate, undefined,
-      intervalCount, [],
-      startDayHour!, endDayHour!, cellDuration!,
-      Date.now(),
-    );
-  }
   viewCellsData = memoize((viewName, startDayHour, endDayHour, cellDuration) => (getters) => {
     return computed(
       getters,
       viewName,
-      this.viewCellsDataBaseComputed(startDayHour, endDayHour, cellDuration), getters.viewCellsData,
+      viewCellsDataBaseComputed(startDayHour, endDayHour, cellDuration), getters.viewCellsData,
     );
   });
 
@@ -156,7 +156,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
     this.timeTable.current = timeTableRef;
   }
 
-  calculateRects = (
+  calculateRects = memoize((
     appointments, startViewDate, endViewDate, viewCellsData, cellDuration, currentDate,
   ) => (cellElements) => {
     const intervals = calculateWeekDateIntervals(
@@ -181,8 +181,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
     );
 
     this.setState({ rects });
-  }
-  memoCalculateRects =  memoize(this.calculateRects);
+  });
 
   render() {
     const {
@@ -296,7 +295,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
               viewCellsData,
             }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
-              const setRects = this.memoCalculateRects(
+              const setRects = this.calculateRects(
                 appointments, startViewDate, endViewDate, viewCellsData, cellDuration, currentDate,
               );
 

@@ -1,10 +1,16 @@
 import * as React from 'react';
+import Popper from '@material-ui/core/Popper';
+import Paper from '@material-ui/core/Paper';
 import { createMount, getClasses } from '@material-ui/core/test-utils';
 import { Overlay } from './overlay';
 
 describe('Overlay', () => {
   const defaultProps = {
-    target: () => ({ }),
+    target: {
+      clientWidth: null,
+      clientHeight: null,
+      getBoundingClientRect: null,
+    },
   };
   let mount;
   const classes = getClasses(<Overlay {...defaultProps}>Test</Overlay>);
@@ -26,13 +32,13 @@ describe('Overlay', () => {
       </Overlay>
     ));
 
-    expect(tree.find('Popper').props()).toMatchObject({
+    expect(tree.find(Popper).props()).toMatchObject({
       open: true,
       anchorEl: defaultProps.target,
       placement: 'top',
       className: classes.popper,
     });
-    expect(tree.find('Paper').props()).toMatchObject({
+    expect(tree.find(Paper).props()).toMatchObject({
       className: classes.paper,
     });
     expect(tree.find('div').get(3).props).toMatchObject({
@@ -51,8 +57,8 @@ describe('Overlay', () => {
       </Overlay>
     ));
 
-    expect(tree.find('Popper').is('.custom-class')).toBeTruthy();
-    expect(tree.find('Popper').is(`.${classes.popper}`)).toBeTruthy();
+    expect(tree.find(Popper).is('.custom-class')).toBeTruthy();
+    expect(tree.find(Popper).is(`.${classes.popper}`)).toBeTruthy();
   });
 
   it('should pass rest props to the root element', () => {
@@ -65,6 +71,6 @@ describe('Overlay', () => {
       </Overlay>
     ));
 
-    expect(tree.find('Popper').props().custom).toEqual(10);
+    expect(tree.find(Popper).props().custom).toEqual(10);
   });
 });

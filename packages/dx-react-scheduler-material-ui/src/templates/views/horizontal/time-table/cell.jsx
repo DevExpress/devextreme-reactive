@@ -27,9 +27,9 @@ const styles = theme => ({
   today: {
     margin: theme.spacing(0.5),
     display: 'inline-block',
-    width: `${theme.spacing(3)}px`,
-    height: `${theme.spacing(3)}px`,
-    lineHeight: `${theme.spacing(3)}px`,
+    width: theme.spacing(3),
+    height: theme.spacing(3),
+    lineHeight: theme.spacing(3),
     textAlign: 'center',
     borderRadius: '50%',
     background: theme.palette.primary.main,

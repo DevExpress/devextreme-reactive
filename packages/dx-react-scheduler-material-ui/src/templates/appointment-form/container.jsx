@@ -7,7 +7,7 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = theme => ({
   root: {
     width: theme.spacing(50),
-    padding: `${theme.spacing(1)}px ${theme.spacing(1)}px`,
+    padding: theme.spacing(1, 1),
     margin: '0 auto',
     transform: 'translateY(20%)',
     msTransform: 'translateY(20%)',

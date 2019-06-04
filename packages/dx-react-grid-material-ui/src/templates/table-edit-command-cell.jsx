@@ -13,12 +13,12 @@ const styles = theme => ({
   headingCell: {
     whiteSpace: 'nowrap',
     textAlign: 'center',
-    padding: `0 ${theme.spacing(2)}px 0 ${theme.spacing(3)}px`,
+    padding: theme.spacing(0, 2, 0, 3),
   },
   cell: {
     whiteSpace: 'nowrap',
     textAlign: 'center',
-    padding: `0 ${theme.spacing(2)}px 0 ${theme.spacing(3)}px`,
+    padding: theme.spacing(0, 2, 0, 3),
   },
   alignWithRowSpan: {
     verticalAlign: 'bottom',

@@ -13,7 +13,7 @@ const styles = theme => ({
   plainTitle: {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    lineHeight: `${theme.spacing(3)}px`,
+    lineHeight: theme.spacing(3),
   },
   cell: {
     outline: 'none',
@@ -28,7 +28,7 @@ const styles = theme => ({
       opacity: 1,
     },
     '&:nth-last-child(2) $resizeHandle': {
-      width: `${theme.spacing(1)}px`,
+      width: theme.spacing(1),
       right: '1px',
     },
   },

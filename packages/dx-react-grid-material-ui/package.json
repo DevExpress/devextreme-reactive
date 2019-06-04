@@ -55,7 +55,6 @@
     "@devexpress/dx-testing": "1.11.0",
     "@material-ui/core": "^4.0.2",
     "@material-ui/icons": "^4.0.1",
-    "@material-ui/styles": "^4.0.2",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^24.8.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
@@ -90,7 +89,6 @@
     "@devexpress/dx-react-grid": "1.11.0",
     "@material-ui/core": ">=4.0.1",
     "@material-ui/icons": ">=4.0.1",
-    "@material-ui/styles": ">=4.0.1",
     "react": ">=16.8.3"
   }
 }

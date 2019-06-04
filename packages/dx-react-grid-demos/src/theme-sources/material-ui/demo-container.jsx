@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { createMuiTheme } from '@material-ui/core/styles';
-import { ThemeProvider } from '@material-ui/styles';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { blue } from '@material-ui/core/colors';
 
 const lightTheme = createMuiTheme({
@@ -25,9 +24,9 @@ const darkTheme = createMuiTheme({
 });
 
 const DemoContainer = ({ theme, children }) => (
-  <ThemeProvider theme={theme}>
+  <MuiThemeProvider theme={theme}>
     {children}
-  </ThemeProvider>
+  </MuiThemeProvider>
 );
 
 DemoContainer.propTypes = {

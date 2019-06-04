@@ -30,7 +30,7 @@ const viewCellsDataBaseComputed = (firstDayOfWeek, intervalCount) => ({ currentD
     currentDate, firstDayOfWeek,
     intervalCount!, Date.now(),
   );
-}
+};
 const startViewDateBaseComputed = ({ viewCellsData }) => startViewDateCore(viewCellsData);
 const endViewDateBaseComputed = ({ viewCellsData }) => endViewDateCore(viewCellsData);
 const DayScalePlaceholder = () => <TemplatePlaceholder name="dayScale" />;

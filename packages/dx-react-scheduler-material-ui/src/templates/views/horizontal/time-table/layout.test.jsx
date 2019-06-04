@@ -4,7 +4,11 @@ import { Layout } from './layout';
 
 describe('Horizontal view TimeTable', () => {
   const defaultProps = {
-    tableRef: () => undefined,
+    tableRef: {
+      current: {
+        querySelectorAll: jest.fn(),
+      },
+    },
     cellsData: [
       [
         { startDate: new Date(2018, 6, 7, 16), endDate: new Date(2018, 6, 7, 18) },

@@ -4,7 +4,7 @@ import { TimeTableContainer } from './layout-container';
 
 describe('TableTable common', () => {
   const defaultProps = {
-    tableRef: jest.fn(),
+    tableRef: React.createRef(),
     setCellElements: jest.fn(),
   };
   let mount;
@@ -37,20 +37,6 @@ describe('TableTable common', () => {
       expect(defaultProps.setCellElements)
         .toHaveBeenCalledWith(expect.arrayContaining([]));
       defaultProps.setCellElements.mockClear();
-    });
-
-    it('should call tableRef function', () => {
-      defaultProps.tableRef.mockClear();
-      mount((
-        <TimeTableContainer
-          {...defaultProps}
-        >
-          <div />
-        </TimeTableContainer>
-      ));
-
-      expect(defaultProps.tableRef)
-        .toBeCalledTimes(1);
     });
   });
 });

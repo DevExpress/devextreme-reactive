@@ -7,8 +7,6 @@ export class TimeTableContainer extends React.Component {
     super(props);
 
     this.table = null;
-
-    this.saveReference = this.saveReference.bind(this);
   }
 
   componentDidMount() {
@@ -20,23 +18,17 @@ export class TimeTableContainer extends React.Component {
   }
 
   setCells() {
-    const { setCellElements } = this.props;
+    const { setCellElements, tableRef } = this.props;
 
-    const cellElements = this.table.querySelectorAll('td');
+    const cellElements = tableRef.current.querySelectorAll('td');
     setCellElements(cellElements);
   }
 
-  saveReference(ref) {
-    const { tableRef } = this.props;
-    this.table = ref;
-    tableRef(ref);
-  }
-
   render() {
-    const { children } = this.props;
+    const { children, tableRef } = this.props;
 
     return (
-      <RootRef rootRef={this.saveReference}>
+      <RootRef rootRef={tableRef}>
         {children}
       </RootRef>
     );
@@ -45,6 +37,6 @@ export class TimeTableContainer extends React.Component {
 
 TimeTableContainer.propTypes = {
   children: PropTypes.node.isRequired,
-  tableRef: PropTypes.func.isRequired,
+  tableRef: PropTypes.object.isRequired,
   setCellElements: PropTypes.func.isRequired,
 };

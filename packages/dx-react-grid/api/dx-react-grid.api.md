@@ -77,11 +77,7 @@ export interface ColumnChooserProps {
 }
 
 // @public (undocumented)
-export const createRowCache: (pageSize: number, capacity?: number) => {
-  getRows: (skip: number, count: number) => any[];
-  setRows: (skip: number, rows: readonly any[]) => void;
-  invalidate: () => void;
-};
+export const createRowCache: (pageSize?: number, capacity?: number) => RowCache;
 
 // @public
 export const CustomGrouping: React.ComponentType<CustomGroupingProps>;
@@ -502,6 +498,16 @@ export interface PagingStateProps {
 
 // @public (undocumented)
 export type Row = any;
+
+// @public (undocumented)
+export interface RowCache {
+  // (undocumented)
+  getRows(skip: number, take: number): any[];
+  // (undocumented)
+  invalidate(): void;
+  // (undocumented)
+  setRows(skip: number, rows: ReadonlyArray<any>): void;
+}
 
 // @public
 export const RowDetailState: React.ComponentType<RowDetailStateProps>;

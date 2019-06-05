@@ -16,7 +16,7 @@ export const getCellByDate: GetCellByDateFn = (viewCellsData, date, takePrev = f
     .isBetween(
       timeCell[cellIndex].startDate,
       timeCell[cellIndex].endDate,
-      undefined,
+      'seconds',
       takePrev ? '(]' : '[)'),
     );
 

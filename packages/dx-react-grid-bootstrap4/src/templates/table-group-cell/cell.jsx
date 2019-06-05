@@ -7,6 +7,8 @@ export const Cell = ({
   expanded, onToggle,
   children, tableRow, tableColumn,
   iconComponent: Icon, contentComponent: Content,
+  containerComponent: Container,
+  side, position,
   ...restProps
 }) => {
   const handleClick = () => onToggle();
@@ -18,17 +20,19 @@ export const Cell = ({
       onClick={handleClick}
       {...restProps}
     >
-      <Icon
-        expanded={expanded}
-        onToggle={onToggle}
-        className="mr-2"
-      />
-      <Content
-        column={column}
-        row={row}
-      >
-        {children}
-      </Content>
+      <Container side={side} position={position}>
+        <Icon
+          expanded={expanded}
+          onToggle={onToggle}
+          className="mr-2"
+        />
+        <Content
+          column={column}
+          row={row}
+        >
+          {children}
+        </Content>
+      </Container>
     </td>
   );
 };
@@ -36,6 +40,7 @@ export const Cell = ({
 Cell.propTypes = {
   contentComponent: PropTypes.func.isRequired,
   iconComponent: PropTypes.func.isRequired,
+  containerComponent: PropTypes.func.isRequired,
   className: PropTypes.string,
   colSpan: PropTypes.number,
   row: PropTypes.any,
@@ -48,6 +53,8 @@ Cell.propTypes = {
   ]),
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
+  side: PropTypes.string,
+  position: PropTypes.string,
 };
 
 Cell.defaultProps = {
@@ -60,4 +67,6 @@ Cell.defaultProps = {
   children: undefined,
   tableRow: undefined,
   tableColumn: undefined,
+  side: 'left',
+  position: '',
 };

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 import { BandedHeaderCell } from './banded-header-cell';
-import { ThemeColors } from '../layout';
+import { StyleContext } from '../layout';
 
 const defaultProps = {
   component: () => <div />,
@@ -37,13 +37,13 @@ describe('BandedHeaderCell', () => {
 
   it('should apply left border if necessary', () => {
     const tree = mount((
-      <ThemeColors.Provider value={{ borderColor: 'red' }}>
+      <StyleContext.Provider value={{ borderColor: 'red' }}>
         <BandedHeaderCell
           {...defaultProps}
           className="custom-class"
           beforeBorder
         />
-      </ThemeColors.Provider>
+      </StyleContext.Provider>
     ));
 
     tree.setState({ borderColor: 'red' });

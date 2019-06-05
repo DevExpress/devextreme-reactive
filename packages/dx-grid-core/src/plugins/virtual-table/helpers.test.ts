@@ -1,139 +1,125 @@
-import { pageTriggersMeta } from './helpers';
+import { getViewport } from './helpers';
 
-export const generateArguments = ({
-  viewportTop = 0, visibleRowsStart = 0, visibleRowsEnd = 20,
-  loadedRowsStart = 0, rowsLength = 200,
-}) => ({
-  gridGeometry: {
-    visibleRowBoundaries: {
-      viewportTop,
-      body: {
-        start: visibleRowsStart,
-        end: visibleRowsEnd,
-      },
+const estimatedRowheight = 40;
+const createItems = length => (
+  Array.from({ length }).map((_, i) => ({ id: i }))
+);
+const createRows = (length, height = estimatedRowheight) => (
+  createItems(length).map(item => ({ ...item, height }))
+);
+const createColumns = (length, width = 150) => (
+  createItems(length).map(item => ({ ...item, width }))
+);
+
+describe('#getViewport', () => {
+  const getRowHeight = row => row.height;
+  const getColumnWidth = col => col.width;
+  const defaultState = {
+    containerWidth: 800,
+    containerHeight: 800,
+    headerHeight: 100,
+    footerHeight: 100,
+    viewportTop: 21000,
+    viewportLeft: 1600,
+  };
+
+  const defaultGetters = {
+    isDataRemote: true,
+    loadedRowsStart: 500,
+    bodyRows: createRows(50),
+    headerRows: createRows(2),
+    footerRows: createRows(2),
+    columns: createColumns(40),
+    viewport: {
+      columns: [[0, 0]],
+      rows: [0, 0],
+      headerRows: [0, 0],
+      footerRows: [0, 0],
+      viewportTop: 0,
+      viewportLeft: 0,
     },
-    viewportTop,
-    containerHeight: 400,
-    estimatedRowHeight: 40,
-  },
-  getters: {
-    virtualRows: {
-      skip: loadedRowsStart,
-      rows: Array.from({ length: rowsLength }).map(() => {}),
-    },
-    pageSize: 100,
-  },
-});
+  };
 
-describe('#pageTriggersMeta', () => {
-  it('should return null when rows not loaded', () => {
-    const { gridGeometry, getters } = generateArguments({ rowsLength: 0 });
-
-    expect(pageTriggersMeta(gridGeometry, getters))
-      .toBeNull();
+  it('should calculate viewport for default-sized rows', () => {
+    expect(getViewport(
+      defaultState, defaultGetters, estimatedRowheight, getRowHeight, getColumnWidth,
+    ))
+      .toEqual({
+        viewportTop: 21000,
+        viewportLeft: 1600,
+        columns: [[9, 16]],
+        rows: [525, 539],
+        headerRows: [0, 1],
+        footerRows: [0, 1],
+      });
   });
 
-  describe('inside visible range', () => {
-    it('should calculate page triggers when grid is not scrolled', () => {
-      const { gridGeometry, getters } = generateArguments({});
+  it('should calculate viewport for custom-sized rows', () => {
+    const getters = {
+      ...defaultGetters,
+      bodyRows: [
+        ...createRows(10, 50), // 0 - 500
+        ...createRows(15, 20), // 500 - 800
+        ...createRows(10, 60), // 800 - 1400
+      ],
+      headerRows: createRows(3, 30),
+      footerRows: createRows(3, 120),
+      loadedRowsStart: 0,
+    };
+    const state = {
+      ...defaultState,
+      viewportTop: 400,
+    };
 
-      expect(pageTriggersMeta(gridGeometry, getters))
-        .toEqual({
-          topTriggerIndex: 0,
-          topTriggerPosition: -200, // 10 rows up
-          bottomTriggerIndex: 100, // next page boundary
-          bottomTriggerPosition: 3800, // 100'th row position in the midlle of viewport
-        });
-    });
-
-    it('should calculate same page triggers when grid is scrolled half a page', () => {
-      const { gridGeometry, getters } = generateArguments({
-        visibleRowsStart: 30,
-        visibleRowsEnd: 50,
-        viewportTop: 1200,
+    expect(getViewport(
+      state, getters, estimatedRowheight, getRowHeight, getColumnWidth,
+    ))
+      .toEqual({
+        viewportTop: 400,
+        viewportLeft: 1600,
+        columns: [[9, 16]],
+        rows: [8, 28],
+        headerRows: [0, 2],
+        footerRows: [0, 0],
       });
-
-      expect(pageTriggersMeta(gridGeometry, getters))
-        .toEqual({
-          topTriggerIndex: 0,
-          topTriggerPosition: -200,
-          bottomTriggerIndex: 100,
-          bottomTriggerPosition: 3800,
-        });
-    });
-
-    it('should consider virtual rows skip', () => {
-      const { gridGeometry, getters } = generateArguments({
-        visibleRowsStart: 230,
-        visibleRowsEnd: 250,
-        viewportTop: 9200,
-        loadedRowsStart: 100,
-        rowsLength: 300,
-      });
-
-      expect(pageTriggersMeta(gridGeometry, getters))
-        .toEqual({
-          topTriggerIndex: 200, // border between 2 and 3 pages
-          topTriggerPosition: 7800,
-          bottomTriggerIndex: 300, // next page boundary
-          bottomTriggerPosition: 11800,
-        });
-    });
-
-    it('should correctly calculate triggers when only part of loaded rows is visible', () => {
-      const { gridGeometry, getters } = generateArguments({
-        visibleRowsStart: 390,
-        visibleRowsEnd: 410,
-        viewportTop: 15600,
-        loadedRowsStart: 100,
-        rowsLength: 300,
-      });
-
-      expect(pageTriggersMeta(gridGeometry, getters))
-        .toEqual({
-          topTriggerIndex: 200,
-          topTriggerPosition: 7800,
-          bottomTriggerIndex: 300, // border between 3 and 4 pages
-          bottomTriggerPosition: 11800,
-        });
-    });
   });
 
-  describe('outside the visible range', () => {
-    it('should calculate page triggers when loaded rows are below viewport', () => {
-      const { gridGeometry, getters } = generateArguments({
-        visibleRowsStart: 200,
-        visibleRowsEnd: 220,
-        viewportTop: 8000,
-        loadedRowsStart: 400,
-        rowsLength: 300,
+  it('should calculate viewport for not loaded rows', () => {
+    const getters = {
+      ...defaultGetters,
+      loadedRowsStart: 0,
+    };
+
+    expect(getViewport(
+      defaultState, getters, estimatedRowheight, getRowHeight, getColumnWidth,
+    ))
+      .toEqual({
+        viewportTop: 21000,
+        viewportLeft: 1600,
+        columns: [[9, 16]],
+        rows: [525, 525],
+        headerRows: [0, 1],
+        footerRows: [0, 1],
       });
+  });
 
-      expect(pageTriggersMeta(gridGeometry, getters))
-        .toEqual({
-          topTriggerIndex: 500,
-          topTriggerPosition: 19800,
-          bottomTriggerIndex: 600,
-          bottomTriggerPosition: 23800,
-        });
-    });
+  it('should return the same viewport if it is not changed', () => {
+    const initialViewport = {
+      viewportTop: 21000,
+      viewportLeft: 1600,
+      columns: [[9, 16]],
+      rows: [525, 539],
+      headerRows: [0, 1],
+      footerRows: [0, 1],
+    };
+    const getters = {
+      ...defaultGetters,
+      viewport: initialViewport,
+    };
 
-    it('should calculate page triggers when loaded rows are above viewport', () => {
-      const { gridGeometry, getters } = generateArguments({
-        visibleRowsStart: 1000,
-        visibleRowsEnd: 1020,
-        viewportTop: 40000,
-        loadedRowsStart: 400,
-        rowsLength: 300,
-      });
-
-      expect(pageTriggersMeta(gridGeometry, getters))
-        .toEqual({
-          topTriggerIndex: 500,
-          topTriggerPosition: 19800,
-          bottomTriggerIndex: 600,
-          bottomTriggerPosition: 23800,
-        });
-    });
+    expect(getViewport(
+      defaultState, getters, estimatedRowheight, getRowHeight, getColumnWidth,
+    ))
+      .toBe(initialViewport);
   });
 });

@@ -50,14 +50,16 @@ export const calculateRequestedRange: CalculateRequestedRangeFn = (
     return intervalUtil.difference(newRange, loadedInterval);
   }
 
-  const useFirstHalf = referenceIndex % pageSize < pageSize / 2;
-  const isLastPage = intervalUtil.getLength(newRange) / pageSize < 3;
-  const start = useFirstHalf || isLastPage
-    ? newRange.start
-    : newRange.start + pageSize;
-  const end = Math.min(newRange.end, start + 2 * pageSize);
+  return newRange;
 
-  return { start, end };
+  // const useFirstHalf = referenceIndex % pageSize < pageSize / 2;
+  // const isLastPage = intervalUtil.getLength(newRange) / pageSize < 3;
+  // const start = useFirstHalf || isLastPage
+  //   ? newRange.start
+  //   : newRange.start + pageSize;
+  // const end = Math.min(newRange.end, start + 2 * pageSize);
+
+  // return { start, end };
 };
 
 export const rowToPageIndex: PureComputed<[number, number]> = (

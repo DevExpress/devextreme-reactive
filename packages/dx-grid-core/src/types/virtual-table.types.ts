@@ -17,13 +17,14 @@ type CollapsedRow = TableRow & { cells: any[], height: number };
 
 /** @internal */
 export type VisibleBoundary = ReadonlyArray<number>;
+
 /** @internal */
-export type RowsVisibleBoundary = {
-  start: number;
-  end: number;
-};
-/** @internal */
-export type GridRowsBoundaries = Record<'header' | 'body' | 'footer', RowsVisibleBoundary> & {
+export type GridViewport = {
+  columns: VisibleBoundary[];
+  rows: VisibleBoundary;
+  headerRows: VisibleBoundary;
+  footerRows: VisibleBoundary;
+  viewportLeft: number;
   viewportTop: number; // to anchor a boundary to specific coords
 };
 /** @internal */
@@ -102,7 +103,7 @@ export type GetCollapsedGridsFn = PureComputed<
     getCellColSpan?: GetCellColSpanFn,
     viewportLeft: number,
     containerWidth: number,
-    visibleRowBoundaries: GridRowsBoundaries,
+    viewport: GridViewport,
     getColumnWidth: GetColumnWidthFn,
     getRowHeight: GetRowHeightFn,
   }],
@@ -120,8 +121,8 @@ export type GetColumnWidthGetterFn = PureComputed<
 >;
 
 /** @internal */
-export type RowsVisibleBoundaryFn = PureComputed<
-  [any, Getters, number, GetRowHeightFn], GridRowsBoundaries
+export type GetViewportFn = PureComputed<
+  [any, Getters, number, GetRowHeightFn, GetColumnWidthFn], GridViewport
 >;
 
 /** @internal */
@@ -139,7 +140,7 @@ type PageTriggersMeta = {
 export type GridGeometry = {
   viewportTop: number;
   containerHeight: number;
-  visibleRowBoundaries: GridRowsBoundaries;
+  viewport: GridViewport;
   estimatedRowHeight: number;
 };
 

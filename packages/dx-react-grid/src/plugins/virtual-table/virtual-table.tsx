@@ -1,19 +1,29 @@
 import * as React from 'react';
 import {
-  connectProps, Plugin, Template,
+  connectProps, Plugin, Template, Action,
   PluginComponents,
   TemplateConnector,
   TemplatePlaceholder,
+  Getter,
 } from '@devexpress/dx-react-core';
 import {
   isStubTableCell,
 } from '@devexpress/dx-grid-core';
 import {
-  VirtualTableProps, VirtualTableLayoutProps, VirtualTableLayoutState,
+  VirtualTableProps, VirtualTableLayoutProps,
   Table as TableNS,
   TableLayoutProps,
 } from '../../types';
-import { RemoteDataLoader } from './remote-data-loader';
+
+/** @internal */
+export const emptyViewport = {
+  columns: [[0, 0]],
+  rows: [0, 0],
+  headerRows: [0, 0],
+  footerRows: [0, 0],
+  viewportTop: 0,
+  viewportLeft: 0,
+};
 
 /** @internal */
 export const makeVirtualTable: (...args: any) => any = (Table, {
@@ -24,7 +34,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
   defaultEstimatedRowHeight,
   defaultHeight,
 }) => {
-  class VirtualTable extends React.PureComponent<VirtualTableProps, VirtualTableLayoutState> {
+  class VirtualTable extends React.PureComponent<VirtualTableProps, any> {
     static defaultProps = {
       estimatedRowHeight: defaultEstimatedRowHeight,
       height: defaultHeight,
@@ -41,6 +51,10 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
     constructor(props) {
       super(props);
 
+      this.state = {
+        viewport: emptyViewport,
+      };
+
       this.layoutRenderComponent = connectProps(VirtualLayout, () => {
         const {
           headTableComponent,
@@ -54,6 +68,8 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
       });
     }
 
+    setViewport = viewport => this.setState({ viewport });
+
     componentDidUpdate() {
       this.layoutRenderComponent.update();
     }
@@ -66,40 +82,45 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
         children,
         ...restProps
       } = this.props;
+      const {
+        viewport: stateViewport,
+      } = this.state;
 
       return (
         <Plugin name="VirtualTable">
           <Table layoutComponent={this.layoutRenderComponent} {...restProps} />
-          <RemoteDataLoader />
+
+          {/* prevents breaking change */}
+          <Action name="setViewport" action={this.setViewport} />
+          <Getter name="viewport" value={stateViewport} />
 
           <Template name="tableLayout">
-            {(params: TableLayoutProps) => {
-              return (
-                <TemplateConnector>
-                  {(
-                    { availableRowCount, loadedRowsStart, tableBodyRows, isDataRemote },
-                    { ensureNextVirtualPage },
-                  ) => {
+            {(params: TableLayoutProps) => (
+              <TemplateConnector>
+                {(
+                  { availableRowCount, loadedRowsStart, tableBodyRows, isDataRemote, viewport },
+                  { setViewport },
+                ) => {
 
-                    const totalRowCount = availableRowCount || tableBodyRows.length;
+                  const totalRowCount = availableRowCount || tableBodyRows.length;
 
-                    return (
-                      <TemplatePlaceholder
-                        params={{
-                          ...params,
-                          totalRowCount,
-                          loadedRowsStart,
-                          isDataRemote,
-                          height,
-                          estimatedRowHeight,
-                          ensureNextVirtualPage,
-                        }}
-                      />
-                    );
-                  }}
-                </TemplateConnector>
-              );
-            }}
+                  return (
+                    <TemplatePlaceholder
+                      params={{
+                        ...params,
+                        totalRowCount,
+                        loadedRowsStart,
+                        isDataRemote,
+                        height,
+                        estimatedRowHeight,
+                        setViewport,
+                        viewport,
+                      }}
+                    />
+                  );
+                }}
+              </TemplateConnector>
+            )}
           </Template>
 
           <Template

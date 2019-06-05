@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { Getter, Action, Plugin, Getters, Actions } from '@devexpress/dx-react-core';
+import { Getter, Action, Plugin, Getters, Actions, ActionFn } from '@devexpress/dx-react-core';
 import {
   recalculateBounds, calculateRequestedRange, virtualRowsWithCache,
   trimRowsToInterval, intervalUtil, emptyVirtualRows, plainRows, loadedRowsStart,
-  VirtualRows, Interval, getForceReloadInterval, getAvailableRowCount,
+  VirtualRows, Interval, GridViewport, getForceReloadInterval, getAvailableRowCount,
 } from '@devexpress/dx-grid-core';
-import { VirtualTableStateProps, VirtualTableStateState } from '../../types';
+import { VirtualTableStateProps } from '../../types';
 
 const virtualRowsComputed = (
   { skip, rows, virtualRowsCache }: Getters,
@@ -16,7 +16,7 @@ const rowsComputed = ({ virtualRows }: Getters) => plainRows(virtualRows);
 const loadedRowsStartComputed = ({ virtualRows }: Getters) => loadedRowsStart(virtualRows);
 
 // tslint:disable-next-line: max-line-length
-class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, VirtualTableStateState> {
+class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, any> {
   static defaultProps = {
     pageSize: 100,
   };
@@ -30,6 +30,34 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
       requestedPageIndex: undefined,
       availableRowCount: props.totalRowCount || 0,
     };
+  }
+
+  setViewport = (
+    viewport,
+    { virtualRows }: Getters,
+    { requestNextPage }: Actions,
+  ) => {
+    this.setState({ viewport });
+
+    this.ensureRowsLoaded(viewport, virtualRows, requestNextPage);
+  }
+
+  ensureRowsLoaded(
+    viewport: GridViewport, virtualRows: VirtualRows, requestNextPage: ActionFn<object>,
+  ) {
+    const { pageSize } = this.props;
+    const [top, bottom] = viewport.rows;
+    const { start, end } = intervalUtil.getRowsInterval(virtualRows);
+    const referenceIndex = (top + bottom) / 2;
+    const loadCount = end - start;
+    const topTriggerIndex = start > 0 ? start + pageSize! : 0;
+    const bottomTriggerIndex = end - pageSize!;
+
+    if (loadCount <= 0) return;
+
+    if (bottomTriggerIndex < referenceIndex || referenceIndex < topTriggerIndex) {
+      requestNextPage({ referenceIndex });
+    }
   }
 
   requestNextPageAction = (
@@ -152,6 +180,7 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
         <Getter name="loadedRowsStart" computed={loadedRowsStartComputed} />
 
         <Action name="requestNextPage" action={this.requestNextPageAction} />
+        <Action name="setViewport" action={this.setViewport} />
         <Action name="clearRowCache" action={this.clearRowsCacheAction} />
         <Action name="changeColumnSorting" action={this.clearRowsCacheAction} />
         <Action name="changeColumnFilter" action={this.clearRowsCacheAction} />

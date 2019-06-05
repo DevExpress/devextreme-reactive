@@ -53,4 +53,5 @@ export * from './plugins/virtual-table/virtual-table';
 
 export * from './types/tables/virtual-table.types';
 
+export * from './types/utils';
 export * from './utils/row-cache';

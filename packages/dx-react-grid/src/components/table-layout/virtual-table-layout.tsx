@@ -3,7 +3,7 @@ import { Sizer } from '@devexpress/dx-react-core';
 import { MemoizedFunction, memoize, isEdgeBrowser } from '@devexpress/dx-core';
 import {
   TableColumn, GetColumnWidthFn, getCollapsedGrids,
-  getColumnWidthGetter, TABLE_STUB_TYPE, getVisibleRowsBounds, GridRowsBoundaries,
+  getColumnWidthGetter, TABLE_STUB_TYPE, getViewport, GridViewport,
 } from '@devexpress/dx-grid-core';
 import { VirtualTableLayoutState, VirtualTableLayoutProps } from '../../types';
 import { findDOMNode } from 'react-dom';
@@ -18,7 +18,6 @@ const defaultProps = {
   headTableComponent: () => null,
   footerComponent: () => null,
   footerTableComponent: () => null,
-  ensureNextVirtualPage: () => void 0,
 };
 type PropsType = VirtualTableLayoutProps & typeof defaultProps;
 
@@ -30,20 +29,21 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
   rowRefs = new Map();
   blockRefs = new Map();
   isEdgeBrowser = false;
+  viewportTop = 0;
+  containerHeight = 600;
+  containerWidth = 800;
+  viewportLeft = 0;
 
   constructor(props) {
     super(props);
 
     this.state = {
-      rowHeights: new Map(),
-      viewportTop: 0,
-      viewportLeft: 0,
-      containerWidth: 800,
-      containerHeight: 600,
+      rowHeights: new Map<any, number>(),
       height: 0,
       headerHeight: 0,
       bodyHeight: 0,
       footerHeight: 0,
+      visibleRowBoundaries: {},
     };
 
     const headerHeight = props.headerRows
@@ -71,9 +71,19 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
     this.storeBlockHeights();
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     this.storeRowHeights();
     this.storeBlockHeights();
+
+    const { bodyRows } = this.props;
+
+    // NOTE: the boundaries depend not only on scroll position and container dimensions
+    // but on body rows too. This boundaries update is especially important when
+    // lazy loading is used because by the time that all involved events are handled
+    // no rows are loaded yet.
+    if (prevProps.bodyRows !== bodyRows) {
+      this.updateVisibleBoundaries();
+    }
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -164,31 +174,26 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
     }
   }
 
-  updateViewport = (e, visibleRowBoundaries, ensureNextVirtualPage) => {
+  updateViewport = (e) => {
     const node = e.target;
 
     if (this.shouldSkipScrollEvent(e)) {
       return;
     }
 
-    const { estimatedRowHeight } = this.props;
-    const { containerHeight } = this.state;
     const { scrollTop: viewportTop, scrollLeft: viewportLeft } = node;
-    ensureNextVirtualPage({
-      estimatedRowHeight,
-      visibleRowBoundaries,
-      viewportTop,
-      containerHeight,
-    });
 
-    this.setState({
-      viewportTop,
-      viewportLeft,
-    });
+    this.viewportTop = viewportTop;
+    this.viewportLeft = viewportLeft;
+
+    this.updateVisibleBoundaries();
   }
 
   handleContainerSizeChange = ({ width, height }) => {
-    this.setState({ containerWidth: width, containerHeight: height });
+    this.containerHeight = height;
+    this.containerWidth = width;
+
+    this.updateVisibleBoundaries();
   }
 
   shouldSkipScrollEvent(e) {
@@ -212,24 +217,39 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
     return false;
   }
 
-  getVisibleBoundaries() {
+  updateVisibleBoundaries() {
+    const { viewport, setViewport } = this.props;
+    const newViewport = this.calculateViewport();
+
+    if (viewport !== newViewport) {
+      setViewport(newViewport);
+    }
+  }
+
+  calculateViewport() {
+    const { state, viewportTop, viewportLeft, containerHeight, containerWidth } = this;
     const {
       loadedRowsStart,
       bodyRows,
       headerRows,
       footerRows,
       estimatedRowHeight,
+      columns,
+      minColumnWidth,
       isDataRemote,
+      viewport,
     } = this.props;
+    const getColumnWidth = this.getColumnWidthGetter(columns, containerWidth, minColumnWidth!);
 
-    return getVisibleRowsBounds(
-      this.state, { isDataRemote, loadedRowsStart, bodyRows, headerRows, footerRows },
-      estimatedRowHeight, this.getRowHeight,
+    return getViewport(
+      { ...state, viewportTop, viewportLeft, containerHeight, containerWidth },
+      { loadedRowsStart, columns, bodyRows, headerRows, footerRows, isDataRemote, viewport },
+      estimatedRowHeight, this.getRowHeight, getColumnWidth,
     );
   }
 
-  getCollapsedGrids(visibleRowBoundaries: GridRowsBoundaries) {
-    const { viewportLeft, containerWidth } = this.state;
+  getCollapsedGrids(viewport: GridViewport) {
+    const { containerWidth, viewportLeft } = this;
     const {
       headerRows, bodyRows, footerRows,
       columns, loadedRowsStart, totalRowCount,
@@ -247,9 +267,9 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
       getCellColSpan,
       viewportLeft,
       containerWidth,
-      visibleRowBoundaries,
-      getColumnWidth,
+      viewport,
       getRowHeight: this.getRowHeight,
+      getColumnWidth,
     });
   }
 
@@ -266,21 +286,20 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
       height,
       headerRows,
       footerRows,
-      ensureNextVirtualPage,
       minColumnWidth,
       minWidth,
       cellComponent,
       rowComponent,
+      viewport,
     } = this.props;
     const {
-      containerHeight,
       headerHeight,
       bodyHeight,
       footerHeight,
     } = this.state;
+    const { containerHeight } = this;
 
-    const visibleRowBoundaries = this.getVisibleBoundaries();
-    const collapsedGrids = this.getCollapsedGrids(visibleRowBoundaries);
+    const collapsedGrids = this.getCollapsedGrids(viewport);
     const commonProps = {
       cellComponent,
       rowComponent,
@@ -297,9 +316,7 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
         style={{
           ...(height === AUTO_HEIGHT ? null : { height }),
         }}
-        onScroll={
-          e => this.updateViewport(e, visibleRowBoundaries, ensureNextVirtualPage)
-        }
+        onScroll={this.updateViewport}
       >
         {
           (!!headerRows.length) && (

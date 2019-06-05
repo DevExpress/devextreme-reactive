@@ -197,8 +197,6 @@ export {
 } from './utils/virtual-table';
 
 /** @internal */
-export * from './plugins/virtual-table/computeds';
-/** @internal */
 export * from './plugins/virtual-table/helpers';
 
 /** @internal */

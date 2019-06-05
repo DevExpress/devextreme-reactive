@@ -11,9 +11,12 @@ import {
 /** @internal */
 export const scaleLinear: FactoryFn = d3ScaleLinear as any;
 /** @internal */
-export const scaleBand: FactoryFn = () => (
-  d3ScaleBand().paddingInner(0.3).paddingOuter(0.15) as any
-);
+export const scaleBand: FactoryFn = () => {
+  const scale = d3ScaleBand().paddingInner(0.3).paddingOuter(0.15);
+  const wrapper = (value: any) => scale(value)! + scale.bandwidth() / 2;
+  Object.assign(wrapper, scale);
+  return wrapper as ScaleObject;
+};
 
 /** @internal */
 export const isHorizontal = (name: string) => name === ARGUMENT_DOMAIN;
@@ -22,12 +25,6 @@ export const isHorizontal = (name: string) => name === ARGUMENT_DOMAIN;
 export const getWidth = (scale: ScaleObject) => (
   scale.bandwidth ? scale.bandwidth() : 0
 );
-
-/** @internal */
-export const fixOffset = (scale: ScaleObject): ((value: number) => number) => {
-  const offset = getWidth(scale) / 2;
-  return offset > 0 ? value => scale(value) + offset : scale;
-};
 
 /** @internal */
 export const getValueDomainName = (name?: string) => name || VALUE_DOMAIN;

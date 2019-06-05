@@ -17,7 +17,7 @@ import { appointments } from '../../../demo-data/appointments';
 
 const allDayLocalizationMessages = {
   'fr-FR': {
-    allDay: "Temps plein",
+    allDay: 'Temps plein',
   },
   'de-GR': {
     allDay: 'Ganztägig',

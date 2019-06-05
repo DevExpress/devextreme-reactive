@@ -26,6 +26,6 @@ In controlled mode, the state of all or particular `AppointmentTooltip`s should 
 
 ### Customize the Appearance
 
-To customize the appointment tooltip's appearance, redefine `xxxComponent` properties. `xxx` stands for the name of the element that you want to customize. For example, the tooltip's header and content are customized using the `headerComponent` and `contentComponent` properties, as shown in the code below. Refer to the [`AppointmentTooltip` API reference page](../reference/appointment-tooltip.md) for a list of all `xxxComponent` properties.
+To customize the appointment tooltip's appearance, redefine `xxxComponent` properties. `xxx` stands for the name of the element that you want to customize. For example, the tooltip's header and content are customized using the `headerComponent` and `contentComponent` properties, as shown in the code below. Refer to the [AppointmentTooltip API reference page](../reference/appointment-tooltip.md) for a list of all `xxxComponent` properties.
 
 .embedded-demo({ "path": "scheduler-tooltip/custom", "showThemeSelector": true })

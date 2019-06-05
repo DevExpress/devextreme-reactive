@@ -20,7 +20,7 @@ const allDayLocalizationMessages = {
     allDay: "Autour de l'horloge",
   },
   'de-GR': {
-    allDay: 'Rund um die Uhr',
+    allDay: 'Ganztägig',
   },
   'en-US': {
     allDay: 'All Day',

@@ -73,7 +73,7 @@ export namespace MonthView {
     /** Specifies the cells meta data. */
     cellsData: MonthView.CellData[][];
     /** A function that accepts the table’s root React element. */
-    tableRef: (ref: React.ReactInstance) => void;
+    tableRef: React.RefObject<HTMLElement>;
     /** A component that renders a time table cell. */
     cellComponent: React.ComponentType<MonthView.TimeTableCellProps>;
     /** A component that renders a time table row. */

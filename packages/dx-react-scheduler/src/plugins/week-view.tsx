@@ -78,6 +78,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
     dayScaleLayoutComponent: 'DayScaleLayout',
     dayScaleCellComponent: 'DayScaleCell',
     dayScaleRowComponent: 'DayScaleRow',
+    timeTableContainerComponent: 'TimeTableContainer',
     timeTableLayoutComponent: 'TimeTableLayout',
     timeTableCellComponent: 'TimeTableCell',
     timeTableRowComponent: 'TimeTableRow',
@@ -162,7 +163,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
 
   calculateRects = memoize((
     appointments, startViewDate, endViewDate, excludedDays, viewCellsData, cellDuration,
-  ) => (cellElements) => {
+  ) => (cellElementsMeta) => {
     const intervals = calculateWeekDateIntervals(
       appointments, startViewDate, endViewDate, excludedDays!,
     );
@@ -179,7 +180,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
         endViewDate,
         viewCellsData,
         cellDuration,
-        cellElements,
+        cellElementsMeta,
       },
     );
 
@@ -196,6 +197,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
       dayScaleLayoutComponent: DayScale,
       dayScaleCellComponent: DayScaleCell,
       dayScaleRowComponent: DayScaleRow,
+      timeTableContainerComponent: TimeTableContainer,
       timeTableLayoutComponent: TimeTable,
       timeTableRowComponent: TimeTableRow,
       timeTableCellComponent: TimeTableCell,
@@ -311,7 +313,8 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
 
               return (
                 <React.Fragment>
-                  <TimeTable
+                  <TimeTableContainer
+                    timeTableLayout={TimeTable}
                     cellsData={viewCellsData}
                     rowComponent={TimeTableRow}
                     cellComponent={CellPlaceholder}

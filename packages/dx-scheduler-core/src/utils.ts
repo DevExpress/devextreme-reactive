@@ -255,7 +255,7 @@ const verticalRectCalculator: CustomFunction<
     rectByDatesMeta: {
       viewCellsData,
       cellDuration,
-      cellElements,
+      cellElementsMeta,
       excludedDays,
     },
   },
@@ -271,7 +271,7 @@ const verticalRectCalculator: CustomFunction<
       viewCellsData,
       cellDuration,
       excludedDays,
-      cellElements,
+      cellElementsMeta,
     },
   );
 

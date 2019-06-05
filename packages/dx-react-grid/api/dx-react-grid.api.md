@@ -499,13 +499,10 @@ export interface PagingStateProps {
 // @public (undocumented)
 export type Row = any;
 
-// @public (undocumented)
+// @public
 export interface RowCache {
-  // (undocumented)
   getRows(skip: number, take: number): any[];
-  // (undocumented)
   invalidate(): void;
-  // (undocumented)
   setRows(skip: number, rows: ReadonlyArray<any>): void;
 }
 

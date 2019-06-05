@@ -20,6 +20,6 @@ scopes:
   - react-scheduler
   - react-scheduler-demos
   - react-scheduler-material-ui
-  - react-scheduler-core
+  - scheduler-core
   - styles
   - testing

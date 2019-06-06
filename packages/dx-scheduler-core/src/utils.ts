@@ -215,7 +215,7 @@ const horizontalRectCalculator: CustomFunction<
     rectByDates,
     multiline,
     rectByDatesMeta: {
-      cellElements,
+      cellElementsMeta,
       viewCellsData,
     },
   },
@@ -228,7 +228,7 @@ const horizontalRectCalculator: CustomFunction<
     rectByDates,
     {
       multiline,
-      cellElements,
+      cellElementsMeta,
       viewCellsData,
     },
   );

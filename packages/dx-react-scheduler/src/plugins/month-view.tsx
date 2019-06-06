@@ -59,6 +59,7 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
     dayScaleLayoutComponent: 'DayScaleLayout',
     dayScaleCellComponent: 'DayScaleCell',
     dayScaleRowComponent: 'DayScaleRow',
+    timeTableContainerComponent: 'TimeTableContainer',
     timeTableLayoutComponent: 'TimeTableLayout',
     timeTableCellComponent: 'TimeTableCell',
     timeTableRowComponent: 'TimeTableRow',
@@ -137,7 +138,7 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
 
   calculateRects = memoize((
     appointments, startViewDate, endViewDate, viewCellsData,
-  ) => (cellElements) => {
+  ) => (cellElementsMeta) => {
     const intervals = calculateMonthDateIntervals(
       appointments, startViewDate, endViewDate,
     );
@@ -153,7 +154,7 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
         startViewDate,
         endViewDate,
         viewCellsData,
-        cellElements,
+        cellElementsMeta,
       },
     );
 
@@ -166,6 +167,7 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
       dayScaleLayoutComponent: DayScale,
       dayScaleCellComponent: DayScaleCell,
       dayScaleRowComponent: DayScaleRow,
+      timeTableContainerComponent: TimeTableContainer,
       timeTableLayoutComponent: TimeTable,
       timeTableRowComponent: TimeTableRow,
       timeTableCellComponent: TimeTableCell,
@@ -239,7 +241,8 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
               );
               return (
                 <React.Fragment>
-                  <TimeTable
+                  <TimeTableContainer
+                    timeTableLayout={TimeTable}
                     cellsData={viewCellsData}
                     rowComponent={TimeTableRow}
                     cellComponent={CellPlaceholder}

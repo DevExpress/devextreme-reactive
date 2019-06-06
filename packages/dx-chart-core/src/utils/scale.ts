@@ -40,6 +40,13 @@ export const makeScale = ({ factory, domain }: DomainInfo, range: NumberArray) =
   (factory || scaleLinear)().domain(domain).range(range)
 );
 
+// It is implicitly supposed that Chart can accept any d3 scale. It is wrong.
+// The followings notes show that. d3 scales are not seamlessly interchangeable themselves
+// (i.e. band scale has no "invert", continuous scale has no "bandwidth").
+// We have to use "adapters" to mitigate the differences.
+// Hence Chart can actually accept any object that matches "adapter" interface.
+// TODO: We should update reference accordingly. There might be breaking changes though.
+
 const scaleLinearBounds = (scale: ScaleObject, bounds: DomainBounds): NumberArray => (
   bounds.map(scale) as NumberArray
 );

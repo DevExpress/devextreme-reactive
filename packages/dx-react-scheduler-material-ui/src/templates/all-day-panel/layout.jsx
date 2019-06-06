@@ -1,8 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import Table from '@material-ui/core/Table';
-import TableHead from '@material-ui/core/TableHead';
-import RootRef from '@material-ui/core/RootRef';
+import TableBody from '@material-ui/core/TableBody';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 
@@ -12,39 +11,35 @@ const styles = {
   },
 };
 
-const LayoutBase = ({
+const LayoutBase = React.memo(({
   cellsData,
-  allDayPanelRef,
   classes, className,
   cellComponent: Cell,
   rowComponent: Row,
   ...restProps
 }) => (
-  <RootRef rootRef={allDayPanelRef}>
-    <Table
-      className={classNames(classes.table, className)}
-      {...restProps}
-    >
-      <TableHead>
-        <Row>
-          {cellsData.map(({
-            startDate,
-            endDate,
-          }) => (
-            <Cell
-              key={startDate}
-              startDate={startDate}
-              endDate={endDate}
-            />
-          ))}
-        </Row>
-      </TableHead>
-    </Table>
-  </RootRef>
-);
+  <Table
+    className={classNames(classes.table, className)}
+    {...restProps}
+  >
+    <TableBody>
+      <Row>
+        {cellsData.map(({
+          startDate,
+          endDate,
+        }) => (
+          <Cell
+            key={startDate}
+            startDate={startDate}
+            endDate={endDate}
+          />
+        ))}
+      </Row>
+    </TableBody>
+  </Table>
+));
 
 LayoutBase.propTypes = {
-  allDayPanelRef: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   cellsData: PropTypes.arrayOf(Array).isRequired,
   cellComponent: PropTypes.func,

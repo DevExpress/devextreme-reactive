@@ -31,7 +31,7 @@ export class TimeTableContainer extends React.PureComponent {
   render() {
     const {
       tableRef,
-      timeTableLayout: TimeTable,
+      layout: Layout,
       cellComponent,
       rowComponent,
       cellsData,
@@ -41,7 +41,7 @@ export class TimeTableContainer extends React.PureComponent {
     debugger
     return (
       <RootRef rootRef={tableRef}>
-        <TimeTable
+        <Layout
           cellsData={cellsData}
           rowComponent={rowComponent}
           cellComponent={cellComponent}
@@ -53,7 +53,6 @@ export class TimeTableContainer extends React.PureComponent {
 }
 
 TimeTableContainer.propTypes = {
-  children: PropTypes.node.isRequired,
-  tableRef: PropTypes.object.isRequired,
   setCellElements: PropTypes.func.isRequired,
+  tableRef: PropTypes.object.isRequired,
 };

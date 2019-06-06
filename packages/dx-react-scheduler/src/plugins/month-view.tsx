@@ -242,7 +242,7 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
               return (
                 <React.Fragment>
                   <TimeTableContainer
-                    timeTableLayout={TimeTable}
+                    layout={TimeTable}
                     cellsData={viewCellsData}
                     rowComponent={TimeTableRow}
                     cellComponent={CellPlaceholder}

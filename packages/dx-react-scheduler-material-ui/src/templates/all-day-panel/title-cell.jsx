@@ -16,7 +16,7 @@ const styles = theme => ({
   content: {
     borderTop: getBorder(theme),
     borderBottom: getBorder(theme),
-    height: theme.spacing.unit * 7,
+    height: theme.spacing.unit * 6,
     textAlign: 'right',
     display: 'flex',
     alignItems: 'center',

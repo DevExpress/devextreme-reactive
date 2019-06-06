@@ -49,7 +49,6 @@ const getCellRect: GetCellRectVerticalFn = (
   // if (cellElement.offsetParent) {
   //   parentRect = cellElement.offsetParent.getBoundingClientRect();
   // }
-  debugger
   return {
     top,
     left,

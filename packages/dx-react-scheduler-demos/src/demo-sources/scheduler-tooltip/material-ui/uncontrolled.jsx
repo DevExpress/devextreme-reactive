@@ -32,9 +32,9 @@ export default class Demo extends React.PureComponent {
           />
 
           <Appointments />
-
           <AppointmentTooltip
             showCloseButton
+            showOpenButton
           />
         </Scheduler>
       </Paper>

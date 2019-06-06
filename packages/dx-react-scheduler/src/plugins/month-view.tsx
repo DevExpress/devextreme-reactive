@@ -168,8 +168,8 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
       dayScaleCellComponent: DayScaleCell,
       dayScaleRowComponent: DayScaleRow,
       timeTableContainerComponent: TimeTableContainer,
-      timeTableLayoutComponent: TimeTable,
-      timeTableRowComponent: TimeTableRow,
+      timeTableLayoutComponent,
+      timeTableRowComponent,
       timeTableCellComponent: TimeTableCell,
       appointmentLayerComponent: AppointmentLayer,
       name: viewName,
@@ -242,9 +242,9 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
               return (
                 <React.Fragment>
                   <TimeTableContainer
-                    layout={TimeTable}
+                    layoutComponent={timeTableLayoutComponent}
                     cellsData={viewCellsData}
-                    rowComponent={TimeTableRow}
+                    rowComponent={timeTableRowComponent}
                     cellComponent={CellPlaceholder}
                     formatDate={formatDate}
                     tableRef={this.timeTable}

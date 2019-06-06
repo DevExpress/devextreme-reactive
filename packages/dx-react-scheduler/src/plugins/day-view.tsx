@@ -190,8 +190,8 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
       dayScaleCellComponent: DayScaleCell,
       dayScaleRowComponent: DayScaleRow,
       timeTableContainerComponent: TimeTableContainer,
-      timeTableLayoutComponent: TimeTable,
-      timeTableRowComponent: TimeTableRow,
+      timeTableLayoutComponent,
+      timeTableRowComponent,
       timeTableCellComponent: TimeTableCell,
       appointmentLayerComponent: AppointmentLayer,
       cellDuration,
@@ -299,9 +299,9 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
               return (
                 <React.Fragment>
                   <TimeTableContainer
-                    layout={TimeTable}
+                    layoutComponent={timeTableLayoutComponent}
                     cellsData={viewCellsData}
-                    rowComponent={TimeTableRow}
+                    rowComponent={timeTableRowComponent}
                     cellComponent={CellPlaceholder}
                     formatDate={formatDate}
                     tableRef={this.timeTable}

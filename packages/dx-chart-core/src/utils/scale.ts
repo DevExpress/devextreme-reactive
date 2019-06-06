@@ -40,23 +40,19 @@ export const makeScale = ({ factory, domain }: DomainInfo, range: NumberArray) =
   (factory || scaleLinear)().domain(domain).range(range)
 );
 
-// Though this function is used only in *Viewport* plugin (and so should be placed right there),
-// it resides here so that internal scale specifics (*getWidth*)
-// are encapsulated in this utility file.
-//
-/** @internal */
-export const scaleBounds = (scale: ScaleObject, bounds: DomainBounds): NumberArray => {
-  // There is an issue - when range is "inverted" values are scaled incorrectly.
-  //   scaleBand().domain(['a', 'b', 'c']).range([0, 60])('b') === 20
-  //   scaleBand().domain(['a', 'b', 'c']).range([60, 0])('b') === 20 (should be 40)
-  // Because of it bounds for reversed band scale are scaled wrong.
-  // Fixing it would introduce an utility "scale" function and complicates the code.
-  // Since for now we do not have "reversed" band scales the issue is left as-is.
-  if (scale.bandwidth) {
-    const cleanScale = scale.copy().paddingInner!(0).paddingOuter!(0);
-    return [cleanScale(bounds[0]), cleanScale(bounds[1]) + cleanScale.bandwidth!()];
-  }
-  return bounds.map(scale) as NumberArray;
+const scaleLinearBounds = (scale: ScaleObject, bounds: DomainBounds): NumberArray => (
+  bounds.map(scale) as NumberArray
+);
+
+// There is an issue - when range is "inverted" values are scaled incorrectly.
+//   scaleBand().domain(['a', 'b', 'c']).range([0, 60])('b') === 20
+//   scaleBand().domain(['a', 'b', 'c']).range([60, 0])('b') === 20 (should be 40)
+// Because of it bounds for reversed band scale are scaled wrong.
+// Fixing it would introduce an utility "scale" function and complicates the code.
+// Since for now we do not have "reversed" band scales the issue is left as-is.
+const scaleBandBounds = (scale: ScaleObject, bounds: DomainBounds): NumberArray => {
+  const cleanScale = scale.copy().paddingInner!(0).paddingOuter!(0);
+  return [cleanScale(bounds[0]), cleanScale(bounds[1]) + cleanScale.bandwidth!()];
 };
 
 // Because of "scaleBands" issue moving and growing for "reversed" band scales
@@ -67,7 +63,7 @@ const moveLinearScaleBounds = (
 ): DomainBounds => {
   const fullRange = scale.range();
   const sign = Math.sign(fullRange[1] - fullRange[0]);
-  const range = scaleBounds(scale, bounds);
+  const range = scaleLinearBounds(scale, bounds);
   let r0 = range[0] + delta;
   let r1 = range[1] + delta;
   // Check if new range is outside of the left border.
@@ -138,13 +134,6 @@ const moveBandScaleBounds = (
   return [domain[new0], domain[new1]];
 };
 
-/** @internal */
-export const moveBounds = (
-  scale: ScaleObject, bounds: DomainBounds, delta: number,
-) => (
-  (scale.bandwidth ? moveBandScaleBounds : moveLinearScaleBounds)(scale, bounds, delta)
-);
-
 const growLinearScaleBounds = (
   scale: ScaleObject, bounds: DomainBounds, delta: number, anchor: number,
 ): DomainBounds => {
@@ -212,14 +201,6 @@ const growBandScaleBounds = (
   return [domain[new0], domain[new1]];
 };
 
-// "scaleBounds" would be a better name but "scale" is already occupied.
-/** @internal */
-export const growBounds = (
-  scale: ScaleObject, bounds: DomainBounds, delta: number, anchor: number,
-) => (
-  (scale.bandwidth ? growBandScaleBounds : growLinearScaleBounds)(scale, bounds, delta, anchor)
-);
-
 const invertLinearScaleBounds = (scale: ScaleObject, range: NumberArray): DomainBounds => {
   const fullRange = scale.range();
   const match = Math.sign(fullRange[1] - fullRange[0]) === Math.sign(range[1] - range[0]);
@@ -243,7 +224,23 @@ const invertBandScaleBounds = (scale: ScaleObject, range: NumberArray): DomainBo
   ];
 };
 
+const makeScaleHelper = <T extends Function>(choices: [T, T]) => {
+  const func: any = (scale: ScaleObject, ...args: any[]) => {
+    const choosen = choices[Number(!!scale.bandwidth)];
+    return choosen(scale, ...args);
+  };
+  return func as T;
+}
+
+// Though this function is used only in *Viewport* plugin (and so should be placed right there),
+// it resides here so that internal scale specifics (*getWidth*)
+// are encapsulated in this utility file.
 /** @internal */
-export const invertBoundsRange = (scale: ScaleObject, range: NumberArray) => (
-  (scale.bandwidth ? invertBandScaleBounds : invertLinearScaleBounds)(scale, range)
-);
+export const scaleBounds = makeScaleHelper([scaleLinearBounds, scaleBandBounds]);
+/** @internal */
+export const moveBounds = makeScaleHelper([moveLinearScaleBounds, moveBandScaleBounds]);
+// "scaleBounds" would be a better name but "scale" is already occupied.
+/** @internal */
+export const growBounds = makeScaleHelper([growLinearScaleBounds, growBandScaleBounds]);
+/** @internal */
+export const invertBoundsRange = makeScaleHelper([invertLinearScaleBounds, invertBandScaleBounds])

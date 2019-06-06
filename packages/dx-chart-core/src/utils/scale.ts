@@ -231,13 +231,14 @@ const invertBandScaleBounds = (scale: ScaleObject, range: NumberArray): DomainBo
   ];
 };
 
+// tslint:disable-next-line: ban-types
 const makeScaleHelper = <T extends Function>(choices: [T, T]) => {
   const func: any = (scale: ScaleObject, ...args: any[]) => {
     const choosen = choices[Number(!!scale.bandwidth)];
     return choosen(scale, ...args);
   };
   return func as T;
-}
+};
 
 // Though this function is used only in *Viewport* plugin (and so should be placed right there),
 // it resides here so that internal scale specifics (*getWidth*)
@@ -250,4 +251,4 @@ export const moveBounds = makeScaleHelper([moveLinearScaleBounds, moveBandScaleB
 /** @internal */
 export const growBounds = makeScaleHelper([growLinearScaleBounds, growBandScaleBounds]);
 /** @internal */
-export const invertBoundsRange = makeScaleHelper([invertLinearScaleBounds, invertBandScaleBounds])
+export const invertBoundsRange = makeScaleHelper([invertLinearScaleBounds, invertBandScaleBounds]);

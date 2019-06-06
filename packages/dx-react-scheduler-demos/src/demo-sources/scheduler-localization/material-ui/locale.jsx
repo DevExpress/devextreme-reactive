@@ -17,10 +17,10 @@ import { appointments } from '../../../demo-data/appointments';
 
 const allDayLocalizationMessages = {
   'fr-FR': {
-    allDay: "Autour de l'horloge",
+    allDay: 'Temps plein',
   },
   'de-GR': {
-    allDay: 'Rund um die Uhr',
+    allDay: 'Ganztägig',
   },
   'en-US': {
     allDay: 'All Day',

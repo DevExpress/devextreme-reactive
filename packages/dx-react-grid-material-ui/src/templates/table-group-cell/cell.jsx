@@ -16,12 +16,14 @@ const styles = theme => ({
 const CellBase = ({
   contentComponent: Content,
   iconComponent: Icon,
+  containerComponent: Container,
   style, colSpan, row,
   column, expanded,
   onToggle,
   classes, children,
   className, tableRow,
-  tableColumn, ...restProps
+  tableColumn, side, position,
+  ...restProps
 }) => {
   const handleClick = () => onToggle();
 
@@ -33,15 +35,17 @@ const CellBase = ({
       onClick={handleClick}
       {...restProps}
     >
-      <Icon
-        expanded={expanded}
-      />
-      <Content
-        column={column}
-        row={row}
-      >
-        {children}
-      </Content>
+      <Container side={side} position={position}>
+        <Icon
+          expanded={expanded}
+        />
+        <Content
+          column={column}
+          row={row}
+        >
+          {children}
+        </Content>
+      </Container>
     </TableCell>
   );
 };
@@ -49,6 +53,7 @@ const CellBase = ({
 CellBase.propTypes = {
   contentComponent: PropTypes.func.isRequired,
   iconComponent: PropTypes.func.isRequired,
+  containerComponent: PropTypes.func.isRequired,
   style: PropTypes.object,
   colSpan: PropTypes.number,
   row: PropTypes.any,
@@ -60,6 +65,8 @@ CellBase.propTypes = {
   className: PropTypes.string,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
+  side: PropTypes.string,
+  position: PropTypes.string,
 };
 
 CellBase.defaultProps = {
@@ -73,6 +80,8 @@ CellBase.defaultProps = {
   className: undefined,
   tableRow: undefined,
   tableColumn: undefined,
+  side: 'left',
+  position: '',
 };
 
 export const Cell = withStyles(styles, { name: 'TableGroupCell' })(CellBase);

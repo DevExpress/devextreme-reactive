@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { ThemeColors } from '../layout';
+import { StyleContext } from '../layout';
 
 export class Cell extends React.PureComponent {
   render() {
@@ -31,7 +31,7 @@ export class Cell extends React.PureComponent {
   }
 }
 
-Cell.contextType = ThemeColors;
+Cell.contextType = StyleContext;
 
 Cell.propTypes = {
   style: PropTypes.object,

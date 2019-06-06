@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { ThemeColors } from '../layout';
+import { StyleContext } from '../layout';
 
 export class BandedHeaderCell extends React.PureComponent {
   render() {
@@ -25,7 +25,7 @@ export class BandedHeaderCell extends React.PureComponent {
   }
 }
 
-BandedHeaderCell.contextType = ThemeColors;
+BandedHeaderCell.contextType = StyleContext;
 
 BandedHeaderCell.propTypes = {
   component: PropTypes.func.isRequired,

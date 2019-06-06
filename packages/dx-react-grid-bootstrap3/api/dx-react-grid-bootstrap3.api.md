@@ -466,6 +466,7 @@ export const TableGroupRow: React.ComponentType<TableGroupRowProps> & {
 export interface TableGroupRowProps {
   cellComponent?: React.ComponentType<TableGroupRow_2.CellProps>;
   columnExtensions?: Array<TableGroupRow_2.ColumnExtension>;
+  contentCellPadding?: string;
   contentComponent?: React.ComponentType<TableGroupRow_2.ContentProps>;
   iconComponent?: React.ComponentType<TableGroupRow_2.IconProps>;
   indentCellComponent?: React.ComponentType<TableGroupRow_2.IndentCellProps>;

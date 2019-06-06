@@ -38,7 +38,8 @@ rowComponent | ComponentType&lt;[TableGroupRow.RowProps](#tablegrouprowrowprops)
 contentComponent | ComponentType&lt;[TableGroupRow.ContentProps](#tablegrouprowcontentprops)&gt; | | A component that renders a group cell content.
 iconComponent | ComponentType&lt;[TableGroupRow.IconProps](#tablegrouprowiconprops)&gt; | | A component that renders a group expand icon.
 indentCellComponent? | ComponentType&lt;[TableGroupRow.IndentCellProps](#tablegrouprowindentcellprops)&gt; | null | A component that renders a group indent cell.
-indentColumnWidth | number | | The group indent column's width.
+indentColumnWidth | number | `33` for [Bootstrap4](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap4) and for [Bootstrap](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3); `48` for [Material-UI](https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui) | The group indent column's width.
+contentCellPadding | string | `0.75rem` for [Bootstrap4](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap4); `8px` for [Bootstrap](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3) and for [Material-UI](https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui) | The group cell's left padding value.
 
 ## Interfaces
 

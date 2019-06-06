@@ -1,26 +1,29 @@
 import * as React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import { FixedCell } from './table-fixed-cell';
-import { ThemeColors } from './layout';
+import { StyleContext } from './layout';
 
 const defaultProps = {
   column: { name: 'Test' },
   side: 'left',
   component: () => <span />,
 };
-const themeColors = {
+const styleVars = {
   backgroundColor: 'red',
   borderColor: 'green',
+  stickyPosition: 'stickyPosition',
 };
 
 describe('FixedCell', () => {
   it('should apply default style', () => {
-    const tree = shallow((
-      <FixedCell {...defaultProps} />
+    const tree = mount((
+      <StyleContext.Provider value={styleVars}>
+        <FixedCell {...defaultProps} />
+      </StyleContext.Provider>
     ));
 
-    expect(tree.prop('style')).toMatchObject({
-      position: 'sticky',
+    expect(tree.childAt(0).prop('style')).toMatchObject({
+      position: 'stickyPosition',
       backgroundClip: 'padding-box',
       zIndex: 300,
     });
@@ -28,9 +31,9 @@ describe('FixedCell', () => {
 
   it('should apply left border if left divider exists', () => {
     const tree = mount((
-      <ThemeColors.Provider value={themeColors}>
+      <StyleContext.Provider value={styleVars}>
         <FixedCell {...defaultProps} showLeftDivider />
-      </ThemeColors.Provider>
+      </StyleContext.Provider>
     ));
 
     expect(tree.childAt(0).prop('style')).toMatchObject({
@@ -40,9 +43,9 @@ describe('FixedCell', () => {
 
   it('should apply right border if right divider exists', () => {
     const tree = mount((
-      <ThemeColors.Provider value={themeColors}>
+      <StyleContext.Provider value={styleVars}>
         <FixedCell {...defaultProps} showRightDivider />
-      </ThemeColors.Provider>
+      </StyleContext.Provider>
     ));
 
     expect(tree.childAt(0).prop('style')).toMatchObject({
@@ -51,31 +54,35 @@ describe('FixedCell', () => {
   });
 
   it('should pass custom styles to the root element', () => {
-    const tree = shallow((
-      <FixedCell {...defaultProps} style={{ color: 'white' }} />
+    const tree = mount((
+      <StyleContext.Provider value={styleVars}>
+        <FixedCell {...defaultProps} style={{ color: 'white' }} />
+      </StyleContext.Provider>
     ));
 
-    expect(tree.prop('style')).toMatchObject({
+    expect(tree.childAt(0).prop('style')).toMatchObject({
       color: 'white',
-      position: 'sticky',
+      position: 'stickyPosition',
     });
   });
 
   it('should apply position', () => {
-    const tree = shallow((
-      <FixedCell {...defaultProps} position={200} />
+    const tree = mount((
+      <StyleContext.Provider value={styleVars}>
+        <FixedCell {...defaultProps} position={200} />
+      </StyleContext.Provider>
     ));
 
-    expect(tree.prop('style')).toMatchObject({
+    expect(tree.childAt(0).prop('style')).toMatchObject({
       left: 200,
     });
   });
 
   it('should apply background color', () => {
     const tree = mount((
-      <ThemeColors.Provider value={themeColors}>
+      <StyleContext.Provider value={styleVars}>
         <FixedCell {...defaultProps} />
-      </ThemeColors.Provider>
+      </StyleContext.Provider>
     ));
 
     expect(tree.childAt(0).prop('style')).toMatchObject({
@@ -85,9 +92,9 @@ describe('FixedCell', () => {
 
   it('should not apply background color for selected cells', () => {
     const tree = mount((
-      <ThemeColors.Provider value={themeColors}>
+      <StyleContext.Provider value={styleVars}>
         <FixedCell {...defaultProps} selected />
-      </ThemeColors.Provider>
+      </StyleContext.Provider>
     ));
 
     expect(tree.childAt(0).prop('style').backgroundColor)
@@ -95,11 +102,13 @@ describe('FixedCell', () => {
   });
 
   it('should pass rest props to the root element', () => {
-    const tree = shallow((
-      <FixedCell {...defaultProps} data={{ a: 1 }} />
+    const tree = mount((
+      <StyleContext.Provider value={styleVars}>
+        <FixedCell {...defaultProps} data={{ a: 1 }} />
+      </StyleContext.Provider>
     ));
 
-    expect(tree.props().data)
+    expect(tree.childAt(0).prop('data'))
       .toMatchObject({ a: 1 });
   });
 });

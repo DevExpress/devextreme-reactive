@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
+import { getStickyCellStyle } from './utils';
 
 const styles = theme => ({
   dividerRight: {
@@ -10,12 +11,7 @@ const styles = theme => ({
   dividerLeft: {
     borderLeft: `1px solid ${theme.palette.divider}`,
   },
-  fixedCell: {
-    backgroundColor: theme.palette.background.paper,
-    position: 'sticky',
-    zIndex: 300,
-    backgroundClip: 'padding-box',
-  },
+  fixedCell: getStickyCellStyle(theme),
   selected: {
     backgroundColor: 'inherit',
   },

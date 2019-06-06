@@ -110,9 +110,9 @@ export default class Demo extends React.PureComponent {
           <AppointmentTooltip
             showCloseButton
             visible={visible}
+            onVisibilityChange={this.toggleVisibility}
             appointmentMeta={appointmentMeta}
             onAppointmentMetaChange={this.onAppointmentMetaChange}
-            onVisibilityChange={this.toggleVisibility}
           />
         </Scheduler>
       </Paper>

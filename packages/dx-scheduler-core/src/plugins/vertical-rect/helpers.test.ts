@@ -30,6 +30,16 @@ describe('Vertical rect helpers', () => {
         .toBe(new Date(2018, 5, 25, 8, 30).toString());
     });
 
+    it('should consider seconds instead of milliseconds', () => {
+      const viewCellsData = [
+        [{
+          startDate: new Date('2018-06-26 08:00:04:100'), endDate: new Date('2018-06-26 08:30:04'),
+        }],
+      ];
+      expect(getCellByDate(viewCellsData, new Date(2018, 5, 26, 8, 0, 4, 50)).index)
+        .toBe(0);
+    });
+
     it('should calculate cell index by takePref property', () => {
       const viewCellsData = [
         [

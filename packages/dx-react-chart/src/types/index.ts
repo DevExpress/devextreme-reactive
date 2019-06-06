@@ -6,7 +6,7 @@ export {
   FactoryFn, ModifyDomainFn,
   BBoxes, BBoxesChange,
   StackList, StacksOptions, OffsetFn, OrderFn,
-  EventHandlers, NumberArray,
+  EventHandlers, NumberArray, Location,
   DomainBounds, ViewportOptions, OnViewportChangeFn, EventHandlerFn,
 
   AreaSeries, LineSeries, SplineSeries, BarSeries, ScatterSeries, PieSeries,
@@ -17,6 +17,7 @@ export {
   BarSeriesProps,
   ScatterSeriesProps,
   PieSeriesProps,
+  Interaction,
 } from '../../../dx-chart-core/src/index';
 
 export * from './plugins.animation.types';

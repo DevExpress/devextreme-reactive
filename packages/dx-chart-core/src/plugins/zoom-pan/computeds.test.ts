@@ -6,7 +6,8 @@ import {
   moveBounds, growBounds, invertBoundsRange,
 } from '../../utils/scale';
 import {
-  adjustLayout, getViewport, getDeltaForTouches, isKeyPressed, getWheelDelta,
+  adjustLayout, getViewport, getDeltaForTouches, isKeyPressed, getWheelDelta, isMultiTouch,
+  attachEvents, detachEvents, getRect,
 } from './computeds';
 import { ScalesCache, ViewportOptions } from '../../types';
 
@@ -352,6 +353,54 @@ describe('ZoomAndPan', () => {
       expect(getWheelDelta({ wheelDelta: 2 })).toBe(2);
       expect(getWheelDelta({ wheelDelta: 0 })).toBe(0);
       expect(getWheelDelta({ deltaY: 3 })).toBe(-90);
+    });
+  });
+
+  describe('#isMultiTouch', () => {
+    it('should check multi touch', () => {
+      expect(isMultiTouch({ pageX: 3 })).toBeFalsy();
+      expect(isMultiTouch({ touches: [{ pageX: 3 }] })).toBeFalsy();
+      expect(isMultiTouch({ touches: [{ pageX: 3 }, { pageX: 4 }] })).toBeTruthy();
+    });
+  });
+
+  describe('attach and detach events', () => {
+    const node = { addEventListener: jest.fn(), removeEventListener: jest.fn() };
+    const handlers = { handler_1: jest.fn(), handler_2: jest.fn() };
+    it('should attach events', () => {
+      attachEvents(node, handlers);
+      expect(node.addEventListener).toBeCalledTimes(2);
+      expect(node.addEventListener.mock.calls[0])
+      .toEqual(['handler_1', handlers.handler_1, { passive: false }]);
+      expect(node.addEventListener.mock.calls[1])
+      .toEqual(['handler_2', handlers.handler_2, { passive: false }]);
+    });
+
+    it('should detach events', () => {
+      detachEvents(node, handlers);
+      expect(node.removeEventListener).toBeCalledTimes(2);
+      expect(node.removeEventListener.mock.calls[0])
+      .toEqual(['handler_1', handlers.handler_1]);
+      expect(node.removeEventListener.mock.calls[1])
+      .toEqual(['handler_2', handlers.handler_2]);
+    });
+  });
+
+  describe('#getRect', () => {
+    const pane = { width: 33, height: 44 };
+
+    it('should return rect, interactions are zoom', () => {
+      expect(getRect('zoom', 'zoom', [14, 12], [3, 5], pane))
+      .toEqual({ x: 3, y: 5, width: 11, height: 7 });
+      expect(getRect('both', 'both', [14, 12], [3, 5], pane))
+      .toEqual({ x: 3, y: 5, width: 11, height: 7 });
+    });
+
+    it('should return rect, interaction are not zoom', () => {
+      expect(getRect('pan', 'pan', [14, 12], [3, 5], pane))
+      .toEqual({ x: 0, y: 0, width: 33, height: 44 });
+      expect(getRect('none', 'none', [14, 12], [3, 5], pane))
+      .toEqual({ x: 0, y: 0, width: 33, height: 44 });
     });
   });
 });

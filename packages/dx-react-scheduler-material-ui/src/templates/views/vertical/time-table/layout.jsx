@@ -2,9 +2,9 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
-import RootRef from '@material-ui/core/RootRef';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
+import { TimeTableContainer } from '../../common/time-table/layout-container';
 
 const styles = {
   table: {
@@ -12,16 +12,21 @@ const styles = {
   },
 };
 
-const LayoutBase = ({
-  tableRef,
-  classes, className,
+const LayoutBase = React.memo(({
   cellComponent: Cell,
   rowComponent: Row,
+  classes,
+  className,
   cellsData,
   formatDate,
+  tableRef,
+  setCellElements,
   ...restProps
 }) => (
-  <RootRef rootRef={tableRef}>
+  <TimeTableContainer
+    tableRef={tableRef}
+    setCellElements={setCellElements}
+  >
     <Table
       className={classNames(classes.table, className)}
       {...restProps}
@@ -40,16 +45,17 @@ const LayoutBase = ({
         ))}
       </TableBody>
     </Table>
-  </RootRef>
-);
+  </TimeTableContainer>
+));
 
 LayoutBase.propTypes = {
-  tableRef: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   cellsData: PropTypes.arrayOf(Array).isRequired,
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
   formatDate: PropTypes.func.isRequired,
+  tableRef: PropTypes.object.isRequired,
+  setCellElements: PropTypes.func.isRequired,
   className: PropTypes.string,
 };
 LayoutBase.defaultProps = {

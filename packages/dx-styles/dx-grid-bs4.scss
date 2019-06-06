@@ -207,9 +207,16 @@ button.dx-g-bs4-table-edit-command-cell {
   height: 16px;
   fill: currentColor;
 }
-.dx-g-bs4-fixed-cell {
+.table-active, .table-active>td, .table-active>th {
+  background-color: #f5f5f5;
+}
+.dx-g-bs4-fixed-cell,
+.dx-g-bs4-fixed-group-cell {
   z-index: 300;
   background-clip: padding-box;
+}
+.dx-g-bs4-fixed-group-cell {
+  display: inline-block;
 }
 .dx-g-bs4-table-summary-item {
   font-weight: bold;

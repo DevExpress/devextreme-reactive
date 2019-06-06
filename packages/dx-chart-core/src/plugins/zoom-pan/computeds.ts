@@ -15,7 +15,11 @@ import {
   DomainBounds,
   OnViewportChangeFn,
   ScaleObject,
+  EventHandlers,
+  Location,
+  Interaction,
 } from '../../types';
+import { Size } from '@devexpress/dx-react-core';
 
 const getArgumentBounds = (viewport?: ViewportOptions): DomainBounds | null => (
   viewport && viewport.argumentStart !== undefined && viewport.argumentEnd !== undefined
@@ -78,9 +82,9 @@ export const adjustLayout = (
 
 const boundsForScale = (
   name: string, scales: ScalesCache, currentBounds: DomainBounds | null,
-  interaction: string, type: string, delta: number, anchor: number, range?: NumberArray,
+  interaction: Interaction, type: Interaction, delta: number, anchor: number, range?: NumberArray,
 ): DomainBounds | null => {
-  if (interaction !== type && interaction !== 'both') {
+  if (!checkInteraction(interaction, type)) {
     return null;
   }
   const scale = scales[name];
@@ -97,7 +101,7 @@ const boundsForScale = (
 /** @internal */
 export const getViewport = (
   scales: ScalesCache,
-  interactions: Readonly<[string, string]>, type: string,
+  interactions: Readonly<[Interaction, Interaction]>, type: Interaction,
   deltas: Readonly<[number, number]> | null,
   anchors: Readonly<[number, number]> | null,
   ranges: Readonly<[NumberArray, NumberArray]> | null,
@@ -153,3 +157,42 @@ export const isKeyPressed = (event: MouseEvent, key: string) => event[`${key}Key
 export const getWheelDelta = ({ wheelDelta, deltaY }: { wheelDelta?: number, deltaY?: number }) => {
   return wheelDelta !== undefined ? wheelDelta : deltaY! * -30; // deltaY for FF
 };
+
+/** @internal */
+export const isMultiTouch = (e: any) => e.touches && e.touches.length === 2;
+
+/** @internal */
+export const attachEvents = (node: any, handlers: EventHandlers) => {
+  Object.keys(handlers).forEach((el) => {
+    node.addEventListener(el, handlers[el], { passive: false });
+  });
+};
+
+/** @internal */
+export const detachEvents = (node: any, handlers: EventHandlers) => {
+  Object.keys(handlers).forEach((el) => {
+    node.removeEventListener(el, handlers[el]);
+  });
+};
+
+/** @internal */
+export const getRect = (
+  interactionWithArguments: Interaction,
+  interactionWithValues: Interaction,
+  initial: Location,
+  current: Location,
+  pane: Size,
+) => {
+  const isZoomArgument = checkInteraction(interactionWithArguments, 'zoom');
+  const isZoomValue = checkInteraction(interactionWithValues, 'zoom');
+  const x = isZoomArgument ? Math.min(initial[0], current[0]) : 0;
+  const width = isZoomArgument ? Math.abs(initial[0] - current[0]) : pane.width;
+  const y = isZoomValue ? Math.min(initial[1], current[1]) : 0;
+  const height = isZoomValue ? Math.abs(initial[1] - current[1]) : pane.height;
+  return {
+    x, y, width, height,
+  };
+};
+
+const checkInteraction = (interaction: Interaction, type: Interaction) =>
+interaction === 'both' || interaction === type;

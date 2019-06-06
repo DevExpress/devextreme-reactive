@@ -11,6 +11,6 @@ export * from './utils/scale';
 export * from './utils/legend';
 export * from './utils/event-tracker';
 export * from './utils/hover-state';
-export * from './utils/root-offset';
+export * from './utils/common';
 export * from './constants';
 export * from './types';

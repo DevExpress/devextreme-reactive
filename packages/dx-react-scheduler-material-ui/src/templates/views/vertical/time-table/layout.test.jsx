@@ -1,10 +1,14 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@material-ui/core/test-utils';
+import { getClasses, createMount } from '@material-ui/core/test-utils';
 import { Layout } from './layout';
 
 describe('Vertical view TimeTable', () => {
   const defaultProps = {
-    tableRef: () => undefined,
+    tableRef: {
+      current: {
+        querySelectorAll: jest.fn(),
+      },
+    },
     cellsData: [
       [
         { startDate: new Date(2018, 6, 7, 16), endDate: new Date(2018, 6, 7, 18) },
@@ -15,18 +19,27 @@ describe('Vertical view TimeTable', () => {
         { startDate: new Date(2018, 6, 8, 18), endDate: new Date(2018, 6, 7, 20) },
       ],
     ],
-    cellComponent: () => undefined,
-    rowComponent: () => undefined,
+    cellComponent: () => <td />,
+    /* eslint-disable-next-line */
+    rowComponent: ({ children }) => <tr>{children}</tr>,
+    setCellElements: jest.fn(),
+    formatDate: jest.fn(),
   };
   let classes;
-  let shallow;
+  let mount;
   beforeAll(() => {
     classes = getClasses(<Layout {...defaultProps} />);
-    shallow = createShallow({ dive: true });
+  });
+  beforeEach(() => {
+    mount = createMount();
+    defaultProps.setCellElements.mockClear();
+  });
+  afterEach(() => {
+    mount.cleanUp();
   });
   describe('Layout', () => {
     it('should pass className to the root element', () => {
-      const tree = shallow((
+      const tree = mount((
         <Layout {...defaultProps} className="custom-class" />
       ));
 
@@ -36,18 +49,18 @@ describe('Vertical view TimeTable', () => {
         .toBeTruthy();
     });
     it('should pass rest props to the root element', () => {
-      const tree = shallow((
+      const tree = mount((
         <Layout {...defaultProps} data={{ a: 1 }} />
       ));
 
-      expect(tree.find(`.${classes.table}`).props().data)
+      expect(tree.find(`.${classes.table}`).at(0).props().data)
         .toMatchObject({ a: 1 });
     });
     it('should render array of days', () => {
       const cell = () => <td />;
       /* eslint-disable-next-line */
       const row = ({ children }) => <tr>{children}</tr>;
-      const tree = shallow((
+      const tree = mount((
         <Layout
           {...defaultProps}
           cellComponent={cell}

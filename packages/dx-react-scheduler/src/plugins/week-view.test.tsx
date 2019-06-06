@@ -35,10 +35,10 @@ const defaultDeps = {
   },
   template: {
     body: {},
-    navbar: {},
-    sidebar: {},
+    dayScale: {},
+    timeScale: {},
     dayScaleEmptyCell: {},
-    main: {},
+    timeTable: {},
   },
 };
 

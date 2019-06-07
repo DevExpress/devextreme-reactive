@@ -17,7 +17,7 @@ import { createRowCache } from '@devexpress/dx-react-grid';
 Name | Type | Default | Description
 -----|------|---------|------------
 pageSize | number | 100 | The number of rows on a virtual page. It should be equal to the `pageSize` property value specified in the [VirtualTableState](virtual-table-state.md#properties) plugin.
-capacity | number | Infinity | The maximum number of virtual pages that the cache should store. When the capacity is reached, the least recently used page is removed from the cache to make room for new pages.
+capacity | number | Infinity | The maximum number of virtual pages that the cache should store. When capacity is reached, the oldest used page is removed from the cache to make room for new pages.
 
 ### Return Value
 

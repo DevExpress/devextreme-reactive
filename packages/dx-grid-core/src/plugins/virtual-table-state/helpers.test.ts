@@ -203,6 +203,14 @@ describe('VirtualTableState helpers', () => {
         expect(calculateRequestedRange(loadedInterval, newInterval, 399, pageSize))
           .toEqual({ start: 300, end: 500 });
       });
+
+      it('should correctly process the last page', () => {
+        const loadedInterval = createInterval(0, 200);
+        const newInterval = createInterval(1000, 1200);
+
+        expect(calculateRequestedRange(loadedInterval, newInterval, 1180, pageSize))
+          .toEqual({ start: 1000, end: 1200 });
+      });
     });
 
     describe('fast scroll', () => {

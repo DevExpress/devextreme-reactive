@@ -45,16 +45,19 @@ export const mergeRows: MergeRowsFn = (
 export const calculateRequestedRange: CalculateRequestedRangeFn = (
   loadedInterval, newRange, referenceIndex, pageSize,
 ) => {
-  if (Math.abs(loadedInterval.start - newRange.start) >= 2 * pageSize) {
-    const useFirstHalf = referenceIndex % pageSize < pageSize / 2;
-    const start = useFirstHalf
-      ? newRange.start
-      : newRange.start + pageSize;
-    const end = Math.min(newRange.end, start + 2 * pageSize);
-
-    return { start, end };
+  const isAdjacentPage = Math.abs(loadedInterval.start - newRange.start) < 2 * pageSize;
+  if (isAdjacentPage) {
+    return intervalUtil.difference(newRange, loadedInterval);
   }
-  return intervalUtil.difference(newRange, loadedInterval);
+
+  const useFirstHalf = referenceIndex % pageSize < pageSize / 2;
+  const isLastPage = intervalUtil.getLength(newRange) / pageSize < 3;
+  const start = useFirstHalf || isLastPage
+    ? newRange.start
+    : newRange.start + pageSize;
+  const end = Math.min(newRange.end, start + 2 * pageSize);
+
+  return { start, end };
 };
 
 export const rowToPageIndex: PureComputed<[number, number]> = (

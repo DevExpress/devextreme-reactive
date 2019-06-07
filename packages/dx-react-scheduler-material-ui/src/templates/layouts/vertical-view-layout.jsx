@@ -45,29 +45,32 @@ export class VerticalViewLayoutBase extends React.PureComponent {
           wrap="nowrap"
           style={containerStyle}
         >
-          <RootRef rootRef={layoutHeaderRef}>
-            <Grid
-              container
-              direction="row"
-              className={classes.stickyHeader}
-            >
-              <Grid item xs={1} className={classes.emptySpace}>
-                <DayScaleEmptyCell />
+          <Grid item xs="auto" className={classes.stickyHeader}>
+            <RootRef rootRef={layoutHeaderRef}>
+              <Grid
+                container
+                direction="row"
+              >
+                <Grid item xs={1} className={classes.emptySpace}>
+                  <DayScaleEmptyCell />
+                </Grid>
+
+                <Grid item xs={11}>
+                  <DayScale />
+                </Grid>
+              </Grid>
+            </RootRef>
+          </Grid>
+
+          <Grid item xs="auto">
+            <Grid container direction="row">
+              <Grid item xs={1}>
+                <TimeScale />
               </Grid>
 
-              <Grid item xs={11}>
-                <DayScale />
+              <Grid item xs={11} className={classes.timeTable}>
+                <TimeTable />
               </Grid>
-            </Grid>
-          </RootRef>
-
-          <Grid container direction="row">
-            <Grid item xs={1}>
-              <TimeScale />
-            </Grid>
-
-            <Grid item xs={11} className={classes.timeTable}>
-              <TimeTable />
             </Grid>
           </Grid>
         </Grid>

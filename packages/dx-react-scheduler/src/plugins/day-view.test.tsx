@@ -81,6 +81,9 @@ describe('Day View', () => {
 
   describe('Getters', () => {
     it('should provide the "viewCellsData" getter', () => {
+      computed.mockImplementation(
+        (getters, viewName, baseComputed) => getters.currentView.name === viewName && baseComputed(getters, viewName),
+      );
       const DATE_TO_USE = new Date('2018-10-9');
       global.Date.now = jest.fn(() => new Date(DATE_TO_USE));
       const props = {

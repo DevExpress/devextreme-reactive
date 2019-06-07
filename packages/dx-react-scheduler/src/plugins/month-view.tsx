@@ -127,9 +127,10 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
   });
 
   viewCellsDataComputed: ComputedFn = (getters) => {
+    const { name: viewName } = this.props;
     return computed(
       getters,
-      getters.viewName!,
+      viewName!,
       viewCellsDataBaseComputed(getters.firstDayOfWeek, getters.intervalCount),
       getters.viewCellsData,
     );

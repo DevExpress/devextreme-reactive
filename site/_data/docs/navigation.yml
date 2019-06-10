@@ -205,6 +205,8 @@
         path: /react/grid/docs/reference/table-summary-row
       - title: VirtualTableState
         path: /react/grid/docs/reference/virtual-table-state
+      - title: createRowCache
+        path: /react/grid/docs/reference/create-row-cache
   - title: Related Docs
     items:
       - title: React Core

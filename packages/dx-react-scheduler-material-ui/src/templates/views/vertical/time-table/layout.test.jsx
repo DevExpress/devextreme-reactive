@@ -4,11 +4,6 @@ import { Layout } from './layout';
 
 describe('Vertical view TimeTable', () => {
   const defaultProps = {
-    tableRef: {
-      current: {
-        querySelectorAll: jest.fn(),
-      },
-    },
     cellsData: [
       [
         { startDate: new Date(2018, 6, 7, 16), endDate: new Date(2018, 6, 7, 18) },
@@ -22,7 +17,6 @@ describe('Vertical view TimeTable', () => {
     cellComponent: () => <td />,
     /* eslint-disable-next-line */
     rowComponent: ({ children }) => <tr>{children}</tr>,
-    setCellElements: jest.fn(),
     formatDate: jest.fn(),
   };
   let classes;

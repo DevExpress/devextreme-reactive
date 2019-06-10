@@ -22,46 +22,43 @@ const styles = theme => ({
   },
 });
 
-export class HorizontalViewLayoutBase extends React.PureComponent {
-  render() {
-    const {
-      dayScaleComponent: Navbar,
-      timeTableComponent: Main,
-      classes,
-      layoutRef,
-      layoutHeaderRef,
-      height,
-    } = this.props;
+const HorizontalViewLayoutBase = React.memo(({
+  dayScaleComponent: Navbar,
+  timeTableComponent: Main,
+  classes,
+  layoutRef,
+  layoutHeaderRef,
+  height,
+}) => {
+  const containerStyle = height === AUTO_HEIGHT ? { height: '100%' } : { height: `${height}px` };
 
-    const containerStyle = height === AUTO_HEIGHT ? { height: '100%' } : { height: `${height}px` };
-    return (
-      <RootRef rootRef={layoutRef}>
-        <Grid
-          className={classes.container}
-          container
-          direction="column"
-          wrap="nowrap"
-          style={containerStyle}
-        >
-          <RootRef rootRef={layoutHeaderRef}>
-            <Grid
-              item
-              className={classes.stickyHeader}
-            >
-              <Navbar />
-            </Grid>
-          </RootRef>
+  return (
+    <RootRef rootRef={layoutRef}>
+      <Grid
+        className={classes.container}
+        container
+        direction="column"
+        wrap="nowrap"
+        style={containerStyle}
+      >
+        <RootRef rootRef={layoutHeaderRef}>
           <Grid
             item
-            className={classes.main}
+            className={classes.stickyHeader}
           >
-            <Main />
+            <Navbar />
           </Grid>
+        </RootRef>
+        <Grid
+          item
+          className={classes.main}
+        >
+          <Main />
         </Grid>
-      </RootRef>
-    );
-  }
-}
+      </Grid>
+    </RootRef>
+  );
+});
 
 HorizontalViewLayoutBase.propTypes = {
   dayScaleComponent: PropTypes.func.isRequired,

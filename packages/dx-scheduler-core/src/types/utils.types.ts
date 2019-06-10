@@ -53,3 +53,8 @@ export type RectCalculatorBaseFn = PureComputed<
 export type CalculateRectByDateIntervalsFn = PureComputed<
   [any, AppointmentMoment[], (...args: any) => any, any], ElementRect[]
 >;
+/** @internal */
+export type CellElementsMeta = {
+  parentRect: ClientRect | DOMRect,
+  getCellRects: Array<() => ClientRect | DOMRect>,
+};

@@ -46,9 +46,7 @@ const getCellRect: GetCellRectVerticalFn = (
   const timeOffset = moment(date as SchedulerDateTime).diff(cellStartDate as Date, 'minutes');
   const topOffset = cellHeight * (timeOffset / cellDuration);
   const parentRect = cellElementsMeta.parentRect;
-  // if (cellElement.offsetParent) {
-  //   parentRect = cellElement.offsetParent.getBoundingClientRect();
-  // }
+
   return {
     top,
     left,

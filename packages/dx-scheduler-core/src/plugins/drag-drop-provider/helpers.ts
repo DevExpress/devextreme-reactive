@@ -32,11 +32,8 @@ export const intervalDuration: PureComputed<
 
 export const cellIndex: PureComputed<
   [Element[], ClientOffset], number
-> = (timeTableCells, clientOffset) => timeTableCells.findIndex((timeTableCell) => {
-  const {
-    left, top,
-    right, bottom,
-  } = timeTableCell.getBoundingClientRect();
+> = (getCellRects, clientOffset) => getCellRects.findIndex((getCellRect) => {
+  const { left, top, right, bottom } = getCellRect();
   const isOver = clientOffset
       && clamp(clientOffset.x, left, right) === clientOffset.x
       && clamp(clientOffset.y, top, bottom) === clientOffset.y;

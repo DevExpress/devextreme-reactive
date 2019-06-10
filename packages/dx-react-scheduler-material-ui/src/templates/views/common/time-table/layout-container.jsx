@@ -6,7 +6,7 @@ export class TimeTableContainer extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    this.table = null;
+    this.table = React.createRef();
   }
 
   componentDidMount() {
@@ -18,11 +18,11 @@ export class TimeTableContainer extends React.PureComponent {
   }
 
   setCells() {
-    const { setCellElements, tableRef } = this.props;
+    const { setCellElements } = this.props;
 
-    const cellElements = Array.from(tableRef.current.querySelectorAll('td'));
+    const cellElements = Array.from(this.table.current.querySelectorAll('td'));
     const cellElementsMeta = {
-      parentRect: tableRef.current.getBoundingClientRect(),
+      parentRect: this.table.current.getBoundingClientRect(),
       getCellRects: cellElements.map(element => () => element.getBoundingClientRect()),
     };
     setCellElements(cellElementsMeta);
@@ -30,7 +30,6 @@ export class TimeTableContainer extends React.PureComponent {
 
   render() {
     const {
-      tableRef,
       layoutComponent: Layout,
       cellComponent,
       rowComponent,
@@ -38,9 +37,8 @@ export class TimeTableContainer extends React.PureComponent {
       formatDate,
     } = this.props;
 
-    debugger
     return (
-      <RootRef rootRef={tableRef}>
+      <RootRef rootRef={this.table}>
         <Layout
           cellsData={cellsData}
           rowComponent={rowComponent}
@@ -55,7 +53,6 @@ export class TimeTableContainer extends React.PureComponent {
 TimeTableContainer.propTypes = {
   layoutComponent: PropTypes.func.isRequired,
   setCellElements: PropTypes.func.isRequired,
-  tableRef: PropTypes.object.isRequired,
   cellsData: PropTypes.arrayOf(Array).isRequired,
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,

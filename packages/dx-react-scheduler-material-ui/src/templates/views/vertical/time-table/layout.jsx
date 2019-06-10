@@ -18,8 +18,6 @@ const LayoutBase = React.memo(({
   className,
   cellsData,
   formatDate,
-  tableRef,
-  setCellElements,
   ...restProps
 }) => (
   <Table
@@ -48,8 +46,6 @@ LayoutBase.propTypes = {
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
   formatDate: PropTypes.func.isRequired,
-  tableRef: PropTypes.object.isRequired,
-  setCellElements: PropTypes.func.isRequired,
   className: PropTypes.string,
 };
 LayoutBase.defaultProps = {

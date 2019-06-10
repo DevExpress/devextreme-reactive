@@ -49,12 +49,9 @@ const DayScalePlaceholder = () => <TemplatePlaceholder name="dayScale" />;
 const TimeScalePlaceholder = () => <TemplatePlaceholder name="timeScale" />;
 
 class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
-  timeTable = React.createRef<HTMLElement>();
-  layout = React.createRef<HTMLElement>();
-  layoutHeader = React.createRef<HTMLElement>();
-
   state: ViewState = {
     rects: [],
+    timeTableElementsMeta: {},
   };
 
   static defaultProps: Partial<VerticalViewProps> = {
@@ -82,10 +79,6 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
     timeTableRowComponent: 'TimeTableRow',
   };
 
-  timeTableElementComputed = () => this.timeTable;
-  layoutElementComputed = () => this.layout;
-  layoutHeaderElementComputed = () => this.layoutHeader;
-
   layoutHeaderElement = memoize(viewName => (getters) => {
     return computed(
       getters, viewName!, this.layoutHeaderElementComputed, getters.layoutHeaderElement,
@@ -98,9 +91,9 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
     );
   });
 
-  timeTableElement = memoize(viewName => (getters) => {
+  timeTableElement = memoize((viewName, timeTableElementsMeta) => (getters) => {
     return computed(
-      getters, viewName!, this.timeTableElementComputed, getters.timeTableElement,
+      getters, viewName!, () => timeTableElementsMeta, getters.timeTableElement,
     );
   });
 
@@ -176,7 +169,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
       },
     );
 
-    this.setState({ rects });
+    this.setState({ rects, timeTableElementsMeta: cellElementsMeta });
   });
 
   render() {
@@ -200,7 +193,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
       startDayHour,
       endDayHour,
     } = this.props;
-    const { rects } = this.state;
+    const { rects, timeTableElementsMeta } = this.state;
 
     return (
       <Plugin
@@ -218,7 +211,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
         <Getter name="startViewDate" computed={this.startViewDateComputed} />
         <Getter name="endViewDate" computed={this.endViewDateComputed} />
 
-        <Getter name="timeTableElement" computed={this.timeTableElement(viewName)} />
+        <Getter name="timeTableElementsMeta" computed={this.timeTableElement(viewName, timeTableElementsMeta)} />
         <Getter name="layoutElement" computed={this.layoutElement(viewName)} />
         <Getter name="layoutHeaderElement" computed={this.layoutHeaderElement(viewName)} />
 
@@ -232,8 +225,8 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
                   dayScaleEmptyCellComponent={DayScaleEmptyCellPlaceholder}
                   timeTableComponent={TimeTablePlaceholder}
                   timeScaleComponent={TimeScalePlaceholder}
-                  layoutRef={this.layout}
-                  layoutHeaderRef={this.layoutHeader}
+                  setLayoutElement={this.setLayoutElementRect}
+                  setHeaderElement={this.setHeaderElementRect}
                   height={layoutHeight}
                 />
               );
@@ -304,7 +297,6 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
                     rowComponent={timeTableRowComponent}
                     cellComponent={CellPlaceholder}
                     formatDate={formatDate}
-                    tableRef={this.timeTable}
                     setCellElements={setRects}
                   />
                   <AppointmentLayer>

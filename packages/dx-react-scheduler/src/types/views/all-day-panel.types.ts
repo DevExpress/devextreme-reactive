@@ -1,3 +1,4 @@
+import { ElementRect, CellElementsMeta, FormatterFn } from '@devexpress/dx-scheduler-core/src';
 import { AllDayCell } from '../index';
 
 /* tslint:disable no-namespace max-line-length */
@@ -13,12 +14,25 @@ export namespace AllDayPanel {
   export interface LayoutProps {
     /** Cells’ meta data. */
     cellsData: AllDayCell[];
-    /** A function that accepts the All Day panel’s root React element. */
-    allDayPanelRef: (ref: React.ReactInstance) => void;
     /** A component that renders an All Day panel cell. */
     cellComponent: React.ComponentType<AllDayPanel.CellProps>;
     /** A component that renders an All Day panel row. */
     rowComponent: React.ComponentType<AllDayPanel.RowProps>;
+    /** A function that formats dates according to the locale. */
+    formatDate: FormatterFn;
+  }
+  /** @internal */
+  export interface LayoutContainerProps {
+    layoutComponent: React.ComponentType<AllDayPanel.LayoutProps>;
+    /** Cells’ meta data. */
+    cellsData: AllDayCell[];
+    /** A component that renders an All Day panel cell. */
+    cellComponent: React.ComponentType<AllDayPanel.CellProps>;
+    /** A component that renders an All Day panel row. */
+    rowComponent: React.ComponentType<AllDayPanel.RowProps>;
+    setCellElements: () => void;
+    /** A function that formats dates according to the locale. */
+    formatDate: FormatterFn;
   }
   /** Describes properties passed to a component that renders an All Day panel cell. */
   export interface CellProps {
@@ -57,6 +71,8 @@ export namespace AllDayPanel {
 export interface AllDayPanelProps {
   /** A component that renders an All Day panel layout. */
   layoutComponent: React.ComponentType<AllDayPanel.LayoutProps>;
+  /** @internal */
+  layoutContainerComponent: React.ComponentType<AllDayPanel.LayoutContainerProps>;
   /** A component that renders an All Day panel cell. */
   cellComponent: React.ComponentType<AllDayPanel.CellProps>;
   /** A component that renders an All Day panel row. */
@@ -73,5 +89,6 @@ export interface AllDayPanelProps {
 
 /** @internal */
 export interface AllDayPanelState {
-  tableRef: HTMLElement | null;
+  rects: readonly ElementRect[];
+  elementsMeta: CellElementsMeta | {};
 }

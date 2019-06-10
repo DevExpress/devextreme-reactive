@@ -16,6 +16,7 @@ const LayoutBase = React.memo(({
   classes, className,
   cellComponent: Cell,
   rowComponent: Row,
+  formatDate,
   ...restProps
 }) => (
   <Table
@@ -41,15 +42,14 @@ const LayoutBase = React.memo(({
 
 LayoutBase.propTypes = {
   classes: PropTypes.object.isRequired,
+  formatDate: PropTypes.func.isRequired,
   cellsData: PropTypes.arrayOf(Array).isRequired,
-  cellComponent: PropTypes.func,
-  rowComponent: PropTypes.func,
+  cellComponent: PropTypes.func.isRequired,
+  rowComponent: PropTypes.func.isRequired,
   className: PropTypes.string,
 };
 LayoutBase.defaultProps = {
   className: undefined,
-  cellComponent: () => null,
-  rowComponent: () => null,
 };
 
 export const Layout = withStyles(styles, { name: 'Layout' })(LayoutBase);

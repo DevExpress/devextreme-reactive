@@ -22,62 +22,59 @@ const styles = theme => ({
   },
 });
 
-export class VerticalViewLayoutBase extends React.PureComponent {
-  render() {
-    const {
-      timeScaleComponent: TimeScale,
-      dayScaleComponent: DayScale,
-      timeTableComponent: TimeTable,
-      dayScaleEmptyCellComponent: DayScaleEmptyCell,
-      classes,
-      layoutRef,
-      layoutHeaderRef,
-      height,
-    } = this.props;
+const VerticalViewLayoutBase = React.memo(({
+  timeScaleComponent: TimeScale,
+  dayScaleComponent: DayScale,
+  timeTableComponent: TimeTable,
+  dayScaleEmptyCellComponent: DayScaleEmptyCell,
+  classes,
+  height,
+  layoutRef,
+  layoutHeaderRef,
+}) => {
+  const containerStyle = height === AUTO_HEIGHT ? { height: '100%' } : { height: `${height}px` };
 
-    const containerStyle = height === AUTO_HEIGHT ? { height: '100%' } : { height: `${height}px` };
-    return (
-      <RootRef rootRef={layoutRef}>
-        <Grid
-          container
-          className={classes.container}
-          direction="column"
-          wrap="nowrap"
-          style={containerStyle}
-        >
-          <Grid item xs="auto" className={classes.stickyHeader}>
-            <RootRef rootRef={layoutHeaderRef}>
-              <Grid
-                container
-                direction="row"
-              >
-                <Grid item xs={1} className={classes.emptySpace}>
-                  <DayScaleEmptyCell />
-                </Grid>
-
-                <Grid item xs={11}>
-                  <DayScale />
-                </Grid>
-              </Grid>
-            </RootRef>
-          </Grid>
-
-          <Grid item xs="auto">
-            <Grid container direction="row">
-              <Grid item xs={1}>
-                <TimeScale />
+  return (
+    <RootRef rootRef={layoutRef}>
+      <Grid
+        container
+        className={classes.container}
+        direction="column"
+        wrap="nowrap"
+        style={containerStyle}
+      >
+        <Grid item xs="auto" className={classes.stickyHeader}>
+          <RootRef rootRef={layoutHeaderRef}>
+            <Grid
+              container
+              direction="row"
+            >
+              <Grid item xs={1} className={classes.emptySpace}>
+                <DayScaleEmptyCell />
               </Grid>
 
-              <Grid item xs={11} className={classes.timeTable}>
-                <TimeTable />
+              <Grid item xs={11}>
+                <DayScale />
               </Grid>
+            </Grid>
+          </RootRef>
+        </Grid>
+
+        <Grid item xs="auto">
+          <Grid container direction="row">
+            <Grid item xs={1}>
+              <TimeScale />
+            </Grid>
+
+            <Grid item xs={11} className={classes.timeTable}>
+              <TimeTable />
             </Grid>
           </Grid>
         </Grid>
-      </RootRef>
-    );
-  }
-}
+      </Grid>
+    </RootRef>
+  );
+});
 
 VerticalViewLayoutBase.propTypes = {
   timeScaleComponent: PropTypes.func.isRequired,

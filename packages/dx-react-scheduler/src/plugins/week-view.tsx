@@ -50,12 +50,11 @@ const DayScaleEmptyCellPlaceholder = () => <TemplatePlaceholder name="dayScaleEm
 const TimeScalePlaceholder = () => <TemplatePlaceholder name="timeScale" />;
 
 class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
-  timeTable = React.createRef<HTMLElement>();
-  layout = React.createRef<HTMLElement>();
-  layoutHeader = React.createRef<HTMLElement>();
-
   state: ViewState = {
     rects: [],
+    timeTableElementsMeta: {},
+    layoutElement: {},
+    layoutHeaderElement: {},
   };
 
   static defaultProps: Partial<WeekViewProps> = {
@@ -70,6 +69,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
 
   static components: PluginComponents = {
     layoutComponent: 'Layout',
+    layoutContainerComponent: 'LayoutContainer',
     appointmentLayerComponent: 'AppointmentLayer',
     dayScaleEmptyCellComponent: 'DayScaleEmptyCell',
     timeScaleLayoutComponent: 'TimeScaleLayout',
@@ -84,25 +84,21 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
     timeTableRowComponent: 'TimeTableRow',
   };
 
-  timeTableElementComputed = () => this.timeTable;
-  layoutElementComputed = () => this.layout;
-  layoutHeaderElementComputed = () => this.layoutHeader;
-
-  layoutHeaderElement = memoize(viewName => (getters) => {
+  layoutHeaderElement = memoize((viewName, layoutHeaderElement) => (getters) => {
     return computed(
-      getters, viewName, this.layoutHeaderElementComputed, getters.layoutHeaderElement,
+      getters, viewName, () => layoutHeaderElement, getters.layoutHeaderElement,
     );
   });
 
-  layoutElement = memoize(viewName => (getters) => {
+  layoutElement = memoize((viewName, layoutElement) => (getters) => {
     return computed(
-      getters, viewName, this.layoutElementComputed, getters.layoutElement,
+      getters, viewName, () => layoutElement, getters.layoutElement,
     );
   });
 
-  timeTableElement = memoize(viewName => (getters) => {
+  timeTableElement = memoize((viewName, timeTableElementsMeta) => (getters) => {
     return computed(
-      getters, viewName!, this.timeTableElementComputed, getters.timeTableElement,
+      getters, viewName!, () => timeTableElementsMeta, getters.timeTableElement,
     );
   });
 
@@ -184,12 +180,17 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
       },
     );
 
-    this.setState({ rects });
+    this.setState({ rects, timeTableElementsMeta: cellElementsMeta });
   });
+
+  setLayoutElements = (layoutElement, layoutHeaderElement) => {
+    this.setState({ layoutElement, layoutHeaderElement });
+  }
 
   render() {
     const {
-      layoutComponent: ViewLayout,
+      layoutComponent,
+      layoutContainerComponent: LayoutContainer,
       dayScaleEmptyCellComponent: DayScaleEmptyCell,
       timeScaleLayoutComponent: TimeScale,
       timeScaleRowComponent: TimeScaleRow,
@@ -210,7 +211,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
       endDayHour,
       appointmentLayerComponent: AppointmentLayer,
     } = this.props;
-    const { rects } = this.state;
+    const { rects, timeTableElementsMeta, layoutElement, layoutHeaderElement } = this.state;
 
     return (
       <Plugin
@@ -232,22 +233,31 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
         <Getter name="startViewDate" computed={this.startViewDateComputed} />
         <Getter name="endViewDate" computed={this.endViewDateComputed} />
 
-        <Getter name="timeTableElement" computed={this.timeTableElement(viewName)} />
-        <Getter name="layoutElement" computed={this.layoutElement(viewName)} />
-        <Getter name="layoutHeaderElement" computed={this.layoutHeaderElement(viewName)} />
+        <Getter
+          name="timeTableElementsMeta"
+          computed={this.timeTableElement(viewName, timeTableElementsMeta)}
+        />
+        <Getter
+          name="layoutElement"
+          computed={this.layoutElement(viewName, layoutElement)}
+        />
+        <Getter
+          name="layoutHeaderElement"
+          computed={this.layoutHeaderElement(viewName, layoutHeaderElement)}
+        />
 
         <Template name="body">
           <TemplateConnector>
             {({ currentView, layoutHeight }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
-                <ViewLayout
+                <LayoutContainer
+                  layoutComponent={layoutComponent}
                   dayScaleComponent={DayScalePlaceholder}
                   dayScaleEmptyCellComponent={DayScaleEmptyCellPlaceholder}
                   timeTableComponent={TimeTablePlaceholder}
                   timeScaleComponent={TimeScalePlaceholder}
-                  layoutRef={this.layout}
-                  layoutHeaderRef={this.layoutHeader}
+                  setLayoutElements={this.setLayoutElements}
                   height={layoutHeight}
                 />
               );
@@ -319,7 +329,6 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
                     rowComponent={timeTableRowComponent}
                     cellComponent={CellPlaceholder}
                     formatDate={formatDate}
-                    tableRef={this.timeTable}
                     setCellElements={setRects}
                   />
                   <AppointmentLayer>

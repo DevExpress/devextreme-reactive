@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { getMessagesFormatter, memoize } from '@devexpress/dx-core';
 import {
+  Getter,
   Plugin,
   Template,
   TemplatePlaceholder,
@@ -14,7 +15,6 @@ import {
   calculateAllDayDateIntervals,
   getHorizontalRectByDates,
   HORIZONTAL_TYPE,
-  AllDayCell,
 } from '@devexpress/dx-scheduler-core';
 
 import { AllDayPanelProps, AllDayPanelState } from '../types';
@@ -32,9 +32,9 @@ const AllDayPanelPlaceholder = params => <TemplatePlaceholder name="allDayPanel"
 const CellPlaceholder = params => <TemplatePlaceholder name="allDayPanelCell" params={params} />;
 
 class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelState> {
-  timeTable = React.createRef<HTMLElement>();
   state: AllDayPanelState = {
     rects: [],
+    elementsMeta: {},
   };
   static defaultProps: Partial<AllDayPanelProps> = {
     messages: {},
@@ -68,11 +68,11 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
         endViewDate,
         excludedDays,
         viewCellsData,
-        cellElementsMeta
+        cellElementsMeta,
       },
     );
 
-    this.setState({ rects });
+    this.setState({ rects, elementsMeta: cellElementsMeta });
   });
 
   render() {
@@ -86,7 +86,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
       containerComponent: Container,
       messages,
     } = this.props;
-    const { rects } = this.state;
+    const { rects, elementsMeta } = this.state;
     const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
 
     return (
@@ -94,6 +94,8 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
         name="AllDayPanel"
         dependencies={pluginDependencies}
       >
+        <Getter name="allDayElementsMeta" value={elementsMeta} />
+
         <Template name="dayScaleEmptyCell">
           <TemplateConnector>
             {({ currentView }) => {
@@ -139,7 +141,6 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
                     cellsData={this.allDayCellsData(viewCellsData)}
                     setCellElements={setRects}
                     formatDate={formatDate}
-                    tableRef={this.timeTable}
                   />
                   <AppointmentLayer>
                     {rects.map(({

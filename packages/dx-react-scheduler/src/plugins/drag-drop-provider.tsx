@@ -134,10 +134,13 @@ class DragDropProviderBase extends React.PureComponent<
     if (clientOffset) {
       autoScroll(clientOffset, layoutElement, layoutHeaderElement);
     }
-    const timeTableCells: Element[] = Array.from(timeTableElement.current.querySelectorAll('td'));
+    debugger
+    const getTableCellElementRects = timeTableElement.getCellRects;
+    // const timeTableCells: Element[] = Array.from(timeTableElement.current.querySelectorAll('td'));
     const allDayCells: Element[] = Array.from(layoutHeaderElement.current.querySelectorAll('th'));
 
-    const timeTableIndex = cellIndex(timeTableCells, clientOffset);
+    const timeTableIndex = cellIndex(getTableCellElementRects, clientOffset);
+    debugger
     const allDayIndex = cellIndex(allDayCells, clientOffset);
 
     if (allDayIndex === -1 && timeTableIndex === -1) return;

@@ -11,20 +11,28 @@ import {
 /** @internal */
 export const scaleLinear: FactoryFn = d3ScaleLinear as any;
 /** @internal */
-export const scaleBand: FactoryFn = () => {
-  const scale = d3ScaleBand().paddingInner(0.3).paddingOuter(0.15);
-  const wrapper = (value: any) => scale(value)! + scale.bandwidth() / 2;
-  Object.assign(wrapper, scale);
-  return wrapper as ScaleObject;
-};
+export const scaleBand: FactoryFn = () => (
+  d3ScaleBand().paddingInner(0.3).paddingOuter(0.15) as any
+);
 
 /** @internal */
 export const isHorizontal = (name: string) => name === ARGUMENT_DOMAIN;
 
+// tslint:disable-next-line: ban-types
+const makeScaleHelper = <T extends Function>(linear: T, band: T) => {
+  const func: any = (scale: ScaleObject, ...args: any[]) => {
+    const choosen = 'bandwidth' in scale ? band : linear;
+    return choosen(scale, ...args);
+  };
+  return func as T;
+};
+
+const getLinearScaleWidth = (_: ScaleObject) => 0;
+
+const getBandScaleWidth = (scale: ScaleObject) => scale.bandwidth!();
+
 /** @internal */
-export const getWidth = (scale: ScaleObject) => (
-  scale.bandwidth ? scale.bandwidth() : 0
-);
+export const getWidth = makeScaleHelper(getLinearScaleWidth, getBandScaleWidth);
 
 /** @internal */
 export const getValueDomainName = (name?: string) => name || VALUE_DOMAIN;
@@ -35,10 +43,21 @@ const floatsEqual = (a: number, b: number) => Math.abs(a - b) < Number.EPSILON;
 export const rangesEqual = (r1: Readonly<NumberArray>, r2: Readonly<NumberArray>) =>
   floatsEqual(r1[0], r2[0]) && floatsEqual(r1[1], r2[1]);
 
+const wrapLinearScale = (scale: ScaleObject) => scale;
+
+const wrapBandScale = (scale: ScaleObject): ScaleObject => {
+  const ret: any = (value: any) => scale(value) + scale.bandwidth!() / 2;
+  Object.assign(ret, scale);
+  return ret;
+};
+
+const wrapScale = makeScaleHelper(wrapLinearScale, wrapBandScale);
+
 /** @internal */
-export const makeScale = ({ factory, domain }: DomainInfo, range: NumberArray) => (
-  (factory || scaleLinear)().domain(domain).range(range)
-);
+export const makeScale = ({ factory, domain }: DomainInfo, range: NumberArray) => {
+  const scale = (factory || scaleLinear)().domain(domain).range(range);
+  return wrapScale(scale);
+};
 
 // It is implicitly supposed that Chart can accept any d3 scale. It is wrong.
 // The followings notes show that. d3 scales are not seamlessly interchangeable themselves
@@ -231,24 +250,15 @@ const invertBandScaleBounds = (scale: ScaleObject, range: NumberArray): DomainBo
   ];
 };
 
-// tslint:disable-next-line: ban-types
-const makeScaleHelper = <T extends Function>(choices: [T, T]) => {
-  const func: any = (scale: ScaleObject, ...args: any[]) => {
-    const choosen = choices[Number(!!scale.bandwidth)];
-    return choosen(scale, ...args);
-  };
-  return func as T;
-};
-
 // Though this function is used only in *Viewport* plugin (and so should be placed right there),
 // it resides here so that internal scale specifics (*getWidth*)
 // are encapsulated in this utility file.
 /** @internal */
-export const scaleBounds = makeScaleHelper([scaleLinearBounds, scaleBandBounds]);
+export const scaleBounds = makeScaleHelper(scaleLinearBounds, scaleBandBounds);
 /** @internal */
-export const moveBounds = makeScaleHelper([moveLinearScaleBounds, moveBandScaleBounds]);
+export const moveBounds = makeScaleHelper(moveLinearScaleBounds, moveBandScaleBounds);
 // "scaleBounds" would be a better name but "scale" is already occupied.
 /** @internal */
-export const growBounds = makeScaleHelper([growLinearScaleBounds, growBandScaleBounds]);
+export const growBounds = makeScaleHelper(growLinearScaleBounds, growBandScaleBounds);
 /** @internal */
-export const invertBoundsRange = makeScaleHelper([invertLinearScaleBounds, invertBandScaleBounds]);
+export const invertBoundsRange = makeScaleHelper(invertLinearScaleBounds, invertBandScaleBounds);

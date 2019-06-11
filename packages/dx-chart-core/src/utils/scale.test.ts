@@ -8,11 +8,15 @@ jest.mock('d3-scale', () => ({
   scaleLinear: () => {
     const ret = jest.fn().mockReturnValue(10) as any;
     ret.tag = 'scale-linear';
+    ret.domain = jest.fn().mockReturnThis();
+    ret.range = jest.fn().mockReturnThis();
     return ret;
   },
   scaleBand: () => {
     const ret = jest.fn().mockReturnValue(10) as any;
     ret.tag = 'scale-band';
+    ret.domain = jest.fn().mockReturnThis();
+    ret.range = jest.fn().mockReturnThis();
     ret.paddingInner = jest.fn().mockReturnThis();
     ret.paddingOuter = jest.fn().mockReturnThis();
     ret.bandwidth = jest.fn();
@@ -80,8 +84,13 @@ describe('default scales', () => {
   });
 
   it('should handle center offset for band scale', () => {
-    const scale = scaleBand() as any;
-    scale.bandwidth.mockReturnValue(4);
+    const scale = makeScale({
+      factory: () => {
+        const ret: any = scaleBand();
+        ret.bandwidth.mockReturnValue(4);
+        return ret;
+      },
+    } as any, [1, 2]);
 
     expect(scale('test')).toEqual(12);
   });

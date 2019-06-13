@@ -16,6 +16,18 @@ import { Palette } from './plugins/palette';
 import { Root } from './templates/layout';
 import { Label } from './templates/label';
 
+const scheme = [];
+const placeholders = [
+  `${TOP}-${LEFT}`,
+  `${TOP}-${RIGHT}`,
+  `${BOTTOM}-${LEFT}`,
+  `${BOTTOM}-${RIGHT}`,
+  `${TOP}-${LEFT}-axis`,
+  `${TOP}-${RIGHT}-axis`,
+  `${BOTTOM}-${LEFT}-axis`,
+  `${BOTTOM}-${RIGHT}-axis`,
+];
+
 class RawChart extends React.PureComponent<ChartProps> {
   static defaultProps: Partial<ChartProps> = {
     height: 500,
@@ -38,7 +50,7 @@ class RawChart extends React.PureComponent<ChartProps> {
     return ((
       <PluginHost>
         <BasicData data={data} isRotated={isRotated!} />
-        <Palette scheme={[]} />
+        <Palette scheme={scheme} />
         <LayoutManager
           width={width}
           height={height!}
@@ -48,21 +60,9 @@ class RawChart extends React.PureComponent<ChartProps> {
         <PaneLayout />
         <AxesLayout />
         <ComponentLayout />
-        <SpaceFillingRects
-          placeholders={[
-            `${TOP}-${LEFT}`,
-            `${TOP}-${RIGHT}`,
-            `${BOTTOM}-${LEFT}`,
-            `${BOTTOM}-${RIGHT}`,
-            `${TOP}-${LEFT}-axis`,
-            `${TOP}-${RIGHT}-axis`,
-            `${BOTTOM}-${LEFT}-axis`,
-            `${BOTTOM}-${RIGHT}-axis`,
-          ]}
-        />
+        <SpaceFillingRects placeholders={placeholders} />
         {children}
         <ChartCore />
-
       </PluginHost>
     ));
   }

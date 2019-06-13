@@ -19,6 +19,7 @@ import { Label } from './templates/label';
 class RawChart extends React.PureComponent<ChartProps> {
   static defaultProps: Partial<ChartProps> = {
     height: 500,
+    isRotated: false,
   };
   static components: PluginComponents = {
     rootComponent: 'Root',
@@ -30,12 +31,13 @@ class RawChart extends React.PureComponent<ChartProps> {
       width,
       height,
       children,
+      isRotated,
       rootComponent,
       ...restProps
     } = this.props;
     return ((
       <PluginHost>
-        <BasicData data={data} />
+        <BasicData data={data} isRotated={isRotated!} />
         <Palette scheme={[]} />
         <LayoutManager
           width={width}

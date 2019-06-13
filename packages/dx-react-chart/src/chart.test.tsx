@@ -3,6 +3,7 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { Chart } from './chart';
+import { BasicData } from './plugins/basic-data';
 import { ChartCore } from './plugins/chart-core';
 import { LayoutManager } from './plugins/layout-manager';
 
@@ -20,11 +21,11 @@ describe('Chart', () => {
     resetConsole();
   });
 
-  const defaultProps = {
-    data: [],
-    series: [],
-    palette: [],
+  const defaultProps: any = {
+    data: 'test-data',
+    palette: 'test-palette',
     rootComponent: () => null,
+    isRotated: 'test-rotated',
   };
 
   it('should render root children', () => {
@@ -42,11 +43,14 @@ describe('Chart', () => {
       .toHaveLength(3);
   });
 
-  it('should render chart core', () => {
+  it('should render basic content', () => {
     const tree = mount(<Chart {...defaultProps} />);
 
-    expect(tree.find(ChartCore).exists())
-      .toBeTruthy();
+    expect(tree.find(BasicData).props()).toEqual({
+      data: 'test-data',
+      isRotated: 'test-rotated',
+    });
+    expect(tree.find(ChartCore).props()).toEqual({});
   });
 
   it('should render layout manager', () => {

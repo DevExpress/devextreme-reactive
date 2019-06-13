@@ -105,6 +105,7 @@ const LayoutBase = ({
 };
 
 LayoutBase.propTypes = {
+  // oneOfType is a workaround because withStyles returns react object
   commandButtonComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   headerComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   contentComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,

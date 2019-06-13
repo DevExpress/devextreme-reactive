@@ -64,6 +64,7 @@ export class HorizontalViewLayoutBase extends React.PureComponent {
 }
 
 HorizontalViewLayoutBase.propTypes = {
+  // oneOfType is a workaround because withStyles returns react object
   dayScaleComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   timeTableComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   classes: PropTypes.object.isRequired,

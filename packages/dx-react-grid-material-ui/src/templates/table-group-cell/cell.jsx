@@ -52,6 +52,7 @@ const CellBase = ({
 };
 
 CellBase.propTypes = {
+  // oneOfType is a workaround because withStyles returns react object
   contentComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   iconComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   containerComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,

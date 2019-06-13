@@ -30,6 +30,7 @@ export const Root = ({
 );
 
 Root.propTypes = {
+  // oneOfType is a workaround because withStyles returns react object
   navigationButtonComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   openButtonComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   onVisibilityToggle: PropTypes.func.isRequired,

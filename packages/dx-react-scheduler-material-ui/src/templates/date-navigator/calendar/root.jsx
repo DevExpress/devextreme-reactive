@@ -71,6 +71,7 @@ export class Root extends React.PureComponent {
 }
 
 Root.propTypes = {
+  // oneOfType is a workaround because withStyles returns react object
   textComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   navigationButtonComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   headerRowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,

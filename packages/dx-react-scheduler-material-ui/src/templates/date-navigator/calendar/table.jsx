@@ -82,6 +82,7 @@ const TableBase = ({
 };
 
 TableBase.propTypes = {
+  // oneOfType is a workaround because withStyles returns react object
   rowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   cellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   headerRowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,

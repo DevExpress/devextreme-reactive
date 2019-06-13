@@ -86,6 +86,7 @@ FilterSelectorBase.propTypes = {
   onChange: PropTypes.func,
   disabled: PropTypes.bool,
   iconComponent: PropTypes.func.isRequired,
+  // oneOfType is a workaround because withStyles returns react object
   toggleButtonComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   getMessage: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,

@@ -57,6 +57,7 @@ const LayoutBase = React.memo(({
 ));
 
 LayoutBase.propTypes = {
+  // oneOfType is a workaround because withStyles returns react object
   cellsData: PropTypes.arrayOf(Array).isRequired,
   classes: PropTypes.object.isRequired,
   cellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,

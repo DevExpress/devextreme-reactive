@@ -103,6 +103,8 @@ export interface BarSeriesProps extends SeriesProps {
 export interface BasicDataProps {
   // (undocumented)
   data: DataItems;
+  // (undocumented)
+  isRotated: boolean;
 }
 
 // @public (undocumented)
@@ -126,6 +128,7 @@ export namespace Chart {
 export interface ChartProps {
   data: DataItems;
   height?: number;
+  isRotated?: boolean;
   rootComponent: React.ComponentType<Chart.RootProps>;
   width?: number;
 }

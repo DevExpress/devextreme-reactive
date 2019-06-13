@@ -9,7 +9,7 @@ import {
   PluginComponents,
   withComponents,
   Size,
-  clear,
+  clearSelection,
 } from '@devexpress/dx-react-core';
 import { DragBox } from '../templates/drag-box';
 import {
@@ -132,7 +132,7 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
 
   handleMove(scales: ScalesCache, e: any, pane: Size) {
     e.preventDefault();
-    clear();
+    clearSelection();
     if (isMultiTouch(e)) {
       const current = getDeltaForTouches(e.touches);
       this.zoom(scales, current.delta - this.multiTouchDelta!, current.center);

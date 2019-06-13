@@ -11,7 +11,7 @@ export const connectProps = (
   WrappedComponent: React.ComponentType<any>, getAdditionalProps: () => object,
 ): React.ComponentType<any> & { update(): void } => {
   let storedAdditionalProps = getAdditionalProps();
-  const components = new Set();
+  const components = new Set<React.Component>();
   class RenderComponent extends React.PureComponent<RenderComponentProps> {
     static update: () => void;
 

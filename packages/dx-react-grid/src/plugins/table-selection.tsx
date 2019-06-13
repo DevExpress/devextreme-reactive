@@ -10,6 +10,7 @@ import {
   isSelectTableCell,
   isSelectAllTableCell,
   isDataTableRow,
+  isRowHighlighted,
 } from '@devexpress/dx-grid-core';
 import { TableSelectionProps, TableCellProps, TableRowProps } from '../types';
 
@@ -54,6 +55,9 @@ class TableSelectionBase extends React.PureComponent<TableSelectionProps> {
       >
         {showSelectionColumn && (
           <Getter name="tableColumns" computed={tableColumnsComputed} />
+        )}
+        {highlightRow && (
+          <Getter name="highlightSelectedRow" value />
         )}
 
         {(showSelectionColumn && showSelectAll) && (
@@ -108,7 +112,7 @@ class TableSelectionBase extends React.PureComponent<TableSelectionProps> {
                   <Row
                     {...params}
                     selectByRowClick={selectByRowClick}
-                    selected={highlightRow && selection.indexOf(params.tableRow.rowId) !== -1}
+                    selected={isRowHighlighted(highlightRow!, selection, params.tableRow)}
                     onToggle={() => toggleSelection({ rowIds: [params.tableRow.rowId] })}
                   />
                 )}

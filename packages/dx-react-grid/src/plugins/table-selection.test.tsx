@@ -11,6 +11,7 @@ import {
 import { TableSelection } from './table-selection';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
+  ...require.requireActual('@devexpress/dx-grid-core'),
   tableColumnsWithSelection: jest.fn(),
   isSelectTableCell: jest.fn(),
   isSelectAllTableCell: jest.fn(),
@@ -64,7 +65,7 @@ describe('Table Selection', () => {
     jest.resetAllMocks();
   });
 
-  describe('table layout getter', () => {
+  describe('table selection getter', () => {
     it('should extend tableColumns', () => {
       const tree = mount((
         <PluginHost>
@@ -80,6 +81,37 @@ describe('Table Selection', () => {
         .toBe('tableColumnsWithSelection');
       expect(tableColumnsWithSelection)
         .toBeCalledWith(defaultDeps.getter.tableColumns, 120);
+    });
+
+    describe('highlightSelectedRow getter', () => {
+      it('should not be registered when highlightRow is disabled', () => {
+        const tree = mount((
+          <PluginHost>
+            {pluginDepsToComponents(defaultDeps)}
+            <TableSelection
+              {...defaultProps}
+            />
+          </PluginHost>
+        ));
+
+        expect(getComputedState(tree).highlightSelectedRow)
+          .toBeFalsy();
+      });
+
+      it('should provide "true" when highlightRow is enabled', () => {
+        const tree = mount((
+          <PluginHost>
+            {pluginDepsToComponents(defaultDeps)}
+            <TableSelection
+              {...defaultProps}
+              highlightRow
+            />
+          </PluginHost>
+        ));
+
+        expect(getComputedState(tree).highlightSelectedRow)
+          .toBeTruthy();
+      });
     });
   });
 

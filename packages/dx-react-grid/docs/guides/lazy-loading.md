@@ -25,7 +25,7 @@ The `loading` property should indicate whether there is an active request. Once 
 
 ## Row Caching
 
-Row caching helps reduce the number of data requests. Call the `createRowCache` function to instantiate the cache. You can use alternative cache implementations, such as the Apollo GraphQL cache or a custom implementation.
+Row caching helps reduce the number of data requests. Call the [createRowCache](../reference/create-row-cache.md) function to instantiate the cache. You can use alternative cache implementations, such as the Apollo GraphQL cache or a custom implementation.
 
 
 If users are allowed to sort or filter rows, clear the row cache each time the sort or filter settings are changed. Filtering also requires the total number of rows to be returned in every response.

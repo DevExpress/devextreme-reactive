@@ -77,11 +77,7 @@ export interface ColumnChooserProps {
 }
 
 // @public (undocumented)
-export const createRowCache: (pageSize: number, capacity?: number) => {
-  getRows: (skip: number, count: number) => any[];
-  setRows: (skip: number, rows: readonly any[]) => void;
-  invalidate: () => void;
-};
+export const createRowCache: (pageSize?: number, capacity?: number) => RowCache;
 
 // @public
 export const CustomGrouping: React.ComponentType<CustomGroupingProps>;
@@ -504,6 +500,13 @@ export interface PagingStateProps {
 export type Row = any;
 
 // @public
+export interface RowCache {
+  getRows(skip: number, take: number): any[];
+  invalidate(): void;
+  setRows(skip: number, rows: ReadonlyArray<any>): void;
+}
+
+// @public
 export const RowDetailState: React.ComponentType<RowDetailStateProps>;
 
 // @public (undocumented)
@@ -920,6 +923,13 @@ export namespace TableGroupRow {
         columnName: string;
         showWhenGrouped?: boolean;
     }
+    // (undocumented)
+    export interface ContainerProps {
+        // (undocumented)
+        children: React.ReactNode;
+        // (undocumented)
+        style: object;
+    }
     export interface ContentProps {
         children?: React.ReactNode;
         column: Column;
@@ -941,6 +951,8 @@ export namespace TableGroupRow {
 export interface TableGroupRowProps {
     cellComponent: React.ComponentType<TableGroupRow.CellProps>;
     columnExtensions?: Array<TableGroupRow.ColumnExtension>;
+    containerComponent: React.ComponentType<TableGroupRow.ContainerProps>;
+    contentCellPadding: string;
     contentComponent: React.ComponentType<TableGroupRow.ContentProps>;
     iconComponent: React.ComponentType<TableGroupRow.IconProps>;
     indentCellComponent?: React.ComponentType<TableGroupRow.IndentCellProps>;

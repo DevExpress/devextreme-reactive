@@ -1,15 +1,30 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
 import TableRow from '@material-ui/core/TableRow';
+import { withStyles } from '@material-ui/core/styles';
+import getSelectionColor from '../utils/get-selection-color';
 
-export const TableSelectRow = ({
-  selected, selectByRowClick, onToggle,
-  row, tableRow, tableColumn,
+const styles = theme => ({
+  selected: {
+    backgroundColor: getSelectionColor(theme),
+  },
+});
+
+const TableSelectRowBase = ({
   children,
+  classes,
+  className,
+  onToggle,
+  row,
+  selectByRowClick,
+  selected,
+  tableColumn,
+  tableRow,
   ...restProps
 }) => (
   <TableRow
-    selected={selected}
+    className={classNames({ [classes.selected]: selected }, className)}
     onClick={(e) => {
       if (!selectByRowClick) return;
       e.stopPropagation();
@@ -21,22 +36,27 @@ export const TableSelectRow = ({
   </TableRow>
 );
 
-TableSelectRow.propTypes = {
+TableSelectRowBase.propTypes = {
   children: PropTypes.node,
+  className: PropTypes.string,
+  classes: PropTypes.object.isRequired,
   onToggle: PropTypes.func,
-  selected: PropTypes.bool,
-  selectByRowClick: PropTypes.bool,
   row: PropTypes.any,
+  selectByRowClick: PropTypes.bool,
+  selected: PropTypes.bool,
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
 };
 
-TableSelectRow.defaultProps = {
+TableSelectRowBase.defaultProps = {
   children: undefined,
+  className: undefined,
   onToggle: () => {},
-  selected: false,
-  selectByRowClick: false,
   row: undefined,
+  selectByRowClick: false,
+  selected: false,
   tableColumn: undefined,
   tableRow: undefined,
 };
+
+export const TableSelectRow = withStyles(styles, { name: 'TableSelectRow' })(TableSelectRowBase);

@@ -192,6 +192,9 @@ export interface HoverStateProps {
 }
 
 // @public (undocumented)
+export type Interaction = 'none' | 'pan' | 'zoom' | 'both';
+
+// @public (undocumented)
 export const Legend: React.ComponentType<LegendProps>;
 
 // @public (undocumented)
@@ -616,8 +619,8 @@ export namespace ZoomAndPan {
 export interface ZoomAndPanProps {
   defaultViewport?: ViewportOptions;
   dragBoxComponent: React.ComponentType<ZoomAndPan.DragBoxProps>;
-  interactionWithArguments?: 'none' | 'pan' | 'zoom' | 'both';
-  interactionWithValues?: 'none' | 'pan' | 'zoom' | 'both';
+  interactionWithArguments?: Interaction;
+  interactionWithValues?: Interaction;
   onViewportChange?: OnViewportChangeFn;
   viewport?: ViewportOptions;
   zoomRegionKey?: 'shift' | 'alt' | 'ctrl';

@@ -11,6 +11,7 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   adjustLayout: jest.fn().mockReturnValue('adjusted-ranges'),
   attachEvents: jest.fn(),
   detachEvents: jest.fn(),
+  getRect: jest.fn(),
 }));
 
 const DragBoxComponent = () => null;

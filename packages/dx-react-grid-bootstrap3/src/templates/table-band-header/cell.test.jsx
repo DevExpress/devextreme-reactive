@@ -2,7 +2,7 @@ import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { Cell } from './cell';
-import { ThemeColors } from '../layout';
+import { StyleContext } from '../layout';
 
 describe('TableCell', () => {
   let resetConsole;
@@ -46,9 +46,9 @@ describe('TableCell', () => {
 
   it('should apply left border if necessary', () => {
     const tree = mount((
-      <ThemeColors.Provider value={{ borderColor: 'red' }}>
+      <StyleContext.Provider value={{ borderColor: 'red' }}>
         <Cell className="custom-class" beforeBorder />
-      </ThemeColors.Provider>
+      </StyleContext.Provider>
     ));
 
     tree.setState({ borderColor: 'red' });

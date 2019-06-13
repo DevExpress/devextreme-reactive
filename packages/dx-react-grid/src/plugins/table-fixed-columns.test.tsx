@@ -11,6 +11,7 @@ import {
   tableHeaderRowsWithFixed,
   tableHeaderColumnChainsWithFixed,
   isFixedTableRow,
+  isRowHighlighted,
 } from '@devexpress/dx-grid-core';
 import { TableFixedColumns } from './table-fixed-columns';
 
@@ -21,6 +22,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   tableHeaderRowsWithFixed: jest.fn(),
   tableHeaderColumnChainsWithFixed: jest.fn(),
   isFixedTableRow: jest.fn(),
+  isRowHighlighted: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -51,12 +53,13 @@ describe('TableFixedColumns', () => {
     tableHeaderRowsWithFixed.mockImplementation(() => 'tableHeaderRowsWithFixed');
     tableHeaderColumnChainsWithFixed.mockImplementation(() => 'tableHeaderColumnChainsWithFixed');
     isFixedTableRow.mockImplementation(() => false);
+    isRowHighlighted.mockImplementation(() => false);
   });
   afterEach(() => {
     jest.resetAllMocks();
   });
 
-  describe('table layout getters', () => {
+  describe('table fixed columns getters', () => {
     it('should define the tableColumns getter', () => {
       const tree = mount((
         <PluginHost>
@@ -163,7 +166,7 @@ describe('TableFixedColumns', () => {
       .toMatchObject(deps.template.tableRow);
   });
 
-  it('takes column widths into account', () => {
+  it('should take column widths into account', () => {
     const columns = [
       {
         key: 'a', column: { name: 'a' }, type: TABLE_DATA_TYPE, fixed: FIXED_COLUMN_LEFT_SIDE,
@@ -268,5 +271,59 @@ describe('TableFixedColumns', () => {
       .toMatchObject({
         position: 200,
       });
+  });
+
+  describe('selected cell', () => {
+    const columns = [
+      { key: 'a', column: { name: 'a', xx: 'yyy' }, fixed: FIXED_COLUMN_LEFT_SIDE },
+      { key: 'b', column: { name: 'b' }, fixed: FIXED_COLUMN_LEFT_SIDE },
+    ];
+    const leftColumns = ['a', 'b'];
+
+    beforeEach(() => {
+      tableColumnsWithFixed.mockImplementation(() => [...columns, {}]);
+      tableHeaderColumnChainsWithFixed.mockImplementation(() => [
+        [
+          // tslint:disable-next-line: object-shorthand-properties-first
+          { start: 0, fixed: FIXED_COLUMN_LEFT_SIDE, columns },
+          { start: 2, columns: [{}] },
+        ],
+      ]);
+    });
+
+    it('should pass true if the row is highlighted', () => {
+      isRowHighlighted.mockReturnValue('isRowHighlighted');
+      const deps = {
+        getter: {
+          selection: 'selection',
+          highlightSelectedRow: 'highlightSelectedRow',
+        },
+        template: {
+          tableCell: {
+            tableRow: { rowId: 1, row: 'row' },
+            tableColumn: columns[1],
+          },
+        },
+      };
+
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps, deps)}
+          <TableFixedColumns
+            {...defaultProps}
+            leftColumns={leftColumns}
+          />
+        </PluginHost>
+      ));
+
+      expect(isRowHighlighted)
+        .toBeCalledWith(
+          'highlightSelectedRow', 'selection', deps.template.tableCell.tableRow,
+        );
+      expect(tree.find(defaultProps.cellComponent).props())
+        .toMatchObject({
+          selected: 'isRowHighlighted',
+        });
+    });
   });
 });

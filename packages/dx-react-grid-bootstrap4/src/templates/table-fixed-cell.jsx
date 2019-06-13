@@ -6,29 +6,30 @@ import { BodyColorContext } from './layout';
 export class FixedCell extends React.PureComponent {
   render() {
     const {
+      className,
       component: CellPlaceholder,
-      side,
+      position,
+      selected,
       showLeftDivider,
       showRightDivider,
-      className,
+      side,
       style,
-      position,
       ...restProps
     } = this.props;
-    const backgroundColor = this.context;
+    const backgroundColor = selected ? 'inherit' : this.context;
 
     return (
       <CellPlaceholder
         className={classNames({
-          'position-sticky': true,
-          'dx-g-bs4-fixed-cell': true,
           'border-left': showLeftDivider,
           'border-right': showRightDivider,
+          'dx-g-bs4-fixed-cell': true,
+          'position-sticky': true,
         }, className)}
         style={{
-          ...style,
           backgroundColor,
           [side]: position,
+          ...style,
         }}
         {...restProps}
       />
@@ -40,18 +41,20 @@ FixedCell.contextType = BodyColorContext;
 
 FixedCell.propTypes = {
   className: PropTypes.string,
-  style: PropTypes.object,
   component: PropTypes.func.isRequired,
-  side: PropTypes.string.isRequired,
   position: PropTypes.number,
+  selected: PropTypes.bool,
   showLeftDivider: PropTypes.bool,
   showRightDivider: PropTypes.bool,
+  side: PropTypes.string.isRequired,
+  style: PropTypes.object,
 };
 
 FixedCell.defaultProps = {
   className: undefined,
-  style: null,
+  position: undefined,
+  selected: false,
   showLeftDivider: false,
   showRightDivider: false,
-  position: undefined,
+  style: null,
 };

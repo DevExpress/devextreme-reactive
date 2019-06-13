@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 export const TableSelectRow = ({
   selected,
@@ -7,10 +8,13 @@ export const TableSelectRow = ({
   style,
   onToggle,
   selectByRowClick,
+  className,
 }) => (
   <tr
     style={style}
-    className={selected ? 'table-active' : ''}
+    className={classNames({
+      'table-active': selected,
+    }, className)}
     onClick={(e) => {
       if (!selectByRowClick) return;
       e.stopPropagation();
@@ -22,17 +26,19 @@ export const TableSelectRow = ({
 );
 
 TableSelectRow.propTypes = {
-  selected: PropTypes.bool,
   children: PropTypes.node,
+  className: PropTypes.string,
   onToggle: PropTypes.func,
   selectByRowClick: PropTypes.bool,
+  selected: PropTypes.bool,
   style: PropTypes.object,
 };
 
 TableSelectRow.defaultProps = {
   children: null,
+  className: undefined,
   onToggle: () => {},
-  selected: false,
   selectByRowClick: false,
+  selected: false,
   style: null,
 };

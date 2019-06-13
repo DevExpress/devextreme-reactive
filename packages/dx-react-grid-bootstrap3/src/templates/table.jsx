@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { RefType } from '@devexpress/dx-react-core';
-import { ThemeColors } from './layout';
+import { StyleContext } from './layout';
 import { getStickyPosition } from '../utils/css-fallback-properties';
 
 export class Table extends React.Component {
@@ -66,7 +66,7 @@ export class Table extends React.Component {
   }
 }
 
-Table.contextType = ThemeColors;
+Table.contextType = StyleContext;
 
 Table.propTypes = {
   use: PropTypes.oneOf(['head', 'foot']),

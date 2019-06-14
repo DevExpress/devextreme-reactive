@@ -59,21 +59,9 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
     timeTableRowComponent: 'TimeTableRow',
   };
 
-  layoutHeaderElement = memoize(viewName => (getters) => {
+  timeTableElementsMeta = memoize((viewName, timeTableElementsMeta) => (getters) => {
     return computed(
-      getters, viewName!, this.layoutHeaderElementComputed, getters.layoutHeaderElement,
-    );
-  });
-
-  layoutElement = memoize(viewName => (getters) => {
-    return computed(
-      getters, viewName!, this.layoutElementComputed, getters.layoutElement,
-    );
-  });
-
-  timeTableElement = memoize((viewName, timeTableElementsMeta) => (getters) => {
-    return computed(
-      getters, viewName!, () => timeTableElementsMeta, getters.timeTableElement,
+      getters, viewName!, () => timeTableElementsMeta, getters.timeTableElementsMeta,
     );
   });
 
@@ -173,10 +161,8 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
 
         <Getter
           name="timeTableElementsMeta"
-          computed={this.timeTableElement(viewName, timeTableElementsMeta)}
+          computed={this.timeTableElementsMeta(viewName, timeTableElementsMeta)}
         />
-        <Getter name="layoutElement" computed={this.layoutElement(viewName)} />
-        <Getter name="layoutHeaderElement" computed={this.layoutHeaderElement(viewName)} />
 
         <Template name="body">
           <TemplateConnector>
@@ -186,8 +172,8 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
                 <ViewLayout
                   dayScaleComponent={DayScalePlaceholder}
                   timeTableComponent={TimeTablePlaceholder}
-                  layoutRef={this.layout}
-                  layoutHeaderRef={this.layoutHeader}
+                  // layoutRef={this.layout}
+                  // layoutHeaderRef={this.layoutHeader}
                   height={layoutHeight}
                 />
               );

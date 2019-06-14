@@ -11,14 +11,11 @@ import {
 import {
   computed,
   viewCellsData as viewCellsDataCore,
-  getVerticalRectByDates,
-  calculateRectByDateIntervals,
-  calculateWeekDateIntervals,
   getAppointmentStyle,
   startViewDate as startViewDateCore,
   endViewDate as endViewDateCore,
   availableViewNames as availableViewNamesCore,
-  VERTICAL_TYPE,
+  verticalTimeTableRects,
 } from '@devexpress/dx-scheduler-core';
 import { memoize } from '@devexpress/dx-core';
 
@@ -79,21 +76,9 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
     timeTableRowComponent: 'TimeTableRow',
   };
 
-  layoutHeaderElement = memoize(viewName => (getters) => {
+  timeTableElementsMeta = memoize((viewName, timeTableElementsMeta) => (getters) => {
     return computed(
-      getters, viewName!, this.layoutHeaderElementComputed, getters.layoutHeaderElement,
-    );
-  });
-
-  layoutElement = memoize(viewName => (getters) => {
-    return computed(
-      getters, viewName!, this.layoutElementComputed, getters.layoutElement,
-    );
-  });
-
-  timeTableElement = memoize((viewName, timeTableElementsMeta) => (getters) => {
-    return computed(
-      getters, viewName!, () => timeTableElementsMeta, getters.timeTableElement,
+      getters, viewName!, () => timeTableElementsMeta, getters.timeTableElementsMeta,
     );
   });
 
@@ -148,25 +133,9 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
   calculateRects = memoize((
     appointments, startViewDate, endViewDate, viewCellsData, cellDuration, currentDate,
   ) => (cellElementsMeta) => {
-    const intervals = calculateWeekDateIntervals(
+    const rects = verticalTimeTableRects(
       appointments, startViewDate, endViewDate, [],
-    );
-
-    const rects = calculateRectByDateIntervals(
-      {
-        growDirection: VERTICAL_TYPE,
-        multiline: false,
-      },
-      intervals,
-      getVerticalRectByDates,
-      {
-        startViewDate,
-        endViewDate,
-        cellDuration,
-        currentDate,
-        viewCellsData,
-        cellElementsMeta,
-      },
+      viewCellsData, cellDuration, cellElementsMeta,
     );
 
     this.setState({ rects, timeTableElementsMeta: cellElementsMeta });
@@ -211,9 +180,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
         <Getter name="startViewDate" computed={this.startViewDateComputed} />
         <Getter name="endViewDate" computed={this.endViewDateComputed} />
 
-        <Getter name="timeTableElementsMeta" computed={this.timeTableElement(viewName, timeTableElementsMeta)} />
-        <Getter name="layoutElement" computed={this.layoutElement(viewName)} />
-        <Getter name="layoutHeaderElement" computed={this.layoutHeaderElement(viewName)} />
+        <Getter name="timeTableElementsMeta" computed={this.timeTableElementsMeta(viewName, timeTableElementsMeta)} />
 
         <Template name="body">
           <TemplateConnector>

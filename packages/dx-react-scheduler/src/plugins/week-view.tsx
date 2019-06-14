@@ -50,8 +50,6 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
   state: ViewState = {
     rects: [],
     timeTableElementsMeta: {},
-    layoutElement: {},
-    layoutHeaderElement: {},
   };
 
   static defaultProps: Partial<WeekViewProps> = {
@@ -81,21 +79,9 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
     timeTableRowComponent: 'TimeTableRow',
   };
 
-  layoutHeaderElement = memoize((viewName, layoutHeaderElement) => (getters) => {
+  timeTableElementsMeta = memoize((viewName, timeTableElementsMeta) => (getters) => {
     return computed(
-      getters, viewName, () => layoutHeaderElement, getters.layoutHeaderElement,
-    );
-  });
-
-  layoutElement = memoize((viewName, layoutElement) => (getters) => {
-    return computed(
-      getters, viewName, () => layoutElement, getters.layoutElement,
-    );
-  });
-
-  timeTableElement = memoize((viewName, timeTableElementsMeta) => (getters) => {
-    return computed(
-      getters, viewName!, () => timeTableElementsMeta, getters.timeTableElement,
+      getters, viewName!, () => timeTableElementsMeta, getters.timeTableElementsMeta,
     );
   });
 
@@ -193,7 +179,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
       endDayHour,
       appointmentLayerComponent: AppointmentLayer,
     } = this.props;
-    const { rects, timeTableElementsMeta, layoutElement, layoutHeaderElement } = this.state;
+    const { rects, timeTableElementsMeta } = this.state;
 
     return (
       <Plugin
@@ -217,15 +203,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
 
         <Getter
           name="timeTableElementsMeta"
-          computed={this.timeTableElement(viewName, timeTableElementsMeta)}
-        />
-        <Getter
-          name="layoutElement"
-          computed={this.layoutElement(viewName, layoutElement)}
-        />
-        <Getter
-          name="layoutHeaderElement"
-          computed={this.layoutHeaderElement(viewName, layoutHeaderElement)}
+          computed={this.timeTableElementsMeta(viewName, timeTableElementsMeta)}
         />
 
         <Template name="body">

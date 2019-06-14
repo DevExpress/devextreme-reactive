@@ -127,15 +127,13 @@ class DragDropProviderBase extends React.PureComponent<
     { payload, clientOffset },
     {
       viewCellsData, startViewDate, endViewDate, excludedDays,
-      timeTableElementsMeta, layoutElement, layoutHeaderElement,
-      allDayElementsMeta,
+      timeTableElementsMeta, allDayElementsMeta,
     },
     { changeAppointment, startEditAppointment },
   ) {
     // if (clientOffset) {
     //   autoScroll(clientOffset, layoutElement, layoutHeaderElement);
     // }
-    debugger
     const tableCellElementsMeta = timeTableElementsMeta;
     const allDayCellsElementsMeta = allDayElementsMeta || { getCellRects: [] }; // not always AllDayPanel exists
 
@@ -221,7 +219,7 @@ class DragDropProviderBase extends React.PureComponent<
           <TemplateConnector>
             {({
               viewCellsData, startViewDate, endViewDate, excludedDays,
-              timeTableElementsMeta, layoutElement, layoutHeaderElement, allDayElementsMeta,
+              timeTableElementsMeta, allDayElementsMeta,
             }, {
               commitChangedAppointment, changeAppointment,
               startEditAppointment, stopEditAppointment,
@@ -232,8 +230,6 @@ class DragDropProviderBase extends React.PureComponent<
                 endViewDate,
                 excludedDays,
                 timeTableElementsMeta,
-                layoutElement,
-                layoutHeaderElement,
                 allDayElementsMeta,
               }, { changeAppointment, startEditAppointment, stopEditAppointment });
               return (

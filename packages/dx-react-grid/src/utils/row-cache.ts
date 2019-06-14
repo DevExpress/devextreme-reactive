@@ -1,3 +1,5 @@
+import { RowCache } from '../types';
+
 class Node {
   start: number;
   rows: ReadonlyArray<any>;
@@ -75,13 +77,13 @@ class LRUCache {
   }
 }
 
-export const createRowCache = (pageSize: number, capacity = Number.POSITIVE_INFINITY) => {
+export const createRowCache = (pageSize = 100, capacity = Number.POSITIVE_INFINITY): RowCache => {
   const cache = new LRUCache(pageSize, capacity / pageSize);
 
   return {
-    getRows: (skip: number, count: number) => {
+    getRows: (skip: number, take: number) => {
       let result: any[] = [];
-      const pageCount = Math.ceil(count / pageSize);
+      const pageCount = Math.ceil(take / pageSize);
       for (let i = 0; i < pageCount; i += 1) {
         const pageStart = skip + i * pageSize;
         const chunk = cache.getPage(pageStart);

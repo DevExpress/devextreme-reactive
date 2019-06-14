@@ -1,3 +1,24 @@
+# [1.11.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.11.0...v1.11.1) (2019-06-14)
+
+
+### Bug Fixes
+
+* **react-chart:** fix strange text artifacts during scrolling ([#2081](https://github.com/DevExpress/devextreme-reactive/issues/2081)) ([e4f7fb2](https://github.com/DevExpress/devextreme-reactive/commit/e4f7fb2))
+* **react-grid:** can not resize fixed column ([#2052](https://github.com/DevExpress/devextreme-reactive/issues/2052)) ([86495a4](https://github.com/DevExpress/devextreme-reactive/commit/86495a4))
+* **react-grid:** change processing of last page in lazy load mode ([#2067](https://github.com/DevExpress/devextreme-reactive/issues/2067)) ([2b52fe0](https://github.com/DevExpress/devextreme-reactive/commit/2b52fe0))
+* **react-grid:** Fixed column cell of selected row is not highlighted ([#2042](https://github.com/DevExpress/devextreme-reactive/issues/2042)) ([fda3d36](https://github.com/DevExpress/devextreme-reactive/commit/fda3d36))
+* **react-grid:** use default color for selected fixed cell if highlight is disabled ([#2076](https://github.com/DevExpress/devextreme-reactive/issues/2076)) ([74a42ef](https://github.com/DevExpress/devextreme-reactive/commit/74a42ef))
+* **react-scheduler:** update views by passing new props ([#2040](https://github.com/DevExpress/devextreme-reactive/issues/2040)) ([2cf4665](https://github.com/DevExpress/devextreme-reactive/commit/2cf4665))
+* **scheduler-core:** consider seconds instead of milliseconds while calculate intervals ([#2064](https://github.com/DevExpress/devextreme-reactive/issues/2064)) ([e2b20a7](https://github.com/DevExpress/devextreme-reactive/commit/e2b20a7))
+
+
+### Features
+
+* **react-grid:** stick group row on horizontal scroll ([#2037](https://github.com/DevExpress/devextreme-reactive/issues/2037)) ([c063efe](https://github.com/DevExpress/devextreme-reactive/commit/c063efe))
+* **react-scheduler:** add a capability to set Scheduler's height ([#2043](https://github.com/DevExpress/devextreme-reactive/issues/2043)) ([6c140a5](https://github.com/DevExpress/devextreme-reactive/commit/6c140a5))
+
+
+
 # [1.11.0](https://github.com/DevExpress/devextreme-reactive/compare/v1.11.0-beta.1...v1.11.0) (2019-05-17)
 
 

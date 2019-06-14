@@ -1,6 +1,7 @@
 /* globals window:true document:true */
 
 import { toggleGestureCover } from './gesture-cover';
+import { clear } from './selection-utils';
 
 const BOUNDARY = 10;
 const clamp = (value, min, max) => Math.max(Math.min(value, max), min);
@@ -38,10 +39,7 @@ export class MouseStrategy {
     if (!this.dragging && this.mouseInitialOffset) {
       if (isBoundExceeded(this.mouseInitialOffset, { x, y })) {
         this.delegate.onStart(this.mouseInitialOffset);
-        const selection = window.getSelection && window.getSelection();
-        if (selection && selection.removeAllRanges) {
-          selection.removeAllRanges();
-        }
+        clear();
         dragStarted = true;
         this.dragging = true;
       }

@@ -10,6 +10,9 @@ export { TemplateConnector } from './plugin-based/template-connector';
 export { Draggable } from './draggable';
 
 /** @internal */
+export { clear as clearSelection } from './draggable/selection-utils';
+
+/** @internal */
 export { DragDropProvider } from './drag-drop/provider';
 /** @internal */
 export { DragSource } from './drag-drop/source';

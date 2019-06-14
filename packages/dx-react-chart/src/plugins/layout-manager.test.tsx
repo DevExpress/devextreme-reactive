@@ -12,6 +12,7 @@ jest.mock('@devexpress/dx-chart-core', () => ({
 describe('LayoutManager', () => {
   afterEach(jest.clearAllMocks);
 
+  // TODO: Add "isRotated" getter.
   const defaultDeps = {
     getter: {
     },
@@ -41,6 +42,6 @@ describe('LayoutManager', () => {
       },
       ranges: 'test-ranges',
     });
-    expect(getRanges).toBeCalledWith({ width: 200, height: 100 });
+    expect(getRanges).toBeCalledWith({ width: 200, height: 100 }, undefined);
   });
 });

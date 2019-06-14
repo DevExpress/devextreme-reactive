@@ -40,6 +40,8 @@ interface CommonComponentProps {
   /** @internal */
   state?: string;
   /** @internal */
+  isRotated: boolean;
+  /** @internal */
   style?: any;
   /** @internal */
   scales: Scales;

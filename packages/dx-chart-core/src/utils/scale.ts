@@ -16,7 +16,8 @@ export const scaleBand: FactoryFn = () => (
 );
 
 /** @internal */
-export const isHorizontal = (name: string) => name === ARGUMENT_DOMAIN;
+export const isHorizontal = (name: string, isRotated: boolean) =>
+ (name === ARGUMENT_DOMAIN && !isRotated) || (isRotated && name !== ARGUMENT_DOMAIN);
 
 /** @internal */
 export const getWidth = (scale: ScaleObject) => (

@@ -12,7 +12,7 @@ import {
   ARGUMENT_DOMAIN, getValueDomainName,
   axisCoordinates, createTickFilter, LEFT, BOTTOM, getGridCoordinates,
 } from '@devexpress/dx-chart-core';
-import { RawAxisProps, ArgumentAxisProps, ValueAxisProps } from '../types';
+import { RawAxisProps } from '../types';
 import { Root } from '../templates/axis/root';
 import { Label } from '../templates/axis/label';
 import { Line } from '../templates/axis/line';
@@ -63,14 +63,13 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
         <Template name={placeholder}>
           <TemplatePlaceholder />
           <TemplateConnector>
-            {({ scales, layouts }, { changeBBox }) => {
+            {({ scales, layouts, isRotated }, { changeBBox }) => {
               const scale = scales[scaleName!];
               if (!scale) {
                 return null;
               }
 
               const layoutName = `${placeholder}-${scaleName}`;
-
               const { width, height } = layouts[layoutName] || { width: 0, height: 0 };
               const { sides: [dx, dy], ticks } = axisCoordinates({
                 scaleName: scaleName!,
@@ -80,6 +79,7 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
                 indentFromAxis: indentFromAxis!,
                 scale,
                 paneSize: [this.adjustedWidth, this.adjustedHeight],
+                isRotated,
               });
               // This is a workaround for a case when only a part of domain is visible.
               // "overflow: hidden" cannot be used for <svg> element because edge labels would
@@ -171,7 +171,7 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
         <Template name="series">
           <TemplatePlaceholder />
           <TemplateConnector>
-            {({ scales, layouts }) => {
+            {({ scales, layouts, isRotated }) => {
               const scale = scales[scaleName!];
               if (!scale || !showGrid) {
                 return null;
@@ -182,6 +182,7 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
                 scaleName: scaleName!,
                 scale,
                 paneSize: [this.adjustedWidth, this.adjustedHeight],
+                isRotated,
               });
               return ((
                 <React.Fragment>
@@ -220,28 +221,22 @@ export const Axis: React.ComponentType<RawAxisProps> = withComponents({
 // if HORIZONTAL then TOP or BOTTOM, otherwise LEFT of RIGHT.
 // It should be domain dependent - something like AT_DOMAIN_START or AT_DOMAIN_END.
 
-// TODO: Check that only BOTTOM and TOP are accepted.
-export const ArgumentAxis: React.ComponentType<ArgumentAxisProps> = withPatchedProps(props => ({
-  position: BOTTOM,
+export const ArgumentAxis: React.ComponentType<RawAxisProps> = withPatchedProps(props => ({
+  position: BOTTOM, // TODO: set position regarding rotation
   showGrid: false,
   showTicks: true,
   showLine: true,
   showLabels: true,
   ...props,
   scaleName: ARGUMENT_DOMAIN,
-}))(Axis) as any;
-// Casting to *any* is done because RawAxisProps is not assignalbe to ArgumentAxisProps
-// because of *position* field.
+}))(Axis);
 
-// TODO: Check that only LEFT and RIGHT are accepted.
-export const ValueAxis: React.ComponentType<ValueAxisProps> = withPatchedProps(props => ({
-  position: LEFT,
+export const ValueAxis: React.ComponentType<RawAxisProps> = withPatchedProps(props => ({
+  position: LEFT, // TODO: set position regarding rotation
   showGrid: true,
   showTicks: false,
   showLine: false,
   showLabels: true,
   ...props,
   scaleName: getValueDomainName(props.scaleName),
-}))(Axis) as any;
-// Casting to *any* is done because RawAxisProps is not assignalbe to ValueAxisProps
-// because of *position* field.
+}))(Axis);

@@ -32,13 +32,22 @@ const matchFloat = (expected: number) => ({
 });
 
 describe('#isHorizontal', () => {
-  it('should consider argument scale horizontal', () => {
-    expect(isHorizontal('argument-domain')).toEqual(true);
+  it('should return true, argument scale - not rotated', () => {
+    expect(isHorizontal('argument-domain', false)).toEqual(true);
   });
 
-  it('should consider value scale vertical', () => {
-    expect(isHorizontal('value-scale')).toEqual(false);
-    expect(isHorizontal('scale-1')).toEqual(false);
+  it('should return false, argument scale - rotated', () => {
+    expect(isHorizontal('argument-domain', true)).toEqual(false);
+  });
+
+  it('should return false, value scale - not rotated', () => {
+    expect(isHorizontal('value-scale', false)).toEqual(false);
+    expect(isHorizontal('scale-1', false)).toEqual(false);
+  });
+
+  it('should return true, value scale - rotated', () => {
+    expect(isHorizontal('value-scale', true)).toEqual(true);
+    expect(isHorizontal('scale-1', true)).toEqual(true);
   });
 });
 

@@ -22,7 +22,6 @@ describe('Basis Data', () => {
       data,
       domains: 'test-domains',
       series: [],
-      axes: [],
       getAnimatedStyle: expect.any(Function),
       isRotated: 'test-rotated',
     });

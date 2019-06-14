@@ -11,14 +11,11 @@ import {
 import {
   computed,
   viewCellsData as viewCellsDataCore,
-  calculateRectByDateIntervals,
-  calculateWeekDateIntervals,
-  getVerticalRectByDates,
   startViewDate as startViewDateCore,
   endViewDate as endViewDateCore,
   availableViewNames as availableViewNamesCore,
-  VERTICAL_TYPE,
   getAppointmentStyle,
+  verticalTimeTableRects,
 } from '@devexpress/dx-scheduler-core';
 import { memoize } from '@devexpress/dx-core';
 
@@ -160,24 +157,9 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
   calculateRects = memoize((
     appointments, startViewDate, endViewDate, excludedDays, viewCellsData, cellDuration,
   ) => (cellElementsMeta) => {
-    const intervals = calculateWeekDateIntervals(
-      appointments, startViewDate, endViewDate, excludedDays!,
-    );
-
-    const rects = calculateRectByDateIntervals(
-      {
-        growDirection: VERTICAL_TYPE,
-        multiline: false,
-      },
-      intervals,
-      getVerticalRectByDates,
-      {
-        startViewDate,
-        endViewDate,
-        viewCellsData,
-        cellDuration,
-        cellElementsMeta,
-      },
+    const rects = verticalTimeTableRects(
+      appointments, startViewDate, endViewDate, excludedDays,
+      viewCellsData, cellDuration, cellElementsMeta,
     );
 
     this.setState({ rects, timeTableElementsMeta: cellElementsMeta });

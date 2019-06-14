@@ -12,13 +12,10 @@ import {
   computed,
   startViewDate as startViewDateCore,
   monthCellsData,
-  calculateRectByDateIntervals,
-  calculateMonthDateIntervals,
   getAppointmentStyle,
-  getHorizontalRectByDates,
   endViewDate as endViewDateCore,
   availableViewNames as availableViewNamesCore,
-  HORIZONTAL_TYPE,
+  horizontalTimeTableRects,
 } from '@devexpress/dx-scheduler-core';
 import { memoize } from '@devexpress/dx-core';
 
@@ -133,23 +130,9 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
   calculateRects = memoize((
     appointments, startViewDate, endViewDate, viewCellsData,
   ) => (cellElementsMeta) => {
-    const intervals = calculateMonthDateIntervals(
+    const rects = horizontalTimeTableRects(
       appointments, startViewDate, endViewDate,
-    );
-
-    const rects = calculateRectByDateIntervals(
-      {
-        growDirection: HORIZONTAL_TYPE,
-        multiline: true,
-      },
-      intervals,
-      getHorizontalRectByDates,
-      {
-        startViewDate,
-        endViewDate,
-        viewCellsData,
-        cellElementsMeta,
-      },
+      viewCellsData, cellElementsMeta,
     );
 
     this.setState({ rects, timeTableElementsMeta: cellElementsMeta });

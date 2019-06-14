@@ -11,10 +11,7 @@ import {
 import {
   allDayCells,
   getAppointmentStyle,
-  calculateRectByDateIntervals,
-  calculateAllDayDateIntervals,
-  getHorizontalRectByDates,
-  HORIZONTAL_TYPE,
+  allDayRects,
 } from '@devexpress/dx-scheduler-core';
 
 import { AllDayPanelProps, AllDayPanelState } from '../types';
@@ -54,22 +51,9 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
   calculateRects = memoize((
     appointments, startViewDate, excludedDays, endViewDate, viewCellsData,
   ) => (cellElementsMeta) => {
-    const intervals = calculateAllDayDateIntervals(
-      appointments, startViewDate, endViewDate, excludedDays,
-    );
-    const rects = calculateRectByDateIntervals({
-      growDirection: HORIZONTAL_TYPE,
-      multiline: false,
-    },
-    intervals,
-    getHorizontalRectByDates,
-      {
-        startViewDate,
-        endViewDate,
-        excludedDays,
-        viewCellsData,
-        cellElementsMeta,
-      },
+    const rects = allDayRects(
+      appointments, startViewDate, endViewDate,
+      excludedDays, viewCellsData, cellElementsMeta,
     );
 
     this.setState({ rects, elementsMeta: cellElementsMeta });

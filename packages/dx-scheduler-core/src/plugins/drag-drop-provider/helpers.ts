@@ -10,7 +10,9 @@ import {
   VERTICAL_TYPE, HORIZONTAL_TYPE, SCROLL_OFFSET, MINUTES,
   SCROLL_SPEED_PX, SECONDS, RESIZE_TOP, RESIZE_BOTTOM, HOURS,
 } from '../../constants';
-import { allDayRects, horizontalTimeTableRects, verticalTimeTableRects } from './calculate-rects';
+import {
+  allDayRects, horizontalTimeTableRects, verticalTimeTableRects,
+} from '../common/calculate-rects';
 
 const clamp: PureComputed<
   [number, number, number]
@@ -152,7 +154,7 @@ export const calculateInsidePart: PureComputed<
   [number, Element[], number]
 > = (top, timeTableCells, timeTableIndex) => {
   if (timeTableIndex !== undefined && timeTableIndex !== -1) {
-    const cellRect = timeTableCells[timeTableIndex].getBoundingClientRect();
+    const cellRect = timeTableCells[timeTableIndex]();
     return top > cellRect.top + cellRect.height / 2 ? 1 : 0;
   }
   return 0;
@@ -160,14 +162,14 @@ export const calculateInsidePart: PureComputed<
 
 export const calculateDraftAppointments = (
   allDayIndex: number, draftAppointments: any, startViewDate: Date,
-  endViewDate: Date, excludedDays: number[], viewCellsData: any, allDayCells: any,
-  targetType: string, cellDurationMinutes: number, timeTableCells: any,
+  endViewDate: Date, excludedDays: number[], viewCellsData: any, getAllDayCellsElementRects: any,
+  targetType: string, cellDurationMinutes: number, getTableCellElementRects: any,
 ) => {
   if (allDayIndex !== -1
-    || (allDayCells.length && intervalDuration(draftAppointments[0].dataItem, HOURS) > 23)) {
+    || (getAllDayCellsElementRects.length && intervalDuration(draftAppointments[0].dataItem, HOURS) > 23)) {
     return {
       allDayDraftAppointments: allDayRects(
-        draftAppointments, startViewDate, endViewDate, excludedDays, viewCellsData, allDayCells,
+        draftAppointments, startViewDate, endViewDate, excludedDays, viewCellsData, getAllDayCellsElementRects,
       ),
       timeTableDraftAppointments: [],
     };
@@ -178,7 +180,7 @@ export const calculateDraftAppointments = (
       allDayDraftAppointments: [],
       timeTableDraftAppointments: verticalTimeTableRects(
         draftAppointments, startViewDate, endViewDate,
-        excludedDays, viewCellsData, cellDurationMinutes, timeTableCells,
+        excludedDays, viewCellsData, cellDurationMinutes, getTableCellElementRects,
       ),
     };
   }
@@ -186,7 +188,7 @@ export const calculateDraftAppointments = (
     allDayDraftAppointments: [],
     timeTableDraftAppointments: horizontalTimeTableRects(
       draftAppointments, startViewDate, endViewDate,
-      viewCellsData, timeTableCells,
+      viewCellsData, getTableCellElementRects,
     ),
   };
 };

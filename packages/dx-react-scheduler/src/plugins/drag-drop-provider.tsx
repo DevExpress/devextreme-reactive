@@ -127,28 +127,26 @@ class DragDropProviderBase extends React.PureComponent<
     { payload, clientOffset },
     {
       viewCellsData, startViewDate, endViewDate, excludedDays,
-      timeTableElement, layoutElement, layoutHeaderElement,
+      timeTableElementsMeta, layoutElement, layoutHeaderElement,
       allDayElementsMeta,
     },
     { changeAppointment, startEditAppointment },
   ) {
-    if (clientOffset) {
-      autoScroll(clientOffset, layoutElement, layoutHeaderElement);
-    }
+    // if (clientOffset) {
+    //   autoScroll(clientOffset, layoutElement, layoutHeaderElement);
+    // }
     debugger
-    const getTableCellElementRects = timeTableElement.getCellRects;
-    const allDayCells = allDayElementsMeta.getCellRects;
-    // const timeTableCells: Element[] = Array.from(timeTableElement.current.querySelectorAll('td'));
-    // const allDayCells: Element[] = Array.from(layoutHeaderElement.current.querySelectorAll('th'));
+    const tableCellElementsMeta = timeTableElementsMeta;
+    const allDayCellsElementsMeta = allDayElementsMeta || { getCellRects: [] }; // not always AllDayPanel exists
 
-    const timeTableIndex = cellIndex(getTableCellElementRects, clientOffset);
-    const allDayIndex = cellIndex(allDayCells, clientOffset);
+    const timeTableIndex = cellIndex(tableCellElementsMeta.getCellRects, clientOffset);
+    const allDayIndex = cellIndex(allDayCellsElementsMeta.getCellRects, clientOffset);
 
     if (allDayIndex === -1 && timeTableIndex === -1) return;
 
     const targetData = cellData(timeTableIndex, allDayIndex, viewCellsData);
     const targetType = cellType(targetData);
-    const insidePart = calculateInsidePart(clientOffset.y, timeTableCells, timeTableIndex);
+    const insidePart = calculateInsidePart(clientOffset.y, tableCellElementsMeta.getCellRects, timeTableIndex);
     const cellDurationMinutes = intervalDuration(targetData, 'minutes');
 
     const {
@@ -180,8 +178,8 @@ class DragDropProviderBase extends React.PureComponent<
       timeTableDraftAppointments,
     } = calculateDraftAppointments(
       allDayIndex, draftAppointments, startViewDate,
-      endViewDate, excludedDays, viewCellsData, allDayCells,
-      targetType, cellDurationMinutes, timeTableCells,
+      endViewDate, excludedDays, viewCellsData, allDayCellsElementsMeta,
+      targetType, cellDurationMinutes, tableCellElementsMeta,
     );
     this.allDayDraftAppointments = allDayDraftAppointments;
     this.timeTableDraftAppointments = timeTableDraftAppointments;
@@ -223,7 +221,7 @@ class DragDropProviderBase extends React.PureComponent<
           <TemplateConnector>
             {({
               viewCellsData, startViewDate, endViewDate, excludedDays,
-              timeTableElement, layoutElement, layoutHeaderElement,
+              timeTableElementsMeta, layoutElement, layoutHeaderElement, allDayElementsMeta,
             }, {
               commitChangedAppointment, changeAppointment,
               startEditAppointment, stopEditAppointment,
@@ -233,9 +231,10 @@ class DragDropProviderBase extends React.PureComponent<
                 startViewDate,
                 endViewDate,
                 excludedDays,
-                timeTableElement,
+                timeTableElementsMeta,
                 layoutElement,
                 layoutHeaderElement,
+                allDayElementsMeta,
               }, { changeAppointment, startEditAppointment, stopEditAppointment });
               return (
                 <DragDropProviderCore

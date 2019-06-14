@@ -14,8 +14,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.min.css" type="text/css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/addon/fold/foldgutter.min.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1558079891">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1558079891">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1560513376">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1560513376">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <script>
@@ -102,16 +102,22 @@
       <td>An array of appointment data objects.</td>
     </tr>
     <tr>
+      <td>height</td>
+      <td>number | <code class="highlighter-rouge">auto</code></td>
+      <td><code class="highlighter-rouge">auto</code></td>
+      <td>The scheduler’s height. If the value is <code class="highlighter-rouge">auto</code>, the height equals that of the container component.</td>
+    </tr>
+    <tr>
+      <td>locale</td>
+      <td>string | Array&lt;string&gt;</td>
+      <td>‘en-US’</td>
+      <td>The locale according to which dates should be formatted.</td>
+    </tr>
+    <tr>
       <td>rootComponent</td>
       <td>ComponentType&lt;<a href="#schedulerrootprops">Scheduler.RootProps</a>&gt;</td>
       <td> </td>
       <td>A component that renders the root layout.</td>
-    </tr>
-    <tr>
-      <td>locale</td>
-      <td>string</td>
-      <td>‘en-US’</td>
-      <td>The locale according to which dates should be formatted.</td>
     </tr>
   </tbody>
 </table>
@@ -133,12 +139,12 @@
   <tbody>
     <tr>
       <td>startDate</td>
-      <td>Date | string | number</td>
+      <td><a href="#SchedulerDateTime">SchedulerDateTime</a></td>
       <td>The start date.</td>
     </tr>
     <tr>
       <td>endDate</td>
-      <td>Date | string | number</td>
+      <td><a href="#SchedulerDateTime">SchedulerDateTime</a></td>
       <td>The end date.</td>
     </tr>
     <tr>
@@ -195,6 +201,18 @@
   </tbody>
 </table>
 
+<h3 id="schedulerdatetime">SchedulerDateTime</h3>
+
+<p>The type of date-time values in the Scheduler.</p>
+
+<p>Type: <code class="highlighter-rouge">Date | string | number</code></p>
+
+<h3 id="formatterfn">FormatterFn</h3>
+
+<p>A function that formats dates according to the set locale.</p>
+
+<p>Type: <code class="highlighter-rouge">(nextDate: Date | string | number | undefined, nextOptions: Intl.DateTimeFormatOptions) =&gt; string</code></p>
+
 <h2 id="plugin-components">Plugin Components</h2>
 
 <table class="table table-bordered table-striped">
@@ -226,9 +244,9 @@
       </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.11.0">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.11.1">
             Version
-            <span>1.11.0</span>
+            <span>1.11.1</span>
           </a>
         </li>
       </ul>
@@ -284,6 +302,14 @@
 
           
           <li><a href="/devextreme-reactive/react/scheduler/docs/guides/date-navigation/">Date Navigation</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/guides/appointment-tooltip/">Appointment Tooltip</a></li>
           
 
         
@@ -482,7 +508,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/common/dist/index.js?v=1558079891"></script>
+<script src="/devextreme-reactive/react/common/dist/index.js?v=1560513376"></script>
 
 <script
   type="text/javascript"
@@ -538,7 +564,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1558079891"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1560513376"></script>
     <script>
         trackingCookie.notice();
     </script>

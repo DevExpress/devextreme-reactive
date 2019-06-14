@@ -5,12 +5,12 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import { withStyles } from '@material-ui/core/styles';
 
-const styles = ({
+const styles = theme => ({
   checkbox: {
     padding: 0,
   },
   itemText: {
-    paddingLeft: 8,
+    paddingLeft: theme.spacing(1),
   },
 });
 

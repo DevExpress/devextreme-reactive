@@ -128,6 +128,7 @@ class DragDropProviderBase extends React.PureComponent<
     {
       viewCellsData, startViewDate, endViewDate, excludedDays,
       timeTableElement, layoutElement, layoutHeaderElement,
+      allDayElementsMeta,
     },
     { changeAppointment, startEditAppointment },
   ) {
@@ -136,11 +137,11 @@ class DragDropProviderBase extends React.PureComponent<
     }
     debugger
     const getTableCellElementRects = timeTableElement.getCellRects;
+    const allDayCells = allDayElementsMeta.getCellRects;
     // const timeTableCells: Element[] = Array.from(timeTableElement.current.querySelectorAll('td'));
-    const allDayCells: Element[] = Array.from(layoutHeaderElement.current.querySelectorAll('th'));
+    // const allDayCells: Element[] = Array.from(layoutHeaderElement.current.querySelectorAll('th'));
 
     const timeTableIndex = cellIndex(getTableCellElementRects, clientOffset);
-    debugger
     const allDayIndex = cellIndex(allDayCells, clientOffset);
 
     if (allDayIndex === -1 && timeTableIndex === -1) return;

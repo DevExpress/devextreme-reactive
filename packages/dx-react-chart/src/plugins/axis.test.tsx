@@ -41,7 +41,7 @@ describe('Axis', () => {
         'right-axis-test-domain': { width: 300, height: 250 },
         pane: { width: 400, height: 500 },
       },
-      axes: [{}],
+      isRotated: false,
     },
     action: {
       changeBBox: jest.fn(),
@@ -250,6 +250,7 @@ describe('Axis', () => {
       tickFormat: mockTickFormat,
       indentFromAxis: 10,
       paneSize: [0, 0],
+      isRotated: false,
     });
     expect(createTickFilter).toBeCalledWith([0, 0]);
   });
@@ -271,8 +272,32 @@ describe('Axis', () => {
       tickSize: 6,
       indentFromAxis: 3,
       paneSize: [0, 0],
+      isRotated: false,
     });
     expect(createTickFilter).toBeCalledWith([0, 0]);
+  });
+
+  it('should pass axisCoordinates method correct parameters, horizontal, rotated', () => {
+    setupAxisCoordinates([1, 0]);
+    mount(
+    <PluginHost>
+      {pluginDepsToComponents({
+        ...defaultDeps,
+        getter: { ...defaultDeps.getter, isRotated: true },
+      })}
+      <Axis {...defaultProps as any} />
+    </PluginHost>,
+    );
+
+    expect(axisCoordinates).toHaveBeenCalledWith({
+      scaleName: 'test-domain',
+      scale: mockScale,
+      position: 'bottom',
+      tickSize: 5,
+      indentFromAxis: 10,
+      paneSize: [0, 0],
+      isRotated: true,
+    });
   });
 
   it('should render tick component', () => {

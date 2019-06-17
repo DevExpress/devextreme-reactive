@@ -67,8 +67,9 @@ export const axisCoordinates: AxisCoordinatesFn = ({
   tickFormat,
   indentFromAxis,
   paneSize,
+  isRotated,
 })  => {
-  const isHor = isHorizontal(scaleName);
+  const isHor = isHorizontal(scaleName, isRotated);
   const options = (isHor ? createHorizontalOptions : createVerticalOptions)(
     position, tickSize, indentFromAxis,
   );
@@ -104,9 +105,9 @@ const verticalGridOptions = { x: 0, dx: 1 };
 
 /** @internal */
 export const getGridCoordinates: GetGridCoordinatesFn = ({
-  scaleName, scale, paneSize,
+  scaleName, scale, paneSize, isRotated,
 }) => {
-  const isHor = isHorizontal(scaleName);
+  const isHor = isHorizontal(scaleName, isRotated);
   const tickCount = getTickCount(scale.range(), paneSize[1 - Number(isHor)]);
   const options = isHor ? horizontalGridOptions : verticalGridOptions;
   return createTicks(scale, tickCount, (coordinates, key) => ({

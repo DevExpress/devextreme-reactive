@@ -136,11 +136,8 @@ describe('line & spline', () => {
 
 describe('getAreaPointTransformer', () => {
   it('should return data', () => {
-    const argumentScale = jest.fn().mockReturnValue(10) as any;
-    argumentScale.bandwidth = () => 8;
-    const valueScale = jest.fn();
-    valueScale.mockReturnValueOnce(4);
-    valueScale.mockReturnValueOnce(9);
+    const argumentScale = jest.fn().mockReturnValue(14);
+    const valueScale = jest.fn().mockReturnValueOnce(4).mockReturnValueOnce(9);
 
     const transform = getAreaPointTransformer({ argumentScale, valueScale } as any);
     expect(
@@ -168,8 +165,7 @@ describe('getScatterPointTransformer', () => {
   afterEach(jest.clearAllMocks);
 
   it('should return data', () => {
-    const argumentScale = jest.fn().mockReturnValue(10) as any;
-    argumentScale.bandwidth = () => 8;
+    const argumentScale = jest.fn().mockReturnValue(14);
     const valueScale = jest.fn().mockReturnValue(4);
 
     const transform = getScatterPointTransformer({ argumentScale, valueScale } as any);
@@ -195,10 +191,8 @@ describe('getScatterPointTransformer', () => {
 
 describe('getLinePointTransformer', () => {
   it('should return data', () => {
-    const argumentScale = jest.fn().mockReturnValue(10) as any;
-    argumentScale.bandwidth = () => 8;
-    const valueScale = jest.fn();
-    valueScale.mockReturnValueOnce(9);
+    const argumentScale = jest.fn().mockReturnValue(14);
+    const valueScale = jest.fn().mockReturnValueOnce(9);
 
     const transform = getLinePointTransformer({ argumentScale, valueScale } as any);
     expect(
@@ -217,7 +211,7 @@ describe('getLinePointTransformer', () => {
 
 describe('getBarPointTransformer', () => {
   it('should return data', () => {
-    const argumentScale = jest.fn().mockReturnValue(11) as any;
+    const argumentScale = jest.fn().mockReturnValue(21) as any;
     argumentScale.bandwidth = () => 20;
     const valueScale = jest.fn();
     valueScale.mockReturnValueOnce(4);

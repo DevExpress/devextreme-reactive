@@ -139,7 +139,7 @@ const getGroupedPointTransformer = (
 };
 
 const applyGrouping = (seriesList: SeriesList, seriesToStackMap: StackMap): SeriesList => {
-  const groups = new Set();
+  const groups = new Set<string>();
   seriesList.forEach((seriesItem, i) => {
     if (seriesItem.getPointTransformer.isBroad) {
       groups.add(getGroupName(seriesItem, i, seriesToStackMap));

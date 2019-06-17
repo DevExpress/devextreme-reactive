@@ -75,7 +75,7 @@ export class PluginHost {
         .map(plugin => Object.keys(plugin))
         .map(keys => keys.filter(key => key.endsWith(postfix))[0])
         .filter(key => !!key)
-        .reduce((acc, key) => acc.add(key), new Set()))
+        .reduce((acc, key) => acc.add(key), new Set<string>()))
         .map(key => key.replace(postfix, ''));
     }
     return this.knownKeysCache[postfix];

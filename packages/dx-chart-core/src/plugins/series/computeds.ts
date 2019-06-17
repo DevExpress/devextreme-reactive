@@ -14,7 +14,7 @@ import {
   PointComponentProps, PathFn,
 } from '../../types';
 import { ARGUMENT_DOMAIN } from '../../constants';
-import { getWidth, getValueDomainName, fixOffset } from '../../utils/scale';
+import { getValueDomainName, getWidth } from '../../utils/scale';
 
 const getX = ({ x }: PointComponentProps) => x;
 const getY = ({ y }: PointComponentProps) => y;
@@ -61,14 +61,11 @@ export const getPiePointTransformer: GetPointTransformerFn = ({
 /** @internal */
 export const getLinePointTransformer: GetPointTransformerFn = ({
   argumentScale, valueScale,
-}) => {
-  const fixedArgumentScale = fixOffset(argumentScale);
-  return point => ({
-    ...point,
-    x: fixedArgumentScale(point.argument),
-    y: valueScale(point.value),
-  });
-};
+}) => point => ({
+  ...point,
+  x: argumentScale(point.argument),
+  y: valueScale(point.value),
+});
 
 // Though transformations for line and scatter are the same,
 // separate function instance is required as it contains additional static fields.
@@ -93,21 +90,19 @@ getAreaPointTransformer.isStartedFromZero = true;
 export const getBarPointTransformer: GetPointTransformerFn = ({
   argumentScale, valueScale, isRotated,
 }) => {
-  const argScale = fixOffset(argumentScale);
-  const valScale = fixOffset(valueScale);
-  const val0 = valScale(0);
+  const val0 = valueScale(0);
   const argField = isRotated ? 'y' : 'x';
   const valField = isRotated ? 'x' : 'y';
   return (point) => {
-    const arg = argScale(point.argument);
-    const val = valScale(point.value);
+    const arg = argumentScale(point.argument);
+    const val = valueScale(point.value);
     return {
       ...point,
       [argField]: arg,
       [valField]: val,
       barHeight: Math.abs(val - val0),
       maxBarWidth: getWidth(argumentScale),
-    } as any;  // TODO_THIS: Remove `any`.
+    } as any;
   };
 };
 // Used for domain calculation and stacking.

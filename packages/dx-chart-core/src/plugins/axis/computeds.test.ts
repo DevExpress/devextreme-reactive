@@ -1,10 +1,8 @@
 import { isHorizontal } from '../../utils/scale';
 import { axisCoordinates, getGridCoordinates, createTickFilter } from './computeds';
-import { ScaleObject } from '../../types';
 
 jest.mock('../../utils/scale', () => ({
   isHorizontal: jest.fn(),
-  fixOffset: scale => value => scale(value) + 15,
 }));
 
 describe('axisCoordinates', () => {
@@ -14,7 +12,7 @@ describe('axisCoordinates', () => {
   afterEach(jest.clearAllMocks);
 
   describe('linear', () => {
-    const scale: any = jest.fn().mockReturnValue(10);
+    const scale: any = jest.fn().mockReturnValue(25);
     scale.ticks = jest.fn().mockReturnValue([1]);
     scale.range = () => [10, 50];
 
@@ -182,7 +180,7 @@ describe('axisCoordinates', () => {
   });
 
   describe('band', () => {
-    const scale = jest.fn().mockReturnValue(10) as any;
+    const scale = jest.fn().mockReturnValue(25) as any;
     scale.domain = jest.fn().mockReturnValue(['a']);
     scale.range = () => [10, 50];
 
@@ -280,7 +278,7 @@ describe('axisCoordinates', () => {
 });
 
 describe('getGridCoordinates', () => {
-  const scale = jest.fn(x => x + 1) as any;
+  const scale = jest.fn(x => x + 16) as any;
   scale.ticks = jest.fn().mockReturnValue([10, 20, 30, 40]);
   scale.range = () => [10, 50];
 

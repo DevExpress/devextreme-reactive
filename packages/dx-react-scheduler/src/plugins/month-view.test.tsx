@@ -81,6 +81,9 @@ describe('Month View', () => {
 
   describe('Getters', () => {
     it('should provide the "viewCellsData" getter', () => {
+      computed.mockImplementation(
+        (getters, viewName, baseComputed) => getters.currentView.name === viewName && baseComputed(getters, viewName),
+      );
       const firstDayOfWeek = 2;
       const intervalCount = 2;
       const expectedMonthCellsData = 'monthCellsData';

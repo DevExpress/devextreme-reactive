@@ -205,6 +205,8 @@
         path: /react/grid/docs/reference/table-summary-row
       - title: VirtualTableState
         path: /react/grid/docs/reference/virtual-table-state
+      - title: createRowCache
+        path: /react/grid/docs/reference/create-row-cache
   - title: Related Docs
     items:
       - title: React Core
@@ -313,6 +315,8 @@
         path: /react/scheduler/docs/guides/view-switching
       - title: Date Navigation
         path: /react/scheduler/docs/guides/date-navigation
+      - title: Appointment Tooltip
+        path: /react/scheduler/docs/guides/appointment-tooltip
       - title: Editing
         path: /react/scheduler/docs/guides/editing
       - title: Localization

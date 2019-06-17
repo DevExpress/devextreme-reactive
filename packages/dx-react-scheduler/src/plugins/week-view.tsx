@@ -49,6 +49,7 @@ const TimeScalePlaceholder = () => <TemplatePlaceholder name="timeScale" />;
 class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
   state: ViewState = {
     rects: [],
+    scrollingAPI: {},
     timeTableElementsMeta: {},
   };
 
@@ -78,6 +79,12 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
     timeTableCellComponent: 'TimeTableCell',
     timeTableRowComponent: 'TimeTableRow',
   };
+
+  scrollingAPI = memoize((viewName, scrollingAPI) => (getters) => {
+    return computed(
+      getters, viewName!, () => scrollingAPI, getters.scrollingAPI,
+    );
+  });
 
   timeTableElementsMeta = memoize((viewName, timeTableElementsMeta) => (getters) => {
     return computed(
@@ -155,6 +162,10 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
     this.setState({ layoutElement, layoutHeaderElement });
   }
 
+  setScrollingAPI = (scrollingAPI) => {
+    this.setState({ scrollingAPI });
+  }
+
   render() {
     const {
       layoutComponent,
@@ -179,7 +190,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
       endDayHour,
       appointmentLayerComponent: AppointmentLayer,
     } = this.props;
-    const { rects, timeTableElementsMeta } = this.state;
+    const { rects, timeTableElementsMeta, scrollingAPI } = this.state;
 
     return (
       <Plugin
@@ -205,6 +216,10 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
           name="timeTableElementsMeta"
           computed={this.timeTableElementsMeta(viewName, timeTableElementsMeta)}
         />
+        <Getter
+          name="scrollingAPI"
+          computed={this.scrollingAPI(viewName, scrollingAPI)}
+        />
 
         <Template name="body">
           <TemplateConnector>
@@ -218,6 +233,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
                   timeTableComponent={TimeTablePlaceholder}
                   timeScaleComponent={TimeScalePlaceholder}
                   setLayoutElements={this.setLayoutElements}
+                  setScrollingAPI={this.setScrollingAPI}
                   height={layoutHeight}
                 />
               );

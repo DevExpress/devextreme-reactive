@@ -56,17 +56,23 @@ export const cellData: PureComputed<
 
 export const autoScroll: PureComputed<
   [ClientOffset, any, any], void
-> = (clientOffset, layoutElement, layoutHeaderElement) => {
-  const layout = layoutElement.current;
-  const layoutHeaderRect = layoutHeaderElement.current.getBoundingClientRect();
+> = (clientOffset, scrollingAPI) => {
+  // const layout = layoutElement.current;
+  // const layoutHeaderRect = layoutHeaderElement.current.getBoundingClientRect();
 
-  if ((clientOffset.y < layoutHeaderRect.height + layoutHeaderRect.top + SCROLL_OFFSET)
-    && (clientOffset.y > layoutHeaderRect.height + layoutHeaderRect.top)) {
-    layout.scrollTop -= SCROLL_SPEED_PX;
+  if ((clientOffset.y < scrollingAPI.top + SCROLL_OFFSET) && (clientOffset.y > scrollingAPI.top)) {
+    scrollingAPI.changeVerticalScroll(-SCROLL_SPEED_PX);
   }
-  if (layout.clientHeight - SCROLL_OFFSET < clientOffset.y - layout.offsetTop) {
-    layout.scrollTop += SCROLL_SPEED_PX;
+  if (scrollingAPI.bottom - SCROLL_OFFSET < clientOffset.y) {
+    scrollingAPI.changeVerticalScroll(+SCROLL_SPEED_PX);
   }
+  // if ((clientOffset.y < layoutHeaderRect.height + layoutHeaderRect.top + SCROLL_OFFSET)
+  //   && (clientOffset.y > layoutHeaderRect.height + layoutHeaderRect.top)) {
+  //   layout.scrollTop -= SCROLL_SPEED_PX;
+  // }
+  // if (layout.clientHeight - SCROLL_OFFSET < clientOffset.y - layout.offsetTop) {
+  //   layout.scrollTop += SCROLL_SPEED_PX;
+  // }
 };
 
 export const timeBoundariesByResize: TimeBoundariesByResize = (

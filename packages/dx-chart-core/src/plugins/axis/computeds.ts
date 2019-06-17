@@ -1,4 +1,4 @@
-import { isHorizontal, fixOffset } from '../../utils/scale';
+import { isHorizontal } from '../../utils/scale';
 import {
   LEFT, BOTTOM, MIDDLE, END, START,
 } from '../../constants';
@@ -13,11 +13,10 @@ const getTicks = (scale: ScaleObject, count: number) => (
 
 const createTicks = <T>(
   scale: ScaleObject, count: number, callback: ProcessTickFn<T>,
-): ReadonlyArray<T> => {
-  const fixedScale = fixOffset(scale);
-  return getTicks(scale, count)
-    .map((tick, index) => callback(fixedScale(tick), String(index), tick));
-};
+): ReadonlyArray<T> => (
+  getTicks(scale, count)
+    .map((tick, index) => callback(scale(tick), String(index), tick))
+);
 
 const getFormat = (scale: ScaleObject, count: number, tickFormat?: TickFormatFn): GetFormatFn => {
   if (scale.tickFormat) {

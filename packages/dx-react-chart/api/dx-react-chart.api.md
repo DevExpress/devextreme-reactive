@@ -30,7 +30,7 @@ export interface AreaSeriesProps extends SeriesProps {
 }
 
 // @public (undocumented)
-export const ArgumentAxis: React.ComponentType<ArgumentAxisProps>;
+export const ArgumentAxis: React.ComponentType<RawAxisProps>;
 
 // @public (undocumented)
 export namespace ArgumentAxis {
@@ -43,11 +43,6 @@ export namespace ArgumentAxis {
   // (undocumented)
   export interface RootProps extends Axis.RootProps {
   }
-}
-
-// @public (undocumented)
-export interface ArgumentAxisProps extends RawAxisProps {
-  position?: 'top' | 'bottom';
 }
 
 // @public (undocumented)
@@ -88,6 +83,7 @@ export const BarSeries: React.ComponentType<BarSeriesProps>;
 // @public (undocumented)
 export namespace BarSeries {
   export interface PointProps extends PointComponentProps {
+    barHeight: number;
     barWidth: number;
     maxBarWidth: number;
   }
@@ -571,7 +567,7 @@ export interface TransformedPoint extends Point {
 }
 
 // @public (undocumented)
-export const ValueAxis: React.ComponentType<ValueAxisProps>;
+export const ValueAxis: React.ComponentType<RawAxisProps>;
 
 // @public (undocumented)
 export namespace ValueAxis {
@@ -584,11 +580,6 @@ export namespace ValueAxis {
   // (undocumented)
   export interface RootProps extends Axis.RootProps {
   }
-}
-
-// @public (undocumented)
-export interface ValueAxisProps extends RawAxisProps {
-  position?: 'left' | 'right';
 }
 
 // @public (undocumented)

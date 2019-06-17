@@ -25,6 +25,7 @@ const styles = theme => ({
     padding: theme.spacing(1),
   },
   input: {
+    fontSize: '14px',
     width: '100%',
   },
 });

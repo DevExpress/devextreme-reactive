@@ -6,6 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = theme => ({
   input: {
     width: '100%',
+    fontSize: '14px',
   },
   root: {
     margin: theme.spacing(1),

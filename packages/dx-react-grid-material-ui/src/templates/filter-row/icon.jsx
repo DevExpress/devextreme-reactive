@@ -22,6 +22,7 @@ export const Icon = ({ type, ...restProps }) => {
     ? (
       <SvgIcon
         viewBox="0 0 32 32"
+        fontSize="small"
         {...restProps}
       >
         <path d={path} />

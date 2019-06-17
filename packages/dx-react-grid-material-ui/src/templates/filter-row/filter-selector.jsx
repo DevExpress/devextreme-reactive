@@ -10,6 +10,9 @@ const styles = ({ spacing }) => ({
   icon: {
     marginRight: spacing(1),
   },
+  iconItem: {
+    minWidth: spacing(2),
+  },
 });
 
 class FilterSelectorBase extends React.PureComponent {
@@ -63,10 +66,13 @@ class FilterSelectorBase extends React.PureComponent {
               selected={valueItem === value}
               onClick={() => this.handleMenuItemClick(valueItem)}
             >
-              <ListItemIcon>
+              <ListItemIcon
+                className={classes.iconItem}
+              >
                 <Icon
                   type={valueItem}
                   className={classes.icon}
+                  fontSize="small"
                 />
               </ListItemIcon>
               <ListItemText>

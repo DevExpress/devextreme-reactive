@@ -18,6 +18,7 @@ describe('Chart Core', () => {
       domains: 'test-domains',
       series: 'test-series',
       ranges: 'test-ranges',
+      isRotated: 'test-rotated',
     },
   };
 
@@ -35,6 +36,6 @@ describe('Chart Core', () => {
       series: 'scaled-series',
     });
     expect(buildScales).toBeCalledWith('test-domains', 'test-ranges');
-    expect(scaleSeriesPoints).toBeCalledWith('test-series', 'built-scales');
+    expect(scaleSeriesPoints).toBeCalledWith('test-series', 'built-scales', 'test-rotated');
   });
 });

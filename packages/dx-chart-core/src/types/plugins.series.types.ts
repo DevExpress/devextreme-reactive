@@ -9,7 +9,7 @@ import {
 /** @internal */
 export type AddSeriesFn = PureComputed<[SeriesList, DataItems, Colors, any, any]>;
 /** @internal */
-export type ScaleSeriesPointsFn = PureComputed<[SeriesList, ScalesCache]>;
+export type ScaleSeriesPointsFn = PureComputed<[SeriesList, ScalesCache, boolean]>;
 
 type PathPoints = ReadonlyArray<PointComponentProps>;
 export type GetPointFieldFn = (point: PointComponentProps) => number;
@@ -154,6 +154,8 @@ export namespace BarSeries {
     barWidth: number;
     /** The maximum width that the bar can occupy, measured in pixels */
     maxBarWidth: number;
+    /** The bar height */
+    barHeight: number;
   }
 }
 

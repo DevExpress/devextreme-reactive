@@ -24,5 +24,5 @@ export const getRanges = (paneSize: Size, isRotated: boolean): RangesCache => {
   return {
     [ARGUMENT_DOMAIN]: isRotated ? verRange : horRange,
     [VALUE_DOMAIN]: isRotated ? horRange : verRange,
-  }
+  };
 };

@@ -47,6 +47,8 @@ export interface Point {
   readonly index: number;
   /** Point color */
   readonly color: string;
+  /** @internal */
+  readonly isRotated: boolean;
 }
 
 /** @internal */
@@ -107,6 +109,8 @@ export interface Series {
   readonly state?: string;
   /** @internal */
   readonly symbolName: unique symbol;
+  /** @internal */
+  readonly isRotated: boolean;
 }
 /** @internal */
 export type SeriesList = ReadonlyArray<Series>;
@@ -126,6 +130,7 @@ export type GetPointTransformerFnRaw = (series: {
   readonly points: PointList;
   readonly argumentScale: ScaleObject;
   readonly valueScale: ScaleObject;
+  readonly isRotated: boolean;
 }) => TransformPointFn;
 
 /** @internal */

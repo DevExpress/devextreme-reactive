@@ -234,8 +234,33 @@ describe('getBarPointTransformer', () => {
       index: 1,
       x: 21,
       y: 9,
-      y1: 4,
       maxBarWidth: 20,
+      barHeight: 5,
+    });
+    expect(argumentScale.mock.calls).toEqual([['arg']]);
+    expect(valueScale.mock.calls).toEqual([[0], ['val']]);
+  });
+
+  it('should return data / rotated', () => {
+    const argumentScale = jest.fn().mockReturnValue(11) as any;
+    argumentScale.bandwidth = () => 20;
+    const valueScale = jest.fn();
+    valueScale.mockReturnValueOnce(4);
+    valueScale.mockReturnValueOnce(9);
+
+    const transform = getBarPointTransformer({
+      argumentScale, valueScale, isRotated: true,
+    } as any);
+    expect(
+      transform({ argument: 'arg', value: 'val', index: 1 } as any),
+    ).toEqual({
+      argument: 'arg',
+      value: 'val',
+      index: 1,
+      x: 9,
+      y: 21,
+      maxBarWidth: 20,
+      barHeight: 5,
     });
     expect(argumentScale.mock.calls).toEqual([['arg']]);
     expect(valueScale.mock.calls).toEqual([[0], ['val']]);
@@ -277,7 +302,7 @@ describe('getPiePointTransformer', () => {
     expect(
       transform({
         argument: 'arg-1', value: 'val-1', index: 1, color: 'c1',
-      }),
+      } as any),
     ).toEqual({
       argument: 'arg-1',
       value: 'val-1',
@@ -292,7 +317,7 @@ describe('getPiePointTransformer', () => {
     expect(
       transform({
         argument: 'arg-2', value: 'val-2', index: 3, color: 'c2',
-      }),
+      } as any),
     ).toEqual({
       argument: 'arg-2',
       value: 'val-2',
@@ -376,7 +401,7 @@ describe('dPie', () => {
   it('should return pie coordinates', () => {
     const result = dPie({
       maxRadius: 10, innerRadius: 4, outerRadius: 8, startAngle: 90, endAngle: 180,
-    });
+    } as any);
 
     expect(mockArc).toBeCalledWith({
       innerRadius: 40,
@@ -546,7 +571,7 @@ describe('scaleSeriesPoints', () => {
       points: [{ name: 'b1' }, { name: 'b2' }, { name: 'b3' }],
     };
 
-    const result = scaleSeriesPoints([series1, series2] as any, scales as any);
+    const result = scaleSeriesPoints([series1, series2] as any, scales as any, 'test-rotated');
 
     expect(result[0].points).toEqual(
       [{ name: 'a1', tag: '#1' }, { name: 'a2', tag: '#1' }],
@@ -554,12 +579,16 @@ describe('scaleSeriesPoints', () => {
     expect(result[1].points).toEqual(
       [{ name: 'b1', tag: '#2' }, { name: 'b2', tag: '#2' }, { name: 'b3', tag: '#2' }],
     );
-    expect(getPointTransformer1).toBeCalledWith(
-      { ...series1, argumentScale: 'test-arg-scale', valueScale: 'test-val-scale-1' },
-    );
-    expect(getPointTransformer2).toBeCalledWith(
-      { ...series2, argumentScale: 'test-arg-scale', valueScale: 'test-val-scale' },
-    );
+    expect(getPointTransformer1).toBeCalledWith({
+      ...series1,
+      argumentScale: 'test-arg-scale', valueScale: 'test-val-scale-1',
+      isRotated: 'test-rotated',
+    });
+    expect(getPointTransformer2).toBeCalledWith({
+      ...series2,
+      argumentScale: 'test-arg-scale', valueScale: 'test-val-scale',
+      isRotated: 'test-rotated',
+    });
   });
 });
 

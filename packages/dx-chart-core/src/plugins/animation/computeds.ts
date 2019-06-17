@@ -21,9 +21,10 @@ const addKeyframe = (name: string, def: string): void => {
   }
 };
 
-const getAreaAnimationName = () => {
+const getAreaAnimationName = (isRotated: boolean) => {
   const name = 'animation_transform';
-  addKeyframe(name, '{ from { transform: scaleY(0); } }');
+  const attr = isRotated ? 'scaleX' : 'scaleY';
+  addKeyframe(name, `{ from { transform: ${attr}(0); } }`);
   return name;
 };
 
@@ -46,13 +47,15 @@ const getDefaultPieAnimationOptions = ({ index }: Point) => `${0.7 + index * 0.1
 const getDefaultScatterAnimationOptions = () => '1.6s';
 
 /** @internal */
-export const getAreaAnimationStyle: GetAnimationStyleFn = (scales) => {
+export const getAreaAnimationStyle: GetAnimationStyleFn = ({ xScale, yScale, isRotated }) => {
+  const x = isRotated ? xScale.copy().clamp!(true)(0) : 0;
+  const y = isRotated ? 0 : yScale.copy().clamp!(true)(0);
   const animationStyle = {
-    transformOrigin: `0px ${scales.yScale.copy().clamp!(true)(0)}px`,
+    transformOrigin: `${x}px ${y}px`,
   };
   const options = getDefaultAreaAnimationOptions();
   return {
-    animation: `${getAreaAnimationName()} ${options}`,
+    animation: `${getAreaAnimationName(isRotated)} ${options}`,
     ...animationStyle,
   };
 };

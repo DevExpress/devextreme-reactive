@@ -14,14 +14,21 @@ describe('Animation styles', () => {
   });
 
   describe('#getAreaAnimationStyle', () => {
-    const yScale = () => 4;
-    yScale.copy = () => yScale;
-    yScale.clamp = () => yScale;
+    const scale = () => 4;
+    scale.copy = () => scale;
+    scale.clamp = () => scale;
 
     it('should return style', () => {
-      expect(getAreaAnimationStyle({ yScale } as any)).toEqual({
+      expect(getAreaAnimationStyle({ yScale: scale } as any)).toEqual({
         animation: 'animation_transform 1s',
         transformOrigin: '0px 4px',
+      });
+    });
+
+    it('should return rotated style', () => {
+      expect(getAreaAnimationStyle({ xScale: scale, isRotated: true } as any)).toEqual({
+        animation: 'animation_transform 1s',
+        transformOrigin: '4px 0px',
       });
     });
   });

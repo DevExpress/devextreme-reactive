@@ -173,16 +173,16 @@ describe('Series', () => {
     it('should test bars', () => {
       const hitTest = createBarHitTester([
         {
-          x: 12, barWidth: 1, maxBarWidth: 4, y: 2, y1: 4, index: 'p1',
+          x: 12, barWidth: 1, maxBarWidth: 4, y: 2, barHeight: 2, index: 'p1',
         } as any,
         {
-          x: 24, barWidth: 4, maxBarWidth: 2, y: 3, y1: 5, index: 'p2',
+          x: 24, barWidth: 4, maxBarWidth: 2, y: 3, barHeight: 2, index: 'p2',
         },
         {
-          x: 32.5, barWidth: 2.5, maxBarWidth: 2, y: 1, y1: 5, index: 'p3',
+          x: 32.5, barWidth: 2.5, maxBarWidth: 2, y: 1, barHeight: 4, index: 'p3',
         },
         {
-          x: 33.5, barWidth: 2.5, maxBarWidth: 2, y: 0, y1: 4, index: 'p4',
+          x: 33.5, barWidth: 2.5, maxBarWidth: 2, y: 0, barHeight: 4, index: 'p4',
         },
       ]);
 
@@ -190,6 +190,33 @@ describe('Series', () => {
       expect(hitTest([12, 4])).toEqual({ points: [{ index: 'p1', distance: matchFloat(1) }] });
       expect(hitTest([25, 3])).toEqual({ points: [{ index: 'p2', distance: matchFloat(1.41) }] });
       expect(hitTest([31, 2])).toEqual({
+        points: [
+          { index: 'p3', distance: matchFloat(1.8) },
+          { index: 'p4', distance: matchFloat(2.5) },
+        ],
+      });
+    });
+
+    it('should test bars / rotated', () => {
+      const hitTest = createBarHitTester([
+        {
+          y: 12, barWidth: 1, maxBarWidth: 4, x: 3, barHeight: 2, index: 'p1', isRotated: true,
+        } as any,
+        {
+          y: 24, barWidth: 4, maxBarWidth: 2, x: 2, barHeight: 2, index: 'p2', isRotated: true,
+        },
+        {
+          y: 32.5, barWidth: 2.5, maxBarWidth: 2, x: 4, barHeight: 4, index: 'p3', isRotated: true,
+        },
+        {
+          y: 33.5, barWidth: 2.5, maxBarWidth: 2, x: 5, barHeight: 4, index: 'p4', isRotated: true,
+        },
+      ]);
+
+      expect(hitTest([4, 15])).toEqual(null);
+      expect(hitTest([1, 12])).toEqual({ points: [{ index: 'p1', distance: matchFloat(1) }] });
+      expect(hitTest([2, 25])).toEqual({ points: [{ index: 'p2', distance: matchFloat(1.41) }] });
+      expect(hitTest([3, 31])).toEqual({
         points: [
           { index: 'p3', distance: matchFloat(1.8) },
           { index: 'p4', distance: matchFloat(2.5) },

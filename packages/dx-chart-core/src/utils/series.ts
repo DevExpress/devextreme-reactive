@@ -116,11 +116,14 @@ const hitTestRect = (dx: number, dy: number, halfX: number, halfY: number) => (
 /** @internal */
 export const createBarHitTester = createPointsEnumeratingHitTesterCreator(
   ([px, py], point) => {
-    const { x, y, y1, barWidth, maxBarWidth } = point as BarSeries.PointProps;
-    const xCenter = x;
-    const yCenter = (y + y1!) / 2;
-    const halfWidth = maxBarWidth * barWidth / 2;
-    const halfHeight = Math.abs(y - y1!) / 2;
+    const {
+      x, y, barWidth, maxBarWidth, barHeight, isRotated,
+    } = point as BarSeries.PointProps;
+    const width = maxBarWidth * barWidth;
+    const xCenter = isRotated ? x - barHeight / 2 : x;
+    const yCenter = isRotated ? y : y + barHeight / 2;
+    const halfWidth = (isRotated ? barHeight : width) / 2;
+    const halfHeight = (isRotated ? width : barHeight) / 2;
     return hitTestRect(px - xCenter, py - yCenter, halfWidth, halfHeight);
   },
 );

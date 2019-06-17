@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  dBar, getAreaAnimationStyle, HOVERED, SELECTED,
+  getAreaAnimationStyle, HOVERED, SELECTED,
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
@@ -9,16 +9,22 @@ import { BarSeries } from '../../types';
 class RawBar extends React.PureComponent<BarSeries.PointProps> {
   render() {
     const {
-      x, barWidth, y, y1, maxBarWidth,
-      argument, value, seriesIndex, index, state,
+      x, barWidth, y, maxBarWidth, barHeight,
+      argument, value, seriesIndex, index, state, isRotated,
       color,
       style, scales, getAnimatedStyle,
       ...restProps
     } = this.props;
-    const attributes = dBar(this.props);
+    const width = barWidth * maxBarWidth;
+    const attrs = {
+      x: isRotated ? x - barHeight : x - width / 2,
+      y: isRotated ? y - width / 2 : y,
+      width: isRotated ? barHeight : width,
+      height: isRotated ? width : barHeight,
+    };
     return (
       <rect
-        {...attributes}
+        {...attrs}
         fill={color}
         style={getAnimatedStyle(style, getAreaAnimationStyle, scales)}
         {...restProps}

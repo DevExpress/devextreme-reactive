@@ -6,6 +6,7 @@ import { PointComponentProps } from './plugins.series.types';
 export type Scales = {
   readonly xScale: ScaleObject;
   readonly yScale: ScaleObject;
+  readonly isRotated: boolean;
 };
 /** @internal */
 export type GetAnimationStyleFn = (scales: Scales, point?: PointComponentProps) => {

@@ -65,10 +65,11 @@ export const declareSeries = <T extends SeriesProps>(
                 const currentSeries = findSeriesByName(symbolName, series);
                 const argScale: ScaleObject = scales[ARGUMENT_DOMAIN];
                 const valScale: ScaleObject = scales[getValueDomainName(currentSeries!.scaleName)];
-                // TODO: This code is expected to be removed when frame animation is used.
+                // TODO_THIS: This code is expected to be removed when frame animation is used.
                 const currentScales: Scales = {
                   xScale: isRotated ? valScale : argScale,
                   yScale: isRotated ? argScale : valScale,
+                  isRotated,
                 };
                 const Path: React.ComponentType<PathComponentProps> =
                   currentSeries.seriesComponent as any;

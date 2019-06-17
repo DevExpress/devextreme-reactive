@@ -91,17 +91,24 @@ getAreaPointTransformer.isStartedFromZero = true;
 
 /** @internal */
 export const getBarPointTransformer: GetPointTransformerFn = ({
-  argumentScale, valueScale,
+  argumentScale, valueScale, isRotated,
 }) => {
-  const y1 = valueScale(0);
-  const fixedArgumentScale = fixOffset(argumentScale);
-  return point => ({
-    ...point,
-    y1,
-    x: fixedArgumentScale(point.argument),
-    y: valueScale(point.value),
-    maxBarWidth: getWidth(argumentScale),
-  });
+  const argScale = fixOffset(argumentScale);
+  const valScale = fixOffset(valueScale);
+  const val0 = valScale(0);
+  const argField = isRotated ? 'y' : 'x';
+  const valField = isRotated ? 'x' : 'y';
+  return (point) => {
+    const arg = argScale(point.argument);
+    const val = valScale(point.value);
+    return {
+      ...point,
+      [argField]: arg,
+      [valField]: val,
+      barHeight: Math.abs(val - val0),
+      maxBarWidth: getWidth(argumentScale),
+    } as any;  // TODO_THIS: Remove `any`.
+  };
 };
 // Used for domain calculation and stacking.
 getBarPointTransformer.isStartedFromZero = true;
@@ -231,14 +238,16 @@ export const addSeries: AddSeriesFn = (
 
 // TODO: Memoization is much needed here by the same reason as in "createPoints".
 // Make "scales" persistent first.
-const scalePoints = (series: Series, scales: ScalesCache) => {
+const scalePoints = (series: Series, scales: ScalesCache, isRotated: boolean) => {
   const transform = series.getPointTransformer({
     ...series,
+    isRotated,
     argumentScale: scales[ARGUMENT_DOMAIN],
     valueScale: scales[getValueDomainName(series.scaleName)],
   });
   const ret: Series = {
     ...series,
+    isRotated,
     points: series.points.map(transform),
   };
   return ret;
@@ -246,5 +255,5 @@ const scalePoints = (series: Series, scales: ScalesCache) => {
 
 /** @internal */
 export const scaleSeriesPoints: ScaleSeriesPointsFn = (
-  series, scales,
-) => series.map(seriesItem => scalePoints(seriesItem, scales));
+  series, scales, isRotated,
+) => series.map(seriesItem => scalePoints(seriesItem, scales, isRotated));

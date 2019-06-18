@@ -1,6 +1,6 @@
 import { isHorizontal } from '../../utils/scale';
 import {
-  LEFT, BOTTOM, MIDDLE, END, START,
+  LEFT, RIGHT, TOP, BOTTOM, MIDDLE, END, START,
 } from '../../constants';
 import {
   ScaleObject, GetFormatFn, ProcessTickFn, TickFormatFn, AxisCoordinatesFn,
@@ -23,6 +23,28 @@ const getFormat = (scale: ScaleObject, count: number, tickFormat?: TickFormatFn)
     return tickFormat ? tickFormat(scale, count) : scale.tickFormat(count);
   }
   return tick => tick;
+};
+
+const rotatedPositions = {
+  [LEFT]: BOTTOM,
+  [RIGHT]: TOP,
+  [BOTTOM]: LEFT,
+  [TOP]: RIGHT,
+};
+
+const positionFlags = {
+  [LEFT]: false,
+  [RIGHT]: false,
+  [BOTTOM]: true,
+  [TOP]: true,
+};
+
+/** @internal */
+export const getRotatedPosition = (position: string) => rotatedPositions[position];
+
+/** @internal */
+export const isValidPosition = (position: string, scaleName: string, isRotated: boolean) => {
+  return positionFlags[position] === isHorizontal(scaleName, isRotated);
 };
 
 const createHorizontalOptions = (position: string, tickSize: number, indentFromAxis: number) => {

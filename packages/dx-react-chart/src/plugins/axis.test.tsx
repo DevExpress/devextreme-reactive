@@ -6,6 +6,8 @@ import { pluginDepsToComponents } from '@devexpress/dx-testing';
 import { Axis } from './axis';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
+  getRotatedPosition: jest.fn(pos => `${pos}-rotated`),
+  isValidPosition: jest.fn(pos => !pos.endsWith('-rotated')),
   axisCoordinates: jest.fn(),
   createTickFilter: jest.fn().mockReturnValue(() => true),
   LEFT: 'left',

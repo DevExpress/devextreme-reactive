@@ -338,10 +338,12 @@ export interface Point {
 // @public (undocumented)
 export interface PointComponentProps extends CommonComponentProps {
   argument: any;
+  height?: number;
   index: number;
   value: any;
   x: number;
   y: number;
+  // (undocumented)
   y1?: number;
 }
 

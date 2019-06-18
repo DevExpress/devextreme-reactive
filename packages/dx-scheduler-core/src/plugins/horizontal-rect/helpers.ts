@@ -19,7 +19,7 @@ const getCellRect: GetCellRectHorizontalFn = (
     width,
     height,
   } = cellElementsMeta.getCellRects[cellIndex]();
-  const parentRect = cellElementsMeta.parentRect;
+  const parentRect = cellElementsMeta.parentRect();
   return {
     top,
     left,

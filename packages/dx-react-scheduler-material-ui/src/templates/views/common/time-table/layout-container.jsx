@@ -22,7 +22,7 @@ export class TimeTableContainer extends React.PureComponent {
 
     const cellElements = Array.from(this.table.current.querySelectorAll('td'));
     const cellElementsMeta = {
-      parentRect: this.table.current.getBoundingClientRect(),
+      parentRect: () => this.table.current.getBoundingClientRect(),
       getCellRects: cellElements.map(element => () => element.getBoundingClientRect()),
     };
     setCellElements(cellElementsMeta);

@@ -71,7 +71,9 @@ export interface PointComponentProps extends CommonComponentProps {
   x: number;
   /** y coordinate */
   y: number;
-  /** y1 coordinate */
+  /** height (TODO: Rename) */
+  height?: number;
+  // TODO: Remove (fix getTargetElement for Bar)
   y1?: number;
 }
 

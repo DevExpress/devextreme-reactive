@@ -60,7 +60,7 @@ mockArc.centroid = jest.fn().mockReturnValue([2, 3]);
 
 describe('dArea', () => {
   it('init function', () => {
-    expect(area).toHaveBeenCalledTimes(1);
+    expect(area).toHaveBeenCalledTimes(2);
   });
 
   it('x getter', () => {
@@ -84,7 +84,7 @@ describe('dArea', () => {
     const getY = fluentArea.y0.mock.calls[0][0];
 
     expect(fluentArea.y0).toHaveBeenCalledTimes(1);
-    expect(getY({ y1: 5 })).toEqual(5);
+    expect(getY({ y: 5, height: 2 })).toEqual(7);
   });
 });
 
@@ -148,7 +148,7 @@ describe('getAreaPointTransformer', () => {
       index: 1,
       x: 14,
       y: 9,
-      y1: 4,
+      height: -5,
     });
     expect(argumentScale.mock.calls).toEqual([['arg']]);
     expect(valueScale.mock.calls).toEqual([[0], ['val']]);
@@ -252,7 +252,7 @@ describe('getBarPointTransformer', () => {
       value: 'val',
       index: 1,
       x: 9,
-      y: 21,
+      y: 11,
       maxBarWidth: 20,
       barHeight: 5,
     });

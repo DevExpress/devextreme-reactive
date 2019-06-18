@@ -18,13 +18,23 @@ import { getValueDomainName, getWidth } from '../../utils/scale';
 
 const getX = ({ x }: PointComponentProps) => x;
 const getY = ({ y }: PointComponentProps) => y;
-const getY1 = ({ y1 }: PointComponentProps) => y1!;
+const getY1 = ({ y, height }: PointComponentProps) => y + height!;
+
+const getRotatedY = ({ y }: PointComponentProps) => y;
+const getRotatedX = ({ x }: PointComponentProps) => x;
+const getRotatedX1 = ({ x, height }: PointComponentProps) => x + height!;
 
 /** @internal */
 export const dArea: PathFn = area<PointComponentProps>()
   .x(getX)
   .y1(getY)
   .y0(getY1) as any;
+
+/** @internal */
+export const dRotatedArea: PathFn = area<PointComponentProps>()
+  .x1(getRotatedX)
+  .x0(getRotatedX1)
+  .y(getRotatedY) as any;
 
 /** @internal */
 export const dLine: PathFn = line<PointComponentProps>()
@@ -60,12 +70,16 @@ export const getPiePointTransformer: GetPointTransformerFn = ({
 
 /** @internal */
 export const getLinePointTransformer: GetPointTransformerFn = ({
-  argumentScale, valueScale,
-}) => point => ({
-  ...point,
-  x: argumentScale(point.argument),
-  y: valueScale(point.value),
-});
+  argumentScale, valueScale, isRotated,
+}) => (point) => {
+  const argField = isRotated ? 'y' : 'x';
+  const valField = isRotated ? 'x' : 'y';
+  return {
+    ...point,
+    [argField]: argumentScale(point.argument),
+    [valField]: valueScale(point.value),
+  } as any;
+};
 
 // Though transformations for line and scatter are the same,
 // separate function instance is required as it contains additional static fields.
@@ -77,10 +91,14 @@ export const getScatterPointTransformer: GetPointTransformerFn = (
 /** @internal */
 export const getAreaPointTransformer: GetPointTransformerFn = (series) => {
   const transform = getLinePointTransformer(series);
-  const y1 = series.valueScale(0);
+  const val0 = series.valueScale(0);
+  const valField = series.isRotated ? 'x' : 'y';
   return (point) => {
     const ret = transform(point);
-    return { ...ret, y1 };
+    return {
+      ...ret,
+      height: val0 - ret[valField],
+    };
   };
 };
 // Used for domain calculation and stacking.

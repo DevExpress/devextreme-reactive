@@ -2,11 +2,11 @@ import {
   TransformedPoint, Location,
 } from './chart-core.types';
 import {
-  PathFn,
+  Path,
 } from './plugins.series.types';
 
 /** @internal */
-export type MakePathFn = () => PathFn;
+export type MakePathFn = () => Path;
 /** @internal */
 export type IsPointInPathFn = (target: Location) => boolean;
 /** @internal */

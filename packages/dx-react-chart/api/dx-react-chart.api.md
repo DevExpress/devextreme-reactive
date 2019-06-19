@@ -267,17 +267,7 @@ export interface PaletteProps {
 }
 
 // @public (undocumented)
-export interface PathComponentPathProps extends PathComponentProps {
-  path?: PathFn;
-}
-
-// @public (undocumented)
-export interface PathComponentProps extends CommonComponentProps {
-  coordinates: PathPoints;
-}
-
-// @public (undocumented)
-export interface PathFn {
+export interface Path {
   // (undocumented)
   (points: PathPoints): string;
   // (undocumented)
@@ -303,6 +293,19 @@ export interface PathFn {
   // (undocumented)
   y1?(f: GetPointFieldFn): this;
 }
+
+// @public (undocumented)
+export interface PathComponentPathProps extends PathComponentProps {
+  path?: PathFn;
+}
+
+// @public (undocumented)
+export interface PathComponentProps extends CommonComponentProps {
+  coordinates: PathPoints;
+}
+
+// @public (undocumented)
+export type PathFn = (isRotated: boolean) => Path;
 
 // @public (undocumented)
 export type PathPoints = ReadonlyArray<PointComponentProps>;
@@ -626,3 +629,4 @@ export interface ZoomAndPanProps {
 // (No @packageDocumentation comment for this package)
 
 ```
+

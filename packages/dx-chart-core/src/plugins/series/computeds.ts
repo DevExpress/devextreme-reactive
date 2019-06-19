@@ -3,6 +3,7 @@ import {
   symbolCircle,
   line,
   curveMonotoneX,
+  curveMonotoneY,
   area,
   arc,
   pie,
@@ -20,32 +21,45 @@ const getX = ({ x }: PointComponentProps) => x;
 const getY = ({ y }: PointComponentProps) => y;
 const getY1 = ({ y, height }: PointComponentProps) => y + height!;
 
-const getRotatedY = ({ y }: PointComponentProps) => y;
-const getRotatedX = ({ x }: PointComponentProps) => x;
-const getRotatedX1 = ({ x, height }: PointComponentProps) => x + height!;
-
 /** @internal */
-export const dArea: PathFn = area<PointComponentProps>()
+export const dArea: PathFn = (isRotated) => {
+  return isRotated ?
+  area<PointComponentProps>()
+  .x1(getY1)
+  .x0(getY)
+  .y(getX) as any
+  :
+  area<PointComponentProps>()
   .x(getX)
   .y1(getY)
   .y0(getY1) as any;
+};
 
 /** @internal */
-export const dRotatedArea: PathFn = area<PointComponentProps>()
-  .x1(getRotatedX)
-  .x0(getRotatedX1)
-  .y(getRotatedY) as any;
-
-/** @internal */
-export const dLine: PathFn = line<PointComponentProps>()
+export const dLine: PathFn = (isRotated) => {
+  return isRotated ?
+  line<PointComponentProps>()
+  .x(getY)
+  .y(getX) as any
+  :
+  line<PointComponentProps>()
   .x(getX)
   .y(getY) as any;
+};
 
 /** @internal */
-export const dSpline: PathFn = line<PointComponentProps>()
+export const dSpline: PathFn = (isRotated) => {
+  return isRotated ?
+  line<PointComponentProps>()
+  .x(getY)
+  .y(getX)
+  .curve(curveMonotoneY) as any
+  :
+  line<PointComponentProps>()
   .x(getX)
   .y(getY)
   .curve(curveMonotoneX) as any;
+};
 
 /** @internal */
 export const getPiePointTransformer: GetPointTransformerFn = ({
@@ -72,12 +86,10 @@ export const getPiePointTransformer: GetPointTransformerFn = ({
 export const getLinePointTransformer: GetPointTransformerFn = ({
   argumentScale, valueScale, isRotated,
 }) => (point) => {
-  const argField = isRotated ? 'y' : 'x';
-  const valField = isRotated ? 'x' : 'y';
   return {
     ...point,
-    [argField]: argumentScale(point.argument),
-    [valField]: valueScale(point.value),
+    x: argumentScale(point.argument),
+    y: valueScale(point.value),
   } as any;
 };
 
@@ -92,12 +104,11 @@ export const getScatterPointTransformer: GetPointTransformerFn = (
 export const getAreaPointTransformer: GetPointTransformerFn = (series) => {
   const transform = getLinePointTransformer(series);
   const val0 = series.valueScale(0);
-  const valField = series.isRotated ? 'x' : 'y';
   return (point) => {
     const ret = transform(point);
     return {
       ...ret,
-      height: val0 - ret[valField],
+      height: val0 - ret.y,
     };
   };
 };

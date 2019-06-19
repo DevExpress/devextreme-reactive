@@ -158,10 +158,6 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
     this.setState({ rects, timeTableElementsMeta: cellElementsMeta });
   });
 
-  setLayoutElements = (layoutElement, layoutHeaderElement) => {
-    this.setState({ layoutElement, layoutHeaderElement });
-  }
-
   setScrollingAPI = (scrollingAPI) => {
     this.setState({ scrollingAPI });
   }
@@ -232,7 +228,6 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
                   dayScaleEmptyCellComponent={DayScaleEmptyCellPlaceholder}
                   timeTableComponent={TimeTablePlaceholder}
                   timeScaleComponent={TimeScalePlaceholder}
-                  setLayoutElements={this.setLayoutElements}
                   setScrollingAPI={this.setScrollingAPI}
                   height={layoutHeight}
                 />

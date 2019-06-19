@@ -72,7 +72,6 @@ export const getVerticalRectByDates: GetVerticalRectByDatesFn = (
 
   const top = firstCellRect.top + firstCellRect.topOffset;
   const height = (lastCellRect.top + lastCellRect.topOffset) - top;
-  console.log(top);
 
   return {
     width: firstCellRect.width - CELL_GAP_PX - CELL_BOUND_HORIZONTAL_OFFSET_PX,

@@ -1,14 +1,13 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
-const makeScrollingAPI = (layoutElement, layoutHeaderElement) => {
+const makeScrollingAPI = (layoutElement) => {
   const changeVerticalScroll = (value) => {
     // eslint-disable-next-line no-param-reassign
     layoutElement.scrollTop += value;
   };
 
-  const layoutHeaderRect = layoutHeaderElement.getBoundingClientRect();
-  const top = layoutHeaderRect.height + layoutHeaderRect.top;
+  const top = layoutElement.offsetTop;
   const bottom = layoutElement.offsetTop + layoutElement.clientHeight;
 
   return {
@@ -22,28 +21,13 @@ export class LayoutContainer extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    this.layout = React.createRef();
-    this.layoutHeader = React.createRef();
+    this.setScrollApi = this.setScrollApi.bind(this);
   }
 
-  componentDidMount() {
-    this.setCells();
-  }
+  setScrollApi(scrollableElement) {
+    const { setScrollingAPI } = this.props;
 
-  componentDidUpdate() {
-    this.setCells();
-  }
-
-  setCells() {
-    const { setLayoutElements, setScrollingAPI } = this.props;
-
-    // TODO: make scrolling API here
-    const layoutElement = this.layout.current;
-    const layoutHeaderElement = this.layoutHeader.current;
-
-    setLayoutElements(layoutElement, layoutHeaderElement);
-
-    const scrollingAPI = makeScrollingAPI(layoutElement, layoutHeaderElement);
+    const scrollingAPI = makeScrollingAPI(scrollableElement);
     setScrollingAPI(scrollingAPI);
   }
 
@@ -59,8 +43,7 @@ export class LayoutContainer extends React.PureComponent {
 
     return (
       <Layout
-        layoutRef={this.layout}
-        layoutHeaderRef={this.layoutHeader}
+        setScrollApi={this.setScrollApi}
         timeScaleComponent={timeScaleComponent}
         dayScaleComponent={dayScaleComponent}
         timeTableComponent={timeTableComponent}
@@ -77,7 +60,7 @@ LayoutContainer.propTypes = {
   dayScaleComponent: PropTypes.func.isRequired,
   timeTableComponent: PropTypes.func.isRequired,
   dayScaleEmptyCellComponent: PropTypes.func.isRequired,
-  setLayoutElements: PropTypes.func.isRequired,
+  // setLayoutElements: PropTypes.func.isRequired,
   setScrollingAPI: PropTypes.func.isRequired,
   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
 };

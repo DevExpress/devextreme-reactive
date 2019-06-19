@@ -164,8 +164,8 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
 
   render() {
     const {
-      layoutComponent,
-      layoutContainerComponent: LayoutContainer,
+      layoutComponent: Layout,
+      // layoutContainerComponent: LayoutContainer,
       dayScaleEmptyCellComponent: DayScaleEmptyCell,
       timeScaleLayoutComponent: TimeScale,
       timeScaleRowComponent: TimeScaleRow,
@@ -222,8 +222,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
             {({ currentView, layoutHeight }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
-                <LayoutContainer
-                  layoutComponent={layoutComponent}
+                <Layout
                   dayScaleComponent={DayScalePlaceholder}
                   dayScaleEmptyCellComponent={DayScaleEmptyCellPlaceholder}
                   timeTableComponent={TimeTablePlaceholder}

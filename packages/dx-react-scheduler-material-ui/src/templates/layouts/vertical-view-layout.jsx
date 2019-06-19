@@ -34,12 +34,21 @@ class VerticalViewLayoutBase extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { setScrollApi } = this.props;
+    const { setScrollingAPI } = this.props;
     const scrollOffsetRight = this.scrollablePart.current.offsetWidth - this.scrollablePart.current.clientWidth;
-    if (this.scrollablePart.current) {
-      setScrollApi(this.scrollablePart.current);
-      this.setState({ scrollOffsetRight });
-    }
+    const scrollablePart = this.scrollablePart.current;
+    const changeVerticalScroll = (value) => {
+      // eslint-disable-next-line no-param-reassign
+      scrollablePart.scrollTop += value;
+    };
+
+    setScrollingAPI({
+      top: scrollablePart.offsetTop,
+      bottom: scrollablePart.offsetTop + scrollablePart.clientHeight,
+      changeVerticalScroll,
+    });
+
+    this.setState({ scrollOffsetRight });
   }
 
   render() {

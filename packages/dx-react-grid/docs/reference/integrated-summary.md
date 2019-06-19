@@ -15,6 +15,7 @@ import { IntegratedSummary } from '@devexpress/dx-react-grid';
 ### Dependencies
 
 - [SummaryState](summary-state.md)
+- [InegratedGrouping](integrated-grouping.md) [Optional]
 
 ### Properties
 

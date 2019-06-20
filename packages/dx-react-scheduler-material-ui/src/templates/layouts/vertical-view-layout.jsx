@@ -22,33 +22,38 @@ const styles = theme => ({
   },
 });
 
+const makeScrollingAPI = (scrollablePart, fixedPart) => {
+  const fixedPartRect = fixedPart.getBoundingClientRect();
+  const changeVerticalScroll = (value) => {
+    // eslint-disable-next-line no-param-reassign
+    scrollablePart.scrollTop += value;
+  };
+
+  return ({
+    top: fixedPartRect.height + fixedPartRect.top,
+    bottom: scrollablePart.offsetTop + scrollablePart.clientHeight,
+    changeVerticalScroll,
+  });
+};
+
 class VerticalViewLayoutBase extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = {
-      scrollOffsetRight: 0,
-    };
-
-    this.scrollablePart = React.createRef();
+    this.layout = React.createRef();
+    this.layoutHeader = React.createRef();
   }
 
   componentDidMount() {
     const { setScrollingAPI } = this.props;
-    const scrollOffsetRight = this.scrollablePart.current.offsetWidth - this.scrollablePart.current.clientWidth;
-    const scrollablePart = this.scrollablePart.current;
-    const changeVerticalScroll = (value) => {
-      // eslint-disable-next-line no-param-reassign
-      scrollablePart.scrollTop += value;
-    };
 
-    setScrollingAPI({
-      top: scrollablePart.offsetTop,
-      bottom: scrollablePart.offsetTop + scrollablePart.clientHeight,
-      changeVerticalScroll,
-    });
+    setScrollingAPI(makeScrollingAPI(this.layout.current, this.layoutHeader.current));
+  }
 
-    this.setState({ scrollOffsetRight });
+  componentDidUpdate() {
+    const { setScrollingAPI } = this.props;
+
+    setScrollingAPI(makeScrollingAPI(this.layout.current, this.layoutHeader.current));
   }
 
   render() {
@@ -60,50 +65,48 @@ class VerticalViewLayoutBase extends React.PureComponent {
       classes,
       height,
     } = this.props;
-    const { scrollOffsetRight } = this.state;
 
     const containerStyle = height === AUTO_HEIGHT ? { height: '100%' } : { height: `${height}px` };
 
     return (
-      <div>
-        <Grid item xs="auto" className={classes.stickyHeader} style={{ marginRight: `${scrollOffsetRight}px` }}>
-          <Grid
-            container
-            direction="row"
-          >
-            <Grid item xs={1} className={classes.emptySpace}>
-              <DayScaleEmptyCell />
-            </Grid>
-
-            <Grid item xs={11}>
-              <DayScale />
-            </Grid>
-          </Grid>
-        </Grid>
-        <RootRef
-          rootRef={this.scrollablePart} // layout should calculate margin right
+      <RootRef rootRef={this.layout}>
+        <Grid
+          container
+          className={classes.container}
+          direction="column"
+          wrap="nowrap"
+          style={containerStyle}
         >
-          <Grid
-            container
-            className={classes.container}
-            direction="column"
-            wrap="nowrap"
-            style={containerStyle}
-          >
-            <Grid item xs="auto">
-              <Grid container direction="row">
-                <Grid item xs={1}>
-                  <TimeScale />
+          <Grid item xs="auto" className={classes.stickyHeader}>
+            <RootRef rootRef={this.layoutHeader}>
+              <Grid
+                container
+                direction="row"
+              >
+                <Grid item xs={1} className={classes.emptySpace}>
+                  <DayScaleEmptyCell />
                 </Grid>
 
-                <Grid item xs={11} className={classes.timeTable}>
-                  <TimeTable />
+                <Grid item xs={11}>
+                  <DayScale />
                 </Grid>
+              </Grid>
+            </RootRef>
+          </Grid>
+
+          <Grid item xs="auto">
+            <Grid container direction="row">
+              <Grid item xs={1}>
+                <TimeScale />
+              </Grid>
+
+              <Grid item xs={11} className={classes.timeTable}>
+                <TimeTable />
               </Grid>
             </Grid>
           </Grid>
-        </RootRef>
-      </div>
+        </Grid>
+      </RootRef>
     );
   }
 }

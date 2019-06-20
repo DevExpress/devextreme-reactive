@@ -16,6 +16,7 @@ import {
   availableViewNames as availableViewNamesCore,
   getAppointmentStyle,
   verticalTimeTableRects,
+  ScrollingAPI,
 } from '@devexpress/dx-scheduler-core';
 import { memoize } from '@devexpress/dx-core';
 
@@ -49,7 +50,11 @@ const TimeScalePlaceholder = () => <TemplatePlaceholder name="timeScale" />;
 class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
   state: ViewState = {
     rects: [],
-    scrollingAPI: {},
+    scrollingAPI: {
+      topBoundary: 0,
+      bottomBoundary: 0,
+      changeVerticalScroll: () => undefined,
+    },
     timeTableElementsMeta: {},
   };
 
@@ -158,14 +163,13 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
     this.setState({ rects, timeTableElementsMeta: cellElementsMeta });
   });
 
-  setScrollingAPI = (scrollingAPI) => {
+  setScrollingAPI = (scrollingAPI: ScrollingAPI) => {
     this.setState({ scrollingAPI });
   }
 
   render() {
     const {
       layoutComponent: Layout,
-      // layoutContainerComponent: LayoutContainer,
       dayScaleEmptyCellComponent: DayScaleEmptyCell,
       timeScaleLayoutComponent: TimeScale,
       timeScaleRowComponent: TimeScaleRow,
@@ -173,7 +177,6 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
       dayScaleLayoutComponent: DayScale,
       dayScaleCellComponent: DayScaleCell,
       dayScaleRowComponent: DayScaleRow,
-      timeTableContainerComponent: TimeTableContainer,
       timeTableLayoutComponent: TimeTableLayout,
       timeTableRowComponent,
       timeTableCellComponent: TimeTableCell,
@@ -298,7 +301,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
                     rowComponent={timeTableRowComponent}
                     cellComponent={CellPlaceholder}
                     formatDate={formatDate}
-                    setCellElements={setRects}
+                    setCellElementsMeta={setRects}
                   />
                   <AppointmentLayer>
                     {rects.map(({

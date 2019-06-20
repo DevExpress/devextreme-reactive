@@ -1,3 +1,4 @@
+import { ScrollingAPI } from '@devexpress/dx-scheduler-core';
 import { VerticalViewProps, VerticalView } from './view.types';
 import { WeekViewProps } from './week-view.types';
 
@@ -84,10 +85,9 @@ export namespace MonthView {
     dayScaleComponent: React.ComponentType<MonthView.DayScaleLayoutProps>;
     /** A component that renders a time table layout. */
     timeTableComponent: React.ComponentType<MonthView.TimeTableLayoutProps>;
-    /** A component that renders a day scale empty cell. */
-    layoutRef: React.RefObject<HTMLElement>;
-    layoutHeaderRef: React.RefObject<HTMLElement>;
     /** The layout's height */
     height: number | 'auto';
+    /** The scrolling API callback */
+    setScrollingAPI: (scrollingAPI: ScrollingAPI) => void;
   }
 }

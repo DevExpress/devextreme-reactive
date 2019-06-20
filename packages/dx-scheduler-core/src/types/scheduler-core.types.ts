@@ -76,3 +76,14 @@ export type FormatDateTimeGetterFn = (locale: string | string[]) => FormatterFn;
 export type DateTimeFormatInstanceFn = (
   locale: string | string[], formatOptions: Intl.DateTimeFormatOptions,
 ) => Intl.DateTimeFormat;
+
+export type ScrollingAPI = {
+  topBoundary: number;
+  bottomBoundary: number;
+  changeVerticalScroll: (value: number) => void;
+};
+
+export type CellElementsMeta = {
+  parentRect: () => ClientRect,
+  getCellRects: Array<() => ClientRect>,
+};

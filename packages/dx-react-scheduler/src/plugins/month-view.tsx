@@ -39,6 +39,11 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
   state: ViewState = {
     rects: [],
     timeTableElementsMeta: {},
+    scrollingAPI: {
+      topBoundary: 0,
+      bottomBoundary: 0,
+      changeVerticalScroll: () => undefined,
+    },
   };
 
   static defaultProps: Partial<MonthViewProps> = {
@@ -58,6 +63,12 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
     timeTableCellComponent: 'TimeTableCell',
     timeTableRowComponent: 'TimeTableRow',
   };
+
+  scrollingAPI = memoize((viewName, scrollingAPI) => (getters) => {
+    return computed(
+      getters, viewName!, () => scrollingAPI, getters.scrollingAPI,
+    );
+  });
 
   timeTableElementsMeta = memoize((viewName, timeTableElementsMeta) => (getters) => {
     return computed(
@@ -126,14 +137,17 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
     this.setState({ rects, timeTableElementsMeta: cellElementsMeta });
   });
 
+  setScrollingAPI = (scrollingAPI) => {
+    this.setState({ scrollingAPI });
+  }
+
   render() {
     const {
-      layoutComponent: ViewLayout,
+      layoutComponent: Layout,
       dayScaleLayoutComponent: DayScale,
       dayScaleCellComponent: DayScaleCell,
       dayScaleRowComponent: DayScaleRow,
-      timeTableContainerComponent: TimeTableContainer,
-      timeTableLayoutComponent,
+      timeTableLayoutComponent: TimeTableLayout,
       timeTableRowComponent,
       timeTableCellComponent: TimeTableCell,
       appointmentLayerComponent: AppointmentLayer,
@@ -141,7 +155,7 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
       firstDayOfWeek,
       intervalCount,
     } = this.props;
-    const { rects, timeTableElementsMeta } = this.state;
+    const { rects, timeTableElementsMeta, scrollingAPI } = this.state;
 
     return (
       <Plugin
@@ -163,17 +177,20 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
           name="timeTableElementsMeta"
           computed={this.timeTableElementsMeta(viewName, timeTableElementsMeta)}
         />
+        <Getter
+          name="scrollingAPI"
+          computed={this.scrollingAPI(viewName, scrollingAPI)}
+        />
 
         <Template name="body">
           <TemplateConnector>
             {({ currentView, layoutHeight }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
-                <ViewLayout
+                <Layout
                   dayScaleComponent={DayScalePlaceholder}
                   timeTableComponent={TimeTablePlaceholder}
-                  // layoutRef={this.layout}
-                  // layoutHeaderRef={this.layoutHeader}
+                  setScrollingAPI={this.setScrollingAPI}
                   height={layoutHeight}
                 />
               );
@@ -207,13 +224,12 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
               );
               return (
                 <React.Fragment>
-                  <TimeTableContainer
-                    layoutComponent={timeTableLayoutComponent}
+                  <TimeTableLayout
                     cellsData={viewCellsData}
                     rowComponent={timeTableRowComponent}
                     cellComponent={CellPlaceholder}
                     formatDate={formatDate}
-                    setCellElements={setRects}
+                    setCellElementsMeta={setRects}
                   />
                   <AppointmentLayer>
                     {rects.map(({

@@ -11,42 +11,74 @@ const styles = {
   },
 };
 
-const LayoutBase = React.memo(({
-  cellComponent: Cell,
-  rowComponent: Row,
-  classes,
-  className,
-  cellsData,
-  formatDate,
-  ...restProps
-}) => (
-  <TableMUI
-    className={classNames(classes.table, className)}
-    {...restProps}
-  >
-    <TableBody>
-      {cellsData.map(row => (
-        <Row key={row[0].startDate.toString()}>
-          {row.map(({
-            startDate,
-            endDate,
-            today,
-            otherMonth,
-          }) => (
-            <Cell
-              key={startDate}
-              startDate={startDate}
-              endDate={endDate}
-              today={today}
-              otherMonth={otherMonth}
-              formatDate={formatDate}
-            />
+class LayoutBase extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.table = React.createRef();
+  }
+
+  componentDidMount() {
+    this.setCells();
+  }
+
+  componentDidUpdate() {
+    this.setCells();
+  }
+
+  setCells() {
+    const { setCellElementsMeta } = this.props;
+
+    const tableElement = this.table.current;
+    const cellElements = Array.from(tableElement.querySelectorAll('td'));
+    const cellElementsMeta = {
+      parentRect: () => tableElement.getBoundingClientRect(),
+      getCellRects: cellElements.map(element => () => element.getBoundingClientRect()),
+    };
+    setCellElementsMeta(cellElementsMeta);
+  }
+
+  render() {
+    const {
+      cellComponent: Cell,
+      rowComponent: Row,
+      classes,
+      className,
+      cellsData,
+      formatDate,
+      ...restProps
+    } = this.props;
+
+    return (
+      <TableMUI
+        className={classNames(classes.table, className)}
+        {...restProps}
+      >
+        <TableBody>
+          {cellsData.map(row => (
+            <Row key={row[0].startDate.toString()}>
+              {row.map(({
+                startDate,
+                endDate,
+                today,
+                otherMonth,
+              }) => (
+                <Cell
+                  key={startDate}
+                  startDate={startDate}
+                  endDate={endDate}
+                  today={today}
+                  otherMonth={otherMonth}
+                  formatDate={formatDate}
+                />
+              ))}
+            </Row>
           ))}
-        </Row>
-      ))}
-    </TableBody>
-  </TableMUI>
-));
+        </TableBody>
+      </TableMUI>
+    );
+  }
+}
 
 LayoutBase.propTypes = {
   cellsData: PropTypes.arrayOf(Array).isRequired,
@@ -54,6 +86,7 @@ LayoutBase.propTypes = {
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
   formatDate: PropTypes.func.isRequired,
+  setCellElementsMeta: PropTypes.func.isRequired,
   className: PropTypes.string,
 };
 LayoutBase.defaultProps = {

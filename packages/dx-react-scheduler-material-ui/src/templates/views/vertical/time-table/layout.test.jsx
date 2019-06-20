@@ -26,7 +26,7 @@ describe('Vertical view TimeTable', () => {
   });
   beforeEach(() => {
     mount = createMount();
-    defaultProps.setCellElements.mockClear();
+    defaultProps.setCellElementsMeta.mockClear();
   });
   afterEach(() => {
     mount.cleanUp();

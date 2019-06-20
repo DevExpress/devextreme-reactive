@@ -28,14 +28,15 @@ class LayoutBase extends React.PureComponent {
   }
 
   setCells() {
-    const { setCellElements } = this.props;
+    const { setCellElementsMeta } = this.props;
 
-    const cellElements = Array.from(this.table.current.querySelectorAll('td'));
+    const tableElement = this.table.current;
+    const cellElements = Array.from(tableElement.querySelectorAll('td'));
     const cellElementsMeta = {
-      parentRect: () => this.table.current.getBoundingClientRect(),
+      parentRect: () => tableElement.getBoundingClientRect(),
       getCellRects: cellElements.map(element => () => element.getBoundingClientRect()),
     };
-    setCellElements(cellElementsMeta);
+    setCellElementsMeta(cellElementsMeta);
   }
 
   render() {
@@ -80,7 +81,7 @@ LayoutBase.propTypes = {
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
   formatDate: PropTypes.func.isRequired,
-  setCellElements: PropTypes.func.isRequired,
+  setCellElementsMeta: PropTypes.func.isRequired,
   className: PropTypes.string,
 };
 LayoutBase.defaultProps = {

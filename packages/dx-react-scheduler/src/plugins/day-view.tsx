@@ -49,6 +49,11 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
   state: ViewState = {
     rects: [],
     timeTableElementsMeta: {},
+    scrollingAPI: {
+      topBoundary: 0,
+      bottomBoundary: 0,
+      changeVerticalScroll: () => undefined,
+    },
   };
 
   static defaultProps: Partial<VerticalViewProps> = {
@@ -75,6 +80,12 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
     timeTableCellComponent: 'TimeTableCell',
     timeTableRowComponent: 'TimeTableRow',
   };
+
+  scrollingAPI = memoize((viewName, scrollingAPI) => (getters) => {
+    return computed(
+      getters, viewName!, () => scrollingAPI, getters.scrollingAPI,
+    );
+  });
 
   timeTableElementsMeta = memoize((viewName, timeTableElementsMeta) => (getters) => {
     return computed(
@@ -141,9 +152,13 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
     this.setState({ rects, timeTableElementsMeta: cellElementsMeta });
   });
 
+  setScrollingAPI = (scrollingAPI) => {
+    this.setState({ scrollingAPI });
+  }
+
   render() {
     const {
-      layoutComponent: ViewLayout,
+      layoutComponent: Layout,
       dayScaleEmptyCellComponent: DayScaleEmptyCell,
       timeScaleLayoutComponent: TimeScale,
       timeScaleRowComponent: TimeScaleRow,
@@ -151,8 +166,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
       dayScaleLayoutComponent: DayScale,
       dayScaleCellComponent: DayScaleCell,
       dayScaleRowComponent: DayScaleRow,
-      timeTableContainerComponent: TimeTableContainer,
-      timeTableLayoutComponent,
+      timeTableLayoutComponent: TimeTableLayout,
       timeTableRowComponent,
       timeTableCellComponent: TimeTableCell,
       appointmentLayerComponent: AppointmentLayer,
@@ -162,7 +176,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
       startDayHour,
       endDayHour,
     } = this.props;
-    const { rects, timeTableElementsMeta } = this.state;
+    const { rects, timeTableElementsMeta, scrollingAPI } = this.state;
 
     return (
       <Plugin
@@ -180,20 +194,26 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
         <Getter name="startViewDate" computed={this.startViewDateComputed} />
         <Getter name="endViewDate" computed={this.endViewDateComputed} />
 
-        <Getter name="timeTableElementsMeta" computed={this.timeTableElementsMeta(viewName, timeTableElementsMeta)} />
+        <Getter
+          name="timeTableElementsMeta"
+          computed={this.timeTableElementsMeta(viewName, timeTableElementsMeta)}
+        />
+        <Getter
+          name="scrollingAPI"
+          computed={this.scrollingAPI(viewName, scrollingAPI)}
+        />
 
         <Template name="body">
           <TemplateConnector>
             {({ currentView, layoutHeight }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
-                <ViewLayout
+                <Layout
                   dayScaleComponent={DayScalePlaceholder}
                   dayScaleEmptyCellComponent={DayScaleEmptyCellPlaceholder}
                   timeTableComponent={TimeTablePlaceholder}
                   timeScaleComponent={TimeScalePlaceholder}
-                  setLayoutElement={this.setLayoutElementRect}
-                  setHeaderElement={this.setHeaderElementRect}
+                  setScrollingAPI={this.setScrollingAPI}
                   height={layoutHeight}
                 />
               );
@@ -258,13 +278,12 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
 
               return (
                 <React.Fragment>
-                  <TimeTableContainer
-                    layoutComponent={timeTableLayoutComponent}
+                  <TimeTableLayout
                     cellsData={viewCellsData}
                     rowComponent={timeTableRowComponent}
                     cellComponent={CellPlaceholder}
                     formatDate={formatDate}
-                    setCellElements={setRects}
+                    setCellElementsMeta={setRects}
                   />
                   <AppointmentLayer>
                     {rects.map(({

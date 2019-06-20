@@ -61,9 +61,8 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
 
   render() {
     const {
-      layoutContainerComponent: LayoutContainer,
       appointmentLayerComponent: AppointmentLayer,
-      layoutComponent,
+      layoutComponent: Layout,
       cellComponent: Cell,
       rowComponent,
       titleCellComponent: TitleCell,
@@ -118,12 +117,11 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
               );
               return (
                 <React.Fragment>
-                  <LayoutContainer
-                    layoutComponent={layoutComponent}
+                  <Layout
                     cellComponent={CellPlaceholder}
                     rowComponent={rowComponent}
                     cellsData={this.allDayCellsData(viewCellsData)}
-                    setCellElements={setRects}
+                    setCellElementsMeta={setRects}
                     formatDate={formatDate}
                   />
                   <AppointmentLayer>

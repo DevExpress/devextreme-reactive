@@ -23,7 +23,7 @@ describe('Horizontal view TimeTable', () => {
     /* eslint-disable-next-line */
     rowComponent: ({ children }) => <tr>{children}</tr>,
     formatDate: () => undefined,
-    setCellElements: jest.fn(),
+    setCellElementsMeta: jest.fn(),
   };
   let classes;
   let mount;
@@ -32,7 +32,7 @@ describe('Horizontal view TimeTable', () => {
   });
   beforeEach(() => {
     mount = createMount();
-    defaultProps.setCellElements.mockClear();
+    defaultProps.setCellElementsMeta.mockClear();
   });
   afterEach(() => {
     mount.cleanUp();

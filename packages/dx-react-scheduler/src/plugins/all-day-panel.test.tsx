@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { pluginDepsToComponents } from '@devexpress/dx-testing';
+import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing';
 import { PluginHost, TemplatePlaceholder } from '@devexpress/dx-react-core';
 import {
   allDayCells,
@@ -22,6 +22,7 @@ const defaultDeps = {
     startViewDate: '',
     endViewDate: '',
     excludedDays: [],
+    formatDate: jest.fn(),
   },
   template: {
     body: {},
@@ -57,6 +58,22 @@ describe('AllDayPanel', () => {
     jest.resetAllMocks();
   });
 
+  describe('Getters', () => {
+    it('should provide allDayElementsMeta getter', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <AllDayPanel
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).allDayElementsMeta)
+        .toEqual({});
+    });
+  });
+
   describe('Templates', () => {
     it('should render AllDayPanel layout', () => {
       const tree = mount((
@@ -68,8 +85,14 @@ describe('AllDayPanel', () => {
         </PluginHost>
       ));
 
-      expect(tree.find(defaultProps.layoutComponent).exists())
+      const layout = defaultProps.layoutComponent;
+
+      expect(tree.find(layout).exists())
         .toBeTruthy();
+      expect(tree.find(layout).props().formatDate)
+        .toEqual(defaultDeps.getter.formatDate);
+      expect(tree.find(layout).props().setCellElementsMeta)
+        .toEqual(expect.any(Function));
     });
 
     it('should render appointment layer', () => {

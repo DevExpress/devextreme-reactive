@@ -174,7 +174,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
       dayScaleCellComponent: DayScaleCell,
       dayScaleRowComponent: DayScaleRow,
       timeTableContainerComponent: TimeTableContainer,
-      timeTableLayoutComponent,
+      timeTableLayoutComponent: TimeTableLayout,
       timeTableRowComponent,
       timeTableCellComponent: TimeTableCell,
       cellDuration,
@@ -293,8 +293,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
 
               return (
                 <React.Fragment>
-                  <TimeTableContainer
-                    layoutComponent={timeTableLayoutComponent}
+                  <TimeTableLayout
                     cellsData={viewCellsData}
                     rowComponent={timeTableRowComponent}
                     cellComponent={CellPlaceholder}

@@ -30,6 +30,12 @@ export interface Path {
   y1?(): GetPointFieldFn;
   y1?(f: GetPointFieldFn): this;
 
+  x0?(): GetPointFieldFn;
+  x0?(f: GetPointFieldFn): this;
+
+  x1?(): GetPointFieldFn;
+  x1?(f: GetPointFieldFn): this;
+
   curve?(): any;
   curve?(c: any): this;
 

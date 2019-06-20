@@ -18,11 +18,12 @@ jest.mock('../../utils/with-pattern', () => ({
 
 describe('Area', () => {
   const defaultProps = {
-    path: value => value.join('-'),
+    path: jest.fn(() => value => value.join('-')),
     coordinates: [1, 2, 3],
     index: 1,
     color: 'red',
     scales: { tag: 'test-scales' },
+    isRotated: true,
     getAnimatedStyle: jest.fn(style => style),
   };
 
@@ -38,6 +39,7 @@ describe('Area', () => {
       fill: 'red',
       opacity: 0.5,
     });
+    expect(defaultProps.path).toBeCalledWith(true);
   });
 
   it('should apply custom styles if any', () => {

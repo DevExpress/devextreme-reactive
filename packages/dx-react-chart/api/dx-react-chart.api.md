@@ -273,21 +273,29 @@ export interface Path {
   // (undocumented)
   context(ctx: any): this;
   // (undocumented)
-  curve?(): any;
-  // (undocumented)
   curve?(c: any): this;
+  // (undocumented)
+  curve?(): any;
   // (undocumented)
   x(f: GetPointFieldFn): this;
   // (undocumented)
   x(): GetPointFieldFn;
   // (undocumented)
+  x0?(f: GetPointFieldFn): this;
+  // (undocumented)
+  x0?(): GetPointFieldFn;
+  // (undocumented)
+  x1?(): GetPointFieldFn;
+  // (undocumented)
+  x1?(f: GetPointFieldFn): this;
+  // (undocumented)
   y(): GetPointFieldFn;
   // (undocumented)
   y(f: GetPointFieldFn): this;
   // (undocumented)
-  y0?(): GetPointFieldFn;
-  // (undocumented)
   y0?(f: GetPointFieldFn): this;
+  // (undocumented)
+  y0?(): GetPointFieldFn;
   // (undocumented)
   y1?(): GetPointFieldFn;
   // (undocumented)
@@ -629,4 +637,3 @@ export interface ZoomAndPanProps {
 // (No @packageDocumentation comment for this package)
 
 ```
-

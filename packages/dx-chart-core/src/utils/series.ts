@@ -23,9 +23,11 @@ const createContext = () => document.createElement('canvas').getContext('2d')!;
 // For a start using browser canvas will suffice.
 // However a better and more clean solution should be found.
 // Can't d3 perform hit testing?
-const createCanvasAbusingHitTester = (makePath: MakePathFn, points: PointList): IsPointInPathFn => {
+const createCanvasAbusingHitTester = (
+  makePath: MakePathFn, points: PointList, isRotated: boolean,
+): IsPointInPathFn => {
   const ctx = createContext();
-  const path = makePath();
+  const path = makePath(isRotated);
   path.context(ctx);
   path(points as any);
   return ([x, y]) => ctx.isPointInPath(x, y);
@@ -39,8 +41,8 @@ const getContinuousPointDistance = (
 ) => getSegmentLength(px - x, py - y);
 
 const createContinuousSeriesHitTesterCreator =
-  (makePath: MakePathFn): CreateHitTesterFn => (points) => {
-    const fallbackHitTest = createCanvasAbusingHitTester(makePath, points);
+  (makePath: MakePathFn): CreateHitTesterFn => (points, isRotated) => {
+    const fallbackHitTest = createCanvasAbusingHitTester(makePath, points, isRotated);
     return (target) => {
       let minDistance = Number.MAX_VALUE;
       let minIndex: number = 0;
@@ -65,10 +67,10 @@ const createContinuousSeriesHitTesterCreator =
   };
 
 const createPointsEnumeratingHitTesterCreator =
-  (hitTestPoint: HitTestPointFn): CreateHitTesterFn => points => (target) => {
+  (hitTestPoint: HitTestPointFn): CreateHitTesterFn => (points, isRotated) => (target) => {
     const list: PointDistance[] = [];
     points.forEach((point) => {
-      const status = hitTestPoint(target, point as TransformedPoint);
+      const status = hitTestPoint(target, point as TransformedPoint, isRotated);
       if (status) {
         list.push({ index: point.index, distance: status.distance });
       }
@@ -77,34 +79,54 @@ const createPointsEnumeratingHitTesterCreator =
   };
 
 /** @internal */
-export const createAreaHitTester = createContinuousSeriesHitTesterCreator(() => {
+export const createAreaHitTester = createContinuousSeriesHitTesterCreator((isRotated) => {
   const path: Path = area() as any;
-  const hitArea = dArea(false);
-  path.x(hitArea.x());
-  path.y1!(hitArea.y1!());
-  path.y0!(hitArea.y0!());
+  const hitArea = dArea(isRotated);
+  if (isRotated) {
+    path.x1!(hitArea.x1!());
+    path.x0!(hitArea.x0!());
+    path.y(hitArea.y());
+  } else {
+    path.x(hitArea.x());
+    path.y1!(hitArea.y1!());
+    path.y0!(hitArea.y0!());
+  }
   return path;
 });
 
 /** @internal */
-export const createLineHitTester = createContinuousSeriesHitTesterCreator(() => {
+export const createLineHitTester = createContinuousSeriesHitTesterCreator((isRotated) => {
   const path: Path = area() as any;
-  const hitLine = dLine(false);
-  const getY = hitLine.y();
-  path.x(hitLine.x());
-  path.y1!(point => getY(point) - LINE_TOLERANCE);
-  path.y0!(point => getY(point) + LINE_TOLERANCE);
+  const hitLine = dLine(isRotated);
+  if (isRotated) {
+    const getX = hitLine.x();
+    path.y(hitLine.y());
+    path.x0!(point => getX(point) + LINE_TOLERANCE);
+    path.x1!(point => getX(point) - LINE_TOLERANCE);
+  } else {
+    const getY = hitLine.y();
+    path.x(hitLine.x());
+    path.y1!(point => getY(point) - LINE_TOLERANCE);
+    path.y0!(point => getY(point) + LINE_TOLERANCE);
+  }
   return path;
 });
 
 /** @internal */
-export const createSplineHitTester = createContinuousSeriesHitTesterCreator(() => {
+export const createSplineHitTester = createContinuousSeriesHitTesterCreator((isRotated) => {
   const path: Path = area() as any;
-  const hitSpline = dSpline(false);
-  const getY = hitSpline.y();
-  path.x(hitSpline.x());
-  path.y1!(point => getY(point) - LINE_TOLERANCE);
-  path.y0!(point => getY(point) + LINE_TOLERANCE);
+  const hitSpline = dSpline(isRotated);
+  if (isRotated) {
+    const getX = hitSpline.x();
+    path.y(hitSpline.y());
+    path.x1!(point => getX(point) - LINE_TOLERANCE);
+    path.x0!(point => getX(point) + LINE_TOLERANCE);
+  } else {
+    const getY = hitSpline.y();
+    path.x(hitSpline.x());
+    path.y1!(point => getY(point) - LINE_TOLERANCE);
+    path.y0!(point => getY(point) + LINE_TOLERANCE);
+  }
   path.curve!(hitSpline.curve!());
   return path;
 });
@@ -118,9 +140,9 @@ const hitTestRect = (dx: number, dy: number, halfX: number, halfY: number) => (
 // Some kind of binary search can be used here as bars can be ordered along argument axis.
 /** @internal */
 export const createBarHitTester = createPointsEnumeratingHitTesterCreator(
-  ([px, py], point) => {
+  ([px, py], point, isRotated) => {
     const {
-      x, y, barWidth, maxBarWidth, barHeight, isRotated,
+      x, y, barWidth, maxBarWidth, barHeight,
     } = point as BarSeries.PointProps;
     const width = maxBarWidth * barWidth;
     const xCenter = isRotated ? x - barHeight / 2 : x;
@@ -133,9 +155,10 @@ export const createBarHitTester = createPointsEnumeratingHitTesterCreator(
 
 /** @internal */
 export const createScatterHitTester = createPointsEnumeratingHitTesterCreator(
-  ([px, py], obj) => {
+  ([px, py], obj, isRotated) => {
     const { x, y, point } = obj as ScatterSeries.PointProps;
-    const distance = getSegmentLength(px - x, py - y);
+    const distance = isRotated ?
+    getSegmentLength(px - y, py - x) : getSegmentLength(px - x, py - y);
     return distance <= point.size / 2 ? { distance } : null;
   },
 );

@@ -6,12 +6,13 @@ import {
 } from './plugins.series.types';
 
 /** @internal */
-export type MakePathFn = () => Path;
+export type MakePathFn = (isRotated: boolean) => Path;
 /** @internal */
 export type IsPointInPathFn = (target: Location) => boolean;
 /** @internal */
-export type HitTestPointFn =
-  (location: Location, point: TransformedPoint) => Readonly<{ distance: number }> | null;
+export type HitTestPointFn = (
+    location: Location, point: TransformedPoint, isRotated: boolean,
+  ) => Readonly<{ distance: number }> | null;
 /** @internal */
 export type Filter = {
   readonly [series: string]: ReadonlySet<number>;

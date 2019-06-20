@@ -150,4 +150,4 @@ type HitTestResult = {
 } | null;
 export type HitTestFn = (location: Location) => HitTestResult;
 /** @internal */
-export type CreateHitTesterFn = (points: PointList) => HitTestFn;
+export type CreateHitTesterFn = (points: PointList, isRotated: boolean) => HitTestFn;

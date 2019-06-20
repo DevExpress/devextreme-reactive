@@ -10,14 +10,14 @@ class RawPoint extends React.PureComponent<ScatterSeries.PointProps> {
     const {
       x, y,
       argument, value, seriesIndex, index, state,
-      point: pointOptions,
+      point: pointOptions, isRotated,
       color,
       style, scales, getAnimatedStyle,
       ...restProps
     } = this.props;
     return (
       <path
-        transform={`translate(${x} ${y})`}
+        transform={isRotated ? `translate(${y} ${x})` : `translate(${x} ${y})`}
         d={dSymbol(pointOptions)}
         fill={color}
         stroke="none"

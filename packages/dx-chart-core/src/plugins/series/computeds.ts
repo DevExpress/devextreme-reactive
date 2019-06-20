@@ -84,7 +84,7 @@ export const getPiePointTransformer: GetPointTransformerFn = ({
 
 /** @internal */
 export const getLinePointTransformer: GetPointTransformerFn = ({
-  argumentScale, valueScale, isRotated,
+  argumentScale, valueScale,
 }) => (point) => {
   return {
     ...point,

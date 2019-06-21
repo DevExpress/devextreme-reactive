@@ -76,13 +76,11 @@ export interface PointComponentProps extends CommonComponentProps {
   /** Point value */
   value: any;
   /** x coordinate */
-  x: number;
+  arg: number;
   /** y coordinate */
-  y: number;
-  /** height (TODO: Rename) */
-  height?: number;
+  val: number;
   // TODO: Remove (fix getTargetElement for Bar)
-  y1?: number;
+  startVal?: number;
 }
 
 export interface SeriesProps {

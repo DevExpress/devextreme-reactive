@@ -9,18 +9,19 @@ import { BarSeries } from '../../types';
 class RawBar extends React.PureComponent<BarSeries.PointProps> {
   render() {
     const {
-      x, barWidth, y, maxBarWidth, barHeight,
+      arg, val, startVal, barWidth, maxBarWidth,
       argument, value, seriesIndex, index, state, isRotated,
       color,
       style, scales, getAnimatedStyle,
       ...restProps
     } = this.props;
     const width = barWidth * maxBarWidth;
+    const height = Math.abs(val - startVal!);
     const attrs = {
-      x: isRotated ? x - barHeight : x - width / 2,
-      y: isRotated ? y - width / 2 : y,
-      width: isRotated ? barHeight : width,
-      height: isRotated ? width : barHeight,
+      x: isRotated ? Math.min(val, startVal!) : arg - width / 2,
+      y: isRotated ? arg - width / 2 : val,
+      width: isRotated ? height : width,
+      height: isRotated ? width : height,
     };
     return (
       <rect

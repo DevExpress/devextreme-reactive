@@ -8,16 +8,18 @@ import { ScatterSeries } from '../../types';
 class RawPoint extends React.PureComponent<ScatterSeries.PointProps> {
   render() {
     const {
-      x, y,
+      arg, val, isRotated,
       argument, value, seriesIndex, index, state,
-      point: pointOptions, isRotated,
+      point: pointOptions,
       color,
       style, scales, getAnimatedStyle,
       ...restProps
     } = this.props;
+    const x = isRotated ? val : arg;
+    const y = isRotated ? arg : val;
     return (
       <path
-        transform={isRotated ? `translate(${y} ${x})` : `translate(${x} ${y})`}
+        transform={`translate(${x} ${y})`}
         d={dSymbol(pointOptions)}
         fill={color}
         stroke="none"

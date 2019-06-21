@@ -37,7 +37,7 @@ const LINE_POINT_SIZE = 20;
 const LINE_TOLERANCE = 10;
 
 const getContinuousPointDistance = (
-  [px, py]: Location, { x, y }: TransformedPoint,
+  [px, py]: Location, { arg: x, val: y }: TransformedPoint,
 ) => getSegmentLength(px - x, py - y);
 
 const createContinuousSeriesHitTesterCreator =
@@ -142,13 +142,14 @@ const hitTestRect = (dx: number, dy: number, halfX: number, halfY: number) => (
 export const createBarHitTester = createPointsEnumeratingHitTesterCreator(
   ([px, py], point, isRotated) => {
     const {
-      x, y, barWidth, maxBarWidth, barHeight,
+      arg, val, startVal, barWidth, maxBarWidth,
     } = point as BarSeries.PointProps;
     const width = maxBarWidth * barWidth;
-    const xCenter = isRotated ? x - barHeight / 2 : x;
-    const yCenter = isRotated ? y : y + barHeight / 2;
-    const halfWidth = (isRotated ? barHeight : width) / 2;
-    const halfHeight = (isRotated ? width : barHeight) / 2;
+    const height = Math.abs(val - startVal!);
+    const xCenter = isRotated ? val - height / 2 : arg;
+    const yCenter = isRotated ? arg : val + height / 2;
+    const halfWidth = (isRotated ? height : width) / 2;
+    const halfHeight = (isRotated ? width : height) / 2;
     return hitTestRect(px - xCenter, py - yCenter, halfWidth, halfHeight);
   },
 );
@@ -156,9 +157,10 @@ export const createBarHitTester = createPointsEnumeratingHitTesterCreator(
 /** @internal */
 export const createScatterHitTester = createPointsEnumeratingHitTesterCreator(
   ([px, py], obj, isRotated) => {
-    const { x, y, point } = obj as ScatterSeries.PointProps;
-    const distance = isRotated ?
-    getSegmentLength(px - y, py - x) : getSegmentLength(px - x, py - y);
+    const { arg, val, point } = obj as ScatterSeries.PointProps;
+    const x = isRotated ? val : arg;
+    const y = isRotated ? arg : val;
+    const distance = getSegmentLength(px - x, py - y);
     return distance <= point.size / 2 ? { distance } : null;
   },
 );
@@ -173,7 +175,7 @@ const mapAngleTod3 = (angle: number) => {
 export const createPieHitTester = createPointsEnumeratingHitTesterCreator(
   ([px, py], point) => {
     const {
-      x, y, innerRadius, outerRadius, startAngle, maxRadius, endAngle,
+      arg: x, val: y, innerRadius, outerRadius, startAngle, maxRadius, endAngle,
     } = point as PieSeries.PointProps;
     const inner = innerRadius * maxRadius;
     const outer = outerRadius * maxRadius;

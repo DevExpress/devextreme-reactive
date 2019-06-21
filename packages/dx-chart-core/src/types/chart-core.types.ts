@@ -58,13 +58,13 @@ export type PointList = ReadonlyArray<Point>;
 // relation between them. One is internal object other is set of component properties.
 // TODO: Reorganize types to remove the false similarity.
 export interface TransformedPoint extends Point {
-  /** The point's x coordinate */
-  readonly x: number;
-  /** The point's y coordinate' */
-  readonly y: number;
+  /** The point's translated argument */
+  readonly arg: number;
+  /** The point's translated value */
+  readonly val: number;
   // Let's keep it here (instead of creating a separate interface with single field) for now.
-  /** The point's y1 coordinate */
-  readonly y1?: number;
+  /** The point's translated start value */
+  readonly startVal?: number;
 }
 
 /** The object that points at a clicked series */

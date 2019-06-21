@@ -17,47 +17,45 @@ import {
 import { ARGUMENT_DOMAIN } from '../../constants';
 import { getValueDomainName, getWidth } from '../../utils/scale';
 
-const getX = ({ x }: PointComponentProps) => x;
-const getY = ({ y }: PointComponentProps) => y;
-const getY1 = ({ y, height }: PointComponentProps) => y + height!;
+const getArg = ({ arg }: PointComponentProps) => arg;
+const getVal = ({ val }: PointComponentProps) => val;
+const getStartVal = ({ startVal }: PointComponentProps) => startVal!;
 
 /** @internal */
 export const dArea: PathFn = (isRotated) => {
-  return isRotated ?
-  area<PointComponentProps>()
-  .x1(getY1)
-  .x0(getY)
-  .y(getX) as any
-  :
-  area<PointComponentProps>()
-  .x(getX)
-  .y1(getY)
-  .y0(getY1) as any;
+  return isRotated
+    ? area<PointComponentProps>()
+        .x1(getStartVal)
+        .x0(getVal)
+        .y(getArg) as any
+    : area<PointComponentProps>()
+        .x(getArg)
+        .y1(getVal)
+        .y0(getStartVal) as any;
 };
 
 /** @internal */
 export const dLine: PathFn = (isRotated) => {
-  return isRotated ?
-  line<PointComponentProps>()
-  .x(getY)
-  .y(getX) as any
-  :
-  line<PointComponentProps>()
-  .x(getX)
-  .y(getY) as any;
+  return isRotated
+    ? line<PointComponentProps>()
+        .x(getVal)
+        .y(getArg) as any
+    : line<PointComponentProps>()
+        .x(getArg)
+        .y(getVal) as any;
 };
 
 /** @internal */
 export const dSpline: PathFn = (isRotated) => {
   return isRotated ?
   line<PointComponentProps>()
-  .x(getY)
-  .y(getX)
+  .x(getVal)
+  .y(getArg)
   .curve(curveMonotoneY) as any
   :
   line<PointComponentProps>()
-  .x(getX)
-  .y(getY)
+  .x(getArg)
+  .y(getVal)
   .curve(curveMonotoneX) as any;
 };
 
@@ -73,8 +71,8 @@ export const getPiePointTransformer: GetPointTransformerFn = ({
     const { startAngle, endAngle } = pieData[point.index];
     return {
       ...point,
-      x,
-      y,
+      arg: x,
+      val: y,
       startAngle,
       endAngle,
       maxRadius,
@@ -84,14 +82,12 @@ export const getPiePointTransformer: GetPointTransformerFn = ({
 
 /** @internal */
 export const getLinePointTransformer: GetPointTransformerFn = ({
-  argumentScale, valueScale,
-}) => (point) => {
-  return {
-    ...point,
-    x: argumentScale(point.argument),
-    y: valueScale(point.value),
-  } as any;
-};
+  argumentScale, valueScale, isRotated,
+}) => point => ({
+  ...point,
+  arg: argumentScale(point.argument),
+  val: valueScale(point.value),
+} as any);
 
 // Though transformations for line and scatter are the same,
 // separate function instance is required as it contains additional static fields.
@@ -108,7 +104,7 @@ export const getAreaPointTransformer: GetPointTransformerFn = (series) => {
     const ret = transform(point);
     return {
       ...ret,
-      height: val0 - ret.y,
+      startVal: val0,
     };
   };
 };
@@ -120,19 +116,13 @@ export const getBarPointTransformer: GetPointTransformerFn = ({
   argumentScale, valueScale, isRotated,
 }) => {
   const val0 = valueScale(0);
-  const argField = isRotated ? 'y' : 'x';
-  const valField = isRotated ? 'x' : 'y';
-  return (point) => {
-    const arg = argumentScale(point.argument);
-    const val = valueScale(point.value);
-    return {
-      ...point,
-      [argField]: arg,
-      [valField]: val,
-      barHeight: Math.abs(val - val0),
-      maxBarWidth: getWidth(argumentScale),
-    } as any;
-  };
+  return point => ({
+    ...point,
+    arg: argumentScale(point.argument),
+    val: valueScale(point.value),
+    startVal: val0,
+    maxBarWidth: getWidth(argumentScale),
+  } as any);
 };
 // Used for domain calculation and stacking.
 getBarPointTransformer.isStartedFromZero = true;
@@ -145,16 +135,6 @@ getPiePointTransformer.getPointColor = (palette, index) => palette[index % palet
 export const findSeriesByName = (
   name: symbol, series: SeriesList,
 ): Series => series.find(seriesItem => seriesItem.symbolName === name) as Series;
-
-/** @internal */
-export const dBar = ({
-  x, y, y1, barWidth, maxBarWidth,
-}: BarSeries.PointProps) => {
-  const width = barWidth * maxBarWidth;
-  return {
-    x: x - width / 2, y: Math.min(y, y1!), width: width || 2, height: Math.abs(y1! - y),
-  };
-};
 
 /** @internal */
 export const dSymbol = (
@@ -176,15 +156,23 @@ const getRect = (cx: number, cy: number, dx: number, dy: number): Rect => (
 );
 
 getBarPointTransformer.getTargetElement = (point) => {
-  const { x, y, y1, barWidth, maxBarWidth } = point as BarSeries.PointProps;
-  const width = barWidth * maxBarWidth;
-  const height = Math.abs(y1! - y);
-  return getRect(x, y + height / 2, width / 2, height / 2);
+  const {
+    arg, val, startVal, barWidth, maxBarWidth, isRotated,
+  } = point as BarSeries.PointProps;
+  const halfWidth = barWidth * maxBarWidth / 2;
+  const halfHeight = Math.abs(startVal! - val) / 2;
+  const centerVal = (val + startVal!) / 2;
+  return getRect(
+    isRotated ? centerVal  : arg,
+    isRotated ? arg : centerVal,
+    isRotated ? halfHeight : halfWidth,
+    isRotated ? halfWidth : halfHeight,
+  );
 };
 
 getPiePointTransformer.getTargetElement = (point) => {
   const {
-    x, y, innerRadius, outerRadius, maxRadius, startAngle, endAngle,
+    arg: x, val: y, innerRadius, outerRadius, maxRadius, startAngle, endAngle,
   } = point as PieSeries.PointProps;
   const center = arc().centroid({
     startAngle,
@@ -197,14 +185,16 @@ getPiePointTransformer.getTargetElement = (point) => {
   return getRect(cx, cy, 0.5, 0.5);
 };
 
-getAreaPointTransformer.getTargetElement = ({ x, y }) => getRect(x, y, 1, 1);
+getAreaPointTransformer.getTargetElement = ({ arg, val, isRotated }) => (
+  getRect(isRotated ? val : arg, isRotated ? arg : val, 1, 1)
+);
 
 getLinePointTransformer.getTargetElement = getAreaPointTransformer.getTargetElement;
 
-getScatterPointTransformer.getTargetElement = (arg) => {
-  const { x, y, point } = arg as ScatterSeries.PointProps;
+getScatterPointTransformer.getTargetElement = (obj) => {
+  const { arg, val, point, isRotated } = obj as ScatterSeries.PointProps;
   const t = point.size / 2;
-  return getRect(x, y, t, t);
+  return getRect(isRotated ? val : arg, isRotated ? arg : val, t, t);
 };
 
 const getUniqueName = (list: SeriesList, name: string) => {

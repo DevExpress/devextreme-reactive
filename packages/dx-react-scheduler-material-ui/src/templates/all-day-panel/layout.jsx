@@ -12,6 +12,7 @@ const styles = {
 };
 
 const LayoutBase = React.memo(({
+  setCellElementsMeta,
   cellsData,
   classes, className,
   cellComponent: Cell,
@@ -46,6 +47,7 @@ LayoutBase.propTypes = {
   cellsData: PropTypes.arrayOf(Array).isRequired,
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
+  setCellElementsMeta: PropTypes.func.isRequired,
   className: PropTypes.string,
 };
 LayoutBase.defaultProps = {

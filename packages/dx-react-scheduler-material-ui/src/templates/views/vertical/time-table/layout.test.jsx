@@ -18,6 +18,7 @@ describe('Vertical view TimeTable', () => {
     /* eslint-disable-next-line */
     rowComponent: ({ children }) => <tr>{children}</tr>,
     formatDate: jest.fn(),
+    setCellElementsMeta: jest.fn(),
   };
   let classes;
   let mount;
@@ -66,6 +67,21 @@ describe('Vertical view TimeTable', () => {
         .toHaveLength(4);
       expect(tree.find(row))
         .toHaveLength(2);
+    });
+    it('should calls setCellElementsMeta', () => {
+      const tree = mount((
+        <Layout
+          {...defaultProps}
+        />
+      ));
+
+      expect(defaultProps.setCellElementsMeta)
+        .toBeCalledTimes(1);
+
+      tree.setProps({ className: 'a' });
+
+      expect(defaultProps.setCellElementsMeta)
+        .toBeCalledTimes(2);
     });
   });
 });

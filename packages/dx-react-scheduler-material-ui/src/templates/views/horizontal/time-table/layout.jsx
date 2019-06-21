@@ -37,6 +37,7 @@ class LayoutBase extends React.PureComponent {
 
   render() {
     const {
+      setCellElementsMeta,
       cellComponent: Cell,
       rowComponent: Row,
       classes,

@@ -114,7 +114,7 @@ describe('DragDropProvider', () => {
         .toBeCalledWith(-30);
     });
     it('should scroll down', () => {
-      const clientOffset = { x: 1, y: 161 };
+      const clientOffset = { x: 1, y: 960 };
 
       autoScroll(clientOffset, scrollAPI);
       expect(scrollAPI.changeVerticalScroll)
@@ -122,13 +122,6 @@ describe('DragDropProvider', () => {
     });
     it('should not scroll up if cursor is above of top boundary', () => {
       const clientOffset = { x: 1, y: -10 };
-
-      autoScroll(clientOffset, scrollAPI);
-      expect(scrollAPI.changeVerticalScroll)
-        .not.toBeCalled();
-    });
-    it('should not scroll up if cursor is under of top boundary', () => {
-      const clientOffset = { x: 1, y: 1001 };
 
       autoScroll(clientOffset, scrollAPI);
       expect(scrollAPI.changeVerticalScroll)
@@ -405,14 +398,14 @@ describe('DragDropProvider', () => {
     });
     it('should return top', () => {
       const tileTableIndex = 0;
-      const timeTableCells = [{ getBoundingClientRect: () => ({ top: 10, height: 20 }) }];
-      expect(calculateInsidePart(15, timeTableCells, tileTableIndex))
+      const timeTableCellsRects = [() => ({ top: 10, height: 20 })];
+      expect(calculateInsidePart(15, timeTableCellsRects, tileTableIndex))
         .toEqual(0);
     });
     it('should return bottom', () => {
       const tileTableIndex = 0;
-      const timeTableCells = [{ getBoundingClientRect: () => ({ top: 10, height: 20 }) }];
-      expect(calculateInsidePart(25, timeTableCells, tileTableIndex))
+      const timeTableCellsRects = [() => ({ top: 10, height: 20 })];
+      expect(calculateInsidePart(25, timeTableCellsRects, tileTableIndex))
         .toEqual(1);
     });
   });

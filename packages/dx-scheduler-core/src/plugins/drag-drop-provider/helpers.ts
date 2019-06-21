@@ -150,9 +150,9 @@ export const calculateAppointmentTimeBoundaries: CalculateAppointmentTimeBoundar
 
 export const calculateInsidePart: PureComputed<
   [number, Array<() => ClientRect>, number]
-> = (top, timeTableCells, timeTableIndex) => {
+> = (top, timeTableCellsRects, timeTableIndex) => {
   if (timeTableIndex !== undefined && timeTableIndex !== -1) {
-    const cellRect = timeTableCells[timeTableIndex]();
+    const cellRect = timeTableCellsRects[timeTableIndex]();
     return top > cellRect.top + cellRect.height / 2 ? 1 : 0;
   }
   return 0;

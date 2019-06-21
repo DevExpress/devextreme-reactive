@@ -255,14 +255,16 @@ export const addSeries: AddSeriesFn = (
 const scalePoints = (series: Series, scales: ScalesCache, isRotated: boolean) => {
   const transform = series.getPointTransformer({
     ...series,
-    isRotated,
     argumentScale: scales[ARGUMENT_DOMAIN],
     valueScale: scales[getValueDomainName(series.scaleName)],
   });
   const ret: Series = {
     ...series,
     isRotated,
-    points: series.points.map(transform),
+    points: series.points.map(point => ({
+      ...transform(point),
+      isRotated,
+    })),
   };
   return ret;
 };

@@ -544,21 +544,22 @@ describe('scaleSeriesPoints', () => {
 
     const result = scaleSeriesPoints([series1, series2] as any, scales as any, 'test-rotated');
 
-    expect(result[0].points).toEqual(
-      [{ name: 'a1', tag: '#1' }, { name: 'a2', tag: '#1' }],
-    );
-    expect(result[1].points).toEqual(
-      [{ name: 'b1', tag: '#2' }, { name: 'b2', tag: '#2' }, { name: 'b3', tag: '#2' }],
-    );
+    expect(result[0].points).toEqual([
+      { name: 'a1', tag: '#1', isRotated: 'test-rotated' },
+      { name: 'a2', tag: '#1', isRotated: 'test-rotated' },
+    ]);
+    expect(result[1].points).toEqual([
+      { name: 'b1', tag: '#2', isRotated: 'test-rotated' },
+      { name: 'b2', tag: '#2', isRotated: 'test-rotated' },
+      { name: 'b3', tag: '#2', isRotated: 'test-rotated' },
+    ]);
     expect(getPointTransformer1).toBeCalledWith({
       ...series1,
       argumentScale: 'test-arg-scale', valueScale: 'test-val-scale-1',
-      isRotated: 'test-rotated',
     });
     expect(getPointTransformer2).toBeCalledWith({
       ...series2,
       argumentScale: 'test-arg-scale', valueScale: 'test-val-scale',
-      isRotated: 'test-rotated',
     });
   });
 });

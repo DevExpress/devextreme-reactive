@@ -38,29 +38,18 @@ const defaultDeps = {
     startViewDate: new Date('2018-06-25'),
     endViewDate: new Date('2018-08-05'),
     excludedDays: [],
-    timeTableElement: {
-      current: {
-        querySelectorAll: () => [{}, {
-          getBoundingClientRect: () => ({ height: 20, top: 20, bottom: 40 }),
-        }],
-      },
+    timeTableElementsMeta: {
+      parentRect: () => ({ height: 20, top: 20, bottom: 40 }),
+      getCellRects: [{}, () => ({ height: 20, top: 20, bottom: 40 })],
     },
-    layoutElement: {
-      current: {
-        scrollTop: 10,
-        offsetTop: 10,
-        clientHeight: 100,
-        getBoundingClientRect: () => ({ height: 1, top: 1 }),
-      },
+    allDayElementsMeta: {
+      parentRect: () => ({ height: 20, top: 20, bottom: 40 }),
+      getCellRects: [],
     },
-    layoutHeaderElement: {
-      current: {
-        getBoundingClientRect: () => ({
-          height: 10,
-          top: 10,
-        }),
-        querySelectorAll: () => [],
-      },
+    scrollingAPI: {
+      topBoundary: 10,
+      bottomBoundary: 20,
+      changeVerticalScroll: jest.fn(),
     },
   },
   action: {
@@ -308,7 +297,7 @@ describe('DragDropProvider', () => {
 
       expect(autoScroll)
         .toBeCalledWith(
-          clientOffset, defaultDeps.getter.layoutElement, defaultDeps.getter.layoutHeaderElement,
+          clientOffset, defaultDeps.getter.scrollingAPI,
         );
     });
   });
@@ -320,12 +309,9 @@ describe('DragDropProvider', () => {
       getBoundingClientRect.mockImplementationOnce(() => ({ height: 20, top: 0, bottom: 20 }));
       const deps = {
         getter: {
-          timeTableElement: {
-            current: {
-              querySelectorAll: () => [{}, {
-                getBoundingClientRect,
-              }],
-            },
+          timeTableElementsMeta: {
+            parentRect: () => ({ height: 20, top: 20, bottom: 40 }),
+            getCellRects: [{}, () => getBoundingClientRect()],
           },
         },
       };
@@ -355,12 +341,9 @@ describe('DragDropProvider', () => {
       getBoundingClientRect.mockImplementationOnce(() => ({ height: 20, top: 0, bottom: 20 }));
       const deps = {
         getter: {
-          timeTableElement: {
-            current: {
-              querySelectorAll: () => [{}, {
-                getBoundingClientRect,
-              }],
-            },
+          timeTableElementsMeta: {
+            parentRect: () => ({ height: 20, top: 20, bottom: 40 }),
+            getCellRects: [{}, () => getBoundingClientRect()],
           },
         },
       };

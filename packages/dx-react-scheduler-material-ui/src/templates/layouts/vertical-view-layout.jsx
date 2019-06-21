@@ -30,8 +30,8 @@ const makeScrollingAPI = (scrollablePart, fixedPart) => {
   };
 
   return ({
-    top: fixedPartRect.height + fixedPartRect.top,
-    bottom: scrollablePart.offsetTop + scrollablePart.clientHeight,
+    topBoundary: fixedPartRect.height + fixedPartRect.top,
+    bottomBoundary: scrollablePart.offsetTop + scrollablePart.clientHeight,
     changeVerticalScroll,
   });
 };

@@ -135,7 +135,8 @@ class DragDropProviderBase extends React.PureComponent<
       autoScroll(clientOffset, scrollingAPI);
     }
     const tableCellElementsMeta = timeTableElementsMeta;
-    const allDayCellsElementsMeta = allDayElementsMeta || { getCellRects: [] }; // not always AllDayPanel exists
+    const allDayCellsElementsMeta = allDayElementsMeta
+      || { getCellRects: [] }; // not always AllDayPanel exists
 
     const timeTableIndex = cellIndex(tableCellElementsMeta.getCellRects, clientOffset);
     const allDayIndex = cellIndex(allDayCellsElementsMeta.getCellRects, clientOffset);

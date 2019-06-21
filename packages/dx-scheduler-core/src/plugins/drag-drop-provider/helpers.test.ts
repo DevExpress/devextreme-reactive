@@ -5,10 +5,10 @@ import {
 } from './helpers';
 import {
   allDayRects, horizontalTimeTableRects, verticalTimeTableRects,
-} from './calculate-rects';
+} from '../common/calculate-rects';
 
-jest.mock('./calculate-rects', () => ({
-  ...require.requireActual('./calculate-rects'),
+jest.mock('../common/calculate-rects', () => ({
+  ...require.requireActual('../common/calculate-rects'),
   allDayRects: jest.fn(),
   verticalTimeTableRects: jest.fn(),
   horizontalTimeTableRects: jest.fn(),
@@ -68,11 +68,11 @@ describe('DragDropProvider', () => {
 
   describe('#cellIndex', () => {
     const cells = [
-      { getBoundingClientRect: () => ({ top: 0, left: 0, right: 50, bottom: 50 }) },
-      { getBoundingClientRect: () => ({ top: 0, left: 50, right: 100, bottom: 50 }) },
+      () => ({ top: 0, left: 0, right: 50, bottom: 50 }),
+      () => ({ top: 0, left: 50, right: 100, bottom: 50 }),
     ];
     it('should work', () => {
-      expect(cellIndex(cells as Element[], { x: 10, y: 10 }))
+      expect(cellIndex(cells, { x: 10, y: 10 }))
         .toEqual(0);
     });
     it('should work with empty array', () => {
@@ -80,7 +80,7 @@ describe('DragDropProvider', () => {
         .toEqual(-1);
     });
     it('should take only one cell by condition', () => {
-      expect(cellIndex(cells as Element[], { x: 50, y: 10 }))
+      expect(cellIndex(cells, { x: 50, y: 10 }))
         .toEqual(0);
     });
   });
@@ -101,44 +101,38 @@ describe('DragDropProvider', () => {
   });
 
   describe('#autoScroll', () => {
-    const layoutHeaderElementBase = rects => ({
-      current: {
-        getBoundingClientRect: () => rects,
-      },
-    });
-    const layoutElementBase = {
-      current: {
-        scrollTop: 10,
-        offsetTop: 10,
-        clientHeight: 200,
-      },
+    const scrollAPI = {
+      topBoundary: 0,
+      bottomBoundary: 1000,
+      changeVerticalScroll: jest.fn(),
     };
     it('should scroll up', () => {
       const clientOffset = { x: 1, y: 21 };
-      const layoutElement = JSON.parse(JSON.stringify(layoutElementBase));
-      const layoutHeaderElement = layoutHeaderElementBase({ height: 10, top: 10 });
 
-      autoScroll(clientOffset, layoutElement, layoutHeaderElement);
-      expect(layoutElement.current.scrollTop)
-        .toBe(-20);
+      autoScroll(clientOffset, scrollAPI);
+      expect(scrollAPI.changeVerticalScroll)
+        .toBeCalledWith(-30);
     });
     it('should scroll down', () => {
       const clientOffset = { x: 1, y: 161 };
-      const layoutElement = JSON.parse(JSON.stringify(layoutElementBase));
-      const layoutHeaderElement = layoutHeaderElementBase({ height: 10, top: 10 });
 
-      autoScroll(clientOffset, layoutElement, layoutHeaderElement);
-      expect(layoutElement.current.scrollTop)
-        .toBe(40);
+      autoScroll(clientOffset, scrollAPI);
+      expect(scrollAPI.changeVerticalScroll)
+        .toBeCalledWith(30);
     });
-    it('should not scroll up if cursor is under of header element', () => {
-      const clientOffset = { x: 1, y: 25 };
-      const layoutElement = { current: { scrollTop: 0 } };
-      const layoutHeaderElement = layoutHeaderElementBase({ height: 20, top: 10 });
+    it('should not scroll up if cursor is above of top boundary', () => {
+      const clientOffset = { x: 1, y: -10 };
 
-      autoScroll(clientOffset, layoutElement, layoutHeaderElement);
-      expect(layoutElement.current.scrollTop)
-        .toBe(0);
+      autoScroll(clientOffset, scrollAPI);
+      expect(scrollAPI.changeVerticalScroll)
+        .not.toBeCalled();
+    });
+    it('should not scroll up if cursor is under of top boundary', () => {
+      const clientOffset = { x: 1, y: 1001 };
+
+      autoScroll(clientOffset, scrollAPI);
+      expect(scrollAPI.changeVerticalScroll)
+        .not.toBeCalled();
     });
   });
 
@@ -430,7 +424,7 @@ describe('DragDropProvider', () => {
     const endViewDate = new Date();
     const excludedDays = [];
     const viewCellsData = [];
-    const allDayCells = [];
+    const allDayCells = { getParentRect: () => undefined, getCellRects: [] };
     const targetType = 'vertical';
     const cellDurationMinutes = 0;
     const timeTableCells = 0;

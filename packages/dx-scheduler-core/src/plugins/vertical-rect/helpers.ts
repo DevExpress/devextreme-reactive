@@ -35,7 +35,6 @@ const getCellRect: GetCellRectVerticalFn = (
     startDate: cellStartDate,
   } = getCellByDate(viewCellsData, date, takePrev);
 
-  // const cellElement = cellElementsMeta.getCellRects[cellIndex]();
   const {
     top,
     left,

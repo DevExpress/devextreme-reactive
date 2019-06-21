@@ -1,9 +1,10 @@
 import moment from 'moment';
 import { PureComputed } from '@devexpress/dx-core';
 import {
-  ViewCell, ClientOffset, TimeType,
+  ViewCell, ClientOffset, TimeType, ScrollingAPI,
   AllDayCell, CalculateAppointmentTimeBoundaries,
   TimeBoundariesByDrag, TimeBoundariesByResize, AppointmentModel,
+  CellElementsMeta,
 } from '../../types';
 import { allDayCells as allDayCellsCore } from '../common/computeds';
 import {
@@ -33,7 +34,7 @@ export const intervalDuration: PureComputed<
 > = (data, type) => moment(data.endDate as Date).diff(data.startDate as Date, type);
 
 export const cellIndex: PureComputed<
-  [Element[], ClientOffset], number
+  [Array<() => ClientRect>, ClientOffset], number
 > = (getCellRects, clientOffset) => getCellRects.findIndex((getCellRect) => {
   const { left, top, right, bottom } = getCellRect();
   const isOver = clientOffset
@@ -55,24 +56,15 @@ export const cellData: PureComputed<
 };
 
 export const autoScroll: PureComputed<
-  [ClientOffset, any, any], void
+  [ClientOffset, ScrollingAPI], void
 > = (clientOffset, scrollingAPI) => {
-  // const layout = layoutElement.current;
-  // const layoutHeaderRect = layoutHeaderElement.current.getBoundingClientRect();
-
-  if ((clientOffset.y < scrollingAPI.top + SCROLL_OFFSET) && (clientOffset.y > scrollingAPI.top)) {
+  if ((clientOffset.y < scrollingAPI.topBoundary + SCROLL_OFFSET)
+    && (clientOffset.y > scrollingAPI.topBoundary)) {
     scrollingAPI.changeVerticalScroll(-SCROLL_SPEED_PX);
   }
-  if (scrollingAPI.bottom - SCROLL_OFFSET < clientOffset.y) {
+  if (scrollingAPI.bottomBoundary - SCROLL_OFFSET < clientOffset.y) {
     scrollingAPI.changeVerticalScroll(+SCROLL_SPEED_PX);
   }
-  // if ((clientOffset.y < layoutHeaderRect.height + layoutHeaderRect.top + SCROLL_OFFSET)
-  //   && (clientOffset.y > layoutHeaderRect.height + layoutHeaderRect.top)) {
-  //   layout.scrollTop -= SCROLL_SPEED_PX;
-  // }
-  // if (layout.clientHeight - SCROLL_OFFSET < clientOffset.y - layout.offsetTop) {
-  //   layout.scrollTop += SCROLL_SPEED_PX;
-  // }
 };
 
 export const timeBoundariesByResize: TimeBoundariesByResize = (
@@ -157,7 +149,7 @@ export const calculateAppointmentTimeBoundaries: CalculateAppointmentTimeBoundar
 };
 
 export const calculateInsidePart: PureComputed<
-  [number, Element[], number]
+  [number, Array<() => ClientRect>, number]
 > = (top, timeTableCells, timeTableIndex) => {
   if (timeTableIndex !== undefined && timeTableIndex !== -1) {
     const cellRect = timeTableCells[timeTableIndex]();
@@ -168,14 +160,18 @@ export const calculateInsidePart: PureComputed<
 
 export const calculateDraftAppointments = (
   allDayIndex: number, draftAppointments: any, startViewDate: Date,
-  endViewDate: Date, excludedDays: number[], viewCellsData: any, getAllDayCellsElementRects: any,
-  targetType: string, cellDurationMinutes: number, getTableCellElementRects: any,
+  endViewDate: Date, excludedDays: number[], viewCellsData: any,
+  getAllDayCellsElementRects: CellElementsMeta,
+  targetType: string, cellDurationMinutes: number,
+  getTableCellElementRects: CellElementsMeta,
 ) => {
   if (allDayIndex !== -1
-    || (getAllDayCellsElementRects.length && intervalDuration(draftAppointments[0].dataItem, HOURS) > 23)) {
+    || (getAllDayCellsElementRects.getCellRects.length
+      && intervalDuration(draftAppointments[0].dataItem, HOURS) > 23)) {
     return {
       allDayDraftAppointments: allDayRects(
-        draftAppointments, startViewDate, endViewDate, excludedDays, viewCellsData, getAllDayCellsElementRects,
+        draftAppointments, startViewDate, endViewDate,
+        excludedDays, viewCellsData, getAllDayCellsElementRects,
       ),
       timeTableDraftAppointments: [],
     };

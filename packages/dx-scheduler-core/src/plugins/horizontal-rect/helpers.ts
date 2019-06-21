@@ -12,7 +12,6 @@ const getCellRect: GetCellRectHorizontalFn = (
     ? getMonthCellIndexByDate(viewCellsData, date, takePrev)
     : getAllDayCellIndexByDate(viewCellsData, date, takePrev);
 
-  // const cellElement = cellElementsMeta[cellIndex];
   const {
     top,
     left,

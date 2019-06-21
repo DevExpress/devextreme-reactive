@@ -144,13 +144,17 @@ export const createBarHitTester = createPointsEnumeratingHitTesterCreator(
     const {
       arg, val, startVal, barWidth, maxBarWidth,
     } = point as BarSeries.PointProps;
-    const width = maxBarWidth * barWidth;
-    const height = Math.abs(val - startVal!);
-    const xCenter = isRotated ? val - height / 2 : arg;
-    const yCenter = isRotated ? arg : val + height / 2;
-    const halfWidth = (isRotated ? height : width) / 2;
-    const halfHeight = (isRotated ? width : height) / 2;
-    return hitTestRect(px - xCenter, py - yCenter, halfWidth, halfHeight);
+    const halfWidth = maxBarWidth * barWidth / 2;
+    const halfHeight = Math.abs(val - startVal!) / 2;
+    const centerVal = (val + startVal!) / 2;
+    const xCenter = isRotated ? centerVal : arg;
+    const yCenter = isRotated ? arg : centerVal;
+    return hitTestRect(
+      px - xCenter,
+      py - yCenter,
+      isRotated ? halfHeight : halfWidth,
+      isRotated ? halfWidth : halfWidth
+    );
   },
 );
 

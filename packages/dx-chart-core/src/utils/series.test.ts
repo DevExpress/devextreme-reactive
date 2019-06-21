@@ -60,9 +60,9 @@ describe('Continuous Series', () => {
     getContext.mockReturnValue({ isPointInPath });
 
     const hitTest = createHitTester([
-      { x: 115, y: 35, index: 'p1' },
-      { x: 165, y: 65, index: 'p2' },
-      { x: 195, y: 60, index: 'p3' },
+      { arg: 115, val: 35, index: 'p1' },
+      { arg: 165, val: 65, index: 'p2' },
+      { arg: 195, val: 60, index: 'p3' },
     ]);
 
     isPointInPath.mockReturnValueOnce(false);
@@ -193,16 +193,16 @@ describe('Point Series', () => {
     it('should test bars', () => {
       const hitTest = createBarHitTester([
         {
-          x: 12, barWidth: 1, maxBarWidth: 4, y: 2, barHeight: 2, index: 'p1',
+          arg: 12, barWidth: 1, maxBarWidth: 4, val: 2, startVal: 4, index: 'p1',
         } as any,
         {
-          x: 24, barWidth: 4, maxBarWidth: 2, y: 3, barHeight: 2, index: 'p2',
+          arg: 24, barWidth: 4, maxBarWidth: 2, val: 3, startVal: 5, index: 'p2',
         },
         {
-          x: 32.5, barWidth: 2.5, maxBarWidth: 2, y: 1, barHeight: 4, index: 'p3',
+          arg: 32.5, barWidth: 2.5, maxBarWidth: 2, val: 1, startVal: 5, index: 'p3',
         },
         {
-          x: 33.5, barWidth: 2.5, maxBarWidth: 2, y: 0, barHeight: 4, index: 'p4',
+          arg: 33.5, barWidth: 2.5, maxBarWidth: 2, val: 0, startVal: 4, index: 'p4',
         },
       ], false);
 
@@ -220,16 +220,16 @@ describe('Point Series', () => {
     it('should test bars, rotated', () => {
       const hitTest = createBarHitTester([
         {
-          y: 12, barWidth: 1, maxBarWidth: 4, x: 3, barHeight: 2, index: 'p1',
+          arg: 12, barWidth: 1, maxBarWidth: 4, val: 3, startVal: 1, index: 'p1',
         } as any,
         {
-          y: 24, barWidth: 4, maxBarWidth: 2, x: 2, barHeight: 2, index: 'p2',
+          arg: 24, barWidth: 4, maxBarWidth: 2, val: 2, startVal: 0, index: 'p2',
         },
         {
-          y: 32.5, barWidth: 2.5, maxBarWidth: 2, x: 4, barHeight: 4, index: 'p3',
+          arg: 32.5, barWidth: 2.5, maxBarWidth: 2, val: 4, startVal: 0, index: 'p3',
         },
         {
-          y: 33.5, barWidth: 2.5, maxBarWidth: 2, x: 5, barHeight: 4, index: 'p4',
+          arg: 33.5, barWidth: 2.5, maxBarWidth: 2, val: 5, startVal: 1, index: 'p4',
         },
       ], true);
 
@@ -249,16 +249,16 @@ describe('Point Series', () => {
     it('should test points', () => {
       const hitTest = createScatterHitTester([
         {
-          x: 10, y: 4, index: 'p1', point: { size: 20 },
+          arg: 10, val: 4, index: 'p1', point: { size: 20 },
         } as any,
         {
-          x: 30, y: 5, index: 'p2', point: { size: 20 },
+          arg: 30, val: 5, index: 'p2', point: { size: 20 },
         },
         {
-          x: 50, y: 8, index: 'p3', point: { size: 20 },
+          arg: 50, val: 8, index: 'p3', point: { size: 20 },
         },
         {
-          x: 55, y: 10, index: 'p4', point: { size: 20 },
+          arg: 55, val: 10, index: 'p4', point: { size: 20 },
         },
       ], false);
 
@@ -276,16 +276,16 @@ describe('Point Series', () => {
     it('should test points, rotated', () => {
       const hitTest = createScatterHitTester([
         {
-          x: 10, y: 4, index: 'p1', point: { size: 20 },
+          arg: 10, val: 4, index: 'p1', point: { size: 20 },
         } as any,
         {
-          x: 30, y: 5, index: 'p2', point: { size: 20 },
+          arg: 30, val: 5, index: 'p2', point: { size: 20 },
         },
         {
-          x: 50, y: 8, index: 'p3', point: { size: 20 },
+          arg: 50, val: 8, index: 'p3', point: { size: 20 },
         },
         {
-          x: 55, y: 10, index: 'p4', point: { size: 20 },
+          arg: 55, val: 10, index: 'p4', point: { size: 20 },
         },
       ], true);
 
@@ -305,7 +305,7 @@ describe('Point Series', () => {
     it('should test pies', () => {
       const hitTest = createPieHitTester([
         {
-          x: 60, y: 50,
+          arg: 60, val: 50,
           innerRadius: 0.1,
           outerRadius: 1,
           maxRadius: 10,
@@ -314,7 +314,7 @@ describe('Point Series', () => {
           index: 'p1',
         } as any,
         {
-          x: 60, y: 50,
+          arg: 60, val: 50,
           innerRadius: 0.1,
           outerRadius: 1,
           maxRadius: 10,
@@ -323,7 +323,7 @@ describe('Point Series', () => {
           index: 'p2',
         },
         {
-          x: 60, y: 50,
+          arg: 60, val: 50,
           innerRadius: 0.1,
           outerRadius: 1,
           maxRadius: 10,

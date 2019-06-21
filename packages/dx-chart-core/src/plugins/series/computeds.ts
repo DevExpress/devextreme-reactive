@@ -22,42 +22,38 @@ const getVal = ({ val }: PointComponentProps) => val;
 const getStartVal = ({ startVal }: PointComponentProps) => startVal!;
 
 /** @internal */
-export const dArea: PathFn = (isRotated) => {
-  return isRotated
-    ? area<PointComponentProps>()
-        .x1(getStartVal)
-        .x0(getVal)
-        .y(getArg) as any
-    : area<PointComponentProps>()
-        .x(getArg)
-        .y1(getVal)
-        .y0(getStartVal) as any;
-};
+export const dArea: PathFn = area<PointComponentProps>()
+  .x(getArg)
+  .y1(getVal)
+  .y0(getStartVal) as any;
 
 /** @internal */
-export const dLine: PathFn = (isRotated) => {
-  return isRotated
-    ? line<PointComponentProps>()
-        .x(getVal)
-        .y(getArg) as any
-    : line<PointComponentProps>()
-        .x(getArg)
-        .y(getVal) as any;
-};
+export const dRotateArea: PathFn = area<PointComponentProps>()
+  .x1(getStartVal)
+  .x0(getVal)
+  .y(getArg) as any;
 
 /** @internal */
-export const dSpline: PathFn = (isRotated) => {
-  return isRotated ?
-  line<PointComponentProps>()
+export const dLine: PathFn = line<PointComponentProps>()
+  .x(getArg)
+  .y(getVal) as any;
+
+/** @internal */
+export const dRotateLine = line<PointComponentProps>()
   .x(getVal)
-  .y(getArg)
-  .curve(curveMonotoneY) as any
-  :
-  line<PointComponentProps>()
+  .y(getArg) as any;
+
+/** @internal */
+export const dSpline: PathFn = line<PointComponentProps>()
   .x(getArg)
   .y(getVal)
   .curve(curveMonotoneX) as any;
-};
+
+/** @internal */
+export const dRotateSpline: PathFn = line<PointComponentProps>()
+  .x(getVal)
+  .y(getArg)
+  .curve(curveMonotoneY) as any;
 
 /** @internal */
 export const getPiePointTransformer: GetPointTransformerFn = ({

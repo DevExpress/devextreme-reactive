@@ -17,7 +17,7 @@ class RawPath extends React.PureComponent<PathComponentPathProps> {
     } = this.props;
     return (
       <path
-        d={path!(isRotated)(coordinates)}
+        d={path!(coordinates)}
         fill="none"
         strokeWidth={2}
         stroke={color}

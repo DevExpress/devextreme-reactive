@@ -267,7 +267,17 @@ export interface PaletteProps {
 }
 
 // @public (undocumented)
-export interface Path {
+export interface PathComponentPathProps extends PathComponentProps {
+  path?: PathFn;
+}
+
+// @public (undocumented)
+export interface PathComponentProps extends CommonComponentProps {
+  coordinates: PathPoints;
+}
+
+// @public (undocumented)
+export interface PathFn {
   // (undocumented)
   (points: PathPoints): string;
   // (undocumented)
@@ -303,19 +313,6 @@ export interface Path {
 }
 
 // @public (undocumented)
-export interface PathComponentPathProps extends PathComponentProps {
-  path?: PathFn;
-}
-
-// @public (undocumented)
-export interface PathComponentProps extends CommonComponentProps {
-  coordinates: PathPoints;
-}
-
-// @public (undocumented)
-export type PathFn = (isRotated: boolean) => Path;
-
-// @public (undocumented)
 export type PathPoints = ReadonlyArray<PointComponentProps>;
 
 // @public (undocumented)
@@ -348,14 +345,13 @@ export interface Point {
 
 // @public (undocumented)
 export interface PointComponentProps extends CommonComponentProps {
+  arg: number;
   argument: any;
-  height?: number;
   index: number;
-  value: any;
-  x: number;
-  y: number;
   // (undocumented)
-  y1?: number;
+  startVal?: number;
+  val: number;
+  value: any;
 }
 
 // @public (undocumented)
@@ -574,9 +570,9 @@ export interface TooltipReference {
 
 // @public (undocumented)
 export interface TransformedPoint extends Point {
-  readonly x: number;
-  readonly y: number;
-  readonly y1?: number;
+  readonly arg: number;
+  readonly startVal?: number;
+  readonly val: number;
 }
 
 // @public (undocumented)

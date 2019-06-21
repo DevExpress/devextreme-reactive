@@ -14,8 +14,7 @@ export type ScaleSeriesPointsFn = PureComputed<[SeriesList, ScalesCache, boolean
 type PathPoints = ReadonlyArray<PointComponentProps>;
 export type GetPointFieldFn = (point: PointComponentProps) => number;
 
-export type PathFn = (isRotated: boolean) => Path;
-export interface Path {
+export interface PathFn {
   (points: PathPoints): string;
 
   x(): GetPointFieldFn;

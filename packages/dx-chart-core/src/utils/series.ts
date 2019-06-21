@@ -1,11 +1,13 @@
 import { area } from 'd3-shape';
-import { dArea, dLine, dSpline } from '../plugins/series/computeds';
+import {
+  dArea, dRotateArea, dLine, dRotateLine, dSpline, dRotateSpline,
+} from '../plugins/series/computeds';
 import {
   SeriesList, TransformedPoint, PointList, TargetList, PointDistance, Location,
   CreateHitTesterFn, MakePathFn, IsPointInPathFn,
   HitTestPointFn, Filter,
   BarSeries, ScatterSeries, PieSeries,
-  Path,
+  PathFn,
 } from '../types';
 
 const getSegmentLength = (dx: number, dy: number) => Math.sqrt(dx * dx + dy * dy);
@@ -80,8 +82,8 @@ const createPointsEnumeratingHitTesterCreator =
 
 /** @internal */
 export const createAreaHitTester = createContinuousSeriesHitTesterCreator((isRotated) => {
-  const path: Path = area() as any;
-  const hitArea = dArea(isRotated);
+  const path: PathFn = area() as any;
+  const hitArea = isRotated ? dRotateArea : dArea;
   if (isRotated) {
     path.x1!(hitArea.x1!());
     path.x0!(hitArea.x0!());
@@ -96,8 +98,8 @@ export const createAreaHitTester = createContinuousSeriesHitTesterCreator((isRot
 
 /** @internal */
 export const createLineHitTester = createContinuousSeriesHitTesterCreator((isRotated) => {
-  const path: Path = area() as any;
-  const hitLine = dLine(isRotated);
+  const path: PathFn = area() as any;
+  const hitLine = isRotated ? dRotateLine : dLine;
   if (isRotated) {
     const getX = hitLine.x();
     path.y(hitLine.y());
@@ -114,8 +116,8 @@ export const createLineHitTester = createContinuousSeriesHitTesterCreator((isRot
 
 /** @internal */
 export const createSplineHitTester = createContinuousSeriesHitTesterCreator((isRotated) => {
-  const path: Path = area() as any;
-  const hitSpline = dSpline(isRotated);
+  const path: PathFn = area() as any;
+  const hitSpline = isRotated ? dRotateSpline : dSpline;
   if (isRotated) {
     const getX = hitSpline.x();
     path.y(hitSpline.y());
@@ -153,7 +155,7 @@ export const createBarHitTester = createPointsEnumeratingHitTesterCreator(
       px - xCenter,
       py - yCenter,
       isRotated ? halfHeight : halfWidth,
-      isRotated ? halfWidth : halfWidth
+      isRotated ? halfWidth : halfWidth,
     );
   },
 );

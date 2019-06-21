@@ -61,7 +61,7 @@ export type TotalSummaryValuesFn = PureComputed<[
 /** @internal */
 export type GroupSummaryValuesFn = PureComputed<[
   TableRow[], SummaryItem[], GetCellValueFn, GetRowLevelKeyFn,
-  IsSpecificRowFn, SummaryCalculator?
+  IsSpecificRowFn, GetCollapsedRowsFn, SummaryCalculator?
 ], GroupSummaryValue>;
 
 /** @internal */

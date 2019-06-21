@@ -71,20 +71,17 @@ export const groupSummaryValues: GroupSummaryValuesFn = (
   getCellValue,
   getRowLevelKey,
   isGroupRow,
+  getCollapsedRows,
   calculator = defaultSummaryCalculator,
 ) => {
   let levels: any[] = [];
   const summaries = {};
   rows.forEach((row) => {
     const levelKey = getRowLevelKey(row);
-    if (!levelKey) {
-      levels.forEach((level) => {
-        level.rows.push(row);
-      });
-    }
-    const levelIndex = levels.findIndex(level => level.levelKey === levelKey);
+    const collapsedRows = getCollapsedRows && getCollapsedRows(row);
+    let levelIndex = levels.findIndex(level => level.levelKey === levelKey);
     if (levelIndex > -1) {
-      levels.slice(levelIndex).forEach((level) => {
+      levels.forEach((level) => {
         summaries[level.row.compoundKey] = rowsSummary(
           level.rows, summaryItems, getCellValue, calculator,
         );
@@ -97,7 +94,18 @@ export const groupSummaryValues: GroupSummaryValuesFn = (
         row,
         rows: [],
       });
+      levelIndex = levels.findIndex(level => level.levelKey === levelKey);
     }
+    const isCollapsedNestedGroupRow = collapsedRows && levelIndex > 0
+    if (!levelKey || isCollapsedNestedGroupRow) {  
+      levels.forEach((level) => {
+        if (!levelKey) {
+          level.rows.push(row);
+        } else {
+          level.rows = [...level.rows, ...collapsedRows];
+        }
+      });
+    } 
   }, {});
   levels.forEach((level) => {
     summaries[level.row.compoundKey] = rowsSummary(

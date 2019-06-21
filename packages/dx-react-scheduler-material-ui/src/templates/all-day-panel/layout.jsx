@@ -3,7 +3,9 @@ import * as PropTypes from 'prop-types';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import { withStyles } from '@material-ui/core/styles';
+import RootRef from '@material-ui/core/RootRef';
 import classNames from 'classnames';
+import { cellsMeta } from '../utils';
 
 const styles = {
   table: {
@@ -11,35 +13,64 @@ const styles = {
   },
 };
 
-const LayoutBase = React.memo(({
-  setCellElementsMeta,
-  cellsData,
-  classes, className,
-  cellComponent: Cell,
-  rowComponent: Row,
-  formatDate,
-  ...restProps
-}) => (
-  <Table
-    className={classNames(classes.table, className)}
-    {...restProps}
-  >
-    <TableBody>
-      <Row>
-        {cellsData.map(({
-          startDate,
-          endDate,
-        }) => (
-          <Cell
-            key={startDate}
-            startDate={startDate}
-            endDate={endDate}
-          />
-        ))}
-      </Row>
-    </TableBody>
-  </Table>
-));
+class LayoutBase extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.table = React.createRef();
+  }
+
+  componentDidMount() {
+    this.setCells();
+  }
+
+  componentDidUpdate() {
+    this.setCells();
+  }
+
+  setCells() {
+    const { setCellElementsMeta } = this.props;
+
+    const tableElement = this.table.current;
+    setCellElementsMeta(cellsMeta(tableElement));
+  }
+
+  render() {
+    const {
+      setCellElementsMeta,
+      cellsData,
+      classes, className,
+      cellComponent: Cell,
+      rowComponent: Row,
+      formatDate,
+      ...restProps
+    } = this.props;
+
+    return (
+      <RootRef rootRef={this.table}>
+        <Table
+          className={classNames(classes.table, className)}
+          {...restProps}
+        >
+          <TableBody>
+            <Row>
+              {cellsData.map(({
+                startDate,
+                endDate,
+              }) => (
+                <Cell
+                  key={startDate}
+                  startDate={startDate}
+                  endDate={endDate}
+                />
+              ))}
+            </Row>
+          </TableBody>
+        </Table>
+      </RootRef>
+    );
+  }
+}
 
 LayoutBase.propTypes = {
   classes: PropTypes.object.isRequired,

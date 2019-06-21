@@ -11,7 +11,6 @@ import {
   findSeriesByName,
   addSeries,
   dSymbol,
-  dBar,
   dPie,
   getAreaPointTransformer,
   getScatterPointTransformer,
@@ -146,9 +145,9 @@ describe('getAreaPointTransformer', () => {
       argument: 'arg',
       value: 'val',
       index: 1,
-      x: 14,
-      y: 9,
-      height: -5,
+      arg: 14,
+      val: 9,
+      startVal: 4,
     });
     expect(argumentScale.mock.calls).toEqual([['arg']]);
     expect(valueScale.mock.calls).toEqual([[0], ['val']]);
@@ -156,8 +155,14 @@ describe('getAreaPointTransformer', () => {
 
   it('should return target element', () => {
     expect(getAreaPointTransformer.getTargetElement({
-      x: 10, y: 20,
+      arg: 10, val: 20,
     } as any)).toEqual([9, 19, 11, 21]);
+  });
+
+  it('should return target element / rotated', () => {
+    expect(getAreaPointTransformer.getTargetElement({
+      arg: 10, val: 20, isRotated: true,
+    } as any)).toEqual([19, 9, 21, 11]);
   });
 });
 
@@ -175,8 +180,8 @@ describe('getScatterPointTransformer', () => {
       argument: 'arg',
       value: 'val',
       index: 1,
-      x: 14,
-      y: 4,
+      arg: 14,
+      val: 4,
     });
     expect(argumentScale.mock.calls).toEqual([['arg']]);
     expect(valueScale.mock.calls).toEqual([['val']]);
@@ -184,8 +189,14 @@ describe('getScatterPointTransformer', () => {
 
   it('should return target element', () => {
     expect(getScatterPointTransformer.getTargetElement({
-      x: 10, y: 20, point: { size: 4 },
+      arg: 10, val: 20, point: { size: 4 },
     } as any)).toEqual([8, 18, 12, 22]);
+  });
+
+  it('should return target element / rotated', () => {
+    expect(getScatterPointTransformer.getTargetElement({
+      arg: 10, val: 20, point: { size: 4 }, isRotated: true,
+    } as any)).toEqual([18, 8, 22, 12]);
   });
 });
 
@@ -201,8 +212,8 @@ describe('getLinePointTransformer', () => {
       argument: 'arg',
       value: 'val',
       index: 1,
-      x: 14,
-      y: 9,
+      arg: 14,
+      val: 9,
     });
     expect(argumentScale.mock.calls).toEqual([['arg']]);
     expect(valueScale.mock.calls).toEqual([['val']]);
@@ -226,35 +237,10 @@ describe('getBarPointTransformer', () => {
       argument: 'arg',
       value: 'val',
       index: 1,
-      x: 21,
-      y: 9,
+      arg: 21,
+      val: 9,
       maxBarWidth: 20,
-      barHeight: 5,
-    });
-    expect(argumentScale.mock.calls).toEqual([['arg']]);
-    expect(valueScale.mock.calls).toEqual([[0], ['val']]);
-  });
-
-  it('should return data / rotated', () => {
-    const argumentScale = jest.fn().mockReturnValue(11) as any;
-    argumentScale.bandwidth = () => 20;
-    const valueScale = jest.fn();
-    valueScale.mockReturnValueOnce(4);
-    valueScale.mockReturnValueOnce(9);
-
-    const transform = getBarPointTransformer({
-      argumentScale, valueScale, isRotated: true,
-    } as any);
-    expect(
-      transform({ argument: 'arg', value: 'val', index: 1 } as any),
-    ).toEqual({
-      argument: 'arg',
-      value: 'val',
-      index: 1,
-      x: 9,
-      y: 11,
-      maxBarWidth: 20,
-      barHeight: 5,
+      startVal: 4,
     });
     expect(argumentScale.mock.calls).toEqual([['arg']]);
     expect(valueScale.mock.calls).toEqual([[0], ['val']]);
@@ -266,8 +252,14 @@ describe('getBarPointTransformer', () => {
 
   it('should return target element', () => {
     expect(getBarPointTransformer.getTargetElement({
-      x: 30, y: 20, y1: 30, barWidth: 0.4, maxBarWidth: 20,
+      arg: 30, val: 20, startVal: 30, barWidth: 0.4, maxBarWidth: 20,
     } as any)).toEqual([26, 20, 34, 30]);
+  });
+
+  it('should return target element / rotated', () => {
+    expect(getBarPointTransformer.getTargetElement({
+      arg: 30, val: 20, startVal: 30, barWidth: 0.4, maxBarWidth: 20, isRotated: true,
+    } as any)).toEqual([20, 26, 30, 34]);
   });
 });
 
@@ -301,8 +293,8 @@ describe('getPiePointTransformer', () => {
       argument: 'arg-1',
       value: 'val-1',
       index: 1,
-      x: 25,
-      y: 20,
+      arg: 25,
+      val: 20,
       color: 'c1',
       maxRadius: 20,
       startAngle: 3,
@@ -316,8 +308,8 @@ describe('getPiePointTransformer', () => {
       argument: 'arg-2',
       value: 'val-2',
       index: 3,
-      x: 25,
-      y: 20,
+      arg: 25,
+      val: 20,
       color: 'c2',
       maxRadius: 20,
       startAngle: 7,
@@ -331,7 +323,7 @@ describe('getPiePointTransformer', () => {
 
   it('should return target element', () => {
     expect(getPiePointTransformer.getTargetElement({
-      x: 10, y: 20, innerRadius: 1, outerRadius: 2, maxRadius: 20, startAngle: 45, endAngle: 60,
+      arg: 10, val: 20, innerRadius: 1, outerRadius: 2, maxRadius: 20, startAngle: 45, endAngle: 60,
     } as any)).toEqual([11.5, 22.5, 12.5, 23.5]);
     expect(mockArc.centroid).toBeCalledWith({
       startAngle: 45,
@@ -371,21 +363,6 @@ describe('dSymbol', () => {
     expect(result).toEqual('symbol path');
     expect((symbol as any).mock.results[0].value.size).toBeCalledWith(9);
     expect((symbol as any).mock.results[0].value.type).toBeCalledWith(symbolCircle);
-  });
-});
-
-describe('dBar', () => {
-  it('should return bar coordinates', () => {
-    expect(dBar({
-      x: 2, y: 9, y1: 5, barWidth: 0.5, maxBarWidth: 6,
-    } as any)).toEqual({
-      x: 0.5, y: 5, width: 3, height: 4,
-    });
-    expect(dBar({
-      x: 2, y: 5, y1: 9, barWidth: 0.5, maxBarWidth: 6,
-    } as any)).toEqual({
-      x: 0.5, y: 5, width: 3, height: 4,
-    });
   });
 });
 

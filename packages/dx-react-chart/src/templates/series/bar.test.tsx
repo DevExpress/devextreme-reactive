@@ -24,11 +24,11 @@ describe('Bar', () => {
     value: 15,
     seriesIndex: 1,
     index: 2,
-    x: 1,
+    arg: 1,
     barWidth: 2,
     maxBarWidth: 20,
-    y: 2,
-    barHeight: 16,
+    val: 2,
+    startVal: 18,
     color: 'color',
     isRotated: false,
     style: { tag: 'test-style' },
@@ -57,13 +57,13 @@ describe('Bar', () => {
 
   it('should render bar / rotated', () => {
     const tree = shallow((
-      <Bar {...defaultProps} isRotated={true} />
+      <Bar {...defaultProps} startVal={-16} isRotated={true} />
     ));
 
     expect(tree.find('rect').props()).toEqual({
-      x: -15,
-      y: -18,
-      width: 16,
+      x: -16,
+      y: -19,
+      width: 18,
       height: 40,
       fill: 'color',
       style: 'animated-style',

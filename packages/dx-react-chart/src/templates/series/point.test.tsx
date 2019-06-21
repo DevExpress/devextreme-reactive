@@ -21,8 +21,8 @@ describe('Point', () => {
     value: 15,
     seriesIndex: 1,
     index: 2,
-    x: 1,
-    y: 2,
+    arg: 1,
+    val: 2,
     point: { tag: 'test-options' },
     color: 'color',
     style: { tag: 'test-style' },
@@ -42,6 +42,21 @@ describe('Point', () => {
 
     expect(tree.find('path').props()).toEqual({
       transform: 'translate(1 2)',
+      d: 'test-d-attribute',
+      fill: 'color',
+      style: 'animated-style',
+      stroke: 'none',
+    });
+    expect(dSymbol).toBeCalledWith(defaultProps.point);
+  });
+
+  it('should render point / rotated', () => {
+    const tree = shallow((
+      <Point {...(defaultProps as any)} isRotated={true} />
+    ));
+
+    expect(tree.find('path').props()).toEqual({
+      transform: 'translate(2 1)',
       d: 'test-d-attribute',
       fill: 'color',
       style: 'animated-style',

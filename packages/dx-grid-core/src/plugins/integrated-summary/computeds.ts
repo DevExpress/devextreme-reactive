@@ -96,8 +96,8 @@ export const groupSummaryValues: GroupSummaryValuesFn = (
       });
       levelIndex = levels.findIndex(level => level.levelKey === levelKey);
     }
-    const isCollapsedNestedGroupRow = collapsedRows && levelIndex > 0
-    if (!levelKey || isCollapsedNestedGroupRow) {  
+    const isCollapsedNestedGroupRow = collapsedRows && levelIndex > 0;
+    if (!levelKey || isCollapsedNestedGroupRow) {
       levels.forEach((level) => {
         if (!levelKey) {
           level.rows.push(row);
@@ -105,7 +105,7 @@ export const groupSummaryValues: GroupSummaryValuesFn = (
           level.rows = [...level.rows, ...collapsedRows];
         }
       });
-    } 
+    }
   }, {});
   levels.forEach((level) => {
     summaries[level.row.compoundKey] = rowsSummary(

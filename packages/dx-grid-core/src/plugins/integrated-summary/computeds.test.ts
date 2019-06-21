@@ -210,11 +210,11 @@ describe('IntegratedSummary', () => {
 
     it('should calculate value summary in opened group', () => {
       const rows = [
-        { levelKey: 'b', compoundKey: 'b|1', group: true},
-        { levelKey: 'c', compoundKey: 'b|c|1', group: true},
+        { levelKey: 'b', compoundKey: 'b|1', group: true },
+        { levelKey: 'c', compoundKey: 'b|c|1', group: true },
         { a: 1 },
         { a: 2 },
-        { levelKey: 'c', compoundKey: 'b|c|2', group: true, collapsedRows: [ { a: 3 }, { a: 4 }] },
+        { levelKey: 'c', compoundKey: 'b|c|2', group: true, collapsedRows: [{ a: 3 }, { a: 4 }] },
       ];
       const summaryItems = [
         { columnName: 'a', type: 'sum' },
@@ -243,19 +243,19 @@ describe('IntegratedSummary', () => {
       const rows = [
         { levelKey: 'b', compoundKey: 'b|1', group: true, collapsedRows: [] },
         { levelKey: 'c', compoundKey: 'b|c|1', group: true, collapsedRows: [] },
-        { a: 5 },
-        { a: 6 },
-        { levelKey: 'c', compoundKey: 'b|c|2', group: true, collapsedRows: [ { a: 8 }, { a: 9 }] },
-        { levelKey: 'b', compoundKey: 'b|2', group: true, collapsedRows: [{ a: 11 }, { a: 13}, { a: 14 }] },
+        { a: 1 },
+        { a: 2 },
+        { levelKey: 'c', compoundKey: 'b|c|2', group: true, collapsedRows: [{ a: 3 }, { a: 4 }] },
+        { levelKey: 'b', compoundKey: 'b|2', group: true, collapsedRows: [{ a: 5 }, { a: 6 }] },
       ];
       const summaryItems = [
         { columnName: 'a', type: 'sum' },
       ];
       const result = {
-        'b|1': [28],
+        'b|1': [10],
         'b|2': [0],
-        'b|c|1': [11],
-        'b|c|2': [17],
+        'b|c|1': [3],
+        'b|c|2': [7],
       };
       const getRowLevelKey = row => row.levelKey;
       const isGroupRow = row => row.group;

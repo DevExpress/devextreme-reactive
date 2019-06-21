@@ -4,6 +4,7 @@ import { AUTO_HEIGHT } from '@devexpress/dx-scheduler-core';
 import Grid from '@material-ui/core/Grid';
 import RootRef from '@material-ui/core/RootRef';
 import { withStyles } from '@material-ui/core/styles';
+import { scrollingAPI } from '../utils';
 
 const styles = theme => ({
   container: {
@@ -22,20 +23,6 @@ const styles = theme => ({
   },
 });
 
-const makeScrollingAPI = (scrollablePart, fixedPart) => {
-  const fixedPartRect = fixedPart.getBoundingClientRect();
-  const changeVerticalScroll = (value) => {
-    // eslint-disable-next-line no-param-reassign
-    scrollablePart.scrollTop += value;
-  };
-
-  return ({
-    topBoundary: fixedPartRect.height + fixedPartRect.top,
-    bottomBoundary: scrollablePart.offsetTop + scrollablePart.clientHeight,
-    changeVerticalScroll,
-  });
-};
-
 class VerticalViewLayoutBase extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -47,13 +34,13 @@ class VerticalViewLayoutBase extends React.PureComponent {
   componentDidMount() {
     const { setScrollingAPI } = this.props;
 
-    setScrollingAPI(makeScrollingAPI(this.layout.current, this.layoutHeader.current));
+    setScrollingAPI(scrollingAPI(this.layout.current, this.layoutHeader.current));
   }
 
   componentDidUpdate() {
     const { setScrollingAPI } = this.props;
 
-    setScrollingAPI(makeScrollingAPI(this.layout.current, this.layoutHeader.current));
+    setScrollingAPI(scrollingAPI(this.layout.current, this.layoutHeader.current));
   }
 
   render() {
@@ -116,7 +103,7 @@ VerticalViewLayoutBase.propTypes = {
   dayScaleComponent: PropTypes.func.isRequired,
   timeTableComponent: PropTypes.func.isRequired,
   dayScaleEmptyCellComponent: PropTypes.func.isRequired,
-  setScrollApi: PropTypes.func.isRequired,
+  setScrollingAPI: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
 };

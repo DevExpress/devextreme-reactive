@@ -3,7 +3,9 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import TableMUI from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
+import RootRef from '@material-ui/core/RootRef';
 import { withStyles } from '@material-ui/core/styles';
+import { cellsMeta } from '../../../utils';
 
 const styles = {
   table: {
@@ -30,12 +32,7 @@ class LayoutBase extends React.PureComponent {
     const { setCellElementsMeta } = this.props;
 
     const tableElement = this.table.current;
-    const cellElements = Array.from(tableElement.querySelectorAll('td'));
-    const cellElementsMeta = {
-      parentRect: () => tableElement.getBoundingClientRect(),
-      getCellRects: cellElements.map(element => () => element.getBoundingClientRect()),
-    };
-    setCellElementsMeta(cellElementsMeta);
+    setCellElementsMeta(cellsMeta(tableElement));
   }
 
   render() {
@@ -50,32 +47,34 @@ class LayoutBase extends React.PureComponent {
     } = this.props;
 
     return (
-      <TableMUI
-        className={classNames(classes.table, className)}
-        {...restProps}
-      >
-        <TableBody>
-          {cellsData.map(row => (
-            <Row key={row[0].startDate.toString()}>
-              {row.map(({
-                startDate,
-                endDate,
-                today,
-                otherMonth,
-              }) => (
-                <Cell
-                  key={startDate}
-                  startDate={startDate}
-                  endDate={endDate}
-                  today={today}
-                  otherMonth={otherMonth}
-                  formatDate={formatDate}
-                />
-              ))}
-            </Row>
-          ))}
-        </TableBody>
-      </TableMUI>
+      <RootRef rootRef={this.table}>
+        <TableMUI
+          className={classNames(classes.table, className)}
+          {...restProps}
+        >
+          <TableBody>
+            {cellsData.map(row => (
+              <Row key={row[0].startDate.toString()}>
+                {row.map(({
+                  startDate,
+                  endDate,
+                  today,
+                  otherMonth,
+                }) => (
+                  <Cell
+                    key={startDate}
+                    startDate={startDate}
+                    endDate={endDate}
+                    today={today}
+                    otherMonth={otherMonth}
+                    formatDate={formatDate}
+                  />
+                ))}
+              </Row>
+            ))}
+          </TableBody>
+        </TableMUI>
+      </RootRef>
     );
   }
 }

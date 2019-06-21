@@ -4,6 +4,7 @@ import { AUTO_HEIGHT } from '@devexpress/dx-scheduler-core';
 import RootRef from '@material-ui/core/RootRef';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
+import { scrollingAPI } from '../utils';
 
 const styles = theme => ({
   container: {
@@ -22,51 +23,71 @@ const styles = theme => ({
   },
 });
 
-const HorizontalViewLayoutBase = React.memo(({
-  dayScaleComponent: Navbar,
-  timeTableComponent: Main,
-  classes,
-  layoutRef,
-  layoutHeaderRef,
-  height,
-}) => {
-  const containerStyle = height === AUTO_HEIGHT ? { height: '100%' } : { height: `${height}px` };
+class HorizontalViewLayoutBase extends React.PureComponent {
+  constructor(props) {
+    super(props);
 
-  return (
-    <RootRef rootRef={layoutRef}>
-      <Grid
-        className={classes.container}
-        container
-        direction="column"
-        wrap="nowrap"
-        style={containerStyle}
-      >
-        <RootRef rootRef={layoutHeaderRef}>
+    this.layout = React.createRef();
+    this.layoutHeader = React.createRef();
+  }
+
+  componentDidMount() {
+    const { setScrollingAPI } = this.props;
+
+    setScrollingAPI(scrollingAPI(this.layout.current, this.layoutHeader.current));
+  }
+
+  componentDidUpdate() {
+    const { setScrollingAPI } = this.props;
+
+    setScrollingAPI(scrollingAPI(this.layout.current, this.layoutHeader.current));
+  }
+
+  render() {
+    const {
+      dayScaleComponent: Navbar,
+      timeTableComponent: Main,
+      classes,
+      height,
+    } = this.props;
+
+    const containerStyle = height === AUTO_HEIGHT ? { height: '100%' } : { height: `${height}px` };
+
+    return (
+      <RootRef rootRef={this.layout}>
+        <Grid
+          className={classes.container}
+          container
+          direction="column"
+          wrap="nowrap"
+          style={containerStyle}
+        >
+          <RootRef rootRef={this.layoutHeader}>
+            <Grid
+              item
+              className={classes.stickyHeader}
+            >
+              <Navbar />
+            </Grid>
+          </RootRef>
           <Grid
             item
-            className={classes.stickyHeader}
+            className={classes.main}
           >
-            <Navbar />
+            <Main />
           </Grid>
-        </RootRef>
-        <Grid
-          item
-          className={classes.main}
-        >
-          <Main />
         </Grid>
-      </Grid>
-    </RootRef>
-  );
-});
+      </RootRef>
+    );
+  }
+}
 
 HorizontalViewLayoutBase.propTypes = {
   dayScaleComponent: PropTypes.func.isRequired,
   timeTableComponent: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
-  layoutRef: PropTypes.object.isRequired,
-  layoutHeaderRef: PropTypes.object.isRequired,
+  setScrollingAPI: PropTypes.func.isRequired,
   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  classes: PropTypes.object.isRequired,
 };
 
 export const HorizontalViewLayout = withStyles(styles, { name: 'HorizontalViewLayout' })(HorizontalViewLayoutBase);

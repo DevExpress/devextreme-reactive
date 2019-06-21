@@ -5,6 +5,7 @@ import TableBody from '@material-ui/core/TableBody';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import RootRef from '@material-ui/core/RootRef';
+import { cellsMeta } from '../../../utils';
 
 const styles = {
   table: {
@@ -31,12 +32,7 @@ class LayoutBase extends React.PureComponent {
     const { setCellElementsMeta } = this.props;
 
     const tableElement = this.table.current;
-    const cellElements = Array.from(tableElement.querySelectorAll('td'));
-    const cellElementsMeta = {
-      parentRect: () => tableElement.getBoundingClientRect(),
-      getCellRects: cellElements.map(element => () => element.getBoundingClientRect()),
-    };
-    setCellElementsMeta(cellElementsMeta);
+    setCellElementsMeta(cellsMeta(tableElement));
   }
 
   render() {

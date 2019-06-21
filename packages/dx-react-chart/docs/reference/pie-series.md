@@ -38,8 +38,8 @@ Describes properties passed to a component that renders the slice.
 
 Field | Type | Description
 ------|------|------------
-x | number | The slice's x coordinate.
-y | number | The slice's y coordinate.
+arg | number | The slice's x coordinate.
+val | number | The slice's y coordinate.
 maxRadius | number | The slice's maximum radius in pixels.
 innerRadius | number | The inner radius in relative units.
 outerRadius | number | The outer radius in relative units.

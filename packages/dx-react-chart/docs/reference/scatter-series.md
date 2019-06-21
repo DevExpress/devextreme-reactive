@@ -39,12 +39,13 @@ Describes properties passed to a component that renders the point.
 
 Field | Type | Description
 ------|------|------------
-x | number | The point's x coordinate.
-y | number | The point's y coordinate.
+arg | number | The point's translated argument.
+val | number | The point's translated value.
 point | { size : number } | Point options.
 value | number | The point's value.
 color | string | A series color.
 index | number | Point index.
+isRotated | boolean | Shows if chart is rotated.
 
 ### ScatterSeries.SeriesProps
 
@@ -53,7 +54,7 @@ Describes properties passed to a component that renders the series.
 Field | Type | Description
 ------|------|------------
 pointComponent | ComponentType&lt;[ScatterSeries.PointProps](#scatterseriespointprops)&gt; | | A component that renders a series point.
-coordinates | Array&lt;{ x: number, y: number }&gt; | Coordinates of the series' points.
+coordinates | Array&lt;{ arg: number, val: number }&gt; | Coordinates of the series' points.
 point? | { size : number } | point: { size: 7 } | Point options.
 
 ## Plugin Components

@@ -38,8 +38,9 @@ Describes properties passed to a component that renders series.
 
 Field | Type | Description
 ------|------|------------
-coordinates | Array&lt;{ x: number, y: number }&gt; | Coordinates of the series' points.
+coordinates | Array&lt;{ arg: number, val: number }&gt; | Coordinates of the series' points.
 color | string | A series color.
+isRotated | boolean | Shows if chart is rotated.
 
 ### LineSeries.PathSeriesProps
 
@@ -49,7 +50,7 @@ Extends [LineSeries.SeriesProps](#lineseriesseriesprops)
 
 Field | Type | Description
 ------|------|------------
-path? | (coordinates: Array&lt;{ x: number, y: number }&gt;) => string | A function used to calculate the series' path.
+path? | (coordinates: Array&lt;{ arg: number, val: number }&gt;) => string | A function used to calculate the series' path.
 
 ## Plugin Components
 

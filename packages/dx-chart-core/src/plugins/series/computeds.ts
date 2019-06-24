@@ -78,7 +78,7 @@ export const getPiePointTransformer: GetPointTransformerFn = ({
 
 /** @internal */
 export const getLinePointTransformer: GetPointTransformerFn = ({
-  argumentScale, valueScale, isRotated,
+  argumentScale, valueScale,
 }) => point => ({
   ...point,
   arg: argumentScale(point.argument),
@@ -109,7 +109,7 @@ getAreaPointTransformer.isStartedFromZero = true;
 
 /** @internal */
 export const getBarPointTransformer: GetPointTransformerFn = ({
-  argumentScale, valueScale, isRotated,
+  argumentScale, valueScale,
 }) => {
   const val0 = valueScale(0);
   return point => ({
@@ -181,9 +181,8 @@ getPiePointTransformer.getTargetElement = (point) => {
   return getRect(cx, cy, 0.5, 0.5);
 };
 
-getAreaPointTransformer.getTargetElement = ({ arg, val, isRotated }) => (
-  getRect(isRotated ? val : arg, isRotated ? arg : val, 1, 1)
-);
+getAreaPointTransformer.getTargetElement = ({ arg, val, isRotated }) =>
+  getRect(isRotated ? val : arg, isRotated ? arg : val, 1, 1);
 
 getLinePointTransformer.getTargetElement = getAreaPointTransformer.getTargetElement;
 

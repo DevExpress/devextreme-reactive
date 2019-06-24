@@ -545,6 +545,7 @@ export namespace Tooltip {
   }
   export interface OverlayProps {
     children: React.ReactNode;
+    rotate: boolean;
     target: TooltipReference;
   }
 }

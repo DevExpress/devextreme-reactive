@@ -62,7 +62,7 @@ class RawTooltip extends React.PureComponent<TooltipProps, TooltipState> {
         <Template name="series">
           <TemplatePlaceholder />
           <TemplateConnector>
-            {({ series, rootRef }) => {
+            {({ series, rootRef, isRotated }) => {
               if (!target) {
                 return null;
               }
@@ -71,6 +71,7 @@ class RawTooltip extends React.PureComponent<TooltipProps, TooltipState> {
                 <OverlayComponent
                   key={`${target.series}${target.point}`}
                   target={createReference(element, rootRef)}
+                  rotate={isRotated}
                 >
                   <ContentComponent text={text} targetItem={target} />
                 </OverlayComponent>

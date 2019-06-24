@@ -38,9 +38,13 @@ const createCanvasAbusingHitTester = (
 const LINE_POINT_SIZE = 20;
 const LINE_TOLERANCE = 10;
 
-const getContinuousPointDistance = (
-  [px, py]: Location, { arg: x, val: y }: TransformedPoint,
-) => getSegmentLength(px - x, py - y);
+const getDistance = (
+  [px, py]: Location, { arg, val }: TransformedPoint, isRotated: boolean,
+) => {
+  const x = isRotated ? val : arg;
+  const y = isRotated ? arg : val;
+  return getSegmentLength(px - x, py - y);
+};
 
 const createContinuousSeriesHitTesterCreator =
   (makePath: MakePathFn): CreateHitTesterFn => (points, isRotated) => {
@@ -50,7 +54,7 @@ const createContinuousSeriesHitTesterCreator =
       let minIndex: number = 0;
       const list: PointDistance[] = [];
       points.forEach((point, i) => {
-        const distance = getContinuousPointDistance(target, point as TransformedPoint);
+        const distance = getDistance(target, point as TransformedPoint, isRotated);
         if (distance <= LINE_POINT_SIZE) {
           list.push({ distance, index: point.index });
         }
@@ -163,10 +167,8 @@ export const createBarHitTester = createPointsEnumeratingHitTesterCreator(
 /** @internal */
 export const createScatterHitTester = createPointsEnumeratingHitTesterCreator(
   ([px, py], obj, isRotated) => {
-    const { arg, val, point } = obj as ScatterSeries.PointProps;
-    const x = isRotated ? val : arg;
-    const y = isRotated ? arg : val;
-    const distance = getSegmentLength(px - x, py - y);
+    const { point } = obj as ScatterSeries.PointProps;
+    const distance = getDistance([px, py], obj, isRotated);
     return distance <= point.size / 2 ? { distance } : null;
   },
 );

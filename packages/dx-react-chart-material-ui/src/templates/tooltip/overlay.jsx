@@ -12,6 +12,10 @@ const styles = (theme) => {
       zIndex: 1,
       marginBottom: `${arrowSize}px`,
     },
+    popperRotated: {
+      zIndex: 1,
+      marginLeft: `${arrowSize}px`,
+    },
     paper: {
       padding: `${unit * 0.5}px ${unit}px`,
     },
@@ -36,6 +40,27 @@ const styles = (theme) => {
         boxShadow: theme.shadows[2],
       },
     },
+    arrowRotated: {
+      width: `${arrowSize * 2.5}px`,
+      height: `${arrowSize * 5}px`,
+      position: 'absolute',
+      top: '-17%',
+      left: 0,
+      transform: 'translateX(-100%)',
+      overflow: 'hidden',
+
+      '&::after': {
+        content: '""',
+        position: 'absolute',
+        width: `${arrowSize}px`,
+        height: `${arrowSize}px`,
+        background: theme.palette.background.paper,
+        transform: 'translateX(-50%) translateY(-50%) rotate(45deg)',
+        top: '50%',
+        left: '100%',
+        boxShadow: theme.shadows[2],
+      },
+    },
   };
 };
 
@@ -44,19 +69,19 @@ const popperModifiers = {
 };
 
 export const Overlay = withStyles(styles)(({
-  classes, className, children, target, ...restProps
+  classes, className, children, target, rotate, ...restProps
 }) => (
   <Popper
     open
     anchorEl={target}
-    placement="top"
-    className={classNames(classes.popper, className)}
+    placement={rotate ? 'right' : 'top'}
+    className={classNames(rotate ? classes.popperRotated : classes.popper, className)}
     modifiers={popperModifiers}
     {...restProps}
   >
     <Paper className={classes.paper}>
       {children}
     </Paper>
-    <div className={classes.arrow} />
+    <div className={rotate ? classes.arrowRotated : classes.arrow} />
   </Popper>
 ));

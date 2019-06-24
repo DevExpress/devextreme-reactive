@@ -1,5 +1,4 @@
 import { area } from 'd3-shape';
-import { dArea, dLine, dSpline } from '../plugins/series/computeds';
 import {
   createAreaHitTester, createLineHitTester, createSplineHitTester,
   createBarHitTester, createScatterHitTester, createPieHitTester,
@@ -11,19 +10,33 @@ jest.mock('d3-shape', () => ({
 }));
 
 jest.mock('../plugins/series/computeds', () => ({
-  dArea: () => ({
-    x: jest.fn().mockReturnValue('#x'),
-    y0: jest.fn().mockReturnValue('#y0'),
-    y1: jest.fn().mockReturnValue('#y1'),
-    y: jest.fn().mockReturnValue('#y'),
-    x0: jest.fn().mockReturnValue('#x0'),
-    x1: jest.fn().mockReturnValue('#x1'),
+  dArea: ({
+    x: jest.fn().mockReturnValue('area:#x'),
+    y0: jest.fn().mockReturnValue('area:#y0'),
+    y1: jest.fn().mockReturnValue('area:#y1'),
   }),
-  dLine: () => ({ x: jest.fn().mockReturnValue('#x'), y: jest.fn().mockReturnValue('#y') }),
-  dSpline: () => ({
-    x: jest.fn().mockReturnValue('#x'),
-    y: jest.fn().mockReturnValue('#y'),
-    curve: jest.fn().mockReturnValue('#curve'),
+  dRotateArea: ({
+    y: jest.fn().mockReturnValue('rotated-area:#y'),
+    x0: jest.fn().mockReturnValue('rotated-area:#x0'),
+    x1: jest.fn().mockReturnValue('rotated-area:#x1'),
+  }),
+  dLine: ({
+    x: jest.fn().mockReturnValue('line:#x'),
+    y: jest.fn().mockReturnValue('line:#y'),
+  }),
+  dRotateLine: ({
+    x: jest.fn().mockReturnValue('rotated-line:#x'),
+    y: jest.fn().mockReturnValue('rotated-line:#y'),
+  }),
+  dSpline: ({
+    x: jest.fn().mockReturnValue('spline:#x'),
+    y: jest.fn().mockReturnValue('spline:#y'),
+    curve: jest.fn().mockReturnValue('spline:#curve'),
+  }),
+  dRotateSpline: ({
+    x: jest.fn().mockReturnValue('rotated-spline:#x'),
+    y: jest.fn().mockReturnValue('rotated-spline:#y'),
+    curve: jest.fn().mockReturnValue('rotated-spline:#curve'),
   }),
 }));
 
@@ -39,21 +52,20 @@ const matchFloat = expected => ({
 });
 
 describe('Continuous Series', () => {
-  const mockPath = jest.fn() as any;
-  mockPath.x = jest.fn();
-  mockPath.y0 = jest.fn();
-  mockPath.y1 = jest.fn();
-  mockPath.y = jest.fn();
-  mockPath.x0 = jest.fn();
-  mockPath.x1 = jest.fn();
-  mockPath.context = jest.fn();
-  mockPath.curve = jest.fn();
+  let mockPath: any;
 
-  // Mocks are intentionally reset rather then cleared.
   beforeEach(() => {
+    mockPath = jest.fn();
+    mockPath.x = jest.fn();
+    mockPath.y0 = jest.fn();
+    mockPath.y1 = jest.fn();
+    mockPath.y = jest.fn();
+    mockPath.x0 = jest.fn();
+    mockPath.x1 = jest.fn();
+    mockPath.context = jest.fn();
+    mockPath.curve = jest.fn();
     (area as jest.Mock).mockReturnValue(mockPath);
   });
-  afterEach(jest.resetAllMocks);
 
   const checkContinuousHitTester = (createHitTester) => {
     const isPointInPath = jest.fn();
@@ -107,9 +119,9 @@ describe('Continuous Series', () => {
 
       createAreaHitTester('test-coordinates' as any, false);
 
-      expect(mockPath.x).toBeCalledWith('#x');
-      expect(mockPath.y0).toBeCalledWith('#y0');
-      expect(mockPath.y1).toBeCalledWith('#y1');
+      expect(mockPath.x).toBeCalledWith('area:#x');
+      expect(mockPath.y0).toBeCalledWith('area:#y0');
+      expect(mockPath.y1).toBeCalledWith('area:#y1');
       expect(mockPath.context).toBeCalledWith('test-context');
       expect(mockPath).toBeCalledWith('test-coordinates');
     });
@@ -119,9 +131,9 @@ describe('Continuous Series', () => {
 
       createAreaHitTester('test-coordinates' as any, true);
 
-      expect(mockPath.y).toBeCalledWith('#y');
-      expect(mockPath.x0).toBeCalledWith('#x0');
-      expect(mockPath.x1).toBeCalledWith('#x1');
+      expect(mockPath.y).toBeCalledWith('rotated-area:#y');
+      expect(mockPath.x0).toBeCalledWith('rotated-area:#x0');
+      expect(mockPath.x1).toBeCalledWith('rotated-area:#x1');
       expect(mockPath.context).toBeCalledWith('test-context');
       expect(mockPath).toBeCalledWith('test-coordinates');
     });
@@ -135,7 +147,7 @@ describe('Continuous Series', () => {
 
       createLineHitTester('test-coordinates' as any, false);
 
-      expect(mockPath.x).toBeCalledWith('#x');
+      expect(mockPath.x).toBeCalledWith('line:#x');
       expect(mockPath.y0).toBeCalledWith(expect.any(Function));
       expect(mockPath.y1).toBeCalledWith(expect.any(Function));
       expect(mockPath.context).toBeCalledWith('test-context');
@@ -147,7 +159,7 @@ describe('Continuous Series', () => {
 
       createLineHitTester('test-coordinates' as any, true);
 
-      expect(mockPath.y).toBeCalledWith('#y');
+      expect(mockPath.y).toBeCalledWith('rotated-line:#y');
       expect(mockPath.x0).toBeCalledWith(expect.any(Function));
       expect(mockPath.x1).toBeCalledWith(expect.any(Function));
       expect(mockPath.context).toBeCalledWith('test-context');
@@ -163,10 +175,10 @@ describe('Continuous Series', () => {
 
       createSplineHitTester('test-coordinates' as any, false);
 
-      expect(mockPath.x).toBeCalledWith('#x');
+      expect(mockPath.x).toBeCalledWith('spline:#x');
       expect(mockPath.y0).toBeCalledWith(expect.any(Function));
       expect(mockPath.y1).toBeCalledWith(expect.any(Function));
-      expect(mockPath.curve).toBeCalledWith('#curve');
+      expect(mockPath.curve).toBeCalledWith('spline:#curve');
       expect(mockPath.context).toBeCalledWith('test-context');
       expect(mockPath).toBeCalledWith('test-coordinates');
     });
@@ -176,10 +188,10 @@ describe('Continuous Series', () => {
 
       createSplineHitTester('test-coordinates' as any, true);
 
-      expect(mockPath.y).toBeCalledWith('#y');
+      expect(mockPath.y).toBeCalledWith('rotated-spline:#y');
       expect(mockPath.x0).toBeCalledWith(expect.any(Function));
       expect(mockPath.x1).toBeCalledWith(expect.any(Function));
-      expect(mockPath.curve).toBeCalledWith('#curve');
+      expect(mockPath.curve).toBeCalledWith('rotated-spline:#curve');
       expect(mockPath.context).toBeCalledWith('test-context');
       expect(mockPath).toBeCalledWith('test-coordinates');
     });

@@ -26,7 +26,7 @@ jest.mock('d3-scale', () => ({
 }));
 
 jest.mock('d3-shape', () => {
-  const createMockWithFluentInterface = () => {
+  const createMockWithFluentInterface = () => jest.fn(() => {
     const proxy = new Proxy(jest.fn().mockReturnValue('symbol path'), {
       get(target, prop, receiver) {
         if (target[prop] === undefined) {
@@ -36,8 +36,8 @@ jest.mock('d3-shape', () => {
         return target[prop];
       },
     });
-    return jest.fn().mockReturnValue(proxy);
-  };
+    return proxy;
+  });
 
   return {
     area: createMockWithFluentInterface(),
@@ -45,6 +45,8 @@ jest.mock('d3-shape', () => {
     symbol: createMockWithFluentInterface(),
     pie: createMockWithFluentInterface(),
     arc: createMockWithFluentInterface(),
+    curveMonotoneX: '#curve-monotone-x',
+    curveMonotoneY: '#curve-monotone-y',
   };
 });
 
@@ -57,79 +59,88 @@ const mockArc = jest.fn().mockReturnValue('test-d') as any;
 mockArc.centroid = jest.fn().mockReturnValue([2, 3]);
 (arc as jest.Mock).mockReturnValue(mockArc);
 
-describe('dArea', () => {
-  it('init function', () => {
+describe('dFunctions', () => {
+  it('init functions', () => {
     expect(area).toHaveBeenCalledTimes(2);
+    expect(line).toHaveBeenCalledTimes(4);
   });
 
-  it('x getter', () => {
+  it('dArea', () => {
     const fluentArea = (area as any).mock.results[0].value;
     const getX = fluentArea.x.mock.calls[0][0];
+    const getY0 = fluentArea.y0.mock.calls[0][0];
+    const getY1 = fluentArea.y1.mock.calls[0][0];
 
     expect(fluentArea.x).toHaveBeenCalledTimes(1);
-    expect(getX({ x: 10 })).toEqual(10);
-  });
-
-  it('y1 getter', () => {
-    const fluentArea = (area as any).mock.results[0].value;
-    const getY = fluentArea.y1.mock.calls[0][0];
-
     expect(fluentArea.y1).toHaveBeenCalledTimes(1);
-    expect(getY({ y: 10 })).toEqual(10);
-  });
-
-  it('y0 getter', () => {
-    const fluentArea = (area as any).mock.results[0].value;
-    const getY = fluentArea.y0.mock.calls[0][0];
-
     expect(fluentArea.y0).toHaveBeenCalledTimes(1);
-    expect(getY({ y: 5, height: 2 })).toEqual(7);
-  });
-});
 
-describe('line & spline', () => {
-  it('init function', () => {
-    expect(line).toHaveBeenCalledTimes(2);
+    expect(getX({ arg: 10 })).toEqual(10);
+    expect(getY1({ val: 10 })).toEqual(10);
+    expect(getY0({ startVal: 7 })).toEqual(7);
   });
 
-  it('x & y  getters', () => {
+  it('dRotateArea', () => {
+    const fluentArea = (area as any).mock.results[1].value;
+    const getX0 = fluentArea.x0.mock.calls[0][0];
+    const getY1 = fluentArea.x1.mock.calls[0][0];
+    const getY = fluentArea.y.mock.calls[0][0];
+
+    expect(fluentArea.x0).toHaveBeenCalledTimes(1);
+    expect(fluentArea.x1).toHaveBeenCalledTimes(1);
+    expect(fluentArea.y).toHaveBeenCalledTimes(1);
+
+    expect(getX0({ val: 7 })).toEqual(7);
+    expect(getY1({ startVal: 10 })).toEqual(10);
+    expect(getY({ arg: 5 })).toEqual(5);
+  });
+
+  it('dLine', () => {
     const fluentLine = (line as any).mock.results[0].value;
-    expect(fluentLine.x).toHaveBeenCalledTimes(2);
-    expect(fluentLine.y).toHaveBeenCalledTimes(2);
+    const getX = fluentLine.x.mock.calls[0][0];
+    const getY = fluentLine.y.mock.calls[0][0];
+
+    expect(fluentLine.x).toHaveBeenCalledTimes(1);
+    expect(fluentLine.y).toHaveBeenCalledTimes(1);
+    expect(getX({ arg: 10 })).toEqual(10);
+    expect(getY({ val: 10 })).toEqual(10);
   });
 
-  describe('dLine', () => {
-    it('x getter', () => {
-      const getX = (line as any).mock.results[0].value.x.mock.calls[0][0];
+  it('dRotateLine', () => {
+    const fluentLine = (line as any).mock.results[1].value;
+    const getX = fluentLine.x.mock.calls[0][0];
+    const getY = fluentLine.y.mock.calls[0][0];
 
-      expect(getX({ x: 10 })).toEqual(10);
-    });
-
-    it('y1 getter', () => {
-      const getY = (line as any).mock.results[0].value.y.mock.calls[0][0];
-
-      expect(getY({ y: 10 })).toEqual(10);
-    });
+    expect(fluentLine.x).toHaveBeenCalledTimes(1);
+    expect(fluentLine.y).toHaveBeenCalledTimes(1);
+    expect(getX({ val: 10 })).toEqual(10);
+    expect(getY({ arg: 10 })).toEqual(10);
   });
 
-  describe('dSpline', () => {
-    it('x getter', () => {
-      const getX = (line as any).mock.results[0].value.x.mock.calls[1][0];
+  it('dSpline', () => {
+    const fluentLine = (line as any).mock.results[2].value;
+    const getX = fluentLine.x.mock.calls[0][0];
+    const getY = fluentLine.y.mock.calls[0][0];
 
-      expect(getX({ x: 10 })).toEqual(10);
-    });
+    expect(fluentLine.x).toHaveBeenCalledTimes(1);
+    expect(fluentLine.y).toHaveBeenCalledTimes(1);
+    expect(fluentLine.curve).toHaveBeenCalledTimes(1);
+    expect(getX({ arg: 10 })).toEqual(10);
+    expect(getY({ val: 10 })).toEqual(10);
+    expect(fluentLine.curve).toHaveBeenCalledWith('#curve-monotone-x');
+  });
 
-    it('y1 getter', () => {
-      const getY = (line as any).mock.results[0].value.y.mock.calls[1][0];
+  it('dRotateSpline', () => {
+    const fluentLine = (line as any).mock.results[3].value;
+    const getX = fluentLine.x.mock.calls[0][0];
+    const getY = fluentLine.y.mock.calls[0][0];
 
-      expect(getY({ y: 10 })).toEqual(10);
-    });
-
-    it('curve', () => {
-      const curve = (line as any).mock.results[0].value.curve.mock.calls[0][0];
-
-      expect(curve).toEqual(curveCatmullRom);
-    });
+    expect(fluentLine.x).toHaveBeenCalledTimes(1);
+    expect(fluentLine.y).toHaveBeenCalledTimes(1);
+    expect(fluentLine.curve).toHaveBeenCalledTimes(1);
+    expect(getX({ val: 10 })).toEqual(10);
+    expect(getY({ arg: 10 })).toEqual(10);
+    expect(fluentLine.curve).toHaveBeenCalledWith('#curve-monotone-y');
   });
 });
 

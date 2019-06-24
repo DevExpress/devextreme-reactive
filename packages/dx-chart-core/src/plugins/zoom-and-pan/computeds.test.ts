@@ -9,7 +9,7 @@ import {
   adjustLayout, getViewport, getDeltaForTouches, isKeyPressed, getWheelDelta, isMultiTouch,
   attachEvents, detachEvents, getRect,
 } from './computeds';
-import { ScalesCache, ViewportOptions } from '../../types';
+import { ScalesCache, Viewport } from '../../types';
 
 jest.mock('../../utils/scale', () => ({
   ...require.requireActual('../../utils/scale'),  // for `rangesEqual`
@@ -170,7 +170,7 @@ describe('ZoomAndPan', () => {
       [ARGUMENT_DOMAIN]: argScale,
       'domain-1': valScale,
     } as any;
-    const viewport: ViewportOptions = {
+    const viewport: Viewport = {
       argumentStart: 'A', argumentEnd: 'B',
       valueStart: 100, valueEnd: 200,
     };

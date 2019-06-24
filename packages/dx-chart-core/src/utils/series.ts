@@ -155,7 +155,7 @@ export const createBarHitTester = createPointsEnumeratingHitTesterCreator(
       px - xCenter,
       py - yCenter,
       isRotated ? halfHeight : halfWidth,
-      isRotated ? halfWidth : halfWidth,
+      isRotated ? halfWidth : halfHeight,
     );
   },
 );

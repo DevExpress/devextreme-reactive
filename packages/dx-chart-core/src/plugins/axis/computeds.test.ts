@@ -1,9 +1,44 @@
 import { isHorizontal } from '../../utils/scale';
-import { axisCoordinates, getGridCoordinates, createTickFilter } from './computeds';
+import {
+  axisCoordinates, getGridCoordinates, createTickFilter, getRotatedPosition, isValidPosition,
+} from './computeds';
 
 jest.mock('../../utils/scale', () => ({
   isHorizontal: jest.fn(),
 }));
+
+describe('getRotatedPosition', () => {
+  it('should return rotated position', () => {
+    expect(getRotatedPosition('left')).toEqual('bottom');
+    expect(getRotatedPosition('right')).toEqual('top');
+    expect(getRotatedPosition('top')).toEqual('right');
+    expect(getRotatedPosition('bottom')).toEqual('left');
+  });
+});
+
+describe('isValidPosition', () => {
+  afterEach(jest.clearAllMocks);
+
+  it('should check horizontal case', () => {
+    (isHorizontal as jest.Mock).mockReturnValue(true);
+    expect(isValidPosition('left', 'scale-1', false)).toEqual(false);
+    expect(isValidPosition('bottom', 'scale-2', true)).toEqual(true);
+    expect((isHorizontal as jest.Mock).mock.calls).toEqual([
+      ['scale-1', false],
+      ['scale-2', true],
+    ]);
+  });
+
+  it('should check vertical case', () => {
+    (isHorizontal as jest.Mock).mockReturnValue(false);
+    expect(isValidPosition('right', 'scale-1', false)).toEqual(true);
+    expect(isValidPosition('top', 'scale-2', true)).toEqual(false);
+    expect((isHorizontal as jest.Mock).mock.calls).toEqual([
+      ['scale-1', false],
+      ['scale-2', true],
+    ]);
+  });
+});
 
 describe('axisCoordinates', () => {
   const tickSize = 5;

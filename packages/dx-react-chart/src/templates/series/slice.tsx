@@ -9,7 +9,7 @@ import { PieSeries } from '../../types';
 class RawSlice extends React.PureComponent<PieSeries.PointProps> {
   render() {
     const {
-      arg: x, val: y,
+      arg: x, val: y, isRotated,
       argument, value, seriesIndex, index, state, maxRadius,
       innerRadius, outerRadius, startAngle, endAngle,
       color,

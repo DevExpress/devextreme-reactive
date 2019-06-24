@@ -57,13 +57,13 @@ export const cellData: PureComputed<
 
 export const autoScroll: PureComputed<
   [ClientOffset, ScrollingAPI], void
-> = (clientOffset, scrollingAPI) => {
-  if ((clientOffset.y < scrollingAPI.topBoundary + SCROLL_OFFSET)
-    && (clientOffset.y > scrollingAPI.topBoundary)) {
-    scrollingAPI.changeVerticalScroll(-SCROLL_SPEED_PX);
+> = (clientOffset, scrollingStrategy) => {
+  if ((clientOffset.y < scrollingStrategy.topBoundary + SCROLL_OFFSET)
+    && (clientOffset.y > scrollingStrategy.topBoundary)) {
+    scrollingStrategy.changeVerticalScroll(-SCROLL_SPEED_PX);
   }
-  if (scrollingAPI.bottomBoundary - SCROLL_OFFSET < clientOffset.y) {
-    scrollingAPI.changeVerticalScroll(+SCROLL_SPEED_PX);
+  if (scrollingStrategy.bottomBoundary - SCROLL_OFFSET < clientOffset.y) {
+    scrollingStrategy.changeVerticalScroll(+SCROLL_SPEED_PX);
   }
 };
 

@@ -254,7 +254,7 @@ describe('Week View', () => {
         .toEqual({});
     });
 
-    it('should provide "scrollingAPI" getter', () => {
+    it('should provide "scrollingStrategy" getter', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -264,7 +264,7 @@ describe('Week View', () => {
         </PluginHost>
       ));
 
-      expect(getComputedState(tree).scrollingAPI)
+      expect(getComputedState(tree).scrollingStrategy)
         .toEqual({
           topBoundary: 0,
           bottomBoundary: 0,
@@ -280,7 +280,7 @@ describe('Week View', () => {
           {pluginDepsToComponents(defaultDeps)}
           <WeekView
             {...defaultProps}
-            layoutComponent={({ height, setScrollingAPI }) => <div className="view-layout" setScrollingAPI={setScrollingAPI} height={height} />}
+            layoutComponent={({ height, setScrollingStrategy }) => <div className="view-layout" setScrollingStrategy={setScrollingStrategy} height={height} />}
           />
         </PluginHost>
       ));
@@ -289,7 +289,7 @@ describe('Week View', () => {
         .toBeTruthy();
       expect(tree.find('.view-layout').props().height)
         .toBe(defaultDeps.getter.layoutHeight);
-      expect(tree.find('.view-layout').props().setScrollingAPI)
+      expect(tree.find('.view-layout').props().setScrollingStrategy)
         .toEqual(expect.any(Function));
     });
 

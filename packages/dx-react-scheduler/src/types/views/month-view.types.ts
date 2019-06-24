@@ -88,6 +88,6 @@ export namespace MonthView {
     /** The layout's height */
     height: number | 'auto';
     /** The scrolling API callback */
-    setScrollingAPI: (scrollingAPI: ScrollingAPI) => void;
+    setScrollingStrategy: (scrollingStrategy: ScrollingAPI) => void;
   }
 }

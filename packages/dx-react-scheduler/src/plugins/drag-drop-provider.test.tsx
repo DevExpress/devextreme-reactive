@@ -46,7 +46,7 @@ const defaultDeps = {
       parentRect: () => ({ height: 20, top: 20, bottom: 40 }),
       getCellRects: [],
     },
-    scrollingAPI: {
+    scrollingStrategy: {
       topBoundary: 10,
       bottomBoundary: 20,
       changeVerticalScroll: jest.fn(),
@@ -297,7 +297,7 @@ describe('DragDropProvider', () => {
 
       expect(autoScroll)
         .toBeCalledWith(
-          clientOffset, defaultDeps.getter.scrollingAPI,
+          clientOffset, defaultDeps.getter.scrollingStrategy,
         );
     });
   });

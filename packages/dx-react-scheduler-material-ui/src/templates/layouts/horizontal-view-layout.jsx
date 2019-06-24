@@ -4,7 +4,7 @@ import { AUTO_HEIGHT } from '@devexpress/dx-scheduler-core';
 import RootRef from '@material-ui/core/RootRef';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
-import { scrollingAPI } from '../utils';
+import { scrollingStrategy } from '../utils';
 
 const styles = theme => ({
   container: {
@@ -32,15 +32,15 @@ class HorizontalViewLayoutBase extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { setScrollingAPI } = this.props;
+    const { setScrollingStrategy } = this.props;
 
-    setScrollingAPI(scrollingAPI(this.layout.current, this.layoutHeader.current));
+    setScrollingStrategy(scrollingStrategy(this.layout.current, this.layoutHeader.current));
   }
 
   componentDidUpdate() {
-    const { setScrollingAPI } = this.props;
+    const { setScrollingStrategy } = this.props;
 
-    setScrollingAPI(scrollingAPI(this.layout.current, this.layoutHeader.current));
+    setScrollingStrategy(scrollingStrategy(this.layout.current, this.layoutHeader.current));
   }
 
   render() {
@@ -85,7 +85,7 @@ class HorizontalViewLayoutBase extends React.PureComponent {
 HorizontalViewLayoutBase.propTypes = {
   dayScaleComponent: PropTypes.func.isRequired,
   timeTableComponent: PropTypes.func.isRequired,
-  setScrollingAPI: PropTypes.func.isRequired,
+  setScrollingStrategy: PropTypes.func.isRequired,
   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   classes: PropTypes.object.isRequired,
 };

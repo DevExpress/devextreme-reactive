@@ -50,7 +50,7 @@ const TimeScalePlaceholder = () => <TemplatePlaceholder name="timeScale" />;
 class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
   state: ViewState = {
     rects: [],
-    scrollingAPI: {
+    scrollingStrategy: {
       topBoundary: 0,
       bottomBoundary: 0,
       changeVerticalScroll: () => undefined,
@@ -85,9 +85,9 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
     timeTableRowComponent: 'TimeTableRow',
   };
 
-  scrollingAPI = memoize((viewName, scrollingAPI) => (getters) => {
+  scrollingStrategy = memoize((viewName, scrollingStrategy) => (getters) => {
     return computed(
-      getters, viewName!, () => scrollingAPI, getters.scrollingAPI,
+      getters, viewName!, () => scrollingStrategy, getters.scrollingStrategy,
     );
   });
 
@@ -163,8 +163,8 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
     this.setState({ rects, timeTableElementsMeta: cellElementsMeta });
   });
 
-  setScrollingAPI = (scrollingAPI: ScrollingAPI) => {
-    this.setState({ scrollingAPI });
+  setScrollingStrategy = (scrollingStrategy: ScrollingAPI) => {
+    this.setState({ scrollingStrategy });
   }
 
   render() {
@@ -189,7 +189,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
       endDayHour,
       appointmentLayerComponent: AppointmentLayer,
     } = this.props;
-    const { rects, timeTableElementsMeta, scrollingAPI } = this.state;
+    const { rects, timeTableElementsMeta, scrollingStrategy } = this.state;
 
     return (
       <Plugin
@@ -216,8 +216,8 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
           computed={this.timeTableElementsMeta(viewName, timeTableElementsMeta)}
         />
         <Getter
-          name="scrollingAPI"
-          computed={this.scrollingAPI(viewName, scrollingAPI)}
+          name="scrollingStrategy"
+          computed={this.scrollingStrategy(viewName, scrollingStrategy)}
         />
 
         <Template name="body">
@@ -230,7 +230,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
                   dayScaleEmptyCellComponent={DayScaleEmptyCellPlaceholder}
                   timeTableComponent={TimeTablePlaceholder}
                   timeScaleComponent={TimeScalePlaceholder}
-                  setScrollingAPI={this.setScrollingAPI}
+                  setScrollingStrategy={this.setScrollingStrategy}
                   height={layoutHeight}
                 />
               );

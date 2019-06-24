@@ -14,7 +14,7 @@ export const cellsMeta = (tableElement) => {
   };
 };
 
-export const scrollingAPI = (scrollablePart, fixedPart) => {
+export const scrollingStrategy = (scrollablePart, fixedPart) => {
   const fixedPartRect = fixedPart.getBoundingClientRect();
   const changeVerticalScroll = (value) => {
     // eslint-disable-next-line no-param-reassign

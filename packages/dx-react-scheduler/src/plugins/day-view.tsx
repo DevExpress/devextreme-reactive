@@ -49,7 +49,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
   state: ViewState = {
     rects: [],
     timeTableElementsMeta: {},
-    scrollingAPI: {
+    scrollingStrategy: {
       topBoundary: 0,
       bottomBoundary: 0,
       changeVerticalScroll: () => undefined,
@@ -81,9 +81,9 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
     timeTableRowComponent: 'TimeTableRow',
   };
 
-  scrollingAPI = memoize((viewName, scrollingAPI) => (getters) => {
+  scrollingStrategy = memoize((viewName, scrollingStrategy) => (getters) => {
     return computed(
-      getters, viewName!, () => scrollingAPI, getters.scrollingAPI,
+      getters, viewName!, () => scrollingStrategy, getters.scrollingStrategy,
     );
   });
 
@@ -152,8 +152,8 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
     this.setState({ rects, timeTableElementsMeta: cellElementsMeta });
   });
 
-  setScrollingAPI = (scrollingAPI) => {
-    this.setState({ scrollingAPI });
+  setScrollingStrategy = (scrollingStrategy) => {
+    this.setState({ scrollingStrategy });
   }
 
   render() {
@@ -176,7 +176,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
       startDayHour,
       endDayHour,
     } = this.props;
-    const { rects, timeTableElementsMeta, scrollingAPI } = this.state;
+    const { rects, timeTableElementsMeta, scrollingStrategy } = this.state;
 
     return (
       <Plugin
@@ -199,8 +199,8 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
           computed={this.timeTableElementsMeta(viewName, timeTableElementsMeta)}
         />
         <Getter
-          name="scrollingAPI"
-          computed={this.scrollingAPI(viewName, scrollingAPI)}
+          name="scrollingStrategy"
+          computed={this.scrollingStrategy(viewName, scrollingStrategy)}
         />
 
         <Template name="body">
@@ -213,7 +213,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
                   dayScaleEmptyCellComponent={DayScaleEmptyCellPlaceholder}
                   timeTableComponent={TimeTablePlaceholder}
                   timeScaleComponent={TimeScalePlaceholder}
-                  setScrollingAPI={this.setScrollingAPI}
+                  setScrollingStrategy={this.setScrollingStrategy}
                   height={layoutHeight}
                 />
               );

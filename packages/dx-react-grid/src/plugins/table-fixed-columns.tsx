@@ -39,6 +39,7 @@ const pluginDependencies = [
   { name: 'TableSelection', optional: true },
   { name: 'TableSummaryRow', optional: true },
   { name: 'TableTreeColumn', optional: true },
+  { name: 'TableGroupRow', optional: true },
 ];
 
 // tslint:disable-next-line: max-line-length

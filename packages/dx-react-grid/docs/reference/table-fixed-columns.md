@@ -32,6 +32,7 @@ import { TableFixedColumns } from '@devexpress/dx-react-grid';
 - [TableSelection](table-selection.md) [Optional]
 - [TableSummaryRow](table-summary-row.md) [Optional]
 - [TableTreeColumn](table-tree-column.md) [Optional]
+- [TableGroupRow](table-group-row.md) [Optional]
 
 ### Properties
 

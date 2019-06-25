@@ -181,7 +181,7 @@ describe('ZoomAndPan', () => {
       (moveBounds as jest.Mock).mockReturnValueOnce([3, 5]);
 
       const ret = getViewport(
-        scales, ['both', 'both'], 'pan', [10, 5], [40, 30], null, viewport, mock,
+        scales, false, ['both', 'both'], 'pan', [10, 5], [40, 30], null, viewport, mock,
       );
 
       expect(ret).toEqual({
@@ -197,13 +197,35 @@ describe('ZoomAndPan', () => {
       expect(mock).toBeCalledWith(ret.viewport);
     });
 
+    it('should pan bounds / rotated', () => {
+      const mock = jest.fn();
+      (moveBounds as jest.Mock).mockReturnValueOnce(['E', 'F']);
+      (moveBounds as jest.Mock).mockReturnValueOnce([3, 5]);
+
+      const ret = getViewport(
+        scales, true, ['both', 'both'], 'pan', [10, 5], [40, 30], null, viewport, mock,
+      );
+
+      expect(ret).toEqual({
+        viewport: {
+          argumentStart: 'E', argumentEnd: 'F',
+          valueStart: 3, valueEnd: 5,
+        },
+      });
+      expect((moveBounds as jest.Mock).mock.calls).toEqual([
+        [argScale, ['A', 'B'], 5],
+        [valScale, [100, 200], 10],
+      ]);
+      expect(mock).toBeCalledWith(ret.viewport);
+    });
+
     it('should zoom bounds', () => {
       const mock = jest.fn();
       (growBounds as jest.Mock).mockReturnValueOnce(['E', 'F']);
       (growBounds as jest.Mock).mockReturnValueOnce([3, 5]);
 
       const ret = getViewport(
-        scales, ['both', 'both'], 'zoom', [10, 5], [40, 30], null, viewport, mock,
+        scales, false, ['both', 'both'], 'zoom', [10, 5], [40, 30], null, viewport, mock,
       );
 
       expect(ret).toEqual({
@@ -219,13 +241,35 @@ describe('ZoomAndPan', () => {
       expect(mock).toBeCalledWith(ret.viewport);
     });
 
+    it('should zoom bounds / rotated', () => {
+      const mock = jest.fn();
+      (growBounds as jest.Mock).mockReturnValueOnce(['E', 'F']);
+      (growBounds as jest.Mock).mockReturnValueOnce([3, 5]);
+
+      const ret = getViewport(
+        scales, true, ['both', 'both'], 'zoom', [10, 5], [40, 30], null, viewport, mock,
+      );
+
+      expect(ret).toEqual({
+        viewport: {
+          argumentStart: 'E', argumentEnd: 'F',
+          valueStart: 3, valueEnd: 5,
+        },
+      });
+      expect((growBounds as jest.Mock).mock.calls).toEqual([
+        [argScale, ['A', 'B'], 5, 30],
+        [valScale, [100, 200], 10, 40],
+      ]);
+      expect(mock).toBeCalledWith(ret.viewport);
+    });
+
     it('should apply bounds from range', () => {
       const mock = jest.fn();
       (invertBoundsRange as jest.Mock).mockReturnValueOnce(['E', 'F']);
       (invertBoundsRange as jest.Mock).mockReturnValueOnce([3, 5]);
 
       const ret = getViewport(
-        scales, ['both', 'both'], 'zoom', [10, 5], [40, 30],
+        scales, false, ['both', 'both'], 'zoom', [10, 5], [40, 30],
         [[11, 12], [13, 14]],
         { ...viewport, scaleName: 'test' }, mock,
       );
@@ -256,7 +300,7 @@ describe('ZoomAndPan', () => {
       });
 
       const ret = getViewport(
-        scales, ['both', 'both'], 'pan', [10, 5], [40, 30], null, viewport, mock,
+        scales, false, ['both', 'both'], 'pan', [10, 5], [40, 30], null, viewport, mock,
       );
 
       expect(ret).toEqual({
@@ -280,7 +324,7 @@ describe('ZoomAndPan', () => {
       });
 
       const ret = getViewport(
-        scales, ['both', 'both'], 'zoom', [10, 5], [40, 30], null, viewport, mock,
+        scales, false, ['both', 'both'], 'zoom', [10, 5], [40, 30], null, viewport, mock,
       );
 
       expect(ret).toEqual({
@@ -297,7 +341,7 @@ describe('ZoomAndPan', () => {
       (moveBounds as jest.Mock).mockImplementation((_, bounds) => bounds);
 
       const ret = getViewport(
-        scales, ['both', 'both'], 'pan', [10, 5], [40, 30], null, viewport, mock,
+        scales, false, ['both', 'both'], 'pan', [10, 5], [40, 30], null, viewport, mock,
       );
 
       expect(ret).toEqual(null);
@@ -309,7 +353,7 @@ describe('ZoomAndPan', () => {
       const mock = jest.fn();
 
       const ret = getViewport(
-        scales, ['none', 'zoom'], 'pan', [10, 5], [40, 30], null, viewport, mock,
+        scales, false, ['none', 'zoom'], 'pan', [10, 5], [40, 30], null, viewport, mock,
       );
 
       expect(ret).toEqual(null);
@@ -324,7 +368,7 @@ describe('ZoomAndPan', () => {
       } as any;
 
       getViewport(
-        scales1, ['both', 'both'], 'zoom', [10, 5], [40, 30], null, {} as any, () => {},
+        scales1, false, ['both', 'both'], 'zoom', [10, 5], [40, 30], null, {} as any, () => {},
       );
 
       expect((growBounds as jest.Mock).mock.calls[0][1]).toEqual(['Q', 'T']);
@@ -371,18 +415,18 @@ describe('ZoomAndPan', () => {
       attachEvents(node, handlers);
       expect(node.addEventListener).toBeCalledTimes(2);
       expect(node.addEventListener.mock.calls[0])
-      .toEqual(['handler_1', handlers.handler_1, { passive: false }]);
+        .toEqual(['handler_1', handlers.handler_1, { passive: false }]);
       expect(node.addEventListener.mock.calls[1])
-      .toEqual(['handler_2', handlers.handler_2, { passive: false }]);
+        .toEqual(['handler_2', handlers.handler_2, { passive: false }]);
     });
 
     it('should detach events', () => {
       detachEvents(node, handlers);
       expect(node.removeEventListener).toBeCalledTimes(2);
       expect(node.removeEventListener.mock.calls[0])
-      .toEqual(['handler_1', handlers.handler_1]);
+        .toEqual(['handler_1', handlers.handler_1]);
       expect(node.removeEventListener.mock.calls[1])
-      .toEqual(['handler_2', handlers.handler_2]);
+        .toEqual(['handler_2', handlers.handler_2]);
     });
   });
 
@@ -390,17 +434,25 @@ describe('ZoomAndPan', () => {
     const pane = { width: 33, height: 44 };
 
     it('should return rect, interactions are zoom', () => {
-      expect(getRect('zoom', 'zoom', [14, 12], [3, 5], pane))
-      .toEqual({ x: 3, y: 5, width: 11, height: 7 });
-      expect(getRect('both', 'both', [14, 12], [3, 5], pane))
-      .toEqual({ x: 3, y: 5, width: 11, height: 7 });
+      expect(getRect(false, 'zoom', 'zoom', [14, 12], [3, 5], pane))
+        .toEqual({ x: 3, y: 5, width: 11, height: 7 });
+      expect(getRect(true, 'zoom', 'zoom', [14, 12], [3, 5], pane))
+        .toEqual({ x: 3, y: 5, width: 11, height: 7 });
+      expect(getRect(false, 'both', 'both', [14, 12], [3, 5], pane))
+        .toEqual({ x: 3, y: 5, width: 11, height: 7 });
+      expect(getRect(true, 'both', 'both', [14, 12], [3, 5], pane))
+        .toEqual({ x: 3, y: 5, width: 11, height: 7 });
     });
 
     it('should return rect, interaction are not zoom', () => {
-      expect(getRect('pan', 'pan', [14, 12], [3, 5], pane))
-      .toEqual({ x: 0, y: 0, width: 33, height: 44 });
-      expect(getRect('none', 'none', [14, 12], [3, 5], pane))
-      .toEqual({ x: 0, y: 0, width: 33, height: 44 });
+      expect(getRect(false, 'pan', 'pan', [14, 12], [3, 5], pane))
+        .toEqual({ x: 0, y: 0, width: 33, height: 44 });
+      expect(getRect(true, 'pan', 'pan', [14, 12], [3, 5], pane))
+        .toEqual({ x: 0, y: 0, width: 33, height: 44 });
+      expect(getRect(false, 'zoom', 'none', [14, 12], [3, 5], pane))
+        .toEqual({ x: 3, y: 0, width: 11, height: 44 });
+      expect(getRect(true, 'zoom', 'none', [14, 12], [3, 5], pane))
+        .toEqual({ x: 0, y: 5, width: 33, height: 7 });
     });
   });
 });

@@ -130,19 +130,19 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
     this.lastCoordinates = coords;
   }
 
-  handleMove(scales: ScalesCache, e: any, pane: Size) {
+  handleMove(scales: ScalesCache, isRotated: boolean, e: any, pane: Size) {
     e.preventDefault();
     clearSelection();
     if (isMultiTouch(e)) {
       const current = getDeltaForTouches(e.touches);
-      this.zoom(scales, current.delta - this.multiTouchDelta!, current.center);
+      this.zoom(scales, isRotated, current.delta - this.multiTouchDelta!, current.center);
       this.multiTouchDelta = current.delta;
     } else {
-      this.scroll(scales, e, pane);
+      this.scroll(scales, isRotated, e, pane);
     }
   }
 
-  scroll(scales: ScalesCache, e: any, pane: Size) {
+  scroll(scales: ScalesCache, isRotated: boolean, e: any, pane: Size) {
     const coords = getEventCoords(e, this.offset);
     const deltaX = coords[0] - this.lastCoordinates![0];
     const deltaY = coords[1] - this.lastCoordinates![1];
@@ -153,6 +153,7 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
       if (this.rectOrigin) {
         return {
           rectBox: getRect(
+            isRotated,
             interactionWithArguments!,
             interactionWithValues!,
             this.rectOrigin,
@@ -162,13 +163,13 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
         };
       }
       return getViewport(
-        scales, [interactionWithArguments!, interactionWithValues!], 'pan',
+        scales, isRotated, [interactionWithArguments!, interactionWithValues!], 'pan',
         [-deltaX, -deltaY], null, null, viewport, onViewportChange,
       );
     });
   }
 
-  handleEnd(scales: ScalesCache) {
+  handleEnd(scales: ScalesCache, isRotated: boolean) {
     this.lastCoordinates = null;
     this.multiTouchDelta = null;
     if (this.rectOrigin) {
@@ -180,7 +181,7 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
         return {
           rectBox: null,
           ...getViewport(
-            scales, [interactionWithArguments!, interactionWithValues!], 'zoom',
+            scales, isRotated, [interactionWithArguments!, interactionWithValues!], 'zoom',
             null,
             null,
             [
@@ -194,21 +195,21 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
     }
   }
 
-  zoom(scales: ScalesCache, delta: number, anchors: Location) {
+  zoom(scales: ScalesCache, isRotated: boolean, delta: number, anchors: Location) {
     this.setState((
       { viewport }, { onViewportChange, interactionWithArguments, interactionWithValues },
     ) => {
       return getViewport(
-        scales, [interactionWithArguments!, interactionWithValues!], 'zoom',
+        scales, isRotated, [interactionWithArguments!, interactionWithValues!], 'zoom',
         [delta, delta], anchors, null, viewport, onViewportChange,
       );
     });
   }
 
-  handleZoom(scales: ScalesCache, e: any) {
+  handleZoom(scales: ScalesCache, isRotated: boolean, e: any) {
     e.preventDefault();
     const center = getEventCoords(e, getOffset(e.currentTarget));
-    this.zoom(scales, getWheelDelta(e), center);
+    this.zoom(scales, isRotated, getWheelDelta(e), center);
   }
 
   render() {
@@ -227,13 +228,13 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
         <Template name="root">
         <TemplatePlaceholder />
           <TemplateConnector>
-            {({ scales, rootRef, layouts }) => (
+            {({ scales, isRotated, rootRef, layouts }) => (
                 <ZoomPanProvider
                   rootRef={rootRef}
-                  onWheel={e => this.handleZoom(scales, e)}
+                  onWheel={e => this.handleZoom(scales, isRotated, e)}
                   onStart={e => this.handleStart(zoomRegionKey!, e)}
-                  onMove={e => this.handleMove(scales, e, layouts.pane)}
-                  onEnd={e => this.handleEnd(scales)}
+                  onMove={e => this.handleMove(scales, isRotated, e, layouts.pane)}
+                  onEnd={e => this.handleEnd(scales, isRotated)}
                 />
               )}
           </TemplateConnector>

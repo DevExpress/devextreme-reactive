@@ -28,11 +28,11 @@ import { TableFixedColumns } from '@devexpress/dx-react-grid';
 - [TableEditColumn](table-edit-column.md) [Optional]
 - [TableEditRow](table-edit-row.md) [Optional]
 - [TableFilterRow](table-filter-row.md) [Optional]
+- [TableGroupRow](table-group-row.md) [Optional]
 - [TableHeaderRow](table-header-row.md) [Optional]
 - [TableSelection](table-selection.md) [Optional]
 - [TableSummaryRow](table-summary-row.md) [Optional]
 - [TableTreeColumn](table-tree-column.md) [Optional]
-- [TableGroupRow](table-group-row.md) [Optional]
 
 ### Properties
 

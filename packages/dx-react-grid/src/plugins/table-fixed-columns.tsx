@@ -35,11 +35,11 @@ const pluginDependencies = [
   { name: 'TableEditColumn', optional: true },
   { name: 'TableEditRow', optional: true },
   { name: 'TableFilterRow', optional: true },
+  { name: 'TableGroupRow', optional: true },
   { name: 'TableHeaderRow', optional: true },
   { name: 'TableSelection', optional: true },
   { name: 'TableSummaryRow', optional: true },
   { name: 'TableTreeColumn', optional: true },
-  { name: 'TableGroupRow', optional: true },
 ];
 
 // tslint:disable-next-line: max-line-length

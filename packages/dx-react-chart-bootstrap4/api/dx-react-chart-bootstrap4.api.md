@@ -19,6 +19,8 @@ import { SplineSeries as SplineSeries_2 } from '@devexpress/dx-react-chart';
 import { Title as Title_2 } from '@devexpress/dx-react-chart';
 import { Tooltip as Tooltip_2 } from '@devexpress/dx-react-chart';
 import { ValueAxis as ValueAxis_2 } from '@devexpress/dx-react-chart';
+import { Viewport } from '@devexpress/dx-react-chart';
+import { ZoomAndPan as ZoomAndPan_2 } from '@devexpress/dx-react-chart';
 
 // @public (undocumented)
 export namespace AreaSeries {
@@ -341,6 +343,27 @@ export interface ValueAxisProps {
   tickComponent?: React.ComponentType<ValueAxis_2.LineProps>;
   tickFormat?: (scale: ScaleObject) => (tick: string) => string;
   tickSize?: number;
+}
+
+// @public (undocumented)
+export namespace ZoomAndPan {
+  export type DragBoxProps = ZoomAndPan_2.DragBoxProps;
+}
+
+// @public
+export const ZoomAndPan: React.ComponentType<ZoomAndPanProps> & {
+  DragBox: React.ComponentType<ZoomAndPan_2.DragBoxProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+};
+
+// @public (undocumented)
+export interface ZoomAndPanProps {
+  defaultViewport?: Viewport;
+  dragBoxComponent?: React.ComponentType<ZoomAndPan_2.DragBoxProps>;
+  interactionWithArguments?: 'none' | 'pan' | 'zoom' | 'both';
+  interactionWithValues?: 'none' | 'pan' | 'zoom' | 'both';
+  onViewportChange?: (viewport: Viewport) => void;
+  viewport?: Viewport;
+  zoomRegionKey?: 'shift' | 'alt' | 'ctrl';
 }
 
 

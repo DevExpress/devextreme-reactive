@@ -5,7 +5,7 @@ import {
   pluginDepsToComponents, getComputedState,
 } from '@devexpress/dx-testing';
 import { adjustLayout, attachEvents, detachEvents } from '@devexpress/dx-chart-core';
-import { ZoomAndPan } from './zoom-pan';
+import { ZoomAndPan } from './zoom-and-pan';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   adjustLayout: jest.fn().mockReturnValue('adjusted-ranges'),

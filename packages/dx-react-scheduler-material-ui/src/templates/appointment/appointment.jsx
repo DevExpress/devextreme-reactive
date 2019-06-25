@@ -5,7 +5,6 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = ({ palette, typography, spacing }) => ({
   appointment: {
-    cursor: 'initial',
     userSelect: 'none',
     position: 'absolute',
     height: '100%',

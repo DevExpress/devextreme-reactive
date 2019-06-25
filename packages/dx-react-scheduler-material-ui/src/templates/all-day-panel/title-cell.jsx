@@ -7,6 +7,7 @@ import { getBorder } from '../utils';
 
 const styles = theme => ({
   container: {
+    userSelect: 'none',
     height: '100%',
     display: 'flex',
     flexDirection: 'column',

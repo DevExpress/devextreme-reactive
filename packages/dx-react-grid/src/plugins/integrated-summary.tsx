@@ -11,6 +11,7 @@ import { IntegratedSummaryProps, SummaryType } from '../types';
 
 const pluginDependencies = [
   { name: 'SummaryState' },
+  { name: 'IntegratedGrouping', optional: true },
 ];
 
 class IntegratedSummaryBase extends React.PureComponent<IntegratedSummaryProps> {

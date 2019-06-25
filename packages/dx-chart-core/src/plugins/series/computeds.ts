@@ -56,6 +56,20 @@ export const dRotateSpline: PathFn = line<PointComponentProps>()
   .curve(curveMonotoneY) as any;
 
 /** @internal */
+export const dBar = (
+  arg: number, val: number, startVal: number, width: number, isRotated: boolean,
+) => {
+  const height = Math.abs(val - startVal!);
+  const minVal = Math.min(val, startVal!);
+  return {
+    x: isRotated ? minVal : arg - width / 2,
+    y: isRotated ? arg - width / 2 : minVal,
+    width: isRotated ? height : width,
+    height: isRotated ? width : height,
+  };
+};
+
+/** @internal */
 export const getPiePointTransformer: GetPointTransformerFn = ({
   argumentScale, valueScale, points,
 }) => {

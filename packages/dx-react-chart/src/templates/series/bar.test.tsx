@@ -2,6 +2,7 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
+import { dBar } from '@devexpress/dx-chart-core';
 import { Bar } from './bar';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
@@ -30,7 +31,7 @@ describe('Bar', () => {
     val: 2,
     startVal: 18,
     color: 'color',
-    isRotated: false,
+    isRotated: true,
     style: { tag: 'test-style' },
     scales: { tag: 'test-scales' } as any,
     getAnimatedStyle: jest.fn().mockReturnValue('animated-style'),
@@ -46,28 +47,11 @@ describe('Bar', () => {
     ));
 
     expect(tree.find('rect').props()).toEqual({
-      x: -19,
-      y: 2,
-      width: 40,
-      height: 16,
+      attributes: 'test-attributes',
       fill: 'color',
       style: 'animated-style',
     });
-  });
-
-  it('should render bar / rotated', () => {
-    const tree = shallow((
-      <Bar {...defaultProps} startVal={-16} isRotated={true} />
-    ));
-
-    expect(tree.find('rect').props()).toEqual({
-      x: -16,
-      y: -19,
-      width: 18,
-      height: 40,
-      fill: 'color',
-      style: 'animated-style',
-    });
+    expect(dBar).toBeCalledWith(1, 2, 18, 40, true);
   });
 
   it('should pass rest properties', () => {

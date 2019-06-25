@@ -161,8 +161,6 @@ export namespace BarSeries {
     barWidth: number;
     /** The maximum width that the bar can occupy, measured in pixels */
     maxBarWidth: number;
-    /** The bar height */
-    barHeight: number;
   }
 }
 

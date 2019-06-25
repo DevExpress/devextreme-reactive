@@ -1,7 +1,6 @@
 import {
   symbol,
   symbolCircle,
-  curveCatmullRom,
   area,
   line,
   arc,
@@ -12,6 +11,7 @@ import {
   addSeries,
   dSymbol,
   dPie,
+  dBar,
   getAreaPointTransformer,
   getScatterPointTransformer,
   getLinePointTransformer,
@@ -141,6 +141,20 @@ describe('dFunctions', () => {
     expect(getX({ val: 10 })).toEqual(10);
     expect(getY({ arg: 10 })).toEqual(10);
     expect(fluentLine.curve).toHaveBeenCalledWith('#curve-monotone-y');
+  });
+});
+
+describe('#dBar', () => {
+  it('should return bar coordinates', () => {
+    expect(dBar(30, 2, 20, 10, false)).toEqual({ x: 25, y: 2, width: 10, height: 18 });
+  });
+
+  it('should return bar coordinates, rotated', () => {
+    expect(dBar(30, 2, 20, 10, true)).toEqual({ x: 2, y: 25, width: 18, height: 10 });
+  });
+
+  it('should return bar coordinates, startVal < val', () => {
+    expect(dBar(30, 20, 2, 10, false)).toEqual({ x: 25, y: 2, width: 10, height: 18 });
   });
 });
 

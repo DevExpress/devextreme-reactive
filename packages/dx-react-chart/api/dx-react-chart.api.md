@@ -83,7 +83,6 @@ export const BarSeries: React.ComponentType<BarSeriesProps>;
 // @public (undocumented)
 export namespace BarSeries {
   export interface PointProps extends PointComponentProps {
-    barHeight: number;
     barWidth: number;
     maxBarWidth: number;
   }

@@ -5,7 +5,7 @@ import { Overlay } from './overlay';
 describe('Overlay', () => {
   const defaultProps = {
     target: 'test-target',
-    rotate: false,
+    rotated: false,
   };
 
   it('should render Popover', () => {
@@ -28,11 +28,11 @@ describe('Overlay', () => {
     expect(tree.find('.content')).toBeTruthy();
   });
 
-  it('should render Popover, rotate is true', () => {
+  it('should render Popover, rotated is true', () => {
     const tree = shallow((
       <Overlay
         {...defaultProps}
-        rotate
+        rotated
       >
         <div className="content" />
       </Overlay>

@@ -69,19 +69,19 @@ const popperModifiers = {
 };
 
 export const Overlay = withStyles(styles)(({
-  classes, className, children, target, rotate, ...restProps
+  classes, className, children, target, rotated, ...restProps
 }) => (
   <Popper
     open
     anchorEl={target}
-    placement={rotate ? 'right' : 'top'}
-    className={classNames(rotate ? classes.popperRotated : classes.popper, className)}
+    placement={rotated ? 'right' : 'top'}
+    className={classNames(rotated ? classes.popperRotated : classes.popper, className)}
     modifiers={popperModifiers}
     {...restProps}
   >
     <Paper className={classes.paper}>
       {children}
     </Paper>
-    <div className={rotate ? classes.arrowRotated : classes.arrow} />
+    <div className={rotated ? classes.arrowRotated : classes.arrow} />
   </Popper>
 ));

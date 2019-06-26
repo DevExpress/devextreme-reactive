@@ -30,7 +30,7 @@ export namespace Tooltip {
     /** A React node used to render the tooltip */
     children: React.ReactNode;
     /** Set orientation for tooltip */
-    rotate: boolean;
+    rotated: boolean;
   }
 
   /** Describes properties passed to a component that renders the tooltip’s content */

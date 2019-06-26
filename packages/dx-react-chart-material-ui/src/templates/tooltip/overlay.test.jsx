@@ -5,7 +5,7 @@ import { Overlay } from './overlay';
 describe('Overlay', () => {
   const defaultProps = {
     target: () => ({ }),
-    rotate: false,
+    rotated: false,
   };
   let mount;
   const classes = getClasses(<Overlay {...defaultProps}>Test</Overlay>);
@@ -69,11 +69,11 @@ describe('Overlay', () => {
     expect(tree.find('Popper').props().custom).toEqual(10);
   });
 
-  it('should render Popover, rotate', () => {
+  it('should render Popover, rotated', () => {
     const tree = mount((
       <Overlay
         {...defaultProps}
-        rotate
+        rotated
       >
         <div className="content" />
       </Overlay>

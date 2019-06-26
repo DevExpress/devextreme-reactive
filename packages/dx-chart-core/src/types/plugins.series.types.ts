@@ -3,7 +3,7 @@ import {
   Colors, SeriesList, DataItems, ScalesCache,
 } from './chart-core.types';
 import {
-  Scales, BuildAnimatedStyleGetterFn,
+  Scales, GetSeriesAnimatedStyleFn,
 } from './plugins.animation.types';
 
 /** @internal */
@@ -53,7 +53,7 @@ interface CommonComponentProps {
   /** @internal */
   scales: Scales;
   /** @internal */
-  getAnimatedStyle: BuildAnimatedStyleGetterFn;
+  getAnimatedStyle: GetSeriesAnimatedStyleFn;
 }
 
 export interface PathComponentProps extends CommonComponentProps {
@@ -74,11 +74,11 @@ export interface PointComponentProps extends CommonComponentProps {
   argument: any;
   /** Point value */
   value: any;
-  /** x coordinate */
+  /** coordinate on argument axis */
   arg: number;
-  /** y coordinate */
+  /** coordinate on value axis */
   val: number;
-  // TODO: Remove (fix getTargetElement for Bar)
+  /** start coordinate on value axis  */
   startVal?: number;
 }
 

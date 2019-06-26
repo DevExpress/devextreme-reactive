@@ -245,7 +245,7 @@ export const Axis: React.ComponentType<RawAxisProps> = withComponents({
 // It should be domain dependent - something like AT_DOMAIN_START or AT_DOMAIN_END.
 
 export const ArgumentAxis: React.ComponentType<RawAxisProps> = withPatchedProps(props => ({
-  position: BOTTOM, // TODO: set position regarding rotation
+  position: BOTTOM,
   showGrid: false,
   showTicks: true,
   showLine: true,
@@ -255,7 +255,7 @@ export const ArgumentAxis: React.ComponentType<RawAxisProps> = withPatchedProps(
 }))(Axis);
 
 export const ValueAxis: React.ComponentType<RawAxisProps> = withPatchedProps(props => ({
-  position: LEFT, // TODO: set position regarding rotation
+  position: LEFT,
   showGrid: true,
   showTicks: false,
   showLine: false,

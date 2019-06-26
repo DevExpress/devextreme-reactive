@@ -9,11 +9,11 @@ const popperModifiers = {
 export class Overlay extends React.PureComponent {
   render() {
     const {
-      children, target, rotate, ...restProps
+      children, target, rotated, ...restProps
     } = this.props;
     return (
       <Popover
-        placement={rotate ? 'right' : 'top'}
+        placement={rotated ? 'right' : 'top'}
         isOpen
         target={target}
         modifiers={popperModifiers}
@@ -30,5 +30,5 @@ export class Overlay extends React.PureComponent {
 Overlay.propTypes = {
   children: PropTypes.node.isRequired,
   target: PropTypes.any.isRequired,
-  rotate: PropTypes.bool.isRequired,
+  rotated: PropTypes.bool.isRequired,
 };

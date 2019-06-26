@@ -71,7 +71,7 @@ class RawTooltip extends React.PureComponent<TooltipProps, TooltipState> {
                 <OverlayComponent
                   key={`${target.series}${target.point}`}
                   target={createReference(element, rootRef)}
-                  rotate={rotated}
+                  rotated={rotated}
                 >
                   <ContentComponent text={text} targetItem={target} />
                 </OverlayComponent>

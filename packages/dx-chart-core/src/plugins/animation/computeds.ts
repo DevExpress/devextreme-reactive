@@ -47,7 +47,7 @@ const getDefaultPieAnimationOptions = ({ index }: Point) => `${0.7 + index * 0.1
 const getDefaultScatterAnimationOptions = () => '1.6s';
 
 /** @internal */
-export const getAreaAnimationStyle: GetAnimationStyleFn = ({ xScale, yScale, rotated }) => {
+export const getAreaAnimationStyle: GetAnimationStyleFn = (rotated, { xScale, yScale }) => {
   const x = rotated ? xScale.copy().clamp!(true)(0) : 0;
   const y = rotated ? 0 : yScale.copy().clamp!(true)(0);
   const animationStyle = {
@@ -61,7 +61,7 @@ export const getAreaAnimationStyle: GetAnimationStyleFn = ({ xScale, yScale, rot
 };
 
 /** @internal */
-export const getPieAnimationStyle: GetAnimationStyleFn = (_, point) => {
+export const getPieAnimationStyle: GetAnimationStyleFn = (r, s, point) => {
   const options = getDefaultPieAnimationOptions(point!);
   return {
     animation: `${getPieAnimationName()} ${options}`,
@@ -77,10 +77,10 @@ export const getScatterAnimationStyle: GetAnimationStyleFn = () => {
 };
 
 /** @internal */
-export const buildAnimatedStyleGetter: BuildAnimatedStyleGetterFn = (
+export const buildAnimatedStyleGetter: BuildAnimatedStyleGetterFn = rotated => (
   style, getAnimationStyle, scales, point,
 ) => {
-  const animationStyle = getAnimationStyle(scales, point);
+  const animationStyle = getAnimationStyle(rotated, scales, point);
   return {
     ...animationStyle,
     ...style,

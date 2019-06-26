@@ -69,7 +69,6 @@ export const declareSeries = <T extends SeriesProps>(
                 const currentScales: Scales = {
                   xScale: rotated ? valScale : argScale,
                   yScale: rotated ? argScale : valScale,
-                  rotated,
                 };
                 const Path: React.ComponentType<PathComponentProps> =
                   currentSeries.seriesComponent as any;

@@ -13,10 +13,10 @@ class RawArea extends React.PureComponent<AreaSeries.SeriesProps> {
       coordinates,
       index, state, pointComponent,
       color,
-      style, scales, getAnimatedStyle, isRotated,
+      style, scales, getAnimatedStyle, rotated,
       ...restProps
     } = this.props;
-    const dPath = path === undefined ? (isRotated ? dRotateArea : dArea) : path;
+    const dPath = path === undefined ? (rotated ? dRotateArea : dArea) : path;
     return (
       <path
         d={dPath!(coordinates)}

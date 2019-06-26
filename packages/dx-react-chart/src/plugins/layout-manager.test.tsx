@@ -12,7 +12,7 @@ jest.mock('@devexpress/dx-chart-core', () => ({
 describe('LayoutManager', () => {
   afterEach(jest.clearAllMocks);
 
-  // TODO: Add "isRotated" getter.
+  // TODO: Add "rotated" getter.
   const defaultDeps = {
     getter: {
     },

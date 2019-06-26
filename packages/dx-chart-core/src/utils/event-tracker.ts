@@ -22,7 +22,7 @@ const buildEventHandler = (seriesList: SeriesList, handlers: HandlerFnList): Eve
     const obj: HitTesters = {};
     seriesList.forEach((seriesItem) => {
       obj[seriesItem.symbolName as unknown as string] = seriesItem
-      .createHitTester(seriesItem.points, seriesItem.isRotated);
+      .createHitTester(seriesItem.points, seriesItem.rotated);
     });
     return obj;
   };

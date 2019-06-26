@@ -52,7 +52,7 @@ describe('Point', () => {
 
   it('should render point / rotated', () => {
     const tree = shallow((
-      <Point {...(defaultProps as any)} isRotated={true} />
+      <Point {...(defaultProps as any)} rotated={true} />
     ));
 
     expect(tree.find('path').props()).toEqual({

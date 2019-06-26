@@ -26,7 +26,7 @@ describe('Animation styles', () => {
     });
 
     it('should return rotated style', () => {
-      expect(getAreaAnimationStyle({ xScale: scale, isRotated: true } as any)).toEqual({
+      expect(getAreaAnimationStyle({ xScale: scale, rotated: true } as any)).toEqual({
         animation: 'animation_transform 1s',
         transformOrigin: '4px 0px',
       });

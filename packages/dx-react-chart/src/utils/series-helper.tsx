@@ -61,15 +61,15 @@ export const declareSeries = <T extends SeriesProps>(
           <Template name="series">
             <TemplatePlaceholder />
             <TemplateConnector>
-              {({ series, scales, getAnimatedStyle, isRotated }) => {
+              {({ series, scales, getAnimatedStyle, rotated }) => {
                 const currentSeries = findSeriesByName(symbolName, series);
                 const argScale: ScaleObject = scales[ARGUMENT_DOMAIN];
                 const valScale: ScaleObject = scales[getValueDomainName(currentSeries!.scaleName)];
                 // TODO_THIS: This code is expected to be removed when frame animation is used.
                 const currentScales: Scales = {
-                  xScale: isRotated ? valScale : argScale,
-                  yScale: isRotated ? argScale : valScale,
-                  isRotated,
+                  xScale: rotated ? valScale : argScale,
+                  yScale: rotated ? argScale : valScale,
+                  rotated,
                 };
                 const Path: React.ComponentType<PathComponentProps> =
                   currentSeries.seriesComponent as any;
@@ -78,7 +78,7 @@ export const declareSeries = <T extends SeriesProps>(
                     index={currentSeries.index}
                     pointComponent={currentSeries.pointComponent}
                     coordinates={currentSeries.points as any}
-                    isRotated={isRotated}
+                    rotated={rotated}
                     state={currentSeries.state}
                     color={currentSeries.color}
                     scales={currentScales}

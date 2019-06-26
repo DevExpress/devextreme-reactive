@@ -43,7 +43,7 @@ describe('Axis', () => {
         'right-axis-test-domain': { width: 300, height: 250 },
         pane: { width: 400, height: 500 },
       },
-      isRotated: false,
+      rotated: false,
     },
     action: {
       changeBBox: jest.fn(),
@@ -252,7 +252,7 @@ describe('Axis', () => {
       tickFormat: mockTickFormat,
       indentFromAxis: 10,
       paneSize: [0, 0],
-      isRotated: false,
+      rotated: false,
     });
     expect(createTickFilter).toBeCalledWith([0, 0]);
   });
@@ -274,7 +274,7 @@ describe('Axis', () => {
       tickSize: 6,
       indentFromAxis: 3,
       paneSize: [0, 0],
-      isRotated: false,
+      rotated: false,
     });
     expect(createTickFilter).toBeCalledWith([0, 0]);
   });
@@ -285,7 +285,7 @@ describe('Axis', () => {
     <PluginHost>
       {pluginDepsToComponents({
         ...defaultDeps,
-        getter: { ...defaultDeps.getter, isRotated: true },
+        getter: { ...defaultDeps.getter, rotated: true },
       })}
       <Axis {...defaultProps as any} />
     </PluginHost>,
@@ -298,7 +298,7 @@ describe('Axis', () => {
       tickSize: 5,
       indentFromAxis: 10,
       paneSize: [0, 0],
-      isRotated: true,
+      rotated: true,
     });
   });
 

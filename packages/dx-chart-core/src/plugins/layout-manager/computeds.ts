@@ -18,11 +18,11 @@ export const bBoxes = (prevBBoxes: BBoxes, { bBox, placeholder }: BBoxesChange) 
 };
 
 /** @internal */
-export const getRanges = (paneSize: Size, isRotated: boolean): RangesCache => {
+export const getRanges = (paneSize: Size, rotated: boolean): RangesCache => {
   const horRange: NumberArray = [0, paneSize.width];
   const verRange: NumberArray = [paneSize.height, 0];
   return {
-    [ARGUMENT_DOMAIN]: isRotated ? verRange : horRange,
-    [VALUE_DOMAIN]: isRotated ? horRange : verRange,
+    [ARGUMENT_DOMAIN]: rotated ? verRange : horRange,
+    [VALUE_DOMAIN]: rotated ? horRange : verRange,
   };
 };

@@ -60,8 +60,8 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
       <Template name={placeholder}>
         <TemplatePlaceholder />
         <TemplateConnector>
-          {({ scales, layouts, isRotated }, { changeBBox }) => {
-            if (!isValidPosition(position!, scaleName!, isRotated)) {
+          {({ scales, layouts, rotated }, { changeBBox }) => {
+            if (!isValidPosition(position!, scaleName!, rotated)) {
               return null;
             }
             const scale = scales[scaleName!];
@@ -79,7 +79,7 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
               indentFromAxis: indentFromAxis!,
               scale,
               paneSize: [this.adjustedWidth, this.adjustedHeight],
-              isRotated,
+              rotated,
             });
             // This is a workaround for a case when only a part of domain is visible.
             // "overflow: hidden" cannot be used for <svg> element because edge labels would
@@ -180,7 +180,7 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
       <Template name="series">
         <TemplatePlaceholder />
         <TemplateConnector>
-          {({ scales, layouts, isRotated }) => {
+          {({ scales, layouts, rotated }) => {
             const scale = scales[scaleName!];
             if (!scale || !showGrid) {
               return null;
@@ -191,7 +191,7 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
               scaleName: scaleName!,
               scale,
               paneSize: [this.adjustedWidth, this.adjustedHeight],
-              isRotated,
+              rotated,
             });
             return ((
               <React.Fragment>

@@ -11,7 +11,7 @@ export interface ChartProps {
   /** @internal */
   children?: any;
   /** Chart rotation */
-  isRotated?: boolean;
+  rotated?: boolean;
 }
 
 // tslint:disable-next-line: no-namespace

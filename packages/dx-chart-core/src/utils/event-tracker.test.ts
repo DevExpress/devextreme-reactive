@@ -10,7 +10,7 @@ describe('EventTracker', () => {
       index: 0,
       symbolName: 'series-1',
       points: 'coordinates-1',
-      isRotated: true,
+      rotated: true,
       createHitTester: jest.fn().mockReturnValue(hitTest1),
     };
     const hitTest2 = jest.fn();
@@ -19,7 +19,7 @@ describe('EventTracker', () => {
       index: 1,
       symbolName: 'series-2',
       points: 'coordinates-2',
-      isRotated: false,
+      rotated: false,
       createHitTester: jest.fn().mockReturnValue(hitTest2),
     };
     const hitTest3 = jest.fn();
@@ -28,7 +28,7 @@ describe('EventTracker', () => {
       index: 2,
       symbolName: 'series-3',
       points: 'coordinates-3',
-      isRotated: true,
+      rotated: true,
       createHitTester: jest.fn().mockReturnValue(hitTest3),
     };
 

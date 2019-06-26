@@ -48,7 +48,7 @@ export interface Point {
   /** Point color */
   readonly color: string;
   /** @internal */
-  readonly isRotated: boolean;
+  readonly rotated: boolean;
 }
 
 /** @internal */
@@ -110,7 +110,7 @@ export interface Series {
   /** @internal */
   readonly symbolName: unique symbol;
   /** @internal */
-  readonly isRotated: boolean;
+  readonly rotated: boolean;
 }
 /** @internal */
 export type SeriesList = ReadonlyArray<Series>;
@@ -130,7 +130,7 @@ export type GetPointTransformerFnRaw = (series: {
   readonly points: PointList;
   readonly argumentScale: ScaleObject;
   readonly valueScale: ScaleObject;
-  readonly isRotated: boolean;
+  readonly rotated: boolean;
 }) => TransformPointFn;
 
 /** @internal */
@@ -150,4 +150,4 @@ type HitTestResult = {
 } | null;
 export type HitTestFn = (location: Location) => HitTestResult;
 /** @internal */
-export type CreateHitTesterFn = (points: PointList, isRotated: boolean) => HitTestFn;
+export type CreateHitTesterFn = (points: PointList, rotated: boolean) => HitTestFn;

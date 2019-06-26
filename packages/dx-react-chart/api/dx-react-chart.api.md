@@ -99,7 +99,7 @@ export interface BasicDataProps {
   // (undocumented)
   data: DataItems;
   // (undocumented)
-  isRotated: boolean;
+  rotated: boolean;
 }
 
 // @public (undocumented)
@@ -123,7 +123,7 @@ export namespace Chart {
 export interface ChartProps {
   data: DataItems;
   height?: number;
-  isRotated?: boolean;
+  rotated?: boolean;
   rootComponent: React.ComponentType<Chart.RootProps>;
   width?: number;
 }

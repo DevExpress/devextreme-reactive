@@ -47,7 +47,7 @@ maxBarWidth | number | The maximum width that the bar can occupy, measured in pi
 value | number | The bar's value.
 color | string | A series color.
 index | number | Point index.
-isRotated | boolean | Shows if chart is rotated.
+rotated | boolean | Shows if chart is rotated.
 
 ## Plugin Components
 

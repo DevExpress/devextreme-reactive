@@ -43,8 +43,8 @@ const positionFlags = {
 export const getRotatedPosition = (position: string) => rotatedPositions[position];
 
 /** @internal */
-export const isValidPosition = (position: string, scaleName: string, isRotated: boolean) => {
-  return positionFlags[position] === isHorizontal(scaleName, isRotated);
+export const isValidPosition = (position: string, scaleName: string, rotated: boolean) => {
+  return positionFlags[position] === isHorizontal(scaleName, rotated);
 };
 
 const createHorizontalOptions = (position: string, tickSize: number, indentFromAxis: number) => {
@@ -88,9 +88,9 @@ export const axisCoordinates: AxisCoordinatesFn = ({
   tickFormat,
   indentFromAxis,
   paneSize,
-  isRotated,
+  rotated,
 })  => {
-  const isHor = isHorizontal(scaleName, isRotated);
+  const isHor = isHorizontal(scaleName, rotated);
   const options = (isHor ? createHorizontalOptions : createVerticalOptions)(
     position, tickSize, indentFromAxis,
   );
@@ -126,9 +126,9 @@ const verticalGridOptions = { x: 0, dx: 1 };
 
 /** @internal */
 export const getGridCoordinates: GetGridCoordinatesFn = ({
-  scaleName, scale, paneSize, isRotated,
+  scaleName, scale, paneSize, rotated,
 }) => {
-  const isHor = isHorizontal(scaleName, isRotated);
+  const isHor = isHorizontal(scaleName, rotated);
   const tickCount = getTickCount(scale.range(), paneSize[1 - Number(isHor)]);
   const options = isHor ? horizontalGridOptions : verticalGridOptions;
   return createTicks(scale, tickCount, (coordinates, key) => ({

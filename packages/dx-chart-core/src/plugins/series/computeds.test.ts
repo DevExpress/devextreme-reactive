@@ -186,7 +186,7 @@ describe('getAreaPointTransformer', () => {
 
   it('should return target element / rotated', () => {
     expect(getAreaPointTransformer.getTargetElement({
-      arg: 10, val: 20, isRotated: true,
+      arg: 10, val: 20, rotated: true,
     } as any)).toEqual([19, 9, 21, 11]);
   });
 });
@@ -220,7 +220,7 @@ describe('getScatterPointTransformer', () => {
 
   it('should return target element / rotated', () => {
     expect(getScatterPointTransformer.getTargetElement({
-      arg: 10, val: 20, point: { size: 4 }, isRotated: true,
+      arg: 10, val: 20, point: { size: 4 }, rotated: true,
     } as any)).toEqual([18, 8, 22, 12]);
   });
 });
@@ -283,7 +283,7 @@ describe('getBarPointTransformer', () => {
 
   it('should return target element / rotated', () => {
     expect(getBarPointTransformer.getTargetElement({
-      arg: 30, val: 20, startVal: 30, barWidth: 0.4, maxBarWidth: 20, isRotated: true,
+      arg: 30, val: 20, startVal: 30, barWidth: 0.4, maxBarWidth: 20, rotated: true,
     } as any)).toEqual([20, 26, 30, 34]);
   });
 });
@@ -570,13 +570,13 @@ describe('scaleSeriesPoints', () => {
     const result = scaleSeriesPoints([series1, series2] as any, scales as any, 'test-rotated');
 
     expect(result[0].points).toEqual([
-      { name: 'a1', tag: '#1', isRotated: 'test-rotated' },
-      { name: 'a2', tag: '#1', isRotated: 'test-rotated' },
+      { name: 'a1', tag: '#1', rotated: 'test-rotated' },
+      { name: 'a2', tag: '#1', rotated: 'test-rotated' },
     ]);
     expect(result[1].points).toEqual([
-      { name: 'b1', tag: '#2', isRotated: 'test-rotated' },
-      { name: 'b2', tag: '#2', isRotated: 'test-rotated' },
-      { name: 'b3', tag: '#2', isRotated: 'test-rotated' },
+      { name: 'b1', tag: '#2', rotated: 'test-rotated' },
+      { name: 'b2', tag: '#2', rotated: 'test-rotated' },
+      { name: 'b3', tag: '#2', rotated: 'test-rotated' },
     ]);
     expect(getPointTransformer1).toBeCalledWith({
       ...series1,

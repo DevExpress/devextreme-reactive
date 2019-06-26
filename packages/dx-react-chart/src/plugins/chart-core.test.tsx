@@ -18,7 +18,7 @@ describe('Chart Core', () => {
       domains: 'test-domains',
       series: 'test-series',
       ranges: 'test-ranges',
-      isRotated: 'test-rotated',
+      rotated: 'test-rotated',
     },
   };
 

@@ -31,7 +31,7 @@ describe('Bar', () => {
     val: 2,
     startVal: 18,
     color: 'color',
-    isRotated: true,
+    rotated: true,
     style: { tag: 'test-style' },
     scales: { tag: 'test-scales' } as any,
     getAnimatedStyle: jest.fn().mockReturnValue('animated-style'),

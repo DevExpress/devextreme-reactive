@@ -5,8 +5,8 @@ import { SplineSeries } from '../../types';
 
 export class Spline extends React.PureComponent<SplineSeries.SeriesProps> {
   render() {
-    const { isRotated, path } = this.props;
-    const dPath = path === undefined ? (isRotated ? dRotateSpline : dSpline) : path;
+    const { rotated, path } = this.props;
+    const dPath = path === undefined ? (rotated ? dRotateSpline : dSpline) : path;
     return <Path {...this.props} path={dPath} />;
   }
 }

@@ -14,7 +14,7 @@ describe('Basis Data', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents({})}
-        <BasicData data={data as any} isRotated={'test-rotated' as any} />
+        <BasicData data={data as any} rotated={'test-rotated' as any} />
       </PluginHost>
     ));
 
@@ -23,7 +23,7 @@ describe('Basis Data', () => {
       domains: 'test-domains',
       series: [],
       getAnimatedStyle: expect.any(Function),
-      isRotated: 'test-rotated',
+      rotated: 'test-rotated',
     });
   });
 });

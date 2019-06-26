@@ -24,7 +24,7 @@ const defaultDeps = {
     pointerMoveHandlers: ['test-handler'],
     series: 'test-series',
     rootRef: 'test-root-ref',
-    isRotated: true,
+    rotated: true,
   },
   template: {
     series: {},

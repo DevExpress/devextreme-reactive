@@ -10,7 +10,7 @@ class RawBar extends React.PureComponent<BarSeries.PointProps> {
   render() {
     const {
       arg, val, startVal, barWidth, maxBarWidth,
-      argument, value, seriesIndex, index, state, isRotated,
+      argument, value, seriesIndex, index, state, rotated,
       color,
       style, scales, getAnimatedStyle,
       ...restProps
@@ -18,7 +18,7 @@ class RawBar extends React.PureComponent<BarSeries.PointProps> {
     const width = barWidth * maxBarWidth;
     return (
       <rect
-        {...dBar(arg, val, startVal!, width, isRotated)}
+        {...dBar(arg, val, startVal!, width, rotated)}
         fill={color}
         style={getAnimatedStyle(style, getAreaAnimationStyle, scales)}
         {...restProps}

@@ -31,7 +31,7 @@ const placeholders = [
 class RawChart extends React.PureComponent<ChartProps> {
   static defaultProps: Partial<ChartProps> = {
     height: 500,
-    isRotated: false,
+    rotated: false,
   };
   static components: PluginComponents = {
     rootComponent: 'Root',
@@ -43,13 +43,13 @@ class RawChart extends React.PureComponent<ChartProps> {
       width,
       height,
       children,
-      isRotated,
+      rotated,
       rootComponent,
       ...restProps
     } = this.props;
     return ((
       <PluginHost>
-        <BasicData data={data} isRotated={isRotated!} />
+        <BasicData data={data} rotated={rotated!} />
         <Palette scheme={scheme} />
         <LayoutManager
           width={width}

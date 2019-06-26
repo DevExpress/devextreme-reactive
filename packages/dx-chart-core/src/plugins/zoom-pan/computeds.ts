@@ -101,14 +101,14 @@ const boundsForScale = (
 /** @internal */
 export const getViewport = (
   scales: ScalesCache,
-  isRotated: boolean,
+  rotated: boolean,
   [argInteraction, valInteraction]: Readonly<[Interaction, Interaction]>, type: Interaction,
   deltas: Readonly<[number, number]> | null,
   anchors: Readonly<[number, number]> | null,
   ranges: Readonly<[NumberArray, NumberArray]> | null,
   viewport?: ViewportOptions, onViewportChange?: OnViewportChangeFn,
 ) => {
-  const argIndex = Number(isRotated);
+  const argIndex = Number(rotated);
   const valIndex = 1 - argIndex;
   const changes: any = {};
   const argumentBounds = boundsForScale(
@@ -180,7 +180,7 @@ export const detachEvents = (node: any, handlers: EventHandlers) => {
 
 /** @internal */
 export const getRect = (
-  isRotated: boolean,
+  rotated: boolean,
   interactionWithArguments: Interaction,
   interactionWithValues: Interaction,
   initial: Location,
@@ -189,8 +189,8 @@ export const getRect = (
 ) => {
   const isZoomArgument = checkInteraction(interactionWithArguments, 'zoom');
   const isZoomValue = checkInteraction(interactionWithValues, 'zoom');
-  const isXFixed = isRotated ? isZoomValue : isZoomArgument;
-  const isYFixed = isRotated ? isZoomArgument : isZoomValue;
+  const isXFixed = rotated ? isZoomValue : isZoomArgument;
+  const isYFixed = rotated ? isZoomArgument : isZoomValue;
   const x = isXFixed ? Math.min(initial[0], current[0]) : 0;
   const width = isXFixed ? Math.abs(initial[0] - current[0]) : pane.width;
   const y = isYFixed ? Math.min(initial[1], current[1]) : 0;

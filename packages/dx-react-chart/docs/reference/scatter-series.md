@@ -45,7 +45,7 @@ point | { size : number } | Point options.
 value | number | The point's value.
 color | string | A series color.
 index | number | Point index.
-isRotated | boolean | Shows if chart is rotated.
+rotated | boolean | Shows if chart is rotated.
 
 ### ScatterSeries.SeriesProps
 

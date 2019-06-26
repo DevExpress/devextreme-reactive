@@ -40,7 +40,7 @@ Field | Type | Description
 ------|------|------------
 coordinates | Array&lt;{ arg: number, val: number }&gt; | Coordinates of the series' points.
 color | string | A series color.
-isRotated | boolean | Shows if chart is rotated.
+rotated | boolean | Shows if chart is rotated.
 
 ### SplineSeries.PathSeriesProps
 

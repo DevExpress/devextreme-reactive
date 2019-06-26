@@ -9,7 +9,7 @@ class RawPath extends React.PureComponent<PathComponentPathProps> {
   render() {
     const {
       path,
-      coordinates, isRotated,
+      coordinates, rotated,
       index, state, pointComponent,
       color,
       style, scales, getAnimatedStyle,

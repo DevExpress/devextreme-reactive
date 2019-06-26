@@ -25,7 +25,7 @@ describe('Chart', () => {
     data: 'test-data',
     palette: 'test-palette',
     rootComponent: () => null,
-    isRotated: 'test-rotated',
+    rotated: 'test-rotated',
   };
 
   it('should render root children', () => {
@@ -48,7 +48,7 @@ describe('Chart', () => {
 
     expect(tree.find(BasicData).props()).toEqual({
       data: 'test-data',
-      isRotated: 'test-rotated',
+      rotated: 'test-rotated',
     });
     expect(tree.find(ChartCore).props()).toEqual({});
   });

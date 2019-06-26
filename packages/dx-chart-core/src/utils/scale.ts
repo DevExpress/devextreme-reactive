@@ -16,8 +16,8 @@ export const scaleBand: FactoryFn = () => (
 );
 
 /** @internal */
-export const isHorizontal = (name: string, isRotated: boolean) =>
- (name === ARGUMENT_DOMAIN && !isRotated) || (isRotated && name !== ARGUMENT_DOMAIN);
+export const isHorizontal = (name: string, rotated: boolean) =>
+ (name === ARGUMENT_DOMAIN && !rotated) || (rotated && name !== ARGUMENT_DOMAIN);
 
 // tslint:disable-next-line: ban-types
 const makeScaleHelper = <T extends Function>(linear: T, band: T) => {

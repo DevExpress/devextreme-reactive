@@ -57,15 +57,15 @@ export const dRotateSpline: PathFn = line<PointComponentProps>()
 
 /** @internal */
 export const dBar = (
-  arg: number, val: number, startVal: number, width: number, isRotated: boolean,
+  arg: number, val: number, startVal: number, width: number, rotated: boolean,
 ) => {
   const height = Math.abs(val - startVal!);
   const minVal = Math.min(val, startVal!);
   return {
-    x: isRotated ? minVal : arg - width / 2,
-    y: isRotated ? arg - width / 2 : minVal,
-    width: isRotated ? height : width,
-    height: isRotated ? width : height,
+    x: rotated ? minVal : arg - width / 2,
+    y: rotated ? arg - width / 2 : minVal,
+    width: rotated ? height : width,
+    height: rotated ? width : height,
   };
 };
 
@@ -167,16 +167,16 @@ const getRect = (cx: number, cy: number, dx: number, dy: number): Rect => (
 
 getBarPointTransformer.getTargetElement = (point) => {
   const {
-    arg, val, startVal, barWidth, maxBarWidth, isRotated,
+    arg, val, startVal, barWidth, maxBarWidth, rotated,
   } = point as BarSeries.PointProps;
   const halfWidth = barWidth * maxBarWidth / 2;
   const halfHeight = Math.abs(startVal! - val) / 2;
   const centerVal = (val + startVal!) / 2;
   return getRect(
-    isRotated ? centerVal  : arg,
-    isRotated ? arg : centerVal,
-    isRotated ? halfHeight : halfWidth,
-    isRotated ? halfWidth : halfHeight,
+    rotated ? centerVal  : arg,
+    rotated ? arg : centerVal,
+    rotated ? halfHeight : halfWidth,
+    rotated ? halfWidth : halfHeight,
   );
 };
 
@@ -195,15 +195,15 @@ getPiePointTransformer.getTargetElement = (point) => {
   return getRect(cx, cy, 0.5, 0.5);
 };
 
-getAreaPointTransformer.getTargetElement = ({ arg, val, isRotated }) =>
-  getRect(isRotated ? val : arg, isRotated ? arg : val, 1, 1);
+getAreaPointTransformer.getTargetElement = ({ arg, val, rotated }) =>
+  getRect(rotated ? val : arg, rotated ? arg : val, 1, 1);
 
 getLinePointTransformer.getTargetElement = getAreaPointTransformer.getTargetElement;
 
 getScatterPointTransformer.getTargetElement = (obj) => {
-  const { arg, val, point, isRotated } = obj as ScatterSeries.PointProps;
+  const { arg, val, point, rotated } = obj as ScatterSeries.PointProps;
   const t = point.size / 2;
-  return getRect(isRotated ? val : arg, isRotated ? arg : val, t, t);
+  return getRect(rotated ? val : arg, rotated ? arg : val, t, t);
 };
 
 const getUniqueName = (list: SeriesList, name: string) => {
@@ -261,7 +261,7 @@ export const addSeries: AddSeriesFn = (
 
 // TODO: Memoization is much needed here by the same reason as in "createPoints".
 // Make "scales" persistent first.
-const scalePoints = (series: Series, scales: ScalesCache, isRotated: boolean) => {
+const scalePoints = (series: Series, scales: ScalesCache, rotated: boolean) => {
   const transform = series.getPointTransformer({
     ...series,
     argumentScale: scales[ARGUMENT_DOMAIN],
@@ -269,10 +269,10 @@ const scalePoints = (series: Series, scales: ScalesCache, isRotated: boolean) =>
   });
   const ret: Series = {
     ...series,
-    isRotated,
+    rotated,
     points: series.points.map(point => ({
       ...transform(point),
-      isRotated,
+      rotated,
     })),
   };
   return ret;
@@ -280,5 +280,5 @@ const scalePoints = (series: Series, scales: ScalesCache, isRotated: boolean) =>
 
 /** @internal */
 export const scaleSeriesPoints: ScaleSeriesPointsFn = (
-  series, scales, isRotated,
-) => series.map(seriesItem => scalePoints(seriesItem, scales, isRotated));
+  series, scales, rotated,
+) => series.map(seriesItem => scalePoints(seriesItem, scales, rotated));

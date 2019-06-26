@@ -18,19 +18,17 @@ const defaultMessages = {
   today: 'today',
 };
 
-/** A plugin that renders the Scheduler's button which sets the current date to today's date. */
-export class TodayButton extends React.PureComponent<TodayButtonProps> {
-
+class TodayButtonBase extends React.PureComponent<TodayButtonProps> {
   static components: PluginComponents = {
     buttonComponent: 'Button',
   };
-
   render() {
     const {
       buttonComponent: Button,
       messages,
     } = this.props;
     const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
+
     return (
       <Plugin
         name="TodayButton"
@@ -38,7 +36,7 @@ export class TodayButton extends React.PureComponent<TodayButtonProps> {
       >
         <Template name="toolbarContent">
           <TemplateConnector>
-            {({ }, {
+            {(getters, {
               changeCurrentDate,
             }) => {
               const setCurrentDate = nextDate => changeCurrentDate({
@@ -58,3 +56,6 @@ export class TodayButton extends React.PureComponent<TodayButtonProps> {
     );
   }
 }
+
+/** A plugin that renders the Scheduler's button which sets the current date to today's date. */
+export const TodayButton: React.ComponentType<TodayButtonProps> = TodayButtonBase;

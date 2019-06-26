@@ -14,7 +14,6 @@ export namespace TodayButton {
   }
 }
 
-// tslint:disable-next-line:no-interface
 export interface TodayButtonProps {
   /** A component that renders the today button. */
   buttonComponent: React.ComponentType<TodayButton.ButtonProps>;

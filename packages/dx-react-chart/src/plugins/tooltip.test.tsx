@@ -65,7 +65,7 @@ describe('Tooltip', () => {
     expect(tree.find(OverlayComponent).props()).toEqual({
       target: { tag: 'test-reference' },
       children: expect.anything(),
-      rotate: true,
+      rotated: true,
     });
     expect(tree.find(ContentComponent).props()).toEqual({
       text: 'tooltip-text',

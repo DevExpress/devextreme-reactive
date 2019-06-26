@@ -6,6 +6,7 @@
 
 import { FormatterFn as FormatterFn_2 } from '@devexpress/dx-scheduler-core';
 import moment from 'moment';
+import { PluginComponents } from '@devexpress/dx-react-core';
 import * as React from 'react';
 
 // @public (undocumented)
@@ -496,6 +497,31 @@ export interface TimeScale {
   end: Date;
   // (undocumented)
   start: Date;
+}
+
+// @public
+export class TodayButton extends React.PureComponent<TodayButtonProps> {
+  // (undocumented)
+  static components: PluginComponents;
+  // (undocumented)
+  render(): JSX.Element;
+}
+
+// @public (undocumented)
+export namespace TodayButton {
+  export interface ButtonProps {
+    getMessage: (messageKey: string) => string;
+    setCurrentDate: (nextDate: Date) => void;
+  }
+  export interface LocalizationMessages {
+    today?: string;
+  }
+}
+
+// @public (undocumented)
+export interface TodayButtonProps {
+  buttonComponent: React.ComponentType<TodayButton.ButtonProps>;
+  messages?: TodayButton.LocalizationMessages;
 }
 
 // @public

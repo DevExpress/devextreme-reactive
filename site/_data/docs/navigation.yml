@@ -357,6 +357,8 @@
         path: /react/scheduler/docs/reference/date-navigator
       - title: DragDropProvider
         path: /react/scheduler/docs/reference/drag-drop-provider
+      - title: TodayButton
+        path: /react/scheduler/docs/reference/today-button
   - title: Related Docs
     items:
       - title: React Core

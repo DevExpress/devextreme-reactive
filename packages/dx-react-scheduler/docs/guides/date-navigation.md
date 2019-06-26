@@ -9,6 +9,7 @@ The following plugins implement date navigation feature:
 - [ViewState](../reference/view-state.md) - manages a current date state
 - [Toolbar](../reference/toolbar.md) - renders the Scheduler Toolbar
 - [DateNavigator](../reference/date-navigator.md) - renders a date navigator control
+- [TodayButton](../reference/today-button.md) - buttons that navigates to today's date
 
 ## Basic Setup
 

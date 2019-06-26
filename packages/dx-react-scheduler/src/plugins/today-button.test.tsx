@@ -76,6 +76,6 @@ describe('TodayButton', () => {
     const testData = 'testData';
     setCurrentDate(testData);
     expect(defaultDeps.action.changeCurrentDate)
-      .toBeCalledWith({nextDate: testData},expect.any(Object),expect.any(Object));
+      .toBeCalledWith({ nextDate: testData }, expect.any(Object), expect.any(Object));
   });
 });

@@ -6,7 +6,6 @@
 
 import { FormatterFn as FormatterFn_2 } from '@devexpress/dx-scheduler-core';
 import moment from 'moment';
-import { PluginComponents } from '@devexpress/dx-react-core';
 import * as React from 'react';
 
 // @public (undocumented)
@@ -500,12 +499,7 @@ export interface TimeScale {
 }
 
 // @public
-export class TodayButton extends React.PureComponent<TodayButtonProps> {
-  // (undocumented)
-  static components: PluginComponents;
-  // (undocumented)
-  render(): JSX.Element;
-}
+export const TodayButton: React.ComponentType<TodayButtonProps>;
 
 // @public (undocumented)
 export namespace TodayButton {

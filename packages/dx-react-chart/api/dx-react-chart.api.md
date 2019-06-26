@@ -123,8 +123,8 @@ export namespace Chart {
 export interface ChartProps {
   data: DataItems;
   height?: number;
-  rotated?: boolean;
   rootComponent: React.ComponentType<Chart.RootProps>;
+  rotated?: boolean;
   width?: number;
 }
 
@@ -347,7 +347,6 @@ export interface PointComponentProps extends CommonComponentProps {
   arg: number;
   argument: any;
   index: number;
-  // (undocumented)
   startVal?: number;
   val: number;
   value: any;
@@ -544,7 +543,7 @@ export namespace Tooltip {
   }
   export interface OverlayProps {
     children: React.ReactNode;
-    rotate: boolean;
+    rotated: boolean;
     target: TooltipReference;
   }
 }

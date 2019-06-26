@@ -75,7 +75,7 @@ export interface ArgumentAxisProps {
   indentFromAxis?: number;
   labelComponent?: React.ComponentType<ArgumentAxis_2.LabelProps>;
   lineComponent?: React.ComponentType<ArgumentAxis_2.LineProps>;
-  position?: 'bottom' | 'top';
+  position?: 'bottom' | 'top' | 'left' | 'right';
   rootComponent?: React.ComponentType<ArgumentAxis_2.RootProps>;
   showGrid?: boolean;
   showLabels?: boolean;
@@ -127,6 +127,7 @@ export interface ChartProps {
   data?: Array<any>;
   height?: number;
   rootComponent?: React.ComponentType<Chart_2.RootProps>;
+  rotated?: boolean;
   width?: number;
 }
 
@@ -331,7 +332,7 @@ export interface ValueAxisProps {
   indentFromAxis?: number;
   labelComponent?: React.ComponentType<ValueAxis_2.LabelProps>;
   lineComponent?: React.ComponentType<ValueAxis_2.LineProps>;
-  position?: 'left' | 'right';
+  position?: 'bottom' | 'top' | 'left' | 'right';
   rootComponent?: React.ComponentType<ValueAxis_2.RootProps>;
   scaleName?: string;
   showGrid?: boolean;

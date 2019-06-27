@@ -1,0 +1,80 @@
+import * as React from 'react';<%&additionalImports%>
+import {
+  Chart,
+  BarSeries,
+  Title,
+  ArgumentAxis,
+  ValueAxis,
+  Legend,
+} from '@devexpress/dx-react-chart-<%&themeName%>';
+import { scaleBand } from '@devexpress/dx-chart-core';
+import {
+  Animation,
+  ArgumentScale,
+  ValueScale,
+  EventTracker,
+} from '@devexpress/dx-react-chart';
+<%&imports%>
+import { populationPyramid as data } from '../../../demo-data/data-vizualization';
+
+<%&body%>
+
+const scale = () => scaleBand().paddingInner(0).paddingOuter(0);
+const Label = (props) => {
+  const { text } = props;
+  if (text < 0) {
+    return <ValueAxis.Label {...props} text={`${text * -1}%`} />;
+  }
+  return <ValueAxis.Label {...props} text={`${text}%`} />;
+};
+const modifyDomain = domain => [domain[0], -domain[0]];
+
+export default class Demo extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      data,
+    };
+  }
+
+  render() {
+    const { data: chartData } = this.state;
+
+    return (
+      <<%&wrapperTag%><%&wrapperAttributes%>>
+        <Chart
+          data={chartData}
+          rotated
+        >
+          <ArgumentScale factory={scale} />
+          <ArgumentAxis />
+          <ValueScale modifyDomain={modifyDomain} />
+          <ValueAxis labelComponent={Label} />
+
+          <BarSeries
+            name="Male"
+            valueField="male"
+            argumentField="age"
+            color="#3F7FBF"
+          />
+          <BarSeries
+            name="Female"
+            valueField="female"
+            argumentField="age"
+            color="#F87CCC"
+          />
+          <Title text="Population Pyramids of the World 2018" />
+          <Animation />
+          <EventTracker />
+          <Legend
+            position="bottom"
+            rootComponent={LegendRoot}
+            itemComponent={LegendItem}
+            labelComponent={LegendLabel}
+          />
+        </Chart>
+      </<%&wrapperTag%>>
+    );
+  }
+}

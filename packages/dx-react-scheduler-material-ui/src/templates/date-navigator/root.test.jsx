@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { createShallow } from '@material-ui/core/test-utils';
-import { mount } from 'enzyme';
+import { createShallow, createMount } from '@material-ui/core/test-utils';
 import { Root } from './root';
 
 describe('DateNavigator', () => {
@@ -27,6 +26,7 @@ describe('DateNavigator', () => {
         .toMatchObject({ a: 1 });
     });
     it('should render open button', () => {
+      const mount = createMount();
       const onVisibilityToggle = jest.fn();
       const openButton = mount((
         <Root
@@ -44,8 +44,10 @@ describe('DateNavigator', () => {
         .toBe('a');
       expect(onVisibilityToggle)
         .toBeCalled();
+      mount.cleanUp();
     });
     it('should render navigation buttons', () => {
+      const mount = createMount();
       const onNavigate = jest.fn();
       const buttons = mount((
         <Root
@@ -69,6 +71,7 @@ describe('DateNavigator', () => {
         .toBe('back');
       expect(onNavigate.mock.calls[1][0])
         .toBe('forward');
+      mount.cleanUp();
     });
   });
 });

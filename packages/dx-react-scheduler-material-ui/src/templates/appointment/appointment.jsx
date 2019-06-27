@@ -10,7 +10,7 @@ const styles = ({ palette, typography, spacing }) => ({
     width: '100%',
     overflow: 'hidden',
     boxSizing: 'border-box',
-    borderRight: '1px solid transparent',
+    borderRight: '2px solid transparent',
     borderBottom: '1px solid transparent',
     backgroundClip: 'padding-box',
     borderRadius: spacing.unit / 2,

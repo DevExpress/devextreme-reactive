@@ -17,6 +17,9 @@ export type SummaryType = string;
 export type RowLevel = { levelKey: string, row: Row, opened: boolean };
 
 /** @internal */
+export type GroupLevel = { levelKey: string, row: Row, rows: Row[] };
+
+/** @internal */
 type GetRowValueFn = PureComputed<[Row], any>;
 /** @internal */
 export type ColumnSummary = { type: SummaryType, value: SummaryValue };

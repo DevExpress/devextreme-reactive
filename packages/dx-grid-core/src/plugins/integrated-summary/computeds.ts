@@ -6,6 +6,7 @@ import {
   GroupSummaryValuesFn,
   TreeSummaryValuesFn,
   RowsSummaryValuesFn,
+  GroupLevel,
 } from '../../types';
 
 const defaultSummaryCalculators: DefaultSummaryCalculators = {
@@ -74,7 +75,7 @@ export const groupSummaryValues: GroupSummaryValuesFn = (
   getCollapsedRows,
   calculator = defaultSummaryCalculator,
 ) => {
-  let levels: any[] = [];
+  let levels: GroupLevel[] = [];
   const getLevelIndex = (levelKey: string) => (
     levels.findIndex(level => level.levelKey === levelKey)
   );
@@ -100,13 +101,10 @@ export const groupSummaryValues: GroupSummaryValuesFn = (
       levelIndex = getLevelIndex(levelKey);
     }
     const isCollapsedNestedGroupRow = collapsedRows && levelIndex > 0;
+    const rowsToAppend = !levelKey ? [row] : collapsedRows;
     if (!levelKey || isCollapsedNestedGroupRow) {
       levels.forEach((level) => {
-        if (!levelKey) {
-          level.rows.push(row);
-        } else {
-          level.rows = [...level.rows, ...collapsedRows];
-        }
+        level.rows.push(...rowsToAppend);
       });
     }
   }, {});

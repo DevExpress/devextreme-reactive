@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { createShallow } from '@material-ui/core/test-utils';
+import { mount } from 'enzyme';
 import { Root } from './root';
 
 describe('DateNavigator', () => {
@@ -27,7 +28,7 @@ describe('DateNavigator', () => {
     });
     it('should render open button', () => {
       const onVisibilityToggle = jest.fn();
-      const openButton = shallow((
+      const openButton = mount((
         <Root
           {...defaultProps}
           navigatorText="a"
@@ -46,7 +47,7 @@ describe('DateNavigator', () => {
     });
     it('should render navigation buttons', () => {
       const onNavigate = jest.fn();
-      const buttons = shallow((
+      const buttons = mount((
         <Root
           {...defaultProps}
           onNavigate={onNavigate}

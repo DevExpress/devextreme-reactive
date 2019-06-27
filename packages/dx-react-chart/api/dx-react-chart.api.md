@@ -252,7 +252,7 @@ export type NumberArray = [number, number];
 export type OffsetFn = (series: StackData, order: number[]) => void;
 
 // @public (undocumented)
-export type OnViewportChangeFn = (viewport: ViewportOptions) => void;
+export type OnViewportChangeFn = (viewport: Viewport) => void;
 
 // @public (undocumented)
 export type OrderFn = (series: StackData) => number[];
@@ -598,7 +598,7 @@ export interface ValueScaleProps extends ScaleProps {
 }
 
 // @public (undocumented)
-export type ViewportOptions = {
+export type Viewport = {
   readonly argumentStart?: any;
   readonly argumentEnd?: any;
   readonly scaleName?: string;
@@ -619,12 +619,12 @@ export namespace ZoomAndPan {
 
 // @public (undocumented)
 export interface ZoomAndPanProps {
-  defaultViewport?: ViewportOptions;
+  defaultViewport?: Viewport;
   dragBoxComponent: React.ComponentType<ZoomAndPan.DragBoxProps>;
   interactionWithArguments?: Interaction;
   interactionWithValues?: Interaction;
   onViewportChange?: OnViewportChangeFn;
-  viewport?: ViewportOptions;
+  viewport?: Viewport;
   zoomRegionKey?: 'shift' | 'alt' | 'ctrl';
 }
 

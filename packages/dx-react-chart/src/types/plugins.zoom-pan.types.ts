@@ -1,5 +1,5 @@
 import {
-  ViewportOptions,
+  Viewport,
   OnViewportChangeFn,
   EventHandlerFn,
   Interaction,
@@ -7,9 +7,9 @@ import {
 
 export interface ZoomAndPanProps {
   /** A default viewport */
-  defaultViewport?: ViewportOptions;
+  defaultViewport?: Viewport;
   /** A viewport */
-  viewport?: ViewportOptions;
+  viewport?: Viewport;
   /** A function that is executed when viewport changes */
   onViewportChange?: OnViewportChangeFn;
   /** Interaction with arguments */
@@ -26,7 +26,7 @@ type Rect = { x: number; y: number; width: number; height: number; };
 
 /** @internal */
 export type ZoomAndPanState = {
-  viewport?: ViewportOptions;
+  viewport?: Viewport;
   rectBox?: Rect | null;
 };
 

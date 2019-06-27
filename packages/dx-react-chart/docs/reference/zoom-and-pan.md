@@ -23,9 +23,9 @@ import { ZoomAndPan } from '@devexpress/dx-react-chart';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-defaultViewport? | [ZoomAndPan.Viewport](#zoomandpanviewport) | The default viewport.
-viewport? | [ZoomAndPan.Viewport](#zoomandpanviewport) | The viewport.
-onViewportChange? | (viewport: [ZoomAndPan.Viewport](#zoomandpanviewport)) => void | A function that is executed when the viewport changes.
+defaultViewport? | [Viewport](#viewport) | The default viewport.
+viewport? | [Viewport](#viewport) | The viewport.
+onViewportChange? | (viewport: [Viewport](#viewport)) => void | A function that is executed when the viewport changes.
 interactionWithArguments? | 'none' &#124; 'pan' &#124; 'zoom' &#124; 'both' | The type of interaction available for the argument scale.
 interactionWithValues? | 'none' &#124; 'pan' &#124; 'zoom' &#124; 'both' | The type of interaction available for the value scale.
 zoomRegionKey? | 'shift' &#124; 'alt' &#124; 'ctrl' | The key the allows a user to zoom a region by selecting it with the mouse drag gesture.
@@ -33,7 +33,7 @@ dragBoxComponent? | ComponentType&lt;[ZoomAndPan.DragBoxProps](#zoomandpandragbo
 
 ## Interfaces
 
-### ZoomAndPan.Viewport
+### Viewport
 
 The viewport configuration.
 

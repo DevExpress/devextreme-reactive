@@ -6,7 +6,7 @@ export * from './plugins.scale.types';
 export * from './plugins.layout-manager.types';
 export * from './plugins.axis.types';
 export * from './plugins.animation.types';
-export * from './plugins.zoom-pan.types';
+export * from './plugins.zoom-and-pan.types';
 export * from './utils.event-tracker.types';
 export * from './utils.hover-state.types';
 export * from './utils.legend.types';

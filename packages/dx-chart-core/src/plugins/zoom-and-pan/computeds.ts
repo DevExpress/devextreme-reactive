@@ -7,7 +7,7 @@ import {
 } from '../../utils/scale';
 import {
   NumberArray,
-  ViewportOptions,
+  Viewport,
   ScalesCache,
   DomainInfoCache,
   RangesCache,
@@ -21,17 +21,17 @@ import {
 } from '../../types';
 import { Size } from '@devexpress/dx-react-core';
 
-const getArgumentBounds = (viewport?: ViewportOptions): DomainBounds | null => (
+const getArgumentBounds = (viewport?: Viewport): DomainBounds | null => (
   viewport && viewport.argumentStart !== undefined && viewport.argumentEnd !== undefined
     ? [viewport.argumentStart, viewport.argumentEnd] : null
 );
 
-const getValueBounds = (viewport?: ViewportOptions): DomainBounds | null => (
+const getValueBounds = (viewport?: Viewport): DomainBounds | null => (
   viewport && viewport.valueStart !== undefined && viewport.valueEnd !== undefined
     ? [viewport.valueStart, viewport.valueEnd] : null
 );
 
-const getValueScaleName = (viewport?: ViewportOptions) => (
+const getValueScaleName = (viewport?: Viewport) => (
   getValueDomainName(viewport && viewport.scaleName)
 );
 
@@ -66,7 +66,7 @@ const update = (
 
 /** @internal */
 export const adjustLayout = (
-  domains: DomainInfoCache, ranges: RangesCache, viewport?: ViewportOptions,
+  domains: DomainInfoCache, ranges: RangesCache, viewport?: Viewport,
 ) => {
   const changes = {};
   const argumentBounds = getArgumentBounds(viewport);
@@ -105,7 +105,7 @@ export const getViewport = (
   deltas: Readonly<[number, number]> | null,
   anchors: Readonly<[number, number]> | null,
   ranges: Readonly<[NumberArray, NumberArray]> | null,
-  viewport?: ViewportOptions, onViewportChange?: OnViewportChangeFn,
+  viewport?: Viewport, onViewportChange?: OnViewportChangeFn,
 ) => {
   const changes: any = {};
   const argumentBounds = boundsForScale(

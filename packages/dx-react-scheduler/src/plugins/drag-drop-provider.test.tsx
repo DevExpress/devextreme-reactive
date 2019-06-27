@@ -468,31 +468,7 @@ describe('DragDropProvider', () => {
       expect(defaultDeps.action.changeAppointment)
         .toBeCalledWith({ change: { startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00') } }, expect.any(Object), expect.any(Object));
     });
-    it('should commit changes if drop inside a cell', () => {
-      const payload = {
-        id: 1,
-        type: 'vertical',
-        startDate: new Date('2018-06-25 10:00'),
-        endDate: new Date('2018-06-25 11:00'),
-      };
-      cellIndex.mockImplementationOnce(() => 1);
-      cellIndex.mockImplementationOnce(() => -1);
-      cellType.mockImplementationOnce(() => 'vertical');
-      cellData.mockImplementationOnce(() => ({ startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00') }));
-
-      const { tree, onOver, onDrop } = mountPlugin({});
-
-      onOver({ payload, clientOffset: { x: 1, y: 35 } });
-      tree.update();
-      onDrop({ payload: undefined, clientOffset: undefined });
-      tree.update();
-
-      expect(defaultDeps.action.stopEditAppointment)
-        .toBeCalledTimes(1);
-      expect(defaultDeps.action.commitChangedAppointment)
-        .toBeCalledWith({ appointmentId: payload.id }, expect.any(Object), expect.any(Object));
-    });
-    it('should commit changes if drop outside a cell', () => {
+    it('should commit changes if drop', () => {
       const payload = {
         id: 1,
         type: 'vertical',

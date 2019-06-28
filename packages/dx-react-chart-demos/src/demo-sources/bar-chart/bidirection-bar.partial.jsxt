@@ -7,27 +7,24 @@ import {
   ValueAxis,
   Legend,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
-import { scaleBand } from '@devexpress/dx-chart-core';
 import {
   Animation,
   ArgumentScale,
   ValueScale,
-  EventTracker,
 } from '@devexpress/dx-react-chart';
+import { scaleBand } from 'd3-scale';
 <%&imports%>
 import { populationPyramid as data } from '../../../demo-data/data-vizualization';
 
 <%&body%>
 
-const scale = () => scaleBand().paddingInner(0).paddingOuter(0);
-const Label = (props) => {
-  const { text } = props;
-  if (text < 0) {
-    return <ValueAxis.Label {...props} text={`${text * -1}%`} />;
-  }
-  return <ValueAxis.Label {...props} text={`${text}%`} />;
+const Label = ({ text, ...props }) => (
+  <ValueAxis.Label {...props} text={`${Math.abs(text)}%`} />
+);
+const modifyDomain = ([start, end]) => {
+  const threshold = Math.ceil(Math.max(Math.abs(start), Math.abs(end)));
+  return [-threshold, threshold];
 };
-const modifyDomain = domain => [domain[0], -domain[0]];
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -47,7 +44,7 @@ export default class Demo extends React.PureComponent {
           data={chartData}
           rotated
         >
-          <ArgumentScale factory={scale} />
+          <ArgumentScale factory={scaleBand} />
           <ArgumentAxis />
           <ValueScale modifyDomain={modifyDomain} />
           <ValueAxis labelComponent={Label} />
@@ -66,7 +63,6 @@ export default class Demo extends React.PureComponent {
           />
           <Title text="Population Pyramids of the World 2018" />
           <Animation />
-          <EventTracker />
           <Legend
             position="bottom"
             rootComponent={LegendRoot}

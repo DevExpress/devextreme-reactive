@@ -10,7 +10,7 @@ const styles = ({ palette, typography, spacing }) => ({
     width: '100%',
     overflow: 'hidden',
     boxSizing: 'border-box',
-    // 2px instead of 1px to fix no space between appointments bug in Firefox
+    // fix no space between appointments bug in Firefox (https://bugzilla.mozilla.org/show_bug.cgi?id=989340)
     borderRight: '2px solid transparent',
     borderBottom: '1px solid transparent',
     backgroundClip: 'padding-box',

@@ -44,9 +44,9 @@ const styles = (theme) => {
       width: `${arrowSize * 2.5}px`,
       height: `${arrowSize * 5}px`,
       position: 'absolute',
-      top: '-17%',
+      top: '50%',
       left: 0,
-      transform: 'translateX(-100%)',
+      transform: 'translateX(-100%) translateY(-50%)',
       overflow: 'hidden',
 
       '&::after': {

@@ -43,9 +43,9 @@ const positionFlags = {
 export const getRotatedPosition = (position: string) => rotatedPositions[position];
 
 /** @internal */
-export const isValidPosition = (position: string, scaleName: string, rotated: boolean) => {
-  return positionFlags[position] === isHorizontal(scaleName, rotated);
-};
+export const isValidPosition = (position: string, scaleName: string, rotated: boolean) => (
+  positionFlags[position] === isHorizontal(scaleName, rotated)
+);
 
 const createHorizontalOptions = (position: string, tickSize: number, indentFromAxis: number) => {
   // Make *position* orientation agnostic - should be START or END.

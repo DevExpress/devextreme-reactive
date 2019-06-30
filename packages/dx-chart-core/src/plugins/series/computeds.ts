@@ -109,12 +109,12 @@ export const getScatterPointTransformer: GetPointTransformerFn = (
 /** @internal */
 export const getAreaPointTransformer: GetPointTransformerFn = (series) => {
   const transform = getLinePointTransformer(series);
-  const val0 = series.valueScale(0);
+  const startVal = series.valueScale(0);
   return (point) => {
     const ret = transform(point);
     return {
       ...ret,
-      startVal: val0,
+      startVal,
     };
   };
 };
@@ -125,12 +125,12 @@ getAreaPointTransformer.isStartedFromZero = true;
 export const getBarPointTransformer: GetPointTransformerFn = ({
   argumentScale, valueScale,
 }) => {
-  const val0 = valueScale(0);
+  const startVal = valueScale(0);
   return point => ({
     ...point,
     arg: argumentScale(point.argument),
     val: valueScale(point.value),
-    startVal: val0,
+    startVal,
     maxBarWidth: getWidth(argumentScale),
   } as any);
 };
@@ -161,9 +161,15 @@ export const dPie = ({
   outerRadius: outerRadius * maxRadius,
 })!;
 
-const getRect = (cx: number, cy: number, dx: number, dy: number): Rect => (
-  [cx - dx, cy - dy, cx + dx, cy + dy]
-);
+const getRect = (
+  cArg: number, cVal: number, dArg: number, dVal: number, rotated: boolean,
+): Rect => {
+  const minArg = cArg - dArg;
+  const minVal = cVal - dVal;
+  const maxArg = cArg + dArg;
+  const maxVal = cVal + dVal;
+  return rotated ? [minVal, minArg, maxVal, maxArg] : [minArg, minVal, maxArg, maxVal];
+};
 
 getBarPointTransformer.getTargetElement = (point) => {
   const {
@@ -172,12 +178,7 @@ getBarPointTransformer.getTargetElement = (point) => {
   const halfWidth = barWidth * maxBarWidth / 2;
   const halfHeight = Math.abs(startVal! - val) / 2;
   const centerVal = (val + startVal!) / 2;
-  return getRect(
-    rotated ? centerVal  : arg,
-    rotated ? arg : centerVal,
-    rotated ? halfHeight : halfWidth,
-    rotated ? halfWidth : halfHeight,
-  );
+  return getRect(arg, centerVal, halfWidth, halfHeight, rotated);
 };
 
 getPiePointTransformer.getTargetElement = (point) => {
@@ -192,18 +193,19 @@ getPiePointTransformer.getTargetElement = (point) => {
   });
   const cx = center[0] + x;
   const cy = center[1] + y;
-  return getRect(cx, cy, 0.5, 0.5);
+  return getRect(cx, cy, 0.5, 0.5, false);
 };
 
-getAreaPointTransformer.getTargetElement = ({ arg, val, rotated }) =>
-  getRect(rotated ? val : arg, rotated ? arg : val, 1, 1);
+getAreaPointTransformer.getTargetElement = ({ arg, val, rotated }) => (
+  getRect(arg, val, 1, 1, rotated)
+);
 
 getLinePointTransformer.getTargetElement = getAreaPointTransformer.getTargetElement;
 
 getScatterPointTransformer.getTargetElement = (obj) => {
   const { arg, val, point, rotated } = obj as ScatterSeries.PointProps;
   const t = point.size / 2;
-  return getRect(rotated ? val : arg, rotated ? arg : val, t, t);
+  return getRect(arg, val, t, t, rotated);
 };
 
 const getUniqueName = (list: SeriesList, name: string) => {

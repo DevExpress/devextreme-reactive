@@ -156,6 +156,14 @@ describe('#dBar', () => {
   it('should return bar coordinates, startVal < val', () => {
     expect(dBar(30, 20, 2, 10, false)).toEqual({ x: 25, y: 2, width: 10, height: 18 });
   });
+
+  it('should return bar coordinates, width is 0', () => {
+    expect(dBar(30, 20, 2, 0, false)).toEqual({ x: 30, y: 2, width: 2, height: 18 });
+  });
+
+  it('should return bar coordinates, width is 0, rotated', () => {
+    expect(dBar(30, 20, 2, 0, true)).toEqual({ x: 2, y: 30, width: 18, height: 2 });
+  });
 });
 
 describe('getAreaPointTransformer', () => {

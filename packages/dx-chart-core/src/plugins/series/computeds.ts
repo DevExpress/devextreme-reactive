@@ -64,8 +64,8 @@ export const dBar = (
   return {
     x: rotated ? minVal : arg - width / 2,
     y: rotated ? arg - width / 2 : minVal,
-    width: rotated ? height : width,
-    height: rotated ? width : height,
+    width: rotated ? height : width || 2,
+    height: rotated ? width || 2 : height,
   };
 };
 

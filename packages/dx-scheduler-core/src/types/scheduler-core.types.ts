@@ -76,3 +76,8 @@ export type FormatDateTimeGetterFn = (locale: string | string[]) => FormatterFn;
 export type DateTimeFormatInstanceFn = (
   locale: string | string[], formatOptions: Intl.DateTimeFormatOptions,
 ) => Intl.DateTimeFormat;
+
+export interface CurrentView {
+  name: string;
+  displayName: string;
+}

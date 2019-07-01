@@ -2,6 +2,7 @@ import * as React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Popper from '@material-ui/core/Popper';
 import Paper from '@material-ui/core/Paper';
+import { RIGHT, TOP } from '@devexpress/dx-chart-core';
 import classNames from 'classnames';
 
 const styles = (theme) => {
@@ -74,7 +75,7 @@ export const Overlay = withStyles(styles)(({
   <Popper
     open
     anchorEl={target}
-    placement={rotated ? 'right' : 'top'}
+    placement={rotated ? RIGHT : TOP}
     className={classNames(rotated ? classes.popperRotated : classes.popper, className)}
     modifiers={popperModifiers}
     {...restProps}

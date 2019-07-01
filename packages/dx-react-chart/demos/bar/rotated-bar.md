@@ -1,4 +1,4 @@
-# React Chart Stacked Bar
+# React Chart Rotated Bar
 
 The demo shows how to rotate chart and create horizontal bars using `rotated` option in the Chart.
 

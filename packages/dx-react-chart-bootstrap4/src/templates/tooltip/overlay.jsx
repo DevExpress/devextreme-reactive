@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { RIGHT, TOP } from '@devexpress/dx-chart-core';
 import { Popover } from '../../../../dx-react-bootstrap4/components';
 
 const popperModifiers = {
@@ -13,7 +14,7 @@ export class Overlay extends React.PureComponent {
     } = this.props;
     return (
       <Popover
-        placement={rotated ? 'right' : 'top'}
+        placement={rotated ? RIGHT : TOP}
         isOpen
         target={target}
         modifiers={popperModifiers}

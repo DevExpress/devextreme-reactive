@@ -28,6 +28,7 @@ const LayoutBase = React.memo(({
     setCellElements={setCellElements}
   >
     <Table
+      ref={tableRef}
       className={classNames(classes.table, className)}
       {...restProps}
     >

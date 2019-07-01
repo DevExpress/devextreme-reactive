@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { AUTO_HEIGHT } from '@devexpress/dx-scheduler-core';
-import RootRef from '@material-ui/core/RootRef';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -35,30 +34,28 @@ export class HorizontalViewLayoutBase extends React.PureComponent {
 
     const containerStyle = height === AUTO_HEIGHT ? { height: '100%' } : { height: `${height}px` };
     return (
-      <RootRef rootRef={layoutRef}>
+      <Grid
+        ref={layoutRef}
+        className={classes.container}
+        container
+        direction="column"
+        wrap="nowrap"
+        style={containerStyle}
+      >
         <Grid
-          className={classes.container}
-          container
-          direction="column"
-          wrap="nowrap"
-          style={containerStyle}
+          ref={layoutHeaderRef}
+          item
+          className={classes.stickyHeader}
         >
-          <RootRef rootRef={layoutHeaderRef}>
-            <Grid
-              item
-              className={classes.stickyHeader}
-            >
-              <Navbar />
-            </Grid>
-          </RootRef>
-          <Grid
-            item
-            className={classes.main}
-          >
-            <Main />
-          </Grid>
+          <Navbar />
         </Grid>
-      </RootRef>
+        <Grid
+          item
+          className={classes.main}
+        >
+          <Main />
+        </Grid>
+      </Grid>
     );
   }
 }

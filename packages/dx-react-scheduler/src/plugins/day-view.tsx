@@ -17,7 +17,7 @@ import {
   getAppointmentStyle,
   startViewDate as startViewDateCore,
   endViewDate as endViewDateCore,
-  availableViewNames as availableViewNamesCore,
+  availableViewNames as availableViewsCore,
   VERTICAL_TYPE,
 } from '@devexpress/dx-scheduler-core';
 import { memoize } from '@devexpress/dx-core';
@@ -123,9 +123,9 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
     );
   });
 
-  availableViewNames = memoize((viewName, displayName) => ({ availableViewNames }) => {
-    return availableViewNamesCore(
-      availableViewNames, viewName, displayName,
+  availableViews = memoize((viewName, displayName) => ({ availableViews }) => {
+    return availableViewsCore(
+      availableViews, viewName, displayName,
     );
   });
 
@@ -207,8 +207,8 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
         name="DayView"
       >
         <Getter
-          name="availableViewNames"
-          computed={this.availableViewNames(viewName, viewDisplayName)}
+          name="availableViews"
+          computed={this.availableViews(viewName, viewDisplayName)}
         />
         <Getter name="currentView" computed={this.currentView(viewName, viewDisplayName)} />
 

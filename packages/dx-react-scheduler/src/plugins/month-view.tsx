@@ -17,7 +17,7 @@ import {
   getAppointmentStyle,
   getHorizontalRectByDates,
   endViewDate as endViewDateCore,
-  availableViewNames as availableViewNamesCore,
+  availableViewNames as availableViewsCore,
   HORIZONTAL_TYPE,
 } from '@devexpress/dx-scheduler-core';
 import { memoize } from '@devexpress/dx-core';
@@ -112,9 +112,9 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
     );
   });
 
-  availableViewNames = memoize((viewName, viewDisplayName) => ({ availableViewNames }) => {
-    return availableViewNamesCore(
-      availableViewNames, viewName, viewDisplayName,
+  availableViews = memoize((viewName, viewDisplayName) => ({ availableViews }) => {
+    return availableViewsCore(
+      availableViews, viewName, viewDisplayName,
     );
   });
 
@@ -184,8 +184,8 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
         name="MonthView"
       >
         <Getter
-          name="availableViewNames"
-          computed={this.availableViewNames(viewName, viewDisplayName)}
+          name="availableViews"
+          computed={this.availableViews(viewName, viewDisplayName)}
         />
         <Getter name="currentView" computed={this.currentView(viewName, viewDisplayName)} />
 

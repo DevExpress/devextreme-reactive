@@ -16,7 +16,7 @@ import {
   getVerticalRectByDates,
   startViewDate as startViewDateCore,
   endViewDate as endViewDateCore,
-  availableViewNames as availableViewNamesCore,
+  availableViewNames as availableViewsCore,
   VERTICAL_TYPE,
   getAppointmentStyle,
 } from '@devexpress/dx-scheduler-core';
@@ -146,9 +146,9 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
     );
   }
 
-  availableViewNames = memoize((viewName, viewDisplayName) => ({ availableViewNames }) => {
-    return availableViewNamesCore(
-      availableViewNames, viewName, viewDisplayName,
+  availableViews = memoize((viewName, viewDisplayName) => ({ availableViews }) => {
+    return availableViewsCore(
+      availableViews, viewName, viewDisplayName,
     );
   });
 
@@ -216,7 +216,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
       <Plugin
         name="WeekView"
       >
-        <Getter name="availableViewNames" computed={this.availableViewNames(viewName, viewDisplayName)} />
+        <Getter name="availableViews" computed={this.availableViews(viewName, viewDisplayName)} />
         <Getter name="currentView" computed={this.currentView(viewName, viewDisplayName)} />
 
         <Getter name="intervalCount" computed={this.intervalCount(viewName, intervalCount)} />

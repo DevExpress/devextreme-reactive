@@ -28,7 +28,7 @@ const DAYS_IN_WEEK = 7;
 const defaultDeps = {
   getter: {
     currentDate: '2018-07-04',
-    availableViewNames: [],
+    availableViews: [],
     currentView: { name: 'Week' },
     formatDate: jest.fn(),
     layoutHeight: 300,

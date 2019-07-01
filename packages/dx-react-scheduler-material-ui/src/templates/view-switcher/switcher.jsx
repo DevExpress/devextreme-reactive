@@ -22,7 +22,7 @@ const styles = ({ spacing, typography }) => ({
 
 const SwitcherBase = ({
   currentView,
-  availableViewNames,
+  availableViews,
   onChange, classes,
   ...restProps
 }) => {
@@ -43,7 +43,7 @@ const SwitcherBase = ({
       )}
       {...restProps}
     >
-      {availableViewNames.map(view => (
+      {availableViews.map(view => (
         <MenuItem
           value={view.name}
           key={view.name}
@@ -59,13 +59,13 @@ const SwitcherBase = ({
 SwitcherBase.propTypes = {
   onChange: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
-  currentViewName: PropTypes.string,
-  availableViewNames: PropTypes.arrayOf(PropTypes.string),
+  currentView: PropTypes.object,
+  availableViews: PropTypes.arrayOf(PropTypes.object),
 };
 
 SwitcherBase.defaultProps = {
-  currentViewName: undefined,
-  availableViewNames: [],
+  currentView: undefined,
+  availableViews: [],
 };
 
 export const Switcher = withStyles(styles)(SwitcherBase, { name: 'Switcher' });

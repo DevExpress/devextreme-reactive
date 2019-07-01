@@ -4,6 +4,7 @@
 
 ```ts
 
+import { CurrentView as CurrentView_2 } from '@devexpress/dx-scheduler-core';
 import { FormatterFn as FormatterFn_2 } from '@devexpress/dx-scheduler-core';
 import moment from 'moment';
 import * as React from 'react';
@@ -272,6 +273,14 @@ export type ClientOffset = {
   x: number;
   y: number;
 };
+
+// @public (undocumented)
+export interface CurrentView {
+  // (undocumented)
+  displayName: string;
+  // (undocumented)
+  name: string;
+}
 
 // @public
 export const DateNavigator: React.ComponentType<DateNavigatorProps>;
@@ -588,6 +597,7 @@ export interface VerticalViewProps {
   dayScaleEmptyCellComponent: React.ComponentType<VerticalView.DayScaleEmptyCellProps>;
   dayScaleLayoutComponent: React.ComponentType<VerticalView.DayScaleLayoutProps>;
   dayScaleRowComponent: React.ComponentType<VerticalView.RowProps>;
+  displayName?: string;
   endDayHour?: number;
   intervalCount?: number;
   layoutComponent: React.ComponentType<VerticalView.LayoutProps>;
@@ -627,10 +637,10 @@ export const ViewSwitcher: React.ComponentType<ViewSwitcherProps>;
 export namespace ViewSwitcher {
   export interface SwitcherProps {
     // (undocumented)
-    availableViewNames: string[];
-    currentViewName: string;
+    availableViews: CurrentView_2[];
+    currentView: CurrentView_2;
     // (undocumented)
-    onChange: (payload?: any) => void;
+    onChange: (nextViewName: string) => void;
   }
 }
 

@@ -14,7 +14,7 @@ import {
   PointComponentProps, PathFn,
 } from '../../types';
 import { ARGUMENT_DOMAIN } from '../../constants';
-import { getWidth, getValueDomainName, fixOffset } from '../../utils/scale';
+import { getValueDomainName, getWidth } from '../../utils/scale';
 
 const getX = ({ x }: PointComponentProps) => x;
 const getY = ({ y }: PointComponentProps) => y;
@@ -61,14 +61,11 @@ export const getPiePointTransformer: GetPointTransformerFn = ({
 /** @internal */
 export const getLinePointTransformer: GetPointTransformerFn = ({
   argumentScale, valueScale,
-}) => {
-  const fixedArgumentScale = fixOffset(argumentScale);
-  return point => ({
-    ...point,
-    x: fixedArgumentScale(point.argument),
-    y: valueScale(point.value),
-  });
-};
+}) => point => ({
+  ...point,
+  x: argumentScale(point.argument),
+  y: valueScale(point.value),
+});
 
 // Though transformations for line and scatter are the same,
 // separate function instance is required as it contains additional static fields.
@@ -94,11 +91,10 @@ export const getBarPointTransformer: GetPointTransformerFn = ({
   argumentScale, valueScale,
 }) => {
   const y1 = valueScale(0);
-  const fixedArgumentScale = fixOffset(argumentScale);
   return point => ({
     ...point,
     y1,
-    x: fixedArgumentScale(point.argument),
+    x: argumentScale(point.argument),
     y: valueScale(point.value),
     maxBarWidth: getWidth(argumentScale),
   });

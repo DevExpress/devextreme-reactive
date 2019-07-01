@@ -1,7 +1,7 @@
 /** @internal */
 export type DomainBounds = Readonly<[any, any]>;
 
-export type ViewportOptions = {
+export type Viewport = {
   readonly argumentStart?: any;
   readonly argumentEnd?: any;
   readonly scaleName?: string;
@@ -9,6 +9,6 @@ export type ViewportOptions = {
   readonly valueEnd?: any;
 };
 
-export type OnViewportChangeFn = (viewport: ViewportOptions) => void;
+export type OnViewportChangeFn = (viewport: Viewport) => void;
 
 export type Interaction = 'none' | 'pan' | 'zoom' | 'both';

@@ -98,6 +98,7 @@ describe('IntegratedSummary', () => {
         defaultDeps.getter.getCellValue,
         defaultDeps.getter.getRowLevelKey,
         defaultDeps.getter.isGroupRow,
+        defaultDeps.getter.getCollapsedRows,
         calculator,
       );
   });

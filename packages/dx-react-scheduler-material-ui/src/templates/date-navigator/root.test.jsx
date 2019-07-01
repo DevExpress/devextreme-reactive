@@ -14,8 +14,15 @@ describe('DateNavigator', () => {
       openButtonComponent: OpenButton,
     };
     let shallow;
+    let mount;
     beforeAll(() => {
       shallow = createShallow();
+    });
+    beforeEach(() => {
+      mount = createMount();
+    });
+    afterEach(() => {
+      mount.cleanUp();
     });
     it('should pass rest props to the root element', () => {
       const tree = shallow((
@@ -26,7 +33,6 @@ describe('DateNavigator', () => {
         .toMatchObject({ a: 1 });
     });
     it('should render open button', () => {
-      const mount = createMount();
       const onVisibilityToggle = jest.fn();
       const openButton = mount((
         <Root
@@ -44,10 +50,8 @@ describe('DateNavigator', () => {
         .toBe('a');
       expect(onVisibilityToggle)
         .toBeCalled();
-      mount.cleanUp();
     });
     it('should render navigation buttons', () => {
-      const mount = createMount();
       const onNavigate = jest.fn();
       const buttons = mount((
         <Root
@@ -71,7 +75,6 @@ describe('DateNavigator', () => {
         .toBe('back');
       expect(onNavigate.mock.calls[1][0])
         .toBe('forward');
-      mount.cleanUp();
     });
   });
 });

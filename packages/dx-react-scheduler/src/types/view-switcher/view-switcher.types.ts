@@ -6,11 +6,14 @@ export namespace ViewSwitcher {
   export interface SwitcherProps {
     /** A displayed view. */
     currentView: CurrentView;
+    /** An array of available views. */
     availableViews: CurrentView[];
+    /** A function that handles changes to the displayed view. */
     onChange: (nextViewName: string) => void;
   }
 }
 
 export interface ViewSwitcherProps {
+  /** A component that renders the view switcher. */
   switcherComponent: React.ComponentType<ViewSwitcher.SwitcherProps>;
 }

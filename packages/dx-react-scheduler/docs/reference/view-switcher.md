@@ -37,9 +37,18 @@ Properties passed to a component that renders the view switcher.
 
 Field | Type | Description
 ------|------|------------
-currentView | CurrentView | A displayed view.
-availableViewNames | Array&lt;string&gt; | An array of available view's names.
+currentView | [CurrentView](#currentview) | A displayed view.
+availableViews | Array&lt;[CurrentView](#currentView)&gt; | An array of available views.
 onChange | (nextViewName: string) => void | A function that handles changes to the displayed view.
+
+### CurrentView
+
+Current view propeties passed to a component that renders the view switcher.
+
+Field | Type | Description
+------|------|------------
+name | string | View's unique identifier.
+displayName | string | View's name.
 
 ## Plugin Components
 

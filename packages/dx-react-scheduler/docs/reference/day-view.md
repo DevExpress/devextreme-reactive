@@ -26,7 +26,8 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-name? | string | `Day` | The view name. Required if you use several `DayView` plugins.
+name? | string | `Day` | The view unique identifier. Required if you use several `DayView` plugins.
+displayName | string |  | The view name. Required if you need the name to be different from identifier. Default value is equal to `name`.
 intervalCount? | number | 1 | Multiplies the default view interval.
 cellDuration? | number | 30 | Specifies the cell duration in minutes.
 startDayHour? | number | 0 | Specifies the start hour of the view time scale.

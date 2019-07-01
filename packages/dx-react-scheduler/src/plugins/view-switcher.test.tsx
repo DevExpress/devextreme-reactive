@@ -11,7 +11,10 @@ describe('ViewSwitcher', () => {
   const defaultDeps = {
     getter: {
       currentView: { name: 'Week' },
-      availableViewNames: ['Week', 'Month'],
+      availableViewNames: [
+        { name: 'Week', displayName: 'Full week' },
+        { name: 'Month', displayName: 'Full month' }
+      ],
     },
     action: {
       setCurrentViewName: () => {},
@@ -34,7 +37,7 @@ describe('ViewSwitcher', () => {
     expect(tree.find(defaultProps.switcherComponent).exists())
       .toBeTruthy();
     const switcherProps = tree.find(defaultProps.switcherComponent).props();
-    expect(switcherProps.currentViewName)
+    expect(switcherProps.currentView.name)
       .toEqual(defaultDeps.getter.currentView.name);
     expect(switcherProps.availableViewNames)
       .toEqual(defaultDeps.getter.availableViewNames);

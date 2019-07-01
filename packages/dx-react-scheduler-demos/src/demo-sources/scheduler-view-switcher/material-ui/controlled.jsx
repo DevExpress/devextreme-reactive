@@ -44,6 +44,7 @@ export default class Demo extends React.PureComponent {
           <WeekView
             startDayHour={10}
             endDayHour={19}
+            displayName="Full week"
           />
           <WeekView
             name="Work Week"

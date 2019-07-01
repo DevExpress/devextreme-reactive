@@ -21,7 +21,7 @@ const styles = ({ spacing, typography }) => ({
 });
 
 const SwitcherBase = ({
-  currentViewName,
+  currentView,
   availableViewNames,
   onChange, classes,
   ...restProps
@@ -33,7 +33,7 @@ const SwitcherBase = ({
   return (
     <Select
       classes={{ root: classes.root }}
-      value={currentViewName}
+      value={currentView.name}
       onChange={handleChange}
       input={(
         <OutlinedInput
@@ -43,13 +43,13 @@ const SwitcherBase = ({
       )}
       {...restProps}
     >
-      {availableViewNames.map(viewName => (
+      {availableViewNames.map(view => (
         <MenuItem
-          value={viewName}
-          key={viewName}
+          value={view.name}
+          key={view.name}
           className={classes.menuItem}
         >
-          {viewName}
+          {view.displayName}
         </MenuItem>
       ))}
     </Select>

@@ -146,17 +146,17 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
     );
   }
 
-  availableViewNames = memoize(viewName => ({ availableViewNames }) => {
+  availableViewNames = memoize((viewName, viewDisplayName) => ({ availableViewNames }) => {
     return availableViewNamesCore(
-      availableViewNames, viewName,
+      availableViewNames, viewName, viewDisplayName,
     );
   });
 
-  currentView = memoize(viewName => ({ currentView }) => {
+  currentView = memoize((viewName, viewDisplayName) => ({ currentView }) => {
     return (
-    currentView && currentView.name !== viewName
-      ? currentView
-      : { name: viewName, type: TYPE }
+      currentView && currentView.name !== viewName
+        ? currentView
+        : { name: viewName, type: TYPE, displayName: viewDisplayName }
     );
   });
 
@@ -207,15 +207,17 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
       startDayHour,
       endDayHour,
       appointmentLayerComponent: AppointmentLayer,
+      displayName,
     } = this.props;
     const { rects } = this.state;
+    const viewDisplayName = displayName ? displayName : viewName;
 
     return (
       <Plugin
         name="WeekView"
       >
-        <Getter name="availableViewNames" computed={this.availableViewNames(viewName)} />
-        <Getter name="currentView" computed={this.currentView(viewName)} />
+        <Getter name="availableViewNames" computed={this.availableViewNames(viewName, viewDisplayName)} />
+        <Getter name="currentView" computed={this.currentView(viewName, viewDisplayName)} />
 
         <Getter name="intervalCount" computed={this.intervalCount(viewName, intervalCount)} />
         <Getter

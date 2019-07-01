@@ -112,17 +112,17 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
     );
   });
 
-  availableViewNames = memoize(viewName => ({ availableViewNames }) => {
+  availableViewNames = memoize((viewName, viewDisplayName) => ({ availableViewNames }) => {
     return availableViewNamesCore(
-      availableViewNames, viewName!,
+      availableViewNames, viewName, viewDisplayName,
     );
   });
 
-  currentView = memoize(viewName => ({ currentView }) => {
+  currentView = memoize((viewName, viewDisplayName) => ({ currentView }) => {
     return (
       currentView && currentView.name !== viewName
         ? currentView
-        : { name: viewName, type: TYPE }
+        : { name: viewName, type: TYPE, displayName: viewDisplayName }
     );
   });
 
@@ -174,15 +174,20 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
       name: viewName,
       firstDayOfWeek,
       intervalCount,
+      displayName,
     } = this.props;
     const { rects } = this.state;
+    const viewDisplayName = displayName ? displayName : viewName;
 
     return (
       <Plugin
         name="MonthView"
       >
-        <Getter name="availableViewNames" computed={this.availableViewNames(viewName)} />
-        <Getter name="currentView" computed={this.currentView(viewName)} />
+        <Getter
+          name="availableViewNames"
+          computed={this.availableViewNames(viewName, viewDisplayName)}
+        />
+        <Getter name="currentView" computed={this.currentView(viewName, viewDisplayName)} />
 
         <Getter
           name="firstDayOfWeek"

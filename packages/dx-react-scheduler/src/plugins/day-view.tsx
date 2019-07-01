@@ -123,17 +123,17 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
     );
   });
 
-  currentView = memoize(viewName => ({ currentView }) => {
-    return (
-      currentView && currentView.name !== viewName
-        ? currentView
-        : { name: viewName, type: TYPE }
+  availableViewNames = memoize((viewName, displayName) => ({ availableViewNames }) => {
+    return availableViewNamesCore(
+      availableViewNames, viewName, displayName,
     );
   });
 
-  availableViewNames = memoize(viewName => ({ availableViewNames }) => {
-    return availableViewNamesCore(
-      availableViewNames, viewName!,
+  currentView = memoize((viewName, viewDisplayName) => ({ currentView }) => {
+    return (
+      currentView && currentView.name !== viewName
+        ? currentView
+        : { name: viewName, type: TYPE, displayName: viewDisplayName }
     );
   });
 
@@ -197,15 +197,20 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
       intervalCount,
       startDayHour,
       endDayHour,
+      displayName,
     } = this.props;
     const { rects } = this.state;
+    const viewDisplayName = displayName ? displayName : viewName;
 
     return (
       <Plugin
         name="DayView"
       >
-        <Getter name="availableViewNames" computed={this.availableViewNames(viewName)} />
-        <Getter name="currentView" computed={this.currentView(viewName)} />
+        <Getter
+          name="availableViewNames"
+          computed={this.availableViewNames(viewName, viewDisplayName)}
+        />
+        <Getter name="currentView" computed={this.currentView(viewName, viewDisplayName)} />
 
         <Getter name="intervalCount" computed={this.intervalCount(viewName, intervalCount)} />
         <Getter name="cellDuration" computed={this.cellDuration(viewName, cellDuration)} />

@@ -182,7 +182,7 @@ describe('Day View', () => {
         .toBe(2);
     });
 
-    it('should provide the "currentView" getter', () => {
+    it('should provide the "currentView" getter with default "displayName"', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -193,7 +193,23 @@ describe('Day View', () => {
       ));
 
       expect(getComputedState(tree).currentView)
-        .toEqual({ name: 'Day', type: 'day' });
+        .toEqual({ name: 'Day', type: 'day', displayName: 'Day' });
+    });
+
+    it('should provide the "currentView" getter with user-set "displayName"', () => {
+      const userDisplayName = 'User-set display name';
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <DayView
+            displayName={userDisplayName}
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).currentView)
+        .toEqual({ name: 'Day', type: 'day', displayName: userDisplayName });
     });
 
     it('should provide "timeTableElement" getter', () => {

@@ -7,6 +7,9 @@ describe('ViewSwitcher', () => {
   let shallow;
   const defaultProps = {
     onChange: jest.fn(),
+    currentView: {
+      name: 'Test view name',
+    },
   };
   beforeAll(() => {
     shallow = createShallow({ dive: true });

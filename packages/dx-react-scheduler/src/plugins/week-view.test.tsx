@@ -196,7 +196,7 @@ describe('Week View', () => {
         .toBe(2);
     });
 
-    it('should provide the "currentView" getter', () => {
+    it('should provide the "currentView" getter with default "displayName"', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -207,22 +207,39 @@ describe('Week View', () => {
       ));
 
       expect(getComputedState(tree).currentView)
-        .toEqual({ name: 'Week', type: 'week' });
+        .toEqual({ name: 'Week', type: 'week', displayName: 'Week' });
     });
 
-    it('should calculate the "currentView" getter if there aren\'t any views before', () => {
+    it('should provide the "currentView" getter with user-set "displayName"', () => {
+      const userDisplayName = 'User-set display name';
       const tree = mount((
         <PluginHost>
-          {pluginDepsToComponents(defaultDeps, { getter: { currentView: undefined } })}
+          {pluginDepsToComponents(defaultDeps)}
           <WeekView
+          displayName={userDisplayName}
             {...defaultProps}
-            name="Week View"
           />
         </PluginHost>
       ));
 
       expect(getComputedState(tree).currentView)
-        .toEqual({ name: 'Week View', type: 'week' });
+        .toEqual({ name: 'Week', type: 'week', displayName: userDisplayName });
+    });
+
+    it('should calculate the "currentView" getter if there aren\'t any views before', () => {
+      const viewName = 'Week View';
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps, { getter: { currentView: undefined } })}
+          <WeekView
+            {...defaultProps}
+            name={viewName}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).currentView)
+        .toEqual({ name: viewName, type: 'week', displayName: viewName });
     });
 
     it('should not override previous view type', () => {

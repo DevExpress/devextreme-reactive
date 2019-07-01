@@ -118,18 +118,21 @@ describe('#timeScale', () => {
 
 describe('#availableViewNames', () => {
   it('should return available view names if views is not defined', () => {
-    expect(availableViewNames(undefined, 'Month'))
-      .toEqual(['Month']);
+    expect(availableViewNames(undefined, 'Month', 'Month'))
+      .toEqual([{ name: 'Month', displayName: 'Month' }]);
   });
 
   it('should return available view names if view is expected', () => {
-    expect(availableViewNames(['Month'], 'Month'))
-      .toEqual(['Month']);
+    expect(availableViewNames([{name: 'Month', displayName: undefined}], 'Month', 'Month'))
+      .toEqual([{name: 'Month', displayName: undefined}]);
   });
 
   it('should return available view names if view is not expected', () => {
-    expect(availableViewNames(['Week'], 'Month'))
-      .toEqual(['Week', 'Month']);
+    expect(availableViewNames([{name: 'Week', displayName: 'Week view'}], 'Month', 'Month view'))
+      .toEqual([
+        {name: 'Week', displayName: 'Week view'},
+        {name: 'Month', displayName: 'Month view'},
+      ]);
   });
 });
 

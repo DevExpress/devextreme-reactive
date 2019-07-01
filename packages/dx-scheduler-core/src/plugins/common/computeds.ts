@@ -54,12 +54,12 @@ export const timeScale: TimeScaleFn = (
 };
 
 export const availableViewNames: PureComputed<
-  [string[], string], string[]
-> = (viewNames, viewName) => {
-  if (!viewNames) return [viewName];
-  if (viewNames.findIndex(view => viewName === view) === -1) {
+  [string[], string], string[], string[]
+> = (viewNames, viewName, viewDisplayName) => {
+  if (!viewNames) return [{ name: viewName, displayName: viewDisplayName }];
+  if (viewNames.findIndex(view => viewName === view.name) === -1) {
     const nextViewNames = viewNames.slice();
-    nextViewNames.push(viewName);
+    nextViewNames.push({ name: viewName, displayName: viewDisplayName });
     return nextViewNames;
   }
   return viewNames;

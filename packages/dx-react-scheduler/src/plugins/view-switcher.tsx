@@ -35,7 +35,7 @@ class ViewSwitcherBase extends React.PureComponent<ViewSwitcherProps> {
               setCurrentViewName,
             }) => (
               <Switcher
-                currentViewName={currentView.name}
+                currentView={currentView}
                 availableViewNames={availableViewNames}
                 onChange={setCurrentViewName}
               />

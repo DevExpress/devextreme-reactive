@@ -29,7 +29,7 @@ describe('TodayButton', () => {
 
       tree.simulate('click', { target: { value: 'any' } });
       expect(defaultProps.setCurrentDate)
-        .toBeCalledWith(expect.any(Object));
+        .toBeCalledWith(expect.any(Date));
     });
 
     it('should call getMessage function with proper parameter', () => {

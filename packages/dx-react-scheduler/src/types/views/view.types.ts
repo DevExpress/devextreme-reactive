@@ -1,8 +1,10 @@
 import { FormatterFn, ElementRect } from '@devexpress/dx-scheduler-core';
 
 export interface VerticalViewProps {
-  /** The view name. */
+  /** The view identifier. */
   name?: string;
+  /** The view name. */
+  displayName?: string;
   /** Multiplies the default view interval. */
   intervalCount?: number;
   /** Specifies the cell duration in minutes. */

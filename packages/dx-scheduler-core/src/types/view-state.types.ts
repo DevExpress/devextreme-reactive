@@ -4,3 +4,8 @@ export interface ChangeCurrentDatePayload {
   amount: number;
   direction: string;
 }
+
+export interface CurrentView {
+  name: string;
+  displayName: string;
+}

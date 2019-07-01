@@ -3,6 +3,7 @@ import { PureComputed } from '@devexpress/dx-core';
 import {
   TimeScale, SchedulerDateTime, ViewCell,
   DayScaleFn, TimeScaleFn, ViewCellsDataFn, AllDayCell,
+  CurrentView,
 } from '../../types';
 import { calculateFirstDateOfWeek } from '../../utils';
 
@@ -54,7 +55,7 @@ export const timeScale: TimeScaleFn = (
 };
 
 export const availableViewNames: PureComputed<
-  [string[], string], string[], string[]
+  [CurrentView[], string, string], CurrentView[]
 > = (viewNames, viewName, viewDisplayName) => {
   if (!viewNames) return [{ name: viewName, displayName: viewDisplayName }];
   if (viewNames.findIndex(view => viewName === view.name) === -1) {

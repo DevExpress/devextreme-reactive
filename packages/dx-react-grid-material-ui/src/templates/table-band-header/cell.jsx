@@ -16,7 +16,6 @@ const styles = theme => ({
       paddingRight: theme.spacing(3),
       borderRight: 0,
     },
-    height: theme.spacing(6),
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',

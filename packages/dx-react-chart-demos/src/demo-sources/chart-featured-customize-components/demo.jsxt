@@ -25,15 +25,15 @@ const getPath = (x, width, y, y1) => `M ${x} ${y1}
 const labelStyle = { fill: '#BBDEFB' };
 
 const BarWithLabel = ({
-  x, barWidth, maxBarWidth, y, y1, color, value, style,
+  arg, barWidth, maxBarWidth, val, startVal, color, value, style,
 }) => {
   const width = maxBarWidth * barWidth;
   return (
     <React.Fragment>
-      <path d={getPath(x - width / 2, width, y, y1)} fill={color} style={style} />
+      <path d={getPath(arg - width / 2, width, val, startVal)} fill={color} style={style} />
       <Chart.Label
-        x={x}
-        y={(y + y1) / 2}
+        x={arg}
+        y={(val + startVal) / 2}
         dominantBaseline="middle"
         textAnchor="middle"
         style={labelStyle}

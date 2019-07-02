@@ -25,6 +25,84 @@ export const born = [
   },
 ];
 
+export const populationPyramid = [{
+  age: '0-4',
+  male: -4.6,
+  female: 4.3,
+}, {
+  age: '5-9',
+  male: -4.4,
+  female: 4.2,
+}, {
+  age: '10-14',
+  male: -4.2,
+  female: 4.0,
+}, {
+  age: '15-19',
+  male: -4.0,
+  female: 3.8,
+}, {
+  age: '20-24',
+  male: -3.9,
+  female: 3.7,
+}, {
+  age: '25-29',
+  male: -4.0,
+  female: 3.8,
+}, {
+  age: '30-34',
+  male: -4.0,
+  female: 3.8,
+}, {
+  age: '35-39',
+  male: -3.5,
+  female: 3.4,
+}, {
+  age: '40-44',
+  male: -3.2,
+  female: 3.1,
+}, {
+  age: '45-49',
+  male: -3.1,
+  female: 3.1,
+}, {
+  age: '50-54',
+  male: -2.8,
+  female: 2.8,
+}, {
+  age: '55-59',
+  male: -2.4,
+  female: 2.5,
+}, {
+  age: '60-64',
+  male: -2.0,
+  female: 2.1,
+}, {
+  age: '65-69',
+  male: -1.6,
+  female: 1.8,
+}, {
+  age: '70-74',
+  male: -1.1,
+  female: 1.2,
+}, {
+  age: '75-79',
+  male: -0.7,
+  female: 0.9,
+}, {
+  age: '80-84',
+  male: -0.4,
+  female: 0.6,
+}, {
+  age: '85-89',
+  male: -0.2,
+  female: 0.3,
+}, {
+  age: '90+',
+  male: -0.1,
+  female: 0.1,
+}];
+
 export const gaming = [
   {
     year: 2012, mobile: 18, pc: 37, console: 45,

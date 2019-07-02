@@ -1,28 +1,25 @@
 import * as React from 'react';
 import {
-  dArea, getAreaAnimationStyle, HOVERED, SELECTED,
+  getAreaAnimationStyle, HOVERED, SELECTED, dArea, dRotateArea,
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
 import { AreaSeries } from '../../types';
 
 class RawArea extends React.PureComponent<AreaSeries.SeriesProps> {
-  static defaultProps: Partial<AreaSeries.SeriesProps> = {
-    path: dArea,
-  };
-
   render() {
     const {
       path,
       coordinates,
       index, state, pointComponent,
       color,
-      style, scales, getAnimatedStyle,
+      style, scales, getAnimatedStyle, rotated,
       ...restProps
     } = this.props;
+    const dPath = path === undefined ? (rotated ? dRotateArea : dArea) : path;
     return (
       <path
-        d={path!(coordinates)}
+        d={dPath!(coordinates)}
         fill={color}
         opacity={0.5}
         style={getAnimatedStyle(style, getAreaAnimationStyle, scales)}

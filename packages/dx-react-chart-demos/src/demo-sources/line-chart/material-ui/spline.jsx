@@ -58,7 +58,7 @@ const legendStyles = () => ({
 });
 const legendLabelStyles = theme => ({
   label: {
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
     whiteSpace: 'nowrap',
   },
 });

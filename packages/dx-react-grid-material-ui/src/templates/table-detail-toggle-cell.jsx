@@ -14,12 +14,12 @@ const styles = theme => ({
     textOverflow: 'initial',
     paddingTop: 0,
     paddingBottom: 0,
-    paddingLeft: theme.spacing.unit,
+    paddingLeft: theme.spacing(1),
   },
   toggleCellButton: {
     verticalAlign: 'middle',
     display: 'inline-block',
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
   },
 });
 

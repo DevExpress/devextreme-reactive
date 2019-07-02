@@ -6,6 +6,7 @@ import classNames from 'classnames';
 
 const styles = {
   cell: {
+    userSelect: 'none',
     border: 'none',
     padding: 0,
     textAlign: 'center',

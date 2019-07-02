@@ -10,8 +10,8 @@ const styles = ({ spacing, typography }) => ({
     fontSize: typography.fontSize,
   },
   input: {
-    padding: `${spacing.unit * 1.25}px ${spacing.unit * 1.75}px`,
-    paddingRight: `${spacing.unit * 4}px`,
+    padding: `${spacing(1.25)}px ${spacing(1.75)}px`,
+    paddingRight: `${spacing(4)}px`,
     textTransform: 'uppercase',
   },
   menuItem: {

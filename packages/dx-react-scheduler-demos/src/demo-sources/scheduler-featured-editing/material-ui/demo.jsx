@@ -14,7 +14,7 @@ import {
   DragDropProvider,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { connectProps } from '@devexpress/dx-react-core';
-import { InlineDateTimePicker, MuiPickersUtilsProvider } from 'material-ui-pickers';
+import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
 import { withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
@@ -37,17 +37,17 @@ import { appointments } from '../../../demo-data/appointments';
 
 const containerStyles = theme => ({
   container: {
-    width: `${theme.spacing.unit * 68}px`,
+    width: theme.spacing(68),
     padding: 0,
-    paddingBottom: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing(2),
   },
   content: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
     paddingTop: 0,
   },
   header: {
     overflow: 'hidden',
-    paddingTop: theme.spacing.unit / 2,
+    paddingTop: theme.spacing(0.5),
   },
   closeButton: {
     float: 'right',
@@ -55,13 +55,13 @@ const containerStyles = theme => ({
   buttonGroup: {
     display: 'flex',
     justifyContent: 'flex-end',
-    padding: `0 ${theme.spacing.unit * 2}px`,
+    padding: theme.spacing(0, 2),
   },
   button: {
-    marginLeft: theme.spacing.unit * 2,
+    marginLeft: theme.spacing(2),
   },
   picker: {
-    marginRight: theme.spacing.unit * 2,
+    marginRight: theme.spacing(2),
     '&:last-child': {
       marginRight: 0,
     },
@@ -69,11 +69,11 @@ const containerStyles = theme => ({
   wrapper: {
     display: 'flex',
     justifyContent: 'space-between',
-    padding: `${theme.spacing.unit}px 0px`,
+    padding: theme.spacing(1, 0),
   },
   icon: {
-    margin: `${theme.spacing.unit * 2}px 0`,
-    marginRight: `${theme.spacing.unit * 2}px`,
+    margin: theme.spacing(2, 0),
+    marginRight: theme.spacing(2),
   },
   textField: {
     width: '100%',
@@ -158,10 +158,11 @@ class AppointmentFormContainerBasic extends React.PureComponent {
 
     const pickerEditorProps = field => ({
       className: classes.picker,
-      keyboard: true,
+      // keyboard: true,
+      ampm: false,
       value: displayAppointmentData[field],
       onChange: date => this.changeAppointment({ field: [field], changes: date.toDate() }),
-      variant: 'outlined',
+      inputVariant: 'outlined',
       format: 'DD/MM/YYYY HH:mm',
       mask: [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, ':', /\d/, /\d/],
     });
@@ -187,11 +188,11 @@ class AppointmentFormContainerBasic extends React.PureComponent {
             <div className={classes.wrapper}>
               <CalendarToday className={classes.icon} color="action" />
               <MuiPickersUtilsProvider utils={MomentUtils}>
-                <InlineDateTimePicker
+                <KeyboardDateTimePicker
                   label="Start Date"
                   {...pickerEditorProps('startDate')}
                 />
-                <InlineDateTimePicker
+                <KeyboardDateTimePicker
                   label="End Date"
                   {...pickerEditorProps('endDate')}
                 />
@@ -249,8 +250,8 @@ const AppointmentFormContainer = withStyles(containerStyles, { name: 'Appointmen
 const styles = theme => ({
   addButton: {
     position: 'absolute',
-    bottom: theme.spacing.unit * 3,
-    right: theme.spacing.unit * 4,
+    bottom: theme.spacing(1) * 3,
+    right: theme.spacing(1) * 4,
   },
 });
 

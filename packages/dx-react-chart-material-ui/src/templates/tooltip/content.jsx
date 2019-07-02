@@ -5,7 +5,7 @@ import { withClassName } from '../utils';
 const styles = theme => ({
   root: {
     fontSize: 14,
-    padding: theme.spacing.unit * 0.5,
+    padding: theme.spacing(0.5),
   },
 });
 

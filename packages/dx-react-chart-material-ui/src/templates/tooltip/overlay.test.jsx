@@ -6,11 +6,7 @@ import { Overlay } from './overlay';
 
 describe('Overlay', () => {
   const defaultProps = {
-    target: {
-      clientWidth: null,
-      clientHeight: null,
-      getBoundingClientRect: null,
-    },
+    target: {},
     rotated: false,
   };
   let mount;
@@ -85,14 +81,11 @@ describe('Overlay', () => {
       </Overlay>
     ));
 
-    expect(tree.find('Popper').props()).toMatchObject({
+    expect(tree.find(Popper).props()).toMatchObject({
       open: true,
       anchorEl: defaultProps.target,
       placement: 'right',
       className: classes.popperRotated,
-    });
-    expect(tree.find('Paper').props()).toMatchObject({
-      className: classes.paper,
     });
     expect(tree.find('div').get(3).props).toMatchObject({
       className: classes.arrowRotated,

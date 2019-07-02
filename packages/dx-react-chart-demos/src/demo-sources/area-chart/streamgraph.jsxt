@@ -17,14 +17,11 @@ import { Stack, Animation } from '@devexpress/dx-react-chart';
 
 import { booksSale } from '../../../demo-data/data-vizualization';
 
-const getX = ({ x }) => x;
-const getY = ({ y }) => y;
-const getY1 = ({ y1 }) => y1;
 const Area = (props) => {
   const path = area()
-    .x(getX)
-    .y1(getY)
-    .y0(getY1)
+    .x(({ arg }) => arg)
+    .y1(({ val }) => val)
+    .y0(({ startVal }) => startVal)
     .curve(curveCatmullRom);
 
   return <AreaSeries.Path {...props} path={path} />;

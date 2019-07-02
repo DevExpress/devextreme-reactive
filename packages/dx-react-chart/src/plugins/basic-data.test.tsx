@@ -9,12 +9,12 @@ jest.mock('@devexpress/dx-chart-core', () => ({
 }));
 
 describe('Basis Data', () => {
-  it('should provide *data* and *series*', () => {
+  it('should provide basic getters', () => {
     const data = [1, 2, 3];
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents({})}
-        <BasicData data={data as any} />
+        <BasicData data={data as any} rotated={'test-rotated' as any} />
       </PluginHost>
     ));
 
@@ -22,8 +22,8 @@ describe('Basis Data', () => {
       data,
       domains: 'test-domains',
       series: [],
-      axes: [],
       getAnimatedStyle: expect.any(Function),
+      rotated: 'test-rotated',
     });
   });
 });

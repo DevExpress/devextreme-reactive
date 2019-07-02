@@ -14,6 +14,7 @@ export type AxisCoordinatesArg = {
   tickFormat?: TickFormatFn;
   indentFromAxis: number;
   paneSize: NumberArray;
+  rotated: boolean;
 };
 /** @internal */
 export type Tick = {
@@ -40,6 +41,7 @@ export type GridCoordinatesArg = {
   scaleName: string;
   scale: ScaleObject;
   paneSize: NumberArray;
+  rotated: boolean;
 };
 /** @internal */
 export type Grid = {

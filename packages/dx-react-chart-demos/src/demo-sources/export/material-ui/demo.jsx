@@ -185,8 +185,8 @@ const BarWithLabel = withStyles({
   <React.Fragment>
     <BarSeries.Point {...restProps} />
     <Chart.Label
-      x={restProps.x}
-      y={(restProps.y + restProps.y1) / 2}
+      x={restProps.arg}
+      y={(restProps.val + restProps.startVal) / 2}
       dominantBaseline="middle"
       textAnchor="middle"
       className={classes.label}

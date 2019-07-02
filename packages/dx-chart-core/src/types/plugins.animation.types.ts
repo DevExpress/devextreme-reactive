@@ -8,11 +8,15 @@ export type Scales = {
   readonly yScale: ScaleObject;
 };
 /** @internal */
-export type GetAnimationStyleFn = (scales: Scales, point?: PointComponentProps) => {
+export type GetAnimationStyleFn = (rotated: boolean, scales: Scales, point?: PointComponentProps)
+=> {
   readonly animation: string;
   readonly transformOrigin?: string;
 };
 /** @internal */
-export type BuildAnimatedStyleGetterFn = PureComputed<
-  [any, GetAnimationStyleFn, Scales, PointComponentProps?]
+export type BuildAnimatedStyleGetterFn = (rotated: boolean) => GetSeriesAnimatedStyleFn;
+
+/** @internal */
+export type GetSeriesAnimatedStyleFn = PureComputed<
+[any, GetAnimationStyleFn, Scales, PointComponentProps?]
 >;

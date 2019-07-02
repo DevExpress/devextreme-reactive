@@ -61,7 +61,7 @@ describe('Horizontal view TimeTable', () => {
       expect(tree.find(defaultProps.rowComponent))
         .toHaveLength(2);
     });
-    it('should calls setCellElementsMeta', () => {
+    it('should call setCellElementsMeta', () => {
       const tree = mount((
         <Layout
           {...defaultProps}

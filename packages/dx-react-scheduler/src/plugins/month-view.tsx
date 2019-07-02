@@ -35,6 +35,32 @@ const TimeTablePlaceholder = () => <TemplatePlaceholder name="timeTable" />;
 const CellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
 const AppointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
 
+const scrollingStrategy1 = memoize((viewName, scrollingStrategy) => (getters) => computed(
+  getters, viewName!, () => scrollingStrategy, getters.scrollingStrategy,
+));
+
+const timeTableElementsMeta1 = memoize((viewName, timeTableElementsMeta) => (getters) => computed(
+  getters, viewName!, () => timeTableElementsMeta, getters.timeTableElementsMeta,
+));
+
+const firstDayOfWeek1 = memoize((viewName, firstDayOfWeek) => (getters) => computed(
+  getters, viewName!, () => firstDayOfWeek, getters.firstDayOfWeek,
+));
+
+const intervalCount1 = memoize((viewName, intervalCount) => (getters) => computed(
+  getters, viewName!, () => intervalCount, getters.intervalCount,
+));
+
+const availableViewNames1 = memoize(viewName => ({ availableViewNames }) => availableViewNamesCore(
+  availableViewNames, viewName!,
+));
+
+const currentView1 = memoize(viewName => ({ currentView }) => (
+  currentView && currentView.name !== viewName
+    ? currentView
+    : { name: viewName, type: TYPE }
+));
+
 class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
   state: ViewState = {
     rects: [],
@@ -64,18 +90,6 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
     timeTableRowComponent: 'TimeTableRow',
   };
 
-  scrollingStrategy = memoize((viewName, scrollingStrategy) => (getters) => {
-    return computed(
-      getters, viewName!, () => scrollingStrategy, getters.scrollingStrategy,
-    );
-  });
-
-  timeTableElementsMeta = memoize((viewName, timeTableElementsMeta) => (getters) => {
-    return computed(
-      getters, viewName!, () => timeTableElementsMeta, getters.timeTableElementsMeta,
-    );
-  });
-
   endViewDateComputed: ComputedFn = (getters) => {
     const { name: viewName } = this.props;
     return computed(
@@ -90,32 +104,6 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
     );
   }
 
-  firstDayOfWeek = memoize((viewName, firstDayOfWeek) => (getters) => {
-    return computed(
-      getters, viewName!, () => firstDayOfWeek, getters.firstDayOfWeek,
-    );
-  });
-
-  intervalCount = memoize((viewName, intervalCount) => (getters) => {
-    return computed(
-      getters, viewName!, () => intervalCount, getters.intervalCount,
-    );
-  });
-
-  availableViewNames = memoize(viewName => ({ availableViewNames }) => {
-    return availableViewNamesCore(
-      availableViewNames, viewName!,
-    );
-  });
-
-  currentView = memoize(viewName => ({ currentView }) => {
-    return (
-      currentView && currentView.name !== viewName
-        ? currentView
-        : { name: viewName, type: TYPE }
-    );
-  });
-
   viewCellsDataComputed: ComputedFn = (getters) => {
     const { name: viewName } = this.props;
     return computed(
@@ -126,7 +114,7 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
     );
   }
 
-  calculateRects = memoize((
+  updateRects = memoize((
     appointments, startViewDate, endViewDate, viewCellsData,
   ) => (cellElementsMeta) => {
     const rects = horizontalTimeTableRects(
@@ -161,25 +149,25 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
       <Plugin
         name="MonthView"
       >
-        <Getter name="availableViewNames" computed={this.availableViewNames(viewName)} />
-        <Getter name="currentView" computed={this.currentView(viewName)} />
+        <Getter name="availableViewNames" computed={availableViewNames1(viewName)} />
+        <Getter name="currentView" computed={currentView1(viewName)} />
 
         <Getter
           name="firstDayOfWeek"
-          computed={this.firstDayOfWeek(viewName, firstDayOfWeek)}
+          computed={firstDayOfWeek1(viewName, firstDayOfWeek)}
         />
-        <Getter name="intervalCount" computed={this.intervalCount(viewName, intervalCount)} />
+        <Getter name="intervalCount" computed={intervalCount1(viewName, intervalCount)} />
         <Getter name="viewCellsData" computed={this.viewCellsDataComputed} />
         <Getter name="startViewDate" computed={this.startViewDateComputed} />
         <Getter name="endViewDate" computed={this.endViewDateComputed} />
 
         <Getter
           name="timeTableElementsMeta"
-          computed={this.timeTableElementsMeta(viewName, timeTableElementsMeta)}
+          computed={timeTableElementsMeta1(viewName, timeTableElementsMeta)}
         />
         <Getter
           name="scrollingStrategy"
-          computed={this.scrollingStrategy(viewName, scrollingStrategy)}
+          computed={scrollingStrategy1(viewName, scrollingStrategy)}
         />
 
         <Template name="body">
@@ -219,7 +207,7 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
               appointments, startViewDate, endViewDate, currentView, viewCellsData, formatDate,
             }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
-              const setRects = this.calculateRects(
+              const setRects = this.updateRects(
                 appointments, startViewDate, endViewDate, viewCellsData,
               );
               return (

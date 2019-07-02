@@ -47,6 +47,44 @@ const DayScalePlaceholder = () => <TemplatePlaceholder name="dayScale" />;
 const DayScaleEmptyCellPlaceholder = () => <TemplatePlaceholder name="dayScaleEmptyCell" />;
 const TimeScalePlaceholder = () => <TemplatePlaceholder name="timeScale" />;
 
+const scrollingStrategy1 = memoize((viewName, scrollingStrategy) => (getters) => computed(
+  getters, viewName!, () => scrollingStrategy, getters.scrollingStrategy,
+));
+
+const timeTableElementsMeta1 = memoize((viewName, timeTableElementsMeta) => (getters) => computed(
+    getters, viewName!, () => timeTableElementsMeta, getters.timeTableElementsMeta,
+));
+
+const excludedDays1 = memoize((viewName, excludedDays) => (getters) => computed(
+  getters, viewName!, () => excludedDays, getters.excludedDays,
+));
+
+const firstDayOfWeek1 = memoize((viewName, firstDayOfWeek) => (getters) => computed(
+  getters, viewName!, () => firstDayOfWeek, getters.firstDayOfWeek,
+));
+
+const intervalCount1 = memoize((viewName, intervalCount) => (getters) => computed(
+  getters, viewName!, () => intervalCount, getters.intervalCount,
+));
+
+const viewCellsData1 = memoize((viewName, cellDuration, startDayHour, endDayHour) => getters =>
+computed(
+  getters,
+  viewName,
+  viewCellsDataBaseComputed(cellDuration, startDayHour, endDayHour),
+  getters.viewCellsData,
+));
+
+const availableViewNames1 = memoize(viewName => ({ availableViewNames }) => availableViewNamesCore(
+  availableViewNames, viewName,
+));
+
+const currentView1 = memoize(viewName => ({ currentView }) => (
+currentView && currentView.name !== viewName
+  ? currentView
+  : { name: viewName, type: TYPE }
+));
+
 class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
   state: ViewState = {
     rects: [],
@@ -85,45 +123,6 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
     timeTableRowComponent: 'TimeTableRow',
   };
 
-  scrollingStrategy = memoize((viewName, scrollingStrategy) => (getters) => {
-    return computed(
-      getters, viewName!, () => scrollingStrategy, getters.scrollingStrategy,
-    );
-  });
-
-  timeTableElementsMeta = memoize((viewName, timeTableElementsMeta) => (getters) => {
-    return computed(
-      getters, viewName!, () => timeTableElementsMeta, getters.timeTableElementsMeta,
-    );
-  });
-
-  excludedDays = memoize((viewName, excludedDays) => (getters) => {
-    return computed(
-      getters, viewName!, () => excludedDays, getters.excludedDays,
-    );
-  });
-
-  firstDayOfWeek = memoize((viewName, firstDayOfWeek) => (getters) => {
-    return computed(
-      getters, viewName!, () => firstDayOfWeek, getters.firstDayOfWeek,
-    );
-  });
-
-  intervalCount = memoize((viewName, intervalCount) => (getters) => {
-    return computed(
-      getters, viewName!, () => intervalCount, getters.intervalCount,
-    );
-  });
-
-  viewCellsData = memoize((viewName, cellDuration, startDayHour, endDayHour) => (getters) => {
-    return computed(
-      getters,
-      viewName,
-      viewCellsDataBaseComputed(cellDuration, startDayHour, endDayHour),
-      getters.viewCellsData,
-    );
-  });
-
   endViewDateComputed: ComputedFn = (getters) => {
     const { name: viewName } = this.props;
     return computed(
@@ -138,21 +137,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
     );
   }
 
-  availableViewNames = memoize(viewName => ({ availableViewNames }) => {
-    return availableViewNamesCore(
-      availableViewNames, viewName,
-    );
-  });
-
-  currentView = memoize(viewName => ({ currentView }) => {
-    return (
-    currentView && currentView.name !== viewName
-      ? currentView
-      : { name: viewName, type: TYPE }
-    );
-  });
-
-  calculateRects = memoize((
+  updateRects = memoize((
     appointments, startViewDate, endViewDate, excludedDays, viewCellsData, cellDuration,
   ) => (cellElementsMeta) => {
     const rects = verticalTimeTableRects(
@@ -195,29 +180,29 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
       <Plugin
         name="WeekView"
       >
-        <Getter name="availableViewNames" computed={this.availableViewNames(viewName)} />
-        <Getter name="currentView" computed={this.currentView(viewName)} />
+        <Getter name="availableViewNames" computed={availableViewNames1(viewName)} />
+        <Getter name="currentView" computed={currentView1(viewName)} />
 
-        <Getter name="intervalCount" computed={this.intervalCount(viewName, intervalCount)} />
+        <Getter name="intervalCount" computed={intervalCount1(viewName, intervalCount)} />
         <Getter
           name="firstDayOfWeek"
-          computed={this.firstDayOfWeek(viewName, firstDayOfWeek)}
+          computed={firstDayOfWeek1(viewName, firstDayOfWeek)}
         />
-        <Getter name="excludedDays" computed={this.excludedDays(viewName, excludedDays)} />
+        <Getter name="excludedDays" computed={excludedDays1(viewName, excludedDays)} />
         <Getter
           name="viewCellsData"
-          computed={this.viewCellsData(viewName, cellDuration, startDayHour, endDayHour)}
+          computed={viewCellsData1(viewName, cellDuration, startDayHour, endDayHour)}
         />
         <Getter name="startViewDate" computed={this.startViewDateComputed} />
         <Getter name="endViewDate" computed={this.endViewDateComputed} />
 
         <Getter
           name="timeTableElementsMeta"
-          computed={this.timeTableElementsMeta(viewName, timeTableElementsMeta)}
+          computed={timeTableElementsMeta1(viewName, timeTableElementsMeta)}
         />
         <Getter
           name="scrollingStrategy"
-          computed={this.scrollingStrategy(viewName, scrollingStrategy)}
+          computed={scrollingStrategy1(viewName, scrollingStrategy)}
         />
 
         <Template name="body">
@@ -290,7 +275,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
               appointments, startViewDate, endViewDate,
             }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
-              const setRects = this.calculateRects(
+              const setRects = this.updateRects(
                 appointments, startViewDate, endViewDate, excludedDays, viewCellsData, cellDuration,
               );
 

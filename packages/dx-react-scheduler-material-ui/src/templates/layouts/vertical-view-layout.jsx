@@ -31,12 +31,14 @@ class VerticalViewLayoutBase extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { setScrollingStrategy } = this.props;
-
-    setScrollingStrategy(scrollingStrategy(this.layout.current, this.layoutHeader.current));
+    this.setScrollingStrategy();
   }
 
   componentDidUpdate() {
+    this.setScrollingStrategy();
+  }
+
+  setScrollingStrategy() {
     const { setScrollingStrategy } = this.props;
 
     setScrollingStrategy(scrollingStrategy(this.layout.current, this.layoutHeader.current));

@@ -77,10 +77,10 @@ export type DateTimeFormatInstanceFn = (
   locale: string | string[], formatOptions: Intl.DateTimeFormatOptions,
 ) => Intl.DateTimeFormat;
 
-/** Current view propeties passed to a component that renders the view switcher. */
+/** Describes a current view object. */
 export interface CurrentView {
   /** View's unique identifier. */
   name: string;
-  /** View's name. */
+  /** View's visible name. */
   displayName: string;
 }

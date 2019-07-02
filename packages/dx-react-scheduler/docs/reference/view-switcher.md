@@ -43,12 +43,12 @@ onChange | (nextViewName: string) => void | A function that handles changes to t
 
 ### CurrentView
 
-Current view propeties passed to a component that renders the view switcher.
+Describes a current view object.
 
 Field | Type | Description
 ------|------|------------
 name | string | View's unique identifier.
-displayName | string | View's name.
+displayName | string | View's visible name.
 
 ## Plugin Components
 

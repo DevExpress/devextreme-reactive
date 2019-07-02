@@ -3,7 +3,7 @@ import { FormatterFn, ElementRect } from '@devexpress/dx-scheduler-core';
 export interface VerticalViewProps {
   /** The view unique identifier. */
   name?: string;
-  /** The view name. Required if you need the name to be different from identifier. Default value is equal to name. */
+  /** The view name used in UI plugins. */
   displayName?: string;
   /** Multiplies the default view interval. */
   intervalCount?: number;

@@ -22,7 +22,7 @@ In uncontrolled mode, use the `ViewState` plugin's `defaultCurrentViewName` prop
 
 ### Controlled Mode
 
-In controlled mode, use the `ViewState` plugin's `currentViewName` property to specify the view and handle the `onCurrentViewNameChange` event to control the view's state externally. In order to specify the view's unique identifier, use the `DayViews`'s, `WeekViews`'s and `MonthView`'s `name`property. To specify the view's name use `displayName` property:
+In controlled mode, use the `ViewState` plugin's `currentViewName` property to specify the view and handle the `onCurrentViewNameChange` event to control the view's state externally. In order to specify the view's unique identifier, use the `name` property. To specify the view's visible name use `displayName` property:
 
 .embedded-demo({ "path": "scheduler-view-switcher/controlled", "showThemeSelector": true })
 

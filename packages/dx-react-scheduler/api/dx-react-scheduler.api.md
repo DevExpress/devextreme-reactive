@@ -274,11 +274,9 @@ export type ClientOffset = {
   y: number;
 };
 
-// @public (undocumented)
+// @public
 export interface CurrentView {
-  // (undocumented)
   displayName: string;
-  // (undocumented)
   name: string;
 }
 
@@ -636,17 +634,14 @@ export const ViewSwitcher: React.ComponentType<ViewSwitcherProps>;
 // @public (undocumented)
 export namespace ViewSwitcher {
   export interface SwitcherProps {
-    // (undocumented)
     availableViews: CurrentView_2[];
     currentView: CurrentView_2;
-    // (undocumented)
     onChange: (nextViewName: string) => void;
   }
 }
 
 // @public (undocumented)
 export interface ViewSwitcherProps {
-  // (undocumented)
   switcherComponent: React.ComponentType<ViewSwitcher.SwitcherProps>;
 }
 

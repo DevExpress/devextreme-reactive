@@ -27,7 +27,7 @@ none
 Name | Type | Default | Description
 -----|------|---------|------------
 name? | string | `Day` | The view unique identifier. Required if you use several `MonthView` plugins.
-displayName | string |  | The view name. Required if you need the name to be different from identifier. Default value is equal to name.
+displayName? | string |  | The view name used in UI plugins. Default value is equal to `name`.
 firstDayOfWeek? | number | 0 | Specifies first day of week.
 intervalCount? | number | 1 | Multiplies the default view interval.
 layoutComponent | ComponentType&lt;[MonthView.LayoutProps](#monthviewlayoutprops)&gt; | | A component that renders a month view layout.

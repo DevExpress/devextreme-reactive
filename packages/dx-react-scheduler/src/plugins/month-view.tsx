@@ -17,7 +17,7 @@ import {
   getAppointmentStyle,
   getHorizontalRectByDates,
   endViewDate as endViewDateCore,
-  availableViewNames as availableViewsCore,
+  availableViews as availableViewsCore,
   HORIZONTAL_TYPE,
 } from '@devexpress/dx-scheduler-core';
 import { memoize } from '@devexpress/dx-core';

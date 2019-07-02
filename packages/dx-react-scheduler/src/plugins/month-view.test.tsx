@@ -10,6 +10,7 @@ import {
   getHorizontalRectByDates,
   calculateMonthDateIntervals,
   monthCellsData,
+  availableViews,
 } from '@devexpress/dx-scheduler-core';
 import { MonthView } from './month-view';
 
@@ -18,7 +19,7 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
   computed: jest.fn(),
   viewCellsData: jest.fn(),
   startViewDate: jest.fn(),
-  availableViewNames: jest.fn(),
+  availableViews: jest.fn(),
   endViewDate: jest.fn(),
   getHorizontalRectByDates: jest.fn(),
   calculateMonthDateIntervals: jest.fn(),
@@ -212,6 +213,23 @@ describe('Month View', () => {
 
       expect(getComputedState(tree).currentView)
         .toEqual({ name: 'Month', type: 'month', displayName: userDisplayName });
+    });
+
+    it('should provide "availableViews" getter', () => {
+      availableViews.mockImplementation(() => 'availableViews');
+      const viewName = 'Custom Month';
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <MonthView
+            name={viewName}
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).availableViews)
+        .toEqual('availableViews');
     });
 
     it('should calculate the "currentView" getter if there aren\'t any views before', () => {

@@ -16,7 +16,7 @@ import {
   getVerticalRectByDates,
   startViewDate as startViewDateCore,
   endViewDate as endViewDateCore,
-  availableViewNames as availableViewsCore,
+  availableViews as availableViewsCore,
   VERTICAL_TYPE,
   getAppointmentStyle,
 } from '@devexpress/dx-scheduler-core';

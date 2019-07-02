@@ -9,6 +9,7 @@ import {
   endViewDate,
   calculateRectByDateIntervals,
   calculateWeekDateIntervals,
+  availableViews,
 } from '@devexpress/dx-scheduler-core';
 import { DayView } from './day-view';
 
@@ -18,7 +19,7 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
   viewCellsData: jest.fn(),
   startViewDate: jest.fn(),
   endViewDate: jest.fn(),
-  availableViewNames: jest.fn(),
+  availableViews: jest.fn(),
   calculateRectByDateIntervals: jest.fn(),
   calculateWeekDateIntervals: jest.fn(),
 }));
@@ -210,6 +211,23 @@ describe('Day View', () => {
 
       expect(getComputedState(tree).currentView)
         .toEqual({ name: 'Day', type: 'day', displayName: userDisplayName });
+    });
+
+    it('should provide "availableViews" getter', () => {
+      availableViews.mockImplementation(() => 'availableViews');
+      const viewName = 'Custom Month';
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <DayView
+            name={viewName}
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).availableViews)
+        .toEqual('availableViews');
     });
 
     it('should provide "timeTableElement" getter', () => {

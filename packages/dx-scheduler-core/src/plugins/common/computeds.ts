@@ -54,7 +54,7 @@ export const timeScale: TimeScaleFn = (
   return result;
 };
 
-export const availableViewNames: PureComputed<
+export const availableViews: PureComputed<
   [CurrentView[], string, string], CurrentView[]
 > = (views, viewName, viewDisplayName) => {
   if (!views) return [{ name: viewName, displayName: viewDisplayName }];

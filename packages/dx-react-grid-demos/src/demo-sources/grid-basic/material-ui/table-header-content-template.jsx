@@ -15,7 +15,7 @@ import {
 
 const styles = theme => ({
   button: {
-    margin: `0 ${theme.spacing.unit}px`,
+    margin: theme.spacing(0, 1),
   },
 });
 

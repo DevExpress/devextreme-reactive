@@ -9,6 +9,7 @@ const styles = ({ palette, spacing }) => ({
     border: 'none',
     cursor: 'pointer',
     padding: 0,
+    height: spacing(6),
     textAlign: 'center',
     verticalAlign: 'middle',
     '&:last-child': {
@@ -22,8 +23,8 @@ const styles = ({ palette, spacing }) => ({
     background: palette.primary.main,
     color: palette.primary.contrastText,
     display: 'inline-block',
-    width: `${spacing.unit * 4}px`,
-    lineHeight: `${spacing.unit * 4}px`,
+    width: `${spacing(4)}px`,
+    lineHeight: `${spacing(4)}px`,
     borderRadius: '50%',
     cursor: 'default',
   },

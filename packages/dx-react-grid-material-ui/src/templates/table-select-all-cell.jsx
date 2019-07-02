@@ -9,15 +9,15 @@ const styles = theme => ({
   cell: {
     overflow: 'visible',
     paddingRight: 0,
-    paddingLeft: theme.spacing.unit,
+    paddingLeft: theme.spacing(1),
     textAlign: 'center',
   },
   checkbox: {
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
   },
   alignWithRowSpan: {
     verticalAlign: 'bottom',
-    paddingBottom: theme.spacing.unit / 2,
+    paddingBottom: theme.spacing(0.5),
   },
   pointer: {
     cursor: 'pointer',

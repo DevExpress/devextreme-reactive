@@ -13,8 +13,8 @@ const styles = theme => ({
     display: 'inline-block',
   },
   column: {
-    paddingLeft: theme.spacing.unit * 2,
-    paddingRight: theme.spacing.unit * 2,
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
     float: 'right',
     cursor: 'move',
   },

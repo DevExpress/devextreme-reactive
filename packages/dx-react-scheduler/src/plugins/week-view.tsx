@@ -210,7 +210,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
       displayName,
     } = this.props;
     const { rects } = this.state;
-    const viewDisplayName = displayName ? displayName : viewName;
+    const viewDisplayName = displayName || viewName;
 
     return (
       <Plugin

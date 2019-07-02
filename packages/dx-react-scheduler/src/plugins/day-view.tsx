@@ -200,7 +200,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
       displayName,
     } = this.props;
     const { rects } = this.state;
-    const viewDisplayName = displayName ? displayName : viewName;
+    const viewDisplayName = displayName || viewName;
 
     return (
       <Plugin

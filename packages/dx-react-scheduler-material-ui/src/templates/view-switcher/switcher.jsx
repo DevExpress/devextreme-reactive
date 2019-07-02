@@ -4,6 +4,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import { withStyles } from '@material-ui/core/styles';
+import { CurrentView } from '@devexpress/dx-scheduler-core';
 
 const styles = ({ spacing, typography }) => ({
   root: {
@@ -43,13 +44,13 @@ const SwitcherBase = ({
       )}
       {...restProps}
     >
-      {availableViews.map(view => (
+      {availableViews.map(({ name, displayName }) => (
         <MenuItem
-          value={view.name}
-          key={view.name}
+          value={name}
+          key={name}
           className={classes.menuItem}
         >
-          {view.displayName}
+          {displayName}
         </MenuItem>
       ))}
     </Select>
@@ -59,12 +60,11 @@ const SwitcherBase = ({
 SwitcherBase.propTypes = {
   onChange: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
-  currentView: PropTypes.object,
-  availableViews: PropTypes.arrayOf(PropTypes.object),
+  currentView: PropTypes.instanceOf(CurrentView).isRequired,
+  availableViews: PropTypes.arrayOf(PropTypes.instanceOf(CurrentView)),
 };
 
 SwitcherBase.defaultProps = {
-  currentView: undefined,
   availableViews: [],
 };
 

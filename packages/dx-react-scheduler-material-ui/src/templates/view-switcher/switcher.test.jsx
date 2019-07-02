@@ -36,7 +36,13 @@ describe('ViewSwitcher', () => {
     });
     it('should render items depend of available view names', () => {
       const tree = shallow((
-        <Switcher {...defaultProps} availableViews={['Week', 'Month']} />
+        <Switcher
+          {...defaultProps}
+          availableViews={[
+            { name: 'Week', displayName: 'Week' },
+            { name: 'Month', displayName: 'Month' },
+          ]}
+        />
       ));
 
       expect(tree.find(MenuItem))

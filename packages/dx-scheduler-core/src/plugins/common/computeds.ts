@@ -56,14 +56,14 @@ export const timeScale: TimeScaleFn = (
 
 export const availableViewNames: PureComputed<
   [CurrentView[], string, string], CurrentView[]
-> = (viewNames, viewName, viewDisplayName) => {
-  if (!viewNames) return [{ name: viewName, displayName: viewDisplayName }];
-  if (viewNames.findIndex(view => viewName === view.name) === -1) {
-    const nextViewNames = viewNames.slice();
-    nextViewNames.push({ name: viewName, displayName: viewDisplayName });
-    return nextViewNames;
+> = (views, viewName, viewDisplayName) => {
+  if (!views) return [{ name: viewName, displayName: viewDisplayName }];
+  if (views.findIndex(view => viewName === view.name) === -1) {
+    const nextViews = views.slice();
+    nextViews.push({ name: viewName, displayName: viewDisplayName });
+    return nextViews;
   }
-  return viewNames;
+  return views;
 };
 
 export const viewCellsData: ViewCellsDataFn = (

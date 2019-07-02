@@ -12,6 +12,10 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   attachEvents: jest.fn(),
   detachEvents: jest.fn(),
   getRect: jest.fn(),
+  getOffset: jest.fn(),
+  getEventCoords: jest.fn(),
+  isKeyPressed: jest.fn(),
+  isMultiTouch: jest.fn(),
 }));
 
 const DragBoxComponent = () => null;
@@ -23,6 +27,9 @@ describe('ZoomAndPan', () => {
       ranges: 'test-ranges',
       rootRef: {
         current: {},
+      },
+      layouts: {
+        pane: {},
       },
     },
   };
@@ -88,5 +95,20 @@ describe('ZoomAndPan', () => {
 
     tree.unmount();
     expect(detachEvents).toBeCalledTimes(3);
+  });
+
+  it('should call "preventDefault" in "start" handler', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <ZoomAndPan  {...defaultProps} />
+      </PluginHost>
+    ));
+    const preventDefault = jest.fn();
+    const { onStart } = tree.find('ZoomPanProvider').props() as any;
+
+    onStart({ preventDefault });
+
+    expect(preventDefault).toBeCalled();
   });
 });

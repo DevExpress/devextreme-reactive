@@ -9,6 +9,7 @@ import { getBorder } from '../../../utils';
 
 const styles = theme => ({
   cell: {
+    userSelect: 'none',
     verticalAlign: 'top',
     padding: 0,
     height: 100,
@@ -22,14 +23,14 @@ const styles = theme => ({
     },
   },
   text: {
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
   },
   today: {
-    margin: theme.spacing.unit / 2,
+    margin: theme.spacing(0.5),
     display: 'inline-block',
-    width: `${theme.spacing.unit * 3}px`,
-    height: `${theme.spacing.unit * 3}px`,
-    lineHeight: `${theme.spacing.unit * 3}px`,
+    width: theme.spacing(3),
+    height: theme.spacing(3),
+    lineHeight: theme.spacing(3),
     textAlign: 'center',
     borderRadius: '50%',
     background: theme.palette.primary.main,

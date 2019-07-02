@@ -7,9 +7,10 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = theme => ({
   cell: {
     cursor: 'pointer',
-    paddingLeft: theme.spacing.unit,
-    paddingRight: theme.spacing.unit,
-    paddingTop: (theme.spacing.unit / 2) - 1,
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
+    paddingTop: theme.spacing(0.5),
+    paddingBottom: theme.spacing(0.5),
   },
 });
 
@@ -51,9 +52,10 @@ const CellBase = ({
 };
 
 CellBase.propTypes = {
-  contentComponent: PropTypes.func.isRequired,
-  iconComponent: PropTypes.func.isRequired,
-  containerComponent: PropTypes.func.isRequired,
+  // oneOfType is a workaround because withStyles returns react object
+  contentComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  iconComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  containerComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   style: PropTypes.object,
   colSpan: PropTypes.number,
   row: PropTypes.any,

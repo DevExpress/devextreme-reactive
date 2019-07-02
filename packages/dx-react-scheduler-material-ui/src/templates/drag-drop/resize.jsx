@@ -9,12 +9,12 @@ import {
 
 const verticalStyles = spacing => ({
   width: '100%',
-  height: spacing.unit,
+  height: spacing(1),
   cursor: 'ns-resize',
 });
 
 const horizontalStyles = spacing => ({
-  width: spacing.unit,
+  width: spacing(1),
   height: '100%',
   cursor: 'ew-resize',
 });

@@ -3,7 +3,6 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import TableMUI from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
-import RootRef from '@material-ui/core/RootRef';
 import { withStyles } from '@material-ui/core/styles';
 import { cellsMeta } from '../../../utils';
 
@@ -48,43 +47,43 @@ class LayoutBase extends React.PureComponent {
     } = this.props;
 
     return (
-      <RootRef rootRef={this.table}>
-        <TableMUI
-          className={classNames(classes.table, className)}
-          {...restProps}
-        >
-          <TableBody>
-            {cellsData.map(row => (
-              <Row key={row[0].startDate.toString()}>
-                {row.map(({
-                  startDate,
-                  endDate,
-                  today,
-                  otherMonth,
-                }) => (
-                  <Cell
-                    key={startDate}
-                    startDate={startDate}
-                    endDate={endDate}
-                    today={today}
-                    otherMonth={otherMonth}
-                    formatDate={formatDate}
-                  />
-                ))}
-              </Row>
-            ))}
-          </TableBody>
-        </TableMUI>
-      </RootRef>
+      <TableMUI
+        ref={this.table}
+        className={classNames(classes.table, className)}
+        {...restProps}
+      >
+        <TableBody>
+          {cellsData.map(row => (
+            <Row key={row[0].startDate.toString()}>
+              {row.map(({
+                startDate,
+                endDate,
+                today,
+                otherMonth,
+              }) => (
+                <Cell
+                  key={startDate}
+                  startDate={startDate}
+                  endDate={endDate}
+                  today={today}
+                  otherMonth={otherMonth}
+                  formatDate={formatDate}
+                />
+              ))}
+            </Row>
+          ))}
+        </TableBody>
+      </TableMUI>
     );
   }
 }
 
 LayoutBase.propTypes = {
+  // oneOfType is a workaround because withStyles returns react object
   cellsData: PropTypes.arrayOf(Array).isRequired,
   classes: PropTypes.object.isRequired,
-  cellComponent: PropTypes.func.isRequired,
-  rowComponent: PropTypes.func.isRequired,
+  cellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  rowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   formatDate: PropTypes.func.isRequired,
   setCellElementsMeta: PropTypes.func.isRequired,
   className: PropTypes.string,

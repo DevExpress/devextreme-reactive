@@ -115,6 +115,12 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
   }
 
   handleStart(zoomRegionKey: string, e: any) {
+    // Default browser behavior is prevented in "move" handler. It is not enough for IPad.
+    // Calling "preventDefault" here (on "start") works for IPad.
+    // Going further, since we have to call "preventDefault" on "start" we may try to get rid of
+    // "preventDefault" on move.
+    // TODO: Try to remove "preventDefault" from "move" handler.
+    e.preventDefault();
     this.offset = getOffset(e.currentTarget);
     const coords = getEventCoords(e, this.offset);
       // Rectangle mode should be canceled if "zoomRegionKey" is released during mouse movevent or

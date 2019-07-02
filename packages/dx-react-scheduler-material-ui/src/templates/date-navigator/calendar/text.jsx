@@ -7,6 +7,7 @@ import { MONTH_YEAR_OPTIONS } from '@devexpress/dx-scheduler-core';
 
 const styles = {
   text: {
+    userSelect: 'none',
     flex: 1,
     textAlign: 'center',
   },

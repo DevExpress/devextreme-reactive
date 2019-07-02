@@ -10,10 +10,10 @@ describe('Appointment Form', () => {
   describe('Popup', () => {
     it('should pass rest props to the root element', () => {
       const tree = shallow((
-        <Popup className="custom-class"><div /></Popup>
+        <Popup className="custom-class" visible><div /></Popup>
       ));
 
-      expect(tree.is('.custom-class'))
+      expect(tree.find('.custom-class').exists())
         .toBeTruthy();
     });
   });

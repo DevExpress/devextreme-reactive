@@ -3,7 +3,6 @@ import * as PropTypes from 'prop-types';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import { withStyles } from '@material-ui/core/styles';
-import RootRef from '@material-ui/core/RootRef';
 import classNames from 'classnames';
 import { cellsMeta } from '../utils';
 
@@ -47,27 +46,26 @@ class LayoutBase extends React.PureComponent {
     } = this.props;
 
     return (
-      <RootRef rootRef={this.table}>
-        <Table
-          className={classNames(classes.table, className)}
-          {...restProps}
-        >
-          <TableBody>
-            <Row>
-              {cellsData.map(({
-                startDate,
-                endDate,
-              }) => (
-                <Cell
-                  key={startDate}
-                  startDate={startDate}
-                  endDate={endDate}
-                />
-              ))}
-            </Row>
-          </TableBody>
-        </Table>
-      </RootRef>
+      <Table
+        ref={this.table}
+        className={classNames(classes.table, className)}
+        {...restProps}
+      >
+        <TableBody>
+          <Row>
+            {cellsData.map(({
+              startDate,
+              endDate,
+            }) => (
+              <Cell
+                key={startDate}
+                startDate={startDate}
+                endDate={endDate}
+              />
+            ))}
+          </Row>
+        </TableBody>
+      </Table>
     );
   }
 }

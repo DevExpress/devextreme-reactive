@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { AUTO_HEIGHT } from '@devexpress/dx-scheduler-core';
-import RootRef from '@material-ui/core/RootRef';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import { scrollingStrategy } from '../utils';
@@ -18,7 +17,7 @@ const styles = theme => ({
     overflow: 'visible',
     background: theme.palette.background.paper,
   },
-  main: {
+  timeTable: {
     position: 'relative',
   },
 });
@@ -45,8 +44,8 @@ class HorizontalViewLayoutBase extends React.PureComponent {
 
   render() {
     const {
-      dayScaleComponent: Navbar,
-      timeTableComponent: Main,
+      dayScaleComponent: DayScale,
+      timeTableComponent: TimeTable,
       classes,
       height,
     } = this.props;
@@ -54,37 +53,36 @@ class HorizontalViewLayoutBase extends React.PureComponent {
     const containerStyle = height === AUTO_HEIGHT ? { height: '100%' } : { height: `${height}px` };
 
     return (
-      <RootRef rootRef={this.layout}>
+      <Grid
+        ref={this.layout}
+        className={classes.container}
+        container
+        direction="column"
+        wrap="nowrap"
+        style={containerStyle}
+      >
         <Grid
-          className={classes.container}
-          container
-          direction="column"
-          wrap="nowrap"
-          style={containerStyle}
+          ref={this.layoutHeader}
+          item
+          className={classes.stickyHeader}
         >
-          <RootRef rootRef={this.layoutHeader}>
-            <Grid
-              item
-              className={classes.stickyHeader}
-            >
-              <Navbar />
-            </Grid>
-          </RootRef>
-          <Grid
-            item
-            className={classes.main}
-          >
-            <Main />
-          </Grid>
+          <DayScale />
         </Grid>
-      </RootRef>
+        <Grid
+          item
+          className={classes.timeTable}
+        >
+          <TimeTable />
+        </Grid>
+      </Grid>
     );
   }
 }
 
 HorizontalViewLayoutBase.propTypes = {
-  dayScaleComponent: PropTypes.func.isRequired,
-  timeTableComponent: PropTypes.func.isRequired,
+  // oneOfType is a workaround because withStyles returns react object
+  dayScaleComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  timeTableComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   setScrollingStrategy: PropTypes.func.isRequired,
   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   classes: PropTypes.object.isRequired,

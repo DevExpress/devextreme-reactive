@@ -1,22 +1,25 @@
 import {
-  isHorizontal, getWidth, getValueDomainName, fixOffset,
+  isHorizontal, getWidth, getValueDomainName,
   scaleLinear, scaleBand, makeScale, scaleBounds,
   moveBounds, growBounds, invertBoundsRange,
 } from './scale';
 
 jest.mock('d3-scale', () => ({
-  scaleLinear: () => ({ tag: 'scale-linear' }),
+  scaleLinear: () => {
+    const ret = jest.fn().mockReturnValue(10) as any;
+    ret.tag = 'scale-linear';
+    ret.domain = jest.fn().mockReturnThis();
+    ret.range = jest.fn().mockReturnThis();
+    return ret;
+  },
   scaleBand: () => {
-    const ret = { tag: 'scale-band' } as any;
-    ret.paddingInner = (value) => {
-      ret.inner = value;
-      return ret;
-    };
-    ret.paddingOuter = (value) => {
-      ret.outer = value;
-      return ret;
-    };
-    ret.bandwidth = () => 0;
+    const ret = jest.fn().mockReturnValue(10) as any;
+    ret.tag = 'scale-band';
+    ret.domain = jest.fn().mockReturnThis();
+    ret.range = jest.fn().mockReturnThis();
+    ret.paddingInner = jest.fn().mockReturnThis();
+    ret.paddingOuter = jest.fn().mockReturnThis();
+    ret.bandwidth = jest.fn();
     return ret;
   },
 }));
@@ -26,7 +29,7 @@ const realD3 = require.requireActual('d3-scale');
 const matchFloat = (expected: number) => ({
   $$typeof: Symbol.for('jest.asymmetricMatcher'),
 
-  asymmetricMatch: actual => Math.abs(actual - expected) < 0.01,
+  asymmetricMatch: (actual: number) => Math.abs(actual - expected) < 0.01,
 
   toAsymmetricMatcher: () => `~${expected}`,
 });
@@ -62,36 +65,34 @@ describe('#getValueDomainName', () => {
   });
 });
 
-describe('#fixOffset', () => {
-  it('should return original linear scale', () => {
-    const mock = () => 0;
-    expect(fixOffset(mock as any)).toBe(mock);
-  });
-
-  it('should return wrapped band scale', () => {
-    const mock = x => x * 2;
-    mock.bandwidth = () => 4;
-    const wrapped = fixOffset(mock as any);
-    expect(wrapped).not.toBe(mock);
-    expect(wrapped(0)).toEqual(2);
-    expect(wrapped(3)).toEqual(8);
-  });
-});
-
 describe('default scales', () => {
   it('should provide linear scale', () => {
-    expect(scaleLinear()).toEqual({ tag: 'scale-linear' });
+    const scale = scaleLinear() as any;
+
+    expect(scale).toEqual(expect.any(Function));
+    expect(scale.tag).toEqual('scale-linear');
   });
 
   it('should provide band scale', () => {
-    expect(scaleBand()).toEqual({
-      tag: 'scale-band',
-      inner: 0.3,
-      outer: 0.15,
-      paddingInner: expect.any(Function),
-      paddingOuter: expect.any(Function),
-      bandwidth: expect.any(Function),
-    });
+    const scale = scaleBand() as any;
+
+    expect(scale).toEqual(expect.any(Function));
+    expect(scale.tag).toEqual('scale-band');
+    expect(scale.paddingInner).toBeCalledWith(0.3);
+    expect(scale.paddingOuter).toBeCalledWith(0.15);
+    expect(scale.bandwidth).toEqual(expect.any(Function));
+  });
+
+  it('should handle center offset for band scale', () => {
+    const scale = makeScale({
+      factory: () => {
+        const ret: any = scaleBand();
+        ret.bandwidth.mockReturnValue(4);
+        return ret;
+      },
+    } as any, [1, 2]);
+
+    expect(scale('test')).toEqual(12);
   });
 });
 

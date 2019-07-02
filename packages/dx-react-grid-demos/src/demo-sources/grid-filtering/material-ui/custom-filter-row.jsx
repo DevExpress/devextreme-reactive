@@ -22,10 +22,10 @@ import {
 const styles = theme => ({
   cell: {
     width: '100%',
-    paddingLeft: theme.spacing.unit,
-    paddingRight: theme.spacing.unit,
+    padding: theme.spacing(1),
   },
   input: {
+    fontSize: '14px',
     width: '100%',
   },
 });

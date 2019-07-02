@@ -4,7 +4,6 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
-import RootRef from '@material-ui/core/RootRef';
 import { cellsMeta } from '../../../utils';
 
 const styles = {
@@ -48,35 +47,35 @@ class LayoutBase extends React.PureComponent {
     } = this.props;
 
     return (
-      <RootRef rootRef={this.table}>
-        <Table
-          className={classNames(classes.table, className)}
-          {...restProps}
-        >
-          <TableBody>
-            {cellsData.map((days, index) => (
-              <Row key={index.toString()}>
-                {days.map(({ startDate, endDate }) => (
-                  <Cell
-                    key={startDate}
-                    startDate={startDate}
-                    endDate={endDate}
-                  />
-                ))}
-              </Row>
-            ))}
-          </TableBody>
-        </Table>
-      </RootRef>
+      <Table
+        ref={this.table}
+        className={classNames(classes.table, className)}
+        {...restProps}
+      >
+        <TableBody>
+          {cellsData.map((days, index) => (
+            <Row key={index.toString()}>
+              {days.map(({ startDate, endDate }) => (
+                <Cell
+                  key={startDate}
+                  startDate={startDate}
+                  endDate={endDate}
+                />
+              ))}
+            </Row>
+          ))}
+        </TableBody>
+      </Table>
     );
   }
 }
 
 LayoutBase.propTypes = {
+  // oneOfType is a workaround because withStyles returns react object
   classes: PropTypes.object.isRequired,
   cellsData: PropTypes.arrayOf(Array).isRequired,
-  cellComponent: PropTypes.func.isRequired,
-  rowComponent: PropTypes.func.isRequired,
+  cellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  rowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   formatDate: PropTypes.func.isRequired,
   setCellElementsMeta: PropTypes.func.isRequired,
   className: PropTypes.string,

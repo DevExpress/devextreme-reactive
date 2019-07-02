@@ -17,7 +17,7 @@ const styles = theme => ({
     padding: 0,
   },
   text: {
-    paddingTop: theme.spacing.unit,
+    paddingTop: theme.spacing(1),
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',

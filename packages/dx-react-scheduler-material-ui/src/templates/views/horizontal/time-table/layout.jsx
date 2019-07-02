@@ -28,6 +28,7 @@ const LayoutBase = React.memo(({
     setCellElements={setCellElements}
   >
     <TableMUI
+      ref={tableRef}
       className={classNames(classes.table, className)}
       {...restProps}
     >
@@ -57,10 +58,11 @@ const LayoutBase = React.memo(({
 ));
 
 LayoutBase.propTypes = {
+  // oneOfType is a workaround because withStyles returns react object
   cellsData: PropTypes.arrayOf(Array).isRequired,
   classes: PropTypes.object.isRequired,
-  cellComponent: PropTypes.func.isRequired,
-  rowComponent: PropTypes.func.isRequired,
+  cellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  rowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   formatDate: PropTypes.func.isRequired,
   tableRef: PropTypes.object.isRequired,
   setCellElements: PropTypes.func.isRequired,

@@ -16,7 +16,9 @@ export const scaleBand: FactoryFn = () => (
 );
 
 /** @internal */
-export const isHorizontal = (name: string) => name === ARGUMENT_DOMAIN;
+export const isHorizontal = (name: string, rotated: boolean) => (
+  name === ARGUMENT_DOMAIN === !rotated
+);
 
 // tslint:disable-next-line: ban-types
 const makeScaleHelper = <T extends Function>(linear: T, band: T) => {
@@ -73,16 +75,14 @@ const scaleLinearBounds = (scale: ScaleObject, bounds: DomainBounds): NumberArra
 // There is an issue - when range is "inverted" values are scaled incorrectly.
 //   scaleBand().domain(['a', 'b', 'c']).range([0, 60])('b') === 20
 //   scaleBand().domain(['a', 'b', 'c']).range([60, 0])('b') === 20 (should be 40)
-// Because of it bounds for reversed band scale are scaled wrong.
-// Fixing it would introduce an utility "scale" function and complicates the code.
-// Since for now we do not have "reversed" band scales the issue is left as-is.
 const scaleBandBounds = (scale: ScaleObject, bounds: DomainBounds): NumberArray => {
   const cleanScale = scale.copy().paddingInner!(0).paddingOuter!(0);
-  return [cleanScale(bounds[0]), cleanScale(bounds[1]) + cleanScale.bandwidth!()];
+  const fullRange = scale.range();
+  const sign = Math.sign(fullRange[1] - fullRange[0]);
+  return sign >= 0
+    ? [cleanScale(bounds[0]), cleanScale(bounds[1]) + cleanScale.bandwidth!()]
+    : [cleanScale(bounds[0]) + cleanScale.bandwidth!(), cleanScale(bounds[1])];
 };
-
-// Because of "scaleBands" issue moving and growing for "reversed" band scales
-// are not supported now.
 
 const moveLinearScaleBounds = (
   scale: ScaleObject, bounds: DomainBounds, delta: number,
@@ -128,7 +128,7 @@ const adjustBandScaleMoveStep = (delta: number, step: number) => {
   return 0;
 };
 
-// Band case is processed separately to preserve categories amount in the bounds range.
+// Band case is processed separately to preserve categories count in the bounds range.
 // If common inversion mechanism is used start and end bounds cannot be inverted independently
 // because of rounding issues which may add or remove categories to the new bounds.
 const moveBandScaleBounds = (
@@ -250,8 +250,8 @@ const invertBandScaleBounds = (scale: ScaleObject, range: NumberArray): DomainBo
   ];
 };
 
-// Though this function is used only in *Viewport* plugin (and so should be placed right there),
-// it resides here so that internal scale specifics (*getWidth*)
+// Though these functions are used only in *Viewport* plugin (and so should be placed right there),
+// they reside here so that internal scale specifics (*getWidth*)
 // are encapsulated in this utility file.
 /** @internal */
 export const scaleBounds = makeScaleHelper(scaleLinearBounds, scaleBandBounds);

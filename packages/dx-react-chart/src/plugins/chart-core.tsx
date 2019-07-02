@@ -4,7 +4,9 @@ import { buildScales, scaleSeriesPoints } from '@devexpress/dx-chart-core';
 
 const getScales = ({ domains, ranges }: Getters) => buildScales(domains, ranges);
 
-const getSeries = ({ series, scales }: Getters) => scaleSeriesPoints(series, scales);
+const getSeries = ({
+  series, scales, rotated,
+}: Getters) => scaleSeriesPoints(series, scales, rotated);
 
 export class ChartCore extends React.PureComponent {
   render() {

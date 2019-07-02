@@ -1,6 +1,6 @@
 import { isHorizontal } from '../../utils/scale';
 import {
-  LEFT, BOTTOM, MIDDLE, END, START,
+  LEFT, RIGHT, TOP, BOTTOM, MIDDLE, END, START,
 } from '../../constants';
 import {
   ScaleObject, GetFormatFn, ProcessTickFn, TickFormatFn, AxisCoordinatesFn,
@@ -24,6 +24,27 @@ const getFormat = (scale: ScaleObject, count: number, tickFormat?: TickFormatFn)
   }
   return tick => tick;
 };
+
+const rotatedPositions = {
+  [LEFT]: BOTTOM,
+  [RIGHT]: TOP,
+  [BOTTOM]: LEFT,
+  [TOP]: RIGHT,
+};
+
+const positionFlags = {
+  [LEFT]: false,
+  [RIGHT]: false,
+  [BOTTOM]: true,
+  [TOP]: true,
+};
+
+/** @internal */
+export const getRotatedPosition = (position: string) => rotatedPositions[position];
+
+/** @internal */
+export const isValidPosition = (position: string, scaleName: string, rotated: boolean) =>
+  positionFlags[position] === isHorizontal(scaleName, rotated);
 
 const createHorizontalOptions = (position: string, tickSize: number, indentFromAxis: number) => {
   // Make *position* orientation agnostic - should be START or END.
@@ -66,8 +87,9 @@ export const axisCoordinates: AxisCoordinatesFn = ({
   tickFormat,
   indentFromAxis,
   paneSize,
+  rotated,
 })  => {
-  const isHor = isHorizontal(scaleName);
+  const isHor = isHorizontal(scaleName, rotated);
   const options = (isHor ? createHorizontalOptions : createVerticalOptions)(
     position, tickSize, indentFromAxis,
   );
@@ -103,9 +125,9 @@ const verticalGridOptions = { x: 0, dx: 1 };
 
 /** @internal */
 export const getGridCoordinates: GetGridCoordinatesFn = ({
-  scaleName, scale, paneSize,
+  scaleName, scale, paneSize, rotated,
 }) => {
-  const isHor = isHorizontal(scaleName);
+  const isHor = isHorizontal(scaleName, rotated);
   const tickCount = getTickCount(scale.range(), paneSize[1 - Number(isHor)]);
   const options = isHor ? horizontalGridOptions : verticalGridOptions;
   return createTicks(scale, tickCount, (coordinates, key) => ({

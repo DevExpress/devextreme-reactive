@@ -4,7 +4,11 @@ import { TimeTableContainer } from './layout-container';
 
 describe('TableTable common', () => {
   const defaultProps = {
-    tableRef: React.createRef(),
+    tableRef: {
+      current: {
+        querySelectorAll: jest.fn(),
+      },
+    },
     setCellElements: jest.fn(),
   };
   let mount;

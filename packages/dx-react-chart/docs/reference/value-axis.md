@@ -24,7 +24,7 @@ import { ValueAxis } from '@devexpress/dx-react-chart';
 Name | Type | Default | Description
 -----|------|---------|------------
 tickSize? | number | 5 | The tick size.
-position? | 'left' &#124; 'right' | 'left' | The axis position.
+position? | 'bottom' &#124; 'top' &#124; 'left' &#124; 'right' | 'left' | The axis position.
 scaleName? | string | | The scale name.
 indentFromAxis? | number | 10 | The indent from the axis.
 tickFormat? | (scale: [ScaleObject](./argument-scale.md#scaleobject)) => (tick: string) => string  | | A function that returns a tick formatter function.

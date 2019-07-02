@@ -13,7 +13,7 @@ describe('ViewSwitcher', () => {
       currentView: { name: 'Week' },
       availableViews: [
         { name: 'Week', displayName: 'Full week' },
-        { name: 'Month', displayName: 'Full month' }
+        { name: 'Month', displayName: 'Full month' },
       ],
     },
     action: {

@@ -216,7 +216,7 @@ describe('Week View', () => {
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <WeekView
-          displayName={userDisplayName}
+            displayName={userDisplayName}
             {...defaultProps}
           />
         </PluginHost>

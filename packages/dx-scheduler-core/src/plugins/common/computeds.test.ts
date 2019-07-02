@@ -123,15 +123,15 @@ describe('#availableViewNames', () => {
   });
 
   it('should return available view names if view is expected', () => {
-    expect(availableViewNames([{name: 'Month', displayName: undefined}], 'Month', 'Month'))
-      .toEqual([{name: 'Month', displayName: undefined}]);
+    expect(availableViewNames([{ name: 'Month', displayName: undefined }], 'Month', 'Month'))
+      .toEqual([{ name: 'Month', displayName: undefined }]);
   });
 
   it('should return available view names if view is not expected', () => {
-    expect(availableViewNames([{name: 'Week', displayName: 'Week view'}], 'Month', 'Month view'))
+    expect(availableViewNames([{ name: 'Week', displayName: 'Week view' }], 'Month', 'Month view'))
       .toEqual([
-        {name: 'Week', displayName: 'Week view'},
-        {name: 'Month', displayName: 'Month view'},
+        { name: 'Week', displayName: 'Week view' },
+        { name: 'Month', displayName: 'Month view' },
       ]);
   });
 });

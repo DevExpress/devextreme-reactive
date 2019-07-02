@@ -9,6 +9,7 @@ import { getBorder } from '../../../utils';
 
 const styles = theme => ({
   cell: {
+    userSelect: 'none',
     verticalAlign: 'top',
     padding: 0,
     height: 100,

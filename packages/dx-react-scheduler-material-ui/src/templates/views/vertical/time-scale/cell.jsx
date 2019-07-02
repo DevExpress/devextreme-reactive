@@ -7,6 +7,7 @@ import { HOUR_MINUTE_OPTIONS } from '@devexpress/dx-scheduler-core';
 
 const styles = theme => ({
   cell: {
+    userSelect: 'none',
     border: 0,
     height: theme.spacing(12) + 2,
     padding: 0,

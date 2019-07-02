@@ -22,7 +22,7 @@ module.exports = ({ production }) => ({
         include: /(node_modules\/)/,
         use: ["source-map-loader"],
         enforce: "pre",
-        // ignore rrule source maps to avoid console warnings https://github.com/jakubroztocil/rrule/issues/303
+        //ignore rrule source maps to avoid console warnings https://github.com/jakubroztocil/rrule/issues/303
         exclude: /(node_modules\/rrule)/,
       },
       {

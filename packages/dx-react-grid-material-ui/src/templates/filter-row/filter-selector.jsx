@@ -8,7 +8,10 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = ({ spacing }) => ({
   icon: {
-    marginRight: spacing.unit,
+    marginRight: spacing(1),
+  },
+  iconItem: {
+    minWidth: spacing(2),
   },
 });
 
@@ -63,10 +66,13 @@ class FilterSelectorBase extends React.PureComponent {
               selected={valueItem === value}
               onClick={() => this.handleMenuItemClick(valueItem)}
             >
-              <ListItemIcon>
+              <ListItemIcon
+                className={classes.iconItem}
+              >
                 <Icon
                   type={valueItem}
                   className={classes.icon}
+                  fontSize="small"
                 />
               </ListItemIcon>
               <ListItemText>
@@ -86,7 +92,8 @@ FilterSelectorBase.propTypes = {
   onChange: PropTypes.func,
   disabled: PropTypes.bool,
   iconComponent: PropTypes.func.isRequired,
-  toggleButtonComponent: PropTypes.func.isRequired,
+  // oneOfType is a workaround because withStyles returns react object
+  toggleButtonComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   getMessage: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 };

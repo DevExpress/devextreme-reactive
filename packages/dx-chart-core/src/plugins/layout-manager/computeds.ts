@@ -3,7 +3,7 @@ import {
   ARGUMENT_DOMAIN, VALUE_DOMAIN,
 } from '../../constants';
 import {
-  BBoxes, BBoxesChange, RangesCache,
+  BBoxes, BBoxesChange, RangesCache, NumberArray,
 } from '../../types';
 
 const isEqual = (
@@ -18,7 +18,11 @@ export const bBoxes = (prevBBoxes: BBoxes, { bBox, placeholder }: BBoxesChange) 
 };
 
 /** @internal */
-export const getRanges = (paneSize: Size): RangesCache => ({
-  [ARGUMENT_DOMAIN]: [0, paneSize.width],
-  [VALUE_DOMAIN]: [paneSize.height, 0],
-});
+export const getRanges = (paneSize: Size, rotated: boolean): RangesCache => {
+  const horRange: NumberArray = [0, paneSize.width];
+  const verRange: NumberArray = [paneSize.height, 0];
+  return {
+    [ARGUMENT_DOMAIN]: rotated ? verRange : horRange,
+    [VALUE_DOMAIN]: rotated ? horRange : verRange,
+  };
+};

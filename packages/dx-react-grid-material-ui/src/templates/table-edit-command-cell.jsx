@@ -7,22 +7,22 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   button: {
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
     minWidth: 40,
   },
   headingCell: {
     whiteSpace: 'nowrap',
     textAlign: 'center',
-    padding: `0 ${theme.spacing.unit * 2}px 0 ${theme.spacing.unit * 3}px`,
+    padding: theme.spacing(0, 2, 0, 3),
   },
   cell: {
     whiteSpace: 'nowrap',
     textAlign: 'center',
-    padding: `0 ${theme.spacing.unit * 2}px 0 ${theme.spacing.unit * 3}px`,
+    padding: theme.spacing(0, 2, 0, 3),
   },
   alignWithRowSpan: {
     verticalAlign: 'bottom',
-    paddingBottom: theme.spacing.unit * 1.25,
+    paddingBottom: theme.spacing(1.25),
   },
 });
 

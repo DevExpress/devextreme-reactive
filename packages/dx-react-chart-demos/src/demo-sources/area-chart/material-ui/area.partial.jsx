@@ -17,7 +17,7 @@ const legendStyles = {
 };
 const legendLabelStyles = theme => ({
   label: {
-    paddingTop: theme.spacing.unit,
+    paddingTop: theme.spacing(1),
   },
 });
 const legendItemStyles = {

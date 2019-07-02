@@ -7,7 +7,7 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = theme => ({
   root: {
     paddingLeft: 0,
-    height: theme.spacing.unit * 3,
+    height: theme.spacing(3),
     cursor: 'pointer',
   },
   disabled: {

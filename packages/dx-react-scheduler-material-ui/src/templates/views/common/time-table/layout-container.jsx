@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import RootRef from '@material-ui/core/RootRef';
 
 export class TimeTableContainer extends React.Component {
   constructor(props) {
@@ -25,13 +24,9 @@ export class TimeTableContainer extends React.Component {
   }
 
   render() {
-    const { children, tableRef } = this.props;
+    const { children } = this.props;
 
-    return (
-      <RootRef rootRef={tableRef}>
-        {children}
-      </RootRef>
-    );
+    return children;
   }
 }
 

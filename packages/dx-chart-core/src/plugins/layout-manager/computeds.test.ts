@@ -1,4 +1,7 @@
-import { bBoxes } from './computeds';
+import { bBoxes, getRanges } from './computeds';
+import {
+  ARGUMENT_DOMAIN, VALUE_DOMAIN,
+} from '../../constants';
 
 describe('bBoxes', () => {
   it('should set new placeholder bBox', () => {
@@ -24,5 +27,23 @@ describe('bBoxes', () => {
       { placeholder: 'placeholder', bBox: { width: 10, height: 20 } },
     );
     expect(result).toBe(prevState);
+  });
+});
+
+describe('getRanges', () => {
+  it('should create ranges', () => {
+    const result = getRanges({ width: 400, height: 300 }, false);
+    expect(result).toEqual({
+      [ARGUMENT_DOMAIN]: [0, 400],
+      [VALUE_DOMAIN]: [300, 0],
+    });
+  });
+
+  it('should create rotated ranges', () => {
+    const result = getRanges({ width: 400, height: 300 }, true);
+    expect(result).toEqual({
+      [ARGUMENT_DOMAIN]: [300, 0],
+      [VALUE_DOMAIN]: [0, 400],
+    });
   });
 });

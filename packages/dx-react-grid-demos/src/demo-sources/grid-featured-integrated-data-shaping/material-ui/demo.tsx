@@ -50,6 +50,7 @@ const styles = ({ typography }: Theme) => createStyles({
     fontWeight: typography.fontWeightMedium,
   },
   numericInput: {
+    fontSize: '14px',
     width: '100%',
   },
 });

@@ -39,13 +39,13 @@ Describes properties passed to a component that renders the point.
 
 Field | Type | Description
 ------|------|------------
-arg | number | The point's translated argument.
-val | number | The point's translated value.
+arg | number | The point's argument.
+val | number | The point's value.
 point | { size : number } | Point options.
 value | number | The point's value.
 color | string | A series color.
 index | number | Point index.
-rotated | boolean | Shows if chart is rotated.
+rotated | boolean |  `true` if the chart is rotated.
 
 ### ScatterSeries.SeriesProps
 

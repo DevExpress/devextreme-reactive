@@ -26,7 +26,7 @@ Name | Type | Default | Description
 data | Array&lt;any&gt; | | An array containing custom data.
 width? | number | undefined | Chart width.
 height? | number | 500 | Chart height.
-rotated | boolean | false | Rotate the chart.
+rotated | boolean | false | Rotates the chart.
 rootComponent | ComponentType&lt;[Chart.RootProps](#chartrootprops)&gt; | | A component that renders the chart root layout.
 
 ## Interfaces

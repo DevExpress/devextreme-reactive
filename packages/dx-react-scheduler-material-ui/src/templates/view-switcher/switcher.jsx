@@ -60,8 +60,14 @@ const SwitcherBase = ({
 SwitcherBase.propTypes = {
   onChange: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
-  currentView: PropTypes.instanceOf(CurrentView).isRequired,
-  availableViews: PropTypes.arrayOf(PropTypes.instanceOf(CurrentView)),
+  currentView: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    displayName: PropTypes.string.isRequired,
+  }).isRequired,
+  availableViews: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    displayName: PropTypes.string.isRequired,
+  })),
 };
 
 SwitcherBase.defaultProps = {

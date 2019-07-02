@@ -1,5 +1,5 @@
-# React Chart Rotated Bar
+# Rotated React Bar Chart
 
-The demo shows how to rotate chart and create horizontal bars using `rotated` option in the Chart.
+In this demo, the Chart is rotated to make the bars horizontal.
 
 .embedded-demo({ "path": "bar-chart/bidirection-bar", "showThemeSelector": true, "showThemeVariants": true })

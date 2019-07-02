@@ -6,10 +6,9 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = ({ spacing }) => ({
   cell: {
-    paddingRight: spacing.unit,
-    paddingLeft: spacing.unit,
+    padding: 0,
     '&:first-child': {
-      paddingLeft: spacing.unit * 3,
+      paddingLeft: spacing(3),
     },
   },
   flexContainer: {

@@ -17,14 +17,14 @@ const styles = theme => ({
   content: {
     borderTop: getBorder(theme),
     borderBottom: getBorder(theme),
-    height: theme.spacing.unit * 7,
+    height: theme.spacing(7),
     textAlign: 'right',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
   },
   title: {
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
     ...theme.typography.caption,
   },
 });

@@ -15,7 +15,7 @@ const styles = theme => ({
   dayOfWeek: {
     ...theme.typography.caption,
     margin: 0,
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
   },
 });
 

@@ -9,14 +9,14 @@ const styles = theme => ({
   cell: {
     userSelect: 'none',
     border: 0,
-    padding: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit / 4,
+    height: theme.spacing(12) + 2,
+    padding: 0,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     textAlign: 'right',
     '&:last-child': {
-      padding: theme.spacing.unit,
-      paddingLeft: theme.spacing.unit / 4,
+      paddingLeft: theme.spacing(0.25),
+      paddingRight: theme.spacing(0.5),
     },
   },
   text: {

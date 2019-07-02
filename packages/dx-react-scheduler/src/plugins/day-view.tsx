@@ -45,13 +45,11 @@ const DayScaleEmptyCellPlaceholder = () => <TemplatePlaceholder name="dayScaleEm
 const DayScalePlaceholder = () => <TemplatePlaceholder name="dayScale" />;
 const TimeScalePlaceholder = () => <TemplatePlaceholder name="timeScale" />;
 
-const scrollingStrategy1 = memoize((viewName, scrollingStrategy) => (getters) => computed(
-  getters, viewName!, () => scrollingStrategy, getters.scrollingStrategy,
-));
+const scrollingStrategyComputed = memoize((viewName, scrollingStrategy) => getters =>
+  computed(getters, viewName!, () => scrollingStrategy, getters.scrollingStrategy));
 
-const timeTableElementsMeta1 = memoize((viewName, timeTableElementsMeta) => (getters) => computed(
-  getters, viewName!, () => timeTableElementsMeta, getters.timeTableElementsMeta,
-));
+const timeTableElementsMetaComputed = memoize((viewName, timeTableElementsMeta) => getters =>
+  computed(getters, viewName!, () => timeTableElementsMeta, getters.timeTableElementsMeta));
 
 const viewCellsData1 = memoize((viewName, startDayHour, endDayHour, cellDuration) => getters =>
 computed(
@@ -60,22 +58,19 @@ computed(
   viewCellsDataBaseComputed(startDayHour, endDayHour, cellDuration), getters.viewCellsData,
 ));
 
-const cellDuration1 = memoize((viewName, cellDuration) => (getters) => computed(
-  getters, viewName!, () => cellDuration, getters.cellDuration,
-));
+const cellDuration1 = memoize((viewName, cellDuration) => getters =>
+  computed(getters, viewName!, () => cellDuration, getters.cellDuration));
 
-const intervalCount1 = memoize((viewName, intervalCount) => (getters) => computed(
-  getters, viewName!, () => intervalCount, getters.intervalCount,
-));
+const intervalCountComputed = memoize((viewName, intervalCount) => getters =>
+  computed(getters, viewName!, () => intervalCount, getters.intervalCount));
 
-const currentView1 = memoize(viewName => ({ currentView }) => (
+const availableViewNamesComputed = memoize(viewName => ({ availableViewNames }) =>
+  availableViewNamesCore(availableViewNames, viewName!));
+
+const currentViewComputed = memoize(viewName => ({ currentView }) => (
   currentView && currentView.name !== viewName
     ? currentView
     : { name: viewName, type: TYPE }
-));
-
-const availableViewNames1 = memoize(viewName => ({ availableViewNames }) => availableViewNamesCore(
-  availableViewNames, viewName!,
 ));
 
 class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
@@ -169,10 +164,10 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
       <Plugin
         name="DayView"
       >
-        <Getter name="availableViewNames" computed={availableViewNames1(viewName)} />
-        <Getter name="currentView" computed={currentView1(viewName)} />
+        <Getter name="availableViewNames" computed={availableViewNamesComputed(viewName)} />
+        <Getter name="currentView" computed={currentViewComputed(viewName)} />
 
-        <Getter name="intervalCount" computed={intervalCount1(viewName, intervalCount)} />
+        <Getter name="intervalCount" computed={intervalCountComputed(viewName, intervalCount)} />
         <Getter name="cellDuration" computed={cellDuration1(viewName, cellDuration)} />
         <Getter
           name="viewCellsData"
@@ -183,11 +178,11 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
 
         <Getter
           name="timeTableElementsMeta"
-          computed={timeTableElementsMeta1(viewName, timeTableElementsMeta)}
+          computed={timeTableElementsMetaComputed(viewName, timeTableElementsMeta)}
         />
         <Getter
           name="scrollingStrategy"
-          computed={scrollingStrategy1(viewName, scrollingStrategy)}
+          computed={scrollingStrategyComputed(viewName, scrollingStrategy)}
         />
 
         <Template name="body">

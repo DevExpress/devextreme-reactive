@@ -1,5 +1,5 @@
-# React Chart - Rotated
+# React Chart - Rotate the Chart
 
-Set the `rotated` property of the [Chart](../reference/chart.md) to `true` to rotate it.
+To rotate the [Chart](../reference/chart.md), set its `rotated` property to `true`.
 
 .embedded-demo({ "path": "bar-chart/rotated-bar", "showThemeSelector": true, "showThemeVariants": true })

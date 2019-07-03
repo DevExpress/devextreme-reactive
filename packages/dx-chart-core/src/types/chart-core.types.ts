@@ -47,6 +47,8 @@ export interface Point {
   readonly index: number;
   /** Point color */
   readonly color: string;
+  /** @internal */
+  readonly rotated: boolean;
 }
 
 /** @internal */
@@ -56,13 +58,13 @@ export type PointList = ReadonlyArray<Point>;
 // relation between them. One is internal object other is set of component properties.
 // TODO: Reorganize types to remove the false similarity.
 export interface TransformedPoint extends Point {
-  /** The point's x coordinate */
-  readonly x: number;
-  /** The point's y coordinate' */
-  readonly y: number;
+  /** The point's translated argument */
+  readonly arg: number;
+  /** The point's translated value */
+  readonly val: number;
   // Let's keep it here (instead of creating a separate interface with single field) for now.
-  /** The point's y1 coordinate */
-  readonly y1?: number;
+  /** The point's translated start value */
+  readonly startVal?: number;
 }
 
 /** The object that points at a clicked series */
@@ -107,6 +109,8 @@ export interface Series {
   readonly state?: string;
   /** @internal */
   readonly symbolName: unique symbol;
+  /** @internal */
+  readonly rotated: boolean;
 }
 /** @internal */
 export type SeriesList = ReadonlyArray<Series>;
@@ -126,6 +130,7 @@ export type GetPointTransformerFnRaw = (series: {
   readonly points: PointList;
   readonly argumentScale: ScaleObject;
   readonly valueScale: ScaleObject;
+  readonly rotated: boolean;
 }) => TransformPointFn;
 
 /** @internal */
@@ -145,4 +150,4 @@ type HitTestResult = {
 } | null;
 export type HitTestFn = (location: Location) => HitTestResult;
 /** @internal */
-export type CreateHitTesterFn = (points: PointList) => HitTestFn;
+export type CreateHitTesterFn = (points: PointList, rotated: boolean) => HitTestFn;

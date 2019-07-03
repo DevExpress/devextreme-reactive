@@ -50,6 +50,8 @@
         path: /react/chart/demos/bar/component-customization
       - title: Series Interaction
         path: /react/chart/demos/bar/series-interaction
+      - title: Rotated Bar
+        path: /react/chart/demos/bar/rotated-bar
   - title: Line Chart
     items:
       - title: Simple Line

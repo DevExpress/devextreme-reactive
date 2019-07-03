@@ -468,7 +468,7 @@ describe('DragDropProvider', () => {
       expect(defaultDeps.action.changeAppointment)
         .toBeCalledWith({ change: { startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00') } }, expect.any(Object), expect.any(Object));
     });
-    it('should commit changes if drop', () => {
+    it('should commit changes on drop', () => {
       const payload = {
         id: 1,
         type: 'vertical',
@@ -491,7 +491,7 @@ describe('DragDropProvider', () => {
       expect(defaultDeps.action.commitChangedAppointment)
         .toBeCalledWith({ appointmentId: payload.id }, expect.any(Object), expect.any(Object));
     });
-    it('should reset cache if drop outside a cell', () => {
+    it('should reset cache on drop outside a cell', () => {
       const deps = {
         template: {
           appointment: {
@@ -529,7 +529,7 @@ describe('DragDropProvider', () => {
       expect(tree.find('.draft').exists())
         .toBeFalsy();
     });
-    it('should reset cache if drop inside a cell', () => {
+    it('should reset cache on drop inside a cell', () => {
       const deps = {
         template: {
           appointment: {

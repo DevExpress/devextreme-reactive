@@ -44,6 +44,13 @@ rRule? | string | Specifies the appointment recurrence rule. Follows the [iCalen
 exDate? | string | Specifies dates excluded from recurrence. Follows the [iCalendar EXDATE](https://tools.ietf.org/html/rfc5545#section-3.8.5.1) format.
 [propertyName: string] | any | Any other properties.
 
+### CellElementsMeta
+
+Field | Type | Description
+------|------|------------
+parentRect | () => ClientRect &#124; DOMRect | A function that return rect of the parent element.
+getCellRects | Array<() => ClientRect &#124; DOMRect> | An array of cell rect functions.
+
 ### Scheduler.RootProps
 
 Describes properties passed to a component that renders the root layout.

@@ -21,7 +21,7 @@ export namespace AllDayPanel {
     /** A function that formats dates according to the locale. */
     formatDate: FormatterFn;
     /** A setCellElementsMeta callback */
-    setCellElementsMeta: (cellElementsMeta) => void;
+    setCellElementsMeta: (cellElementsMeta: CellElementsMeta) => void;
   }
   /** @internal */
   export interface LayoutContainerProps {
@@ -32,6 +32,7 @@ export namespace AllDayPanel {
     cellComponent: React.ComponentType<AllDayPanel.CellProps>;
     /** A component that renders an All Day panel row. */
     rowComponent: React.ComponentType<AllDayPanel.RowProps>;
+    /** A setCellElementsMeta callback */
     setCellElementsMeta: (cellElementsMeta: CellElementsMeta) => void;
     /** A function that formats dates according to the locale. */
     formatDate: FormatterFn;

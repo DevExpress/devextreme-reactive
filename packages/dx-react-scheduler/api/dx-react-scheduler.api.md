@@ -4,9 +4,11 @@
 
 ```ts
 
+import { CellElementsMeta } from '@devexpress/dx-scheduler-core';
 import { FormatterFn as FormatterFn_2 } from '@devexpress/dx-scheduler-core';
 import moment from 'moment';
 import * as React from 'react';
+import { ScrollingAPI } from '@devexpress/dx-scheduler-core';
 
 // @public (undocumented)
 export type AllDayCell = {
@@ -34,10 +36,11 @@ export namespace AllDayPanel {
     children: React.ReactNode;
   }
   export interface LayoutProps {
-    allDayPanelRef: (ref: React.ReactInstance) => void;
     cellComponent: React.ComponentType<AllDayPanel.CellProps>;
     cellsData: AllDayCell[];
+    formatDate: FormatterFn_2;
     rowComponent: React.ComponentType<AllDayPanel.RowProps>;
+    setCellElementsMeta: (cellElementsMeta: any) => void;
   }
   export interface LocalizationMessages {
     allDay?: string;
@@ -439,9 +442,7 @@ export namespace MonthView {
   export interface LayoutProps {
     dayScaleComponent: React.ComponentType<MonthView.DayScaleLayoutProps>;
     height: number | 'auto';
-    // (undocumented)
-    layoutHeaderRef: React.RefObject<HTMLElement>;
-    layoutRef: React.RefObject<HTMLElement>;
+    setScrollingStrategy: (scrollingStrategy: ScrollingAPI) => void;
     timeTableComponent: React.ComponentType<MonthView.TimeTableLayoutProps>;
   }
   export interface RowProps {
@@ -546,10 +547,7 @@ export namespace VerticalView {
     dayScaleComponent: React.ComponentType<VerticalView.DayScaleLayoutProps>;
     dayScaleEmptyCellComponent: React.ComponentType<VerticalView.DayScaleEmptyCellProps>;
     height: number | 'auto';
-    // (undocumented)
-    layoutHeaderRef: React.RefObject<HTMLElement>;
-    // (undocumented)
-    layoutRef: React.RefObject<HTMLElement>;
+    setScrollingStrategy: (scrollingStrategy: ScrollingAPI) => void;
     timeScaleComponent: React.ComponentType<VerticalView.TimeScaleLayoutProps>;
     timeTableComponent: React.ComponentType<VerticalView.TimeTableLayoutProps>;
   }
@@ -576,7 +574,7 @@ export namespace VerticalView {
     cellsData: VerticalView.CellData[][];
     formatDate: FormatterFn_2;
     rowComponent: React.ComponentType<VerticalView.RowProps>;
-    tableRef: React.RefObject<HTMLElement>;
+    setCellElementsMeta: (cellElementsMeta: CellElementsMeta) => void;
   }
 }
 

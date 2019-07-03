@@ -14,7 +14,7 @@ const AVAILABLE_PATHS = {
   lessThanOrEqual: 'M23.828 5.719l1.375 2.375-10.813 6.234 10.813 6.25-1.375 2.375-14.922-8.609zM23.047 24.266l-1.375 2.375-14.922-8.609 1.375-2.391z',
 };
 
-export const Icon = ({ type, style, ...restProps }) => {
+export const Icon = React.memo(({ type, style, ...restProps }) => {
   const path = AVAILABLE_PATHS[type];
   return path
     ? (
@@ -40,7 +40,7 @@ export const Icon = ({ type, style, ...restProps }) => {
         {...restProps}
       />
     );
-};
+});
 
 Icon.propTypes = {
   type: PropTypes.string,

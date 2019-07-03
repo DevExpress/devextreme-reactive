@@ -26,4 +26,4 @@ TableTreeIndentBase.defaultProps = {
   level: 0,
 };
 
-export const TableTreeIndent = withStyles(styles)(TableTreeIndentBase);
+export const TableTreeIndent = React.memo(withStyles(styles)(TableTreeIndentBase));

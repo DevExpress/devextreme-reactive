@@ -79,4 +79,4 @@ ColumnBase.defaultProps = {
   className: undefined,
 };
 
-export const Column = withStyles(styles, { name: 'DragDrop' })(ColumnBase);
+export const Column = React.memo(withStyles(styles, { name: 'DragDrop' })(ColumnBase));

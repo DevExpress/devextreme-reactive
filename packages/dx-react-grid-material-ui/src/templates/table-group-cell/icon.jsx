@@ -43,4 +43,4 @@ IconBase.defaultProps = {
   className: undefined,
 };
 
-export const Icon = withStyles(styles)(IconBase);
+export const Icon = React.memo(withStyles(styles)(IconBase));

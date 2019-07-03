@@ -27,8 +27,10 @@ export namespace Tooltip {
   export interface OverlayProps {
     /** A function that returns an HTML element that is used to position the tooltip */
     target: TooltipReference;
-    /** A React node used to render the axis */
+    /** A React node used to render the tooltip */
     children: React.ReactNode;
+    /** Set orientation for tooltip */
+    rotated: boolean;
   }
 
   /** Describes properties passed to a component that renders the tooltip’s content */

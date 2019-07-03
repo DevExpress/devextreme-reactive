@@ -7,10 +7,10 @@ import { getBorder } from './utils';
 
 const styles = theme => ({
   cell: {
-    paddingRight: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit,
+    paddingRight: theme.spacing(1),
+    paddingLeft: theme.spacing(1),
     '&:first-child': {
-      paddingLeft: theme.spacing.unit * 3,
+      paddingLeft: theme.spacing(3),
     },
     overflow: 'hidden',
     textOverflow: 'ellipsis',

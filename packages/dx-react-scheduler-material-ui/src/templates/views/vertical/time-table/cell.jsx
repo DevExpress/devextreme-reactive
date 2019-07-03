@@ -8,6 +8,8 @@ import { getBorder } from '../../../utils';
 
 const styles = theme => ({
   cell: {
+    height: theme.spacing(6),
+    padding: 0,
     borderLeft: getBorder(theme),
     '&:hover': {
       backgroundColor: theme.palette.action.hover,

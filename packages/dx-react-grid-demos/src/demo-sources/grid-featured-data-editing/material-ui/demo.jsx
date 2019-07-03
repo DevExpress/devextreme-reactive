@@ -35,9 +35,7 @@ import {
 
 const styles = theme => ({
   lookupEditCell: {
-    paddingTop: theme.spacing.unit * 0.875,
-    paddingRight: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit,
+    padding: theme.spacing(1),
   },
   dialog: {
     width: 'calc(100% - 16px)',

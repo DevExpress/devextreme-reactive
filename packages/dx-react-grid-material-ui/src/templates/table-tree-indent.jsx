@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   indent: {
-    marginLeft: theme.spacing.unit * 3,
+    marginLeft: theme.spacing(3),
   },
 });
 

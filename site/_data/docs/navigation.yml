@@ -240,6 +240,8 @@
         path: /react/chart/docs/guides/tooltip
       - title: Zoom and Pan
         path: /react/chart/docs/guides/zoom-and-pan
+      - title: Rotated
+        path: /react/chart/docs/guides/rotated
       - title: TypeScript
         path: /react/chart/docs/guides/typescript
   - title: Common Concepts

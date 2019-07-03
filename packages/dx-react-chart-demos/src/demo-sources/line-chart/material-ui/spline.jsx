@@ -23,8 +23,8 @@ const Line = props => (
   <LineSeries.Path
     {...props}
     path={line()
-      .x(({ x }) => x)
-      .y(({ y }) => y)
+      .x(({ arg }) => arg)
+      .y(({ val }) => val)
       .curve(curveCatmullRom)}
   />
 );
@@ -58,7 +58,7 @@ const legendStyles = () => ({
 });
 const legendLabelStyles = theme => ({
   label: {
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
     whiteSpace: 'nowrap',
   },
 });

@@ -15,6 +15,7 @@ import { DragBox } from '../templates/drag-box';
 import {
   adjustLayout, getViewport, isKeyPressed, getOffset, getDeltaForTouches, getRect,
   ScalesCache, getWheelDelta, getEventCoords, isMultiTouch, attachEvents, detachEvents,
+  setCursorType,
 } from '@devexpress/dx-chart-core';
 import {
   ZoomAndPanProps, ZoomAndPanState, Location, NumberArray, ZoomPanProviderProps, EventHandlers,
@@ -34,11 +35,12 @@ const events = {
 
 class ZoomPanProvider extends React.PureComponent<ZoomPanProviderProps> {
   handlers!: EventHandlers;
-  ref!: Element;
+  ref!: SVGElement;
   windowHandlers!: { [key: string]: EventHandlers};
 
   componentDidMount() {
-    this.ref = this.props.rootRef.current!;
+    this.ref = this.props.rootRef.current! as SVGElement;
+    setCursorType(this.ref, 'pointer');
 
     this.windowHandlers = Object.keys(events).reduce((prev, key) => {
       const extraEvents = events[key].extraEvents;
@@ -46,9 +48,12 @@ class ZoomPanProvider extends React.PureComponent<ZoomPanProviderProps> {
         return {
           ...prev,
           [key]: {
-            [extraEvents[0]]: (event: any) => { this.props.onMove(event); },
+            [extraEvents[0]]: (event: any) => {
+              this.props.onMove(event);
+            },
             [extraEvents[1]]: (event: any) => {
               this.props.onEnd(event);
+              setCursorType(this.ref, 'pointer');
               detachEvents(window, this.windowHandlers[key]);
             },
           },
@@ -129,6 +134,8 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
       // TODO: Provide rectangle mode canceling.
     if (isKeyPressed(e, zoomRegionKey)) {
       this.rectOrigin = coords;
+    } else {
+      setCursorType(e.currentTarget, 'grabbing');
     }
     if (isMultiTouch(e)) {
       this.multiTouchDelta = getDeltaForTouches(e.touches).delta;

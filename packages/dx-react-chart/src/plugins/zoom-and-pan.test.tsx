@@ -4,7 +4,10 @@ import { PluginHost } from '@devexpress/dx-react-core';
 import {
   pluginDepsToComponents, getComputedState,
 } from '@devexpress/dx-testing';
-import { adjustLayout, attachEvents, detachEvents } from '@devexpress/dx-chart-core';
+import {
+  adjustLayout, attachEvents, detachEvents, setCursorType,
+  isKeyPressed,
+} from '@devexpress/dx-chart-core';
 import { ZoomAndPan } from './zoom-and-pan';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
@@ -16,6 +19,7 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   getEventCoords: jest.fn(),
   isKeyPressed: jest.fn(),
   isMultiTouch: jest.fn(),
+  setCursorType: jest.fn(),
 }));
 
 const DragBoxComponent = () => null;
@@ -111,5 +115,42 @@ describe('ZoomAndPan', () => {
     onStart({ preventDefault });
 
     expect(preventDefault).toBeCalled();
+  });
+
+  it('should call "setCursorType" on mount', () => {
+    mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <ZoomAndPan  {...defaultProps} />
+      </PluginHost>
+    ));
+    expect(setCursorType.mock.calls[0]).toEqual([expect.anything(), 'pointer']);
+  });
+
+  it('should call "setCursorType" on start handler', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <ZoomAndPan  {...defaultProps} />
+      </PluginHost>
+    ));
+    const event = { preventDefault: jest.fn, currentTarget: {} };
+    const { onStart } = tree.find('ZoomPanProvider').props() as any;
+    onStart(event);
+    expect(setCursorType.mock.calls[1]).toEqual([expect.anything(), 'grabbing']);
+  });
+
+  it('shouldn not call "setCursorType" on start handler, "isKeyPressed" return true', () => {
+    isKeyPressed.mockReturnValue(true);
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <ZoomAndPan  {...defaultProps} />
+      </PluginHost>
+    ));
+    const event = { preventDefault: jest.fn, currentTarget: {} };
+    const { onStart } = tree.find('ZoomPanProvider').props() as any;
+    onStart(event);
+    expect(setCursorType.mock.calls.length).toBe(1);
   });
 });

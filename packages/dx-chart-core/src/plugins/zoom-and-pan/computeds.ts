@@ -200,6 +200,9 @@ export const getRect = (
   };
 };
 
-const checkInteraction = (interaction: Interaction, type: Interaction) => (
-  interaction === 'both' || interaction === type
-);
+const checkInteraction = (interaction: Interaction, type: Interaction) =>
+interaction === 'both' || interaction === type;
+
+/** @internal */
+export const setCursorType = (node: any, type: string) =>
+node.style.cursor = type;

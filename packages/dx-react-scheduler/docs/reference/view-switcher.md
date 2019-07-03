@@ -37,13 +37,13 @@ Properties passed to a component that renders the view switcher.
 
 Field | Type | Description
 ------|------|------------
-currentView | [CurrentView](#currentview) | A displayed view.
-availableViews | Array&lt;[CurrentView](#currentView)&gt; | An array of available views.
+currentView | [SchedulerView](#schedulerview) | A displayed view.
+availableViews | Array&lt;[SchedulerView](#schedulerview)&gt; | An array of available views.
 onChange | (nextViewName: string) => void | A function that handles changes to the displayed view.
 
-### CurrentView
+### SchedulerView
 
-Describes a current view object.
+Describes a scheduler view object.
 
 Field | Type | Description
 ------|------|------------

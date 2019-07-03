@@ -78,7 +78,7 @@ export type DateTimeFormatInstanceFn = (
 ) => Intl.DateTimeFormat;
 
 /** Describes a current view object. */
-export interface CurrentView {
+export interface SchedulerView {
   /** View's unique identifier. */
   name: string;
   /** View's visible name. */

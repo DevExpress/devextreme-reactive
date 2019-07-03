@@ -11,6 +11,9 @@ const styles = theme => ({
     height: theme.spacing(6),
     padding: 0,
     borderLeft: getBorder(theme),
+    'tr:last-child &': {
+      borderBottom: 'none',
+    },
     '&:hover': {
       backgroundColor: theme.palette.action.hover,
     },

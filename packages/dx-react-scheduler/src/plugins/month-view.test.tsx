@@ -10,6 +10,8 @@ import {
   getHorizontalRectByDates,
   calculateMonthDateIntervals,
   monthCellsData,
+  getAppointmentStyle,
+  horizontalTimeTableRects,
 } from '@devexpress/dx-scheduler-core';
 import { MonthView } from './month-view';
 
@@ -23,6 +25,8 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
   getHorizontalRectByDates: jest.fn(),
   calculateMonthDateIntervals: jest.fn(),
   monthCellsData: jest.fn(),
+  getAppointmentStyle: jest.fn(),
+  horizontalTimeTableRects: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -74,12 +78,40 @@ describe('Month View', () => {
     }]);
     calculateMonthDateIntervals.mockImplementation(() => []);
     monthCellsData.mockImplementation(() => []);
+    getAppointmentStyle.mockImplementation(() => undefined);
+    horizontalTimeTableRects.mockImplementation(() => [{ data: 1 }]);
   });
   afterEach(() => {
     jest.resetAllMocks();
   });
 
   describe('Getters', () => {
+    it('should provide "allDayElementsMeta" getter', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <MonthView
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).timeTableElementsMeta)
+        .toEqual({});
+
+      const setCellElementsMeta = tree.find(defaultProps.timeTableLayoutComponent)
+        .props().setCellElementsMeta;
+      setCellElementsMeta('elementsMeta');
+
+      const monthViewState = tree.find(MonthView).state();
+      expect(monthViewState.rects)
+        .toEqual([{ data: 1 }]);
+
+      tree.update();
+
+      expect(getComputedState(tree).timeTableElementsMeta)
+        .toEqual('elementsMeta');
+    });
     it('should provide the "viewCellsData" getter', () => {
       computed.mockImplementation(
         (getters, viewName, baseComputed) => getters.currentView.name === viewName && baseComputed(getters, viewName),

@@ -9,6 +9,8 @@ import {
   endViewDate,
   calculateRectByDateIntervals,
   calculateWeekDateIntervals,
+  getAppointmentStyle,
+  verticalTimeTableRects,
 } from '@devexpress/dx-scheduler-core';
 import { WeekView } from './week-view';
 
@@ -21,6 +23,8 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
   availableViewNames: jest.fn(),
   calculateRectByDateIntervals: jest.fn(),
   calculateWeekDateIntervals: jest.fn(),
+  getAppointmentStyle: jest.fn(),
+  verticalTimeTableRects: jest.fn(),
 }));
 
 const DAYS_IN_WEEK = 7;
@@ -72,12 +76,40 @@ describe('Week View', () => {
       x: 1, y: 2, width: 100, height: 150, dataItem: 'data',
     }]);
     calculateWeekDateIntervals.mockImplementation(() => []);
+    getAppointmentStyle.mockImplementation(() => undefined);
+    verticalTimeTableRects.mockImplementation(() => [{ data: 1 }]);
   });
   afterEach(() => {
     jest.resetAllMocks();
   });
 
   describe('Getters', () => {
+    it('should provide "allDayElementsMeta" getter', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <WeekView
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).timeTableElementsMeta)
+        .toEqual({});
+
+      const setCellElementsMeta = tree.find(defaultProps.timeTableLayoutComponent)
+        .props().setCellElementsMeta;
+      setCellElementsMeta('elementsMeta');
+
+      const weekViewState = tree.find(WeekView).state();
+      expect(weekViewState.rects)
+        .toEqual([{ data: 1 }]);
+
+      tree.update();
+
+      expect(getComputedState(tree).timeTableElementsMeta)
+        .toEqual('elementsMeta');
+    });
     it('should provide the "viewCellsData" getter', () => {
       computed.mockImplementation(
         (getters, viewName, baseComputed) => getters.currentView.name === viewName && baseComputed(getters, viewName),

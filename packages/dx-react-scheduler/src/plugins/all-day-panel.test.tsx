@@ -4,15 +4,15 @@ import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing
 import { PluginHost, TemplatePlaceholder } from '@devexpress/dx-react-core';
 import {
   allDayCells,
-  calculateRectByDateIntervals,
-  calculateAllDayDateIntervals,
+  allDayRects,
+  getAppointmentStyle,
 } from '@devexpress/dx-scheduler-core';
 import { AllDayPanel } from './all-day-panel';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   allDayCells: jest.fn(),
-  calculateRectByDateIntervals: jest.fn(),
-  calculateAllDayDateIntervals: jest.fn(),
+  allDayRects: jest.fn(),
+  getAppointmentStyle: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -48,18 +48,16 @@ const defaultProps = {
 
 describe('AllDayPanel', () => {
   beforeEach(() => {
-    calculateRectByDateIntervals.mockImplementation(() => [{
-      dataItem: {}, type: 'h', top: 0, left: 0,
-    }]);
-    calculateAllDayDateIntervals.mockImplementation(() => []);
     allDayCells.mockImplementation(() => [[{}]]);
+    allDayRects.mockImplementation(() => [{ data: 1 }]);
+    getAppointmentStyle.mockImplementation(() => undefined);
   });
   afterEach(() => {
     jest.resetAllMocks();
   });
 
   describe('Getters', () => {
-    it('should provide allDayElementsMeta getter', () => {
+    it('should provide "allDayElementsMeta" getter', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -71,6 +69,19 @@ describe('AllDayPanel', () => {
 
       expect(getComputedState(tree).allDayElementsMeta)
         .toEqual({});
+
+      const setCellElementsMeta = tree.find(defaultProps.layoutComponent)
+        .props().setCellElementsMeta;
+      setCellElementsMeta('elementsMeta');
+
+      const allDayPanelState = tree.find(AllDayPanel).state();
+      expect(allDayPanelState.rects)
+        .toEqual([{ data: 1 }]);
+
+      tree.update();
+
+      expect(getComputedState(tree).allDayElementsMeta)
+        .toEqual('elementsMeta');
     });
   });
 

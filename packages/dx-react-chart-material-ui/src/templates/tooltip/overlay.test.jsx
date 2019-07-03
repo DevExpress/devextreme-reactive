@@ -6,11 +6,8 @@ import { Overlay } from './overlay';
 
 describe('Overlay', () => {
   const defaultProps = {
-    target: {
-      clientWidth: null,
-      clientHeight: null,
-      getBoundingClientRect: null,
-    },
+    target: {},
+    rotated: false,
   };
   let mount;
   const classes = getClasses(<Overlay {...defaultProps}>Test</Overlay>);
@@ -72,5 +69,27 @@ describe('Overlay', () => {
     ));
 
     expect(tree.find(Popper).props().custom).toEqual(10);
+  });
+
+  it('should render Popover, rotated', () => {
+    const tree = mount((
+      <Overlay
+        {...defaultProps}
+        rotated
+      >
+        <div className="content" />
+      </Overlay>
+    ));
+
+    expect(tree.find(Popper).props()).toMatchObject({
+      open: true,
+      anchorEl: defaultProps.target,
+      placement: 'right',
+      className: classes.popperRotated,
+    });
+    expect(tree.find('div').get(3).props).toMatchObject({
+      className: classes.arrowRotated,
+    });
+    expect(tree.find('.content').exists()).toBeTruthy();
   });
 });

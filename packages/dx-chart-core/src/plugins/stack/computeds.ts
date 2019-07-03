@@ -29,7 +29,7 @@ const getStackedPointTransformer = (getPointTransformer: GetPointTransformerFn) 
       const ret = transform(point);
       return {
         ...ret,
-        y1: valueScale((point as StackedPoint).value0),
+        startVal: valueScale((point as StackedPoint).value0),
       };
     };
   };
@@ -125,9 +125,12 @@ const getGroupedPointTransformer = (
     const widthCoeff = 1 / groupCount;
     return (point) => {
       const original = transform(point) as BarSeries.PointProps;
+      const arg = (
+        original.arg - original.maxBarWidth * (0.5 - 0.5 * widthCoeff - groupOffset * widthCoeff)
+      );
       const result: BarSeries.PointProps = {
         ...original,
-        x: original.x - original.maxBarWidth * (0.5 - 0.5 * widthCoeff - groupOffset * widthCoeff),
+        arg,
         maxBarWidth: original.maxBarWidth / groupCount,
       };
       return result;

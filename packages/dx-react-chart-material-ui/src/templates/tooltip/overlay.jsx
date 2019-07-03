@@ -2,6 +2,7 @@ import * as React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Popper from '@material-ui/core/Popper';
 import Paper from '@material-ui/core/Paper';
+import { RIGHT, TOP } from '@devexpress/dx-chart-core';
 import classNames from 'classnames';
 
 const styles = (theme) => {
@@ -10,6 +11,10 @@ const styles = (theme) => {
     popper: {
       zIndex: 1,
       marginBottom: `${arrowSize}px`,
+    },
+    popperRotated: {
+      zIndex: 1,
+      marginLeft: `${arrowSize}px`,
     },
     paper: {
       padding: theme.spacing(0.5, 1),
@@ -35,6 +40,27 @@ const styles = (theme) => {
         boxShadow: theme.shadows[2],
       },
     },
+    arrowRotated: {
+      width: `${arrowSize * 2.5}px`,
+      height: `${arrowSize * 5}px`,
+      position: 'absolute',
+      top: '50%',
+      left: 0,
+      transform: 'translateX(-100%) translateY(-50%)',
+      overflow: 'hidden',
+
+      '&::after': {
+        content: '""',
+        position: 'absolute',
+        width: `${arrowSize}px`,
+        height: `${arrowSize}px`,
+        background: theme.palette.background.paper,
+        transform: 'translateX(-50%) translateY(-50%) rotate(45deg)',
+        top: '50%',
+        left: '100%',
+        boxShadow: theme.shadows[2],
+      },
+    },
   };
 };
 
@@ -43,19 +69,19 @@ const popperModifiers = {
 };
 
 export const Overlay = withStyles(styles)(({
-  classes, className, children, target, ...restProps
+  classes, className, children, target, rotated, ...restProps
 }) => (
   <Popper
     open
     anchorEl={target}
-    placement="top"
-    className={classNames(classes.popper, className)}
+    placement={rotated ? RIGHT : TOP}
+    className={classNames(rotated ? classes.popperRotated : classes.popper, className)}
     modifiers={popperModifiers}
     {...restProps}
   >
     <Paper className={classes.paper}>
       {children}
     </Paper>
-    <div className={classes.arrow} />
+    <div className={rotated ? classes.arrowRotated : classes.arrow} />
   </Popper>
 ));

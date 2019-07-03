@@ -47,12 +47,12 @@ const data = [
 
 const Point = (type, styles) => (props) => {
   const {
-    x, y, color,
+    arg, val, color,
   } = props;
   return (
     <path
       fill={color}
-      transform={`translate(${x} ${y})`}
+      transform={`translate(${arg} ${val})`}
       d={symbol().size([10 ** 2]).type(type)()}
       style={styles}
     />

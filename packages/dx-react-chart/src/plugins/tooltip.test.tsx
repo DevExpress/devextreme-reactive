@@ -24,6 +24,7 @@ const defaultDeps = {
     pointerMoveHandlers: ['test-handler'],
     series: 'test-series',
     rootRef: 'test-root-ref',
+    rotated: true,
   },
   template: {
     series: {},
@@ -64,6 +65,7 @@ describe('Tooltip', () => {
     expect(tree.find(OverlayComponent).props()).toEqual({
       target: { tag: 'test-reference' },
       children: expect.anything(),
+      rotated: true,
     });
     expect(tree.find(ContentComponent).props()).toEqual({
       text: 'tooltip-text',

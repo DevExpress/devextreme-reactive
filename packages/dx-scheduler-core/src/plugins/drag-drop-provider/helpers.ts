@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { PureComputed } from '@devexpress/dx-core';
 import {
-  ViewCell, ClientOffset, TimeType, ScrollingAPI,
+  ViewCell, ClientOffset, TimeType, ScrollingStrategy,
   AllDayCell, CalculateAppointmentTimeBoundaries,
   TimeBoundariesByDrag, TimeBoundariesByResize, AppointmentModel,
   CellElementsMeta,
@@ -56,7 +56,7 @@ export const cellData: PureComputed<
 };
 
 export const autoScroll: PureComputed<
-  [ClientOffset, ScrollingAPI], void
+  [ClientOffset, ScrollingStrategy], void
 > = (clientOffset, scrollingStrategy) => {
   if ((clientOffset.y < scrollingStrategy.topBoundary + SCROLL_OFFSET)
     && (clientOffset.y > scrollingStrategy.topBoundary)) {

@@ -20,23 +20,17 @@ export default class Demo extends React.PureComponent {
     this.state = {
       data: appointments,
       currentViewName: 'Work Week',
-      startDayHour: 9,
     };
     this.currentViewNameChange = (currentViewName) => {
       this.setState({ currentViewName });
     };
-
-    this.onValueChange = event => { this.setState({ startDayHour: event.target.value }); };
   }
 
   render() {
-    const { data, currentViewName, startDayHour } = this.state;
-
-    console.log(startDayHour);
+    const { data, currentViewName } = this.state;
 
     return (
       <Paper>
-        <input onChange={this.onValueChange} />
         <Scheduler
           data={data}
           height={660}
@@ -48,7 +42,7 @@ export default class Demo extends React.PureComponent {
           />
 
           <WeekView
-            startDayHour={startDayHour}
+            startDayHour={10}
             endDayHour={19}
           />
           <WeekView
@@ -58,9 +52,6 @@ export default class Demo extends React.PureComponent {
             endDayHour={19}
           />
           <MonthView />
-          <MonthView
-            name="Month2"
-          />
           <DayView />
 
           <Toolbar />

@@ -51,6 +51,14 @@ Field | Type | Description
 parentRect | () => ClientRect &#124; DOMRect | A function that return rect of the parent element.
 getCellRects | Array<() => ClientRect &#124; DOMRect> | An array of cell rect functions.
 
+### ScrollingStrategy
+
+Field | Type | Description
+------|------|------------
+topBoundary | number | Specify the top boundary of the scrollable layout place.
+bottomBoundary | number | Specify the bottom boundary of the scrollable layout place.
+changeVerticalScroll | (value: number) => void | A function that can change layout scrolling position.
+
 ### Scheduler.RootProps
 
 Describes properties passed to a component that renders the root layout.

@@ -76,13 +76,13 @@ export type FormatDateTimeGetterFn = (locale: string | string[]) => FormatterFn;
 export type DateTimeFormatInstanceFn = (
   locale: string | string[], formatOptions: Intl.DateTimeFormatOptions,
 ) => Intl.DateTimeFormat;
-/** @internal */
-export type ScrollingAPI = {
+
+export type ScrollingStrategy = {
   topBoundary: number;
   bottomBoundary: number;
   changeVerticalScroll: (value: number) => void;
 };
-/** @internal */
+
 export type CellElementsMeta = {
   parentRect: () => ClientRect | DOMRect,
   getCellRects: Array<() => ClientRect | DOMRect>,

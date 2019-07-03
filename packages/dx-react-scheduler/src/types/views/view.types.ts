@@ -1,5 +1,5 @@
 import {
-  FormatterFn, ElementRect, CellElementsMeta, ScrollingAPI,
+  FormatterFn, ElementRect, CellElementsMeta, ScrollingStrategy,
 } from '@devexpress/dx-scheduler-core';
 
 export interface VerticalViewProps {
@@ -42,7 +42,7 @@ export interface VerticalViewProps {
 /** @internal */
 export type ViewState = {
   rects: readonly ElementRect[];
-  scrollingStrategy: ScrollingAPI;
+  scrollingStrategy: ScrollingStrategy;
   timeTableElementsMeta: CellElementsMeta | {};
 };
 
@@ -53,7 +53,7 @@ export namespace VerticalView {
     /** The layout's height */
     height: number | 'auto';
     /** The scrolling API callback */
-    setScrollingStrategy: (scrollingStrategy: ScrollingAPI) => void;
+    setScrollingStrategy: (scrollingStrategy: ScrollingStrategy) => void;
     /** A component that renders a time scale layout. */
     timeScaleComponent: React.ComponentType<VerticalView.TimeScaleLayoutProps>;
     /** A component that renders a day scale layout. */

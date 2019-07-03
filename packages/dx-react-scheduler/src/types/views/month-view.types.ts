@@ -1,4 +1,4 @@
-import { ScrollingAPI } from '@devexpress/dx-scheduler-core';
+import { ScrollingStrategy } from '@devexpress/dx-scheduler-core';
 import { VerticalViewProps, VerticalView } from './view.types';
 import { WeekViewProps } from './week-view.types';
 
@@ -88,6 +88,6 @@ export namespace MonthView {
     /** The layout's height */
     height: number | 'auto';
     /** The scrolling API callback */
-    setScrollingStrategy: (scrollingStrategy: ScrollingAPI) => void;
+    setScrollingStrategy: (scrollingStrategy: ScrollingStrategy) => void;
   }
 }

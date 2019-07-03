@@ -16,7 +16,7 @@ import {
   availableViewNames as availableViewNamesCore,
   getAppointmentStyle,
   verticalTimeTableRects,
-  ScrollingAPI,
+  ScrollingStrategy,
 } from '@devexpress/dx-scheduler-core';
 import { memoize } from '@devexpress/dx-core';
 
@@ -146,7 +146,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
     this.setState({ rects, timeTableElementsMeta: cellElementsMeta });
   });
 
-  setScrollingStrategy = (scrollingStrategy: ScrollingAPI) => {
+  setScrollingStrategy = (scrollingStrategy: ScrollingStrategy) => {
     this.setState({ scrollingStrategy });
   }
 

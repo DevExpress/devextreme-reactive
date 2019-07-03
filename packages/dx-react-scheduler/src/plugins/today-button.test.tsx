@@ -2,7 +2,7 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { getMessagesFormatter } from '@devexpress/dx-core';
-import { pluginDepsToComponents, executeComputedAction } from '@devexpress/dx-testing';
+import { pluginDepsToComponents } from '@devexpress/dx-testing';
 import { TodayButton } from './today-button';
 
 jest.mock('@devexpress/dx-core', () => ({
@@ -52,13 +52,11 @@ describe('TodayButton', () => {
       </PluginHost>
     ));
     expect(getMessagesFormatter).toBeCalledWith({
-      today: 'today',
+      today: 'Today',
       testData: 'testData',
     });
-    expect(tree.find(defaultProps.buttonComponent).props())
-      .toMatchObject({
-        getMessage: 'getMessagesFormatter',
-      });
+    console.log();
+    expect(tree.find(defaultProps.buttonComponent).prop('getMessage')).toBe('getMessagesFormatter');
   });
 
   it('should call changeCurrentDate with correct parameters', () => {

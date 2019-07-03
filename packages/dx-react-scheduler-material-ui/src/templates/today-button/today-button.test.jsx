@@ -41,7 +41,7 @@ describe('TodayButton', () => {
         .toBeCalledWith('today');
     });
 
-    it('should render combine user and standard style classes', () => {
+    it('should pass className to the root element', () => {
       const classes = getClasses(<TodayButton />);
       const tree = shallow((
         <TodayButton {...defaultProps} className="custom-class" />

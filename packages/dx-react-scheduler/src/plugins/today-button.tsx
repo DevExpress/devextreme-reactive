@@ -7,7 +7,7 @@ import {
   TemplateConnector,
   PluginComponents,
 } from '@devexpress/dx-react-core';
-import { TodayButtonProps } from '../types/today-button';
+import { TodayButtonProps } from '../types';
 
 const pluginDependencies = [
   { name: 'Toolbar' },
@@ -15,7 +15,7 @@ const pluginDependencies = [
 ];
 
 const defaultMessages = {
-  today: 'today',
+  today: 'Today',
 };
 
 class TodayButtonBase extends React.PureComponent<TodayButtonProps> {

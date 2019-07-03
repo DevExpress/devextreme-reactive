@@ -1,4 +1,4 @@
-import { ScrollingStrategy } from '@devexpress/dx-scheduler-core';
+import { ScrollingStrategy } from '../index';
 import { VerticalViewProps, VerticalView } from './view.types';
 import { WeekViewProps } from './week-view.types';
 

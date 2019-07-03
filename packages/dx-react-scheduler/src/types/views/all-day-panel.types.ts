@@ -1,5 +1,4 @@
-import { ElementRect, CellElementsMeta, FormatterFn } from '@devexpress/dx-scheduler-core';
-import { AllDayCell } from '../index';
+import { AllDayCell, ElementRect, CellElementsMeta, FormatterFn } from '../index';
 
 /* tslint:disable no-namespace max-line-length */
 export namespace AllDayPanel {

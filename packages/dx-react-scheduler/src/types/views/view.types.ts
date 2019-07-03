@@ -1,6 +1,6 @@
 import {
   FormatterFn, ElementRect, CellElementsMeta, ScrollingStrategy,
-} from '@devexpress/dx-scheduler-core';
+} from '../index';
 
 export interface VerticalViewProps {
   /** The view name. */

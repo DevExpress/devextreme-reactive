@@ -51,11 +51,11 @@ describe('TodayButton', () => {
         />
       </PluginHost>
     ));
+
     expect(getMessagesFormatter).toBeCalledWith({
       today: 'Today',
       testData: 'testData',
     });
-    console.log();
     expect(tree.find(defaultProps.buttonComponent).prop('getMessage')).toBe('getMessagesFormatter');
   });
 

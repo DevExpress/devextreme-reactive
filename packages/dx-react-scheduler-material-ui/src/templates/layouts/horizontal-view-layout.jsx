@@ -3,6 +3,7 @@ import * as PropTypes from 'prop-types';
 import { AUTO_HEIGHT } from '@devexpress/dx-scheduler-core';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
+import classNames from 'classnames';
 
 const styles = theme => ({
   container: {
@@ -30,13 +31,14 @@ export class HorizontalViewLayoutBase extends React.PureComponent {
       layoutRef,
       layoutHeaderRef,
       height,
+      className,
     } = this.props;
 
     const containerStyle = height === AUTO_HEIGHT ? { height: '100%' } : { height: `${height}px` };
     return (
       <Grid
         ref={layoutRef}
-        className={classes.container}
+        className={classNames(classes.container, className)}
         container
         direction="column"
         wrap="nowrap"
@@ -62,12 +64,18 @@ export class HorizontalViewLayoutBase extends React.PureComponent {
 
 HorizontalViewLayoutBase.propTypes = {
   // oneOfType is a workaround because withStyles returns react object
+  className: PropTypes.string,
   dayScaleComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   timeTableComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   classes: PropTypes.object.isRequired,
   layoutRef: PropTypes.object.isRequired,
   layoutHeaderRef: PropTypes.object.isRequired,
   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+};
+
+
+HorizontalViewLayoutBase.defaultProps = {
+  className: undefined,
 };
 
 export const HorizontalViewLayout = withStyles(styles, { name: 'HorizontalViewLayout' })(HorizontalViewLayoutBase);

@@ -35,12 +35,12 @@ const events = {
 
 class ZoomPanProvider extends React.PureComponent<ZoomPanProviderProps> {
   handlers!: EventHandlers;
-  ref!: SVGElement;
+  svgElement!: SVGElement;
   windowHandlers!: { [key: string]: EventHandlers};
 
   componentDidMount() {
-    this.ref = this.props.rootRef.current! as SVGElement;
-    setCursorType(this.ref, 'pointer');
+    this.svgElement = this.props.rootRef.current!;
+    setCursorType(this.svgElement);
 
     this.windowHandlers = Object.keys(events).reduce((prev, key) => {
       const extraEvents = events[key].extraEvents;
@@ -53,7 +53,7 @@ class ZoomPanProvider extends React.PureComponent<ZoomPanProviderProps> {
             },
             [extraEvents[1]]: (event: any) => {
               this.props.onEnd(event);
-              setCursorType(this.ref, 'pointer');
+              setCursorType(this.svgElement);
               detachEvents(window, this.windowHandlers[key]);
             },
           },
@@ -73,11 +73,11 @@ class ZoomPanProvider extends React.PureComponent<ZoomPanProviderProps> {
         },
       };
     }, {});
-    attachEvents(this.ref, this.handlers);
+    attachEvents(this.svgElement, this.handlers);
   }
 
   componentWillUnmount() {
-    detachEvents(this.ref, this.handlers);
+    detachEvents(this.svgElement, this.handlers);
     Object.keys(this.windowHandlers).forEach((el) => {
       detachEvents(window, this.windowHandlers[el]);
     });

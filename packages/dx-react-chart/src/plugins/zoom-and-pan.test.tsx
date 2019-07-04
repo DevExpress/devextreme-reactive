@@ -124,7 +124,7 @@ describe('ZoomAndPan', () => {
         <ZoomAndPan  {...defaultProps} />
       </PluginHost>
     ));
-    expect(setCursorType.mock.calls[0]).toEqual([expect.anything(), 'pointer']);
+    expect(setCursorType.mock.calls[0]).toEqual([expect.anything()]);
   });
 
   it('should call "setCursorType" on start handler', () => {

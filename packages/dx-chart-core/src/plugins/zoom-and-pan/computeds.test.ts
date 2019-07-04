@@ -457,10 +457,16 @@ describe('ZoomAndPan', () => {
   });
 
   describe('#setCursorType', () => {
-    it('should set type of cursor', () => {
+    it('should set type of cursor, custom', () => {
       const node = { style: {} } as any;
       setCursorType(node, 'cursor_type');
       expect(node.style.cursor).toBe('cursor_type');
+    });
+
+    it('should set type of cursor, default', () => {
+      const node = { style: {} } as any;
+      setCursorType(node);
+      expect(node.style.cursor).toBe('pointer');
     });
   });
 });

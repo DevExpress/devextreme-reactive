@@ -79,7 +79,7 @@ HorizontalViewLayoutBase.propTypes = {
 
 HorizontalViewLayoutBase.defaultProps = {
   className: undefined,
-  style: undefined,
+  style: null,
 };
 
 export const HorizontalViewLayout = withStyles(styles, { name: 'HorizontalViewLayout' })(HorizontalViewLayoutBase);

@@ -97,7 +97,7 @@ VerticalViewLayoutBase.propTypes = {
 
 VerticalViewLayoutBase.defaultProps = {
   className: undefined,
-  style: undefined,
+  style: null,
 };
 
 export const VerticalViewLayout = withStyles(styles, { name: 'VerticalViewLayout' })(VerticalViewLayoutBase);

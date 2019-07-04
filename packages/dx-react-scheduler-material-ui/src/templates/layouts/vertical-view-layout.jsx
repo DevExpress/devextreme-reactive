@@ -34,6 +34,8 @@ export class VerticalViewLayoutBase extends React.PureComponent {
       layoutHeaderRef,
       height,
       className,
+      style,
+      ...restProps
     } = this.props;
 
     const containerStyle = height === AUTO_HEIGHT ? { height: '100%' } : { height: `${height}px` };
@@ -43,8 +45,9 @@ export class VerticalViewLayoutBase extends React.PureComponent {
         className={classNames(classes.container, className)}
         direction="column"
         wrap="nowrap"
-        style={containerStyle}
+        style={{ containerStyle, ...style }}
         ref={layoutRef}
+        {...restProps}
       >
         <Grid item xs="auto" className={classes.stickyHeader}>
           <Grid
@@ -89,10 +92,12 @@ VerticalViewLayoutBase.propTypes = {
   layoutHeaderRef: PropTypes.object.isRequired,
   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   className: PropTypes.string,
+  style: PropTypes.object,
 };
 
 VerticalViewLayoutBase.defaultProps = {
   className: undefined,
+  style: undefined,
 };
 
 export const VerticalViewLayout = withStyles(styles, { name: 'VerticalViewLayout' })(VerticalViewLayoutBase);

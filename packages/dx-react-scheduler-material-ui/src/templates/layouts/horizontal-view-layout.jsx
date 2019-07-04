@@ -32,6 +32,8 @@ export class HorizontalViewLayoutBase extends React.PureComponent {
       layoutHeaderRef,
       height,
       className,
+      style,
+      ...restProps
     } = this.props;
 
     const containerStyle = height === AUTO_HEIGHT ? { height: '100%' } : { height: `${height}px` };
@@ -42,7 +44,8 @@ export class HorizontalViewLayoutBase extends React.PureComponent {
         container
         direction="column"
         wrap="nowrap"
-        style={containerStyle}
+        style={{ containerStyle, ...style }}
+        {...restProps}
       >
         <Grid
           ref={layoutHeaderRef}
@@ -64,18 +67,19 @@ export class HorizontalViewLayoutBase extends React.PureComponent {
 
 HorizontalViewLayoutBase.propTypes = {
   // oneOfType is a workaround because withStyles returns react object
-  className: PropTypes.string,
   dayScaleComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   timeTableComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   classes: PropTypes.object.isRequired,
   layoutRef: PropTypes.object.isRequired,
   layoutHeaderRef: PropTypes.object.isRequired,
   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  className: PropTypes.string,
+  style: PropTypes.object,
 };
-
 
 HorizontalViewLayoutBase.defaultProps = {
   className: undefined,
+  style: undefined,
 };
 
 export const HorizontalViewLayout = withStyles(styles, { name: 'HorizontalViewLayout' })(HorizontalViewLayoutBase);

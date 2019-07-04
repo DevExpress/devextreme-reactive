@@ -7,7 +7,6 @@
 import { FormatterFn as FormatterFn_2 } from '@devexpress/dx-scheduler-core';
 import moment from 'moment';
 import * as React from 'react';
-import { SchedulerView as SchedulerView_2 } from '@devexpress/dx-scheduler-core';
 
 // @public (undocumented)
 export type AllDayCell = {
@@ -634,8 +633,8 @@ export const ViewSwitcher: React.ComponentType<ViewSwitcherProps>;
 // @public (undocumented)
 export namespace ViewSwitcher {
   export interface SwitcherProps {
-    availableViews: SchedulerView_2[];
-    currentView: SchedulerView_2;
+    availableViews: SchedulerView[];
+    currentView: SchedulerView;
     onChange: (nextViewName: string) => void;
   }
 }

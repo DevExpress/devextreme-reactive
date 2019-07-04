@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { getClasses, createShallow } from '@material-ui/core/test-utils';
-import { AUTO_HEIGHT } from '@devexpress/dx-scheduler-core';
 import { VerticalViewLayout } from './vertical-view-layout';
 
 describe('Vertical View Layout', () => {
@@ -41,13 +40,12 @@ describe('Vertical View Layout', () => {
   });
 
   it('should pass style to the root element', () => {
-    const containerStyle = defaultProps.height === AUTO_HEIGHT ? { height: '100%' } : { height: `${defaultProps.height}px` };
     const tree = shallow((
       <VerticalViewLayout {...defaultProps} style={{ a: 1 }} />
     ));
 
     expect(tree.find(`.${classes.container}`).props().style)
-      .toMatchObject({ containerStyle, a: 1 });
+      .toMatchObject({ height: '1000px', a: 1 });
   });
 
   it('should replace style of the root element', () => {

@@ -44,7 +44,7 @@ export class HorizontalViewLayoutBase extends React.PureComponent {
         container
         direction="column"
         wrap="nowrap"
-        style={{ containerStyle, ...style }}
+        style={{ ...containerStyle, ...style }}
         {...restProps}
       >
         <Grid

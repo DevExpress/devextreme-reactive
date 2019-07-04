@@ -45,7 +45,7 @@ export class VerticalViewLayoutBase extends React.PureComponent {
         className={classNames(classes.container, className)}
         direction="column"
         wrap="nowrap"
-        style={{ containerStyle, ...style }}
+        style={{ ...containerStyle, ...style }}
         ref={layoutRef}
         {...restProps}
       >

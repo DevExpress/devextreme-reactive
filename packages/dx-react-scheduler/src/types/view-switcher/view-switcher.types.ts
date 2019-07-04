@@ -1,4 +1,4 @@
-import { SchedulerView } from '@devexpress/dx-scheduler-core';
+import { SchedulerView } from '../index';
 
 // tslint:disable-next-line:no-namespace
 export namespace ViewSwitcher {

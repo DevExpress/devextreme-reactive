@@ -1,5 +1,5 @@
 export {
-  AppointmentModel, AppointmentMeta, AllDayCell,
+  AppointmentModel, AppointmentMeta, AllDayCell, SchedulerView,
 } from '../../../dx-scheduler-core/src/index';
 
 /** @internal */

@@ -27,7 +27,6 @@ const MONTH = 'Month';
 const AppointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
 const AllDayPanelPlaceholder = params => <TemplatePlaceholder name="allDayPanel" params={params} />;
 const CellPlaceholder = params => <TemplatePlaceholder name="allDayPanelCell" params={params} />;
-const allDayCellsData = memoize(viewCellsData => allDayCells(viewCellsData));
 
 class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelState> {
   state: AllDayPanelState = {
@@ -46,6 +45,8 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
     titleCellComponent: 'TitleCell',
     containerComponent: 'Container',
   };
+
+  allDayCellsData = memoize(viewCellsData => allDayCells(viewCellsData));
 
   updateRects = memoize((
     appointments, startViewDate, excludedDays, endViewDate, viewCellsData,
@@ -119,7 +120,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
                   <Layout
                     cellComponent={CellPlaceholder}
                     rowComponent={rowComponent}
-                    cellsData={allDayCellsData(viewCellsData)}
+                    cellsData={this.allDayCellsData(viewCellsData)}
                     setCellElementsMeta={setRects}
                     formatDate={formatDate}
                   />

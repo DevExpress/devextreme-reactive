@@ -35,27 +35,6 @@ const TimeTablePlaceholder = () => <TemplatePlaceholder name="timeTable" />;
 const CellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
 const AppointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
 
-const scrollingStrategyComputed = memoize((viewName, scrollingStrategy) => getters =>
-  computed(getters, viewName!, () => scrollingStrategy, getters.scrollingStrategy));
-
-const timeTableElementsMetaComputed = memoize((viewName, timeTableElementsMeta) => getters =>
-  computed(getters, viewName!, () => timeTableElementsMeta, getters.timeTableElementsMeta));
-
-const firstDayOfWeekComputed = memoize((viewName, firstDayOfWeek) => getters =>
-  computed(getters, viewName!, () => firstDayOfWeek, getters.firstDayOfWeek));
-
-const intervalCountComputed = memoize((viewName, intervalCount) => getters =>
-  computed(getters, viewName!, () => intervalCount, getters.intervalCount));
-
-const availableViewNamesComputed = memoize(viewName => ({ availableViewNames }) =>
-  availableViewNamesCore(availableViewNames, viewName!));
-
-const currentViewComputed = memoize(viewName => ({ currentView }) => (
-  currentView && currentView.name !== viewName
-    ? currentView
-    : { name: viewName, type: TYPE }
-));
-
 class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
   state: ViewState = {
     rects: [],
@@ -84,6 +63,27 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
     timeTableCellComponent: 'TimeTableCell',
     timeTableRowComponent: 'TimeTableRow',
   };
+
+  scrollingStrategyComputed = memoize((viewName, scrollingStrategy) => getters =>
+    computed(getters, viewName!, () => scrollingStrategy, getters.scrollingStrategy));
+
+  timeTableElementsMetaComputed = memoize((viewName, timeTableElementsMeta) => getters =>
+    computed(getters, viewName!, () => timeTableElementsMeta, getters.timeTableElementsMeta));
+
+  firstDayOfWeekComputed = memoize((viewName, firstDayOfWeek) => getters =>
+    computed(getters, viewName!, () => firstDayOfWeek, getters.firstDayOfWeek));
+
+  intervalCountComputed = memoize((viewName, intervalCount) => getters =>
+    computed(getters, viewName!, () => intervalCount, getters.intervalCount));
+
+  availableViewNamesComputed = memoize(viewName => ({ availableViewNames }) =>
+    availableViewNamesCore(availableViewNames, viewName!));
+
+  currentViewComputed = memoize(viewName => ({ currentView }) => (
+    currentView && currentView.name !== viewName
+      ? currentView
+      : { name: viewName, type: TYPE }
+  ));
 
   endViewDateComputed: ComputedFn = (getters) => {
     const { name: viewName } = this.props;
@@ -144,25 +144,28 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
       <Plugin
         name="MonthView"
       >
-        <Getter name="availableViewNames" computed={availableViewNamesComputed(viewName)} />
-        <Getter name="currentView" computed={currentViewComputed(viewName)} />
+        <Getter name="availableViewNames" computed={this.availableViewNamesComputed(viewName)} />
+        <Getter name="currentView" computed={this.currentViewComputed(viewName)} />
 
         <Getter
           name="firstDayOfWeek"
-          computed={firstDayOfWeekComputed(viewName, firstDayOfWeek)}
+          computed={this.firstDayOfWeekComputed(viewName, firstDayOfWeek)}
         />
-        <Getter name="intervalCount" computed={intervalCountComputed(viewName, intervalCount)} />
+        <Getter
+          name="intervalCount"
+          computed={this.intervalCountComputed(viewName, intervalCount)}
+        />
         <Getter name="viewCellsData" computed={this.viewCellsDataComputed} />
         <Getter name="startViewDate" computed={this.startViewDateComputed} />
         <Getter name="endViewDate" computed={this.endViewDateComputed} />
 
         <Getter
           name="timeTableElementsMeta"
-          computed={timeTableElementsMetaComputed(viewName, timeTableElementsMeta)}
+          computed={this.timeTableElementsMetaComputed(viewName, timeTableElementsMeta)}
         />
         <Getter
           name="scrollingStrategy"
-          computed={scrollingStrategyComputed(viewName, scrollingStrategy)}
+          computed={this.scrollingStrategyComputed(viewName, scrollingStrategy)}
         />
 
         <Template name="body">

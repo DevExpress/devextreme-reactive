@@ -45,34 +45,6 @@ const DayScaleEmptyCellPlaceholder = () => <TemplatePlaceholder name="dayScaleEm
 const DayScalePlaceholder = () => <TemplatePlaceholder name="dayScale" />;
 const TimeScalePlaceholder = () => <TemplatePlaceholder name="timeScale" />;
 
-const scrollingStrategyComputed = memoize((viewName, scrollingStrategy) => getters =>
-  computed(getters, viewName!, () => scrollingStrategy, getters.scrollingStrategy));
-
-const timeTableElementsMetaComputed = memoize((viewName, timeTableElementsMeta) => getters =>
-  computed(getters, viewName!, () => timeTableElementsMeta, getters.timeTableElementsMeta));
-
-const viewCellsData1 = memoize((viewName, startDayHour, endDayHour, cellDuration) => getters =>
-computed(
-  getters,
-  viewName,
-  viewCellsDataBaseComputed(startDayHour, endDayHour, cellDuration), getters.viewCellsData,
-));
-
-const cellDuration1 = memoize((viewName, cellDuration) => getters =>
-  computed(getters, viewName!, () => cellDuration, getters.cellDuration));
-
-const intervalCountComputed = memoize((viewName, intervalCount) => getters =>
-  computed(getters, viewName!, () => intervalCount, getters.intervalCount));
-
-const availableViewNamesComputed = memoize(viewName => ({ availableViewNames }) =>
-  availableViewNamesCore(availableViewNames, viewName!));
-
-const currentViewComputed = memoize(viewName => ({ currentView }) => (
-  currentView && currentView.name !== viewName
-    ? currentView
-    : { name: viewName, type: TYPE }
-));
-
 class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
   state: ViewState = {
     rects: [],
@@ -108,6 +80,34 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
     timeTableCellComponent: 'TimeTableCell',
     timeTableRowComponent: 'TimeTableRow',
   };
+
+  scrollingStrategyComputed = memoize((viewName, scrollingStrategy) => getters =>
+    computed(getters, viewName!, () => scrollingStrategy, getters.scrollingStrategy));
+
+  timeTableElementsMetaComputed = memoize((viewName, timeTableElementsMeta) => getters =>
+    computed(getters, viewName!, () => timeTableElementsMeta, getters.timeTableElementsMeta));
+
+  viewCellsDataComputed = memoize((viewName, startDayHour, endDayHour, cellDuration) => getters =>
+  computed(
+    getters,
+    viewName,
+    viewCellsDataBaseComputed(startDayHour, endDayHour, cellDuration), getters.viewCellsData,
+  ));
+
+  cellDurationComputed = memoize((viewName, cellDuration) => getters =>
+    computed(getters, viewName!, () => cellDuration, getters.cellDuration));
+
+  intervalCountComputed = memoize((viewName, intervalCount) => getters =>
+    computed(getters, viewName!, () => intervalCount, getters.intervalCount));
+
+  availableViewNamesComputed = memoize(viewName => ({ availableViewNames }) =>
+    availableViewNamesCore(availableViewNames, viewName!));
+
+  currentViewComputed = memoize(viewName => ({ currentView }) => (
+    currentView && currentView.name !== viewName
+      ? currentView
+      : { name: viewName, type: TYPE }
+  ));
 
   endViewDateComputed: ComputedFn = (getters) => {
     const { name: viewName } = this.props;
@@ -164,25 +164,28 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
       <Plugin
         name="DayView"
       >
-        <Getter name="availableViewNames" computed={availableViewNamesComputed(viewName)} />
-        <Getter name="currentView" computed={currentViewComputed(viewName)} />
+        <Getter name="availableViewNames" computed={this.availableViewNamesComputed(viewName)} />
+        <Getter name="currentView" computed={this.currentViewComputed(viewName)} />
 
-        <Getter name="intervalCount" computed={intervalCountComputed(viewName, intervalCount)} />
-        <Getter name="cellDuration" computed={cellDuration1(viewName, cellDuration)} />
+        <Getter
+          name="intervalCount"
+          computed={this.intervalCountComputed(viewName, intervalCount)}
+        />
+        <Getter name="cellDuration" computed={this.cellDurationComputed(viewName, cellDuration)} />
         <Getter
           name="viewCellsData"
-          computed={viewCellsData1(viewName, startDayHour, endDayHour, cellDuration)}
+          computed={this.viewCellsDataComputed(viewName, startDayHour, endDayHour, cellDuration)}
         />
         <Getter name="startViewDate" computed={this.startViewDateComputed} />
         <Getter name="endViewDate" computed={this.endViewDateComputed} />
 
         <Getter
           name="timeTableElementsMeta"
-          computed={timeTableElementsMetaComputed(viewName, timeTableElementsMeta)}
+          computed={this.timeTableElementsMetaComputed(viewName, timeTableElementsMeta)}
         />
         <Getter
           name="scrollingStrategy"
-          computed={scrollingStrategyComputed(viewName, scrollingStrategy)}
+          computed={this.scrollingStrategyComputed(viewName, scrollingStrategy)}
         />
 
         <Template name="body">

@@ -47,42 +47,6 @@ const DayScalePlaceholder = () => <TemplatePlaceholder name="dayScale" />;
 const DayScaleEmptyCellPlaceholder = () => <TemplatePlaceholder name="dayScaleEmptyCell" />;
 const TimeScalePlaceholder = () => <TemplatePlaceholder name="timeScale" />;
 
-const scrollingStrategyComputed = memoize((viewName, scrollingStrategy) => getters => computed(
-  getters, viewName!, () => scrollingStrategy, getters.scrollingStrategy,
-));
-
-const timeTableElementsMetaComputed = memoize((viewName, timeTableElementsMeta) => getters =>
-  computed(getters, viewName!, () => timeTableElementsMeta, getters.timeTableElementsMeta));
-
-const excludedDaysComputed = memoize((viewName, excludedDays) => getters => computed(
-  getters, viewName!, () => excludedDays, getters.excludedDays,
-));
-
-const firstDayOfWeekComputed = memoize((viewName, firstDayOfWeek) => getters => computed(
-  getters, viewName!, () => firstDayOfWeek, getters.firstDayOfWeek,
-));
-
-const intervalCountComputed = memoize((viewName, intervalCount) => getters => computed(
-  getters, viewName!, () => intervalCount, getters.intervalCount,
-));
-
-const viewCellsDataComputed = memoize((viewName, cellDuration, startDayHour, endDayHour) =>
-getters => computed(
-  getters,
-  viewName,
-  viewCellsDataBaseComputed(cellDuration, startDayHour, endDayHour),
-  getters.viewCellsData,
-));
-
-const availableViewNamesComputed = memoize(viewName => ({ availableViewNames }) =>
-  availableViewNamesCore(availableViewNames, viewName));
-
-const currentViewComputed = memoize(viewName => ({ currentView }) => (
-currentView && currentView.name !== viewName
-  ? currentView
-  : { name: viewName, type: TYPE }
-));
-
 class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
   state: ViewState = {
     rects: [],
@@ -120,6 +84,42 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
     timeTableCellComponent: 'TimeTableCell',
     timeTableRowComponent: 'TimeTableRow',
   };
+
+  scrollingStrategyComputed = memoize((viewName, scrollingStrategy) => getters => computed(
+    getters, viewName!, () => scrollingStrategy, getters.scrollingStrategy,
+  ));
+
+  timeTableElementsMetaComputed = memoize((viewName, timeTableElementsMeta) => getters =>
+    computed(getters, viewName!, () => timeTableElementsMeta, getters.timeTableElementsMeta));
+
+  excludedDaysComputed = memoize((viewName, excludedDays) => getters => computed(
+    getters, viewName!, () => excludedDays, getters.excludedDays,
+  ));
+
+  firstDayOfWeekComputed = memoize((viewName, firstDayOfWeek) => getters => computed(
+    getters, viewName!, () => firstDayOfWeek, getters.firstDayOfWeek,
+  ));
+
+  intervalCountComputed = memoize((viewName, intervalCount) => getters => computed(
+    getters, viewName!, () => intervalCount, getters.intervalCount,
+  ));
+
+  viewCellsDataComputed = memoize((viewName, cellDuration, startDayHour, endDayHour) =>
+    getters => computed(
+      getters,
+      viewName,
+      viewCellsDataBaseComputed(cellDuration, startDayHour, endDayHour),
+      getters.viewCellsData,
+    ));
+
+  availableViewNamesComputed = memoize(viewName => ({ availableViewNames }) =>
+    availableViewNamesCore(availableViewNames, viewName));
+
+  currentViewComputed = memoize(viewName => ({ currentView }) => (
+    currentView && currentView.name !== viewName
+      ? currentView
+      : { name: viewName, type: TYPE }
+    ));
 
   endViewDateComputed: ComputedFn = (getters) => {
     const { name: viewName } = this.props;
@@ -178,29 +178,32 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
       <Plugin
         name="WeekView"
       >
-        <Getter name="availableViewNames" computed={availableViewNamesComputed(viewName)} />
-        <Getter name="currentView" computed={currentViewComputed(viewName)} />
+        <Getter name="availableViewNames" computed={this.availableViewNamesComputed(viewName)} />
+        <Getter name="currentView" computed={this.currentViewComputed(viewName)} />
 
-        <Getter name="intervalCount" computed={intervalCountComputed(viewName, intervalCount)} />
+        <Getter
+          name="intervalCount"
+          computed={this.intervalCountComputed(viewName, intervalCount)}
+        />
         <Getter
           name="firstDayOfWeek"
-          computed={firstDayOfWeekComputed(viewName, firstDayOfWeek)}
+          computed={this.firstDayOfWeekComputed(viewName, firstDayOfWeek)}
         />
-        <Getter name="excludedDays" computed={excludedDaysComputed(viewName, excludedDays)} />
+        <Getter name="excludedDays" computed={this.excludedDaysComputed(viewName, excludedDays)} />
         <Getter
           name="viewCellsData"
-          computed={viewCellsDataComputed(viewName, cellDuration, startDayHour, endDayHour)}
+          computed={this.viewCellsDataComputed(viewName, cellDuration, startDayHour, endDayHour)}
         />
         <Getter name="startViewDate" computed={this.startViewDateComputed} />
         <Getter name="endViewDate" computed={this.endViewDateComputed} />
 
         <Getter
           name="timeTableElementsMeta"
-          computed={timeTableElementsMetaComputed(viewName, timeTableElementsMeta)}
+          computed={this.timeTableElementsMetaComputed(viewName, timeTableElementsMeta)}
         />
         <Getter
           name="scrollingStrategy"
-          computed={scrollingStrategyComputed(viewName, scrollingStrategy)}
+          computed={this.scrollingStrategyComputed(viewName, scrollingStrategy)}
         />
 
         <Template name="body">

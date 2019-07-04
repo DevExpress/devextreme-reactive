@@ -24,9 +24,9 @@ describe('Vertical View Layout', () => {
       <VerticalViewLayout {...defaultProps} className="custom-class" />
     ));
 
-    expect(tree.find('.custom-class'))
+    expect(tree.hasClass('custom-class'))
       .toBeTruthy();
-    expect(tree.find(`.${classes.container}`))
+    expect(tree.hasClass(`${classes.container}`))
       .toBeTruthy();
   });
 
@@ -35,7 +35,7 @@ describe('Vertical View Layout', () => {
       <VerticalViewLayout {...defaultProps} data={{ a: 1 }} />
     ));
 
-    expect(tree.find(`.${classes.container}`).props().data)
+    expect(tree.prop('data'))
       .toMatchObject({ a: 1 });
   });
 
@@ -44,7 +44,7 @@ describe('Vertical View Layout', () => {
       <VerticalViewLayout {...defaultProps} style={{ a: 1 }} />
     ));
 
-    expect(tree.find(`.${classes.container}`).props().style)
+    expect(tree.prop('style'))
       .toMatchObject({ height: '1000px', a: 1 });
   });
 
@@ -53,7 +53,7 @@ describe('Vertical View Layout', () => {
       <VerticalViewLayout {...defaultProps} style={{ height: 1 }} />
     ));
 
-    expect(tree.find(`.${classes.container}`).props().style)
+    expect(tree.prop('style'))
       .toMatchObject({ height: 1 });
   });
 });

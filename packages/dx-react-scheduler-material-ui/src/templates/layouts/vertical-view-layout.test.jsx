@@ -3,7 +3,6 @@ import { getClasses, createShallow } from '@material-ui/core/test-utils';
 import { VerticalViewLayout } from './vertical-view-layout';
 
 describe('Vertical View Layout', () => {
-
   const defaultProps = {
     timeScaleComponent: () => null,
     dayScaleComponent: () => null,

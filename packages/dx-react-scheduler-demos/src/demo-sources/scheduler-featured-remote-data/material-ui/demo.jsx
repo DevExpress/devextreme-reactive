@@ -16,6 +16,7 @@ import {
   ViewSwitcher,
   AppointmentForm,
   AppointmentTooltip,
+  TodayButton,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
 const URL = 'https://js.devexpress.com/Demos/Mvc/api/SchedulerData/Get';
@@ -138,6 +139,7 @@ export default class Demo extends React.PureComponent {
             {...loading ? { rootComponent: ToolbarWithLoading } : null}
           />
           <DateNavigator />
+          <TodayButton />
           <ViewSwitcher />
           <AppointmentTooltip
             showOpenButton

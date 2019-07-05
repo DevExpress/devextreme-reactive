@@ -499,6 +499,26 @@ export interface TimeScale {
 }
 
 // @public
+export const TodayButton: React.ComponentType<TodayButtonProps>;
+
+// @public (undocumented)
+export namespace TodayButton {
+  export interface ButtonProps {
+    getMessage: (messageKey: string) => string;
+    setCurrentDate: (nextDate: Date) => void;
+  }
+  export interface LocalizationMessages {
+    today?: string;
+  }
+}
+
+// @public (undocumented)
+export interface TodayButtonProps {
+  buttonComponent: React.ComponentType<TodayButton.ButtonProps>;
+  messages?: TodayButton.LocalizationMessages;
+}
+
+// @public
 export const Toolbar: React.ComponentType<ToolbarProps>;
 
 // @public (undocumented)

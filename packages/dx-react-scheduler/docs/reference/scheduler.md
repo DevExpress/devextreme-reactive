@@ -41,7 +41,7 @@ title? | string | The title.
 allDay? | boolean | The all day flag.
 id? | number &#124; string | The identifier.
 rRule? | string | Specifies the appointment recurrence rule. Follows the [iCalendar RRULE](https://tools.ietf.org/html/rfc5545#section-3.8.5.3) format.
-exDate? | string | Specifies dates excluded from recurrence. Follows the [iCalendar EXDATE](https://tools.ietf.org/html/rfc5545#section-3.8.5.1) format.
+exDate? | string | Specifies dates excluded from recurrence. Uses the [iCalendar EXDATE](https://tools.ietf.org/html/rfc5545#section-3.8.5.1) format.
 [propertyName: string] | any | Any other properties.
 
 ### CellElementsMeta

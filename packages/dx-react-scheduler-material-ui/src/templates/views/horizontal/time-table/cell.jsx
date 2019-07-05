@@ -36,7 +36,7 @@ const styles = theme => ({
     display: 'inline-block',
     width: theme.spacing(3),
     height: theme.spacing(3),
-    lineHeight: theme.spacing(3),
+    lineHeight: `${theme.spacing(3)}px`,
     textAlign: 'center',
     borderRadius: '50%',
     background: theme.palette.primary.main,

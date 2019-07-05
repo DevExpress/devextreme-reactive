@@ -82,7 +82,7 @@ export const getColumnBoundaries: PureComputed<
 export const getRowsVisibleBoundary: PureComputed<
 [TableRow[], number, number, GetColumnWidthFn, number, number, boolean?], RowsVisibleBoundary
 > = (rows, top, height, getRowHeight, offset, rowHeight, isDataRemote) => {
-  let beforePosition = offset * rowHeight;
+  const beforePosition = offset * rowHeight;
   const noVisibleRowsLoaded = rowHeight > 0 &&
     beforePosition + rows.length * rowHeight < top ||
     top < beforePosition;

@@ -98,12 +98,12 @@ describe('VirtualTableLayout utils', () => {
         expect(getVisibleBoundary(items, 600, 120, item => item.size, 20, 30, true))
           .toEqual([20, 22]);
       });
-  
+
       it('should work when rows are not loaded', () => {
         expect(getRowsVisibleBoundary(items, 240, 120, item => item.size, 0, 40, true))
           .toEqual({ start: 6, end: 6 });
       });
-    })
+    });
   });
 
   describe('#getRenderBoundary', () => {

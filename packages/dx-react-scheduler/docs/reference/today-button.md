@@ -1,6 +1,6 @@
 # TodayButton Plugin Reference
 
-A plugin that renders the Scheduler's button which sets the current date to today's date.
+A plugin that renders the Scheduler's button that is used to navigate to the today's date
 
 ## Import
 
@@ -38,7 +38,7 @@ Properties passed to the component that renders the today button.
 
 Field | Type | Description
 ------|------|------------
-setCurrentDate | (nextDate: Date) => void | Function that sets the current date of the Scheduler.
+setCurrentDate | (nextDate: Date) => void | Function that sets the Scheduler's current date.
 getMessage | ([messageKey](#localization-messages): string) => string | Returns a localization message by the message key.
 
 ## Localization Messages

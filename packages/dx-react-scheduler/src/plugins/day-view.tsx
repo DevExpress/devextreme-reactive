@@ -11,14 +11,11 @@ import {
 import {
   computed,
   viewCellsData as viewCellsDataCore,
-  getVerticalRectByDates,
-  calculateRectByDateIntervals,
-  calculateWeekDateIntervals,
   getAppointmentStyle,
   startViewDate as startViewDateCore,
   endViewDate as endViewDateCore,
   availableViews as availableViewsCore,
-  VERTICAL_TYPE,
+  verticalTimeTableRects,
 } from '@devexpress/dx-scheduler-core';
 import { memoize } from '@devexpress/dx-core';
 
@@ -49,12 +46,14 @@ const DayScalePlaceholder = () => <TemplatePlaceholder name="dayScale" />;
 const TimeScalePlaceholder = () => <TemplatePlaceholder name="timeScale" />;
 
 class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
-  timeTable = React.createRef<HTMLElement>();
-  layout = React.createRef<HTMLElement>();
-  layoutHeader = React.createRef<HTMLElement>();
-
   state: ViewState = {
     rects: [],
+    timeTableElementsMeta: {},
+    scrollingStrategy: {
+      topBoundary: 0,
+      bottomBoundary: 0,
+      changeVerticalScroll: () => undefined,
+    },
   };
 
   static defaultProps: Partial<VerticalViewProps> = {
@@ -76,66 +75,39 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
     dayScaleLayoutComponent: 'DayScaleLayout',
     dayScaleCellComponent: 'DayScaleCell',
     dayScaleRowComponent: 'DayScaleRow',
+    timeTableContainerComponent: 'TimeTableContainer',
     timeTableLayoutComponent: 'TimeTableLayout',
     timeTableCellComponent: 'TimeTableCell',
     timeTableRowComponent: 'TimeTableRow',
   };
 
-  timeTableElementComputed = () => this.timeTable;
-  layoutElementComputed = () => this.layout;
-  layoutHeaderElementComputed = () => this.layoutHeader;
+  scrollingStrategyComputed = memoize((viewName, scrollingStrategy) => getters =>
+    computed(getters, viewName!, () => scrollingStrategy, getters.scrollingStrategy));
 
-  layoutHeaderElement = memoize(viewName => (getters) => {
-    return computed(
-      getters, viewName!, this.layoutHeaderElementComputed, getters.layoutHeaderElement,
-    );
-  });
+  timeTableElementsMetaComputed = memoize((viewName, timeTableElementsMeta) => getters =>
+    computed(getters, viewName!, () => timeTableElementsMeta, getters.timeTableElementsMeta));
 
-  layoutElement = memoize(viewName => (getters) => {
-    return computed(
-      getters, viewName!, this.layoutElementComputed, getters.layoutElement,
-    );
-  });
-
-  timeTableElement = memoize(viewName => (getters) => {
-    return computed(
-      getters, viewName!, this.timeTableElementComputed, getters.timeTableElement,
-    );
-  });
-
-  viewCellsData = memoize((viewName, startDayHour, endDayHour, cellDuration) => (getters) => {
-    return computed(
+  viewCellsDataComputed = memoize((viewName, startDayHour, endDayHour, cellDuration) => getters =>
+    computed(
       getters,
       viewName,
       viewCellsDataBaseComputed(startDayHour, endDayHour, cellDuration), getters.viewCellsData,
-    );
-  });
+    ));
 
-  cellDuration = memoize((viewName, cellDuration) => (getters) => {
-    return computed(
-      getters, viewName!, () => cellDuration, getters.cellDuration,
-    );
-  });
+  cellDurationComputed = memoize((viewName, cellDuration) => getters =>
+    computed(getters, viewName!, () => cellDuration, getters.cellDuration));
 
-  intervalCount = memoize((viewName, intervalCount) => (getters) => {
-    return computed(
-      getters, viewName!, () => intervalCount, getters.intervalCount,
-    );
-  });
+  intervalCountComputed = memoize((viewName, intervalCount) => getters =>
+    computed(getters, viewName!, () => intervalCount, getters.intervalCount));
 
-  availableViews = memoize((viewName, displayName) => ({ availableViews }) => {
-    return availableViewsCore(
-      availableViews, viewName, displayName,
-    );
-  });
+  availableViews = memoize((viewName, displayName) => ({ availableViews }) =>
+    availableViewsCore(availableViews, viewName, displayName));
 
-  currentView = memoize((viewName, viewDisplayName) => ({ currentView }) => {
-    return (
-      currentView && currentView.name !== viewName
-        ? currentView
-        : { name: viewName, type: TYPE, displayName: viewDisplayName }
-    );
-  });
+  currentView = memoize((viewName, viewDisplayName) => ({ currentView }) => (
+    currentView && currentView.name !== viewName
+      ? currentView
+      : { name: viewName, type: TYPE, displayName: viewDisplayName }
+  ));
 
   endViewDateComputed: ComputedFn = (getters) => {
     const { name: viewName } = this.props;
@@ -151,36 +123,24 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
     );
   }
 
-  calculateRects = memoize((
+  updateRects = memoize((
     appointments, startViewDate, endViewDate, viewCellsData, cellDuration, currentDate,
-  ) => (cellElements) => {
-    const intervals = calculateWeekDateIntervals(
+  ) => (cellElementsMeta) => {
+    const rects = verticalTimeTableRects(
       appointments, startViewDate, endViewDate, [],
+      viewCellsData, cellDuration, cellElementsMeta,
     );
 
-    const rects = calculateRectByDateIntervals(
-      {
-        growDirection: VERTICAL_TYPE,
-        multiline: false,
-      },
-      intervals,
-      getVerticalRectByDates,
-      {
-        startViewDate,
-        endViewDate,
-        cellDuration,
-        currentDate,
-        viewCellsData,
-        cellElements,
-      },
-    );
-
-    this.setState({ rects });
+    this.setState({ rects, timeTableElementsMeta: cellElementsMeta });
   });
+
+  setScrollingStrategy = (scrollingStrategy) => {
+    this.setState({ scrollingStrategy });
+  }
 
   render() {
     const {
-      layoutComponent: ViewLayout,
+      layoutComponent: Layout,
       dayScaleEmptyCellComponent: DayScaleEmptyCell,
       timeScaleLayoutComponent: TimeScale,
       timeScaleRowComponent: TimeScaleRow,
@@ -188,8 +148,8 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
       dayScaleLayoutComponent: DayScale,
       dayScaleCellComponent: DayScaleCell,
       dayScaleRowComponent: DayScaleRow,
-      timeTableLayoutComponent: TimeTable,
-      timeTableRowComponent: TimeTableRow,
+      timeTableLayoutComponent: TimeTableLayout,
+      timeTableRowComponent,
       timeTableCellComponent: TimeTableCell,
       appointmentLayerComponent: AppointmentLayer,
       cellDuration,
@@ -199,7 +159,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
       endDayHour,
       displayName,
     } = this.props;
-    const { rects } = this.state;
+    const { rects, timeTableElementsMeta, scrollingStrategy } = this.state;
     const viewDisplayName = displayName || viewName;
 
     return (
@@ -212,31 +172,38 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
         />
         <Getter name="currentView" computed={this.currentView(viewName, viewDisplayName)} />
 
-        <Getter name="intervalCount" computed={this.intervalCount(viewName, intervalCount)} />
-        <Getter name="cellDuration" computed={this.cellDuration(viewName, cellDuration)} />
+        <Getter
+          name="intervalCount"
+          computed={this.intervalCountComputed(viewName, intervalCount)}
+        />
+        <Getter name="cellDuration" computed={this.cellDurationComputed(viewName, cellDuration)} />
         <Getter
           name="viewCellsData"
-          computed={this.viewCellsData(viewName, startDayHour, endDayHour, cellDuration)}
+          computed={this.viewCellsDataComputed(viewName, startDayHour, endDayHour, cellDuration)}
         />
         <Getter name="startViewDate" computed={this.startViewDateComputed} />
         <Getter name="endViewDate" computed={this.endViewDateComputed} />
 
-        <Getter name="timeTableElement" computed={this.timeTableElement(viewName)} />
-        <Getter name="layoutElement" computed={this.layoutElement(viewName)} />
-        <Getter name="layoutHeaderElement" computed={this.layoutHeaderElement(viewName)} />
+        <Getter
+          name="timeTableElementsMeta"
+          computed={this.timeTableElementsMetaComputed(viewName, timeTableElementsMeta)}
+        />
+        <Getter
+          name="scrollingStrategy"
+          computed={this.scrollingStrategyComputed(viewName, scrollingStrategy)}
+        />
 
         <Template name="body">
           <TemplateConnector>
             {({ currentView, layoutHeight }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
-                <ViewLayout
+                <Layout
                   dayScaleComponent={DayScalePlaceholder}
                   dayScaleEmptyCellComponent={DayScaleEmptyCellPlaceholder}
                   timeTableComponent={TimeTablePlaceholder}
                   timeScaleComponent={TimeScalePlaceholder}
-                  layoutRef={this.layout}
-                  layoutHeaderRef={this.layoutHeader}
+                  setScrollingStrategy={this.setScrollingStrategy}
                   height={layoutHeight}
                 />
               );
@@ -295,33 +262,32 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
               viewCellsData,
             }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
-              const setRects = this.calculateRects(
+              const setRects = this.updateRects(
                 appointments, startViewDate, endViewDate, viewCellsData, cellDuration, currentDate,
               );
 
               return (
                 <React.Fragment>
-                  <TimeTable
+                  <TimeTableLayout
                     cellsData={viewCellsData}
-                    rowComponent={TimeTableRow}
+                    rowComponent={timeTableRowComponent}
                     cellComponent={CellPlaceholder}
                     formatDate={formatDate}
-                    tableRef={this.timeTable}
-                    setCellElements={setRects}
+                    setCellElementsMeta={setRects}
                   />
                   <AppointmentLayer>
                     {rects.map(({
                       dataItem, type, fromPrev, toNext, ...geometry
                     }, index) => (
-                      <AppointmentPlaceholder
-                        key={index.toString()}
-                        type={type}
-                        data={dataItem}
-                        fromPrev={fromPrev}
-                        toNext={toNext}
-                        style={getAppointmentStyle(geometry)}
-                      />
-                    ))}
+                        <AppointmentPlaceholder
+                          key={index.toString()}
+                          type={type}
+                          data={dataItem}
+                          fromPrev={fromPrev}
+                          toNext={toNext}
+                          style={getAppointmentStyle(geometry)}
+                        />
+                      ))}
                   </AppointmentLayer>
                 </React.Fragment>
               );
@@ -341,7 +307,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
             </TemplateConnector>
           )}
         </Template>
-      </Plugin>
+      </Plugin >
     );
   }
 }

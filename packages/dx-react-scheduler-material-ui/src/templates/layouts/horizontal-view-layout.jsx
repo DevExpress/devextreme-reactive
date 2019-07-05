@@ -1,9 +1,10 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { AUTO_HEIGHT } from '@devexpress/dx-scheduler-core';
-import RootRef from '@material-ui/core/RootRef';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
+import classNames from 'classnames';
+import { scrollingStrategy } from '../utils';
 
 const styles = theme => ({
   container: {
@@ -17,59 +18,89 @@ const styles = theme => ({
     overflow: 'visible',
     background: theme.palette.background.paper,
   },
-  main: {
+  timeTable: {
     position: 'relative',
   },
 });
 
-export class HorizontalViewLayoutBase extends React.PureComponent {
+class HorizontalViewLayoutBase extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.layout = React.createRef();
+    this.layoutHeader = React.createRef();
+  }
+
+  componentDidMount() {
+    this.setScrollingStrategy();
+  }
+
+  componentDidUpdate() {
+    this.setScrollingStrategy();
+  }
+
+  setScrollingStrategy() {
+    const { setScrollingStrategy } = this.props;
+
+    setScrollingStrategy(scrollingStrategy(this.layout.current, this.layoutHeader.current));
+  }
+
   render() {
     const {
-      dayScaleComponent: Navbar,
-      timeTableComponent: Main,
+      dayScaleComponent: DayScale,
+      timeTableComponent: TimeTable,
+      setScrollingStrategy,
       classes,
-      layoutRef,
-      layoutHeaderRef,
       height,
+      className,
+      style,
+      ...restProps
     } = this.props;
 
     const containerStyle = height === AUTO_HEIGHT ? { height: '100%' } : { height: `${height}px` };
+
     return (
-      <RootRef rootRef={layoutRef}>
+      <Grid
+        ref={this.layout}
+        className={classNames(classes.container, className)}
+        container
+        direction="column"
+        wrap="nowrap"
+        style={{ ...containerStyle, ...style }}
+        {...restProps}
+      >
         <Grid
-          className={classes.container}
-          container
-          direction="column"
-          wrap="nowrap"
-          style={containerStyle}
+          ref={this.layoutHeader}
+          item
+          className={classes.stickyHeader}
         >
-          <RootRef rootRef={layoutHeaderRef}>
-            <Grid
-              item
-              className={classes.stickyHeader}
-            >
-              <Navbar />
-            </Grid>
-          </RootRef>
-          <Grid
-            item
-            className={classes.main}
-          >
-            <Main />
-          </Grid>
+          <DayScale />
         </Grid>
-      </RootRef>
+        <Grid
+          item
+          className={classes.timeTable}
+        >
+          <TimeTable />
+        </Grid>
+      </Grid>
     );
   }
 }
 
 HorizontalViewLayoutBase.propTypes = {
-  dayScaleComponent: PropTypes.func.isRequired,
-  timeTableComponent: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
-  layoutRef: PropTypes.object.isRequired,
-  layoutHeaderRef: PropTypes.object.isRequired,
+  // oneOfType is a workaround because withStyles returns react object
+  dayScaleComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  timeTableComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  setScrollingStrategy: PropTypes.func.isRequired,
   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
+  style: PropTypes.object,
+};
+
+HorizontalViewLayoutBase.defaultProps = {
+  className: undefined,
+  style: null,
 };
 
 export const HorizontalViewLayout = withStyles(styles, { name: 'HorizontalViewLayout' })(HorizontalViewLayoutBase);

@@ -16,6 +16,7 @@ import { DragDropProvider as DragDropProvider_2 } from '@devexpress/dx-react-sch
 import { MonthView as MonthView_2 } from '@devexpress/dx-react-scheduler';
 import * as React from 'react';
 import { Scheduler as Scheduler_2 } from '@devexpress/dx-react-scheduler';
+import { TodayButton as TodayButton_2 } from '@devexpress/dx-react-scheduler';
 import { Toolbar as Toolbar_2 } from '@devexpress/dx-react-scheduler';
 import { ViewSwitcher as ViewSwitcher_2 } from '@devexpress/dx-react-scheduler';
 import { WeekView as WeekView_2 } from '@devexpress/dx-react-scheduler';
@@ -446,6 +447,22 @@ export interface SchedulerProps {
   height?: number | `auto`;
   locale?: string | Array<string>;
   rootComponent?: React.ComponentType<Scheduler_2.RootProps>;
+}
+
+// @public (undocumented)
+export namespace TodayButton {
+  export type ButtonProps = TodayButton_2.ButtonProps;
+}
+
+// @public
+export const TodayButton: React.ComponentType<TodayButtonProps> & {
+  Button: React.ComponentType<TodayButton_2.ButtonProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+};
+
+// @public (undocumented)
+export interface TodayButtonProps {
+  buttonComponent?: React.ComponentType<TodayButton_2.ButtonProps>;
+  messages?: TodayButton_2.LocalizationMessages;
 }
 
 // @public (undocumented)

@@ -28,27 +28,24 @@ export const getCellByDate: GetCellByDateFn = (viewCellsData, date, takePrev = f
 };
 
 const getCellRect: GetCellRectVerticalFn = (
-  date, viewCellsData, cellDuration, cellElements, takePrev,
+  date, viewCellsData, cellDuration, cellElementsMeta, takePrev,
 ) => {
   const {
     index: cellIndex,
     startDate: cellStartDate,
   } = getCellByDate(viewCellsData, date, takePrev);
 
-  const cellElement = cellElements[cellIndex];
   const {
     top,
     left,
     width,
     height: cellHeight,
-  } = cellElement.getBoundingClientRect();
+  } = cellElementsMeta.getCellRects[cellIndex]();
 
   const timeOffset = moment(date as SchedulerDateTime).diff(cellStartDate as Date, 'minutes');
   const topOffset = cellHeight * (timeOffset / cellDuration);
-  let parentRect = { left: 0, top: 0, width: 0 };
-  if (cellElement.offsetParent) {
-    parentRect = cellElement.offsetParent.getBoundingClientRect();
-  }
+  const parentRect = cellElementsMeta.parentRect();
+
   return {
     top,
     left,
@@ -64,13 +61,13 @@ export const getVerticalRectByDates: GetVerticalRectByDatesFn = (
   {
     viewCellsData,
     cellDuration,
-    cellElements,
+    cellElementsMeta,
   },
 ) => {
   const firstCellRect = getCellRect(
-    startDate, viewCellsData, cellDuration, cellElements, false,
+    startDate, viewCellsData, cellDuration, cellElementsMeta, false,
   );
-  const lastCellRect = getCellRect(endDate, viewCellsData, cellDuration, cellElements, true);
+  const lastCellRect = getCellRect(endDate, viewCellsData, cellDuration, cellElementsMeta, true);
 
   const top = firstCellRect.top + firstCellRect.topOffset;
   const height = (lastCellRect.top + lastCellRect.topOffset) - top;

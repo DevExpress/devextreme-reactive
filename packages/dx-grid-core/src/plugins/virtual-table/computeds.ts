@@ -16,6 +16,7 @@ export const getVisibleRowsBounds: RowsVisibleBoundaryFn = (
     bodyRows,
     headerRows = [],
     footerRows = [],
+    isDataRemote,
   } = getters;
 
   return {
@@ -26,7 +27,7 @@ export const getVisibleRowsBounds: RowsVisibleBoundaryFn = (
     ),
     body: getRowsVisibleBoundary(
       bodyRows, viewportTop, containerHeight - headerHeight - footerHeight,
-      getRowHeight, loadedRowsStart, estimatedRowHeight,
+      getRowHeight, loadedRowsStart, estimatedRowHeight, isDataRemote,
     ),
     footer: getRowsVisibleBoundary(
       footerRows, 0, footerHeight,

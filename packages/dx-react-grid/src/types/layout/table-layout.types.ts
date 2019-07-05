@@ -43,6 +43,7 @@ export interface VirtualTableLayoutProps extends TableLayoutProps {
   footerTableComponent: React.ComponentType<object>;
   totalRowCount: number;
   loadedRowsStart: number;
+  isDataRemote: boolean;
   ensureNextVirtualPage: (payload?: any) => void;
 }
 /** @internal */

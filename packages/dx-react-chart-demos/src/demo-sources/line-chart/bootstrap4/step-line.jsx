@@ -16,8 +16,8 @@ const Line = props => (
   <LineSeries.Path
     {...props}
     path={line()
-      .x(({ x }) => x)
-      .y(({ y }) => y)
+      .x(({ arg }) => arg)
+      .y(({ val }) => val)
       .curve(curveStep)}
   />
 );

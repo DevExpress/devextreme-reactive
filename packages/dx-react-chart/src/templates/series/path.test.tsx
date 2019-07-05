@@ -14,11 +14,12 @@ jest.mock('../../utils/with-states', () => ({
 
 describe('Path', () => {
   const defaultProps = {
-    path: value => value.join('-'),
+    path: jest.fn(value => value.join('-')),
     coordinates: [1, 2, 3],
     index: 1,
     color: 'red',
     scales: { tag: 'test-scales' },
+    rotated: true,
     getAnimatedStyle: jest.fn(style => style),
   };
 
@@ -35,6 +36,7 @@ describe('Path', () => {
       strokeWidth: 2,
       stroke: 'red',
     });
+    expect(defaultProps.path).toBeCalledWith(defaultProps.coordinates);
   });
 
   it('should apply custom styles if any', () => {

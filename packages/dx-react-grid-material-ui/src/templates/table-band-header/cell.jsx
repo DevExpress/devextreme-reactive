@@ -7,16 +7,15 @@ import { getBorder } from '../utils';
 
 const styles = theme => ({
   cell: {
-    paddingRight: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit,
+    paddingRight: theme.spacing(1),
+    paddingLeft: theme.spacing(1),
     '&:first-child': {
-      paddingLeft: theme.spacing.unit * 3,
+      paddingLeft: theme.spacing(3),
     },
     '&:last-child': {
-      paddingRight: theme.spacing.unit * 3,
+      paddingRight: theme.spacing(3),
       borderRight: 0,
     },
-    height: theme.spacing.unit * 6,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',

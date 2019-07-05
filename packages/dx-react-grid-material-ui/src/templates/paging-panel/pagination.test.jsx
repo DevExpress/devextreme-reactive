@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { createMount, getClasses } from '@material-ui/core/test-utils';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import { setupConsole } from '@devexpress/dx-testing';
 import { Pagination } from './pagination';
 
@@ -55,7 +57,7 @@ describe('Pagination', () => {
         pageSize: 5,
       });
       const activeButtonClass = classes.activeButton;
-      const buttons = tree.find('Button');
+      const buttons = tree.find(Button);
       const activeItems = buttons.filterWhere(b => b.hasClass(activeButtonClass) === true);
       const disabledItems = buttons.filterWhere(b => b.props().disabled === true);
 
@@ -76,7 +78,7 @@ describe('Pagination', () => {
         pageSize: 5,
       });
       const activeButtonClass = classes.activeButton;
-      const buttons = tree.find('Button');
+      const buttons = tree.find(Button);
       const activeItems = buttons.filterWhere(b => b.hasClass(activeButtonClass) === true);
       const disabledItems = buttons.filterWhere(b => b.props().disabled === true);
 
@@ -97,7 +99,7 @@ describe('Pagination', () => {
         pageSize: 10,
       });
       const activeButtonClass = classes.activeButton;
-      const buttons = tree.find('Button');
+      const buttons = tree.find(Button);
       const activeItems = buttons.filterWhere(b => b.hasClass(activeButtonClass) === true);
       const disabledItems = buttons.filterWhere(b => b.props().disabled === true);
 
@@ -135,7 +137,7 @@ describe('Pagination', () => {
         totalCount: 96,
         pageSize: 10,
         onCurrentPageChange,
-      }).find('IconButton');
+      }).find(IconButton);
 
       const prev = arrows.at(0);
       const next = arrows.at(1);
@@ -157,7 +159,7 @@ describe('Pagination', () => {
         totalCount: 96,
         pageSize: 10,
         onCurrentPageChange,
-      }).find('IconButton');
+      }).find(IconButton);
 
       const prev = arrows.at(0);
       const next = arrows.at(1);
@@ -178,7 +180,7 @@ describe('Pagination', () => {
         totalCount: 96,
         pageSize: 5,
         onCurrentPageChange,
-      }).find('IconButton');
+      }).find(IconButton);
 
       const prev = arrows.at(0);
       const next = arrows.at(1);
@@ -197,7 +199,7 @@ describe('Pagination', () => {
         currentPage: 9,
         totalCount: 96,
         pageSize: 5,
-      }).find('IconButton');
+      }).find(IconButton);
       const prev = arrows.at(0);
       const next = arrows.at(1);
 

@@ -32,12 +32,12 @@ const getAllDayMessages = locale => allDayLocalizationMessages[locale];
 const styles = theme => ({
   container: {
     display: 'flex',
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
     justifyContent: 'flex-end',
   },
   text: {
     ...theme.typography.h6,
-    marginRight: theme.spacing.unit * 2,
+    marginRight: theme.spacing(2),
   },
 });
 

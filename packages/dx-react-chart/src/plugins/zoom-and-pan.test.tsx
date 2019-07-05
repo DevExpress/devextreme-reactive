@@ -25,6 +25,7 @@ describe('ZoomAndPan', () => {
     getter: {
       domains: 'test-domains',
       ranges: 'test-ranges',
+      rotated: 'test-rotated',
       rootRef: {
         current: {},
       },

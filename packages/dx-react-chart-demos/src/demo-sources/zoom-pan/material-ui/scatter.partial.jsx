@@ -28,8 +28,8 @@ const TooltipValueCell = withStyles(tooltipValueCellStyle)(({ classes, className
 const tooltipSplitterStyle = theme => ({
   style: {
     opacity: 0.6,
-    marginTop: theme.spacing.unit * 0.5,
-    marginBottom: theme.spacing.unit * 0.5,
+    marginTop: theme.spacing(0.5),
+    marginBottom: theme.spacing(0.5),
   },
 });
 const TooltipSplitter = withStyles(tooltipSplitterStyle)(({ classes, className, ...props }) => (
@@ -47,7 +47,7 @@ const TooltipHeader = withStyles(tooltipHeaderStyle)(({ classes, className, ...p
 
 const ResetButton = withStyles(theme => ({
   button: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing(1),
   },
 }))(({ classes, ...props }) => (
   <Button variant="outlined" color="primary" className={classes.button} {...props}>Reset</Button>

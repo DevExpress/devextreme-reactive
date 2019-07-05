@@ -38,29 +38,18 @@ const defaultDeps = {
     startViewDate: new Date('2018-06-25'),
     endViewDate: new Date('2018-08-05'),
     excludedDays: [],
-    timeTableElement: {
-      current: {
-        querySelectorAll: () => [{}, {
-          getBoundingClientRect: () => ({ height: 20, top: 20, bottom: 40 }),
-        }],
-      },
+    timeTableElementsMeta: {
+      parentRect: () => ({ height: 20, top: 20, bottom: 40 }),
+      getCellRects: [{}, () => ({ height: 20, top: 20, bottom: 40 })],
     },
-    layoutElement: {
-      current: {
-        scrollTop: 10,
-        offsetTop: 10,
-        clientHeight: 100,
-        getBoundingClientRect: () => ({ height: 1, top: 1 }),
-      },
+    allDayElementsMeta: {
+      parentRect: () => ({ height: 20, top: 20, bottom: 40 }),
+      getCellRects: [],
     },
-    layoutHeaderElement: {
-      current: {
-        getBoundingClientRect: () => ({
-          height: 10,
-          top: 10,
-        }),
-        querySelectorAll: () => [],
-      },
+    scrollingStrategy: {
+      topBoundary: 10,
+      bottomBoundary: 20,
+      changeVerticalScroll: jest.fn(),
     },
   },
   action: {
@@ -308,7 +297,7 @@ describe('DragDropProvider', () => {
 
       expect(autoScroll)
         .toBeCalledWith(
-          clientOffset, defaultDeps.getter.layoutElement, defaultDeps.getter.layoutHeaderElement,
+          clientOffset, defaultDeps.getter.scrollingStrategy,
         );
     });
   });
@@ -320,12 +309,9 @@ describe('DragDropProvider', () => {
       getBoundingClientRect.mockImplementationOnce(() => ({ height: 20, top: 0, bottom: 20 }));
       const deps = {
         getter: {
-          timeTableElement: {
-            current: {
-              querySelectorAll: () => [{}, {
-                getBoundingClientRect,
-              }],
-            },
+          timeTableElementsMeta: {
+            parentRect: () => ({ height: 20, top: 20, bottom: 40 }),
+            getCellRects: [{}, () => getBoundingClientRect()],
           },
         },
       };
@@ -355,12 +341,9 @@ describe('DragDropProvider', () => {
       getBoundingClientRect.mockImplementationOnce(() => ({ height: 20, top: 0, bottom: 20 }));
       const deps = {
         getter: {
-          timeTableElement: {
-            current: {
-              querySelectorAll: () => [{}, {
-                getBoundingClientRect,
-              }],
-            },
+          timeTableElementsMeta: {
+            parentRect: () => ({ height: 20, top: 20, bottom: 40 }),
+            getCellRects: [{}, () => getBoundingClientRect()],
           },
         },
       };
@@ -468,31 +451,7 @@ describe('DragDropProvider', () => {
       expect(defaultDeps.action.changeAppointment)
         .toBeCalledWith({ change: { startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00') } }, expect.any(Object), expect.any(Object));
     });
-    it('should commit changes if drop inside a cell', () => {
-      const payload = {
-        id: 1,
-        type: 'vertical',
-        startDate: new Date('2018-06-25 10:00'),
-        endDate: new Date('2018-06-25 11:00'),
-      };
-      cellIndex.mockImplementationOnce(() => 1);
-      cellIndex.mockImplementationOnce(() => -1);
-      cellType.mockImplementationOnce(() => 'vertical');
-      cellData.mockImplementationOnce(() => ({ startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00') }));
-
-      const { tree, onOver, onDrop } = mountPlugin({});
-
-      onOver({ payload, clientOffset: { x: 1, y: 35 } });
-      tree.update();
-      onDrop({ payload: undefined, clientOffset: undefined });
-      tree.update();
-
-      expect(defaultDeps.action.stopEditAppointment)
-        .toBeCalledTimes(1);
-      expect(defaultDeps.action.commitChangedAppointment)
-        .toBeCalledWith({ appointmentId: payload.id }, expect.any(Object), expect.any(Object));
-    });
-    it('should commit changes if drop outside a cell', () => {
+    it('should commit changes on drop', () => {
       const payload = {
         id: 1,
         type: 'vertical',
@@ -515,7 +474,7 @@ describe('DragDropProvider', () => {
       expect(defaultDeps.action.commitChangedAppointment)
         .toBeCalledWith({ appointmentId: payload.id }, expect.any(Object), expect.any(Object));
     });
-    it('should reset cache if drop outside a cell', () => {
+    it('should reset cache on drop outside a cell', () => {
       const deps = {
         template: {
           appointment: {
@@ -553,7 +512,7 @@ describe('DragDropProvider', () => {
       expect(tree.find('.draft').exists())
         .toBeFalsy();
     });
-    it('should reset cache if drop inside a cell', () => {
+    it('should reset cache on drop inside a cell', () => {
       const deps = {
         template: {
           appointment: {

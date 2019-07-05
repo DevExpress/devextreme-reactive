@@ -11,6 +11,8 @@ import {
   calculateMonthDateIntervals,
   monthCellsData,
   availableViews,
+  getAppointmentStyle,
+  horizontalTimeTableRects,
 } from '@devexpress/dx-scheduler-core';
 import { MonthView } from './month-view';
 
@@ -24,6 +26,8 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
   getHorizontalRectByDates: jest.fn(),
   calculateMonthDateIntervals: jest.fn(),
   monthCellsData: jest.fn(),
+  getAppointmentStyle: jest.fn(),
+  horizontalTimeTableRects: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -75,12 +79,40 @@ describe('Month View', () => {
     }]);
     calculateMonthDateIntervals.mockImplementation(() => []);
     monthCellsData.mockImplementation(() => []);
+    getAppointmentStyle.mockImplementation(() => undefined);
+    horizontalTimeTableRects.mockImplementation(() => [{ data: 1 }]);
   });
   afterEach(() => {
     jest.resetAllMocks();
   });
 
   describe('Getters', () => {
+    it('should provide "allDayElementsMeta" getter', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <MonthView
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).timeTableElementsMeta)
+        .toEqual({});
+
+      const setCellElementsMeta = tree.find(defaultProps.timeTableLayoutComponent)
+        .props().setCellElementsMeta;
+      setCellElementsMeta('elementsMeta');
+
+      const monthViewState = tree.find(MonthView).state();
+      expect(monthViewState.rects)
+        .toEqual([{ data: 1 }]);
+
+      tree.update();
+
+      expect(getComputedState(tree).timeTableElementsMeta)
+        .toEqual('elementsMeta');
+    });
     it('should provide the "viewCellsData" getter', () => {
       computed.mockImplementation(
         (getters, viewName, baseComputed) => getters.currentView.name === viewName && baseComputed(getters, viewName),
@@ -263,7 +295,7 @@ describe('Month View', () => {
         .toEqual(prevView);
     });
 
-    it('should provide "timeTableElement" getter', () => {
+    it('should provide "timeTableElementsMeta" getter', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -273,11 +305,11 @@ describe('Month View', () => {
         </PluginHost>
       ));
 
-      expect(getComputedState(tree).timeTableElement)
-        .toEqual({ current: expect.any(Object) });
+      expect(getComputedState(tree).timeTableElementsMeta)
+        .toEqual({});
     });
 
-    it('should provide "layoutElement" getter', () => {
+    it('should provide "scrollingStrategy" getter', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -287,26 +319,12 @@ describe('Month View', () => {
         </PluginHost>
       ));
 
-      expect(getComputedState(tree).layoutElement)
-        .toEqual({ current: expect.any(Object) });
-      expect(tree.find(defaultProps.layoutComponent).prop('layoutRef'))
-        .toBe(getComputedState(tree).layoutElement);
-    });
-
-    it('should provide "layoutHeaderElement" getter', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <MonthView
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).layoutHeaderElement)
-        .toEqual({ current: expect.any(Object) });
-      expect(tree.find(defaultProps.layoutComponent).prop('layoutHeaderRef'))
-        .toBe(getComputedState(tree).layoutHeaderElement);
+      expect(getComputedState(tree).scrollingStrategy)
+        .toEqual({
+          topBoundary: 0,
+          bottomBoundary: 0,
+          changeVerticalScroll: expect.any(Function),
+        });
     });
   });
 
@@ -317,7 +335,7 @@ describe('Month View', () => {
           {pluginDepsToComponents(defaultDeps)}
           <MonthView
             {...defaultProps}
-            layoutComponent={({ height }) => <div className="view-layout" height={height} />}
+            layoutComponent={({ height, setScrollingStrategy }) => <div className="view-layout" setScrollingStrategy={setScrollingStrategy} height={height} />}
           />
         </PluginHost>
       ));
@@ -326,6 +344,8 @@ describe('Month View', () => {
         .toBeTruthy();
       expect(tree.find('.view-layout').props().height)
         .toBe(defaultDeps.getter.layoutHeight);
+      expect(tree.find('.view-layout').props().setScrollingStrategy)
+        .toEqual(expect.any(Function));
     });
 
     it('should render day scale', () => {
@@ -351,7 +371,9 @@ describe('Month View', () => {
           {pluginDepsToComponents(defaultDeps)}
           <MonthView
             {...defaultProps}
-            timeTableLayoutComponent={({ formatDate }) => <div className="time-table" formatDate={formatDate} />}
+            timeTableLayoutComponent={({
+              formatDate, setCellElementsMeta,
+            }) => <div setCellElementsMeta={setCellElementsMeta} formatDate={formatDate} className="time-table" />}
           />
         </PluginHost>
       ));
@@ -360,6 +382,8 @@ describe('Month View', () => {
         .toBeTruthy();
       expect(tree.find('.time-table').props().formatDate)
         .toBe(defaultDeps.getter.formatDate);
+      expect(tree.find('.time-table').props().setCellElementsMeta)
+        .toEqual(expect.any(Function));
     });
 
     it('should render appointment layer', () => {

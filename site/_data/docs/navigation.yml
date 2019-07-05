@@ -240,6 +240,8 @@
         path: /react/chart/docs/guides/tooltip
       - title: Zoom and Pan
         path: /react/chart/docs/guides/zoom-and-pan
+      - title: Rotated
+        path: /react/chart/docs/guides/rotated
       - title: TypeScript
         path: /react/chart/docs/guides/typescript
   - title: Common Concepts
@@ -357,6 +359,8 @@
         path: /react/scheduler/docs/reference/date-navigator
       - title: DragDropProvider
         path: /react/scheduler/docs/reference/drag-drop-provider
+      - title: TodayButton
+        path: /react/scheduler/docs/reference/today-button
   - title: Related Docs
     items:
       - title: React Core

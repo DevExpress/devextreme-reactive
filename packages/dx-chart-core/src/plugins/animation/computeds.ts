@@ -21,9 +21,10 @@ const addKeyframe = (name: string, def: string): void => {
   }
 };
 
-const getAreaAnimationName = () => {
+const getAreaAnimationName = (rotated: boolean) => {
   const name = 'animation_transform';
-  addKeyframe(name, '{ from { transform: scaleY(0); } }');
+  const attr = rotated ? 'scaleX' : 'scaleY';
+  addKeyframe(name, `{ from { transform: ${attr}(0); } }`);
   return name;
 };
 
@@ -46,19 +47,21 @@ const getDefaultPieAnimationOptions = ({ index }: Point) => `${0.7 + index * 0.1
 const getDefaultScatterAnimationOptions = () => '1.6s';
 
 /** @internal */
-export const getAreaAnimationStyle: GetAnimationStyleFn = (scales) => {
+export const getAreaAnimationStyle: GetAnimationStyleFn = (rotated, { xScale, yScale }) => {
+  const x = rotated ? xScale.copy().clamp!(true)(0) : 0;
+  const y = rotated ? 0 : yScale.copy().clamp!(true)(0);
   const animationStyle = {
-    transformOrigin: `0px ${scales.yScale.copy().clamp!(true)(0)}px`,
+    transformOrigin: `${x}px ${y}px`,
   };
   const options = getDefaultAreaAnimationOptions();
   return {
-    animation: `${getAreaAnimationName()} ${options}`,
+    animation: `${getAreaAnimationName(rotated)} ${options}`,
     ...animationStyle,
   };
 };
 
 /** @internal */
-export const getPieAnimationStyle: GetAnimationStyleFn = (_, point) => {
+export const getPieAnimationStyle: GetAnimationStyleFn = (r, s, point) => {
   const options = getDefaultPieAnimationOptions(point!);
   return {
     animation: `${getPieAnimationName()} ${options}`,
@@ -74,10 +77,10 @@ export const getScatterAnimationStyle: GetAnimationStyleFn = () => {
 };
 
 /** @internal */
-export const buildAnimatedStyleGetter: BuildAnimatedStyleGetterFn = (
+export const buildAnimatedStyleGetter: BuildAnimatedStyleGetterFn = rotated => (
   style, getAnimationStyle, scales, point,
 ) => {
-  const animationStyle = getAnimationStyle(scales, point);
+  const animationStyle = getAnimationStyle(rotated, scales, point);
   return {
     ...animationStyle,
     ...style,

@@ -3,16 +3,17 @@ import {
   Colors, SeriesList, DataItems, ScalesCache,
 } from './chart-core.types';
 import {
-  Scales, BuildAnimatedStyleGetterFn,
+  Scales, GetSeriesAnimatedStyleFn,
 } from './plugins.animation.types';
 
 /** @internal */
 export type AddSeriesFn = PureComputed<[SeriesList, DataItems, Colors, any, any]>;
 /** @internal */
-export type ScaleSeriesPointsFn = PureComputed<[SeriesList, ScalesCache]>;
+export type ScaleSeriesPointsFn = PureComputed<[SeriesList, ScalesCache, boolean]>;
 
 type PathPoints = ReadonlyArray<PointComponentProps>;
 export type GetPointFieldFn = (point: PointComponentProps) => number;
+
 export interface PathFn {
   (points: PathPoints): string;
 
@@ -28,6 +29,12 @@ export interface PathFn {
   y1?(): GetPointFieldFn;
   y1?(f: GetPointFieldFn): this;
 
+  x0?(): GetPointFieldFn;
+  x0?(f: GetPointFieldFn): this;
+
+  x1?(): GetPointFieldFn;
+  x1?(f: GetPointFieldFn): this;
+
   curve?(): any;
   curve?(c: any): this;
 
@@ -40,11 +47,13 @@ interface CommonComponentProps {
   /** @internal */
   state?: string;
   /** @internal */
+  rotated: boolean;
+  /** @internal */
   style?: any;
   /** @internal */
   scales: Scales;
   /** @internal */
-  getAnimatedStyle: BuildAnimatedStyleGetterFn;
+  getAnimatedStyle: GetSeriesAnimatedStyleFn;
 }
 
 export interface PathComponentProps extends CommonComponentProps {
@@ -65,12 +74,12 @@ export interface PointComponentProps extends CommonComponentProps {
   argument: any;
   /** Point value */
   value: any;
-  /** x coordinate */
-  x: number;
-  /** y coordinate */
-  y: number;
-  /** y1 coordinate */
-  y1?: number;
+  /** coordinate on argument axis */
+  arg: number;
+  /** coordinate on value axis */
+  val: number;
+  /** start coordinate on value axis  */
+  startVal?: number;
 }
 
 export interface SeriesProps {

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { dBar } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
+import { dBar } from '@devexpress/dx-chart-core';
 import { Bar } from './bar';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
@@ -25,19 +25,19 @@ describe('Bar', () => {
     value: 15,
     seriesIndex: 1,
     index: 2,
-    x: 1,
+    arg: 1,
     barWidth: 2,
     maxBarWidth: 20,
-    y: 2,
-    y1: 18,
+    val: 2,
+    startVal: 18,
     color: 'color',
+    rotated: true,
     style: { tag: 'test-style' },
-    scales: { tag: 'test-scales' },
+    scales: { tag: 'test-scales' } as any,
     getAnimatedStyle: jest.fn().mockReturnValue('animated-style'),
   };
 
   afterEach(() => {
-    (dBar as jest.Mock).mockClear();
     defaultProps.getAnimatedStyle.mockClear();
   });
 
@@ -51,7 +51,7 @@ describe('Bar', () => {
       fill: 'color',
       style: 'animated-style',
     });
-    expect(dBar).toBeCalledWith(defaultProps);
+    expect(dBar).toBeCalledWith(1, 2, 18, 40, true);
   });
 
   it('should pass rest properties', () => {

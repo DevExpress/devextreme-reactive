@@ -1,13 +1,16 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@material-ui/core/test-utils';
+import { getClasses, createMount } from '@material-ui/core/test-utils';
 import { Layout } from './layout';
 
 describe('AllDayPanel', () => {
   let classes;
-  let shallow;
+  let mount;
   const defaultProps = {
-    allDayPanelRef: () => null,
+    setCellElementsMeta: jest.fn(),
     cellsData: [{ startDate: 1 }, { startDate: 2 }],
+    cellComponent: () => <td />,
+    /* eslint-disable-next-line */
+    rowComponent: ({ children }) => <tr>{children}</tr>,
   };
   beforeAll(() => {
     classes = getClasses(
@@ -15,11 +18,17 @@ describe('AllDayPanel', () => {
         <div />
       </Layout>,
     );
-    shallow = createShallow({ dive: true });
+  });
+  beforeEach(() => {
+    mount = createMount();
+  });
+  afterEach(() => {
+    jest.resetAllMocks();
+    mount.cleanUp();
   });
   describe('Layout', () => {
     it('should pass className to the root element', () => {
-      const tree = shallow((
+      const tree = mount((
         <Layout {...defaultProps} className="custom-class">
           <div />
         </Layout>
@@ -31,18 +40,18 @@ describe('AllDayPanel', () => {
         .toBeTruthy();
     });
     it('should pass rest props to the root element', () => {
-      const tree = shallow((
+      const tree = mount((
         <Layout {...defaultProps} data={{ a: 1 }}>
           <div />
         </Layout>
       ));
 
-      expect(tree.find(`.${classes.table}`).props().data)
+      expect(tree.find(`.${classes.table}`).at(0).props().data)
         .toMatchObject({ a: 1 });
     });
     it('should render array of days', () => {
       const cell = () => <td />;
-      const tree = shallow((
+      const tree = mount((
         <Layout {...defaultProps} cellComponent={cell}>
           <div />
         </Layout>
@@ -50,6 +59,21 @@ describe('AllDayPanel', () => {
 
       expect(tree.find(cell))
         .toHaveLength(2);
+    });
+    it('should calls setCellElementsMeta', () => {
+      const tree = mount((
+        <Layout
+          {...defaultProps}
+        />
+      ));
+
+      expect(defaultProps.setCellElementsMeta)
+        .toBeCalledTimes(1);
+
+      tree.setProps({ className: 'a' });
+
+      expect(defaultProps.setCellElementsMeta)
+        .toBeCalledTimes(2);
     });
   });
 });

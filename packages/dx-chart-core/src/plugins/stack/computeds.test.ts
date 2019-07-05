@@ -233,7 +233,7 @@ describe('Stack', () => {
       expect((result[4].getPointTransformer as any).b).toEqual('B');
     });
 
-    it('should update *y1* in wrapped *getPointTransformer*', () => {
+    it('should update *startVal* in wrapped *getPointTransformer*', () => {
       mockStack.mockReturnValue([]);
       const mock = jest.fn().mockReturnValue(point => ({ ...point, tag: '#t' })) as any;
       mock.isStartedFromZero = true;
@@ -254,12 +254,12 @@ describe('Stack', () => {
       expect(transform({ value0: 'v1' } as any)).toEqual({
         value0: 'v1',
         tag: '#t',
-        y1: 'v1#',
+        startVal: 'v1#',
       });
       expect(transform({ value0: 'v2' } as any)).toEqual({
         value0: 'v2',
         tag: '#t',
-        y1: 'v2#',
+        startVal: 'v2#',
       });
     });
 
@@ -312,7 +312,7 @@ describe('Stack', () => {
       expect(result).toBe(list);
     });
 
-    it('should update *x* and *width* in wrapped *getPointTransformer*', () => {
+    it('should update *arg* and *width* in wrapped *getPointTransformer*', () => {
       const getPointTransformer = jest.fn() as any;
       getPointTransformer.isBroad = true;
       getPointTransformer.mockReturnValueOnce(point => ({ ...point, tag: '1' }));
@@ -334,31 +334,31 @@ describe('Stack', () => {
 
       const transform1 = result[0].getPointTransformer({ barWidth: 0.5 } as any);
       expect(transform1({
-        index: 1, x: 150, maxBarWidth: 60,
+        index: 1, arg: 150, maxBarWidth: 60,
       } as any)).toEqual({
         index: 1,
         tag: '1',
-        x: 134,
+        arg: 134,
         maxBarWidth: 20,
       });
 
       const transform2 = result[1].getPointTransformer({ barWidth: 0.8 } as any);
       expect(transform2({
-        index: 2, x: 150, maxBarWidth: 60,
+        index: 2, arg: 150, maxBarWidth: 60,
       } as any)).toEqual({
         index: 2,
         tag: '2',
-        x: 142,
+        arg: 142,
         maxBarWidth: 20,
       });
 
       const transform3 = result[2].getPointTransformer({ barWidth: 0.4 } as any);
       expect(transform3({
-        index: 3, x: 150, maxBarWidth: 60,
+        index: 3, arg: 150, maxBarWidth: 60,
       } as any)).toEqual({
         index: 3,
         tag: '3',
-        x: 146,
+        arg: 146,
         maxBarWidth: 20,
       });
     });

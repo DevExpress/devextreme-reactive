@@ -9,7 +9,6 @@ import { Container as AppointmentLayer } from '../templates/appointment/containe
 import { Layout as TimeScaleLayout } from '../templates/views/vertical/time-scale/layout';
 import { Cell as TimeScaleCell } from '../templates/views/vertical/time-scale/cell';
 
-import { TimeTableContainer } from '../templates/views/common/time-table/layout-container';
 import { Layout as TimeTableLayout } from '../templates/views/vertical/time-table/layout';
 import { Cell as TimeTableCell } from '../templates/views/vertical/time-table/cell';
 
@@ -26,7 +25,6 @@ export const WeekView = withComponents({
   DayScaleLayout,
   DayScaleCell,
   DayScaleRow: Row,
-  TimeTableContainer,
   TimeTableLayout,
   TimeTableCell,
   TimeTableRow: Row,

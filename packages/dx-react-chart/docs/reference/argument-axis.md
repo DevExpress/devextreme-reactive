@@ -24,7 +24,7 @@ import { ArgumentAxis } from '@devexpress/dx-react-chart';
 Name | Type | Default | Description
 -----|------|---------|------------
 tickSize? | number | 5 | The tick size.
-position? | 'bottom' &#124; 'top' | 'bottom' | The axis position.
+position? | 'bottom' &#124; 'top' &#124; 'left' &#124; 'right' | 'bottom' | The axis position.
 indentFromAxis? | number | 10 | The indent from the axis.
 tickFormat? | (scale: [ScaleObject](./argument-scale.md#scaleobject)) => (tick: string) => string  | | A function that returns a tick formatter function.
 showTicks? | boolean | true | Specifies whether to render ticks.

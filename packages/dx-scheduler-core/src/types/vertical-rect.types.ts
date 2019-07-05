@@ -1,6 +1,6 @@
 import { PureComputed } from '@devexpress/dx-core';
 import {
-  AppointmentId, SchedulerDateTime, CellElement,
+  AppointmentId, SchedulerDateTime, CellElementsMeta,
 } from './scheduler-core.types';
 import { ViewCellData } from './all-day-panel.types';
 import { ParentRect, Coordinates } from './horizontal-rect.types';
@@ -25,7 +25,7 @@ export interface VerticalCellRectByDate extends Coordinates {
 export type VerticalPayload = {
   viewCellsData: ViewCellData[][];
   cellDuration: number;
-  cellElements: CellElement[];
+  cellElementsMeta: CellElementsMeta;
 };
 /** @internal */
 export type GetCellByDateFn = PureComputed<
@@ -33,7 +33,7 @@ export type GetCellByDateFn = PureComputed<
 >;
 /** @internal */
 export type GetCellRectVerticalFn = PureComputed<
-  [SchedulerDateTime, ViewCellData[][], number, CellElement[], boolean], VerticalCellRect
+  [SchedulerDateTime, ViewCellData[][], number, CellElementsMeta, boolean], VerticalCellRect
 >;
 /** @internal */
 export type GetVerticalRectByDatesFn = PureComputed<

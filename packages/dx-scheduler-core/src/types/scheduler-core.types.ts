@@ -84,3 +84,13 @@ export interface SchedulerView {
   /** View's visible name. */
   displayName: string;
 }
+export type ScrollingStrategy = {
+  topBoundary: number;
+  bottomBoundary: number;
+  changeVerticalScroll: (value: number) => void;
+};
+
+export type CellElementsMeta = {
+  parentRect: () => ClientRect | DOMRect,
+  getCellRects: Array<() => ClientRect | DOMRect>,
+};

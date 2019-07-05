@@ -10,6 +10,8 @@ import {
   calculateRectByDateIntervals,
   calculateWeekDateIntervals,
   availableViews,
+  getAppointmentStyle,
+  verticalTimeTableRects,
 } from '@devexpress/dx-scheduler-core';
 import { DayView } from './day-view';
 
@@ -22,6 +24,8 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
   availableViews: jest.fn(),
   calculateRectByDateIntervals: jest.fn(),
   calculateWeekDateIntervals: jest.fn(),
+  verticalTimeTableRects: jest.fn(),
+  getAppointmentStyle: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -75,12 +79,40 @@ describe('Day View', () => {
       x: 1, y: 2, width: 100, height: 150, dataItem: 'data',
     }]);
     calculateWeekDateIntervals.mockImplementation(() => []);
+    getAppointmentStyle.mockImplementation(() => undefined);
+    verticalTimeTableRects.mockImplementation(() => [{ data: 1 }]);
   });
   afterEach(() => {
     jest.resetAllMocks();
   });
 
   describe('Getters', () => {
+    it('should provide "allDayElementsMeta" getter', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <DayView
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).timeTableElementsMeta)
+        .toEqual({});
+
+      const setCellElementsMeta = tree.find(defaultProps.timeTableLayoutComponent)
+        .props().setCellElementsMeta;
+      setCellElementsMeta('elementsMeta');
+
+      const dayViewState = tree.find(DayView).state();
+      expect(dayViewState.rects)
+        .toEqual([{ data: 1 }]);
+
+      tree.update();
+
+      expect(getComputedState(tree).timeTableElementsMeta)
+        .toEqual('elementsMeta');
+    });
     it('should provide the "viewCellsData" getter', () => {
       computed.mockImplementation(
         (getters, viewName, baseComputed) => getters.currentView.name === viewName && baseComputed(getters, viewName),
@@ -230,7 +262,7 @@ describe('Day View', () => {
         .toEqual('availableViews');
     });
 
-    it('should provide "timeTableElement" getter', () => {
+    it('should provide "timeTableElementsMeta" getter', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -240,11 +272,11 @@ describe('Day View', () => {
         </PluginHost>
       ));
 
-      expect(getComputedState(tree).timeTableElement)
-        .toEqual({ current: expect.any(Object) });
+      expect(getComputedState(tree).timeTableElementsMeta)
+        .toEqual({});
     });
 
-    it('should provide "layoutElement" getter', () => {
+    it('should provide "scrollingStrategy" getter', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -254,26 +286,12 @@ describe('Day View', () => {
         </PluginHost>
       ));
 
-      expect(getComputedState(tree).layoutElement)
-        .toEqual({ current: expect.any(Object) });
-      expect(tree.find(defaultProps.layoutComponent).prop('layoutRef'))
-        .toBe(getComputedState(tree).layoutElement);
-    });
-
-    it('should provide "layoutHeaderElement" getter', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <DayView
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).layoutHeaderElement)
-        .toEqual({ current: expect.any(Object) });
-      expect(tree.find(defaultProps.layoutComponent).prop('layoutHeaderRef'))
-        .toBe(getComputedState(tree).layoutHeaderElement);
+      expect(getComputedState(tree).scrollingStrategy)
+        .toEqual({
+          topBoundary: 0,
+          bottomBoundary: 0,
+          changeVerticalScroll: expect.any(Function),
+        });
     });
   });
 
@@ -284,7 +302,7 @@ describe('Day View', () => {
           {pluginDepsToComponents(defaultDeps)}
           <DayView
             {...defaultProps}
-            layoutComponent={({ height }) => <div className="view-layout" height={height} />}
+            layoutComponent={({ height, setScrollingStrategy }) => <div className="view-layout" setScrollingStrategy={setScrollingStrategy} height={height} />}
           />
         </PluginHost>
       ));
@@ -293,6 +311,8 @@ describe('Day View', () => {
         .toBeTruthy();
       expect(tree.find('.view-layout').props().height)
         .toBe(defaultDeps.getter.layoutHeight);
+      expect(tree.find('.view-layout').props().setScrollingStrategy)
+        .toEqual(expect.any(Function));
     });
 
     it('should render time scale', () => {
@@ -336,8 +356,9 @@ describe('Day View', () => {
           {pluginDepsToComponents(defaultDeps)}
           <DayView
             {...defaultProps}
-            // tslint:disable-next-line: max-line-length
-            timeTableLayoutComponent={({ formatDate }) => <div formatDate={formatDate} className="time-table" />}
+            timeTableLayoutComponent={({
+              formatDate, setCellElementsMeta,
+            }) => <div setCellElementsMeta={setCellElementsMeta} formatDate={formatDate} className="time-table" />}
           />
         </PluginHost>
       ));
@@ -346,6 +367,8 @@ describe('Day View', () => {
         .toBeTruthy();
       expect(tree.find('.time-table').props().formatDate)
         .toBe(defaultDeps.getter.formatDate);
+      expect(tree.find('.time-table').props().setCellElementsMeta)
+        .toEqual(expect.any(Function));
     });
 
     it('should render day scale empty cell', () => {

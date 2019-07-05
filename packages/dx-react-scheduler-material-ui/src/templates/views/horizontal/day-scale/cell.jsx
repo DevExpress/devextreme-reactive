@@ -8,13 +8,17 @@ import { getBorder } from '../../../utils';
 
 const styles = theme => ({
   cell: {
+    userSelect: 'none',
     padding: 0,
     borderLeft: getBorder(theme),
+    '&:first-child': {
+      borderLeft: 'none',
+    },
   },
   dayOfWeek: {
     ...theme.typography.caption,
     margin: 0,
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
   },
 });
 

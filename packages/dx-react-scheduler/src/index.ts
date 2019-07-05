@@ -12,3 +12,4 @@ export * from './plugins/editing-state';
 export * from './plugins/appointment-tooltip';
 export * from './plugins/appointment-form';
 export * from './plugins/drag-drop-provider';
+export * from './plugins/today-button';

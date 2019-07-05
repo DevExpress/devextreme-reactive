@@ -18,6 +18,12 @@ const styles = ({ spacing, typography }) => ({
     fontSize: typography.fontSize,
     textTransform: 'uppercase',
   },
+  inputRoot: {
+    marginLeft: `${spacing(0.5)}px`,
+    '&:first-child': {
+      marginLeft: 0,
+    },
+  },
 });
 
 const SwitcherBase = ({
@@ -37,7 +43,7 @@ const SwitcherBase = ({
       onChange={handleChange}
       input={(
         <OutlinedInput
-          classes={{ input: classes.input }}
+          classes={{ input: classes.input, root: classes.inputRoot }}
           labelWidth={0}
         />
       )}

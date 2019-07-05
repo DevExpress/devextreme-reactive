@@ -2,7 +2,7 @@
 export namespace TodayButton {
   /** Properties passed to the component that renders the today button. */
   export interface ButtonProps {
-    /** Function that sets the current date of the Scheduler. */
+    /** Function that sets the Scheduler's current date. */
     setCurrentDate: (nextDate: Date) => void;
     /** Returns a localization message by the message key. */
     getMessage: (messageKey: string) => string;

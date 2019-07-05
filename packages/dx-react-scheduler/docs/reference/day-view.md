@@ -26,10 +26,10 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-name? | string | `Day` | The view unique identifier. Required if you use several `DayView` plugins.
-displayName? | string |  | The view name used in UI plugins. Default value is equal to `name`.
+name? | string | `Day` | The view's unique identifier. Required if you use several `DayView` plugins.
+displayName? | string |  | The view's name used in UI plugins. The default value is `name`.
 intervalCount? | number | 1 | Multiplies the default view interval.
-cellDuration? | number | 30 | Specifies the cell duration in minutes.
+cellDuration? | number | 30 | Specifies the cell's duration in minutes.
 startDayHour? | number | 0 | Specifies the start hour of the view time scale.
 endDayHour? | number | 24 | Specifies the end hour of the view time scale.
 layoutComponent | ComponentType&lt;[DayView.LayoutProps](#dayviewlayoutprops)&gt; | | A component that renders a day view layout.

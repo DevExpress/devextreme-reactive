@@ -219,10 +219,11 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
       headerRows,
       footerRows,
       estimatedRowHeight,
+      isDataRemote,
     } = this.props;
 
     return getVisibleRowsBounds(
-      this.state, { loadedRowsStart, bodyRows, headerRows, footerRows },
+      this.state, { isDataRemote, loadedRowsStart, bodyRows, headerRows, footerRows },
       estimatedRowHeight, this.getRowHeight,
     );
   }

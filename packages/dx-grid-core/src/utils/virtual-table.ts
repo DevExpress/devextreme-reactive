@@ -32,16 +32,6 @@ export const getVisibleBoundary: GetVisibleBoundaryFn = (
   let end: number | null = null;
   let index = 0;
   let beforePosition = offset * itemSize;
-  const noVisibleRowsLoaded = itemSize > 0 &&
-    beforePosition + items.length * itemSize < viewportStart ||
-    viewportStart < beforePosition;
-
-  if (noVisibleRowsLoaded) {
-    beforePosition = viewportStart;
-    index = items.length;
-    start = Math.round(viewportStart / itemSize) - offset;
-    end = start;
-  }
 
   const viewportEnd = viewportStart + viewportSize;
   while (end === null && index < items.length) {
@@ -90,9 +80,21 @@ export const getColumnBoundaries: PureComputed<
   )
 );
 export const getRowsVisibleBoundary: PureComputed<
-[TableRow[], number, number, GetColumnWidthFn, number, number], RowsVisibleBoundary
-> = (rows, top, height, getRowHeight, offset, rowHeight) => {
-  const boundaries = getVisibleBoundary(rows, top, height, getRowHeight, offset, rowHeight);
+[TableRow[], number, number, GetColumnWidthFn, number, number, boolean?], RowsVisibleBoundary
+> = (rows, top, height, getRowHeight, offset, rowHeight, isDataRemote) => {
+  let beforePosition = offset * rowHeight;
+  const noVisibleRowsLoaded = rowHeight > 0 &&
+    beforePosition + rows.length * rowHeight < top ||
+    top < beforePosition;
+
+  let boundaries;
+  if (isDataRemote && noVisibleRowsLoaded) {
+    const topIndex = Math.round(top / rowHeight);
+    boundaries = [topIndex, topIndex];
+  } else {
+    boundaries = getVisibleBoundary(rows, top, height, getRowHeight, offset, rowHeight);
+  }
+
   const start = boundaries[0];
   const end = boundaries[1];
 

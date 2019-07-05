@@ -30,7 +30,7 @@ export interface AreaSeriesProps extends SeriesProps {
 }
 
 // @public (undocumented)
-export const ArgumentAxis: React.ComponentType<ArgumentAxisProps>;
+export const ArgumentAxis: React.ComponentType<RawAxisProps>;
 
 // @public (undocumented)
 export namespace ArgumentAxis {
@@ -43,11 +43,6 @@ export namespace ArgumentAxis {
   // (undocumented)
   export interface RootProps extends Axis.RootProps {
   }
-}
-
-// @public (undocumented)
-export interface ArgumentAxisProps extends RawAxisProps {
-  position?: 'top' | 'bottom';
 }
 
 // @public (undocumented)
@@ -103,6 +98,8 @@ export interface BarSeriesProps extends SeriesProps {
 export interface BasicDataProps {
   // (undocumented)
   data: DataItems;
+  // (undocumented)
+  rotated: boolean;
 }
 
 // @public (undocumented)
@@ -127,6 +124,7 @@ export interface ChartProps {
   data: DataItems;
   height?: number;
   rootComponent: React.ComponentType<Chart.RootProps>;
+  rotated?: boolean;
   width?: number;
 }
 
@@ -254,7 +252,7 @@ export type NumberArray = [number, number];
 export type OffsetFn = (series: StackData, order: number[]) => void;
 
 // @public (undocumented)
-export type OnViewportChangeFn = (viewport: ViewportOptions) => void;
+export type OnViewportChangeFn = (viewport: Viewport) => void;
 
 // @public (undocumented)
 export type OrderFn = (series: StackData) => number[];
@@ -284,21 +282,29 @@ export interface PathFn {
   // (undocumented)
   context(ctx: any): this;
   // (undocumented)
-  curve?(): any;
-  // (undocumented)
   curve?(c: any): this;
+  // (undocumented)
+  curve?(): any;
   // (undocumented)
   x(f: GetPointFieldFn): this;
   // (undocumented)
   x(): GetPointFieldFn;
   // (undocumented)
+  x0?(f: GetPointFieldFn): this;
+  // (undocumented)
+  x0?(): GetPointFieldFn;
+  // (undocumented)
+  x1?(): GetPointFieldFn;
+  // (undocumented)
+  x1?(f: GetPointFieldFn): this;
+  // (undocumented)
   y(): GetPointFieldFn;
   // (undocumented)
   y(f: GetPointFieldFn): this;
   // (undocumented)
-  y0?(): GetPointFieldFn;
-  // (undocumented)
   y0?(f: GetPointFieldFn): this;
+  // (undocumented)
+  y0?(): GetPointFieldFn;
   // (undocumented)
   y1?(): GetPointFieldFn;
   // (undocumented)
@@ -338,12 +344,12 @@ export interface Point {
 
 // @public (undocumented)
 export interface PointComponentProps extends CommonComponentProps {
+  arg: number;
   argument: any;
   index: number;
+  startVal?: number;
+  val: number;
   value: any;
-  x: number;
-  y: number;
-  y1?: number;
 }
 
 // @public (undocumented)
@@ -537,6 +543,7 @@ export namespace Tooltip {
   }
   export interface OverlayProps {
     children: React.ReactNode;
+    rotated: boolean;
     target: TooltipReference;
   }
 }
@@ -562,13 +569,13 @@ export interface TooltipReference {
 
 // @public (undocumented)
 export interface TransformedPoint extends Point {
-  readonly x: number;
-  readonly y: number;
-  readonly y1?: number;
+  readonly arg: number;
+  readonly startVal?: number;
+  readonly val: number;
 }
 
 // @public (undocumented)
-export const ValueAxis: React.ComponentType<ValueAxisProps>;
+export const ValueAxis: React.ComponentType<RawAxisProps>;
 
 // @public (undocumented)
 export namespace ValueAxis {
@@ -584,11 +591,6 @@ export namespace ValueAxis {
 }
 
 // @public (undocumented)
-export interface ValueAxisProps extends RawAxisProps {
-  position?: 'left' | 'right';
-}
-
-// @public (undocumented)
 export const ValueScale: React.ComponentType<ValueScaleProps>;
 
 // @public (undocumented)
@@ -596,7 +598,7 @@ export interface ValueScaleProps extends ScaleProps {
 }
 
 // @public (undocumented)
-export type ViewportOptions = {
+export type Viewport = {
   readonly argumentStart?: any;
   readonly argumentEnd?: any;
   readonly scaleName?: string;
@@ -617,12 +619,12 @@ export namespace ZoomAndPan {
 
 // @public (undocumented)
 export interface ZoomAndPanProps {
-  defaultViewport?: ViewportOptions;
+  defaultViewport?: Viewport;
   dragBoxComponent: React.ComponentType<ZoomAndPan.DragBoxProps>;
   interactionWithArguments?: Interaction;
   interactionWithValues?: Interaction;
   onViewportChange?: OnViewportChangeFn;
-  viewport?: ViewportOptions;
+  viewport?: Viewport;
   zoomRegionKey?: 'shift' | 'alt' | 'ctrl';
 }
 

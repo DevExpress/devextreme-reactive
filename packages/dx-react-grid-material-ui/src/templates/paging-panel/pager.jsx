@@ -8,7 +8,7 @@ import { Pagination } from './pagination';
 const styles = theme => ({
   pager: {
     overflow: 'hidden',
-    padding: theme.spacing.unit * 1.5,
+    padding: theme.spacing(1.5),
     display: 'flex',
     flex: 'none',
     alignItems: 'center',

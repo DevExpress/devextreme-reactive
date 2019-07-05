@@ -19,6 +19,8 @@ import { SplineSeries as SplineSeries_2 } from '@devexpress/dx-react-chart';
 import { Title as Title_2 } from '@devexpress/dx-react-chart';
 import { Tooltip as Tooltip_2 } from '@devexpress/dx-react-chart';
 import { ValueAxis as ValueAxis_2 } from '@devexpress/dx-react-chart';
+import { Viewport } from '@devexpress/dx-react-chart';
+import { ZoomAndPan as ZoomAndPan_2 } from '@devexpress/dx-react-chart';
 
 // @public (undocumented)
 export namespace AreaSeries {
@@ -75,7 +77,7 @@ export interface ArgumentAxisProps {
   indentFromAxis?: number;
   labelComponent?: React.ComponentType<ArgumentAxis_2.LabelProps>;
   lineComponent?: React.ComponentType<ArgumentAxis_2.LineProps>;
-  position?: 'bottom' | 'top';
+  position?: 'bottom' | 'top' | 'left' | 'right';
   rootComponent?: React.ComponentType<ArgumentAxis_2.RootProps>;
   showGrid?: boolean;
   showLabels?: boolean;
@@ -127,6 +129,7 @@ export interface ChartProps {
   data?: Array<any>;
   height?: number;
   rootComponent?: React.ComponentType<Chart_2.RootProps>;
+  rotated?: boolean;
   width?: number;
 }
 
@@ -331,7 +334,7 @@ export interface ValueAxisProps {
   indentFromAxis?: number;
   labelComponent?: React.ComponentType<ValueAxis_2.LabelProps>;
   lineComponent?: React.ComponentType<ValueAxis_2.LineProps>;
-  position?: 'left' | 'right';
+  position?: 'bottom' | 'top' | 'left' | 'right';
   rootComponent?: React.ComponentType<ValueAxis_2.RootProps>;
   scaleName?: string;
   showGrid?: boolean;
@@ -341,6 +344,27 @@ export interface ValueAxisProps {
   tickComponent?: React.ComponentType<ValueAxis_2.LineProps>;
   tickFormat?: (scale: ScaleObject) => (tick: string) => string;
   tickSize?: number;
+}
+
+// @public (undocumented)
+export namespace ZoomAndPan {
+  export type DragBoxProps = ZoomAndPan_2.DragBoxProps;
+}
+
+// @public
+export const ZoomAndPan: React.ComponentType<ZoomAndPanProps> & {
+  DragBox: React.ComponentType<ZoomAndPan_2.DragBoxProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+};
+
+// @public (undocumented)
+export interface ZoomAndPanProps {
+  defaultViewport?: Viewport;
+  dragBoxComponent?: React.ComponentType<ZoomAndPan_2.DragBoxProps>;
+  interactionWithArguments?: 'none' | 'pan' | 'zoom' | 'both';
+  interactionWithValues?: 'none' | 'pan' | 'zoom' | 'both';
+  onViewportChange?: (viewport: Viewport) => void;
+  viewport?: Viewport;
+  zoomRegionKey?: 'shift' | 'alt' | 'ctrl';
 }
 
 

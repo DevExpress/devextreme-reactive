@@ -1,7 +1,6 @@
 import {
   symbol,
   symbolCircle,
-  curveCatmullRom,
   area,
   line,
   arc,
@@ -11,8 +10,8 @@ import {
   findSeriesByName,
   addSeries,
   dSymbol,
-  dBar,
   dPie,
+  dBar,
   getAreaPointTransformer,
   getScatterPointTransformer,
   getLinePointTransformer,
@@ -27,7 +26,7 @@ jest.mock('d3-scale', () => ({
 }));
 
 jest.mock('d3-shape', () => {
-  const createMockWithFluentInterface = () => {
+  const createMockWithFluentInterface = () => jest.fn(() => {
     const proxy = new Proxy(jest.fn().mockReturnValue('symbol path'), {
       get(target, prop, receiver) {
         if (target[prop] === undefined) {
@@ -37,8 +36,8 @@ jest.mock('d3-shape', () => {
         return target[prop];
       },
     });
-    return jest.fn().mockReturnValue(proxy);
-  };
+    return proxy;
+  });
 
   return {
     area: createMockWithFluentInterface(),
@@ -46,6 +45,8 @@ jest.mock('d3-shape', () => {
     symbol: createMockWithFluentInterface(),
     pie: createMockWithFluentInterface(),
     arc: createMockWithFluentInterface(),
+    curveMonotoneX: '#curve-monotone-x',
+    curveMonotoneY: '#curve-monotone-y',
   };
 });
 
@@ -58,79 +59,110 @@ const mockArc = jest.fn().mockReturnValue('test-d') as any;
 mockArc.centroid = jest.fn().mockReturnValue([2, 3]);
 (arc as jest.Mock).mockReturnValue(mockArc);
 
-describe('dArea', () => {
-  it('init function', () => {
-    expect(area).toHaveBeenCalledTimes(1);
+describe('dFunctions', () => {
+  it('init functions', () => {
+    expect(area).toHaveBeenCalledTimes(2);
+    expect(line).toHaveBeenCalledTimes(4);
   });
 
-  it('x getter', () => {
+  it('dArea', () => {
     const fluentArea = (area as any).mock.results[0].value;
     const getX = fluentArea.x.mock.calls[0][0];
+    const getY0 = fluentArea.y0.mock.calls[0][0];
+    const getY1 = fluentArea.y1.mock.calls[0][0];
 
     expect(fluentArea.x).toHaveBeenCalledTimes(1);
-    expect(getX({ x: 10 })).toEqual(10);
-  });
-
-  it('y1 getter', () => {
-    const fluentArea = (area as any).mock.results[0].value;
-    const getY = fluentArea.y1.mock.calls[0][0];
-
     expect(fluentArea.y1).toHaveBeenCalledTimes(1);
-    expect(getY({ y: 10 })).toEqual(10);
+    expect(fluentArea.y0).toHaveBeenCalledTimes(1);
+
+    expect(getX({ arg: 10 })).toEqual(10);
+    expect(getY1({ val: 10 })).toEqual(10);
+    expect(getY0({ startVal: 7 })).toEqual(7);
   });
 
-  it('y0 getter', () => {
-    const fluentArea = (area as any).mock.results[0].value;
-    const getY = fluentArea.y0.mock.calls[0][0];
+  it('dRotateArea', () => {
+    const fluentArea = (area as any).mock.results[1].value;
+    const getX0 = fluentArea.x0.mock.calls[0][0];
+    const getY1 = fluentArea.x1.mock.calls[0][0];
+    const getY = fluentArea.y.mock.calls[0][0];
 
-    expect(fluentArea.y0).toHaveBeenCalledTimes(1);
-    expect(getY({ y1: 5 })).toEqual(5);
+    expect(fluentArea.x0).toHaveBeenCalledTimes(1);
+    expect(fluentArea.x1).toHaveBeenCalledTimes(1);
+    expect(fluentArea.y).toHaveBeenCalledTimes(1);
+
+    expect(getX0({ val: 7 })).toEqual(7);
+    expect(getY1({ startVal: 10 })).toEqual(10);
+    expect(getY({ arg: 5 })).toEqual(5);
+  });
+
+  it('dLine', () => {
+    const fluentLine = (line as any).mock.results[0].value;
+    const getX = fluentLine.x.mock.calls[0][0];
+    const getY = fluentLine.y.mock.calls[0][0];
+
+    expect(fluentLine.x).toHaveBeenCalledTimes(1);
+    expect(fluentLine.y).toHaveBeenCalledTimes(1);
+    expect(getX({ arg: 10 })).toEqual(10);
+    expect(getY({ val: 10 })).toEqual(10);
+  });
+
+  it('dRotateLine', () => {
+    const fluentLine = (line as any).mock.results[1].value;
+    const getX = fluentLine.x.mock.calls[0][0];
+    const getY = fluentLine.y.mock.calls[0][0];
+
+    expect(fluentLine.x).toHaveBeenCalledTimes(1);
+    expect(fluentLine.y).toHaveBeenCalledTimes(1);
+    expect(getX({ val: 10 })).toEqual(10);
+    expect(getY({ arg: 10 })).toEqual(10);
+  });
+
+  it('dSpline', () => {
+    const fluentLine = (line as any).mock.results[2].value;
+    const getX = fluentLine.x.mock.calls[0][0];
+    const getY = fluentLine.y.mock.calls[0][0];
+
+    expect(fluentLine.x).toHaveBeenCalledTimes(1);
+    expect(fluentLine.y).toHaveBeenCalledTimes(1);
+    expect(fluentLine.curve).toHaveBeenCalledTimes(1);
+    expect(getX({ arg: 10 })).toEqual(10);
+    expect(getY({ val: 10 })).toEqual(10);
+    expect(fluentLine.curve).toHaveBeenCalledWith('#curve-monotone-x');
+  });
+
+  it('dRotateSpline', () => {
+    const fluentLine = (line as any).mock.results[3].value;
+    const getX = fluentLine.x.mock.calls[0][0];
+    const getY = fluentLine.y.mock.calls[0][0];
+
+    expect(fluentLine.x).toHaveBeenCalledTimes(1);
+    expect(fluentLine.y).toHaveBeenCalledTimes(1);
+    expect(fluentLine.curve).toHaveBeenCalledTimes(1);
+    expect(getX({ val: 10 })).toEqual(10);
+    expect(getY({ arg: 10 })).toEqual(10);
+    expect(fluentLine.curve).toHaveBeenCalledWith('#curve-monotone-y');
   });
 });
 
-describe('line & spline', () => {
-  it('init function', () => {
-    expect(line).toHaveBeenCalledTimes(2);
+describe('#dBar', () => {
+  it('should return bar coordinates', () => {
+    expect(dBar(30, 2, 20, 10, false)).toEqual({ x: 25, y: 2, width: 10, height: 18 });
   });
 
-  it('x & y  getters', () => {
-    const fluentLine = (line as any).mock.results[0].value;
-    expect(fluentLine.x).toHaveBeenCalledTimes(2);
-    expect(fluentLine.y).toHaveBeenCalledTimes(2);
+  it('should return bar coordinates, rotated', () => {
+    expect(dBar(30, 2, 20, 10, true)).toEqual({ x: 2, y: 25, width: 18, height: 10 });
   });
 
-  describe('dLine', () => {
-    it('x getter', () => {
-      const getX = (line as any).mock.results[0].value.x.mock.calls[0][0];
-
-      expect(getX({ x: 10 })).toEqual(10);
-    });
-
-    it('y1 getter', () => {
-      const getY = (line as any).mock.results[0].value.y.mock.calls[0][0];
-
-      expect(getY({ y: 10 })).toEqual(10);
-    });
+  it('should return bar coordinates, startVal < val', () => {
+    expect(dBar(30, 20, 2, 10, false)).toEqual({ x: 25, y: 2, width: 10, height: 18 });
   });
 
-  describe('dSpline', () => {
-    it('x getter', () => {
-      const getX = (line as any).mock.results[0].value.x.mock.calls[1][0];
+  it('should return bar coordinates, width is 0', () => {
+    expect(dBar(30, 20, 2, 0, false)).toEqual({ x: 30, y: 2, width: 2, height: 18 });
+  });
 
-      expect(getX({ x: 10 })).toEqual(10);
-    });
-
-    it('y1 getter', () => {
-      const getY = (line as any).mock.results[0].value.y.mock.calls[1][0];
-
-      expect(getY({ y: 10 })).toEqual(10);
-    });
-
-    it('curve', () => {
-      const curve = (line as any).mock.results[0].value.curve.mock.calls[0][0];
-
-      expect(curve).toEqual(curveCatmullRom);
-    });
+  it('should return bar coordinates, width is 0, rotated', () => {
+    expect(dBar(30, 20, 2, 0, true)).toEqual({ x: 2, y: 30, width: 18, height: 2 });
   });
 });
 
@@ -146,9 +178,9 @@ describe('getAreaPointTransformer', () => {
       argument: 'arg',
       value: 'val',
       index: 1,
-      x: 14,
-      y: 9,
-      y1: 4,
+      arg: 14,
+      val: 9,
+      startVal: 4,
     });
     expect(argumentScale.mock.calls).toEqual([['arg']]);
     expect(valueScale.mock.calls).toEqual([[0], ['val']]);
@@ -156,8 +188,14 @@ describe('getAreaPointTransformer', () => {
 
   it('should return target element', () => {
     expect(getAreaPointTransformer.getTargetElement({
-      x: 10, y: 20,
+      arg: 10, val: 20,
     } as any)).toEqual([9, 19, 11, 21]);
+  });
+
+  it('should return target element / rotated', () => {
+    expect(getAreaPointTransformer.getTargetElement({
+      arg: 10, val: 20, rotated: true,
+    } as any)).toEqual([19, 9, 21, 11]);
   });
 });
 
@@ -175,8 +213,8 @@ describe('getScatterPointTransformer', () => {
       argument: 'arg',
       value: 'val',
       index: 1,
-      x: 14,
-      y: 4,
+      arg: 14,
+      val: 4,
     });
     expect(argumentScale.mock.calls).toEqual([['arg']]);
     expect(valueScale.mock.calls).toEqual([['val']]);
@@ -184,8 +222,14 @@ describe('getScatterPointTransformer', () => {
 
   it('should return target element', () => {
     expect(getScatterPointTransformer.getTargetElement({
-      x: 10, y: 20, point: { size: 4 },
+      arg: 10, val: 20, point: { size: 4 },
     } as any)).toEqual([8, 18, 12, 22]);
+  });
+
+  it('should return target element / rotated', () => {
+    expect(getScatterPointTransformer.getTargetElement({
+      arg: 10, val: 20, point: { size: 4 }, rotated: true,
+    } as any)).toEqual([18, 8, 22, 12]);
   });
 });
 
@@ -201,8 +245,8 @@ describe('getLinePointTransformer', () => {
       argument: 'arg',
       value: 'val',
       index: 1,
-      x: 14,
-      y: 9,
+      arg: 14,
+      val: 9,
     });
     expect(argumentScale.mock.calls).toEqual([['arg']]);
     expect(valueScale.mock.calls).toEqual([['val']]);
@@ -226,10 +270,10 @@ describe('getBarPointTransformer', () => {
       argument: 'arg',
       value: 'val',
       index: 1,
-      x: 21,
-      y: 9,
-      y1: 4,
+      arg: 21,
+      val: 9,
       maxBarWidth: 20,
+      startVal: 4,
     });
     expect(argumentScale.mock.calls).toEqual([['arg']]);
     expect(valueScale.mock.calls).toEqual([[0], ['val']]);
@@ -241,8 +285,14 @@ describe('getBarPointTransformer', () => {
 
   it('should return target element', () => {
     expect(getBarPointTransformer.getTargetElement({
-      x: 30, y: 20, y1: 30, barWidth: 0.4, maxBarWidth: 20,
+      arg: 30, val: 20, startVal: 30, barWidth: 0.4, maxBarWidth: 20,
     } as any)).toEqual([26, 20, 34, 30]);
+  });
+
+  it('should return target element / rotated', () => {
+    expect(getBarPointTransformer.getTargetElement({
+      arg: 30, val: 20, startVal: 30, barWidth: 0.4, maxBarWidth: 20, rotated: true,
+    } as any)).toEqual([20, 26, 30, 34]);
   });
 });
 
@@ -271,13 +321,13 @@ describe('getPiePointTransformer', () => {
     expect(
       transform({
         argument: 'arg-1', value: 'val-1', index: 1, color: 'c1',
-      }),
+      } as any),
     ).toEqual({
       argument: 'arg-1',
       value: 'val-1',
       index: 1,
-      x: 25,
-      y: 20,
+      arg: 25,
+      val: 20,
       color: 'c1',
       maxRadius: 20,
       startAngle: 3,
@@ -286,13 +336,13 @@ describe('getPiePointTransformer', () => {
     expect(
       transform({
         argument: 'arg-2', value: 'val-2', index: 3, color: 'c2',
-      }),
+      } as any),
     ).toEqual({
       argument: 'arg-2',
       value: 'val-2',
       index: 3,
-      x: 25,
-      y: 20,
+      arg: 25,
+      val: 20,
       color: 'c2',
       maxRadius: 20,
       startAngle: 7,
@@ -306,7 +356,7 @@ describe('getPiePointTransformer', () => {
 
   it('should return target element', () => {
     expect(getPiePointTransformer.getTargetElement({
-      x: 10, y: 20, innerRadius: 1, outerRadius: 2, maxRadius: 20, startAngle: 45, endAngle: 60,
+      arg: 10, val: 20, innerRadius: 1, outerRadius: 2, maxRadius: 20, startAngle: 45, endAngle: 60,
     } as any)).toEqual([11.5, 22.5, 12.5, 23.5]);
     expect(mockArc.centroid).toBeCalledWith({
       startAngle: 45,
@@ -349,28 +399,13 @@ describe('dSymbol', () => {
   });
 });
 
-describe('dBar', () => {
-  it('should return bar coordinates', () => {
-    expect(dBar({
-      x: 2, y: 9, y1: 5, barWidth: 0.5, maxBarWidth: 6,
-    } as any)).toEqual({
-      x: 0.5, y: 5, width: 3, height: 4,
-    });
-    expect(dBar({
-      x: 2, y: 5, y1: 9, barWidth: 0.5, maxBarWidth: 6,
-    } as any)).toEqual({
-      x: 0.5, y: 5, width: 3, height: 4,
-    });
-  });
-});
-
 describe('dPie', () => {
   afterEach(jest.clearAllMocks);
 
   it('should return pie coordinates', () => {
     const result = dPie({
       maxRadius: 10, innerRadius: 4, outerRadius: 8, startAngle: 90, endAngle: 180,
-    });
+    } as any);
 
     expect(mockArc).toBeCalledWith({
       innerRadius: 40,
@@ -540,20 +575,25 @@ describe('scaleSeriesPoints', () => {
       points: [{ name: 'b1' }, { name: 'b2' }, { name: 'b3' }],
     };
 
-    const result = scaleSeriesPoints([series1, series2] as any, scales as any);
+    const result = scaleSeriesPoints([series1, series2] as any, scales as any, 'test-rotated');
 
-    expect(result[0].points).toEqual(
-      [{ name: 'a1', tag: '#1' }, { name: 'a2', tag: '#1' }],
-    );
-    expect(result[1].points).toEqual(
-      [{ name: 'b1', tag: '#2' }, { name: 'b2', tag: '#2' }, { name: 'b3', tag: '#2' }],
-    );
-    expect(getPointTransformer1).toBeCalledWith(
-      { ...series1, argumentScale: 'test-arg-scale', valueScale: 'test-val-scale-1' },
-    );
-    expect(getPointTransformer2).toBeCalledWith(
-      { ...series2, argumentScale: 'test-arg-scale', valueScale: 'test-val-scale' },
-    );
+    expect(result[0].points).toEqual([
+      { name: 'a1', tag: '#1', rotated: 'test-rotated' },
+      { name: 'a2', tag: '#1', rotated: 'test-rotated' },
+    ]);
+    expect(result[1].points).toEqual([
+      { name: 'b1', tag: '#2', rotated: 'test-rotated' },
+      { name: 'b2', tag: '#2', rotated: 'test-rotated' },
+      { name: 'b3', tag: '#2', rotated: 'test-rotated' },
+    ]);
+    expect(getPointTransformer1).toBeCalledWith({
+      ...series1,
+      argumentScale: 'test-arg-scale', valueScale: 'test-val-scale-1',
+    });
+    expect(getPointTransformer2).toBeCalledWith({
+      ...series2,
+      argumentScale: 'test-arg-scale', valueScale: 'test-val-scale',
+    });
   });
 });
 

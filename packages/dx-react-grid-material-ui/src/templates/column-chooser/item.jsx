@@ -5,9 +5,12 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import { withStyles } from '@material-ui/core/styles';
 
-const styles = ({
+const styles = theme => ({
   checkbox: {
     padding: 0,
+  },
+  itemText: {
+    paddingLeft: theme.spacing(1),
   },
 });
 
@@ -32,7 +35,7 @@ const ItemBase = ({
       disabled={disabled}
       className={classes.checkbox}
     />
-    <ListItemText primary={column.title || column.name} />
+    <ListItemText className={classes.itemText} primary={column.title || column.name} />
   </ListItem>
 );
 

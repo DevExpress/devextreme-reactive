@@ -79,10 +79,6 @@ class DragDropProviderBase extends React.PureComponent<
     allowResize: () => true,
   };
 
-  onDrop(actions) {
-    return () => this.handleDrop(actions);
-  }
-
   onPayloadChange(actions) {
     return args => this.handlePayloadChange(args, actions);
   }
@@ -188,10 +184,7 @@ class DragDropProviderBase extends React.PureComponent<
     );
   }
 
-  handleDrop({ commitChangedAppointment, stopEditAppointment }) {
-    const { payload } = this.state;
-    stopEditAppointment({ appointmentId: payload.id });
-    commitChangedAppointment({ appointmentId: payload.id });
+  handleDrop = () => {
     this.resetCache();
   }
 
@@ -240,7 +233,7 @@ class DragDropProviderBase extends React.PureComponent<
                   <DropTarget
                     onOver={calculateBoundariesByMove}
                     onEnter={calculateBoundariesByMove}
-                    onDrop={this.onDrop({ commitChangedAppointment, stopEditAppointment })}
+                    onDrop={this.handleDrop}
                   >
                     <TemplatePlaceholder />
                   </DropTarget>

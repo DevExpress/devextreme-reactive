@@ -38,9 +38,10 @@ const NavigatorBase = ({
 );
 
 NavigatorBase.propTypes = {
+  // oneOfType is a workaround because withStyles returns react object
   classes: PropTypes.object.isRequired,
-  textComponent: PropTypes.func.isRequired,
-  navigationButtonComponent: PropTypes.func.isRequired,
+  textComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  navigationButtonComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   currentDate: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.string,

@@ -31,13 +31,3 @@ export interface RawAxisProps {
   /** A function that returns a tick formatter function */
   tickFormat?: TickFormatFn;
 }
-
-export interface ArgumentAxisProps extends RawAxisProps {
-  /** The axis position */
-  position?: 'top' | 'bottom';
-}
-
-export interface ValueAxisProps extends RawAxisProps {
-  /** The axis position */
-  position?: 'left' | 'right';
-}

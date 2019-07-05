@@ -7,6 +7,7 @@ import {
   WeekView,
   Appointments,
   DragDropProvider,
+  AllDayPanel,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { appointments } from '../../../demo-data/appointments';
 
@@ -71,6 +72,7 @@ export default class Demo extends React.PureComponent {
           <Appointments
             appointmentComponent={appointmentComponent}
           />
+          <AllDayPanel />
 
           <DragDropProvider
             allowDrag={allowDrag}

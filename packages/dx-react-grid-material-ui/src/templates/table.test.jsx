@@ -4,7 +4,7 @@ import { Table } from './table';
 
 describe('Table', () => {
   const defaultProps = {
-    tableRef: React.createRef(),
+    ref: React.createRef(),
   };
   let shallow;
   let classes;
@@ -27,11 +27,10 @@ describe('Table', () => {
       </Table>
     ));
 
-    const table = tree.childAt(0);
-    expect(table.is(`.${classes.table}`))
+    expect(tree.is(`.${classes.table}`))
       .toBeTruthy();
 
-    expect(table.is('.custom-class'))
+    expect(tree.is('.custom-class'))
       .toBeTruthy();
   });
 
@@ -45,8 +44,7 @@ describe('Table', () => {
       </Table>
     ));
 
-    const table = tree.childAt(0);
-    expect(table.props().data)
+    expect(tree.props().data)
       .toMatchObject({ a: 1 });
   });
 });

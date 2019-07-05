@@ -8,8 +8,8 @@ import PieChart from '@material-ui/icons/PieChart';
 // BLOCK:body
 const cellStyles = theme => ({
   icon: {
-    marginBottom: theme.spacing.unit / 2,
-    marginLeft: theme.spacing.unit,
+    marginBottom: theme.spacing(0.5),
+    marginLeft: theme.spacing(1),
     verticalAlign: 'middle',
   },
 });

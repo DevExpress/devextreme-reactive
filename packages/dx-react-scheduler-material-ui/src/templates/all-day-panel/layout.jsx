@@ -2,7 +2,6 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
-import RootRef from '@material-ui/core/RootRef';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 
@@ -20,27 +19,26 @@ const LayoutBase = ({
   rowComponent: Row,
   ...restProps
 }) => (
-  <RootRef rootRef={allDayPanelRef}>
-    <Table
-      className={classNames(classes.table, className)}
-      {...restProps}
-    >
-      <TableHead>
-        <Row>
-          {cellsData.map(({
-            startDate,
-            endDate,
-          }) => (
-            <Cell
-              key={startDate}
-              startDate={startDate}
-              endDate={endDate}
-            />
-          ))}
-        </Row>
-      </TableHead>
-    </Table>
-  </RootRef>
+  <Table
+    className={classNames(classes.table, className)}
+    ref={allDayPanelRef}
+    {...restProps}
+  >
+    <TableHead>
+      <Row>
+        {cellsData.map(({
+          startDate,
+          endDate,
+        }) => (
+          <Cell
+            key={startDate}
+            startDate={startDate}
+            endDate={endDate}
+          />
+        ))}
+      </Row>
+    </TableHead>
+  </Table>
 );
 
 LayoutBase.propTypes = {

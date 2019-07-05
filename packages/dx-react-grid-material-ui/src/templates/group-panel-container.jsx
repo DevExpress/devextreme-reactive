@@ -8,7 +8,7 @@ const styles = theme => ({
     display: 'flex',
     flexWrap: 'wrap',
     width: '100%',
-    marginTop: theme.spacing.unit * 1.5,
+    marginTop: theme.spacing(1.5),
   },
 });
 

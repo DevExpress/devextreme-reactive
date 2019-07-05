@@ -40,9 +40,9 @@ const Area = props => (
   <AreaSeries.Path
     {...props}
     path={area()
-      .x(({ x }) => x)
-      .y1(({ y }) => y)
-      .y0(({ y1 }) => y1)
+      .x(({ arg }) => arg)
+      .y1(({ val }) => val)
+      .y0(({ startVal }) => startVal)
       .curve(curveCatmullRom)}
   />
 );

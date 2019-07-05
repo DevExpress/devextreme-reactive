@@ -12,7 +12,7 @@ const styles = theme => ({
       borderRight: 0,
     },
     verticalAlign: 'bottom',
-    paddingBottom: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing(2),
   },
   beforeBorder: {
     borderLeft: getBorder(theme),

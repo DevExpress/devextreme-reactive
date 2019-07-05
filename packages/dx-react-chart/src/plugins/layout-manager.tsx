@@ -12,7 +12,7 @@ import {
 import { bBoxes, getRanges } from '@devexpress/dx-chart-core';
 import { LayoutManagerProps, LayoutManagerState, BBoxesChange } from '../types';
 
-const doGetRanges = ({ layouts }: Getters) => getRanges(layouts.pane);
+const doGetRanges = ({ layouts, rotated }: Getters) => getRanges(layouts.pane, rotated);
 
 export class LayoutManager extends React.Component<LayoutManagerProps, LayoutManagerState> {
   static defaultProps: Partial<LayoutManagerProps> = {

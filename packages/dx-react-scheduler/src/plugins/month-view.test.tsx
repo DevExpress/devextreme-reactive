@@ -10,6 +10,7 @@ import {
   getHorizontalRectByDates,
   calculateMonthDateIntervals,
   monthCellsData,
+  availableViews,
   getAppointmentStyle,
   horizontalTimeTableRects,
 } from '@devexpress/dx-scheduler-core';
@@ -20,7 +21,7 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
   computed: jest.fn(),
   viewCellsData: jest.fn(),
   startViewDate: jest.fn(),
-  availableViewNames: jest.fn(),
+  availableViews: jest.fn(),
   endViewDate: jest.fn(),
   getHorizontalRectByDates: jest.fn(),
   calculateMonthDateIntervals: jest.fn(),
@@ -216,7 +217,7 @@ describe('Month View', () => {
         .toBe(2);
     });
 
-    it('should provide the "currentView" getter', () => {
+    it('should provide the "currentView" getter with default "displayName"', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -227,22 +228,56 @@ describe('Month View', () => {
       ));
 
       expect(getComputedState(tree).currentView)
-        .toEqual({ name: 'Month', type: 'month' });
+        .toEqual({ name: 'Month', type: 'month', displayName: 'Month' });
     });
 
-    it('should calculate the "currentView" getter if there aren\'t any views before', () => {
+    it('should provide the "currentView" getter with user-set "displayName"', () => {
+      const userDisplayName = 'User set display name';
       const tree = mount((
         <PluginHost>
-          {pluginDepsToComponents(defaultDeps, { getter: { currentView: undefined } })}
+          {pluginDepsToComponents(defaultDeps)}
           <MonthView
+            displayName={userDisplayName}
             {...defaultProps}
-            name="Custom Month"
           />
         </PluginHost>
       ));
 
       expect(getComputedState(tree).currentView)
-        .toEqual({ name: 'Custom Month', type: 'month' });
+        .toEqual({ name: 'Month', type: 'month', displayName: userDisplayName });
+    });
+
+    it('should provide "availableViews" getter', () => {
+      availableViews.mockImplementation(() => 'availableViews');
+      const viewName = 'Custom Month';
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <MonthView
+            name={viewName}
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).availableViews)
+        .toEqual('availableViews');
+    });
+
+    it('should calculate the "currentView" getter if there aren\'t any views before', () => {
+      const viewName = 'Custom Month';
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps, { getter: { currentView: undefined } })}
+          <MonthView
+            {...defaultProps}
+            name={viewName}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).currentView)
+        .toEqual({ name: viewName, type: 'month', displayName: viewName });
     });
 
     it('should not override previous view type', () => {

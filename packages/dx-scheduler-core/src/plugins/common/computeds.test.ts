@@ -1,6 +1,6 @@
 import moment from 'moment';
 import {
-  dayScale as dayScaleComputed, availableViewNames, viewCellsData,
+  dayScale as dayScaleComputed, availableViews, viewCellsData,
   startViewDate, endViewDate, timeScale,
 } from './computeds';
 
@@ -116,20 +116,23 @@ describe('#timeScale', () => {
   });
 });
 
-describe('#availableViewNames', () => {
+describe('#availableViews', () => {
   it('should return available view names if views is not defined', () => {
-    expect(availableViewNames(undefined, 'Month'))
-      .toEqual(['Month']);
+    expect(availableViews(undefined, 'Month', 'Month'))
+      .toEqual([{ name: 'Month', displayName: 'Month' }]);
   });
 
   it('should return available view names if view is expected', () => {
-    expect(availableViewNames(['Month'], 'Month'))
-      .toEqual(['Month']);
+    expect(availableViews([{ name: 'Month', displayName: undefined }], 'Month', 'Month'))
+      .toEqual([{ name: 'Month', displayName: undefined }]);
   });
 
   it('should return available view names if view is not expected', () => {
-    expect(availableViewNames(['Week'], 'Month'))
-      .toEqual(['Week', 'Month']);
+    expect(availableViews([{ name: 'Week', displayName: 'Week view' }], 'Month', 'Month view'))
+      .toEqual([
+        { name: 'Week', displayName: 'Week view' },
+        { name: 'Month', displayName: 'Month view' },
+      ]);
   });
 });
 

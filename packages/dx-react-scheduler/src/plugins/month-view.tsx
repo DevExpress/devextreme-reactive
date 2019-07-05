@@ -14,7 +14,7 @@ import {
   monthCellsData,
   getAppointmentStyle,
   endViewDate as endViewDateCore,
-  availableViewNames as availableViewNamesCore,
+  availableViews as availableViewsCore,
   horizontalTimeTableRects,
 } from '@devexpress/dx-scheduler-core';
 import { memoize } from '@devexpress/dx-core';
@@ -76,13 +76,13 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
   intervalCountComputed = memoize((viewName, intervalCount) => getters =>
     computed(getters, viewName!, () => intervalCount, getters.intervalCount));
 
-  availableViewNamesComputed = memoize(viewName => ({ availableViewNames }) =>
-    availableViewNamesCore(availableViewNames, viewName!));
+  availableViewsComputed = memoize((viewName, viewDisplayName) => ({ availableViews }) =>
+    availableViewsCore(availableViews, viewName!, viewDisplayName));
 
-  currentViewComputed = memoize(viewName => ({ currentView }) => (
+  currentViewComputed = memoize((viewName, viewDisplayName) => ({ currentView }) => (
     currentView && currentView.name !== viewName
       ? currentView
-      : { name: viewName, type: TYPE }
+      : { name: viewName, type: TYPE, displayName: viewDisplayName }
   ));
 
   endViewDateComputed: ComputedFn = (getters) => {
@@ -137,15 +137,20 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
       name: viewName,
       firstDayOfWeek,
       intervalCount,
+      displayName,
     } = this.props;
     const { rects, timeTableElementsMeta, scrollingStrategy } = this.state;
+    const viewDisplayName = displayName || viewName;
 
     return (
       <Plugin
         name="MonthView"
       >
-        <Getter name="availableViewNames" computed={this.availableViewNamesComputed(viewName)} />
-        <Getter name="currentView" computed={this.currentViewComputed(viewName)} />
+        <Getter
+          name="availableViews"
+          computed={this.availableViewsComputed(viewName, viewDisplayName)}
+        />
+        <Getter name="currentView" computed={this.currentViewComputed(viewName, viewDisplayName)} />
 
         <Getter
           name="firstDayOfWeek"

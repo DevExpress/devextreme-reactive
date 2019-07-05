@@ -494,6 +494,12 @@ export interface SchedulerProps {
     rootComponent: React.ComponentType<Scheduler.RootProps>;
 }
 
+// @public
+export interface SchedulerView {
+  displayName: string;
+  name: string;
+}
+
 // @public (undocumented)
 export type ScrollingStrategy = {
   topBoundary: number;
@@ -616,6 +622,7 @@ export interface VerticalViewProps {
   dayScaleEmptyCellComponent: React.ComponentType<VerticalView.DayScaleEmptyCellProps>;
   dayScaleLayoutComponent: React.ComponentType<VerticalView.DayScaleLayoutProps>;
   dayScaleRowComponent: React.ComponentType<VerticalView.RowProps>;
+  displayName?: string;
   endDayHour?: number;
   intervalCount?: number;
   layoutComponent: React.ComponentType<VerticalView.LayoutProps>;
@@ -654,17 +661,14 @@ export const ViewSwitcher: React.ComponentType<ViewSwitcherProps>;
 // @public (undocumented)
 export namespace ViewSwitcher {
   export interface SwitcherProps {
-    // (undocumented)
-    availableViewNames: string[];
-    currentViewName: string;
-    // (undocumented)
-    onChange: (payload?: any) => void;
+    availableViews: SchedulerView[];
+    currentView: SchedulerView;
+    onChange: (nextViewName: string) => void;
   }
 }
 
 // @public (undocumented)
 export interface ViewSwitcherProps {
-  // (undocumented)
   switcherComponent: React.ComponentType<ViewSwitcher.SwitcherProps>;
 }
 

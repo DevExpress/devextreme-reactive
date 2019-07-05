@@ -312,6 +312,7 @@ export interface DayViewProps {
   dayScaleEmptyCellComponent?: React.ComponentType<DayView_2.DayScaleEmptyCellProps>;
   dayScaleLayoutComponent?: React.ComponentType<DayView_2.DayScaleLayoutProps>;
   dayScaleRowComponent?: React.ComponentType<DayView_2.RowProps>;
+  displayName?: string;
   endDayHour?: number;
   intervalCount?: number;
   layoutComponent?: React.ComponentType<DayView_2.LayoutProps>;
@@ -420,6 +421,7 @@ export interface MonthViewProps {
   dayScaleCellComponent?: React.ComponentType<MonthView_2.DayScaleCellProps>;
   dayScaleLayoutComponent?: React.ComponentType<MonthView_2.DayScaleLayoutProps>;
   dayScaleRowComponent?: React.ComponentType<MonthView_2.RowProps>;
+  displayName?: string;
   firstDayOfWeek?: number;
   intervalCount?: number;
   layoutComponent?: React.ComponentType<MonthView_2.LayoutProps>;
@@ -577,6 +579,7 @@ export interface WeekViewProps {
   dayScaleEmptyCellComponent?: React.ComponentType<WeekView_2.DayScaleEmptyCellProps>;
   dayScaleLayoutComponent?: React.ComponentType<WeekView_2.DayScaleLayoutProps>;
   dayScaleRowComponent?: React.ComponentType<WeekView_2.RowProps>;
+  displayName?: string;
   endDayHour?: number;
   excludedDays?: Array<number>;
   firstDayOfWeek?: number;

@@ -41,8 +41,23 @@ title? | string | The title.
 allDay? | boolean | The all day flag.
 id? | number &#124; string | The identifier.
 rRule? | string | Specifies the appointment recurrence rule. Follows the [iCalendar RRULE](https://tools.ietf.org/html/rfc5545#section-3.8.5.3) format.
-exDate? | string | Specifies dates excluded from recurrence. Follows the [iCalendar EXDATE](https://tools.ietf.org/html/rfc5545#section-3.8.5.1) format.
+exDate? | string | Specifies dates excluded from recurrence. Uses the [iCalendar EXDATE](https://tools.ietf.org/html/rfc5545#section-3.8.5.1) format.
 [propertyName: string] | any | Any other properties.
+
+### CellElementsMeta
+
+Field | Type | Description
+------|------|------------
+parentRect | () => ClientRect &#124; DOMRect | A function that returns the rect of the parent element.
+getCellRects | Array<() => ClientRect &#124; DOMRect> | An array of the cell rect functions.
+
+### ScrollingStrategy
+
+Field | Type | Description
+------|------|------------
+topBoundary | number | Specify the top boundary of the scrollable layout area.
+bottomBoundary | number | Specify the bottom boundary of the scrollable layout area.
+changeVerticalScroll | (value: number) => void | A function that can change scroll position.
 
 ### Scheduler.RootProps
 

@@ -1,5 +1,6 @@
 export {
-  AppointmentModel, AppointmentMeta, AllDayCell,
+  AppointmentModel, AppointmentMeta, AllDayCell, ElementRect,
+  ScrollingStrategy, CellElementsMeta, FormatterFn,
 } from '../../../dx-scheduler-core/src/index';
 
 /** @internal */

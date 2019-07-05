@@ -1,5 +1,4 @@
-import { FormatterFn } from '@devexpress/dx-scheduler-core';
-import { AppointmentModel } from '../index';
+import { AppointmentModel, FormatterFn } from '../index';
 
 // tslint:disable-next-line:no-namespace
 export namespace Appointments {

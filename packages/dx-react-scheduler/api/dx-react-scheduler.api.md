@@ -4,7 +4,6 @@
 
 ```ts
 
-import { FormatterFn as FormatterFn_2 } from '@devexpress/dx-scheduler-core';
 import moment from 'moment';
 import * as React from 'react';
 
@@ -34,10 +33,11 @@ export namespace AllDayPanel {
     children: React.ReactNode;
   }
   export interface LayoutProps {
-    allDayPanelRef: (ref: React.ReactInstance) => void;
     cellComponent: React.ComponentType<AllDayPanel.CellProps>;
     cellsData: AllDayCell[];
+    formatDate: FormatterFn;
     rowComponent: React.ComponentType<AllDayPanel.RowProps>;
+    setCellElementsMeta: (cellElementsMeta: CellElementsMeta) => void;
   }
   export interface LocalizationMessages {
     allDay?: string;
@@ -162,7 +162,7 @@ export namespace Appointments {
     export interface AppointmentContentProps {
         children?: React.ReactNode;
         data: AppointmentModel;
-        formatDate: FormatterFn_2;
+        formatDate: FormatterFn;
         recurringIconComponent: React.ComponentType<object>;
         type: 'vertical' | 'horizontal';
     }
@@ -238,6 +238,12 @@ export interface AppointmentTooltipProps {
   showOpenButton?: boolean;
   visible?: boolean;
 }
+
+// @public (undocumented)
+export type CellElementsMeta = {
+  parentRect: () => ClientRect | DOMRect;
+  getCellRects: Array<() => ClientRect | DOMRect>;
+};
 
 // @public (undocumented)
 export interface ChangeCurrentDatePayload {
@@ -439,9 +445,7 @@ export namespace MonthView {
   export interface LayoutProps {
     dayScaleComponent: React.ComponentType<MonthView.DayScaleLayoutProps>;
     height: number | 'auto';
-    // (undocumented)
-    layoutHeaderRef: React.RefObject<HTMLElement>;
-    layoutRef: React.RefObject<HTMLElement>;
+    setScrollingStrategy: (scrollingStrategy: ScrollingStrategy) => void;
     timeTableComponent: React.ComponentType<MonthView.TimeTableLayoutProps>;
   }
   export interface RowProps {
@@ -489,6 +493,13 @@ export interface SchedulerProps {
     locale: string | string[];
     rootComponent: React.ComponentType<Scheduler.RootProps>;
 }
+
+// @public (undocumented)
+export type ScrollingStrategy = {
+  topBoundary: number;
+  bottomBoundary: number;
+  changeVerticalScroll: (value: number) => void;
+};
 
 // @public (undocumented)
 export interface TimeScale {
@@ -559,17 +570,14 @@ export namespace VerticalView {
   export interface DayScaleLayoutProps {
     cellComponent: React.ComponentType<VerticalView.DayScaleCellProps>;
     cellsData: VerticalView.CellData[][];
-    formatDate: FormatterFn_2;
+    formatDate: FormatterFn;
     rowComponent: React.ComponentType<VerticalView.RowProps>;
   }
   export interface LayoutProps {
     dayScaleComponent: React.ComponentType<VerticalView.DayScaleLayoutProps>;
     dayScaleEmptyCellComponent: React.ComponentType<VerticalView.DayScaleEmptyCellProps>;
     height: number | 'auto';
-    // (undocumented)
-    layoutHeaderRef: React.RefObject<HTMLElement>;
-    // (undocumented)
-    layoutRef: React.RefObject<HTMLElement>;
+    setScrollingStrategy: (scrollingStrategy: ScrollingStrategy) => void;
     timeScaleComponent: React.ComponentType<VerticalView.TimeScaleLayoutProps>;
     timeTableComponent: React.ComponentType<VerticalView.TimeTableLayoutProps>;
   }
@@ -583,7 +591,7 @@ export namespace VerticalView {
   export interface TimeScaleLayoutProps {
     cellComponent: React.ComponentType<VerticalView.TimeScaleCellProps>;
     cellsData: VerticalView.CellData[][];
-    formatDate: FormatterFn_2;
+    formatDate: FormatterFn;
     rowComponent: React.ComponentType<VerticalView.RowProps>;
   }
   export interface TimeTableCellProps {
@@ -594,9 +602,9 @@ export namespace VerticalView {
   export interface TimeTableLayoutProps {
     cellComponent: React.ComponentType<VerticalView.TimeTableCellProps>;
     cellsData: VerticalView.CellData[][];
-    formatDate: FormatterFn_2;
+    formatDate: FormatterFn;
     rowComponent: React.ComponentType<VerticalView.RowProps>;
-    tableRef: React.RefObject<HTMLElement>;
+    setCellElementsMeta: (cellElementsMeta: CellElementsMeta) => void;
   }
 }
 

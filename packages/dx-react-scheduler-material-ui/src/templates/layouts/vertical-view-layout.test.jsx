@@ -1,6 +1,11 @@
 import * as React from 'react';
 import { getClasses, createShallow } from '@material-ui/core/test-utils';
 import { VerticalViewLayout } from './vertical-view-layout';
+import { scrollingStrategy } from '../utils';
+
+jest.mock('../utils', () => ({
+  scrollingStrategy: jest.fn(),
+}));
 
 describe('Vertical View Layout', () => {
   const defaultProps = {
@@ -8,8 +13,7 @@ describe('Vertical View Layout', () => {
     dayScaleComponent: () => null,
     timeTableComponent: () => null,
     dayScaleEmptyCellComponent: () => null,
-    layoutRef: React.createRef(),
-    layoutHeaderRef: React.createRef(),
+    setScrollingStrategy: jest.fn(),
     height: 1000,
   };
   let classes;
@@ -17,6 +21,7 @@ describe('Vertical View Layout', () => {
   beforeAll(() => {
     classes = getClasses(<VerticalViewLayout {...defaultProps} />);
     shallow = createShallow({ dive: true });
+    scrollingStrategy.mockImplementation(() => undefined);
   });
 
   it('should pass className to the root element', () => {
@@ -55,5 +60,15 @@ describe('Vertical View Layout', () => {
 
     expect(tree.prop('style'))
       .toMatchObject({ height: 1 });
+  });
+
+  it('should call the scrollingStrategy function', () => {
+    scrollingStrategy.mockClear();
+    shallow((
+      <VerticalViewLayout {...defaultProps} />
+    ));
+
+    expect(scrollingStrategy)
+      .toBeCalledTimes(1);
   });
 });

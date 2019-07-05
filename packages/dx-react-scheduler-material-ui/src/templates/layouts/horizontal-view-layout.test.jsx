@@ -1,20 +1,25 @@
 import * as React from 'react';
 import { getClasses, createShallow } from '@material-ui/core/test-utils';
 import { HorizontalViewLayout } from './horizontal-view-layout';
+import { scrollingStrategy } from '../utils';
+
+jest.mock('../utils', () => ({
+  scrollingStrategy: jest.fn(),
+}));
 
 describe('Horizontal View Layout', () => {
   const defaultProps = {
     dayScaleComponent: () => null,
     timeTableComponent: () => null,
-    layoutRef: React.createRef(),
-    layoutHeaderRef: React.createRef(),
     height: 1000,
+    setScrollingStrategy: jest.fn(),
   };
   let classes;
   let shallow;
   beforeAll(() => {
     classes = getClasses(<HorizontalViewLayout {...defaultProps} />);
     shallow = createShallow({ dive: true });
+    scrollingStrategy.mockImplementation(() => undefined);
   });
 
   it('should pass className to the root element', () => {
@@ -53,5 +58,15 @@ describe('Horizontal View Layout', () => {
 
     expect(tree.prop('style'))
       .toMatchObject({ height: 1 });
+  });
+
+  it('should call the scrollingStrategy function', () => {
+    scrollingStrategy.mockClear();
+    shallow((
+      <HorizontalViewLayout {...defaultProps} />
+    ));
+
+    expect(scrollingStrategy)
+      .toBeCalledTimes(1);
   });
 });

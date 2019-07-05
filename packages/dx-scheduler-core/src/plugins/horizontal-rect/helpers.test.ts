@@ -68,22 +68,16 @@ describe('Horizontal rect helpers', () => {
     ],
   ];
   describe('#getHorizontalRectByDates', () => {
-    const offsetParent = {
-      getBoundingClientRect: () => ({
-        top: 10, left: 10, width: 250,
-      }),
+    const cellElementsMeta = {
+      parentRect: () => ({ top: 10, left: 10, width: 250 }),
+      getCellRects: [{}, {}, {}, {}, {}, {}, {},
+        () => ({
+          top: 110, left: 20, width: 100, height: 100,
+        }), {}, () => ({
+          top: 110, left: 320, width: 100, height: 100,
+        }),
+      ],
     };
-    const cellElements = [{}, {}, {}, {}, {}, {}, {}, {
-      getBoundingClientRect: () => ({
-        top: 110, left: 20, width: 100, height: 100,
-      }),
-      offsetParent,
-    }, {}, {
-      getBoundingClientRect: () => ({
-        top: 110, left: 320, width: 100, height: 100,
-      }),
-      offsetParent,
-    }];
     afterEach(() => {
       jest.resetAllMocks();
     });
@@ -101,8 +95,8 @@ describe('Horizontal rect helpers', () => {
         endDate,
         {
           viewCellsData,
-          cellElements,
           multiline: true,
+          cellElementsMeta,
         },
       );
 
@@ -125,8 +119,8 @@ describe('Horizontal rect helpers', () => {
         endDate,
         {
           viewCellsData,
-          cellElements,
           multiline: true,
+          cellElementsMeta,
         },
       );
 
@@ -147,8 +141,8 @@ describe('Horizontal rect helpers', () => {
         endDate,
         {
           viewCellsData,
-          cellElements,
           multiline: false,
+          cellElementsMeta,
         },
       );
 

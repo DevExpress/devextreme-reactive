@@ -19,7 +19,7 @@ const styles = ({ spacing, typography }) => ({
     textTransform: 'uppercase',
   },
   inputRoot: {
-    marginLeft: `${spacing.unit * 0.5}px`,
+    marginLeft: `${spacing(0.5)}px`,
     '&:first-child': {
       marginLeft: 0,
     },

@@ -6,23 +6,19 @@ const TOP_CELL_OFFSET = 0.32;
 const CELL_BOUND_OFFSET_PX = 1;
 
 const getCellRect: GetCellRectHorizontalFn = (
-  date, viewCellsData, cellElements, takePrev, multiline,
+  date, viewCellsData, cellElementsMeta, takePrev, multiline,
 ) => {
   const cellIndex = multiline
     ? getMonthCellIndexByDate(viewCellsData, date, takePrev)
     : getAllDayCellIndexByDate(viewCellsData, date, takePrev);
 
-  const cellElement = cellElements[cellIndex];
   const {
     top,
     left,
     width,
     height,
-  } = cellElement.getBoundingClientRect();
-  let parentRect = { left: 0, top: 0, width: 0 };
-  if (cellElement.offsetParent) {
-    parentRect = cellElement.offsetParent.getBoundingClientRect();
-  }
+  } = cellElementsMeta.getCellRects[cellIndex]();
+  const parentRect = cellElementsMeta.parentRect();
   return {
     top,
     left,
@@ -38,11 +34,11 @@ export const getHorizontalRectByDates: GetHorizontalRectByDatesFn = (
   {
     multiline,
     viewCellsData,
-    cellElements,
+    cellElementsMeta,
   },
 ) => {
-  const firstCellRect = getCellRect(startDate, viewCellsData, cellElements, false, multiline);
-  const lastCellRect = getCellRect(endDate, viewCellsData, cellElements, true, multiline);
+  const firstCellRect = getCellRect(startDate, viewCellsData, cellElementsMeta, false, multiline);
+  const lastCellRect = getCellRect(endDate, viewCellsData, cellElementsMeta, true, multiline);
 
   const top = firstCellRect.top + (firstCellRect.height * TOP_CELL_OFFSET);
   const height = firstCellRect.height - (firstCellRect.height * TOP_CELL_OFFSET);

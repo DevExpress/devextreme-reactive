@@ -4,11 +4,6 @@ import { Layout } from './layout';
 
 describe('Horizontal view TimeTable', () => {
   const defaultProps = {
-    tableRef: {
-      current: {
-        querySelectorAll: jest.fn(),
-      },
-    },
     cellsData: [
       [
         { startDate: new Date(2018, 6, 7, 16), endDate: new Date(2018, 6, 7, 18) },
@@ -23,7 +18,7 @@ describe('Horizontal view TimeTable', () => {
     /* eslint-disable-next-line */
     rowComponent: ({ children }) => <tr>{children}</tr>,
     formatDate: () => undefined,
-    setCellElements: jest.fn(),
+    setCellElementsMeta: jest.fn(),
   };
   let classes;
   let mount;
@@ -32,7 +27,7 @@ describe('Horizontal view TimeTable', () => {
   });
   beforeEach(() => {
     mount = createMount();
-    defaultProps.setCellElements.mockClear();
+    defaultProps.setCellElementsMeta.mockClear();
   });
   afterEach(() => {
     mount.cleanUp();
@@ -65,6 +60,21 @@ describe('Horizontal view TimeTable', () => {
         .toHaveLength(4);
       expect(tree.find(defaultProps.rowComponent))
         .toHaveLength(2);
+    });
+    it('should call setCellElementsMeta', () => {
+      const tree = mount((
+        <Layout
+          {...defaultProps}
+        />
+      ));
+
+      expect(defaultProps.setCellElementsMeta)
+        .toBeCalledTimes(1);
+
+      tree.setProps({ className: 'a' });
+
+      expect(defaultProps.setCellElementsMeta)
+        .toBeCalledTimes(2);
     });
   });
 });

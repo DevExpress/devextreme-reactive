@@ -1,4 +1,4 @@
-import { AllDayCell } from '../index';
+import { AllDayCell, ElementRect, CellElementsMeta, FormatterFn } from '../index';
 
 /* tslint:disable no-namespace max-line-length */
 export namespace AllDayPanel {
@@ -13,12 +13,28 @@ export namespace AllDayPanel {
   export interface LayoutProps {
     /** Cells’ meta data. */
     cellsData: AllDayCell[];
-    /** A function that accepts the All Day panel’s root React element. */
-    allDayPanelRef: (ref: React.ReactInstance) => void;
     /** A component that renders an All Day panel cell. */
     cellComponent: React.ComponentType<AllDayPanel.CellProps>;
     /** A component that renders an All Day panel row. */
     rowComponent: React.ComponentType<AllDayPanel.RowProps>;
+    /** A function that formats dates according to the locale. */
+    formatDate: FormatterFn;
+    /** A setCellElementsMeta callback */
+    setCellElementsMeta: (cellElementsMeta: CellElementsMeta) => void;
+  }
+  /** @internal */
+  export interface LayoutContainerProps {
+    layoutComponent: React.ComponentType<AllDayPanel.LayoutProps>;
+    /** Cells’ meta data. */
+    cellsData: AllDayCell[];
+    /** A component that renders an All Day panel cell. */
+    cellComponent: React.ComponentType<AllDayPanel.CellProps>;
+    /** A component that renders an All Day panel row. */
+    rowComponent: React.ComponentType<AllDayPanel.RowProps>;
+    /** A setCellElementsMeta callback */
+    setCellElementsMeta: (cellElementsMeta: CellElementsMeta) => void;
+    /** A function that formats dates according to the locale. */
+    formatDate: FormatterFn;
   }
   /** Describes properties passed to a component that renders an All Day panel cell. */
   export interface CellProps {
@@ -73,5 +89,6 @@ export interface AllDayPanelProps {
 
 /** @internal */
 export interface AllDayPanelState {
-  tableRef: HTMLElement | null;
+  rects: readonly ElementRect[];
+  elementsMeta: CellElementsMeta | {};
 }

@@ -1,18 +1,18 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { pluginDepsToComponents } from '@devexpress/dx-testing';
+import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing';
 import { PluginHost, TemplatePlaceholder } from '@devexpress/dx-react-core';
 import {
   allDayCells,
-  calculateRectByDateIntervals,
-  calculateAllDayDateIntervals,
+  allDayRects,
+  getAppointmentStyle,
 } from '@devexpress/dx-scheduler-core';
 import { AllDayPanel } from './all-day-panel';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   allDayCells: jest.fn(),
-  calculateRectByDateIntervals: jest.fn(),
-  calculateAllDayDateIntervals: jest.fn(),
+  allDayRects: jest.fn(),
+  getAppointmentStyle: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -22,6 +22,7 @@ const defaultDeps = {
     startViewDate: '',
     endViewDate: '',
     excludedDays: [],
+    formatDate: jest.fn(),
   },
   template: {
     body: {},
@@ -47,14 +48,41 @@ const defaultProps = {
 
 describe('AllDayPanel', () => {
   beforeEach(() => {
-    calculateRectByDateIntervals.mockImplementation(() => [{
-      dataItem: {}, type: 'h', top: 0, left: 0,
-    }]);
-    calculateAllDayDateIntervals.mockImplementation(() => []);
     allDayCells.mockImplementation(() => [[{}]]);
+    allDayRects.mockImplementation(() => [{ data: 1 }]);
+    getAppointmentStyle.mockImplementation(() => undefined);
   });
   afterEach(() => {
     jest.resetAllMocks();
+  });
+
+  describe('Getters', () => {
+    it('should provide "allDayElementsMeta" getter', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <AllDayPanel
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).allDayElementsMeta)
+        .toEqual({});
+
+      const setCellElementsMeta = tree.find(defaultProps.layoutComponent)
+        .props().setCellElementsMeta;
+      setCellElementsMeta('elementsMeta');
+
+      const allDayPanelState = tree.find(AllDayPanel).state();
+      expect(allDayPanelState.rects)
+        .toEqual([{ data: 1 }]);
+
+      tree.update();
+
+      expect(getComputedState(tree).allDayElementsMeta)
+        .toEqual('elementsMeta');
+    });
   });
 
   describe('Templates', () => {
@@ -68,8 +96,14 @@ describe('AllDayPanel', () => {
         </PluginHost>
       ));
 
-      expect(tree.find(defaultProps.layoutComponent).exists())
+      const layout = defaultProps.layoutComponent;
+
+      expect(tree.find(layout).exists())
         .toBeTruthy();
+      expect(tree.find(layout).props().formatDate)
+        .toEqual(defaultDeps.getter.formatDate);
+      expect(tree.find(layout).props().setCellElementsMeta)
+        .toEqual(expect.any(Function));
     });
 
     it('should render appointment layer', () => {

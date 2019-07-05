@@ -11,14 +11,12 @@ import {
 import {
   computed,
   viewCellsData as viewCellsDataCore,
-  calculateRectByDateIntervals,
-  calculateWeekDateIntervals,
-  getVerticalRectByDates,
   startViewDate as startViewDateCore,
   endViewDate as endViewDateCore,
   availableViewNames as availableViewNamesCore,
-  VERTICAL_TYPE,
   getAppointmentStyle,
+  verticalTimeTableRects,
+  ScrollingStrategy,
 } from '@devexpress/dx-scheduler-core';
 import { memoize } from '@devexpress/dx-core';
 
@@ -50,12 +48,14 @@ const DayScaleEmptyCellPlaceholder = () => <TemplatePlaceholder name="dayScaleEm
 const TimeScalePlaceholder = () => <TemplatePlaceholder name="timeScale" />;
 
 class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
-  timeTable = React.createRef<HTMLElement>();
-  layout = React.createRef<HTMLElement>();
-  layoutHeader = React.createRef<HTMLElement>();
-
   state: ViewState = {
     rects: [],
+    scrollingStrategy: {
+      topBoundary: 0,
+      bottomBoundary: 0,
+      changeVerticalScroll: () => undefined,
+    },
+    timeTableElementsMeta: {},
   };
 
   static defaultProps: Partial<WeekViewProps> = {
@@ -70,6 +70,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
 
   static components: PluginComponents = {
     layoutComponent: 'Layout',
+    layoutContainerComponent: 'LayoutContainer',
     appointmentLayerComponent: 'AppointmentLayer',
     dayScaleEmptyCellComponent: 'DayScaleEmptyCell',
     timeScaleLayoutComponent: 'TimeScaleLayout',
@@ -78,59 +79,47 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
     dayScaleLayoutComponent: 'DayScaleLayout',
     dayScaleCellComponent: 'DayScaleCell',
     dayScaleRowComponent: 'DayScaleRow',
+    timeTableContainerComponent: 'TimeTableContainer',
     timeTableLayoutComponent: 'TimeTableLayout',
     timeTableCellComponent: 'TimeTableCell',
     timeTableRowComponent: 'TimeTableRow',
   };
 
-  timeTableElementComputed = () => this.timeTable;
-  layoutElementComputed = () => this.layout;
-  layoutHeaderElementComputed = () => this.layoutHeader;
+  scrollingStrategyComputed = memoize((viewName, scrollingStrategy) => getters => computed(
+    getters, viewName!, () => scrollingStrategy, getters.scrollingStrategy,
+  ));
 
-  layoutHeaderElement = memoize(viewName => (getters) => {
-    return computed(
-      getters, viewName, this.layoutHeaderElementComputed, getters.layoutHeaderElement,
-    );
-  });
+  timeTableElementsMetaComputed = memoize((viewName, timeTableElementsMeta) => getters =>
+    computed(getters, viewName!, () => timeTableElementsMeta, getters.timeTableElementsMeta));
 
-  layoutElement = memoize(viewName => (getters) => {
-    return computed(
-      getters, viewName, this.layoutElementComputed, getters.layoutElement,
-    );
-  });
+  excludedDaysComputed = memoize((viewName, excludedDays) => getters => computed(
+    getters, viewName!, () => excludedDays, getters.excludedDays,
+  ));
 
-  timeTableElement = memoize(viewName => (getters) => {
-    return computed(
-      getters, viewName!, this.timeTableElementComputed, getters.timeTableElement,
-    );
-  });
+  firstDayOfWeekComputed = memoize((viewName, firstDayOfWeek) => getters => computed(
+    getters, viewName!, () => firstDayOfWeek, getters.firstDayOfWeek,
+  ));
 
-  excludedDays = memoize((viewName, excludedDays) => (getters) => {
-    return computed(
-      getters, viewName!, () => excludedDays, getters.excludedDays,
-    );
-  });
+  intervalCountComputed = memoize((viewName, intervalCount) => getters => computed(
+    getters, viewName!, () => intervalCount, getters.intervalCount,
+  ));
 
-  firstDayOfWeek = memoize((viewName, firstDayOfWeek) => (getters) => {
-    return computed(
-      getters, viewName!, () => firstDayOfWeek, getters.firstDayOfWeek,
-    );
-  });
-
-  intervalCount = memoize((viewName, intervalCount) => (getters) => {
-    return computed(
-      getters, viewName!, () => intervalCount, getters.intervalCount,
-    );
-  });
-
-  viewCellsData = memoize((viewName, cellDuration, startDayHour, endDayHour) => (getters) => {
-    return computed(
+  viewCellsDataComputed = memoize((viewName, cellDuration, startDayHour, endDayHour) =>
+    getters => computed(
       getters,
       viewName,
       viewCellsDataBaseComputed(cellDuration, startDayHour, endDayHour),
       getters.viewCellsData,
-    );
-  });
+    ));
+
+  availableViewNamesComputed = memoize(viewName => ({ availableViewNames }) =>
+    availableViewNamesCore(availableViewNames, viewName));
+
+  currentViewComputed = memoize(viewName => ({ currentView }) => (
+    currentView && currentView.name !== viewName
+      ? currentView
+      : { name: viewName, type: TYPE }
+    ));
 
   endViewDateComputed: ComputedFn = (getters) => {
     const { name: viewName } = this.props;
@@ -146,49 +135,24 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
     );
   }
 
-  availableViewNames = memoize(viewName => ({ availableViewNames }) => {
-    return availableViewNamesCore(
-      availableViewNames, viewName,
-    );
-  });
-
-  currentView = memoize(viewName => ({ currentView }) => {
-    return (
-    currentView && currentView.name !== viewName
-      ? currentView
-      : { name: viewName, type: TYPE }
-    );
-  });
-
-  calculateRects = memoize((
+  updateRects = memoize((
     appointments, startViewDate, endViewDate, excludedDays, viewCellsData, cellDuration,
-  ) => (cellElements) => {
-    const intervals = calculateWeekDateIntervals(
-      appointments, startViewDate, endViewDate, excludedDays!,
+  ) => (cellElementsMeta) => {
+    const rects = verticalTimeTableRects(
+      appointments, startViewDate, endViewDate, excludedDays,
+      viewCellsData, cellDuration, cellElementsMeta,
     );
 
-    const rects = calculateRectByDateIntervals(
-      {
-        growDirection: VERTICAL_TYPE,
-        multiline: false,
-      },
-      intervals,
-      getVerticalRectByDates,
-      {
-        startViewDate,
-        endViewDate,
-        viewCellsData,
-        cellDuration,
-        cellElements,
-      },
-    );
-
-    this.setState({ rects });
+    this.setState({ rects, timeTableElementsMeta: cellElementsMeta });
   });
+
+  setScrollingStrategy = (scrollingStrategy: ScrollingStrategy) => {
+    this.setState({ scrollingStrategy });
+  }
 
   render() {
     const {
-      layoutComponent: ViewLayout,
+      layoutComponent: Layout,
       dayScaleEmptyCellComponent: DayScaleEmptyCell,
       timeScaleLayoutComponent: TimeScale,
       timeScaleRowComponent: TimeScaleRow,
@@ -196,8 +160,8 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
       dayScaleLayoutComponent: DayScale,
       dayScaleCellComponent: DayScaleCell,
       dayScaleRowComponent: DayScaleRow,
-      timeTableLayoutComponent: TimeTable,
-      timeTableRowComponent: TimeTableRow,
+      timeTableLayoutComponent: TimeTableLayout,
+      timeTableRowComponent,
       timeTableCellComponent: TimeTableCell,
       cellDuration,
       excludedDays,
@@ -208,44 +172,51 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
       endDayHour,
       appointmentLayerComponent: AppointmentLayer,
     } = this.props;
-    const { rects } = this.state;
+    const { rects, timeTableElementsMeta, scrollingStrategy } = this.state;
 
     return (
       <Plugin
         name="WeekView"
       >
-        <Getter name="availableViewNames" computed={this.availableViewNames(viewName)} />
-        <Getter name="currentView" computed={this.currentView(viewName)} />
+        <Getter name="availableViewNames" computed={this.availableViewNamesComputed(viewName)} />
+        <Getter name="currentView" computed={this.currentViewComputed(viewName)} />
 
-        <Getter name="intervalCount" computed={this.intervalCount(viewName, intervalCount)} />
+        <Getter
+          name="intervalCount"
+          computed={this.intervalCountComputed(viewName, intervalCount)}
+        />
         <Getter
           name="firstDayOfWeek"
-          computed={this.firstDayOfWeek(viewName, firstDayOfWeek)}
+          computed={this.firstDayOfWeekComputed(viewName, firstDayOfWeek)}
         />
-        <Getter name="excludedDays" computed={this.excludedDays(viewName, excludedDays)} />
+        <Getter name="excludedDays" computed={this.excludedDaysComputed(viewName, excludedDays)} />
         <Getter
           name="viewCellsData"
-          computed={this.viewCellsData(viewName, cellDuration, startDayHour, endDayHour)}
+          computed={this.viewCellsDataComputed(viewName, cellDuration, startDayHour, endDayHour)}
         />
         <Getter name="startViewDate" computed={this.startViewDateComputed} />
         <Getter name="endViewDate" computed={this.endViewDateComputed} />
 
-        <Getter name="timeTableElement" computed={this.timeTableElement(viewName)} />
-        <Getter name="layoutElement" computed={this.layoutElement(viewName)} />
-        <Getter name="layoutHeaderElement" computed={this.layoutHeaderElement(viewName)} />
+        <Getter
+          name="timeTableElementsMeta"
+          computed={this.timeTableElementsMetaComputed(viewName, timeTableElementsMeta)}
+        />
+        <Getter
+          name="scrollingStrategy"
+          computed={this.scrollingStrategyComputed(viewName, scrollingStrategy)}
+        />
 
         <Template name="body">
           <TemplateConnector>
             {({ currentView, layoutHeight }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
-                <ViewLayout
+                <Layout
                   dayScaleComponent={DayScalePlaceholder}
                   dayScaleEmptyCellComponent={DayScaleEmptyCellPlaceholder}
                   timeTableComponent={TimeTablePlaceholder}
                   timeScaleComponent={TimeScalePlaceholder}
-                  layoutRef={this.layout}
-                  layoutHeaderRef={this.layoutHeader}
+                  setScrollingStrategy={this.setScrollingStrategy}
                   height={layoutHeight}
                 />
               );
@@ -305,19 +276,18 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
               appointments, startViewDate, endViewDate,
             }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
-              const setRects = this.calculateRects(
+              const setRects = this.updateRects(
                 appointments, startViewDate, endViewDate, excludedDays, viewCellsData, cellDuration,
               );
 
               return (
                 <React.Fragment>
-                  <TimeTable
+                  <TimeTableLayout
                     cellsData={viewCellsData}
-                    rowComponent={TimeTableRow}
+                    rowComponent={timeTableRowComponent}
                     cellComponent={CellPlaceholder}
                     formatDate={formatDate}
-                    tableRef={this.timeTable}
-                    setCellElements={setRects}
+                    setCellElementsMeta={setRects}
                   />
                   <AppointmentLayer>
                     {rects.map(({

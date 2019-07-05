@@ -4,11 +4,6 @@ import { Layout } from './layout';
 
 describe('Vertical view TimeTable', () => {
   const defaultProps = {
-    tableRef: {
-      current: {
-        querySelectorAll: jest.fn(),
-      },
-    },
     cellsData: [
       [
         { startDate: new Date(2018, 6, 7, 16), endDate: new Date(2018, 6, 7, 18) },
@@ -22,8 +17,8 @@ describe('Vertical view TimeTable', () => {
     cellComponent: () => <td />,
     /* eslint-disable-next-line */
     rowComponent: ({ children }) => <tr>{children}</tr>,
-    setCellElements: jest.fn(),
     formatDate: jest.fn(),
+    setCellElementsMeta: jest.fn(),
   };
   let classes;
   let mount;
@@ -32,7 +27,7 @@ describe('Vertical view TimeTable', () => {
   });
   beforeEach(() => {
     mount = createMount();
-    defaultProps.setCellElements.mockClear();
+    defaultProps.setCellElementsMeta.mockClear();
   });
   afterEach(() => {
     mount.cleanUp();
@@ -72,6 +67,21 @@ describe('Vertical view TimeTable', () => {
         .toHaveLength(4);
       expect(tree.find(row))
         .toHaveLength(2);
+    });
+    it('should calls setCellElementsMeta', () => {
+      const tree = mount((
+        <Layout
+          {...defaultProps}
+        />
+      ));
+
+      expect(defaultProps.setCellElementsMeta)
+        .toBeCalledTimes(1);
+
+      tree.setProps({ className: 'a' });
+
+      expect(defaultProps.setCellElementsMeta)
+        .toBeCalledTimes(2);
     });
   });
 });

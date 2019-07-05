@@ -3,6 +3,7 @@ import * as PropTypes from 'prop-types';
 import { AUTO_HEIGHT } from '@devexpress/dx-scheduler-core';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
+import classNames from 'classnames';
 import { scrollingStrategy } from '../utils';
 
 const styles = theme => ({
@@ -50,6 +51,9 @@ class HorizontalViewLayoutBase extends React.PureComponent {
       timeTableComponent: TimeTable,
       classes,
       height,
+      className,
+      style,
+      ...restProps
     } = this.props;
 
     const containerStyle = height === AUTO_HEIGHT ? { height: '100%' } : { height: `${height}px` };
@@ -57,11 +61,12 @@ class HorizontalViewLayoutBase extends React.PureComponent {
     return (
       <Grid
         ref={this.layout}
-        className={classes.container}
+        className={classNames(classes.container, className)}
         container
         direction="column"
         wrap="nowrap"
-        style={containerStyle}
+        style={{ ...containerStyle, ...style }}
+        {...restProps}
       >
         <Grid
           ref={this.layoutHeader}
@@ -88,6 +93,13 @@ HorizontalViewLayoutBase.propTypes = {
   setScrollingStrategy: PropTypes.func.isRequired,
   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
+  style: PropTypes.object,
+};
+
+HorizontalViewLayoutBase.defaultProps = {
+  className: undefined,
+  style: null,
 };
 
 export const HorizontalViewLayout = withStyles(styles, { name: 'HorizontalViewLayout' })(HorizontalViewLayoutBase);

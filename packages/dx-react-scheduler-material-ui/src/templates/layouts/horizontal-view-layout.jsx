@@ -49,6 +49,7 @@ class HorizontalViewLayoutBase extends React.PureComponent {
     const {
       dayScaleComponent: DayScale,
       timeTableComponent: TimeTable,
+      setScrollingStrategy,
       classes,
       height,
       className,

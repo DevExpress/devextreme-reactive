@@ -51,6 +51,7 @@ class VerticalViewLayoutBase extends React.PureComponent {
       dayScaleComponent: DayScale,
       timeTableComponent: TimeTable,
       dayScaleEmptyCellComponent: DayScaleEmptyCell,
+      setScrollingStrategy,
       classes,
       height,
       className,

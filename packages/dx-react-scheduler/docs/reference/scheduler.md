@@ -57,7 +57,7 @@ Field | Type | Description
 ------|------|------------
 topBoundary | number | Specify the top boundary of the scrollable layout area.
 bottomBoundary | number | Specify the bottom boundary of the scrollable layout area.
-changeVerticalScroll | (value: number) => void | A function that can change layout scroll position.
+changeVerticalScroll | (value: number) => void | A function that can change scroll position.
 
 ### Scheduler.RootProps
 

@@ -77,7 +77,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
               return (
                 <TemplateConnector>
                   {(
-                    { availableRowCount, loadedRowsStart, tableBodyRows },
+                    { availableRowCount, loadedRowsStart, tableBodyRows, isDataRemote },
                     { ensureNextVirtualPage },
                   ) => {
 
@@ -89,6 +89,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
                           ...params,
                           totalRowCount,
                           loadedRowsStart,
+                          isDataRemote,
                           height,
                           estimatedRowHeight,
                           ensureNextVirtualPage,

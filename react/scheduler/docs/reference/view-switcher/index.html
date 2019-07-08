@@ -14,8 +14,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.min.css" type="text/css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/addon/fold/foldgutter.min.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1560513376">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1560513376">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1562591150">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1562591150">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <!-- Google Tag Manager -->
@@ -137,19 +137,45 @@
   </thead>
   <tbody>
     <tr>
-      <td>currentViewName</td>
-      <td>string</td>
-      <td>A displayed view’s name.</td>
+      <td>currentView</td>
+      <td><a href="#schedulerview">SchedulerView</a></td>
+      <td>A displayed view.</td>
     </tr>
     <tr>
-      <td>availableViewNames</td>
-      <td>Array&lt;string&gt;</td>
-      <td>An array of available view’s names.</td>
+      <td>availableViews</td>
+      <td>Array&lt;<a href="#schedulerview">SchedulerView</a>&gt;</td>
+      <td>An array of available views.</td>
     </tr>
     <tr>
       <td>onChange</td>
       <td>(nextViewName: string) =&gt; void</td>
       <td>A function that handles changes to the displayed view.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="schedulerview">SchedulerView</h3>
+
+<p>Describes a scheduler view object.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>name</td>
+      <td>string</td>
+      <td>View’s unique identifier.</td>
+    </tr>
+    <tr>
+      <td>displayName</td>
+      <td>string</td>
+      <td>View’s visible name.</td>
     </tr>
   </tbody>
 </table>
@@ -185,9 +211,9 @@
       </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.11.1">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#2.0.0">
             Version
-            <span>1.11.1</span>
+            <span>2.0.0</span>
           </a>
         </li>
       </ul>
@@ -384,6 +410,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/scheduler/docs/reference/today-button/">TodayButton</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/scheduler/docs/reference/toolbar/">Toolbar</a></li>
           
 
@@ -449,7 +483,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/common/dist/index.js?v=1560513376"></script>
+<script src="/devextreme-reactive/react/common/dist/index.js?v=1562591150"></script>
 
 <script
   type="text/javascript"
@@ -505,7 +539,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1560513376"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1562591150"></script>
     <script>
         trackingCookie.notice();
     </script>

@@ -14,8 +14,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.min.css" type="text/css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/addon/fold/foldgutter.min.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1560513376">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1560513376">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1562591150">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1562591150">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <!-- Google Tag Manager -->
@@ -167,19 +167,19 @@
   </thead>
   <tbody>
     <tr>
-      <td>x</td>
+      <td>arg</td>
       <td>number</td>
-      <td>The bar’s x coordinate (the bar’s center).</td>
+      <td>The bar’s argument; corresponds to the bar’s center.</td>
     </tr>
     <tr>
-      <td>y</td>
+      <td>val</td>
       <td>number</td>
-      <td>The bar’s y coordinate.</td>
+      <td>The bar’s value; corresponds to the bar’s top.</td>
     </tr>
     <tr>
-      <td>y1</td>
+      <td>startVal</td>
       <td>number</td>
-      <td>The bar’s y1 coordinate.</td>
+      <td>The bar’s start value; corresponds to the bar’s bottom.</td>
     </tr>
     <tr>
       <td>barWidth</td>
@@ -205,6 +205,11 @@
       <td>index</td>
       <td>number</td>
       <td>Point index.</td>
+    </tr>
+    <tr>
+      <td>rotated</td>
+      <td>boolean</td>
+      <td><code class="highlighter-rouge">true</code> if the chart is rotated.</td>
     </tr>
   </tbody>
 </table>
@@ -238,9 +243,9 @@
       </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.11.1">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#2.0.0">
             Version
-            <span>1.11.1</span>
+            <span>2.0.0</span>
           </a>
         </li>
       </ul>
@@ -336,6 +341,14 @@
 
           
           <li><a href="/devextreme-reactive/react/chart/docs/guides/zoom-and-pan/">Zoom and Pan</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/chart/docs/guides/rotated/">Rotated</a></li>
           
 
         
@@ -582,7 +595,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/common/dist/index.js?v=1560513376"></script>
+<script src="/devextreme-reactive/react/common/dist/index.js?v=1562591150"></script>
 
 <script
   type="text/javascript"
@@ -638,7 +651,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1560513376"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1562591150"></script>
     <script>
         trackingCookie.notice();
     </script>

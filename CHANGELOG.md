@@ -1,3 +1,84 @@
+# [2.0.0](https://github.com/DevExpress/devextreme-reactive/compare/v1.11.1...v2.0.0) (2019-07-08)
+
+
+### Bug Fixes
+
+* **react-chart:** arg and val scale inconsistency ([#2070](https://github.com/DevExpress/devextreme-reactive/issues/2070)) ([6286577](https://github.com/DevExpress/devextreme-reactive/commit/6286577))
+* **react-chart:** fix zooming on IPad ([#2122](https://github.com/DevExpress/devextreme-reactive/issues/2122)) ([41ebed6](https://github.com/DevExpress/devextreme-reactive/commit/41ebed6))
+* **react-chart:** update ZoomAndPan plugin ts declaration ([#2109](https://github.com/DevExpress/devextreme-reactive/issues/2109)) ([6a81792](https://github.com/DevExpress/devextreme-reactive/commit/6a81792))
+* **react-grid:** add grouping as optional dependency for summary ([#2097](https://github.com/DevExpress/devextreme-reactive/issues/2097)) ([12d633f](https://github.com/DevExpress/devextreme-reactive/commit/12d633f))
+* **react-grid:** add TableGroupRow as optional dependency for TableFixedColumns ([#2112](https://github.com/DevExpress/devextreme-reactive/issues/2112)) ([be38da1](https://github.com/DevExpress/devextreme-reactive/commit/be38da1))
+* **react-grid:** calculate summary for collapsed groups under first level ([#2106](https://github.com/DevExpress/devextreme-reactive/issues/2106)) ([f7c7655](https://github.com/DevExpress/devextreme-reactive/commit/f7c7655))
+* **react-grid:** correct virtual table row boundaries for mui 4 ([#2144](https://github.com/DevExpress/devextreme-reactive/issues/2144)) ([ffc4681](https://github.com/DevExpress/devextreme-reactive/commit/ffc4681))
+* **react-grid-bootstrap4:** make resize control visible on resizing ([#2103](https://github.com/DevExpress/devextreme-reactive/issues/2103)) ([3f875c5](https://github.com/DevExpress/devextreme-reactive/commit/3f875c5))
+* **react-scheduler:** add capability to pass className and style into Scheduler layout component ([#2140](https://github.com/DevExpress/devextreme-reactive/issues/2140)) ([3177586](https://github.com/DevExpress/devextreme-reactive/commit/3177586))
+* **react-scheduler:** fix no space between appointments bug in Firefox ([#2124](https://github.com/DevExpress/devextreme-reactive/issues/2124)) ([0016a8b](https://github.com/DevExpress/devextreme-reactive/commit/0016a8b))
+* **react-scheduler:** remove excess commitChanges call by DnD ([#2123](https://github.com/DevExpress/devextreme-reactive/issues/2123)) ([044e188](https://github.com/DevExpress/devextreme-reactive/commit/044e188))
+* **react-scheduler:** set px as measurement unit of MonthView today cell lineHeight ([#2145](https://github.com/DevExpress/devextreme-reactive/issues/2145)) ([25fd88a](https://github.com/DevExpress/devextreme-reactive/commit/25fd88a))
+* **react-scheduler:** delete borders around Scheduler ([#2136](https://github.com/DevExpress/devextreme-reactive/pull/2136)) ([a5fe73f](https://github.com/DevExpress/devextreme-reactive/commit/2635773aa871cd7984d75ffdf62cdfe76a5fe73f))
+
+
+### Code Refactoring
+
+* **react-scheduler:** add display name to views ([#2134](https://github.com/DevExpress/devextreme-reactive/issues/2134)) ([4c20034](https://github.com/DevExpress/devextreme-reactive/commit/4c20034))
+* **react-scheduler:** transfer DOM operations into theme package ([#2068](https://github.com/DevExpress/devextreme-reactive/issues/2068)) ([c851a48](https://github.com/DevExpress/devextreme-reactive/commit/c851a48))
+
+
+### Features
+
+* migrate to MUI v4 ([#2060](https://github.com/DevExpress/devextreme-reactive/issues/2060)) ([99ff97d](https://github.com/DevExpress/devextreme-reactive/commit/99ff97d))
+* **react-chart:** rotated chart ([#2089](https://github.com/DevExpress/devextreme-reactive/issues/2089)) ([def0662](https://github.com/DevExpress/devextreme-reactive/commit/def0662))
+* **react-scheduler:** add TodayButton plugin ([#2118](https://github.com/DevExpress/devextreme-reactive/issues/2118)) ([84ef5a3](https://github.com/DevExpress/devextreme-reactive/commit/84ef5a3))
+
+
+### BREAKING CHANGES
+
+* **react-scheduler:** `ViewSwitcher` plugin's switcher component now doesn't have the `currentViewName` and `availableViewNames` properties. To specify the current view name use `currentView` property consisting of 2 fields: `name` and `displayName`. To provide available views, use availableViews property, which is an array of elements with `name` and `displayName` fields.
+
+```diff
+...
+<ViewSwitcher
+  switcherComponent={({
+-   currentViewName,
++   currentView,
+-   avalableViewNames,
++   availableViews,
+     ...restProps
+  }) => (
+    <ViewSwitcher.Switcher
+-      currentViewName={currentViewName}
++      currentView={currentView}
+-      availableViewNames={availableViewNames}
++      availableViews={availableViews}
+       {...restProps}
+    />
+  )}
+/>
+...
+```
+* **react-scheduler:** `AllDayPanel` plugin's layout component now doesn't have the `allDayPanel` property. To specify cell elements use `setCellElementsMeta` property.
+
+```diff
+...
+<AllDayyPanel
+  layoutComponent={({
+-   allDayPanelRef,
++   setCellElementsMeta,
+     ...restProps
+  }) => (
+    <AllDayPanel.Layout>
+-      allDayPanelRef={allDayPanelRef}
++      setCellElementsMeta={setCellElementsMeta}
+       {...restProps}
+    />
+  )}
+/>
+...
+```
+* **react-chart:** The `x`, `y`, and `y1` properties in series points' coordinates have been renamed to `arg`, `val`, and `startVal` respectively. The old names were unsuitable in the case when the chart was rotated.
+
+
+
 # [1.11.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.11.0...v1.11.1) (2019-06-14)
 
 
@@ -41,7 +122,7 @@
 
 ### BREAKING CHANGES
 
-* **react-chart:** We have replaced the `dominantBaseline` option with the `dy` option for axis labels because Edge does not support the former. The `dy` option does not change the baseline position and simply shifts text up or down. 
+* **react-chart:** We have replaced the `dominantBaseline` option with the `dy` option for axis labels because Edge does not support the former. The `dy` option does not change the baseline position and simply shifts text up or down.
 
 
 

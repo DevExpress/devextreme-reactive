@@ -13,7 +13,7 @@ import {
   viewCellsData as viewCellsDataCore,
   startViewDate as startViewDateCore,
   endViewDate as endViewDateCore,
-  availableViewNames as availableViewNamesCore,
+  availableViews as availableViewsCore,
   getAppointmentStyle,
   verticalTimeTableRects,
   ScrollingStrategy,
@@ -112,13 +112,13 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
       getters.viewCellsData,
     ));
 
-  availableViewNamesComputed = memoize(viewName => ({ availableViewNames }) =>
-    availableViewNamesCore(availableViewNames, viewName));
+  availableViewsComputed = memoize((viewName, viewDisplayName) => ({ availableViews }) =>
+    availableViewsCore(availableViews, viewName, viewDisplayName));
 
-  currentViewComputed = memoize(viewName => ({ currentView }) => (
+  currentViewComputed = memoize((viewName, viewDisplayName) => ({ currentView }) => (
     currentView && currentView.name !== viewName
       ? currentView
-      : { name: viewName, type: TYPE }
+      : { name: viewName, type: TYPE, displayName: viewDisplayName }
     ));
 
   endViewDateComputed: ComputedFn = (getters) => {
@@ -171,15 +171,20 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
       startDayHour,
       endDayHour,
       appointmentLayerComponent: AppointmentLayer,
+      displayName,
     } = this.props;
     const { rects, timeTableElementsMeta, scrollingStrategy } = this.state;
+    const viewDisplayName = displayName || viewName;
 
     return (
       <Plugin
         name="WeekView"
       >
-        <Getter name="availableViewNames" computed={this.availableViewNamesComputed(viewName)} />
-        <Getter name="currentView" computed={this.currentViewComputed(viewName)} />
+        <Getter
+          name="availableViews"
+          computed={this.availableViewsComputed(viewName, viewDisplayName)}
+        />
+        <Getter name="currentView" computed={this.currentViewComputed(viewName, viewDisplayName)} />
 
         <Getter
           name="intervalCount"

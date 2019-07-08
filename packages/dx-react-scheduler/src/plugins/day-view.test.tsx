@@ -9,6 +9,7 @@ import {
   endViewDate,
   calculateRectByDateIntervals,
   calculateWeekDateIntervals,
+  availableViews,
   getAppointmentStyle,
   verticalTimeTableRects,
 } from '@devexpress/dx-scheduler-core';
@@ -20,7 +21,7 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
   viewCellsData: jest.fn(),
   startViewDate: jest.fn(),
   endViewDate: jest.fn(),
-  availableViewNames: jest.fn(),
+  availableViews: jest.fn(),
   calculateRectByDateIntervals: jest.fn(),
   calculateWeekDateIntervals: jest.fn(),
   verticalTimeTableRects: jest.fn(),
@@ -214,7 +215,7 @@ describe('Day View', () => {
         .toBe(2);
     });
 
-    it('should provide the "currentView" getter', () => {
+    it('should provide the "currentView" getter with default "displayName"', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -225,7 +226,40 @@ describe('Day View', () => {
       ));
 
       expect(getComputedState(tree).currentView)
-        .toEqual({ name: 'Day', type: 'day' });
+        .toEqual({ name: 'Day', type: 'day', displayName: 'Day' });
+    });
+
+    it('should provide the "currentView" getter with user-set "displayName"', () => {
+      const userDisplayName = 'User-set display name';
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <DayView
+            displayName={userDisplayName}
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).currentView)
+        .toEqual({ name: 'Day', type: 'day', displayName: userDisplayName });
+    });
+
+    it('should provide "availableViews" getter', () => {
+      availableViews.mockImplementation(() => 'availableViews');
+      const viewName = 'Custom Month';
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <DayView
+            name={viewName}
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).availableViews)
+        .toEqual('availableViews');
     });
 
     it('should provide "timeTableElementsMeta" getter', () => {

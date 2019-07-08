@@ -9,6 +9,7 @@ import {
   endViewDate,
   calculateRectByDateIntervals,
   calculateWeekDateIntervals,
+  availableViews,
   getAppointmentStyle,
   verticalTimeTableRects,
 } from '@devexpress/dx-scheduler-core';
@@ -20,7 +21,7 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
   viewCellsData: jest.fn(),
   startViewDate: jest.fn(),
   endViewDate: jest.fn(),
-  availableViewNames: jest.fn(),
+  availableViews: jest.fn(),
   calculateRectByDateIntervals: jest.fn(),
   calculateWeekDateIntervals: jest.fn(),
   getAppointmentStyle: jest.fn(),
@@ -32,7 +33,7 @@ const DAYS_IN_WEEK = 7;
 const defaultDeps = {
   getter: {
     currentDate: '2018-07-04',
-    availableViewNames: [],
+    availableViews: [],
     currentView: { name: 'Week' },
     formatDate: jest.fn(),
     layoutHeight: 300,
@@ -228,7 +229,7 @@ describe('Week View', () => {
         .toBe(2);
     });
 
-    it('should provide the "currentView" getter', () => {
+    it('should provide the "currentView" getter with default "displayName"', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -239,22 +240,56 @@ describe('Week View', () => {
       ));
 
       expect(getComputedState(tree).currentView)
-        .toEqual({ name: 'Week', type: 'week' });
+        .toEqual({ name: 'Week', type: 'week', displayName: 'Week' });
     });
 
-    it('should calculate the "currentView" getter if there aren\'t any views before', () => {
+    it('should provide the "currentView" getter with user-set "displayName"', () => {
+      const userDisplayName = 'User-set display name';
       const tree = mount((
         <PluginHost>
-          {pluginDepsToComponents(defaultDeps, { getter: { currentView: undefined } })}
+          {pluginDepsToComponents(defaultDeps)}
           <WeekView
+            displayName={userDisplayName}
             {...defaultProps}
-            name="Week View"
           />
         </PluginHost>
       ));
 
       expect(getComputedState(tree).currentView)
-        .toEqual({ name: 'Week View', type: 'week' });
+        .toEqual({ name: 'Week', type: 'week', displayName: userDisplayName });
+    });
+
+    it('should provide "availableViews" getter', () => {
+      availableViews.mockImplementation(() => 'availableViews');
+      const viewName = 'Custom Month';
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <WeekView
+            name={viewName}
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).availableViews)
+        .toEqual('availableViews');
+    });
+
+    it('should calculate the "currentView" getter if there aren\'t any views before', () => {
+      const viewName = 'Week View';
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps, { getter: { currentView: undefined } })}
+          <WeekView
+            {...defaultProps}
+            name={viewName}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).currentView)
+        .toEqual({ name: viewName, type: 'week', displayName: viewName });
     });
 
     it('should not override previous view type', () => {

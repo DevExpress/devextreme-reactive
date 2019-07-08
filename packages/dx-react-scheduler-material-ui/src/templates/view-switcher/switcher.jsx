@@ -27,8 +27,8 @@ const styles = ({ spacing, typography }) => ({
 });
 
 const SwitcherBase = ({
-  currentViewName,
-  availableViewNames,
+  currentView,
+  availableViews,
   onChange, classes,
   ...restProps
 }) => {
@@ -39,7 +39,7 @@ const SwitcherBase = ({
   return (
     <Select
       classes={{ root: classes.root }}
-      value={currentViewName}
+      value={currentView.name}
       onChange={handleChange}
       input={(
         <OutlinedInput
@@ -49,13 +49,13 @@ const SwitcherBase = ({
       )}
       {...restProps}
     >
-      {availableViewNames.map(viewName => (
+      {availableViews.map(({ name, displayName }) => (
         <MenuItem
-          value={viewName}
-          key={viewName}
+          value={name}
+          key={name}
           className={classes.menuItem}
         >
-          {viewName}
+          {displayName}
         </MenuItem>
       ))}
     </Select>
@@ -65,13 +65,18 @@ const SwitcherBase = ({
 SwitcherBase.propTypes = {
   onChange: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
-  currentViewName: PropTypes.string,
-  availableViewNames: PropTypes.arrayOf(PropTypes.string),
+  currentView: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    displayName: PropTypes.string.isRequired,
+  }).isRequired,
+  availableViews: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    displayName: PropTypes.string.isRequired,
+  })),
 };
 
 SwitcherBase.defaultProps = {
-  currentViewName: undefined,
-  availableViewNames: [],
+  availableViews: [],
 };
 
 export const Switcher = withStyles(styles)(SwitcherBase, { name: 'Switcher' });

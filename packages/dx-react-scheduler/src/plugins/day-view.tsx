@@ -14,7 +14,7 @@ import {
   getAppointmentStyle,
   startViewDate as startViewDateCore,
   endViewDate as endViewDateCore,
-  availableViewNames as availableViewNamesCore,
+  availableViews as availableViewsCore,
   verticalTimeTableRects,
 } from '@devexpress/dx-scheduler-core';
 import { memoize } from '@devexpress/dx-core';
@@ -88,11 +88,11 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
     computed(getters, viewName!, () => timeTableElementsMeta, getters.timeTableElementsMeta));
 
   viewCellsDataComputed = memoize((viewName, startDayHour, endDayHour, cellDuration) => getters =>
-  computed(
-    getters,
-    viewName,
-    viewCellsDataBaseComputed(startDayHour, endDayHour, cellDuration), getters.viewCellsData,
-  ));
+    computed(
+      getters,
+      viewName,
+      viewCellsDataBaseComputed(startDayHour, endDayHour, cellDuration), getters.viewCellsData,
+    ));
 
   cellDurationComputed = memoize((viewName, cellDuration) => getters =>
     computed(getters, viewName!, () => cellDuration, getters.cellDuration));
@@ -100,13 +100,13 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
   intervalCountComputed = memoize((viewName, intervalCount) => getters =>
     computed(getters, viewName!, () => intervalCount, getters.intervalCount));
 
-  availableViewNamesComputed = memoize(viewName => ({ availableViewNames }) =>
-    availableViewNamesCore(availableViewNames, viewName!));
+  availableViews = memoize((viewName, displayName) => ({ availableViews }) =>
+    availableViewsCore(availableViews, viewName, displayName));
 
-  currentViewComputed = memoize(viewName => ({ currentView }) => (
+  currentView = memoize((viewName, viewDisplayName) => ({ currentView }) => (
     currentView && currentView.name !== viewName
       ? currentView
-      : { name: viewName, type: TYPE }
+      : { name: viewName, type: TYPE, displayName: viewDisplayName }
   ));
 
   endViewDateComputed: ComputedFn = (getters) => {
@@ -157,15 +157,20 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
       intervalCount,
       startDayHour,
       endDayHour,
+      displayName,
     } = this.props;
     const { rects, timeTableElementsMeta, scrollingStrategy } = this.state;
+    const viewDisplayName = displayName || viewName;
 
     return (
       <Plugin
         name="DayView"
       >
-        <Getter name="availableViewNames" computed={this.availableViewNamesComputed(viewName)} />
-        <Getter name="currentView" computed={this.currentViewComputed(viewName)} />
+        <Getter
+          name="availableViews"
+          computed={this.availableViews(viewName, viewDisplayName)}
+        />
+        <Getter name="currentView" computed={this.currentView(viewName, viewDisplayName)} />
 
         <Getter
           name="intervalCount"
@@ -274,15 +279,15 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
                     {rects.map(({
                       dataItem, type, fromPrev, toNext, ...geometry
                     }, index) => (
-                      <AppointmentPlaceholder
-                        key={index.toString()}
-                        type={type}
-                        data={dataItem}
-                        fromPrev={fromPrev}
-                        toNext={toNext}
-                        style={getAppointmentStyle(geometry)}
-                      />
-                    ))}
+                        <AppointmentPlaceholder
+                          key={index.toString()}
+                          type={type}
+                          data={dataItem}
+                          fromPrev={fromPrev}
+                          toNext={toNext}
+                          style={getAppointmentStyle(geometry)}
+                        />
+                      ))}
                   </AppointmentLayer>
                 </React.Fragment>
               );
@@ -302,7 +307,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
             </TemplateConnector>
           )}
         </Template>
-      </Plugin>
+      </Plugin >
     );
   }
 }

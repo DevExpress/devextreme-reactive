@@ -3,11 +3,13 @@ import {
 } from '../index';
 
 export interface VerticalViewProps {
-  /** The view name. */
+  /** The view's unique identifier. */
   name?: string;
+  /** The view's name used in UI plugins. */
+  displayName?: string;
   /** Multiplies the default view interval. */
   intervalCount?: number;
-  /** Specifies the cell duration in minutes. */
+  /** Specifies the cell's duration in minutes. */
   cellDuration?: number;
   /** Specifies the start hour of the view time scale. */
   startDayHour?: number;

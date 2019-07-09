@@ -220,7 +220,7 @@ describe('#makeVirtualTable', () => {
     expect(tree.find(defaultVirtualTableProps.SkeletonCell).props())
       .toMatchObject(deps.template.tableCell);
   });
-  
+
   it('should not render skeleton stub cell when data local', () => {
     isStubTableCell.mockImplementation(() => true);
     const VirtualTable = makeVirtualTable(TableMock, defaultVirtualTableProps);

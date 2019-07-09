@@ -110,10 +110,9 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
               <TemplateConnector>
                 {({ isDataRemote }) => {
                   if (isDataRemote) {
-                    return <SkeletonStubCell {...params} />
-                  } else {
-                    return <TemplatePlaceholder />  
+                    return <SkeletonStubCell {...params} />;
                   }
+                  return <TemplatePlaceholder />;
                 }}
               </TemplateConnector>
             )}

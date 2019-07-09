@@ -188,7 +188,7 @@ describe('#makeVirtualTable', () => {
 
   });
 
-  it('should render skeleton stub cell when data remote', () => {
+  it('should render skeleton stub cell when data is remote', () => {
     isStubTableCell.mockImplementation(() => true);
     const VirtualTable = makeVirtualTable(TableMock, defaultVirtualTableProps);
     const deps = {
@@ -221,7 +221,7 @@ describe('#makeVirtualTable', () => {
       .toMatchObject(deps.template.tableCell);
   });
 
-  it('should not render skeleton stub cell when data local', () => {
+  it('should not render skeleton stub cell when data is local', () => {
     isStubTableCell.mockImplementation(() => true);
     const VirtualTable = makeVirtualTable(TableMock, defaultVirtualTableProps);
     const deps = {

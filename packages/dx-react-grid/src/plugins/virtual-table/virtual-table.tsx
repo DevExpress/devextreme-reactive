@@ -102,18 +102,22 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
             }}
           </Template>
 
-          <TemplateConnector>
-            {({ isDataRemote }) => (
-              <Template
-                name="tableCell"
-                predicate={({ tableRow }: any) => !!isStubTableCell(tableRow) && isDataRemote}
-              >
-                {(params: TableNS.CellProps) => (
-                  <SkeletonStubCell {...params} />
-                )}
-              </Template>
+          <Template
+            name="tableCell"
+            predicate={({ tableRow }: any) => !!isStubTableCell(tableRow)}
+          >
+            {(params: TableNS.CellProps) => (
+              <TemplateConnector>
+                {({ isDataRemote }) => {
+                  if (isDataRemote) {
+                    return <SkeletonStubCell {...params} />
+                  } else {
+                    return <TemplatePlaceholder />  
+                  }
+                }}
+              </TemplateConnector>
             )}
-          </TemplateConnector>
+          </Template>
         </Plugin>
       );
     }

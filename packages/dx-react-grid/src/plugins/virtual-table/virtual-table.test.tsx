@@ -205,7 +205,7 @@ describe('#makeVirtualTable', () => {
       },
       getter: {
         isDataRemote: true,
-      }
+      },
     };
 
     const tree = mount((
@@ -238,7 +238,7 @@ describe('#makeVirtualTable', () => {
       },
       getter: {
         isDataRemote: false,
-      }
+      },
     };
 
     const tree = mount((

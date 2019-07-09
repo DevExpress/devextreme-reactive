@@ -188,7 +188,7 @@ describe('#makeVirtualTable', () => {
 
   });
 
-  it('should render skeleton stub cell using skeletonCellComponent', () => {
+  it('should render skeleton stub cell when data is remote', () => {
     isStubTableCell.mockImplementation(() => true);
     const VirtualTable = makeVirtualTable(TableMock, defaultVirtualTableProps);
     const deps = {
@@ -203,6 +203,9 @@ describe('#makeVirtualTable', () => {
           style: {},
         },
       },
+      getter: {
+        isDataRemote: true,
+      },
     };
 
     const tree = mount((
@@ -216,6 +219,39 @@ describe('#makeVirtualTable', () => {
       .toBeCalledWith(deps.template.tableCell.tableRow);
     expect(tree.find(defaultVirtualTableProps.SkeletonCell).props())
       .toMatchObject(deps.template.tableCell);
+  });
+
+  it('should not render skeleton stub cell when data is local', () => {
+    isStubTableCell.mockImplementation(() => true);
+    const VirtualTable = makeVirtualTable(TableMock, defaultVirtualTableProps);
+    const deps = {
+      template: {
+        tableCell: {
+          tableRow: { type: 'undefined', rowId: 1, row: 'row' },
+          tableColumn: { type: 'undefined', column: 'column' },
+          style: {},
+        },
+        tableRow: {
+          tableRow: { type: 'undefined', rowId: 1, row: 'row' },
+          style: {},
+        },
+      },
+      getter: {
+        isDataRemote: false,
+      },
+    };
+
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps, deps)}
+        <VirtualTable />
+      </PluginHost>
+    ));
+
+    expect(isStubTableCell)
+      .toBeCalledWith(deps.template.tableCell.tableRow);
+    expect(tree.find(defaultVirtualTableProps.SkeletonCell).exists())
+      .toBeFalsy();
   });
 
   it('should expose Table components', () => {

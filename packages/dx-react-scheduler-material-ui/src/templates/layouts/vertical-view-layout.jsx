@@ -3,6 +3,8 @@ import * as PropTypes from 'prop-types';
 import { AUTO_HEIGHT } from '@devexpress/dx-scheduler-core';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
+import classNames from 'classnames';
+import { scrollingStrategy } from '../utils';
 
 const styles = theme => ({
   container: {
@@ -21,34 +23,59 @@ const styles = theme => ({
   },
 });
 
-export class VerticalViewLayoutBase extends React.PureComponent {
+class VerticalViewLayoutBase extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.layout = React.createRef();
+    this.layoutHeader = React.createRef();
+  }
+
+  componentDidMount() {
+    this.setScrollingStrategy();
+  }
+
+  componentDidUpdate() {
+    this.setScrollingStrategy();
+  }
+
+  setScrollingStrategy() {
+    const { setScrollingStrategy } = this.props;
+
+    setScrollingStrategy(scrollingStrategy(this.layout.current, this.layoutHeader.current));
+  }
+
   render() {
     const {
       timeScaleComponent: TimeScale,
       dayScaleComponent: DayScale,
       timeTableComponent: TimeTable,
       dayScaleEmptyCellComponent: DayScaleEmptyCell,
+      setScrollingStrategy,
       classes,
-      layoutRef,
-      layoutHeaderRef,
       height,
+      className,
+      style,
+      ...restProps
     } = this.props;
 
     const containerStyle = height === AUTO_HEIGHT ? { height: '100%' } : { height: `${height}px` };
+
     return (
       <Grid
+        ref={this.layout}
         container
-        className={classes.container}
+        className={classNames(classes.container, className)}
         direction="column"
         wrap="nowrap"
-        style={containerStyle}
-        ref={layoutRef}
+        style={{ ...containerStyle, ...style }}
+        {...restProps}
       >
         <Grid item xs="auto" className={classes.stickyHeader}>
           <Grid
+            ref={this.layoutHeader}
             container
             direction="row"
-            ref={layoutHeaderRef}
           >
             <Grid item xs={1} className={classes.emptySpace}>
               <DayScaleEmptyCell />
@@ -82,10 +109,16 @@ VerticalViewLayoutBase.propTypes = {
   dayScaleComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   timeTableComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   dayScaleEmptyCellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  classes: PropTypes.object.isRequired,
-  layoutRef: PropTypes.object.isRequired,
-  layoutHeaderRef: PropTypes.object.isRequired,
   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  setScrollingStrategy: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
+  style: PropTypes.object,
+};
+
+VerticalViewLayoutBase.defaultProps = {
+  className: undefined,
+  style: null,
 };
 
 export const VerticalViewLayout = withStyles(styles, { name: 'VerticalViewLayout' })(VerticalViewLayoutBase);

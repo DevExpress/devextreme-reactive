@@ -1,11 +1,15 @@
-import { FormatterFn, ElementRect } from '@devexpress/dx-scheduler-core';
+import {
+  FormatterFn, ElementRect, CellElementsMeta, ScrollingStrategy,
+} from '../index';
 
 export interface VerticalViewProps {
-  /** The view name. */
+  /** The view's unique identifier. */
   name?: string;
+  /** The view's name used in UI plugins. */
+  displayName?: string;
   /** Multiplies the default view interval. */
   intervalCount?: number;
-  /** Specifies the cell duration in minutes. */
+  /** Specifies the cell's duration in minutes. */
   cellDuration?: number;
   /** Specifies the start hour of the view time scale. */
   startDayHour?: number;
@@ -40,14 +44,18 @@ export interface VerticalViewProps {
 /** @internal */
 export type ViewState = {
   rects: readonly ElementRect[];
+  scrollingStrategy: ScrollingStrategy;
+  timeTableElementsMeta: CellElementsMeta | {};
 };
 
 // tslint:disable-next-line: no-namespace
 export namespace VerticalView {
-  /** Describes properties passed to a component that renders a day view layout. */
+  /** Describes properties passed to a component that renders a vertical view layout. */
   export interface LayoutProps {
     /** The layout's height */
     height: number | 'auto';
+    /** The scrolling API callback */
+    setScrollingStrategy: (scrollingStrategy: ScrollingStrategy) => void;
     /** A component that renders a time scale layout. */
     timeScaleComponent: React.ComponentType<VerticalView.TimeScaleLayoutProps>;
     /** A component that renders a day scale layout. */
@@ -56,9 +64,8 @@ export namespace VerticalView {
     timeTableComponent: React.ComponentType<VerticalView.TimeTableLayoutProps>;
     /** A component that renders a day scale empty cell. */
     dayScaleEmptyCellComponent: React.ComponentType<VerticalView.DayScaleEmptyCellProps>;
-    layoutRef: React.RefObject<HTMLElement>;
-    layoutHeaderRef: React.RefObject<HTMLElement>;
   }
+
   /** Describes properties passed to a component that renders a time scale layout. */
   export interface TimeScaleLayoutProps {
     /** Specifies the cells meta data. */
@@ -81,10 +88,8 @@ export namespace VerticalView {
     rowComponent: React.ComponentType<VerticalView.RowProps>;
     /** A function that formats dates according to the locale. */
     formatDate: FormatterFn;
-    /** A function that accepts the table root React element. */
-    tableRef: React.RefObject<HTMLElement>;
-    /** @internal */
-    setCellElements: (cellElements: HTMLElement[]) => void;
+    /** A setCellElementsMeta callback */
+    setCellElementsMeta: (cellElementsMeta: CellElementsMeta) => void;
   }
 
   /** Describes properties passed to a component that renders a time table cell. */

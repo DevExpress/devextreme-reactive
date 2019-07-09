@@ -16,6 +16,7 @@ import { DragDropProvider as DragDropProvider_2 } from '@devexpress/dx-react-sch
 import { MonthView as MonthView_2 } from '@devexpress/dx-react-scheduler';
 import * as React from 'react';
 import { Scheduler as Scheduler_2 } from '@devexpress/dx-react-scheduler';
+import { TodayButton as TodayButton_2 } from '@devexpress/dx-react-scheduler';
 import { Toolbar as Toolbar_2 } from '@devexpress/dx-react-scheduler';
 import { ViewSwitcher as ViewSwitcher_2 } from '@devexpress/dx-react-scheduler';
 import { WeekView as WeekView_2 } from '@devexpress/dx-react-scheduler';
@@ -311,6 +312,7 @@ export interface DayViewProps {
   dayScaleEmptyCellComponent?: React.ComponentType<DayView_2.DayScaleEmptyCellProps>;
   dayScaleLayoutComponent?: React.ComponentType<DayView_2.DayScaleLayoutProps>;
   dayScaleRowComponent?: React.ComponentType<DayView_2.RowProps>;
+  displayName?: string;
   endDayHour?: number;
   intervalCount?: number;
   layoutComponent?: React.ComponentType<DayView_2.LayoutProps>;
@@ -419,6 +421,7 @@ export interface MonthViewProps {
   dayScaleCellComponent?: React.ComponentType<MonthView_2.DayScaleCellProps>;
   dayScaleLayoutComponent?: React.ComponentType<MonthView_2.DayScaleLayoutProps>;
   dayScaleRowComponent?: React.ComponentType<MonthView_2.RowProps>;
+  displayName?: string;
   firstDayOfWeek?: number;
   intervalCount?: number;
   layoutComponent?: React.ComponentType<MonthView_2.LayoutProps>;
@@ -444,6 +447,22 @@ export interface SchedulerProps {
   height?: number | `auto`;
   locale?: string | Array<string>;
   rootComponent?: React.ComponentType<Scheduler_2.RootProps>;
+}
+
+// @public (undocumented)
+export namespace TodayButton {
+  export type ButtonProps = TodayButton_2.ButtonProps;
+}
+
+// @public
+export const TodayButton: React.ComponentType<TodayButtonProps> & {
+  Button: React.ComponentType<TodayButton_2.ButtonProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+};
+
+// @public (undocumented)
+export interface TodayButtonProps {
+  buttonComponent?: React.ComponentType<TodayButton_2.ButtonProps>;
+  messages?: TodayButton_2.LocalizationMessages;
 }
 
 // @public (undocumented)
@@ -560,6 +579,7 @@ export interface WeekViewProps {
   dayScaleEmptyCellComponent?: React.ComponentType<WeekView_2.DayScaleEmptyCellProps>;
   dayScaleLayoutComponent?: React.ComponentType<WeekView_2.DayScaleLayoutProps>;
   dayScaleRowComponent?: React.ComponentType<WeekView_2.RowProps>;
+  displayName?: string;
   endDayHour?: number;
   excludedDays?: Array<number>;
   firstDayOfWeek?: number;

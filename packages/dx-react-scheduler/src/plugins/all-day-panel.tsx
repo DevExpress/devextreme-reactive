@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { getMessagesFormatter } from '@devexpress/dx-core';
+import { getMessagesFormatter, memoize } from '@devexpress/dx-core';
 import {
+  Getter,
   Plugin,
   Template,
   TemplatePlaceholder,
@@ -10,11 +11,7 @@ import {
 import {
   allDayCells,
   getAppointmentStyle,
-  calculateRectByDateIntervals,
-  calculateAllDayDateIntervals,
-  getHorizontalRectByDates,
-  HORIZONTAL_TYPE,
-  AllDayCell,
+  allDayRects,
 } from '@devexpress/dx-scheduler-core';
 
 import { AllDayPanelProps, AllDayPanelState } from '../types';
@@ -33,7 +30,8 @@ const CellPlaceholder = params => <TemplatePlaceholder name="allDayPanelCell" pa
 
 class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelState> {
   state: AllDayPanelState = {
-    tableRef: null,
+    rects: [],
+    elementsMeta: {},
   };
   static defaultProps: Partial<AllDayPanelProps> = {
     messages: {},
@@ -41,29 +39,37 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
   static components: PluginComponents = {
     appointmentLayerComponent: 'AppointmentLayer',
     layoutComponent: 'Layout',
+    layoutContainerComponent: 'LayoutContainer',
     cellComponent: 'Cell',
     rowComponent: 'Row',
     titleCellComponent: 'TitleCell',
     containerComponent: 'Container',
   };
 
-  allDayPanelRef = (ref) => {
-    this.setState({
-      tableRef: ref,
-    });
-  }
+  allDayCellsData = memoize(viewCellsData => allDayCells(viewCellsData));
+
+  updateRects = memoize((
+    appointments, startViewDate, excludedDays, endViewDate, viewCellsData,
+  ) => (cellElementsMeta) => {
+    const rects = allDayRects(
+      appointments, startViewDate, endViewDate,
+      excludedDays, viewCellsData, cellElementsMeta,
+    );
+
+    this.setState({ rects, elementsMeta: cellElementsMeta });
+  });
 
   render() {
     const {
       appointmentLayerComponent: AppointmentLayer,
       layoutComponent: Layout,
       cellComponent: Cell,
-      rowComponent: Row,
+      rowComponent,
       titleCellComponent: TitleCell,
       containerComponent: Container,
       messages,
     } = this.props;
-    const { tableRef } = this.state;
+    const { rects, elementsMeta } = this.state;
     const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
 
     return (
@@ -71,6 +77,8 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
         name="AllDayPanel"
         dependencies={pluginDependencies}
       >
+        <Getter name="allDayElementsMeta" value={elementsMeta} />
+
         <Template name="dayScaleEmptyCell">
           <TemplateConnector>
             {({ currentView }) => {
@@ -100,37 +108,21 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
           <TemplatePlaceholder />
           <TemplateConnector>
             {({
-              currentView, appointments, startViewDate,
+              currentView, appointments, startViewDate, formatDate,
               endViewDate, excludedDays, viewCellsData,
             }) => {
               if (currentView.name === MONTH) return null;
-              const intervals = calculateAllDayDateIntervals(
-                appointments, startViewDate, endViewDate, excludedDays,
+              const setRects = this.updateRects(
+                appointments, startViewDate, excludedDays, endViewDate, viewCellsData,
               );
-              const rects = tableRef
-                && tableRef.querySelectorAll('th').length === viewCellsData[0].length
-                ? calculateRectByDateIntervals(
-                  {
-                    growDirection: HORIZONTAL_TYPE,
-                    multiline: false,
-                  },
-                  intervals,
-                  getHorizontalRectByDates,
-                  {
-                    startViewDate,
-                    endViewDate,
-                    excludedDays,
-                    viewCellsData,
-                    cellElements: tableRef.querySelectorAll('th'),
-                  },
-                ) : [];
               return (
                 <React.Fragment>
                   <Layout
-                    allDayPanelRef={this.allDayPanelRef}
                     cellComponent={CellPlaceholder}
-                    rowComponent={Row}
-                    cellsData={allDayCells(viewCellsData) as AllDayCell[]}
+                    rowComponent={rowComponent}
+                    cellsData={this.allDayCellsData(viewCellsData)}
+                    setCellElementsMeta={setRects}
+                    formatDate={formatDate}
                   />
                   <AppointmentLayer>
                     {rects.map(({

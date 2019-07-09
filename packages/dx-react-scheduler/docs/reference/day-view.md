@@ -26,9 +26,10 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-name? | string | `Day` | The view name. Required if you use several `DayView` plugins.
+name? | string | `Day` | The view's unique identifier. Required if you use several `DayView` plugins.
+displayName? | string |  | The view's name used in UI plugins. The default value is `name`.
 intervalCount? | number | 1 | Multiplies the default view interval.
-cellDuration? | number | 30 | Specifies the cell duration in minutes.
+cellDuration? | number | 30 | Specifies the cell's duration in minutes.
 startDayHour? | number | 0 | Specifies the start hour of the view time scale.
 endDayHour? | number | 24 | Specifies the end hour of the view time scale.
 layoutComponent | ComponentType&lt;[DayView.LayoutProps](#dayviewlayoutprops)&gt; | | A component that renders a day view layout.
@@ -63,6 +64,7 @@ Describes properties passed to a component that renders a day view layout.
 Field | Type | Description
 ------|------|------------
 height | number &#124; `auto` | The layout's height.
+setScrollingStrategy | (scrollingStrategy: [ScrollingStrategy](./scheduler.md#scrollingstrategy)) => void | A scrollingStrategy callback.
 timeScaleComponent | ComponentType&lt;[DayView.TimeScaleLayoutProps](#dayviewtimescalelayoutprops)&gt; | A component that renders a time scale layout.
 dayScaleComponent | ComponentType&lt;[DayView.DayScaleLayoutProps](#dayviewdayscalelayoutprops)&gt; | A component that renders a day scale layout.
 timeTableComponent | ComponentType&lt;[DayView.TimeTableLayoutProps](#dayviewtimetablelayoutprops)&gt; | A component that renders a time table layout.

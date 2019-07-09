@@ -25,9 +25,11 @@ const exportToImage = async (chart, format, exportFunc) => {
   try {
     const dataUrl = await exportFunc(chart, { filter });
     const link = document.createElement('a');
+    document.body.appendChild(link);
     link.download = `chart.${format}`;
     link.href = dataUrl;
     link.click();
+    link.remove();
   } catch (err) {
     console.error('oops, something went wrong!', err);
   }

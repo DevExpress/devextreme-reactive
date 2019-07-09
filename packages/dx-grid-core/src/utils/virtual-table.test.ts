@@ -12,6 +12,7 @@ import {
   getColumnWidthGetter,
   getRenderBoundary,
   getColumnBoundaries,
+  getRowsVisibleBoundary,
 } from './virtual-table';
 
 describe('VirtualTableLayout utils', () => {
@@ -29,32 +30,6 @@ describe('VirtualTableLayout utils', () => {
 
       expect(getVisibleBoundary(items, 80, 120, item => item.size))
         .toEqual([2, 4]);
-    });
-
-    it('should consider rows start offset and default height', () => {
-      const items = [
-        { size: 40 },
-        { size: 40 },
-        { size: 40 },
-        { size: 40 },
-        { size: 40 },
-      ];
-
-      expect(getVisibleBoundary(items, 600, 120, item => item.size, 20, 30))
-        .toEqual([20, 22]);
-    });
-
-    it('should work when rows are not loaded', () => {
-      const items = [
-        { size: 40 },
-        { size: 40 },
-        { size: 40 },
-        { size: 40 },
-        { size: 40 },
-      ];
-
-      expect(getVisibleBoundary(items, 240, 120, item => item.size, 0, 40))
-        .toEqual([6, 6]);
     });
   });
 
@@ -92,6 +67,42 @@ describe('VirtualTableLayout utils', () => {
           [0, 0],
           [7, 7],
         ]);
+    });
+  });
+
+  describe('#getRowsVisibleBoundary', () => {
+    it('should work with local data', () => {
+      const items = [
+        { size: 40 },
+        { size: 40 },
+        { size: 40 },
+        { size: 40 },
+        { size: 40 },
+        { size: 40 },
+        { size: 40 },
+      ];
+      expect(getRowsVisibleBoundary(items, 80, 120, item => item.size, 0, 40, false))
+      .toEqual({ start: 2, end: 4 });
+    });
+
+    describe('remote data', () => {
+      const items = [
+        { size: 40 },
+        { size: 40 },
+        { size: 40 },
+        { size: 40 },
+        { size: 40 },
+      ];
+
+      it('should consider rows start offset and default height', () => {
+        expect(getVisibleBoundary(items, 600, 120, item => item.size, 20, 30, true))
+          .toEqual([20, 22]);
+      });
+
+      it('should work when rows are not loaded', () => {
+        expect(getRowsVisibleBoundary(items, 240, 120, item => item.size, 0, 40, true))
+          .toEqual({ start: 6, end: 6 });
+      });
     });
   });
 

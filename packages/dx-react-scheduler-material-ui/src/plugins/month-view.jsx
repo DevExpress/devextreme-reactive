@@ -5,7 +5,6 @@ import { HorizontalViewLayout as Layout } from '../templates/layouts/horizontal-
 import { Row } from '../templates/views/common/row';
 import { Container as AppointmentLayer } from '../templates/appointment/container';
 
-import { TimeTableContainer } from '../templates/views/common/time-table/layout-container';
 import { Layout as TimeTableLayout } from '../templates/views/horizontal/time-table/layout';
 import { Cell as TimeTableCell } from '../templates/views/horizontal/time-table/cell';
 
@@ -18,7 +17,6 @@ export const MonthView = withComponents({
   DayScaleLayout,
   DayScaleCell,
   DayScaleRow: Row,
-  TimeTableContainer,
   TimeTableLayout,
   TimeTableCell,
   TimeTableRow: Row,

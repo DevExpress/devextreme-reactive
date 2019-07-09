@@ -12,11 +12,11 @@ import { calculateMonthDateIntervals } from '../month-view/computeds';
 import { calculateAllDayDateIntervals } from '../all-day-panel/computeds';
 
 export const allDayRects: AllDayRects = (
-  draftAppointments, startViewDate, endViewDate,
-  excludedDays, viewCellsData, cellElements,
+  appointments, startViewDate, endViewDate,
+  excludedDays, viewCellsData, cellElementsMeta,
 ) => {
   const intervals = calculateAllDayDateIntervals(
-    draftAppointments, startViewDate, endViewDate, excludedDays,
+    appointments, startViewDate, endViewDate, excludedDays,
   );
   return calculateRectByDateIntervals(
     {
@@ -29,18 +29,18 @@ export const allDayRects: AllDayRects = (
       startViewDate,
       endViewDate,
       viewCellsData,
-      cellElements,
+      cellElementsMeta,
       excludedDays,
     },
   );
 };
 
 export const verticalTimeTableRects: VerticalRects = (
-  draftAppointments, startViewDate, endViewDate, excludedDays,
-  viewCellsData, cellDuration, cellElements,
+  appointments, startViewDate, endViewDate, excludedDays,
+  viewCellsData, cellDuration, cellElementsMeta,
 ) => {
   const intervals = calculateWeekDateIntervals(
-    draftAppointments, startViewDate, endViewDate, excludedDays,
+    appointments, startViewDate, endViewDate, excludedDays,
   );
   return calculateRectByDateIntervals(
     {
@@ -54,17 +54,17 @@ export const verticalTimeTableRects: VerticalRects = (
       endViewDate,
       viewCellsData,
       cellDuration,
-      cellElements,
+      cellElementsMeta,
     },
   );
 };
 
 export const horizontalTimeTableRects: HorizontalRects = (
-  draftAppointments, startViewDate, endViewDate,
-  viewCellsData, cellElements,
+  appointments, startViewDate, endViewDate,
+  viewCellsData, cellElementsMeta,
 ) => {
   const intervals = calculateMonthDateIntervals(
-    draftAppointments, startViewDate, endViewDate,
+    appointments, startViewDate, endViewDate,
   );
   return calculateRectByDateIntervals(
     {
@@ -77,7 +77,7 @@ export const horizontalTimeTableRects: HorizontalRects = (
       startViewDate,
       endViewDate,
       viewCellsData,
-      cellElements,
+      cellElementsMeta,
     },
   );
 };

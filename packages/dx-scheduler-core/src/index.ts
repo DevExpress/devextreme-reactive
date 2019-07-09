@@ -3,6 +3,8 @@ export * from './plugins/common/computeds';
 /** @internal */
 export * from './plugins/common/helpers';
 /** @internal */
+export * from './plugins/common/calculate-rects';
+/** @internal */
 export * from './plugins/scheduler-core/computeds';
 /** @internal */
 export * from './plugins/month-view/computeds';

@@ -41,14 +41,14 @@ Container.defaultProps = {
   children: undefined,
 };
 
-export const Column = ({ column, className, ...restProps }) => (
+export const Column = React.memo(({ column, className, ...restProps }) => (
   <li
     className={classNames('list-group-item', className)}
     {...restProps}
   >
     {column.title}
   </li>
-);
+));
 
 Column.propTypes = {
   column: PropTypes.object.isRequired,

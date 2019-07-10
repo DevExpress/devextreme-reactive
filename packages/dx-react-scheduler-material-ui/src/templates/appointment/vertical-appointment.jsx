@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import { HOUR_MINUTE_OPTIONS } from '@devexpress/dx-scheduler-core';
 
-const styles = ({ palette, spacing }) => ({
+const styles = ({ palette, spacing, typography }) => ({
   title: {
     fontWeight: 'bold',
     overflow: 'hidden',
@@ -12,7 +12,7 @@ const styles = ({ palette, spacing }) => ({
     whiteSpace: 'nowrap',
   },
   textContainer: {
-    lineHeight: `${spacing(1.5)}px`,
+    lineHeight: `${typography.fontSize * 0.86}px`,
     whiteSpace: 'pre-wrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',

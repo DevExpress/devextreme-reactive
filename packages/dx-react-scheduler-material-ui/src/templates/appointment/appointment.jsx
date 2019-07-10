@@ -15,7 +15,7 @@ const styles = ({ palette, typography, spacing }) => ({
     borderRight: '2px solid transparent',
     borderBottom: '1px solid transparent',
     backgroundClip: 'padding-box',
-    borderRadius: spacing(0.5),
+    borderRadius: `${spacing(0.5)}px`,
     backgroundColor: palette.primary[300],
     ...typography.caption,
     '&:hover': {

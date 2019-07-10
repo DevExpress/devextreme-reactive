@@ -6,7 +6,7 @@ import classNames from 'classnames';
 
 const styles = ({ spacing }) => ({
   button: {
-    padding: spacing(0.8, 2),
+    padding: `${spacing(0.8)}px ${spacing(2)}px`,
     marginLeft: `${spacing(0.5)}px`,
     '&:first-child': {
       marginLeft: 0,

@@ -8,7 +8,7 @@ import { getBorder } from '../../../utils';
 
 const styles = theme => ({
   cell: {
-    height: theme.spacing(6),
+    height: `${theme.spacing(6)}px`,
     padding: 0,
     borderLeft: getBorder(theme),
     'tr:last-child &': {

@@ -29,14 +29,15 @@ const styles = theme => ({
     },
   },
   text: {
-    padding: theme.spacing(1),
+    padding: `${theme.spacing(1)}px`,
   },
   today: {
-    margin: theme.spacing(0.5),
+    margin: `${theme.spacing(0.5)}px`,
     display: 'inline-block',
-    width: theme.spacing(3),
-    height: theme.spacing(3),
-    lineHeight: `${theme.spacing(3)}px`,
+    // TODO
+    width: `${theme.typography.fontSize * 1.72}px`,
+    height: `${theme.typography.fontSize * 1.72}px`,
+    lineHeight: `${theme.typography.fontSize * 1.72}px`,
     textAlign: 'center',
     borderRadius: '50%',
     background: theme.palette.primary.main,

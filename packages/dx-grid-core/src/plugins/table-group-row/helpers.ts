@@ -3,7 +3,7 @@ import { TABLE_GROUP_TYPE } from './constants';
 import { TableRow, TableColumn, IsSpecificCellFn, Grouping } from '../../types';
 import { TABLE_STUB_TYPE } from '../../utils/virtual-table';
 
-type GroupCellType = PureComputed<[TableRow, TableColumn, Grouping[]], boolean>;
+type IsGroupIndentCellFn = PureComputed<[TableRow, TableColumn, Grouping[]], boolean>;
 
 const getGroupIndexByColumn: PureComputed<[Grouping[], TableColumn], number> = (
   grouping, tableColumn,
@@ -11,7 +11,7 @@ const getGroupIndexByColumn: PureComputed<[Grouping[], TableColumn], number> = (
   columnGrouping => !!tableColumn.column && columnGrouping.columnName === tableColumn.column.name,
 );
 
-const isIndentCell: GroupCellType = (
+const isIndentCell: IsGroupIndentCellFn = (
     tableRow,
     tableColumn,
     grouping,
@@ -31,14 +31,14 @@ export const isGroupTableCell: IsSpecificCellFn = (
   && tableColumn.column
   && tableColumn.column.name === tableRow.row.groupedBy);
 
-export const isGroupIndentTableCell: GroupCellType = (
+export const isGroupIndentTableCell: IsGroupIndentCellFn = (
   tableRow, tableColumn, grouping,
 ) => (
   tableRow.type === TABLE_GROUP_TYPE && tableColumn.type === TABLE_GROUP_TYPE &&
   isIndentCell(tableRow, tableColumn, grouping)
 );
 
-export const isGroupIndentStubTableCell: GroupCellType = (
+export const isGroupIndentStubTableCell: IsGroupIndentCellFn = (
   tableRow, tableColumn, grouping,
 ) => (
   (tableRow.type === TABLE_GROUP_TYPE && tableColumn.type === TABLE_STUB_TYPE &&

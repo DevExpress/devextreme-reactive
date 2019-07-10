@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-import { PRIMARY_COLOR } from '../constants';
+import { setColor } from '../utils';
 
 const styles = ({ palette, typography, spacing }) => ({
   appointment: {
@@ -17,13 +17,13 @@ const styles = ({ palette, typography, spacing }) => ({
     borderBottom: '1px solid transparent',
     backgroundClip: 'padding-box',
     borderRadius: spacing(0.5),
-    backgroundColor: palette.primary[300] || PRIMARY_COLOR[300],
+    backgroundColor: setColor(300, palette.primary),
     ...typography.caption,
     '&:hover': {
-      backgroundColor: palette.primary[400] || PRIMARY_COLOR[400],
+      backgroundColor: setColor(400, palette.primary),
     },
     '&:focus': {
-      backgroundColor: palette.primary[100] || PRIMARY_COLOR[100],
+      backgroundColor: setColor(100, palette.primary),
       outline: 0,
     },
   },

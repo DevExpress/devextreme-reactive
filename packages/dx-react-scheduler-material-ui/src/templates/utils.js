@@ -1,4 +1,5 @@
 import { darken, fade, lighten } from '@material-ui/core/styles/colorManipulator';
+import { PRIMARY_COLOR } from './constants';
 
 export const getBorder = theme => (`1px solid ${
   theme.palette.type === 'light'
@@ -27,3 +28,5 @@ export const scrollingStrategy = (scrollablePart, fixedPart) => {
     changeVerticalScroll,
   });
 };
+
+export const setColor = (level, color) => (color[level] || PRIMARY_COLOR[level]);

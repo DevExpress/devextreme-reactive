@@ -56,7 +56,7 @@ ContainerBase.defaultProps = {
 
 export const Container = withStyles(styles, { name: 'DragDrop' })(ContainerBase);
 
-const ColumnBase = ({
+const ColumnBase = React.memo(({
   column,
   classes,
   className,
@@ -67,7 +67,7 @@ const ColumnBase = ({
     label={column.title}
     {...restProps}
   />
-);
+));
 
 ColumnBase.propTypes = {
   column: PropTypes.object.isRequired,

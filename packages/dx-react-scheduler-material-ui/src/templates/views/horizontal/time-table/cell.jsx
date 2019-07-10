@@ -34,7 +34,6 @@ const styles = theme => ({
   today: {
     margin: `${theme.spacing(0.5)}px`,
     display: 'inline-block',
-    // TODO
     width: `${theme.typography.fontSize * 1.72}px`,
     height: `${theme.typography.fontSize * 1.72}px`,
     lineHeight: `${theme.typography.fontSize * 1.72}px`,

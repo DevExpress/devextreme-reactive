@@ -1,7 +1,8 @@
-import { TABLE_GROUP_TYPE } from './constants';
+import { TABLE_GROUP_TYPE, TABLE_STUB_TYPE } from './constants';
 import {
   isGroupTableCell,
   isGroupIndentTableCell,
+  isGroupIndentStubTableCell,
   isGroupTableRow,
   calculateGroupCellIndent,
 } from './helpers';
@@ -63,6 +64,41 @@ describe('TableRowDetail Plugin helpers', () => {
       expect(isGroupIndentTableCell(
         { ...key, type: Symbol('undefined'), row: { groupedBy: 'b' } },
         { ...key, type: TABLE_GROUP_TYPE, column: { name: 'a' } },
+        [{ columnName: 'a' }, { columnName: 'b' }],
+      ))
+        .toBeFalsy();
+    });
+  });
+
+  describe('#isGroupIndentStubTableCell', () => {
+    it('should work', () => {
+      expect(isGroupIndentStubTableCell(
+        { ...key, type: TABLE_GROUP_TYPE, row: { groupedBy: 'b' } },
+        { ...key, type: TABLE_STUB_TYPE, column: { name: 'a' } },
+        [{ columnName: 'a' }, { columnName: 'b' }],
+      ))
+        .toBeTruthy();
+      expect(isGroupIndentStubTableCell(
+        { ...key, type: TABLE_GROUP_TYPE, row: { groupedBy: 'a' } },
+        { ...key, type: TABLE_STUB_TYPE, column: { name: 'a' } },
+        [{ columnName: 'a' }, { columnName: 'b' }],
+      ))
+        .toBeFalsy();
+      expect(isGroupIndentStubTableCell(
+        { ...key, type: TABLE_GROUP_TYPE, row: { groupedBy: 'a' } },
+        { ...key, type: TABLE_STUB_TYPE, column: { name: 'b' } },
+        [{ columnName: 'a' }, { columnName: 'b' }],
+      ))
+        .toBeFalsy();
+      expect(isGroupIndentStubTableCell(
+        { ...key, type: TABLE_GROUP_TYPE, row: { groupedBy: 'b' } },
+        { ...key, type: Symbol('undefined'), column: { name: 'a' } },
+        [{ columnName: 'a' }, { columnName: 'b' }],
+      ))
+        .toBeFalsy();
+      expect(isGroupIndentStubTableCell(
+        { ...key, type: Symbol('undefined'), row: { groupedBy: 'b' } },
+        { ...key, type: TABLE_STUB_TYPE, column: { name: 'a' } },
         [{ columnName: 'a' }, { columnName: 'b' }],
       ))
         .toBeFalsy();

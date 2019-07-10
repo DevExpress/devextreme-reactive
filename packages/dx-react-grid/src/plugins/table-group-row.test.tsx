@@ -229,7 +229,7 @@ describe('TableGroupRow', () => {
   });
 
   // tslint:disable-next-line: max-line-length
-  it('should render groupStub cell on select group column and foreign group row intersection', () => {
+  it('should render indent stub cell on select group column and foreign group row intersection', () => {
     isGroupTableRow.mockImplementation(() => true);
     isGroupIndentStubTableCell.mockImplementation(() => true);
 
@@ -241,7 +241,7 @@ describe('TableGroupRow', () => {
         <Template
           name="tableCell"
         >
-          <StubCell />
+          {params => <StubCell {...params}/>}
         </Template>
         <TableGroupRow
           {...defaultProps}
@@ -256,6 +256,35 @@ describe('TableGroupRow', () => {
         defaultDeps.getter.grouping,
       );
     expect(tree.find(StubCell).exists());
+  });
+
+  // tslint:disable-next-line: max-line-length
+  it('should pass correct props to indent stub cell', () => {
+    isGroupTableRow.mockImplementation(() => true);
+    isGroupIndentStubTableCell.mockImplementation(() => true);
+
+    const StubCell = () => null;
+
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <Template
+          name="tableCell"
+        >
+          {params => <StubCell {...params}/>}
+        </Template>
+        <TableGroupRow
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    expect(tree.find(StubCell).props())
+      .toMatchObject({
+        tableRow: defaultDeps.template.tableCell.tableRow,
+        tableColumn: defaultDeps.template.tableCell.tableColumn,
+        style: {},
+      });
   });
 
   describe('cellComponent', () => {

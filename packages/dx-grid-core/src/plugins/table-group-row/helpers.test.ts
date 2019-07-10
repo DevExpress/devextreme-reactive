@@ -1,4 +1,4 @@
-import { TABLE_GROUP_TYPE, TABLE_STUB_TYPE } from './constants';
+import { TABLE_GROUP_TYPE } from './constants';
 import {
   isGroupTableCell,
   isGroupIndentTableCell,
@@ -6,6 +6,7 @@ import {
   isGroupTableRow,
   calculateGroupCellIndent,
 } from './helpers';
+import { TABLE_STUB_TYPE } from '../../utils/virtual-table';
 
 describe('TableRowDetail Plugin helpers', () => {
   const key = { key: 'key' };

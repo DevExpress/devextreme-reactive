@@ -1,6 +1,7 @@
 import { PureComputed } from '@devexpress/dx-core';
-import { TABLE_GROUP_TYPE, TABLE_STUB_TYPE } from './constants';
+import { TABLE_GROUP_TYPE } from './constants';
 import { TableRow, TableColumn, IsSpecificCellFn, Grouping } from '../../types';
+import { TABLE_STUB_TYPE } from '../../utils/virtual-table';
 
 type GroupCellType = PureComputed<[TableRow, TableColumn, Grouping[]], boolean>;
 
@@ -10,7 +11,7 @@ const getGroupIndexByColumn: PureComputed<[Grouping[], TableColumn], number> = (
   columnGrouping => !!tableColumn.column && columnGrouping.columnName === tableColumn.column.name,
 );
 
-export const isPlacedLeftOfGroupRow: GroupCellType = (
+const isIndentCell: GroupCellType = (
     tableRow,
     tableColumn,
     grouping,
@@ -32,17 +33,17 @@ export const isGroupTableCell: IsSpecificCellFn = (
 
 export const isGroupIndentTableCell: GroupCellType = (
   tableRow, tableColumn, grouping,
-) => {
-  if (tableRow.type !== TABLE_GROUP_TYPE || tableColumn.type !== TABLE_GROUP_TYPE) return false;
-  return isPlacedLeftOfGroupRow(tableRow, tableColumn, grouping);
-};
+) => (
+  tableRow.type === TABLE_GROUP_TYPE && tableColumn.type === TABLE_GROUP_TYPE &&
+  isIndentCell(tableRow, tableColumn, grouping)
+);
 
 export const isGroupIndentStubTableCell: GroupCellType = (
   tableRow, tableColumn, grouping,
-) => {
-  if (tableRow.type !== TABLE_GROUP_TYPE || tableColumn.type !== TABLE_STUB_TYPE) return false;
-  return isPlacedLeftOfGroupRow(tableRow, tableColumn, grouping);
-};
+) => (
+  (tableRow.type === TABLE_GROUP_TYPE && tableColumn.type === TABLE_STUB_TYPE &&
+    isIndentCell(tableRow, tableColumn, grouping))
+);
 
 export const isGroupTableRow = (tableRow: TableRow) => tableRow.type === TABLE_GROUP_TYPE;
 

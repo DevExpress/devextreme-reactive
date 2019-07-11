@@ -40,7 +40,6 @@ const AppointmentBase = ({
   draggable,
   ...restProps
 }) => {
-  console.log(data);
   const onClick = handleClick
     ? {
       onClick: ({ target }) => {

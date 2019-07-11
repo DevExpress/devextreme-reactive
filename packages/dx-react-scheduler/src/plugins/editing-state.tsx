@@ -88,7 +88,6 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
     };
 
     this.preCommitChanges = (type) => {
-      console.log(type);
       debugger
       const { appointmentChanges, editingAppointmentId } = this.state;
       const { onCommitChanges } = this.props;
@@ -137,6 +136,8 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
 
   render() {
     const { addedAppointment, editingAppointmentId, appointmentChanges, isDialogOpen } = this.state;
+
+    // console.log(appointmentChanges);
 
     return (
       <Plugin

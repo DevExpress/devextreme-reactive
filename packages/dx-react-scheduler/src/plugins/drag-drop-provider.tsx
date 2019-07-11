@@ -102,6 +102,7 @@ class DragDropProviderBase extends React.PureComponent<
   }
 
   applyChanges(startTime, endTime, payload, startEditAppointment, changeAppointment) {
+    console.log(startTime);
     startEditAppointment({ appointmentId: payload.id });
     changeAppointment({
       change: { startDate: startTime, endDate: endTime },
@@ -159,6 +160,8 @@ class DragDropProviderBase extends React.PureComponent<
     const { startTime, endTime } = this.state;
     if (moment(startTime!).isSame(this.appointmentStartTime)
       && moment(endTime!).isSame(this.appointmentEndTime)) return;
+    // if (moment(startTime!).isSame(this.appointmentStartTime)
+    //   && moment(endTime!).isSame(this.appointmentEndTime)) return;
 
     const draftAppointments = [{
       dataItem: {
@@ -181,6 +184,8 @@ class DragDropProviderBase extends React.PureComponent<
     this.allDayDraftAppointments = allDayDraftAppointments;
     this.timeTableDraftAppointments = timeTableDraftAppointments;
 
+    // console.log(appointmentStartTime);
+    // console.log(this.appointmentStartTime);
     this.applyChanges(
       this.appointmentStartTime, this.appointmentEndTime,
       payload, startEditAppointment, changeAppointment,
@@ -188,6 +193,7 @@ class DragDropProviderBase extends React.PureComponent<
   }
 
   handleDrop = () => {
+    console.log('adw');
     this.resetCache();
   }
 

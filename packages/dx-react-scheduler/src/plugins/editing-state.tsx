@@ -38,6 +38,10 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
       editingAppointmentId: props.editingAppointmentId || props.defaultEditingAppointmentId,
       addedAppointment: props.addedAppointment || props.defaultAddedAppointment,
       appointmentChanges: props.appointmentChanges || props.defaultAppointmentChanges,
+
+      // editingAppointment: AppointmentMeta,
+
+      isDialogOpen: false,
     };
 
     const stateHelper: StateHelper = createStateHelper(
@@ -58,6 +62,12 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
       },
     );
 
+    this.toggleEditDialog = () => {
+      this.setState((state) => ({
+        isDialogOpen: !state.isDialogOpen,
+      })));
+    };
+
     this.startEditAppointment = stateHelper.applyFieldReducer
       .bind(stateHelper, 'editingAppointmentId', startEditAppointment);
     this.stopEditAppointment = stateHelper.applyFieldReducer
@@ -68,10 +78,23 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
     this.cancelChangedAppointment = stateHelper.applyFieldReducer
       .bind(stateHelper, 'appointmentChanges', cancelChanges);
     this.commitChangedAppointment = ({ appointmentId }) => {
+      this.toggleEditDialog();
+
+      // onCommitChanges({
+      //   changed: changedAppointmentById(appointmentChanges, appointmentId),
+      // });
+      // this.cancelChangedAppointment();
+      // this.stopEditAppointment();
+    };
+
+    this.preCommitChanges = (type) => {
+      console.log(type);
+      debugger
+      const { appointmentChanges, editingAppointmentId } = this.state;
       const { onCommitChanges } = this.props;
-      const { appointmentChanges } = this.state;
+
       onCommitChanges({
-        changed: changedAppointmentById(appointmentChanges, appointmentId),
+        changed: changedAppointmentById(appointmentChanges, editingAppointmentId),
       });
       this.cancelChangedAppointment();
       this.stopEditAppointment();
@@ -113,12 +136,17 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
   }
 
   render() {
-    const { addedAppointment, editingAppointmentId, appointmentChanges } = this.state;
+    const { addedAppointment, editingAppointmentId, appointmentChanges, isDialogOpen } = this.state;
 
     return (
       <Plugin
         name="EditingState"
       >
+        <Getter name="isDialogOpen" value={isDialogOpen} />
+        <Action name="toggleEditDialog" action={this.toggleEditDialog} />
+
+        <Getter name="preCommitChanges" value={this.preCommitChanges} />
+
         <Getter name="editingAppointmentId" value={editingAppointmentId} />
         <Action name="startEditAppointment" action={this.startEditAppointment} />
         <Action name="stopEditAppointment" action={this.stopEditAppointment} />

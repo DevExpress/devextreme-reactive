@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  Plugin, Getter, Template, TemplatePlaceholder,
+  Plugin, Getter, Template, TemplatePlaceholder, TemplateConnector,
 } from '@devexpress/dx-react-core';
 import { appointments, formatDateTimeGetter } from '@devexpress/dx-scheduler-core';
 import { SchedulerProps } from '../types';
@@ -27,6 +27,36 @@ class SchedulerCoreBase extends React.PureComponent<SchedulerProps> {
             <TemplatePlaceholder name="body" />
             <TemplatePlaceholder name="footer" />
           </Root>
+        </Template>
+
+        <Template name="footer">
+          <TemplateConnector>
+            {(getters, actions) => {
+              if (getters.isDialogOpen) {
+                return (
+                  <React.Fragment>
+                    <TemplatePlaceholder />
+                    <div>
+                      123
+                      <button onClick={() => getters.preCommitChanges('all')}>
+                        Commit Changes
+                      </button>
+                      <button onClick={actions.toggleEditDialog}>
+                        close
+                      </button>
+                    </div>
+                  </React.Fragment>
+                );
+              }
+              return (
+                <React.Fragment>
+                <TemplatePlaceholder />
+                  <button onClick={actions.toggleEditDialog}>
+                    open
+                  </button>
+                </React.Fragment>
+              )}}
+          </TemplateConnector>
         </Template>
       </Plugin>
     );

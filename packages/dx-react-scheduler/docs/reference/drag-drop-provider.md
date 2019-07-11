@@ -21,7 +21,7 @@ import { DragDropProvider } from '@devexpress/dx-react-scheduler';
 ### Dependencies
 
 - [EditingState](editing-state.md)
-- [Appointments](week-view.md)
+- [Appointments](appointments.md)
 - [DayView](day-view.md) [Optional]
 - [WeekView](week-view.md) [Optional]
 - [MonthView](month-view.md) [Optional]

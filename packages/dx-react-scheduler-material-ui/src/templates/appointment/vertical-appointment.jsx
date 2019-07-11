@@ -12,7 +12,7 @@ const styles = ({ palette, spacing }) => ({
     whiteSpace: 'nowrap',
   },
   textContainer: {
-    lineHeight: `${spacing(1.5)}px`,
+    lineHeight: 1,
     whiteSpace: 'pre-wrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -24,7 +24,7 @@ const styles = ({ palette, spacing }) => ({
   },
   content: {
     color: palette.common.white,
-    padding: `${spacing(0.5)}px ${spacing(1)}px`,
+    padding: spacing(0.5, 1),
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
@@ -37,8 +37,8 @@ const styles = ({ palette, spacing }) => ({
     width: `calc(100% - ${spacing(2)}px)`,
   },
   imageContainer: {
-    width: `${spacing(2)}px`,
-    height: `${spacing(2)}px`,
+    width: spacing(2),
+    height: spacing(2),
   },
   image: {
     width: '100%',

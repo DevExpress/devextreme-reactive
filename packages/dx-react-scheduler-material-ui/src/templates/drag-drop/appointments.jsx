@@ -7,13 +7,14 @@ import { withStyles } from '@material-ui/core/styles';
 import { AppointmentContent } from '../appointment/appointment-content';
 import { Appointment } from '../appointment/appointment';
 import { SplitIndicator } from '../appointment/split-indicator';
+import { setColor } from '../utils';
 
 const draftStyles = theme => ({
   appointment: {
     boxShadow: theme.shadows[3],
     cursor: 'move',
     overflow: 'hidden',
-    backgroundColor: theme.palette.primary[600],
+    backgroundColor: setColor(600, theme.palette.primary),
   },
 });
 

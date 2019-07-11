@@ -1,6 +1,9 @@
 import { PureComputed } from '@devexpress/dx-core';
 import { TABLE_GROUP_TYPE } from './constants';
 import { TableRow, TableColumn, IsSpecificCellFn, Grouping } from '../../types';
+import { TABLE_STUB_TYPE } from '../../utils/virtual-table';
+
+type IsGroupIndentCellFn = PureComputed<[TableRow, TableColumn, Grouping[]], boolean>;
 
 const getGroupIndexByColumn: PureComputed<[Grouping[], TableColumn], number> = (
   grouping, tableColumn,
@@ -8,16 +11,11 @@ const getGroupIndexByColumn: PureComputed<[Grouping[], TableColumn], number> = (
   columnGrouping => !!tableColumn.column && columnGrouping.columnName === tableColumn.column.name,
 );
 
-export const isGroupTableCell: IsSpecificCellFn = (
-  tableRow, tableColumn,
-) => !!(tableRow.type === TABLE_GROUP_TYPE && tableColumn.type === TABLE_GROUP_TYPE
-  && tableColumn.column
-  && tableColumn.column.name === tableRow.row.groupedBy);
-
-export const isGroupIndentTableCell: PureComputed<[TableRow, TableColumn, Grouping[]], boolean> = (
-  tableRow, tableColumn, grouping,
-) => {
-  if (tableRow.type !== TABLE_GROUP_TYPE || tableColumn.type !== TABLE_GROUP_TYPE) return false;
+const isIndentCell: IsGroupIndentCellFn = (
+    tableRow,
+    tableColumn,
+    grouping,
+  ) => {
   if (tableColumn.column && tableRow.row.groupedBy === tableColumn.column.name) return false;
   const rowGroupIndex = grouping.findIndex(
     columnGrouping => columnGrouping.columnName === tableRow.row.groupedBy,
@@ -26,6 +24,27 @@ export const isGroupIndentTableCell: PureComputed<[TableRow, TableColumn, Groupi
 
   return columnGroupIndex < rowGroupIndex;
 };
+
+export const isGroupTableCell: IsSpecificCellFn = (
+  tableRow, tableColumn,
+) => !!(tableRow.type === TABLE_GROUP_TYPE && tableColumn.type === TABLE_GROUP_TYPE
+  && tableColumn.column
+  && tableColumn.column.name === tableRow.row.groupedBy);
+
+export const isGroupIndentTableCell: IsGroupIndentCellFn = (
+  tableRow, tableColumn, grouping,
+) => (
+  tableRow.type === TABLE_GROUP_TYPE && tableColumn.type === TABLE_GROUP_TYPE &&
+  isIndentCell(tableRow, tableColumn, grouping)
+);
+
+export const isGroupIndentStubTableCell: IsGroupIndentCellFn = (
+  tableRow, tableColumn, grouping,
+) => (
+  (tableRow.type === TABLE_GROUP_TYPE && tableColumn.type === TABLE_STUB_TYPE &&
+    isIndentCell(tableRow, tableColumn, grouping))
+);
+
 export const isGroupTableRow = (tableRow: TableRow) => tableRow.type === TABLE_GROUP_TYPE;
 
 export const calculateGroupCellIndent: PureComputed<[TableColumn, Grouping[], number], number> = (

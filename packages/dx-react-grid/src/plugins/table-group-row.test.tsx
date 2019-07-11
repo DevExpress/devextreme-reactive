@@ -1,13 +1,14 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { pluginDepsToComponents, getComputedState, setupConsole } from '@devexpress/dx-testing';
-import { PluginHost } from '@devexpress/dx-react-core';
+import { PluginHost, Template } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithGrouping,
   tableRowsWithGrouping,
   tableGroupCellColSpanGetter,
   isGroupTableCell,
   isGroupIndentTableCell,
+  isGroupIndentStubTableCell,
   isGroupTableRow,
   calculateGroupCellIndent,
 } from '@devexpress/dx-grid-core';
@@ -19,6 +20,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   tableGroupCellColSpanGetter: jest.fn(),
   isGroupTableCell: jest.fn(),
   isGroupIndentTableCell: jest.fn(),
+  isGroupIndentStubTableCell: jest.fn(),
   isGroupTableRow: jest.fn(),
   calculateGroupCellIndent: jest.fn(),
 }));
@@ -78,6 +80,7 @@ describe('TableGroupRow', () => {
     tableGroupCellColSpanGetter.mockImplementation(() => 'tableGroupCellColSpanGetter');
     isGroupTableCell.mockImplementation(() => false);
     isGroupIndentTableCell.mockImplementation(() => false);
+    isGroupIndentStubTableCell.mockImplementation(() => false);
     isGroupTableRow.mockImplementation(() => false);
     calculateGroupCellIndent.mockReturnValue('groupCellIndent');
   });
@@ -216,11 +219,71 @@ describe('TableGroupRow', () => {
         defaultDeps.template.tableCell.tableColumn,
         defaultDeps.getter.grouping,
       );
+
     expect(tree.find(indentCellComponent).props())
       .toMatchObject({
         ...defaultDeps.template.tableCell,
         row: defaultDeps.template.tableCell.tableRow.row,
         column: defaultDeps.template.tableCell.tableColumn.column,
+      });
+  });
+
+  // tslint:disable-next-line: max-line-length
+  it('should render indent stub cell on select group column and foreign group row intersection', () => {
+    isGroupTableRow.mockImplementation(() => true);
+    isGroupIndentStubTableCell.mockImplementation(() => true);
+
+    const StubCell = () => null;
+
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <Template
+          name="tableCell"
+        >
+          {params => <StubCell {...params}/>}
+        </Template>
+        <TableGroupRow
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    expect(isGroupIndentStubTableCell)
+      .toBeCalledWith(
+        defaultDeps.template.tableCell.tableRow,
+        defaultDeps.template.tableCell.tableColumn,
+        defaultDeps.getter.grouping,
+      );
+    expect(tree.find(StubCell).exists());
+  });
+
+  // tslint:disable-next-line: max-line-length
+  it('should pass correct props to indent stub cell', () => {
+    isGroupTableRow.mockImplementation(() => true);
+    isGroupIndentStubTableCell.mockImplementation(() => true);
+
+    const StubCell = () => null;
+
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <Template
+          name="tableCell"
+        >
+          {params => <StubCell {...params}/>}
+        </Template>
+        <TableGroupRow
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    expect(tree.find(StubCell).props())
+      .toMatchObject({
+        tableRow: defaultDeps.template.tableCell.tableRow,
+        tableColumn: defaultDeps.template.tableCell.tableColumn,
+        style: {},
       });
   });
 

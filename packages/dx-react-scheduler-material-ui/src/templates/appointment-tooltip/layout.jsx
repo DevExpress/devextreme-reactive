@@ -15,7 +15,7 @@ const styles = theme => ({
   },
   title: {
     ...theme.typography.h6,
-    paddingBottom: `${theme.spacing(1.75)}px`,
+    paddingBottom: theme.spacing(1.75),
     color: theme.palette.primary.contrastText,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -23,7 +23,7 @@ const styles = theme => ({
   },
   buttonsLeft: {
     position: 'relative',
-    bottom: `${-theme.spacing(2.5)}px`,
+    bottom: -theme.spacing(2.5),
     textAlign: 'center',
   },
   buttonsRight: {

@@ -5,9 +5,9 @@ import classNames from 'classnames';
 
 const styles = theme => ({
   root: {
-    maxHeight: `${theme.spacing(50)}px`,
+    maxHeight: theme.spacing(50),
     overflowY: 'auto',
-    padding: `${theme.spacing(2)}px`,
+    padding: theme.spacing(2),
     paddingBottom: 0,
   },
 });

@@ -7,7 +7,7 @@ const styles = theme => ({
   root: {
     display: 'flex',
     justifyContent: 'flex-end',
-    paddingTop: `${theme.spacing(1)}px`,
+    paddingTop: theme.spacing(1),
   },
 });
 

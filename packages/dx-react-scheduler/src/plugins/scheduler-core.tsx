@@ -37,13 +37,30 @@ class SchedulerCoreBase extends React.PureComponent<SchedulerProps> {
                   <React.Fragment>
                     <TemplatePlaceholder />
                     <div>
-                      123
-                      <button onClick={() => getters.preCommitChanges('all')}>
-                        Commit Changes
-                      </button>
-                      <button onClick={actions.toggleEditDialog}>
-                        close
-                      </button>
+                      Choose edit mode
+                      <ul>
+                        <li>
+                          <button onClick={() => getters.preCommitChanges('current')}>
+                            This event
+                          </button>
+                        </li>
+                        <li>
+                          <button onClick={() => getters.preCommitChanges('follows')}>
+                            This and following events
+                          </button>
+                        </li>
+                        <li>
+                          <button onClick={() => getters.preCommitChanges('all')}>
+                            All events
+                          </button>
+                        </li>
+                        <br />
+                        <li>
+                          <button onClick={actions.toggleEditDialog}>
+                            close
+                          </button>
+                        </li>
+                      </ul>
                     </div>
                   </React.Fragment>
                 );

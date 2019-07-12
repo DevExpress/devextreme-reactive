@@ -97,6 +97,7 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
       });
       this.cancelChangedAppointment();
       this.stopEditAppointment();
+      this.toggleEditDialog();
     };
 
     this.addAppointment = stateHelper.applyFieldReducer
@@ -137,7 +138,7 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
   render() {
     const { addedAppointment, editingAppointmentId, appointmentChanges, isDialogOpen } = this.state;
 
-    // console.log(appointmentChanges);
+    console.log(this.state);
 
     return (
       <Plugin

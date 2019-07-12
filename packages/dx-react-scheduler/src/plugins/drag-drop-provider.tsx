@@ -80,11 +80,13 @@ class DragDropProviderBase extends React.PureComponent<
     allowResize: () => true,
   };
 
-  onPayloadChange = actions =>
-    args => this.handlePayloadChange(args, actions)
+  onPayloadChange(actions) {
+    return args => this.handlePayloadChange(args, actions);
+  }
 
-  calculateNextBoundaries = (getters, actions) =>
-    args => this.calculateBoundaries(args, getters, actions)
+  calculateNextBoundaries(getters, actions) {
+    return args => this.calculateBoundaries(args, getters, actions);
+  }
 
   resetCache() {
     this.timeTableDraftAppointments = [];
@@ -115,8 +117,8 @@ class DragDropProviderBase extends React.PureComponent<
     if (payload || !isOutside) return;
     const { payload: prevPayload } = this.state;
 
-    stopEditAppointment({ appointmentId: prevPayload.id });
     commitChangedAppointment({ appointmentId: prevPayload.id });
+    // stopEditAppointment({ appointmentId: prevPayload.id });
     this.resetCache();
   }
 
@@ -197,8 +199,8 @@ class DragDropProviderBase extends React.PureComponent<
   handleDrop = ({ stopEditAppointment, commitChangedAppointment }) => () => {
     const { payload: prevPayload } = this.state;
 
-    stopEditAppointment({ appointmentId: prevPayload.id });
     commitChangedAppointment({ appointmentId: prevPayload.id });
+    // stopEditAppointment({ appointmentId: prevPayload.id });
     this.resetCache();
   }
 

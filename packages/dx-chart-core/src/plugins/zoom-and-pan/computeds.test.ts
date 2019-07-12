@@ -7,7 +7,7 @@ import {
 } from '../../utils/scale';
 import {
   adjustLayout, getViewport, getDeltaForTouches, isKeyPressed, getWheelDelta, isMultiTouch,
-  attachEvents, detachEvents, getRect,
+  attachEvents, detachEvents, getRect, setCursorType,
 } from './computeds';
 import { ScalesCache, Viewport } from '../../types';
 
@@ -453,6 +453,20 @@ describe('ZoomAndPan', () => {
         .toEqual({ x: 3, y: 0, width: 11, height: 44 });
       expect(getRect(true, 'zoom', 'none', [14, 12], [3, 5], pane))
         .toEqual({ x: 0, y: 5, width: 33, height: 7 });
+    });
+  });
+
+  describe('#setCursorType', () => {
+    it('should set type of cursor, custom', () => {
+      const node = { style: {} } as any;
+      setCursorType(node, 'cursor_type');
+      expect(node.style.cursor).toBe('cursor_type');
+    });
+
+    it('should set type of cursor, default', () => {
+      const node = { style: {} } as any;
+      setCursorType(node);
+      expect(node.style.cursor).toBe('pointer');
     });
   });
 });

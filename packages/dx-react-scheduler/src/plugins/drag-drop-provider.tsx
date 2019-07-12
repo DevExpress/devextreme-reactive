@@ -67,6 +67,7 @@ class DragDropProviderBase extends React.PureComponent<
     startTime: null,
     endTime: null,
     payload: null,
+    isOutside: false,
   };
   static components: PluginComponents = {
     containerComponent: 'Container',
@@ -79,13 +80,11 @@ class DragDropProviderBase extends React.PureComponent<
     allowResize: () => true,
   };
 
-  onPayloadChange(actions) {
-    return args => this.handlePayloadChange(args, actions);
-  }
+  onPayloadChange = actions =>
+    args => this.handlePayloadChange(args, actions)
 
-  calculateNextBoundaries(getters, actions) {
-    return args => this.calculateBoundaries(args, getters, actions);
-  }
+  calculateNextBoundaries = (getters, actions) =>
+    args => this.calculateBoundaries(args, getters, actions)
 
   resetCache() {
     this.timeTableDraftAppointments = [];
@@ -98,6 +97,7 @@ class DragDropProviderBase extends React.PureComponent<
       payload: null,
       startTime: null,
       endTime: null,
+      isOutside: false,
     });
   }
 
@@ -106,12 +106,12 @@ class DragDropProviderBase extends React.PureComponent<
     changeAppointment({
       change: { startDate: startTime, endDate: endTime },
     });
-    this.setState({ startTime, endTime, payload });
+    this.setState({ startTime, endTime, payload, isOutside: false });
   }
 
   handlePayloadChange({ payload }, { commitChangedAppointment, stopEditAppointment }) {
-    if (payload) return;
-
+    const { isOutside } = this.state;
+    if (payload || !isOutside) return;
     const { payload: prevPayload } = this.state;
 
     stopEditAppointment({ appointmentId: prevPayload.id });
@@ -130,6 +130,7 @@ class DragDropProviderBase extends React.PureComponent<
     if (clientOffset) {
       autoScroll(clientOffset, scrollingStrategy);
     }
+
     const tableCellElementsMeta = timeTableElementsMeta;
     const allDayCellsElementsMeta = allDayElementsMeta
       || { getCellRects: [] }; // not always AllDayPanel exists
@@ -152,6 +153,7 @@ class DragDropProviderBase extends React.PureComponent<
       payload, targetData, targetType, cellDurationMinutes,
       insidePart, this.offsetTimeTop!,
     );
+
     this.appointmentStartTime = appointmentStartTime || this.appointmentStartTime;
     this.appointmentEndTime = appointmentEndTime || this.appointmentEndTime;
     this.offsetTimeTop = offsetTimeTop!;
@@ -187,8 +189,16 @@ class DragDropProviderBase extends React.PureComponent<
     );
   }
 
-  handleDrop = () => {
+  handleDrop = ({ stopEditAppointment, commitChangedAppointment }) => () => {
+    const { payload: prevPayload } = this.state;
+
+    stopEditAppointment({ appointmentId: prevPayload.id });
+    commitChangedAppointment({ appointmentId: prevPayload.id });
     this.resetCache();
+  }
+
+  handleLeave = () => {
+    this.setState({ isOutside: true });
   }
 
   render() {
@@ -236,7 +246,8 @@ class DragDropProviderBase extends React.PureComponent<
                   <DropTarget
                     onOver={calculateBoundariesByMove}
                     onEnter={calculateBoundariesByMove}
-                    onDrop={this.handleDrop}
+                    onDrop={this.handleDrop({ commitChangedAppointment, stopEditAppointment })}
+                    onLeave={this.handleLeave}
                   >
                     <TemplatePlaceholder />
                   </DropTarget>

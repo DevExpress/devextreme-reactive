@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
-export const SortingIndicator = ({ direction, style }) => (
+export const SortingIndicator = React.memo(({ direction, style }) => (
   <i
     className={`glyphicon glyphicon-arrow-${direction === 'desc' ? 'down' : 'up'}`}
     style={{
@@ -10,7 +10,7 @@ export const SortingIndicator = ({ direction, style }) => (
       ...style,
     }}
   />
-);
+));
 
 SortingIndicator.propTypes = {
   direction: PropTypes.oneOf(['asc', 'desc']),

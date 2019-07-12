@@ -5,7 +5,7 @@ import classNames from 'classnames';
 
 const styles = ({ spacing }) => ({
   root: {
-    marginLeft: `${spacing(0.5)}px`,
+    marginLeft: spacing(0.5),
     '&:first-child': {
       marginLeft: 0,
     },

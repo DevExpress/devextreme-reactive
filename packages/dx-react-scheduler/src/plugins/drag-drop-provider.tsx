@@ -21,6 +21,7 @@ import {
   POSITION_START,
   POSITION_END,
 } from '@devexpress/dx-scheduler-core';
+import { memoize } from '@devexpress/dx-core';
 import { DragDropProviderProps, DragDropProviderState } from '../types';
 
 const renderAppointmentItems = (items, formatDate, data, Wrapper, Appointment) => (
@@ -79,13 +80,13 @@ class DragDropProviderBase extends React.PureComponent<
     allowResize: () => true,
   };
 
-  onPayloadChange(actions) {
+  onPayloadChange = memoize((actions) => {
     return args => this.handlePayloadChange(args, actions);
-  }
+  });
 
-  calculateNextBoundaries(getters, actions) {
+  calculateNextBoundaries = memoize((getters, actions) => {
     return args => this.calculateBoundaries(args, getters, actions);
-  }
+  });
 
   resetCache() {
     this.timeTableDraftAppointments = [];
@@ -103,19 +104,23 @@ class DragDropProviderBase extends React.PureComponent<
 
   applyChanges(startTime, endTime, payload, startEditAppointment, changeAppointment) {
     startEditAppointment({ appointmentId: payload.id });
+    console.log('applyChanges - update');
     changeAppointment({
       change: { startDate: startTime, endDate: endTime },
     });
-    this.setState({ startTime, endTime, payload });
+    this.setState({ startTime, endTime, payload, outside: false });
   }
 
   handlePayloadChange({ payload }, { commitChangedAppointment, stopEditAppointment }) {
+    const { outside } = this.state;
     if (payload) return;
+    if (!outside) return;
 
     const { payload: prevPayload } = this.state;
 
     stopEditAppointment({ appointmentId: prevPayload.id });
     commitChangedAppointment({ appointmentId: prevPayload.id });
+    console.log('handlePayloadChange - commit - reset');
     this.resetCache();
   }
 
@@ -130,6 +135,7 @@ class DragDropProviderBase extends React.PureComponent<
     if (clientOffset) {
       autoScroll(clientOffset, scrollingStrategy);
     }
+
     const tableCellElementsMeta = timeTableElementsMeta;
     const allDayCellsElementsMeta = allDayElementsMeta
       || { getCellRects: [] }; // not always AllDayPanel exists
@@ -152,6 +158,9 @@ class DragDropProviderBase extends React.PureComponent<
       payload, targetData, targetType, cellDurationMinutes,
       insidePart, this.offsetTimeTop!,
     );
+
+    // console.log(payload);
+
     this.appointmentStartTime = appointmentStartTime || this.appointmentStartTime;
     this.appointmentEndTime = appointmentEndTime || this.appointmentEndTime;
     this.offsetTimeTop = offsetTimeTop!;
@@ -187,9 +196,13 @@ class DragDropProviderBase extends React.PureComponent<
     );
   }
 
-  handleDrop = () => {
+  handleDrop = memoize(({ stopEditAppointment, commitChangedAppointment }) => () => {
+    const { payload: prevPayload } = this.state;
+
+    stopEditAppointment({ appointmentId: prevPayload.id });
+    commitChangedAppointment({ appointmentId: prevPayload.id });
     this.resetCache();
-  }
+  });
 
   render() {
     const { payload } = this.state;
@@ -236,7 +249,8 @@ class DragDropProviderBase extends React.PureComponent<
                   <DropTarget
                     onOver={calculateBoundariesByMove}
                     onEnter={calculateBoundariesByMove}
-                    onDrop={this.handleDrop}
+                    onDrop={this.handleDrop({ commitChangedAppointment, stopEditAppointment })}
+                    onLeave={() => { this.setState({ outside: true }); }}
                   >
                     <TemplatePlaceholder />
                   </DropTarget>

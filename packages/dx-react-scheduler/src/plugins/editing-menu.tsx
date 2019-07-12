@@ -1,15 +1,33 @@
 import * as React from 'react';
 import {
-  Plugin, Getter, Template, TemplatePlaceholder, TemplateConnector,
+  Plugin, Getter, Template, TemplatePlaceholder, TemplateConnector, Action,
 } from '@devexpress/dx-react-core';
 
 class EditingMenuBase extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isOpen: false,
+    };
+  }
+
+  toggleOpen = () => {
+    this.setState((state) => ({
+      isOpen: !state.isOpen,
+    }));
+  }
+
   render() {
+    const { isOpen } = this.state;
+
     return (
       <Plugin
         name="EditingMenu"
       >
         <Getter name="editingMenu" value={true} />
+        <Getter name="isOpenEditingMenu" value={isOpen} />
+        <Action name="toggleEditingMenuOpen" action={this.toggleOpen} />
 
         <Template name="footer">
           <TemplateConnector>

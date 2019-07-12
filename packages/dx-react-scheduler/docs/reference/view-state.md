@@ -20,8 +20,8 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-currentDate? | [SchedulerDateTime](scheduler.md#SchedulerDateTime) | | The current date.
-defaultCurrentDate? | [SchedulerDateTime](scheduler.md#SchedulerDateTime) | | The initial date in the uncontrolled mode.
+currentDate? | [SchedulerDateTime](./scheduler.md#schedulerdatetime) | | The current date.
+defaultCurrentDate? | [SchedulerDateTime](./scheduler.md#schedulerdatetime) | | The initial date in the uncontrolled mode.
 onCurrentDateChange? | (currentDate: Date) => void | | Handles changes to the current date.
 currentViewName? | string | | The displayed view's name.
 defaultCurrentViewName? | string | | The initially displayed view's name in the uncontrolled mode.

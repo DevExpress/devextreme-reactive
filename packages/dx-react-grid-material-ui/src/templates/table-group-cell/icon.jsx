@@ -15,7 +15,7 @@ const styles = theme => ({
   },
 });
 
-const IconBase = ({
+const IconBase = React.memo(({
   expanded,
   classes,
   className,
@@ -31,7 +31,7 @@ const IconBase = ({
         : <ChevronRight />
     }
   </IconButton>
-);
+));
 
 IconBase.propTypes = {
   expanded: PropTypes.bool.isRequired,

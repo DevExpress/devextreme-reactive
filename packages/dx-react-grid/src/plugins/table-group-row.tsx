@@ -11,6 +11,7 @@ import {
   isGroupTableRow,
   TABLE_GROUP_TYPE,
   calculateGroupCellIndent,
+  isGroupIndentStubTableCell,
 } from '@devexpress/dx-grid-core';
 import {
   TableGroupRowProps, ShowColumnWhenGroupedGetterFn, TableCellProps, TableRowProps,
@@ -151,6 +152,9 @@ class TableGroupRowBase extends React.PureComponent<TableGroupRowProps> {
                     );
                   }
                   return <TemplatePlaceholder params={fixedProps} />;
+                }
+                if (isGroupIndentStubTableCell(params.tableRow, params.tableColumn, grouping)) {
+                  return <TemplatePlaceholder params={params} />;
                 }
                 return null;
               }}

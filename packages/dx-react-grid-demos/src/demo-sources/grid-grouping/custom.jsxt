@@ -30,7 +30,7 @@ const GroupCellContent = ({ column, row }) => (
 
 const cityGroupCriteria = value => ({ key: value.substr(0, 1) });
 
-const Demo = () => {
+export default () => {
   const [columns] = useState([
     { name: 'name', title: 'Name' },
     { name: 'sex', title: 'Sex' },
@@ -68,5 +68,3 @@ const Demo = () => {
     </<%&wrapperTag%>>
   );
 };
-
-export default Demo;

@@ -21,7 +21,7 @@ const getRowId = row => row.OrderID;
 const getChildGroups = groups => groups
   .map(group => ({ key: group.key, childRows: group.items }));
 
-const Demo = () => {
+export default () => {
   const [columns] = useState([
     { name: 'ShipCountry', title: 'Country' },
     { name: 'ShipCity', title: 'City' },
@@ -99,5 +99,3 @@ const Demo = () => {
     </<%&wrapperTag%>>
   );
 };
-
-export default Demo;

@@ -22,7 +22,7 @@ const getChildRows = (row, rootRows) => {
   return childRows.length ? childRows : null;
 };
 
-const Demo = () => {
+export default () => {
   const [columns] = useState([
     { name: 'name', title: 'Name' },
     { name: 'sex', title: 'Sex' },
@@ -69,5 +69,3 @@ const Demo = () => {
     </<%&wrapperTag%>>
   );
 };
-
-export default Demo;

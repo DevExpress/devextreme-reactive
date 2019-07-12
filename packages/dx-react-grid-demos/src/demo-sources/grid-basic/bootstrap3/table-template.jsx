@@ -17,7 +17,7 @@ const TableComponent = ({ ...restProps }) => (
   />
 );
 
-const Demo = () => {
+export default () => {
   const [columns] = useState([
     { name: 'region', title: 'Region' },
     { name: 'sector', title: 'Sector' },
@@ -41,5 +41,3 @@ const Demo = () => {
     </div>
   );
 };
-
-export default Demo;

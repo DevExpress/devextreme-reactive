@@ -12,7 +12,7 @@ import {
 
 const getRowId = row => row.id;
 
-const Demo = () => {
+export default () => {
   const [columns] = useState([
     { name: 'id', title: 'ID' },
     { name: 'name', title: 'Name' },
@@ -38,5 +38,3 @@ const Demo = () => {
     </<%&wrapperTag%>>
   );
 };
-
-export default Demo;

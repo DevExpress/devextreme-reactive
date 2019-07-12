@@ -136,7 +136,7 @@ const EditCell = (props) => {
 
 const getRowId = row => row.id;
 
-const Demo = () => {
+export default () => {
   const [columns] = useState([
     { name: 'product', title: 'Product' },
     { name: 'region', title: 'Region' },
@@ -291,5 +291,3 @@ const Demo = () => {
     </Card>
   );
 };
-
-export default Demo;

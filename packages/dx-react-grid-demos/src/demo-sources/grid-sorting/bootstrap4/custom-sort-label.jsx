@@ -29,7 +29,7 @@ const SortLabel = ({ onSort, children, direction }) => (
   </button>
 );
 
-const Demo = () => {
+export default () => {
   const [columns] = useState([
     { name: 'name', title: 'Name' },
     { name: 'sex', title: 'Sex' },
@@ -57,5 +57,3 @@ const Demo = () => {
     </div>
   );
 };
-
-export default Demo;

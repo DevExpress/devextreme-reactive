@@ -159,7 +159,7 @@ const EditCell = (props) => {
 
 const getRowId = row => row.id;
 
-const DemoBase = () => {
+export default () => {
   const [columns] = useState([
     { name: 'product', title: 'Product' },
     { name: 'region', title: 'Region' },
@@ -314,5 +314,3 @@ const DemoBase = () => {
     </Paper>
   );
 };
-
-export default withStyles(styles, { name: 'ControlledModeDemo' })(DemoBase);

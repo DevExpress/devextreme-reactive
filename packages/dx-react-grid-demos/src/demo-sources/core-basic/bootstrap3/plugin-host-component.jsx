@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { PluginHost, Template } from '@devexpress/dx-react-core';
 
-const Demo = () => {
+export default () => {
   const [tasks] = useState([
     { title: 'call mom', done: false },
     { title: 'send letters to partners', done: false },
@@ -15,8 +15,6 @@ const Demo = () => {
     />
   );
 };
-
-export default Demo;
 
 const TasksList = ({ tasks }) => (
   <PluginHost>

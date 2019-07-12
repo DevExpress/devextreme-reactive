@@ -10,7 +10,7 @@ import { Loading } from '../../../theme-sources/<%&themeName%>/components/loadin
 
 const URL = 'https://js.devexpress.com/Demos/WidgetsGallery/data/orderItems';
 
-const Demo = () => {
+export default () => {
   const [columns] = useState([
     { name: 'OrderNumber', title: 'Order Number' },
     { name: 'OrderDate', title: 'Order Date' },
@@ -82,5 +82,3 @@ const Demo = () => {
     </<%&wrapperTag%>>
   );
 };
-
-export default Demo;

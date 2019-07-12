@@ -56,7 +56,7 @@ const FilterCell = (props) => {
   return <TableFilterRow.Cell {...props} />;
 };
 
-const Demo = () => {
+export default () => {
   const [columns] = useState([
     { name: 'product', title: 'Product' },
     { name: 'region', title: 'Region' },
@@ -87,5 +87,3 @@ const Demo = () => {
     </Paper>
   );
 };
-
-export default Demo;

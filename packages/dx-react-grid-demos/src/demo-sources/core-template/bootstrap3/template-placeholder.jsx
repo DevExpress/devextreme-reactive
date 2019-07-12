@@ -5,7 +5,7 @@ import {
 
 const ENTER_KEY = 13;
 
-const Demo = () => {
+export default () => {
   const [tasks, setTasks] = useState([
     { title: 'call mom', done: false },
     { title: 'send letters to partners', done: false },
@@ -23,8 +23,6 @@ const Demo = () => {
     </TasksList>
   );
 };
-
-export default Demo;
 
 const TasksList = ({ children, ...restProps }) => (
   <PluginHost>

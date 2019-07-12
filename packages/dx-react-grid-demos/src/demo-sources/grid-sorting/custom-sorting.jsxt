@@ -29,7 +29,7 @@ const comparePriority = (a, b) => {
   return (priorityA < priorityB) ? -1 : 1;
 };
 
-const Demo = () => {
+export default () => {
   const [columns] = useState([
     { name: 'subject', title: 'Subject' },
     { name: 'startDate', title: 'Start Date' },
@@ -65,5 +65,3 @@ const Demo = () => {
     </<%&wrapperTag%>>
   );
 };
-
-export default Demo;

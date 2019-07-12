@@ -48,7 +48,7 @@ CurrencyEditor.defaultProps = {
   value: undefined,
 };
 
-const Demo = () => {
+export default () => {
   const [columns] = useState([
     { name: 'customer', title: 'Customer' },
     { name: 'product', title: 'Product' },
@@ -110,5 +110,3 @@ const Demo = () => {
     </div>
   );
 };
-
-export default Demo;

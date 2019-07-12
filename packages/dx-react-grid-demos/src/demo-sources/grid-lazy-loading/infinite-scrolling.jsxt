@@ -18,7 +18,7 @@ const buildQueryString = (skip, take) => (
 );
 const getRowId = row => row.Id;
 
-const Demo = () => {
+export default () => {
   const [columns] = useState([
     { name: 'id', title: 'Id', getCellValue: row => row.Id },
     { name: 'category', title: 'Category', getCellValue: row => row.ProductCategoryName },
@@ -84,5 +84,3 @@ const Demo = () => {
     </<%&wrapperTag%>>
   );
 };
-
-export default Demo;

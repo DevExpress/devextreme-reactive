@@ -14,7 +14,7 @@ const URL = 'https://js.devexpress.com/Demos/WidgetsGalleryDataService/api/Sales
 const getRowId = row => row.Id;
 const buildQueryString = (skip, take) => `${URL}?skip=${skip}&take=${take}`;
 
-const Demo = () => {
+export default () => {
   const [columns] = useState([
     { name: 'Id', title: 'Id', getCellValue: row => row.Id },
     { name: 'ProductCategoryName', title: 'Category', getCellValue: row => row.ProductCategoryName },
@@ -67,5 +67,3 @@ const Demo = () => {
     </<%&wrapperTag%>>
   );
 };
-
-export default Demo;

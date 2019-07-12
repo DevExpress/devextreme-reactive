@@ -29,7 +29,7 @@ const TableComponentBase = ({ classes, ...restProps }) => (
 
 export const TableComponent = withStyles(styles, { name: 'TableComponent' })(TableComponentBase);
 
-const Demo = () => {
+export default () => {
   const [columns] = useState([
     { name: 'region', title: 'Region' },
     { name: 'sector', title: 'Sector' },
@@ -53,5 +53,3 @@ const Demo = () => {
     </Paper>
   );
 };
-
-export default Demo;

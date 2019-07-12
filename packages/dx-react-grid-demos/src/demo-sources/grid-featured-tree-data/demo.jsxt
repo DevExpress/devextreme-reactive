@@ -47,7 +47,7 @@ const getChildRows = (row, rows) => {
   return childRows.length ? childRows : null;
 };
 
-const Demo = () => {
+export default () => {
   const [columns] = useState([
     { name: 'Subject', title: 'Task Subject' },
     { name: 'Assigned_Employee_ID', title: 'Assigned', getCellValue: row => employees.find(e => e.ID === row.Assigned_Employee_ID).Name },
@@ -131,5 +131,3 @@ const Demo = () => {
     </<%&wrapperTag%>>
   );
 };
-
-export default Demo;

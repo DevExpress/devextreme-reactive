@@ -3,7 +3,7 @@ import {
   PluginHost, Plugin, Getter, Action, Template, TemplatePlaceholder, TemplateConnector,
 } from '@devexpress/dx-react-core';
 
-const Demo = () => {
+export default () => {
   const [tasks] = useState([
     { title: 'call mom', done: false },
     { title: 'send letters to partners', done: false },
@@ -18,8 +18,6 @@ const Demo = () => {
     </TasksList>
   );
 };
-
-export default Demo;
 
 const TasksList = ({ children, ...restProps }) => (
   <PluginHost>

@@ -101,7 +101,7 @@ const gridDetailContainer = data => ({ row }) => {
   );
 };
 
-const Demo = () => {
+export default () => {
   const [columns] = useState([
     { name: 'region', title: 'Region' },
     { name: 'count2013', title: '2013' },
@@ -146,5 +146,3 @@ const Demo = () => {
     </div>
   );
 };
-
-export default Demo;

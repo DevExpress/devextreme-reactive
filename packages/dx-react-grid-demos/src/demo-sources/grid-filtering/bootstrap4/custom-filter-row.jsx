@@ -52,7 +52,7 @@ FilterCell.propTypes = {
   column: PropTypes.shape({ name: PropTypes.string }).isRequired,
 };
 
-const Demo = () => {
+export default () => {
   const [columns] = useState([
     { name: 'product', title: 'Product' },
     { name: 'region', title: 'Region' },
@@ -83,5 +83,3 @@ const Demo = () => {
     </div>
   );
 };
-
-export default Demo;

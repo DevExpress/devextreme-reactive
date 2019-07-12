@@ -36,7 +36,7 @@ const Cell = (props) => {
   return <Table.Cell {...props} />;
 };
 
-const Demo = () => {
+export default () => {
   const [columns] = useState([
     { name: 'region', title: 'Region' },
     { name: 'sector', title: 'Sector' },
@@ -60,5 +60,3 @@ const Demo = () => {
     </<%&wrapperTag%>>
   );
 };
-
-export default Demo;

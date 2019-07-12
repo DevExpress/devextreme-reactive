@@ -38,7 +38,7 @@ const CurrencyTypeProvider = props => (
   />
 );
 
-const Demo = () => {
+export default () => {
   const [columns] = useState([
     { name: 'sector', title: 'Sector' },
     { name: 'customer', title: 'Customer' },
@@ -81,5 +81,3 @@ const Demo = () => {
     </<%&wrapperTag%>>
   );
 };
-
-export default Demo;

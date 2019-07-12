@@ -41,7 +41,7 @@ const TableHeaderContentBase = ({
 
 export const TableHeaderContent = withStyles(styles, { name: 'TableHeaderContent' })(TableHeaderContentBase);
 
-const Demo = () => {
+export default () => {
   const [columns] = useState([
     { name: 'region', title: 'Region' },
     { name: 'sector', title: 'Sector' },
@@ -63,5 +63,3 @@ const Demo = () => {
     </Paper>
   );
 };
-
-export default Demo;

@@ -136,7 +136,7 @@ const gridDetailContainerBase = data => ({ row, classes }) => {
 };
 const gridDetailContainer = data => withStyles(detailContainerStyles, { name: 'ChartContainer' })(gridDetailContainerBase(data));
 
-const Demo = () => {
+export default () => {
   const [columns] = useState([
     { name: 'region', title: 'Region' },
     { name: 'count2013', title: '2013' },
@@ -181,5 +181,3 @@ const Demo = () => {
     </Paper>
   );
 };
-
-export default Demo;

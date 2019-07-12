@@ -7,7 +7,7 @@ import {
 
 const getRowId = row => row.id;
 
-const Demo = () => {
+export default () => {
   const [columns] = useState(Array.from({ length: 10000 })
     .map((item, index) => ({ name: `${index}`, title: `Column ${index}`, getCellValue: row => `[${row.id};${index}]` })));
   const [rows] = useState(Array.from({ length: 10000 })
@@ -26,5 +26,3 @@ const Demo = () => {
     </<%&wrapperTag%>>
   );
 };
-
-export default Demo;

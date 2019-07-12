@@ -24,7 +24,7 @@ const getChildRows = (row, rootRows) => {
   return row && row.hasItems ? [] : null;
 };
 
-const Demo = () => {
+export default () => {
   const [columns] = useState([
     { name: 'name', title: 'Name' },
     { name: 'size', title: 'Size', getCellValue: row => (row.size ? `${Math.ceil(row.size / 1024)} KB` : '') },
@@ -89,5 +89,3 @@ const Demo = () => {
     </<%&wrapperTag%>>
   );
 };
-
-export default Demo;

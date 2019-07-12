@@ -34,7 +34,7 @@ const DateTypeProvider = props => (
   />
 );
 
-const Demo = () => {
+export default () => {
   const [columns] = useState([
     { name: 'customer', title: 'Customer' },
     { name: 'product', title: 'Product' },
@@ -68,5 +68,3 @@ const Demo = () => {
     </<%&wrapperTag%>>
   );
 };
-
-export default Demo;

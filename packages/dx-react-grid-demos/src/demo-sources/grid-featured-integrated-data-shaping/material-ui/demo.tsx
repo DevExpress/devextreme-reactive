@@ -106,7 +106,7 @@ const CurrencyTypeProvider: React.ComponentType<DataTypeProviderProps> =
     />
 );
 
-const Demo: React.FC<object> = () => {
+export default () => {
   const [columns] = React.useState([
     { name: 'product', title: 'Product' },
     { name: 'region', title: 'Region' },
@@ -166,5 +166,3 @@ const Demo: React.FC<object> = () => {
     </Paper>
   );
 };
-
-export default Demo;

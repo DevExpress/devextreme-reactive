@@ -10,7 +10,7 @@ import {
   employeeTaskValues,
 } from '../../../demo-data/generator';
 
-const Demo = () => {
+export default () => {
   const [columns] = useState([
     { name: 'subject', title: 'Subject (with enabled word wrap)' },
     { name: 'startDate', title: 'Start Date' },
@@ -35,5 +35,3 @@ const Demo = () => {
     </<%&wrapperTag%>>
   );
 };
-
-export default Demo;

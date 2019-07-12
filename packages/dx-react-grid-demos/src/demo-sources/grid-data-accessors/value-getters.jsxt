@@ -10,7 +10,7 @@ import {
   defaultNestedColumnValues,
 } from '../../../demo-data/generator';
 
-const Demo = () => {
+export default () => {
   const [columns] = useState([
     {
       name: 'firstName',
@@ -47,5 +47,3 @@ const Demo = () => {
     </<%&wrapperTag%>>
   );
 };
-
-export default Demo;

@@ -47,7 +47,7 @@ const BooleanTypeProvider = props => (
   />
 );
 
-const Demo = () => {
+export default () => {
   const [columns] = useState([
     { name: 'customer', title: 'Customer' },
     { name: 'product', title: 'Product' },
@@ -106,5 +106,3 @@ const Demo = () => {
     </Grid>
   );
 };
-
-export default Demo;

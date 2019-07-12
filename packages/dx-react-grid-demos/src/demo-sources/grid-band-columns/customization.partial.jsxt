@@ -25,7 +25,7 @@ const PercentTypeProvider = props => (
 
 <%&body%>
 
-const Demo = () => {
+export default () => {
   const [columns] = useState([
     { name: 'Country', title: 'Country' },
     { name: 'Area', title: 'Area, sq. km.' },
@@ -98,5 +98,3 @@ const Demo = () => {
     </<%&wrapperTag%>>
   );
 };
-
-export default Demo;

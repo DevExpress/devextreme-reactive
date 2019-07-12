@@ -78,13 +78,15 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
     this.cancelChangedAppointment = stateHelper.applyFieldReducer
       .bind(stateHelper, 'appointmentChanges', cancelChanges);
     this.commitChangedAppointment = ({ appointmentId }) => {
-      this.toggleEditDialog();
-
-      // onCommitChanges({
-      //   changed: changedAppointmentById(appointmentChanges, appointmentId),
-      // });
-      // this.cancelChangedAppointment();
-      // this.stopEditAppointment();
+      if (true) { // isDialogAvailable
+        this.toggleEditDialog();
+      } else {
+        onCommitChanges({
+          changed: changedAppointmentById(appointmentChanges, appointmentId),
+        });
+        this.cancelChangedAppointment();
+        this.stopEditAppointment();
+      }
     };
 
     this.preCommitChanges = (type) => {

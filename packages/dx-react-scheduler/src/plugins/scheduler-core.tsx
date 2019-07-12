@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  Plugin, Getter, Template, TemplatePlaceholder, TemplateConnector,
+  Plugin, Getter, Template, TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 import { appointments, formatDateTimeGetter } from '@devexpress/dx-scheduler-core';
 import { SchedulerProps } from '../types';
@@ -27,53 +27,6 @@ class SchedulerCoreBase extends React.PureComponent<SchedulerProps> {
             <TemplatePlaceholder name="body" />
             <TemplatePlaceholder name="footer" />
           </Root>
-        </Template>
-
-        <Template name="footer">
-          <TemplateConnector>
-            {(getters, actions) => {
-              if (getters.isDialogOpen) {
-                return (
-                  <React.Fragment>
-                    <TemplatePlaceholder />
-                    <div>
-                      Choose edit mode
-                      <ul>
-                        <li>
-                          <button onClick={() => getters.preCommitChanges('current')}>
-                            This event
-                          </button>
-                        </li>
-                        <li>
-                          <button onClick={() => getters.preCommitChanges('follows')}>
-                            This and following events
-                          </button>
-                        </li>
-                        <li>
-                          <button onClick={() => getters.preCommitChanges('all')}>
-                            All events
-                          </button>
-                        </li>
-                        <br />
-                        <li>
-                          <button onClick={actions.toggleEditDialog}>
-                            close
-                          </button>
-                        </li>
-                      </ul>
-                    </div>
-                  </React.Fragment>
-                );
-              }
-              return (
-                <React.Fragment>
-                <TemplatePlaceholder />
-                  <button onClick={actions.toggleEditDialog}>
-                    open
-                  </button>
-                </React.Fragment>
-              )}}
-          </TemplateConnector>
         </Template>
       </Plugin>
     );

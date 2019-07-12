@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
-import { ViewState, EditingState } from '@devexpress/dx-react-scheduler';
+import { ViewState, EditingState, EditingMenu } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
   WeekView,
@@ -85,6 +85,8 @@ export default class Demo extends React.PureComponent {
 
           <Toolbar />
           <ViewSwitcher />
+
+          <EditingMenu />
 
           <DragDropProvider />
         </Scheduler>

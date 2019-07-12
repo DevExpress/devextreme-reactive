@@ -68,7 +68,6 @@ export const buildEventHandlers = (
     const leaveHandler = buildLeaveEventHandler(pointerMoveHandlers);
     if ('ontouchstart' in window) {
       handlers.touchstart = moveHandler;
-      handlers.touchend = leaveHandler;
     } else {
       handlers.mousemove = moveHandler;
       handlers.mouseleave = leaveHandler;

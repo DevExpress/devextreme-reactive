@@ -203,7 +203,6 @@ describe('EventTracker', () => {
 
         expect(handlers).toEqual({
           touchstart: expect.any(Function),
-          touchend: expect.any(Function),
         });
       } finally {
         delete window.ontouchstart;

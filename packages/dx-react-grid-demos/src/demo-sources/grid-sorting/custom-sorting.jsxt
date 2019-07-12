@@ -1,4 +1,4 @@
-import * as React from 'react';<%&additionalImports%>
+import React, { useState } from 'react';<%&additionalImports%>
 import {
   SortingState,
   IntegratedSorting,
@@ -29,51 +29,41 @@ const comparePriority = (a, b) => {
   return (priorityA < priorityB) ? -1 : 1;
 };
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+const Demo = () => {
+  const [columns] = useState([
+    { name: 'subject', title: 'Subject' },
+    { name: 'startDate', title: 'Start Date' },
+    { name: 'dueDate', title: 'Due Date' },
+    { name: 'priority', title: 'Priority' },
+  ]);
+  const [rows] = useState(generateRows({
+    columnValues: employeeTaskValues,
+    length: 8,
+  }));
+  const [integratedSortingColumnExtensions] = useState([
+    { columnName: 'priority', compare: comparePriority },
+  ]);
+  const [tableColumnExtensions] = useState([
+    { columnName: 'subject', width: 300 },
+  ]);
 
-    this.state = {
-      columns: [
-        { name: 'subject', title: 'Subject' },
-        { name: 'startDate', title: 'Start Date' },
-        { name: 'dueDate', title: 'Due Date' },
-        { name: 'priority', title: 'Priority' },
-      ],
-      integratedSortingColumnExtensions: [
-        { columnName: 'priority', compare: comparePriority },
-      ],
-      tableColumnExtensions: [
-        { columnName: 'subject', width: 300 },
-      ],
-      rows: generateRows({
-        columnValues: employeeTaskValues,
-        length: 8,
-      }),
-    };
-  }
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={rows}
+        columns={columns}
+      >
+        <SortingState />
+        <IntegratedSorting
+          columnExtensions={integratedSortingColumnExtensions}
+        />
+        <Table
+          columnExtensions={tableColumnExtensions}
+        />
+        <TableHeaderRow showSortingControls />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
+};
 
-  render() {
-    const {
-      rows, columns, integratedSortingColumnExtensions, tableColumnExtensions,
-    } = this.state;
-
-    return (
-      <<%&wrapperTag%><%&wrapperAttributes%>>
-        <Grid
-          rows={rows}
-          columns={columns}
-        >
-          <SortingState />
-          <IntegratedSorting
-            columnExtensions={integratedSortingColumnExtensions}
-          />
-          <Table
-            columnExtensions={tableColumnExtensions}
-          />
-          <TableHeaderRow showSortingControls />
-        </Grid>
-      </<%&wrapperTag%>>
-    );
-  }
-}
+export default Demo;

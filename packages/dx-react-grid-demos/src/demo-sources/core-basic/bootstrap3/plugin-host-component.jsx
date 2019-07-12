@@ -1,30 +1,22 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { PluginHost, Template } from '@devexpress/dx-react-core';
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+const Demo = () => {
+  const [tasks] = useState([
+    { title: 'call mom', done: false },
+    { title: 'send letters to partners', done: false },
+    { title: 'buy milk', done: true },
+    { title: 'rent a car', done: false },
+  ]);
 
-    this.state = {
-      tasks: [
-        { title: 'call mom', done: false },
-        { title: 'send letters to partners', done: false },
-        { title: 'buy milk', done: true },
-        { title: 'rent a car', done: false },
-      ],
-    };
-  }
+  return (
+    <TasksList
+      tasks={tasks}
+    />
+  );
+};
 
-  render() {
-    const { tasks } = this.state;
-
-    return (
-      <TasksList
-        tasks={tasks}
-      />
-    );
-  }
-}
+export default Demo;
 
 const TasksList = ({ tasks }) => (
   <PluginHost>

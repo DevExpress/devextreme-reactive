@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import {
   SortingState,
   IntegratedSorting,
@@ -29,41 +29,33 @@ const SortLabel = ({ onSort, children, direction }) => (
   </button>
 );
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+const Demo = () => {
+  const [columns] = useState([
+    { name: 'name', title: 'Name' },
+    { name: 'sex', title: 'Sex' },
+    { name: 'city', title: 'City' },
+    { name: 'car', title: 'Car' },
+  ]);
+  const [rows] = useState(generateRows({ length: 8 }));
 
-    this.state = {
-      columns: [
-        { name: 'name', title: 'Name' },
-        { name: 'sex', title: 'Sex' },
-        { name: 'city', title: 'City' },
-        { name: 'car', title: 'Car' },
-      ],
-      rows: generateRows({ length: 8 }),
-    };
-  }
+  return (
+    <div className="card">
+      <Grid
+        rows={rows}
+        columns={columns}
+      >
+        <SortingState
+          defaultSorting={[{ columnName: 'city', direction: 'asc' }]}
+        />
+        <IntegratedSorting />
+        <Table />
+        <TableHeaderRow
+          showSortingControls
+          sortLabelComponent={SortLabel}
+        />
+      </Grid>
+    </div>
+  );
+};
 
-  render() {
-    const { rows, columns } = this.state;
-
-    return (
-      <div className="card">
-        <Grid
-          rows={rows}
-          columns={columns}
-        >
-          <SortingState
-            defaultSorting={[{ columnName: 'city', direction: 'asc' }]}
-          />
-          <IntegratedSorting />
-          <Table />
-          <TableHeaderRow
-            showSortingControls
-            sortLabelComponent={SortLabel}
-          />
-        </Grid>
-      </div>
-    );
-  }
-}
+export default Demo;

@@ -1,4 +1,4 @@
-import * as React from 'react';<%&additionalImports%>
+import React, { useState } from 'react';<%&additionalImports%>
 import {
   Grid,
   Table,
@@ -10,40 +10,32 @@ import {
   globalSalesValues,
 } from '../../../demo-data/generator';
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+const Demo = () => {
+  const [columns] = useState([
+    { name: 'region', title: 'Region' },
+    { name: 'sector', title: 'Sector' },
+    { name: 'customer', title: 'Customer' },
+    { name: 'product', title: 'Product' },
+    { name: 'amount', title: 'Sale Amount' },
+  ]);
+  const [rows] = useState(generateRows({ columnValues: globalSalesValues, length: 8 }));
+  const [tableColumnExtensions] = useState([
+    { columnName: 'sector', align: 'center' },
+    { columnName: 'channel', align: 'center' },
+    { columnName: 'amount', align: 'right' },
+  ]);
 
-    this.state = {
-      columns: [
-        { name: 'region', title: 'Region' },
-        { name: 'sector', title: 'Sector' },
-        { name: 'customer', title: 'Customer' },
-        { name: 'product', title: 'Product' },
-        { name: 'amount', title: 'Sale Amount' },
-      ],
-      rows: generateRows({ columnValues: globalSalesValues, length: 8 }),
-      tableColumnExtensions: [
-        { columnName: 'sector', align: 'center' },
-        { columnName: 'channel', align: 'center' },
-        { columnName: 'amount', align: 'right' },
-      ],
-    };
-  }
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={rows}
+        columns={columns}
+      >
+        <Table columnExtensions={tableColumnExtensions} />
+        <TableHeaderRow />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
+};
 
-  render() {
-    const { rows, columns, tableColumnExtensions } = this.state;
-
-    return (
-      <<%&wrapperTag%><%&wrapperAttributes%>>
-        <Grid
-          rows={rows}
-          columns={columns}
-        >
-          <Table columnExtensions={tableColumnExtensions} />
-          <TableHeaderRow />
-        </Grid>
-      </<%&wrapperTag%>>
-    );
-  }
-}
+export default Demo;

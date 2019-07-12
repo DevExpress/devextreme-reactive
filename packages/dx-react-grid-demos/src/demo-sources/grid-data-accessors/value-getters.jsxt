@@ -1,4 +1,4 @@
-import * as React from 'react';<%&additionalImports%>
+import React, { useState } from 'react';<%&additionalImports%>
 import {
   Grid,
   Table,
@@ -10,50 +10,42 @@ import {
   defaultNestedColumnValues,
 } from '../../../demo-data/generator';
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+const Demo = () => {
+  const [columns] = useState([
+    {
+      name: 'firstName',
+      title: 'First Name',
+      getCellValue: row => (row.user ? row.user.firstName : undefined),
+    },
+    {
+      name: 'lastName',
+      title: 'Last Name',
+      getCellValue: row => (row.user ? row.user.lastName : undefined),
+    },
+    {
+      name: 'car',
+      title: 'Car',
+      getCellValue: row => (row.car ? row.car.model : undefined),
+    },
+    { name: 'position', title: 'Position' },
+    { name: 'city', title: 'City' },
+  ]);
+  const [rows] = useState(generateRows({
+    columnValues: { id: ({ index }) => index, ...defaultNestedColumnValues },
+    length: 8,
+  }));
 
-    this.state = {
-      columns: [
-        {
-          name: 'firstName',
-          title: 'First Name',
-          getCellValue: row => (row.user ? row.user.firstName : undefined),
-        },
-        {
-          name: 'lastName',
-          title: 'Last Name',
-          getCellValue: row => (row.user ? row.user.lastName : undefined),
-        },
-        {
-          name: 'car',
-          title: 'Car',
-          getCellValue: row => (row.car ? row.car.model : undefined),
-        },
-        { name: 'position', title: 'Position' },
-        { name: 'city', title: 'City' },
-      ],
-      rows: generateRows({
-        columnValues: { id: ({ index }) => index, ...defaultNestedColumnValues },
-        length: 8,
-      }),
-    };
-  }
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={rows}
+        columns={columns}
+      >
+        <Table />
+        <TableHeaderRow />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
+};
 
-  render() {
-    const { rows, columns } = this.state;
-
-    return (
-      <<%&wrapperTag%><%&wrapperAttributes%>>
-        <Grid
-          rows={rows}
-          columns={columns}
-        >
-          <Table />
-          <TableHeaderRow />
-        </Grid>
-      </<%&wrapperTag%>>
-    );
-  }
-}
+export default Demo;

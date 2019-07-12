@@ -1,4 +1,4 @@
-import * as React from 'react';<%&additionalImports%>
+import React, { useState } from 'react';<%&additionalImports%>
 import {
   GroupingState,
   CustomGrouping,
@@ -18,54 +18,46 @@ import {
 const getChildGroups = groups => groups
   .map(group => ({ key: group.key, childRows: group.items }));
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+const Demo = () => {
+  const [columns] = useState([
+    { name: 'name', title: 'Name' },
+    { name: 'sex', title: 'Sex' },
+    { name: 'city', title: 'City' },
+    { name: 'car', title: 'Car' },
+  ]);
+  const [data] = useState([{
+    key: 'Male',
+    items: generateRows({
+      columnValues: Object.assign({}, defaultColumnValues, { sex: ['Male'] }),
+      length: 5,
+    }),
+  }, {
+    key: 'Female',
+    items: generateRows({
+      columnValues: Object.assign({}, defaultColumnValues, { sex: ['Female'] }),
+      length: 5,
+    }),
+  }]);
+  const [grouping] = useState([{ columnName: 'sex' }]);
 
-    this.state = {
-      columns: [
-        { name: 'name', title: 'Name' },
-        { name: 'sex', title: 'Sex' },
-        { name: 'city', title: 'City' },
-        { name: 'car', title: 'Car' },
-      ],
-      grouping: [{ columnName: 'sex' }],
-      data: [{
-        key: 'Male',
-        items: generateRows({
-          columnValues: Object.assign({}, defaultColumnValues, { sex: ['Male'] }),
-          length: 5,
-        }),
-      }, {
-        key: 'Female',
-        items: generateRows({
-          columnValues: Object.assign({}, defaultColumnValues, { sex: ['Female'] }),
-          length: 5,
-        }),
-      }],
-    };
-  }
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={data}
+        columns={columns}
+      >
+        <GroupingState
+          grouping={grouping}
+        />
+        <CustomGrouping
+          getChildGroups={getChildGroups}
+        />
+        <Table />
+        <TableHeaderRow />
+        <TableGroupRow />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
+};
 
-  render() {
-    const { data, columns, grouping } = this.state;
-
-    return (
-      <<%&wrapperTag%><%&wrapperAttributes%>>
-        <Grid
-          rows={data}
-          columns={columns}
-        >
-          <GroupingState
-            grouping={grouping}
-          />
-          <CustomGrouping
-            getChildGroups={getChildGroups}
-          />
-          <Table />
-          <TableHeaderRow />
-          <TableGroupRow />
-        </Grid>
-      </<%&wrapperTag%>>
-    );
-  }
-}
+export default Demo;

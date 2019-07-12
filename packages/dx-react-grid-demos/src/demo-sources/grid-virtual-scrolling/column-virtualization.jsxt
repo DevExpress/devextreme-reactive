@@ -1,4 +1,4 @@
-import * as React from 'react';<%&additionalImports%>
+import React, { useState } from 'react';<%&additionalImports%>
 import {
   Grid,
   VirtualTable,
@@ -7,32 +7,24 @@ import {
 
 const getRowId = row => row.id;
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+const Demo = () => {
+  const [columns] = useState(Array.from({ length: 10000 })
+    .map((item, index) => ({ name: `${index}`, title: `Column ${index}`, getCellValue: row => `[${row.id};${index}]` })));
+  const [rows] = useState(Array.from({ length: 10000 })
+    .map((item, index) => ({ id: index })));
 
-    this.state = {
-      columns: Array.from({ length: 10000 })
-        .map((item, index) => ({ name: `${index}`, title: `Column ${index}`, getCellValue: row => `[${row.id};${index}]` })),
-      rows: Array.from({ length: 10000 })
-        .map((item, index) => ({ id: index })),
-    };
-  }
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={rows}
+        columns={columns}
+        getRowId={getRowId}
+      >
+        <VirtualTable />
+        <TableHeaderRow />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
+};
 
-  render() {
-    const { rows, columns } = this.state;
-
-    return (
-      <<%&wrapperTag%><%&wrapperAttributes%>>
-        <Grid
-          rows={rows}
-          columns={columns}
-          getRowId={getRowId}
-        >
-          <VirtualTable />
-          <TableHeaderRow />
-        </Grid>
-      </<%&wrapperTag%>>
-    );
-  }
-}
+export default Demo;

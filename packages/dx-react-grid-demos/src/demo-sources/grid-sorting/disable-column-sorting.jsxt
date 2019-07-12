@@ -1,4 +1,4 @@
-import React from 'react';<%&additionalImports%>
+import React, { useState } from 'react';<%&additionalImports%>
 import {
   SortingState,
   IntegratedSorting,
@@ -11,50 +11,37 @@ import {
 
 import { generateRows } from '../../../demo-data/generator';
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+const Demo = () => {
+  const [columns] = useState([
+    { name: 'name', title: 'Name' },
+    { name: 'sex', title: 'Sex' },
+    { name: 'city', title: 'City' },
+    { name: 'car', title: 'Car' },
+  ]);
+  const [rows] = useState(generateRows({ length: 8 }));
+  const [defaultSorting] = useState([
+    { columnName: 'sex', direction: 'desc' },
+  ]);
+  const [sortingStateColumnExtensions] = useState([
+    { columnName: 'sex', sortingEnabled: false },
+  ]);
 
-    this.state = {
-      columns: [
-        { name: 'name', title: 'Name' },
-        { name: 'sex', title: 'Sex' },
-        { name: 'city', title: 'City' },
-        { name: 'car', title: 'Car' },
-      ],
-      rows: generateRows({ length: 8 }),
-      defaultSorting: [
-        { columnName: 'sex', direction: 'desc' },
-      ],
-      sortingStateColumnExtensions: [
-        { columnName: 'sex', sortingEnabled: false },
-      ],
-    };
-  }
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={rows}
+        columns={columns}
+      >
+        <SortingState
+          defaultSorting={defaultSorting}
+          columnExtensions={sortingStateColumnExtensions}
+        />
+        <IntegratedSorting />
+        <Table />
+        <TableHeaderRow showSortingControls />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
+};
 
-  render() {
-    const {
-      rows,
-      columns,
-      defaultSorting,
-      sortingStateColumnExtensions,
-    } = this.state;
-
-    return (
-      <<%&wrapperTag%><%&wrapperAttributes%>>
-        <Grid
-          rows={rows}
-          columns={columns}
-        >
-          <SortingState
-            defaultSorting={defaultSorting}
-            columnExtensions={sortingStateColumnExtensions}
-          />
-          <IntegratedSorting />
-          <Table />
-          <TableHeaderRow showSortingControls />
-        </Grid>
-      </<%&wrapperTag%>>
-    );
-  }
-}
+export default Demo;

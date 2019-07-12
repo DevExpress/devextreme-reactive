@@ -1,4 +1,4 @@
-import * as React from 'react';<%&additionalImports%>
+import React, { useState, useEffect } from 'react';<%&additionalImports%>
 import { SearchState } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -12,42 +12,23 @@ import { Loading } from '../../../theme-sources/<%&themeName%>/components/loadin
 
 const URL = 'https://js.devexpress.com/Demos/Mvc/api/DataGridWebApi/Orders';
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+const Demo = () => {
+  const [columns] = useState([
+    { name: 'ShipCountry', title: 'Country' },
+    { name: 'ShipCity', title: 'City' },
+    { name: 'ShipAddress', title: 'Address' },
+  ]);
+  const [rows, setRows] = useState([]);
+  const [loading, setLoading] = useState();
+  const [searchValue, setSearchValue] = useState('');
+  const [lastQuery, setLastQuery] = useState();
 
-    this.state = {
-      columns: [
-        { name: 'ShipCountry', title: 'Country' },
-        { name: 'ShipCity', title: 'City' },
-        { name: 'ShipAddress', title: 'Address' },
-      ],
-      rows: [],
-      loading: true,
-      searchValue: '',
-    };
+  const changeSearchValue = (value) => {
+    setLoading(true);
+    setSearchValue(value);
+  };
 
-    this.changeSearchValue = this.changeSearchValue.bind(this);
-  }
-
-  componentDidMount() {
-    this.loadData();
-  }
-
-  componentDidUpdate() {
-    this.loadData();
-  }
-
-  changeSearchValue(searchValue) {
-    this.setState({
-      loading: true,
-      searchValue,
-    });
-  }
-
-  queryString() {
-    const { searchValue, columns } = this.state;
-
+  const setQueryString = () => {
     let filter = columns.reduce((acc, { name }) => {
       acc.push(`["${name}", "contains", "${encodeURIComponent(searchValue)}"]`);
       return acc;
@@ -58,47 +39,45 @@ export default class Demo extends React.PureComponent {
     }
 
     return `${URL}?filter=${filter}`;
-  }
+  };
 
-  loadData() {
-    const queryString = this.queryString();
-    if (queryString === this.lastQuery) {
-      this.setState({ loading: false });
+  const loadData = () => {
+    const queryString = setQueryString();
+    if (queryString === lastQuery) {
+      setLoading(false);
       return;
     }
 
     fetch(queryString, { mode: 'cors' })
       .then(response => response.json())
       .then((orders) => {
-        this.setState({
-          rows: orders.data,
-          loading: false,
-        });
+        setRows(orders.data);
+        setLoading(false);
       })
-      .catch(() => this.setState({ loading: false }));
+      .catch(() => setLoading(false));
 
-    this.lastQuery = queryString;
-  }
+    setLastQuery(queryString);
+  };
 
-  render() {
-    const { rows, columns, loading } = this.state;
+  useEffect(() => loadData());
 
-    return (
-      <<%&wrapperTag%><%&wrapperAttributes%> style={{ position: 'relative' }}>
-        <Grid
-          rows={rows}
-          columns={columns}
-        >
-          <SearchState
-            onValueChange={this.changeSearchValue}
-          />
-          <VirtualTable />
-          <TableHeaderRow />
-          <Toolbar />
-          <SearchPanel />
-        </Grid>
-        {loading && <Loading />}
-      </<%&wrapperTag%>>
-    );
-  }
-}
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%> style={{ position: 'relative' }}>
+      <Grid
+        rows={rows}
+        columns={columns}
+      >
+        <SearchState
+          onValueChange={changeSearchValue}
+        />
+        <VirtualTable />
+        <TableHeaderRow />
+        <Toolbar />
+        <SearchPanel />
+      </Grid>
+      {loading && <Loading />}
+    </<%&wrapperTag%>>
+  );
+};
+
+export default Demo;

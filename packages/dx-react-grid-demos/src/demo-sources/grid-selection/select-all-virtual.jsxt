@@ -1,4 +1,4 @@
-import * as React from 'react';<%&additionalImports%>
+import React, { useState } from 'react';<%&additionalImports%>
 import {
   SelectionState,
   IntegratedSelection,
@@ -12,50 +12,42 @@ import {
 
 import { generateRows } from '../../../demo-data/generator';
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+const Demo = () => {
+  const [columns] = useState([
+    { name: 'name', title: 'Name' },
+    { name: 'sex', title: 'Sex' },
+    { name: 'city', title: 'City' },
+    { name: 'car', title: 'Car' },
+  ]);
+  const [rows] = useState(generateRows({ length: 1000 }));
+  const [selection, setSelection] = useState([]);
 
-    this.state = {
-      columns: [
-        { name: 'name', title: 'Name' },
-        { name: 'sex', title: 'Sex' },
-        { name: 'city', title: 'City' },
-        { name: 'car', title: 'Car' },
-      ],
-      rows: generateRows({ length: 1000 }),
-      selection: [],
-    };
+  const changeSelection = value => setSelection(value);
 
-    this.changeSelection = selection => this.setState({ selection });
-  }
+  return (
+    <div>
+      <span>
+        Total rows selected:
+        {' '}
+        {selection.length}
+      </span>
+      <<%&wrapperTag%><%&wrapperAttributes%>>
+        <Grid
+          rows={rows}
+          columns={columns}
+        >
+          <SelectionState
+            selection={selection}
+            onSelectionChange={changeSelection}
+          />
+          <IntegratedSelection />
+          <VirtualTable />
+          <TableHeaderRow />
+          <TableSelection showSelectAll />
+        </Grid>
+      </<%&wrapperTag%>>
+    </div>
+  );
+};
 
-  render() {
-    const { rows, columns, selection } = this.state;
-
-    return (
-      <div>
-        <span>
-          Total rows selected:
-          {' '}
-          {selection.length}
-        </span>
-        <<%&wrapperTag%><%&wrapperAttributes%>>
-          <Grid
-            rows={rows}
-            columns={columns}
-          >
-            <SelectionState
-              selection={selection}
-              onSelectionChange={this.changeSelection}
-            />
-            <IntegratedSelection />
-            <VirtualTable />
-            <TableHeaderRow />
-            <TableSelection showSelectAll />
-          </Grid>
-        </<%&wrapperTag%>>
-      </div>
-    );
-  }
-}
+export default Demo;

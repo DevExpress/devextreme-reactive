@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Paper from '@material-ui/core/Paper';
 import {
   RowDetailState,
@@ -136,60 +136,50 @@ const gridDetailContainerBase = data => ({ row, classes }) => {
 };
 const gridDetailContainer = data => withStyles(detailContainerStyles, { name: 'ChartContainer' })(gridDetailContainerBase(data));
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      columns: [
-        { name: 'region', title: 'Region' },
-        { name: 'count2013', title: '2013' },
-        { name: 'count2014', title: '2014' },
-        { name: 'count2015', title: '2015' },
+const Demo = () => {
+  const [columns] = useState([
+    { name: 'region', title: 'Region' },
+    { name: 'count2013', title: '2013' },
+    { name: 'count2014', title: '2014' },
+    { name: 'count2015', title: '2015' },
+  ]);
+  const [rows] = useState(regionsCount);
+  const [data] = useState(citiesCount);
+  const [columnBands] = useState([
+    {
+      title: 'Year',
+      children: [
+        { columnName: 'count2013' },
+        { columnName: 'count2014' },
+        { columnName: 'count2015' },
       ],
-      rows: regionsCount,
-      data: citiesCount,
-      columnBands: [
-        {
-          title: 'Year',
-          children: [
-            { columnName: 'count2013' },
-            { columnName: 'count2014' },
-            { columnName: 'count2015' },
-          ],
-        },
-      ],
-      currencyColumns: ['count2013', 'count2014', 'count2015'],
-    };
-  }
+    },
+  ]);
+  const [currencyColumns] = useState(['count2013', 'count2014', 'count2015']);
 
-  render() {
-    const {
-      columns, columnBands, currencyColumns, rows, data,
-    } = this.state;
+  return (
+    <Paper>
+      <Grid
+        rows={rows}
+        columns={columns}
+      >
+        <CurrencyTypeProvider
+          for={currencyColumns}
+        />
+        <RowDetailState
+          defaultExpandedRowIds={[1]}
+        />
+        <Table />
+        <TableHeaderRow />
+        <TableRowDetail
+          contentComponent={gridDetailContainer(data)}
+        />
+        <TableBandHeader
+          columnBands={columnBands}
+        />
+      </Grid>
+    </Paper>
+  );
+};
 
-    return (
-      <Paper>
-        <Grid
-          rows={rows}
-          columns={columns}
-        >
-          <CurrencyTypeProvider
-            for={currencyColumns}
-          />
-          <RowDetailState
-            defaultExpandedRowIds={[1]}
-          />
-          <Table />
-          <TableHeaderRow />
-          <TableRowDetail
-            contentComponent={gridDetailContainer(data)}
-          />
-          <TableBandHeader
-            columnBands={columnBands}
-          />
-        </Grid>
-      </Paper>
-    );
-  }
-}
+export default Demo;

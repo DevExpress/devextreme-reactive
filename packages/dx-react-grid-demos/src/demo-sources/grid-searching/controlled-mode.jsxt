@@ -1,4 +1,4 @@
-import * as React from 'react';<%&additionalImports%>
+import React, { useState } from 'react';<%&additionalImports%>
 import {
   SearchState,
   IntegratedFiltering,
@@ -13,44 +13,36 @@ import {
 
 import { generateRows } from '../../../demo-data/generator';
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+const Demo = () => {
+  const [columns] = useState([
+    { name: 'name', title: 'Name' },
+    { name: 'sex', title: 'Sex' },
+    { name: 'city', title: 'City' },
+    { name: 'car', title: 'Car' },
+  ]);
+  const [rows] = useState(generateRows({ length: 8 }));
+  const [searchValue, setSearchState] = useState('Female');
 
-    this.state = {
-      columns: [
-        { name: 'name', title: 'Name' },
-        { name: 'sex', title: 'Sex' },
-        { name: 'city', title: 'City' },
-        { name: 'car', title: 'Car' },
-      ],
-      rows: generateRows({ length: 8 }),
-      searchValue: 'Female',
-    };
+  const changeSearchValue = value => setSearchState(value);
 
-    this.changeSearchValue = value => this.setState({ searchValue: value });
-  }
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={rows}
+        columns={columns}
+      >
+        <SearchState
+          value={searchValue}
+          onValueChange={changeSearchValue}
+        />
+        <IntegratedFiltering />
+        <Table />
+        <TableHeaderRow />
+        <Toolbar />
+        <SearchPanel />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
+};
 
-  render() {
-    const { rows, columns, searchValue } = this.state;
-
-    return (
-      <<%&wrapperTag%><%&wrapperAttributes%>>
-        <Grid
-          rows={rows}
-          columns={columns}
-        >
-          <SearchState
-            value={searchValue}
-            onValueChange={this.changeSearchValue}
-          />
-          <IntegratedFiltering />
-          <Table />
-          <TableHeaderRow />
-          <Toolbar />
-          <SearchPanel />
-        </Grid>
-      </<%&wrapperTag%>>
-    );
-  }
-}
+export default Demo;

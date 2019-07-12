@@ -1,4 +1,4 @@
-import * as React from 'react';<%&additionalImports%>
+import React, { useState } from 'react';<%&additionalImports%>
 import {
   Grid,
   Table,
@@ -8,48 +8,38 @@ import {
 
 import { generateRows } from '../../../demo-data/generator';
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+const Demo = () => {
+  const [columns] = useState([
+    { name: 'name', title: 'Name' },
+    { name: 'sex', title: 'Sex' },
+    { name: 'city', title: 'City' },
+    { name: 'car', title: 'Car' },
+  ]);
+  const [rows] = useState(generateRows({ length: 6 }));
+  const [columnWidths, setColumnWidths] = useState([
+    { columnName: 'name', width: 180 },
+    { columnName: 'sex', width: 180 },
+    { columnName: 'city', width: 180 },
+    { columnName: 'car', width: 240 },
+  ]);
 
-    this.state = {
-      columns: [
-        { name: 'name', title: 'Name' },
-        { name: 'sex', title: 'Sex' },
-        { name: 'city', title: 'City' },
-        { name: 'car', title: 'Car' },
-      ],
-      columnWidths: [
-        { columnName: 'name', width: 180 },
-        { columnName: 'sex', width: 180 },
-        { columnName: 'city', width: 180 },
-        { columnName: 'car', width: 240 },
-      ],
-      rows: generateRows({ length: 6 }),
-    };
+  const changeColumnWidths = value => setColumnWidths(value);
 
-    this.changeColumnWidths = (columnWidths) => {
-      this.setState({ columnWidths });
-    };
-  }
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={rows}
+        columns={columns}
+      >
+        <Table />
+        <TableColumnResizing
+          columnWidths={columnWidths}
+          onColumnWidthsChange={changeColumnWidths}
+        />
+        <TableHeaderRow />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
+};
 
-  render() {
-    const { rows, columns, columnWidths } = this.state;
-
-    return (
-      <<%&wrapperTag%><%&wrapperAttributes%>>
-        <Grid
-          rows={rows}
-          columns={columns}
-        >
-          <Table />
-          <TableColumnResizing
-            columnWidths={columnWidths}
-            onColumnWidthsChange={this.changeColumnWidths}
-          />
-          <TableHeaderRow />
-        </Grid>
-      </<%&wrapperTag%>>
-    );
-  }
-}
+export default Demo;

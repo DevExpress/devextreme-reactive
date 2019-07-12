@@ -1,4 +1,4 @@
-import * as React from 'react';<%&additionalImports%>
+import React, { useState } from 'react';<%&additionalImports%>
 import {
   PagingState,
   IntegratedPaging,
@@ -12,43 +12,35 @@ import {
 
 import { generateRows } from '../../../demo-data/generator';
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+const Demo = () => {
+  const [columns] = useState([
+    { name: 'name', title: 'Name' },
+    { name: 'sex', title: 'Sex' },
+    { name: 'city', title: 'City' },
+    { name: 'car', title: 'Car' },
+  ]);
+  const [rows] = useState(generateRows({ length: 60 }));
+  const [pageSizes] = useState([5, 10, 15, 0]);
 
-    this.state = {
-      columns: [
-        { name: 'name', title: 'Name' },
-        { name: 'sex', title: 'Sex' },
-        { name: 'city', title: 'City' },
-        { name: 'car', title: 'Car' },
-      ],
-      rows: generateRows({ length: 60 }),
-      pageSizes: [5, 10, 15, 0],
-    };
-  }
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={rows}
+        columns={columns}
+      >
+        <PagingState
+          defaultCurrentPage={0}
+          defaultPageSize={5}
+        />
+        <IntegratedPaging />
+        <Table />
+        <TableHeaderRow />
+        <PagingPanel
+          pageSizes={pageSizes}
+        />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
+};
 
-  render() {
-    const { rows, columns, pageSizes } = this.state;
-
-    return (
-      <<%&wrapperTag%><%&wrapperAttributes%>>
-        <Grid
-          rows={rows}
-          columns={columns}
-        >
-          <PagingState
-            defaultCurrentPage={0}
-            defaultPageSize={5}
-          />
-          <IntegratedPaging />
-          <Table />
-          <TableHeaderRow />
-          <PagingPanel
-            pageSizes={pageSizes}
-          />
-        </Grid>
-      </<%&wrapperTag%>>
-    );
-  }
-}
+export default Demo;

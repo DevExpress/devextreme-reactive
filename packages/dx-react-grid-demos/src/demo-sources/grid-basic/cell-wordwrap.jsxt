@@ -1,4 +1,4 @@
-import * as React from 'react';<%&additionalImports%>
+import React, { useState } from 'react';<%&additionalImports%>
 import {
   Grid,
   Table,
@@ -10,38 +10,30 @@ import {
   employeeTaskValues,
 } from '../../../demo-data/generator';
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+const Demo = () => {
+  const [columns] = useState([
+    { name: 'subject', title: 'Subject (with enabled word wrap)' },
+    { name: 'startDate', title: 'Start Date' },
+    { name: 'dueDate', title: 'Due Date' },
+    { name: 'priority', title: 'Priority' },
+    { name: 'status', title: 'Status' },
+  ]);
+  const [rows] = useState(generateRows({ columnValues: employeeTaskValues, length: 8 }));
+  const [tableColumnExtensions] = useState([
+    { columnName: 'subject', wordWrapEnabled: true },
+  ]);
 
-    this.state = {
-      columns: [
-        { name: 'subject', title: 'Subject (with enabled word wrap)' },
-        { name: 'startDate', title: 'Start Date' },
-        { name: 'dueDate', title: 'Due Date' },
-        { name: 'priority', title: 'Priority' },
-        { name: 'status', title: 'Status' },
-      ],
-      rows: generateRows({ columnValues: employeeTaskValues, length: 8 }),
-      tableColumnExtensions: [
-        { columnName: 'subject', wordWrapEnabled: true },
-      ],
-    };
-  }
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={rows}
+        columns={columns}
+      >
+        <Table columnExtensions={tableColumnExtensions} />
+        <TableHeaderRow />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
+};
 
-  render() {
-    const { rows, columns, tableColumnExtensions } = this.state;
-
-    return (
-      <<%&wrapperTag%><%&wrapperAttributes%>>
-        <Grid
-          rows={rows}
-          columns={columns}
-        >
-          <Table columnExtensions={tableColumnExtensions} />
-          <TableHeaderRow />
-        </Grid>
-      </<%&wrapperTag%>>
-    );
-  }
-}
+export default Demo;

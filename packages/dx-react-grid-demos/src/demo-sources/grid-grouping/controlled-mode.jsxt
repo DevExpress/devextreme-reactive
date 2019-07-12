@@ -1,4 +1,4 @@
-import * as React from 'react';<%&additionalImports%>
+import React, { useState } from 'react';<%&additionalImports%>
 import {
   GroupingState,
   IntegratedGrouping,
@@ -15,46 +15,38 @@ import {
 
 import { generateRows } from '../../../demo-data/generator';
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+const Demo = () => {
+  const [columns] = useState([
+    { name: 'name', title: 'Name' },
+    { name: 'sex', title: 'Sex' },
+    { name: 'city', title: 'City' },
+    { name: 'car', title: 'Car' },
+  ]);
+  const [rows] = useState(generateRows({ length: 8 }));
+  const [grouping, setGrouping] = useState([{ columnName: 'city' }]);
 
-    this.state = {
-      columns: [
-        { name: 'name', title: 'Name' },
-        { name: 'sex', title: 'Sex' },
-        { name: 'city', title: 'City' },
-        { name: 'car', title: 'Car' },
-      ],
-      rows: generateRows({ length: 8 }),
-      grouping: [{ columnName: 'city' }],
-    };
+  const changeGrouping = value => setGrouping(value);
 
-    this.changeGrouping = grouping => this.setState({ grouping });
-  }
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={rows}
+        columns={columns}
+      >
+        <DragDropProvider />
+        <GroupingState
+          grouping={grouping}
+          onGroupingChange={changeGrouping}
+        />
+        <IntegratedGrouping />
+        <Table />
+        <TableHeaderRow showGroupingControls />
+        <TableGroupRow />
+        <Toolbar />
+        <GroupingPanel showGroupingControls />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
+};
 
-  render() {
-    const { rows, columns, grouping } = this.state;
-
-    return (
-      <<%&wrapperTag%><%&wrapperAttributes%>>
-        <Grid
-          rows={rows}
-          columns={columns}
-        >
-          <DragDropProvider />
-          <GroupingState
-            grouping={grouping}
-            onGroupingChange={this.changeGrouping}
-          />
-          <IntegratedGrouping />
-          <Table />
-          <TableHeaderRow showGroupingControls />
-          <TableGroupRow />
-          <Toolbar />
-          <GroupingPanel showGroupingControls />
-        </Grid>
-      </<%&wrapperTag%>>
-    );
-  }
-}
+export default Demo;

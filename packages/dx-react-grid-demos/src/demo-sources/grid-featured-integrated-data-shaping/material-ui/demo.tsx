@@ -3,7 +3,6 @@ import Paper from '@material-ui/core/Paper';
 import Input from '@material-ui/core/Input';
 import { createStyles, withStyles, WithStyles, Theme } from '@material-ui/core/styles';
 import {
-  Column,
   FilteringState, GroupingState,
   IntegratedFiltering, IntegratedGrouping, IntegratedPaging, IntegratedSelection, IntegratedSorting,
   PagingState, SelectionState, SortingState, DataTypeProvider, DataTypeProviderProps,
@@ -28,13 +27,6 @@ interface ISale {
   amount: string,
   saleDate: string,
   customer: string,
-}
-
-interface IGridState {
-  columns: Column[],
-  rows: ISale[],
-  pageSizes: number[],
-  currencyColumns: string[],
 }
 
 const sales: ISale[] = generateRows({ columnValues: globalSalesValues, length: 1000 });
@@ -114,75 +106,65 @@ const CurrencyTypeProvider: React.ComponentType<DataTypeProviderProps> =
     />
 );
 
-export default class Demo extends React.Component<object, IGridState> {
-  constructor(props) {
-    super(props);
+const Demo: React.FC<object> = () => {
+  const [columns] = React.useState([
+    { name: 'product', title: 'Product' },
+    { name: 'region', title: 'Region' },
+    { name: 'amount', title: 'Sale Amount' },
+    { name: 'saleDate', title: 'Sale Date' },
+    { name: 'customer', title: 'Customer' },
+  ]);
+  const [rows] = React.useState(sales);
+  const [currencyColumns] = React.useState(['amount']);
+  const [pageSizes] = React.useState([5, 10, 15]);
 
-    this.state = {
-      columns: [
-        { name: 'product', title: 'Product' },
-        { name: 'region', title: 'Region' },
-        { name: 'amount', title: 'Sale Amount' },
-        { name: 'saleDate', title: 'Sale Date' },
-        { name: 'customer', title: 'Customer' },
-      ],
-      currencyColumns: ['amount'],
-      pageSizes: [5, 10, 15],
-      rows: sales,
-    };
-  }
-  public render(): React.ReactNode {
-    const {
-      rows, columns, pageSizes,
-      currencyColumns,
-    } = this.state;
+  return (
+    <Paper>
+      <Grid
+        rows={rows}
+        columns={columns}
+      >
+        <FilteringState
+          defaultFilters={[{ columnName: 'saleDate', value: '2016-02' }]}
+        />
+        <SortingState
+          defaultSorting={[
+            { columnName: 'product', direction: 'asc' },
+            { columnName: 'saleDate', direction: 'asc' },
+          ]}
+        />
 
-    return (
-      <Paper>
-        <Grid
-          rows={rows}
-          columns={columns}
-        >
-          <FilteringState
-            defaultFilters={[{ columnName: 'saleDate', value: '2016-02' }]}
-          />
-          <SortingState
-            defaultSorting={[
-              { columnName: 'product', direction: 'asc' },
-              { columnName: 'saleDate', direction: 'asc' },
-            ]}
-          />
+        <SelectionState />
 
-          <SelectionState />
+        <GroupingState
+          defaultGrouping={[{ columnName: 'product' }]}
+          defaultExpandedGroups={['EnviroCare Max']}
+        />
+        <PagingState />
 
-          <GroupingState
-            defaultGrouping={[{ columnName: 'product' }]}
-            defaultExpandedGroups={['EnviroCare Max']}
-          />
-          <PagingState />
+        <IntegratedGrouping />
+        <IntegratedFiltering />
+        <IntegratedSorting />
+        <IntegratedPaging />
+        <IntegratedSelection />
 
-          <IntegratedGrouping />
-          <IntegratedFiltering />
-          <IntegratedSorting />
-          <IntegratedPaging />
-          <IntegratedSelection />
+        <CurrencyTypeProvider for={currencyColumns} />
 
-          <CurrencyTypeProvider for={currencyColumns} />
+        <DragDropProvider />
 
-          <DragDropProvider />
+        <Table />
+        <TableSelection showSelectAll={true} />
 
-          <Table />
-          <TableSelection showSelectAll={true} />
+        <TableHeaderRow showSortingControls={true} />
+        <TableFilterRow showFilterSelector={true} />
+        <PagingPanel pageSizes={pageSizes} />
 
-          <TableHeaderRow showSortingControls={true} />
-          <TableFilterRow showFilterSelector={true} />
-          <PagingPanel pageSizes={pageSizes} />
+        <TableGroupRow />
+        <Toolbar />
+        <GroupingPanel showSortingControls={true} />
+      </Grid>
+    </Paper>
+  );
+};
 
-          <TableGroupRow />
-          <Toolbar />
-          <GroupingPanel showSortingControls={true} />
-        </Grid>
-      </Paper>
-    );
-  }
-}
+export default Demo;

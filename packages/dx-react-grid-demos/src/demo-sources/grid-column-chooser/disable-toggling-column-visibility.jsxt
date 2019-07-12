@@ -1,4 +1,4 @@
-import * as React from 'react';<%&additionalImports%>
+import React, { useState } from 'react';<%&additionalImports%>
 import {
   Grid,
   Table,
@@ -10,48 +10,36 @@ import {
 
 import { generateRows } from '../../../demo-data/generator';
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+const Demo = () => {
+  const [columns] = useState([
+    { name: 'name', title: 'Name' },
+    { name: 'sex', title: 'Sex' },
+    { name: 'city', title: 'City' },
+    { name: 'car', title: 'Car' },
+  ]);
+  const [rows] = useState(generateRows({ length: 6 }));
+  const [defaultHiddenColumnNames] = useState(['sex', 'car']);
+  const [tableColumnVisibilityColumnExtensions] = useState([
+    { columnName: 'city', togglingEnabled: false },
+  ]);
 
-    this.state = {
-      columns: [
-        { name: 'name', title: 'Name' },
-        { name: 'sex', title: 'Sex' },
-        { name: 'city', title: 'City' },
-        { name: 'car', title: 'Car' },
-      ],
-      rows: generateRows({ length: 6 }),
-      defaultHiddenColumnNames: ['sex', 'car'],
-      tableColumnVisibilityColumnExtensions: [
-        { columnName: 'city', togglingEnabled: false },
-      ],
-    };
-  }
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={rows}
+        columns={columns}
+      >
+        <Table />
+        <TableHeaderRow />
+        <TableColumnVisibility
+          defaultHiddenColumnNames={defaultHiddenColumnNames}
+          columnExtensions={tableColumnVisibilityColumnExtensions}
+        />
+        <Toolbar />
+        <ColumnChooser />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
+};
 
-  render() {
-    const {
-      columns,
-      rows,
-      defaultHiddenColumnNames,
-      tableColumnVisibilityColumnExtensions,
-    } = this.state;
-    return (
-      <<%&wrapperTag%><%&wrapperAttributes%>>
-        <Grid
-          rows={rows}
-          columns={columns}
-        >
-          <Table />
-          <TableHeaderRow />
-          <TableColumnVisibility
-            defaultHiddenColumnNames={defaultHiddenColumnNames}
-            columnExtensions={tableColumnVisibilityColumnExtensions}
-          />
-          <Toolbar />
-          <ColumnChooser />
-        </Grid>
-      </<%&wrapperTag%>>
-    );
-  }
-}
+export default Demo;

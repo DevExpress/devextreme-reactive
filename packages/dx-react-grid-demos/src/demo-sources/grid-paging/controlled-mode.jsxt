@@ -1,4 +1,4 @@
-import * as React from 'react';<%&additionalImports%>
+import React, { useState } from 'react';<%&additionalImports%>
 import {
   PagingState,
   IntegratedPaging,
@@ -12,52 +12,42 @@ import {
 
 import { generateRows } from '../../../demo-data/generator';
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+const Demo = () => {
+  const [columns] = useState([
+    { name: 'name', title: 'Name' },
+    { name: 'sex', title: 'Sex' },
+    { name: 'city', title: 'City' },
+    { name: 'car', title: 'Car' },
+  ]);
+  const [rows] = useState(generateRows({ length: 8 }));
+  const [currentPage, setCurrentPage] = useState(0);
+  const [pageSize, setPageSize] = useState(5);
+  const [pageSizes] = useState([5, 10, 15]);
 
-    this.state = {
-      columns: [
-        { name: 'name', title: 'Name' },
-        { name: 'sex', title: 'Sex' },
-        { name: 'city', title: 'City' },
-        { name: 'car', title: 'Car' },
-      ],
-      rows: generateRows({ length: 8 }),
-      currentPage: 0,
-      pageSize: 5,
-      pageSizes: [5, 10, 15],
-    };
+  const changeCurrentPage = value => setCurrentPage(value);
+  const changePageSize = value => setPageSize(value);
 
-    this.changeCurrentPage = currentPage => this.setState({ currentPage });
-    this.changePageSize = pageSize => this.setState({ pageSize });
-  }
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={rows}
+        columns={columns}
+      >
+        <PagingState
+          currentPage={currentPage}
+          onCurrentPageChange={changeCurrentPage}
+          pageSize={pageSize}
+          onPageSizeChange={changePageSize}
+        />
+        <IntegratedPaging />
+        <Table />
+        <TableHeaderRow />
+        <PagingPanel
+          pageSizes={pageSizes}
+        />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
+};
 
-  render() {
-    const {
-      rows, columns, pageSize, pageSizes, currentPage,
-    } = this.state;
-
-    return (
-      <<%&wrapperTag%><%&wrapperAttributes%>>
-        <Grid
-          rows={rows}
-          columns={columns}
-        >
-          <PagingState
-            currentPage={currentPage}
-            onCurrentPageChange={this.changeCurrentPage}
-            pageSize={pageSize}
-            onPageSizeChange={this.changePageSize}
-          />
-          <IntegratedPaging />
-          <Table />
-          <TableHeaderRow />
-          <PagingPanel
-            pageSizes={pageSizes}
-          />
-        </Grid>
-      </<%&wrapperTag%>>
-    );
-  }
-}
+export default Demo;

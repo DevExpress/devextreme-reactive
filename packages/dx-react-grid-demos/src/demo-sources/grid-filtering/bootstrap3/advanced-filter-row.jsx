@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import * as PropTypes from 'prop-types';
 import { FilteringState, IntegratedFiltering, DataTypeProvider } from '@devexpress/dx-react-grid';
 import {
@@ -44,71 +44,67 @@ CurrencyEditor.defaultProps = {
   value: undefined,
 };
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+const Demo = () => {
+  const [columns] = useState([
+    { name: 'customer', title: 'Customer' },
+    { name: 'product', title: 'Product' },
+    { name: 'saleDate', title: 'Sale Date' },
+    { name: 'amount', title: 'Sale Amount' },
+  ]);
+  const [rows] = useState(generateRows({ columnValues: globalSalesValues, length: 8 }));
+  const [dateColumns] = useState(['saleDate']);
+  const [dateFilterOperations] = useState(['month', 'contains', 'startsWith', 'endsWith']);
+  const [currencyColumns] = useState(['amount']);
+  const [currencyFilterOperations] = useState([
+    'equal',
+    'notEqual',
+    'greaterThan',
+    'greaterThanOrEqual',
+    'lessThan',
+    'lessThanOrEqual',
+  ]);
+  const [filteringColumnExtensions] = useState([
+    {
+      columnName: 'saleDate',
+      predicate: (value, filter, row) => {
+        if (!filter.value.length) return true;
+        if (filter && filter.operation === 'month') {
+          const month = parseInt(value.split('-')[1], 10);
+          return month === parseInt(filter.value, 10);
+        }
+        return IntegratedFiltering.defaultPredicate(value, filter, row);
+      },
+    },
+  ]);
 
-    this.state = {
-      columns: [
-        { name: 'customer', title: 'Customer' },
-        { name: 'product', title: 'Product' },
-        { name: 'saleDate', title: 'Sale Date' },
-        { name: 'amount', title: 'Sale Amount' },
-      ],
-      rows: generateRows({ columnValues: globalSalesValues, length: 8 }),
-      dateColumns: ['saleDate'],
-      dateFilterOperations: ['month', 'contains', 'startsWith', 'endsWith'],
-      currencyColumns: ['amount'],
-      currencyFilterOperations: ['equal', 'notEqual', 'greaterThan', 'greaterThanOrEqual', 'lessThan', 'lessThanOrEqual'],
-      filteringColumnExtensions: [
-        {
-          columnName: 'saleDate',
-          predicate: (value, filter, row) => {
-            if (!filter.value.length) return true;
-            if (filter && filter.operation === 'month') {
-              const month = parseInt(value.split('-')[1], 10);
-              return month === parseInt(filter.value, 10);
-            }
-            return IntegratedFiltering.defaultPredicate(value, filter, row);
-          },
-        },
-      ],
-    };
-  }
+  return (
+    <div>
+      <Grid
+        rows={rows}
+        columns={columns}
+      >
+        <DataTypeProvider
+          for={dateColumns}
+          availableFilterOperations={dateFilterOperations}
+        />
+        <DataTypeProvider
+          for={currencyColumns}
+          availableFilterOperations={currencyFilterOperations}
+          editorComponent={CurrencyEditor}
+        />
+        <FilteringState defaultFilters={[]} />
+        <IntegratedFiltering columnExtensions={filteringColumnExtensions} />
 
-  render() {
-    const {
-      rows, columns, dateColumns, dateFilterOperations, filteringColumnExtensions,
-      currencyColumns, currencyFilterOperations,
-    } = this.state;
+        <Table />
+        <TableHeaderRow />
+        <TableFilterRow
+          showFilterSelector
+          iconComponent={FilterIcon}
+          messages={{ month: 'Month equals' }}
+        />
+      </Grid>
+    </div>
+  );
+};
 
-    return (
-      <div>
-        <Grid
-          rows={rows}
-          columns={columns}
-        >
-          <DataTypeProvider
-            for={dateColumns}
-            availableFilterOperations={dateFilterOperations}
-          />
-          <DataTypeProvider
-            for={currencyColumns}
-            availableFilterOperations={currencyFilterOperations}
-            editorComponent={CurrencyEditor}
-          />
-          <FilteringState defaultFilters={[]} />
-          <IntegratedFiltering columnExtensions={filteringColumnExtensions} />
-
-          <Table />
-          <TableHeaderRow />
-          <TableFilterRow
-            showFilterSelector
-            iconComponent={FilterIcon}
-            messages={{ month: 'Month equals' }}
-          />
-        </Grid>
-      </div>
-    );
-  }
-}
+export default Demo;

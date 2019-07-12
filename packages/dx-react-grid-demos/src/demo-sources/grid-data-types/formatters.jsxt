@@ -1,4 +1,4 @@
-import * as React from 'react';<%&additionalImports%>
+import React, { useState } from 'react';<%&additionalImports%>
 import { DataTypeProvider } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -34,49 +34,39 @@ const DateTypeProvider = props => (
   />
 );
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+const Demo = () => {
+  const [columns] = useState([
+    { name: 'customer', title: 'Customer' },
+    { name: 'product', title: 'Product' },
+    { name: 'saleDate', title: 'Sale Date' },
+    { name: 'amount', title: 'Sale Amount' },
+  ]);
+  const [rows] = useState(generateRows({ columnValues: globalSalesValues, length: 8 }));
+  const [tableColumnExtensions] = useState([
+    { columnName: 'amount', align: 'right' },
+  ]);
+  const [dateColumns] = useState(['saleDate']);
+  const [currencyColumns] = useState(['amount']);
 
-    this.state = {
-      columns: [
-        { name: 'customer', title: 'Customer' },
-        { name: 'product', title: 'Product' },
-        { name: 'saleDate', title: 'Sale Date' },
-        { name: 'amount', title: 'Sale Amount' },
-      ],
-      tableColumnExtensions: [
-        { columnName: 'amount', align: 'right' },
-      ],
-      dateColumns: ['saleDate'],
-      currencyColumns: ['amount'],
-      rows: generateRows({ columnValues: globalSalesValues, length: 8 }),
-    };
-  }
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={rows}
+        columns={columns}
+      >
+        <CurrencyTypeProvider
+          for={currencyColumns}
+        />
+        <DateTypeProvider
+          for={dateColumns}
+        />
+        <Table
+          columnExtensions={tableColumnExtensions}
+        />
+        <TableHeaderRow />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
+};
 
-  render() {
-    const {
-      rows, columns, dateColumns, currencyColumns, tableColumnExtensions,
-    } = this.state;
-
-    return (
-      <<%&wrapperTag%><%&wrapperAttributes%>>
-        <Grid
-          rows={rows}
-          columns={columns}
-        >
-          <CurrencyTypeProvider
-            for={currencyColumns}
-          />
-          <DateTypeProvider
-            for={dateColumns}
-          />
-          <Table
-            columnExtensions={tableColumnExtensions}
-          />
-          <TableHeaderRow />
-        </Grid>
-      </<%&wrapperTag%>>
-    );
-  }
-}
+export default Demo;

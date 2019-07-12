@@ -1,4 +1,4 @@
-import * as React from 'react';<%&additionalImports%>
+import React, { useState } from 'react';<%&additionalImports%>
 import {
   SummaryState,
   TreeDataState,
@@ -33,74 +33,64 @@ const getChildRows = (row, rootRows) => {
   return childRows.length ? childRows : null;
 };
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+const Demo = () => {
+  const [columns] = useState([
+    { name: 'region', title: 'Region' },
+    { name: 'sector', title: 'Sector' },
+    { name: 'customer', title: 'Customer' },
+    { name: 'product', title: 'Product' },
+    { name: 'amount', title: 'Sale Amount' },
+  ]);
+  const [data] = useState(generateRows({
+    columnValues: {
+      id: ({ index }) => index,
+      parentId: ({ index, random }) => (index > 0 ? Math.trunc((random() * index) / 2) : null),
+      ...globalSalesValues,
+    },
+    length: 200,
+  }));
+  const [tableColumnExtensions] = useState([
+    { columnName: 'region', width: 250 },
+    { columnName: 'amount', align: 'right' },
+  ]);
+  const [totalSummaryItems] = useState([
+    { columnName: 'region', type: 'count' },
+  ]);
+  const [treeSummaryItems] = useState([
+    { columnName: 'region', type: 'count' },
+    { columnName: 'amount', type: 'sum' },
+  ]);
+  const [currencyColumns] = useState(['amount']);
 
-    this.state = {
-      columns: [
-        { name: 'region', title: 'Region' },
-        { name: 'sector', title: 'Sector' },
-        { name: 'customer', title: 'Customer' },
-        { name: 'product', title: 'Product' },
-        { name: 'amount', title: 'Sale Amount' },
-      ],
-      tableColumnExtensions: [
-        { columnName: 'region', width: 250 },
-        { columnName: 'amount', align: 'right' },
-      ],
-      totalSummaryItems: [
-        { columnName: 'region', type: 'count' },
-      ],
-      treeSummaryItems: [
-        { columnName: 'region', type: 'count' },
-        { columnName: 'amount', type: 'sum' },
-      ],
-      currencyColumns: ['amount'],
-      data: generateRows({
-        columnValues: {
-          id: ({ index }) => index,
-          parentId: ({ index, random }) => (index > 0 ? Math.trunc((random() * index) / 2) : null),
-          ...globalSalesValues,
-        },
-        length: 200,
-      }),
-    };
-  }
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={data}
+        columns={columns}
+      >
+        <CurrencyTypeProvider
+          for={currencyColumns}
+        />
+        <TreeDataState />
+        <SummaryState
+          totalItems={totalSummaryItems}
+          treeItems={treeSummaryItems}
+        />
+        <CustomTreeData
+          getChildRows={getChildRows}
+        />
+        <IntegratedSummary />
+        <VirtualTable
+          columnExtensions={tableColumnExtensions}
+        />
+        <TableHeaderRow />
+        <TableTreeColumn
+          for="region"
+        />
+        <TableSummaryRow />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
+};
 
-  render() {
-    const {
-      data, columns, tableColumnExtensions, currencyColumns, totalSummaryItems, treeSummaryItems,
-    } = this.state;
-
-    return (
-      <<%&wrapperTag%><%&wrapperAttributes%>>
-        <Grid
-          rows={data}
-          columns={columns}
-        >
-          <CurrencyTypeProvider
-            for={currencyColumns}
-          />
-          <TreeDataState />
-          <SummaryState
-            totalItems={totalSummaryItems}
-            treeItems={treeSummaryItems}
-          />
-          <CustomTreeData
-            getChildRows={getChildRows}
-          />
-          <IntegratedSummary />
-          <VirtualTable
-            columnExtensions={tableColumnExtensions}
-          />
-          <TableHeaderRow />
-          <TableTreeColumn
-            for="region"
-          />
-          <TableSummaryRow />
-        </Grid>
-      </<%&wrapperTag%>>
-    );
-  }
-}
+export default Demo;

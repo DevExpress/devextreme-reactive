@@ -1,4 +1,4 @@
-import * as React from 'react';<%&additionalImports%>
+import React, { useState, useEffect } from 'react';<%&additionalImports%>
 import {
   TreeDataState,
   CustomTreeData,
@@ -24,96 +24,70 @@ const getChildRows = (row, rootRows) => {
   return row && row.hasItems ? [] : null;
 };
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+const Demo = () => {
+  const [columns] = useState([
+    { name: 'name', title: 'Name' },
+    { name: 'size', title: 'Size', getCellValue: row => (row.size ? `${Math.ceil(row.size / 1024)} KB` : '') },
+    { name: 'createdDate', title: 'Created Date', getCellValue: row => new Date(Date.parse(row.createdDate)).toLocaleString() },
+    { name: 'modifiedDate', title: 'Modified Date', getCellValue: row => new Date(Date.parse(row.modifiedDate)).toLocaleString() },
+  ]);
+  const [data, setData] = useState([]);
+  const [tableColumnExtensions] = useState([
+    { columnName: 'name', width: 400 },
+    { columnName: 'size', width: 120, align: 'right' },
+  ]);
+  const [expandedRowIds, setExpandedRowIds] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-    this.state = {
-      columns: [
-        { name: 'name', title: 'Name' },
-        { name: 'size', title: 'Size', getCellValue: row => (row.size ? `${Math.ceil(row.size / 1024)} KB` : '') },
-        { name: 'createdDate', title: 'Created Date', getCellValue: row => new Date(Date.parse(row.createdDate)).toLocaleString() },
-        { name: 'modifiedDate', title: 'Modified Date', getCellValue: row => new Date(Date.parse(row.modifiedDate)).toLocaleString() },
-      ],
-      tableColumnExtensions: [
-        { columnName: 'name', width: 400 },
-        { columnName: 'size', width: 120, align: 'right' },
-      ],
-      expandedRowIds: [],
-      loading: false,
-      data: [],
-    };
+  const changeExpandedRowIds = value => setExpandedRowIds(value);
 
-    this.changeExpandedRowIds = this.changeExpandedRowIds.bind(this);
-  }
-
-  componentDidMount() {
-    this.loadData();
-  }
-
-  componentDidUpdate() {
-    this.loadData();
-  }
-
-  changeExpandedRowIds(expandedRowIds) {
-    this.setState({ expandedRowIds });
-  }
-
-  loadData() {
-    const { expandedRowIds, data, loading } = this.state;
-
+  const loadData = () => {
     if (loading) {
       return;
     }
 
     const rowIdsWithNotLoadedChilds = [ROOT_ID, ...expandedRowIds]
       .filter(rowId => data.findIndex(row => row.parentId === rowId) === -1);
-
     if (rowIdsWithNotLoadedChilds.length) {
       if (loading) return;
-      this.setState({ loading: true });
       Promise.all(rowIdsWithNotLoadedChilds
         .map(rowId => fetch(`${URL}?parentIds=${rowId}`, { mode: 'cors' })
           .then(response => response.json())))
         .then((loadedData) => {
-          this.setState({
-            data: data.concat(...loadedData),
-            loading: false,
-          });
+          setData(data.concat(...loadedData));
+          setLoading(false);
         })
-        .catch(() => this.setState({ loading: false }));
+        .catch(() => setLoading(false));
     }
-  }
+  };
 
-  render() {
-    const {
-      data, columns, tableColumnExtensions, expandedRowIds, loading,
-    } = this.state;
+  useEffect(() => loadData());
 
-    return (
-      <<%&wrapperTag%><%&wrapperAttributes%> style={{ position: 'relative' }}>
-        <Grid
-          rows={data}
-          columns={columns}
-          getRowId={getRowId}
-        >
-          <TreeDataState
-            expandedRowIds={expandedRowIds}
-            onExpandedRowIdsChange={this.changeExpandedRowIds}
-          />
-          <CustomTreeData
-            getChildRows={getChildRows}
-          />
-          <VirtualTable
-            columnExtensions={tableColumnExtensions}
-          />
-          <TableHeaderRow />
-          <TableTreeColumn
-            for="name"
-          />
-        </Grid>
-        {loading && <Loading />}
-      </<%&wrapperTag%>>
-    );
-  }
-}
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%> style={{ position: 'relative' }}>
+      <Grid
+        rows={data}
+        columns={columns}
+        getRowId={getRowId}
+      >
+        <TreeDataState
+          expandedRowIds={expandedRowIds}
+          onExpandedRowIdsChange={changeExpandedRowIds}
+        />
+        <CustomTreeData
+          getChildRows={getChildRows}
+        />
+        <VirtualTable
+          columnExtensions={tableColumnExtensions}
+        />
+        <TableHeaderRow />
+        <TableTreeColumn
+          for="name"
+        />
+      </Grid>
+      {loading && <Loading />}
+    </<%&wrapperTag%>>
+  );
+};
+
+export default Demo;

@@ -1,4 +1,4 @@
-import * as React from 'react';<%&additionalImports%>
+import React, { useState } from 'react';<%&additionalImports%>
 import {
   Grid,
   DragDropProvider,
@@ -9,53 +9,39 @@ import {
 
 import { generateRows } from '../../../demo-data/generator';
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+const Demo = () => {
+  const [columns] = useState([
+    { name: 'name', title: 'Name' },
+    { name: 'sex', title: 'Sex' },
+    { name: 'city', title: 'City' },
+    { name: 'car', title: 'Car' },
+  ]);
+  const [rows] = useState(generateRows({ length: 6 }));
+  const [tableColumnExtensions] = useState([
+    { columnName: 'sex', width: 100 },
+  ]);
+  const [columnOrder, setColumnOrder] = useState(['city', 'sex', 'car', 'name']);
 
-    this.state = {
-      columns: [
-        { name: 'name', title: 'Name' },
-        { name: 'sex', title: 'Sex' },
-        { name: 'city', title: 'City' },
-        { name: 'car', title: 'Car' },
-      ],
-      tableColumnExtensions: [
-        { columnName: 'sex', width: 100 },
-      ],
-      rows: generateRows({ length: 6 }),
-      columnOrder: ['city', 'sex', 'car', 'name'],
-    };
+  const changeColumnOrder = value => setColumnOrder(value);
 
-    this.changeColumnOrder = this.changeColumnOrder.bind(this);
-  }
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={rows}
+        columns={columns}
+      >
+        <DragDropProvider />
+        <Table
+          columnExtensions={tableColumnExtensions}
+        />
+        <TableColumnReordering
+          order={columnOrder}
+          onOrderChange={changeColumnOrder}
+        />
+        <TableHeaderRow />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
+};
 
-  changeColumnOrder(newOrder) {
-    this.setState({ columnOrder: newOrder });
-  }
-
-  render() {
-    const {
-      rows, columns, tableColumnExtensions, columnOrder,
-    } = this.state;
-
-    return (
-      <<%&wrapperTag%><%&wrapperAttributes%>>
-        <Grid
-          rows={rows}
-          columns={columns}
-        >
-          <DragDropProvider />
-          <Table
-            columnExtensions={tableColumnExtensions}
-          />
-          <TableColumnReordering
-            order={columnOrder}
-            onOrderChange={this.changeColumnOrder}
-          />
-          <TableHeaderRow />
-        </Grid>
-      </<%&wrapperTag%>>
-    );
-  }
-}
+export default Demo;

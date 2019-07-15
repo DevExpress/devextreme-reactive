@@ -104,21 +104,19 @@ class DragDropProviderBase extends React.PureComponent<
   }
 
   applyChanges(startTime, endTime, payload, startEditAppointment, changeAppointment) {
-    console.log(startTime);
-    startEditAppointment({ appointmentId: payload.id });
+    startEditAppointment(payload);
     changeAppointment({
       change: { startDate: startTime, endDate: endTime },
     });
     this.setState({ startTime, endTime, payload, isOutside: false });
   }
 
-  handlePayloadChange({ payload }, { commitChangedAppointment, stopEditAppointment }) {
+  handlePayloadChange({ payload }, { commitChangedAppointmentGetter }) {
     const { isOutside } = this.state;
     if (payload || !isOutside) return;
     const { payload: prevPayload } = this.state;
 
-    commitChangedAppointment({ appointmentId: prevPayload.id });
-    // stopEditAppointment({ appointmentId: prevPayload.id });
+    commitChangedAppointmentGetter({ appointmentId: prevPayload.id });
     this.resetCache();
   }
 
@@ -164,8 +162,6 @@ class DragDropProviderBase extends React.PureComponent<
     const { startTime, endTime } = this.state;
     if (moment(startTime!).isSame(this.appointmentStartTime)
       && moment(endTime!).isSame(this.appointmentEndTime)) return;
-    // if (moment(startTime!).isSame(this.appointmentStartTime)
-    //   && moment(endTime!).isSame(this.appointmentEndTime)) return;
 
     const draftAppointments = [{
       dataItem: {
@@ -188,19 +184,16 @@ class DragDropProviderBase extends React.PureComponent<
     this.allDayDraftAppointments = allDayDraftAppointments;
     this.timeTableDraftAppointments = timeTableDraftAppointments;
 
-    // console.log(appointmentStartTime);
-    // console.log(this.appointmentStartTime);
     this.applyChanges(
       this.appointmentStartTime, this.appointmentEndTime,
       payload, startEditAppointment, changeAppointment,
     );
   }
 
-  handleDrop = ({ stopEditAppointment, commitChangedAppointment }) => () => {
+  handleDrop = ({ commitChangedAppointmentGetter }) => () => {
     const { payload: prevPayload } = this.state;
 
-    commitChangedAppointment({ appointmentId: prevPayload.id });
-    // stopEditAppointment({ appointmentId: prevPayload.id });
+    commitChangedAppointmentGetter({ appointmentId: prevPayload.id });
     this.resetCache();
   }
 
@@ -232,10 +225,11 @@ class DragDropProviderBase extends React.PureComponent<
           <TemplateConnector>
             {({
               viewCellsData, startViewDate, endViewDate, excludedDays,
+              commitChangedAppointmentGetter,
               timeTableElementsMeta, allDayElementsMeta, scrollingStrategy,
             }, {
               commitChangedAppointment, changeAppointment,
-              startEditAppointment, stopEditAppointment,
+              startEditAppointment,
             }) => {
               const calculateBoundariesByMove = this.calculateNextBoundaries({
                 viewCellsData,
@@ -245,15 +239,15 @@ class DragDropProviderBase extends React.PureComponent<
                 timeTableElementsMeta,
                 allDayElementsMeta,
                 scrollingStrategy,
-              }, { changeAppointment, startEditAppointment, stopEditAppointment });
+              }, { changeAppointment, startEditAppointment });
               return (
                 <DragDropProviderCore
-                  onChange={this.onPayloadChange({ commitChangedAppointment, stopEditAppointment })}
+                  onChange={this.onPayloadChange({ commitChangedAppointmentGetter })}
                 >
                   <DropTarget
                     onOver={calculateBoundariesByMove}
                     onEnter={calculateBoundariesByMove}
-                    onDrop={this.handleDrop({ commitChangedAppointment, stopEditAppointment })}
+                    onDrop={this.handleDrop({ commitChangedAppointmentGetter })}
                     onLeave={this.handleLeave}
                   >
                     <TemplatePlaceholder />

@@ -10,10 +10,14 @@ class EditingMenuBase extends React.PureComponent {
     this.state = {
       isOpen: false,
     };
+
+    this.commitChanged = () => {
+      return () => this.setState({ isOpen: true });
+    };
   }
 
   toggleOpen = () => {
-    this.setState((state) => ({
+    this.setState(state => ({
       isOpen: !state.isOpen,
     }));
   }
@@ -25,14 +29,14 @@ class EditingMenuBase extends React.PureComponent {
       <Plugin
         name="EditingMenu"
       >
-        <Getter name="editingMenu" value={true} />
         <Getter name="isOpenEditingMenu" value={isOpen} />
         <Action name="toggleEditingMenuOpen" action={this.toggleOpen} />
+        <Getter name="commitChangedAppointmentGetter" computed={this.commitChanged} />
 
         <Template name="footer">
           <TemplateConnector>
-            {({ preCommitChanges, isDialogOpen }, actions) => {
-              if (isDialogOpen) {
+            {({ preCommitChanges }, actions) => {
+              if (isOpen) {
                 return (
                   <React.Fragment>
                     <TemplatePlaceholder />
@@ -40,17 +44,17 @@ class EditingMenuBase extends React.PureComponent {
                       Choose edit mode
                       <ul>
                         <li>
-                          <button onClick={() => preCommitChanges('current')}>
+                          <button onClick={() => { preCommitChanges('current'); this.toggleOpen(); }}>
                             This event
                           </button>
                         </li>
                         <li>
-                          <button onClick={() => preCommitChanges('follows')}>
+                          <button onClick={() => { preCommitChanges('follows'); this.toggleOpen() }}>
                             This and following events
                           </button>
                         </li>
                         <li>
-                          <button onClick={() => preCommitChanges('all')}>
+                          <button onClick={() => { preCommitChanges('all'); this.toggleOpen() }}>
                             All events
                           </button>
                         </li>

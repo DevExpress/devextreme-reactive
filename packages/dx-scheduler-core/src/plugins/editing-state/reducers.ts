@@ -13,7 +13,7 @@ export const cancelAddedAppointment = () => ({});
 
 export const startEditAppointment: PureReducer<
   AppointmentId, EditAppointmentPayload
-> = (prevEditingAppointmentId, { appointmentId }) => appointmentId;
+> = (prevEditingAppointmentId, appointmentData) => appointmentData;
 
 export const stopEditAppointment = () => undefined;
 

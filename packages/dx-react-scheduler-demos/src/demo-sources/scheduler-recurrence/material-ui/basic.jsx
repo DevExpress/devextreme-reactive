@@ -45,7 +45,6 @@ export default class Demo extends React.PureComponent {
 
   commitChanges({ added, changed, deleted }) {
     this.setState((state) => {
-      debugger
       let { data } = state;
       if (added) {
         const startingAddedId = data.length > 0 ? data[data.length - 1].id + 1 : 0;

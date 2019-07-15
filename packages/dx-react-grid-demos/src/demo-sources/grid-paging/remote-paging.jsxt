@@ -30,8 +30,6 @@ export default () => {
   const [loading, setLoading] = useState(true);
   const [lastQuery, setLastQuery] = useState();
 
-  const changeCurrentPage = value => setCurrentPage(value);
-
   const getQueryString = () => (
     `${URL}?take=${pageSize}&skip=${pageSize * currentPage}`
   );
@@ -64,7 +62,7 @@ export default () => {
       >
         <PagingState
           currentPage={currentPage}
-          onCurrentPageChange={changeCurrentPage}
+          onCurrentPageChange={setCurrentPage}
           pageSize={pageSize}
         />
         <CustomPaging

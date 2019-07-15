@@ -24,9 +24,6 @@ export default () => {
   const [pageSize, setPageSize] = useState(5);
   const [pageSizes] = useState([5, 10, 15]);
 
-  const changeCurrentPage = value => setCurrentPage(value);
-  const changePageSize = value => setPageSize(value);
-
   return (
     <<%&wrapperTag%><%&wrapperAttributes%>>
       <Grid
@@ -35,9 +32,9 @@ export default () => {
       >
         <PagingState
           currentPage={currentPage}
-          onCurrentPageChange={changeCurrentPage}
+          onCurrentPageChange={setCurrentPage}
           pageSize={pageSize}
-          onPageSizeChange={changePageSize}
+          onPageSizeChange={setPageSize}
         />
         <IntegratedPaging />
         <Table />

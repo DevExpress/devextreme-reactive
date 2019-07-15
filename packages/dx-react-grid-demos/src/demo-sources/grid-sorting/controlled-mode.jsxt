@@ -21,8 +21,6 @@ export default () => {
   const [rows] = useState(generateRows({ length: 8 }));
   const [sorting, setSorting] = useState([{ columnName: 'city', direction: 'asc' }]);
 
-  const changeSorting = value => setSorting(value);
-
   return (
     <<%&wrapperTag%><%&wrapperAttributes%>>
       <Grid
@@ -31,7 +29,7 @@ export default () => {
       >
         <SortingState
           sorting={sorting}
-          onSortingChange={changeSorting}
+          onSortingChange={setSorting}
         />
         <IntegratedSorting />
         <Table />

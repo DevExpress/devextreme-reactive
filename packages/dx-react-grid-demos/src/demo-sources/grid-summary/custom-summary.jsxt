@@ -49,8 +49,6 @@ export default () => {
   const [currencyColumns] = useState(['amount']);
   const [selection, setSelection] = useState([]);
 
-  const changeSelection = value => setSelection(value);
-
   const getTotalSummaryValues = () => {
     const selectionSet = new Set(selection);
     const selectedRows = rows.filter((row, rowIndex) => selectionSet.has(rowIndex));
@@ -74,7 +72,7 @@ export default () => {
         />
         <SelectionState
           selection={selection}
-          onSelectionChange={changeSelection}
+          onSelectionChange={setSelection}
         />
         <IntegratedSelection />
         <CustomSummary

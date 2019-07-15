@@ -19,8 +19,6 @@ export default () => {
   const [rows] = useState(generateRows({ length: 6 }));
   const [selection, setSelection] = useState([1]);
 
-  const changeSelection = value => setSelection(value);
-
   return (
     <<%&wrapperTag%><%&wrapperAttributes%>>
       <Grid
@@ -29,7 +27,7 @@ export default () => {
       >
         <SelectionState
           selection={selection}
-          onSelectionChange={changeSelection}
+          onSelectionChange={setSelection}
         />
         <Table />
         <TableHeaderRow />

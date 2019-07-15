@@ -39,8 +39,6 @@ export default () => {
   const [expandedRowIds, setExpandedRowIds] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const changeExpandedRowIds = value => setExpandedRowIds(value);
-
   const loadData = () => {
     if (loading) {
       return;
@@ -72,7 +70,7 @@ export default () => {
       >
         <TreeDataState
           expandedRowIds={expandedRowIds}
-          onExpandedRowIdsChange={changeExpandedRowIds}
+          onExpandedRowIdsChange={setExpandedRowIds}
         />
         <CustomTreeData
           getChildRows={getChildRows}

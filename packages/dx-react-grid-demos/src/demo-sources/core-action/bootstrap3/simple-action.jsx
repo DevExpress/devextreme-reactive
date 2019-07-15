@@ -48,7 +48,7 @@ const TasksListCore = ({ tasks }) => (
 );
 
 // eslint-disable-next-line react/no-multi-comp
-const TasksFilter = ({ defaultDone }) => {
+const TasksFilter = React.memo(({ defaultDone }) => {
   const [done, setDone] = useState(defaultDone);
   const changeFilter = () => setDone(!done);
 
@@ -62,7 +62,7 @@ const TasksFilter = ({ defaultDone }) => {
       <Action name="changeFilter" action={changeFilter} />
     </Plugin>
   );
-};
+});
 
 const FilterPanel = () => (
   <Plugin>

@@ -22,8 +22,6 @@ export default () => {
   const [rows] = useState(generateRows({ length: 8 }));
   const [filters, setFilters] = useState([{ columnName: 'car', value: 'cruze' }]);
 
-  const changeFilters = value => setFilters(value);
-
   return (
     <<%&wrapperTag%><%&wrapperAttributes%>>
       <Grid
@@ -32,7 +30,7 @@ export default () => {
       >
         <FilteringState
           filters={filters}
-          onFiltersChange={changeFilters}
+          onFiltersChange={setFilters}
         />
         <IntegratedFiltering />
         <Table />

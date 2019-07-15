@@ -34,8 +34,6 @@ export default () => {
   const [addedRows, setAddedRows] = useState([]);
   const [rowChanges, setRowChanges] = useState({});
 
-  const changeEditingRowIds = value => setEditingRowIds(value);
-  const changeRowChanges = value => setRowChanges(value);
   const changeAddedRows = (value) => {
     const initialized = value.map(row => (Object.keys(row).length ? row : { city: 'Tokio' }));
     setAddedRows(initialized);
@@ -72,9 +70,9 @@ export default () => {
       >
         <EditingState
           editingRowIds={editingRowIds}
-          onEditingRowIdsChange={changeEditingRowIds}
+          onEditingRowIdsChange={setEditingRowIds}
           rowChanges={rowChanges}
-          onRowChangesChange={changeRowChanges}
+          onRowChangesChange={setRowChanges}
           addedRows={addedRows}
           onAddedRowsChange={changeAddedRows}
           onCommitChanges={commitChanges}

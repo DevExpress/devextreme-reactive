@@ -22,8 +22,6 @@ export default () => {
   const [rows] = useState(generateRows({ length: 1000 }));
   const [selection, setSelection] = useState([]);
 
-  const changeSelection = value => setSelection(value);
-
   return (
     <div>
       <span>
@@ -38,7 +36,7 @@ export default () => {
         >
           <SelectionState
             selection={selection}
-            onSelectionChange={changeSelection}
+            onSelectionChange={setSelection}
           />
           <IntegratedSelection />
           <VirtualTable />

@@ -38,7 +38,6 @@ export default () => {
   const [loading, setLoading] = useState(true);
   const [lastQuery, setLastQuery] = useState();
 
-
   const changeSorting = (value) => {
     setSorting(value);
     setLoading(true);
@@ -67,6 +66,7 @@ export default () => {
 
     return queryString;
   };
+  
   const loadData = () => {
     const queryString = getQueryString();
     if (queryString === lastQuery) {

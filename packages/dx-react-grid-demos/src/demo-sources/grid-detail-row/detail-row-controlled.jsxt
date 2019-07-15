@@ -31,8 +31,6 @@ export default () => {
   const [rows] = useState(generateRows({ length: 8 }));
   const [expandedRowIds, setExpandedRowIds] = useState([2, 5]);
 
-  const changeExpandedDetails = value => setExpandedRowIds(value);
-
   return (
     <<%&wrapperTag%><%&wrapperAttributes%>>
       <Grid
@@ -41,7 +39,7 @@ export default () => {
       >
         <RowDetailState
           expandedRowIds={expandedRowIds}
-          onExpandedRowIdsChange={changeExpandedDetails}
+          onExpandedRowIdsChange={setExpandedRowIds}
         />
         <Table />
         <TableHeaderRow />

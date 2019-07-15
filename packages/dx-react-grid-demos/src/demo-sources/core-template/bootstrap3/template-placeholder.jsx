@@ -49,7 +49,7 @@ const TasksListCore = ({ tasks }) => (
   </Plugin>
 );
 
-const NewTaskForm = ({ onCreate }) => (
+const NewTaskForm = React.memo(({ onCreate }) => (
   <Plugin>
     <Template name="header">
       <input
@@ -63,4 +63,4 @@ const NewTaskForm = ({ onCreate }) => (
       />
     </Template>
   </Plugin>
-);
+));

@@ -40,8 +40,6 @@ export default () => {
   ]);
   const [expandedRowIds, setExpandenRowIds] = useState([0, 1]);
 
-  const changeExpandedRowIds = value => setExpandenRowIds(value);
-
   return (
     <<%&wrapperTag%><%&wrapperAttributes%>>
       <Grid
@@ -50,7 +48,7 @@ export default () => {
       >
         <TreeDataState
           expandedRowIds={expandedRowIds}
-          onExpandedRowIdsChange={changeExpandedRowIds}
+          onExpandedRowIdsChange={setExpandenRowIds}
         />
         <CustomTreeData
           getChildRows={getChildRows}

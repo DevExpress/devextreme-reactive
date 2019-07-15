@@ -22,8 +22,6 @@ export default () => {
   ]);
   const [columnOrder, setColumnOrder] = useState(['city', 'sex', 'car', 'name']);
 
-  const changeColumnOrder = value => setColumnOrder(value);
-
   return (
     <<%&wrapperTag%><%&wrapperAttributes%>>
       <Grid
@@ -36,7 +34,7 @@ export default () => {
         />
         <TableColumnReordering
           order={columnOrder}
-          onOrderChange={changeColumnOrder}
+          onOrderChange={setColumnOrder}
         />
         <TableHeaderRow />
       </Grid>

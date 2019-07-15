@@ -23,8 +23,6 @@ export default () => {
   const [rows] = useState(generateRows({ length: 8 }));
   const [searchValue, setSearchState] = useState('Female');
 
-  const changeSearchValue = value => setSearchState(value);
-
   return (
     <<%&wrapperTag%><%&wrapperAttributes%>>
       <Grid
@@ -33,7 +31,7 @@ export default () => {
       >
         <SearchState
           value={searchValue}
-          onValueChange={changeSearchValue}
+          onValueChange={setSearchState}
         />
         <IntegratedFiltering />
         <Table />

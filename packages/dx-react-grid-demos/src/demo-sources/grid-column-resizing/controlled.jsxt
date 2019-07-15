@@ -23,8 +23,6 @@ export default () => {
     { columnName: 'car', width: 240 },
   ]);
 
-  const changeColumnWidths = value => setColumnWidths(value);
-
   return (
     <<%&wrapperTag%><%&wrapperAttributes%>>
       <Grid
@@ -34,7 +32,7 @@ export default () => {
         <Table />
         <TableColumnResizing
           columnWidths={columnWidths}
-          onColumnWidthsChange={changeColumnWidths}
+          onColumnWidthsChange={setColumnWidths}
         />
         <TableHeaderRow />
       </Grid>

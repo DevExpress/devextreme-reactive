@@ -45,11 +45,11 @@ const TasksListCore = ({ tasks }) => (
   </Plugin>
 );
 
-const TasksFilter = ({ done }) => (
+const TasksFilter = React.memo(({ done }) => (
   <Plugin>
     <Getter
       name="tasks"
       computed={({ tasks }) => tasks.filter(task => done === null || task.done === done)}
     />
   </Plugin>
-);
+));

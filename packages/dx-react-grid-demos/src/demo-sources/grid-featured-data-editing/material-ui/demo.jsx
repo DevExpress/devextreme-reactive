@@ -196,8 +196,6 @@ export default () => {
     { columnName: 'amount', type: 'sum' },
   ]);
 
-  const changeSorting = value => getSorting(value);
-  const changeEditingRowIds = value => getEditingRowIds(value);
   const changeAddedRows = value => setAddedRows(
     value.map(row => (Object.keys(row).length ? row : {
       amount: 0,
@@ -208,10 +206,6 @@ export default () => {
       customer: availableValues.customer[0],
     })),
   );
-  const changeRowChanges = value => setRowChanges(value);
-  const changeCurrentPage = value => setCurrentPage(value);
-  const changePageSize = value => setPageSize(value);
-  const changeColumnOrder = value => setColumnOrder(value);
 
   const deleteRows = (deletedIds) => {
     const rowsForDelete = rows.slice();
@@ -254,19 +248,19 @@ export default () => {
       >
         <SortingState
           sorting={sorting}
-          onSortingChange={changeSorting}
+          onSortingChange={getSorting}
         />
         <PagingState
           currentPage={currentPage}
-          onCurrentPageChange={changeCurrentPage}
+          onCurrentPageChange={setCurrentPage}
           pageSize={pageSize}
-          onPageSizeChange={changePageSize}
+          onPageSizeChange={setPageSize}
         />
         <EditingState
           editingRowIds={editingRowIds}
-          onEditingRowIdsChange={changeEditingRowIds}
+          onEditingRowIdsChange={getEditingRowIds}
           rowChanges={rowChanges}
-          onRowChangesChange={changeRowChanges}
+          onRowChangesChange={setRowChanges}
           addedRows={addedRows}
           onAddedRowsChange={changeAddedRows}
           onCommitChanges={commitChanges}
@@ -290,7 +284,7 @@ export default () => {
         />
         <TableColumnReordering
           order={columnOrder}
-          onOrderChange={changeColumnOrder}
+          onOrderChange={setColumnOrder}
         />
         <TableHeaderRow showSortingControls />
         <TableEditRow

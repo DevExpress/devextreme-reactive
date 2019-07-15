@@ -23,8 +23,6 @@ export default () => {
   ]);
   const [hiddenColumnNames, setHiddenColumnNames] = useState(['sex', 'car']);
 
-  const hiddenColumnNamesChange = value => setHiddenColumnNames(value);
-
   return (
     <<%&wrapperTag%><%&wrapperAttributes%>>
       <Grid
@@ -37,7 +35,7 @@ export default () => {
         <TableHeaderRow />
         <TableColumnVisibility
           hiddenColumnNames={hiddenColumnNames}
-          onHiddenColumnNamesChange={hiddenColumnNamesChange}
+          onHiddenColumnNamesChange={setHiddenColumnNames}
         />
         <Toolbar />
         <ColumnChooser />

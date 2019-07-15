@@ -34,7 +34,6 @@ export default () => {
   const [tempExpandedGroups, setTempExpandedGroups] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const changeExpandedGroups = value => setExpandedGroups(value);
   const changeGrouping = (value) => {
     setTempGrouping(grouping);
     setTempExpandedGroups(expandedGroups);
@@ -82,7 +81,7 @@ export default () => {
           grouping={grouping}
           onGroupingChange={changeGrouping}
           expandedGroups={expandedGroups}
-          onExpandedGroupsChange={changeExpandedGroups}
+          onExpandedGroupsChange={setExpandedGroups}
         />
         <CustomGrouping
           getChildGroups={getChildGroups}

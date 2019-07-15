@@ -56,7 +56,7 @@ const TasksListCore = ({ tasks }) => (
   </Plugin>
 );
 
-const TaskCompletion = ({ onComplete }) => (
+const TaskCompletion = React.memo(({ onComplete }) => (
   <Plugin>
     <Template name="task">
       {({ index, title, done }) => (done ? (
@@ -75,4 +75,4 @@ const TaskCompletion = ({ onComplete }) => (
       ))}
     </Template>
   </Plugin>
-);
+));

@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
+import { memoize } from '@devexpress/dx-core';
 
 const styles = ({ spacing }) => ({
   root: {
@@ -11,6 +12,9 @@ const styles = ({ spacing }) => ({
     },
   },
 });
+
+const onNavigateBackMemo = memoize(onNavigate => () => onNavigate('back'));
+const onNavigateForwardMemo = memoize(onNavigate => () => onNavigate('forward'));
 
 const RootBase = ({
   navigationButtonComponent: NavigationButton,
@@ -22,26 +26,31 @@ const RootBase = ({
   className,
   classes,
   ...restProps
-}) => (
-  <div
-    className={classNames(classes.root, className)}
-    ref={rootRef}
-    {...restProps}
-  >
-    <NavigationButton
-      type="back"
-      onClick={() => { onNavigate('back'); }}
-    />
-    <NavigationButton
-      type="forward"
-      onClick={() => { onNavigate('forward'); }}
-    />
-    <OpenButton
-      onVisibilityToggle={onVisibilityToggle}
-      text={navigatorText}
-    />
-  </div>
-);
+}) => {
+  const navigateBack = onNavigateBackMemo(onNavigate);
+  const navigateForward = onNavigateForwardMemo(onNavigate);
+
+  return (
+    <div
+      className={classNames(classes.root, className)}
+      ref={rootRef}
+      {...restProps}
+    >
+      <NavigationButton
+        type="back"
+        onClick={navigateBack}
+      />
+      <NavigationButton
+        type="forward"
+        onClick={navigateForward}
+      />
+      <OpenButton
+        onVisibilityToggle={onVisibilityToggle}
+        text={navigatorText}
+      />
+    </div>
+  );
+};
 
 RootBase.propTypes = {
   // oneOfType is a workaround because withStyles returns react object

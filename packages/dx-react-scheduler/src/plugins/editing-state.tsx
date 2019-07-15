@@ -138,11 +138,10 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
       <Plugin
         name="EditingState"
       >
-        <Getter name="editingAppointmentData" value={editingAppointmentData} />
 
         <Getter name="preCommitChanges" value={this.preCommitChanges} />
 
-        <Getter name="editingAppointmentId" value={editingAppointmentData} />
+        <Getter name="editingAppointmentData" value={editingAppointmentData} />
         <Action name="startEditAppointment" action={this.startEditAppointment} />
         <Action name="stopEditAppointment" action={this.stopEditAppointment} />
 

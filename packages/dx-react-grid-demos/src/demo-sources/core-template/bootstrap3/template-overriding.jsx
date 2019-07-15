@@ -13,7 +13,7 @@ export default () => {
 
   const completeTask = (index) => {
     const newTasks = tasks.slice();
-    newTasks[index].done = true;
+    newTasks[index] = { ...newTasks[index], done: true};
     setTasks(newTasks);
   };
 

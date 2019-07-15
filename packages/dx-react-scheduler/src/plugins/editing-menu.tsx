@@ -3,6 +3,10 @@ import {
   Plugin, Getter, Template, TemplatePlaceholder, TemplateConnector, Action,
 } from '@devexpress/dx-react-core';
 
+const pluginDependencies = [
+  { name: 'EditingState' },
+];
+
 class EditingMenuBase extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -28,6 +32,7 @@ class EditingMenuBase extends React.PureComponent {
     return (
       <Plugin
         name="EditingMenu"
+        dependencies={pluginDependencies}
       >
         <Getter name="isOpenEditingMenu" value={isOpen} />
         <Action name="toggleEditingMenuOpen" action={this.toggleOpen} />

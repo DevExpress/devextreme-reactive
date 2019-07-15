@@ -48,6 +48,7 @@ const renderAppointmentItems = (items, formatDate, data, Wrapper, Appointment) =
 const pluginDependencies = [
   { name: 'EditingState' },
   { name: 'Appointments' },
+  { name: 'EditingMenu', optional: true },
   { name: 'DayView', optional: true },
   { name: 'WeekView', optional: true },
   { name: 'MonthView', optional: true },

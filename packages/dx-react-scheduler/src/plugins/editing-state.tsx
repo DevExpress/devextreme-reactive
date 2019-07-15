@@ -29,6 +29,7 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
   static defaultProps: Partial<EditingStateProps> = {
     defaultAppointmentChanges: {},
     defaultAddedAppointment: {},
+    // TODO: add three methods of editing 'all' | 'current' | 'following'
     preCommitChanges: (changes, appointmentData, type) => ({ [appointmentData.id]: changes }),
   };
 
@@ -74,11 +75,11 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
 
     // will be renamed to commitChangedAppointment
     this.commitChangedAppointmentGetter = () => ({ appointmentId }) => {
-      const { appointmentChanges } = this.state;
-      const { onCommitChanges } = this.props;
-      onCommitChanges({
-        changed: changedAppointmentById(appointmentChanges, appointmentId),
-      });
+      const { appointmentChanges, editingAppointmentData } = this.state;
+      const { onCommitChanges, preCommitChanges } = this.props;
+      const changed = preCommitChanges(appointmentChanges, editingAppointmentData, 'current');
+
+      onCommitChanges({ changed });
       this.cancelChangedAppointment();
       this.stopEditAppointment();
     };
@@ -131,8 +132,6 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
 
   render() {
     const { addedAppointment, editingAppointmentData, appointmentChanges } = this.state;
-
-    console.log(this.state);
 
     return (
       <Plugin

@@ -29,7 +29,7 @@ const styles = theme => ({
   },
 });
 
-export const TitleCellBase = ({
+export const TitleCellBase = React.memo(({
   classes, getMessage, className, ...restProps
 }) => (
   <div className={classNames(classes.container, className)} {...restProps}>
@@ -39,7 +39,7 @@ export const TitleCellBase = ({
       </Typography>
     </div>
   </div>
-);
+));
 
 TitleCellBase.propTypes = {
   classes: PropTypes.object.isRequired,

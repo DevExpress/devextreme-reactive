@@ -13,10 +13,11 @@ class EditingMenuBase extends React.PureComponent {
 
     this.state = {
       isOpen: false,
+      commitChangedAppointment: () => undefined,
     };
 
-    this.enhancementCommitChanged = () => {
-      return () => this.setState({ isOpen: true });
+    this.enhancementCommitChanged = ({ commitChangedAppointment }) => {
+      return () => this.setState({ isOpen: true, commitChangedAppointment });
     };
   }
 
@@ -27,7 +28,7 @@ class EditingMenuBase extends React.PureComponent {
   }
 
   render() {
-    const { isOpen } = this.state;
+    const { isOpen, commitChangedAppointment } = this.state;
 
     return (
       <Plugin
@@ -40,7 +41,7 @@ class EditingMenuBase extends React.PureComponent {
 
         <Template name="footer">
           <TemplateConnector>
-            {(getters, { preCommitChanges }) => {
+            {(getters) => {
               if (isOpen) {
                 return (
                   <React.Fragment>
@@ -49,17 +50,17 @@ class EditingMenuBase extends React.PureComponent {
                       Choose edit mode
                       <ul>
                         <li>
-                          <button onClick={() => { preCommitChanges('current'); this.toggleOpen(); }}>
+                          <button onClick={() => { commitChangedAppointment('current'); this.toggleOpen(); }}>
                             This event
                           </button>
                         </li>
                         <li>
-                          <button onClick={() => { preCommitChanges('follows'); this.toggleOpen(); }}>
+                          <button onClick={() => { commitChangedAppointment('follows'); this.toggleOpen(); }}>
                             This and following events
                           </button>
                         </li>
                         <li>
-                          <button onClick={() => { preCommitChanges('all'); this.toggleOpen(); }}>
+                          <button onClick={() => { commitChangedAppointment('all'); this.toggleOpen(); }}>
                             All events
                           </button>
                         </li>

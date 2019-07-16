@@ -115,9 +115,8 @@ class DragDropProviderBase extends React.PureComponent<
   handlePayloadChange({ payload }, { commitChangedAppointment }) {
     const { isOutside } = this.state;
     if (payload || !isOutside) return;
-    const { payload: prevPayload } = this.state;
 
-    commitChangedAppointment({ appointmentId: prevPayload.id });
+    commitChangedAppointment();
     this.resetCache();
   }
 
@@ -192,9 +191,7 @@ class DragDropProviderBase extends React.PureComponent<
   }
 
   handleDrop = ({ commitChangedAppointment }) => () => {
-    const { payload: prevPayload } = this.state;
-
-    commitChangedAppointment({ appointmentId: prevPayload.id });
+    commitChangedAppointment();
     this.resetCache();
   }
 

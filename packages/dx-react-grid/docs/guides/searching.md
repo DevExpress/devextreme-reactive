@@ -31,7 +31,7 @@ In [controlled mode](controlled-and-uncontrolled-modes.md), pass the search opti
 
 ## Search in Visible Columns Only
 
-The Grid component searches all columns, including those that are hidden using the [`TableColumnVisibility`]() plugin. To prevent searching invisible columns, use the `IntegratedFiltering` plugin's `columnExtensions` property.
+The Grid component searches all columns, including those that are hidden using the [`TableColumnVisibility`](../reference/table-column-visibility.md) plugin. To prevent searching invisible columns, use the `IntegratedFiltering` plugin's `columnExtensions` property.
 
 .embedded-demo({ "path": "grid-searching/visible-columns-searching", "showThemeSelector": true })
 

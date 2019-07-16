@@ -70,11 +70,8 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
     this.cancelChangedAppointment = stateHelper.applyFieldReducer
       .bind(stateHelper, 'appointmentChanges', cancelChanges);
 
-    // will be removed
-    this.commitChangedAppointment = ({ appointmentId }) => { };
-
     // will be renamed to commitChangedAppointment
-    this.commitChangedAppointmentGetter = () => ({ appointmentId }) => {
+    this.commitChangedAppointment = () => ({ appointmentId }) => {
       const { appointmentChanges, editingAppointmentData } = this.state;
       const { onCommitChanges, preCommitChanges } = this.props;
       const changed = preCommitChanges(appointmentChanges, editingAppointmentData, 'current');
@@ -138,7 +135,7 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
         name="EditingState"
       >
 
-        <Getter name="preCommitChanges" value={this.preCommitChanges} />
+        <Action name="preCommitChanges" action={this.preCommitChanges} />
 
         <Getter name="editingAppointmentData" value={editingAppointmentData} />
         <Action name="startEditAppointment" action={this.startEditAppointment} />
@@ -147,8 +144,7 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
         <Getter name="appointmentChanges" value={appointmentChanges} />
         <Action name="changeAppointment" action={this.changeAppointment} />
         <Action name="cancelChangedAppointment" action={this.cancelChangedAppointment} />
-        <Action name="commitChangedAppointment" action={this.commitChangedAppointment} />
-        <Getter name="commitChangedAppointmentGetter" computed={this.commitChangedAppointmentGetter} />
+        <Getter name="commitChangedAppointment" computed={this.commitChangedAppointment} />
 
         <Getter name="addedAppointment" value={addedAppointment} />
         <Action name="addAppointment" action={this.addAppointment} />

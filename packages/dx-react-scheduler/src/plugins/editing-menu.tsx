@@ -15,7 +15,7 @@ class EditingMenuBase extends React.PureComponent {
       isOpen: false,
     };
 
-    this.commitChanged = () => {
+    this.enhancementCommitChanged = () => {
       return () => this.setState({ isOpen: true });
     };
   }
@@ -36,11 +36,11 @@ class EditingMenuBase extends React.PureComponent {
       >
         <Getter name="isOpenEditingMenu" value={isOpen} />
         <Action name="toggleEditingMenuOpen" action={this.toggleOpen} />
-        <Getter name="commitChangedAppointmentGetter" computed={this.commitChanged} />
+        <Getter name="commitChangedAppointment" computed={this.enhancementCommitChanged} />
 
         <Template name="footer">
           <TemplateConnector>
-            {({ preCommitChanges }, actions) => {
+            {(getters, { preCommitChanges }) => {
               if (isOpen) {
                 return (
                   <React.Fragment>
@@ -54,18 +54,18 @@ class EditingMenuBase extends React.PureComponent {
                           </button>
                         </li>
                         <li>
-                          <button onClick={() => { preCommitChanges('follows'); this.toggleOpen() }}>
+                          <button onClick={() => { preCommitChanges('follows'); this.toggleOpen(); }}>
                             This and following events
                           </button>
                         </li>
                         <li>
-                          <button onClick={() => { preCommitChanges('all'); this.toggleOpen() }}>
+                          <button onClick={() => { preCommitChanges('all'); this.toggleOpen(); }}>
                             All events
                           </button>
                         </li>
                         <br />
                         <li>
-                          <button onClick={actions.toggleEditDialog}>
+                          <button onClick={this.toggleOpen}>
                             close
                           </button>
                         </li>

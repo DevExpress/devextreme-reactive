@@ -112,12 +112,12 @@ class DragDropProviderBase extends React.PureComponent<
     this.setState({ startTime, endTime, payload, isOutside: false });
   }
 
-  handlePayloadChange({ payload }, { commitChangedAppointmentGetter }) {
+  handlePayloadChange({ payload }, { commitChangedAppointment }) {
     const { isOutside } = this.state;
     if (payload || !isOutside) return;
     const { payload: prevPayload } = this.state;
 
-    commitChangedAppointmentGetter({ appointmentId: prevPayload.id });
+    commitChangedAppointment({ appointmentId: prevPayload.id });
     this.resetCache();
   }
 
@@ -191,10 +191,10 @@ class DragDropProviderBase extends React.PureComponent<
     );
   }
 
-  handleDrop = ({ commitChangedAppointmentGetter }) => () => {
+  handleDrop = ({ commitChangedAppointment }) => () => {
     const { payload: prevPayload } = this.state;
 
-    commitChangedAppointmentGetter({ appointmentId: prevPayload.id });
+    commitChangedAppointment({ appointmentId: prevPayload.id });
     this.resetCache();
   }
 
@@ -226,11 +226,10 @@ class DragDropProviderBase extends React.PureComponent<
           <TemplateConnector>
             {({
               viewCellsData, startViewDate, endViewDate, excludedDays,
-              commitChangedAppointmentGetter,
+              commitChangedAppointment,
               timeTableElementsMeta, allDayElementsMeta, scrollingStrategy,
             }, {
-              commitChangedAppointment, changeAppointment,
-              startEditAppointment,
+              changeAppointment, startEditAppointment,
             }) => {
               const calculateBoundariesByMove = this.calculateNextBoundaries({
                 viewCellsData,
@@ -243,12 +242,12 @@ class DragDropProviderBase extends React.PureComponent<
               }, { changeAppointment, startEditAppointment });
               return (
                 <DragDropProviderCore
-                  onChange={this.onPayloadChange({ commitChangedAppointmentGetter })}
+                  onChange={this.onPayloadChange({ commitChangedAppointment })}
                 >
                   <DropTarget
                     onOver={calculateBoundariesByMove}
                     onEnter={calculateBoundariesByMove}
-                    onDrop={this.handleDrop({ commitChangedAppointmentGetter })}
+                    onDrop={this.handleDrop({ commitChangedAppointment })}
                     onLeave={this.handleLeave}
                   >
                     <TemplatePlaceholder />

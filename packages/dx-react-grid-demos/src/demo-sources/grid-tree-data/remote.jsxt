@@ -40,10 +40,6 @@ export default () => {
   const [loading, setLoading] = useState(false);
 
   const loadData = () => {
-    if (loading) {
-      return;
-    }
-
     const rowIdsWithNotLoadedChilds = [ROOT_ID, ...expandedRowIds]
       .filter(rowId => data.findIndex(row => row.parentId === rowId) === -1);
     if (rowIdsWithNotLoadedChilds.length) {
@@ -60,7 +56,11 @@ export default () => {
     }
   };
 
-  useEffect(() => loadData());
+  useEffect(() => {
+    if (!loading) {
+      loadData();
+    }
+  });
 
   return (
     <<%&wrapperTag%><%&wrapperAttributes%> style={{ position: 'relative' }}>

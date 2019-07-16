@@ -13,7 +13,6 @@ import {
 import { Loading } from '../../../theme-sources/<%&themeName%>/components/loading';
 
 const URL = 'https://js.devexpress.com/Demos/WidgetsGallery/data/orderItems';
-let lastQuery;
 
 export default () => {
   const [columns] = useState([
@@ -29,6 +28,7 @@ export default () => {
   const [pageSize] = useState(6);
   const [currentPage, setCurrentPage] = useState(0);
   const [loading, setLoading] = useState(true);
+  let lastQuery;
 
   const changeCurrentPage = (value) => {
     setCurrentPage(value);
@@ -57,7 +57,11 @@ export default () => {
     lastQuery = queryString;
   };
 
-  useEffect(() => loadData());
+  useEffect(() => {
+    if (loading) {
+      loadData();
+    }
+  });
 
   return (
     <<%&wrapperTag%><%&wrapperAttributes%> style={{ position: 'relative' }}>

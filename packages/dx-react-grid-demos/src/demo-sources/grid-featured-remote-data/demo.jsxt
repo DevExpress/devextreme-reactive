@@ -15,7 +15,6 @@ import { Loading } from '../../../theme-sources/<%&themeName%>/components/loadin
 import { CurrencyTypeProvider } from '../../../theme-sources/<%&themeName%>/components/currency-type-provider';
 
 const URL = 'https://js.devexpress.com/Demos/WidgetsGallery/data/orderItems';
-let lastQuery;
 
 export default () => {
   const [columns] = useState([
@@ -37,6 +36,7 @@ export default () => {
   const [pageSizes] = useState([5, 10, 15]);
   const [currentPage, setCurrentPage] = useState(0);
   const [loading, setLoading] = useState(true);
+  let lastQuery;
 
   const changeSorting = (value) => {
     setSorting(value);
@@ -86,7 +86,9 @@ export default () => {
   };
 
   useEffect(() => {
-    loadData();
+    if (loading) {
+      loadData();
+    }
   });
 
   return (

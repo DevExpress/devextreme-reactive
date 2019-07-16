@@ -9,6 +9,7 @@ import { ThemeViewer } from './theme-viewer';
 import { DemoFrame } from './demo-frame';
 import { SourceCode } from './source-code';
 import { EmbeddedDemoContext } from '../context';
+import './demo-viewer.css';
 
 export class DemoViewer extends React.Component {
   constructor(props) {
@@ -76,6 +77,7 @@ export class DemoViewer extends React.Component {
                         <Nav tabs>
                           <NavItem>
                             <NavLink
+                              tag="span"
                               className={activeTab === 'preview' ? 'active' : ''}
                               onClick={() => { this.toggle('preview'); }}
                             >
@@ -84,6 +86,7 @@ export class DemoViewer extends React.Component {
                           </NavItem>
                           <NavItem>
                             <NavLink
+                              tag="span"
                               className={activeTab === 'source' ? 'active' : ''}
                               onClick={() => { this.toggle('source'); }}
                             >

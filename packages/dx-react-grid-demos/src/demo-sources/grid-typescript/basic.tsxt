@@ -10,7 +10,7 @@ interface IRow {
   car: string
 }
 
-export default (): React.ReactNode => {
+const Demo = (): React.ReactNode => {
   const [rows] = React.useState<IRow[]>(generateRows({ length: 5 }));
   const [columns] = React.useState<Column[]>([
     { name: 'name', title: 'Name' },
@@ -34,3 +34,5 @@ export default (): React.ReactNode => {
     </<%&wrapperTag%>>
   );
 }
+
+export default Demo;

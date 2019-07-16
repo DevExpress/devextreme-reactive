@@ -9,6 +9,7 @@ import {
 import { Loading } from '../../../theme-sources/<%&themeName%>/components/loading';
 
 const URL = 'https://js.devexpress.com/Demos/WidgetsGallery/data/orderItems';
+let lastQuery;
 
 export default () => {
   const [columns] = useState([
@@ -25,8 +26,7 @@ export default () => {
     { columnName: 'SaleAmount', align: 'right' },
   ]);
   const [sorting, setSorting] = useState([{ columnName: 'StoreCity', direction: 'asc' }]);
-  const [loading, setLoading] = useState([]);
-  const [lastQuery, setLastQuery] = useState();
+  const [loading, setLoading] = useState(true);
 
   const changeSorting = (value) => {
     setLoading(true);
@@ -58,7 +58,7 @@ export default () => {
         setLoading(false);
       })
       .catch(() => setLoading(false));
-    setLastQuery(queryString);
+    lastQuery = queryString;
   };
 
   useEffect(() => loadData());

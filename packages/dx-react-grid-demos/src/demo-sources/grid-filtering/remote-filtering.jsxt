@@ -10,6 +10,7 @@ import {
 import { Loading } from '../../../theme-sources/<%&themeName%>/components/loading';
 
 const URL = 'https://js.devexpress.com/Demos/Mvc/api/DataGridWebApi/Orders';
+let lastQuery;
 
 export default () => {
   const [columns] = useState([
@@ -20,11 +21,10 @@ export default () => {
   const [rows, setRows] = useState([]);
   const [filters, setFilters] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [lastQuery, setLastQuery] = useState();
 
   const changeFilters = (value) => {
     setFilters(value);
-    setLoading(loading);
+    setLoading(true);
   };
 
   const getQueryString = () => {
@@ -54,8 +54,7 @@ export default () => {
         setLoading(false);
       })
       .catch(() => setLoading(false));
-
-    setLastQuery(queryString);
+    lastQuery = queryString;
   };
 
   useEffect(() => loadData());

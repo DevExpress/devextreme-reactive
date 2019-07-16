@@ -44,7 +44,7 @@ export default () => {
         rows={rows}
         columns={columns}
       >
-        <SearchState />
+        <SearchState defaultValue="Audi A4" />
         <IntegratedFiltering
           columnExtensions={filteringColumnExtensions}
         />

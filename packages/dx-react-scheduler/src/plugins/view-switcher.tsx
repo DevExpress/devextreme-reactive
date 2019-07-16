@@ -38,13 +38,13 @@ class ViewSwitcherBase extends React.PureComponent<ViewSwitcherProps> {
             }, {
               setCurrentViewName,
             }) => (
-                <Switcher
-                  currentView={this.getMemoCurrentView(currentView.name,
-                    currentView.type, currentView.displayName)}
-                  availableViews={availableViews}
-                  onChange={setCurrentViewName}
-                />
-              )}
+              <Switcher
+                currentView={this.getMemoCurrentView(currentView.name,
+                  currentView.type, currentView.displayName)}
+                availableViews={availableViews}
+                onChange={setCurrentViewName}
+              />
+            )}
           </TemplateConnector>
         </Template>
       </Plugin>

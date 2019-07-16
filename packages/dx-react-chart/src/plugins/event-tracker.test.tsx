@@ -15,8 +15,8 @@ describe('EventTracker', () => {
   it('should pass params to template', () => {
     (buildEventHandlers as jest.Mock).mockReturnValue({
       click: 'test-click',
-      pointermove: 'test-pointer-move',
-      pointerleave: 'test-pointer-leave',
+      mousemove: 'test-pointer-move',
+      mouseleave: 'test-pointer-leave',
     });
     const mock = jest.fn().mockReturnValue(null);
     mount(
@@ -40,8 +40,8 @@ describe('EventTracker', () => {
 
     expect(mock).toBeCalledWith({
       onClick: 'test-click',
-      onPointerMove: 'test-pointer-move',
-      onPointerLeave: 'test-pointer-leave',
+      onMouseMove: 'test-pointer-move',
+      onMouseLeave: 'test-pointer-leave',
     });
     expect(buildEventHandlers).toBeCalledWith(
       'test-series', { clickHandlers: [], pointerMoveHandlers: [] },

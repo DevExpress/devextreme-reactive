@@ -195,35 +195,17 @@ describe('EventTracker', () => {
 
     it('should use touch events if available', () => {
       // @ts-ignore
-      window.ontouchmove = true;
+      window.ontouchstart = true;
       try {
         const handlers = buildEventHandlers([series1, series2, series3] as any, {
           clickHandlers: [], pointerMoveHandlers: [1] as any,
         });
 
         expect(handlers).toEqual({
-          touchmove: expect.any(Function),
-          touchleave: expect.any(Function),
+          touchstart: expect.any(Function),
         });
       } finally {
-        delete window.ontouchmove;
-      }
-    });
-
-    it('should use pointer events if available', () => {
-      // @ts-ignore
-      window.onpointermove = true;
-      try {
-        const handlers = buildEventHandlers([series1, series2, series3] as any, {
-          clickHandlers: [], pointerMoveHandlers: [1] as any,
-        });
-
-        expect(handlers).toEqual({
-          pointermove: expect.any(Function),
-          pointerleave: expect.any(Function),
-        });
-      } finally {
-        delete window.onpointermove;
+        delete window.ontouchstart;
       }
     });
   });

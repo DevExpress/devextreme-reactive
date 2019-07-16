@@ -10,29 +10,27 @@ interface IRow {
   car: string
 }
 
-const rows: IRow[] = generateRows({ length: 5 });
-const columns: Column[] = [
-  { name: 'name', title: 'Name' },
-  { name: 'sex', title: 'Sex' },
-  { name: 'city', title: 'City' },
-  { name: 'car', title: 'Car' },
-];
-const tableColumnExtensions: Table.ColumnExtension[] = [
-  { columnName: 'sex', width: 100 },
-];
+export default (): React.ReactNode => {
+  const [rows] = React.useState<IRow[]>(generateRows({ length: 5 }));
+  const [columns] = React.useState<Column[]>([
+    { name: 'name', title: 'Name' },
+    { name: 'sex', title: 'Sex' },
+    { name: 'city', title: 'City' },
+    { name: 'car', title: 'Car' },
+  ]);
+  const [tableColumnExtensions] = React.useState<Table.ColumnExtension[]>([
+    { columnName: 'sex', width: 100 },
+  ]);
 
-export default class Demo extends React.Component<object, object> {
-  public render(): React.ReactNode {
-    return (
-      <<%&wrapperTag%><%&wrapperAttributes%>>
-        <Grid
-          rows={rows}
-          columns={columns}
-        >
-          <Table columnExtensions={tableColumnExtensions} />
-          <TableHeaderRow />
-        </Grid>
-      </<%&wrapperTag%>>
-    );
-  }
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={rows}
+        columns={columns}
+      >
+        <Table columnExtensions={tableColumnExtensions} />
+        <TableHeaderRow />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
 }

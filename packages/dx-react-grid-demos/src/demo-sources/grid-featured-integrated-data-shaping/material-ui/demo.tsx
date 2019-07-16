@@ -3,6 +3,7 @@ import Paper from '@material-ui/core/Paper';
 import Input from '@material-ui/core/Input';
 import { createStyles, withStyles, WithStyles, Theme } from '@material-ui/core/styles';
 import {
+  Column,
   FilteringState, GroupingState,
   IntegratedFiltering, IntegratedGrouping, IntegratedPaging, IntegratedSelection, IntegratedSorting,
   PagingState, SelectionState, SortingState, DataTypeProvider, DataTypeProviderProps,
@@ -107,16 +108,16 @@ const CurrencyTypeProvider: React.ComponentType<DataTypeProviderProps> =
 );
 
 export default () => {
-  const [columns] = React.useState([
+  const [columns] = React.useState<Column[]>([
     { name: 'product', title: 'Product' },
     { name: 'region', title: 'Region' },
     { name: 'amount', title: 'Sale Amount' },
     { name: 'saleDate', title: 'Sale Date' },
     { name: 'customer', title: 'Customer' },
   ]);
-  const [rows] = React.useState(sales);
-  const [currencyColumns] = React.useState(['amount']);
-  const [pageSizes] = React.useState([5, 10, 15]);
+  const [rows] = React.useState<ISale[]>(sales);
+  const [pageSizes] = React.useState<number[]>([5, 10, 15]);
+  const [currencyColumns] = React.useState<string[]>(['amount']);
 
   return (
     <Paper>

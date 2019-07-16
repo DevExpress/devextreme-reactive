@@ -29,10 +29,9 @@ In [controlled mode](controlled-and-uncontrolled-modes.md), pass the search opti
 
 .embedded-demo({ "path": "grid-searching/controlled-mode", "showThemeSelector": true })
 
-## Visible Columns Searching
+## Search in Visible Columns Only
 
-By default, search finds all matching values in each column. It also working if you're using `TableColumnVisibility` plugin and you can find cell even it is invisible. 
-You can prevent searching of invisible column using the `IntegratedFiltering` plugin’s `columnExtensions` property.
+The Grid component searches all columns, including those that are hidden using the [`TableColumnVisibility`]() plugin. To prevent searching invisible columns, use the `IntegratedFiltering` plugin's `columnExtensions` property.
 
 .embedded-demo({ "path": "grid-searching/visible-columns-searching", "showThemeSelector": true })
 

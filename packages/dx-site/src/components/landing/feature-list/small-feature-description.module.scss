@@ -8,3 +8,9 @@
 .smallDescription {
   @include feature-description;
 }
+
+@media (min-width: 1000px) {
+  .smallTitle {
+    text-align: center;
+  }
+}

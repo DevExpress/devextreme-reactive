@@ -26,54 +26,45 @@ import AlternatedBackground from '../../../components/landing/alternated-backgro
 
 const chartTypes = [
   {
-    title: 'Bar',
+    sectionTitle: '5 Built-in Chart Types With Customizable Series',
+    title: 'Bar Chart',
     imageLink: smallImageBoxLink,
-    description: 'The React Chart uses a hybrid rendering mechanism that combines HTML and SVG.',
   },
   {
-    title: 'Line',
+    title: 'Line Chart',
     imageLink: smallImageBoxLink,
-    description: 'The React Chart uses a hybrid rendering mechanism that combines HTML and SVG.',
   },
   {
-    title: 'Spline',
+    title: 'Spline Chart',
     imageLink: smallImageBoxLink,
-    description: 'The React Chart uses a hybrid rendering mechanism that combines HTML and SVG.',
   },
   {
-    title: 'Area',
+    title: 'Area Chart',
     imageLink: smallImageBoxLink,
-    description: 'The React Chart uses a hybrid rendering mechanism that combines HTML and SVG.',
   },
   {
-    title: 'Scatter',
+    title: 'Scatter Chart',
     imageLink: smallImageBoxLink,
-    description: 'The React Chart uses a hybrid rendering mechanism that combines HTML and SVG.',
   },
   {
-    title: 'Stacked Bar',
+    title: 'Stacked Bar Chart',
     imageLink: smallImageBoxLink,
-    description: 'The React Chart uses a hybrid rendering mechanism that combines HTML and SVG.',
   },
   {
-    title: 'Stacked Line',
+    title: 'Stacked Line Chart',
     imageLink: smallImageBoxLink,
-    description: 'The React Chart uses a hybrid rendering mechanism that combines HTML and SVG.',
   },
   {
-    title: 'Stacked Spline',
+    title: 'Stacked Spline Chart',
     imageLink: smallImageBoxLink,
-    description: 'The React Chart uses a hybrid rendering mechanism that combines HTML and SVG.',
   },
   {
-    title: 'Stacked Area',
+    title: 'Stacked Area Chart',
     imageLink: smallImageBoxLink,
-    description: 'The React Chart uses a hybrid rendering mechanism that combines HTML and SVG.',
   },
   {
-    title: 'Pie',
+    title: 'Pie Chart',
     imageLink: smallImageBoxLink,
-    description: 'The React Chart uses a hybrid rendering mechanism that combines HTML and SVG.',
   },
 ];
 const pageData = [
@@ -121,6 +112,7 @@ const IndexPage = () => (
   <Layout>
     <Helmet title="React Chart" />
     <Header
+      page="productPage"
       logo={<ProductLogo link="react/chart" />}
       addon={(
         <LandingHeaderAddon
@@ -158,7 +150,7 @@ const IndexPage = () => (
     />
     <LandingProductFloatImage imageLink={headerLink} />
     <AlternatedBackground>
-      <div className="row my-3" />
+      <div className="row my-4" />
       <LandingChessBoardSmallLayoutList data={chartTypes} />
     </AlternatedBackground>
     <LandingChessBoardLayoutList data={pageData} columns={3} />

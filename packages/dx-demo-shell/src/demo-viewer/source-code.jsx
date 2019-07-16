@@ -37,6 +37,8 @@ export class SourceCode extends React.PureComponent {
       gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
     });
     this.updateCodeMirror();
+    const { getEditorInstance } = this.props;
+    getEditorInstance(this.codeMirror);
   }
 
   componentDidUpdate() {

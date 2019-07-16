@@ -8,7 +8,6 @@ const FeaturesList = ({
   layoutItemComponent: LayoutItem,
   layoutRowComponent: LayoutRow,
 }) => {
-  console.log('cols', columns)
   const rows = data.reduce((acc, item, i) => {
     const rowFilled = acc.length > 0 && acc[acc.length - 1].length % columns === 0;
     if (i === 0 || rowFilled || item.sectionTitle !== undefined) {
@@ -21,19 +20,19 @@ const FeaturesList = ({
 
   return rows.map((rowItems, index) => {
     const sectionTitle = rowItems[0].sectionTitle;
-    const items = rowItems.map((item) => <LayoutItem {...item} md={12 / columns} />);
+    const items = rowItems.map((item, idx) => <LayoutItem {...item} md={12 / columns} key={idx} />);
     const alternate = index % 2 === 1;
 
     return (
-      <>
+      <React.Fragment>
         {(alternate ? (
-            <AlternatedBackground>
+            <AlternatedBackground key={index}>
               <LayoutRow items={items} title={sectionTitle} />
             </AlternatedBackground>
           )
-          : <LayoutRow items={items} title={sectionTitle} />
+          : <LayoutRow items={items} title={sectionTitle} key={index} />
         )}
-      </>
+      </React.Fragment>
     );
   });
 };

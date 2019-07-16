@@ -26,7 +26,7 @@ const styles = ({ spacing, typography }) => ({
   },
 });
 
-const SwitcherBase = ({
+const SwitcherBase = React.memo(({
   currentView,
   availableViews,
   onChange, classes,
@@ -60,7 +60,7 @@ const SwitcherBase = ({
       ))}
     </Select>
   );
-};
+});
 
 SwitcherBase.propTypes = {
   onChange: PropTypes.func.isRequired,

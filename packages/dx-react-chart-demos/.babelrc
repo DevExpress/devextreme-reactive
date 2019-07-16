@@ -1,13 +1,17 @@
 {
   "presets": [
-    [ "@babel/preset-env", { "modules": false, "targets": { "browsers": ["last 2 versions"] } } ],
+    [ "@babel/preset-env", { "modules": false, "targets": {
+      "node": "10"
+    } } ],
     "@babel/preset-react"
   ],
   "env": {
     "test": {
       "plugins": ["@babel/plugin-transform-runtime"],
       "presets": [
-        ["@babel/preset-env", {"modules": "commonjs"}]
+        ["@babel/preset-env", {
+          "modules": "commonjs",
+        }]
       ]
     }
   }

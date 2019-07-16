@@ -14,35 +14,47 @@ class EditingMenuBase extends React.PureComponent {
     this.state = {
       isOpen: false,
       commitChangedAppointment: () => undefined,
+      commitDeletedAppointment: () => undefined,
     };
 
     this.enhancementCommitChanged = ({ commitChangedAppointment }) => {
-      return () => this.setState({ isOpen: true, commitChangedAppointment });
+      return () => this.setState({ isCommitChanged: true, commitChangedAppointment });
+    };
+    this.enhancementCommitDeleted = ({ commitDeletedAppointment }) => {
+      return (deletedAppointment) => this.setState({
+        isCommitDeleted: true,
+        commitDeletedAppointment: type => commitDeletedAppointment(deletedAppointment, type),
+      });
     };
   }
 
-  toggleOpen = () => {
-    this.setState(state => ({
-      isOpen: !state.isOpen,
-    }));
+  closeMenu = () => {
+    this.setState({
+      isCommitChanged: false,
+      isCommitDeleted: false,
+    });
   }
 
   render() {
-    const { isOpen, commitChangedAppointment } = this.state;
+    const {
+      isCommitChanged, isCommitDeleted,
+      commitChangedAppointment, commitDeletedAppointment,
+    } = this.state;
 
     return (
       <Plugin
         name="EditingMenu"
         dependencies={pluginDependencies}
       >
-        <Getter name="isOpenEditingMenu" value={isOpen} />
-        <Action name="toggleEditingMenuOpen" action={this.toggleOpen} />
         <Getter name="commitChangedAppointment" computed={this.enhancementCommitChanged} />
+        <Getter name="commitDeletedAppointment" computed={this.enhancementCommitDeleted} />
 
         <Template name="footer">
           <TemplateConnector>
             {(getters) => {
-              if (isOpen) {
+              if (isCommitDeleted || isCommitChanged) {
+                const commitFunction = isCommitChanged ?
+                  commitChangedAppointment : commitDeletedAppointment;
                 return (
                   <React.Fragment>
                     <TemplatePlaceholder />
@@ -50,23 +62,23 @@ class EditingMenuBase extends React.PureComponent {
                       Choose edit mode
                       <ul>
                         <li>
-                          <button onClick={() => { commitChangedAppointment('current'); this.toggleOpen(); }}>
+                          <button onClick={() => { commitFunction('current'); this.closeMenu(); }}>
                             This event
                           </button>
                         </li>
                         <li>
-                          <button onClick={() => { commitChangedAppointment('follows'); this.toggleOpen(); }}>
+                          <button onClick={() => { commitFunction('follows'); this.closeMenu(); }}>
                             This and following events
                           </button>
                         </li>
                         <li>
-                          <button onClick={() => { commitChangedAppointment('all'); this.toggleOpen(); }}>
+                          <button onClick={() => { commitFunction('all'); this.closeMenu(); }}>
                             All events
                           </button>
                         </li>
                         <br />
                         <li>
-                          <button onClick={this.toggleOpen}>
+                          <button onClick={this.closeMenu}>
                             close
                           </button>
                         </li>

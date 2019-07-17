@@ -97,6 +97,7 @@ GroupPanelItem.propTypes = {
   item: PropTypes.shape({
     column: PropTypes.shape({
       title: PropTypes.string,
+      name: PropTypes.string,
     }).isRequired,
     draft: PropTypes.bool,
   }).isRequired,

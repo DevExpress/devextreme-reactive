@@ -10,18 +10,18 @@ interface IRow {
   car: string
 }
 
-const Demo = (): React.ReactNode => {
-  const [rows] = React.useState<IRow[]>(generateRows({ length: 5 }));
-  const [columns] = React.useState<Column[]>([
-    { name: 'name', title: 'Name' },
-    { name: 'sex', title: 'Sex' },
-    { name: 'city', title: 'City' },
-    { name: 'car', title: 'Car' },
-  ]);
-  const [tableColumnExtensions] = React.useState<Table.ColumnExtension[]>([
-    { columnName: 'sex', width: 100 },
-  ]);
+const rows: IRow[] = generateRows({ length: 5 });
+const columns: Column[] = [
+  { name: 'name', title: 'Name' },
+  { name: 'sex', title: 'Sex' },
+  { name: 'city', title: 'City' },
+  { name: 'car', title: 'Car' },
+];
+const tableColumnExtensions: Table.ColumnExtension[] = [
+  { columnName: 'sex', width: 100 },
+];
 
+const Demo: React.SFC = () => {
   return (
     <<%&wrapperTag%><%&wrapperAttributes%>>
       <Grid

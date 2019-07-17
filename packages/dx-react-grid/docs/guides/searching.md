@@ -31,13 +31,13 @@ In [controlled mode](controlled-and-uncontrolled-modes.md), pass the search opti
 
 ## Search in Visible Columns Only
 
-The Grid component searches all columns, including those that are hidden, using the [`TableColumnVisibility`](../reference/table-column-visibility.md) plugin. To prevent a search through invisible columns, use the `IntegratedFiltering` plugin's `columnExtensions` property.
+The Grid component searches all columns, including those that are hidden using the [`TableColumnVisibility`](../reference/table-column-visibility.md) plugin. To prevent a search through invisible columns, use the `IntegratedFiltering` plugin's `columnExtensions` property.
 
 .embedded-demo({ "path": "grid-searching/visible-columns-searching", "showThemeSelector": true })
 
 ## Remote Searching
 
-You can perform a search remotely  by handling search value changes, generating a request, and sending it to the server.
+You can perform a search remotely by handling search value changes, generating a request, and sending it to the server.
 
 Searching options are updated once an end user modifies the text in a Search Panel editor or other searching control. Handle search value changes using the `SearchState` plugin's `onValueChange` event and request data from the server using the applied searching options. Once the search data is received from the server, pass it to the `Grid` component's `rows` property.
 

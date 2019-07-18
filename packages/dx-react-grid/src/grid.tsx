@@ -23,6 +23,7 @@ const GridBase: React.SFC<GridProps> = ({
   </PluginHost>
 );
 
+
 /***
  * The Grid is a root container component designed to process and display data specified via
  * the `rows` property. You can configure columns using the `columns` property. The Grid's

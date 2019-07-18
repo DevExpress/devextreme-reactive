@@ -9,6 +9,8 @@ import { ThemeViewer } from './theme-viewer';
 import { DemoFrame } from './demo-frame';
 import { SourceCode } from './source-code';
 import { EmbeddedDemoContext } from '../context';
+import { DemoCodeProvider } from './demo-code-provider';
+import { CodeSandBoxButton } from './codesandbox-button';
 import './demo-viewer.css';
 
 export class DemoViewer extends React.Component {
@@ -50,7 +52,7 @@ export class DemoViewer extends React.Component {
 
     return (
       <EmbeddedDemoContext.Consumer>
-        {({ showThemeSelector, demoSources }) => (
+        {({ showThemeSelector, demoSources, themeComponents }) => (
           <Switch>
             <Route
               path={`${url}/:themeName/:variantName/clean`}
@@ -61,6 +63,7 @@ export class DemoViewer extends React.Component {
                     variantName={variantName}
                     sectionName={sectionName}
                     demoName={demoName}
+                    markup={html}
                   />
                 </div>
               )}
@@ -73,49 +76,63 @@ export class DemoViewer extends React.Component {
                     availableThemes={Object.keys(demoSources[sectionName][demoName])}
                   >
                     {({ themeName, variantName }) => (
-                      <div style={{ marginTop: showThemeSelector ? '-42px' : 0 }}>
-                        <Nav tabs>
-                          <NavItem>
-                            <NavLink
-                              tag="span"
-                              className={activeTab === 'preview' ? 'active' : ''}
-                              onClick={() => { this.toggle('preview'); }}
+                      <DemoCodeProvider
+                        themeName={themeName}
+                        variantName={variantName}
+                        sectionName={sectionName}
+                        demoName={demoName}
+                      >
+                        {({ html, code }) => (
+                          <div style={{ marginTop: showThemeSelector ? '-42px' : 0 }}>
+                            <Nav tabs>
+                              <NavItem>
+                                <NavLink
+                                  tag="span"
+                                  className={activeTab === 'preview' ? 'active' : ''}
+                                  onClick={() => { this.toggle('preview'); }}
+                                >
+                                  Preview
+                                </NavLink>
+                              </NavItem>
+                              <NavItem>
+                                <NavLink
+                                  tag="span"
+                                  className={activeTab === 'source' ? 'active' : ''}
+                                  onClick={() => { this.toggle('source'); }}
+                                >
+                                  Source
+                                </NavLink>
+                              </NavItem>
+                              <NavItem>
+                                <CodeSandBoxButton code={code} html={html} themeComponents={themeComponents} />
+                              </NavItem>
+                            </Nav>
+                            <TabContent
+                              activeTab={activeTab}
+                              style={{ marginTop: '20px' }}
                             >
-                              Preview
-                            </NavLink>
-                          </NavItem>
-                          <NavItem>
-                            <NavLink
-                              tag="span"
-                              className={activeTab === 'source' ? 'active' : ''}
-                              onClick={() => { this.toggle('source'); }}
-                            >
-                              Source
-                            </NavLink>
-                          </NavItem>
-                        </Nav>
-                        <TabContent
-                          activeTab={activeTab}
-                          style={{ marginTop: '20px' }}
-                        >
-                          <TabPane tabId="preview">
-                            <DemoFrame
-                              themeName={themeName}
-                              variantName={variantName}
-                              sectionName={sectionName}
-                              demoName={demoName}
-                            />
-                          </TabPane>
-                          <TabPane tabId="source">
-                            <SourceCode
-                              themeName={themeName}
-                              sectionName={sectionName}
-                              demoName={demoName}
-                              getEditorInstance={this.getEditorInstance}
-                            />
-                          </TabPane>
-                        </TabContent>
-                      </div>
+                              <TabPane tabId="preview">
+                                <DemoFrame
+                                  themeName={themeName}
+                                  variantName={variantName}
+                                  sectionName={sectionName}
+                                  demoName={demoName}
+                                  markup={html}
+                                />
+                              </TabPane>
+                              <TabPane tabId="source">
+                                <SourceCode
+                                  themeName={themeName}
+                                  sectionName={sectionName}
+                                  demoName={demoName}
+                                  getEditorInstance={this.getEditorInstance}
+                                  source={code}
+                                />
+                              </TabPane>
+                            </TabContent>
+                          </div>
+                        )}
+                      </DemoCodeProvider>
                     )}
                   </ThemeViewer>
                 </div>

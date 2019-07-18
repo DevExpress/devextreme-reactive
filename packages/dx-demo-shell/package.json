@@ -47,5 +47,8 @@
     "rollup-plugin-babel": "^4.3.2",
     "rollup-plugin-css-only": "^1.0.0",
     "rollup-plugin-node-resolve": "^4.0.1"
+  },
+  "dependencies": {
+    "codesandbox": "^2.1.6"
   }
 }

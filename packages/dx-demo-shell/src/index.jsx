@@ -14,6 +14,7 @@ import { EmbeddedDemoContext } from './context';
 
 const App = ({ router, path, ...restProps }) => {
   const Router = router === 'hash' ? HashRouter : MemoryRouter;
+  // console.log('provider', restProps)
   return (
     <EmbeddedDemoContext.Provider value={restProps}>
       <Router
@@ -52,6 +53,7 @@ export const initialize = ({
   demoSources,
   renderDemo,
   unmountDemo,
+  themeComponents,
 }) => {
   const embeddedDemoPlaceholders = [...document.getElementsByClassName('embedded-demo')];
   const embeddedDemoConfigs = embeddedDemoPlaceholders
@@ -61,9 +63,11 @@ export const initialize = ({
     }));
   embeddedDemoConfigs
     .forEach((config) => {
+      // console.log('options', config.options)
       render(
         <App
           {...config.options}
+          themeComponents={themeComponents}
           themeSources={themeSources}
           demoSources={demoSources}
           renderDemo={renderDemo}

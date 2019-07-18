@@ -23,49 +23,20 @@ class DemoFrameRenderer extends React.PureComponent {
     super(props, context);
 
     const {
+      themeSources,
+    } = this.context;
+    const {
       sectionName,
       demoName,
       themeName,
       variantName,
       perfSamplesCount,
     } = props;
-    const {
-      scriptPath, themeSources, firstPart, lastPart, demoSources,
-    } = this.context;
-
-    let demoScript = scriptPath;
-    if (firstPart !== undefined) {
-      // eslint-disable-next-line prefer-destructuring
-      const productName = demoSources[sectionName][demoName][themeName].productName;
-      demoScript = `${firstPart}${productName}${lastPart}`;
-    }
 
     const themeVariantOptions = themeSources
       .find(theme => theme.name === themeName).variants
       .find(variant => variant.name === variantName);
-    const frameUrl = `/demo/${sectionName}/${demoName}/${themeName}/${variantName}`;
-    const themeLinks = themeVariantOptions.links
-      ? themeVariantOptions.links.map(link => `<link rel="stylesheet" href="${link}">`).join('\n')
-      : '';
-    const mode = perfSamplesCount > 0 ? `/perf/${perfSamplesCount}` : '/clean';
-    this.markup = `
-      <!DOCTYPE html>
-      <html>
-      <head>
-        ${themeLinks}
-        <style>
-          body { margin: 8px; overflow: hidden; }
-          .panel { margin: 0; }
-        </style>
-      </head>
-      <body>
-        <div id="mountPoint"></div>
-        <div class="embedded-demo" data-options='{ "path": "${frameUrl}${mode}", "frame": true }'>
-          <div style="min-height: 500px;">Loading...</div>
-        </div>
-        <script src="${demoScript}"></script>
-      </body>
-      </html>`;
+
     this.state = {
       editableLink: themeVariantOptions.editableLink,
       frameHeight: 600,
@@ -91,6 +62,7 @@ class DemoFrameRenderer extends React.PureComponent {
   }
 
   render() {
+    const { markup } = this.props;
     const { frame } = this.context;
     const { editableLink, frameHeight } = this.state;
 
@@ -144,7 +116,7 @@ class DemoFrameRenderer extends React.PureComponent {
                   marginBottom: '20px',
                 }}
                 head={<Link link={editableLink} />}
-                initialContent={this.markup}
+                initialContent={markup}
                 mountTarget="#mountPoint"
                 scrolling="no"
               >

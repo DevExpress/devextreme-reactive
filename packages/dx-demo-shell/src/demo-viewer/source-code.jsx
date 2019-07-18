@@ -52,9 +52,10 @@ export class SourceCode extends React.PureComponent {
   }
 
   prepareSourceCode() {
-    const { themeName, sectionName, demoName } = this.props;
-    const { demoSources } = this.context;
-    const source = demoSources[sectionName][demoName][themeName].source || '';
+    // const { themeName, sectionName, demoName } = this.props;
+    // const { demoSources } = this.context;
+    // const source = demoSources[sectionName][demoName][themeName].source || '';
+    const { source } = this.props;
     const foldBlockStartLines = [];
     const importantLines = [];
     let occurrenceIndex = 0;

@@ -77,8 +77,8 @@
     "@devexpress/dx-grid-core": "2.0.1"
   },
   "peerDependencies": {
-    "@devexpress/dx-core": "2.0.0",
-    "@devexpress/dx-react-core": "2.0.0",
+    "@devexpress/dx-core": "2.0.1",
+    "@devexpress/dx-react-core": "2.0.1",
     "react": ">=16.8.6",
     "react-dom": ">=16.8.6"
   }

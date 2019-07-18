@@ -59,7 +59,7 @@
     "typescript": "^3.5.3"
   },
   "peerDependencies": {
-    "@devexpress/dx-core": "2.0.0"
+    "@devexpress/dx-core": "2.0.1"
   },
   "dependencies": {
     "moment": "^2.24.0",

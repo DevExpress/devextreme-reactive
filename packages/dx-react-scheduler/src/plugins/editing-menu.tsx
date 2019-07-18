@@ -97,9 +97,6 @@ class EditingMenuBase extends React.PureComponent {
 }
 
 /***
- * The Scheduler is a root container component designed to process
- * and display the specified data. The Scheduler's functionality
- * (data visualization and processing) is implemented in several plugins
- * specified as child components.
+ * The EditingMenu plugin.
  * */
 export const EditingMenu: React.ComponentType = EditingMenuBase;

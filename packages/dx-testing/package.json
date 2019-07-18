@@ -18,9 +18,9 @@
     "lint:fix": "yarn lint --fix"
   },
   "devDependencies": {
-    "@babel/core": "^7.5.4",
-    "@babel/plugin-transform-runtime": "^7.5.0",
-    "@babel/preset-env": "^7.5.4",
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-transform-runtime": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
     "eslint": "^6.0.1",
     "eslint-config-airbnb": "^17.1.1",

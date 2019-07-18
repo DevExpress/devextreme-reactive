@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-react-grid-bootstrap3",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Bootstrap 3 templates for DevExtreme React Grid component",
   "author": {
     "name": "Developer Express Inc.",
@@ -48,10 +48,10 @@
     "@babel/plugin-transform-runtime": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
-    "@devexpress/dx-grid-core": "2.0.0",
-    "@devexpress/dx-react-core": "2.0.0",
-    "@devexpress/dx-react-grid": "2.0.0",
-    "@devexpress/dx-testing": "2.0.0",
+    "@devexpress/dx-grid-core": "2.0.1",
+    "@devexpress/dx-react-core": "2.0.1",
+    "@devexpress/dx-react-grid": "2.0.1",
+    "@devexpress/dx-testing": "2.0.1",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^24.8.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
@@ -81,9 +81,9 @@
     "prop-types": "^15.7.2"
   },
   "peerDependencies": {
-    "@devexpress/dx-grid-core": "2.0.0",
-    "@devexpress/dx-react-core": "2.0.0",
-    "@devexpress/dx-react-grid": "2.0.0",
+    "@devexpress/dx-grid-core": "2.0.1",
+    "@devexpress/dx-react-core": "2.0.1",
+    "@devexpress/dx-react-grid": "2.0.1",
     "react": ">=16.8.6",
     "react-bootstrap": "=0.32.4",
     "react-dom": ">=16.8.6"

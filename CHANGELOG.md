@@ -1,3 +1,21 @@
+# [2.0.1](https://github.com/DevExpress/devextreme-reactive/compare/v2.0.0...v2.0.1) (2019-07-18)
+
+
+### Bug Fixes
+
+* **react-chart:** improve touch events on hover/select ([#2159](https://github.com/DevExpress/devextreme-reactive/issues/2159)) ([61ee79a](https://github.com/DevExpress/devextreme-reactive/commit/61ee79a))
+* **react-grid:** correct stub cell render for GroupRow in virtual table ([#2157](https://github.com/DevExpress/devextreme-reactive/issues/2157)) ([1624947](https://github.com/DevExpress/devextreme-reactive/commit/1624947))
+* **react-grid:** disable skeleton cells when local data is used ([#2153](https://github.com/DevExpress/devextreme-reactive/issues/2153)) ([920008f](https://github.com/DevExpress/devextreme-reactive/commit/920008f))
+* **react-scheduler:** call editing actions by DnD only once ([#2163](https://github.com/DevExpress/devextreme-reactive/issues/2163)) ([5364254](https://github.com/DevExpress/devextreme-reactive/commit/5364254))
+* **react-scheduler-material-ui:** set appointment's default color ([#2154](https://github.com/DevExpress/devextreme-reactive/issues/2154)) ([ea7c508](https://github.com/DevExpress/devextreme-reactive/commit/ea7c508))
+
+
+### Performance Improvements
+
+* **react-grid:** optimize render using React.memo ([#2137](https://github.com/DevExpress/devextreme-reactive/issues/2137)) ([bd65d53](https://github.com/DevExpress/devextreme-reactive/commit/bd65d53))
+
+
+
 # [2.0.0](https://github.com/DevExpress/devextreme-reactive/compare/v1.11.1...v2.0.0) (2019-07-08)
 
 

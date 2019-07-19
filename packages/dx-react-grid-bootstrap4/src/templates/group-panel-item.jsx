@@ -88,6 +88,7 @@ export const GroupPanelItem = ({
 GroupPanelItem.propTypes = {
   item: PropTypes.shape({
     column: PropTypes.shape({
+      name: PropTypes.string,
       title: PropTypes.string,
     }).isRequired,
     draft: PropTypes.bool,

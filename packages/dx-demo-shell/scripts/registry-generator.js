@@ -1,8 +1,14 @@
+const path = require('path');
 const {
   overrideFileIfChanged, getFileContents, writeObjectToFile,
 } = require('./fs-utils');
+const { getCurrentProductName } = require('./utils');
+const { parseHelperFiles } = require('./helper-files-parser');
 
-const groupBy = (array, iteratee) => array
+const DEMOS_FOLDER = './src/demo-sources';
+const GENERATED_SUFFIX = '.g';
+
+const groupBy = (arr, iteratee) => arr
   .reduce((acc, element) => {
     const key = iteratee(element);
     if (acc[key]) {
@@ -12,12 +18,6 @@ const groupBy = (array, iteratee) => array
     }
     return acc;
   }, {});
-// const indent = (string, count) => string.split('\n').map(substring => `${' '.repeat(count)}${substring}`).join('\n');
-const getCurrentProductName = () => {
-  const packageName = path.basename(path.resolve('./'));
-  const productName = packageName.split('-')[2];
-  return productName;
-};
 
 const generateDemoRegistry = (demos, folderPath, getDemoLink) => {
   const productName = getCurrentProductName();

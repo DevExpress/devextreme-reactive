@@ -11,9 +11,9 @@ const overrideFileIfChanged = (filename, data) => {
   }
 };
 const getFileContents = filePath => JSON.stringify(String(fs.readFileSync(filePath, 'utf-8')));
-const writeObjectToFile = (path, obj, varName) => {
+const writeObjectToFile = (filePath, obj, varName) => {
   overrideFileIfChanged(
-    path,
+    filePath,
     '/* eslint-disable quote-props */\n'
     + '/* eslint-disable global-require */\n'
     + '/* eslint-disable no-template-curly-in-string */\n\n'

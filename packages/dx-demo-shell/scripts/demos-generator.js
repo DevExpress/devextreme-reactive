@@ -1,6 +1,43 @@
 const fs = require('fs');
 const path = require('path');
 const mustache = require('mustache');
+const {
+  overrideFileIfChanged, getFileContents, writeObjectToFile,
+} = require('./fs-utils');
+
+const DEMOS_FOLDER = './src/demo-sources';
+const THEMES_FOLDER = './src/theme-sources';
+const TEMPLATE_EXT_POSTFIX = 't';
+const GENERATED_SUFFIX = '.g';
+const TEST_SUFFIX = '.test';
+const THEME_DEMO_DATA_FILE = 'demo-source-data.json';
+const TEST_FILE = 'demo.test.jsxt';
+const TEST_FILE_TS = 'demo.test.tsxt';
+const SSR_TEST_FILE = 'demo.ssr.test.jsxt';
+
+
+const getTestFileName = demoExtension => (
+  demoExtension.startsWith('tsx')
+    ? TEST_FILE_TS
+    : TEST_FILE
+);
+const getDemoExtension = (source) => {
+  const nameReplaceRegex = new RegExp('\\.(jsx?|tsx?)');
+  const extensionMatches = nameReplaceRegex.exec(source);
+  if (extensionMatches === null) return null;
+  return extensionMatches[1];
+};
+
+const filesToRemove = [];
+const cancelFileRemoving = (filename) => {
+  const removeIndex = filesToRemove.indexOf(filename);
+  if (removeIndex > -1) {
+    filesToRemove.splice(removeIndex, 1);
+  }
+};
+const removePendingFiles = () => {
+  filesToRemove.forEach(file => fs.unlinkSync(file));
+};
 
 const createFromTemplate = (sourceFilename, outputFilename, data) => {
   const source = fs.readFileSync(sourceFilename, 'utf-8');
@@ -77,7 +114,7 @@ const loadDemosToGenerate = (themeNames) => {
   return demos;
 };
 
-const generateDemos = () => {
+const generateDemos = (demos) => {
   demos.forEach(({
     sectionName,
     demoName,
@@ -128,4 +165,5 @@ const generateDemos = () => {
 module.exports = {
   loadDemosToGenerate,
   generateDemos,
+  removePendingFiles,
 };

@@ -20,7 +20,9 @@ const TableContainerBase = ({
     className={classNames(classes.root, className)}
     {...restProps}
   >
-    {children}
+    <div>
+      {children}
+    </div>
   </div>
 );
 

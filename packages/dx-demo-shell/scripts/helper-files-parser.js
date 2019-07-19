@@ -39,6 +39,7 @@ const listFilesRecursively = dir => (
   listFilesRecursivelyCore(dir)
     .map(f => f.replace(path.normalize(dir + '/'), ''))
 );
+// returns flat file structure
 const listFilesRecursivelyCore = (dir) => (
   fs.readdirSync(dir)
     .reduce((files, item) =>
@@ -47,19 +48,17 @@ const listFilesRecursivelyCore = (dir) => (
         : [...files, path.join(dir, item)],
       [])
 );
-    
+const getFileName = f => path.basename(f, path.extname(f));
+const isSameFile = (path1, path2) => getFileName(path1) === getFileName(path2);
+
 const generateDirRegistry = (dir) => {
   const fileList = listFilesRecursively(dir);
 
   return fileList.reduce((acc, file) => {
     const source = getFileContents(path.join(dir, file));
-    const deps = retrieveHelperDependencies(source).map(d => fileList.find(f => {
-      console.log(path.basename(f, path.extname(f)), d)
-      return path.basename(f, path.extname(f)) === path.basename(d, path.extname(d))
-    }));
-    // console.log(deps)
-    // const name = path.basename(file, path.extname(file));
-    
+    // deps should include extension
+    const deps = retrieveHelperDependencies(source).map(d => fileList.find(f => isSameFile(f, d)));
+
     acc['files'][file] = source;
     if (deps.length) {
       acc['deps'][file] = deps;
@@ -69,23 +68,11 @@ const generateDirRegistry = (dir) => {
 }
 
 const generateThemeFilesRegistry = (dir) => {
-  // const files = listFilesRecursively(dir);
   const helperRegistry = fs.readdirSync(THEME_SOURCES_FOLDER).reduce((themeAcc, themeName) => {
     const componentsPath = path.join(THEME_SOURCES_FOLDER, themeName, 'components');
 
     if (fs.existsSync(componentsPath)) {
       themeAcc[themeName] = generateDirRegistry(componentsPath);
-      // themeAcc[themeName] = fs.readdirSync(componentsPath).reduce((nameAcc, file) => {
-      //   const source = getFileContents(path.join(componentsPath, file));
-      //   const deps = retrieveHelperDependencies(source);
-      //   // const name = path.basename(file, path.extname(file));
-        
-      //   nameAcc['files'][file] = source;
-      //   if (deps.length) {
-      //     nameAcc['deps'][file] = deps;
-      //   }
-      //   return nameAcc;
-      // }, { deps: {}, files: {} });
     }
 
     return themeAcc;

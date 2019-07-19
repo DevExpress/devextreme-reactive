@@ -29,13 +29,6 @@ const loadThemeNames = () => {
   return themeNames;
 };
 
-
-const generateDemoDataRegistry = () => {
-  // const registry = fs.readdirSync(DEMO_DATA_FOLDER).forEach(file => {
-
-  // });
-};
-
 // {
 //   "file": ["path/dep1", "path/dep2"]
 // }

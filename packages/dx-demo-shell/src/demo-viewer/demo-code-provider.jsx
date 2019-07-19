@@ -52,9 +52,12 @@ export class DemoCodeProvider extends React.PureComponent {
 
   getHelperFiles() {
     const { themeName, sectionName, demoName } = this.props;
-    const { demoSources, themeComponents } = this.context;
+    const { demoSources, themeComponents, demoData } = this.context;
     const importedHelpers = demoSources[sectionName][demoName][themeName].helperFiles;
     const themeSources = importedHelpers.themeComponents.map(helper => themeComponents[themeName][helper]);
+    const dataSources = importedHelpers.demoData.map(helper => demoData[helper]);
+
+    console.log('GET FILES', demoSources[sectionName][demoName][themeName], demoData, themeComponents)
 
     return {
       ...(themeSources.length && { themeSources }),
@@ -66,9 +69,9 @@ export class DemoCodeProvider extends React.PureComponent {
     const html = this.getHtml();
     const code = this.getCode();
     const helperFiles = this.getHelperFiles();
-    console.log(helperFiles)
+    console.log('helpers', helperFiles)
 
-    return children({ html, code });
+    return children({ html, code, helperFiles });
   }
 }
 

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { getParameters } from "codesandbox/lib/api/define";
 
-export const CodeSandBoxButton = ({ code, html, themeComponents }) => {
-  console.log('csb', themeComponents)
+export const CodeSandBoxButton = ({ code, html, themeComponents, demoData }) => {
+  console.log('csb', themeComponents, demoData)
   const parameters = getParameters({
     files: {
       "package.json": {

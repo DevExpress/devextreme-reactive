@@ -54,6 +54,7 @@ export const initialize = ({
   renderDemo,
   unmountDemo,
   themeComponents,
+  demoData,
 }) => {
   const embeddedDemoPlaceholders = [...document.getElementsByClassName('embedded-demo')];
   const embeddedDemoConfigs = embeddedDemoPlaceholders
@@ -68,6 +69,7 @@ export const initialize = ({
         <App
           {...config.options}
           themeComponents={themeComponents}
+          demoData={demoData}
           themeSources={themeSources}
           demoSources={demoSources}
           renderDemo={renderDemo}

@@ -52,19 +52,28 @@ export class DemoViewer extends React.Component {
 
     return (
       <EmbeddedDemoContext.Consumer>
-        {({ showThemeSelector, demoSources, themeComponents }) => (
+        {({ showThemeSelector, demoSources, themeComponents, demoData }) => (
           <Switch>
             <Route
               path={`${url}/:themeName/:variantName/clean`}
               render={({ match: { params: { themeName, variantName } } }) => (
                 <div>
-                  <DemoFrame
+                  <DemoCodeProvider
                     themeName={themeName}
                     variantName={variantName}
                     sectionName={sectionName}
                     demoName={demoName}
-                    markup={html}
-                  />
+                  >
+                    {({ html }) => (
+                      <DemoFrame
+                        themeName={themeName}
+                        variantName={variantName}
+                        sectionName={sectionName}
+                        demoName={demoName}
+                        markup={html}
+                      />
+                    )}
+                  </DemoCodeProvider>
                 </div>
               )}
             />
@@ -82,7 +91,7 @@ export class DemoViewer extends React.Component {
                         sectionName={sectionName}
                         demoName={demoName}
                       >
-                        {({ html, code }) => (
+                        {({ html, code, demoConfig }) => (
                           <div style={{ marginTop: showThemeSelector ? '-42px' : 0 }}>
                             <Nav tabs>
                               <NavItem>
@@ -104,7 +113,12 @@ export class DemoViewer extends React.Component {
                                 </NavLink>
                               </NavItem>
                               <NavItem>
-                                <CodeSandBoxButton code={code} html={html} themeComponents={themeComponents} />
+                                <CodeSandBoxButton
+                                  code={code}
+                                  html={html}
+                                  themeComponents={themeComponents}
+                                  demoData={demoData}
+                                />
                               </NavItem>
                             </Nav>
                             <TabContent

@@ -5,14 +5,16 @@ import '@devexpress/dx-demo-shell/dist/index.css';
 import { demos } from './demo-registry';
 import { themes } from './theme-registry';
 import { themeComponents } from './theme-components-registry';
+import { demoData } from './demo-data-registry';
 import './index.css';
 
-console.log('init demo')
+console.log('init demo 2')
 
 initialize({
   demoSources: demos,
   themeSources: themes,
   themeComponents,
+  demoData,
   renderDemo: ({
     element,
     demo: Demo,

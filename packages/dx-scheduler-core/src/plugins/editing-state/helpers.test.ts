@@ -49,7 +49,7 @@ describe('EditingState helpers', () => {
         },
       };
 
-      const changes = deleteAll(appointmentData);
+      const changes = deletedCurrentAndFollowing(appointmentData);
       expect(changes).toEqual({ changed: { 0: {
         rRule: 'FREQ=DAILY;COUNT=2',
       } } });
@@ -69,7 +69,7 @@ describe('EditingState helpers', () => {
         },
       };
 
-      const changes = deleteAll(appointmentData);
+      const changes = deletedCurrentAndFollowing(appointmentData);
       expect(changes).toEqual({ changed: { 0: {
         rRule: 'FREQ=DAILY;COUNT=2',
       } } });

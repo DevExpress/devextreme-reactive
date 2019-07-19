@@ -1,26 +1,28 @@
-import { EditType } from '../../types';
+import { EditType, AppointmentModel } from '../../types';
 import { ALL, CURRENT, CURRENT_FOLLOWING } from '../../constants';
 
-export const deleteCurrent = (appointmentData: any) => {
+export const deleteCurrent = (appointmentData: AppointmentModel) => {
   const currentExDate = `${new Date(appointmentData.startDate).toISOString()
     .replace(/-/gi, '').replace(/:/gi, '').replace('.', '').slice(0, 15)}Z`;
   const exDate = appointmentData.exDate
     ? `${appointmentData.exDate}, ${currentExDate}`
     : currentExDate;
 
-  return { changed: { [appointmentData.id]: { exDate } } };
+  return { changed: { [appointmentData.id!]: { exDate } } };
 };
 
-export const deleteAll = (appointmentData: any) => {
+export const deleteAll = (appointmentData: AppointmentModel) => {
   return { deleted: appointmentData.id };
 };
 
-export const deletedCurrentAndFollowing = (appointmentData: any) => {
+export const deletedCurrentAndFollowing = (appointmentData: AppointmentModel) => {
   const rRule = '';
-  return { changed: { [appointmentData.id]: { rRule, exDate: '' } } };
+  return { changed: { [appointmentData.id!]: { rRule, exDate: '' } } };
 };
 
-export const preCommitChanges = (changes: any, appointmentData: any, editType: EditType) => {
+export const preCommitChanges = (
+  changes: any, appointmentData: AppointmentModel, editType: EditType,
+) => {
   // Delete Mode
   if (changes === null) {
     switch (editType) {

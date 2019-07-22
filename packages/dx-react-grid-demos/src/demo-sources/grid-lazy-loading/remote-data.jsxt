@@ -64,15 +64,18 @@ export default class Demo extends React.PureComponent {
         { columnName: 'SalesAmount', width: 110 },
       ],
       skip: 0,
+      requestedSkip: 0,
+      take: VIRTUAL_PAGE_SIZE * 2,
       totalCount: MAX_ROWS,
-      loading: true,
+      loading: false,
+      forceReload: false,
       filters: [],
       sorting: [],
     };
 
-    const cache = createRowCache(VIRTUAL_PAGE_SIZE);
+    this.cache = createRowCache(VIRTUAL_PAGE_SIZE);
     const setRows = (skip, count, totalCount) => {
-      const rows = cache.getRows(skip, count);
+      const rows = this.cache.getRows(skip, count);
       this.setState({
         rows,
         skip,
@@ -81,32 +84,54 @@ export default class Demo extends React.PureComponent {
       });
     };
 
-    this.getRemoteRows = (skip, take) => {
-      const cached = cache.getRows(skip, take);
-      if (cached.length) {
-        setRows(skip, take);
-      } else {
-        this.setState({ loading: true });
-        const query = this.buildQueryString(skip, take);
-        fetch(query, { mode: 'cors' })
-          .then(response => response.json())
-          .then(({ data, totalCount }) => {
-            cache.setRows(skip, data);
-            setRows(skip, take, totalCount);
-          })
-          .catch(() => this.setState({ loading: false }));
+    this.getRemoteRows = (requestedSkip, take) => {
+      this.setState({ requestedSkip, take });
+    };
+
+    this.loadData = () => {
+      const {
+        requestedSkip,
+        take,
+        loading,
+        forceReload,
+      } = this.state;
+      const query = this.buildQueryString(requestedSkip, take);
+      if ((query !== this.lastQuery || forceReload) && !loading) {
+        if (forceReload) {
+          this.cache.invalidate();
+        }
+        const cached = this.cache.getRows(requestedSkip, take);
+        if (cached.length) {
+          setRows(requestedSkip, take);
+        } else {
+          this.setState({ loading: true, forceReload: false });
+          fetch(query)
+            .then(response => response.json())
+            .then(({ data, totalCount }) => {
+              this.cache.setRows(requestedSkip, data);
+              setRows(requestedSkip, take, totalCount);
+            })
+            .catch(() => this.setState({ loading: false }));
+        }
+        this.lastQuery = query;
       }
     };
 
     this.changeFilters = (filters) => {
-      cache.invalidate();
-      this.setState({ filters, rows: [] });
+      this.setState({ filters, rows: [], forceReload: true });
     };
 
     this.changeSorting = (sorting) => {
-      cache.invalidate();
-      this.setState({ sorting, rows: [] });
+      this.setState({ sorting, rows: [], forceReload: true });
     };
+  }
+
+  componentDidMount() {
+    this.loadData();
+  }
+
+  componentDidUpdate() {
+    this.loadData();
   }
 
   buildQueryString(skip, take) {

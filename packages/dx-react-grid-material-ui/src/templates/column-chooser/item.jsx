@@ -43,6 +43,7 @@ ItemBase.propTypes = {
   item: PropTypes.shape({
     column: PropTypes.shape({
       name: PropTypes.string,
+      title: PropTypes.string,
     }),
     hidden: PropTypes.bool,
   }).isRequired,

@@ -8,14 +8,14 @@ const styles = theme => ({
   },
 });
 
-export const TableTreeIndentBase = ({ level, classes }) => Array.from({ length: level })
+export const TableTreeIndentBase = React.memo(({ level, classes }) => Array.from({ length: level })
   .map((value, currentLevel) => (
     <span
         // eslint-disable-next-line react/no-array-index-key
       key={currentLevel}
       className={classes.indent}
     />
-  ));
+  )));
 
 TableTreeIndentBase.propTypes = {
   level: PropTypes.number,

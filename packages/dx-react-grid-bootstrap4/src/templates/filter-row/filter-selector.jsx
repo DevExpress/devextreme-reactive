@@ -82,7 +82,8 @@ FilterSelector.propTypes = {
   availableValues: PropTypes.arrayOf(PropTypes.string),
   onChange: PropTypes.func,
   disabled: PropTypes.bool,
-  iconComponent: PropTypes.func.isRequired,
+  // oneOfType is a workaround because React.memo returns react object
+  iconComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   toggleButtonComponent: PropTypes.func.isRequired,
   getMessage: PropTypes.func.isRequired,
   className: PropTypes.string,

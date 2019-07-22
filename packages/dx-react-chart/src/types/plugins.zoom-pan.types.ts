@@ -39,7 +39,7 @@ export namespace ZoomAndPan {
 }
 
 /** @internal */
-export type RootRef = React.RefObject<Element>;
+export type RootRef = React.RefObject<SVGElement>;
 
 /** @internal */
 export type ZoomPanProviderProps = {

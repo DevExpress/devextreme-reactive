@@ -1,8 +1,15 @@
 import * as React from 'react';
 import { getParameters } from "codesandbox/lib/api/define";
 
-export const CodeSandBoxButton = ({ code, html, themeComponents, demoData }) => {
-  console.log('csb', themeComponents, demoData)
+export const CodeSandBoxButton = ({
+  code, html, helperFiles, themeName,
+  sectionName, demoName,
+}) => {
+  const helpers = Object.entries(helperFiles).reduce((acc, [name, content]) => ({
+    ...acc,
+    [name]: { content },
+  }), {});
+
   const parameters = getParameters({
     files: {
       "package.json": {
@@ -18,7 +25,8 @@ export const CodeSandBoxButton = ({ code, html, themeComponents, demoData }) => 
       },
       "index.html": {
         content: html
-      }
+      },
+      ...helpers,
     }
   });
 

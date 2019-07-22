@@ -9,6 +9,7 @@ const DEMO_DATA_FOLDER = './src/demo-data/';
 const THEME_COMPONENTS_REGISTRY_FILE = './src/theme-components-registry.js'
 const DEMO_DATA_REGISTRY_FILE = './src/demo-data-registry.js'
 
+const quotify = arr => arr.map(i => `"${i}"`);
 const retrieveImportFiles = (imports, regex) => imports
     .map(s => s.match(regex))
     .filter(r => !!r)
@@ -16,8 +17,8 @@ const retrieveImportFiles = (imports, regex) => imports
 
 const parseHelperFiles = (source) => {
   const imports = source.split('import');
-  const themeComponents = retrieveImportFiles(imports, /'.+theme-sources[^']+?([\w-]+)'/);
-  const demoData = retrieveImportFiles(imports, /'.+demo-data\/(.+?)'/);
+  const themeComponents = quotify(retrieveImportFiles(imports, /'.+theme-sources[^']+?([\w-]+)'/));
+  const demoData = quotify(retrieveImportFiles(imports, /'.+demo-data\/.*?([\w\.-]+?)'/));
 
   return {
     themeComponents,
@@ -53,15 +54,18 @@ const isSameFile = (path1, path2) => getFileName(path1) === getFileName(path2);
 
 const generateDirRegistry = (dir) => {
   const fileList = listFilesRecursively(dir);
+  console.log(fileList)
 
   return fileList.reduce((acc, file) => {
     const source = getFileContents(path.join(dir, file));
     // deps should include extension
     const deps = retrieveHelperDependencies(source).map(d => fileList.find(f => isSameFile(f, d)));
-
-    acc['files'][file] = source;
+    console.log(deps)
+    const fileName = path.basename(file);
+    // if(deps.length && !deps[0]) { debugger; retrieveHelperDependencies(source).map(d => fileList.find(f => isSameFile(f, d))); }
+    acc['files'][fileName] = source;
     if (deps.length) {
-      acc['deps'][file] = deps;
+      acc['deps'][fileName] = quotify(deps);
     }
     return acc;
   }, { deps: {}, files: {} });

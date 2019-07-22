@@ -40,7 +40,7 @@ const generateDemoRegistry = (demos, folderPath, getDemoLink) => {
           themesAcc[themeName] = {
             demo: getDemoLink(fileName),
             source: demoSource,
-            productName,
+            productName: `"${productName}"`,
             helperFiles,
           };
           return themesAcc;

@@ -7,7 +7,7 @@ export class DemoCodeProvider extends React.PureComponent {
     const {
       scriptPath, themeSources, firstPart, lastPart, demoSources,
     } = this.context;
-    console.log(this.context);
+    // console.log(this.context);
 
     let demoScript = scriptPath;
     if (firstPart !== undefined) {
@@ -50,17 +50,31 @@ export class DemoCodeProvider extends React.PureComponent {
     return demoSources[sectionName][demoName][themeName].source || '';
   }
 
+  getFileWithDeps(registry, fileName) {
+    const files = Object.keys(registry.files).filter(f => f.split('.')[0] === fileName);
+    const deps = files.reduce((acc, f) => ([...acc, ...(registry.deps[f] || [])]), []);
+
+    return [...files, ...deps].reduce((acc, file) => ({
+      ...acc, 
+      [file]: registry.files[file],
+    }), {});
+  }
+
+  getImportedFiles(registry, imported) {
+    return imported.reduce((acc, f) => ({
+      ...acc,
+      ...this.getFileWithDeps(registry, f),
+    }), {});
+  }
+
   getHelperFiles() {
     const { themeName, sectionName, demoName } = this.props;
     const { demoSources, themeComponents, demoData } = this.context;
     const importedHelpers = demoSources[sectionName][demoName][themeName].helperFiles;
-    const themeSources = importedHelpers.themeComponents.map(helper => themeComponents[themeName][helper]);
-    const dataSources = importedHelpers.demoData.map(helper => demoData[helper]);
-
-    console.log('GET FILES', demoSources[sectionName][demoName][themeName], demoData, themeComponents)
 
     return {
-      ...(themeSources.length && { themeSources }),
+      ...this.getImportedFiles(demoData, importedHelpers.demoData),
+      ...this.getImportedFiles(themeComponents[themeName], importedHelpers.themeComponents),
     };
   }
 
@@ -69,7 +83,7 @@ export class DemoCodeProvider extends React.PureComponent {
     const html = this.getHtml();
     const code = this.getCode();
     const helperFiles = this.getHelperFiles();
-    console.log('helpers', helperFiles)
+    // console.log('helpers', helperFiles)
 
     return children({ html, code, helperFiles });
   }

@@ -1,6 +1,6 @@
 import {
   mergeRows, calculateRequestedRange, rowToPageIndex,
-  recalculateBounds, trimRowsToInterval,
+  recalculateBounds, trimRowsToInterval, getForceReloadInterval,
 } from './helpers';
 import { intervalUtil } from './utils';
 import { createInterval, generateRows, createVirtualRows } from './test-utils';
@@ -323,6 +323,22 @@ describe('VirtualTableState helpers', () => {
       expect(trimRowsToInterval(virtualRows, targetInterval)).toEqual({
         skip: Number.POSITIVE_INFINITY,
         rows: [],
+      });
+    });
+  });
+
+  describe('#getForceReloadInterval', () => {
+    it('should return loadedInterval.start + pageSize * 2 as end', () => {
+      expect(getForceReloadInterval({ start: 100, end: 200 }, 100, 1000)).toEqual({
+        start: 100,
+        end: 300,
+      });
+    });
+
+    it('should return loadedInterval.end as end', () => {
+      expect(getForceReloadInterval({ start: 100, end: 400 }, 100, 1000)).toEqual({
+        start: 100,
+        end: 400,
       });
     });
   });

@@ -3,7 +3,7 @@ import { Getter, Action, Plugin, Getters, Actions } from '@devexpress/dx-react-c
 import {
   recalculateBounds, calculateRequestedRange, virtualRowsWithCache,
   trimRowsToInterval, intervalUtil, emptyVirtualRows, plainRows, loadedRowsStart,
-  VirtualRows, Interval, getDoublePageInterval,
+  VirtualRows, Interval, getForceReloadInterval,
 } from '@devexpress/dx-grid-core';
 import { VirtualTableStateProps, VirtualTableStateState } from '../../types';
 
@@ -44,8 +44,8 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
     let loadedInterval;
     if (forceReload) {
       loadedInterval = intervalUtil.getRowsInterval(virtualRows);
-      newBounds = requestedRange = getDoublePageInterval(
-        loadedInterval.start, pageSize!, totalRowCount,
+      newBounds = requestedRange = getForceReloadInterval(
+        loadedInterval, pageSize!, totalRowCount,
       );
       actualVirtualRows = emptyVirtualRows;
     } else {

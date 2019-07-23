@@ -28,6 +28,20 @@ class EditingMenuBase extends React.PureComponent {
     };
   }
 
+  // EditingState ----- [ Menu ]  ---X-> Tooltip, dnd
+  // -> startOperation ->  Menu -X-> commit
+  //  -> start -> State -> commit
+
+  // dnd, tooltip -> start(flag) -> [EditingState] start: !flag ? commit()
+  //                             \> [Menu] start: show popup | Current -> commit('current')
+
+  // action1 -> Menu -> flag && action2
+
+  // dnd flag ? action2 : action1
+
+
+
+  //dnd : commitChanges(flag) -> EditingState: !flag ? commit() : flag()
   closeMenu = () => {
     this.setState({
       isCommitChanged: false,
@@ -48,6 +62,9 @@ class EditingMenuBase extends React.PureComponent {
       >
         <Getter name="commitChangedAppointment" computed={this.enhancementCommitChanged} />
         <Getter name="commitDeletedAppointment" computed={this.enhancementCommitDeleted} />
+        <Action name="finishOperation" action={(flag, getters, actions) => { this.setState({ openMenu: true }) }} />
+        <Action name="flag" action={() => { this.setState({ openMenu: true }) }} />
+
 
         <Template name="footer">
           <TemplateConnector>

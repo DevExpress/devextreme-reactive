@@ -1,3 +1,5 @@
+import moment from 'moment';
+import { RRule, rrulestr, RRuleSet } from 'rrule';
 import { EditType, AppointmentModel } from '../../types';
 import { ALL, CURRENT, CURRENT_FOLLOWING } from '../../constants';
 
@@ -16,8 +18,40 @@ export const deleteAll = (appointmentData: AppointmentModel) => {
 };
 
 export const deletedCurrentAndFollowing = (appointmentData: AppointmentModel) => {
-  const rRule = '';
-  return { changed: { [appointmentData.id!]: { rRule, exDate: '' } } };
+  const { rRule, startDate, parentData } = appointmentData;
+
+  const options = {
+    ...RRule.parseString(rRule),
+    dtstart: moment(parentData.startDate).toDate(), // toUTCString() ???
+    until: moment(startDate).toDate(),
+    count: ""
+  };
+  let rruleSet = new RRuleSet();
+  rruleSet.rrule(new RRule(options));
+
+  return {
+    changed: {
+      [appointmentData.id!]: { rRule: rruleSet.valueOf()[1].slice(6) },
+    },
+  };
+};
+
+export const editAll = (changes: any, appointmentData: AppointmentModel) => {
+  return  { changed: {  [appointmentData.id!]: { exDate: '', rRule: '' } } };
+};
+
+export const editCurrent = (changes: any, appointmentData: AppointmentModel) => {
+  return {
+    changed: { [appointmentData.id!]: { exDate: '', rRule: '' } },
+    added: { ...appointmentData },
+  };
+};
+
+export const editCurrentAndFollowing = (changes: any, appointmentData: AppointmentModel) => {
+  return {
+    changed: { [appointmentData.id!]: { exDate: '', rRule: '' } },
+    added: { ...appointmentData },
+  };
 };
 
 export const preCommitChanges = (
@@ -39,13 +73,13 @@ export const preCommitChanges = (
   } else { // Edit Mode
     switch (editType) {
       case ALL: {
-        return {};
+        return editAll(changes, appointmentData);
       }
       case CURRENT: {
-        return {};
+        return editCurrent(changes, appointmentData);
       }
       case CURRENT_FOLLOWING: {
-        return {};
+        return editCurrentAndFollowing(changes, appointmentData);
       }
     }
   }

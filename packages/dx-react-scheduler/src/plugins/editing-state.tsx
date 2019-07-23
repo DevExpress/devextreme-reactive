@@ -69,7 +69,9 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
     this.cancelChangedAppointment = stateHelper.applyFieldReducer
       .bind(stateHelper, 'appointmentChanges', cancelChanges);
 
-    this.commitChangedAppointment = () => (type = 'current') => {
+    this.commitChangedAppointment = ({ commitAllowed,  }) => (type = 'current') => {
+      if (!commitAllowed) return
+
       const { appointmentChanges, editingAppointment } = this.state;
       const { onCommitChanges, preCommitChanges  } = this.props;
 
@@ -128,6 +130,7 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
         <Getter name="editingAppointment" value={editingAppointment} />
         <Action name="startEditAppointment" action={this.startEditAppointment} />
         <Action name="stopEditAppointment" action={this.stopEditAppointment} />
+        <Getter name="commitAllowed" />
 
         <Getter name="appointmentChanges" value={appointmentChanges} />
         <Action name="changeAppointment" action={this.changeAppointment} />

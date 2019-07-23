@@ -51,18 +51,17 @@ describe('EditingState helpers', () => {
 
       const changes = deletedCurrentAndFollowing(appointmentData);
       expect(changes).toEqual({ changed: { 0: {
-        rRule: 'FREQ=DAILY;COUNT=2',
+        rRule: 'FREQ=DAILY;UNTIL=20190717T112000Z',
       } } });
     });
 
-    // TODO!!!!
-    it('should work with exDate field', () => {
+    it('should remove exDate field if it placed after deleted date', () => {
       const appointmentData = {
         id: 0,
         startDate: new Date('2019-07-17 14:20'),
         endDate: new Date('2019-07-17 16:00'),
         rRule: 'FREQ=DAILY;COUNT=5',
-        exDate: '20190716T112000Z',
+        exDate: '20190716T142000Z,20190718T142000Z',
         parentData: {
           startDate: new Date('2019-07-15 14:20'),
           endDate: new Date('2019-07-15 16:00'),
@@ -71,7 +70,27 @@ describe('EditingState helpers', () => {
 
       const changes = deletedCurrentAndFollowing(appointmentData);
       expect(changes).toEqual({ changed: { 0: {
-        rRule: 'FREQ=DAILY;COUNT=2',
+        rRule: 'FREQ=DAILY;UNTIL=20190717T112000Z',
+        exDate: '20190716T142000Z',
+      } } });
+    });
+
+    it('should not remove exDate field if it placed before deleted date', () => {
+      const appointmentData = {
+        id: 0,
+        startDate: new Date('2019-07-17 14:20'),
+        endDate: new Date('2019-07-17 16:00'),
+        rRule: 'FREQ=DAILY;COUNT=5',
+        exDate: '20190716T142000Z',
+        parentData: {
+          startDate: new Date('2019-07-15 14:20'),
+          endDate: new Date('2019-07-15 16:00'),
+        },
+      };
+
+      const changes = deletedCurrentAndFollowing(appointmentData);
+      expect(changes).toEqual({ changed: { 0: {
+        rRule: 'FREQ=DAILY;UNTIL=20190717T112000Z',
       } } });
     });
   });

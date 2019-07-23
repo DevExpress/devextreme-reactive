@@ -44,7 +44,7 @@ describe('EditingState reducers', () => {
       const prevEditingAppointmentId = 1;
       const appointmentId = 2;
       expect(startEditAppointment(prevEditingAppointmentId, { appointmentId }))
-        .toEqual(appointmentId);
+        .toEqual({ appointmentId: 2 });
     });
   });
   describe('#stopEditAppointment', () => {

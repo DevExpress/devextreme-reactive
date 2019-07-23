@@ -312,7 +312,7 @@ export const filterByViewBoundaries: PureComputed<
       ? [appointment]
       : [];
   }
-
+ // https://www.googleapis.com/calendar/v3/calendars/87okid34j969uje1ksg6cmc3do@group.calendar.google.com/events?key=AIzaSyBnNAISIUKe6xdhq1_rjor2rxoI3UlMY7k
   const options = {
     ...RRule.parseString(appointment.rRule),
     dtstart: moment(appointment.start).toDate(), // toUTCString() ???

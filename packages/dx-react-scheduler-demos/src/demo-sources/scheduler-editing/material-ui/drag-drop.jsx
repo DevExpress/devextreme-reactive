@@ -65,6 +65,7 @@ export default class Demo extends React.PureComponent {
           <EditingState
             onCommitChanges={this.onCommitChanges}
           />
+          <EditingMenu />
           <WeekView
             startDayHour={9}
             endDayHour={19}

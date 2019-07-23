@@ -101,7 +101,7 @@ export default class Demo extends React.PureComponent {
           this.cache.invalidate();
         }
         const cached = this.cache.getRows(requestedSkip, take);
-        if (cached.length) {
+        if (cached.length === take) {
           setRows(requestedSkip, take);
         } else {
           this.setState({ loading: true, forceReload: false });

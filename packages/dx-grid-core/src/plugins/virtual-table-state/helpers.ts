@@ -110,7 +110,7 @@ export const getAvailableRowCount: PureComputed<[boolean, number, number, number
 export const getDoublePageInterval: PureComputed<[number, number, number], Interval> = (
   start, pageSize, totalRowCount,
 ) => {
-  const end = (start + pageSize * 2) > totalRowCount ? totalRowCount : (start + pageSize * 2);
+  const end = Math.min(start + pageSize * 2, totalRowCount);
   return {
     start,
     end,

@@ -41,15 +41,6 @@ describe('Horizontal View Layout', () => {
       .toMatchObject({ a: 1 });
   });
 
-  it('should pass style to the root element', () => {
-    const tree = shallow((
-      <HorizontalViewLayout {...defaultProps} style={{ a: 1 }} />
-    ));
-
-    expect(tree.prop('style'))
-      .toMatchObject({ a: 1 });
-  });
-
   it('should call the scrollingStrategy function', () => {
     scrollingStrategy.mockClear();
     shallow((

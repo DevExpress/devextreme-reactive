@@ -7,7 +7,7 @@ export namespace Scheduler {
     /** A React node to be placed in the root layout. */
     children?: React.ReactNode;
     /** The Scheduler's height */
-    height?: number | 'auto';
+    height: number | 'auto';
   }
 }
 

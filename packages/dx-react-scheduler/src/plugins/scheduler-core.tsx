@@ -22,7 +22,7 @@ class SchedulerCoreBase extends React.PureComponent<SchedulerProps> {
         <Getter name="formatDate" value={formatDateTimeGetter(locale)} />
         <Template name="root">
           <Root height={height} >
-            <TemplatePlaceholder name="drawer" />
+            <TemplatePlaceholder name="schedulerRoot" />
             <TemplatePlaceholder name="header" />
             <TemplatePlaceholder name="body" />
             <TemplatePlaceholder name="footer" />

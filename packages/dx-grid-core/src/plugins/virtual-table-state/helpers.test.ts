@@ -1,6 +1,6 @@
 import {
   mergeRows, calculateRequestedRange, rowToPageIndex,
-  recalculateBounds, trimRowsToInterval,
+  recalculateBounds, trimRowsToInterval, getAvailableRowCount,
 } from './helpers';
 import { intervalUtil } from './utils';
 import { createInterval, generateRows, createVirtualRows } from './test-utils';
@@ -325,5 +325,36 @@ describe('VirtualTableState helpers', () => {
         rows: [],
       });
     });
+  });
+
+  describe('#getAvailableRowCount', () => {
+    it('should return totalCount when not infiniteScroll', () => {
+      const isInfniniteScroll = false;
+      const nextRowCount = 200;
+      const lastRowCount = 100;
+      const totalRowCount = 1000;
+
+      expect(getAvailableRowCount(
+        isInfniniteScroll,
+        nextRowCount,
+        lastRowCount,
+        totalRowCount,
+      )).toEqual(totalRowCount);
+    });
+
+    it('should return max of nextRowCount or lastRowCount when infiniteScroll', () => {
+      const isInfniniteScroll = true;
+      const nextRowCount = 200;
+      const lastRowCount = 100;
+      const totalRowCount = 1000;
+
+      expect(getAvailableRowCount(
+        isInfniniteScroll,
+        nextRowCount,
+        lastRowCount,
+        totalRowCount,
+      )).toEqual(Math.max(nextRowCount, lastRowCount));
+    });
+
   });
 });

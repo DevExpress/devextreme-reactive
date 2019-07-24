@@ -14,7 +14,6 @@ describe('Vertical View Layout', () => {
     timeTableComponent: () => null,
     dayScaleEmptyCellComponent: () => null,
     setScrollingStrategy: jest.fn(),
-    height: 1000,
   };
   let classes;
   let shallow;
@@ -50,16 +49,7 @@ describe('Vertical View Layout', () => {
     ));
 
     expect(tree.prop('style'))
-      .toMatchObject({ height: '1000px', a: 1 });
-  });
-
-  it('should replace style of the root element', () => {
-    const tree = shallow((
-      <VerticalViewLayout {...defaultProps} style={{ height: 1 }} />
-    ));
-
-    expect(tree.prop('style'))
-      .toMatchObject({ height: 1 });
+      .toMatchObject({ a: 1 });
   });
 
   it('should call the scrollingStrategy function', () => {

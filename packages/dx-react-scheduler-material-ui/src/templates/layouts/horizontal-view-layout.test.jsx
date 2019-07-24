@@ -11,7 +11,6 @@ describe('Horizontal View Layout', () => {
   const defaultProps = {
     dayScaleComponent: () => null,
     timeTableComponent: () => null,
-    height: 1000,
     setScrollingStrategy: jest.fn(),
   };
   let classes;
@@ -48,16 +47,7 @@ describe('Horizontal View Layout', () => {
     ));
 
     expect(tree.prop('style'))
-      .toMatchObject({ height: '1000px', a: 1 });
-  });
-
-  it('should replace style of the root element', () => {
-    const tree = shallow((
-      <HorizontalViewLayout {...defaultProps} style={{ height: 1 }} />
-    ));
-
-    expect(tree.prop('style'))
-      .toMatchObject({ height: 1 });
+      .toMatchObject({ a: 1 });
   });
 
   it('should call the scrollingStrategy function', () => {

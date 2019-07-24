@@ -20,9 +20,9 @@ class SchedulerCoreBase extends React.PureComponent<SchedulerProps> {
       >
         <Getter name="appointments" value={appointments(data)} />
         <Getter name="formatDate" value={formatDateTimeGetter(locale)} />
-        <Getter name="layoutHeight" value={height} />
         <Template name="root">
-          <Root>
+          <Root height={height} >
+            <TemplatePlaceholder name="drawer" />
             <TemplatePlaceholder name="header" />
             <TemplatePlaceholder name="body" />
             <TemplatePlaceholder name="footer" />

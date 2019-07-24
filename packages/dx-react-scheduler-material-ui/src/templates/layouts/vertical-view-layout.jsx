@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { AUTO_HEIGHT } from '@devexpress/dx-scheduler-core';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
@@ -9,6 +8,7 @@ import { scrollingStrategy } from '../utils';
 const styles = theme => ({
   container: {
     overflowY: 'auto',
+    position: 'relative',
   },
   stickyHeader: {
     top: 0,
@@ -53,13 +53,9 @@ class VerticalViewLayoutBase extends React.PureComponent {
       dayScaleEmptyCellComponent: DayScaleEmptyCell,
       setScrollingStrategy,
       classes,
-      height,
       className,
-      style,
       ...restProps
     } = this.props;
-
-    const containerStyle = height === AUTO_HEIGHT ? { height: '100%' } : { height: `${height}px` };
 
     return (
       <Grid
@@ -68,7 +64,6 @@ class VerticalViewLayoutBase extends React.PureComponent {
         className={classNames(classes.container, className)}
         direction="column"
         wrap="nowrap"
-        style={{ ...containerStyle, ...style }}
         {...restProps}
       >
         <Grid item xs="auto" className={classes.stickyHeader}>
@@ -109,16 +104,13 @@ VerticalViewLayoutBase.propTypes = {
   dayScaleComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   timeTableComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   dayScaleEmptyCellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   setScrollingStrategy: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
-  style: PropTypes.object,
 };
 
 VerticalViewLayoutBase.defaultProps = {
   className: undefined,
-  style: null,
 };
 
 export const VerticalViewLayout = withStyles(styles, { name: 'VerticalViewLayout' })(VerticalViewLayoutBase);

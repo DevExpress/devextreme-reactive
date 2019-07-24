@@ -479,7 +479,7 @@ export const Scheduler: React.ComponentType<SchedulerProps>;
 export namespace Scheduler {
     export interface RootProps {
         children?: React.ReactNode;
-        height?: number | 'auto';
+        height: number | 'auto';
     }
 }
 

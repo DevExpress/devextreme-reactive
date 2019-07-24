@@ -42,6 +42,8 @@ const DateTypeProvider = props => (
   />
 );
 
+let lastQuery;
+
 export default () => {
   const [columns] = useState([
     { name: 'Id', title: 'Id', getCellValue: row => row.Id },
@@ -67,7 +69,6 @@ export default () => {
   const [forceReload, setForceReload] = useState(false);
   const [filters, setFilters] = useState([]);
   const [sorting, setSorting] = useState([]);
-  const [lastQuery, setLastQuery] = useState();
 
   const cache = createRowCache(VIRTUAL_PAGE_SIZE);
   const updateRows = (newSkip, count, newTotalCount) => {
@@ -120,7 +121,7 @@ export default () => {
           })
           .catch(() => setLoading(false));
       }
-      setLastQuery(query);
+      lastQuery = query;
     }
   };
 

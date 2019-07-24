@@ -6,7 +6,7 @@ export namespace Scheduler {
   export interface RootProps {
     /** A React node to be placed in the root layout. */
     children?: React.ReactNode;
-    /** The Scheduler's height */
+    /** The Scheduler's height. */
     height: number | 'auto';
   }
 }

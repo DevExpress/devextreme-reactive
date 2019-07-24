@@ -24,27 +24,29 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       columns: [
-        { name: 'id', title: 'Id', getCellValue: row => row.Id },
-        { name: 'category', title: 'Category', getCellValue: row => row.ProductCategoryName },
-        { name: 'store', title: 'Store', getCellValue: row => row.StoreName },
-        { name: 'product', title: 'Product', getCellValue: row => row.ProductName },
-        { name: 'amount', title: 'Amount', getCellValue: row => row.SalesAmount },
+        { name: 'Id', title: 'Id', getCellValue: row => row.Id },
+        { name: 'Category', title: 'Category', getCellValue: row => row.ProductCategoryName },
+        { name: 'Store', title: 'Store', getCellValue: row => row.StoreName },
+        { name: 'Product', title: 'Product', getCellValue: row => row.ProductName },
+        { name: 'Amount', title: 'Amount', getCellValue: row => row.SalesAmount },
       ],
       rows: [],
       tableColumnExtensions: [
-        { columnName: 'id', width: 80 },
-        { columnName: 'category', width: 220 },
-        { columnName: 'store', width: 220 },
-        { columnName: 'amount', width: 120 },
+        { columnName: 'Id', width: 80 },
+        { columnName: 'Category', width: 220 },
+        { columnName: 'Store', width: 220 },
+        { columnName: 'Amount', width: 120 },
       ],
       skip: 0,
+      requestedSkip: 0,
+      take: VIRTUAL_PAGE_SIZE * 2,
       totalCount: MAX_ROWS,
-      loading: true,
+      loading: false,
     };
 
-    const cache = createRowCache(VIRTUAL_PAGE_SIZE);
+    this.cache = createRowCache(VIRTUAL_PAGE_SIZE);
     const setRows = (skip, count, totalCount) => {
-      const rows = cache.getRows(skip, count);
+      const rows = this.cache.getRows(skip, count);
       this.setState({
         rows,
         skip,
@@ -53,22 +55,42 @@ export default class Demo extends React.PureComponent {
       });
     };
 
-    this.getRemoteRows = (skip, take) => {
-      const cached = cache.getRows(skip, take);
-      if (cached.length) {
-        setRows(skip, take);
-      } else {
-        this.setState({ loading: true });
-        const query = buildQueryString(skip, take);
-        fetch(query, { mode: 'cors' })
-          .then(response => response.json())
-          .then(({ data, totalCount }) => {
-            cache.setRows(skip, data);
-            setRows(skip, take, totalCount);
-          })
-          .catch(() => this.setState({ loading: false }));
+    this.getRemoteRows = (requestedSkip, take) => {
+      this.setState({ requestedSkip, take });
+    };
+
+    this.loadData = () => {
+      const {
+        requestedSkip,
+        take,
+        loading,
+      } = this.state;
+      const query = buildQueryString(requestedSkip, take);
+      if (query !== this.lastQuery && !loading) {
+        const cached = this.cache.getRows(requestedSkip, take);
+        if (cached.length === take) {
+          setRows(requestedSkip, take);
+        } else {
+          this.setState({ loading: true });
+          fetch(query)
+            .then(response => response.json())
+            .then(({ data, totalCount }) => {
+              this.cache.setRows(requestedSkip, data);
+              setRows(requestedSkip, take, totalCount);
+            })
+            .catch(() => this.setState({ loading: false }));
+        }
+        this.lastQuery = query;
       }
     };
+  }
+
+  componentDidMount() {
+    this.loadData();
+  }
+
+  componentDidUpdate() {
+    this.loadData();
   }
 
   render() {

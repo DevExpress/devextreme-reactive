@@ -328,14 +328,14 @@ describe('VirtualTableState helpers', () => {
   });
 
   describe('#getForceReloadInterval', () => {
-    it('should return loadedInterval.start + pageSize * 2 as end', () => {
+    it('should return 2 pages if loaded interval is less than 2 pages', () => {
       expect(getForceReloadInterval({ start: 100, end: 200 }, 100, 1000)).toEqual({
         start: 100,
         end: 300,
       });
     });
 
-    it('should return loadedInterval.end as end', () => {
+    it('should return loaded interval if it is more than 2 pages', () => {
       expect(getForceReloadInterval({ start: 100, end: 400 }, 100, 1000)).toEqual({
         start: 100,
         end: 400,

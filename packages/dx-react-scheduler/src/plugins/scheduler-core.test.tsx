@@ -68,7 +68,7 @@ describe('Scheduler Core', () => {
             </div>
           )}
         />
-        <Template name="drawer">
+        <Template name="schedulerRoot">
           <div className="drawer-content" />
         </Template>
         <Template name="header">

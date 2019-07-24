@@ -3,9 +3,11 @@ import { RRule, rrulestr, RRuleSet } from 'rrule';
 import { EditType, AppointmentModel } from '../../types';
 import { ALL, CURRENT, CURRENT_FOLLOWING } from '../../constants';
 
+// For testing
+// https://www.googleapis.com/calendar/v3/calendars/87okid34j969uje1ksg6cmc3do@group.calendar.google.com/events?key=AIzaSyBnNAISIUKe6xdhq1_rjor2rxoI3UlMY7k
+
 export const deleteCurrent = (appointmentData: AppointmentModel) => {
-  const currentExDate = `${new Date(appointmentData.startDate).toISOString()
-    .replace(/-/gi, '').replace(/:/gi, '').replace('.', '').slice(0, 15)}Z`;
+  const currentExDate = `${moment.utc(appointmentData.startDate).format('YYYYMMDDTHHmmss')}Z`;
   const exDate = appointmentData.exDate
     ? `${appointmentData.exDate}, ${currentExDate}`
     : currentExDate;
@@ -18,20 +20,34 @@ export const deleteAll = (appointmentData: AppointmentModel) => {
 };
 
 export const deletedCurrentAndFollowing = (appointmentData: AppointmentModel) => {
-  const { rRule, startDate, parentData } = appointmentData;
+  const { rRule, startDate, parentData, exDate: prevExDate = '' } = appointmentData;
 
   const options = {
     ...RRule.parseString(rRule),
-    dtstart: moment(parentData.startDate).toDate(), // toUTCString() ???
-    until: moment(startDate).toDate(),
-    count: ""
+    dtstart: moment.utc(parentData.startDate).toDate(), // toUTCString() ???
+    until: moment.utc(startDate).toDate(),
+    count: '',
   };
   let rruleSet = new RRuleSet();
   rruleSet.rrule(new RRule(options));
 
+  let exDate;
+  if (prevExDate.length > 0) {
+    exDate = prevExDate.split(',').reduce((acc: string[], date: string) => {
+      const momentDate = moment.utc(date);
+      if (momentDate.isBefore(startDate)) {
+        return [...acc, date];
+      }
+      return acc;
+    }, []).join(',');
+  }
+
   return {
     changed: {
-      [appointmentData.id!]: { rRule: rruleSet.valueOf()[1].slice(6) },
+      [appointmentData.id!]: {
+        rRule: rruleSet.valueOf()[1].slice(6),
+        ...exDate && prevExDate !== exDate ? { exDate } : {},
+      },
     },
   };
 };

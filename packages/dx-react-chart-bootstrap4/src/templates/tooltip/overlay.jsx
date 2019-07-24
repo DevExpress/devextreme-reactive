@@ -20,9 +20,7 @@ export class Overlay extends React.PureComponent {
         modifiers={popperModifiers}
         {...restProps}
       >
-        <div className="popover-body">
-          {children}
-        </div>
+        {children}
       </Popover>
     );
   }

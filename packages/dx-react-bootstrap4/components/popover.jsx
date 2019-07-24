@@ -5,6 +5,14 @@ import * as ReactDOM from 'react-dom';
 import * as PropTypes from 'prop-types';
 import { Popper } from 'react-popper';
 
+const DefaultArrowComponent = ({ arrowProps }) => (
+  <div className="arrow" ref={arrowProps.ref} style={arrowProps.style} />
+);
+
+DefaultArrowComponent.propTypes = {
+  arrowProps: PropTypes.object.isRequired,
+};
+
 export class Popover extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -69,7 +77,8 @@ export class Popover extends React.PureComponent {
 
   renderPopper() {
     const {
-      children, target, renderInBody, ...restProps
+      children, target, renderInBody,
+      arrowComponent: ArrowComponent = DefaultArrowComponent, ...restProps
     } = this.props;
 
     return (
@@ -84,7 +93,7 @@ export class Popover extends React.PureComponent {
             <div className="popover-inner" ref={this.contentRef}>
               {children}
             </div>
-            <div className="arrow" ref={arrowProps.ref} style={arrowProps.style} />
+            <ArrowComponent arrowProps={arrowProps} placement={placement} />
           </div>
         )}
       </Popper>
@@ -119,6 +128,7 @@ Popover.propTypes = {
     PropTypes.object,
   ]),
   toggle: PropTypes.func,
+  arrowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 };
 
 Popover.defaultProps = {
@@ -127,4 +137,5 @@ Popover.defaultProps = {
   isOpen: false,
   placement: 'auto',
   toggle: undefined,
+  arrowComponent: undefined,
 };

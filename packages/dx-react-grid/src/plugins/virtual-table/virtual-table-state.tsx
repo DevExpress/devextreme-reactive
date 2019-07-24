@@ -41,15 +41,13 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
     let newBounds;
     let requestedRange;
     let actualVirtualRows = virtualRows;
-    let loadedInterval;
+    const loadedInterval = intervalUtil.getRowsInterval(virtualRows);
     if (forceReload) {
-      loadedInterval = intervalUtil.getRowsInterval(virtualRows);
       newBounds = requestedRange = getForceReloadInterval(
         loadedInterval, pageSize!, totalRowCount,
       );
       actualVirtualRows = emptyVirtualRows;
     } else {
-      loadedInterval = intervalUtil.getRowsInterval(virtualRows);
       newBounds = recalculateBounds(referenceIndex, pageSize!, totalRowCount);
       requestedRange = calculateRequestedRange(
         loadedInterval, newBounds, referenceIndex, pageSize!,

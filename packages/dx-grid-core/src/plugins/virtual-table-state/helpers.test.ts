@@ -328,11 +328,12 @@ describe('VirtualTableState helpers', () => {
   });
 
   describe('#getAvailableRowCount', () => {
-    it('should return totalCount when not infiniteScroll', () => {
+    const nextRowCount = 200;
+    const lastRowCount = 100;
+    const totalRowCount = 1000;
+
+    it('should return totalCount when not infinite scrolling', () => {
       const isInfniniteScroll = false;
-      const nextRowCount = 200;
-      const lastRowCount = 100;
-      const totalRowCount = 1000;
 
       expect(getAvailableRowCount(
         isInfniniteScroll,
@@ -342,11 +343,8 @@ describe('VirtualTableState helpers', () => {
       )).toEqual(totalRowCount);
     });
 
-    it('should return max of nextRowCount or lastRowCount when infiniteScroll', () => {
+    it('should return max of nextRowCount or lastRowCount when infinite scrolling', () => {
       const isInfniniteScroll = true;
-      const nextRowCount = 200;
-      const lastRowCount = 100;
-      const totalRowCount = 1000;
 
       expect(getAvailableRowCount(
         isInfniniteScroll,

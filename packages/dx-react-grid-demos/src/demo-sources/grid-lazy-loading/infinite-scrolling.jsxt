@@ -1,4 +1,4 @@
-import React, { useState } from 'react';<%&additionalImports%>
+import * as React from 'react';<%&additionalImports%>
 import {
   VirtualTableState,
   createRowCache,
@@ -18,69 +18,83 @@ const buildQueryString = (skip, take) => (
 );
 const getRowId = row => row.Id;
 
-export default () => {
-  const [columns] = useState([
-    { name: 'id', title: 'Id', getCellValue: row => row.Id },
-    { name: 'category', title: 'Category', getCellValue: row => row.ProductCategoryName },
-    { name: 'store', title: 'Store', getCellValue: row => row.StoreName },
-    { name: 'product', title: 'Product', getCellValue: row => row.ProductName },
-    { name: 'amount', title: 'Amount', getCellValue: row => row.SalesAmount },
-  ]);
-  const [rows, setRows] = useState([]);
-  const [tableColumnExtensions] = useState([
-    { columnName: 'id', width: 80 },
-    { columnName: 'category', width: 220 },
-    { columnName: 'store', width: 220 },
-    { columnName: 'amount', width: 120 },
-  ]);
-  const [skip, setSkip] = useState(0);
-  const [totalCount, setTotalCount] = useState(MAX_ROWS);
-  const [loading, setLoading] = useState(true);
+export default class Demo extends React.PureComponent {
+  constructor(props) {
+    super(props);
 
-  const cache = createRowCache(VIRTUAL_PAGE_SIZE);
-  const updateRows = (rowSkip, count, rowTotalCount) => {
-    const newRows = cache.getRows(rowSkip, count);
-    setRows(newRows);
-    setSkip(rowSkip);
-    setTotalCount(rowTotalCount < MAX_ROWS ? rowTotalCount : MAX_ROWS);
-    setLoading(false);
-  };
+    this.state = {
+      columns: [
+        { name: 'id', title: 'Id', getCellValue: row => row.Id },
+        { name: 'category', title: 'Category', getCellValue: row => row.ProductCategoryName },
+        { name: 'store', title: 'Store', getCellValue: row => row.StoreName },
+        { name: 'product', title: 'Product', getCellValue: row => row.ProductName },
+        { name: 'amount', title: 'Amount', getCellValue: row => row.SalesAmount },
+      ],
+      rows: [],
+      tableColumnExtensions: [
+        { columnName: 'id', width: 80 },
+        { columnName: 'category', width: 220 },
+        { columnName: 'store', width: 220 },
+        { columnName: 'amount', width: 120 },
+      ],
+      skip: 0,
+      totalCount: MAX_ROWS,
+      loading: true,
+    };
 
-  const getRemoteRows = (rowSkip, take) => {
-    const cached = cache.getRows(rowSkip, take);
-    if (cached.length) {
-      updateRows(rowSkip, take);
-    } else {
-      setLoading(true);
-      const query = buildQueryString(rowSkip, take);
-      fetch(query, { mode: 'cors' })
-        .then(response => response.json())
-        .then(({ data, rowTotalCount }) => {
-          cache.setRows(rowSkip, data);
-          updateRows(rowSkip, take, rowTotalCount);
-        })
-        .catch(() => setLoading(false));
-    }
-  };
+    const cache = createRowCache(VIRTUAL_PAGE_SIZE);
+    const setRows = (skip, count, totalCount) => {
+      const rows = cache.getRows(skip, count);
+      this.setState({
+        rows,
+        skip,
+        totalCount: totalCount < MAX_ROWS ? totalCount : MAX_ROWS,
+        loading: false,
+      });
+    };
 
-  return (
-    <<%&wrapperTag%><%&wrapperAttributes%>>
-      <Grid
-        rows={rows}
-        columns={columns}
-        getRowId={getRowId}
-      >
-        <VirtualTableState
-          infiniteScrolling
-          loading={loading}
-          totalRowCount={totalCount}
-          pageSize={VIRTUAL_PAGE_SIZE}
-          skip={skip}
-          getRows={getRemoteRows}
-        />
-        <VirtualTable columnExtensions={tableColumnExtensions} />
-        <TableHeaderRow />
-      </Grid>
-    </<%&wrapperTag%>>
-  );
-};
+    this.getRemoteRows = (skip, take) => {
+      const cached = cache.getRows(skip, take);
+      if (cached.length) {
+        setRows(skip, take);
+      } else {
+        this.setState({ loading: true });
+        const query = buildQueryString(skip, take);
+        fetch(query, { mode: 'cors' })
+          .then(response => response.json())
+          .then(({ data, totalCount }) => {
+            cache.setRows(skip, data);
+            setRows(skip, take, totalCount);
+          })
+          .catch(() => this.setState({ loading: false }));
+      }
+    };
+  }
+
+  render() {
+    const {
+      rows, columns, skip, totalCount, tableColumnExtensions, loading,
+    } = this.state;
+
+    return (
+      <<%&wrapperTag%><%&wrapperAttributes%>>
+        <Grid
+          rows={rows}
+          columns={columns}
+          getRowId={getRowId}
+        >
+          <VirtualTableState
+            infiniteScrolling
+            loading={loading}
+            totalRowCount={totalCount}
+            pageSize={VIRTUAL_PAGE_SIZE}
+            skip={skip}
+            getRows={this.getRemoteRows}
+          />
+          <VirtualTable columnExtensions={tableColumnExtensions} />
+          <TableHeaderRow />
+        </Grid>
+      </<%&wrapperTag%>>
+    );
+  }
+}

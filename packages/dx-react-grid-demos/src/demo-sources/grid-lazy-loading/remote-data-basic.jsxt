@@ -1,4 +1,4 @@
-import React, { useState } from 'react';<%&additionalImports%>
+import * as React from 'react';<%&additionalImports%>
 import {
   VirtualTableState,
 } from '@devexpress/dx-react-grid';
@@ -14,56 +14,70 @@ const URL = 'https://js.devexpress.com/Demos/WidgetsGalleryDataService/api/Sales
 const getRowId = row => row.Id;
 const buildQueryString = (skip, take) => `${URL}?skip=${skip}&take=${take}`;
 
-export default () => {
-  const [columns] = useState([
-    { name: 'Id', title: 'Id', getCellValue: row => row.Id },
-    { name: 'ProductCategoryName', title: 'Category', getCellValue: row => row.ProductCategoryName },
-    { name: 'StoreName', title: 'Store', getCellValue: row => row.StoreName },
-    { name: 'ProductName', title: 'Product', getCellValue: row => row.ProductName },
-    { name: 'SalesAmount', title: 'Amount', getCellValue: row => row.SalesAmount },
-  ]);
-  const [rows, setRows] = useState([]);
-  const [tableColumnExtensions] = useState([
-    { columnName: 'Id', width: 80 },
-    { columnName: 'ProductCategoryName', width: 220 },
-    { columnName: 'StoreName', width: 220 },
-    { columnName: 'SalesAmount', width: 120 },
-  ]);
-  const [skip, setSkip] = useState(0);
-  const [totalCount, setTotalCount] = useState(MAX_ROWS);
-  const [loading, setLoading] = useState(true);
+export default class Demo extends React.PureComponent {
+  constructor(props) {
+    super(props);
 
-  const getRemoteRows = (rowSkip, take) => {
-    setLoading(true);
-    const query = buildQueryString(rowSkip, take);
-    fetch(query, { mode: 'cors' })
-      .then(response => response.json())
-      .then(({ data }) => {
-        setSkip(rowSkip);
-        setRows(data);
-        setLoading(false);
-        setTotalCount(MAX_ROWS);
-      })
-      .catch(() => setLoading(false));
-  };
+    this.state = {
+      columns: [
+        { name: 'Id', title: 'Id', getCellValue: row => row.Id },
+        { name: 'ProductCategoryName', title: 'Category', getCellValue: row => row.ProductCategoryName },
+        { name: 'StoreName', title: 'Store', getCellValue: row => row.StoreName },
+        { name: 'ProductName', title: 'Product', getCellValue: row => row.ProductName },
+        { name: 'SalesAmount', title: 'Amount', getCellValue: row => row.SalesAmount },
+      ],
+      rows: [],
+      tableColumnExtensions: [
+        { columnName: 'Id', width: 80 },
+        { columnName: 'ProductCategoryName', width: 220 },
+        { columnName: 'StoreName', width: 220 },
+        { columnName: 'SalesAmount', width: 120 },
+      ],
+      skip: 0,
+      totalCount: MAX_ROWS,
+      loading: true,
+    };
 
-  return (
-    <<%&wrapperTag%><%&wrapperAttributes%>>
-      <Grid
-        rows={rows}
-        columns={columns}
-        getRowId={getRowId}
-      >
-        <VirtualTableState
-          loading={loading}
-          totalRowCount={totalCount}
-          pageSize={VIRTUAL_PAGE_SIZE}
-          skip={skip}
-          getRows={getRemoteRows}
-        />
-        <VirtualTable columnExtensions={tableColumnExtensions} />
-        <TableHeaderRow />
-      </Grid>
-    </<%&wrapperTag%>>
-  );
-};
+    this.getRemoteRows = (skip, take) => {
+      this.setState({ loading: true });
+      const query = buildQueryString(skip, take);
+      fetch(query, { mode: 'cors' })
+        .then(response => response.json())
+        .then(({ data }) => {
+          this.setState({
+            skip,
+            rows: data,
+            loading: false,
+            totalCount: MAX_ROWS,
+          });
+        })
+        .catch(() => this.setState({ loading: false }));
+    };
+  }
+
+  render() {
+    const {
+      rows, columns, skip, totalCount, tableColumnExtensions, loading,
+    } = this.state;
+
+    return (
+      <<%&wrapperTag%><%&wrapperAttributes%>>
+        <Grid
+          rows={rows}
+          columns={columns}
+          getRowId={getRowId}
+        >
+          <VirtualTableState
+            loading={loading}
+            totalRowCount={totalCount}
+            pageSize={VIRTUAL_PAGE_SIZE}
+            skip={skip}
+            getRows={this.getRemoteRows}
+          />
+          <VirtualTable columnExtensions={tableColumnExtensions} />
+          <TableHeaderRow />
+        </Grid>
+      </<%&wrapperTag%>>
+    );
+  }
+}

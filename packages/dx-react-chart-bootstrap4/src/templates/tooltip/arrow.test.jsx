@@ -5,6 +5,7 @@ import { Arrow } from './arrow';
 describe('Content', () => {
   const defaultProps = {
     arrowProps: { style: 'style' },
+    className: 'custom_className',
   };
 
   it('should render content', () => {
@@ -14,6 +15,6 @@ describe('Content', () => {
       />
     ));
 
-    expect(tree.find('div').props()).toEqual({ className: 'arrow', style: 'style' });
+    expect(tree.find('div').props()).toEqual({ className: 'arrow custom_className', style: 'style' });
   });
 });

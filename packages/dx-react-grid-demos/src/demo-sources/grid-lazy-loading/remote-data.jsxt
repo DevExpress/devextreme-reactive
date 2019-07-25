@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';<%&additionalImports%>
+import React, { useState, useEffect, useMemo } from 'react';<%&additionalImports%>
 import {
   VirtualTableState,
   DataTypeProvider,
@@ -67,9 +67,9 @@ export default () => {
   const [forceReload, setForceReload] = useState(false);
   const [filters, setFilters] = useState([]);
   const [sorting, setSorting] = useState([]);
-  const [lastQuery, setLastQuery] = useState([]);
-
-  const cache = createRowCache(VIRTUAL_PAGE_SIZE);
+  const [lastQuery, setLastQuery] = useState();
+  
+  const cache = useMemo(() => createRowCache(VIRTUAL_PAGE_SIZE), [VIRTUAL_PAGE_SIZE]);
   const updateRows = (newSkip, count, newTotalCount) => {
     const newRows = cache.getRows(newSkip, count);
     setRows(newRows);
@@ -114,7 +114,7 @@ export default () => {
         setForceReload(false);
         fetch(query)
           .then(response => response.json())
-          .then(({ data, newTotalCount }) => {
+          .then(({ data, totalCount: newTotalCount }) => {
             cache.setRows(requestedSkip, data);
             updateRows(requestedSkip, take, newTotalCount);
           })

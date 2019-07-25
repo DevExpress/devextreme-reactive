@@ -18,7 +18,6 @@ const VIRTUAL_PAGE_SIZE = 100;
 const MAX_ROWS = 50000;
 const URL = 'https://js.devexpress.com/Demos/WidgetsGalleryDataService/api/Sales';
 const getRowId = row => row.Id;
-let lastQuery;
 
 const CurrencyFormatter = ({ value }) => (
   <b style={{ color: 'darkblue' }}>
@@ -68,6 +67,7 @@ export default () => {
   const [forceReload, setForceReload] = useState(false);
   const [filters, setFilters] = useState([]);
   const [sorting, setSorting] = useState([]);
+  const [lastQuery, setLastQuery] = useState([]);
 
   const cache = createRowCache(VIRTUAL_PAGE_SIZE);
   const updateRows = (newSkip, count, newTotalCount) => {
@@ -120,7 +120,7 @@ export default () => {
           })
           .catch(() => setLoading(false));
       }
-      lastQuery = query;
+      setLastQuery(query);
     }
   };
 

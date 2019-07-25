@@ -21,7 +21,7 @@ export default () => {
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchValue, setSearchValue] = useState('');
-  let lastQuery;
+  const [lastQuery, setLastQuery] = useState();
 
   const changeSearchValue = (value) => {
     setLoading(true);
@@ -53,9 +53,9 @@ export default () => {
       .then((orders) => {
         setRows(orders.data);
         setLoading(false);
+        setLastQuery(queryString);
       })
       .catch(() => setLoading(false));
-    lastQuery = queryString;
   };
 
   useEffect(() => {

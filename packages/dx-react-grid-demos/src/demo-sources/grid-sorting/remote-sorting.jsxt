@@ -26,7 +26,7 @@ export default () => {
   ]);
   const [sorting, setSorting] = useState([{ columnName: 'StoreCity', direction: 'asc' }]);
   const [loading, setLoading] = useState(true);
-  let lastQuery;
+  const [lastQuery, setLastQuery] = useState();
 
   const changeSorting = (value) => {
     setLoading(true);
@@ -56,9 +56,9 @@ export default () => {
       .then((data) => {
         setRows(data.items);
         setLoading(false);
+        setLastQuery(queryString);
       })
       .catch(() => setLoading(false));
-    lastQuery = queryString;
   };
 
   useEffect(() => {

@@ -36,7 +36,7 @@ export default () => {
   const [pageSizes] = useState([5, 10, 15]);
   const [currentPage, setCurrentPage] = useState(0);
   const [loading, setLoading] = useState(true);
-  let lastQuery;
+  const [lastQuery, setLastQuery] = useState();
 
   const changeSorting = (value) => {
     setSorting(value);
@@ -80,9 +80,9 @@ export default () => {
         setRows(data.items);
         setTotalCount(data.totalCount);
         setLoading(false);
+        setLastQuery(queryString);
       })
       .catch(() => setLoading(false));
-    lastQuery = queryString;
   };
 
   useEffect(() => {

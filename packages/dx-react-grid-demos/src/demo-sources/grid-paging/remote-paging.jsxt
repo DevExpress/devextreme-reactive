@@ -28,7 +28,7 @@ export default () => {
   const [pageSize] = useState(6);
   const [currentPage, setCurrentPage] = useState(0);
   const [loading, setLoading] = useState(true);
-  let lastQuery;
+  const [lastQuery, setLastQuery] = useState();
 
   const changeCurrentPage = (value) => {
     setCurrentPage(value);
@@ -52,9 +52,9 @@ export default () => {
         setRows(data.items);
         setTotalCount(data.totalCount);
         setLoading(false);
+        setLastQuery(queryString);
       })
       .catch(() => setLoading(false));
-    lastQuery = queryString;
   };
 
   useEffect(() => {

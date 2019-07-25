@@ -64,19 +64,22 @@ class HorizontalViewLayoutBase extends React.PureComponent {
         wrap="nowrap"
         {...restProps}
       >
-        <Grid
-          ref={this.layoutHeader}
-          item
-          className={classes.stickyHeader}
-        >
-          <DayScale />
-        </Grid>
-        <Grid
-          item
-          className={classes.timeTable}
-        >
-          <TimeTable />
-        </Grid>
+        {/* Fix Safari sticky header https://bugs.webkit.org/show_bug.cgi?id=175029 */}
+        <div>
+          <Grid
+            ref={this.layoutHeader}
+            item
+            className={classes.stickyHeader}
+          >
+            <DayScale />
+          </Grid>
+          <Grid
+            item
+            className={classes.timeTable}
+          >
+            <TimeTable />
+          </Grid>
+        </div>
       </Grid>
     );
   }

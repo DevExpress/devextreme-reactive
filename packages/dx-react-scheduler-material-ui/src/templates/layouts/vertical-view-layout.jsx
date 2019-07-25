@@ -66,33 +66,36 @@ class VerticalViewLayoutBase extends React.PureComponent {
         wrap="nowrap"
         {...restProps}
       >
-        <Grid item xs="auto" className={classes.stickyHeader}>
-          <Grid
-            ref={this.layoutHeader}
-            container
-            direction="row"
-          >
-            <Grid item xs={1} className={classes.emptySpace}>
-              <DayScaleEmptyCell />
-            </Grid>
+        {/* Fix Safari sticky header https://bugs.webkit.org/show_bug.cgi?id=175029 */}
+        <div>
+          <Grid item xs="auto" className={classes.stickyHeader}>
+            <Grid
+              ref={this.layoutHeader}
+              container
+              direction="row"
+            >
+              <Grid item xs={1} className={classes.emptySpace}>
+                <DayScaleEmptyCell />
+              </Grid>
 
-            <Grid item xs={11}>
-              <DayScale />
+              <Grid item xs={11}>
+                <DayScale />
+              </Grid>
             </Grid>
           </Grid>
-        </Grid>
 
-        <Grid item xs="auto">
-          <Grid container direction="row">
-            <Grid item xs={1}>
-              <TimeScale />
-            </Grid>
+          <Grid item xs="auto">
+            <Grid container direction="row">
+              <Grid item xs={1}>
+                <TimeScale />
+              </Grid>
 
-            <Grid item xs={11} className={classes.timeTable}>
-              <TimeTable />
+              <Grid item xs={11} className={classes.timeTable}>
+                <TimeTable />
+              </Grid>
             </Grid>
           </Grid>
-        </Grid>
+        </div>
       </Grid>
     );
   }

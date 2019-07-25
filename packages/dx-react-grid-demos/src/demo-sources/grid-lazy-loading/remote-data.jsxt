@@ -68,7 +68,7 @@ export default () => {
   const [filters, setFilters] = useState([]);
   const [sorting, setSorting] = useState([]);
   const [lastQuery, setLastQuery] = useState();
-  
+
   const cache = useMemo(() => createRowCache(VIRTUAL_PAGE_SIZE), [VIRTUAL_PAGE_SIZE]);
   const updateRows = (newSkip, count, newTotalCount) => {
     const newRows = cache.getRows(newSkip, count);

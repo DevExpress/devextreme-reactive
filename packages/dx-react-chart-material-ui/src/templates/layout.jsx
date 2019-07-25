@@ -11,6 +11,7 @@ const styles = (theme) => {
       display: 'flex',
       flexDirection: 'column',
       padding: '10px',
+      boxSizing: 'border-box',
     },
   });
 };

@@ -160,28 +160,52 @@ const moveBandScaleBounds = (
   return [domain[new0], domain[new1]];
 };
 
+// Defines how much linear scale can be zoomed it.
+// I.e. if original scale domain has size of 1, then fully zoomed scale domain has size
+// of 1 / LINEAR_SCALE_ZOOMING_THRESHOLD.
+const LINEAR_SCALE_ZOOMING_THRESHOLD = 1000;
+
 const growLinearScaleBounds = (
   scale: ScaleObject, bounds: DomainBounds, delta: number, anchor: number,
 ): DomainBounds => {
   const fullRange = scale.range();
+  const minRangeThreshold = (fullRange[1] - fullRange[0]) / LINEAR_SCALE_ZOOMING_THRESHOLD;
   const sign = Math.sign(fullRange[1] - fullRange[0]);
   const range = scaleBounds(scale, bounds);
+  // If zooming in and initial range is already too small then do nothing.
+  if (delta > 0 && Math.abs(range[1] - range[0]) <= Math.abs(minRangeThreshold)) {
+    return bounds;
+  }
+  // If zooming out and initial range is already too large then do nothing.
+  if (delta < 0 && Math.abs(range[1] - range[0]) >= Math.abs(fullRange[1] - fullRange[0])) {
+    return bounds;
+  }
   const t = Math.abs((anchor - range[0]) / (range[1] - range[0]));
   let r0 = range[0] + sign * delta * 2 * t;
   let r1 = range[1] - sign * delta * 2 * (1 - t);
-  // Check if new range is outside of the left border.
+  // If new range is outside of the left border then clamp it.
   if (Math.sign(r0 - fullRange[0]) !== sign) {
     r0 = fullRange[0];
   }
-  // Check if new range is outside of the right border.
+  // If new range is outside of the right border then clamp it.
   if (Math.sign(fullRange[1] - r1) !== sign) {
     r1 = fullRange[1];
   }
-  const minRangeThreshold = (fullRange[1] - fullRange[0]) / 100;
-  // Check if new range is too small.
+  // If new range is too small then make it no less than minimal available.
   if (Math.sign(r1 - r0) !== sign || Math.abs(r1 - r0) < Math.abs(minRangeThreshold)) {
-    r0 = anchor - minRangeThreshold / 2;
-    r1 = anchor + minRangeThreshold / 2;
+    if (Math.abs(r0 - range[0]) < Math.abs(minRangeThreshold / 2)) {
+      // Dock it to the start.
+      r0 = range[0];
+      r1 = r0 + minRangeThreshold;
+    } else if (Math.abs(r1 - range[1]) < Math.abs(minRangeThreshold / 2)) {
+      // Dock it to the end.
+      r1 = range[1];
+      r0 = r1 - minRangeThreshold;
+    } else {
+      // Dock it to the anchor.
+      r0 = anchor - minRangeThreshold / 2;
+      r1 = anchor + minRangeThreshold / 2;
+    }
   }
   const newBounds: DomainBounds = [scale.invert(r0), scale.invert(r1)];
   return rangesEqual(bounds, newBounds) ? bounds : newBounds;

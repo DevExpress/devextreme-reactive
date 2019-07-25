@@ -65,6 +65,7 @@ Describes properties passed to a component that renders the root layout.
 
 Field | Type | Description
 ------|------|------------
+height | number &#124; `auto` | The Scheduler's height.
 children? | ReactNode | A React node used to render the root layout.
 
 ### SchedulerDateTime

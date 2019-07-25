@@ -51,7 +51,7 @@ const styles = (theme) => {
 };
 
 export const Arrow = withStyles(styles)(({
-  classes, className, placement,
+  classes, className, placement, ...restProps
 }) => (
-  <div className={classNames(classes[`arrow-${placement}`], className)} />
+  <div className={classNames(classes[`arrow-${placement}`], className)} {...restProps} />
 ));

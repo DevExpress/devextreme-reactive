@@ -39,6 +39,7 @@ Field | Type | Description
 ------|------|------------
 target | {getBoundingClientRect: () => ClientRect, clientHeight: number, clientWidth: number} | An [object](https://popper.js.org/popper-documentation.html#referenceObject) that provides an API to position the tooltip.
 children | ReactNode | A React node used to render the tooltip's content.
+arrowComponent | ComponentType&lt;[Tooltip.ArrowProps](#tooltiparrowprops)&gt; | | A component that renders the tooltip arrow.
 
 ### Tooltip.ContentProps
 

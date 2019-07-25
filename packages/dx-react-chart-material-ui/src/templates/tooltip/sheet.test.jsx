@@ -4,11 +4,8 @@ import Paper from '@material-ui/core/Paper';
 import { Sheet } from './sheet';
 
 describe('Sheet', () => {
-  const defaultProps = {
-    className: 'custom-className',
-  };
   let mount;
-  const classes = getClasses(<Sheet {...defaultProps} />);
+  const classes = getClasses(<Sheet />);
 
   beforeEach(() => {
     mount = createMount();
@@ -20,12 +17,10 @@ describe('Sheet', () => {
 
   it('should render Sheet', () => {
     const tree = mount((
-      <Sheet
-        {...defaultProps}
-      />
+      <Sheet />
     ));
     expect(tree.find(Paper).props()).toMatchObject({
-      className: `${classes.root} custom-className`,
+      className: `${classes.root}`,
     });
   });
 });

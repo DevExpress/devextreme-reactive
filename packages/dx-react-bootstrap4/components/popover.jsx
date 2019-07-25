@@ -78,9 +78,9 @@ export class Popover extends React.PureComponent {
   renderPopper() {
     const {
       children, target, renderInBody,
-      arrowComponent: ArrowComponent = DefaultArrowComponent, ...restProps
+      arrowComponent: ArrowComponent, ...restProps
     } = this.props;
-
+    const { placement: poperPlacement } = this.props;
     return (
       <Popper
         referenceElement={target}
@@ -93,7 +93,7 @@ export class Popover extends React.PureComponent {
             <div className="popover-inner" ref={this.contentRef}>
               {children}
             </div>
-            <ArrowComponent arrowProps={arrowProps} placement={placement} />
+            <ArrowComponent arrowProps={arrowProps} placement={poperPlacement} />
           </div>
         )}
       </Popper>
@@ -137,5 +137,5 @@ Popover.defaultProps = {
   isOpen: false,
   placement: 'auto',
   toggle: undefined,
-  arrowComponent: undefined,
+  arrowComponent: DefaultArrowComponent,
 };

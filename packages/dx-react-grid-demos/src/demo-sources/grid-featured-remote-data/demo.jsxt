@@ -35,24 +35,15 @@ export default () => {
   const [pageSize, setPageSize] = useState(10);
   const [pageSizes] = useState([5, 10, 15]);
   const [currentPage, setCurrentPage] = useState(0);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [lastQuery, setLastQuery] = useState();
 
-  const changeSorting = (value) => {
-    setSorting(value);
-    setLoading(true);
-  };
-  const changeCurrentPage = (value) => {
-    setCurrentPage(value);
-    setLoading(true);
-  };
   const changePageSize = (value) => {
     const totalPages = Math.ceil(totalCount / value);
     const updatedCurrentPage = Math.min(currentPage, totalPages - 1);
 
     setPageSize(value);
     setCurrentPage(updatedCurrentPage);
-    setLoading(true);
   };
 
   const getQueryString = () => {
@@ -69,27 +60,21 @@ export default () => {
 
   const loadData = () => {
     const queryString = getQueryString();
-    if (queryString === lastQuery) {
-      setLoading(false);
-      return;
+    if (queryString !== lastQuery && !loading) {
+      setLoading(true);
+      fetch(queryString)
+        .then(response => response.json())
+        .then((data) => {
+          setRows(data.items);
+          setTotalCount(data.totalCount);
+          setLoading(false);
+        })
+        .catch(() => setLoading(false));
+      setLastQuery(queryString);
     }
-
-    fetch(queryString)
-      .then(response => response.json())
-      .then((data) => {
-        setRows(data.items);
-        setTotalCount(data.totalCount);
-        setLoading(false);
-        setLastQuery(queryString);
-      })
-      .catch(() => setLoading(false));
   };
 
-  useEffect(() => {
-    if (loading) {
-      loadData();
-    }
-  });
+  useEffect(() => loadData());
 
   return (
     <<%&wrapperTag%><%&wrapperAttributes%> style={{ position: 'relative' }}>
@@ -102,11 +87,11 @@ export default () => {
         />
         <SortingState
           sorting={sorting}
-          onSortingChange={changeSorting}
+          onSortingChange={setSorting}
         />
         <PagingState
           currentPage={currentPage}
-          onCurrentPageChange={changeCurrentPage}
+          onCurrentPageChange={setCurrentPage}
           pageSize={pageSize}
           onPageSizeChange={changePageSize}
         />

@@ -25,13 +25,8 @@ export default () => {
     { columnName: 'SaleAmount', align: 'right' },
   ]);
   const [sorting, setSorting] = useState([{ columnName: 'StoreCity', direction: 'asc' }]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [lastQuery, setLastQuery] = useState();
-
-  const changeSorting = (value) => {
-    setLoading(true);
-    setSorting(value);
-  };
 
   const getQueryString = () => {
     let queryString = `${URL}?`;
@@ -46,26 +41,20 @@ export default () => {
 
   const loadData = () => {
     const queryString = getQueryString();
-    if (queryString === lastQuery) {
-      setLoading(false);
-      return;
+    if (queryString !== lastQuery && !loading) {
+      setLoading(true);
+      fetch(queryString)
+        .then(response => response.json())
+        .then((data) => {
+          setRows(data.items);
+          setLoading(false);
+        })
+        .catch(() => setLoading(false));
+      setLastQuery(queryString);
     }
-
-    fetch(queryString)
-      .then(response => response.json())
-      .then((data) => {
-        setRows(data.items);
-        setLoading(false);
-        setLastQuery(queryString);
-      })
-      .catch(() => setLoading(false));
   };
 
-  useEffect(() => {
-    if (loading) {
-      loadData();
-    }
-  });
+  useEffect(() => loadData());
 
   return (
     <<%&wrapperTag%><%&wrapperAttributes%> style={{ position: 'relative' }}>
@@ -75,7 +64,7 @@ export default () => {
       >
         <SortingState
           sorting={sorting}
-          onSortingChange={changeSorting}
+          onSortingChange={setSorting}
         />
         <VirtualTable
           columnExtensions={tableColumnExtensions}

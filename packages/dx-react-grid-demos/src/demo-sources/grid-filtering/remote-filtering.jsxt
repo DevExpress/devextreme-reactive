@@ -19,13 +19,8 @@ export default () => {
   ]);
   const [rows, setRows] = useState([]);
   const [filters, setFilters] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [lastQuery, setLastQuery] = useState();
-
-  const changeFilters = (value) => {
-    setFilters(value);
-    setLoading(true);
-  };
 
   const getQueryString = () => {
     let filter = filters.reduce((acc, { columnName, value }) => {
@@ -42,26 +37,21 @@ export default () => {
 
   const loadData = () => {
     const queryString = getQueryString();
-    if (queryString === lastQuery) {
-      setLoading(false);
-      return;
+    if (queryString !== lastQuery && !loading) {
+      setLoading(true);
+      fetch(queryString)
+        .then(response => response.json())
+        .then((orders) => {
+          setRows(orders.data);
+          setLoading(false);
+          setLastQuery(queryString);
+        })
+        .catch(() => setLoading(false));
+      setLastQuery(queryString);
     }
-
-    fetch(queryString, { mode: 'cors' })
-      .then(response => response.json())
-      .then((orders) => {
-        setRows(orders.data);
-        setLoading(false);
-        setLastQuery(queryString);
-      })
-      .catch(() => setLoading(false));
   };
 
-  useEffect(() => {
-    if (loading) {
-      loadData();
-    }
-  });
+  useEffect(() => loadData());
 
   return (
     <<%&wrapperTag%><%&wrapperAttributes%> style={{ position: 'relative' }}>
@@ -70,7 +60,7 @@ export default () => {
         columns={columns}
       >
         <FilteringState
-          onFiltersChange={changeFilters}
+          onFiltersChange={setFilters}
         />
         <VirtualTable />
         <TableHeaderRow />

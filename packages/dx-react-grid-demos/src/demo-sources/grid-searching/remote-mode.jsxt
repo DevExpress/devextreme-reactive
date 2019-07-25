@@ -19,16 +19,11 @@ export default () => {
     { name: 'ShipAddress', title: 'Address' },
   ]);
   const [rows, setRows] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const [lastQuery, setLastQuery] = useState();
 
-  const changeSearchValue = (value) => {
-    setLoading(true);
-    setSearchValue(value);
-  };
-
-  const setQueryString = () => {
+  const getQueryString = () => {
     let filter = columns.reduce((acc, { name }) => {
       acc.push(`["${name}", "contains", "${encodeURIComponent(searchValue)}"]`);
       return acc;
@@ -42,27 +37,21 @@ export default () => {
   };
 
   const loadData = () => {
-    const queryString = setQueryString();
-    if (queryString === lastQuery) {
-      setLoading(false);
-      return;
+    const queryString = getQueryString();
+    if (queryString !== lastQuery && !loading) {
+      setLoading(true);
+      fetch(queryString)
+        .then(response => response.json())
+        .then((orders) => {
+          setRows(orders.data);
+          setLoading(false);
+        })
+        .catch(() => setLoading(false));
+      setLastQuery(queryString);
     }
-
-    fetch(queryString, { mode: 'cors' })
-      .then(response => response.json())
-      .then((orders) => {
-        setRows(orders.data);
-        setLoading(false);
-        setLastQuery(queryString);
-      })
-      .catch(() => setLoading(false));
   };
 
-  useEffect(() => {
-    if (loading) {
-      loadData();
-    }
-  });
+  useEffect(() => loadData());
 
   return (
     <<%&wrapperTag%><%&wrapperAttributes%> style={{ position: 'relative' }}>
@@ -71,7 +60,7 @@ export default () => {
         columns={columns}
       >
         <SearchState
-          onValueChange={changeSearchValue}
+          onValueChange={setSearchValue}
         />
         <VirtualTable />
         <TableHeaderRow />

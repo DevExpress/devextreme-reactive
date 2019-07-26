@@ -85,8 +85,6 @@ export namespace MonthView {
     dayScaleComponent: React.ComponentType<MonthView.DayScaleLayoutProps>;
     /** A component that renders a time table layout. */
     timeTableComponent: React.ComponentType<MonthView.TimeTableLayoutProps>;
-    /** The layout's height */
-    height: number | 'auto';
     /** The scrolling API callback */
     setScrollingStrategy: (scrollingStrategy: ScrollingStrategy) => void;
   }

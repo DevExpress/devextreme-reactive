@@ -238,8 +238,13 @@ describe('#growBounds', () => {
     expect(growBounds(target2, [3, 5], -10, 70)).toEqual([3, 7]);
     expect(growBounds(target2, [3, 5], -10, 50)).toEqual([1, 5]);
 
-    expect(growBounds(target1, [4, 5], 40, 45)).toEqual([4.45, 4.55].map(matchFloat));
-    expect(growBounds(target2, [4, 5], 40, 55)).toEqual([4.45, 4.55].map(matchFloat));
+    expect(growBounds(target1, [4, 5], 40, 45)).toEqual([4.495, 4.505].map(matchFloat));
+    expect(growBounds(target2, [4, 5], 40, 55)).toEqual([4.495, 4.505].map(matchFloat));
+
+    expect(growBounds(target1, [4, 5], 40, 40)).toEqual([4, 4.01].map(matchFloat));
+    expect(growBounds(target2, [4, 5], 40, 60)).toEqual([4, 4.01].map(matchFloat));
+    expect(growBounds(target1, [4, 5], 40, 50)).toEqual([4.99, 5].map(matchFloat));
+    expect(growBounds(target2, [4, 5], 40, 50)).toEqual([4.99, 5].map(matchFloat));
 
     expect(growBounds(target1, [1,  9], -30, 50)).toEqual([0, 10]);
     expect(growBounds(target2, [1,  9], -30, 50)).toEqual([0, 10]);
@@ -258,7 +263,7 @@ describe('#growBounds', () => {
     expect(growBounds(target1, bounds, -10, 30)).toBe(bounds);
     expect(growBounds(target2, bounds, -10, 70)).toBe(bounds);
 
-    bounds = [5.05, 5.15];
+    bounds = [5.005, 5.006];
     expect(growBounds(target1, bounds, 10, 51)).toBe(bounds);
     expect(growBounds(target2, bounds, 10, 49)).toBe(bounds);
   });

@@ -14,6 +14,7 @@ import {
   ChangeCurrentDatePayload,
 } from '@devexpress/dx-scheduler-core';
 import { ViewStateProps, ViewStateState } from '../types';
+import { memoize } from '@devexpress/dx-core';
 
 class ViewStateBase extends React.PureComponent<ViewStateProps, ViewStateState> {
   changeCurrentDate: ActionFn<ChangeCurrentDatePayload>;
@@ -63,13 +64,15 @@ class ViewStateBase extends React.PureComponent<ViewStateProps, ViewStateState> 
     };
   }
 
+  getCurrentViewComputed =  memoize(currentName => () => (
+    currentName
+    ? { name: currentName }
+    : undefined
+  ));
+
   render() {
     const { currentDate, currentViewName: stateCurrentViewName } = this.state;
-    const currentViewComputed: ComputedFn = () => (
-      stateCurrentViewName
-        ? { name: stateCurrentViewName }
-        : undefined
-    );
+    const currentViewComputed: ComputedFn = this.getCurrentViewComputed(stateCurrentViewName);
     return (
       <Plugin
         name="ViewState"

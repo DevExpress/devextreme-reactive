@@ -25,8 +25,6 @@ const navigate = (action, currentView, intervalCount) => (direction, nextDate) =
   amount: intervalCount,
   step: currentView.type,
 });
-const navigateMemo = memoize((changeCurrentDate, currentView, intervalCount) =>
-  navigate(changeCurrentDate, currentView, intervalCount));
 
 class DateNavigatorBase extends React.PureComponent<DateNavigatorProps, DateNavigatorState> {
   target!: React.ReactInstance;
@@ -60,6 +58,9 @@ class DateNavigatorBase extends React.PureComponent<DateNavigatorProps, DateNavi
   handleHide = () => {
     this.setState({ visible: false });
   }
+
+  navigateMemo = memoize((changeCurrentDate, currentView, intervalCount, navigateAction) =>
+    navigateAction(changeCurrentDate, currentView, intervalCount));
 
   render() {
     const {
@@ -96,7 +97,9 @@ class DateNavigatorBase extends React.PureComponent<DateNavigatorProps, DateNavi
             }, {
               changeCurrentDate,
             }) => {
-              const navigateAction = navigateMemo(changeCurrentDate, currentView, intervalCount);
+              const navigateAction = this.navigateMemo(
+                changeCurrentDate, currentView, intervalCount, navigate,
+              );
               const calendarDateChanged = (nextDate) => {
                 navigateAction(undefined, nextDate);
                 this.handleHide();

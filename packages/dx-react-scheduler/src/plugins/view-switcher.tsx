@@ -7,7 +7,6 @@ import {
   PluginComponents,
 } from '@devexpress/dx-react-core';
 import { ViewSwitcherProps } from '../types/view-switcher';
-import { memoize } from '@devexpress/dx-core';
 
 const pluginDependencies = [
   { name: 'Toolbar' },
@@ -18,8 +17,6 @@ class ViewSwitcherBase extends React.PureComponent<ViewSwitcherProps> {
   static components: PluginComponents = {
     switcherComponent: 'Switcher',
   };
-
-  getMemoCurrentView = memoize((name, type, displayName) => ({ name, type, displayName }));
 
   render() {
     const { switcherComponent: Switcher } = this.props;

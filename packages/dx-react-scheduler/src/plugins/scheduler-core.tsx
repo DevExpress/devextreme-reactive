@@ -6,9 +6,9 @@ import { appointments, formatDateTimeGetter } from '@devexpress/dx-scheduler-cor
 import { SchedulerProps } from '../types';
 import { memoize } from '@devexpress/dx-core';
 
-const memoFormatDateTimeGetter = memoize(locale => formatDateTimeGetter(locale));
-
 class SchedulerCoreBase extends React.PureComponent<SchedulerProps> {
+  formatDateTimeGetter = memoize(locale => formatDateTimeGetter(locale));
+
   render() {
     const {
       data,
@@ -22,7 +22,7 @@ class SchedulerCoreBase extends React.PureComponent<SchedulerProps> {
         name="SchedulerCore"
       >
         <Getter name="appointments" value={appointments(data)} />
-        <Getter name="formatDate" value={memoFormatDateTimeGetter(locale)} />
+        <Getter name="formatDate" value={this.formatDateTimeGetter(locale)} />
         <Getter name="layoutHeight" value={height} />
         <Template name="root">
           <Root>

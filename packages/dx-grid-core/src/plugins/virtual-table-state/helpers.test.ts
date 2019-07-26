@@ -368,7 +368,7 @@ describe('VirtualTableState helpers', () => {
         lastRowCount,
         totalRowCount,
       )).toEqual(lastRowCount);
-      
+
   describe('#getForceReloadInterval', () => {
     it('should return 2 pages if loaded interval is less than 2 pages', () => {
       expect(getForceReloadInterval({ start: 100, end: 200 }, 100, 1000)).toEqual({

@@ -40,7 +40,7 @@ export default () => {
   const [loading, setLoading] = useState(false);
   const [lastQuery, setLastQuery] = useState();
 
-  const cache = useMemo(() => createRowCache(VIRTUAL_PAGE_SIZE), [VIRTUAL_PAGE_SIZE]);
+  const cache = useMemo(() => createRowCache(VIRTUAL_PAGE_SIZE));
   const updateRows = (newSkip, count, newTotalCount) => {
     const newRows = cache.getRows(newSkip, count);
     setRows(newRows);

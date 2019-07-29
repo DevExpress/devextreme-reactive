@@ -444,7 +444,6 @@ export namespace MonthView {
   // (undocumented)
   export interface LayoutProps {
     dayScaleComponent: React.ComponentType<MonthView.DayScaleLayoutProps>;
-    height: number | 'auto';
     setScrollingStrategy: (scrollingStrategy: ScrollingStrategy) => void;
     timeTableComponent: React.ComponentType<MonthView.TimeTableLayoutProps>;
   }
@@ -480,6 +479,7 @@ export const Scheduler: React.ComponentType<SchedulerProps>;
 export namespace Scheduler {
     export interface RootProps {
         children?: React.ReactNode;
+        height: number | 'auto';
     }
 }
 
@@ -582,7 +582,6 @@ export namespace VerticalView {
   export interface LayoutProps {
     dayScaleComponent: React.ComponentType<VerticalView.DayScaleLayoutProps>;
     dayScaleEmptyCellComponent: React.ComponentType<VerticalView.DayScaleEmptyCellProps>;
-    height: number | 'auto';
     setScrollingStrategy: (scrollingStrategy: ScrollingStrategy) => void;
     timeScaleComponent: React.ComponentType<VerticalView.TimeScaleLayoutProps>;
     timeTableComponent: React.ComponentType<VerticalView.TimeTableLayoutProps>;

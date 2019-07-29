@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { AUTO_HEIGHT } from '@devexpress/dx-scheduler-core';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
@@ -9,6 +8,7 @@ import { scrollingStrategy } from '../utils';
 const styles = theme => ({
   container: {
     overflowY: 'auto',
+    position: 'relative',
   },
   stickyHeader: {
     top: 0,
@@ -53,13 +53,9 @@ class VerticalViewLayoutBase extends React.PureComponent {
       dayScaleEmptyCellComponent: DayScaleEmptyCell,
       setScrollingStrategy,
       classes,
-      height,
       className,
-      style,
       ...restProps
     } = this.props;
-
-    const containerStyle = height === AUTO_HEIGHT ? { height: '100%' } : { height: `${height}px` };
 
     return (
       <Grid
@@ -68,36 +64,38 @@ class VerticalViewLayoutBase extends React.PureComponent {
         className={classNames(classes.container, className)}
         direction="column"
         wrap="nowrap"
-        style={{ ...containerStyle, ...style }}
         {...restProps}
       >
-        <Grid item xs="auto" className={classes.stickyHeader}>
-          <Grid
-            ref={this.layoutHeader}
-            container
-            direction="row"
-          >
-            <Grid item xs={1} className={classes.emptySpace}>
-              <DayScaleEmptyCell />
-            </Grid>
+        {/* Fix Safari sticky header https://bugs.webkit.org/show_bug.cgi?id=175029 */}
+        <div>
+          <Grid item xs="auto" className={classes.stickyHeader}>
+            <Grid
+              ref={this.layoutHeader}
+              container
+              direction="row"
+            >
+              <Grid item xs={1} className={classes.emptySpace}>
+                <DayScaleEmptyCell />
+              </Grid>
 
-            <Grid item xs={11}>
-              <DayScale />
+              <Grid item xs={11}>
+                <DayScale />
+              </Grid>
             </Grid>
           </Grid>
-        </Grid>
 
-        <Grid item xs="auto">
-          <Grid container direction="row">
-            <Grid item xs={1}>
-              <TimeScale />
-            </Grid>
+          <Grid item xs="auto">
+            <Grid container direction="row">
+              <Grid item xs={1}>
+                <TimeScale />
+              </Grid>
 
-            <Grid item xs={11} className={classes.timeTable}>
-              <TimeTable />
+              <Grid item xs={11} className={classes.timeTable}>
+                <TimeTable />
+              </Grid>
             </Grid>
           </Grid>
-        </Grid>
+        </div>
       </Grid>
     );
   }
@@ -109,16 +107,13 @@ VerticalViewLayoutBase.propTypes = {
   dayScaleComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   timeTableComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   dayScaleEmptyCellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   setScrollingStrategy: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
-  style: PropTypes.object,
 };
 
 VerticalViewLayoutBase.defaultProps = {
   className: undefined,
-  style: null,
 };
 
 export const VerticalViewLayout = withStyles(styles, { name: 'VerticalViewLayout' })(VerticalViewLayoutBase);

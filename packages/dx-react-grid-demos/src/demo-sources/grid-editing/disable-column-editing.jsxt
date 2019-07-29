@@ -1,4 +1,4 @@
-import React from 'react';<%&additionalImports%>
+import React, { useState } from 'react';<%&additionalImports%>
 import { EditingState } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -15,34 +15,26 @@ import {
 
 const getRowId = row => row.id;
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+export default () => {
+  const [columns] = useState([
+    { name: 'name', title: 'Name' },
+    { name: 'sex', title: 'Sex' },
+    { name: 'city', title: 'City' },
+    { name: 'car', title: 'Car' },
+  ]);
+  const [rows, setRows] = useState(generateRows({
+    columnValues: { id: ({ index }) => index, ...defaultColumnValues },
+    length: 8,
+  }));
+  const [editingStateColumnExtensions] = useState([
+    { columnName: 'name', editingEnabled: false },
+  ]);
 
-    this.state = {
-      columns: [
-        { name: 'name', title: 'Name' },
-        { name: 'sex', title: 'Sex' },
-        { name: 'city', title: 'City' },
-        { name: 'car', title: 'Car' },
-      ],
-      rows: generateRows({
-        columnValues: { id: ({ index }) => index, ...defaultColumnValues },
-        length: 8,
-      }),
-      editingStateColumnExtensions: [
-        { columnName: 'name', editingEnabled: false },
-      ],
-    };
-
-    this.commitChanges = this.commitChanges.bind(this);
-  }
-
-  commitChanges({ added, changed, deleted }) {
-    let { rows } = this.state;
+  const commitChanges = ({ added, changed, deleted }) => {
+    let changedRows;
     if (added) {
       const startingAddedId = rows.length > 0 ? rows[rows.length - 1].id + 1 : 0;
-      rows = [
+      changedRows = [
         ...rows,
         ...added.map((row, index) => ({
           id: startingAddedId + index,
@@ -51,40 +43,36 @@ export default class Demo extends React.PureComponent {
       ];
     }
     if (changed) {
-      rows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
+      changedRows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
     }
     if (deleted) {
       const deletedSet = new Set(deleted);
-      rows = rows.filter(row => !deletedSet.has(row.id));
+      changedRows = rows.filter(row => !deletedSet.has(row.id));
     }
-    this.setState({ rows });
-  }
+    setRows(changedRows);
+  };
 
-  render() {
-    const { rows, columns, editingStateColumnExtensions } = this.state;
-
-    return (
-      <<%&wrapperTag%><%&wrapperAttributes%>>
-        <Grid
-          rows={rows}
-          columns={columns}
-          getRowId={getRowId}
-        >
-          <EditingState
-            onCommitChanges={this.commitChanges}
-            defaultEditingRowIds={[0]}
-            columnExtensions={editingStateColumnExtensions}
-          />
-          <Table />
-          <TableHeaderRow />
-          <TableEditRow />
-          <TableEditColumn
-            showAddCommand
-            showEditCommand
-            showDeleteCommand
-          />
-        </Grid>
-      </<%&wrapperTag%>>
-    );
-  }
-}
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={rows}
+        columns={columns}
+        getRowId={getRowId}
+      >
+        <EditingState
+          onCommitChanges={commitChanges}
+          defaultEditingRowIds={[0]}
+          columnExtensions={editingStateColumnExtensions}
+        />
+        <Table />
+        <TableHeaderRow />
+        <TableEditRow />
+        <TableEditColumn
+          showAddCommand
+          showEditCommand
+          showDeleteCommand
+        />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
+};

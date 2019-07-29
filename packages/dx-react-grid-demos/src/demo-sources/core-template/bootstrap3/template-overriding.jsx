@@ -1,47 +1,28 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import {
   PluginHost, Plugin, Template, TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    const getStateTasks = () => {
-      const { tasks } = this.state;
-      return tasks;
-    };
+export default () => {
+  const [tasks, setTasks] = useState([
+    { title: 'call mom', done: false },
+    { title: 'send letters to partners', done: false },
+    { title: 'buy milk', done: true },
+    { title: 'rent a car', done: false },
+  ]);
 
-    this.state = {
-      tasks: [
-        { title: 'call mom', done: false },
-        { title: 'send letters to partners', done: false },
-        { title: 'buy milk', done: true },
-        { title: 'rent a car', done: false },
-      ],
-    };
+  const completeTask = (index) => {
+    const newTasks = tasks.slice();
+    newTasks[index] = { ...newTasks[index], done: true };
+    setTasks(newTasks);
+  };
 
-    this.completeTask = (index) => {
-      const newTasks = getStateTasks().slice();
-      newTasks[index] = {
-        ...newTasks[index],
-        done: true,
-      };
-      this.setState({
-        tasks: newTasks,
-      });
-    };
-  }
-
-  render() {
-    const { tasks } = this.state;
-
-    return (
-      <TasksList tasks={tasks}>
-        <TaskCompletion onComplete={this.completeTask} />
-      </TasksList>
-    );
-  }
-}
+  return (
+    <TasksList tasks={tasks}>
+      <TaskCompletion onComplete={completeTask} />
+    </TasksList>
+  );
+};
 
 const TasksList = ({ children, ...restProps }) => (
   <PluginHost>
@@ -75,7 +56,7 @@ const TasksListCore = ({ tasks }) => (
   </Plugin>
 );
 
-const TaskCompletion = ({ onComplete }) => (
+const TaskCompletion = React.memo(({ onComplete }) => (
   <Plugin>
     <Template name="task">
       {({ index, title, done }) => (done ? (
@@ -94,4 +75,4 @@ const TaskCompletion = ({ onComplete }) => (
       ))}
     </Template>
   </Plugin>
-);
+));

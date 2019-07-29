@@ -1,4 +1,4 @@
-import * as React from 'react';<%&additionalImports%>
+import React, { useState } from 'react';<%&additionalImports%>
 import {
   SummaryState,
   IntegratedSummary,
@@ -38,58 +38,46 @@ const CurrencyTypeProvider = props => (
   />
 );
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+export default () => {
+  const [columns] = useState([
+    { name: 'sector', title: 'Sector' },
+    { name: 'customer', title: 'Customer' },
+    { name: 'product', title: 'Product' },
+    { name: 'amount', title: 'Sale Amount' },
+  ]);
+  const [rows] = useState(generateRows({ columnValues: globalSalesValues, length: 8 }));
+  const [tableColumnExtensions] = useState([
+    { columnName: 'amount', align: 'right', width: 230 },
+  ]);
+  const [totalSummaryItems] = useState([
+    { columnName: 'amount', type: 'overpriced' },
+  ]);
+  const [currencyColumns] = useState(['amount']);
 
-    this.state = {
-      columns: [
-        { name: 'sector', title: 'Sector' },
-        { name: 'customer', title: 'Customer' },
-        { name: 'product', title: 'Product' },
-        { name: 'amount', title: 'Sale Amount' },
-      ],
-      tableColumnExtensions: [
-        { columnName: 'amount', align: 'right', width: 230 },
-      ],
-      totalSummaryItems: [
-        { columnName: 'amount', type: 'overpriced' },
-      ],
-      currencyColumns: ['amount'],
-      rows: generateRows({ columnValues: globalSalesValues, length: 8 }),
-    };
-  }
-
-  render() {
-    const {
-      rows, columns, tableColumnExtensions, currencyColumns, totalSummaryItems,
-    } = this.state;
-
-    return (
-      <<%&wrapperTag%><%&wrapperAttributes%>>
-        <Grid
-          rows={rows}
-          columns={columns}
-        >
-          <CurrencyTypeProvider
-            for={currencyColumns}
-          />
-          <SummaryState
-            totalItems={totalSummaryItems}
-          />
-          <IntegratedSummary
-            calculator={summaryCalculator}
-          />
-          <Table
-            columnExtensions={tableColumnExtensions}
-          />
-          <TableHeaderRow />
-          <TableSummaryRow
-            formatlessSummaryTypes={formatlessSummaryTypes}
-            messages={messages}
-          />
-        </Grid>
-      </<%&wrapperTag%>>
-    );
-  }
-}
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={rows}
+        columns={columns}
+      >
+        <CurrencyTypeProvider
+          for={currencyColumns}
+        />
+        <SummaryState
+          totalItems={totalSummaryItems}
+        />
+        <IntegratedSummary
+          calculator={summaryCalculator}
+        />
+        <Table
+          columnExtensions={tableColumnExtensions}
+        />
+        <TableHeaderRow />
+        <TableSummaryRow
+          formatlessSummaryTypes={formatlessSummaryTypes}
+          messages={messages}
+        />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
+};

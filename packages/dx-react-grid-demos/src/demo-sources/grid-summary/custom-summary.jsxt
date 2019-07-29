@@ -1,4 +1,4 @@
-import * as React from 'react';<%&additionalImports%>
+import React, { useState } from 'react';<%&additionalImports%>
 import {
   SummaryState,
   CustomSummary,
@@ -29,81 +29,64 @@ const CurrencyTypeProvider = props => (
   />
 );
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+export default () => {
+  const [columns] = useState([
+    { name: 'region', title: 'Region' },
+    { name: 'sector', title: 'Sector' },
+    { name: 'customer', title: 'Customer' },
+    { name: 'product', title: 'Product' },
+    { name: 'amount', title: 'Sale Amount' },
+  ]);
+  const [rows] = useState(generateRows({ columnValues: globalSalesValues, length: 8 }));
+  const [tableColumnExtensions] = useState([
+    { columnName: 'amount', align: 'right' },
+  ]);
+  const [totalSummaryItems] = useState([
+    { columnName: 'region', type: 'count' },
+    { columnName: 'amount', type: 'max' },
+    { columnName: 'amount', type: 'sum' },
+  ]);
+  const [currencyColumns] = useState(['amount']);
+  const [selection, setSelection] = useState([]);
 
-    this.state = {
-      columns: [
-        { name: 'region', title: 'Region' },
-        { name: 'sector', title: 'Sector' },
-        { name: 'customer', title: 'Customer' },
-        { name: 'product', title: 'Product' },
-        { name: 'amount', title: 'Sale Amount' },
-      ],
-      tableColumnExtensions: [
-        { columnName: 'amount', align: 'right' },
-      ],
-      totalSummaryItems: [
-        { columnName: 'region', type: 'count' },
-        { columnName: 'amount', type: 'max' },
-        { columnName: 'amount', type: 'sum' },
-      ],
-      currencyColumns: ['amount'],
-      rows: generateRows({ columnValues: globalSalesValues, length: 8 }),
-      selection: [],
-    };
-
-    this.changeSelection = (selection) => {
-      this.setState({ selection });
-    };
-  }
-
-  getTotalSummaryValues() {
-    const { selection, rows, totalSummaryItems } = this.state;
+  const getTotalSummaryValues = () => {
     const selectionSet = new Set(selection);
     const selectedRows = rows.filter((row, rowIndex) => selectionSet.has(rowIndex));
     return totalSummaryItems.map((summary) => {
       const { columnName, type } = summary;
       return IntegratedSummary.defaultCalculator(type, selectedRows, row => row[columnName]);
     });
-  }
+  };
 
-  render() {
-    const {
-      rows, columns, tableColumnExtensions, currencyColumns, totalSummaryItems, selection,
-    } = this.state;
-
-    return (
-      <<%&wrapperTag%><%&wrapperAttributes%>>
-        <Grid
-          rows={rows}
-          columns={columns}
-        >
-          <CurrencyTypeProvider
-            for={currencyColumns}
-          />
-          <SummaryState
-            totalItems={totalSummaryItems}
-          />
-          <SelectionState
-            selection={selection}
-            onSelectionChange={this.changeSelection}
-          />
-          <IntegratedSelection />
-          <CustomSummary
-            totalValues={this.getTotalSummaryValues()}
-          />
-          <Table
-            columnExtensions={tableColumnExtensions}
-          />
-          <TableHeaderRow />
-          <TableSummaryRow />
-          <TableSelection
-            showSelectAll
-          />
-        </Grid>
-      </<%&wrapperTag%>>
-    );
-  }
-}
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={rows}
+        columns={columns}
+      >
+        <CurrencyTypeProvider
+          for={currencyColumns}
+        />
+        <SummaryState
+          totalItems={totalSummaryItems}
+        />
+        <SelectionState
+          selection={selection}
+          onSelectionChange={setSelection}
+        />
+        <IntegratedSelection />
+        <CustomSummary
+          totalValues={getTotalSummaryValues()}
+        />
+        <Table
+          columnExtensions={tableColumnExtensions}
+        />
+        <TableHeaderRow />
+        <TableSummaryRow />
+        <TableSelection
+          showSelectAll
+        />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
+};

@@ -36,7 +36,6 @@ const defaultDeps = {
     availableViews: [],
     currentView: { name: 'Week' },
     formatDate: jest.fn(),
-    layoutHeight: 300,
   },
   template: {
     body: {},
@@ -347,15 +346,13 @@ describe('Week View', () => {
           {pluginDepsToComponents(defaultDeps)}
           <WeekView
             {...defaultProps}
-            layoutComponent={({ height, setScrollingStrategy }) => <div className="view-layout" setScrollingStrategy={setScrollingStrategy} height={height} />}
+            layoutComponent={({ setScrollingStrategy }) => <div className="view-layout" setScrollingStrategy={setScrollingStrategy} />}
           />
         </PluginHost>
       ));
 
       expect(tree.find('.view-layout').exists())
         .toBeTruthy();
-      expect(tree.find('.view-layout').props().height)
-        .toBe(defaultDeps.getter.layoutHeight);
       expect(tree.find('.view-layout').props().setScrollingStrategy)
         .toEqual(expect.any(Function));
     });

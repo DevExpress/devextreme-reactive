@@ -213,7 +213,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
 
         <Template name="body">
           <TemplateConnector>
-            {({ currentView, layoutHeight }) => {
+            {({ currentView }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
                 <Layout
@@ -222,7 +222,6 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
                   timeTableComponent={TimeTablePlaceholder}
                   timeScaleComponent={TimeScalePlaceholder}
                   setScrollingStrategy={this.setScrollingStrategy}
-                  height={layoutHeight}
                 />
               );
             }}

@@ -195,7 +195,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
 
         <Template name="body">
           <TemplateConnector>
-            {({ currentView, layoutHeight }) => {
+            {({ currentView }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
                 <Layout
@@ -204,7 +204,6 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
                   timeTableComponent={TimeTablePlaceholder}
                   timeScaleComponent={TimeScalePlaceholder}
                   setScrollingStrategy={this.setScrollingStrategy}
-                  height={layoutHeight}
                 />
               );
             }}

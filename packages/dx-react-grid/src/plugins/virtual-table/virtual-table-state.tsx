@@ -3,7 +3,7 @@ import { Getter, Action, Plugin, Getters, Actions } from '@devexpress/dx-react-c
 import {
   recalculateBounds, calculateRequestedRange, virtualRowsWithCache,
   trimRowsToInterval, intervalUtil, emptyVirtualRows, plainRows, loadedRowsStart,
-  VirtualRows, Interval,
+  VirtualRows, Interval, getForceReloadInterval, getAvailableRowCount,
 } from '@devexpress/dx-grid-core';
 import { VirtualTableStateProps, VirtualTableStateState } from '../../types';
 
@@ -34,18 +34,20 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
 
   requestNextPageAction = (
     { referenceIndex, forceReload },
-    { virtualRows, skip }: Getters,
+    { virtualRows }: Getters,
   ) => {
     const { pageSize, totalRowCount } = this.props;
 
     let newBounds;
     let requestedRange;
     let actualVirtualRows = virtualRows;
+    const loadedInterval = intervalUtil.getRowsInterval(virtualRows);
     if (forceReload) {
-      newBounds = requestedRange = { start: skip, end: skip + pageSize! * 2 };
+      newBounds = requestedRange = getForceReloadInterval(
+        loadedInterval, pageSize!, totalRowCount,
+      );
       actualVirtualRows = emptyVirtualRows;
     } else {
-      const loadedInterval = intervalUtil.getRowsInterval(virtualRows);
       newBounds = recalculateBounds(referenceIndex, pageSize!, totalRowCount);
       requestedRange = calculateRequestedRange(
         loadedInterval, newBounds, referenceIndex, pageSize!,
@@ -75,9 +77,12 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
       getRows(newPageIndex, loadCount);
 
       const virtualRowsCache = trimRowsToInterval(virtualRows, newBounds);
-      const newRowCount = infiniteScrolling
-        ? Math.max(newBounds.end + loadCount, stateAvailableCount)
-        : totalRowCount;
+      const newRowCount = getAvailableRowCount(
+        infiniteScrolling,
+        newBounds.end + loadCount,
+        stateAvailableCount,
+        totalRowCount,
+      );
 
       this.setState({
         virtualRowsCache,

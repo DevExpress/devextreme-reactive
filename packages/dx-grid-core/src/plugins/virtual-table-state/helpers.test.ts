@@ -344,30 +344,32 @@ describe('VirtualTableState helpers', () => {
       )).toEqual(totalRowCount);
     });
 
-    it('should return newRowCount if it more than lastRowCount in infinite scrolling', () => {
+    describe('infinite scrolling mode', () => {
       const isInfniniteScroll = true;
       const newRowCount = 200;
-      const lastRowCount = 100;
 
-      expect(getAvailableRowCount(
-        isInfniniteScroll,
-        newRowCount,
-        lastRowCount,
-        totalRowCount,
-      )).toEqual(newRowCount);
-    });
+      it('should return newRowCount if it more than lastRowCount in infinite scrolling', () => {
+        const lastRowCount = 100;
 
-    it('should return lastRowCount if it more than newRowCount in infinite scrolling', () => {
-      const isInfniniteScroll = true;
-      const newRowCount = 200;
-      const lastRowCount = 300;
+        expect(getAvailableRowCount(
+          isInfniniteScroll,
+          newRowCount,
+          lastRowCount,
+          totalRowCount,
+        )).toEqual(newRowCount);
+      });
 
-      expect(getAvailableRowCount(
-        isInfniniteScroll,
-        newRowCount,
-        lastRowCount,
-        totalRowCount,
-      )).toEqual(lastRowCount);
+      it('should return lastRowCount if it more than newRowCount in infinite scrolling', () => {
+        const lastRowCount = 300;
+
+        expect(getAvailableRowCount(
+          isInfniniteScroll,
+          newRowCount,
+          lastRowCount,
+          totalRowCount,
+        )).toEqual(lastRowCount);
+      });
+
     });
   });
 

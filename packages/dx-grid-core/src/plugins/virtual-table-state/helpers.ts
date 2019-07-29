@@ -100,9 +100,9 @@ export const trimRowsToInterval: PureComputed<[VirtualRows, Interval]> = (
 };
 
 export const getAvailableRowCount: PureComputed<[boolean, number, number, number], number> = (
-  infiniteScroll, newRowCount, lastRowCount, totalRowCount,
+  isInfiniteScroll, newRowCount, lastRowCount, totalRowCount,
 ) => {
-  return (infiniteScroll
+  return (isInfiniteScroll
     ? Math.min(
         Math.max(newRowCount, lastRowCount),
         totalRowCount)

@@ -52,8 +52,6 @@ export type ViewState = {
 export namespace VerticalView {
   /** Describes properties passed to a component that renders a vertical view layout. */
   export interface LayoutProps {
-    /** The layout's height */
-    height: number | 'auto';
     /** The scrolling API callback */
     setScrollingStrategy: (scrollingStrategy: ScrollingStrategy) => void;
     /** A component that renders a time scale layout. */

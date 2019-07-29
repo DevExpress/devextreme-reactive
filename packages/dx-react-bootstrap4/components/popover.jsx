@@ -6,7 +6,7 @@ import * as PropTypes from 'prop-types';
 import { Popper } from 'react-popper';
 
 const DefaultArrowComponent = ({ arrowProps }) => (
-  <div className="arrow" ref={arrowProps.ref} style={arrowProps.style} />
+  <div className="arrow" {...arrowProps} />
 );
 
 DefaultArrowComponent.propTypes = {

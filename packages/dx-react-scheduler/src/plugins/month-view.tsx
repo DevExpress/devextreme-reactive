@@ -175,14 +175,13 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
 
         <Template name="body">
           <TemplateConnector>
-            {({ currentView, layoutHeight }) => {
+            {({ currentView }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
                 <Layout
                   dayScaleComponent={DayScalePlaceholder}
                   timeTableComponent={TimeTablePlaceholder}
                   setScrollingStrategy={this.setScrollingStrategy}
-                  height={layoutHeight}
                 />
               );
             }}

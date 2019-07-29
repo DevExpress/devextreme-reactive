@@ -1,4 +1,4 @@
-import * as React from 'react';<%&additionalImports%>
+import React, { useState, useEffect, useMemo } from 'react';<%&additionalImports%>
 import {
   VirtualTableState,
   DataTypeProvider,
@@ -42,75 +42,48 @@ const DateTypeProvider = props => (
   />
 );
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+export default () => {
+  const [columns] = useState([
+    { name: 'Id', title: 'Id', getCellValue: row => row.Id },
+    { name: 'ProductCategoryName', title: 'Category', getCellValue: row => row.ProductCategoryName },
+    { name: 'StoreName', title: 'Store', getCellValue: row => row.StoreName },
+    { name: 'ProductName', title: 'Product', getCellValue: row => row.ProductName },
+    { name: 'DateKey', title: 'Date', getCellValue: row => row.DateKey },
+    { name: 'SalesAmount', title: 'Amount', getCellValue: row => row.SalesAmount },
+  ]);
+  const [rows, setRows] = useState([]);
+  const [tableColumnExtensions] = useState([
+    { columnName: 'Id', width: 70 },
+    { columnName: 'ProductCategoryName', width: 200 },
+    { columnName: 'StoreName', width: 220 },
+    { columnName: 'DateKey', width: 100 },
+    { columnName: 'SalesAmount', width: 110 },
+  ]);
+  const [skip, setSkip] = useState(0);
+  const [requestedSkip, setRequestedSkip] = useState(0);
+  const [take, setTake] = useState(VIRTUAL_PAGE_SIZE * 2);
+  const [totalCount, setTotalCount] = useState(MAX_ROWS);
+  const [loading, setLoading] = useState(false);
+  const [forceReload, setForceReload] = useState(false);
+  const [filters, setFilters] = useState([]);
+  const [sorting, setSorting] = useState([]);
+  const [lastQuery, setLastQuery] = useState();
 
-    this.state = {
-      columns: [
-        { name: 'Id', title: 'Id', getCellValue: row => row.Id },
-        { name: 'ProductCategoryName', title: 'Category', getCellValue: row => row.ProductCategoryName },
-        { name: 'StoreName', title: 'Store', getCellValue: row => row.StoreName },
-        { name: 'ProductName', title: 'Product', getCellValue: row => row.ProductName },
-        { name: 'DateKey', title: 'Date', getCellValue: row => row.DateKey },
-        { name: 'SalesAmount', title: 'Amount', getCellValue: row => row.SalesAmount },
-      ],
-      rows: [],
-      tableColumnExtensions: [
-        { columnName: 'Id', width: 70 },
-        { columnName: 'ProductCategoryName', width: 200 },
-        { columnName: 'StoreName', width: 220 },
-        { columnName: 'DateKey', width: 100 },
-        { columnName: 'SalesAmount', width: 110 },
-      ],
-      skip: 0,
-      totalCount: MAX_ROWS,
-      loading: true,
-      filters: [],
-      sorting: [],
-    };
+  const cache = useMemo(() => createRowCache(VIRTUAL_PAGE_SIZE), [VIRTUAL_PAGE_SIZE]);
+  const updateRows = (newSkip, count, newTotalCount) => {
+    const newRows = cache.getRows(newSkip, count);
+    setRows(newRows);
+    setSkip(newSkip);
+    setTotalCount(newTotalCount < MAX_ROWS ? newTotalCount : MAX_ROWS);
+    setLoading(false);
+  };
 
-    const cache = createRowCache(VIRTUAL_PAGE_SIZE);
-    const setRows = (skip, count, totalCount) => {
-      const rows = cache.getRows(skip, count);
-      this.setState({
-        rows,
-        skip,
-        totalCount: totalCount < MAX_ROWS ? totalCount : MAX_ROWS,
-        loading: false,
-      });
-    };
+  const getRemoteRows = (newRequestedSkip, newTake) => {
+    setRequestedSkip(newRequestedSkip);
+    setTake(newTake);
+  };
 
-    this.getRemoteRows = (skip, take) => {
-      const cached = cache.getRows(skip, take);
-      if (cached.length) {
-        setRows(skip, take);
-      } else {
-        this.setState({ loading: true });
-        const query = this.buildQueryString(skip, take);
-        fetch(query, { mode: 'cors' })
-          .then(response => response.json())
-          .then(({ data, totalCount }) => {
-            cache.setRows(skip, data);
-            setRows(skip, take, totalCount);
-          })
-          .catch(() => this.setState({ loading: false }));
-      }
-    };
-
-    this.changeFilters = (filters) => {
-      cache.invalidate();
-      this.setState({ filters, rows: [] });
-    };
-
-    this.changeSorting = (sorting) => {
-      cache.invalidate();
-      this.setState({ sorting, rows: [] });
-    };
-  }
-
-  buildQueryString(skip, take) {
-    const { filters, sorting } = this.state;
+  const buildQueryString = (querySkip, queryTake) => {
     const filterStr = filters
       .map(({ columnName, value, operation }) => (
         `["${columnName}","${operation}","${value}"]`
@@ -124,44 +97,76 @@ export default class Demo extends React.PureComponent {
     const filterQuery = filterStr ? `&filter=${escape(filterStr)}` : '';
     const sortQuery = sortingStr ? `&sort=${escape(`${sortingStr}`)}` : '';
 
-    return `${URL}?requireTotalCount=true&skip=${skip}&take=${take}${filterQuery}${sortQuery}`;
-  }
+    return `${URL}?requireTotalCount=true&skip=${querySkip}&take=${queryTake}${filterQuery}${sortQuery}`;
+  };
 
-  render() {
-    const {
-      rows, columns, skip, totalCount, tableColumnExtensions, loading, filters, sorting,
-    } = this.state;
+  const loadData = () => {
+    const query = buildQueryString(requestedSkip, take);
+    if ((query !== lastQuery || forceReload) && !loading) {
+      if (forceReload) {
+        cache.invalidate();
+      }
+      const cached = cache.getRows(requestedSkip, take);
+      if (cached.length === take) {
+        updateRows(requestedSkip, take);
+      } else {
+        setLoading(true);
+        setForceReload(false);
+        fetch(query)
+          .then(response => response.json())
+          .then(({ data, totalCount: newTotalCount }) => {
+            cache.setRows(requestedSkip, data);
+            updateRows(requestedSkip, take, newTotalCount);
+          })
+          .catch(() => setLoading(false));
+      }
+      setLastQuery(query);
+    }
+  };
 
-    return (
-      <<%&wrapperTag%><%&wrapperAttributes%>>
-        <Grid
-          rows={rows}
-          columns={columns}
-          getRowId={getRowId}
-        >
-          <CurrencyTypeProvider for={['SalesAmount']} />
-          <DateTypeProvider for={['DateKey']} />
-          <VirtualTableState
-            loading={loading}
-            totalRowCount={totalCount}
-            pageSize={VIRTUAL_PAGE_SIZE}
-            skip={skip}
-            getRows={this.getRemoteRows}
-          />
-          <SortingState
-            sorting={sorting}
-            onSortingChange={this.changeSorting}
-          />
-          <FilteringState
-            filters={filters}
-            onFiltersChange={this.changeFilters}
-          />
-          <VirtualTable columnExtensions={tableColumnExtensions} />
-          <TableHeaderRow showSortingControls />
-          <TableFilterRow />
-        </Grid>
-        {loading && <Loading />}
-      </<%&wrapperTag%>>
-    );
-  }
-}
+  const changeFilters = (value) => {
+    setFilters(value);
+    setRows([]);
+    setForceReload(true);
+  };
+
+  const changeSorting = (value) => {
+    setSorting(value);
+    setRows([]);
+    setForceReload(true);
+  };
+
+  useEffect(() => loadData());
+
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={rows}
+        columns={columns}
+        getRowId={getRowId}
+      >
+        <CurrencyTypeProvider for={['SalesAmount']} />
+        <DateTypeProvider for={['DateKey']} />
+        <VirtualTableState
+          loading={loading}
+          totalRowCount={totalCount}
+          pageSize={VIRTUAL_PAGE_SIZE}
+          skip={skip}
+          getRows={getRemoteRows}
+        />
+        <SortingState
+          sorting={sorting}
+          onSortingChange={changeSorting}
+        />
+        <FilteringState
+          filters={filters}
+          onFiltersChange={changeFilters}
+        />
+        <VirtualTable columnExtensions={tableColumnExtensions} />
+        <TableHeaderRow showSortingControls />
+        <TableFilterRow />
+      </Grid>
+      {loading && <Loading />}
+    </<%&wrapperTag%>>
+  );
+};

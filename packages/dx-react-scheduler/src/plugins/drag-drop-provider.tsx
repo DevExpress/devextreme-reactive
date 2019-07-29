@@ -172,7 +172,6 @@ class DragDropProviderBase extends React.PureComponent<
       end: this.appointmentEndTime,
     }];
 
-    debugger
     const {
       allDayDraftAppointments,
       timeTableDraftAppointments,

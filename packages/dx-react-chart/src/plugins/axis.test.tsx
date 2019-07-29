@@ -179,18 +179,6 @@ describe('Axis', () => {
     expect(tree.find('svg').props()).toMatchObject({ width: 400, height: 300 });
   });
 
-  it('should call changeBBox one time, zises are not changed after update', () => {
-    setupAxisCoordinates([0, 1]);
-    const tree = mount(<AxisTester position="left" />);
-
-    const { onSizeChange } = tree.find(RootComponent).props() as any;
-
-    onSizeChange({ tag: 'size' });
-    onSizeChange({ tag: 'size' });
-
-    expect(defaultDeps.action.changeBBox.mock.calls.length).toBe(1);
-  });
-
   it('should pass correct bbox, vertical-right position', () => {
     setupAxisCoordinates([0, 1]);
     const tree = mount(<AxisTester position="right" />);

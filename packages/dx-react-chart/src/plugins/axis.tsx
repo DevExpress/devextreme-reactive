@@ -90,17 +90,16 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
             // Let's see if anything could be done to improve the situation.
             const visibleTicks = ticks
               .filter(createTickFilter([dx * this.adjustedWidth, dy * this.adjustedHeight]));
+
             const handleSizeChange: onSizeChangeFn = (size) => {
               // The callback is called when DOM is available -
               // *rootRef.current* can be surely accessed.
               const rect = this.rootRef.current!.getBoundingClientRect();
-              if (rect.width === this.adjustedWidth && rect.height === this.adjustedHeight) {
-                return;
-              }
               // *setState* is not used because it would cause excessive Plugin rerenders.
               // Template rerender is provided by *changeBBox* invocation.
               this.adjustedWidth = rect.width;
               this.adjustedHeight = rect.height;
+
               changeBBox({ placeholder: layoutName, bBox: size });
             };
 

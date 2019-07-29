@@ -15,6 +15,7 @@ const draftStyles = theme => ({
     cursor: 'move',
     overflow: 'hidden',
     backgroundColor: setColor(600, theme.palette.primary),
+    border: 0,
   },
 });
 

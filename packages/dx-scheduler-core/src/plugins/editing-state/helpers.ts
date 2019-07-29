@@ -9,7 +9,7 @@ import { ALL, CURRENT, CURRENT_FOLLOWING } from '../../constants';
 export const deleteCurrent = (appointmentData: AppointmentModel) => {
   const currentExDate = `${moment.utc(appointmentData.startDate).format('YYYYMMDDTHHmmss')}Z`;
   const exDate = appointmentData.exDate
-    ? `${appointmentData.exDate}, ${currentExDate}`
+    ? `${appointmentData.exDate},${currentExDate}`
     : currentExDate;
 
   return { changed: { [appointmentData.id!]: { exDate } } };
@@ -24,7 +24,7 @@ export const deletedCurrentAndFollowing = (appointmentData: AppointmentModel) =>
 
   const options = {
     ...RRule.parseString(rRule),
-    dtstart: moment.utc(parentData.startDate).toDate(), // toUTCString() ???
+    dtstart: moment.utc(parentData.startDate).toDate(),
     until: moment.utc(startDate).toDate(),
     count: '',
   };
@@ -53,20 +53,87 @@ export const deletedCurrentAndFollowing = (appointmentData: AppointmentModel) =>
 };
 
 export const editAll = (changes: any, appointmentData: AppointmentModel) => {
-  return  { changed: {  [appointmentData.id!]: { exDate: '', rRule: '' } } };
+  return  { changed: {  [appointmentData.id!]: changes } };
 };
 
 export const editCurrent = (changes: any, appointmentData: AppointmentModel) => {
+  const added = {
+    startDate: appointmentData.startDate,
+    endDate: appointmentData.endDate,
+    ...appointmentData.title && { title: appointmentData.title },
+    ...changes,
+  };
+  const currentExDate = `${moment.utc(appointmentData.startDate).format('YYYYMMDDTHHmmss')}Z`;
+  const exDate = appointmentData.exDate
+    ? `${appointmentData.exDate},${currentExDate}`
+    : currentExDate;
+
   return {
-    changed: { [appointmentData.id!]: { exDate: '', rRule: '' } },
-    added: { ...appointmentData },
+    changed: { [appointmentData.id!]: { exDate } },
+    added,
   };
 };
 
+const makeRruleSet = (rRule: string, options: any) => {
+  const rruleSet = new RRuleSet();
+  rruleSet.rrule(new RRule({
+    ...RRule.parseString(rRule),
+    ...options,
+  }));
+
+  return rruleSet;
+};
+
 export const editCurrentAndFollowing = (changes: any, appointmentData: AppointmentModel) => {
+  const { rRule, startDate, parentData, exDate: prevExDate = '' } = appointmentData;
+
+  const options = {
+    ...RRule.parseString(rRule),
+    dtstart: moment.utc(parentData.startDate).toDate(),
+    until: moment.utc(startDate).toDate(),
+    count: '',
+  };
+  const rruleSet = new RRuleSet();
+  rruleSet.rrule(new RRule(options));
+
+  let exDate;
+  if (prevExDate.length > 0) {
+    exDate = prevExDate.split(',').reduce((acc: string[], date: string) => {
+      const momentDate = moment.utc(date);
+      if (momentDate.isBefore(startDate)) {
+        return [...acc, date];
+      }
+      return acc;
+    }, []).join(',');
+  }
+
+  const initialSequence = makeRruleSet(rRule, {
+    dtstart: moment.utc(parentData.startDate).toDate(),
+  }).all();
+
+  const currentChildIndex = initialSequence.findIndex(date => moment(date).isSame(startDate));
+
+  const addedRrule = makeRruleSet(rRule, {
+    dtstart: moment.utc(startDate).toDate(),
+    count: initialSequence.length - currentChildIndex,
+  });
+
+  const added = {
+    rRule: addedRrule.valueOf()[1].slice(6),
+    startDate: appointmentData.startDate,
+    endDate: appointmentData.endDate,
+    ...appointmentData.title && { title: appointmentData.title },
+    ...changes,
+  };
+
   return {
-    changed: { [appointmentData.id!]: { exDate: '', rRule: '' } },
-    added: { ...appointmentData },
+    changed: {
+      [appointmentData.id!]: {
+        rRule: rruleSet.valueOf()[1].slice(6),
+        ...exDate && prevExDate !== exDate ? { exDate } : {},
+      },
+    },
+    added,
   };
 };
 

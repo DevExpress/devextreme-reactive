@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import * as PropTypes from 'prop-types';
 import {
   FilteringState,
@@ -52,44 +52,34 @@ FilterCell.propTypes = {
   column: PropTypes.shape({ name: PropTypes.string }).isRequired,
 };
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+export default () => {
+  const [columns] = useState([
+    { name: 'product', title: 'Product' },
+    { name: 'region', title: 'Region' },
+    { name: 'sector', title: 'Sector' },
+    { name: 'units', title: 'Quantity' },
+  ]);
+  const [rows] = useState(generateRows({ columnValues: globalSalesValues, length: 8 }));
+  const [tableColumnExtensions] = useState([
+    { columnName: 'units', align: 'right' },
+  ]);
 
-    this.state = {
-      columns: [
-        { name: 'product', title: 'Product' },
-        { name: 'region', title: 'Region' },
-        { name: 'sector', title: 'Sector' },
-        { name: 'units', title: 'Quantity' },
-      ],
-      tableColumnExtensions: [
-        { columnName: 'units', align: 'right' },
-      ],
-      rows: generateRows({ columnValues: globalSalesValues, length: 8 }),
-    };
-  }
-
-  render() {
-    const { rows, columns, tableColumnExtensions } = this.state;
-
-    return (
-      <div className="card">
-        <Grid
-          rows={rows}
-          columns={columns}
-        >
-          <FilteringState defaultFilters={[{ columnName: 'units', value: 2 }]} />
-          <IntegratedFiltering />
-          <Table
-            columnExtensions={tableColumnExtensions}
-          />
-          <TableHeaderRow />
-          <TableFilterRow
-            cellComponent={FilterCell}
-          />
-        </Grid>
-      </div>
-    );
-  }
-}
+  return (
+    <div className="card">
+      <Grid
+        rows={rows}
+        columns={columns}
+      >
+        <FilteringState defaultFilters={[{ columnName: 'units', value: 2 }]} />
+        <IntegratedFiltering />
+        <Table
+          columnExtensions={tableColumnExtensions}
+        />
+        <TableHeaderRow />
+        <TableFilterRow
+          cellComponent={FilterCell}
+        />
+      </Grid>
+    </div>
+  );
+};

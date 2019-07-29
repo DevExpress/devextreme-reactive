@@ -100,12 +100,15 @@ export const trimRowsToInterval: PureComputed<[VirtualRows, Interval]> = (
 };
 
 export const getAvailableRowCount: PureComputed<[boolean, number, number, number], number> = (
-  infiniteScroll, newCount, lastCount, totalRowCount,
-) => (
-  infiniteScroll
-    ? Math.max(newCount, lastCount)
+  isInfiniteScroll, newRowCount, lastRowCount, totalRowCount,
+) => {
+  return (isInfiniteScroll
+    ? Math.min(
+        Math.max(newRowCount, lastRowCount),
+        totalRowCount)
     : totalRowCount
-);
+  );
+};
 
 export const getForceReloadInterval: PureComputed<[Interval, number, number], Interval> = (
   { start, end: intervalEnd }, pageSize, totalRowCount,

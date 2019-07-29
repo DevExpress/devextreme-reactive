@@ -1,4 +1,4 @@
-import * as React from 'react';<%&additionalImports%>
+import React, { useState } from 'react';<%&additionalImports%>
 import {
   SortingState, SelectionState, FilteringState, GroupingState, SearchState,
   IntegratedFiltering, IntegratedGrouping, IntegratedSorting, IntegratedSelection,
@@ -33,91 +33,78 @@ const Cell = (props) => {
 
 const getRowId = row => row.id;
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+export default () => {
+  const [columns] = useState([
+    { name: 'product', title: 'Product' },
+    { name: 'region', title: 'Region' },
+    { name: 'sector', title: 'Sector' },
+    { name: 'channel', title: 'Channel' },
+    { name: 'amount', title: 'Sale Amount' },
+    { name: 'discount', title: 'Discount' },
+    { name: 'saleDate', title: 'Sale Date' },
+    { name: 'customer', title: 'Customer' },
+    { name: 'units', title: 'Units' },
+    { name: 'shipped', title: 'Shipped' },
+  ]);
+  const [rows] = useState(generateRows({
+    columnValues: { id: ({ index }) => index, ...globalSalesValues },
+    length: 200000,
+  }));
+  const [tableColumnExtensions] = useState([
+    { columnName: 'amount', align: 'right' },
+    { columnName: 'units', align: 'right' },
+  ]);
+  const [currencyColumns] = useState(['amount']);
+  const [percentColumns] = useState(['discount']);
+  const [booleanColumns] = useState(['shipped']);
 
-    this.state = {
-      columns: [
-        { name: 'product', title: 'Product' },
-        { name: 'region', title: 'Region' },
-        { name: 'sector', title: 'Sector' },
-        { name: 'channel', title: 'Channel' },
-        { name: 'amount', title: 'Sale Amount' },
-        { name: 'discount', title: 'Discount' },
-        { name: 'saleDate', title: 'Sale Date' },
-        { name: 'customer', title: 'Customer' },
-        { name: 'units', title: 'Units' },
-        { name: 'shipped', title: 'Shipped' },
-      ],
-      tableColumnExtensions: [
-        { columnName: 'amount', align: 'right' },
-        { columnName: 'units', align: 'right' },
-      ],
-      rows: generateRows({
-        columnValues: { id: ({ index }) => index, ...globalSalesValues },
-        length: 200000,
-      }),
-      currencyColumns: ['amount'],
-      percentColumns: ['discount'],
-      booleanColumns: ['shipped'],
-    };
-  }
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={rows}
+        columns={columns}
+        getRowId={getRowId}
+      >
+        <DragDropProvider />
 
-  render() {
-    const {
-      rows, columns, tableColumnExtensions,
-      currencyColumns, percentColumns, booleanColumns,
-    } = this.state;
+        <FilteringState
+          defaultFilters={[{ columnName: 'saleDate', value: '2016-02' }]}
+        />
+        <SearchState />
+        <SortingState
+          defaultSorting={[
+            { columnName: 'product', direction: 'asc' },
+            { columnName: 'saleDate', direction: 'asc' },
+          ]}
+        />
+        <GroupingState
+          defaultGrouping={[{ columnName: 'product' }]}
+          defaultExpandedGroups={['EnviroCare Max']}
+        />
+        <SelectionState />
 
-    return (
-      <<%&wrapperTag%><%&wrapperAttributes%>>
-        <Grid
-          rows={rows}
-          columns={columns}
-          getRowId={getRowId}
-        >
-          <DragDropProvider />
+        <IntegratedFiltering />
+        <IntegratedSorting />
+        <IntegratedGrouping />
+        <IntegratedSelection />
 
-          <FilteringState
-            defaultFilters={[{ columnName: 'saleDate', value: '2016-02' }]}
-          />
-          <SearchState />
-          <SortingState
-            defaultSorting={[
-              { columnName: 'product', direction: 'asc' },
-              { columnName: 'saleDate', direction: 'asc' },
-            ]}
-          />
-          <GroupingState
-            defaultGrouping={[{ columnName: 'product' }]}
-            defaultExpandedGroups={['EnviroCare Max']}
-          />
-          <SelectionState />
+        <CurrencyTypeProvider for={currencyColumns} />
+        <PercentTypeProvider for={percentColumns} />
+        <BooleanTypeProvider for={booleanColumns} />
 
-          <IntegratedFiltering />
-          <IntegratedSorting />
-          <IntegratedGrouping />
-          <IntegratedSelection />
-
-          <CurrencyTypeProvider for={currencyColumns} />
-          <PercentTypeProvider for={percentColumns} />
-          <BooleanTypeProvider for={booleanColumns} />
-
-          <VirtualTable
-            columnExtensions={tableColumnExtensions}
-            cellComponent={Cell}
-          />
-          <TableHeaderRow showSortingControls />
-          <TableColumnReordering defaultOrder={columns.map(column => column.name)} />
-          <TableFilterRow showFilterSelector />
-          <TableSelection showSelectAll />
-          <TableGroupRow />
-          <Toolbar />
-          <SearchPanel />
-          <GroupingPanel showSortingControls />
-        </Grid>
-      </<%&wrapperTag%>>
-    );
-  }
-}
+        <VirtualTable
+          columnExtensions={tableColumnExtensions}
+          cellComponent={Cell}
+        />
+        <TableHeaderRow showSortingControls />
+        <TableColumnReordering defaultOrder={columns.map(column => column.name)} />
+        <TableFilterRow showFilterSelector />
+        <TableSelection showSelectAll />
+        <TableGroupRow />
+        <Toolbar />
+        <SearchPanel />
+        <GroupingPanel showSortingControls />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
+};

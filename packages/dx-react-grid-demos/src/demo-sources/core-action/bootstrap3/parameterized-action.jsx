@@ -1,33 +1,23 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import {
   PluginHost, Plugin, Getter, Action, Template, TemplatePlaceholder, TemplateConnector,
 } from '@devexpress/dx-react-core';
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+export default () => {
+  const [tasks] = useState([
+    { title: 'call mom', done: false },
+    { title: 'send letters to partners', done: false },
+    { title: 'buy milk', done: true },
+    { title: 'rent a car', done: false },
+  ]);
 
-    this.state = {
-      tasks: [
-        { title: 'call mom', done: false },
-        { title: 'send letters to partners', done: false },
-        { title: 'buy milk', done: true },
-        { title: 'rent a car', done: false },
-      ],
-    };
-  }
-
-  render() {
-    const { tasks } = this.state;
-
-    return (
-      <TasksList tasks={tasks}>
-        <TasksFilter defaultDone={false} />
-        <FilterPanel />
-      </TasksList>
-    );
-  }
-}
+  return (
+    <TasksList tasks={tasks}>
+      <TasksFilter defaultDone={false} />
+      <FilterPanel />
+    </TasksList>
+  );
+};
 
 const TasksList = ({ children, ...restProps }) => (
   <PluginHost>
@@ -58,37 +48,24 @@ const TasksListCore = ({ tasks }) => (
 );
 
 // eslint-disable-next-line react/no-multi-comp
-class TasksFilter extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    const getStateDone = () => {
-      const { done } = this.state;
-      return done;
-    };
+const TasksFilter = React.memo(({ defaultDone }) => {
+  const [done, setDone] = useState(defaultDone);
 
-    this.state = {
-      done: props.defaultDone,
-    };
+  const changeFilter = value => setDone(
+    value === undefined ? !done : value,
+  );
 
-    this.changeFilter = done => this.setState({
-      done: done === undefined ? !getStateDone() : done,
-    });
-  }
-
-  render() {
-    const { done } = this.state;
-    return (
-      <Plugin>
-        <Getter
-          name="tasks"
-          computed={({ tasks }) => tasks.filter(task => done === null || task.done === done)}
-        />
-        <Getter name="filter" value={done} />
-        <Action name="changeFilter" action={this.changeFilter} />
-      </Plugin>
-    );
-  }
-}
+  return (
+    <Plugin>
+      <Getter
+        name="tasks"
+        computed={({ tasks }) => tasks.filter(task => done === null || task.done === done)}
+      />
+      <Getter name="filter" value={done} />
+      <Action name="changeFilter" action={changeFilter} />
+    </Plugin>
+  );
+});
 
 const FilterPanel = () => (
   <Plugin>

@@ -1,4 +1,4 @@
-import * as React from 'react';<%&additionalImports%>
+import React, { useState } from 'react';<%&additionalImports%>
 import { RowDetailState } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -21,40 +21,30 @@ const RowDetail = ({ row }) => (
   </div>
 );
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+export default () => {
+  const [columns] = useState([
+    { name: 'name', title: 'Name' },
+    { name: 'sex', title: 'Sex' },
+    { name: 'city', title: 'City' },
+    { name: 'car', title: 'Car' },
+  ]);
+  const [rows] = useState(generateRows({ length: 8 }));
 
-    this.state = {
-      columns: [
-        { name: 'name', title: 'Name' },
-        { name: 'sex', title: 'Sex' },
-        { name: 'city', title: 'City' },
-        { name: 'car', title: 'Car' },
-      ],
-      rows: generateRows({ length: 8 }),
-    };
-  }
-
-  render() {
-    const { rows, columns } = this.state;
-
-    return (
-      <<%&wrapperTag%><%&wrapperAttributes%>>
-        <Grid
-          rows={rows}
-          columns={columns}
-        >
-          <RowDetailState
-            defaultExpandedRowIds={[2, 5]}
-          />
-          <Table />
-          <TableHeaderRow />
-          <TableRowDetail
-            contentComponent={RowDetail}
-          />
-        </Grid>
-      </<%&wrapperTag%>>
-    );
-  }
-}
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={rows}
+        columns={columns}
+      >
+        <RowDetailState
+          defaultExpandedRowIds={[2, 5]}
+        />
+        <Table />
+        <TableHeaderRow />
+        <TableRowDetail
+          contentComponent={RowDetail}
+        />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
+};

@@ -1,32 +1,22 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import {
   PluginHost, Plugin, Getter, Template, TemplateConnector,
 } from '@devexpress/dx-react-core';
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+export default () => {
+  const [tasks] = useState([
+    { title: 'call mom', done: false },
+    { title: 'send letters to partners', done: false },
+    { title: 'buy milk', done: true },
+    { title: 'rent a car', done: false },
+  ]);
 
-    this.state = {
-      tasks: [
-        { title: 'call mom', done: false },
-        { title: 'send letters to partners', done: false },
-        { title: 'buy milk', done: true },
-        { title: 'rent a car', done: false },
-      ],
-    };
-  }
-
-  render() {
-    const { tasks } = this.state;
-
-    return (
-      <TasksList tasks={tasks}>
-        <TasksFilter done={false} />
-      </TasksList>
-    );
-  }
-}
+  return (
+    <TasksList tasks={tasks}>
+      <TasksFilter done={false} />
+    </TasksList>
+  );
+};
 
 const TasksList = ({ children, ...restProps }) => (
   <PluginHost>
@@ -55,11 +45,11 @@ const TasksListCore = ({ tasks }) => (
   </Plugin>
 );
 
-const TasksFilter = ({ done }) => (
+const TasksFilter = React.memo(({ done }) => (
   <Plugin>
     <Getter
       name="tasks"
       computed={({ tasks }) => tasks.filter(task => done === null || task.done === done)}
     />
   </Plugin>
-);
+));

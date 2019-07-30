@@ -1,4 +1,4 @@
-import * as React from 'react';<%&additionalImports%>
+import React, { useState } from 'react';<%&additionalImports%>
 import {
   TreeDataState,
   CustomTreeData,
@@ -17,69 +17,59 @@ import {
 
 const getChildRows = (row, rootRows) => (row ? row.items : rootRows);
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+export default () => {
+  const [columns] = useState([
+    { name: 'name', title: 'Name' },
+    { name: 'sex', title: 'Sex' },
+    { name: 'city', title: 'City' },
+    { name: 'car', title: 'Car' },
+  ]);
+  const [data] = useState(generateRows({
+    columnValues: {
+      ...defaultColumnValues,
+      items: ({ random }) => (random() > 0.5
+        ? generateRows({
+          columnValues: {
+            ...defaultColumnValues,
+            items: () => (random() > 0.5
+              ? generateRows({
+                columnValues: {
+                  ...defaultColumnValues,
+                },
+                length: Math.trunc(random() * 5) + 1,
+                random,
+              })
+              : null),
+          },
+          length: Math.trunc(random() * 3) + 1,
+          random,
+        })
+        : null),
+    },
+    length: 3,
+  }));
+  const [tableColumnExtensions] = useState([
+    { columnName: 'name', width: 300 },
+  ]);
 
-    this.state = {
-      columns: [
-        { name: 'name', title: 'Name' },
-        { name: 'sex', title: 'Sex' },
-        { name: 'city', title: 'City' },
-        { name: 'car', title: 'Car' },
-      ],
-      tableColumnExtensions: [
-        { columnName: 'name', width: 300 },
-      ],
-      data: generateRows({
-        columnValues: {
-          ...defaultColumnValues,
-          items: ({ random }) => (random() > 0.5
-            ? generateRows({
-              columnValues: {
-                ...defaultColumnValues,
-                items: () => (random() > 0.5
-                  ? generateRows({
-                    columnValues: {
-                      ...defaultColumnValues,
-                    },
-                    length: Math.trunc(random() * 5) + 1,
-                    random,
-                  })
-                  : null),
-              },
-              length: Math.trunc(random() * 3) + 1,
-              random,
-            })
-            : null),
-        },
-        length: 3,
-      }),
-    };
-  }
-
-  render() {
-    const { data, columns, tableColumnExtensions } = this.state;
-
-    return (
-      <<%&wrapperTag%><%&wrapperAttributes%>>
-        <Grid
-          rows={data}
-          columns={columns}
-        >
-          <TreeDataState />
-          <CustomTreeData
-            getChildRows={getChildRows}
-          />
-          <Table
-            columnExtensions={tableColumnExtensions}
-          />
-          <TableHeaderRow />
-          <TableTreeColumn
-            for="name"
-          />
-        </Grid>
-      </<%&wrapperTag%>>
-    );
-  }
-}
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={data}
+        columns={columns}
+      >
+        <TreeDataState />
+        <CustomTreeData
+          getChildRows={getChildRows}
+        />
+        <Table
+          columnExtensions={tableColumnExtensions}
+        />
+        <TableHeaderRow />
+        <TableTreeColumn
+          for="name"
+        />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
+};

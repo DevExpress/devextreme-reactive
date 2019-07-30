@@ -167,12 +167,12 @@ describe('DataTypeProvider', () => {
                 />)
               }
             </Template>
+            {pluginDepsToComponents(defaultDeps)}
             <DataTypeProvider
               for={columnNames}
               formatterComponent={formatterComponent}
               editorComponent={editorComponent}
             />
-            {pluginDepsToComponents(defaultDeps)}
           </PluginHost>
         );
       }

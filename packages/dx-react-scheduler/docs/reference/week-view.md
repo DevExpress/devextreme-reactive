@@ -65,7 +65,6 @@ Describes properties passed to a component that renders a week view layout.
 
 Field | Type | Description
 ------|------|------------
-height | number &#124; `auto` | The layout's height.
 setScrollingStrategy | (scrollingStrategy: [ScrollingStrategy](./scheduler.md#scrollingstrategy)) => void | A scrollingStrategy callback.
 timeScaleComponent | ComponentType&lt;[WeekView.TimeScaleLayoutProps](#weekviewtimescalelayoutprops)&gt; | A component that renders a time scale layout.
 dayScaleComponent | ComponentType&lt;[WeekView.DayScaleLayoutProps](#weekviewdayscalelayoutprops)&gt; | A component that renders a day scale layout.

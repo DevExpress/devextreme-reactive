@@ -1,6 +1,7 @@
 import {
   mergeRows, calculateRequestedRange, rowToPageIndex,
   recalculateBounds, trimRowsToInterval,
+  getForceReloadInterval, getAvailableRowCount,
 } from './helpers';
 import { intervalUtil } from './utils';
 import { createInterval, generateRows, createVirtualRows } from './test-utils';
@@ -323,6 +324,67 @@ describe('VirtualTableState helpers', () => {
       expect(trimRowsToInterval(virtualRows, targetInterval)).toEqual({
         skip: Number.POSITIVE_INFINITY,
         rows: [],
+      });
+    });
+  });
+
+  describe('#getAvailableRowCount', () => {
+    const totalRowCount = 1000;
+
+    it('should return totalCount when not infinite scrolling', () => {
+      const isInfniniteScroll = false;
+      const newRowCount = 200;
+      const lastRowCount = 100;
+
+      expect(getAvailableRowCount(
+        isInfniniteScroll,
+        newRowCount,
+        lastRowCount,
+        totalRowCount,
+      )).toEqual(totalRowCount);
+    });
+
+    describe('infinite scrolling mode', () => {
+      const isInfniniteScroll = true;
+      const newRowCount = 200;
+
+      it('should return newRowCount if it more than lastRowCount in infinite scrolling', () => {
+        const lastRowCount = 100;
+
+        expect(getAvailableRowCount(
+          isInfniniteScroll,
+          newRowCount,
+          lastRowCount,
+          totalRowCount,
+        )).toEqual(newRowCount);
+      });
+
+      it('should return lastRowCount if it more than newRowCount in infinite scrolling', () => {
+        const lastRowCount = 300;
+
+        expect(getAvailableRowCount(
+          isInfniniteScroll,
+          newRowCount,
+          lastRowCount,
+          totalRowCount,
+        )).toEqual(lastRowCount);
+      });
+
+    });
+  });
+
+  describe('#getForceReloadInterval', () => {
+    it('should return 2 pages if loaded interval is less than 2 pages', () => {
+      expect(getForceReloadInterval({ start: 100, end: 200 }, 100, 1000)).toEqual({
+        start: 100,
+        end: 300,
+      });
+    });
+
+    it('should return loaded interval if it is more than 2 pages', () => {
+      expect(getForceReloadInterval({ start: 100, end: 400 }, 100, 1000)).toEqual({
+        start: 100,
+        end: 400,
       });
     });
   });

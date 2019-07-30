@@ -1,45 +1,28 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import {
   PluginHost, Plugin, Template, TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 
 const ENTER_KEY = 13;
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+export default () => {
+  const [tasks, setTasks] = useState([
+    { title: 'call mom', done: false },
+    { title: 'send letters to partners', done: false },
+    { title: 'buy milk', done: true },
+    { title: 'rent a car', done: false },
+  ]);
 
-    const getStateTasks = () => {
-      const { tasks } = this.state;
-      return tasks;
-    };
+  const createTask = (title) => {
+    setTasks([...tasks, { title, done: false }]);
+  };
 
-    this.state = {
-      tasks: [
-        { title: 'call mom', done: false },
-        { title: 'send letters to partners', done: false },
-        { title: 'buy milk', done: true },
-        { title: 'rent a car', done: false },
-      ],
-    };
-
-    this.createTask = (title) => {
-      this.setState({
-        tasks: [...getStateTasks(), { title, done: false }],
-      });
-    };
-  }
-
-  render() {
-    const { tasks } = this.state;
-
-    return (
-      <TasksList tasks={tasks}>
-        <NewTaskForm onCreate={this.createTask} />
-      </TasksList>
-    );
-  }
-}
+  return (
+    <TasksList tasks={tasks}>
+      <NewTaskForm onCreate={createTask} />
+    </TasksList>
+  );
+};
 
 const TasksList = ({ children, ...restProps }) => (
   <PluginHost>
@@ -66,7 +49,7 @@ const TasksListCore = ({ tasks }) => (
   </Plugin>
 );
 
-const NewTaskForm = ({ onCreate }) => (
+const NewTaskForm = React.memo(({ onCreate }) => (
   <Plugin>
     <Template name="header">
       <input
@@ -80,4 +63,4 @@ const NewTaskForm = ({ onCreate }) => (
       />
     </Template>
   </Plugin>
-);
+));

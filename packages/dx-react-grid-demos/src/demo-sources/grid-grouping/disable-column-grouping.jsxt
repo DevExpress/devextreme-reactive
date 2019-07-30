@@ -1,4 +1,4 @@
-import React from 'react';<%&additionalImports%>
+import React, { useState } from 'react';<%&additionalImports%>
 import {
   GroupingState,
   IntegratedGrouping,
@@ -15,53 +15,38 @@ import {
 
 import { generateRows } from '../../../demo-data/generator';
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+export default () => {
+  const [columns] = useState([
+    { name: 'name', title: 'Name' },
+    { name: 'sex', title: 'Sex' },
+    { name: 'city', title: 'City' },
+    { name: 'car', title: 'Car' },
+  ]);
+  const [rows] = useState(generateRows({ length: 8 }));
+  const [grouping] = useState([{ columnName: 'city' }]);
+  const [groupingStateColumnExtensions] = useState([
+    { columnName: 'name', groupingEnabled: false },
+    { columnName: 'city', groupingEnabled: false },
+  ]);
 
-    this.state = {
-      columns: [
-        { name: 'name', title: 'Name' },
-        { name: 'sex', title: 'Sex' },
-        { name: 'city', title: 'City' },
-        { name: 'car', title: 'Car' },
-      ],
-      rows: generateRows({ length: 8 }),
-      grouping: [{ columnName: 'city' }],
-      groupingStateColumnExtensions: [
-        { columnName: 'name', groupingEnabled: false },
-        { columnName: 'city', groupingEnabled: false },
-      ],
-    };
-  }
-
-  render() {
-    const {
-      rows,
-      columns,
-      grouping,
-      groupingStateColumnExtensions,
-    } = this.state;
-
-    return (
-      <<%&wrapperTag%><%&wrapperAttributes%>>
-        <Grid
-          rows={rows}
-          columns={columns}
-        >
-          <DragDropProvider />
-          <GroupingState
-            defaultGrouping={grouping}
-            columnExtensions={groupingStateColumnExtensions}
-          />
-          <IntegratedGrouping />
-          <Table />
-          <TableHeaderRow showGroupingControls />
-          <TableGroupRow />
-          <Toolbar />
-          <GroupingPanel showGroupingControls />
-        </Grid>
-      </<%&wrapperTag%>>
-    );
-  }
-}
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={rows}
+        columns={columns}
+      >
+        <DragDropProvider />
+        <GroupingState
+          defaultGrouping={grouping}
+          columnExtensions={groupingStateColumnExtensions}
+        />
+        <IntegratedGrouping />
+        <Table />
+        <TableHeaderRow showGroupingControls />
+        <TableGroupRow />
+        <Toolbar />
+        <GroupingPanel showGroupingControls />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
+};

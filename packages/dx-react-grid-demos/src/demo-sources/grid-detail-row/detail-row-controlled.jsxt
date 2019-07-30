@@ -1,4 +1,4 @@
-import * as React from 'react';<%&additionalImports%>
+import React, { useState } from 'react';<%&additionalImports%>
 import { RowDetailState } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -21,44 +21,32 @@ const RowDetail = ({ row }) => (
   </div>
 );
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+export default () => {
+  const [columns] = useState([
+    { name: 'name', title: 'Name' },
+    { name: 'sex', title: 'Sex' },
+    { name: 'city', title: 'City' },
+    { name: 'car', title: 'Car' },
+  ]);
+  const [rows] = useState(generateRows({ length: 8 }));
+  const [expandedRowIds, setExpandedRowIds] = useState([2, 5]);
 
-    this.state = {
-      columns: [
-        { name: 'name', title: 'Name' },
-        { name: 'sex', title: 'Sex' },
-        { name: 'city', title: 'City' },
-        { name: 'car', title: 'Car' },
-      ],
-      rows: generateRows({ length: 8 }),
-      expandedRowIds: [2, 5],
-    };
-
-    this.changeExpandedDetails = expandedRowIds => this.setState({ expandedRowIds });
-  }
-
-  render() {
-    const { rows, columns, expandedRowIds } = this.state;
-
-    return (
-      <<%&wrapperTag%><%&wrapperAttributes%>>
-        <Grid
-          rows={rows}
-          columns={columns}
-        >
-          <RowDetailState
-            expandedRowIds={expandedRowIds}
-            onExpandedRowIdsChange={this.changeExpandedDetails}
-          />
-          <Table />
-          <TableHeaderRow />
-          <TableRowDetail
-            contentComponent={RowDetail}
-          />
-        </Grid>
-      </<%&wrapperTag%>>
-    );
-  }
-}
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={rows}
+        columns={columns}
+      >
+        <RowDetailState
+          expandedRowIds={expandedRowIds}
+          onExpandedRowIdsChange={setExpandedRowIds}
+        />
+        <Table />
+        <TableHeaderRow />
+        <TableRowDetail
+          contentComponent={RowDetail}
+        />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
+};

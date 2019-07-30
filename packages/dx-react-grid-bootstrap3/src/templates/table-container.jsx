@@ -23,7 +23,9 @@ export const TableContainer = ({
     }}
     {...restProps}
   >
-    {children}
+    <div>
+      {children}
+    </div>
   </div>
 );
 

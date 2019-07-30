@@ -78,6 +78,7 @@
     "rollup-plugin-node-resolve": "^5.2.0"
   },
   "dependencies": {
+    "@material-ui/pickers": "^3.2.0",
     "classnames": "^2.2.6",
     "moment": "^2.24.0",
     "prop-types": "^15.7.2"

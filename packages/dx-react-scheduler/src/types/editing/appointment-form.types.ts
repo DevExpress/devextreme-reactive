@@ -71,10 +71,21 @@ export interface AppointmentFormProps {
   commandButtonComponent: React.ComponentType<any>;
   /** @internal */
   allDayComponent: React.ComponentType<any>;
+
+  saveButtonComponent: React.ComponentType<any>;
+
+  deleteButtonComponent: React.ComponentType<any>;
+
+  closeButtonComponent: React.ComponentType<any>;
+
+  rootComponent: React.ComponentType<any>;
+
+  scheduler: string;
 }
 
 /** @internal */
 export type AppointmentFormState = {
   visible: boolean;
   appointmentData: AppointmentModel;
+  recurrenceEditing: string;
 };

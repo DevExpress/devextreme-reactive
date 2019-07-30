@@ -4,14 +4,14 @@ import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 
-const styles = {
+const styles = ({ typography }) => ({
   editor: {
     width: '100%',
-    '&:first-child': {
-      marginTop: 0,
-    },
   },
-};
+  title: {
+    ...typography.h6,
+  },
+});
 
 const TextEditorBase = ({
   classes,
@@ -20,19 +20,33 @@ const TextEditorBase = ({
   className,
   readOnly,
   onValueChange,
+  isTitle,
+  notes,
+  style,
   ...restProps
 }) => (
   <TextField
     label={label}
-    className={classNames(classes.editor, className)}
+    className={classNames({
+      [classes.editor]: true,
+    },
+    className)}
     value={value}
     margin="normal"
-    variant="filled"
+    variant={notes ? 'outlined' : 'filled'}
     disabled={readOnly}
     onChange={({ target }) => onValueChange(target.value)}
+    InputProps={{
+      className: classNames({
+        [classes.title]: isTitle,
+      }),
+    }}
+    multiline={notes}
+    rows="4"
     {...restProps}
   />
 );
+
 
 TextEditorBase.propTypes = {
   classes: PropTypes.object.isRequired,
@@ -41,6 +55,9 @@ TextEditorBase.propTypes = {
   className: PropTypes.string,
   readOnly: PropTypes.bool,
   onValueChange: PropTypes.func,
+  isTitle: PropTypes.bool,
+  style: PropTypes.object,
+  notes: PropTypes.bool,
 };
 
 TextEditorBase.defaultProps = {
@@ -49,6 +66,9 @@ TextEditorBase.defaultProps = {
   className: undefined,
   readOnly: false,
   onValueChange: () => undefined,
+  isTitle: false,
+  style: null,
+  notes: false,
 };
 
 export const TextEditor = withStyles(styles)(TextEditorBase, { name: 'TextEditor' });

@@ -1,110 +1,104 @@
 import * as React from 'react';
 import {
-  Plugin, Getter, Template, TemplatePlaceholder, TemplateConnector, Action,
+  Plugin, Template, TemplatePlaceholder, TemplateConnector, Action,
 } from '@devexpress/dx-react-core';
+import {
+  CURRENT,
+  CURRENT_FOLLOWING,
+  ALL,
+} from '@devexpress/dx-scheduler-core';
 
 const pluginDependencies = [
   { name: 'EditingState' },
 ];
 
+const availableOperations = [
+  { value: CURRENT, title: 'This event' },
+  { value: CURRENT_FOLLOWING, title: 'This and following events' },
+  { value: ALL, title: 'All events' },
+];
+
 class EditingMenuBase extends React.PureComponent {
-  constructor(props) {
-    super(props);
+  static components = {
+    layoutComponent: 'Layout',
+    modalComponent: 'Modal',
+    buttonComponent: 'Button',
+    containerComponent: 'Container',
+  };
 
-    this.state = {
-      isOpen: false,
-      commitChangedAppointment: () => undefined,
-      commitDeletedAppointment: () => undefined,
-    };
+  modalContainer = React.createRef();
 
-    this.enhancementCommitChanged = ({ commitChangedAppointment }) => {
-      return () => this.setState({ isCommitChanged: true, commitChangedAppointment });
-    };
-    this.enhancementCommitDeleted = ({ commitDeletedAppointment }) => {
-      return (deletedAppointment) => this.setState({
-        isCommitDeleted: true,
-        commitDeletedAppointment: type => commitDeletedAppointment(deletedAppointment, type),
-      });
-    };
+  state = {
+    isOpen: false,
+    isEditing: false,
+    isDeleting: false,
+  };
+
+  finishCommitAppointment = () => {
+    this.setState({ isOpen: true, isEditing: true, isDeleting: false });
   }
 
-  // EditingState ----- [ Menu ]  ---X-> Tooltip, dnd
-  // -> startOperation ->  Menu -X-> commit
-  //  -> start -> State -> commit
+  finishDeleteAppointment = () => {
+    this.setState({ isOpen: true, isDeleting: true, isEditing: false });
+  }
 
-  // dnd, tooltip -> start(flag) -> [EditingState] start: !flag ? commit()
-  //                             \> [Menu] start: show popup | Current -> commit('current')
-
-  // action1 -> Menu -> flag && action2
-
-  // dnd flag ? action2 : action1
-
-
-
-  //dnd : commitChanges(flag) -> EditingState: !flag ? commit() : flag()
   closeMenu = () => {
-    this.setState({
-      isCommitChanged: false,
-      isCommitDeleted: false,
-    });
+    this.setState({ isOpen: false });
   }
 
   render() {
     const {
-      isCommitChanged, isCommitDeleted,
-      commitChangedAppointment, commitDeletedAppointment,
+      isEditing, isDeleting, isOpen,
     } = this.state;
+    const {
+      layoutComponent: Layout,
+      modalComponent: Modal,
+      containerComponent: Container,
+      buttonComponent,
+      messages,
+    } = this.props;
 
     return (
       <Plugin
         name="EditingMenu"
         dependencies={pluginDependencies}
       >
-        <Getter name="commitChangedAppointment" computed={this.enhancementCommitChanged} />
-        <Getter name="commitDeletedAppointment" computed={this.enhancementCommitDeleted} />
-        <Action name="finishOperation" action={(flag, getters, actions) => { this.setState({ openMenu: true }) }} />
-        <Action name="flag" action={() => { this.setState({ openMenu: true }) }} />
+        <Action name="finishCommitAppointment" action={this.finishCommitAppointment} />
+        <Action name="finishDeleteAppointment" action={this.finishDeleteAppointment} />
 
+        <Template name="schedulerRoot">
+          <TemplatePlaceholder />
+          <Container containerRef={this.modalContainer} />
+          <TemplatePlaceholder name="modal" />
+        </Template>
 
-        <Template name="footer">
+        <Template name="modal">
           <TemplateConnector>
-            {(getters) => {
-              if (isCommitDeleted || isCommitChanged) {
-                const commitFunction = isCommitChanged ?
-                  commitChangedAppointment : commitDeletedAppointment;
-                return (
-                  <React.Fragment>
-                    <TemplatePlaceholder />
-                    <div>
-                      Choose edit mode
-                      <ul>
-                        <li>
-                          <button onClick={() => { commitFunction('current'); this.closeMenu(); }}>
-                            This event
-                          </button>
-                        </li>
-                        <li>
-                          <button onClick={() => { commitFunction('follows'); this.closeMenu(); }}>
-                            This and following events
-                          </button>
-                        </li>
-                        <li>
-                          <button onClick={() => { commitFunction('all'); this.closeMenu(); }}>
-                            All events
-                          </button>
-                        </li>
-                        <br />
-                        <li>
-                          <button onClick={this.closeMenu}>
-                            close
-                          </button>
-                        </li>
-                      </ul>
-                    </div>
-                  </React.Fragment>
-                );
+            {({ editingAppointment }, { commitChangedAppointment, commitDeletedAppointment }) => {
+              const commitFunction = isEditing ?
+                commitChangedAppointment : commitDeletedAppointment;
+
+                debugger
+              if (isOpen && editingAppointment && !editingAppointment.rRule) {
+                commitFunction();
+                this.closeMenu();
               }
-              return null;
+
+              return (
+                <Modal
+                  container={this.modalContainer}
+                  open={isOpen}
+                  onClose={this.closeMenu}
+                  onBackdropClick={this.closeMenu}
+                >
+                  <Layout
+                    buttonComponent={buttonComponent}
+                    handleClose={this.closeMenu}
+                    commit={commitFunction}
+                    availableOperations={availableOperations}
+                  />
+                </Modal>
+              );
             }}
           </TemplateConnector>
         </Template>

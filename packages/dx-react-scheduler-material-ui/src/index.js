@@ -11,3 +11,4 @@ export * from './plugins/all-day-panel';
 export * from './plugins/appointment-form';
 export * from './plugins/drag-drop-provider';
 export * from './plugins/today-button';
+export * from './plugins/editing-menu';

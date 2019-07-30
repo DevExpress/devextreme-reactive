@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
-import { ViewState, EditingState, EditingMenu } from '@devexpress/dx-react-scheduler';
+import { ViewState, EditingState } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
   WeekView,
@@ -10,6 +10,7 @@ import {
   Toolbar,
   DragDropProvider,
   AppointmentTooltip,
+  EditingMenu,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
 const appointments = [{
@@ -19,6 +20,11 @@ const appointments = [{
   id: 0,
   rRule: 'FREQ=DAILY;COUNT=3',
   exDate: '20180628T063500Z,20180626T063500Z',
+}, {
+  title: 'NO RECURRENCE',
+  startDate: new Date(2018, 5, 24, 9, 35),
+  endDate: new Date(2018, 5, 24, 11, 30),
+  id: 1,
 // }, {
 //   title: 'Book Flights to San Fran for Sales Trip',
 //   startDate: new Date(2018, 5, 25, 12, 11),
@@ -66,7 +72,7 @@ export default class Demo extends React.PureComponent {
     const { data } = this.state;
 
     return (
-      <Paper>
+      <Paper style={{ margin: '50px', marginRight: '100px' }}>
         <Scheduler
           data={data}
         >

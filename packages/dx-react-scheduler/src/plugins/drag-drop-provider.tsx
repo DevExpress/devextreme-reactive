@@ -112,11 +112,11 @@ class DragDropProviderBase extends React.PureComponent<
     this.setState({ startTime, endTime, payload, isOutside: false });
   }
 
-  handlePayloadChange({ payload }, { commitChangedAppointment }) {
+  handlePayloadChange({ payload }, { finishCommitAppointment }) {
     const { isOutside } = this.state;
     if (payload || !isOutside) return;
 
-    commitChangedAppointment();
+    finishCommitAppointment();
     this.resetCache();
   }
 
@@ -190,8 +190,8 @@ class DragDropProviderBase extends React.PureComponent<
     );
   }
 
-  handleDrop = ({ commitChangedAppointment }) => () => {
-    commitChangedAppointment();
+  handleDrop = ({ finishCommitAppointment }) => () => {
+    finishCommitAppointment();
     this.resetCache();
   }
 
@@ -223,10 +223,9 @@ class DragDropProviderBase extends React.PureComponent<
           <TemplateConnector>
             {({
               viewCellsData, startViewDate, endViewDate, excludedDays,
-              commitChangedAppointment,
               timeTableElementsMeta, allDayElementsMeta, scrollingStrategy,
             }, {
-              changeAppointment, startEditAppointment,
+              changeAppointment, startEditAppointment, finishCommitAppointment,
             }) => {
               const calculateBoundariesByMove = this.calculateNextBoundaries({
                 viewCellsData,
@@ -239,12 +238,12 @@ class DragDropProviderBase extends React.PureComponent<
               }, { changeAppointment, startEditAppointment });
               return (
                 <DragDropProviderCore
-                  onChange={this.onPayloadChange({ commitChangedAppointment })}
+                  onChange={this.onPayloadChange({ finishCommitAppointment })}
                 >
                   <DropTarget
                     onOver={calculateBoundariesByMove}
                     onEnter={calculateBoundariesByMove}
-                    onDrop={this.handleDrop({ commitChangedAppointment })}
+                    onDrop={this.handleDrop({ finishCommitAppointment })}
                     onLeave={this.handleLeave}
                   >
                     <TemplatePlaceholder />

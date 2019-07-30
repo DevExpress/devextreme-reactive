@@ -10,7 +10,9 @@ import {
   changeAppointment,
   cancelChanges,
   changedAppointmentById,
+  CURRENT
 } from '@devexpress/dx-scheduler-core';
+import { preCommitChanges as preCommitChangesBase } from '@devexpress/dx-scheduler-core';
 import { EditingStateProps, EditingStateState } from '../types';
 
 class EditingStateBase extends React.PureComponent<EditingStateProps, EditingStateState> {
@@ -29,7 +31,7 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
     defaultAppointmentChanges: {},
     defaultAddedAppointment: {},
     // TODO: add three methods of editing 'all' | 'current' | 'following'
-    preCommitChanges: (changes, appointmentData, type) => ({ [appointmentData.id]: changes }),
+    preCommitChanges: preCommitChangesBase,
   };
 
   constructor(props) {
@@ -69,17 +71,21 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
     this.cancelChangedAppointment = stateHelper.applyFieldReducer
       .bind(stateHelper, 'appointmentChanges', cancelChanges);
 
-    this.commitChangedAppointment = ({ commitAllowed,  }) => (type = 'current') => {
-      if (!commitAllowed) return
-
+    this.commitChangedAppointment = (type = CURRENT) => {
       const { appointmentChanges, editingAppointment } = this.state;
       const { onCommitChanges, preCommitChanges  } = this.props;
 
-      const changed = preCommitChanges(appointmentChanges, editingAppointment, type);
+      if (!editingAppointment.rRule) {
+        onCommitChanges({ changed: { [editingAppointment.id]: appointmentChanges } });
+        this.cancelChangedAppointment();
+        this.stopEditAppointment();
+      } else {
+        const changed = preCommitChanges(appointmentChanges, editingAppointment, type);
 
-      onCommitChanges({ changed });
-      this.cancelChangedAppointment();
-      this.stopEditAppointment();
+        onCommitChanges(changed);
+        this.cancelChangedAppointment();
+        this.stopEditAppointment();
+      }
     };
 
     this.addAppointment = stateHelper.applyFieldReducer
@@ -97,7 +103,7 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
       this.cancelAddedAppointment();
     };
 
-    this.commitDeletedAppointment = () => (deletedAppointment, type = 'current') => {
+    this.commitDeletedAppointment = (deletedAppointment, type = 'current') => {
       const { onCommitChanges, preCommitChanges } = this.props;
 
       const changes = preCommitChanges(null, deletedAppointment, type);
@@ -130,12 +136,11 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
         <Getter name="editingAppointment" value={editingAppointment} />
         <Action name="startEditAppointment" action={this.startEditAppointment} />
         <Action name="stopEditAppointment" action={this.stopEditAppointment} />
-        <Getter name="commitAllowed" />
 
         <Getter name="appointmentChanges" value={appointmentChanges} />
         <Action name="changeAppointment" action={this.changeAppointment} />
         <Action name="cancelChangedAppointment" action={this.cancelChangedAppointment} />
-        <Getter name="commitChangedAppointment" computed={this.commitChangedAppointment} />
+        <Action name="commitChangedAppointment" action={this.commitChangedAppointment} />
 
         <Getter name="addedAppointment" value={addedAppointment} />
         <Action name="addAppointment" action={this.addAppointment} />
@@ -143,7 +148,7 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
         <Action name="cancelAddedAppointment" action={this.cancelAddedAppointment} />
         <Action name="commitAddedAppointment" action={this.commitAddedAppointment} />
 
-        <Getter name="commitDeletedAppointment" computed={this.commitDeletedAppointment} />
+        <Action name="commitDeletedAppointment" action={this.commitDeletedAppointment} />
       </Plugin>
     );
   }

@@ -12,6 +12,7 @@ import {
   AppointmentTooltip,
   EditingMenu,
 } from '@devexpress/dx-react-scheduler-material-ui';
+import Button from '@material-ui/core/Button';
 
 const appointments = [{
   title: 'Website Re-Design Plan',
@@ -39,6 +40,23 @@ const appointments = [{
 //   id: 2,
 //   rRule: 'FREQ=DAILY;COUNT=5',
 }];
+
+const Content = ({
+  children, appointmentData, ...restProps
+}) => (
+  <AppointmentTooltip.Content {...restProps}>
+    <div>
+    </div>
+    <Button
+      variant="outlined"
+      color="primary"
+      // eslint-disable-next-line no-alert
+      onClick={() => console.log(appointmentData)}
+    >
+      Details
+    </Button>
+  </AppointmentTooltip.Content>
+);
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -96,6 +114,7 @@ export default class Demo extends React.PureComponent {
 
           <AppointmentTooltip
             showDeleteButton
+            contentComponent={Content}
           />
 
           <DragDropProvider />

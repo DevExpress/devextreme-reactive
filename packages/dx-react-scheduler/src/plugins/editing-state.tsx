@@ -75,8 +75,10 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
       const { appointmentChanges, editingAppointment } = this.state;
       const { onCommitChanges, preCommitChanges  } = this.props;
 
-      if (!editingAppointment.rRule) {
-        onCommitChanges({ changed: { [editingAppointment.id]: appointmentChanges } });
+      if (editingAppointment && !editingAppointment.rRule) {
+        onCommitChanges({
+          changed: changedAppointmentById(appointmentChanges, editingAppointment.id),
+        });
         this.cancelChangedAppointment();
         this.stopEditAppointment();
       } else {

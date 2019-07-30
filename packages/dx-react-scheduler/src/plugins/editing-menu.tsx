@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  Plugin, Template, TemplatePlaceholder, TemplateConnector, Action,
+  Plugin, Template, TemplatePlaceholder, TemplateConnector, Action, Getters, Actions,
 } from '@devexpress/dx-react-core';
 import {
   CURRENT,
@@ -34,12 +34,28 @@ class EditingMenuBase extends React.PureComponent {
     isDeleting: false,
   };
 
-  finishCommitAppointment = () => {
-    this.setState({ isOpen: true, isEditing: true, isDeleting: false });
+  finishCommitAppointment = (
+    payload,
+    { editingAppointment }: Getters,
+    { commitChangedAppointment }: Actions,
+  ) => {
+    if (editingAppointment && !editingAppointment.rRule) {
+      commitChangedAppointment();
+    } else {
+      this.setState({ isOpen: true, isEditing: true, isDeleting: false });
+    }
   }
 
-  finishDeleteAppointment = () => {
-    this.setState({ isOpen: true, isDeleting: true, isEditing: false });
+  finishDeleteAppointment = (
+    payload,
+    { editingAppointment }: Getters,
+    { commitDeletedAppointment }: Actions,
+  ) => {
+    if (editingAppointment && !editingAppointment.rRule) {
+      commitDeletedAppointment();
+    } else {
+      this.setState({ isOpen: true, isDeleting: true, isEditing: false });
+    }
   }
 
   closeMenu = () => {
@@ -77,12 +93,6 @@ class EditingMenuBase extends React.PureComponent {
             {({ editingAppointment }, { commitChangedAppointment, commitDeletedAppointment }) => {
               const commitFunction = isEditing ?
                 commitChangedAppointment : commitDeletedAppointment;
-
-                debugger
-              if (isOpen && editingAppointment && !editingAppointment.rRule) {
-                commitFunction();
-                this.closeMenu();
-              }
 
               return (
                 <Modal

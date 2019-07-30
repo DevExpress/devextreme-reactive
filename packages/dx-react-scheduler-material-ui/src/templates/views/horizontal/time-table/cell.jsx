@@ -48,7 +48,7 @@ const styles = theme => ({
   },
 });
 
-const CellBase = ({
+const CellBase = React.memo(({
   classes,
   className,
   startDate,
@@ -73,7 +73,7 @@ const CellBase = ({
       {formatDate(startDate, DAY_OPTIONS)}
     </div>
   </TableCell>
-);
+));
 
 CellBase.propTypes = {
   classes: PropTypes.object.isRequired,

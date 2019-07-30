@@ -4,7 +4,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import ChevronRight from '@material-ui/icons/ChevronRight';
 
-export const NavigationButton = ({
+export const NavigationButton = React.memo(({
   type,
   onClick,
   ...restProps
@@ -15,7 +15,7 @@ export const NavigationButton = ({
   >
     {type === 'back' ? <ChevronLeft /> : <ChevronRight />}
   </IconButton>
-);
+));
 
 NavigationButton.propTypes = {
   type: PropTypes.oneOf(['forward', 'back']).isRequired,

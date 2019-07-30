@@ -10,6 +10,7 @@ import {
   monthCellsData,
   viewBoundText,
 } from '@devexpress/dx-scheduler-core';
+import { memoize } from '@devexpress/dx-core';
 
 import { DateNavigatorProps, DateNavigatorState } from '../types';
 
@@ -58,6 +59,9 @@ class DateNavigatorBase extends React.PureComponent<DateNavigatorProps, DateNavi
     this.setState({ visible: false });
   }
 
+  navigateAction = memoize((changeCurrentDate, currentView, intervalCount, navigateAction) =>
+    navigateAction(changeCurrentDate, currentView, intervalCount));
+
   render() {
     const {
       rootComponent: Root,
@@ -93,7 +97,9 @@ class DateNavigatorBase extends React.PureComponent<DateNavigatorProps, DateNavi
             }, {
               changeCurrentDate,
             }) => {
-              const navigateAction = navigate(changeCurrentDate, currentView, intervalCount);
+              const navigateAction = this.navigateAction(
+                changeCurrentDate, currentView, intervalCount, navigate,
+              );
               const calendarDateChanged = (nextDate) => {
                 navigateAction(undefined, nextDate);
                 this.handleHide();

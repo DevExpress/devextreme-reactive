@@ -25,7 +25,7 @@ const styles = theme => ({
   },
 });
 
-const CellBase = ({
+const CellBase = React.memo(({
   classes,
   className,
   startDate,
@@ -41,7 +41,7 @@ const CellBase = ({
       {formatDate(endDate, HOUR_MINUTE_OPTIONS)}
     </span>
   </TableCell>
-);
+));
 
 CellBase.propTypes = {
   formatDate: PropTypes.func.isRequired,

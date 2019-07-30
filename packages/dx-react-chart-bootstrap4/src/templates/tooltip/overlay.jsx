@@ -20,9 +20,7 @@ export class Overlay extends React.PureComponent {
         modifiers={popperModifiers}
         {...restProps}
       >
-        <div className="popover-body">
-          {children}
-        </div>
+        {children}
       </Popover>
     );
   }
@@ -32,4 +30,5 @@ Overlay.propTypes = {
   children: PropTypes.node.isRequired,
   target: PropTypes.any.isRequired,
   rotated: PropTypes.bool.isRequired,
+  arrowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
 };

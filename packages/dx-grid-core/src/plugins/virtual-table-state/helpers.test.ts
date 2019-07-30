@@ -1,6 +1,7 @@
 import {
   mergeRows, calculateRequestedRange, rowToPageIndex,
-  recalculateBounds, trimRowsToInterval, getForceReloadInterval,
+  recalculateBounds, trimRowsToInterval,
+  getForceReloadInterval, getAvailableRowCount,
 } from './helpers';
 import { intervalUtil } from './utils';
 import { createInterval, generateRows, createVirtualRows } from './test-utils';
@@ -324,6 +325,51 @@ describe('VirtualTableState helpers', () => {
         skip: Number.POSITIVE_INFINITY,
         rows: [],
       });
+    });
+  });
+
+  describe('#getAvailableRowCount', () => {
+    const totalRowCount = 1000;
+
+    it('should return totalCount when not infinite scrolling', () => {
+      const isInfniniteScroll = false;
+      const newRowCount = 200;
+      const lastRowCount = 100;
+
+      expect(getAvailableRowCount(
+        isInfniniteScroll,
+        newRowCount,
+        lastRowCount,
+        totalRowCount,
+      )).toEqual(totalRowCount);
+    });
+
+    describe('infinite scrolling mode', () => {
+      const isInfniniteScroll = true;
+      const newRowCount = 200;
+
+      it('should return newRowCount if it more than lastRowCount in infinite scrolling', () => {
+        const lastRowCount = 100;
+
+        expect(getAvailableRowCount(
+          isInfniniteScroll,
+          newRowCount,
+          lastRowCount,
+          totalRowCount,
+        )).toEqual(newRowCount);
+      });
+
+      it('should return lastRowCount if it more than newRowCount in infinite scrolling', () => {
+        const lastRowCount = 300;
+
+        expect(getAvailableRowCount(
+          isInfniniteScroll,
+          newRowCount,
+          lastRowCount,
+          totalRowCount,
+        )).toEqual(lastRowCount);
+      });
+
     });
   });
 

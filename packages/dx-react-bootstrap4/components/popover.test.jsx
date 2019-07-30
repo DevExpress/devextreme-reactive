@@ -54,9 +54,19 @@ describe('BS4 Popover', () => {
 
       expect(tree.find('.popover.show.bs-popover-undefined').exists()).toBeTruthy();
       expect(tree.find('.popover').children()).toHaveLength(2);
-      expect(tree.find('.popover > .arrow').exists()).toBeTruthy();
+      expect(tree.find('.arrow').exists()).toBeTruthy();
       expect(tree.find('.popover > .popover-inner').exists()).toBeTruthy();
       expect(tree.find('.popover-inner').childAt(0).is(Content)).toBeTruthy();
+    });
+
+    it('should render custom arrow component', () => {
+      const ArrowComponent = () => null;
+      const tree = mount((
+        <Popover target={target} placement="bottom" isOpen arrowComponent={ArrowComponent}>
+          <Content />
+        </Popover>
+      ), { attachTo: container });
+      expect(tree.find(ArrowComponent).exists()).toBeTruthy();
     });
 
     it('should render outside a container if container is body', () => {

@@ -18,6 +18,12 @@ const OverlayComponent = ({ children }) => (
   </div>
 );
 const ContentComponent = () => null;
+const ArrowComponent = () => null;
+const SheetComponent = ({ children }) => (
+  <div>
+    {children}
+  </div>
+);
 
 const defaultDeps = {
   getter: {
@@ -35,6 +41,8 @@ const defaultProps = {
   targetComponent: TargetComponent,
   overlayComponent: OverlayComponent,
   contentComponent: ContentComponent,
+  arrowComponent: ArrowComponent,
+  sheetComponent: SheetComponent,
 };
 
 describe('Tooltip', () => {
@@ -66,6 +74,10 @@ describe('Tooltip', () => {
       target: { tag: 'test-reference' },
       children: expect.anything(),
       rotated: true,
+      arrowComponent: ArrowComponent,
+    });
+    expect(tree.find(SheetComponent).props()).toEqual({
+      children: expect.anything(),
     });
     expect(tree.find(ContentComponent).props()).toEqual({
       text: 'tooltip-text',

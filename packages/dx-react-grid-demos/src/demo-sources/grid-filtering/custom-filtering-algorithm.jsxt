@@ -1,4 +1,4 @@
-import * as React from 'react';<%&additionalImports%>
+import React, { useState } from 'react';<%&additionalImports%>
 import {
   FilteringState,
   IntegratedFiltering,
@@ -15,40 +15,30 @@ import { generateRows } from '../../../demo-data/generator';
 const toLowerCase = value => String(value).toLowerCase();
 const cityPredicate = (value, filter) => toLowerCase(value).startsWith(toLowerCase(filter.value));
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+export default () => {
+  const [columns] = useState([
+    { name: 'name', title: 'Name' },
+    { name: 'sex', title: 'Sex' },
+    { name: 'city', title: 'City' },
+    { name: 'car', title: 'Car' },
+  ]);
+  const [rows] = useState(generateRows({ length: 8 }));
+  const [integratedFilteringColumnExtensions] = useState([
+    { columnName: 'city', predicate: cityPredicate },
+  ]);
 
-    this.state = {
-      columns: [
-        { name: 'name', title: 'Name' },
-        { name: 'sex', title: 'Sex' },
-        { name: 'city', title: 'City' },
-        { name: 'car', title: 'Car' },
-      ],
-      integratedFilteringColumnExtensions: [
-        { columnName: 'city', predicate: cityPredicate },
-      ],
-      rows: generateRows({ length: 8 }),
-    };
-  }
-
-  render() {
-    const { rows, columns, integratedFilteringColumnExtensions } = this.state;
-
-    return (
-      <<%&wrapperTag%><%&wrapperAttributes%>>
-        <Grid
-          rows={rows}
-          columns={columns}
-        >
-          <FilteringState defaultFilters={[{ columnName: 'city', value: 'Paris' }]} />
-          <IntegratedFiltering columnExtensions={integratedFilteringColumnExtensions} />
-          <Table />
-          <TableHeaderRow />
-          <TableFilterRow />
-        </Grid>
-      </<%&wrapperTag%>>
-    );
-  }
-}
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={rows}
+        columns={columns}
+      >
+        <FilteringState defaultFilters={[{ columnName: 'city', value: 'Paris' }]} />
+        <IntegratedFiltering columnExtensions={integratedFilteringColumnExtensions} />
+        <Table />
+        <TableHeaderRow />
+        <TableFilterRow />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
+};

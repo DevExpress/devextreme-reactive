@@ -1,4 +1,4 @@
-import * as React from 'react';<%&additionalImports%>
+import React, { useState, useEffect } from 'react';<%&additionalImports%>
 import { SortingState } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -10,49 +10,26 @@ import { Loading } from '../../../theme-sources/<%&themeName%>/components/loadin
 
 const URL = 'https://js.devexpress.com/Demos/WidgetsGallery/data/orderItems';
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+export default () => {
+  const [columns] = useState([
+    { name: 'OrderNumber', title: 'Order Number' },
+    { name: 'OrderDate', title: 'Order Date' },
+    { name: 'StoreCity', title: 'Store City' },
+    { name: 'StoreState', title: 'Store State' },
+    { name: 'Employee', title: 'Employee' },
+    { name: 'SaleAmount', title: 'Sale Amount' },
+  ]);
+  const [rows, setRows] = useState([]);
+  const [tableColumnExtensions] = useState([
+    { columnName: 'OrderNumber', align: 'right' },
+    { columnName: 'SaleAmount', align: 'right' },
+  ]);
+  const [sorting, setSorting] = useState([{ columnName: 'StoreCity', direction: 'asc' }]);
+  const [loading, setLoading] = useState(false);
+  const [lastQuery, setLastQuery] = useState();
 
-    this.state = {
-      columns: [
-        { name: 'OrderNumber', title: 'Order Number' },
-        { name: 'OrderDate', title: 'Order Date' },
-        { name: 'StoreCity', title: 'Store City' },
-        { name: 'StoreState', title: 'Store State' },
-        { name: 'Employee', title: 'Employee' },
-        { name: 'SaleAmount', title: 'Sale Amount' },
-      ],
-      tableColumnExtensions: [
-        { columnName: 'OrderNumber', align: 'right' },
-        { columnName: 'SaleAmount', align: 'right' },
-      ],
-      rows: [],
-      sorting: [{ columnName: 'StoreCity', direction: 'asc' }],
-      loading: true,
-    };
-
-    this.changeSorting = this.changeSorting.bind(this);
-  }
-
-  componentDidMount() {
-    this.loadData();
-  }
-
-  componentDidUpdate() {
-    this.loadData();
-  }
-
-  changeSorting(sorting) {
-    this.setState({
-      loading: true,
-      sorting,
-    });
-  }
-
-  queryString() {
+  const getQueryString = () => {
     let queryString = `${URL}?`;
-    const { sorting } = this.state;
 
     const columnSorting = sorting[0];
     if (columnSorting) {
@@ -60,47 +37,41 @@ export default class Demo extends React.PureComponent {
       queryString = `${queryString}orderby=${columnSorting.columnName}${sortDirectionString}`;
     }
     return queryString;
-  }
+  };
 
-  loadData() {
-    const queryString = this.queryString();
-    if (queryString === this.lastQuery) {
-      this.setState({ loading: false });
-      return;
+  const loadData = () => {
+    const queryString = getQueryString();
+    if (queryString !== lastQuery && !loading) {
+      setLoading(true);
+      fetch(queryString)
+        .then(response => response.json())
+        .then((data) => {
+          setRows(data.items);
+          setLoading(false);
+        })
+        .catch(() => setLoading(false));
+      setLastQuery(queryString);
     }
+  };
 
-    fetch(queryString)
-      .then(response => response.json())
-      .then(data => this.setState({
-        rows: data.items,
-        loading: false,
-      }))
-      .catch(() => this.setState({ loading: false }));
-    this.lastQuery = queryString;
-  }
+  useEffect(() => loadData());
 
-  render() {
-    const {
-      rows, columns, tableColumnExtensions, sorting, loading,
-    } = this.state;
-
-    return (
-      <<%&wrapperTag%><%&wrapperAttributes%> style={{ position: 'relative' }}>
-        <Grid
-          rows={rows}
-          columns={columns}
-        >
-          <SortingState
-            sorting={sorting}
-            onSortingChange={this.changeSorting}
-          />
-          <VirtualTable
-            columnExtensions={tableColumnExtensions}
-          />
-          <TableHeaderRow showSortingControls />
-        </Grid>
-        {loading && <Loading />}
-      </<%&wrapperTag%>>
-    );
-  }
-}
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%> style={{ position: 'relative' }}>
+      <Grid
+        rows={rows}
+        columns={columns}
+      >
+        <SortingState
+          sorting={sorting}
+          onSortingChange={setSorting}
+        />
+        <VirtualTable
+          columnExtensions={tableColumnExtensions}
+        />
+        <TableHeaderRow showSortingControls />
+      </Grid>
+      {loading && <Loading />}
+    </<%&wrapperTag%>>
+  );
+};

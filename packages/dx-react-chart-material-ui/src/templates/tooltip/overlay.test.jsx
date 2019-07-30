@@ -1,13 +1,15 @@
 import * as React from 'react';
 import Popper from '@material-ui/core/Popper';
-import Paper from '@material-ui/core/Paper';
 import { createMount, getClasses } from '@material-ui/core/test-utils';
 import { Overlay } from './overlay';
 
 describe('Overlay', () => {
+  const ArrowComponent = () => null;
+
   const defaultProps = {
     target: {},
     rotated: false,
+    arrowComponent: ArrowComponent,
   };
   let mount;
   const classes = getClasses(<Overlay {...defaultProps}>Test</Overlay>);
@@ -33,18 +35,15 @@ describe('Overlay', () => {
       open: true,
       anchorEl: defaultProps.target,
       placement: 'top',
-      className: classes.popper,
+      className: classes['popper-top'],
     });
-    expect(tree.find(Paper).props()).toMatchObject({
-      className: classes.paper,
-    });
-    expect(tree.find('div').get(3).props).toMatchObject({
-      className: classes.arrow,
+    expect(tree.find(ArrowComponent).props()).toMatchObject({
+      placement: 'top',
     });
     expect(tree.find('.content').exists()).toBeTruthy();
   });
 
-  it('should pass custom class to the root element', () => {
+  it('should pass custom class to the element', () => {
     const tree = mount((
       <Overlay
         {...defaultProps}
@@ -55,7 +54,7 @@ describe('Overlay', () => {
     ));
 
     expect(tree.find(Popper).is('.custom-class')).toBeTruthy();
-    expect(tree.find(Popper).is(`.${classes.popper}`)).toBeTruthy();
+    expect(tree.find(Popper).is(`.${classes['popper-top']}`)).toBeTruthy();
   });
 
   it('should pass rest props to the root element', () => {
@@ -85,10 +84,10 @@ describe('Overlay', () => {
       open: true,
       anchorEl: defaultProps.target,
       placement: 'right',
-      className: classes.popperRotated,
+      className: classes['popper-right'],
     });
-    expect(tree.find('div').get(3).props).toMatchObject({
-      className: classes.arrowRotated,
+    expect(tree.find(ArrowComponent).props()).toMatchObject({
+      placement: 'right',
     });
     expect(tree.find('.content').exists()).toBeTruthy();
   });

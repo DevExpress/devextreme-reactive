@@ -3,12 +3,12 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 export const Arrow = ({
-  arrowProps, className, placement, ...restProps
+  className, placement, refEl, ...restProps
 }) => (
-  <div className={classNames('arrow', className)} {...arrowProps} {...restProps} />
+  <div className={classNames('arrow', className)} ref={refEl} {...restProps} />
 );
 Arrow.propTypes = {
-  arrowProps: PropTypes.object.isRequired,
+  refEl: PropTypes.func.isRequired,
   placement: PropTypes.string.isRequired,
   className: PropTypes.string,
 };

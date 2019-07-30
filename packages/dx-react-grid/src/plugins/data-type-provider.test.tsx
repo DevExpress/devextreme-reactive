@@ -1,9 +1,6 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
-import {
-  getAvailableFilterOperationsGetter,
-  TABLE_DATA_TYPE,
-} from '@devexpress/dx-grid-core';
+import { getAvailableFilterOperationsGetter } from '@devexpress/dx-grid-core';
 import {
   PluginHost,
   Template,
@@ -20,8 +17,8 @@ jest.mock('@devexpress/dx-grid-core', () => ({
 const defaultDeps = {
   getter: {
     tableColumns: [
-      { key: `${TABLE_DATA_TYPE}_a`, type: TABLE_DATA_TYPE, column: { name: 'a' } },
-      { key: `${TABLE_DATA_TYPE}_b`, type: TABLE_DATA_TYPE, column: { name: 'b' } },
+      { key: 'a', column: { name: 'a' } },
+      { key: 'b', column: { name: 'b' } },
     ],
   },
   template: {
@@ -102,37 +99,49 @@ describe('DataTypeProvider', () => {
       .toEqual(expect.any(Function));
   });
 
-  it('should re-register templates when "for" property changed in runtime', () => {
-    class Test extends React.Component<{}, {columnNames: Array<string>}> {
+  describe('change "for" property in runtime', () => {
+    class Test extends React.Component {
       constructor(props) {
         super(props);
         this.state = {
-          columnNames: [`${defaultDeps.getter.tableColumns[0].column.name}`],
+          columnNames: this.props.columnNames,
+          isRowEdit: this.props.isRowEdit,
         };
       }
       render() {
         const { columnNames } = this.state;
+        const { formatterComponent, editorComponent } = this.props;
         return (
           <PluginHost>
             <Template name="table">
-              <div>
-                <TemplateConnector>
-                  {({ tableColumns }) => (
-                    <div>
-                      {tableColumns.map(tableColumn => tableColumn.type === TABLE_DATA_TYPE && (
+              <TemplateConnector>
+                {({ tableColumns }) => (
+                  <div>
+                    {tableColumns.map((tableColumn) => {
+                      const { isRowEdit } = this.state;
+                      return isRowEdit
+                      ? (
+                        <TemplatePlaceholder
+                          key={tableColumn.column.name}
+                          name="editCell"
+                          params={{
+                            tableColumn,
+                            tableRow: { key: 'edit_row' },
+                          }}
+                        />)
+                      : (
                         <TemplatePlaceholder
                           key={tableColumn.column.name}
                           name="tableCell"
                           params={{
                             tableColumn,
-                            tableRow: { key: TABLE_DATA_TYPE, type: TABLE_DATA_TYPE },
+                            tableRow: { key: 'row' },
                           }}
-                        />
-                      ))}
-                    </div>
-                  )}
-                </TemplateConnector>
-              </div>
+                        />);
+                    })}
+                  </div>
+                )}
+              </TemplateConnector>
             </Template>
             <Template name="tableCell">
               {props => (
@@ -146,9 +155,22 @@ describe('DataTypeProvider', () => {
                 />)
               }
             </Template>
+            <Template name="editCell">
+              {props => (
+                <TemplatePlaceholder
+                  name="valueEditor"
+                  params={{
+                    value: {},
+                    column: props.tableColumn.column,
+                  }}
+                  key={props.tableColumn.column.name}
+                />)
+              }
+            </Template>
             <DataTypeProvider
               for={columnNames}
-              formatterComponent={() => null}
+              formatterComponent={formatterComponent}
+              editorComponent={editorComponent}
             />
             {pluginDepsToComponents(defaultDeps)}
           </PluginHost>
@@ -156,28 +178,64 @@ describe('DataTypeProvider', () => {
       }
     }
 
-    const tree = mount(<Test />);
+    it('should re-register valueFormatter templates', () => {
+      const DataFormatter = () => null;
+      const tree = mount(<Test
+        columnNames={[defaultDeps.getter.tableColumns[0].column.name]}
+        isRowEdit={false}
+        formatterComponent={DataFormatter}
+        editorComponent={null}
+      />);
 
-    expect(tree
-      .find('formatterComponent')
-      .findWhere(node => node.prop('column') === defaultDeps.getter.tableColumns[0].column)
-      .last().exists()).toBeTruthy();
-    expect(tree
-      .find('formatterComponent')
-      .findWhere(node => node.prop('column') === defaultDeps.getter.tableColumns[1].column)
-      .last().exists()).toBeFalsy();
+      expect(tree
+        .find('DataFormatter')
+        .map(node => node.props()))
+        .toMatchObject([{
+          column: defaultDeps.getter.tableColumns[0].column,
+          value: {},
+        }]);
 
-    tree.setState({
-      columnNames: [`${defaultDeps.getter.tableColumns[1].column.name}`],
+      tree.setState({
+        columnNames: [defaultDeps.getter.tableColumns[1].column.name],
+      });
+
+      expect(tree
+        .find('DataFormatter')
+        .map(node => node.props()))
+        .toMatchObject([{
+          column: defaultDeps.getter.tableColumns[1].column,
+          value: {},
+        }]);
     });
 
-    expect(tree
-      .find('formatterComponent')
-      .findWhere(node => node.prop('column') === defaultDeps.getter.tableColumns[0].column)
-      .last().exists()).toBeFalsy();
-    expect(tree
-      .find('formatterComponent')
-      .findWhere(node => node.prop('column') === defaultDeps.getter.tableColumns[1].column)
-      .last().exists()).toBeTruthy();
+    it('should re-register valueEditor templates', () => {
+      const DataEditor = () => null;
+      const tree = mount(<Test
+        columnNames={[defaultDeps.getter.tableColumns[0].column.name]}
+        isRowEdit={true}
+        formatterComponent={null}
+        editorComponent={DataEditor}
+      />);
+
+      expect(tree
+        .find('DataEditor')
+        .map(node => node.props()))
+        .toMatchObject([{
+          column: defaultDeps.getter.tableColumns[0].column,
+          value: {},
+        }]);
+
+      tree.setState({
+        columnNames: [defaultDeps.getter.tableColumns[1].column.name],
+      });
+
+      expect(tree
+        .find('DataEditor')
+        .map(node => node.props()))
+        .toMatchObject([{
+          column: defaultDeps.getter.tableColumns[1].column,
+          value: {},
+        }]);
+    });
   });
 });

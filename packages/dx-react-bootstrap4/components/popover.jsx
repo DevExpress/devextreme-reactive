@@ -5,14 +5,14 @@ import * as ReactDOM from 'react-dom';
 import * as PropTypes from 'prop-types';
 import { Popper } from 'react-popper';
 
-const DefaultArrowComponent = ({ placement, refEl, ...restProps }) => (
-  <div className="arrow" ref={refEl} {...restProps} />
+const Arrow = ({ placement, ...restProps }, ref) => (
+  <div className="arrow" ref={ref} {...restProps} />
 );
 
-DefaultArrowComponent.propTypes = {
+Arrow.propTypes = {
   placement: PropTypes.string.isRequired,
-  refEl: PropTypes.func.isRequired,
 };
+const DefaultArrowComponent = React.forwardRef(Arrow);
 
 export class Popover extends React.PureComponent {
   constructor(props) {
@@ -94,8 +94,7 @@ export class Popover extends React.PureComponent {
               {children}
             </div>
             <ArrowComponent
-              refEl={arrowProps.ref}
-              style={arrowProps.style}
+              {...arrowProps}
               placement={restProps.placement}
             />
           </div>

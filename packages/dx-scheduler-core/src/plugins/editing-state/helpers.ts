@@ -53,6 +53,21 @@ export const deletedCurrentAndFollowing = (appointmentData: AppointmentModel) =>
 };
 
 export const editAll = (changes: any, appointmentData: AppointmentModel) => {
+  const { rRule } = appointmentData;
+
+  const initialRule = new RRule(RRule.parseString(rRule));
+  if (moment.utc(changes.startDate).isAfter(initialRule.options.until!)) {
+    return {
+      changed: {
+        [appointmentData.id!]: {
+          ...changes,
+          rRule: 'FREQ=DAILY;COUNT=1',
+          exDate: '',
+        },
+      },
+    };
+  }
+
   return  { changed: {  [appointmentData.id!]: changes } };
 };
 
@@ -74,8 +89,11 @@ export const editCurrent = (changes: any, appointmentData: AppointmentModel) => 
   };
 };
 
-const makeRruleSet = (rRule: string, options: any) => {
-  const rruleSet = new RRuleSet();
+const makeRruleSet = (rRule: string, exDate: string, options: any) => {
+  let rruleSet = new RRuleSet();
+  if (exDate) {
+    rruleSet = rrulestr(`EXDATE:${exDate}`, { forceset: true }) as RRuleSet;
+  }
   rruleSet.rrule(new RRule({
     ...RRule.parseString(rRule),
     ...options,
@@ -87,10 +105,33 @@ const makeRruleSet = (rRule: string, options: any) => {
 export const editCurrentAndFollowing = (changes: any, appointmentData: AppointmentModel) => {
   const { rRule, startDate, parentData, exDate: prevExDate = '' } = appointmentData;
 
+  const initialSequence = makeRruleSet(rRule, prevExDate, {
+    dtstart: moment.utc(parentData.startDate).toDate(),
+  }).all();
+
+  const initialRule = new RRule(RRule.parseString(rRule));
+  if (moment.utc(changes.startDate).isAfter(initialRule.options.until!)) {
+    return {
+      changed: {
+        [appointmentData.id!]: {
+          ...changes,
+          rRule: 'FREQ=DAILY;COUNT=1',
+          exDate: '',
+        },
+      },
+    };
+  }
+
+  const currentChildIndex = initialSequence.findIndex(date => moment(date).isSame(startDate));
+
+  if (currentChildIndex === 0) {
+    return editAll(changes, appointmentData);
+  }
+
   const options = {
     ...RRule.parseString(rRule),
     dtstart: moment.utc(parentData.startDate).toDate(),
-    until: moment.utc(startDate).toDate(),
+    until: moment.utc(initialSequence[currentChildIndex - 1]).toDate(),
     count: '',
   };
   const rruleSet = new RRuleSet();
@@ -107,13 +148,7 @@ export const editCurrentAndFollowing = (changes: any, appointmentData: Appointme
     }, []).join(',');
   }
 
-  const initialSequence = makeRruleSet(rRule, {
-    dtstart: moment.utc(parentData.startDate).toDate(),
-  }).all();
-
-  const currentChildIndex = initialSequence.findIndex(date => moment(date).isSame(startDate));
-
-  const addedRrule = makeRruleSet(rRule, {
+  const addedRrule = makeRruleSet(rRule, '', {
     dtstart: moment.utc(startDate).toDate(),
     count: initialSequence.length - currentChildIndex,
   });
@@ -166,5 +201,5 @@ export const preCommitChanges = (
       }
     }
   }
-  return changes;
+  return {};
 };

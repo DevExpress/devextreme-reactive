@@ -49,6 +49,7 @@ const pluginDependencies = [
   { name: 'EditingState' },
   { name: 'Appointments' },
   { name: 'EditingMenu', optional: true },
+  { name: 'IntegratedEditing', optional: true },
   { name: 'DayView', optional: true },
   { name: 'WeekView', optional: true },
   { name: 'MonthView', optional: true },

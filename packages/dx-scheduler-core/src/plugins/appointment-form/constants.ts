@@ -28,3 +28,12 @@ export const MONTHS = {
   NOVEMBER: 11,
   DECEMBER: 12,
 };
+
+export const RRULE_REPEAT_TYPES = {
+  yearly: RRule.YEARLY,
+  monthly: RRule.MONTHLY,
+  weekly: RRule.WEEKLY,
+  daily: RRule.DAILY,
+  hourly: RRule.HOURLY,
+  minutely: RRule.MINUTELY,
+};

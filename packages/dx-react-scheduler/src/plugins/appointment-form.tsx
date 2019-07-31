@@ -14,11 +14,18 @@ import {
   isAllDayCell,
   callActionIfExists,
   AppointmentModel,
+  RRULE_REPEAT_TYPES,
+  changeRecurrenceFrequency,
+  getRecurrenceOptions,
+  getRecurrenceFrequency,
+  changeRecurrenceOptions,
 } from '@devexpress/dx-scheduler-core';
 
 import {
   AppointmentFormProps, AppointmentFormState, AppointmentTooltip, Appointments,
 } from '../types';
+
+const getRRuleFrequence = repeatType => RRULE_REPEAT_TYPES[repeatType];
 
 const defaultMessages = {
   allDayLabel: 'All Day',
@@ -45,11 +52,18 @@ const defaultMessages = {
   occurencesLabel: 'occurence(s)',
 };
 
+const REPEAT_TYPES = {
+  daily: 'daily',
+  weekly: 'weekly',
+  monthly: 'monthly',
+  yearly: 'yearly',
+  never: 'never',
+};
+
 const ControlLayoutPlaceholder = () => <TemplatePlaceholder name="controlLayout" />;
 const BasicLayoutPlaceholder = () => <TemplatePlaceholder name="basicLayout" />;
 const RecurrenceLayoutPlaceholder = () => <TemplatePlaceholder name="recurrenceLayout" />;
 const RecurrenceSwitcherPlaceholder = () => <TemplatePlaceholder name="recurrenceSwitcher" />;
-const RadioGroupEditorPlaceholder = () => <TemplatePlaceholder name="radioGroupEditor" />;
 
 const pluginDependencies = [
   { name: 'EditingState', optional: true },
@@ -91,8 +105,6 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
     this.state = {
       visible: props.visible,
       appointmentData: props.appointmentData || {},
-      recurrenceEditing: 'Never',
-      rRule: undefined,
     };
 
     const stateHelper: StateHelper = createStateHelper(
@@ -156,43 +168,60 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
       messages,
       scheduler,
     } = this.props;
-    const { visible, appointmentData, recurrenceEditing } = this.state;
+    const { visible, appointmentData } = this.state;
     const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
+    let frequency = REPEAT_TYPES.never;
+
     return (
       <Plugin
         name="AppointmentForm"
         dependencies={pluginDependencies}
       >
         <Template name="schedulerRoot">
-          <React.Fragment>
-            <React.Fragment>
-              <div style={{ position: 'absolute', width: '100%', height: '100%' }}>
-                <div style={{ position: 'relative', width: '100%', height: '100%' }}
-                  ref={this.ref}
-                />
-              </div>
+          <TemplateConnector>
+            {({
+              editingAppointmentId,
+              addedAppointment,
+              appointmentChanges,
+            }, actions) => {
+              const isNew = editingAppointmentId === undefined;
+              const changedAppointment = {
+                ...appointmentData,
+                ...isNew ? addedAppointment : appointmentChanges,
+              };
+              const rRuleFrequency = getRecurrenceFrequency(changedAppointment.rRule);
+              if (rRuleFrequency === RRULE_REPEAT_TYPES.daily) frequency = REPEAT_TYPES.daily;
+              if (rRuleFrequency === RRULE_REPEAT_TYPES.weekly) frequency = REPEAT_TYPES.weekly;
+              if (rRuleFrequency === RRULE_REPEAT_TYPES.monthly) frequency = REPEAT_TYPES.monthly;
+              if (rRuleFrequency === RRULE_REPEAT_TYPES.yearly) frequency = REPEAT_TYPES.yearly;
+              return (
+                <React.Fragment>
+                  <React.Fragment>
+                    <div style={{ position: 'absolute', width: '100%', height: '100%' }}>
+                      <div style={{ position: 'relative', width: '100%', height: '100%' }}
+                        ref={this.ref}
+                      />
+                    </div>
+                    <Root
+                      visible={visible}
+                      scheduler={scheduler}
+                      container={this.ref.current}
+                      style={{ position: 'absolute' }}
+                      frequency={frequency}
+                    >
 
-              <Root
-                visible={visible}
-                scheduler={scheduler}
-                container={this.ref.current}
-                style={{ position: 'absolute' }}
-                recurrenceEditing={recurrenceEditing}
-              >
-
-                <Layout
-                  basicLayoutComponent={BasicLayoutPlaceholder}
-                  controlLayoutComponent={ControlLayoutPlaceholder}
-                  recurrenceLayoutComponent={RecurrenceLayoutPlaceholder}
-                  recurrenceEditing={
-                    !recurrenceEditing ||
-                    (recurrenceEditing !== getMessage('never'))
-                  }
-                />
-              </Root>
-            </React.Fragment>
-            <TemplatePlaceholder />
-          </React.Fragment>
+                      <Layout
+                        basicLayoutComponent={BasicLayoutPlaceholder}
+                        controlLayoutComponent={ControlLayoutPlaceholder}
+                        recurrenceLayoutComponent={RecurrenceLayoutPlaceholder}
+                        isRecurring={frequency !== REPEAT_TYPES.never}
+                      />
+                    </Root>
+                  </React.Fragment>
+                  <TemplatePlaceholder />
+                </React.Fragment>);
+            }}
+          </TemplateConnector>
         </Template>
         <Template name="controlLayout">
           <TemplateConnector>
@@ -215,6 +244,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                 ...appointmentData,
                 ...isNew ? addedAppointment : appointmentChanges,
               };
+
               const commitAppointment = () => {
                 this.toggleVisibility();
                 if (commitChangedAppointment) {
@@ -227,6 +257,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                   }
                 }
               };
+
               const cancelCommit = () => {
                 this.toggleVisibility();
                 if (stopEditAppointment) {
@@ -238,12 +269,14 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                   }
                 }
               };
+
               const deleteAppointment = () => {
                 commitDeletedAppointment({
                   deletedAppointmentId: changedAppointment.id,
                 });
                 this.toggleVisibility();
-              }
+              };
+
               return (
                 <ControlLayout
                   saveButtonComponent={SaveButton}
@@ -279,7 +312,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                 : changeAppointment;
               return (
                 <BasicLayout
-                  recurrenceEditing={recurrenceEditing}
+                  isRecurring={frequency !== REPEAT_TYPES.never}
                   textEditorComponent={TextEditor}
                   dateTimeEditorComponent={DateAndTimeEditor}
                   allDayComponent={BooleanEditor}
@@ -295,33 +328,104 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
         </Template>
 
         <Template name="recurrenceLayout">
-          <RecurrenceLayout
-            recurrenceSwitcherComponent={RecurrenceSwitcherPlaceholder}
-            radioGroupEditorComponent={RadioGroupEditorPlaceholder}
-            labelComponent={Label}
-            getMessage={getMessage}
-          />
+          <TemplateConnector>
+            {({
+              editingAppointmentId,
+              addedAppointment,
+              appointmentChanges,
+            }, {
+              changeAddedAppointment,
+              changeAppointment,
+            }) => {
+              const isNew = editingAppointmentId === undefined;
+              const changedAppointment = {
+                ...appointmentData,
+                ...isNew ? addedAppointment : appointmentChanges,
+              };
+              const changeAppointmentField = isNew
+                ? changeAddedAppointment
+                : changeAppointment;
+
+              const options = getRecurrenceOptions(changedAppointment.rRule);
+              const setNewRRule = (newOptions) => {
+                const rRule = changeRecurrenceOptions(newOptions).toString();
+                changeAppointmentField({ change: { rRule } });
+              };
+              return (
+                <RecurrenceLayout
+                  frequency={frequency}
+                  recurrenceOptions={options}
+                  recurrenceSwitcherComponent={RecurrenceSwitcherPlaceholder}
+                  radioGroupEditorComponent={RadioGroupEditor}
+                  textEditorComponent={TextEditor}
+                  dateAndTimeEditorComponent={DateAndTimeEditor}
+                  labelComponent={Label}
+                  onRecurrenceOptionsChange={newOptions => setNewRRule(newOptions)}
+                  getMessage={getMessage}
+                  readOnly={readOnly}
+                  changeAppointment={changeAppointment}
+                />
+              );
+            }}
+          </TemplateConnector>
         </Template>
 
         <Template name="recurrenceSwitcher">
-          <Switcher
-            onChange={repeatType => this.setState({
-              recurrenceEditing: repeatType,
-            })}
-            availableOptions={[
-              getMessage('never'),
-              getMessage('daily'),
-              getMessage('weekly'),
-              getMessage('monthly'),
-              getMessage('yearly'),
-            ]}
-            value={recurrenceEditing}
-          />
-        </Template>
+          <TemplateConnector>
+            {({
+              editingAppointmentId,
+              addedAppointment,
+              appointmentChanges,
+            }, {
+              changeAppointment,
+              changeAddedAppointment,
+            }) => {
+              const isNew = editingAppointmentId === undefined;
+              const changedAppointment = {
+                ...appointmentData,
+                ...isNew ? addedAppointment : appointmentChanges,
+              };
+              const changeAppointmentField = isNew
+                ? changeAddedAppointment
+                : changeAppointment;
+              return (
+                <Switcher
+                  onChange={(repeatType) => {
+                    const rruleRepeatType = getRRuleFrequence(repeatType);
+                    const rRule = changeRecurrenceFrequency(
+                      changedAppointment.rRule,
+                      rruleRepeatType,
+                    );
+                    changeAppointmentField({ change: { rRule } });
 
-        <Template name="radioGroupEditor">
-          <RadioGroupEditor
-          />
+                  }}
+                  availableOptions={[
+                    {
+                      text: getMessage(REPEAT_TYPES.never),
+                      id: REPEAT_TYPES.never,
+                    },
+                    {
+                      text: getMessage(REPEAT_TYPES.daily),
+                      id: REPEAT_TYPES.daily,
+                    },
+                    {
+                      text: getMessage(REPEAT_TYPES.weekly),
+                      id: REPEAT_TYPES.weekly,
+                    },
+                    {
+                      text: getMessage(REPEAT_TYPES.monthly),
+                      id: REPEAT_TYPES.monthly,
+                    },
+                    {
+                      text: getMessage(REPEAT_TYPES.yearly),
+                      id: REPEAT_TYPES.yearly,
+                    },
+                  ]}
+                  value={frequency}
+                />
+              );
+            }}
+          </TemplateConnector>
         </Template>
 
         <Template name="tooltip">

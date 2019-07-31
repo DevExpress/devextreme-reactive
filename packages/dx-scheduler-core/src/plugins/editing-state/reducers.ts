@@ -21,6 +21,6 @@ export const changeAppointment: PureReducer<
 AppointmentModel, Changes
 > = (
   appointment, { change },
-) => ({ ...appointment, ...change });
+) => {console.log(appointment); return ({ ...appointment, ...change })};
 
 export const cancelChanges = () => ({});

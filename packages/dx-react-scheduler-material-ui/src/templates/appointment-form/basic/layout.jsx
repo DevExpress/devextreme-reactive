@@ -15,7 +15,7 @@ const LayoutBase = ({
   children,
   classes,
   className,
-  recurrenceEditing,
+  isRecurring,
   style,
   textEditorComponent: TextEditor,
   dateTimeEditorComponent: DateTimeEditor,
@@ -29,7 +29,7 @@ const LayoutBase = ({
   readOnly,
   ...restProps
 }) => {
-  const layoutStyle = recurrenceEditing === 'Never' ? {
+  const layoutStyle = !isRecurring ? {
     width: '100%',
   } : {
     width: '50%',
@@ -86,7 +86,6 @@ const LayoutBase = ({
           onValueChange: notes => changeAppointmentField({ change: { notes } }),
         }}
       />
-      <Label label={getMessage('repeatLabel')} />
       <AllDay
         label={getMessage('allDayLabel')}
         readOnly={readOnly}
@@ -95,7 +94,14 @@ const LayoutBase = ({
           onValueChange: allDay => changeAppointmentField({ change: { allDay } }),
         }}
       />
-      <RecurrenceSwitcher />
+      {
+        (!isRecurring) && (
+          <React.Fragment>
+            <Label label={getMessage('repeatLabel')} />
+            <RecurrenceSwitcher />
+          </React.Fragment>
+        )
+      }
       {children}
     </div>
   );

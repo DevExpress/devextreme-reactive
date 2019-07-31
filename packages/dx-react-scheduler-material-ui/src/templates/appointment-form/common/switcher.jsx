@@ -23,6 +23,7 @@ const styles = ({ spacing, typography }) => ({
     '&:first-child': {
       marginLeft: 0,
     },
+    padding: spacing(2, 1),
   },
 });
 
@@ -52,11 +53,11 @@ const SwitcherBase = ({
     >
       {availableOptions.map(option => (
         <MenuItem
-          value={option}
-          key={option}
+          value={option.id}
+          key={option.id}
           className={classes.menuItem}
         >
-          {option}
+          {option.text}
         </MenuItem>
       ))}
     </Select>

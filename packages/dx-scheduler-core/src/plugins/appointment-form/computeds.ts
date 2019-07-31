@@ -6,6 +6,8 @@ import {
   NumberRecurrenceRuleGetterFn,
   RecurrenceDateGetterFn,
   RecurrenceWeekDayGetterFn,
+  RecurrecnceOptionsGetterFn,
+  RecurrecnceOptionsSetterFn,
 } from '../../types';
 import { DEFAULT_RULE_OBJECT } from './constants';
 
@@ -103,3 +105,9 @@ export const getRecurrenceWeekDays: RecurrenceWeekDayGetterFn = (
   const options = RRule.parseString(rule);
   return options.byweekday;
 };
+
+export const getRecurrenceOptions: RecurrecnceOptionsGetterFn = rule =>
+  rule ? RRule.parseString(rule) : null;
+
+export const changeRecurrenceOptions: RecurrecnceOptionsSetterFn = options =>
+  new RRule(options);

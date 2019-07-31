@@ -25,11 +25,11 @@ class RootBase extends React.PureComponent {
       classes,
       className,
       container,
-      recurrenceEditing,
+      frequency,
       ...restProps
     } = this.props;
 
-    const drawerPaperStyle = recurrenceEditing !== 'Never' ? {
+    const drawerPaperStyle = frequency !== 'never' ? {
       position: 'absolute',
       width: '100%',
     } : {
@@ -65,7 +65,7 @@ RootBase.propTypes = {
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   container: PropTypes.object.isRequired,
-  recurrenceEditing: PropTypes.bool.isRequired,
+  frequency: PropTypes.bool.isRequired,
 };
 
 RootBase.defaultProps = {

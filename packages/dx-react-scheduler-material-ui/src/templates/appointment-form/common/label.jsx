@@ -7,7 +7,6 @@ import classNames from 'classnames';
 const styles = theme => ({
   label: {
     fontWeight: theme.typography.fontWeightBold,
-    width: '100%',
   },
 });
 

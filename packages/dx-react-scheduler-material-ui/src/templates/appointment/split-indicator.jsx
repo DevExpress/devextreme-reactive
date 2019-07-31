@@ -45,7 +45,7 @@ const styles = {
   },
 };
 
-const SplitIndicatorBase = ({
+const SplitIndicatorBase = React.memo(({
   position, appointmentType, classes, className, ...restProps
 }) => {
   const vertical = appointmentType === VERTICAL_TYPE;
@@ -62,7 +62,7 @@ const SplitIndicatorBase = ({
       {...restProps}
     />
   );
-};
+});
 
 SplitIndicatorBase.propTypes = {
   classes: PropTypes.object.isRequired,

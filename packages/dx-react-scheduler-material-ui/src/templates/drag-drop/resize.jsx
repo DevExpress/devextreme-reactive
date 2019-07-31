@@ -46,7 +46,7 @@ const styles = ({ spacing }) => {
   });
 };
 
-const ResizeBase = ({
+const ResizeBase = React.memo(({
   classes, className,
   position, appointmentType, ...restProps
 }) => {
@@ -64,7 +64,7 @@ const ResizeBase = ({
       {...restProps}
     />
   );
-};
+});
 
 
 ResizeBase.propTypes = {

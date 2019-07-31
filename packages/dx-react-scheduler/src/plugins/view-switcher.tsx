@@ -17,6 +17,7 @@ class ViewSwitcherBase extends React.PureComponent<ViewSwitcherProps> {
   static components: PluginComponents = {
     switcherComponent: 'Switcher',
   };
+
   render() {
     const { switcherComponent: Switcher } = this.props;
 

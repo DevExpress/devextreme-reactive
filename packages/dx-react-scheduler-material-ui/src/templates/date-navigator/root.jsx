@@ -22,26 +22,31 @@ const RootBase = ({
   className,
   classes,
   ...restProps
-}) => (
-  <div
-    className={classNames(classes.root, className)}
-    ref={rootRef}
-    {...restProps}
-  >
-    <NavigationButton
-      type="back"
-      onClick={() => { onNavigate('back'); }}
-    />
-    <NavigationButton
-      type="forward"
-      onClick={() => { onNavigate('forward'); }}
-    />
-    <OpenButton
-      onVisibilityToggle={onVisibilityToggle}
-      text={navigatorText}
-    />
-  </div>
-);
+}) => {
+  const navigateBack = React.useCallback(() => onNavigate('back'), [onNavigate]);
+  const navigateForward = React.useCallback(() => onNavigate('forward'), [onNavigate]);
+
+  return (
+    <div
+      className={classNames(classes.root, className)}
+      ref={rootRef}
+      {...restProps}
+    >
+      <NavigationButton
+        type="back"
+        onClick={navigateBack}
+      />
+      <NavigationButton
+        type="forward"
+        onClick={navigateForward}
+      />
+      <OpenButton
+        onVisibilityToggle={onVisibilityToggle}
+        text={navigatorText}
+      />
+    </div>
+  );
+};
 
 RootBase.propTypes = {
   // oneOfType is a workaround because withStyles returns react object

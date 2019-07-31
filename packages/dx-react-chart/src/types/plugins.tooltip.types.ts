@@ -15,6 +15,10 @@ export interface TooltipProps {
   overlayComponent: React.ComponentType<Tooltip.OverlayProps>;
   /** A component that renders the tooltip content */
   contentComponent: React.ComponentType<Tooltip.ContentProps>;
+  /** A component that renders the tooltip arrow */
+  arrowComponent: React.ComponentType<Tooltip.ArrowProps>;
+  /** A component that renders the tooltip sheet */
+  sheetComponent: React.ComponentType<Tooltip.SheetProps>;
 }
 /** @internal */
 export type TooltipState = {
@@ -31,6 +35,8 @@ export namespace Tooltip {
     children: React.ReactNode;
     /** Set orientation for tooltip */
     rotated: boolean;
+    /** A component that renders the tooltip arrow */
+    arrowComponent: React.ComponentType<Tooltip.ArrowProps>;
   }
 
   /** Describes properties passed to a component that renders the tooltip’s content */
@@ -39,5 +45,16 @@ export namespace Tooltip {
     text: string;
     /** An item for which the tooltip is displayed */
     targetItem: SeriesRef;
+  }
+
+  /** Describes properties passed to a component that renders the tooltip’s arrow */
+  export interface ArrowProps {
+    /** the tooltip's placement */
+    placement: 'right' | 'top';
+  }
+  /** Describes properties passed to a component that renders the tooltip’s sheet */
+  export interface SheetProps {
+    /** The sheet's children */
+    children: React.ReactNode;
   }
 }

@@ -180,12 +180,14 @@ describe('DataTypeProvider', () => {
 
     it('should re-register valueFormatter templates', () => {
       const DataFormatter = () => null;
-      const tree = mount(<Test
-        columnNames={[defaultDeps.getter.tableColumns[0].column.name]}
-        isRowEdit={false}
-        formatterComponent={DataFormatter}
-        editorComponent={null}
-      />);
+      const tree = mount((
+        <Test
+          columnNames={[defaultDeps.getter.tableColumns[0].column.name]}
+          isRowEdit={false}
+          formatterComponent={DataFormatter}
+          editorComponent={null}
+        />
+      ));
 
       expect(tree
         .find('DataFormatter')
@@ -210,12 +212,14 @@ describe('DataTypeProvider', () => {
 
     it('should re-register valueEditor templates', () => {
       const DataEditor = () => null;
-      const tree = mount(<Test
-        columnNames={[defaultDeps.getter.tableColumns[0].column.name]}
-        isRowEdit={true}
-        formatterComponent={null}
-        editorComponent={DataEditor}
-      />);
+      const tree = mount((
+        <Test
+          columnNames={[defaultDeps.getter.tableColumns[0].column.name]}
+          isRowEdit={true}
+          formatterComponent={null}
+          editorComponent={DataEditor}
+        />
+      ));
 
       expect(tree
         .find('DataEditor')

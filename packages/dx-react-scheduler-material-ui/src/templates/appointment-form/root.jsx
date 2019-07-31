@@ -49,7 +49,7 @@ class RootBase extends React.PureComponent {
         }}
         variant="temporary"
         open={visible}
-        anchor="right"
+        anchor="left"
         transitionDuration={1000}
         {...restProps}
       >

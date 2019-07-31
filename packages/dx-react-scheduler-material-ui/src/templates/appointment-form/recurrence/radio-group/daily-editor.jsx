@@ -31,11 +31,15 @@ const handleEndDateChange = (options, newEndDate, action) => {
   action(newOptions);
 };
 
-const RadioGroupEditorBase = ({
+const handleCountAndUntilChange = (options, newCount, newEndDate, action) => {
+  const newOptions = { ...options, until: newEndDate, count: newCount };
+  action(newOptions);
+};
+
+const DailyEditorBase = ({
   classes,
   className,
   onExecute,
-  value,
   getMessage,
   labelComponent: Label,
   textEditorComponent: TextEditor,
@@ -46,9 +50,33 @@ const RadioGroupEditorBase = ({
 }) => {
   const recurrenceCount = recurrenceOptions.count || 1;
   const recurrenceEndDate = recurrenceOptions.until || new Date();
+  let value;
+  if (recurrenceOptions.count) {
+    value = 'endAfter';
+  } else if (recurrenceOptions.until) {
+    value = 'endBy';
+  } else value = 'never';
 
+  const onRadioGroupValueChange = (event) => {
+    switch (event.target.value) {
+      case 'endAfter':
+        handleCountAndUntilChange(recurrenceOptions, 1, undefined, onRecurrenceOptionsChange);
+        break;
+      case 'endBy':
+        handleCountAndUntilChange(
+          recurrenceOptions, undefined, new Date(), onRecurrenceOptionsChange,
+        );
+        break;
+      default:
+        handleCountAndUntilChange(
+          recurrenceOptions, undefined, undefined, onRecurrenceOptionsChange,
+        );
+        break;
+    }
+  };
   return (
     <RadioGroup
+      onChange={onRadioGroupValueChange}
       aria-label="gender"
       name="gender1"
       className={classNames(classes.group, className)}
@@ -70,6 +98,7 @@ const RadioGroupEditorBase = ({
               label={getMessage('onLabel')}
             />
             <TextEditor
+              disabled={value !== 'endAfter'}
               className={classes.textEditor}
               InputProps={{
                 className: classes.input,
@@ -100,6 +129,7 @@ const RadioGroupEditorBase = ({
               label={getMessage('afterLabel')}
             />
             <DateAndTimeEditor
+              disabled={value !== 'endBy'}
               oneDate
               startDate={recurrenceEndDate}
               onStartDateValueChange={date => handleEndDateChange(
@@ -116,7 +146,7 @@ const RadioGroupEditorBase = ({
 };
 
 
-RadioGroupEditorBase.propTypes = {
+DailyEditorBase.propTypes = {
   value: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
@@ -128,8 +158,8 @@ RadioGroupEditorBase.propTypes = {
   recurrenceOptions: PropTypes.object.isRequired,
 };
 
-RadioGroupEditorBase.defaultProps = {
+DailyEditorBase.defaultProps = {
   className: undefined,
 };
 
-export const RadioGroupEditor = withStyles(styles)(RadioGroupEditorBase, { name: 'RadioGroupEditor' });
+export const DailyEditor = withStyles(styles)(DailyEditorBase, { name: 'DailyEditor' });

@@ -50,6 +50,14 @@ const defaultMessages = {
   onLabel: 'On',
   afterLabel: 'After',
   occurencesLabel: 'occurence(s)',
+  weeksOnLabel: 'week(s) on:',
+  sundayLabel: 'Sun',
+  mondayLabel: 'Mon',
+  tuesdayLabel: 'Tue',
+  wednesdayLabel: 'Wed',
+  thursdayLabel: 'Thu',
+  fridayLabel: 'Fri',
+  saturdayLabel: 'Sat',
 };
 
 const REPEAT_TYPES = {
@@ -198,7 +206,8 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                 <React.Fragment>
                   <React.Fragment>
                     <div style={{ position: 'absolute', width: '100%', height: '100%' }}>
-                      <div style={{ position: 'relative', width: '100%', height: '100%' }}
+                      <div
+                        style={{ position: 'relative', width: '100%', height: '100%' }}
                         ref={this.ref}
                       />
                     </div>
@@ -246,6 +255,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               };
 
               const commitAppointment = () => {
+                console.log(changedAppointment);
                 this.toggleVisibility();
                 if (commitChangedAppointment) {
                   if (isNew) {
@@ -360,6 +370,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                   textEditorComponent={TextEditor}
                   dateAndTimeEditorComponent={DateAndTimeEditor}
                   labelComponent={Label}
+                  booleanEditorComponent={BooleanEditor}
                   onRecurrenceOptionsChange={newOptions => setNewRRule(newOptions)}
                   getMessage={getMessage}
                   readOnly={readOnly}

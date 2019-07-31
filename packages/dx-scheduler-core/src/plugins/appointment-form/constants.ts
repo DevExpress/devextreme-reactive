@@ -37,3 +37,8 @@ export const RRULE_REPEAT_TYPES = {
   hourly: RRule.HOURLY,
   minutely: RRule.MINUTELY,
 };
+
+export const END_REPEAT_RADIO_GROUP = 'endRepeat';
+export const DAILY_RADIO_GROUP = 'dailyRadioGroup';
+export const MONTHLY_RADIO_GROUP = 'monthlyRadioGroup';
+export const YEARLY_RADIO_GROUP = 'yearlyRadioGroup';

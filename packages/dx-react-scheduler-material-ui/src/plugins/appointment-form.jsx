@@ -13,7 +13,7 @@ import { Label } from '../templates/appointment-form/common/label';
 import { BooleanEditor } from '../templates/appointment-form/common/boolean-editor';
 import { Switcher } from '../templates/appointment-form/common/switcher';
 import { Layout as RecurrenceLayout } from '../templates/appointment-form/recurrence/layout';
-import { RadioGroupEditor } from '../templates/appointment-form/recurrence/radio-group-editor';
+import { RadioGroupEditor } from '../templates/appointment-form/recurrence/radio-group/radio-group-editor';
 
 export const AppointmentForm = withComponents({
   Root,

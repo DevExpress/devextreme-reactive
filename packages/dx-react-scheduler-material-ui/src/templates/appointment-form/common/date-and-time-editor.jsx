@@ -32,11 +32,13 @@ const DateAndTimeEditorBase = ({
   startDate,
   endDate,
   oneDate,
+  disabled,
   ...restProps
 }) => (
   <MuiPickersUtilsProvider utils={MomentUtils}>
     <Grid container>
       <KeyboardDateTimePicker
+        disabled={disabled}
         className={classNames(classes.editor, className)}
         margin="normal"
         value={startDate}
@@ -58,6 +60,7 @@ const DateAndTimeEditorBase = ({
       {
         !oneDate && (
           <KeyboardDateTimePicker
+            disabled={disabled}
             className={classNames(classes.editor, className)}
             margin="normal"
             value={endDate}
@@ -85,6 +88,7 @@ DateAndTimeEditorBase.propTypes = {
   label: PropTypes.string,
   className: PropTypes.string,
   readOnly: PropTypes.bool,
+  disabled: PropTypes.bool,
   onStartDateValueChange: PropTypes.func,
   onEndDateValueChange: PropTypes.func,
   oneDate: PropTypes.bool,
@@ -99,7 +103,7 @@ DateAndTimeEditorBase.defaultProps = {
   onStartDateValueChange: () => undefined,
   onEndDateValueChange: () => undefined,
   oneDate: false,
-
+  disabled: false,
 };
 
 export const DateAndTimeEditor = withStyles(styles)(DateAndTimeEditorBase, { name: 'DateAndTimeEditor' });

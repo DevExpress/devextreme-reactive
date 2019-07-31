@@ -1,6 +1,6 @@
 import { intervalUtil } from './utils';
 import {
-  VirtualRows, Row, MergeRowsFn, CalculateRequestedRangeFn, Interval,
+  VirtualRows, Row, MergeRowsFn, CalculateRequestedRangeFn, Interval, GridViewport,
 } from '../../types';
 import { PureComputed } from '@devexpress/dx-core';
 
@@ -43,23 +43,16 @@ export const mergeRows: MergeRowsFn = (
 };
 
 export const calculateRequestedRange: CalculateRequestedRangeFn = (
-  loadedInterval, newRange, referenceIndex, pageSize,
+  virtualRows, newRange, pageSize,
 ) => {
+  const loadedInterval = intervalUtil.getRowsInterval(virtualRows);
   const isAdjacentPage = Math.abs(loadedInterval.start - newRange.start) < 2 * pageSize;
   if (isAdjacentPage) {
     return intervalUtil.difference(newRange, loadedInterval);
   }
 
+  // load 3 pages at once because a missing page will be loaded anyway
   return newRange;
-
-  // const useFirstHalf = referenceIndex % pageSize < pageSize / 2;
-  // const isLastPage = intervalUtil.getLength(newRange) / pageSize < 3;
-  // const start = useFirstHalf || isLastPage
-  //   ? newRange.start
-  //   : newRange.start + pageSize;
-  // const end = Math.min(newRange.end, start + 2 * pageSize);
-
-  // return { start, end };
 };
 
 export const rowToPageIndex: PureComputed<[number, number]> = (
@@ -112,9 +105,10 @@ export const getAvailableRowCount: PureComputed<[boolean, number, number, number
   );
 };
 
-export const getForceReloadInterval: PureComputed<[Interval, number, number], Interval> = (
-  { start, end: intervalEnd }, pageSize, totalRowCount,
+export const getForceReloadInterval: PureComputed<[VirtualRows, number, number], Interval> = (
+  virtualRows, pageSize, totalRowCount,
 ) => {
+  const { start, end: intervalEnd } = intervalUtil.getRowsInterval(virtualRows);
   const end = Math.min(
     Math.max(start + pageSize * 2, intervalEnd),
     totalRowCount,
@@ -123,4 +117,33 @@ export const getForceReloadInterval: PureComputed<[Interval, number, number], In
     start,
     end,
   };
+};
+
+export const needFetchMorePages: PureComputed<[VirtualRows, number, number], boolean> = (
+  virtualRows, referenceIndex,  pageSize,
+) => {
+  const { start, end } = intervalUtil.getRowsInterval(virtualRows);
+  const loadCount = end - start;
+  const topTriggerIndex = start > 0 ? start + pageSize! : 0;
+  const bottomTriggerIndex = end - pageSize!;
+
+  if (loadCount <= 0) {
+    return false;
+  }
+
+  return (referenceIndex < topTriggerIndex || bottomTriggerIndex < referenceIndex);
+};
+
+export const getReferenceIndex: PureComputed<[GridViewport], number> = (
+  { rows: [top, bottom] },
+) => (
+  (top + bottom) / 2
+);
+
+export const shouldLoadRows: PureComputed<[Interval, number], boolean> = (
+  { start, end }, requestedPageIndex,
+) => {
+  const newPageIndex = start;
+  const loadCount = (end - start);
+  return newPageIndex !== requestedPageIndex && loadCount > 0;
 };

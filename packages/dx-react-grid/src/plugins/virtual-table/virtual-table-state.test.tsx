@@ -3,8 +3,8 @@ import {
   recalculateBounds, calculateRequestedRange,
   virtualRowsWithCache, trimRowsToInterval,
   emptyVirtualRows,
-  plainRows,
-  loadedRowsStart,
+  plainRows, getReferenceIndex,
+  loadedRowsStart, needFetchMorePages, shouldLoadRows,
 } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { mount } from 'enzyme';
@@ -18,6 +18,11 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   virtualRowsWithCache: jest.fn(),
   plainRows: jest.fn(),
   loadedRowsStart: jest.fn(),
+  needFetchMorePages: jest.fn(),
+  getReferenceIndex: jest.fn(),
+  shouldLoadRows: jest.fn(),
+  calculateRequestedRange: jest.fn(),
+  trimRowsToInterval: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -31,6 +36,7 @@ const defaultProps = {
   skip: 100,
   totalRowCount: 1000,
   getRows: () => {},
+  pageSize: 50,
 };
 
 describe('VirtualTableState', () => {
@@ -38,6 +44,9 @@ describe('VirtualTableState', () => {
     virtualRowsWithCache.mockImplementation(() => 'virtualRowsWithCache');
     plainRows.mockImplementation(() => 'plainRows');
     loadedRowsStart.mockImplementation(() => 'loadedRowsStart');
+    getReferenceIndex.mockReturnValue('getReferenceIndex');
+    calculateRequestedRange.mockReturnValue('calculateRequestedRange');
+    trimRowsToInterval.mockReturnValue('trimRowsToInterval');
   });
 
   afterEach(() => {
@@ -151,6 +160,13 @@ describe('VirtualTableState', () => {
           skip: 100,
           rows: Array.from({ length: 200 }),
         }));
+        const actual = require.requireActual('@devexpress/dx-grid-core');
+        calculateRequestedRange.mockImplementation((...args) => (
+          actual.calculateRequestedRange(...args)
+        ));
+        trimRowsToInterval.mockImplementation((...args) => (
+          actual.trimRowsToInterval(...args)
+        ));
       });
 
       it('should reload rows when sorting changed', () => {
@@ -195,5 +211,63 @@ describe('VirtualTableState', () => {
     });
   });
 
+  describe('actions', () => {
+    beforeEach(() => {
+      jest.useFakeTimers();
+    });
 
+    describe('setViewport', () => {
+      beforeEach(() => {
+        shouldLoadRows.mockReturnValue(true);
+      });
+
+      it('should load rows if necessary', () => {
+        const getRows = jest.fn();
+        needFetchMorePages.mockReturnValue(true);
+
+        const tree = mount((
+          <PluginHost>
+            {pluginDepsToComponents(defaultDeps)}
+            <VirtualTableState
+              {...defaultProps}
+              getRows={getRows}
+            />
+          </PluginHost>
+        ));
+        getRows.mockClear();
+
+        executeComputedAction(tree, actions => actions.setViewport('newViewport'));
+        jest.runAllTimers();
+
+        expect(getReferenceIndex)
+          .toBeCalledWith('newViewport');
+        expect(needFetchMorePages)
+          .toBeCalledWith('virtualRowsWithCache', 'getReferenceIndex', 50);
+        expect(getRows)
+          .toBeCalledTimes(1);
+      });
+
+      it('should not load rows otherwise', () => {
+        const getRows = jest.fn();
+        needFetchMorePages.mockReturnValue(false);
+
+        const tree = mount((
+          <PluginHost>
+            {pluginDepsToComponents(defaultDeps)}
+            <VirtualTableState
+              {...defaultProps}
+              getRows={getRows}
+            />
+          </PluginHost>
+        ));
+        getRows.mockClear();
+
+        executeComputedAction(tree, actions => actions.setViewport('newViewport'));
+        jest.runAllTimers();
+
+        expect(getRows)
+          .not.toBeCalled();
+      });
+    });
+  });
 });

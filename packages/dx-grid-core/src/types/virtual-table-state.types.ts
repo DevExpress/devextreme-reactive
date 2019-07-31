@@ -29,4 +29,4 @@ export type MergeRowsFn = PureComputed<
 >;
 
 /** @internal */
-export type CalculateRequestedRangeFn = PureComputed<[Interval, Interval, number, number]>;
+export type CalculateRequestedRangeFn = PureComputed<[VirtualRows, Interval, number], Interval>;

@@ -77,6 +77,13 @@ export interface ColumnChooserProps {
 }
 
 // @public (undocumented)
+export interface ColumnExtension {
+  columnName: string;
+  maxWidth: number;
+  minWidth: number;
+}
+
+// @public (undocumented)
 export const createRowCache: (pageSize?: number, capacity?: number) => RowCache;
 
 // @public
@@ -709,8 +716,10 @@ export const TableColumnResizing: React.ComponentType<TableColumnResizingProps>;
 
 // @public (undocumented)
 export interface TableColumnResizingProps {
+  columnExtensions?: Array<ColumnExtension>;
   columnWidths?: Array<TableColumnWidthInfo>;
   defaultColumnWidths?: Array<TableColumnWidthInfo>;
+  maxColumnWidth?: number;
   minColumnWidth?: number;
   onColumnWidthsChange?: (nextColumnWidths: Array<TableColumnWidthInfo>) => void;
 }

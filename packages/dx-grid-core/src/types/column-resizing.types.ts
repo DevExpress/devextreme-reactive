@@ -9,6 +9,14 @@ export interface TableColumnWidthInfo {
   /** A column width. */
   width: number;
 }
+export interface ColumnExtension {
+  /** A column name. */
+  columnName: string;
+  /** A column min width. */
+  minWidth: number;
+  /** A column max width. */
+  maxWidth: number;
+}
 /** @internal */
 export type SpecifyWidthsFn = PureComputed<
   [TableColumn[], TableColumnWidthInfo[], (columnName: string) => void]
@@ -17,7 +25,13 @@ export type SpecifyWidthsFn = PureComputed<
 export type TableColumnsWithWidthFn = PureComputed<[TableColumn[], TableColumnWidthInfo[]]>;
 
 /** @internal */
-export type ColumnWidthPayload = { columnName: string, shift: number, minColumnWidth: number };
+export type ColumnWidthPayload = {
+  columnName: string,
+  shift: number,
+  minColumnWidth: number,
+  maxColumnWidth: number,
+  columnExtensions: Array<ColumnExtension>,
+};
 /** @internal */
 export type ColumnWidthState = {
   columnWidths: TableColumnWidthInfo[],

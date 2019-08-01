@@ -1,12 +1,10 @@
 import moment from 'moment';
-import { RRule, rrulestr, RRuleSet } from 'rrule';
-import { EditType, AppointmentModel } from '../../types';
+import { RRule, rrulestr, RRuleSet, Options } from 'rrule';
+import { PureComputed } from '@devexpress/dx-core';
+import { AppointmentModel, PreCommitChanges, ChangeSet, Changes } from '../../types';
 import { ALL, CURRENT, CURRENT_FOLLOWING } from '../../constants';
 
-// For testing
-// https://www.googleapis.com/calendar/v3/calendars/87okid34j969uje1ksg6cmc3do@group.calendar.google.com/events?key=AIzaSyBnNAISIUKe6xdhq1_rjor2rxoI3UlMY7k
-
-export const deleteCurrent = (appointmentData: AppointmentModel) => {
+export const deleteCurrent: PureComputed<[AppointmentModel], ChangeSet> = (appointmentData) => {
   const currentSequence = makeRruleSet(appointmentData.rRule, appointmentData.exDate, {
     dtstart: moment.utc(appointmentData.parentData.startDate).toDate(),
   }).all();
@@ -15,7 +13,8 @@ export const deleteCurrent = (appointmentData: AppointmentModel) => {
     return deleteAll(appointmentData);
   }
 
-  const currentExDate = `${moment.utc(appointmentData.startDate).format('YYYYMMDDTHHmmss')}Z`;
+  const currentExDate = `${moment.utc(appointmentData.startDate as Date)
+    .format('YYYYMMDDTHHmmss')}Z`;
   const exDate = appointmentData.exDate
     ? `${appointmentData.exDate},${currentExDate}`
     : currentExDate;
@@ -23,11 +22,13 @@ export const deleteCurrent = (appointmentData: AppointmentModel) => {
   return { changed: { [appointmentData.id!]: { exDate } } };
 };
 
-export const deleteAll = (appointmentData: AppointmentModel) => {
+export const deleteAll: PureComputed<[AppointmentModel], ChangeSet> = (appointmentData) => {
   return { deleted: appointmentData.id };
 };
 
-export const deletedCurrentAndFollowing = (appointmentData: AppointmentModel) => {
+export const deletedCurrentAndFollowing: PureComputed<
+  [AppointmentModel], ChangeSet
+> = (appointmentData) => {
   const { rRule, startDate, parentData, exDate: prevExDate = '' } = appointmentData;
 
   const initialSequence = makeRruleSet(rRule, prevExDate, {
@@ -38,22 +39,23 @@ export const deletedCurrentAndFollowing = (appointmentData: AppointmentModel) =>
     return deleteAll(appointmentData);
   }
 
-  const currentChildIndex = initialSequence.findIndex(date => moment(date).isSame(startDate));
+  const currentChildIndex = initialSequence
+    .findIndex(date => moment(date).isSame(startDate as Date));
 
-  const options = {
+  const options: Partial<Options> = {
     ...RRule.parseString(rRule),
     dtstart: moment.utc(parentData.startDate).toDate(),
     until: moment.utc(initialSequence[currentChildIndex - 1]).toDate(),
-    count: '',
+    count: null,
   };
-  let rruleSet = new RRuleSet();
+  const rruleSet = new RRuleSet();
   rruleSet.rrule(new RRule(options));
 
   let exDate;
   if (prevExDate.length > 0) {
     exDate = prevExDate.split(',').reduce((acc: string[], date: string) => {
       const momentDate = moment.utc(date);
-      if (momentDate.isBefore(startDate)) {
+      if (momentDate.isBefore(startDate as Date)) {
         return [...acc, date];
       }
       return acc;
@@ -70,7 +72,9 @@ export const deletedCurrentAndFollowing = (appointmentData: AppointmentModel) =>
   };
 };
 
-export const editAll = (changes: any, appointmentData: AppointmentModel) => {
+export const editAll: PureComputed<
+  [Changes, AppointmentModel], ChangeSet
+> = (changes, appointmentData) => {
   const { rRule } = appointmentData;
 
   const initialRule = new RRule(RRule.parseString(rRule));
@@ -89,14 +93,17 @@ export const editAll = (changes: any, appointmentData: AppointmentModel) => {
   return  { changed: {  [appointmentData.id!]: changes } };
 };
 
-export const editCurrent = (changes: any, appointmentData: AppointmentModel) => {
+export const editCurrent: PureComputed<
+  [Changes, AppointmentModel], ChangeSet
+> = (changes, appointmentData) => {
   const added = {
     startDate: appointmentData.startDate,
     endDate: appointmentData.endDate,
     ...appointmentData.title && { title: appointmentData.title },
     ...changes,
   };
-  const currentExDate = `${moment.utc(appointmentData.startDate).format('YYYYMMDDTHHmmss')}Z`;
+  const currentExDate = `${moment.utc(appointmentData.startDate as Date)
+    .format('YYYYMMDDTHHmmss')}Z`;
   const exDate = appointmentData.exDate
     ? `${appointmentData.exDate},${currentExDate}`
     : currentExDate;
@@ -120,7 +127,9 @@ const makeRruleSet = (rRule: string, exDate: string, options: any) => {
   return rruleSet;
 };
 
-export const editCurrentAndFollowing = (changes: any, appointmentData: AppointmentModel) => {
+export const editCurrentAndFollowing: PureComputed<
+  [Changes, AppointmentModel], ChangeSet
+> = (changes, appointmentData) => {
   const { rRule, startDate, parentData, exDate: prevExDate = '' } = appointmentData;
 
   const initialRule = new RRule(RRule.parseString(rRule));
@@ -139,17 +148,18 @@ export const editCurrentAndFollowing = (changes: any, appointmentData: Appointme
   const initialSequence = makeRruleSet(rRule, prevExDate, {
     dtstart: moment.utc(parentData.startDate).toDate(),
   }).all();
-  const currentChildIndex = initialSequence.findIndex(date => moment(date).isSame(startDate));
+  const currentChildIndex = initialSequence
+    .findIndex(date => moment(date).isSame(startDate as Date));
 
   if (currentChildIndex === 0) {
     return editAll(changes, appointmentData);
   }
 
-  const options = {
+  const options: Partial<Options> = {
     ...RRule.parseString(rRule),
     dtstart: moment.utc(parentData.startDate).toDate(),
     until: moment.utc(initialSequence[currentChildIndex - 1]).toDate(),
-    count: '',
+    count: null,
   };
   const rruleSet = new RRuleSet();
   rruleSet.rrule(new RRule(options));
@@ -158,7 +168,7 @@ export const editCurrentAndFollowing = (changes: any, appointmentData: Appointme
   if (prevExDate.length > 0) {
     exDate = prevExDate.split(',').reduce((acc: string[], date: string) => {
       const momentDate = moment.utc(date);
-      if (momentDate.isBefore(startDate)) {
+      if (momentDate.isBefore(startDate as Date)) {
         return [...acc, date];
       }
       return acc;
@@ -166,7 +176,7 @@ export const editCurrentAndFollowing = (changes: any, appointmentData: Appointme
   }
 
   const addedRrule = makeRruleSet(rRule, '', {
-    dtstart: moment.utc(startDate).toDate(),
+    dtstart: moment.utc(startDate as Date).toDate(),
     count: initialSequence.length - currentChildIndex,
   });
 
@@ -189,8 +199,8 @@ export const editCurrentAndFollowing = (changes: any, appointmentData: Appointme
   };
 };
 
-export const preCommitChanges = (
-  changes: any, appointmentData: AppointmentModel, editType: EditType,
+export const preCommitChanges: PreCommitChanges = (
+  changes, appointmentData, editType,
 ) => {
   // Delete Mode
   if (changes === null) {

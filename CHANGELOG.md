@@ -1,3 +1,83 @@
+# [2.0.2](https://github.com/DevExpress/devextreme-reactive/compare/v2.0.1...v2.0.2) (2019-08-01)
+
+
+### Bug Fixes
+
+* **react-chart:** fix tooltip customization ([#2191](https://github.com/DevExpress/devextreme-reactive/issues/2191)) ([b23bef2](https://github.com/DevExpress/devextreme-reactive/commit/b23bef2))
+* **react-chart:** fix zooming over minimal threshold ([#2183](https://github.com/DevExpress/devextreme-reactive/issues/2183)) ([88baf47](https://github.com/DevExpress/devextreme-reactive/commit/88baf47))
+* **react-chart-material-ui:** apply correct layout height ([#2180](https://github.com/DevExpress/devextreme-reactive/issues/2180)) ([88bf517](https://github.com/DevExpress/devextreme-reactive/commit/88bf517)), closes [#2172](https://github.com/DevExpress/devextreme-reactive/issues/2172)
+* **react-core:** get rid of redundant type ([#2179](https://github.com/DevExpress/devextreme-reactive/issues/2179)) ([eb0ca11](https://github.com/DevExpress/devextreme-reactive/commit/eb0ca11))
+* **react-grid:** correct calculation of available row count in infninite scrolling mode ([#2188](https://github.com/DevExpress/devextreme-reactive/issues/2188)) ([28e93d5](https://github.com/DevExpress/devextreme-reactive/commit/28e93d5))
+* **react-grid:** correct changing DataTypeProvider.for property in runtime ([#2201](https://github.com/DevExpress/devextreme-reactive/issues/2201)) ([3732635](https://github.com/DevExpress/devextreme-reactive/commit/3732635))
+* **react-grid:** correctly calculate rows to load when sorting/filtering in lazy loading mode  ([#2186](https://github.com/DevExpress/devextreme-reactive/issues/2186)) ([3789b89](https://github.com/DevExpress/devextreme-reactive/commit/3789b89))
+* **react-grid:** prevent scrolling sticky header on Safari ([#2178](https://github.com/DevExpress/devextreme-reactive/issues/2178)) ([47666b7](https://github.com/DevExpress/devextreme-reactive/commit/47666b7))
+* **react-scheduler:** set Scheduler's height to Root instead of body ([#2189](https://github.com/DevExpress/devextreme-reactive/issues/2189)) ([46bef67](https://github.com/DevExpress/devextreme-reactive/commit/46bef67))
+* **react-scheduler-material-ui:** remove transparent border from draft appointment ([#2200](https://github.com/DevExpress/devextreme-reactive/issues/2200)) ([005336b](https://github.com/DevExpress/devextreme-reactive/commit/005336b))
+
+
+### Performance Improvements
+
+* **react-scheduler:** optimize render using React.memo  ([#2169](https://github.com/DevExpress/devextreme-reactive/issues/2169)) ([52a877c](https://github.com/DevExpress/devextreme-reactive/commit/52a877c))
+
+
+### BREAKING CHANGES
+
+* **react-scheduler:** `DayView` plugin's, `WeekView` plugin's and `MonthView` plugin's layout component now doesn't have the `height` property. `height` is now `Scheduler` plugin's root component property.
+
+```diff
+...
+<DayView
+  layoutComponent={({
+-   height,
+     ...restProps
+  }) => (
+    <DayView.Layout
+-      height={height}
+       {...restProps}
+    />
+  )}
+/>
+...
+<WeekView
+  layoutComponent={({
+-   height,
+     ...restProps
+  }) => (
+    <WeekView.Layout
+-      height={height}
+       {...restProps}
+    />
+  )}
+/>
+...
+<MonthView
+  layoutComponent={({
+-   height,
+     ...restProps
+  }) => (
+    <MonthView.Layout
+-      height={height}
+       {...restProps}
+    />
+  )}
+/>
+...
+<Scheduler
+  rootComponent={({
++   height,
+     ...restProps
+  }) => (
+    <Scheduler.Root
++      height={height}
+       {...restProps}
+    />
+  )}
+/>
+...
+```
+
+
+
 # [2.0.1](https://github.com/DevExpress/devextreme-reactive/compare/v2.0.0...v2.0.1) (2019-07-18)
 
 

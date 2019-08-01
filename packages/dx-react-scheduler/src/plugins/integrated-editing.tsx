@@ -15,7 +15,7 @@ class IntegratedEditingBase extends React.PureComponent {
   }
 
   finishDeleteAppointment = (payload, getters, { commitDeletedAppointment }: Actions) => {
-    commitDeletedAppointment();
+    commitDeletedAppointment({ deletedAppointmentData: payload });
   }
 
   render() {

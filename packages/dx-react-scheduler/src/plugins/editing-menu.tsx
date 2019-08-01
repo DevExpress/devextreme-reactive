@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { memoize } from '@devexpress/dx-core';
 import {
   Plugin, Template, TemplatePlaceholder, TemplateConnector, Action, Getters, Actions,
 } from '@devexpress/dx-react-core';
@@ -30,8 +31,7 @@ class EditingMenuBase extends React.PureComponent {
 
   state = {
     isOpen: false,
-    isEditing: false,
-    isDeleting: false,
+    deletedAppointmentData: null,
   };
 
   finishCommitAppointment = (
@@ -42,30 +42,42 @@ class EditingMenuBase extends React.PureComponent {
     if (editingAppointment && !editingAppointment.rRule) {
       commitChangedAppointment();
     } else {
-      this.setState({ isOpen: true, isEditing: true, isDeleting: false });
+      this.setState({
+        isOpen: true, deletedAppointmentData: null,
+      });
     }
   }
 
   finishDeleteAppointment = (
     payload,
-    { editingAppointment }: Getters,
+    getters,
     { commitDeletedAppointment }: Actions,
   ) => {
-    if (editingAppointment && !editingAppointment.rRule) {
-      commitDeletedAppointment();
+    if (payload && !payload.rRule) {
+      commitDeletedAppointment({ deletedAppointmentData: payload });
     } else {
-      this.setState({ isOpen: true, isDeleting: true, isEditing: false });
+      this.setState({
+        isOpen: true, deletedAppointmentData: payload,
+      });
     }
   }
 
+  commitFunction = memoize((editComputed, deleteComputed, payload) => {
+    if (payload) {
+      return type => deleteComputed({ deletedAppointmentData: payload, type });
+    }
+    return type => editComputed(type);
+  });
+
   closeMenu = () => {
-    this.setState({ isOpen: false });
+    this.setState({
+      isOpen: false,
+      deletedAppointmentData: null,
+    });
   }
 
   render() {
-    const {
-      isEditing, isDeleting, isOpen,
-    } = this.state;
+    const { isOpen, deletedAppointmentData } = this.state;
     const {
       layoutComponent: Layout,
       modalComponent: Modal,
@@ -90,9 +102,10 @@ class EditingMenuBase extends React.PureComponent {
 
         <Template name="modal">
           <TemplateConnector>
-            {({ editingAppointment }, { commitChangedAppointment, commitDeletedAppointment }) => {
-              const commitFunction = isEditing ?
-                commitChangedAppointment : commitDeletedAppointment;
+            {(getters, { commitChangedAppointment, commitDeletedAppointment }) => {
+              const commitFunction = this.commitFunction(
+                commitChangedAppointment, commitDeletedAppointment, deletedAppointmentData,
+              );
 
               return (
                 <Modal

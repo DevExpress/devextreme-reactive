@@ -119,10 +119,11 @@ class AppointmentTooltipBase extends React.PureComponent<
           <TemplateConnector>
             {({
               formatDate,
-              commitDeletedAppointment,
+            }, {
+              finishDeleteAppointment,
             }) => {
               const onDeleteButtonClick = () => {
-                commitDeletedAppointment(appointmentMeta.data);
+                finishDeleteAppointment(appointmentMeta.data);
                 this.toggleVisibility();
               };
               return (
@@ -139,7 +140,7 @@ class AppointmentTooltipBase extends React.PureComponent<
                     visible,
                     onHide: this.toggleVisibility,
                     commandButtonIds,
-                    ...commitDeletedAppointment && {
+                    ...finishDeleteAppointment && {
                       onDeleteButtonClick,
                     },
                     formatDate,

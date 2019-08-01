@@ -10,9 +10,9 @@ import {
   changeAppointment,
   cancelChanges,
   changedAppointmentById,
-  CURRENT
+  CURRENT,
+  preCommitChanges as preCommitChangesBase,
 } from '@devexpress/dx-scheduler-core';
-import { preCommitChanges as preCommitChangesBase } from '@devexpress/dx-scheduler-core';
 import { EditingStateProps, EditingStateState } from '../types';
 
 class EditingStateBase extends React.PureComponent<EditingStateProps, EditingStateState> {
@@ -30,7 +30,6 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
   static defaultProps: Partial<EditingStateProps> = {
     defaultAppointmentChanges: {},
     defaultAddedAppointment: {},
-    // TODO: add three methods of editing 'all' | 'current' | 'following'
     preCommitChanges: preCommitChangesBase,
   };
 
@@ -109,8 +108,7 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
       const { onCommitChanges, preCommitChanges } = this.props;
 
       const changes = preCommitChanges(null, deletedAppointmentData, type);
-
-      onCommitChanges(changes); // { changed: { ... add exDate } }
+      onCommitChanges(changes);
     };
   }
 

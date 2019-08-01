@@ -7,6 +7,14 @@ import { ALL, CURRENT, CURRENT_FOLLOWING } from '../../constants';
 // https://www.googleapis.com/calendar/v3/calendars/87okid34j969uje1ksg6cmc3do@group.calendar.google.com/events?key=AIzaSyBnNAISIUKe6xdhq1_rjor2rxoI3UlMY7k
 
 export const deleteCurrent = (appointmentData: AppointmentModel) => {
+  const currentSequence = makeRruleSet(appointmentData.rRule, appointmentData.exDate, {
+    dtstart: moment.utc(appointmentData.parentData.startDate).toDate(),
+  }).all();
+
+  if (currentSequence.length === 1) {
+    return deleteAll(appointmentData);
+  }
+
   const currentExDate = `${moment.utc(appointmentData.startDate).format('YYYYMMDDTHHmmss')}Z`;
   const exDate = appointmentData.exDate
     ? `${appointmentData.exDate},${currentExDate}`
@@ -22,10 +30,20 @@ export const deleteAll = (appointmentData: AppointmentModel) => {
 export const deletedCurrentAndFollowing = (appointmentData: AppointmentModel) => {
   const { rRule, startDate, parentData, exDate: prevExDate = '' } = appointmentData;
 
+  const initialSequence = makeRruleSet(rRule, prevExDate, {
+    dtstart: moment.utc(parentData.startDate).toDate(),
+  }).all();
+
+  if (initialSequence.length === 1) {
+    return deleteAll(appointmentData);
+  }
+
+  const currentChildIndex = initialSequence.findIndex(date => moment(date).isSame(startDate));
+
   const options = {
     ...RRule.parseString(rRule),
     dtstart: moment.utc(parentData.startDate).toDate(),
-    until: moment.utc(startDate).toDate(),
+    until: moment.utc(initialSequence[currentChildIndex - 1]).toDate(),
     count: '',
   };
   let rruleSet = new RRuleSet();
@@ -105,10 +123,6 @@ const makeRruleSet = (rRule: string, exDate: string, options: any) => {
 export const editCurrentAndFollowing = (changes: any, appointmentData: AppointmentModel) => {
   const { rRule, startDate, parentData, exDate: prevExDate = '' } = appointmentData;
 
-  const initialSequence = makeRruleSet(rRule, prevExDate, {
-    dtstart: moment.utc(parentData.startDate).toDate(),
-  }).all();
-
   const initialRule = new RRule(RRule.parseString(rRule));
   if (moment.utc(changes.startDate).isAfter(initialRule.options.until!)) {
     return {
@@ -122,6 +136,9 @@ export const editCurrentAndFollowing = (changes: any, appointmentData: Appointme
     };
   }
 
+  const initialSequence = makeRruleSet(rRule, prevExDate, {
+    dtstart: moment.utc(parentData.startDate).toDate(),
+  }).all();
   const currentChildIndex = initialSequence.findIndex(date => moment(date).isSame(startDate));
 
   if (currentChildIndex === 0) {

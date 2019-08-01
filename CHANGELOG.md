@@ -18,6 +18,7 @@
 
 # [2.0.0](https://github.com/DevExpress/devextreme-reactive/compare/v1.11.1...v2.0.0) (2019-07-08)
 
+We released v2.0.0 today because we [migrated to material-ui v4](https://github.com/DevExpress/devextreme-reactive/pull/2060). For the time being, we will fix bugs in v1.x for those who need to remain on material-ui v3. We recommend updating to material-ui v4, since new features will only be included in v2.x.
 
 ### Bug Fixes
 

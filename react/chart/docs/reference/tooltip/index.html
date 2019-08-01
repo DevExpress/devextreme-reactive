@@ -14,8 +14,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.min.css" type="text/css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/addon/fold/foldgutter.min.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1563524049">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1563524049">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1564667654">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1564667654">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <!-- Google Tag Manager -->
@@ -137,6 +137,18 @@
       <td> </td>
       <td>A component that renders the tooltip content.</td>
     </tr>
+    <tr>
+      <td>arrowComponent</td>
+      <td>ComponentType&lt;<a href="#tooltiparrowprops">Tooltip.ArrowProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders the tooltip arrow.</td>
+    </tr>
+    <tr>
+      <td>sheetComponent</td>
+      <td>ComponentType&lt;<a href="#tooltipsheetprops">Tooltip.SheetProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders the tooltip sheet.</td>
+    </tr>
   </tbody>
 </table>
 
@@ -152,6 +164,7 @@
       <th>Field</th>
       <th>Type</th>
       <th>Description</th>
+      <th> </th>
     </tr>
   </thead>
   <tbody>
@@ -159,11 +172,19 @@
       <td>target</td>
       <td>{getBoundingClientRect: () =&gt; ClientRect, clientHeight: number, clientWidth: number}</td>
       <td>An <a href="https://popper.js.org/popper-documentation.html#referenceObject">object</a> that provides an API to position the tooltip.</td>
+      <td> </td>
     </tr>
     <tr>
       <td>children</td>
       <td>ReactNode</td>
       <td>A React node used to render the tooltip’s content.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>arrowComponent</td>
+      <td>ComponentType&lt;<a href="#tooltiparrowprops">Tooltip.ArrowProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders the tooltip arrow.</td>
     </tr>
   </tbody>
 </table>
@@ -194,6 +215,48 @@
   </tbody>
 </table>
 
+<h3 id="tooltiparrowprops">Tooltip.ArrowProps</h3>
+
+<p>Describes properties passed to a component that renders the tooltip’s arrow.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>placement</td>
+      <td>‘top’ | ‘right’</td>
+      <td>The tooltip’s placement.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="tooltipsheetprops">Tooltip.SheetProps</h3>
+
+<p>Describes properties passed to a component that renders the tooltip’s sheet.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>children</td>
+      <td>ReactNode</td>
+      <td>The sheet’s children.</td>
+    </tr>
+  </tbody>
+</table>
+
 <h2 id="plugin-components">Plugin Components</h2>
 
 <table class="table table-bordered table-striped">
@@ -215,6 +278,16 @@
       <td><a href="#tooltipcontentprops">Tooltip.ContentProps</a></td>
       <td>A component that renders the tooltip’s content.</td>
     </tr>
+    <tr>
+      <td>Tooltip.Arrow</td>
+      <td><a href="#tooltiparrowprops">Tooltip.ArrowProps</a></td>
+      <td>A component that renders the tooltip arrow.</td>
+    </tr>
+    <tr>
+      <td>Tooltip.Sheet</td>
+      <td><a href="#tooltipsheetprops">Tooltip.SheetProps</a></td>
+      <td>A component that renders the tooltip sheet.</td>
+    </tr>
   </tbody>
 </table>
 
@@ -228,9 +301,9 @@
       </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#2.0.1">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#2.0.2">
             Version
-            <span>2.0.1</span>
+            <span>2.0.2</span>
           </a>
         </li>
       </ul>
@@ -580,7 +653,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/common/dist/index.js?v=1563524049"></script>
+<script src="/devextreme-reactive/react/common/dist/index.js?v=1564667654"></script>
 
 <script
   type="text/javascript"
@@ -636,7 +709,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1563524049"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1564667654"></script>
     <script>
         trackingCookie.notice();
     </script>

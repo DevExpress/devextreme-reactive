@@ -53,6 +53,6 @@
     "typescript-tslint-plugin": "^0.5.4"
   },
   "peerDependencies": {
-    "@devexpress/dx-core": "2.0.1"
+    "@devexpress/dx-core": "2.0.2"
   }
 }

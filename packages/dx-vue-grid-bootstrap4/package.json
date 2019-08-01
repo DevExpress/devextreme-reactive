@@ -74,8 +74,8 @@
     "@devexpress/dx-grid-core": "2.0.2"
   },
   "peerDependencies": {
-    "@devexpress/dx-vue-core": "2.0.1",
-    "@devexpress/dx-vue-grid": "2.0.1",
+    "@devexpress/dx-vue-core": "2.0.2",
+    "@devexpress/dx-vue-grid": "2.0.2",
     "vue": ">=2.5.16"
   }
 }

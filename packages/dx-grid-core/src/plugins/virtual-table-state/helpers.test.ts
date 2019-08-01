@@ -2,7 +2,7 @@ import {
   mergeRows, calculateRequestedRange, rowToPageIndex,
   recalculateBounds, trimRowsToInterval,
   getForceReloadInterval, getAvailableRowCount,
-  needFetchMorePages, shouldLoadRows, getRequestMeta,
+  needFetchMorePages, shouldSendRequest, getRequestMeta,
 } from './helpers';
 import { intervalUtil } from './utils';
 import { createInterval, generateRows, createVirtualRows } from './test-utils';
@@ -419,19 +419,19 @@ describe('VirtualTableState helpers', () => {
     });
   });
 
-  describe('#shouldLoadRows', () => {
+  describe('#shouldSendRequest', () => {
     it('should return false if page is already requested', () => {
-      expect(shouldLoadRows({ start: 100, end: 200 }, 100))
+      expect(shouldSendRequest({ start: 100, end: 200 }, 100))
         .toBeFalsy();
     });
 
     it('should return true if page is not yet requested', () => {
-      expect(shouldLoadRows({ start: 100, end: 200 }, 400))
+      expect(shouldSendRequest({ start: 100, end: 200 }, 400))
         .toBeTruthy();
     });
 
     it('should return false if requested range is empty', () => {
-      expect(shouldLoadRows({ start: 100, end: 100 }, 400))
+      expect(shouldSendRequest({ start: 100, end: 100 }, 400))
         .toBeFalsy();
     });
   });

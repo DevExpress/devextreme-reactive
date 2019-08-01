@@ -3,7 +3,7 @@ import { Getter, Action, Plugin, Getters, Actions } from '@devexpress/dx-react-c
 import {
   virtualRowsWithCache, trimRowsToInterval, emptyVirtualRows, plainRows, loadedRowsStart,
   VirtualRows, Interval, getAvailableRowCount, needFetchMorePages, getReferenceIndex,
-  shouldLoadRows, getRequestMeta,
+  shouldSendRequest, getRequestMeta,
 } from '@devexpress/dx-grid-core';
 import { VirtualTableStateProps } from '../../types';
 
@@ -55,9 +55,8 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
     const { requestedRange, actualBounds } = getRequestMeta(
       referenceIndex, virtualRows, pageSize!, totalRowCount, forceReload,
     );
-    console.log('req range', requestedRange, 'actual bounds', actualBounds)
 
-    if (forceReload || shouldLoadRows(requestedRange, requestedStartIndex)) {
+    if (forceReload || shouldSendRequest(requestedRange, requestedStartIndex)) {
       this.requestNextPage(requestedRange, actualVirtualRows, actualBounds);
     }
   }
@@ -77,7 +76,7 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
       const virtualRowsCache = trimRowsToInterval(virtualRows, actualBounds);
       const availableRowCount = getAvailableRowCount(
         infiniteScrolling,
-        actualBounds.end + loadCount,
+        actualBounds.end,
         stateAvailableCount,
         totalRowCount,
       );

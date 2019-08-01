@@ -153,7 +153,7 @@ export const getReferenceIndex: PureComputed<[GridViewport], number> = (
   (top + bottom) / 2
 );
 
-export const shouldLoadRows: PureComputed<[Interval, number], boolean> = (
+export const shouldSendRequest: PureComputed<[Interval, number], boolean> = (
   { start, end }, requestedPageIndex,
 ) => {
   const newPageIndex = start;

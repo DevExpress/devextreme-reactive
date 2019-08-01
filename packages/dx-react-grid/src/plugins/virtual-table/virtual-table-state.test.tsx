@@ -1,10 +1,10 @@
 import * as React from 'react';
 import {
-  recalculateBounds, calculateRequestedRange,
+  getRequestMeta,
   virtualRowsWithCache, trimRowsToInterval,
   emptyVirtualRows,
   plainRows, getReferenceIndex,
-  loadedRowsStart, needFetchMorePages, shouldLoadRows,
+  loadedRowsStart, needFetchMorePages, shouldSendRequest,
 } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { mount } from 'enzyme';
@@ -20,8 +20,8 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   loadedRowsStart: jest.fn(),
   needFetchMorePages: jest.fn(),
   getReferenceIndex: jest.fn(),
-  shouldLoadRows: jest.fn(),
-  calculateRequestedRange: jest.fn(),
+  shouldSendRequest: jest.fn(),
+  getRequestMeta: jest.fn(),
   trimRowsToInterval: jest.fn(),
 }));
 
@@ -45,7 +45,9 @@ describe('VirtualTableState', () => {
     plainRows.mockImplementation(() => 'plainRows');
     loadedRowsStart.mockImplementation(() => 'loadedRowsStart');
     getReferenceIndex.mockReturnValue('getReferenceIndex');
-    calculateRequestedRange.mockReturnValue('calculateRequestedRange');
+    getRequestMeta.mockReturnValue({
+      requestedRange: 'requestedRange', actualBounds: 'actualBounds',
+    });
     trimRowsToInterval.mockReturnValue('trimRowsToInterval');
   });
 
@@ -156,17 +158,18 @@ describe('VirtualTableState', () => {
     describe('Reload rows', () => {
       beforeEach(() => {
         jest.useFakeTimers();
-        virtualRowsWithCache.mockImplementation(() => ({
-          skip: 100,
-          rows: Array.from({ length: 200 }),
-        }));
+
         const actual = require.requireActual('@devexpress/dx-grid-core');
-        calculateRequestedRange.mockImplementation((...args) => (
-          actual.calculateRequestedRange(...args)
+        getRequestMeta.mockImplementation((...args) => (
+          actual.getRequestMeta(...args)
         ));
         trimRowsToInterval.mockImplementation((...args) => (
           actual.trimRowsToInterval(...args)
         ));
+        virtualRowsWithCache.mockImplementation(() => ({
+          skip: 100,
+          rows: Array.from({ length: 200 }),
+        }));
       });
 
       it('should reload rows when sorting changed', () => {
@@ -218,7 +221,7 @@ describe('VirtualTableState', () => {
 
     describe('setViewport', () => {
       beforeEach(() => {
-        shouldLoadRows.mockReturnValue(true);
+        shouldSendRequest.mockReturnValue(true);
       });
 
       it('should load rows if necessary', () => {

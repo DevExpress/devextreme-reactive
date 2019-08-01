@@ -31,6 +31,7 @@ const defaultDeps = {
 
 const defaultProps = {
   minColumnWidth: 40,
+  maxColumnWidth: Infinity,
 };
 
 describe('TableColumnResizing', () => {
@@ -108,7 +109,12 @@ describe('TableColumnResizing', () => {
       </PluginHost>
     ));
 
-    const payload = { changes: { a: 50 }, minColumnWidth: defaultProps.minColumnWidth };
+    const payload = {
+      changes: { a: 50 },
+      minColumnWidth: defaultProps.minColumnWidth,
+      maxColumnWidth: defaultProps.maxColumnWidth,
+      columnExtensions: undefined,
+    };
 
     draftTableColumnWidth.mockReturnValue({ draftColumnWidths: [{ columnName: 'a', width: 150 }] });
     executeComputedAction(tree, actions => actions.draftTableColumnWidth(payload));
@@ -140,6 +146,36 @@ describe('TableColumnResizing', () => {
     executeComputedAction(tree, actions => actions.cancelTableColumnWidthDraft(payload));
 
     expect(cancelTableColumnWidthDraft)
+      .toBeCalledWith(expect.objectContaining({ draftColumnWidths: [] }), payload);
+
+    expect(tableColumnsWithDraftWidths)
+      .toBeCalledWith('tableColumnsWithWidths', [{ columnName: 'a', width: 150 }]);
+  });
+
+  it('should provide "columnExtensions" property', () => {
+    const columnExtensions = [{ columnName: 'a', minWidth: 50, maxWidth: 150 }];
+    const payload = {
+      changes: { a: 50 },
+      minColumnWidth: defaultProps.minColumnWidth,
+      maxColumnWidth: defaultProps.maxColumnWidth,
+      columnExtensions,
+    };
+
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableColumnResizing
+          {...defaultProps}
+          defaultColumnWidths={[{ columnName: 'a', width: 100 }]}
+          columnExtensions={columnExtensions}
+        />
+      </PluginHost>
+    ));
+
+    draftTableColumnWidth.mockReturnValue({ draftColumnWidths: [{ columnName: 'a', width: 150 }] });
+    executeComputedAction(tree, actions => actions.draftTableColumnWidth(payload));
+
+    expect(draftTableColumnWidth)
       .toBeCalledWith(expect.objectContaining({ draftColumnWidths: [] }), payload);
 
     expect(tableColumnsWithDraftWidths)

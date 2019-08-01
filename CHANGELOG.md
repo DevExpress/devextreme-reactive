@@ -4,6 +4,7 @@
 ### Bug Fixes
 
 * **react-chart:** fix tooltip customization ([#2191](https://github.com/DevExpress/devextreme-reactive/issues/2191)) ([b23bef2](https://github.com/DevExpress/devextreme-reactive/commit/b23bef2))
+* **react-chart:** fix zooming over minimal threshold ([#2183](https://github.com/DevExpress/devextreme-reactive/issues/2183)) ([88baf47](https://github.com/DevExpress/devextreme-reactive/commit/88baf47))
 * **react-chart-material-ui:** apply correct layout height ([#2180](https://github.com/DevExpress/devextreme-reactive/issues/2180)) ([88bf517](https://github.com/DevExpress/devextreme-reactive/commit/88bf517)), closes [#2172](https://github.com/DevExpress/devextreme-reactive/issues/2172)
 * **react-core:** get rid of redundant type ([#2179](https://github.com/DevExpress/devextreme-reactive/issues/2179)) ([eb0ca11](https://github.com/DevExpress/devextreme-reactive/commit/eb0ca11))
 * **react-grid:** correct calculation of available row count in infninite scrolling mode ([#2188](https://github.com/DevExpress/devextreme-reactive/issues/2188)) ([28e93d5](https://github.com/DevExpress/devextreme-reactive/commit/28e93d5))

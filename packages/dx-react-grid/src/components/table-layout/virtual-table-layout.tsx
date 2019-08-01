@@ -82,7 +82,7 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
     // lazy loading is used because by the time that all involved events are handled
     // no rows are loaded yet.
     if (prevProps.bodyRows !== bodyRows) {
-      this.updateVisibleBoundaries();
+      this.updateViewport();
     }
   }
 
@@ -174,7 +174,7 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
     }
   }
 
-  updateViewport = (e) => {
+  onScroll = (e) => {
     const node = e.target;
 
     if (this.shouldSkipScrollEvent(e)) {
@@ -186,14 +186,14 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
     this.viewportTop = viewportTop;
     this.viewportLeft = viewportLeft;
 
-    this.updateVisibleBoundaries();
+    this.updateViewport();
   }
 
   handleContainerSizeChange = ({ width, height }) => {
     this.containerHeight = height;
     this.containerWidth = width;
 
-    this.updateVisibleBoundaries();
+    this.updateViewport();
   }
 
   shouldSkipScrollEvent(e) {
@@ -217,7 +217,7 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
     return false;
   }
 
-  updateVisibleBoundaries() {
+  updateViewport() {
     const { viewport, setViewport } = this.props;
     const newViewport = this.calculateViewport();
 
@@ -316,7 +316,7 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
         style={{
           ...(height === AUTO_HEIGHT ? null : { height }),
         }}
-        onScroll={this.updateViewport}
+        onScroll={this.onScroll}
       >
         {
           (!!headerRows.length) && (

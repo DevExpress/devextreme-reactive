@@ -1,6 +1,6 @@
 import { intervalUtil } from './utils';
 import {
-  VirtualRows, Row, MergeRowsFn, CalculateRequestedRangeFn, Interval, GridViewport,
+  VirtualRows, Row, MergeRowsFn, CalculateRequestedRangeFn, Interval, GridViewport, GetRequestMeta,
 } from '../../types';
 import { PureComputed } from '@devexpress/dx-core';
 
@@ -117,6 +117,19 @@ export const getForceReloadInterval: PureComputed<[VirtualRows, number, number],
     start,
     end,
   };
+};
+
+export const getRequestMeta: GetRequestMeta = (
+  referenceIndex, virtualRows, pageSize, totalRowCount, forceReload,
+) => {
+  const actualBounds = forceReload
+    ? getForceReloadInterval(virtualRows, pageSize!, totalRowCount)
+    : recalculateBounds(referenceIndex, pageSize!, totalRowCount);
+  const requestedRange = forceReload
+    ? actualBounds
+    : calculateRequestedRange(virtualRows, actualBounds, pageSize!);
+
+  return { requestedRange, actualBounds };
 };
 
 export const needFetchMorePages: PureComputed<[VirtualRows, number, number], boolean> = (

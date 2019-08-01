@@ -2,10 +2,10 @@ import {
   mergeRows, calculateRequestedRange, rowToPageIndex,
   recalculateBounds, trimRowsToInterval,
   getForceReloadInterval, getAvailableRowCount,
+  needFetchMorePages, shouldLoadRows, getRequestMeta,
 } from './helpers';
 import { intervalUtil } from './utils';
 import { createInterval, generateRows, createVirtualRows } from './test-utils';
-import { needFetchMorePages, shouldLoadRows } from '../../../dist/dx-grid-core.umd';
 
 describe('VirtualTableState helpers', () => {
   describe('#mergeRows', () => {
@@ -379,14 +379,16 @@ describe('VirtualTableState helpers', () => {
 
   describe('#getForceReloadInterval', () => {
     it('should return 2 pages if loaded interval is less than 2 pages', () => {
-      expect(getForceReloadInterval({ start: 100, end: 200 }, 100, 1000)).toEqual({
+      const virtualRows = createVirtualRows(createInterval(100, 200));
+      expect(getForceReloadInterval(virtualRows, 100, 1000)).toEqual({
         start: 100,
         end: 300,
       });
     });
 
     it('should return loaded interval if it is more than 2 pages', () => {
-      expect(getForceReloadInterval({ start: 100, end: 400 }, 100, 1000)).toEqual({
+      const virtualRows = createVirtualRows(createInterval(100, 400));
+      expect(getForceReloadInterval(virtualRows, 100, 1000)).toEqual({
         start: 100,
         end: 400,
       });
@@ -431,6 +433,26 @@ describe('VirtualTableState helpers', () => {
     it('should return false if requested range is empty', () => {
       expect(shouldLoadRows({ start: 100, end: 100 }, 400))
         .toBeFalsy();
+    });
+  });
+
+  describe('#getRequestMeta', () => {
+    const virtualRows = createVirtualRows(createInterval(200, 500));
+
+    it('should work', () => {
+      expect(getRequestMeta(470, virtualRows, 100, 1000, false))
+        .toEqual({
+          actualBounds: { start: 300, end: 600 },
+          requestedRange: { start: 500, end: 600 },
+        });
+    });
+
+    it('should work with force reload', () => {
+      expect(getRequestMeta(370, virtualRows, 100, 1000, true))
+      .toEqual({
+        actualBounds: { start: 200, end: 500 },
+        requestedRange: { start: 200, end: 500 },
+      });
     });
   });
 });

@@ -23,7 +23,7 @@ class DataTypeProviderBase extends React.PureComponent<DataTypeProviderProps> {
     );
 
     return (
-      <Plugin name="DataTypeProvider">
+      <Plugin name="DataTypeProvider" key={columnNames.join('_')}>
         <Getter
           name="getAvailableFilterOperations"
           computed={getAvailableFilterOperationsComputed}

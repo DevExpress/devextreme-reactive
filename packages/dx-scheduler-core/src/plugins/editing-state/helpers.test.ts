@@ -50,7 +50,9 @@ describe('EditingState', () => {
         };
 
         const changes = deleteCurrent(appointmentData);
-        expect(changes).toEqual({ changed: { 0: { exDate: '20190716T142000Z,20190717T142000Z' } } });
+        expect(changes).toEqual({
+          changed: { 0: { exDate: '20190716T142000Z,20190717T142000Z' } },
+        });
       });
       it('should remove all sequence if current item is last', () => {
         const appointmentData = {
@@ -225,7 +227,6 @@ describe('EditingState', () => {
           },
         });
       });
-
       it('should process not required fields', () => {
         const changes = {
           title: 'Next title',
@@ -243,6 +244,24 @@ describe('EditingState', () => {
           added: {
             title: 'Next title',
             data: 123,
+            startDate: new Date(Date.UTC(2019, 6, 17, 14, 20)),
+            endDate: new Date(Date.UTC(2019, 6, 17, 16)),
+          },
+        });
+      });
+      it('should edit simple fields', () => {
+        const changes = {
+          title: 'Next title',
+        };
+
+        expect(editCurrent(changes, appointmentDataBase)).toEqual({
+          changed: {
+            4: {
+              exDate: '20190716T142000Z,20190717T142000Z',
+            },
+          },
+          added: {
+            title: 'Next title',
             startDate: new Date(Date.UTC(2019, 6, 17, 14, 20)),
             endDate: new Date(Date.UTC(2019, 6, 17, 16)),
           },
@@ -272,6 +291,25 @@ describe('EditingState', () => {
             startDate: new Date(Date.UTC(2019, 6, 17, 14, 20)),
             endDate: new Date(Date.UTC(2019, 6, 17, 16)),
             rRule: 'FREQ=DAILY;COUNT=2',
+          },
+        });
+      });
+      it('should edit simple fields', () => {
+        const changes = {
+          title: 'Next title',
+        };
+
+        expect(editCurrentAndFollowing(changes, appointmentDataBase)).toEqual({
+          changed: {
+            4: {
+              rRule: 'FREQ=DAILY;UNTIL=20190715T142000Z',
+            },
+          },
+          added: {
+            title: 'Next title',
+            rRule: 'FREQ=DAILY;COUNT=3',
+            startDate: new Date(Date.UTC(2019, 6, 17, 14, 20)),
+            endDate: new Date(Date.UTC(2019, 6, 17, 16)),
           },
         });
       });

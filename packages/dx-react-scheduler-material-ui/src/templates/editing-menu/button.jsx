@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import ButtonMUI from '@material-ui/core/Button';
-// import classNames from 'classnames';
 
 export const Button = ({
   onClick, title, ...restProps
@@ -15,5 +14,10 @@ export const Button = ({
 );
 
 Button.propTypes = {
-  children: PropTypes.node.isRequired,
+  onClick: PropTypes.func.isRequired,
+  title: PropTypes.string,
+};
+
+Button.defaultProps = {
+  title: '',
 };

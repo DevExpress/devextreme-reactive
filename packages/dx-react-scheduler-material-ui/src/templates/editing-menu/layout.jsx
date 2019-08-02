@@ -25,16 +25,13 @@ export const Layout = React.memo(({
     setCurrentValue(event.target.value);
   };
 
-  debugger
-
   return (
     <div
       {...restProps}
     >
-      <DialogTitle id="alert-dialog-title">Edit recurring event</DialogTitle>
+      <DialogTitle>Edit recurring event</DialogTitle>
       <DialogContent>
         <RadioGroup
-          name="gender1"
           value={currentValue}
           onChange={handleChange}
         >

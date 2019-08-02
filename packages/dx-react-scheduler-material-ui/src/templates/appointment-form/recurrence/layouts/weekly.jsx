@@ -83,7 +83,7 @@ const LayoutBase = ({
       justify="flex-start"
     >
       <BooleanEditor
-        label={getMessage('sundayLabel')}
+        label={getMessage('sunLabel')}
         readOnly={readOnly}
         value={recurrenceOptions.byweekday && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.SUNDAY) > -1}
         onValueChange={checked => handleWeekDaysChange(
@@ -94,7 +94,7 @@ const LayoutBase = ({
         )}
       />
       <BooleanEditor
-        label={getMessage('mondayLabel')}
+        label={getMessage('monLabel')}
         readOnly={readOnly}
         value={recurrenceOptions.byweekday && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.MONDAY) > -1}
         onValueChange={checked => handleWeekDaysChange(
@@ -105,7 +105,7 @@ const LayoutBase = ({
         )}
       />
       <BooleanEditor
-        label={getMessage('tuesdayLabel')}
+        label={getMessage('tueLabel')}
         readOnly={readOnly}
         value={recurrenceOptions.byweekday && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.TUESDAY) > -1}
         onValueChange={checked => handleWeekDaysChange(
@@ -116,7 +116,7 @@ const LayoutBase = ({
         )}
       />
       <BooleanEditor
-        label={getMessage('wednesdayLabel')}
+        label={getMessage('wedLabel')}
         readOnly={readOnly}
         value={recurrenceOptions.byweekday && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.WEDNESDAY) > -1}
         onValueChange={checked => handleWeekDaysChange(
@@ -127,7 +127,7 @@ const LayoutBase = ({
         )}
       />
       <BooleanEditor
-        label={getMessage('thursdayLabel')}
+        label={getMessage('thuLabel')}
         readOnly={readOnly}
         value={recurrenceOptions.byweekday && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.THURSDAY) > -1}
         onValueChange={checked => handleWeekDaysChange(
@@ -138,7 +138,7 @@ const LayoutBase = ({
         )}
       />
       <BooleanEditor
-        label={getMessage('fridayLabel')}
+        label={getMessage('friLabel')}
         readOnly={readOnly}
         value={recurrenceOptions.byweekday && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.FRIDAY) > -1}
         onValueChange={checked => handleWeekDaysChange(
@@ -149,7 +149,7 @@ const LayoutBase = ({
         )}
       />
       <BooleanEditor
-        label={getMessage('saturdayLabel')}
+        label={getMessage('satLabel')}
         readOnly={readOnly}
         value={recurrenceOptions.byweekday && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.SATURDAY) > -1}
         onValueChange={checked => handleWeekDaysChange(

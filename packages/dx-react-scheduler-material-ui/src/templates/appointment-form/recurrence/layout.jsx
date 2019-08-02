@@ -36,44 +36,28 @@ const LayoutBase = ({
   children,
   classes,
   className,
-  onRRuleChange,
-  style,
   getMessage,
   readOnly,
   recurrenceOptions,
+  changeAppointmentField,
+  changedAppointment,
+  switcherComponent: Switcher,
   ...restProps
-}) => {
+} ) => {
   let MainLayoutComponent = null;
   if (recurrenceOptions) {
     switch (frequency) {
       case 'daily':
-        MainLayoutComponent = props => (
-          <DailyLayout {...props} />
-        );
+        MainLayoutComponent = DailyLayout;
         break;
       case 'weekly':
-        MainLayoutComponent = props => (
-          <WeeklyLayout
-            booleanEditorComponent={BooleanEditor}
-            {...props}
-          />
-        );
+        MainLayoutComponent = WeeklyLayout;
         break;
       case 'monthly':
-        MainLayoutComponent = props => (
-          <MonthlyLayout
-            radioGroupEditorComponent={RadioGroupEditor}
-            {...props}
-          />
-        );
+        MainLayoutComponent = MonthlyLayout;
         break;
       case 'yearly':
-        MainLayoutComponent = props => (
-          <YearyLayout
-            radioGroupEditorComponent={RadioGroupEditor}
-            {...props}
-          />
-        );
+        MainLayoutComponent = YearyLayout;
         break;
       default:
         break;
@@ -92,6 +76,11 @@ const LayoutBase = ({
           getMessage={getMessage}
           readOnly={readOnly}
           changeAppointment={changeAppointment}
+          radioGroupEditorComponent={RadioGroupEditor}
+          changedAppointment={changedAppointment}
+          changeAppointmentField={changeAppointmentField}
+          booleanEditorComponent={BooleanEditor}
+          switcherComponent={Switcher}
           {...restProps}
         />
         <Label
@@ -107,6 +96,7 @@ const LayoutBase = ({
           onRecurrenceOptionsChange={onRecurrenceOptionsChange}
           dateAndTimeEditorComponent={DateAndTimeEditor}
         />
+        {children}
       </div>
     );
   }

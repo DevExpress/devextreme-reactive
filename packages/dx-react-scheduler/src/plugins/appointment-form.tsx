@@ -51,13 +51,40 @@ const defaultMessages = {
   afterLabel: 'After',
   occurencesLabel: 'occurence(s)',
   weeksOnLabel: 'week(s) on:',
-  sundayLabel: 'Sun',
-  mondayLabel: 'Mon',
-  tuesdayLabel: 'Tue',
-  wednesdayLabel: 'Wed',
-  thursdayLabel: 'Thu',
-  fridayLabel: 'Fri',
-  saturdayLabel: 'Sat',
+  sunLabel: 'Sun',
+  monLabel: 'Mon',
+  tueLabel: 'Tue',
+  wedLabel: 'Wed',
+  thuLabel: 'Thu',
+  friLabel: 'Fri',
+  satLabel: 'Sat',
+  monthsLabel: 'month(s)',
+  ofEveryMonthLabel: '\'th of every month',
+  theLabel: 'The',
+  firstLabel: 'First',
+  secondLabel: 'Second',
+  thirdLabel: 'Third',
+  fourthLabel: 'Fourth',
+  lastLabel: 'Last',
+  januaryLabel: 'January',
+  februaryLabel: 'February',
+  marchLabel: 'March',
+  aprilLabel: 'April',
+  mayLabel: 'May',
+  juneLabel: 'June',
+  julyLabel: 'July',
+  augustLabel: 'August',
+  septemberLabel: 'September',
+  octoberLabel: 'October',
+  novemberLabel: 'Nobember',
+  decemberLabel: 'December',
+  sundayLabel: 'Sunday',
+  mondayLabel: 'Monday',
+  tuesdayLabel: 'Tuesday',
+  wednesdayLabel: 'Wednesday',
+  thursdayLabel: 'Thursday',
+  fridayLabel: 'Friday',
+  saturdayLabel: 'Saturday',
 };
 
 const REPEAT_TYPES = {
@@ -358,13 +385,14 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
 
               const options = getRecurrenceOptions(changedAppointment.rRule);
               const setNewRRule = (newOptions) => {
-                const rRule = changeRecurrenceOptions(newOptions).toString();
+                const rRule = changeRecurrenceOptions(newOptions);
                 changeAppointmentField({ change: { rRule } });
               };
               return (
                 <RecurrenceLayout
                   frequency={frequency}
-                  recurrenceOptions={options}
+                  changeAppointmentField={changeAppointmentField}
+                  changedAppointment={changedAppointment}
                   recurrenceSwitcherComponent={RecurrenceSwitcherPlaceholder}
                   radioGroupEditorComponent={RadioGroupEditor}
                   textEditorComponent={TextEditor}
@@ -375,6 +403,8 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                   getMessage={getMessage}
                   readOnly={readOnly}
                   changeAppointment={changeAppointment}
+                  recurrenceOptions={options}
+                  switcherComponent={Switcher}
                 />
               );
             }}
@@ -406,6 +436,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                     const rRule = changeRecurrenceFrequency(
                       changedAppointment.rRule,
                       rruleRepeatType,
+                      changedAppointment.startDate.getDate(),
                     );
                     changeAppointmentField({ change: { rRule } });
 

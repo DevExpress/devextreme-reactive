@@ -9,7 +9,7 @@ import {
   RecurrecnceOptionsGetterFn,
   RecurrecnceOptionsSetterFn,
 } from '../../types';
-import { DEFAULT_RULE_OBJECT } from './constants';
+import { DEFAULT_RULE_OBJECT, RRULE_REPEAT_TYPES } from './constants';
 
 export const changeRecurrenceInterval: ChangeRecurrenceNumberFeildFn = (
   rule,
@@ -33,10 +33,23 @@ export const getRecurrenceInterval: NumberRecurrenceRuleGetterFn = (
 export const changeRecurrenceFrequency: ChangeRecurrenceNumberFeildFn = (
   rule,
   freq,
+  startDay,
 ) => {
-  if (!rule) return (new RRule({ ...DEFAULT_RULE_OBJECT, freq })).toString();
+  if (!rule) {
+    if (freq === RRULE_REPEAT_TYPES.monthly) {
+      return (new RRule({ ...DEFAULT_RULE_OBJECT, freq, bymonthday: [startDay] })).toString();
+    }
+    return (new RRule({ ...DEFAULT_RULE_OBJECT, freq })).toString();
+  }
+
   const options = RRule.parseString(rule);
+
+  if (freq === RRULE_REPEAT_TYPES.monthly && options.freq === freq) return rule;
+
   options.freq = freq;
+  if (freq === RRULE_REPEAT_TYPES.monthly) {
+    options.bymonthday = startDay;
+  }
   const newRule = new RRule(options);
   return newRule.toString();
 };
@@ -106,8 +119,16 @@ export const getRecurrenceWeekDays: RecurrenceWeekDayGetterFn = (
   return options.byweekday;
 };
 
-export const getRecurrenceOptions: RecurrecnceOptionsGetterFn = rule =>
-  rule ? RRule.parseString(rule) : null;
+export const getRecurrenceOptions: RecurrecnceOptionsGetterFn = rule =>{
+  if (!rule) return null;
+  const options = RRule.parseString(rule);
+  let byweekday = [];
+  if (options.byweekday) {
+    byweekday = options.byweekday.map(weekDay => weekDay.weekday);
+    options.byweekday = byweekday;
+  }
+  return options;
+}
 
 export const changeRecurrenceOptions: RecurrecnceOptionsSetterFn = options =>
-  new RRule(options);
+  (new RRule(options)).toString();

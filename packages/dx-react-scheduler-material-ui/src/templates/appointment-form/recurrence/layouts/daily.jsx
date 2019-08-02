@@ -42,6 +42,7 @@ const LayoutBase = ({
     <TextEditor
       readOnly={readOnly}
       value={recurrenceOptions.interval}
+      onBlur={() => console.log('here')}
       className={classes.textEditor}
       {...changeAppointment && {
         onValueChange: value => handleIntervalChange(

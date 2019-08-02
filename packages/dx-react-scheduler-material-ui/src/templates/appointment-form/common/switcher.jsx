@@ -31,6 +31,7 @@ const SwitcherBase = ({
   value,
   availableOptions,
   onChange,
+  disabled,
   classes,
   ...restProps
 }) => {
@@ -40,6 +41,7 @@ const SwitcherBase = ({
 
   return (
     <Select
+      disabled={disabled}
       classes={{ root: classes.root }}
       value={value}
       onChange={handleChange}
@@ -69,6 +71,11 @@ SwitcherBase.propTypes = {
   classes: PropTypes.object.isRequired,
   value: PropTypes.string.isRequired,
   availableOptions: PropTypes.arrayOf(PropTypes.string).isRequired,
+  disabled: PropTypes.bool,
+};
+
+SwitcherBase.defaultProps = {
+  disabled: false,
 };
 
 export const Switcher = withStyles(styles)(SwitcherBase, { name: 'Switcher' });

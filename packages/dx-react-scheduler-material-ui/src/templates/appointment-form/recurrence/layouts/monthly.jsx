@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import classNames from 'classnames';
+import { MONTHLY_RADIO_GROUP } from '@devexpress/dx-scheduler-core';
 
 const styles = theme => ({
   root: {
@@ -30,17 +30,16 @@ const LayoutBase = ({
   labelComponent: Label,
   onRecurrenceOptionsChange,
   changeAppointment,
-  className,
   classes,
   getMessage,
   readOnly,
   recurrenceOptions,
+  changeAppointmentField,
+  changedAppointment,
+  switcherComponent: Switcher,
   ...restProps
 }) => (
-  <div
-    className={classNames(classes.root, className)}
-    {...restProps}
-  >
+  <div {...restProps}>
     <Grid
       container
       direction="row"
@@ -61,10 +60,24 @@ const LayoutBase = ({
         }}
       />
       <Label
-        label={getMessage('daysLabel')}
+        label={getMessage('monthsLabel')}
         className={classes.label}
       />
     </Grid>
+    <RadioGroupEditor
+      id={MONTHLY_RADIO_GROUP}
+      readOnly={readOnly}
+      getMessage={getMessage}
+      textEditorComponent={TextEditor}
+      labelComponent={Label}
+      recurrenceOptions={recurrenceOptions}
+      onRecurrenceOptionsChange={onRecurrenceOptionsChange}
+      changeAppointment={changeAppointment}
+      changeAppointmentField={changeAppointmentField}
+      changedAppointment={changedAppointment}
+      switcherComponent={Switcher}
+    />
+
   </div>
 );
 

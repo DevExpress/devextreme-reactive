@@ -15,7 +15,6 @@ const LayoutBase = ({
   children,
   classes,
   className,
-  isRecurring,
   style,
   textEditorComponent: TextEditor,
   dateTimeEditorComponent: DateTimeEditor,
@@ -29,7 +28,7 @@ const LayoutBase = ({
   readOnly,
   ...restProps
 }) => {
-  const layoutStyle = !isRecurring ? {
+  const layoutStyle = !changedAppointment.rRule ? {
     width: '100%',
   } : {
     width: '50%',
@@ -95,7 +94,7 @@ const LayoutBase = ({
         }}
       />
       {
-        (!isRecurring) && (
+        (!changedAppointment.rRule) && (
           <React.Fragment>
             <Label label={getMessage('repeatLabel')} />
             <RecurrenceSwitcher />

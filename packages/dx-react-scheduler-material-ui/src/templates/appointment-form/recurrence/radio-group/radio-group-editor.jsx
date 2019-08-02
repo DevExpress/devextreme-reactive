@@ -2,12 +2,10 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import {
   END_REPEAT_RADIO_GROUP,
-  DAILY_RADIO_GROUP,
   MONTHLY_RADIO_GROUP,
   YEARLY_RADIO_GROUP,
 } from '@devexpress/dx-scheduler-core';
 import { EndRepeatEditor } from './end-repeat-editor';
-import { DailyEditor } from './daily-editor';
 import { MonthlyEditor } from './monthly-editor';
 import { YearlyEditor } from './yealy-editor';
 
@@ -22,26 +20,17 @@ export const RadioGroupEditor = ({
   onRecurrenceOptionsChange,
   readOnly,
   dateAndTimeEditorComponent: DateAndTimeEditor,
+  switcherComponent: Switcher,
   id,
+  changedAppointment,
+  changeAppointmentField,
+  changeAppointment,
   ...restProps
 }) => {
   switch (id) {
     case END_REPEAT_RADIO_GROUP:
       return (
         <EndRepeatEditor
-          readOnly={readOnly}
-          getMessage={getMessage}
-          textEditorComponent={TextEditor}
-          labelComponent={Label}
-          recurrenceOptions={recurrenceOptions}
-          onRecurrenceOptionsChange={onRecurrenceOptionsChange}
-          dateAndTimeEditorComponent={DateAndTimeEditor}
-          {...restProps}
-        />
-      );
-    case DAILY_RADIO_GROUP:
-      return (
-        <DailyEditor
           readOnly={readOnly}
           getMessage={getMessage}
           textEditorComponent={TextEditor}
@@ -62,6 +51,10 @@ export const RadioGroupEditor = ({
           recurrenceOptions={recurrenceOptions}
           onRecurrenceOptionsChange={onRecurrenceOptionsChange}
           dateAndTimeEditorComponent={DateAndTimeEditor}
+          changeAppointment={changeAppointment}
+          changeAppointmentField={changeAppointmentField}
+          changedAppointment={changedAppointment}
+          switcherComponent={Switcher}
           {...restProps}
         />
       );

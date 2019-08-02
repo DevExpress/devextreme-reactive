@@ -5,13 +5,13 @@ export const DEFAULT_RULE_OBJECT = {
 };
 
 export const DAYS_OF_WEEK = {
-  MONDAY: RRule.MO,
-  TUESDAY: RRule.TU,
-  WEDNESDAY: RRule.WE,
-  THURSDAY: RRule.TH,
-  FRIDAY: RRule.FR,
-  SATURDAY: RRule.SA,
-  SUNDAY: RRule.SU,
+  MONDAY: 0,
+  TUESDAY: 1,
+  WEDNESDAY: 2,
+  THURSDAY: 3,
+  FRIDAY: 4,
+  SATURDAY: 5,
+  SUNDAY: 6,
 };
 
 export const MONTHS = {

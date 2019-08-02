@@ -21,19 +21,93 @@ const styles = ({ spacing }) => ({
   },
 });
 
-const handleCountChange = (options, newCount, action) => {
-  const newOptions = { ...options, count: newCount };
-  action(newOptions);
+const handleStartDateChange = (
+  newStartDay,
+  changeRecurrenceOptionsAction,
+  options,
+) => {
+  const newOptions = { ...options, bymonthday: newStartDay };
+  changeRecurrenceOptionsAction(newOptions);
 };
 
-const handleEndDateChange = (options, newEndDate, action) => {
-  const newOptions = { ...options, until: newEndDate };
-  action(newOptions);
+const handleToDayNumberChange = (
+  startDay,
+  changeRecurrenceOptionsAction,
+  options,
+) => {
+  const newOptions = { ...options, bymonthday: startDay, byweekday: undefined };
+  changeRecurrenceOptionsAction(newOptions);
 };
 
-const handleCountAndUntilChange = (options, newCount, newEndDate, action) => {
-  const newOptions = { ...options, until: newEndDate, count: newCount };
-  action(newOptions);
+const handleToDayOfWeekChange = (
+  startDate,
+  changeRecurrenceOptionsAction,
+  options,
+) => {
+  const weekNumber = Math.trunc((startDate.getDate() - 1) / 4);
+  if (weekNumber < 4) {
+    const newOptions = {
+      ...options,
+      bymonthday: [
+        weekNumber * 7 + 1,
+        weekNumber * 7 + 2,
+        weekNumber * 7 + 3,
+        weekNumber * 7 + 4,
+        weekNumber * 7 + 5,
+        weekNumber * 7 + 6,
+        weekNumber * 7 + 7,
+      ],
+      byweekday: startDate.getDay(),
+    };
+    changeRecurrenceOptionsAction(newOptions);
+  } else {
+    const newOptions = {
+      ...options,
+      bymonthday: [-1, -2, -3, -4, -5, -6, -7],
+      byweekday: startDate.getDay(),
+    };
+    changeRecurrenceOptionsAction(newOptions);
+  }
+};
+
+const handleWeekNumberChange = (
+  newWeekNumber,
+  changeRecurrenceOptionsAction,
+  options,
+) => {
+  if (newWeekNumber < 4) {
+    const newOptions = {
+      ...options,
+      bymonthday: [
+        newWeekNumber * 7 + 1,
+        newWeekNumber * 7 + 2,
+        newWeekNumber * 7 + 3,
+        newWeekNumber * 7 + 4,
+        newWeekNumber * 7 + 5,
+        newWeekNumber * 7 + 6,
+        newWeekNumber * 7 + 7,
+      ],
+    };
+    changeRecurrenceOptionsAction(newOptions);
+  } else {
+    const newOptions = {
+      ...options,
+      bymonthday: [-1, -2, -3, -4, -5, -6, -7],
+    };
+    changeRecurrenceOptionsAction(newOptions);
+  }
+};
+
+const handleWeekDayChange = (
+  newWeekDay,
+  changeRecurrenceOptionsAction,
+  options,
+) => {
+  const newOptions = {
+    ...options,
+    byweekday: newWeekDay,
+  };
+  changeRecurrenceOptionsAction(newOptions);
 };
 
 const MonthlyEditorBase = ({
@@ -46,31 +120,44 @@ const MonthlyEditorBase = ({
   recurrenceOptions,
   onRecurrenceOptionsChange,
   dateAndTimeEditorComponent: DateAndTimeEditor,
+  switcherComponent: Switcher,
+  readOnly,
+  changedAppointment,
+  changeAppointment,
   ...restProps
 }) => {
-  const recurrenceCount = recurrenceOptions.count || 1;
-  const recurrenceEndDate = recurrenceOptions.until || new Date();
+  console.log(recurrenceOptions);
   let value;
-  if (recurrenceOptions.count) {
-    value = 'endAfter';
-  } else if (recurrenceOptions.until) {
-    value = 'endBy';
-  } else value = 'never';
+  let dayNumberTextField = changedAppointment.startDate.getDate();
+  // The last week in a month
+  let weekNumber = 4;
+  if (recurrenceOptions.bymonthday && !recurrenceOptions.bymonthday.length) {
+    value = 'onDayNumber';
+    dayNumberTextField = recurrenceOptions.bymonthday;
+    weekNumber = Math.trunc(changedAppointment.startDate.getDate() / 7);
+  } else {
+    value = 'onDayOfWeek';
+    if (recurrenceOptions.bymonthday[0] > 0) {
+      weekNumber = Math.trunc(recurrenceOptions.bymonthday[0] / 7);
+    }
+  }
 
   const onRadioGroupValueChange = (event) => {
     switch (event.target.value) {
-      case 'endAfter':
-        handleCountAndUntilChange(recurrenceOptions, 1, undefined, onRecurrenceOptionsChange);
+      case 'onDayNumber':
+        handleToDayNumberChange(
+          changedAppointment.startDate.getDate(),
+          onRecurrenceOptionsChange, recurrenceOptions,
+        );
         break;
-      case 'endBy':
-        handleCountAndUntilChange(
-          recurrenceOptions, undefined, new Date(), onRecurrenceOptionsChange,
+      case 'onDayOfWeek':
+        handleToDayOfWeekChange(
+          changedAppointment.startDate,
+          onRecurrenceOptionsChange,
+          recurrenceOptions,
         );
         break;
       default:
-        handleCountAndUntilChange(
-          recurrenceOptions, undefined, undefined, onRecurrenceOptionsChange,
-        );
         break;
     }
   };
@@ -83,9 +170,8 @@ const MonthlyEditorBase = ({
       value={value}
       {...restProps}
     >
-      <FormControlLabel value="never" control={<Radio />} label={getMessage('never')} />
       <FormControlLabel
-        value="endAfter"
+        value="onDayNumber"
         control={<Radio />}
         label={(
           <Grid
@@ -94,29 +180,31 @@ const MonthlyEditorBase = ({
             justify="flex-start"
           >
             <Label
-              className={classes.label}
               label={getMessage('onLabel')}
+              className={classes.label}
             />
             <TextEditor
-              disabled={value !== 'endAfter'}
+              disabled={value !== 'onDayNumber'}
+              readOnly={readOnly}
+              value={dayNumberTextField}
               className={classes.textEditor}
-              InputProps={{
-                className: classes.input,
+              {...changeAppointment && {
+                onValueChange: dayNumber => handleStartDateChange(
+                  dayNumber,
+                  onRecurrenceOptionsChange,
+                  recurrenceOptions,
+                ),
               }}
-              value={recurrenceCount}
-              onValueChange={count => handleCountChange(
-                recurrenceOptions, count, onRecurrenceOptionsChange,
-              )}
             />
             <Label
+              label={getMessage('ofEveryMonthLabel')}
               className={classes.label}
-              label={getMessage('occurencesLabel')}
             />
           </Grid>
         )}
       />
       <FormControlLabel
-        value="endBy"
+        value="onDayOfWeek"
         control={<Radio />}
         label={(
           <Grid
@@ -126,17 +214,78 @@ const MonthlyEditorBase = ({
           >
             <Label
               className={classes.label}
-              label={getMessage('afterLabel')}
+              label={getMessage('theLabel')}
             />
-            <DateAndTimeEditor
-              disabled={value !== 'endBy'}
-              oneDate
-              startDate={recurrenceEndDate}
-              onStartDateValueChange={date => handleEndDateChange(
-                recurrenceOptions,
-                date,
+            <Switcher
+              disabled={value !== 'onDayOfWeek'}
+              onChange={newWeekNumber => handleWeekNumberChange(
+                newWeekNumber,
                 onRecurrenceOptionsChange,
+                recurrenceOptions,
               )}
+              value={weekNumber}
+              availableOptions={[
+                {
+                  text: getMessage('firstLabel'),
+                  id: 0,
+                },
+                {
+                  text: getMessage('secondLabel'),
+                  id: 1,
+                },
+                {
+                  text: getMessage('thirdLabel'),
+                  id: 2,
+                },
+                {
+                  text: getMessage('fourthLabel'),
+                  id: 3,
+                },
+                {
+                  text: getMessage('lastLabel'),
+                  id: 4,
+                },
+              ]}
+            />
+            <Switcher
+              disabled={value !== 'onDayOfWeek'}
+              onChange={newWeekDay => handleWeekDayChange(
+                newWeekDay,
+                onRecurrenceOptionsChange,
+                recurrenceOptions,
+              )}
+              value={value === 'onDayOfWeek' ? recurrenceOptions.byweekday : changedAppointment.startDate.getDay()}
+              availableOptions={[
+                {
+                  text: getMessage('sundayLabel'),
+                  id: 0,
+                },
+                {
+                  text: getMessage('mondayLabel'),
+                  id: 1,
+                },
+                {
+                  text: getMessage('tuesdayLabel'),
+                  id: 2,
+                },
+                {
+                  text: getMessage('wednesdayLabel'),
+                  id: 3,
+                },
+                {
+                  text: getMessage('thursdayLabel'),
+                  id: 4,
+                },
+                {
+                  text: getMessage('fridayLabel'),
+                  id: 5,
+                },
+                {
+                  text: getMessage('saturdayLabel'),
+                  id: 6,
+                },
+              ]}
+
             />
           </Grid>
         )}

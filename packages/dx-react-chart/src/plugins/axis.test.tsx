@@ -167,64 +167,76 @@ describe('Axis', () => {
     setupAxisCoordinates([0, 1]);
     const tree = mount(<AxisTester position="left" />);
 
-    (tree.find(RootComponent).props() as any).onSizeChange({ tag: 'size' });
+    (tree.find(RootComponent).props() as any).onSizeChange({ width: 350, height: 250 });
 
     expect(defaultDeps.action.changeBBox.mock.calls[0][0]).toEqual({
-      placeholder: 'left-axis-test-domain', bBox: { tag: 'size' },
+      placeholder: 'left-axis-test-domain', bBox: { width: 350, height: 250 },
     });
 
     enforceUpdate(tree);
 
     expect(getDivStyle(tree)).toEqual({ position: 'relative', width: 250 });
-    expect(tree.find('svg').props()).toMatchObject({ width: 400, height: 300 });
+    expect(tree.find('svg').props()).toMatchObject({ width: 350, height: 300 });
   });
 
   it('should pass correct bbox, vertical-right position', () => {
     setupAxisCoordinates([0, 1]);
     const tree = mount(<AxisTester position="right" />);
 
-    (tree.find(RootComponent).props() as any).onSizeChange({ tag: 'size' });
+    (tree.find(RootComponent).props() as any).onSizeChange({ width: 350, height: 250 });
 
     expect(defaultDeps.action.changeBBox.mock.calls[0][0]).toEqual({
-      placeholder: 'right-axis-test-domain', bBox: { tag: 'size' },
+      placeholder: 'right-axis-test-domain', bBox: { width: 350, height: 250 },
     });
 
     enforceUpdate(tree);
 
     expect(getDivStyle(tree)).toEqual({ position: 'relative', width: 300 });
-    expect(tree.find('svg').props()).toMatchObject({ width: 400, height: 300 });
+    expect(tree.find('svg').props()).toMatchObject({ width: 350, height: 300 });
   });
 
   it('should pass correct bbox, horizontal-top position', () => {
     setupAxisCoordinates([1, 0]);
     const tree = mount(<AxisTester position="top" />);
 
-    (tree.find(RootComponent).props() as any).onSizeChange({ tag: 'size' });
+    (tree.find(RootComponent).props() as any).onSizeChange({ width: 350, height: 250 });
 
     expect(defaultDeps.action.changeBBox.mock.calls[0][0]).toEqual({
-      placeholder: 'top-axis-test-domain', bBox: { tag: 'size' },
+      placeholder: 'top-axis-test-domain', bBox: { width: 350, height: 250 },
     });
 
     enforceUpdate(tree);
 
     expect(getDivStyle(tree)).toEqual({ position: 'relative', height: 100, flexGrow: 1 });
-    expect(tree.find('svg').props()).toMatchObject({ width: 400, height: 300 });
+    expect(tree.find('svg').props()).toMatchObject({ width: 400, height: 250 });
   });
 
   it('should pass correct bbox for group, horizontal-bottom position', () => {
     setupAxisCoordinates([1, 0]);
     const tree = mount(<AxisTester />);
 
-    (tree.find(RootComponent).props() as any).onSizeChange({ tag: 'size' });
+    (tree.find(RootComponent).props() as any).onSizeChange({ width: 350, height: 250 });
 
     expect(defaultDeps.action.changeBBox.mock.calls[0][0]).toEqual({
-      placeholder: 'bottom-axis-test-domain', bBox: { tag: 'size' },
+      placeholder: 'bottom-axis-test-domain', bBox: { width: 350, height: 250 },
     });
 
     enforceUpdate(tree);
 
     expect(getDivStyle(tree)).toEqual({ position: 'relative', height: 150, flexGrow: 1 });
-    expect(tree.find('svg').props()).toMatchObject({ width: 400, height: 300 });
+    expect(tree.find('svg').props()).toMatchObject({ width: 400, height: 250 });
+  });
+
+  it('should call changeBBox one time, zises are not changed after update', () => {
+    setupAxisCoordinates([0, 1]);
+    const tree = mount(<AxisTester position="left" />);
+
+    const { onSizeChange } = tree.find(RootComponent).props() as any;
+
+    onSizeChange({ width: 300, height: 200 });
+    onSizeChange({ width: 300, height: 200 });
+
+    expect(defaultDeps.action.changeBBox.mock.calls.length).toBe(1);
   });
 
   it('should pass axisCoordinates method correct parameters, horizontal orientation', () => {
@@ -372,7 +384,7 @@ describe('Axis', () => {
     setupAxisCoordinates([1, 0]);
     const tree = mount(<AxisTester />);
 
-    (tree.find(RootComponent).props() as any).onSizeChange({ tag: 'size' });
+    (tree.find(RootComponent).props() as any).onSizeChange({ width: 350, height: 250 });
     enforceUpdate(tree);
 
     expect(tree.find(LineComponent).props()).toEqual({
@@ -387,7 +399,7 @@ describe('Axis', () => {
     setupAxisCoordinates([0, 1]);
     const tree = mount(<AxisTester />);
 
-    (tree.find(RootComponent).props() as any).onSizeChange({ tag: 'size' });
+    (tree.find(RootComponent).props() as any).onSizeChange({ width: 350, height: 250 });
     enforceUpdate(tree);
 
     expect(tree.find(LineComponent).props()).toEqual({

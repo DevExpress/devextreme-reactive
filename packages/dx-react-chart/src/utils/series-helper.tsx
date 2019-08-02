@@ -61,7 +61,7 @@ export const declareSeries = <T extends SeriesProps>(
           <Template name="series">
             <TemplatePlaceholder />
             <TemplateConnector>
-              {({ series, scales, getAnimatedStyle, rotated }) => {
+              {({ series, scales, getAnimatedStyle, rotated, layouts }) => {
                 const currentSeries = findSeriesByName(symbolName, series);
                 const argScale: ScaleObject = scales[ARGUMENT_DOMAIN];
                 const valScale: ScaleObject = scales[getValueDomainName(currentSeries!.scaleName)];
@@ -82,6 +82,7 @@ export const declareSeries = <T extends SeriesProps>(
                     color={currentSeries.color}
                     scales={currentScales}
                     getAnimatedStyle={getAnimatedStyle}
+                    pane={layouts.pane}
                   />
                 );
               }}

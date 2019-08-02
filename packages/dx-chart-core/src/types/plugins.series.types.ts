@@ -5,6 +5,7 @@ import {
 import {
   Scales, GetSeriesAnimatedStyleFn,
 } from './plugins.animation.types';
+import { Size } from '@devexpress/dx-react-core';
 
 /** @internal */
 export type AddSeriesFn = PureComputed<[SeriesList, DataItems, Colors, any, any]>;
@@ -54,6 +55,8 @@ interface CommonComponentProps {
   scales: Scales;
   /** @internal */
   getAnimatedStyle: GetSeriesAnimatedStyleFn;
+  /** @interanl */
+  pane: Size;
 }
 
 export interface PathComponentProps extends CommonComponentProps {
@@ -64,6 +67,9 @@ export interface PathComponentProps extends CommonComponentProps {
   /** Coordinates of the series' points */
   coordinates: PathPoints;
 }
+
+/** @interanl */
+export type getVisibilityFn = (pane: Size, x: number, y: number) => 'visible' | 'hidden';
 
 export interface PointComponentProps extends CommonComponentProps {
   /** @internal */

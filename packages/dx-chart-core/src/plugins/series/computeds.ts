@@ -12,7 +12,7 @@ import {
   SeriesList, Series, PointList, Point, DataItems, AddSeriesFn, ScalesCache, ScaleSeriesPointsFn,
   GetPointTransformerFn, Colors, Rect,
   BarSeries, ScatterSeries, PieSeries,
-  PointComponentProps, PathFn,
+  PointComponentProps, PathFn, getVisibilityFn,
 } from '../../types';
 import { ARGUMENT_DOMAIN } from '../../constants';
 import { getValueDomainName, getWidth } from '../../utils/scale';
@@ -284,3 +284,7 @@ const scalePoints = (series: Series, scales: ScalesCache, rotated: boolean) => {
 export const scaleSeriesPoints: ScaleSeriesPointsFn = (
   series, scales, rotated,
 ) => series.map(seriesItem => scalePoints(seriesItem, scales, rotated));
+
+export const getVisibility: getVisibilityFn = (pane, x , y) => {
+  return x >= 0 && x <= pane.width && y >= 0 && y <= pane.height ? 'visible' : 'hidden';
+};

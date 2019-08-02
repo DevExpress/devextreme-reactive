@@ -14,6 +14,7 @@ import * as React from 'react';
 import { SearchPanel as SearchPanel_2 } from '@devexpress/dx-react-grid';
 import { Table as Table_2 } from '@devexpress/dx-react-grid';
 import { TableBandHeader as TableBandHeader_2 } from '@devexpress/dx-react-grid';
+import { TableColumnResizing as TableColumnResizing_2 } from '@devexpress/dx-react-grid';
 import { TableColumnVisibility as TableColumnVisibility_2 } from '@devexpress/dx-react-grid';
 import { TableColumnWidthInfo } from '@devexpress/dx-react-grid';
 import { TableEditColumn as TableEditColumn_2 } from '@devexpress/dx-react-grid';
@@ -255,11 +256,17 @@ export interface TableColumnReorderingProps {
   order?: Array<string>;
 }
 
+// @public (undocumented)
+export namespace TableColumnResizing {
+  export type ColumnExtension = TableColumnResizing_2.ColumnExtension;
+}
+
 // @public
 export const TableColumnResizing: React.ComponentType<TableColumnResizingProps>;
 
 // @public (undocumented)
 export interface TableColumnResizingProps {
+  columnExtensions?: Array<TableColumnResizing_2.ColumnExtension>;
   columnWidths?: Array<TableColumnWidthInfo>;
   defaultColumnWidths?: Array<TableColumnWidthInfo>;
   minColumnWidth?: number;

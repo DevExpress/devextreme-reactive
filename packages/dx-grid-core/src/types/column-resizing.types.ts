@@ -41,3 +41,8 @@ export type ColumnWidthState = {
 export type ColumnWidthReducer = PureReducer<
   ColumnWidthState, ColumnWidthPayload, Partial<ColumnWidthState>
 >;
+/** @internal */
+export type ColumnSizeFn = PureComputed<
+  [TableColumn | TableColumnWidthInfo, ColumnWidthPayload],
+  number
+>;

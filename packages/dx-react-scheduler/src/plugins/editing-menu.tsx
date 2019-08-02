@@ -8,6 +8,7 @@ import {
   CURRENT_FOLLOWING,
   ALL,
 } from '@devexpress/dx-scheduler-core';
+import { EditingMenuProps, EditingMenuState } from '../types';
 
 const pluginDependencies = [
   { name: 'EditingState' },
@@ -19,7 +20,7 @@ const availableOperations = [
   { value: ALL, title: 'All events' },
 ];
 
-class EditingMenuBase extends React.PureComponent {
+class EditingMenuBase extends React.PureComponent<EditingMenuProps, EditingMenuState> {
   static components = {
     layoutComponent: 'Layout',
     modalComponent: 'Modal',
@@ -130,7 +131,5 @@ class EditingMenuBase extends React.PureComponent {
   }
 }
 
-/***
- * The EditingMenu plugin.
- * */
-export const EditingMenu: React.ComponentType = EditingMenuBase;
+/*** The EditingMenu plugin. */
+export const EditingMenu: React.ComponentType<EditingMenuProps> = EditingMenuBase;

@@ -25,6 +25,8 @@ export const Layout = React.memo(({
     setCurrentValue(event.target.value);
   };
 
+  debugger
+
   return (
     <div
       {...restProps}

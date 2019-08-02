@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { memoize } from '@devexpress/dx-core';
+import { memoize, getMessagesFormatter } from '@devexpress/dx-core';
 import {
   Plugin, Template, TemplatePlaceholder, TemplateConnector, Action, Getters, Actions,
 } from '@devexpress/dx-react-core';
@@ -14,11 +14,17 @@ const pluginDependencies = [
   { name: 'EditingState' },
 ];
 
-const availableOperations = [
-  { value: CURRENT, title: 'This event' },
-  { value: CURRENT_FOLLOWING, title: 'This and following events' },
-  { value: ALL, title: 'All events' },
+const defaultAvailableOperations = [
+  { value: CURRENT },
+  { value: CURRENT_FOLLOWING },
+  { value: ALL },
 ];
+
+const defaultMessages = {
+  [CURRENT]: 'This event',
+  [CURRENT_FOLLOWING]: 'This and following events',
+  [ALL]: 'All events',
+};
 
 class EditingMenuBase extends React.PureComponent<EditingMenuProps, EditingMenuState> {
   static components = {
@@ -40,6 +46,7 @@ class EditingMenuBase extends React.PureComponent<EditingMenuProps, EditingMenuS
     { editingAppointment }: Getters,
     { commitChangedAppointment }: Actions,
   ) => {
+    debugger
     if (editingAppointment && !editingAppointment.rRule) {
       commitChangedAppointment();
     } else {
@@ -63,7 +70,7 @@ class EditingMenuBase extends React.PureComponent<EditingMenuProps, EditingMenuS
     }
   }
 
-  commitFunction = memoize((editComputed, deleteComputed, payload) => {
+  commit = memoize((editComputed, deleteComputed, payload) => {
     if (payload) {
       return type => deleteComputed({ deletedAppointmentData: payload, type });
     }
@@ -71,11 +78,16 @@ class EditingMenuBase extends React.PureComponent<EditingMenuProps, EditingMenuS
   });
 
   closeMenu = () => {
-    this.setState({
-      isOpen: false,
-      deletedAppointmentData: null,
-    });
+    this.setState({ isOpen: false, deletedAppointmentData: null });
   }
+
+  availableOperations = memoize((messages) => {
+    const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
+    return defaultAvailableOperations.map(({ value }) => ({
+      value,
+      title: getMessage([value]),
+    }));
+  });
 
   render() {
     const { isOpen, deletedAppointmentData } = this.state;
@@ -86,6 +98,8 @@ class EditingMenuBase extends React.PureComponent<EditingMenuProps, EditingMenuS
       buttonComponent,
       messages,
     } = this.props;
+
+    const availableOperations = this.availableOperations(messages);
 
     return (
       <Plugin
@@ -104,13 +118,13 @@ class EditingMenuBase extends React.PureComponent<EditingMenuProps, EditingMenuS
         <Template name="modal">
           <TemplateConnector>
             {(getters, { commitChangedAppointment, commitDeletedAppointment }) => {
-              const commitFunction = this.commitFunction(
+              const commit = this.commit(
                 commitChangedAppointment, commitDeletedAppointment, deletedAppointmentData,
               );
 
               return (
                 <Modal
-                  container={this.modalContainer}
+                  containerRef={this.modalContainer}
                   open={isOpen}
                   onClose={this.closeMenu}
                   onBackdropClick={this.closeMenu}
@@ -118,7 +132,7 @@ class EditingMenuBase extends React.PureComponent<EditingMenuProps, EditingMenuS
                   <Layout
                     buttonComponent={buttonComponent}
                     handleClose={this.closeMenu}
-                    commit={commitFunction}
+                    commit={commit}
                     availableOperations={availableOperations}
                   />
                 </Modal>
@@ -131,5 +145,5 @@ class EditingMenuBase extends React.PureComponent<EditingMenuProps, EditingMenuS
   }
 }
 
-/*** The EditingMenu plugin. */
+/*** The EditingMenu plugin that provides a capability to edit recurrence appointments */
 export const EditingMenu: React.ComponentType<EditingMenuProps> = EditingMenuBase;

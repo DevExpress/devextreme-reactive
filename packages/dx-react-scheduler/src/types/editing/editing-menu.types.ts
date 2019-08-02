@@ -9,7 +9,7 @@ export namespace EditingMenu {
     availableOperations: Array<any>;
   }
   export interface ModalProps {
-    container: React.RefObject<unknown>;
+    containerRef: React.RefObject<unknown>;
     open: boolean;
     onClose: () => void;
     onBackdropClick: () => void;

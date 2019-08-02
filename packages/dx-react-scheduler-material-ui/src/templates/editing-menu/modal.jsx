@@ -4,7 +4,7 @@ import * as PropTypes from 'prop-types';
 import Dialog from '@material-ui/core/Dialog';
 
 export const Modal = ({
-  children, open, onClose, container, onBackdropClick, ...restProps
+  children, open, onClose, containerRef, onBackdropClick, ...restProps
 }) => {
   return (
     <Dialog
@@ -12,7 +12,7 @@ export const Modal = ({
       onClose={onClose}
       style={{ position: 'absolute' }}
       BackdropProps={{ style: { position: 'absolute' } }}
-      container={container.current}
+      container={containerRef.current}
       onBackdropClick={onBackdropClick}
       {...restProps}
     >

@@ -28,6 +28,7 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
   commitDeletedAppointment: ActionFn<any>;
 
   static defaultProps: Partial<EditingStateProps> = {
+    defaultEditingAppointment: {},
     defaultAppointmentChanges: {},
     defaultAddedAppointment: {},
     preCommitChanges: preCommitChangesBase,
@@ -45,9 +46,9 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
     const stateHelper: StateHelper = createStateHelper(
       this,
       {
-        editingAppointmentId: () => {
-          const { onEditingAppointmentIdChange } = this.props;
-          return onEditingAppointmentIdChange;
+        editingAppointment: () => {
+          const { onEditingAppointmentChange } = this.props;
+          return onEditingAppointmentChange;
         },
         addedAppointment: () => {
           const { onAddedAppointmentChange } = this.props;
@@ -114,13 +115,13 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const {
-      editingAppointmentId = prevState.editingAppointmentId,
+      editingAppointment = prevState.editingAppointment,
       appointmentChanges = prevState.appointmentChanges,
       addedAppointment = prevState.addedAppointment,
     } = nextProps;
 
     return {
-      editingAppointmentId,
+      editingAppointment,
       appointmentChanges,
       addedAppointment,
     };

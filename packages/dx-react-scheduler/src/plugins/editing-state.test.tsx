@@ -29,13 +29,13 @@ const defaultProps = {
 describe('EditingState', () => {
   testStatePluginField({
     Plugin: EditingState,
-    propertyName: 'editingAppointmentId',
+    propertyName: 'editingAppointment',
     defaultDeps,
     defaultProps,
     values: [
-      0,
-      1,
-      2,
+      { a: 0 },
+      { a: 1 },
+      { a: 2 },
     ],
     actions: [{
       actionName: 'startEditAppointment',

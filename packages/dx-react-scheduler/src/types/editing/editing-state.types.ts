@@ -1,12 +1,12 @@
 import { PreCommitChanges, ChangeSet, AppointmentModel } from '../index';
 
 export interface EditingStateProps {
-  /** The identifier of an appointment being edited. */
-  editingAppointmentId?: number | string;
-  /** The initial value of the editingAppointmentId property in uncontrolled mode. */
-  defaultEditingAppointmentId?: number | string;
-  /** Handles changes to the editingAppointmentId property value. */
-  onEditingAppointmentIdChange?: (editingAppointmentId: number | string) => void;
+  /** The data of an appointment being edited. */
+  editingAppointment?: Partial<AppointmentModel>;
+  /** The initial value of the editingAppointment property in uncontrolled mode. */
+  defaultEditingAppointment?: Partial<AppointmentModel>;
+  /** Handles changes to the editingAppointment property value. */
+  onEditingAppointmentChange?: (editingAppointment: Partial<AppointmentModel>) => void;
   /** A created but not committed appointment. */
   addedAppointment?: object;
   /** The initial value of the addedAppointment property in uncontrolled mode. */

@@ -40,8 +40,8 @@ export const changeTableColumnWidth: ColumnWidthReducer = (
 };
 
 export const draftTableColumnWidth: ColumnWidthReducer = (
-  state, { columnName, shift, minColumnWidth, maxColumnWidth, columnExtensions },
-) => {
+  state, { columnName, shift, minColumnWidth, maxColumnWidth, columnExtensions,
+}) => {
   const { columnWidths } = state;
   const updatedColumn = columnWidths.find(elem => elem.columnName === columnName)!;
   const size = getColumnSize(

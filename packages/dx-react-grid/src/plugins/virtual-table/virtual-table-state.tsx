@@ -5,7 +5,7 @@ import {
   VirtualRows, Interval, getAvailableRowCount, needFetchMorePages, getReferenceIndex,
   shouldSendRequest, getRequestMeta,
 } from '@devexpress/dx-grid-core';
-import { VirtualTableStateProps } from '../../types';
+import { VirtualTableStateProps, VirtualTableStateState } from '../../types';
 
 const virtualRowsComputed = (
   { skip, rows, virtualRowsCache }: Getters,
@@ -16,7 +16,7 @@ const rowsComputed = ({ virtualRows }: Getters) => plainRows(virtualRows);
 const loadedRowsStartComputed = ({ virtualRows }: Getters) => loadedRowsStart(virtualRows);
 
 // tslint:disable-next-line: max-line-length
-class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, any> {
+class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, VirtualTableStateState> {
   static defaultProps = {
     pageSize: 100,
   };
@@ -27,7 +27,7 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
 
     this.state = {
       virtualRowsCache: emptyVirtualRows,
-      requestedStartIndex: undefined,
+      requestedStartIndex: -1,
       availableRowCount: props.totalRowCount || 0,
     };
   }

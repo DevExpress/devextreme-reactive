@@ -413,7 +413,7 @@ describe('VirtualTableState helpers', () => {
         .toBeTruthy();
     });
 
-    it('should return false when referenceIndex is outside of a loaded range', () => {
+    it('should return true when referenceIndex is outside of a loaded range', () => {
       expect(needFetchMorePages(virtualRows, 500, 100))
         .toBeTruthy();
     });

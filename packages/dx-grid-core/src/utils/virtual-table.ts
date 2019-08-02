@@ -3,13 +3,14 @@ import {
   GetVisibleBoundaryWithFixedFn, VisibleBoundary, GetVisibleBoundaryFn, GetSpanBoundaryFn,
   CollapseBoundariesFn, GetColumnsSizeFn, GetCollapsedColumnsFn, CollapsedColumn,
   GetCollapsedAndStubRowsFn, GetCollapsedCellsFn, GetCollapsedGridFn, GetColumnWidthFn,
-  TableColumn, TableRow,
+  TableColumn,
   CollapsedCell,
   GetColumnWidthGetterFn,
   GetCollapsedGridsFn,
   CollapsedGrid,
   GetSpecificRenderBoundaryFn,
   GetRenderBoundaryFn,
+  GetRowsVisibleBoundaryFn,
 } from '../types';
 import { TABLE_FLEX_TYPE, intervalUtil } from '..';
 
@@ -78,9 +79,9 @@ export const getColumnBoundaries: PureComputed<
     columns,
   )
 );
-export const getRowsVisibleBoundary: PureComputed<
-[TableRow[], number, number, GetColumnWidthFn, number, number, boolean?], VisibleBoundary
-> = (rows, top, height, getRowHeight, offset, rowHeight, isDataRemote) => {
+export const getRowsVisibleBoundary: GetRowsVisibleBoundaryFn = (
+  rows, top, height, getRowHeight, offset, rowHeight, isDataRemote,
+) => {
   const beforePosition = offset * rowHeight;
   const noVisibleRowsLoaded = rowHeight > 0 &&
     beforePosition + rows.length * rowHeight < top ||

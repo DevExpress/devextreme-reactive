@@ -13,6 +13,7 @@ import {
   VirtualTableProps, VirtualTableLayoutProps,
   Table as TableNS,
   TableLayoutProps,
+  VirtualTablePluginState,
 } from '../../types';
 
 /** @internal */
@@ -34,7 +35,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
   defaultEstimatedRowHeight,
   defaultHeight,
 }) => {
-  class VirtualTable extends React.PureComponent<VirtualTableProps, any> {
+  class VirtualTable extends React.PureComponent<VirtualTableProps, VirtualTablePluginState> {
     static defaultProps = {
       estimatedRowHeight: defaultEstimatedRowHeight,
       height: defaultHeight,

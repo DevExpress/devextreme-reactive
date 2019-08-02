@@ -9,14 +9,21 @@ export interface TableColumnWidthInfo {
   /** A column width. */
   width: number;
 }
-export interface ColumnExtension {
-  /** A column name. */
-  columnName: string;
-  /** A column min width. */
-  minWidth: number;
-  /** A column max width. */
-  maxWidth: number;
+
+/* tslint:disable no-namespace max-line-length */
+export namespace TableColumnResizing {
+  /** Describes additional column properties that the plugin can handle. */
+  export interface ColumnExtension {
+    /** A column name. */
+    columnName: string;
+    /** A column minimum width. */
+    minWidth?: number;
+    /** A column maximum width. */
+    maxWidth?: number;
+  }
 }
+/* tslint:enable no-namespace max-line-length */
+
 /** @internal */
 export type SpecifyWidthsFn = PureComputed<
   [TableColumn[], TableColumnWidthInfo[], (columnName: string) => void]
@@ -30,7 +37,7 @@ export type ColumnWidthPayload = {
   shift: number,
   minColumnWidth: number,
   maxColumnWidth: number,
-  columnExtensions: Array<ColumnExtension>,
+  columnExtensions: Array<TableColumnResizing.ColumnExtension>,
 };
 /** @internal */
 export type ColumnWidthState = {

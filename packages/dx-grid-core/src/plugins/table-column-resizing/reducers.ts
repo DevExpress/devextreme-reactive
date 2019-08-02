@@ -2,14 +2,12 @@ import { slice } from '@devexpress/dx-core';
 import { ColumnWidthReducer, ColumnSizeFn } from '../../types';
 
 export const getColumnSize: ColumnSizeFn = (
-  updatedColumn, {columnName, shift, minColumnWidth, maxColumnWidth, columnExtensions,
+  updatedColumn, {columnName, shift, minColumnWidth, maxColumnWidth, columnExtensions = [],
 }) => {
-  const indexOfExtended = columnExtensions
-    ? columnExtensions.findIndex(elem => elem.columnName === columnName)
-    : -1;
+  const indexOfExtended = columnExtensions.findIndex(elem => elem.columnName === columnName);
   const extendedColumn = indexOfExtended >= 0 ? columnExtensions[indexOfExtended] : undefined;
-  const haveExtendedMinWidth = extendedColumn && extendedColumn.minWidth >= 0;
-  const haveExtendedMaxWidth = extendedColumn && extendedColumn.maxWidth >= 0;
+  const haveExtendedMinWidth = extendedColumn && extendedColumn.minWidth! >= 0;
+  const haveExtendedMaxWidth = extendedColumn && extendedColumn.maxWidth! >= 0;
   const minWidth = haveExtendedMinWidth
     ? columnExtensions[indexOfExtended].minWidth
     : minColumnWidth;
@@ -17,8 +15,8 @@ export const getColumnSize: ColumnSizeFn = (
     ? columnExtensions[indexOfExtended].maxWidth
     : maxColumnWidth;
   const size = Math.max(
-    minWidth,
-    Math.min(updatedColumn.width! + shift, maxWidth),
+    minWidth!,
+    Math.min(updatedColumn.width! + shift, maxWidth!),
   );
   return size;
 };

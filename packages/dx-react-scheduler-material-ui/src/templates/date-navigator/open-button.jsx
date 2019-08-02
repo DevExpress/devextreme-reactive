@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 
-export const OpenButton = ({
+export const OpenButton = React.memo(({
   text, onVisibilityToggle, ...restProps
 }) => (
   <Button
@@ -11,7 +11,7 @@ export const OpenButton = ({
   >
     {text}
   </Button>
-);
+));
 
 OpenButton.propTypes = {
   onVisibilityToggle: PropTypes.func.isRequired,

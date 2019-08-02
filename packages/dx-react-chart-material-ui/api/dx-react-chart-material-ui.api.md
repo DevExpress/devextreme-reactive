@@ -289,18 +289,32 @@ export namespace Tooltip {
   export type ContentProps = Tooltip_2.ContentProps;
 }
 
+// @public (undocumented)
+export namespace Tooltip {
+  export type ArrowProps = Tooltip_2.ArrowProps;
+}
+
+// @public (undocumented)
+export namespace Tooltip {
+  export type SheetProps = Tooltip_2.SheetProps;
+}
+
 // @public
 export const Tooltip: React.ComponentType<TooltipProps> & {
   Overlay: React.ComponentType<Tooltip_2.OverlayProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   Content: React.ComponentType<Tooltip_2.ContentProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  Arrow: React.ComponentType<Tooltip_2.ArrowProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  Sheet: React.ComponentType<Tooltip_2.SheetProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
 };
 
 // @public (undocumented)
 export interface TooltipProps {
+  arrowComponent?: React.ComponentType<Tooltip_2.ArrowProps>;
   contentComponent?: React.ComponentType<Tooltip_2.ContentProps>;
   defaultTargetItem?: SeriesRef;
   onTargetItemChange?: (target: SeriesRef) => void;
   overlayComponent?: React.ComponentType<Tooltip_2.OverlayProps>;
+  sheetComponent?: React.ComponentType<Tooltip_2.SheetProps>;
   targetItem?: SeriesRef;
 }
 

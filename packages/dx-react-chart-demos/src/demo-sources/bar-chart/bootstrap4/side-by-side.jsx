@@ -6,8 +6,9 @@ import {
   BarSeries,
   Title,
   Legend,
+  Tooltip,
 } from '@devexpress/dx-react-chart-bootstrap4';
-import { Stack, Animation } from '@devexpress/dx-react-chart';
+import { Stack, Animation, EventTracker } from '@devexpress/dx-react-chart';
 
 import { olimpicMedals as data } from '../../../demo-data/data-vizualization';
 
@@ -15,6 +16,13 @@ const Root = props => (
   <Legend.Root
     {...props}
     className="m-auto flex-row"
+  />
+);
+
+const Sheet = props => (
+  <Tooltip.Sheet
+    {...props}
+    className="bg-primary"
   />
 );
 
@@ -59,6 +67,8 @@ export default class Demo extends React.PureComponent {
           <Animation />
           <Legend position="bottom" rootComponent={Root} />
           <Title text="Olimpic Medals in 2008" />
+          <EventTracker />
+          <Tooltip sheetComponent={Sheet} />
           <Stack />
         </Chart>
       </div>

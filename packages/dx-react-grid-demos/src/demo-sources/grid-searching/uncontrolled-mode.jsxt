@@ -1,4 +1,4 @@
-import * as React from 'react';<%&additionalImports%>
+import React, { useState } from 'react';<%&additionalImports%>
 import {
   SearchState,
   IntegratedFiltering,
@@ -13,38 +13,28 @@ import {
 
 import { generateRows } from '../../../demo-data/generator';
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+export default () => {
+  const [columns] = useState([
+    { name: 'name', title: 'Name' },
+    { name: 'sex', title: 'Sex' },
+    { name: 'city', title: 'City' },
+    { name: 'car', title: 'Car' },
+  ]);
+  const [rows] = useState(generateRows({ length: 6 }));
 
-    this.state = {
-      columns: [
-        { name: 'name', title: 'Name' },
-        { name: 'sex', title: 'Sex' },
-        { name: 'city', title: 'City' },
-        { name: 'car', title: 'Car' },
-      ],
-      rows: generateRows({ length: 6 }),
-    };
-  }
-
-  render() {
-    const { rows, columns } = this.state;
-
-    return (
-      <<%&wrapperTag%><%&wrapperAttributes%>>
-        <Grid
-          rows={rows}
-          columns={columns}
-        >
-          <SearchState defaultValue="Paris" />
-          <IntegratedFiltering />
-          <Table />
-          <TableHeaderRow />
-          <Toolbar />
-          <SearchPanel />
-        </Grid>
-      </<%&wrapperTag%>>
-    );
-  }
-}
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={rows}
+        columns={columns}
+      >
+        <SearchState defaultValue="Paris" />
+        <IntegratedFiltering />
+        <Table />
+        <TableHeaderRow />
+        <Toolbar />
+        <SearchPanel />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
+};

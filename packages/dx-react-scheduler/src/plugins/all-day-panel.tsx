@@ -59,6 +59,9 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
     this.setState({ rects, elementsMeta: cellElementsMeta });
   });
 
+  getMessageFormatter = memoize((messages, allDayPanelDefaultMessages) =>
+    getMessagesFormatter({ ...allDayPanelDefaultMessages, ...messages }));
+
   render() {
     const {
       appointmentLayerComponent: AppointmentLayer,
@@ -70,7 +73,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
       messages,
     } = this.props;
     const { rects, elementsMeta } = this.state;
-    const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
+    const getMessage = this.getMessageFormatter(messages, defaultMessages);
 
     return (
       <Plugin

@@ -146,7 +146,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
 
               changeAppointment,
               cancelChangedAppointment,
-              commitChangedAppointment,
+              finishCommitAppointment,
             }) => {
               const isNew = editingAppointmentId === undefined;
               const changedAppointment = {
@@ -218,13 +218,11 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                           text={getMessage('commitCommand')}
                           onExecute={() => {
                             this.toggleVisibility();
-                            if (commitChangedAppointment) {
+                            if (finishCommitAppointment) {
                               if (isNew) {
                                 commitAddedAppointment();
                               } else {
-                                commitChangedAppointment({
-                                  appointmentId: changedAppointment.id,
-                                });
+                                finishCommitAppointment();
                               }
                             }
                           }}

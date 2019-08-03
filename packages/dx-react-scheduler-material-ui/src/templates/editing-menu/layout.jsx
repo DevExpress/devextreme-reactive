@@ -6,13 +6,13 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-// import classNames from 'classnames';
 
 export const Layout = React.memo(({
   buttonComponent: Button,
   handleClose,
   commit,
   availableOperations,
+  getMessage,
   ...restProps
 }) => {
   const [currentValue, setCurrentValue] = React.useState(availableOperations[0].value);
@@ -29,7 +29,7 @@ export const Layout = React.memo(({
     <div
       {...restProps}
     >
-      <DialogTitle>Edit recurring event</DialogTitle>
+      <DialogTitle>{getMessage('menuTitle')}</DialogTitle>
       <DialogContent>
         <RadioGroup
           value={currentValue}
@@ -46,13 +46,23 @@ export const Layout = React.memo(({
         </RadioGroup>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose} title="Cancel" />
-        <Button onClick={onCommitButtonClick} title="OK" color="primary" />
+        <Button onClick={handleClose} title={getMessage('cancelButton')} />
+        <Button onClick={onCommitButtonClick} title={getMessage('commitButton')} color="primary" />
       </DialogActions>
     </div>
   );
 });
 
 Layout.propTypes = {
-  children: PropTypes.node.isRequired,
+  buttonComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  availableOperations: PropTypes.array.isRequired,
+  handleClose: PropTypes.func,
+  commit: PropTypes.func,
+  getMessage: PropTypes.func,
+};
+
+Layout.defaultProps = {
+  handleClose: () => undefined,
+  commit: () => undefined,
+  getMessage: () => undefined,
 };

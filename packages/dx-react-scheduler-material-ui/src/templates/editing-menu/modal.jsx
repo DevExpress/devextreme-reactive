@@ -11,15 +11,15 @@ const styles = {
 };
 
 const ModalBase = ({
-  children, open, onClose, containerRef, onBackdropClick, classes, className, ...restProps
+  children, open, handleClose, containerRef, classes, className, ...restProps
 }) => (
   <Dialog
     open={open}
-    onClose={onClose}
+    onClose={handleClose}
     className={classNames(classes.modal, className)}
     BackdropProps={{ className: classes.modal }}
     container={containerRef.current}
-    onBackdropClick={onBackdropClick}
+    onBackdropClick={handleClose}
     {...restProps}
   >
     {children}
@@ -29,16 +29,15 @@ const ModalBase = ({
 ModalBase.propTypes = {
   children: PropTypes.node.isRequired,
   classes: PropTypes.object.isRequired,
-  onClose: PropTypes.func.isRequired,
+  handleClose: PropTypes.func.isRequired,
   containerRef: PropTypes.object.isRequired,
-  onBackdropClick: PropTypes.func.isRequired,
   open: PropTypes.bool,
   className: PropTypes.string,
 };
 
 ModalBase.defaultProps = {
-  open: false,
   className: undefined,
+  open: false,
 };
 
-export const Container = withStyles(styles, { name: 'Container' })(ModalBase);
+export const Modal = withStyles(styles, { name: 'Modal' })(ModalBase);

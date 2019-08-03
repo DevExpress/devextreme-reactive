@@ -46,7 +46,6 @@ class EditingMenuBase extends React.PureComponent<EditingMenuProps, EditingMenuS
     { editingAppointment }: Getters,
     { commitChangedAppointment }: Actions,
   ) => {
-    debugger
     if (editingAppointment && !editingAppointment.rRule) {
       commitChangedAppointment();
     } else {
@@ -81,13 +80,14 @@ class EditingMenuBase extends React.PureComponent<EditingMenuProps, EditingMenuS
     this.setState({ isOpen: false, deletedAppointmentData: null });
   }
 
-  availableOperations = memoize((messages) => {
-    const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
-    return defaultAvailableOperations.map(({ value }) => ({
+  availableOperations = memoize((getMessage, menuAvailableOperations) =>
+    menuAvailableOperations.map(({ value }) => ({
       value,
       title: getMessage([value]),
-    }));
-  });
+    })));
+
+  getMessage = memoize((messages, menuMessages) =>
+    getMessagesFormatter({ ...menuMessages, ...messages }));
 
   render() {
     const { isOpen, deletedAppointmentData } = this.state;
@@ -99,7 +99,8 @@ class EditingMenuBase extends React.PureComponent<EditingMenuProps, EditingMenuS
       messages,
     } = this.props;
 
-    const availableOperations = this.availableOperations(messages);
+    const getMessage = this.getMessage(messages, defaultMessages);
+    const availableOperations = this.availableOperations(getMessage, defaultAvailableOperations);
 
     return (
       <Plugin
@@ -126,14 +127,14 @@ class EditingMenuBase extends React.PureComponent<EditingMenuProps, EditingMenuS
                 <Modal
                   containerRef={this.modalContainer}
                   open={isOpen}
-                  onClose={this.closeMenu}
-                  onBackdropClick={this.closeMenu}
+                  handleClose={this.closeMenu}
                 >
                   <Layout
                     buttonComponent={buttonComponent}
                     handleClose={this.closeMenu}
                     commit={commit}
                     availableOperations={availableOperations}
+                    getMessage={getMessage}
                   />
                 </Modal>
               );

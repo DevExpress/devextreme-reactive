@@ -7,12 +7,13 @@ export namespace EditingMenu {
     handleClose: () => void;
     commit: () => void;
     availableOperations: Array<any>;
+    /** Returns a specified localization message. */
+    getMessage: (messageKey: string) => string;
   }
   export interface ModalProps {
     containerRef: React.RefObject<unknown>;
     open: boolean;
-    onClose: () => void;
-    onBackdropClick: () => void;
+    handleClose: () => void;
   }
   export interface ContainerProps {
     containerRef: React.RefObject<unknown>;

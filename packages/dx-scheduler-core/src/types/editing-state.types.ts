@@ -1,6 +1,6 @@
 import { Options } from 'rrule';
 import { AppointmentModel, AppointmentId } from './scheduler-core.types';
-import { PureComputed } from '@devexpress/dx-core';
+import { PureComputed } from './index';
 
 export type AppointmentChanges = { [key: string]: object };
 export type Changes = Partial<AppointmentModel>;

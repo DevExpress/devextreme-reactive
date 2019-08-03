@@ -5,6 +5,7 @@
 ```ts
 
 import moment from 'moment';
+import { PureComputed } from '@devexpress/dx-core';
 import * as React from 'react';
 
 // @public (undocumented)
@@ -258,17 +259,15 @@ export interface ChangeCurrentDatePayload {
 }
 
 // @public (undocumented)
-export type Changes = {
-  change: AppointmentModel | {};
-};
+export type Changes = Partial<AppointmentModel>;
 
 // @public
 export interface ChangeSet {
   added?: {
-    [key: string]: object;
+    [key: string]: any;
   };
   changed?: {
-    [key: string]: object;
+    [key: string]: any;
   };
   deleted?: number | string;
 }
@@ -386,6 +385,73 @@ export type EditAppointmentPayload = {
 };
 
 // @public
+export const EditingMenu: React.ComponentType<EditingMenuProps>;
+
+// @public (undocumented)
+export namespace EditingMenu {
+  // (undocumented)
+  export interface ButtonProps {
+    // (undocumented)
+    onClick: () => void;
+    // (undocumented)
+    title: string;
+  }
+  // (undocumented)
+  export interface ContainerProps {
+    // (undocumented)
+    containerRef: React.RefObject<unknown>;
+  }
+  // (undocumented)
+  export interface LayoutProps {
+    // (undocumented)
+    availableOperations: Array<any>;
+    // (undocumented)
+    buttonComponent: React.ComponentType<EditingMenu.ButtonProps>;
+    // (undocumented)
+    commit: () => void;
+    getMessage: (messageKey: string) => string;
+    // (undocumented)
+    handleClose: () => void;
+  }
+  export interface LocalizationMessages {
+    // (undocumented)
+    all?: string;
+    // (undocumented)
+    closeButton?: string;
+    // (undocumented)
+    commitButton?: string;
+    // (undocumented)
+    current?: string;
+    // (undocumented)
+    currentAndFollowing?: string;
+    // (undocumented)
+    menuTitle?: string;
+  }
+  // (undocumented)
+  export interface ModalProps {
+    // (undocumented)
+    containerRef: React.RefObject<unknown>;
+    // (undocumented)
+    handleClose: () => void;
+    // (undocumented)
+    open: boolean;
+  }
+}
+
+// @public (undocumented)
+export interface EditingMenuProps {
+  // (undocumented)
+  buttonComponent: React.ComponentType<EditingMenu.ButtonProps>;
+  // (undocumented)
+  containerComponent: React.ComponentType<EditingMenu.ContainerProps>;
+  // (undocumented)
+  layoutComponent: React.ComponentType<EditingMenu.LayoutProps>;
+  messages?: EditingMenu.LocalizationMessages;
+  // (undocumented)
+  modalComponent: React.ComponentType<EditingMenu.ModalProps>;
+}
+
+// @public
 export const EditingState: React.ComponentType<EditingStateProps>;
 
 // @public (undocumented)
@@ -398,15 +464,19 @@ export interface EditingStateProps {
   defaultAppointmentChanges?: {
     [key: string]: object;
   };
-  defaultEditingAppointmentId?: number | string;
-  editingAppointmentId?: number | string;
+  defaultEditingAppointment?: Partial<AppointmentModel>;
+  editingAppointment?: Partial<AppointmentModel>;
   onAddedAppointmentChange?: (addedAppointment: object) => void;
   onAppointmentChangesChange?: (appointmentChanges: {
     [key: string]: any;
   }) => void;
   onCommitChanges: (changes: ChangeSet) => void;
-  onEditingAppointmentIdChange?: (editingAppointmentId: number | string) => void;
+  onEditingAppointmentChange?: (editingAppointment: Partial<AppointmentModel>) => void;
+  preCommitChanges: PreCommitChanges;
 }
+
+// @public (undocumented)
+export type EditType = 'all' | 'currentAndFollowing' | 'current';
 
 // @public (undocumented)
 export type FormatterFn = (nextDate: SchedulerDateTime | undefined, nextOptions: Intl.DateTimeFormatOptions) => string;
@@ -471,6 +541,9 @@ export interface MonthViewProps extends MonthViewPropsType {
 
 // @public (undocumented)
 export type MonthViewPropsType = Pick<VerticalViewProps, Exclude<keyof VerticalViewProps, 'timeScaleLayoutComponent' | 'timeScaleRowComponent' | 'timeScaleCellComponent' | 'layoutComponent' | 'dayScaleEmptyCellComponent'>> & Pick<WeekViewProps, 'firstDayOfWeek'>;
+
+// @public (undocumented)
+export type PreCommitChanges = PureComputed<[Changes | null, Partial<AppointmentModel>, EditType], ChangeSet>;
 
 // @public
 export const Scheduler: React.ComponentType<SchedulerProps>;

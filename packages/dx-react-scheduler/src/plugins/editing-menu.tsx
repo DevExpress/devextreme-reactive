@@ -5,7 +5,7 @@ import {
 } from '@devexpress/dx-react-core';
 import {
   CURRENT,
-  CURRENT_FOLLOWING,
+  CURRENT_AND_FOLLOWING,
   ALL,
 } from '@devexpress/dx-scheduler-core';
 import { EditingMenuProps, EditingMenuState } from '../types';
@@ -16,14 +16,17 @@ const pluginDependencies = [
 
 const defaultAvailableOperations = [
   { value: CURRENT },
-  { value: CURRENT_FOLLOWING },
+  { value: CURRENT_AND_FOLLOWING },
   { value: ALL },
 ];
 
 const defaultMessages = {
   [CURRENT]: 'This event',
-  [CURRENT_FOLLOWING]: 'This and following events',
+  [CURRENT_AND_FOLLOWING]: 'This and following events',
   [ALL]: 'All events',
+  menuTitle: '',
+  closeButton: '',
+  commitButton: '',
 };
 
 class EditingMenuBase extends React.PureComponent<EditingMenuProps, EditingMenuState> {

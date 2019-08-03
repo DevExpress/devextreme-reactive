@@ -42,6 +42,7 @@ describe('EditingMenu', () => {
         handleClose: expect.any(Function),
         commit: expect.any(Function),
         availableOperations: expect.any(Array),
+        getMessage: expect.any(Function),
       });
   });
   it('should render Modal component', () => {
@@ -59,8 +60,7 @@ describe('EditingMenu', () => {
       .toEqual({
         containerRef: expect.any(Object),
         open: false,
-        onClose: expect.any(Function),
-        onBackdropClick: expect.any(Function),
+        handleClose: expect.any(Function),
         children: expect.any(Object),
       });
   });

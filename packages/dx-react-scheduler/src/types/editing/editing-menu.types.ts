@@ -24,18 +24,12 @@ export namespace EditingMenu {
   }
   /** Localization Messages */
   export interface LocalizationMessages {
-    /** The all day editor’s label text. */
-    allDayLabel?: string;
-    /** The title editor’s label text. */
-    titleLabel?: string;
-    /** The start date editor’s label text. */
-    startDateLabel?: string;
-    /** The end date editor’s label text. */
-    endDateLabel?: string;
-    /** The commit button’s text. */
-    commitCommand?: string;
-    /** The cancel button’s text. */
-    cancelCommand?: string;
+    current?: string;
+    currentAndFollowing?: string;
+    all?: string;
+    menuTitle?: string;
+    closeButton?: string;
+    commitButton?: string;
   }
 }
 

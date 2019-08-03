@@ -1,12 +1,12 @@
 import { Options } from 'rrule';
 import { AppointmentModel, AppointmentId } from './scheduler-core.types';
-import { PureComputed } from '@devexpress/dx-core/src';
+import { PureComputed } from '@devexpress/dx-core';
 
 export type AppointmentChanges = { [key: string]: object };
 export type Changes = Partial<AppointmentModel>;
 export type EditAppointmentPayload = { appointmentId: AppointmentId };
 
-export type EditType = 'ALL' | 'CURRENT_FOLLOWING' | 'CURRENT';
+export type EditType = 'all' | 'currentAndFollowing' | 'current';
 
 export type PreCommitChanges = PureComputed<
   [Changes | null, Partial<AppointmentModel>, EditType], ChangeSet

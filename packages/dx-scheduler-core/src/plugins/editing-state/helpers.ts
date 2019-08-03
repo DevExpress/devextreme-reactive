@@ -4,7 +4,7 @@ import { PureComputed } from '@devexpress/dx-core';
 import {
   AppointmentModel, PreCommitChanges, ChangeSet, Changes, MakeDateSequence,
 } from '../../types';
-import { ALL, CURRENT, CURRENT_FOLLOWING } from '../../constants';
+import { ALL, CURRENT, CURRENT_AND_FOLLOWING } from '../../constants';
 
 export const deleteCurrent: PureComputed<
   [Partial<AppointmentModel>], ChangeSet
@@ -218,7 +218,7 @@ export const preCommitChanges: PreCommitChanges = (
       case CURRENT: {
         return deleteCurrent(appointmentData);
       }
-      case CURRENT_FOLLOWING: {
+      case CURRENT_AND_FOLLOWING: {
         return deletedCurrentAndFollowing(appointmentData);
       }
     }
@@ -230,7 +230,7 @@ export const preCommitChanges: PreCommitChanges = (
       case CURRENT: {
         return editCurrent(changes, appointmentData);
       }
-      case CURRENT_FOLLOWING: {
+      case CURRENT_AND_FOLLOWING: {
         return editCurrentAndFollowing(changes, appointmentData);
       }
     }

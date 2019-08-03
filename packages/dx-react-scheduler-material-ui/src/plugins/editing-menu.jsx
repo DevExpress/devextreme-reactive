@@ -5,4 +5,6 @@ import { Layout } from '../templates/editing-menu/layout';
 import { Button } from '../templates/editing-menu/button';
 import { Container } from '../templates/editing-menu/container';
 
-export const EditingMenu = withComponents({ Layout, Modal, Button, Container })(EditingMenuBase);
+export const EditingMenu = withComponents({
+  Layout, Modal, Button, Container,
+})(EditingMenuBase);

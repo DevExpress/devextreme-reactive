@@ -26,9 +26,9 @@ import { EditingMenu } from '@devexpress/dx-react-scheduler';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-layoutComponent | ComponentType&lt;[EditingMenu.RootProps](#editingmenulayoutprops)&gt; | | A component that renders the editing menu's layout element.
+layoutComponent | ComponentType&lt;[EditingMenu.LayoutProps](#editingmenulayoutprops)&gt; | | A component that renders the editing menu's layout element.
 modalComponent | ComponentType&lt;[EditingMenu.ModalProps](#editingmenuomodalprops)&gt; | | A component that renders the editing menu's modal element.
-buttonComponent | ComponentType&lt;[EditingMenu.ButtonProps](#editingmenubuttonprops)&gt; | | A component that renders editing menu's button element.
+buttonComponent | ComponentType&lt;[EditingMenu.ButtonProps](#editingmenubuttonprops)&gt; | | A component that renders the editing menu's button element.
 containerComponent | ComponentType&lt;[EditingMenu.ContainerProps](#editingmenucontainerprops)&gt; | | A component that renders the editing menu's container element.
 messages | ComponentType&lt;[EditingMenu.LocalizationMessages](#editingmenulocalizationmessages)&gt; | | 	An object that specifies the localization messages.
 
@@ -36,7 +36,7 @@ messages | ComponentType&lt;[EditingMenu.LocalizationMessages](#editingmenulocal
 
 ### EditingMenu.LayoutProps
 
-Properties passed to a component that renders the date navigator's root element.
+Properties passed to a component that renders the editing menu's layout element..
 
 Field | Type | Description
 ------|------|------------
@@ -44,7 +44,7 @@ Field | Type | Description
 
 ### EditingMenu.ModalProps
 
-Properties passed to a component that renders the date navigator's overlay element.
+Properties passed to a component that renders the editing menu's modal element..
 
 Field | Type | Description
 ------|------|------------
@@ -52,7 +52,7 @@ Field | Type | Description
 
 ### EditingMenu.ButtonProps
 
-Properties passed to a component that renders the date navigator's open button.
+Properties passed to a component that renders the editing menu's button element..
 
 Field | Type | Description
 ------|------|------------
@@ -60,7 +60,7 @@ Field | Type | Description
 
 ### EditingMenu.ContainerProps
 
-Properties passed to a component that renders the date navigator's navigation button.
+Properties passed to a component that renders the editing menu's container element.
 
 Field | Type | Description
 ------|------|------------
@@ -83,7 +83,7 @@ Name | Properties | Description
 -----|------------|------------
 EditingMenu.Layout | [EditingMenu.LayoutProps](#editingmenulayoutprops) | A component that renders the editing menu's layout element.
 EditingMenu.Modal | [EditingMenu.ModalProps](#editingmenuomodalprops) | A component that renders the editing menu's modal element.
-EditingMenu.Button | [EditingMenu.ButtonProps](#editingmenubuttonprops) | A component that renders editing menu's button element.
+EditingMenu.Button | [EditingMenu.ButtonProps](#editingmenubuttonprops) | A component that renders the editing menu's button element.
 EditingMenu.Container | [EditingMenu.ContainerProps](#editingmenucontainerprops) | A component that renders the editing menu's container element.
 
 Additional properties are added to the component's root element.

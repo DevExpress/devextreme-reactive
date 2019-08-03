@@ -13,6 +13,7 @@ import { AppointmentTooltip as AppointmentTooltip_2 } from '@devexpress/dx-react
 import { DateNavigator as DateNavigator_2 } from '@devexpress/dx-react-scheduler';
 import { DayView as DayView_2 } from '@devexpress/dx-react-scheduler';
 import { DragDropProvider as DragDropProvider_2 } from '@devexpress/dx-react-scheduler';
+import { EditingMenu as EditingMenu_2 } from '@devexpress/dx-react-scheduler';
 import { MonthView as MonthView_2 } from '@devexpress/dx-react-scheduler';
 import * as React from 'react';
 import { Scheduler as Scheduler_2 } from '@devexpress/dx-react-scheduler';
@@ -362,6 +363,43 @@ export interface DragDropProviderProps {
   draftAppointmentComponent?: React.ComponentType<DragDropProvider_2.DraftAppointmentProps>;
   resizeComponent?: React.ComponentType<DragDropProvider_2.ResizeProps>;
   sourceAppointmentComponent?: React.ComponentType<DragDropProvider_2.SourceAppointmentProps>;
+}
+
+// @public (undocumented)
+export namespace EditingMenu {
+  export type LayoutProps = EditingMenu_2.LayoutProps;
+}
+
+// @public (undocumented)
+export namespace EditingMenu {
+  export type ModalProps = EditingMenu_2.ModalProps;
+}
+
+// @public (undocumented)
+export namespace EditingMenu {
+  export type ButtonProps = EditingMenu_2.ButtonProps;
+}
+
+// @public (undocumented)
+export namespace EditingMenu {
+  export type ContainerProps = EditingMenu_2.ContainerProps;
+}
+
+// @public
+export const EditingMenu: React.ComponentType<EditingMenuProps> & {
+  Layout: React.ComponentType<EditingMenu_2.LayoutProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  Modal: React.ComponentType<EditingMenu_2.ModalProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  Button: React.ComponentType<EditingMenu_2.ButtonProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  Container: React.ComponentType<EditingMenu_2.ContainerProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+};
+
+// @public (undocumented)
+export interface EditingMenuProps {
+  buttonComponent?: React.ComponentType<EditingMenu_2.ButtonProps>;
+  containerComponent?: React.ComponentType<EditingMenu_2.ContainerProps>;
+  layoutComponent?: React.ComponentType<EditingMenu_2.RootProps>;
+  messages?: React.ComponentType<EditingMenu_2.LocalizationMessages>;
+  modalComponent?: React.ComponentType<EditingMenu_2.ModalProps>;
 }
 
 // @public (undocumented)

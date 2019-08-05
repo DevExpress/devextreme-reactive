@@ -285,6 +285,7 @@ export const scaleSeriesPoints: ScaleSeriesPointsFn = (
   series, scales, rotated,
 ) => series.map(seriesItem => scalePoints(seriesItem, scales, rotated));
 
+/** @internal */
 export const getVisibility: getVisibilityFn = (pane, x , y) => {
   return x >= 0 && x <= pane.width && y >= 0 && y <= pane.height ? 'visible' : 'hidden';
 };

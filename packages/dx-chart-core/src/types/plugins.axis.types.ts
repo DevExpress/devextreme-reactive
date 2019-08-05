@@ -46,10 +46,13 @@ export type GridCoordinatesArg = {
 /** @internal */
 export type Grid = {
   readonly key: string;
-  readonly x: number;
-  readonly y: number;
-  readonly dx: number;
-  readonly dy: number;
+  readonly x1: number;
+  readonly y1: number;
 };
 /** @internal */
-export type GetGridCoordinatesFn = PureComputed<[GridCoordinatesArg], Grid[]>;
+export type GridCoordinatesResult = {
+  ticks: Grid[];
+  sides: NumberArray;
+};
+/** @internal */
+export type GetGridCoordinatesFn = PureComputed<[GridCoordinatesArg], GridCoordinatesResult>;

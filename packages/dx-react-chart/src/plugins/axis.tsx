@@ -188,25 +188,26 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
             if (!scale || !showGrid) {
               return null;
             }
-
             const { width, height } = layouts.pane;
-            const ticks = getGridCoordinates({
+            const { ticks, sides: [dx, dy] } = getGridCoordinates({
               scaleName: scaleName!,
               scale,
               paneSize: [this.adjustedWidth, this.adjustedHeight],
               rotated,
             });
+            const visibleTicks = ticks
+              .filter(createTickFilter([dx * this.adjustedWidth, dy * this.adjustedHeight]));
             return ((
               <React.Fragment>
-                {ticks.map(({
-                  key, x, dx, y, dy,
+                {visibleTicks.map(({
+                  key, x1, y1,
                 }) => (
                   <GridComponent
                     key={key}
-                    x1={x}
-                    x2={x + dx * width}
-                    y1={y}
-                    y2={y + dy * height}
+                    x1={x1}
+                    x2={x1 + dy * width}
+                    y1={y1}
+                    y2={y1 + dx * height}
                   />
                 ))}
               </React.Fragment>

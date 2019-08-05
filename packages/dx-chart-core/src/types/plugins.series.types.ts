@@ -55,7 +55,7 @@ interface CommonComponentProps {
   scales: Scales;
   /** @internal */
   getAnimatedStyle: GetSeriesAnimatedStyleFn;
-  /** @interanl */
+  /** @internal */
   pane: Size;
 }
 
@@ -68,7 +68,7 @@ export interface PathComponentProps extends CommonComponentProps {
   coordinates: PathPoints;
 }
 
-/** @interanl */
+/** @internal */
 export type getVisibilityFn = (pane: Size, x: number, y: number) => 'visible' | 'hidden';
 
 export interface PointComponentProps extends CommonComponentProps {

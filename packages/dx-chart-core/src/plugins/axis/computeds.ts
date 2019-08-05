@@ -4,7 +4,7 @@ import {
 } from '../../constants';
 import {
   ScaleObject, GetFormatFn, ProcessTickFn, TickFormatFn, AxisCoordinatesFn,
-  GetGridCoordinatesFn, Tick, NumberArray,
+  GetGridCoordinatesFn, NumberArray,
 } from '../../types';
 
 const getTicks = (scale: ScaleObject, count: number) => (
@@ -90,11 +90,12 @@ export const axisCoordinates: AxisCoordinatesFn = ({
   rotated,
 })  => {
   const isHor = isHorizontal(scaleName, rotated);
+  const tickCount = getTickCount(scale.range(), paneSize[1 - Number(isHor)]);
+
+  const formatTick = getFormat(scale, tickCount, tickFormat);
   const options = (isHor ? createHorizontalOptions : createVerticalOptions)(
     position, tickSize, indentFromAxis,
   );
-  const tickCount = getTickCount(scale.range(), paneSize[1 - Number(isHor)]);
-  const formatTick = getFormat(scale, tickCount, tickFormat);
   const ticks = createTicks(scale, tickCount, (coordinates, key, tick) => ({
     key,
     x1: coordinates,
@@ -116,12 +117,9 @@ export const axisCoordinates: AxisCoordinatesFn = ({
 /** @internal */
 export const createTickFilter = ([width, height]: NumberArray) => (
   width > 0
-    ? (tick: Tick) => tick.x1 >= 0 && tick.x1 <= width
-    : (tick: Tick) => tick.y1 >= 0 && tick.y1 <= height
+    ? (tick: any) => tick.x1 >= 0 && tick.x1 <= width
+    : (tick: any) => tick.y1 >= 0 && tick.y1 <= height
 );
-
-const horizontalGridOptions = { y: 0, dy: 1 };
-const verticalGridOptions = { x: 0, dx: 1 };
 
 /** @internal */
 export const getGridCoordinates: GetGridCoordinatesFn = ({
@@ -129,13 +127,15 @@ export const getGridCoordinates: GetGridCoordinatesFn = ({
 }) => {
   const isHor = isHorizontal(scaleName, rotated);
   const tickCount = getTickCount(scale.range(), paneSize[1 - Number(isHor)]);
-  const options = isHor ? horizontalGridOptions : verticalGridOptions;
-  return createTicks(scale, tickCount, (coordinates, key) => ({
+  const options = isHor ? { y1: 0 } : { x1: 0 };
+  const ticks = createTicks(scale, tickCount, (coordinates, key) => ({
     key,
-    x: coordinates,
-    y: coordinates,
-    dx: 0,
-    dy: 0,
+    x1: coordinates,
+    y1: coordinates,
     ...options,
   }));
+  return {
+    ticks,
+    sides: [Number(isHor), Number(!isHor)],
+  };
 };

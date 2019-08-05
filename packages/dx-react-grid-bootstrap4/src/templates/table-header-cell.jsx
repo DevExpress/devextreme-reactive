@@ -23,6 +23,10 @@ export class TableHeaderCell extends React.PureComponent {
         this.setState({ dragging: false });
       }
     };
+    this.refHandler = node => node && props.getCellWidth(() => {
+      const { width } = node.getBoundingClientRect();
+      return width;
+    });
   }
 
   render() {
@@ -48,6 +52,7 @@ export class TableHeaderCell extends React.PureComponent {
           'text-nowrap': !(tableColumn && tableColumn.wordWrapEnabled),
         }, className)}
         scope="col"
+        ref={this.refHandler}
         {...restProps}
       >
         <div

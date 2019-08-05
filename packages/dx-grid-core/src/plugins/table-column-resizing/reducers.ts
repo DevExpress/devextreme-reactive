@@ -2,13 +2,12 @@ import { slice } from '@devexpress/dx-core';
 import { ColumnWidthReducer } from '../../types';
 
 export const changeTableColumnWidth: ColumnWidthReducer = (
-  state, { columnName, shift, minColumnWidth ,
+  state, { columnName, shift, width, minColumnWidth ,
 }) => {
   const { columnWidths } = state;
   const nextColumnWidth = slice(columnWidths);
   const index = nextColumnWidth.findIndex(elem => elem.columnName === columnName);
-  const updatedColumn = nextColumnWidth[index];
-  const size = Math.max(minColumnWidth, updatedColumn.width + shift);
+  const size = Math.max(minColumnWidth, width + shift);
   nextColumnWidth.splice(index, 1, { columnName, width: size });
 
   return {
@@ -17,14 +16,14 @@ export const changeTableColumnWidth: ColumnWidthReducer = (
 };
 
 export const draftTableColumnWidth: ColumnWidthReducer = (
-  state, { columnName, shift, minColumnWidth },
-) => {
-  const { columnWidths } = state;
-  const updatedColumn = columnWidths.find(elem => elem.columnName === columnName)!;
-  const size = Math.max(minColumnWidth, updatedColumn.width + shift);
+  state, { columnName, shift, width, minColumnWidth,
+}) => {
+  // const { columnWidths } = state;
+  // const updatedColumn = columnWidths.find(elem => elem.columnName === columnName)!;
+  const size = Math.max(minColumnWidth, width + shift);
 
   return {
-    draftColumnWidths: [{ columnName: updatedColumn.columnName, width: size }],
+    draftColumnWidths: [{ columnName, width: size }],
   };
 };
 

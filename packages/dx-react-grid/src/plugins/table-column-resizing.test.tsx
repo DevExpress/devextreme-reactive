@@ -108,7 +108,7 @@ describe('TableColumnResizing', () => {
       </PluginHost>
     ));
 
-    const payload = { changes: { a: 50 }, minColumnWidth: defaultProps.minColumnWidth };
+    const payload = { changes: { a: 50 }, width: 100, minColumnWidth: defaultProps.minColumnWidth };
 
     draftTableColumnWidth.mockReturnValue({ draftColumnWidths: [{ columnName: 'a', width: 150 }] });
     executeComputedAction(tree, actions => actions.draftTableColumnWidth(payload));

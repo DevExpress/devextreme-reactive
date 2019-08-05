@@ -22,6 +22,10 @@ export class TableHeaderCell extends React.PureComponent {
         this.setState({ dragging: false });
       }
     };
+    this.refHandler = node => node && props.getCellWidth(() => {
+      const { width } = node.getBoundingClientRect();
+      return width;
+    });
   }
 
   render() {
@@ -51,6 +55,7 @@ export class TableHeaderCell extends React.PureComponent {
           ...(dragging || (tableColumn && tableColumn.draft) ? { opacity: 0.3 } : null),
           ...style,
         }}
+        ref={this.refHandler}
         {...restProps}
       >
         <div

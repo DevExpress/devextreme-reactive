@@ -21,6 +21,8 @@ export namespace TableHeaderRow {
     onWidthDraft: (parameters: { shift: number }) => void;
     /** An event that cancels the column width change used for preview. */
     onWidthDraftCancel(): void;
+    /** TEST */
+    getCellWidth: (getter: CellWidthGetter) => void;
     /** Specifies whether drag-and-drop is enabled. */
     draggingEnabled: boolean;
     /** The header cell's children. */
@@ -99,3 +101,6 @@ export interface TableHeaderRowProps {
   /** An object that specifies localization messages. */
   messages?: TableHeaderRow.LocalizationMessages;
 }
+
+/** @internal */
+export type CellWidthGetter = () => number;

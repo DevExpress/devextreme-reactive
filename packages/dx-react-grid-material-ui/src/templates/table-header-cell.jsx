@@ -108,6 +108,10 @@ class TableHeaderCellBase extends React.PureComponent {
         this.setState({ dragging: false });
       }
     };
+    this.refHandler = node => node && props.getCellWidth(() => {
+      const { width } = node.getBoundingClientRect();
+      return width;
+    });
   }
 
   render() {
@@ -138,6 +142,7 @@ class TableHeaderCellBase extends React.PureComponent {
       <TableCell
         style={style}
         className={tableCellClasses}
+        ref={this.refHandler}
         {...restProps}
       >
         <div className={classes.container}>

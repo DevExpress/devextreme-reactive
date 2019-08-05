@@ -12,7 +12,9 @@ describe('TableColumnResizing Plugin reducers', () => {
         columnWidths: [{ columnName: 'a', width: 40 }, { columnName: 'b', width: 60 }],
       };
 
-      expect(changeTableColumnWidth(state, { columnName: 'a', shift: 5, minColumnWidth: 40 }))
+      expect(changeTableColumnWidth(state, {
+        columnName: 'a', width: 40, shift: 5, minColumnWidth: 40,
+      }))
         .toEqual({
           columnWidths: [{ columnName: 'a', width: 45 }, { columnName: 'b', width: 60 }],
         });
@@ -23,7 +25,9 @@ describe('TableColumnResizing Plugin reducers', () => {
         columnWidths: [{ columnName: 'a', width: 40 }, { columnName: 'b', width: 60 }],
       };
 
-      expect(changeTableColumnWidth(state, { columnName: 'b', shift: -25, minColumnWidth: 40 }))
+      expect(changeTableColumnWidth(state, {
+        columnName: 'b', width: 60, shift: -25, minColumnWidth: 40,
+      }))
         .toEqual({
           columnWidths: [{ columnName: 'a', width: 40 }, { columnName: 'b', width: 40 }],
         });
@@ -35,7 +39,7 @@ describe('TableColumnResizing Plugin reducers', () => {
       };
 
       expect(() => changeTableColumnWidth(
-          state, { columnName: 'b', shift: -25, minColumnWidth: 40 }),
+          state, { columnName: 'b', width: 60, shift: -25, minColumnWidth: 40 }),
         ).not.toThrow();
     });
   });
@@ -47,7 +51,9 @@ describe('TableColumnResizing Plugin reducers', () => {
         draftColumnWidths: [],
       };
 
-      expect(draftTableColumnWidth(state, { columnName: 'a', shift: 5, minColumnWidth: 40 }))
+      expect(draftTableColumnWidth(state, {
+        columnName: 'a', width: 40, shift: 5, minColumnWidth: 40,
+      }))
         .toEqual({
           draftColumnWidths: [{ columnName: 'a', width: 45 }],
         });
@@ -59,7 +65,9 @@ describe('TableColumnResizing Plugin reducers', () => {
         draftColumnWidths: [],
       };
 
-      expect(draftTableColumnWidth(state, { columnName: 'b', shift: -25, minColumnWidth: 40 }))
+      expect(draftTableColumnWidth(state, {
+        columnName: 'b', width: 60, shift: -25, minColumnWidth: 40,
+      }))
         .toEqual({
           draftColumnWidths: [{ columnName: 'b', width: 40 }],
         });

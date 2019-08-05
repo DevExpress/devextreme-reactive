@@ -292,7 +292,12 @@ class Demo extends React.PureComponent {
     this.onAddedAppointmentChange = this.onAddedAppointmentChange.bind(this);
     this.appointmentForm = connectProps(AppointmentFormContainer, () => {
       const {
-        editingFormVisible, editingAppointmentId, data, addedAppointment, isNewAppointment, previousAppointmentId,
+        editingFormVisible,
+        editingAppointmentId,
+        data,
+        addedAppointment,
+        isNewAppointment,
+        previousAppointmentId,
       } = this.state;
 
       const currentAppointment = data

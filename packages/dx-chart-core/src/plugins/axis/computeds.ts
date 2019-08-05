@@ -78,6 +78,14 @@ const getTickCount = (scaleRange: NumberArray, paneSize: number) => {
   return Math.round(DEFAULT_TICK_COUNT * (isFinite(rangeToPaneRatio) ? rangeToPaneRatio : 1));
 };
 
+// It is a part of a temporary walkaround. See note in Axis plugin.
+/** @internal */
+export const createTickFilter = (isHor: boolean, size: number) => (
+  isHor
+    ? (tick: any) => tick.x1 >= 0 && tick.x1 <= size
+    : (tick: any) => tick.y1 >= 0 && tick.y1 <= size
+);
+
 /** @internal */
 export const axisCoordinates: AxisCoordinatesFn = ({
   scaleName,
@@ -107,19 +115,12 @@ export const axisCoordinates: AxisCoordinatesFn = ({
     text: formatTick(tick),
     ...options,
   }));
+  const visibleTicks = ticks.filter(createTickFilter(isHor, paneSize[1 - Number(isHor)]));
   return {
-    ticks,
+    ticks: visibleTicks,
     sides: [Number(isHor), Number(!isHor)],
   };
 };
-
-// It is a part of a temporary walkaround. See note in Axis plugin.
-/** @internal */
-export const createTickFilter = ([width, height]: NumberArray) => (
-  width > 0
-    ? (tick: any) => tick.x1 >= 0 && tick.x1 <= width
-    : (tick: any) => tick.y1 >= 0 && tick.y1 <= height
-);
 
 /** @internal */
 export const getGridCoordinates: GetGridCoordinatesFn = ({
@@ -134,8 +135,9 @@ export const getGridCoordinates: GetGridCoordinatesFn = ({
     y1: coordinates,
     ...options,
   }));
+  const visibleTicks = ticks.filter(createTickFilter(isHor, paneSize[1 - Number(isHor)]));
   return {
-    ticks,
+    ticks: visibleTicks,
     sides: [Number(isHor), Number(!isHor)],
   };
 };

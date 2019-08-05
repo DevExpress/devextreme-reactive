@@ -11,7 +11,7 @@ import {
 import {
   ARGUMENT_DOMAIN, getValueDomainName,
   getRotatedPosition, isValidPosition,
-  axisCoordinates, createTickFilter, LEFT, BOTTOM, getGridCoordinates,
+  axisCoordinates, LEFT, BOTTOM, getGridCoordinates,
 } from '@devexpress/dx-chart-core';
 import { RawAxisProps } from '../types';
 import { Root } from '../templates/axis/root';
@@ -81,15 +81,6 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
               paneSize: [this.adjustedWidth, this.adjustedHeight],
               rotated,
             });
-            // This is a workaround for a case when only a part of domain is visible.
-            // "overflow: hidden" cannot be used for <svg> element because edge labels would
-            // be truncated by half then.
-            // Looks like some margins should be added to <svg> width/height but for now it is
-            // not clear how to achieve it.
-            // The solution is considered temporary by now.
-            // Let's see if anything could be done to improve the situation.
-            const visibleTicks = ticks
-              .filter(createTickFilter([dx * this.adjustedWidth, dy * this.adjustedHeight]));
 
             const handleSizeChange: onSizeChangeFn = (size) => {
               // The callback is called when DOM is available -
@@ -127,7 +118,7 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
                     dy={dy}
                     onSizeChange={handleSizeChange}
                   >
-                    {showTicks && visibleTicks.map(({
+                    {showTicks && ticks.map(({
                       x1, x2, y1, y2, key,
                     }) => (
                       <TickComponent
@@ -146,7 +137,7 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
                         y2={dy * this.adjustedHeight}
                       />
                     )}
-                    {showLabels && visibleTicks.map(({
+                    {showLabels && ticks.map(({
                       text,
                       xText,
                       yText,
@@ -195,11 +186,9 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
               paneSize: [this.adjustedWidth, this.adjustedHeight],
               rotated,
             });
-            const visibleTicks = ticks
-              .filter(createTickFilter([dx * this.adjustedWidth, dy * this.adjustedHeight]));
             return ((
               <React.Fragment>
-                {visibleTicks.map(({
+                {ticks.map(({
                   key, x1, y1,
                 }) => (
                   <GridComponent

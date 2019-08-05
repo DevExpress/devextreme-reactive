@@ -57,6 +57,8 @@ interface CommonComponentProps {
   getAnimatedStyle: GetSeriesAnimatedStyleFn;
   /** @internal */
   pane: Size;
+  /** @internal */
+  clipPathId: string;
 }
 
 export interface PathComponentProps extends CommonComponentProps {

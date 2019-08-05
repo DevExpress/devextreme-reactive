@@ -7,7 +7,7 @@ import {
   Getter,
 } from '@devexpress/dx-react-core';
 import {
-  isStubTableCell,
+  isStubTableCell, emptyViewport,
 } from '@devexpress/dx-grid-core';
 import {
   VirtualTableProps, VirtualTableLayoutProps,
@@ -15,18 +15,6 @@ import {
   TableLayoutProps,
   VirtualTablePluginState,
 } from '../../types';
-
-/** @internal */
-export const emptyViewport = {
-  columns: [[0, 0]],
-  rows: [0, 0],
-  headerRows: [0, 0],
-  footerRows: [0, 0],
-  top: 0,
-  left: 0,
-  width: 800,
-  height: 600,
-};
 
 /** @internal */
 export const makeVirtualTable: (...args: any) => any = (Table, {

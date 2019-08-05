@@ -20,6 +20,7 @@ import {
   TABLE_DATA_TYPE,
   TABLE_NODATA_TYPE,
   GridColumnExtension,
+  fixedViewport,
 } from '@devexpress/dx-grid-core';
 import { TableProps, Table as TableNS, TableLayoutProps } from '../types';
 
@@ -31,6 +32,7 @@ const tableBodyRowsComputed = ({ rows, getRowId, isDataLoading }: Getters) => (
   tableRowsWithDataRows(rows, getRowId, isDataLoading)
 );
 const tableFooterRows = [];
+const viewportComputed = ({ columns }: Getters) => fixedViewport(columns);
 
 const defaultMessages = {
   noData: 'No data',
@@ -102,7 +104,7 @@ class TableBase extends React.PureComponent<TableProps> {
         <Getter name="tableFooterRows" value={tableFooterRows} />
         <Getter name="tableColumns" computed={tableColumnsComputed} />
         <Getter name="getTableCellColSpan" value={tableCellColSpanGetter} />
-        <Getter name="visibleBoundaries" value={[]} />
+        <Getter name="viewport" computed={viewportComputed} />
 
         <Template name="body">
           <TemplatePlaceholder name="table" />

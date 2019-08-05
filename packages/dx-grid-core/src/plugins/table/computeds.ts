@@ -2,7 +2,8 @@ import { PureComputed } from '@devexpress/dx-core';
 import { TABLE_DATA_TYPE, TABLE_NODATA_TYPE } from './constants';
 import { getColumnExtension } from '../../utils/column-extension';
 import { GridColumnExtension, GetCellColSpanFn } from './../../types/table.types';
-import { Row, GetRowIdFn } from '../../types';
+import { Row, GetRowIdFn, Column, GridViewport } from '../../types';
+import { emptyViewport } from '../virtual-table/constants';
 
 export const tableColumnsWithDataRows: PureComputed<[any[], GridColumnExtension[]]> = (
   columns, columnExtensions,
@@ -42,3 +43,8 @@ export const tableCellColSpanGetter: GetCellColSpanFn = (params) => {
   }
   return 1;
 };
+
+export const fixedViewport: PureComputed<[Column[]], GridViewport> = columns => ({
+  ...emptyViewport,
+  columns: [[0, columns.length - 1]],
+});

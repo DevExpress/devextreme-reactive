@@ -18,6 +18,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   visibleRowsBounds: jest.fn(),
   getRowsRenderBoundary: jest.fn(),
   isStubTableCell: jest.fn(),
+  fixedViewport: jest.fn(),
 }));
 
 describe('#makeVirtualTable', () => {

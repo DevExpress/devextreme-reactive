@@ -198,6 +198,8 @@ export {
 
 /** @internal */
 export * from './plugins/virtual-table/helpers';
+/** @internal */
+export * from './plugins/virtual-table/constants';
 
 /** @internal */
 export * from './plugins/virtual-table-state/computeds';

@@ -13,10 +13,13 @@ import {
   tableRowsWithBands,
   tableHeaderColumnChainsWithBands,
   isHeadingTableCell,
+  columnBandLevels,
+  bandLevelsVisibility,
   BAND_DUPLICATE_RENDER,
   BAND_EMPTY_CELL,
   BAND_GROUP_CELL,
   BAND_HEADER_CELL,
+  BAND_FILL_LEVEL_CELL,
 } from '@devexpress/dx-grid-core';
 import { TableBandHeader } from './table-band-header';
 
@@ -27,6 +30,8 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   tableRowsWithBands: jest.fn(),
   tableHeaderColumnChainsWithBands: jest.fn(),
   isHeadingTableCell: jest.fn(),
+  columnBandLevels: jest.fn(),
+  bandLevelsVisibility: jest.fn(),
   BAND_DUPLICATE_RENDER: 'd',
   BAND_EMPTY_CELL: 'e',
   BAND_GROUP_CELL: 'g',
@@ -36,6 +41,8 @@ jest.mock('@devexpress/dx-grid-core', () => ({
 const defaultDeps = {
   getter: {
     tableHeaderRows: [],
+    tableColumns: [],
+    viewport: 'viewport',
   },
   template: {
     tableCell: {
@@ -77,6 +84,8 @@ describe('TableBandHeader', () => {
   beforeEach(() => {
     tableRowsWithBands.mockImplementation(() => 'tableRowsWithBands');
     tableHeaderColumnChainsWithBands.mockImplementation(() => 'tableHeaderColumnChainsWithBands');
+    columnBandLevels.mockImplementation(() => 'columnBandLevels');
+    bandLevelsVisibility.mockImplementation(() => 'bandLevelsVisibility');
     isHeadingTableCell.mockImplementation(() => false);
     isBandedTableRow.mockImplementation(() => false);
     isBandedOrHeaderRow.mockImplementation(() => false);
@@ -85,8 +94,62 @@ describe('TableBandHeader', () => {
     jest.resetAllMocks();
   });
 
-  it('should extend tableHeaderRows', () => {
-    const tree = mount((
+  describe('getters', () => {
+    it('should provide bandLevels getter', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableBandHeader
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).bandLevels)
+        .toBe('columnBandLevels');
+    });
+
+    it('should provide bandLevelsVisibility getter', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableBandHeader
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).bandLevelsVisibility)
+        .toBe('bandLevelsVisibility');
+    });
+
+    it('should extend tableHeaderRows', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableBandHeader
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).tableHeaderRows)
+        .toBe('tableRowsWithBands');
+      expect(tableRowsWithBands)
+        .toBeCalledWith(
+          defaultDeps.getter.tableHeaderRows,
+          defaultProps.columnBands,
+          defaultDeps.getter.tableColumns,
+        );
+    });
+  });
+
+  it('should call getBandComponent with correct parameters', () => {
+    isBandedOrHeaderRow.mockReturnValue(true);
+    getBandComponent.mockReturnValue({
+      type: null,
+    });
+    mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableBandHeader
@@ -95,13 +158,15 @@ describe('TableBandHeader', () => {
       </PluginHost>
     ));
 
-    expect(getComputedState(tree).tableHeaderRows)
-      .toBe('tableRowsWithBands');
-    expect(tableRowsWithBands)
+    expect(getBandComponent)
       .toBeCalledWith(
-        defaultDeps.getter.tableHeaderRows,
-        defaultProps.columnBands,
+        defaultDeps.template.tableCell,
+        'tableRowsWithBands',
         defaultDeps.getter.tableColumns,
+        defaultProps.columnBands,
+        'tableHeaderColumnChainsWithBands',
+        'viewport',
+        'bandLevelsVisibility',
       );
   });
 
@@ -240,6 +305,32 @@ describe('TableBandHeader', () => {
           ...defaultDeps.template.tableCell,
           value: 'a',
         },
+      });
+  });
+
+  it('should render filling cell correctly', () => {
+    isBandedOrHeaderRow.mockImplementationOnce(() => true);
+    getBandComponent.mockImplementation(() => ({
+      type: BAND_FILL_LEVEL_CELL,
+      payload: { value: 'a' },
+    }));
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableBandHeader
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    expect(tree.find(defaultProps.cellComponent).props())
+      .toEqual({
+        ...defaultDeps.template.tableCell,
+        style: {
+          whiteSpace: 'pre',
+        },
+        children: ' ',
+        value: 'a',
       });
   });
 });

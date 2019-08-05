@@ -3,6 +3,7 @@ import {
   tableRowsWithDataRows,
   tableColumnsWithDataRows,
   tableCellColSpanGetter,
+  fixedViewport,
 } from './computeds';
 
 describe('Table Plugin computeds', () => {
@@ -100,6 +101,22 @@ describe('Table Plugin computeds', () => {
           tableColumns: [{}, tableColumn, {}],
         }))
           .toBe(1);
+      });
+    });
+
+    describe('#fixedViewport', () => {
+      it('should return vaiewport based on column count', () => {
+        const columns = [{}, {}, {}, {}];
+
+        expect(fixedViewport(columns))
+          .toEqual({
+            columns: [[0, 3]],
+            footerRows: [0, 0],
+            headerRows: [0, 0],
+            rows: [0, 0],
+            viewportLeft: 0,
+            viewportTop: 0,
+          });
       });
     });
   });

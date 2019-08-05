@@ -280,7 +280,7 @@ class Demo extends React.PureComponent {
       addedAppointment: {},
       startDayHour: 9,
       endDayHour: 19,
-      isNew: false,
+      isNewAppointment: false,
     };
 
     this.toggleConfirmationVisible = this.toggleConfirmationVisible.bind(this);
@@ -292,16 +292,16 @@ class Demo extends React.PureComponent {
     this.onAddedAppointmentChange = this.onAddedAppointmentChange.bind(this);
     this.appointmentForm = connectProps(AppointmentFormContainer, () => {
       const {
-        editingFormVisible, editingAppointmentId, data, addedAppointment, isNew, previousAppointmentId,
+        editingFormVisible, editingAppointmentId, data, addedAppointment, isNewAppointment, previousAppointmentId,
       } = this.state;
 
       const currentAppointment = data
         .filter(appointment => appointment.id === editingAppointmentId)[0] || addedAppointment;
       const cancelAppointment = () => {
-        if (isNew) {
+        if (isNewAppointment) {
           this.setState({
             editingAppointmentId: previousAppointmentId,
-            isNew: false,
+            isNewAppointment: false,
           });
         }
       };
@@ -333,7 +333,7 @@ class Demo extends React.PureComponent {
         previousAppointmentId: editingAppointmentId,
       });
     }
-    this.setState({ editingAppointmentId: undefined, isNew: true });
+    this.setState({ editingAppointmentId: undefined, isNewAppointment: true });
   }
 
   setDeletedAppointmentId(id) {

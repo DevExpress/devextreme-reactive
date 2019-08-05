@@ -1,6 +1,6 @@
 import moment from 'moment';
 import { CustomFunction, PureComputed } from '@devexpress/dx-core';
-import { RRule, rrulestr, RRuleSet } from 'rrule';
+import { RRule, RRuleSet } from 'rrule';
 import { HORIZONTAL_TYPE, VERTICAL_TYPE } from './constants';
 import {
   ComputedHelperFn, ViewPredicateFn,

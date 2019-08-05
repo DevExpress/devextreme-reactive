@@ -269,6 +269,7 @@ export interface TableColumnResizingProps {
   columnExtensions?: Array<TableColumnResizing_2.ColumnExtension>;
   columnWidths?: Array<TableColumnWidthInfo>;
   defaultColumnWidths?: Array<TableColumnWidthInfo>;
+  maxColumnWidth?: number;
   minColumnWidth?: number;
   onColumnWidthsChange?: (nextColumnWidths: Array<TableColumnWidthInfo>) => void;
 }

@@ -56,6 +56,7 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
       lineComponent: LineComponent,
     } = this.props;
     const placeholder = `${position}-axis`;
+    const layoutName = `${placeholder}-${scaleName}`;
     return (
       <Template name={placeholder}>
         <TemplatePlaceholder />
@@ -68,9 +69,8 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
             if (!scale) {
               return null;
             }
-
-            const layoutName = `${placeholder}-${scaleName}`;
             const { width, height } = layouts[layoutName] || { width: 0, height: 0 };
+
             const { sides: [dx, dy], ticks } = axisCoordinates({
               scaleName: scaleName!,
               position: position!,
@@ -90,17 +90,20 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
             // Let's see if anything could be done to improve the situation.
             const visibleTicks = ticks
               .filter(createTickFilter([dx * this.adjustedWidth, dy * this.adjustedHeight]));
+
             const handleSizeChange: onSizeChangeFn = (size) => {
               // The callback is called when DOM is available -
               // *rootRef.current* can be surely accessed.
               const rect = this.rootRef.current!.getBoundingClientRect();
-              if (rect.width === this.adjustedWidth && rect.height === this.adjustedHeight) {
+              const rectSize = [dx ? rect.width : size.width, dy ? rect.height : size.height];
+
+              if (rectSize[0] === this.adjustedWidth && rectSize[1] === this.adjustedHeight) {
                 return;
               }
               // *setState* is not used because it would cause excessive Plugin rerenders.
               // Template rerender is provided by *changeBBox* invocation.
-              this.adjustedWidth = rect.width;
-              this.adjustedHeight = rect.height;
+              this.adjustedWidth = rectSize[0];
+              this.adjustedHeight = rectSize[1];
               changeBBox({ placeholder: layoutName, bBox: size });
             };
 

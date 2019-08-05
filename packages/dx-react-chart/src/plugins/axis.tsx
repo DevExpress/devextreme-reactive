@@ -70,6 +70,7 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
               return null;
             }
             const { width, height } = layouts[layoutName] || { width: 0, height: 0 };
+            const paneSize = layouts.pane;
 
             const { sides: [dx, dy], ticks } = axisCoordinates({
               scaleName: scaleName!,
@@ -78,7 +79,7 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
               tickFormat,
               indentFromAxis: indentFromAxis!,
               scale,
-              paneSize: [this.adjustedWidth, this.adjustedHeight],
+              paneSize: [paneSize.width, paneSize.height],
               rotated,
             });
 
@@ -132,9 +133,9 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
                     {showLine && (
                       <LineComponent
                         x1={0}
-                        x2={dx * this.adjustedWidth}
+                        x2={dx * paneSize.width}
                         y1={0}
-                        y2={dy * this.adjustedHeight}
+                        y2={dy * paneSize.height}
                       />
                     )}
                     {showLabels && ticks.map(({
@@ -183,7 +184,7 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
             const { ticks, sides: [dx, dy] } = getGridCoordinates({
               scaleName: scaleName!,
               scale,
-              paneSize: [this.adjustedWidth, this.adjustedHeight],
+              paneSize: [width, height],
               rotated,
             });
             return ((

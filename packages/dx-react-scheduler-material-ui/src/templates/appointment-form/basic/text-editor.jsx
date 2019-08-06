@@ -3,19 +3,25 @@ import * as PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
-import { TITLE_TEXT_EDITOR, NOTES_TEXT_EDITOR, ORDINARY_TEXT_EDITOR } from '@devexpress/dx-scheduler-core';
+import {
+  TITLE_TEXT_EDITOR,
+  NOTES_TEXT_EDITOR,
+  ORDINARY_TEXT_EDITOR,
+  NUMBER_EDITOR,
+} from '@devexpress/dx-scheduler-core';
 
-const styles = ({ typography }) => ({
+const styles = theme => ({
   editor: {
     width: '100%',
   },
   title: {
-    ...typography.h6,
+    ...theme.typography.h6,
     height: '2.75em',
+    background: theme.palette.background.paper,
   },
   textField: {
     height: '3.5em',
-    backgroundColor: 'snow',
+    background: theme.palette.background.paper,
   },
 });
 
@@ -29,26 +35,31 @@ const TextEditorBase = ({
   id,
   style,
   ...restProps
-}) => (
-  <TextField
-    label={label}
-    className={classNames(classes.editor, className)}
-    value={value}
-    margin="normal"
-    variant={id === NOTES_TEXT_EDITOR ? 'outlined' : 'filled'}
-    disabled={readOnly}
-    onChange={({ target }) => onValueChange(target.value)}
-    InputProps={{
-      className: classNames({
-        [classes.textField]: id === ORDINARY_TEXT_EDITOR,
-        [classes.title]: id === TITLE_TEXT_EDITOR,
-      }),
-    }}
-    multiline={id === NOTES_TEXT_EDITOR}
-    rows="4"
-    {...restProps}
-  />
-);
+}) => {
+  const textFiledType = id === NUMBER_EDITOR ? 'number' : 'text';
+  return (
+    <TextField
+      label={label}
+      className={classNames(classes.editor, className)}
+      value={value}
+      margin="normal"
+      variant={id === NOTES_TEXT_EDITOR ? 'outlined' : 'filled'}
+      disabled={readOnly}
+      onChange={({ target }) => onValueChange(target.value)}
+      InputProps={{
+        className: classNames({
+          [classes.textField]: id === ORDINARY_TEXT_EDITOR || id === NUMBER_EDITOR,
+          [classes.title]: id === TITLE_TEXT_EDITOR,
+        }),
+      }}
+      multiline={id === NOTES_TEXT_EDITOR}
+      rows="4"
+      type={textFiledType}
+
+      {...restProps}
+    />
+  );
+}
 
 
 TextEditorBase.propTypes = {

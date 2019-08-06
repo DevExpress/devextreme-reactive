@@ -3,7 +3,10 @@ import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import classNames from 'classnames';
-import { DAYS_OF_WEEK } from '@devexpress/dx-scheduler-core';
+import {
+  DAYS_OF_WEEK,
+  NUMBER_EDITOR,
+} from '@devexpress/dx-scheduler-core';
 
 const styles = theme => ({
   label: {
@@ -32,7 +35,6 @@ const handleWeekDaysChange = (options, weekDay, action, isAdded) => {
   }
   if (byWeekDay === 0) byWeekDay = undefined;
   const newOptions = { ...options, byweekday: byWeekDay };
-  console.log(newOptions);
   action(newOptions);
 };
 
@@ -48,7 +50,7 @@ const LayoutBase = ({
   readOnly,
   recurrenceOptions,
   ...restProps
-}) => {console.log(recurrenceOptions.byweekday); return (
+}) => (
   <div
     className={classNames(classes.root, className)}
     {...restProps}
@@ -66,6 +68,7 @@ const LayoutBase = ({
         readOnly={readOnly}
         value={recurrenceOptions.interval}
         className={classes.textEditor}
+        id={NUMBER_EDITOR}
         {...changeAppointment && {
           onValueChange: value => handleIntervalChange(
             recurrenceOptions, value, onRecurrenceOptionsChange,
@@ -161,7 +164,7 @@ const LayoutBase = ({
       />
     </Grid>
   </div>
-);};
+);
 
 LayoutBase.propTypes = {
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,

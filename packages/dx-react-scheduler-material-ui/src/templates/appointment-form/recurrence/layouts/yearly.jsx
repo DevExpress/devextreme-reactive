@@ -2,7 +2,10 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import { YEARLY_RADIO_GROUP } from '@devexpress/dx-scheduler-core';
+import {
+  YEARLY_RADIO_GROUP,
+  NUMBER_EDITOR,
+} from '@devexpress/dx-scheduler-core';
 
 const styles = theme => ({
   root: {
@@ -53,6 +56,7 @@ const LayoutBase = ({
         readOnly={readOnly}
         value={recurrenceOptions.interval}
         className={classes.textEditor}
+        id={NUMBER_EDITOR}
         {...changeAppointment && {
           onValueChange: value => handleIntervalChange(
             recurrenceOptions, value, onRecurrenceOptionsChange,

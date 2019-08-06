@@ -6,6 +6,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import Grid from '@material-ui/core/Grid';
+import { NUMBER_EDITOR } from '@devexpress/dx-scheduler-core';
 
 const styles = ({ spacing }) => ({
   textEditor: {
@@ -26,8 +27,10 @@ const handleStartDateChange = (
   changeRecurrenceOptionsAction,
   options,
 ) => {
-  const newOptions = { ...options, bymonthday: newStartDay };
-  changeRecurrenceOptionsAction(newOptions);
+  if (newStartDay <= 31) {
+    const newOptions = { ...options, bymonthday: newStartDay };
+    changeRecurrenceOptionsAction(newOptions);
+  }
 };
 
 const handleToDayNumberChange = (
@@ -35,8 +38,10 @@ const handleToDayNumberChange = (
   changeRecurrenceOptionsAction,
   options,
 ) => {
-  const newOptions = { ...options, bymonthday: startDay, byweekday: undefined };
-  changeRecurrenceOptionsAction(newOptions);
+  if (startDay <= 31) {
+    const newOptions = { ...options, bymonthday: startDay, byweekday: undefined };
+    changeRecurrenceOptionsAction(newOptions);
+  }
 };
 
 const handleToDayOfWeekChange = (
@@ -138,7 +143,6 @@ const YearlyEditorBase = ({
   changeAppointment,
   ...restProps
 }) => {
-  console.log(recurrenceOptions);
   let dayOfWeek = changedAppointment.startDate.getDay();
   if (recurrenceOptions.byweekday) {
     dayOfWeek = recurrenceOptions.byweekday;
@@ -164,7 +168,6 @@ const YearlyEditorBase = ({
   } else {
     month = changedAppointment.startDate.getMonth() + 1;
   }
-  console.log(month);
 
   const onRadioGroupValueChange = (event) => {
     switch (event.target.value) {
@@ -271,6 +274,7 @@ const YearlyEditorBase = ({
               readOnly={readOnly}
               value={dayNumberTextField}
               className={classes.textEditor}
+              id={NUMBER_EDITOR}
               {...changeAppointment && {
                 onValueChange: dayNumber => handleStartDateChange(
                   dayNumber,

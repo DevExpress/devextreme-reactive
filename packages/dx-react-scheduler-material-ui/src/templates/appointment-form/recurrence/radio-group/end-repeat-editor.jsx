@@ -6,6 +6,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import Grid from '@material-ui/core/Grid';
+import { NUMBER_EDITOR } from '@devexpress/dx-scheduler-core';
 
 const styles = ({ spacing }) => ({
   textEditor: {
@@ -107,6 +108,7 @@ const EndRepeatEditorBase = ({
               onValueChange={count => handleCountChange(
                 recurrenceOptions, count, onRecurrenceOptionsChange,
               )}
+              id={NUMBER_EDITOR}
             />
             <Label
               className={classes.label}

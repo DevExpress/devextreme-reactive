@@ -46,6 +46,7 @@ export const YEARLY_RADIO_GROUP = 'yearlyRadioGroup';
 export const TITLE_TEXT_EDITOR = 'titleTextEditor';
 export const NOTES_TEXT_EDITOR = 'noteTextEditor';
 export const ORDINARY_TEXT_EDITOR = 'ordinaryTextEditor';
+export const NUMBER_EDITOR = 'numberEditor';
 
 export const FULL_DATE_TIME_EDITOR = 'fullDateTimeEditor';
 export const PARTIAL_DATE_TIME_EDITOR = 'partialDateTimeEditor';

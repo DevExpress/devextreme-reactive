@@ -2,6 +2,9 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import {
+  NUMBER_EDITOR,
+} from '@devexpress/dx-scheduler-core';
 
 const styles = theme => ({
   label: {
@@ -44,6 +47,7 @@ const LayoutBase = ({
       value={recurrenceOptions.interval}
       onBlur={() => console.log('here')}
       className={classes.textEditor}
+      id={NUMBER_EDITOR}
       {...changeAppointment && {
         onValueChange: value => handleIntervalChange(
           recurrenceOptions, value, onRecurrenceOptionsChange,

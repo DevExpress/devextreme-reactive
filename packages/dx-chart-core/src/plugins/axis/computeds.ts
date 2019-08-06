@@ -78,9 +78,7 @@ const getTickCount = (scaleRange: NumberArray, paneSize: number) => {
   return Math.round(DEFAULT_TICK_COUNT * (isFinite(rangeToPaneRatio) ? rangeToPaneRatio : 1));
 };
 
-// It is a part of a temporary walkaround. See note in Axis plugin.
-/** @internal */
-export const createTickFilter = (isHor: boolean, size: number) => (
+const createTickFilter = (isHor: boolean, size: number) => (
   isHor
     ? (tick: any) => tick.x1 >= 0 && tick.x1 <= size
     : (tick: any) => tick.y1 >= 0 && tick.y1 <= size

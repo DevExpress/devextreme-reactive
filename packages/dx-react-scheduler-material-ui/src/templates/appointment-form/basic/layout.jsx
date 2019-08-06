@@ -37,7 +37,7 @@ const LayoutBase = ({
   const layoutStyle = !changedAppointment.rRule ? {
     width: '100%',
   } : {
-    width: '50%',
+    width: '65%',
   };
   return (
     <div

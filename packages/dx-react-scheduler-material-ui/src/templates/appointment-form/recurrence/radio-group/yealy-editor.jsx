@@ -14,11 +14,25 @@ const styles = ({ spacing }) => ({
     marginLeft: spacing(2),
     marginRight: spacing(2),
   },
+  shortLabel: {
+    paddingTop: spacing(4),
+    width: '8%',
+  },
   label: {
-    paddingTop: spacing(5),
+    paddingTop: spacing(4),
+    width: '6.5em',
+    marginRight: 0,
   },
   input: {
     paddingBottom: spacing(2.75),
+  },
+  switcher: {
+    width: '40%',
+    marginLeft: spacing(1),
+    marginRight: spacing(1),
+  },
+  numberEditor: {
+    width: '15%',
   },
 });
 
@@ -199,7 +213,7 @@ const YearlyEditorBase = ({
     >
       <FormControlLabel
         value="onDayAndMonth"
-        control={<Radio />}
+        control={<Radio color="primary" />}
         label={(
           <Grid
             container
@@ -211,6 +225,7 @@ const YearlyEditorBase = ({
               className={classes.label}
             />
             <Switcher
+              className={classes.switcher}
               disabled={value !== 'onDayAndMonth'}
               onChange={newMonth => handleMonthChange(
                 newMonth,
@@ -270,10 +285,10 @@ const YearlyEditorBase = ({
               ]}
             />
             <TextEditor
+              className={classes.numberEditor}
               disabled={value !== 'onDayAndMonth'}
               readOnly={readOnly}
               value={dayNumberTextField}
-              className={classes.textEditor}
               id={NUMBER_EDITOR}
               {...changeAppointment && {
                 onValueChange: dayNumber => handleStartDateChange(
@@ -288,7 +303,7 @@ const YearlyEditorBase = ({
       />
       <FormControlLabel
         value="onDayOfWeek"
-        control={<Radio />}
+        control={<Radio color="primary" />}
         label={(
           <Grid
             container
@@ -296,10 +311,11 @@ const YearlyEditorBase = ({
             justify="flex-start"
           >
             <Label
-              className={classes.label}
+              className={classes.shortLabel}
               label={getMessage('theLabel')}
             />
             <Switcher
+              className={classes.switcher}
               disabled={value !== 'onDayOfWeek'}
               onChange={newWeekNumber => handleWeekNumberChange(
                 newWeekNumber,
@@ -331,6 +347,7 @@ const YearlyEditorBase = ({
               ]}
             />
             <Switcher
+              className={classes.switcher}
               disabled={value !== 'onDayOfWeek'}
               onChange={newWeekDay => handleWeekDayChange(
                 newWeekDay,
@@ -370,8 +387,12 @@ const YearlyEditorBase = ({
               ]}
 
             />
-            <Label label={getMessage('ofLabel')} />
+            <Label
+              label={getMessage('ofLabel')}
+              className={classes.shortLabel}
+            />
             <Switcher
+              className={classes.switcher}
               disabled={value !== 'onDayOfWeek'}
               onChange={newMonth => handleMonthChange(
                 newMonth,

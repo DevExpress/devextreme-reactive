@@ -86,6 +86,7 @@ const defaultMessages = {
   fridayLabel: 'Friday',
   saturdayLabel: 'Saturday',
   yearsLabel: 'year(s)',
+  ofLabel: 'of',
 };
 
 const REPEAT_TYPES = {

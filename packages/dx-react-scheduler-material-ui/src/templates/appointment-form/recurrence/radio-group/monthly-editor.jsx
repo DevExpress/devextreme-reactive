@@ -175,7 +175,7 @@ const MonthlyEditorBase = ({
     >
       <FormControlLabel
         value="onDayNumber"
-        control={<Radio />}
+        control={<Radio color="primary" />}
         label={(
           <Grid
             container
@@ -209,7 +209,7 @@ const MonthlyEditorBase = ({
       />
       <FormControlLabel
         value="onDayOfWeek"
-        control={<Radio />}
+        control={<Radio color="primary" />}
         label={(
           <Grid
             container

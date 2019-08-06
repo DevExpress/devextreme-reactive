@@ -11,7 +11,10 @@ import {
 } from '@material-ui/pickers';
 import { FULL_DATE_TIME_EDITOR, PARTIAL_DATE_TIME_EDITOR } from '@devexpress/dx-scheduler-core';
 
-const styles = ({ typography }) => ({
+const styles = ({ typography, spacing }) => ({
+  dateEditor: {
+    paddingTop: spacing(1.5),
+  },
   full: {
     width: '45%',
   },
@@ -23,7 +26,7 @@ const styles = ({ typography }) => ({
   },
   partial: {
     width: '100%',
-  }
+  },
 });
 
 const DateAndTimeEditorBase = ({
@@ -45,6 +48,7 @@ const DateAndTimeEditorBase = ({
         className={classNames({
           [classes.full]: id === FULL_DATE_TIME_EDITOR,
           [classes.partial]: id === PARTIAL_DATE_TIME_EDITOR,
+          [classes.dateEditor]: true,
         })}
         margin="normal"
         value={startDate}
@@ -68,7 +72,7 @@ const DateAndTimeEditorBase = ({
         id === FULL_DATE_TIME_EDITOR && (
           <KeyboardDateTimePicker
             disabled={disabled}
-            className={classNames(classes.full, className)}
+            className={classNames(classes.full, classes.dateEditor, className)}
             margin="normal"
             value={endDate}
             onChange={onEndDateValueChange}

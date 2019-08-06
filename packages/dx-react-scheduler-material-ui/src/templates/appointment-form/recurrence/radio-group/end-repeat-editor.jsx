@@ -84,10 +84,10 @@ const EndRepeatEditorBase = ({
       value={value}
       {...restProps}
     >
-      <FormControlLabel value="never" control={<Radio />} label={getMessage('never')} />
+      <FormControlLabel value="never" control={<Radio color="primary" />} label={getMessage('never')} />
       <FormControlLabel
         value="endAfter"
-        control={<Radio />}
+        control={<Radio color="primary" />}
         label={(
           <Grid
             container
@@ -105,10 +105,10 @@ const EndRepeatEditorBase = ({
                 className: classes.input,
               }}
               value={recurrenceCount}
+              id={NUMBER_EDITOR}
               onValueChange={count => handleCountChange(
                 recurrenceOptions, count, onRecurrenceOptionsChange,
               )}
-              id={NUMBER_EDITOR}
             />
             <Label
               className={classes.label}
@@ -119,7 +119,7 @@ const EndRepeatEditorBase = ({
       />
       <FormControlLabel
         value="endBy"
-        control={<Radio />}
+        control={<Radio color="primary" />}
         label={(
           <Grid
             container

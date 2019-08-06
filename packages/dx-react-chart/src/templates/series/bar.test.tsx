@@ -10,6 +10,8 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   getAreaAnimationStyle: 'test-animation-style',
   HOVERED: 'test_hovered',
   SELECTED: 'test_selected',
+  getVisibility: jest.fn().mockReturnValue('visible'),
+  adjustBarSize: jest.fn(value => value),
 }));
 
 jest.mock('../../utils/with-states', () => ({
@@ -50,6 +52,7 @@ describe('Bar', () => {
       attributes: 'test-attributes',
       fill: 'color',
       style: 'animated-style',
+      visibility: 'visible',
     });
     expect(dBar).toBeCalledWith(1, 2, 18, 40, true);
   });

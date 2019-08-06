@@ -4,6 +4,7 @@
 
 ```ts
 
+import { CellWidthGetter } from '@devexpress/dx-grid-core';
 import * as React from 'react';
 
 // @public
@@ -747,7 +748,7 @@ export interface TableColumnVisibilityProps {
 // @public
 export interface TableColumnWidthInfo {
   columnName: string;
-  width: number;
+  width: number | string;
 }
 
 // @public
@@ -972,6 +973,7 @@ export namespace TableHeaderRow {
     children: React.ReactNode;
     column: Column;
     draggingEnabled: boolean;
+    getCellWidth: (getter: CellWidthGetter) => void;
     groupingEnabled: boolean;
     onGroup(): void;
     onSort: (parameters: {

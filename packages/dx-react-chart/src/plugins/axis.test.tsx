@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { axisCoordinates, createTickFilter, getGridCoordinates } from '@devexpress/dx-chart-core';
+import { axisCoordinates, getGridCoordinates } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-testing';
 import { Axis } from './axis';
 
@@ -9,7 +9,6 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   getRotatedPosition: jest.fn(pos => `${pos}-rotated`),
   isValidPosition: jest.fn(pos => !pos.endsWith('-rotated')),
   axisCoordinates: jest.fn(),
-  createTickFilter: jest.fn().mockReturnValue(() => true),
   LEFT: 'left',
   BOTTOM: 'bottom',
   getGridCoordinates: jest.fn(),
@@ -98,19 +97,18 @@ describe('Axis', () => {
     },
   ];
 
-  (getGridCoordinates as jest.Mock).mockReturnValue([{
-    key: '1',
-    x: 11,
-    y: 12,
-    dx: 0.1,
-    dy: 0.2,
-  }, {
-    key: '2',
-    x: 21,
-    y: 22,
-    dx: 0.3,
-    dy: 0.4,
-  }]);
+  (getGridCoordinates as jest.Mock).mockReturnValue({
+    ticks: [{
+      key: '1',
+      x1: 11,
+      y1: 12,
+    }, {
+      key: '2',
+      x1: 21,
+      y1: 22,
+    }],
+    sides: [0, 1],
+  });
 
   const setupAxisCoordinates = (sides) => {
     (axisCoordinates as jest.Mock).mockReturnValue({ sides, ticks: mockTicks });
@@ -251,10 +249,9 @@ describe('Axis', () => {
       tickSize: 5,
       tickFormat: mockTickFormat,
       indentFromAxis: 10,
-      paneSize: [0, 0],
+      paneSize: [400, 500],
       rotated: false,
     });
-    expect(createTickFilter).toBeCalledWith([0, 0]);
   });
 
   it('should pass axisCoordinates method correct parameters, vertical orientation', () => {
@@ -273,10 +270,9 @@ describe('Axis', () => {
       position: 'bottom',
       tickSize: 6,
       indentFromAxis: 3,
-      paneSize: [0, 0],
+      paneSize: [400, 500],
       rotated: false,
     });
-    expect(createTickFilter).toBeCalledWith([0, 0]);
   });
 
   it('should pass axisCoordinates method correct parameters, horizontal, rotated', () => {
@@ -297,7 +293,7 @@ describe('Axis', () => {
       position: 'bottom',
       tickSize: 5,
       indentFromAxis: 10,
-      paneSize: [0, 0],
+      paneSize: [400, 500],
       rotated: true,
     });
   });
@@ -333,15 +329,15 @@ describe('Axis', () => {
 
     expect(tree.find(GridComponent).get(0).props).toEqual({
       x1: 11,
-      x2: 51,
+      x2: 411,
       y1: 12,
-      y2: 112,
+      y2: 12,
     });
     expect(tree.find(GridComponent).get(1).props).toEqual({
       x1: 21,
-      x2: 141,
+      x2: 421,
       y1: 22,
-      y2: 222,
+      y2: 22,
     });
   });
 
@@ -406,7 +402,7 @@ describe('Axis', () => {
       x1: 0,
       x2: 0,
       y1: 0,
-      y2: 300,
+      y2: 500,
     });
   });
 

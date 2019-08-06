@@ -1,4 +1,5 @@
 import { Table, Column } from '../index';
+import { CellWidthGetter } from '@devexpress/dx-grid-core';
 
 // tslint:disable: max-line-length
 // tslint:disable-next-line: no-namespace
@@ -101,6 +102,3 @@ export interface TableHeaderRowProps {
   /** An object that specifies localization messages. */
   messages?: TableHeaderRow.LocalizationMessages;
 }
-
-/** @internal */
-export type CellWidthGetter = () => number;

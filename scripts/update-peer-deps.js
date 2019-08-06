@@ -7,7 +7,7 @@ const {
 } = require('fs');
 
 module.exports = () => {
-  console.log('Check internal peer dependency versions...');
+  console.log('Update internal peer dependency versions...');
   const packagesDir = join(__dirname, '../packages');
   const packages = readdirSync(packagesDir);
   const verReplacers = packages.map(package =>
@@ -30,5 +30,5 @@ module.exports = () => {
       }
     }
   }
-  console.log('Checked!');
+  console.log('Updated!');
 };

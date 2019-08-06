@@ -6,7 +6,7 @@ const { valid, lt, inc, prerelease } = require('semver');
 const conventionalRecommendedBump = require('conventional-recommended-bump');
 const getCurrentBranchName = require('./get-current-branch-name');
 const ensureRepoUpToDate = require('./ensure-repo-up-to-date');
-const checkPeerDeps = require('./check-peer-deps');
+const updatePeerDeps = require('./update-peer-deps');
 
 const CONVENTIONAL_CHANGELOG_PRESET = 'angular';
 
@@ -55,7 +55,7 @@ const script = async () => {
   );
 
   execSync(`"./node_modules/.bin/lerna" version ${version} --exact --force-publish \* --no-git-tag-version --yes`, { stdio: 'ignore' });
-  checkPeerDeps();
+  updatePeerDeps();
 
   const { commit } = await prompt({
     message: 'Ready to commit. Please check build result and CHANGELOG.md. Is it ok?',

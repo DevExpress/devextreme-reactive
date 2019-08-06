@@ -122,9 +122,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
     rootComponent: 'Root',
     layoutComponent: 'Layout',
     controlLayoutComponent: 'ControlLayout',
-    saveButtonComponent: 'SaveButton',
-    deleteButtonComponent: 'DeleteButton',
-    cancelButtonComponent: 'CancelButton',
+    controlButtonComponent: 'ControlButton',
     basicLayoutComponent: 'BasicLayout',
     textEditorComponent: 'TextEditor',
     labelComponent: 'Label',
@@ -188,9 +186,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
     const {
       layoutComponent: Layout,
       controlLayoutComponent: ControlLayout,
-      saveButtonComponent: SaveButton,
-      deleteButtonComponent: DeleteButton,
-      cancelButtonComponent: CancelButton,
+      controlButtonComponent: ControlButton,
       rootComponent: Root,
       basicLayoutComponent: BasicLayout,
       textEditorComponent: TextEditor,
@@ -316,9 +312,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
 
               return (
                 <ControlLayout
-                  saveButtonComponent={SaveButton}
-                  deleteButtonComponent={DeleteButton}
-                  cancelButtonComponent={CancelButton}
+                  controlButtonComponent={ControlButton}
                   commitAppointment={commitAppointment}
                   cancelCommit={cancelCommit}
                   deleteAppointment={deleteAppointment}

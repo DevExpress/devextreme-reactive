@@ -2,6 +2,11 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
+import {
+  SAVE_BUTTON,
+  DELETE_BUTTON,
+  CANCEL_BUTTON,
+} from '@devexpress/dx-scheduler-core';
 
 const styles = theme => ({
   root: {
@@ -12,9 +17,7 @@ const styles = theme => ({
 });
 
 const LayoutBase = ({
-  saveButtonComponent: SaveButton,
-  deleteButtonComponent: DeleteButton,
-  cancelButtonComponent: CancelButton,
+  controlButtonComponent: ControlButton,
   commitAppointment,
   cancelCommit,
   deleteAppointment,
@@ -28,26 +31,27 @@ const LayoutBase = ({
     className={classNames(classes.root, className)}
     {...restProps}
   >
-    <CancelButton
+    <ControlButton
       onExecute={cancelCommit}
       getMessage={getMessage}
+      id={CANCEL_BUTTON}
     />
-    <DeleteButton
+    <ControlButton
       onExecute={deleteAppointment}
       getMessage={getMessage}
+      id={DELETE_BUTTON}
     />
-    <SaveButton
+    <ControlButton
       getMessage={getMessage}
       onExecute={commitAppointment}
+      id={SAVE_BUTTON}
     />
     {children}
   </div>
 );
 
 LayoutBase.propTypes = {
-  saveButtonComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  deleteButtonComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  cancelButtonComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  controlButtonComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   children: PropTypes.node.isRequired,
   classes: PropTypes.object.isRequired,
   commitAppointment: PropTypes.func.isRequired,

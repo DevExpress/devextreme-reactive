@@ -12,7 +12,7 @@ const styles = ({ spacing }) => ({
   },
 });
 
-const CloseButtonBase = ({
+const CancelButtonBase = ({
   classes, className, onExecute, ...restProps
 }) => (
   <IconButton
@@ -24,14 +24,14 @@ const CloseButtonBase = ({
   </IconButton>
 );
 
-CloseButtonBase.propTypes = {
+CancelButtonBase.propTypes = {
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   onExecute: PropTypes.func.isRequired,
 };
 
-CloseButtonBase.defaultProps = {
+CancelButtonBase.defaultProps = {
   className: undefined,
 };
 
-export const CloseButton = withStyles(styles)(CloseButtonBase, { name: 'CloseButton' });
+export const CancelButton = withStyles(styles)(CancelButtonBase, { name: 'CancelButton' });

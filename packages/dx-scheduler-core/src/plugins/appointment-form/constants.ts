@@ -53,3 +53,7 @@ export const PARTIAL_DATE_TIME_EDITOR = 'partialDateTimeEditor';
 
 export const TITLE_LABEL = 'titleLabel';
 export const ORDINARY_LABEL = 'ordinaryLabel';
+
+export const SAVE_BUTTON = 'saveButton';
+export const DELETE_BUTTON = 'deleteButton';
+export const CANCEL_BUTTON = 'cancelButton';

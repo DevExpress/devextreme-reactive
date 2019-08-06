@@ -10,6 +10,6 @@ export interface VirtualTableStateProps {
 /** @internal */
 export type VirtualTableStateState = {
   virtualRowsCache: any,
-  requestedPageIndex?: number,
+  requestedStartIndex: number,
   availableRowCount: number,
 };

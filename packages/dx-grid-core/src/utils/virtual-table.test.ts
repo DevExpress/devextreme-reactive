@@ -82,7 +82,7 @@ describe('VirtualTableLayout utils', () => {
         { size: 40 },
       ];
       expect(getRowsVisibleBoundary(items, 80, 120, item => item.size, 0, 40, false))
-      .toEqual({ start: 2, end: 4 });
+      .toEqual([2, 4]);
     });
 
     describe('remote data', () => {
@@ -101,7 +101,7 @@ describe('VirtualTableLayout utils', () => {
 
       it('should work when rows are not loaded', () => {
         expect(getRowsVisibleBoundary(items, 240, 120, item => item.size, 0, 40, true))
-          .toEqual({ start: 6, end: 6 });
+          .toEqual([6, 6]);
       });
     });
   });

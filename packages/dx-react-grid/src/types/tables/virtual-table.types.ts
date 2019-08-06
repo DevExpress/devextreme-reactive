@@ -1,4 +1,4 @@
-import { Table } from '../index';
+import { Table, GridViewport } from '../index';
 
 export interface VirtualTableProps {
   /** The virtual table's height. */
@@ -42,8 +42,12 @@ export interface VirtualTableProps {
   footerTableComponent: React.ComponentType<object>;
   // TODO
   skeletonCellComponent: React.ComponentType<Table.CellProps>;
-  // onViewportTopChange: (number) => void;
 }
+
+/** @internal */
+export type VirtualTablePluginState = {
+  viewport: GridViewport;
+};
 
 // tslint:disable-next-line:max-line-length
 /** A plugin that renders a scrollable table instead of a static table. Contains the VirtualTable.Row and VirtualTable.Cell components that provide ways to customize virtual table rows and columns. These components can be extended by other plugins. */

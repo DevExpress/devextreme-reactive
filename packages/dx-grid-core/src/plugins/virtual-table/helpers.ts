@@ -1,34 +1,62 @@
-import { PageTriggersMetaFn } from '../../types';
+import {
+  getRowsVisibleBoundary, getColumnBoundaries,
+} from '../../utils/virtual-table';
+import { GetViewportFn } from '../../types';
+import { arraysEqual } from './utils';
 
-/** how many rows up and down before next page request */
-export const pageTriggersMeta: PageTriggersMetaFn = (
-  { containerHeight, visibleRowBoundaries, estimatedRowHeight },
-  { pageSize, virtualRows },
+export const getViewport: GetViewportFn = (
+  state, getters, estimatedRowHeight, getRowHeight, getColumnWidth,
 ) => {
-  const loadedCount = virtualRows.rows.length;
-  if (loadedCount === 0) {
-    return null;
+  const {
+    viewportTop, viewportLeft, containerWidth, containerHeight, headerHeight, footerHeight,
+  } = state;
+  const {
+    loadedRowsStart,
+    bodyRows: tableBodyRows,
+    columns: tableColumns,
+    headerRows: tableHeaderRows = [],
+    footerRows: tableFooterRows = [],
+    isDataRemote,
+    viewport,
+  } = getters;
+
+  const rows = getRowsVisibleBoundary(
+    tableBodyRows, viewportTop, containerHeight - headerHeight - footerHeight,
+    getRowHeight, loadedRowsStart, estimatedRowHeight, isDataRemote,
+  );
+  const headerRows = getRowsVisibleBoundary(
+    tableHeaderRows, 0, headerHeight,
+    getRowHeight, 0, estimatedRowHeight, false,
+  );
+  const footerRows = getRowsVisibleBoundary(
+    tableFooterRows, 0, footerHeight,
+    getRowHeight, 0, estimatedRowHeight, false,
+  );
+  const columns = getColumnBoundaries(
+    tableColumns, viewportLeft, containerWidth, getColumnWidth,
+  );
+
+  // NOTE: prevent unnecessary updates
+  // e.g. when rows changed but bounds remain the same.
+  let result = viewport;
+  if (viewportTop !== viewport.viewportTop) {
+    result = { ...result, viewportTop };
+  }
+  if (viewportLeft !== viewport.viewportLeft) {
+    result = { ...result, viewportLeft };
+  }
+  if (!arraysEqual(rows, viewport.rows)) {
+    result = { ...result, rows };
+  }
+  if (!arraysEqual(headerRows, viewport.headerRows)) {
+    result = { ...result, headerRows };
+  }
+  if (!arraysEqual(footerRows, viewport.footerRows)) {
+    result = { ...result, footerRows };
+  }
+  if (!arraysEqual(columns, viewport.columns, arraysEqual)) {
+    result = { ...result, columns };
   }
 
-  const loadedRowsStart = virtualRows.skip;
-  const topTriggerIndex = loadedRowsStart > 0 ? loadedRowsStart + pageSize : 0;
-  const bottomTriggerIndex = loadedRowsStart + loadedCount - pageSize;
-  const bodyBoundaries = visibleRowBoundaries.body;
-  const firstRowIndex = bodyBoundaries.start;
-  const visibleCount = bodyBoundaries.end - bodyBoundaries.start;
-  const middleIndex = firstRowIndex + Math.round(visibleCount / 2);
-
-  const middlePosition = visibleRowBoundaries.viewportTop + containerHeight / 2;
-
-  const topTriggerOffset = (middleIndex - topTriggerIndex) * estimatedRowHeight;
-  const bottomTriggerOffset = (bottomTriggerIndex - middleIndex) * estimatedRowHeight;
-  const topTriggerPosition = middlePosition - topTriggerOffset;
-  const bottomTriggerPosition = middlePosition + bottomTriggerOffset;
-
-  return {
-    topTriggerIndex,
-    topTriggerPosition,
-    bottomTriggerIndex,
-    bottomTriggerPosition,
-  };
+  return result;
 };

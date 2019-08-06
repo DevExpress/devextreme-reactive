@@ -12,6 +12,9 @@ const styles = ({ typography }) => ({
   title: {
     ...typography.h6,
   },
+  textField: {
+    height: '2.75em',
+  },
 });
 
 const TextEditorBase = ({
@@ -35,6 +38,7 @@ const TextEditorBase = ({
     onChange={({ target }) => onValueChange(target.value)}
     InputProps={{
       className: classNames({
+        [classes.textField]: id !== NOTES_TEXT_EDITOR,
         [classes.title]: id === TITLE_TEXT_EDITOR,
       }),
     }}

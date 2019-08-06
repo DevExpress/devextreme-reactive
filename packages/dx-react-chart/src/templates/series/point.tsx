@@ -17,14 +17,14 @@ class RawPoint extends React.PureComponent<ScatterSeries.PointProps> {
     } = this.props;
     const x = rotated ? val : arg;
     const y = rotated ? arg : val;
-    const visibility = getVisibility(pane, x, y);
+    const visibility = getVisibility(pane, x, y, 0, 0);
     return (
       <path
         transform={`translate(${x} ${y})`}
         d={dSymbol(pointOptions)}
         fill={color}
-        stroke="none"
         visibility={visibility}
+        stroke="none"
         style={getAnimatedStyle(style, getScatterAnimationStyle, scales)}
         {...restProps}
       />

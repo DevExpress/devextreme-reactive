@@ -70,9 +70,6 @@ export interface PathComponentProps extends CommonComponentProps {
   coordinates: PathPoints;
 }
 
-/** @internal */
-export type getVisibilityFn = (pane: Size, x: number, y: number) => 'visible' | 'hidden';
-
 export interface PointComponentProps extends CommonComponentProps {
   /** @internal */
   seriesIndex: number;

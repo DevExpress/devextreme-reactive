@@ -12,8 +12,9 @@ import {
   SeriesList, Series, PointList, Point, DataItems, AddSeriesFn, ScalesCache, ScaleSeriesPointsFn,
   GetPointTransformerFn, Colors, Rect,
   BarSeries, ScatterSeries, PieSeries,
-  PointComponentProps, PathFn, getVisibilityFn,
+  PointComponentProps, PathFn,
 } from '../../types';
+import { Size } from '@devexpress/dx-react-core';
 import { ARGUMENT_DOMAIN } from '../../constants';
 import { getValueDomainName, getWidth } from '../../utils/scale';
 
@@ -286,6 +287,26 @@ export const scaleSeriesPoints: ScaleSeriesPointsFn = (
 ) => series.map(seriesItem => scalePoints(seriesItem, scales, rotated));
 
 /** @internal */
-export const getVisibility: getVisibilityFn = (pane, x , y) => {
-  return x >= 0 && x <= pane.width && y >= 0 && y <= pane.height ? 'visible' : 'hidden';
+export const getVisibility = (
+  pane: Size, centerX: number, centerY: number, width: number, height: number,
+) => {
+  return (centerX - width / 2 <= 0 && centerX + width / 2 <= 0)
+  || (centerX - width / 2 >= pane.width && centerX + width / 2 >= pane.width)
+  || (centerY - height / 2 <= 0 && centerY + height / 2 <= 0)
+  || (centerY - height / 2 >= pane.height && centerY + height / 2 >= pane.height) ?
+  'hidden' : 'visible';
+};
+
+/** @internal */
+export const adjustBarSize = (
+  bar: { width: number, height: number, x: number, y: number }, { width, height }: Size,
+) => {
+  const x = Math.max(0, bar.x);
+  const y = Math.max(0, bar.y);
+  return {
+    x,
+    y,
+    width: Math.min(width, bar.x + bar.width) - x,
+    height: Math.min(height, bar.y + bar.height) - y,
+  };
 };

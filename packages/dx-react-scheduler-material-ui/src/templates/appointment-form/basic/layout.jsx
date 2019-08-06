@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
-import { TITLE_TEXT_EDITOR, NOTES_TEXT_EDITOR } from '@devexpress/dx-scheduler-core';
+import { TITLE_TEXT_EDITOR, NOTES_TEXT_EDITOR, FULL_DATE_TIME_EDITOR } from '@devexpress/dx-scheduler-core';
 
 const styles = theme => ({
   root: {
@@ -66,6 +66,7 @@ const LayoutBase = ({
               });
             },
         }}
+        id={FULL_DATE_TIME_EDITOR}
       />
       <Label label={getMessage('moreInformationLabel')} />
       <TextEditor

@@ -45,7 +45,6 @@ class RootBase extends React.PureComponent {
         ModalProps={{
           container,
           style: { position: 'absolute' },
-          disablePortal: true,
         }}
         variant="temporary"
         open={visible}

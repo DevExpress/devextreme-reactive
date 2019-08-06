@@ -9,9 +9,10 @@ import {
   KeyboardDateTimePicker,
   MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
+import { FULL_DATE_TIME_EDITOR, PARTIAL_DATE_TIME_EDITOR } from '@devexpress/dx-scheduler-core';
 
 const styles = ({ typography }) => ({
-  editor: {
+  full: {
     width: '45%',
   },
   divider: {
@@ -20,18 +21,20 @@ const styles = ({ typography }) => ({
     textAlign: 'center',
     transform: 'translate(0, 50%)',
   },
+  partial: {
+    width: '100%',
+  }
 });
 
 const DateAndTimeEditorBase = ({
   classes,
-  label,
   className,
   readOnly,
   onStartDateValueChange,
   onEndDateValueChange,
   startDate,
   endDate,
-  oneDate,
+  id,
   disabled,
   ...restProps
 }) => (
@@ -39,17 +42,20 @@ const DateAndTimeEditorBase = ({
     <Grid container>
       <KeyboardDateTimePicker
         disabled={disabled}
-        className={classNames(classes.editor, className)}
+        className={classNames({
+          [classes.full]: id === FULL_DATE_TIME_EDITOR,
+          [classes.partial]: id === PARTIAL_DATE_TIME_EDITOR,
+        })}
         margin="normal"
         value={startDate}
         onChange={onStartDateValueChange}
-        KeyboardButtonProps={{
-          'aria-label': 'change date',
-        }}
         format="DD/MM/YYYY HH:mm a"
+        variant="inline"
+        readOnly={readOnly}
+        {...restProps}
       />
       {
-        !oneDate && (
+        id === FULL_DATE_TIME_EDITOR && (
           <Typography
             className={classes.divider}
             {...restProps}
@@ -59,14 +65,17 @@ const DateAndTimeEditorBase = ({
         )
       }
       {
-        !oneDate && (
+        id === FULL_DATE_TIME_EDITOR && (
           <KeyboardDateTimePicker
             disabled={disabled}
-            className={classNames(classes.editor, className)}
+            className={classNames(classes.full, className)}
             margin="normal"
             value={endDate}
             onChange={onEndDateValueChange}
             format="DD/MM/YYYY HH:mm a"
+            variant="inline"
+            readOnly={readOnly}
+            {...restProps}
           />
         )
       }
@@ -87,25 +96,23 @@ DateAndTimeEditorBase.propTypes = {
     PropTypes.string,
     PropTypes.instanceOf(Date),
   ]),
-  label: PropTypes.string,
   className: PropTypes.string,
   readOnly: PropTypes.bool,
   disabled: PropTypes.bool,
   onStartDateValueChange: PropTypes.func,
   onEndDateValueChange: PropTypes.func,
-  oneDate: PropTypes.bool,
+  id: PropTypes.string,
 };
 
 DateAndTimeEditorBase.defaultProps = {
   startDate: undefined,
   endDate: undefined,
-  label: undefined,
   className: undefined,
   readOnly: false,
   onStartDateValueChange: () => undefined,
   onEndDateValueChange: () => undefined,
-  oneDate: false,
   disabled: false,
+  id: PARTIAL_DATE_TIME_EDITOR,
 };
 
 export const DateAndTimeEditor = withStyles(styles)(DateAndTimeEditorBase, { name: 'DateAndTimeEditor' });

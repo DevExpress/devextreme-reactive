@@ -46,6 +46,7 @@ const DateAndTimeEditorBase = ({
         KeyboardButtonProps={{
           'aria-label': 'change date',
         }}
+        format="DD/MM/YYYY HH:mm a"
       />
       {
         !oneDate && (
@@ -65,6 +66,7 @@ const DateAndTimeEditorBase = ({
             margin="normal"
             value={endDate}
             onChange={onEndDateValueChange}
+            format="DD/MM/YYYY HH:mm a"
           />
         )
       }

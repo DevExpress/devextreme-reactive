@@ -6,6 +6,9 @@ import classNames from 'classnames';
 import { TITLE_LABEL, ORDINARY_LABEL } from '@devexpress/dx-scheduler-core';
 
 const styles = theme => ({
+  label: {
+    marginRight: theme.spacing(1),
+  },
   titleLabel: {
     fontWeight: theme.typography.fontWeightBold,
   },
@@ -20,6 +23,7 @@ const LabelBase = ({
 }) => (
   <Typography
     className={classNames({
+      [classes.label]: true,
       [classes.titleLabel]: id === TITLE_LABEL,
     }, className)}
     {...restProps}

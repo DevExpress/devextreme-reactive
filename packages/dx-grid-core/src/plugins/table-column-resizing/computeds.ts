@@ -18,7 +18,7 @@ const specifyWidths: SpecifyWidthsFn = (tableColumns, widths, onAbsence) => {
           onAbsence(columnName);
           acc.push(tableColumn);
         } else {
-          acc.push({ ...tableColumn, width });
+          acc.push({ ...tableColumn, width: width as number });
         }
       } else {
         acc.push(tableColumn);

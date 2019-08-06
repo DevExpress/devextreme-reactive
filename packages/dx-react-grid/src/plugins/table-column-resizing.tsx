@@ -11,6 +11,7 @@ import {
   cancelTableColumnWidthDraft,
   ColumnWidthPayload,
   TableColumnWidthInfo,
+  TABLE_DATA_TYPE,
 } from '@devexpress/dx-grid-core';
 import { TableColumnResizingProps, TableColumnResizingState } from '../types';
 
@@ -96,8 +97,18 @@ class TableColumnResizingBase extends React.PureComponent<TableColumnResizingPro
       stateHelper, cancelTableColumnWidthDraft,
     );
 
-    this.storeWidthGetters = memoize((cellWidthGetters) => {
-      this.widthGetters = cellWidthGetters;
+    this.storeWidthGetters = memoize(({ tableColumn, getter, tableColumns }) => {
+      if (tableColumn.type === TABLE_DATA_TYPE) {
+        this.widthGetters[tableColumn.column!.name] = getter;
+      }
+      Object.keys(this.widthGetters)
+      .forEach((columnName) => {
+        const columnIndex = tableColumns
+          .findIndex(({ type, column }) => type === TABLE_DATA_TYPE && column!.name === columnName);
+        if (columnIndex === -1) {
+          delete this.widthGetters[columnName];
+        }
+      });
     });
   }
 

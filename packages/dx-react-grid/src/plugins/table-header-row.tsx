@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  Getter, Template, Plugin, TemplateConnector, TemplatePlaceholder, Getters, ActionFn,
+  Getter, Template, Plugin, TemplateConnector, TemplatePlaceholder, Getters,
 } from '@devexpress/dx-react-core';
 import { getMessagesFormatter } from '@devexpress/dx-core';
 import {
@@ -10,9 +10,8 @@ import {
   isHeadingTableRow,
   TABLE_DATA_TYPE,
   TABLE_HEADING_TYPE,
-  TableColumn,
 } from '@devexpress/dx-grid-core';
-import { TableHeaderRowProps, TableCellProps, TableRowProps, CellWidthGetter } from '../types';
+import { TableHeaderRowProps, TableCellProps, TableRowProps } from '../types';
 
 const tableHeaderRowsComputed = (
   { tableHeaderRows }: Getters,
@@ -33,31 +32,6 @@ class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {
     titleComponent: 'Title',
     groupButtonComponent: 'GroupButton',
   };
-  cellWidthGetters: { [colName: string]: CellWidthGetter } = {};
-
-  storeCellsWidth(
-    tableColumn: Readonly<TableColumn>, getter: CellWidthGetter,
-    tableColumns: ReadonlyArray<TableColumn>, storeWidthGetters: ActionFn<object>,
-  ) {
-    if (tableColumn.type === TABLE_DATA_TYPE) {
-      this.cellWidthGetters[tableColumn.column!.name] = getter;
-    }
-    this.ensureCellWidthGetters(tableColumns, storeWidthGetters);
-  }
-
-  ensureCellWidthGetters(tableColumns: ReadonlyArray<TableColumn>, storeWidthGetters) {
-    Object.keys(this.cellWidthGetters)
-      .forEach((columnName) => {
-        const columnIndex = tableColumns
-          .findIndex(({ type, column }) => type === TABLE_DATA_TYPE && column!.name === columnName);
-        if (columnIndex === -1) {
-          delete this.cellWidthGetters[columnName];
-        }
-      });
-    if (Object.keys(this.cellWidthGetters).length === tableColumns.length) {
-      storeWidthGetters(this.cellWidthGetters);
-    }
-  }
 
   render() {
     const {
@@ -118,9 +92,9 @@ class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {
                     onWidthChange={({ shift }) => changeTableColumnWidth({ columnName, shift })}
                     onWidthDraft={({ shift }) => draftTableColumnWidth({ columnName, shift })}
                     onWidthDraftCancel={() => cancelTableColumnWidthDraft()}
-                    getCellWidth={getter => this.storeCellsWidth(
-                      params.tableColumn , getter, tableColumns, storeWidthGetters,
-                    )}
+                    getCellWidth={getter => storeWidthGetters({
+                      tableColumn: params.tableColumn , getter, tableColumns,
+                    })}
                     // @deprecated
                     sortingEnabled={sortingEnabled}
                     // @deprecated

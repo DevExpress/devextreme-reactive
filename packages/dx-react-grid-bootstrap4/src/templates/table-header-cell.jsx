@@ -23,10 +23,6 @@ export class TableHeaderCell extends React.PureComponent {
         this.setState({ dragging: false });
       }
     };
-    this.refHandler = node => node && props.getCellWidth(() => {
-      const { width } = node.getBoundingClientRect();
-      return width;
-    });
   }
 
   render() {
@@ -37,7 +33,7 @@ export class TableHeaderCell extends React.PureComponent {
       resizingEnabled, onWidthChange, onWidthDraft,
       tableRow, children,
       // @deprecated
-      showSortingControls, sortingDirection, sortingEnabled, onSort, before,
+      showSortingControls, sortingDirection, sortingEnabled, onSort, before, getCellWidth,
       ...restProps
     } = this.props;
     const { dragging } = this.state;
@@ -52,7 +48,10 @@ export class TableHeaderCell extends React.PureComponent {
           'text-nowrap': !(tableColumn && tableColumn.wordWrapEnabled),
         }, className)}
         scope="col"
-        ref={this.refHandler}
+        ref={node => node && getCellWidth(() => {
+          const { width } = node.getBoundingClientRect();
+          return width;
+        })}
         {...restProps}
       >
         <div
@@ -105,6 +104,7 @@ TableHeaderCell.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]),
+  getCellWidth: PropTypes.func,
 };
 
 TableHeaderCell.defaultProps = {
@@ -126,4 +126,5 @@ TableHeaderCell.defaultProps = {
   onWidthDraft: undefined,
   onWidthDraftCancel: undefined,
   children: undefined,
+  getCellWidth: undefined,
 };

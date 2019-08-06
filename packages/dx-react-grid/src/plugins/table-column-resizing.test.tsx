@@ -11,8 +11,10 @@ import {
   changeTableColumnWidth,
   draftTableColumnWidth,
   cancelTableColumnWidthDraft,
+  TABLE_DATA_TYPE,
 } from '@devexpress/dx-grid-core';
 import { TableColumnResizing } from './table-column-resizing';
+import { number, nominalTypeHack } from 'prop-types';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableColumnsWithWidths: jest.fn(),
@@ -24,7 +26,9 @@ jest.mock('@devexpress/dx-grid-core', () => ({
 
 const defaultDeps = {
   getter: {
-    tableColumns: [{ type: 'undefined' }],
+    tableColumns: [
+      { key: 'a', type: TABLE_DATA_TYPE, column: { name: 'a' } },
+    ],
   },
   plugins: ['Table'],
 };
@@ -56,6 +60,7 @@ describe('TableColumnResizing', () => {
   testStatePluginField({
     defaultDeps,
     defaultProps,
+    cachedColumn: { columnName: 'a', width: 100 },
     Plugin: TableColumnResizing,
     propertyName: 'columnWidths',
     getGetterValue: () => tableColumnsWithWidths
@@ -107,8 +112,20 @@ describe('TableColumnResizing', () => {
         />
       </PluginHost>
     ));
+    const tableColumn = { type: TABLE_DATA_TYPE, column: { name: 'a' } };
 
-    const payload = { changes: { a: 50 }, width: 100, minColumnWidth: defaultProps.minColumnWidth };
+    executeComputedAction(tree, actions => actions.storeWidthGetters({
+      tableColumn,
+      getter: () => 100,
+      tableColumns: [tableColumn],
+    }));
+
+    const payload = {
+      changes: { a: 50 },
+      columnName: 'a',
+      width: 100,
+      minColumnWidth: defaultProps.minColumnWidth,
+    };
 
     draftTableColumnWidth.mockReturnValue({ draftColumnWidths: [{ columnName: 'a', width: 150 }] });
     executeComputedAction(tree, actions => actions.draftTableColumnWidth(payload));

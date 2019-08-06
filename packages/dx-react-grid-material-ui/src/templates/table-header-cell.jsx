@@ -108,10 +108,7 @@ class TableHeaderCellBase extends React.PureComponent {
         this.setState({ dragging: false });
       }
     };
-    this.refHandler = node => node && props.getCellWidth(() => {
-      const { width } = node.getBoundingClientRect();
-      return width;
-    });
+    // this.refHandler = ;
   }
 
   render() {
@@ -122,7 +119,7 @@ class TableHeaderCellBase extends React.PureComponent {
       resizingEnabled, onWidthChange, onWidthDraft, onWidthDraftCancel,
       classes, tableRow, className, children,
       // @deprecated
-      showSortingControls, sortingDirection, sortingEnabled, onSort, before,
+      showSortingControls, sortingDirection, sortingEnabled, onSort, before, getCellWidth,
       ...restProps
     } = this.props;
 
@@ -142,7 +139,10 @@ class TableHeaderCellBase extends React.PureComponent {
       <TableCell
         style={style}
         className={tableCellClasses}
-        ref={this.refHandler}
+        ref={node => node && getCellWidth(() => {
+          const { width } = node.getBoundingClientRect();
+          return width;
+        })}
         {...restProps}
       >
         <div className={classes.container}>
@@ -194,6 +194,7 @@ TableHeaderCellBase.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node,
   before: PropTypes.node,
+  getCellWidth: PropTypes.func,
 };
 
 TableHeaderCellBase.defaultProps = {
@@ -216,6 +217,7 @@ TableHeaderCellBase.defaultProps = {
   className: undefined,
   children: undefined,
   before: undefined,
+  getCellWidth: undefined,
 };
 
 export const TableHeaderCell = withStyles(styles, { name: 'TableHeaderCell' })(TableHeaderCellBase);

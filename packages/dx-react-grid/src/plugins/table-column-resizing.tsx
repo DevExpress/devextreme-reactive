@@ -13,7 +13,7 @@ import {
   TableColumnWidthInfo,
   TABLE_DATA_TYPE,
 } from '@devexpress/dx-grid-core';
-import { TableColumnResizingProps, TableColumnResizingState } from '../types';
+import { TableColumnResizingProps, TableColumnResizingState, CellWidthGetter } from '../types';
 
 const pluginDependencies = [
   { name: 'Table' },
@@ -28,11 +28,12 @@ class TableColumnResizingBase extends React.PureComponent<TableColumnResizingPro
   draftTableColumnWidth: ActionFn<ColumnWidthPayload>;
   cancelTableColumnWidthDraft: ActionFn<any>;
   storeWidthGetters: ActionFn<object>;
-  widthGetters: object;
-  cachedColumn: TableColumnWidthInfo;
   tableColumnsComputed: MemoizedComputed<TableColumnWidthInfo[], typeof tableColumnsWithWidths>;
   // tslint:disable-next-line: max-line-length
   tableColumnsDraftComputed: MemoizedComputed<TableColumnWidthInfo[], typeof tableColumnsWithDraftWidths>;
+
+  widthGetters: { [colName: string]: CellWidthGetter } = {};
+  cachedColumn: TableColumnWidthInfo = undefined as any;
 
   constructor(props) {
     super(props);
@@ -42,8 +43,7 @@ class TableColumnResizingBase extends React.PureComponent<TableColumnResizingPro
       draftColumnWidths: [],
     };
 
-    this.widthGetters = {};
-    this.cachedColumn = undefined as any;
+    // this.cachedColumn = undefined as any;
 
     const stateHelper: StateHelper = createStateHelper(
       this,

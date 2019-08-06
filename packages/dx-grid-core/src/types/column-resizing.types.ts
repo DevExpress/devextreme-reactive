@@ -29,3 +29,6 @@ export type ColumnWidthState = {
 export type ColumnWidthReducer = PureReducer<
   ColumnWidthState, ColumnWidthPayload, Partial<ColumnWidthState>
 >;
+
+/** @internal */
+export type CellWidthGetter = () => number;

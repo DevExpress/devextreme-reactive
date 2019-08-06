@@ -21,7 +21,7 @@ export namespace TableHeaderRow {
     onWidthDraft: (parameters: { shift: number }) => void;
     /** An event that cancels the column width change used for preview. */
     onWidthDraftCancel(): void;
-    /** TEST */
+    /** The header cell's getter, which provide width */
     getCellWidth: (getter: CellWidthGetter) => void;
     /** Specifies whether drag-and-drop is enabled. */
     draggingEnabled: boolean;

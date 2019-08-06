@@ -537,23 +537,32 @@ export const Tooltip: React.ComponentType<TooltipProps>;
 
 // @public (undocumented)
 export namespace Tooltip {
+  export interface ArrowProps {
+    placement: 'right' | 'top';
+  }
   export interface ContentProps {
     targetItem: SeriesRef;
     text: string;
   }
   export interface OverlayProps {
+    arrowComponent: React.ComponentType<Tooltip.ArrowProps>;
     children: React.ReactNode;
     rotated: boolean;
     target: TooltipReference;
+  }
+  export interface SheetProps {
+    children: React.ReactNode;
   }
 }
 
 // @public (undocumented)
 export interface TooltipProps {
+  arrowComponent: React.ComponentType<Tooltip.ArrowProps>;
   contentComponent: React.ComponentType<Tooltip.ContentProps>;
   defaultTargetItem?: SeriesRef;
   onTargetItemChange?: NotifyPointerMoveFn;
   overlayComponent: React.ComponentType<Tooltip.OverlayProps>;
+  sheetComponent: React.ComponentType<Tooltip.SheetProps>;
   targetItem?: SeriesRef;
 }
 

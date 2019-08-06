@@ -57,7 +57,27 @@ describe('Remote rows cache', () => {
     cache.setRows(6, rows.slice(6, 12));
 
     expect(cache.getRows(0, 12))
-      .toEqual(rows.slice(0, 3));
+      .toEqual(rows.slice(0, 5));
+  });
+
+  it('should retrive incomplete pages', () => {
+    const rows = createRows(5);
+    const cache = createRowCache(3);
+
+    cache.setRows(0, rows);
+
+    expect(cache.getRows(0, 12))
+      .toEqual(rows);
+  });
+
+  it('should retrive incomplete page if it is the only one', () => {
+    const rows = createRows(2);
+    const cache = createRowCache(3);
+
+    cache.setRows(0, rows);
+
+    expect(cache.getRows(0, 12))
+      .toEqual(rows);
   });
 
   it('should invalidate all pages', () => {

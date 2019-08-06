@@ -1,0 +1,18 @@
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
+
+export const Arrow = React.forwardRef(({
+  className, placement, ...restProps
+}, ref) => (
+  <div className={classNames('arrow', className)} ref={ref} {...restProps} />
+));
+
+Arrow.propTypes = {
+  placement: PropTypes.string.isRequired,
+  className: PropTypes.string,
+};
+
+Arrow.defaultProps = {
+  className: undefined,
+};

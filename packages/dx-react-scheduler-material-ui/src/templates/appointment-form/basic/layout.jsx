@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
+import { TITLE_TEXT_EDITOR, NOTES_TEXT_EDITOR } from '@devexpress/dx-scheduler-core';
 
 const styles = theme => ({
   root: {
@@ -43,7 +44,7 @@ const LayoutBase = ({
       <TextEditor
         label={getMessage('titleLabel')}
         readOnly={readOnly}
-        isTitle
+        id={TITLE_TEXT_EDITOR}
         value={changedAppointment.title}
         {...changeAppointment && {
           onValueChange: title => changeAppointmentField({ change: { title } }),
@@ -79,7 +80,7 @@ const LayoutBase = ({
       <TextEditor
         label={getMessage('notesLabel')}
         readOnly={readOnly}
-        notes
+        id={NOTES_TEXT_EDITOR}
         value={changedAppointment.notes}
         {...changeAppointment && {
           onValueChange: notes => changeAppointmentField({ change: { notes } }),

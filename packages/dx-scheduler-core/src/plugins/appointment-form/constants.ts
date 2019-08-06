@@ -42,3 +42,7 @@ export const END_REPEAT_RADIO_GROUP = 'endRepeat';
 export const DAILY_RADIO_GROUP = 'dailyRadioGroup';
 export const MONTHLY_RADIO_GROUP = 'monthlyRadioGroup';
 export const YEARLY_RADIO_GROUP = 'yearlyRadioGroup';
+
+export const TITLE_TEXT_EDITOR = 'titleTextEditor';
+export const NOTES_TEXT_EDITOR = 'noteTextEditor';
+export const ORDINARY_TEXT_EDITOR = 'ordinaryTextEditor';

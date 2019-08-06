@@ -3,6 +3,7 @@ import * as PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
+import { TITLE_TEXT_EDITOR, NOTES_TEXT_EDITOR, ORDINARY_TEXT_EDITOR } from '@devexpress/dx-scheduler-core';
 
 const styles = ({ typography }) => ({
   editor: {
@@ -20,28 +21,24 @@ const TextEditorBase = ({
   className,
   readOnly,
   onValueChange,
-  isTitle,
-  notes,
+  id,
   style,
   ...restProps
 }) => (
   <TextField
     label={label}
-    className={classNames({
-      [classes.editor]: true,
-    },
-    className)}
+    className={classNames(classes.editor, className)}
     value={value}
     margin="normal"
-    variant={notes ? 'outlined' : 'filled'}
+    variant={id === NOTES_TEXT_EDITOR ? 'outlined' : 'filled'}
     disabled={readOnly}
     onChange={({ target }) => onValueChange(target.value)}
     InputProps={{
       className: classNames({
-        [classes.title]: isTitle,
+        [classes.title]: id === TITLE_TEXT_EDITOR,
       }),
     }}
-    multiline={notes}
+    multiline={id === NOTES_TEXT_EDITOR}
     rows="4"
     {...restProps}
   />
@@ -55,9 +52,8 @@ TextEditorBase.propTypes = {
   className: PropTypes.string,
   readOnly: PropTypes.bool,
   onValueChange: PropTypes.func,
-  isTitle: PropTypes.bool,
   style: PropTypes.object,
-  notes: PropTypes.bool,
+  id: PropTypes.string,
 };
 
 TextEditorBase.defaultProps = {
@@ -66,9 +62,8 @@ TextEditorBase.defaultProps = {
   className: undefined,
   readOnly: false,
   onValueChange: () => undefined,
-  isTitle: false,
   style: null,
-  notes: false,
+  id: ORDINARY_TEXT_EDITOR,
 };
 
 export const TextEditor = withStyles(styles)(TextEditorBase, { name: 'TextEditor' });

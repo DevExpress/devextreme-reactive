@@ -85,6 +85,7 @@ const defaultMessages = {
   thursdayLabel: 'Thursday',
   fridayLabel: 'Friday',
   saturdayLabel: 'Saturday',
+  yearsLabel: 'year(s)',
 };
 
 const REPEAT_TYPES = {
@@ -436,7 +437,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                     const rRule = changeRecurrenceFrequency(
                       changedAppointment.rRule,
                       rruleRepeatType,
-                      changedAppointment.startDate.getDate(),
+                      changedAppointment.startDate,
                     );
                     changeAppointmentField({ change: { rRule } });
 

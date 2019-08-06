@@ -44,7 +44,7 @@ const handleToDayOfWeekChange = (
   changeRecurrenceOptionsAction,
   options,
 ) => {
-  const weekNumber = Math.trunc((startDate.getDate() - 1) / 4);
+  const weekNumber = Math.trunc((startDate.getDate() - 1) / 7);
   if (weekNumber < 4) {
     const newOptions = {
       ...options,
@@ -134,10 +134,10 @@ const MonthlyEditorBase = ({
   if (recurrenceOptions.bymonthday && !recurrenceOptions.bymonthday.length) {
     value = 'onDayNumber';
     dayNumberTextField = recurrenceOptions.bymonthday;
-    weekNumber = Math.trunc(changedAppointment.startDate.getDate() / 7);
+    weekNumber = Math.trunc((changedAppointment.startDate.getDate() - 1) / 7);
   } else {
     value = 'onDayOfWeek';
-    if (recurrenceOptions.bymonthday[0] > 0) {
+    if (recurrenceOptions.bymonthday && recurrenceOptions.bymonthday[0] > 0) {
       weekNumber = Math.trunc(recurrenceOptions.bymonthday[0] / 7);
     }
   }

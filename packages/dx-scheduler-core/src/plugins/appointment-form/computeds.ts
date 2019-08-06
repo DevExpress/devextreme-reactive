@@ -30,14 +30,26 @@ export const getRecurrenceInterval: NumberRecurrenceRuleGetterFn = (
   return options.interval;
 };
 
-export const changeRecurrenceFrequency: ChangeRecurrenceNumberFeildFn = (
+export const  changeRecurrenceFrequency: ChangeRecurrenceNumberFeildFn = (
   rule,
   freq,
-  startDay,
+  startDate,
 ) => {
   if (!rule) {
     if (freq === RRULE_REPEAT_TYPES.monthly) {
-      return (new RRule({ ...DEFAULT_RULE_OBJECT, freq, bymonthday: [startDay] })).toString();
+      return (new RRule({
+        ...DEFAULT_RULE_OBJECT,
+        freq,
+        bymonthday: [startDate.getDate()],
+      })).toString();
+    }
+    if (freq === RRULE_REPEAT_TYPES.yearly) {
+      return (new RRule({
+        ...DEFAULT_RULE_OBJECT,
+        freq,
+        bymonthday: [startDate.getDate()],
+        bymonth: startDate.getMonth(),
+      })).toString();
     }
     return (new RRule({ ...DEFAULT_RULE_OBJECT, freq })).toString();
   }
@@ -47,8 +59,8 @@ export const changeRecurrenceFrequency: ChangeRecurrenceNumberFeildFn = (
   if (freq === RRULE_REPEAT_TYPES.monthly && options.freq === freq) return rule;
 
   options.freq = freq;
-  if (freq === RRULE_REPEAT_TYPES.monthly) {
-    options.bymonthday = startDay;
+  if (freq === RRULE_REPEAT_TYPES.monthly || freq === RRULE_REPEAT_TYPES.yearly) {
+    options.bymonthday = startDate.getDate();
   }
   const newRule = new RRule(options);
   return newRule.toString();

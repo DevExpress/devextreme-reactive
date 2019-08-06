@@ -2,7 +2,12 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
-import { TITLE_TEXT_EDITOR, NOTES_TEXT_EDITOR, FULL_DATE_TIME_EDITOR } from '@devexpress/dx-scheduler-core';
+import {
+  TITLE_TEXT_EDITOR,
+  NOTES_TEXT_EDITOR,
+  FULL_DATE_TIME_EDITOR,
+  TITLE_LABEL,
+} from '@devexpress/dx-scheduler-core';
 
 const styles = theme => ({
   root: {
@@ -40,7 +45,10 @@ const LayoutBase = ({
       style={{ ...layoutStyle, ...style }}
       {...restProps}
     >
-      <Label label={getMessage('detailsLabel')} />
+      <Label
+        label={getMessage('detailsLabel')}
+        id={TITLE_LABEL}
+      />
       <TextEditor
         label={getMessage('titleLabel')}
         readOnly={readOnly}
@@ -68,16 +76,20 @@ const LayoutBase = ({
         }}
         id={FULL_DATE_TIME_EDITOR}
       />
-      <Label label={getMessage('moreInformationLabel')} />
+      <Label
+        label={getMessage('moreInformationLabel')}
+        id={TITLE_LABEL}
+      />
       <TextEditor
         label={getMessage('additionalInformationLabel')}
         readOnly={readOnly}
         value={changedAppointment.additionalInformation}
         {...changeAppointment && {
-          onValueChange: additionalInformation => changeAppointmentField({ change: { additionalInformation } }),
+          onValueChange: additionalInformation => changeAppointmentField({
+            change: { additionalInformation },
+          }),
         }}
       />
-      <Label label={getMessage('notesLabel')} />
       <TextEditor
         label={getMessage('notesLabel')}
         readOnly={readOnly}
@@ -98,7 +110,10 @@ const LayoutBase = ({
       {
         (!changedAppointment.rRule) && (
           <React.Fragment>
-            <Label label={getMessage('repeatLabel')} />
+            <Label
+              label={getMessage('repeatLabel')}
+              id={TITLE_LABEL}
+            />
             <RecurrenceSwitcher />
           </React.Fragment>
         )

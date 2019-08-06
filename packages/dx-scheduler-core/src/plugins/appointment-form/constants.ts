@@ -49,3 +49,6 @@ export const ORDINARY_TEXT_EDITOR = 'ordinaryTextEditor';
 
 export const FULL_DATE_TIME_EDITOR = 'fullDateTimeEditor';
 export const PARTIAL_DATE_TIME_EDITOR = 'partialDateTimeEditor';
+
+export const TITLE_LABEL = 'titleLabel';
+export const ORDINARY_LABEL = 'ordinaryLabel';

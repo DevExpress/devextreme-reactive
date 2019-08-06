@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { END_REPEAT_RADIO_GROUP } from '@devexpress/dx-scheduler-core';
+import { END_REPEAT_RADIO_GROUP, TITLE_LABEL } from '@devexpress/dx-scheduler-core';
 import classNames from 'classnames';
 import { Layout as DailyLayout } from './layouts/daily';
 import { Layout as WeeklyLayout } from './layouts/weekly';
@@ -66,6 +66,7 @@ const LayoutBase = ({
       <div className={classNames(classes.root, className)}>
         <Label
           label={getMessage('repeatLabel')}
+          id={TITLE_LABEL}
         />
         <RecurenceSwitcher />
         <MainLayoutComponent

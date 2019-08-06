@@ -5,7 +5,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import { withStyles } from '@material-ui/core/styles';
 
-const styles = ({ typography }) => ({
+const styles = ({ typography, spacing }) => ({
   root: {
     fontSize: typography.fontSize,
   },
@@ -19,6 +19,7 @@ const styles = ({ typography }) => ({
   },
   inputRoot: {
     width: '100%',
+    marginTop: spacing(2),
   },
 });
 

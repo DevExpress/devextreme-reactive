@@ -72,7 +72,7 @@ class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {
               }, {
                 changeColumnSorting, changeColumnGrouping,
                 changeTableColumnWidth, draftTableColumnWidth, cancelTableColumnWidthDraft,
-                storeWidthGetters,
+                storeWidthGetters = () => {},
               }) => {
                 const { name: columnName, title: columnTitle } = params.tableColumn.column!;
                 const atLeastOneDataColumn = tableColumns

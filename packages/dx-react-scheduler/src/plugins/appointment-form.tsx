@@ -203,7 +203,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
     } = this.props;
     const { visible, appointmentData } = this.state;
     const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
-    let frequency = REPEAT_TYPES.never;
+    let frequency;
 
     return (
       <Plugin
@@ -223,10 +223,12 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                 ...isNew ? addedAppointment : appointmentChanges,
               };
               const rRuleFrequency = getRecurrenceFrequency(changedAppointment.rRule);
+              frequency = REPEAT_TYPES.never;
               if (rRuleFrequency === RRULE_REPEAT_TYPES.daily) frequency = REPEAT_TYPES.daily;
               if (rRuleFrequency === RRULE_REPEAT_TYPES.weekly) frequency = REPEAT_TYPES.weekly;
               if (rRuleFrequency === RRULE_REPEAT_TYPES.monthly) frequency = REPEAT_TYPES.monthly;
               if (rRuleFrequency === RRULE_REPEAT_TYPES.yearly) frequency = REPEAT_TYPES.yearly;
+              console.log(changedAppointment.rRule);
               return (
                 <React.Fragment>
                   <React.Fragment>
@@ -243,7 +245,6 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                       style={{ position: 'absolute' }}
                       frequency={frequency}
                     >
-
                       <Layout
                         basicLayoutComponent={BasicLayoutPlaceholder}
                         controlLayoutComponent={ControlLayoutPlaceholder}
@@ -431,11 +432,14 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                   {...changeAppointment && {
                     onChange: (repeatType) => {
                       const rruleRepeatType = getRRuleFrequence(repeatType);
-                      const rRule = changeRecurrenceFrequency(
-                        changedAppointment.rRule,
-                        rruleRepeatType,
-                        changedAppointment.startDate,
-                      );
+                      let rRule;
+                      if (rruleRepeatType) {
+                        rRule = changeRecurrenceFrequency(
+                          changedAppointment.rRule,
+                          rruleRepeatType,
+                          changedAppointment.startDate,
+                        );
+                      }
                       changeAppointmentField({ change: { rRule } });
                     },
                   }}

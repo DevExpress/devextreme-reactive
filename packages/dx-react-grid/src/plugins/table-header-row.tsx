@@ -17,6 +17,14 @@ const tableHeaderRowsComputed = (
   { tableHeaderRows }: Getters,
 ) => tableRowsWithHeading(tableHeaderRows || []);
 
+const getLastColumnName = (
+  { tableColumns }: Getters,
+) => {
+  const index = tableColumns.length - 1;
+  const columnName = tableColumns[index].column.name;
+  return columnName;
+};
+
 class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {
   static ROW_TYPE = TABLE_HEADING_TYPE;
   static defaultProps = {
@@ -59,6 +67,7 @@ class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {
         ]}
       >
         <Getter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
+        <Getter name="lastColumnName" computed={getLastColumnName} />
 
         <Template
           name="tableCell"
@@ -68,7 +77,8 @@ class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {
             <TemplateConnector>
               {({
                 sorting, tableColumns, draggingEnabled, tableColumnResizingEnabled,
-                isColumnSortingEnabled, isColumnGroupingEnabled,
+                isColumnSortingEnabled, isColumnGroupingEnabled, lastColumnName,
+                nextColumnResizing,
               }, {
                 changeColumnSorting, changeColumnGrouping,
                 changeTableColumnWidth, draftTableColumnWidth, cancelTableColumnWidthDraft,
@@ -88,7 +98,10 @@ class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {
                     {...params}
                     column={params.tableColumn.column!}
                     draggingEnabled={draggingEnabled && atLeastOneDataColumn}
-                    resizingEnabled={tableColumnResizingEnabled}
+                    resizingEnabled={
+                      tableColumnResizingEnabled &&
+                      (lastColumnName !== params.tableColumn.column!.name || !nextColumnResizing)
+                    }
                     onWidthChange={({ shift }) => changeTableColumnWidth({ columnName, shift })}
                     onWidthDraft={({ shift }) => draftTableColumnWidth({ columnName, shift })}
                     onWidthDraftCancel={() => cancelTableColumnWidthDraft()}

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
-import { dBar } from '@devexpress/dx-chart-core';
+import { dBar, adjustBarSize } from '@devexpress/dx-chart-core';
 import { Bar } from './bar';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
@@ -36,6 +36,7 @@ describe('Bar', () => {
     rotated: true,
     style: { tag: 'test-style' },
     scales: { tag: 'test-scales' } as any,
+    pane: { width: 100, height: 200 },
     getAnimatedStyle: jest.fn().mockReturnValue('animated-style'),
   };
 
@@ -54,6 +55,8 @@ describe('Bar', () => {
       style: 'animated-style',
       visibility: 'visible',
     });
+    expect(adjustBarSize)
+    .toBeCalledWith({ attributes: 'test-attributes' }, { width: 100, height: 200 });
     expect(dBar).toBeCalledWith(1, 2, 18, 40, true);
   });
 

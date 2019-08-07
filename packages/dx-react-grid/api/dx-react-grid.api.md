@@ -713,6 +713,7 @@ export interface TableColumnResizingProps {
   columnWidths?: Array<TableColumnWidthInfo>;
   defaultColumnWidths?: Array<TableColumnWidthInfo>;
   minColumnWidth?: number;
+  nextColumnResizing?: boolean;
   onColumnWidthsChange?: (nextColumnWidths: Array<TableColumnWidthInfo>) => void;
 }
 

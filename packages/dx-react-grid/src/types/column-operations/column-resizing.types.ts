@@ -7,6 +7,8 @@ export interface TableColumnResizingProps {
   minColumnWidth?: number;
   /** Specifies initial column widths in uncontrolled mode. */
   defaultColumnWidths?: Array<TableColumnWidthInfo>;
+  /** Specifies initial column resize mode. */
+  nextColumnResizing?: boolean;
   /** Handles column width changes. */
   onColumnWidthsChange?: (nextColumnWidths: Array<TableColumnWidthInfo>) => void;
 }
@@ -15,6 +17,7 @@ export interface TableColumnResizingProps {
 export type TableColumnResizingState = {
   columnWidths: TableColumnWidthInfo[],
   draftColumnWidths: TableColumnWidthInfo[],
+  nextColumnResizing: boolean;
 };
 
 /** @internal */

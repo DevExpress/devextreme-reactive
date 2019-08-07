@@ -23,6 +23,7 @@ const pluginDependencies = [
 class TableColumnResizingBase extends React.PureComponent<TableColumnResizingProps, TableColumnResizingState> {
   static defaultProps = {
     defaultColumnWidths: [],
+    defaultNextColumnResizing: false,
   };
   changeTableColumnWidth: ActionFn<ColumnWidthPayload>;
   draftTableColumnWidth: ActionFn<ColumnWidthPayload>;
@@ -43,6 +44,7 @@ class TableColumnResizingBase extends React.PureComponent<TableColumnResizingPro
     this.state = {
       columnWidths: props.columnWidths || props.defaultColumnWidths,
       draftColumnWidths: [],
+      nextColumnResizing: props.nextColumnResizing || props.defaultNextColumnResizing,
     };
 
     const stateHelper: StateHelper = createStateHelper(
@@ -129,7 +131,8 @@ class TableColumnResizingBase extends React.PureComponent<TableColumnResizingPro
   }
 
   render() {
-    const { columnWidths, draftColumnWidths } = this.state;
+    const { columnWidths, draftColumnWidths, nextColumnResizing } = this.state;
+    console.log(nextColumnResizing);
 
     const tableColumnsComputed = this.tableColumnsComputed(columnWidths);
     const tableColumnsDraftComputed = this.tableColumnsDraftComputed(draftColumnWidths);

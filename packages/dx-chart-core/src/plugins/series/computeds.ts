@@ -290,10 +290,10 @@ export const scaleSeriesPoints: ScaleSeriesPointsFn = (
 export const getVisibility = (
   pane: Size, centerX: number, centerY: number, width: number, height: number,
 ) => {
-  return (centerX - width / 2 <= 0 && centerX + width / 2 <= 0)
-  || (centerX - width / 2 >= pane.width && centerX + width / 2 >= pane.width)
-  || (centerY - height / 2 <= 0 && centerY + height / 2 <= 0)
-  || (centerY - height / 2 >= pane.height && centerY + height / 2 >= pane.height) ?
+  return (centerX - width / 2 < 0 && centerX + width / 2 < 0)
+  || (centerX - width / 2 > pane.width && centerX + width / 2 > pane.width)
+  || (centerY - height / 2 < 0 && centerY + height / 2 < 0)
+  || (centerY - height / 2 > pane.height && centerY + height / 2 > pane.height) ?
   'hidden' : 'visible';
 };
 

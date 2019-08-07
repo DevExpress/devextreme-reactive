@@ -11,6 +11,11 @@ import {
   getNumberLabels,
   getDaysOfWeek,
 } from '../../../utils';
+import {
+  handleStartDateChange,
+  handleToDayOfWeekChange,
+  handleWeekNumberChange,
+} from './helpers';
 
 const styles = ({ spacing }) => ({
   textEditor: {
@@ -25,76 +30,6 @@ const styles = ({ spacing }) => ({
     paddingBottom: spacing(2.75),
   },
 });
-
-const handleStartDateChange = (
-  newStartDay,
-  changeRecurrenceOptionsAction,
-  options,
-) => {
-  if (newStartDay <= 31) {
-    const newOptions = { ...options, bymonthday: newStartDay };
-    changeRecurrenceOptionsAction(newOptions);
-  }
-};
-
-const handleToDayOfWeekChange = (
-  weekNumber,
-  dayOfweek,
-  changeRecurrenceOptionsAction,
-  options,
-) => {
-  if (weekNumber < 4) {
-    const newOptions = {
-      ...options,
-      bymonthday: [
-        weekNumber * 7 + 1,
-        weekNumber * 7 + 2,
-        weekNumber * 7 + 3,
-        weekNumber * 7 + 4,
-        weekNumber * 7 + 5,
-        weekNumber * 7 + 6,
-        weekNumber * 7 + 7,
-      ],
-      byweekday: dayOfweek,
-    };
-    changeRecurrenceOptionsAction(newOptions);
-  } else {
-    const newOptions = {
-      ...options,
-      bymonthday: [-1, -2, -3, -4, -5, -6, -7],
-      byweekday: dayOfweek,
-    };
-    changeRecurrenceOptionsAction(newOptions);
-  }
-};
-
-const handleWeekNumberChange = (
-  newWeekNumber,
-  changeRecurrenceOptionsAction,
-  options,
-) => {
-  if (newWeekNumber < 4) {
-    const newOptions = {
-      ...options,
-      bymonthday: [
-        newWeekNumber * 7 + 1,
-        newWeekNumber * 7 + 2,
-        newWeekNumber * 7 + 3,
-        newWeekNumber * 7 + 4,
-        newWeekNumber * 7 + 5,
-        newWeekNumber * 7 + 6,
-        newWeekNumber * 7 + 7,
-      ],
-    };
-    changeRecurrenceOptionsAction(newOptions);
-  } else {
-    const newOptions = {
-      ...options,
-      bymonthday: [-1, -2, -3, -4, -5, -6, -7],
-    };
-    changeRecurrenceOptionsAction(newOptions);
-  }
-};
 
 const MonthlyEditorBase = ({
   classes,
@@ -116,7 +51,6 @@ const MonthlyEditorBase = ({
     Math.trunc((changedAppointment.startDate.getDate() - 1) / 7),
   );
   const [stateDayOfWeek, setStateDayOfWeek] = useState(changedAppointment.startDate.getDay());
-
   let value;
   let dayNumberTextField = dayNumber;
   // The last week in a month
@@ -133,7 +67,8 @@ const MonthlyEditorBase = ({
       dayOfWeek = stateDayOfWeek;
       weekNumber = stateWeekNumber;
     } else {
-      dayOfWeek = recurrenceOptions.byweekday;
+      dayOfWeek = recurrenceOptions.byweekday < 6
+        ? Number.parseInt(recurrenceOptions.byweekday, 10) + 1 : 0;
       if (recurrenceOptions.bymonthday && recurrenceOptions.bymonthday[0] > 0) {
         weekNumber = Math.trunc(recurrenceOptions.bymonthday[0] / 7);
       }
@@ -191,8 +126,8 @@ const MonthlyEditorBase = ({
               value={dayNumberTextField}
               className={classes.textEditor}
               id={NUMBER_EDITOR}
-              onValueChange={dayNumber => handleStartDateChange(
-                dayNumber,
+              onValueChange={newDayNumber => handleStartDateChange(
+                newDayNumber,
                 onRecurrenceOptionsChange,
                 recurrenceOptions,
               )}
@@ -230,7 +165,7 @@ const MonthlyEditorBase = ({
             <Switcher
               disabled={value !== 'onDayOfWeek'}
               onChange={newWeekDay => onRecurrenceOptionsChange({
-                ...recurrenceOptions, byweekday: newWeekDay,
+                ...recurrenceOptions, byweekday: newWeekDay > 0 ? newWeekDay - 1 : 6,
               })}
               value={dayOfWeek}
               availableOptions={getDaysOfWeek(getMessage)}

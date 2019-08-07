@@ -48,7 +48,7 @@ export const changeRecurrenceFrequency: ChangeRecurrenceNumberFeildFn = (
         ...DEFAULT_RULE_OBJECT,
         freq,
         bymonthday: [startDate.getDate()],
-        bymonth: startDate.getMonth(),
+        bymonth: startDate.getMonth() + 1,
       })).toString();
     }
     return (new RRule({ ...DEFAULT_RULE_OBJECT, freq })).toString();

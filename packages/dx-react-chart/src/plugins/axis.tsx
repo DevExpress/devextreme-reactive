@@ -11,7 +11,8 @@ import {
 import {
   ARGUMENT_DOMAIN, getValueDomainName,
   getRotatedPosition, isValidPosition,
-  axisCoordinates, LEFT, BOTTOM, getGridCoordinates,
+  LEFT, BOTTOM, getTickCoordinates, gridCoordinates, tickCoordinates,
+  Tick, Grid,
 } from '@devexpress/dx-chart-core';
 import { RawAxisProps } from '../types';
 import { Root } from '../templates/axis/root';
@@ -72,7 +73,8 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
             const { width, height } = layouts[layoutName] || { width: 0, height: 0 };
             const paneSize = layouts.pane;
 
-            const { sides: [dx, dy], ticks } = axisCoordinates({
+            const { sides: [dx, dy], ticks } = getTickCoordinates({
+              callback: tickCoordinates,
               scaleName: scaleName!,
               position: position!,
               tickSize: tickSize!,
@@ -119,7 +121,7 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
                     dy={dy}
                     onSizeChange={handleSizeChange}
                   >
-                    {showTicks && ticks.map(({
+                    {showTicks && (ticks as Tick[]).map(({
                       x1, x2, y1, y2, key,
                     }) => (
                       <TickComponent
@@ -138,7 +140,7 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
                         y2={dy * paneSize.height}
                       />
                     )}
-                    {showLabels && ticks.map(({
+                    {showLabels && (ticks as Tick[]).map(({
                       text,
                       xText,
                       yText,
@@ -181,7 +183,8 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
               return null;
             }
             const { width, height } = layouts.pane;
-            const { ticks, sides: [dx, dy] } = getGridCoordinates({
+            const { ticks, sides: [dx, dy] } = getTickCoordinates({
+              callback: gridCoordinates,
               scaleName: scaleName!,
               scale,
               paneSize: [width, height],
@@ -189,7 +192,7 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
             });
             return ((
               <React.Fragment>
-                {ticks.map(({
+                {(ticks as Grid[]).map(({
                   key, x1, y1,
                 }) => (
                   <GridComponent

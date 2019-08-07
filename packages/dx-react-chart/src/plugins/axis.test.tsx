@@ -1,17 +1,16 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { axisCoordinates, getGridCoordinates } from '@devexpress/dx-chart-core';
+import { getTickCoordinates } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-testing';
 import { Axis } from './axis';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   getRotatedPosition: jest.fn(pos => `${pos}-rotated`),
   isValidPosition: jest.fn(pos => !pos.endsWith('-rotated')),
-  axisCoordinates: jest.fn(),
+  getTickCoordinates: jest.fn(),
   LEFT: 'left',
   BOTTOM: 'bottom',
-  getGridCoordinates: jest.fn(),
 }));
 
 describe('Axis', () => {
@@ -97,7 +96,7 @@ describe('Axis', () => {
     },
   ];
 
-  (getGridCoordinates as jest.Mock).mockReturnValue({
+  (getTickCoordinates as jest.Mock).mockReturnValue({
     ticks: [{
       key: '1',
       x1: 11,
@@ -110,8 +109,8 @@ describe('Axis', () => {
     sides: [0, 1],
   });
 
-  const setupAxisCoordinates = (sides) => {
-    (axisCoordinates as jest.Mock).mockReturnValue({ sides, ticks: mockTicks });
+  const setupGetTickCoordinates = (sides) => {
+    (getTickCoordinates as jest.Mock).mockReturnValue({ sides, ticks: mockTicks });
   };
 
   const enforceUpdate = tree => tree.setProps({ tag: 'enforce-update' }).update();
@@ -133,13 +132,13 @@ describe('Axis', () => {
   });
 
   beforeEach(() => {
-    setupAxisCoordinates([1, 0]);
+    setupGetTickCoordinates([1, 0]);
     getBoundingClientRect.mockReturnValue({ width: 400, height: 300 });
   });
 
   afterEach(() => {
     jest.clearAllMocks();
-    (axisCoordinates as jest.Mock).mockReset();
+    (getTickCoordinates as jest.Mock).mockReset();
     getBoundingClientRect.mockReset();
   });
 
@@ -162,7 +161,7 @@ describe('Axis', () => {
   });
 
   it('should pass correct bbox, vertical-left position', () => {
-    setupAxisCoordinates([0, 1]);
+    setupGetTickCoordinates([0, 1]);
     const tree = mount(<AxisTester position="left" />);
 
     (tree.find(RootComponent).props() as any).onSizeChange({ width: 350, height: 250 });
@@ -178,7 +177,7 @@ describe('Axis', () => {
   });
 
   it('should pass correct bbox, vertical-right position', () => {
-    setupAxisCoordinates([0, 1]);
+    setupGetTickCoordinates([0, 1]);
     const tree = mount(<AxisTester position="right" />);
 
     (tree.find(RootComponent).props() as any).onSizeChange({ width: 350, height: 250 });
@@ -194,7 +193,7 @@ describe('Axis', () => {
   });
 
   it('should pass correct bbox, horizontal-top position', () => {
-    setupAxisCoordinates([1, 0]);
+    setupGetTickCoordinates([1, 0]);
     const tree = mount(<AxisTester position="top" />);
 
     (tree.find(RootComponent).props() as any).onSizeChange({ width: 350, height: 250 });
@@ -210,7 +209,7 @@ describe('Axis', () => {
   });
 
   it('should pass correct bbox for group, horizontal-bottom position', () => {
-    setupAxisCoordinates([1, 0]);
+    setupGetTickCoordinates([1, 0]);
     const tree = mount(<AxisTester />);
 
     (tree.find(RootComponent).props() as any).onSizeChange({ width: 350, height: 250 });
@@ -226,7 +225,7 @@ describe('Axis', () => {
   });
 
   it('should call changeBBox one time, zises are not changed after update', () => {
-    setupAxisCoordinates([0, 1]);
+    setupGetTickCoordinates([0, 1]);
     const tree = mount(<AxisTester position="left" />);
 
     const { onSizeChange } = tree.find(RootComponent).props() as any;
@@ -237,12 +236,12 @@ describe('Axis', () => {
     expect(defaultDeps.action.changeBBox.mock.calls.length).toBe(1);
   });
 
-  it('should pass axisCoordinates method correct parameters, horizontal orientation', () => {
+  it('should pass getTickCoordinates method correct parameters, horizontal orientation', () => {
     const mockTickFormat = () => 0;
-    setupAxisCoordinates([1, 0]);
+    setupGetTickCoordinates([1, 0]);
     mount(<AxisTester tickFormat={mockTickFormat} />);
 
-    expect(axisCoordinates).toHaveBeenCalledWith({
+    expect(getTickCoordinates).toHaveBeenCalledWith({
       scaleName: 'test-domain',
       scale: mockScale,
       position: 'bottom',
@@ -254,8 +253,8 @@ describe('Axis', () => {
     });
   });
 
-  it('should pass axisCoordinates method correct parameters, vertical orientation', () => {
-    setupAxisCoordinates([0, 1]);
+  it('should pass getTickCoordinates method correct parameters, vertical orientation', () => {
+    setupGetTickCoordinates([0, 1]);
     mount(
       <AxisTester
         scaleName="other-domain"
@@ -264,7 +263,7 @@ describe('Axis', () => {
       />,
     );
 
-    expect(axisCoordinates).toHaveBeenCalledWith({
+    expect(getTickCoordinates).toHaveBeenCalledWith({
       scaleName: 'other-domain',
       scale: mockScale,
       position: 'bottom',
@@ -275,8 +274,8 @@ describe('Axis', () => {
     });
   });
 
-  it('should pass axisCoordinates method correct parameters, horizontal, rotated', () => {
-    setupAxisCoordinates([1, 0]);
+  it('should pass getTickCoordinates method correct parameters, horizontal, rotated', () => {
+    setupGetTickCoordinates([1, 0]);
     mount(
     <PluginHost>
       {pluginDepsToComponents({
@@ -287,7 +286,7 @@ describe('Axis', () => {
     </PluginHost>,
     );
 
-    expect(axisCoordinates).toHaveBeenCalledWith({
+    expect(getTickCoordinates).toHaveBeenCalledWith({
       scaleName: 'test-domain',
       scale: mockScale,
       position: 'bottom',
@@ -299,7 +298,7 @@ describe('Axis', () => {
   });
 
   it('should render tick component', () => {
-    setupAxisCoordinates([1, 0]);
+    setupGetTickCoordinates([1, 0]);
     const tree = mount(<AxisTester />);
 
     expect(tree.find(TickComponent).get(0).props).toEqual({
@@ -317,39 +316,39 @@ describe('Axis', () => {
   });
 
   it('should not render tick component, showTicks is false', () => {
-    setupAxisCoordinates([1, 0]);
+    setupGetTickCoordinates([1, 0]);
     const tree = mount(<AxisTester showTicks={false} />);
 
     expect(tree.find(TickComponent).get(0)).toBeFalsy();
   });
 
   it('should render grid component', () => {
-    setupAxisCoordinates([1, 0]);
+    setupGetTickCoordinates([1, 0]);
     const tree = mount(<AxisTester />);
 
     expect(tree.find(GridComponent).get(0).props).toEqual({
-      x1: 11,
-      x2: 411,
-      y1: 12,
-      y2: 12,
+      x1: 1,
+      x2: 1,
+      y1: 3,
+      y2: 503,
     });
     expect(tree.find(GridComponent).get(1).props).toEqual({
-      x1: 21,
-      x2: 421,
-      y1: 22,
-      y2: 22,
+      x1: 11,
+      x2: 11,
+      y1: 33,
+      y2: 533,
     });
   });
 
   it('should not render grid component, showGrid is false', () => {
-    setupAxisCoordinates([1, 0]);
+    setupGetTickCoordinates([1, 0]);
     const tree = mount(<AxisTester showGrid={false} />);
 
     expect(tree.find(GridComponent).get(0)).toBeFalsy();
   });
 
   it('should render label component', () => {
-    setupAxisCoordinates([1, 0]);
+    setupGetTickCoordinates([1, 0]);
     const tree = mount(<AxisTester />);
 
     expect(tree.find(LabelComponent).get(0).props).toEqual({
@@ -370,14 +369,14 @@ describe('Axis', () => {
   });
 
   it('should not render label component, showLabels is false', () => {
-    setupAxisCoordinates([1, 0]);
+    setupGetTickCoordinates([1, 0]);
     const tree = mount(<AxisTester showLabels={false} />);
 
     expect(tree.find(LabelComponent).get(0)).toBeFalsy();
   });
 
   it('should render line component, horizontal', () => {
-    setupAxisCoordinates([1, 0]);
+    setupGetTickCoordinates([1, 0]);
     const tree = mount(<AxisTester />);
 
     (tree.find(RootComponent).props() as any).onSizeChange({ width: 350, height: 250 });
@@ -392,7 +391,7 @@ describe('Axis', () => {
   });
 
   it('should render line component, vertical', () => {
-    setupAxisCoordinates([0, 1]);
+    setupGetTickCoordinates([0, 1]);
     const tree = mount(<AxisTester />);
 
     (tree.find(RootComponent).props() as any).onSizeChange({ width: 350, height: 250 });
@@ -407,7 +406,7 @@ describe('Axis', () => {
   });
 
   it('should not render line component, showLine is false', () => {
-    setupAxisCoordinates([1, 0]);
+    setupGetTickCoordinates([1, 0]);
     const tree = mount(<AxisTester showLine={false} />);
 
     expect(tree.find(LineComponent).get(0)).toBeFalsy();

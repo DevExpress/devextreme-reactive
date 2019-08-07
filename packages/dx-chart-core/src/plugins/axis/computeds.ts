@@ -3,8 +3,8 @@ import {
   LEFT, RIGHT, TOP, BOTTOM, MIDDLE, END, START,
 } from '../../constants';
 import {
-  ScaleObject, GetFormatFn, ProcessTickFn, TickFormatFn, AxisCoordinatesFn,
-  GetGridCoordinatesFn, NumberArray,
+  ScaleObject, GetFormatFn, ProcessTickFn, TickFormatFn, NumberArray, GetTickCoordinatesFn,
+  TickCoordinatesFn, Tick, Grid,
 } from '../../types';
 
 const getTicks = (scale: ScaleObject, count: number) => (
@@ -85,24 +85,14 @@ const createTickFilter = (isHor: boolean, size: number) => (
 );
 
 /** @internal */
-export const axisCoordinates: AxisCoordinatesFn = ({
-  scaleName,
-  scale,
-  position,
-  tickSize,
-  tickFormat,
-  indentFromAxis,
-  paneSize,
-  rotated,
-})  => {
-  const isHor = isHorizontal(scaleName, rotated);
-  const tickCount = getTickCount(scale.range(), paneSize[1 - Number(isHor)]);
-
-  const formatTick = getFormat(scale, tickCount, tickFormat);
+export const tickCoordinates: TickCoordinatesFn<Tick> = ({
+  isHor, scale, tickCount, tickFormat, position, tickSize, indentFromAxis,
+}) => {
+  const formatTick = getFormat(scale!, tickCount!, tickFormat);
   const options = (isHor ? createHorizontalOptions : createVerticalOptions)(
-    position, tickSize, indentFromAxis,
+    position!, tickSize!, indentFromAxis!,
   );
-  const ticks = createTicks(scale, tickCount, (coordinates, key, tick) => ({
+  return (coordinates, key, tick) => ({
     key,
     x1: coordinates,
     x2: coordinates,
@@ -112,27 +102,27 @@ export const axisCoordinates: AxisCoordinatesFn = ({
     yText: coordinates,
     text: formatTick(tick),
     ...options,
-  }));
-  const visibleTicks = ticks.filter(createTickFilter(isHor, paneSize[1 - Number(isHor)]));
-  return {
-    ticks: visibleTicks,
-    sides: [Number(isHor), Number(!isHor)],
-  };
+  });
 };
 
 /** @internal */
-export const getGridCoordinates: GetGridCoordinatesFn = ({
-  scaleName, scale, paneSize, rotated,
-}) => {
-  const isHor = isHorizontal(scaleName, rotated);
-  const tickCount = getTickCount(scale.range(), paneSize[1 - Number(isHor)]);
+export const gridCoordinates: TickCoordinatesFn<Grid> = ({ isHor }) => {
   const options = isHor ? { y1: 0 } : { x1: 0 };
-  const ticks = createTicks(scale, tickCount, (coordinates, key) => ({
+  return (coordinates, key) => ({
     key,
     x1: coordinates,
     y1: coordinates,
     ...options,
-  }));
+  });
+};
+
+/** @internal */
+export const getTickCoordinates: GetTickCoordinatesFn<Tick | Grid> = ({
+  scaleName, scale, paneSize, rotated, callback, ...restProps
+}) => {
+  const isHor = isHorizontal(scaleName, rotated);
+  const tickCount = getTickCount(scale.range(), paneSize[1 - Number(isHor)]);
+  const ticks = createTicks(scale, tickCount, callback({ isHor, scale, tickCount, ...restProps }));
   const visibleTicks = ticks.filter(createTickFilter(isHor, paneSize[1 - Number(isHor)]));
   return {
     ticks: visibleTicks,

@@ -6,17 +6,6 @@ import {
 export type ProcessTickFn<T> = (coord: number, key: string, tick: any) => T;
 export type TickFormatFn = (scale: ScaleObject, count?: number) => GetFormatFn;
 /** @internal */
-export type AxisCoordinatesArg = {
-  scaleName: string;
-  scale: ScaleObject;
-  position: string;
-  tickSize: number;
-  tickFormat?: TickFormatFn;
-  indentFromAxis: number;
-  paneSize: NumberArray;
-  rotated: boolean;
-};
-/** @internal */
 export type Tick = {
   readonly key: string;
   readonly x1: number;
@@ -30,29 +19,34 @@ export type Tick = {
   readonly text: string;
 };
 /** @internal */
-export type AxisCoordinatesResult = {
-  ticks: Tick[];
-  sides: NumberArray;
-};
-/** @internal */
-export type AxisCoordinatesFn = PureComputed<[AxisCoordinatesArg], AxisCoordinatesResult>;
-/** @internal */
-export type GridCoordinatesArg = {
-  scaleName: string;
-  scale: ScaleObject;
-  paneSize: NumberArray;
-  rotated: boolean;
-};
-/** @internal */
 export type Grid = {
   readonly key: string;
   readonly x1: number;
   readonly y1: number;
 };
 /** @internal */
-export type GridCoordinatesResult = {
-  ticks: Grid[];
-  sides: NumberArray;
-};
+export type GetTickCoordinatesFn<T> = PureComputed<[{
+  callback: TickCoordinatesFn<T>,
+  scaleName: string,
+  scale: ScaleObject,
+  paneSize: NumberArray,
+  rotated: boolean,
+  position?: string,
+  tickSize?: number,
+  tickFormat?: TickFormatFn,
+  indentFromAxis?: number,
+}], {
+  ticks: T[],
+  sides: NumberArray,
+}>;
+
 /** @internal */
-export type GetGridCoordinatesFn = PureComputed<[GridCoordinatesArg], GridCoordinatesResult>;
+export type TickCoordinatesFn<T> = PureComputed<[{
+  isHor: boolean,
+  scale?: ScaleObject,
+  tickCount?: number,
+  tickFormat?: TickFormatFn,
+  position?: string,
+  tickSize?: number,
+  indentFromAxis?: number,
+}], ProcessTickFn<T>>;

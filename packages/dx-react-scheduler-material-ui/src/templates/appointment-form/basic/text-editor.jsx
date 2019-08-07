@@ -59,7 +59,7 @@ const TextEditorBase = ({
       {...restProps}
     />
   );
-}
+};
 
 
 TextEditorBase.propTypes = {

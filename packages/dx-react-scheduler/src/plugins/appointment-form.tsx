@@ -351,9 +351,10 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                   recurrenceSwitcherComponent={RecurrenceSwitcherPlaceholder}
                   labelComponent={Label}
                   getMessage={getMessage}
-                  changeAppointmentField={changeAppointmentField}
+                  {...changeAppointment && {
+                    changeAppointmentField,
+                  }}
                   changedAppointment={changedAppointment}
-                  changeAppointment={changeAppointment}
                 />);
             }}
           </TemplateConnector>
@@ -386,7 +387,6 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               return (
                 <RecurrenceLayout
                   frequency={frequency}
-                  changeAppointmentField={changeAppointmentField}
                   changedAppointment={changedAppointment}
                   recurrenceSwitcherComponent={RecurrenceSwitcherPlaceholder}
                   radioGroupEditorComponent={RadioGroupEditor}
@@ -394,10 +394,12 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                   dateAndTimeEditorComponent={DateAndTimeEditor}
                   labelComponent={Label}
                   booleanEditorComponent={BooleanEditor}
-                  onRecurrenceOptionsChange={newOptions => setNewRRule(newOptions)}
+                  {...changeAppointment && {
+                    onRecurrenceOptionsChange: newOptions => setNewRRule(newOptions),
+                    changeAppointmentField,
+                  }}
                   getMessage={getMessage}
                   readOnly={readOnly}
-                  changeAppointment={changeAppointment}
                   recurrenceOptions={options}
                   switcherComponent={Switcher}
                 />
@@ -426,15 +428,16 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                 : changeAppointment;
               return (
                 <Switcher
-                  onChange={(repeatType) => {
-                    const rruleRepeatType = getRRuleFrequence(repeatType);
-                    const rRule = changeRecurrenceFrequency(
-                      changedAppointment.rRule,
-                      rruleRepeatType,
-                      changedAppointment.startDate,
-                    );
-                    changeAppointmentField({ change: { rRule } });
-
+                  {...changeAppointment && {
+                    onChange: (repeatType) => {
+                      const rruleRepeatType = getRRuleFrequence(repeatType);
+                      const rRule = changeRecurrenceFrequency(
+                        changedAppointment.rRule,
+                        rruleRepeatType,
+                        changedAppointment.startDate,
+                      );
+                      changeAppointmentField({ change: { rRule } });
+                    }
                   }}
                   availableOptions={[
                     {

@@ -60,30 +60,27 @@ const DateAndTimeEditorBase = ({
       />
       {
         id === FULL_DATE_TIME_EDITOR && (
-          <Typography
-            className={classes.divider}
-            {...restProps}
-          >
-            {'–'}
-          </Typography>
+          <React.Fragment>
+            <Typography
+              className={classes.divider}
+              {...restProps}
+            >
+              {'–'}
+            </Typography>
+            <KeyboardDateTimePicker
+              disabled={disabled}
+              className={classNames(classes.full, classes.dateEditor, className)}
+              margin="normal"
+              value={endDate}
+              onChange={onEndDateValueChange}
+              format="DD/MM/YYYY HH:mm a"
+              variant="inline"
+              readOnly={readOnly}
+              {...restProps}
+            />
+          </React.Fragment>
         )
       }
-      {
-        id === FULL_DATE_TIME_EDITOR && (
-          <KeyboardDateTimePicker
-            disabled={disabled}
-            className={classNames(classes.full, classes.dateEditor, className)}
-            margin="normal"
-            value={endDate}
-            onChange={onEndDateValueChange}
-            format="DD/MM/YYYY HH:mm a"
-            variant="inline"
-            readOnly={readOnly}
-            {...restProps}
-          />
-        )
-      }
-
     </Grid>
   </MuiPickersUtilsProvider>
 );

@@ -43,7 +43,6 @@ const LayoutBase = ({
   labelComponent: Label,
   booleanEditorComponent: BooleanEditor,
   onRecurrenceOptionsChange,
-  changeAppointment,
   className,
   classes,
   getMessage,
@@ -69,11 +68,9 @@ const LayoutBase = ({
         value={recurrenceOptions.interval}
         className={classes.textEditor}
         id={NUMBER_EDITOR}
-        {...changeAppointment && {
-          onValueChange: value => handleIntervalChange(
-            recurrenceOptions, value, onRecurrenceOptionsChange,
-          ),
-        }}
+        onValueChange={value => handleIntervalChange(
+          recurrenceOptions, value, onRecurrenceOptionsChange,
+        )}
       />
       <Label
         label={getMessage('weeksOnLabel')}
@@ -88,7 +85,8 @@ const LayoutBase = ({
       <BooleanEditor
         label={getMessage('sunLabel')}
         readOnly={readOnly}
-        value={recurrenceOptions.byweekday && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.SUNDAY) > -1}
+        value={recurrenceOptions.byweekday
+          && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.SUNDAY) > -1}
         onValueChange={checked => handleWeekDaysChange(
           recurrenceOptions,
           DAYS_OF_WEEK.SUNDAY,
@@ -99,7 +97,8 @@ const LayoutBase = ({
       <BooleanEditor
         label={getMessage('monLabel')}
         readOnly={readOnly}
-        value={recurrenceOptions.byweekday && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.MONDAY) > -1}
+        value={recurrenceOptions.byweekday
+          && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.MONDAY) > -1}
         onValueChange={checked => handleWeekDaysChange(
           recurrenceOptions,
           DAYS_OF_WEEK.MONDAY,
@@ -110,7 +109,8 @@ const LayoutBase = ({
       <BooleanEditor
         label={getMessage('tueLabel')}
         readOnly={readOnly}
-        value={recurrenceOptions.byweekday && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.TUESDAY) > -1}
+        value={recurrenceOptions.byweekday
+          && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.TUESDAY) > -1}
         onValueChange={checked => handleWeekDaysChange(
           recurrenceOptions,
           DAYS_OF_WEEK.TUESDAY,
@@ -121,7 +121,8 @@ const LayoutBase = ({
       <BooleanEditor
         label={getMessage('wedLabel')}
         readOnly={readOnly}
-        value={recurrenceOptions.byweekday && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.WEDNESDAY) > -1}
+        value={recurrenceOptions.byweekday
+          && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.WEDNESDAY) > -1}
         onValueChange={checked => handleWeekDaysChange(
           recurrenceOptions,
           DAYS_OF_WEEK.WEDNESDAY,
@@ -132,7 +133,8 @@ const LayoutBase = ({
       <BooleanEditor
         label={getMessage('thuLabel')}
         readOnly={readOnly}
-        value={recurrenceOptions.byweekday && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.THURSDAY) > -1}
+        value={recurrenceOptions.byweekday
+          && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.THURSDAY) > -1}
         onValueChange={checked => handleWeekDaysChange(
           recurrenceOptions,
           DAYS_OF_WEEK.THURSDAY,
@@ -143,7 +145,8 @@ const LayoutBase = ({
       <BooleanEditor
         label={getMessage('friLabel')}
         readOnly={readOnly}
-        value={recurrenceOptions.byweekday && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.FRIDAY) > -1}
+        value={recurrenceOptions.byweekday
+          && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.FRIDAY) > -1}
         onValueChange={checked => handleWeekDaysChange(
           recurrenceOptions,
           DAYS_OF_WEEK.FRIDAY,
@@ -154,7 +157,8 @@ const LayoutBase = ({
       <BooleanEditor
         label={getMessage('satLabel')}
         readOnly={readOnly}
-        value={recurrenceOptions.byweekday && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.SATURDAY) > -1}
+        value={recurrenceOptions.byweekday
+          && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.SATURDAY) > -1}
         onValueChange={checked => handleWeekDaysChange(
           recurrenceOptions,
           DAYS_OF_WEEK.SATURDAY,
@@ -175,6 +179,11 @@ LayoutBase.propTypes = {
   getMessage: PropTypes.func.isRequired,
   readOnly: PropTypes.bool.isRequired,
   recurrenceOptions: PropTypes.object.isRequired,
+  className: PropTypes.string,
+};
+
+LayoutBase.defaultProps = {
+  className: undefined,
 };
 
 export const Layout = withStyles(styles)(LayoutBase, { name: 'Layout' });

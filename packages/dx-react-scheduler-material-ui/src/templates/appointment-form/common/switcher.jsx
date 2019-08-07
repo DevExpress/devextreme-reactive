@@ -63,7 +63,7 @@ const SwitcherBase = ({
 };
 
 SwitcherBase.propTypes = {
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
   classes: PropTypes.object.isRequired,
   value: PropTypes.string.isRequired,
   availableOptions: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -72,6 +72,7 @@ SwitcherBase.propTypes = {
 
 SwitcherBase.defaultProps = {
   disabled: false,
+  onChange: () => undefined,
 };
 
 export const Switcher = withStyles(styles)(SwitcherBase, { name: 'Switcher' });

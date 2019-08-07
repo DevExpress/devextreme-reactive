@@ -30,7 +30,6 @@ const LayoutBase = ({
   getMessage,
   changeAppointmentField,
   changedAppointment,
-  changeAppointment,
   readOnly,
   ...restProps
 }) => {
@@ -54,26 +53,18 @@ const LayoutBase = ({
         readOnly={readOnly}
         id={TITLE_TEXT_EDITOR}
         value={changedAppointment.title}
-        {...changeAppointment && {
-          onValueChange: title => changeAppointmentField({ change: { title } }),
-        }}
+        onValueChange={title => changeAppointmentField({ change: { title } })}
       />
       <DateTimeEditor
         readOnly={readOnly}
         startDate={changedAppointment.startDate}
         endDate={changedAppointment.endDate}
-        {...changeAppointment && {
-          onStartDateValueChange:
-            startDate => changeAppointmentField({
-              change: { startDate: startDate.toDate() },
-            }),
-          onEndDateValueChange:
-            (endDate) => {
-              changeAppointmentField({
-                change: { endDate: endDate.toDate() },
-              });
-            },
-        }}
+        onStartDateValueChange={startDate => changeAppointmentField({
+          change: { startDate: startDate.toDate() },
+        })}
+        onEndDateValueChange={endDate => changeAppointmentField({
+          change: { endDate: endDate.toDate() },
+        })}
         id={FULL_DATE_TIME_EDITOR}
       />
       <Label
@@ -84,28 +75,22 @@ const LayoutBase = ({
         label={getMessage('additionalInformationLabel')}
         readOnly={readOnly}
         value={changedAppointment.additionalInformation}
-        {...changeAppointment && {
-          onValueChange: additionalInformation => changeAppointmentField({
-            change: { additionalInformation },
-          }),
-        }}
+        onValueChange={additionalInformation => changeAppointmentField({
+          change: { additionalInformation },
+        })}
       />
       <TextEditor
         label={getMessage('notesLabel')}
         readOnly={readOnly}
         id={NOTES_TEXT_EDITOR}
         value={changedAppointment.notes}
-        {...changeAppointment && {
-          onValueChange: notes => changeAppointmentField({ change: { notes } }),
-        }}
+        onValueChange={notes => changeAppointmentField({ change: { notes } })}
       />
       <AllDay
         label={getMessage('allDayLabel')}
         readOnly={readOnly}
         value={changedAppointment.allDay}
-        {...changeAppointment && {
-          onValueChange: allDay => changeAppointmentField({ change: { allDay } }),
-        }}
+        onValueChange={allDay => changeAppointmentField({ change: { allDay } })}
       />
       {
         (!changedAppointment.rRule) && (
@@ -135,9 +120,8 @@ LayoutBase.propTypes = {
   recurrenceEditing: PropTypes.bool.isRequired,
   style: PropTypes.object,
   getMessage: PropTypes.func.isRequired,
-  changeAppointmentField: PropTypes.func.isRequired,
+  changeAppointmentField: PropTypes.func,
   changedAppointment: PropTypes.object.isRequired,
-  changeAppointment: PropTypes.func.isRequired,
   readOnly: PropTypes.bool,
 };
 
@@ -145,6 +129,7 @@ LayoutBase.defaultProps = {
   className: undefined,
   style: null,
   readOnly: false,
+  changeAppointmentField: () => undefined,
 };
 
 export const Layout = withStyles(styles)(LayoutBase, { name: 'Layout' });

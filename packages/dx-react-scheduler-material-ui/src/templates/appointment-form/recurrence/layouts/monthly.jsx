@@ -32,7 +32,6 @@ const LayoutBase = ({
   textEditorComponent: TextEditor,
   labelComponent: Label,
   onRecurrenceOptionsChange,
-  changeAppointment,
   classes,
   getMessage,
   readOnly,
@@ -57,11 +56,9 @@ const LayoutBase = ({
         value={recurrenceOptions.interval}
         className={classes.textEditor}
         id={NUMBER_EDITOR}
-        {...changeAppointment && {
-          onValueChange: value => handleIntervalChange(
-            recurrenceOptions, value, onRecurrenceOptionsChange,
-          ),
-        }}
+        onValueChange={value => handleIntervalChange(
+          recurrenceOptions, value, onRecurrenceOptionsChange,
+        )}
       />
       <Label
         label={getMessage('monthsLabel')}
@@ -76,7 +73,6 @@ const LayoutBase = ({
       labelComponent={Label}
       recurrenceOptions={recurrenceOptions}
       onRecurrenceOptionsChange={onRecurrenceOptionsChange}
-      changeAppointment={changeAppointment}
       changeAppointmentField={changeAppointmentField}
       changedAppointment={changedAppointment}
       switcherComponent={Switcher}
@@ -89,11 +85,19 @@ LayoutBase.propTypes = {
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   radioGroupEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  onRecurrenceOptionsChange: PropTypes.func.isRequired,
+  switcherComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  changedAppointment: PropTypes.object.isRequired,
+  onRecurrenceOptionsChange: PropTypes.func,
+  changeAppointmentField: PropTypes.func,
   classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func.isRequired,
   readOnly: PropTypes.bool.isRequired,
   recurrenceOptions: PropTypes.object.isRequired,
+};
+
+LayoutBase.defaultProps = {
+  onRecurrenceOptionsChange: () => undefined,
+  changeAppointmentField: () => undefined,
 };
 
 export const Layout = withStyles(styles)(LayoutBase, { name: 'Layout' });

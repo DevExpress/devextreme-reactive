@@ -154,7 +154,6 @@ const YearlyEditorBase = ({
   switcherComponent: Switcher,
   readOnly,
   changedAppointment,
-  changeAppointment,
   ...restProps
 }) => {
   let dayOfWeek = changedAppointment.startDate.getDay();
@@ -290,13 +289,11 @@ const YearlyEditorBase = ({
               readOnly={readOnly}
               value={dayNumberTextField}
               id={NUMBER_EDITOR}
-              {...changeAppointment && {
-                onValueChange: dayNumber => handleStartDateChange(
-                  dayNumber,
-                  onRecurrenceOptionsChange,
-                  recurrenceOptions,
-                ),
-              }}
+              onValueChange={dayNumber => handleStartDateChange(
+                dayNumber,
+                onRecurrenceOptionsChange,
+                recurrenceOptions,
+              )}
             />
           </Grid>
         )}
@@ -463,16 +460,24 @@ YearlyEditorBase.propTypes = {
   value: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
-  onExecute: PropTypes.func.isRequired,
-  getMessage: PropTypes.func.isRequired,
+  onExecute: PropTypes.func,
+  getMessage: PropTypes.func,
+  onRecurrenceOptionsChange: PropTypes.func,
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   dateAndTimeEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   recurrenceOptions: PropTypes.object.isRequired,
+  switcherComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  changedAppointment: PropTypes.object.isRequired,
+  readOnly: PropTypes.bool,
 };
 
 YearlyEditorBase.defaultProps = {
   className: undefined,
+  onRecurrenceOptionsChange: () => undefined,
+  onExecute: () => undefined,
+  getMessage: () => undefined,
+  readOnly: false,
 };
 
 export const YearlyEditor = withStyles(styles)(YearlyEditorBase, { name: 'YearlyEditor' });

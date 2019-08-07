@@ -25,7 +25,6 @@ const LayoutBase = ({
   textEditorComponent: TextEditor,
   labelComponent: Label,
   onRecurrenceOptionsChange,
-  changeAppointment,
   classes,
   getMessage,
   readOnly,
@@ -45,14 +44,11 @@ const LayoutBase = ({
     <TextEditor
       readOnly={readOnly}
       value={recurrenceOptions.interval}
-      onBlur={() => console.log('here')}
       className={classes.textEditor}
       id={NUMBER_EDITOR}
-      {...changeAppointment && {
-        onValueChange: value => handleIntervalChange(
-          recurrenceOptions, value, onRecurrenceOptionsChange,
-        ),
-      }}
+      onValueChange={value => handleIntervalChange(
+        recurrenceOptions, value, onRecurrenceOptionsChange,
+      )}
     />
     <Label
       label={getMessage('daysLabel')}
@@ -66,20 +62,20 @@ LayoutBase.propTypes = {
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   radioGroupEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  onRecurrenceOptionsChange: PropTypes.func.isRequired,
+  onRecurrenceOptionsChange: PropTypes.func,
   dateAndTimeEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
   classes: PropTypes.object.isRequired,
   recurrenceEditing: PropTypes.bool.isRequired,
   style: PropTypes.object,
-  onRRuleChange: PropTypes.func.isRequired,
   getMessage: PropTypes.func.isRequired,
   readOnly: PropTypes.bool.isRequired,
   recurrenceOptions: PropTypes.object.isRequired,
 };
 
 LayoutBase.defaultProps = {
+  onRecurrenceOptionsChange: () => undefined,
   className: undefined,
   style: null,
 };

@@ -126,10 +126,8 @@ const MonthlyEditorBase = ({
   switcherComponent: Switcher,
   readOnly,
   changedAppointment,
-  changeAppointment,
   ...restProps
 }) => {
-  console.log(recurrenceOptions);
   let value;
   let dayNumberTextField = changedAppointment.startDate.getDate();
   // The last week in a month
@@ -192,13 +190,11 @@ const MonthlyEditorBase = ({
               value={dayNumberTextField}
               className={classes.textEditor}
               id={NUMBER_EDITOR}
-              {...changeAppointment && {
-                onValueChange: dayNumber => handleStartDateChange(
-                  dayNumber,
-                  onRecurrenceOptionsChange,
-                  recurrenceOptions,
-                ),
-              }}
+              onValueChange={dayNumber => handleStartDateChange(
+                dayNumber,
+                onRecurrenceOptionsChange,
+                recurrenceOptions,
+              )}
             />
             <Label
               label={getMessage('ofEveryMonthLabel')}
@@ -303,16 +299,24 @@ MonthlyEditorBase.propTypes = {
   value: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
-  onExecute: PropTypes.func.isRequired,
-  getMessage: PropTypes.func.isRequired,
+  onExecute: PropTypes.func,
+  getMessage: PropTypes.func,
+  onRecurrenceOptionsChange: PropTypes.func,
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   dateAndTimeEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  switcherComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   recurrenceOptions: PropTypes.object.isRequired,
+  changedAppointment: PropTypes.object.isRequired,
+  readOnly: PropTypes.bool,
 };
 
 MonthlyEditorBase.defaultProps = {
   className: undefined,
+  onRecurrenceOptionsChange: () => undefined,
+  onExecute: () => undefined,
+  getMessage: () => undefined,
+  readOnly: false,
 };
 
 export const MonthlyEditor = withStyles(styles)(MonthlyEditorBase, { name: 'MonthlyEditor' });

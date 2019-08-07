@@ -79,11 +79,16 @@ class TableLayoutBase extends React.PureComponent<TableLayoutCoreProps, TableLay
 
     let result = columns;
 
-    const isFixedWidth = columns.filter(column => column.width === undefined).length === 0;
+    const isFixedWidth = columns
+      .filter(column => column.width === undefined
+         || typeof column.width !== 'number')
+      .length === 0;
     if (isFixedWidth) {
       // presumably a flex column added here instead of in a getter in the Table plugin
       // to make sure that all manipulations on taleColumns have already done earlier
       result = [...result, { key: TABLE_FLEX_TYPE.toString(), type: TABLE_FLEX_TYPE }];
+    } else {
+      result = [...result, { key: TABLE_FLEX_TYPE.toString(), type: TABLE_FLEX_TYPE, width: 0 }];
     }
 
     if (animationState.size) {
@@ -118,6 +123,10 @@ class TableLayoutBase extends React.PureComponent<TableLayoutCoreProps, TableLay
       ...restProps
     } = this.props;
     const columns = this.getColumns();
+    // const isFixedWidth = columns
+    //   .filter(column => column.width === undefined)
+    //     //  || typeof column.width !== 'number')
+    //   .length === 0;
     const minWidth = columns
       .map(column => column.width || (column.type === TABLE_FLEX_TYPE ? 0 : minColumnWidth))
       .reduce((acc, width) => acc + width, 0);
@@ -129,6 +138,7 @@ class TableLayoutBase extends React.PureComponent<TableLayoutCoreProps, TableLay
         columns={columns}
         minWidth={minWidth}
         minColumnWidth={minColumnWidth}
+        // width={}
       />
     );
   }

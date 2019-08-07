@@ -47,17 +47,6 @@ const handleStartDateChange = (
   }
 };
 
-const handleToDayNumberChange = (
-  startDay,
-  changeRecurrenceOptionsAction,
-  options,
-) => {
-  if (startDay <= 31) {
-    const newOptions = { ...options, bymonthday: startDay, byweekday: undefined };
-    changeRecurrenceOptionsAction(newOptions);
-  }
-};
-
 const handleToDayOfWeekChange = (
   startDate,
   changeRecurrenceOptionsAction,
@@ -117,29 +106,56 @@ const handleWeekNumberChange = (
   }
 };
 
-const handleWeekDayChange = (
-  newWeekDay,
-  changeRecurrenceOptionsAction,
-  options,
-) => {
-  const newOptions = {
-    ...options,
-    byweekday: newWeekDay,
-  };
-  changeRecurrenceOptionsAction(newOptions);
-};
-
-const handleMonthChange = (
-  month,
-  changeRecurrenceOptionsAction,
-  options,
-) => {
-  const newOptions = {
-    ...options,
-    bymonth: month,
-  };
-  changeRecurrenceOptionsAction(newOptions);
-};
+const getMonths = getMessage => [
+  {
+    text: getMessage('januaryLabel'),
+    id: 1,
+  },
+  {
+    text: getMessage('februaryLabel'),
+    id: 2,
+  },
+  {
+    text: getMessage('marchLabel'),
+    id: 3,
+  },
+  {
+    text: getMessage('aprilLabel'),
+    id: 4,
+  },
+  {
+    text: getMessage('mayLabel'),
+    id: 5,
+  },
+  {
+    text: getMessage('juneLabel'),
+    id: 6,
+  },
+  {
+    text: getMessage('julyLabel'),
+    id: 7,
+  },
+  {
+    text: getMessage('augustLabel'),
+    id: 8,
+  },
+  {
+    text: getMessage('septemberLabel'),
+    id: 9,
+  },
+  {
+    text: getMessage('octoberLabel'),
+    id: 10,
+  },
+  {
+    text: getMessage('novemberLabel'),
+    id: 11,
+  },
+  {
+    text: getMessage('decemberLabel'),
+    id: 12,
+  },
+];
 
 const YearlyEditorBase = ({
   classes,
@@ -185,10 +201,11 @@ const YearlyEditorBase = ({
   const onRadioGroupValueChange = (event) => {
     switch (event.target.value) {
       case 'onDayAndMonth':
-        handleToDayNumberChange(
-          changedAppointment.startDate.getDate(),
-          onRecurrenceOptionsChange, recurrenceOptions,
-        );
+        onRecurrenceOptionsChange({
+          ...recurrenceOptions,
+          bymonthday: changedAppointment.startDate.getDate(),
+          byweekday: undefined,
+        })
         break;
       case 'onDayOfWeek':
         handleToDayOfWeekChange(
@@ -204,8 +221,6 @@ const YearlyEditorBase = ({
   return (
     <RadioGroup
       onChange={onRadioGroupValueChange}
-      aria-label="gender"
-      name="gender1"
       className={classNames(classes.group, className)}
       value={value}
       {...restProps}
@@ -226,62 +241,11 @@ const YearlyEditorBase = ({
             <Switcher
               className={classes.switcher}
               disabled={value !== 'onDayAndMonth'}
-              onChange={newMonth => handleMonthChange(
-                newMonth,
-                onRecurrenceOptionsChange,
-                recurrenceOptions,
-              )}
+              onChange={newMonth => onRecurrenceOptionsChange({
+                ...recurrenceOptions, bymonth: newMonth,
+              })}
               value={month}
-              availableOptions={[
-                {
-                  text: getMessage('januaryLabel'),
-                  id: 1,
-                },
-                {
-                  text: getMessage('februaryLabel'),
-                  id: 2,
-                },
-                {
-                  text: getMessage('marchLabel'),
-                  id: 3,
-                },
-                {
-                  text: getMessage('aprilLabel'),
-                  id: 4,
-                },
-                {
-                  text: getMessage('mayLabel'),
-                  id: 5,
-                },
-                {
-                  text: getMessage('juneLabel'),
-                  id: 6,
-                },
-                {
-                  text: getMessage('julyLabel'),
-                  id: 7,
-                },
-                {
-                  text: getMessage('augustLabel'),
-                  id: 8,
-                },
-                {
-                  text: getMessage('septemberLabel'),
-                  id: 9,
-                },
-                {
-                  text: getMessage('octoberLabel'),
-                  id: 10,
-                },
-                {
-                  text: getMessage('novemberLabel'),
-                  id: 11,
-                },
-                {
-                  text: getMessage('decemberLabel'),
-                  id: 12,
-                },
-              ]}
+              availableOptions={getMonths(getMessage)}
             />
             <TextEditor
               className={classes.numberEditor}
@@ -346,11 +310,10 @@ const YearlyEditorBase = ({
             <Switcher
               className={classes.switcher}
               disabled={value !== 'onDayOfWeek'}
-              onChange={newWeekDay => handleWeekDayChange(
-                newWeekDay,
-                onRecurrenceOptionsChange,
-                recurrenceOptions,
-              )}
+              onChange={newWeekDay => onRecurrenceOptionsChange({
+                ...recurrenceOptions,
+                byweekday: newWeekDay,
+              })}
               value={dayOfWeek}
               availableOptions={[
                 {
@@ -391,62 +354,11 @@ const YearlyEditorBase = ({
             <Switcher
               className={classes.switcher}
               disabled={value !== 'onDayOfWeek'}
-              onChange={newMonth => handleMonthChange(
-                newMonth,
-                onRecurrenceOptionsChange,
-                recurrenceOptions,
-              )}
+              onChange={newMonth => onRecurrenceOptionsChange({
+                ...recurrenceOptions, bymonth: newMonth,
+              })}
               value={month}
-              availableOptions={[
-                {
-                  text: getMessage('januaryLabel'),
-                  id: 1,
-                },
-                {
-                  text: getMessage('februaryLabel'),
-                  id: 2,
-                },
-                {
-                  text: getMessage('marchLabel'),
-                  id: 3,
-                },
-                {
-                  text: getMessage('aprilLabel'),
-                  id: 4,
-                },
-                {
-                  text: getMessage('mayLabel'),
-                  id: 5,
-                },
-                {
-                  text: getMessage('juneLabel'),
-                  id: 6,
-                },
-                {
-                  text: getMessage('julyLabel'),
-                  id: 7,
-                },
-                {
-                  text: getMessage('augustLabel'),
-                  id: 8,
-                },
-                {
-                  text: getMessage('septemberLabel'),
-                  id: 9,
-                },
-                {
-                  text: getMessage('octoberLabel'),
-                  id: 10,
-                },
-                {
-                  text: getMessage('novemberLabel'),
-                  id: 11,
-                },
-                {
-                  text: getMessage('decemberLabel'),
-                  id: 12,
-                },
-              ]}
+              availableOptions={getMonths(getMessage)}
             />
           </Grid>
         )}

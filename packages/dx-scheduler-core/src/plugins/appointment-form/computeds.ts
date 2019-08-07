@@ -30,7 +30,7 @@ export const getRecurrenceInterval: NumberRecurrenceRuleGetterFn = (
   return options.interval;
 };
 
-export const  changeRecurrenceFrequency: ChangeRecurrenceNumberFeildFn = (
+export const changeRecurrenceFrequency: ChangeRecurrenceNumberFeildFn = (
   rule,
   freq,
   startDate,
@@ -131,7 +131,7 @@ export const getRecurrenceWeekDays: RecurrenceWeekDayGetterFn = (
   return options.byweekday;
 };
 
-export const getRecurrenceOptions: RecurrecnceOptionsGetterFn = rule =>{
+export const getRecurrenceOptions: RecurrecnceOptionsGetterFn = (rule) => {
   if (!rule) return null;
   const options = RRule.parseString(rule);
   let byweekday = [];
@@ -140,7 +140,7 @@ export const getRecurrenceOptions: RecurrecnceOptionsGetterFn = rule =>{
     options.byweekday = byweekday;
   }
   return options;
-}
+};
 
 export const changeRecurrenceOptions: RecurrecnceOptionsSetterFn = options =>
   (new RRule(options)).toString();

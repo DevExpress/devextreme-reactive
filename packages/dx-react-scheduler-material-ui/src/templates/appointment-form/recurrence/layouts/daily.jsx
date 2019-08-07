@@ -16,11 +16,6 @@ const styles = theme => ({
   },
 });
 
-const handleIntervalChange = (options, newInterval, action) => {
-  const newOptions = { ...options, interval: newInterval };
-  action(newOptions);
-};
-
 const LayoutBase = ({
   textEditorComponent: TextEditor,
   labelComponent: Label,
@@ -46,9 +41,7 @@ const LayoutBase = ({
       value={recurrenceOptions.interval}
       className={classes.textEditor}
       id={NUMBER_EDITOR}
-      onValueChange={value => handleIntervalChange(
-        recurrenceOptions, value, onRecurrenceOptionsChange,
-      )}
+      onValueChange={value => onRecurrenceOptionsChange({ ...recurrenceOptions, interval: value })}
     />
     <Label
       label={getMessage('daysLabel')}

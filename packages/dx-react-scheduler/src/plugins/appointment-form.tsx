@@ -437,7 +437,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                         changedAppointment.startDate,
                       );
                       changeAppointmentField({ change: { rRule } });
-                    }
+                    },
                   }}
                   availableOptions={[
                     {

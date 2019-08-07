@@ -86,7 +86,6 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
     this.commitAddedAppointment = () => {
       const { onCommitChanges } = this.props;
       const { addedAppointment: stateAddedAppointment } = this.state;
-      console.log(stateAddedAppointment);
       onCommitChanges({
         added: stateAddedAppointment,
       });

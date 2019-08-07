@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import { Layout as DailyLayout } from './layouts/daily';
 import { Layout as WeeklyLayout } from './layouts/weekly';
 import { Layout as MonthlyLayout } from './layouts/monthly';
-import { Layout as YearyLayout } from './layouts/yearly';
+import { Layout as YearlyLayout } from './layouts/yearly';
 
 const styles = theme => ({
   root: {
@@ -31,7 +31,6 @@ const LayoutBase = ({
   dateAndTimeEditorComponent: DateAndTimeEditor,
   onRecurrenceOptionsChange,
   booleanEditorComponent: BooleanEditor,
-  changeAppointment,
   frequency,
   children,
   classes,
@@ -43,7 +42,7 @@ const LayoutBase = ({
   changedAppointment,
   switcherComponent: Switcher,
   ...restProps
-} ) => {
+}) => {
   let MainLayoutComponent = null;
   if (recurrenceOptions) {
     switch (frequency) {
@@ -57,7 +56,7 @@ const LayoutBase = ({
         MainLayoutComponent = MonthlyLayout;
         break;
       case 'yearly':
-        MainLayoutComponent = YearyLayout;
+        MainLayoutComponent = YearlyLayout;
         break;
       default:
         break;

@@ -33,15 +33,6 @@ const handleStartDateChange = (
   }
 };
 
-const handleToDayNumberChange = (
-  startDay,
-  changeRecurrenceOptionsAction,
-  options,
-) => {
-  const newOptions = { ...options, bymonthday: startDay, byweekday: undefined };
-  changeRecurrenceOptionsAction(newOptions);
-};
-
 const handleToDayOfWeekChange = (
   startDate,
   changeRecurrenceOptionsAction,
@@ -101,18 +92,6 @@ const handleWeekNumberChange = (
   }
 };
 
-const handleWeekDayChange = (
-  newWeekDay,
-  changeRecurrenceOptionsAction,
-  options,
-) => {
-  const newOptions = {
-    ...options,
-    byweekday: newWeekDay,
-  };
-  changeRecurrenceOptionsAction(newOptions);
-};
-
 const MonthlyEditorBase = ({
   classes,
   className,
@@ -146,10 +125,11 @@ const MonthlyEditorBase = ({
   const onRadioGroupValueChange = (event) => {
     switch (event.target.value) {
       case 'onDayNumber':
-        handleToDayNumberChange(
-          changedAppointment.startDate.getDate(),
-          onRecurrenceOptionsChange, recurrenceOptions,
-        );
+        onRecurrenceOptionsChange({
+          ...recurrenceOptions,
+          bymonthday: changedAppointment.startDate.getDate(),
+          byweekday: undefined,
+        });
         break;
       case 'onDayOfWeek':
         handleToDayOfWeekChange(
@@ -162,11 +142,10 @@ const MonthlyEditorBase = ({
         break;
     }
   };
+
   return (
     <RadioGroup
       onChange={onRadioGroupValueChange}
-      aria-label="gender"
-      name="gender1"
       className={classNames(classes.group, className)}
       value={value}
       {...restProps}
@@ -249,11 +228,9 @@ const MonthlyEditorBase = ({
             />
             <Switcher
               disabled={value !== 'onDayOfWeek'}
-              onChange={newWeekDay => handleWeekDayChange(
-                newWeekDay,
-                onRecurrenceOptionsChange,
-                recurrenceOptions,
-              )}
+              onChange={newWeekDay => onRecurrenceOptionsChange({
+                ...recurrenceOptions, byweekday: newWeekDay,
+              })}
               value={value === 'onDayOfWeek' ? recurrenceOptions.byweekday : changedAppointment.startDate.getDay()}
               availableOptions={[
                 {

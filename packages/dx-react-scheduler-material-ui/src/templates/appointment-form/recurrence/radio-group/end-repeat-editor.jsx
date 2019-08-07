@@ -22,21 +22,6 @@ const styles = ({ spacing }) => ({
   },
 });
 
-const handleCountChange = (options, newCount, action) => {
-  const newOptions = { ...options, count: newCount };
-  action(newOptions);
-};
-
-const handleEndDateChange = (options, newEndDate, action) => {
-  const newOptions = { ...options, until: newEndDate };
-  action(newOptions);
-};
-
-const handleCountAndUntilChange = (options, newCount, newEndDate, action) => {
-  const newOptions = { ...options, until: newEndDate, count: newCount };
-  action(newOptions);
-};
-
 const EndRepeatEditorBase = ({
   classes,
   className,
@@ -61,25 +46,19 @@ const EndRepeatEditorBase = ({
   const onRadioGroupValueChange = (event) => {
     switch (event.target.value) {
       case 'endAfter':
-        handleCountAndUntilChange(recurrenceOptions, 1, undefined, onRecurrenceOptionsChange);
+        onRecurrenceOptionsChange({ ...recurrenceOptions, count: 1, until: undefined });
         break;
       case 'endBy':
-        handleCountAndUntilChange(
-          recurrenceOptions, undefined, new Date(), onRecurrenceOptionsChange,
-        );
+        onRecurrenceOptionsChange({ ...recurrenceOptions, count: undefined, until: new Date() });
         break;
       default:
-        handleCountAndUntilChange(
-          recurrenceOptions, undefined, undefined, onRecurrenceOptionsChange,
-        );
+        onRecurrenceOptionsChange({ ...recurrenceOptions, count: undefined, until: undefined });
         break;
     }
   };
   return (
     <RadioGroup
       onChange={onRadioGroupValueChange}
-      aria-label="gender"
-      name="gender1"
       className={classNames(classes.group, className)}
       value={value}
       {...restProps}
@@ -106,9 +85,7 @@ const EndRepeatEditorBase = ({
               }}
               value={recurrenceCount}
               id={NUMBER_EDITOR}
-              onValueChange={count => handleCountChange(
-                recurrenceOptions, count, onRecurrenceOptionsChange,
-              )}
+              onValueChange={count => onRecurrenceOptionsChange({ ...recurrenceOptions, count })}
             />
             <Label
               className={classes.label}
@@ -134,11 +111,9 @@ const EndRepeatEditorBase = ({
               disabled={value !== 'endBy'}
               oneDate
               startDate={recurrenceEndDate}
-              onStartDateValueChange={date => handleEndDateChange(
-                recurrenceOptions,
-                date,
-                onRecurrenceOptionsChange,
-              )}
+              onStartDateValueChange={date => onRecurrenceOptionsChange({
+                ...recurrenceOptions, until: date,
+              })}
             />
           </Grid>
         )}
@@ -152,8 +127,9 @@ EndRepeatEditorBase.propTypes = {
   value: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
-  onExecute: PropTypes.func.isRequired,
-  getMessage: PropTypes.func.isRequired,
+  onExecute: PropTypes.func,
+  getMessage: PropTypes.func,
+  onRecurrenceOptionsChange: PropTypes.func,
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   dateAndTimeEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
@@ -162,6 +138,9 @@ EndRepeatEditorBase.propTypes = {
 
 EndRepeatEditorBase.defaultProps = {
   className: undefined,
+  onRecurrenceOptionsChange: () => undefined,
+  onExecute: () => undefined,
+  getMessage: () => undefined,
 };
 
 export const EndRepeatEditor = withStyles(styles)(EndRepeatEditorBase, { name: 'EndRepeatEditor' });

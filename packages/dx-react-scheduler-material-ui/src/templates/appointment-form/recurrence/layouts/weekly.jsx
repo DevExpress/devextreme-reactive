@@ -18,11 +18,6 @@ const styles = theme => ({
   },
 });
 
-const handleIntervalChange = (options, newInterval, action) => {
-  const newOptions = { ...options, interval: newInterval };
-  action(newOptions);
-};
-
 const handleWeekDaysChange = (options, weekDay, action, isAdded) => {
   let byWeekDay = options.byweekday || [];
   if (isAdded) {
@@ -68,9 +63,9 @@ const LayoutBase = ({
         value={recurrenceOptions.interval}
         className={classes.textEditor}
         id={NUMBER_EDITOR}
-        onValueChange={value => handleIntervalChange(
-          recurrenceOptions, value, onRecurrenceOptionsChange,
-        )}
+        onValueChange={value => onRecurrenceOptionsChange({
+          ...recurrenceOptions, interval: value,
+        })}
       />
       <Label
         label={getMessage('weeksOnLabel')}

@@ -25,27 +25,23 @@ const LayoutBase = ({
   classes,
   className,
   ...restProps
-}) => {
-  return (
-    <div
-      className={classNames(classes.root, className)}
-      {...restProps}
-    >
-      <ControlLayout />
-
-      <div className={classes.container}>
-        <BasicLayout />
-
-        {
-          (isRecurring) && (
-            <RecurrenceLayout />
-          )
-        }
-      </div>
-      {children}
+}) => (
+  <div
+    className={classNames(classes.root, className)}
+    {...restProps}
+  >
+    <ControlLayout />
+    <div className={classes.container}>
+      <BasicLayout />
+      {
+        (isRecurring) && (
+          <RecurrenceLayout />
+        )
+      }
     </div>
-  );
-};
+    {children}
+  </div>
+);
 
 LayoutBase.propTypes = {
   basicLayoutComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
@@ -53,11 +53,11 @@ const handleStartDateChange = (
 };
 
 const handleToDayOfWeekChange = (
-  startDate,
+  weekNumber,
+  dayOfweek,
   changeRecurrenceOptionsAction,
   options,
 ) => {
-  const weekNumber = Math.trunc((startDate.getDate() - 1) / 7);
   if (weekNumber < 4) {
     const newOptions = {
       ...options,
@@ -70,14 +70,14 @@ const handleToDayOfWeekChange = (
         weekNumber * 7 + 6,
         weekNumber * 7 + 7,
       ],
-      byweekday: startDate.getDay(),
+      byweekday: dayOfweek,
     };
     changeRecurrenceOptionsAction(newOptions);
   } else {
     const newOptions = {
       ...options,
       bymonthday: [-1, -2, -3, -4, -5, -6, -7],
-      byweekday: startDate.getDay(),
+      byweekday: dayOfweek,
     };
     changeRecurrenceOptionsAction(newOptions);
   }
@@ -126,22 +126,35 @@ const YearlyEditorBase = ({
   changedAppointment,
   ...restProps
 }) => {
-  let dayOfWeek = changedAppointment.startDate.getDay();
+  const [dayNumber, setDayNumber] = useState(changedAppointment.startDate.getDate());
+  const [stateWeekNumber, setStateWeekNumber] = useState(
+    Math.trunc((changedAppointment.startDate.getDate() - 1) / 7),
+  );
+  const [stateDayOfWeek, setStateDayOfWeek] = useState(changedAppointment.startDate.getDay());
+
+  let dayOfWeek;
   if (recurrenceOptions.byweekday) {
     dayOfWeek = recurrenceOptions.byweekday;
   }
   // The last week in a month
   let weekNumber = 4;
-  let dayNumberTextField = changedAppointment.startDate.getDate();
+  let dayNumberTextField = dayNumber;
   let value;
   if (recurrenceOptions.bymonthday && !recurrenceOptions.bymonthday.length) {
     value = 'onDayAndMonth';
     dayNumberTextField = recurrenceOptions.bymonthday;
-    weekNumber = Math.trunc((changedAppointment.startDate.getDate() - 1) / 7);
+    weekNumber = stateWeekNumber;
+    dayOfWeek = stateDayOfWeek;
   } else {
     value = 'onDayOfWeek';
-    if (recurrenceOptions.bymonthday && recurrenceOptions.bymonthday[0] > 0) {
-      weekNumber = Math.trunc(recurrenceOptions.bymonthday[0] / 7);
+    if (!recurrenceOptions.byweekday) {
+      dayOfWeek = stateDayOfWeek;
+      weekNumber = stateWeekNumber;
+    } else {
+      dayOfWeek = recurrenceOptions.byweekday;
+      if (recurrenceOptions.bymonthday && recurrenceOptions.bymonthday[0] > 0) {
+        weekNumber = Math.trunc(recurrenceOptions.bymonthday[0] / 7);
+      }
     }
   }
 
@@ -155,15 +168,19 @@ const YearlyEditorBase = ({
   const onRadioGroupValueChange = (event) => {
     switch (event.target.value) {
       case 'onDayAndMonth':
+        setStateWeekNumber(weekNumber);
+        setStateDayOfWeek(dayOfWeek);
         onRecurrenceOptionsChange({
           ...recurrenceOptions,
-          bymonthday: changedAppointment.startDate.getDate(),
+          bymonthday: dayNumber,
           byweekday: undefined,
-        })
+        });
         break;
       case 'onDayOfWeek':
+        setDayNumber(recurrenceOptions.bymonthday || dayNumber);
         handleToDayOfWeekChange(
-          changedAppointment.startDate,
+          stateWeekNumber,
+          stateDayOfWeek,
           onRecurrenceOptionsChange,
           recurrenceOptions,
         );

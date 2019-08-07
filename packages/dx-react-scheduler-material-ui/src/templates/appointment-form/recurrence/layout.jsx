@@ -94,6 +94,7 @@ const LayoutBase = ({
           recurrenceOptions={recurrenceOptions}
           onRecurrenceOptionsChange={onRecurrenceOptionsChange}
           dateAndTimeEditorComponent={DateAndTimeEditor}
+          changedAppointment={changedAppointment}
         />
         {children}
       </div>

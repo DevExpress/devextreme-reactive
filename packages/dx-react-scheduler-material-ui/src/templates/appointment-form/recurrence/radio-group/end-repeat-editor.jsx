@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
@@ -32,10 +32,14 @@ const EndRepeatEditorBase = ({
   recurrenceOptions,
   onRecurrenceOptionsChange,
   dateAndTimeEditorComponent: DateAndTimeEditor,
+  changedAppointment,
   ...restProps
 }) => {
-  const recurrenceCount = recurrenceOptions.count || 1;
-  const recurrenceEndDate = recurrenceOptions.until || new Date();
+  const [count, setCount] = useState(1);
+  const [endDate, setEndDate] = useState(changedAppointment.endDate);
+
+  const recurrenceCount = recurrenceOptions.count || count;
+  const recurrenceEndDate = recurrenceOptions.until || endDate;
   let value;
   if (recurrenceOptions.count) {
     value = 'endAfter';
@@ -46,13 +50,19 @@ const EndRepeatEditorBase = ({
   const onRadioGroupValueChange = (event) => {
     switch (event.target.value) {
       case 'endAfter':
-        onRecurrenceOptionsChange({ ...recurrenceOptions, count: 1, until: undefined });
+        setEndDate(recurrenceOptions.until || endDate);
+        onRecurrenceOptionsChange({ ...recurrenceOptions, count, until: undefined });
         break;
       case 'endBy':
-        onRecurrenceOptionsChange({ ...recurrenceOptions, count: undefined, until: new Date() });
+        setCount(recurrenceOptions.count || count);
+        onRecurrenceOptionsChange({ ...recurrenceOptions, count: undefined, until: endDate });
+        break;
+      case 'never':
+        setEndDate(recurrenceOptions.until || endDate);
+        setCount(recurrenceOptions.count || count);
+        onRecurrenceOptionsChange({ ...recurrenceOptions, count: undefined, until: undefined });
         break;
       default:
-        onRecurrenceOptionsChange({ ...recurrenceOptions, count: undefined, until: undefined });
         break;
     }
   };
@@ -85,7 +95,10 @@ const EndRepeatEditorBase = ({
               }}
               value={recurrenceCount}
               id={NUMBER_EDITOR}
-              onValueChange={count => onRecurrenceOptionsChange({ ...recurrenceOptions, count })}
+              onValueChange={newCount => onRecurrenceOptionsChange({
+                ...recurrenceOptions,
+                count: newCount,
+              })}
             />
             <Label
               className={classes.label}

@@ -7,6 +7,10 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import Grid from '@material-ui/core/Grid';
 import { NUMBER_EDITOR } from '@devexpress/dx-scheduler-core';
+import {
+  getNumberLabels,
+  getDaysOfWeek,
+} from '../../../utils';
 
 const styles = ({ spacing }) => ({
   textEditor: {
@@ -203,28 +207,7 @@ const MonthlyEditorBase = ({
                 recurrenceOptions,
               )}
               value={weekNumber}
-              availableOptions={[
-                {
-                  text: getMessage('firstLabel'),
-                  id: 0,
-                },
-                {
-                  text: getMessage('secondLabel'),
-                  id: 1,
-                },
-                {
-                  text: getMessage('thirdLabel'),
-                  id: 2,
-                },
-                {
-                  text: getMessage('fourthLabel'),
-                  id: 3,
-                },
-                {
-                  text: getMessage('lastLabel'),
-                  id: 4,
-                },
-              ]}
+              availableOptions={getNumberLabels(getMessage)}
             />
             <Switcher
               disabled={value !== 'onDayOfWeek'}
@@ -232,37 +215,7 @@ const MonthlyEditorBase = ({
                 ...recurrenceOptions, byweekday: newWeekDay,
               })}
               value={value === 'onDayOfWeek' ? recurrenceOptions.byweekday : changedAppointment.startDate.getDay()}
-              availableOptions={[
-                {
-                  text: getMessage('sundayLabel'),
-                  id: 0,
-                },
-                {
-                  text: getMessage('mondayLabel'),
-                  id: 1,
-                },
-                {
-                  text: getMessage('tuesdayLabel'),
-                  id: 2,
-                },
-                {
-                  text: getMessage('wednesdayLabel'),
-                  id: 3,
-                },
-                {
-                  text: getMessage('thursdayLabel'),
-                  id: 4,
-                },
-                {
-                  text: getMessage('fridayLabel'),
-                  id: 5,
-                },
-                {
-                  text: getMessage('saturdayLabel'),
-                  id: 6,
-                },
-              ]}
-
+              availableOptions={getDaysOfWeek(getMessage)}
             />
           </Grid>
         )}

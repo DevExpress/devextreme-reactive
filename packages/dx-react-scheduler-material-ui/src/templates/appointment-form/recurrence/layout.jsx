@@ -75,7 +75,6 @@ const LayoutBase = ({
           onRecurrenceOptionsChange={onRecurrenceOptionsChange}
           getMessage={getMessage}
           readOnly={readOnly}
-          changeAppointment={changeAppointment}
           radioGroupEditorComponent={RadioGroupEditor}
           changedAppointment={changedAppointment}
           changeAppointmentField={changeAppointmentField}

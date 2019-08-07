@@ -7,6 +7,11 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import Grid from '@material-ui/core/Grid';
 import { NUMBER_EDITOR } from '@devexpress/dx-scheduler-core';
+import {
+  getNumberLabels,
+  getDaysOfWeek,
+  getMonths,
+} from '../../../utils';
 
 const styles = ({ spacing }) => ({
   textEditor: {
@@ -105,57 +110,6 @@ const handleWeekNumberChange = (
     changeRecurrenceOptionsAction(newOptions);
   }
 };
-
-const getMonths = getMessage => [
-  {
-    text: getMessage('januaryLabel'),
-    id: 1,
-  },
-  {
-    text: getMessage('februaryLabel'),
-    id: 2,
-  },
-  {
-    text: getMessage('marchLabel'),
-    id: 3,
-  },
-  {
-    text: getMessage('aprilLabel'),
-    id: 4,
-  },
-  {
-    text: getMessage('mayLabel'),
-    id: 5,
-  },
-  {
-    text: getMessage('juneLabel'),
-    id: 6,
-  },
-  {
-    text: getMessage('julyLabel'),
-    id: 7,
-  },
-  {
-    text: getMessage('augustLabel'),
-    id: 8,
-  },
-  {
-    text: getMessage('septemberLabel'),
-    id: 9,
-  },
-  {
-    text: getMessage('octoberLabel'),
-    id: 10,
-  },
-  {
-    text: getMessage('novemberLabel'),
-    id: 11,
-  },
-  {
-    text: getMessage('decemberLabel'),
-    id: 12,
-  },
-];
 
 const YearlyEditorBase = ({
   classes,
@@ -284,28 +238,7 @@ const YearlyEditorBase = ({
                 recurrenceOptions,
               )}
               value={weekNumber}
-              availableOptions={[
-                {
-                  text: getMessage('firstLabel'),
-                  id: 0,
-                },
-                {
-                  text: getMessage('secondLabel'),
-                  id: 1,
-                },
-                {
-                  text: getMessage('thirdLabel'),
-                  id: 2,
-                },
-                {
-                  text: getMessage('fourthLabel'),
-                  id: 3,
-                },
-                {
-                  text: getMessage('lastLabel'),
-                  id: 4,
-                },
-              ]}
+              availableOptions={getNumberLabels(getMessage)}
             />
             <Switcher
               className={classes.switcher}
@@ -315,36 +248,7 @@ const YearlyEditorBase = ({
                 byweekday: newWeekDay,
               })}
               value={dayOfWeek}
-              availableOptions={[
-                {
-                  text: getMessage('sundayLabel'),
-                  id: 0,
-                },
-                {
-                  text: getMessage('mondayLabel'),
-                  id: 1,
-                },
-                {
-                  text: getMessage('tuesdayLabel'),
-                  id: 2,
-                },
-                {
-                  text: getMessage('wednesdayLabel'),
-                  id: 3,
-                },
-                {
-                  text: getMessage('thursdayLabel'),
-                  id: 4,
-                },
-                {
-                  text: getMessage('fridayLabel'),
-                  id: 5,
-                },
-                {
-                  text: getMessage('saturdayLabel'),
-                  id: 6,
-                },
-              ]}
+              availableOptions={getDaysOfWeek(getMessage)}
 
             />
             <Label

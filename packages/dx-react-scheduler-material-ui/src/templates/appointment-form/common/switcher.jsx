@@ -12,6 +12,7 @@ const styles = ({ typography, spacing }) => ({
   input: {
     fontWeight: 'bold',
     textTransform: 'uppercase',
+    fontSize: typography.fontSize,
   },
   menuItem: {
     fontSize: typography.fontSize,

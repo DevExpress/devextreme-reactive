@@ -14,6 +14,7 @@ import { FULL_DATE_TIME_EDITOR, PARTIAL_DATE_TIME_EDITOR } from '@devexpress/dx-
 const styles = ({ typography, spacing }) => ({
   dateEditor: {
     paddingTop: spacing(1.5),
+    paddingBottom: spacing(1.5),
   },
   full: {
     width: '45%',
@@ -31,7 +32,6 @@ const styles = ({ typography, spacing }) => ({
 
 const DateAndTimeEditorBase = ({
   classes,
-  className,
   readOnly,
   onStartDateValueChange,
   onEndDateValueChange,
@@ -42,7 +42,10 @@ const DateAndTimeEditorBase = ({
   ...restProps
 }) => (
   <MuiPickersUtilsProvider utils={MomentUtils}>
-    <Grid container>
+    <Grid
+      container
+      {...restProps}
+    >
       <KeyboardDateTimePicker
         disabled={disabled}
         className={classNames({
@@ -56,27 +59,24 @@ const DateAndTimeEditorBase = ({
         format="DD/MM/YYYY HH:mm a"
         variant="inline"
         readOnly={readOnly}
-        {...restProps}
       />
       {
         id === FULL_DATE_TIME_EDITOR && (
           <React.Fragment>
             <Typography
               className={classes.divider}
-              {...restProps}
             >
               {'–'}
             </Typography>
             <KeyboardDateTimePicker
               disabled={disabled}
-              className={classNames(classes.full, classes.dateEditor, className)}
+              className={classNames(classes.full, classes.dateEditor)}
               margin="normal"
               value={endDate}
               onChange={onEndDateValueChange}
               format="DD/MM/YYYY HH:mm a"
               variant="inline"
               readOnly={readOnly}
-              {...restProps}
             />
           </React.Fragment>
         )

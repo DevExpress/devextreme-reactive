@@ -8,17 +8,29 @@ import Radio from '@material-ui/core/Radio';
 import Grid from '@material-ui/core/Grid';
 import { NUMBER_EDITOR } from '@devexpress/dx-scheduler-core';
 
-const styles = ({ spacing }) => ({
+const styles = ({ spacing, typography }) => ({
   textEditor: {
     width: '5em',
     marginLeft: spacing(2),
     marginRight: spacing(2),
   },
   label: {
-    paddingTop: spacing(5),
+    paddingTop: spacing(4.75),
+    width: '3em',
+    marginRight: 0,
+  },
+  afterLabel: {
+    paddingTop: spacing(3.75),
+    width: '3em',
   },
   input: {
     paddingBottom: spacing(2.75),
+  },
+  radioLabel: {
+    fontSize: typography.fontSize + 1,
+  },
+  dateNavigator: {
+    width: '70%',
   },
 });
 
@@ -73,7 +85,12 @@ const EndRepeatEditorBase = ({
       value={value}
       {...restProps}
     >
-      <FormControlLabel value="never" control={<Radio color="primary" />} label={getMessage('never')} />
+      <FormControlLabel
+        value="never"
+        control={<Radio color="primary" />}
+        label={getMessage('never')}
+        classes={{ label: classes.radioLabel }}
+      />
       <FormControlLabel
         value="endAfter"
         control={<Radio color="primary" />}
@@ -117,10 +134,11 @@ const EndRepeatEditorBase = ({
             justify="flex-start"
           >
             <Label
-              className={classes.label}
+              className={classes.afterLabel}
               label={getMessage('afterLabel')}
             />
             <DateAndTimeEditor
+              className={classes.dateNavigator}
               disabled={value !== 'endBy'}
               oneDate
               startDate={recurrenceEndDate}

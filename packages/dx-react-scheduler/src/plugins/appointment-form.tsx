@@ -228,7 +228,6 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               if (rRuleFrequency === RRULE_REPEAT_TYPES.weekly) frequency = REPEAT_TYPES.weekly;
               if (rRuleFrequency === RRULE_REPEAT_TYPES.monthly) frequency = REPEAT_TYPES.monthly;
               if (rRuleFrequency === RRULE_REPEAT_TYPES.yearly) frequency = REPEAT_TYPES.yearly;
-              console.log(changedAppointment.rRule);
               return (
                 <React.Fragment>
                   <React.Fragment>
@@ -433,7 +432,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                     onChange: (repeatType) => {
                       const rruleRepeatType = getRRuleFrequence(repeatType);
                       let rRule;
-                      if (rruleRepeatType) {
+                      if (rruleRepeatType !== undefined) {
                         rRule = changeRecurrenceFrequency(
                           changedAppointment.rRule,
                           rruleRepeatType,

@@ -56,7 +56,7 @@ const DateAndTimeEditorBase = ({
         margin="normal"
         value={startDate}
         onChange={onStartDateValueChange}
-        format="DD/MM/YYYY HH:mm a"
+        format="DD/MM/YYYY HH:mm A"
         variant="inline"
         readOnly={readOnly}
       />
@@ -74,7 +74,7 @@ const DateAndTimeEditorBase = ({
               margin="normal"
               value={endDate}
               onChange={onEndDateValueChange}
-              format="DD/MM/YYYY HH:mm a"
+              format="DD/MM/YYYY HH:mm A"
               variant="inline"
               readOnly={readOnly}
             />

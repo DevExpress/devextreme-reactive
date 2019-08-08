@@ -23,11 +23,20 @@ const styles = ({ spacing }) => ({
     marginLeft: spacing(2),
     marginRight: spacing(2),
   },
-  label: {
-    paddingTop: spacing(5),
-  },
   input: {
     paddingBottom: spacing(2.75),
+  },
+  switcher: {
+    width: '38%',
+    marginRight: spacing(1),
+    height: '2em',
+  },
+  label: {
+    width: '13%',
+    marginRight: 0,
+  },
+  grid: {
+    minWidth: '400px',
   },
 });
 
@@ -108,6 +117,7 @@ const MonthlyEditorBase = ({
       {...restProps}
     >
       <FormControlLabel
+        className={classes.formControl}
         value="onDayNumber"
         control={<Radio color="primary" />}
         label={(
@@ -115,6 +125,8 @@ const MonthlyEditorBase = ({
             container
             direction="row"
             justify="flex-start"
+            alignItems="center"
+            className={classes.grid}
           >
             <Label
               label={getMessage('onLabel')}
@@ -134,7 +146,6 @@ const MonthlyEditorBase = ({
             />
             <Label
               label={getMessage('ofEveryMonthLabel')}
-              className={classes.label}
             />
           </Grid>
         )}
@@ -147,10 +158,12 @@ const MonthlyEditorBase = ({
             container
             direction="row"
             justify="flex-start"
+            alignItems="center"
+            className={classes.grid}
           >
             <Label
-              className={classes.label}
               label={getMessage('theLabel')}
+              className={classes.label}
             />
             <Switcher
               disabled={value !== 'onDayOfWeek'}
@@ -161,6 +174,7 @@ const MonthlyEditorBase = ({
               )}
               value={weekNumber}
               availableOptions={getNumberLabels(getMessage)}
+              className={classes.switcher}
             />
             <Switcher
               disabled={value !== 'onDayOfWeek'}
@@ -169,6 +183,7 @@ const MonthlyEditorBase = ({
               })}
               value={dayOfWeek}
               availableOptions={getDaysOfWeek(getMessage)}
+              className={classes.switcher}
             />
           </Grid>
         )}

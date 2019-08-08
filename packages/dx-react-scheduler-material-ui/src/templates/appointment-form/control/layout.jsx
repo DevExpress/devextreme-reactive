@@ -52,7 +52,7 @@ const LayoutBase = ({
 
 LayoutBase.propTypes = {
   controlButtonComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   classes: PropTypes.object.isRequired,
   commitAppointment: PropTypes.func.isRequired,
   cancelCommit: PropTypes.func.isRequired,
@@ -63,6 +63,7 @@ LayoutBase.propTypes = {
 
 LayoutBase.defaultProps = {
   className: undefined,
+  children: undefined,
 };
 
 export const Layout = withStyles(styles)(LayoutBase, { name: 'Layout' });

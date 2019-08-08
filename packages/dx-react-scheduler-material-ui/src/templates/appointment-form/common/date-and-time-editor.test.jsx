@@ -1,33 +1,89 @@
 import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
-import { DateEditor } from './date-editor';
+import Grid from '@material-ui/core/Grid';
+import { KeyboardDateTimePicker } from '@material-ui/pickers';
+import Typography from '@material-ui/core/Typography';
+import { FULL_DATE_TIME_EDITOR } from '@devexpress/dx-scheduler-core';
+import { DateAndTimeEditor } from './date-and-time-editor';
 
-describe('Appointment Form', () => {
+describe('Appointment Form common', () => {
+  const defaultProps = {
+    onFirstDateValueChange: jest.fn(),
+    onSecondDateValueChange: jest.fn(),
+  };
   let shallow;
-  let classes;
   beforeAll(() => {
-    classes = getClasses(<DateEditor />);
     shallow = createShallow({ dive: true });
   });
-  describe('DateEditor', () => {
-    it('should pass className to the root element', () => {
+
+  describe('DateAndTimeEditor', () => {
+    it('should pass rest props to the Grid element', () => {
       const tree = shallow((
-        <DateEditor className="custom-class" />
+        <DateAndTimeEditor data={{ a: 1 }} />
       ));
 
-      expect(tree.is('.custom-class'))
+      const rootGrid = tree.find(Grid);
+
+      expect(rootGrid.props().data)
+        .toMatchObject({ a: 1 });
+    });
+
+    it('should render full DateAndTime Editor correctly', () => {
+      const classes = getClasses(<DateAndTimeEditor />);
+      const tree = shallow((
+        <DateAndTimeEditor id={FULL_DATE_TIME_EDITOR} />
+      ));
+
+      const dateTimePickers = tree.find(KeyboardDateTimePicker);
+
+      expect(dateTimePickers)
+        .toHaveLength(2);
+      expect(tree.find(Typography))
+        .toHaveLength(1);
+
+      expect(dateTimePickers.at(0).is(`.${classes.full}`))
         .toBeTruthy();
-      expect(tree.is(`.${classes.editor}`))
+      expect(dateTimePickers.at(0).is(`.${classes.dateEditor}`))
+        .toBeTruthy();
+      expect(dateTimePickers.at(1).is(`.${classes.full}`))
+        .toBeTruthy();
+      expect(dateTimePickers.at(1).is(`.${classes.dateEditor}`))
         .toBeTruthy();
     });
 
-    it('should pass rest props to the root element', () => {
+    it('should render partial DateAndTime Editor correctly', () => {
+      const classes = getClasses(<DateAndTimeEditor />);
       const tree = shallow((
-        <DateEditor data={{ a: 1 }} />
+        <DateAndTimeEditor />
       ));
 
-      expect(tree.props().data)
-        .toMatchObject({ a: 1 });
+      const dateTimePickers = tree.find(KeyboardDateTimePicker);
+
+      expect(dateTimePickers)
+        .toHaveLength(1);
+      expect(tree.find(Typography))
+        .toHaveLength(0);
+
+      expect(dateTimePickers.at(0).is(`.${classes.partial}`))
+        .toBeTruthy();
+      expect(dateTimePickers.at(0).is(`.${classes.dateEditor}`))
+        .toBeTruthy();
+    });
+
+    it('should handle onChanges correctly', () => {
+      const tree = shallow((
+        <DateAndTimeEditor {...defaultProps} id={FULL_DATE_TIME_EDITOR} />
+      ));
+
+      const dateTimePickers = tree.find(KeyboardDateTimePicker);
+
+      dateTimePickers.at(0).simulate('change', 'abc');
+      expect(defaultProps.onFirstDateValueChange)
+        .toBeCalledWith('abc');
+
+      dateTimePickers.at(1).simulate('change', 'abc');
+      expect(defaultProps.onSecondDateValueChange)
+        .toBeCalledWith('abc');
     });
   });
 });

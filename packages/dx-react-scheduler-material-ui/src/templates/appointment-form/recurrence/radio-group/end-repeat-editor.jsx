@@ -141,8 +141,8 @@ const EndRepeatEditorBase = ({
               className={classes.dateNavigator}
               disabled={value !== 'endBy'}
               oneDate
-              startDate={recurrenceEndDate}
-              onStartDateValueChange={date => onRecurrenceOptionsChange({
+              firstDate={recurrenceEndDate}
+              onFirstDateValueChange={date => onRecurrenceOptionsChange({
                 ...recurrenceOptions, until: date,
               })}
             />

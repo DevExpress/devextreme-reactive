@@ -56,13 +56,13 @@ const LayoutBase = ({
         onValueChange={title => changeAppointmentField({ change: { title } })}
       />
       <DateTimeEditor
-        readOnly={readOnly}
-        startDate={changedAppointment.startDate}
-        endDate={changedAppointment.endDate}
-        onStartDateValueChange={startDate => changeAppointmentField({
+        disabled={readOnly}
+        firstDate={changedAppointment.startDate}
+        secondDate={changedAppointment.endDate}
+        onFirstDateValueChange={startDate => changeAppointmentField({
           change: { startDate: startDate.toDate() },
         })}
-        onEndDateValueChange={endDate => changeAppointmentField({
+        onSecondDateValueChange={endDate => changeAppointmentField({
           change: { endDate: endDate.toDate() },
         })}
         id={FULL_DATE_TIME_EDITOR}

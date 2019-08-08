@@ -32,11 +32,10 @@ const styles = ({ typography, spacing }) => ({
 
 const DateAndTimeEditorBase = ({
   classes,
-  readOnly,
-  onStartDateValueChange,
-  onEndDateValueChange,
-  startDate,
-  endDate,
+  onFirstDateValueChange,
+  onSecondDateValueChange,
+  firstDate,
+  secondDate,
   id,
   disabled,
   ...restProps
@@ -54,11 +53,10 @@ const DateAndTimeEditorBase = ({
           [classes.dateEditor]: true,
         })}
         margin="normal"
-        value={startDate}
-        onChange={onStartDateValueChange}
+        value={firstDate}
+        onChange={onFirstDateValueChange}
         format="DD/MM/YYYY HH:mm A"
         variant="inline"
-        readOnly={readOnly}
       />
       {
         id === FULL_DATE_TIME_EDITOR && (
@@ -72,11 +70,10 @@ const DateAndTimeEditorBase = ({
               disabled={disabled}
               className={classNames(classes.full, classes.dateEditor)}
               margin="normal"
-              value={endDate}
-              onChange={onEndDateValueChange}
+              value={secondDate}
+              onChange={onSecondDateValueChange}
               format="DD/MM/YYYY HH:mm A"
               variant="inline"
-              readOnly={readOnly}
             />
           </React.Fragment>
         )
@@ -87,31 +84,29 @@ const DateAndTimeEditorBase = ({
 
 DateAndTimeEditorBase.propTypes = {
   classes: PropTypes.object.isRequired,
-  startDate: PropTypes.oneOfType([
+  firstDate: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.string,
     PropTypes.instanceOf(Date),
   ]),
-  endDate: PropTypes.oneOfType([
+  secondDate: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.string,
     PropTypes.instanceOf(Date),
   ]),
   className: PropTypes.string,
-  readOnly: PropTypes.bool,
   disabled: PropTypes.bool,
-  onStartDateValueChange: PropTypes.func,
-  onEndDateValueChange: PropTypes.func,
+  onFirstDateValueChange: PropTypes.func,
+  onSecondDateValueChange: PropTypes.func,
   id: PropTypes.string,
 };
 
 DateAndTimeEditorBase.defaultProps = {
-  startDate: undefined,
-  endDate: undefined,
+  firstDate: undefined,
+  secondDate: undefined,
   className: undefined,
-  readOnly: false,
-  onStartDateValueChange: () => undefined,
-  onEndDateValueChange: () => undefined,
+  onFirstDateValueChange: () => undefined,
+  onSecondDateValueChange: () => undefined,
   disabled: false,
   id: PARTIAL_DATE_TIME_EDITOR,
 };

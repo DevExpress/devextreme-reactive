@@ -3,7 +3,7 @@ import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import moment from 'moment';
 import { Layout } from './layout';
 
-describe('AppointmentForm', () => {
+describe('AppointmentForm basic', () => {
   const defaultProps = {
     textEditorComponent: () => null,
     dateTimeEditorComponent: () => null,
@@ -208,7 +208,7 @@ describe('AppointmentForm', () => {
       const dateTimeEditor = tree.find(defaultProps.dateTimeEditorComponent);
       const testDate = new Date(2019, 1, 1, 1, 1);
 
-      dateTimeEditor.at(0).simulate('startDateValueChange', moment(testDate));
+      dateTimeEditor.at(0).simulate('firstDateValueChange', moment(testDate));
       expect(defaultProps.changeAppointmentField)
         .toBeCalledWith({
           change: {
@@ -216,7 +216,7 @@ describe('AppointmentForm', () => {
           },
         });
 
-      dateTimeEditor.at(0).simulate('endDateValueChange', moment(testDate));
+      dateTimeEditor.at(0).simulate('secondDateValueChange', moment(testDate));
       expect(defaultProps.changeAppointmentField)
         .toBeCalledWith({
           change: {

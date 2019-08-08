@@ -17,7 +17,6 @@ export interface TableColumnResizingProps {
 export type TableColumnResizingState = {
   columnWidths: TableColumnWidthInfo[],
   draftColumnWidths: TableColumnWidthInfo[],
-  nextColumnResizing: boolean;
 };
 
 /** @internal */

@@ -17,12 +17,18 @@ const tableHeaderRowsComputed = (
   { tableHeaderRows }: Getters,
 ) => tableRowsWithHeading(tableHeaderRows || []);
 
-const getLastColumnName = (
-  { tableColumns }: Getters,
-) => {
+const getLastColumnName = (tableColumns) => {
   const index = tableColumns.length - 1;
   const columnName = tableColumns[index].column.name;
   return columnName;
+};
+
+const getNextColumnName = (tableColumns, columnName) => {
+  const index = tableColumns.findIndex(elem => elem.column.name === columnName);
+  const nextColumnName = index < tableColumns.length - 1
+    ? tableColumns[index + 1].column.name
+    : undefined;
+  return nextColumnName;
 };
 
 class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {
@@ -67,7 +73,6 @@ class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {
         ]}
       >
         <Getter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
-        <Getter name="lastColumnName" computed={getLastColumnName} />
 
         <Template
           name="tableCell"
@@ -77,8 +82,7 @@ class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {
             <TemplateConnector>
               {({
                 sorting, tableColumns, draggingEnabled, tableColumnResizingEnabled,
-                isColumnSortingEnabled, isColumnGroupingEnabled, lastColumnName,
-                nextColumnResizing,
+                isColumnSortingEnabled, isColumnGroupingEnabled, nextColumnResizing,
               }, {
                 changeColumnSorting, changeColumnGrouping,
                 changeTableColumnWidth, draftTableColumnWidth, cancelTableColumnWidthDraft,
@@ -92,6 +96,8 @@ class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {
                 const groupingEnabled = isColumnGroupingEnabled
                   && isColumnGroupingEnabled(columnName)
                   && atLeastOneDataColumn;
+                const nextColumnName = getNextColumnName(tableColumns, columnName);
+                const lastColumn = getLastColumnName(tableColumns) === columnName;
 
                 return (
                   <HeaderCell
@@ -99,11 +105,15 @@ class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {
                     column={params.tableColumn.column!}
                     draggingEnabled={draggingEnabled && atLeastOneDataColumn}
                     resizingEnabled={
-                      tableColumnResizingEnabled &&
-                      (lastColumnName !== params.tableColumn.column!.name || !nextColumnResizing)
+                      tableColumnResizingEnabled
+                      && (!lastColumn || !nextColumnResizing)
                     }
-                    onWidthChange={({ shift }) => changeTableColumnWidth({ columnName, shift })}
-                    onWidthDraft={({ shift }) => draftTableColumnWidth({ columnName, shift })}
+                    onWidthChange={({ shift }) => changeTableColumnWidth({
+                      columnName, nextColumnName, shift,
+                    })}
+                    onWidthDraft={({ shift }) => draftTableColumnWidth({
+                      columnName, nextColumnName, shift,
+                    })}
                     onWidthDraftCancel={() => cancelTableColumnWidthDraft()}
                     getCellWidth={getter => storeWidthGetters({
                       tableColumn: params.tableColumn , getter, tableColumns,

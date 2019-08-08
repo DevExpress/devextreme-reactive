@@ -18,7 +18,9 @@ export type TableColumnsWithWidthFn = PureComputed<[TableColumn[], TableColumnWi
 
 /** @internal */
 export type ColumnWidthPayload = {
-  columnName: string, shift: number, width: number, minColumnWidth: number,
+  columnName: string, nextColumnName: string,
+  nextColumnResizing: boolean, shift: number,
+  cachedWidths: { [colName: string]: number }, minColumnWidth: number,
 };
 /** @internal */
 export type ColumnWidthState = {

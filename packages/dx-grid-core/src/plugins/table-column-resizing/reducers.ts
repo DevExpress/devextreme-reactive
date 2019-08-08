@@ -2,17 +2,33 @@ import { slice } from '@devexpress/dx-core';
 import { ColumnWidthReducer } from '../../types';
 
 export const changeTableColumnWidth: ColumnWidthReducer = (
-  state, { columnName, shift, width, minColumnWidth,
+  state, { columnName, nextColumnName, nextColumnResizing, shift, cachedWidths, minColumnWidth,
 }) => {
   const { columnWidths } = state;
   const nextColumnWidth = slice(columnWidths);
   const index = nextColumnWidth.findIndex(elem => elem.columnName === columnName);
+  const nextIndex = nextColumnWidth.findIndex(elem => elem.columnName === nextColumnName);
   const updatedColumn = nextColumnWidth[index];
+  const nextUpdatedColumn = nextColumnWidth[nextIndex];
   const updatedWidth = typeof updatedColumn.width === 'number'
     ? updatedColumn.width
-    : width;
-  const size = Math.max(minColumnWidth, updatedWidth + shift);
+    : cachedWidths[columnName];
+  const nextUpdatedWidth = typeof nextUpdatedColumn.width === 'number'
+    ? nextUpdatedColumn.width
+    : cachedWidths[nextColumnName];
+  let size = Math.max(minColumnWidth, updatedWidth + shift);
+  let nextSize = nextColumnResizing
+    ? Math.max(minColumnWidth, nextUpdatedWidth - shift)
+    : nextUpdatedWidth;
+  if (nextColumnResizing && size + nextSize > updatedWidth + nextUpdatedWidth) {
+    size = size === minColumnWidth ? size : updatedWidth + nextUpdatedWidth - nextSize ;
+    nextSize = nextSize === minColumnWidth ? nextSize : updatedWidth + nextUpdatedWidth - size ;
+  }
+
   nextColumnWidth.splice(index, 1, { columnName, width: size });
+  if (nextColumnResizing) {
+    nextColumnWidth.splice(nextIndex, 1, { columnName: nextColumnName, width: nextSize });
+  }
 
   return {
     columnWidths: nextColumnWidth,
@@ -20,17 +36,31 @@ export const changeTableColumnWidth: ColumnWidthReducer = (
 };
 
 export const draftTableColumnWidth: ColumnWidthReducer = (
-  state, { columnName, shift, width, minColumnWidth,
+  state, { columnName, nextColumnName, nextColumnResizing, shift, cachedWidths, minColumnWidth,
 }) => {
   const { columnWidths } = state;
   const updatedColumn = columnWidths.find(elem => elem.columnName === columnName)!;
+  const nextUpdatedColumn = columnWidths.find(elem => elem.columnName === nextColumnName)!;
   const updatedWidth = typeof updatedColumn.width === 'number'
     ? updatedColumn.width
-    : width;
-  const size = Math.max(minColumnWidth, updatedWidth + shift);
+    : cachedWidths[columnName];
+  const nextUpdatedWidth = typeof nextUpdatedColumn.width === 'number'
+    ? nextUpdatedColumn.width
+    : cachedWidths[nextColumnName];
+  let size = Math.max(minColumnWidth, updatedWidth + shift);
+  let nextSize = nextColumnResizing
+    ? Math.max(minColumnWidth, nextUpdatedWidth - shift)
+    : nextUpdatedWidth;
+  if (nextColumnResizing && size + nextSize > updatedWidth + nextUpdatedWidth) {
+    size = size <= minColumnWidth ? size : updatedWidth + nextUpdatedWidth - nextSize ;
+    nextSize = nextSize <= minColumnWidth ? nextSize : updatedWidth + nextUpdatedWidth - size ;
+  }
 
   return {
-    draftColumnWidths: [{ columnName, width: size }],
+    draftColumnWidths: [
+      { columnName, width: size },
+      { columnName: nextColumnName, width: nextSize },
+    ],
   };
 };
 

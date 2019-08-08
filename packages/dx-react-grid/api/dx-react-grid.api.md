@@ -5,6 +5,7 @@
 ```ts
 
 import * as React from 'react';
+import { TableColumnWidthInfo as TableColumnWidthInfo_2 } from '@devexpress/dx-grid-core';
 
 // @public
 export interface ChangeSet {
@@ -728,11 +729,11 @@ export namespace TableColumnResizing {
 // @public (undocumented)
 export interface TableColumnResizingProps {
   columnExtensions?: Array<TableColumnResizing.ColumnExtension>;
-  columnWidths?: Array<TableColumnWidthInfo>;
-  defaultColumnWidths?: Array<TableColumnWidthInfo>;
+  columnWidths?: Array<TableColumnWidthInfo_2>;
+  defaultColumnWidths?: Array<TableColumnWidthInfo_2>;
   maxColumnWidth?: number;
   minColumnWidth?: number;
-  onColumnWidthsChange?: (nextColumnWidths: Array<TableColumnWidthInfo>) => void;
+  onColumnWidthsChange?: (nextColumnWidths: Array<TableColumnWidthInfo_2>) => void;
 }
 
 // @public

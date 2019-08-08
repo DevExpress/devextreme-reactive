@@ -117,7 +117,6 @@ LayoutBase.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
   classes: PropTypes.object.isRequired,
-  recurrenceEditing: PropTypes.bool.isRequired,
   style: PropTypes.object,
   getMessage: PropTypes.func.isRequired,
   changeAppointmentField: PropTypes.func,

@@ -1,7 +1,7 @@
 import { withComponents } from '@devexpress/dx-react-core';
 import { AppointmentForm as AppointmentFormBase } from '@devexpress/dx-react-scheduler';
 import { Layout } from '../templates/appointment-form/layout';
-import { TextEditor } from '../templates/appointment-form/basic/text-editor';
+import { TextEditor } from '../templates/appointment-form/common/text-editor';
 import { Layout as BasicLayout } from '../templates/appointment-form/basic/layout';
 import { Layout as ControlLayout } from '../templates/appointment-form/control/layout';
 import { ControlButton } from '../templates/appointment-form/control/control-button';

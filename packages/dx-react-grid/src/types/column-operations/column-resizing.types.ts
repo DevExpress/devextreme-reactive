@@ -1,4 +1,4 @@
-import { TableColumnWidthInfo } from '../index';
+import { TableColumnWidthInfo } from '@devexpress/dx-grid-core';
 // tslint:disable-next-line:no-namespace
 export namespace TableColumnResizing {
   /** Describes additional column properties that the plugin can handle. */

@@ -83,7 +83,7 @@ describe('TableColumnResizing Plugin reducers', () => {
         });
     });
 
-    it('should work if limitation does not define in columnExtensions', () => {
+    it('should work if limitation is not defined in columnExtensions', () => {
       const columnExtensions = [
         { columnName: 'b' },
       ];

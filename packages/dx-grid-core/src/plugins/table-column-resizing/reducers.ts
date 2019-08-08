@@ -4,19 +4,16 @@ import { ColumnWidthReducer, ColumnSizeFn } from '../../types';
 export const getColumnSize: ColumnSizeFn = (
   updatedColumn, {columnName, shift, minColumnWidth, maxColumnWidth, columnExtensions = [],
 }) => {
-  const indexOfExtended = columnExtensions.findIndex(elem => elem.columnName === columnName);
-  const extendedColumn = indexOfExtended >= 0 ? columnExtensions[indexOfExtended] : undefined;
-  const haveExtendedMinWidth = extendedColumn && extendedColumn.minWidth! >= 0;
-  const haveExtendedMaxWidth = extendedColumn && extendedColumn.maxWidth! >= 0;
-  const minWidth = haveExtendedMinWidth
-    ? columnExtensions[indexOfExtended].minWidth
+  const extendedColumn = columnExtensions.find(elem => elem.columnName === columnName);
+  const minWidth = extendedColumn && extendedColumn.minWidth
+    ? extendedColumn.minWidth
     : minColumnWidth;
-  const maxWidth = haveExtendedMaxWidth
-    ? columnExtensions[indexOfExtended].maxWidth
+  const maxWidth = extendedColumn && extendedColumn.maxWidth
+    ? extendedColumn.maxWidth
     : maxColumnWidth;
   const size = Math.max(
-    minWidth!,
-    Math.min(updatedColumn.width! + shift, maxWidth!),
+    minWidth,
+    Math.min(updatedColumn.width! + shift, maxWidth),
   );
   return size;
 };

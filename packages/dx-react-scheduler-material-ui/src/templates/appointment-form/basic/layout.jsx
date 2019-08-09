@@ -28,7 +28,7 @@ const LayoutBase = ({
   labelComponent: Label,
   allDayComponent: AllDay,
   getMessage,
-  changeAppointmentField,
+  onAppointmentFieldChange,
   changedAppointment,
   readOnly,
   ...restProps
@@ -53,16 +53,16 @@ const LayoutBase = ({
         readOnly={readOnly}
         id={TITLE_TEXT_EDITOR}
         value={changedAppointment.title}
-        onValueChange={title => changeAppointmentField({ change: { title } })}
+        onValueChange={title => onAppointmentFieldChange({ change: { title } })}
       />
       <DateTimeEditor
         disabled={readOnly}
         firstDate={changedAppointment.startDate}
         secondDate={changedAppointment.endDate}
-        onFirstDateValueChange={startDate => changeAppointmentField({
+        onFirstDateValueChange={startDate => onAppointmentFieldChange({
           change: { startDate: startDate.toDate() },
         })}
-        onSecondDateValueChange={endDate => changeAppointmentField({
+        onSecondDateValueChange={endDate => onAppointmentFieldChange({
           change: { endDate: endDate.toDate() },
         })}
         id={FULL_DATE_TIME_EDITOR}
@@ -75,7 +75,7 @@ const LayoutBase = ({
         label={getMessage('additionalInformationLabel')}
         readOnly={readOnly}
         value={changedAppointment.additionalInformation}
-        onValueChange={additionalInformation => changeAppointmentField({
+        onValueChange={additionalInformation => onAppointmentFieldChange({
           change: { additionalInformation },
         })}
       />
@@ -84,13 +84,13 @@ const LayoutBase = ({
         readOnly={readOnly}
         id={NOTES_TEXT_EDITOR}
         value={changedAppointment.notes}
-        onValueChange={notes => changeAppointmentField({ change: { notes } })}
+        onValueChange={notes => onAppointmentFieldChange({ change: { notes } })}
       />
       <AllDay
         label={getMessage('allDayLabel')}
         readOnly={readOnly}
         value={changedAppointment.allDay}
-        onValueChange={allDay => changeAppointmentField({ change: { allDay } })}
+        onValueChange={allDay => onAppointmentFieldChange({ change: { allDay } })}
       />
       {
         (!changedAppointment.rRule) && (
@@ -119,7 +119,7 @@ LayoutBase.propTypes = {
   classes: PropTypes.object.isRequired,
   style: PropTypes.object,
   getMessage: PropTypes.func.isRequired,
-  changeAppointmentField: PropTypes.func,
+  onAppointmentFieldChange: PropTypes.func,
   changedAppointment: PropTypes.object.isRequired,
   readOnly: PropTypes.bool,
 };
@@ -128,7 +128,7 @@ LayoutBase.defaultProps = {
   className: undefined,
   style: null,
   readOnly: false,
-  changeAppointmentField: () => undefined,
+  onAppointmentFieldChange: () => undefined,
 };
 
 export const Layout = withStyles(styles)(LayoutBase, { name: 'Layout' });

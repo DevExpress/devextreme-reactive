@@ -22,7 +22,7 @@ const styles = theme => ({
   },
 });
 
-const LayoutBase = ({
+const YearlyBase = ({
   radioGroupEditorComponent: RadioGroupEditor,
   textEditorComponent: TextEditor,
   labelComponent: Label,
@@ -31,9 +31,10 @@ const LayoutBase = ({
   getMessage,
   readOnly,
   recurrenceOptions,
-  changeAppointmentField,
+  onAppointmentFieldChange,
   changedAppointment,
   switcherComponent: Switcher,
+  booleanEditorComponent,
   ...restProps
 }) => (
   <div {...restProps}>
@@ -68,7 +69,7 @@ const LayoutBase = ({
       labelComponent={Label}
       recurrenceOptions={recurrenceOptions}
       onRecurrenceOptionsChange={onRecurrenceOptionsChange}
-      changeAppointmentField={changeAppointmentField}
+      onAppointmentFieldChange={onAppointmentFieldChange}
       changedAppointment={changedAppointment}
       switcherComponent={Switcher}
     />
@@ -76,23 +77,25 @@ const LayoutBase = ({
   </div>
 );
 
-LayoutBase.propTypes = {
+YearlyBase.propTypes = {
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   radioGroupEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   switcherComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  booleanEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   changedAppointment: PropTypes.object.isRequired,
   onRecurrenceOptionsChange: PropTypes.func,
-  changeAppointmentField: PropTypes.func,
+  onAppointmentFieldChange: PropTypes.func,
   classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func.isRequired,
-  readOnly: PropTypes.bool.isRequired,
+  readOnly: PropTypes.bool,
   recurrenceOptions: PropTypes.object.isRequired,
 };
 
-LayoutBase.defaultProps = {
+YearlyBase.defaultProps = {
   onRecurrenceOptionsChange: () => undefined,
-  changeAppointmentField: () => undefined,
+  onAppointmentFieldChange: () => undefined,
+  readOnly: false,
 };
 
-export const Layout = withStyles(styles)(LayoutBase, { name: 'Layout' });
+export const Yearly = withStyles(styles)(YearlyBase, { name: 'Yearly' });

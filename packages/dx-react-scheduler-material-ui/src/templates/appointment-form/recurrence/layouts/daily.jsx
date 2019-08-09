@@ -16,7 +16,8 @@ const styles = theme => ({
   },
 });
 
-const LayoutBase = ({
+const DailyBase = ({
+  radioGroupEditorComponent: RadioGroupEditor,
   textEditorComponent: TextEditor,
   labelComponent: Label,
   onRecurrenceOptionsChange,
@@ -24,6 +25,10 @@ const LayoutBase = ({
   getMessage,
   readOnly,
   recurrenceOptions,
+  onAppointmentFieldChange,
+  changedAppointment,
+  switcherComponent: Switcher,
+  booleanEditorComponent,
   ...restProps
 }) => (
   <Grid
@@ -50,27 +55,25 @@ const LayoutBase = ({
   </Grid>
 );
 
-LayoutBase.propTypes = {
-  recurrenceSwitcherComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+DailyBase.propTypes = {
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   radioGroupEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  switcherComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  booleanEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  changedAppointment: PropTypes.object.isRequired,
   onRecurrenceOptionsChange: PropTypes.func,
-  dateAndTimeEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  children: PropTypes.node.isRequired,
-  className: PropTypes.string,
+  onAppointmentFieldChange: PropTypes.func,
   classes: PropTypes.object.isRequired,
-  recurrenceEditing: PropTypes.bool.isRequired,
-  style: PropTypes.object,
   getMessage: PropTypes.func.isRequired,
-  readOnly: PropTypes.bool.isRequired,
+  readOnly: PropTypes.bool,
   recurrenceOptions: PropTypes.object.isRequired,
 };
 
-LayoutBase.defaultProps = {
+DailyBase.defaultProps = {
   onRecurrenceOptionsChange: () => undefined,
-  className: undefined,
-  style: null,
+  onAppointmentFieldChange: () => undefined,
+  readOnly: false,
 };
 
-export const Layout = withStyles(styles)(LayoutBase, { name: 'Layout' });
+export const Daily = withStyles(styles)(DailyBase, { name: 'Daily' });

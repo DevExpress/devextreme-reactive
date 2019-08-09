@@ -352,7 +352,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                   labelComponent={Label}
                   getMessage={getMessage}
                   {...changeAppointment && {
-                    changeAppointmentField,
+                    onAppointmentFieldChange: changeAppointmentField,
                   }}
                   changedAppointment={changedAppointment}
                 />);
@@ -396,7 +396,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                   booleanEditorComponent={BooleanEditor}
                   {...changeAppointment && {
                     onRecurrenceOptionsChange: newOptions => setNewRRule(newOptions),
-                    changeAppointmentField,
+                    onAppointmentFieldChange: changeAppointmentField,
                   }}
                   getMessage={getMessage}
                   readOnly={readOnly}

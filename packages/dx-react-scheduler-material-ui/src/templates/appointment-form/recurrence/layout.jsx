@@ -3,10 +3,10 @@ import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { END_REPEAT_RADIO_GROUP, TITLE_LABEL } from '@devexpress/dx-scheduler-core';
 import classNames from 'classnames';
-import { Layout as DailyLayout } from './layouts/daily';
-import { Layout as WeeklyLayout } from './layouts/weekly';
-import { Layout as MonthlyLayout } from './layouts/monthly';
-import { Layout as YearlyLayout } from './layouts/yearly';
+import { Daily as DailyLayout } from './layouts/daily';
+import { Weekly as WeeklyLayout } from './layouts/weekly';
+import { Monthly as MonthlyLayout } from './layouts/monthly';
+import { Yearly as YearlyLayout } from './layouts/yearly';
 
 const styles = theme => ({
   root: {
@@ -31,6 +31,7 @@ const LayoutBase = ({
   dateAndTimeEditorComponent: DateAndTimeEditor,
   onRecurrenceOptionsChange,
   booleanEditorComponent: BooleanEditor,
+  switcherComponent: Switcher,
   frequency,
   children,
   classes,
@@ -38,9 +39,8 @@ const LayoutBase = ({
   getMessage,
   readOnly,
   recurrenceOptions,
-  changeAppointmentField,
+  onAppointmentFieldChange,
   changedAppointment,
-  switcherComponent: Switcher,
   ...restProps
 }) => {
   let MainLayoutComponent = null;
@@ -62,7 +62,10 @@ const LayoutBase = ({
         break;
     }
     return (
-      <div className={classNames(classes.root, className)}>
+      <div
+        className={classNames(classes.root, className)}
+        {...restProps}
+      >
         <Label
           label={getMessage('repeatLabel')}
           id={TITLE_LABEL}
@@ -77,7 +80,7 @@ const LayoutBase = ({
           readOnly={readOnly}
           radioGroupEditorComponent={RadioGroupEditor}
           changedAppointment={changedAppointment}
-          changeAppointmentField={changeAppointmentField}
+          onAppointmentFieldChange={onAppointmentFieldChange}
           booleanEditorComponent={BooleanEditor}
           switcherComponent={Switcher}
           {...restProps}
@@ -110,21 +113,24 @@ LayoutBase.propTypes = {
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   dateAndTimeEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   booleanEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  onRecurrenceOptionsChange: PropTypes.func.isRequired,
+  switcherComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  onRecurrenceOptionsChange: PropTypes.func,
+  onAppointmentFieldChange: PropTypes.func,
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
   classes: PropTypes.object.isRequired,
-  recurrenceEditing: PropTypes.bool.isRequired,
-  style: PropTypes.object,
-  onRRuleChange: PropTypes.func.isRequired,
   getMessage: PropTypes.func.isRequired,
-  readOnly: PropTypes.bool.isRequired,
+  readOnly: PropTypes.bool,
   recurrenceOptions: PropTypes.object.isRequired,
+  changedAppointment: PropTypes.object.isRequired,
+  frequency: PropTypes.string.isRequired,
 };
 
 LayoutBase.defaultProps = {
   className: undefined,
-  style: null,
+  onRecurrenceOptionsChange: () => undefined,
+  onAppointmentFieldChange: () => undefined,
+  readOnly: false,
 };
 
 export const Layout = withStyles(styles)(LayoutBase, { name: 'Layout' });

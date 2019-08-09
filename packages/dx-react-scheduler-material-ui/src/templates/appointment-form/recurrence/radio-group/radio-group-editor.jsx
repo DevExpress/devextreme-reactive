@@ -23,7 +23,7 @@ export const RadioGroupEditor = ({
   switcherComponent: Switcher,
   id,
   changedAppointment,
-  changeAppointmentField,
+  onAppointmentFieldChange: onAppointmentFieldChange,
   ...restProps
 }) => {
   switch (id) {
@@ -51,7 +51,7 @@ export const RadioGroupEditor = ({
           recurrenceOptions={recurrenceOptions}
           onRecurrenceOptionsChange={onRecurrenceOptionsChange}
           dateAndTimeEditorComponent={DateAndTimeEditor}
-          changeAppointmentField={changeAppointmentField}
+          onAppointmentFieldChange={onAppointmentFieldChange}
           changedAppointment={changedAppointment}
           switcherComponent={Switcher}
           {...restProps}
@@ -67,7 +67,7 @@ export const RadioGroupEditor = ({
           recurrenceOptions={recurrenceOptions}
           onRecurrenceOptionsChange={onRecurrenceOptionsChange}
           dateAndTimeEditorComponent={DateAndTimeEditor}
-          changeAppointmentField={changeAppointmentField}
+          onAppointmentFieldChange={onAppointmentFieldChange}
           changedAppointment={changedAppointment}
           switcherComponent={Switcher}
           {...restProps}

@@ -2,7 +2,6 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import classNames from 'classnames';
 import {
   DAYS_OF_WEEK,
   NUMBER_EDITOR,
@@ -33,20 +32,22 @@ const handleWeekDaysChange = (options, weekDay, action, isAdded) => {
   action(newOptions);
 };
 
-const LayoutBase = ({
+const WeeklyBase = ({
+  radioGroupEditorComponent: RadioGroupEditor,
   textEditorComponent: TextEditor,
   labelComponent: Label,
-  booleanEditorComponent: BooleanEditor,
   onRecurrenceOptionsChange,
-  className,
   classes,
   getMessage,
   readOnly,
   recurrenceOptions,
+  onAppointmentFieldChange,
+  changedAppointment,
+  switcherComponent: Switcher,
+  booleanEditorComponent: BooleanEditor,
   ...restProps
 }) => (
   <div
-    className={classNames(classes.root, className)}
     {...restProps}
   >
     <Grid
@@ -165,20 +166,25 @@ const LayoutBase = ({
   </div>
 );
 
-LayoutBase.propTypes = {
+WeeklyBase.propTypes = {
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  radioGroupEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  switcherComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   booleanEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  onRecurrenceOptionsChange: PropTypes.func.isRequired,
+  changedAppointment: PropTypes.object.isRequired,
+  onRecurrenceOptionsChange: PropTypes.func,
+  onAppointmentFieldChange: PropTypes.func,
   classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func.isRequired,
-  readOnly: PropTypes.bool.isRequired,
+  readOnly: PropTypes.bool,
   recurrenceOptions: PropTypes.object.isRequired,
-  className: PropTypes.string,
 };
 
-LayoutBase.defaultProps = {
-  className: undefined,
+WeeklyBase.defaultProps = {
+  onRecurrenceOptionsChange: () => undefined,
+  onAppointmentFieldChange: () => undefined,
+  readOnly: false,
 };
 
-export const Layout = withStyles(styles)(LayoutBase, { name: 'Layout' });
+export const Weekly = withStyles(styles)(WeeklyBase, { name: 'Weekly' });

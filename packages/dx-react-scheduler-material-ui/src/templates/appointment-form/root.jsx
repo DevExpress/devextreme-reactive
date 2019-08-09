@@ -64,7 +64,7 @@ RootBase.propTypes = {
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   container: PropTypes.object.isRequired,
-  frequency: PropTypes.bool.isRequired,
+  frequency: PropTypes.string.isRequired,
 };
 
 RootBase.defaultProps = {

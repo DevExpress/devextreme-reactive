@@ -51,5 +51,17 @@ describe('AppointmentForm', () => {
       expect(tree.find(defaultProps.controlButtonComponent))
         .toHaveLength(3);
     });
+
+    it('should pass children to the root component', () => {
+      const tree = shallow((
+        <Layout {...defaultProps}>
+          <div />
+          <div />
+        </Layout>
+      ));
+
+      expect(tree.children())
+        .toHaveLength(5);
+    });
   });
 });

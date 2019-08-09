@@ -50,11 +50,12 @@ LayoutBase.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
   classes: PropTypes.object.isRequired,
-  isRecurring: PropTypes.string.isRequired,
+  isRecurring: PropTypes.bool,
 };
 
 LayoutBase.defaultProps = {
   className: undefined,
+  isRecurring: false,
 };
 
 export const Layout = withStyles(styles)(LayoutBase, { name: 'Layout' });

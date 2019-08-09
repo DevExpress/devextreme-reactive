@@ -3,16 +3,22 @@ import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { Layout } from './layout';
 
 describe('AppointmentForm', () => {
+  const defaultProps = {
+    isRecurring: false,
+    basicLayoutComponent: () => null,
+    controlLayoutComponent: () => null,
+    recurrenceLayoutComponent: () => null,
+  };
   let classes;
   let shallow;
   beforeAll(() => {
     classes = getClasses(<Layout><div /></Layout>);
     shallow = createShallow({ dive: true });
   });
-  describe('Container', () => {
+  describe('Layout', () => {
     it('should pass rest props to the root element', () => {
       const tree = shallow((
-        <Layout data={{ a: 1 }}>
+        <Layout data={{ a: 1 }} {...defaultProps}>
           <div />
         </Layout>
       ));
@@ -23,7 +29,7 @@ describe('AppointmentForm', () => {
 
     it('should pass className to the root element', () => {
       const tree = shallow((
-        <Layout className="custom-class">
+        <Layout className="custom-class" {...defaultProps}>
           <div />
         </Layout>
       ));
@@ -32,6 +38,48 @@ describe('AppointmentForm', () => {
         .toBeTruthy();
       expect(tree.is(`.${classes.root}`))
         .toBeTruthy();
+    });
+
+    it('should render basic form correctly', () => {
+      const tree = shallow((
+        <Layout {...defaultProps}>
+          <div />
+        </Layout>
+      ));
+
+      expect(tree.find(defaultProps.controlLayoutComponent))
+        .toHaveLength(1);
+      expect(tree.find(defaultProps.basicLayoutComponent))
+        .toHaveLength(1);
+      expect(tree.find(defaultProps.recurrenceLayoutComponent))
+        .toHaveLength(0);
+    });
+
+    it('should render basic form with capability to edit recurrent appointments correctly', () => {
+      const tree = shallow((
+        <Layout {...defaultProps} isRecurring>
+          <div />
+        </Layout>
+      ));
+
+      expect(tree.find(defaultProps.controlLayoutComponent))
+        .toHaveLength(1);
+      expect(tree.find(defaultProps.basicLayoutComponent))
+        .toHaveLength(1);
+      expect(tree.find(defaultProps.recurrenceLayoutComponent))
+        .toHaveLength(1);
+    });
+
+    it('should pass children to the root component', () => {
+      const tree = shallow((
+        <Layout {...defaultProps}>
+          <div />
+          <div />
+        </Layout>
+      ));
+
+      expect(tree.children())
+        .toHaveLength(4);
     });
   });
 });

@@ -234,5 +234,17 @@ describe('AppointmentForm basic', () => {
           },
         });
     });
+
+    it('should pass children to the root component', () => {
+      const tree = shallow((
+        <Layout {...defaultProps}>
+          <div />
+          <div />
+        </Layout>
+      ));
+
+      expect(tree.children())
+        .toHaveLength(11);
+    });
   });
 });

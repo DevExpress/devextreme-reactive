@@ -3,7 +3,7 @@ export {
   ColumnDimensions, ColumnAnimationStyleMap, SummaryItem, IntegratedFiltering,
   GroupKey, Grouping, GroupingPanelItem, Filter, ColumnFilterOperations,
   Sorting, TargetColumnGeometry, FilterOperation, ColumnChooserItem,
-  TableColumnWidthInfo, RowId,
+  TableColumnWidthInfo, TableColumnResizing, RowId,
 } from '../../../dx-grid-core/src/index';
 
 /** @internal */

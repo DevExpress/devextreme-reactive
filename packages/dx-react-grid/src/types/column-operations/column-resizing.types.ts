@@ -1,17 +1,5 @@
-import { TableColumnWidthInfo } from '../../types';
+import { TableColumnResizing, TableColumnWidthInfo } from '../index';
 
-// tslint:disable-next-line:no-namespace
-export namespace TableColumnResizing {
-  /** Describes additional column properties that the plugin can handle. */
-  export interface ColumnExtension {
-    /** A column name. */
-    columnName: string;
-    /** A column minimum width. */
-    minWidth?: number;
-    /** A column maximum width. */
-    maxWidth?: number;
-  }
-}
 export interface TableColumnResizingProps {
   /** Specifies column widths. */
   columnWidths?: Array<TableColumnWidthInfo>;

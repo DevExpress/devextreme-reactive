@@ -1,10 +1,14 @@
-import { TableColumnWidthInfo } from '../index';
+import { TableColumnResizing, TableColumnWidthInfo } from '../index';
 
 export interface TableColumnResizingProps {
   /** Specifies column widths. */
   columnWidths?: Array<TableColumnWidthInfo>;
   /** Specifies a column's minimum width. */
   minColumnWidth?: number;
+  /** Specifies a column's maximum width. */
+  maxColumnWidth?: number;
+  /** Additional column properties that the plugin can handle. */
+  columnExtensions?: Array<TableColumnResizing.ColumnExtension>;
   /** Specifies initial column widths in uncontrolled mode. */
   defaultColumnWidths?: Array<TableColumnWidthInfo>;
   /** Specifies initial column resize mode. */

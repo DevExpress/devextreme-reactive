@@ -72,13 +72,12 @@ class TableColumnResizingBase extends React.PureComponent<TableColumnResizingPro
     this.changeTableColumnWidth = stateHelper.applyReducer.bind(
       stateHelper, (prevState, payload) => {
         const cachedWidths = { ...this.cachedWidths };
-        const { nextColumnResizing } = this.props;
+        const { minColumnWidth, maxColumnWidth, columnExtensions, nextColumnResizing } = this.props;
         this.clearCache();
-        const { minColumnWidth } = this.props;
         return changeTableColumnWidth(
           prevState,
-          { ...payload, cachedWidths,
-            minColumnWidth, nextColumnResizing },
+          { ...payload, cachedWidths, nextColumnResizing,
+            minColumnWidth, maxColumnWidth, columnExtensions },
         );
       },
     );
@@ -86,12 +85,11 @@ class TableColumnResizingBase extends React.PureComponent<TableColumnResizingPro
       stateHelper, (prevState, payload) => {
         this.storeCache(payload);
         const cachedWidths = this.cachedWidths;
-        const { nextColumnResizing } = this.props;
-        const { minColumnWidth } = this.props;
+        const { minColumnWidth, maxColumnWidth, columnExtensions, nextColumnResizing } = this.props;
         return draftTableColumnWidth(
           prevState,
-          { ...payload, cachedWidths, minColumnWidth,
-            nextColumnResizing },
+          { ...payload, cachedWidths, nextColumnResizing,
+            minColumnWidth, maxColumnWidth, columnExtensions },
         );
       },
     );

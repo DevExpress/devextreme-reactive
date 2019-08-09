@@ -44,19 +44,17 @@ export interface VirtualTableLayoutProps extends TableLayoutProps {
   totalRowCount: number;
   loadedRowsStart: number;
   isDataRemote: boolean;
-  ensureNextVirtualPage: (payload?: any) => void;
+  setViewport: any;
+  viewport: any;
 }
 /** @internal */
 export type VirtualTableLayoutState = {
   rowHeights: Map<any, number>,
-  viewportTop: number,
-  viewportLeft: number,
   height: number,
   headerHeight: number,
   bodyHeight: number,
   footerHeight: number,
-  containerWidth: number,
-  containerHeight: number,
+  visibleRowBoundaries: any,
 };
 
 type virtualBlockProps = placeholderComponents | 'tableRef' | 'minWidth' | 'bodyComponent';

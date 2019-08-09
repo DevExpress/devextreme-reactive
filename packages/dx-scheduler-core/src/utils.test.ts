@@ -458,12 +458,12 @@ describe('Utils', () => {
     });
     it('should work with recurrence appointment', () => {
       const appointment = {
-        start: moment(new Date('2019-04-9 10:00')),
+        start: moment(new Date('2019-04-9 2:00')),
         end: moment(new Date('2019-04-9 11:00')),
         rRule: 'FREQ=DAILY;COUNT=2',
         customField: 'a',
         dataItem: {
-          startDate: new Date('2019-04-9 10:00'),
+          startDate: new Date('2019-04-9 2:00'),
           endDate: new Date('2019-04-9 11:00'),
           data: 1,
         },
@@ -471,19 +471,19 @@ describe('Utils', () => {
       const result = filterByViewBoundaries(appointment, leftBound, rightBound);
 
       expect(result[0].start.toString())
-        .toBe(moment(new Date('2019-04-9 10:00')).toString());
+        .toBe(moment(new Date('2019-04-9 2:00')).toString());
       expect(result[0].end.toString())
         .toBe(moment(new Date('2019-04-9 11:00')).toString());
 
       expect(result[1].start.toString())
-        .toBe(moment(new Date('2019-04-10 10:00')).toString());
+        .toBe(moment(new Date('2019-04-10 2:00')).toString());
       expect(result[1].end.toString())
         .toBe(moment(new Date('2019-04-10 11:00')).toString());
 
       expect(result)
         .toMatchObject([{
           dataItem: {
-            startDate: new Date('2019-04-9 10:00'),
+            startDate: new Date('2019-04-9 2:00'),
             endDate: new Date('2019-04-9 11:00'),
             data: 1,
           },
@@ -491,7 +491,7 @@ describe('Utils', () => {
           rRule: 'FREQ=DAILY;COUNT=2',
         }, {
           dataItem: {
-            startDate: new Date('2019-04-10 10:00'),
+            startDate: new Date('2019-04-10 2:00'),
             endDate: new Date('2019-04-10 11:00'),
             data: 1,
           },
@@ -539,6 +539,50 @@ describe('Utils', () => {
             endDate: new Date('2019-04-11T11:00:00.000Z'),
           },
         });
+    });
+    it('should work with recurrence appointment with BYMONTHDAY set', () => {
+      const monthlyLeftBound = new Date('2019-04-1 00:00');
+      const monthlyRightBound = new Date('2019-05-30 00:00');
+      const appointment = {
+        start: moment(new Date('2019-04-9 00:00')),
+        end: moment(new Date('2019-04-9 23:59')),
+        rRule: 'FREQ=MONTHLY;COUNT=2;BYMONTHDAY=15',
+      };
+      const result = filterByViewBoundaries(appointment, monthlyLeftBound, monthlyRightBound);
+
+      expect(result).toHaveLength(2);
+
+      expect(result[0].start.toString())
+        .toBe(moment(new Date('2019-04-15 0:00')).toString());
+      expect(result[0].end.toString())
+        .toBe(moment(new Date('2019-04-15 23:59')).toString());
+
+      expect(result[1].start.toString())
+        .toBe(moment(new Date('2019-05-15 0:00')).toString());
+      expect(result[1].end.toString())
+        .toBe(moment(new Date('2019-05-15 23:59')).toString());
+    });
+    it('should work correctly with different timezones', () => {
+      const monthlyLeftBound = new Date('2019-04-1 00:00');
+      const monthlyRightBound = new Date('2019-05-30 00:00');
+      const appointment = {
+        start: moment(new Date('2019-04-25T12:11:00+0600')),
+        end: moment(new Date('2019-04-25T13:00:00+0600')),
+        rRule: 'FREQ=DAILY;COUNT=2',
+      };
+      const result = filterByViewBoundaries(appointment, monthlyLeftBound, monthlyRightBound);
+
+      expect(result).toHaveLength(2);
+
+      expect(result[0].start.toString())
+        .toBe(moment(new Date('2019-04-25T12:11:00+0600')).toString());
+      expect(result[0].end.toString())
+        .toBe(moment(new Date('2019-04-25T13:00:00+0600')).toString());
+
+      expect(result[1].start.toString())
+        .toBe(moment(new Date('2019-04-26T12:11:00+0600')).toString());
+      expect(result[1].end.toString())
+        .toBe(moment(new Date('2019-04-26T13:00:00+0600')).toString());
     });
   });
 });

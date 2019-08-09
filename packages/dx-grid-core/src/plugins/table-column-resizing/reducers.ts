@@ -1,22 +1,6 @@
 import { slice } from '@devexpress/dx-core';
-import { ColumnWidthReducer, ColumnSizeFn } from '../../types';
-
-export const getColumnSize: ColumnSizeFn = (
-  updatedColumn, {columnName, shift, minColumnWidth, maxColumnWidth, columnExtensions = [],
-}) => {
-  const extendedColumn = columnExtensions.find(elem => elem.columnName === columnName);
-  const minWidth = extendedColumn && extendedColumn.minWidth! >= 0
-    ? extendedColumn.minWidth
-    : minColumnWidth;
-  const maxWidth = extendedColumn && extendedColumn.maxWidth! >= 0
-    ? extendedColumn.maxWidth
-    : maxColumnWidth;
-  const size = Math.max(
-    minWidth!,
-    Math.min(updatedColumn.width! + shift, maxWidth!),
-  );
-  return size;
-};
+import { ColumnWidthReducer } from '../../types';
+import { getColumnSize } from './helpers';
 
 export const changeTableColumnWidth: ColumnWidthReducer = (
   state, { columnName, shift, minColumnWidth, maxColumnWidth, columnExtensions,

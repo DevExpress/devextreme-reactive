@@ -9,13 +9,17 @@ export const changeTableColumnWidth: ColumnWidthReducer = (
   const index = nextColumnWidth.findIndex(elem => elem.columnName === columnName);
   const nextIndex = nextColumnWidth.findIndex(elem => elem.columnName === nextColumnName);
   const updatedColumn = nextColumnWidth[index];
-  const nextUpdatedColumn = nextColumnWidth[nextIndex];
+  const nextUpdatedColumn = nextColumnResizing
+    ? nextColumnWidth[nextIndex]
+    : undefined;
   const updatedWidth = typeof updatedColumn.width === 'number'
     ? updatedColumn.width
     : cachedWidths[columnName];
-  const nextUpdatedWidth = typeof nextUpdatedColumn.width === 'number'
-    ? nextUpdatedColumn.width
-    : cachedWidths[nextColumnName];
+  const nextUpdatedWidth = nextColumnResizing
+    ? typeof nextUpdatedColumn.width === 'number'
+      ? nextUpdatedColumn.width
+      : cachedWidths[nextColumnName]
+    : undefined;
   let size = Math.max(minColumnWidth, updatedWidth + shift);
   let nextSize = nextColumnResizing
     ? Math.max(minColumnWidth, nextUpdatedWidth - shift)
@@ -44,22 +48,30 @@ export const draftTableColumnWidth: ColumnWidthReducer = (
   const updatedWidth = typeof updatedColumn.width === 'number'
     ? updatedColumn.width
     : cachedWidths[columnName];
-  const nextUpdatedWidth = typeof nextUpdatedColumn.width === 'number'
-    ? nextUpdatedColumn.width
-    : cachedWidths[nextColumnName];
+  const nextUpdatedWidth = nextColumnResizing
+    ? typeof nextUpdatedColumn.width === 'number'
+      ? nextUpdatedColumn.width
+      : cachedWidths[nextColumnName]
+    : undefined;
   let size = Math.max(minColumnWidth, updatedWidth + shift);
   let nextSize = nextColumnResizing
-    ? Math.max(minColumnWidth, nextUpdatedWidth - shift)
+    ? Math.max(minColumnWidth, nextUpdatedWidth! - shift)
     : nextUpdatedWidth;
-  if (nextColumnResizing && size + nextSize > updatedWidth + nextUpdatedWidth) {
-    size = size <= minColumnWidth ? size : updatedWidth + nextUpdatedWidth - nextSize ;
-    nextSize = nextSize <= minColumnWidth ? nextSize : updatedWidth + nextUpdatedWidth - size ;
+  if (nextColumnResizing && size + nextSize! > updatedWidth + nextUpdatedWidth!) {
+    size = size <= minColumnWidth ? size : updatedWidth + nextUpdatedWidth! - nextSize! ;
+    nextSize = nextSize! <= minColumnWidth ? nextSize : updatedWidth + nextUpdatedWidth! - size ;
   }
-
+  if (nextColumnResizing) {
+    return {
+      draftColumnWidths: [
+        { columnName, width: size },
+        { columnName: nextColumnName, width: nextSize! },
+      ],
+    };
+  }
   return {
     draftColumnWidths: [
       { columnName, width: size },
-      { columnName: nextColumnName, width: nextSize },
     ],
   };
 };

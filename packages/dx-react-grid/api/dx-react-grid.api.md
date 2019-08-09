@@ -708,9 +708,20 @@ export interface TableColumnReorderingProps {
 export const TableColumnResizing: React.ComponentType<TableColumnResizingProps>;
 
 // @public (undocumented)
+export namespace TableColumnResizing {
+  export interface ColumnExtension {
+    columnName: string;
+    maxWidth?: number;
+    minWidth?: number;
+  }
+}
+
+// @public (undocumented)
 export interface TableColumnResizingProps {
+  columnExtensions?: Array<TableColumnResizing.ColumnExtension>;
   columnWidths?: Array<TableColumnWidthInfo>;
   defaultColumnWidths?: Array<TableColumnWidthInfo>;
+  maxColumnWidth?: number;
   minColumnWidth?: number;
   onColumnWidthsChange?: (nextColumnWidths: Array<TableColumnWidthInfo>) => void;
 }

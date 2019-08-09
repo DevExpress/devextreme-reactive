@@ -12,7 +12,7 @@ describe('Appointment Form', () => {
   let classes;
   beforeAll(() => {
     shallow = createShallow({ dive: true });
-    classes = getClasses(<SaveButton><div /></SaveButton>);
+    classes = getClasses(<SaveButton />);
   });
   describe('SaveButton', () => {
     it('should pass className to the root element', () => {

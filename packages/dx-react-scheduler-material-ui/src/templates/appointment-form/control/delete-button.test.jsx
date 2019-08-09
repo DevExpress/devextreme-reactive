@@ -11,7 +11,7 @@ describe('Appointment Form', () => {
   let classes;
   beforeAll(() => {
     shallow = createShallow({ dive: true });
-    classes = getClasses(<DeleteButton><div /></DeleteButton>);
+    classes = getClasses(<DeleteButton />);
   });
   describe('DeleteButton', () => {
     it('should pass className to the root element', () => {

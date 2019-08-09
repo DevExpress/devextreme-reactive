@@ -3,14 +3,11 @@ import { createShallow } from '@material-ui/core/test-utils';
 import MenuItem from '@material-ui/core/MenuItem';
 import { Switcher } from './switcher';
 
-describe('ViewSwitcher', () => {
+describe('AppointmentForm common', () => {
   let shallow;
   const defaultProps = {
     onChange: jest.fn(),
-    currentView: {
-      name: 'Test view name',
-      displayName: 'Test display name',
-    },
+    value: '1',
   };
   beforeAll(() => {
     shallow = createShallow({ dive: true });
@@ -25,6 +22,7 @@ describe('ViewSwitcher', () => {
       expect(tree.props().data)
         .toMatchObject({ a: 1 });
     });
+
     it('should handle change', () => {
       const tree = shallow((
         <Switcher {...defaultProps} />
@@ -35,19 +33,21 @@ describe('ViewSwitcher', () => {
       expect(defaultProps.onChange)
         .toBeCalledWith('next');
     });
-    it('should render items depend of available view names', () => {
+
+    it('should render items depending on available options', () => {
       const tree = shallow((
         <Switcher
           {...defaultProps}
-          availableViews={[
-            { name: 'Week', displayName: 'Week' },
-            { name: 'Month', displayName: 'Month' },
+          availableOptions={[
+            { text: '1', id: 1 },
+            { text: '2', id: 2 },
+            { text: '3', id: 3 },
           ]}
         />
       ));
 
       expect(tree.find(MenuItem))
-        .toHaveLength(2);
+        .toHaveLength(3);
     });
   });
 });

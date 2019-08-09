@@ -44,7 +44,7 @@ export class Root extends React.PureComponent<Axis.RootProps, Axis.RootState> {
   }
 
   render() {
-    const { children, onSizeChange, ...restProps } = this.props;
+    const { children, onSizeChange, dx, dy, ...restProps } = this.props;
     const { x, y } = this.state;
     return (
       <g

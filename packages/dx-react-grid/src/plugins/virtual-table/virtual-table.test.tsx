@@ -4,12 +4,12 @@ import { PluginHost, Template } from '@devexpress/dx-react-core';
 import {
   isStubTableCell,
   tableRowsWithDataRows,
-  visibleRowsBounds,
 } from '@devexpress/dx-grid-core';
 import { makeVirtualTable } from './virtual-table';
 import { Table } from '../table';
-import { pluginDepsToComponents } from '@devexpress/dx-testing';
-import { RemoteDataLoader } from './remote-data-loader';
+import {
+  pluginDepsToComponents, getComputedState, executeComputedAction,
+} from '@devexpress/dx-testing';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableColumnsWithDataRows: jest.fn(),
@@ -43,6 +43,7 @@ describe('#makeVirtualTable', () => {
   const defaultDeps = {
     getter: {
       loadedRowsStart: 'loadedRowsStart',
+      viewport: 'viewport',
       availableRowCount: 100,
       getRowId: row => row.key,
       columns: [
@@ -67,7 +68,7 @@ describe('#makeVirtualTable', () => {
       ],
     },
     action: {
-      ensureNextVirtualPage: jest.fn(),
+      setViewport: jest.fn(),
     },
     template: {
       tableLayout: {
@@ -78,7 +79,38 @@ describe('#makeVirtualTable', () => {
 
   beforeEach(() => {
     tableRowsWithDataRows.mockImplementation(() => 'tableRowsWithDataRows');
-    visibleRowsBounds.mockImplementation(() => []);
+  });
+
+  describe('viewport', () => {
+    const VirtualTable = makeVirtualTable(TableMock, defaultVirtualTableProps);
+    it('should provide viewport getter', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <VirtualTable />
+        </PluginHost>
+      ));
+
+      tree.find(VirtualTable).setState({ viewport: 'viewport' });
+      tree.update();
+
+      expect(getComputedState(tree).viewport)
+        .toBe('viewport');
+    });
+
+    it('should update value after setViewport action was called', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <VirtualTable />
+        </PluginHost>
+      ));
+
+      executeComputedAction(tree, actions => actions.setViewport('viewport'));
+
+      expect(getComputedState(tree).viewport)
+        .toBe('viewport');
+    });
   });
 
   describe('Table layout', () => {
@@ -102,19 +134,34 @@ describe('#makeVirtualTable', () => {
         });
     });
 
-    it('should pass the ensureNextVirtualPage action', () => {
+    it('should pass viewport', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <VirtualTable />
         </PluginHost>
       ));
-      const ensureNextVirtualPage = tree.find(VirtualLayoutMock)
-        .prop('ensureNextVirtualPage') as () => void;
 
-      ensureNextVirtualPage();
+      tree.find(VirtualTable).setState({ viewport: 'viewport' });
+      tree.update();
 
-      expect(defaultDeps.action.ensureNextVirtualPage)
+      expect(tree.find(VirtualLayoutMock).prop('viewport'))
+        .toBe('viewport');
+    });
+
+    it('should pass the setViewport action', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <VirtualTable />
+        </PluginHost>
+      ));
+      const setViewport = tree.find(VirtualLayoutMock)
+        .prop('setViewport') as () => void;
+
+      setViewport();
+
+      expect(defaultDeps.action.setViewport)
         .toHaveBeenCalled();
     });
 
@@ -172,18 +219,6 @@ describe('#makeVirtualTable', () => {
         expect(tree.find(TableMock).prop('columnExtensions'))
           .toEqual(columnExtensions);
       });
-    });
-
-    it('should add RemoteDataLoadedPlugin', () => {
-      const VirtualTable = makeVirtualTable(TableMock, defaultVirtualTableProps);
-      const tree = mount((
-        <PluginHost>
-          <VirtualTable />
-        </PluginHost>
-      ));
-
-      expect(tree.find(RemoteDataLoader))
-        .toBeTruthy();
     });
 
   });

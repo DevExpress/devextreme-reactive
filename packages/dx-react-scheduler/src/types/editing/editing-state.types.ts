@@ -22,7 +22,7 @@ export interface EditingStateProps {
   /** Handles commiting appointment changes. */
   onCommitChanges: (changes: ChangeSet) => void;
   /** Handles commiting appointment changes. */
-  preCommitChanges: PreCommitChanges;
+  preCommitChanges?: PreCommitChanges;
 }
 
 /** @internal */

@@ -75,19 +75,14 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
       const { appointmentChanges, editingAppointment } = this.state;
       const { onCommitChanges, preCommitChanges  } = this.props;
 
-      if (editingAppointment && !editingAppointment.rRule) {
-        onCommitChanges({
-          changed: changedAppointmentById(appointmentChanges, editingAppointment.id!),
-        });
-        this.cancelChangedAppointment();
-        this.stopEditAppointment();
-      } else {
-        const changed = preCommitChanges(appointmentChanges, editingAppointment, type);
+      if (!editingAppointment) return;
+      const changed =  !editingAppointment.rRule
+        ? { changed: changedAppointmentById(appointmentChanges, editingAppointment.id!) }
+        : preCommitChanges!(appointmentChanges, editingAppointment, type);
 
-        onCommitChanges(changed);
-        this.cancelChangedAppointment();
-        this.stopEditAppointment();
-      }
+      onCommitChanges(changed);
+      this.cancelChangedAppointment();
+      this.stopEditAppointment();
     };
 
     this.addAppointment = stateHelper.applyFieldReducer
@@ -108,7 +103,7 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
     this.commitDeletedAppointment = ({ deletedAppointmentData, type = 'current' }) => {
       const { onCommitChanges, preCommitChanges } = this.props;
 
-      const changes = preCommitChanges(null, deletedAppointmentData, type);
+      const changes = preCommitChanges!(null, deletedAppointmentData, type);
       onCommitChanges(changes);
     };
   }

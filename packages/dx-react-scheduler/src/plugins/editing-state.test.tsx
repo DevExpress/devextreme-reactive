@@ -91,7 +91,7 @@ describe('EditingState', () => {
       reducer: cancelAddedAppointment,
     }],
   });
-  it('should call preCommitChanges if an appointment is recurrence', () => {
+  it('should call preCommitChanges by commit if an appointment is recurrence', () => {
     const appointmentData = { rRule: 'rule' };
     const onCommitChanges = jest.fn();
     const preCommitChanges = jest.fn();
@@ -108,7 +108,7 @@ describe('EditingState', () => {
     ));
 
     executeComputedAction(tree, (computedActions) => {
-      computedActions.commitChangedAppointment();
+      computedActions.commitChangedAppointment('type');
     });
 
     expect(onCommitChanges)
@@ -120,9 +120,9 @@ describe('EditingState', () => {
     expect(preCommitChanges.mock.calls[0][1])
       .toEqual({ rRule: 'rule' });
     expect(preCommitChanges.mock.calls[0][2])
-      .toEqual('current');
+      .toEqual('type');
   });
-  it('should not call preCommitChanges if an appointment is not recurrence', () => {
+  it('should not call preCommitChanges by commit if an appointment is not recurrence', () => {
     const appointmentData = { rRule: '' };
     const onCommitChanges = jest.fn();
     const preCommitChanges = jest.fn();
@@ -146,5 +146,39 @@ describe('EditingState', () => {
       .toBeCalledTimes(1);
     expect(preCommitChanges)
       .toBeCalledTimes(0);
+  });
+  it('should call preCommitChanges by delete', () => {
+    const appointmentData = { rRule: 'rule' };
+    const onCommitChanges = jest.fn();
+    const preCommitChanges = jest.fn();
+
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents({})}
+        <EditingState
+          defaultEditingAppointment={appointmentData}
+          onCommitChanges={onCommitChanges}
+          preCommitChanges={preCommitChanges}
+        />
+      </PluginHost>
+    ));
+
+    executeComputedAction(tree, (computedActions) => {
+      computedActions.commitDeletedAppointment({
+        deletedAppointmentData: appointmentData,
+        type: 'type',
+      });
+    });
+
+    expect(onCommitChanges)
+      .toBeCalledTimes(1);
+    expect(preCommitChanges)
+      .toBeCalledTimes(1);
+    expect(preCommitChanges.mock.calls[0][0])
+      .toEqual(null);
+    expect(preCommitChanges.mock.calls[0][1])
+      .toEqual({ rRule: 'rule' });
+    expect(preCommitChanges.mock.calls[0][2])
+      .toEqual('type');
   });
 });

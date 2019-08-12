@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { END_REPEAT_RADIO_GROUP, TITLE_LABEL } from '@devexpress/dx-scheduler-core';
+import { END_REPEAT_RADIO_GROUP, TITLE_LABEL, getRecurrenceOptions } from '@devexpress/dx-scheduler-core';
 import classNames from 'classnames';
 import { Daily as DailyLayout } from './layouts/daily';
 import { Weekly as WeeklyLayout } from './layouts/weekly';
@@ -38,12 +38,12 @@ const LayoutBase = ({
   className,
   getMessage,
   readOnly,
-  recurrenceOptions,
   onAppointmentFieldChange,
   changedAppointment,
   ...restProps
 }) => {
   let MainLayoutComponent = null;
+  const recurrenceOptions = getRecurrenceOptions(changedAppointment.rRule);
   if (recurrenceOptions) {
     switch (frequency) {
       case 'daily':
@@ -72,7 +72,6 @@ const LayoutBase = ({
         />
         <RecurenceSwitcher />
         <MainLayoutComponent
-          recurrenceOptions={recurrenceOptions}
           textEditorComponent={TextEditor}
           labelComponent={Label}
           onRecurrenceOptionsChange={onRecurrenceOptionsChange}
@@ -94,7 +93,6 @@ const LayoutBase = ({
           getMessage={getMessage}
           textEditorComponent={TextEditor}
           labelComponent={Label}
-          recurrenceOptions={recurrenceOptions}
           onRecurrenceOptionsChange={onRecurrenceOptionsChange}
           dateAndTimeEditorComponent={DateAndTimeEditor}
           changedAppointment={changedAppointment}
@@ -121,7 +119,6 @@ LayoutBase.propTypes = {
   classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func.isRequired,
   readOnly: PropTypes.bool,
-  recurrenceOptions: PropTypes.object.isRequired,
   changedAppointment: PropTypes.object.isRequired,
   frequency: PropTypes.string.isRequired,
 };

@@ -1,10 +1,20 @@
 import * as React from 'react';
 import { createShallow, createMount } from '@material-ui/core/test-utils';
-import { END_REPEAT_RADIO_GROUP, MONTHLY_RADIO_GROUP, YEARLY_RADIO_GROUP } from '@devexpress/dx-scheduler-core';
+import {
+  END_REPEAT_RADIO_GROUP,
+  MONTHLY_RADIO_GROUP,
+  YEARLY_RADIO_GROUP,
+  getRecurrenceOptions,
+} from '@devexpress/dx-scheduler-core';
 import { RadioGroupEditor } from './radio-group-editor';
 import { EndRepeatEditor } from './end-repeat-editor';
 import { MonthlyEditor } from './monthly-editor';
 import { YearlyEditor } from './yealy-editor';
+
+jest.mock('@devexpress/dx-scheduler-core', () => ({
+  ...require.requireActual('@devexpress/dx-scheduler-core'),
+  getRecurrenceOptions: jest.fn(),
+}));
 
 describe('AppointmentForm recurrence radio group', () => {
   const defaultProps = {
@@ -13,7 +23,6 @@ describe('AppointmentForm recurrence radio group', () => {
     switcherComponent: () => null,
     dateAndTimeEditorComponent: () => null,
     onRecurrenceOptionsChange: jest.fn(),
-    recurrenceOptions: {},
     getMessage: jest.fn(),
     changedAppointment: {
       startDate: new Date(),
@@ -28,6 +37,7 @@ describe('AppointmentForm recurrence radio group', () => {
   });
   beforeEach(() => {
     mount = createMount();
+    getRecurrenceOptions.mockImplementation(() => ({}));
   });
   afterEach(() => {
     mount.cleanUp();

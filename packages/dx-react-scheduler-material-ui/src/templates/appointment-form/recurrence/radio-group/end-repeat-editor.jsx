@@ -6,7 +6,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import Grid from '@material-ui/core/Grid';
-import { NUMBER_EDITOR } from '@devexpress/dx-scheduler-core';
+import { NUMBER_EDITOR, getRecurrenceOptions } from '@devexpress/dx-scheduler-core';
 
 const styles = ({ spacing, typography }) => ({
   textEditor: {
@@ -41,7 +41,6 @@ const EndRepeatEditorBase = ({
   getMessage,
   labelComponent: Label,
   textEditorComponent: TextEditor,
-  recurrenceOptions,
   onRecurrenceOptionsChange,
   dateAndTimeEditorComponent: DateAndTimeEditor,
   changedAppointment,
@@ -50,6 +49,7 @@ const EndRepeatEditorBase = ({
   const [count, setCount] = useState(1);
   const [endDate, setEndDate] = useState(changedAppointment.endDate);
 
+  const recurrenceOptions = getRecurrenceOptions(changedAppointment.rRule);
   const recurrenceCount = recurrenceOptions.count || count;
   const recurrenceEndDate = recurrenceOptions.until || endDate;
   let value;
@@ -164,7 +164,6 @@ EndRepeatEditorBase.propTypes = {
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   dateAndTimeEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  recurrenceOptions: PropTypes.object.isRequired,
 };
 
 EndRepeatEditorBase.defaultProps = {

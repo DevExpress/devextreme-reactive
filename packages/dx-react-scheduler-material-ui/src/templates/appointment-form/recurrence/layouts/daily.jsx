@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import {
   NUMBER_EDITOR,
+  getRecurrenceOptions,
 } from '@devexpress/dx-scheduler-core';
 
 const styles = theme => ({
@@ -24,36 +25,38 @@ const DailyBase = ({
   classes,
   getMessage,
   readOnly,
-  recurrenceOptions,
   onAppointmentFieldChange,
   changedAppointment,
   switcherComponent: Switcher,
   booleanEditorComponent,
   ...restProps
-}) => (
-  <Grid
-    container
-    direction="row"
-    justify="flex-start"
-    {...restProps}
-  >
-    <Label
-      label={getMessage('repeatEveryLabel')}
-      className={classes.label}
-    />
-    <TextEditor
-      readOnly={readOnly}
-      value={recurrenceOptions.interval}
-      className={classes.textEditor}
-      id={NUMBER_EDITOR}
-      onValueChange={value => onRecurrenceOptionsChange({ ...recurrenceOptions, interval: value })}
-    />
-    <Label
-      label={getMessage('daysLabel')}
-      className={classes.label}
-    />
-  </Grid>
-);
+}) => {
+  const recurrenceOptions = getRecurrenceOptions(changedAppointment.rRule);
+  return (
+    <Grid
+      container
+      direction="row"
+      justify="flex-start"
+      {...restProps}
+    >
+      <Label
+        label={getMessage('repeatEveryLabel')}
+        className={classes.label}
+      />
+      <TextEditor
+        readOnly={readOnly}
+        value={recurrenceOptions.interval}
+        className={classes.textEditor}
+        id={NUMBER_EDITOR}
+        onValueChange={value => onRecurrenceOptionsChange({ ...recurrenceOptions, interval: value })}
+      />
+      <Label
+        label={getMessage('daysLabel')}
+        className={classes.label}
+      />
+    </Grid>
+  );
+};
 
 DailyBase.propTypes = {
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
@@ -67,7 +70,6 @@ DailyBase.propTypes = {
   classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func.isRequired,
   readOnly: PropTypes.bool,
-  recurrenceOptions: PropTypes.object.isRequired,
 };
 
 DailyBase.defaultProps = {

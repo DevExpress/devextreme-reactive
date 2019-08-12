@@ -1,10 +1,16 @@
 import * as React from 'react';
 import { createShallow } from '@material-ui/core/test-utils';
+import { getRecurrenceOptions } from '@devexpress/dx-scheduler-core';
 import { Layout } from './layout';
 import { Daily } from './layouts/daily';
 import { Weekly } from './layouts/weekly';
 import { Monthly } from './layouts/monthly';
 import { Yearly } from './layouts/yearly';
+
+jest.mock('@devexpress/dx-scheduler-core', () => ({
+  ...require.requireActual('@devexpress/dx-scheduler-core'),
+  getRecurrenceOptions: jest.fn(),
+}));
 
 describe('AppointmentForm recurrence', () => {
   const defaultProps = {
@@ -17,7 +23,6 @@ describe('AppointmentForm recurrence', () => {
     dateAndTimeEditorComponent: () => null,
     onRecurrenceOptionsChange: jest.fn(),
     onAppointmentFieldChange: jest.fn(),
-    recurrenceOptions: {},
     getMessage: jest.fn(),
     changedAppointment: {},
     frequency: 'daily',
@@ -25,6 +30,9 @@ describe('AppointmentForm recurrence', () => {
   let shallow;
   beforeAll(() => {
     shallow = createShallow({ dive: true });
+  });
+  beforeEach(() => {
+    getRecurrenceOptions.mockImplementation(() => ({}));
   });
   describe('Layout', () => {
     it('should pass rest props to the root element', () => {

@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import {
   DAYS_OF_WEEK,
   NUMBER_EDITOR,
+  getRecurrenceOptions,
 } from '@devexpress/dx-scheduler-core';
 
 const styles = theme => ({
@@ -40,131 +41,133 @@ const WeeklyBase = ({
   classes,
   getMessage,
   readOnly,
-  recurrenceOptions,
   onAppointmentFieldChange,
   changedAppointment,
   switcherComponent: Switcher,
   booleanEditorComponent: BooleanEditor,
   ...restProps
-}) => (
-  <div
-    {...restProps}
-  >
-    <Grid
-      container
-      direction="row"
-      justify="flex-start"
+}) => {
+  const recurrenceOptions = getRecurrenceOptions(changedAppointment.rRule);
+  return (
+    <div
+      {...restProps}
     >
-      <Label
-        label={getMessage('repeatEveryLabel')}
-        className={classes.label}
-      />
-      <TextEditor
-        readOnly={readOnly}
-        value={recurrenceOptions.interval}
-        className={classes.textEditor}
-        id={NUMBER_EDITOR}
-        onValueChange={value => onRecurrenceOptionsChange({
-          ...recurrenceOptions, interval: value,
-        })}
-      />
-      <Label
-        label={getMessage('weeksOnLabel')}
-        className={classes.label}
-      />
-    </Grid>
-    <Grid
-      container
-      direction="row"
-      justify="flex-start"
-    >
-      <BooleanEditor
-        label={getMessage('sunLabel')}
-        readOnly={readOnly}
-        value={recurrenceOptions.byweekday
-          && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.SUNDAY) > -1}
-        onValueChange={checked => handleWeekDaysChange(
-          recurrenceOptions,
-          DAYS_OF_WEEK.SUNDAY,
-          onRecurrenceOptionsChange,
-          checked,
-        )}
-      />
-      <BooleanEditor
-        label={getMessage('monLabel')}
-        readOnly={readOnly}
-        value={recurrenceOptions.byweekday
-          && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.MONDAY) > -1}
-        onValueChange={checked => handleWeekDaysChange(
-          recurrenceOptions,
-          DAYS_OF_WEEK.MONDAY,
-          onRecurrenceOptionsChange,
-          checked,
-        )}
-      />
-      <BooleanEditor
-        label={getMessage('tueLabel')}
-        readOnly={readOnly}
-        value={recurrenceOptions.byweekday
-          && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.TUESDAY) > -1}
-        onValueChange={checked => handleWeekDaysChange(
-          recurrenceOptions,
-          DAYS_OF_WEEK.TUESDAY,
-          onRecurrenceOptionsChange,
-          checked,
-        )}
-      />
-      <BooleanEditor
-        label={getMessage('wedLabel')}
-        readOnly={readOnly}
-        value={recurrenceOptions.byweekday
-          && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.WEDNESDAY) > -1}
-        onValueChange={checked => handleWeekDaysChange(
-          recurrenceOptions,
-          DAYS_OF_WEEK.WEDNESDAY,
-          onRecurrenceOptionsChange,
-          checked,
-        )}
-      />
-      <BooleanEditor
-        label={getMessage('thuLabel')}
-        readOnly={readOnly}
-        value={recurrenceOptions.byweekday
-          && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.THURSDAY) > -1}
-        onValueChange={checked => handleWeekDaysChange(
-          recurrenceOptions,
-          DAYS_OF_WEEK.THURSDAY,
-          onRecurrenceOptionsChange,
-          checked,
-        )}
-      />
-      <BooleanEditor
-        label={getMessage('friLabel')}
-        readOnly={readOnly}
-        value={recurrenceOptions.byweekday
-          && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.FRIDAY) > -1}
-        onValueChange={checked => handleWeekDaysChange(
-          recurrenceOptions,
-          DAYS_OF_WEEK.FRIDAY,
-          onRecurrenceOptionsChange,
-          checked,
-        )}
-      />
-      <BooleanEditor
-        label={getMessage('satLabel')}
-        readOnly={readOnly}
-        value={recurrenceOptions.byweekday
-          && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.SATURDAY) > -1}
-        onValueChange={checked => handleWeekDaysChange(
-          recurrenceOptions,
-          DAYS_OF_WEEK.SATURDAY,
-          onRecurrenceOptionsChange,
-          checked,
-        )}
-      />
-    </Grid>
-  </div>
-);
+      <Grid
+        container
+        direction="row"
+        justify="flex-start"
+      >
+        <Label
+          label={getMessage('repeatEveryLabel')}
+          className={classes.label}
+        />
+        <TextEditor
+          readOnly={readOnly}
+          value={recurrenceOptions.interval}
+          className={classes.textEditor}
+          id={NUMBER_EDITOR}
+          onValueChange={value => onRecurrenceOptionsChange({
+            ...recurrenceOptions, interval: value,
+          })}
+        />
+        <Label
+          label={getMessage('weeksOnLabel')}
+          className={classes.label}
+        />
+      </Grid>
+      <Grid
+        container
+        direction="row"
+        justify="flex-start"
+      >
+        <BooleanEditor
+          label={getMessage('sunLabel')}
+          readOnly={readOnly}
+          value={recurrenceOptions.byweekday
+            && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.SUNDAY) > -1}
+          onValueChange={checked => handleWeekDaysChange(
+            recurrenceOptions,
+            DAYS_OF_WEEK.SUNDAY,
+            onRecurrenceOptionsChange,
+            checked,
+          )}
+        />
+        <BooleanEditor
+          label={getMessage('monLabel')}
+          readOnly={readOnly}
+          value={recurrenceOptions.byweekday
+            && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.MONDAY) > -1}
+          onValueChange={checked => handleWeekDaysChange(
+            recurrenceOptions,
+            DAYS_OF_WEEK.MONDAY,
+            onRecurrenceOptionsChange,
+            checked,
+          )}
+        />
+        <BooleanEditor
+          label={getMessage('tueLabel')}
+          readOnly={readOnly}
+          value={recurrenceOptions.byweekday
+            && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.TUESDAY) > -1}
+          onValueChange={checked => handleWeekDaysChange(
+            recurrenceOptions,
+            DAYS_OF_WEEK.TUESDAY,
+            onRecurrenceOptionsChange,
+            checked,
+          )}
+        />
+        <BooleanEditor
+          label={getMessage('wedLabel')}
+          readOnly={readOnly}
+          value={recurrenceOptions.byweekday
+            && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.WEDNESDAY) > -1}
+          onValueChange={checked => handleWeekDaysChange(
+            recurrenceOptions,
+            DAYS_OF_WEEK.WEDNESDAY,
+            onRecurrenceOptionsChange,
+            checked,
+          )}
+        />
+        <BooleanEditor
+          label={getMessage('thuLabel')}
+          readOnly={readOnly}
+          value={recurrenceOptions.byweekday
+            && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.THURSDAY) > -1}
+          onValueChange={checked => handleWeekDaysChange(
+            recurrenceOptions,
+            DAYS_OF_WEEK.THURSDAY,
+            onRecurrenceOptionsChange,
+            checked,
+          )}
+        />
+        <BooleanEditor
+          label={getMessage('friLabel')}
+          readOnly={readOnly}
+          value={recurrenceOptions.byweekday
+            && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.FRIDAY) > -1}
+          onValueChange={checked => handleWeekDaysChange(
+            recurrenceOptions,
+            DAYS_OF_WEEK.FRIDAY,
+            onRecurrenceOptionsChange,
+            checked,
+          )}
+        />
+        <BooleanEditor
+          label={getMessage('satLabel')}
+          readOnly={readOnly}
+          value={recurrenceOptions.byweekday
+            && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.SATURDAY) > -1}
+          onValueChange={checked => handleWeekDaysChange(
+            recurrenceOptions,
+            DAYS_OF_WEEK.SATURDAY,
+            onRecurrenceOptionsChange,
+            checked,
+          )}
+        />
+      </Grid>
+    </div>
+  );
+};
 
 WeeklyBase.propTypes = {
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,

@@ -6,14 +6,14 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import Grid from '@material-ui/core/Grid';
-import { NUMBER_EDITOR } from '@devexpress/dx-scheduler-core';
 import {
-  getNumberLabels,
-  getDaysOfWeek,
+  NUMBER_EDITOR,
   handleStartDateChange,
   handleToDayOfWeekChange,
   handleWeekNumberChange,
-} from './helpers';
+  getRecurrenceOptions,
+} from '@devexpress/dx-scheduler-core';
+import { getNumberLabels, getDaysOfWeek } from './helpers';
 
 const styles = ({ spacing }) => ({
   textEditor: {
@@ -45,7 +45,6 @@ const MonthlyEditorBase = ({
   getMessage,
   labelComponent: Label,
   textEditorComponent: TextEditor,
-  recurrenceOptions,
   onRecurrenceOptionsChange,
   dateAndTimeEditorComponent: DateAndTimeEditor,
   switcherComponent: Switcher,
@@ -58,6 +57,8 @@ const MonthlyEditorBase = ({
     Math.trunc((changedAppointment.startDate.getDate() - 1) / 7),
   );
   const [stateDayOfWeek, setStateDayOfWeek] = useState(changedAppointment.startDate.getDay());
+
+  const recurrenceOptions = getRecurrenceOptions(changedAppointment.rRule);
   let value;
   let dayNumberTextField = dayNumber;
   // The last week in a month
@@ -202,7 +203,6 @@ MonthlyEditorBase.propTypes = {
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   dateAndTimeEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   switcherComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  recurrenceOptions: PropTypes.object.isRequired,
   changedAppointment: PropTypes.object.isRequired,
   readOnly: PropTypes.bool,
 };

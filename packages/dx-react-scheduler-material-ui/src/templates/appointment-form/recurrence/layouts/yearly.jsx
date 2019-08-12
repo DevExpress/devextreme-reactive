@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import {
   YEARLY_RADIO_GROUP,
   NUMBER_EDITOR,
+  getRecurrenceOptions,
 } from '@devexpress/dx-scheduler-core';
 
 const styles = theme => ({
@@ -30,52 +31,53 @@ const YearlyBase = ({
   classes,
   getMessage,
   readOnly,
-  recurrenceOptions,
   onAppointmentFieldChange,
   changedAppointment,
   switcherComponent: Switcher,
   booleanEditorComponent,
   ...restProps
-}) => (
-  <div {...restProps}>
-    <Grid
-      container
-      direction="row"
-      justify="flex-start"
-    >
-      <Label
-        label={getMessage('repeatEveryLabel')}
-        className={classes.label}
-      />
-      <TextEditor
+}) => {
+  const recurrenceOptions = getRecurrenceOptions(changedAppointment.rRule);
+  return (
+    <div {...restProps}>
+      <Grid
+        container
+        direction="row"
+        justify="flex-start"
+      >
+        <Label
+          label={getMessage('repeatEveryLabel')}
+          className={classes.label}
+        />
+        <TextEditor
+          readOnly={readOnly}
+          value={recurrenceOptions.interval}
+          className={classes.textEditor}
+          id={NUMBER_EDITOR}
+          onValueChange={value => onRecurrenceOptionsChange({
+            ...recurrenceOptions, interval: value,
+          })}
+        />
+        <Label
+          label={getMessage('yearsLabel')}
+          className={classes.label}
+        />
+      </Grid>
+      <RadioGroupEditor
+        id={YEARLY_RADIO_GROUP}
         readOnly={readOnly}
-        value={recurrenceOptions.interval}
-        className={classes.textEditor}
-        id={NUMBER_EDITOR}
-        onValueChange={value => onRecurrenceOptionsChange({
-          ...recurrenceOptions, interval: value,
-        })}
+        getMessage={getMessage}
+        textEditorComponent={TextEditor}
+        labelComponent={Label}
+        onRecurrenceOptionsChange={onRecurrenceOptionsChange}
+        onAppointmentFieldChange={onAppointmentFieldChange}
+        changedAppointment={changedAppointment}
+        switcherComponent={Switcher}
       />
-      <Label
-        label={getMessage('yearsLabel')}
-        className={classes.label}
-      />
-    </Grid>
-    <RadioGroupEditor
-      id={YEARLY_RADIO_GROUP}
-      readOnly={readOnly}
-      getMessage={getMessage}
-      textEditorComponent={TextEditor}
-      labelComponent={Label}
-      recurrenceOptions={recurrenceOptions}
-      onRecurrenceOptionsChange={onRecurrenceOptionsChange}
-      onAppointmentFieldChange={onAppointmentFieldChange}
-      changedAppointment={changedAppointment}
-      switcherComponent={Switcher}
-    />
 
-  </div>
-);
+    </div>
+  );
+};
 
 YearlyBase.propTypes = {
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
@@ -89,7 +91,6 @@ YearlyBase.propTypes = {
   classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func.isRequired,
   readOnly: PropTypes.bool,
-  recurrenceOptions: PropTypes.object.isRequired,
 };
 
 YearlyBase.defaultProps = {

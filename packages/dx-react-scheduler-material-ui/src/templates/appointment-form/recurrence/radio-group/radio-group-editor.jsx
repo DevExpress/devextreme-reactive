@@ -13,7 +13,6 @@ export const RadioGroupEditor = ({
   getMessage,
   labelComponent: Label,
   textEditorComponent: TextEditor,
-  recurrenceOptions,
   onRecurrenceOptionsChange,
   readOnly,
   dateAndTimeEditorComponent: DateAndTimeEditor,
@@ -30,7 +29,6 @@ export const RadioGroupEditor = ({
           getMessage={getMessage}
           textEditorComponent={TextEditor}
           labelComponent={Label}
-          recurrenceOptions={recurrenceOptions}
           onRecurrenceOptionsChange={onRecurrenceOptionsChange}
           dateAndTimeEditorComponent={DateAndTimeEditor}
           changedAppointment={changedAppointment}
@@ -44,7 +42,6 @@ export const RadioGroupEditor = ({
           getMessage={getMessage}
           textEditorComponent={TextEditor}
           labelComponent={Label}
-          recurrenceOptions={recurrenceOptions}
           onRecurrenceOptionsChange={onRecurrenceOptionsChange}
           changedAppointment={changedAppointment}
           switcherComponent={Switcher}
@@ -58,7 +55,6 @@ export const RadioGroupEditor = ({
           getMessage={getMessage}
           textEditorComponent={TextEditor}
           labelComponent={Label}
-          recurrenceOptions={recurrenceOptions}
           onRecurrenceOptionsChange={onRecurrenceOptionsChange}
           changedAppointment={changedAppointment}
           switcherComponent={Switcher}
@@ -78,7 +74,6 @@ RadioGroupEditor.propTypes = {
   dateAndTimeEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   onRecurrenceOptionsChange: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   switcherComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  recurrenceOptions: PropTypes.object.isRequired,
   readOnly: PropTypes.bool,
   id: PropTypes.string.isRequired,
   changedAppointment: PropTypes.object.isRequired,

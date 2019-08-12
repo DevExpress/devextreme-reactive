@@ -379,7 +379,6 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                 ? changeAddedAppointment
                 : changeAppointment;
 
-              const options = getRecurrenceOptions(changedAppointment.rRule);
               const setNewRRule = (newOptions) => {
                 const rRule = changeRecurrenceOptions(newOptions);
                 changeAppointmentField({ change: { rRule } });
@@ -400,7 +399,6 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                   }}
                   getMessage={getMessage}
                   readOnly={readOnly}
-                  recurrenceOptions={options}
                   switcherComponent={Switcher}
                 />
               );

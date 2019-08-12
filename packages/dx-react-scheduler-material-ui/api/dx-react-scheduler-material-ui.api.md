@@ -397,7 +397,7 @@ export const EditingMenu: React.ComponentType<EditingMenuProps> & {
 export interface EditingMenuProps {
   buttonComponent?: React.ComponentType<EditingMenu_2.ButtonProps>;
   containerComponent?: React.ComponentType<EditingMenu_2.ContainerProps>;
-  layoutComponent?: React.ComponentType<EditingMenu_2.RootProps>;
+  layoutComponent?: React.ComponentType<EditingMenu_2.LayoutProps>;
   messages?: React.ComponentType<EditingMenu_2.LocalizationMessages>;
   modalComponent?: React.ComponentType<EditingMenu_2.ModalProps>;
 }

@@ -49,18 +49,24 @@ describe('EditingMenu', () => {
         .toBeCalled();
     });
     it('should render messages', () => {
-      shallow((
+      const tree = shallow((
         <Layout {...defaultProps} title="custom-text" />
       ));
 
       expect(defaultProps.getMessage)
         .toBeCalledTimes(3);
       expect(defaultProps.getMessage)
-        .toBeCalledWith('menuTitle');
+        .toBeCalledWith('menuEditTitle');
       expect(defaultProps.getMessage)
         .toBeCalledWith('cancelButton');
       expect(defaultProps.getMessage)
         .toBeCalledWith('commitButton');
+
+      tree.setProps({ isDeleting: true });
+      tree.update();
+
+      expect(defaultProps.getMessage)
+        .toBeCalledWith('menuDeleteTitle');
     });
   });
 });

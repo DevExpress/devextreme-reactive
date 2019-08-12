@@ -38,6 +38,7 @@ describe('EditingMenu', () => {
     const layout = tree.find(defaultProps.layoutComponent);
     expect(layout.props())
       .toEqual({
+        isDeleting: false,
         buttonComponent: defaultProps.buttonComponent,
         handleClose: expect.any(Function),
         commit: expect.any(Function),

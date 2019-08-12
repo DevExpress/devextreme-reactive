@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
@@ -29,14 +28,13 @@ const styles = ({ spacing, typography }) => ({
   radioLabel: {
     fontSize: typography.fontSize + 1,
   },
-  dateNavigator: {
+  dateEditor: {
     width: '70%',
   },
 });
 
 const EndRepeatEditorBase = ({
   classes,
-  className,
   onExecute,
   getMessage,
   labelComponent: Label,
@@ -81,7 +79,6 @@ const EndRepeatEditorBase = ({
   return (
     <RadioGroup
       onChange={onRadioGroupValueChange}
-      className={classNames(classes.group, className)}
       value={value}
       {...restProps}
     >
@@ -138,7 +135,7 @@ const EndRepeatEditorBase = ({
               label={getMessage('afterLabel')}
             />
             <DateAndTimeEditor
-              className={classes.dateNavigator}
+              className={classes.dateEditor}
               disabled={value !== 'endBy'}
               oneDate
               firstDate={recurrenceEndDate}
@@ -155,9 +152,7 @@ const EndRepeatEditorBase = ({
 
 
 EndRepeatEditorBase.propTypes = {
-  value: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
-  className: PropTypes.string,
   onExecute: PropTypes.func,
   getMessage: PropTypes.func,
   onRecurrenceOptionsChange: PropTypes.func,
@@ -167,7 +162,6 @@ EndRepeatEditorBase.propTypes = {
 };
 
 EndRepeatEditorBase.defaultProps = {
-  className: undefined,
   onRecurrenceOptionsChange: () => undefined,
   onExecute: () => undefined,
   getMessage: () => undefined,

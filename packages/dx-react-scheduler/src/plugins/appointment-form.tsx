@@ -16,7 +16,6 @@ import {
   AppointmentModel,
   RRULE_REPEAT_TYPES,
   changeRecurrenceFrequency,
-  getRecurrenceOptions,
   getRecurrenceFrequency,
   changeRecurrenceOptions,
 } from '@devexpress/dx-scheduler-core';
@@ -76,7 +75,7 @@ const defaultMessages = {
   augustLabel: 'August',
   septemberLabel: 'September',
   octoberLabel: 'October',
-  novemberLabel: 'Nobember',
+  novemberLabel: 'November',
   decemberLabel: 'December',
   sundayLabel: 'Sunday',
   mondayLabel: 'Monday',

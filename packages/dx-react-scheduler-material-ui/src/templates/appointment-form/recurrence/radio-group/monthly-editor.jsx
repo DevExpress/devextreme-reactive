@@ -40,7 +40,6 @@ const styles = ({ spacing }) => ({
 
 const MonthlyEditorBase = ({
   classes,
-  className,
   onExecute,
   getMessage,
   labelComponent: Label,
@@ -111,7 +110,6 @@ const MonthlyEditorBase = ({
   return (
     <RadioGroup
       onChange={onRadioGroupValueChange}
-      className={classNames(classes.group, className)}
       value={value}
       {...restProps}
     >
@@ -193,9 +191,7 @@ const MonthlyEditorBase = ({
 
 
 MonthlyEditorBase.propTypes = {
-  value: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
-  className: PropTypes.string,
   onExecute: PropTypes.func,
   getMessage: PropTypes.func,
   onRecurrenceOptionsChange: PropTypes.func,
@@ -208,7 +204,6 @@ MonthlyEditorBase.propTypes = {
 };
 
 MonthlyEditorBase.defaultProps = {
-  className: undefined,
   onRecurrenceOptionsChange: () => undefined,
   onExecute: () => undefined,
   getMessage: () => undefined,

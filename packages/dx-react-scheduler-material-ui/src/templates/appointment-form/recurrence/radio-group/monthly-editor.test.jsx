@@ -9,7 +9,6 @@ import {
 import { MonthlyEditor } from './monthly-editor';
 import {
   getDaysOfWeek,
-  getMonths,
   getNumberLabels,
 } from './helpers';
 
@@ -55,7 +54,7 @@ describe('AppointmentForm recurrence RadioGroup', () => {
   afterEach(() => {
     mount.cleanUp();
   });
-  describe('YearlyEditor', () => {
+  describe('MonthlyEditor', () => {
     it('should pass rest props to the root element', () => {
       const tree = shallow((
         <MonthlyEditor data={{ a: 1 }} {...defaultProps} />

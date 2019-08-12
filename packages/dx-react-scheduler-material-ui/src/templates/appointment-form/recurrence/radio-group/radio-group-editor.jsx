@@ -45,6 +45,7 @@ export const RadioGroupEditor = ({
           onRecurrenceOptionsChange={onRecurrenceOptionsChange}
           changedAppointment={changedAppointment}
           switcherComponent={Switcher}
+          dateAndTimeEditorComponent={DateAndTimeEditor}
           {...restProps}
         />
       );

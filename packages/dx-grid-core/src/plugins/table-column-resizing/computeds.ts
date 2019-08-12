@@ -7,8 +7,9 @@ import { TableColumn, SpecifyWidthsFn, TableColumnsWithWidthFn } from '../../typ
 // ].join('\n');
 
 const UNAVAILABLE_RESIZING_MODE = [
-  'The "$1" column\'s width specified like auto.',
-  'AUTO ERROR',
+  'The "$1" column\'s width specified like auto or undefined.',
+  'The TableColumnResizing plugin requires nextColumnResizing mode,',
+  'when some columns have "auto" or "undefined" width.',
 ].join('\n');
 
 const specifyWidths: SpecifyWidthsFn = (tableColumns, widths, nextColumnResizing, onAbsence) => {
@@ -19,7 +20,7 @@ const specifyWidths: SpecifyWidthsFn = (tableColumns, widths, nextColumnResizing
         const columnName = tableColumn.column!.name;
         const column = widths.find(el => el.columnName === columnName);
         const width = column && column.width;
-        if (width === undefined || width === 'auto') {
+        if (typeof width !== 'number') {
           if (!nextColumnResizing) {
             onAbsence(columnName);
           }

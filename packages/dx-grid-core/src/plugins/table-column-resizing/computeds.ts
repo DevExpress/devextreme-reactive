@@ -20,12 +20,10 @@ const specifyWidths: SpecifyWidthsFn = (tableColumns, widths, nextColumnResizing
         const column = widths.find(el => el.columnName === columnName);
         const width = column && column.width;
         if (width === undefined || width === 'auto') {
-          if (nextColumnResizing) {
-            acc.push({ ...tableColumn, width: 'auto' });
-          } else {
+          if (!nextColumnResizing) {
             onAbsence(columnName);
-            acc.push(tableColumn);
           }
+          acc.push(tableColumn);
         } else {
           acc.push({ ...tableColumn, width: width as number });
         }

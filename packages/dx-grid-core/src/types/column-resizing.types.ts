@@ -55,8 +55,8 @@ export type ColumnWidthReducer = PureReducer<
 >;
 /** @internal */
 export type ColumnSizeFn = PureComputed<
-  [TableColumn | TableColumnWidthInfo, ColumnWidthPayload],
-  number
+  [TableColumnWidthInfo[], ColumnWidthPayload],
+  number[]
 >;
 /** @internal */
 export type CellWidthGetter = () => number;

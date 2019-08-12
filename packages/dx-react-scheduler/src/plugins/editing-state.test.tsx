@@ -1,4 +1,9 @@
-import { testStatePluginField } from '@devexpress/dx-testing';
+import * as React from 'react';
+import { mount } from 'enzyme';
+import {
+  testStatePluginField, executeComputedAction, pluginDepsToComponents,
+} from '@devexpress/dx-testing';
+import { PluginHost } from '@devexpress/dx-react-core';
 import {
   addAppointment,
   cancelAddedAppointment,
@@ -85,5 +90,61 @@ describe('EditingState', () => {
       actionName: 'cancelAddedAppointment',
       reducer: cancelAddedAppointment,
     }],
+  });
+  it('should call preCommitChanges if an appointment is recurrence', () => {
+    const appointmentData = { rRule: 'rule' };
+    const onCommitChanges = jest.fn();
+    const preCommitChanges = jest.fn();
+
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents({})}
+        <EditingState
+          defaultEditingAppointment={appointmentData}
+          onCommitChanges={onCommitChanges}
+          preCommitChanges={preCommitChanges}
+        />
+      </PluginHost>
+    ));
+
+    executeComputedAction(tree, (computedActions) => {
+      computedActions.commitChangedAppointment();
+    });
+
+    expect(onCommitChanges)
+      .toBeCalledTimes(1);
+    expect(preCommitChanges)
+      .toBeCalledTimes(1);
+    expect(preCommitChanges.mock.calls[0][0])
+      .toEqual({});
+    expect(preCommitChanges.mock.calls[0][1])
+      .toEqual({ rRule: 'rule' });
+    expect(preCommitChanges.mock.calls[0][2])
+      .toEqual('current');
+  });
+  it('should not call preCommitChanges if an appointment is not recurrence', () => {
+    const appointmentData = { rRule: '' };
+    const onCommitChanges = jest.fn();
+    const preCommitChanges = jest.fn();
+
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents({})}
+        <EditingState
+          defaultEditingAppointment={appointmentData}
+          onCommitChanges={onCommitChanges}
+          preCommitChanges={preCommitChanges}
+        />
+      </PluginHost>
+    ));
+
+    executeComputedAction(tree, (computedActions) => {
+      computedActions.commitChangedAppointment();
+    });
+
+    expect(onCommitChanges)
+      .toBeCalledTimes(1);
+    expect(preCommitChanges)
+      .toBeCalledTimes(0);
   });
 });

@@ -72,11 +72,11 @@ class EditingMenuBase extends React.PureComponent<EditingMenuProps, EditingMenuS
     }
   }
 
-  commit = memoize((editComputed, deleteComputed, payload) => {
+  commit = memoize((editAction, deleteAction, payload) => {
     if (payload) {
-      return type => deleteComputed({ deletedAppointmentData: payload, type });
+      return type => deleteAction({ deletedAppointmentData: payload, type });
     }
-    return type => editComputed(type);
+    return type => editAction(type);
   });
 
   closeMenu = () => {

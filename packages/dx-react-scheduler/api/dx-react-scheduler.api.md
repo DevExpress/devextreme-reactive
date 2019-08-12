@@ -5,7 +5,6 @@
 ```ts
 
 import moment from 'moment';
-import { PureComputed } from '@devexpress/dx-core';
 import * as React from 'react';
 
 // @public (undocumented)
@@ -412,6 +411,8 @@ export namespace EditingMenu {
     getMessage: (messageKey: string) => string;
     // (undocumented)
     handleClose: () => void;
+    // (undocumented)
+    isDeleting: boolean;
   }
   export interface LocalizationMessages {
     // (undocumented)
@@ -472,11 +473,8 @@ export interface EditingStateProps {
   }) => void;
   onCommitChanges: (changes: ChangeSet) => void;
   onEditingAppointmentChange?: (editingAppointment: Partial<AppointmentModel>) => void;
-  preCommitChanges: PreCommitChanges;
+  preCommitChanges?: PreCommitChanges;
 }
-
-// @public (undocumented)
-export type RecurrenceEditType = 'all' | 'currentAndFollowing' | 'current';
 
 // @public (undocumented)
 export type FormatterFn = (nextDate: SchedulerDateTime | undefined, nextOptions: Intl.DateTimeFormatOptions) => string;
@@ -543,7 +541,10 @@ export interface MonthViewProps extends MonthViewPropsType {
 export type MonthViewPropsType = Pick<VerticalViewProps, Exclude<keyof VerticalViewProps, 'timeScaleLayoutComponent' | 'timeScaleRowComponent' | 'timeScaleCellComponent' | 'layoutComponent' | 'dayScaleEmptyCellComponent'>> & Pick<WeekViewProps, 'firstDayOfWeek'>;
 
 // @public (undocumented)
-export type PreCommitChanges = PureComputed<[Changes | null, Partial<AppointmentModel>, RecurrenceEditType], ChangeSet>;
+export type PreCommitChanges = (changes: Changes | null, appointmentData: Partial<AppointmentModel>, type: RecurrenceEditType) => ChangeSet;
+
+// @public (undocumented)
+export type RecurrenceEditType = 'all' | 'currentAndFollowing' | 'current';
 
 // @public
 export const Scheduler: React.ComponentType<SchedulerProps>;

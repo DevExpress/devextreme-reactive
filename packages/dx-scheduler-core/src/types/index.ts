@@ -1,7 +1,3 @@
-export {
-  PureComputed,
-} from '../../../dx-core/src/index';
-
 export * from './scheduler-core.types';
 export * from './all-day-panel.types';
 export * from './appointment-form.types';

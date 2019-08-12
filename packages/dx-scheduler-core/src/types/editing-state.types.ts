@@ -1,6 +1,5 @@
 import { Options } from 'rrule';
 import { AppointmentModel, AppointmentId } from './scheduler-core.types';
-import { PureComputed } from './index';
 
 export type AppointmentChanges = { [key: string]: object };
 export type Changes = Partial<AppointmentModel>;
@@ -8,9 +7,9 @@ export type EditAppointmentPayload = { appointmentId: AppointmentId };
 
 export type RecurrenceEditType = 'all' | 'currentAndFollowing' | 'current';
 
-export type PreCommitChanges = PureComputed<
-  [Changes | null, Partial<AppointmentModel>, RecurrenceEditType], ChangeSet
->;
+export type PreCommitChanges = (
+  changes: Changes | null, appointmentData: Partial<AppointmentModel>, type: RecurrenceEditType,
+) => ChangeSet;
 
 /** @internal */
 export type MakeDateSequence = (

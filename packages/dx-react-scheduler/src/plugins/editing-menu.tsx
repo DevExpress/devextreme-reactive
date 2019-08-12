@@ -3,11 +3,7 @@ import { memoize, getMessagesFormatter } from '@devexpress/dx-core';
 import {
   Plugin, Template, TemplatePlaceholder, TemplateConnector, Action, Getters, Actions,
 } from '@devexpress/dx-react-core';
-import {
-  CURRENT,
-  CURRENT_AND_FOLLOWING,
-  ALL,
-} from '@devexpress/dx-scheduler-core';
+import { RECURRENCE } from '@devexpress/dx-scheduler-core';
 import { EditingMenuProps, EditingMenuState } from '../types';
 
 const pluginDependencies = [
@@ -15,18 +11,19 @@ const pluginDependencies = [
 ];
 
 const defaultAvailableOperations = [
-  { value: CURRENT },
-  { value: CURRENT_AND_FOLLOWING },
-  { value: ALL },
+  { value: RECURRENCE.CURRENT },
+  { value: RECURRENCE.CURRENT_AND_FOLLOWING },
+  { value: RECURRENCE.ALL },
 ];
 
 const defaultMessages = {
-  [CURRENT]: 'This event',
-  [CURRENT_AND_FOLLOWING]: 'This and following events',
-  [ALL]: 'All events',
-  menuTitle: '',
-  closeButton: '',
-  commitButton: '',
+  [RECURRENCE.CURRENT]: 'This appointment',
+  [RECURRENCE.CURRENT_AND_FOLLOWING]: 'This and following appointments',
+  [RECURRENCE.ALL]: 'All appointments',
+  menuEditTitle: 'Edit recurring appointment',
+  menuDeleteTitle: 'Delete recurring appointment',
+  cancelButton: 'Cancel',
+  commitButton: 'OK',
 };
 
 class EditingMenuBase extends React.PureComponent<EditingMenuProps, EditingMenuState> {
@@ -133,6 +130,7 @@ class EditingMenuBase extends React.PureComponent<EditingMenuProps, EditingMenuS
                   handleClose={this.closeMenu}
                 >
                   <Layout
+                    isDelete={!!deletedAppointmentData}
                     buttonComponent={buttonComponent}
                     handleClose={this.closeMenu}
                     commit={commit}

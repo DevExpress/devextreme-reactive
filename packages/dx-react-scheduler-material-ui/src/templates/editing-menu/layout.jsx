@@ -13,6 +13,7 @@ export const Layout = React.memo(({
   commit,
   availableOperations,
   getMessage,
+  isDelete,
   ...restProps
 }) => {
   const [currentValue, setCurrentValue] = React.useState(availableOperations[0].value);
@@ -29,7 +30,7 @@ export const Layout = React.memo(({
     <div
       {...restProps}
     >
-      <DialogTitle>{getMessage('menuTitle')}</DialogTitle>
+      <DialogTitle>{getMessage(isDelete ? 'menuDeleteTitle' : 'menuEditTitle')}</DialogTitle>
       <DialogContent>
         <RadioGroup
           value={currentValue}
@@ -59,10 +60,12 @@ Layout.propTypes = {
   handleClose: PropTypes.func,
   commit: PropTypes.func,
   getMessage: PropTypes.func,
+  isDelete: PropTypes.bool,
 };
 
 Layout.defaultProps = {
   handleClose: () => undefined,
   commit: () => undefined,
   getMessage: () => undefined,
+  isDelete: false,
 };

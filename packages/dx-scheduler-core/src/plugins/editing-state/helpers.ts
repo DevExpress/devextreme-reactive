@@ -4,7 +4,7 @@ import { PureComputed } from '@devexpress/dx-core';
 import {
   AppointmentModel, PreCommitChanges, ChangeSet, Changes, MakeDateSequence,
 } from '../../types';
-import { ALL, CURRENT, CURRENT_AND_FOLLOWING } from '../../constants';
+import { RECURRENCE } from '../../constants';
 
 export const deleteCurrent: PureComputed<
   [Partial<AppointmentModel>], ChangeSet
@@ -212,25 +212,25 @@ export const preCommitChanges: PreCommitChanges = (
 ) => {
   if (changes === null) {
     switch (editType) {
-      case ALL: {
+      case RECURRENCE.ALL: {
         return deleteAll(appointmentData);
       }
-      case CURRENT: {
+      case RECURRENCE.CURRENT: {
         return deleteCurrent(appointmentData);
       }
-      case CURRENT_AND_FOLLOWING: {
+      case RECURRENCE.CURRENT_AND_FOLLOWING: {
         return deletedCurrentAndFollowing(appointmentData);
       }
     }
   } else {
     switch (editType) {
-      case ALL: {
+      case RECURRENCE.ALL: {
         return editAll(changes, appointmentData);
       }
-      case CURRENT: {
+      case RECURRENCE.CURRENT: {
         return editCurrent(changes, appointmentData);
       }
-      case CURRENT_AND_FOLLOWING: {
+      case RECURRENCE.CURRENT_AND_FOLLOWING: {
         return editCurrentAndFollowing(changes, appointmentData);
       }
     }

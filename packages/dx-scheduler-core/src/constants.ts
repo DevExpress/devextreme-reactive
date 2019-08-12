@@ -32,6 +32,8 @@ export const DAY_SHORT_MONTH_SHORT_YEAR_OPTIONS = {
   day: 'numeric', month: 'short', year: '2-digit',
 };
 
-export const ALL = 'all';
-export const CURRENT_AND_FOLLOWING = 'currentAndFollowing';
-export const CURRENT = 'current';
+export const RECURRENCE = {
+  ALL: 'all',
+  CURRENT_AND_FOLLOWING: 'currentAndFollowing',
+  CURRENT: 'current',
+};

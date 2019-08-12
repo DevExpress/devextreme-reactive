@@ -10,7 +10,7 @@ import {
   changeAppointment,
   cancelChanges,
   changedAppointmentById,
-  CURRENT,
+  RECURRENCE,
   preCommitChanges as preCommitChangesBase,
 } from '@devexpress/dx-scheduler-core';
 import { EditingStateProps, EditingStateState } from '../types';
@@ -71,7 +71,7 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
     this.cancelChangedAppointment = stateHelper.applyFieldReducer
       .bind(stateHelper, 'appointmentChanges', cancelChanges);
 
-    this.commitChangedAppointment = (type = CURRENT) => {
+    this.commitChangedAppointment = (type = RECURRENCE.CURRENT) => {
       const { appointmentChanges, editingAppointment } = this.state;
       const { onCommitChanges, preCommitChanges  } = this.props;
 

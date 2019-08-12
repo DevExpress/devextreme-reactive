@@ -11,52 +11,43 @@ const styles = ({ spacing }) => ({
   },
 });
 
-class RootBase extends React.PureComponent {
-  constructor(props) {
-    super(props);
+const RootBase = ({
+  children,
+  visible,
+  classes,
+  className,
+  container,
+  frequency,
+  ...restProps
+}) => {
+  const drawerPaperStyle = frequency !== 'never' ? {
+    position: 'absolute',
+    width: '100%',
+  } : {
+    position: 'absolute',
+    width: '50%',
+  };
 
-    this.ref = React.createRef();
-  }
+  return (
+    <Drawer
+      className={classNames(classes.root, className)}
+      PaperProps={{ style: drawerPaperStyle }}
+      BackdropProps={{ style: { position: 'absolute' } }}
+      ModalProps={{
+        container,
+        style: { position: 'absolute' },
+      }}
+      variant="temporary"
+      open={visible}
+      anchor="left"
+      transitionDuration={1000}
+      {...restProps}
+    >
+      {children}
+    </Drawer>
+  );
+};
 
-  render() {
-    const {
-      children,
-      visible,
-      classes,
-      className,
-      container,
-      frequency,
-      ...restProps
-    } = this.props;
-
-    const drawerPaperStyle = frequency !== 'never' ? {
-      position: 'absolute',
-      width: '100%',
-    } : {
-      position: 'absolute',
-      width: '50%',
-    };
-
-    return (
-      <Drawer
-        className={classNames(classes.root, className)}
-        PaperProps={{ style: drawerPaperStyle }}
-        BackdropProps={{ style: { position: 'absolute' } }}
-        ModalProps={{
-          container,
-          style: { position: 'absolute' },
-        }}
-        variant="temporary"
-        open={visible}
-        anchor="left"
-        transitionDuration={1000}
-        {...restProps}
-      >
-        {children}
-      </Drawer>
-    );
-  }
-}
 
 RootBase.propTypes = {
   children: PropTypes.node.isRequired,

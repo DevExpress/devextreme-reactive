@@ -3,7 +3,7 @@ import { createMount } from '@material-ui/core/test-utils';
 import Checkbox from '@material-ui/core/Checkbox';
 import { BooleanEditor } from './boolean-editor';
 
-describe('Appointment Form', () => {
+describe('AppointmentForm common', () => {
   let mount;
   beforeEach(() => {
     mount = createMount();

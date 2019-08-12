@@ -7,7 +7,7 @@ import {
 } from '@devexpress/dx-scheduler-core';
 import { TextEditor } from './text-editor';
 
-describe('Appointment Form common', () => {
+describe('AppointmentForm common', () => {
   const defaultProps = {
     onChange: jest.fn(),
   };

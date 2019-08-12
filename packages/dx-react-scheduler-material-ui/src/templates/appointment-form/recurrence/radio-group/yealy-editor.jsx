@@ -1,21 +1,18 @@
 import React, { useState } from 'react';
 import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import Grid from '@material-ui/core/Grid';
 import { NUMBER_EDITOR } from '@devexpress/dx-scheduler-core';
 import {
-  getNumberLabels,
-  getDaysOfWeek,
-  getMonths,
-} from '../../../utils';
-import {
   handleStartDateChange,
   handleToDayOfWeekChange,
   handleWeekNumberChange,
+  getNumberLabels,
+  getDaysOfWeek,
+  getMonths,
 } from './helpers';
 
 const styles = ({ spacing }) => ({
@@ -48,14 +45,11 @@ const styles = ({ spacing }) => ({
 
 const YearlyEditorBase = ({
   classes,
-  className,
-  onExecute,
   getMessage,
   labelComponent: Label,
   textEditorComponent: TextEditor,
   recurrenceOptions,
   onRecurrenceOptionsChange,
-  dateAndTimeEditorComponent: DateAndTimeEditor,
   switcherComponent: Switcher,
   readOnly,
   changedAppointment,
@@ -125,7 +119,6 @@ const YearlyEditorBase = ({
   return (
     <RadioGroup
       onChange={onRadioGroupValueChange}
-      className={classNames(classes.group, className)}
       value={value}
       {...restProps}
     >
@@ -223,15 +216,11 @@ const YearlyEditorBase = ({
 
 
 YearlyEditorBase.propTypes = {
-  value: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
-  className: PropTypes.string,
-  onExecute: PropTypes.func,
   getMessage: PropTypes.func,
   onRecurrenceOptionsChange: PropTypes.func,
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  dateAndTimeEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   recurrenceOptions: PropTypes.object.isRequired,
   switcherComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   changedAppointment: PropTypes.object.isRequired,
@@ -239,9 +228,7 @@ YearlyEditorBase.propTypes = {
 };
 
 YearlyEditorBase.defaultProps = {
-  className: undefined,
   onRecurrenceOptionsChange: () => undefined,
-  onExecute: () => undefined,
   getMessage: () => undefined,
   readOnly: false,
 };

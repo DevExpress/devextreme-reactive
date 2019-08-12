@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { Layout } from './layout';
 
-describe('AppointmentForm', () => {
+describe('AppointmentForm control', () => {
   const defaultProps = {
     controlButtonComponent: () => null,
     getMessage: jest.fn(),
@@ -16,7 +16,7 @@ describe('AppointmentForm', () => {
     classes = getClasses(<Layout><div /></Layout>);
     shallow = createShallow({ dive: true });
   });
-  describe('BasicLayout', () => {
+  describe('Layout', () => {
     it('should pass rest props to the root element', () => {
       const tree = shallow((
         <Layout data={{ a: 1 }} {...defaultProps}>

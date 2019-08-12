@@ -10,9 +10,6 @@ import { MonthlyEditor } from './monthly-editor';
 import { YearlyEditor } from './yealy-editor';
 
 export const RadioGroupEditor = ({
-  classes,
-  className,
-  onExecute,
   getMessage,
   labelComponent: Label,
   textEditorComponent: TextEditor,
@@ -23,7 +20,6 @@ export const RadioGroupEditor = ({
   switcherComponent: Switcher,
   id,
   changedAppointment,
-  onAppointmentFieldChange: onAppointmentFieldChange,
   ...restProps
 }) => {
   switch (id) {
@@ -50,8 +46,6 @@ export const RadioGroupEditor = ({
           labelComponent={Label}
           recurrenceOptions={recurrenceOptions}
           onRecurrenceOptionsChange={onRecurrenceOptionsChange}
-          dateAndTimeEditorComponent={DateAndTimeEditor}
-          onAppointmentFieldChange={onAppointmentFieldChange}
           changedAppointment={changedAppointment}
           switcherComponent={Switcher}
           {...restProps}
@@ -66,8 +60,6 @@ export const RadioGroupEditor = ({
           labelComponent={Label}
           recurrenceOptions={recurrenceOptions}
           onRecurrenceOptionsChange={onRecurrenceOptionsChange}
-          dateAndTimeEditorComponent={DateAndTimeEditor}
-          onAppointmentFieldChange={onAppointmentFieldChange}
           changedAppointment={changedAppointment}
           switcherComponent={Switcher}
           {...restProps}
@@ -80,21 +72,18 @@ export const RadioGroupEditor = ({
 
 
 RadioGroupEditor.propTypes = {
-  value: PropTypes.string.isRequired,
-  classes: PropTypes.object.isRequired,
-  className: PropTypes.string,
-  onExecute: PropTypes.func.isRequired,
   getMessage: PropTypes.func.isRequired,
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   dateAndTimeEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   onRecurrenceOptionsChange: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  switcherComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   recurrenceOptions: PropTypes.object.isRequired,
   readOnly: PropTypes.bool,
   id: PropTypes.string.isRequired,
+  changedAppointment: PropTypes.object.isRequired,
 };
 
 RadioGroupEditor.defaultProps = {
-  className: undefined,
   readOnly: false,
 };

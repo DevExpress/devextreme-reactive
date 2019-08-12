@@ -10,8 +10,6 @@ import { NUMBER_EDITOR } from '@devexpress/dx-scheduler-core';
 import {
   getNumberLabels,
   getDaysOfWeek,
-} from '../../../utils';
-import {
   handleStartDateChange,
   handleToDayOfWeekChange,
   handleWeekNumberChange,

@@ -3,7 +3,7 @@ import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { TITLE_LABEL } from '@devexpress/dx-scheduler-core';
 import { Label } from './label';
 
-describe('Appointment Form common', () => {
+describe('AppointmentForm common', () => {
   let shallow;
   beforeAll(() => {
     shallow = createShallow({ dive: true });

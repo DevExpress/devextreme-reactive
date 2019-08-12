@@ -24,7 +24,7 @@ describe('AppointmentForm', () => {
   afterEach(() => {
     mount.cleanUp();
   });
-  describe('Layout', () => {
+  describe('Root', () => {
     it('should pass rest props to the root element', () => {
       const tree = shallow((
         <Root data={{ a: 1 }} {...defaultProps}>

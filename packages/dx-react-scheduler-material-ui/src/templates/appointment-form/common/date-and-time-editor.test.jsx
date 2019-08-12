@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import { FULL_DATE_TIME_EDITOR } from '@devexpress/dx-scheduler-core';
 import { DateAndTimeEditor } from './date-and-time-editor';
 
-describe('Appointment Form common', () => {
+describe('AppointmentForm common', () => {
   const defaultProps = {
     onFirstDateValueChange: jest.fn(),
     onSecondDateValueChange: jest.fn(),

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@material-ui/core/test-utils';
+import { createShallow } from '@material-ui/core/test-utils';
 import { Layout } from './layout';
 import { Daily } from './layouts/daily';
 import { Weekly } from './layouts/weekly';
@@ -22,10 +22,8 @@ describe('AppointmentForm recurrence', () => {
     changedAppointment: {},
     frequency: 'daily',
   };
-  let classes;
   let shallow;
   beforeAll(() => {
-    classes = getClasses(<Layout><div /></Layout>);
     shallow = createShallow({ dive: true });
   });
   describe('Layout', () => {

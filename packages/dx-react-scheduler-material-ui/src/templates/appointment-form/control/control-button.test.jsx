@@ -10,7 +10,7 @@ import { ControlButton } from './control-button';
 import { CancelButton } from './cancel-button';
 import { DeleteButton } from './delete-button';
 
-describe('Appointment Form', () => {
+describe('AppointmentForm control', () => {
   const defaultProps = {
     onExecute: jest.fn(),
   };

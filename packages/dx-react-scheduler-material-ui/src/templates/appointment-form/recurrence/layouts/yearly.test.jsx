@@ -21,7 +21,7 @@ describe('AppointmentForm recurrence layout', () => {
     classes = getClasses(<Yearly {...defaultProps} />);
     shallow = createShallow({ dive: true });
   });
-  describe('Monthly', () => {
+  describe('Yearly', () => {
     it('should pass rest props to the root element', () => {
       const tree = shallow((
         <Yearly data={{ a: 1 }} {...defaultProps} />

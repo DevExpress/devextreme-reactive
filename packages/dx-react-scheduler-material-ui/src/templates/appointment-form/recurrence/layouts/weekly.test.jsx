@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { Weekly } from './weekly';
 
-describe('AppointmentForm', () => {
+describe('AppointmentForm recurrence layout', () => {
   const defaultProps = {
     textEditorComponent: () => null,
     labelComponent: () => null,
@@ -21,7 +21,7 @@ describe('AppointmentForm', () => {
     classes = getClasses(<Weekly {...defaultProps} />);
     shallow = createShallow({ dive: true });
   });
-  describe('Layout', () => {
+  describe('Weekly', () => {
     it('should pass rest props to the root element', () => {
       const tree = shallow((
         <Weekly data={{ a: 1 }} {...defaultProps} />

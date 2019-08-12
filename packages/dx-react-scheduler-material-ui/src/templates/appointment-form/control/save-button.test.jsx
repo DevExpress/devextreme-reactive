@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { SaveButton } from './save-button';
 
-describe('Appointment Form', () => {
+describe('AppointmentForm control', () => {
   const defaultProps = {
     onExecute: jest.fn(),
     id: 'id',

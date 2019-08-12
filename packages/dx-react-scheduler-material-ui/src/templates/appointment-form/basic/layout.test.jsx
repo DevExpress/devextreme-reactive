@@ -20,7 +20,7 @@ describe('AppointmentForm basic', () => {
     classes = getClasses(<Layout><div /></Layout>);
     shallow = createShallow({ dive: true });
   });
-  describe('Basic Layout', () => {
+  describe('Layout', () => {
     it('should pass rest props to the root element', () => {
       const tree = shallow((
         <Layout data={{ a: 1 }} {...defaultProps}>

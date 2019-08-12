@@ -476,7 +476,7 @@ export interface EditingStateProps {
 }
 
 // @public (undocumented)
-export type EditType = 'all' | 'currentAndFollowing' | 'current';
+export type RecurrenceEditType = 'all' | 'currentAndFollowing' | 'current';
 
 // @public (undocumented)
 export type FormatterFn = (nextDate: SchedulerDateTime | undefined, nextOptions: Intl.DateTimeFormatOptions) => string;
@@ -543,7 +543,7 @@ export interface MonthViewProps extends MonthViewPropsType {
 export type MonthViewPropsType = Pick<VerticalViewProps, Exclude<keyof VerticalViewProps, 'timeScaleLayoutComponent' | 'timeScaleRowComponent' | 'timeScaleCellComponent' | 'layoutComponent' | 'dayScaleEmptyCellComponent'>> & Pick<WeekViewProps, 'firstDayOfWeek'>;
 
 // @public (undocumented)
-export type PreCommitChanges = PureComputed<[Changes | null, Partial<AppointmentModel>, EditType], ChangeSet>;
+export type PreCommitChanges = PureComputed<[Changes | null, Partial<AppointmentModel>, RecurrenceEditType], ChangeSet>;
 
 // @public
 export const Scheduler: React.ComponentType<SchedulerProps>;

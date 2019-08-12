@@ -6,10 +6,10 @@ export type AppointmentChanges = { [key: string]: object };
 export type Changes = Partial<AppointmentModel>;
 export type EditAppointmentPayload = { appointmentId: AppointmentId };
 
-export type EditType = 'all' | 'currentAndFollowing' | 'current';
+export type RecurrenceEditType = 'all' | 'currentAndFollowing' | 'current';
 
 export type PreCommitChanges = PureComputed<
-  [Changes | null, Partial<AppointmentModel>, EditType], ChangeSet
+  [Changes | null, Partial<AppointmentModel>, RecurrenceEditType], ChangeSet
 >;
 
 /** @internal */

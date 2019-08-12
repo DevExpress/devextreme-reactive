@@ -130,7 +130,7 @@ class EditingMenuBase extends React.PureComponent<EditingMenuProps, EditingMenuS
                   handleClose={this.closeMenu}
                 >
                   <Layout
-                    isDelete={!!deletedAppointmentData}
+                    isDeleting={!!deletedAppointmentData}
                     buttonComponent={buttonComponent}
                     handleClose={this.closeMenu}
                     commit={commit}

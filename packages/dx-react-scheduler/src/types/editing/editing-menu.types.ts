@@ -3,7 +3,7 @@ import { AppointmentModel } from '../index';
 /* tslint:disable no-namespace max-line-length */
 export namespace EditingMenu {
   export interface LayoutProps {
-    isDelete: boolean;
+    isDeleting: boolean;
     buttonComponent: React.ComponentType<EditingMenu.ButtonProps>;
     handleClose: () => void;
     commit: () => void;

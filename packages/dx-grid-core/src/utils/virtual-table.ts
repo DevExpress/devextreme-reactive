@@ -324,7 +324,7 @@ export const getCollapsedGrid: GetCollapsedGridFn = ({
 export const getColumnWidthGetter: GetColumnWidthGetterFn = (
   tableColumns, tableWidth, minColumnWidth,
 ) => {
-  const colsHavingWidth = tableColumns.filter(col => col.width !== undefined);
+  const colsHavingWidth = tableColumns.filter(col => typeof col.width === 'number');
   const columnsWidth = colsHavingWidth.reduce((acc, col) => (acc + col.width!), 0);
   const autoWidth = (tableWidth - columnsWidth) / (tableColumns.length - colsHavingWidth.length);
   const autoColWidth = Math.max(autoWidth, minColumnWidth!);

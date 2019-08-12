@@ -6,7 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
   modal: {
-    position: 'absolute',
+    position: 'absolute!important',
   },
 };
 

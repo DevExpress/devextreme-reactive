@@ -420,14 +420,10 @@ export namespace EditingMenu {
 
 // @public (undocumented)
 export interface EditingMenuProps {
-  // (undocumented)
   buttonComponent: React.ComponentType<EditingMenu.ButtonProps>;
-  // (undocumented)
   containerComponent: React.ComponentType<EditingMenu.ContainerProps>;
-  // (undocumented)
   layoutComponent: React.ComponentType<EditingMenu.LayoutProps>;
   messages?: EditingMenu.LocalizationMessages;
-  // (undocumented)
   modalComponent: React.ComponentType<EditingMenu.ModalProps>;
 }
 

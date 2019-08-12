@@ -388,54 +388,33 @@ export const EditingMenu: React.ComponentType<EditingMenuProps>;
 
 // @public (undocumented)
 export namespace EditingMenu {
-  // (undocumented)
   export interface ButtonProps {
-    // (undocumented)
     onClick: () => void;
-    // (undocumented)
     title: string;
   }
-  // (undocumented)
   export interface ContainerProps {
-    // (undocumented)
     containerRef: React.RefObject<unknown>;
   }
-  // (undocumented)
   export interface LayoutProps {
-    // (undocumented)
     availableOperations: Array<any>;
-    // (undocumented)
     buttonComponent: React.ComponentType<EditingMenu.ButtonProps>;
-    // (undocumented)
     commit: () => void;
     getMessage: (messageKey: string) => string;
-    // (undocumented)
     handleClose: () => void;
-    // (undocumented)
     isDeleting: boolean;
   }
   export interface LocalizationMessages {
-    // (undocumented)
     all?: string;
-    // (undocumented)
-    closeButton?: string;
-    // (undocumented)
+    cancelButton?: string;
     commitButton?: string;
-    // (undocumented)
     current?: string;
-    // (undocumented)
     currentAndFollowing?: string;
-    // (undocumented)
     menuTitle?: string;
   }
-  // (undocumented)
   export interface ModalProps {
-    // (undocumented)
     containerRef: React.RefObject<unknown>;
-    // (undocumented)
     handleClose: () => void;
-    // (undocumented)
-    open: boolean;
+    isOpen: boolean;
   }
 }
 

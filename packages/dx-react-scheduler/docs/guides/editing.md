@@ -7,6 +7,8 @@ The React Scheduler allows users to create, update, and delete appointments. The
 The following plugins implement this feature:
 
 - [EditingState](../reference/editing-state.md) - controls the editing state
+- [IntegratedEditing](../reference/integrated-editing.md) - performs built-in edit processing
+- [EditingMenu](../reference/integrated-editing.md) - performs user edit processing
 - [AppointmentTooltip](../reference/appointment-tooltip.md) - renders a tooltip with controls that manage the appointment
 - [AppointmentForm](../reference/appointment-form.md) - renders a form that allows a user to edit an appointment
 - [DragDropProvider](../reference/drag-drop-provider.md) - implements drag-and-drop editing
@@ -67,7 +69,7 @@ For example, you can show a confirmation dialog before an appointment is removed
 
 ## Drag-and-Drop Editing
 
-Add the [DragDropProvider](../reference/drag-drop-provider.md) plugin to enable users to drag and drop appointments. Use its `allowDrag` and `allowResize` properties to disallow dragging and resizing specific appointments.
+Add the [DragDropProvider](../reference/drag-drop-provider.md) plugin to enable users to drag and drop appointments and the `EditingMenu` to specify editing type of recurrence appointments. Use its `allowDrag` and `allowResize` properties to disallow dragging and resizing specific appointments.
 
 .embedded-demo({ "path": "scheduler-editing/drag-drop", "showThemeSelector": true })
 

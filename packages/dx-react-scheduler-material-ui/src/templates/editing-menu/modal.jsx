@@ -11,10 +11,10 @@ const styles = {
 };
 
 const ModalBase = ({
-  children, open, handleClose, containerRef, classes, className, ...restProps
+  children, isOpen, handleClose, containerRef, classes, className, ...restProps
 }) => (
   <Dialog
-    open={open}
+    open={isOpen}
     onClose={handleClose}
     className={classNames(classes.modal, className)}
     BackdropProps={{ className: classes.modal }}
@@ -31,13 +31,13 @@ ModalBase.propTypes = {
   classes: PropTypes.object.isRequired,
   handleClose: PropTypes.func.isRequired,
   containerRef: PropTypes.object.isRequired,
-  open: PropTypes.bool,
+  isOpen: PropTypes.bool,
   className: PropTypes.string,
 };
 
 ModalBase.defaultProps = {
   className: undefined,
-  open: false,
+  isOpen: false,
 };
 
 export const Modal = withStyles(styles, { name: 'Modal' })(ModalBase);

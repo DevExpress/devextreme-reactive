@@ -126,7 +126,7 @@ class EditingMenuBase extends React.PureComponent<EditingMenuProps, EditingMenuS
               return (
                 <Modal
                   containerRef={this.modalContainer}
-                  open={isOpen}
+                  isOpen={isOpen}
                   handleClose={this.closeMenu}
                 >
                   <Layout
@@ -147,5 +147,8 @@ class EditingMenuBase extends React.PureComponent<EditingMenuProps, EditingMenuS
   }
 }
 
-/*** The EditingMenu plugin that provides a capability to edit recurrence appointments */
+/**
+ * A plugin that renders the Scheduler's editing menu.
+ * Should not be used with the `IntegratedEditing` plugin.
+ */
 export const EditingMenu: React.ComponentType<EditingMenuProps> = EditingMenuBase;

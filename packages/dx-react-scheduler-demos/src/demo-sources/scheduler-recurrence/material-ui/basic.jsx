@@ -9,10 +9,8 @@ import {
   ViewSwitcher,
   Toolbar,
   DragDropProvider,
-  AppointmentTooltip,
   EditingMenu,
 } from '@devexpress/dx-react-scheduler-material-ui';
-import Button from '@material-ui/core/Button';
 
 const appointments = [{
   title: 'Website Re-Design Plan',
@@ -22,41 +20,19 @@ const appointments = [{
   rRule: 'FREQ=DAILY;COUNT=3',
   exDate: '20180628T063500Z,20180626T063500Z',
 }, {
-  title: 'NO RECURRENCE',
-  startDate: new Date(2018, 5, 24, 9, 35),
-  endDate: new Date(2018, 5, 24, 11, 30),
+  title: 'Book Flights to San Fran for Sales Trip',
+  startDate: new Date(2018, 5, 25, 12, 11),
+  endDate: new Date(2018, 5, 25, 13, 0),
   id: 1,
-// }, {
-//   title: 'Book Flights to San Fran for Sales Trip',
-//   startDate: new Date(2018, 5, 25, 12, 11),
-//   endDate: new Date(2018, 5, 25, 13, 0),
-//   id: 1,
-//   rRule: 'FREQ=DAILY;COUNT=4',
-//   exDate: '20180627T091100Z',
-// }, {
-//   title: 'Install New Router in Dev Room',
-//   startDate: new Date(2018, 5, 25, 13, 30),
-//   endDate: new Date(2018, 5, 25, 14, 35),
-//   id: 2,
-//   rRule: 'FREQ=DAILY;COUNT=5',
+  rRule: 'FREQ=DAILY;COUNT=4',
+  exDate: '20180627T091100Z',
+}, {
+  title: 'Install New Router in Dev Room',
+  startDate: new Date(2018, 5, 25, 13, 30),
+  endDate: new Date(2018, 5, 25, 14, 35),
+  id: 2,
+  rRule: 'FREQ=DAILY;COUNT=5',
 }];
-
-const Content = ({
-  children, appointmentData, ...restProps
-}) => (
-  <AppointmentTooltip.Content {...restProps}>
-    <div>
-    </div>
-    <Button
-      variant="outlined"
-      color="primary"
-      // eslint-disable-next-line no-alert
-      onClick={() => console.log(appointmentData)}
-    >
-      Details
-    </Button>
-  </AppointmentTooltip.Content>
-);
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -90,7 +66,7 @@ export default class Demo extends React.PureComponent {
     const { data } = this.state;
 
     return (
-      <Paper style={{ margin: '50px', marginRight: '100px' }}>
+      <Paper>
         <Scheduler
           data={data}
         >
@@ -111,11 +87,6 @@ export default class Demo extends React.PureComponent {
           <ViewSwitcher />
 
           <EditingMenu />
-
-          <AppointmentTooltip
-            showDeleteButton
-            contentComponent={Content}
-          />
 
           <DragDropProvider />
         </Scheduler>

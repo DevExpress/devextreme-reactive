@@ -55,6 +55,7 @@ const SwitcherBase = ({
         labelWidth={0}
       />
     );
+
   const Icon = id === STANDARD_SWITCHER
     ? () => null : undefined;
 

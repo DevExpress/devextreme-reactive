@@ -45,32 +45,6 @@ describe('AppointmentForm basic', () => {
         .toBeTruthy();
     });
 
-    it('should pass style to the root element', () => {
-      const tree = shallow((
-        <Layout style={{ tag: 'test' }} {...defaultProps}>
-          <div />
-        </Layout>
-      ));
-
-      expect(tree.props().style)
-        .toMatchObject({
-          tag: 'test',
-        });
-    });
-
-    it('should override width style', () => {
-      const tree = shallow((
-        <Layout style={{ width: 100 }} {...defaultProps}>
-          <div />
-        </Layout>
-      ));
-
-      expect(tree.props().style)
-        .toMatchObject({
-          width: 100,
-        });
-    });
-
     it('should have style with width equal to 100% if appointment is basic', () => {
       const tree = shallow((
         <Layout {...defaultProps}>
@@ -78,28 +52,8 @@ describe('AppointmentForm basic', () => {
         </Layout>
       ));
 
-      expect(tree.props().style)
-        .toMatchObject({
-          width: '100%',
-        });
-    });
-
-    it('should have style with width equal to 65% if appointment is recurrent', () => {
-      const tree = shallow((
-        <Layout
-          {...defaultProps}
-          changedAppointment={{
-            rRule: 'test rule',
-          }}
-        >
-          <div />
-        </Layout>
-      ));
-
-      expect(tree.props().style)
-        .toMatchObject({
-          width: '65%',
-        });
+      expect(tree.is(`.${classes.fullSize}`))
+        .toBeTruthy();
     });
 
     it('should render components correctly if appointment is not recurrent', () => {
@@ -183,68 +137,43 @@ describe('AppointmentForm basic', () => {
 
       textEditors.at(0).simulate('valueChange', 'abc');
       expect(defaultProps.onAppointmentFieldChange)
-        .toBeCalledWith({
-          change: {
-            title: 'abc',
-          },
-        });
+        .toBeCalledWith({ change: { title: 'abc' } });
 
       textEditors.at(1).simulate('valueChange', 'abc');
       expect(defaultProps.onAppointmentFieldChange)
-        .toBeCalledWith({
-          change: {
-            additionalInformation: 'abc',
-          },
-        });
+        .toBeCalledWith({ change: { additionalInformation: 'abc' } });
 
       textEditors.at(2).simulate('valueChange', 'abc');
       expect(defaultProps.onAppointmentFieldChange)
-        .toBeCalledWith({
-          change: {
-            notes: 'abc',
-          },
-        });
+        .toBeCalledWith({ change: { notes: 'abc' } });
 
       const dateTimeEditor = tree.find(defaultProps.dateTimeEditorComponent);
       const testDate = new Date(2019, 1, 1, 1, 1);
 
       dateTimeEditor.at(0).simulate('firstDateValueChange', moment(testDate));
       expect(defaultProps.onAppointmentFieldChange)
-        .toBeCalledWith({
-          change: {
-            startDate: testDate,
-          },
-        });
+        .toBeCalledWith({ change: { startDate: testDate } });
 
       dateTimeEditor.at(0).simulate('secondDateValueChange', moment(testDate));
       expect(defaultProps.onAppointmentFieldChange)
-        .toBeCalledWith({
-          change: {
-            endDate: testDate,
-          },
-        });
+        .toBeCalledWith({ change: { endDate: testDate } });
 
       const allDayComponent = tree.find(defaultProps.allDayComponent);
 
       allDayComponent.at(0).simulate('valueChange', 'abc');
       expect(defaultProps.onAppointmentFieldChange)
-        .toBeCalledWith({
-          change: {
-            allDay: 'abc',
-          },
-        });
+        .toBeCalledWith({ change: { allDay: 'abc' } });
     });
 
     it('should pass children to the root component', () => {
       const tree = shallow((
         <Layout {...defaultProps}>
-          <div />
-          <div />
+          <div className="child" />
         </Layout>
       ));
 
-      expect(tree.children())
-        .toHaveLength(11);
+      expect(tree.find('.child'))
+        .toBeTruthy();
     });
   });
 });

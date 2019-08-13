@@ -5,7 +5,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import { withStyles } from '@material-ui/core/styles';
 import FilledInput from '@material-ui/core/FilledInput';
-import { OUTLINED_SWITCHER, STANDARD_SWITCHER } from '@devexpress/dx-scheduler-core';
+import { STANDARD_SWITCHER } from '@devexpress/dx-scheduler-core';
 
 
 const styles = ({ typography, palette }) => ({
@@ -42,32 +42,27 @@ const SwitcherBase = ({
     onChange(event.target.value);
   };
 
+  const Input = id === STANDARD_SWITCHER
+    ? (
+      <FilledInput
+        classes={{ input: classes.filledInput }}
+        labelWidth={0}
+      />
+    )
+    : (
+      <OutlinedInput
+        classes={{ input: classes.input, root: classes.inputRoot }}
+        labelWidth={0}
+      />
+    );
+
   return (
     <Select
       disabled={disabled}
       classes={{ root: classes.root }}
       value={value}
       onChange={handleChange}
-      {
-        ...id === OUTLINED_SWITCHER && {
-          input: (
-            <OutlinedInput
-              classes={{ input: classes.input, root: classes.inputRoot }}
-              labelWidth={0}
-            />
-          ),
-        }
-      }
-      {
-        ...id === STANDARD_SWITCHER && {
-          input: (
-            <FilledInput
-              classes={{ input: classes.filledInput }}
-              labelWidth={0}
-            />
-          ),
-        }
-      }
+      input={Input}
       {...restProps}
     >
       {availableOptions.map(option => (

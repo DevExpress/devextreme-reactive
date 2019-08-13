@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-react-scheduler",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Composable plugin-based scheduler component for React",
   "author": {
     "name": "Developer Express Inc.",
@@ -50,9 +50,9 @@
     "@babel/plugin-transform-runtime": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
-    "@devexpress/dx-core": "2.0.1",
-    "@devexpress/dx-react-core": "2.0.1",
-    "@devexpress/dx-testing": "2.0.1",
+    "@devexpress/dx-core": "2.0.2",
+    "@devexpress/dx-react-core": "2.0.2",
+    "@devexpress/dx-testing": "2.0.2",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^24.8.0",
     "core-js": "^3.1.4",
@@ -71,11 +71,11 @@
     "typescript": "^3.5.3"
   },
   "dependencies": {
-    "@devexpress/dx-scheduler-core": "2.0.1"
+    "@devexpress/dx-scheduler-core": "2.0.2"
   },
   "peerDependencies": {
-    "@devexpress/dx-core": "2.0.1",
-    "@devexpress/dx-react-core": "2.0.1",
+    "@devexpress/dx-core": "2.0.2",
+    "@devexpress/dx-react-core": "2.0.2",
     "moment": "^2.24.0",
     "react": ">=16.8.6",
     "react-dom": ">=16.8.6"

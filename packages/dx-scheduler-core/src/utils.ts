@@ -1,6 +1,6 @@
 import moment from 'moment';
 import { CustomFunction, PureComputed } from '@devexpress/dx-core';
-import { RRule, rrulestr, RRuleSet } from 'rrule';
+import { RRule, RRuleSet } from 'rrule';
 import { HORIZONTAL_TYPE, VERTICAL_TYPE } from './constants';
 import {
   ComputedHelperFn, ViewPredicateFn,
@@ -313,18 +313,27 @@ export const filterByViewBoundaries: PureComputed<
       : [];
   }
 
+  const appointmentStartDate = moment(appointment.start).toDate();
   const options = {
     ...RRule.parseString(appointment.rRule),
-    dtstart: moment(appointment.start).toDate(), // toUTCString() ???
+    dtstart: new Date(getUTCDate(appointmentStartDate)),
   };
-  let rruleSet = new RRuleSet();
+
+  const rruleSet = new RRuleSet();
+
   if (appointment.exDate) {
-    rruleSet = rrulestr(`EXDATE:${appointment.exDate}`, { forceset: true }) as RRuleSet;
+    appointment.exDate.split(',').reduce((acc: Date[], date: string) => {
+      const currentExDate = moment(date).toDate();
+      rruleSet.exdate(new Date(getUTCDate(currentExDate)));
+    }, []);
   }
 
   rruleSet.rrule(new RRule(options));
 
-  const datesInBoundaries = rruleSet.between(leftBound as Date, rightBound as Date);
+  // According to https://github.com/jakubroztocil/rrule#important-use-utc-dates
+  // we have to format the dates we get from RRuleSet to get local dates
+  const datesInBoundaries = rruleSet.between(leftBound as Date, rightBound as Date).map(date =>
+    moment.utc(date).format('YYYY-MM-DD HH:mm'));
   if (datesInBoundaries.length === 0) return [];
 
   const appointmentDuration = moment(appointment.end)
@@ -342,3 +351,12 @@ export const filterByViewBoundaries: PureComputed<
     end: moment(startDate).add(appointmentDuration, 'minutes'),
   }));
 };
+
+const getUTCDate: PureComputed<[Date], number> = date =>
+  Date.UTC(
+    date.getFullYear(),
+    date.getMonth(),
+    date.getDate(),
+    date.getHours(),
+    date.getMinutes(),
+);

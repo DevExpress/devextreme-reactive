@@ -88,11 +88,14 @@ export const createRowCache = (pageSize = 100, capacity = Number.POSITIVE_INFINI
         const pageStart = skip + i * pageSize;
         const chunk = cache.getPage(pageStart);
 
-        // add incomplete page to result only if it is last one
+        if (chunk !== null) {
+          result = result.concat(chunk);
+        }
+
+        // yield if last page is incomplete
         if (chunk === null || (i !== pageCount - 1 && chunk.length !== pageSize)) {
           return result;
         }
-        result = result.concat(chunk);
       }
       return result;
     },

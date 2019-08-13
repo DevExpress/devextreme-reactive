@@ -136,6 +136,7 @@ class AppointmentFormContainerBasic extends React.PureComponent {
       visible,
       visibleChange,
       appointmentData,
+      cancelAppointment,
     } = this.props;
     const { appointmentChanges } = this.state;
 
@@ -171,11 +172,20 @@ class AppointmentFormContainerBasic extends React.PureComponent {
     return (
       <AppointmentForm.Popup
         visible={visible}
-        onBackdropClick={visibleChange}
+        onBackdropClick={() => {
+          visibleChange();
+          cancelAppointment();
+        }}
       >
         <AppointmentForm.Container className={classes.container}>
           <div className={classes.header}>
-            <IconButton className={classes.closeButton} onClick={visibleChange}>
+            <IconButton
+              className={classes.closeButton}
+              onClick={() => {
+                visibleChange();
+                cancelAppointment();
+              }}
+            >
               <Close color="action" />
             </IconButton>
           </div>
@@ -267,9 +277,11 @@ class Demo extends React.PureComponent {
       editingFormVisible: false,
       deletedAppointmentId: undefined,
       editingAppointmentId: undefined,
+      previousAppointmentId: undefined,
       addedAppointment: {},
       startDayHour: 9,
       endDayHour: 19,
+      isNewAppointment: false,
     };
 
     this.toggleConfirmationVisible = this.toggleConfirmationVisible.bind(this);
@@ -281,11 +293,24 @@ class Demo extends React.PureComponent {
     this.onAddedAppointmentChange = this.onAddedAppointmentChange.bind(this);
     this.appointmentForm = connectProps(AppointmentFormContainer, () => {
       const {
-        editingFormVisible, editingAppointmentId, data, addedAppointment,
+        editingFormVisible,
+        editingAppointmentId,
+        data,
+        addedAppointment,
+        isNewAppointment,
+        previousAppointmentId,
       } = this.state;
 
       const currentAppointment = data
         .filter(appointment => appointment.id === editingAppointmentId)[0] || addedAppointment;
+      const cancelAppointment = () => {
+        if (isNewAppointment) {
+          this.setState({
+            editingAppointmentId: previousAppointmentId,
+            isNewAppointment: false,
+          });
+        }
+      };
 
       return {
         visible: editingFormVisible,
@@ -293,6 +318,7 @@ class Demo extends React.PureComponent {
         commitChanges: this.commitChanges,
         visibleChange: this.toggleEditingFormVisibility,
         onEditingAppointmentIdChange: this.onEditingAppointmentIdChange,
+        cancelAppointment,
       };
     });
   }
@@ -307,7 +333,13 @@ class Demo extends React.PureComponent {
 
   onAddedAppointmentChange(addedAppointment) {
     this.setState({ addedAppointment });
-    this.onEditingAppointmentIdChange(undefined);
+    const { editingAppointmentId } = this.state;
+    if (editingAppointmentId) {
+      this.setState({
+        previousAppointmentId: editingAppointmentId,
+      });
+    }
+    this.setState({ editingAppointmentId: undefined, isNewAppointment: true });
   }
 
   setDeletedAppointmentId(id) {

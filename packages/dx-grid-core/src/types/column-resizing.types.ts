@@ -9,6 +9,21 @@ export interface TableColumnWidthInfo {
   /** A column width. */
   width: number;
 }
+
+/* tslint:disable no-namespace max-line-length */
+export namespace TableColumnResizing {
+  /** Describes additional column properties that the plugin can handle. */
+  export interface ColumnExtension {
+    /** A column name. */
+    columnName: string;
+    /** A column minimum width. */
+    minWidth?: number;
+    /** A column maximum width. */
+    maxWidth?: number;
+  }
+}
+/* tslint:enable no-namespace max-line-length */
+
 /** @internal */
 export type SpecifyWidthsFn = PureComputed<
   [TableColumn[], TableColumnWidthInfo[], (columnName: string) => void]
@@ -17,7 +32,13 @@ export type SpecifyWidthsFn = PureComputed<
 export type TableColumnsWithWidthFn = PureComputed<[TableColumn[], TableColumnWidthInfo[]]>;
 
 /** @internal */
-export type ColumnWidthPayload = { columnName: string, shift: number, minColumnWidth: number };
+export type ColumnWidthPayload = {
+  columnName: string,
+  shift: number,
+  minColumnWidth: number,
+  maxColumnWidth: number,
+  columnExtensions: Array<TableColumnResizing.ColumnExtension>,
+};
 /** @internal */
 export type ColumnWidthState = {
   columnWidths: TableColumnWidthInfo[],
@@ -26,4 +47,9 @@ export type ColumnWidthState = {
 /** @internal */
 export type ColumnWidthReducer = PureReducer<
   ColumnWidthState, ColumnWidthPayload, Partial<ColumnWidthState>
+>;
+/** @internal */
+export type ColumnSizeFn = PureComputed<
+  [TableColumn | TableColumnWidthInfo, ColumnWidthPayload],
+  number
 >;

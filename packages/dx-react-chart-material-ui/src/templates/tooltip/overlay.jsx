@@ -29,7 +29,7 @@ const popperModifiers = arrowRef => ({
 const OverlayBase = ({
   classes, className, children, target, rotated, arrowComponent: ArrowComponent, ...restProps
 }) => {
-  const [arrowRef, useRef] = React.useState(null);
+  const [arrowRef, setArrowRef] = React.useState(null);
   const placement = rotated ? RIGHT : TOP;
 
   return (
@@ -42,7 +42,7 @@ const OverlayBase = ({
       {...restProps}
     >
       {children}
-      <ArrowComponent placement={placement} ref={useRef} />
+      <ArrowComponent placement={placement} ref={setArrowRef} />
     </Popper>
   );
 };

@@ -18,8 +18,8 @@ export const changeRecurrenceInterval: ChangeRecurrenceNumberFeildFn = (
   if (!rule) return (new RRule({ interval })).toString();
   const options = RRule.parseString(rule);
   options.interval = interval;
-  const newRule = new RRule(options);
-  return newRule.toString();
+  const nextRule = new RRule(options);
+  return nextRule.toString();
 };
 
 export const getRecurrenceInterval: NumberRecurrenceRuleGetterFn = (
@@ -62,8 +62,8 @@ export const changeRecurrenceFrequency: ChangeRecurrenceNumberFeildFn = (
   if (freq === RRULE_REPEAT_TYPES.monthly || freq === RRULE_REPEAT_TYPES.yearly) {
     options.bymonthday = startDate.getDate();
   }
-  const newRule = new RRule(options);
-  return newRule.toString();
+  const nextRule = new RRule(options);
+  return nextRule.toString();
 };
 
 export const getRecurrenceFrequency: NumberRecurrenceRuleGetterFn = (
@@ -81,8 +81,8 @@ export const changeRecurrenceEndDate: ChangeRecurrenceEndDateFn = (
   if (!rule) return (new RRule({ until: endDate })).toString();
   const options = RRule.parseString(rule);
   options.until = endDate;
-  const newRule = new RRule(options);
-  return newRule.toString();
+  const nextRule = new RRule(options);
+  return nextRule.toString();
 };
 
 export const getRecurrenceEndDate: RecurrenceDateGetterFn = (
@@ -100,8 +100,8 @@ export const changeRecurrenceCount: ChangeRecurrenceNumberFeildFn = (
   if (!rule) return (new RRule({ count })).toString();
   const options = RRule.parseString(rule);
   options.count = count;
-  const newRule = new RRule(options);
-  return newRule.toString();
+  const nextRule = new RRule(options);
+  return nextRule.toString();
 };
 
 export const getRecurrenceCount: NumberRecurrenceRuleGetterFn = (
@@ -119,8 +119,8 @@ export const changeRecurrenceWeekDays: ChangeRecurrenceWeekDaysFn = (
   if (!rule) return (new RRule({ byweekday })).toString();
   const options = RRule.parseString(rule);
   options.byweekday = byweekday;
-  const newRule = new RRule(options);
-  return newRule.toString();
+  const nextRule = new RRule(options);
+  return nextRule.toString();
 };
 
 export const getRecurrenceWeekDays: RecurrenceWeekDayGetterFn = (

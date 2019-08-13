@@ -21,9 +21,6 @@ describe('AppointmentForm recurrence RadioGroup', () => {
       rRule: 'RRULE:FREQ=YEARLY',
     },
   };
-  const setState = jest.fn();
-  const useStateSpy = jest.spyOn(React, 'useState');
-  useStateSpy.mockImplementation((init => [init, setState]));
   let classes;
   let shallow;
   let mount;
@@ -37,7 +34,6 @@ describe('AppointmentForm recurrence RadioGroup', () => {
   });
   afterEach(() => {
     mount.cleanUp();
-    jest.clearAllMocks();
   });
   describe('EndRepeatEditor', () => {
     it('should pass rest props to the root element', () => {

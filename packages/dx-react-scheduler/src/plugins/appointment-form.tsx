@@ -131,6 +131,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
     switcherComponent: 'Switcher',
     recurrenceLayoutComponent: 'RecurrenceLayout',
     radioGroupEditorComponent: 'RadioGroupEditor',
+    groupedButtonsComponent: 'GroupedButtons',
   };
 
   constructor(props) {
@@ -196,6 +197,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
       switcherComponent: Switcher,
       recurrenceLayoutComponent: RecurrenceLayout,
       radioGroupEditorComponent: RadioGroupEditor,
+      groupedButtonsComponent: GroupedButtons,
       readOnly,
       messages,
       scheduler,
@@ -391,7 +393,6 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                   textEditorComponent={TextEditor}
                   dateAndTimeEditorComponent={DateAndTimeEditor}
                   labelComponent={Label}
-                  booleanEditorComponent={BooleanEditor}
                   {...changeAppointment && {
                     onRecurrenceOptionsChange: newOptions => setNewRRule(newOptions),
                     onAppointmentFieldChange: changeAppointmentField,
@@ -399,6 +400,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                   getMessage={getMessage}
                   readOnly={readOnly}
                   switcherComponent={Switcher}
+                  groupedButtonsComponent={GroupedButtons}
                 />
               );
             }}

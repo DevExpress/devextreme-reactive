@@ -34,7 +34,7 @@ const MonthlyBase = ({
   onAppointmentFieldChange,
   changedAppointment,
   switcherComponent: Switcher,
-  booleanEditorComponent,
+  groupedButtonsComponent: GroupedButtons,
   ...restProps
 }) => {
   const recurrenceOptions = getRecurrenceOptions(changedAppointment.rRule);
@@ -83,7 +83,7 @@ MonthlyBase.propTypes = {
   radioGroupEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   switcherComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  booleanEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  groupedButtonsComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   changedAppointment: PropTypes.object.isRequired,
   onRecurrenceOptionsChange: PropTypes.func,
   onAppointmentFieldChange: PropTypes.func,

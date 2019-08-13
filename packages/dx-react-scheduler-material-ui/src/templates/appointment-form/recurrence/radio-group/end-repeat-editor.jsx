@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import RadioGroup from '@material-ui/core/RadioGroup';
@@ -44,8 +44,8 @@ const EndRepeatEditorBase = ({
   changedAppointment,
   ...restProps
 }) => {
-  const [count, setCount] = useState(1);
-  const [endDate, setEndDate] = useState(changedAppointment.endDate);
+  const [count, setCount] = React.useState(1);
+  const [endDate, setEndDate] = React.useState(changedAppointment.endDate);
 
   const recurrenceOptions = getRecurrenceOptions(changedAppointment.rRule);
   const recurrenceCount = recurrenceOptions.count || count;

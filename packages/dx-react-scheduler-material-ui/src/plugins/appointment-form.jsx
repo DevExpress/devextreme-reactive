@@ -12,6 +12,7 @@ import { BooleanEditor } from '../templates/appointment-form/common/boolean-edit
 import { Switcher } from '../templates/appointment-form/common/switcher';
 import { Layout as RecurrenceLayout } from '../templates/appointment-form/recurrence/layout';
 import { RadioGroupEditor } from '../templates/appointment-form/recurrence/radio-group/radio-group-editor';
+import { GroupedButtons } from '../templates/appointment-form/recurrence/grouped-buttons';
 
 export const AppointmentForm = withComponents({
   Root,
@@ -26,4 +27,5 @@ export const AppointmentForm = withComponents({
   Switcher,
   RecurrenceLayout,
   RadioGroupEditor,
+  GroupedButtons,
 })(AppointmentFormBase);

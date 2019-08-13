@@ -30,8 +30,8 @@ const LayoutBase = ({
   labelComponent: Label,
   dateAndTimeEditorComponent: DateAndTimeEditor,
   onRecurrenceOptionsChange,
-  booleanEditorComponent: BooleanEditor,
   switcherComponent: Switcher,
+  groupedButtonsComponent: GroupedButtons,
   frequency,
   children,
   classes,
@@ -80,8 +80,8 @@ const LayoutBase = ({
           radioGroupEditorComponent={RadioGroupEditor}
           changedAppointment={changedAppointment}
           onAppointmentFieldChange={onAppointmentFieldChange}
-          booleanEditorComponent={BooleanEditor}
           switcherComponent={Switcher}
+          groupedButtonsComponent={GroupedButtons}
           {...restProps}
         />
         <Label
@@ -110,8 +110,8 @@ LayoutBase.propTypes = {
   radioGroupEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   dateAndTimeEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  booleanEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   switcherComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  groupedButtonsComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   onRecurrenceOptionsChange: PropTypes.func,
   onAppointmentFieldChange: PropTypes.func,
   children: PropTypes.node.isRequired,

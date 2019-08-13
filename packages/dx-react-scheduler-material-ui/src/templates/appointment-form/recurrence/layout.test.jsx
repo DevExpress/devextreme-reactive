@@ -18,7 +18,7 @@ describe('AppointmentForm recurrence', () => {
     labelComponent: () => null,
     radioGroupEditorComponent: () => null,
     switcherComponent: () => null,
-    booleanEditorComponent: () => null,
+    groupedButtonsComponent: () => null,
     recurrenceSwitcherComponent: () => null,
     dateAndTimeEditorComponent: () => null,
     onRecurrenceOptionsChange: jest.fn(),

@@ -33,7 +33,11 @@ const specifyWidths: SpecifyWidthsFn = (tableColumns, widths, nextColumnResizing
             onAbsence(columnName, 'wrongMode');
           }
         }
-        acc.push({ ...tableColumn, width });
+        if (width === undefined) {
+          acc.push(tableColumn);
+        } else {
+          acc.push({ ...tableColumn, width });
+        }
       } else {
         acc.push(tableColumn);
       }

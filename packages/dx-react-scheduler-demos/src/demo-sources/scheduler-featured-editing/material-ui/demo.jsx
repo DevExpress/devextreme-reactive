@@ -12,6 +12,7 @@ import {
   AppointmentTooltip,
   AppointmentForm,
   DragDropProvider,
+  EditingMenu,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { connectProps } from '@devexpress/dx-react-core';
 import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
@@ -384,6 +385,7 @@ class Demo extends React.PureComponent {
             endDayHour={endDayHour}
           />
           <MonthView />
+          <EditingMenu />
           <Appointments />
           <AppointmentTooltip
             showOpenButton

@@ -60,7 +60,7 @@ describe('EditingMenu', () => {
     expect(modal.props())
       .toEqual({
         containerRef: expect.any(Object),
-        open: false,
+        isOpen: false,
         handleClose: expect.any(Function),
         children: expect.any(Object),
       });

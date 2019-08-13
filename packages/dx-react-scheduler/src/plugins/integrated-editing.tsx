@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { Action, Plugin, Actions } from '@devexpress/dx-react-core';
+import { IntegratedEditingProps } from '../types';
 
 const pluginDependencies = [
   { name: 'EditingState' },
 ];
 
-class IntegratedEditingBase extends React.PureComponent {
+class IntegratedEditingBase extends React.PureComponent<IntegratedEditingProps> {
   static defaultProps = {
     totalCount: 0,
   };
@@ -32,4 +33,4 @@ class IntegratedEditingBase extends React.PureComponent {
 }
 
 /** A plugin that allows implementing a editing calculation logic. */
-export const IntegratedEditing = IntegratedEditingBase;
+export const IntegratedEditing: React.ComponentType<IntegratedEditingProps> = IntegratedEditingBase;

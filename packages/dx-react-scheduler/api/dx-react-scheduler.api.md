@@ -4,7 +4,6 @@
 
 ```ts
 
-import { Actions } from '@devexpress/dx-react-core';
 import moment from 'moment';
 import * as React from 'react';
 
@@ -456,20 +455,10 @@ export interface EditingStateProps {
 export type FormatterFn = (nextDate: SchedulerDateTime | undefined, nextOptions: Intl.DateTimeFormatOptions) => string;
 
 // @public
-export const IntegratedEditing: typeof IntegratedEditingBase;
+export const IntegratedEditing: React.ComponentType<IntegratedEditingProps>;
 
 // @public (undocumented)
-export class IntegratedEditingBase extends React.PureComponent {
-  // (undocumented)
-  static defaultProps: {
-    totalCount: number;
-  };
-  // (undocumented)
-  finishCommitAppointment: (payload: any, getters: any, { commitChangedAppointment }: Actions) => void;
-  // (undocumented)
-  finishDeleteAppointment: (payload: any, getters: any, { commitDeletedAppointment }: Actions) => void;
-  // (undocumented)
-  render(): JSX.Element;
+export interface IntegratedEditingProps {
 }
 
 // @public

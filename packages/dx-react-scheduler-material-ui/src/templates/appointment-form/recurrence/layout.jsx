@@ -16,10 +16,18 @@ const styles = theme => ({
   },
   label: {
     width: '8em',
-    paddingTop: theme.spacing(5),
   },
   textEditor: {
     width: '4em',
+  },
+  switcher: {
+    marginBottom: theme.spacing(3.5),
+  },
+  repeatLabel: {
+    marginBottom: theme.spacing(1),
+  },
+  radioGroup: {
+    marginTop: theme.spacing(0.5),
   },
 });
 
@@ -69,8 +77,11 @@ const LayoutBase = ({
         <Label
           label={getMessage('repeatLabel')}
           id={TITLE_LABEL}
+          className={classes.repeatLabel}
         />
-        <RecurenceSwitcher />
+        <RecurenceSwitcher
+          className={classes.switcher}
+        />
         <MainLayoutComponent
           textEditorComponent={TextEditor}
           labelComponent={Label}
@@ -88,6 +99,7 @@ const LayoutBase = ({
           label={getMessage('endRepeatLabel')}
         />
         <RadioGroupEditor
+          className={classes.radioGroup}
           id={END_REPEAT_RADIO_GROUP}
           readOnly={readOnly}
           getMessage={getMessage}

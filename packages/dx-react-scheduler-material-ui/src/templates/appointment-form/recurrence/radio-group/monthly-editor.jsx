@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
@@ -171,7 +170,6 @@ const MonthlyEditorBase = ({
               )}
               value={weekNumber}
               availableOptions={getNumberLabels(getMessage)}
-              className={classes.switcher}
             />
             <Switcher
               disabled={value !== 'onDayOfWeek'}
@@ -180,7 +178,6 @@ const MonthlyEditorBase = ({
               })}
               value={dayOfWeek}
               availableOptions={getDaysOfWeek(getMessage)}
-              className={classes.switcher}
             />
           </Grid>
         )}

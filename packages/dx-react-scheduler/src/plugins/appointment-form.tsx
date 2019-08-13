@@ -18,6 +18,7 @@ import {
   changeRecurrenceFrequency,
   getRecurrenceFrequency,
   changeRecurrenceOptions,
+  OUTLINED_SWITCHER,
 } from '@devexpress/dx-scheduler-core';
 
 import {
@@ -464,6 +465,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                     },
                   ]}
                   value={frequency}
+                  id={OUTLINED_SWITCHER}
                 />
               );
             }}

@@ -1,7 +1,5 @@
 import { ColumnSizeFn, ValidValueFn } from '../../types';
 
-const VALID_UNITS = ['auto', 'px', '%', 'em', 'rem', 'vm', 'vh', 'vmin', 'vmax'];
-
 export const getColumnSize: ColumnSizeFn = (
   columnWidths, {
     columnName, nextColumnName, nextColumnResizing, cachedWidths,
@@ -47,13 +45,15 @@ export const getColumnSize: ColumnSizeFn = (
       Math.min(nextWidth - shift, nextMaxWidth!),
     );
 
-    if (size + nextSize > width + nextWidth) {
-      size = size === minWidth!
-        ? size
-        : width + nextWidth - nextSize;
-      nextSize = nextSize === nextMinWidth!
-        ? nextSize
-        : width + nextWidth - size;
+    if (size + nextSize !== width + nextWidth) {
+      const moreThanLimit = size + nextSize > width + nextWidth;
+      const columnExpand = shift > 0;
+      // NOTE: logical XOR in TypeScript
+      if (moreThanLimit !== columnExpand) {
+        nextSize = width + nextWidth - size;
+      } else {
+        size = width + nextWidth - nextSize;
+      }
     }
 
     return [size, nextSize];
@@ -62,8 +62,8 @@ export const getColumnSize: ColumnSizeFn = (
   return [size];
 };
 
-export const isValidValue: ValidValueFn = (value) => {
+export const isValidValue: ValidValueFn = (value, validValues) => {
   const numb = parseInt(value, 10);
   const unit = numb ? value.substr(numb.toString().length) : value;
-  return VALID_UNITS.findIndex(validUnit => validUnit === unit) >= 0;
+  return validValues.findIndex(validUnit => validUnit === unit) >= 0;
 };

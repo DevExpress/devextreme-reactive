@@ -2,6 +2,9 @@ import { TABLE_DATA_TYPE } from '../table/constants';
 import { TableColumn, SpecifyWidthsFn, TableColumnsWithWidthFn } from '../../types';
 import { isValidValue } from './helpers';
 
+const VALID_UNITS = ['auto', 'px', '%', 'em', 'rem', 'vm', 'vh', 'vmin', 'vmax'];
+const ONLY_NEXT_COLUMN_RESIZE_UNIT = ['auto', '%'];
+
 const UNSET_COLUMN_WIDTH_ERROR = [
   'The "$1" column\'s width is not specified.',
   'The TableColumnResizing plugin requires that all columns have the specified width.',
@@ -10,7 +13,7 @@ const UNSET_COLUMN_WIDTH_ERROR = [
 const UNAVAILABLE_RESIZING_MODE = [
   'The "$1" column\'s width specified like non-number type.',
   'The TableColumnResizing plugin requires nextColumnResizing mode,',
-  'when some columns have non-number width.',
+  'when column width define with some non-number type.',
 ].join('\n');
 
 const INVALID_TYPE = [
@@ -29,9 +32,9 @@ const specifyWidths: SpecifyWidthsFn = (tableColumns, widths, nextColumnResizing
         if (typeof width !== 'number') {
           if (width === undefined) {
             onAbsence(columnName, 'undefinedColumn');
-          } else if (!isValidValue(width)) {
+          } else if (!isValidValue(width, VALID_UNITS)) {
             onAbsence(columnName, 'invalidType');
-          } else if (!nextColumnResizing && width === 'auto') {
+          } else if (!nextColumnResizing && isValidValue(width, ONLY_NEXT_COLUMN_RESIZE_UNIT)) {
             onAbsence(columnName, 'wrongMode');
           }
         }

@@ -62,6 +62,6 @@ export type ColumnSizeFn = PureComputed<
 export type CellWidthGetter = () => number;
 /** @internal */
 export type ValidValueFn = PureComputed<
-  [string],
+  [string, string[]],
   boolean
 >;

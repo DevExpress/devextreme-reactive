@@ -56,6 +56,9 @@ const SwitcherBase = ({
       />
     );
 
+  const Icon = id === STANDARD_SWITCHER
+    ? () => null : undefined;
+
   return (
     <Select
       disabled={disabled}
@@ -63,6 +66,7 @@ const SwitcherBase = ({
       value={value}
       onChange={handleChange}
       input={Input}
+      IconComponent={Icon}
       {...restProps}
     >
       {availableOptions.map(option => (

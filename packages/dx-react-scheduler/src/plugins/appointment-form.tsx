@@ -218,7 +218,6 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                           text={getMessage('commitCommand')}
                           onExecute={() => {
                             this.toggleVisibility();
-                            debugger
                             if (finishCommitAppointment) {
                               if (isNew) {
                                 commitAddedAppointment();

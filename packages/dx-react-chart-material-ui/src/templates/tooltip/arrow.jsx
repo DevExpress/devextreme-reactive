@@ -55,13 +55,12 @@ const BaseArrow = React.forwardRef(({
 
 BaseArrow.propTypes = {
   placement: PropTypes.string.isRequired,
+  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
-  classes: PropTypes.object,
 };
 
 BaseArrow.defaultProps = {
   className: undefined,
-  classes: undefined,
 };
 
 export const Arrow = withStyles(styles)(BaseArrow);

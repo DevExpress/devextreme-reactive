@@ -76,11 +76,11 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
       const { onCommitChanges, preCommitChanges  } = this.props;
 
       if (!editingAppointment) return;
-      const changed =  !editingAppointment.rRule
+      const changes =  !editingAppointment.rRule
         ? { changed: changedAppointmentById(appointmentChanges, editingAppointment.id!) }
         : preCommitChanges!(appointmentChanges, editingAppointment, type);
 
-      onCommitChanges(changed);
+      onCommitChanges(changes);
       this.cancelChangedAppointment();
       this.stopEditAppointment();
     };
@@ -103,7 +103,9 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
     this.commitDeletedAppointment = ({ deletedAppointmentData, type = 'current' }) => {
       const { onCommitChanges, preCommitChanges } = this.props;
 
-      const changes = preCommitChanges!(null, deletedAppointmentData, type);
+      const changes = deletedAppointmentData.rRule
+        ? preCommitChanges!(null, deletedAppointmentData, type)
+        : { deleted: deletedAppointmentData.id };
       onCommitChanges(changes);
     };
   }

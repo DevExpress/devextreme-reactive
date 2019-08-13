@@ -15,7 +15,7 @@ describe('AppointmentForm', () => {
     },
     getter: {
       appointmentChanges: jest.fn(),
-      editingAppointmentId: 10,
+      editingAppointment: { id: 10 },
     },
     action: {
       stopEditAppointment: jest.fn(),

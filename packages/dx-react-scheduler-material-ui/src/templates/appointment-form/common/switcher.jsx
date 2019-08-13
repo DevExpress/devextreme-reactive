@@ -4,8 +4,11 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import { withStyles } from '@material-ui/core/styles';
+import FilledInput from '@material-ui/core/FilledInput';
+import { OUTLINED_SWITCHER, STANDARD_SWITCHER } from '@devexpress/dx-scheduler-core';
 
-const styles = ({ typography, spacing }) => ({
+
+const styles = ({ typography, palette }) => ({
   root: {
     fontSize: typography.fontSize,
   },
@@ -20,7 +23,9 @@ const styles = ({ typography, spacing }) => ({
   },
   inputRoot: {
     width: '100%',
-    marginTop: spacing(2),
+  },
+  filledInput: {
+    background: palette.background.paper,
   },
 });
 
@@ -30,6 +35,7 @@ const SwitcherBase = ({
   onChange,
   disabled,
   classes,
+  id,
   ...restProps
 }) => {
   const handleChange = (event) => {
@@ -42,12 +48,26 @@ const SwitcherBase = ({
       classes={{ root: classes.root }}
       value={value}
       onChange={handleChange}
-      input={(
-        <OutlinedInput
-          classes={{ input: classes.input, root: classes.inputRoot }}
-          labelWidth={0}
-        />
-      )}
+      {
+        ...id === OUTLINED_SWITCHER && {
+          input: (
+            <OutlinedInput
+              classes={{ input: classes.input, root: classes.inputRoot }}
+              labelWidth={0}
+            />
+          ),
+        }
+      }
+      {
+        ...id === STANDARD_SWITCHER && {
+          input: (
+            <FilledInput
+              classes={{ input: classes.filledInput }}
+              labelWidth={0}
+            />
+          ),
+        }
+      }
       {...restProps}
     >
       {availableOptions.map(option => (
@@ -72,12 +92,14 @@ SwitcherBase.propTypes = {
     text: PropTypes.string.isRequired,
   })),
   disabled: PropTypes.bool,
+  id: PropTypes.string,
 };
 
 SwitcherBase.defaultProps = {
   disabled: false,
   onChange: () => undefined,
   availableOptions: [],
+  id: STANDARD_SWITCHER,
 };
 
 export const Switcher = withStyles(styles)(SwitcherBase, { name: 'Switcher' });

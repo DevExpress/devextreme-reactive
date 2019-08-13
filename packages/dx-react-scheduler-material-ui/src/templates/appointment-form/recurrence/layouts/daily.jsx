@@ -2,18 +2,22 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import classNames from 'classnames';
 import {
   NUMBER_EDITOR,
   getRecurrenceOptions,
 } from '@devexpress/dx-scheduler-core';
 
-const styles = theme => ({
+const styles = ({ spacing }) => ({
   label: {
     width: '8em',
-    paddingTop: theme.spacing(5),
   },
   textEditor: {
     width: '4em',
+    marginTop: spacing(2.375),
+  },
+  grid: {
+    marginTop: spacing(0.875),
   },
 });
 
@@ -29,6 +33,7 @@ const DailyBase = ({
   changedAppointment,
   switcherComponent: Switcher,
   groupedButtonsComponent: GroupedButtons,
+  className,
   ...restProps
 }) => {
   const recurrenceOptions = getRecurrenceOptions(changedAppointment.rRule);
@@ -37,6 +42,8 @@ const DailyBase = ({
       container
       direction="row"
       justify="flex-start"
+      alignItems="center"
+      className={classNames(classes.grid, className)}
       {...restProps}
     >
       <Label

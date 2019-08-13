@@ -133,13 +133,12 @@ const YearlyEditorBase = ({
             container
             direction="row"
             justify="flex-start"
+            alignItems="center"
           >
             <Label
               label={getMessage('repeatEveryLabel')}
-              className={classes.label}
             />
             <Switcher
-              className={classes.switcher}
               disabled={value !== 'onDayAndMonth'}
               onChange={newMonth => onRecurrenceOptionsChange({
                 ...recurrenceOptions, bymonth: newMonth,

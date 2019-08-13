@@ -16,11 +16,9 @@ const styles = theme => ({
   },
   title: {
     ...theme.typography.h6,
-    height: '2.75em',
     background: theme.palette.background.paper,
   },
   textField: {
-    height: '3.5em',
     background: theme.palette.background.paper,
   },
 });
@@ -39,11 +37,9 @@ const TextEditorBase = ({
   const textFiledType = id === NUMBER_EDITOR ? 'number' : 'text';
   return (
     <TextField
-      label={label}
       className={classNames(classes.editor, className)}
       value={value}
-      margin="normal"
-      variant={id === NOTES_TEXT_EDITOR ? 'outlined' : 'filled'}
+      variant={id === NOTES_TEXT_EDITOR ? 'outlined' : undefined}
       disabled={readOnly}
       onChange={({ target }) => onValueChange(target.value)}
       InputProps={{
@@ -55,7 +51,12 @@ const TextEditorBase = ({
       multiline={id === NOTES_TEXT_EDITOR}
       rows="4"
       type={textFiledType}
-
+      hiddenLabel
+      margin="normal"
+      placeholder={label}
+      inputProps={{
+        style: { paddingBottom: '15px' }
+      }}
       {...restProps}
     />
   );

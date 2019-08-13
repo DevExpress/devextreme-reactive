@@ -14,12 +14,10 @@ const styles = ({ spacing, typography }) => ({
     marginRight: spacing(2),
   },
   label: {
-    paddingTop: spacing(4.75),
     width: '3em',
     marginRight: 0,
   },
   afterLabel: {
-    paddingTop: spacing(3.75),
     width: '3em',
   },
   input: {
@@ -96,6 +94,7 @@ const EndRepeatEditorBase = ({
             container
             direction="row"
             justify="flex-start"
+            alignItems="center"
           >
             <Label
               className={classes.label}
@@ -104,9 +103,6 @@ const EndRepeatEditorBase = ({
             <TextEditor
               disabled={value !== 'endAfter'}
               className={classes.textEditor}
-              InputProps={{
-                className: classes.input,
-              }}
               value={recurrenceCount}
               id={NUMBER_EDITOR}
               onValueChange={newCount => onRecurrenceOptionsChange({
@@ -129,6 +125,7 @@ const EndRepeatEditorBase = ({
             container
             direction="row"
             justify="flex-start"
+            alignItems="center"
           >
             <Label
               className={classes.afterLabel}

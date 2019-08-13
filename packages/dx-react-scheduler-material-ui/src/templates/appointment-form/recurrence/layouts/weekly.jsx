@@ -7,14 +7,13 @@ import { NUMBER_EDITOR, getRecurrenceOptions } from '@devexpress/dx-scheduler-co
 const styles = theme => ({
   label: {
     width: '8em',
-    paddingTop: theme.spacing(5),
   },
   textEditor: {
     width: '4em',
   },
   grid: {
     marginBottom: theme.spacing(2),
-  }
+  },
 });
 
 const WeeklyBase = ({
@@ -40,6 +39,7 @@ const WeeklyBase = ({
         container
         direction="row"
         justify="flex-start"
+        alignItems="center"
         className={classes.grid}
       >
         <Label

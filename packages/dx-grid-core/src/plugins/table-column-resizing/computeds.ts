@@ -1,18 +1,24 @@
 import { TABLE_DATA_TYPE } from '../table/constants';
 import { TableColumn, SpecifyWidthsFn, TableColumnsWithWidthFn } from '../../types';
 
-// const UNSET_COLUMN_WIDTH_ERROR = [
-//   'The "$1" column\'s width is not specified.',
-//   'The TableColumnResizing plugin requires that all columns have the specified width.',
-// ].join('\n');
+const UNSET_COLUMN_WIDTH_ERROR = [
+  'The "$1" column\'s width is not specified.',
+  'The TableColumnResizing plugin requires that all columns have the specified width.',
+].join('\n');
 
 const UNAVAILABLE_RESIZING_MODE = [
-  'The "$1" column\'s width specified like auto or undefined.',
+  'The "$1" column\'s width specified like non-number type.',
   'The TableColumnResizing plugin requires nextColumnResizing mode,',
-  'when some columns have "auto" or "undefined" width.',
+  'when some columns have non-number width.',
+].join('\n');
+
+const INVALID_TYPE = [
+  'The "$1" column\'s width specified like invalid type.',
+  'The TableColumnResizing plugin requires that all columns have the valid unit.',
 ].join('\n');
 
 const specifyWidths: SpecifyWidthsFn = (tableColumns, widths, nextColumnResizing, onAbsence) => {
+  console.log(tableColumns);
   if (!widths.length) return tableColumns;
   return tableColumns
     .reduce((acc, tableColumn) => {
@@ -21,13 +27,13 @@ const specifyWidths: SpecifyWidthsFn = (tableColumns, widths, nextColumnResizing
         const column = widths.find(el => el.columnName === columnName);
         const width = column && column.width;
         if (typeof width !== 'number') {
-          if (!nextColumnResizing) {
-            onAbsence(columnName);
+          if (width === undefined) {
+            onAbsence(columnName, 'undefinedColumn');
+          } else if (!nextColumnResizing) {
+            onAbsence(columnName, 'wrongMode');
           }
-          acc.push(tableColumn);
-        } else {
-          acc.push({ ...tableColumn, width: width as number });
         }
+        acc.push({ ...tableColumn, width });
       } else {
         acc.push(tableColumn);
       }
@@ -37,8 +43,12 @@ const specifyWidths: SpecifyWidthsFn = (tableColumns, widths, nextColumnResizing
 
 export const tableColumnsWithWidths: TableColumnsWithWidthFn = (
   tableColumns, columnWidths, nextColumnResizing,
-) => specifyWidths(tableColumns, columnWidths, nextColumnResizing, (columnName) => {
-  throw new Error(UNAVAILABLE_RESIZING_MODE.replace('$1', columnName));
+) => specifyWidths(tableColumns, columnWidths, nextColumnResizing, (columnName, errorType) => {
+  switch (errorType) {
+    case 'undefinedColumn': throw new Error(UNSET_COLUMN_WIDTH_ERROR.replace('$1', columnName));
+    case 'wrongMode': throw new Error(UNAVAILABLE_RESIZING_MODE.replace('$1', columnName));
+    case 'invalidType': throw new Error(INVALID_TYPE.replace('$1', columnName));
+  }
 });
 
 export const tableColumnsWithDraftWidths: TableColumnsWithWidthFn = (

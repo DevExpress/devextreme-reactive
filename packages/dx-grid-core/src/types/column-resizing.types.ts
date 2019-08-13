@@ -26,7 +26,7 @@ export namespace TableColumnResizing {
 
 /** @internal */
 export type SpecifyWidthsFn = PureComputed<
-  [TableColumn[], TableColumnWidthInfo[], boolean, (columnName: string) => void]
+  [TableColumn[], TableColumnWidthInfo[], boolean, (columnName: string, errorType: string) => void]
 >;
 /** @internal */
 export type TableColumnsWithWidthFn = PureComputed<

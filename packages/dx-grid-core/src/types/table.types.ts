@@ -29,7 +29,7 @@ export interface TableColumn {
   /** Specifies the associated user column. */
   column?: Column;
   /** Specifies the table column width. */
-  width?: number;
+  width?: number | string;
   /** Specifies the table's column alignment. */
   align?: 'left' | 'right' | 'center';
   /** Specifies the fixed table's column alignment. */

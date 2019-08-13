@@ -325,13 +325,13 @@ export const getColumnWidthGetter: GetColumnWidthGetterFn = (
   tableColumns, tableWidth, minColumnWidth,
 ) => {
   const colsHavingWidth = tableColumns.filter(col => typeof col.width === 'number');
-  const columnsWidth = colsHavingWidth.reduce((acc, col) => (acc + col.width!), 0);
+  const columnsWidth = colsHavingWidth.reduce((acc, col) => (acc + (col.width as number)!), 0);
   const autoWidth = (tableWidth - columnsWidth) / (tableColumns.length - colsHavingWidth.length);
   const autoColWidth = Math.max(autoWidth, minColumnWidth!);
 
   return column => (column.type === TABLE_FLEX_TYPE
     ? null
-    : column.width || autoColWidth);
+    : typeof column.width === 'number' ? column.width : autoColWidth);
 };
 
 export const getCollapsedGrids: GetCollapsedGridsFn = ({

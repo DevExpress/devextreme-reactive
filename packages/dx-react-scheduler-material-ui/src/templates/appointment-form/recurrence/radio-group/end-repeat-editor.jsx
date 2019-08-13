@@ -9,16 +9,12 @@ import { NUMBER_EDITOR, getRecurrenceOptions } from '@devexpress/dx-scheduler-co
 
 const styles = ({ spacing, typography }) => ({
   textEditor: {
-    width: '5em',
-    marginLeft: spacing(2),
+    width: '6em',
+    marginLeft: spacing(1.875),
     marginRight: spacing(2),
   },
   label: {
-    width: '3em',
-    marginRight: 0,
-  },
-  afterLabel: {
-    width: '3em',
+    width: '4em',
   },
   input: {
     paddingBottom: spacing(2.75),
@@ -27,7 +23,8 @@ const styles = ({ spacing, typography }) => ({
     fontSize: typography.fontSize + 1,
   },
   dateEditor: {
-    width: '70%',
+    width: '13em',
+    marginLeft: spacing(1.875),
   },
 });
 
@@ -128,7 +125,7 @@ const EndRepeatEditorBase = ({
             alignItems="center"
           >
             <Label
-              className={classes.afterLabel}
+              className={classes.label}
               label={getMessage('afterLabel')}
             />
             <DateAndTimeEditor

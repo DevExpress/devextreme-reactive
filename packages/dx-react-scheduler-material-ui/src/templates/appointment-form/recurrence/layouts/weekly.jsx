@@ -6,13 +6,14 @@ import { NUMBER_EDITOR, getRecurrenceOptions } from '@devexpress/dx-scheduler-co
 
 const styles = theme => ({
   label: {
-    width: '8em',
+    width: '7em',
   },
   textEditor: {
-    width: '4em',
+    width: '6em',
   },
   grid: {
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(1),
   },
 });
 

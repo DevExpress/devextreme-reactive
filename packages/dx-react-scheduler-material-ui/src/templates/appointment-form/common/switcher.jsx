@@ -8,7 +8,7 @@ import FilledInput from '@material-ui/core/FilledInput';
 import { STANDARD_SWITCHER } from '@devexpress/dx-scheduler-core';
 
 
-const styles = ({ typography, palette }) => ({
+const styles = ({ typography, palette, spacing }) => ({
   root: {
     fontSize: typography.fontSize,
   },
@@ -25,7 +25,11 @@ const styles = ({ typography, palette }) => ({
     width: '100%',
   },
   filledInput: {
+    paddingTop: spacing(1.125),
     background: palette.background.paper,
+  },
+  filledInputRoot: {
+
   },
 });
 
@@ -45,7 +49,7 @@ const SwitcherBase = ({
   const Input = id === STANDARD_SWITCHER
     ? (
       <FilledInput
-        classes={{ input: classes.filledInput }}
+        classes={{ input: classes.filledInput, root: classes.filledInputRoot }}
         labelWidth={0}
       />
     )

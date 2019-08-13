@@ -17,9 +17,6 @@ const styles = theme => ({
   label: {
     width: '8em',
   },
-  textEditor: {
-    width: '4em',
-  },
   switcher: {
     marginBottom: theme.spacing(3.5),
   },
@@ -28,6 +25,9 @@ const styles = theme => ({
   },
   radioGroup: {
     marginTop: theme.spacing(0.5),
+  },
+  endRepeatLabel: {
+    marginTop: theme.spacing(2),
   },
 });
 
@@ -97,6 +97,7 @@ const LayoutBase = ({
         />
         <Label
           label={getMessage('endRepeatLabel')}
+          className={classes.endRepeatLabel}
         />
         <RadioGroupEditor
           className={classes.radioGroup}

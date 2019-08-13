@@ -16,24 +16,23 @@ import { getNumberLabels, getDaysOfWeek } from './helpers';
 
 const styles = ({ spacing }) => ({
   textEditor: {
-    width: '5em',
-    marginLeft: spacing(2),
+    width: '6em',
+    marginLeft: spacing(1.875),
     marginRight: spacing(2),
   },
   input: {
     paddingBottom: spacing(2.75),
   },
   switcher: {
-    width: '38%',
-    marginRight: spacing(1),
-    height: '2em',
+    width: '6em',
+    marginLeft: spacing(1.875),
   },
   label: {
-    width: '13%',
-    marginRight: 0,
+    width: '4em',
   },
   grid: {
-    minWidth: '400px',
+    marginTop: spacing(1),
+    marginBottom: spacing(1),
   },
 });
 
@@ -170,6 +169,7 @@ const MonthlyEditorBase = ({
               )}
               value={weekNumber}
               availableOptions={getNumberLabels(getMessage)}
+              className={classes.switcher}
             />
             <Switcher
               disabled={value !== 'onDayOfWeek'}
@@ -178,6 +178,7 @@ const MonthlyEditorBase = ({
               })}
               value={dayOfWeek}
               availableOptions={getDaysOfWeek(getMessage)}
+              className={classes.switcher}
             />
           </Grid>
         )}

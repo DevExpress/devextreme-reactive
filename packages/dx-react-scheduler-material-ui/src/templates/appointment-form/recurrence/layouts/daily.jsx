@@ -10,10 +10,10 @@ import {
 
 const styles = ({ spacing }) => ({
   label: {
-    width: '8em',
+    width: '7em',
   },
   textEditor: {
-    width: '4em',
+    width: '6em',
     marginTop: spacing(2.375),
   },
   grid: {

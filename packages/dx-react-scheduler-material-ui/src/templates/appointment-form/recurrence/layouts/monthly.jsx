@@ -15,11 +15,13 @@ const styles = theme => ({
     width: '50%',
   },
   label: {
-    width: '8em',
-    paddingTop: theme.spacing(5),
+    width: '7em',
   },
   textEditor: {
-    width: '4em',
+    width: '6em',
+  },
+  grid: {
+    marginTop: theme.spacing(1),
   },
 });
 
@@ -44,6 +46,8 @@ const MonthlyBase = ({
         container
         direction="row"
         justify="flex-start"
+        alignItems="center"
+        className={classes.grid}
       >
         <Label
           label={getMessage('repeatEveryLabel')}

@@ -15,11 +15,10 @@ const styles = theme => ({
     width: '50%',
   },
   label: {
-    width: '8em',
-    paddingTop: theme.spacing(5),
+    width: '7em',
   },
   textEditor: {
-    width: '4em',
+    width: '6em',
   },
 });
 

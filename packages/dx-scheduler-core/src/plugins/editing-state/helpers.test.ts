@@ -88,7 +88,7 @@ describe('EditingState', () => {
 
         const changes = deletedCurrentAndFollowing(appointmentData);
         expect(changes).toEqual({ changed: { 0: {
-          rRule: 'FREQ=DAILY;UNTIL=20190716T142000Z',
+          rRule: 'FREQ=DAILY;UNTIL=20190717T142000Z',
         } } });
       });
 
@@ -107,7 +107,7 @@ describe('EditingState', () => {
 
         const changes = deletedCurrentAndFollowing(appointmentData);
         expect(changes).toEqual({ changed: { 0: {
-          rRule: 'FREQ=DAILY;UNTIL=20190715T142000Z',
+          rRule: 'FREQ=DAILY;UNTIL=20190717T142000Z',
           exDate: '20190716T142000Z',
         } } });
       });
@@ -127,7 +127,7 @@ describe('EditingState', () => {
 
         const changes = deletedCurrentAndFollowing(appointmentData);
         expect(changes).toEqual({ changed: { 0: {
-          rRule: 'FREQ=DAILY;UNTIL=20190715T142000Z',
+          rRule: 'FREQ=DAILY;UNTIL=20190717T142000Z',
         } } });
       });
 
@@ -284,7 +284,7 @@ describe('EditingState', () => {
         expect(editCurrentAndFollowing(changes, appointmentData)).toEqual({
           changed: {
             4: {
-              rRule: 'FREQ=DAILY;UNTIL=20190717T142000Z',
+              rRule: 'FREQ=DAILY;UNTIL=20190718T142000Z',
             },
           },
           added: {
@@ -302,7 +302,7 @@ describe('EditingState', () => {
         expect(editCurrentAndFollowing(changes, appointmentDataBase)).toEqual({
           changed: {
             4: {
-              rRule: 'FREQ=DAILY;UNTIL=20190715T142000Z',
+              rRule: 'FREQ=DAILY;UNTIL=20190717T142000Z',
             },
           },
           added: {

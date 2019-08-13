@@ -51,7 +51,7 @@ export const deletedCurrentAndFollowing: PureComputed<
   const options: Partial<Options> = {
     ...RRule.parseString(rRule),
     dtstart: moment.utc(parentData.startDate).toDate(),
-    until: moment.utc(initialSequence[currentChildIndex - 1]).toDate(),
+    until: moment.utc(initialSequence[currentChildIndex]).toDate(),
     count: null,
   };
   const rruleSet = new RRuleSet();
@@ -164,7 +164,7 @@ export const editCurrentAndFollowing: PureComputed<
   const options: Partial<Options> = {
     ...RRule.parseString(rRule),
     dtstart: moment.utc(parentData.startDate).toDate(),
-    until: moment.utc(initialSequence[currentChildIndex - 1]).toDate(),
+    until: moment.utc(initialSequence[currentChildIndex]).toDate(),
     count: null,
   };
   const rruleSet = new RRuleSet();

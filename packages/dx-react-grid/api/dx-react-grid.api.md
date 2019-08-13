@@ -692,7 +692,7 @@ export interface TableColumn {
     fixed?: 'left' | 'right';
     key: string;
     type: symbol;
-    width?: number;
+    width?: number | string;
 }
 
 // @public

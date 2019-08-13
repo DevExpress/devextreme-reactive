@@ -55,6 +55,8 @@ const SwitcherBase = ({
         labelWidth={0}
       />
     );
+  const Icon = id === STANDARD_SWITCHER
+    ? () => null : undefined;
 
   return (
     <Select
@@ -63,6 +65,7 @@ const SwitcherBase = ({
       value={value}
       onChange={handleChange}
       input={Input}
+      IconComponent={Icon}
       {...restProps}
     >
       {availableOptions.map(option => (

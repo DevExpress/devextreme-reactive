@@ -1,5 +1,6 @@
 import { TABLE_DATA_TYPE } from '../table/constants';
 import { TableColumn, SpecifyWidthsFn, TableColumnsWithWidthFn } from '../../types';
+import { isValidValue } from './helpers';
 
 const UNSET_COLUMN_WIDTH_ERROR = [
   'The "$1" column\'s width is not specified.',
@@ -18,7 +19,6 @@ const INVALID_TYPE = [
 ].join('\n');
 
 const specifyWidths: SpecifyWidthsFn = (tableColumns, widths, nextColumnResizing, onAbsence) => {
-  console.log(tableColumns);
   if (!widths.length) return tableColumns;
   return tableColumns
     .reduce((acc, tableColumn) => {
@@ -29,7 +29,9 @@ const specifyWidths: SpecifyWidthsFn = (tableColumns, widths, nextColumnResizing
         if (typeof width !== 'number') {
           if (width === undefined) {
             onAbsence(columnName, 'undefinedColumn');
-          } else if (!nextColumnResizing) {
+          } else if (!isValidValue(width)) {
+            onAbsence(columnName, 'invalidType');
+          } else if (!nextColumnResizing && width === 'auto') {
             onAbsence(columnName, 'wrongMode');
           }
         }

@@ -1,4 +1,6 @@
-import { ColumnSizeFn } from '../../types';
+import { ColumnSizeFn, ValidValueFn } from '../../types';
+
+const VALID_UNITS = ['auto', 'px', '%', 'em', 'rem', 'vm', 'vh', 'vmin', 'vmax'];
 
 export const getColumnSize: ColumnSizeFn = (
   columnWidths, {
@@ -58,4 +60,10 @@ export const getColumnSize: ColumnSizeFn = (
   }
 
   return [size];
+};
+
+export const isValidValue: ValidValueFn = (value) => {
+  const numb = parseInt(value, 10);
+  const unit = numb ? value.substr(numb.toString().length) : value;
+  return VALID_UNITS.findIndex(validUnit => validUnit === unit) >= 0;
 };

@@ -448,7 +448,7 @@ export interface EditingStateProps {
   }) => void;
   onCommitChanges: (changes: ChangeSet) => void;
   onEditingAppointmentChange?: (editingAppointment: Partial<AppointmentModel>) => void;
-  preCommitChanges?: PreCommitChanges;
+  preCommitChanges?: PreCommitChangesFn;
 }
 
 // @public (undocumented)
@@ -523,7 +523,7 @@ export interface MonthViewProps extends MonthViewPropsType {
 export type MonthViewPropsType = Pick<VerticalViewProps, Exclude<keyof VerticalViewProps, 'timeScaleLayoutComponent' | 'timeScaleRowComponent' | 'timeScaleCellComponent' | 'layoutComponent' | 'dayScaleEmptyCellComponent'>> & Pick<WeekViewProps, 'firstDayOfWeek'>;
 
 // @public (undocumented)
-export type PreCommitChanges = (changes: Changes | null, appointmentData: Partial<AppointmentModel>, type: RecurrenceEditType) => ChangeSet;
+export type PreCommitChangesFn = (changes: Changes | null, appointmentData: Partial<AppointmentModel>, type: RecurrenceEditType) => ChangeSet;
 
 // @public (undocumented)
 export type RecurrenceEditType = 'all' | 'currentAndFollowing' | 'current';

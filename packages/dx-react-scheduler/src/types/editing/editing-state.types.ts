@@ -1,4 +1,4 @@
-import { PreCommitChanges, ChangeSet, AppointmentModel } from '../index';
+import { PreCommitChangesFn, ChangeSet, AppointmentModel } from '../index';
 
 export interface EditingStateProps {
   /** The data of an appointment being edited. */
@@ -22,7 +22,7 @@ export interface EditingStateProps {
   /** Handles commiting appointment changes. */
   onCommitChanges: (changes: ChangeSet) => void;
   /** Handles commiting appointment changes. */
-  preCommitChanges?: PreCommitChanges;
+  preCommitChanges?: PreCommitChangesFn;
 }
 
 /** @internal */

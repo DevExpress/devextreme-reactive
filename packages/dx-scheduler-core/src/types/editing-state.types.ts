@@ -7,12 +7,12 @@ export type EditAppointmentPayload = { appointmentId: AppointmentId };
 
 export type RecurrenceEditType = 'all' | 'currentAndFollowing' | 'current';
 
-export type PreCommitChanges = (
+export type PreCommitChangesFn = (
   changes: Changes | null, appointmentData: Partial<AppointmentModel>, type: RecurrenceEditType,
 ) => ChangeSet;
 
 /** @internal */
-export type MakeDateSequence = (
+export type MakeDateSequenceFn = (
   rRule: string, exDate: string, options: Partial<Options>,
 ) => Array<Date>;
 

@@ -2,7 +2,7 @@ import moment from 'moment';
 import { RRule, rrulestr, RRuleSet, Options } from 'rrule';
 import { PureComputed } from '@devexpress/dx-core';
 import {
-  AppointmentModel, PreCommitChanges, ChangeSet, Changes, MakeDateSequence,
+  AppointmentModel, PreCommitChangesFn, ChangeSet, Changes, MakeDateSequenceFn,
 } from '../../types';
 import { RECURRENCE } from '../../constants';
 
@@ -120,7 +120,7 @@ export const editCurrent: PureComputed<
   };
 };
 
-const makeDateSequence: MakeDateSequence = (rRule, exDate, options) => {
+const makeDateSequence: MakeDateSequenceFn = (rRule, exDate, options) => {
   let rruleSet = new RRuleSet();
   if (exDate) {
     rruleSet = rrulestr(`EXDATE:${exDate}`, { forceset: true }) as RRuleSet;
@@ -207,7 +207,7 @@ export const editCurrentAndFollowing: PureComputed<
   };
 };
 
-export const preCommitChanges: PreCommitChanges = (
+export const preCommitChanges: PreCommitChangesFn = (
   changes, appointmentData, editType,
 ) => {
   if (changes === null) {

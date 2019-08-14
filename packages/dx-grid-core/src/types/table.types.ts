@@ -40,7 +40,7 @@ export type GridColumnExtension = {
   /** The name of the column to extend. */
   columnName: string;
   /** The table column width in pixels. */
-  width?: number;
+  width?: number | string;
   /** The table column alignment. */
   align?: 'left' | 'right' | 'center';
   /** Specifies whether word wrap is enabled in a column's cells. */
@@ -94,3 +94,8 @@ export type GetColumnAnimationsFn = PureComputed<
 export type FilterActiveAnimationsFn = PureComputed<[ColumnAnimationMap]>;
 /** @internal */
 export type EvalAnimationsFn = PureComputed<[ColumnAnimationMap], ColumnAnimationStyleMap>;
+
+/** @internal */
+export type WidthConverterFn = PureComputed<
+  [string, number | string | undefined], number | string | undefined
+>;

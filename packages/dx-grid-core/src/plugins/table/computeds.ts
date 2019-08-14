@@ -3,17 +3,19 @@ import { TABLE_DATA_TYPE, TABLE_NODATA_TYPE } from './constants';
 import { getColumnExtension } from '../../utils/column-extension';
 import { GridColumnExtension, GetCellColSpanFn } from './../../types/table.types';
 import { Row, GetRowIdFn } from '../../types';
+import { convertWidth } from './helpers'
 
 export const tableColumnsWithDataRows: PureComputed<[any[], GridColumnExtension[]]> = (
   columns, columnExtensions,
 ) => columns.map((column) => {
   const { name } = column;
   const columnExtension = getColumnExtension(columnExtensions as GridColumnExtension[], name);
+  const width = convertWidth(name, columnExtension.width);
   return {
     column,
     key: `${TABLE_DATA_TYPE.toString()}_${name}`,
     type: TABLE_DATA_TYPE,
-    width: columnExtension.width,
+    width,
     align: columnExtension.align,
     wordWrapEnabled: columnExtension.wordWrapEnabled,
   };

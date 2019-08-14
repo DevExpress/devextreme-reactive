@@ -4,7 +4,7 @@ import {
 import { GetViewportFn, TableColumnConverterFn, TableColumn } from '../../types';
 import { arraysEqual } from './utils';
 
-const VALID_UNITS = ['px'];
+const VALID_UNITS = ['px', ''];
 const INVALID_TYPE = [
   'The "$1" column\'s width specified like invalid type.',
   'The VirtualTable cannot work with relative column widths.',
@@ -70,13 +70,13 @@ export const getViewport: GetViewportFn = (
 export const checkColumnWidths: TableColumnConverterFn = (tableColumns) => {
   return tableColumns.reduce((acc, tableColumn) => {
     const { width } = tableColumn;
-    if (typeof width !== 'number' && width !== undefined) {
+    if (typeof width === 'string') {
       const numb = parseInt(width, 10);
       const unit = numb ? width.substr(numb.toString().length) : width;
-      if (!VALID_UNITS.find(validUnit => validUnit === unit)) {
+      if (VALID_UNITS.findIndex(validUnit => validUnit === unit) < 0) {
         throw new Error(INVALID_TYPE.replace('$1', tableColumn.column!.name));
       }
-      if (unit === 'px') {
+      if (unit === 'px' || unit === '') {
         acc.push({ ...tableColumn, width: numb });
       } else {
         acc.push(tableColumn);

@@ -16,33 +16,47 @@ import {
   getNumberLabels,
   getDaysOfWeek,
   getMonths,
+  getMonthsWithOf,
 } from './helpers';
 
 const styles = ({ spacing }) => ({
   textEditor: {
-    width: '5em',
+    width: '8em',
     marginLeft: spacing(2),
     marginRight: spacing(2),
+    marginTop: spacing(1.5),
   },
   shortLabel: {
     paddingTop: spacing(4),
     width: '8%',
   },
   label: {
-    paddingTop: spacing(4),
-    width: '6.5em',
+    width: '4em',
     marginRight: 0,
   },
   input: {
     paddingBottom: spacing(2.75),
   },
   switcher: {
-    width: '40%',
-    marginLeft: spacing(1),
-    marginRight: spacing(1),
+    width: '6em',
+    marginLeft: spacing(1.75),
+    marginTop: spacing(1.5),
+    marginBottom: spacing(1),
   },
-  numberEditor: {
-    width: '15%',
+  longSwitcher: {
+    width: '8em',
+    marginLeft: spacing(1.75),
+  },
+  formControlLabel: {
+    alignItems: 'flex-start',
+  },
+  doubleSwitcher: {
+    marginLeft: spacing(9.25),
+    width: '15em',
+    marginTop: spacing(1),
+  },
+  radioButton: {
+    marginTop: spacing(0.75),
   },
 });
 
@@ -136,7 +150,8 @@ const YearlyEditorBase = ({
             alignItems="center"
           >
             <Label
-              label={getMessage('repeatEveryLabel')}
+              label={getMessage('everyLabel')}
+              className={classes.label}
             />
             <Switcher
               disabled={value !== 'onDayAndMonth'}
@@ -145,9 +160,10 @@ const YearlyEditorBase = ({
               })}
               value={month}
               availableOptions={getMonths(getMessage)}
+              className={classes.switcher}
             />
             <TextEditor
-              className={classes.numberEditor}
+              className={classes.textEditor}
               disabled={value !== 'onDayAndMonth'}
               readOnly={readOnly}
               value={dayNumberTextField}
@@ -157,59 +173,62 @@ const YearlyEditorBase = ({
                 onRecurrenceOptionsChange,
                 recurrenceOptions,
               )}
+              inputProps={{
+                style: { paddingBottom: '13px' },
+              }}
             />
           </Grid>
         )}
       />
       <FormControlLabel
         value="onDayOfWeek"
-        control={<Radio color="primary" />}
+        className={classes.formControlLabel}
+        control={<Radio color="primary" className={classes.radioButton} />}
         label={(
-          <Grid
-            container
-            direction="row"
-            justify="flex-start"
-          >
-            <Label
-              className={classes.shortLabel}
-              label={getMessage('theLabel')}
-            />
-            <Switcher
-              className={classes.switcher}
-              disabled={value !== 'onDayOfWeek'}
-              onChange={newWeekNumber => handleWeekNumberChange(
-                newWeekNumber,
-                onRecurrenceOptionsChange,
-                recurrenceOptions,
-              )}
-              value={weekNumber}
-              availableOptions={getNumberLabels(getMessage)}
-            />
-            <Switcher
-              className={classes.switcher}
-              disabled={value !== 'onDayOfWeek'}
-              onChange={newWeekDay => onRecurrenceOptionsChange({
-                ...recurrenceOptions,
-                byweekday: newWeekDay > 0 ? newWeekDay - 1 : 6,
-              })}
-              value={dayOfWeek}
-              availableOptions={getDaysOfWeek(getMessage)}
+          <div>
+            <Grid
+              container
+              direction="row"
+              justify="flex-start"
+              alignItems="center"
+            >
+              <Label
+                className={classes.label}
+                label={getMessage('theLabel')}
+              />
+              <Switcher
+                className={classes.switcher}
+                disabled={value !== 'onDayOfWeek'}
+                onChange={newWeekNumber => handleWeekNumberChange(
+                  newWeekNumber,
+                  onRecurrenceOptionsChange,
+                  recurrenceOptions,
+                )}
+                value={weekNumber}
+                availableOptions={getNumberLabels(getMessage)}
+              />
+              <Switcher
+                className={classes.longSwitcher}
+                disabled={value !== 'onDayOfWeek'}
+                onChange={newWeekDay => onRecurrenceOptionsChange({
+                  ...recurrenceOptions,
+                  byweekday: newWeekDay > 0 ? newWeekDay - 1 : 6,
+                })}
+                value={dayOfWeek}
+                availableOptions={getDaysOfWeek(getMessage)}
 
-            />
-            <Label
-              label={getMessage('ofLabel')}
-              className={classes.shortLabel}
-            />
+              />
+            </Grid>
             <Switcher
-              className={classes.switcher}
+              className={classes.doubleSwitcher}
               disabled={value !== 'onDayOfWeek'}
               onChange={newMonth => onRecurrenceOptionsChange({
                 ...recurrenceOptions, bymonth: newMonth,
               })}
               value={month}
-              availableOptions={getMonths(getMessage)}
+              availableOptions={getMonthsWithOf(getMessage)}
             />
-          </Grid>
+          </div>
         )}
       />
     </RadioGroup>

@@ -102,3 +102,54 @@ export const getMonths = getMessage => [
     id: 12,
   },
 ];
+
+export const getMonthsWithOf = getMessage => [
+  {
+    text: getMessage('ofJanuaryLabel'),
+    id: 1,
+  },
+  {
+    text: getMessage('ofFebruaryLabel'),
+    id: 2,
+  },
+  {
+    text: getMessage('ofMarchLabel'),
+    id: 3,
+  },
+  {
+    text: getMessage('ofAprilLabel'),
+    id: 4,
+  },
+  {
+    text: getMessage('ofMayLabel'),
+    id: 5,
+  },
+  {
+    text: getMessage('ofJuneLabel'),
+    id: 6,
+  },
+  {
+    text: getMessage('ofJulyLabel'),
+    id: 7,
+  },
+  {
+    text: getMessage('ofAugustLabel'),
+    id: 8,
+  },
+  {
+    text: getMessage('ofSeptemberLabel'),
+    id: 9,
+  },
+  {
+    text: getMessage('ofOctoberLabel'),
+    id: 10,
+  },
+  {
+    text: getMessage('ofNovemberLabel'),
+    id: 11,
+  },
+  {
+    text: getMessage('ofDecemberLabel'),
+    id: 12,
+  },
+];

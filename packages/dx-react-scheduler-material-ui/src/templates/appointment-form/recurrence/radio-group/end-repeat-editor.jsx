@@ -23,7 +23,7 @@ const styles = ({ spacing, typography }) => ({
     fontSize: typography.fontSize + 1,
   },
   dateEditor: {
-    width: '13em',
+    width: '15em',
     marginLeft: spacing(1.875),
   },
 });

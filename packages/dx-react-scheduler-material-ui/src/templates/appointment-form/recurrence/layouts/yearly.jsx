@@ -43,6 +43,7 @@ const YearlyBase = ({
         container
         direction="row"
         justify="flex-start"
+        alignItems="center"
       >
         <Label
           label={getMessage('repeatEveryLabel')}

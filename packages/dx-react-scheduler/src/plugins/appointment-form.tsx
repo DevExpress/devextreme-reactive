@@ -78,6 +78,18 @@ const defaultMessages = {
   octoberLabel: 'October',
   novemberLabel: 'November',
   decemberLabel: 'December',
+  ofJanuaryLabel: 'of January',
+  ofFebruaryLabel: 'of February',
+  ofMarchLabel: 'of March',
+  ofAprilLabel: 'of April',
+  ofMayLabel: 'of May',
+  ofJuneLabel: 'of June',
+  ofJulyLabel: 'of July',
+  ofAugustLabel: 'of August',
+  ofSeptemberLabel: 'of September',
+  ofOctoberLabel: 'of October',
+  ofNovemberLabel: 'of November',
+  ofDecemberLabel: 'of December',
   sundayLabel: 'Sunday',
   mondayLabel: 'Monday',
   tuesdayLabel: 'Tuesday',
@@ -87,6 +99,7 @@ const defaultMessages = {
   saturdayLabel: 'Saturday',
   yearsLabel: 'year(s)',
   ofLabel: 'of',
+  everyLabel: 'Every',
 };
 
 const REPEAT_TYPES = {

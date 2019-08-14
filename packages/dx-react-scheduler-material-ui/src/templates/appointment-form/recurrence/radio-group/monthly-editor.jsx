@@ -17,7 +17,7 @@ import { getNumberLabels, getDaysOfWeek } from './helpers';
 const styles = ({ spacing }) => ({
   textEditor: {
     width: '6em',
-    marginLeft: spacing(1.875),
+    marginLeft: spacing(1.75),
     marginRight: spacing(2),
   },
   input: {
@@ -26,6 +26,10 @@ const styles = ({ spacing }) => ({
   switcher: {
     width: '6em',
     marginLeft: spacing(1.875),
+  },
+  longSwitcher: {
+    width: '8em',
+    marginLeft: spacing(1.75),
   },
   label: {
     width: '4em',
@@ -178,7 +182,7 @@ const MonthlyEditorBase = ({
               })}
               value={dayOfWeek}
               availableOptions={getDaysOfWeek(getMessage)}
-              className={classes.switcher}
+              className={classes.longSwitcher}
             />
           </Grid>
         )}

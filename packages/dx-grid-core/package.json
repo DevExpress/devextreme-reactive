@@ -41,10 +41,10 @@
   },
   "devDependencies": {
     "@devexpress/dx-core": "2.0.2",
-    "core-js": "^3.1.4",
+    "core-js": "^3.2.1",
     "jest": "^24.8.0",
-    "rollup": "^1.17.0",
-    "rollup-plugin-license": "^0.9.0",
+    "rollup": "^1.19.4",
+    "rollup-plugin-license": "^0.12.0",
     "rollup-plugin-typescript2": "^0.22.1",
     "seamless-immutable": "^7.1.4",
     "tslint": "^5.18.0",

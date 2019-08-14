@@ -59,7 +59,7 @@ const defaultMessages = {
   friLabel: 'Fri',
   satLabel: 'Sat',
   monthsLabel: 'month(s)',
-  ofEveryMonthLabel: '\'th of every month',
+  ofEveryMonthLabel: 'of every month',
   theLabel: 'The',
   firstLabel: 'First',
   secondLabel: 'Second',
@@ -100,6 +100,10 @@ const defaultMessages = {
   yearsLabel: 'year(s)',
   ofLabel: 'of',
   everyLabel: 'Every',
+  thLabel: '\'th',
+  stLabel: '\'st',
+  ndLabel: '\'nd',
+  rdLabel: '\'rd',
 };
 
 const REPEAT_TYPES = {

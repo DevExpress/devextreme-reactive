@@ -5,6 +5,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import Grid from '@material-ui/core/Grid';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import {
   NUMBER_EDITOR,
   handleStartDateChange,
@@ -39,6 +40,14 @@ const styles = ({ spacing }) => ({
     marginBottom: spacing(1),
   },
 });
+
+const getTextForOrdinalNumber = (getMessage, dayNumber) => {
+  let text = getMessage('thLabel');
+  if (dayNumber % 10 === 1) text = getMessage('stLabel');
+  if (dayNumber % 10 === 2) text = getMessage('ndLabel');
+  if (dayNumber % 10 === 3) text = getMessage('rdLabel');
+  return text;
+}
 
 const MonthlyEditorBase = ({
   classes,
@@ -83,6 +92,8 @@ const MonthlyEditorBase = ({
       }
     }
   }
+
+  const textForOrdinalNumber = getTextForOrdinalNumber(getMessage, dayNumberTextField);
 
   const onRadioGroupValueChange = (event) => {
     switch (event.target.value) {
@@ -142,6 +153,9 @@ const MonthlyEditorBase = ({
                 onRecurrenceOptionsChange,
                 recurrenceOptions,
               )}
+              InputProps={{
+                endAdornment: <InputAdornment className={classes.inputAdornment} position="end">{textForOrdinalNumber}</InputAdornment>,
+              }}
             />
             <Label
               label={getMessage('ofEveryMonthLabel')}

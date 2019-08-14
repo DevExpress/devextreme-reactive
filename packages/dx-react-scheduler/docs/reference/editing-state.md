@@ -20,9 +20,9 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-editingAppointmentId? | number &#124; string | | The identifier of an appointment being edited.
-defaultEditingAppointmentId? | number &#124; string | | The initial value of the `editingAppointmentId` property in uncontrolled mode.
-onEditingAppointmentIdChange? | (editingAppointmentId: number &#124; string) => void | | Handles changes to the `editingAppointmentId` property value.
+editingAppointment? | Partial&lt;[AppointmentModel](./scheduler.md#appointmentmodel)&gt; | | The an appointment being edited.
+defaultEditingAppointment? | Partial&lt;[AppointmentModel](./scheduler.md#appointmentmodel)&gt; | | The initial value of the `editingAppointment` property in uncontrolled mode.
+onEditingAppointmentChange? | (editingAppointment: Partial&lt;[AppointmentModel](./scheduler.md#appointmentmodel)&gt;) => void | | Handles changes to the `editingAppointment` property value.
 addedAppointment? | object | | A created but not committed appointment.
 defaultAddedAppointment? | object | | The initial value of the `addedAppointment` property in uncontrolled mode.
 onAddedAppointmentChange? | (addedAppointment: object) => void | | Handles changes to the `addedAppointment` property value.
@@ -30,6 +30,7 @@ appointmentChanges? | { [key: string]: object } | | Uncommitted appointment chan
 defaultAppointmentChanges? | { [key: string]: object } | | The initial value of the `appointmentChanges` property in uncontrolled mode.
 onAppointmentChangesChange? | (appointmentChanges: { [key: string]: any }) => void | | Handles changes to the `appointmentChanges` property value.
 onCommitChanges | (changes: [ChangeSet](#changeset)) => void | | Handles commiting appointment changes.
+preCommitChanges? | (changes: object, appointmentData: Partial&lt;[AppointmentModel](./scheduler.md#appointmentmodel)&gt;, type: `all` | `current` | `currentAndFollowing`) => [ChangeSet](#changeset) | | Handles pre commiting appointment changes.
 
 ## Interfaces
 

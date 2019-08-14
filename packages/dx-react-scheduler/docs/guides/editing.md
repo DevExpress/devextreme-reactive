@@ -41,7 +41,7 @@ Add the plugins listed above to the Scheduler and handle the `EditingState` plug
 
 In uncontrolled mode, specify the initial editing state via the following `EditingState` properties:
 
-- `defaultEditingAppointmentId` - the ID of the appointment being edited
+- `defaultEditingAppointment` - the appointment being edited
 - `defaultAddedAppointment` - the appointment being added
 - `defaultAppointmentChanges` - changes made to the appointment
 
@@ -51,7 +51,7 @@ In uncontrolled mode, specify the initial editing state via the following `Editi
 
 In controlled mode, specify the following `EditingState` properties in pairs to set a state value and handle the event when it changes:
 
-- `editingAppointmentId` and `onEditingAppointmentIdChange` - the ID of the appointment being edited
+- `editingAppointment` and `onEditingAppointmentChange` - the appointment being edited
 - `addedAppointment` and `onAddedAppointmentChange` - the appointment being added
 - `appointmentChanges` and `onAppointmentChangesChange` - changes made to the appointment
 

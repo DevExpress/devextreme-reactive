@@ -12,6 +12,22 @@ import LandingChessBoardSmallLayoutList from '../../../components/landing/featur
 import imageBoxLink from '../../images/image-box.png';
 import smallImageBoxLink from '../../images/image-box-small.png';
 import headerLink from './images/header.png';
+import barImage from './images/series/Bar.svg';
+import lineImage from './images/series/Line.svg';
+import splineImage from './images/series/Spline.svg';
+import areaImage from './images/series/Area.svg';
+import scatterImage from './images/series/Scatter.svg';
+import stackedBarImage from './images/series/Stacked-Bar.svg';
+import stackedLineImage from './images/series/Stacked-Line.svg';
+import stackedSplineImage from './images/series/Stacked-Spline.svg';
+import stackedAreaImage from './images/series/Stacked-Area.svg';
+import pieImage from './images/series/Pie.svg';
+import seriesSelectionImage from './images/Series-Selection.png';
+import seriesHoverImage from './images/Series-Hover.png';
+import zoomingScrollingImage from './images/Zooming-and-Scrolling.png';
+import customizeHTMLImage from './images/Customize-Chart-HTML.png';
+import enhanceD3Image from './images/Enhance-Charts-D3.png';
+import customizeRenderingImage from './images/Customize-Chart-Rendering.png';
 
 import LandingThingsThatMatter from '../../../components/landing/things-that-matter';
 import ButtonLinksContainer from '../../../components/landing/button-links-container';
@@ -28,43 +44,43 @@ const chartTypes = [
   {
     sectionTitle: '5 Built-in Chart Types With Customizable Series',
     title: 'Bar Chart',
-    imageLink: smallImageBoxLink,
+    imageLink: barImage,
   },
   {
     title: 'Line Chart',
-    imageLink: smallImageBoxLink,
+    imageLink: lineImage,
   },
   {
     title: 'Spline Chart',
-    imageLink: smallImageBoxLink,
+    imageLink: splineImage,
   },
   {
     title: 'Area Chart',
-    imageLink: smallImageBoxLink,
+    imageLink: areaImage,
   },
   {
     title: 'Scatter Chart',
-    imageLink: smallImageBoxLink,
+    imageLink: scatterImage,
   },
   {
     title: 'Stacked Bar Chart',
-    imageLink: smallImageBoxLink,
+    imageLink: stackedBarImage,
   },
   {
     title: 'Stacked Line Chart',
-    imageLink: smallImageBoxLink,
+    imageLink: stackedLineImage,
   },
   {
     title: 'Stacked Spline Chart',
-    imageLink: smallImageBoxLink,
+    imageLink: stackedSplineImage,
   },
   {
     title: 'Stacked Area Chart',
-    imageLink: smallImageBoxLink,
+    imageLink: stackedAreaImage,
   },
   {
     title: 'Pie Chart',
-    imageLink: smallImageBoxLink,
+    imageLink: pieImage,
   },
 ];
 const pageData = [
@@ -73,38 +89,38 @@ const pageData = [
     sectionTitle: 'Interactivity At Your Full Control',
     title: 'Series/Point Selection',
     description: 'React Chart supports both programmatic and interactive series/point selection. The selected elements can be automatically highlighted and the associated data is exposed to your application for use. The both single and multiple selection are supported.',
-    imageLink: imageBoxLink,
+    imageLink: seriesSelectionImage,
   },
   {
     alternative: true,
     title: 'Series/Point Hover & Event Tracking',
     description: 'Hover Tracking allows you to know which series or point is hovered and reflect this information in your application UI. For instance, you can show a point details in a separate or popup form. You can also track and handle other series/point mouse/touch events.',
-    imageLink: imageBoxLink,
+    imageLink: seriesHoverImage,
   },
   {
     reversed: true,
     title: 'Zooming and Scrolling',
     description: 'End-users can effeciently analyse long point series using the React Chart zooming and scrolling capabilities. We support instant zooming using mouse wheel or zoom gestures and zoom to a square region. Horizontal scrolling/panning is also available.',
-    imageLink: imageBoxLink,
+    imageLink: zoomingScrollingImage,
   },
   {
     alternative: true,
     sectionTitle: 'Wide Customization Capabilities',
     title: 'Customize Chart via HTML/CSS',
     description: 'The React Chart uses a hybrid rendering mechanism that combines HTML and SVG. This means that you can use HTML and CSS to influence layout and appearance of chart building blocks such as title and legend.',
-    imageLink: imageBoxLink,
+    imageLink: customizeHTMLImage,
   },
   {
     reversed: true,
     title: 'Enhance Charts Using D3',
     description: 'You can use the existing D3 modules to apply different kinds of custom chart behavior or data visualization. Explore our online React Chart demos and learn how we utilize the d3-scale, d3-shape, d3-format and other D3 modules.',
-    imageLink: imageBoxLink,
+    imageLink: enhanceD3Image,
   },
   {
     alternative: true,
     title: 'Customize Chart Rendering',
     description: 'The React Chart UI plugins allow you to use custom React components to render particular pieces of the React Chart UI in a custom way. All you need is to pass your custom components to the required plugins via their props.',
-    imageLink: imageBoxLink,
+    imageLink: customizeRenderingImage,
   },
 ];
 

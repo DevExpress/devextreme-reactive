@@ -10,6 +10,23 @@ import LandingReadyToLearnMore from '../../../components/landing/ready-to-learn-
 import LandingChessBoardLayoutList from '../../../components/landing/features-list';
 import imageBoxLink from '../../images/image-box.png';
 import headerLink from './images/header.png';
+import pureReactImage from './images/Pure-React.png';
+import virtualScrollingImage from './images/Virtual-Scrolling.png';
+import sortingImage from './images/Milti-Column-Sorting.png';
+import groupingImage from './images/Multi-Column-Grouping.png';
+import summariesImage from './images/Summaries.png';
+import filteringImage from './images/Multi-Column-Filtering.png';
+import searchingImage from './images/Search-Panel.png';
+import treeViewImage from './images/Tree-View.png';
+import detailRowImage from './images/Detail-Row.png';
+import actionColumnImage from './images/Action-Column.png';
+import cellEditorsImage from './images/Customizable-Cell-Editor.png';
+import batchEditingImage from './images/Batch-Editing.png';
+import selectionImage from './images/Data-Selection.png';
+import columnChooserImage from './images/Column-Chooser.png';
+import fixedColumnsImage from './images/Fixed-Columns.png';
+import columnBandsImage from './images/Column-Bands.png';
+import customUIRenderingImage from './images/Custom-UI-Rendering.png';
 
 import LandingThingsThatMatter from '../../../components/landing/things-that-matter';
 import ButtonLinksContainer from '../../../components/landing/button-links-container';
@@ -27,76 +44,76 @@ const pageData = [
     sectionTitle: 'Performance at its Best',
     title: '100% Pure React',
     description: 'We\'ve focused our energy on performance and leveraged the best practice recommendations offered by the React team. Through immutability and pure functions, we can apply memoization and built-in React optimizations to achieve outstanding performance.',
-    imageLink: imageBoxLink,
+    imageLink: pureReactImage,
   },
   {
     title: 'Virtual Scrolling',
     description: 'Virtual scrolling allows the Grid component to display thousands of records on a single page. It can render only the records that are currently visible to a user and remove them from DOM once the user scroll them out of visible range.',
-    imageLink: imageBoxLink,
+    imageLink: virtualScrollingImage,
   },
   {
     sectionTitle: 'Shape and Analyse Data as You Need',
     title: 'Milti-Column Sorting',
     description: 'Allow a user to sort data in the Grid by any number of columns. It is possible to apply and remove soring for a specific column using the command keys on your keyboard. You can also perform sorting operations on the server-side.',
-    imageLink: imageBoxLink,
+    imageLink: sortingImage,
   },
   {
     title: 'Multi-Column Grouping',
     description: 'Data grouping is a highly effective way to summarize information for end-users. You can enable grouping by one or several columns programmatically or let your end-users do it via mouse, keyboard or touch gestures on mobile devices.',
-    imageLink: imageBoxLink,
+    imageLink: groupingImage,
   },
   {
     alternative: true,
     title: 'Summaries & Data Aggregates',
     description: 'Easily turn your data Grid into an analytics tool enabling built-in data aggregation capabilities implemented as a Summary Row plugin. The Grid can calculate sums, averages, minimums, maximums and custom summary values for both separate groups and the whole data set.',
-    imageLink: imageBoxLink,
+    imageLink: summariesImage,
   },
   {
     reversed: true,
     title: 'Multi-Column Filtering',
     description: 'Intuitive column based search.  With enabled Filter Row plugin, users can filter the contents of the grid by individual column values. Based on the data type associated with a column, you can control the search operators used (Contains, Equals, etc).',
-    imageLink: imageBoxLink,
+    imageLink: filteringImage,
   },
   {
     alternative: true,
     title: 'Search Panel',
     description: 'A simple and quick way to find records. The Search Panel plugin removes all complexities associated with data filtering. Once enabled, the Search Panel allows users to enter a search string and initiate a search against all values displayed in the grid.',
-    imageLink: imageBoxLink,
+    imageLink: searchingImage,
   },
   {
     sectionTitle: 'Manage Complex Data Structures',
     title: 'Tree View Mode',
     description: 'The Tree View plugin allows you to display hierarchical data sets of any structures withing the React Grid. It smoothly integrates with other Grid plugins enabling sorting, paging, filtering and other features of a regular plain data grid.',
-    imageLink: imageBoxLink,
+    imageLink: treeViewImage,
   },
   {
     alternative: true,
     title: 'Detail Row',
     description: 'A simple and quick way to find records. The Search Panel plugin removes all complexities associated with data filtering. Once enabled, the Search Panel allows users to enter a search string and initiate a search against all values displayed in the grid.',
-    imageLink: imageBoxLink,
+    imageLink: detailRowImage,
   },
   {
     sectionTitle: 'Data Editing at Your Full Control',
     title: 'Built-in Edit Action Column',
     description: 'From a read-only to an editable React Grid in a couple lines of code. The Grid ships with a ready-to-use set of plugins that enable data editing capabilities for your end-users. As a developer, you have full control over data editing process via the plugin API.',
-    imageLink: imageBoxLink,
+    imageLink: actionColumnImage,
   },
   {
     title: 'Customizable Inplace Cell Editors',
     description: 'The React Grid ships with the Data Type Provider plugin that allows you to show custom inplace cell editors depending on a specific data type. Use what you need in your app - from standard textboxes, to date pickers and everything in between.',
-    imageLink: imageBoxLink,
+    imageLink: cellEditorsImage,
   },
   {
     reversed: true,
     title: 'Batch Editing',
     description: 'Batch modifications allow you to apply several record changes at once to improve user experience and data entry effeciency. If you work with remote data, it can also eliminate the unnecessary remote data update requests improving the overall performance.',
-    imageLink: imageBoxLink,
+    imageLink: batchEditingImage,
   },
   {
     alternative: true,
     title: 'Data Selection',
     description: 'End-users can select data rows via a click/tap on a row or using the built-in selection column with checkboxes. Depending on your business requirements you can enable the \'Select All\' checkbox and configure if it should select only current page or all available records.',
-    imageLink: imageBoxLink,
+    imageLink: selectionImage,
   },
   {
     sectionTitle: 'UI Customization For Your Users and You',
@@ -107,22 +124,22 @@ const pageData = [
   {
     title: 'Column Chooser',
     description: 'Our React Grid ships with a column chooser UI. It allows your users to show/hide required columns at runtime. You can predefine the set of visible columns and save/restore the customizations made by a end-user to the browser local storage or into a remote database.',
-    imageLink: imageBoxLink,
+    imageLink: columnChooserImage,
   },
   {
     title: 'Fixed Columns',
     description: 'Fixed Columns allow you to anchor columns to the left or rightmost edge of the Grid. These fixed columns are never scrolled horizontally and as such, allow you to create solutions that offer improved readability and visual clarity.',
-    imageLink: imageBoxLink,
+    imageLink: fixedColumnsImage,
   },
   {
     title: 'Column Bands',
     description: 'Improve your Grid UI readability via grouping your column headers into bands. Multi-level column groups are supported via a corresponding plugin that we ship with the React Grid.',
-    imageLink: imageBoxLink,
+    imageLink: columnBandsImage,
   },
   {
     title: 'Custom UI Rendering',
     description: 'We know that your requirements may go far behind the built-in React Grid capabilities. That\'s why we made everything possible to simplify UI and behavior customization. Override, modify or extend the built-in functionality according to your business needs.',
-    imageLink: imageBoxLink,
+    imageLink: customUIRenderingImage,
   },
 ];
 

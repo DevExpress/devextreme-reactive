@@ -62,8 +62,8 @@ export const getColumnSize: ColumnSizeFn = (
   return [size];
 };
 
-export const isValidValue: ValidValueFn = (value, validValues) => {
+export const isValidValue: ValidValueFn = (value, validUnits) => {
   const numb = parseInt(value, 10);
   const unit = numb ? value.substr(numb.toString().length) : value;
-  return validValues.findIndex(validUnit => validUnit === unit) >= 0;
+  return !!validUnits.find(validUnit => validUnit === unit);
 };

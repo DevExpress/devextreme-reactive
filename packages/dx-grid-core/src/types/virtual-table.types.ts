@@ -153,3 +153,8 @@ export type GridGeometry = {
 export type PageTriggersMetaFn = PureComputed<
   [GridGeometry, Getters], PageTriggersMeta | null
 >;
+
+/** @internal */
+export type TableColumnConverterFn = PureComputed<
+  [TableColumn[]], TableColumn[]
+>;

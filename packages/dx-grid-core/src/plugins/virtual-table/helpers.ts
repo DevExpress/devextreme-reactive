@@ -1,8 +1,14 @@
 import {
   getRowsVisibleBoundary, getColumnBoundaries,
 } from '../../utils/virtual-table';
-import { GetViewportFn } from '../../types';
+import { GetViewportFn, TableColumnConverterFn, TableColumn } from '../../types';
 import { arraysEqual } from './utils';
+
+const VALID_UNITS = ['px'];
+const INVALID_TYPE = [
+  'The "$1" column\'s width specified like invalid type.',
+  'The VirtualTable cannot work with relative column widths.',
+].join('\n');
 
 export const getViewport: GetViewportFn = (
   state, getters, estimatedRowHeight, getRowHeight, getColumnWidth,
@@ -59,4 +65,25 @@ export const getViewport: GetViewportFn = (
   }
 
   return result;
+};
+
+export const checkColumnWidths: TableColumnConverterFn = (tableColumns) => {
+  return tableColumns.reduce((acc, tableColumn) => {
+    const { width } = tableColumn;
+    if (typeof width !== 'number' && width !== undefined) {
+      const numb = parseInt(width, 10);
+      const unit = numb ? width.substr(numb.toString().length) : width;
+      if (!VALID_UNITS.find(validUnit => validUnit === unit)) {
+        throw new Error(INVALID_TYPE.replace('$1', tableColumn.column!.name));
+      }
+      if (unit === 'px') {
+        acc.push({ ...tableColumn, width: numb });
+      } else {
+        acc.push(tableColumn);
+      }
+    } else {
+      acc.push(tableColumn);
+    }
+    return acc;
+  }, [] as TableColumn[]);
 };

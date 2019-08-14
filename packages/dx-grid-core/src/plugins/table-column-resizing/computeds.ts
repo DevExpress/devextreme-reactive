@@ -3,7 +3,7 @@ import { TableColumn, SpecifyWidthsFn, TableColumnsWithWidthFn } from '../../typ
 import { isValidValue } from './helpers';
 
 const VALID_UNITS = ['auto', 'px', '%', 'em', 'rem', 'vm', 'vh', 'vmin', 'vmax'];
-const ONLY_NEXT_COLUMN_RESIZE_UNIT = ['auto', '%'];
+const ONLY_NEXT_COLUMN_RESIZE_UNITS = ['auto', '%'];
 
 const UNSET_COLUMN_WIDTH_ERROR = [
   'The "$1" column\'s width is not specified.',
@@ -34,7 +34,7 @@ const specifyWidths: SpecifyWidthsFn = (tableColumns, widths, nextColumnResizing
             onAbsence(columnName, 'undefinedColumn');
           } else if (!isValidValue(width, VALID_UNITS)) {
             onAbsence(columnName, 'invalidType');
-          } else if (!nextColumnResizing && isValidValue(width, ONLY_NEXT_COLUMN_RESIZE_UNIT)) {
+          } else if (!nextColumnResizing && isValidValue(width, ONLY_NEXT_COLUMN_RESIZE_UNITS)) {
             onAbsence(columnName, 'wrongMode');
           }
         }

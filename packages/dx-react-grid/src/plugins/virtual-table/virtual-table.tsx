@@ -5,9 +5,10 @@ import {
   TemplateConnector,
   TemplatePlaceholder,
   Getter,
+  Getters,
 } from '@devexpress/dx-react-core';
 import {
-  isStubTableCell,
+  isStubTableCell, checkColumnWidths,
 } from '@devexpress/dx-grid-core';
 import {
   VirtualTableProps, VirtualTableLayoutProps,
@@ -24,6 +25,12 @@ export const emptyViewport = {
   footerRows: [0, 0],
   viewportTop: 0,
   viewportLeft: 0,
+};
+
+const tableColumnsComputed = (
+  { tableColumns }: Getters,
+) => {
+  return checkColumnWidths(tableColumns);
 };
 
 /** @internal */
@@ -94,6 +101,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
           {/* prevents breaking change */}
           <Action name="setViewport" action={this.setViewport} />
           <Getter name="viewport" value={stateViewport} />
+          <Getter name="tableColumns" computed={tableColumnsComputed} />
 
           <Template name="tableLayout">
             {(params: TableLayoutProps) => (

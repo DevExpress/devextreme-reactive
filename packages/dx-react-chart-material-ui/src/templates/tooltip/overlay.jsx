@@ -49,7 +49,7 @@ const OverlayBase = ({
 
 OverlayBase.propTypes = {
   className: PropTypes.string,
-  classes: PropTypes.object,
+  classes: PropTypes.object.isRequired,
   children: PropTypes.node.isRequired,
   target: PropTypes.any.isRequired,
   rotated: PropTypes.bool.isRequired,
@@ -58,7 +58,6 @@ OverlayBase.propTypes = {
 
 OverlayBase.defaultProps = {
   className: undefined,
-  classes: undefined,
 };
 
 export const Overlay = withStyles(styles)(OverlayBase);

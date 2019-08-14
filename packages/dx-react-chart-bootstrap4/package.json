@@ -69,8 +69,8 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.14.3",
     "jest": "^24.8.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.9.0",
+    "react": "16.8.6",
+    "react-dom": "16.8.6",
     "react-test-renderer": "^16.9.0",
     "rollup": "^1.19.4",
     "rollup-plugin-babel": "^4.3.3",
@@ -87,6 +87,6 @@
     "@devexpress/dx-chart-core": "2.0.2",
     "@devexpress/dx-react-chart": "2.0.2",
     "@devexpress/dx-react-core": "2.0.2",
-    "react": ">=16.9.0"
+    "react": ">=16.8.6"
   }
 }

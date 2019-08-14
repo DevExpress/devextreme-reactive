@@ -49,8 +49,8 @@
     "enzyme": "3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "jest": "^24.8.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
+    "react": "16.8.6",
+    "react-dom": "16.8.6",
     "react-test-renderer": "^16.9.0",
     "rollup": "^1.19.4",
     "rollup-plugin-babel": "^4.3.3",
@@ -70,7 +70,7 @@
   },
   "peerDependencies": {
     "@devexpress/dx-react-core": "2.0.2",
-    "react": ">=16.9.0",
-    "react-dom": ">=16.9.0"
+    "react": ">=16.8.6",
+    "react-dom": ">=16.8.6"
   }
 }

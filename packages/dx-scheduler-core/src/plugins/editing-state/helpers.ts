@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { RRule, rrulestr, RRuleSet, Options } from 'rrule';
+import { RRule, rrulestr, RRuleSet } from 'rrule';
 import { PureComputed } from '@devexpress/dx-core';
 import {
   AppointmentModel, PreCommitChangesFn, ChangeSet, Changes, MakeDateSequenceFn,

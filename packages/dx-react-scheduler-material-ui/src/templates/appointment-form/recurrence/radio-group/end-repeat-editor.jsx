@@ -5,11 +5,12 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import Grid from '@material-ui/core/Grid';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import { NUMBER_EDITOR, getRecurrenceOptions } from '@devexpress/dx-scheduler-core';
 
 const styles = ({ spacing, typography }) => ({
   textEditor: {
-    width: '6em',
+    width: '15em',
     marginLeft: spacing(1.875),
     marginRight: spacing(2),
   },
@@ -25,6 +26,9 @@ const styles = ({ spacing, typography }) => ({
   dateEditor: {
     width: '15em',
     marginLeft: spacing(1.875),
+  },
+  inputAdornment: {
+    paddingBottom: spacing(1.25),
   },
 });
 
@@ -106,10 +110,9 @@ const EndRepeatEditorBase = ({
                 ...recurrenceOptions,
                 count: newCount,
               })}
-            />
-            <Label
-              className={classes.label}
-              label={getMessage('occurencesLabel')}
+              InputProps={{
+                endAdornment: <InputAdornment className={classes.inputAdornment} position="end">{getMessage('occurencesLabel')}</InputAdornment>,
+              }}
             />
           </Grid>
         )}

@@ -272,7 +272,7 @@ export namespace Grid {
 // @public (undocumented)
 export type GridColumnExtension = {
     columnName: string;
-    width?: number;
+    width?: number | string;
     align?: 'left' | 'right' | 'center';
     wordWrapEnabled?: boolean;
 } & IntegratedFiltering.ColumnExtension;

@@ -15,6 +15,10 @@ const styles = theme => ({
     marginBottom: theme.spacing(1),
     marginTop: theme.spacing(1.75),
   },
+  labelWithMargin: {
+    width: '7em',
+    marginLeft: theme.spacing(1.75),
+  },
 });
 
 const WeeklyBase = ({
@@ -29,6 +33,7 @@ const WeeklyBase = ({
   changedAppointment,
   switcherComponent: Switcher,
   groupedButtonsComponent: GroupedButtons,
+  formatDate,
   ...restProps
 }) => {
   const recurrenceOptions = getRecurrenceOptions(changedAppointment.rRule);
@@ -58,7 +63,7 @@ const WeeklyBase = ({
         />
         <Label
           label={getMessage('weeksOnLabel')}
-          className={classes.label}
+          className={classes.labelWithMargin}
         />
       </Grid>
       <GroupedButtons

@@ -23,6 +23,13 @@ const styles = theme => ({
   grid: {
     marginTop: theme.spacing(1.75),
   },
+  labelWithMargin: {
+    width: '7em',
+    marginLeft: theme.spacing(1.75),
+  },
+  radioGroup: {
+    marginTop: theme.spacing(1),
+  },
 });
 
 const YearlyBase = ({
@@ -37,6 +44,7 @@ const YearlyBase = ({
   changedAppointment,
   switcherComponent: Switcher,
   groupedButtonsComponent: GroupedButtons,
+  formatDate,
   ...restProps
 }) => {
   const recurrenceOptions = getRecurrenceOptions(changedAppointment.rRule);
@@ -64,7 +72,7 @@ const YearlyBase = ({
         />
         <Label
           label={getMessage('yearsLabel')}
-          className={classes.label}
+          className={classes.labelWithMargin}
         />
       </Grid>
       <RadioGroupEditor
@@ -77,6 +85,8 @@ const YearlyBase = ({
         onAppointmentFieldChange={onAppointmentFieldChange}
         changedAppointment={changedAppointment}
         switcherComponent={Switcher}
+        formatDate={formatDate}
+        className={classes.radioGroup}
       />
 
     </div>

@@ -1,3 +1,5 @@
+import { LONG_WEEK_DAY_OPTIONS } from '@devexpress/dx-scheduler-core';
+
 export const getNumberLabels = getMessage => [
   {
     text: getMessage('firstLabel'),
@@ -21,33 +23,33 @@ export const getNumberLabels = getMessage => [
   },
 ];
 
-export const getDaysOfWeek = getMessage => [
+export const getDaysOfWeek = formatDate => [
   {
-    text: getMessage('sundayLabel'),
+    text: formatDate(new Date(2019, 7, 11, 0, 0), LONG_WEEK_DAY_OPTIONS),
     id: 0,
   },
   {
-    text: getMessage('mondayLabel'),
+    text: formatDate(new Date(2019, 7, 12, 0, 0), LONG_WEEK_DAY_OPTIONS),
     id: 1,
   },
   {
-    text: getMessage('tuesdayLabel'),
+    text: formatDate(new Date(2019, 7, 13, 0, 0), LONG_WEEK_DAY_OPTIONS),
     id: 2,
   },
   {
-    text: getMessage('wednesdayLabel'),
+    text: formatDate(new Date(2019, 7, 14, 0, 0), LONG_WEEK_DAY_OPTIONS),
     id: 3,
   },
   {
-    text: getMessage('thursdayLabel'),
+    text: formatDate(new Date(2019, 7, 15, 0, 0), LONG_WEEK_DAY_OPTIONS),
     id: 4,
   },
   {
-    text: getMessage('fridayLabel'),
+    text: formatDate(new Date(2019, 7, 16, 0, 0), LONG_WEEK_DAY_OPTIONS),
     id: 5,
   },
   {
-    text: getMessage('saturdayLabel'),
+    text: formatDate(new Date(2019, 7, 17, 0, 0), LONG_WEEK_DAY_OPTIONS),
     id: 6,
   },
 ];

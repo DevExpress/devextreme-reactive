@@ -31,3 +31,4 @@ export const DAY_SHORT_MONTH_LONG_YEAR_OPTIONS = {
 export const DAY_SHORT_MONTH_SHORT_YEAR_OPTIONS = {
   day: 'numeric', month: 'short', year: '2-digit',
 };
+export const LONG_WEEK_DAY_OPTIONS = { weekday: 'long' };

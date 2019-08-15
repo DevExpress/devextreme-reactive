@@ -24,7 +24,8 @@ const styles = ({ spacing }) => ({
     width: '8em',
     marginLeft: spacing(2),
     marginRight: spacing(2),
-    marginTop: spacing(1),
+    marginTop: spacing(1.5),
+    marginBottom: spacing(1),
   },
   shortLabel: {
     paddingTop: spacing(4),
@@ -39,20 +40,17 @@ const styles = ({ spacing }) => ({
   },
   switcher: {
     width: '6em',
-    marginLeft: spacing(1.75),
-    marginTop: spacing(1.5),
-    marginBottom: spacing(1),
+    marginLeft: spacing(1.875),
   },
   longSwitcher: {
     width: '8em',
     marginLeft: spacing(1.75),
-    marginTop: spacing(0.25),
   },
   formControlLabel: {
     alignItems: 'flex-start',
   },
   doubleSwitcher: {
-    marginLeft: spacing(9.25),
+    marginLeft: spacing(9.75),
     width: '15em',
     marginTop: spacing(1),
   },
@@ -70,6 +68,7 @@ const YearlyEditorBase = ({
   switcherComponent: Switcher,
   readOnly,
   changedAppointment,
+  formatDate,
   ...restProps
 }) => {
   const [dayNumber, setDayNumber] = useState(changedAppointment.startDate.getDate());
@@ -213,7 +212,7 @@ const YearlyEditorBase = ({
                   byweekday: newWeekDay > 0 ? newWeekDay - 1 : 6,
                 })}
                 value={dayOfWeek}
-                availableOptions={getDaysOfWeek(getMessage)}
+                availableOptions={getDaysOfWeek(formatDate)}
 
               />
             </Grid>

@@ -385,6 +385,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               editingAppointmentId,
               addedAppointment,
               appointmentChanges,
+              formatDate,
             }, {
               changeAddedAppointment,
               changeAppointment,
@@ -419,6 +420,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                   readOnly={readOnly}
                   switcherComponent={Switcher}
                   groupedButtonsComponent={GroupedButtons}
+                  formatDate={formatDate}
                 />
               );
             }}

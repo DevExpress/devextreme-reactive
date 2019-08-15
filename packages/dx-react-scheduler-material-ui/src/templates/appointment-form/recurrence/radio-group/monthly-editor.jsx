@@ -18,7 +18,7 @@ import { getNumberLabels, getDaysOfWeek } from './helpers';
 const styles = ({ spacing }) => ({
   textEditor: {
     width: '6em',
-    marginLeft: spacing(1.75),
+    marginLeft: spacing(1.875),
     marginRight: spacing(2),
   },
   input: {
@@ -46,6 +46,7 @@ const getTextForOrdinalNumber = (getMessage, dayNumber) => {
   if (dayNumber % 10 === 1) text = getMessage('stLabel');
   if (dayNumber % 10 === 2) text = getMessage('ndLabel');
   if (dayNumber % 10 === 3) text = getMessage('rdLabel');
+
   return text;
 };
 
@@ -60,8 +61,10 @@ const MonthlyEditorBase = ({
   switcherComponent: Switcher,
   readOnly,
   changedAppointment,
+  formatDate,
   ...restProps
 }) => {
+  console.log(formatDate);
   const [dayNumber, setDayNumber] = useState(changedAppointment.startDate.getDate());
   const [stateWeekNumber, setStateWeekNumber] = useState(
     Math.trunc((changedAppointment.startDate.getDate() - 1) / 7),
@@ -93,7 +96,7 @@ const MonthlyEditorBase = ({
     }
   }
 
-  const textForOrdinalNumber = getTextForOrdinalNumber(getMessage, dayNumberTextField);
+  const textForOrdinalNumber = getTextForOrdinalNumber(getMessage, dayNumberTextField, formatDate);
 
   const onRadioGroupValueChange = (event) => {
     switch (event.target.value) {
@@ -195,7 +198,7 @@ const MonthlyEditorBase = ({
                 ...recurrenceOptions, byweekday: newWeekDay > 0 ? newWeekDay - 1 : 6,
               })}
               value={dayOfWeek}
-              availableOptions={getDaysOfWeek(getMessage)}
+              availableOptions={getDaysOfWeek(formatDate)}
               className={classes.longSwitcher}
             />
           </Grid>

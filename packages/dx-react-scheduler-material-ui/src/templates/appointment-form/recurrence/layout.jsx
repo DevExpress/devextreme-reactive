@@ -49,6 +49,7 @@ const LayoutBase = ({
   readOnly,
   onAppointmentFieldChange,
   changedAppointment,
+  formatDate,
   ...restProps
 }) => {
   let MainLayoutComponent = null;
@@ -94,6 +95,7 @@ const LayoutBase = ({
           onAppointmentFieldChange={onAppointmentFieldChange}
           switcherComponent={Switcher}
           groupedButtonsComponent={GroupedButtons}
+          formatDate={formatDate}
           {...restProps}
         />
         <Label

@@ -12,6 +12,10 @@ const styles = ({ spacing }) => ({
   label: {
     width: '7em',
   },
+  labelWithMargin: {
+    width: '7em',
+    marginLeft: spacing(1.75),
+  },
   textEditor: {
     width: '6em',
   },
@@ -33,6 +37,7 @@ const DailyBase = ({
   switcherComponent: Switcher,
   groupedButtonsComponent: GroupedButtons,
   className,
+  formatDate,
   ...restProps
 }) => {
   const recurrenceOptions = getRecurrenceOptions(changedAppointment.rRule);
@@ -60,7 +65,7 @@ const DailyBase = ({
       />
       <Label
         label={getMessage('daysLabel')}
-        className={classes.label}
+        className={classes.labelWithMargin}
       />
     </Grid>
   );

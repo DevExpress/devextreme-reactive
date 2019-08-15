@@ -22,7 +22,6 @@ const styles = ({ typography, spacing }) => ({
     ...typography.body2,
     width: '10%',
     textAlign: 'center',
-    paddingTop: spacing(0.5),
   },
   partial: {
     width: '100%',

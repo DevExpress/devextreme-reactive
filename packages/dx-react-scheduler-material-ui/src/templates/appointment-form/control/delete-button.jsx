@@ -5,10 +5,8 @@ import IconButton from '@material-ui/core/IconButton';
 import classNames from 'classnames';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-const styles = ({ spacing }) => ({
+const styles = () => ({
   button: {
-    height: spacing(3.5),
-    padding: spacing(0.5),
     marginRight: 'auto',
   },
 });

@@ -14,6 +14,7 @@ const styles = theme => ({
     width: '65%',
     overflowY: 'auto',
     paddingTop: theme.spacing(3),
+    paddingLeft: theme.spacing(2.125),
     paddingBottom: 0,
   },
   fullSize: {

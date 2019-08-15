@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 import classNames from 'classnames';
 import {
   SAVE_BUTTON,
@@ -27,8 +28,10 @@ const LayoutBase = ({
   className,
   ...restProps
 }) => (
-  <div
+  <Grid
     className={classNames(classes.root, className)}
+    container
+    alignItems="center"
     {...restProps}
   >
     <ControlButton
@@ -47,7 +50,7 @@ const LayoutBase = ({
       id={SAVE_BUTTON}
     />
     {children}
-  </div>
+  </Grid>
 );
 
 LayoutBase.propTypes = {

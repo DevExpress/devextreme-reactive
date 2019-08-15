@@ -203,19 +203,19 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
 
   render() {
     const {
-      layoutComponent: Layout,
-      controlLayoutComponent: ControlLayout,
-      controlButtonComponent: ControlButton,
       rootComponent: Root,
+      layoutComponent: Layout,
+      controlLayoutComponent: ControlLayout, // rename to commandLayoutComponent
       basicLayoutComponent: BasicLayout,
+      recurrenceLayoutComponent: RecurrenceLayout,
+      controlButtonComponent: CommandButton, // rename to commandButtonComponent
       textEditorComponent: TextEditor,
       labelComponent: Label,
-      dateAndTimeEditorComponent: DateAndTimeEditor,
+      dateAndTimeEditorComponent: DateAndTimeEditor, // rename to dateEditorComponent
       booleanEditorComponent: BooleanEditor,
-      switcherComponent: Switcher,
-      recurrenceLayoutComponent: RecurrenceLayout,
-      radioGroupEditorComponent: RadioGroupEditor,
-      groupedButtonsComponent: GroupedButtons,
+      switcherComponent: Switcher, // rename to selectComponent
+      radioGroupEditorComponent: RadioGroupEditor, // rename to radioGroup component
+      groupedButtonsComponent: GroupedButtons, // rename to buttonGroupCompinent
       readOnly,
       messages,
       scheduler,
@@ -332,7 +332,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
 
               return (
                 <ControlLayout
-                  controlButtonComponent={ControlButton}
+                  controlButtonComponent={CommandButton}
                   commitAppointment={commitAppointment}
                   cancelCommit={cancelCommit}
                   deleteAppointment={deleteAppointment}

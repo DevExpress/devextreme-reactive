@@ -2,27 +2,6 @@ import { AppointmentModel } from '../index';
 
 /* tslint:disable no-namespace max-line-length */
 export namespace AppointmentForm {
-  /** Properties passed to a component that renders the appointment form’s popup. */
-  export interface PopupProps {
-    /** Specifies whether the popup is visible. */
-    visible?: boolean;
-    /** A React node used to render the popup content. */
-    children: React.ReactNode;
-  }
-  /** Properties passed to a component that renders the appointment form’s container. */
-  export interface ContainerProps {
-    /** A React node used to render the container content. */
-    children: React.ReactNode;
-  }
-  /** Properties passed to a component that renders the appointment form’s scrollable area. */
-  export interface ScrollableAreaProps {
-    children: React.ReactNode;
-  }
-  /** Properties passed to a component that renders the appointment form’s static area. */
-  export interface StaticAreaProps {
-    /** A React node used to render the static area content. */
-    children: React.ReactNode;
-  }
   /** Localization Messages */
   export interface LocalizationMessages {
     /** The all day editor’s label text. */
@@ -51,41 +30,38 @@ export interface AppointmentFormProps {
   onAppointmentDataChange?: (appointmentData: AppointmentModel) => void;
   /** Specifies the appointment form is read-only. */
   readOnly?: boolean;
-  /** A component that renders the appointment form’s popup. */
-  popupComponent: React.ComponentType<AppointmentForm.PopupProps>;
-  /** A component that renders the appointment form’s container. */
-  containerComponent: React.ComponentType<AppointmentForm.ContainerProps>;
-  /** A component that renders the appointment form’s scrollable area. */
-  scrollableAreaComponent: React.ComponentType<AppointmentForm.ScrollableAreaProps>;
-  /** A component that renders the appointment form’s static area. */
-  staticAreaComponent: React.ComponentType<AppointmentForm.StaticAreaProps>;
+  /** A component that render the appointment form's root component */
+  rootComponent: React.ComponentType<any>;
+  /** A component that render the appointment form's layout */
+  layoutComponent: React.ComponentType<AppointmentForm.LayoutProps>;
+  /** A component that render the appointment form's layout for command buttons */
+  commandLayoutComponent: React.ComponentType<AppointmentForm.CommandLayoutProps>;
+  /** A component that render the appointment form's layout for basic part */
+  basicLayoutComponent: React.ComponentType<AppointmentForm.BasicLayoutProps>;
+  /** A component that render the appointment form's layout for recurrence part */
+  recurrenceLayoutComponent: React.ComponentType<AppointmentForm.RecurrenceLayoutProps>;
+  /** A component that render the appointment form's command button */
+  commandButtonComponent: React.ComponentType<AppointmentForm.CommandButtonProps>;
+  /** A component that render the appointment form's text editor component */
+  textEditorComponent: React.ComponentType<AppointmentForm.TextEditorProps>;
+  /** A component that render the appointment form's text label component */
+  labelComponent: React.ComponentType<AppointmentForm.LabelProps>;
+  /** A component that render the appointment form's date editor component */
+  dateEditorComponent: React.ComponentType<AppointmentForm.DateEditorProps>;
+  /** A component that render the appointment form's boolean editor component */
+  booleanEditorComponent: React.ComponentType<AppointmentForm.BooleanEditorProps>;
+  /** A component that render the appointment form's select component */
+  selectComponent: React.ComponentType<AppointmentForm.SelectProps>;
+  /** A component that render the appointment form's radio group component */
+  radioGroupComponent: React.ComponentType<AppointmentForm.RadioGroupProps>;
+  /** A component that render the appointment form's button group component */
+  buttonGroupComponent: React.ComponentType<AppointmentForm.ButtonGroupProps>;
   /** An object that specifies localization messages. */
   messages?: AppointmentForm.LocalizationMessages;
-  /** @internal */
-  startDateComponent: React.ComponentType<any>;
-  /** @internal */
-  endDateComponent: React.ComponentType<any>;
-  /** @internal */
-  titleComponent: React.ComponentType<any>;
-  /** @internal */
-  commandButtonComponent: React.ComponentType<any>;
-  /** @internal */
-  allDayComponent: React.ComponentType<any>;
-
-  saveButtonComponent: React.ComponentType<any>;
-
-  deleteButtonComponent: React.ComponentType<any>;
-
-  closeButtonComponent: React.ComponentType<any>;
-
-  rootComponent: React.ComponentType<any>;
-
-  scheduler: string;
 }
 
 /** @internal */
 export type AppointmentFormState = {
   visible: boolean;
   appointmentData: AppointmentModel;
-  recurrenceEditing: string;
 };

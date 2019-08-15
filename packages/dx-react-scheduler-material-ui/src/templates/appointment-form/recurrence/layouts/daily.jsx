@@ -16,7 +16,7 @@ const styles = ({ spacing }) => ({
     width: '6em',
   },
   grid: {
-    marginTop: spacing(2.625),
+    marginTop: spacing(1.75),
   },
 });
 
@@ -54,7 +54,9 @@ const DailyBase = ({
         value={recurrenceOptions.interval}
         className={classes.textEditor}
         id={NUMBER_EDITOR}
-        onValueChange={value => onRecurrenceOptionsChange({ ...recurrenceOptions, interval: value })}
+        onValueChange={value => onRecurrenceOptionsChange({
+          ...recurrenceOptions, interval: value,
+        })}
       />
       <Label
         label={getMessage('daysLabel')}

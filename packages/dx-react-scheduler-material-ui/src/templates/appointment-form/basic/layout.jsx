@@ -20,6 +20,13 @@ const styles = theme => ({
   fullSize: {
     width: '100%',
   },
+  notesEditor: {
+    marginTop: theme.spacing(2),
+  },
+  moreInformationLabel: {
+    marginBottom: theme.spacing(0.5),
+    marginTop: theme.spacing(0.5),
+  },
 });
 
 const LayoutBase = ({
@@ -70,6 +77,7 @@ const LayoutBase = ({
     <Label
       label={getMessage('moreInformationLabel')}
       id={TITLE_LABEL}
+      className={classes.moreInformationLabel}
     />
     <TextEditor
       label={getMessage('additionalInformationLabel')}
@@ -85,6 +93,7 @@ const LayoutBase = ({
       id={NOTES_TEXT_EDITOR}
       value={changedAppointment.notes}
       onValueChange={notes => onAppointmentFieldChange({ change: { notes } })}
+      className={classes.notesEditor}
     />
     <AllDay
       label={getMessage('allDayLabel')}

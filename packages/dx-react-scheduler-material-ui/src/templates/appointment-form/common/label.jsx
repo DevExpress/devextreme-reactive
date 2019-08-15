@@ -7,11 +7,11 @@ import { TITLE_LABEL, ORDINARY_LABEL } from '@devexpress/dx-scheduler-core';
 
 const styles = theme => ({
   label: {
-    fontSize: theme.typography.fontSize + 1,
+    fontSize: theme.typography.fontSize + 2,
   },
   titleLabel: {
     fontWeight: theme.typography.fontWeightBold,
-    fontSize: theme.typography.fontSize + 3,
+    fontSize: theme.typography.fontSize + 5,
   },
 });
 

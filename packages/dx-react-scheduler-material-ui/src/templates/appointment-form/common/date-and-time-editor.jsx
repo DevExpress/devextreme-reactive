@@ -25,6 +25,7 @@ const styles = ({ typography, spacing }) => ({
   },
   partial: {
     width: '100%',
+    marginTop: spacing(1.5),
   },
 });
 

@@ -53,7 +53,6 @@ const GroupedButtonsBase = ({
     <ButtonGroup
       variant="outlined"
       size="small"
-      aria-label="small outlined button group"
       disabled={readOnly}
       className={classNames(classes.buttonGroup, className)}
       {...restProps}

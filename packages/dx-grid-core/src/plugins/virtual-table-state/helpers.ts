@@ -111,7 +111,7 @@ export const getForceReloadInterval: PureComputed<[VirtualRows, number, number],
   const { start, end: intervalEnd } = intervalUtil.getRowsInterval(virtualRows);
   const end = Math.min(
     Math.max(start + pageSize * 2, intervalEnd),
-    totalRowCount,
+    Math.max(start + pageSize * 2, totalRowCount),
   );
   return {
     start,

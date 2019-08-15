@@ -20,6 +20,9 @@ const styles = theme => ({
   textEditor: {
     width: '6em',
   },
+  grid: {
+    marginTop: theme.spacing(2.625),
+  },
 });
 
 const YearlyBase = ({
@@ -44,6 +47,7 @@ const YearlyBase = ({
         direction="row"
         justify="flex-start"
         alignItems="center"
+        className={classes.grid}
       >
         <Label
           label={getMessage('repeatEveryLabel')}

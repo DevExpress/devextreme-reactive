@@ -9,6 +9,7 @@ const styles = ({ spacing }) => ({
   button: {
     height: spacing(3.5),
     padding: spacing(0.5),
+    paddingLeft: 0,
   },
 });
 

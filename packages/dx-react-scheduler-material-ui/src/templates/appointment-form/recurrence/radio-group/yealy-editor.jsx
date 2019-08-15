@@ -24,7 +24,7 @@ const styles = ({ spacing }) => ({
     width: '8em',
     marginLeft: spacing(2),
     marginRight: spacing(2),
-    marginTop: spacing(1.5),
+    marginTop: spacing(1),
   },
   shortLabel: {
     paddingTop: spacing(4),
@@ -46,6 +46,7 @@ const styles = ({ spacing }) => ({
   longSwitcher: {
     width: '8em',
     marginLeft: spacing(1.75),
+    marginTop: spacing(0.25),
   },
   formControlLabel: {
     alignItems: 'flex-start',
@@ -173,9 +174,6 @@ const YearlyEditorBase = ({
                 onRecurrenceOptionsChange,
                 recurrenceOptions,
               )}
-              inputProps={{
-                style: { paddingBottom: '13px' },
-              }}
             />
           </Grid>
         )}

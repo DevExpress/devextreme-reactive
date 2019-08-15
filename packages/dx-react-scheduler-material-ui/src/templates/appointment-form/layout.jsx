@@ -8,6 +8,8 @@ const styles = theme => ({
     width: '100%',
     height: '100%',
     padding: theme.spacing(2),
+    paddingLeft: theme.spacing(5),
+    paddingRight: theme.spacing(3),
     margin: '0 auto',
     boxSizing: 'border-box',
   },

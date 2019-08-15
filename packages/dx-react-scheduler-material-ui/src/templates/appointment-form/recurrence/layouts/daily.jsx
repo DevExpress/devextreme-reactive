@@ -14,10 +14,9 @@ const styles = ({ spacing }) => ({
   },
   textEditor: {
     width: '6em',
-    marginTop: spacing(2.375),
   },
   grid: {
-    marginTop: spacing(0.875),
+    marginTop: spacing(2.625),
   },
 });
 

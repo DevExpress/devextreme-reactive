@@ -27,9 +27,6 @@ const styles = ({ spacing, typography }) => ({
     width: '15em',
     marginLeft: spacing(1.875),
   },
-  inputAdornment: {
-    paddingBottom: spacing(1.25),
-  },
 });
 
 const EndRepeatEditorBase = ({

@@ -13,7 +13,6 @@ import { FULL_DATE_TIME_EDITOR, PARTIAL_DATE_TIME_EDITOR } from '@devexpress/dx-
 
 const styles = ({ typography, spacing }) => ({
   dateEditor: {
-    paddingTop: spacing(1.5),
     paddingBottom: spacing(1.5),
   },
   full: {
@@ -23,7 +22,7 @@ const styles = ({ typography, spacing }) => ({
     ...typography.body2,
     width: '10%',
     textAlign: 'center',
-    transform: 'translate(0, 50%)',
+    paddingTop: spacing(0.5),
   },
   partial: {
     width: '100%',
@@ -43,6 +42,7 @@ const DateAndTimeEditorBase = ({
   <MuiPickersUtilsProvider utils={MomentUtils}>
     <Grid
       container
+      alignItems="center"
       {...restProps}
     >
       <KeyboardDateTimePicker
@@ -56,7 +56,8 @@ const DateAndTimeEditorBase = ({
         value={firstDate}
         onChange={onFirstDateValueChange}
         format="DD/MM/YYYY HH:mm A"
-        variant="inline"
+        inputVariant="filled"
+        hiddenLabel
       />
       {
         id === FULL_DATE_TIME_EDITOR && (
@@ -73,7 +74,8 @@ const DateAndTimeEditorBase = ({
               value={secondDate}
               onChange={onSecondDateValueChange}
               format="DD/MM/YYYY HH:mm A"
-              variant="inline"
+              inputVariant="filled"
+              hiddenLabel
             />
           </React.Fragment>
         )

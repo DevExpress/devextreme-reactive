@@ -21,7 +21,7 @@ const styles = theme => ({
     width: '6em',
   },
   grid: {
-    marginTop: theme.spacing(1),
+    marginTop: theme.spacing(2.625),
   },
 });
 

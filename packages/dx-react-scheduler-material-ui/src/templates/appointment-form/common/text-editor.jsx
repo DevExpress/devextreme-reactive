@@ -13,13 +13,11 @@ import {
 const styles = theme => ({
   editor: {
     width: '100%',
+    marginTop: theme.spacing(0.375),
+    marginBottom: theme.spacing(0.125),
   },
   title: {
     ...theme.typography.h6,
-    background: theme.palette.background.paper,
-  },
-  textField: {
-    background: theme.palette.background.paper,
   },
 });
 
@@ -39,24 +37,20 @@ const TextEditorBase = ({
     <TextField
       className={classNames(classes.editor, className)}
       value={value}
-      variant={id === NOTES_TEXT_EDITOR ? 'outlined' : undefined}
+      variant={id === NOTES_TEXT_EDITOR ? 'outlined' : 'filled'}
       disabled={readOnly}
       onChange={({ target }) => onValueChange(target.value)}
       InputProps={{
         className: classNames({
-          [classes.textField]: id === ORDINARY_TEXT_EDITOR || id === NUMBER_EDITOR,
           [classes.title]: id === TITLE_TEXT_EDITOR,
         }),
       }}
       multiline={id === NOTES_TEXT_EDITOR}
-      rows="4"
+      rows="5"
       type={textFiledType}
       hiddenLabel
       margin="normal"
       placeholder={label}
-      inputProps={{
-        style: { paddingBottom: '15px' }
-      }}
       {...restProps}
     />
   );

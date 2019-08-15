@@ -12,6 +12,7 @@ const styles = theme => ({
   root: {
     overflowY: 'auto',
     padding: theme.spacing(3),
+    paddingRight: 0,
     width: '50%',
   },
   label: {

@@ -13,7 +13,12 @@ const styles = ({ palette, spacing }) => ({
     '&:hover': {
       backgroundColor: setColor(500, palette.primary),
     },
-    border: `1px solid ${setColor(50, palette.primary)}!important`,
+    border: `1px solid ${setColor(400, palette.primary)}!important`,
+    borderLeft: `1px solid ${setColor(50, palette.primary)}!important`,
+    '&:first-child': {
+      borderLeft: `1px solid ${setColor(400, palette.primary)}!important`,
+    },
+    color: setColor(50, palette.primary),
   },
   buttonGroup: {
     marginBottom: spacing(2),

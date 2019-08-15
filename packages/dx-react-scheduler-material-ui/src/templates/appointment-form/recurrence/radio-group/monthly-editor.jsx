@@ -47,7 +47,7 @@ const getTextForOrdinalNumber = (getMessage, dayNumber) => {
   if (dayNumber % 10 === 2) text = getMessage('ndLabel');
   if (dayNumber % 10 === 3) text = getMessage('rdLabel');
   return text;
-}
+};
 
 const MonthlyEditorBase = ({
   classes,
@@ -154,7 +154,7 @@ const MonthlyEditorBase = ({
                 recurrenceOptions,
               )}
               InputProps={{
-                endAdornment: <InputAdornment className={classes.inputAdornment} position="end">{textForOrdinalNumber}</InputAdornment>,
+                endAdornment: <InputAdornment position="end">{textForOrdinalNumber}</InputAdornment>,
               }}
             />
             <Label

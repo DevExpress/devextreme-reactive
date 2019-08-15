@@ -343,6 +343,10 @@
         path: /react/scheduler/docs/reference/appointment-tooltip
       - title: EditingState
         path: /react/scheduler/docs/reference/editing-state
+      - title: IntegratedEditing
+        path: /react/scheduler/docs/reference/integrated-editing
+      - title: EditingMenu
+        path: /react/scheduler/docs/reference/editing-menu
       - title: ViewState
         path: /react/scheduler/docs/reference/view-state
       - title: DayView

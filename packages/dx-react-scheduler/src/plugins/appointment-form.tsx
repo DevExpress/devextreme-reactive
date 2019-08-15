@@ -126,6 +126,8 @@ const pluginDependencies = [
 ];
 
 class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, AppointmentFormState> {
+  container = React.createRef<HTMLElement>();
+
   toggleVisibility: (payload?: any) => void;
   setAppointmentData: (payload: any) => void;
   openFormHandler: (payload: AppointmentModel) => void;
@@ -187,7 +189,6 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
       this.setAppointmentData({ appointmentData });
       this.toggleVisibility();
     };
-    this.ref = React.createRef();
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -218,7 +219,6 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
       groupedButtonsComponent: GroupedButtons, // rename to buttonGroupCompinent
       readOnly,
       messages,
-      scheduler,
     } = this.props;
     const { visible, appointmentData } = this.state;
     const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
@@ -253,15 +253,15 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                     <div style={{ position: 'absolute', width: '100%', height: '100%' }}>
                       <div
                         style={{ position: 'relative', width: '100%', height: '100%' }}
-                        ref={this.ref}
+                        ref={this.container}
                       />
                     </div>
                     <Root
                       visible={visible}
-                      scheduler={scheduler}
-                      container={this.ref.current}
-                      style={{ position: 'absolute' }}
-                      frequency={frequency}
+                      container={this.container.current}
+                      style={{ position: 'absolute' }} // should be removed
+                      frequency={frequency} // should be removed
+                      fullSize={frequency !== 'never'}
                     >
                       <Layout
                         basicLayoutComponent={BasicLayoutPlaceholder}

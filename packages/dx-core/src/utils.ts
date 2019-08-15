@@ -56,3 +56,7 @@ export const slice = arr => Array.prototype.slice.call(arr); // slice can be ren
 /* globals window:true */
 /** @internal */
 export const isEdgeBrowser = () => /Edge/.test(window.navigator.userAgent);
+
+/* globals window:true */
+/** @internal */
+export const isFirefoxBrowser = () => /Firefox/.test(window.navigator.userAgent);

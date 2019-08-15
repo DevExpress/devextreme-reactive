@@ -333,7 +333,7 @@ class Demo extends React.PureComponent {
   onAddedAppointmentChange(addedAppointment) {
     this.setState({ addedAppointment });
     const { editingAppointmentId } = this.state;
-    if (editingAppointmentId) {
+    if (editingAppointmentId !== undefined) {
       this.setState({
         previousAppointmentId: editingAppointmentId,
       });

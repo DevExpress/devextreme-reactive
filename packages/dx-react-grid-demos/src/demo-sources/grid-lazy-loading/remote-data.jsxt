@@ -44,6 +44,19 @@ const DateTypeProvider = props => (
   />
 );
 
+const initialState = {
+  rows: [],
+  skip: 0,
+  requestedSkip: 0,
+  take: VIRTUAL_PAGE_SIZE * 2,
+  totalCount: 0,
+  loading: false,
+  lastQuery: '',
+  sorting: [],
+  filters: [],
+  forceReload: false,
+};
+
 function reducer(state, { type, payload }) {
   switch (type) {
     case 'UPDATE_ROWS':
@@ -95,18 +108,6 @@ function reducer(state, { type, payload }) {
 }
 
 export default () => {
-  const initialState = {
-    rows: [],
-    skip: 0,
-    requestedSkip: 0,
-    take: VIRTUAL_PAGE_SIZE * 2,
-    totalCount: 0,
-    loading: false,
-    lastQuery: '',
-    sorting: [],
-    filters: [],
-    forceReload: false,
-  };
   const [state, dispatch] = useReducer(reducer, initialState);
   const [columns] = useState([
     { name: 'Id', title: 'Id', getCellValue: row => row.Id },

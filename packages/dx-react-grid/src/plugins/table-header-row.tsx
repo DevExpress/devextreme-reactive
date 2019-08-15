@@ -19,16 +19,20 @@ const tableHeaderRowsComputed = (
 
 const getLastColumnName = (tableColumns) => {
   const index = tableColumns.length - 1;
-  const columnName = tableColumns[index].column.name;
-  return columnName;
+  return index >= 0 && tableColumns[index].type === TABLE_DATA_TYPE
+    ? tableColumns[index].column.name
+    : undefined;
 };
 
 const getNextColumnName = (tableColumns, columnName) => {
-  const index = tableColumns.findIndex(elem => elem.column.name === columnName);
-  const nextColumnName = index < tableColumns.length - 1
+  const index = tableColumns
+    ? tableColumns.findIndex(elem =>
+      elem.type === TABLE_DATA_TYPE && elem.column.name === columnName,
+    )
+    : -1;
+  return index >= 0 && index < tableColumns.length - 1
     ? tableColumns[index + 1].column.name
     : undefined;
-  return nextColumnName;
 };
 
 class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {

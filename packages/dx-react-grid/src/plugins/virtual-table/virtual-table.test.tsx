@@ -3,6 +3,7 @@ import { mount } from 'enzyme';
 import { PluginHost, Template } from '@devexpress/dx-react-core';
 import {
   isStubTableCell,
+  checkColumnWidths,
   tableRowsWithDataRows,
 } from '@devexpress/dx-grid-core';
 import { makeVirtualTable } from './virtual-table';
@@ -18,6 +19,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   visibleRowsBounds: jest.fn(),
   getRowsRenderBoundary: jest.fn(),
   isStubTableCell: jest.fn(),
+  checkColumnWidths: jest.fn(),
 }));
 
 describe('#makeVirtualTable', () => {

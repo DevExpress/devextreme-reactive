@@ -1,4 +1,6 @@
-import React, { useReducer, useState, useEffect, useMemo } from 'react';<%&additionalImports%>
+import React, {
+  useReducer, useState, useEffect, useMemo,
+} from 'react';<%&additionalImports%>
 import {
   VirtualTableState,
   DataTypeProvider,
@@ -105,7 +107,7 @@ export default () => {
     filters: [],
     forceReload: false,
   };
-  const [state, dispatch] = useReducer(reducer, initialState)
+  const [state, dispatch] = useReducer(reducer, initialState);
   const [columns] = useState([
     { name: 'Id', title: 'Id', getCellValue: row => row.Id },
     { name: 'ProductCategoryName', title: 'Category', getCellValue: row => row.ProductCategoryName },
@@ -129,17 +131,19 @@ export default () => {
       payload: {
         skip,
         rows: cache.getRows(skip, count),
-        totalCount: newTotalCount < MAX_ROWS ? newTotalCount : MAX_ROWS
+        totalCount: newTotalCount < MAX_ROWS ? newTotalCount : MAX_ROWS,
       },
     });
   };
 
   const getRemoteRows = (requestedSkip, take) => {
-    dispatch({ type: 'START_LOADING', payload: { requestedSkip, take }});
+    dispatch({ type: 'START_LOADING', payload: { requestedSkip, take } });
   };
 
   const buildQueryString = () => {
-    const { requestedSkip, take, filters, sorting } = state;
+    const {
+      requestedSkip, take, filters, sorting,
+    } = state;
     const filterStr = filters
       .map(({ columnName, value, operation }) => (
         `["${columnName}","${operation}","${value}"]`
@@ -157,7 +161,9 @@ export default () => {
   };
 
   const loadData = () => {
-    const { requestedSkip, take, lastQuery, loading, forceReload } = state;
+    const {
+      requestedSkip, take, lastQuery, loading, forceReload,
+    } = state;
     const query = buildQueryString();
     if ((query !== lastQuery || forceReload) && !loading) {
       if (forceReload) {
@@ -167,7 +173,7 @@ export default () => {
       if (cached.length === take) {
         updateRows(requestedSkip, take);
       } else {
-        dispatch({ type: 'FETCH_INIT' })
+        dispatch({ type: 'FETCH_INIT' });
         fetch(query)
           .then(response => response.json())
           .then(({ data, totalCount: newTotalCount }) => {
@@ -190,7 +196,9 @@ export default () => {
 
   useEffect(() => loadData());
 
-  const { rows, skip, totalCount, loading, sorting, filters } = state;
+  const {
+    rows, skip, totalCount, loading, sorting, filters,
+  } = state;
   return (
     <<%&wrapperTag%><%&wrapperAttributes%>>
       <Grid

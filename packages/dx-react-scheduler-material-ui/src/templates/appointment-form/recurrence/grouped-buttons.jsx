@@ -14,7 +14,7 @@ import {
   THURSDAY_DATE,
   FRIDAY_DATE,
   SATURDAY_DATE,
-  WEDNESDAY_DATEб
+  WEDNESDAY_DATE,
 } from '@devexpress/dx-scheduler-core';
 import { setColor } from '../../utils';
 

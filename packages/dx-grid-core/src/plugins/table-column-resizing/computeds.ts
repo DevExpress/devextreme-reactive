@@ -10,13 +10,13 @@ const UNSET_COLUMN_WIDTH_ERROR = [
   'The TableColumnResizing plugin requires that all columns have the specified width.',
 ].join('\n');
 
-const UNAVAILABLE_RESIZING_MODE = [
+const UNAVAILABLE_RESIZING_MODE_ERROR = [
   'The "$1" column\'s width specified like non-number type.',
   'The TableColumnResizing plugin requires nextColumnResizing mode,',
   'when column width define with some non-number type.',
 ].join('\n');
 
-const INVALID_TYPE = [
+const INVALID_TYPE_ERROR = [
   'The "$1" column\'s width specified like invalid type.',
   'The TableColumnResizing plugin requires that all columns have the valid unit.',
 ].join('\n');
@@ -55,8 +55,8 @@ export const tableColumnsWithWidths: TableColumnsWithWidthFn = (
 ) => specifyWidths(tableColumns, columnWidths, nextColumnResizing, (columnName, errorType) => {
   switch (errorType) {
     case 'undefinedColumn': throw new Error(UNSET_COLUMN_WIDTH_ERROR.replace('$1', columnName));
-    case 'wrongMode': throw new Error(UNAVAILABLE_RESIZING_MODE.replace('$1', columnName));
-    case 'invalidType': throw new Error(INVALID_TYPE.replace('$1', columnName));
+    case 'wrongMode': throw new Error(UNAVAILABLE_RESIZING_MODE_ERROR.replace('$1', columnName));
+    case 'invalidType': throw new Error(INVALID_TYPE_ERROR.replace('$1', columnName));
   }
 });
 

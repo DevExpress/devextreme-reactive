@@ -1,10 +1,11 @@
 import { ColumnSizeFn, ValidValueFn } from '../../types';
 
-export const getColumnSize: ColumnSizeFn = (
+export const getColumnsSizes: ColumnSizeFn = (
   columnWidths, {
     columnName, nextColumnName, nextColumnResizing, cachedWidths,
     shift, minColumnWidth, maxColumnWidth, columnExtensions = [],
 }) => {
+  console.log(columnWidths);
   const column  = columnWidths.find(elem => elem.columnName === columnName)!;
   const extension = columnExtensions.find(elem => elem.columnName === columnName);
   const width = typeof column.width === 'number'
@@ -48,7 +49,7 @@ export const getColumnSize: ColumnSizeFn = (
     if (size + nextSize !== width + nextWidth) {
       const moreThanLimit = size + nextSize > width + nextWidth;
       const columnExpand = shift > 0;
-      // NOTE: logical XOR in TypeScript
+
       if (moreThanLimit !== columnExpand) {
         nextSize = width + nextWidth - size;
       } else {

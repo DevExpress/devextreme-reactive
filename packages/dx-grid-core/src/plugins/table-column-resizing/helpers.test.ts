@@ -1,21 +1,18 @@
 import * as Immutable from 'seamless-immutable';
 import {
-  changeTableColumnWidth,
-  draftTableColumnWidth,
-  cancelTableColumnWidthDraft,
-} from './reducers';
+  getColumnsSizes,
+  isValidValue,
+} from './helpers';
 
-describe('TableColumnResizing Plugin reducers', () => {
-  const state = {
-    columnWidths: [{ columnName: 'a', width: 40 }, { columnName: 'b', width: 60 }],
-  };
+describe('TableColumnResizing Plugin helpers', () => {
+  describe('#getColumnSizes', () => {
+    const columnWidths = [{ columnName: 'a', width: 40 }, { columnName: 'b', width: 60 }];
 
-  describe('#changeTableColumnWidth', () => {
     describe('standart resizing mode', () => {
       const nextColumnResizing = undefined;
 
-      it('should work', () => {
-        expect(changeTableColumnWidth(state, {
+      fit('should work', () => {
+        expect(getColumnsSizes(columnWidths, {
           columnName: 'a',
           nextColumnName: 'b',
           nextColumnResizing,
@@ -31,7 +28,7 @@ describe('TableColumnResizing Plugin reducers', () => {
       });
 
       it('should stick size to the min', () => {
-        expect(changeTableColumnWidth(state, {
+        expect(getColumnsSizes(state, {
           columnName: 'b',
           nextColumnName: undefined,
           nextColumnResizing,
@@ -47,7 +44,7 @@ describe('TableColumnResizing Plugin reducers', () => {
       });
 
       it('should stick size to the max', () => {
-        expect(changeTableColumnWidth(state, {
+        expect(getColumnsSizes(state, {
           columnName: 'b',
           nextColumnName: undefined,
           nextColumnResizing,
@@ -67,7 +64,7 @@ describe('TableColumnResizing Plugin reducers', () => {
           { columnName: 'b', minWidth: 50 },
         ];
 
-        expect(changeTableColumnWidth(state, {
+        expect(getColumnsSizes(state, {
           columnName: 'b',
           nextColumnName: undefined,
           nextColumnResizing,
@@ -87,7 +84,7 @@ describe('TableColumnResizing Plugin reducers', () => {
           { columnName: 'b', maxWidth: 70 },
         ];
 
-        expect(changeTableColumnWidth(state, {
+        expect(getColumnsSizes(state, {
           columnName: 'b',
           nextColumnName: undefined,
           nextColumnResizing,
@@ -107,7 +104,7 @@ describe('TableColumnResizing Plugin reducers', () => {
           { columnName: 'b' },
         ];
 
-        expect(changeTableColumnWidth(state, {
+        expect(getColumnsSizes(state, {
           columnName: 'b',
           nextColumnName: undefined,
           nextColumnResizing,
@@ -127,7 +124,7 @@ describe('TableColumnResizing Plugin reducers', () => {
           columnWidths: Immutable([{ columnName: 'a', width: 40 }, { columnName: 'b', width: 60 }]),
         };
 
-        expect(() => changeTableColumnWidth(immutableState, {
+        expect(() => getColumnsSizes(immutableState, {
           columnName: 'b',
           nextColumnName: undefined,
           nextColumnResizing,
@@ -145,7 +142,7 @@ describe('TableColumnResizing Plugin reducers', () => {
       const nextColumnResizing = true;
 
       it('should resize booth columns', () => {
-        expect(changeTableColumnWidth(state, {
+        expect(getColumnsSizes(state, {
           columnName: 'a',
           nextColumnName: 'b',
           nextColumnResizing,
@@ -165,7 +162,7 @@ describe('TableColumnResizing Plugin reducers', () => {
           { columnName: 'b', minWidth: 60 },
         ];
 
-        expect(changeTableColumnWidth(state, {
+        expect(getColumnsSizes(state, {
           columnName: 'a',
           nextColumnName: 'b',
           nextColumnResizing,
@@ -179,7 +176,7 @@ describe('TableColumnResizing Plugin reducers', () => {
             columnWidths: [{ columnName: 'a', width: 40 }, { columnName: 'b', width: 60 }],
           });
 
-        expect(changeTableColumnWidth(state, {
+        expect(getColumnsSizes(state, {
           columnName: 'a',
           nextColumnName: 'b',
           nextColumnResizing,
@@ -193,146 +190,6 @@ describe('TableColumnResizing Plugin reducers', () => {
             columnWidths: [{ columnName: 'a', width: 40 }, { columnName: 'b', width: 60 }],
           });
       });
-    });
-  });
-
-  describe('#draftTableColumnWidth', () => {
-    describe('standart resizing mode', () => {
-      it('should work', () => {
-        expect(draftTableColumnWidth(state, {
-          columnName: 'a',
-          nextColumnName: undefined,
-          nextColumnResizing: undefined,
-          cachedWidths: { a: 40, b: 60 },
-          shift: 5,
-          minColumnWidth: 40,
-          maxColumnWidth: Infinity,
-          columnExtensions: undefined,
-        }))
-          .toEqual({
-            draftColumnWidths: [{ columnName: 'a', width: 45 }],
-          });
-      });
-
-      it('should stick size to the min', () => {
-        expect(draftTableColumnWidth(state, {
-          columnName: 'b',
-          nextColumnName: undefined,
-          nextColumnResizing: undefined,
-          cachedWidths: { a: 40, b: 60 },
-          shift: -25,
-          minColumnWidth: 40,
-          maxColumnWidth: Infinity,
-          columnExtensions: undefined,
-        }))
-          .toEqual({
-            draftColumnWidths: [{ columnName: 'b', width: 40 }],
-          });
-      });
-
-      it('should stick size to the max', () => {
-        expect(draftTableColumnWidth(state, {
-          columnName: 'b',
-          nextColumnName: undefined,
-          nextColumnResizing: undefined,
-          cachedWidths: { a: 40, b: 60 },
-          shift: +25,
-          minColumnWidth: 40,
-          maxColumnWidth: 80,
-          columnExtensions: undefined,
-        }))
-          .toEqual({
-            draftColumnWidths: [{ columnName: 'b', width: 80 }],
-          });
-      });
-
-      it('should stick size to the min defined in columnExtensions', () => {
-        const columnExtensions = [
-          { columnName: 'b', minWidth: 50 },
-        ];
-
-        expect(draftTableColumnWidth(state, {
-          columnName: 'b',
-          nextColumnName: undefined,
-          nextColumnResizing: undefined,
-          cachedWidths: { a: 40, b: 60 },
-          shift: -25,
-          minColumnWidth: 40,
-          maxColumnWidth: 80,
-          columnExtensions,
-        }))
-          .toEqual({
-            draftColumnWidths: [{ columnName: 'b', width: 50 }],
-          });
-      });
-
-      it('should stick size to the max defined in columnExtensions', () => {
-        const columnExtensions = [
-          { columnName: 'b', maxWidth: 70 },
-        ];
-
-        expect(draftTableColumnWidth(state, {
-          columnName: 'b',
-          nextColumnName: undefined,
-          nextColumnResizing: undefined,
-          cachedWidths: { a: 40, b: 60 },
-          shift: +25,
-          minColumnWidth: 40,
-          maxColumnWidth: 80,
-          columnExtensions,
-        }))
-          .toEqual({
-            draftColumnWidths: [{ columnName: 'b', width: 70 }],
-          });
-      });
-
-      it('should work if limitation does not define in columnExtensions', () => {
-        const columnExtensions = [
-          { columnName: 'b' },
-        ];
-
-        expect(draftTableColumnWidth(state, {
-          columnName: 'b',
-          nextColumnName: undefined,
-          nextColumnResizing: undefined,
-          cachedWidths: { a: 40, b: 60 },
-          shift: -25,
-          minColumnWidth: 40,
-          maxColumnWidth: 80,
-          columnExtensions,
-        }))
-          .toEqual({
-            draftColumnWidths: [{ columnName: 'b', width: 40 }],
-          });
-      });
-    });
-
-    describe('nextColumn resizing mode', () => {
-      const nextColumnResizing = true;
-
-      it('should return booth column widths', () => {
-        expect(draftTableColumnWidth(state, {
-          columnName: 'a',
-          nextColumnName: 'b',
-          nextColumnResizing,
-          cachedWidths: { a: 40, b: 60 },
-          shift: +5,
-          minColumnWidth: 40,
-          maxColumnWidth: 80,
-          columnExtensions: undefined,
-        }))
-          .toEqual({
-            draftColumnWidths: [{ columnName: 'a', width: 45 }, { columnName: 'b', width: 55 }],
-          });
-    });
-  });
-
-  describe('#cancelTableColumnWidthDraft', () => {
-    it('should work', () => {
-      expect(cancelTableColumnWidthDraft())
-        .toEqual({
-          draftColumnWidths: [],
-        });
     });
   });
 });

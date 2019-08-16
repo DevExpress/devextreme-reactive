@@ -306,7 +306,8 @@ class Demo extends React.PureComponent {
       } = this.state;
 
       const currentAppointment = data
-        .filter(appointment => editingAppointment && appointment.id === editingAppointment.id)[0] || addedAppointment;
+        .filter(appointment => editingAppointment && appointment.id === editingAppointment.id)[0]
+        || addedAppointment;
       const cancelAppointment = () => {
         if (isNewAppointment) {
           this.setState({

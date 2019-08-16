@@ -60,7 +60,7 @@ const PageSizeSelectorBase = ({
           icon: classes.selectIcon,
         }}
         MenuProps={{
-          className: classes.selectMenu
+          className: classes.selectMenu,
         }}
         input={(
           <Input
@@ -70,10 +70,10 @@ const PageSizeSelectorBase = ({
         )}
       >
         {pageSizes.map(item => (
-            <MenuItem key={item} value={item}>
-              {item !== 0 ? item : showAll }
-            </MenuItem>
-          ))}
+          <MenuItem key={item} value={item}>
+            {item !== 0 ? item : showAll }
+          </MenuItem>
+        ))}
       </Select>
     </div>
   );

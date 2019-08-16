@@ -133,7 +133,9 @@ export interface AppointmentModel {
   [propertyName: string]: any;
   allDay?: boolean;
   endDate: SchedulerDateTime;
+  exDate?: string | undefined;
   id?: number | string;
+  rRule?: string | undefined;
   startDate: SchedulerDateTime;
   title?: string;
 }

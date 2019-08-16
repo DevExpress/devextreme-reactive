@@ -67,10 +67,10 @@ const WeeklyBase = ({
         />
       </Grid>
       <GroupedButtons
-        getMessage={getMessage}
         changedAppointment={changedAppointment}
         onRecurrenceOptionsChange={onRecurrenceOptionsChange}
         readOnly={readOnly}
+        formatDate={formatDate}
       />
     </div>
   );

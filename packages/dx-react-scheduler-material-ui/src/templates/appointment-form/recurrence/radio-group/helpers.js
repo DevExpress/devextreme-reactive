@@ -1,4 +1,27 @@
-import { LONG_WEEK_DAY_OPTIONS } from '@devexpress/dx-scheduler-core';
+import {
+  LONG_WEEK_DAY_OPTIONS,
+  SUNDAY_DATE,
+  MONDAY_DATE,
+  DAY_LONG_MONTH_OPTIONS,
+  TUESDAY_DATE,
+  WEDNESDAY_DATE,
+  THURSDAY_DATE,
+  FRIDAY_DATE,
+  SATURDAY_DATE,
+  JANUARY_DATE,
+  LONG_MONTH_OPTIONS,
+  FEBRUARY_DATE,
+  MARCH_DATE,
+  APRIL_DATE,
+  MAY_DATE,
+  AUGUST_DATE,
+  OCTOBER_DATE,
+  NOVEMBER_DATE,
+  DECEMBER_DATE,
+  SEPTEMBER_DATE,
+  JULY_DATE,
+  JUNE_DATE,
+} from '@devexpress/dx-scheduler-core';
 
 export const getNumberLabels = getMessage => [
   {
@@ -25,133 +48,133 @@ export const getNumberLabels = getMessage => [
 
 export const getDaysOfWeek = formatDate => [
   {
-    text: formatDate(new Date(2019, 7, 11, 0, 0), LONG_WEEK_DAY_OPTIONS),
+    text: formatDate(SUNDAY_DATE, LONG_WEEK_DAY_OPTIONS),
     id: 0,
   },
   {
-    text: formatDate(new Date(2019, 7, 12, 0, 0), LONG_WEEK_DAY_OPTIONS),
+    text: formatDate(MONDAY_DATE, LONG_WEEK_DAY_OPTIONS),
     id: 1,
   },
   {
-    text: formatDate(new Date(2019, 7, 13, 0, 0), LONG_WEEK_DAY_OPTIONS),
+    text: formatDate(TUESDAY_DATE, LONG_WEEK_DAY_OPTIONS),
     id: 2,
   },
   {
-    text: formatDate(new Date(2019, 7, 14, 0, 0), LONG_WEEK_DAY_OPTIONS),
+    text: formatDate(WEDNESDAY_DATE, LONG_WEEK_DAY_OPTIONS),
     id: 3,
   },
   {
-    text: formatDate(new Date(2019, 7, 15, 0, 0), LONG_WEEK_DAY_OPTIONS),
+    text: formatDate(THURSDAY_DATE, LONG_WEEK_DAY_OPTIONS),
     id: 4,
   },
   {
-    text: formatDate(new Date(2019, 7, 16, 0, 0), LONG_WEEK_DAY_OPTIONS),
+    text: formatDate(FRIDAY_DATE, LONG_WEEK_DAY_OPTIONS),
     id: 5,
   },
   {
-    text: formatDate(new Date(2019, 7, 17, 0, 0), LONG_WEEK_DAY_OPTIONS),
+    text: formatDate(SATURDAY_DATE, LONG_WEEK_DAY_OPTIONS),
     id: 6,
   },
 ];
 
-export const getMonths = getMessage => [
+export const getMonths = formatDate => [
   {
-    text: getMessage('januaryLabel'),
+    text: formatDate(JANUARY_DATE, LONG_MONTH_OPTIONS),
     id: 1,
   },
   {
-    text: getMessage('februaryLabel'),
+    text: formatDate(FEBRUARY_DATE, LONG_MONTH_OPTIONS),
     id: 2,
   },
   {
-    text: getMessage('marchLabel'),
+    text: formatDate(MARCH_DATE, LONG_MONTH_OPTIONS),
     id: 3,
   },
   {
-    text: getMessage('aprilLabel'),
+    text: formatDate(APRIL_DATE, LONG_MONTH_OPTIONS),
     id: 4,
   },
   {
-    text: getMessage('mayLabel'),
+    text: formatDate(MAY_DATE, LONG_MONTH_OPTIONS),
     id: 5,
   },
   {
-    text: getMessage('juneLabel'),
+    text: formatDate(JUNE_DATE, LONG_MONTH_OPTIONS),
     id: 6,
   },
   {
-    text: getMessage('julyLabel'),
+    text: formatDate(JULY_DATE, LONG_MONTH_OPTIONS),
     id: 7,
   },
   {
-    text: getMessage('augustLabel'),
+    text: formatDate(AUGUST_DATE, LONG_MONTH_OPTIONS),
     id: 8,
   },
   {
-    text: getMessage('septemberLabel'),
+    text: formatDate(SEPTEMBER_DATE, LONG_MONTH_OPTIONS),
     id: 9,
   },
   {
-    text: getMessage('octoberLabel'),
+    text: formatDate(OCTOBER_DATE, LONG_MONTH_OPTIONS),
     id: 10,
   },
   {
-    text: getMessage('novemberLabel'),
+    text: formatDate(NOVEMBER_DATE, LONG_MONTH_OPTIONS),
     id: 11,
   },
   {
-    text: getMessage('decemberLabel'),
+    text: formatDate(DECEMBER_DATE, LONG_MONTH_OPTIONS),
     id: 12,
   },
 ];
 
-export const getMonthsWithOf = getMessage => [
+export const getMonthsWithOf = (getMessage, formatDate) => [
   {
-    text: getMessage('ofJanuaryLabel'),
+    text: getMessage('ofLabel') + formatDate(JANUARY_DATE, DAY_LONG_MONTH_OPTIONS).split(' ')[0],
     id: 1,
   },
   {
-    text: getMessage('ofFebruaryLabel'),
+    text: getMessage('ofLabel') + formatDate(FEBRUARY_DATE, DAY_LONG_MONTH_OPTIONS).split(' ')[0],
     id: 2,
   },
   {
-    text: getMessage('ofMarchLabel'),
+    text: getMessage('ofLabel') + formatDate(MARCH_DATE, DAY_LONG_MONTH_OPTIONS).split(' ')[0],
     id: 3,
   },
   {
-    text: getMessage('ofAprilLabel'),
+    text: getMessage('ofLabel') + formatDate(APRIL_DATE, DAY_LONG_MONTH_OPTIONS).split(' ')[0],
     id: 4,
   },
   {
-    text: getMessage('ofMayLabel'),
+    text: getMessage('ofLabel') + formatDate(MAY_DATE, DAY_LONG_MONTH_OPTIONS).split(' ')[0],
     id: 5,
   },
   {
-    text: getMessage('ofJuneLabel'),
+    text: getMessage('ofLabel') + formatDate(JUNE_DATE, DAY_LONG_MONTH_OPTIONS).split(' ')[0],
     id: 6,
   },
   {
-    text: getMessage('ofJulyLabel'),
+    text: getMessage('ofLabel') + formatDate(JULY_DATE, DAY_LONG_MONTH_OPTIONS).split(' ')[0],
     id: 7,
   },
   {
-    text: getMessage('ofAugustLabel'),
+    text: getMessage('ofLabel') + formatDate(AUGUST_DATE, DAY_LONG_MONTH_OPTIONS).split(' ')[0],
     id: 8,
   },
   {
-    text: getMessage('ofSeptemberLabel'),
+    text: getMessage('ofLabel') + formatDate(SEPTEMBER_DATE, DAY_LONG_MONTH_OPTIONS).split(' ')[0],
     id: 9,
   },
   {
-    text: getMessage('ofOctoberLabel'),
+    text: getMessage('ofLabel') + formatDate(OCTOBER_DATE, DAY_LONG_MONTH_OPTIONS).split(' ')[0],
     id: 10,
   },
   {
-    text: getMessage('ofNovemberLabel'),
+    text: getMessage('ofLabel') + formatDate(NOVEMBER_DATE, DAY_LONG_MONTH_OPTIONS).split(' ')[0],
     id: 11,
   },
   {
-    text: getMessage('ofDecemberLabel'),
+    text: getMessage('ofLabel') + formatDate(DECEMBER_DATE, DAY_LONG_MONTH_OPTIONS).split(' ')[0],
     id: 12,
   },
 ];

@@ -30,12 +30,12 @@ export const MONTHS = {
 };
 
 export const RRULE_REPEAT_TYPES = {
-  yearly: RRule.YEARLY,
-  monthly: RRule.MONTHLY,
-  weekly: RRule.WEEKLY,
-  daily: RRule.DAILY,
-  hourly: RRule.HOURLY,
-  minutely: RRule.MINUTELY,
+  YEARLY: RRule.YEARLY,
+  MONTHLY: RRule.MONTHLY,
+  WEEKLY: RRule.WEEKLY,
+  DAILY: RRule.DAILY,
+  HOURLY: RRule.HOURLY,
+  MINUTELY: RRule.MINUTELY,
 };
 
 export const END_REPEAT_RADIO_GROUP = 'endRepeat';
@@ -60,3 +60,24 @@ export const CANCEL_BUTTON = 'cancelButton';
 
 export const OUTLINED_SWITCHER = 'outlinedSwitcher';
 export const STANDARD_SWITCHER = 'standardSwitcher';
+
+export const SUNDAY_DATE = new Date(2019, 7, 11);
+export const MONDAY_DATE = new Date(2019, 7, 12);
+export const TUESDAY_DATE = new Date(2019, 7, 13);
+export const WEDNESDAY_DATE = new Date(2019, 7, 14);
+export const THURSDAY_DATE = new Date(2019, 7, 15);
+export const FRIDAY_DATE = new Date(2019, 7, 16);
+export const SATURDAY_DATE = new Date(2019, 7, 17);
+
+export const JANUARY_DATE = new Date(2019, 0, 1);
+export const FEBRUARY_DATE = new Date(2019, 1, 1);
+export const MARCH_DATE = new Date(2019, 2, 1);
+export const APRIL_DATE = new Date(2019, 3, 1);
+export const MAY_DATE = new Date(2019, 4, 1);
+export const JUNE_DATE = new Date(2019, 5, 1);
+export const JULY_DATE = new Date(2019, 6, 1);
+export const AUGUST_DATE = new Date(2019, 7, 1);
+export const SEPTEMBER_DATE = new Date(2019, 8, 1);
+export const OCTOBER_DATE = new Date(2019, 9, 1);
+export const NOVEMBER_DATE = new Date(2019, 10, 1);
+export const DECEMBER_DATE = new Date(2019, 11, 1);

@@ -4,7 +4,18 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
-import { getRecurrenceOptions, DAYS_OF_WEEK } from '@devexpress/dx-scheduler-core';
+import {
+  getRecurrenceOptions,
+  DAYS_OF_WEEK,
+  SUNDAY_DATE,
+  WEEK_DAY_OPTIONS,
+  MONDAY_DATE,
+  TUESDAY_DATE,
+  THURSDAY_DATE,
+  FRIDAY_DATE,
+  SATURDAY_DATE,
+  WEDNESDAY_DATEб
+} from '@devexpress/dx-scheduler-core';
 import { setColor } from '../../utils';
 
 const styles = ({ palette, spacing }) => ({
@@ -40,7 +51,7 @@ const handleWeekDaysChange = (options, weekDay, action) => {
 };
 
 const GroupedButtonsBase = ({
-  getMessage,
+  formatDate,
   changedAppointment,
   onRecurrenceOptionsChange,
   readOnly,
@@ -68,7 +79,7 @@ const GroupedButtonsBase = ({
           onRecurrenceOptionsChange,
         )}
       >
-        {getMessage('sunLabel')}
+        {formatDate(SUNDAY_DATE, WEEK_DAY_OPTIONS)}
       </Button>
       <Button
         className={recurrenceOptions.byweekday
@@ -81,7 +92,7 @@ const GroupedButtonsBase = ({
           onRecurrenceOptionsChange,
         )}
       >
-        {getMessage('monLabel')}
+        {formatDate(MONDAY_DATE, WEEK_DAY_OPTIONS)}
       </Button>
       <Button
         className={recurrenceOptions.byweekday
@@ -94,7 +105,7 @@ const GroupedButtonsBase = ({
           onRecurrenceOptionsChange,
         )}
       >
-        {getMessage('tueLabel')}
+        {formatDate(TUESDAY_DATE, WEEK_DAY_OPTIONS)}
       </Button>
       <Button
         className={recurrenceOptions.byweekday
@@ -107,7 +118,7 @@ const GroupedButtonsBase = ({
           onRecurrenceOptionsChange,
         )}
       >
-        {getMessage('wedLabel')}
+        {formatDate(WEDNESDAY_DATE, WEEK_DAY_OPTIONS)}
       </Button>
       <Button
         className={recurrenceOptions.byweekday
@@ -120,7 +131,7 @@ const GroupedButtonsBase = ({
           onRecurrenceOptionsChange,
         )}
       >
-        {getMessage('thuLabel')}
+        {formatDate(THURSDAY_DATE, WEEK_DAY_OPTIONS)}
       </Button>
       <Button
         className={recurrenceOptions.byweekday
@@ -133,7 +144,7 @@ const GroupedButtonsBase = ({
           onRecurrenceOptionsChange,
         )}
       >
-        {getMessage('friLabel')}
+        {formatDate(FRIDAY_DATE, WEEK_DAY_OPTIONS)}
       </Button>
       <Button
         className={recurrenceOptions.byweekday
@@ -146,7 +157,7 @@ const GroupedButtonsBase = ({
           onRecurrenceOptionsChange,
         )}
       >
-        {getMessage('satLabel')}
+        {formatDate(SATURDAY_DATE, WEEK_DAY_OPTIONS)}
       </Button>
     </ButtonGroup>
   );
@@ -155,7 +166,7 @@ const GroupedButtonsBase = ({
 GroupedButtonsBase.propTypes = {
   changedAppointment: PropTypes.object.isRequired,
   onRecurrenceOptionsChange: PropTypes.func,
-  getMessage: PropTypes.func.isRequired,
+  formatDate: PropTypes.func.isRequired,
   readOnly: PropTypes.bool,
   classes: PropTypes.object.isRequired,
 };

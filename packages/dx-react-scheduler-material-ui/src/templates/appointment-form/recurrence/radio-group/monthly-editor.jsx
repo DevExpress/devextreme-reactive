@@ -64,7 +64,6 @@ const MonthlyEditorBase = ({
   formatDate,
   ...restProps
 }) => {
-  console.log(formatDate);
   const [dayNumber, setDayNumber] = useState(changedAppointment.startDate.getDate());
   const [stateWeekNumber, setStateWeekNumber] = useState(
     Math.trunc((changedAppointment.startDate.getDate() - 1) / 7),

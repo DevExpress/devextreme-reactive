@@ -29,8 +29,6 @@ export * from './plugins/appointment-form/helpers';
 /** @internal */
 export * from './plugins/appointment-form/constants';
 /** @internal */
-export * from './plugins/appointment-form/computeds';
-/** @internal */
 export * from './plugins/all-day-panel/computeds';
 /** @internal */
 export * from './plugins/all-day-panel/helpers';

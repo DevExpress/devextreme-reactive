@@ -22,9 +22,9 @@ import {
 const styles = ({ spacing }) => ({
   textEditor: {
     width: '8em',
-    marginLeft: spacing(2),
+    marginLeft: spacing(1.875),
     marginRight: spacing(2),
-    marginTop: spacing(1.5),
+    marginTop: spacing(1),
     marginBottom: spacing(1),
   },
   shortLabel: {
@@ -159,7 +159,7 @@ const YearlyEditorBase = ({
                 ...recurrenceOptions, bymonth: newMonth,
               })}
               value={month}
-              availableOptions={getMonths(getMessage)}
+              availableOptions={getMonths(formatDate)}
               className={classes.switcher}
             />
             <TextEditor
@@ -223,7 +223,7 @@ const YearlyEditorBase = ({
                 ...recurrenceOptions, bymonth: newMonth,
               })}
               value={month}
-              availableOptions={getMonthsWithOf(getMessage)}
+              availableOptions={getMonthsWithOf(getMessage, formatDate)}
             />
           </div>
         )}

@@ -25,7 +25,7 @@ import {
   AppointmentFormProps, AppointmentFormState, AppointmentTooltip, Appointments,
 } from '../types';
 
-const getRRuleFrequence = repeatType => RRULE_REPEAT_TYPES[repeatType];
+const getRRuleFrequency = repeatType => RRULE_REPEAT_TYPES[repeatType.toUpperCase()];
 
 const defaultMessages = {
   allDayLabel: 'All Day',
@@ -51,13 +51,6 @@ const defaultMessages = {
   afterLabel: 'After',
   occurencesLabel: 'occurence(s)',
   weeksOnLabel: 'week(s) on:',
-  sunLabel: 'Sun',
-  monLabel: 'Mon',
-  tueLabel: 'Tue',
-  wedLabel: 'Wed',
-  thuLabel: 'Thu',
-  friLabel: 'Fri',
-  satLabel: 'Sat',
   monthsLabel: 'month(s)',
   ofEveryMonthLabel: 'of every month',
   theLabel: 'The',
@@ -66,39 +59,8 @@ const defaultMessages = {
   thirdLabel: 'Third',
   fourthLabel: 'Fourth',
   lastLabel: 'Last',
-  januaryLabel: 'January',
-  februaryLabel: 'February',
-  marchLabel: 'March',
-  aprilLabel: 'April',
-  mayLabel: 'May',
-  juneLabel: 'June',
-  julyLabel: 'July',
-  augustLabel: 'August',
-  septemberLabel: 'September',
-  octoberLabel: 'October',
-  novemberLabel: 'November',
-  decemberLabel: 'December',
-  ofJanuaryLabel: 'of January',
-  ofFebruaryLabel: 'of February',
-  ofMarchLabel: 'of March',
-  ofAprilLabel: 'of April',
-  ofMayLabel: 'of May',
-  ofJuneLabel: 'of June',
-  ofJulyLabel: 'of July',
-  ofAugustLabel: 'of August',
-  ofSeptemberLabel: 'of September',
-  ofOctoberLabel: 'of October',
-  ofNovemberLabel: 'of November',
-  ofDecemberLabel: 'of December',
-  sundayLabel: 'Sunday',
-  mondayLabel: 'Monday',
-  tuesdayLabel: 'Tuesday',
-  wednesdayLabel: 'Wednesday',
-  thursdayLabel: 'Thursday',
-  fridayLabel: 'Friday',
-  saturdayLabel: 'Saturday',
   yearsLabel: 'year(s)',
-  ofLabel: 'of',
+  ofLabel: 'of ',
   everyLabel: 'Every',
   thLabel: '\'th',
   stLabel: '\'st',
@@ -107,11 +69,11 @@ const defaultMessages = {
 };
 
 const REPEAT_TYPES = {
-  daily: 'daily',
-  weekly: 'weekly',
-  monthly: 'monthly',
-  yearly: 'yearly',
-  never: 'never',
+  DAILY: 'daily',
+  WEEKLY: 'weekly',
+  MONTHLY: 'monthly',
+  YEARLY: 'yearly',
+  NEVER: 'never',
 };
 
 const ControlLayoutPlaceholder = () => <TemplatePlaceholder name="controlLayout" />;
@@ -242,11 +204,11 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                 ...isNew ? addedAppointment : appointmentChanges,
               };
               const rRuleFrequency = getRecurrenceFrequency(changedAppointment.rRule);
-              frequency = REPEAT_TYPES.never;
-              if (rRuleFrequency === RRULE_REPEAT_TYPES.daily) frequency = REPEAT_TYPES.daily;
-              if (rRuleFrequency === RRULE_REPEAT_TYPES.weekly) frequency = REPEAT_TYPES.weekly;
-              if (rRuleFrequency === RRULE_REPEAT_TYPES.monthly) frequency = REPEAT_TYPES.monthly;
-              if (rRuleFrequency === RRULE_REPEAT_TYPES.yearly) frequency = REPEAT_TYPES.yearly;
+              frequency = REPEAT_TYPES.NEVER;
+              if (rRuleFrequency === RRULE_REPEAT_TYPES.DAILY) frequency = REPEAT_TYPES.DAILY;
+              if (rRuleFrequency === RRULE_REPEAT_TYPES.WEEKLY) frequency = REPEAT_TYPES.WEEKLY;
+              if (rRuleFrequency === RRULE_REPEAT_TYPES.MONTHLY) frequency = REPEAT_TYPES.MONTHLY;
+              if (rRuleFrequency === RRULE_REPEAT_TYPES.YEARLY) frequency = REPEAT_TYPES.YEARLY;
               return (
                 <React.Fragment>
                   <React.Fragment>
@@ -267,7 +229,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                         basicLayoutComponent={BasicLayoutPlaceholder}
                         controlLayoutComponent={ControlLayoutPlaceholder}
                         recurrenceLayoutComponent={RecurrenceLayoutPlaceholder}
-                        isRecurring={frequency !== REPEAT_TYPES.never}
+                        isRecurring={frequency !== REPEAT_TYPES.NEVER}
                       />
                     </Root>
                   </React.Fragment>
@@ -363,7 +325,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                 : changeAppointment;
               return (
                 <BasicLayout
-                  isRecurring={frequency !== REPEAT_TYPES.never}
+                  isRecurring={frequency !== REPEAT_TYPES.NEVER}
                   textEditorComponent={TextEditor}
                   dateTimeEditorComponent={DateAndTimeEditor}
                   allDayComponent={BooleanEditor}
@@ -449,7 +411,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                 <Switcher
                   {...changeAppointment && {
                     onChange: (repeatType) => {
-                      const rruleRepeatType = getRRuleFrequence(repeatType);
+                      const rruleRepeatType = getRRuleFrequency(repeatType);
                       let rRule;
                       if (rruleRepeatType !== undefined) {
                         rRule = changeRecurrenceFrequency(
@@ -463,24 +425,24 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                   }}
                   availableOptions={[
                     {
-                      text: getMessage(REPEAT_TYPES.never),
-                      id: REPEAT_TYPES.never,
+                      text: getMessage(REPEAT_TYPES.NEVER),
+                      id: REPEAT_TYPES.NEVER,
                     },
                     {
-                      text: getMessage(REPEAT_TYPES.daily),
-                      id: REPEAT_TYPES.daily,
+                      text: getMessage(REPEAT_TYPES.DAILY),
+                      id: REPEAT_TYPES.DAILY,
                     },
                     {
-                      text: getMessage(REPEAT_TYPES.weekly),
-                      id: REPEAT_TYPES.weekly,
+                      text: getMessage(REPEAT_TYPES.WEEKLY),
+                      id: REPEAT_TYPES.WEEKLY,
                     },
                     {
-                      text: getMessage(REPEAT_TYPES.monthly),
-                      id: REPEAT_TYPES.monthly,
+                      text: getMessage(REPEAT_TYPES.MONTHLY),
+                      id: REPEAT_TYPES.MONTHLY,
                     },
                     {
-                      text: getMessage(REPEAT_TYPES.yearly),
-                      id: REPEAT_TYPES.yearly,
+                      text: getMessage(REPEAT_TYPES.YEARLY),
+                      id: REPEAT_TYPES.YEARLY,
                     },
                   ]}
                   value={frequency}

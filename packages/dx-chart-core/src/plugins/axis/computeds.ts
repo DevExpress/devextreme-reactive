@@ -4,7 +4,7 @@ import {
 } from '../../constants';
 import {
   ScaleObject, GetFormatFn, ProcessTickFn, TickFormatFn, NumberArray, GetTickCoordinatesFn,
-  TickCoordinatesFn, Tick, Grid,
+  TickCoordinatesGetterFn, Tick, Grid,
 } from '../../types';
 
 const getTicks = (scale: ScaleObject, count: number) => (
@@ -85,7 +85,7 @@ const createTickFilter = (isHor: boolean, size: number) => (
 );
 
 /** @internal */
-export const tickCoordinates: TickCoordinatesFn<Tick> = ({
+export const tickCoordinatesGetter: TickCoordinatesGetterFn<Tick> = ({
   isHor, scale, tickCount, tickFormat, position, tickSize, indentFromAxis,
 }) => {
   const formatTick = getFormat(scale!, tickCount!, tickFormat);
@@ -106,7 +106,7 @@ export const tickCoordinates: TickCoordinatesFn<Tick> = ({
 };
 
 /** @internal */
-export const gridCoordinates: TickCoordinatesFn<Grid> = ({ isHor }) => {
+export const gridCoordinatesGetter: TickCoordinatesGetterFn<Grid> = ({ isHor }) => {
   const options = isHor ? { y1: 0 } : { x1: 0 };
   return (coordinates, key) => ({
     key,

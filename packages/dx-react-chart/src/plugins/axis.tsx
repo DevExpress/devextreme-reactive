@@ -11,7 +11,7 @@ import {
 import {
   ARGUMENT_DOMAIN, getValueDomainName,
   getRotatedPosition, isValidPosition,
-  LEFT, BOTTOM, getTickCoordinates, gridCoordinates, tickCoordinates,
+  LEFT, BOTTOM, getTickCoordinates, gridCoordinatesGetter, tickCoordinatesGetter,
   Tick, Grid,
 } from '@devexpress/dx-chart-core';
 import { RawAxisProps } from '../types';
@@ -74,7 +74,7 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
             const paneSize = layouts.pane;
 
             const { sides: [dx, dy], ticks } = getTickCoordinates({
-              callback: tickCoordinates,
+              callback: tickCoordinatesGetter,
               scaleName: scaleName!,
               position: position!,
               tickSize: tickSize!,
@@ -184,7 +184,7 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
             }
             const { width, height } = layouts.pane;
             const { ticks, sides: [dx, dy] } = getTickCoordinates({
-              callback: gridCoordinates,
+              callback: gridCoordinatesGetter,
               scaleName: scaleName!,
               scale,
               paneSize: [width, height],

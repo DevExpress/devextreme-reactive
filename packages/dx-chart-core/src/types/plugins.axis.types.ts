@@ -26,7 +26,7 @@ export type Grid = {
 };
 /** @internal */
 export type GetTickCoordinatesFn<T> = PureComputed<[{
-  callback: TickCoordinatesFn<T>,
+  callback: TickCoordinatesGetterFn<T>,
   scaleName: string,
   scale: ScaleObject,
   paneSize: NumberArray,
@@ -41,7 +41,7 @@ export type GetTickCoordinatesFn<T> = PureComputed<[{
 }>;
 
 /** @internal */
-export type TickCoordinatesFn<T> = PureComputed<[{
+export type TickCoordinatesGetterFn<T> = PureComputed<[{
   isHor: boolean,
   scale?: ScaleObject,
   tickCount?: number,

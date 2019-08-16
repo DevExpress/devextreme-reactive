@@ -1,6 +1,7 @@
 import { isHorizontal } from '../../utils/scale';
 import {
-  getTickCoordinates, getRotatedPosition, isValidPosition, tickCoordinates, gridCoordinates,
+  getTickCoordinates, getRotatedPosition, isValidPosition,
+  tickCoordinatesGetter, gridCoordinatesGetter,
 } from './computeds';
 
 jest.mock('../../utils/scale', () => ({
@@ -55,7 +56,7 @@ describe('get Tick coordinates', () => {
       (isHorizontal as jest.Mock).mockReturnValue(true);
       const coordinates = getTickCoordinates({
         scale, tickSize, indentFromAxis, scaleName: 'test-name', position: 'top',
-        paneSize: [80, 0], rotated: false, callback: tickCoordinates,
+        paneSize: [80, 0], rotated: false, callback: tickCoordinatesGetter,
       } as any);
       expect(coordinates).toEqual({
         sides: [1, 0],
@@ -77,7 +78,7 @@ describe('get Tick coordinates', () => {
       (isHorizontal as jest.Mock).mockReturnValue(true);
       const coordinates = getTickCoordinates({
         scale,  tickSize, indentFromAxis, scaleName: 'test-name', position: 'bottom',
-        paneSize: [80, 0], rotated: false, callback: tickCoordinates,
+        paneSize: [80, 0], rotated: false, callback: tickCoordinatesGetter,
       } as any);
       expect(coordinates).toEqual({
         sides: [1, 0],
@@ -99,7 +100,7 @@ describe('get Tick coordinates', () => {
       (isHorizontal as jest.Mock).mockReturnValue(true);
       getTickCoordinates({
         scale, tickSize, indentFromAxis, scaleName: 'test-name', position: 'top',
-        paneSize: [80, 0], rotated: false, callback: tickCoordinates,
+        paneSize: [80, 0], rotated: false, callback: tickCoordinatesGetter,
       } as any);
       expect(scale.mock.calls).toEqual([
         [1],
@@ -111,7 +112,7 @@ describe('get Tick coordinates', () => {
       (isHorizontal as jest.Mock).mockReturnValue(false);
       const coordinates = getTickCoordinates({
         scale, tickSize, indentFromAxis, scaleName: 'test-name', position: 'left',
-        paneSize: [0, 80], rotated: false, callback: tickCoordinates,
+        paneSize: [0, 80], rotated: false, callback: tickCoordinatesGetter,
       } as any);
       expect(coordinates).toEqual({
         sides: [0, 1],
@@ -133,7 +134,7 @@ describe('get Tick coordinates', () => {
       (isHorizontal as jest.Mock).mockReturnValue(false);
       const coordinates = getTickCoordinates({
         tickSize, indentFromAxis,  scale, scaleName: 'test-name', position: 'right',
-        paneSize: [0, 80], rotated: false, callback: tickCoordinates,
+        paneSize: [0, 80], rotated: false, callback: tickCoordinatesGetter,
       } as any);
       expect(coordinates).toEqual({
         sides: [0, 1],
@@ -155,7 +156,7 @@ describe('get Tick coordinates', () => {
       (isHorizontal as jest.Mock).mockReturnValue(true);
       getTickCoordinates({
         scale, tickSize, indentFromAxis, scaleName: 'test-name', position: 'top',
-        paneSize: [0, 0], rotated: false, callback: tickCoordinates,
+        paneSize: [0, 0], rotated: false, callback: tickCoordinatesGetter,
       } as any);
       expect(scale.ticks).toBeCalledWith(10);
     });
@@ -166,7 +167,7 @@ describe('get Tick coordinates', () => {
       try {
         const coordinates = getTickCoordinates({
           scale, tickSize, indentFromAxis, position: 'top', scaleName: 'test-name',
-          paneSize: [40, 20], rotated: false, callback: tickCoordinates,
+          paneSize: [40, 20], rotated: false, callback: tickCoordinatesGetter,
         } as any);
         expect(coordinates.ticks).toEqual([{
           key: '0',
@@ -197,7 +198,7 @@ describe('get Tick coordinates', () => {
           scaleName: 'test-name',
           paneSize: [40, 20],
           rotated: false,
-          callback: tickCoordinates,
+          callback: tickCoordinatesGetter,
         });
         expect(coordinates.ticks).toEqual([{
           key: '0',
@@ -224,7 +225,7 @@ describe('get Tick coordinates', () => {
       (isHorizontal as jest.Mock).mockReturnValue(false);
       getTickCoordinates({
         scale, tickSize, indentFromAxis, position: 'left', scaleName: 'test-name',
-        paneSize: [0, 80], rotated: false, callback: tickCoordinates,
+        paneSize: [0, 80], rotated: false, callback: tickCoordinatesGetter,
       } as any);
       expect(scale.mock.calls).toEqual([
         ['a'],
@@ -235,7 +236,7 @@ describe('get Tick coordinates', () => {
       (isHorizontal as jest.Mock).mockReturnValue(true);
       const coordinates = getTickCoordinates({
         scale, tickSize, indentFromAxis, position: 'bottom', scaleName: 'test-name',
-        paneSize: [80, 0], rotated: false, callback: tickCoordinates,
+        paneSize: [80, 0], rotated: false, callback: tickCoordinatesGetter,
       } as any);
       expect(coordinates).toEqual({
         sides: [1, 0],
@@ -255,7 +256,7 @@ describe('get Tick coordinates', () => {
       (isHorizontal as jest.Mock).mockReturnValue(true);
       const coordinates = getTickCoordinates({
         scale, tickSize, indentFromAxis, position: 'top', scaleName: 'test-name',
-        paneSize: [80, 0], rotated: false, callback: tickCoordinates,
+        paneSize: [80, 0], rotated: false, callback: tickCoordinatesGetter,
       } as any);
       expect(coordinates).toEqual({
         sides: [1, 0],
@@ -275,7 +276,7 @@ describe('get Tick coordinates', () => {
       (isHorizontal as jest.Mock).mockReturnValue(false);
       const coordinates = getTickCoordinates({
         scale, tickSize, indentFromAxis, position: 'left', scaleName: 'test-name',
-        paneSize: [0, 80], rotated: false, callback: tickCoordinates,
+        paneSize: [0, 80], rotated: false, callback: tickCoordinatesGetter,
       } as any);
       expect(coordinates).toEqual({
         sides: [0, 1],
@@ -295,7 +296,7 @@ describe('get Tick coordinates', () => {
       (isHorizontal as jest.Mock).mockReturnValue(false);
       const coordinates = getTickCoordinates({
         scale, tickSize, indentFromAxis, position: 'right', scaleName: 'test-name',
-        paneSize: [0, 80], rotated: false, callback: tickCoordinates,
+        paneSize: [0, 80], rotated: false, callback: tickCoordinatesGetter,
       } as any);
       expect(coordinates).toEqual({
         sides: [0, 1],
@@ -325,7 +326,7 @@ describe('get Grid coordinates', () => {
       scaleName: 'test-name',
       paneSize: [80, 0],
       rotated: false,
-      callback: gridCoordinates,
+      callback: gridCoordinatesGetter,
     })).toEqual({
       ticks: [
         {
@@ -353,7 +354,7 @@ describe('get Grid coordinates', () => {
       scaleName: 'test-name',
       paneSize: [0, 80],
       rotated: false,
-      callback: gridCoordinates,
+      callback: gridCoordinatesGetter,
     })).toEqual({
       ticks: [
         {

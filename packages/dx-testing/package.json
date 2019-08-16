@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@devexpress/dx-testing",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "DevExtreme Reactive Components Testing Utilities",
   "author": {
     "name": "Developer Express Inc.",
@@ -34,7 +34,7 @@
     "rollup-plugin-node-resolve": "^5.2.0"
   },
   "dependencies": {
-    "@devexpress/dx-react-core": "2.0.2",
+    "@devexpress/dx-react-core": "2.0.3",
     "enzyme": "3.10.0",
     "react": "16.8.6",
     "util": "^0.12.1"

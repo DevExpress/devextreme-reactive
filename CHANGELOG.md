@@ -1,3 +1,20 @@
+# [2.0.3](https://github.com/DevExpress/devextreme-reactive/compare/v2.0.2...v2.0.3) (2019-08-16)
+
+
+### Bug Fixes
+
+* **react-chart:** fix axis layout after update data ([#2199](https://github.com/DevExpress/devextreme-reactive/issues/2199)) ([2b84bd8](https://github.com/DevExpress/devextreme-reactive/commit/2b84bd8))
+* **react-grid:** correctly calculate force reload interval when total count is 0 ([#2238](https://github.com/DevExpress/devextreme-reactive/issues/2238)) ([e9daa64](https://github.com/DevExpress/devextreme-reactive/commit/e9daa64))
+* **react-grid:** retrieve incomplete page from cache ([#2215](https://github.com/DevExpress/devextreme-reactive/issues/2215)) ([0ee86fd](https://github.com/DevExpress/devextreme-reactive/commit/0ee86fd))
+* **scheduler-core:** fix incorrect render of recurrent appointments with BYMONTHDAY parameter ([#2216](https://github.com/DevExpress/devextreme-reactive/issues/2216)) ([7346df3](https://github.com/DevExpress/devextreme-reactive/commit/7346df3))
+
+
+### Features
+
+* **react-grid:** allow setting min and max width limitation for every column ([#2207](https://github.com/DevExpress/devextreme-reactive/issues/2207)) ([dc72916](https://github.com/DevExpress/devextreme-reactive/commit/dc72916))
+
+
+
 # [2.0.2](https://github.com/DevExpress/devextreme-reactive/compare/v2.0.1...v2.0.2) (2019-08-01)
 
 

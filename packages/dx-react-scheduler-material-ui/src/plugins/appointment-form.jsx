@@ -3,31 +3,29 @@ import { AppointmentForm as AppointmentFormBase } from '@devexpress/dx-react-sch
 import { Layout } from '../templates/appointment-form/layout';
 import { TextEditor } from '../templates/appointment-form/common/text-editor';
 import { Layout as BasicLayout } from '../templates/appointment-form/basic/layout';
-import { Layout as ControlLayout } from '../templates/appointment-form/control/layout';
-import { ControlButton } from '../templates/appointment-form/control/control-button';
+import { Layout as CommandLayout } from '../templates/appointment-form/command/layout';
+import { CommandButton } from '../templates/appointment-form/command/command-button';
 import { Root } from '../templates/appointment-form/root';
-import { DateAndTimeEditor } from '../templates/appointment-form/common/date-and-time-editor';
+import { DateEditor } from '../templates/appointment-form/common/date-editor';
 import { Label } from '../templates/appointment-form/common/label';
 import { BooleanEditor } from '../templates/appointment-form/common/boolean-editor';
-import { Switcher } from '../templates/appointment-form/common/switcher';
+import { Select } from '../templates/appointment-form/common/select';
 import { Layout as RecurrenceLayout } from '../templates/appointment-form/recurrence/layout';
-import { RadioGroupEditor } from '../templates/appointment-form/recurrence/radio-group/radio-group-editor';
-import { GroupedButtons } from '../templates/appointment-form/recurrence/grouped-buttons';
-import { Container } from '../templates/appointment-form/container';
+import { RadioGroup } from '../templates/appointment-form/recurrence/radio-group/radio-group';
+import { ButtonGroup } from '../templates/appointment-form/recurrence/button-group';
 
 export const AppointmentForm = withComponents({
   Root,
   Layout,
   TextEditor,
   BasicLayout,
-  ControlLayout,
-  ControlButton,
-  DateAndTimeEditor,
+  CommandLayout,
+  CommandButton,
+  DateEditor,
   Label,
   BooleanEditor,
-  Switcher,
+  Select,
   RecurrenceLayout,
-  RadioGroupEditor,
-  GroupedButtons,
-  Container,
+  RadioGroup,
+  ButtonGroup,
 })(AppointmentFormBase);

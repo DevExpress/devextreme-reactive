@@ -29,7 +29,7 @@ const styles = ({ typography, spacing }) => ({
   },
 });
 
-const DateAndTimeEditorBase = ({
+const DateEditorBase = ({
   classes,
   onFirstDateValueChange,
   onSecondDateValueChange,
@@ -84,7 +84,7 @@ const DateAndTimeEditorBase = ({
   </MuiPickersUtilsProvider>
 );
 
-DateAndTimeEditorBase.propTypes = {
+DateEditorBase.propTypes = {
   classes: PropTypes.object.isRequired,
   firstDate: PropTypes.oneOfType([
     PropTypes.number,
@@ -103,7 +103,7 @@ DateAndTimeEditorBase.propTypes = {
   id: PropTypes.string,
 };
 
-DateAndTimeEditorBase.defaultProps = {
+DateEditorBase.defaultProps = {
   firstDate: undefined,
   secondDate: undefined,
   className: undefined,
@@ -113,4 +113,4 @@ DateAndTimeEditorBase.defaultProps = {
   id: PARTIAL_DATE_TIME_EDITOR,
 };
 
-export const DateAndTimeEditor = withStyles(styles)(DateAndTimeEditorBase, { name: 'DateAndTimeEditor' });
+export const DateEditor = withStyles(styles)(DateEditorBase, { name: 'DateEditor' });

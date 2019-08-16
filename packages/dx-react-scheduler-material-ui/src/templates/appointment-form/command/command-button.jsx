@@ -9,7 +9,7 @@ import { SaveButton } from './save-button';
 import { DeleteButton } from './delete-button';
 import { CancelButton } from './cancel-button';
 
-export const ControlButton = ({
+export const CommandButton = ({
   id,
   ...restProps
 }) => {
@@ -31,6 +31,6 @@ export const ControlButton = ({
   }
 };
 
-ControlButton.propTypes = {
+CommandButton.propTypes = {
   id: PropTypes.string.isRequired,
 };

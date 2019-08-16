@@ -9,7 +9,7 @@ import { EndRepeatEditor } from './end-repeat-editor';
 import { MonthlyEditor } from './monthly-editor';
 import { YearlyEditor } from './yealy-editor';
 
-export const RadioGroupEditor = ({
+export const RadioGroup = ({
   getMessage,
   labelComponent: Label,
   textEditorComponent: TextEditor,
@@ -71,7 +71,7 @@ export const RadioGroupEditor = ({
 };
 
 
-RadioGroupEditor.propTypes = {
+RadioGroup.propTypes = {
   getMessage: PropTypes.func.isRequired,
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
@@ -83,6 +83,6 @@ RadioGroupEditor.propTypes = {
   changedAppointment: PropTypes.object.isRequired,
 };
 
-RadioGroupEditor.defaultProps = {
+RadioGroup.defaultProps = {
   readOnly: false,
 };

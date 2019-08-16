@@ -5,9 +5,19 @@ import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 
 const styles = ({ spacing }) => ({
-  root: {
+  drawer: {
     overflow: 'hidden',
     paddingTop: spacing(2),
+  },
+  absoluteDiv: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+  },
+  container: {
+    position: 'relative',
+    width: '100%',
+    height: '100%',
   },
 });
 
@@ -16,7 +26,6 @@ const RootBase = ({
   visible,
   classes,
   className,
-  container,
   frequency,
   ...restProps
 }) => {
@@ -27,24 +36,32 @@ const RootBase = ({
     position: 'absolute',
     width: '50%',
   };
+  const container = React.useRef();
 
   return (
-    <Drawer
-      className={classNames(classes.root, className)}
-      PaperProps={{ style: drawerPaperStyle }}
-      BackdropProps={{ style: { position: 'absolute' } }}
-      ModalProps={{
-        container,
-        style: { position: 'absolute' },
-      }}
-      variant="temporary"
-      open={visible}
-      anchor="left"
-      transitionDuration={1000}
-      {...restProps}
-    >
-      {children}
-    </Drawer>
+    <div {...restProps}>
+      <div className={classNames(classes.absoluteDiv, className)} {...restProps}>
+        <div
+          className={classes.container}
+          ref={container}
+        />
+      </div>
+      <Drawer
+        className={classNames(classes.drawer, className)}
+        PaperProps={{ style: drawerPaperStyle }}
+        BackdropProps={{ style: { position: 'absolute' } }}
+        ModalProps={{
+          container: container.current,
+          style: { position: 'absolute' },
+        }}
+        variant="temporary"
+        open={visible}
+        anchor="left"
+        transitionDuration={1000}
+      >
+        {children}
+      </Drawer>
+    </div>
   );
 };
 
@@ -54,7 +71,6 @@ RootBase.propTypes = {
   visible: PropTypes.bool,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
-  container: PropTypes.object.isRequired,
   frequency: PropTypes.string.isRequired,
 };
 

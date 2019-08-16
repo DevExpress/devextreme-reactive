@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import Select from '@material-ui/core/Select';
+import MUISelect from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import { withStyles } from '@material-ui/core/styles';
@@ -26,7 +26,7 @@ const styles = ({ typography }) => ({
   },
 });
 
-const SwitcherBase = ({
+const SelectBase = ({
   value,
   availableOptions,
   onChange,
@@ -54,7 +54,7 @@ const SwitcherBase = ({
     ? () => null : undefined;
 
   return (
-    <Select
+    <MUISelect
       disabled={disabled}
       classes={{ root: classes.root }}
       value={value}
@@ -73,11 +73,11 @@ const SwitcherBase = ({
           {option.text}
         </MenuItem>
       ))}
-    </Select>
+    </MUISelect>
   );
 };
 
-SwitcherBase.propTypes = {
+SelectBase.propTypes = {
   onChange: PropTypes.func,
   classes: PropTypes.object.isRequired,
   value: PropTypes.string.isRequired,
@@ -89,11 +89,11 @@ SwitcherBase.propTypes = {
   id: PropTypes.string,
 };
 
-SwitcherBase.defaultProps = {
+SelectBase.defaultProps = {
   disabled: false,
   onChange: () => undefined,
   availableOptions: [],
   id: STANDARD_SWITCHER,
 };
 
-export const Switcher = withStyles(styles)(SwitcherBase, { name: 'Switcher' });
+export const Select = withStyles(styles)(SelectBase, { name: 'Select' });

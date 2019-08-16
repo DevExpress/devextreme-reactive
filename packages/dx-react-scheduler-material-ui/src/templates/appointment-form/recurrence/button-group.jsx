@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
+import MUIButtonGroup from '@material-ui/core/ButtonGroup';
 import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
@@ -50,7 +50,7 @@ const handleWeekDaysChange = (options, weekDay, action) => {
   action(newOptions);
 };
 
-const GroupedButtonsBase = ({
+const ButtonGroupBase = ({
   formatDate,
   changedAppointment,
   onRecurrenceOptionsChange,
@@ -61,7 +61,7 @@ const GroupedButtonsBase = ({
 }) => {
   const recurrenceOptions = getRecurrenceOptions(changedAppointment.rRule);
   return (
-    <ButtonGroup
+    <MUIButtonGroup
       variant="outlined"
       size="small"
       disabled={readOnly}
@@ -159,11 +159,11 @@ const GroupedButtonsBase = ({
       >
         {formatDate(SATURDAY_DATE, WEEK_DAY_OPTIONS)}
       </Button>
-    </ButtonGroup>
+    </MUIButtonGroup>
   );
 };
 
-GroupedButtonsBase.propTypes = {
+ButtonGroupBase.propTypes = {
   changedAppointment: PropTypes.object.isRequired,
   onRecurrenceOptionsChange: PropTypes.func,
   formatDate: PropTypes.func.isRequired,
@@ -171,9 +171,9 @@ GroupedButtonsBase.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-GroupedButtonsBase.defaultProps = {
+ButtonGroupBase.defaultProps = {
   onRecurrenceOptionsChange: () => undefined,
   readOnly: false,
 };
 
-export const GroupedButtons = withStyles(styles)(GroupedButtonsBase, { name: 'GroupedButtons' });
+export const ButtonGroup = withStyles(styles)(ButtonGroupBase, { name: 'ButtonGroup' });

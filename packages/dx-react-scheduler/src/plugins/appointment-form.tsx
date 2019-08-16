@@ -76,7 +76,7 @@ const REPEAT_TYPES = {
   NEVER: 'never',
 };
 
-const ControlLayoutPlaceholder = () => <TemplatePlaceholder name="controlLayout" />;
+const CommandLayoutPlaceholder = () => <TemplatePlaceholder name="commandLayout" />;
 const BasicLayoutPlaceholder = () => <TemplatePlaceholder name="basicLayout" />;
 const RecurrenceLayoutPlaceholder = () => <TemplatePlaceholder name="recurrenceLayout" />;
 const RecurrenceSwitcherPlaceholder = () => <TemplatePlaceholder name="recurrenceSwitcher" />;
@@ -88,8 +88,6 @@ const pluginDependencies = [
 ];
 
 class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, AppointmentFormState> {
-  container = React.createRef<HTMLElement>();
-
   toggleVisibility: (payload?: any) => void;
   setAppointmentData: (payload: any) => void;
   openFormHandler: (payload: AppointmentModel) => void;
@@ -103,17 +101,17 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
   static components: PluginComponents = {
     rootComponent: 'Root',
     layoutComponent: 'Layout',
-    controlLayoutComponent: 'ControlLayout',
-    controlButtonComponent: 'ControlButton',
+    commandLayoutComponent: 'CommandLayout',
+    commandButtonComponent: 'CommandButton',
     basicLayoutComponent: 'BasicLayout',
     textEditorComponent: 'TextEditor',
     labelComponent: 'Label',
-    dateAndTimeEditorComponent: 'DateAndTimeEditor',
+    dateEditorComponent: 'DateEditor',
     booleanEditorComponent: 'BooleanEditor',
-    switcherComponent: 'Switcher',
+    selectComponent: 'Select',
     recurrenceLayoutComponent: 'RecurrenceLayout',
-    radioGroupEditorComponent: 'RadioGroupEditor',
-    groupedButtonsComponent: 'GroupedButtons',
+    radioGroupComponent: 'RadioGroup',
+    buttonGroupComponent: 'ButtonGroup',
     containerComponent: 'Container',
   };
 
@@ -169,18 +167,17 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
     const {
       rootComponent: Root,
       layoutComponent: Layout,
-      controlLayoutComponent: ControlLayout, // rename to commandLayoutComponent
+      commandLayoutComponent: CommandLayout,
       basicLayoutComponent: BasicLayout,
       recurrenceLayoutComponent: RecurrenceLayout,
-      controlButtonComponent: CommandButton, // rename to commandButtonComponent
-      textEditorComponent: TextEditor,
+      commandButtonComponent,
+      textEditorComponent,
       labelComponent: Label,
-      dateAndTimeEditorComponent: DateAndTimeEditor, // rename to dateEditorComponent
-      booleanEditorComponent: BooleanEditor,
-      switcherComponent: Switcher, // rename to selectComponent
-      radioGroupEditorComponent: RadioGroupEditor, // rename to radioGroup component
-      groupedButtonsComponent: GroupedButtons, // rename to buttonGroupCompinent
-      containerComponent: Container,
+      dateEditorComponent,
+      booleanEditorComponent,
+      selectComponent: Select,
+      radioGroupComponent,
+      buttonGroupComponent,
       readOnly,
       messages,
     } = this.props;
@@ -213,31 +210,24 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               if (rRuleFrequency === RRULE_REPEAT_TYPES.YEARLY) frequency = REPEAT_TYPES.YEARLY;
               return (
                 <React.Fragment>
-                  <React.Fragment>
-                    <Container
-                      container={this.container}
+                  <Root
+                    visible={visible}
+                    frequency={frequency} // should be removed
+                    fullSize={frequency !== 'never'}
+                  >
+                    <Layout
+                      basicLayoutComponent={BasicLayoutPlaceholder}
+                      controlLayoutComponent={CommandLayoutPlaceholder}
+                      recurrenceLayoutComponent={RecurrenceLayoutPlaceholder}
+                      isRecurring={frequency !== REPEAT_TYPES.NEVER}
                     />
-                    <Root
-                      visible={visible}
-                      container={this.container.current}
-                      style={{ position: 'absolute' }} // should be removed
-                      frequency={frequency} // should be removed
-                      fullSize={frequency !== 'never'}
-                    >
-                      <Layout
-                        basicLayoutComponent={BasicLayoutPlaceholder}
-                        controlLayoutComponent={ControlLayoutPlaceholder}
-                        recurrenceLayoutComponent={RecurrenceLayoutPlaceholder}
-                        isRecurring={frequency !== REPEAT_TYPES.NEVER}
-                      />
-                    </Root>
-                  </React.Fragment>
+                  </Root>
                   <TemplatePlaceholder />
                 </React.Fragment>);
             }}
           </TemplateConnector>
         </Template>
-        <Template name="controlLayout">
+        <Template name="commandLayout">
           <TemplateConnector>
             {({
               editingAppointmentId,
@@ -292,8 +282,8 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               };
 
               return (
-                <ControlLayout
-                  controlButtonComponent={CommandButton}
+                <CommandLayout
+                  controlButtonComponent={commandButtonComponent}
                   commitAppointment={commitAppointment}
                   cancelCommit={cancelCommit}
                   deleteAppointment={deleteAppointment}
@@ -325,9 +315,9 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               return (
                 <BasicLayout
                   isRecurring={frequency !== REPEAT_TYPES.NEVER}
-                  textEditorComponent={TextEditor}
-                  dateTimeEditorComponent={DateAndTimeEditor}
-                  allDayComponent={BooleanEditor}
+                  textEditorComponent={textEditorComponent}
+                  dateTimeEditorComponent={dateEditorComponent}
+                  allDayComponent={booleanEditorComponent}
                   recurrenceSwitcherComponent={RecurrenceSwitcherPlaceholder}
                   labelComponent={Label}
                   getMessage={getMessage}
@@ -369,9 +359,9 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                   frequency={frequency}
                   changedAppointment={changedAppointment}
                   recurrenceSwitcherComponent={RecurrenceSwitcherPlaceholder}
-                  radioGroupEditorComponent={RadioGroupEditor}
-                  textEditorComponent={TextEditor}
-                  dateAndTimeEditorComponent={DateAndTimeEditor}
+                  radioGroupEditorComponent={radioGroupComponent}
+                  textEditorComponent={textEditorComponent}
+                  dateAndTimeEditorComponent={dateEditorComponent}
                   labelComponent={Label}
                   {...changeAppointment && {
                     onRecurrenceOptionsChange: newOptions => setNewRRule(newOptions),
@@ -379,8 +369,8 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                   }}
                   getMessage={getMessage}
                   readOnly={readOnly}
-                  switcherComponent={Switcher}
-                  groupedButtonsComponent={GroupedButtons}
+                  switcherComponent={Select}
+                  groupedButtonsComponent={buttonGroupComponent}
                   formatDate={formatDate}
                 />
               );
@@ -407,7 +397,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                 ? changeAddedAppointment
                 : changeAppointment;
               return (
-                <Switcher
+                <Select
                   {...changeAppointment && {
                     onChange: (repeatType) => {
                       const rruleRepeatType = getRRuleFrequency(repeatType);

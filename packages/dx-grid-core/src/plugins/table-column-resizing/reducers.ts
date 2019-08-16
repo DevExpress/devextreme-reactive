@@ -8,11 +8,11 @@ export const changeTableColumnWidth: ColumnWidthReducer = (state, payload) => {
   const nextColumnWidth = slice(columnWidths);
   const index = nextColumnWidth.findIndex(elem => elem.columnName === columnName);
   const nextIndex = nextColumnWidth.findIndex(elem => elem.columnName === nextColumnName);
-  const size = getColumnsSizes(columnWidths, payload);
+  const { size, nextSize } = getColumnsSizes(columnWidths, payload);
 
-  nextColumnWidth.splice(index, 1, { columnName, width: size[0] });
+  nextColumnWidth.splice(index, 1, { columnName, width: size });
   if (nextColumnResizing) {
-    nextColumnWidth.splice(nextIndex, 1, { columnName: nextColumnName, width: size[1] });
+    nextColumnWidth.splice(nextIndex, 1, { columnName: nextColumnName, width: nextSize });
   }
   return {
     columnWidths: nextColumnWidth,
@@ -22,11 +22,11 @@ export const changeTableColumnWidth: ColumnWidthReducer = (state, payload) => {
 export const draftTableColumnWidth: ColumnWidthReducer = (state, payload) => {
   const { columnWidths } = state;
   const { columnName, nextColumnName, nextColumnResizing } = payload;
-  const size = getColumnsSizes(columnWidths, payload);
-  let draftColumnWidths = [{ columnName, width: size[0] }];
+  const { size, nextSize } = getColumnsSizes(columnWidths, payload);
+  let draftColumnWidths = [{ columnName, width: size }];
 
   if (nextColumnResizing) {
-    draftColumnWidths = [...draftColumnWidths, { columnName: nextColumnName, width: size[1] }];
+    draftColumnWidths = [...draftColumnWidths, { columnName: nextColumnName, width: nextSize! }];
   }
 
   return {

@@ -2,8 +2,8 @@ import { TABLE_DATA_TYPE } from '../table/constants';
 import { TableColumn, SpecifyWidthsFn, TableColumnsWithWidthFn } from '../../types';
 import { isValidValue } from './helpers';
 
-const VALID_UNITS = ['auto', 'px', '%', 'em', 'rem', 'vm', 'vh', 'vmin', 'vmax', ''];
-const ONLY_NEXT_COLUMN_RESIZE_UNITS = ['auto', '%'];
+const VALID_UNITS = ['px', '%', 'em', 'rem', 'vm', 'vh', 'vmin', 'vmax', ''];
+const ONLY_NEXT_COLUMN_RESIZE_UNITS = ['%'];
 
 const UNSET_COLUMN_WIDTH_ERROR = [
   'The "$1" column\'s width is not specified.',

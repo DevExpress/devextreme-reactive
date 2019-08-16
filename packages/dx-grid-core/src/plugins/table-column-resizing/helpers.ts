@@ -5,7 +5,6 @@ export const getColumnsSizes: ColumnSizeFn = (
     columnName, nextColumnName, nextColumnResizing, cachedWidths,
     shift, minColumnWidth, maxColumnWidth, columnExtensions = [],
 }) => {
-  console.log(columnWidths);
   const column  = columnWidths.find(elem => elem.columnName === columnName)!;
   const extension = columnExtensions.find(elem => elem.columnName === columnName);
   const width = typeof column.width === 'number'
@@ -57,14 +56,15 @@ export const getColumnsSizes: ColumnSizeFn = (
       }
     }
 
-    return [size, nextSize];
+    return { size, nextSize };
   }
 
-  return [size];
+  return { size };
 };
 
 export const isValidValue: ValidValueFn = (value, validUnits) => {
   const numb = parseInt(value, 10);
   const unit = numb ? value.substr(numb.toString().length) : value;
-  return validUnits.findIndex(validUnit => validUnit === unit) >= 0;
+  return isNaN(numb) && unit === 'auto'
+    ||  !isNaN(numb) && validUnits.findIndex(validUnit => validUnit === unit) >= 0;
 };

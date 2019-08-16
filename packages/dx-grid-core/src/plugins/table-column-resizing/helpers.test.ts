@@ -11,7 +11,7 @@ describe('TableColumnResizing Plugin helpers', () => {
     describe('standart resizing mode', () => {
       const nextColumnResizing = undefined;
 
-      fit('should work', () => {
+      it('should work', () => {
         expect(getColumnsSizes(columnWidths, {
           columnName: 'a',
           nextColumnName: 'b',
@@ -23,12 +23,12 @@ describe('TableColumnResizing Plugin helpers', () => {
           columnExtensions: undefined,
         }))
           .toEqual({
-            columnWidths: [{ columnName: 'a', width: 45 }, { columnName: 'b', width: 60 }],
+            size: 45,
           });
       });
 
       it('should stick size to the min', () => {
-        expect(getColumnsSizes(state, {
+        expect(getColumnsSizes(columnWidths, {
           columnName: 'b',
           nextColumnName: undefined,
           nextColumnResizing,
@@ -39,12 +39,12 @@ describe('TableColumnResizing Plugin helpers', () => {
           columnExtensions: undefined,
         }))
           .toEqual({
-            columnWidths: [{ columnName: 'a', width: 40 }, { columnName: 'b', width: 40 }],
+            size: 40,
           });
       });
 
       it('should stick size to the max', () => {
-        expect(getColumnsSizes(state, {
+        expect(getColumnsSizes(columnWidths, {
           columnName: 'b',
           nextColumnName: undefined,
           nextColumnResizing,
@@ -55,7 +55,7 @@ describe('TableColumnResizing Plugin helpers', () => {
           columnExtensions: undefined,
         }))
           .toEqual({
-            columnWidths: [{ columnName: 'a', width: 40 }, { columnName: 'b', width: 80 }],
+            size: 80,
           });
       });
 
@@ -64,7 +64,7 @@ describe('TableColumnResizing Plugin helpers', () => {
           { columnName: 'b', minWidth: 50 },
         ];
 
-        expect(getColumnsSizes(state, {
+        expect(getColumnsSizes(columnWidths, {
           columnName: 'b',
           nextColumnName: undefined,
           nextColumnResizing,
@@ -75,7 +75,7 @@ describe('TableColumnResizing Plugin helpers', () => {
           columnExtensions,
         }))
           .toEqual({
-            columnWidths: [{ columnName: 'a', width: 40 }, { columnName: 'b', width: 50 }],
+            size: 50,
           });
       });
 
@@ -84,7 +84,7 @@ describe('TableColumnResizing Plugin helpers', () => {
           { columnName: 'b', maxWidth: 70 },
         ];
 
-        expect(getColumnsSizes(state, {
+        expect(getColumnsSizes(columnWidths, {
           columnName: 'b',
           nextColumnName: undefined,
           nextColumnResizing,
@@ -95,7 +95,7 @@ describe('TableColumnResizing Plugin helpers', () => {
           columnExtensions,
         }))
           .toEqual({
-            columnWidths: [{ columnName: 'a', width: 40 }, { columnName: 'b', width: 70 }],
+            size: 70,
           });
       });
 
@@ -104,7 +104,7 @@ describe('TableColumnResizing Plugin helpers', () => {
           { columnName: 'b' },
         ];
 
-        expect(getColumnsSizes(state, {
+        expect(getColumnsSizes(columnWidths, {
           columnName: 'b',
           nextColumnName: undefined,
           nextColumnResizing,
@@ -115,16 +115,16 @@ describe('TableColumnResizing Plugin helpers', () => {
           columnExtensions,
         }))
           .toEqual({
-            columnWidths: [{ columnName: 'a', width: 40 }, { columnName: 'b', width: 40 }],
+            size: 40,
           });
       });
 
       it('should work with immutable properties', () => {
-        const immutableState = {
-          columnWidths: Immutable([{ columnName: 'a', width: 40 }, { columnName: 'b', width: 60 }]),
-        };
+        const immutableColumnWidths = Immutable([
+          { columnName: 'a', width: 40 }, { columnName: 'b', width: 60 },
+        ]);
 
-        expect(() => getColumnsSizes(immutableState, {
+        expect(() => getColumnsSizes(immutableColumnWidths, {
           columnName: 'b',
           nextColumnName: undefined,
           nextColumnResizing,
@@ -142,7 +142,7 @@ describe('TableColumnResizing Plugin helpers', () => {
       const nextColumnResizing = true;
 
       it('should resize booth columns', () => {
-        expect(getColumnsSizes(state, {
+        expect(getColumnsSizes(columnWidths, {
           columnName: 'a',
           nextColumnName: 'b',
           nextColumnResizing,
@@ -153,7 +153,7 @@ describe('TableColumnResizing Plugin helpers', () => {
           columnExtensions: undefined,
         }))
           .toEqual({
-            columnWidths: [{ columnName: 'a', width: 45 }, { columnName: 'b', width: 55 }],
+            size: 45, nextSize: 55,
           });
       });
 
@@ -162,7 +162,7 @@ describe('TableColumnResizing Plugin helpers', () => {
           { columnName: 'b', minWidth: 60 },
         ];
 
-        expect(getColumnsSizes(state, {
+        expect(getColumnsSizes(columnWidths, {
           columnName: 'a',
           nextColumnName: 'b',
           nextColumnResizing,
@@ -173,10 +173,10 @@ describe('TableColumnResizing Plugin helpers', () => {
           columnExtensions,
         }))
           .toEqual({
-            columnWidths: [{ columnName: 'a', width: 40 }, { columnName: 'b', width: 60 }],
+            size: 40, nextSize: 60,
           });
 
-        expect(getColumnsSizes(state, {
+        expect(getColumnsSizes(columnWidths, {
           columnName: 'a',
           nextColumnName: 'b',
           nextColumnResizing,
@@ -187,9 +187,31 @@ describe('TableColumnResizing Plugin helpers', () => {
           columnExtensions,
         }))
           .toEqual({
-            columnWidths: [{ columnName: 'a', width: 40 }, { columnName: 'b', width: 60 }],
+            size: 40, nextSize: 60,
           });
       });
+    });
+  });
+
+  describe('#isValidValue', () => {
+    const VALID_UNITS = ['px', '%', 'em', 'rem', 'vm', 'vh', 'vmin', 'vmax', ''];
+
+    it('should return true for valid string value', () => {
+      const values = [
+        '10', '10px', 'auto', '10%', '10em', '10rem', '10vm', '10vh', '10vmin', '10vmax',
+      ];
+
+      values.forEach(value => expect(isValidValue(value, VALID_UNITS))
+        .toBeTruthy());
+    });
+
+    it('should return false for invalid string value', () => {
+      const values = [
+        'px', '10pix', '10auto', '%',
+      ];
+
+      values.forEach(value => expect(isValidValue(value, VALID_UNITS))
+        .toBeFalsy());
     });
   });
 });

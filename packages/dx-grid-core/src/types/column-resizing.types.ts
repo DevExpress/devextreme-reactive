@@ -9,6 +9,12 @@ export interface TableColumnWidthInfo {
   /** A column width. */
   width: number | string;
 }
+export interface ResizingSizes {
+  /** A new column size. */
+  size: number;
+  /** A new next column size */
+  nextSize?: number;
+}
 
 /* tslint:disable no-namespace max-line-length */
 export namespace TableColumnResizing {
@@ -55,8 +61,7 @@ export type ColumnWidthReducer = PureReducer<
 >;
 /** @internal */
 export type ColumnSizeFn = PureComputed<
-  [TableColumnWidthInfo[], ColumnWidthPayload],
-  number[]
+  [TableColumnWidthInfo[], ColumnWidthPayload], ResizingSizes
 >;
 /** @internal */
 export type CellWidthGetter = () => number;

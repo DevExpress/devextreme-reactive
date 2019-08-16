@@ -280,8 +280,8 @@ class Demo extends React.PureComponent {
       confirmationVisible: false,
       editingFormVisible: false,
       deletedAppointmentId: undefined,
-      editingAppointmentId: undefined,
-      previousAppointmentId: undefined,
+      editingAppointment: undefined,
+      previousAppointment: undefined,
       addedAppointment: {},
       startDayHour: 9,
       endDayHour: 19,
@@ -293,24 +293,24 @@ class Demo extends React.PureComponent {
     this.toggleEditingFormVisibility = this.toggleEditingFormVisibility.bind(this);
 
     this.commitChanges = this.commitChanges.bind(this);
-    this.onEditingAppointmentIdChange = this.onEditingAppointmentIdChange.bind(this);
+    this.onEditingAppointmentChange = this.onEditingAppointmentChange.bind(this);
     this.onAddedAppointmentChange = this.onAddedAppointmentChange.bind(this);
     this.appointmentForm = connectProps(AppointmentFormContainer, () => {
       const {
         editingFormVisible,
-        editingAppointmentId,
+        editingAppointment,
         data,
         addedAppointment,
         isNewAppointment,
-        previousAppointmentId,
+        previousAppointment,
       } = this.state;
 
       const currentAppointment = data
-        .filter(appointment => appointment.id === editingAppointmentId)[0] || addedAppointment;
+        .filter(appointment => editingAppointment && appointment.id === editingAppointment.id)[0] || addedAppointment;
       const cancelAppointment = () => {
         if (isNewAppointment) {
           this.setState({
-            editingAppointmentId: previousAppointmentId,
+            editingAppointment: previousAppointment,
             isNewAppointment: false,
           });
         }
@@ -321,7 +321,7 @@ class Demo extends React.PureComponent {
         appointmentData: currentAppointment,
         commitChanges: this.commitChanges,
         visibleChange: this.toggleEditingFormVisibility,
-        onEditingAppointmentIdChange: this.onEditingAppointmentIdChange,
+        onEditingAppointmentChange: this.onEditingAppointmentChange,
         cancelAppointment,
       };
     });
@@ -331,19 +331,19 @@ class Demo extends React.PureComponent {
     this.appointmentForm.update();
   }
 
-  onEditingAppointmentIdChange(editingAppointmentId) {
-    this.setState({ editingAppointmentId });
+  onEditingAppointmentChange(editingAppointment) {
+    this.setState({ editingAppointment });
   }
 
   onAddedAppointmentChange(addedAppointment) {
     this.setState({ addedAppointment });
-    const { editingAppointmentId } = this.state;
-    if (editingAppointmentId !== undefined) {
+    const { editingAppointment } = this.state;
+    if (editingAppointment !== undefined) {
       this.setState({
-        previousAppointmentId: editingAppointmentId,
+        previousAppointment: editingAppointment,
       });
     }
-    this.setState({ editingAppointmentId: undefined, isNewAppointment: true });
+    this.setState({ editingAppointment: undefined, isNewAppointment: true });
   }
 
   setDeletedAppointmentId(id) {
@@ -413,7 +413,7 @@ class Demo extends React.PureComponent {
           />
           <EditingState
             onCommitChanges={this.commitChanges}
-            onEditingAppointmentIdChange={this.onEditingAppointmentIdChange}
+            onEditingAppointmentChange={this.onEditingAppointmentChange}
             onAddedAppointmentChange={this.onAddedAppointmentChange}
           />
           <WeekView
@@ -465,7 +465,7 @@ class Demo extends React.PureComponent {
           className={classes.addButton}
           onClick={() => {
             this.setState({ editingFormVisible: true });
-            this.onEditingAppointmentIdChange(undefined);
+            this.onEditingAppointmentChange(undefined);
             this.onAddedAppointmentChange({
               startDate: new Date(currentDate).setHours(startDayHour),
               endDate: new Date(currentDate).setHours(startDayHour + 1),

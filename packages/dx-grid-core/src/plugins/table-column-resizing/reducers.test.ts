@@ -38,7 +38,6 @@ describe('TableColumnResizing Plugin reducers', () => {
           .toEqual({
             columnWidths: [{ columnName: 'a', width: 45 }, { columnName: 'b', width: 60 }],
           });
-
         expect(getColumnsSizes).toBeCalledWith(state.columnWidths, payload);
       });
 
@@ -59,7 +58,6 @@ describe('TableColumnResizing Plugin reducers', () => {
           .toEqual({
             columnWidths: [{ columnName: 'a', width: 40 }, { columnName: 'b', width: 40 }],
           });
-
         expect(getColumnsSizes).toBeCalledWith(state.columnWidths, payload);
       });
 
@@ -80,7 +78,6 @@ describe('TableColumnResizing Plugin reducers', () => {
           .toEqual({
             columnWidths: [{ columnName: 'a', width: 40 }, { columnName: 'b', width: 80 }],
           });
-
         expect(getColumnsSizes).toBeCalledWith(state.columnWidths, payload);
       });
 
@@ -104,7 +101,6 @@ describe('TableColumnResizing Plugin reducers', () => {
           .toEqual({
             columnWidths: [{ columnName: 'a', width: 40 }, { columnName: 'b', width: 50 }],
           });
-
         expect(getColumnsSizes).toBeCalledWith(state.columnWidths, payload);
       });
 
@@ -128,7 +124,6 @@ describe('TableColumnResizing Plugin reducers', () => {
           .toEqual({
             columnWidths: [{ columnName: 'a', width: 40 }, { columnName: 'b', width: 70 }],
           });
-
         expect(getColumnsSizes).toBeCalledWith(state.columnWidths, payload);
       });
 
@@ -152,7 +147,6 @@ describe('TableColumnResizing Plugin reducers', () => {
           .toEqual({
             columnWidths: [{ columnName: 'a', width: 40 }, { columnName: 'b', width: 40 }],
           });
-
         expect(getColumnsSizes).toBeCalledWith(state.columnWidths, payload);
       });
 
@@ -174,7 +168,6 @@ describe('TableColumnResizing Plugin reducers', () => {
 
         expect(() => changeTableColumnWidth(immutableState, payload))
           .not.toThrow();
-
         expect(getColumnsSizes).toBeCalledWith(state.columnWidths, payload);
       });
     });
@@ -199,7 +192,6 @@ describe('TableColumnResizing Plugin reducers', () => {
           .toEqual({
             columnWidths: [{ columnName: 'a', width: 45 }, { columnName: 'b', width: 55 }],
           });
-
         expect(getColumnsSizes).toBeCalledWith(state.columnWidths, payload);
       });
 

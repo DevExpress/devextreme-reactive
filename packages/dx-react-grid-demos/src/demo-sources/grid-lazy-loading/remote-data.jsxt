@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useMemo } from 'react';<%&additionalImports%>
+import React, {
+  useReducer, useState, useEffect, useMemo,
+} from 'react';<%&additionalImports%>
 import {
   VirtualTableState,
   DataTypeProvider,
@@ -42,7 +44,71 @@ const DateTypeProvider = props => (
   />
 );
 
+const initialState = {
+  rows: [],
+  skip: 0,
+  requestedSkip: 0,
+  take: VIRTUAL_PAGE_SIZE * 2,
+  totalCount: 0,
+  loading: false,
+  lastQuery: '',
+  sorting: [],
+  filters: [],
+  forceReload: false,
+};
+
+function reducer(state, { type, payload }) {
+  switch (type) {
+    case 'UPDATE_ROWS':
+      return {
+        ...state,
+        ...payload,
+        loading: false,
+      };
+    case 'CHANGE_SORTING':
+      return {
+        ...state,
+        forceReload: true,
+        rows: [],
+        sorting: payload,
+      };
+    case 'CHANGE_FILTERS':
+      return {
+        ...state,
+        forceReload: true,
+        requestedSkip: 0,
+        rows: [],
+        filters: payload,
+      };
+    case 'START_LOADING':
+      return {
+        ...state,
+        requestedSkip: payload.requestedSkip,
+        take: payload.take,
+      };
+    case 'REQUEST_ERROR':
+      return {
+        ...state,
+        loading: false,
+      };
+    case 'FETCH_INIT':
+      return {
+        ...state,
+        loading: true,
+        forceReload: false,
+      };
+    case 'UPDATE_QUERY':
+      return {
+        ...state,
+        lastQuery: payload,
+      };
+    default:
+      return state;
+  }
+}
+
 export default () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
   const [columns] = useState([
     { name: 'Id', title: 'Id', getCellValue: row => row.Id },
     { name: 'ProductCategoryName', title: 'Category', getCellValue: row => row.ProductCategoryName },
@@ -51,7 +117,6 @@ export default () => {
     { name: 'DateKey', title: 'Date', getCellValue: row => row.DateKey },
     { name: 'SalesAmount', title: 'Amount', getCellValue: row => row.SalesAmount },
   ]);
-  const [rows, setRows] = useState([]);
   const [tableColumnExtensions] = useState([
     { columnName: 'Id', width: 70 },
     { columnName: 'ProductCategoryName', width: 200 },
@@ -59,31 +124,27 @@ export default () => {
     { columnName: 'DateKey', width: 100 },
     { columnName: 'SalesAmount', width: 110 },
   ]);
-  const [skip, setSkip] = useState(0);
-  const [requestedSkip, setRequestedSkip] = useState(0);
-  const [take, setTake] = useState(VIRTUAL_PAGE_SIZE * 2);
-  const [totalCount, setTotalCount] = useState(MAX_ROWS);
-  const [loading, setLoading] = useState(false);
-  const [forceReload, setForceReload] = useState(false);
-  const [filters, setFilters] = useState([]);
-  const [sorting, setSorting] = useState([]);
-  const [lastQuery, setLastQuery] = useState();
 
   const cache = useMemo(() => createRowCache(VIRTUAL_PAGE_SIZE), [VIRTUAL_PAGE_SIZE]);
-  const updateRows = (newSkip, count, newTotalCount) => {
-    const newRows = cache.getRows(newSkip, count);
-    setRows(newRows);
-    setSkip(newSkip);
-    setTotalCount(newTotalCount < MAX_ROWS ? newTotalCount : MAX_ROWS);
-    setLoading(false);
+  const updateRows = (skip, count, newTotalCount) => {
+    dispatch({
+      type: 'UPDATE_ROWS',
+      payload: {
+        skip,
+        rows: cache.getRows(skip, count),
+        totalCount: newTotalCount < MAX_ROWS ? newTotalCount : MAX_ROWS,
+      },
+    });
   };
 
-  const getRemoteRows = (newRequestedSkip, newTake) => {
-    setRequestedSkip(newRequestedSkip);
-    setTake(newTake);
+  const getRemoteRows = (requestedSkip, take) => {
+    dispatch({ type: 'START_LOADING', payload: { requestedSkip, take } });
   };
 
-  const buildQueryString = (querySkip, queryTake) => {
+  const buildQueryString = () => {
+    const {
+      requestedSkip, take, filters, sorting,
+    } = state;
     const filterStr = filters
       .map(({ columnName, value, operation }) => (
         `["${columnName}","${operation}","${value}"]`
@@ -94,14 +155,17 @@ export default () => {
         desc: direction === 'desc',
       }));
     const sortingStr = JSON.stringify(sortingConfig);
-    const filterQuery = filterStr ? `&filter=${escape(filterStr)}` : '';
+    const filterQuery = filterStr ? `&filter=[${escape(filterStr)}]` : '';
     const sortQuery = sortingStr ? `&sort=${escape(`${sortingStr}`)}` : '';
 
-    return `${URL}?requireTotalCount=true&skip=${querySkip}&take=${queryTake}${filterQuery}${sortQuery}`;
+    return `${URL}?requireTotalCount=true&skip=${requestedSkip}&take=${take}${filterQuery}${sortQuery}`;
   };
 
   const loadData = () => {
-    const query = buildQueryString(requestedSkip, take);
+    const {
+      requestedSkip, take, lastQuery, loading, forceReload,
+    } = state;
+    const query = buildQueryString();
     if ((query !== lastQuery || forceReload) && !loading) {
       if (forceReload) {
         cache.invalidate();
@@ -110,34 +174,32 @@ export default () => {
       if (cached.length === take) {
         updateRows(requestedSkip, take);
       } else {
-        setLoading(true);
-        setForceReload(false);
+        dispatch({ type: 'FETCH_INIT' });
         fetch(query)
           .then(response => response.json())
           .then(({ data, totalCount: newTotalCount }) => {
             cache.setRows(requestedSkip, data);
             updateRows(requestedSkip, take, newTotalCount);
           })
-          .catch(() => setLoading(false));
+          .catch(() => dispatch({ type: 'REQUEST_ERROR' }));
       }
-      setLastQuery(query);
+      dispatch({ type: 'UPDATE_QUERY', payload: query });
     }
   };
 
   const changeFilters = (value) => {
-    setFilters(value);
-    setRows([]);
-    setForceReload(true);
+    dispatch({ type: 'CHANGE_FILTERS', payload: value });
   };
 
   const changeSorting = (value) => {
-    setSorting(value);
-    setRows([]);
-    setForceReload(true);
+    dispatch({ type: 'CHANGE_SORTING', payload: value });
   };
 
   useEffect(() => loadData());
 
+  const {
+    rows, skip, totalCount, loading, sorting, filters,
+  } = state;
   return (
     <<%&wrapperTag%><%&wrapperAttributes%>>
       <Grid

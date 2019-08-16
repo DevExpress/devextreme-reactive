@@ -5,19 +5,20 @@ import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 
 const styles = ({ spacing }) => ({
-  drawer: {
+  root: {
     overflow: 'hidden',
     paddingTop: spacing(2),
   },
-  absoluteDiv: {
-    position: 'absolute',
-    width: '100%',
-    height: '100%',
+  absolutePosition: {
+    position: 'absolute!important',
   },
-  container: {
-    position: 'relative',
-    width: '100%',
+  fullSize: {
     height: '100%',
+    width: '100%',
+  },
+  halfSize: {
+    height: '100%',
+    width: '50%',
   },
 });
 
@@ -26,57 +27,52 @@ const RootBase = ({
   visible,
   classes,
   className,
-  frequency,
+  fullSize,
+  container,
+  closeHandler,
   ...restProps
 }) => {
-  const drawerPaperStyle = frequency !== 'never' ? {
-    position: 'absolute',
-    width: '100%',
-  } : {
-    position: 'absolute',
-    width: '50%',
-  };
-  const container = React.useRef();
+  const paperClasses = classNames({
+    [classes.absolutePosition]: true,
+    [classes.fullSize]: fullSize,
+    [classes.halfSize]: !fullSize,
+  });
 
   return (
-    <div {...restProps}>
-      <div className={classNames(classes.absoluteDiv, className)} {...restProps}>
-        <div
-          className={classes.container}
-          ref={container}
-        />
-      </div>
-      <Drawer
-        className={classNames(classes.drawer, className)}
-        PaperProps={{ style: drawerPaperStyle }}
-        BackdropProps={{ style: { position: 'absolute' } }}
-        ModalProps={{
-          container: container.current,
-          style: { position: 'absolute' },
-        }}
-        variant="temporary"
-        open={visible}
-        anchor="left"
-        transitionDuration={1000}
-      >
-        {children}
-      </Drawer>
-    </div>
+    <Drawer
+      className={classNames(classes.root, className)}
+      PaperProps={{ className: paperClasses }}
+      BackdropProps={{ className: classes.absolutePosition }}
+      ModalProps={{
+        className: classes.absolutePosition,
+        container,
+      }}
+      variant="temporary"
+      anchor="left"
+      transitionDuration={600}
+      open={visible}
+      onBackdropClick={closeHandler}
+      {...restProps}
+    >
+      {children}
+    </Drawer>
   );
 };
 
 
 RootBase.propTypes = {
   children: PropTypes.node.isRequired,
-  visible: PropTypes.bool,
   classes: PropTypes.object.isRequired,
+  fullSize: PropTypes.bool.isRequired,
+  visible: PropTypes.bool,
   className: PropTypes.string,
-  frequency: PropTypes.string.isRequired,
+  container: PropTypes.node,
 };
 
 RootBase.defaultProps = {
-  visible: false,
   className: undefined,
+  visible: false,
+  container: null,
 };
 
 export const Root = withStyles(styles)(RootBase, { name: 'Root' });

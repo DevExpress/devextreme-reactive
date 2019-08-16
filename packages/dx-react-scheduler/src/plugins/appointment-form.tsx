@@ -91,6 +91,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
   toggleVisibility: (payload?: any) => void;
   setAppointmentData: (payload: any) => void;
   openFormHandler: (payload: AppointmentModel) => void;
+  container = React.createRef();
 
   static defaultProps: Partial<AppointmentFormProps> = {
     messages: {},
@@ -165,6 +166,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
 
   render() {
     const {
+      containerComponent: Container,
       rootComponent: Root,
       layoutComponent: Layout,
       commandLayoutComponent: CommandLayout,
@@ -210,10 +212,14 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               if (rRuleFrequency === RRULE_REPEAT_TYPES.YEARLY) frequency = REPEAT_TYPES.YEARLY;
               return (
                 <React.Fragment>
+                  <Container
+                    anchor={this.container}
+                  />
                   <Root
                     visible={visible}
-                    frequency={frequency} // should be removed
+                    closeHandler={this.toggleVisibility}
                     fullSize={frequency !== 'never'}
+                    container={this.container.current}
                   >
                     <Layout
                       basicLayoutComponent={BasicLayoutPlaceholder}

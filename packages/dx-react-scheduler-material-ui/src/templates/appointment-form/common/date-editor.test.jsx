@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import { KeyboardDateTimePicker } from '@material-ui/pickers';
 import Typography from '@material-ui/core/Typography';
 import { FULL_DATE_TIME_EDITOR } from '@devexpress/dx-scheduler-core';
-import { DateAndTimeEditor } from './date-and-time-editor';
+import { DateEditor } from './date-editor';
 
 describe('AppointmentForm common', () => {
   const defaultProps = {
@@ -16,10 +16,10 @@ describe('AppointmentForm common', () => {
     shallow = createShallow({ dive: true });
   });
 
-  describe('DateAndTimeEditor', () => {
+  describe('DateEditor', () => {
     it('should pass rest props to the Grid element', () => {
       const tree = shallow((
-        <DateAndTimeEditor data={{ a: 1 }} />
+        <DateEditor data={{ a: 1 }} />
       ));
 
       const rootGrid = tree.find(Grid);
@@ -29,9 +29,9 @@ describe('AppointmentForm common', () => {
     });
 
     it('should render full DateAndTime Editor correctly', () => {
-      const classes = getClasses(<DateAndTimeEditor />);
+      const classes = getClasses(<DateEditor />);
       const tree = shallow((
-        <DateAndTimeEditor id={FULL_DATE_TIME_EDITOR} />
+        <DateEditor id={FULL_DATE_TIME_EDITOR} />
       ));
 
       const dateTimePickers = tree.find(KeyboardDateTimePicker);
@@ -52,9 +52,9 @@ describe('AppointmentForm common', () => {
     });
 
     it('should render partial DateAndTime Editor correctly', () => {
-      const classes = getClasses(<DateAndTimeEditor />);
+      const classes = getClasses(<DateEditor />);
       const tree = shallow((
-        <DateAndTimeEditor />
+        <DateEditor />
       ));
 
       const dateTimePickers = tree.find(KeyboardDateTimePicker);
@@ -72,7 +72,7 @@ describe('AppointmentForm common', () => {
 
     it('should handle onChanges correctly', () => {
       const tree = shallow((
-        <DateAndTimeEditor {...defaultProps} id={FULL_DATE_TIME_EDITOR} />
+        <DateEditor {...defaultProps} id={FULL_DATE_TIME_EDITOR} />
       ));
 
       const dateTimePickers = tree.find(KeyboardDateTimePicker);

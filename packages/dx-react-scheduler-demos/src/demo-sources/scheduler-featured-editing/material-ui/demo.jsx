@@ -163,28 +163,32 @@ class AppointmentFormContainerBasic extends React.PureComponent {
       // keyboard: true,
       ampm: false,
       value: displayAppointmentData[field],
-      onChange: date => this.changeAppointment({ field: [field], changes: date.toDate() }),
+      onChange: date => this.changeAppointment({
+        field: [field], changes: date ? date.toDate() : new Date(displayAppointmentData[field]),
+      }),
       inputVariant: 'outlined',
       format: 'DD/MM/YYYY HH:mm',
-      mask: [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, ':', /\d/, /\d/],
+      onError: () => null,
     });
+
+    const cancelChanges = () => {
+      this.setState({
+        appointmentChanges: {},
+      });
+      visibleChange();
+      cancelAppointment();
+    };
 
     return (
       <AppointmentForm.Popup
         visible={visible}
-        onBackdropClick={() => {
-          visibleChange();
-          cancelAppointment();
-        }}
+        onBackdropClick={cancelChanges}
       >
         <AppointmentForm.Container className={classes.container}>
           <div className={classes.header}>
             <IconButton
               className={classes.closeButton}
-              onClick={() => {
-                visibleChange();
-                cancelAppointment();
-              }}
+              onClick={cancelChanges}
             >
               <Close color="action" />
             </IconButton>
@@ -334,7 +338,7 @@ class Demo extends React.PureComponent {
   onAddedAppointmentChange(addedAppointment) {
     this.setState({ addedAppointment });
     const { editingAppointmentId } = this.state;
-    if (editingAppointmentId) {
+    if (editingAppointmentId !== undefined) {
       this.setState({
         previousAppointmentId: editingAppointmentId,
       });

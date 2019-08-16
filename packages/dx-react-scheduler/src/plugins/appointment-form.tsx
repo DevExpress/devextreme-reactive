@@ -114,6 +114,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
     recurrenceLayoutComponent: 'RecurrenceLayout',
     radioGroupEditorComponent: 'RadioGroupEditor',
     groupedButtonsComponent: 'GroupedButtons',
+    containerComponent: 'Container',
   };
 
   constructor(props) {
@@ -179,6 +180,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
       switcherComponent: Switcher, // rename to selectComponent
       radioGroupEditorComponent: RadioGroupEditor, // rename to radioGroup component
       groupedButtonsComponent: GroupedButtons, // rename to buttonGroupCompinent
+      containerComponent: Container,
       readOnly,
       messages,
     } = this.props;
@@ -212,12 +214,9 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               return (
                 <React.Fragment>
                   <React.Fragment>
-                    <div style={{ position: 'absolute', width: '100%', height: '100%' }}>
-                      <div
-                        style={{ position: 'relative', width: '100%', height: '100%' }}
-                        ref={this.container}
-                      />
-                    </div>
+                    <Container
+                      container={this.container}
+                    />
                     <Root
                       visible={visible}
                       container={this.container.current}

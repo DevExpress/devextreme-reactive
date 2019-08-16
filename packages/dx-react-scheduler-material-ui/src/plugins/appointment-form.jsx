@@ -13,6 +13,7 @@ import { Switcher } from '../templates/appointment-form/common/switcher';
 import { Layout as RecurrenceLayout } from '../templates/appointment-form/recurrence/layout';
 import { RadioGroupEditor } from '../templates/appointment-form/recurrence/radio-group/radio-group-editor';
 import { GroupedButtons } from '../templates/appointment-form/recurrence/grouped-buttons';
+import { Container } from '../templates/appointment-form/container';
 
 export const AppointmentForm = withComponents({
   Root,
@@ -28,4 +29,5 @@ export const AppointmentForm = withComponents({
   RecurrenceLayout,
   RadioGroupEditor,
   GroupedButtons,
+  Container,
 })(AppointmentFormBase);

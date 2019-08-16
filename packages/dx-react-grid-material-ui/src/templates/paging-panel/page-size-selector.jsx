@@ -27,6 +27,9 @@ const styles = theme => ({
   selectIcon: {
     top: 2,
   },
+  selectMenu: {
+    position: 'absolute !important',
+  },
   '@media (max-width: 768px)': {
     label: {
       display: 'none',
@@ -56,18 +59,21 @@ const PageSizeSelectorBase = ({
         classes={{
           icon: classes.selectIcon,
         }}
+        MenuProps={{
+          className: classes.selectMenu
+        }}
         input={(
           <Input
             disableUnderline
             classes={{ root: classes.inputRoot }}
           />
-)}
+        )}
       >
         {pageSizes.map(item => (
-          <MenuItem key={item} value={item}>
-            {item !== 0 ? item : showAll }
-          </MenuItem>
-        ))}
+            <MenuItem key={item} value={item}>
+              {item !== 0 ? item : showAll }
+            </MenuItem>
+          ))}
       </Select>
     </div>
   );

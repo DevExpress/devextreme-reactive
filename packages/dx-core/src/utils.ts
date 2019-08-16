@@ -52,11 +52,3 @@ export const createClickHandlers = (click?, dblClick?) => {
 
 /** @internal */
 export const slice = arr => Array.prototype.slice.call(arr); // slice can be renamed to copy as well
-
-/* globals window:true */
-/** @internal */
-export const isEdgeBrowser = () => /Edge/.test(window.navigator.userAgent);
-
-/* globals window:true */
-/** @internal */
-export const isFirefoxBrowser = () => /Firefox/.test(window.navigator.userAgent);

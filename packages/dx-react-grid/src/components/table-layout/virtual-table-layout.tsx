@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Sizer } from '@devexpress/dx-react-core';
-import { MemoizedFunction, memoize, isEdgeBrowser, isFirefoxBrowser } from '@devexpress/dx-core';
+import { MemoizedFunction, memoize } from '@devexpress/dx-core';
 import {
   TableColumn, GetColumnWidthFn, getCollapsedGrids,
   getColumnWidthGetter, TABLE_STUB_TYPE, getViewport, GridViewport,
@@ -28,8 +28,6 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
   getColumnWidthGetter: MemoizedFunction<[TableColumn[], number, number], GetColumnWidthFn>;
   rowRefs = new Map();
   blockRefs = new Map();
-  isEdgeBrowser = false;
-  isFirefoxBrowser = false;
   viewportTop = 0;
   containerHeight = 600;
   containerWidth = 800;
@@ -66,9 +64,6 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
   }
 
   componentDidMount() {
-    this.isEdgeBrowser = isEdgeBrowser();
-    this.isFirefoxBrowser = isFirefoxBrowser();
-
     this.storeRowHeights();
     this.storeBlockHeights();
   }
@@ -205,10 +200,13 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
     if (node !== e.currentTarget) {
       return true;
     }
-    // NOTE: prevent iOS to flicker in bounces and correct rendering on high dpi screens
-    const correction = this.isEdgeBrowser || this.isFirefoxBrowser ? 1 : 0;
+    // NOTE: normalize position:
+    // in Firefox and Chrome (zoom > 100%) when scrolled to the bottom
+    // in Edge when scrolled to the right edge
+    const correction = 0;
     const nodeHorizontalOffset = parseInt(node.scrollLeft + node.clientWidth, 10) - correction;
     const nodeVerticalOffset = parseInt(node.scrollTop + node.clientHeight, 10) - correction;
+    // NOTE: prevent iOS to flicker in bounces and correct rendering on high dpi screens
     if (node.scrollTop < 0
       || node.scrollLeft < 0
       || nodeHorizontalOffset > Math.max(node.scrollWidth, node.clientWidth)

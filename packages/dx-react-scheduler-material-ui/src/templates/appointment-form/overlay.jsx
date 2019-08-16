@@ -22,14 +22,14 @@ const styles = ({ spacing }) => ({
   },
 });
 
-const RootBase = ({
+const OverlayBase = ({
   children,
   visible,
   classes,
   className,
   fullSize,
   container,
-  closeHandler,
+  onHide,
   ...restProps
 }) => {
   const paperClasses = classNames({
@@ -51,7 +51,7 @@ const RootBase = ({
       anchor="left"
       transitionDuration={600}
       open={visible}
-      onBackdropClick={closeHandler}
+      onBackdropClick={onHide}
       {...restProps}
     >
       {children}
@@ -60,19 +60,20 @@ const RootBase = ({
 };
 
 
-RootBase.propTypes = {
+OverlayBase.propTypes = {
   children: PropTypes.node.isRequired,
   classes: PropTypes.object.isRequired,
   fullSize: PropTypes.bool.isRequired,
+  onHide: PropTypes.func.isRequired,
   visible: PropTypes.bool,
   className: PropTypes.string,
   container: PropTypes.node,
 };
 
-RootBase.defaultProps = {
+OverlayBase.defaultProps = {
   className: undefined,
   visible: false,
   container: null,
 };
 
-export const Root = withStyles(styles)(RootBase, { name: 'Root' });
+export const Overlay = withStyles(styles)(OverlayBase, { name: 'Overlay' });

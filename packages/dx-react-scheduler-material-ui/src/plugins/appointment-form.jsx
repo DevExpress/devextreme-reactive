@@ -5,7 +5,7 @@ import { TextEditor } from '../templates/appointment-form/common/text-editor';
 import { Layout as BasicLayout } from '../templates/appointment-form/basic/layout';
 import { Layout as CommandLayout } from '../templates/appointment-form/command/layout';
 import { CommandButton } from '../templates/appointment-form/command/command-button';
-import { Root } from '../templates/appointment-form/root';
+import { Overlay } from '../templates/appointment-form/overlay';
 import { DateEditor } from '../templates/appointment-form/common/date-editor';
 import { Label } from '../templates/appointment-form/common/label';
 import { BooleanEditor } from '../templates/appointment-form/common/boolean-editor';
@@ -16,7 +16,7 @@ import { ButtonGroup } from '../templates/appointment-form/recurrence/button-gro
 import { Container } from '../templates/appointment-form/container';
 
 export const AppointmentForm = withComponents({
-  Root,
+  Overlay,
   Layout,
   TextEditor,
   BasicLayout,

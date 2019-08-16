@@ -91,7 +91,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
   toggleVisibility: (payload?: any) => void;
   setAppointmentData: (payload: any) => void;
   openFormHandler: (payload: AppointmentModel) => void;
-  container = React.createRef();
+  container = React.createRef<Element>(); // ??????
 
   static defaultProps: Partial<AppointmentFormProps> = {
     messages: {},
@@ -100,7 +100,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
     onAppointmentDataChange: () => undefined,
   };
   static components: PluginComponents = {
-    rootComponent: 'Root',
+    overlayComponent: 'Overlay',
     layoutComponent: 'Layout',
     commandLayoutComponent: 'CommandLayout',
     commandButtonComponent: 'CommandButton',
@@ -167,7 +167,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
   render() {
     const {
       containerComponent: Container,
-      rootComponent: Root,
+      overlayComponent: Overlay,
       layoutComponent: Layout,
       commandLayoutComponent: CommandLayout,
       basicLayoutComponent: BasicLayout,
@@ -215,11 +215,11 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                   <Container
                     anchor={this.container}
                   />
-                  <Root
+                  <Overlay
                     visible={visible}
-                    closeHandler={this.toggleVisibility}
-                    fullSize={frequency !== 'never'}
-                    container={this.container.current}
+                    onHide={this.toggleVisibility}
+                    fullSize={frequency !== 'never'} // should be a constant
+                    target={this.container.current}
                   >
                     <Layout
                       basicLayoutComponent={BasicLayoutPlaceholder}
@@ -227,7 +227,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                       recurrenceLayoutComponent={RecurrenceLayoutPlaceholder}
                       isRecurring={frequency !== REPEAT_TYPES.NEVER}
                     />
-                  </Root>
+                  </Overlay>
                   <TemplatePlaceholder />
                 </React.Fragment>);
             }}

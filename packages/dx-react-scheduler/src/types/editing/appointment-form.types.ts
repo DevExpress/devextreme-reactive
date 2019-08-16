@@ -2,6 +2,20 @@ import { AppointmentModel } from '../index';
 
 /* tslint:disable no-namespace max-line-length */
 export namespace AppointmentForm {
+
+  /** Describes properties passed to a component that renders an Appointment Form overlay. */
+  export interface OverlayProps {
+    /** Specifies whether the overlay is visible. */
+    visible: boolean;
+    /** An event that initiates overlay hiding. */
+    onHide: () => void;
+    /** Specifies whether the overlay has full size */
+    fullSize: boolean;
+    /** A React component instance or a DOM element that is used for overlay positioning. */
+    target: React.ReactInstance;
+    /** A React node used to render overlay content. */
+    children: React.ReactNode;
+  }
   /** Localization Messages */
   export interface LocalizationMessages {
     /** The all day editor’s label text. */
@@ -30,8 +44,10 @@ export interface AppointmentFormProps {
   onAppointmentDataChange?: (appointmentData: AppointmentModel) => void;
   /** Specifies the appointment form is read-only. */
   readOnly?: boolean;
-  /** A component that render the appointment form's root component */
-  rootComponent: React.ComponentType<any>;
+  /** @internal */
+  containerComponent: React.ComponentType<any>;
+  /** A component that render the appointment form's overlay component */
+  overlayComponent: React.ComponentType<AppointmentForm.OverlayProps>;
   /** A component that render the appointment form's layout */
   layoutComponent: React.ComponentType<AppointmentForm.LayoutProps>;
   /** A component that render the appointment form's layout for command buttons */

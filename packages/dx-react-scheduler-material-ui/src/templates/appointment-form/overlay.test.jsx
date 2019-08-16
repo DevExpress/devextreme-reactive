@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createShallow, getClasses, createMount } from '@material-ui/core/test-utils';
-import { Root } from './root';
+import { Overlay } from './overlay';
 
 describe('AppointmentForm', () => {
   const defaultProps = {
@@ -15,7 +15,7 @@ describe('AppointmentForm', () => {
   let shallow;
   let mount;
   beforeAll(() => {
-    classes = getClasses(<Root><div /></Root>);
+    classes = getClasses(<Overlay><div /></Overlay>);
     shallow = createShallow({ dive: true });
   });
   beforeEach(() => {
@@ -24,12 +24,12 @@ describe('AppointmentForm', () => {
   afterEach(() => {
     mount.cleanUp();
   });
-  describe('Root', () => {
+  describe('Overlay', () => {
     it('should pass rest props to the root element', () => {
       const tree = shallow((
-        <Root data={{ a: 1 }} {...defaultProps}>
+        <Overlay data={{ a: 1 }} {...defaultProps}>
           <div />
-        </Root>
+        </Overlay>
       ));
 
       expect(tree.props().data)
@@ -38,9 +38,9 @@ describe('AppointmentForm', () => {
 
     it('should pass className to the root element', () => {
       const tree = shallow((
-        <Root className="custom-class" {...defaultProps}>
+        <Overlay className="custom-class" {...defaultProps}>
           <div />
-        </Root>
+        </Overlay>
       ));
 
       expect(tree.is('.custom-class'))
@@ -51,10 +51,10 @@ describe('AppointmentForm', () => {
 
     it('should pass children to the root component', () => {
       const tree = shallow((
-        <Root {...defaultProps}>
+        <Overlay {...defaultProps}>
           <div />
           <div />
-        </Root>
+        </Overlay>
       ));
 
       expect(tree.children())
@@ -63,9 +63,9 @@ describe('AppointmentForm', () => {
 
     it('should render correctly if frequency is "never"', () => {
       const tree = shallow((
-        <Root {...defaultProps} frequency="never">
+        <Overlay {...defaultProps} frequency="never">
           <div />
-        </Root>
+        </Overlay>
       ));
 
       expect(tree.prop('PaperProps'))
@@ -79,9 +79,9 @@ describe('AppointmentForm', () => {
 
     it('should render correctly if frequency is not "never"', () => {
       const tree = shallow((
-        <Root {...defaultProps} frequency="daily">
+        <Overlay {...defaultProps} frequency="daily">
           <div />
-        </Root>
+        </Overlay>
       ));
 
       expect(tree.prop('PaperProps'))

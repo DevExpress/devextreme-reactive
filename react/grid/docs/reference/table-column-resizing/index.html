@@ -14,8 +14,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.min.css" type="text/css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/addon/fold/foldgutter.min.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1564667654">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1564667654">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1565945208">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1565945208">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <!-- Google Tag Manager -->
@@ -126,6 +126,12 @@
       <td>Specifies a column’s minimum width.</td>
     </tr>
     <tr>
+      <td>maxColumnWidth?</td>
+      <td>number</td>
+      <td><code class="highlighter-rouge">Infinity</code></td>
+      <td>Specifies a column’s maximum width.</td>
+    </tr>
+    <tr>
       <td>defaultColumnWidths?</td>
       <td>Array&lt;<a href="#tablecolumnwidthinfo">TableColumnWidthInfo</a>&gt;</td>
       <td>[]</td>
@@ -136,6 +142,12 @@
       <td>(nextColumnWidths: Array&lt;<a href="#tablecolumnwidthinfo">TableColumnWidthInfo</a>&gt;) =&gt; void</td>
       <td> </td>
       <td>Handles column width changes.</td>
+    </tr>
+    <tr>
+      <td>columnExtensions?</td>
+      <td>Array&lt;<a href="#tablecolumnresizingcolumnextension">TableColumnResizing.ColumnExtension</a>&gt;</td>
+      <td>[]</td>
+      <td>Additional column properties that the plugin can handle.</td>
     </tr>
   </tbody>
 </table>
@@ -164,6 +176,37 @@
       <td>width</td>
       <td>number</td>
       <td>A column width.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="tablecolumnresizingcolumnextension">TableColumnResizing.ColumnExtension</h3>
+
+<p>Describes additional column properties that the plugin can handle.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>columnName</td>
+      <td>string</td>
+      <td>The name of a column to extend.</td>
+    </tr>
+    <tr>
+      <td>minWidth?</td>
+      <td>number</td>
+      <td>A minimum column width.</td>
+    </tr>
+    <tr>
+      <td>maxWidth?</td>
+      <td>number</td>
+      <td>A maximum column width.</td>
     </tr>
   </tbody>
 </table>
@@ -246,9 +289,9 @@
       </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#2.0.2">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#2.0.3">
             Version
-            <span>2.0.2</span>
+            <span>2.0.3</span>
           </a>
         </li>
       </ul>
@@ -902,7 +945,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/common/dist/index.js?v=1564667654"></script>
+<script src="/devextreme-reactive/react/common/dist/index.js?v=1565945208"></script>
 
 <script
   type="text/javascript"
@@ -958,7 +1001,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1564667654"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1565945208"></script>
     <script>
         trackingCookie.notice();
     </script>

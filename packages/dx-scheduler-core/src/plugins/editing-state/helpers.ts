@@ -1,10 +1,22 @@
 import moment from 'moment';
 import { RRule, rrulestr, RRuleSet } from 'rrule';
-import { PureComputed } from '@devexpress/dx-core';
 import {
-  AppointmentModel, PreCommitChangesFn, ChangeSet, Changes, MakeDateSequenceFn,
+  AppointmentModel, PreCommitChangesFn, Changes, MakeDateSequenceFn, EditFn, DeleteFn,
 } from '../../types';
 import { RECURRENCE } from '../../constants';
+
+const mergeNewChanges = (
+  appointmentData: Partial<AppointmentModel>, changes: Changes,
+) => {
+  const appointment = {
+    ...appointmentData,
+  };
+  delete appointment.id;
+  delete appointment.rRule;
+  delete appointment.exDate;
+  delete appointment.parentData;
+  return { ...appointment, ...changes };
+};
 
 const reduceExDate = (prevExDate: string, boundDate: Date) => {
   if (prevExDate.length > 0) {
@@ -19,7 +31,7 @@ const reduceExDate = (prevExDate: string, boundDate: Date) => {
   return undefined;
 };
 
-const configureExDate = (exDate: string, date: Date) => {
+const configureExDate = (exDate: string | undefined, date: Date) => {
   const currentExDate = `${moment.utc(date)
     .format('YYYYMMDDTHHmmss')}Z`;
   return exDate
@@ -33,25 +45,23 @@ const configureDateSequence: MakeDateSequenceFn = (rRule, exDate, options) => {
     rruleSet = rrulestr(`EXDATE:${exDate}`, { forceset: true }) as RRuleSet;
   }
   rruleSet.rrule(new RRule({
-    ...RRule.parseString(rRule),
+    ...RRule.parseString(rRule as string),
     ...options,
   }));
 
   return rruleSet.all();
 };
 
-const configureICalendarRules = (rRule: string, options: object) => {
+const configureICalendarRules = (rRule: string | undefined, options: object) => {
   const rruleSet = new RRuleSet();
   rruleSet.rrule(new RRule({
-    ...RRule.parseString(rRule),
+    ...RRule.parseString(rRule as string),
     ...options,
   }));
   return rruleSet.valueOf();
 };
 
-export const deleteCurrent: PureComputed<
-  [Partial<AppointmentModel>], ChangeSet
-> = (appointmentData) => {
+export const deleteCurrent: DeleteFn = (appointmentData) => {
   const currentSequence: Date[] = configureDateSequence(
     appointmentData.rRule,
     appointmentData.exDate,
@@ -66,15 +76,11 @@ export const deleteCurrent: PureComputed<
   return { changed: { [appointmentData.id!]: { exDate: nextExDate } } };
 };
 
-export const deleteAll: PureComputed<
-  [Partial<AppointmentModel>], ChangeSet
-> = (appointmentData) => {
+export const deleteAll: DeleteFn = (appointmentData) => {
   return { deleted: appointmentData.id };
 };
 
-export const deletedCurrentAndFollowing: PureComputed<
-  [Partial<AppointmentModel>], ChangeSet
-> = (appointmentData) => {
+export const deletedCurrentAndFollowing: DeleteFn = (appointmentData) => {
   const { rRule, startDate, parentData, exDate: prevExDate = '', id } = appointmentData;
 
   const initialSequence: Date[] = configureDateSequence(rRule, prevExDate, {
@@ -88,7 +94,7 @@ export const deletedCurrentAndFollowing: PureComputed<
   const currentChildIndex = initialSequence
     .findIndex(date => moment(date).isSame(startDate as Date));
 
-  const changedRules = configureICalendarRules(rRule, {
+  const changedRules = configureICalendarRules(rRule as string, {
     dtstart: moment.utc(parentData.startDate).toDate(),
     until: moment.utc(initialSequence[currentChildIndex]).toDate(),
     count: null,
@@ -105,12 +111,10 @@ export const deletedCurrentAndFollowing: PureComputed<
   };
 };
 
-export const editAll: PureComputed<
-  [Changes, Partial<AppointmentModel>], ChangeSet
-> = (changes, appointmentData) => {
+export const editAll: EditFn = (changes, appointmentData) => {
   const { rRule, id } = appointmentData;
 
-  const initialRule = new RRule(RRule.parseString(rRule));
+  const initialRule = new RRule(RRule.parseString(rRule as string));
   if (moment.utc(changes.startDate as Date).isAfter(initialRule.options.until!)) {
     return {
       changed: {
@@ -126,30 +130,19 @@ export const editAll: PureComputed<
   return  { changed: {  [appointmentData.id!]: changes } };
 };
 
-export const editCurrent: PureComputed<
-  [Changes, Partial<AppointmentModel>], ChangeSet
-> = (changes, appointmentData) => ({
+export const editCurrent: EditFn = (changes, appointmentData) => ({
   changed: {
     [appointmentData.id!]: {
       exDate: configureExDate(appointmentData.exDate, appointmentData.startDate as Date),
     },
   },
-  added: {
-    ...appointmentData,
-    parentData: undefined,
-    exDate: undefined,
-    rRule: undefined,
-    id: undefined,
-    ...changes,
-  },
+  added: mergeNewChanges(appointmentData as Partial<AppointmentModel>, changes as Changes),
 });
 
-export const editCurrentAndFollowing: PureComputed<
-  [Changes, Partial<AppointmentModel>], ChangeSet
-> = (changes, appointmentData) => {
+export const editCurrentAndFollowing: EditFn = (changes, appointmentData) => {
   const { rRule, startDate, parentData, exDate: prevExDate = '', id } = appointmentData;
 
-  const initialRule = new RRule(RRule.parseString(rRule));
+  const initialRule = new RRule(RRule.parseString(rRule as string));
   if (moment.utc(changes.startDate as Date).isAfter(initialRule.options.until!)) {
     return {
       changed: {
@@ -172,13 +165,13 @@ export const editCurrentAndFollowing: PureComputed<
     return editAll(changes, appointmentData);
   }
 
-  const changedRules = configureICalendarRules(rRule, {
+  const changedRules = configureICalendarRules(rRule as string, {
     dtstart: moment.utc(parentData.startDate).toDate(),
     until: moment.utc(initialSequence[currentChildIndex]).toDate(),
     count: null,
   });
 
-  const addedRules = configureICalendarRules(rRule, {
+  const addedRules = configureICalendarRules(rRule as string, {
     dtstart: moment.utc(startDate as Date).toDate(),
     count: initialSequence.length - currentChildIndex,
   });
@@ -191,14 +184,7 @@ export const editCurrentAndFollowing: PureComputed<
         ...nextExDate && prevExDate !== nextExDate ? { exDate: nextExDate } : {},
       },
     },
-    added: {
-      ...appointmentData,
-      id: undefined,
-      exDate: undefined,
-      parentData: undefined,
-      rRule: addedRules[1].slice(6),
-      ...changes,
-    },
+    added: { rRule: addedRules[1].slice(6), ...mergeNewChanges(appointmentData, changes) },
   };
 };
 

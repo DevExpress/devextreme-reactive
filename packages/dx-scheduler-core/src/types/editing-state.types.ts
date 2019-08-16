@@ -13,8 +13,13 @@ export type PreCommitChangesFn = (
 
 /** @internal */
 export type MakeDateSequenceFn = (
-  rRule: string, exDate: string, options: Partial<Options>,
+  rRule: string | undefined, exDate: string | undefined, options: Partial<Options>,
 ) => Array<Date>;
+
+/** @internal */
+export type EditFn = (changes: Changes, appointmentData: Partial<AppointmentModel>) => ChangeSet;
+/** @internal */
+export type DeleteFn = (appointmentData: Partial<AppointmentModel>) => ChangeSet;
 
 /** Describes uncommitted changes made to the scheduler data. */
 export interface ChangeSet {

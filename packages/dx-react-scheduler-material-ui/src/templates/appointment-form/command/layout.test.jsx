@@ -4,7 +4,7 @@ import { Layout } from './layout';
 
 describe('AppointmentForm control', () => {
   const defaultProps = {
-    controlButtonComponent: () => null,
+    commandButtonComponent: () => null,
     getMessage: jest.fn(),
     commitAppointment: jest.fn(),
     cancelCommit: jest.fn(),
@@ -48,20 +48,19 @@ describe('AppointmentForm control', () => {
         </Layout>
       ));
 
-      expect(tree.find(defaultProps.controlButtonComponent))
+      expect(tree.find(defaultProps.commandButtonComponent))
         .toHaveLength(3);
     });
 
     it('should pass children to the root component', () => {
       const tree = shallow((
         <Layout {...defaultProps}>
-          <div />
-          <div />
+          <div className="child" />
         </Layout>
       ));
 
-      expect(tree.children())
-        .toHaveLength(5);
+      expect(tree.find('.child'))
+        .toHaveLength(1);
     });
   });
 });

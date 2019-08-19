@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
+import DeleteIcon from '@material-ui/icons/Delete';
 import { DeleteButton } from './delete-button';
 
 describe('AppointmentForm control', () => {
@@ -42,6 +43,15 @@ describe('AppointmentForm control', () => {
       tree.simulate('click');
       expect(defaultProps.onExecute)
         .toBeCalled();
+    });
+
+    it('should contain DeleteIcon', () => {
+      const tree = shallow((
+        <DeleteButton {...defaultProps} />
+      ));
+
+      expect(tree.find(DeleteIcon))
+        .toHaveLength(1);
     });
   });
 });

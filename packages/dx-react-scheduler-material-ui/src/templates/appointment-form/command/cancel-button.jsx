@@ -4,7 +4,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 
 export const CancelButton = ({
-  className, onExecute, ...restProps
+  onExecute, ...restProps
 }) => (
   <IconButton
     onClick={onExecute}
@@ -15,10 +15,5 @@ export const CancelButton = ({
 );
 
 CancelButton.propTypes = {
-  className: PropTypes.string,
   onExecute: PropTypes.func.isRequired,
-};
-
-CancelButton.defaultProps = {
-  className: undefined,
 };

@@ -112,7 +112,7 @@ class EditingMenuBase extends React.PureComponent<EditingMenuProps, EditingMenuS
 
         <Template name="schedulerRoot">
           <TemplatePlaceholder />
-          <Container containerRef={this.modalContainer} />
+          <Container target={this.modalContainer} />
           <TemplatePlaceholder name="overlay" />
         </Template>
 
@@ -125,9 +125,9 @@ class EditingMenuBase extends React.PureComponent<EditingMenuProps, EditingMenuS
 
               return (
                 <Overlay
-                  containerRef={this.modalContainer}
-                  isOpen={isOpen}
-                  handleClose={this.closeMenu}
+                  target={this.modalContainer}
+                  visible={isOpen}
+                  onHide={this.closeMenu}
                 >
                   <Layout
                     isDeleting={!!deletedAppointmentData}

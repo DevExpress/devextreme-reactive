@@ -2,7 +2,7 @@ import { AppointmentModel } from '../index';
 
 /* tslint:disable no-namespace max-line-length */
 export namespace EditingMenu {
-  /** Properties passed to a component that renders the editing menu's layout element. */
+  /** Properties passed to a component that renders the editing menu's layout. */
   export interface LayoutProps {
     /** The flag that specifies what type of the editing is (deleting or editing). */
     isDeleting: boolean;
@@ -17,21 +17,21 @@ export namespace EditingMenu {
     /** Returns a specified localization message. */
     getMessage: (messageKey: string) => string;
   }
-  /** Properties passed to a component that renders the editing menu's modal element. */
-  export interface ModalProps {
-    /** A React component instance or a DOM element that is used for modal positioning. */
-    containerRef: React.RefObject<unknown>;
-    /** Specifies that the modal is opened. */
-    isOpen: boolean;
-    /** The function that closed the modal. */
-    handleClose: () => void;
+  /** Properties passed to a component that renders the editing menu's overlay. */
+  export interface OverlayProps {
+    /** A React component instance or a DOM element that is used for overlay positioning. */
+    target: React.RefObject<unknown>;
+    /** Specifies whether the overlay is visible. */
+    visible: boolean;
+    /** An event that initiates overlay hiding. */
+    onHide: () => void;
   }
-  /** Properties passed to a component that renders the editing menu's container element. */
+  /** @internal */
   export interface ContainerProps {
     /** A React Ref that should be passed into ref property. */
-    containerRef: React.RefObject<unknown>;
+    target: React.RefObject<unknown>;
   }
-  /** Properties passed to a component that renders the editing menu's button element. */
+  /** Properties passed to a component that renders the editing menu's button. */
   export interface ButtonProps {
     /** The buttons text. */
     title: string;
@@ -59,8 +59,8 @@ export interface EditingMenuProps {
   /** A component that renders the editing menu's layout. */
   layoutComponent: React.ComponentType<EditingMenu.LayoutProps>;
   /** A component that renders the editing menu's overlay. */
-  overlayComponent: React.ComponentType<EditingMenu.ModalProps>;
-  /** A component that renders the editing menu's container. */
+  overlayComponent: React.ComponentType<EditingMenu.OverlayProps>;
+  /** @internal */
   containerComponent: React.ComponentType<EditingMenu.ContainerProps>;
   /** A component that renders the editing menu's button. */
   buttonComponent: React.ComponentType<EditingMenu.ButtonProps>;

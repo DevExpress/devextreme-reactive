@@ -394,9 +394,6 @@ export namespace EditingMenu {
     onClick: () => void;
     title: string;
   }
-  export interface ContainerProps {
-    containerRef: React.RefObject<unknown>;
-  }
   export interface LayoutProps {
     availableOperations: Array<any>;
     buttonComponent: React.ComponentType<EditingMenu.ButtonProps>;
@@ -413,20 +410,19 @@ export namespace EditingMenu {
     currentAndFollowing?: string;
     menuTitle?: string;
   }
-  export interface ModalProps {
-    containerRef: React.RefObject<unknown>;
-    handleClose: () => void;
-    isOpen: boolean;
+  export interface OverlayProps {
+    onHide: () => void;
+    target: React.RefObject<unknown>;
+    visible: boolean;
   }
 }
 
 // @public (undocumented)
 export interface EditingMenuProps {
   buttonComponent: React.ComponentType<EditingMenu.ButtonProps>;
-  containerComponent: React.ComponentType<EditingMenu.ContainerProps>;
   layoutComponent: React.ComponentType<EditingMenu.LayoutProps>;
   messages?: EditingMenu.LocalizationMessages;
-  overlayComponent: React.ComponentType<EditingMenu.ModalProps>;
+  overlayComponent: React.ComponentType<EditingMenu.OverlayProps>;
 }
 
 // @public

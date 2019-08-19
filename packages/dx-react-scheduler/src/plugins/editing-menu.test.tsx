@@ -59,9 +59,9 @@ describe('EditingMenu', () => {
     const modal = tree.find(defaultProps.overlayComponent);
     expect(modal.props())
       .toEqual({
-        containerRef: expect.any(Object),
-        isOpen: false,
-        handleClose: expect.any(Function),
+        target: expect.any(Object),
+        visible: false,
+        onHide: expect.any(Function),
         children: expect.any(Object),
       });
   });
@@ -78,7 +78,7 @@ describe('EditingMenu', () => {
     const container = tree.find(defaultProps.containerComponent);
     expect(container.props())
       .toEqual({
-        containerRef: expect.any(Object),
+        target: expect.any(Object),
       });
   });
   it('should provide finishCommitAppointment action', () => {

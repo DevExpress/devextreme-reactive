@@ -7,9 +7,9 @@ describe('EditingMenu', () => {
   let shallow;
   let classes;
   const defaultProps = {
-    handleClose: jest.fn(),
-    containerRef: React.createRef(),
-    open: true,
+    onHide: jest.fn(),
+    target: React.createRef(),
+    visible: true,
     className: 'custom-class',
   };
   beforeAll(() => {
@@ -50,12 +50,12 @@ describe('EditingMenu', () => {
 
       expect(tree.find(Dialog).props())
         .toMatchObject({
-          open: defaultProps.open,
-          onClose: defaultProps.handleClose,
+          open: defaultProps.visible,
+          onClose: defaultProps.onHide,
           className: `${classes.modal} custom-class`,
           BackdropProps: { className: classes.modal },
           container: null,
-          onBackdropClick: defaultProps.handleClose,
+          onBackdropClick: defaultProps.onHide,
         });
     });
   });

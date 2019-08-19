@@ -11,15 +11,15 @@ const styles = {
 };
 
 const OverlayBase = ({
-  children, isOpen, handleClose, containerRef, classes, className, ...restProps
+  children, visible, onHide, target, classes, className, ...restProps
 }) => (
   <Dialog
-    open={isOpen}
-    onClose={handleClose}
+    open={visible}
+    onClose={onHide}
     className={classNames(classes.modal, className)}
     BackdropProps={{ className: classes.modal }}
-    container={containerRef.current}
-    onBackdropClick={handleClose}
+    container={target.current}
+    onBackdropClick={onHide}
     {...restProps}
   >
     {children}
@@ -29,15 +29,15 @@ const OverlayBase = ({
 OverlayBase.propTypes = {
   children: PropTypes.node.isRequired,
   classes: PropTypes.object.isRequired,
-  handleClose: PropTypes.func.isRequired,
-  containerRef: PropTypes.object.isRequired,
-  isOpen: PropTypes.bool,
+  onHide: PropTypes.func.isRequired,
+  target: PropTypes.object.isRequired,
+  visible: PropTypes.bool,
   className: PropTypes.string,
 };
 
 OverlayBase.defaultProps = {
   className: undefined,
-  isOpen: false,
+  visible: false,
 };
 
 export const Overlay = withStyles(styles, { name: 'Overlay' })(OverlayBase);

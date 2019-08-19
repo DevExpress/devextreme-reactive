@@ -12,10 +12,10 @@ const styles = {
 };
 
 export const ContainerBase = ({
-  children, containerRef, classes, className, ...restProps
+  children, target, classes, className, ...restProps
 }) => (
   <div
-    ref={containerRef}
+    ref={target}
     className={classNames(classes.container, className)}
     {...restProps}
   >
@@ -24,7 +24,7 @@ export const ContainerBase = ({
 );
 
 ContainerBase.propTypes = {
-  containerRef: PropTypes.object.isRequired,
+  target: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
   children: PropTypes.node,
   className: PropTypes.string,

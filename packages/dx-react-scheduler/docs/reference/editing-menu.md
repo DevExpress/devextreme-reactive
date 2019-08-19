@@ -27,9 +27,8 @@ import { EditingMenu } from '@devexpress/dx-react-scheduler';
 Name | Type | Default | Description
 -----|------|---------|------------
 layoutComponent | ComponentType&lt;[EditingMenu.LayoutProps](#editingmenulayoutprops)&gt; | | A component that renders the editing menu's layout.
-overlayComponent | ComponentType&lt;[EditingMenu.ModalProps](#editingmenuomodalprops)&gt; | | A component that renders the editing menu's overlay.
+overlayComponent | ComponentType&lt;[EditingMenu.OverlayProps](#editingmenuoverlayprops)&gt; | | A component that renders the editing menu's overlay.
 buttonComponent | ComponentType&lt;[EditingMenu.ButtonProps](#editingmenubuttonprops)&gt; | | A component that renders the editing menu's button.
-containerComponent | ComponentType&lt;[EditingMenu.ContainerProps](#editingmenucontainerprops)&gt; | | A component that renders the editing menu's container.
 messages | ComponentType&lt;[EditingMenu.LocalizationMessages](#editingmenulocalizationmessages)&gt; | | 	An object that specifies the localization messages.
 
 ## Interfaces
@@ -47,15 +46,16 @@ commit | () => void | The function that committed changes.
 availableOperations | Array&lt;string&gt; | The editing operations are available to choose.
 getMessage | (messageKey: string) => string | Returns a specified localization message.
 
-### EditingMenu.ModalProps
+### EditingMenu.OverlayProps
 
-Properties passed to a component that renders the editing menu's modal.
+Properties passed to a component that renders the editing menu's overlay.
 
 Field | Type | Description
 ------|------|------------
-containerRef | ReactInstance | A React component instance or a DOM element that is used for modal positioning.
-isOpen | boolean | Specifies that the modal is opened.
-handleClose | () => void | The function that closed the modal.
+target | ReactInstance | A React component instance or a DOM element that is used for overlay positioning.
+visible | boolean | Specifies whether the overlay is visible.
+onHide | () => void | An event that initiates overlay hiding.
+children | ReactNode | A React node used to render overlay content.
 
 ### EditingMenu.ButtonProps
 
@@ -65,14 +65,6 @@ Field | Type | Description
 ------|------|------------
 title | string | The buttons text.
 onClick | () => void | The function that should be fired by click.
-
-### EditingMenu.ContainerProps
-
-Properties passed to a component that renders the editing menu's container.
-
-Field | Type | Description
-------|------|------------
-containerRef | ReactRef | A React Ref that should be passed into ref property.
 
 ## Localization Messages
 
@@ -91,8 +83,7 @@ commitButton? | string | 'OK' | Specifies the commit button's text.
 Name | Properties | Description
 -----|------------|------------
 EditingMenu.Layout | [EditingMenu.LayoutProps](#editingmenulayoutprops) | A component that renders the editing menu's layout.
-EditingMenu.Modal | [EditingMenu.ModalProps](#editingmenuomodalprops) | A component that renders the editing menu's overlay.
+EditingMenu.Overlay | [EditingMenu.OverlayProps](#editingmenuomodalprops) | A component that renders the editing menu's overlay.
 EditingMenu.Button | [EditingMenu.ButtonProps](#editingmenubuttonprops) | A component that renders the editing menu's button.
-EditingMenu.Container | [EditingMenu.ContainerProps](#editingmenucontainerprops) | A component that renders the editing menu's container.
 
 Additional properties are added to the component's root element.

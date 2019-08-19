@@ -1,14 +1,21 @@
 import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
-import moment from 'moment';
+import { TITLE_LABEL, TITLE_TEXT_EDITOR, NOTES_TEXT_EDITOR } from '@devexpress/dx-scheduler-core';
 import { Layout } from './layout';
+
+jest.mock('@devexpress/dx-scheduler-core', () => ({
+  ...require.requireActual('@devexpress/dx-scheduler-core'),
+  getRecurrenceOptions: jest.fn(),
+  getFrequencyString: jest.fn(),
+}));
 
 describe('AppointmentForm basic', () => {
   const defaultProps = {
     textEditorComponent: () => null,
-    dateTimeEditorComponent: () => null,
+    dateEditorComponent: () => null,
     labelComponent: () => null,
     allDayComponent: () => null,
+    selectComponent: () => null,
     getMessage: jest.fn(),
     onAppointmentFieldChange: jest.fn(),
     changedAppointment: {},
@@ -44,7 +51,7 @@ describe('AppointmentForm basic', () => {
         .toBeTruthy();
     });
 
-    it('should have style with width equal to 100% if appointment is basic', () => {
+    it('should have width equal to 100% if appointment is basic', () => {
       const tree = shallow((
         <Layout {...defaultProps}>
           <div />
@@ -62,15 +69,38 @@ describe('AppointmentForm basic', () => {
         </Layout>
       ));
 
-      expect(tree.find(defaultProps.labelComponent))
+      const labelComponents = tree.find(defaultProps.labelComponent);
+      expect(labelComponents)
+        .toHaveLength(4);
+      expect(labelComponents.at(0).prop('id'))
+        .toEqual(TITLE_LABEL);
+      expect(labelComponents.at(1).is(`.${classes.dividerLabel}`))
+        .toBeTruthy();
+      expect(labelComponents.at(2).prop('id'))
+        .toEqual(TITLE_LABEL);
+      expect(labelComponents.at(3).prop('id'))
+        .toEqual(TITLE_LABEL);
+
+      const textEditors = tree.find(defaultProps.textEditorComponent);
+      expect(textEditors)
         .toHaveLength(3);
-      expect(tree.find(defaultProps.textEditorComponent))
-        .toHaveLength(3);
+      expect(textEditors.at(0).prop('id'))
+        .toEqual(TITLE_TEXT_EDITOR);
+      expect(textEditors.at(2).prop('id'))
+        .toEqual(NOTES_TEXT_EDITOR);
+
       expect(tree.find(defaultProps.allDayComponent))
         .toHaveLength(1);
-      expect(tree.find(defaultProps.dateTimeEditorComponent))
-        .toHaveLength(1);
-      expect(tree.find(defaultProps.dateTimeEditorComponent))
+
+      const dateEditors = tree.find(defaultProps.dateEditorComponent);
+      expect(dateEditors)
+        .toHaveLength(2);
+      expect(dateEditors.at(0).is(`.${classes.dateEditor}`))
+        .toBeTruthy();
+      expect(dateEditors.at(1).is(`.${classes.dateEditor}`))
+        .toBeTruthy();
+
+      expect(tree.find(defaultProps.selectComponent))
         .toHaveLength(1);
     });
 
@@ -87,13 +117,15 @@ describe('AppointmentForm basic', () => {
       ));
 
       expect(tree.find(defaultProps.labelComponent))
-        .toHaveLength(2);
+        .toHaveLength(3);
       expect(tree.find(defaultProps.textEditorComponent))
         .toHaveLength(3);
       expect(tree.find(defaultProps.allDayComponent))
         .toHaveLength(1);
-      expect(tree.find(defaultProps.dateTimeEditorComponent))
-        .toHaveLength(1);
+      expect(tree.find(defaultProps.dateEditorComponent))
+        .toHaveLength(2);
+      expect(tree.find(defaultProps.selectComponent))
+        .toHaveLength(0);
     });
 
     it('should call getMessage with correct parameters', () => {
@@ -134,32 +166,28 @@ describe('AppointmentForm basic', () => {
 
       textEditors.at(0).simulate('valueChange', 'abc');
       expect(defaultProps.onAppointmentFieldChange)
-        .toBeCalledWith({ change: { title: 'abc' } });
-
+        .toBeCalledWith({ title: 'abc' });
       textEditors.at(1).simulate('valueChange', 'abc');
       expect(defaultProps.onAppointmentFieldChange)
-        .toBeCalledWith({ change: { additionalInformation: 'abc' } });
-
+        .toBeCalledWith({ additionalInformation: 'abc' });
       textEditors.at(2).simulate('valueChange', 'abc');
       expect(defaultProps.onAppointmentFieldChange)
-        .toBeCalledWith({ change: { notes: 'abc' } });
+        .toBeCalledWith({ notes: 'abc' });
 
-      const dateTimeEditor = tree.find(defaultProps.dateTimeEditorComponent);
-      const testDate = new Date(2019, 1, 1, 1, 1);
+      const dateEditors = tree.find(defaultProps.dateEditorComponent);
 
-      dateTimeEditor.at(0).simulate('firstDateValueChange', moment(testDate));
+      dateEditors.at(0).simulate('dateChange', 'abc');
       expect(defaultProps.onAppointmentFieldChange)
-        .toBeCalledWith({ change: { startDate: testDate } });
-
-      dateTimeEditor.at(0).simulate('secondDateValueChange', moment(testDate));
+        .toBeCalledWith({ startDate: 'abc' });
+      dateEditors.at(1).simulate('dateChange', 'abc');
       expect(defaultProps.onAppointmentFieldChange)
-        .toBeCalledWith({ change: { endDate: testDate } });
+        .toBeCalledWith({ endDate: 'abc' });
 
       const allDayComponent = tree.find(defaultProps.allDayComponent);
 
       allDayComponent.at(0).simulate('valueChange', 'abc');
       expect(defaultProps.onAppointmentFieldChange)
-        .toBeCalledWith({ change: { allDay: 'abc' } });
+        .toBeCalledWith({ allDay: 'abc' });
     });
 
     it('should pass children to the root component', () => {

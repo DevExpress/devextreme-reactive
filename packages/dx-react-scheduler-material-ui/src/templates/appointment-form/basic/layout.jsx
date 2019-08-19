@@ -32,7 +32,7 @@ const styles = theme => ({
     marginBottom: theme.spacing(0.5),
     marginTop: theme.spacing(0.5),
   },
-  dateEdior: {
+  dateEditor: {
     width: '45%',
   },
   dividerLabel: {
@@ -59,7 +59,9 @@ const LayoutBase = ({
   ...restProps
 }) => {
   const recurrenceOptions = getRecurrenceOptions(changedAppointment.rRule);
-  const frequency = recurrenceOptions ? getFrequencyString(recurrenceOptions.freq) : REPEAT_TYPES.NEVER;
+  const frequency = recurrenceOptions
+    ? getFrequencyString(recurrenceOptions.freq)
+    : REPEAT_TYPES.NEVER;
   return (
     <div
       className={classNames({
@@ -84,7 +86,7 @@ const LayoutBase = ({
         alignItems="center"
       >
         <DateEditor
-          className={classes.dateEdior}
+          className={classes.dateEditor}
           disabled={readOnly}
           date={changedAppointment.startDate}
           onDateChange={startDate => onAppointmentFieldChange({ startDate })}
@@ -94,7 +96,7 @@ const LayoutBase = ({
           className={classes.dividerLabel}
         />
         <DateEditor
-          className={classes.dateEdior}
+          className={classes.dateEditor}
           disabled={readOnly}
           date={changedAppointment.endDate}
           onDateChange={endDate => onAppointmentFieldChange({ endDate })}
@@ -132,7 +134,6 @@ const LayoutBase = ({
             id={TITLE_LABEL}
           />
           <Select
-            className={classes.switcher}
             onChange={repeatType => handleChangeFrequency(
               repeatType, changedAppointment, onAppointmentFieldChange,
             )}

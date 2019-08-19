@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import { NUMBER_EDITOR, getRecurrenceOptions } from '@devexpress/dx-scheduler-core';
+import { NUMBER_EDITOR, getRecurrenceOptions, changeRecurrenceOptions } from '@devexpress/dx-scheduler-core';
 
 const styles = theme => ({
   label: {
@@ -25,7 +25,6 @@ const WeeklyBase = ({
   radioGroupComponent,
   textEditorComponent: TextEditor,
   labelComponent: Label,
-  onRecurrenceOptionsChange,
   classes,
   getMessage,
   readOnly,
@@ -57,8 +56,10 @@ const WeeklyBase = ({
           value={recurrenceOptions.interval}
           className={classes.textEditor}
           id={NUMBER_EDITOR}
-          onValueChange={value => onRecurrenceOptionsChange({
-            ...recurrenceOptions, interval: value,
+          onValueChange={value => onAppointmentFieldChange({
+            rRule: changeRecurrenceOptions({
+              ...recurrenceOptions, interval: value,
+            }),
           })}
         />
         <Label
@@ -68,7 +69,7 @@ const WeeklyBase = ({
       </Grid>
       <ButtonGroup
         changedAppointment={changedAppointment}
-        onRecurrenceOptionsChange={onRecurrenceOptionsChange}
+        onAppointmentFieldChange={onAppointmentFieldChange}
         readOnly={readOnly}
         formatDate={formatDate}
       />
@@ -83,7 +84,6 @@ WeeklyBase.propTypes = {
   selectComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   buttonGroupComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   changedAppointment: PropTypes.object.isRequired,
-  onRecurrenceOptionsChange: PropTypes.func,
   onAppointmentFieldChange: PropTypes.func,
   classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func.isRequired,
@@ -92,7 +92,6 @@ WeeklyBase.propTypes = {
 };
 
 WeeklyBase.defaultProps = {
-  onRecurrenceOptionsChange: () => undefined,
   onAppointmentFieldChange: () => undefined,
   readOnly: false,
 };

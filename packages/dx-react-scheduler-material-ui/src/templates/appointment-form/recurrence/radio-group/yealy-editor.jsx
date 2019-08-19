@@ -11,6 +11,7 @@ import {
   handleToDayOfWeekChange,
   handleWeekNumberChange,
   getRecurrenceOptions,
+  changeRecurrenceOptions,
 } from '@devexpress/dx-scheduler-core';
 import {
   getNumberLabels,
@@ -64,11 +65,11 @@ const YearlyEditorBase = ({
   getMessage,
   labelComponent: Label,
   textEditorComponent: TextEditor,
-  onRecurrenceOptionsChange,
   switcherComponent: Switcher,
   readOnly,
   changedAppointment,
   formatDate,
+  onAppointmentFieldChange,
   ...restProps
 }) => {
   const [dayNumber, setDayNumber] = useState(changedAppointment.startDate.getDate());
@@ -114,10 +115,12 @@ const YearlyEditorBase = ({
       case 'onDayAndMonth':
         setStateWeekNumber(weekNumber);
         setStateDayOfWeek(dayOfWeek);
-        onRecurrenceOptionsChange({
-          ...recurrenceOptions,
-          bymonthday: dayNumber,
-          byweekday: undefined,
+        onAppointmentFieldChange({
+          rRule: changeRecurrenceOptions({
+            ...recurrenceOptions,
+            bymonthday: dayNumber,
+            byweekday: undefined,
+          }),
         });
         break;
       case 'onDayOfWeek':
@@ -125,7 +128,7 @@ const YearlyEditorBase = ({
         handleToDayOfWeekChange(
           stateWeekNumber,
           stateDayOfWeek,
-          onRecurrenceOptionsChange,
+          onAppointmentFieldChange,
           recurrenceOptions,
         );
         break;
@@ -155,8 +158,10 @@ const YearlyEditorBase = ({
             />
             <Switcher
               disabled={value !== 'onDayAndMonth'}
-              onChange={newMonth => onRecurrenceOptionsChange({
-                ...recurrenceOptions, bymonth: newMonth,
+              onChange={newMonth => onAppointmentFieldChange({
+                rRule: changeRecurrenceOptions({
+                  ...recurrenceOptions, bymonth: newMonth,
+                }),
               })}
               value={month}
               availableOptions={getMonths(formatDate)}
@@ -170,7 +175,7 @@ const YearlyEditorBase = ({
               id={NUMBER_EDITOR}
               onValueChange={newDayNumber => handleStartDateChange(
                 newDayNumber,
-                onRecurrenceOptionsChange,
+                onAppointmentFieldChange,
                 recurrenceOptions,
               )}
             />
@@ -198,7 +203,7 @@ const YearlyEditorBase = ({
                 disabled={value !== 'onDayOfWeek'}
                 onChange={newWeekNumber => handleWeekNumberChange(
                   newWeekNumber,
-                  onRecurrenceOptionsChange,
+                  onAppointmentFieldChange,
                   recurrenceOptions,
                 )}
                 value={weekNumber}
@@ -207,9 +212,11 @@ const YearlyEditorBase = ({
               <Switcher
                 className={classes.longSwitcher}
                 disabled={value !== 'onDayOfWeek'}
-                onChange={newWeekDay => onRecurrenceOptionsChange({
-                  ...recurrenceOptions,
-                  byweekday: newWeekDay > 0 ? newWeekDay - 1 : 6,
+                onChange={newWeekDay => onAppointmentFieldChange({
+                  rRule: changeRecurrenceOptions({
+                    ...recurrenceOptions,
+                    byweekday: newWeekDay > 0 ? newWeekDay - 1 : 6,
+                  }),
                 })}
                 value={dayOfWeek}
                 availableOptions={getDaysOfWeek(formatDate)}
@@ -219,8 +226,10 @@ const YearlyEditorBase = ({
             <Switcher
               className={classes.doubleSwitcher}
               disabled={value !== 'onDayOfWeek'}
-              onChange={newMonth => onRecurrenceOptionsChange({
-                ...recurrenceOptions, bymonth: newMonth,
+              onChange={newMonth => onAppointmentFieldChange({
+                rRule: changeRecurrenceOptions({
+                  ...recurrenceOptions, bymonth: newMonth,
+                }),
               })}
               value={month}
               availableOptions={getMonthsWithOf(getMessage, formatDate)}
@@ -236,7 +245,7 @@ const YearlyEditorBase = ({
 YearlyEditorBase.propTypes = {
   classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func,
-  onRecurrenceOptionsChange: PropTypes.func,
+  onAppointmentFieldChange: PropTypes.func,
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   switcherComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
@@ -245,7 +254,7 @@ YearlyEditorBase.propTypes = {
 };
 
 YearlyEditorBase.defaultProps = {
-  onRecurrenceOptionsChange: () => undefined,
+  onAppointmentFieldChange: () => undefined,
   getMessage: () => undefined,
   readOnly: false,
 };

@@ -164,23 +164,23 @@ export const changeRecurrenceOptions: RecurrecnceOptionsSetterFn = options =>
 
 export const handleStartDateChange = (
   newStartDay,
-  changeRecurrenceOptionsAction,
+  changeAppointmentField,
   options,
 ) => {
   if (newStartDay <= 31) {
-    const newOptions = { ...options, bymonthday: newStartDay };
-    changeRecurrenceOptionsAction(newOptions);
+    const nextOptions = { ...options, bymonthday: newStartDay };
+    changeAppointmentField({ rRule: changeRecurrenceOptions(nextOptions) });
   }
 };
 
 export const handleToDayOfWeekChange = (
   weekNumber,
   dayOfWeek,
-  changeRecurrenceOptionsAction,
+  changeAppointmentField,
   options,
 ) => {
   if (weekNumber < 4) {
-    const newOptions = {
+    const nextOptions = {
       ...options,
       bymonthday: [
         weekNumber * 7 + 1,
@@ -193,24 +193,24 @@ export const handleToDayOfWeekChange = (
       ],
       byweekday: dayOfWeek > 0 ? dayOfWeek - 1 : 6,
     };
-    changeRecurrenceOptionsAction(newOptions);
+    changeAppointmentField({ rRule: changeRecurrenceOptions(nextOptions) });
   } else {
-    const newOptions = {
+    const nextOptions = {
       ...options,
       bymonthday: [-1, -2, -3, -4, -5, -6, -7],
       byweekday: dayOfWeek > 0 ? dayOfWeek - 1 : 6,
     };
-    changeRecurrenceOptionsAction(newOptions);
+    changeAppointmentField({ rRule: changeRecurrenceOptions(nextOptions) });
   }
 };
 
 export const handleWeekNumberChange = (
   newWeekNumber,
-  changeRecurrenceOptionsAction,
+  changeAppointmentField,
   options,
 ) => {
   if (newWeekNumber < 4) {
-    const newOptions = {
+    const nextOptions = {
       ...options,
       bymonthday: [
         newWeekNumber * 7 + 1,
@@ -222,13 +222,13 @@ export const handleWeekNumberChange = (
         newWeekNumber * 7 + 7,
       ],
     };
-    changeRecurrenceOptionsAction(newOptions);
+    changeAppointmentField({ rRule: changeRecurrenceOptions(nextOptions) });
   } else {
-    const newOptions = {
+    const nextOptions = {
       ...options,
       bymonthday: [-1, -2, -3, -4, -5, -6, -7],
     };
-    changeRecurrenceOptionsAction(newOptions);
+    changeAppointmentField({ rRule: changeRecurrenceOptions(nextOptions) });
   }
 };
 

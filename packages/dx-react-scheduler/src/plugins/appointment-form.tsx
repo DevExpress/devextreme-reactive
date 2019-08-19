@@ -346,10 +346,6 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                 ? changeAddedAppointmentAction
                 : changeAppointmentAction;
 
-              const setNewRRule = (newOptions) => {
-                const rRule = changeRecurrenceOptions(newOptions);
-                changeAppointmentField({ rRule });
-              };
               return (
                 <RecurrenceLayout
                   changedAppointment={changedAppointment}
@@ -358,7 +354,6 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                   dateEditorComponent={dateEditorComponent}
                   labelComponent={Label}
                   {...changeAppointment && {
-                    onRecurrenceOptionsChange: newOptions => setNewRRule(newOptions),
                     onAppointmentFieldChange: changeAppointmentField,
                   }}
                   getMessage={getMessage}

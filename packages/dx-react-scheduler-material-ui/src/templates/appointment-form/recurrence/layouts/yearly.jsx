@@ -6,6 +6,7 @@ import {
   YEARLY_RADIO_GROUP,
   NUMBER_EDITOR,
   getRecurrenceOptions,
+  changeRecurrenceOptions,
 } from '@devexpress/dx-scheduler-core';
 
 const styles = theme => ({
@@ -36,7 +37,6 @@ const YearlyBase = ({
   radioGroupComponent: RadioGroup,
   textEditorComponent: TextEditor,
   labelComponent: Label,
-  onRecurrenceOptionsChange,
   classes,
   getMessage,
   readOnly,
@@ -66,8 +66,10 @@ const YearlyBase = ({
           value={recurrenceOptions.interval}
           className={classes.textEditor}
           id={NUMBER_EDITOR}
-          onValueChange={value => onRecurrenceOptionsChange({
-            ...recurrenceOptions, interval: value,
+          onValueChange={value => onAppointmentFieldChange({
+            rRule: changeRecurrenceOptions({
+              ...recurrenceOptions, interval: value,
+            }),
           })}
         />
         <Label
@@ -81,7 +83,6 @@ const YearlyBase = ({
         getMessage={getMessage}
         textEditorComponent={TextEditor}
         labelComponent={Label}
-        onRecurrenceOptionsChange={onRecurrenceOptionsChange}
         onAppointmentFieldChange={onAppointmentFieldChange}
         changedAppointment={changedAppointment}
         switcherComponent={selectComponent}
@@ -100,7 +101,6 @@ YearlyBase.propTypes = {
   selectComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   buttonGroupComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   changedAppointment: PropTypes.object.isRequired,
-  onRecurrenceOptionsChange: PropTypes.func,
   onAppointmentFieldChange: PropTypes.func,
   classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func.isRequired,
@@ -109,7 +109,6 @@ YearlyBase.propTypes = {
 };
 
 YearlyBase.defaultProps = {
-  onRecurrenceOptionsChange: () => undefined,
   onAppointmentFieldChange: () => undefined,
   readOnly: false,
 };

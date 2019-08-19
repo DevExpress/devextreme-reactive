@@ -6,6 +6,7 @@ import classNames from 'classnames';
 import {
   NUMBER_EDITOR,
   getRecurrenceOptions,
+  changeRecurrenceOptions,
 } from '@devexpress/dx-scheduler-core';
 
 const styles = ({ spacing }) => ({
@@ -28,7 +29,6 @@ const DailyBase = ({
   radioGrouprComponent,
   textEditorComponent: TextEditor,
   labelComponent: Label,
-  onRecurrenceOptionsChange,
   classes,
   getMessage,
   readOnly,
@@ -59,8 +59,10 @@ const DailyBase = ({
         value={recurrenceOptions.interval}
         className={classes.textEditor}
         id={NUMBER_EDITOR}
-        onValueChange={value => onRecurrenceOptionsChange({
-          ...recurrenceOptions, interval: value,
+        onValueChange={value => onAppointmentFieldChange({
+          rRule: changeRecurrenceOptions({
+            ...recurrenceOptions, interval: value,
+          }),
         })}
       />
       <Label
@@ -78,7 +80,7 @@ DailyBase.propTypes = {
   selectComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   buttonGroupComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   changedAppointment: PropTypes.object.isRequired,
-  onRecurrenceOptionsChange: PropTypes.func,
+  onAppointmentFieldChange: PropTypes.func,
   onAppointmentFieldChange: PropTypes.func,
   classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func.isRequired,
@@ -88,7 +90,7 @@ DailyBase.propTypes = {
 };
 
 DailyBase.defaultProps = {
-  onRecurrenceOptionsChange: () => undefined,
+  onAppointmentFieldChange: () => undefined,
   onAppointmentFieldChange: () => undefined,
   readOnly: false,
   className: undefined,

@@ -15,6 +15,7 @@ import {
   FRIDAY_DATE,
   SATURDAY_DATE,
   WEDNESDAY_DATE,
+  changeRecurrenceOptions,
 } from '@devexpress/dx-scheduler-core';
 import { setColor } from '../../utils';
 
@@ -47,16 +48,16 @@ const handleWeekDaysChange = (options, weekDay, action) => {
   }
   if (byWeekDay === 0) byWeekDay = undefined;
   const newOptions = { ...options, byweekday: byWeekDay };
-  action(newOptions);
+  action({ rRule: changeRecurrenceOptions(newOptions) });
 };
 
 const ButtonGroupBase = ({
   formatDate,
   changedAppointment,
-  onRecurrenceOptionsChange,
   readOnly,
   classes,
   className,
+  onAppointmentFieldChange,
   ...restProps
 }) => {
   const recurrenceOptions = getRecurrenceOptions(changedAppointment.rRule);
@@ -76,7 +77,7 @@ const ButtonGroupBase = ({
         onClick={() => handleWeekDaysChange(
           recurrenceOptions,
           DAYS_OF_WEEK.SUNDAY,
-          onRecurrenceOptionsChange,
+          onAppointmentFieldChange,
         )}
       >
         {formatDate(SUNDAY_DATE, WEEK_DAY_OPTIONS)}
@@ -89,7 +90,7 @@ const ButtonGroupBase = ({
         onClick={() => handleWeekDaysChange(
           recurrenceOptions,
           DAYS_OF_WEEK.MONDAY,
-          onRecurrenceOptionsChange,
+          onAppointmentFieldChange,
         )}
       >
         {formatDate(MONDAY_DATE, WEEK_DAY_OPTIONS)}
@@ -102,7 +103,7 @@ const ButtonGroupBase = ({
         onClick={() => handleWeekDaysChange(
           recurrenceOptions,
           DAYS_OF_WEEK.TUESDAY,
-          onRecurrenceOptionsChange,
+          onAppointmentFieldChange,
         )}
       >
         {formatDate(TUESDAY_DATE, WEEK_DAY_OPTIONS)}
@@ -115,7 +116,7 @@ const ButtonGroupBase = ({
         onClick={() => handleWeekDaysChange(
           recurrenceOptions,
           DAYS_OF_WEEK.WEDNESDAY,
-          onRecurrenceOptionsChange,
+          onAppointmentFieldChange,
         )}
       >
         {formatDate(WEDNESDAY_DATE, WEEK_DAY_OPTIONS)}
@@ -128,7 +129,7 @@ const ButtonGroupBase = ({
         onClick={() => handleWeekDaysChange(
           recurrenceOptions,
           DAYS_OF_WEEK.THURSDAY,
-          onRecurrenceOptionsChange,
+          onAppointmentFieldChange,
         )}
       >
         {formatDate(THURSDAY_DATE, WEEK_DAY_OPTIONS)}
@@ -141,7 +142,7 @@ const ButtonGroupBase = ({
         onClick={() => handleWeekDaysChange(
           recurrenceOptions,
           DAYS_OF_WEEK.FRIDAY,
-          onRecurrenceOptionsChange,
+          onAppointmentFieldChange,
         )}
       >
         {formatDate(FRIDAY_DATE, WEEK_DAY_OPTIONS)}
@@ -154,7 +155,7 @@ const ButtonGroupBase = ({
         onClick={() => handleWeekDaysChange(
           recurrenceOptions,
           DAYS_OF_WEEK.SATURDAY,
-          onRecurrenceOptionsChange,
+          onAppointmentFieldChange,
         )}
       >
         {formatDate(SATURDAY_DATE, WEEK_DAY_OPTIONS)}
@@ -165,14 +166,14 @@ const ButtonGroupBase = ({
 
 ButtonGroupBase.propTypes = {
   changedAppointment: PropTypes.object.isRequired,
-  onRecurrenceOptionsChange: PropTypes.func,
+  onAppointmentFieldChange: PropTypes.func,
   formatDate: PropTypes.func.isRequired,
   readOnly: PropTypes.bool,
   classes: PropTypes.object.isRequired,
 };
 
 ButtonGroupBase.defaultProps = {
-  onRecurrenceOptionsChange: () => undefined,
+  onAppointmentFieldChange: () => undefined,
   readOnly: false,
 };
 

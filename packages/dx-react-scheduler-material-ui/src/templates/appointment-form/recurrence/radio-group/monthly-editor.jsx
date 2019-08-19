@@ -5,13 +5,13 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import Grid from '@material-ui/core/Grid';
-import InputAdornment from '@material-ui/core/InputAdornment';
 import {
   NUMBER_EDITOR,
   handleStartDateChange,
   handleToDayOfWeekChange,
   handleWeekNumberChange,
   getRecurrenceOptions,
+  changeRecurrenceOptions,
 } from '@devexpress/dx-scheduler-core';
 import { getNumberLabels, getDaysOfWeek } from '../../helpers';
 
@@ -47,12 +47,12 @@ const MonthlyEditorBase = ({
   getMessage,
   labelComponent: Label,
   textEditorComponent: TextEditor,
-  onRecurrenceOptionsChange,
   dateAndTimeEditorComponent: DateAndTimeEditor,
   switcherComponent: Switcher,
   readOnly,
   changedAppointment,
   formatDate,
+  onAppointmentFieldChange,
   ...restProps
 }) => {
   const [dayNumber, setDayNumber] = useState(changedAppointment.startDate.getDate());
@@ -91,10 +91,10 @@ const MonthlyEditorBase = ({
       case 'onDayNumber':
         setStateWeekNumber(weekNumber);
         setStateDayOfWeek(dayOfWeek);
-        onRecurrenceOptionsChange({
-          ...recurrenceOptions,
-          bymonthday: dayNumber,
-          byweekday: undefined,
+        onAppointmentFieldChange({
+          rRule: changeRecurrenceOptions({
+            ...recurrenceOptions, bymonthday: dayNumber, byweekday: undefined,
+          }),
         });
         break;
       case 'onDayOfWeek':
@@ -102,7 +102,7 @@ const MonthlyEditorBase = ({
         handleToDayOfWeekChange(
           stateWeekNumber,
           stateDayOfWeek,
-          onRecurrenceOptionsChange,
+          onAppointmentFieldChange,
           recurrenceOptions,
         );
         break;
@@ -141,7 +141,7 @@ const MonthlyEditorBase = ({
               id={NUMBER_EDITOR}
               onValueChange={newDayNumber => handleStartDateChange(
                 newDayNumber,
-                onRecurrenceOptionsChange,
+                onAppointmentFieldChange,
                 recurrenceOptions,
               )}
             />
@@ -170,7 +170,7 @@ const MonthlyEditorBase = ({
               disabled={value !== 'onDayOfWeek'}
               onChange={newWeekNumber => handleWeekNumberChange(
                 newWeekNumber,
-                onRecurrenceOptionsChange,
+                onAppointmentFieldChange,
                 recurrenceOptions,
               )}
               value={weekNumber}
@@ -179,8 +179,10 @@ const MonthlyEditorBase = ({
             />
             <Switcher
               disabled={value !== 'onDayOfWeek'}
-              onChange={newWeekDay => onRecurrenceOptionsChange({
-                ...recurrenceOptions, byweekday: newWeekDay > 0 ? newWeekDay - 1 : 6,
+              onChange={newWeekDay => onAppointmentFieldChange({
+                rRule: changeRecurrenceOptions({
+                  ...recurrenceOptions, byweekday: newWeekDay > 0 ? newWeekDay - 1 : 6,
+                }),
               })}
               value={dayOfWeek}
               availableOptions={getDaysOfWeek(formatDate)}
@@ -198,7 +200,7 @@ MonthlyEditorBase.propTypes = {
   classes: PropTypes.object.isRequired,
   onExecute: PropTypes.func,
   getMessage: PropTypes.func,
-  onRecurrenceOptionsChange: PropTypes.func,
+  onAppointmentFieldChange: PropTypes.func,
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   dateAndTimeEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
@@ -208,9 +210,9 @@ MonthlyEditorBase.propTypes = {
 };
 
 MonthlyEditorBase.defaultProps = {
-  onRecurrenceOptionsChange: () => undefined,
   onExecute: () => undefined,
   getMessage: () => undefined,
+  onAppointmentFieldChange: () => undefined,
   readOnly: false,
 };
 

@@ -6,7 +6,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import Grid from '@material-ui/core/Grid';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import { NUMBER_EDITOR, getRecurrenceOptions } from '@devexpress/dx-scheduler-core';
+import { NUMBER_EDITOR, getRecurrenceOptions, changeRecurrenceOptions } from '@devexpress/dx-scheduler-core';
 
 const styles = ({ spacing, typography }) => ({
   textEditor: {
@@ -35,8 +35,8 @@ const EndRepeatEditorBase = ({
   getMessage,
   labelComponent: Label,
   textEditorComponent: TextEditor,
-  onRecurrenceOptionsChange,
   dateAndTimeEditorComponent: DateAndTimeEditor,
+  onAppointmentFieldChange,
   changedAppointment,
   ...restProps
 }) => {
@@ -57,16 +57,28 @@ const EndRepeatEditorBase = ({
     switch (event.target.value) {
       case 'endAfter':
         setEndDate(recurrenceOptions.until || endDate);
-        onRecurrenceOptionsChange({ ...recurrenceOptions, count, until: undefined });
+        onAppointmentFieldChange({
+          rRule: changeRecurrenceOptions({
+            ...recurrenceOptions, count, until: undefined,
+          }),
+        });
         break;
       case 'endBy':
         setCount(recurrenceOptions.count || count);
-        onRecurrenceOptionsChange({ ...recurrenceOptions, count: undefined, until: endDate });
+        onAppointmentFieldChange({
+          rRule: changeRecurrenceOptions({
+            ...recurrenceOptions, count: undefined, until: endDate,
+          }),
+        });
         break;
       case 'never':
         setEndDate(recurrenceOptions.until || endDate);
         setCount(recurrenceOptions.count || count);
-        onRecurrenceOptionsChange({ ...recurrenceOptions, count: undefined, until: undefined });
+        onAppointmentFieldChange({
+          rRule: changeRecurrenceOptions({
+            ...recurrenceOptions, count: undefined, until: undefined,
+          }),
+        });
         break;
       default:
         break;
@@ -103,9 +115,11 @@ const EndRepeatEditorBase = ({
               className={classes.textEditor}
               value={recurrenceCount}
               id={NUMBER_EDITOR}
-              onValueChange={newCount => onRecurrenceOptionsChange({
-                ...recurrenceOptions,
-                count: newCount,
+              onValueChange={newCount => onAppointmentFieldChange({
+                rRule: changeRecurrenceOptions({
+                  ...recurrenceOptions,
+                  count: newCount,
+                }),
               })}
               InputProps={{
                 endAdornment: <InputAdornment className={classes.inputAdornment} position="end">{getMessage('occurencesLabel')}</InputAdornment>,
@@ -132,8 +146,10 @@ const EndRepeatEditorBase = ({
               className={classes.dateEditor}
               disabled={value !== 'endBy'}
               date={recurrenceEndDate}
-              onDateChange={date => onRecurrenceOptionsChange({
-                ...recurrenceOptions, until: date,
+              onDateChange={date => onAppointmentFieldChange({
+                rRule: changeRecurrenceOptions({
+                  ...recurrenceOptions, until: date,
+                }),
               })}
               allowKeyboardControl={false}
             />
@@ -149,14 +165,14 @@ EndRepeatEditorBase.propTypes = {
   classes: PropTypes.object.isRequired,
   onExecute: PropTypes.func,
   getMessage: PropTypes.func,
-  onRecurrenceOptionsChange: PropTypes.func,
+  onAppointmentFieldChange: PropTypes.func,
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   dateAndTimeEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
 };
 
 EndRepeatEditorBase.defaultProps = {
-  onRecurrenceOptionsChange: () => undefined,
+  onAppointmentFieldChange: () => undefined,
   onExecute: () => undefined,
   getMessage: () => undefined,
 };

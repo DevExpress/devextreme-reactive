@@ -60,7 +60,6 @@ const LayoutBase = ({
   textEditorComponent,
   labelComponent: Label,
   dateEditorComponent,
-  onRecurrenceOptionsChange,
   selectComponent: Select,
   buttonGroupComponent,
   children,
@@ -99,7 +98,6 @@ const LayoutBase = ({
       <MainLayoutComponent
         textEditorComponent={textEditorComponent}
         labelComponent={Label}
-        onRecurrenceOptionsChange={onRecurrenceOptionsChange}
         getMessage={getMessage}
         readOnly={readOnly}
         radioGroupComponent={RadioGroup}
@@ -121,9 +119,9 @@ const LayoutBase = ({
         getMessage={getMessage}
         textEditorComponent={textEditorComponent}
         labelComponent={Label}
-        onRecurrenceOptionsChange={onRecurrenceOptionsChange}
         dateAndTimeEditorComponent={dateEditorComponent}
         changedAppointment={changedAppointment}
+        onAppointmentFieldChange={onAppointmentFieldChange}
       />
       {children}
     </div>
@@ -137,7 +135,7 @@ LayoutBase.propTypes = {
   dateEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   selectComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   buttonGroupComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  onRecurrenceOptionsChange: PropTypes.func,
+  onAppointmentFieldChange: PropTypes.func,
   onAppointmentFieldChange: PropTypes.func,
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
@@ -150,7 +148,7 @@ LayoutBase.propTypes = {
 
 LayoutBase.defaultProps = {
   className: undefined,
-  onRecurrenceOptionsChange: () => undefined,
+  onAppointmentFieldChange: () => undefined,
   onAppointmentFieldChange: () => undefined,
   readOnly: false,
 };

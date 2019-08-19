@@ -2,10 +2,10 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
+import Grid from '@material-ui/core/Grid';
 import {
   TITLE_TEXT_EDITOR,
   NOTES_TEXT_EDITOR,
-  FULL_DATE_TIME_EDITOR,
   TITLE_LABEL,
   OUTLINED_SWITCHER,
   getFrequencyString,
@@ -31,6 +31,15 @@ const styles = theme => ({
   moreInformationLabel: {
     marginBottom: theme.spacing(0.5),
     marginTop: theme.spacing(0.5),
+  },
+  dateEdior: {
+    width: '45%',
+  },
+  dividerLabel: {
+    ...theme.typography.body2,
+    width: '10%',
+    textAlign: 'center',
+    paddingBottom: '0.5em',
   },
 });
 
@@ -70,14 +79,27 @@ const LayoutBase = ({
         value={changedAppointment.title}
         onValueChange={title => onAppointmentFieldChange({ title })}
       />
-      <DateEditor
-        disabled={readOnly}
-        firstDate={changedAppointment.startDate}
-        secondDate={changedAppointment.endDate}
-        onFirstDateValueChange={startDate => onAppointmentFieldChange({ startDate: startDate.toDate() })}
-        onSecondDateValueChange={endDate => onAppointmentFieldChange({ endDate: endDate.toDate() })}
-        id={FULL_DATE_TIME_EDITOR}
-      />
+      <Grid
+        container
+        alignItems="center"
+      >
+        <DateEditor
+          className={classes.dateEdior}
+          disabled={readOnly}
+          date={changedAppointment.startDate}
+          onDateChange={startDate => onAppointmentFieldChange({ startDate })}
+        />
+        <Label
+          label="-"
+          className={classes.dividerLabel}
+        />
+        <DateEditor
+          className={classes.dateEdior}
+          disabled={readOnly}
+          date={changedAppointment.endDate}
+          onDateChange={endDate => onAppointmentFieldChange({ endDate })}
+        />
+      </Grid>
       <Label
         label={getMessage('moreInformationLabel')}
         id={TITLE_LABEL}

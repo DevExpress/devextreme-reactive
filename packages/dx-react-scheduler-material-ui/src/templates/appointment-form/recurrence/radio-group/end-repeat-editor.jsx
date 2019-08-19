@@ -131,11 +131,11 @@ const EndRepeatEditorBase = ({
             <DateAndTimeEditor
               className={classes.dateEditor}
               disabled={value !== 'endBy'}
-              oneDate
-              firstDate={recurrenceEndDate}
-              onFirstDateValueChange={date => onRecurrenceOptionsChange({
+              date={recurrenceEndDate}
+              onDateChange={date => onRecurrenceOptionsChange({
                 ...recurrenceOptions, until: date,
               })}
+              allowKeyboardControl={false}
             />
           </Grid>
         )}

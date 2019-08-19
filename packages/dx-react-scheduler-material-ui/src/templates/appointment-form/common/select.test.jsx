@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { createShallow } from '@material-ui/core/test-utils';
 import MenuItem from '@material-ui/core/MenuItem';
-import { Switcher } from './switcher';
+import { Select } from './select';
 
 describe('AppointmentForm common', () => {
   let shallow;
@@ -16,7 +16,7 @@ describe('AppointmentForm common', () => {
   describe('Switcher', () => {
     it('should pass rest props to the root element', () => {
       const tree = shallow((
-        <Switcher {...defaultProps} data={{ a: 1 }} />
+        <Select {...defaultProps} data={{ a: 1 }} />
       ));
 
       expect(tree.props().data)
@@ -25,7 +25,7 @@ describe('AppointmentForm common', () => {
 
     it('should handle change', () => {
       const tree = shallow((
-        <Switcher {...defaultProps} />
+        <Select {...defaultProps} />
       ));
 
       tree.simulate('change', { target: { value: 'next' } });
@@ -36,7 +36,7 @@ describe('AppointmentForm common', () => {
 
     it('should render items depending on available options', () => {
       const tree = shallow((
-        <Switcher
+        <Select
           {...defaultProps}
           availableOptions={[
             { text: '1', id: 1 },

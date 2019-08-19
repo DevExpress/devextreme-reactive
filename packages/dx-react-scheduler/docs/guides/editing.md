@@ -7,8 +7,8 @@ The React Scheduler allows users to create, update, and delete appointments. The
 The following plugins implement this feature:
 
 - [EditingState](../reference/editing-state.md) - controls the editing state
-- [IntegratedEditing](../reference/integrated-editing.md) - performs built-in edit processing
-- [EditingMenu](../reference/integrated-editing.md) - renders editing menu and performs user edit processing
+- [IntegratedEditing](../reference/integrated-editing.md) - implements editing
+- [EditingMenu](../reference/integrated-editing.md) - renders the editing menu and allows you to process user edits
 - [AppointmentTooltip](../reference/appointment-tooltip.md) - renders a tooltip with controls that manage the appointment
 - [AppointmentForm](../reference/appointment-form.md) - renders a form that allows a user to edit an appointment
 - [DragDropProvider](../reference/drag-drop-provider.md) - implements drag-and-drop editing

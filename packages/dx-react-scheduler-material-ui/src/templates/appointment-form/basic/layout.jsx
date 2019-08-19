@@ -68,18 +68,14 @@ const LayoutBase = ({
         readOnly={readOnly}
         id={TITLE_TEXT_EDITOR}
         value={changedAppointment.title}
-        onValueChange={title => onAppointmentFieldChange({ change: { title } })}
+        onValueChange={title => onAppointmentFieldChange({ title })}
       />
       <DateEditor
         disabled={readOnly}
         firstDate={changedAppointment.startDate}
         secondDate={changedAppointment.endDate}
-        onFirstDateValueChange={startDate => onAppointmentFieldChange({
-          change: { startDate: startDate.toDate() },
-        })}
-        onSecondDateValueChange={endDate => onAppointmentFieldChange({
-          change: { endDate: endDate.toDate() },
-        })}
+        onFirstDateValueChange={startDate => onAppointmentFieldChange({ startDate: startDate.toDate() })}
+        onSecondDateValueChange={endDate => onAppointmentFieldChange({ endDate: endDate.toDate() })}
         id={FULL_DATE_TIME_EDITOR}
       />
       <Label
@@ -91,23 +87,21 @@ const LayoutBase = ({
         label={getMessage('additionalInformationLabel')}
         readOnly={readOnly}
         value={changedAppointment.additionalInformation}
-        onValueChange={additionalInformation => onAppointmentFieldChange({
-          change: { additionalInformation },
-        })}
+        onValueChange={additionalInformation => onAppointmentFieldChange({ additionalInformation })}
       />
       <TextEditor
         label={getMessage('notesLabel')}
         readOnly={readOnly}
         id={NOTES_TEXT_EDITOR}
         value={changedAppointment.notes}
-        onValueChange={notes => onAppointmentFieldChange({ change: { notes } })}
+        onValueChange={notes => onAppointmentFieldChange({ notes })}
         className={classes.notesEditor}
       />
       <AllDay
         label={getMessage('allDayLabel')}
         readOnly={readOnly}
         value={changedAppointment.allDay}
-        onValueChange={allDay => onAppointmentFieldChange({ change: { allDay } })}
+        onValueChange={allDay => onAppointmentFieldChange({ allDay })}
       />
       {(!changedAppointment.rRule) && (
         <React.Fragment>

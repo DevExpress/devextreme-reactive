@@ -215,5 +215,5 @@ export const handleChangeFrequency = (repeatType, changedAppointment, action) =>
       changedAppointment.startDate,
     );
   }
-  action({ change: { rRule } });
+  action({ rRule });
 };

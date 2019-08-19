@@ -41,15 +41,6 @@ const styles = ({ spacing }) => ({
   },
 });
 
-const getTextForOrdinalNumber = (getMessage, dayNumber) => {
-  let text = getMessage('thLabel');
-  if (dayNumber % 10 === 1) text = getMessage('stLabel');
-  if (dayNumber % 10 === 2) text = getMessage('ndLabel');
-  if (dayNumber % 10 === 3) text = getMessage('rdLabel');
-
-  return text;
-};
-
 const MonthlyEditorBase = ({
   classes,
   onExecute,
@@ -94,8 +85,6 @@ const MonthlyEditorBase = ({
       }
     }
   }
-
-  const textForOrdinalNumber = getTextForOrdinalNumber(getMessage, dayNumberTextField, formatDate);
 
   const onRadioGroupValueChange = (event) => {
     switch (event.target.value) {
@@ -155,9 +144,6 @@ const MonthlyEditorBase = ({
                 onRecurrenceOptionsChange,
                 recurrenceOptions,
               )}
-              InputProps={{
-                endAdornment: <InputAdornment position="end">{textForOrdinalNumber}</InputAdornment>,
-              }}
             />
             <Label
               label={getMessage('ofEveryMonthLabel')}

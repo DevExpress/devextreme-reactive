@@ -297,9 +297,13 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                 ...appointmentData,
                 ...isNew ? addedAppointment : appointmentChanges,
               };
+              const changeAppointmentAction = changes => changeAppointment({ change: changes });
+              const changeAddedAppointmentAction = changes => changeAddedAppointment({
+                change: changes,
+              });
               const changeAppointmentField = isNew
-                ? changeAddedAppointment
-                : changeAppointment;
+                ? changeAddedAppointmentAction
+                : changeAppointmentAction;
               return (
                 <BasicLayout
                   isRecurring={changedAppointment.rRule !== undefined}
@@ -334,13 +338,17 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                 ...appointmentData,
                 ...isNew ? addedAppointment : appointmentChanges,
               };
+              const changeAppointmentAction = changes => changeAppointment({ change: changes });
+              const changeAddedAppointmentAction = changes => changeAddedAppointment({
+                change: changes,
+              });
               const changeAppointmentField = isNew
-                ? changeAddedAppointment
-                : changeAppointment;
+                ? changeAddedAppointmentAction
+                : changeAppointmentAction;
 
               const setNewRRule = (newOptions) => {
                 const rRule = changeRecurrenceOptions(newOptions);
-                changeAppointmentField({ change: { rRule } });
+                changeAppointmentField({ rRule });
               };
               return (
                 <RecurrenceLayout

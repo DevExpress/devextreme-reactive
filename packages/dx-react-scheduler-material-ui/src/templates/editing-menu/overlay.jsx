@@ -10,7 +10,7 @@ const styles = {
   },
 };
 
-const ModalBase = ({
+const OverlayBase = ({
   children, isOpen, handleClose, containerRef, classes, className, ...restProps
 }) => (
   <Dialog
@@ -26,7 +26,7 @@ const ModalBase = ({
   </Dialog>
 );
 
-ModalBase.propTypes = {
+OverlayBase.propTypes = {
   children: PropTypes.node.isRequired,
   classes: PropTypes.object.isRequired,
   handleClose: PropTypes.func.isRequired,
@@ -35,9 +35,9 @@ ModalBase.propTypes = {
   className: PropTypes.string,
 };
 
-ModalBase.defaultProps = {
+OverlayBase.defaultProps = {
   className: undefined,
   isOpen: false,
 };
 
-export const Modal = withStyles(styles, { name: 'Modal' })(ModalBase);
+export const Overlay = withStyles(styles, { name: 'Overlay' })(OverlayBase);

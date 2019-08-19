@@ -6,7 +6,7 @@ export namespace EditingMenu {
   export interface LayoutProps {
     /** The flag that specifies what type of the editing is (deleting or editing). */
     isDeleting: boolean;
-    /** A component that renders the editing menu's button element. */
+    /** A component that renders the editing menu's button. */
     buttonComponent: React.ComponentType<EditingMenu.ButtonProps>;
     /** The function that closed the window. */
     handleClose: () => void;
@@ -56,13 +56,13 @@ export namespace EditingMenu {
 }
 
 export interface EditingMenuProps {
-  /** A component that renders the editing menu's layout element. */
+  /** A component that renders the editing menu's layout. */
   layoutComponent: React.ComponentType<EditingMenu.LayoutProps>;
-  /** A component that renders the editing menu's modal element. */
-  modalComponent: React.ComponentType<EditingMenu.ModalProps>;
-  /** A component that renders the editing menu's button element. */
+  /** A component that renders the editing menu's overlay. */
+  overlayComponent: React.ComponentType<EditingMenu.ModalProps>;
+  /** A component that renders the editing menu's container. */
   containerComponent: React.ComponentType<EditingMenu.ContainerProps>;
-  /** A component that renders the editing menu's container element. */
+  /** A component that renders the editing menu's button. */
   buttonComponent: React.ComponentType<EditingMenu.ButtonProps>;
   /** An object that specifies localization messages. */
   messages?: EditingMenu.LocalizationMessages;

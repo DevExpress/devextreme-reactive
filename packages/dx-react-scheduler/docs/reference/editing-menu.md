@@ -26,22 +26,22 @@ import { EditingMenu } from '@devexpress/dx-react-scheduler';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-layoutComponent | ComponentType&lt;[EditingMenu.LayoutProps](#editingmenulayoutprops)&gt; | | A component that renders the editing menu's layout element.
-modalComponent | ComponentType&lt;[EditingMenu.ModalProps](#editingmenuomodalprops)&gt; | | A component that renders the editing menu's modal element.
-buttonComponent | ComponentType&lt;[EditingMenu.ButtonProps](#editingmenubuttonprops)&gt; | | A component that renders the editing menu's button element.
-containerComponent | ComponentType&lt;[EditingMenu.ContainerProps](#editingmenucontainerprops)&gt; | | A component that renders the editing menu's container element.
+layoutComponent | ComponentType&lt;[EditingMenu.LayoutProps](#editingmenulayoutprops)&gt; | | A component that renders the editing menu's layout.
+overlayComponent | ComponentType&lt;[EditingMenu.ModalProps](#editingmenuomodalprops)&gt; | | A component that renders the editing menu's overlay.
+buttonComponent | ComponentType&lt;[EditingMenu.ButtonProps](#editingmenubuttonprops)&gt; | | A component that renders the editing menu's button.
+containerComponent | ComponentType&lt;[EditingMenu.ContainerProps](#editingmenucontainerprops)&gt; | | A component that renders the editing menu's container.
 messages | ComponentType&lt;[EditingMenu.LocalizationMessages](#editingmenulocalizationmessages)&gt; | | 	An object that specifies the localization messages.
 
 ## Interfaces
 
 ### EditingMenu.LayoutProps
 
-Properties passed to a component that renders the editing menu's layout element.
+Properties passed to a component that renders the editing menu's layout.
 
 Field | Type | Description
 ------|------|------------
 isDeleting | boolean | The flag that specifies what type of the editing is (deleting or editing).
-buttonComponent | ComponentType&lt;[EditingMenu.ButtonProps](#editingmenubuttonprops)&gt; | A component that renders the editing menu's button element.
+buttonComponent | ComponentType&lt;[EditingMenu.ButtonProps](#editingmenubuttonprops)&gt; | A component that renders the editing menu's button.
 handleClose | () => void | The function that closed the window.
 commit | () => void | The function that committed changes.
 availableOperations | Array&lt;string&gt; | The editing operations are available to choose.
@@ -49,7 +49,7 @@ getMessage | (messageKey: string) => string | Returns a specified localization m
 
 ### EditingMenu.ModalProps
 
-Properties passed to a component that renders the editing menu's modal element.
+Properties passed to a component that renders the editing menu's modal.
 
 Field | Type | Description
 ------|------|------------
@@ -59,7 +59,7 @@ handleClose | () => void | The function that closed the modal.
 
 ### EditingMenu.ButtonProps
 
-Properties passed to a component that renders the editing menu's button element.
+Properties passed to a component that renders the editing menu's button.
 
 Field | Type | Description
 ------|------|------------
@@ -68,7 +68,7 @@ onClick | () => void | The function that should be fired by click.
 
 ### EditingMenu.ContainerProps
 
-Properties passed to a component that renders the editing menu's container element.
+Properties passed to a component that renders the editing menu's container.
 
 Field | Type | Description
 ------|------|------------
@@ -90,9 +90,9 @@ commitButton? | string | 'OK' | Specifies the commit button's text.
 
 Name | Properties | Description
 -----|------------|------------
-EditingMenu.Layout | [EditingMenu.LayoutProps](#editingmenulayoutprops) | A component that renders the editing menu's layout element.
-EditingMenu.Modal | [EditingMenu.ModalProps](#editingmenuomodalprops) | A component that renders the editing menu's modal element.
-EditingMenu.Button | [EditingMenu.ButtonProps](#editingmenubuttonprops) | A component that renders the editing menu's button element.
-EditingMenu.Container | [EditingMenu.ContainerProps](#editingmenucontainerprops) | A component that renders the editing menu's container element.
+EditingMenu.Layout | [EditingMenu.LayoutProps](#editingmenulayoutprops) | A component that renders the editing menu's layout.
+EditingMenu.Modal | [EditingMenu.ModalProps](#editingmenuomodalprops) | A component that renders the editing menu's overlay.
+EditingMenu.Button | [EditingMenu.ButtonProps](#editingmenubuttonprops) | A component that renders the editing menu's button.
+EditingMenu.Container | [EditingMenu.ContainerProps](#editingmenucontainerprops) | A component that renders the editing menu's container.
 
 Additional properties are added to the component's root element.

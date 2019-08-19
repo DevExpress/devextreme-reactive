@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import Dialog from '@material-ui/core/Dialog';
-import { Modal } from './modal';
+import { Overlay } from './overlay';
 
 describe('EditingMenu', () => {
   let shallow;
@@ -14,18 +14,18 @@ describe('EditingMenu', () => {
   };
   beforeAll(() => {
     shallow = createShallow({ dive: true });
-    classes = getClasses(<Modal {...defaultProps}><div /></Modal>);
+    classes = getClasses(<Overlay {...defaultProps}><div /></Overlay>);
   });
   beforeEach(() => {
     jest.resetAllMocks();
   });
 
-  describe('Modal', () => {
+  describe('Overlay', () => {
     it('should pass rest props to the root element', () => {
       const tree = shallow((
-        <Modal {...defaultProps} data={{ testData: 'testData' }}>
+        <Overlay {...defaultProps} data={{ testData: 'testData' }}>
           <div />
-        </Modal>
+        </Overlay>
       ));
 
       expect(tree.props().data)
@@ -33,9 +33,9 @@ describe('EditingMenu', () => {
     });
     it('should render children inside', () => {
       const tree = shallow((
-        <Modal {...defaultProps}>
+        <Overlay {...defaultProps}>
           <div className="child" />
-        </Modal>
+        </Overlay>
       ));
 
       expect(tree.find('.child').exists())
@@ -43,9 +43,9 @@ describe('EditingMenu', () => {
     });
     it('should pass expected properties into Dialog', () => {
       const tree = shallow((
-        <Modal {...defaultProps}>
+        <Overlay {...defaultProps}>
           <div />
-        </Modal>
+        </Overlay>
       ));
 
       expect(tree.find(Dialog).props())

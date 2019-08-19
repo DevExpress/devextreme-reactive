@@ -426,7 +426,7 @@ export interface EditingMenuProps {
   containerComponent: React.ComponentType<EditingMenu.ContainerProps>;
   layoutComponent: React.ComponentType<EditingMenu.LayoutProps>;
   messages?: EditingMenu.LocalizationMessages;
-  modalComponent: React.ComponentType<EditingMenu.ModalProps>;
+  overlayComponent: React.ComponentType<EditingMenu.ModalProps>;
 }
 
 // @public

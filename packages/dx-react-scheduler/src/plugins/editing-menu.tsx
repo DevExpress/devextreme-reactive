@@ -29,7 +29,7 @@ const defaultMessages = {
 class EditingMenuBase extends React.PureComponent<EditingMenuProps, EditingMenuState> {
   static components = {
     layoutComponent: 'Layout',
-    modalComponent: 'Modal',
+    overlayComponent: 'Overlay',
     buttonComponent: 'Button',
     containerComponent: 'Container',
   };
@@ -93,7 +93,7 @@ class EditingMenuBase extends React.PureComponent<EditingMenuProps, EditingMenuS
     const { isOpen, deletedAppointmentData } = this.state;
     const {
       layoutComponent: Layout,
-      modalComponent: Modal,
+      overlayComponent: Overlay,
       containerComponent: Container,
       buttonComponent,
       messages,
@@ -113,10 +113,10 @@ class EditingMenuBase extends React.PureComponent<EditingMenuProps, EditingMenuS
         <Template name="schedulerRoot">
           <TemplatePlaceholder />
           <Container containerRef={this.modalContainer} />
-          <TemplatePlaceholder name="modal" />
+          <TemplatePlaceholder name="overlay" />
         </Template>
 
-        <Template name="modal">
+        <Template name="overlay">
           <TemplateConnector>
             {(getters, { commitChangedAppointment, commitDeletedAppointment }) => {
               const commit = this.commit(
@@ -124,7 +124,7 @@ class EditingMenuBase extends React.PureComponent<EditingMenuProps, EditingMenuS
               );
 
               return (
-                <Modal
+                <Overlay
                   containerRef={this.modalContainer}
                   isOpen={isOpen}
                   handleClose={this.closeMenu}
@@ -137,7 +137,7 @@ class EditingMenuBase extends React.PureComponent<EditingMenuProps, EditingMenuS
                     availableOperations={availableOperations}
                     getMessage={getMessage}
                   />
-                </Modal>
+                </Overlay>
               );
             }}
           </TemplateConnector>

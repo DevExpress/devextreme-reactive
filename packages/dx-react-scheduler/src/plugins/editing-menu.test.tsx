@@ -20,7 +20,7 @@ describe('EditingMenu', () => {
   };
   const defaultProps = {
     layoutComponent: () => null,
-    modalComponent: ({ children }) => <div>{children}</div>,
+    overlayComponent: ({ children }) => <div>{children}</div>,
     containerComponent: ({ children }) => <div>{children}</div>,
     buttonComponent: () => null,
   };
@@ -56,7 +56,7 @@ describe('EditingMenu', () => {
       </PluginHost>
     ));
 
-    const modal = tree.find(defaultProps.modalComponent);
+    const modal = tree.find(defaultProps.overlayComponent);
     expect(modal.props())
       .toEqual({
         containerRef: expect.any(Object),

@@ -1,7 +1,12 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { END_REPEAT_RADIO_GROUP, TITLE_LABEL, getRecurrenceOptions } from '@devexpress/dx-scheduler-core';
+import {
+  END_REPEAT_RADIO_GROUP,
+  TITLE_LABEL,
+  getRecurrenceOptions,
+  RRULE_REPEAT_TYPES,
+} from '@devexpress/dx-scheduler-core';
 import classNames from 'classnames';
 import { Daily as DailyLayout } from './layouts/daily';
 import { Weekly as WeeklyLayout } from './layouts/weekly';
@@ -32,16 +37,32 @@ const styles = theme => ({
   },
 });
 
+const getLayoutComponent = (recurrenceOptions) => {
+  if (recurrenceOptions) {
+    switch (recurrenceOptions.freq) {
+      case RRULE_REPEAT_TYPES.DAILY:
+        return DailyLayout;
+      case RRULE_REPEAT_TYPES.WEEKLY:
+        return WeeklyLayout;
+      case RRULE_REPEAT_TYPES.MONTHLY:
+        return MonthlyLayout;
+      case RRULE_REPEAT_TYPES.YEARLY:
+        return YearlyLayout;
+      default:
+        return null;
+    }
+  }
+};
+
 const LayoutBase = ({
   recurrenceSwitcherComponent: RecurenceSwitcher,
-  radioGroupEditorComponent: RadioGroupEditor,
-  textEditorComponent: TextEditor,
+  radioGroupComponent: RadioGroup,
+  textEditorComponent,
   labelComponent: Label,
-  dateAndTimeEditorComponent: DateAndTimeEditor,
+  dateEditorComponent,
   onRecurrenceOptionsChange,
-  switcherComponent: Switcher,
-  groupedButtonsComponent: GroupedButtons,
-  frequency,
+  selectComponent,
+  buttonGroupComponent,
   children,
   classes,
   className,
@@ -54,80 +75,63 @@ const LayoutBase = ({
 }) => {
   let MainLayoutComponent = null;
   const recurrenceOptions = getRecurrenceOptions(changedAppointment.rRule);
-  if (recurrenceOptions) {
-    switch (frequency) {
-      case 'daily':
-        MainLayoutComponent = DailyLayout;
-        break;
-      case 'weekly':
-        MainLayoutComponent = WeeklyLayout;
-        break;
-      case 'monthly':
-        MainLayoutComponent = MonthlyLayout;
-        break;
-      case 'yearly':
-        MainLayoutComponent = YearlyLayout;
-        break;
-      default:
-        break;
-    }
-    return (
-      <div
-        className={classNames(classes.root, className)}
+
+  MainLayoutComponent = getLayoutComponent(recurrenceOptions);
+  return (
+    <div
+      className={classNames(classes.root, className)}
+      {...restProps}
+    >
+      <Label
+        label={getMessage('repeatLabel')}
+        id={TITLE_LABEL}
+        className={classes.repeatLabel}
+      />
+      <RecurenceSwitcher
+        className={classes.switcher}
+      />
+      <MainLayoutComponent
+        textEditorComponent={textEditorComponent}
+        labelComponent={Label}
+        onRecurrenceOptionsChange={onRecurrenceOptionsChange}
+        getMessage={getMessage}
+        readOnly={readOnly}
+        radioGroupComponent={RadioGroup}
+        changedAppointment={changedAppointment}
+        onAppointmentFieldChange={onAppointmentFieldChange}
+        selectComponent={selectComponent}
+        buttonGroupComponent={buttonGroupComponent}
+        formatDate={formatDate}
         {...restProps}
-      >
-        <Label
-          label={getMessage('repeatLabel')}
-          id={TITLE_LABEL}
-          className={classes.repeatLabel}
-        />
-        <RecurenceSwitcher
-          className={classes.switcher}
-        />
-        <MainLayoutComponent
-          textEditorComponent={TextEditor}
-          labelComponent={Label}
-          onRecurrenceOptionsChange={onRecurrenceOptionsChange}
-          getMessage={getMessage}
-          readOnly={readOnly}
-          radioGroupEditorComponent={RadioGroupEditor}
-          changedAppointment={changedAppointment}
-          onAppointmentFieldChange={onAppointmentFieldChange}
-          switcherComponent={Switcher}
-          groupedButtonsComponent={GroupedButtons}
-          formatDate={formatDate}
-          {...restProps}
-        />
-        <Label
-          label={getMessage('endRepeatLabel')}
-          className={classes.endRepeatLabel}
-        />
-        <RadioGroupEditor
-          className={classes.radioGroup}
-          id={END_REPEAT_RADIO_GROUP}
-          readOnly={readOnly}
-          getMessage={getMessage}
-          textEditorComponent={TextEditor}
-          labelComponent={Label}
-          onRecurrenceOptionsChange={onRecurrenceOptionsChange}
-          dateAndTimeEditorComponent={DateAndTimeEditor}
-          changedAppointment={changedAppointment}
-        />
-        {children}
-      </div>
-    );
-  }
-  return null;
+      />
+      <Label
+        label={getMessage('endRepeatLabel')}
+        className={classes.endRepeatLabel}
+      />
+      <RadioGroup
+        className={classes.radioGroup}
+        id={END_REPEAT_RADIO_GROUP}
+        readOnly={readOnly}
+        getMessage={getMessage}
+        textEditorComponent={textEditorComponent}
+        labelComponent={Label}
+        onRecurrenceOptionsChange={onRecurrenceOptionsChange}
+        dateAndTimeEditorComponent={dateEditorComponent}
+        changedAppointment={changedAppointment}
+      />
+      {children}
+    </div>
+  );
 };
 
 LayoutBase.propTypes = {
   recurrenceSwitcherComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  radioGroupEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  radioGroupComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  dateAndTimeEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  switcherComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  groupedButtonsComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  dateEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  selectComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  buttonGroupComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   onRecurrenceOptionsChange: PropTypes.func,
   onAppointmentFieldChange: PropTypes.func,
   children: PropTypes.node.isRequired,
@@ -136,7 +140,7 @@ LayoutBase.propTypes = {
   getMessage: PropTypes.func.isRequired,
   readOnly: PropTypes.bool,
   changedAppointment: PropTypes.object.isRequired,
-  frequency: PropTypes.string.isRequired,
+  formatDate: PropTypes.func.isRequired,
 };
 
 LayoutBase.defaultProps = {

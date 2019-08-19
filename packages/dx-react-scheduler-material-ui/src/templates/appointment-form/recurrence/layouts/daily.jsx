@@ -25,7 +25,7 @@ const styles = ({ spacing }) => ({
 });
 
 const DailyBase = ({
-  radioGroupEditorComponent: RadioGroupEditor,
+  radioGrouprComponent,
   textEditorComponent: TextEditor,
   labelComponent: Label,
   onRecurrenceOptionsChange,
@@ -34,8 +34,8 @@ const DailyBase = ({
   readOnly,
   onAppointmentFieldChange,
   changedAppointment,
-  switcherComponent: Switcher,
-  groupedButtonsComponent: GroupedButtons,
+  selectComponent,
+  buttonGroupComponent,
   className,
   formatDate,
   ...restProps
@@ -73,22 +73,25 @@ const DailyBase = ({
 
 DailyBase.propTypes = {
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  radioGroupEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  radioGrouprComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  switcherComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  groupedButtonsComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  selectComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  buttonGroupComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   changedAppointment: PropTypes.object.isRequired,
   onRecurrenceOptionsChange: PropTypes.func,
   onAppointmentFieldChange: PropTypes.func,
   classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func.isRequired,
   readOnly: PropTypes.bool,
+  className: PropTypes.string,
+  formatDate: PropTypes.func.isRequired,
 };
 
 DailyBase.defaultProps = {
   onRecurrenceOptionsChange: () => undefined,
   onAppointmentFieldChange: () => undefined,
   readOnly: false,
+  className: undefined,
 };
 
 export const Daily = withStyles(styles)(DailyBase, { name: 'Daily' });

@@ -22,7 +22,7 @@ const styles = theme => ({
 });
 
 const WeeklyBase = ({
-  radioGroupEditorComponent: RadioGroupEditor,
+  radioGroupComponent,
   textEditorComponent: TextEditor,
   labelComponent: Label,
   onRecurrenceOptionsChange,
@@ -31,8 +31,8 @@ const WeeklyBase = ({
   readOnly,
   onAppointmentFieldChange,
   changedAppointment,
-  switcherComponent: Switcher,
-  groupedButtonsComponent: GroupedButtons,
+  selectComponent,
+  buttonGroupComponent: ButtonGroup,
   formatDate,
   ...restProps
 }) => {
@@ -66,7 +66,7 @@ const WeeklyBase = ({
           className={classes.labelWithMargin}
         />
       </Grid>
-      <GroupedButtons
+      <ButtonGroup
         changedAppointment={changedAppointment}
         onRecurrenceOptionsChange={onRecurrenceOptionsChange}
         readOnly={readOnly}
@@ -78,16 +78,17 @@ const WeeklyBase = ({
 
 WeeklyBase.propTypes = {
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  radioGroupEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  radioGroupComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  switcherComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  groupedButtonsComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  selectComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  buttonGroupComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   changedAppointment: PropTypes.object.isRequired,
   onRecurrenceOptionsChange: PropTypes.func,
   onAppointmentFieldChange: PropTypes.func,
   classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func.isRequired,
   readOnly: PropTypes.bool,
+  formatDate: PropTypes.func.isRequired,
 };
 
 WeeklyBase.defaultProps = {

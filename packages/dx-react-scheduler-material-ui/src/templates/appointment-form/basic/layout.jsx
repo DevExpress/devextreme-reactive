@@ -34,7 +34,7 @@ const LayoutBase = ({
   classes,
   className,
   textEditorComponent: TextEditor,
-  dateTimeEditorComponent: DateTimeEditor,
+  dateEditorComponent: DateEditor,
   recurrenceSwitcherComponent: RecurrenceSwitcher,
   labelComponent: Label,
   allDayComponent: AllDay,
@@ -62,7 +62,7 @@ const LayoutBase = ({
       value={changedAppointment.title}
       onValueChange={title => onAppointmentFieldChange({ change: { title } })}
     />
-    <DateTimeEditor
+    <DateEditor
       disabled={readOnly}
       firstDate={changedAppointment.startDate}
       secondDate={changedAppointment.endDate}
@@ -116,7 +116,7 @@ const LayoutBase = ({
 
 LayoutBase.propTypes = {
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  dateTimeEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  dateEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   recurrenceSwitcherComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   allDayComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,

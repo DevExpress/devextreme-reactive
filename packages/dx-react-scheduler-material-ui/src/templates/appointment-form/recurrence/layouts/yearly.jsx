@@ -33,7 +33,7 @@ const styles = theme => ({
 });
 
 const YearlyBase = ({
-  radioGroupEditorComponent: RadioGroupEditor,
+  radioGroupComponent: RadioGroup,
   textEditorComponent: TextEditor,
   labelComponent: Label,
   onRecurrenceOptionsChange,
@@ -42,8 +42,8 @@ const YearlyBase = ({
   readOnly,
   onAppointmentFieldChange,
   changedAppointment,
-  switcherComponent: Switcher,
-  groupedButtonsComponent: GroupedButtons,
+  selectComponent,
+  buttonGroupComponent,
   formatDate,
   ...restProps
 }) => {
@@ -75,7 +75,7 @@ const YearlyBase = ({
           className={classes.labelWithMargin}
         />
       </Grid>
-      <RadioGroupEditor
+      <RadioGroup
         id={YEARLY_RADIO_GROUP}
         readOnly={readOnly}
         getMessage={getMessage}
@@ -84,7 +84,7 @@ const YearlyBase = ({
         onRecurrenceOptionsChange={onRecurrenceOptionsChange}
         onAppointmentFieldChange={onAppointmentFieldChange}
         changedAppointment={changedAppointment}
-        switcherComponent={Switcher}
+        switcherComponent={selectComponent}
         formatDate={formatDate}
         className={classes.radioGroup}
       />
@@ -95,16 +95,17 @@ const YearlyBase = ({
 
 YearlyBase.propTypes = {
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  radioGroupEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  radioGroupComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  switcherComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  groupedButtonsComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  selectComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  buttonGroupComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   changedAppointment: PropTypes.object.isRequired,
   onRecurrenceOptionsChange: PropTypes.func,
   onAppointmentFieldChange: PropTypes.func,
   classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func.isRequired,
   readOnly: PropTypes.bool,
+  formatDate: PropTypes.func.isRequired,
 };
 
 YearlyBase.defaultProps = {

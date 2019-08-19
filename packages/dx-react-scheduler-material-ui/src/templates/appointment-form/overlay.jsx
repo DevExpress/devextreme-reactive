@@ -28,7 +28,7 @@ const OverlayBase = ({
   classes,
   className,
   fullSize,
-  container,
+  target,
   onHide,
   ...restProps
 }) => {
@@ -45,7 +45,7 @@ const OverlayBase = ({
       BackdropProps={{ className: classes.absolutePosition }}
       ModalProps={{
         className: classes.absolutePosition,
-        container,
+        container: target,
       }}
       variant="temporary"
       anchor="left"
@@ -67,13 +67,13 @@ OverlayBase.propTypes = {
   onHide: PropTypes.func.isRequired,
   visible: PropTypes.bool,
   className: PropTypes.string,
-  container: PropTypes.node,
+  target: PropTypes.node,
 };
 
 OverlayBase.defaultProps = {
   className: undefined,
   visible: false,
-  container: null,
+  target: null,
 };
 
 export const Overlay = withStyles(styles)(OverlayBase, { name: 'Overlay' });

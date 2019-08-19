@@ -30,7 +30,7 @@ const styles = theme => ({
 });
 
 const MonthlyBase = ({
-  radioGroupEditorComponent: RadioGroupEditor,
+  radioGroupComponent: RadioGroup,
   textEditorComponent: TextEditor,
   labelComponent: Label,
   onRecurrenceOptionsChange,
@@ -39,8 +39,8 @@ const MonthlyBase = ({
   readOnly,
   onAppointmentFieldChange,
   changedAppointment,
-  switcherComponent: Switcher,
-  groupedButtonsComponent: GroupedButtons,
+  selectComponent,
+  buttonGroupComponent,
   formatDate,
   ...restProps
 }) => {
@@ -72,7 +72,7 @@ const MonthlyBase = ({
           className={classes.labelWithMargin}
         />
       </Grid>
-      <RadioGroupEditor
+      <RadioGroup
         id={MONTHLY_RADIO_GROUP}
         readOnly={readOnly}
         getMessage={getMessage}
@@ -81,7 +81,7 @@ const MonthlyBase = ({
         onRecurrenceOptionsChange={onRecurrenceOptionsChange}
         onAppointmentFieldChange={onAppointmentFieldChange}
         changedAppointment={changedAppointment}
-        switcherComponent={Switcher}
+        switcherComponent={selectComponent}
         formatDate={formatDate}
       />
     </div>
@@ -90,16 +90,17 @@ const MonthlyBase = ({
 
 MonthlyBase.propTypes = {
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  radioGroupEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  radioGroupComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  switcherComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  groupedButtonsComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  selectComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  buttonGroupComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   changedAppointment: PropTypes.object.isRequired,
   onRecurrenceOptionsChange: PropTypes.func,
   onAppointmentFieldChange: PropTypes.func,
   classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func.isRequired,
   readOnly: PropTypes.bool,
+  formatDate: PropTypes.func.isRequired,
 };
 
 MonthlyBase.defaultProps = {

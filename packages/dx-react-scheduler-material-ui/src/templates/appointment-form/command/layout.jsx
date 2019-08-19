@@ -18,7 +18,7 @@ const styles = theme => ({
 });
 
 const LayoutBase = ({
-  controlButtonComponent: ControlButton,
+  commandButtonComponent: CommandButton,
   commitAppointment,
   cancelCommit,
   deleteAppointment,
@@ -34,17 +34,17 @@ const LayoutBase = ({
     alignItems="center"
     {...restProps}
   >
-    <ControlButton
+    <CommandButton
       onExecute={cancelCommit}
       getMessage={getMessage}
       id={CANCEL_BUTTON}
     />
-    <ControlButton
+    <CommandButton
       onExecute={deleteAppointment}
       getMessage={getMessage}
       id={DELETE_BUTTON}
     />
-    <ControlButton
+    <CommandButton
       getMessage={getMessage}
       onExecute={commitAppointment}
       id={SAVE_BUTTON}
@@ -54,7 +54,7 @@ const LayoutBase = ({
 );
 
 LayoutBase.propTypes = {
-  controlButtonComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  commandButtonComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   children: PropTypes.node,
   classes: PropTypes.object.isRequired,
   commitAppointment: PropTypes.func.isRequired,

@@ -218,12 +218,12 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                   <Overlay
                     visible={visible}
                     onHide={this.toggleVisibility}
-                    fullSize={frequency !== 'never'} // should be a constant
+                    fullSize={frequency !== REPEAT_TYPES.NEVER}
                     target={this.container.current}
                   >
                     <Layout
                       basicLayoutComponent={BasicLayoutPlaceholder}
-                      controlLayoutComponent={CommandLayoutPlaceholder}
+                      commandLayoutComponent={CommandLayoutPlaceholder}
                       recurrenceLayoutComponent={RecurrenceLayoutPlaceholder}
                       isRecurring={frequency !== REPEAT_TYPES.NEVER}
                     />
@@ -289,7 +289,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
 
               return (
                 <CommandLayout
-                  controlButtonComponent={commandButtonComponent}
+                  commandButtonComponent={commandButtonComponent}
                   commitAppointment={commitAppointment}
                   cancelCommit={cancelCommit}
                   deleteAppointment={deleteAppointment}
@@ -322,7 +322,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                 <BasicLayout
                   isRecurring={frequency !== REPEAT_TYPES.NEVER}
                   textEditorComponent={textEditorComponent}
-                  dateTimeEditorComponent={dateEditorComponent}
+                  dateEditorComponent={dateEditorComponent}
                   allDayComponent={booleanEditorComponent}
                   recurrenceSwitcherComponent={RecurrenceSwitcherPlaceholder}
                   labelComponent={Label}
@@ -365,9 +365,9 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                   frequency={frequency}
                   changedAppointment={changedAppointment}
                   recurrenceSwitcherComponent={RecurrenceSwitcherPlaceholder}
-                  radioGroupEditorComponent={radioGroupComponent}
+                  radioGroupComponent={radioGroupComponent}
                   textEditorComponent={textEditorComponent}
-                  dateAndTimeEditorComponent={dateEditorComponent}
+                  dateEditorComponent={dateEditorComponent}
                   labelComponent={Label}
                   {...changeAppointment && {
                     onRecurrenceOptionsChange: newOptions => setNewRRule(newOptions),
@@ -375,8 +375,8 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                   }}
                   getMessage={getMessage}
                   readOnly={readOnly}
-                  switcherComponent={Select}
-                  groupedButtonsComponent={buttonGroupComponent}
+                  selectComponent={Select}
+                  buttonGroupComponent={buttonGroupComponent}
                   formatDate={formatDate}
                 />
               );

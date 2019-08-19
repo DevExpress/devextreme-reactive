@@ -20,7 +20,7 @@ const styles = theme => ({
 
 const LayoutBase = ({
   basicLayoutComponent: BasicLayout,
-  controlLayoutComponent: ControlLayout,
+  commandLayoutComponent: CommandLayout,
   recurrenceLayoutComponent: RecurrenceLayout,
   isRecurring,
   children,
@@ -32,7 +32,7 @@ const LayoutBase = ({
     className={classNames(classes.root, className)}
     {...restProps}
   >
-    <ControlLayout />
+    <CommandLayout />
     <div className={classes.container}>
       <BasicLayout />
       {isRecurring && <RecurrenceLayout />}
@@ -43,7 +43,7 @@ const LayoutBase = ({
 
 LayoutBase.propTypes = {
   basicLayoutComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  controlLayoutComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  commandLayoutComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   recurrenceLayoutComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   children: PropTypes.node.isRequired,
   className: PropTypes.string,

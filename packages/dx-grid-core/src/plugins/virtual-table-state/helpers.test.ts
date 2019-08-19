@@ -393,6 +393,14 @@ describe('VirtualTableState helpers', () => {
         end: 400,
       });
     });
+
+    it('should return 2 pages if current total count is 0', () => {
+      const virtualRows = createVirtualRows(createInterval(0, 0));
+      expect(getForceReloadInterval(virtualRows, 100, 0)).toEqual({
+        start: 0,
+        end: 200,
+      });
+    });
   });
 
   describe('#needFetchMorePages', () => {

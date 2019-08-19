@@ -203,7 +203,7 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
     // NOTE: normalize position:
     // in Firefox and Chrome (zoom > 100%) when scrolled to the bottom
     // in Edge when scrolled to the right edge
-    const correction = 0;
+    const correction = 1;
     const nodeHorizontalOffset = parseInt(node.scrollLeft + node.clientWidth, 10) - correction;
     const nodeVerticalOffset = parseInt(node.scrollTop + node.clientHeight, 10) - correction;
     // NOTE: prevent iOS to flicker in bounces and correct rendering on high dpi screens

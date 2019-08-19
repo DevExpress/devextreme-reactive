@@ -1279,6 +1279,16 @@ export type TreeDataStateState = {
   expandedRowIds: Array<number | string>;
 };
 
+// @public (undocumented)
+export namespace VirtualTable {
+    export interface ColumnExtension {
+        align?: 'left' | 'right' | 'center';
+        columnName: string;
+        width?: number;
+        wordWrapEnabled?: boolean;
+    }
+}
+
 // @public
 export const VirtualTable: React.ComponentType<VirtualTableProps> & {
     COLUMN_TYPE: symbol;
@@ -1290,7 +1300,7 @@ export const VirtualTable: React.ComponentType<VirtualTableProps> & {
 export interface VirtualTableProps {
     bodyComponent: React.ComponentType<object>;
     cellComponent: React.ComponentType<Table.DataCellProps>;
-    columnExtensions?: Array<Table.ColumnExtension>;
+    columnExtensions?: Array<VirtualTable.ColumnExtension>;
     containerComponent: React.ComponentType<object>;
     estimatedRowHeight: number;
     footerComponent: React.ComponentType<object>;

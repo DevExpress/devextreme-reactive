@@ -1,5 +1,20 @@
 import { Table, GridViewport } from '../index';
 
+// tslint:disable-next-line: no-namespace
+export namespace VirtualTable {
+  /** Describes additional column properties that the plugin can handle. */
+  export interface ColumnExtension {
+    /** The name of the column to extend. */
+    columnName: string;
+    /** The table column width in pixels. */
+    width?: number;
+    /** The table column alignment. */
+    align?: 'left' | 'right' | 'center';
+    /** Specifies whether word wrap is enabled in a column's cells. */
+    wordWrapEnabled?: boolean;
+  }
+}
+
 export interface VirtualTableProps {
   /** The virtual table's height. */
   height: number | string;
@@ -9,7 +24,7 @@ export interface VirtualTableProps {
    **/
   estimatedRowHeight: number;
   /** Additional column properties that the plugin can handle. */
-  columnExtensions?: Array<Table.ColumnExtension>;
+  columnExtensions?: Array<VirtualTable.ColumnExtension>;
   /** A component that renders a table. */
   tableComponent: React.ComponentType<object>;
   /** A component that renders a table head. */

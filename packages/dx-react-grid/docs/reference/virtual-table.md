@@ -24,7 +24,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 height | number &#124; string | 530 | The virtual table's height.
 estimatedRowHeight | number | `49` for [Bootstrap4](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap4); `37` for [Bootstrap](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3); `48` for [Material-UI](https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui) | Estimated row height. Specify the average value for a table whose rows have different heights.
-columnExtensions? | Array&lt;[Table.ColumnExtension](table.md#tablecolumnextension)&gt; | | Additional column properties that the plugin can handle.
+columnExtensions? | Array&lt;[VirtualTable.ColumnExtension](#virtualtablecolumnextension)&gt; | | Additional column properties that the plugin can handle.
 tableComponent | ComponentType&lt;object&gt; | | A component that renders a table.
 headComponent | ComponentType&lt;object&gt; | | A component that renders a table head.
 bodyComponent | ComponentType&lt;object&gt; | | A component that renders a table body.
@@ -38,6 +38,19 @@ stubRowComponent | ComponentType&lt;[Table.RowProps](#tablerowprops)&gt; | | A c
 stubCellComponent | ComponentType&lt;[Table.CellProps](table.md#tablecellprops)&gt; | | A component that renders a stub table cell if the cell value is not provided.
 stubHeaderCellComponent | ComponentType&lt;[Table.CellProps](table.md#tablecellprops)&gt; | | A component that renders a stub header cell if the cell value is not provided.
 messages? | [Table.LocalizationMessages](table.md#localization-messages) | | An object that specifies the localization messages.
+
+## Interfaces
+
+### VirtualTable.ColumnExtension
+
+Describes additional column properties that the plugin can handle.
+
+Field | Type | Description
+------|------|------------
+columnName | string | The name of the column to extend.
+width? | number &#124; string | The table column width. Allow to use 'auto' or number with specified measurement units. Measurment units: 'px'. Number will be automatically converted into pixels.
+align? | 'left' &#124; 'right' &#124; 'center' | The table column alignment.
+wordWrapEnabled? | boolean | Specifies whether word wrap is enabled in a column's cells.
 
 ## Plugin Components
 

@@ -13,7 +13,7 @@ import {
   handleWeekNumberChange,
   getRecurrenceOptions,
 } from '@devexpress/dx-scheduler-core';
-import { getNumberLabels, getDaysOfWeek } from './helpers';
+import { getNumberLabels, getDaysOfWeek } from '../../helpers';
 
 const styles = ({ spacing }) => ({
   textEditor: {

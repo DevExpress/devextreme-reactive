@@ -7,7 +7,6 @@ describe('AppointmentForm basic', () => {
   const defaultProps = {
     textEditorComponent: () => null,
     dateTimeEditorComponent: () => null,
-    recurrenceSwitcherComponent: () => null,
     labelComponent: () => null,
     allDayComponent: () => null,
     getMessage: jest.fn(),
@@ -95,8 +94,6 @@ describe('AppointmentForm basic', () => {
         .toHaveLength(1);
       expect(tree.find(defaultProps.dateTimeEditorComponent))
         .toHaveLength(1);
-      expect(tree.find(defaultProps.recurrenceSwitcherComponent))
-        .toHaveLength(0);
     });
 
     it('should call getMessage with correct parameters', () => {

@@ -21,6 +21,9 @@ import {
   SEPTEMBER_DATE,
   JULY_DATE,
   JUNE_DATE,
+  REPEAT_TYPES,
+  getRRuleFrequency,
+  changeRecurrenceFrequency,
 } from '@devexpress/dx-scheduler-core';
 
 export const getNumberLabels = getMessage => [
@@ -178,3 +181,39 @@ export const getMonthsWithOf = (getMessage, formatDate) => [
     id: 12,
   },
 ];
+
+export const getAvailableRecurrenceOptions = getMessage => ([
+  {
+    text: getMessage(REPEAT_TYPES.NEVER),
+    id: REPEAT_TYPES.NEVER,
+  },
+  {
+    text: getMessage(REPEAT_TYPES.DAILY),
+    id: REPEAT_TYPES.DAILY,
+  },
+  {
+    text: getMessage(REPEAT_TYPES.WEEKLY),
+    id: REPEAT_TYPES.WEEKLY,
+  },
+  {
+    text: getMessage(REPEAT_TYPES.MONTHLY),
+    id: REPEAT_TYPES.MONTHLY,
+  },
+  {
+    text: getMessage(REPEAT_TYPES.YEARLY),
+    id: REPEAT_TYPES.YEARLY,
+  },
+]);
+
+export const handleChangeFrequency = (repeatType, changedAppointment, action) => {
+  const rruleRepeatType = getRRuleFrequency(repeatType);
+  let rRule;
+  if (rruleRepeatType !== undefined) {
+    rRule = changeRecurrenceFrequency(
+      changedAppointment.rRule,
+      rruleRepeatType,
+      changedAppointment.startDate,
+    );
+  }
+  action({ change: { rRule } });
+};

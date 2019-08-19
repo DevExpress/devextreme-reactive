@@ -14,7 +14,7 @@ import {
   StartDate,
   EndDate,
 } from '../../types';
-import { DEFAULT_RULE_OBJECT, RRULE_REPEAT_TYPES } from './constants';
+import { DEFAULT_RULE_OBJECT, RRULE_REPEAT_TYPES, REPEAT_TYPES } from './constants';
 
 export const callActionIfExists: PureComputed<[Action, object], void> = (action, payload) => {
   if (action) {
@@ -26,7 +26,7 @@ export const isAllDayCell: PureComputed<
   [StartDate, EndDate], boolean
 > = (
   startDate, endDate,
-) => moment(endDate as EndDate).diff(moment(startDate as StartDate), 'days') >= 1;
+  ) => moment(endDate as EndDate).diff(moment(startDate as StartDate), 'days') >= 1;
 
 export const changeRecurrenceInterval: ChangeRecurrenceNumberFeildFn = (
   rule,
@@ -231,3 +231,13 @@ export const handleWeekNumberChange = (
     changeRecurrenceOptionsAction(newOptions);
   }
 };
+
+export const getRRuleFrequency = repeatType => RRULE_REPEAT_TYPES[repeatType.toUpperCase()];
+
+export const getFrequencyString = (rRuleFrequency) => {
+  if (rRuleFrequency === RRULE_REPEAT_TYPES.DAILY) return REPEAT_TYPES.DAILY;
+  if (rRuleFrequency === RRULE_REPEAT_TYPES.WEEKLY) return REPEAT_TYPES.WEEKLY;
+  if (rRuleFrequency === RRULE_REPEAT_TYPES.MONTHLY) return REPEAT_TYPES.MONTHLY;
+  if (rRuleFrequency === RRULE_REPEAT_TYPES.YEARLY) return REPEAT_TYPES.YEARLY;
+  return REPEAT_TYPES.NEVER;
+}

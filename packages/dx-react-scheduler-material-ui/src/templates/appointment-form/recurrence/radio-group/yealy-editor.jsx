@@ -17,7 +17,7 @@ import {
   getDaysOfWeek,
   getMonths,
   getMonthsWithOf,
-} from './helpers';
+} from '../../helpers';
 
 const styles = ({ spacing }) => ({
   textEditor: {

@@ -10,7 +10,7 @@ import { MonthlyEditor } from './monthly-editor';
 import {
   getDaysOfWeek,
   getNumberLabels,
-} from './helpers';
+} from '../../helpers';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   ...require.requireActual('@devexpress/dx-scheduler-core'),

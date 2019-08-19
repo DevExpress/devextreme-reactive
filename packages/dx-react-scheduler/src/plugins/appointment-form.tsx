@@ -15,17 +15,14 @@ import {
   callActionIfExists,
   AppointmentModel,
   RRULE_REPEAT_TYPES,
-  changeRecurrenceFrequency,
   getRecurrenceFrequency,
   changeRecurrenceOptions,
-  OUTLINED_SWITCHER,
+  REPEAT_TYPES,
 } from '@devexpress/dx-scheduler-core';
 
 import {
   AppointmentFormProps, AppointmentFormState, AppointmentTooltip, Appointments,
 } from '../types';
-
-const getRRuleFrequency = repeatType => RRULE_REPEAT_TYPES[repeatType.toUpperCase()];
 
 const defaultMessages = {
   allDayLabel: 'All Day',
@@ -68,18 +65,9 @@ const defaultMessages = {
   rdLabel: '\'rd',
 };
 
-const REPEAT_TYPES = {
-  DAILY: 'daily',
-  WEEKLY: 'weekly',
-  MONTHLY: 'monthly',
-  YEARLY: 'yearly',
-  NEVER: 'never',
-};
-
 const CommandLayoutPlaceholder = () => <TemplatePlaceholder name="commandLayout" />;
 const BasicLayoutPlaceholder = () => <TemplatePlaceholder name="basicLayout" />;
 const RecurrenceLayoutPlaceholder = () => <TemplatePlaceholder name="recurrenceLayout" />;
-const RecurrenceSwitcherPlaceholder = () => <TemplatePlaceholder name="recurrenceSwitcher" />;
 
 const pluginDependencies = [
   { name: 'EditingState', optional: true },
@@ -185,7 +173,6 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
     } = this.props;
     const { visible, appointmentData } = this.state;
     const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
-    let frequency;
 
     return (
       <Plugin
@@ -204,12 +191,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                 ...appointmentData,
                 ...isNew ? addedAppointment : appointmentChanges,
               };
-              const rRuleFrequency = getRecurrenceFrequency(changedAppointment.rRule);
-              frequency = REPEAT_TYPES.NEVER;
-              if (rRuleFrequency === RRULE_REPEAT_TYPES.DAILY) frequency = REPEAT_TYPES.DAILY;
-              if (rRuleFrequency === RRULE_REPEAT_TYPES.WEEKLY) frequency = REPEAT_TYPES.WEEKLY;
-              if (rRuleFrequency === RRULE_REPEAT_TYPES.MONTHLY) frequency = REPEAT_TYPES.MONTHLY;
-              if (rRuleFrequency === RRULE_REPEAT_TYPES.YEARLY) frequency = REPEAT_TYPES.YEARLY;
+
               return (
                 <React.Fragment>
                   <Container
@@ -218,14 +200,14 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                   <Overlay
                     visible={visible}
                     onHide={this.toggleVisibility}
-                    fullSize={frequency !== REPEAT_TYPES.NEVER}
+                    fullSize={changedAppointment.rRule !== undefined}
                     target={this.container.current}
                   >
                     <Layout
                       basicLayoutComponent={BasicLayoutPlaceholder}
                       commandLayoutComponent={CommandLayoutPlaceholder}
                       recurrenceLayoutComponent={RecurrenceLayoutPlaceholder}
-                      isRecurring={frequency !== REPEAT_TYPES.NEVER}
+                      isRecurring={changedAppointment.rRule !== undefined}
                     />
                   </Overlay>
                   <TemplatePlaceholder />
@@ -320,11 +302,11 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                 : changeAppointment;
               return (
                 <BasicLayout
-                  isRecurring={frequency !== REPEAT_TYPES.NEVER}
+                  isRecurring={changedAppointment.rRule !== undefined}
                   textEditorComponent={textEditorComponent}
                   dateEditorComponent={dateEditorComponent}
                   allDayComponent={booleanEditorComponent}
-                  recurrenceSwitcherComponent={RecurrenceSwitcherPlaceholder}
+                  selectComponent={Select}
                   labelComponent={Label}
                   getMessage={getMessage}
                   {...changeAppointment && {
@@ -362,9 +344,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               };
               return (
                 <RecurrenceLayout
-                  frequency={frequency}
                   changedAppointment={changedAppointment}
-                  recurrenceSwitcherComponent={RecurrenceSwitcherPlaceholder}
                   radioGroupComponent={radioGroupComponent}
                   textEditorComponent={textEditorComponent}
                   dateEditorComponent={dateEditorComponent}
@@ -378,70 +358,6 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                   selectComponent={Select}
                   buttonGroupComponent={buttonGroupComponent}
                   formatDate={formatDate}
-                />
-              );
-            }}
-          </TemplateConnector>
-        </Template>
-
-        <Template name="recurrenceSwitcher">
-          <TemplateConnector>
-            {({
-              editingAppointmentId,
-              addedAppointment,
-              appointmentChanges,
-            }, {
-              changeAppointment,
-              changeAddedAppointment,
-            }) => {
-              const isNew = editingAppointmentId === undefined;
-              const changedAppointment = {
-                ...appointmentData,
-                ...isNew ? addedAppointment : appointmentChanges,
-              };
-              const changeAppointmentField = isNew
-                ? changeAddedAppointment
-                : changeAppointment;
-              return (
-                <Select
-                  {...changeAppointment && {
-                    onChange: (repeatType) => {
-                      const rruleRepeatType = getRRuleFrequency(repeatType);
-                      let rRule;
-                      if (rruleRepeatType !== undefined) {
-                        rRule = changeRecurrenceFrequency(
-                          changedAppointment.rRule,
-                          rruleRepeatType,
-                          changedAppointment.startDate,
-                        );
-                      }
-                      changeAppointmentField({ change: { rRule } });
-                    },
-                  }}
-                  availableOptions={[
-                    {
-                      text: getMessage(REPEAT_TYPES.NEVER),
-                      id: REPEAT_TYPES.NEVER,
-                    },
-                    {
-                      text: getMessage(REPEAT_TYPES.DAILY),
-                      id: REPEAT_TYPES.DAILY,
-                    },
-                    {
-                      text: getMessage(REPEAT_TYPES.WEEKLY),
-                      id: REPEAT_TYPES.WEEKLY,
-                    },
-                    {
-                      text: getMessage(REPEAT_TYPES.MONTHLY),
-                      id: REPEAT_TYPES.MONTHLY,
-                    },
-                    {
-                      text: getMessage(REPEAT_TYPES.YEARLY),
-                      id: REPEAT_TYPES.YEARLY,
-                    },
-                  ]}
-                  value={frequency}
-                  id={OUTLINED_SWITCHER}
                 />
               );
             }}

@@ -38,6 +38,14 @@ export const RRULE_REPEAT_TYPES = {
   MINUTELY: RRule.MINUTELY,
 };
 
+export const REPEAT_TYPES = {
+  DAILY: 'daily',
+  WEEKLY: 'weekly',
+  MONTHLY: 'monthly',
+  YEARLY: 'yearly',
+  NEVER: 'never',
+};
+
 export const END_REPEAT_RADIO_GROUP = 'endRepeat';
 export const DAILY_RADIO_GROUP = 'dailyRadioGroup';
 export const MONTHLY_RADIO_GROUP = 'monthlyRadioGroup';

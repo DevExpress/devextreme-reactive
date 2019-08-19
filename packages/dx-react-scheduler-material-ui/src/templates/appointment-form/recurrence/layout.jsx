@@ -6,12 +6,15 @@ import {
   TITLE_LABEL,
   getRecurrenceOptions,
   RRULE_REPEAT_TYPES,
+  OUTLINED_SWITCHER,
+  getFrequencyString,
 } from '@devexpress/dx-scheduler-core';
 import classNames from 'classnames';
 import { Daily as DailyLayout } from './layouts/daily';
 import { Weekly as WeeklyLayout } from './layouts/weekly';
 import { Monthly as MonthlyLayout } from './layouts/monthly';
 import { Yearly as YearlyLayout } from './layouts/yearly';
+import { getAvailableRecurrenceOptions, handleChangeFrequency } from '../helpers';
 
 const styles = theme => ({
   root: {
@@ -22,9 +25,6 @@ const styles = theme => ({
   },
   label: {
     width: '8em',
-  },
-  switcher: {
-    marginBottom: theme.spacing(3.5),
   },
   repeatLabel: {
     marginBottom: theme.spacing(1),
@@ -49,19 +49,19 @@ const getLayoutComponent = (recurrenceOptions) => {
       case RRULE_REPEAT_TYPES.YEARLY:
         return YearlyLayout;
       default:
-        return null;
+        break;
     }
   }
+  return null;
 };
 
 const LayoutBase = ({
-  recurrenceSwitcherComponent: RecurenceSwitcher,
   radioGroupComponent: RadioGroup,
   textEditorComponent,
   labelComponent: Label,
   dateEditorComponent,
   onRecurrenceOptionsChange,
-  selectComponent,
+  selectComponent: Select,
   buttonGroupComponent,
   children,
   classes,
@@ -77,6 +77,7 @@ const LayoutBase = ({
   const recurrenceOptions = getRecurrenceOptions(changedAppointment.rRule);
 
   MainLayoutComponent = getLayoutComponent(recurrenceOptions);
+  const frequency = getFrequencyString(recurrenceOptions.freq);
   return (
     <div
       className={classNames(classes.root, className)}
@@ -87,8 +88,13 @@ const LayoutBase = ({
         id={TITLE_LABEL}
         className={classes.repeatLabel}
       />
-      <RecurenceSwitcher
-        className={classes.switcher}
+      <Select
+        onChange={repeatType => handleChangeFrequency(
+          repeatType, changedAppointment, onAppointmentFieldChange,
+        )}
+        availableOptions={getAvailableRecurrenceOptions(getMessage)}
+        value={frequency}
+        id={OUTLINED_SWITCHER}
       />
       <MainLayoutComponent
         textEditorComponent={textEditorComponent}
@@ -99,7 +105,7 @@ const LayoutBase = ({
         radioGroupComponent={RadioGroup}
         changedAppointment={changedAppointment}
         onAppointmentFieldChange={onAppointmentFieldChange}
-        selectComponent={selectComponent}
+        selectComponent={Select}
         buttonGroupComponent={buttonGroupComponent}
         formatDate={formatDate}
         {...restProps}
@@ -125,7 +131,6 @@ const LayoutBase = ({
 };
 
 LayoutBase.propTypes = {
-  recurrenceSwitcherComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   radioGroupComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,

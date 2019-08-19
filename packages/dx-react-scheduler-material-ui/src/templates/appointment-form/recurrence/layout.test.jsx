@@ -19,7 +19,6 @@ describe('AppointmentForm recurrence', () => {
     radioGroupEditorComponent: () => null,
     switcherComponent: () => null,
     groupedButtonsComponent: () => null,
-    recurrenceSwitcherComponent: () => null,
     dateAndTimeEditorComponent: () => null,
     onRecurrenceOptionsChange: jest.fn(),
     onAppointmentFieldChange: jest.fn(),
@@ -52,10 +51,6 @@ describe('AppointmentForm recurrence', () => {
       const labels = tree.find(defaultProps.labelComponent);
       expect(labels)
         .toHaveLength(2);
-
-      const recurrenceSwitcher = tree.find(defaultProps.recurrenceSwitcherComponent);
-      expect(recurrenceSwitcher)
-        .toHaveLength(1);
 
       const radioGroup = tree.find(defaultProps.radioGroupEditorComponent);
       expect(radioGroup)

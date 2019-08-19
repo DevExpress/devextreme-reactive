@@ -28,6 +28,7 @@ import { TableSelection as TableSelection_2 } from '@devexpress/dx-react-grid';
 import { TableSummaryRow as TableSummaryRow_2 } from '@devexpress/dx-react-grid';
 import { TableTreeColumn as TableTreeColumn_2 } from '@devexpress/dx-react-grid';
 import { Toolbar as Toolbar_2 } from '@devexpress/dx-react-grid';
+import { VirtualTable as VirtualTable_2 } from '@devexpress/dx-react-grid';
 
 // @public (undocumented)
 export namespace ColumnChooser {
@@ -271,6 +272,7 @@ export interface TableColumnResizingProps {
   defaultColumnWidths?: Array<TableColumnWidthInfo>;
   maxColumnWidth?: number;
   minColumnWidth?: number;
+  nextColumnResizing?: boolean;
   onColumnWidthsChange?: (nextColumnWidths: Array<TableColumnWidthInfo>) => void;
 }
 
@@ -731,6 +733,11 @@ export interface ToolbarProps {
   rootComponent?: React.ComponentType<Toolbar_2.RootProps>;
 }
 
+// @public (undocumented)
+export namespace VirtualTable {
+  export type ColumnExtension = VirtualTable_2.ColumnExtension;
+}
+
 // @public
 export const VirtualTable: React.ComponentType<VirtualTableProps> & {
   COLUMN_TYPE: symbol;
@@ -754,7 +761,7 @@ export const VirtualTable: React.ComponentType<VirtualTableProps> & {
 export interface VirtualTableProps {
   bodyComponent?: React.ComponentType<object>;
   cellComponent?: React.ComponentType<Table_2.DataCellProps>;
-  columnExtensions?: Array<Table_2.ColumnExtension>;
+  columnExtensions?: Array<VirtualTable_2.ColumnExtension>;
   containerComponent?: React.ComponentType<object>;
   estimatedRowHeight?: number;
   footerComponent?: React.ComponentType<object>;

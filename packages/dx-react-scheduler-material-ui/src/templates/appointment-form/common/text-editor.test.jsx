@@ -49,8 +49,6 @@ describe('AppointmentForm common', () => {
       let tree = mount((
         <TextEditor {...defaultProps} />
       ));
-      expect(tree.find(`.${classes.textField}`).exists())
-        .toBeTruthy();
       expect(tree.find(`.${classes.title}`).exists())
         .toBeFalsy();
 
@@ -58,8 +56,6 @@ describe('AppointmentForm common', () => {
       tree = mount((
         <TextEditor id={NUMBER_EDITOR} {...defaultProps} />
       ));
-      expect(tree.find(`.${classes.textField}`).exists())
-        .toBeTruthy();
       expect(tree.find(`.${classes.title}`).exists())
         .toBeFalsy();
 
@@ -67,8 +63,6 @@ describe('AppointmentForm common', () => {
       tree = mount((
         <TextEditor id={NOTES_TEXT_EDITOR} {...defaultProps} />
       ));
-      expect(tree.find(`.${classes.textField}`).exists())
-        .toBeFalsy();
       expect(tree.find(`.${classes.title}`).exists())
         .toBeFalsy();
 
@@ -78,8 +72,6 @@ describe('AppointmentForm common', () => {
       ));
       expect(tree.find(`.${classes.title}`).exists())
         .toBeTruthy();
-      expect(tree.find(`.${classes.textField}`).exists())
-        .toBeFalsy();
     });
 
     it('should render ordinary editor correctly', () => {

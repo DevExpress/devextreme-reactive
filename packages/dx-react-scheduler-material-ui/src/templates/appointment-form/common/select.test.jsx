@@ -1,19 +1,29 @@
 import * as React from 'react';
-import { createShallow } from '@material-ui/core/test-utils';
+import { createShallow, createMount } from '@material-ui/core/test-utils';
 import MenuItem from '@material-ui/core/MenuItem';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import FilledInput from '@material-ui/core/FilledInput';
 import { Select } from './select';
+import { OUTLINED_SELECT } from '@devexpress/dx-scheduler-core';
 
 describe('AppointmentForm common', () => {
-  let shallow;
   const defaultProps = {
     onChange: jest.fn(),
     value: '1',
   };
+  let shallow;
+  let mount;
   beforeAll(() => {
     shallow = createShallow({ dive: true });
   });
+  beforeEach(() => {
+    mount = createMount();
+  });
+  afterEach(() => {
+    mount.cleanUp();
+  });
 
-  describe('Switcher', () => {
+  describe('Select', () => {
     it('should pass rest props to the root element', () => {
       const tree = shallow((
         <Select {...defaultProps} data={{ a: 1 }} />
@@ -48,6 +58,33 @@ describe('AppointmentForm common', () => {
 
       expect(tree.find(MenuItem))
         .toHaveLength(3);
+    });
+
+    it('should render standard select', () => {
+      const tree = mount((
+        <Select
+          {...defaultProps}
+        />
+      ));
+
+      expect(tree.find(FilledInput))
+        .toHaveLength(1);
+      expect(tree.find(OutlinedInput))
+        .toHaveLength(0);
+    });
+
+    it('should render outlined select', () => {
+      const tree = mount((
+        <Select
+          {...defaultProps}
+          id={OUTLINED_SELECT}
+        />
+      ));
+
+      expect(tree.find(FilledInput))
+        .toHaveLength(0);
+      expect(tree.find(OutlinedInput))
+        .toHaveLength(1);
     });
   });
 });

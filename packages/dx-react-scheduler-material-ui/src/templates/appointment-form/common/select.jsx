@@ -5,7 +5,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import { withStyles } from '@material-ui/core/styles';
 import FilledInput from '@material-ui/core/FilledInput';
-import { STANDARD_SWITCHER } from '@devexpress/dx-scheduler-core';
+import { STANDARD_SELECT } from '@devexpress/dx-scheduler-core';
 
 
 const styles = ({ typography }) => ({
@@ -39,7 +39,7 @@ const SelectBase = ({
     onChange(event.target.value);
   };
 
-  const Input = id === STANDARD_SWITCHER
+  const Input = id === STANDARD_SELECT
     ? (
       <FilledInput />
     )
@@ -50,7 +50,7 @@ const SelectBase = ({
       />
     );
 
-  const Icon = id === STANDARD_SWITCHER
+  const Icon = id === STANDARD_SELECT
     ? () => null : undefined;
 
   return (
@@ -93,7 +93,7 @@ SelectBase.defaultProps = {
   disabled: false,
   onChange: () => undefined,
   availableOptions: [],
-  id: STANDARD_SWITCHER,
+  id: STANDARD_SELECT,
 };
 
 export const Select = withStyles(styles)(SelectBase, { name: 'Select' });

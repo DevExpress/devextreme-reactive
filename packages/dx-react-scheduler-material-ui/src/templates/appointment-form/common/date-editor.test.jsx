@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { KeyboardDateTimePicker } from '@material-ui/pickers';
-import { FULL_DATE_TIME_EDITOR } from '@devexpress/dx-scheduler-core';
-import moment from 'moment';
 import { DateEditor } from './date-editor';
 
 describe('AppointmentForm common', () => {
@@ -44,7 +42,7 @@ describe('AppointmentForm common', () => {
 
     it('should handle onChange', () => {
       const tree = shallow((
-        <DateEditor {...defaultProps} id={FULL_DATE_TIME_EDITOR} />
+        <DateEditor {...defaultProps} />
       ));
 
       const dateTimePicker = tree.find(KeyboardDateTimePicker);

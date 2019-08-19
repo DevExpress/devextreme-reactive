@@ -6,7 +6,7 @@ import {
   TITLE_LABEL,
   getRecurrenceOptions,
   RRULE_REPEAT_TYPES,
-  OUTLINED_SWITCHER,
+  OUTLINED_SELECT,
   getFrequencyString,
 } from '@devexpress/dx-scheduler-core';
 import classNames from 'classnames';
@@ -93,7 +93,7 @@ const LayoutBase = ({
         )}
         availableOptions={getAvailableRecurrenceOptions(getMessage)}
         value={frequency}
-        id={OUTLINED_SWITCHER}
+        id={OUTLINED_SELECT}
       />
       <MainLayoutComponent
         textEditorComponent={textEditorComponent}

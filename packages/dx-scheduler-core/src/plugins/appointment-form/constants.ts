@@ -56,9 +56,6 @@ export const NOTES_TEXT_EDITOR = 'noteTextEditor';
 export const ORDINARY_TEXT_EDITOR = 'ordinaryTextEditor';
 export const NUMBER_EDITOR = 'numberEditor';
 
-export const FULL_DATE_TIME_EDITOR = 'fullDateTimeEditor';
-export const PARTIAL_DATE_TIME_EDITOR = 'partialDateTimeEditor';
-
 export const TITLE_LABEL = 'titleLabel';
 export const ORDINARY_LABEL = 'ordinaryLabel';
 
@@ -66,8 +63,8 @@ export const SAVE_BUTTON = 'saveButton';
 export const DELETE_BUTTON = 'deleteButton';
 export const CANCEL_BUTTON = 'cancelButton';
 
-export const OUTLINED_SWITCHER = 'outlinedSwitcher';
-export const STANDARD_SWITCHER = 'standardSwitcher';
+export const OUTLINED_SELECT = 'outlinedSelect';
+export const STANDARD_SELECT = 'standardSelect';
 
 export const SUNDAY_DATE = new Date(2019, 7, 11);
 export const MONDAY_DATE = new Date(2019, 7, 12);

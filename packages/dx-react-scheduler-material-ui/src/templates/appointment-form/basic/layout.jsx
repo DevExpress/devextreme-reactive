@@ -7,7 +7,7 @@ import {
   TITLE_TEXT_EDITOR,
   NOTES_TEXT_EDITOR,
   TITLE_LABEL,
-  OUTLINED_SWITCHER,
+  OUTLINED_SELECT,
   getFrequencyString,
   getRecurrenceOptions,
   REPEAT_TYPES,
@@ -139,7 +139,7 @@ const LayoutBase = ({
             )}
             availableOptions={getAvailableRecurrenceOptions(getMessage)}
             value={frequency}
-            id={OUTLINED_SWITCHER}
+            id={OUTLINED_SELECT}
           />
         </React.Fragment>
       )}

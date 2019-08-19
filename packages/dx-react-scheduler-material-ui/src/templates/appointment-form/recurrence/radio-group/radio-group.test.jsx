@@ -6,7 +6,7 @@ import {
   YEARLY_RADIO_GROUP,
   getRecurrenceOptions,
 } from '@devexpress/dx-scheduler-core';
-import { RadioGroupEditor } from './radio-group-editor';
+import { RadioGroup } from './radio-group';
 import { EndRepeatEditor } from './end-repeat-editor';
 import { MonthlyEditor } from './monthly-editor';
 import { YearlyEditor } from './yealy-editor';
@@ -22,8 +22,8 @@ describe('AppointmentForm recurrence radio group', () => {
     labelComponent: () => null,
     switcherComponent: () => null,
     dateAndTimeEditorComponent: () => null,
-    onRecurrenceOptionsChange: jest.fn(),
-    getMessage: jest.fn(),
+    getMessage: jest.fn(() => ''),
+    formatDate: jest.fn(() => ''),
     changedAppointment: {
       startDate: new Date(),
       endDate: new Date(),
@@ -42,10 +42,10 @@ describe('AppointmentForm recurrence radio group', () => {
   afterEach(() => {
     mount.cleanUp();
   });
-  describe('RadioGroupEditor', () => {
+  describe('RadioGroup', () => {
     it('should pass rest props to the root element', () => {
       const tree = shallow((
-        <RadioGroupEditor data={{ a: 1 }} {...defaultProps} />
+        <RadioGroup data={{ a: 1 }} {...defaultProps} />
       ));
 
       expect(tree.props().data)
@@ -54,7 +54,7 @@ describe('AppointmentForm recurrence radio group', () => {
 
     it('should render EndRepeatEditor correctly', () => {
       const tree = mount((
-        <RadioGroupEditor {...defaultProps} id={END_REPEAT_RADIO_GROUP} />
+        <RadioGroup {...defaultProps} id={END_REPEAT_RADIO_GROUP} />
       ));
 
       const endRepeat = tree.find(EndRepeatEditor);
@@ -64,7 +64,7 @@ describe('AppointmentForm recurrence radio group', () => {
 
     it('should render MonthlyEditor correctly', () => {
       const tree = mount((
-        <RadioGroupEditor {...defaultProps} id={MONTHLY_RADIO_GROUP} />
+        <RadioGroup {...defaultProps} id={MONTHLY_RADIO_GROUP} />
       ));
 
       const monthlyEditor = tree.find(MonthlyEditor);
@@ -74,7 +74,7 @@ describe('AppointmentForm recurrence radio group', () => {
 
     it('should render YearlyEditor correctly', () => {
       const tree = mount((
-        <RadioGroupEditor {...defaultProps} id={YEARLY_RADIO_GROUP} />
+        <RadioGroup {...defaultProps} id={YEARLY_RADIO_GROUP} />
       ));
 
       const yearlyEditor = tree.find(YearlyEditor);

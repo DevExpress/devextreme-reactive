@@ -6,7 +6,7 @@ import {
   CANCEL_BUTTON,
 } from '@devexpress/dx-scheduler-core';
 import { SaveButton } from './save-button';
-import { ControlButton } from './control-button';
+import { CommandButton } from './command-button';
 import { CancelButton } from './cancel-button';
 import { DeleteButton } from './delete-button';
 
@@ -25,10 +25,10 @@ describe('AppointmentForm control', () => {
   afterEach(() => {
     mount.cleanUp();
   });
-  describe('ControlButton', () => {
+  describe('CommandButton', () => {
     it('should pass rest props to the root element', () => {
       const tree = shallow((
-        <ControlButton
+        <CommandButton
           data={{ a: 1 }}
           id={SAVE_BUTTON}
           getMessage={key => key}
@@ -42,7 +42,7 @@ describe('AppointmentForm control', () => {
 
     it('should render SaveButton if id is equal to SAVE_BUTTON', () => {
       const tree = mount((
-        <ControlButton
+        <CommandButton
           id={SAVE_BUTTON}
           getMessage={key => key}
           {...defaultProps}
@@ -55,7 +55,7 @@ describe('AppointmentForm control', () => {
 
     it('should render CancelButton if id is equal to CANCEL_BUTTON', () => {
       const tree = mount((
-        <ControlButton
+        <CommandButton
           id={CANCEL_BUTTON}
           {...defaultProps}
         />
@@ -67,7 +67,7 @@ describe('AppointmentForm control', () => {
 
     it('should render DeleteButton if id is equal to DELETE_BUTTON', () => {
       const tree = mount((
-        <ControlButton
+        <CommandButton
           id={DELETE_BUTTON}
           {...defaultProps}
         />
@@ -79,7 +79,7 @@ describe('AppointmentForm control', () => {
 
     it('shouldn\'t render anything if id is not equal to DELETE_BUTTON, CANCEL_BUTTON or SAVE_BUTTON', () => {
       const tree = mount((
-        <ControlButton
+        <CommandButton
           id="Wrong id"
           {...defaultProps}
 

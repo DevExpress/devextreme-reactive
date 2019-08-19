@@ -81,6 +81,7 @@ RadioGroup.propTypes = {
   id: PropTypes.string.isRequired,
   changedAppointment: PropTypes.object.isRequired,
   onAppointmentFieldChange: PropTypes.func,
+  formatDate: PropTypes.func.isRequired,
 };
 
 RadioGroup.defaultProps = {

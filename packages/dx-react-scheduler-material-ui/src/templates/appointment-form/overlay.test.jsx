@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { createShallow, getClasses, createMount } from '@material-ui/core/test-utils';
+import classNames from 'classnames';
 import { Overlay } from './overlay';
 
 describe('AppointmentForm', () => {
@@ -9,7 +10,8 @@ describe('AppointmentForm', () => {
     controlLayoutComponent: () => null,
     recurrenceLayoutComponent: () => null,
     container: {},
-    frequency: 'never',
+    fullSize: true,
+    onHide: jest.fn(),
   };
   let classes;
   let shallow;
@@ -20,6 +22,7 @@ describe('AppointmentForm', () => {
   });
   beforeEach(() => {
     mount = createMount();
+    jest.resetAllMocks();
   });
   afterEach(() => {
     mount.cleanUp();
@@ -61,36 +64,42 @@ describe('AppointmentForm', () => {
         .toHaveLength(2);
     });
 
-    it('should render correctly if frequency is "never"', () => {
+    it('should render correctly if not full-size', () => {
       const tree = shallow((
-        <Overlay {...defaultProps} frequency="never">
+        <Overlay {...defaultProps} fullSize={false}>
           <div />
         </Overlay>
       ));
 
       expect(tree.prop('PaperProps'))
         .toMatchObject({
-          style: {
-            position: 'absolute',
-            width: '50%',
-          },
+          className: classNames(classes.absolutePosition, classes.halfSize),
         });
     });
 
-    it('should render correctly if frequency is not "never"', () => {
+    it('should render correctly if full-size', () => {
       const tree = shallow((
-        <Overlay {...defaultProps} frequency="daily">
+        <Overlay {...defaultProps}>
           <div />
         </Overlay>
       ));
 
       expect(tree.prop('PaperProps'))
         .toMatchObject({
-          style: {
-            position: 'absolute',
-            width: '100%',
-          },
+          className: classNames(classes.absolutePosition, classes.fullSize),
         });
+    });
+
+    it('should handle backdrop click', () => {
+      const tree = shallow((
+        <Overlay {...defaultProps}>
+          <div />
+        </Overlay>
+      ));
+
+      tree.simulate('backdropClick');
+      expect(defaultProps.onHide)
+        .toBeCalledTimes(1);
     });
   });
 });

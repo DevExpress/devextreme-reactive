@@ -6,7 +6,7 @@ describe('AppointmentForm', () => {
   const defaultProps = {
     isRecurring: false,
     basicLayoutComponent: () => null,
-    controlLayoutComponent: () => null,
+    commandLayoutComponent: () => null,
     recurrenceLayoutComponent: () => null,
   };
   let classes;
@@ -47,7 +47,7 @@ describe('AppointmentForm', () => {
         </Layout>
       ));
 
-      expect(tree.find(defaultProps.controlLayoutComponent))
+      expect(tree.find(defaultProps.commandLayoutComponent))
         .toHaveLength(1);
       expect(tree.find(defaultProps.basicLayoutComponent))
         .toHaveLength(1);
@@ -55,31 +55,32 @@ describe('AppointmentForm', () => {
         .toHaveLength(0);
     });
 
-    it('should render basic form with capability to edit recurrent appointments correctly', () => {
+    it('should render form with capability to edit recurrent appointments correctly', () => {
       const tree = shallow((
         <Layout {...defaultProps} isRecurring>
           <div />
         </Layout>
       ));
 
-      expect(tree.find(defaultProps.controlLayoutComponent))
+      expect(tree.find(defaultProps.commandLayoutComponent))
         .toHaveLength(1);
       expect(tree.find(defaultProps.basicLayoutComponent))
         .toHaveLength(1);
       expect(tree.find(defaultProps.recurrenceLayoutComponent))
+        .toHaveLength(1);
+      expect(tree.find(`.${classes.container}`))
         .toHaveLength(1);
     });
 
     it('should pass children to the root component', () => {
       const tree = shallow((
         <Layout {...defaultProps}>
-          <div />
-          <div />
+          <div className="child" />
         </Layout>
       ));
 
-      expect(tree.children())
-        .toHaveLength(4);
+      expect(tree.find('.child'))
+        .toHaveLength(1);
     });
   });
 });

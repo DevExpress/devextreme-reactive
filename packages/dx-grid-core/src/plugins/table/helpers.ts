@@ -4,8 +4,8 @@ import {
 } from '../../types';
 import { TABLE_STUB_TYPE } from '../../utils/virtual-table';
 
-const VALID_UNITS = ['auto', 'px', '%', 'em', 'rem', 'vm', 'vh', 'vmin', 'vmax', ''];
-const INVALID_TYPE = [
+const VALID_UNITS = ['px', '%', 'em', 'rem', 'vm', 'vh', 'vmin', 'vmax', ''];
+const INVALID_TYPE_ERROR = [
   'The "$1" column\'s width specified like invalid type.',
   'Check your width type for this column.',
 ].join('\n');
@@ -29,10 +29,13 @@ export const convertWidth: WidthConverterFn = (name, width) => {
   if (typeof width === 'string') {
     const numb = parseInt(width, 10);
     const unit = numb ? width.substr(numb.toString().length) : width;
-    if (VALID_UNITS.findIndex(validUnit => validUnit === unit) < 0) {
-      throw new Error(INVALID_TYPE.replace('$1', name));
+    const sizeIsAuto = isNaN(numb) && unit === 'auto';
+    const sizeIsValid = !isNaN(numb) && VALID_UNITS.findIndex(validUnit => validUnit === unit) >= 0;
+
+    if (!sizeIsAuto && !sizeIsValid) {
+      throw new Error(INVALID_TYPE_ERROR.replace('$1', name));
     }
-    if (unit === 'px' || unit === '') {
+    if (unit === '') {
       return numb;
     }
     return width;

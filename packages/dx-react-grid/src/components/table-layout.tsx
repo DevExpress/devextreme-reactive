@@ -120,10 +120,6 @@ class TableLayoutBase extends React.PureComponent<TableLayoutCoreProps, TableLay
       ...restProps
     } = this.props;
     const columns = this.getColumns();
-    // const isFixedWidth = columns
-    //   .filter(column => column.width === undefined)
-    //     //  || typeof column.width !== 'number')
-    //   .length === 0;
     const minWidth = columns
       .map(column => column.width || (column.type === TABLE_FLEX_TYPE ? 0 : minColumnWidth))
       .reduce((acc, width) => (acc as number) + (width as number), 0);

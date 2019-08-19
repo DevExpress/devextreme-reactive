@@ -149,7 +149,7 @@ class TableColumnResizingBase extends React.PureComponent<TableColumnResizingPro
         <Getter name="tableColumnResizingEnabled" value />
         <Getter name="tableColumns" computed={tableColumnsComputed} />
         <Getter name="tableColumns" computed={tableColumnsDraftComputed} />
-        <Getter name="nextColumnResizing" value={nextColumnResizing} />
+        <Getter name="nextColumnResizing" value={!!nextColumnResizing} />
         <Action name="changeTableColumnWidth" action={this.changeTableColumnWidth} />
         <Action name="draftTableColumnWidth" action={this.draftTableColumnWidth} />
         <Action name="cancelTableColumnWidthDraft" action={this.cancelTableColumnWidthDraft} />

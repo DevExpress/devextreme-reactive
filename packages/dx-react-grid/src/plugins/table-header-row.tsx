@@ -8,6 +8,8 @@ import {
   tableRowsWithHeading,
   isHeadingTableCell,
   isHeadingTableRow,
+  getLastColumnName,
+  getNextColumnName,
   TABLE_DATA_TYPE,
   TABLE_HEADING_TYPE,
 } from '@devexpress/dx-grid-core';
@@ -16,24 +18,6 @@ import { TableHeaderRowProps, TableCellProps, TableRowProps } from '../types';
 const tableHeaderRowsComputed = (
   { tableHeaderRows }: Getters,
 ) => tableRowsWithHeading(tableHeaderRows || []);
-
-const getLastColumnName = (tableColumns) => {
-  const index = tableColumns.length - 1;
-  return index >= 0 && tableColumns[index].type === TABLE_DATA_TYPE
-    ? tableColumns[index].column.name
-    : undefined;
-};
-
-const getNextColumnName = (tableColumns, columnName) => {
-  const index = tableColumns
-    ? tableColumns.findIndex(elem =>
-      elem.type === TABLE_DATA_TYPE && elem.column.name === columnName,
-    )
-    : -1;
-  return index >= 0 && index < tableColumns.length - 1
-    ? tableColumns[index + 1].column.name
-    : undefined;
-};
 
 class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {
   static ROW_TYPE = TABLE_HEADING_TYPE;

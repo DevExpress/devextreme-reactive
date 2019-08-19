@@ -1,4 +1,4 @@
-import { getViewport } from './helpers';
+import { getViewport, checkColumnWidths } from './helpers';
 
 const estimatedRowheight = 40;
 const createItems = length => (
@@ -121,5 +121,43 @@ describe('#getViewport', () => {
       defaultState, getters, estimatedRowheight, getRowHeight, getColumnWidth,
     ))
       .toBe(initialViewport);
+  });
+});
+
+describe('#checkColumnWidths', () => {
+  it('should not throw error when all column widths correct', () => {
+    const tableColumns = [
+      { column: { name: 'a' }, width: 100 },
+      { column: { name: 'b' }, width: '100' },
+      { column: { name: 'c' }, width: '100px' },
+    ];
+
+    expect(() => checkColumnWidths(tableColumns))
+      .not.toThrow();
+  });
+
+  it('should throw error when some columns have auto width', () => {
+    const tableColumns = [
+      { column: { name: 'a' }, width: 'auto' },
+      { column: { name: 'b' }, width: 100 },
+      { column: { name: 'c' }, width: 100 },
+    ];
+
+    expect(() => checkColumnWidths(tableColumns))
+      .toThrow(/"a".*width/);
+  });
+
+  it('should throw error when some columns does not correct', () => {
+    const INVALID_VALUES =  ['%', 'em', 'rem', 'vm', 'vh', 'vmin', 'vmax'];
+
+    INVALID_VALUES.forEach((value) => {
+      const tableColumns = [
+        { column: { name: 'a' }, width: `100${value}` },
+        { column: { name: 'b' }, width: 100 },
+        { column: { name: 'c' }, width: 100 },
+      ];
+      expect(() => checkColumnWidths(tableColumns))
+        .toThrow(/"a".*width/);
+    });
   });
 });

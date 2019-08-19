@@ -73,7 +73,9 @@ export const checkColumnWidths: TableColumnConverterFn = (tableColumns) => {
     if (typeof width === 'string') {
       const numb = parseInt(width, 10);
       const unit = numb ? width.substr(numb.toString().length) : width;
-      if (VALID_UNITS.findIndex(validUnit => validUnit === unit) < 0) {
+      const isValidValue = VALID_UNITS.findIndex(validUnit => validUnit === unit) >= 0
+        && !isNaN(numb);
+      if (!isValidValue) {
         throw new Error(INVALID_TYPE.replace('$1', tableColumn.column!.name));
       }
       if (unit === 'px' || unit === '') {

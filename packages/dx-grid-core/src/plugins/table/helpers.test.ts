@@ -5,6 +5,7 @@ import {
   isDataTableRow,
   isNoDataTableRow,
   isNoDataTableCell,
+  convertWidth,
 } from './helpers';
 
 describe('Table Plugin helpers', () => {
@@ -52,6 +53,31 @@ describe('Table Plugin helpers', () => {
         .toBeTruthy();
       expect(isNoDataTableCell(column, [{ type: 'undefined' }, column]))
         .toBeFalsy();
+    });
+  });
+  describe('#convertWidth', () => {
+    it('should work', () => {
+      const width = 100;
+      const VALID_UNITS = ['px', '%', 'em', 'rem', 'vm', 'vh', 'vmin', 'vmax', ''];
+
+      expect(convertWidth('a', width))
+        .toEqual(width);
+      expect(convertWidth('a', 'auto'))
+        .toEqual('auto');
+      VALID_UNITS.forEach((unit) => {
+        const converted = convertWidth('a', `${width}${unit}`);
+        const result = unit === ''
+          ? width
+          : `${width}${unit}`;
+        expect(converted === result).toBeTruthy();
+      });
+    });
+
+    it('should throw error on invalid values', () => {
+      const values = ['px', '%', '10auto', ''];
+
+      values.forEach(value => expect(() => convertWidth('a', value))
+        .toThrow(/"a".*width/));
     });
   });
 });

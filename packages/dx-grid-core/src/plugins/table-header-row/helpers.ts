@@ -4,6 +4,8 @@ import {
   IsSpecificCellFn, IsSpecificRowFn, HeaderColumnChain,
   SplitHeaderColumnChainsFn, FindChainByColumnIndexFn,
   GenerateChainsFn,
+  LastColumnNameFn,
+  NextColumnNameFn,
 } from '../../types';
 
 export const isHeadingTableCell: IsSpecificCellFn = (
@@ -57,3 +59,21 @@ export const generateSimpleChains: GenerateChainsFn = (rows, columns) => (
     start: 0,
   }]))
 );
+
+export const getLastColumnName: LastColumnNameFn = (tableColumns) => {
+  const index = tableColumns.length - 1;
+  return index >= 0 && tableColumns[index].type === TABLE_DATA_TYPE
+    ? tableColumns[index].column!.name
+    : undefined;
+};
+
+export const getNextColumnName: NextColumnNameFn = (tableColumns, columnName) => {
+  const index = tableColumns
+    ? tableColumns.findIndex(elem =>
+      elem.type === TABLE_DATA_TYPE && elem.column!.name === columnName,
+    )
+    : -1;
+  return index >= 0 && index < tableColumns.length - 1
+    ? tableColumns[index + 1].column!.name
+    : undefined;
+};

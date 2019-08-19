@@ -206,9 +206,7 @@ describe('TableColumnResizing Plugin helpers', () => {
     });
 
     it('should return false for invalid string value', () => {
-      const values = [
-        'px', '10pix', '10auto', '%',
-      ];
+      const values = ['px', '10pix', '10auto', '%', ''];
 
       values.forEach(value => expect(isValidValue(value, VALID_UNITS))
         .toBeFalsy());

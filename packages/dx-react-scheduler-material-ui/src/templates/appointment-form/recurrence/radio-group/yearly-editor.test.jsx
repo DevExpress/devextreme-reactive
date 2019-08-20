@@ -5,13 +5,15 @@ import {
   handleToDayOfWeekChange,
   handleWeekNumberChange,
   getRecurrenceOptions,
+  changeRecurrenceOptions,
 } from '@devexpress/dx-scheduler-core';
 import { YearlyEditor } from './yealy-editor';
 import {
   getDaysOfWeek,
   getMonths,
   getNumberLabels,
-} from './helpers';
+  getMonthsWithOf,
+} from '../../helpers';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   ...require.requireActual('@devexpress/dx-scheduler-core'),
@@ -19,11 +21,13 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
   handleWeekNumberChange: jest.fn(),
   handleToDayOfWeekChange: jest.fn(),
   getRecurrenceOptions: jest.fn(),
+  changeRecurrenceOptions: jest.fn(),
 }));
-jest.mock('./helpers', () => ({
-  ...require.requireActual('./helpers'),
+jest.mock('../../helpers', () => ({
+  ...require.requireActual('../../helpers'),
   getDaysOfWeek: jest.fn(),
   getMonths: jest.fn(),
+  getMonthsWithOf: jest.fn(),
   getNumberLabels: jest.fn(),
 }));
 
@@ -31,9 +35,9 @@ describe('AppointmentForm recurrence RadioGroup', () => {
   const defaultProps = {
     textEditorComponent: () => null,
     labelComponent: () => null,
-    switcherComponent: () => null,
-    dateAndTimeEditorComponent: () => null,
-    onRecurrenceOptionsChange: jest.fn(),
+    selectComponent: () => null,
+    onAppointmentFieldChange: jest.fn(),
+    formatDate: jest.fn(),
     getMessage: jest.fn(),
     changedAppointment: {
       startDate: new Date(),
@@ -51,9 +55,11 @@ describe('AppointmentForm recurrence RadioGroup', () => {
   beforeEach(() => {
     mount = createMount();
     getRecurrenceOptions.mockImplementation(() => ({}));
+    changeRecurrenceOptions.mockImplementation(testValue => testValue);
   });
   afterEach(() => {
     mount.cleanUp();
+    jest.resetAllMocks();
   });
   describe('YearlyEditor', () => {
     it('should pass rest props to the root element', () => {
@@ -72,59 +78,63 @@ describe('AppointmentForm recurrence RadioGroup', () => {
 
       const labels = tree.find(defaultProps.labelComponent);
       expect(labels)
-        .toHaveLength(3);
+        .toHaveLength(2);
       expect(labels.at(0).is(`.${classes.label}`))
         .toBeTruthy();
-      expect(labels.at(1).is(`.${classes.shortLabel}`))
-        .toBeTruthy();
-      expect(labels.at(2).is(`.${classes.shortLabel}`))
+      expect(labels.at(1).is(`.${classes.label}`))
         .toBeTruthy();
 
       const textEditor = tree.find(defaultProps.textEditorComponent);
       expect(textEditor)
         .toHaveLength(1);
-      expect(textEditor.at(0).is(`.${classes.numberEditor}`))
+      expect(textEditor.at(0).is(`.${classes.textEditor}`))
         .toBeTruthy();
 
-      const switcherComponents = tree.find(defaultProps.switcherComponent);
-      expect(switcherComponents)
+      const selectComponents = tree.find(defaultProps.selectComponent);
+      expect(selectComponents)
         .toHaveLength(4);
-      expect(switcherComponents.at(0).is(`.${classes.switcher}`))
+      expect(selectComponents.at(0).is(`.${classes.select}`))
         .toBeTruthy();
-      expect(switcherComponents.at(1).is(`.${classes.switcher}`))
+      expect(selectComponents.at(1).is(`.${classes.select}`))
         .toBeTruthy();
-      expect(switcherComponents.at(2).is(`.${classes.switcher}`))
+      expect(selectComponents.at(2).is(`.${classes.longSelect}`))
         .toBeTruthy();
-      expect(switcherComponents.at(3).is(`.${classes.switcher}`))
+      expect(selectComponents.at(3).is(`.${classes.doubleSelect}`))
         .toBeTruthy();
     });
 
-    it('should handle recurrence options change', () => {
+    it('should handle appointment field change', () => {
       const tree = mount((
         <YearlyEditor {...defaultProps} />
       ));
 
-      const switcherComponents = tree.find(defaultProps.switcherComponent);
+      const selectComponents = tree.find(defaultProps.selectComponent);
 
-      switcherComponents.at(0).prop('onChange')('abc');
-      expect(defaultProps.onRecurrenceOptionsChange)
+      selectComponents.at(0).prop('onChange')('abc');
+      expect(defaultProps.onAppointmentFieldChange)
         .toHaveBeenCalledWith({
-          ...getRecurrenceOptions(),
-          bymonth: 'abc',
+          rRule: {
+            ...getRecurrenceOptions(),
+            bymonth: 'abc',
+          },
         });
 
-      switcherComponents.at(2).prop('onChange')(2);
-      expect(defaultProps.onRecurrenceOptionsChange)
+      selectComponents.at(2).prop('onChange')(2);
+      expect(defaultProps.onAppointmentFieldChange)
         .toHaveBeenCalledWith({
-          ...getRecurrenceOptions(),
-          byweekday: 1,
+          rRule: {
+            ...getRecurrenceOptions(),
+            byweekday: 1,
+          },
         });
 
-      switcherComponents.at(3).prop('onChange')('cde');
-      expect(defaultProps.onRecurrenceOptionsChange)
+      selectComponents.at(3).prop('onChange')('cde');
+      expect(defaultProps.onAppointmentFieldChange)
         .toHaveBeenCalledWith({
-          ...getRecurrenceOptions(),
-          bymonth: 'cde',
+          rRule: {
+            ...getRecurrenceOptions(),
+            bymonth: 'cde',
+          },
         });
     });
 
@@ -134,10 +144,12 @@ describe('AppointmentForm recurrence RadioGroup', () => {
       ));
 
       tree.prop('onChange')({ target: { value: 'onDayAndMonth' } });
-      expect(defaultProps.onRecurrenceOptionsChange)
+      expect(defaultProps.onAppointmentFieldChange)
         .toHaveBeenCalledWith({
-          ...getRecurrenceOptions(),
-          bymonthday: defaultProps.changedAppointment.startDate.getDate(),
+          rRule: {
+            ...getRecurrenceOptions(),
+            bymonthday: defaultProps.changedAppointment.startDate.getDate(),
+          }
         });
 
       tree.prop('onChange')({ target: { value: 'onDayOfWeek' } });
@@ -146,7 +158,7 @@ describe('AppointmentForm recurrence RadioGroup', () => {
         .toHaveBeenCalledWith(
           weekNumber,
           defaultProps.changedAppointment.startDate.getDay(),
-          defaultProps.onRecurrenceOptionsChange,
+          defaultProps.onAppointmentFieldChange,
           getRecurrenceOptions(),
         );
     });
@@ -156,9 +168,9 @@ describe('AppointmentForm recurrence RadioGroup', () => {
         <YearlyEditor {...defaultProps} />
       ));
 
-      tree.find(defaultProps.switcherComponent).at(1).prop('onChange')('abc');
+      tree.find(defaultProps.selectComponent).at(1).prop('onChange')('abc');
       expect(handleWeekNumberChange)
-        .toHaveBeenCalledWith('abc', defaultProps.onRecurrenceOptionsChange, getRecurrenceOptions());
+        .toHaveBeenCalledWith('abc', defaultProps.onAppointmentFieldChange, getRecurrenceOptions());
     });
 
     it('should call handleStartDateChange with correct data', () => {
@@ -168,7 +180,7 @@ describe('AppointmentForm recurrence RadioGroup', () => {
 
       tree.find(defaultProps.textEditorComponent).at(0).prop('onValueChange')('abc');
       expect(handleStartDateChange)
-        .toHaveBeenCalledWith('abc', defaultProps.onRecurrenceOptionsChange, getRecurrenceOptions());
+        .toHaveBeenCalledWith('abc', defaultProps.onAppointmentFieldChange, getRecurrenceOptions());
     });
 
     it('should call getMessage with proper parameters', () => {
@@ -178,8 +190,6 @@ describe('AppointmentForm recurrence RadioGroup', () => {
 
       expect(defaultProps.getMessage)
         .toHaveBeenCalledWith('theLabel');
-      expect(defaultProps.getMessage)
-        .toHaveBeenCalledWith('ofLabel');
     });
 
     it('should call getMonths', () => {
@@ -206,6 +216,15 @@ describe('AppointmentForm recurrence RadioGroup', () => {
       ));
 
       expect(getNumberLabels)
+        .toHaveBeenCalled();
+    });
+
+    it('should call getMonthsWithOf', () => {
+      shallow((
+        <YearlyEditor {...defaultProps} />
+      ));
+
+      expect(getMonthsWithOf)
         .toHaveBeenCalled();
     });
   });

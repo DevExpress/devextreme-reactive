@@ -39,18 +39,18 @@ const styles = ({ spacing }) => ({
   input: {
     paddingBottom: spacing(2.75),
   },
-  switcher: {
+  select: {
     width: '6em',
     marginLeft: spacing(1.875),
   },
-  longSwitcher: {
+  longSelect: {
     width: '8em',
     marginLeft: spacing(1.75),
   },
   formControlLabel: {
     alignItems: 'flex-start',
   },
-  doubleSwitcher: {
+  doubleSelect: {
     marginLeft: spacing(9.75),
     width: '15em',
     marginTop: spacing(1),
@@ -59,6 +59,41 @@ const styles = ({ spacing }) => ({
     marginTop: spacing(0.75),
   },
 });
+
+const getCurrentMonth = (recurrenceOptions, changedAppointment) => {
+  if (recurrenceOptions.bymonth) {
+    return recurrenceOptions.bymonth;
+  }
+  return changedAppointment.startDate.getMonth() + 1;
+};
+
+const getDisplayDataFromOptionsAndState = (
+  recurrenceOptions, stateDayOfWeek, stateWeekNumber, stateDayNumber,
+) => {
+  const data = {
+    weekNumber: 4,
+    dayNumberTextField: stateDayNumber,
+  };
+  if (recurrenceOptions.bymonthday && !recurrenceOptions.bymonthday.length) {
+    data.dayNumberTextField = recurrenceOptions.bymonthday;
+    data.weekNumber = stateWeekNumber;
+    data.dayOfWeek = stateDayOfWeek;
+    data.radioGroupValue = 'onDayAndMonth';
+  } else {
+    data.radioGroupValue = 'onDayOfWeek';
+    if (!recurrenceOptions.byweekday) {
+      data.dayOfWeek = stateDayOfWeek;
+      data.weekNumber = stateWeekNumber;
+    } else {
+      data.dayOfWeek = recurrenceOptions.byweekday < 6
+        ? Number.parseInt(recurrenceOptions.byweekday, 10) + 1 : 0;
+      if (recurrenceOptions.bymonthday && recurrenceOptions.bymonthday[0] > 0) {
+        data.weekNumber = Math.trunc(recurrenceOptions.bymonthday[0] / 7);
+      }
+    }
+  }
+  return data;
+};
 
 const YearlyEditorBase = ({
   classes,
@@ -79,36 +114,12 @@ const YearlyEditorBase = ({
   const [stateDayOfWeek, setStateDayOfWeek] = useState(changedAppointment.startDate.getDay());
 
   const recurrenceOptions = getRecurrenceOptions(changedAppointment.rRule);
-  let dayOfWeek;
-  // The last week in a month
-  let weekNumber = 4;
-  let dayNumberTextField = dayNumber;
-  let value;
-  if (recurrenceOptions.bymonthday && !recurrenceOptions.bymonthday.length) {
-    value = 'onDayAndMonth';
-    dayNumberTextField = recurrenceOptions.bymonthday;
-    weekNumber = stateWeekNumber;
-    dayOfWeek = stateDayOfWeek;
-  } else {
-    value = 'onDayOfWeek';
-    if (!recurrenceOptions.byweekday) {
-      dayOfWeek = stateDayOfWeek;
-      weekNumber = stateWeekNumber;
-    } else {
-      dayOfWeek = recurrenceOptions.byweekday < 6
-        ? Number.parseInt(recurrenceOptions.byweekday, 10) + 1 : 0;
-      if (recurrenceOptions.bymonthday && recurrenceOptions.bymonthday[0] > 0) {
-        weekNumber = Math.trunc(recurrenceOptions.bymonthday[0] / 7);
-      }
-    }
-  }
-
-  let month;
-  if (recurrenceOptions.bymonth) {
-    month = recurrenceOptions.bymonth;
-  } else {
-    month = changedAppointment.startDate.getMonth() + 1;
-  }
+  const {
+    dayOfWeek, weekNumber, dayNumberTextField, radioGroupValue: value,
+  } = getDisplayDataFromOptionsAndState(
+    recurrenceOptions, stateDayOfWeek, stateWeekNumber, dayNumber,
+  );
+  const month = getCurrentMonth(recurrenceOptions, changedAppointment);
 
   const onRadioGroupValueChange = (event) => {
     switch (event.target.value) {
@@ -165,7 +176,7 @@ const YearlyEditorBase = ({
               })}
               value={month}
               availableOptions={getMonths(formatDate)}
-              className={classes.switcher}
+              className={classes.select}
             />
             <TextEditor
               className={classes.textEditor}
@@ -199,7 +210,7 @@ const YearlyEditorBase = ({
                 label={getMessage('theLabel')}
               />
               <Select
-                className={classes.switcher}
+                className={classes.select}
                 disabled={value !== 'onDayOfWeek'}
                 onChange={newWeekNumber => handleWeekNumberChange(
                   newWeekNumber,
@@ -210,7 +221,7 @@ const YearlyEditorBase = ({
                 availableOptions={getNumberLabels(getMessage)}
               />
               <Select
-                className={classes.longSwitcher}
+                className={classes.longSelect}
                 disabled={value !== 'onDayOfWeek'}
                 onChange={newWeekDay => onAppointmentFieldChange({
                   rRule: changeRecurrenceOptions({
@@ -220,11 +231,10 @@ const YearlyEditorBase = ({
                 })}
                 value={dayOfWeek}
                 availableOptions={getDaysOfWeek(formatDate)}
-
               />
             </Grid>
             <Select
-              className={classes.doubleSwitcher}
+              className={classes.doubleSelect}
               disabled={value !== 'onDayOfWeek'}
               onChange={newMonth => onAppointmentFieldChange({
                 rRule: changeRecurrenceOptions({
@@ -250,6 +260,7 @@ YearlyEditorBase.propTypes = {
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   selectComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   changedAppointment: PropTypes.object.isRequired,
+  formatDate: PropTypes.func.isRequired,
   readOnly: PropTypes.bool,
 };
 

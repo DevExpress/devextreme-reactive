@@ -24,11 +24,11 @@ const styles = ({ spacing }) => ({
   input: {
     paddingBottom: spacing(2.75),
   },
-  switcher: {
+  select: {
     width: '6em',
     marginLeft: spacing(1.875),
   },
-  longSwitcher: {
+  longSelect: {
     width: '8em',
     marginLeft: spacing(1.75),
   },
@@ -41,9 +41,36 @@ const styles = ({ spacing }) => ({
   },
 });
 
+const getDisplayDataFromOptionsAndState = (
+  recurrenceOptions, stateDayOfWeek, stateWeekNumber, stateDayNumber,
+) => {
+  const data = {
+    weekNumber: 4,
+    dayNumberTextField: stateDayNumber,
+  };
+  if (recurrenceOptions.bymonthday && !recurrenceOptions.bymonthday.length) {
+    data.dayNumberTextField = recurrenceOptions.bymonthday;
+    data.weekNumber = stateWeekNumber;
+    data.dayOfWeek = stateDayOfWeek;
+    data.radioGroupValue = 'onDayNumber';
+  } else {
+    data.radioGroupValue = 'onDayOfWeek';
+    if (!recurrenceOptions.byweekday) {
+      data.dayOfWeek = stateDayOfWeek;
+      data.weekNumber = stateWeekNumber;
+    } else {
+      data.dayOfWeek = recurrenceOptions.byweekday < 6
+        ? Number.parseInt(recurrenceOptions.byweekday, 10) + 1 : 0;
+      if (recurrenceOptions.bymonthday && recurrenceOptions.bymonthday[0] > 0) {
+        data.weekNumber = Math.trunc(recurrenceOptions.bymonthday[0] / 7);
+      }
+    }
+  }
+  return data;
+};
+
 const MonthlyEditorBase = ({
   classes,
-  onExecute,
   getMessage,
   labelComponent: Label,
   textEditorComponent: TextEditor,
@@ -61,29 +88,11 @@ const MonthlyEditorBase = ({
   const [stateDayOfWeek, setStateDayOfWeek] = useState(changedAppointment.startDate.getDay());
 
   const recurrenceOptions = getRecurrenceOptions(changedAppointment.rRule);
-  let value;
-  let dayNumberTextField = dayNumber;
-  // The last week in a month
-  let weekNumber = 4;
-  let dayOfWeek;
-  if (recurrenceOptions.bymonthday && !recurrenceOptions.bymonthday.length) {
-    value = 'onDayNumber';
-    dayNumberTextField = recurrenceOptions.bymonthday;
-    weekNumber = stateWeekNumber;
-    dayOfWeek = stateDayOfWeek;
-  } else {
-    value = 'onDayOfWeek';
-    if (!recurrenceOptions.byweekday) {
-      dayOfWeek = stateDayOfWeek;
-      weekNumber = stateWeekNumber;
-    } else {
-      dayOfWeek = recurrenceOptions.byweekday < 6
-        ? Number.parseInt(recurrenceOptions.byweekday, 10) + 1 : 0;
-      if (recurrenceOptions.bymonthday && recurrenceOptions.bymonthday[0] > 0) {
-        weekNumber = Math.trunc(recurrenceOptions.bymonthday[0] / 7);
-      }
-    }
-  }
+  const {
+    dayOfWeek, weekNumber, dayNumberTextField, radioGroupValue: value,
+  } = getDisplayDataFromOptionsAndState(
+    recurrenceOptions, stateDayOfWeek, stateWeekNumber, dayNumber,
+  );
 
   const onRadioGroupValueChange = (event) => {
     switch (event.target.value) {
@@ -117,7 +126,6 @@ const MonthlyEditorBase = ({
       {...restProps}
     >
       <FormControlLabel
-        className={classes.formControl}
         value="onDayNumber"
         control={<Radio color="primary" />}
         label={(
@@ -174,7 +182,7 @@ const MonthlyEditorBase = ({
               )}
               value={weekNumber}
               availableOptions={getNumberLabels(getMessage)}
-              className={classes.switcher}
+              className={classes.select}
             />
             <Select
               disabled={value !== 'onDayOfWeek'}
@@ -185,7 +193,7 @@ const MonthlyEditorBase = ({
               })}
               value={dayOfWeek}
               availableOptions={getDaysOfWeek(formatDate)}
-              className={classes.longSwitcher}
+              className={classes.longSelect}
             />
           </Grid>
         )}
@@ -197,7 +205,6 @@ const MonthlyEditorBase = ({
 
 MonthlyEditorBase.propTypes = {
   classes: PropTypes.object.isRequired,
-  onExecute: PropTypes.func,
   getMessage: PropTypes.func,
   onAppointmentFieldChange: PropTypes.func,
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
@@ -205,10 +212,10 @@ MonthlyEditorBase.propTypes = {
   selectComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   changedAppointment: PropTypes.object.isRequired,
   readOnly: PropTypes.bool,
+  formatDate: PropTypes.func.isRequired,
 };
 
 MonthlyEditorBase.defaultProps = {
-  onExecute: () => undefined,
   getMessage: () => undefined,
   onAppointmentFieldChange: () => undefined,
   readOnly: false,

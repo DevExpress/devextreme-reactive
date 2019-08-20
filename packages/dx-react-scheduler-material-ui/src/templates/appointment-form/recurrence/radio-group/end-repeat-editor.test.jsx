@@ -1,19 +1,20 @@
 import * as React from 'react';
 import { createShallow, getClasses, createMount } from '@material-ui/core/test-utils';
-import { getRecurrenceOptions } from '@devexpress/dx-scheduler-core';
+import { getRecurrenceOptions, changeRecurrenceOptions } from '@devexpress/dx-scheduler-core';
 import { EndRepeatEditor } from './end-repeat-editor';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   ...require.requireActual('@devexpress/dx-scheduler-core'),
   getRecurrenceOptions: jest.fn(),
+  changeRecurrenceOptions: jest.fn(),
 }));
 
 describe('AppointmentForm recurrence RadioGroup', () => {
   const defaultProps = {
     textEditorComponent: () => null,
     labelComponent: () => null,
-    dateAndTimeEditorComponent: () => null,
-    onRecurrenceOptionsChange: jest.fn(),
+    dateEditorComponent: () => null,
+    onAppointmentFieldChange: jest.fn(),
     getMessage: jest.fn(),
     changedAppointment: {
       startDate: new Date(),
@@ -31,6 +32,7 @@ describe('AppointmentForm recurrence RadioGroup', () => {
   beforeEach(() => {
     mount = createMount();
     getRecurrenceOptions.mockImplementation(() => ({}));
+    changeRecurrenceOptions.mockImplementation(testValue => testValue);
   });
   afterEach(() => {
     mount.cleanUp();
@@ -52,12 +54,10 @@ describe('AppointmentForm recurrence RadioGroup', () => {
 
       const labels = tree.find(defaultProps.labelComponent);
       expect(labels)
-        .toHaveLength(3);
+        .toHaveLength(2);
       expect(labels.at(0).is(`.${classes.label}`))
         .toBeTruthy();
       expect(labels.at(1).is(`.${classes.label}`))
-        .toBeTruthy();
-      expect(labels.at(2).is(`.${classes.afterLabel}`))
         .toBeTruthy();
 
       const textEditor = tree.find(defaultProps.textEditorComponent);
@@ -66,30 +66,34 @@ describe('AppointmentForm recurrence RadioGroup', () => {
       expect(textEditor.at(0).is(`.${classes.textEditor}`))
         .toBeTruthy();
 
-      const dateAndTimeEditorComponent = tree.find(defaultProps.dateAndTimeEditorComponent);
-      expect(dateAndTimeEditorComponent)
+      const dateEditorComponent = tree.find(defaultProps.dateEditorComponent);
+      expect(dateEditorComponent)
         .toHaveLength(1);
-      expect(dateAndTimeEditorComponent.at(0).is(`.${classes.dateEditor}`))
+      expect(dateEditorComponent.at(0).is(`.${classes.dateEditor}`))
         .toBeTruthy();
     });
 
-    it('should handle recurrence options change', () => {
+    it('should handle appointment field changes', () => {
       const tree = mount((
         <EndRepeatEditor {...defaultProps} />
       ));
 
       tree.find(defaultProps.textEditorComponent).at(0).prop('onValueChange')('abc');
-      expect(defaultProps.onRecurrenceOptionsChange)
+      expect(defaultProps.onAppointmentFieldChange)
         .toHaveBeenCalledWith({
-          ...getRecurrenceOptions(),
-          count: 'abc',
+          rRule: {
+            ...getRecurrenceOptions(),
+            count: 'abc',
+          },
         });
 
-      tree.find(defaultProps.dateAndTimeEditorComponent).at(0).prop('onFirstDateValueChange')('abc');
-      expect(defaultProps.onRecurrenceOptionsChange)
+      tree.find(defaultProps.dateEditorComponent).at(0).prop('onDateChange')('abc');
+      expect(defaultProps.onAppointmentFieldChange)
         .toHaveBeenCalledWith({
-          ...getRecurrenceOptions(),
-          until: 'abc',
+          rRule: {
+            ...getRecurrenceOptions(),
+            until: 'abc',
+          },
         });
     });
 
@@ -99,23 +103,29 @@ describe('AppointmentForm recurrence RadioGroup', () => {
       ));
 
       tree.prop('onChange')({ target: { value: 'never' } });
-      expect(defaultProps.onRecurrenceOptionsChange)
+      expect(defaultProps.onAppointmentFieldChange)
         .toHaveBeenCalledWith({
-          ...getRecurrenceOptions(),
+          rRule: {
+            ...getRecurrenceOptions(),
+          },
         });
 
       tree.prop('onChange')({ target: { value: 'endBy' } });
-      expect(defaultProps.onRecurrenceOptionsChange)
+      expect(defaultProps.onAppointmentFieldChange)
         .toHaveBeenCalledWith({
-          ...getRecurrenceOptions(),
-          until: defaultProps.changedAppointment.startDate,
+          rRule: {
+            ...getRecurrenceOptions(),
+            until: defaultProps.changedAppointment.startDate,
+          },
         });
 
       tree.prop('onChange')({ target: { value: 'endAfter' } });
-      expect(defaultProps.onRecurrenceOptionsChange)
+      expect(defaultProps.onAppointmentFieldChange)
         .toHaveBeenCalledWith({
-          ...getRecurrenceOptions(),
-          count: 1,
+          rRule: {
+            ...getRecurrenceOptions(),
+            count: 1,
+          },
         });
     });
 

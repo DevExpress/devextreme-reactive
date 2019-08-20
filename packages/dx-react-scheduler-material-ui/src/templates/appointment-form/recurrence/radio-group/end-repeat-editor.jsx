@@ -31,11 +31,10 @@ const styles = ({ spacing, typography }) => ({
 
 const EndRepeatEditorBase = ({
   classes,
-  onExecute,
   getMessage,
   labelComponent: Label,
   textEditorComponent: TextEditor,
-  dateAndTimeEditorComponent: DateAndTimeEditor,
+  dateEditorComponent: DateEditor,
   onAppointmentFieldChange,
   changedAppointment,
   ...restProps
@@ -142,7 +141,7 @@ const EndRepeatEditorBase = ({
               className={classes.label}
               label={getMessage('afterLabel')}
             />
-            <DateAndTimeEditor
+            <DateEditor
               className={classes.dateEditor}
               disabled={value !== 'endBy'}
               date={recurrenceEndDate}
@@ -163,17 +162,16 @@ const EndRepeatEditorBase = ({
 
 EndRepeatEditorBase.propTypes = {
   classes: PropTypes.object.isRequired,
-  onExecute: PropTypes.func,
   getMessage: PropTypes.func,
   onAppointmentFieldChange: PropTypes.func,
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  dateAndTimeEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  dateEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  changedAppointment: PropTypes.object.isRequired,
 };
 
 EndRepeatEditorBase.defaultProps = {
   onAppointmentFieldChange: () => undefined,
-  onExecute: () => undefined,
   getMessage: () => undefined,
 };
 

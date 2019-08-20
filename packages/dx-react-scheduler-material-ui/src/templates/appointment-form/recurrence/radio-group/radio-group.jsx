@@ -78,7 +78,15 @@ RadioGroup.propTypes = {
   selectComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   readOnly: PropTypes.bool,
   id: PropTypes.string.isRequired,
-  changedAppointment: PropTypes.object.isRequired,
+  changedAppointment: PropTypes.shape({
+    title: PropTypes.string,
+    startDate: PropTypes.instanceOf(Date),
+    endDate: PropTypes.instanceOf(Date),
+    rRule: PropTypes.string,
+    notes: PropTypes.string,
+    additionalInformation: PropTypes.string,
+    allDay: PropTypes.bool,
+  }).isRequired,
   onAppointmentFieldChange: PropTypes.func,
   formatDate: PropTypes.func,
 };

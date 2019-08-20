@@ -338,12 +338,14 @@ export const filterByViewBoundaries: PureComputed<
 
   const appointmentDuration = moment(appointment.end)
     .diff(appointment.start, 'minutes');
+
   return datesInBoundaries.map((startDate, index) => ({
     ...appointment,
     dataItem: {
       ...appointment.dataItem,
       startDate: moment(startDate).toDate(),
       endDate: moment(startDate).add(appointmentDuration, 'minutes').toDate(),
+      parentData: appointment.dataItem,
     },
     start: moment(startDate),
     end: moment(startDate).add(appointmentDuration, 'minutes'),

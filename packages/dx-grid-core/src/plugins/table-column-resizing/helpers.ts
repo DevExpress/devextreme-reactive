@@ -21,26 +21,19 @@ export const getColumnsSizes: ColumnSizeFn = (
     Math.min(width + shift, maxWidth!),
   );
 
-  let nextColumn;
-  let nextExtension;
-  let nextWidth;
-  let nextMinWidth;
-  let nextMaxWidth;
-  let nextSize;
-
   if (nextColumnResizing) {
-    nextColumn  = columnWidths.find(elem => elem.columnName === nextColumnName)!;
-    nextExtension = columnExtensions.find(elem => elem.columnName === nextColumnName);
-    nextWidth = typeof nextColumn.width === 'number'
+    const nextColumn  = columnWidths.find(elem => elem.columnName === nextColumnName)!;
+    const nextExtension = columnExtensions.find(elem => elem.columnName === nextColumnName);
+    const nextWidth = typeof nextColumn.width === 'number'
       ? nextColumn.width
       : cachedWidths[nextColumnName];
-    nextMinWidth = nextExtension && nextExtension.minWidth! >= 0
+    const nextMinWidth = nextExtension && nextExtension.minWidth! >= 0
       ? nextExtension.minWidth
       : minColumnWidth;
-    nextMaxWidth = nextExtension && nextExtension.maxWidth! >= 0
+    const nextMaxWidth = nextExtension && nextExtension.maxWidth! >= 0
       ? nextExtension.maxWidth
       : maxColumnWidth;
-    nextSize = Math.max(
+    let nextSize = Math.max(
       nextMinWidth!,
       Math.min(nextWidth - shift, nextMaxWidth!),
     );
@@ -65,6 +58,7 @@ export const getColumnsSizes: ColumnSizeFn = (
 export const isValidValue: ValidValueFn = (value, validUnits) => {
   const numb = parseInt(value, 10);
   const unit = numb ? value.substr(numb.toString().length) : value;
-  return isNaN(numb) && unit === 'auto'
-    ||  !isNaN(numb) && validUnits.findIndex(validUnit => validUnit === unit) >= 0;
+  const sizeIsAuto = isNaN(numb) && unit === 'auto';
+  const sizeIsValid = !isNaN(numb) && validUnits.findIndex(validUnit => validUnit === unit) >= 0;
+  return sizeIsAuto || sizeIsValid;
 };

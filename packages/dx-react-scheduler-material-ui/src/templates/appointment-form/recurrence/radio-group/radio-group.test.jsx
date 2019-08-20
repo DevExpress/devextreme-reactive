@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow, createMount } from '@material-ui/core/test-utils';
+import { createMount } from '@material-ui/core/test-utils';
 import {
   END_REPEAT_RADIO_GROUP,
   MONTHLY_RADIO_GROUP,
@@ -39,11 +39,7 @@ describe('AppointmentForm recurrence radio group', () => {
     },
     id: END_REPEAT_RADIO_GROUP,
   };
-  let shallow;
   let mount;
-  beforeAll(() => {
-    shallow = createShallow({ dive: true });
-  });
   beforeEach(() => {
     mount = createMount();
     getRecurrenceOptions.mockImplementation(() => ({}));

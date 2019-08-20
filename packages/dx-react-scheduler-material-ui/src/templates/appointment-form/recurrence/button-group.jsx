@@ -170,11 +170,13 @@ ButtonGroupBase.propTypes = {
   formatDate: PropTypes.func.isRequired,
   readOnly: PropTypes.bool,
   classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
 };
 
 ButtonGroupBase.defaultProps = {
   onAppointmentFieldChange: () => undefined,
   readOnly: false,
+  className: undefined,
 };
 
 export const ButtonGroup = withStyles(styles)(ButtonGroupBase, { name: 'ButtonGroup' });

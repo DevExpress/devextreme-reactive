@@ -149,7 +149,7 @@ describe('AppointmentForm recurrence RadioGroup', () => {
           rRule: {
             ...getRecurrenceOptions(),
             bymonthday: defaultProps.changedAppointment.startDate.getDate(),
-          }
+          },
         });
 
       tree.prop('onChange')({ target: { value: 'onDayOfWeek' } });

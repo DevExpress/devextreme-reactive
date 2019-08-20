@@ -41,7 +41,7 @@ describe('AppointmentForm control', () => {
         .toBeTruthy();
     });
 
-    it('should render three Control Buttons', () =>{
+    it('should render three Control Buttons', () => {
       const tree = shallow((
         <Layout className="custom-class" {...defaultProps}>
           <div />

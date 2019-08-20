@@ -3,8 +3,8 @@ import { createShallow, createMount } from '@material-ui/core/test-utils';
 import MenuItem from '@material-ui/core/MenuItem';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import FilledInput from '@material-ui/core/FilledInput';
-import { Select } from './select';
 import { OUTLINED_SELECT } from '@devexpress/dx-scheduler-core';
+import { Select } from './select';
 
 describe('AppointmentForm common', () => {
   const defaultProps = {

@@ -32,7 +32,7 @@ export const DAY_SHORT_MONTH_SHORT_YEAR_OPTIONS = {
   day: 'numeric', month: 'short', year: '2-digit',
 };
 
-export const RECURRENCE = {
+export const RECURRENCE_EDIT_SCOPE = {
   ALL: 'all',
   CURRENT_AND_FOLLOWING: 'currentAndFollowing',
   CURRENT: 'current',

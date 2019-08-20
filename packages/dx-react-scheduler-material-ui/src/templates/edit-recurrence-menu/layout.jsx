@@ -17,13 +17,15 @@ export const Layout = React.memo(({
   ...restProps
 }) => {
   const [currentValue, setCurrentValue] = React.useState(availableOperations[0].value);
+  const handleChange = React.useCallback(
+    (event) => {
+      setCurrentValue(event.target.value);
+    },
+  );
+
   const onCommitButtonClick = () => {
     handleClose();
     commit(currentValue);
-  };
-
-  const handleChange = (event) => {
-    setCurrentValue(event.target.value);
   };
 
   return (

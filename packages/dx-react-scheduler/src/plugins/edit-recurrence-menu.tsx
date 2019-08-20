@@ -3,7 +3,7 @@ import { memoize, getMessagesFormatter } from '@devexpress/dx-core';
 import {
   Plugin, Template, TemplatePlaceholder, TemplateConnector, Action, Getters, Actions,
 } from '@devexpress/dx-react-core';
-import { RECURRENCE } from '@devexpress/dx-scheduler-core';
+import { RECURRENCE_EDIT_SCOPE } from '@devexpress/dx-scheduler-core';
 import { EditRecurrenceMenuProps, EditRecurrenceMenuState } from '../types';
 
 const pluginDependencies = [
@@ -11,15 +11,15 @@ const pluginDependencies = [
 ];
 
 const defaultAvailableOperations = [
-  { value: RECURRENCE.CURRENT },
-  { value: RECURRENCE.CURRENT_AND_FOLLOWING },
-  { value: RECURRENCE.ALL },
+  { value: RECURRENCE_EDIT_SCOPE.CURRENT },
+  { value: RECURRENCE_EDIT_SCOPE.CURRENT_AND_FOLLOWING },
+  { value: RECURRENCE_EDIT_SCOPE.ALL },
 ];
 
 const defaultMessages = {
-  [RECURRENCE.CURRENT]: 'This appointment',
-  [RECURRENCE.CURRENT_AND_FOLLOWING]: 'This and following appointments',
-  [RECURRENCE.ALL]: 'All appointments',
+  [RECURRENCE_EDIT_SCOPE.CURRENT]: 'This appointment',
+  [RECURRENCE_EDIT_SCOPE.CURRENT_AND_FOLLOWING]: 'This and following appointments',
+  [RECURRENCE_EDIT_SCOPE.ALL]: 'All appointments',
   menuEditTitle: 'Edit recurring appointment',
   menuDeleteTitle: 'Delete recurring appointment',
   cancelButton: 'Cancel',
@@ -114,7 +114,7 @@ class EditRecurrenceMenuBase extends React.PureComponent<
 
         <Template name="schedulerRoot">
           <TemplatePlaceholder />
-          <Container target={this.modalContainer} />
+          <Container ref={this.modalContainer} />
           <TemplatePlaceholder name="overlay" />
         </Template>
 

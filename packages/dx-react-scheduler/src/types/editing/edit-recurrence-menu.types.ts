@@ -29,7 +29,7 @@ export namespace EditRecurrenceMenu {
   /** @internal */
   export interface ContainerProps {
     /** A React Ref that should be passed into ref property. */
-    target: React.RefObject<unknown>;
+    ref: React.RefObject<unknown>;
   }
   /** Properties passed to a component that renders the OK and Cancel buttons. */
   export interface ButtonProps {

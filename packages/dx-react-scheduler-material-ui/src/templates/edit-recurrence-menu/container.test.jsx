@@ -4,7 +4,7 @@ import { Container } from './container';
 
 describe('EditRecurrenceMenu', () => {
   const defaultProps = {
-    containerRef: React.createRef(),
+    ref: React.createRef(),
   };
   let classes;
   let shallow;

@@ -3,7 +3,7 @@ import { RRule, rrulestr, RRuleSet } from 'rrule';
 import {
   AppointmentModel, PreCommitChangesFn, Changes, MakeDateSequenceFn, EditFn, DeleteFn,
 } from '../../types';
-import { RECURRENCE } from '../../constants';
+import { RECURRENCE_EDIT_SCOPE } from '../../constants';
 
 const mergeNewChanges = (
   appointmentData: Partial<AppointmentModel>, changes: Changes,
@@ -32,8 +32,7 @@ const reduceExDate = (prevExDate: string, boundDate: Date) => {
 };
 
 const configureExDate = (exDate: string | undefined, date: Date) => {
-  const currentExDate = `${moment.utc(date)
-    .format('YYYYMMDDTHHmmss')}Z`;
+  const currentExDate = `${moment.utc(date).format('YYYYMMDDTHHmmss')}Z`;
   return exDate
     ? `${exDate},${currentExDate}`
     : currentExDate;
@@ -193,25 +192,25 @@ export const preCommitChanges: PreCommitChangesFn = (
 ) => {
   if (changes === null) {
     switch (editType) {
-      case RECURRENCE.ALL: {
+      case RECURRENCE_EDIT_SCOPE.ALL: {
         return deleteAll(appointmentData);
       }
-      case RECURRENCE.CURRENT: {
+      case RECURRENCE_EDIT_SCOPE.CURRENT: {
         return deleteCurrent(appointmentData);
       }
-      case RECURRENCE.CURRENT_AND_FOLLOWING: {
+      case RECURRENCE_EDIT_SCOPE.CURRENT_AND_FOLLOWING: {
         return deletedCurrentAndFollowing(appointmentData);
       }
     }
   } else {
     switch (editType) {
-      case RECURRENCE.ALL: {
+      case RECURRENCE_EDIT_SCOPE.ALL: {
         return editAll(changes, appointmentData);
       }
-      case RECURRENCE.CURRENT: {
+      case RECURRENCE_EDIT_SCOPE.CURRENT: {
         return editCurrent(changes, appointmentData);
       }
-      case RECURRENCE.CURRENT_AND_FOLLOWING: {
+      case RECURRENCE_EDIT_SCOPE.CURRENT_AND_FOLLOWING: {
         return editCurrentAndFollowing(changes, appointmentData);
       }
     }

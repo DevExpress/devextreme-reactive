@@ -3,7 +3,7 @@ import { createShallow } from '@material-ui/core/test-utils';
 import CloseIcon from '@material-ui/icons/Close';
 import { CancelButton } from './cancel-button';
 
-describe('AppointmentForm control', () => {
+describe('AppointmentForm command', () => {
   const defaultProps = {
     onExecute: jest.fn(),
     id: 'id',

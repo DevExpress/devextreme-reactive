@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { Layout } from './layout';
 
-describe('AppointmentForm control', () => {
+describe('AppointmentForm command', () => {
   const defaultProps = {
     commandButtonComponent: () => null,
     getMessage: jest.fn(),

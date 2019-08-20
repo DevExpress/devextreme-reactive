@@ -3,7 +3,7 @@ import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { DeleteButton } from './delete-button';
 
-describe('AppointmentForm control', () => {
+describe('AppointmentForm command', () => {
   const defaultProps = {
     onExecute: jest.fn(),
     id: 'id',

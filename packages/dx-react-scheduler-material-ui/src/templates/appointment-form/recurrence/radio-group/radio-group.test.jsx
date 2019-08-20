@@ -15,6 +15,15 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
   ...require.requireActual('@devexpress/dx-scheduler-core'),
   getRecurrenceOptions: jest.fn(),
 }));
+jest.mock('./monthly-editor', () => ({
+  MonthlyEditor: () => null,
+}));
+jest.mock('./yealy-editor', () => ({
+  YearlyEditor: () => null,
+}));
+jest.mock('./end-repeat-editor', () => ({
+  EndRepeatEditor: () => null,
+}));
 
 describe('AppointmentForm recurrence radio group', () => {
   const defaultProps = {
@@ -44,7 +53,7 @@ describe('AppointmentForm recurrence radio group', () => {
   });
   describe('RadioGroup', () => {
     it('should pass rest props to the root element', () => {
-      const tree = shallow((
+      const tree = mount((
         <RadioGroup data={{ a: 1 }} {...defaultProps} />
       ));
 

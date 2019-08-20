@@ -13,7 +13,7 @@ import { DeleteButton } from './delete-button';
 describe('AppointmentForm control', () => {
   const defaultProps = {
     onExecute: jest.fn(),
-    getMessage: jest.fn(),
+    getMessage: jest.fn(() => 'test'),
   };
   let shallow;
   let mount;

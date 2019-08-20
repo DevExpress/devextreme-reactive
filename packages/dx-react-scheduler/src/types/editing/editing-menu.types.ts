@@ -4,7 +4,7 @@ import { AppointmentModel } from '../index';
 export namespace EditingMenu {
   /** Properties passed to a component that renders the editing menu's layout. */
   export interface LayoutProps {
-    /** 'true' if the appointment is being deleted, 'false' if it is being edited. */
+    /** 'true' if the appointment is being deleted or 'false' if it is being edited. */
     isDeleting: boolean;
     /** A component that renders the OK and Cancel buttons. */
     buttonComponent: React.ComponentType<EditingMenu.ButtonProps>;
@@ -12,9 +12,9 @@ export namespace EditingMenu {
     handleClose: () => void;
     /** A function that commits changes. */
     commit: () => void;
-    /** A list of editing operations available to users. */
+    /** A list of available editing operations. */
     availableOperations: Array<any>;
-    /** A function that returns a message that has the specified key. */
+    /** A function that returns a message with the specified key. */
     getMessage: (messageKey: string) => string;
   }
   /** Properties passed to a component that renders the overlay window. */
@@ -23,7 +23,7 @@ export namespace EditingMenu {
     target: React.RefObject<unknown>;
     /** A flag that specifies whether the overlay window is visible. */
     visible: boolean;
-    /** A function to execute when the window hides. */
+    /** A function that is executed when the window is hidden. */
     onHide: () => void;
   }
   /** @internal */
@@ -40,23 +40,25 @@ export namespace EditingMenu {
   }
   /** Localization Messages */
   export interface LocalizationMessages {
-    /** A text for the 'Current appointment' choice. */
+    /** Text for the 'Current appointment' option. */
     current?: string;
-    /** A text for the 'Current and following appointments' choice. */
+    /** Text for the 'Current and following appointments' option. */
     currentAndFollowing?: string;
-    /** A text for the 'All appointments' choice. */
+    /** Text for the 'All appointments' option. */
     all?: string;
-    /** The menu's title to display when an appointment is being deleted. */
-    menuTitle?: string;
+    /** The menu's title that should be displayed when an appointment is being edited. */
+    menuEditingTitle?: string;
+    /** The menu's title that should be displayed when an appointment is being deleted. */
+    menuDeletingTitle?: string;
     /** The Cancel button's text. */
     cancelButton?: string;
-    /** Specifies the OK button's text. */
+    /** The OK button's text. */
     commitButton?: string;
   }
 }
 
 export interface EditingMenuProps {
-  /** A component that renders the menu's layout. */
+  /** A component that renders the editing menu's layout. */
   layoutComponent: React.ComponentType<EditingMenu.LayoutProps>;
   /** A component that renders the overlay window. */
   overlayComponent: React.ComponentType<EditingMenu.OverlayProps>;

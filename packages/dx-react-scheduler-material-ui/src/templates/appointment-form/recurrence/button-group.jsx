@@ -5,16 +5,8 @@ import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import {
-  getRecurrenceOptions,
-  DAYS_OF_WEEK,
-  SUNDAY_DATE,
-  WEEK_DAY_OPTIONS,
-  MONDAY_DATE,
-  TUESDAY_DATE,
-  THURSDAY_DATE,
-  FRIDAY_DATE,
-  SATURDAY_DATE,
-  WEDNESDAY_DATE,
+  getRecurrenceOptions, DAYS_OF_WEEK, SUNDAY_DATE, WEEK_DAY_OPTIONS, MONDAY_DATE,
+  TUESDAY_DATE, THURSDAY_DATE, FRIDAY_DATE, SATURDAY_DATE, WEDNESDAY_DATE,
   changeRecurrenceOptions,
 } from '@devexpress/dx-scheduler-core';
 import { setColor } from '../../utils';

@@ -14,10 +14,6 @@ import {
   isAllDayCell,
   callActionIfExists,
   AppointmentModel,
-  RRULE_REPEAT_TYPES,
-  getRecurrenceFrequency,
-  changeRecurrenceOptions,
-  REPEAT_TYPES,
 } from '@devexpress/dx-scheduler-core';
 
 import {

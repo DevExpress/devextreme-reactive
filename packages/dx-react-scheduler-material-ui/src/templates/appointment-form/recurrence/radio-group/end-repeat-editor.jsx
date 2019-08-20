@@ -12,7 +12,6 @@ const styles = ({ spacing, typography }) => ({
   textEditor: {
     width: '15em',
     marginLeft: spacing(1.875),
-    marginRight: spacing(2),
   },
   label: {
     width: '4em',

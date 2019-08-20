@@ -1,23 +1,24 @@
 import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
-import { getRecurrenceOptions } from '@devexpress/dx-scheduler-core';
+import { getRecurrenceOptions, changeRecurrenceOptions } from '@devexpress/dx-scheduler-core';
 import { Daily } from './daily';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   ...require.requireActual('@devexpress/dx-scheduler-core'),
   getRecurrenceOptions: jest.fn(),
+  changeRecurrenceOptions: jest.fn(),
 }));
 
-describe('AppointmentForm recurrence layout', () => {
+describe('AppointmentForm recurrence layout ', () => {
   const defaultProps = {
     textEditorComponent: () => null,
     labelComponent: () => null,
-    radioGroupEditorComponent: () => null,
-    switcherComponent: () => null,
-    groupedButtonsComponent: () => null,
-    onRecurrenceOptionsChange: jest.fn(),
+    radioGroupComponent: () => null,
+    selectComponent: () => null,
+    buttonGroupComponent: () => null,
     onAppointmentFieldChange: jest.fn(),
     getMessage: jest.fn(),
+    formatDate: jest.fn(),
     changedAppointment: {},
   };
   let classes;
@@ -28,6 +29,7 @@ describe('AppointmentForm recurrence layout', () => {
   });
   beforeEach(() => {
     getRecurrenceOptions.mockImplementation(() => ({}));
+    changeRecurrenceOptions.mockImplementation(testValue => testValue);
   });
   describe('Daily', () => {
     it('should pass rest props to the root element', () => {
@@ -49,7 +51,7 @@ describe('AppointmentForm recurrence layout', () => {
         .toHaveLength(2);
       expect(labels.at(0).is(`.${classes.label}`))
         .toBeTruthy();
-      expect(labels.at(1).is(`.${classes.label}`))
+      expect(labels.at(1).is(`.${classes.labelWithMargin}`))
         .toBeTruthy();
 
       const textEditor = tree.find(defaultProps.textEditorComponent);
@@ -66,10 +68,12 @@ describe('AppointmentForm recurrence layout', () => {
 
       tree.find(defaultProps.textEditorComponent).at(0)
         .simulate('valueChange', 'abc');
-      expect(defaultProps.onRecurrenceOptionsChange)
+      expect(defaultProps.onAppointmentFieldChange)
         .toHaveBeenCalledWith({
-          ...defaultProps.recurrenceOptions,
-          interval: 'abc',
+          rRule: {
+            ...getRecurrenceOptions(),
+            interval: 'abc',
+          },
         });
     });
 

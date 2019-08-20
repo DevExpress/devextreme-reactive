@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow } from '@material-ui/core/test-utils';
+import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { getRecurrenceOptions } from '@devexpress/dx-scheduler-core';
 import { Layout } from './layout';
 import { Daily } from './layouts/daily';
@@ -11,27 +11,40 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
   ...require.requireActual('@devexpress/dx-scheduler-core'),
   getRecurrenceOptions: jest.fn(),
 }));
+jest.mock('./layouts/daily', () => ({
+  Daily: () => null,
+}));
+jest.mock('./layouts/weekly', () => ({
+  Weekly: () => null,
+}));
+jest.mock('./layouts/monthly', () => ({
+  Monthly: () => null,
+}));
+jest.mock('./layouts/yearly', () => ({
+  Yearly: () => null,
+}));
 
 describe('AppointmentForm recurrence', () => {
   const defaultProps = {
     textEditorComponent: () => null,
     labelComponent: () => null,
-    radioGroupEditorComponent: () => null,
-    switcherComponent: () => null,
-    groupedButtonsComponent: () => null,
-    dateAndTimeEditorComponent: () => null,
-    onRecurrenceOptionsChange: jest.fn(),
+    radioGroupComponent: () => null,
+    selectComponent: () => null,
+    buttonGroupComponent: () => null,
+    dateEditorComponent: () => null,
     onAppointmentFieldChange: jest.fn(),
     getMessage: jest.fn(),
     changedAppointment: {},
-    frequency: 'daily',
+    formatDate: jest.fn(),
   };
   let shallow;
+  let classes;
   beforeAll(() => {
     shallow = createShallow({ dive: true });
+    classes = getClasses(<Layout {...defaultProps} />);
   });
   beforeEach(() => {
-    getRecurrenceOptions.mockImplementation(() => ({}));
+    getRecurrenceOptions.mockImplementation(() => ({ freq: 3 }));
   });
   describe('Layout', () => {
     it('should pass rest props to the root element', () => {
@@ -51,8 +64,12 @@ describe('AppointmentForm recurrence', () => {
       const labels = tree.find(defaultProps.labelComponent);
       expect(labels)
         .toHaveLength(2);
+      expect(labels.at(0).is(`.${classes.repeatLabel}`))
+        .toBeTruthy();
+      expect(labels.at(1).is(`.${classes.endRepeatLabel}`))
+        .toBeTruthy();
 
-      const radioGroup = tree.find(defaultProps.radioGroupEditorComponent);
+      const radioGroup = tree.find(defaultProps.radioGroupComponent);
       expect(radioGroup)
         .toHaveLength(1);
     });
@@ -62,54 +79,38 @@ describe('AppointmentForm recurrence', () => {
         <Layout {...defaultProps}><div /></Layout>
       ));
 
-      const daiy = tree.find(Daily);
-      expect(daiy)
+      expect(tree.find(Daily))
         .toHaveLength(1);
     });
 
     it('should render Weekly layout correctly', () => {
-      const tree = shallow((
-        <Layout {...defaultProps} frequency="weekly"><div /></Layout>
-      ));
-
-      const weekly = tree.find(Weekly);
-      expect(weekly)
-        .toHaveLength(1);
-    });
-
-    it('should render Monthly layout correctly', () => {
-      const tree = shallow((
-        <Layout {...defaultProps} frequency="monthly"><div /></Layout>
-      ));
-
-      const monthly = tree.find(Monthly);
-      expect(monthly)
-        .toHaveLength(1);
-    });
-
-    it('should render Yearly layout correctly', () => {
-      const tree = shallow((
-        <Layout {...defaultProps} frequency="yearly"><div /></Layout>
-      ));
-
-      const yearly = tree.find(Yearly);
-      expect(yearly)
-        .toHaveLength(1);
-    });
-
-    it('should handle recurrence options change', () => {
+      getRecurrenceOptions.mockImplementation(() => ({ freq: 2 }));
       const tree = shallow((
         <Layout {...defaultProps}><div /></Layout>
       ));
 
+      expect(tree.find(Weekly))
+        .toHaveLength(1);
+    });
 
-      tree.find(Daily).at(0).simulate('recurrenceOptionsChange', 'abc');
-      expect(defaultProps.onRecurrenceOptionsChange)
-        .toHaveBeenCalledWith('abc');
+    it('should render Monthly layout correctly', () => {
+      getRecurrenceOptions.mockImplementation(() => ({ freq: 1 }));
+      const tree = shallow((
+        <Layout {...defaultProps}><div /></Layout>
+      ));
 
-      tree.find(defaultProps.radioGroupEditorComponent).at(0).simulate('recurrenceOptionsChange', 'bcd');
-      expect(defaultProps.onRecurrenceOptionsChange)
-        .toHaveBeenCalledWith('bcd');
+      expect(tree.find(Monthly))
+        .toHaveLength(1);
+    });
+
+    it('should render Yearly layout correctly', () => {
+      getRecurrenceOptions.mockImplementation(() => ({ freq: 0 }));
+      const tree = shallow((
+        <Layout {...defaultProps}><div /></Layout>
+      ));
+
+      expect(tree.find(Yearly))
+        .toHaveLength(1);
     });
 
     it('should handle appointment field change', () => {
@@ -120,6 +121,10 @@ describe('AppointmentForm recurrence', () => {
       tree.find(Daily).at(0).simulate('appointmentFieldChange', 'abc');
       expect(defaultProps.onAppointmentFieldChange)
         .toHaveBeenCalledWith('abc');
+
+      tree.find(defaultProps.radioGroupComponent).at(0).simulate('appointmentFieldChange', 'bcd');
+      expect(defaultProps.onAppointmentFieldChange)
+        .toHaveBeenCalledWith('bcd');
     });
 
     it('should have getMessage called with proper parameters', () => {

@@ -1,24 +1,24 @@
 import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
-import { getRecurrenceOptions } from '@devexpress/dx-scheduler-core';
+import { getRecurrenceOptions, changeRecurrenceOptions } from '@devexpress/dx-scheduler-core';
 import { Yearly } from './yearly';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   ...require.requireActual('@devexpress/dx-scheduler-core'),
   getRecurrenceOptions: jest.fn(),
+  changeRecurrenceOptions: jest.fn(),
 }));
 
 describe('AppointmentForm recurrence layout', () => {
   const defaultProps = {
     textEditorComponent: () => null,
     labelComponent: () => null,
-    radioGroupEditorComponent: () => null,
-    switcherComponent: () => null,
-    groupedButtonsComponent: () => null,
-    onRecurrenceOptionsChange: jest.fn(),
+    radioGroupComponent: () => null,
+    selectComponent: () => null,
+    buttonGroupComponent: () => null,
     onAppointmentFieldChange: jest.fn(),
-    recurrenceOptions: {},
     getMessage: jest.fn(),
+    formatDate: jest.fn(),
     changedAppointment: {},
   };
   let classes;
@@ -29,6 +29,7 @@ describe('AppointmentForm recurrence layout', () => {
   });
   beforeEach(() => {
     getRecurrenceOptions.mockImplementation(() => ({}));
+    changeRecurrenceOptions.mockImplementation(testValue => testValue);
   });
   describe('Yearly', () => {
     it('should pass rest props to the root element', () => {
@@ -50,7 +51,7 @@ describe('AppointmentForm recurrence layout', () => {
         .toHaveLength(2);
       expect(labels.at(0).is(`.${classes.label}`))
         .toBeTruthy();
-      expect(labels.at(1).is(`.${classes.label}`))
+      expect(labels.at(1).is(`.${classes.labelWithMargin}`))
         .toBeTruthy();
 
       const textEditor = tree.find(defaultProps.textEditorComponent);
@@ -59,28 +60,9 @@ describe('AppointmentForm recurrence layout', () => {
       expect(textEditor.at(0).is(`.${classes.textEditor}`))
         .toBeTruthy();
 
-      const radioGroupEditor = tree.find(defaultProps.radioGroupEditorComponent);
-      expect(radioGroupEditor)
+      const radioGroup = tree.find(defaultProps.radioGroupComponent);
+      expect(radioGroup)
         .toHaveLength(1);
-    });
-
-    it('should handle recurrence options change', () => {
-      const tree = shallow((
-        <Yearly {...defaultProps} />
-      ));
-
-      tree.find(defaultProps.textEditorComponent).at(0)
-        .simulate('valueChange', 'abc');
-      expect(defaultProps.onRecurrenceOptionsChange)
-        .toHaveBeenCalledWith({
-          ...defaultProps.recurrenceOptions,
-          interval: 'abc',
-        });
-
-      tree.find(defaultProps.radioGroupEditorComponent).at(0)
-        .simulate('recurrenceOptionsChange', 'bcd');
-      expect(defaultProps.onRecurrenceOptionsChange)
-        .toHaveBeenCalledWith('bcd');
     });
 
     it('should handle appointment field change', () => {
@@ -88,7 +70,17 @@ describe('AppointmentForm recurrence layout', () => {
         <Yearly {...defaultProps} />
       ));
 
-      tree.find(defaultProps.radioGroupEditorComponent).at(0)
+      tree.find(defaultProps.textEditorComponent).at(0)
+        .simulate('valueChange', 'abc');
+      expect(defaultProps.onAppointmentFieldChange)
+        .toHaveBeenCalledWith({
+          rRule: {
+            ...getRecurrenceOptions(),
+            interval: 'abc',
+          },
+        });
+
+      tree.find(defaultProps.radioGroupComponent).at(0)
         .simulate('appointmentFieldChange', 'abc');
       expect(defaultProps.onAppointmentFieldChange)
         .toHaveBeenCalledWith('abc');

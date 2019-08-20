@@ -75,7 +75,7 @@ currentAndFollowing? | string | 'This and following appointments' | A text for t
 all? | string | 'All appointments' | A text for the 'All appointments' choice.
 menuEditingTitle? | string | 'Edit recurring appointment' | The menu's title to display when an appointment is being edited.
 menuDeletingTitle? | string | 'Delete recurring appointment' | The menu's title to display when an appointment is being deleted.
-closeButton? | string | 'Cancel' | The Cancel button's text.
+cancelButton? | string | 'Cancel' | The Cancel button's text.
 commitButton? | string | 'OK' | Specifies the OK button's text.
 
 ## Plugin Components

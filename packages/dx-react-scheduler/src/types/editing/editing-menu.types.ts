@@ -4,26 +4,26 @@ import { AppointmentModel } from '../index';
 export namespace EditingMenu {
   /** Properties passed to a component that renders the editing menu's layout. */
   export interface LayoutProps {
-    /** The flag that specifies what type of the editing is (deleting or editing). */
+    /** 'true' if the appointment is being deleted, 'false' if it is being edited. */
     isDeleting: boolean;
-    /** A component that renders the editing menu's button. */
+    /** A component that renders the OK and Cancel buttons. */
     buttonComponent: React.ComponentType<EditingMenu.ButtonProps>;
-    /** The function that closed the window. */
+    /** A function that closes the menu. */
     handleClose: () => void;
-    /** The function that committed changes. */
+    /** A function that commits changes. */
     commit: () => void;
-    /** The editing operations are available to choose. */
+    /** A list of editing operations available to users. */
     availableOperations: Array<any>;
-    /** Returns a specified localization message. */
+    /** A function that returns a message that has the specified key. */
     getMessage: (messageKey: string) => string;
   }
-  /** Properties passed to a component that renders the editing menu's overlay. */
+  /** Properties passed to a component that renders the overlay window. */
   export interface OverlayProps {
-    /** A React component instance or a DOM element that is used for overlay positioning. */
+    /** A React component instance or a DOM element that is used to position the window. */
     target: React.RefObject<unknown>;
-    /** Specifies whether the overlay is visible. */
+    /** A flag that specifies whether the overlay window is visible. */
     visible: boolean;
-    /** An event that initiates overlay hiding. */
+    /** A function to execute when the window hides. */
     onHide: () => void;
   }
   /** @internal */
@@ -31,40 +31,40 @@ export namespace EditingMenu {
     /** A React Ref that should be passed into ref property. */
     target: React.RefObject<unknown>;
   }
-  /** Properties passed to a component that renders the editing menu's button. */
+  /** Properties passed to a component that renders the OK and Cancel buttons. */
   export interface ButtonProps {
-    /** The buttons text. */
+    /** The button's text. */
     title: string;
-    /** The function that should be fired by click. */
+    /** A function to execute when the button is clicked. */
     onClick: () => void;
   }
   /** Localization Messages */
   export interface LocalizationMessages {
-    /** Specifies the 'current' option's text. */
+    /** A text for the 'Current appointment' choice. */
     current?: string;
-    /** Specifies the 'Current and following' option's text. */
+    /** A text for the 'Current and following appointments' choice. */
     currentAndFollowing?: string;
-    /** Specifies the 'All appointments' option's text. */
+    /** A text for the 'All appointments' choice. */
     all?: string;
-    /** Specifies the menu title while editing. */
+    /** The menu's title to display when an appointment is being deleted. */
     menuTitle?: string;
-    /** Specifies the cancel button's text. */
+    /** The Cancel button's text. */
     cancelButton?: string;
-    /** Specifies the commit button's text. */
+    /** Specifies the OK button's text. */
     commitButton?: string;
   }
 }
 
 export interface EditingMenuProps {
-  /** A component that renders the editing menu's layout. */
+  /** A component that renders the menu's layout. */
   layoutComponent: React.ComponentType<EditingMenu.LayoutProps>;
-  /** A component that renders the editing menu's overlay. */
+  /** A component that renders the overlay window. */
   overlayComponent: React.ComponentType<EditingMenu.OverlayProps>;
   /** @internal */
   containerComponent: React.ComponentType<EditingMenu.ContainerProps>;
-  /** A component that renders the editing menu's button. */
+  /** A component that renders the OK and Cancel buttons. */
   buttonComponent: React.ComponentType<EditingMenu.ButtonProps>;
-  /** An object that specifies localization messages. */
+  /** An object that contains localized messages. */
   messages?: EditingMenu.LocalizationMessages;
 }
 

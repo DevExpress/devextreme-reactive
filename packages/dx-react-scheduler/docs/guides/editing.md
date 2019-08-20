@@ -69,7 +69,7 @@ For example, you can show a confirmation dialog before an appointment is removed
 
 ## Drag-and-Drop Editing
 
-Add the [DragDropProvider](../reference/drag-drop-provider.md) plugin to enable users to drag and drop appointments. Use its `allowDrag` and `allowResize` properties to disallow dragging and resizing specific appointments. You can also add the `EditingMenu` plugin to allow users to specify how they want to edit recurrent appointments.
+Add the [DragDropProvider](../reference/drag-drop-provider.md) plugin to enable users to drag and drop appointments. Use its `allowDrag` and `allowResize` properties to disallow dragging and resizing specific appointments. You can also add the `EditingMenu` plugin to allow users to specify how recurrent appointments are edited.
 
 .embedded-demo({ "path": "scheduler-editing/drag-drop", "showThemeSelector": true })
 

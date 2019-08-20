@@ -136,8 +136,7 @@ LayoutBase.propTypes = {
   selectComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   buttonGroupComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   onAppointmentFieldChange: PropTypes.func,
-  onAppointmentFieldChange: PropTypes.func,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   className: PropTypes.string,
   classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func.isRequired,
@@ -149,8 +148,8 @@ LayoutBase.propTypes = {
 LayoutBase.defaultProps = {
   className: undefined,
   onAppointmentFieldChange: () => undefined,
-  onAppointmentFieldChange: () => undefined,
   readOnly: false,
+  children: null,
 };
 
 export const Layout = withStyles(styles)(LayoutBase, { name: 'Layout' });

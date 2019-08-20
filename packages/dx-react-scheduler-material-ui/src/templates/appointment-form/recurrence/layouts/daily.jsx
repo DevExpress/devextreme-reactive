@@ -26,7 +26,7 @@ const styles = ({ spacing }) => ({
 });
 
 const DailyBase = ({
-  radioGrouprComponent,
+  radioGroupComponent,
   textEditorComponent: TextEditor,
   labelComponent: Label,
   classes,
@@ -75,12 +75,11 @@ const DailyBase = ({
 
 DailyBase.propTypes = {
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  radioGrouprComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  radioGroupComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   selectComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   buttonGroupComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   changedAppointment: PropTypes.object.isRequired,
-  onAppointmentFieldChange: PropTypes.func,
   onAppointmentFieldChange: PropTypes.func,
   classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func.isRequired,
@@ -90,7 +89,6 @@ DailyBase.propTypes = {
 };
 
 DailyBase.defaultProps = {
-  onAppointmentFieldChange: () => undefined,
   onAppointmentFieldChange: () => undefined,
   readOnly: false,
   className: undefined,

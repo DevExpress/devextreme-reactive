@@ -65,7 +65,7 @@ const YearlyEditorBase = ({
   getMessage,
   labelComponent: Label,
   textEditorComponent: TextEditor,
-  switcherComponent: Switcher,
+  selectComponent: Select,
   readOnly,
   changedAppointment,
   formatDate,
@@ -156,7 +156,7 @@ const YearlyEditorBase = ({
               label={getMessage('everyLabel')}
               className={classes.label}
             />
-            <Switcher
+            <Select
               disabled={value !== 'onDayAndMonth'}
               onChange={newMonth => onAppointmentFieldChange({
                 rRule: changeRecurrenceOptions({
@@ -198,7 +198,7 @@ const YearlyEditorBase = ({
                 className={classes.label}
                 label={getMessage('theLabel')}
               />
-              <Switcher
+              <Select
                 className={classes.switcher}
                 disabled={value !== 'onDayOfWeek'}
                 onChange={newWeekNumber => handleWeekNumberChange(
@@ -209,7 +209,7 @@ const YearlyEditorBase = ({
                 value={weekNumber}
                 availableOptions={getNumberLabels(getMessage)}
               />
-              <Switcher
+              <Select
                 className={classes.longSwitcher}
                 disabled={value !== 'onDayOfWeek'}
                 onChange={newWeekDay => onAppointmentFieldChange({
@@ -223,7 +223,7 @@ const YearlyEditorBase = ({
 
               />
             </Grid>
-            <Switcher
+            <Select
               className={classes.doubleSwitcher}
               disabled={value !== 'onDayOfWeek'}
               onChange={newMonth => onAppointmentFieldChange({
@@ -248,7 +248,7 @@ YearlyEditorBase.propTypes = {
   onAppointmentFieldChange: PropTypes.func,
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  switcherComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  selectComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   changedAppointment: PropTypes.object.isRequired,
   readOnly: PropTypes.bool,
 };

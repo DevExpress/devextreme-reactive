@@ -47,8 +47,7 @@ const MonthlyEditorBase = ({
   getMessage,
   labelComponent: Label,
   textEditorComponent: TextEditor,
-  dateAndTimeEditorComponent: DateAndTimeEditor,
-  switcherComponent: Switcher,
+  selectComponent: Select,
   readOnly,
   changedAppointment,
   formatDate,
@@ -166,7 +165,7 @@ const MonthlyEditorBase = ({
               label={getMessage('theLabel')}
               className={classes.label}
             />
-            <Switcher
+            <Select
               disabled={value !== 'onDayOfWeek'}
               onChange={newWeekNumber => handleWeekNumberChange(
                 newWeekNumber,
@@ -177,7 +176,7 @@ const MonthlyEditorBase = ({
               availableOptions={getNumberLabels(getMessage)}
               className={classes.switcher}
             />
-            <Switcher
+            <Select
               disabled={value !== 'onDayOfWeek'}
               onChange={newWeekDay => onAppointmentFieldChange({
                 rRule: changeRecurrenceOptions({
@@ -203,8 +202,7 @@ MonthlyEditorBase.propTypes = {
   onAppointmentFieldChange: PropTypes.func,
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  dateAndTimeEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  switcherComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  selectComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   changedAppointment: PropTypes.object.isRequired,
   readOnly: PropTypes.bool,
 };

@@ -28,10 +28,9 @@ const ContainerBase = ({
 );
 
 ContainerBase.propTypes = {
-  children: PropTypes.node.isRequired,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
-  anchor: PropTypes.node.isRequired,
+  anchor: PropTypes.object.isRequired,
 };
 
 ContainerBase.defaultProps = {

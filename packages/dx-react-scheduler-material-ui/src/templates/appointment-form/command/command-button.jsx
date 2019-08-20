@@ -10,13 +10,13 @@ import { DeleteButton } from './delete-button';
 import { CancelButton } from './cancel-button';
 
 export const CommandButton = ({
-  id,
+  id, getMessage,
   ...restProps
 }) => {
   switch (id) {
     case SAVE_BUTTON:
       return (
-        <SaveButton {...restProps} />
+        <SaveButton getMessage={getMessage} {...restProps} />
       );
     case DELETE_BUTTON:
       return (
@@ -33,4 +33,5 @@ export const CommandButton = ({
 
 CommandButton.propTypes = {
   id: PropTypes.string.isRequired,
+  getMessage: PropTypes.func.isRequired,
 };

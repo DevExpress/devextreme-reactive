@@ -11,11 +11,11 @@ import { YearlyEditor } from './yealy-editor';
 
 export const RadioGroup = ({
   getMessage,
-  labelComponent: Label,
-  textEditorComponent: TextEditor,
+  labelComponent,
+  textEditorComponent,
   readOnly,
-  dateAndTimeEditorComponent: DateAndTimeEditor,
-  switcherComponent: Switcher,
+  dateEditorComponent,
+  selectComponent,
   id,
   changedAppointment,
   formatDate,
@@ -28,9 +28,9 @@ export const RadioGroup = ({
         <EndRepeatEditor
           readOnly={readOnly}
           getMessage={getMessage}
-          textEditorComponent={TextEditor}
-          labelComponent={Label}
-          dateAndTimeEditorComponent={DateAndTimeEditor}
+          textEditorComponent={textEditorComponent}
+          labelComponent={labelComponent}
+          dateAndTimeEditorComponent={dateEditorComponent}
           changedAppointment={changedAppointment}
           onAppointmentFieldChange={onAppointmentFieldChange}
           {...restProps}
@@ -41,11 +41,10 @@ export const RadioGroup = ({
         <MonthlyEditor
           readOnly={readOnly}
           getMessage={getMessage}
-          textEditorComponent={TextEditor}
-          labelComponent={Label}
+          textEditorComponent={textEditorComponent}
+          labelComponent={labelComponent}
           changedAppointment={changedAppointment}
-          switcherComponent={Switcher}
-          dateAndTimeEditorComponent={DateAndTimeEditor}
+          selectComponent={selectComponent}
           formatDate={formatDate}
           onAppointmentFieldChange={onAppointmentFieldChange}
           {...restProps}
@@ -56,10 +55,10 @@ export const RadioGroup = ({
         <YearlyEditor
           readOnly={readOnly}
           getMessage={getMessage}
-          textEditorComponent={TextEditor}
-          labelComponent={Label}
+          textEditorComponent={textEditorComponent}
+          labelComponent={labelComponent}
           changedAppointment={changedAppointment}
-          switcherComponent={Switcher}
+          selectComponent={selectComponent}
           formatDate={formatDate}
           onAppointmentFieldChange={onAppointmentFieldChange}
           {...restProps}
@@ -75,16 +74,19 @@ RadioGroup.propTypes = {
   getMessage: PropTypes.func.isRequired,
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  dateAndTimeEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  switcherComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  dateEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+  selectComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   readOnly: PropTypes.bool,
   id: PropTypes.string.isRequired,
   changedAppointment: PropTypes.object.isRequired,
   onAppointmentFieldChange: PropTypes.func,
-  formatDate: PropTypes.func.isRequired,
+  formatDate: PropTypes.func,
 };
 
 RadioGroup.defaultProps = {
   readOnly: false,
   onAppointmentFieldChange: () => undefined,
+  formatDate: null,
+  selectComponent: null,
+  dateEditorComponent: null,
 };

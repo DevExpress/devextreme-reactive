@@ -82,7 +82,7 @@ const MonthlyBase = ({
         labelComponent={Label}
         onAppointmentFieldChange={onAppointmentFieldChange}
         changedAppointment={changedAppointment}
-        switcherComponent={selectComponent}
+        selectComponent={selectComponent}
         formatDate={formatDate}
       />
     </div>

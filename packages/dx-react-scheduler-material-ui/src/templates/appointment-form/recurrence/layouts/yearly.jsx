@@ -85,7 +85,7 @@ const YearlyBase = ({
         labelComponent={Label}
         onAppointmentFieldChange={onAppointmentFieldChange}
         changedAppointment={changedAppointment}
-        switcherComponent={selectComponent}
+        selectComponent={selectComponent}
         formatDate={formatDate}
         className={classes.radioGroup}
       />

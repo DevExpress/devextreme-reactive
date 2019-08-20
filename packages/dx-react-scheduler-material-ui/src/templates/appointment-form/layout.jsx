@@ -45,7 +45,7 @@ LayoutBase.propTypes = {
   basicLayoutComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   commandLayoutComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   recurrenceLayoutComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   className: PropTypes.string,
   classes: PropTypes.object.isRequired,
   isRecurring: PropTypes.bool,
@@ -54,6 +54,7 @@ LayoutBase.propTypes = {
 LayoutBase.defaultProps = {
   className: undefined,
   isRecurring: false,
+  children: null,
 };
 
 export const Layout = withStyles(styles)(LayoutBase, { name: 'Layout' });

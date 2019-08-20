@@ -306,7 +306,6 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                 : changeAppointmentAction;
               return (
                 <BasicLayout
-                  isRecurring={changedAppointment.rRule !== undefined}
                   textEditorComponent={textEditorComponent}
                   dateEditorComponent={dateEditorComponent}
                   allDayComponent={booleanEditorComponent}

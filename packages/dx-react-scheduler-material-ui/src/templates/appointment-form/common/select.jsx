@@ -41,7 +41,7 @@ const SelectBase = ({
 
   const Input = id === STANDARD_SELECT
     ? (
-      <FilledInput />
+      <FilledInput hiddenLabel />
     )
     : (
       <OutlinedInput
@@ -61,7 +61,6 @@ const SelectBase = ({
       onChange={handleChange}
       input={Input}
       IconComponent={Icon}
-      hiddenLabel
       {...restProps}
     >
       {availableOptions.map(option => (
@@ -80,9 +79,9 @@ const SelectBase = ({
 SelectBase.propTypes = {
   onChange: PropTypes.func,
   classes: PropTypes.object.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   availableOptions: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     text: PropTypes.string.isRequired,
   })),
   disabled: PropTypes.bool,

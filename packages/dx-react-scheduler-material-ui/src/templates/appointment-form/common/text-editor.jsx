@@ -59,7 +59,7 @@ const TextEditorBase = ({
 
 TextEditorBase.propTypes = {
   classes: PropTypes.object.isRequired,
-  value: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   label: PropTypes.string,
   className: PropTypes.string,
   readOnly: PropTypes.bool,

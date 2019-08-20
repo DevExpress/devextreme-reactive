@@ -67,7 +67,7 @@ OverlayBase.propTypes = {
   onHide: PropTypes.func.isRequired,
   visible: PropTypes.bool,
   className: PropTypes.string,
-  target: PropTypes.node,
+  target: PropTypes.object,
 };
 
 OverlayBase.defaultProps = {

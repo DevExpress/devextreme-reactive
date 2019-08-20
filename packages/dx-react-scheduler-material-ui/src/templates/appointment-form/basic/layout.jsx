@@ -154,7 +154,7 @@ LayoutBase.propTypes = {
   selectComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   allDayComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   className: PropTypes.string,
   classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func.isRequired,
@@ -167,6 +167,7 @@ LayoutBase.defaultProps = {
   className: undefined,
   readOnly: false,
   onAppointmentFieldChange: () => undefined,
+  children: null,
 };
 
 export const Layout = withStyles(styles)(LayoutBase, { name: 'Layout' });

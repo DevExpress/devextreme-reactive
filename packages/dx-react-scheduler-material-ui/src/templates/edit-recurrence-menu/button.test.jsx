@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createShallow } from '@material-ui/core/test-utils';
 import { Button } from './button';
 
-describe('EditingMenu', () => {
+describe('EditRecurrenceMenu', () => {
   let shallow;
   const defaultProps = {
     onClick: jest.fn(),

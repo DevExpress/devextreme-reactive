@@ -1,13 +1,13 @@
 import { AppointmentModel } from '../index';
 
 /* tslint:disable no-namespace max-line-length */
-export namespace EditingMenu {
-  /** Properties passed to a component that renders the editing menu's layout. */
+export namespace EditRecurrenceMenu {
+  /** Properties passed to a component that renders the edit menu's layout. */
   export interface LayoutProps {
     /** 'true' if the appointment is being deleted or 'false' if it is being edited. */
     isDeleting: boolean;
     /** A component that renders the OK and Cancel buttons. */
-    buttonComponent: React.ComponentType<EditingMenu.ButtonProps>;
+    buttonComponent: React.ComponentType<EditRecurrenceMenu.ButtonProps>;
     /** A function that closes the menu. */
     handleClose: () => void;
     /** A function that commits changes. */
@@ -57,21 +57,21 @@ export namespace EditingMenu {
   }
 }
 
-export interface EditingMenuProps {
-  /** A component that renders the editing menu's layout. */
-  layoutComponent: React.ComponentType<EditingMenu.LayoutProps>;
+export interface EditRecurrenceMenuProps {
+  /** A component that renders the edit menu's layout. */
+  layoutComponent: React.ComponentType<EditRecurrenceMenu.LayoutProps>;
   /** A component that renders the overlay window. */
-  overlayComponent: React.ComponentType<EditingMenu.OverlayProps>;
+  overlayComponent: React.ComponentType<EditRecurrenceMenu.OverlayProps>;
   /** @internal */
-  containerComponent: React.ComponentType<EditingMenu.ContainerProps>;
+  containerComponent: React.ComponentType<EditRecurrenceMenu.ContainerProps>;
   /** A component that renders the OK and Cancel buttons. */
-  buttonComponent: React.ComponentType<EditingMenu.ButtonProps>;
+  buttonComponent: React.ComponentType<EditRecurrenceMenu.ButtonProps>;
   /** An object that contains localized messages. */
-  messages?: EditingMenu.LocalizationMessages;
+  messages?: EditRecurrenceMenu.LocalizationMessages;
 }
 
 /** @internal */
-export type EditingMenuState = {
+export type EditRecurrenceMenuState = {
   isOpen: boolean;
   deletedAppointmentData: Partial<AppointmentModel> | null;
 };

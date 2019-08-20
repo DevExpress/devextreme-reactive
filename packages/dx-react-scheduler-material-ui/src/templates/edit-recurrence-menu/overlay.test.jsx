@@ -3,7 +3,7 @@ import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import Dialog from '@material-ui/core/Dialog';
 import { Overlay } from './overlay';
 
-describe('EditingMenu', () => {
+describe('EditRecurrenceMenu', () => {
   let shallow;
   let classes;
   const defaultProps = {

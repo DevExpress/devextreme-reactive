@@ -1,4 +1,4 @@
-# EditingMenu Plugin Reference
+# EditRecurrenceMenu Plugin Reference
 
 A plugin that renders the menu that allows users to edit recurrent appointments. Should not be used with the [IntegratedEditing](integrated-editing.md) plugin.
 
@@ -7,13 +7,13 @@ A plugin that renders the menu that allows users to edit recurrent appointments.
 Use the following statement to import the plugin with embedded theme components:
 
 ```js
-import { EditingMenu } from '@devexpress/dx-react-scheduler-material-ui';
+import { EditRecurrenceMenu } from '@devexpress/dx-react-scheduler-material-ui';
 ```
 
 If you are going to use custom theme components, import the themeless version of this plugin instead:
 
 ```js
-import { EditingMenu } from '@devexpress/dx-react-scheduler';
+import { EditRecurrenceMenu } from '@devexpress/dx-react-scheduler';
 ```
 
 ## User Reference
@@ -26,27 +26,27 @@ import { EditingMenu } from '@devexpress/dx-react-scheduler';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-layoutComponent | ComponentType&lt;[EditingMenu.LayoutProps](#editingmenulayoutprops)&gt; | | A component that renders the menu's layout.
-overlayComponent | ComponentType&lt;[EditingMenu.OverlayProps](#editingmenuoverlayprops)&gt; | | A component that renders the overlay window.
-buttonComponent | ComponentType&lt;[EditingMenu.ButtonProps](#editingmenubuttonprops)&gt; | | A component that renders the OK and Cancel buttons.
-messages | ComponentType&lt;[EditingMenu.LocalizationMessages](#editingmenulocalizationmessages)&gt; | | An object that contains localized messages.
+layoutComponent | ComponentType&lt;[EditRecurrenceMenu.LayoutProps](#editrecurrencemenulayoutprops)&gt; | | A component that renders the menu's layout.
+overlayComponent | ComponentType&lt;[EditRecurrenceMenu.OverlayProps](#editrecurrencemenuoverlayprops)&gt; | | A component that renders the overlay window.
+buttonComponent | ComponentType&lt;[EditRecurrenceMenu.ButtonProps](#editrecurrencemenubuttonprops)&gt; | | A component that renders the OK and Cancel buttons.
+messages | ComponentType&lt;[EditRecurrenceMenu.LocalizationMessages](#editrecurrencemenulocalizationmessages)&gt; | | An object that contains localized messages.
 
 ## Interfaces
 
-### EditingMenu.LayoutProps
+### EditRecurrenceMenu.LayoutProps
 
-Properties passed to a component that renders the editing menu's layout.
+Properties passed to a component that renders the edit menu's layout.
 
 Field | Type | Description
 ------|------|------------
 isDeleting | boolean | **true** if the appointment is being deleted or **false** if it is being edited.
-buttonComponent | ComponentType&lt;[EditingMenu.ButtonProps](#editingmenubuttonprops)&gt; | A component that renders the OK and Cancel buttons.
+buttonComponent | ComponentType&lt;[EditRecurrenceMenu.ButtonProps](#editrecurrencemenubuttonprops)&gt; | A component that renders the OK and Cancel buttons.
 handleClose | () => void | A function that closes the menu.
 commit | () => void | A function that commits changes.
 availableOperations | Array&lt;string&gt; | A list of available editing operations.
 getMessage | (messageKey: string) => string | A function that returns a message with the specified key.
 
-### EditingMenu.OverlayProps
+### EditRecurrenceMenu.OverlayProps
 
 Properties passed to a component that renders the overlay window.
 
@@ -57,7 +57,7 @@ visible | boolean | A flag that specifies whether the overlay window is visible.
 onHide | () => void | A function that is executed when the window is hidden.
 children | ReactNode | A React node used to render the window's content.
 
-### EditingMenu.ButtonProps
+### EditRecurrenceMenu.ButtonProps
 
 Properties passed to a component that renders the OK and Cancel buttons.
 
@@ -82,8 +82,8 @@ commitButton? | string | 'OK' | The OK button's text.
 
 Name | Properties | Description
 -----|------------|------------
-EditingMenu.Layout | [EditingMenu.LayoutProps](#editingmenulayoutprops) | A component that renders the editing menu's layout.
-EditingMenu.Overlay | [EditingMenu.OverlayProps](#editingmenuomodalprops) | A component that renders the overlay window.
-EditingMenu.Button | [EditingMenu.ButtonProps](#editingmenubuttonprops) | A component that renders the OK and Cancel buttons.
+EditRecurrenceMenu.Layout | [EditRecurrenceMenu.LayoutProps](#editrecurrencemenulayoutprops) | A component that renders the edit menu's layout.
+EditRecurrenceMenu.Overlay | [EditRecurrenceMenu.OverlayProps](#editrecurrencemenuomodalprops) | A component that renders the overlay window.
+EditRecurrenceMenu.Button | [EditRecurrenceMenu.ButtonProps](#editrecurrencemenubuttonprops) | A component that renders the OK and Cancel buttons.
 
 Additional properties are added to the component's root element.

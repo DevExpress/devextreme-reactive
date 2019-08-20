@@ -4,7 +4,7 @@ import {
   Plugin, Template, TemplatePlaceholder, TemplateConnector, Action, Getters, Actions,
 } from '@devexpress/dx-react-core';
 import { RECURRENCE } from '@devexpress/dx-scheduler-core';
-import { EditingMenuProps, EditingMenuState } from '../types';
+import { EditRecurrenceMenuProps, EditRecurrenceMenuState } from '../types';
 
 const pluginDependencies = [
   { name: 'EditingState' },
@@ -26,7 +26,9 @@ const defaultMessages = {
   commitButton: 'OK',
 };
 
-class EditingMenuBase extends React.PureComponent<EditingMenuProps, EditingMenuState> {
+class EditRecurrenceMenuBase extends React.PureComponent<
+  EditRecurrenceMenuProps, EditRecurrenceMenuState
+> {
   static components = {
     layoutComponent: 'Layout',
     overlayComponent: 'Overlay',
@@ -104,7 +106,7 @@ class EditingMenuBase extends React.PureComponent<EditingMenuProps, EditingMenuS
 
     return (
       <Plugin
-        name="EditingMenu"
+        name="EditRecurrenceMenu"
         dependencies={pluginDependencies}
       >
         <Action name="finishCommitAppointment" action={this.finishCommitAppointment} />
@@ -148,7 +150,9 @@ class EditingMenuBase extends React.PureComponent<EditingMenuProps, EditingMenuS
 }
 
 /**
- * A plugin that renders the Scheduler's editing menu.
+ * A plugin that renders the Scheduler's edit menu.
  * Should not be used with the `IntegratedEditing` plugin.
  */
-export const EditingMenu: React.ComponentType<EditingMenuProps> = EditingMenuBase;
+export const EditRecurrenceMenu: React.ComponentType<
+  EditRecurrenceMenuProps
+> = EditRecurrenceMenuBase;

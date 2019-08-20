@@ -8,7 +8,7 @@ The following plugins implement this feature:
 
 - [EditingState](../reference/editing-state.md) - controls the editing state
 - [IntegratedEditing](../reference/integrated-editing.md) - implements editing
-- [EditingMenu](../reference/integrated-editing.md) - renders the editing menu and allows you to process user edits
+- [EditRecurrenceMenu](../reference/integrated-editing.md) - renders the edit menu and allows you to process user edits
 - [AppointmentTooltip](../reference/appointment-tooltip.md) - renders a tooltip with controls that manage the appointment
 - [AppointmentForm](../reference/appointment-form.md) - renders a form that allows a user to edit an appointment
 - [DragDropProvider](../reference/drag-drop-provider.md) - implements drag-and-drop editing
@@ -69,7 +69,7 @@ For example, you can show a confirmation dialog before an appointment is removed
 
 ## Drag-and-Drop Editing
 
-Add the [DragDropProvider](../reference/drag-drop-provider.md) plugin to enable users to drag and drop appointments. Use its `allowDrag` and `allowResize` properties to disallow dragging and resizing specific appointments. You can also add the `EditingMenu` plugin to allow users to specify how recurrent appointments are edited.
+Add the [DragDropProvider](../reference/drag-drop-provider.md) plugin to enable users to drag and drop appointments. Use its `allowDrag` and `allowResize` properties to disallow dragging and resizing specific appointments. You can also add the `EditRecurrenceMenu` plugin to allow users to specify how recurrent appointments are edited.
 
 .embedded-demo({ "path": "scheduler-editing/drag-drop", "showThemeSelector": true })
 

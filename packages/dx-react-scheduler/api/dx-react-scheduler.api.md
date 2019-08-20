@@ -386,46 +386,6 @@ export type EditAppointmentPayload = {
 };
 
 // @public
-export const EditingMenu: React.ComponentType<EditingMenuProps>;
-
-// @public (undocumented)
-export namespace EditingMenu {
-  export interface ButtonProps {
-    onClick: () => void;
-    title: string;
-  }
-  export interface LayoutProps {
-    availableOperations: Array<any>;
-    buttonComponent: React.ComponentType<EditingMenu.ButtonProps>;
-    commit: () => void;
-    getMessage: (messageKey: string) => string;
-    handleClose: () => void;
-    isDeleting: boolean;
-  }
-  export interface LocalizationMessages {
-    all?: string;
-    cancelButton?: string;
-    commitButton?: string;
-    current?: string;
-    currentAndFollowing?: string;
-    menuTitle?: string;
-  }
-  export interface OverlayProps {
-    onHide: () => void;
-    target: React.RefObject<unknown>;
-    visible: boolean;
-  }
-}
-
-// @public (undocumented)
-export interface EditingMenuProps {
-  buttonComponent: React.ComponentType<EditingMenu.ButtonProps>;
-  layoutComponent: React.ComponentType<EditingMenu.LayoutProps>;
-  messages?: EditingMenu.LocalizationMessages;
-  overlayComponent: React.ComponentType<EditingMenu.OverlayProps>;
-}
-
-// @public
 export const EditingState: React.ComponentType<EditingStateProps>;
 
 // @public (undocumented)
@@ -447,6 +407,47 @@ export interface EditingStateProps {
   onCommitChanges: (changes: ChangeSet) => void;
   onEditingAppointmentChange?: (editingAppointment: Partial<AppointmentModel>) => void;
   preCommitChanges?: PreCommitChangesFn;
+}
+
+// @public
+export const EditRecurrenceMenu: React.ComponentType<EditRecurrenceMenuProps>;
+
+// @public (undocumented)
+export namespace EditRecurrenceMenu {
+  export interface ButtonProps {
+    onClick: () => void;
+    title: string;
+  }
+  export interface LayoutProps {
+    availableOperations: Array<any>;
+    buttonComponent: React.ComponentType<EditRecurrenceMenu.ButtonProps>;
+    commit: () => void;
+    getMessage: (messageKey: string) => string;
+    handleClose: () => void;
+    isDeleting: boolean;
+  }
+  export interface LocalizationMessages {
+    all?: string;
+    cancelButton?: string;
+    commitButton?: string;
+    current?: string;
+    currentAndFollowing?: string;
+    menuDeletingTitle?: string;
+    menuEditingTitle?: string;
+  }
+  export interface OverlayProps {
+    onHide: () => void;
+    target: React.RefObject<unknown>;
+    visible: boolean;
+  }
+}
+
+// @public (undocumented)
+export interface EditRecurrenceMenuProps {
+  buttonComponent: React.ComponentType<EditRecurrenceMenu.ButtonProps>;
+  layoutComponent: React.ComponentType<EditRecurrenceMenu.LayoutProps>;
+  messages?: EditRecurrenceMenu.LocalizationMessages;
+  overlayComponent: React.ComponentType<EditRecurrenceMenu.OverlayProps>;
 }
 
 // @public (undocumented)

@@ -21,7 +21,7 @@ import { DragDropProvider } from '@devexpress/dx-react-scheduler';
 ### Dependencies
 
 - [EditingState](editing-state.md)
-- [EditingMenu](editing-menu.md) [Optional]
+- [EditRecurrenceMenu](edit-recurrence-menu.md) [Optional]
 - [IntegratedEditing](integrated-editing.md) [Optional]
 - [Appointments](appointments.md)
 - [DayView](day-view.md) [Optional]

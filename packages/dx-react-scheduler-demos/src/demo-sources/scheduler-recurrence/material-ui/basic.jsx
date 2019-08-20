@@ -9,7 +9,7 @@ import {
   ViewSwitcher,
   Toolbar,
   DragDropProvider,
-  EditingMenu,
+  EditRecurrenceMenu,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
 const appointments = [{
@@ -86,7 +86,7 @@ export default class Demo extends React.PureComponent {
           <Toolbar />
           <ViewSwitcher />
 
-          <EditingMenu />
+          <EditRecurrenceMenu />
 
           <DragDropProvider />
         </Scheduler>

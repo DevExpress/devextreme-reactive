@@ -7,8 +7,7 @@ import {
   WeekView,
   Appointments,
   DragDropProvider,
-  AllDayPanel,
-  EditingMenu,
+  EditRecurrenceMenu,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
 const recurrenceAppointments = [{
@@ -123,7 +122,7 @@ export default class Demo extends React.PureComponent {
           <EditingState
             onCommitChanges={this.onCommitChanges}
           />
-          <EditingMenu />
+          <EditRecurrenceMenu />
           <WeekView
             startDayHour={9}
             endDayHour={19}
@@ -131,8 +130,6 @@ export default class Demo extends React.PureComponent {
           <Appointments
             appointmentComponent={appointmentComponent}
           />
-          <AllDayPanel />
-
           <DragDropProvider
             allowDrag={allowDrag}
           />

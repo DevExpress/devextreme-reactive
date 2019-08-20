@@ -2,9 +2,9 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents, executeComputedAction } from '@devexpress/dx-testing';
-import { EditingMenu } from './editing-menu';
+import { EditRecurrenceMenu } from './edit-recurrence-menu';
 
-describe('EditingMenu', () => {
+describe('EditRecurrenceMenu', () => {
   const defaultDeps = {
     template: {
       schedulerRoot: {},
@@ -29,7 +29,7 @@ describe('EditingMenu', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <EditingMenu
+        <EditRecurrenceMenu
           {...defaultProps}
         />
       </PluginHost>
@@ -50,7 +50,7 @@ describe('EditingMenu', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <EditingMenu
+        <EditRecurrenceMenu
           {...defaultProps}
         />
       </PluginHost>
@@ -69,7 +69,7 @@ describe('EditingMenu', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <EditingMenu
+        <EditRecurrenceMenu
           {...defaultProps}
         />
       </PluginHost>
@@ -85,7 +85,7 @@ describe('EditingMenu', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <EditingMenu
+        <EditRecurrenceMenu
           {...defaultProps}
         />
       </PluginHost>
@@ -109,7 +109,7 @@ describe('EditingMenu', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps, { getter: {} })}
-        <EditingMenu
+        <EditRecurrenceMenu
           {...defaultProps}
         />
       </PluginHost>
@@ -126,7 +126,7 @@ describe('EditingMenu', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <EditingMenu
+        <EditRecurrenceMenu
           {...defaultProps}
         />
       </PluginHost>
@@ -148,7 +148,7 @@ describe('EditingMenu', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps, { getter: {} })}
-        <EditingMenu
+        <EditRecurrenceMenu
           {...defaultProps}
         />
       </PluginHost>

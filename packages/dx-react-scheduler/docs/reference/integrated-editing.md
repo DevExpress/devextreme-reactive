@@ -1,6 +1,6 @@
 # IntegratedEditing Plugin Reference
 
-A plugin that implements editing in the Scheduler. Should not be used with the [EditingMenu](editing-menu.md) plugin.
+A plugin that implements editing in the Scheduler. Should not be used with the [EditRecurrenceMenu](edit-recurrence-menu.md) plugin.
 
 ## Import
 

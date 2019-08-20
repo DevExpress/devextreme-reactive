@@ -22,7 +22,7 @@ import { AppointmentTooltip } from '@devexpress/dx-react-scheduler';
 
 - [Appointments](appointments.md)
 - [EditingState](editing-state.md) [Optional]
-- [EditingMenu](editing-menu.md) [Optional]
+- [EditRecurrenceMenu](edit-recurrence-menu.md) [Optional]
 - [IntegratedEditing](integrated-editing.md) [Optional]
 
 ### Properties

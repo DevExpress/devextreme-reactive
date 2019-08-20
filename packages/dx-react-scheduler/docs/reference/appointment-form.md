@@ -23,7 +23,7 @@ import { AppointmentForm } from '@devexpress/dx-react-scheduler';
 - [EditingState](editing-state.md) [Optional]
 - [Appointments](appointments.md) [Optional]
 - [AppointmentTooltip](appointment-tooltip.md) [Optional]
-- [EditingMenu](editing-menu.md) [Optional]
+- [EditRecurrenceMenu](edit-recurrence-menu.md) [Optional]
 - [IntegratedEditing](integrated-editing.md) [Optional]
 
 ### Properties

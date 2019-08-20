@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createShallow } from '@material-ui/core/test-utils';
 import { Layout } from './layout';
 
-describe('EditingMenu', () => {
+describe('EditRecurrenceMenu', () => {
   let shallow;
   const defaultProps = {
     availableOperations: [{ value: '1', title: 'operation1' }],

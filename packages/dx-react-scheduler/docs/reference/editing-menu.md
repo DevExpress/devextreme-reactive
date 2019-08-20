@@ -39,12 +39,12 @@ Properties passed to a component that renders the editing menu's layout.
 
 Field | Type | Description
 ------|------|------------
-isDeleting | boolean | **true** if the appointment is being deleted, **false** if it is being edited.
+isDeleting | boolean | **true** if the appointment is being deleted or **false** if it is being edited.
 buttonComponent | ComponentType&lt;[EditingMenu.ButtonProps](#editingmenubuttonprops)&gt; | A component that renders the OK and Cancel buttons.
 handleClose | () => void | A function that closes the menu.
 commit | () => void | A function that commits changes.
-availableOperations | Array&lt;string&gt; | A list of editing operations available to users.
-getMessage | (messageKey: string) => string | A function that returns a message that has the specified key.
+availableOperations | Array&lt;string&gt; | A list of available editing operations.
+getMessage | (messageKey: string) => string | A function that returns a message with the specified key.
 
 ### EditingMenu.OverlayProps
 
@@ -54,7 +54,7 @@ Field | Type | Description
 ------|------|------------
 target | ReactInstance | A React component instance or a DOM element that is used to position the window.
 visible | boolean | A flag that specifies whether the overlay window is visible.
-onHide | () => void | A function to execute when the window hides.
+onHide | () => void | A function that is executed when the window is hidden.
 children | ReactNode | A React node used to render the window's content.
 
 ### EditingMenu.ButtonProps
@@ -64,19 +64,19 @@ Properties passed to a component that renders the OK and Cancel buttons.
 Field | Type | Description
 ------|------|------------
 title | string | The button's text.
-onClick | () => void | A function to execute when the button is clicked.
+onClick | () => void | A function that is executed when the button is clicked.
 
 ## Localization Messages
 
 Field | Type | Default | Description
 ------|------|---------|------------
-current? | string | 'This appointment' | A text for the 'Current appointment' choice.
-currentAndFollowing? | string | 'This and following appointments' | A text for the 'Current and following appointments' choice.
-all? | string | 'All appointments' | A text for the 'All appointments' choice.
-menuEditingTitle? | string | 'Edit recurring appointment' | The menu's title to display when an appointment is being edited.
-menuDeletingTitle? | string | 'Delete recurring appointment' | The menu's title to display when an appointment is being deleted.
+current? | string | 'This appointment' | Text for the 'Current appointment' option.
+currentAndFollowing? | string | 'This and following appointments' | Text for the 'Current and following appointments' option.
+all? | string | 'All appointments' | Text for the 'All appointments' option.
+menuEditingTitle? | string | 'Edit recurring appointment' | The menu's title that should be displayed when an appointment is being edited.
+menuDeletingTitle? | string | 'Delete recurring appointment' | The menu's title that should be displayed when an appointment is being deleted.
 closeButton? | string | 'Cancel' | The Cancel button's text.
-commitButton? | string | 'OK' | Specifies the OK button's text.
+commitButton? | string | 'OK' | The OK button's text.
 
 ## Plugin Components
 

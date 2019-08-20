@@ -76,10 +76,8 @@ describe('EditRecurrenceMenu', () => {
     ));
 
     const container = tree.find(defaultProps.containerComponent);
-    expect(container.props())
-      .toEqual({
-        target: expect.any(Object),
-      });
+    expect(container.exists())
+      .toBeTruthy();
   });
   it('should provide finishCommitAppointment action', () => {
     const tree = mount((

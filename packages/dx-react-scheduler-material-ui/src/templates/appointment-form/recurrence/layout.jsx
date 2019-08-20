@@ -119,7 +119,7 @@ const LayoutBase = ({
         getMessage={getMessage}
         textEditorComponent={textEditorComponent}
         labelComponent={Label}
-        dateAndTimeEditorComponent={dateEditorComponent}
+        dateEditorComponent={dateEditorComponent}
         changedAppointment={changedAppointment}
         onAppointmentFieldChange={onAppointmentFieldChange}
       />

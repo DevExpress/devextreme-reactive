@@ -30,7 +30,7 @@ export const RadioGroup = ({
           getMessage={getMessage}
           textEditorComponent={textEditorComponent}
           labelComponent={labelComponent}
-          dateAndTimeEditorComponent={dateEditorComponent}
+          dateEditorComponent={dateEditorComponent}
           changedAppointment={changedAppointment}
           onAppointmentFieldChange={onAppointmentFieldChange}
           {...restProps}

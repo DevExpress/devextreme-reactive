@@ -19,14 +19,14 @@ describe('TableColumnResizing Plugin reducers', () => {
 
   describe('#changeTableColumnWidth', () => {
     describe('standart resizing mode', () => {
-      const nextColumnResizing = undefined;
+      const columnResizingMode = 'widget';
 
       it('should work', () => {
         getColumnsSizes.mockImplementation(() => ({ size: 45 }));
         const payload = {
           columnName: 'a',
           nextColumnName: 'b',
-          nextColumnResizing,
+          columnResizingMode,
           cachedWidths: { a: 40, b: 60 },
           shift: 5,
           minColumnWidth: 40,
@@ -46,7 +46,7 @@ describe('TableColumnResizing Plugin reducers', () => {
         const payload = {
           columnName: 'b',
           nextColumnName: undefined,
-          nextColumnResizing,
+          columnResizingMode,
           cachedWidths: { a: 40, b: 60 },
           shift: -25,
           minColumnWidth: 40,
@@ -66,7 +66,7 @@ describe('TableColumnResizing Plugin reducers', () => {
         const payload = {
           columnName: 'b',
           nextColumnName: undefined,
-          nextColumnResizing,
+          columnResizingMode,
           cachedWidths: { a: 40, b: 60 },
           shift: +25,
           minColumnWidth: 40,
@@ -89,7 +89,7 @@ describe('TableColumnResizing Plugin reducers', () => {
         const payload = {
           columnName: 'b',
           nextColumnName: undefined,
-          nextColumnResizing,
+          columnResizingMode,
           cachedWidths: { a: 40, b: 60 },
           shift: -25,
           minColumnWidth: 40,
@@ -112,7 +112,7 @@ describe('TableColumnResizing Plugin reducers', () => {
         const payload = {
           columnName: 'b',
           nextColumnName: undefined,
-          nextColumnResizing,
+          columnResizingMode,
           cachedWidths: { a: 40, b: 60 },
           shift: +25,
           minColumnWidth: 40,
@@ -135,7 +135,7 @@ describe('TableColumnResizing Plugin reducers', () => {
         const payload = {
           columnName: 'b',
           nextColumnName: undefined,
-          nextColumnResizing,
+          columnResizingMode,
           cachedWidths: { a: 40, b: 60 },
           shift: -25,
           minColumnWidth: 40,
@@ -158,7 +158,7 @@ describe('TableColumnResizing Plugin reducers', () => {
         const payload = {
           columnName: 'b',
           nextColumnName: undefined,
-          nextColumnResizing,
+          columnResizingMode,
           cachedWidths: { a: 40, b: 60 },
           shift: -25,
           minColumnWidth: 40,
@@ -173,14 +173,14 @@ describe('TableColumnResizing Plugin reducers', () => {
     });
 
     describe('nextColumn resizing mode', () => {
-      const nextColumnResizing = true;
+      const columnResizingMode = 'nextColumn';
 
       it('should resize booth columns', () => {
         getColumnsSizes.mockImplementation(() => ({ size: 45, nextSize: 55 }));
         const payload = {
           columnName: 'a',
           nextColumnName: 'b',
-          nextColumnResizing,
+          columnResizingMode,
           cachedWidths: { a: 40, b: 60 },
           shift: 5,
           minColumnWidth: 40,
@@ -203,7 +203,7 @@ describe('TableColumnResizing Plugin reducers', () => {
         const payloadAdd = {
           columnName: 'a',
           nextColumnName: 'b',
-          nextColumnResizing,
+          columnResizingMode,
           cachedWidths: { a: 40, b: 60 },
           shift: 5,
           minColumnWidth: 40,
@@ -213,7 +213,7 @@ describe('TableColumnResizing Plugin reducers', () => {
         const payloadReduce = {
           columnName: 'a',
           nextColumnName: 'b',
-          nextColumnResizing,
+          columnResizingMode,
           cachedWidths: { a: 40, b: 60 },
           shift: -5,
           minColumnWidth: 40,
@@ -243,7 +243,7 @@ describe('TableColumnResizing Plugin reducers', () => {
         const payload = {
           columnName: 'a',
           nextColumnName: undefined,
-          nextColumnResizing: undefined,
+          columnResizingMode: 'widget',
           cachedWidths: { a: 40, b: 60 },
           shift: 5,
           minColumnWidth: 40,
@@ -263,7 +263,7 @@ describe('TableColumnResizing Plugin reducers', () => {
         const payload = {
           columnName: 'b',
           nextColumnName: undefined,
-          nextColumnResizing: undefined,
+          columnResizingMode: 'widget',
           cachedWidths: { a: 40, b: 60 },
           shift: -25,
           minColumnWidth: 40,
@@ -283,7 +283,7 @@ describe('TableColumnResizing Plugin reducers', () => {
         const payload = {
           columnName: 'b',
           nextColumnName: undefined,
-          nextColumnResizing: undefined,
+          columnResizingMode: 'widget',
           cachedWidths: { a: 40, b: 60 },
           shift: +25,
           minColumnWidth: 40,
@@ -306,7 +306,7 @@ describe('TableColumnResizing Plugin reducers', () => {
         const payload = {
           columnName: 'b',
           nextColumnName: undefined,
-          nextColumnResizing: undefined,
+          columnResizingMode: 'widget',
           cachedWidths: { a: 40, b: 60 },
           shift: -25,
           minColumnWidth: 40,
@@ -329,7 +329,7 @@ describe('TableColumnResizing Plugin reducers', () => {
         const payload = {
           columnName: 'b',
           nextColumnName: undefined,
-          nextColumnResizing: undefined,
+          columnResizingMode: 'widget',
           cachedWidths: { a: 40, b: 60 },
           shift: +25,
           minColumnWidth: 40,
@@ -352,7 +352,7 @@ describe('TableColumnResizing Plugin reducers', () => {
         const payload = {
           columnName: 'b',
           nextColumnName: undefined,
-          nextColumnResizing: undefined,
+          columnResizingMode: 'widget',
           cachedWidths: { a: 40, b: 60 },
           shift: -25,
           minColumnWidth: 40,
@@ -369,14 +369,12 @@ describe('TableColumnResizing Plugin reducers', () => {
     });
 
     describe('nextColumn resizing mode', () => {
-      const nextColumnResizing = true;
-
       it('should return booth column widths', () => {
         getColumnsSizes.mockImplementation(() => ({ size: 45, nextSize: 55 }));
         const payload = {
           columnName: 'a',
           nextColumnName: 'b',
-          nextColumnResizing,
+          columnResizingMode: 'nextColumn',
           cachedWidths: { a: 40, b: 60 },
           shift: +5,
           minColumnWidth: 40,

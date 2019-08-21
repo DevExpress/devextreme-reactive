@@ -9,13 +9,13 @@ describe('TableColumnResizing Plugin helpers', () => {
     const columnWidths = [{ columnName: 'a', width: 40 }, { columnName: 'b', width: 60 }];
 
     describe('standart resizing mode', () => {
-      const nextColumnResizing = undefined;
+      const columnResizingMode = 'widget';
 
       it('should work', () => {
         expect(getColumnsSizes(columnWidths, {
           columnName: 'a',
           nextColumnName: 'b',
-          nextColumnResizing,
+          columnResizingMode,
           cachedWidths: { a: 40, b: 60 },
           shift: 5,
           minColumnWidth: 40,
@@ -31,7 +31,7 @@ describe('TableColumnResizing Plugin helpers', () => {
         expect(getColumnsSizes(columnWidths, {
           columnName: 'b',
           nextColumnName: undefined,
-          nextColumnResizing,
+          columnResizingMode,
           cachedWidths: { a: 40, b: 60 },
           shift: -25,
           minColumnWidth: 40,
@@ -47,7 +47,7 @@ describe('TableColumnResizing Plugin helpers', () => {
         expect(getColumnsSizes(columnWidths, {
           columnName: 'b',
           nextColumnName: undefined,
-          nextColumnResizing,
+          columnResizingMode,
           cachedWidths: { a: 40, b: 60 },
           shift: +25,
           minColumnWidth: 40,
@@ -67,7 +67,7 @@ describe('TableColumnResizing Plugin helpers', () => {
         expect(getColumnsSizes(columnWidths, {
           columnName: 'b',
           nextColumnName: undefined,
-          nextColumnResizing,
+          columnResizingMode,
           cachedWidths: { a: 40, b: 60 },
           shift: -25,
           minColumnWidth: 40,
@@ -87,7 +87,7 @@ describe('TableColumnResizing Plugin helpers', () => {
         expect(getColumnsSizes(columnWidths, {
           columnName: 'b',
           nextColumnName: undefined,
-          nextColumnResizing,
+          columnResizingMode,
           cachedWidths: { a: 40, b: 60 },
           shift: +25,
           minColumnWidth: 40,
@@ -107,7 +107,7 @@ describe('TableColumnResizing Plugin helpers', () => {
         expect(getColumnsSizes(columnWidths, {
           columnName: 'b',
           nextColumnName: undefined,
-          nextColumnResizing,
+          columnResizingMode,
           cachedWidths: { a: 40, b: 60 },
           shift: -25,
           minColumnWidth: 40,
@@ -127,7 +127,7 @@ describe('TableColumnResizing Plugin helpers', () => {
         expect(() => getColumnsSizes(immutableColumnWidths, {
           columnName: 'b',
           nextColumnName: undefined,
-          nextColumnResizing,
+          columnResizingMode,
           cachedWidths: { a: 40, b: 60 },
           shift: -25,
           minColumnWidth: 40,
@@ -139,13 +139,13 @@ describe('TableColumnResizing Plugin helpers', () => {
     });
 
     describe('nextColumn resizing mode', () => {
-      const nextColumnResizing = true;
+      const columnResizingMode = 'nextColumn';
 
       it('should resize booth columns', () => {
         expect(getColumnsSizes(columnWidths, {
           columnName: 'a',
           nextColumnName: 'b',
-          nextColumnResizing,
+          columnResizingMode,
           cachedWidths: { a: 40, b: 60 },
           shift: 5,
           minColumnWidth: 40,
@@ -165,7 +165,7 @@ describe('TableColumnResizing Plugin helpers', () => {
         expect(getColumnsSizes(columnWidths, {
           columnName: 'a',
           nextColumnName: 'b',
-          nextColumnResizing,
+          columnResizingMode,
           cachedWidths: { a: 40, b: 60 },
           shift: 5,
           minColumnWidth: 40,
@@ -179,7 +179,7 @@ describe('TableColumnResizing Plugin helpers', () => {
         expect(getColumnsSizes(columnWidths, {
           columnName: 'a',
           nextColumnName: 'b',
-          nextColumnResizing,
+          columnResizingMode,
           cachedWidths: { a: 40, b: 60 },
           shift: -5,
           minColumnWidth: 40,

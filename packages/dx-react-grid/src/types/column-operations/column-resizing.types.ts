@@ -12,7 +12,7 @@ export interface TableColumnResizingProps {
   /** Specifies initial column widths in uncontrolled mode. */
   defaultColumnWidths?: Array<TableColumnWidthInfo>;
   /** Specifies initial column resize mode. */
-  nextColumnResizing?: boolean;
+  columnResizingMode?: string;
   /** Handles column width changes. */
   onColumnWidthsChange?: (nextColumnWidths: Array<TableColumnWidthInfo>) => void;
 }

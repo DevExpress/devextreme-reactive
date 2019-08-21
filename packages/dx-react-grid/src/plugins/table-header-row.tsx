@@ -70,7 +70,7 @@ class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {
             <TemplateConnector>
               {({
                 sorting, tableColumns, draggingEnabled, tableColumnResizingEnabled,
-                isColumnSortingEnabled, isColumnGroupingEnabled, nextColumnResizing,
+                isColumnSortingEnabled, isColumnGroupingEnabled, columnResizingMode,
               }, {
                 changeColumnSorting, changeColumnGrouping,
                 changeTableColumnWidth, draftTableColumnWidth, cancelTableColumnWidthDraft,
@@ -94,7 +94,7 @@ class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {
                     draggingEnabled={draggingEnabled && atLeastOneDataColumn}
                     resizingEnabled={
                       tableColumnResizingEnabled
-                      && (!lastColumn || !nextColumnResizing)
+                      && (!lastColumn || columnResizingMode === 'widget')
                     }
                     onWidthChange={({ shift }) => changeTableColumnWidth({
                       columnName, nextColumnName, shift,

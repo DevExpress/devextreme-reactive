@@ -2,7 +2,7 @@ import { ColumnSizeFn, ValidValueFn } from '../../types';
 
 export const getColumnsSizes: ColumnSizeFn = (
   columnWidths, {
-    columnName, nextColumnName, nextColumnResizing, cachedWidths,
+    columnName, nextColumnName, columnResizingMode, cachedWidths,
     shift, minColumnWidth, maxColumnWidth, columnExtensions = [],
 }) => {
   const column  = columnWidths.find(elem => elem.columnName === columnName)!;
@@ -21,7 +21,7 @@ export const getColumnsSizes: ColumnSizeFn = (
     Math.min(width + shift, maxWidth!),
   );
 
-  if (nextColumnResizing) {
+  if (columnResizingMode === 'nextColumn') {
     const nextColumn  = columnWidths.find(elem => elem.columnName === nextColumnName)!;
     const nextExtension = columnExtensions.find(elem => elem.columnName === nextColumnName);
     const nextWidth = typeof nextColumn.width === 'number'

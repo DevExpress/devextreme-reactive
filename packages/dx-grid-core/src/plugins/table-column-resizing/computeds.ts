@@ -3,7 +3,7 @@ import { TableColumn, SpecifyWidthsFn, TableColumnsWithWidthFn } from '../../typ
 import { isValidValue } from './helpers';
 
 const VALID_UNITS = ['px', '%', 'em', 'rem', 'vm', 'vh', 'vmin', 'vmax', ''];
-const ONLY_NEXT_COLUMN_RESIZE_UNITS = ['%'];
+const NOT_FOR_WIDGET_UNITS = ['%'];
 
 const UNSET_COLUMN_WIDTH_ERROR = [
   'The "$1" column\'s width is not specified.',
@@ -16,12 +16,20 @@ const UNAVAILABLE_RESIZING_MODE_ERROR = [
   'when column width define with some non-number type.',
 ].join('\n');
 
+const INVALID_RESIZING_MODE_ERROR = [
+  'The "$1" resizing mode in invalid mode.',
+  'Please, check columnResizingMode property.',
+].join('\n');
+
 const INVALID_TYPE_ERROR = [
   'The "$1" column\'s width specified like invalid type.',
   'The TableColumnResizing plugin requires that all columns have the valid unit.',
 ].join('\n');
 
-const specifyWidths: SpecifyWidthsFn = (tableColumns, widths, nextColumnResizing, onAbsence) => {
+const specifyWidths: SpecifyWidthsFn = (tableColumns, widths, columnResizingMode, onAbsence) => {
+  if (columnResizingMode !== 'widget' && columnResizingMode !== 'nextColumn') {
+    onAbsence(columnResizingMode, 'invalidMode');
+  }
   if (!widths.length) return tableColumns;
   return tableColumns
     .reduce((acc, tableColumn) => {
@@ -34,7 +42,7 @@ const specifyWidths: SpecifyWidthsFn = (tableColumns, widths, nextColumnResizing
             onAbsence(columnName, 'undefinedColumn');
           } else if (!isValidValue(width, VALID_UNITS)) {
             onAbsence(columnName, 'invalidType');
-          } else if (!nextColumnResizing && isValidValue(width, ONLY_NEXT_COLUMN_RESIZE_UNITS)) {
+          } else if (columnResizingMode === 'widget' && isValidValue(width, NOT_FOR_WIDGET_UNITS)) {
             onAbsence(columnName, 'wrongMode');
           }
         }
@@ -51,15 +59,16 @@ const specifyWidths: SpecifyWidthsFn = (tableColumns, widths, nextColumnResizing
 };
 
 export const tableColumnsWithWidths: TableColumnsWithWidthFn = (
-  tableColumns, columnWidths, nextColumnResizing,
-) => specifyWidths(tableColumns, columnWidths, nextColumnResizing, (columnName, errorType) => {
+  tableColumns, columnWidths, columnResizingMode,
+) => specifyWidths(tableColumns, columnWidths, columnResizingMode, (target, errorType) => {
   switch (errorType) {
-    case 'undefinedColumn': throw new Error(UNSET_COLUMN_WIDTH_ERROR.replace('$1', columnName));
-    case 'wrongMode': throw new Error(UNAVAILABLE_RESIZING_MODE_ERROR.replace('$1', columnName));
-    case 'invalidType': throw new Error(INVALID_TYPE_ERROR.replace('$1', columnName));
+    case 'undefinedColumn': throw new Error(UNSET_COLUMN_WIDTH_ERROR.replace('$1', target));
+    case 'wrongMode': throw new Error(UNAVAILABLE_RESIZING_MODE_ERROR.replace('$1', target));
+    case 'invalidType': throw new Error(INVALID_TYPE_ERROR.replace('$1', target));
+    case 'invalidMode': throw new Error(INVALID_RESIZING_MODE_ERROR.replace('$1', target));
   }
 });
 
 export const tableColumnsWithDraftWidths: TableColumnsWithWidthFn = (
-  tableColumns, draftColumnWidths, nextColumnResizing,
-) => specifyWidths(tableColumns, draftColumnWidths, nextColumnResizing, () => {});
+  tableColumns, draftColumnWidths, columnResizingMode,
+) => specifyWidths(tableColumns, draftColumnWidths, columnResizingMode, () => {});

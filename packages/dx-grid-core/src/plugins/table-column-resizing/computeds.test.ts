@@ -10,7 +10,7 @@ describe('TableColumnResizing Plugin computeds', () => {
     { type: TABLE_DATA_TYPE, column: { name: 'b' } },
     { type: TABLE_DATA_TYPE, column: { name: 'c' } },
   ];
-  const nextColumnResizing = undefined;
+  const columnResizingMode = 'widget';
 
   describe('#tableColumnsWithWidths', () => {
     it('should work', () => {
@@ -21,7 +21,7 @@ describe('TableColumnResizing Plugin computeds', () => {
           { columnName: 'b', width: 20 },
           { columnName: 'c', width: 15 },
         ],
-        nextColumnResizing,
+        columnResizingMode,
       ))
         .toEqual([
           { type: TABLE_DATA_TYPE, width: 10, column: { name: 'a' } },
@@ -38,7 +38,7 @@ describe('TableColumnResizing Plugin computeds', () => {
           { columnName: 'b', width: 20 },
           { columnName: 'c', width: '15' },
         ],
-        nextColumnResizing,
+        columnResizingMode,
       ))
         .toEqual([
           { type: TABLE_DATA_TYPE, width: '10px', column: { name: 'a' } },
@@ -54,7 +54,7 @@ describe('TableColumnResizing Plugin computeds', () => {
           { columnName: 'a', width: 10 },
           { columnName: 'c', width: 15 },
         ],
-        nextColumnResizing,
+        columnResizingMode,
       ))
         .toThrow(/"b".*width/);
     });
@@ -67,7 +67,7 @@ describe('TableColumnResizing Plugin computeds', () => {
           { columnName: 'b', width: 15 },
           { columnName: 'c', width: 15 },
         ],
-        nextColumnResizing,
+        columnResizingMode,
       ))
         .toThrow(/"a".*width/);
     });
@@ -80,9 +80,22 @@ describe('TableColumnResizing Plugin computeds', () => {
           { columnName: 'b', width: 15 },
           { columnName: 'c', width: 15 },
         ],
-        nextColumnResizing,
+        columnResizingMode,
       ))
         .toThrow(/"a".*width/);
+    });
+
+    it('should throw error if resizing mode is invalid', () => {
+      expect(() => tableColumnsWithWidths(
+        tableColumns,
+        [
+          { columnName: 'a', width: 'auto' },
+          { columnName: 'b', width: 15 },
+          { columnName: 'c', width: 15 },
+        ],
+        'nextResizing',
+      ))
+        .toThrow(/"nextResizing".*mode/);
     });
   });
 

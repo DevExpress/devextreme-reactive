@@ -36,7 +36,7 @@ const defaultProps = {
   minColumnWidth: 40,
   maxColumnWidth: Infinity,
   columnExtensions: undefined,
-  nextColumnResizing: undefined,
+  columnResizingMode: 'widget',
   cachedWidths: {}, // NOTE: need to correct (?)
 };
 
@@ -100,10 +100,10 @@ describe('TableColumnResizing', () => {
         .toBeCalledWith(
           defaultDeps.getter.tableColumns,
           [{ columnName: 'a', width: 100 }],
-          !!defaultProps.nextColumnResizing,
+          defaultProps.columnResizingMode,
         );
       expect(tableColumnsWithDraftWidths)
-        .toBeCalledWith('tableColumnsWithWidths', [], !!defaultProps.nextColumnResizing);
+        .toBeCalledWith('tableColumnsWithWidths', [], defaultProps.columnResizingMode);
     });
   });
 
@@ -118,7 +118,7 @@ describe('TableColumnResizing', () => {
       minColumnWidth: defaultProps.minColumnWidth,
       maxColumnWidth: defaultProps.maxColumnWidth,
       columnExtensions: undefined,
-      nextColumnResizing: undefined,
+      columnResizingMode: defaultProps.columnResizingMode,
     };
 
     // tslint:disable-next-line: max-line-length
@@ -148,7 +148,7 @@ describe('TableColumnResizing', () => {
         );
 
       expect(tableColumnsWithDraftWidths)
-        .toBeCalledWith('tableColumnsWithWidths', [], !!payload.nextColumnResizing);
+        .toBeCalledWith('tableColumnsWithWidths', [], payload.columnResizingMode);
     });
 
     // tslint:disable-next-line: max-line-length
@@ -180,7 +180,7 @@ describe('TableColumnResizing', () => {
         .toBeCalledWith(
           'tableColumnsWithWidths',
           [{ columnName: 'a', width: 150 }],
-          !!payload.nextColumnResizing,
+          payload.columnResizingMode,
         );
     });
   });
@@ -197,7 +197,7 @@ describe('TableColumnResizing', () => {
       minColumnWidth: defaultProps.minColumnWidth,
       maxColumnWidth: defaultProps.maxColumnWidth,
       columnExtensions,
-      nextColumnResizing: undefined,
+      columnResizingMode: 'widget',
     };
 
     it('should correctly provide columnExtensions into the "changeTableColumnWidth" action', () => {
@@ -228,7 +228,7 @@ describe('TableColumnResizing', () => {
         );
 
       expect(tableColumnsWithDraftWidths)
-        .toBeCalledWith('tableColumnsWithWidths', [], !!payload.nextColumnResizing);
+        .toBeCalledWith('tableColumnsWithWidths', [], payload.columnResizingMode);
     });
 
     // tslint:disable-next-line: max-line-length
@@ -259,7 +259,7 @@ describe('TableColumnResizing', () => {
 
       expect(tableColumnsWithDraftWidths)
         .toBeCalledWith('tableColumnsWithWidths',
-          [{ columnName: 'a', width: 150 }], !!payload.nextColumnResizing,
+          [{ columnName: 'a', width: 150 }], payload.columnResizingMode,
         );
     });
   });
@@ -287,11 +287,13 @@ describe('TableColumnResizing', () => {
       .toBeCalledWith(expect.objectContaining({ draftColumnWidths: [] }), payload);
 
     expect(tableColumnsWithDraftWidths)
-      .toBeCalledWith('tableColumnsWithWidths', [{ columnName: 'a', width: 150 }], false);
+      .toBeCalledWith('tableColumnsWithWidths',
+        [{ columnName: 'a', width: 150 }], defaultProps.columnResizingMode,
+      );
   });
 
   describe('nextColumn resizing mode', () => {
-    const nextColumnResizing = true;
+    const columnResizingMode = 'nextColumn';
     const tableColumnA = { column: { name: 'a' } };
     const tableColumnB = { column: { name: 'b' } };
     const payload = {
@@ -305,7 +307,7 @@ describe('TableColumnResizing', () => {
       minColumnWidth: defaultProps.minColumnWidth,
       maxColumnWidth: defaultProps.maxColumnWidth,
       columnExtensions: undefined,
-      nextColumnResizing,
+      columnResizingMode,
     };
 
     it('should correctly provide nextResizing into the "changeTableColumnWidth" action', () => {
@@ -315,7 +317,7 @@ describe('TableColumnResizing', () => {
           <TableColumnResizing
             {...defaultProps}
             defaultColumnWidths={[{ columnName: 'a', width: 100 }, { columnName: 'b', width: 100 }]}
-            nextColumnResizing
+            columnResizingMode={columnResizingMode}
           />
         </PluginHost>
       ));
@@ -345,7 +347,7 @@ describe('TableColumnResizing', () => {
         );
 
       expect(tableColumnsWithDraftWidths)
-        .toBeCalledWith('tableColumnsWithWidths', [], !!nextColumnResizing);
+        .toBeCalledWith('tableColumnsWithWidths', [], columnResizingMode);
     });
 
     it('should correctly provide nextResizing into the "draftTableColumnWidth" action', () => {
@@ -355,7 +357,7 @@ describe('TableColumnResizing', () => {
           <TableColumnResizing
             {...defaultProps}
             defaultColumnWidths={[{ columnName: 'a', width: 100 }, { columnName: 'b', width: 100 }]}
-            nextColumnResizing
+            columnResizingMode={columnResizingMode}
           />
         </PluginHost>
       ));
@@ -381,7 +383,7 @@ describe('TableColumnResizing', () => {
       expect(tableColumnsWithDraftWidths)
         .toBeCalledWith('tableColumnsWithWidths',
           [{ columnName: 'a', width: 150 }, { columnName: 'b', width: 50 }],
-          !!payload.nextColumnResizing,
+          payload.columnResizingMode,
         );
     });
   });

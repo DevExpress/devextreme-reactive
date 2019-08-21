@@ -32,18 +32,18 @@ export namespace TableColumnResizing {
 
 /** @internal */
 export type SpecifyWidthsFn = PureComputed<
-  [TableColumn[], TableColumnWidthInfo[], boolean, (columnName: string, errorType: string) => void]
+  [TableColumn[], TableColumnWidthInfo[], string, (columnName: string, errorType: string) => void]
 >;
 /** @internal */
 export type TableColumnsWithWidthFn = PureComputed<
-  [TableColumn[], TableColumnWidthInfo[], boolean]
+  [TableColumn[], TableColumnWidthInfo[], string]
 >;
 
 /** @internal */
 export type ColumnWidthPayload = {
   columnName: string,
   nextColumnName: string,
-  nextColumnResizing: boolean,
+  columnResizingMode: string,
   cachedWidths: { [colName: string]: number },
   shift: number,
   minColumnWidth: number,

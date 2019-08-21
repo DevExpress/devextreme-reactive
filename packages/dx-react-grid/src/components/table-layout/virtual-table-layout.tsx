@@ -72,13 +72,17 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
     this.storeRowHeights();
     this.storeBlockHeights();
 
-    const { bodyRows } = this.props;
+    const { bodyRows, columns } = this.props;
 
     // NOTE: the boundaries depend not only on scroll position and container dimensions
     // but on body rows too. This boundaries update is especially important when
     // lazy loading is used because by the time that all involved events are handled
     // no rows are loaded yet.
-    if (prevProps.bodyRows !== bodyRows) {
+    const bodyRowsChanged = prevProps.bodyRows !== bodyRows;
+    // Also it's the only place where we can respond to the column count change
+    const columnCountChanged = prevProps.columns.length !== columns.length;
+
+    if (bodyRowsChanged || columnCountChanged) {
       this.updateViewport();
     }
   }

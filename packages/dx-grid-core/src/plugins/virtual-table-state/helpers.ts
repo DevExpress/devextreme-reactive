@@ -43,12 +43,18 @@ export const mergeRows: MergeRowsFn = (
 };
 
 export const calculateRequestedRange: CalculateRequestedRangeFn = (
-  virtualRows, newRange, pageSize,
+  virtualRows, newRange, pageSize, referenceIndex,
 ) => {
   const loadedInterval = intervalUtil.getRowsInterval(virtualRows);
   const isAdjacentPage = Math.abs(loadedInterval.start - newRange.start) < 2 * pageSize;
   if (isAdjacentPage) {
-    return intervalUtil.difference(newRange, loadedInterval);
+    const calculatedRange = intervalUtil.difference(newRange, loadedInterval);
+    const firstHalfOfPage = calculatedRange.start - referenceIndex > pageSize / 2;
+    if (calculatedRange.start > referenceIndex && firstHalfOfPage) {
+      calculatedRange.start -= pageSize;
+      calculatedRange.end -= pageSize;
+    }
+    return calculatedRange;
   }
 
   // load 3 pages at once because a missing page will be loaded anyway
@@ -127,7 +133,7 @@ export const getRequestMeta: GetRequestMeta = (
     : recalculateBounds(referenceIndex, pageSize!, totalRowCount);
   const requestedRange = forceReload
     ? actualBounds
-    : calculateRequestedRange(virtualRows, actualBounds, pageSize!);
+    : calculateRequestedRange(virtualRows, actualBounds, pageSize!, referenceIndex);
 
   return { requestedRange, actualBounds };
 };

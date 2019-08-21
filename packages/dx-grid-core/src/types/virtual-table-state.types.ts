@@ -29,7 +29,9 @@ export type MergeRowsFn = PureComputed<
 >;
 
 /** @internal */
-export type CalculateRequestedRangeFn = PureComputed<[VirtualRows, Interval, number], Interval>;
+export type CalculateRequestedRangeFn = PureComputed<
+  [VirtualRows, Interval, number, number], Interval
+>;
 /** @internal */
 export type GetRequestMeta = PureComputed<
   [number, VirtualRows, number, number, boolean],

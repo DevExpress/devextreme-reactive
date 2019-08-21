@@ -9,11 +9,14 @@ import {
   CANCEL_BUTTON,
 } from '@devexpress/dx-scheduler-core';
 
-const styles = theme => ({
+const styles = ({ spacing }) => ({
   root: {
     display: 'flex',
     justifyContent: 'flex-end',
-    paddingTop: theme.spacing(1),
+    paddingTop: spacing(1),
+    '@media (max-width: 700px)': {
+      paddingRight: spacing(2.875),
+    },
   },
 });
 

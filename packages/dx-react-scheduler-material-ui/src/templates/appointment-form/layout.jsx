@@ -7,13 +7,18 @@ const styles = theme => ({
   root: {
     height: '100%',
     padding: theme.spacing(2),
-    paddingLeft: theme.spacing(2.875),
+    paddingLeft: 0,
     paddingRight: theme.spacing(3),
     margin: '0 auto',
-    boxSizing: 'border-box',
+
   },
   container: {
     display: 'flex',
+    height: 'calc(100% - 56px)',
+    overflow: 'auto',
+    '@media (max-width: 700px)': {
+      flexDirection: 'column',
+    },
   },
 });
 

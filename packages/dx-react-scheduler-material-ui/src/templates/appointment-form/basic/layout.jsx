@@ -14,30 +14,35 @@ import {
 } from '@devexpress/dx-scheduler-core';
 import { getAvailableRecurrenceOptions, handleChangeFrequency } from '../helpers';
 
-const styles = theme => ({
+const styles = ({ spacing, typography }) => ({
   root: {
     width: '65%',
-    overflowY: 'auto',
-    paddingTop: theme.spacing(3),
-    paddingLeft: theme.spacing(2.125),
+    paddingTop: spacing(3),
     paddingBottom: 0,
+    paddingLeft: spacing(2.125),
     maxWidth: '650px',
+    boxSizing: 'border-box',
+    '@media (max-width: 700px)': {
+      width: '100%',
+      maxWidth: '700px',
+      paddingRight: spacing(2.875),
+    },
   },
   fullSize: {
     width: '100%',
   },
   notesEditor: {
-    marginTop: theme.spacing(2),
+    marginTop: spacing(2),
   },
   moreInformationLabel: {
-    marginBottom: theme.spacing(0.5),
-    marginTop: theme.spacing(0.5),
+    marginBottom: spacing(0.5),
+    marginTop: spacing(0.5),
   },
   dateEditor: {
     width: '45%',
   },
   dividerLabel: {
-    ...theme.typography.body2,
+    ...typography.body2,
     width: '10%',
     textAlign: 'center',
     paddingBottom: '0.5em',

@@ -16,25 +16,32 @@ import { Monthly as MonthlyLayout } from './layouts/monthly';
 import { Yearly as YearlyLayout } from './layouts/yearly';
 import { getAvailableRecurrenceOptions, handleChangeFrequency } from '../helpers';
 
-const styles = theme => ({
+const styles = ({ spacing }) => ({
   root: {
-    overflowY: 'auto',
-    padding: theme.spacing(3),
+    marginRight: spacing(2.875),
+    padding: spacing(3),
     paddingRight: 0,
     width: '50%',
     maxWidth: '500px',
+    boxSizing: 'border-box',
+    '@media (max-width: 700px)': {
+      width: '100%',
+      maxWidth: '700px',
+      paddingRight: spacing(2.875),
+      paddingLeft: spacing(2.125),
+    },
   },
   label: {
     width: '8em',
   },
   repeatLabel: {
-    marginBottom: theme.spacing(1),
+    marginBottom: spacing(1),
   },
   radioGroup: {
-    marginTop: theme.spacing(0.5),
+    marginTop: spacing(0.5),
   },
   endRepeatLabel: {
-    marginTop: theme.spacing(2),
+    marginTop: spacing(2),
   },
 });
 

@@ -24,6 +24,9 @@ const styles = ({ palette, spacing }) => ({
     },
     color: setColor(50, palette.primary),
   },
+  button: {
+    minWidth: spacing(3),
+  },
   buttonGroup: {
     marginBottom: spacing(2),
   },
@@ -59,13 +62,15 @@ const ButtonGroupBase = ({
       size="small"
       disabled={readOnly}
       className={classNames(classes.buttonGroup, className)}
+      fullWidth
       {...restProps}
     >
       <Button
-        className={recurrenceOptions.byweekday
-          && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.SUNDAY) > -1
-          ? classes.selectedButton : undefined
-        }
+        className={classNames({
+          [classes.button]: true,
+          [classes.selectedButton]: recurrenceOptions.byweekday
+            && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.SUNDAY) > -1,
+        })}
         onClick={() => handleWeekDaysChange(
           recurrenceOptions,
           DAYS_OF_WEEK.SUNDAY,
@@ -75,10 +80,11 @@ const ButtonGroupBase = ({
         {formatDate(SUNDAY_DATE, WEEK_DAY_OPTIONS)}
       </Button>
       <Button
-        className={recurrenceOptions.byweekday
-          && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.MONDAY) > -1
-          ? classes.selectedButton : undefined
-        }
+        className={classNames({
+          [classes.button]: true,
+          [classes.selectedButton]: recurrenceOptions.byweekday
+            && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.SUNDAY) > -1,
+        })}
         onClick={() => handleWeekDaysChange(
           recurrenceOptions,
           DAYS_OF_WEEK.MONDAY,
@@ -88,10 +94,11 @@ const ButtonGroupBase = ({
         {formatDate(MONDAY_DATE, WEEK_DAY_OPTIONS)}
       </Button>
       <Button
-        className={recurrenceOptions.byweekday
-          && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.TUESDAY) > -1
-          ? classes.selectedButton : undefined
-        }
+        className={classNames({
+          [classes.button]: true,
+          [classes.selectedButton]: recurrenceOptions.byweekday
+            && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.SUNDAY) > -1,
+        })}
         onClick={() => handleWeekDaysChange(
           recurrenceOptions,
           DAYS_OF_WEEK.TUESDAY,
@@ -101,10 +108,11 @@ const ButtonGroupBase = ({
         {formatDate(TUESDAY_DATE, WEEK_DAY_OPTIONS)}
       </Button>
       <Button
-        className={recurrenceOptions.byweekday
-          && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.WEDNESDAY) > -1
-          ? classes.selectedButton : undefined
-        }
+        className={classNames({
+          [classes.button]: true,
+          [classes.selectedButton]: recurrenceOptions.byweekday
+            && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.SUNDAY) > -1,
+        })}
         onClick={() => handleWeekDaysChange(
           recurrenceOptions,
           DAYS_OF_WEEK.WEDNESDAY,
@@ -114,10 +122,11 @@ const ButtonGroupBase = ({
         {formatDate(WEDNESDAY_DATE, WEEK_DAY_OPTIONS)}
       </Button>
       <Button
-        className={recurrenceOptions.byweekday
-          && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.THURSDAY) > -1
-          ? classes.selectedButton : undefined
-        }
+        className={classNames({
+          [classes.button]: true,
+          [classes.selectedButton]: recurrenceOptions.byweekday
+            && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.SUNDAY) > -1,
+        })}
         onClick={() => handleWeekDaysChange(
           recurrenceOptions,
           DAYS_OF_WEEK.THURSDAY,
@@ -127,10 +136,11 @@ const ButtonGroupBase = ({
         {formatDate(THURSDAY_DATE, WEEK_DAY_OPTIONS)}
       </Button>
       <Button
-        className={recurrenceOptions.byweekday
-          && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.FRIDAY) > -1
-          ? classes.selectedButton : undefined
-        }
+        className={classNames({
+          [classes.button]: true,
+          [classes.selectedButton]: recurrenceOptions.byweekday
+            && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.SUNDAY) > -1,
+        })}
         onClick={() => handleWeekDaysChange(
           recurrenceOptions,
           DAYS_OF_WEEK.FRIDAY,
@@ -140,10 +150,11 @@ const ButtonGroupBase = ({
         {formatDate(FRIDAY_DATE, WEEK_DAY_OPTIONS)}
       </Button>
       <Button
-        className={recurrenceOptions.byweekday
-          && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.SATURDAY) > -1
-          ? classes.selectedButton : undefined
-        }
+        className={classNames({
+          [classes.button]: true,
+          [classes.selectedButton]: recurrenceOptions.byweekday
+            && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.SUNDAY) > -1,
+        })}
         onClick={() => handleWeekDaysChange(
           recurrenceOptions,
           DAYS_OF_WEEK.SATURDAY,

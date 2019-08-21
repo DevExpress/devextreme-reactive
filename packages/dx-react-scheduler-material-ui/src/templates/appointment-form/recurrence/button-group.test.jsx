@@ -62,15 +62,22 @@ describe('AppointmentForm recurrence', () => {
 
       const buttons = tree.find(Button);
       expect(buttons.at(0).is(`.${classes.selectedButton}`)).toBeFalsy();
+      expect(buttons.at(0).is(`.${classes.button}`)).toBeTruthy();
       expect(buttons.at(1).is(`.${classes.selectedButton}`)).toBeFalsy();
+      expect(buttons.at(1).is(`.${classes.button}`)).toBeTruthy();
       expect(buttons.at(2).is(`.${classes.selectedButton}`)).toBeFalsy();
+      expect(buttons.at(2).is(`.${classes.button}`)).toBeTruthy();
       expect(buttons.at(3).is(`.${classes.selectedButton}`)).toBeFalsy();
+      expect(buttons.at(3).is(`.${classes.button}`)).toBeTruthy();
       expect(buttons.at(4).is(`.${classes.selectedButton}`)).toBeFalsy();
+      expect(buttons.at(4).is(`.${classes.button}`)).toBeTruthy();
       expect(buttons.at(5).is(`.${classes.selectedButton}`)).toBeFalsy();
+      expect(buttons.at(5).is(`.${classes.button}`)).toBeTruthy();
       expect(buttons.at(6).is(`.${classes.selectedButton}`)).toBeFalsy();
+      expect(buttons.at(6).is(`.${classes.button}`)).toBeTruthy();
     });
 
-    it('should render buttons correctly', () => {
+    it('should render selected buttons correctly', () => {
       getRecurrenceOptions.mockImplementation(() => ({
         byweekday: [0, 1, 2, 3, 4, 5, 6],
       }));
@@ -80,12 +87,19 @@ describe('AppointmentForm recurrence', () => {
 
       const buttons = tree.find(Button);
       expect(buttons.at(0).is(`.${classes.selectedButton}`)).toBeTruthy();
+      expect(buttons.at(0).is(`.${classes.button}`)).toBeTruthy();
       expect(buttons.at(1).is(`.${classes.selectedButton}`)).toBeTruthy();
+      expect(buttons.at(1).is(`.${classes.button}`)).toBeTruthy();
       expect(buttons.at(2).is(`.${classes.selectedButton}`)).toBeTruthy();
+      expect(buttons.at(2).is(`.${classes.button}`)).toBeTruthy();
       expect(buttons.at(3).is(`.${classes.selectedButton}`)).toBeTruthy();
+      expect(buttons.at(3).is(`.${classes.button}`)).toBeTruthy();
       expect(buttons.at(4).is(`.${classes.selectedButton}`)).toBeTruthy();
+      expect(buttons.at(4).is(`.${classes.button}`)).toBeTruthy();
       expect(buttons.at(5).is(`.${classes.selectedButton}`)).toBeTruthy();
+      expect(buttons.at(5).is(`.${classes.button}`)).toBeTruthy();
       expect(buttons.at(6).is(`.${classes.selectedButton}`)).toBeTruthy();
+      expect(buttons.at(6).is(`.${classes.button}`)).toBeTruthy();
     });
 
     it('should call onAppointmentField on button click', () => {

@@ -3,10 +3,11 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 
-const styles = theme => ({
+const styles = ({ spacing }) => ({
   root: {
     height: '100%',
-    padding: theme.spacing(2),
+    padding: spacing(2),
+    paddingTop: 0,
     paddingLeft: 0,
     margin: '0 auto',
     overflowY: 'auto',

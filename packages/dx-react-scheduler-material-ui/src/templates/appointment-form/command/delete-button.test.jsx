@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow } from '@material-ui/core/test-utils';
+import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { DeleteButton } from './delete-button';
 
@@ -9,10 +9,23 @@ describe('AppointmentForm command', () => {
     id: 'id',
   };
   let shallow;
+  let classes;
   beforeAll(() => {
     shallow = createShallow({ dive: true });
+    classes = getClasses(<DeleteButton />);
   });
   describe('DeleteButton', () => {
+    it('should pass className to the root element', () => {
+      const tree = shallow((
+        <DeleteButton className="custom-class" {...defaultProps} />
+      ));
+
+      expect(tree.is('.custom-class'))
+        .toBeTruthy();
+      expect(tree.is(`.${classes.button}`))
+        .toBeTruthy();
+    });
+
     it('should pass rest props to the root element', () => {
       const tree = shallow((
         <DeleteButton data={{ a: 1 }} {...defaultProps} />

@@ -27,8 +27,8 @@ const styles = ({ spacing }) => ({
     '@media (max-width: 700px)': {
       width: '100%',
       maxWidth: '700px',
-      paddingRight: spacing(2.875),
-      paddingLeft: spacing(2.125),
+      paddingRight: spacing(2),
+      paddingLeft: spacing(4),
     },
   },
   label: {

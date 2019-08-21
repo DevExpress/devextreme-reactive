@@ -8,7 +8,6 @@ const styles = theme => ({
     height: '100%',
     padding: theme.spacing(2),
     paddingLeft: 0,
-    paddingRight: theme.spacing(3),
     margin: '0 auto',
     overflowY: 'auto',
   },

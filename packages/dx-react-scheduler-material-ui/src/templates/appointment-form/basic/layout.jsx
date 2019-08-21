@@ -19,13 +19,13 @@ const styles = ({ spacing, typography }) => ({
     width: '65%',
     paddingTop: spacing(3),
     paddingBottom: 0,
-    paddingLeft: spacing(2.125),
+    paddingLeft: spacing(4),
     maxWidth: '650px',
     boxSizing: 'border-box',
     '@media (max-width: 700px)': {
       width: '100%',
       maxWidth: '700px',
-      paddingRight: spacing(2.875),
+      paddingRight: spacing(2),
     },
   },
   fullSize: {

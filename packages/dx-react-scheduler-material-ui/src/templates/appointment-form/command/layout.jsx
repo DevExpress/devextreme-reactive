@@ -14,8 +14,9 @@ const styles = ({ spacing }) => ({
     display: 'flex',
     justifyContent: 'flex-end',
     paddingTop: spacing(1),
+    paddingLeft: spacing(2),
     '@media (max-width: 700px)': {
-      paddingRight: spacing(2.875),
+      paddingRight: spacing(2),
     },
   },
 });

@@ -107,6 +107,16 @@ export const timeBoundariesByDrag: TimeBoundariesByDrag = (
   let appointmentStartTime;
   let appointmentEndTime;
 
+  debugger
+
+  if (targetType === 'horizontal' && intervalDuration(payload, SECONDS) < intervalDuration(targetData, SECONDS)) {
+    return {
+      appointmentStartTime: targetData.startDate,
+      appointmentEndTime: targetData.endDate,
+      offsetTimeTop: 0,
+    };
+  }
+
   const insideOffset = calculateInsideOffset(targetType, insidePart, cellDurationMinutes);
   const start = moment(targetData.startDate as Date).add(insideOffset, SECONDS);
 
@@ -158,6 +168,9 @@ export const calculateInsidePart: PureComputed<
   return 0;
 };
 
+const isAllDayAppointment = appointment => intervalDuration(appointment, HOURS) > 23
+  || !!appointment.allDay;
+
 export const calculateDraftAppointments = (
   allDayIndex: number, draftAppointments: any, startViewDate: Date,
   endViewDate: Date, excludedDays: number[], viewCellsData: any,
@@ -165,12 +178,21 @@ export const calculateDraftAppointments = (
   targetType: string, cellDurationMinutes: number,
   getTableCellElementRects: CellElementsMeta,
 ) => {
+  debugger
   if (allDayIndex !== -1
-    || (getAllDayCellsElementRects.getCellRects.length
-      && intervalDuration(draftAppointments[0].dataItem, HOURS) > 23)) {
+    && (getAllDayCellsElementRects.getCellRects.length
+      // && isAllDayAppointment(draftAppointments[0].dataItem)
+      )) {
+
+    console.log(draftAppointments[0]);
+    const allDayDrafts = draftAppointments.map(draftAppt => ({
+      ...draftAppt,
+      allDay: true,
+    }));
+
     return {
       allDayDraftAppointments: allDayRects(
-        draftAppointments, startViewDate, endViewDate,
+        allDayDrafts, startViewDate, endViewDate,
         excludedDays, viewCellsData, getAllDayCellsElementRects,
       ),
       timeTableDraftAppointments: [],

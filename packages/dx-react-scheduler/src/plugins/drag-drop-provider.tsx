@@ -108,7 +108,11 @@ class DragDropProviderBase extends React.PureComponent<
   applyChanges(startTime, endTime, payload, startEditAppointment, changeAppointment) {
     startEditAppointment(payload);
     changeAppointment({
-      change: { startDate: startTime, endDate: endTime },
+      change: {
+        startDate: startTime,
+        endDate: endTime,
+        ...payload.allDay && { allDay: undefined },
+      },
     });
     this.setState({ startTime, endTime, payload, isOutside: false });
   }

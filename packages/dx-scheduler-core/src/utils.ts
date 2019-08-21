@@ -304,15 +304,9 @@ export const calculateRectByDateIntervals: CalculateRectByDateIntervalsFn = (
     .map(appointment => rectCalculator(appointment, { rectByDates, multiline, rectByDatesMeta }));
 };
 
-export const filterByViewBoundaries: PureComputed<
-  [AppointmentMoment, Date, Date, number[], boolean], AppointmentMoment[]
-> = (appointment, leftBound, rightBound, excludedDays, keepAllDay) => {
-  if (!appointment.rRule) {
-    return viewPredicate(appointment, leftBound, rightBound, excludedDays, keepAllDay)
-      ? [appointment]
-      : [];
-  }
-
+const expandRecurrenceAppointment = (
+  appointment: AppointmentMoment, leftBound: Date, rightBound: Date,
+) => {
   const appointmentStartDate = moment(appointment.start).toDate();
   const options = {
     ...RRule.parseString(appointment.rRule),
@@ -342,14 +336,28 @@ export const filterByViewBoundaries: PureComputed<
   return datesInBoundaries.map((startDate, index) => ({
     ...appointment,
     dataItem: {
-      ...appointment.dataItem,
+      ...appointment.dataItem!,
       startDate: moment(startDate).toDate(),
       endDate: moment(startDate).add(appointmentDuration, 'minutes').toDate(),
-      parentData: appointment.dataItem,
+      parentData: appointment.dataItem!,
     },
     start: moment(startDate),
     end: moment(startDate).add(appointmentDuration, 'minutes'),
   }));
+};
+
+export const filterByViewBoundaries: PureComputed<
+  [AppointmentMoment, Date, Date, number[], boolean], AppointmentMoment[]
+> = (appointment, leftBound, rightBound, excludedDays, removeAllDay) => {
+  let appointments = [appointment];
+  if (appointment.rRule) {
+    appointments = expandRecurrenceAppointment(
+      appointment as AppointmentMoment, leftBound as Date, rightBound as Date,
+    );
+  }
+  return appointments.filter(recurrenceAppointment => viewPredicate(
+    recurrenceAppointment, leftBound, rightBound, excludedDays, removeAllDay,
+  ));
 };
 
 const getUTCDate: PureComputed<[Date], number> = date =>

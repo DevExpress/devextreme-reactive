@@ -32,11 +32,15 @@ export namespace TableColumnResizing {
 
 /** @internal */
 export type SpecifyWidthsFn = PureComputed<
-  [TableColumn[], TableColumnWidthInfo[], string, (columnName: string, errorType: string) => void]
+  [TableColumn[], TableColumnWidthInfo[], string, ErrorFn]
 >;
 /** @internal */
 export type TableColumnsWithWidthFn = PureComputed<
   [TableColumn[], TableColumnWidthInfo[], string]
+>;
+/** @internal */
+export type ErrorFn = PureComputed<
+  [string, string], void
 >;
 
 /** @internal */
@@ -69,4 +73,9 @@ export type CellWidthGetter = () => number;
 export type ValidValueFn = PureComputed<
   [string, string[]],
   boolean
+>;
+
+/** @internal */
+export type NumbStringToNumbFn = PureComputed<
+  [number | string], number | string
 >;

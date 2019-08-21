@@ -131,7 +131,6 @@ class TableLayoutBase extends React.PureComponent<TableLayoutCoreProps, TableLay
         columns={columns}
         minWidth={minWidth as number}
         minColumnWidth={minColumnWidth}
-        // width={}
       />
     );
   }

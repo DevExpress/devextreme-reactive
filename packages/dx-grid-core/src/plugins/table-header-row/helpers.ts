@@ -68,11 +68,9 @@ export const getLastColumnName: LastColumnNameFn = (tableColumns) => {
 };
 
 export const getNextColumnName: NextColumnNameFn = (tableColumns, columnName) => {
-  const index = tableColumns
-    ? tableColumns.findIndex(elem =>
+  const index = tableColumns.findIndex(elem =>
       elem.type === TABLE_DATA_TYPE && elem.column!.name === columnName,
-    )
-    : -1;
+    );
   return index >= 0 && index < tableColumns.length - 1
     ? tableColumns[index + 1].column!.name
     : undefined;

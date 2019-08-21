@@ -1,6 +1,6 @@
 import * as Immutable from 'seamless-immutable';
 import {
-  getColumnsSizes,
+  getColumnSizes,
   isValidValue,
 } from './helpers';
 
@@ -12,7 +12,7 @@ describe('TableColumnResizing Plugin helpers', () => {
       const columnResizingMode = 'widget';
 
       it('should work', () => {
-        expect(getColumnsSizes(columnWidths, {
+        expect(getColumnSizes(columnWidths, {
           columnName: 'a',
           nextColumnName: 'b',
           columnResizingMode,
@@ -28,7 +28,7 @@ describe('TableColumnResizing Plugin helpers', () => {
       });
 
       it('should stick size to the min', () => {
-        expect(getColumnsSizes(columnWidths, {
+        expect(getColumnSizes(columnWidths, {
           columnName: 'b',
           nextColumnName: undefined,
           columnResizingMode,
@@ -44,7 +44,7 @@ describe('TableColumnResizing Plugin helpers', () => {
       });
 
       it('should stick size to the max', () => {
-        expect(getColumnsSizes(columnWidths, {
+        expect(getColumnSizes(columnWidths, {
           columnName: 'b',
           nextColumnName: undefined,
           columnResizingMode,
@@ -64,7 +64,7 @@ describe('TableColumnResizing Plugin helpers', () => {
           { columnName: 'b', minWidth: 50 },
         ];
 
-        expect(getColumnsSizes(columnWidths, {
+        expect(getColumnSizes(columnWidths, {
           columnName: 'b',
           nextColumnName: undefined,
           columnResizingMode,
@@ -84,7 +84,7 @@ describe('TableColumnResizing Plugin helpers', () => {
           { columnName: 'b', maxWidth: 70 },
         ];
 
-        expect(getColumnsSizes(columnWidths, {
+        expect(getColumnSizes(columnWidths, {
           columnName: 'b',
           nextColumnName: undefined,
           columnResizingMode,
@@ -104,7 +104,7 @@ describe('TableColumnResizing Plugin helpers', () => {
           { columnName: 'b' },
         ];
 
-        expect(getColumnsSizes(columnWidths, {
+        expect(getColumnSizes(columnWidths, {
           columnName: 'b',
           nextColumnName: undefined,
           columnResizingMode,
@@ -124,7 +124,7 @@ describe('TableColumnResizing Plugin helpers', () => {
           { columnName: 'a', width: 40 }, { columnName: 'b', width: 60 },
         ]);
 
-        expect(() => getColumnsSizes(immutableColumnWidths, {
+        expect(() => getColumnSizes(immutableColumnWidths, {
           columnName: 'b',
           nextColumnName: undefined,
           columnResizingMode,
@@ -142,7 +142,7 @@ describe('TableColumnResizing Plugin helpers', () => {
       const columnResizingMode = 'nextColumn';
 
       it('should resize booth columns', () => {
-        expect(getColumnsSizes(columnWidths, {
+        expect(getColumnSizes(columnWidths, {
           columnName: 'a',
           nextColumnName: 'b',
           columnResizingMode,
@@ -162,7 +162,7 @@ describe('TableColumnResizing Plugin helpers', () => {
           { columnName: 'b', minWidth: 60 },
         ];
 
-        expect(getColumnsSizes(columnWidths, {
+        expect(getColumnSizes(columnWidths, {
           columnName: 'a',
           nextColumnName: 'b',
           columnResizingMode,
@@ -176,7 +176,7 @@ describe('TableColumnResizing Plugin helpers', () => {
             size: 40, nextSize: 60,
           });
 
-        expect(getColumnsSizes(columnWidths, {
+        expect(getColumnSizes(columnWidths, {
           columnName: 'a',
           nextColumnName: 'b',
           columnResizingMode,

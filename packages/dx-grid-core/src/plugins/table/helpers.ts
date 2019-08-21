@@ -30,7 +30,7 @@ export const convertWidth: WidthConverterFn = (name, width) => {
     const numb = parseInt(width, 10);
     const unit = numb ? width.substr(numb.toString().length) : width;
     const sizeIsAuto = isNaN(numb) && unit === 'auto';
-    const sizeIsValid = !isNaN(numb) && VALID_UNITS.findIndex(validUnit => validUnit === unit) >= 0;
+    const sizeIsValid = !isNaN(numb) && VALID_UNITS.some(validUnit => validUnit === unit);
 
     if (!sizeIsAuto && !sizeIsValid) {
       throw new Error(INVALID_TYPE_ERROR.replace('$1', name));

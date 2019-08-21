@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { TableColumn } from '@devexpress/dx-grid-core';
-// import { number } from 'prop-types';
 
 /** @internal */
 export class ColumnGroup extends React.PureComponent<{ columns: TableColumn[] }> {

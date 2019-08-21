@@ -10,12 +10,10 @@ const styles = theme => ({
     paddingLeft: 0,
     paddingRight: theme.spacing(3),
     margin: '0 auto',
-
+    overflowY: 'auto',
   },
   container: {
     display: 'flex',
-    height: 'calc(100% - 56px)',
-    overflow: 'auto',
     '@media (max-width: 700px)': {
       flexDirection: 'column',
     },

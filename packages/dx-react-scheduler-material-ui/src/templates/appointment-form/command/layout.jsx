@@ -15,13 +15,23 @@ const styles = ({ spacing, palette }) => ({
     justifyContent: 'flex-end',
     paddingTop: spacing(3),
     paddingLeft: spacing(2),
-    '@media (max-width: 700px)': {
-      paddingRight: spacing(2),
-    },
+    paddingRight: spacing(2.875),
     position: 'sticky',
     top: 0,
     backgroundColor: palette.background.paper,
     zIndex: 1,
+  },
+  basic: {
+    maxWidth: '650px',
+    paddingRight: 0,
+    paddingLeft: 0,
+    '@media (max-width: 700px)': {
+      paddingRight: spacing(2.875),
+      paddingLeft: spacing(2),
+    },
+  },
+  recurring: {
+    maxWidth: '1150px',
   },
 });
 
@@ -34,10 +44,16 @@ const LayoutBase = ({
   children,
   classes,
   className,
+  isRecurring,
+  readOnly,
   ...restProps
 }) => (
   <Grid
-    className={classNames(classes.root, className)}
+    className={classNames({
+      [classes.root]: true,
+      [classes.basic]: !isRecurring,
+      [classes.recurring]: isRecurring,
+    }, className)}
     container
     alignItems="center"
     {...restProps}
@@ -47,16 +63,20 @@ const LayoutBase = ({
       getMessage={getMessage}
       id={CANCEL_BUTTON}
     />
-    <CommandButton
-      onExecute={deleteAppointment}
-      getMessage={getMessage}
-      id={DELETE_BUTTON}
-    />
-    <CommandButton
-      getMessage={getMessage}
-      onExecute={commitAppointment}
-      id={SAVE_BUTTON}
-    />
+    {!readOnly && (
+      <React.Fragment>
+        <CommandButton
+          onExecute={deleteAppointment}
+          getMessage={getMessage}
+          id={DELETE_BUTTON}
+        />
+        <CommandButton
+          getMessage={getMessage}
+          onExecute={commitAppointment}
+          id={SAVE_BUTTON}
+        />
+      </React.Fragment>
+    )}
     {children}
   </Grid>
 );
@@ -70,11 +90,15 @@ LayoutBase.propTypes = {
   getMessage: PropTypes.func.isRequired,
   deleteAppointment: PropTypes.func.isRequired,
   className: PropTypes.string,
+  isRecurring: PropTypes.bool,
+  readOnly: PropTypes.bool,
 };
 
 LayoutBase.defaultProps = {
   className: undefined,
   children: undefined,
+  isRecurring: false,
+  readOnly: false,
 };
 
 export const Layout = withStyles(styles)(LayoutBase, { name: 'Layout' });

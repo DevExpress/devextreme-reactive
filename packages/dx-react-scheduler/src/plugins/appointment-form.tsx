@@ -273,6 +273,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                   deleteAppointment={deleteAppointment}
                   getMessage={getMessage}
                   readOnly={readOnly}
+                  isRecurring={!!changedAppointment.rRule}
                 />
               );
             }}

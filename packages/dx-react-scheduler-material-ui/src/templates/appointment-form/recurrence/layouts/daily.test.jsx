@@ -59,6 +59,9 @@ describe('AppointmentForm recurrence layout ', () => {
         .toHaveLength(1);
       expect(textEditor.at(0).is(`.${classes.textEditor}`))
         .toBeTruthy();
+
+      expect(tree.find(`.${classes.grid}`))
+        .toHaveLength(1);
     });
 
     it('should handle recurrence options change', () => {

@@ -63,6 +63,9 @@ describe('AppointmentForm recurrence layout', () => {
       const buttonGroup = tree.find(defaultProps.buttonGroupComponent);
       expect(buttonGroup)
         .toHaveLength(1);
+
+      expect(tree.find(`.${classes.grid}`))
+        .toHaveLength(1);
     });
 
     it('should handle appointment field changes', () => {

@@ -48,6 +48,23 @@ const styles = ({ spacing, typography }) => ({
     textAlign: 'center',
     paddingBottom: '0.5em',
   },
+  '@media (max-width: 500px)': {
+    dateEditors: {
+      flexDirection: 'column',
+    },
+    dateEditor: {
+      width: '100%',
+      '&:first-child': {
+        marginBottom: 0,
+      },
+      '&:last-child': {
+        marginTop: 0,
+      },
+    },
+    dividerLabel: {
+      display: 'none',
+    },
+  },
 });
 
 const LayoutBase = ({
@@ -91,6 +108,7 @@ const LayoutBase = ({
       <Grid
         container
         alignItems="center"
+        className={classes.dateEditors}
       >
         <DateEditor
           className={classes.dateEditor}

@@ -49,7 +49,7 @@ describe('AppointmentForm recurrence RadioGroup', () => {
 
     it('should render its components correctly', () => {
       const tree = mount((
-        <EndRepeatEditor data={{ a: 1 }} {...defaultProps} />
+        <EndRepeatEditor {...defaultProps} />
       ));
 
       const labels = tree.find(defaultProps.labelComponent);

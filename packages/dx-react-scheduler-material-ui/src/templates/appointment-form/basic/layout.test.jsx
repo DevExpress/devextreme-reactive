@@ -102,6 +102,9 @@ describe('AppointmentForm basic', () => {
 
       expect(tree.find(defaultProps.selectComponent))
         .toHaveLength(1);
+
+      expect(tree.find(`.${classes.dateEditors}`))
+        .toHaveLength(1);
     });
 
     it('should render components correctly if appointment is recurrent', () => {

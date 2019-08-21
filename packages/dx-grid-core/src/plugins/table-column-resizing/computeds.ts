@@ -22,12 +22,16 @@ const INVALID_RESIZING_MODE_ERROR = [
 ].join('\n');
 
 const INVALID_TYPE_ERROR = [
-  'The "$1" column\'s width specified like invalid type.',
-  'The TableColumnResizing plugin requires that all columns have the valid unit.',
+  'The "$1" column\'s width specified like string with invalid type or value.',
+  'The TableColumnResizing plugin requires that all columns have the valid value.',
+].join('\n');
+
+const NEGATIVE_WIDTH_ERROR = [
+  'The "$1" column\'s width defined less than 0.',
+  'The TableColumnResizing plugin requires that all columns have non-negative width.',
 ].join('\n');
 
 const specifyWidths: SpecifyWidthsFn = (tableColumns, widths, columnResizingMode, onAbsence) => {
-  // console.log(widths);
   if (columnResizingMode !== 'widget' && columnResizingMode !== 'nextColumn') {
     onAbsence(columnResizingMode, 'invalidMode');
   }
@@ -46,6 +50,8 @@ const specifyWidths: SpecifyWidthsFn = (tableColumns, widths, columnResizingMode
           } else if (columnResizingMode === 'widget' && isValidValue(width, NOT_FOR_WIDGET_UNITS)) {
             onAbsence(columnName, 'wrongMode');
           }
+        } else if (width < 0) {
+          onAbsence(columnName, 'negativeWidth');
         }
         if (width === undefined) {
           acc.push(tableColumn);
@@ -55,7 +61,6 @@ const specifyWidths: SpecifyWidthsFn = (tableColumns, widths, columnResizingMode
       } else {
         acc.push(tableColumn);
       }
-      // console.log(acc);
       return acc;
     }, [] as TableColumn[]);
 };
@@ -74,5 +79,6 @@ const throwError: ErrorFn = (target, errorType) => {
     case 'wrongMode': throw new Error(UNAVAILABLE_RESIZING_MODE_ERROR.replace('$1', target));
     case 'invalidType': throw new Error(INVALID_TYPE_ERROR.replace('$1', target));
     case 'invalidMode': throw new Error(INVALID_RESIZING_MODE_ERROR.replace('$1', target));
+    case 'negativeWidth': throw new Error(NEGATIVE_WIDTH_ERROR.replace('$1', target));
   }
 };

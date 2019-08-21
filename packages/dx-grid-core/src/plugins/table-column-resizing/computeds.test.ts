@@ -43,7 +43,7 @@ describe('TableColumnResizing Plugin computeds', () => {
         .toEqual([
           { type: TABLE_DATA_TYPE, width: '10px', column: { name: 'a' } },
           { type: TABLE_DATA_TYPE, width: 20, column: { name: 'b' } },
-          { type: TABLE_DATA_TYPE, width: '15', column: { name: 'c' } },
+          { type: TABLE_DATA_TYPE, width: 15, column: { name: 'c' } },
         ]);
     });
 
@@ -64,6 +64,19 @@ describe('TableColumnResizing Plugin computeds', () => {
         tableColumns,
         [
           { columnName: 'a', width: '10pix' },
+          { columnName: 'b', width: 15 },
+          { columnName: 'c', width: 15 },
+        ],
+        columnResizingMode,
+      ))
+        .toThrow(/"a".*width/);
+    });
+
+    it('should throw error if width for column specified like invalid value', () => {
+      expect(() => tableColumnsWithWidths(
+        tableColumns,
+        [
+          { columnName: 'a', width: '-10' },
           { columnName: 'b', width: 15 },
           { columnName: 'c', width: 15 },
         ],
@@ -96,6 +109,19 @@ describe('TableColumnResizing Plugin computeds', () => {
         'nextResizing',
       ))
         .toThrow(/"nextResizing".*mode/);
+    });
+
+    it('should throw error if column width defined less than 0', () => {
+      expect(() => tableColumnsWithWidths(
+        tableColumns,
+        [
+          { columnName: 'a', width: -10 },
+          { columnName: 'b', width: 15 },
+          { columnName: 'c', width: 15 },
+        ],
+        'nextColumn',
+      ))
+        .toThrow(/"a".*width/);
     });
   });
 

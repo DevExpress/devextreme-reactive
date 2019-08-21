@@ -211,5 +211,14 @@ describe('TableColumnResizing Plugin helpers', () => {
       values.forEach(value => expect(isValidValue(value, VALID_UNITS))
         .toBeFalsy());
     });
+
+    it('should return false for negative values', () => {
+      const values = [
+        '-10', '-10px', '-10%', '-10em', '-10rem', '-10vm', '-10vh', '-10vmin', '-10vmax',
+      ];
+
+      values.forEach(value => expect(isValidValue(value, VALID_UNITS))
+        .toBeFalsy());
+    });
   });
 });

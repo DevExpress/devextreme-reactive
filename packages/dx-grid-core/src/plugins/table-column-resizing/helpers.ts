@@ -59,7 +59,7 @@ export const isValidValue: ValidValueFn = (value, validUnits) => {
   const numb = parseInt(value, 10);
   const unit = numb ? value.substr(numb.toString().length) : value;
   const sizeIsAuto = isNaN(numb) && unit === 'auto';
-  const sizeIsValid = !isNaN(numb) && validUnits.some(validUnit => validUnit === unit);
+  const sizeIsValid = !isNaN(numb) && numb >= 0 && validUnits.some(validUnit => validUnit === unit);
   return sizeIsAuto || sizeIsValid;
 };
 

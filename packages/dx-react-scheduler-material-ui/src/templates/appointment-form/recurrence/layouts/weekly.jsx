@@ -6,18 +6,18 @@ import { NUMBER_EDITOR, getRecurrenceOptions, changeRecurrenceOptions } from '@d
 
 const styles = theme => ({
   label: {
-    width: '7em',
+    width: '6.5em',
   },
   textEditor: {
-    width: '6em',
+    width: 'calc((100% - 7.5em) * 3 / 7)',
+    maxWidth: '6em',
   },
   grid: {
     marginBottom: theme.spacing(1),
     marginTop: theme.spacing(1.75),
   },
   labelWithMargin: {
-    width: '7em',
-    marginLeft: theme.spacing(1.75),
+    marginLeft: '1em',
   },
 });
 

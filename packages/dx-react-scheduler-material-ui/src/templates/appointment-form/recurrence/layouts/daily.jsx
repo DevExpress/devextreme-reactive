@@ -11,14 +11,15 @@ import {
 
 const styles = ({ spacing }) => ({
   label: {
-    width: '7em',
+    width: '6.5em',
   },
   labelWithMargin: {
-    width: '7em',
-    marginLeft: spacing(1.75),
+    marginLeft: '1em',
+    width: 'calc((100% - 7.5em) * 4 / 7)',
   },
   textEditor: {
-    width: '6em',
+    width: 'calc((100% - 7.5em) * 3 / 7)',
+    maxWidth: '6em',
   },
   grid: {
     marginTop: spacing(1.75),

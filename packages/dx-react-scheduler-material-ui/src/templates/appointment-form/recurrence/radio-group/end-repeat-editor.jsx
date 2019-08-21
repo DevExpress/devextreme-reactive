@@ -10,11 +10,10 @@ import { NUMBER_EDITOR, getRecurrenceOptions, changeRecurrenceOptions } from '@d
 
 const styles = ({ spacing, typography }) => ({
   textEditor: {
-    width: '15em',
-    marginLeft: spacing(1.875),
+    width: 'calc(100% - 4.5em)',
   },
   label: {
-    width: '4em',
+    width: '4.5em',
   },
   input: {
     paddingBottom: spacing(2.75),
@@ -23,8 +22,13 @@ const styles = ({ spacing, typography }) => ({
     fontSize: typography.fontSize + 1,
   },
   dateEditor: {
-    width: '15em',
-    marginLeft: spacing(1.875),
+    width: 'calc(100% - 4.5em)',
+  },
+  formControl: {
+    marginRight: 0,
+  },
+  controlLabel: {
+    width: '100%',
   },
 });
 
@@ -95,7 +99,9 @@ const EndRepeatEditorBase = ({
         classes={{ label: classes.radioLabel }}
       />
       <FormControlLabel
+        className={classes.formControl}
         value="endAfter"
+        classes={{ label: classes.controlLabel }}
         control={<Radio color="primary" />}
         label={(
           <Grid
@@ -127,6 +133,8 @@ const EndRepeatEditorBase = ({
         )}
       />
       <FormControlLabel
+        className={classes.formControl}
+        classes={{ label: classes.controlLabel }}
         value="endBy"
         control={<Radio color="primary" />}
         label={(

@@ -3,6 +3,7 @@ import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import classNames from 'classnames';
 import Radio from '@material-ui/core/Radio';
 import Grid from '@material-ui/core/Grid';
 import {
@@ -22,41 +23,43 @@ import {
 
 const styles = ({ spacing }) => ({
   textEditor: {
-    width: '8em',
-    marginLeft: spacing(1.875),
-    marginRight: spacing(2),
+    width: 'calc((100% - 5.5em) * 4 / 7)',
+    minWidth: 'calc(100% - 11.5em)',
     marginTop: spacing(1),
     marginBottom: spacing(1),
-  },
-  shortLabel: {
-    paddingTop: spacing(4),
-    width: '8%',
+    marginLeft: '1em',
   },
   label: {
-    width: '4em',
-    marginRight: 0,
+    width: '4.5em',
   },
   input: {
     paddingBottom: spacing(2.75),
   },
   select: {
-    width: '6em',
-    marginLeft: spacing(1.875),
+    width: 'calc((100% - 5.5em) * 3 / 7)',
+    maxWidth: '6em',
   },
   longSelect: {
-    width: '8em',
-    marginLeft: spacing(1.75),
+    width: 'calc((100% - 5.5em) * 4 / 7)',
+    minWidth: 'calc(100% - 11.5em)',
+    marginLeft: '1em',
   },
   formControlLabel: {
     alignItems: 'flex-start',
   },
+  formControl: {
+    marginRight: 0,
+  },
   doubleSelect: {
-    marginLeft: spacing(9.75),
-    width: '15em',
+    marginLeft: '4.5em',
+    width: 'calc(100% - 4.5em)',
     marginTop: spacing(1),
   },
   radioButton: {
     marginTop: spacing(0.75),
+  },
+  controlLabel: {
+    width: '100%',
   },
 });
 
@@ -155,6 +158,8 @@ const YearlyEditorBase = ({
     >
       <FormControlLabel
         value="onDayAndMonth"
+        className={classes.formControl}
+        classes={{ label: classes.controlLabel }}
         control={<Radio color="primary" />}
         label={(
           <Grid
@@ -195,7 +200,8 @@ const YearlyEditorBase = ({
       />
       <FormControlLabel
         value="onDayOfWeek"
-        className={classes.formControlLabel}
+        className={classNames(classes.formControlLabel, classes.formControl)}
+        classes={{ label: classes.controlLabel }}
         control={<Radio color="primary" className={classes.radioButton} />}
         label={(
           <div>

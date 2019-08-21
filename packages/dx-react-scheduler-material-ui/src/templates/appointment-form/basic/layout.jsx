@@ -21,6 +21,7 @@ const styles = theme => ({
     paddingTop: theme.spacing(3),
     paddingLeft: theme.spacing(2.125),
     paddingBottom: 0,
+    maxWidth: '650px',
   },
   fullSize: {
     width: '100%',

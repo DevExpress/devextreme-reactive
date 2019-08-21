@@ -17,27 +17,34 @@ import { getNumberLabels, getDaysOfWeek } from '../../helpers';
 
 const styles = ({ spacing }) => ({
   textEditor: {
-    width: '6em',
-    marginLeft: spacing(1.875),
-    marginRight: spacing(2),
+    width: 'calc((100% - 5.5em) * 3 / 7)',
+    maxWidth: '7.25em',
+    marginRight: '1em',
   },
   input: {
     paddingBottom: spacing(2.75),
   },
   select: {
-    width: '6em',
-    marginLeft: spacing(1.875),
+    width: 'calc((100% - 5.5em) * 3 / 7)',
+    maxWidth: '6em',
   },
   longSelect: {
-    width: '8em',
-    marginLeft: spacing(1.75),
+    width: 'calc((100% - 5.5em) * 4 / 7)',
+    minWidth: 'calc(100% - 11.5em)',
+    marginLeft: '1em',
   },
   label: {
-    width: '4em',
+    width: '4.5em',
   },
   grid: {
     marginTop: spacing(1),
     marginBottom: spacing(1),
+  },
+  formControl: {
+    marginRight: 0,
+  },
+  controlLabel: {
+    width: '100%',
   },
 });
 
@@ -126,6 +133,7 @@ const MonthlyEditorBase = ({
       {...restProps}
     >
       <FormControlLabel
+        className={classes.formControl}
         value="onDayNumber"
         control={<Radio color="primary" />}
         label={(
@@ -160,6 +168,8 @@ const MonthlyEditorBase = ({
       />
       <FormControlLabel
         value="onDayOfWeek"
+        className={classes.formControl}
+        classes={{ label: classes.controlLabel }}
         control={<Radio color="primary" />}
         label={(
           <Grid

@@ -22,6 +22,7 @@ const styles = theme => ({
     padding: theme.spacing(3),
     paddingRight: 0,
     width: '50%',
+    maxWidth: '500px',
   },
   label: {
     width: '8em',

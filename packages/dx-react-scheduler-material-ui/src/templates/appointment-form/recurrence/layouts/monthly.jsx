@@ -16,17 +16,17 @@ const styles = theme => ({
     width: '50%',
   },
   label: {
-    width: '7em',
+    width: '6.5em',
   },
   textEditor: {
-    width: '6em',
+    width: 'calc((100% - 7.5em) * 3 / 7)',
+    maxWidth: '6em',
   },
   grid: {
     marginTop: theme.spacing(1.75),
   },
   labelWithMargin: {
-    width: '7em',
-    marginLeft: theme.spacing(1.75),
+    marginLeft: '1em',
   },
 });
 

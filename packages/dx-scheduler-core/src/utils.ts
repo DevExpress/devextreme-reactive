@@ -349,7 +349,6 @@ const expandRecurrenceAppointment = (
 export const filterByViewBoundaries: PureComputed<
   [AppointmentMoment, Date, Date, number[], boolean], AppointmentMoment[]
 > = (appointment, leftBound, rightBound, excludedDays, removeAllDay) => {
-  debugger
   let appointments = [appointment];
   if (appointment.rRule) {
     appointments = expandRecurrenceAppointment(

@@ -20,8 +20,8 @@ const recurrenceAppointments = [{
   exDate: '20180628T063500Z,20180626T061500Z',
 }, {
   title: 'XXX',
-  startDate: new Date(2018, 5, 25, 9, 15),
-  endDate: new Date(2018, 5, 25, 11, 30),
+  startDate: new Date(2018, 5, 25, 11, 15),
+  endDate: new Date(2018, 5, 26, 11, 0),
   id: 1000,
   allDay: true,
 }, {

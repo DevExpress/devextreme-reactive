@@ -106,8 +106,8 @@ export const timeBoundariesByDrag: TimeBoundariesByDrag = (
   if (targetType === HORIZONTAL_TYPE
     && intervalDuration(payload, SECONDS) < intervalDuration(targetData, SECONDS)) {
     return {
-      appointmentStartTime: targetData.startDate,
-      appointmentEndTime: targetData.endDate,
+      appointmentStartTime: targetData.startDate as Date,
+      appointmentEndTime: targetData.endDate as Date,
       offsetTimeTop: 0,
     };
   }
@@ -175,7 +175,7 @@ export const calculateDraftAppointments = (
 ) => {
   if (allDayIndex !== -1 || (getAllDayCellsElementRects.getCellRects.length
     && intervalDuration(draftAppointments[0].dataItem, HOURS) > 23)) {
-    const allDayDrafts = draftAppointments.map(draftAppt => ({
+    const allDayDrafts = draftAppointments.map((draftAppt: any) => ({
       ...draftAppt,
       allDay: true,
     }));

@@ -268,11 +268,11 @@ export const TableColumnResizing: React.ComponentType<TableColumnResizingProps>;
 // @public (undocumented)
 export interface TableColumnResizingProps {
   columnExtensions?: Array<TableColumnResizing_2.ColumnExtension>;
+  columnResizingMode?: string;
   columnWidths?: Array<TableColumnWidthInfo>;
   defaultColumnWidths?: Array<TableColumnWidthInfo>;
   maxColumnWidth?: number;
   minColumnWidth?: number;
-  nextColumnResizing?: boolean;
   onColumnWidthsChange?: (nextColumnWidths: Array<TableColumnWidthInfo>) => void;
 }
 

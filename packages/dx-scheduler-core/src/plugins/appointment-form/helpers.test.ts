@@ -1,4 +1,9 @@
-import { callActionIfExists, isAllDayCell } from './helpers';
+
+import { RRule } from 'rrule';
+import {
+  callActionIfExists, isAllDayCell, changeRecurrenceFrequency,
+} from './helpers';
+import { DEFAULT_RULE_OBJECT } from './constants';
 
 describe('AppointmentForm helpers', () => {
   describe('#callActionIfExists', () => {
@@ -19,6 +24,34 @@ describe('AppointmentForm helpers', () => {
     it('should work', () => {
       expect(isAllDayCell(new Date('2018-10-10'), new Date('2018-10-11')))
         .toBeTruthy();
+    });
+  });
+
+  describe('#changeRecurrenceFrequency', () => {
+    it('should set recurrence frequency', () => {
+      const rule = new RRule({
+        interval: 3,
+      });
+
+      expect((new RRule(
+        RRule.parseString(changeRecurrenceFrequency(rule.toString(), RRule.MONTHLY)))
+      )
+        .options)
+        .toMatchObject((new RRule({
+          interval: 3,
+          freq: RRule.MONTHLY,
+        }))
+          .options);
+
+      expect((new RRule(
+        RRule.parseString(changeRecurrenceFrequency(undefined, RRule.WEEKLY)))
+      )
+        .options)
+        .toMatchObject((new RRule({
+          ...DEFAULT_RULE_OBJECT,
+          freq: RRule.WEEKLY,
+        }))
+          .options);
     });
   });
 });

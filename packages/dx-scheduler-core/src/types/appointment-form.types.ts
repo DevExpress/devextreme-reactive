@@ -21,30 +21,10 @@ export type ChangeRecurrenceNumberFeildFn = PureComputed<
   [string, number], string
 >;
 /** @internal */
-export type ChangeRecurrenceEndDateFn = PureComputed<
-  [string, SchedulerDateTime], string
->;
-/** @internal */
-export type ChangeRecurrenceWeekDaysFn = PureComputed<
-  [string, [number | 'MO' | 'TU' | 'WE' | 'TH' | 'FR' | 'SA' | 'SU']], string
->;
-/** @internal */
-export type NumberRecurrenceRuleGetterFn = PureComputed<
-  [string], number | null |undefined
->;
-/** @internal */
-export type RecurrenceDateGetterFn = PureComputed<
-  [string], SchedulerDateTime | null |undefined
->;
-/** @internal */
-export type RecurrenceWeekDayGetterFn = PureComputed<
-  [string], [number | 'MO' | 'TU' | 'WE' | 'TH' | 'FR' | 'SA' | 'SU']
->;
-/** @internal */
 export type RecurrecnceOptionsGetterFn = PureComputed<
   [string], Partial<Options> | null
 >;
 /** @internal */
 export type RecurrecnceOptionsSetterFn = PureComputed<
-  [Partial<Options>], string
+  [Partial<Options>], string | undefined
 >;

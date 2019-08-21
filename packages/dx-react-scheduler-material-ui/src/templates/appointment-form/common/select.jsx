@@ -36,7 +36,7 @@ const SelectBase = ({
   ...restProps
 }) => {
   const handleChange = (event) => {
-    onChange(event.target.value);
+    if (event.target.value !== value) onChange(event.target.value);
   };
 
   const Input = id === STANDARD_SELECT

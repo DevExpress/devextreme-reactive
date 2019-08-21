@@ -3,11 +3,6 @@ import { PureComputed } from '@devexpress/dx-core';
 import { RRule } from 'rrule';
 import {
   ChangeRecurrenceNumberFeildFn,
-  ChangeRecurrenceEndDateFn,
-  ChangeRecurrenceWeekDaysFn,
-  NumberRecurrenceRuleGetterFn,
-  RecurrenceDateGetterFn,
-  RecurrenceWeekDayGetterFn,
   RecurrecnceOptionsGetterFn,
   RecurrecnceOptionsSetterFn,
   Action,
@@ -27,25 +22,6 @@ export const isAllDayCell: PureComputed<
 > = (
   startDate, endDate,
   ) => moment(endDate as EndDate).diff(moment(startDate as StartDate), 'days') >= 1;
-
-export const changeRecurrenceInterval: ChangeRecurrenceNumberFeildFn = (
-  rule,
-  interval,
-) => {
-  if (!rule) return (new RRule({ interval })).toString();
-  const options = RRule.parseString(rule);
-  options.interval = interval;
-  const nextRule = new RRule(options);
-  return nextRule.toString();
-};
-
-export const getRecurrenceInterval: NumberRecurrenceRuleGetterFn = (
-  rule,
-) => {
-  if (!rule) return undefined;
-  const options = RRule.parseString(rule);
-  return options.interval;
-};
 
 export const changeRecurrenceFrequency: ChangeRecurrenceNumberFeildFn = (
   rule,
@@ -79,73 +55,12 @@ export const changeRecurrenceFrequency: ChangeRecurrenceNumberFeildFn = (
   if (freq === RRULE_REPEAT_TYPES.MONTHLY || freq === RRULE_REPEAT_TYPES.YEARLY) {
     options.bymonthday = startDate.getDate();
   }
+  if (freq === RRULE_REPEAT_TYPES.DAILY || freq === RRULE_REPEAT_TYPES.WEEKLY) {
+    options.bymonthday = undefined;
+    options.byweekday = undefined;
+  }
   const nextRule = new RRule(options);
   return nextRule.toString();
-};
-
-export const getRecurrenceFrequency: NumberRecurrenceRuleGetterFn = (
-  rule,
-) => {
-  if (!rule) return undefined;
-  const options = RRule.parseString(rule);
-  return options.freq;
-};
-
-export const changeRecurrenceEndDate: ChangeRecurrenceEndDateFn = (
-  rule,
-  endDate,
-) => {
-  if (!rule) return (new RRule({ until: endDate })).toString();
-  const options = RRule.parseString(rule);
-  options.until = endDate;
-  const nextRule = new RRule(options);
-  return nextRule.toString();
-};
-
-export const getRecurrenceEndDate: RecurrenceDateGetterFn = (
-  rule,
-) => {
-  if (!rule) return null;
-  const options = RRule.parseString(rule);
-  return options.until;
-};
-
-export const changeRecurrenceCount: ChangeRecurrenceNumberFeildFn = (
-  rule,
-  count,
-) => {
-  if (!rule) return (new RRule({ count })).toString();
-  const options = RRule.parseString(rule);
-  options.count = count;
-  const nextRule = new RRule(options);
-  return nextRule.toString();
-};
-
-export const getRecurrenceCount: NumberRecurrenceRuleGetterFn = (
-  rule,
-) => {
-  if (!rule) return undefined;
-  const options = RRule.parseString(rule);
-  return options.count;
-};
-
-export const changeRecurrenceWeekDays: ChangeRecurrenceWeekDaysFn = (
-  rule,
-  byweekday,
-) => {
-  if (!rule) return (new RRule({ byweekday })).toString();
-  const options = RRule.parseString(rule);
-  options.byweekday = byweekday;
-  const nextRule = new RRule(options);
-  return nextRule.toString();
-};
-
-export const getRecurrenceWeekDays: RecurrenceWeekDayGetterFn = (
-  rule,
-) => {
-  if (!rule) return undefined;
-  const options = RRule.parseString(rule);
-  return options.byweekday;
 };
 
 export const getRecurrenceOptions: RecurrecnceOptionsGetterFn = (rule) => {
@@ -159,8 +74,9 @@ export const getRecurrenceOptions: RecurrecnceOptionsGetterFn = (rule) => {
   return options;
 };
 
-export const changeRecurrenceOptions: RecurrecnceOptionsSetterFn = options =>
-  (new RRule(options)).toString();
+export const changeRecurrenceOptions: RecurrecnceOptionsSetterFn = (options) => {
+  return options ? (new RRule(...options)).toString() : undefined;
+};
 
 export const handleStartDateChange = (
   newStartDay,

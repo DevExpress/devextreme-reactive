@@ -48,7 +48,7 @@ const OverlayBase = ({
       BackdropProps={{ className: classes.absolutePosition }}
       ModalProps={{
         className: classes.absolutePosition,
-        container: target,
+        container: target.current,
       }}
       variant="temporary"
       anchor="left"

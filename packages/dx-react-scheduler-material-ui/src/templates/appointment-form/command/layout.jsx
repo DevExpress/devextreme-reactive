@@ -30,49 +30,49 @@ const styles = ({ spacing, palette }) => ({
       paddingLeft: spacing(2),
     },
   },
-  recurring: {
+  fullSize: {
     maxWidth: '1150px',
   },
 });
 
 const LayoutBase = ({
   commandButtonComponent: CommandButton,
-  commitChanges,
-  cancelChanges,
-  deleteAppointment,
+  onCommitButtonClick,
+  onCancelButtonClick,
+  onDeleteButtonClick,
   getMessage,
   children,
   classes,
   className,
-  isRecurring,
+  fullSize,
   readOnly,
   ...restProps
 }) => (
   <Grid
     className={classNames({
       [classes.root]: true,
-      [classes.basic]: !isRecurring,
-      [classes.recurring]: isRecurring,
+      [classes.basic]: !fullSize,
+      [classes.fullSize]: fullSize,
     }, className)}
     container
     alignItems="center"
     {...restProps}
   >
     <CommandButton
-      onExecute={cancelChanges}
+      onExecute={onCancelButtonClick}
       getMessage={getMessage}
       id={CANCEL_BUTTON}
     />
     {!readOnly && (
       <React.Fragment>
         <CommandButton
-          onExecute={deleteAppointment}
+          onExecute={onDeleteButtonClick}
           getMessage={getMessage}
           id={DELETE_BUTTON}
         />
         <CommandButton
           getMessage={getMessage}
-          onExecute={commitChanges}
+          onExecute={onCommitButtonClick}
           id={SAVE_BUTTON}
         />
       </React.Fragment>
@@ -83,21 +83,21 @@ const LayoutBase = ({
 
 LayoutBase.propTypes = {
   commandButtonComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  children: PropTypes.node,
   classes: PropTypes.object.isRequired,
-  commitChanges: PropTypes.func.isRequired,
-  cancelChanges: PropTypes.func.isRequired,
+  onCommitButtonClick: PropTypes.func.isRequired,
+  onCancelButtonClick: PropTypes.func.isRequired,
+  onDeleteButtonClick: PropTypes.func.isRequired,
   getMessage: PropTypes.func.isRequired,
-  deleteAppointment: PropTypes.func.isRequired,
   className: PropTypes.string,
-  isRecurring: PropTypes.bool,
+  fullSize: PropTypes.bool,
   readOnly: PropTypes.bool,
+  children: PropTypes.node,
 };
 
 LayoutBase.defaultProps = {
   className: undefined,
   children: undefined,
-  isRecurring: false,
+  fullSize: false,
   readOnly: false,
 };
 

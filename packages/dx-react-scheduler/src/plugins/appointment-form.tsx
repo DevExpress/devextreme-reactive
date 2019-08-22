@@ -202,7 +202,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                       basicLayoutComponent={BasicLayoutPlaceholder}
                       commandLayoutComponent={CommandLayoutPlaceholder}
                       recurrenceLayoutComponent={RecurrenceLayoutPlaceholder}
-                      isRecurring={isRecurrence}
+                      isRecurrence={isRecurrence}
                     />
                   </Overlay>
                   <TemplatePlaceholder />
@@ -267,12 +267,12 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               return (
                 <CommandLayout
                   commandButtonComponent={commandButtonComponent}
-                  commitChanges={commitAppointment}
-                  cancelChanges={cancelCommit}
-                  deleteAppointment={deleteAppointment}
+                  onCommitButtonClick={commitAppointment}
+                  onCancelButtonClick={cancelCommit}
+                  onDeleteButtonClick={deleteAppointment}
                   getMessage={getMessage}
                   readOnly={readOnly}
-                  isRecurring={!!changedAppointment.rRule}
+                  fullSize={!!changedAppointment.rRule}
                 />
               );
             }}

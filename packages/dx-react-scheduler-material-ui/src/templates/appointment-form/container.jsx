@@ -30,7 +30,6 @@ const ContainerBase = React.forwardRef(({
 ContainerBase.propTypes = {
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
-  anchor: PropTypes.object.isRequired,
 };
 
 ContainerBase.defaultProps = {

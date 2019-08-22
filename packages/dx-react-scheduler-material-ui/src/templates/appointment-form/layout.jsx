@@ -24,7 +24,7 @@ const LayoutBase = ({
   basicLayoutComponent: BasicLayout,
   commandLayoutComponent: CommandLayout,
   recurrenceLayoutComponent: RecurrenceLayout,
-  isRecurring,
+  isRecurrence,
   children,
   classes,
   className,
@@ -37,7 +37,7 @@ const LayoutBase = ({
     <CommandLayout />
     <div className={classes.container}>
       <BasicLayout />
-      {isRecurring && <RecurrenceLayout />}
+      {isRecurrence && <RecurrenceLayout />}
     </div>
     {children}
   </div>
@@ -50,12 +50,12 @@ LayoutBase.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   classes: PropTypes.object.isRequired,
-  isRecurring: PropTypes.bool,
+  isRecurrence: PropTypes.bool,
 };
 
 LayoutBase.defaultProps = {
   className: undefined,
-  isRecurring: false,
+  isRecurrence: false,
   children: null,
 };
 

@@ -28,14 +28,29 @@ export namespace AppointmentForm {
     basicLayoutComponent: React.ComponentType<AppointmentForm.BasicLayoutProps>;
     /** A component that render the appointment form's layout for recurrence part of editors */
     recurrenceLayoutComponent: React.ComponentType<AppointmentForm.RecurrenceLayoutProps>;
-    /** Specifies that recurrence editor part should be rendered */
-    isRecurring: boolean;
-    /** A React node used to render layout content. */
-    children: React.ReactNode;
+    /** Specifies whether the layout should render recurrence part of editors */
+    isRecurrence: boolean;
+    /** A React node should be added as additional. */
+    children?: React.ReactNode;
   }
   /** A component that render the appointment form's layout for command buttons */
   export interface CommandLayoutProps {
-    
+    /** Specifies the appointment form is read-only. */
+    readOnly?: boolean;
+    /** Specifies whether the command layout has full size */
+    fullSize: boolean;
+    /** A React node should be added as additional. */
+    children?: React.ReactNode;
+    /** An event raised when the Commit button is clicked. The event handler should commit an appointment changes. */
+    onCommitButtonClick: () => void;
+    /** An event raised when the Cancel button is clicked. The event handler should close the appointment form. */
+    onCancelButtonClick: () => void;
+    /** An event raised when the Delete button is clicked. The event handler should delete an appointment. */
+    onDeleteButtonClick: () => void;
+    /** Returns a localization message by the message key. */
+    getMessage: (messageKey: string) => string;
+    /** A component that renders a command button. */
+    commandButtonComponent: React.ComponentType<AppointmentForm.CommandButtonProps>;
   }
   /** Localization Messages */
   export interface LocalizationMessages {

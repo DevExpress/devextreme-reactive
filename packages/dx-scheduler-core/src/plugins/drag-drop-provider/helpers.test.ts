@@ -443,7 +443,7 @@ describe('DragDropProvider', () => {
       });
     });
     // tslint:disable-next-line:max-line-length
-    it('should return all day array while resize appointment above then 23 hours if AllDayPanel exists', () => {
+    it('should return all day array while resize vertical appointment above then 23 hours if AllDayPanel exists', () => {
       const nextAllDayIndex = -1;
       const nextAllDayCells = {
         getParentRect: () => undefined, getCellRects: [{}], // allDayPanel exists
@@ -463,6 +463,16 @@ describe('DragDropProvider', () => {
       .toEqual({
         allDayDraftAppointments: [{}],
         timeTableDraftAppointments: [],
+      });
+
+      expect(calculateDraftAppointments(
+        nextAllDayIndex, longDraftAppointment, startViewDate,
+        endViewDate, excludedDays, viewCellsData, nextAllDayCells,
+        'horizontal', cellDurationMinutes, timeTableCells,
+      ))
+      .toEqual({
+        allDayDraftAppointments: [],
+        timeTableDraftAppointments: [{}],
       });
 
       const shortAppointment = [{

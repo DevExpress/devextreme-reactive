@@ -173,7 +173,8 @@ export const calculateDraftAppointments = (
   targetType: string, cellDurationMinutes: number,
   getTableCellElementRects: CellElementsMeta,
 ) => {
-  if (allDayIndex !== -1 || (getAllDayCellsElementRects.getCellRects.length
+  if (allDayIndex !== -1 || (targetType === VERTICAL_TYPE
+    && getAllDayCellsElementRects.getCellRects.length
     && intervalDuration(draftAppointments[0].dataItem, HOURS) > 23)) {
     const allDayDrafts = draftAppointments.map((draftAppt: any) => ({
       ...draftAppt,

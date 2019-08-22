@@ -31,6 +31,7 @@ const defaultDeps = {
 
 const defaultProps = {
   minColumnWidth: 40,
+  maxColumnWidth: Infinity,
 };
 
 describe('TableColumnResizing', () => {
@@ -96,28 +97,120 @@ describe('TableColumnResizing', () => {
     });
   });
 
-  // tslint:disable-next-line: max-line-length
-  it('should correctly update column widths after the "draftTableColumnWidth" action is fired', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <TableColumnResizing
-          {...defaultProps}
-          defaultColumnWidths={[{ columnName: 'a', width: 100 }]}
-        />
-      </PluginHost>
-    ));
+  describe('undefined columnExtensions', () => {
+    const payload = {
+      changes: { a: 50 },
+      minColumnWidth: defaultProps.minColumnWidth,
+      maxColumnWidth: defaultProps.maxColumnWidth,
+      columnExtensions: undefined,
+    };
 
-    const payload = { changes: { a: 50 }, minColumnWidth: defaultProps.minColumnWidth };
+    // tslint:disable-next-line: max-line-length
+    it('should correctly update column widths after the "changeTableColumnWidth" action is fired', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableColumnResizing
+            {...defaultProps}
+            defaultColumnWidths={[{ columnName: 'a', width: 100 }]}
+          />
+        </PluginHost>
+      ));
 
-    draftTableColumnWidth.mockReturnValue({ draftColumnWidths: [{ columnName: 'a', width: 150 }] });
-    executeComputedAction(tree, actions => actions.draftTableColumnWidth(payload));
+      changeTableColumnWidth.mockReturnValue({ columnWidths: [{ columnName: 'a', width: 150 }] });
+      executeComputedAction(tree, actions => actions.changeTableColumnWidth(payload));
 
-    expect(draftTableColumnWidth)
-      .toBeCalledWith(expect.objectContaining({ draftColumnWidths: [] }), payload);
+      expect(changeTableColumnWidth)
+        .toBeCalledWith(expect.objectContaining(
+          { columnWidths: [{ columnName: 'a', width: 100 }] }), payload,
+        );
 
-    expect(tableColumnsWithDraftWidths)
-      .toBeCalledWith('tableColumnsWithWidths', [{ columnName: 'a', width: 150 }]);
+      expect(tableColumnsWithDraftWidths)
+        .toBeCalledWith('tableColumnsWithWidths', []);
+    });
+
+    // tslint:disable-next-line: max-line-length
+    it('should correctly update column widths after the "draftTableColumnWidth" action is fired', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableColumnResizing
+            {...defaultProps}
+            defaultColumnWidths={[{ columnName: 'a', width: 100 }]}
+          />
+        </PluginHost>
+      ));
+
+      draftTableColumnWidth.mockReturnValue(
+        { draftColumnWidths: [{ columnName: 'a', width: 150 }] },
+      );
+      executeComputedAction(tree, actions => actions.draftTableColumnWidth(payload));
+
+      expect(draftTableColumnWidth)
+        .toBeCalledWith(expect.objectContaining({ draftColumnWidths: [] }), payload);
+
+      expect(tableColumnsWithDraftWidths)
+        .toBeCalledWith('tableColumnsWithWidths', [{ columnName: 'a', width: 150 }]);
+    });
+  });
+
+  describe('defined columnExtensions', () => {
+    const columnExtensions = [{ columnName: 'a', minWidth: 50, maxWidth: 150 }];
+    const payload = {
+      changes: { a: 50 },
+      minColumnWidth: defaultProps.minColumnWidth,
+      maxColumnWidth: defaultProps.maxColumnWidth,
+      columnExtensions,
+    };
+
+    it('should correctly provide columnExtensions into the "changeTableColumnWidth" action', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableColumnResizing
+            {...defaultProps}
+            defaultColumnWidths={[{ columnName: 'a', width: 100 }]}
+            columnExtensions={columnExtensions}
+          />
+        </PluginHost>
+      ));
+
+      changeTableColumnWidth.mockReturnValue({ columnWidths: [{ columnName: 'a', width: 150 }] });
+      executeComputedAction(tree, actions => actions.changeTableColumnWidth(payload));
+
+      expect(changeTableColumnWidth)
+        .toBeCalledWith(expect.objectContaining(
+          { columnWidths: [{ columnName: 'a', width: 100 }] }), payload,
+        );
+
+      expect(tableColumnsWithDraftWidths)
+        .toBeCalledWith('tableColumnsWithWidths', []);
+    });
+
+    // tslint:disable-next-line: max-line-length
+    it('should correctly provide columnExtensions into the "draftTableColumnWidth" action', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableColumnResizing
+            {...defaultProps}
+            defaultColumnWidths={[{ columnName: 'a', width: 100 }]}
+            columnExtensions={columnExtensions}
+          />
+        </PluginHost>
+      ));
+
+      draftTableColumnWidth.mockReturnValue(
+        { draftColumnWidths: [{ columnName: 'a', width: 150 }] },
+      );
+      executeComputedAction(tree, actions => actions.draftTableColumnWidth(payload));
+
+      expect(draftTableColumnWidth)
+        .toBeCalledWith(expect.objectContaining({ draftColumnWidths: [] }), payload);
+
+      expect(tableColumnsWithDraftWidths)
+        .toBeCalledWith('tableColumnsWithWidths', [{ columnName: 'a', width: 150 }]);
+    });
   });
 
   // tslint:disable-next-line: max-line-length

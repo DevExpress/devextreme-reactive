@@ -1,8 +1,8 @@
 import { PureComputed } from '@devexpress/dx-core';
-import { AppointmentId, AppointmentChanges } from '../../types';
+import { AppointmentId, AppointmentChanges, Changes } from '../../types';
 
 export const changedAppointmentById: PureComputed<
-  [object, AppointmentId], AppointmentChanges
+  [Changes, AppointmentId], AppointmentChanges
 > = (changes, appointmentId) => (
   { [appointmentId]: changes }
 );

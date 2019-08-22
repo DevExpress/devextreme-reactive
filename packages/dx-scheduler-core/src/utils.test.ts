@@ -512,6 +512,32 @@ describe('Utils', () => {
       expect(result)
         .toHaveLength(1);
     });
+    it('should filter recurrence all-day appointment', () => {
+      const leftBoundTest = new Date('2019-04-9 00:00');
+      const rightBoundTest = new Date('2019-04-10 00:00');
+      const appointment = {
+        start: moment(new Date('2019-04-9 8:00')),
+        end: moment(new Date('2019-04-10 9:00')),
+        rRule: 'FREQ=DAILY;COUNT=2',
+      };
+      const result = filterByViewBoundaries(appointment, leftBoundTest, rightBoundTest, [], true);
+
+      expect(result)
+        .toHaveLength(0);
+    });
+    it('should filter recurrence appointments by excluded days', () => {
+      const leftBoundTest = new Date('2019-08-19 00:00');
+      const rightBoundTest = new Date('2019-08-22 00:00');
+      const appointment = {
+        start: moment(new Date('2019-08-20 10:00')),
+        end: moment(new Date('2019-08-20 11:00')),
+        rRule: 'FREQ=DAILY;COUNT=2',
+      };
+      const result = filterByViewBoundaries(appointment, leftBoundTest, rightBoundTest, [2]);
+
+      expect(result)
+        .toHaveLength(1);
+    });
     it('should work recurrence appointment with EXDATE', () => {
       const leftBoundTest = new Date(Date.UTC(2019, 3, 9, 0, 0));
       const rightBoundTest = new Date(Date.UTC(2019, 3, 12, 0, 0));

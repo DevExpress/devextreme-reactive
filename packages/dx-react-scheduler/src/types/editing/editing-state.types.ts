@@ -1,21 +1,12 @@
-/** Describes uncommitted changes made to the scheduler data. */
-export interface ChangeSet {
-  /** An array of rows to be created. */
-  added?: { [key: string]: object };
-  // tslint:disable-next-line:max-line-length
-  /** An associative array that stores changes made to existing data. Each array item specifies changes made to a row. The item's key specifies the associated row's ID. */
-  changed?: { [key: string]: object };
-  /** An array of IDs representing rows to be deleted. */
-  deleted?: number | string;
-}
+import { PreCommitChangesFn, ChangeSet, AppointmentModel } from '../index';
 
 export interface EditingStateProps {
-  /** The identifier of an appointment being edited. */
-  editingAppointmentId?: number | string;
-  /** The initial value of the editingAppointmentId property in uncontrolled mode. */
-  defaultEditingAppointmentId?: number | string;
-  /** Handles changes to the editingAppointmentId property value. */
-  onEditingAppointmentIdChange?: (editingAppointmentId: number | string) => void;
+  /** The data of an appointment being edited. */
+  editingAppointment?: Partial<AppointmentModel>;
+  /** The initial value of the editingAppointment property in uncontrolled mode. */
+  defaultEditingAppointment?: Partial<AppointmentModel>;
+  /** Handles changes to the editingAppointment property value. */
+  onEditingAppointmentChange?: (editingAppointment: Partial<AppointmentModel>) => void;
   /** A created but not committed appointment. */
   addedAppointment?: object;
   /** The initial value of the addedAppointment property in uncontrolled mode. */
@@ -30,11 +21,13 @@ export interface EditingStateProps {
   onAppointmentChangesChange?: (appointmentChanges: { [key: string]: any }) => void;
   /** Handles commiting appointment changes. */
   onCommitChanges: (changes: ChangeSet) => void;
+  /** Handles commiting appointment changes. */
+  preCommitChanges?: PreCommitChangesFn;
 }
 
 /** @internal */
 export type EditingStateState = {
-  editingAppointmentId: number | string;
+  editingAppointment: Partial<AppointmentModel>;
   addedAppointment: { [key: string]: object };
   appointmentChanges: { [key: string]: object };
 };

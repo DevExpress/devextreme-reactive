@@ -1,4 +1,4 @@
-import { insertPlugin, removePlugin, createClickHandlers, isEdgeBrowser } from './utils';
+import { insertPlugin, removePlugin, createClickHandlers } from './utils';
 
 describe('utils', () => {
   afterEach(() => {
@@ -117,36 +117,6 @@ describe('utils', () => {
         expect(clickEvent)
           .not.toHaveBeenCalled();
       }, DELAY);
-    });
-  });
-
-  describe('#isEdgeBrowser', () => {
-    /* globals window:true */
-    const assertIsEdge = (expected, ua) => {
-      (window.navigator as any).userAgent = ua;
-      expect(isEdgeBrowser()).toBe(expected);
-    };
-
-    beforeEach(() => {
-      Object.defineProperty(window.navigator, 'userAgent', {
-        value: '',
-        writable: true,
-      });
-    });
-
-    it('should return true for Edge UA', () => {
-      // tslint:disable-next-line:max-line-length
-      assertIsEdge(true, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36 Edge/17.17134');
-    });
-
-    it('should return false for Chrome UA', () => {
-      // tslint:disable-next-line:max-line-length
-      assertIsEdge(false, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36');
-    });
-
-    it('should return false for Firefox UA', () => {
-      // tslint:disable-next-line:max-line-length
-      assertIsEdge(false, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:62.0) Gecko/20100101 Firefox/62.0');
     });
   });
 });

@@ -144,8 +144,8 @@ const YearlyEditorBase = ({
             stateWeekNumber,
             stateDayOfWeek,
             recurrenceOptions,
-          )},
-        );
+          ),
+        });
         break;
       default:
         break;

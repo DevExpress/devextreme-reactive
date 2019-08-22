@@ -78,6 +78,12 @@ export interface ColumnChooserProps {
 }
 
 // @public (undocumented)
+export interface ColumnSizes {
+  size: number;
+  width: number;
+}
+
+// @public (undocumented)
 export const createRowCache: (pageSize?: number, capacity?: number) => RowCache;
 
 // @public

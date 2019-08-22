@@ -50,14 +50,13 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
     { virtualRows }: Getters,
   ) => {
     const { pageSize, totalRowCount } = this.props;
-    const { requestedStartIndex, availableRowCount } = this.state;
+    const { requestedStartIndex } = this.state;
     const actualVirtualRows = forceReload ? emptyVirtualRows : virtualRows;
     const { requestedRange, actualBounds } = getRequestMeta(
       referenceIndex, virtualRows, pageSize!, totalRowCount, forceReload,
     );
-    const needCheckLimit = requestedStartIndex < availableRowCount;
 
-    if (forceReload || needCheckLimit || shouldSendRequest(requestedRange, requestedStartIndex)) {
+    if (forceReload || shouldSendRequest(requestedRange, requestedStartIndex)) {
       this.requestNextPage(requestedRange, actualVirtualRows, actualBounds);
     }
   }

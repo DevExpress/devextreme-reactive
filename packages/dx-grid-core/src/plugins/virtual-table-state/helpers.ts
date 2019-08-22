@@ -47,8 +47,8 @@ export const calculateRequestedRange: CalculateRequestedRangeFn = (
 ) => {
   const loadedInterval = intervalUtil.getRowsInterval(virtualRows);
   const isAdjacentPage = Math.abs(loadedInterval.start - newRange.start) < 2 * pageSize;
-  if (isAdjacentPage) {
-    const calculatedRange = intervalUtil.difference(newRange, loadedInterval);
+  const calculatedRange = intervalUtil.difference(newRange, loadedInterval);
+  if (isAdjacentPage && calculatedRange !== intervalUtil.empty) {
     if (calculatedRange.start - referenceIndex > pageSize / 2) {
       calculatedRange.start -= pageSize;
       calculatedRange.end -= pageSize;
@@ -143,7 +143,7 @@ export const needFetchMorePages: PureComputed<[VirtualRows, number, number], boo
   const { start, end } = intervalUtil.getRowsInterval(virtualRows);
   const loadCount = end - start;
   const topTriggerIndex = start > 0 ? start + pageSize! : 0;
-  const bottomTriggerIndex = end - pageSize!;
+  const bottomTriggerIndex = Math.max(topTriggerIndex + pageSize, end - pageSize! * 1.5);
 
   if (loadCount <= 0) {
     return false;

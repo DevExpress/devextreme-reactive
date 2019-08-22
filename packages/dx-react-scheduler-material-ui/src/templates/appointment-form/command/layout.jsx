@@ -25,13 +25,19 @@ const styles = ({ spacing, palette }) => ({
     maxWidth: '650px',
     paddingRight: 0,
     paddingLeft: 0,
-    '@media (max-width: 700px)': {
-      paddingRight: spacing(2.875),
-      paddingLeft: spacing(2),
-    },
   },
   fullSize: {
     maxWidth: '1150px',
+  },
+  '@media (max-width: 700px)': {
+    basic: {
+      paddingRight: spacing(2),
+      paddingLeft: spacing(2),
+      maxWidth: '700px',
+    },
+    root: {
+      paddingRight: spacing(2),
+    },
   },
 });
 

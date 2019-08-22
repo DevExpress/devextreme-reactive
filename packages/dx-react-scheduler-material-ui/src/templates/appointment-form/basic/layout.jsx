@@ -25,7 +25,7 @@ const styles = ({ spacing, typography }) => ({
     '@media (max-width: 700px)': {
       width: '100%',
       maxWidth: '700px',
-      paddingRight: spacing(2.875),
+      paddingRight: spacing(2),
     },
   },
   fullSize: {

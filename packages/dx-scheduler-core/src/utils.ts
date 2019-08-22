@@ -355,8 +355,8 @@ export const filterByViewBoundaries: PureComputed<
       appointment as AppointmentMoment, leftBound as Date, rightBound as Date,
     );
   }
-  return appointments.filter(recurrenceAppointment => viewPredicate(
-    recurrenceAppointment, leftBound, rightBound, excludedDays, removeAllDay,
+  return appointments.filter(appt => viewPredicate(
+    appt, leftBound, rightBound, excludedDays, removeAllDay,
   ));
 };
 

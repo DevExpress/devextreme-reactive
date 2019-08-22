@@ -331,7 +331,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               cancelChangedAppointment,
               finishCommitAppointment,
             }) => {
-              const isNew = !editingAppointment;
+              const isNew = !!editingAppointment;
               const changedAppointment = {
                 ...appointmentData,
                 ...isNew ? addedAppointment : appointmentChanges,

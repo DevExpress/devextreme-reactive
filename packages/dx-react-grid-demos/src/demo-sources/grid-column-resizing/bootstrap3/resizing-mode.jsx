@@ -1,11 +1,11 @@
-import React, { useState } from 'react';<%&additionalImports%>
+import React, { useState } from 'react';
 import {
   Grid,
   Table,
   TableHeaderRow,
   TableColumnResizing,
   Toolbar,
-} from '@devexpress/dx-react-grid-<%&themeName%>';
+} from '@devexpress/dx-react-grid-bootstrap3';
 import {
   Plugin,
   Template,
@@ -13,6 +13,26 @@ import {
 } from '@devexpress/dx-react-core';
 
 import { generateRows } from '../../../demo-data/generator';
+
+const ResizingModeChanger = ({ defaultValue, changeMode }) => (
+  <Plugin name="ResizingModeChanger">
+    <Template name="toolbarContent">
+      <div>
+        {'Column Resizing Mode:'}
+        &nbsp;
+        <select
+          defaultValue={defaultValue}
+          onChange={e => changeMode(e.target.value)}
+          className="dropdown"
+        >
+          <option value="widget">Widget</option>
+          <option value="nextColumn">NextColumn</option>
+        </select>
+      </div>
+      <TemplatePlaceholder />
+    </Template>
+  </Plugin>
+);
 
 export default () => {
   const [columns] = useState([
@@ -31,7 +51,7 @@ export default () => {
   const [resizingMode, setResizingMode] = useState('widget');
 
   return (
-    <<%&wrapperTag%><%&wrapperAttributes%>>
+    <div>
       <Grid
         rows={rows}
         columns={columns}
@@ -48,23 +68,6 @@ export default () => {
           changeMode={setResizingMode}
         />
       </Grid>
-    </<%&wrapperTag%>>
+    </div>
   );
 };
-
-const ResizingModeChanger = ({ defaultValue, changeMode }) => (
-  <Plugin name="ResizingModeChanger">
-    <Template name="toolbarContent">
-      {'Column Resizing Mode:'}
-      &nbsp;
-      <select
-        defaultValue={defaultValue}
-        onChange={e => changeMode(e.target.value)}
-      >
-        <option value="widget">Widget</option>
-        <option value="nextColumn">NextColumn</option>
-      </select>
-      <TemplatePlaceholder />
-    </Template>
-  </Plugin>
-);

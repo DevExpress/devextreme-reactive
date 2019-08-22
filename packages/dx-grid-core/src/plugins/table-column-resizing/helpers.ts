@@ -1,54 +1,47 @@
-import { ColumnSizeFn, ValidValueFn, NumbStringToNumbFn } from '../../types';
+import { ColumnSizesFn, ValidValueFn, NumbStringToNumbFn, ColumnWidthFn } from '../../types';
 
-export const getColumnSizes: ColumnSizeFn = (
-  columnWidths, {
-    columnName, nextColumnName, columnResizingMode, cachedWidths,
-    shift, minColumnWidth, maxColumnWidth, columnExtensions = [],
+const getColumnWidth: ColumnWidthFn = (
+  columnWidths, name, {
+    columnName, cachedWidths, shift, minColumnWidth, maxColumnWidth, columnExtensions = [],
 }) => {
-  const column  = columnWidths.find(elem => elem.columnName === columnName)!;
-  const extension = columnExtensions.find(elem => elem.columnName === columnName);
+  const change = name === columnName ? shift : -shift;
+  const column  = columnWidths.find(elem => elem.columnName === name)!;
+  const extension = columnExtensions.find(elem => elem.columnName === name);
   const width = typeof column.width === 'number'
     ? column.width
-    : cachedWidths[columnName];
+    : cachedWidths[name];
   const minWidth = extension && extension.minWidth! >= 0
     ? extension.minWidth
     : minColumnWidth;
   const maxWidth = extension && extension.maxWidth! >= 0
     ? extension.maxWidth
     : maxColumnWidth;
-  let size = Math.max(
+  const size = Math.max(
     minWidth!,
-    Math.min(width + shift, maxWidth!),
+    Math.min(width + change, maxWidth!),
   );
 
+  return ({ width, size });
+};
+
+export const getColumnSizes: ColumnSizesFn = (
+  columnWidths, payload) => {
+  const { columnName, nextColumnName, columnResizingMode, shift } = payload;
+  const { width, size } = getColumnWidth(columnWidths, columnName, payload);
+
   if (columnResizingMode === 'nextColumn') {
-    const nextColumn  = columnWidths.find(elem => elem.columnName === nextColumnName)!;
-    const nextExtension = columnExtensions.find(elem => elem.columnName === nextColumnName);
-    const nextWidth = typeof nextColumn.width === 'number'
-      ? nextColumn.width
-      : cachedWidths[nextColumnName];
-    const nextMinWidth = nextExtension && nextExtension.minWidth! >= 0
-      ? nextExtension.minWidth
-      : minColumnWidth;
-    const nextMaxWidth = nextExtension && nextExtension.maxWidth! >= 0
-      ? nextExtension.maxWidth
-      : maxColumnWidth;
-    let nextSize = Math.max(
-      nextMinWidth!,
-      Math.min(nextWidth - shift, nextMaxWidth!),
+    const { width: nextWidth, size: nextSize } = getColumnWidth(
+      columnWidths, nextColumnName, payload,
     );
 
     if (size + nextSize !== width + nextWidth) {
       const moreThanLimit = size + nextSize > width + nextWidth;
       const columnExpand = shift > 0;
-
       if (moreThanLimit !== columnExpand) {
-        nextSize = width + nextWidth - size;
-      } else {
-        size = width + nextWidth - nextSize;
+        return { size, nextSize: width + nextWidth - size };
       }
+      return { size: width + nextWidth - nextSize, nextSize };
     }
-
     return { size, nextSize };
   }
 

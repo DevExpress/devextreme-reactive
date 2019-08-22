@@ -77,6 +77,8 @@ describe('AppointmentForm recurrence RadioGroup', () => {
         .toHaveLength(3);
       expect(labels.at(0).is(`.${classes.label}`))
         .toBeTruthy();
+      expect(labels.at(1).is(`.${classes.longLabel}`))
+        .toBeTruthy();
       expect(labels.at(2).is(`.${classes.label}`))
         .toBeTruthy();
 
@@ -132,7 +134,6 @@ describe('AppointmentForm recurrence RadioGroup', () => {
         .toHaveBeenCalledWith(
           weekNumber,
           defaultProps.changedAppointment.startDate.getDay(),
-          defaultProps.onAppointmentFieldChange,
           getRecurrenceOptions(),
         );
     });
@@ -144,7 +145,7 @@ describe('AppointmentForm recurrence RadioGroup', () => {
 
       tree.find(defaultProps.selectComponent).at(0).prop('onChange')('abc');
       expect(handleWeekNumberChange)
-        .toHaveBeenCalledWith('abc', defaultProps.onAppointmentFieldChange, getRecurrenceOptions());
+        .toHaveBeenCalledWith('abc', getRecurrenceOptions());
     });
 
     it('should call handleStartDateChange with correct data', () => {
@@ -154,7 +155,7 @@ describe('AppointmentForm recurrence RadioGroup', () => {
 
       tree.find(defaultProps.textEditorComponent).at(0).prop('onValueChange')('abc');
       expect(handleStartDateChange)
-        .toHaveBeenCalledWith('abc', defaultProps.onAppointmentFieldChange, getRecurrenceOptions());
+        .toHaveBeenCalledWith('abc', getRecurrenceOptions());
     });
 
     it('should call getMessage with proper parameters', () => {

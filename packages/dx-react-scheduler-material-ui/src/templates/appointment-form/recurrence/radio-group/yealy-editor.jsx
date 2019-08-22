@@ -139,12 +139,13 @@ const YearlyEditorBase = ({
         break;
       case 'onDayOfWeek':
         setDayNumber(recurrenceOptions.bymonthday || dayNumber);
-        handleToDayOfWeekChange(
-          stateWeekNumber,
-          stateDayOfWeek,
-          onAppointmentFieldChange,
-          recurrenceOptions,
-        );
+        onAppointmentFieldChange({
+          rRule: handleToDayOfWeekChange(
+            stateWeekNumber,
+            stateDayOfWeek,
+            recurrenceOptions,
+          ),
+        });
         break;
       default:
         break;
@@ -189,11 +190,12 @@ const YearlyEditorBase = ({
               readOnly={readOnly}
               value={dayNumberTextField}
               id={NUMBER_EDITOR}
-              onValueChange={newDayNumber => handleStartDateChange(
-                newDayNumber,
-                onAppointmentFieldChange,
-                recurrenceOptions,
-              )}
+              onValueChange={newDayNumber => onAppointmentFieldChange({
+                rRule: handleStartDateChange(
+                  newDayNumber,
+                  recurrenceOptions,
+                ),
+              })}
             />
           </Grid>
         )}
@@ -218,11 +220,12 @@ const YearlyEditorBase = ({
               <Select
                 className={classes.select}
                 disabled={value !== 'onDayOfWeek'}
-                onChange={newWeekNumber => handleWeekNumberChange(
-                  newWeekNumber,
-                  onAppointmentFieldChange,
-                  recurrenceOptions,
-                )}
+                onChange={newWeekNumber => onAppointmentFieldChange({
+                  rRule: handleWeekNumberChange(
+                    newWeekNumber,
+                    recurrenceOptions,
+                  ),
+                })}
                 value={weekNumber}
                 availableOptions={getNumberLabels(getMessage)}
               />

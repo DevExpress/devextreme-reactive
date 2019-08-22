@@ -36,6 +36,10 @@ const styles = ({ spacing }) => ({
   label: {
     width: '4.5em',
   },
+  longLabel: {
+    width: 'calc((100% - 5.5em) * 4 / 7)',
+    minWidth: 'calc(100% - 11.5em)',
+  },
   grid: {
     marginTop: spacing(1),
     marginBottom: spacing(1),
@@ -114,12 +118,13 @@ const MonthlyEditorBase = ({
         break;
       case 'onDayOfWeek':
         setDayNumber(recurrenceOptions.bymonthday || dayNumber);
-        handleToDayOfWeekChange(
-          stateWeekNumber,
-          stateDayOfWeek,
-          onAppointmentFieldChange,
-          recurrenceOptions,
-        );
+        onAppointmentFieldChange({
+          rRule: handleToDayOfWeekChange(
+            stateWeekNumber,
+            stateDayOfWeek,
+            recurrenceOptions,
+          ),
+        });
         break;
       default:
         break;
@@ -154,14 +159,16 @@ const MonthlyEditorBase = ({
               value={dayNumberTextField}
               className={classes.textEditor}
               id={NUMBER_EDITOR}
-              onValueChange={newDayNumber => handleStartDateChange(
-                newDayNumber,
-                onAppointmentFieldChange,
-                recurrenceOptions,
-              )}
+              onValueChange={newDayNumber => onAppointmentFieldChange({
+                rRule: handleStartDateChange(
+                  newDayNumber,
+                  recurrenceOptions,
+                ),
+              })}
             />
             <Label
               label={getMessage('ofEveryMonthLabel')}
+              className={classes.longLabel}
             />
           </Grid>
         )}
@@ -185,11 +192,12 @@ const MonthlyEditorBase = ({
             />
             <Select
               disabled={value !== 'onDayOfWeek'}
-              onChange={newWeekNumber => handleWeekNumberChange(
-                newWeekNumber,
-                onAppointmentFieldChange,
-                recurrenceOptions,
-              )}
+              onChange={newWeekNumber => onAppointmentFieldChange({
+                rRule: handleWeekNumberChange(
+                  newWeekNumber,
+                  recurrenceOptions,
+                ),
+              })}
               value={weekNumber}
               availableOptions={getNumberLabels(getMessage)}
               className={classes.select}

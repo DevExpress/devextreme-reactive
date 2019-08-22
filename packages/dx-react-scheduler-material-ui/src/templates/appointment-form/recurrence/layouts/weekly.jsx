@@ -18,6 +18,7 @@ const styles = theme => ({
   },
   labelWithMargin: {
     marginLeft: '1em',
+    width: 'calc((100% - 7.5em) * 4 / 7)',
   },
 });
 

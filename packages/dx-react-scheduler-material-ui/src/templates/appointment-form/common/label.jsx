@@ -8,6 +8,9 @@ import { TITLE_LABEL, ORDINARY_LABEL } from '@devexpress/dx-scheduler-core';
 const styles = theme => ({
   label: {
     fontSize: theme.typography.fontSize + 2,
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
   },
   titleLabel: {
     fontWeight: theme.typography.fontWeightBold,

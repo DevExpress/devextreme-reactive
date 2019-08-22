@@ -126,7 +126,7 @@ const EndRepeatEditorBase = ({
                 }),
               })}
               InputProps={{
-                endAdornment: <InputAdornment className={classes.inputAdornment} position="end">{getMessage('occurencesLabel')}</InputAdornment>,
+                endAdornment: <InputAdornment position="end">{getMessage('occurencesLabel')}</InputAdornment>,
               }}
             />
           </Grid>

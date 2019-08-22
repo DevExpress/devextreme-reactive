@@ -10,8 +10,7 @@ export const calculateAllDayDateIntervals: CalculateAllDayDateIntervalsFn = (
   leftBound, rightBound,
   excludedDays,
 ) => appointments
-  .map(({ start, end, ...restArgs }) =>
-    ({ start: moment(start), end: moment(end), ...restArgs }))
+  .map(({ start, end, ...restArgs }) => ({ start: moment(start), end: moment(end), ...restArgs }))
   .reduce((acc, appointment) =>
     [...acc, ...filterByViewBoundaries(appointment, leftBound, rightBound, excludedDays, false)],
     [] as AppointmentMoment[],

@@ -73,7 +73,6 @@ class TableColumnResizingBase extends React.PureComponent<TableColumnResizingPro
       stateHelper, (prevState, payload) => {
         const cachedWidths = { ...this.cachedWidths };
         const { minColumnWidth, maxColumnWidth, columnExtensions, columnResizingMode } = this.props;
-        this.clearCache();
         return changeTableColumnWidth(
           prevState,
           { ...payload, cachedWidths, columnResizingMode,
@@ -133,6 +132,14 @@ class TableColumnResizingBase extends React.PureComponent<TableColumnResizingPro
     return {
       columnWidths,
     };
+  }
+
+  componentDidUpdate (_, prevState) {
+    const { columnWidths: currentWidths } = this.state;
+    const { columnWidths: prevWidths } = prevState;
+    if (currentWidths !== prevWidths) {
+      this.clearCache();
+    }
   }
 
   render() {

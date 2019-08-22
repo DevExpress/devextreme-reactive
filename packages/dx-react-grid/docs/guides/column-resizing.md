@@ -27,3 +27,9 @@ In [uncontrolled mode](controlled-and-uncontrolled-modes.md), use the `TableColu
 In [controlled mode](controlled-and-uncontrolled-modes.md), pass the column widths to the `TableColumnResizing` plugin's `columnWidths` property, and handle the `onColumnWidthsChange` event to control the column width state.
 
 .embedded-demo({ "path": "grid-column-resizing/controlled", "showThemeSelector": true })
+
+### Resizing Mode
+
+`TableColumnResizing` plugin two resizing mode, changing by `columnResizingMode` property. That property may be defined by two values: `widget` and `nextColumn`. In Widget mode when you resize column, all following columns shifts. Also in this mode, you can't use `auto` and `%` width size. In NextColumn mode when you resize column, you change size of next column. In this mode you can't change summary width of columns. Following demo shows booth resizing mode.
+
+.embedded-demo({ "path": "grid-column-resizing/resizing-mode", "showThemeSelector": true })

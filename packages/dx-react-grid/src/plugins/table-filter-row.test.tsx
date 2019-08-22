@@ -129,7 +129,11 @@ describe('TableFilterRow', () => {
 
     const tree = mount((
       <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
+        {pluginDepsToComponents(defaultDeps, {
+          getter: {
+            isColumnFilteringEnabled: () => 'isColumnFilteringEnabled',
+          },
+        })}
         <TableFilterRow
           {...defaultProps}
         />
@@ -145,6 +149,7 @@ describe('TableFilterRow', () => {
         column: defaultDeps.template.tableCell.tableColumn.column,
         value: defaultDeps.getter.filters[0].value,
         onValueChange: expect.any(Function),
+        editingEnabled: 'isColumnFilteringEnabled',
       });
   });
 

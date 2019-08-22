@@ -204,7 +204,11 @@ describe('TableEditRow', () => {
 
     const tree = mount((
       <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
+        {pluginDepsToComponents(defaultDeps, {
+          getter: {
+            isColumnEditingEnabled: () => 'isColumnEditingEnabled',
+          },
+        })}
         <TableEditRow
           {...defaultProps}
         />
@@ -221,6 +225,7 @@ describe('TableEditRow', () => {
         row: defaultDeps.template.tableCell.tableRow.row,
         value: defaultDeps.getter.getCellValue(),
         onValueChange: expect.any(Function),
+        editingEnabled: 'isColumnEditingEnabled',
       });
   });
 });

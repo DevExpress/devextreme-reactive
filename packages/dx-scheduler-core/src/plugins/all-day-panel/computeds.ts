@@ -7,22 +7,17 @@ import { filterByViewBoundaries } from '../../utils';
 
 export const calculateAllDayDateIntervals: CalculateAllDayDateIntervalsFn = (
   appointments,
-  viewLeftBound, rightBound,
+  leftBound, rightBound,
   excludedDays,
-) => {
-  const leftBound = new Date(viewLeftBound.toDateString());
-  leftBound.setHours(0);
-  leftBound.setMinutes(0);
-  return appointments
-    .map(({ start, end, ...restArgs }) =>
-      ({ start: moment(start), end: moment(end), ...restArgs }))
-    .reduce((acc, appointment) =>
-      [...acc, ...filterByViewBoundaries(appointment, leftBound, rightBound, excludedDays, false)],
-      [] as AppointmentMoment[],
-    )
-    .filter(appointment => allDayPredicate(appointment))
-    .reduce((acc, appointment) => ([
-      ...acc,
-      ...sliceAppointmentsByBoundaries(appointment, leftBound, rightBound, excludedDays),
-    ]), [] as AppointmentMoment[]);
-};
+) => appointments
+  .map(({ start, end, ...restArgs }) =>
+    ({ start: moment(start), end: moment(end), ...restArgs }))
+  .reduce((acc, appointment) =>
+    [...acc, ...filterByViewBoundaries(appointment, leftBound, rightBound, excludedDays, false)],
+    [] as AppointmentMoment[],
+  )
+  .filter(appointment => allDayPredicate(appointment))
+  .reduce((acc, appointment) => ([
+    ...acc,
+    ...sliceAppointmentsByBoundaries(appointment, leftBound, rightBound, excludedDays),
+  ]), [] as AppointmentMoment[]);

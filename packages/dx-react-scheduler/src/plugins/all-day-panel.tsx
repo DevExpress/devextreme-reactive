@@ -13,6 +13,7 @@ import {
   getAppointmentStyle,
   allDayRects,
 } from '@devexpress/dx-scheduler-core';
+import moment from 'moment';
 
 import { AllDayPanelProps, AllDayPanelState } from '../types';
 
@@ -51,8 +52,10 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
   updateRects = memoize((
     appointments, startViewDate, excludedDays, endViewDate, viewCellsData,
   ) => (cellElementsMeta) => {
+    const allDayLeftBound = moment(startViewDate).hours(0).minutes(0).toDate();
+    const allDayRightBound = moment(endViewDate).hours(23).minutes(59).toDate();
     const rects = allDayRects(
-      appointments, startViewDate, endViewDate,
+      appointments, allDayLeftBound, allDayRightBound,
       excludedDays, viewCellsData, cellElementsMeta,
     );
 

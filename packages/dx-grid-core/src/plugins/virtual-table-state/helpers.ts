@@ -49,8 +49,7 @@ export const calculateRequestedRange: CalculateRequestedRangeFn = (
   const isAdjacentPage = Math.abs(loadedInterval.start - newRange.start) < 2 * pageSize;
   if (isAdjacentPage) {
     const calculatedRange = intervalUtil.difference(newRange, loadedInterval);
-    const firstHalfOfPage = calculatedRange.start - referenceIndex > pageSize / 2;
-    if (calculatedRange.start > referenceIndex && firstHalfOfPage) {
+    if (calculatedRange.start - referenceIndex > pageSize / 2) {
       calculatedRange.start -= pageSize;
       calculatedRange.end -= pageSize;
     }

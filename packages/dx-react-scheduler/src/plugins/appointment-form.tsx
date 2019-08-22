@@ -75,7 +75,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
   toggleVisibility: (payload?: any) => void;
   setAppointmentData: (payload: any) => void;
   openFormHandler: (payload: AppointmentModel) => void;
-  container = React.createRef<Element>(); // ??????
+  container = React.createRef();
 
   static defaultProps: Partial<AppointmentFormProps> = {
     messages: {},
@@ -181,29 +181,28 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               editingAppointment,
               addedAppointment,
               appointmentChanges,
-            }, actions) => {
+            }) => {
               const isNew = !!editingAppointment;
               const changedAppointment = {
                 ...appointmentData,
                 ...isNew ? addedAppointment : appointmentChanges,
               };
+              const isRecurrence = !!changedAppointment.rRule;
 
               return (
                 <React.Fragment>
-                  <Container
-                    anchor={this.container}
-                  />
+                  <Container ref={this.container} />
                   <Overlay
                     visible={visible}
                     onHide={this.toggleVisibility}
-                    fullSize={changedAppointment.rRule !== undefined}
-                    target={this.container.current}
+                    fullSize={isRecurrence}
+                    target={this.container}
                   >
                     <Layout
                       basicLayoutComponent={BasicLayoutPlaceholder}
                       commandLayoutComponent={CommandLayoutPlaceholder}
                       recurrenceLayoutComponent={RecurrenceLayoutPlaceholder}
-                      isRecurring={changedAppointment.rRule !== undefined}
+                      isRecurring={isRecurrence}
                     />
                   </Overlay>
                   <TemplatePlaceholder />
@@ -268,8 +267,8 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               return (
                 <CommandLayout
                   commandButtonComponent={commandButtonComponent}
-                  commitAppointment={commitAppointment}
-                  cancelCommit={cancelCommit}
+                  commitChanges={commitAppointment}
+                  cancelChanges={cancelCommit}
                   deleteAppointment={deleteAppointment}
                   getMessage={getMessage}
                   readOnly={readOnly}

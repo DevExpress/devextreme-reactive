@@ -37,8 +37,8 @@ const styles = ({ spacing, palette }) => ({
 
 const LayoutBase = ({
   commandButtonComponent: CommandButton,
-  commitAppointment,
-  cancelCommit,
+  commitChanges,
+  cancelChanges,
   deleteAppointment,
   getMessage,
   children,
@@ -59,7 +59,7 @@ const LayoutBase = ({
     {...restProps}
   >
     <CommandButton
-      onExecute={cancelCommit}
+      onExecute={cancelChanges}
       getMessage={getMessage}
       id={CANCEL_BUTTON}
     />
@@ -72,7 +72,7 @@ const LayoutBase = ({
         />
         <CommandButton
           getMessage={getMessage}
-          onExecute={commitAppointment}
+          onExecute={commitChanges}
           id={SAVE_BUTTON}
         />
       </React.Fragment>
@@ -85,8 +85,8 @@ LayoutBase.propTypes = {
   commandButtonComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   children: PropTypes.node,
   classes: PropTypes.object.isRequired,
-  commitAppointment: PropTypes.func.isRequired,
-  cancelCommit: PropTypes.func.isRequired,
+  commitChanges: PropTypes.func.isRequired,
+  cancelChanges: PropTypes.func.isRequired,
   getMessage: PropTypes.func.isRequired,
   deleteAppointment: PropTypes.func.isRequired,
   className: PropTypes.string,

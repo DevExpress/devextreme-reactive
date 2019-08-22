@@ -12,21 +12,20 @@ const styles = {
   },
 };
 
-const ContainerBase = ({
+const ContainerBase = React.forwardRef(({
   classes,
   className,
-  anchor,
   ...restProps
-}) => (
+}, ref) => (
   <div {...restProps}>
     <div className={classNames(classes.absoluteDiv, className)}>
       <div
         className={classes.absoluteDiv}
-        ref={anchor}
+        ref={ref}
       />
     </div>
   </div>
-);
+));
 
 ContainerBase.propTypes = {
   classes: PropTypes.object.isRequired,

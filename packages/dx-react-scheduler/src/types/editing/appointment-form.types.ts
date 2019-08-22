@@ -2,7 +2,11 @@ import { AppointmentModel } from '../index';
 
 /* tslint:disable no-namespace max-line-length */
 export namespace AppointmentForm {
-
+  /** @internal */
+  export interface ContainerProps {
+    /** A React Ref that should be passed into ref property. */
+    ref: React.RefObject<unknown>;
+  }
   /** Describes properties passed to a component that renders an Appointment Form overlay. */
   export interface OverlayProps {
     /** Specifies whether the overlay is visible. */
@@ -11,10 +15,27 @@ export namespace AppointmentForm {
     onHide: () => void;
     /** Specifies whether the overlay has full size */
     fullSize: boolean;
-    /** A React component instance or a DOM element that is used for overlay positioning. */
-    target: React.ReactInstance;
+    /** A React component instance or a DOM element that is used to position the window. */
+    target: React.RefObject<unknown>;
     /** A React node used to render overlay content. */
     children: React.ReactNode;
+  }
+  /** A component that render the appointment form's layout */
+  export interface LayoutProps {
+    /** A component that render the appointment form's layout for command buttons */
+    commandLayoutComponent: React.ComponentType<AppointmentForm.CommandLayoutProps>;
+    /** A component that render the appointment form's layout for basic part of editors */
+    basicLayoutComponent: React.ComponentType<AppointmentForm.BasicLayoutProps>;
+    /** A component that render the appointment form's layout for recurrence part of editors */
+    recurrenceLayoutComponent: React.ComponentType<AppointmentForm.RecurrenceLayoutProps>;
+    /** Specifies that recurrence editor part should be rendered */
+    isRecurring: boolean;
+    /** A React node used to render layout content. */
+    children: React.ReactNode;
+  }
+  /** A component that render the appointment form's layout for command buttons */
+  export interface CommandLayoutProps {
+    
   }
   /** Localization Messages */
   export interface LocalizationMessages {
@@ -45,16 +66,16 @@ export interface AppointmentFormProps {
   /** Specifies the appointment form is read-only. */
   readOnly?: boolean;
   /** @internal */
-  containerComponent: React.ComponentType<any>;
+  containerComponent: React.ComponentType<AppointmentForm.ContainerProps>;
   /** A component that render the appointment form's overlay component */
   overlayComponent: React.ComponentType<AppointmentForm.OverlayProps>;
   /** A component that render the appointment form's layout */
   layoutComponent: React.ComponentType<AppointmentForm.LayoutProps>;
   /** A component that render the appointment form's layout for command buttons */
   commandLayoutComponent: React.ComponentType<AppointmentForm.CommandLayoutProps>;
-  /** A component that render the appointment form's layout for basic part */
+  /** A component that render the appointment form's layout for basic part of editors */
   basicLayoutComponent: React.ComponentType<AppointmentForm.BasicLayoutProps>;
-  /** A component that render the appointment form's layout for recurrence part */
+  /** A component that render the appointment form's layout for recurrence part of editors */
   recurrenceLayoutComponent: React.ComponentType<AppointmentForm.RecurrenceLayoutProps>;
   /** A component that render the appointment form's command button */
   commandButtonComponent: React.ComponentType<AppointmentForm.CommandButtonProps>;

@@ -17,6 +17,10 @@ export interface AppointmentModel {
   allDay?: boolean;
   /** The identifier. */
   id?: number | string;
+  /** Specifies the appointment recurrence rule. */
+  rRule?: string | undefined;
+  /** Specifies dates excluded from recurrence. */
+  exDate?: string | undefined;
   /** Any other properties. */
   [propertyName: string]: any;
 }

@@ -7,6 +7,8 @@ The React Scheduler allows users to create, update, and delete appointments. The
 The following plugins implement this feature:
 
 - [EditingState](../reference/editing-state.md) - controls the editing state
+- [IntegratedEditing](../reference/integrated-editing.md) - implements editing
+- [EditRecurrenceMenu](../reference/integrated-editing.md) - renders the edit menu and allows you to process user edits
 - [AppointmentTooltip](../reference/appointment-tooltip.md) - renders a tooltip with controls that manage the appointment
 - [AppointmentForm](../reference/appointment-form.md) - renders a form that allows a user to edit an appointment
 - [DragDropProvider](../reference/drag-drop-provider.md) - implements drag-and-drop editing
@@ -39,7 +41,7 @@ Add the plugins listed above to the Scheduler and handle the `EditingState` plug
 
 In uncontrolled mode, specify the initial editing state via the following `EditingState` properties:
 
-- `defaultEditingAppointmentId` - the ID of the appointment being edited
+- `defaultEditingAppointment` - the appointment being edited
 - `defaultAddedAppointment` - the appointment being added
 - `defaultAppointmentChanges` - changes made to the appointment
 
@@ -49,7 +51,7 @@ In uncontrolled mode, specify the initial editing state via the following `Editi
 
 In controlled mode, specify the following `EditingState` properties in pairs to set a state value and handle the event when it changes:
 
-- `editingAppointmentId` and `onEditingAppointmentIdChange` - the ID of the appointment being edited
+- `editingAppointment` and `onEditingAppointmentChange` - the appointment being edited
 - `addedAppointment` and `onAddedAppointmentChange` - the appointment being added
 - `appointmentChanges` and `onAppointmentChangesChange` - changes made to the appointment
 
@@ -67,7 +69,7 @@ For example, you can show a confirmation dialog before an appointment is removed
 
 ## Drag-and-Drop Editing
 
-Add the [DragDropProvider](../reference/drag-drop-provider.md) plugin to enable users to drag and drop appointments. Use its `allowDrag` and `allowResize` properties to disallow dragging and resizing specific appointments.
+Add the [DragDropProvider](../reference/drag-drop-provider.md) plugin to enable users to drag and drop appointments. Use its `allowDrag` and `allowResize` properties to disallow dragging and resizing specific appointments. You can also add the `EditRecurrenceMenu` plugin to allow users to specify how recurrent appointments are edited.
 
 .embedded-demo({ "path": "scheduler-editing/drag-drop", "showThemeSelector": true })
 

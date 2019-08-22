@@ -53,7 +53,7 @@ const defaultDeps = {
     },
   },
   action: {
-    commitChangedAppointment: jest.fn(),
+    finishCommitAppointment: jest.fn(),
     changeAppointment: jest.fn(),
     startEditAppointment: jest.fn(),
     stopEditAppointment: jest.fn(),
@@ -472,10 +472,8 @@ describe('DragDropProvider', () => {
       tree.update();
       onDrop({ payload: undefined });
 
-      expect(defaultDeps.action.stopEditAppointment)
-        .toBeCalledTimes(1);
-      expect(defaultDeps.action.commitChangedAppointment)
-        .toBeCalledWith({ appointmentId: payload.id }, expect.any(Object), expect.any(Object));
+      expect(defaultDeps.action.finishCommitAppointment)
+        .toBeCalledWith(undefined, expect.any(Object), expect.any(Object));
     });
     it('should reset cache on drop outside a cell', () => {
       const deps = {

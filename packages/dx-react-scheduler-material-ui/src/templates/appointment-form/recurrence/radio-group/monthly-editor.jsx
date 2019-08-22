@@ -118,12 +118,13 @@ const MonthlyEditorBase = ({
         break;
       case 'onDayOfWeek':
         setDayNumber(recurrenceOptions.bymonthday || dayNumber);
-        handleToDayOfWeekChange(
-          stateWeekNumber,
-          stateDayOfWeek,
-          onAppointmentFieldChange,
-          recurrenceOptions,
-        );
+        onAppointmentFieldChange({
+          rRule: handleToDayOfWeekChange(
+            stateWeekNumber,
+            stateDayOfWeek,
+            recurrenceOptions,
+          ),
+        });
         break;
       default:
         break;
@@ -158,11 +159,12 @@ const MonthlyEditorBase = ({
               value={dayNumberTextField}
               className={classes.textEditor}
               id={NUMBER_EDITOR}
-              onValueChange={newDayNumber => handleStartDateChange(
-                newDayNumber,
-                onAppointmentFieldChange,
-                recurrenceOptions,
-              )}
+              onValueChange={newDayNumber => onAppointmentFieldChange({
+                rRule: handleStartDateChange(
+                  newDayNumber,
+                  recurrenceOptions,
+                ),
+              })}
             />
             <Label
               label={getMessage('ofEveryMonthLabel')}
@@ -190,11 +192,12 @@ const MonthlyEditorBase = ({
             />
             <Select
               disabled={value !== 'onDayOfWeek'}
-              onChange={newWeekNumber => handleWeekNumberChange(
-                newWeekNumber,
-                onAppointmentFieldChange,
-                recurrenceOptions,
-              )}
+              onChange={newWeekNumber => onAppointmentFieldChange({
+                rRule: handleWeekNumberChange(
+                  newWeekNumber,
+                  recurrenceOptions,
+                ),
+              })}
               value={weekNumber}
               availableOptions={getNumberLabels(getMessage)}
               className={classes.select}

@@ -1,10 +1,7 @@
 import moment from 'moment';
 import { PureComputed } from '@devexpress/dx-core';
-import { RRule } from 'rrule';
+import { RRule, Options } from 'rrule';
 import {
-  ChangeRecurrenceNumberFeildFn,
-  RecurrecnceOptionsGetterFn,
-  RecurrecnceOptionsSetterFn,
   Action,
   StartDate,
   EndDate,
@@ -23,7 +20,9 @@ export const isAllDayCell: PureComputed<
   startDate, endDate,
   ) => moment(endDate as EndDate).diff(moment(startDate as StartDate), 'days') >= 1;
 
-export const changeRecurrenceFrequency: ChangeRecurrenceNumberFeildFn = (
+export const changeRecurrenceFrequency: PureComputed<
+  [string, number, Date], string
+> = (
   rule,
   freq,
   startDate,
@@ -63,7 +62,9 @@ export const changeRecurrenceFrequency: ChangeRecurrenceNumberFeildFn = (
   return nextRule.toString();
 };
 
-export const getRecurrenceOptions: RecurrecnceOptionsGetterFn = (rule) => {
+export const getRecurrenceOptions: PureComputed<
+[string | null], Partial<Options>
+> = (rule) => {
   if (!rule) return null;
   const options = RRule.parseString(rule);
   let byweekday = [];
@@ -74,25 +75,28 @@ export const getRecurrenceOptions: RecurrecnceOptionsGetterFn = (rule) => {
   return options;
 };
 
-export const changeRecurrenceOptions: RecurrecnceOptionsSetterFn = (options) => {
-  return options ? (new RRule(...options)).toString() : undefined;
+export const changeRecurrenceOptions: PureComputed<
+  [Partial<Options>], string | undefined
+>  = (options) => {
+  return options ? (new RRule({...options})).toString() : undefined;
 };
 
-export const handleStartDateChange = (
+export const handleStartDateChange: PureComputed<
+[number, Partial<Options>], string | undefined
+> = (
   newStartDay,
-  changeAppointmentField,
   options,
 ) => {
   if (newStartDay <= 31) {
     const nextOptions = { ...options, bymonthday: newStartDay };
-    changeAppointmentField({ rRule: changeRecurrenceOptions(nextOptions) });
+    return changeRecurrenceOptions(nextOptions);
   }
+  return changeRecurrenceOptions(options);
 };
 
 export const handleToDayOfWeekChange = (
   weekNumber,
   dayOfWeek,
-  changeAppointmentField,
   options,
 ) => {
   if (weekNumber < 4) {
@@ -109,20 +113,18 @@ export const handleToDayOfWeekChange = (
       ],
       byweekday: dayOfWeek > 0 ? dayOfWeek - 1 : 6,
     };
-    changeAppointmentField({ rRule: changeRecurrenceOptions(nextOptions) });
-  } else {
-    const nextOptions = {
-      ...options,
-      bymonthday: [-1, -2, -3, -4, -5, -6, -7],
-      byweekday: dayOfWeek > 0 ? dayOfWeek - 1 : 6,
-    };
-    changeAppointmentField({ rRule: changeRecurrenceOptions(nextOptions) });
+    return changeRecurrenceOptions(nextOptions);
   }
+  const nextOptions = {
+    ...options,
+    bymonthday: [-1, -2, -3, -4, -5, -6, -7],
+    byweekday: dayOfWeek > 0 ? dayOfWeek - 1 : 6,
+  };
+  return changeRecurrenceOptions(nextOptions);
 };
 
 export const handleWeekNumberChange = (
   newWeekNumber,
-  changeAppointmentField,
   options,
 ) => {
   if (newWeekNumber < 4) {
@@ -138,14 +140,13 @@ export const handleWeekNumberChange = (
         newWeekNumber * 7 + 7,
       ],
     };
-    changeAppointmentField({ rRule: changeRecurrenceOptions(nextOptions) });
-  } else {
-    const nextOptions = {
-      ...options,
-      bymonthday: [-1, -2, -3, -4, -5, -6, -7],
-    };
-    changeAppointmentField({ rRule: changeRecurrenceOptions(nextOptions) });
+    return changeRecurrenceOptions(nextOptions);
   }
+  const nextOptions = {
+    ...options,
+    bymonthday: [-1, -2, -3, -4, -5, -6, -7],
+  };
+  return changeRecurrenceOptions(nextOptions);
 };
 
 export const getRRuleFrequency = repeatType => RRULE_REPEAT_TYPES[repeatType.toUpperCase()];

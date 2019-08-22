@@ -45,7 +45,7 @@
     "nodemon": "^1.19.1",
     "source-map-loader": "^0.2.4",
     "style-loader": "^1.0.0",
-    "webpack": "^4.39.2",
+    "webpack": "^4.38.0",
     "webpack-cli": "^3.3.6",
     "webpack-dev-server": "^3.8.0",
     "write-file-webpack-plugin": "^4.5.1"

@@ -47,6 +47,7 @@ column | [Column](grid.md#column) | A column object.
 row? | any | A row.
 value | any | Specifies the editor value.
 onValueChange | (newValue: any) => void | Handles value changes.
+editingEnabled | boolean | Specifies whether editing a column is enabled.
 
 ## Plugin Developer Reference
 

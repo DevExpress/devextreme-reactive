@@ -51,6 +51,9 @@ export const changeRecurrenceFrequency: PureComputed<
   if (freq === RRULE_REPEAT_TYPES.MONTHLY || freq === RRULE_REPEAT_TYPES.YEARLY) {
     options.bymonthday = startDate.getDate();
   }
+  if (freq === RRULE_REPEAT_TYPES.YEARLY) {
+    options.bymonth = startDate.getMonth() + 1;
+  }
   if (freq === RRULE_REPEAT_TYPES.DAILY || freq === RRULE_REPEAT_TYPES.WEEKLY) {
     options.bymonthday = undefined;
     options.byweekday = undefined;

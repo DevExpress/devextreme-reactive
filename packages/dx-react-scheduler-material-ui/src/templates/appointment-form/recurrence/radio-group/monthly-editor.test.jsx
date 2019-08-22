@@ -77,6 +77,8 @@ describe('AppointmentForm recurrence RadioGroup', () => {
         .toHaveLength(3);
       expect(labels.at(0).is(`.${classes.label}`))
         .toBeTruthy();
+      expect(labels.at(0).is(`.${classes.longLabel}`))
+        .toBeTruthy();
       expect(labels.at(2).is(`.${classes.label}`))
         .toBeTruthy();
 

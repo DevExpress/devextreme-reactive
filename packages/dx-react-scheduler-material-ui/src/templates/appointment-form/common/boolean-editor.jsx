@@ -7,6 +7,9 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = ({ typography }) => ({
   label: {
     fontSize: typography.fontSize + 1,
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
   },
 });
 

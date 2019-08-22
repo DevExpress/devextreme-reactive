@@ -36,6 +36,10 @@ const styles = ({ spacing }) => ({
   label: {
     width: '4.5em',
   },
+  longLabel: {
+    width: 'calc((100% - 5.5em) * 4 / 7)',
+    minWidth: 'calc(100% - 11.5em)',
+  },
   grid: {
     marginTop: spacing(1),
     marginBottom: spacing(1),
@@ -162,6 +166,7 @@ const MonthlyEditorBase = ({
             />
             <Label
               label={getMessage('ofEveryMonthLabel')}
+              className={classes.longLabel}
             />
           </Grid>
         )}

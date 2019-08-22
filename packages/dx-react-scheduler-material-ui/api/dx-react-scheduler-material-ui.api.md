@@ -13,6 +13,7 @@ import { AppointmentTooltip as AppointmentTooltip_2 } from '@devexpress/dx-react
 import { DateNavigator as DateNavigator_2 } from '@devexpress/dx-react-scheduler';
 import { DayView as DayView_2 } from '@devexpress/dx-react-scheduler';
 import { DragDropProvider as DragDropProvider_2 } from '@devexpress/dx-react-scheduler';
+import { EditRecurrenceMenu as EditRecurrenceMenu_2 } from '@devexpress/dx-react-scheduler';
 import { MonthView as MonthView_2 } from '@devexpress/dx-react-scheduler';
 import * as React from 'react';
 import { Scheduler as Scheduler_2 } from '@devexpress/dx-react-scheduler';
@@ -362,6 +363,36 @@ export interface DragDropProviderProps {
   draftAppointmentComponent?: React.ComponentType<DragDropProvider_2.DraftAppointmentProps>;
   resizeComponent?: React.ComponentType<DragDropProvider_2.ResizeProps>;
   sourceAppointmentComponent?: React.ComponentType<DragDropProvider_2.SourceAppointmentProps>;
+}
+
+// @public (undocumented)
+export namespace EditRecurrenceMenu {
+  export type LayoutProps = EditRecurrenceMenu_2.LayoutProps;
+}
+
+// @public (undocumented)
+export namespace EditRecurrenceMenu {
+  export type OverlayProps = EditRecurrenceMenu_2.OverlayProps;
+}
+
+// @public (undocumented)
+export namespace EditRecurrenceMenu {
+  export type ButtonProps = EditRecurrenceMenu_2.ButtonProps;
+}
+
+// @public
+export const EditRecurrenceMenu: React.ComponentType<EditRecurrenceMenuProps> & {
+  Layout: React.ComponentType<EditRecurrenceMenu_2.LayoutProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  Overlay: React.ComponentType<EditRecurrenceMenu_2.OverlayProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  Button: React.ComponentType<EditRecurrenceMenu_2.ButtonProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+};
+
+// @public (undocumented)
+export interface EditRecurrenceMenuProps {
+  buttonComponent?: React.ComponentType<EditRecurrenceMenu_2.ButtonProps>;
+  layoutComponent?: React.ComponentType<EditRecurrenceMenu_2.LayoutProps>;
+  messages?: React.ComponentType<EditRecurrenceMenu_2.LocalizationMessages>;
+  overlayComponent?: React.ComponentType<EditRecurrenceMenu_2.OverlayProps>;
 }
 
 // @public (undocumented)

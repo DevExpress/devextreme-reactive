@@ -37,6 +37,8 @@ export * from './plugins/editing-state/reducers';
 /** @internal */
 export * from './plugins/editing-state/computeds';
 /** @internal */
+export * from './plugins/editing-state/helpers';
+/** @internal */
 export * from './plugins/horizontal-rect/helpers';
 /** @internal */
 export * from './plugins/vertical-rect/helpers';

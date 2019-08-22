@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { findDOMNode } from 'react-dom';
 import { shallow, mount } from 'enzyme';
-import { isEdgeBrowser } from '@devexpress/dx-core';
 import { Sizer } from '@devexpress/dx-react-core';
 import {
   getCollapsedGrids,
@@ -14,12 +13,6 @@ import { emptyViewport } from '../../plugins/virtual-table/virtual-table';
 jest.mock('react-dom', () => ({
   findDOMNode: jest.fn(),
 }));
-jest.mock('@devexpress/dx-core', () => {
-  return {
-    ...require.requireActual('@devexpress/dx-core'),
-    isEdgeBrowser: jest.fn(),
-  };
-});
 jest.mock('@devexpress/dx-grid-core', () => {
   const actual = require.requireActual('@devexpress/dx-grid-core');
   jest.spyOn(actual, 'getCollapsedGrids');
@@ -317,9 +310,7 @@ describe('VirtualTableLayout', () => {
         });
       });
 
-      it('should normalize scroll position in the Edge browser', () => {
-        isEdgeBrowser.mockReturnValue(true);
-
+      it('should normalize scroll position', () => {
         assertRerenderOnBounce(true, {
           scrollLeft: 201,
           clientWidth: 200,
@@ -328,9 +319,7 @@ describe('VirtualTableLayout', () => {
         });
       });
 
-      it('should normalize scroll position in the Edge by 1px only', () => {
-        isEdgeBrowser.mockReturnValue(true);
-
+      it('should normalize scroll position by 1px only', () => {
         assertRerenderOnBounce(false, {
           scrollLeft: 202,
           clientWidth: 200,

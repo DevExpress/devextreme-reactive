@@ -19,6 +19,9 @@ describe('AppointmentTooltip', () => {
     getter: {
       formatDate: () => undefined,
     },
+    action: {
+      finishDeleteAppointment: jest.fn(),
+    },
   };
   const defaultProps = {
     layoutComponent: () => <div />,
@@ -73,7 +76,7 @@ describe('AppointmentTooltip', () => {
   it('should pass onDeleteButtonClick function', () => {
     const deps = {
       action: {
-        commitDeletedAppointment: jest.fn(),
+        finishDeleteAppointment: jest.fn(),
       },
     };
     const tree = mount((
@@ -96,7 +99,7 @@ describe('AppointmentTooltip', () => {
       .toEqual(expect.any(Function));
 
     templatePlaceholder.props().params.onDeleteButtonClick();
-    expect(deps.action.commitDeletedAppointment)
+    expect(deps.action.finishDeleteAppointment)
       .toBeCalled();
   });
 

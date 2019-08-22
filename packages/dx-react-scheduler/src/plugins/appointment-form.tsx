@@ -178,11 +178,11 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
         <Template name="schedulerRoot">
           <TemplateConnector>
             {({
-              editingAppointmentId,
+              editingAppointment,
               addedAppointment,
               appointmentChanges,
             }, actions) => {
-              const isNew = editingAppointmentId === undefined;
+              const isNew = !!editingAppointment;
               const changedAppointment = {
                 ...appointmentData,
                 ...isNew ? addedAppointment : appointmentChanges,
@@ -214,7 +214,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
         <Template name="commandLayout">
           <TemplateConnector>
             {({
-              editingAppointmentId,
+              editingAppointment,
               addedAppointment,
               appointmentChanges,
             }, {
@@ -227,7 +227,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
 
               stopEditAppointment,
             }) => {
-              const isNew = editingAppointmentId === undefined;
+              const isNew = !!editingAppointment;
               const changedAppointment = {
                 ...appointmentData,
                 ...isNew ? addedAppointment : appointmentChanges,
@@ -282,14 +282,14 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
         <Template name="basicLayout">
           <TemplateConnector>
             {({
-              editingAppointmentId,
+              editingAppointment,
               addedAppointment,
               appointmentChanges,
             }, {
               changeAppointment,
               changeAddedAppointment,
             }) => {
-              const isNew = editingAppointmentId === undefined;
+              const isNew = !!editingAppointment;
               const changedAppointment = {
                 ...appointmentData,
                 ...isNew ? addedAppointment : appointmentChanges,
@@ -321,15 +321,17 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
         <Template name="recurrenceLayout">
           <TemplateConnector>
             {({
-              editingAppointmentId,
+              editingAppointment,
               addedAppointment,
               appointmentChanges,
               formatDate,
             }, {
               changeAddedAppointment,
               changeAppointment,
+              cancelChangedAppointment,
+              finishCommitAppointment,
             }) => {
-              const isNew = editingAppointmentId === undefined;
+              const isNew = !!editingAppointment;
               const changedAppointment = {
                 ...appointmentData,
                 ...isNew ? addedAppointment : appointmentChanges,
@@ -369,18 +371,16 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               {(getters, {
                 startEditAppointment,
               }) => (
-                  <TemplatePlaceholder
-                    params={{
-                      ...params,
-                      onOpenButtonClick: () => {
-                        this.openFormHandler(params.appointmentMeta!.data);
-                        callActionIfExists(startEditAppointment, {
-                          appointmentId: params.appointmentMeta!.data.id,
-                        });
-                      },
-                    }}
-                  />
-                )}
+                <TemplatePlaceholder
+                  params={{
+                    ...params,
+                    onOpenButtonClick: () => {
+                      this.openFormHandler(params.appointmentMeta!.data);
+                      callActionIfExists(startEditAppointment, params.appointmentMeta!.data);
+                    },
+                  }}
+                />
+              )}
             </TemplateConnector>
           )}
         </Template>
@@ -391,18 +391,16 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               {(getters, {
                 startEditAppointment,
               }) => (
-                  <TemplatePlaceholder
-                    params={{
-                      ...params,
-                      onDoubleClick: () => {
-                        this.openFormHandler(params.data);
-                        callActionIfExists(startEditAppointment, {
-                          appointmentId: params.data.id,
-                        });
-                      },
-                    }}
-                  />
-                )}
+                <TemplatePlaceholder
+                  params={{
+                    ...params,
+                    onDoubleClick: () => {
+                      this.openFormHandler(params.data);
+                      callActionIfExists(startEditAppointment, params.data);
+                    },
+                  }}
+                />
+              )}
             </TemplateConnector>
           )}
         </Template>

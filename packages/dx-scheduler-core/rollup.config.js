@@ -18,9 +18,9 @@ export default {
   external: external(__dirname),
   plugins: [
     typescriptRollup({
-      abortOnError: false,
       typescript,
       useTsconfigDeclarationDir: true,
+      abortOnError: false,
     }),
     replace({
       '/** @class */': '/*#__PURE__*/',

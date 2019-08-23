@@ -1,6 +1,7 @@
 import { intervalUtil } from './utils';
 import {
-  VirtualRows, Row, MergeRowsFn, CalculateRequestedRangeFn, Interval, GridViewport, GetRequestMeta,
+  VirtualRows, Row, MergeRowsFn, CalculateRequestedRangeFn,
+  Interval, GridViewport, GetRequestMeta, CorrectRangeFn,
 } from '../../types';
 import { PureComputed } from '@devexpress/dx-core';
 
@@ -42,6 +43,15 @@ export const mergeRows: MergeRowsFn = (
   };
 };
 
+const correctCalculateRange: CorrectRangeFn = (calculatedRange, referenceIndex, pageSize) => {
+  const { start, end } = calculatedRange;
+
+  if (start - referenceIndex > pageSize / 2) {
+    return { start: start - pageSize, end: end - pageSize };
+  }
+  return { start, end };
+};
+
 export const calculateRequestedRange: CalculateRequestedRangeFn = (
   virtualRows, newRange, pageSize, referenceIndex, isInfiniteScroll,
 ) => {
@@ -49,9 +59,8 @@ export const calculateRequestedRange: CalculateRequestedRangeFn = (
   const isAdjacentPage = Math.abs(loadedInterval.start - newRange.start) < 2 * pageSize;
   const calculatedRange = intervalUtil.difference(newRange, loadedInterval);
   if (isAdjacentPage && calculatedRange !== intervalUtil.empty) {
-    if (calculatedRange.start - referenceIndex > pageSize / 2 && isInfiniteScroll) {
-      calculatedRange.start -= pageSize;
-      calculatedRange.end -= pageSize;
+    if (isInfiniteScroll) {
+      return correctCalculateRange(calculatedRange, referenceIndex, pageSize);
     }
     return calculatedRange;
   }

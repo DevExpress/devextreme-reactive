@@ -18,7 +18,7 @@ const styles = theme => ({
   },
 });
 
-const LabelBase = ({
+const LabelBase = React.memo(({
   classes,
   label,
   className,
@@ -34,7 +34,7 @@ const LabelBase = ({
   >
     {label}
   </Typography>
-);
+));
 
 LabelBase.propTypes = {
   classes: PropTypes.object.isRequired,

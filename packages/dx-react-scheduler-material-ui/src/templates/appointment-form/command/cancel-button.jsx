@@ -11,7 +11,7 @@ const styles = () => ({
   },
 });
 
-const CancelButtonBase = ({
+const CancelButtonBase = React.memo(({
   onExecute, className, classes, ...restProps
 }) => (
   <IconButton
@@ -21,7 +21,7 @@ const CancelButtonBase = ({
   >
     <CloseIcon />
   </IconButton>
-);
+));
 
 CancelButtonBase.propTypes = {
   classes: PropTypes.object.isRequired,

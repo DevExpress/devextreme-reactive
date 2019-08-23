@@ -9,7 +9,7 @@ import { SaveButton } from './save-button';
 import { DeleteButton } from './delete-button';
 import { CancelButton } from './cancel-button';
 
-export const CommandButton = ({
+export const CommandButton = React.memo(({
   id, getMessage,
   ...restProps
 }) => {
@@ -29,7 +29,7 @@ export const CommandButton = ({
     default:
       return null;
   }
-};
+});
 
 CommandButton.propTypes = {
   id: PropTypes.string.isRequired,

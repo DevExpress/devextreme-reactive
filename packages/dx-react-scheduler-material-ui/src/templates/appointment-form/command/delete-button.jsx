@@ -11,7 +11,7 @@ const styles = ({ spacing }) => ({
   },
 });
 
-const DeleteButtonBase = ({
+const DeleteButtonBase = React.memo(({
   onExecute, className, classes, ...restProps
 }) => (
   <IconButton
@@ -21,7 +21,7 @@ const DeleteButtonBase = ({
   >
     <DeleteIcon />
   </IconButton>
-);
+));
 
 DeleteButtonBase.propTypes = {
   classes: PropTypes.object.isRequired,

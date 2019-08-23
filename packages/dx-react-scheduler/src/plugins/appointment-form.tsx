@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { getMessagesFormatter } from '@devexpress/dx-core';
+import { getMessagesFormatter, memoize } from '@devexpress/dx-core';
 import {
   Plugin,
   Template,
@@ -148,6 +148,34 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
     };
   }
 
+  commitChanges = memoize((finishCommitAppointment, commitAddedAppointment, isNew) => () =>  {
+    this.toggleVisibility();
+    if (!finishCommitAppointment) return;
+    if (isNew) {
+      commitAddedAppointment();
+    } else {
+      finishCommitAppointment();
+    }
+  });
+
+  cancelChanges = memoize((
+    cancelAddedAppointment, stopEditAppointment, cancelChangedAppointment, isNew,
+  ) => () => {
+    this.toggleVisibility();
+    if (!cancelAddedAppointment) return;
+    if (isNew) {
+      cancelAddedAppointment();
+    } else {
+      stopEditAppointment();
+      cancelChangedAppointment();
+    }
+  });
+
+  deleteAppointment = memoize((finishDeleteAppointment, appointmentData) => () => {
+    callActionIfExists(finishDeleteAppointment, appointmentData);
+    this.toggleVisibility();
+  });
+
   render() {
     const {
       containerComponent: Container,
@@ -231,39 +259,18 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                 ...appointmentData,
                 ...isNew ? addedAppointment : appointmentChanges,
               };
-
-              const commitChanges = () => {
-                this.toggleVisibility();
-                if (!finishCommitAppointment) return;
-                if (isNew) {
-                  commitAddedAppointment();
-                } else {
-                  finishCommitAppointment();
-                }
-              };
-
-              const cancelChanges = () => {
-                this.toggleVisibility();
-                if (!cancelAddedAppointment) return;
-                if (isNew) {
-                  cancelAddedAppointment();
-                } else {
-                  stopEditAppointment();
-                  cancelChangedAppointment();
-                }
-              };
-
-              const deleteAppointment = () => {
-                callActionIfExists(finishDeleteAppointment, appointmentData);
-                this.toggleVisibility();
-              };
-
               return (
                 <CommandLayout
                   commandButtonComponent={commandButtonComponent}
-                  onCommitButtonClick={commitChanges}
-                  onCancelButtonClick={cancelChanges}
-                  onDeleteButtonClick={deleteAppointment}
+                  onCommitButtonClick={this.commitChanges(
+                    finishCommitAppointment, commitAddedAppointment, isNew,
+                  )}
+                  onCancelButtonClick={this.cancelChanges(
+                    cancelAddedAppointment, stopEditAppointment, cancelChangedAppointment, isNew,
+                  )}
+                  onDeleteButtonClick={this.deleteAppointment(
+                    finishDeleteAppointment, appointmentData,
+                  )}
                   getMessage={getMessage}
                   readOnly={readOnly}
                   fullSize={!!changedAppointment.rRule}

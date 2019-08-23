@@ -21,7 +21,7 @@ const styles = ({ spacing, palette }) => ({
   },
 });
 
-const SaveButtonBase = ({
+const SaveButtonBase = React.memo(({
   classes, getMessage, className, onExecute, ...restProps
 }) => (
   <Button
@@ -31,7 +31,7 @@ const SaveButtonBase = ({
   >
     {getMessage('commitCommand')}
   </Button>
-);
+));
 
 SaveButtonBase.propTypes = {
   classes: PropTypes.object.isRequired,

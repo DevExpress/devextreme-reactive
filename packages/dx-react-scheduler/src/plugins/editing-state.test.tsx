@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import {
-  testStatePluginField, executeComputedAction, pluginDepsToComponents,
+  testStatePluginField, executeComputedAction, pluginDepsToComponents, getComputedState,
 } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
@@ -180,5 +180,16 @@ describe('EditingState', () => {
       .toEqual({ rRule: 'rule' });
     expect(preCommitChanges.mock.calls[0][2])
       .toEqual('type');
+  });
+  it('should have editingAppointment prop equal to undefined', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents({})}
+        <EditingState />
+      </PluginHost>
+    ));
+
+    expect(getComputedState(tree).editingAppointment)
+      .toBe(undefined);
   });
 });

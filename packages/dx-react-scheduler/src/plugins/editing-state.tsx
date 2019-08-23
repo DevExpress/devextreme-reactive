@@ -28,7 +28,7 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
   commitDeletedAppointment: ActionFn<any>;
 
   static defaultProps: Partial<EditingStateProps> = {
-    defaultEditingAppointment: {},
+    defaultEditingAppointment: undefined,
     defaultAppointmentChanges: {},
     defaultAddedAppointment: {},
     preCommitChanges: preCommitChangesBase,
@@ -116,6 +116,7 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
       appointmentChanges = prevState.appointmentChanges,
       addedAppointment = prevState.addedAppointment,
     } = nextProps;
+    console.log(editingAppointment);
 
     return {
       editingAppointment,

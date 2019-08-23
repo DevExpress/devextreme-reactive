@@ -1,3 +1,12 @@
+# [1.11.2](https://github.com/DevExpress/devextreme-reactive/compare/v1.11.1...v1.11.2) (2019-08-23)
+
+
+### Bug Fixes
+
+* **react-grid:** prevent scrolling sticky header on Safari ([#2178](https://github.com/DevExpress/devextreme-reactive/issues/2178)) ([#2269](https://github.com/DevExpress/devextreme-reactive/issues/2269)) ([084514c](https://github.com/DevExpress/devextreme-reactive/commit/084514c))
+
+
+
 # [1.11.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.11.0...v1.11.1) (2019-06-14)
 
 

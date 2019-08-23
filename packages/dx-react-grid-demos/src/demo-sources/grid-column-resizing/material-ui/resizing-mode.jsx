@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import Typography from '@material-ui/core/Typography';
+import GridMUI from '@material-ui/core/Grid';
 import {
   Grid,
   Table,
@@ -16,10 +20,8 @@ import {
 } from '@devexpress/dx-react-core';
 
 import { generateRows } from '../../../demo-data/generator';
-import { Select, MenuItem, Typography } from '@material-ui/core';
-import GridMUI from '@material-ui/core/Grid';
 
-const styles = theme => ({
+const styles = () => ({
   select: {
     border: 'none',
   },
@@ -31,14 +33,14 @@ const styles = theme => ({
   },
 });
 
-const ModeSelectorBase = ({ defaultValue, changeMode, classes}) => (
-  <GridMUI 
+const ModeSelectorBase = ({ defaultValue, changeMode, classes }) => (
+  <GridMUI
     container
     direction="row"
     justify="flex-start"
     alignItems="center"
   >
-    <Typography 
+    <Typography
       className={classes.label}
     >
       Column Resizing Mode:
@@ -48,23 +50,23 @@ const ModeSelectorBase = ({ defaultValue, changeMode, classes}) => (
       className={classes.select}
       onChange={e => changeMode(e.target.value)}
       value={defaultValue}
-      input={
+      input={(
         <OutlinedInput
           classes={{ input: classes.input }}
           labelWidth={0}
-          margin='dense'
+          margin="dense"
         />
-      }
+      )}
     >
       <MenuItem value="widget">Widget</MenuItem>
       <MenuItem value="nextColumn">NextColumn</MenuItem>
     </Select>
   </GridMUI>
-)
+);
 
 const ModeSelector = withStyles(styles, { name: 'ModeSelector' })(ModeSelectorBase);
 
-const ResizingModeChanger = (props) => (
+const ResizingModeChanger = props => (
   <Plugin name="ResizingModeChanger">
     <Template name="toolbarContent">
       <ModeSelector {...props} />

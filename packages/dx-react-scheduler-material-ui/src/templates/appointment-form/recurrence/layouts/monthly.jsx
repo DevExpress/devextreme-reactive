@@ -50,7 +50,7 @@ const MonthlyBase = ({
 
   const changeRecurrenceInterval = React.useCallback(interval => onAppointmentFieldChange({
     rRule: changeRecurrenceOptions({ ...recurrenceOptions, interval }),
-  }), [recurrenceOptions]);
+  }), [recurrenceOptions, onAppointmentFieldChange]);
   return (
     <div {...restProps}>
       <Grid

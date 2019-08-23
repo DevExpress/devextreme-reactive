@@ -87,14 +87,24 @@ const LayoutBase = ({
     ? getFrequencyString(recurrenceOptions.freq)
     : REPEAT_TYPES.NEVER;
 
-  const changeTitle = React.useCallback(title => onFieldChange({ title }), []);
+  const changeTitle = React.useCallback(title => onFieldChange({ title }), [onFieldChange]);
   const changeAdditionalInformation = React.useCallback(
-    additionalInformation => onFieldChange({ additionalInformation }), [],
+    additionalInformation => onFieldChange({ additionalInformation }), [onFieldChange],
   );
-  const changeNotes = React.useCallback(notes => onFieldChange({ notes }), []);
-  const changeStartDate = React.useCallback(startDate => onFieldChange({ startDate }), []);
-  const changeEndDate = React.useCallback(endDate => onFieldChange({ endDate }), []);
-  const changeAllDay = React.useCallback(allDay => onFieldChange({ allDay }), []);
+  const changeNotes = React.useCallback(notes => onFieldChange({ notes }), [onFieldChange]);
+  const changeStartDate = React.useCallback(
+    startDate => onFieldChange({ startDate }), [onFieldChange],
+  );
+  const changeEndDate = React.useCallback(endDate => onFieldChange({ endDate }), [onFieldChange]);
+  const changeAllDay = React.useCallback(allDay => onFieldChange({ allDay }), [onFieldChange]);
+
+  const { rRule, startDate } = appointmentData;
+  const changeFrequency = React.useCallback(repeatType => handleChangeFrequency(
+    repeatType, rRule, startDate, onFieldChange,
+  ), [rRule, startDate, onFieldChange]);
+  const selectOptions = React.useMemo(
+    () => getAvailableRecurrenceOptions(getMessage), [getMessage],
+  );
 
   return (
     <div
@@ -169,10 +179,8 @@ const LayoutBase = ({
             id={TITLE_LABEL}
           />
           <Select
-            onChange={repeatType => handleChangeFrequency(
-              repeatType, appointmentData, onFieldChange,
-            )}
-            availableOptions={getAvailableRecurrenceOptions(getMessage)}
+            onChange={changeFrequency}
+            availableOptions={selectOptions}
             value={frequency}
             id={OUTLINED_SELECT}
           />

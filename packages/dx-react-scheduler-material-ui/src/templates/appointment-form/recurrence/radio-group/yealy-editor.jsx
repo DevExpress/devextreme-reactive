@@ -8,7 +8,6 @@ import Radio from '@material-ui/core/Radio';
 import Grid from '@material-ui/core/Grid';
 import {
   NUMBER_EDITOR,
-  handleStartDateChange,
   handleToDayOfWeekChange,
   handleWeekNumberChange,
   getRecurrenceOptions,
@@ -120,7 +119,7 @@ const YearlyEditorBase = ({
   const recurrenceOptions = React.useMemo(() => getRecurrenceOptions(rRule), [rRule]);
   const changeByMonthDay = React.useCallback(nextByMonthDay => onAppointmentFieldChange({
     rRule: changeRecurrenceOptions({ ...recurrenceOptions, bymonthday: nextByMonthDay }),
-  }), [recurrenceOptions]);
+  }), [recurrenceOptions, onAppointmentFieldChange]);
 
   const {
     dayOfWeek, weekNumber, dayNumberTextField, radioGroupValue: value,
@@ -128,6 +127,32 @@ const YearlyEditorBase = ({
     recurrenceOptions, stateDayOfWeek, stateWeekNumber, dayNumber,
   );
   const month = getCurrentMonth(recurrenceOptions, changedAppointment);
+
+  const changeMonth = React.useCallback(newMonth => onAppointmentFieldChange({
+    rRule: changeRecurrenceOptions({
+      ...recurrenceOptions, bymonth: newMonth,
+    }),
+  }), [recurrenceOptions]);
+  const months = React.useMemo(() => getMonths(formatDate), [formatDate]);
+  const monthsWithOf = React.useMemo(
+    () => getMonthsWithOf(getMessage, formatDate), [getMessage, formatDate],
+  );
+
+  const changeWeekNumber = React.useCallback(newWeekNumber => onAppointmentFieldChange({
+    rRule: handleWeekNumberChange(newWeekNumber, recurrenceOptions),
+  }), [recurrenceOptions]);
+  const weekNumbers = React.useMemo(
+    () => getNumberLabels(getMessage), [getMessage],
+  );
+
+  const changeDayOfWeek = React.useCallback(newWeekDay => onAppointmentFieldChange({
+    rRule: changeRecurrenceOptions({
+      ...recurrenceOptions, byweekday: newWeekDay > 0 ? newWeekDay - 1 : 6,
+    }),
+  }), [recurrenceOptions]);
+  const daysOfWeek = React.useMemo(
+    () => getDaysOfWeek(formatDate), [formatDate],
+  );
 
   const onRadioGroupValueChange = (event) => {
     switch (event.target.value) {
@@ -180,13 +205,9 @@ const YearlyEditorBase = ({
             />
             <Select
               disabled={value !== 'onDayAndMonth'}
-              onChange={newMonth => onAppointmentFieldChange({
-                rRule: changeRecurrenceOptions({
-                  ...recurrenceOptions, bymonth: newMonth,
-                }),
-              })}
+              onChange={changeMonth}
               value={month}
-              availableOptions={getMonths(formatDate)}
+              availableOptions={months}
               className={classes.select}
             />
             <TextEditor
@@ -220,38 +241,24 @@ const YearlyEditorBase = ({
               <Select
                 className={classes.select}
                 disabled={value !== 'onDayOfWeek'}
-                onChange={newWeekNumber => onAppointmentFieldChange({
-                  rRule: handleWeekNumberChange(
-                    newWeekNumber,
-                    recurrenceOptions,
-                  ),
-                })}
+                onChange={changeWeekNumber}
                 value={weekNumber}
-                availableOptions={getNumberLabels(getMessage)}
+                availableOptions={weekNumbers}
               />
               <Select
                 className={classes.longSelect}
                 disabled={value !== 'onDayOfWeek'}
-                onChange={newWeekDay => onAppointmentFieldChange({
-                  rRule: changeRecurrenceOptions({
-                    ...recurrenceOptions,
-                    byweekday: newWeekDay > 0 ? newWeekDay - 1 : 6,
-                  }),
-                })}
+                onChange={changeDayOfWeek}
                 value={dayOfWeek}
-                availableOptions={getDaysOfWeek(formatDate)}
+                availableOptions={daysOfWeek}
               />
             </Grid>
             <Select
               className={classes.doubleSelect}
               disabled={value !== 'onDayOfWeek'}
-              onChange={newMonth => onAppointmentFieldChange({
-                rRule: changeRecurrenceOptions({
-                  ...recurrenceOptions, bymonth: newMonth,
-                }),
-              })}
+              onChange={changeMonth}
               value={month}
-              availableOptions={getMonthsWithOf(getMessage, formatDate)}
+              availableOptions={monthsWithOf}
             />
           </div>
         )}

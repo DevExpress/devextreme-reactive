@@ -83,6 +83,14 @@ const LayoutBase = ({
   const recurrenceOptions = getRecurrenceOptions(appointmentData.rRule);
   const MainLayoutComponent = getLayoutComponent(recurrenceOptions);
   const frequency = getFrequencyString(recurrenceOptions.freq);
+
+  const { rRule, startDate } = appointmentData;
+  const changeFrequency = React.useCallback(repeatType => handleChangeFrequency(
+    repeatType, rRule, startDate, onFieldChange,
+  ), [rRule, startDate, onFieldChange]);
+  const selectOptions = React.useMemo(
+    () => getAvailableRecurrenceOptions(getMessage), [getMessage],
+  );
   return (
     <div
       className={classNames(classes.root, className)}
@@ -94,10 +102,8 @@ const LayoutBase = ({
         className={classes.repeatLabel}
       />
       <Select
-        onChange={repeatType => handleChangeFrequency(
-          repeatType, appointmentData, onFieldChange,
-        )}
-        availableOptions={getAvailableRecurrenceOptions(getMessage)}
+        onChange={changeFrequency}
+        availableOptions={selectOptions}
         value={frequency}
         id={OUTLINED_SELECT}
       />

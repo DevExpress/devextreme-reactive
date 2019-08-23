@@ -26,7 +26,7 @@ const styles = ({ typography }) => ({
   },
 });
 
-const SelectBase = ({
+const SelectBase = React.memo(({
   value,
   availableOptions,
   onChange,
@@ -74,7 +74,7 @@ const SelectBase = ({
       ))}
     </MUISelect>
   );
-};
+});
 
 SelectBase.propTypes = {
   onChange: PropTypes.func,

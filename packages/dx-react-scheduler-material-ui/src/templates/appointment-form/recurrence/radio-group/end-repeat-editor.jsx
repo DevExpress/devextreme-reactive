@@ -49,10 +49,10 @@ const EndRepeatEditorBase = ({
   const recurrenceOptions = React.useMemo(() => getRecurrenceOptions(rRule), [rRule]);
   const changeRecurrenceCount = React.useCallback(nextCount => onAppointmentFieldChange({
     rRule: changeRecurrenceOptions({ ...recurrenceOptions, count: nextCount }),
-  }), [recurrenceOptions]);
+  }), [recurrenceOptions, onAppointmentFieldChange]);
   const changeRecurrenceEndDate = React.useCallback(date => onAppointmentFieldChange({
     rRule: changeRecurrenceOptions({ ...recurrenceOptions, until: date }),
-  }), [recurrenceOptions]);
+  }), [recurrenceOptions, onAppointmentFieldChange]);
 
   const countEditorProps = React.useMemo(() => ({
     endAdornment: <InputAdornment position="end">{getMessage('occurencesLabel')}</InputAdornment>,

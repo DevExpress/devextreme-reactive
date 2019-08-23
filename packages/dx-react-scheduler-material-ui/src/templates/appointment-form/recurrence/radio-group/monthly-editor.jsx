@@ -7,7 +7,6 @@ import Radio from '@material-ui/core/Radio';
 import Grid from '@material-ui/core/Grid';
 import {
   NUMBER_EDITOR,
-  handleStartDateChange,
   handleToDayOfWeekChange,
   handleWeekNumberChange,
   getRecurrenceOptions,
@@ -102,12 +101,28 @@ const MonthlyEditorBase = ({
   const recurrenceOptions = React.useMemo(() => getRecurrenceOptions(rRule), [rRule]);
   const changeByMonthDay = React.useCallback(nextByMonthDay => onAppointmentFieldChange({
     rRule: changeRecurrenceOptions({ ...recurrenceOptions, bymonthday: nextByMonthDay }),
-  }), [recurrenceOptions]);
+  }), [recurrenceOptions, onAppointmentFieldChange]);
 
   const {
     dayOfWeek, weekNumber, dayNumberTextField, radioGroupValue: value,
   } = getDisplayDataFromOptionsAndState(
     recurrenceOptions, stateDayOfWeek, stateWeekNumber, dayNumber,
+  );
+
+  const changeWeekNumber = React.useCallback(newWeekNumber => onAppointmentFieldChange({
+    rRule: handleWeekNumberChange(newWeekNumber, recurrenceOptions),
+  }), [recurrenceOptions]);
+  const weekNumbers = React.useMemo(
+    () => getNumberLabels(getMessage), [getMessage],
+  );
+
+  const changeDayOfWeek = React.useCallback(newWeekDay => onAppointmentFieldChange({
+    rRule: changeRecurrenceOptions({
+      ...recurrenceOptions, byweekday: newWeekDay > 0 ? newWeekDay - 1 : 6,
+    }),
+  }), [recurrenceOptions]);
+  const daysOfWeek = React.useMemo(
+    () => getDaysOfWeek(formatDate), [formatDate],
   );
 
   const onRadioGroupValueChange = (event) => {
@@ -192,25 +207,16 @@ const MonthlyEditorBase = ({
             />
             <Select
               disabled={value !== 'onDayOfWeek'}
-              onChange={newWeekNumber => onAppointmentFieldChange({
-                rRule: handleWeekNumberChange(
-                  newWeekNumber,
-                  recurrenceOptions,
-                ),
-              })}
+              onChange={changeWeekNumber}
               value={weekNumber}
-              availableOptions={getNumberLabels(getMessage)}
+              availableOptions={weekNumbers}
               className={classes.select}
             />
             <Select
               disabled={value !== 'onDayOfWeek'}
-              onChange={newWeekDay => onAppointmentFieldChange({
-                rRule: changeRecurrenceOptions({
-                  ...recurrenceOptions, byweekday: newWeekDay > 0 ? newWeekDay - 1 : 6,
-                }),
-              })}
+              onChange={changeDayOfWeek}
               value={dayOfWeek}
-              availableOptions={getDaysOfWeek(formatDate)}
+              availableOptions={daysOfWeek}
               className={classes.longSelect}
             />
           </Grid>

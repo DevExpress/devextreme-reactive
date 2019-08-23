@@ -185,15 +185,15 @@ export const getAvailableRecurrenceOptions = getMessage => ([
   },
 ]);
 
-export const handleChangeFrequency = (repeatType, changedAppointment, action) => {
+export const handleChangeFrequency = (repeatType, rRule, startDate, action) => {
   const rruleRepeatType = getRRuleFrequency(repeatType);
-  let rRule;
+  let nextRRule;
   if (rruleRepeatType !== undefined) {
-    rRule = changeRecurrenceFrequency(
-      changedAppointment.rRule,
+    nextRRule = changeRecurrenceFrequency(
+      rRule,
       rruleRepeatType,
-      changedAppointment.startDate,
+      startDate,
     );
   }
-  action({ rRule });
+  action({ rRule: nextRRule });
 };

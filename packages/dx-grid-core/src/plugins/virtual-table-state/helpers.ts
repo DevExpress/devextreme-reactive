@@ -43,13 +43,13 @@ export const mergeRows: MergeRowsFn = (
 };
 
 export const calculateRequestedRange: CalculateRequestedRangeFn = (
-  virtualRows, newRange, pageSize, referenceIndex,
+  virtualRows, newRange, pageSize, referenceIndex, isInfiniteScroll,
 ) => {
   const loadedInterval = intervalUtil.getRowsInterval(virtualRows);
   const isAdjacentPage = Math.abs(loadedInterval.start - newRange.start) < 2 * pageSize;
   const calculatedRange = intervalUtil.difference(newRange, loadedInterval);
   if (isAdjacentPage && calculatedRange !== intervalUtil.empty) {
-    if (calculatedRange.start - referenceIndex > pageSize / 2) {
+    if (calculatedRange.start - referenceIndex > pageSize / 2 && isInfiniteScroll) {
       calculatedRange.start -= pageSize;
       calculatedRange.end -= pageSize;
     }
@@ -125,14 +125,16 @@ export const getForceReloadInterval: PureComputed<[VirtualRows, number, number],
 };
 
 export const getRequestMeta: GetRequestMeta = (
-  referenceIndex, virtualRows, pageSize, totalRowCount, forceReload,
+  referenceIndex, virtualRows, pageSize, totalRowCount, forceReload, isInfiniteScroll,
 ) => {
   const actualBounds = forceReload
     ? getForceReloadInterval(virtualRows, pageSize!, totalRowCount)
     : recalculateBounds(referenceIndex, pageSize!, totalRowCount);
   const requestedRange = forceReload
     ? actualBounds
-    : calculateRequestedRange(virtualRows, actualBounds, pageSize!, referenceIndex);
+    : calculateRequestedRange(
+        virtualRows, actualBounds, pageSize!, referenceIndex, isInfiniteScroll,
+      );
 
   return { requestedRange, actualBounds };
 };

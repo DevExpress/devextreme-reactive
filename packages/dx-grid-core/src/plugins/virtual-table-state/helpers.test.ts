@@ -169,7 +169,6 @@ describe('VirtualTableState helpers', () => {
         const loadedInterval = createInterval(200, 500);
         const newInterval = createInterval(100, 400);
         const virtualRows = createVirtualRows(loadedInterval);
-        const referenceIndex = 60;
 
         expect(calculateRequestedRange(virtualRows, newInterval, pageSize))
           .toEqual({ start: 100, end: 200 });
@@ -258,15 +257,33 @@ describe('VirtualTableState helpers', () => {
       });
 
       // tslint:disable-next-line: max-line-length
-      it('should caclulate correct if reference index more than the start of a new interval and less than half of page', () => {
+      describe('reference index more than the start of a new interval and less than half of page', () => {
         const loadedInterval = createInterval(100, 400);
         const newInterval = createInterval(200, 500);
         const virtualRows = createVirtualRows(loadedInterval);
         const referenceIndex = 320;
 
-        expect(calculateRequestedRange(virtualRows, newInterval, pageSize, referenceIndex))
+        it('should caclulate correct if infinite scrolling', () => {
+          expect(calculateRequestedRange(virtualRows, newInterval, pageSize, referenceIndex, true))
           .toEqual({ start: 300, end: 400 });
+        });
+
+        it('should caclulate correct if non-infinite scrolling', () => {
+          expect(calculateRequestedRange(virtualRows, newInterval, pageSize, referenceIndex, false))
+          .toEqual({ start: 400, end: 500 });
+        });
       });
+    });
+
+    // tslint:disable-next-line: max-line-length
+    it('should caclulate correct in non-infinite scrolling', () => {
+      const loadedInterval = createInterval(100, 400);
+      const newInterval = createInterval(200, 500);
+      const virtualRows = createVirtualRows(loadedInterval);
+      const referenceIndex = 320;
+
+      expect(calculateRequestedRange(virtualRows, newInterval, pageSize, referenceIndex))
+        .toEqual({ start: 400, end: 500 });
     });
   });
 

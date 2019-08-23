@@ -86,22 +86,22 @@ const MonthlyEditorBase = ({
   textEditorComponent: TextEditor,
   selectComponent: Select,
   readOnly,
-  changedAppointment,
+  appointmentData,
   formatDate,
-  onAppointmentFieldChange,
+  onFieldChange,
   ...restProps
 }) => {
-  const [dayNumber, setDayNumber] = useState(changedAppointment.startDate.getDate());
+  const [dayNumber, setDayNumber] = useState(appointmentData.startDate.getDate());
   const [stateWeekNumber, setStateWeekNumber] = useState(
-    Math.trunc((changedAppointment.startDate.getDate() - 1) / 7),
+    Math.trunc((appointmentData.startDate.getDate() - 1) / 7),
   );
-  const [stateDayOfWeek, setStateDayOfWeek] = useState(changedAppointment.startDate.getDay());
+  const [stateDayOfWeek, setStateDayOfWeek] = useState(appointmentData.startDate.getDay());
 
-  const { rRule } = changedAppointment;
+  const { rRule } = appointmentData;
   const recurrenceOptions = React.useMemo(() => getRecurrenceOptions(rRule), [rRule]);
-  const changeByMonthDay = React.useCallback(nextByMonthDay => onAppointmentFieldChange({
+  const changeByMonthDay = React.useCallback(nextByMonthDay => onFieldChange({
     rRule: changeRecurrenceOptions({ ...recurrenceOptions, bymonthday: nextByMonthDay }),
-  }), [recurrenceOptions, onAppointmentFieldChange]);
+  }), [recurrenceOptions, onFieldChange]);
 
   const {
     dayOfWeek, weekNumber, dayNumberTextField, radioGroupValue: value,
@@ -109,14 +109,14 @@ const MonthlyEditorBase = ({
     recurrenceOptions, stateDayOfWeek, stateWeekNumber, dayNumber,
   );
 
-  const changeWeekNumber = React.useCallback(newWeekNumber => onAppointmentFieldChange({
+  const changeWeekNumber = React.useCallback(newWeekNumber => onFieldChange({
     rRule: handleWeekNumberChange(newWeekNumber, recurrenceOptions),
   }), [recurrenceOptions]);
   const weekNumbers = React.useMemo(
     () => getNumberLabels(getMessage), [getMessage],
   );
 
-  const changeDayOfWeek = React.useCallback(newWeekDay => onAppointmentFieldChange({
+  const changeDayOfWeek = React.useCallback(newWeekDay => onFieldChange({
     rRule: changeRecurrenceOptions({
       ...recurrenceOptions, byweekday: newWeekDay > 0 ? newWeekDay - 1 : 6,
     }),
@@ -130,7 +130,7 @@ const MonthlyEditorBase = ({
       case 'onDayNumber':
         setStateWeekNumber(weekNumber);
         setStateDayOfWeek(dayOfWeek);
-        onAppointmentFieldChange({
+        onFieldChange({
           rRule: changeRecurrenceOptions({
             ...recurrenceOptions, bymonthday: dayNumber, byweekday: undefined,
           }),
@@ -138,7 +138,7 @@ const MonthlyEditorBase = ({
         break;
       case 'onDayOfWeek':
         setDayNumber(recurrenceOptions.bymonthday || dayNumber);
-        onAppointmentFieldChange({
+        onFieldChange({
           rRule: handleToDayOfWeekChange(
             stateWeekNumber,
             stateDayOfWeek,
@@ -230,11 +230,11 @@ const MonthlyEditorBase = ({
 MonthlyEditorBase.propTypes = {
   classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func,
-  onAppointmentFieldChange: PropTypes.func,
+  onFieldChange: PropTypes.func,
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   selectComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  changedAppointment: PropTypes.shape({
+  appointmentData: PropTypes.shape({
     title: PropTypes.string,
     startDate: PropTypes.instanceOf(Date),
     endDate: PropTypes.instanceOf(Date),
@@ -249,7 +249,7 @@ MonthlyEditorBase.propTypes = {
 
 MonthlyEditorBase.defaultProps = {
   getMessage: () => undefined,
-  onAppointmentFieldChange: () => undefined,
+  onFieldChange: () => undefined,
   readOnly: false,
 };
 

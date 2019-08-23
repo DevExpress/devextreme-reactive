@@ -17,8 +17,8 @@ describe('AppointmentForm basic', () => {
     allDayComponent: () => null,
     selectComponent: () => null,
     getMessage: jest.fn(),
-    onAppointmentFieldChange: jest.fn(),
-    changedAppointment: {},
+    onFieldChange: jest.fn(),
+    appointmentData: {},
   };
   let classes;
   let shallow;
@@ -111,7 +111,7 @@ describe('AppointmentForm basic', () => {
       const tree = shallow((
         <Layout
           {...defaultProps}
-          changedAppointment={{
+          appointmentData={{
             rRule: 'test rule',
           }}
         >
@@ -156,7 +156,7 @@ describe('AppointmentForm basic', () => {
         .toBeCalledWith('repeatLabel');
     });
 
-    it('should call onAppointmentFieldChange with correct parameters', () => {
+    it('should call onFieldChange with correct parameters', () => {
       const tree = shallow((
         <Layout
           {...defaultProps}
@@ -168,28 +168,28 @@ describe('AppointmentForm basic', () => {
       const textEditors = tree.find(defaultProps.textEditorComponent);
 
       textEditors.at(0).simulate('valueChange', 'abc');
-      expect(defaultProps.onAppointmentFieldChange)
+      expect(defaultProps.onFieldChange)
         .toBeCalledWith({ title: 'abc' });
       textEditors.at(1).simulate('valueChange', 'abc');
-      expect(defaultProps.onAppointmentFieldChange)
+      expect(defaultProps.onFieldChange)
         .toBeCalledWith({ additionalInformation: 'abc' });
       textEditors.at(2).simulate('valueChange', 'abc');
-      expect(defaultProps.onAppointmentFieldChange)
+      expect(defaultProps.onFieldChange)
         .toBeCalledWith({ notes: 'abc' });
 
       const dateEditors = tree.find(defaultProps.dateEditorComponent);
 
       dateEditors.at(0).simulate('dateChange', 'abc');
-      expect(defaultProps.onAppointmentFieldChange)
+      expect(defaultProps.onFieldChange)
         .toBeCalledWith({ startDate: 'abc' });
       dateEditors.at(1).simulate('dateChange', 'abc');
-      expect(defaultProps.onAppointmentFieldChange)
+      expect(defaultProps.onFieldChange)
         .toBeCalledWith({ endDate: 'abc' });
 
       const allDayComponent = tree.find(defaultProps.allDayComponent);
 
       allDayComponent.at(0).simulate('valueChange', 'abc');
-      expect(defaultProps.onAppointmentFieldChange)
+      expect(defaultProps.onFieldChange)
         .toBeCalledWith({ allDay: 'abc' });
     });
 

@@ -38,21 +38,21 @@ const EndRepeatEditorBase = ({
   labelComponent: Label,
   textEditorComponent: TextEditor,
   dateEditorComponent: DateEditor,
-  onAppointmentFieldChange,
-  changedAppointment,
+  onFieldChange,
+  appointmentData,
   ...restProps
 }) => {
   const [count, setCount] = React.useState(1);
-  const [endDate, setEndDate] = React.useState(changedAppointment.endDate);
+  const [endDate, setEndDate] = React.useState(appointmentData.endDate);
 
-  const { rRule } = changedAppointment;
+  const { rRule } = appointmentData;
   const recurrenceOptions = React.useMemo(() => getRecurrenceOptions(rRule), [rRule]);
-  const changeRecurrenceCount = React.useCallback(nextCount => onAppointmentFieldChange({
+  const changeRecurrenceCount = React.useCallback(nextCount => onFieldChange({
     rRule: changeRecurrenceOptions({ ...recurrenceOptions, count: nextCount }),
-  }), [recurrenceOptions, onAppointmentFieldChange]);
-  const changeRecurrenceEndDate = React.useCallback(date => onAppointmentFieldChange({
+  }), [recurrenceOptions, onFieldChange]);
+  const changeRecurrenceEndDate = React.useCallback(date => onFieldChange({
     rRule: changeRecurrenceOptions({ ...recurrenceOptions, until: date }),
-  }), [recurrenceOptions, onAppointmentFieldChange]);
+  }), [recurrenceOptions, onFieldChange]);
 
   const countEditorProps = React.useMemo(() => ({
     endAdornment: <InputAdornment position="end">{getMessage('occurencesLabel')}</InputAdornment>,
@@ -71,7 +71,7 @@ const EndRepeatEditorBase = ({
     switch (event.target.value) {
       case 'endAfter':
         setEndDate(recurrenceOptions.until || endDate);
-        onAppointmentFieldChange({
+        onFieldChange({
           rRule: changeRecurrenceOptions({
             ...recurrenceOptions, count, until: undefined,
           }),
@@ -79,7 +79,7 @@ const EndRepeatEditorBase = ({
         break;
       case 'endBy':
         setCount(recurrenceOptions.count || count);
-        onAppointmentFieldChange({
+        onFieldChange({
           rRule: changeRecurrenceOptions({
             ...recurrenceOptions, count: undefined, until: endDate,
           }),
@@ -88,7 +88,7 @@ const EndRepeatEditorBase = ({
       case 'never':
         setEndDate(recurrenceOptions.until || endDate);
         setCount(recurrenceOptions.count || count);
-        onAppointmentFieldChange({
+        onFieldChange({
           rRule: changeRecurrenceOptions({
             ...recurrenceOptions, count: undefined, until: undefined,
           }),
@@ -171,11 +171,11 @@ const EndRepeatEditorBase = ({
 EndRepeatEditorBase.propTypes = {
   classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func,
-  onAppointmentFieldChange: PropTypes.func,
+  onFieldChange: PropTypes.func,
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   dateEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  changedAppointment: PropTypes.shape({
+  appointmentData: PropTypes.shape({
     title: PropTypes.string,
     startDate: PropTypes.instanceOf(Date),
     endDate: PropTypes.instanceOf(Date),
@@ -187,7 +187,7 @@ EndRepeatEditorBase.propTypes = {
 };
 
 EndRepeatEditorBase.defaultProps = {
-  onAppointmentFieldChange: () => undefined,
+  onFieldChange: () => undefined,
   getMessage: () => undefined,
 };
 

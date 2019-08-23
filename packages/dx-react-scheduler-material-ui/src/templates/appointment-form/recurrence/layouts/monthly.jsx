@@ -38,19 +38,19 @@ const MonthlyBase = ({
   classes,
   getMessage,
   readOnly,
-  onAppointmentFieldChange,
-  changedAppointment,
+  onFieldChange,
+  appointmentData,
   selectComponent,
   buttonGroupComponent,
   formatDate,
   ...restProps
 }) => {
-  const { rRule } = changedAppointment;
+  const { rRule } = appointmentData;
   const recurrenceOptions = React.useMemo(() => getRecurrenceOptions(rRule), [rRule]);
 
-  const changeRecurrenceInterval = React.useCallback(interval => onAppointmentFieldChange({
+  const changeRecurrenceInterval = React.useCallback(interval => onFieldChange({
     rRule: changeRecurrenceOptions({ ...recurrenceOptions, interval }),
-  }), [recurrenceOptions, onAppointmentFieldChange]);
+  }), [recurrenceOptions, onFieldChange]);
   return (
     <div {...restProps}>
       <Grid
@@ -82,8 +82,8 @@ const MonthlyBase = ({
         getMessage={getMessage}
         textEditorComponent={TextEditor}
         labelComponent={Label}
-        onAppointmentFieldChange={onAppointmentFieldChange}
-        changedAppointment={changedAppointment}
+        onFieldChange={onFieldChange}
+        appointmentData={appointmentData}
         selectComponent={selectComponent}
         formatDate={formatDate}
       />
@@ -97,7 +97,7 @@ MonthlyBase.propTypes = {
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   selectComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   buttonGroupComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  changedAppointment: PropTypes.shape({
+  appointmentData: PropTypes.shape({
     title: PropTypes.string,
     startDate: PropTypes.instanceOf(Date),
     endDate: PropTypes.instanceOf(Date),
@@ -106,7 +106,7 @@ MonthlyBase.propTypes = {
     additionalInformation: PropTypes.string,
     allDay: PropTypes.bool,
   }).isRequired,
-  onAppointmentFieldChange: PropTypes.func,
+  onFieldChange: PropTypes.func,
   classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func.isRequired,
   readOnly: PropTypes.bool,
@@ -114,7 +114,7 @@ MonthlyBase.propTypes = {
 };
 
 MonthlyBase.defaultProps = {
-  onAppointmentFieldChange: () => undefined,
+  onFieldChange: () => undefined,
   readOnly: false,
 };
 

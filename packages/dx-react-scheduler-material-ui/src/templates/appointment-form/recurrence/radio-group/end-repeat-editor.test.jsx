@@ -14,9 +14,9 @@ describe('AppointmentForm recurrence RadioGroup', () => {
     textEditorComponent: () => null,
     labelComponent: () => null,
     dateEditorComponent: () => null,
-    onAppointmentFieldChange: jest.fn(),
+    onFieldChange: jest.fn(),
     getMessage: jest.fn(),
-    changedAppointment: {
+    appointmentData: {
       startDate: new Date(),
       endDate: new Date(),
       rRule: 'RRULE:FREQ=YEARLY',
@@ -79,7 +79,7 @@ describe('AppointmentForm recurrence RadioGroup', () => {
       ));
 
       tree.find(defaultProps.textEditorComponent).at(0).prop('onValueChange')('abc');
-      expect(defaultProps.onAppointmentFieldChange)
+      expect(defaultProps.onFieldChange)
         .toHaveBeenCalledWith({
           rRule: {
             ...getRecurrenceOptions(),
@@ -88,7 +88,7 @@ describe('AppointmentForm recurrence RadioGroup', () => {
         });
 
       tree.find(defaultProps.dateEditorComponent).at(0).prop('onDateChange')('abc');
-      expect(defaultProps.onAppointmentFieldChange)
+      expect(defaultProps.onFieldChange)
         .toHaveBeenCalledWith({
           rRule: {
             ...getRecurrenceOptions(),
@@ -103,7 +103,7 @@ describe('AppointmentForm recurrence RadioGroup', () => {
       ));
 
       tree.prop('onChange')({ target: { value: 'never' } });
-      expect(defaultProps.onAppointmentFieldChange)
+      expect(defaultProps.onFieldChange)
         .toHaveBeenCalledWith({
           rRule: {
             ...getRecurrenceOptions(),
@@ -111,16 +111,16 @@ describe('AppointmentForm recurrence RadioGroup', () => {
         });
 
       tree.prop('onChange')({ target: { value: 'endBy' } });
-      expect(defaultProps.onAppointmentFieldChange)
+      expect(defaultProps.onFieldChange)
         .toHaveBeenCalledWith({
           rRule: {
             ...getRecurrenceOptions(),
-            until: defaultProps.changedAppointment.startDate,
+            until: defaultProps.appointmentData.startDate,
           },
         });
 
       tree.prop('onChange')({ target: { value: 'endAfter' } });
-      expect(defaultProps.onAppointmentFieldChange)
+      expect(defaultProps.onFieldChange)
         .toHaveBeenCalledWith({
           rRule: {
             ...getRecurrenceOptions(),

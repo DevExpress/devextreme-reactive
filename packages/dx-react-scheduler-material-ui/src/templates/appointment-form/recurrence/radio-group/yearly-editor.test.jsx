@@ -36,10 +36,10 @@ describe('AppointmentForm recurrence RadioGroup', () => {
     textEditorComponent: () => null,
     labelComponent: () => null,
     selectComponent: () => null,
-    onAppointmentFieldChange: jest.fn(),
+    onFieldChange: jest.fn(),
     formatDate: jest.fn(),
     getMessage: jest.fn(),
-    changedAppointment: {
+    appointmentData: {
       startDate: new Date(),
       endDate: new Date(),
       rRule: 'RRULE:FREQ=YEARLY',
@@ -111,7 +111,7 @@ describe('AppointmentForm recurrence RadioGroup', () => {
       const selectComponents = tree.find(defaultProps.selectComponent);
 
       selectComponents.at(0).prop('onChange')('abc');
-      expect(defaultProps.onAppointmentFieldChange)
+      expect(defaultProps.onFieldChange)
         .toHaveBeenCalledWith({
           rRule: {
             ...getRecurrenceOptions(),
@@ -120,7 +120,7 @@ describe('AppointmentForm recurrence RadioGroup', () => {
         });
 
       selectComponents.at(2).prop('onChange')(2);
-      expect(defaultProps.onAppointmentFieldChange)
+      expect(defaultProps.onFieldChange)
         .toHaveBeenCalledWith({
           rRule: {
             ...getRecurrenceOptions(),
@@ -129,7 +129,7 @@ describe('AppointmentForm recurrence RadioGroup', () => {
         });
 
       selectComponents.at(3).prop('onChange')('cde');
-      expect(defaultProps.onAppointmentFieldChange)
+      expect(defaultProps.onFieldChange)
         .toHaveBeenCalledWith({
           rRule: {
             ...getRecurrenceOptions(),
@@ -144,20 +144,20 @@ describe('AppointmentForm recurrence RadioGroup', () => {
       ));
 
       tree.prop('onChange')({ target: { value: 'onDayAndMonth' } });
-      expect(defaultProps.onAppointmentFieldChange)
+      expect(defaultProps.onFieldChange)
         .toHaveBeenCalledWith({
           rRule: {
             ...getRecurrenceOptions(),
-            bymonthday: defaultProps.changedAppointment.startDate.getDate(),
+            bymonthday: defaultProps.appointmentData.startDate.getDate(),
           },
         });
 
       tree.prop('onChange')({ target: { value: 'onDayOfWeek' } });
-      const weekNumber = Math.trunc((defaultProps.changedAppointment.startDate.getDate() - 1) / 7);
+      const weekNumber = Math.trunc((defaultProps.appointmentData.startDate.getDate() - 1) / 7);
       expect(handleToDayOfWeekChange)
         .toHaveBeenCalledWith(
           weekNumber,
-          defaultProps.changedAppointment.startDate.getDay(),
+          defaultProps.appointmentData.startDate.getDay(),
           getRecurrenceOptions(),
         );
     });

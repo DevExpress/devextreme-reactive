@@ -52,7 +52,7 @@ const ButtonGroupBase = React.memo(({
   readOnly,
   classes,
   className,
-  onAppointmentFieldChange,
+  onFieldChange,
   ...restProps
 }) => {
   const recurrenceOptions = getRecurrenceOptions(rRule);
@@ -74,7 +74,7 @@ const ButtonGroupBase = React.memo(({
         onClick={() => handleWeekDaysChange(
           recurrenceOptions,
           DAYS_OF_WEEK.SUNDAY,
-          onAppointmentFieldChange,
+          onFieldChange,
         )}
       >
         {formatDate(SUNDAY_DATE, WEEK_DAY_OPTIONS)}
@@ -88,7 +88,7 @@ const ButtonGroupBase = React.memo(({
         onClick={() => handleWeekDaysChange(
           recurrenceOptions,
           DAYS_OF_WEEK.MONDAY,
-          onAppointmentFieldChange,
+          onFieldChange,
         )}
       >
         {formatDate(MONDAY_DATE, WEEK_DAY_OPTIONS)}
@@ -102,7 +102,7 @@ const ButtonGroupBase = React.memo(({
         onClick={() => handleWeekDaysChange(
           recurrenceOptions,
           DAYS_OF_WEEK.TUESDAY,
-          onAppointmentFieldChange,
+          onFieldChange,
         )}
       >
         {formatDate(TUESDAY_DATE, WEEK_DAY_OPTIONS)}
@@ -116,7 +116,7 @@ const ButtonGroupBase = React.memo(({
         onClick={() => handleWeekDaysChange(
           recurrenceOptions,
           DAYS_OF_WEEK.WEDNESDAY,
-          onAppointmentFieldChange,
+          onFieldChange,
         )}
       >
         {formatDate(WEDNESDAY_DATE, WEEK_DAY_OPTIONS)}
@@ -130,7 +130,7 @@ const ButtonGroupBase = React.memo(({
         onClick={() => handleWeekDaysChange(
           recurrenceOptions,
           DAYS_OF_WEEK.THURSDAY,
-          onAppointmentFieldChange,
+          onFieldChange,
         )}
       >
         {formatDate(THURSDAY_DATE, WEEK_DAY_OPTIONS)}
@@ -144,7 +144,7 @@ const ButtonGroupBase = React.memo(({
         onClick={() => handleWeekDaysChange(
           recurrenceOptions,
           DAYS_OF_WEEK.FRIDAY,
-          onAppointmentFieldChange,
+          onFieldChange,
         )}
       >
         {formatDate(FRIDAY_DATE, WEEK_DAY_OPTIONS)}
@@ -158,7 +158,7 @@ const ButtonGroupBase = React.memo(({
         onClick={() => handleWeekDaysChange(
           recurrenceOptions,
           DAYS_OF_WEEK.SATURDAY,
-          onAppointmentFieldChange,
+          onFieldChange,
         )}
       >
         {formatDate(SATURDAY_DATE, WEEK_DAY_OPTIONS)}
@@ -169,7 +169,7 @@ const ButtonGroupBase = React.memo(({
 
 ButtonGroupBase.propTypes = {
   rRule: PropTypes.string.isRequired,
-  onAppointmentFieldChange: PropTypes.func,
+  onFieldChange: PropTypes.func,
   formatDate: PropTypes.func.isRequired,
   readOnly: PropTypes.bool,
   classes: PropTypes.object.isRequired,
@@ -177,7 +177,7 @@ ButtonGroupBase.propTypes = {
 };
 
 ButtonGroupBase.defaultProps = {
-  onAppointmentFieldChange: () => undefined,
+  onFieldChange: () => undefined,
   readOnly: false,
   className: undefined,
 };

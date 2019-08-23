@@ -16,10 +16,10 @@ describe('AppointmentForm recurrence layout ', () => {
     radioGroupComponent: () => null,
     selectComponent: () => null,
     buttonGroupComponent: () => null,
-    onAppointmentFieldChange: jest.fn(),
+    onFieldChange: jest.fn(),
     getMessage: jest.fn(),
     formatDate: jest.fn(),
-    changedAppointment: {},
+    appointmentData: {},
   };
   let classes;
   let shallow;
@@ -71,7 +71,7 @@ describe('AppointmentForm recurrence layout ', () => {
 
       tree.find(defaultProps.textEditorComponent).at(0)
         .simulate('valueChange', 'abc');
-      expect(defaultProps.onAppointmentFieldChange)
+      expect(defaultProps.onFieldChange)
         .toHaveBeenCalledWith({
           rRule: {
             ...getRecurrenceOptions(),

@@ -113,8 +113,8 @@ const LayoutBase = ({
         getMessage={getMessage}
         readOnly={readOnly}
         radioGroupComponent={RadioGroup}
-        changedAppointment={appointmentData}
-        onAppointmentFieldChange={onFieldChange}
+        appointmentData={appointmentData}
+        onFieldChange={onFieldChange}
         selectComponent={Select}
         buttonGroupComponent={buttonGroupComponent}
         formatDate={formatDate}
@@ -132,8 +132,8 @@ const LayoutBase = ({
         textEditorComponent={textEditorComponent}
         labelComponent={Label}
         dateEditorComponent={dateEditorComponent}
-        changedAppointment={appointmentData}
-        onAppointmentFieldChange={onFieldChange}
+        appointmentData={appointmentData}
+        onFieldChange={onFieldChange}
       />
       {children}
     </div>

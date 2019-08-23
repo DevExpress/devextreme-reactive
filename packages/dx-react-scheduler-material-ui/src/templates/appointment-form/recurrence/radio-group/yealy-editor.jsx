@@ -62,11 +62,11 @@ const styles = ({ spacing }) => ({
   },
 });
 
-const getCurrentMonth = (recurrenceOptions, changedAppointment) => {
+const getCurrentMonth = (recurrenceOptions, appointmentData) => {
   if (recurrenceOptions.bymonth) {
     return recurrenceOptions.bymonth;
   }
-  return changedAppointment.startDate.getMonth() + 1;
+  return appointmentData.startDate.getMonth() + 1;
 };
 
 const getDisplayDataFromOptionsAndState = (
@@ -104,31 +104,31 @@ const YearlyEditorBase = ({
   textEditorComponent: TextEditor,
   selectComponent: Select,
   readOnly,
-  changedAppointment,
+  appointmentData,
   formatDate,
-  onAppointmentFieldChange,
+  onFieldChange,
   ...restProps
 }) => {
-  const [dayNumber, setDayNumber] = useState(changedAppointment.startDate.getDate());
+  const [dayNumber, setDayNumber] = useState(appointmentData.startDate.getDate());
   const [stateWeekNumber, setStateWeekNumber] = useState(
-    Math.trunc((changedAppointment.startDate.getDate() - 1) / 7),
+    Math.trunc((appointmentData.startDate.getDate() - 1) / 7),
   );
-  const [stateDayOfWeek, setStateDayOfWeek] = useState(changedAppointment.startDate.getDay());
+  const [stateDayOfWeek, setStateDayOfWeek] = useState(appointmentData.startDate.getDay());
 
-  const { rRule } = changedAppointment;
+  const { rRule } = appointmentData;
   const recurrenceOptions = React.useMemo(() => getRecurrenceOptions(rRule), [rRule]);
-  const changeByMonthDay = React.useCallback(nextByMonthDay => onAppointmentFieldChange({
+  const changeByMonthDay = React.useCallback(nextByMonthDay => onFieldChange({
     rRule: changeRecurrenceOptions({ ...recurrenceOptions, bymonthday: nextByMonthDay }),
-  }), [recurrenceOptions, onAppointmentFieldChange]);
+  }), [recurrenceOptions, onFieldChange]);
 
   const {
     dayOfWeek, weekNumber, dayNumberTextField, radioGroupValue: value,
   } = getDisplayDataFromOptionsAndState(
     recurrenceOptions, stateDayOfWeek, stateWeekNumber, dayNumber,
   );
-  const month = getCurrentMonth(recurrenceOptions, changedAppointment);
+  const month = getCurrentMonth(recurrenceOptions, appointmentData);
 
-  const changeMonth = React.useCallback(newMonth => onAppointmentFieldChange({
+  const changeMonth = React.useCallback(newMonth => onFieldChange({
     rRule: changeRecurrenceOptions({
       ...recurrenceOptions, bymonth: newMonth,
     }),
@@ -138,14 +138,14 @@ const YearlyEditorBase = ({
     () => getMonthsWithOf(getMessage, formatDate), [getMessage, formatDate],
   );
 
-  const changeWeekNumber = React.useCallback(newWeekNumber => onAppointmentFieldChange({
+  const changeWeekNumber = React.useCallback(newWeekNumber => onFieldChange({
     rRule: handleWeekNumberChange(newWeekNumber, recurrenceOptions),
   }), [recurrenceOptions]);
   const weekNumbers = React.useMemo(
     () => getNumberLabels(getMessage), [getMessage],
   );
 
-  const changeDayOfWeek = React.useCallback(newWeekDay => onAppointmentFieldChange({
+  const changeDayOfWeek = React.useCallback(newWeekDay => onFieldChange({
     rRule: changeRecurrenceOptions({
       ...recurrenceOptions, byweekday: newWeekDay > 0 ? newWeekDay - 1 : 6,
     }),
@@ -159,7 +159,7 @@ const YearlyEditorBase = ({
       case 'onDayAndMonth':
         setStateWeekNumber(weekNumber);
         setStateDayOfWeek(dayOfWeek);
-        onAppointmentFieldChange({
+        onFieldChange({
           rRule: changeRecurrenceOptions({
             ...recurrenceOptions,
             bymonthday: dayNumber,
@@ -169,7 +169,7 @@ const YearlyEditorBase = ({
         break;
       case 'onDayOfWeek':
         setDayNumber(recurrenceOptions.bymonthday || dayNumber);
-        onAppointmentFieldChange({
+        onFieldChange({
           rRule: handleToDayOfWeekChange(
             stateWeekNumber,
             stateDayOfWeek,
@@ -271,11 +271,11 @@ const YearlyEditorBase = ({
 YearlyEditorBase.propTypes = {
   classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func,
-  onAppointmentFieldChange: PropTypes.func,
+  onFieldChange: PropTypes.func,
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   selectComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  changedAppointment: PropTypes.shape({
+  appointmentData: PropTypes.shape({
     title: PropTypes.string,
     startDate: PropTypes.instanceOf(Date),
     endDate: PropTypes.instanceOf(Date),
@@ -289,7 +289,7 @@ YearlyEditorBase.propTypes = {
 };
 
 YearlyEditorBase.defaultProps = {
-  onAppointmentFieldChange: () => undefined,
+  onFieldChange: () => undefined,
   getMessage: () => undefined,
   readOnly: false,
 };

@@ -17,9 +17,9 @@ export const RadioGroup = ({
   dateEditorComponent,
   selectComponent,
   id,
-  changedAppointment,
+  appointmentData,
   formatDate,
-  onAppointmentFieldChange,
+  onFieldChange,
   ...restProps
 }) => {
   switch (id) {
@@ -31,8 +31,8 @@ export const RadioGroup = ({
           textEditorComponent={textEditorComponent}
           labelComponent={labelComponent}
           dateEditorComponent={dateEditorComponent}
-          changedAppointment={changedAppointment}
-          onAppointmentFieldChange={onAppointmentFieldChange}
+          appointmentData={appointmentData}
+          onFieldChange={onFieldChange}
           {...restProps}
         />
       );
@@ -43,10 +43,10 @@ export const RadioGroup = ({
           getMessage={getMessage}
           textEditorComponent={textEditorComponent}
           labelComponent={labelComponent}
-          changedAppointment={changedAppointment}
+          appointmentData={appointmentData}
           selectComponent={selectComponent}
           formatDate={formatDate}
-          onAppointmentFieldChange={onAppointmentFieldChange}
+          onFieldChange={onFieldChange}
           {...restProps}
         />
       );
@@ -57,10 +57,10 @@ export const RadioGroup = ({
           getMessage={getMessage}
           textEditorComponent={textEditorComponent}
           labelComponent={labelComponent}
-          changedAppointment={changedAppointment}
+          appointmentData={appointmentData}
           selectComponent={selectComponent}
           formatDate={formatDate}
-          onAppointmentFieldChange={onAppointmentFieldChange}
+          onFieldChange={onFieldChange}
           {...restProps}
         />
       );
@@ -78,7 +78,7 @@ RadioGroup.propTypes = {
   selectComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   readOnly: PropTypes.bool,
   id: PropTypes.string.isRequired,
-  changedAppointment: PropTypes.shape({
+  appointmentData: PropTypes.shape({
     title: PropTypes.string,
     startDate: PropTypes.instanceOf(Date),
     endDate: PropTypes.instanceOf(Date),
@@ -87,13 +87,13 @@ RadioGroup.propTypes = {
     additionalInformation: PropTypes.string,
     allDay: PropTypes.bool,
   }).isRequired,
-  onAppointmentFieldChange: PropTypes.func,
+  onFieldChange: PropTypes.func,
   formatDate: PropTypes.func,
 };
 
 RadioGroup.defaultProps = {
   readOnly: false,
-  onAppointmentFieldChange: () => undefined,
+  onFieldChange: () => undefined,
   formatDate: null,
   selectComponent: null,
   dateEditorComponent: null,

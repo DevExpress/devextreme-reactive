@@ -32,9 +32,9 @@ describe('AppointmentForm recurrence', () => {
     selectComponent: () => null,
     buttonGroupComponent: () => null,
     dateEditorComponent: () => null,
-    onAppointmentFieldChange: jest.fn(),
+    onFieldChange: jest.fn(),
     getMessage: jest.fn(),
-    changedAppointment: {},
+    appointmentData: {},
     formatDate: jest.fn(),
   };
   let shallow;
@@ -119,11 +119,11 @@ describe('AppointmentForm recurrence', () => {
       ));
 
       tree.find(Daily).at(0).simulate('appointmentFieldChange', 'abc');
-      expect(defaultProps.onAppointmentFieldChange)
+      expect(defaultProps.onFieldChange)
         .toHaveBeenCalledWith('abc');
 
       tree.find(defaultProps.radioGroupComponent).at(0).simulate('appointmentFieldChange', 'bcd');
-      expect(defaultProps.onAppointmentFieldChange)
+      expect(defaultProps.onFieldChange)
         .toHaveBeenCalledWith('bcd');
     });
 

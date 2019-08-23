@@ -33,7 +33,7 @@ describe('AppointmentForm recurrence radio group', () => {
     dateAndTimeEditorComponent: () => null,
     getMessage: jest.fn(() => ''),
     formatDate: jest.fn(() => ''),
-    changedAppointment: {
+    appointmentData: {
       startDate: new Date(),
       endDate: new Date(),
     },

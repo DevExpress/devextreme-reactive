@@ -158,10 +158,10 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
       recurrenceLayoutComponent: RecurrenceLayout,
       commandButtonComponent,
       textEditorComponent,
-      labelComponent: Label,
+      labelComponent,
       dateEditorComponent,
       booleanEditorComponent,
-      selectComponent: Select,
+      selectComponent,
       radioGroupComponent,
       buttonGroupComponent,
       readOnly,
@@ -221,8 +221,8 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               cancelAddedAppointment,
 
               commitAddedAppointment,
-              commitChangedAppointment,
-              commitDeletedAppointment,
+              finishCommitAppointment,
+              finishDeleteAppointment,
 
               stopEditAppointment,
             }) => {
@@ -232,43 +232,37 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                 ...isNew ? addedAppointment : appointmentChanges,
               };
 
-              const commitAppointment = () => {
+              const commitChanges = () => {
                 this.toggleVisibility();
-                if (commitChangedAppointment) {
-                  if (isNew) {
-                    commitAddedAppointment();
-                  } else {
-                    commitChangedAppointment({
-                      appointmentId: changedAppointment.id,
-                    });
-                  }
+                if (!finishCommitAppointment) return;
+                if (isNew) {
+                  commitAddedAppointment();
+                } else {
+                  finishCommitAppointment();
                 }
               };
 
-              const cancelCommit = () => {
+              const cancelChanges = () => {
                 this.toggleVisibility();
-                if (stopEditAppointment) {
-                  if (isNew) {
-                    cancelAddedAppointment();
-                  } else {
-                    stopEditAppointment();
-                    cancelChangedAppointment();
-                  }
+                if (!cancelAddedAppointment) return;
+                if (isNew) {
+                  cancelAddedAppointment();
+                } else {
+                  stopEditAppointment();
+                  cancelChangedAppointment();
                 }
               };
 
               const deleteAppointment = () => {
-                commitDeletedAppointment({
-                  deletedAppointmentId: changedAppointment.id,
-                });
+                callActionIfExists(finishDeleteAppointment, appointmentData);
                 this.toggleVisibility();
               };
 
               return (
                 <CommandLayout
                   commandButtonComponent={commandButtonComponent}
-                  onCommitButtonClick={commitAppointment}
-                  onCancelButtonClick={cancelCommit}
+                  onCommitButtonClick={commitChanges}
+                  onCancelButtonClick={cancelChanges}
                   onDeleteButtonClick={deleteAppointment}
                   getMessage={getMessage}
                   readOnly={readOnly}
@@ -293,26 +287,22 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                 ...appointmentData,
                 ...isNew ? addedAppointment : appointmentChanges,
               };
-              const changeAppointmentAction = changes => changeAppointment({ change: changes });
-              const changeAddedAppointmentAction = changes => changeAddedAppointment({
-                change: changes,
-              });
               const changeAppointmentField = isNew
-                ? changeAddedAppointmentAction
-                : changeAppointmentAction;
+                ? change => callActionIfExists(changeAddedAppointment, { change })
+                : change => callActionIfExists(changeAppointment, { change });
               return (
                 <BasicLayout
+                  appointmentData={changedAppointment}
+                  onFieldChange={changeAppointmentField}
+                  getMessage={getMessage}
+                  readOnly={readOnly}
                   textEditorComponent={textEditorComponent}
                   dateEditorComponent={dateEditorComponent}
-                  allDayComponent={booleanEditorComponent}
-                  selectComponent={Select}
-                  labelComponent={Label}
-                  getMessage={getMessage}
-                  {...changeAppointment && {
-                    onAppointmentFieldChange: changeAppointmentField,
-                  }}
-                  changedAppointment={changedAppointment}
-                />);
+                  booleanEditorComponent={booleanEditorComponent}
+                  selectComponent={selectComponent}
+                  labelComponent={labelComponent}
+                />
+              );
             }}
           </TemplateConnector>
         </Template>
@@ -327,37 +317,29 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
             }, {
               changeAddedAppointment,
               changeAppointment,
-              cancelChangedAppointment,
-              finishCommitAppointment,
             }) => {
               const isNew = !!editingAppointment;
               const changedAppointment = {
                 ...appointmentData,
                 ...isNew ? addedAppointment : appointmentChanges,
               };
-              const changeAppointmentAction = changes => changeAppointment({ change: changes });
-              const changeAddedAppointmentAction = changes => changeAddedAppointment({
-                change: changes,
-              });
               const changeAppointmentField = isNew
-                ? changeAddedAppointmentAction
-                : changeAppointmentAction;
+                ? change => callActionIfExists(changeAddedAppointment, { change })
+                : change => callActionIfExists(changeAppointment, { change });
 
               return (
                 <RecurrenceLayout
-                  changedAppointment={changedAppointment}
-                  radioGroupComponent={radioGroupComponent}
-                  textEditorComponent={textEditorComponent}
-                  dateEditorComponent={dateEditorComponent}
-                  labelComponent={Label}
-                  {...changeAppointment && {
-                    onAppointmentFieldChange: changeAppointmentField,
-                  }}
+                  appointmentData={changedAppointment}
+                  onFieldChange={changeAppointmentField}
                   getMessage={getMessage}
                   readOnly={readOnly}
-                  selectComponent={Select}
-                  buttonGroupComponent={buttonGroupComponent}
                   formatDate={formatDate}
+                  textEditorComponent={textEditorComponent}
+                  dateEditorComponent={dateEditorComponent}
+                  radioGroupComponent={radioGroupComponent}
+                  buttonGroupComponent={buttonGroupComponent}
+                  labelComponent={labelComponent}
+                  selectComponent={selectComponent}
                 />
               );
             }}

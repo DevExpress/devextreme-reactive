@@ -75,15 +75,13 @@ const LayoutBase = ({
   className,
   getMessage,
   readOnly,
-  onAppointmentFieldChange,
-  changedAppointment,
+  onFieldChange,
+  appointmentData,
   formatDate,
   ...restProps
 }) => {
-  let MainLayoutComponent = null;
-  const recurrenceOptions = getRecurrenceOptions(changedAppointment.rRule);
-
-  MainLayoutComponent = getLayoutComponent(recurrenceOptions);
+  const recurrenceOptions = getRecurrenceOptions(appointmentData.rRule);
+  const MainLayoutComponent = getLayoutComponent(recurrenceOptions);
   const frequency = getFrequencyString(recurrenceOptions.freq);
   return (
     <div
@@ -97,7 +95,7 @@ const LayoutBase = ({
       />
       <Select
         onChange={repeatType => handleChangeFrequency(
-          repeatType, changedAppointment, onAppointmentFieldChange,
+          repeatType, appointmentData, onFieldChange,
         )}
         availableOptions={getAvailableRecurrenceOptions(getMessage)}
         value={frequency}
@@ -109,8 +107,8 @@ const LayoutBase = ({
         getMessage={getMessage}
         readOnly={readOnly}
         radioGroupComponent={RadioGroup}
-        changedAppointment={changedAppointment}
-        onAppointmentFieldChange={onAppointmentFieldChange}
+        changedAppointment={appointmentData}
+        onAppointmentFieldChange={onFieldChange}
         selectComponent={Select}
         buttonGroupComponent={buttonGroupComponent}
         formatDate={formatDate}
@@ -128,8 +126,8 @@ const LayoutBase = ({
         textEditorComponent={textEditorComponent}
         labelComponent={Label}
         dateEditorComponent={dateEditorComponent}
-        changedAppointment={changedAppointment}
-        onAppointmentFieldChange={onAppointmentFieldChange}
+        changedAppointment={appointmentData}
+        onAppointmentFieldChange={onFieldChange}
       />
       {children}
     </div>
@@ -143,13 +141,13 @@ LayoutBase.propTypes = {
   dateEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   selectComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   buttonGroupComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  onAppointmentFieldChange: PropTypes.func,
+  onFieldChange: PropTypes.func,
   children: PropTypes.node,
   className: PropTypes.string,
   classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func.isRequired,
   readOnly: PropTypes.bool,
-  changedAppointment: PropTypes.shape({
+  appointmentData: PropTypes.shape({
     title: PropTypes.string,
     startDate: PropTypes.instanceOf(Date),
     endDate: PropTypes.instanceOf(Date),
@@ -162,10 +160,10 @@ LayoutBase.propTypes = {
 };
 
 LayoutBase.defaultProps = {
+  onFieldChange: () => undefined,
   className: undefined,
-  onAppointmentFieldChange: () => undefined,
   readOnly: false,
   children: null,
 };
 
-export const Layout = withStyles(styles)(LayoutBase, { name: 'Layout' });
+export const Layout = withStyles(styles)(LayoutBase, { name: 'RecurrenceLayout' });

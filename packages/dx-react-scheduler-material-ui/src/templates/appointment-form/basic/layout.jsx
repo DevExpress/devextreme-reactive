@@ -71,18 +71,18 @@ const LayoutBase = ({
   children,
   classes,
   className,
+  getMessage,
+  readOnly,
+  onFieldChange,
+  appointmentData,
   textEditorComponent: TextEditor,
   dateEditorComponent: DateEditor,
   selectComponent: Select,
   labelComponent: Label,
-  allDayComponent: AllDay,
-  getMessage,
-  onAppointmentFieldChange,
-  changedAppointment,
-  readOnly,
+  booleanEditorComponent: AllDay,
   ...restProps
 }) => {
-  const recurrenceOptions = getRecurrenceOptions(changedAppointment.rRule);
+  const recurrenceOptions = getRecurrenceOptions(appointmentData.rRule);
   const frequency = recurrenceOptions
     ? getFrequencyString(recurrenceOptions.freq)
     : REPEAT_TYPES.NEVER;
@@ -90,7 +90,7 @@ const LayoutBase = ({
     <div
       className={classNames({
         [classes.root]: true,
-        [classes.fullSize]: !changedAppointment.rRule,
+        [classes.fullSize]: !appointmentData.rRule,
       }, className)}
       {...restProps}
     >
@@ -102,8 +102,8 @@ const LayoutBase = ({
         label={getMessage('titleLabel')}
         readOnly={readOnly}
         id={TITLE_TEXT_EDITOR}
-        value={changedAppointment.title}
-        onValueChange={title => onAppointmentFieldChange({ title })}
+        value={appointmentData.title}
+        onValueChange={title => onFieldChange({ title })}
       />
       <Grid
         container
@@ -113,8 +113,8 @@ const LayoutBase = ({
         <DateEditor
           className={classes.dateEditor}
           disabled={readOnly}
-          date={changedAppointment.startDate}
-          onDateChange={startDate => onAppointmentFieldChange({ startDate })}
+          date={appointmentData.startDate}
+          onDateChange={startDate => onFieldChange({ startDate })}
         />
         <Label
           label="-"
@@ -123,8 +123,8 @@ const LayoutBase = ({
         <DateEditor
           className={classes.dateEditor}
           disabled={readOnly}
-          date={changedAppointment.endDate}
-          onDateChange={endDate => onAppointmentFieldChange({ endDate })}
+          date={appointmentData.endDate}
+          onDateChange={endDate => onFieldChange({ endDate })}
         />
       </Grid>
       <Label
@@ -135,24 +135,24 @@ const LayoutBase = ({
       <TextEditor
         label={getMessage('additionalInformationLabel')}
         readOnly={readOnly}
-        value={changedAppointment.additionalInformation}
-        onValueChange={additionalInformation => onAppointmentFieldChange({ additionalInformation })}
+        value={appointmentData.additionalInformation}
+        onValueChange={additionalInformation => onFieldChange({ additionalInformation })}
       />
       <TextEditor
         label={getMessage('notesLabel')}
         readOnly={readOnly}
         id={NOTES_TEXT_EDITOR}
-        value={changedAppointment.notes}
-        onValueChange={notes => onAppointmentFieldChange({ notes })}
+        value={appointmentData.notes}
+        onValueChange={notes => onFieldChange({ notes })}
         className={classes.notesEditor}
       />
       <AllDay
         label={getMessage('allDayLabel')}
         readOnly={readOnly}
-        value={changedAppointment.allDay}
-        onValueChange={allDay => onAppointmentFieldChange({ allDay })}
+        value={appointmentData.allDay}
+        onValueChange={allDay => onFieldChange({ allDay })}
       />
-      {(!changedAppointment.rRule) && (
+      {!appointmentData.rRule && (
         <React.Fragment>
           <Label
             label={getMessage('repeatLabel')}
@@ -160,7 +160,7 @@ const LayoutBase = ({
           />
           <Select
             onChange={repeatType => handleChangeFrequency(
-              repeatType, changedAppointment, onAppointmentFieldChange,
+              repeatType, appointmentData, onFieldChange,
             )}
             availableOptions={getAvailableRecurrenceOptions(getMessage)}
             value={frequency}
@@ -178,13 +178,13 @@ LayoutBase.propTypes = {
   dateEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   selectComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  allDayComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  booleanEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   children: PropTypes.node,
   className: PropTypes.string,
   classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func.isRequired,
-  onAppointmentFieldChange: PropTypes.func,
-  changedAppointment: PropTypes.shape({
+  onFieldChange: PropTypes.func,
+  appointmentData: PropTypes.shape({
     title: PropTypes.string,
     startDate: PropTypes.instanceOf(Date),
     endDate: PropTypes.instanceOf(Date),
@@ -197,10 +197,10 @@ LayoutBase.propTypes = {
 };
 
 LayoutBase.defaultProps = {
+  onFieldChange: () => undefined,
   className: undefined,
   readOnly: false,
-  onAppointmentFieldChange: () => undefined,
   children: null,
 };
 
-export const Layout = withStyles(styles)(LayoutBase, { name: 'Layout' });
+export const Layout = withStyles(styles)(LayoutBase, { name: 'BasicLayout' });

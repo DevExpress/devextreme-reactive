@@ -1,4 +1,4 @@
-import { AppointmentModel } from '../index';
+import { AppointmentModel, FormatterFn } from '../index';
 
 /* tslint:disable no-namespace max-line-length */
 export namespace AppointmentForm {
@@ -51,6 +51,55 @@ export namespace AppointmentForm {
     getMessage: (messageKey: string) => string;
     /** A component that renders a command button. */
     commandButtonComponent: React.ComponentType<AppointmentForm.CommandButtonProps>;
+  }
+  /** A component that render the appointment form's layout for basic part of editors */
+  export interface BasicLayoutProps {
+    /** The appointment’s displayed metadata. */
+    appointmentData: AppointmentModel;
+    /** Handles appointment field value changes. */
+    onFieldChange: (change: any) => void;
+    /** Returns a localization message by the message key. */
+    getMessage: (messageKey: string) => string;
+    /** Specifies the appointment form is read-only. */
+    readOnly?: boolean;
+    /** A component that render the appointment form's text editor component */
+    textEditorComponent: React.ComponentType<AppointmentForm.TextEditorProps>;
+    /** A component that render the appointment form's date editor component */
+    dateEditorComponent: React.ComponentType<AppointmentForm.DateEditorProps>;
+    /** A component that render the appointment form's boolean editor component */
+    booleanEditorComponent: React.ComponentType<AppointmentForm.BooleanEditorProps>;
+    /** A component that render the appointment form's select component */
+    selectComponent: React.ComponentType<AppointmentForm.SelectProps>;
+    /** A component that render the appointment form's text label component */
+    labelComponent: React.ComponentType<AppointmentForm.LabelProps>;
+    /** A React node should be added as additional. */
+    children?: React.ReactNode;
+  }
+  export interface RecurrenceLayoutProps {
+    /** The appointment’s displayed metadata. */
+    appointmentData: AppointmentModel;
+    /** Handles appointment field value changes. */
+    onFieldChange: (change: any) => void;
+    /** Returns a localization message by the message key. */
+    getMessage: (messageKey: string) => string;
+    /** Specifies the appointment form is read-only. */
+    readOnly?: boolean;
+    /** A function that formats dates according to the locale. */
+    formatDate: FormatterFn;
+    /** A component that render the appointment form's radio group component */
+    radioGroupComponent: React.ComponentType<AppointmentForm.RadioGroupProps>;
+    /** A component that render the appointment form's button group component */
+    buttonGroupComponent: React.ComponentType<AppointmentForm.ButtonGroupProps>;
+    /** A component that render the appointment form's text editor component */
+    textEditorComponent: React.ComponentType<AppointmentForm.TextEditorProps>;
+    /** A component that render the appointment form's date editor component */
+    dateEditorComponent: React.ComponentType<AppointmentForm.DateEditorProps>;
+    /** A component that render the appointment form's select component */
+    selectComponent: React.ComponentType<AppointmentForm.SelectProps>;
+    /** A component that render the appointment form's text label component */
+    labelComponent: React.ComponentType<AppointmentForm.LabelProps>;
+    /** A React node should be added as additional. */
+    children?: React.ReactNode;
   }
   /** Localization Messages */
   export interface LocalizationMessages {

@@ -1,17 +1,13 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost, Template } from '@devexpress/dx-react-core';
-import {
-  COMMIT_COMMAND_BUTTON,
-  CANCEL_COMMAND_BUTTON,
-} from '@devexpress/dx-scheduler-core';
 import { pluginDepsToComponents } from '@devexpress/dx-testing';
 import { AppointmentForm } from './appointment-form';
 
 describe('AppointmentForm', () => {
   const defaultDeps = {
     template: {
-      timeTable: {},
+      schedulerRoot: {},
     },
     getter: {
       appointmentChanges: jest.fn(),
@@ -30,24 +26,24 @@ describe('AppointmentForm', () => {
 
   const defaultProps = {
     /* eslint-disable react/prop-types */
-    popupComponent: ({ children }) => <div>{children}</div>,
-    containerComponent: ({ children }) => <div>{children}</div>,
-    scrollableAreaComponent: ({ children }) => <div>{children}</div>,
-    staticAreaComponent: ({ children }) => <div>{children}</div>,
-    startDateComponent: () => null,
-    endDateComponent: () => null,
-    titleComponent: () => null,
+    overlayComponent: ({ children }) => <div>{children}</div>,
+    containerComponent: () => null,
+    layoutComponent: ({ children }) => <div>{children}</div>,
+    commandLayoutComponent: ({ children }) => <div>{children}</div>,
+    basicLayoutComponent: ({ children }) => <div>{children}</div>,
+    recurrenceLayoutComponent: ({ children }) => <div>{children}</div>,
+    textEditorComponent: () => null,
+    labelComponent: () => null,
+    dateEditorComponent: () => null,
     commandButtonComponent: () => null,
-    allDayComponent: () => null,
-    appointmentData: {
-      title: undefined,
-      startDate: undefined,
-      endDate: undefined,
-      allDay: undefined,
-    },
+    booleanEditorComponent: () => null,
+    selectComponent: () => null,
+    radioGroupComponent: () => null,
+    buttonGroupComponent: () => null,
+    appointmentData: {},
   };
 
-  it('should render Popup component', () => {
+  it('should render Overlay component', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -57,7 +53,89 @@ describe('AppointmentForm', () => {
       </PluginHost>
     ));
 
-    expect(tree.find(defaultProps.popupComponent).exists())
+    expect(tree.find(defaultProps.overlayComponent).exists())
+      .toBeTruthy();
+  });
+
+  it('should render Container component', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <AppointmentForm
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    expect(tree.find(defaultProps.containerComponent).exists())
+      .toBeTruthy();
+  });
+
+  it('should render Layout component', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <AppointmentForm
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    expect(tree.find(defaultProps.layoutComponent).exists())
+      .toBeTruthy();
+  });
+
+  it('should render CommandLayout template', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <AppointmentForm
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    const templatePlaceholder = tree
+      .find(Template)
+      .filterWhere(node => node.props().name === 'commandLayout');
+
+    expect(templatePlaceholder.exists())
+      .toBeTruthy();
+  });
+
+  it('should render BasicLayout template', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <AppointmentForm
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    const templatePlaceholder = tree
+      .find(Template)
+      .filterWhere(node => node.props().name === 'basicLayout');
+
+    expect(templatePlaceholder.exists())
+      .toBeTruthy();
+  });
+
+  it('should render RecurrenceLayout template', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <AppointmentForm
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    const templatePlaceholder = tree
+      .find(Template)
+      .filterWhere(node => node.props().name === 'recurrenceLayout');
+
+    expect(templatePlaceholder.exists())
       .toBeTruthy();
   });
 
@@ -94,154 +172,6 @@ describe('AppointmentForm', () => {
       .filterWhere(node => node.props().name === 'tooltip');
 
     expect(templatePlaceholder.exists())
-      .toBeTruthy();
-  });
-
-  it('should render title editor', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <AppointmentForm
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
-
-    const textEditor = tree.find(defaultProps.titleComponent);
-    expect(textEditor.prop('label'))
-      .toEqual('Title');
-
-    textEditor.prop('onValueChange')();
-    expect(defaultDeps.action.changeAppointment)
-      .toBeCalled();
-  });
-
-  it('should render startDate date editor', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <AppointmentForm
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
-
-    const startDateEditor = tree
-      .find(defaultProps.startDateComponent)
-      .filterWhere(node => node.props().label === 'Start Date');
-
-    startDateEditor.prop('onValueChange')();
-    expect(defaultDeps.action.changeAppointment)
-      .toBeCalled();
-  });
-
-  it('should render end date editor', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <AppointmentForm
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
-
-    const endDateEditor = tree
-      .find(defaultProps.endDateComponent)
-      .filterWhere(node => node.props().label === 'End Date');
-
-    endDateEditor.prop('onValueChange')();
-    expect(defaultDeps.action.changeAppointment)
-      .toBeCalled();
-  });
-
-  it('should render all day editor', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <AppointmentForm
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
-
-    const allDayEditor = tree
-      .find(defaultProps.allDayComponent);
-
-    expect(allDayEditor.prop('text'))
-      .toEqual('All Day');
-
-    allDayEditor.prop('onValueChange')();
-    expect(defaultDeps.action.changeAppointment)
-      .toBeCalled();
-  });
-
-  it('should render commit button', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <AppointmentForm
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
-
-    const commitButton = tree
-      .find(defaultProps.commandButtonComponent)
-      .filterWhere(node => node.props().id === COMMIT_COMMAND_BUTTON);
-
-    expect(commitButton.prop('text'))
-      .toEqual('Save');
-
-    commitButton.prop('onExecute')();
-    expect(defaultDeps.action.finishCommitAppointment)
-      .toBeCalled();
-  });
-
-  it('should render cancel button', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <AppointmentForm
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
-
-    const cancelButton = tree
-      .find(defaultProps.commandButtonComponent)
-      .filterWhere(node => node.props().id === CANCEL_COMMAND_BUTTON);
-
-    expect(cancelButton.prop('text'))
-      .toEqual('Cancel');
-
-    cancelButton.prop('onExecute')();
-    expect(defaultDeps.action.stopEditAppointment)
-      .toBeCalled();
-    expect(defaultDeps.action.cancelChangedAppointment)
-      .toBeCalled();
-  });
-
-  it('should not render commit button in readOnly mode', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <AppointmentForm
-          {...defaultProps}
-          readOnly
-        />
-      </PluginHost>
-    ));
-
-    const commitButton = tree
-      .find(defaultProps.commandButtonComponent)
-      .filterWhere(node => node.props().id === COMMIT_COMMAND_BUTTON);
-    const cancelButton = tree
-      .find(defaultProps.commandButtonComponent)
-      .filterWhere(node => node.props().id === CANCEL_COMMAND_BUTTON);
-
-    expect(commitButton.exists())
-      .toBeFalsy();
-    expect(cancelButton.exists())
       .toBeTruthy();
   });
 });

@@ -86,6 +86,16 @@ const LayoutBase = ({
   const frequency = recurrenceOptions
     ? getFrequencyString(recurrenceOptions.freq)
     : REPEAT_TYPES.NEVER;
+
+  const changeTitle = React.useCallback(title => onFieldChange({ title }), []);
+  const changeAdditionalInformation = React.useCallback(
+    additionalInformation => onFieldChange({ additionalInformation }), [],
+  );
+  const changeNotes = React.useCallback(notes => onFieldChange({ notes }), []);
+  const changeStartDate = React.useCallback(startDate => onFieldChange({ startDate }), []);
+  const changeEndDate = React.useCallback(endDate => onFieldChange({ endDate }), []);
+  const changeAllDay = React.useCallback(allDay => onFieldChange({ allDay }), []);
+
   return (
     <div
       className={classNames({
@@ -103,7 +113,7 @@ const LayoutBase = ({
         readOnly={readOnly}
         id={TITLE_TEXT_EDITOR}
         value={appointmentData.title}
-        onValueChange={title => onFieldChange({ title })}
+        onValueChange={changeTitle}
       />
       <Grid
         container
@@ -114,7 +124,7 @@ const LayoutBase = ({
           className={classes.dateEditor}
           disabled={readOnly}
           date={appointmentData.startDate}
-          onDateChange={startDate => onFieldChange({ startDate })}
+          onDateChange={changeStartDate}
         />
         <Label
           label="-"
@@ -124,7 +134,7 @@ const LayoutBase = ({
           className={classes.dateEditor}
           disabled={readOnly}
           date={appointmentData.endDate}
-          onDateChange={endDate => onFieldChange({ endDate })}
+          onDateChange={changeEndDate}
         />
       </Grid>
       <Label
@@ -136,21 +146,21 @@ const LayoutBase = ({
         label={getMessage('additionalInformationLabel')}
         readOnly={readOnly}
         value={appointmentData.additionalInformation}
-        onValueChange={additionalInformation => onFieldChange({ additionalInformation })}
+        onValueChange={changeAdditionalInformation}
       />
       <TextEditor
         label={getMessage('notesLabel')}
         readOnly={readOnly}
         id={NOTES_TEXT_EDITOR}
         value={appointmentData.notes}
-        onValueChange={notes => onFieldChange({ notes })}
+        onValueChange={changeNotes}
         className={classes.notesEditor}
       />
       <AllDay
         label={getMessage('allDayLabel')}
         readOnly={readOnly}
         value={appointmentData.allDay}
-        onValueChange={allDay => onFieldChange({ allDay })}
+        onValueChange={changeAllDay}
       />
       {!appointmentData.rRule && (
         <React.Fragment>

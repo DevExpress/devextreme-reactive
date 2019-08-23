@@ -14,7 +14,7 @@ const styles = ({ spacing }) => ({
   },
 });
 
-const DateEditorBase = ({
+const DateEditorBase = React.memo(({
   classes,
   onDateChange,
   date,
@@ -36,7 +36,7 @@ const DateEditorBase = ({
       {...restProps}
     />
   </MuiPickersUtilsProvider>
-);
+));
 
 DateEditorBase.propTypes = {
   classes: PropTypes.object.isRequired,

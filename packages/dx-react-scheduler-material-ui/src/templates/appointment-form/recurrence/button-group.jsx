@@ -46,16 +46,16 @@ const handleWeekDaysChange = (options, weekDay, action) => {
   action({ rRule: changeRecurrenceOptions(newOptions) });
 };
 
-const ButtonGroupBase = ({
+const ButtonGroupBase = React.memo(({
   formatDate,
-  changedAppointment,
+  rRule,
   readOnly,
   classes,
   className,
   onAppointmentFieldChange,
   ...restProps
 }) => {
-  const recurrenceOptions = getRecurrenceOptions(changedAppointment.rRule);
+  const recurrenceOptions = getRecurrenceOptions(rRule);
   return (
     <MUIButtonGroup
       variant="outlined"
@@ -165,18 +165,10 @@ const ButtonGroupBase = ({
       </Button>
     </MUIButtonGroup>
   );
-};
+});
 
 ButtonGroupBase.propTypes = {
-  changedAppointment: PropTypes.shape({
-    title: PropTypes.string,
-    startDate: PropTypes.instanceOf(Date),
-    endDate: PropTypes.instanceOf(Date),
-    rRule: PropTypes.string,
-    notes: PropTypes.string,
-    additionalInformation: PropTypes.string,
-    allDay: PropTypes.bool,
-  }).isRequired,
+  rRule: PropTypes.string.isRequired,
   onAppointmentFieldChange: PropTypes.func,
   formatDate: PropTypes.func.isRequired,
   readOnly: PropTypes.bool,

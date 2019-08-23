@@ -41,7 +41,12 @@ const DailyBase = ({
   formatDate,
   ...restProps
 }) => {
-  const recurrenceOptions = getRecurrenceOptions(changedAppointment.rRule);
+  const { rRule } = changedAppointment;
+  const recurrenceOptions = React.useMemo(() => getRecurrenceOptions(rRule), [rRule]);
+
+  const changeRecurrenceInterval = React.useCallback(interval => onAppointmentFieldChange({
+    rRule: changeRecurrenceOptions({ ...recurrenceOptions, interval }),
+  }), [recurrenceOptions]);
   return (
     <Grid
       container
@@ -60,11 +65,7 @@ const DailyBase = ({
         value={recurrenceOptions.interval}
         className={classes.textEditor}
         id={NUMBER_EDITOR}
-        onValueChange={value => onAppointmentFieldChange({
-          rRule: changeRecurrenceOptions({
-            ...recurrenceOptions, interval: value,
-          }),
-        })}
+        onValueChange={changeRecurrenceInterval}
       />
       <Label
         label={getMessage('daysLabel')}

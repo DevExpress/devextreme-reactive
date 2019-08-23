@@ -98,7 +98,12 @@ const MonthlyEditorBase = ({
   );
   const [stateDayOfWeek, setStateDayOfWeek] = useState(changedAppointment.startDate.getDay());
 
-  const recurrenceOptions = getRecurrenceOptions(changedAppointment.rRule);
+  const { rRule } = changedAppointment;
+  const recurrenceOptions = React.useMemo(() => getRecurrenceOptions(rRule), [rRule]);
+  const changeByMonthDay = React.useCallback(nextByMonthDay => onAppointmentFieldChange({
+    rRule: changeRecurrenceOptions({ ...recurrenceOptions, bymonthday: nextByMonthDay }),
+  }), [recurrenceOptions]);
+
   const {
     dayOfWeek, weekNumber, dayNumberTextField, radioGroupValue: value,
   } = getDisplayDataFromOptionsAndState(
@@ -159,12 +164,7 @@ const MonthlyEditorBase = ({
               value={dayNumberTextField}
               className={classes.textEditor}
               id={NUMBER_EDITOR}
-              onValueChange={newDayNumber => onAppointmentFieldChange({
-                rRule: handleStartDateChange(
-                  newDayNumber,
-                  recurrenceOptions,
-                ),
-              })}
+              onValueChange={changeByMonthDay}
             />
             <Label
               label={getMessage('ofEveryMonthLabel')}

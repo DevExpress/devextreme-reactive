@@ -21,7 +21,7 @@ const styles = theme => ({
   },
 });
 
-const TextEditorBase = ({
+const TextEditorBase = React.memo(({
   classes,
   value,
   label,
@@ -54,7 +54,7 @@ const TextEditorBase = ({
       {...restProps}
     />
   );
-};
+});
 
 
 TextEditorBase.propTypes = {

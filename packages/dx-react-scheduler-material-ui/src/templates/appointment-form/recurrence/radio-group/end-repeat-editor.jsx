@@ -45,7 +45,19 @@ const EndRepeatEditorBase = ({
   const [count, setCount] = React.useState(1);
   const [endDate, setEndDate] = React.useState(changedAppointment.endDate);
 
-  const recurrenceOptions = getRecurrenceOptions(changedAppointment.rRule);
+  const { rRule } = changedAppointment;
+  const recurrenceOptions = React.useMemo(() => getRecurrenceOptions(rRule), [rRule]);
+  const changeRecurrenceCount = React.useCallback(nextCount => onAppointmentFieldChange({
+    rRule: changeRecurrenceOptions({ ...recurrenceOptions, count: nextCount }),
+  }), [recurrenceOptions]);
+  const changeRecurrenceEndDate = React.useCallback(date => onAppointmentFieldChange({
+    rRule: changeRecurrenceOptions({ ...recurrenceOptions, until: date }),
+  }), [recurrenceOptions]);
+
+  const countEditorProps = React.useMemo(() => ({
+    endAdornment: <InputAdornment position="end">{getMessage('occurencesLabel')}</InputAdornment>,
+  }), []);
+
   const recurrenceCount = recurrenceOptions.count || count;
   const recurrenceEndDate = recurrenceOptions.until || endDate;
   let value;
@@ -119,15 +131,8 @@ const EndRepeatEditorBase = ({
               className={classes.textEditor}
               value={recurrenceCount}
               id={NUMBER_EDITOR}
-              onValueChange={newCount => onAppointmentFieldChange({
-                rRule: changeRecurrenceOptions({
-                  ...recurrenceOptions,
-                  count: newCount,
-                }),
-              })}
-              InputProps={{
-                endAdornment: <InputAdornment position="end">{getMessage('occurencesLabel')}</InputAdornment>,
-              }}
+              onValueChange={changeRecurrenceCount}
+              InputProps={countEditorProps}
             />
           </Grid>
         )}
@@ -152,11 +157,7 @@ const EndRepeatEditorBase = ({
               className={classes.dateEditor}
               disabled={value !== 'endBy'}
               date={recurrenceEndDate}
-              onDateChange={date => onAppointmentFieldChange({
-                rRule: changeRecurrenceOptions({
-                  ...recurrenceOptions, until: date,
-                }),
-              })}
+              onDateChange={changeRecurrenceEndDate}
               allowKeyboardControl={false}
             />
           </Grid>

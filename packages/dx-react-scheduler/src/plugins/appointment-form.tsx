@@ -176,6 +176,11 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
     this.toggleVisibility();
   });
 
+  changeAppointmentField = memoize((isNew, changeAddedAppointment, changeAppointment) =>
+    isNew ? change => callActionIfExists(changeAddedAppointment, { change })
+    : change => callActionIfExists(changeAppointment, { change }),
+  );
+
   render() {
     const {
       containerComponent: Container,
@@ -210,7 +215,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               addedAppointment,
               appointmentChanges,
             }) => {
-              const isNew = !!editingAppointment;
+              const isNew = !editingAppointment;
               const changedAppointment = {
                 ...appointmentData,
                 ...isNew ? addedAppointment : appointmentChanges,
@@ -254,7 +259,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
 
               stopEditAppointment,
             }) => {
-              const isNew = !!editingAppointment;
+              const isNew = !editingAppointment;
               const changedAppointment = {
                 ...appointmentData,
                 ...isNew ? addedAppointment : appointmentChanges,
@@ -289,18 +294,17 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               changeAppointment,
               changeAddedAppointment,
             }) => {
-              const isNew = !!editingAppointment;
+              const isNew = !editingAppointment;
               const changedAppointment = {
                 ...appointmentData,
                 ...isNew ? addedAppointment : appointmentChanges,
               };
-              const changeAppointmentField = isNew
-                ? change => callActionIfExists(changeAddedAppointment, { change })
-                : change => callActionIfExists(changeAppointment, { change });
               return (
                 <BasicLayout
                   appointmentData={changedAppointment}
-                  onFieldChange={changeAppointmentField}
+                  onFieldChange={this.changeAppointmentField(
+                    isNew, changeAddedAppointment, changeAppointment,
+                  )}
                   getMessage={getMessage}
                   readOnly={readOnly}
                   textEditorComponent={textEditorComponent}
@@ -325,19 +329,18 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               changeAddedAppointment,
               changeAppointment,
             }) => {
-              const isNew = !!editingAppointment;
+              const isNew = !editingAppointment;
               const changedAppointment = {
                 ...appointmentData,
                 ...isNew ? addedAppointment : appointmentChanges,
               };
-              const changeAppointmentField = isNew
-                ? change => callActionIfExists(changeAddedAppointment, { change })
-                : change => callActionIfExists(changeAppointment, { change });
 
               return (
                 <RecurrenceLayout
                   appointmentData={changedAppointment}
-                  onFieldChange={changeAppointmentField}
+                  onFieldChange={this.changeAppointmentField(
+                    isNew, changeAddedAppointment, changeAppointment,
+                  )}
                   getMessage={getMessage}
                   readOnly={readOnly}
                   formatDate={formatDate}

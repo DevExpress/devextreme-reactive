@@ -13,7 +13,7 @@ const styles = ({ typography }) => ({
   },
 });
 
-const BooleanEditorBase = ({
+const BooleanEditorBase = React.memo(({
   text,
   value,
   readOnly,
@@ -34,7 +34,7 @@ const BooleanEditorBase = ({
     label={text}
     {...restProps}
   />
-);
+));
 
 BooleanEditorBase.propTypes = {
   text: PropTypes.string,

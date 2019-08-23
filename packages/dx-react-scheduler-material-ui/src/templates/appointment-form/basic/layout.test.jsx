@@ -14,7 +14,7 @@ describe('AppointmentForm basic', () => {
     textEditorComponent: () => null,
     dateEditorComponent: () => null,
     labelComponent: () => null,
-    allDayComponent: () => null,
+    booleanEditorComponent: () => null,
     selectComponent: () => null,
     getMessage: jest.fn(),
     onFieldChange: jest.fn(),
@@ -89,7 +89,7 @@ describe('AppointmentForm basic', () => {
       expect(textEditors.at(2).prop('id'))
         .toEqual(NOTES_TEXT_EDITOR);
 
-      expect(tree.find(defaultProps.allDayComponent))
+      expect(tree.find(defaultProps.booleanEditorComponent))
         .toHaveLength(1);
 
       const dateEditors = tree.find(defaultProps.dateEditorComponent);
@@ -123,7 +123,7 @@ describe('AppointmentForm basic', () => {
         .toHaveLength(3);
       expect(tree.find(defaultProps.textEditorComponent))
         .toHaveLength(3);
-      expect(tree.find(defaultProps.allDayComponent))
+      expect(tree.find(defaultProps.booleanEditorComponent))
         .toHaveLength(1);
       expect(tree.find(defaultProps.dateEditorComponent))
         .toHaveLength(2);
@@ -186,9 +186,9 @@ describe('AppointmentForm basic', () => {
       expect(defaultProps.onFieldChange)
         .toBeCalledWith({ endDate: 'abc' });
 
-      const allDayComponent = tree.find(defaultProps.allDayComponent);
+      const booleanEditorComponent = tree.find(defaultProps.booleanEditorComponent);
 
-      allDayComponent.at(0).simulate('valueChange', 'abc');
+      booleanEditorComponent.at(0).simulate('valueChange', 'abc');
       expect(defaultProps.onFieldChange)
         .toBeCalledWith({ allDay: 'abc' });
     });

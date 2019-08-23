@@ -118,11 +118,11 @@ describe('AppointmentForm recurrence', () => {
         <Layout {...defaultProps}><div /></Layout>
       ));
 
-      tree.find(Daily).at(0).simulate('appointmentFieldChange', 'abc');
+      tree.find(Daily).at(0).simulate('fieldChange', 'abc');
       expect(defaultProps.onFieldChange)
         .toHaveBeenCalledWith('abc');
 
-      tree.find(defaultProps.radioGroupComponent).at(0).simulate('appointmentFieldChange', 'bcd');
+      tree.find(defaultProps.radioGroupComponent).at(0).simulate('fieldChange', 'bcd');
       expect(defaultProps.onFieldChange)
         .toHaveBeenCalledWith('bcd');
     });

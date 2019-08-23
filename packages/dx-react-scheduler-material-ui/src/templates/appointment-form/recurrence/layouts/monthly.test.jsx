@@ -84,7 +84,7 @@ describe('AppointmentForm recurrence layout', () => {
         });
 
       tree.find(defaultProps.radioGroupComponent).at(0)
-        .simulate('appointmentFieldChange', 'bcd');
+        .simulate('fieldChange', 'bcd');
       expect(defaultProps.onFieldChange)
         .toHaveBeenCalledWith('bcd');
     });

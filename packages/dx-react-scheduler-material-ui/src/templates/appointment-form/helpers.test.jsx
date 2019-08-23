@@ -129,7 +129,7 @@ describe('AppointmentForm helpers', () => {
       getRRuleFrequency.mockImplementation(() => 'daily');
       changeRecurrenceFrequency.mockImplementation(() => undefined);
       const action = jest.fn();
-      handleChangeFrequency('repeat_type', {}, action);
+      handleChangeFrequency('repeat_type', '', new Date(), action);
       expect(getRRuleFrequency)
         .toBeCalledTimes(1);
       expect(changeRecurrenceFrequency)

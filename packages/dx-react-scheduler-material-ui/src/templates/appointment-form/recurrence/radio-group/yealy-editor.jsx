@@ -12,6 +12,7 @@ import {
   handleWeekNumberChange,
   getRecurrenceOptions,
   changeRecurrenceOptions,
+  handleStartDateChange,
 } from '@devexpress/dx-scheduler-core';
 import {
   getNumberLabels,
@@ -118,8 +119,8 @@ const YearlyEditorBase = ({
   const { rRule } = appointmentData;
   const recurrenceOptions = React.useMemo(() => getRecurrenceOptions(rRule), [rRule]);
   const changeByMonthDay = React.useCallback(nextByMonthDay => onFieldChange({
-    rRule: changeRecurrenceOptions({ ...recurrenceOptions, bymonthday: nextByMonthDay }),
-  }), [recurrenceOptions, onFieldChange]);
+    rRule: handleStartDateChange(nextByMonthDay, recurrenceOptions),
+  }), [recurrenceOptions]);
 
   const {
     dayOfWeek, weekNumber, dayNumberTextField, radioGroupValue: value,

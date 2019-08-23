@@ -57,7 +57,7 @@ describe('AppointmentForm', () => {
 
     it('should render form with capability to edit recurrent appointments correctly', () => {
       const tree = shallow((
-        <Layout {...defaultProps} isRecurring>
+        <Layout {...defaultProps} isRecurrence>
           <div />
         </Layout>
       ));

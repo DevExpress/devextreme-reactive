@@ -7,9 +7,9 @@ describe('AppointmentForm command', () => {
   const defaultProps = {
     commandButtonComponent: () => null,
     getMessage: jest.fn(),
-    commitAppointment: jest.fn(),
-    cancelCommit: jest.fn(),
-    deleteAppointment: jest.fn(),
+    onCommitButtonClick: jest.fn(),
+    onCancelButtonClick: jest.fn(),
+    onDeleteButtonClick: jest.fn(),
   };
   let classes;
   let shallow;
@@ -44,16 +44,16 @@ describe('AppointmentForm command', () => {
         .toBeTruthy();
     });
 
-    it('should be recurrent if isRecurring is true', () => {
+    it('should be full-size if fullSize is true', () => {
       const tree = shallow((
-        <Layout isRecurring {...defaultProps}>
+        <Layout fullSize {...defaultProps}>
           <div />
         </Layout>
       ));
 
       expect(tree.is(`.${classes.root}`))
         .toBeTruthy();
-      expect(tree.is(`.${classes.recurring}`))
+      expect(tree.is(`.${classes.fullSize}`))
         .toBeTruthy();
     });
 
@@ -88,7 +88,7 @@ describe('AppointmentForm command', () => {
         .toEqual(CANCEL_BUTTON);
     });
 
-    it('shouldn call commitAppointment', () => {
+    it('shouldn call onCommitButtonClick', () => {
       const tree = shallow((
         <Layout {...defaultProps}>
           <div />
@@ -96,11 +96,11 @@ describe('AppointmentForm command', () => {
       ));
 
       tree.find(defaultProps.commandButtonComponent).at(2).simulate('execute');
-      expect(defaultProps.commitAppointment)
+      expect(defaultProps.onCommitButtonClick)
         .toHaveBeenCalled();
     });
 
-    it('shouldn call deleteAppointment', () => {
+    it('shouldn call onDeleteButtonClick', () => {
       const tree = shallow((
         <Layout {...defaultProps}>
           <div />
@@ -108,11 +108,11 @@ describe('AppointmentForm command', () => {
       ));
 
       tree.find(defaultProps.commandButtonComponent).at(1).simulate('execute');
-      expect(defaultProps.deleteAppointment)
+      expect(defaultProps.onDeleteButtonClick)
         .toHaveBeenCalled();
     });
 
-    it('shouldn call cancelCommit', () => {
+    it('shouldn call onCancelButtonClick', () => {
       const tree = shallow((
         <Layout {...defaultProps}>
           <div />
@@ -120,7 +120,7 @@ describe('AppointmentForm command', () => {
       ));
 
       tree.find(defaultProps.commandButtonComponent).at(0).simulate('execute');
-      expect(defaultProps.cancelCommit)
+      expect(defaultProps.onCancelButtonClick)
         .toHaveBeenCalled();
     });
 

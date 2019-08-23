@@ -12,6 +12,7 @@ describe('AppointmentForm', () => {
     container: {},
     fullSize: true,
     onHide: jest.fn(),
+    target: React.createRef(),
   };
   let classes;
   let shallow;

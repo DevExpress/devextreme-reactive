@@ -116,7 +116,6 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
       appointmentChanges = prevState.appointmentChanges,
       addedAppointment = prevState.addedAppointment,
     } = nextProps;
-    console.log(editingAppointment);
 
     return {
       editingAppointment,

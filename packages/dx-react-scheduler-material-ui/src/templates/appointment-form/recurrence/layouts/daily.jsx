@@ -57,7 +57,7 @@ const DailyBase = ({
       {...restProps}
     >
       <Label
-        label={getMessage('repeatEveryLabel')}
+        text={getMessage('repeatEveryLabel')}
         className={classes.label}
       />
       <TextEditor
@@ -68,7 +68,7 @@ const DailyBase = ({
         onValueChange={changeRecurrenceInterval}
       />
       <Label
-        label={getMessage('daysLabel')}
+        text={getMessage('daysLabel')}
         className={classes.labelWithMargin}
       />
     </Grid>

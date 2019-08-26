@@ -115,7 +115,7 @@ const LayoutBase = ({
       {...restProps}
     >
       <Label
-        label={getMessage('detailsLabel')}
+        text={getMessage('detailsLabel')}
         id={TITLE_LABEL}
       />
       <TextEditor
@@ -137,7 +137,7 @@ const LayoutBase = ({
           onValueChange={changeStartDate}
         />
         <Label
-          label="-"
+          text="-"
           className={classes.dividerLabel}
         />
         <DateEditor
@@ -148,7 +148,7 @@ const LayoutBase = ({
         />
       </Grid>
       <Label
-        label={getMessage('moreInformationLabel')}
+        text={getMessage('moreInformationLabel')}
         id={TITLE_LABEL}
         className={classes.moreInformationLabel}
       />
@@ -175,7 +175,7 @@ const LayoutBase = ({
       {!appointmentData.rRule && (
         <React.Fragment>
           <Label
-            label={getMessage('repeatLabel')}
+            text={getMessage('repeatLabel')}
             id={TITLE_LABEL}
           />
           <Select

@@ -134,6 +134,7 @@ export namespace AppointmentForm {
     /** Specifies the date editor is read-only. */
     readOnly: boolean;
   }
+  /** A component that render the appointment form's select component */
   export interface SelectProps {
     /** A value to be edited. */
     value: string | number;
@@ -145,6 +146,21 @@ export namespace AppointmentForm {
     readOnly: boolean;
     /** The text editor's type identifier. */
     id: 'titleTextEditor' | 'noteTextEditor' | 'ordinaryTextEditor' | 'numberEditor';
+  }
+  /** A component that renders a command button. */
+  export interface CommandButtonProps {
+    /** The command identifier. */
+    id: 'saveButton' | 'deleteButton' | 'closeButton';
+    /** An event initiating the command execution. */
+    onExecute: () => void;
+    /*** Returns a specified localization message. */
+    getMessage?: (messageKey: string) => string;
+  }
+  /** A component that render the appointment form's text label component */
+  export interface LabelProps {
+    /** The label type identifier. */
+    id: 'titleLabel' | 'ordinaryLabel';
+    text: string;
   }
   /** Localization Messages */
   export interface LocalizationMessages {

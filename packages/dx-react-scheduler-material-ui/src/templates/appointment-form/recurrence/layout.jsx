@@ -97,7 +97,7 @@ const LayoutBase = ({
       {...restProps}
     >
       <Label
-        label={getMessage('repeatLabel')}
+        text={getMessage('repeatLabel')}
         id={TITLE_LABEL}
         className={classes.repeatLabel}
       />
@@ -121,7 +121,7 @@ const LayoutBase = ({
         {...restProps}
       />
       <Label
-        label={getMessage('endRepeatLabel')}
+        text={getMessage('endRepeatLabel')}
         className={classes.endRepeatLabel}
       />
       <RadioGroup

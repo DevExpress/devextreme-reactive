@@ -64,7 +64,7 @@ const YearlyBase = ({
         className={classes.grid}
       >
         <Label
-          label={getMessage('repeatEveryLabel')}
+          text={getMessage('repeatEveryLabel')}
           className={classes.label}
         />
         <TextEditor
@@ -75,7 +75,7 @@ const YearlyBase = ({
           onValueChange={changeRecurrenceInterval}
         />
         <Label
-          label={getMessage('yearsLabel')}
+          text={getMessage('yearsLabel')}
           className={classes.labelWithMargin}
         />
       </Grid>

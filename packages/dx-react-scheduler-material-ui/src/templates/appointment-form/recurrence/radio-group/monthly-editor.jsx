@@ -171,7 +171,7 @@ const MonthlyEditorBase = ({
             className={classes.grid}
           >
             <Label
-              label={getMessage('onLabel')}
+              text={getMessage('onLabel')}
               className={classes.label}
             />
             <TextEditor
@@ -182,7 +182,7 @@ const MonthlyEditorBase = ({
               onValueChange={changeByMonthDay}
             />
             <Label
-              label={getMessage('ofEveryMonthLabel')}
+              text={getMessage('ofEveryMonthLabel')}
               className={classes.longLabel}
             />
           </Grid>
@@ -202,7 +202,7 @@ const MonthlyEditorBase = ({
             className={classes.grid}
           >
             <Label
-              label={getMessage('theLabel')}
+              text={getMessage('theLabel')}
               className={classes.label}
             />
             <Select

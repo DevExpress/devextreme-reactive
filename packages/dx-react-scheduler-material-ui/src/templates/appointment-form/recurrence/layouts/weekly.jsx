@@ -54,7 +54,7 @@ const WeeklyBase = ({
         className={classes.grid}
       >
         <Label
-          label={getMessage('repeatEveryLabel')}
+          text={getMessage('repeatEveryLabel')}
           className={classes.label}
         />
         <TextEditor
@@ -65,7 +65,7 @@ const WeeklyBase = ({
           onValueChange={changeRecurrenceInterval}
         />
         <Label
-          label={getMessage('weeksOnLabel')}
+          text={getMessage('weeksOnLabel')}
           className={classes.labelWithMargin}
         />
       </Grid>

@@ -201,7 +201,7 @@ const YearlyEditorBase = ({
             alignItems="center"
           >
             <Label
-              label={getMessage('everyLabel')}
+              text={getMessage('everyLabel')}
               className={classes.label}
             />
             <Select
@@ -236,7 +236,7 @@ const YearlyEditorBase = ({
             >
               <Label
                 className={classes.label}
-                label={getMessage('theLabel')}
+                text={getMessage('theLabel')}
               />
               <Select
                 className={classes.select}

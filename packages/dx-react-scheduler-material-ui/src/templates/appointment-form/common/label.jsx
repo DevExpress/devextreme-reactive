@@ -20,7 +20,7 @@ const styles = theme => ({
 
 const LabelBase = React.memo(({
   classes,
-  label,
+  text,
   className,
   id,
   ...restProps
@@ -32,19 +32,19 @@ const LabelBase = React.memo(({
     }, className)}
     {...restProps}
   >
-    {label}
+    {text}
   </Typography>
 ));
 
 LabelBase.propTypes = {
   classes: PropTypes.object.isRequired,
-  label: PropTypes.string,
+  text: PropTypes.string,
   className: PropTypes.string,
   id: PropTypes.string,
 };
 
 LabelBase.defaultProps = {
-  label: undefined,
+  text: undefined,
   className: undefined,
   id: ORDINARY_LABEL,
 };

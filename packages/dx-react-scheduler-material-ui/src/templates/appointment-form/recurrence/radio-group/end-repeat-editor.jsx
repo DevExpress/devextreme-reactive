@@ -124,7 +124,7 @@ const EndRepeatEditorBase = ({
           >
             <Label
               className={classes.label}
-              label={getMessage('onLabel')}
+              text={getMessage('onLabel')}
             />
             <TextEditor
               readOnly={value !== 'endAfter'}
@@ -151,7 +151,7 @@ const EndRepeatEditorBase = ({
           >
             <Label
               className={classes.label}
-              label={getMessage('afterLabel')}
+              text={getMessage('afterLabel')}
             />
             <DateEditor
               className={classes.dateEditor}

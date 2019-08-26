@@ -160,7 +160,31 @@ export namespace AppointmentForm {
   export interface LabelProps {
     /** The label type identifier. */
     id: 'titleLabel' | 'ordinaryLabel';
+    /** The label's text. */
     text: string;
+  }
+  /** A component that render the appointment form's radio group component */
+  export interface RadioGroupProps {
+    /** Specifies the appointment’s data that the form displays. */
+    appointmentData?: AppointmentModel;
+    /** A function that formats dates according to the locale. */
+    formatDate: FormatterFn;
+    /** Handles appointment field value changes. */
+    onFieldChange: (nextFieldValue: { [fieldName: string]: any }) => void;
+    /** Specifies the date editor is read-only. */
+    readOnly: boolean;
+    /** The radio group's type identifier. */
+    id: 'endRepeat' | 'monthlyRadioGroup' | 'yearlyRadioGroup';
+    /*** Returns a specified localization message. */
+    getMessage?: (messageKey: string) => string;
+    /** A component that render the appointment form's text editor component */
+    textEditorComponent: React.ComponentType<AppointmentForm.TextEditorProps>;
+    /** A component that render the appointment form's date editor component */
+    dateEditorComponent: React.ComponentType<AppointmentForm.DateEditorProps>;
+    /** A component that render the appointment form's select component */
+    selectComponent: React.ComponentType<AppointmentForm.SelectProps>;
+    /** A component that render the appointment form's text label component */
+    labelComponent: React.ComponentType<AppointmentForm.LabelProps>;
   }
   /** Localization Messages */
   export interface LocalizationMessages {

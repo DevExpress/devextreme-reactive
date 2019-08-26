@@ -10,16 +10,16 @@ import { MonthlyEditor } from './monthly-editor';
 import { YearlyEditor } from './yealy-editor';
 
 export const RadioGroup = ({
-  getMessage,
-  labelComponent,
-  textEditorComponent,
-  readOnly,
   dateEditorComponent,
+  textEditorComponent,
   selectComponent,
-  id,
+  labelComponent,
+  getMessage,
+  readOnly,
   appointmentData,
   formatDate,
   onFieldChange,
+  id,
   ...restProps
 }) => {
   switch (id) {

@@ -186,6 +186,17 @@ export namespace AppointmentForm {
     /** A component that render the appointment form's text label component */
     labelComponent: React.ComponentType<AppointmentForm.LabelProps>;
   }
+  /** A component that render the appointment form's button group component */
+  export interface ButtonGroupProps {
+    /** A function that formats dates according to the locale. */
+    formatDate: FormatterFn;
+    /** Specifies the appointment recurrence rule. */
+    rRule: string;
+    /** Specifies the date editor is read-only. */
+    readOnly: boolean;
+    /** Handles appointment field value changes. */
+    onFieldChange: (nextFieldValue: { [fieldName: string]: any }) => void;
+  }
   /** Localization Messages */
   export interface LocalizationMessages {
     /** The all day editor’s label text. */

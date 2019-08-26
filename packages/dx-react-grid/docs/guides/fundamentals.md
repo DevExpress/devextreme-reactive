@@ -43,7 +43,7 @@ The `Table` plugin's `columnExtensions` allows you to specify the column alignme
 
 ### Column Width
 
-Static widths for specific columns can be defined via the `Table` plugin's `columnExtensions` property as shown in the demo below:
+You can define static widths for specific column via the `Table` plugin's [`columnExtensions`](../reference/table.md/#tablecolumnextension) property. Column width may be defined like number (convert into pixels) or string. Example with defined static widths shown in the demo below:
 
 .embedded-demo({ "path": "grid-basic/static-column-width", "showThemeSelector": true })
 

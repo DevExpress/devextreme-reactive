@@ -14,21 +14,43 @@ import {
 
 import { generateRows } from '../../../demo-data/generator';
 
-const ResizingModeChanger = ({ defaultValue, changeMode }) => (
+const ModeSelector = ({ defaultValue, changeMode }) => (
+  <div>
+    {'Column Resizing Mode:'}
+    &nbsp;
+    <select
+      defaultValue={defaultValue}
+      onChange={e => changeMode(e.target.value)}
+      className="dropdown"
+    >
+      <option value="widget">Widget</option>
+      <option value="nextColumn">NextColumn</option>
+    </select>
+  </div>
+);
+
+const ResetWidthButton = ({ resetWidths }) => (
+  <button
+    type="button"
+    onClick={resetWidths}
+    className="btn btn-sm"
+    style={{
+      margin: '5px',
+      padding: '0',
+      height: '1.5em',
+      width: '3em',
+      fontSize: '1em',
+    }}
+  >
+    Reset
+  </button>
+);
+
+const ResizingPanel = props => (
   <Plugin name="ResizingModeChanger">
     <Template name="toolbarContent">
-      <div>
-        {'Column Resizing Mode:'}
-        &nbsp;
-        <select
-          defaultValue={defaultValue}
-          onChange={e => changeMode(e.target.value)}
-          className="dropdown"
-        >
-          <option value="widget">Widget</option>
-          <option value="nextColumn">NextColumn</option>
-        </select>
-      </div>
+      <ModeSelector {...props} />
+      <ResetWidthButton {...props} />
       <TemplatePlaceholder />
     </Template>
   </Plugin>
@@ -48,24 +70,31 @@ export default () => {
     { columnName: 'city', width: 180 },
     { columnName: 'car', width: 240 },
   ]);
+  const [columnWidths, setColumnWidths] = useState(defaultColumnWidths);
   const [resizingMode, setResizingMode] = useState('widget');
 
+  const resetWidths = () => {
+    setColumnWidths(defaultColumnWidths);
+  };
+
   return (
-    <div>
+    <div className="card">
       <Grid
         rows={rows}
         columns={columns}
       >
         <Table />
         <TableColumnResizing
-          defaultColumnWidths={defaultColumnWidths}
+          columnWidths={columnWidths}
+          onColumnWidthsChange={setColumnWidths}
           columnResizingMode={resizingMode}
         />
         <TableHeaderRow />
         <Toolbar />
-        <ResizingModeChanger
+        <ResizingPanel
           defaultValue={resizingMode}
           changeMode={setResizingMode}
+          resetWidths={resetWidths}
         />
       </Grid>
     </div>

@@ -6,6 +6,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import GridMUI from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 import {
   Grid,
   Table,
@@ -22,23 +23,27 @@ import {
 import { generateRows } from '../../../demo-data/generator';
 
 const styles = () => ({
-  select: {
-    border: 'none',
-  },
   input: {
     fontSize: '14px',
   },
   label: {
     fontSize: '14px',
   },
+  container: {
+    maxWidth: '15em',
+  },
+  button: {
+    fontSize: '14px',
+    background: 'white',
+    margin: '5px',
+  },
 });
 
 const ModeSelectorBase = ({ defaultValue, changeMode, classes }) => (
   <GridMUI
     container
-    direction="row"
-    justify="flex-start"
     alignItems="center"
+    className={classes.container}
   >
     <Typography
       className={classes.label}
@@ -47,7 +52,6 @@ const ModeSelectorBase = ({ defaultValue, changeMode, classes }) => (
       &nbsp;
     </Typography>
     <Select
-      className={classes.select}
       onChange={e => changeMode(e.target.value)}
       value={defaultValue}
       input={(
@@ -66,10 +70,24 @@ const ModeSelectorBase = ({ defaultValue, changeMode, classes }) => (
 
 const ModeSelector = withStyles(styles, { name: 'ModeSelector' })(ModeSelectorBase);
 
-const ResizingModeChanger = props => (
-  <Plugin name="ResizingModeChanger">
+const ResetWidthButtonBase = ({ resetWidths, classes }) => (
+  <Button
+    onClick={resetWidths}
+    variant="outlined"
+    size="medium"
+    className={classes.button}
+  >
+    Reset
+  </Button>
+);
+
+const ResetWidthButton = withStyles(styles, { name: 'ResetWidthButton' })(ResetWidthButtonBase);
+
+const ResizingPanel = props => (
+  <Plugin name="ResizingPanel">
     <Template name="toolbarContent">
       <ModeSelector {...props} />
+      <ResetWidthButton {...props} />
       <TemplatePlaceholder />
     </Template>
   </Plugin>
@@ -89,7 +107,12 @@ export default () => {
     { columnName: 'city', width: 180 },
     { columnName: 'car', width: 240 },
   ]);
+  const [columnWidths, setColumnWidths] = useState(defaultColumnWidths);
   const [resizingMode, setResizingMode] = useState('widget');
+
+  const resetWidths = () => {
+    setColumnWidths(defaultColumnWidths);
+  };
 
   return (
     <Paper>
@@ -99,14 +122,16 @@ export default () => {
       >
         <Table />
         <TableColumnResizing
-          defaultColumnWidths={defaultColumnWidths}
+          columnWidths={columnWidths}
+          onColumnWidthsChange={setColumnWidths}
           columnResizingMode={resizingMode}
         />
         <TableHeaderRow />
         <Toolbar />
-        <ResizingModeChanger
+        <ResizingPanel
           defaultValue={resizingMode}
           changeMode={setResizingMode}
+          resetWidths={resetWidths}
         />
       </Grid>
     </Paper>

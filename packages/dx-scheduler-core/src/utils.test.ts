@@ -610,5 +610,27 @@ describe('Utils', () => {
       expect(result[1].end.toString())
         .toBe(moment(new Date('2019-04-26T13:00:00+0600')).toString());
     });
+    it('should work with recurrence appointment with UNTIL set', () => {
+      const monthlyLeftBound = new Date('2019-04-1 00:00');
+      const monthlyRightBound = new Date('2019-05-30 00:00');
+      const appointment = {
+        start: moment(new Date('2019-04-9 00:00')),
+        end: moment(new Date('2019-04-9 23:59')),
+        rRule: 'FREQ=DAILY;UNTIL=20190410T000000Z',
+      };
+      const result = filterByViewBoundaries(appointment, monthlyLeftBound, monthlyRightBound);
+
+      expect(result).toHaveLength(2);
+
+      expect(result[0].start.toString())
+        .toBe(moment(new Date('2019-04-09 0:00')).toString());
+      expect(result[0].end.toString())
+        .toBe(moment(new Date('2019-04-09 23:59')).toString());
+
+      expect(result[1].start.toString())
+        .toBe(moment(new Date('2019-04-10 0:00')).toString());
+      expect(result[1].end.toString())
+        .toBe(moment(new Date('2019-04-10 23:59')).toString());
+    });
   });
 });

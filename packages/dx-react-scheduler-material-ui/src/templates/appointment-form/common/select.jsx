@@ -29,20 +29,19 @@ const styles = ({ typography }) => ({
 const SelectBase = React.memo(({
   value,
   availableOptions,
-  onChange,
-  disabled,
+  onValueChange,
+  readOnly,
   classes,
   id,
   ...restProps
 }) => {
   const handleChange = (event) => {
-    if (event.target.value !== value) onChange(event.target.value);
+    if (event.target.value === value) return;
+    onValueChange(event.target.value);
   };
 
   const Input = id === STANDARD_SELECT
-    ? (
-      <FilledInput hiddenLabel />
-    )
+    ? <FilledInput hiddenLabel />
     : (
       <OutlinedInput
         classes={{ input: classes.input, root: classes.inputRoot }}
@@ -50,17 +49,13 @@ const SelectBase = React.memo(({
       />
     );
 
-  const Icon = id === STANDARD_SELECT
-    ? () => null : undefined;
-
   return (
     <MUISelect
-      disabled={disabled}
+      readOnly={readOnly}
       classes={{ root: classes.root }}
       value={value}
       onChange={handleChange}
       input={Input}
-      IconComponent={Icon}
       {...restProps}
     >
       {availableOptions.map(option => (
@@ -77,20 +72,20 @@ const SelectBase = React.memo(({
 });
 
 SelectBase.propTypes = {
-  onChange: PropTypes.func,
+  onValueChange: PropTypes.func,
   classes: PropTypes.object.isRequired,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   availableOptions: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     text: PropTypes.string.isRequired,
   })),
-  disabled: PropTypes.bool,
+  readOnly: PropTypes.bool,
   id: PropTypes.string,
 };
 
 SelectBase.defaultProps = {
-  disabled: false,
-  onChange: () => undefined,
+  readOnly: false,
+  onValueChange: () => undefined,
   availableOptions: [],
   id: STANDARD_SELECT,
 };

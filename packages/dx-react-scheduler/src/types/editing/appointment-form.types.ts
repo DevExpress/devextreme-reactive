@@ -114,6 +114,38 @@ export namespace AppointmentForm {
     /** The text editor's type identifier. */
     id: 'titleTextEditor' | 'noteTextEditor' | 'ordinaryTextEditor' | 'numberEditor';
   }
+  /** A component that render the appointment form's date editor component */
+  export interface DateEditorProps {
+    /** Specifies the date editor is read-only. */
+    readOnly: boolean;
+    /** A value to be edited. */
+    value: string | number;
+    /** Handles value changes. */
+    onValueChange: (nextValue: string) => void;
+  }
+  /** A component that render the appointment form's boolean editor component */
+  export interface BooleanEditorProps {
+    /** The boolean editor’s label text. */
+    label: string;
+    /** A value to be edited. */
+    value: string | number;
+    /** Handles value changes. */
+    onValueChange: (nextValue: string) => void;
+    /** Specifies the date editor is read-only. */
+    readOnly: boolean;
+  }
+  export interface SelectProps {
+    /** A value to be edited. */
+    value: string | number;
+    /** Handles value changes. */
+    onValueChange: (nextValue: string) => void;
+    /** Specifies the options are available for chose */
+    availableOptions: Array<string>;
+    /** Specifies the date editor is read-only. */
+    readOnly: boolean;
+    /** The text editor's type identifier. */
+    id: 'titleTextEditor' | 'noteTextEditor' | 'ordinaryTextEditor' | 'numberEditor';
+  }
   /** Localization Messages */
   export interface LocalizationMessages {
     /** The all day editor’s label text. */

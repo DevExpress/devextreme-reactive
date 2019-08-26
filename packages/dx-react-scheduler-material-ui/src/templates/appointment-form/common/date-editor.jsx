@@ -16,45 +16,48 @@ const styles = ({ spacing }) => ({
 
 const DateEditorBase = React.memo(({
   classes,
-  onDateChange,
-  date,
-  disabled,
+  onValueChange,
+  value,
+  readOnly,
   className,
-  ...restProps
-}) => (
-  <MuiPickersUtilsProvider utils={MomentUtils}>
-    <KeyboardDateTimePicker
-      disabled={disabled}
-      className={classNames(classes.dateEditor, className)}
-      margin="normal"
-      value={date}
-      onChange={nextDate => (nextDate ? onDateChange(nextDate.toDate()) : onDateChange(date))}
-      format="DD/MM/YYYY HH:mm A"
-      inputVariant="filled"
-      hiddenLabel
-      onError={() => null}
-      {...restProps}
-    />
-  </MuiPickersUtilsProvider>
-));
+}) => {
+  const memoizedChangeHandler = React.useCallback(
+    nextDate => onValueChange(nextDate.toDate()),
+  );
+  return (
+    <MuiPickersUtilsProvider utils={MomentUtils}>
+      <KeyboardDateTimePicker
+        variant="inline"
+        disabled={readOnly}
+        className={classNames(classes.dateEditor, className)}
+        margin="normal"
+        value={value}
+        onChange={memoizedChangeHandler}
+        format="DD/MM/YYYY HH:mm A"
+        inputVariant="filled"
+        hiddenLabel
+      />
+    </MuiPickersUtilsProvider>
+  );
+});
 
 DateEditorBase.propTypes = {
   classes: PropTypes.object.isRequired,
-  date: PropTypes.oneOfType([
+  value: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.string,
     PropTypes.instanceOf(Date),
   ]),
   className: PropTypes.string,
-  disabled: PropTypes.bool,
-  onDateChange: PropTypes.func,
+  readOnly: PropTypes.bool,
+  onValueChange: PropTypes.func,
 };
 
 DateEditorBase.defaultProps = {
-  date: undefined,
+  onValueChange: () => undefined,
+  value: undefined,
   className: undefined,
-  onDateChange: () => undefined,
-  disabled: false,
+  readOnly: false,
 };
 
 export const DateEditor = withStyles(styles)(DateEditorBase, { name: 'DateEditor' });

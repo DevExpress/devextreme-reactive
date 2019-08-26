@@ -10,11 +10,12 @@ const styles = ({ typography }) => ({
     overflow: 'hidden',
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
+    userSelect: 'none',
   },
 });
 
 const BooleanEditorBase = React.memo(({
-  text,
+  label,
   value,
   readOnly,
   onValueChange,
@@ -31,13 +32,13 @@ const BooleanEditorBase = React.memo(({
       />
     )}
     disabled={readOnly}
-    label={text}
+    label={label}
     {...restProps}
   />
 ));
 
 BooleanEditorBase.propTypes = {
-  text: PropTypes.string,
+  label: PropTypes.string,
   readOnly: PropTypes.bool,
   value: PropTypes.bool,
   onValueChange: PropTypes.func,
@@ -45,7 +46,7 @@ BooleanEditorBase.propTypes = {
 };
 
 BooleanEditorBase.defaultProps = {
-  text: undefined,
+  label: undefined,
   readOnly: false,
   value: false,
   onValueChange: () => undefined,

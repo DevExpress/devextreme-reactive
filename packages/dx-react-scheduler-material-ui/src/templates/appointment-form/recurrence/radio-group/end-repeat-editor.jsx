@@ -155,9 +155,9 @@ const EndRepeatEditorBase = ({
             />
             <DateEditor
               className={classes.dateEditor}
-              disabled={value !== 'endBy'}
-              date={recurrenceEndDate}
-              onDateChange={changeRecurrenceEndDate}
+              readOnly={value !== 'endBy'}
+              value={recurrenceEndDate}
+              onValueChange={changeRecurrenceEndDate}
               allowKeyboardControl={false}
             />
           </Grid>

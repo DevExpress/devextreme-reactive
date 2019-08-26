@@ -102,7 +102,7 @@ const LayoutBase = ({
         className={classes.repeatLabel}
       />
       <Select
-        onChange={changeFrequency}
+        onValueChange={changeFrequency}
         availableOptions={selectOptions}
         value={frequency}
         id={OUTLINED_SELECT}

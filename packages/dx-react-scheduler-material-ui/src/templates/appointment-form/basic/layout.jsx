@@ -132,9 +132,9 @@ const LayoutBase = ({
       >
         <DateEditor
           className={classes.dateEditor}
-          disabled={readOnly}
-          date={appointmentData.startDate}
-          onDateChange={changeStartDate}
+          readOnly={readOnly}
+          value={appointmentData.startDate}
+          onValueChange={changeStartDate}
         />
         <Label
           label="-"
@@ -142,9 +142,9 @@ const LayoutBase = ({
         />
         <DateEditor
           className={classes.dateEditor}
-          disabled={readOnly}
-          date={appointmentData.endDate}
-          onDateChange={changeEndDate}
+          readOnly={readOnly}
+          value={appointmentData.endDate}
+          onValueChange={changeEndDate}
         />
       </Grid>
       <Label
@@ -179,9 +179,9 @@ const LayoutBase = ({
             id={TITLE_LABEL}
           />
           <Select
-            onChange={changeFrequency}
-            availableOptions={selectOptions}
             value={frequency}
+            onValueChange={changeFrequency}
+            availableOptions={selectOptions}
             id={OUTLINED_SELECT}
           />
         </React.Fragment>

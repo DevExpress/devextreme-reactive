@@ -205,11 +205,11 @@ const YearlyEditorBase = ({
               className={classes.label}
             />
             <Select
-              disabled={value !== 'onDayAndMonth'}
-              onChange={changeMonth}
-              value={month}
-              availableOptions={months}
               className={classes.select}
+              value={month}
+              onValueChange={changeMonth}
+              readOnly={value !== 'onDayAndMonth'}
+              availableOptions={months}
             />
             <TextEditor
               className={classes.textEditor}
@@ -240,24 +240,24 @@ const YearlyEditorBase = ({
               />
               <Select
                 className={classes.select}
-                disabled={value !== 'onDayOfWeek'}
-                onChange={changeWeekNumber}
                 value={weekNumber}
+                onValueChange={changeWeekNumber}
+                readOnly={value !== 'onDayOfWeek'}
                 availableOptions={weekNumbers}
               />
               <Select
                 className={classes.longSelect}
-                disabled={value !== 'onDayOfWeek'}
-                onChange={changeDayOfWeek}
                 value={dayOfWeek}
+                onValueChange={changeDayOfWeek}
+                readOnly={value !== 'onDayOfWeek'}
                 availableOptions={daysOfWeek}
               />
             </Grid>
             <Select
               className={classes.doubleSelect}
-              disabled={value !== 'onDayOfWeek'}
-              onChange={changeMonth}
               value={month}
+              onValueChange={changeMonth}
+              readOnly={value !== 'onDayOfWeek'}
               availableOptions={monthsWithOf}
             />
           </div>

@@ -640,7 +640,7 @@ export namespace Table {
   export interface ColumnExtension {
     align?: 'left' | 'right' | 'center';
     columnName: string;
-    width?: number;
+    width?: number | string;
     wordWrapEnabled?: boolean;
   }
   export interface DataCellProps extends Table.CellProps {
@@ -1290,7 +1290,7 @@ export namespace VirtualTable {
     export interface ColumnExtension {
         align?: 'left' | 'right' | 'center';
         columnName: string;
-        width?: number;
+        width?: number | string;
         wordWrapEnabled?: boolean;
     }
 }

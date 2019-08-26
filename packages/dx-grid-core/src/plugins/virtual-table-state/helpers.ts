@@ -43,7 +43,7 @@ export const mergeRows: MergeRowsFn = (
   };
 };
 
-const correctCalculateRange: CorrectRangeFn = (calculatedRange, referenceIndex, pageSize) => {
+const correctRequestedRange: CorrectRangeFn = (calculatedRange, referenceIndex, pageSize) => {
   const { start, end } = calculatedRange;
 
   if (start - referenceIndex > pageSize / 2) {
@@ -60,7 +60,7 @@ export const calculateRequestedRange: CalculateRequestedRangeFn = (
   const calculatedRange = intervalUtil.difference(newRange, loadedInterval);
   if (isAdjacentPage && calculatedRange !== intervalUtil.empty) {
     if (isInfiniteScroll) {
-      return correctCalculateRange(calculatedRange, referenceIndex, pageSize);
+      return correctRequestedRange(calculatedRange, referenceIndex, pageSize);
     }
     return calculatedRange;
   }

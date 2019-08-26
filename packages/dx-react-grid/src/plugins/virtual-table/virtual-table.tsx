@@ -22,8 +22,10 @@ export const emptyViewport = {
   rows: [0, 0],
   headerRows: [0, 0],
   footerRows: [0, 0],
-  viewportTop: 0,
-  viewportLeft: 0,
+  top: 0,
+  left: 0,
+  width: 800,
+  height: 600,
 };
 
 /** @internal */

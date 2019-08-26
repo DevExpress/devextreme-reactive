@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';<%&additionalImports%>
+import React, { useReducer, useState, useEffect } from 'react';<%&additionalImports%>
 import {
   GroupingState,
   CustomGrouping,
@@ -21,24 +21,65 @@ const getRowId = row => row.OrderID;
 const getChildGroups = groups => groups
   .map(group => ({ key: group.key, childRows: group.items }));
 
+const initialState = {
+  data: [],
+  grouping: [],
+  expandedGroups: [],
+  tempGrouping: null,
+  tempExpandedGroups: null,
+  loading: true,
+};
+
+function reducer(state, { type, payload }) {
+  const { grouping, expandedGroups, tempGrouping } = state;
+
+  switch (type) {
+    case 'CHANGE_GROUPING':
+      return {
+        ...state,
+        loading: true,
+        grouping: payload,
+        tempGrouping: tempGrouping === null ? grouping : tempGrouping,
+        tempExpandedGroups: expandedGroups,
+      };
+    case 'SET_EXPANDED_GROUPS':
+      return {
+        ...state,
+        expandedGroups: payload,
+      };
+    case 'FETCH_SUCCESS':
+      return {
+        ...state,
+        data: payload,
+        tempGrouping: null,
+        tempExpandedGroups: null,
+        loading: false,
+      };
+    case 'FETCH_ERROR':
+      return {
+        ...state,
+        loading: false,
+      };
+    default:
+      return state;
+  }
+}
+
 export default () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
   const [columns] = useState([
     { name: 'ShipCountry', title: 'Country' },
     { name: 'ShipCity', title: 'City' },
     { name: 'ShipAddress', title: 'Address' },
   ]);
-  const [data, setData] = useState([]);
-  const [grouping, setGrouping] = useState([]);
-  const [tempGrouping, setTempGrouping] = useState(null);
-  const [expandedGroups, setExpandedGroups] = useState([]);
-  const [tempExpandedGroups, setTempExpandedGroups] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const { grouping, loading } = state;
 
   const changeGrouping = (value) => {
-    setTempGrouping(grouping);
-    setTempExpandedGroups(expandedGroups);
-    setGrouping(value);
-    setLoading(true);
+    dispatch({ type: 'CHANGE_GROUPING', payload: value });
+  };
+
+  const setExpandedGroups = (value) => {
+    dispatch({ type: 'SET_EXPANDED_GROUPS', payload: value });
   };
 
   const getQueryString = () => {
@@ -59,16 +100,16 @@ export default () => {
     fetch(queryString, { mode: 'cors' })
       .then(response => response.json())
       .then((orders) => {
-        setData(orders.data);
-        setTempGrouping(null);
-        setTempExpandedGroups(null);
-        setLoading(false);
+        dispatch({ type: 'FETCH_SUCCESS', payload: orders.data });
       })
-      .catch(() => setLoading(false));
+      .catch(() => dispatch({ type: 'FETCH_ERROR' }));
   };
 
   useEffect(() => loadData());
 
+  const {
+    data, expandedGroups, tempGrouping, tempExpandedGroups,
+  } = state;
   return (
     <<%&wrapperTag%><%&wrapperAttributes%> style={{ position: 'relative' }}>
       <Grid

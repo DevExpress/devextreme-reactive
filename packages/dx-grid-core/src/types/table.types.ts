@@ -39,7 +39,7 @@ export interface TableColumn {
 export type GridColumnExtension = {
   /** The name of the column to extend. */
   columnName: string;
-  /** The table column width in pixels. */
+  /** The table column width. */
   width?: number | string;
   /** The table column alignment. */
   align?: 'left' | 'right' | 'center';

@@ -25,17 +25,20 @@ import { generateRows } from '../../../demo-data/generator';
 const styles = () => ({
   input: {
     fontSize: '14px',
+    width: '90px',
   },
   label: {
     fontSize: '14px',
   },
   container: {
-    maxWidth: '15em',
+    maxWidth: '18em',
   },
   button: {
     fontSize: '14px',
-    background: 'white',
-    margin: '5px',
+    height: '32px',
+  },
+  selector: {
+    height: '32px',
   },
 });
 
@@ -54,6 +57,7 @@ const ModeSelectorBase = ({ defaultValue, changeMode, classes }) => (
     <Select
       onChange={e => changeMode(e.target.value)}
       value={defaultValue}
+      className={classes.selector}
       input={(
         <OutlinedInput
           classes={{ input: classes.input }}
@@ -77,7 +81,7 @@ const ResetWidthButtonBase = ({ resetWidths, classes }) => (
     size="medium"
     className={classes.button}
   >
-    Reset
+    Reset widths to default
   </Button>
 );
 
@@ -86,9 +90,9 @@ const ResetWidthButton = withStyles(styles, { name: 'ResetWidthButton' })(ResetW
 const ResizingPanel = props => (
   <Plugin name="ResizingPanel">
     <Template name="toolbarContent">
-      <ModeSelector {...props} />
       <ResetWidthButton {...props} />
       <TemplatePlaceholder />
+      <ModeSelector {...props} />
     </Template>
   </Plugin>
 );

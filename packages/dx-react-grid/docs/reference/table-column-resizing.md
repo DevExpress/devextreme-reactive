@@ -34,7 +34,7 @@ maxColumnWidth? | number | `Infinity` | Specifies a column's maximum width.
 defaultColumnWidths? | Array&lt;[TableColumnWidthInfo](#tablecolumnwidthinfo)&gt; | [] | Specifies initial column widths in uncontrolled mode.
 onColumnWidthsChange? | (nextColumnWidths: Array&lt;[TableColumnWidthInfo](#tablecolumnwidthinfo)&gt;) => void | | Handles column width changes.
 columnExtensions? | Array&lt;[TableColumnResizing.ColumnExtension](#tablecolumnresizingcolumnextension)&gt; | [] | Additional column properties that the plugin can handle.
-columnResizingMode? | string | 'widget' | Specifies resizing mode. May be defined as 'widget' or 'nextColumn'. In 'widget' resizing mode not allow to use 'auto' or '%' sizes.
+columnResizingMode? | string | `widget` | Specifies resizing mode. May be defined as `widget` or `nextColumn`. In `widget` resizing mode not allow to use `auto` or `%` sizes.
 
 ## Interfaces
 
@@ -45,7 +45,7 @@ Describes an object that specifies a column width.
 Field | Type | Description
 ------|------|------------
 columnName | string | A column name.
-width | number &#124; string | A column width. Allow to use 'auto' or number with specified measurement units. Measurment units: 'px', '%', 'em', 'rem', 'vm', 'vh', 'vmin',
+width | number &#124; string | A column width. Allow to use `auto` or number with specified measurement units. Measurment units: `px`, `%`, `em`, `rem`, `vm`, `vh`, `vmin`,
 
 ### TableColumnResizing.ColumnExtension
 

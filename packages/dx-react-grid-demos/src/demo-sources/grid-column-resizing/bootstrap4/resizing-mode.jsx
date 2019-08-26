@@ -22,6 +22,9 @@ const ModeSelector = ({ defaultValue, changeMode }) => (
       defaultValue={defaultValue}
       onChange={e => changeMode(e.target.value)}
       className="dropdown"
+      style={{
+        height: '2em',
+      }}
     >
       <option value="widget">Widget</option>
       <option value="nextColumn">NextColumn</option>
@@ -35,23 +38,22 @@ const ResetWidthButton = ({ resetWidths }) => (
     onClick={resetWidths}
     className="btn btn-sm"
     style={{
-      margin: '5px',
-      padding: '0',
-      height: '1.5em',
-      width: '3em',
+      padding: '0em 1em',
+      height: '2em',
+      width: 'auto',
       fontSize: '1em',
     }}
   >
-    Reset
+    RESET WIDTHS TO DEFAULT
   </button>
 );
 
 const ResizingPanel = props => (
   <Plugin name="ResizingModeChanger">
     <Template name="toolbarContent">
-      <ModeSelector {...props} />
       <ResetWidthButton {...props} />
       <TemplatePlaceholder />
+      <ModeSelector {...props} />
     </Template>
   </Plugin>
 );

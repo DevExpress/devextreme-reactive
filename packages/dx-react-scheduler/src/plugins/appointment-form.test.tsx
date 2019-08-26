@@ -12,6 +12,7 @@ describe('AppointmentForm', () => {
     getter: {
       appointmentChanges: jest.fn(),
       editingAppointment: { id: 10 },
+      formatDate: jest.fn(),
     },
     action: {
       stopEditAppointment: jest.fn(),
@@ -28,7 +29,16 @@ describe('AppointmentForm', () => {
     /* eslint-disable react/prop-types */
     overlayComponent: ({ children }) => <div>{children}</div>,
     containerComponent: () => null,
-    layoutComponent: ({ children }) => <div>{children}</div>,
+    layoutComponent: ({
+      basicLayoutComponent: BasicLayout,
+      commandLayoutComponent: CommandLayout,
+      recurrenceLayoutComponent: RecurrenceLayout,
+     }) =>
+      <div>
+        <BasicLayout />
+        <CommandLayout />
+        <RecurrenceLayout />
+      </div>,
     commandLayoutComponent: ({ children }) => <div>{children}</div>,
     basicLayoutComponent: ({ children }) => <div>{children}</div>,
     recurrenceLayoutComponent: ({ children }) => <div>{children}</div>,
@@ -42,19 +52,60 @@ describe('AppointmentForm', () => {
     buttonGroupComponent: () => null,
     appointmentData: {},
   };
+  describe('Overlay', () => {
+    it('should be rendered', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <AppointmentForm
+            {...defaultProps}
+            visible
+          />
+        </PluginHost>
+      ));
 
-  it('should render Overlay component', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <AppointmentForm
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
+      const overlayComponent = tree.find(defaultProps.overlayComponent);
+      expect(overlayComponent.exists())
+        .toBeTruthy();
+      expect(overlayComponent.prop('visible'))
+        .toBeTruthy();
+      expect(overlayComponent.prop('fullSize'))
+        .toBeFalsy();
+      expect(overlayComponent.prop('target'))
+        .toBeDefined();
+      expect(overlayComponent.prop('onHide'))
+      .toEqual(expect.any(Function));
+    });
 
-    expect(tree.find(defaultProps.overlayComponent).exists())
-      .toBeTruthy();
+    it('should be invisible', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <AppointmentForm
+            {...defaultProps}
+            visible={false}
+          />
+        </PluginHost>
+      ));
+
+      expect(tree.find(defaultProps.overlayComponent).prop('visible'))
+        .toBeFalsy();
+    });
+
+    it('should be fullSize', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <AppointmentForm
+            {...defaultProps}
+            appointmentData={{ ...defaultProps.appointmentData, rRule: 'test rule' }}
+          />
+        </PluginHost>
+      ));
+
+      expect(tree.find(defaultProps.overlayComponent).prop('fullSize'))
+        .toBeTruthy();
+    });
   });
 
   it('should render Container component', () => {
@@ -71,21 +122,89 @@ describe('AppointmentForm', () => {
       .toBeTruthy();
   });
 
-  it('should render Layout component', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <AppointmentForm
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
+  describe('Layout', () => {
+    it('should be rendered', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <AppointmentForm
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
 
-    expect(tree.find(defaultProps.layoutComponent).exists())
-      .toBeTruthy();
+      const layoutComponent = tree.find(defaultProps.layoutComponent);
+      expect(layoutComponent.exists())
+        .toBeTruthy();
+      expect(layoutComponent.prop('isRecurrence'))
+        .toBeFalsy();
+    });
+
+    it('should have recurrent part', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <AppointmentForm
+            {...defaultProps}
+            appointmentData={{ ...defaultProps.appointmentData, rRule: 'test rule' }}
+          />
+        </PluginHost>
+      ));
+
+      expect(tree.find(defaultProps.layoutComponent).prop('isRecurrence'))
+        .toBeTruthy();
+    });
+  });
+  describe('CommandLayout', () => {
+    it('should be rendered', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <AppointmentForm
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      const templatePlaceholder = tree
+        .find(Template)
+        .filterWhere(node => node.props().name === 'commandLayout');
+
+      expect(templatePlaceholder.exists())
+        .toBeTruthy();
+
+      const commandLayoutComponent = tree.find(defaultProps.commandLayoutComponent);
+      expect(commandLayoutComponent.exists())
+        .toBeTruthy();
+      expect(commandLayoutComponent.props())
+        .toMatchObject({
+          commandButtonComponent: defaultProps.commandButtonComponent,
+          fullSize: false,
+          getMessage: expect.any(Function),
+          onCancelButtonClick: expect.any(Function),
+          onCommitButtonClick: expect.any(Function),
+          onDeleteButtonClick: expect.any(Function),
+          readOnly: false,
+        });
+    });
+
+    it('should be full-size', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <AppointmentForm
+            {...defaultProps}
+            appointmentData={{ ...defaultProps.appointmentData, rRule: 'test rule' }}
+          />
+        </PluginHost>
+      ));
+
+      expect(tree.find(defaultProps.commandLayoutComponent).prop('fullSize'))
+        .toBeTruthy();
+    });
   });
 
-  it('should render CommandLayout template', () => {
+  it('should render BasicLayout', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -96,29 +215,26 @@ describe('AppointmentForm', () => {
     ));
 
     const templatePlaceholder = tree
-      .find(Template)
-      .filterWhere(node => node.props().name === 'commandLayout');
+        .find(Template)
+        .filterWhere(node => node.props().name === 'basicLayout');
 
     expect(templatePlaceholder.exists())
       .toBeTruthy();
-  });
 
-  it('should render BasicLayout template', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <AppointmentForm
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
-
-    const templatePlaceholder = tree
-      .find(Template)
-      .filterWhere(node => node.props().name === 'basicLayout');
-
-    expect(templatePlaceholder.exists())
+    const basicLayoutComponent = tree.find(defaultProps.basicLayoutComponent);
+    expect(basicLayoutComponent.exists())
       .toBeTruthy();
+    expect(basicLayoutComponent.props())
+      .toMatchObject({
+        getMessage: expect.any(Function),
+        onFieldChange: expect.any(Function),
+        selectComponent: defaultProps.selectComponent,
+        textEditorComponent: defaultProps.textEditorComponent,
+        dateEditorComponent: defaultProps.dateEditorComponent,
+        labelComponent: defaultProps.labelComponent,
+        booleanEditorComponent: defaultProps.booleanEditorComponent,
+        readOnly: false,
+      });
   });
 
   it('should render RecurrenceLayout template', () => {
@@ -137,6 +253,23 @@ describe('AppointmentForm', () => {
 
     expect(templatePlaceholder.exists())
       .toBeTruthy();
+
+    const recurrenceLayoutComponent = tree.find(defaultProps.recurrenceLayoutComponent);
+    expect(recurrenceLayoutComponent.exists())
+      .toBeTruthy();
+    expect(recurrenceLayoutComponent.props())
+      .toMatchObject({
+        getMessage: expect.any(Function),
+        formatDate: defaultDeps.getter.formatDate,
+        onFieldChange: expect.any(Function),
+        selectComponent: defaultProps.selectComponent,
+        textEditorComponent: defaultProps.textEditorComponent,
+        dateEditorComponent: defaultProps.dateEditorComponent,
+        labelComponent: defaultProps.labelComponent,
+        radioGroupComponent: defaultProps.radioGroupComponent,
+        buttonGroupComponent: defaultProps.buttonGroupComponent,
+        readOnly: false,
+      });
   });
 
   it('should render appointment template', () => {

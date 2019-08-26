@@ -45,7 +45,7 @@ Describes an object that specifies a column width.
 Field | Type | Description
 ------|------|------------
 columnName | string | A column name.
-width | number | A column width.
+width | number &#124; string | A column width. Allow to use 'auto' or number with specified measurement units. Measurment units: 'px', '%', 'em', 'rem', 'vm', 'vh', 'vmin',
 
 ### TableColumnResizing.ColumnExtension
 

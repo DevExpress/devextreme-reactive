@@ -12,7 +12,7 @@ const UNSET_COLUMN_WIDTH_ERROR = [
 
 const UNAVAILABLE_RESIZING_MODE_ERROR = [
   'The "$1" column\'s width specified like non-number type.',
-  'The TableColumnResizing plugin requires nextColumnResizing mode,',
+  'The TableColumnResizing plugin requires nextColumn resizing mode,',
   'when column width define with some non-number type.',
 ].join('\n');
 

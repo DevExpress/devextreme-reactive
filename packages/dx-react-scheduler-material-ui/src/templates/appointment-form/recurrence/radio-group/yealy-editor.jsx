@@ -213,8 +213,7 @@ const YearlyEditorBase = ({
             />
             <TextEditor
               className={classes.textEditor}
-              disabled={value !== 'onDayAndMonth'}
-              readOnly={readOnly}
+              readOnly={readOnly || value !== 'onDayAndMonth'}
               value={dayNumberTextField}
               id={NUMBER_EDITOR}
               onValueChange={changeByMonthDay}

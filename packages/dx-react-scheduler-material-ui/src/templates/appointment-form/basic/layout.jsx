@@ -119,7 +119,7 @@ const LayoutBase = ({
         id={TITLE_LABEL}
       />
       <TextEditor
-        label={getMessage('titleLabel')}
+        placeholder={getMessage('titleLabel')}
         readOnly={readOnly}
         id={TITLE_TEXT_EDITOR}
         value={appointmentData.title}
@@ -153,13 +153,13 @@ const LayoutBase = ({
         className={classes.moreInformationLabel}
       />
       <TextEditor
-        label={getMessage('additionalInformationLabel')}
+        placeholder={getMessage('additionalInformationLabel')}
         readOnly={readOnly}
         value={appointmentData.additionalInformation}
         onValueChange={changeAdditionalInformation}
       />
       <TextEditor
-        label={getMessage('notesLabel')}
+        placeholder={getMessage('notesLabel')}
         readOnly={readOnly}
         id={NOTES_TEXT_EDITOR}
         value={appointmentData.notes}

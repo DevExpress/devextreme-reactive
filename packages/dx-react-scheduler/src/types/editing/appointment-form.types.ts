@@ -101,6 +101,19 @@ export namespace AppointmentForm {
     /** A React node should be added as additional. */
     children?: React.ReactNode;
   }
+  /** A component that render the appointment form's text editor component */
+  export interface TextEditorProps {
+    /** A value to be edited. */
+    value: string | number;
+    /** A placeholder that displayed inside text field */
+    placeholder: string;
+    /** Specifies the text editor is read-only. */
+    readOnly: boolean;
+    /** Handles value changes. */
+    onValueChange: (nextValue: string) => void;
+    /** The text editor's type identifier. */
+    id: 'titleTextEditor' | 'noteTextEditor' | 'ordinaryTextEditor' | 'numberEditor';
+  }
   /** Localization Messages */
   export interface LocalizationMessages {
     /** The all day editor’s label text. */

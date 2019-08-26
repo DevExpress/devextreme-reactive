@@ -127,7 +127,7 @@ const EndRepeatEditorBase = ({
               label={getMessage('onLabel')}
             />
             <TextEditor
-              disabled={value !== 'endAfter'}
+              readOnly={value !== 'endAfter'}
               className={classes.textEditor}
               value={recurrenceCount}
               id={NUMBER_EDITOR}

@@ -24,20 +24,20 @@ const styles = theme => ({
 const TextEditorBase = React.memo(({
   classes,
   value,
-  label,
+  placeholder,
   className,
   readOnly,
   onValueChange,
   id,
-  style,
   ...restProps
 }) => {
   const textFiledType = id === NUMBER_EDITOR ? 'number' : 'text';
+  const notesTextEditor = id === NOTES_TEXT_EDITOR;
   return (
     <TextField
       className={classNames(classes.editor, className)}
       value={value}
-      variant={id === NOTES_TEXT_EDITOR ? 'outlined' : 'filled'}
+      variant={notesTextEditor ? 'outlined' : 'filled'}
       disabled={readOnly}
       onChange={({ target }) => onValueChange(target.value)}
       InputProps={{
@@ -45,12 +45,12 @@ const TextEditorBase = React.memo(({
           [classes.title]: id === TITLE_TEXT_EDITOR,
         }),
       }}
-      multiline={id === NOTES_TEXT_EDITOR}
+      multiline={notesTextEditor}
       rows="5"
       type={textFiledType}
       hiddenLabel
       margin="normal"
-      placeholder={label}
+      placeholder={placeholder}
       {...restProps}
     />
   );
@@ -60,21 +60,19 @@ const TextEditorBase = React.memo(({
 TextEditorBase.propTypes = {
   classes: PropTypes.object.isRequired,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  label: PropTypes.string,
+  placeholder: PropTypes.string,
   className: PropTypes.string,
   readOnly: PropTypes.bool,
   onValueChange: PropTypes.func,
-  style: PropTypes.object,
   id: PropTypes.string,
 };
 
 TextEditorBase.defaultProps = {
   value: '',
-  label: undefined,
+  placeholder: undefined,
   className: undefined,
   readOnly: false,
   onValueChange: () => undefined,
-  style: null,
   id: ORDINARY_TEXT_EDITOR,
 };
 

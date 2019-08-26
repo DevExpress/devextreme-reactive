@@ -175,8 +175,7 @@ const MonthlyEditorBase = ({
               className={classes.label}
             />
             <TextEditor
-              disabled={value !== 'onDayNumber'}
-              readOnly={readOnly}
+              readOnly={readOnly || value !== 'onDayNumber'}
               value={dayNumberTextField}
               className={classes.textEditor}
               id={NUMBER_EDITOR}

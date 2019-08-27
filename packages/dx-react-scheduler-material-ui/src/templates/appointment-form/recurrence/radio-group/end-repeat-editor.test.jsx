@@ -139,7 +139,7 @@ describe('AppointmentForm recurrence RadioGroup', () => {
       expect(defaultProps.getMessage)
         .toHaveBeenCalledWith('onLabel');
       expect(defaultProps.getMessage)
-        .toHaveBeenCalledWith('occurencesLabel');
+        .toHaveBeenCalledWith('occurrencesLabel');
       expect(defaultProps.getMessage)
         .toHaveBeenCalledWith('afterLabel');
     });

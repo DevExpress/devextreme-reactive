@@ -55,7 +55,7 @@ const EndRepeatEditorBase = ({
   }), [recurrenceOptions, onFieldChange]);
 
   const countEditorProps = React.useMemo(() => ({
-    endAdornment: <InputAdornment position="end">{getMessage('occurencesLabel')}</InputAdornment>,
+    endAdornment: <InputAdornment position="end">{getMessage('occurrencesLabel')}</InputAdornment>,
   }), []);
 
   const recurrenceCount = recurrenceOptions.count || count;

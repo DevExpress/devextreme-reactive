@@ -23,8 +23,6 @@ import {
 const defaultMessages = {
   allDayLabel: 'All Day',
   titleLabel: 'Title',
-  startDateLabel: 'Start Date',
-  endDateLabel: 'End Date',
   commitCommand: 'Save',
   cancelCommand: 'Cancel',
   detailsLabel: 'Details',
@@ -42,7 +40,7 @@ const defaultMessages = {
   endRepeatLabel: 'End repeat',
   onLabel: 'On',
   afterLabel: 'After',
-  occurencesLabel: 'occurence(s)',
+  occurrencesLabel: 'occurrence(s)',
   weeksOnLabel: 'week(s) on:',
   monthsLabel: 'month(s)',
   ofEveryMonthLabel: 'of every month',
@@ -55,10 +53,6 @@ const defaultMessages = {
   yearsLabel: 'year(s)',
   ofLabel: 'of ',
   everyLabel: 'Every',
-  thLabel: '\'th',
-  stLabel: '\'st',
-  ndLabel: '\'nd',
-  rdLabel: '\'rd',
 };
 
 const CommandLayoutPlaceholder = () => <TemplatePlaceholder name="commandLayout" />;
@@ -70,6 +64,17 @@ const pluginDependencies = [
   { name: 'Appointments', optional: true },
   { name: 'AppointmentTooltip', optional: true },
 ];
+
+const prepareChanges = (
+  appointmentData, editingAppointment, addedAppointment, appointmentChanges,
+) => {
+  const isNew = !editingAppointment;
+  const changedAppointment = {
+    ...appointmentData,
+    ...isNew ? addedAppointment : appointmentChanges,
+  };
+  return { changedAppointment, isNew };
+};
 
 class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, AppointmentFormState> {
   toggleVisibility: (payload?: any) => void;
@@ -215,11 +220,9 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               addedAppointment,
               appointmentChanges,
             }) => {
-              const isNew = !editingAppointment;
-              const changedAppointment = {
-                ...appointmentData,
-                ...isNew ? addedAppointment : appointmentChanges,
-              };
+              const { changedAppointment } = prepareChanges(
+                appointmentData, editingAppointment, addedAppointment, appointmentChanges,
+              );
               const isRecurrence = !!changedAppointment.rRule;
 
               return (
@@ -259,11 +262,9 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
 
               stopEditAppointment,
             }) => {
-              const isNew = !editingAppointment;
-              const changedAppointment = {
-                ...appointmentData,
-                ...isNew ? addedAppointment : appointmentChanges,
-              };
+              const { isNew, changedAppointment } = prepareChanges(
+                appointmentData, editingAppointment, addedAppointment, appointmentChanges,
+              );
               return (
                 <CommandLayout
                   commandButtonComponent={commandButtonComponent}
@@ -294,11 +295,9 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               changeAppointment,
               changeAddedAppointment,
             }) => {
-              const isNew = !editingAppointment;
-              const changedAppointment = {
-                ...appointmentData,
-                ...isNew ? addedAppointment : appointmentChanges,
-              };
+              const { isNew, changedAppointment } = prepareChanges(
+                appointmentData, editingAppointment, addedAppointment, appointmentChanges,
+              );
               return (
                 <BasicLayout
                   appointmentData={changedAppointment}
@@ -329,11 +328,9 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               changeAddedAppointment,
               changeAppointment,
             }) => {
-              const isNew = !editingAppointment;
-              const changedAppointment = {
-                ...appointmentData,
-                ...isNew ? addedAppointment : appointmentChanges,
-              };
+              const { isNew, changedAppointment } = prepareChanges(
+                appointmentData, editingAppointment, addedAppointment, appointmentChanges,
+              );
 
               return (
                 <RecurrenceLayout

@@ -49,11 +49,11 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
     { referenceIndex, forceReload },
     { virtualRows }: Getters,
   ) => {
-    const { pageSize, totalRowCount } = this.props;
+    const { pageSize, totalRowCount, infiniteScrolling } = this.props;
     const { requestedStartIndex } = this.state;
     const actualVirtualRows = forceReload ? emptyVirtualRows : virtualRows;
     const { requestedRange, actualBounds } = getRequestMeta(
-      referenceIndex, virtualRows, pageSize!, totalRowCount, forceReload,
+      referenceIndex, virtualRows, pageSize!, totalRowCount, forceReload, infiniteScrolling,
     );
 
     if (forceReload || shouldSendRequest(requestedRange, requestedStartIndex)) {

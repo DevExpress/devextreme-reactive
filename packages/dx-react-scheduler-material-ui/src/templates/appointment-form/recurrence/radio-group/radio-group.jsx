@@ -20,6 +20,7 @@ export const RadioGroup = ({
   formatDate,
   onFieldChange,
   id,
+  locale,
   ...restProps
 }) => {
   switch (id) {
@@ -33,6 +34,7 @@ export const RadioGroup = ({
           dateEditorComponent={dateEditorComponent}
           appointmentData={appointmentData}
           onFieldChange={onFieldChange}
+          locale={locale}
           {...restProps}
         />
       );
@@ -76,6 +78,7 @@ RadioGroup.propTypes = {
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   dateEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   selectComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+  locale: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
   readOnly: PropTypes.bool,
   id: PropTypes.string.isRequired,
   appointmentData: PropTypes.shape({
@@ -92,6 +95,7 @@ RadioGroup.propTypes = {
 };
 
 RadioGroup.defaultProps = {
+  locale: undefined,
   readOnly: false,
   onFieldChange: () => undefined,
   formatDate: null,

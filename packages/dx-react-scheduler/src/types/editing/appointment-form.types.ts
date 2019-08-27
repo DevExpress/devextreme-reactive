@@ -62,6 +62,8 @@ export namespace AppointmentForm {
     getMessage: (messageKey: string) => string;
     /** Specifies the appointment form is read-only. */
     readOnly?: boolean;
+    /** The locale according to which dates should be formatted. */
+    locale: string | string[];
     /** A component that render the appointment form's text editor component */
     textEditorComponent: React.ComponentType<AppointmentForm.TextEditorProps>;
     /** A component that render the appointment form's date editor component */
@@ -86,10 +88,12 @@ export namespace AppointmentForm {
     readOnly?: boolean;
     /** A function that formats dates according to the locale. */
     formatDate: FormatterFn;
+    /** The locale according to which dates should be formatted. */
+    locale: string | string[];
     /** A component that render the appointment form's radio group component */
     radioGroupComponent: React.ComponentType<AppointmentForm.RadioGroupProps>;
     /** A component that render the appointment form's button group component */
-    buttonGroupComponent: React.ComponentType<AppointmentForm.ButtonGroupProps>;
+    weeklyCheckboxListComponent: React.ComponentType<AppointmentForm.WeeklyCheckboxListProps>;
     /** A component that render the appointment form's text editor component */
     textEditorComponent: React.ComponentType<AppointmentForm.TextEditorProps>;
     /** A component that render the appointment form's date editor component */
@@ -187,7 +191,7 @@ export namespace AppointmentForm {
     labelComponent: React.ComponentType<AppointmentForm.LabelProps>;
   }
   /** A component that render the appointment form's button group component */
-  export interface ButtonGroupProps {
+  export interface WeeklyCheckboxListProps {
     /** A function that formats dates according to the locale. */
     formatDate: FormatterFn;
     /** Specifies the appointment recurrence rule. */
@@ -306,7 +310,7 @@ export interface AppointmentFormProps {
   /** A component that render the appointment form's radio group component */
   radioGroupComponent: React.ComponentType<AppointmentForm.RadioGroupProps>;
   /** A component that render the appointment form's button group component */
-  buttonGroupComponent: React.ComponentType<AppointmentForm.ButtonGroupProps>;
+  weeklyCheckboxListComponent: React.ComponentType<AppointmentForm.WeeklyCheckboxListProps>;
   /** An object that specifies localization messages. */
   messages?: AppointmentForm.LocalizationMessages;
 }

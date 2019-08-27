@@ -101,7 +101,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
     selectComponent: 'Select',
     recurrenceLayoutComponent: 'RecurrenceLayout',
     radioGroupComponent: 'RadioGroup',
-    buttonGroupComponent: 'ButtonGroup',
+    weeklyCheckboxListComponent: 'WeeklyCheckboxList',
     containerComponent: 'Container',
   };
 
@@ -181,8 +181,8 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
     this.toggleVisibility();
   });
 
-  changeAppointmentField = memoize((isNew, changeAddedAppointment, changeAppointment) =>
-    isNew ? change => callActionIfExists(changeAddedAppointment, { change })
+  changeAppointmentField = memoize((isNew, changeAddedAppointment, changeAppointment) => isNew
+    ? change => callActionIfExists(changeAddedAppointment, { change })
     : change => callActionIfExists(changeAppointment, { change }),
   );
 
@@ -204,7 +204,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
       booleanEditorComponent,
       selectComponent,
       radioGroupComponent,
-      buttonGroupComponent,
+      weeklyCheckboxListComponent,
       readOnly,
       messages,
     } = this.props;
@@ -294,6 +294,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               editingAppointment,
               addedAppointment,
               appointmentChanges,
+              locale,
             }, {
               changeAppointment,
               changeAddedAppointment,
@@ -303,6 +304,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               );
               return (
                 <BasicLayout
+                  locale={locale}
                   appointmentData={changedAppointment}
                   onFieldChange={this.changeAppointmentField(
                     isNew, changeAddedAppointment, changeAppointment,
@@ -327,6 +329,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               addedAppointment,
               appointmentChanges,
               formatDate,
+              locale,
             }, {
               changeAddedAppointment,
               changeAppointment,
@@ -337,6 +340,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
 
               return (
                 <RecurrenceLayout
+                  locale={locale}
                   appointmentData={changedAppointment}
                   onFieldChange={this.changeAppointmentField(
                     isNew, changeAddedAppointment, changeAppointment,
@@ -347,7 +351,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                   textEditorComponent={textEditorComponent}
                   dateEditorComponent={dateEditorComponent}
                   radioGroupComponent={radioGroupComponent}
-                  buttonGroupComponent={buttonGroupComponent}
+                  weeklyCheckboxListComponent={weeklyCheckboxListComponent}
                   labelComponent={labelComponent}
                   selectComponent={selectComponent}
                 />

@@ -32,7 +32,7 @@ const WeeklyBase = ({
   onFieldChange,
   appointmentData,
   selectComponent,
-  buttonGroupComponent: ButtonGroup,
+  weeklyCheckboxListComponent: ButtonGroup,
   formatDate,
   ...restProps
 }) => {
@@ -84,7 +84,7 @@ WeeklyBase.propTypes = {
   radioGroupComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   selectComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  buttonGroupComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  weeklyCheckboxListComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   appointmentData: PropTypes.shape({
     title: PropTypes.string,
     startDate: PropTypes.instanceOf(Date),

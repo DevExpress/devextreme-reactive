@@ -24,14 +24,12 @@
     "lint:fix": "yarn lint -- --fix"
   },
   "dependencies": {
-    "@date-io/moment": "^1.3.9",
     "@devexpress/dx-demo-shell": "2.0.3",
     "@devexpress/dx-react-core": "2.0.3",
     "@devexpress/dx-react-scheduler": "2.0.3",
     "@devexpress/dx-react-scheduler-material-ui": "2.0.3",
     "@material-ui/core": "^4.3.2",
     "@material-ui/icons": "^4.2.1",
-    "@material-ui/pickers": "3.2.2",
     "@types/react": "^16.9.1",
     "@types/react-dom": "^16.8.5",
     "codemirror": "^5.48.2",

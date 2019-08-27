@@ -36,7 +36,7 @@ const DailyBase = ({
   onFieldChange,
   appointmentData,
   selectComponent,
-  buttonGroupComponent,
+  weeklyCheckboxListComponent,
   className,
   formatDate,
   ...restProps
@@ -80,7 +80,7 @@ DailyBase.propTypes = {
   radioGroupComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   selectComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  buttonGroupComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  weeklyCheckboxListComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   appointmentData: PropTypes.shape({
     title: PropTypes.string,
     startDate: PropTypes.instanceOf(Date),

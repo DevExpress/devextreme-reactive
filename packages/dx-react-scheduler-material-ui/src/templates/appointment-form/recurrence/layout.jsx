@@ -69,7 +69,7 @@ const LayoutBase = ({
   labelComponent: Label,
   dateEditorComponent,
   selectComponent: Select,
-  buttonGroupComponent,
+  weeklyCheckboxListComponent,
   children,
   classes,
   className,
@@ -78,6 +78,7 @@ const LayoutBase = ({
   onFieldChange,
   appointmentData,
   formatDate,
+  locale,
   ...restProps
 }) => {
   const recurrenceOptions = getRecurrenceOptions(appointmentData.rRule);
@@ -116,7 +117,7 @@ const LayoutBase = ({
         appointmentData={appointmentData}
         onFieldChange={onFieldChange}
         selectComponent={Select}
-        buttonGroupComponent={buttonGroupComponent}
+        weeklyCheckboxListComponent={weeklyCheckboxListComponent}
         formatDate={formatDate}
         {...restProps}
       />
@@ -134,6 +135,7 @@ const LayoutBase = ({
         dateEditorComponent={dateEditorComponent}
         appointmentData={appointmentData}
         onFieldChange={onFieldChange}
+        locale={locale}
       />
       {children}
     </div>
@@ -146,7 +148,8 @@ LayoutBase.propTypes = {
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   dateEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   selectComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  buttonGroupComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  weeklyCheckboxListComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  locale: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]).isRequired,
   onFieldChange: PropTypes.func,
   children: PropTypes.node,
   className: PropTypes.string,

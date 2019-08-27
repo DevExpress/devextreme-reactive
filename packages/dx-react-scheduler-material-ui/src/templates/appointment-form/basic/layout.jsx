@@ -69,6 +69,7 @@ const styles = ({ spacing, typography }) => ({
 
 const LayoutBase = ({
   children,
+  locale,
   classes,
   className,
   getMessage,
@@ -135,6 +136,7 @@ const LayoutBase = ({
           readOnly={readOnly}
           value={appointmentData.startDate}
           onValueChange={changeStartDate}
+          locale={locale}
         />
         <Label
           text="-"
@@ -145,6 +147,7 @@ const LayoutBase = ({
           readOnly={readOnly}
           value={appointmentData.endDate}
           onValueChange={changeEndDate}
+          locale={locale}
         />
       </Grid>
       <Label
@@ -197,6 +200,7 @@ LayoutBase.propTypes = {
   selectComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   booleanEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  locale: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]).isRequired,
   children: PropTypes.node,
   className: PropTypes.string,
   classes: PropTypes.object.isRequired,

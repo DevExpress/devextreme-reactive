@@ -33,6 +33,7 @@ const styles = ({ spacing, typography }) => ({
   },
   fullSize: {
     width: '100%',
+    paddingBottom: spacing(3),
   },
   notesEditor: {
     marginTop: spacing(2),

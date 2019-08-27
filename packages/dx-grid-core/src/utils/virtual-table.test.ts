@@ -244,6 +244,17 @@ describe('VirtualTableLayout utils', () => {
       expect(getSpanBoundary(items, [[2, 3], [5, 5]], item => item.colSpan))
         .toEqual([[2, 3], [4, 5]]);
     });
+
+    it('should adjust an end boundary to items count', () => {
+      const items = [
+        { colSpan: 1 }, // 0
+        { colSpan: 1 }, // 1
+        { colSpan: 1 }, // 2
+      ];
+
+      expect(getSpanBoundary(items, [[0, 3]], item => item.colSpan))
+        .toEqual([[0, 2]]);
+    });
   });
 
   describe('#collapseBoundaries', () => {
@@ -355,6 +366,19 @@ describe('VirtualTableLayout utils', () => {
       expect(collapseBoundaries(itemsCount, visibleBoundary, spanBoundaries))
         .toEqual([
           [0, 99], // stub
+        ]);
+    });
+
+    it('should adjust an end boundary to items count', () => {
+      const itemsCount = 3;
+      const visibleBoundary = [[0, 3]];
+      const spanBoundaries = [
+        [[0, 3]],
+      ];
+
+      expect(collapseBoundaries(itemsCount, visibleBoundary, spanBoundaries))
+        .toEqual([
+          [0, 2], // visible
         ]);
     });
   });

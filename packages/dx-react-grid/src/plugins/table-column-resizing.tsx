@@ -61,19 +61,19 @@ class TableColumnResizingBase extends React.PureComponent<TableColumnResizingPro
 
     this.changeTableColumnWidth = stateHelper.applyReducer.bind(
       stateHelper, (prevState, payload) => {
-        const { minColumnWidth } = this.props;
+        const { minColumnWidth, maxColumnWidth, columnExtensions } = this.props;
         return changeTableColumnWidth(
           prevState,
-          { ...payload, minColumnWidth },
+          { ...payload, minColumnWidth, maxColumnWidth, columnExtensions },
         );
       },
     );
     this.draftTableColumnWidth = stateHelper.applyReducer.bind(
       stateHelper, (prevState, payload) => {
-        const { minColumnWidth } = this.props;
+        const { minColumnWidth, maxColumnWidth, columnExtensions } = this.props;
         return draftTableColumnWidth(
           prevState,
-          { ...payload, minColumnWidth },
+          { ...payload, minColumnWidth, maxColumnWidth, columnExtensions },
         );
       },
     );

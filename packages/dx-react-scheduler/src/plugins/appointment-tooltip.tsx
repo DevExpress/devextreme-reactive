@@ -21,6 +21,8 @@ import { AppointmentTooltipProps, AppointmentTooltipState, Appointments } from '
 const pluginDependencies = [
   { name: 'Appointments' },
   { name: 'EditingState', optional: true },
+  { name: 'IntegratedEditing', optional: true },
+  { name: 'EditRecurrenceMenu', optional: true },
 ];
 
 const commandButtonIds = {
@@ -118,12 +120,10 @@ class AppointmentTooltipBase extends React.PureComponent<
             {({
               formatDate,
             }, {
-              commitDeletedAppointment,
+              finishDeleteAppointment,
             }) => {
               const onDeleteButtonClick = () => {
-                commitDeletedAppointment({
-                  deletedAppointmentId: appointmentMeta.data.id,
-                });
+                finishDeleteAppointment(appointmentMeta.data);
                 this.toggleVisibility();
               };
               return (
@@ -140,7 +140,7 @@ class AppointmentTooltipBase extends React.PureComponent<
                     visible,
                     onHide: this.toggleVisibility,
                     commandButtonIds,
-                    ...commitDeletedAppointment && {
+                    ...finishDeleteAppointment && {
                       onDeleteButtonClick,
                     },
                     formatDate,

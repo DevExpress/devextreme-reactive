@@ -82,7 +82,7 @@ export namespace AppointmentForm {
     /** The appointment’s displayed metadata. */
     appointmentData: AppointmentModel;
     /** Handles appointment field value changes. */
-    onFieldChange: (change: any) => void;
+    onFieldChange: (nextFieldValue: { [fieldName: string]: any }) => void;
     /** Returns a localization message by the message key. */
     getMessage: (messageKey: string) => string;
     /** Specifies the appointment form is read-only. */
@@ -161,14 +161,14 @@ export namespace AppointmentForm {
     /*** Returns a specified localization message. */
     getMessage?: (messageKey: string) => string;
   }
-  /** A component that render the appointment form's text label component */
+  /** A component that renders the appointment form's text label component */
   export interface LabelProps {
     /** The label type identifier. */
     id: 'titleLabel' | 'ordinaryLabel';
     /** The label's text. */
     text: string;
   }
-  /** A component that render the appointment form's radio group component */
+  /** A component that renders the appointment form's radio group component */
   export interface RadioGroupProps {
     /** Specifies the appointment’s data that the form displays. */
     appointmentData?: AppointmentModel;
@@ -191,7 +191,7 @@ export namespace AppointmentForm {
     /** A component that render the appointment form's text label component */
     labelComponent: React.ComponentType<AppointmentForm.LabelProps>;
   }
-  /** A component that render the appointment form's button group component */
+  /** A component that renders the appointment form's button group component */
   export interface WeeklyCheckboxListProps {
     /** A function that formats dates according to the locale. */
     formatDate: FormatterFn;

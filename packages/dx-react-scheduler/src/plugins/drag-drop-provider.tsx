@@ -138,12 +138,14 @@ class DragDropProviderBase extends React.PureComponent<
     }
 
     const tableCellElementsMeta = timeTableElementsMeta;
-    const allDayCellsElementsMeta = allDayElementsMeta
-      || { getCellRects: [] }; // not always AllDayPanel exists
 
+    // AllDayPanel doesn't always exist
+    let allDayCellsElementsMeta = allDayElementsMeta;
+    if (!allDayElementsMeta || !allDayElementsMeta.getCellRects) {
+      allDayCellsElementsMeta = { getCellRects: [] };
+    }
     const timeTableIndex = cellIndex(tableCellElementsMeta.getCellRects, clientOffset);
     const allDayIndex = cellIndex(allDayCellsElementsMeta.getCellRects, clientOffset);
-
     if (allDayIndex === -1 && timeTableIndex === -1) return;
 
     const targetData = cellData(timeTableIndex, allDayIndex, viewCellsData);

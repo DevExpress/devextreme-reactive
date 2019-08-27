@@ -82,7 +82,7 @@ export namespace AppointmentForm {
     /** The appointment’s displayed metadata. */
     appointmentData: AppointmentModel;
     /** Handles appointment field value changes. */
-    onFieldChange: (change: any) => void;
+    onFieldChange: (nextFieldValue: { [fieldName: string]: any }) => void;
     /** Returns a localization message by the message key. */
     getMessage: (messageKey: string) => string;
     /** Specifies the appointment form is read-only. */

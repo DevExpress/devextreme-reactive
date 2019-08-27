@@ -176,6 +176,7 @@ const LayoutBase = ({
         value={appointmentData.allDay}
         onValueChange={changeAllDay}
       />
+      {children}
       {!appointmentData.rRule && (
         <React.Fragment>
           <Label
@@ -190,7 +191,6 @@ const LayoutBase = ({
           />
         </React.Fragment>
       )}
-      {children}
     </div>
   );
 };

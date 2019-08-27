@@ -20,12 +20,14 @@ const DateEditorBase = React.memo(({
   value,
   readOnly,
   className,
+  locale,
+  ...restProps
 }) => {
   const memoizedChangeHandler = React.useCallback(
     nextDate => onValueChange(nextDate.toDate()),
   );
   return (
-    <MuiPickersUtilsProvider utils={MomentUtils}>
+    <MuiPickersUtilsProvider utils={MomentUtils} locale={locale}>
       <KeyboardDateTimePicker
         variant="inline"
         disabled={readOnly}
@@ -36,6 +38,7 @@ const DateEditorBase = React.memo(({
         format="DD/MM/YYYY HH:mm A"
         inputVariant="filled"
         hiddenLabel
+        {...restProps}
       />
     </MuiPickersUtilsProvider>
   );
@@ -51,9 +54,11 @@ DateEditorBase.propTypes = {
   className: PropTypes.string,
   readOnly: PropTypes.bool,
   onValueChange: PropTypes.func,
+  locale: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
 };
 
 DateEditorBase.defaultProps = {
+  locale: 'en-US',
   onValueChange: () => undefined,
   value: undefined,
   className: undefined,

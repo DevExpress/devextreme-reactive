@@ -40,6 +40,7 @@ const EndRepeatEditorBase = ({
   dateEditorComponent: DateEditor,
   onFieldChange,
   appointmentData,
+  locale,
   ...restProps
 }) => {
   const [count, setCount] = React.useState(1);
@@ -159,6 +160,7 @@ const EndRepeatEditorBase = ({
               value={recurrenceEndDate}
               onValueChange={changeRecurrenceEndDate}
               allowKeyboardControl={false}
+              locale={locale}
             />
           </Grid>
         )}
@@ -169,12 +171,13 @@ const EndRepeatEditorBase = ({
 
 
 EndRepeatEditorBase.propTypes = {
-  classes: PropTypes.object.isRequired,
-  getMessage: PropTypes.func,
-  onFieldChange: PropTypes.func,
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   dateEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  locale: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]).isRequired,
+  classes: PropTypes.object.isRequired,
+  getMessage: PropTypes.func,
+  onFieldChange: PropTypes.func,
   appointmentData: PropTypes.shape({
     title: PropTypes.string,
     startDate: PropTypes.instanceOf(Date),

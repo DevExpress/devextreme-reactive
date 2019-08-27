@@ -78,6 +78,7 @@ const LayoutBase = ({
   onFieldChange,
   appointmentData,
   formatDate,
+  locale,
   ...restProps
 }) => {
   const recurrenceOptions = getRecurrenceOptions(appointmentData.rRule);
@@ -134,6 +135,7 @@ const LayoutBase = ({
         dateEditorComponent={dateEditorComponent}
         appointmentData={appointmentData}
         onFieldChange={onFieldChange}
+        locale={locale}
       />
       {children}
     </div>

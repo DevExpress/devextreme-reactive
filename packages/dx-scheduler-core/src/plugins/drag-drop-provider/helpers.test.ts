@@ -362,7 +362,7 @@ describe('DragDropProvider', () => {
         .toEqual({
           appointmentStartTime: new Date('2018-06-25 00:00'),
           appointmentEndTime: new Date('2018-06-26 00:00'),
-          offsetTimeTop: 1260000,
+          offsetTimeTop: 0,
         });
     });
     it('should work with horizontal appointment and vertical cell', () => {
@@ -412,7 +412,7 @@ describe('DragDropProvider', () => {
 
   describe('#calculateDraftAppointments', () => {
     const allDayIndex = 0;
-    const draftAppointments = [];
+    const draftAppointments = [{}];
     const startViewDate = new Date();
     const endViewDate = new Date();
     const excludedDays = [];
@@ -421,15 +421,75 @@ describe('DragDropProvider', () => {
     const targetType = 'vertical';
     const cellDurationMinutes = 0;
     const timeTableCells = 0;
-    it('should return only one array', () => {
+    it('should return all day array while drag above at AllDayPanel', () => {
+      calculateDraftAppointments(
+        allDayIndex, draftAppointments, startViewDate,
+        endViewDate, excludedDays, viewCellsData, allDayCells,
+        'horizontal', cellDurationMinutes, timeTableCells,
+      );
+      expect(allDayRects)
+        .toBeCalledWith([{ allDay: true }], startViewDate, endViewDate,
+          excludedDays, viewCellsData, allDayCells);
+    });
+    it('should format appointment if allDay flag exists', () => {
       expect(calculateDraftAppointments(
         allDayIndex, draftAppointments, startViewDate,
         endViewDate, excludedDays, viewCellsData, allDayCells,
+        'horizontal', cellDurationMinutes, timeTableCells,
+      ))
+      .toEqual({
+        allDayDraftAppointments: [{}],
+        timeTableDraftAppointments: [],
+      });
+    });
+    // tslint:disable-next-line:max-line-length
+    it('should return all day array while resize vertical appointment above then 23 hours if AllDayPanel exists', () => {
+      const nextAllDayIndex = -1;
+      const nextAllDayCells = {
+        getParentRect: () => undefined, getCellRects: [{}], // allDayPanel exists
+      };
+      const longDraftAppointment = [{
+        dataItem: {
+          startDate: new Date('2018-06-10 12:00'),
+          endDate: new Date('2018-06-11 13:00'),
+        },
+      }];
+
+      expect(calculateDraftAppointments(
+        nextAllDayIndex, longDraftAppointment, startViewDate,
+        endViewDate, excludedDays, viewCellsData, nextAllDayCells,
         targetType, cellDurationMinutes, timeTableCells,
       ))
       .toEqual({
         allDayDraftAppointments: [{}],
         timeTableDraftAppointments: [],
+      });
+
+      expect(calculateDraftAppointments(
+        nextAllDayIndex, longDraftAppointment, startViewDate,
+        endViewDate, excludedDays, viewCellsData, nextAllDayCells,
+        'horizontal', cellDurationMinutes, timeTableCells,
+      ))
+      .toEqual({
+        allDayDraftAppointments: [],
+        timeTableDraftAppointments: [{}],
+      });
+
+      const shortAppointment = [{
+        dataItem: {
+          startDate: new Date('2018-06-10 12:00'),
+          endDate: new Date('2018-06-10 13:00'),
+        },
+      }];
+
+      expect(calculateDraftAppointments(
+        nextAllDayIndex, shortAppointment, startViewDate,
+        endViewDate, excludedDays, viewCellsData, nextAllDayCells,
+        targetType, cellDurationMinutes, timeTableCells,
+      ))
+      .toEqual({
+        allDayDraftAppointments: [],
+        timeTableDraftAppointments: [{}],
       });
     });
     it('should return time table array', () => {

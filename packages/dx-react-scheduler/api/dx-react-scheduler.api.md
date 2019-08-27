@@ -133,7 +133,9 @@ export interface AppointmentModel {
   [propertyName: string]: any;
   allDay?: boolean;
   endDate: SchedulerDateTime;
+  exDate?: string | undefined;
   id?: number | string;
+  rRule?: string | undefined;
   startDate: SchedulerDateTime;
   title?: string;
 }
@@ -258,17 +260,15 @@ export interface ChangeCurrentDatePayload {
 }
 
 // @public (undocumented)
-export type Changes = {
-  change: AppointmentModel | {};
-};
+export type Changes = Partial<AppointmentModel>;
 
 // @public
 export interface ChangeSet {
   added?: {
-    [key: string]: object;
+    [key: string]: any;
   };
   changed?: {
-    [key: string]: object;
+    [key: string]: any;
   };
   deleted?: number | string;
 }
@@ -398,18 +398,67 @@ export interface EditingStateProps {
   defaultAppointmentChanges?: {
     [key: string]: object;
   };
-  defaultEditingAppointmentId?: number | string;
-  editingAppointmentId?: number | string;
+  defaultEditingAppointment?: Partial<AppointmentModel>;
+  editingAppointment?: Partial<AppointmentModel>;
   onAddedAppointmentChange?: (addedAppointment: object) => void;
   onAppointmentChangesChange?: (appointmentChanges: {
     [key: string]: any;
   }) => void;
   onCommitChanges: (changes: ChangeSet) => void;
-  onEditingAppointmentIdChange?: (editingAppointmentId: number | string) => void;
+  onEditingAppointmentChange?: (editingAppointment: Partial<AppointmentModel>) => void;
+  preCommitChanges?: PreCommitChangesFn;
+}
+
+// @public
+export const EditRecurrenceMenu: React.ComponentType<EditRecurrenceMenuProps>;
+
+// @public (undocumented)
+export namespace EditRecurrenceMenu {
+  export interface ButtonProps {
+    onClick: () => void;
+    title: string;
+  }
+  export interface LayoutProps {
+    availableOperations: Array<any>;
+    buttonComponent: React.ComponentType<EditRecurrenceMenu.ButtonProps>;
+    commit: () => void;
+    getMessage: (messageKey: string) => string;
+    handleClose: () => void;
+    isDeleting: boolean;
+  }
+  export interface LocalizationMessages {
+    all?: string;
+    cancelButton?: string;
+    commitButton?: string;
+    current?: string;
+    currentAndFollowing?: string;
+    menuDeletingTitle?: string;
+    menuEditingTitle?: string;
+  }
+  export interface OverlayProps {
+    onHide: () => void;
+    target: React.RefObject<unknown>;
+    visible: boolean;
+  }
+}
+
+// @public (undocumented)
+export interface EditRecurrenceMenuProps {
+  buttonComponent: React.ComponentType<EditRecurrenceMenu.ButtonProps>;
+  layoutComponent: React.ComponentType<EditRecurrenceMenu.LayoutProps>;
+  messages?: EditRecurrenceMenu.LocalizationMessages;
+  overlayComponent: React.ComponentType<EditRecurrenceMenu.OverlayProps>;
 }
 
 // @public (undocumented)
 export type FormatterFn = (nextDate: SchedulerDateTime | undefined, nextOptions: Intl.DateTimeFormatOptions) => string;
+
+// @public
+export const IntegratedEditing: React.ComponentType<IntegratedEditingProps>;
+
+// @public (undocumented)
+export interface IntegratedEditingProps {
+}
 
 // @public
 export interface MonthCellData {
@@ -471,6 +520,12 @@ export interface MonthViewProps extends MonthViewPropsType {
 
 // @public (undocumented)
 export type MonthViewPropsType = Pick<VerticalViewProps, Exclude<keyof VerticalViewProps, 'timeScaleLayoutComponent' | 'timeScaleRowComponent' | 'timeScaleCellComponent' | 'layoutComponent' | 'dayScaleEmptyCellComponent'>> & Pick<WeekViewProps, 'firstDayOfWeek'>;
+
+// @public (undocumented)
+export type PreCommitChangesFn = (changes: Changes | null, appointmentData: Partial<AppointmentModel>, type: RecurrenceEditType) => ChangeSet;
+
+// @public (undocumented)
+export type RecurrenceEditType = 'all' | 'currentAndFollowing' | 'current';
 
 // @public
 export const Scheduler: React.ComponentType<SchedulerProps>;

@@ -89,7 +89,7 @@ class TableEditRowBase extends React.PureComponent<TableEditRowProps> {
                       row,
                       value,
                       onValueChange,
-                      editingEnabled,
+                      disabled: !editingEnabled,
                     }}
                   >
                     {content => (

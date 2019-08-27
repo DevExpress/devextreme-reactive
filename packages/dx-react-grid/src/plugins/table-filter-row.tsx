@@ -128,7 +128,7 @@ class TableFilterRowBase extends React.PureComponent<TableFilterRowProps, TableF
                       column: params.tableColumn.column,
                       value: filter ? filter.value : undefined,
                       onValueChange: handleFilterValueChange,
-                      editingEnabled: filteringEnabled,
+                      disabled: !filteringEnabled,
                     }}
                   >
                     {content => (

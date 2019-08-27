@@ -22,8 +22,8 @@ export namespace DataTypeProvider {
     value: any;
     /** Handles value changes. */
     onValueChange: (newValue: any) => void;
-    /** Specifies whether editing a column is enabled. */
-    editingEnabled: boolean;
+    /** Specifies whether the editor is enabled. */
+    disabled: boolean;
   }
 }
 

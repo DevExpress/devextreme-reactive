@@ -206,7 +206,7 @@ describe('TableEditRow', () => {
       <PluginHost>
         {pluginDepsToComponents(defaultDeps, {
           getter: {
-            isColumnEditingEnabled: () => 'isColumnEditingEnabled',
+            isColumnEditingEnabled: () => true,
           },
         })}
         <TableEditRow
@@ -225,7 +225,30 @@ describe('TableEditRow', () => {
         row: defaultDeps.template.tableCell.tableRow.row,
         value: defaultDeps.getter.getCellValue(),
         onValueChange: expect.any(Function),
-        editingEnabled: 'isColumnEditingEnabled',
+        disabled: false,
       });
+  });
+
+  it('should pass disabled prop to the custom editor if editing is not allowed', () => {
+    isEditTableCell.mockImplementation(() => true);
+
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps, {
+          getter: {
+            isColumnEditingEnabled: () => false,
+          },
+        })}
+        <TableEditRow
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    expect(tree
+      .find('TemplatePlaceholderBase')
+      .findWhere(node => node.prop('name') === 'valueEditor').last().prop('params')
+    )
+      .toMatchObject({ disabled: true });
   });
 });

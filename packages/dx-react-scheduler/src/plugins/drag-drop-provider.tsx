@@ -140,10 +140,8 @@ class DragDropProviderBase extends React.PureComponent<
     const tableCellElementsMeta = timeTableElementsMeta;
 
     // AllDayPanel doesn't always exist
-    let allDayCellsElementsMeta = allDayElementsMeta;
-    if (!allDayElementsMeta || !allDayElementsMeta.getCellRects) {
-      allDayCellsElementsMeta = { getCellRects: [] };
-    }
+    const allDayCellsElementsMeta = !allDayElementsMeta || !allDayElementsMeta.getCellRects ?
+      { getCellRects: [] } : allDayElementsMeta ;
     const timeTableIndex = cellIndex(tableCellElementsMeta.getCellRects, clientOffset);
     const allDayIndex = cellIndex(allDayCellsElementsMeta.getCellRects, clientOffset);
 

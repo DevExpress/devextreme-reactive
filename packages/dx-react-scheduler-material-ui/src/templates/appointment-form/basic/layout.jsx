@@ -18,19 +18,21 @@ const styles = ({ spacing, typography }) => ({
   root: {
     width: '65%',
     paddingTop: spacing(3),
-    paddingBottom: 0,
+    paddingBottom: spacing(3),
     paddingLeft: spacing(4),
+    paddingRight: spacing(4),
     maxWidth: '650px',
     boxSizing: 'border-box',
     '@media (max-width: 700px)': {
       width: '100%',
       maxWidth: '700px',
       paddingRight: spacing(2),
+      paddingLeft: spacing(2),
+      paddingBottom: 0,
     },
   },
   fullSize: {
     width: '100%',
-    paddingLeft: spacing(2),
   },
   notesEditor: {
     marginTop: spacing(2),

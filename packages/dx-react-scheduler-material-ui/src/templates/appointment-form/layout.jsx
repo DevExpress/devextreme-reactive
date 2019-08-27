@@ -3,12 +3,9 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 
-const styles = ({ spacing }) => ({
+const styles = {
   root: {
     height: '100%',
-    padding: spacing(2),
-    paddingTop: 0,
-    paddingLeft: 0,
     margin: '0 auto',
     overflowY: 'auto',
   },
@@ -18,7 +15,7 @@ const styles = ({ spacing }) => ({
       flexDirection: 'column',
     },
   },
-});
+};
 
 const LayoutBase = ({
   basicLayoutComponent: BasicLayout,

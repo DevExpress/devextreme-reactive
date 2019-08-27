@@ -13,9 +13,9 @@ const styles = ({ spacing, palette }) => ({
   root: {
     display: 'flex',
     justifyContent: 'flex-end',
-    paddingTop: spacing(3),
+    paddingTop: spacing(2),
     paddingLeft: spacing(2),
-    paddingRight: spacing(2.875),
+    paddingRight: spacing(4),
     position: 'sticky',
     top: 0,
     backgroundColor: palette.background.paper,
@@ -23,20 +23,18 @@ const styles = ({ spacing, palette }) => ({
   },
   basic: {
     maxWidth: '650px',
-    paddingRight: 0,
-    paddingLeft: 0,
   },
   fullSize: {
     maxWidth: '1150px',
   },
   '@media (max-width: 700px)': {
     basic: {
-      paddingRight: spacing(2),
-      paddingLeft: spacing(2),
       maxWidth: '700px',
     },
     root: {
       paddingRight: spacing(2),
+      paddingLeft: 0,
+      paddingTop: spacing(1),
     },
   },
 });

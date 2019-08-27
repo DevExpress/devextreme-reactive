@@ -18,9 +18,9 @@ import { getAvailableRecurrenceOptions, handleChangeFrequency } from '../helpers
 
 const styles = ({ spacing }) => ({
   root: {
-    marginRight: spacing(2.875),
     padding: spacing(3),
-    paddingRight: 0,
+    paddingRight: spacing(4),
+    paddingLeft: spacing(1),
     width: '50%',
     maxWidth: '500px',
     boxSizing: 'border-box',
@@ -28,7 +28,7 @@ const styles = ({ spacing }) => ({
       width: '100%',
       maxWidth: '700px',
       paddingRight: spacing(2),
-      paddingLeft: spacing(4),
+      paddingLeft: spacing(2),
     },
   },
   label: {
@@ -143,12 +143,15 @@ const LayoutBase = ({
 };
 
 LayoutBase.propTypes = {
+  locale: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   radioGroupComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   dateEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   selectComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  weeklyRecurrenceSelectorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  weeklyRecurrenceSelectorComponent: PropTypes.oneOfType([
+    PropTypes.func, PropTypes.object,
+  ]).isRequired,
   onFieldChange: PropTypes.func,
   children: PropTypes.node,
   className: PropTypes.string,
@@ -168,6 +171,7 @@ LayoutBase.propTypes = {
 };
 
 LayoutBase.defaultProps = {
+  locale: 'en-US',
   onFieldChange: () => undefined,
   className: undefined,
   readOnly: false,

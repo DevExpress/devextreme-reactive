@@ -12,7 +12,7 @@ import { BooleanEditor } from '../templates/appointment-form/common/boolean-edit
 import { Select } from '../templates/appointment-form/common/select';
 import { Layout as RecurrenceLayout } from '../templates/appointment-form/recurrence/layout';
 import { RadioGroup } from '../templates/appointment-form/recurrence/radio-group/radio-group';
-import { ButtonGroup } from '../templates/appointment-form/recurrence/button-group';
+import { WeeklyRecurrenceSelector } from '../templates/appointment-form/recurrence/weekly-recurrence-selector';
 import { Container } from '../templates/appointment-form/container';
 
 export const AppointmentForm = withComponents({
@@ -28,6 +28,6 @@ export const AppointmentForm = withComponents({
   Select,
   RecurrenceLayout,
   RadioGroup,
-  ButtonGroup,
+  WeeklyRecurrenceSelector,
   Container,
 })(AppointmentFormBase);

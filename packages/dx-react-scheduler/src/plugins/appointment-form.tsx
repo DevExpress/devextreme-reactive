@@ -101,7 +101,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
     selectComponent: 'Select',
     recurrenceLayoutComponent: 'RecurrenceLayout',
     radioGroupComponent: 'RadioGroup',
-    buttonGroupComponent: 'ButtonGroup',
+    weeklyRecurrenceSelectorComponent: 'WeeklyRecurrenceSelector',
     containerComponent: 'Container',
   };
 
@@ -204,7 +204,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
       booleanEditorComponent,
       selectComponent,
       radioGroupComponent,
-      buttonGroupComponent,
+      weeklyRecurrenceSelectorComponent,
       readOnly,
       messages,
     } = this.props;
@@ -347,7 +347,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                   textEditorComponent={textEditorComponent}
                   dateEditorComponent={dateEditorComponent}
                   radioGroupComponent={radioGroupComponent}
-                  buttonGroupComponent={buttonGroupComponent}
+                  weeklyRecurrenceSelectorComponent={weeklyRecurrenceSelectorComponent}
                   labelComponent={labelComponent}
                   selectComponent={selectComponent}
                 />

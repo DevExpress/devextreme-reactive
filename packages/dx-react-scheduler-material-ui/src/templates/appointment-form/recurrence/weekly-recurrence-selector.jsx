@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import MUIButtonGroup from '@material-ui/core/ButtonGroup';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
 import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
@@ -46,7 +46,7 @@ const handleWeekDaysChange = (options, weekDay, action) => {
   action({ rRule: changeRecurrenceOptions(newOptions) });
 };
 
-const ButtonGroupBase = React.memo(({
+const WeeklyRecurrenceSelectorBase = React.memo(({
   formatDate,
   rRule,
   readOnly,
@@ -57,7 +57,7 @@ const ButtonGroupBase = React.memo(({
 }) => {
   const recurrenceOptions = getRecurrenceOptions(rRule);
   return (
-    <MUIButtonGroup
+    <ButtonGroup
       variant="outlined"
       size="small"
       disabled={readOnly}
@@ -163,11 +163,11 @@ const ButtonGroupBase = React.memo(({
       >
         {formatDate(SATURDAY_DATE, WEEK_DAY_OPTIONS)}
       </Button>
-    </MUIButtonGroup>
+    </ButtonGroup>
   );
 });
 
-ButtonGroupBase.propTypes = {
+WeeklyRecurrenceSelectorBase.propTypes = {
   rRule: PropTypes.string.isRequired,
   onFieldChange: PropTypes.func,
   formatDate: PropTypes.func.isRequired,
@@ -176,10 +176,10 @@ ButtonGroupBase.propTypes = {
   className: PropTypes.string,
 };
 
-ButtonGroupBase.defaultProps = {
+WeeklyRecurrenceSelectorBase.defaultProps = {
   onFieldChange: () => undefined,
   readOnly: false,
   className: undefined,
 };
 
-export const ButtonGroup = withStyles(styles)(ButtonGroupBase, { name: 'ButtonGroup' });
+export const WeeklyRecurrenceSelector = withStyles(styles)(WeeklyRecurrenceSelectorBase, { name: 'WeeklyRecurrenceSelector' });

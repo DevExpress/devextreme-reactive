@@ -44,7 +44,7 @@ const YearlyBase = ({
   onFieldChange,
   appointmentData,
   selectComponent,
-  buttonGroupComponent,
+  weeklyRecurrenceSelectorComponent,
   formatDate,
   ...restProps
 }) => {
@@ -101,7 +101,7 @@ YearlyBase.propTypes = {
   radioGroupComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   selectComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  buttonGroupComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  weeklyRecurrenceSelectorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   appointmentData: PropTypes.shape({
     title: PropTypes.string,
     startDate: PropTypes.instanceOf(Date),

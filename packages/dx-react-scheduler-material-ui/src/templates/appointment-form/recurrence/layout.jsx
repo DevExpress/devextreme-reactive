@@ -69,7 +69,7 @@ const LayoutBase = ({
   labelComponent: Label,
   dateEditorComponent,
   selectComponent: Select,
-  buttonGroupComponent,
+  weeklyRecurrenceSelectorComponent,
   children,
   classes,
   className,
@@ -116,7 +116,7 @@ const LayoutBase = ({
         appointmentData={appointmentData}
         onFieldChange={onFieldChange}
         selectComponent={Select}
-        buttonGroupComponent={buttonGroupComponent}
+        weeklyRecurrenceSelectorComponent={weeklyRecurrenceSelectorComponent}
         formatDate={formatDate}
         {...restProps}
       />
@@ -146,7 +146,7 @@ LayoutBase.propTypes = {
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   dateEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   selectComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  buttonGroupComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  weeklyRecurrenceSelectorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   onFieldChange: PropTypes.func,
   children: PropTypes.node,
   className: PropTypes.string,

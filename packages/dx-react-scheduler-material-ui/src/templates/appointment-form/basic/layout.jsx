@@ -28,6 +28,7 @@ const styles = ({ spacing, typography }) => ({
       maxWidth: '700px',
       paddingRight: spacing(2),
       paddingLeft: spacing(2),
+      paddingBottom: 0,
     },
   },
   fullSize: {

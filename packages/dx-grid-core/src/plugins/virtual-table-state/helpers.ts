@@ -57,9 +57,9 @@ export const calculateRequestedRange: CalculateRequestedRangeFn = (
 ) => {
   const loadedInterval = intervalUtil.getRowsInterval(virtualRows);
   const isAdjacentPage = Math.abs(loadedInterval.start - newRange.start) < 2 * pageSize;
-  const calculatedRange = intervalUtil.difference(newRange, loadedInterval);
-  if (isAdjacentPage && calculatedRange !== intervalUtil.empty) {
-    if (isInfiniteScroll) {
+  if (isAdjacentPage) {
+    const calculatedRange = intervalUtil.difference(newRange, loadedInterval);
+    if (isInfiniteScroll && calculatedRange !== intervalUtil.empty) {
       return correctRequestedRange(calculatedRange, referenceIndex, pageSize);
     }
     return calculatedRange;

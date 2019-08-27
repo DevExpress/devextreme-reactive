@@ -186,6 +186,9 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
     : change => callActionIfExists(changeAppointment, { change }),
   );
 
+  getMessage = memoize((messages, menuMessages) =>
+    getMessagesFormatter({ ...menuMessages, ...messages }));
+
   render() {
     const {
       containerComponent: Container,
@@ -206,7 +209,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
       messages,
     } = this.props;
     const { visible, appointmentData } = this.state;
-    const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
+    const getMessage = this.getMessage(defaultMessages, messages);
 
     return (
       <Plugin

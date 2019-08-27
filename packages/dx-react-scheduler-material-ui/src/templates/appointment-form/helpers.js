@@ -113,51 +113,51 @@ export const getMonths = formatDate => [
 
 export const getMonthsWithOf = (getMessage, formatDate) => [
   {
-    text: getMessage('ofLabel') + formatDate(JANUARY_DATE, DAY_LONG_MONTH_OPTIONS).split(' ')[0],
+    text: getMessage('ofLabel') + formatDate(JANUARY_DATE, DAY_LONG_MONTH_OPTIONS).replace(/[\d.,]/g, '').toString(),
     id: 1,
   },
   {
-    text: getMessage('ofLabel') + formatDate(FEBRUARY_DATE, DAY_LONG_MONTH_OPTIONS).split(' ')[0],
+    text: getMessage('ofLabel') + formatDate(FEBRUARY_DATE, DAY_LONG_MONTH_OPTIONS).replace(/[\d.,]/g, '').toString(),
     id: 2,
   },
   {
-    text: getMessage('ofLabel') + formatDate(MARCH_DATE, DAY_LONG_MONTH_OPTIONS).split(' ')[0],
+    text: getMessage('ofLabel') + formatDate(MARCH_DATE, DAY_LONG_MONTH_OPTIONS).replace(/[\d.,]/g, '').toString(),
     id: 3,
   },
   {
-    text: getMessage('ofLabel') + formatDate(APRIL_DATE, DAY_LONG_MONTH_OPTIONS).split(' ')[0],
+    text: getMessage('ofLabel') + formatDate(APRIL_DATE, DAY_LONG_MONTH_OPTIONS).replace(/[\d.,]/g, '').toString(),
     id: 4,
   },
   {
-    text: getMessage('ofLabel') + formatDate(MAY_DATE, DAY_LONG_MONTH_OPTIONS).split(' ')[0],
+    text: getMessage('ofLabel') + formatDate(MAY_DATE, DAY_LONG_MONTH_OPTIONS).replace(/[\d.,]/g, '').toString(),
     id: 5,
   },
   {
-    text: getMessage('ofLabel') + formatDate(JUNE_DATE, DAY_LONG_MONTH_OPTIONS).split(' ')[0],
+    text: getMessage('ofLabel') + formatDate(JUNE_DATE, DAY_LONG_MONTH_OPTIONS).replace(/[\d.,]/g, '').toString(),
     id: 6,
   },
   {
-    text: getMessage('ofLabel') + formatDate(JULY_DATE, DAY_LONG_MONTH_OPTIONS).split(' ')[0],
+    text: getMessage('ofLabel') + formatDate(JULY_DATE, DAY_LONG_MONTH_OPTIONS).replace(/[\d.,]/g, '').toString(),
     id: 7,
   },
   {
-    text: getMessage('ofLabel') + formatDate(AUGUST_DATE, DAY_LONG_MONTH_OPTIONS).split(' ')[0],
+    text: getMessage('ofLabel') + formatDate(AUGUST_DATE, DAY_LONG_MONTH_OPTIONS).replace(/[\d.,]/g, '').toString(),
     id: 8,
   },
   {
-    text: getMessage('ofLabel') + formatDate(SEPTEMBER_DATE, DAY_LONG_MONTH_OPTIONS).split(' ')[0],
+    text: getMessage('ofLabel') + formatDate(SEPTEMBER_DATE, DAY_LONG_MONTH_OPTIONS).replace(/[\d.,]/g, '').toString(),
     id: 9,
   },
   {
-    text: getMessage('ofLabel') + formatDate(OCTOBER_DATE, DAY_LONG_MONTH_OPTIONS).split(' ')[0],
+    text: getMessage('ofLabel') + formatDate(OCTOBER_DATE, DAY_LONG_MONTH_OPTIONS).replace(/[\d., ]/g, '').toString(),
     id: 10,
   },
   {
-    text: getMessage('ofLabel') + formatDate(NOVEMBER_DATE, DAY_LONG_MONTH_OPTIONS).split(' ')[0],
+    text: getMessage('ofLabel') + formatDate(NOVEMBER_DATE, DAY_LONG_MONTH_OPTIONS).replace(/[\d., ]/g, '').toString(),
     id: 11,
   },
   {
-    text: getMessage('ofLabel') + formatDate(DECEMBER_DATE, DAY_LONG_MONTH_OPTIONS).split(' ')[0],
+    text: getMessage('ofLabel') + formatDate(DECEMBER_DATE, DAY_LONG_MONTH_OPTIONS).replace(/[\d., ]/g, '').toString(),
     id: 12,
   },
 ];

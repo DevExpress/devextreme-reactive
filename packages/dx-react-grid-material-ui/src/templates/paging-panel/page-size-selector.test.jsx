@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Select from '@material-ui/core/Select';
+import Menu from '@material-ui/core/Menu';
 import { createMount, getClasses } from '@material-ui/core/test-utils';
 import { PageSizeSelector } from './page-size-selector';
 
@@ -86,6 +87,16 @@ describe('PageSizeSelector', () => {
       onChange({ target: { value: 10 } });
 
       expect(onPageSizeChange.mock.calls[0][0]).toBe(10);
+    });
+
+    it('should have correct classes', () => {
+      const pageSizeSelector = mountPageSizeSelector({
+        pageSize: 0,
+        pageSizes: [5, 10, 0],
+      });
+
+      expect(pageSizeSelector.find(Menu).hasClass(classes.selectMenu))
+        .toBeTruthy();
     });
   });
 });

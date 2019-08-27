@@ -1,6 +1,7 @@
 import { intervalUtil } from './utils';
 import {
-  VirtualRows, Row, MergeRowsFn, CalculateRequestedRangeFn, Interval, GridViewport, GetRequestMeta,
+  VirtualRows, Row, MergeRowsFn, CalculateRequestedRangeFn,
+  Interval, GridViewport, GetRequestMeta, CorrectRangeFn,
 } from '../../types';
 import { PureComputed } from '@devexpress/dx-core';
 
@@ -42,13 +43,26 @@ export const mergeRows: MergeRowsFn = (
   };
 };
 
+const correctRequestedRange: CorrectRangeFn = (calculatedRange, referenceIndex, pageSize) => {
+  const { start, end } = calculatedRange;
+
+  if (start - referenceIndex > pageSize / 2) {
+    return { start: start - pageSize, end: end - pageSize };
+  }
+  return { start, end };
+};
+
 export const calculateRequestedRange: CalculateRequestedRangeFn = (
-  virtualRows, newRange, pageSize,
+  virtualRows, newRange, pageSize, referenceIndex, isInfiniteScroll,
 ) => {
   const loadedInterval = intervalUtil.getRowsInterval(virtualRows);
   const isAdjacentPage = Math.abs(loadedInterval.start - newRange.start) < 2 * pageSize;
   if (isAdjacentPage) {
-    return intervalUtil.difference(newRange, loadedInterval);
+    const calculatedRange = intervalUtil.difference(newRange, loadedInterval);
+    if (isInfiniteScroll && calculatedRange !== intervalUtil.empty) {
+      return correctRequestedRange(calculatedRange, referenceIndex, pageSize);
+    }
+    return calculatedRange;
   }
 
   // load 3 pages at once because a missing page will be loaded anyway
@@ -111,7 +125,7 @@ export const getForceReloadInterval: PureComputed<[VirtualRows, number, number],
   const { start, end: intervalEnd } = intervalUtil.getRowsInterval(virtualRows);
   const end = Math.min(
     Math.max(start + pageSize * 2, intervalEnd),
-    totalRowCount,
+    Math.max(start + pageSize * 2, totalRowCount),
   );
   return {
     start,
@@ -120,14 +134,16 @@ export const getForceReloadInterval: PureComputed<[VirtualRows, number, number],
 };
 
 export const getRequestMeta: GetRequestMeta = (
-  referenceIndex, virtualRows, pageSize, totalRowCount, forceReload,
+  referenceIndex, virtualRows, pageSize, totalRowCount, forceReload, isInfiniteScroll,
 ) => {
   const actualBounds = forceReload
     ? getForceReloadInterval(virtualRows, pageSize!, totalRowCount)
     : recalculateBounds(referenceIndex, pageSize!, totalRowCount);
   const requestedRange = forceReload
     ? actualBounds
-    : calculateRequestedRange(virtualRows, actualBounds, pageSize!);
+    : calculateRequestedRange(
+        virtualRows, actualBounds, pageSize!, referenceIndex, isInfiniteScroll,
+      );
 
   return { requestedRange, actualBounds };
 };
@@ -138,7 +154,7 @@ export const needFetchMorePages: PureComputed<[VirtualRows, number, number], boo
   const { start, end } = intervalUtil.getRowsInterval(virtualRows);
   const loadCount = end - start;
   const topTriggerIndex = start > 0 ? start + pageSize! : 0;
-  const bottomTriggerIndex = end - pageSize!;
+  const bottomTriggerIndex = Math.max(topTriggerIndex + pageSize, end - pageSize! * 1.5);
 
   if (loadCount <= 0) {
     return false;

@@ -15,13 +15,13 @@ describe('AppointmentForm', () => {
     },
     getter: {
       appointmentChanges: jest.fn(),
-      editingAppointmentId: 10,
+      editingAppointment: { id: 10 },
     },
     action: {
       stopEditAppointment: jest.fn(),
       changeAppointment: jest.fn(),
       cancelChangedAppointment: jest.fn(),
-      commitChangedAppointment: jest.fn(),
+      finishCommitAppointment: jest.fn(),
       changeAddedAppointment: jest.fn(),
       cancelAddedAppointment: jest.fn(),
       commitAddedAppointment: jest.fn(),
@@ -193,7 +193,7 @@ describe('AppointmentForm', () => {
       .toEqual('Save');
 
     commitButton.prop('onExecute')();
-    expect(defaultDeps.action.commitChangedAppointment)
+    expect(defaultDeps.action.finishCommitAppointment)
       .toBeCalled();
   });
 

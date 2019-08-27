@@ -146,6 +146,7 @@ class DragDropProviderBase extends React.PureComponent<
     }
     const timeTableIndex = cellIndex(tableCellElementsMeta.getCellRects, clientOffset);
     const allDayIndex = cellIndex(allDayCellsElementsMeta.getCellRects, clientOffset);
+
     if (allDayIndex === -1 && timeTableIndex === -1) return;
 
     const targetData = cellData(timeTableIndex, allDayIndex, viewCellsData);

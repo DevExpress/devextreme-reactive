@@ -158,7 +158,33 @@ titleLabel? | string | 'Title' | The title editor's label text.
 startDateLabel? | string | 'Start Date' | The start date editor's label text.
 endDateLabel? | string | 'End Date' | The end date editor's label text.
 commitCommand? | string | 'Save' | The commit button's text.
-cancelCommand? | string | 'Cancel' | The cancel button's text.
+moreInformationLabel? | string | 'More Information' | The more information editor’s label text.
+repeatLabel? | string | Repeat | The repeat editor’s label text.
+additionalInformationLabel? | string | 'Additional Information' | The additional information editor’s label text.
+notesLabel? | string | 'Notes' | The notes editor’s label text.
+never? | string | 'Never' | The never repeat type label text.
+daily? | string | 'Daily' | The daily repeat type label text.
+weekly? | string | 'Weekly' | The weekly repeat type label text.
+monthly? | string | 'Monthly' | The monthly repeat type label text.
+yearly? | string | 'Yearly' | The yearly repeat type label text.
+repeatEveryLabel? | string | 'Repeat every' | The 'repeat every' label text.
+daysLabel? | string | 'day(s)' | The 'days' label text.
+endRepeatLabel? | string | 'End repeat' | The 'end repeat' label text.
+onLabel? | string | 'On' | The 'on' label text.
+afterLabel? | string | 'After' | The 'after' label text.
+occurrencesLabel? | string | 'occurrence(s)' | The 'occurrences' label text.
+weeksOnLabel? | string | 'week(s) on:' | The 'weeks on' label text.
+monthsLabel? | string | 'month(s)' | The 'months' label text.
+ofEveryMonthLabel? | string | 'of every month' | The 'of every month' label text.
+theLabel? | string | 'The' | The 'the' label text.
+firstLabel? | string | 'First' | The 'first' label text.
+secondLabel? | string | 'Second' | The 'second' label text.
+thirdLabel? | string | 'Third' | The 'third' label text.
+fourthLabel? | string | 'Fourth' | The 'fourth' label text.
+lastLabel? | string | 'Last' | The 'last' label text.
+yearsLabel? | string | 'year(s)' | The 'years' label text.
+ofLabel? | string | 'of' | The 'of' label text.
+everyLabel? | string | 'Every' | The 'every' label text.
 
 ## Plugin Components
 

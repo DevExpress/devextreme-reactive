@@ -214,8 +214,6 @@ export namespace AppointmentForm {
     endDateLabel?: string;
     /** The commit button’s text. */
     commitCommand?: string;
-    /** The cancel button’s text. */
-    cancelCommand?: string;
     /** The more information editor’s label text. */
     moreInformationLabel?: string;
     /** The repeat editor’s label text. */

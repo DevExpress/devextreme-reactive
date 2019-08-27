@@ -419,7 +419,8 @@ describe('DragDropProvider', () => {
     });
     it('should call cellIndex with array if allDayElementsMeta is an empty object', () => {
       const getBoundingClientRect = jest.fn();
-      getBoundingClientRect.mockImplementationOnce(() => ({ height: 20, top: 20, bottom: 40 }));      const deps = {
+      getBoundingClientRect.mockImplementationOnce(() => ({ height: 20, top: 20, bottom: 40 }));
+      const deps = {
         getter: {
           timeTableElementsMeta: {
             parentRect: () => ({ height: 20, top: 20, bottom: 40 }),

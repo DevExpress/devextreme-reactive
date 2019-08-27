@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { findDOMNode } from 'react-dom';
 import { shallow, mount } from 'enzyme';
-import { isEdgeBrowser } from '@devexpress/dx-core';
 import { Sizer } from '@devexpress/dx-react-core';
 import {
   getCollapsedGrids,
@@ -14,12 +13,6 @@ import { emptyViewport } from '../../plugins/virtual-table/virtual-table';
 jest.mock('react-dom', () => ({
   findDOMNode: jest.fn(),
 }));
-jest.mock('@devexpress/dx-core', () => {
-  return {
-    ...require.requireActual('@devexpress/dx-core'),
-    isEdgeBrowser: jest.fn(),
-  };
-});
 jest.mock('@devexpress/dx-grid-core', () => {
   const actual = require.requireActual('@devexpress/dx-grid-core');
   jest.spyOn(actual, 'getCollapsedGrids');
@@ -101,8 +94,10 @@ const defaultProps = {
     { key: 9 },
   ],
   viewport: {
-    viewportTop: 0,
-    viewportLeft: 0,
+    top: 0,
+    left: 0,
+    width: 400,
+    height: 120,
     columns: [[0, 4]],
     rows: [0, 5],
     headerRows: [0, 0],
@@ -254,13 +249,28 @@ describe('VirtualTableLayout', () => {
       const setViewportMock = defaultProps.setViewport.mock;
       expect(setViewportMock.calls[setViewportMock.calls.length - 1][0])
         .toMatchObject({
-          viewportTop: 100,
-          viewportLeft: 250,
+          top: 100,
+          left: 250,
           columns: [[1, 4]],
           footerRows: [0, 0],
           headerRows: [0, 0],
           rows: [2, 4],
         });
+    });
+
+    it('should update viewport if column count changed', () => {
+      const tree = mount((
+        <VirtualTableLayout
+          {...defaultProps}
+        />
+      ));
+      const setViewportMock = defaultProps.setViewport.mock;
+      const initialCallCount = setViewportMock.calls.length;
+
+      tree.setProps({ columns: defaultProps.columns.slice(0, 3) });
+
+      expect(setViewportMock.calls.length)
+        .toBeGreaterThan(initialCallCount);
     });
 
     it('should not update viewport if it is not changed', () => {
@@ -317,9 +327,7 @@ describe('VirtualTableLayout', () => {
         });
       });
 
-      it('should normalize scroll position in the Edge browser', () => {
-        isEdgeBrowser.mockReturnValue(true);
-
+      it('should normalize scroll position', () => {
         assertRerenderOnBounce(true, {
           scrollLeft: 201,
           clientWidth: 200,
@@ -328,9 +336,7 @@ describe('VirtualTableLayout', () => {
         });
       });
 
-      it('should normalize scroll position in the Edge by 1px only', () => {
-        isEdgeBrowser.mockReturnValue(true);
-
+      it('should normalize scroll position by 1px only', () => {
         assertRerenderOnBounce(false, {
           scrollLeft: 202,
           clientWidth: 200,

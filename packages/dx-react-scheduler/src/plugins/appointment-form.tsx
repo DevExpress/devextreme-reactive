@@ -136,7 +136,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
             {({
               addedAppointment,
               appointmentChanges,
-              editingAppointmentId,
+              editingAppointment,
             }, {
               stopEditAppointment,
 
@@ -146,9 +146,9 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
 
               changeAppointment,
               cancelChangedAppointment,
-              commitChangedAppointment,
+              finishCommitAppointment,
             }) => {
-              const isNew = editingAppointmentId === undefined;
+              const isNew = !editingAppointment;
               const changedAppointment = {
                 ...appointmentData,
                 ...isNew ? addedAppointment : appointmentChanges,
@@ -218,13 +218,11 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                           text={getMessage('commitCommand')}
                           onExecute={() => {
                             this.toggleVisibility();
-                            if (commitChangedAppointment) {
+                            if (finishCommitAppointment) {
                               if (isNew) {
                                 commitAddedAppointment();
                               } else {
-                                commitChangedAppointment({
-                                  appointmentId: changedAppointment.id,
-                                });
+                                finishCommitAppointment();
                               }
                             }
                           }}
@@ -250,9 +248,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                     ...params,
                     onOpenButtonClick: () => {
                       this.openFormHandler(params.appointmentMeta!.data);
-                      callActionIfExists(startEditAppointment, {
-                        appointmentId: params.appointmentMeta!.data.id,
-                      });
+                      callActionIfExists(startEditAppointment, params.appointmentMeta!.data);
                     },
                   }}
                 />
@@ -272,9 +268,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                     ...params,
                     onDoubleClick: () => {
                       this.openFormHandler(params.data);
-                      callActionIfExists(startEditAppointment, {
-                        appointmentId: params.data.id,
-                      });
+                      callActionIfExists(startEditAppointment, params.data);
                     },
                   }}
                 />

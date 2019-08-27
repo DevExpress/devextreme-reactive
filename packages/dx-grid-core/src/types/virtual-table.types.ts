@@ -24,8 +24,10 @@ export type GridViewport = {
   rows: VisibleBoundary;
   headerRows: VisibleBoundary;
   footerRows: VisibleBoundary;
-  viewportLeft: number;
-  viewportTop: number; // to anchor a boundary to specific coords
+  left: number;
+  top: number; // to anchor a boundary to specific coords
+  width: number;
+  height: number;
 };
 /** @internal */
 export type GetVisibleBoundaryFn = PureComputed<

@@ -213,7 +213,7 @@ export namespace AppointmentForm {
     /** The cancel button’s text. */
     cancelCommand?: string;
     /** The more information editor’s label text. */
-    moreInformationLabel: string;
+    moreInformationLabel?: string;
     /** The repeat editor’s label text. */
     repeatLabel?: string;
     /** The additional information editor’s label text. */

@@ -247,7 +247,7 @@ describe('TableEditRow', () => {
 
     expect(tree
       .find('TemplatePlaceholderBase')
-      .findWhere(node => node.prop('name') === 'valueEditor').last().prop('params')
+      .findWhere(node => node.prop('name') === 'valueEditor').last().prop('params'),
     )
       .toMatchObject({ disabled: true });
   });

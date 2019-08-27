@@ -732,12 +732,12 @@ export namespace TableColumnResizing {
 // @public (undocumented)
 export interface TableColumnResizingProps {
   columnExtensions?: Array<TableColumnResizing.ColumnExtension>;
-  columnResizingMode?: string;
   columnWidths?: Array<TableColumnWidthInfo>;
   defaultColumnWidths?: Array<TableColumnWidthInfo>;
   maxColumnWidth?: number;
   minColumnWidth?: number;
   onColumnWidthsChange?: (nextColumnWidths: Array<TableColumnWidthInfo>) => void;
+  resizingMode?: string;
 }
 
 // @public

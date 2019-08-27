@@ -211,6 +211,60 @@ export namespace AppointmentForm {
     commitCommand?: string;
     /** The cancel button’s text. */
     cancelCommand?: string;
+    /** The more information editor’s label text. */
+    moreInformationLabel: string;
+    /** The repeat editor’s label text. */
+    repeatLabel?: string;
+    /** The additional information editor’s label text. */
+    additionalInformationLabel?: string;
+    /** The notes editor’s label text. */
+    notesLabel?: string;
+    /** The never repeat type label text. */
+    never?: string;
+    /** The daily repeat type label text. */
+    daily?: string;
+    /** The weekly repeat type label text. */
+    weekly?: string;
+    /** The monthly repeat type label text. */
+    monthly?: string;
+    /** The yearly repeat type label text. */
+    yearly?: string;
+    /** The 'repeat every' label text. */
+    repeatEveryLabel?: string;
+    /** The 'days' label text. */
+    daysLabel?: string;
+    /** The 'end repeat' label text. */
+    endRepeatLabel?: string;
+    /** The 'on' label text. */
+    onLabel?: string;
+    /** The 'after' label text. */
+    afterLabel?: string;
+    /** The 'occurrences' label text. */
+    occurrencesLabel?: string;
+    /** The 'weeks on' label text. */
+    weeksOnLabel?: string;
+    /** The 'months' label text. */
+    monthsLabel?: string;
+    /** The 'of every month' label text. */
+    ofEveryMonthLabel?: string;
+    /** The 'the' label text. */
+    theLabel?: string;
+    /** The 'first' label text. */
+    firstLabel?: string;
+    /** The 'second' label text. */
+    secondLabel?: string;
+    /** The 'third' label text. */
+    thirdLabel?: string;
+    /** The 'fourth' label text. */
+    fourthLabel?: string;
+    /** The 'last' label text. */
+    lastLabel?: string;
+    /** The 'years' label text. */
+    yearsLabel?: string;
+    /** The 'of' label text. */
+    ofLabel?: string;
+    /** The 'every' label text. */
+    everyLabel?: string;
   }
 }
 

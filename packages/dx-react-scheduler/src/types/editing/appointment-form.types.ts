@@ -94,7 +94,7 @@ export namespace AppointmentForm {
     /** A component that renders the appointment form's radio group component. */
     radioGroupComponent: React.ComponentType<AppointmentForm.RadioGroupProps>;
     /** A component that renders the appointment form's weekly recurrence selector component component. */
-    weeklyRecurrenceSelector: React.ComponentType<AppointmentForm.WeeklyRecurrenceSelector>;
+    weeklyRecurrenceSelectorComponent: React.ComponentType<AppointmentForm.WeeklyRecurrenceSelector>;
     /** A component that renders the appointment form's text editor component. */
     textEditorComponent: React.ComponentType<AppointmentForm.TextEditorProps>;
     /** A component that renders the appointment form's date editor component. */

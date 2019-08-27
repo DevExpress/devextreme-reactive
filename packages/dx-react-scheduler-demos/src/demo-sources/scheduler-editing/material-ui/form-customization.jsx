@@ -72,7 +72,6 @@ export default class Demo extends React.PureComponent {
       <Paper>
         <Scheduler
           data={data}
-          height={660}
         >
           <ViewState
             currentDate={currentDate}
@@ -83,7 +82,7 @@ export default class Demo extends React.PureComponent {
           <IntegratedEditing />
           <DayView
             startDayHour={9}
-            endDayHour={19}
+            endDayHour={15}
           />
           <Appointments />
           <AppointmentTooltip

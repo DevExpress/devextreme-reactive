@@ -77,6 +77,6 @@ The [DragDropProvider](../reference/drag-drop-provider.md) plugin also allows yo
 
 ## Add Custom Edit Fields
 
-To add custom editors or remove defaults you can operate built-in the [AppointmentForm's components](../reference/appointment-form.md#plugin-components). The AppointmentForm plugin provides a lot of components such as text editor, date editor, boolean editor, select and layouts. You can build our own custom form by built-in components and callbacks. The following demo demonstrates how to add specific editors and remove predefined into basic layout component.
+To add custom editors or remove defaults you can operate built-in the [AppointmentForm's components](../reference/appointment-form.md#plugin-components). The [AppointmentForm](../reference/appointment-form.md) plugin provides a lot of components such as text editor, date editor, boolean editor, select and layouts. You can build our own custom form by built-in components and callbacks. The following demo demonstrates how to add specific editors and remove predefined into basic layout component.
 
 .embedded-demo({ "path": "scheduler-editing/form-customization", "showThemeSelector": true })

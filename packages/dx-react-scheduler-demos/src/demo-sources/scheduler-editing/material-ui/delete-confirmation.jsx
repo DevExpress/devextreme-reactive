@@ -113,7 +113,7 @@ export default class Demo extends React.PureComponent {
 
           <DayView
             startDayHour={9}
-            endDayHour={19}
+            endDayHour={17}
           />
           <Appointments />
           <AppointmentTooltip

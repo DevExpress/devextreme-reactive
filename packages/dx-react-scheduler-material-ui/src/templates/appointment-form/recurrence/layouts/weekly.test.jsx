@@ -15,7 +15,7 @@ describe('AppointmentForm recurrence layout', () => {
     labelComponent: () => null,
     radioGroupComponent: () => null,
     selectComponent: () => null,
-    weeklyCheckboxListComponent: () => null,
+    weeklyRecurrenceSelectorComponent: () => null,
     onFieldChange: jest.fn(),
     getMessage: jest.fn(),
     formatDate: jest.fn(),
@@ -60,8 +60,8 @@ describe('AppointmentForm recurrence layout', () => {
       expect(textEditor.at(0).is(`.${classes.textEditor}`))
         .toBeTruthy();
 
-      const buttonGroup = tree.find(defaultProps.weeklyCheckboxListComponent);
-      expect(buttonGroup)
+      const weeklyRecurrenceSelector = tree.find(defaultProps.weeklyRecurrenceSelectorComponent);
+      expect(weeklyRecurrenceSelector)
         .toHaveLength(1);
 
       expect(tree.find(`.${classes.grid}`))
@@ -83,7 +83,7 @@ describe('AppointmentForm recurrence layout', () => {
           },
         });
 
-      tree.find(defaultProps.weeklyCheckboxListComponent).at(0)
+      tree.find(defaultProps.weeklyRecurrenceSelectorComponent).at(0)
         .simulate('fieldChange', 'abc');
       expect(defaultProps.onFieldChange)
         .toHaveBeenCalledWith('abc');

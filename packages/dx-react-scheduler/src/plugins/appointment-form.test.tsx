@@ -49,7 +49,7 @@ describe('AppointmentForm', () => {
     booleanEditorComponent: () => null,
     selectComponent: () => null,
     radioGroupComponent: () => null,
-    weeklyCheckboxListComponent: () => null,
+    weeklyRecurrenceSelectorComponent: () => null,
     appointmentData: {},
   };
   describe('Overlay', () => {
@@ -267,7 +267,7 @@ describe('AppointmentForm', () => {
         dateEditorComponent: defaultProps.dateEditorComponent,
         labelComponent: defaultProps.labelComponent,
         radioGroupComponent: defaultProps.radioGroupComponent,
-        weeklyCheckboxListComponent: defaultProps.weeklyCheckboxListComponent,
+        weeklyRecurrenceSelectorComponent: defaultProps.weeklyRecurrenceSelectorComponent,
         readOnly: false,
       });
   });

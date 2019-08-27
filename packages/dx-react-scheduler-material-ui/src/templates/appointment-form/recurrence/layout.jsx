@@ -69,7 +69,7 @@ const LayoutBase = ({
   labelComponent: Label,
   dateEditorComponent,
   selectComponent: Select,
-  weeklyCheckboxListComponent,
+  weeklyRecurrenceSelectorComponent,
   children,
   classes,
   className,
@@ -117,7 +117,7 @@ const LayoutBase = ({
         appointmentData={appointmentData}
         onFieldChange={onFieldChange}
         selectComponent={Select}
-        weeklyCheckboxListComponent={weeklyCheckboxListComponent}
+        weeklyRecurrenceSelectorComponent={weeklyRecurrenceSelectorComponent}
         formatDate={formatDate}
         {...restProps}
       />
@@ -148,8 +148,7 @@ LayoutBase.propTypes = {
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   dateEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   selectComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  weeklyCheckboxListComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  locale: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]).isRequired,
+  weeklyRecurrenceSelectorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   onFieldChange: PropTypes.func,
   children: PropTypes.node,
   className: PropTypes.string,

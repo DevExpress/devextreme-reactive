@@ -6,7 +6,7 @@ import {
   changeRecurrenceOptions,
 } from '@devexpress/dx-scheduler-core';
 import Button from '@material-ui/core/Button';
-import { WeeklyCheckboxList } from './weekly-checkbox-list';
+import { WeeklyRecurrenceSelector } from './weekly-recurrence-selector';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   ...require.requireActual('@devexpress/dx-scheduler-core'),
@@ -32,12 +32,12 @@ describe('AppointmentForm recurrence', () => {
   });
   beforeAll(() => {
     shallow = createShallow({ dive: true });
-    classes = getClasses(<WeeklyCheckboxList />);
+    classes = getClasses(<WeeklyRecurrenceSelector />);
   });
-  describe('WeeklyCheckboxList', () => {
+  describe('WeeklyRecurrenceSelector', () => {
     it('should pass className to the root element', () => {
       const tree = shallow((
-        <WeeklyCheckboxList className="custom-class" {...defaultProps} />
+        <WeeklyRecurrenceSelector className="custom-class" {...defaultProps} />
       ));
 
       expect(tree.is('.custom-class'))
@@ -48,7 +48,7 @@ describe('AppointmentForm recurrence', () => {
 
     it('should pass rest props to the root element', () => {
       const tree = shallow((
-        <WeeklyCheckboxList data={{ a: 1 }} {...defaultProps} />
+        <WeeklyRecurrenceSelector data={{ a: 1 }} {...defaultProps} />
       ));
 
       expect(tree.prop('data'))
@@ -57,7 +57,7 @@ describe('AppointmentForm recurrence', () => {
 
     it('should render buttons correctly', () => {
       const tree = shallow((
-        <WeeklyCheckboxList {...defaultProps} />
+        <WeeklyRecurrenceSelector {...defaultProps} />
       ));
 
       const buttons = tree.find(Button);
@@ -82,7 +82,7 @@ describe('AppointmentForm recurrence', () => {
         byweekday: [0, 1, 2, 3, 4, 5, 6],
       }));
       const tree = shallow((
-        <WeeklyCheckboxList {...defaultProps} />
+        <WeeklyRecurrenceSelector {...defaultProps} />
       ));
 
       const buttons = tree.find(Button);
@@ -104,7 +104,7 @@ describe('AppointmentForm recurrence', () => {
 
     it('should call onAppointmentField on button click', () => {
       const tree = shallow((
-        <WeeklyCheckboxList {...defaultProps} />
+        <WeeklyRecurrenceSelector {...defaultProps} />
       ));
 
       const buttons = tree.find(Button);
@@ -168,7 +168,7 @@ describe('AppointmentForm recurrence', () => {
 
     it('should call formatDate function with proper parameter', () => {
       shallow((
-        <WeeklyCheckboxList {...defaultProps} />
+        <WeeklyRecurrenceSelector {...defaultProps} />
       ));
 
       expect(defaultProps.formatDate)

@@ -46,7 +46,7 @@ const handleWeekDaysChange = (options, weekDay, action) => {
   action({ rRule: changeRecurrenceOptions(newOptions) });
 };
 
-const WeeklyCheckboxListBase = React.memo(({
+const WeeklyRecurrenceSelectorBase = React.memo(({
   formatDate,
   rRule,
   readOnly,
@@ -167,7 +167,7 @@ const WeeklyCheckboxListBase = React.memo(({
   );
 });
 
-WeeklyCheckboxListBase.propTypes = {
+WeeklyRecurrenceSelectorBase.propTypes = {
   rRule: PropTypes.string.isRequired,
   onFieldChange: PropTypes.func,
   formatDate: PropTypes.func.isRequired,
@@ -176,10 +176,10 @@ WeeklyCheckboxListBase.propTypes = {
   className: PropTypes.string,
 };
 
-WeeklyCheckboxListBase.defaultProps = {
+WeeklyRecurrenceSelectorBase.defaultProps = {
   onFieldChange: () => undefined,
   readOnly: false,
   className: undefined,
 };
 
-export const WeeklyCheckboxList = withStyles(styles)(WeeklyCheckboxListBase, { name: 'WeeklyCheckboxList' });
+export const WeeklyRecurrenceSelector = withStyles(styles)(WeeklyRecurrenceSelectorBase, { name: 'WeeklyRecurrenceSelector' });

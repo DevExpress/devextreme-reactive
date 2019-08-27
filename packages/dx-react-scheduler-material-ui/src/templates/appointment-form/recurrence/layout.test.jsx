@@ -30,7 +30,7 @@ describe('AppointmentForm recurrence', () => {
     labelComponent: () => null,
     radioGroupComponent: () => null,
     selectComponent: () => null,
-    weeklyCheckboxListComponent: () => null,
+    weeklyRecurrenceSelectorComponent: () => null,
     dateEditorComponent: () => null,
     onFieldChange: jest.fn(),
     getMessage: jest.fn(),

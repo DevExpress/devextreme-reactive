@@ -15,7 +15,7 @@ describe('AppointmentForm recurrence layout', () => {
     labelComponent: () => null,
     radioGroupComponent: () => null,
     selectComponent: () => null,
-    weeklyCheckboxListComponent: () => null,
+    weeklyRecurrenceSelectorComponent: () => null,
     onFieldChange: jest.fn(),
     getMessage: jest.fn(),
     formatDate: jest.fn(),

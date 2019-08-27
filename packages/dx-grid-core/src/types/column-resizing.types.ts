@@ -53,7 +53,7 @@ export type ErrorFn = PureComputed<
 export type ColumnWidthPayload = {
   columnName: string,
   nextColumnName: string,
-  columnResizingMode: string,
+  resizingMode: string,
   cachedWidths: { [colName: string]: number },
   shift: number,
   minColumnWidth: number,

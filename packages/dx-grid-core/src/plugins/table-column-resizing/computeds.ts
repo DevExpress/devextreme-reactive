@@ -18,7 +18,7 @@ const UNAVAILABLE_RESIZING_MODE_ERROR = [
 
 const INVALID_RESIZING_MODE_ERROR = [
   'The "$1" resizing mode in invalid mode.',
-  'Please, check columnResizingMode property.',
+  'Please, check resizingMode property.',
 ].join('\n');
 
 const INVALID_TYPE_ERROR = [
@@ -31,9 +31,9 @@ const NEGATIVE_WIDTH_ERROR = [
   'The TableColumnResizing plugin requires that all columns have non-negative width.',
 ].join('\n');
 
-const specifyWidths: SpecifyWidthsFn = (tableColumns, widths, columnResizingMode, onAbsence) => {
-  if (columnResizingMode !== 'widget' && columnResizingMode !== 'nextColumn') {
-    onAbsence(columnResizingMode, 'invalidMode');
+const specifyWidths: SpecifyWidthsFn = (tableColumns, widths, resizingMode, onAbsence) => {
+  if (resizingMode !== 'widget' && resizingMode !== 'nextColumn') {
+    onAbsence(resizingMode, 'invalidMode');
   }
   if (!widths.length) return tableColumns;
   return tableColumns
@@ -47,7 +47,7 @@ const specifyWidths: SpecifyWidthsFn = (tableColumns, widths, columnResizingMode
             onAbsence(columnName, 'undefinedColumn');
           } else if (!isValidValue(width, VALID_UNITS)) {
             onAbsence(columnName, 'invalidType');
-          } else if (columnResizingMode === 'widget' && isValidValue(width, NOT_FOR_WIDGET_UNITS)) {
+          } else if (resizingMode === 'widget' && isValidValue(width, NOT_FOR_WIDGET_UNITS)) {
             onAbsence(columnName, 'wrongMode');
           }
         } else if (width < 0) {
@@ -66,12 +66,12 @@ const specifyWidths: SpecifyWidthsFn = (tableColumns, widths, columnResizingMode
 };
 
 export const tableColumnsWithWidths: TableColumnsWithWidthFn = (
-  tableColumns, columnWidths, columnResizingMode,
-) => specifyWidths(tableColumns, columnWidths, columnResizingMode, throwError);
+  tableColumns, columnWidths, resizingMode,
+) => specifyWidths(tableColumns, columnWidths, resizingMode, throwError);
 
 export const tableColumnsWithDraftWidths: TableColumnsWithWidthFn = (
-  tableColumns, draftColumnWidths, columnResizingMode,
-) => specifyWidths(tableColumns, draftColumnWidths, columnResizingMode, () => {});
+  tableColumns, draftColumnWidths, resizingMode,
+) => specifyWidths(tableColumns, draftColumnWidths, resizingMode, () => {});
 
 const throwError: ErrorFn = (target, errorType) => {
   switch (errorType) {

@@ -34,7 +34,7 @@ maxColumnWidth? | number | `Infinity` | Specifies a column's maximum width.
 defaultColumnWidths? | Array&lt;[TableColumnWidthInfo](#tablecolumnwidthinfo)&gt; | [] | Specifies initial column widths in uncontrolled mode.
 onColumnWidthsChange? | (nextColumnWidths: Array&lt;[TableColumnWidthInfo](#tablecolumnwidthinfo)&gt;) => void | | Handles column width changes.
 columnExtensions? | Array&lt;[TableColumnResizing.ColumnExtension](#tablecolumnresizingcolumnextension)&gt; | [] | Additional column properties that the plugin can handle.
-columnResizingMode? | string | `widget` | Specifies resizing mode. May be defined as `widget` or `nextColumn`. In `widget` resizing mode not allow to use `auto` or `%` sizes.
+resizingMode? | string | `widget` | Specifies resizing mode. May be defined as `widget` or `nextColumn`. In `widget` resizing mode not allow to use `auto` or `%` sizes.
 
 ## Interfaces
 

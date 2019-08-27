@@ -16,13 +16,13 @@ export class TableHeaderCell extends React.PureComponent {
     this.dragRef = React.createRef();
     this.cellRef = React.createRef();
     this.getWidthGetter = () => {
-      const { getCellWidth }= this.props;
+      const { getCellWidth } = this.props;
       const node = this.cellRef.current;
       return node && getCellWidth(() => {
         const { width } = node.getBoundingClientRect();
         return width;
-      })
-    }
+      });
+    };
 
     this.onDragStart = () => {
       this.setState({ dragging: true });

@@ -26,10 +26,10 @@ const getColumnWidth: ColumnWidthFn = (
 
 export const getColumnSizes: ColumnSizesFn = (
   columnWidths, payload) => {
-  const { columnName, nextColumnName, columnResizingMode, shift } = payload;
+  const { columnName, nextColumnName, resizingMode, shift } = payload;
   const { width, size } = getColumnWidth(columnWidths, columnName, payload);
 
-  if (columnResizingMode === 'nextColumn') {
+  if (resizingMode === 'nextColumn') {
     const { width: nextWidth, size: nextSize } = getColumnWidth(
       columnWidths, nextColumnName, payload,
     );

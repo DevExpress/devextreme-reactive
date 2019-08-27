@@ -23,7 +23,7 @@ const pluginDependencies = [
 class TableColumnResizingBase extends React.PureComponent<TableColumnResizingProps, TableColumnResizingState> {
   static defaultProps = {
     defaultColumnWidths: [],
-    columnResizingMode: 'widget',
+    resizingMode: 'widget',
   };
   changeTableColumnWidth: ActionFn<ColumnWidthPayload>;
   draftTableColumnWidth: ActionFn<ColumnWidthPayload>;
@@ -59,23 +59,23 @@ class TableColumnResizingBase extends React.PureComponent<TableColumnResizingPro
     this.tableColumnsComputed = memoize(
       columnWidths => (
         { tableColumns }: Getters,
-      ) => tableColumnsWithWidths(tableColumns, columnWidths, this.props.columnResizingMode!),
+      ) => tableColumnsWithWidths(tableColumns, columnWidths, this.props.resizingMode!),
     );
     this.tableColumnsDraftComputed = memoize(
       draftColumnWidths => (
         { tableColumns }: Getters,
       ) => tableColumnsWithDraftWidths(
-        tableColumns, draftColumnWidths, this.props.columnResizingMode!,
+        tableColumns, draftColumnWidths, this.props.resizingMode!,
       ),
     );
 
     this.changeTableColumnWidth = stateHelper.applyReducer.bind(
       stateHelper, (prevState, payload) => {
         const cachedWidths = { ...this.cachedWidths };
-        const { minColumnWidth, maxColumnWidth, columnExtensions, columnResizingMode } = this.props;
+        const { minColumnWidth, maxColumnWidth, columnExtensions, resizingMode } = this.props;
         return changeTableColumnWidth(
           prevState,
-          { ...payload, cachedWidths, columnResizingMode,
+          { ...payload, cachedWidths, resizingMode,
             minColumnWidth, maxColumnWidth, columnExtensions },
         );
       },
@@ -84,10 +84,10 @@ class TableColumnResizingBase extends React.PureComponent<TableColumnResizingPro
       stateHelper, (prevState, payload) => {
         this.storeCache(payload);
         const cachedWidths = this.cachedWidths;
-        const { minColumnWidth, maxColumnWidth, columnExtensions, columnResizingMode } = this.props;
+        const { minColumnWidth, maxColumnWidth, columnExtensions, resizingMode } = this.props;
         return draftTableColumnWidth(
           prevState,
-          { ...payload, cachedWidths, columnResizingMode,
+          { ...payload, cachedWidths, resizingMode,
             minColumnWidth, maxColumnWidth, columnExtensions },
         );
       },
@@ -144,7 +144,7 @@ class TableColumnResizingBase extends React.PureComponent<TableColumnResizingPro
 
   render() {
     const { columnWidths, draftColumnWidths } = this.state;
-    const { columnResizingMode } = this.props;
+    const { resizingMode } = this.props;
     const tableColumnsComputed = this.tableColumnsComputed(columnWidths);
     const tableColumnsDraftComputed = this.tableColumnsDraftComputed(draftColumnWidths);
 
@@ -156,7 +156,7 @@ class TableColumnResizingBase extends React.PureComponent<TableColumnResizingPro
         <Getter name="tableColumnResizingEnabled" value />
         <Getter name="tableColumns" computed={tableColumnsComputed} />
         <Getter name="tableColumns" computed={tableColumnsDraftComputed} />
-        <Getter name="columnResizingMode" value={columnResizingMode} />
+        <Getter name="columnResizingMode" value={resizingMode} />
         <Action name="changeTableColumnWidth" action={this.changeTableColumnWidth} />
         <Action name="draftTableColumnWidth" action={this.draftTableColumnWidth} />
         <Action name="cancelTableColumnWidthDraft" action={this.cancelTableColumnWidthDraft} />

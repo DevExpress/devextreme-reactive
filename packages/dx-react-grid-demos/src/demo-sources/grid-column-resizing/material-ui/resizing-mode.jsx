@@ -42,49 +42,55 @@ const styles = () => ({
   },
 });
 
-const ModeSelectorBase = ({ defaultValue, changeMode, classes }) => (
-  <GridMUI
-    container
-    alignItems="center"
-    className={classes.container}
-  >
-    <Typography
-      className={classes.label}
+// #FOLD_BLOCK
+const ModeSelectorBase = (props) => {
+  const { defaultValue, changeMode, classes } = props;
+  return (
+    <GridMUI
+      container
+      alignItems="center"
+      className={classes.container}
     >
-      Column Resizing Mode:
-      &nbsp;
-    </Typography>
-    <Select
-      onChange={e => changeMode(e.target.value)}
-      value={defaultValue}
-      className={classes.selector}
-      input={(
-        <OutlinedInput
-          classes={{ input: classes.input }}
-          labelWidth={0}
-          margin="dense"
-        />
-      )}
-    >
-      <MenuItem value="widget">Widget</MenuItem>
-      <MenuItem value="nextColumn">NextColumn</MenuItem>
-    </Select>
-  </GridMUI>
-);
-
+      <Typography
+        className={classes.label}
+      >
+        Column Resizing Mode:
+        &nbsp;
+      </Typography>
+      <Select
+        onChange={e => changeMode(e.target.value)}
+        value={defaultValue}
+        className={classes.selector}
+        input={(
+          <OutlinedInput
+            classes={{ input: classes.input }}
+            labelWidth={0}
+            margin="dense"
+          />
+        )}
+      >
+        <MenuItem value="widget">Widget</MenuItem>
+        <MenuItem value="nextColumn">NextColumn</MenuItem>
+      </Select>
+    </GridMUI>
+  );
+};
 const ModeSelector = withStyles(styles, { name: 'ModeSelector' })(ModeSelectorBase);
 
-const ResetWidthButtonBase = ({ resetWidths, classes }) => (
-  <Button
-    onClick={resetWidths}
-    variant="outlined"
-    size="medium"
-    className={classes.button}
-  >
-    Reset widths to default
-  </Button>
-);
-
+// #FOLD_BLOCK
+const ResetWidthButtonBase = (props) => {
+  const { resetWidths, classes } = props;
+  return (
+    <Button
+      onClick={resetWidths}
+      variant="outlined"
+      size="medium"
+      className={classes.button}
+    >
+      Reset widths to default
+    </Button>
+  );
+};
 const ResetWidthButton = withStyles(styles, { name: 'ResetWidthButton' })(ResetWidthButtonBase);
 
 const ResizingPanel = props => (
@@ -128,7 +134,7 @@ export default () => {
         <TableColumnResizing
           columnWidths={columnWidths}
           onColumnWidthsChange={setColumnWidths}
-          columnResizingMode={resizingMode}
+          resizingMode={resizingMode}
         />
         <TableHeaderRow />
         <Toolbar />

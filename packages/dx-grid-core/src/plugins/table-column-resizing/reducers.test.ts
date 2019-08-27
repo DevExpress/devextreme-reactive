@@ -19,14 +19,14 @@ describe('TableColumnResizing Plugin reducers', () => {
 
   describe('#changeTableColumnWidth', () => {
     describe('standart resizing mode', () => {
-      const columnResizingMode = 'widget';
+      const resizingMode = 'widget';
 
       it('should work', () => {
         getColumnSizes.mockImplementation(() => ({ size: 45 }));
         const payload = {
           columnName: 'a',
           nextColumnName: 'b',
-          columnResizingMode,
+          resizingMode,
           cachedWidths: { a: 40, b: 60 },
           shift: 5,
           minColumnWidth: 40,
@@ -46,7 +46,7 @@ describe('TableColumnResizing Plugin reducers', () => {
         const payload = {
           columnName: 'b',
           nextColumnName: undefined,
-          columnResizingMode,
+          resizingMode,
           cachedWidths: { a: 40, b: 60 },
           shift: -25,
           minColumnWidth: 40,
@@ -66,7 +66,7 @@ describe('TableColumnResizing Plugin reducers', () => {
         const payload = {
           columnName: 'b',
           nextColumnName: undefined,
-          columnResizingMode,
+          resizingMode,
           cachedWidths: { a: 40, b: 60 },
           shift: +25,
           minColumnWidth: 40,
@@ -89,7 +89,7 @@ describe('TableColumnResizing Plugin reducers', () => {
         const payload = {
           columnName: 'b',
           nextColumnName: undefined,
-          columnResizingMode,
+          resizingMode,
           cachedWidths: { a: 40, b: 60 },
           shift: -25,
           minColumnWidth: 40,
@@ -112,7 +112,7 @@ describe('TableColumnResizing Plugin reducers', () => {
         const payload = {
           columnName: 'b',
           nextColumnName: undefined,
-          columnResizingMode,
+          resizingMode,
           cachedWidths: { a: 40, b: 60 },
           shift: +25,
           minColumnWidth: 40,
@@ -135,7 +135,7 @@ describe('TableColumnResizing Plugin reducers', () => {
         const payload = {
           columnName: 'b',
           nextColumnName: undefined,
-          columnResizingMode,
+          resizingMode,
           cachedWidths: { a: 40, b: 60 },
           shift: -25,
           minColumnWidth: 40,
@@ -158,7 +158,7 @@ describe('TableColumnResizing Plugin reducers', () => {
         const payload = {
           columnName: 'b',
           nextColumnName: undefined,
-          columnResizingMode,
+          resizingMode,
           cachedWidths: { a: 40, b: 60 },
           shift: -25,
           minColumnWidth: 40,
@@ -173,14 +173,14 @@ describe('TableColumnResizing Plugin reducers', () => {
     });
 
     describe('nextColumn resizing mode', () => {
-      const columnResizingMode = 'nextColumn';
+      const resizingMode = 'nextColumn';
 
       it('should resize booth columns', () => {
         getColumnSizes.mockImplementation(() => ({ size: 45, nextSize: 55 }));
         const payload = {
           columnName: 'a',
           nextColumnName: 'b',
-          columnResizingMode,
+          resizingMode,
           cachedWidths: { a: 40, b: 60 },
           shift: 5,
           minColumnWidth: 40,
@@ -203,7 +203,7 @@ describe('TableColumnResizing Plugin reducers', () => {
         const payloadAdd = {
           columnName: 'a',
           nextColumnName: 'b',
-          columnResizingMode,
+          resizingMode,
           cachedWidths: { a: 40, b: 60 },
           shift: 5,
           minColumnWidth: 40,
@@ -213,7 +213,7 @@ describe('TableColumnResizing Plugin reducers', () => {
         const payloadReduce = {
           columnName: 'a',
           nextColumnName: 'b',
-          columnResizingMode,
+          resizingMode,
           cachedWidths: { a: 40, b: 60 },
           shift: -5,
           minColumnWidth: 40,
@@ -243,7 +243,7 @@ describe('TableColumnResizing Plugin reducers', () => {
         const payload = {
           columnName: 'a',
           nextColumnName: undefined,
-          columnResizingMode: 'widget',
+          resizingMode: 'widget',
           cachedWidths: { a: 40, b: 60 },
           shift: 5,
           minColumnWidth: 40,
@@ -263,7 +263,7 @@ describe('TableColumnResizing Plugin reducers', () => {
         const payload = {
           columnName: 'b',
           nextColumnName: undefined,
-          columnResizingMode: 'widget',
+          resizingMode: 'widget',
           cachedWidths: { a: 40, b: 60 },
           shift: -25,
           minColumnWidth: 40,
@@ -283,7 +283,7 @@ describe('TableColumnResizing Plugin reducers', () => {
         const payload = {
           columnName: 'b',
           nextColumnName: undefined,
-          columnResizingMode: 'widget',
+          resizingMode: 'widget',
           cachedWidths: { a: 40, b: 60 },
           shift: +25,
           minColumnWidth: 40,
@@ -306,7 +306,7 @@ describe('TableColumnResizing Plugin reducers', () => {
         const payload = {
           columnName: 'b',
           nextColumnName: undefined,
-          columnResizingMode: 'widget',
+          resizingMode: 'widget',
           cachedWidths: { a: 40, b: 60 },
           shift: -25,
           minColumnWidth: 40,
@@ -329,7 +329,7 @@ describe('TableColumnResizing Plugin reducers', () => {
         const payload = {
           columnName: 'b',
           nextColumnName: undefined,
-          columnResizingMode: 'widget',
+          resizingMode: 'widget',
           cachedWidths: { a: 40, b: 60 },
           shift: +25,
           minColumnWidth: 40,
@@ -352,7 +352,7 @@ describe('TableColumnResizing Plugin reducers', () => {
         const payload = {
           columnName: 'b',
           nextColumnName: undefined,
-          columnResizingMode: 'widget',
+          resizingMode: 'widget',
           cachedWidths: { a: 40, b: 60 },
           shift: -25,
           minColumnWidth: 40,
@@ -374,7 +374,7 @@ describe('TableColumnResizing Plugin reducers', () => {
         const payload = {
           columnName: 'a',
           nextColumnName: 'b',
-          columnResizingMode: 'nextColumn',
+          resizingMode: 'nextColumn',
           cachedWidths: { a: 40, b: 60 },
           shift: +5,
           minColumnWidth: 40,

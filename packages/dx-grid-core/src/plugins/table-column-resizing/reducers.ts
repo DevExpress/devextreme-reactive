@@ -4,14 +4,14 @@ import { getColumnSizes } from './helpers';
 
 export const changeTableColumnWidth: ColumnWidthReducer = (state, payload) => {
   const { columnWidths } = state;
-  const { columnName, nextColumnName, columnResizingMode } = payload;
+  const { columnName, nextColumnName, resizingMode } = payload;
   const nextColumnWidth = slice(columnWidths);
   const index = nextColumnWidth.findIndex(elem => elem.columnName === columnName);
   const nextIndex = nextColumnWidth.findIndex(elem => elem.columnName === nextColumnName);
   const { size, nextSize } = getColumnSizes(columnWidths, payload);
 
   nextColumnWidth.splice(index, 1, { columnName, width: size });
-  if (columnResizingMode === 'nextColumn') {
+  if (resizingMode === 'nextColumn') {
     nextColumnWidth.splice(nextIndex, 1, { columnName: nextColumnName, width: nextSize });
   }
   return {
@@ -21,10 +21,10 @@ export const changeTableColumnWidth: ColumnWidthReducer = (state, payload) => {
 
 export const draftTableColumnWidth: ColumnWidthReducer = (state, payload) => {
   const { columnWidths } = state;
-  const { columnName, nextColumnName, columnResizingMode } = payload;
+  const { columnName, nextColumnName, resizingMode } = payload;
   const { size, nextSize } = getColumnSizes(columnWidths, payload);
 
-  if (columnResizingMode === 'nextColumn') {
+  if (resizingMode === 'nextColumn') {
     return { draftColumnWidths: [
       { columnName, width: size }, { columnName: nextColumnName, width: nextSize! },
     ] };

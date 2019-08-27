@@ -14,39 +14,47 @@ import {
 
 import { generateRows } from '../../../demo-data/generator';
 
-const ModeSelector = ({ defaultValue, changeMode }) => (
-  <div>
-    {'Column Resizing Mode:'}
-    &nbsp;
-    <select
-      defaultValue={defaultValue}
-      onChange={e => changeMode(e.target.value)}
-      className="dropdown"
+// #FOLD_BLOCK
+const ModeSelector = (props) => {
+  const { defaultValue, changeMode } = props;
+  return (
+    <div>
+      {'Column Resizing Mode:'}
+      &nbsp;
+      <select
+        defaultValue={defaultValue}
+        onChange={e => changeMode(e.target.value)}
+        className="dropdown"
+        style={{
+          height: '2em',
+        }}
+      >
+        <option value="widget">Widget</option>
+        <option value="nextColumn">NextColumn</option>
+      </select>
+    </div>
+  );
+};
+
+// #FOLD_BLOCK
+const ResetWidthButton = (props) => {
+  const { resetWidths } = props;
+  return (
+    <button
+      type="button"
+      onClick={resetWidths}
+      className="btn btn-sm"
       style={{
+        padding: '0em 1em',
         height: '2em',
+        width: 'auto',
+        fontSize: '1em',
       }}
     >
-      <option value="widget">Widget</option>
-      <option value="nextColumn">NextColumn</option>
-    </select>
-  </div>
-);
-
-const ResetWidthButton = ({ resetWidths }) => (
-  <button
-    type="button"
-    onClick={resetWidths}
-    className="btn btn-sm"
-    style={{
-      padding: '0em 1em',
-      height: '2em',
-      width: 'auto',
-      fontSize: '1em',
-    }}
-  >
-    RESET WIDTHS TO DEFAULT
-  </button>
-);
+      RESET WIDTHS TO DEFAULT
+    </button>
+  );
+};
 
 const ResizingPanel = props => (
   <Plugin name="ResizingModeChanger">
@@ -89,7 +97,7 @@ export default () => {
         <TableColumnResizing
           columnWidths={columnWidths}
           onColumnWidthsChange={setColumnWidths}
-          columnResizingMode={resizingMode}
+          resizingMode={resizingMode}
         />
         <TableHeaderRow />
         <Toolbar />

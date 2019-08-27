@@ -10,7 +10,7 @@ describe('TableColumnResizing Plugin computeds', () => {
     { type: TABLE_DATA_TYPE, column: { name: 'b' } },
     { type: TABLE_DATA_TYPE, column: { name: 'c' } },
   ];
-  const columnResizingMode = 'widget';
+  const resizingMode = 'widget';
 
   describe('#tableColumnsWithWidths', () => {
     it('should work', () => {
@@ -21,7 +21,7 @@ describe('TableColumnResizing Plugin computeds', () => {
           { columnName: 'b', width: 20 },
           { columnName: 'c', width: 15 },
         ],
-        columnResizingMode,
+        resizingMode,
       ))
         .toEqual([
           { type: TABLE_DATA_TYPE, width: 10, column: { name: 'a' } },
@@ -38,7 +38,7 @@ describe('TableColumnResizing Plugin computeds', () => {
           { columnName: 'b', width: 20 },
           { columnName: 'c', width: '15' },
         ],
-        columnResizingMode,
+        resizingMode,
       ))
         .toEqual([
           { type: TABLE_DATA_TYPE, width: '10px', column: { name: 'a' } },
@@ -54,7 +54,7 @@ describe('TableColumnResizing Plugin computeds', () => {
           { columnName: 'a', width: 10 },
           { columnName: 'c', width: 15 },
         ],
-        columnResizingMode,
+        resizingMode,
       ))
         .toThrow(/"b".*width/);
     });
@@ -67,7 +67,7 @@ describe('TableColumnResizing Plugin computeds', () => {
           { columnName: 'b', width: 15 },
           { columnName: 'c', width: 15 },
         ],
-        columnResizingMode,
+        resizingMode,
       ))
         .toThrow(/"a".*width/);
     });
@@ -80,7 +80,7 @@ describe('TableColumnResizing Plugin computeds', () => {
           { columnName: 'b', width: 15 },
           { columnName: 'c', width: 15 },
         ],
-        columnResizingMode,
+        resizingMode,
       ))
         .toThrow(/"a".*width/);
     });
@@ -93,7 +93,7 @@ describe('TableColumnResizing Plugin computeds', () => {
           { columnName: 'b', width: 15 },
           { columnName: 'c', width: 15 },
         ],
-        columnResizingMode,
+        resizingMode,
       ))
         .toThrow(/"a".*width/);
     });

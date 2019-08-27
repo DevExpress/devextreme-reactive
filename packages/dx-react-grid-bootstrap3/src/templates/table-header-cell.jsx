@@ -12,16 +12,29 @@ export class TableHeaderCell extends React.PureComponent {
     this.state = {
       dragging: false,
     };
+    this.dragRef = React.createRef();
     this.cellRef = React.createRef();
+    this.getWidthGetter = () => {
+      const { getCellWidth }= this.props;
+      const node = this.cellRef.current;
+      return node && getCellWidth(() => {
+        const { width } = node.getBoundingClientRect();
+        return width;
+      })
+    }
 
     this.onDragStart = () => {
       this.setState({ dragging: true });
     };
     this.onDragEnd = () => {
-      if (this.cellRef.current) {
+      if (this.dragRef.current) {
         this.setState({ dragging: false });
       }
     };
+  }
+
+  componentDidMount() {
+    this.getWidthGetter();
   }
 
   render() {
@@ -51,10 +64,7 @@ export class TableHeaderCell extends React.PureComponent {
           ...(dragging || (tableColumn && tableColumn.draft) ? { opacity: 0.3 } : null),
           ...style,
         }}
-        ref={node => node && getCellWidth(() => {
-          const { width } = node.getBoundingClientRect();
-          return width;
-        })}
+        ref={this.cellRef}
         {...restProps}
       >
         <div
@@ -78,7 +88,7 @@ export class TableHeaderCell extends React.PureComponent {
 
     return draggingEnabled ? (
       <DragSource
-        ref={this.cellRef}
+        ref={this.dragRef}
         payload={[{ type: 'column', columnName: column.name }]}
         onStart={this.onDragStart}
         onEnd={this.onDragEnd}

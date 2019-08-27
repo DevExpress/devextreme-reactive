@@ -30,51 +30,101 @@ import { AppointmentForm } from '@devexpress/dx-react-scheduler';
 
 Name | Type | Default | Description
 -----|------|---------|------------
+overlayComponent | ComponentType&lt;[AppointmentForm.OverlayProps](#appointmentformoverlayprops)&gt; | | A component that renders the appointment form's overlay.
+layoutComponent | ComponentType&lt;[AppointmentForm.LayoutProps](#appointmentformlayoutprops)&gt; | | A component that renders the appointment form's layout.
+commandLayoutComponent | ComponentType&lt;[AppointmentForm.CommandLayoutProps](#appointmentformcommandlayoutprops)&gt; | | A component that renders the appointment form's layout for command buttons.
+basicLayoutComponent | ComponentType&lt;[AppointmentForm.BasicLayoutProps](#appointmentformbasiclayoutprops)&gt; | | A component that renders the appointment form's layout for basic appointment editors.
+recurrenceLayoutComponent | ComponentType&lt;[AppointmentForm.RecurrenceLayoutProps](#appointmentformrecurrencelayoutprops)&gt; | | A component that renders the appointment form's layout for recurrent appointment editors.
+textEditorComponent | ComponentType&lt;[AppointmentForm.TextEditorProps](#appointmentformtexteditorprops)&gt; | | A component that renders the appointment form's text editor component.
+dateEditorComponent | ComponentType&lt;[AppointmentForm.DateEditorProps](#appointmentformdateeditorprops)&gt; | | A component that renders the appointment form's date editor component.
+labelComponent | ComponentType&lt;[AppointmentForm.LabelProps](#appointmentformlabelprops)&gt; | | A component that renders the appointment form's text label component.
+booleanEditorComponent | ComponentType&lt;[AppointmentForm.BooleanEditorProps](#appointmentformbooleanrditorprops)&gt; | | A component that renders the appointment form's boolean editor component.
+selectComponent | ComponentType&lt;[AppointmentForm.SelectProps](#appointmentformselectprops)&gt; | | A component that renders the appointment form's select component.
+radioGroupComponent | ComponentType&lt;[AppointmentForm.RadioGroupProps](#appointmentformradiogroupprops)&gt; | | A component that renders the appointment form's radio group component.
+buttonGroupComponent | ComponentType&lt;[AppointmentForm.ButtonGroupProps](#appointmentformbuttongroupprops)&gt; | | A component that renders the appointment form's button group component.
 visible? | boolean | | Specifies the appointment form's visibility.
 onVisibilityChange? | (visible: boolean) => void | | Handles changes to the appointment form's visibility.
 appointmentData? | [AppointmentModel](./scheduler.md#appointmentmodel) | | Specifies the appointment's data that the form displays.
 onAppointmentDataChange? | (appointmentData: [AppointmentModel](./scheduler.md#appointmentmodel)) => void | | Handles changes to the appointment's data.
 readOnly? | boolean | false | Specifies the appointment form is read-only.
-popupComponent | ComponentType&lt;[AppointmentForm.PopupProps](#appointmentformpopupprops)&gt; | | A component that renders the appointment form's popup.
-containerComponent | ComponentType&lt;[AppointmentForm.ContainerProps](#appointmentformcontainerprops)&gt; | | A component that renders the appointment form's container.
-scrollableAreaComponent | ComponentType&lt;[AppointmentForm.ScrollableAreaProps](#appointmentformscrollableareaprops)&gt; | | A component that renders the appointment form's scrollable area.
-staticAreaComponent | ComponentType&lt;[AppointmentForm.StaticAreaProps](#appointmentformstaticareaprops)&gt; | | A component that renders the appointment form's static area.
 messages? | [AppointmentForm.LocalizationMessages](#localization-messages) | | An object that specifies localization messages.
 
 ## Interfaces
 
-### AppointmentForm.PopupProps
+### AppointmentForm.OverlayProps
 
-Properties passed to a component that renders the appointment form's popup.
-
-Field | Type | Description
-------|------|------------
-visible? | boolean | Specifies whether the popup is visible.
-children | ReactNode | A React node used to render the popup content.
-
-### AppointmentForm.ContainerProps
-
-Properties passed to a component that renders the appointment form's container.
+Properties passed to a component that renders the appointment form's overlay.
 
 Field | Type | Description
 ------|------|------------
-children | ReactNode | A React node used to render the container content.
+visible? | boolean | Specifies whether the overlay is visible.
+onHide | () => void | An event that initiates overlay hiding.
+fullSize | boolean | Specifies whether the overlay is full-size.
+target | RefObject | A React component instance or a DOM element that is used to position the window.
+children | ReactNode | A React node used to render overlay content.
 
-### AppointmentForm.ScrollableAreaProps
+### AppointmentForm.LayoutProps
 
-Properties passed to a component that renders the appointment form's scrollable area.
-
-Field | Type | Description
-------|------|------------
-children | ReactNode | A React node used to render the scrollable area content.
-
-### AppointmentForm.StaticAreaProps
-
-Properties passed to a component that renders the appointment form's static area.
+Properties passed to a component that renders the appointment form's layout.
 
 Field | Type | Description
 ------|------|------------
-children | ReactNode | A React node used to render the static area content.
+commandLayoutComponent | ComponentType&lt;[AppointmentForm.CommandLayoutProps](#appointmentformcommandlayoutprops)&gt; | A component that renders the appointment form's layout for command buttons.
+basicLayoutComponent | ComponentType&lt;[AppointmentForm.BasicLayoutProps](#appointmentformbasiclayoutprops)&gt; |  A component that renders the appointment form's layout for basic appointment editors.
+recurrenceLayoutComponent | ComponentType&lt;[AppointmentForm.RecurrenceLayoutProps](#appointmentformrecurrencelayoutprops)&gt; | A component that renders the appointment form's layout for recurrent appointment editors.
+isRecurrence | boolean | Specifies whether the layout should render editors for recurrent appointments.
+children | ReactNode | A React node to be rendered in the layout.
+
+### AppointmentForm.CommandLayoutProps
+
+Properties passed to a component that renders the appointment form's layout for command buttons.
+
+Field | Type | Description
+------|------|------------
+commandButtonComponent | ComponentType&lt;[AppointmentForm.CommandButtonProps](#appointmentformcommandbuttonprops)&gt; | A component that renders a command button.
+readOnly | boolean | Specifies whether the appointment form is read-only.
+fullSize | boolean | Specifies whether the command layout is full-size.
+onCommitButtonClick | () => void | An event raised when the Commit button is clicked. The event handler should commit an appointment changes.
+onCancelButtonClick | () => void | An event raised when the Cancel button is clicked. The event handler should close the appointment form.
+onDeleteButtonClick | () => void | An event raised when the Delete button is clicked. The event handler should delete an appointment.
+getMessage | (messageKey: string) => string | Returns a localization message by the message key.
+children | ReactNode | A React node to be rendered in the Command Layout.
+
+### AppointmentForm.BasicLayoutProps
+
+Properties passed to a component that renders the appointment form's layout for basic appointment editors.
+
+Field | Type | Description
+------|------|------------
+textEditorComponent | ComponentType&lt;[AppointmentForm.TextEditorProps](#appointmentformtexteditorprops)&gt; | A component that renders the appointment form's text editor component.
+dateEditorComponent | ComponentType&lt;[AppointmentForm.DateEditorProps](#appointmentformdateeditorprops)&gt; | A component that renders the appointment form's date editor component.
+booleanEditorComponent | ComponentType&lt;[AppointmentForm.BooleanEditorProps](#appointmentformbooleanteditorprops)&gt; | A component that renders the appointment form's boolean editor component.
+selectComponent | ComponentType&lt;[AppointmentForm.SelectProps](#appointmentformselectprops)&gt; | A component that renders the appointment form's select component.
+labelComponent | ComponentType&lt;[AppointmentForm.LabelProps](#appointmentformlabelprops)&gt; | A component that renders the appointment form's text label component.
+readOnly | boolean | Specifies whether the appointment form is read-only.
+appointmentData | [AppointmentModel](./scheduler.md#appointmentmodel) | The appointment’s displayed metadata.
+onFieldChange | (change: any) => void | Handles appointment field value changes.
+getMessage | (messageKey: string) => string | Returns a localization message by the message key.
+children | ReactNode | A React node to be rendered in the Basic Layout.
+
+### AppointmentForm.RecurrenceLayoutProps
+
+Properties passed to a component that renders the appointment form's layout for recurrent appointment editors.
+
+Field | Type | Description
+------|------|------------
+radioGroupComponent | ComponentType&lt;[AppointmentForm.RadioGroupProps](#appointmentformradiogroupprops)&gt; | A component that renders the appointment form's radio group component.
+buttonGroupComponent | ComponentType&lt;[AppointmentForm.ButtonGroupProps](#appointmentformbuttongroupprops)&gt; | A component that renders the appointment form's button group component.
+textEditorComponent | ComponentType&lt;[AppointmentForm.TextEditorProps](#appointmentformtexteditorprops)&gt; | A component that renders the appointment form's text editor component.
+dateEditorComponent | ComponentType&lt;[AppointmentForm.DateEditorProps](#appointmentformdateeditorprops)&gt; | A component that renders the appointment form's date editor component.
+selectComponent | ComponentType&lt;[AppointmentForm.SelectProps](#appointmentformselectprops)&gt; | A component that renders the appointment form's select component.
+labelComponent | ComponentType&lt;[AppointmentForm.LabelProps](#appointmentformlabelprops)&gt; | A component that renders the appointment form's text label component.
+readOnly | boolean | Specifies whether the appointment form is read-only.
+appointmentData | [AppointmentModel](./scheduler.md#appointmentmodel) | The appointment’s displayed metadata.
+onFieldChange | (change: any) => void | Handles appointment field value changes.
+getMessage | (messageKey: string) => string | Returns a localization message by the message key.
+children | ReactNode | A React node to be rendered in the Basic Layout.
+
 
 ## Localization Messages
 

@@ -7,40 +7,38 @@ export namespace AppointmentForm {
     /** A React Ref that should be passed into ref property. */
     ref: React.RefObject<unknown>;
   }
-  /** Describes properties passed to a component that renders an Appointment Form overlay. */
+  /** Properties passed to a component that renders an Appointment Form overlay. */
   export interface OverlayProps {
     /** Specifies whether the overlay is visible. */
     visible: boolean;
     /** An event that initiates overlay hiding. */
     onHide: () => void;
-    /** Specifies whether the overlay has full size */
+    /** Specifies whether the overlay is full-size. */
     fullSize: boolean;
     /** A React component instance or a DOM element that is used to position the window. */
     target: React.RefObject<unknown>;
     /** A React node used to render overlay content. */
     children: React.ReactNode;
   }
-  /** A component that render the appointment form's layout */
+  /** Properties passed to a component that renders the appointment form's layout. */
   export interface LayoutProps {
-    /** A component that render the appointment form's layout for command buttons */
+    /** A component that renders the appointment form's layout for command buttons. */
     commandLayoutComponent: React.ComponentType<AppointmentForm.CommandLayoutProps>;
-    /** A component that render the appointment form's layout for basic part of editors */
+    /** A component that renders the appointment form's layout for basic appointment editors. */
     basicLayoutComponent: React.ComponentType<AppointmentForm.BasicLayoutProps>;
-    /** A component that render the appointment form's layout for recurrence part of editors */
+    /** A component that renders the appointment form's layout for recurrent appointment editors. */
     recurrenceLayoutComponent: React.ComponentType<AppointmentForm.RecurrenceLayoutProps>;
-    /** Specifies whether the layout should render recurrence part of editors */
+    /** Specifies whether the layout should render editors for recurrent appointments. */
     isRecurrence: boolean;
-    /** A React node should be added as additional. */
+    /** A React node to be rendered in the layout. */
     children?: React.ReactNode;
   }
-  /** A component that render the appointment form's layout for command buttons */
+  /** Properties passed to a component that renders the appointment form's layout for command buttons. */
   export interface CommandLayoutProps {
-    /** Specifies the appointment form is read-only. */
+    /** Specifies whether the appointment form is read-only. */
     readOnly?: boolean;
-    /** Specifies whether the command layout has full size */
+    /** Specifies whether the command layout is full-size. */
     fullSize: boolean;
-    /** A React node should be added as additional. */
-    children?: React.ReactNode;
     /** An event raised when the Commit button is clicked. The event handler should commit an appointment changes. */
     onCommitButtonClick: () => void;
     /** An event raised when the Cancel button is clicked. The event handler should close the appointment form. */
@@ -51,8 +49,10 @@ export namespace AppointmentForm {
     getMessage: (messageKey: string) => string;
     /** A component that renders a command button. */
     commandButtonComponent: React.ComponentType<AppointmentForm.CommandButtonProps>;
+    /** A React node to be rendered in Command Layout. */
+    children?: React.ReactNode;
   }
-  /** A component that render the appointment form's layout for basic part of editors */
+  /** Properties passed to a component that renders the appointment form's layout for basic appointment editors. */
   export interface BasicLayoutProps {
     /** The appointment’s displayed metadata. */
     appointmentData: AppointmentModel;
@@ -60,23 +60,24 @@ export namespace AppointmentForm {
     onFieldChange: (change: any) => void;
     /** Returns a localization message by the message key. */
     getMessage: (messageKey: string) => string;
-    /** Specifies the appointment form is read-only. */
+    /** Specifies whether the appointment form is read-only. */
     readOnly?: boolean;
     /** The locale according to which dates should be formatted. */
     locale: string | string[];
-    /** A component that render the appointment form's text editor component */
+    /** A component that renders the appointment form's text editor component. */
     textEditorComponent: React.ComponentType<AppointmentForm.TextEditorProps>;
-    /** A component that render the appointment form's date editor component */
+    /** A component that renders the appointment form's date editor component. */
     dateEditorComponent: React.ComponentType<AppointmentForm.DateEditorProps>;
-    /** A component that render the appointment form's boolean editor component */
+    /** A component that renders the appointment form's boolean editor component. */
     booleanEditorComponent: React.ComponentType<AppointmentForm.BooleanEditorProps>;
-    /** A component that render the appointment form's select component */
+    /** A component that renders the appointment form's select component. */
     selectComponent: React.ComponentType<AppointmentForm.SelectProps>;
-    /** A component that render the appointment form's text label component */
+    /** A component that renders the appointment form's text label component. */
     labelComponent: React.ComponentType<AppointmentForm.LabelProps>;
-    /** A React node should be added as additional. */
+    /** A React node to be rendered in the Basic Layout. */
     children?: React.ReactNode;
   }
+  /** Properties passed to a component that renders the appointment form's layout for recurrent appointment editors. */
   export interface RecurrenceLayoutProps {
     /** The appointment’s displayed metadata. */
     appointmentData: AppointmentModel;
@@ -90,22 +91,22 @@ export namespace AppointmentForm {
     formatDate: FormatterFn;
     /** The locale according to which dates should be formatted. */
     locale: string | string[];
-    /** A component that render the appointment form's radio group component */
+    /** A component that renders the appointment form's radio group component. */
     radioGroupComponent: React.ComponentType<AppointmentForm.RadioGroupProps>;
-    /** A component that render the appointment form's button group component */
+    /** A component that renders the appointment form's button group component. */
     weeklyCheckboxListComponent: React.ComponentType<AppointmentForm.WeeklyCheckboxListProps>;
-    /** A component that render the appointment form's text editor component */
+    /** A component that renders the appointment form's text editor component. */
     textEditorComponent: React.ComponentType<AppointmentForm.TextEditorProps>;
-    /** A component that render the appointment form's date editor component */
+    /** A component that renders the appointment form's date editor component. */
     dateEditorComponent: React.ComponentType<AppointmentForm.DateEditorProps>;
-    /** A component that render the appointment form's select component */
+    /** A component that renders the appointment form's select component. */
     selectComponent: React.ComponentType<AppointmentForm.SelectProps>;
-    /** A component that render the appointment form's text label component */
+    /** A component that renders the appointment form's text label component. */
     labelComponent: React.ComponentType<AppointmentForm.LabelProps>;
-    /** A React node should be added as additional. */
+    /**  A React node to be rendered in the Recurrence Layout. */
     children?: React.ReactNode;
   }
-  /** A component that render the appointment form's text editor component */
+  /** Properties passed to a component that renders the appointment form's text editor component. */
   export interface TextEditorProps {
     /** A value to be edited. */
     value: string | number;

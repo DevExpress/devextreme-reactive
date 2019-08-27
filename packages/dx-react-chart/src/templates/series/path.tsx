@@ -11,12 +11,13 @@ class RawPath extends React.PureComponent<PathComponentPathProps> {
       path,
       coordinates, rotated,
       index, state, pointComponent,
-      color,
+      color, clipPathId,
       style, scales, getAnimatedStyle,
       ...restProps
     } = this.props;
     return (
       <path
+        clipPath={`url(#${clipPathId})`}
         d={path!(coordinates)}
         fill="none"
         strokeWidth={2}

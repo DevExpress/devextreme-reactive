@@ -24,6 +24,7 @@ describe('Area', () => {
     color: 'red',
     scales: { tag: 'test-scales' },
     rotated: true,
+    clipPathId: 'clipPathId',
     getAnimatedStyle: jest.fn(style => style),
   };
 
@@ -38,6 +39,7 @@ describe('Area', () => {
       d: '1-2-3',
       fill: 'red',
       opacity: 0.5,
+      clipPath: 'url(#clipPathId)',
     });
     expect(defaultProps.path).toBeCalledWith(defaultProps.coordinates);
   });

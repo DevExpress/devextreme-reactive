@@ -59,6 +59,8 @@ describe('#declareSeries', () => {
       palette: 'test-palette',
       scales: { test_argument_domain: 'argument-scale', value_domain: 'value-scale' },
       getAnimatedStyle: 'test-animated-style-getter',
+      layouts: { pane: { width: 20, height: 30 } },
+      clipPathId: 'clipPathId',
     },
     template: {
       series: {},
@@ -94,6 +96,8 @@ describe('#declareSeries', () => {
       color: 'color',
       scales: { xScale: 'argument-scale', yScale: 'value-scale' },
       getAnimatedStyle: 'test-animated-style-getter',
+      clipPathId: 'clipPathId',
+      pane: { width: 20, height: 30 },
     });
   });
 

@@ -11,6 +11,13 @@ import {
 
 import { appointments } from '../../../demo-data/appointments';
 
+const TextEditor = (props) => {
+  // eslint-disable-next-line react/destructuring-assignment
+  if (props.id === 'noteTextEditor') {
+    return null;
+  } return <AppointmentForm.TextEditor {...props} />;
+};
+
 const BasicLayout = ({ onFieldChange, appointmentData, ...restProps }) => {
   const onCustomFieldChange = (nextValue) => {
     onFieldChange({ customField: nextValue });
@@ -30,7 +37,6 @@ const BasicLayout = ({ onFieldChange, appointmentData, ...restProps }) => {
         value={appointmentData.customField}
         onValueChange={onCustomFieldChange}
         placeholder="Custom field"
-        id="noteTextEditor"
       />
     </AppointmentForm.BasicLayout>
   );
@@ -91,6 +97,7 @@ export default class Demo extends React.PureComponent {
           />
           <AppointmentForm
             basicLayoutComponent={BasicLayout}
+            textEditorComponent={TextEditor}
           />
         </Scheduler>
       </Paper>

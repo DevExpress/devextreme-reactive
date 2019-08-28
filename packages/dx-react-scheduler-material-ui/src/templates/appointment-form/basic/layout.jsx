@@ -11,8 +11,9 @@ import {
   getFrequencyString,
   getRecurrenceOptions,
   REPEAT_TYPES,
+  getAvailableRecurrenceOptions,
+  handleChangeFrequency,
 } from '@devexpress/dx-scheduler-core';
-import { getAvailableRecurrenceOptions, handleChangeFrequency } from '../helpers';
 
 const styles = ({ spacing, typography }) => ({
   root: {

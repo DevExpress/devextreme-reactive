@@ -8,13 +8,14 @@ import {
   RRULE_REPEAT_TYPES,
   OUTLINED_SELECT,
   getFrequencyString,
+  getAvailableRecurrenceOptions,
+  handleChangeFrequency,
 } from '@devexpress/dx-scheduler-core';
 import classNames from 'classnames';
 import { Daily as DailyLayout } from './layouts/daily';
 import { Weekly as WeeklyLayout } from './layouts/weekly';
 import { Monthly as MonthlyLayout } from './layouts/monthly';
 import { Yearly as YearlyLayout } from './layouts/yearly';
-import { getAvailableRecurrenceOptions, handleChangeFrequency } from '../helpers';
 
 const styles = ({ spacing }) => ({
   root: {

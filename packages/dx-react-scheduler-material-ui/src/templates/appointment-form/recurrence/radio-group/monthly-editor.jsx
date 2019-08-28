@@ -13,8 +13,9 @@ import {
   changeRecurrenceOptions,
   handleStartDateChange,
   getRadioGroupDisplayData,
+  getWeekNumberLabels,
+  getDaysOfWeek,
 } from '@devexpress/dx-scheduler-core';
-import { getWeekNumberLabels, getDaysOfWeek } from '../../helpers';
 
 const styles = ({ spacing }) => ({
   textEditor: {

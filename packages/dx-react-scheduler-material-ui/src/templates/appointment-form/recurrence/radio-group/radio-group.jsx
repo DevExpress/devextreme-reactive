@@ -19,11 +19,11 @@ export const RadioGroup = ({
   appointmentData,
   formatDate,
   onFieldChange,
-  id,
+  type,
   locale,
   ...restProps
 }) => {
-  switch (id) {
+  switch (type) {
     case END_REPEAT_RADIO_GROUP:
       return (
         <EndRepeatEditor
@@ -80,7 +80,7 @@ RadioGroup.propTypes = {
   selectComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   locale: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
   readOnly: PropTypes.bool,
-  id: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
   appointmentData: PropTypes.shape({
     title: PropTypes.string,
     startDate: PropTypes.instanceOf(Date),

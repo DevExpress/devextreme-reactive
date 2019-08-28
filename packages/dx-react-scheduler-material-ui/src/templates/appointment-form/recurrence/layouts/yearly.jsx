@@ -71,7 +71,7 @@ const YearlyBase = ({
           readOnly={readOnly}
           value={recurrenceOptions.interval}
           className={classes.textEditor}
-          id={NUMBER_EDITOR}
+          type={NUMBER_EDITOR}
           onValueChange={changeRecurrenceInterval}
         />
         <Label
@@ -80,7 +80,7 @@ const YearlyBase = ({
         />
       </Grid>
       <RadioGroup
-        id={YEARLY_RADIO_GROUP}
+        type={YEARLY_RADIO_GROUP}
         readOnly={readOnly}
         getMessage={getMessage}
         textEditorComponent={TextEditor}

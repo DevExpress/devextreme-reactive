@@ -61,7 +61,7 @@ const WeeklyBase = ({
           readOnly={readOnly}
           value={recurrenceOptions.interval}
           className={classes.textEditor}
-          id={NUMBER_EDITOR}
+          type={NUMBER_EDITOR}
           onValueChange={changeRecurrenceInterval}
         />
         <Label

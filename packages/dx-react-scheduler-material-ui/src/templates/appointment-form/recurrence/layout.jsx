@@ -99,14 +99,14 @@ const LayoutBase = ({
     >
       <Label
         text={getMessage('repeatLabel')}
-        id={TITLE_LABEL}
+        type={TITLE_LABEL}
         className={classes.repeatLabel}
       />
       <Select
         onValueChange={changeFrequency}
         availableOptions={selectOptions}
         value={frequency}
-        id={OUTLINED_SELECT}
+        type={OUTLINED_SELECT}
       />
       <MainLayoutComponent
         textEditorComponent={textEditorComponent}
@@ -127,7 +127,7 @@ const LayoutBase = ({
       />
       <RadioGroup
         className={classes.radioGroup}
-        id={END_REPEAT_RADIO_GROUP}
+        type={END_REPEAT_RADIO_GROUP}
         readOnly={readOnly}
         getMessage={getMessage}
         textEditorComponent={textEditorComponent}

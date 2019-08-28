@@ -32,7 +32,7 @@ const SelectBase = React.memo(({
   onValueChange,
   readOnly,
   classes,
-  id,
+  type,
   ...restProps
 }) => {
   const handleChange = (event) => {
@@ -40,7 +40,7 @@ const SelectBase = React.memo(({
     onValueChange(event.target.value);
   };
 
-  const Input = id === STANDARD_SELECT
+  const Input = type === STANDARD_SELECT
     ? <FilledInput hiddenLabel />
     : (
       <OutlinedInput
@@ -80,14 +80,14 @@ SelectBase.propTypes = {
     text: PropTypes.string.isRequired,
   })),
   readOnly: PropTypes.bool,
-  id: PropTypes.string,
+  type: PropTypes.string,
 };
 
 SelectBase.defaultProps = {
   readOnly: false,
   onValueChange: () => undefined,
   availableOptions: [],
-  id: STANDARD_SELECT,
+  type: STANDARD_SELECT,
 };
 
 export const Select = withStyles(styles)(SelectBase, { name: 'Select' });

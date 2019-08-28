@@ -215,7 +215,7 @@ const YearlyEditorBase = ({
               className={classes.textEditor}
               readOnly={readOnly || value !== 'onDayAndMonth'}
               value={dayNumberTextField}
-              id={NUMBER_EDITOR}
+              type={NUMBER_EDITOR}
               onValueChange={changeByMonthDay}
             />
           </Grid>

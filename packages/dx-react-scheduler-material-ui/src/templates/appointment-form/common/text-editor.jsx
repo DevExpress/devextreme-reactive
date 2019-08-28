@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import {
   TITLE_TEXT_EDITOR,
-  NOTES_TEXT_EDITOR,
+  MULTILINE_TEXT_EDITOR,
   ORDINARY_TEXT_EDITOR,
   NUMBER_EDITOR,
 } from '@devexpress/dx-scheduler-core';
@@ -28,11 +28,11 @@ const TextEditorBase = React.memo(({
   className,
   readOnly,
   onValueChange,
-  id,
+  type,
   ...restProps
 }) => {
-  const textFiledType = id === NUMBER_EDITOR ? 'number' : 'text';
-  const notesTextEditor = id === NOTES_TEXT_EDITOR;
+  const textFiledType = type === NUMBER_EDITOR ? 'number' : 'text';
+  const notesTextEditor = type === MULTILINE_TEXT_EDITOR;
   return (
     <TextField
       className={classNames(classes.editor, className)}
@@ -42,7 +42,7 @@ const TextEditorBase = React.memo(({
       onChange={({ target }) => onValueChange(target.value)}
       InputProps={{
         className: classNames({
-          [classes.title]: id === TITLE_TEXT_EDITOR,
+          [classes.title]: type === TITLE_TEXT_EDITOR,
         }),
       }}
       multiline={notesTextEditor}
@@ -64,7 +64,7 @@ TextEditorBase.propTypes = {
   className: PropTypes.string,
   readOnly: PropTypes.bool,
   onValueChange: PropTypes.func,
-  id: PropTypes.string,
+  type: PropTypes.string,
 };
 
 TextEditorBase.defaultProps = {
@@ -73,7 +73,7 @@ TextEditorBase.defaultProps = {
   className: undefined,
   readOnly: false,
   onValueChange: () => undefined,
-  id: ORDINARY_TEXT_EDITOR,
+  type: ORDINARY_TEXT_EDITOR,
 };
 
 export const TextEditor = withStyles(styles)(TextEditorBase, { name: 'TextEditor' });

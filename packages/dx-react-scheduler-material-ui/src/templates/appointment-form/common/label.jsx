@@ -22,13 +22,13 @@ const LabelBase = React.memo(({
   classes,
   text,
   className,
-  id,
+  type,
   ...restProps
 }) => (
   <Typography
     className={classNames({
       [classes.label]: true,
-      [classes.titleLabel]: id === TITLE_LABEL,
+      [classes.titleLabel]: type === TITLE_LABEL,
     }, className)}
     {...restProps}
   >
@@ -40,13 +40,13 @@ LabelBase.propTypes = {
   classes: PropTypes.object.isRequired,
   text: PropTypes.string,
   className: PropTypes.string,
-  id: PropTypes.string,
+  type: PropTypes.string,
 };
 
 LabelBase.defaultProps = {
   text: undefined,
   className: undefined,
-  id: ORDINARY_LABEL,
+  type: ORDINARY_LABEL,
 };
 
 export const Label = withStyles(styles)(LabelBase, { name: 'Label' });

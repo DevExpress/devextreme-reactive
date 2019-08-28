@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import Grid from '@material-ui/core/Grid';
 import {
   TITLE_TEXT_EDITOR,
-  NOTES_TEXT_EDITOR,
+  MULTILINE_TEXT_EDITOR,
   TITLE_LABEL,
   OUTLINED_SELECT,
   getFrequencyString,
@@ -120,12 +120,12 @@ const LayoutBase = ({
     >
       <Label
         text={getMessage('detailsLabel')}
-        id={TITLE_LABEL}
+        type={TITLE_LABEL}
       />
       <TextEditor
         placeholder={getMessage('titleLabel')}
         readOnly={readOnly}
-        id={TITLE_TEXT_EDITOR}
+        type={TITLE_TEXT_EDITOR}
         value={appointmentData.title}
         onValueChange={changeTitle}
       />
@@ -155,19 +155,13 @@ const LayoutBase = ({
       </Grid>
       <Label
         text={getMessage('moreInformationLabel')}
-        id={TITLE_LABEL}
+        type={TITLE_LABEL}
         className={classes.moreInformationLabel}
-      />
-      <TextEditor
-        placeholder={getMessage('additionalInformationLabel')}
-        readOnly={readOnly}
-        value={appointmentData.additionalInformation}
-        onValueChange={changeAdditionalInformation}
       />
       <TextEditor
         placeholder={getMessage('notesLabel')}
         readOnly={readOnly}
-        id={NOTES_TEXT_EDITOR}
+        type={MULTILINE_TEXT_EDITOR}
         value={appointmentData.notes}
         onValueChange={changeNotes}
         className={classes.notesEditor}
@@ -183,13 +177,13 @@ const LayoutBase = ({
         <React.Fragment>
           <Label
             text={getMessage('repeatLabel')}
-            id={TITLE_LABEL}
+            type={TITLE_LABEL}
           />
           <Select
             value={frequency}
             onValueChange={changeFrequency}
             availableOptions={selectOptions}
-            id={OUTLINED_SELECT}
+            type={OUTLINED_SELECT}
           />
         </React.Fragment>
       )}

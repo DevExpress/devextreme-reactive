@@ -3,7 +3,7 @@ import { createShallow, getClasses, createMount } from '@material-ui/core/test-u
 import {
   NUMBER_EDITOR,
   TITLE_TEXT_EDITOR,
-  NOTES_TEXT_EDITOR,
+  MULTILINE_TEXT_EDITOR,
 } from '@devexpress/dx-scheduler-core';
 import { TextEditor } from './text-editor';
 
@@ -59,9 +59,9 @@ describe('AppointmentForm common', () => {
       expect(tree.find(`.${classes.title}`).exists())
         .toBeFalsy();
 
-      classes = getClasses(<TextEditor id={NOTES_TEXT_EDITOR} {...defaultProps} />);
+      classes = getClasses(<TextEditor id={MULTILINE_TEXT_EDITOR} {...defaultProps} />);
       tree = mount((
-        <TextEditor id={NOTES_TEXT_EDITOR} {...defaultProps} />
+        <TextEditor id={MULTILINE_TEXT_EDITOR} {...defaultProps} />
       ));
       expect(tree.find(`.${classes.title}`).exists())
         .toBeFalsy();
@@ -102,7 +102,7 @@ describe('AppointmentForm common', () => {
 
     it('should render notes editor correctly', () => {
       const tree = shallow((
-        <TextEditor id={NOTES_TEXT_EDITOR} {...defaultProps} />
+        <TextEditor id={MULTILINE_TEXT_EDITOR} {...defaultProps} />
       ));
 
       expect(tree.prop('variant'))

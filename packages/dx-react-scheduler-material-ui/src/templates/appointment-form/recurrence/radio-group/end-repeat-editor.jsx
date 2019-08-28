@@ -131,7 +131,7 @@ const EndRepeatEditorBase = ({
               readOnly={value !== 'endAfter'}
               className={classes.textEditor}
               value={recurrenceCount}
-              id={NUMBER_EDITOR}
+              type={NUMBER_EDITOR}
               onValueChange={changeRecurrenceCount}
               InputProps={countEditorProps}
             />

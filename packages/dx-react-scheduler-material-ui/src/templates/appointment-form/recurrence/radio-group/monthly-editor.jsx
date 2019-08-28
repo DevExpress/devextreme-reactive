@@ -178,7 +178,7 @@ const MonthlyEditorBase = ({
               readOnly={readOnly || value !== 'onDayNumber'}
               value={dayNumberTextField}
               className={classes.textEditor}
-              id={NUMBER_EDITOR}
+              type={NUMBER_EDITOR}
               onValueChange={changeByMonthDay}
             />
             <Label

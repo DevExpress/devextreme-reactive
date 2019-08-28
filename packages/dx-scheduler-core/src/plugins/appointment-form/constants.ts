@@ -51,7 +51,7 @@ export const MONTHLY_RADIO_GROUP = 'monthlyRadioGroup';
 export const YEARLY_RADIO_GROUP = 'yearlyRadioGroup';
 
 export const TITLE_TEXT_EDITOR = 'titleTextEditor';
-export const NOTES_TEXT_EDITOR = 'noteTextEditor';
+export const MULTILINE_TEXT_EDITOR = 'multilineTextEditor';
 export const ORDINARY_TEXT_EDITOR = 'ordinaryTextEditor';
 export const NUMBER_EDITOR = 'numberEditor';
 

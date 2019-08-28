@@ -73,21 +73,21 @@ describe('AppointmentForm basic', () => {
       const labelComponents = tree.find(defaultProps.labelComponent);
       expect(labelComponents)
         .toHaveLength(4);
-      expect(labelComponents.at(0).prop('id'))
+      expect(labelComponents.at(0).prop('type'))
         .toEqual(TITLE_LABEL);
       expect(labelComponents.at(1).is(`.${classes.dividerLabel}`))
         .toBeTruthy();
-      expect(labelComponents.at(2).prop('id'))
+      expect(labelComponents.at(2).prop('type'))
         .toEqual(TITLE_LABEL);
-      expect(labelComponents.at(3).prop('id'))
+      expect(labelComponents.at(3).prop('type'))
         .toEqual(TITLE_LABEL);
 
       const textEditors = tree.find(defaultProps.textEditorComponent);
       expect(textEditors)
-        .toHaveLength(3);
-      expect(textEditors.at(0).prop('id'))
+        .toHaveLength(2);
+      expect(textEditors.at(0).prop('type'))
         .toEqual(TITLE_TEXT_EDITOR);
-      expect(textEditors.at(2).prop('id'))
+      expect(textEditors.at(1).prop('type'))
         .toEqual(MULTILINE_TEXT_EDITOR);
 
       expect(tree.find(defaultProps.booleanEditorComponent))
@@ -123,7 +123,7 @@ describe('AppointmentForm basic', () => {
       expect(tree.find(defaultProps.labelComponent))
         .toHaveLength(3);
       expect(tree.find(defaultProps.textEditorComponent))
-        .toHaveLength(3);
+        .toHaveLength(2);
       expect(tree.find(defaultProps.booleanEditorComponent))
         .toHaveLength(1);
       expect(tree.find(defaultProps.dateEditorComponent))
@@ -148,8 +148,6 @@ describe('AppointmentForm basic', () => {
       expect(defaultProps.getMessage)
         .toBeCalledWith('moreInformationLabel');
       expect(defaultProps.getMessage)
-        .toBeCalledWith('additionalInformationLabel');
-      expect(defaultProps.getMessage)
         .toBeCalledWith('notesLabel');
       expect(defaultProps.getMessage)
         .toBeCalledWith('allDayLabel');
@@ -172,9 +170,6 @@ describe('AppointmentForm basic', () => {
       expect(defaultProps.onFieldChange)
         .toBeCalledWith({ title: 'abc' });
       textEditors.at(1).simulate('valueChange', 'abc');
-      expect(defaultProps.onFieldChange)
-        .toBeCalledWith({ additionalInformation: 'abc' });
-      textEditors.at(2).simulate('valueChange', 'abc');
       expect(defaultProps.onFieldChange)
         .toBeCalledWith({ notes: 'abc' });
 

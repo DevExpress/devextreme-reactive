@@ -77,7 +77,7 @@ describe('AppointmentForm common', () => {
       const tree = mount((
         <Select
           {...defaultProps}
-          id={OUTLINED_SELECT}
+          type={OUTLINED_SELECT}
         />
       ));
 

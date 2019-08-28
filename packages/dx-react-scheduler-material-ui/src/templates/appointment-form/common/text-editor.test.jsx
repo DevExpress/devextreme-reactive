@@ -44,7 +44,7 @@ describe('AppointmentForm common', () => {
         .toMatchObject({ a: 1 });
     });
 
-    it('should render pass InputProps correctly', () => {
+    it('should pass InputProps correctly', () => {
       let classes = getClasses(<TextEditor {...defaultProps} />);
       let tree = mount((
         <TextEditor {...defaultProps} />
@@ -52,23 +52,23 @@ describe('AppointmentForm common', () => {
       expect(tree.find(`.${classes.title}`).exists())
         .toBeFalsy();
 
-      classes = getClasses(<TextEditor id={NUMBER_EDITOR} {...defaultProps} />);
+      classes = getClasses(<TextEditor type={NUMBER_EDITOR} {...defaultProps} />);
       tree = mount((
-        <TextEditor id={NUMBER_EDITOR} {...defaultProps} />
+        <TextEditor type={NUMBER_EDITOR} {...defaultProps} />
       ));
       expect(tree.find(`.${classes.title}`).exists())
         .toBeFalsy();
 
-      classes = getClasses(<TextEditor id={MULTILINE_TEXT_EDITOR} {...defaultProps} />);
+      classes = getClasses(<TextEditor type={MULTILINE_TEXT_EDITOR} {...defaultProps} />);
       tree = mount((
-        <TextEditor id={MULTILINE_TEXT_EDITOR} {...defaultProps} />
+        <TextEditor type={MULTILINE_TEXT_EDITOR} {...defaultProps} />
       ));
       expect(tree.find(`.${classes.title}`).exists())
         .toBeFalsy();
 
-      classes = getClasses(<TextEditor id={TITLE_TEXT_EDITOR} {...defaultProps} />);
+      classes = getClasses(<TextEditor type={TITLE_TEXT_EDITOR} {...defaultProps} />);
       tree = mount((
-        <TextEditor id={TITLE_TEXT_EDITOR} {...defaultProps} />
+        <TextEditor type={TITLE_TEXT_EDITOR} {...defaultProps} />
       ));
       expect(tree.find(`.${classes.title}`).exists())
         .toBeTruthy();
@@ -89,7 +89,7 @@ describe('AppointmentForm common', () => {
 
     it('should render number editor correctly', () => {
       const tree = shallow((
-        <TextEditor id={NUMBER_EDITOR} {...defaultProps} />
+        <TextEditor type={NUMBER_EDITOR} {...defaultProps} />
       ));
 
       expect(tree.prop('variant'))
@@ -102,7 +102,7 @@ describe('AppointmentForm common', () => {
 
     it('should render notes editor correctly', () => {
       const tree = shallow((
-        <TextEditor id={MULTILINE_TEXT_EDITOR} {...defaultProps} />
+        <TextEditor type={MULTILINE_TEXT_EDITOR} {...defaultProps} />
       ));
 
       expect(tree.prop('variant'))
@@ -113,7 +113,7 @@ describe('AppointmentForm common', () => {
 
     it('should render title editor correctly', () => {
       const tree = shallow((
-        <TextEditor id={TITLE_TEXT_EDITOR} {...defaultProps} />
+        <TextEditor type={TITLE_TEXT_EDITOR} {...defaultProps} />
       ));
 
       expect(tree.prop('variant'))
@@ -124,7 +124,7 @@ describe('AppointmentForm common', () => {
         .toEqual('text');
     });
 
-    it('should CALL ONcHANGE WITH PROPER PARAMETER', () => {
+    it('should call onChange with proper parameter', () => {
       const tree = shallow((
         <TextEditor {...defaultProps} />
       ));

@@ -32,9 +32,9 @@ describe('AppointmentForm common', () => {
     });
 
     it('should pass className to the root element', () => {
-      const classes = getClasses(<Label id={TITLE_LABEL} />);
+      const classes = getClasses(<Label type={TITLE_LABEL} />);
       const tree = shallow((
-        <Label id={TITLE_LABEL} />
+        <Label type={TITLE_LABEL} />
       ));
 
       expect(tree.is(`.${classes.label}`))

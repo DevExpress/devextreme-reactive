@@ -59,7 +59,7 @@ describe('AppointmentForm recurrence radio group', () => {
 
     it('should render EndRepeatEditor correctly', () => {
       const tree = mount((
-        <RadioGroup {...defaultProps} id={END_REPEAT_RADIO_GROUP} />
+        <RadioGroup {...defaultProps} type={END_REPEAT_RADIO_GROUP} />
       ));
 
       const endRepeat = tree.find(EndRepeatEditor);
@@ -69,7 +69,7 @@ describe('AppointmentForm recurrence radio group', () => {
 
     it('should render MonthlyEditor correctly', () => {
       const tree = mount((
-        <RadioGroup {...defaultProps} id={MONTHLY_RADIO_GROUP} />
+        <RadioGroup {...defaultProps} type={MONTHLY_RADIO_GROUP} />
       ));
 
       const monthlyEditor = tree.find(MonthlyEditor);
@@ -79,7 +79,7 @@ describe('AppointmentForm recurrence radio group', () => {
 
     it('should render YearlyEditor correctly', () => {
       const tree = mount((
-        <RadioGroup {...defaultProps} id={YEARLY_RADIO_GROUP} />
+        <RadioGroup {...defaultProps} type={YEARLY_RADIO_GROUP} />
       ));
 
       const yearlyEditor = tree.find(YearlyEditor);

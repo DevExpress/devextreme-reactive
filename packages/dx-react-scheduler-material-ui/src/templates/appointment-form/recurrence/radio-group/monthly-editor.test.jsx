@@ -104,7 +104,7 @@ describe('AppointmentForm recurrence RadioGroup', () => {
 
       const selectComponents = tree.find(defaultProps.selectComponent);
 
-      selectComponents.at(1).prop('onChange')(2);
+      selectComponents.at(1).prop('onValueChange')(2);
       expect(defaultProps.onFieldChange)
         .toHaveBeenCalledWith({
           rRule: {
@@ -143,7 +143,7 @@ describe('AppointmentForm recurrence RadioGroup', () => {
         <MonthlyEditor {...defaultProps} />
       ));
 
-      tree.find(defaultProps.selectComponent).at(0).prop('onChange')('abc');
+      tree.find(defaultProps.selectComponent).at(0).prop('onValueChange')('abc');
       expect(handleWeekNumberChange)
         .toHaveBeenCalledWith('abc', getRecurrenceOptions());
     });

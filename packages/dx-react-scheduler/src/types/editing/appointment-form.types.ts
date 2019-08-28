@@ -117,7 +117,7 @@ export namespace AppointmentForm {
     /** Handles value changes. */
     onValueChange: (nextValue: string) => void;
     /** The text editor's type identifier. */
-    id: 'titleTextEditor' | 'noteTextEditor' | 'ordinaryTextEditor' | 'numberEditor';
+    type: 'titleTextEditor' | 'multilineTextEditor' | 'ordinaryTextEditor' | 'numberEditor';
   }
   /** A component that renders the appointment form's date editor component */
   export interface DateEditorProps {
@@ -163,8 +163,8 @@ export namespace AppointmentForm {
   }
   /** A component that renders the appointment form's text label component */
   export interface LabelProps {
-    /** The label type identifier. */
-    id: 'titleLabel' | 'ordinaryLabel';
+    /** The label's type. */
+    type: 'titleLabel' | 'ordinaryLabel';
     /** The label's text. */
     text: string;
   }
@@ -178,8 +178,8 @@ export namespace AppointmentForm {
     onFieldChange: (nextFieldValue: { [fieldName: string]: any }) => void;
     /** Specifies the date editor is read-only. */
     readOnly: boolean;
-    /** The radio group's type identifier. */
-    id: 'endRepeat' | 'monthlyRadioGroup' | 'yearlyRadioGroup';
+    /** The radio group's type. */
+    type: 'endRepeat' | 'monthlyRadioGroup' | 'yearlyRadioGroup';
     /*** Returns a specified localization message. */
     getMessage?: (messageKey: string) => string;
     /** A component that render the appointment form's text editor component */

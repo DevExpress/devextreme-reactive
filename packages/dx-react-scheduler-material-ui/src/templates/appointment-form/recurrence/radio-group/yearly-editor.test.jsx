@@ -11,7 +11,7 @@ import { YearlyEditor } from './yealy-editor';
 import {
   getDaysOfWeek,
   getMonths,
-  getNumberLabels,
+  getWeekNumberLabels,
   getMonthsWithOf,
 } from '../../helpers';
 
@@ -28,7 +28,7 @@ jest.mock('../../helpers', () => ({
   getDaysOfWeek: jest.fn(),
   getMonths: jest.fn(),
   getMonthsWithOf: jest.fn(),
-  getNumberLabels: jest.fn(),
+  getWeekNumberLabels: jest.fn(),
 }));
 
 describe('AppointmentForm recurrence RadioGroup', () => {
@@ -209,12 +209,12 @@ describe('AppointmentForm recurrence RadioGroup', () => {
         .toHaveBeenCalled();
     });
 
-    it('should call getNumberLabels', () => {
+    it('should call getWeekNumberLabels', () => {
       shallow((
         <YearlyEditor {...defaultProps} />
       ));
 
-      expect(getNumberLabels)
+      expect(getWeekNumberLabels)
         .toHaveBeenCalled();
     });
 

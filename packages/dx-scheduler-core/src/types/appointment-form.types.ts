@@ -21,3 +21,8 @@ export type RadioGroupDisplayData = {
   dayOfWeek: number;
   radioGroupValue: string;
 };
+/** @internal */
+export type StringWithIdFormat = {
+  text: string;
+  id: number;
+};

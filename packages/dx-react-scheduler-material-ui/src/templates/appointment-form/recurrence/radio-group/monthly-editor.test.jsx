@@ -10,7 +10,7 @@ import {
 import { MonthlyEditor } from './monthly-editor';
 import {
   getDaysOfWeek,
-  getNumberLabels,
+  getWeekNumberLabels,
 } from '../../helpers';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
@@ -25,7 +25,7 @@ jest.mock('../../helpers', () => ({
   ...require.requireActual('../../helpers'),
   getDaysOfWeek: jest.fn(),
   getMonths: jest.fn(),
-  getNumberLabels: jest.fn(),
+  getWeekNumberLabels: jest.fn(),
 }));
 
 describe('AppointmentForm recurrence RadioGroup', () => {
@@ -180,12 +180,12 @@ describe('AppointmentForm recurrence RadioGroup', () => {
         .toHaveBeenCalled();
     });
 
-    it('should call getNumberLabels', () => {
+    it('should call getWeekNumberLabels', () => {
       shallow((
         <MonthlyEditor {...defaultProps} />
       ));
 
-      expect(getNumberLabels)
+      expect(getWeekNumberLabels)
         .toHaveBeenCalled();
     });
   });

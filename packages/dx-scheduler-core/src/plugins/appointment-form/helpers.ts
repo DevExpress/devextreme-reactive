@@ -136,6 +136,7 @@ export const getRadioGroupDisplayData: PureComputed<
 > = (
   recurrenceOptions, stateDayOfWeek, stateWeekNumber, stateDayNumber, firstOption, secondOption,
 ) => {
+  // The 'last' week in a  month, The first is
   let weekNumber = 4;
   if (recurrenceOptions.bymonthday && !Array.isArray(recurrenceOptions.bymonthday)) {
     return {
@@ -157,7 +158,6 @@ export const getRadioGroupDisplayData: PureComputed<
     ? recurrenceOptions.byweekday[0] + 1 : 0;
   if (recurrenceOptions.bymonthday && (recurrenceOptions.bymonthday[0] > 0)) {
     weekNumber = Math.trunc(recurrenceOptions.bymonthday[0] / 7);
-
   }
 
   return {
@@ -166,4 +166,19 @@ export const getRadioGroupDisplayData: PureComputed<
     radioGroupValue: secondOption,
     dayNumberTextField: stateDayNumber,
   };
+};
+
+export const handleChangeFrequency: PureComputed<
+  [string, string, Date, Action], void
+> = (repeatType, rRule, startDate, action) => {
+  const rruleRepeatType = getRRuleFrequency(repeatType);
+  let nextRRule;
+  if (rruleRepeatType !== undefined) {
+    nextRRule = changeRecurrenceFrequency(
+      rRule,
+      rruleRepeatType,
+      startDate,
+    );
+  }
+  action({ rRule: nextRRule });
 };

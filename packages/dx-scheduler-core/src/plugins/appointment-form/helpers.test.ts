@@ -3,7 +3,7 @@ import { RRule } from 'rrule';
 import {
   callActionIfExists, isAllDayCell, changeRecurrenceFrequency, getRecurrenceOptions,
   changeRecurrenceOptions, handleStartDateChange, handleToDayOfWeekChange, handleWeekNumberChange,
-  getRRuleFrequency, getFrequencyString,
+  getRRuleFrequency, getFrequencyString, handleChangeFrequency, getRadioGroupDisplayData,
 } from './helpers';
 import { DEFAULT_RULE_OBJECT, REPEAT_TYPES, RRULE_REPEAT_TYPES } from './constants';
 
@@ -258,6 +258,77 @@ describe('AppointmentForm helpers', () => {
         .toEqual(REPEAT_TYPES.YEARLY);
       expect(getFrequencyString(undefined))
         .toEqual(REPEAT_TYPES.NEVER);
+    });
+  });
+  describe('#handleChangeFrequency', () => {
+    it('should change frequency', () => {
+      const action = jest.fn();
+      handleChangeFrequency('daily', '', new Date(), action);
+      expect(action)
+        .toBeCalledWith({
+          rRule: 'RRULE:INTERVAL=1;FREQ=DAILY',
+        });
+    });
+  });
+  describe('#getRadioGroupDisplayData', () => {
+    it('should return "First Option" if bymonthday is defined but not an array', () => {
+      const testOptions = { bymonthday: 12 };
+      const result = getRadioGroupDisplayData(
+        testOptions, 1, 1, 1, 'First Option', 'Second Option',
+      );
+      expect(result)
+        .toMatchObject({
+          dayNumberTextField: 12,
+          weekNumber: 1,
+          dayOfWeek: 1,
+          radioGroupValue: 'First Option',
+        });
+    });
+
+    it('should return "Second Option"', () => {
+      const testOptions = {};
+      const result = getRadioGroupDisplayData(
+        testOptions, 1, 1, 1, 'First Option', 'Second Option',
+      );
+      expect(result)
+        .toMatchObject({
+          dayNumberTextField: 1,
+          weekNumber: 1,
+          dayOfWeek: 1,
+          radioGroupValue: 'Second Option',
+        });
+    });
+
+    it('should return "Second Option" if byweekday is non-empty array', () => {
+      let testOptions = {
+        byweekday: [3],
+        bymonthday: [1, 2, 3, 4, 5, 6, 7],
+      };
+      let result = getRadioGroupDisplayData(
+        testOptions, 1, 1, 1, 'First Option', 'Second Option',
+      );
+      expect(result)
+        .toMatchObject({
+          dayNumberTextField: 1,
+          weekNumber: 0,
+          dayOfWeek: 4,
+          radioGroupValue: 'Second Option',
+        });
+
+      testOptions = {
+        byweekday: [6],
+        bymonthday: [-1, -2, -3, -4, -5, -6, -7],
+      };
+      result = getRadioGroupDisplayData(
+        testOptions, 1, 1, 1, 'First Option', 'Second Option',
+      );
+      expect(result)
+        .toMatchObject({
+          dayNumberTextField: 1,
+          weekNumber: 4,
+          dayOfWeek: 0,
+          radioGroupValue: 'Second Option',
+        });
     });
   });
 });

@@ -3,10 +3,14 @@ import {
   TUESDAY_DATE, WEDNESDAY_DATE, THURSDAY_DATE, FRIDAY_DATE, SATURDAY_DATE,
   JANUARY_DATE, LONG_MONTH_OPTIONS, FEBRUARY_DATE, MARCH_DATE, APRIL_DATE,
   MAY_DATE, AUGUST_DATE, OCTOBER_DATE, NOVEMBER_DATE, DECEMBER_DATE, SEPTEMBER_DATE,
-  JULY_DATE, JUNE_DATE, REPEAT_TYPES, getRRuleFrequency, changeRecurrenceFrequency,
+  JULY_DATE, JUNE_DATE, REPEAT_TYPES,
 } from '@devexpress/dx-scheduler-core';
+import { PureComputed } from '@devexpress/dx-core';
+import { StringWithIdFormat } from '../../types';
 
-export const getNumberLabels = getMessage => [
+export const getWeekNumberLabels: PureComputed<
+  [(messageKey: string) => string], Array<StringWithIdFormat>
+> = getMessage => [
   {
     text: getMessage('firstLabel'),
     id: 0,
@@ -29,7 +33,9 @@ export const getNumberLabels = getMessage => [
   },
 ];
 
-export const getDaysOfWeek = formatDate => [
+export const getDaysOfWeek: PureComputed<
+[(date: Date, formatOptions: object) => string], Array<StringWithIdFormat>
+> = formatDate => [
   {
     text: formatDate(SUNDAY_DATE, LONG_WEEK_DAY_OPTIONS),
     id: 0,
@@ -60,7 +66,9 @@ export const getDaysOfWeek = formatDate => [
   },
 ];
 
-export const getMonths = formatDate => [
+export const getMonths: PureComputed<
+  [(date: Date, formatOptions: object) => string], Array<StringWithIdFormat>
+> = formatDate => [
   {
     text: formatDate(JANUARY_DATE, LONG_MONTH_OPTIONS),
     id: 1,
@@ -111,9 +119,13 @@ export const getMonths = formatDate => [
   },
 ];
 
-export const getMonthsWithOf = (getMessage, formatDate) => [
+export const getMonthsWithOf: PureComputed<
+  [(messageKey: string) => string, (date: Date, formatOptions: object) => string],
+    Array<StringWithIdFormat>
+> = (getMessage, formatDate) => [
   {
-    text: getMessage('ofLabel') + formatDate(JANUARY_DATE, DAY_LONG_MONTH_OPTIONS).replace(/[\d.,]/g, '').toString(),
+    text: getMessage('ofLabel')
+      + formatDate(JANUARY_DATE, DAY_LONG_MONTH_OPTIONS).replace(/[\d.,]/g, '').toString(),
     id: 1,
   },
   {
@@ -129,7 +141,8 @@ export const getMonthsWithOf = (getMessage, formatDate) => [
     id: 4,
   },
   {
-    text: getMessage('ofLabel') + formatDate(MAY_DATE, DAY_LONG_MONTH_OPTIONS).replace(/[\d.,]/g, '').toString(),
+    text: getMessage('ofLabel')
+      + formatDate(MAY_DATE, DAY_LONG_MONTH_OPTIONS).replace(/[\d.,]/g, '').toString(),
     id: 5,
   },
   {
@@ -162,7 +175,9 @@ export const getMonthsWithOf = (getMessage, formatDate) => [
   },
 ];
 
-export const getAvailableRecurrenceOptions = getMessage => ([
+export const getAvailableRecurrenceOptions: PureComputed<
+[(messageKey: string) => string], Array<StringWithIdFormat>
+> = getMessage => ([
   {
     text: getMessage(REPEAT_TYPES.NEVER),
     id: REPEAT_TYPES.NEVER,
@@ -184,16 +199,3 @@ export const getAvailableRecurrenceOptions = getMessage => ([
     id: REPEAT_TYPES.YEARLY,
   },
 ]);
-
-export const handleChangeFrequency = (repeatType, rRule, startDate, action) => {
-  const rruleRepeatType = getRRuleFrequency(repeatType);
-  let nextRRule;
-  if (rruleRepeatType !== undefined) {
-    nextRRule = changeRecurrenceFrequency(
-      rRule,
-      rruleRepeatType,
-      startDate,
-    );
-  }
-  action({ rRule: nextRRule });
-};

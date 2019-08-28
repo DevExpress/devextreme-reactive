@@ -14,7 +14,7 @@ import {
   handleStartDateChange,
   getRadioGroupDisplayData,
 } from '@devexpress/dx-scheduler-core';
-import { getNumberLabels, getDaysOfWeek } from '../../helpers';
+import { getWeekNumberLabels, getDaysOfWeek } from '../../helpers';
 
 const styles = ({ spacing }) => ({
   textEditor: {
@@ -87,7 +87,7 @@ const MonthlyEditorBase = ({
     rRule: handleWeekNumberChange(nextWeekNumber, recurrenceOptions),
   }), [recurrenceOptions]);
   const weekNumbers = React.useMemo(
-    () => getNumberLabels(getMessage), [getMessage],
+    () => getWeekNumberLabels(getMessage), [getMessage],
   );
 
   const changeDayOfWeek = React.useCallback(nextDayOfWeek => onFieldChange({

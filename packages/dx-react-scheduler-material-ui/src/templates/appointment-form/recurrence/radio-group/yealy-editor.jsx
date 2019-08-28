@@ -16,7 +16,7 @@ import {
   getRadioGroupDisplayData,
 } from '@devexpress/dx-scheduler-core';
 import {
-  getNumberLabels,
+  getWeekNumberLabels,
   getDaysOfWeek,
   getMonths,
   getMonthsWithOf,
@@ -116,7 +116,7 @@ const YearlyEditorBase = ({
     rRule: handleWeekNumberChange(nextWeekNumber, recurrenceOptions),
   }), [recurrenceOptions]);
   const weekNumbers = React.useMemo(
-    () => getNumberLabels(getMessage), [getMessage],
+    () => getWeekNumberLabels(getMessage), [getMessage],
   );
 
   const changeDayOfWeek = React.useCallback(nextDayOfWeek => onFieldChange({

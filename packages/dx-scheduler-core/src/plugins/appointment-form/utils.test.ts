@@ -3,19 +3,13 @@ import {
   TUESDAY_DATE, WEDNESDAY_DATE, THURSDAY_DATE, FRIDAY_DATE, SATURDAY_DATE,
   JANUARY_DATE, LONG_MONTH_OPTIONS, FEBRUARY_DATE, MARCH_DATE, APRIL_DATE,
   MAY_DATE, AUGUST_DATE, OCTOBER_DATE, NOVEMBER_DATE, DECEMBER_DATE, SEPTEMBER_DATE,
-  JULY_DATE, JUNE_DATE, getRRuleFrequency, changeRecurrenceFrequency,
+  JULY_DATE, JUNE_DATE,
 } from '@devexpress/dx-scheduler-core';
 import {
-  getDaysOfWeek, getMonths, getNumberLabels, handleChangeFrequency, getMonthsWithOf,
-} from './helpers';
+  getDaysOfWeek, getMonths, getWeekNumberLabels, getMonthsWithOf,
+} from './utils';
 
-jest.mock('@devexpress/dx-scheduler-core', () => ({
-  ...require.requireActual('@devexpress/dx-scheduler-core'),
-  getRRuleFrequency: jest.fn(),
-  changeRecurrenceFrequency: jest.fn(),
-}));
-
-describe('AppointmentForm helpers', () => {
+describe('AppointmentForm utils', () => {
   const defaultProps = {
     getMessage: jest.fn(),
     formatDate: jest.fn(),
@@ -108,9 +102,9 @@ describe('AppointmentForm helpers', () => {
         .toHaveBeenCalledWith(SATURDAY_DATE, LONG_WEEK_DAY_OPTIONS);
     });
   });
-  describe('#getNumberLabels', () => {
+  describe('#getWeekNumberLabels', () => {
     it('should return days of week depending on getMessage function', () => {
-      getNumberLabels(defaultProps.getMessage);
+      getWeekNumberLabels(defaultProps.getMessage);
 
       expect(defaultProps.getMessage)
         .toHaveBeenCalledWith('firstLabel');
@@ -122,20 +116,6 @@ describe('AppointmentForm helpers', () => {
         .toHaveBeenCalledWith('fourthLabel');
       expect(defaultProps.getMessage)
         .toHaveBeenCalledWith('lastLabel');
-    });
-  });
-  describe('#handleChangeFrequency', () => {
-    it('should change frequency', () => {
-      getRRuleFrequency.mockImplementation(() => 'daily');
-      changeRecurrenceFrequency.mockImplementation(() => undefined);
-      const action = jest.fn();
-      handleChangeFrequency('repeat_type', '', new Date(), action);
-      expect(getRRuleFrequency)
-        .toBeCalledTimes(1);
-      expect(changeRecurrenceFrequency)
-        .toBeCalledTimes(1);
-      expect(action)
-        .toBeCalledTimes(1);
     });
   });
 });

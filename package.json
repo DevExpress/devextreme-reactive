@@ -30,9 +30,9 @@
     "run-sequence": "^2.2.1",
     "semver": "^6.3.0",
     "start-server-and-test": "^1.10.0",
-    "testcafe": "^1.4.1",
+    "testcafe": "^1.4.2",
     "testcafe-reporter-xunit": "^2.1.0",
-    "typescript": "^3.5.3"
+    "typescript": "3.5.3"
   },
   "scripts": {
     "postinstall": "check-node-version --quiet --node \">=6.11.1\" --npm \">=5.3.0\" --yarn \">=1.0.0\"",

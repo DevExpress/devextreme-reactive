@@ -9,6 +9,7 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   getScatterAnimationStyle: 'test-animation-style',
   HOVERED: 'test_hovered',
   SELECTED: 'test_selected',
+  getVisibility: jest.fn().mockReturnValue('visible'),
 }));
 
 jest.mock('../../utils/with-states', () => ({
@@ -46,6 +47,7 @@ describe('Point', () => {
       fill: 'color',
       style: 'animated-style',
       stroke: 'none',
+      visibility: 'visible',
     });
     expect(dSymbol).toBeCalledWith(defaultProps.point);
   });
@@ -61,6 +63,7 @@ describe('Point', () => {
       fill: 'color',
       style: 'animated-style',
       stroke: 'none',
+      visibility: 'visible',
     });
     expect(dSymbol).toBeCalledWith(defaultProps.point);
   });

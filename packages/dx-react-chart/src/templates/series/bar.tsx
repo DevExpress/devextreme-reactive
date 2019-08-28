@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  getAreaAnimationStyle, HOVERED, SELECTED, dBar,
+  getAreaAnimationStyle, HOVERED, SELECTED, dBar, getVisibility, adjustBarSize,
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
@@ -11,15 +11,21 @@ class RawBar extends React.PureComponent<BarSeries.PointProps> {
     const {
       arg, val, startVal, barWidth, maxBarWidth,
       argument, value, seriesIndex, index, state, rotated,
-      color,
+      color, pane,
       style, scales, getAnimatedStyle,
       ...restProps
     } = this.props;
     const width = barWidth * maxBarWidth;
+    const bar = dBar(arg, val, startVal!, width, rotated);
+    const visibility = getVisibility(
+      pane, bar.x + bar.width / 2, bar.y + bar.height, bar.width, bar.height,
+    );
+    const adjustedBar = visibility === 'visible' ? adjustBarSize(bar, pane) : bar;
     return (
       <rect
-        {...dBar(arg, val, startVal!, width, rotated)}
+        {...adjustedBar}
         fill={color}
+        visibility={visibility}
         style={getAnimatedStyle(style, getAreaAnimationStyle, scales)}
         {...restProps}
       />

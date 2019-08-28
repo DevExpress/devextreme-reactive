@@ -40,7 +40,7 @@ describe('Spline series', () => {
 
   const defaultDeps = {
     getter: {
-      layouts: { pane: {} },
+      layouts: { pane: { width: 10, height: 20 } },
       scales: { test_argument_domain: 'arg-scale', test_value_domain: 'val-scale' },
     },
     template: {
@@ -66,6 +66,7 @@ describe('Spline series', () => {
       color: 'color',
       getAnimatedStyle: undefined,
       scales: { xScale: 'arg-scale', yScale: 'val-scale' },
+      pane: { width: 10, height: 20 },
     });
   });
 });

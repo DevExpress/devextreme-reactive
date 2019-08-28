@@ -12,13 +12,14 @@ class RawArea extends React.PureComponent<AreaSeries.SeriesProps> {
       path,
       coordinates,
       index, state, pointComponent,
-      color,
+      color, clipPathId,
       style, scales, getAnimatedStyle, rotated,
       ...restProps
     } = this.props;
     const dPath = path === undefined ? (rotated ? dRotateArea : dArea) : path;
     return (
       <path
+        clipPath={`url(#${clipPathId})`}
         d={dPath!(coordinates)}
         fill={color}
         opacity={0.5}

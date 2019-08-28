@@ -21,6 +21,7 @@ describe('Path', () => {
     scales: { tag: 'test-scales' },
     rotated: true,
     getAnimatedStyle: jest.fn(style => style),
+    clipPathId: 'clipPathId',
   };
 
   it('should render root element', () => {
@@ -35,6 +36,7 @@ describe('Path', () => {
       fill: 'none',
       strokeWidth: 2,
       stroke: 'red',
+      clipPath: 'url(#clipPathId)',
     });
     expect(defaultProps.path).toBeCalledWith(defaultProps.coordinates);
   });

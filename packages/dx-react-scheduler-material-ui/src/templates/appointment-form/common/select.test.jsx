@@ -8,7 +8,7 @@ import { Select } from './select';
 
 describe('AppointmentForm common', () => {
   const defaultProps = {
-    onChange: jest.fn(),
+    onValueChange: jest.fn(),
     value: '1',
   };
   let shallow;
@@ -40,7 +40,7 @@ describe('AppointmentForm common', () => {
 
       tree.simulate('change', { target: { value: 'next' } });
 
-      expect(defaultProps.onChange)
+      expect(defaultProps.onValueChange)
         .toBeCalledWith('next');
     });
 

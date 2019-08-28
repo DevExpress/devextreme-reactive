@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
+import moment from 'moment';
 import { KeyboardDateTimePicker } from '@material-ui/pickers';
 import { DateEditor } from './date-editor';
 
 describe('AppointmentForm common', () => {
   const defaultProps = {
-    onDateChange: jest.fn(),
+    onValueChange: jest.fn(),
   };
   let shallow;
   beforeAll(() => {
@@ -47,8 +48,8 @@ describe('AppointmentForm common', () => {
 
       const dateTimePicker = tree.find(KeyboardDateTimePicker);
 
-      dateTimePicker.at(0).simulate('change');
-      expect(defaultProps.onDateChange)
+      dateTimePicker.at(0).simulate('change', moment(new Date()));
+      expect(defaultProps.onValueChange)
         .toBeCalled();
     });
   });

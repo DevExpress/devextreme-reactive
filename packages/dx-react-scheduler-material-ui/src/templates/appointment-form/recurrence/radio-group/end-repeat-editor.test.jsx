@@ -21,6 +21,7 @@ describe('AppointmentForm recurrence RadioGroup', () => {
       endDate: new Date(),
       rRule: 'RRULE:FREQ=YEARLY',
     },
+    locale: 'en-US,'
   };
   let classes;
   let shallow;
@@ -87,7 +88,7 @@ describe('AppointmentForm recurrence RadioGroup', () => {
           },
         });
 
-      tree.find(defaultProps.dateEditorComponent).at(0).prop('onDateChange')('abc');
+      tree.find(defaultProps.dateEditorComponent).at(0).prop('onValueChange')('abc');
       expect(defaultProps.onFieldChange)
         .toHaveBeenCalledWith({
           rRule: {

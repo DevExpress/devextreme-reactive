@@ -19,6 +19,7 @@ describe('AppointmentForm basic', () => {
     getMessage: jest.fn(),
     onFieldChange: jest.fn(),
     appointmentData: {},
+    locale: 'en-US',
   };
   let classes;
   let shallow;
@@ -179,10 +180,10 @@ describe('AppointmentForm basic', () => {
 
       const dateEditors = tree.find(defaultProps.dateEditorComponent);
 
-      dateEditors.at(0).simulate('dateChange', 'abc');
+      dateEditors.at(0).simulate('valueChange', 'abc');
       expect(defaultProps.onFieldChange)
         .toBeCalledWith({ startDate: 'abc' });
-      dateEditors.at(1).simulate('dateChange', 'abc');
+      dateEditors.at(1).simulate('valueChange', 'abc');
       expect(defaultProps.onFieldChange)
         .toBeCalledWith({ endDate: 'abc' });
 

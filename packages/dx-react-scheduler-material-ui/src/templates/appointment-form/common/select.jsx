@@ -51,7 +51,7 @@ const SelectBase = React.memo(({
 
   return (
     <MUISelect
-      readOnly={readOnly}
+      disabled={readOnly}
       classes={{ root: classes.root }}
       value={value}
       onChange={handleChange}

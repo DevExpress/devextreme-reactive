@@ -13,6 +13,7 @@ import {
   getRecurrenceOptions,
   changeRecurrenceOptions,
   handleStartDateChange,
+  getRadioGroupDisplayData,
 } from '@devexpress/dx-scheduler-core';
 import {
   getNumberLabels,
@@ -70,34 +71,6 @@ const getCurrentMonth = (recurrenceOptions, appointmentData) => {
   return appointmentData.startDate.getMonth() + 1;
 };
 
-const getDisplayDataFromOptionsAndState = (
-  recurrenceOptions, stateDayOfWeek, stateWeekNumber, stateDayNumber,
-) => {
-  const data = {
-    weekNumber: 4,
-    dayNumberTextField: stateDayNumber,
-  };
-  if (recurrenceOptions.bymonthday && !recurrenceOptions.bymonthday.length) {
-    data.dayNumberTextField = recurrenceOptions.bymonthday;
-    data.weekNumber = stateWeekNumber;
-    data.dayOfWeek = stateDayOfWeek;
-    data.radioGroupValue = 'onDayAndMonth';
-  } else {
-    data.radioGroupValue = 'onDayOfWeek';
-    if (!recurrenceOptions.byweekday) {
-      data.dayOfWeek = stateDayOfWeek;
-      data.weekNumber = stateWeekNumber;
-    } else {
-      data.dayOfWeek = recurrenceOptions.byweekday < 6
-        ? Number.parseInt(recurrenceOptions.byweekday, 10) + 1 : 0;
-      if (recurrenceOptions.bymonthday && recurrenceOptions.bymonthday[0] > 0) {
-        data.weekNumber = Math.trunc(recurrenceOptions.bymonthday[0] / 7);
-      }
-    }
-  }
-  return data;
-};
-
 const YearlyEditorBase = ({
   classes,
   getMessage,
@@ -124,14 +97,14 @@ const YearlyEditorBase = ({
 
   const {
     dayOfWeek, weekNumber, dayNumberTextField, radioGroupValue: value,
-  } = getDisplayDataFromOptionsAndState(
-    recurrenceOptions, stateDayOfWeek, stateWeekNumber, dayNumber,
+  } = getRadioGroupDisplayData(
+    recurrenceOptions, stateDayOfWeek, stateWeekNumber, dayNumber, 'onDayAndMonth', 'onDayOfWeek',
   );
   const month = getCurrentMonth(recurrenceOptions, appointmentData);
 
-  const changeMonth = React.useCallback(newMonth => onFieldChange({
+  const changeMonth = React.useCallback(nextMonth => onFieldChange({
     rRule: changeRecurrenceOptions({
-      ...recurrenceOptions, bymonth: newMonth,
+      ...recurrenceOptions, bymonth: nextMonth,
     }),
   }), [recurrenceOptions]);
   const months = React.useMemo(() => getMonths(formatDate), [formatDate]);
@@ -139,16 +112,16 @@ const YearlyEditorBase = ({
     () => getMonthsWithOf(getMessage, formatDate), [getMessage, formatDate],
   );
 
-  const changeWeekNumber = React.useCallback(newWeekNumber => onFieldChange({
-    rRule: handleWeekNumberChange(newWeekNumber, recurrenceOptions),
+  const changeWeekNumber = React.useCallback(nextWeekNumber => onFieldChange({
+    rRule: handleWeekNumberChange(nextWeekNumber, recurrenceOptions),
   }), [recurrenceOptions]);
   const weekNumbers = React.useMemo(
     () => getNumberLabels(getMessage), [getMessage],
   );
 
-  const changeDayOfWeek = React.useCallback(newWeekDay => onFieldChange({
+  const changeDayOfWeek = React.useCallback(nextDayOfWeek => onFieldChange({
     rRule: changeRecurrenceOptions({
-      ...recurrenceOptions, byweekday: newWeekDay > 0 ? newWeekDay - 1 : 6,
+      ...recurrenceOptions, byweekday: nextDayOfWeek > 0 ? nextDayOfWeek - 1 : 6,
     }),
   }), [recurrenceOptions]);
   const daysOfWeek = React.useMemo(

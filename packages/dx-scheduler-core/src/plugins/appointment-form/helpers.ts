@@ -5,6 +5,7 @@ import {
   Action,
   StartDate,
   EndDate,
+  RadioGroupDisplayData,
 } from '../../types';
 import { DEFAULT_RULE_OBJECT, RRULE_REPEAT_TYPES, REPEAT_TYPES } from './constants';
 
@@ -128,4 +129,41 @@ const setByMonthDay = (nextWeekNumber: number, options: Partial<Options>) => {
     };
   }
   return { ...options, bymonthday: [-1, -2, -3, -4, -5, -6, -7] };
+};
+
+export const getRadioGroupDisplayData: PureComputed<
+[Partial<Options>, number, number, number, string, string], RadioGroupDisplayData
+> = (
+  recurrenceOptions, stateDayOfWeek, stateWeekNumber, stateDayNumber, firstOption, secondOption,
+) => {
+  let weekNumber = 4;
+  if (recurrenceOptions.bymonthday && !Array.isArray(recurrenceOptions.bymonthday)) {
+    return {
+      dayNumberTextField: (recurrenceOptions.bymonthday as number),
+      weekNumber: stateWeekNumber,
+      dayOfWeek: stateDayOfWeek,
+      radioGroupValue: firstOption,
+    };
+  }
+  if (!recurrenceOptions.byweekday) {
+    return {
+      dayOfWeek: stateDayOfWeek,
+      weekNumber: stateWeekNumber,
+      radioGroupValue: secondOption,
+      dayNumberTextField: stateDayNumber,
+    };
+  }
+  const dayOfWeek = recurrenceOptions.byweekday[0] < 6
+    ? recurrenceOptions.byweekday[0] + 1 : 0;
+  if (recurrenceOptions.bymonthday && (recurrenceOptions.bymonthday[0] > 0)) {
+    weekNumber = Math.trunc(recurrenceOptions.bymonthday[0] / 7);
+
+  }
+
+  return {
+    dayOfWeek,
+    weekNumber,
+    radioGroupValue: secondOption,
+    dayNumberTextField: stateDayNumber,
+  };
 };

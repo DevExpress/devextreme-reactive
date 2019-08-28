@@ -14,3 +14,10 @@ export type AppointmentDataPayload = {
 export type AddedAppointmentDataPayload = {
   appointmentData: AppointmentModel | {};
 };
+/** @internal */
+export type RadioGroupDisplayData = {
+  weekNumber: number;
+  dayNumberTextField: number;
+  dayOfWeek: number;
+  radioGroupValue: string;
+};

@@ -418,13 +418,11 @@ describe('DragDropProvider', () => {
         .toBeCalledWith({ change: { startDate: new Date('2018-06-25 00:00'), endDate: new Date('2018-06-26 00:00'), allDay: undefined } }, expect.any(Object), expect.any(Object));
     });
     it('should call cellIndex with array if allDayElementsMeta is an empty object', () => {
-      const getBoundingClientRect = jest.fn();
-      getBoundingClientRect.mockImplementationOnce(() => ({ height: 20, top: 20, bottom: 40 }));
       const deps = {
         getter: {
           timeTableElementsMeta: {
             parentRect: () => ({ height: 20, top: 20, bottom: 40 }),
-            getCellRects: [{}, () => getBoundingClientRect()],
+            getCellRects: [{}, () => ({ height: 20, top: 20, bottom: 40 })],
           },
           allDayElementsMeta: {},
         },

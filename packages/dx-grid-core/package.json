@@ -42,12 +42,12 @@
   "devDependencies": {
     "@devexpress/dx-core": "2.0.3",
     "core-js": "^3.2.1",
-    "jest": "^24.8.0",
-    "rollup": "^1.19.4",
-    "rollup-plugin-license": "^0.12.0",
-    "rollup-plugin-typescript2": "^0.22.1",
+    "jest": "^24.9.0",
+    "rollup": "^1.20.2",
+    "rollup-plugin-license": "^0.12.1",
+    "rollup-plugin-typescript2": "^0.23.0",
     "seamless-immutable": "^7.1.4",
-    "tslint": "^5.18.0",
+    "tslint": "^5.19.0",
     "tslint-config-airbnb": "^5.11.1",
     "typescript": "^3.5.3",
     "typescript-tslint-plugin": "^0.5.4"

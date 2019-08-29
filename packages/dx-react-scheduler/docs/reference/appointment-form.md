@@ -100,6 +100,7 @@ readOnly? | boolean | Specifies whether the appointment form is read-only.
 appointmentData | [AppointmentModel](./scheduler.md#appointmentmodel) | The appointment’s displayed metadata.
 onFieldChange | (nextFieldValue: { [fieldName: string]: any }) => void | Handles appointment field value changes.
 getMessage | (messageKey: string) => string | Returns a localization message by the message key.
+locale | string &#124; Array&lt;string&gt; | Specifies the locale date format that is a string holding a BCP 47 language tag, or an array of such strings.
 textEditorComponent | ComponentType&lt;[AppointmentForm.TextEditorProps](#appointmentformtexteditorprops)&gt; | A component that renders the appointment form's text editor component.
 dateEditorComponent | ComponentType&lt;[AppointmentForm.DateEditorProps](#appointmentformdateeditorprops)&gt; | A component that renders the appointment form's date editor component.
 booleanEditorComponent | ComponentType&lt;[AppointmentForm.BooleanEditorProps](#appointmentformbooleanteditorprops)&gt; | A component that renders the appointment form's boolean editor component.
@@ -117,6 +118,7 @@ readOnly? | boolean | Specifies whether the appointment form is read-only.
 appointmentData | [AppointmentModel](./scheduler.md#appointmentmodel) | The appointment’s displayed metadata.
 onFieldChange | (nextFieldValue: { [fieldName: string]: any }) => void | Handles appointment field value changes.
 getMessage | (messageKey: string) => string | Returns a localization message by the message key.
+locale | string &#124; Array&lt;string&gt; | Specifies the locale date format that is a string holding a BCP 47 language tag, or an array of such strings.
 radioGroupComponent | ComponentType&lt;[AppointmentForm.RadioGroupProps](#appointmentformradiogroupprops)&gt; | A component that renders the appointment form's radio group component.
 weeklyRecurrenceSelectorComponent | ComponentType&lt;[AppointmentForm.WeeklyRecuurenceSelectorProps](#appointmentformweeklyrecurrenceselectorprops)&gt; | | A component that renders the appointment form's weekly recurrence selector component.
 textEditorComponent | ComponentType&lt;[AppointmentForm.TextEditorProps](#appointmentformtexteditorprops)&gt; | A component that renders the appointment form's text editor component.
@@ -124,6 +126,28 @@ dateEditorComponent | ComponentType&lt;[AppointmentForm.DateEditorProps](#appoin
 selectComponent | ComponentType&lt;[AppointmentForm.SelectProps](#appointmentformselectprops)&gt; | A component that renders the appointment form's select component.
 labelComponent | ComponentType&lt;[AppointmentForm.LabelProps](#appointmentformlabelprops)&gt; | A component that renders the appointment form's text label component.
 children? | ReactNode | A React node to be rendered in the Basic Layout.
+
+### AppointmentForm.BooleanEditorProps
+
+Properties passed to a component that renders the appointment form's boolean editor component.
+
+Field | Type | Description
+------|------|------------
+label | string | The boolean editor’s label text.
+readOnly | boolean | Specifies whether the boolean editor is read-only.
+value | boolean | A value to be edited.
+onValueChange | (nextValue: boolean) => void | Handles value changes.
+
+### AppointmentForm.DateEditorProps
+
+Properties passed to a component that renders the appointment form's date editor component.
+
+Field | Type | Description
+------|------|------------
+readOnly | boolean | Specifies whether the date editor is read-only.
+value | string &#124; number &#124; Date | A value to be edited.
+onValueChange | (nextValue: Date) => void | Handles value changes.
+locale | string &#124; Array&lt;string&gt; | Specifies the locale date format that is a string holding a BCP 47 language tag, or an array of such strings.
 
 ### AppointmentForm.TextEditorProps
 
@@ -134,7 +158,6 @@ Field | Type | Description
 placeholder | string | A placeholder displayed inside the text field.
 id | 'titleTextEditor' &#124; 'noteTextEditor' &#124; 'ordinaryTextEditor' &#124; 'numberEditor' | The text editor's type identifier.
 readOnly | boolean | Specifies whether the text editor is read-only.
-fullSize | boolean | Specifies whether the command layout is full-size.
 value | string &#124; number | A value to be edited.
 onValueChange | (nextValue: string) => void | Handles value changes.
 

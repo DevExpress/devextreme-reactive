@@ -62,7 +62,7 @@ export namespace AppointmentForm {
     getMessage: (messageKey: string) => string;
     /** Specifies whether the appointment form is read-only. */
     readOnly?: boolean;
-    /** The locale according to which dates should be formatted. */
+    /** Specifies the locale date format that is a string holding a BCP 47 language tag, or an array of such strings. */
     locale: string | string[];
     /** A component that renders the appointment form's text editor component. */
     textEditorComponent: React.ComponentType<AppointmentForm.TextEditorProps>;
@@ -89,7 +89,7 @@ export namespace AppointmentForm {
     readOnly?: boolean;
     /** A function that formats dates according to the locale. */
     formatDate: FormatterFn;
-    /** The locale according to which dates should be formatted. */
+    /** Specifies the locale date format that is a string holding a BCP 47 language tag, or an array of such strings. */
     locale: string | string[];
     /** A component that renders the appointment form's radio group component. */
     radioGroupComponent: React.ComponentType<AppointmentForm.RadioGroupProps>;
@@ -119,24 +119,26 @@ export namespace AppointmentForm {
     /** The text editor's type identifier. */
     type: 'titleTextEditor' | 'multilineTextEditor' | 'ordinaryTextEditor' | 'numberEditor';
   }
-  /** A component that renders the appointment form's date editor component */
+  /** Properties passed to a component that renders the appointment form's date editor component */
   export interface DateEditorProps {
     /** Specifies the date editor is read-only. */
     readOnly: boolean;
     /** A value to be edited. */
     value: string | number;
     /** Handles value changes. */
-    onValueChange: (nextValue: string) => void;
+    onValueChange: (nextValue: Date) => void;
+    /** Specifies the locale date format that is a string holding a BCP 47 language tag, or an array of such strings. */
+    locale: string | string[];
   }
-  /** A component that renders the appointment form's boolean editor component */
+  /** Properties passed to a component that renders the appointment form's boolean editor component */
   export interface BooleanEditorProps {
     /** The boolean editor’s label text. */
     label: string;
     /** A value to be edited. */
-    value: string | number;
+    value: boolean;
     /** Handles value changes. */
-    onValueChange: (nextValue: string) => void;
-    /** Specifies the date editor is read-only. */
+    onValueChange: (nextValue: boolean) => void;
+    /** Specifies the boolean editor is read-only. */
     readOnly: boolean;
   }
   /** A component that renders the appointment form's select component */
@@ -150,7 +152,7 @@ export namespace AppointmentForm {
     /** Specifies the date editor is read-only. */
     readOnly: boolean;
     /** The text editor's type identifier. */
-    id: 'titleTextEditor' | 'noteTextEditor' | 'ordinaryTextEditor' | 'numberEditor';
+    id: 'titleTextEditor' | 'multilineTextEditor' | 'ordinaryTextEditor' | 'numberEditor';
   }
   /** A component that renders a command button. */
   export interface CommandButtonProps {

@@ -36,10 +36,6 @@ describe('PaneLayout', () => {
       },
       children: expect.anything(),
     });
-    expect(tree.find('g').props()).toEqual({
-      clipPath: 'url(#clip_path_1)',
-      children: [expect.anything(), expect.anything()],
-    });
     expect(tree.find(ClipPath).props()).toEqual({
       height: 300,
       width: 400,
@@ -49,6 +45,7 @@ describe('PaneLayout', () => {
     expect(getComputedState(tree)).toEqual({
       ...defaultDeps.getter,
       rootRef: expect.anything(),
+      clipPathId: 'clip_path_1',
     });
   });
 

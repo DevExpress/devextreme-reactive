@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  dSymbol, getScatterAnimationStyle, HOVERED, SELECTED,
+  dSymbol, getScatterAnimationStyle, HOVERED, SELECTED, getVisibility,
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { ScatterSeries } from '../../types';
@@ -11,17 +11,19 @@ class RawPoint extends React.PureComponent<ScatterSeries.PointProps> {
       arg, val, rotated,
       argument, value, seriesIndex, index, state,
       point: pointOptions,
-      color,
+      color, pane,
       style, scales, getAnimatedStyle,
       ...restProps
     } = this.props;
     const x = rotated ? val : arg;
     const y = rotated ? arg : val;
+    const visibility = getVisibility(pane, x, y, 0, 0);
     return (
       <path
         transform={`translate(${x} ${y})`}
         d={dSymbol(pointOptions)}
         fill={color}
+        visibility={visibility}
         stroke="none"
         style={getAnimatedStyle(style, getScatterAnimationStyle, scales)}
         {...restProps}

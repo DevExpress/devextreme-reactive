@@ -108,7 +108,11 @@ class DragDropProviderBase extends React.PureComponent<
   applyChanges(startTime, endTime, payload, startEditAppointment, changeAppointment) {
     startEditAppointment(payload);
     changeAppointment({
-      change: { startDate: startTime, endDate: endTime },
+      change: {
+        startDate: startTime,
+        endDate: endTime,
+        ...payload.allDay && { allDay: undefined },
+      },
     });
     this.setState({ startTime, endTime, payload, isOutside: false });
   }
@@ -134,9 +138,11 @@ class DragDropProviderBase extends React.PureComponent<
     }
 
     const tableCellElementsMeta = timeTableElementsMeta;
-    const allDayCellsElementsMeta = allDayElementsMeta
-      || { getCellRects: [] }; // not always AllDayPanel exists
 
+    // AllDayPanel doesn't always exist
+    const allDayCellsElementsMeta = allDayElementsMeta && allDayElementsMeta.getCellRects
+      ? allDayElementsMeta
+      : { getCellRects: [] };
     const timeTableIndex = cellIndex(tableCellElementsMeta.getCellRects, clientOffset);
     const allDayIndex = cellIndex(allDayCellsElementsMeta.getCellRects, clientOffset);
 

@@ -396,6 +396,58 @@ describe('DragDropProvider', () => {
       expect(defaultDeps.action.changeAppointment)
         .toBeCalledWith({ change: { startDate: new Date('2018-06-25 9:30'), endDate: new Date('2018-06-25 10:30') } }, expect.any(Object), expect.any(Object));
     });
+    it('should reset the allDay flag if it exists', () => {
+      const payload = {
+        id: 1,
+        type: 'vertical',
+        startDate: new Date('2018-06-25 10:00'),
+        endDate: new Date('2018-06-25 11:00'),
+        allDay: true,
+      };
+      cellIndex.mockImplementationOnce(() => 1);
+      cellIndex.mockImplementationOnce(() => -1);
+      cellType.mockImplementationOnce(() => 'horizontal');
+      cellData.mockImplementationOnce(() => ({ startDate: new Date('2018-06-25 00:00'), endDate: new Date('2018-06-26 00:00') }));
+
+      const { tree, onOver } = mountPlugin({});
+
+      onOver({ payload, clientOffset: { x: 1, y: 35 } });
+      tree.update();
+
+      expect(defaultDeps.action.changeAppointment)
+        .toBeCalledWith({ change: { startDate: new Date('2018-06-25 00:00'), endDate: new Date('2018-06-26 00:00'), allDay: undefined } }, expect.any(Object), expect.any(Object));
+    });
+    it('should call cellIndex with array if allDayElementsMeta is an empty object', () => {
+      const deps = {
+        getter: {
+          timeTableElementsMeta: {
+            parentRect: () => ({ height: 20, top: 20, bottom: 40 }),
+            getCellRects: [{}, () => ({ height: 20, top: 20, bottom: 40 })],
+          },
+          allDayElementsMeta: {},
+        },
+      };
+      const payload = {
+        id: 1,
+        type: 'vertical',
+        startDate: new Date('2018-06-25 10:00'),
+        endDate: new Date('2018-06-25 11:00'),
+      };
+      cellIndex.mockImplementationOnce(() => 1);
+      cellIndex.mockImplementationOnce(() => -1);
+      cellType.mockImplementationOnce(() => 'vertical');
+      cellData.mockImplementationOnce(() => ({ startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00') }));
+
+      const { tree, onOver } = mountPlugin({}, deps);
+
+      onOver({ payload, clientOffset: { x: 1, y: 25 } });
+      tree.update();
+
+      expect(cellIndex)
+        .toBeCalledWith(deps.getter.timeTableElementsMeta.getCellRects, expect.any(Object));
+      expect(cellIndex)
+        .toBeCalledWith([], expect.any(Object));
+    });
   });
 
   describe('Drop', () => {

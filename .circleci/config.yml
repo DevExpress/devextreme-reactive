@@ -61,7 +61,7 @@ workflows:
           requires:
             - Build Source
       - TestCafe Tests:
-        requires:
+          requires:
             - Build Source
       - Site:
           requires:

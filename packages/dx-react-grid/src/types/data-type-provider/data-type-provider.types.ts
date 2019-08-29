@@ -22,7 +22,7 @@ export namespace DataTypeProvider {
     value: any;
     /** Handles value changes. */
     onValueChange: (newValue: any) => void;
-    /** Specifies whether the editor is enabled. */
+    /** "true" if users should not be able to edit the value, "false" otherwise. */
     disabled: boolean;
   }
 }

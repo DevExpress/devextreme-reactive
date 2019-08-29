@@ -6,6 +6,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import Grid from '@material-ui/core/Grid';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import moment from 'moment';
 import { NUMBER_EDITOR, getRecurrenceOptions, changeRecurrenceOptions } from '@devexpress/dx-scheduler-core';
 
 const styles = ({ spacing, typography }) => ({
@@ -51,9 +52,13 @@ const EndRepeatEditorBase = ({
   const changeRecurrenceCount = React.useCallback(nextCount => onFieldChange({
     rRule: changeRecurrenceOptions({ ...recurrenceOptions, count: nextCount }),
   }), [recurrenceOptions, onFieldChange]);
-  const changeRecurrenceEndDate = React.useCallback(date => onFieldChange({
-    rRule: changeRecurrenceOptions({ ...recurrenceOptions, until: date }),
-  }), [recurrenceOptions, onFieldChange]);
+  const changeRecurrenceEndDate = React.useCallback((date) => {
+    if (moment(date).isValid()) {
+      onFieldChange({
+        rRule: changeRecurrenceOptions({ ...recurrenceOptions, until: date }),
+      });
+    }
+  }, [recurrenceOptions, onFieldChange]);
 
   const countEditorProps = React.useMemo(() => ({
     endAdornment: <InputAdornment position="end">{getMessage('occurrencesLabel')}</InputAdornment>,

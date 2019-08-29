@@ -43,9 +43,8 @@ jobs:
 
     steps:
       - checkout
-
-      - run: sudo npm i -g yarn
-      - run: sudo chmod a+rwx /usr/local/bin/yarn
+      - attach_workspace:
+          at: ~/circleci
 
       - run: yarn --no-progress
       - run: yarn testcafe:ci
@@ -61,7 +60,9 @@ workflows:
       - Jest Tests & Linter:
           requires:
             - Build Source
-      - TestCafe Tests
+      - TestCafe Tests:
+        requires:
+            - Build Source
       - Site:
           requires:
             - Build Source

@@ -24,7 +24,7 @@ const DateEditorBase = React.memo(({
   ...restProps
 }) => {
   const memoizedChangeHandler = React.useCallback(
-    nextDate => onValueChange(nextDate.toDate()),
+    nextDate => nextDate && onValueChange(nextDate.toDate()),
   );
   return (
     <MuiPickersUtilsProvider utils={MomentUtils} locale={locale}>

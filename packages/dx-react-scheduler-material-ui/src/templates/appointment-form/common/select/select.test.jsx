@@ -5,7 +5,7 @@ import { Select } from './select';
 import { FilledSelect } from './filled-select';
 import { OutlinedSelect } from './outlined-select';
 
-describe('AppointmentForm common', () => {
+describe('AppointmentForm common select', () => {
   const defaultProps = {
     onValueChange: jest.fn(),
     value: '1',

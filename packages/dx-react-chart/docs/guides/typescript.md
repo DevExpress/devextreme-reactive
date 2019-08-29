@@ -1,7 +1,6 @@
-# React Chart - TypeScript
+# React Chart - TypeScript Support
 
-[TypeScript](https://www.typescriptlang.org) is a JavaScript superset with a strict syntax, developed by Microsoft. It supports static typing and enables catching errors at build time.
 
-React Chart comes with TypeScript definitions that facilitate its use in TypeScript projects.
+The React Scheduler is supplied with TypeScript definitions. Strict typing allows you to catch bugs at earlier stages and use features like code completion and automated refactoring.
 
 .embedded-demo({ "path": "chart-basic/typescript", "showThemeSelector": true })

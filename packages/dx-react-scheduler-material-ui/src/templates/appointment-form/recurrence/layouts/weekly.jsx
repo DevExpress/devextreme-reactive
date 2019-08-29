@@ -10,10 +10,10 @@ const styles = theme => ({
   },
   textEditor: {
     width: 'calc((100% - 7.5em) * 3 / 7)',
-    maxWidth: '6em',
+    maxWidth: '8em',
   },
   grid: {
-    marginBottom: theme.spacing(1),
+    marginBottom: theme.spacing(2),
     marginTop: theme.spacing(1.75),
   },
   labelWithMargin: {

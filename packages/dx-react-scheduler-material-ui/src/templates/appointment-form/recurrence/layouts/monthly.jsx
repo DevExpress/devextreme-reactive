@@ -20,10 +20,11 @@ const styles = theme => ({
   },
   textEditor: {
     width: 'calc((100% - 7.5em) * 3 / 7)',
-    maxWidth: '6em',
+    maxWidth: '8em',
   },
   grid: {
     marginTop: theme.spacing(1.75),
+    marginBottom: theme.spacing(1),
   },
   labelWithMargin: {
     marginLeft: '1em',

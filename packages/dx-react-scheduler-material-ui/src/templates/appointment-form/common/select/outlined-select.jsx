@@ -1,10 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import MUISelect from '@material-ui/core/Select';
+import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import { withStyles } from '@material-ui/core/styles';
-import FilledInput from '@material-ui/core/FilledInput';
 import { STANDARD_SELECT } from '@devexpress/dx-scheduler-core';
 
 
@@ -26,7 +25,7 @@ const styles = ({ typography }) => ({
   },
 });
 
-const SelectBase = React.memo(({
+const OutlinedSelectBase = React.memo(({
   value,
   availableOptions,
   onValueChange,
@@ -40,22 +39,18 @@ const SelectBase = React.memo(({
     onValueChange(event.target.value);
   };
 
-  const Input = type === STANDARD_SELECT
-    ? <FilledInput hiddenLabel />
-    : (
-      <OutlinedInput
-        classes={{ input: classes.input, root: classes.inputRoot }}
-        labelWidth={0}
-      />
-    );
-
   return (
-    <MUISelect
+    <Select
       disabled={readOnly}
       classes={{ root: classes.root }}
       value={value}
       onChange={handleChange}
-      input={Input}
+      input={(
+        <OutlinedInput
+          classes={{ input: classes.input, root: classes.inputRoot }}
+          labelWidth={0}
+        />
+      )}
       {...restProps}
     >
       {availableOptions.map(option => (
@@ -67,11 +62,12 @@ const SelectBase = React.memo(({
           {option.text}
         </MenuItem>
       ))}
-    </MUISelect>
+    </Select>
   );
+
 });
 
-SelectBase.propTypes = {
+OutlinedSelectBase.propTypes = {
   onValueChange: PropTypes.func,
   classes: PropTypes.object.isRequired,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
@@ -83,11 +79,11 @@ SelectBase.propTypes = {
   type: PropTypes.string,
 };
 
-SelectBase.defaultProps = {
+OutlinedSelectBase.defaultProps = {
   readOnly: false,
   onValueChange: () => undefined,
   availableOptions: [],
   type: STANDARD_SELECT,
 };
 
-export const Select = withStyles(styles)(SelectBase, { name: 'Select' });
+export const OutlinedSelect = withStyles(styles)(OutlinedSelectBase, { name: 'OutlinedSelect' });

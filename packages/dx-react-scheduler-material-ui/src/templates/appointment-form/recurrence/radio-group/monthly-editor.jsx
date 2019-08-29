@@ -20,7 +20,7 @@ import {
 const styles = ({ spacing }) => ({
   textEditor: {
     width: 'calc((100% - 5.5em) * 3 / 7)',
-    maxWidth: '7.25em',
+    maxWidth: '12em',
     marginRight: '1em',
   },
   input: {
@@ -28,11 +28,11 @@ const styles = ({ spacing }) => ({
   },
   select: {
     width: 'calc((100% - 5.5em) * 3 / 7)',
-    maxWidth: '6em',
+    maxWidth: '8em',
   },
   longSelect: {
     width: 'calc((100% - 5.5em) * 4 / 7)',
-    minWidth: 'calc(100% - 11.5em)',
+    minWidth: 'calc(100% - 13.5em)',
     marginLeft: '1em',
   },
   label: {
@@ -40,7 +40,7 @@ const styles = ({ spacing }) => ({
   },
   longLabel: {
     width: 'calc((100% - 5.5em) * 4 / 7)',
-    minWidth: 'calc(100% - 11.5em)',
+    minWidth: 'calc(100% - 14em)',
   },
   grid: {
     marginTop: spacing(1),

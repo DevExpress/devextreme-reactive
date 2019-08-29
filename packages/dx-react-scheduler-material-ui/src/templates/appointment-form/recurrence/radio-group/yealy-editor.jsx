@@ -23,9 +23,7 @@ import {
 const styles = ({ spacing }) => ({
   textEditor: {
     width: 'calc((100% - 5.5em) * 4 / 7)',
-    minWidth: 'calc(100% - 11.5em)',
-    marginTop: spacing(1),
-    marginBottom: spacing(1),
+    minWidth: 'calc(100% - 13.5em)',
     marginLeft: '1em',
   },
   label: {
@@ -36,11 +34,11 @@ const styles = ({ spacing }) => ({
   },
   select: {
     width: 'calc((100% - 5.5em) * 3 / 7)',
-    maxWidth: '6em',
+    maxWidth: '8em',
   },
   longSelect: {
     width: 'calc((100% - 5.5em) * 4 / 7)',
-    minWidth: 'calc(100% - 11.5em)',
+    minWidth: 'calc(100% - 13.5em)',
     marginLeft: '1em',
   },
   formControlLabel: {
@@ -48,6 +46,8 @@ const styles = ({ spacing }) => ({
   },
   formControl: {
     marginRight: 0,
+    marginTop: spacing(1),
+    marginBottom: spacing(1),
   },
   doubleSelect: {
     marginLeft: '4.5em',

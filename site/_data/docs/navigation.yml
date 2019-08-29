@@ -323,7 +323,7 @@
         path: /react/scheduler/docs/guides/editing
       - title: Localization
         path: /react/scheduler/docs/guides/localization
-      - title: TypeScript
+      - title: TypeScript Support
         path: /react/scheduler/docs/guides/typescript
   - title: Common Concepts
     items:

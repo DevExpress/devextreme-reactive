@@ -1,7 +1,6 @@
-# React Scheduler - TypeScript
+# React Scheduler - TypeScript Support
 
-[TypeScript](https://www.typescriptlang.org) is a popular JavaScript superset with a strict syntax, developed by Microsoft. It supports static typing and enables catching errors at build time.
 
-The React Scheduler comes with TypeScript definitions that allows you to use it into TypeScript projects.
+The React Scheduler is supplied with TypeScript definitions. Strict typing allows you to catch bugs at earlier stages and use features like code completion and automated refactoring.
 
 .embedded-demo({ "path": "scheduler-typescript/basic", "showThemeSelector": true })

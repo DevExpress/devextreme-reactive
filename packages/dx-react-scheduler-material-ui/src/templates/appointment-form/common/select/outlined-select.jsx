@@ -4,7 +4,6 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import { withStyles } from '@material-ui/core/styles';
-import { STANDARD_SELECT } from '@devexpress/dx-scheduler-core';
 
 
 const styles = ({ typography }) => ({
@@ -63,7 +62,6 @@ const OutlinedSelectBase = React.memo(({
       ))}
     </Select>
   );
-
 });
 
 OutlinedSelectBase.propTypes = {

@@ -93,9 +93,6 @@ const LayoutBase = ({
     : REPEAT_TYPES.NEVER;
 
   const changeTitle = React.useCallback(title => onFieldChange({ title }), [onFieldChange]);
-  const changeAdditionalInformation = React.useCallback(
-    additionalInformation => onFieldChange({ additionalInformation }), [onFieldChange],
-  );
   const changeNotes = React.useCallback(notes => onFieldChange({ notes }), [onFieldChange]);
   const changeStartDate = React.useCallback(
     startDate => onFieldChange({ startDate }), [onFieldChange],

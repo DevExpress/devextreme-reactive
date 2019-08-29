@@ -21,7 +21,7 @@ describe('AppointmentForm recurrence RadioGroup', () => {
       endDate: new Date(),
       rRule: 'RRULE:FREQ=YEARLY',
     },
-    locale: 'en-US,'
+    locale: 'en-US',
   };
   let classes;
   let shallow;

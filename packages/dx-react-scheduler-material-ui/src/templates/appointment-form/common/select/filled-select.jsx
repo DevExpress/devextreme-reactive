@@ -4,7 +4,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import TextField from '@material-ui/core/TextField';
-import { STANDARD_SELECT } from '@devexpress/dx-scheduler-core';
 
 
 const styles = ({ typography, spacing }) => ({

@@ -24,5 +24,5 @@ export type RadioGroupDisplayData = {
 /** @internal */
 export type StringWithIdFormat = {
   text: string;
-  id: number;
+  id: number | string;
 };

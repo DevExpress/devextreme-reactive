@@ -66,6 +66,7 @@ const containerStyles = theme => ({
     '&:last-child': {
       marginRight: 0,
     },
+    width: '50%',
   },
   wrapper: {
     display: 'flex',
@@ -137,6 +138,7 @@ class AppointmentFormContainerBasic extends React.PureComponent {
       visibleChange,
       appointmentData,
       cancelAppointment,
+      target,
     } = this.props;
     const { appointmentChanges } = this.state;
 
@@ -152,7 +154,9 @@ class AppointmentFormContainerBasic extends React.PureComponent {
 
     const textEditorProps = field => ({
       variant: 'outlined',
-      onChange: ({ target }) => this.changeAppointment({ field: [field], changes: target.value }),
+      onChange: ({ target: change }) => this.changeAppointment({
+        field: [field], changes: change.value,
+      }),
       value: displayAppointmentData[field] || '',
       label: field[0].toUpperCase() + field.slice(1),
       className: classes.textField,
@@ -180,11 +184,12 @@ class AppointmentFormContainerBasic extends React.PureComponent {
     };
 
     return (
-      <AppointmentForm.Popup
+      <AppointmentForm.Overlay
         visible={visible}
-        onBackdropClick={cancelChanges}
+        target={target}
+        fullSize
       >
-        <AppointmentForm.Container className={classes.container}>
+        <div>
           <div className={classes.header}>
             <IconButton
               className={classes.closeButton}
@@ -254,8 +259,8 @@ class AppointmentFormContainerBasic extends React.PureComponent {
               {isNewAppointment ? 'Create' : 'Save'}
             </Button>
           </div>
-        </AppointmentForm.Container>
-      </AppointmentForm.Popup>
+        </div>
+      </AppointmentForm.Overlay>
     );
   }
 }
@@ -432,7 +437,7 @@ class Demo extends React.PureComponent {
           <Toolbar />
           <ViewSwitcher />
           <AppointmentForm
-            popupComponent={this.appointmentForm}
+            overlayComponent={this.appointmentForm}
             visible={editingFormVisible}
             onVisibilityChange={this.toggleEditingFormVisibility}
           />

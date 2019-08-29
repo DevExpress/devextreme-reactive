@@ -139,6 +139,7 @@ class AppointmentFormContainerBasic extends React.PureComponent {
       appointmentData,
       cancelAppointment,
       target,
+      onHide,
     } = this.props;
     const { appointmentChanges } = this.state;
 
@@ -188,6 +189,7 @@ class AppointmentFormContainerBasic extends React.PureComponent {
         visible={visible}
         target={target}
         fullSize
+        onHide={onHide}
       >
         <div>
           <div className={classes.header}>

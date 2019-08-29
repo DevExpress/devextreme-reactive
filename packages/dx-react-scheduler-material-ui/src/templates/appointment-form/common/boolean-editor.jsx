@@ -41,7 +41,7 @@ BooleanEditorBase.propTypes = {
   label: PropTypes.string,
   readOnly: PropTypes.bool,
   value: PropTypes.bool,
-  onValueChange: PropTypes.func,
+  onValueChange: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
@@ -49,7 +49,6 @@ BooleanEditorBase.defaultProps = {
   label: undefined,
   readOnly: false,
   value: false,
-  onValueChange: () => undefined,
 };
 
 export const BooleanEditor = withStyles(styles)(BooleanEditorBase, { name: 'BooleanEditor' });

@@ -133,10 +133,20 @@ Properties passed to a component that renders the appointment form's boolean edi
 
 Field | Type | Description
 ------|------|------------
-label | string | The boolean editor’s label text.
-readOnly | boolean | Specifies whether the boolean editor is read-only.
-value | boolean | A value to be edited.
+label? | string | The boolean editor’s label text.
+readOnly? | boolean | Specifies whether the boolean editor is read-only.
+value? | boolean | A value to be edited.
 onValueChange | (nextValue: boolean) => void | Handles value changes.
+
+### AppointmentForm.CommandButtonProps
+
+Properties passed to a component that renders the appointment form's command button component.
+
+Field | Type | Description
+------|------|------------
+id | 'saveButton' &#124; 'deleteButton' &#124; 'cancelButton' | The command button's identifier.
+onExecute | () => void | An event that initiates the command execution.
+getMessage | (messageKey: string) => string | Returns a localization message by the message key.
 
 ### AppointmentForm.DateEditorProps
 
@@ -144,10 +154,19 @@ Properties passed to a component that renders the appointment form's date editor
 
 Field | Type | Description
 ------|------|------------
-readOnly | boolean | Specifies whether the date editor is read-only.
-value | string &#124; number &#124; Date | A value to be edited.
+readOnly? | boolean | Specifies whether the date editor is read-only.
+value? | string &#124; number &#124; Date | A value to be edited.
 onValueChange | (nextValue: Date) => void | Handles value changes.
-locale | string &#124; Array&lt;string&gt; | Specifies the locale date format that is a string holding a BCP 47 language tag, or an array of such strings.
+locale? | string &#124; Array&lt;string&gt; | Specifies the locale date format that is a string holding a BCP 47 language tag, or an array of such strings.
+
+### AppointmentForm.LabelProps
+
+Properties passed to a component that renders the appointment form's text label component.
+
+Field | Type | Description
+------|------|------------
+type? | 'titleLabel' &#124; 'ordinaryLabel' | The label's type.
+text? | string | The label's text.
 
 ### AppointmentForm.TextEditorProps
 

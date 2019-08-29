@@ -53,13 +53,12 @@ DateEditorBase.propTypes = {
   ]),
   className: PropTypes.string,
   readOnly: PropTypes.bool,
-  onValueChange: PropTypes.func,
+  onValueChange: PropTypes.func.isRequired,
   locale: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
 };
 
 DateEditorBase.defaultProps = {
   locale: 'en-US',
-  onValueChange: () => undefined,
   value: undefined,
   className: undefined,
   readOnly: false,

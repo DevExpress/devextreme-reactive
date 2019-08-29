@@ -122,26 +122,26 @@ export namespace AppointmentForm {
   /** Properties passed to a component that renders the appointment form's date editor component */
   export interface DateEditorProps {
     /** Specifies the date editor is read-only. */
-    readOnly: boolean;
+    readOnly?: boolean;
     /** A value to be edited. */
-    value: string | number;
+    value?: string | number;
     /** Handles value changes. */
     onValueChange: (nextValue: Date) => void;
     /** Specifies the locale date format that is a string holding a BCP 47 language tag, or an array of such strings. */
-    locale: string | string[];
+    locale?: string | string[];
   }
   /** Properties passed to a component that renders the appointment form's boolean editor component */
   export interface BooleanEditorProps {
     /** The boolean editor’s label text. */
-    label: string;
+    label?: string;
     /** A value to be edited. */
-    value: boolean;
+    value?: boolean;
     /** Handles value changes. */
     onValueChange: (nextValue: boolean) => void;
     /** Specifies the boolean editor is read-only. */
-    readOnly: boolean;
+    readOnly?: boolean;
   }
-  /** A component that renders the appointment form's select component */
+  /** Properties passed to a component that renders the appointment form's select component */
   export interface SelectProps {
     /** A value to be edited. */
     value: string | number;
@@ -152,23 +152,23 @@ export namespace AppointmentForm {
     /** Specifies the date editor is read-only. */
     readOnly: boolean;
     /** The text editor's type identifier. */
-    id: 'titleTextEditor' | 'multilineTextEditor' | 'ordinaryTextEditor' | 'numberEditor';
+    type: 'titleTextEditor' | 'multilineTextEditor' | 'ordinaryTextEditor' | 'numberEditor';
   }
-  /** A component that renders a command button. */
+  /** Properties passed to a component that renders a command button. */
   export interface CommandButtonProps {
-    /** The command identifier. */
-    id: 'saveButton' | 'deleteButton' | 'closeButton';
-    /** An event initiating the command execution. */
+    /** The command button's identifier. */
+    id: 'saveButton' | 'deleteButton' | 'cancelButton';
+    /** An event that initiates the command execution. */
     onExecute: () => void;
-    /*** Returns a specified localization message. */
+    /** Returns a localization message by the message key. */
     getMessage?: (messageKey: string) => string;
   }
-  /** A component that renders the appointment form's text label component */
+  /** Properties passed to acomponent that renders the appointment form's text label component */
   export interface LabelProps {
     /** The label's type. */
-    type: 'titleLabel' | 'ordinaryLabel';
+    type?: 'titleLabel' | 'ordinaryLabel';
     /** The label's text. */
-    text: string;
+    text?: string;
   }
   /** Properties passed to a component that renders the appointment form's radio group component. */
   export interface RadioGroupProps {

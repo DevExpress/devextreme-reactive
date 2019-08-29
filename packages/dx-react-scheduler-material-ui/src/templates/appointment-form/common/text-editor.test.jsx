@@ -133,5 +133,16 @@ describe('AppointmentForm common', () => {
       expect(defaultProps.onChange)
         .toBeCalledWith('abc');
     });
+
+    it('should be disabled depending on readonly', () => {
+      const tree = shallow((
+        <TextEditor
+          readOnly
+        />
+      ));
+
+      expect(tree.prop('disabled'))
+        .toBeTruthy();
+    });
   });
 });

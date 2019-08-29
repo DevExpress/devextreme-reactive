@@ -52,5 +52,16 @@ describe('AppointmentForm common', () => {
       expect(defaultProps.onValueChange)
         .toBeCalled();
     });
+
+    it('should be disabled depending on readonly', () => {
+      const tree = shallow((
+        <DateEditor
+          readOnly
+        />
+      ));
+
+      expect(tree.find(KeyboardDateTimePicker).at(0).prop('disabled'))
+        .toBeTruthy();
+    });
   });
 });

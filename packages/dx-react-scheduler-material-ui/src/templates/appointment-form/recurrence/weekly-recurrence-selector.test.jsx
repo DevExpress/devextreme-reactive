@@ -186,5 +186,17 @@ describe('AppointmentForm recurrence', () => {
       expect(defaultProps.formatDate)
         .toBeCalledWith(SATURDAY_DATE, WEEK_DAY_OPTIONS);
     });
+
+    it('should be disabled depending on readonly', () => {
+      const tree = shallow((
+        <WeeklyRecurrenceSelector
+          {...defaultProps}
+          readOnly
+        />
+      ));
+
+      expect(tree.prop('disabled'))
+        .toBeTruthy();
+    });
   });
 });

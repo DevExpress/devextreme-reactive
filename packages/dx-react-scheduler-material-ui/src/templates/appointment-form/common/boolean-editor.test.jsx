@@ -1,10 +1,14 @@
 import * as React from 'react';
-import { createMount } from '@material-ui/core/test-utils';
+import { createMount, createShallow } from '@material-ui/core/test-utils';
 import Checkbox from '@material-ui/core/Checkbox';
 import { BooleanEditor } from './boolean-editor';
 
 describe('AppointmentForm common', () => {
   let mount;
+  let shallow;
+  beforeAll(() => {
+    shallow = createShallow({ dive: true });
+  });
   beforeEach(() => {
     mount = createMount();
   });
@@ -39,6 +43,17 @@ describe('AppointmentForm common', () => {
       onChange({ target: { checked: true } });
 
       expect(valueChangeMock).toBeCalledWith(true);
+    });
+
+    it('should be disabled depending on readonly', () => {
+      const tree = shallow((
+        <BooleanEditor
+          readOnly
+        />
+      ));
+
+      expect(tree.prop('disabled'))
+        .toBeTruthy();
     });
   });
 });

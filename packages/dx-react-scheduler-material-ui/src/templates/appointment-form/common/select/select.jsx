@@ -20,7 +20,6 @@ export const Select = React.memo(({
       availableOptions={availableOptions}
       onValueChange={onValueChange}
       readOnly={readOnly}
-      type={type}
       {...restProps}
     />
   );

@@ -6,14 +6,12 @@ import {
   handleWeekNumberChange,
   getRecurrenceOptions,
   changeRecurrenceOptions,
-} from '@devexpress/dx-scheduler-core';
-import { YearlyEditor } from './yealy-editor';
-import {
   getDaysOfWeek,
   getMonths,
   getWeekNumberLabels,
   getMonthsWithOf,
-} from '../../helpers';
+} from '@devexpress/dx-scheduler-core';
+import { YearlyEditor } from './yealy-editor';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   ...require.requireActual('@devexpress/dx-scheduler-core'),
@@ -22,9 +20,6 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
   handleToDayOfWeekChange: jest.fn(),
   getRecurrenceOptions: jest.fn(),
   changeRecurrenceOptions: jest.fn(),
-}));
-jest.mock('../../helpers', () => ({
-  ...require.requireActual('../../helpers'),
   getDaysOfWeek: jest.fn(),
   getMonths: jest.fn(),
   getMonthsWithOf: jest.fn(),

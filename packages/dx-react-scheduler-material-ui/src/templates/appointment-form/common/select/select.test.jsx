@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { createShallow, createMount } from '@material-ui/core/test-utils';
-import MenuItem from '@material-ui/core/MenuItem';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import FilledInput from '@material-ui/core/FilledInput';
 import { OUTLINED_SELECT } from '@devexpress/dx-scheduler-core';
 import { Select } from './select';
+import { FilledSelect } from './filled-select';
+import { OutlinedSelect } from './outlined-select';
 
 describe('AppointmentForm common', () => {
   const defaultProps = {
@@ -38,26 +37,26 @@ describe('AppointmentForm common', () => {
         <Select {...defaultProps} />
       ));
 
-      tree.simulate('change', { target: { value: 'next' } });
+      tree.simulate('valueChange', { target: { value: 'next' } });
 
       expect(defaultProps.onValueChange)
-        .toBeCalledWith('next');
+        .toBeCalledWith({ target: { value: 'next' } });
     });
 
-    it('should render items depending on available options', () => {
+    it('should should pass all props except type', () => {
       const tree = shallow((
-        <Select
-          {...defaultProps}
-          availableOptions={[
-            { text: '1', id: 1 },
-            { text: '2', id: 2 },
-            { text: '3', id: 3 },
-          ]}
-        />
+        <Select {...defaultProps} availableOptions={[]} readOnly type={OUTLINED_SELECT} />
       ));
 
-      expect(tree.find(MenuItem))
-        .toHaveLength(3);
+      expect(tree.props())
+        .toMatchObject({
+          value: defaultProps.value,
+          onValueChange: defaultProps.onValueChange,
+          availableOptions: [],
+          readOnly: true,
+        });
+      expect(tree.prop('type'))
+        .toEqual(undefined);
     });
 
     it('should render standard select', () => {
@@ -67,10 +66,8 @@ describe('AppointmentForm common', () => {
         />
       ));
 
-      expect(tree.find(FilledInput))
+      expect(tree.find(FilledSelect))
         .toHaveLength(1);
-      expect(tree.find(OutlinedInput))
-        .toHaveLength(0);
     });
 
     it('should render outlined select', () => {
@@ -81,9 +78,7 @@ describe('AppointmentForm common', () => {
         />
       ));
 
-      expect(tree.find(FilledInput))
-        .toHaveLength(0);
-      expect(tree.find(OutlinedInput))
+      expect(tree.find(OutlinedSelect))
         .toHaveLength(1);
     });
   });

@@ -24,7 +24,6 @@ const FilledSelectBase = React.memo(({
   onValueChange,
   readOnly,
   classes,
-  type,
   className,
   ...restProps
 }) => {
@@ -42,6 +41,7 @@ const FilledSelectBase = React.memo(({
       margin="normal"
       variant="filled"
       hiddenLabel
+      disabled={readOnly}
       {...restProps}
     >
       {availableOptions.map(option => (
@@ -66,14 +66,14 @@ FilledSelectBase.propTypes = {
     text: PropTypes.string.isRequired,
   })),
   readOnly: PropTypes.bool,
-  type: PropTypes.string,
+  className: PropTypes.string,
 };
 
 FilledSelectBase.defaultProps = {
   readOnly: false,
   onValueChange: () => undefined,
   availableOptions: [],
-  type: STANDARD_SELECT,
+  className: undefined,
 };
 
 export const FilledSelect = withStyles(styles)(FilledSelectBase, { name: 'FilledSelect' });

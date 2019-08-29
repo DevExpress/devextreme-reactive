@@ -22,7 +22,7 @@ export type RadioGroupDisplayData = {
   radioGroupValue: string;
 };
 /** @internal */
-export type StringWithIdFormat = {
+export type Option = {
   text: string;
   id: number | string;
 };

@@ -26,7 +26,7 @@ export const Select = React.memo(({
 });
 
 Select.propTypes = {
-  onValueChange: PropTypes.func,
+  onValueChange: PropTypes.func.isRequired,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   availableOptions: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -38,7 +38,6 @@ Select.propTypes = {
 
 Select.defaultProps = {
   readOnly: false,
-  onValueChange: () => undefined,
   availableOptions: [],
   type: STANDARD_SELECT,
 };

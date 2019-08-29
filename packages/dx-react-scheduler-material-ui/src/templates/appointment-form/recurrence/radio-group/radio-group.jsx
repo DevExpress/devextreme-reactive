@@ -76,8 +76,8 @@ RadioGroup.propTypes = {
   getMessage: PropTypes.func.isRequired,
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  dateEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-  selectComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+  dateEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  selectComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   locale: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
   readOnly: PropTypes.bool,
   type: PropTypes.string.isRequired,
@@ -90,15 +90,11 @@ RadioGroup.propTypes = {
     additionalInformation: PropTypes.string,
     allDay: PropTypes.bool,
   }).isRequired,
-  onFieldChange: PropTypes.func,
-  formatDate: PropTypes.func,
+  onFieldChange: PropTypes.func.isRequired,
+  formatDate: PropTypes.func.isRequired,
 };
 
 RadioGroup.defaultProps = {
   locale: undefined,
   readOnly: false,
-  onFieldChange: () => undefined,
-  formatDate: null,
-  selectComponent: null,
-  dateEditorComponent: null,
 };

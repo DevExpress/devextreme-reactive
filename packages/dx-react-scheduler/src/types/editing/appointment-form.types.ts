@@ -1,4 +1,4 @@
-import { AppointmentModel, FormatterFn } from '../index';
+import { AppointmentModel, FormatterFn, Option } from '../index';
 
 /* tslint:disable no-namespace max-line-length */
 export namespace AppointmentForm {
@@ -87,7 +87,7 @@ export namespace AppointmentForm {
     getMessage: (messageKey: string) => string;
     /** Specifies the appointment form is read-only. */
     readOnly?: boolean;
-    /** A function that formats dates according to the locale. */
+    /** A function that formats dates depending on locale. */
     formatDate: FormatterFn;
     /** Specifies the locale date format that is a string holding a BCP 47 language tag, or an array of such strings. */
     locale: string | string[];
@@ -146,13 +146,13 @@ export namespace AppointmentForm {
     /** A value to be edited. */
     value: string | number;
     /** Handles value changes. */
-    onValueChange: (nextValue: string) => void;
-    /** Specifies the options are available for chose */
-    availableOptions: Array<string>;
+    onValueChange: (nextValue: string | number) => void;
+    /** Specifies the options for select menu items. */
+    availableOptions?: Array<Option>;
     /** Specifies the date editor is read-only. */
-    readOnly: boolean;
+    readOnly?: boolean;
     /** The text editor's type identifier. */
-    type: 'titleTextEditor' | 'multilineTextEditor' | 'ordinaryTextEditor' | 'numberEditor';
+    type: 'outlinedSelect' | 'filledSelect';
   }
   /** Properties passed to a component that renders a command button. */
   export interface CommandButtonProps {
@@ -173,13 +173,15 @@ export namespace AppointmentForm {
   /** Properties passed to a component that renders the appointment form's radio group component. */
   export interface RadioGroupProps {
     /** Specifies the appointment’s data that the form displays. */
-    appointmentData?: AppointmentModel;
-    /** A function that formats dates according to the locale. */
+    appointmentData: AppointmentModel;
+    /** Specifies the locale date format that is a string holding a BCP 47 language tag, or an array of such strings. */
+    locale?: string | string[];
+    /** A function that formats dates depending on locale. */
     formatDate: FormatterFn;
     /** Handles appointment field value changes. */
     onFieldChange: (nextFieldValue: { [fieldName: string]: any }) => void;
     /** Specifies the date editor is read-only. */
-    readOnly: boolean;
+    readOnly?: boolean;
     /** The radio group's type. */
     type: 'endRepeat' | 'monthlyRadioGroup' | 'yearlyRadioGroup';
     /*** Returns a specified localization message. */
@@ -195,7 +197,7 @@ export namespace AppointmentForm {
   }
   /** Properties passed to a component that renders the appointment form's weekly recurrence selector component. */
   export interface WeeklyRecurrenceSelector {
-    /** A function that formats dates according to the locale. */
+    /** A function that formats dates depending on locale. */
     formatDate: FormatterFn;
     /** Specifies the appointment recurrence rule. */
     rRule: string;
@@ -286,31 +288,31 @@ export interface AppointmentFormProps {
   readOnly?: boolean;
   /** @internal */
   containerComponent: React.ComponentType<AppointmentForm.ContainerProps>;
-  /** A component that render the appointment form's overlay component */
+  /** A component that renders the appointment form's overlay. */
   overlayComponent: React.ComponentType<AppointmentForm.OverlayProps>;
-  /** A component that render the appointment form's layout */
+  /** A component that renders the appointment form's layout. */
   layoutComponent: React.ComponentType<AppointmentForm.LayoutProps>;
-  /** A component that render the appointment form's layout for command buttons */
+  /** A component that renders the appointment form's layout for command buttons. */
   commandLayoutComponent: React.ComponentType<AppointmentForm.CommandLayoutProps>;
-  /** A component that render the appointment form's layout for basic part of editors */
+  /** A component that renders the appointment form's layout for basic appointment editors. */
   basicLayoutComponent: React.ComponentType<AppointmentForm.BasicLayoutProps>;
-  /** A component that render the appointment form's layout for recurrence part of editors */
+  /** A component that renders the appointment form's layout for recurrent appointment editors. */
   recurrenceLayoutComponent: React.ComponentType<AppointmentForm.RecurrenceLayoutProps>;
   /** A component that render the appointment form's command button */
   commandButtonComponent: React.ComponentType<AppointmentForm.CommandButtonProps>;
-  /** A component that render the appointment form's text editor component */
+  /** A component that renders the appointment form's text editor component. */
   textEditorComponent: React.ComponentType<AppointmentForm.TextEditorProps>;
-  /** A component that render the appointment form's text label component */
+  /** A component that renders the appointment form's text label component. */
   labelComponent: React.ComponentType<AppointmentForm.LabelProps>;
-  /** A component that render the appointment form's date editor component */
+  /** A component that renders the appointment form's date editor component. */
   dateEditorComponent: React.ComponentType<AppointmentForm.DateEditorProps>;
-  /** A component that render the appointment form's boolean editor component */
+  /** A component that renders the appointment form's boolean editor component. */
   booleanEditorComponent: React.ComponentType<AppointmentForm.BooleanEditorProps>;
-  /** A component that render the appointment form's select component */
+  /** A component that renders the appointment form's select component. */
   selectComponent: React.ComponentType<AppointmentForm.SelectProps>;
-  /** A component that render the appointment form's radio group component */
+  /** A component that renders the appointment form's radio group component. */
   radioGroupComponent: React.ComponentType<AppointmentForm.RadioGroupProps>;
-  /** A component that render the appointment form's button group component */
+  /** A component that renders the appointment form's weekly recurrence selector component. */
   weeklyRecurrenceSelectorComponent: React.ComponentType<AppointmentForm.WeeklyRecurrenceSelector>;
   /** An object that specifies localization messages. */
   messages?: AppointmentForm.LocalizationMessages;

@@ -6,10 +6,10 @@ import {
   JULY_DATE, JUNE_DATE, REPEAT_TYPES,
 } from '@devexpress/dx-scheduler-core';
 import { PureComputed } from '@devexpress/dx-core';
-import { StringWithIdFormat } from '../../types';
+import { Option } from '../../types';
 
 export const getWeekNumberLabels: PureComputed<
-  [(messageKey: string) => string], Array<StringWithIdFormat>
+  [(messageKey: string) => string], Array<Option>
 > = getMessage => [
   {
     text: getMessage('firstLabel'),
@@ -34,7 +34,7 @@ export const getWeekNumberLabels: PureComputed<
 ];
 
 export const getDaysOfWeek: PureComputed<
-[(date: Date, formatOptions: object) => string], Array<StringWithIdFormat>
+[(date: Date, formatOptions: object) => string], Array<Option>
 > = formatDate => [
   {
     text: formatDate(SUNDAY_DATE, LONG_WEEK_DAY_OPTIONS),
@@ -67,7 +67,7 @@ export const getDaysOfWeek: PureComputed<
 ];
 
 export const getMonths: PureComputed<
-  [(date: Date, formatOptions: object) => string], Array<StringWithIdFormat>
+  [(date: Date, formatOptions: object) => string], Array<Option>
 > = formatDate => [
   {
     text: formatDate(JANUARY_DATE, LONG_MONTH_OPTIONS),
@@ -121,7 +121,7 @@ export const getMonths: PureComputed<
 
 export const getMonthsWithOf: PureComputed<
   [(messageKey: string) => string, (date: Date, formatOptions: object) => string],
-    Array<StringWithIdFormat>
+    Array<Option>
 > = (getMessage, formatDate) => [
   {
     text: getMessage('ofLabel')
@@ -186,7 +186,7 @@ export const getMonthsWithOf: PureComputed<
 ];
 
 export const getAvailableRecurrenceOptions: PureComputed<
-[(messageKey: string) => string], Array<StringWithIdFormat>
+[(messageKey: string) => string], Array<Option>
 > = getMessage => ([
   {
     text: getMessage(REPEAT_TYPES.NEVER),

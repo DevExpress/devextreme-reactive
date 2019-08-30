@@ -312,12 +312,9 @@ const expandRecurrenceAppointment = (
     ...RRule.parseString(appointment.rRule),
     dtstart: new Date(getUTCDate(appointmentStartDate)),
   };
-  const optionsWithCorrectUntil = options.until
+  const correctedOptions = options.until
     ? { ...options, until: new Date(getUTCDate(options.until)) }
-    : { ...options };
-  if (options.until) {
-    optionsWithCorrectUntil.until = new Date(getUTCDate(options.until));
-  }
+    : options;
 
   const rruleSet = new RRuleSet();
 
@@ -328,7 +325,7 @@ const expandRecurrenceAppointment = (
     }, []);
   }
 
-  rruleSet.rrule(new RRule(optionsWithCorrectUntil));
+  rruleSet.rrule(new RRule(correctedOptions));
 
   // According to https://github.com/jakubroztocil/rrule#important-use-utc-dates
   // we have to format the dates we get from RRuleSet to get local dates

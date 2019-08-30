@@ -636,7 +636,7 @@ describe('Utils', () => {
       const leftBoundary = new Date('2019-04-25 00:00:00+0300');
       const rightBoundary = new Date('2019-04-26 23:59:00+0300');
       const appointment = {
-        start: moment(new Date('2019-04-25T12:11:00+0300')),
+        start: moment(new Date('2019-04-25T22:11:00+0300')),
         end: moment(new Date('2019-04-25T23:00:00+0300')),
         rRule: 'FREQ=DAILY;COUNT=2',
       };
@@ -646,14 +646,36 @@ describe('Utils', () => {
       expect(result).toHaveLength(2);
 
       expect(result[0].start.toString())
-        .toBe(moment(new Date('2019-04-25T12:11:00+0300')).toString());
+        .toBe(moment(new Date('2019-04-25T22:11:00+0300')).toString());
       expect(result[0].end.toString())
         .toBe(moment(new Date('2019-04-25T23:00:00+0300')).toString());
 
       expect(result[1].start.toString())
-        .toBe(moment(new Date('2019-04-26T12:11:00+0300')).toString());
+        .toBe(moment(new Date('2019-04-26T22:11:00+0300')).toString());
       expect(result[1].end.toString())
         .toBe(moment(new Date('2019-04-26T23:00:00+0300')).toString());
+    });
+    it('should work with recurrence appointment with UNTIL set', () => {
+      const monthlyLeftBound = new Date('2019-04-1 00:00');
+      const monthlyRightBound = new Date('2019-05-30 00:00');
+      const appointment = {
+        start: moment(new Date('2019-04-9 00:00')),
+        end: moment(new Date('2019-04-9 23:59')),
+        rRule: 'FREQ=DAILY;UNTIL=20190410T000000Z',
+      };
+      const result = filterByViewBoundaries(appointment, monthlyLeftBound, monthlyRightBound);
+
+      expect(result).toHaveLength(2);
+
+      expect(result[0].start.toString())
+        .toBe(moment(new Date('2019-04-09 0:00')).toString());
+      expect(result[0].end.toString())
+        .toBe(moment(new Date('2019-04-09 23:59')).toString());
+
+      expect(result[1].start.toString())
+        .toBe(moment(new Date('2019-04-10 0:00')).toString());
+      expect(result[1].end.toString())
+        .toBe(moment(new Date('2019-04-10 23:59')).toString());
     });
   });
 });

@@ -88,7 +88,7 @@ describe('AppointmentForm recurrence RadioGroup', () => {
           },
         });
 
-      const testDate = new Date();
+      const testDate = new Date(2019, 1, 1);
       tree.find(defaultProps.dateEditorComponent).at(0).prop('onValueChange')(testDate);
       expect(defaultProps.onFieldChange)
         .toHaveBeenCalledWith({

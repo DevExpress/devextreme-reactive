@@ -11,9 +11,13 @@ import {
 
 import { appointments } from '../../../demo-data/appointments';
 
+const messages = {
+  moreInformationLabel: '',
+};
+
 const TextEditor = (props) => {
   // eslint-disable-next-line react/destructuring-assignment
-  if (props.id === 'noteTextEditor') {
+  if (props.type === 'multilineTextEditor') {
     return null;
   } return <AppointmentForm.TextEditor {...props} />;
 };
@@ -98,6 +102,7 @@ export default class Demo extends React.PureComponent {
           <AppointmentForm
             basicLayoutComponent={BasicLayout}
             textEditorComponent={TextEditor}
+            messages={messages}
           />
         </Scheduler>
       </Paper>

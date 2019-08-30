@@ -88,12 +88,13 @@ describe('AppointmentForm recurrence RadioGroup', () => {
           },
         });
 
-      tree.find(defaultProps.dateEditorComponent).at(0).prop('onValueChange')('abc');
+      const testDate = new Date();
+      tree.find(defaultProps.dateEditorComponent).at(0).prop('onValueChange')(testDate);
       expect(defaultProps.onFieldChange)
         .toHaveBeenCalledWith({
           rRule: {
             ...getRecurrenceOptions(),
-            until: 'abc',
+            until: testDate,
           },
         });
     });

@@ -166,7 +166,7 @@ export const editCurrentAndFollowing: EditFn = (changes, appointmentData) => {
 
   const changedRules = configureICalendarRules(rRule as string, {
     dtstart: moment.utc(parentData.startDate).toDate(),
-    until: moment.utc(initialSequence[currentChildIndex]).toDate(),
+    until: moment.utc(initialSequence[currentChildIndex - 1]).toDate(),
     count: null,
   });
 

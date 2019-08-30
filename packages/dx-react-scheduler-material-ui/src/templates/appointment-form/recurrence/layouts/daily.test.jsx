@@ -9,7 +9,7 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
   changeRecurrenceOptions: jest.fn(),
 }));
 
-describe('AppointmentForm recurrence layout ', () => {
+describe('AppointmentForm recurrence layout', () => {
   const defaultProps = {
     textEditorComponent: () => null,
     labelComponent: () => null,
@@ -70,12 +70,12 @@ describe('AppointmentForm recurrence layout ', () => {
       ));
 
       tree.find(defaultProps.textEditorComponent).at(0)
-        .simulate('valueChange', 'abc');
+        .simulate('valueChange', 23);
       expect(defaultProps.onFieldChange)
         .toHaveBeenCalledWith({
           rRule: {
             ...getRecurrenceOptions(),
-            interval: 'abc',
+            interval: 23,
           },
         });
     });

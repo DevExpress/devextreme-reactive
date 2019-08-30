@@ -74,12 +74,12 @@ describe('AppointmentForm recurrence layout', () => {
       ));
 
       tree.find(defaultProps.textEditorComponent).at(0)
-        .simulate('valueChange', 'abc');
+        .simulate('valueChange', 23);
       expect(defaultProps.onFieldChange)
         .toHaveBeenCalledWith({
           rRule: {
             ...getRecurrenceOptions(),
-            interval: 'abc',
+            interval: 23,
           },
         });
 

@@ -322,10 +322,11 @@ const generateTypeScriptForPackage = (packageName) => {
     + `\n} from \'@devexpress/${packageName}\';\n`
     + `${themesIndexContent}`;
 
-  console.log(`Building TypeScript definitions for \'${packageName}\'.`);
-  const distFolder = join(ROOT_PATH, packageName, TARGET_FOLDER);
-  ensureDirectory(distFolder);
-  writeFileSync(join(distFolder, `${packageName}.d.ts`), indexContent);
+  // Was removed after move packages to ts
+  // console.log(`Building TypeScript definitions for \'${packageName}\'.`);
+  // const distFolder = join(ROOT_PATH, packageName, TARGET_FOLDER);
+  // ensureDirectory(distFolder);
+  // writeFileSync(join(distFolder, `${packageName}.d.ts`), indexContent);
 
   themes.forEach((theme) => {
     console.log(`Building TypeScript definitions for '${packageName}-${theme}'.`);

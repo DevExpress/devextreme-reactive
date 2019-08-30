@@ -284,3 +284,5 @@ AppointmentForm.BooleanEditorComponent | [AppointmentForm.BooleanEditorProps](#a
 AppointmentForm.SelectComponent | [AppointmentForm.SelectProps](#appointmentformselectprops) | A component that renders the appointment form's select component.
 AppointmentForm.RadioGroupComponent | [AppointmentForm.RadioGroupProps](#appointmentformradiogroupprops) | A component that renders the appointment form's radio group component.
 AppointmentForm.WeeklyRecurrenceSelectorComponent | [AppointmentForm.WeeklyRecurrenceSelectorProps](#appointmentformweeklyrecurrenceselectorprops) | A component that renders the appointment form's weekly recurrence selector component.
+
+Additional properties are added to a component’s root element.

@@ -85,3 +85,9 @@ export const SEPTEMBER_DATE = new Date(2019, 8, 1);
 export const OCTOBER_DATE = new Date(2019, 9, 1);
 export const NOVEMBER_DATE = new Date(2019, 10, 1);
 export const DECEMBER_DATE = new Date(2019, 11, 1);
+
+export const FIRST_WEEK = 0;
+export const SECOND_WEEK = 1;
+export const THIRD_WEEK = 2;
+export const FOURTH_WEEK = 3;
+export const LAST_WEEK = 4;

@@ -272,9 +272,15 @@ everyLabel? | string | 'Every' | The 'every' label text.
 
 Name | Properties | Description
 -----|------------|------------
-AppointmentForm.Popup | [AppointmentForm.PopupProps](#appointmentformpopupprops) | A component that renders the appointment form's popup.
-AppointmentForm.Container | [AppointmentForm.ContainerProps](#appointmentformcontainerprops) | A component that renders the appointment form's container.
-AppointmentForm.ScrollableArea | [AppointmentForm.ScrollableAreaProps](#appointmentformscrollableareaprops) | A component that renders the appointment form's scrollable area.
-AppointmentForm.StaticArea | [AppointmentForm.StaticAreaProps](#appointmentformstaticareaprops) | A component that renders the appointment form's static area.
-
-Additional properties are added to a component's root element.
+AppointmentForm.Overlay |  [AppointmentForm.OverlayProps](#appointmentformoverlayprops) | A component that renders the appointment form's overlay.
+AppointmentForm.Layout | [AppointmentForm.LayoutProps](#appointmentformlayoutprops) | A component that renders the appointment form's layout.
+AppointmentForm.CommandLayout | [AppointmentForm.CommandLayoutProps](#appointmentformcommandlayoutprops) | A component that renders the appointment form's layout for command buttons.
+AppointmentForm.BasicLayoutComponent | [AppointmentForm.BasicLayoutProps](#appointmentformbasiclayoutprops) | A component that renders the appointment form's layout for basic appointment editors.
+AppointmentForm.RecurrenceLayoutComponent | [AppointmentForm.RecurrenceLayoutProps](#appointmentformrecurrencelayoutprops) | A component that renders the appointment form's layout for recurrent appointment editors.
+AppointmentForm.TextEditorComponent | [AppointmentForm.TextEditorProps](#appointmentformtexteditorprops) | A component that renders the appointment form's text editor component.
+AppointmentForm.DateEditorComponent | [AppointmentForm.DateEditorProps](#appointmentformdateeditorprops) | A component that renders the appointment form's date editor component.
+AppointmentForm.LabelComponent | [AppointmentForm.LabelProps](#appointmentformlabelprops) | A component that renders the appointment form's text label component.
+AppointmentForm.BooleanEditorComponent | [AppointmentForm.BooleanEditorProps](#appointmentformbooleaneditorprops) | A component that renders the appointment form's boolean editor component.
+AppointmentForm.SelectComponent | [AppointmentForm.SelectProps](#appointmentformselectprops) | A component that renders the appointment form's select component.
+AppointmentForm.RadioGroupComponent | [AppointmentForm.RadioGroupProps](#appointmentformradiogroupprops) | A component that renders the appointment form's radio group component.
+AppointmentForm.WeeklyRecurrenceSelectorComponent | [AppointmentForm.WeeklyRecurrenceSelectorProps](#appointmentformweeklyrecurrenceselectorprops) | A component that renders the appointment form's weekly recurrence selector component.

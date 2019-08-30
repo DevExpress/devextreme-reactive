@@ -9,6 +9,7 @@
     "env": {
       "browser": true
     },
+    "parser": "babel-eslint",
     "rules": {
         "import/prefer-default-export": "off",
         "react/forbid-prop-types": "off",

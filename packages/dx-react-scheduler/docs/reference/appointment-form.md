@@ -44,10 +44,10 @@ recurrenceLayoutComponent | ComponentType&lt;[AppointmentForm.RecurrenceLayoutPr
 textEditorComponent | ComponentType&lt;[AppointmentForm.TextEditorProps](#appointmentformtexteditorprops)&gt; | | A component that renders the appointment form's text editor component.
 dateEditorComponent | ComponentType&lt;[AppointmentForm.DateEditorProps](#appointmentformdateeditorprops)&gt; | | A component that renders the appointment form's date editor component.
 labelComponent | ComponentType&lt;[AppointmentForm.LabelProps](#appointmentformlabelprops)&gt; | | A component that renders the appointment form's text label component.
-booleanEditorComponent | ComponentType&lt;[AppointmentForm.BooleanEditorProps](#appointmentformbooleanrditorprops)&gt; | | A component that renders the appointment form's boolean editor component.
+booleanEditorComponent | ComponentType&lt;[AppointmentForm.BooleanEditorProps](#appointmentformbooleaneditorprops)&gt; | | A component that renders the appointment form's boolean editor component.
 selectComponent | ComponentType&lt;[AppointmentForm.SelectProps](#appointmentformselectprops)&gt; | | A component that renders the appointment form's select component.
 radioGroupComponent | ComponentType&lt;[AppointmentForm.RadioGroupProps](#appointmentformradiogroupprops)&gt; | | A component that renders the appointment form's radio group component.
-weeklyRecurrenceSelectorComponent | ComponentType&lt;[AppointmentForm.WeeklyRecuurenceSelectorProps](#appointmentformweeklyrecurrenceselectorprops)&gt; | | A component that renders the appointment form's weekly recurrence selector component.
+weeklyRecurrenceSelectorComponent | ComponentType&lt;[AppointmentForm.WeeklyRecurrenceSelectorProps](#appointmentformweeklyrecurrenceselectorprops)&gt; | | A component that renders the appointment form's weekly recurrence selector component.
 
 ## Interfaces
 
@@ -130,7 +130,7 @@ getMessage | (messageKey: string) => string | Returns a localization message by 
 locale | string &#124; Array&lt;string&gt; | Specifies the locale date format that is a string holding a BCP 47 language tag, or an array of such strings.
 formatDate | [FormatterFn](./scheduler.md#formatterfn) | A function that formats dates depending on locale.
 radioGroupComponent | ComponentType&lt;[AppointmentForm.RadioGroupProps](#appointmentformradiogroupprops)&gt; | A component that renders the appointment form's radio group component.
-weeklyRecurrenceSelectorComponent | ComponentType&lt;[AppointmentForm.WeeklyRecuurenceSelectorProps](#appointmentformweeklyrecurrenceselectorprops)&gt; | | A component that renders the appointment form's weekly recurrence selector component.
+weeklyRecurrenceSelectorComponent | ComponentType&lt;[AppointmentForm.WeeklyRecurrenceSelectorProps](#appointmentformweeklyrecurrenceselectorprops)&gt; | A component that renders the appointment form's weekly recurrence selector component.
 textEditorComponent | ComponentType&lt;[AppointmentForm.TextEditorProps](#appointmentformtexteditorprops)&gt; | A component that renders the appointment form's text editor component.
 dateEditorComponent | ComponentType&lt;[AppointmentForm.DateEditorProps](#appointmentformdateeditorprops)&gt; | A component that renders the appointment form's date editor component.
 selectComponent | ComponentType&lt;[AppointmentForm.SelectProps](#appointmentformselectprops)&gt; | A component that renders the appointment form's select component.
@@ -220,7 +220,7 @@ readOnly | boolean | Specifies whether the text editor is read-only.
 value | string &#124; number | A value to be edited.
 onValueChange | (nextValue: string) => void | Handles value changes.
 
-### AppointmentForm.WeeklyRecurrenceSelector
+### AppointmentForm.WeeklyRecurrenceSelectorProps
 
 Properties passed to a component that renders the appointment form's text editor component.
 

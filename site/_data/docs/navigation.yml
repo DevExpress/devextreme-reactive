@@ -103,7 +103,7 @@
         path: /react/grid/docs/guides/summary-row
       - title: Localization
         path: /react/grid/docs/guides/localization
-      - title: TypeScript
+      - title: TypeScript Support
         path: /react/grid/docs/guides/typescript
       - title: Custom Plugin Development
         path: /react/grid/docs/guides/custom-plugin-development
@@ -242,7 +242,7 @@
         path: /react/chart/docs/guides/zoom-and-pan
       - title: Rotated
         path: /react/chart/docs/guides/rotated
-      - title: TypeScript
+      - title: TypeScript Support
         path: /react/chart/docs/guides/typescript
   - title: Common Concepts
     items:
@@ -323,6 +323,8 @@
         path: /react/scheduler/docs/guides/editing
       - title: Localization
         path: /react/scheduler/docs/guides/localization
+      - title: TypeScript Support
+        path: /react/scheduler/docs/guides/typescript
   - title: Common Concepts
     items:
       - title: Optimize Performance

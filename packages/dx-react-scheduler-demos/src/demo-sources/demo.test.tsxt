@@ -1,0 +1,24 @@
+import * as React from 'react';
+import { mount } from 'enzyme';
+import { setupConsole } from '@devexpress/dx-testing';
+import Demo from './<%&demoName%>';
+
+setupConsole();
+
+jest.spyOn(Element.prototype, 'getBoundingClientRect').mockImplementation(() => ({
+  top: 0,
+  left: 0,
+  width: 800,
+  height: 600,
+  right: 800,
+  bottom: 600,
+}));
+
+// eslint-disable-next-line
+window.fetch = jest.fn().mockImplementation(() => new Promise(() => {}));
+(window as any).__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
+
+ it('should not fail', () => {
+  expect(() => { mount(<Demo />); })
+    .not.toThrow();
+});

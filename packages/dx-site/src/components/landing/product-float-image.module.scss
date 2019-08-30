@@ -2,6 +2,18 @@
   float: right;
 }
 
+.absoluteContainer {
+  position: absolute;
+  left: 50%;
+  max-width: 50%;
+  width: 100%;
+  margin-left: 20px;
+
+  @media (max-width: 1000px) {
+    margin-left: 60px;
+  }
+}
+
 .relativeWrapper {
   position: relative;
 }
@@ -10,6 +22,14 @@
   position: absolute;
   top: -370px;
   left: 0;
+  max-width: 647px;
+}
+
+.absoluteContainer .image {
+  top: -420px;
+  @media (max-width: 1280px) {
+    top:-450px;
+  }
 }
 
 @media (max-width: 720px) {

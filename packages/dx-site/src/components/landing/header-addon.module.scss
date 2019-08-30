@@ -20,6 +20,7 @@
 
 .overviewImage {
   padding-left: $inner-offset;
+  max-width: 677px;
 }
 
 .container {
@@ -28,6 +29,7 @@
 
 .block {
   padding-top: 40px;
+  padding-bottom: 120px;
 }
 
 .cropper {
@@ -55,6 +57,9 @@
 @media screen and (max-width: 1280px) {
   .main {
     font-size: 42px;
+  }
+  .block {
+    padding-bottom: 200px;
   }
   .additional {
     font-size: 28px;

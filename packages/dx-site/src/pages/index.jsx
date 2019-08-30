@@ -13,6 +13,7 @@ import LandingMaintainence from '../components/landing/maintainence';
 import LandingProductLayout from '../components/landing/product-layout';
 import LandingProductBlock from '../components/landing/product-block';
 import LandingLink from '../components/landing/link';
+import LandingProductFloatImage from '../components/landing/product-float-image';
 import AlternatedBackground from '../components/landing/alternated-background';
 
 import headerLink from './images/header.png';
@@ -83,10 +84,10 @@ const IndexPage = () => (
               </React.Fragment>
             )}
             additional="for Bootstrap and Material-UI"
-            imageLink={headerLink}
           />
         )}
       />
+      <LandingProductFloatImage imageLink={headerLink} absolute />
       <LandingProductLayout
         position="header"
       >

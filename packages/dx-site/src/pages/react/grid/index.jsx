@@ -24,6 +24,7 @@ import cellEditorsImage from './images/Customizable-Cell-Editor.png';
 import batchEditingImage from './images/Batch-Editing.png';
 import selectionImage from './images/Data-Selection.png';
 import columnChooserImage from './images/Column-Chooser.png';
+import columnResizingImage from './images/Column-Resizing.png';
 import fixedColumnsImage from './images/Fixed-Columns.png';
 import columnBandsImage from './images/Column-Bands.png';
 import customUIRenderingImage from './images/Custom-UI-Rendering.png';
@@ -119,7 +120,7 @@ const pageData = [
     sectionTitle: 'UI Customization For Your Users and You',
     title: 'Column Resizing/Reordering',
     description: 'End-users can resize and reorder columns while working with your application. Use the \'controlled state\' mode to expose the current customization state to your application logic for persistence. Save and restore it when a user leaves and returns to your app.',
-    imageLink: imageBoxLink,
+    imageLink: columnResizingImage,
   },
   {
     title: 'Column Chooser',

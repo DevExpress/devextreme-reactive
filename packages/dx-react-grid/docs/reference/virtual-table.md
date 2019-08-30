@@ -48,7 +48,7 @@ Describes additional column properties that the plugin can handle.
 Field | Type | Description
 ------|------|------------
 columnName | string | The name of the column to extend.
-width? | number &#124; string | The table column width. Allow to use 'auto' or number with specified measurement units. Measurment units: 'px'. Number will be automatically converted into pixels.
+width? | number &#124; string | The table column width in pixels. Numeric (for example, `10`) or string values (`10px`) are accepted.
 align? | 'left' &#124; 'right' &#124; 'center' | The table column alignment.
 wordWrapEnabled? | boolean | Specifies whether word wrap is enabled in a column's cells.
 

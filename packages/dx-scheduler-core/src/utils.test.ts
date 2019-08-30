@@ -610,19 +610,15 @@ describe('Utils', () => {
       expect(result[1].end.toString())
         .toBe(moment(new Date('2019-04-26T13:00:00+0600')).toString());
     });
-    fit('should work correctly with near-boundary appointments', () => {
+    it('should work correctly with near-left-boundary appointments', () => {
       const leftBoundary = new Date('2019-04-25 00:00:00+0300');
       const rightBoundary = new Date('2019-04-26 23:59:00+0300');
-      const appointments = [{
+      const appointment = {
         start: moment(new Date('2019-04-25T00:00:00+0300')),
         end: moment(new Date('2019-04-25T13:00:00+0300')),
         rRule: 'FREQ=DAILY;COUNT=2',
-      }, {
-        start: moment(new Date('2019-04-25T12:11:00+0300')),
-        end: moment(new Date('2019-04-25T23:00:00+0300')),
-        rRule: 'FREQ=DAILY;COUNT=2',
-      }];
-      let result = filterByViewBoundaries(appointments[0], leftBoundary, rightBoundary);
+      };
+      const result = filterByViewBoundaries(appointment, leftBoundary, rightBoundary);
 
       expect(result).toHaveLength(2);
 
@@ -635,8 +631,17 @@ describe('Utils', () => {
         .toBe(moment(new Date('2019-04-26T00:00:00+0300')).toString());
       expect(result[1].end.toString())
         .toBe(moment(new Date('2019-04-26T13:00:00+0300')).toString());
+    });
+    it('should work correctly with near-right-boundary appointments', () => {
+      const leftBoundary = new Date('2019-04-25 00:00:00+0300');
+      const rightBoundary = new Date('2019-04-26 23:59:00+0300');
+      const appointment = {
+        start: moment(new Date('2019-04-25T12:11:00+0300')),
+        end: moment(new Date('2019-04-25T23:00:00+0300')),
+        rRule: 'FREQ=DAILY;COUNT=2',
+      };
 
-      result = filterByViewBoundaries(appointments[1], leftBoundary, rightBoundary);
+      const result = filterByViewBoundaries(appointment, leftBoundary, rightBoundary);
 
       expect(result).toHaveLength(2);
 

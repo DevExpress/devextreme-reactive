@@ -1,12 +1,13 @@
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
-import { ViewState, EditingState, IntegratedEditing } from '@devexpress/dx-react-scheduler';
+import { ViewState, EditingState } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
   Appointments,
   AppointmentForm,
   AppointmentTooltip,
   WeekView,
+  EditRecurrenceMenu,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { appointments } from '../../../demo-data/appointments';
 
@@ -84,11 +85,11 @@ export default class Demo extends React.PureComponent {
             editingAppointmentId={editingAppointmentId}
             onEditingAppointmentIdChange={this.changeEditingAppointmentId}
           />
-          <IntegratedEditing />
           <WeekView
             startDayHour={9}
             endDayHour={17}
           />
+          <EditRecurrenceMenu />
           <Appointments />
           <AppointmentTooltip
             showOpenButton

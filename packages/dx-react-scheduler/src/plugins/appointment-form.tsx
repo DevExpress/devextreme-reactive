@@ -186,7 +186,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
     : change => callActionIfExists(changeAppointment, { change }),
   );
 
-  getMessage = memoize((messages, menuMessages) =>
+  getMessage = memoize((menuMessages, messages) =>
     getMessagesFormatter({ ...menuMessages, ...messages }));
 
   render() {

@@ -7,29 +7,30 @@ import {
 } from '@devexpress/dx-scheduler-core';
 import { PureComputed } from '@devexpress/dx-core';
 import { Option } from '../../types';
+import { FIRST_WEEK, SECOND_WEEK, THIRD_WEEK, FOURTH_WEEK, LAST_WEEK } from './constants';
 
 export const getWeekNumberLabels: PureComputed<
   [(messageKey: string) => string], Array<Option>
 > = getMessage => [
   {
     text: getMessage('firstLabel'),
-    id: 0,
+    id: FIRST_WEEK,
   },
   {
     text: getMessage('secondLabel'),
-    id: 1,
+    id: SECOND_WEEK,
   },
   {
     text: getMessage('thirdLabel'),
-    id: 2,
+    id: THIRD_WEEK,
   },
   {
     text: getMessage('fourthLabel'),
-    id: 3,
+    id: FOURTH_WEEK,
   },
   {
     text: getMessage('lastLabel'),
-    id: 4,
+    id: LAST_WEEK,
   },
 ];
 

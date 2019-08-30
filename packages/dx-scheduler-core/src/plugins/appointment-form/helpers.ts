@@ -7,7 +7,7 @@ import {
   EndDate,
   RadioGroupDisplayData,
 } from '../../types';
-import { DEFAULT_RULE_OBJECT, RRULE_REPEAT_TYPES, REPEAT_TYPES } from './constants';
+import { DEFAULT_RULE_OBJECT, RRULE_REPEAT_TYPES, REPEAT_TYPES, LAST_WEEK } from './constants';
 
 export const callActionIfExists: PureComputed<[Action, object], void> = (action, payload) => {
   if (action) {
@@ -136,8 +136,7 @@ export const getRadioGroupDisplayData: PureComputed<
 > = (
   recurrenceOptions, stateDayOfWeek, stateWeekNumber, stateDayNumber, firstOption, secondOption,
 ) => {
-  // The 'last' week in a  month, The first is
-  let weekNumber = 4;
+  let weekNumber = LAST_WEEK;
   if (recurrenceOptions.bymonthday && !Array.isArray(recurrenceOptions.bymonthday)) {
     return {
       dayNumberTextField: (recurrenceOptions.bymonthday as number),

@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import {
   TITLE_TEXT_EDITOR,
   MULTILINE_TEXT_EDITOR,
-  TITLE_LABEL,
+  TITLE,
   OUTLINED_SELECT,
   getFrequencyString,
   getRecurrenceOptions,
@@ -118,7 +118,7 @@ const LayoutBase = ({
     >
       <Label
         text={getMessage('detailsLabel')}
-        type={TITLE_LABEL}
+        type={TITLE}
       />
       <TextEditor
         placeholder={getMessage('titleLabel')}
@@ -153,7 +153,7 @@ const LayoutBase = ({
       </Grid>
       <Label
         text={getMessage('moreInformationLabel')}
-        type={TITLE_LABEL}
+        type={TITLE}
         className={classes.labelWithMargins}
       />
       <TextEditor
@@ -175,7 +175,7 @@ const LayoutBase = ({
         <React.Fragment>
           <Label
             text={getMessage('repeatLabel')}
-            type={TITLE_LABEL}
+            type={TITLE}
             className={classes.labelWithMargins}
           />
           <Select

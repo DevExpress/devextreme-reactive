@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
-import { TITLE_LABEL, ORDINARY_LABEL } from '@devexpress/dx-scheduler-core';
+import { TITLE, ORDINARY_LABEL } from '@devexpress/dx-scheduler-core';
 
 const styles = theme => ({
   label: {
@@ -27,7 +27,7 @@ const LabelBase = React.memo(({
   <Typography
     className={classNames({
       [classes.label]: true,
-      [classes.titleLabel]: type === TITLE_LABEL,
+      [classes.titleLabel]: type === TITLE,
     }, className)}
     {...restProps}
   >

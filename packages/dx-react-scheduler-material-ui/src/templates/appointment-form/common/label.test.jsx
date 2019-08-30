@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
-import { TITLE_LABEL } from '@devexpress/dx-scheduler-core';
+import { TITLE } from '@devexpress/dx-scheduler-core';
 import { Label } from './label';
 
 describe('AppointmentForm common', () => {
@@ -32,9 +32,9 @@ describe('AppointmentForm common', () => {
     });
 
     it('should pass className to the root element', () => {
-      const classes = getClasses(<Label type={TITLE_LABEL} />);
+      const classes = getClasses(<Label type={TITLE} />);
       const tree = shallow((
-        <Label type={TITLE_LABEL} />
+        <Label type={TITLE} />
       ));
 
       expect(tree.is(`.${classes.label}`))

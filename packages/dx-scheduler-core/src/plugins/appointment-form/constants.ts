@@ -55,7 +55,7 @@ export const MULTILINE_TEXT_EDITOR = 'multilineTextEditor';
 export const ORDINARY_TEXT_EDITOR = 'ordinaryTextEditor';
 export const NUMBER_EDITOR = 'numberEditor';
 
-export const TITLE_LABEL = 'titleLabel';
+export const TITLE = 'title';
 export const ORDINARY_LABEL = 'ordinaryLabel';
 
 export const SAVE_BUTTON = 'saveButton';

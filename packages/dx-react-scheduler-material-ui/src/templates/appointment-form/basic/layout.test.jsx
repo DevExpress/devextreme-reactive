@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
-import { TITLE_LABEL, TITLE_TEXT_EDITOR, MULTILINE_TEXT_EDITOR } from '@devexpress/dx-scheduler-core';
+import { TITLE, TITLE_TEXT_EDITOR, MULTILINE_TEXT_EDITOR } from '@devexpress/dx-scheduler-core';
 import { Layout } from './layout';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
@@ -74,15 +74,15 @@ describe('AppointmentForm basic', () => {
       expect(labelComponents)
         .toHaveLength(4);
       expect(labelComponents.at(0).prop('type'))
-        .toEqual(TITLE_LABEL);
+        .toEqual(TITLE);
       expect(labelComponents.at(1).is(`.${classes.dividerLabel}`))
         .toBeTruthy();
       expect(labelComponents.at(2).prop('type'))
-        .toEqual(TITLE_LABEL);
+        .toEqual(TITLE);
       expect(labelComponents.at(2).is(`.${classes.labelWithMargins}`))
         .toBeTruthy();
       expect(labelComponents.at(3).prop('type'))
-        .toEqual(TITLE_LABEL);
+        .toEqual(TITLE);
       expect(labelComponents.at(3).is(`.${classes.labelWithMargins}`))
         .toBeTruthy();
 

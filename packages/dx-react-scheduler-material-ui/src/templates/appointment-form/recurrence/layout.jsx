@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import {
   END_REPEAT_RADIO_GROUP,
-  TITLE_LABEL,
+  TITLE,
   getRecurrenceOptions,
   RRULE_REPEAT_TYPES,
   OUTLINED_SELECT,
@@ -103,7 +103,7 @@ const LayoutBase = ({
     >
       <Label
         text={getMessage('repeatLabel')}
-        type={TITLE_LABEL}
+        type={TITLE}
         className={classes.repeatLabel}
       />
       <Select

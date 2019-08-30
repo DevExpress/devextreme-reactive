@@ -36,7 +36,7 @@ const styles = ({ spacing }) => ({
     width: '8em',
   },
   repeatLabel: {
-    marginBottom: spacing(1),
+    marginBottom: spacing(0.375),
   },
   radioGroup: {
     marginTop: spacing(0.5),
@@ -44,6 +44,9 @@ const styles = ({ spacing }) => ({
   endRepeatLabel: {
     marginTop: spacing(2),
   },
+  select: {
+    height: '3.8em',
+  }
 });
 
 const getLayoutComponent = (recurrenceOptions) => {
@@ -108,6 +111,7 @@ const LayoutBase = ({
         availableOptions={selectOptions}
         value={frequency}
         type={OUTLINED_SELECT}
+        className={classes.select}
       />
       <MainLayoutComponent
         textEditorComponent={textEditorComponent}

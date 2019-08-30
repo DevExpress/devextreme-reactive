@@ -72,6 +72,12 @@ describe('AppointmentForm recurrence', () => {
       const radioGroup = tree.find(defaultProps.radioGroupComponent);
       expect(radioGroup)
         .toHaveLength(1);
+
+      const select = tree.find(defaultProps.selectComponent);
+      expect(select)
+        .toHaveLength(1);
+      expect(select.at(0).is(`.${classes.select}`))
+        .toBeTruthy();
     });
 
     it('should render Daily layout correctly', () => {

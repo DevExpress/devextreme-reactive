@@ -36,12 +36,12 @@ const styles = ({ spacing, typography }) => ({
     width: '100%',
     paddingBottom: spacing(3),
   },
-  notesEditor: {
-    marginTop: spacing(2),
-  },
-  moreInformationLabel: {
+  labelWithMargins: {
     marginBottom: spacing(0.5),
     marginTop: spacing(0.5),
+  },
+  notesEditor: {
+    marginTop: spacing(0),
   },
   dateEditor: {
     width: '45%',
@@ -154,7 +154,7 @@ const LayoutBase = ({
       <Label
         text={getMessage('moreInformationLabel')}
         type={TITLE_LABEL}
-        className={classes.moreInformationLabel}
+        className={classes.labelWithMargins}
       />
       <TextEditor
         placeholder={getMessage('notesLabel')}
@@ -176,6 +176,7 @@ const LayoutBase = ({
           <Label
             text={getMessage('repeatLabel')}
             type={TITLE_LABEL}
+            className={classes.labelWithMargins}
           />
           <Select
             value={frequency}

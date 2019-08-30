@@ -79,8 +79,12 @@ describe('AppointmentForm basic', () => {
         .toBeTruthy();
       expect(labelComponents.at(2).prop('type'))
         .toEqual(TITLE_LABEL);
+      expect(labelComponents.at(2).is(`.${classes.labelWithMargins}`))
+        .toBeTruthy();
       expect(labelComponents.at(3).prop('type'))
         .toEqual(TITLE_LABEL);
+      expect(labelComponents.at(3).is(`.${classes.labelWithMargins}`))
+        .toBeTruthy();
 
       const textEditors = tree.find(defaultProps.textEditorComponent);
       expect(textEditors)
@@ -89,6 +93,8 @@ describe('AppointmentForm basic', () => {
         .toEqual(TITLE_TEXT_EDITOR);
       expect(textEditors.at(1).prop('type'))
         .toEqual(MULTILINE_TEXT_EDITOR);
+      expect(textEditors.at(1).is(`.${classes.notesEditor}`))
+        .toBeTruthy();
 
       expect(tree.find(defaultProps.booleanEditorComponent))
         .toHaveLength(1);

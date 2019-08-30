@@ -83,7 +83,6 @@ export const getBandComponent: GetBandComponentFn = (
       return {
         type: BAND_FILL_LEVEL_CELL,
         payload: {
-          // tableRow: tableHeaderRows.find(row => row.type === TABLE_HEADING_TYPE),
           rowSpan: cellRowSpan,
         },
       };

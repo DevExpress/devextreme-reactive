@@ -312,7 +312,9 @@ const expandRecurrenceAppointment = (
     ...RRule.parseString(appointment.rRule),
     dtstart: new Date(getUTCDate(appointmentStartDate)),
   };
-  const optionsWithCorrectUntil = { ...options };
+  const optionsWithCorrectUntil = options.until
+    ? { ...options, until: new Date(getUTCDate(options.until)) }
+    : { ...options };
   if (options.until) {
     optionsWithCorrectUntil.until = new Date(getUTCDate(options.until));
   }

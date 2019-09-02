@@ -80,44 +80,105 @@ export interface AllDayPanelProps {
 
 // @public (undocumented)
 export namespace AppointmentForm {
-  export type PopupProps = AppointmentForm_2.PopupProps;
+  export type OverlayProps = AppointmentForm_2.OverlayProps;
 }
 
 // @public (undocumented)
 export namespace AppointmentForm {
-  export type ContainerProps = AppointmentForm_2.ContainerProps;
+  export type LayoutProps = AppointmentForm_2.LayoutProps;
 }
 
 // @public (undocumented)
 export namespace AppointmentForm {
-  export type ScrollableAreaProps = AppointmentForm_2.ScrollableAreaProps;
+  export type CommandLayoutProps = AppointmentForm_2.CommandLayoutProps;
 }
 
 // @public (undocumented)
 export namespace AppointmentForm {
-  export type StaticAreaProps = AppointmentForm_2.StaticAreaProps;
+  export type BasicLayoutProps = AppointmentForm_2.BasicLayoutProps;
+}
+
+// @public (undocumented)
+export namespace AppointmentForm {
+  export type RecurrenceLayoutProps = AppointmentForm_2.RecurrenceLayoutProps;
+}
+
+// @public (undocumented)
+export namespace AppointmentForm {
+  export type BooleanEditorProps = AppointmentForm_2.BooleanEditorProps;
+}
+
+// @public (undocumented)
+export namespace AppointmentForm {
+  export type CommandButtonProps = AppointmentForm_2.CommandButtonProps;
+}
+
+// @public (undocumented)
+export namespace AppointmentForm {
+  export type DateEditorProps = AppointmentForm_2.DateEditorProps;
+}
+
+// @public (undocumented)
+export namespace AppointmentForm {
+  export type LabelProps = AppointmentForm_2.LabelProps;
+}
+
+// @public (undocumented)
+export namespace AppointmentForm {
+  export type RadioGroupProps = AppointmentForm_2.RadioGroupProps;
+}
+
+// @public (undocumented)
+export namespace AppointmentForm {
+  export type SelectProps = AppointmentForm_2.SelectProps;
+}
+
+// @public (undocumented)
+export namespace AppointmentForm {
+  export type TextEditorProps = AppointmentForm_2.TextEditorProps;
+}
+
+// @public (undocumented)
+export namespace AppointmentForm {
+  export type WeeklyRecurrenceSelectorProps = AppointmentForm_2.WeeklyRecurrenceSelectorProps;
 }
 
 // @public
 export const AppointmentForm: React.ComponentType<AppointmentFormProps> & {
-  Popup: React.ComponentType<AppointmentForm_2.PopupProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  Container: React.ComponentType<AppointmentForm_2.ContainerProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  ScrollableArea: React.ComponentType<AppointmentForm_2.ScrollableAreaProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  StaticArea: React.ComponentType<AppointmentForm_2.StaticAreaProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  Overlay: React.ComponentType<AppointmentForm_2.OverlayProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  Layout: React.ComponentType<AppointmentForm_2.LayoutProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  CommandLayout: React.ComponentType<AppointmentForm_2.CommandLayoutProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  BasicLayout: React.ComponentType<AppointmentForm_2.BasicLayoutProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  RecurrenceLayout: React.ComponentType<AppointmentForm_2.RecurrenceLayoutProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  TextEditor: React.ComponentType<AppointmentForm_2.TextEditorProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  DateEditor: React.ComponentType<AppointmentForm_2.DateEditorProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  Label: React.ComponentType<AppointmentForm_2.LabelProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  BooleanEditor: React.ComponentType<AppointmentForm_2.BooleanEditorProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  Select: React.ComponentType<AppointmentForm_2.SelectProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  RadioGroup: React.ComponentType<AppointmentForm_2.RadioGroupProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  WeeklyRecurrenceSelector: React.ComponentType<AppointmentForm_2.WeeklyRecurrenceSelectorProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
 };
 
 // @public (undocumented)
 export interface AppointmentFormProps {
   appointmentData?: AppointmentModel;
-  containerComponent?: React.ComponentType<AppointmentForm_2.ContainerProps>;
+  basicLayoutComponent?: React.ComponentType<AppointmentForm_2.BasicLayoutProps>;
+  booleanEditorComponent?: React.ComponentType<AppointmentForm_2.BooleanEditorProps>;
+  commandLayoutComponent?: React.ComponentType<AppointmentForm_2.CommandLayoutProps>;
+  dateEditorComponent?: React.ComponentType<AppointmentForm_2.DateEditorProps>;
+  labelComponent?: React.ComponentType<AppointmentForm_2.LabelProps>;
+  layoutComponent?: React.ComponentType<AppointmentForm_2.LayoutProps>;
   messages?: AppointmentForm_2.LocalizationMessages;
   onAppointmentDataChange?: (appointmentData: AppointmentModel) => void;
   onVisibilityChange?: (visible: boolean) => void;
-  popupComponent?: React.ComponentType<AppointmentForm_2.PopupProps>;
+  overlayComponent?: React.ComponentType<AppointmentForm_2.OverlayProps>;
+  radioGroupComponent?: React.ComponentType<AppointmentForm_2.RadioGroupProps>;
   readOnly?: boolean;
-  scrollableAreaComponent?: React.ComponentType<AppointmentForm_2.ScrollableAreaProps>;
-  staticAreaComponent?: React.ComponentType<AppointmentForm_2.StaticAreaProps>;
+  recurrenceLayoutComponent?: React.ComponentType<AppointmentForm_2.RecurrenceLayoutProps>;
+  selectComponent?: React.ComponentType<AppointmentForm_2.SelectProps>;
+  textEditorComponent?: React.ComponentType<AppointmentForm_2.TextEditorProps>;
   visible?: boolean;
+  weeklyRecurrenceSelectorComponent?: React.ComponentType<AppointmentForm_2.WeeklyRecurrenceSelectorProps>;
 }
 
 // @public (undocumented)

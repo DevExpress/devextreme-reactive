@@ -6,6 +6,9 @@ import { BooleanEditor } from './boolean-editor';
 describe('AppointmentForm common', () => {
   let mount;
   let shallow;
+  const defaultProps = {
+    onValueChange: jest.fn(),
+  };
   beforeAll(() => {
     shallow = createShallow({ dive: true });
   });
@@ -18,7 +21,7 @@ describe('AppointmentForm common', () => {
   describe('BooleanEditor', () => {
     it('should pass rest props to the root element', () => {
       const tree = mount((
-        <BooleanEditor className="custom-class" />
+        <BooleanEditor {...defaultProps} className="custom-class" />
       ));
 
       expect(tree.is('.custom-class'))
@@ -27,7 +30,7 @@ describe('AppointmentForm common', () => {
 
     it('should render checkbox as boolean editor', () => {
       const tree = mount((
-        <BooleanEditor className="custom-class" />
+        <BooleanEditor {...defaultProps} className="custom-class" />
       ));
       expect(tree.find(Checkbox).exists())
         .toBeTruthy();
@@ -48,6 +51,7 @@ describe('AppointmentForm common', () => {
     it('should be disabled depending on readonly', () => {
       const tree = shallow((
         <BooleanEditor
+          {...defaultProps}
           readOnly
         />
       ));

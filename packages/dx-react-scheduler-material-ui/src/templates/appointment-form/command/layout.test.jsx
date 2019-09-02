@@ -14,15 +14,13 @@ describe('AppointmentForm command', () => {
   let classes;
   let shallow;
   beforeAll(() => {
-    classes = getClasses(<Layout><div /></Layout>);
+    classes = getClasses(<Layout />);
     shallow = createShallow({ dive: true });
   });
   describe('Layout', () => {
     it('should pass rest props to the root element', () => {
       const tree = shallow((
-        <Layout data={{ a: 1 }} {...defaultProps}>
-          <div />
-        </Layout>
+        <Layout data={{ a: 1 }} {...defaultProps} />
       ));
 
       expect(tree.props().data)
@@ -31,9 +29,7 @@ describe('AppointmentForm command', () => {
 
     it('should pass className to the root element', () => {
       const tree = shallow((
-        <Layout className="custom-class" {...defaultProps}>
-          <div />
-        </Layout>
+        <Layout className="custom-class" {...defaultProps} />
       ));
 
       expect(tree.is('.custom-class'))
@@ -46,9 +42,7 @@ describe('AppointmentForm command', () => {
 
     it('should be full-size if fullSize is true', () => {
       const tree = shallow((
-        <Layout fullSize {...defaultProps}>
-          <div />
-        </Layout>
+        <Layout fullSize {...defaultProps} />
       ));
 
       expect(tree.is(`.${classes.root}`))
@@ -59,9 +53,7 @@ describe('AppointmentForm command', () => {
 
     it('should render three Control Buttons', () => {
       const tree = shallow((
-        <Layout className="custom-class" {...defaultProps}>
-          <div />
-        </Layout>
+        <Layout className="custom-class" {...defaultProps} />
       ));
 
 
@@ -77,9 +69,7 @@ describe('AppointmentForm command', () => {
 
     it('shouldn\'t render Save and Delete Buttons in readonly mode', () => {
       const tree = shallow((
-        <Layout readOnly {...defaultProps}>
-          <div />
-        </Layout>
+        <Layout readOnly {...defaultProps} />
       ));
 
       const buttons = tree.find(defaultProps.commandButtonComponent);
@@ -90,9 +80,7 @@ describe('AppointmentForm command', () => {
 
     it('shouldn call onCommitButtonClick', () => {
       const tree = shallow((
-        <Layout {...defaultProps}>
-          <div />
-        </Layout>
+        <Layout {...defaultProps} />
       ));
 
       tree.find(defaultProps.commandButtonComponent).at(2).simulate('execute');
@@ -102,9 +90,7 @@ describe('AppointmentForm command', () => {
 
     it('shouldn call onDeleteButtonClick', () => {
       const tree = shallow((
-        <Layout {...defaultProps}>
-          <div />
-        </Layout>
+        <Layout {...defaultProps} />
       ));
 
       tree.find(defaultProps.commandButtonComponent).at(1).simulate('execute');
@@ -114,9 +100,7 @@ describe('AppointmentForm command', () => {
 
     it('shouldn call onCancelButtonClick', () => {
       const tree = shallow((
-        <Layout {...defaultProps}>
-          <div />
-        </Layout>
+        <Layout {...defaultProps} />
       ));
 
       tree.find(defaultProps.commandButtonComponent).at(0).simulate('execute');

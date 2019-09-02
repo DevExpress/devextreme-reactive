@@ -32,7 +32,6 @@ describe('AppointmentForm command', () => {
         <CommandButton
           data={{ a: 1 }}
           id={SAVE_BUTTON}
-          getMessage={key => key}
           {...defaultProps}
         />
       ));
@@ -45,7 +44,6 @@ describe('AppointmentForm command', () => {
       const tree = mount((
         <CommandButton
           id={SAVE_BUTTON}
-          getMessage={key => key}
           {...defaultProps}
         />
       ));

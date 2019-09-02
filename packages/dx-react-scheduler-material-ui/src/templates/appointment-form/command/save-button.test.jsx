@@ -5,7 +5,6 @@ import { SaveButton } from './save-button';
 describe('AppointmentForm command', () => {
   const defaultProps = {
     onExecute: jest.fn(),
-    id: 'id',
     getMessage: jest.fn(),
   };
   let shallow;

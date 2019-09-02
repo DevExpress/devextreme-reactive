@@ -31,6 +31,10 @@ describe('AppointmentForm recurrence radio group', () => {
     labelComponent: () => null,
     switcherComponent: () => null,
     dateAndTimeEditorComponent: () => null,
+    dateEditorComponent: () => null,
+    selectComponent: () => null,
+    type: '',
+    onFieldChange: jest.fn(),
     getMessage: jest.fn(() => ''),
     formatDate: jest.fn(() => ''),
     appointmentData: {

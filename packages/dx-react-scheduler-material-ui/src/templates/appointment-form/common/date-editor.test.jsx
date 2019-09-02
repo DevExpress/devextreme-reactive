@@ -7,6 +7,7 @@ import { DateEditor } from './date-editor';
 describe('AppointmentForm common', () => {
   const defaultProps = {
     onValueChange: jest.fn(),
+    locale: 'en-US',
   };
   let shallow;
   beforeAll(() => {

@@ -100,8 +100,7 @@ export const handleWeekNumberChange = (nextWeekNumber: number, options: Partial<
 
 export const getRRuleFrequency: PureComputed<
   [string], number
-> = repeatType =>
-  RRULE_REPEAT_TYPES[repeatType.toUpperCase()];
+> = repeatType => RRULE_REPEAT_TYPES[repeatType.toUpperCase()];
 
 export const getFrequencyString: PureComputed<
   [number], string
@@ -180,4 +179,19 @@ export const handleChangeFrequency: PureComputed<
     );
   }
   action({ rRule: nextRRule });
+};
+
+export const handleWeekDaysChange: PureComputed<
+[Partial<Options>, number], void
+> = (options, weekDay) => {
+  const byWeekDay = options.byweekday || [];
+  const index = (byWeekDay as number[]).indexOf(weekDay);
+  const isAdded = !(index > -1);
+  if (isAdded) {
+    (byWeekDay as number[]).push(weekDay);
+  } else if (index > -1) {
+    (byWeekDay as number[]).splice(index, 1);
+  }
+  if (byWeekDay === 0) return { ...options, byweekday: undefined };
+  return { ...options, byweekday: byWeekDay };
 };

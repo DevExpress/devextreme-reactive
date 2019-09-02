@@ -4,6 +4,7 @@ import {
   callActionIfExists, isAllDayCell, changeRecurrenceFrequency, getRecurrenceOptions,
   changeRecurrenceOptions, handleStartDateChange, handleToDayOfWeekChange, handleWeekNumberChange,
   getRRuleFrequency, getFrequencyString, handleChangeFrequency, getRadioGroupDisplayData,
+  handleWeekDaysChange,
 } from './helpers';
 import { DEFAULT_RULE_OBJECT, REPEAT_TYPES, RRULE_REPEAT_TYPES } from './constants';
 
@@ -328,6 +329,32 @@ describe('AppointmentForm helpers', () => {
           weekNumber: 4,
           dayOfWeek: 0,
           radioGroupValue: 'Second Option',
+        });
+    });
+  });
+  describe('#handleWeekDaysChange', () => {
+    it('should add a day of week', () => {
+      const result = handleWeekDaysChange({ byweekday: [1] }, 3);
+
+      expect(result)
+        .toMatchObject({
+          byweekday: [1, 3],
+        });
+    });
+    it('should remove a day of week', () => {
+      const result = handleWeekDaysChange({ byweekday: [3] }, 3);
+
+      expect(result)
+        .toMatchObject({
+          byweekday: [],
+        });
+    });
+    it('should create a new array for byweekday prop', () => {
+      const result = handleWeekDaysChange({}, 3);
+
+      expect(result)
+        .toMatchObject({
+          byweekday: [3],
         });
     });
   });

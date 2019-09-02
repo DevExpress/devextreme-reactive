@@ -114,7 +114,8 @@ export const editAll: EditFn = (changes, appointmentData) => {
   const { rRule, id } = appointmentData;
 
   const initialRule = new RRule(RRule.parseString(rRule as string));
-  if (moment.utc(changes.startDate as Date).isAfter(initialRule.options.until!)) {
+  if (changes.startDate
+    && moment.utc(changes.startDate as Date).isAfter(initialRule.options.until!)) {
     return {
       changed: {
         [id!]: {

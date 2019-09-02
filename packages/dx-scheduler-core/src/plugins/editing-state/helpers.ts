@@ -1,9 +1,10 @@
 import moment from 'moment';
-import { RRule, rrulestr, RRuleSet } from 'rrule';
+import { RRule, RRuleSet } from 'rrule';
 import {
   AppointmentModel, PreCommitChangesFn, Changes, MakeDateSequenceFn, EditFn, DeleteFn,
 } from '../../types';
 import { RECURRENCE_EDIT_SCOPE } from '../../constants';
+import { getUTCDate, getRRuleSetWithExDates } from '../../utils';
 
 const mergeNewChanges = (
   appointmentData: Partial<AppointmentModel>, changes: Changes,
@@ -39,16 +40,18 @@ const configureExDate = (exDate: string | undefined, date: Date) => {
 };
 
 const configureDateSequence: MakeDateSequenceFn = (rRule, exDate, options) => {
-  let rruleSet = new RRuleSet();
-  if (exDate) {
-    rruleSet = rrulestr(`EXDATE:${exDate}`, { forceset: true }) as RRuleSet;
-  }
+  const rruleSet = getRRuleSetWithExDates(exDate);
+
+  const correctedOptions = {
+    ...options,
+    dtstart: new Date(getUTCDate(options.dtstart!)),
+  };
   rruleSet.rrule(new RRule({
     ...RRule.parseString(rRule as string),
-    ...options,
+    ...correctedOptions,
   }));
 
-  return rruleSet.all();
+  return rruleSet.all().map(date => new Date(moment.utc(date).format('YYYY-MM-DD HH:mm')));
 };
 
 const configureICalendarRules = (rRule: string | undefined, options: object) => {

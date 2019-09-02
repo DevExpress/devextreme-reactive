@@ -318,14 +318,7 @@ const expandRecurrenceAppointment = (
     ? { ...options, until: new Date(getUTCDate(options.until)) }
     : options;
 
-  const rruleSet = new RRuleSet();
-
-  if (appointment.exDate) {
-    appointment.exDate.split(',').reduce((acc: Date[], date: string) => {
-      const currentExDate = moment(date).toDate();
-      rruleSet.exdate(new Date(getUTCDate(currentExDate)));
-    }, []);
-  }
+  const rruleSet = getRRuleSetWithExDates(appointment.exDate);
 
   rruleSet.rrule(new RRule(correctedOptions));
 
@@ -365,7 +358,7 @@ export const filterByViewBoundaries: PureComputed<
   ));
 };
 
-const getUTCDate: PureComputed<[Date], number> = date =>
+export const getUTCDate: PureComputed<[Date], number> = date =>
   Date.UTC(
     date.getFullYear(),
     date.getMonth(),
@@ -373,3 +366,16 @@ const getUTCDate: PureComputed<[Date], number> = date =>
     date.getHours(),
     date.getMinutes(),
 );
+
+export const getRRuleSetWithExDates: PureComputed<
+  [string | undefined], RRuleSet
+> = (exDate) => {
+  const rruleSet = new RRuleSet();
+  if (exDate) {
+    exDate.split(',').map((date: string) => {
+      const currentExDate = moment(date).toDate();
+      rruleSet.exdate(new Date(getUTCDate(currentExDate)));
+    });
+  }
+  return rruleSet;
+};

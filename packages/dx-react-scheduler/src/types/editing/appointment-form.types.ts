@@ -1,4 +1,4 @@
-import { AppointmentModel, FormatterFn, Option } from '../index';
+import { AppointmentModel, FormatterFn } from '../index';
 
 /* tslint:disable no-namespace max-line-length */
 export namespace AppointmentForm {
@@ -148,7 +148,7 @@ export namespace AppointmentForm {
     /** Handles value changes. */
     onValueChange: (nextValue: string | number) => void;
     /** Specifies the options for select menu items. */
-    availableOptions?: Array<Option>;
+    availableOptions?: Array<object>;
     /** Specifies the date editor is read-only. */
     readOnly?: boolean;
     /** The text editor's type identifier. */

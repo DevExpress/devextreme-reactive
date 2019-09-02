@@ -81,42 +81,175 @@ export const AppointmentForm: React.ComponentType<AppointmentFormProps>;
 
 // @public (undocumented)
 export namespace AppointmentForm {
-  export interface ContainerProps {
-    children: React.ReactNode;
+  export interface BasicLayoutProps {
+    appointmentData: AppointmentModel;
+    booleanEditorComponent: React.ComponentType<AppointmentForm.BooleanEditorProps>;
+    children?: React.ReactNode;
+    dateEditorComponent: React.ComponentType<AppointmentForm.DateEditorProps>;
+    getMessage: (messageKey: string) => string;
+    labelComponent: React.ComponentType<AppointmentForm.LabelProps>;
+    locale: string | string[];
+    onFieldChange: (change: any) => void;
+    readOnly?: boolean;
+    selectComponent: React.ComponentType<AppointmentForm.SelectProps>;
+    textEditorComponent: React.ComponentType<AppointmentForm.TextEditorProps>;
+  }
+  export interface BooleanEditorProps {
+    label?: string;
+    onValueChange: (nextValue: boolean) => void;
+    readOnly?: boolean;
+    value?: boolean;
+  }
+  export interface CommandButtonProps {
+    getMessage?: (messageKey: string) => string;
+    id: 'saveButton' | 'deleteButton' | 'cancelButton';
+    onExecute: () => void;
+  }
+  export interface CommandLayoutProps {
+    children?: React.ReactNode;
+    commandButtonComponent: React.ComponentType<AppointmentForm.CommandButtonProps>;
+    fullSize: boolean;
+    getMessage: (messageKey: string) => string;
+    onCancelButtonClick: () => void;
+    onCommitButtonClick: () => void;
+    onDeleteButtonClick: () => void;
+    readOnly?: boolean;
+  }
+  export interface DateEditorProps {
+    locale?: string | string[];
+    onValueChange: (nextValue: Date) => void;
+    readOnly?: boolean;
+    value?: string | number;
+  }
+  export interface LabelProps {
+    text?: string;
+    type?: 'titleLabel' | 'ordinaryLabel';
+  }
+  export interface LayoutProps {
+    basicLayoutComponent: React.ComponentType<AppointmentForm.BasicLayoutProps>;
+    children?: React.ReactNode;
+    commandLayoutComponent: React.ComponentType<AppointmentForm.CommandLayoutProps>;
+    isRecurrence: boolean;
+    recurrenceLayoutComponent: React.ComponentType<AppointmentForm.RecurrenceLayoutProps>;
   }
   export interface LocalizationMessages {
+    additionalInformationLabel?: string;
+    afterLabel?: string;
     allDayLabel?: string;
-    cancelCommand?: string;
     commitCommand?: string;
+    daily?: string;
+    daysLabel?: string;
     endDateLabel?: string;
+    endRepeatLabel?: string;
+    everyLabel?: string;
+    firstLabel?: string;
+    fourthLabel?: string;
+    lastLabel?: string;
+    monthly?: string;
+    monthsLabel?: string;
+    moreInformationLabel?: string;
+    never?: string;
+    notesLabel?: string;
+    occurrencesLabel?: string;
+    ofEveryMonthLabel?: string;
+    ofLabel?: string;
+    onLabel?: string;
+    repeatEveryLabel?: string;
+    repeatLabel?: string;
+    secondLabel?: string;
     startDateLabel?: string;
+    theLabel?: string;
+    thirdLabel?: string;
     titleLabel?: string;
+    weekly?: string;
+    weeksOnLabel?: string;
+    yearly?: string;
+    yearsLabel?: string;
   }
-  export interface PopupProps {
+  export interface OverlayProps {
     children: React.ReactNode;
-    visible?: boolean;
+    fullSize: boolean;
+    onHide: () => void;
+    target: React.RefObject<unknown>;
+    visible: boolean;
   }
-  export interface ScrollableAreaProps {
-    // (undocumented)
-    children: React.ReactNode;
+  export interface RadioGroupProps {
+    appointmentData: AppointmentModel;
+    dateEditorComponent: React.ComponentType<AppointmentForm.DateEditorProps>;
+    formatDate: FormatterFn;
+    getMessage?: (messageKey: string) => string;
+    labelComponent: React.ComponentType<AppointmentForm.LabelProps>;
+    locale?: string | string[];
+    onFieldChange: (nextFieldValue: {
+      [fieldName: string]: any;
+    }) => void;
+    readOnly?: boolean;
+    selectComponent: React.ComponentType<AppointmentForm.SelectProps>;
+    textEditorComponent: React.ComponentType<AppointmentForm.TextEditorProps>;
+    type: 'endRepeat' | 'monthlyRadioGroup' | 'yearlyRadioGroup';
   }
-  export interface StaticAreaProps {
-    children: React.ReactNode;
+  export interface RecurrenceLayoutProps {
+    appointmentData: AppointmentModel;
+    children?: React.ReactNode;
+    dateEditorComponent: React.ComponentType<AppointmentForm.DateEditorProps>;
+    formatDate: FormatterFn;
+    getMessage: (messageKey: string) => string;
+    labelComponent: React.ComponentType<AppointmentForm.LabelProps>;
+    locale: string | string[];
+    onFieldChange: (nextFieldValue: {
+      [fieldName: string]: any;
+    }) => void;
+    radioGroupComponent: React.ComponentType<AppointmentForm.RadioGroupProps>;
+    readOnly?: boolean;
+    selectComponent: React.ComponentType<AppointmentForm.SelectProps>;
+    textEditorComponent: React.ComponentType<AppointmentForm.TextEditorProps>;
+    weeklyRecurrenceSelectorComponent: React.ComponentType<AppointmentForm.WeeklyRecurrenceSelectorProps>;
+  }
+  export interface SelectProps {
+    availableOptions?: Array<object>;
+    onValueChange: (nextValue: string | number) => void;
+    readOnly?: boolean;
+    type: 'outlinedSelect' | 'filledSelect';
+    value: string | number;
+  }
+  export interface TextEditorProps {
+    onValueChange: (nextValue: string) => void;
+    placeholder: string;
+    readOnly: boolean;
+    type: 'titleTextEditor' | 'multilineTextEditor' | 'ordinaryTextEditor' | 'numberEditor';
+    value: string | number;
+  }
+  export interface WeeklyRecurrenceSelectorProps {
+    formatDate: FormatterFn;
+    onFieldChange: (nextFieldValue: {
+      [fieldName: string]: any;
+    }) => void;
+    readOnly: boolean;
+    rRule: string;
   }
 }
 
 // @public (undocumented)
 export interface AppointmentFormProps {
   appointmentData?: AppointmentModel;
-  containerComponent: React.ComponentType<AppointmentForm.ContainerProps>;
+  basicLayoutComponent: React.ComponentType<AppointmentForm.BasicLayoutProps>;
+  booleanEditorComponent: React.ComponentType<AppointmentForm.BooleanEditorProps>;
+  commandButtonComponent: React.ComponentType<AppointmentForm.CommandButtonProps>;
+  commandLayoutComponent: React.ComponentType<AppointmentForm.CommandLayoutProps>;
+  dateEditorComponent: React.ComponentType<AppointmentForm.DateEditorProps>;
+  labelComponent: React.ComponentType<AppointmentForm.LabelProps>;
+  layoutComponent: React.ComponentType<AppointmentForm.LayoutProps>;
   messages?: AppointmentForm.LocalizationMessages;
   onAppointmentDataChange?: (appointmentData: AppointmentModel) => void;
   onVisibilityChange?: (visible: boolean) => void;
-  popupComponent: React.ComponentType<AppointmentForm.PopupProps>;
+  overlayComponent: React.ComponentType<AppointmentForm.OverlayProps>;
+  radioGroupComponent: React.ComponentType<AppointmentForm.RadioGroupProps>;
   readOnly?: boolean;
-  scrollableAreaComponent: React.ComponentType<AppointmentForm.ScrollableAreaProps>;
-  staticAreaComponent: React.ComponentType<AppointmentForm.StaticAreaProps>;
+  recurrenceLayoutComponent: React.ComponentType<AppointmentForm.RecurrenceLayoutProps>;
+  selectComponent: React.ComponentType<AppointmentForm.SelectProps>;
+  textEditorComponent: React.ComponentType<AppointmentForm.TextEditorProps>;
   visible?: boolean;
+  weeklyRecurrenceSelectorComponent: React.ComponentType<AppointmentForm.WeeklyRecurrenceSelectorProps>;
 }
 
 // @public (undocumented)

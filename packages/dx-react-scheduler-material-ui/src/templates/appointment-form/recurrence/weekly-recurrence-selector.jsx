@@ -7,7 +7,7 @@ import classNames from 'classnames';
 import {
   getRecurrenceOptions, DAYS_OF_WEEK, SUNDAY_DATE, WEEK_DAY_OPTIONS, MONDAY_DATE,
   TUESDAY_DATE, THURSDAY_DATE, FRIDAY_DATE, SATURDAY_DATE, WEDNESDAY_DATE,
-  changeRecurrenceOptions,
+  handleWeekDaysChange, changeRecurrenceOptions,
 } from '@devexpress/dx-scheduler-core';
 import { setColor } from '../../utils';
 
@@ -31,20 +31,6 @@ const styles = ({ palette, spacing }) => ({
     marginBottom: spacing(2),
   },
 });
-
-const handleWeekDaysChange = (options, weekDay, action) => {
-  let byWeekDay = options.byweekday || [];
-  const index = byWeekDay.indexOf(weekDay);
-  const isAdded = !(index > -1);
-  if (isAdded) {
-    byWeekDay.push(weekDay);
-  } else if (index > -1) {
-    byWeekDay.splice(index, 1);
-  }
-  if (byWeekDay === 0) byWeekDay = undefined;
-  const newOptions = { ...options, byweekday: byWeekDay };
-  action({ rRule: changeRecurrenceOptions(newOptions) });
-};
 
 const WeeklyRecurrenceSelectorBase = React.memo(({
   formatDate,
@@ -71,11 +57,13 @@ const WeeklyRecurrenceSelectorBase = React.memo(({
           [classes.selectedButton]: recurrenceOptions.byweekday
             && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.SUNDAY) > -1,
         })}
-        onClick={() => handleWeekDaysChange(
-          recurrenceOptions,
-          DAYS_OF_WEEK.SUNDAY,
-          onFieldChange,
-        )}
+        onClick={() => onFieldChange({
+          rRule: changeRecurrenceOptions(handleWeekDaysChange(
+            recurrenceOptions,
+            DAYS_OF_WEEK.SUNDAY,
+            onFieldChange,
+          )),
+        })}
       >
         {formatDate(SUNDAY_DATE, WEEK_DAY_OPTIONS)}
       </Button>
@@ -85,11 +73,13 @@ const WeeklyRecurrenceSelectorBase = React.memo(({
           [classes.selectedButton]: recurrenceOptions.byweekday
             && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.MONDAY) > -1,
         })}
-        onClick={() => handleWeekDaysChange(
-          recurrenceOptions,
-          DAYS_OF_WEEK.MONDAY,
-          onFieldChange,
-        )}
+        onClick={() => onFieldChange({
+          rRule: changeRecurrenceOptions(handleWeekDaysChange(
+            recurrenceOptions,
+            DAYS_OF_WEEK.MONDAY,
+            onFieldChange,
+          )),
+        })}
       >
         {formatDate(MONDAY_DATE, WEEK_DAY_OPTIONS)}
       </Button>
@@ -99,11 +89,13 @@ const WeeklyRecurrenceSelectorBase = React.memo(({
           [classes.selectedButton]: recurrenceOptions.byweekday
             && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.TUESDAY) > -1,
         })}
-        onClick={() => handleWeekDaysChange(
-          recurrenceOptions,
-          DAYS_OF_WEEK.TUESDAY,
-          onFieldChange,
-        )}
+        onClick={() => onFieldChange({
+          rRule: changeRecurrenceOptions(handleWeekDaysChange(
+            recurrenceOptions,
+            DAYS_OF_WEEK.TUESDAY,
+            onFieldChange,
+          )),
+        })}
       >
         {formatDate(TUESDAY_DATE, WEEK_DAY_OPTIONS)}
       </Button>
@@ -113,11 +105,13 @@ const WeeklyRecurrenceSelectorBase = React.memo(({
           [classes.selectedButton]: recurrenceOptions.byweekday
             && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.WEDNESDAY) > -1,
         })}
-        onClick={() => handleWeekDaysChange(
-          recurrenceOptions,
-          DAYS_OF_WEEK.WEDNESDAY,
-          onFieldChange,
-        )}
+        onClick={() => onFieldChange({
+          rRule: changeRecurrenceOptions(handleWeekDaysChange(
+            recurrenceOptions,
+            DAYS_OF_WEEK.WEDNESDAY,
+            onFieldChange,
+          )),
+        })}
       >
         {formatDate(WEDNESDAY_DATE, WEEK_DAY_OPTIONS)}
       </Button>
@@ -127,11 +121,13 @@ const WeeklyRecurrenceSelectorBase = React.memo(({
           [classes.selectedButton]: recurrenceOptions.byweekday
             && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.THURSDAY) > -1,
         })}
-        onClick={() => handleWeekDaysChange(
-          recurrenceOptions,
-          DAYS_OF_WEEK.THURSDAY,
-          onFieldChange,
-        )}
+        onClick={() => onFieldChange({
+          rRule: changeRecurrenceOptions(handleWeekDaysChange(
+            recurrenceOptions,
+            DAYS_OF_WEEK.THURSDAY,
+            onFieldChange,
+          )),
+        })}
       >
         {formatDate(THURSDAY_DATE, WEEK_DAY_OPTIONS)}
       </Button>
@@ -141,11 +137,13 @@ const WeeklyRecurrenceSelectorBase = React.memo(({
           [classes.selectedButton]: recurrenceOptions.byweekday
             && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.FRIDAY) > -1,
         })}
-        onClick={() => handleWeekDaysChange(
-          recurrenceOptions,
-          DAYS_OF_WEEK.FRIDAY,
-          onFieldChange,
-        )}
+        onClick={() => onFieldChange({
+          rRule: changeRecurrenceOptions(handleWeekDaysChange(
+            recurrenceOptions,
+            DAYS_OF_WEEK.FRIDAY,
+            onFieldChange,
+          )),
+        })}
       >
         {formatDate(FRIDAY_DATE, WEEK_DAY_OPTIONS)}
       </Button>
@@ -155,11 +153,13 @@ const WeeklyRecurrenceSelectorBase = React.memo(({
           [classes.selectedButton]: recurrenceOptions.byweekday
             && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.SATURDAY) > -1,
         })}
-        onClick={() => handleWeekDaysChange(
-          recurrenceOptions,
-          DAYS_OF_WEEK.SATURDAY,
-          onFieldChange,
-        )}
+        onClick={() => onFieldChange({
+          rRule: changeRecurrenceOptions(handleWeekDaysChange(
+            recurrenceOptions,
+            DAYS_OF_WEEK.SATURDAY,
+            onFieldChange,
+          )),
+        })}
       >
         {formatDate(SATURDAY_DATE, WEEK_DAY_OPTIONS)}
       </Button>

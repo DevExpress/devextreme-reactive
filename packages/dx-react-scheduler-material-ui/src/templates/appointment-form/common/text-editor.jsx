@@ -31,7 +31,7 @@ const TextEditorBase = React.memo(({
   type,
   ...restProps
 }) => {
-  const textFiledType = type === NUMBER_EDITOR ? 'number' : 'text';
+  const textFieldType = type === NUMBER_EDITOR ? 'number' : 'text';
   const notesTextEditor = type === MULTILINE_TEXT_EDITOR;
   return (
     <TextField
@@ -47,7 +47,7 @@ const TextEditorBase = React.memo(({
       }}
       multiline={notesTextEditor}
       rows="5"
-      type={textFiledType}
+      type={textFieldType}
       hiddenLabel
       margin="normal"
       placeholder={placeholder}

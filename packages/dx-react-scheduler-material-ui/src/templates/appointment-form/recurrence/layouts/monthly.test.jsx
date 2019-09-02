@@ -89,7 +89,7 @@ describe('AppointmentForm recurrence layout', () => {
         .toHaveBeenCalledWith('bcd');
     });
 
-    it('should have getMessage called with proper parameters', () => {
+    it('should call getMessage with proper parameters', () => {
       shallow((
         <Monthly {...defaultProps} />
       ));

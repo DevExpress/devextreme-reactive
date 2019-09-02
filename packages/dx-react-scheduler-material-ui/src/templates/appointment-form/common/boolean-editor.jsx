@@ -4,15 +4,14 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { withStyles } from '@material-ui/core/styles';
 
-const styles = ({ typography }) => ({
+const styles = {
   label: {
-    fontSize: typography.fontSize + 1,
     overflow: 'hidden',
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
     userSelect: 'none',
   },
-});
+};
 
 const BooleanEditorBase = React.memo(({
   label,

@@ -43,7 +43,7 @@ describe('AppointmentForm common select', () => {
       expect(defaultProps.onValueChange)
         .toBeCalledWith('next');
     });
-    it('should render items depend of available view names', () => {
+    it('should render items depending on available options', () => {
       const tree = shallow((
         <FilledSelect
           {...defaultProps}

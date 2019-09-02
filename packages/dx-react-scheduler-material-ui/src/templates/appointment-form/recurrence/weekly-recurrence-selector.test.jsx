@@ -17,9 +17,7 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
 
 describe('AppointmentForm recurrence', () => {
   const defaultProps = {
-    appointmentData: {
-      rRule: 'RRULE:FREQ=WEEKLY',
-    },
+    rRule: 'RRULE:FREQ=WEEKLY',
     getMessage: jest.fn(),
     onFieldChange: jest.fn(),
     formatDate: jest.fn(),
@@ -32,7 +30,7 @@ describe('AppointmentForm recurrence', () => {
   });
   beforeAll(() => {
     shallow = createShallow({ dive: true });
-    classes = getClasses(<WeeklyRecurrenceSelector />);
+    classes = getClasses(<WeeklyRecurrenceSelector {...defaultProps} />);
   });
   describe('WeeklyRecurrenceSelector', () => {
     it('should pass className to the root element', () => {

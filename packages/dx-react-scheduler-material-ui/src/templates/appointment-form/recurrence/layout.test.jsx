@@ -133,7 +133,7 @@ describe('AppointmentForm recurrence', () => {
         .toHaveBeenCalledWith('bcd');
     });
 
-    it('should have getMessage called with proper parameters', () => {
+    it('should have call getMessage with proper parameters', () => {
       shallow((
         <Layout {...defaultProps}><div /></Layout>
       ));

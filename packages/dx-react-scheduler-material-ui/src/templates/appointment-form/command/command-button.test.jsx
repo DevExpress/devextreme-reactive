@@ -83,7 +83,6 @@ describe('AppointmentForm command', () => {
         <CommandButton
           id="Wrong id"
           {...defaultProps}
-
         />
       ));
 

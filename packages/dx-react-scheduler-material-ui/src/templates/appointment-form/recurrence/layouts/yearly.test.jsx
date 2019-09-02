@@ -68,7 +68,7 @@ describe('AppointmentForm recurrence layout', () => {
         .toHaveLength(1);
     });
 
-    it('should handle appointment field change', () => {
+    it('should handle appointment field changes', () => {
       const tree = shallow((
         <Yearly {...defaultProps} />
       ));
@@ -89,7 +89,7 @@ describe('AppointmentForm recurrence layout', () => {
         .toHaveBeenCalledWith('abc');
     });
 
-    it('should have getMessage called with proper parameters', () => {
+    it('should call getMessage with proper parameters', () => {
       shallow((
         <Yearly {...defaultProps} />
       ));

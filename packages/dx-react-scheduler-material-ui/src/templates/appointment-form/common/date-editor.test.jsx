@@ -16,7 +16,7 @@ describe('AppointmentForm common', () => {
   describe('DateEditor', () => {
     it('should pass rest props to the DateTimePicker element', () => {
       const tree = shallow((
-        <DateEditor data={{ a: 1 }} />
+        <DateEditor {...defaultProps} data={{ a: 1 }} />
       ));
 
       const datePicker = tree.find(KeyboardDateTimePicker);
@@ -28,9 +28,9 @@ describe('AppointmentForm common', () => {
     });
 
     it('should pass classNme to the DateTimePicker element', () => {
-      const classes = getClasses(<DateEditor />);
+      const classes = getClasses(<DateEditor {...defaultProps} />);
       const tree = shallow((
-        <DateEditor className="custom-class" />
+        <DateEditor {...defaultProps} className="custom-class" />
       ));
 
       const dateTimePicker = tree.find(KeyboardDateTimePicker);
@@ -56,6 +56,7 @@ describe('AppointmentForm common', () => {
     it('should be disabled depending on readonly', () => {
       const tree = shallow((
         <DateEditor
+          {...defaultProps}
           readOnly
         />
       ));

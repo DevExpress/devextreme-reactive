@@ -24,8 +24,9 @@ const DateEditorBase = React.memo(({
   ...restProps
 }) => {
   const memoizedChangeHandler = React.useCallback(
-    nextDate => nextDate && onValueChange(nextDate.toDate()),
+    nextDate => nextDate && onValueChange(nextDate.toDate()), [onValueChange],
   );
+
   return (
     <MuiPickersUtilsProvider utils={MomentUtils} locale={locale}>
       <KeyboardDateTimePicker

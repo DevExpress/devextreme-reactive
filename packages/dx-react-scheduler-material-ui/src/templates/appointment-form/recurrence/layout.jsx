@@ -46,7 +46,7 @@ const styles = ({ spacing }) => ({
   },
   select: {
     height: '3.8em',
-  }
+  },
 });
 
 const getLayoutComponent = (recurrenceOptions) => {

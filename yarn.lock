@@ -1734,7 +1734,7 @@
   dependencies:
     "@babel/runtime" "^7.2.0"
 
-"@material-ui/pickers@3.2.4":
+"@material-ui/pickers@^3.2.0":
   version "3.2.4"
   resolved "https://registry.yarnpkg.com/@material-ui/pickers/-/pickers-3.2.4.tgz#be5dfcff71120de8c3711595d773ec3f2141b736"
   integrity sha512-px+vHVu1tMKHyOXNd7OPc0hF+SP+6ZDSMHLFzZPnnwOADu0GwbEoEs+428Vdp2ifpiojaCFneUO2uTMtQbywcQ==
@@ -6988,7 +6988,7 @@ file-entry-cache@^5.0.1:
   dependencies:
     flat-cache "^2.0.1"
 
-"file-saver@github:eligrey/FileSaver.js#1.3.8":
+file-saver@eligrey/FileSaver.js#1.3.8:
   version "1.3.8"
   resolved "https://codeload.github.com/eligrey/FileSaver.js/tar.gz/e865e37af9f9947ddcced76b549e27dc45c1cb2e"
 

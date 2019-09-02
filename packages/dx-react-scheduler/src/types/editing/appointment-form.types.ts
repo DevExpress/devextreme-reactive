@@ -94,7 +94,7 @@ export namespace AppointmentForm {
     /** A component that renders the appointment form's radio group component. */
     radioGroupComponent: React.ComponentType<AppointmentForm.RadioGroupProps>;
     /** A component that renders the appointment form's weekly recurrence selector component component. */
-    weeklyRecurrenceSelectorComponent: React.ComponentType<AppointmentForm.WeeklyRecurrenceSelector>;
+    weeklyRecurrenceSelectorComponent: React.ComponentType<AppointmentForm.WeeklyRecurrenceSelectorProps>;
     /** A component that renders the appointment form's text editor component. */
     textEditorComponent: React.ComponentType<AppointmentForm.TextEditorProps>;
     /** A component that renders the appointment form's date editor component. */
@@ -196,7 +196,7 @@ export namespace AppointmentForm {
     labelComponent: React.ComponentType<AppointmentForm.LabelProps>;
   }
   /** Properties passed to a component that renders the appointment form's weekly recurrence selector component. */
-  export interface WeeklyRecurrenceSelector {
+  export interface WeeklyRecurrenceSelectorProps {
     /** A function that formats dates depending on locale. */
     formatDate: FormatterFn;
     /** Specifies the appointment recurrence rule. */
@@ -313,7 +313,7 @@ export interface AppointmentFormProps {
   /** A component that renders the appointment form's radio group component. */
   radioGroupComponent: React.ComponentType<AppointmentForm.RadioGroupProps>;
   /** A component that renders the appointment form's weekly recurrence selector component. */
-  weeklyRecurrenceSelectorComponent: React.ComponentType<AppointmentForm.WeeklyRecurrenceSelector>;
+  weeklyRecurrenceSelectorComponent: React.ComponentType<AppointmentForm.WeeklyRecurrenceSelectorProps>;
   /** An object that specifies localization messages. */
   messages?: AppointmentForm.LocalizationMessages;
 }

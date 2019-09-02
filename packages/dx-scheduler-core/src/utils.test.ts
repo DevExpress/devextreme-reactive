@@ -686,4 +686,5 @@ describe('Utils', () => {
       expect(getRRuleSetWithExDates(exDate).valueOf()[0])
         .toContain('EXDATE');
     });
+  });
 });

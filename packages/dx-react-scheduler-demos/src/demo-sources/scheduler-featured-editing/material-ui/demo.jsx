@@ -13,6 +13,7 @@ import {
   AppointmentForm,
   DragDropProvider,
   EditRecurrenceMenu,
+  AllDayPanel,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { connectProps } from '@devexpress/dx-react-core';
 import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
@@ -429,6 +430,7 @@ class Demo extends React.PureComponent {
             endDayHour={endDayHour}
           />
           <MonthView />
+          <AllDayPanel />
           <EditRecurrenceMenu />
           <Appointments />
           <AppointmentTooltip

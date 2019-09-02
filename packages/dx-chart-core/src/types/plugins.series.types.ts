@@ -5,6 +5,7 @@ import {
 import {
   Scales, GetSeriesAnimatedStyleFn,
 } from './plugins.animation.types';
+import { Size } from '@devexpress/dx-react-core';
 
 /** @internal */
 export type AddSeriesFn = PureComputed<[SeriesList, DataItems, Colors, any, any]>;
@@ -54,6 +55,10 @@ interface CommonComponentProps {
   scales: Scales;
   /** @internal */
   getAnimatedStyle: GetSeriesAnimatedStyleFn;
+  /** @internal */
+  pane: Size;
+  /** @internal */
+  clipPathId: string;
 }
 
 export interface PathComponentProps extends CommonComponentProps {

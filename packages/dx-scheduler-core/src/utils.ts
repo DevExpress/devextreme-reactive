@@ -307,11 +307,16 @@ export const calculateRectByDateIntervals: CalculateRectByDateIntervalsFn = (
 const expandRecurrenceAppointment = (
   appointment: AppointmentMoment, leftBound: Date, rightBound: Date,
 ) => {
+  const rightBoundUTC = new Date(getUTCDate(rightBound));
+  const leftBoundUTC = new Date(getUTCDate(leftBound));
   const appointmentStartDate = moment(appointment.start).toDate();
   const options = {
     ...RRule.parseString(appointment.rRule),
     dtstart: new Date(getUTCDate(appointmentStartDate)),
   };
+  const correctedOptions = options.until
+    ? { ...options, until: new Date(getUTCDate(options.until)) }
+    : options;
 
   const rruleSet = new RRuleSet();
 
@@ -321,17 +326,13 @@ const expandRecurrenceAppointment = (
       rruleSet.exdate(new Date(getUTCDate(currentExDate)));
     }, []);
   }
-  const optionsWithCorrectUntil = { ...options };
-  if (options.until) {
-    optionsWithCorrectUntil.until = new Date(getUTCDate(options.until));
-  }
 
-  rruleSet.rrule(new RRule(optionsWithCorrectUntil));
+  rruleSet.rrule(new RRule(correctedOptions));
 
   // According to https://github.com/jakubroztocil/rrule#important-use-utc-dates
   // we have to format the dates we get from RRuleSet to get local dates
-  const datesInBoundaries = rruleSet.between(leftBound as Date, rightBound as Date).map(date =>
-    moment.utc(date).format('YYYY-MM-DD HH:mm'));
+  const datesInBoundaries = rruleSet.between(leftBoundUTC as Date, rightBoundUTC as Date, true)
+    .map(date => moment.utc(date).format('YYYY-MM-DD HH:mm'));
   if (datesInBoundaries.length === 0) return [];
 
   const appointmentDuration = moment(appointment.end)

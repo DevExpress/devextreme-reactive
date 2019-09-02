@@ -206,6 +206,23 @@ describe('EditingState', () => {
           },
         });
       });
+      it('should edit if chages\' startDate is undefined', () => {
+        const appointmentData = {
+          ...appointmentDataBase,
+          rRule: 'FREQ=DAILY;UNTIL=20190717T142000Z',
+        };
+        const changes = {
+          rRule: 'FREQ=DAILY;COUNT=7',
+        };
+
+        expect(editAll(changes, appointmentData)).toEqual({
+          changed: {
+            4: {
+              rRule: 'FREQ=DAILY;COUNT=7',
+            },
+          },
+        });
+      });
     });
 
     describe('#editCurrent', () => {

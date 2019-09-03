@@ -118,16 +118,16 @@ export const processPointAnimation = (startCoords, endCoords, scales, rotated) =
   let startX;
   let startY;
   if (!startCoords) {
-    startX = rotated ? scales.xScale.copy().clamp!(true)(0) : endCoords.endX;
-    startY = rotated ? endCoords.endY : scales.yScale.copy().clamp!(true)(0);
+    startX = rotated ? scales.xScale.copy().clamp!(true)(0) : endCoords.x;
+    startY = rotated ? endCoords.y : scales.yScale.copy().clamp!(true)(0);
   } else {
     startX = startCoords.x;
     startY = startCoords.y;
   }
   return (progress) => {
     return {
-      x: startX + progress * (endCoords.endX - startX),
-      y: startY + progress * (endCoords.endY - startY),
+      x: startX + progress * (endCoords.x - startX),
+      y: startY + progress * (endCoords.y - startY),
     };
   };
 };
@@ -135,7 +135,7 @@ export const processPointAnimation = (startCoords, endCoords, scales, rotated) =
 export const processLineAnimation = (startCoords, endCoords, scales, rotated) => {
   const startPosition = rotated ? scales.xScale.copy().clamp!(true)(0) :
   scales.yScale.copy().clamp!(true)(0);
-  let fromCoords = startCoords.slice();
+  let fromCoords = startCoords && startCoords.slice();
   if (!fromCoords) {
     fromCoords = endCoords.map((coord) => {
       return { arg: coord.arg, val: startPosition };

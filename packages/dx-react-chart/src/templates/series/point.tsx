@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  dSymbol, HOVERED, SELECTED, getVisibility,
+  processPointAnimation, dSymbol, HOVERED, SELECTED, getVisibility,
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { ScatterSeries } from '../../types';
@@ -19,40 +19,43 @@ class RawPoint extends React.PureComponent<ScatterSeries.PointProps, any> {
     this.setAttribute = this.setAttribute.bind(this);
   }
 
-  setAttribute(x, y, style?) {
+  setAttribute({ x, y, style }: {x: number, y: number, style?: object}) {
     this.setState({ x, y, style });
   }
 
   componentDidMount() {
     const {
-      point,
+      arg, val, rotated, animation, scales, point,
     } = this.props;
 
     this.d = dSymbol(point);
+    const x = rotated ? val : arg;
+    const y = rotated ? arg : val;
+    if (animation) {
+      this.animationId = animation(
+      processPointAnimation(null, { x, y }, scales, rotated), this.setAttribute, this.animationId,
+      );
+    } else {
+      this.setAttribute({ x, y });
+    }
   }
 
   componentDidUpdate({
-    arg: prevArg, val: prevVal, rotated: prevRotated, argument: prevArgument, value: prevValue,
-  }) {
+  arg: prevArg, val: prevVal, rotated: prevRotated, argument: prevArgument, value: prevValue,
+}) {
     const {
-      arg, val, rotated, animation, scales, argument, value,
+      arg, val, rotated, animation, scales,
     } = this.props;
     const x = rotated ? val : arg;
     const y = rotated ? arg : val;
     const prevX = rotated ? prevVal : prevArg;
     const prevY = rotated ? prevArg : prevVal;
     if (animation && (prevArg !== arg || prevVal !== val || prevRotated !== rotated)) {
-      if (argument === prevArgument && value === prevValue) {
-        this.animationId = animation(
-          null, { x, y }, scales, rotated, this.setAttribute, this.animationId,
-        );
-      } else {
-        this.animationId = animation(
-          { x: prevX, y: prevY }, { x, y }, scales, rotated, this.setAttribute, this.animationId,
-        );
-      }
-    } else if (!animation) {
-      this.setAttribute(x, y);
+      this.animationId = animation(
+        processPointAnimation({ x: prevX, y: prevY }, { x, y }, scales, rotated),
+        this.setAttribute,
+        this.animationId,
+      );
     }
   }
 

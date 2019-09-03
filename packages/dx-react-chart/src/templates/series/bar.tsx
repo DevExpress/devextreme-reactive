@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  HOVERED, SELECTED, dBar, getVisibility, adjustBarSize,
+  processPointAnimation, HOVERED, SELECTED, dBar, getVisibility, adjustBarSize,
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
@@ -19,32 +19,41 @@ class RawBar extends React.PureComponent<BarSeries.PointProps, any> {
     this.setAttribute = this.setAttribute.bind(this);
   }
 
-  setAttribute(x, y, style?) {
+  setAttribute({ x, y, style }: {x: number, y: number, style?: object}) {
     this.setState({ x, y, style });
+  }
+
+  componentDidMount() {
+    const {
+      arg, val, rotated, animation, scales,
+    } = this.props;
+    const x = arg;
+    const y = val;
+    if (animation) {
+      this.animationId = animation(
+      processPointAnimation(null, { x, y }, scales, rotated), this.setAttribute, this.animationId,
+      );
+    } else {
+      this.setAttribute({ x, y });
+    }
   }
 
   componentDidUpdate({
     arg: prevArg, val: prevVal, rotated: prevRotated, argument: prevArgument, value: prevValue,
   }) {
     const {
-      arg, val, rotated, animation, scales, argument, value,
+      arg, val, rotated, animation, scales,
     } = this.props;
     const x = arg;
     const y = val;
     const prevX = prevArg;
     const prevY = prevVal;
     if (animation && (prevArg !== arg || prevVal !== val || prevRotated !== rotated)) {
-      if (argument === prevArgument && value === prevValue) {
-        this.animationId = animation(
-          null, { x, y }, scales, rotated, this.setAttribute, this.animationId,
+      this.animationId = animation(
+        processPointAnimation({ x: prevX, y: prevY }, { x, y }, scales, rotated),
+        this.setAttribute,
+        this.animationId,
         );
-      } else {
-        this.animationId = animation(
-          { x: prevX, y: prevY }, { x, y }, scales, rotated, this.setAttribute, this.animationId,
-        );
-      }
-    } else if (!animation) {
-      this.setAttribute(x, y);
     }
   }
 

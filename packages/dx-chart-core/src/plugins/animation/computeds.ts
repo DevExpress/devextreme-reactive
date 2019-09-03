@@ -89,19 +89,10 @@ export const buildAnimatedStyleGetter: BuildAnimatedStyleGetterFn = rotated => (
 
 /** @internal */
 export const buildAnimation = (
-  startCoords, { x: endX, y: endY }, scales, rotated, setState, animationID,
+  processAnimation, setState, animationID,
 ) => {
   if (animationID) {
     cancelAnimationFrame(animationID);
-  }
-  let startX;
-  let startY;
-  if (!startCoords) {
-    startX = rotated ? scales.xScale.copy().clamp!(true)(0) : endX;
-    startY = rotated ? endY : scales.yScale.copy().clamp!(true)(0);
-  } else {
-    startX = startCoords.x;
-    startY = startCoords.y;
   }
   const getProgress = ({ elapsed, total }) => Math.min(elapsed / total, 1);
   const time = {
@@ -113,14 +104,77 @@ export const buildAnimation = (
   const tick = (now) => {
     time.elapsed = now - time.start;
     const progress = getProgress(time);
-    const x = progress * (endX - startX);
-    const y = progress * (endY - startY);
 
-    setState(startX + x, startY + y);
+    setState(processAnimation(progress));
 
     if (progress < 1) requestAnimationFrame(tick);
   };
 
   const animationId = requestAnimationFrame(tick);
   return animationId;
+};
+
+export const processPointAnimation = (startCoords, endCoords, scales, rotated) => {
+  let startX;
+  let startY;
+  if (!startCoords) {
+    startX = rotated ? scales.xScale.copy().clamp!(true)(0) : endCoords.endX;
+    startY = rotated ? endCoords.endY : scales.yScale.copy().clamp!(true)(0);
+  } else {
+    startX = startCoords.x;
+    startY = startCoords.y;
+  }
+  return (progress) => {
+    return {
+      x: startX + progress * (endCoords.endX - startX),
+      y: startY + progress * (endCoords.endY - startY),
+    };
+  };
+};
+
+export const processLineAnimation = (startCoords, endCoords, scales, rotated) => {
+  const startPosition = rotated ? scales.xScale.copy().clamp!(true)(0) :
+  scales.yScale.copy().clamp!(true)(0);
+  let fromCoords = startCoords.slice();
+  if (!fromCoords) {
+    fromCoords = endCoords.map((coord) => {
+      return { arg: coord.arg, val: startPosition };
+    });
+  }
+
+  return (progress) => {
+    return {
+      coordinates: endCoords.map((coord, index) => {
+        const startCurCoord = fromCoords[index];
+        return {
+          arg: startCurCoord.arg + progress * (coord.arg - startCurCoord.arg),
+          val: startCurCoord.val + progress * (coord.val - startCurCoord.val),
+        };
+      }),
+    };
+  };
+};
+
+export const processAreaAnimation = (startCoords, endCoords, scales, rotated) => {
+  const startPosition = rotated ? scales.xScale.copy().clamp!(true)(0) :
+  scales.yScale.copy().clamp!(true)(0);
+  let fromCoords = startCoords.slice();
+  if (!fromCoords) {
+    fromCoords = endCoords.map((coord) => {
+      return { arg: coord.arg, val: startPosition, startVal: startPosition };
+    });
+  }
+
+  return (progress) => {
+    return {
+      coordinates: endCoords.map((coord, index) => {
+        const startCurCoord = fromCoords[index];
+        return {
+          arg: startCurCoord.arg + progress * (coord.arg - startCurCoord.arg),
+          val: startCurCoord.val + progress * (coord.val - startCurCoord.val),
+          startVal: startCurCoord.startVal + progress * (coord.startVal - startCurCoord.startVal),
+        };
+      }),
+    };
+  };
 };

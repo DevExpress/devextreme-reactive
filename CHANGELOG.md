@@ -23,6 +23,35 @@
 * **react-scheduler:** add capability to edit recurring appointments ([#2168](https://github.com/DevExpress/devextreme-reactive/issues/2168)) ([c726b6a](https://github.com/DevExpress/devextreme-reactive/commit/c726b6a)), closes [#2202](https://github.com/DevExpress/devextreme-reactive/issues/2202)
 
 
+BREAKING CHANGES:
+
+* **react-scheduler:** Now the Editing feature requires one of the two plugins `IntegratedEditing` or `EditingMenu`. These plugins implement editing logic for recurrence appointments. The [EditRecurrenceMenu](https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/reference/edit-recurrence-menu/) provides the capability to choose a method of editing recurrence appointments.
+
+```diff
+<Scheduler>
+   <EditingState />
++  <EditRecurrenceMenu />
++  {/* or <IntegratedEditing />*/}
+   ...
+</Scheduler>
+```
+
+The EditingState properties `editingAppointmentId`, `defaultEditingAppointmentId`, `onEditingAppointmentIdChange` are removed use instead `editingAppointment`, `defaultEditingAppointment` and `onEditingAppointmentChange`. These properties are contain [appointmentModel](https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/reference/scheduler/#appointmentmodel) of the editing appointment.
+
+```diff
+<Scheduler>
+   <EditingState
+-    editingAppointmentId
+-    defaultEditingAppointmentId
+-    onEditingAppointmentIdChange
++    editingAppointment
++    defaultEditingAppointment
++    onEditingAppointmentChange
+   />
+   ...
+</Scheduler>
+```
+
 
 # [2.0.3](https://github.com/DevExpress/devextreme-reactive/compare/v2.0.2...v2.0.3) (2019-08-16)
 

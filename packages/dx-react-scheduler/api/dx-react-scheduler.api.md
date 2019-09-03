@@ -110,6 +110,7 @@ export namespace AppointmentForm {
     commandButtonComponent: React.ComponentType<AppointmentForm.CommandButtonProps>;
     fullSize: boolean;
     getMessage: (messageKey: string) => string;
+    isFormEdited: boolean;
     onCancelButtonClick: () => void;
     onCommitButtonClick: () => void;
     onDeleteButtonClick: () => void;

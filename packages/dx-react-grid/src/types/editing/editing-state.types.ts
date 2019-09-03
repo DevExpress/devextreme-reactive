@@ -1,3 +1,5 @@
+import { EditingCell } from '@devexpress/dx-grid-core';
+
 // tslint:disable-next-line:no-namespace
 export namespace EditingState {
   /** Describes additional column properties that the plugin can handle. */
@@ -35,6 +37,8 @@ export interface EditingStateProps {
   defaultEditingRowIds?: Array<number | string>;
   /** Handles adding or removing a row to/from the `editingRowIds` array. */
   onEditingRowIdsChange?: (editingRowIds: Array<number | string>) => void;
+  /** Handles changing a cell to/from the `editingRowIds` array. */
+  onEditingCellsChange?: (editingRowIds: Array<EditingCell>) => void;
   /** @internal */
   deletedRowIds?: Array<number | string>;
   /** @internal */
@@ -59,6 +63,7 @@ export interface EditingStateProps {
 /** @internal */
 export type EditingStateState = {
   editingRowIds: Array<number | string>;
+  editingCells: Array<EditingCell>;
   addedRows: Array<any>;
   rowChanges: { [key: string]: any };
   deletedRowIds: Array<number | string>;

@@ -42,6 +42,7 @@ const EditCellBase = ({
           value={value || ''}
           disabled={!editingEnabled}
           onChange={e => onValueChange(e.target.value)}
+          {...restProps}
         />
       )}
     </TableCell>

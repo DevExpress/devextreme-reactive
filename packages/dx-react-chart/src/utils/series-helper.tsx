@@ -61,7 +61,7 @@ export const declareSeries = <T extends SeriesProps>(
           <Template name="series">
             <TemplatePlaceholder />
             <TemplateConnector>
-              {({ series, scales, getAnimatedStyle, rotated, layouts, clipPathId }) => {
+              {({ series, scales, getAnimatedStyle, animation, rotated, layouts, clipPathId }) => {
                 const { pane } = layouts;
                 if (!pane.width && !pane.height) {
                   return null;
@@ -88,6 +88,7 @@ export const declareSeries = <T extends SeriesProps>(
                     getAnimatedStyle={getAnimatedStyle}
                     pane={pane}
                     clipPathId={clipPathId}
+                    animation={animation}
                   />
                 );
               }}

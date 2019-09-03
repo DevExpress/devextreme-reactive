@@ -86,3 +86,41 @@ export const buildAnimatedStyleGetter: BuildAnimatedStyleGetterFn = rotated => (
     ...style,
   };
 };
+
+/** @internal */
+export const buildAnimation = (
+  startCoords, { x: endX, y: endY }, scales, rotated, setState, animationID,
+) => {
+  if (animationID) {
+    cancelAnimationFrame(animationID);
+  }
+  let startX;
+  let startY;
+  if (!startCoords) {
+    startX = rotated ? scales.xScale.copy().clamp!(true)(0) : endX;
+    startY = rotated ? endY : scales.yScale.copy().clamp!(true)(0);
+  } else {
+    startX = startCoords.x;
+    startY = startCoords.y;
+  }
+  const getProgress = ({ elapsed, total }) => Math.min(elapsed / total, 1);
+  const time = {
+    start: performance.now(),
+    total: 1000,
+    elapsed: 0,
+  };
+
+  const tick = (now) => {
+    time.elapsed = now - time.start;
+    const progress = getProgress(time);
+    const x = progress * (endX - startX);
+    const y = progress * (endY - startY);
+
+    setState(startX + x, startY + y);
+
+    if (progress < 1) requestAnimationFrame(tick);
+  };
+
+  const animationId = requestAnimationFrame(tick);
+  return animationId;
+};

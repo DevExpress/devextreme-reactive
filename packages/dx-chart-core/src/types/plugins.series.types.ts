@@ -59,6 +59,8 @@ interface CommonComponentProps {
   pane: Size;
   /** @internal */
   clipPathId: string;
+  /** @internal */
+  animation: any;
 }
 
 export interface PathComponentProps extends CommonComponentProps {

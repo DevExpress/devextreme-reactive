@@ -1,22 +1,64 @@
 import * as React from 'react';
 import {
-  getAreaAnimationStyle, HOVERED, SELECTED, dBar, getVisibility, adjustBarSize,
+  HOVERED, SELECTED, dBar, getVisibility, adjustBarSize,
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
 import { BarSeries } from '../../types';
 
-class RawBar extends React.PureComponent<BarSeries.PointProps> {
-  render() {
+class RawBar extends React.PureComponent<BarSeries.PointProps, any> {
+  animationId: any = undefined;
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      x: 0,
+      y: 0,
+      style: undefined,
+    };
+    this.setAttribute = this.setAttribute.bind(this);
+  }
+
+  setAttribute(x, y, style?) {
+    this.setState({ x, y, style });
+  }
+
+  componentDidUpdate({
+    arg: prevArg, val: prevVal, rotated: prevRotated, argument: prevArgument, value: prevValue,
+  }) {
     const {
-      arg, val, startVal, barWidth, maxBarWidth,
+      arg, val, rotated, animation, scales, argument, value,
+    } = this.props;
+    const x = arg;
+    const y = val;
+    const prevX = prevArg;
+    const prevY = prevVal;
+    if (animation && (prevArg !== arg || prevVal !== val || prevRotated !== rotated)) {
+      if (argument === prevArgument && value === prevValue) {
+        this.animationId = animation(
+          null, { x, y }, scales, rotated, this.setAttribute, this.animationId,
+        );
+      } else {
+        this.animationId = animation(
+          { x: prevX, y: prevY }, { x, y }, scales, rotated, this.setAttribute, this.animationId,
+        );
+      }
+    } else if (!animation) {
+      this.setAttribute(x, y);
+    }
+  }
+
+  render() {
+    const { x, y, style: animateStyle } = this.state;
+    const {
+      arg, val, startVal, barWidth, maxBarWidth, animation,
       argument, value, seriesIndex, index, state, rotated,
       color, pane,
       style, scales, getAnimatedStyle,
       ...restProps
     } = this.props;
     const width = barWidth * maxBarWidth;
-    const bar = dBar(arg, val, startVal!, width, rotated);
+    const bar = dBar(x, y, startVal!, width, rotated);
     const visibility = getVisibility(
       pane, bar.x + bar.width / 2, bar.y + bar.height, bar.width, bar.height,
     );
@@ -26,7 +68,7 @@ class RawBar extends React.PureComponent<BarSeries.PointProps> {
         {...adjustedBar}
         fill={color}
         visibility={visibility}
-        style={getAnimatedStyle(style, getAreaAnimationStyle, scales)}
+        style={{ ...style, ...animateStyle }}
         {...restProps}
       />
     );

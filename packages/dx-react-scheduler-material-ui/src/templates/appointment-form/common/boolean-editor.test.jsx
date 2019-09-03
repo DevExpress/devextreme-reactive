@@ -20,7 +20,7 @@ describe('AppointmentForm common', () => {
   });
   describe('BooleanEditor', () => {
     it('should pass rest props to the root element', () => {
-      const tree = mount((
+      const tree = shallow((
         <BooleanEditor {...defaultProps} className="custom-class" />
       ));
 

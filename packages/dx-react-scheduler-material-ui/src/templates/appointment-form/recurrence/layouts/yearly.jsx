@@ -91,7 +91,6 @@ const YearlyBase = ({
         formatDate={formatDate}
         className={classes.radioGroup}
       />
-
     </div>
   );
 };

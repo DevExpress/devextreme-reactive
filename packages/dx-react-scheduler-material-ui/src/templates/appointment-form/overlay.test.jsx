@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { createShallow, getClasses, createMount } from '@material-ui/core/test-utils';
-import classNames from 'classnames';
+import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { Overlay } from './overlay';
 
 describe('AppointmentForm', () => {
@@ -16,17 +15,12 @@ describe('AppointmentForm', () => {
   };
   let classes;
   let shallow;
-  let mount;
   beforeAll(() => {
     classes = getClasses(<Overlay><div /></Overlay>);
     shallow = createShallow({ dive: true });
   });
   beforeEach(() => {
-    mount = createMount();
     jest.resetAllMocks();
-  });
-  afterEach(() => {
-    mount.cleanUp();
   });
   describe('Overlay', () => {
     it('should pass rest props to the root element', () => {
@@ -74,7 +68,7 @@ describe('AppointmentForm', () => {
 
       expect(tree.prop('PaperProps'))
         .toMatchObject({
-          className: classNames(classes.absolutePosition, classes.halfSize),
+          className: `${classes.absolutePosition} ${classes.halfSize}`,
         });
     });
 
@@ -87,7 +81,7 @@ describe('AppointmentForm', () => {
 
       expect(tree.prop('PaperProps'))
         .toMatchObject({
-          className: classNames(classes.absolutePosition, classes.fullSize),
+          className: `${classes.absolutePosition} ${classes.fullSize}`,
         });
     });
 

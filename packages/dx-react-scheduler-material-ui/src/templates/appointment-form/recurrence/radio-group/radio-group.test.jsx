@@ -52,7 +52,7 @@ describe('AppointmentForm recurrence radio group', () => {
     mount.cleanUp();
   });
   describe('RadioGroup', () => {
-    it('should pass rest props to the root element', () => {
+    it('should pass rest props into the root element', () => {
       const tree = mount((
         <RadioGroup data={{ a: 1 }} {...defaultProps} />
       ));

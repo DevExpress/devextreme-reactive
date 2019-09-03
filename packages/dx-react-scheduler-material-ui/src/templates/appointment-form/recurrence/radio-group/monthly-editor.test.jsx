@@ -154,9 +154,7 @@ describe('AppointmentForm recurrence RadioGroup', () => {
     });
 
     it('should call getMessage with proper parameters', () => {
-      shallow((
-        <MonthlyEditor {...defaultProps} />
-      ));
+      shallow((<MonthlyEditor {...defaultProps} />));
 
       expect(defaultProps.getMessage)
         .toHaveBeenCalledWith('onLabel');
@@ -167,18 +165,14 @@ describe('AppointmentForm recurrence RadioGroup', () => {
     });
 
     it('should call getDaysOfWeek', () => {
-      shallow((
-        <MonthlyEditor {...defaultProps} />
-      ));
+      shallow((<MonthlyEditor {...defaultProps} />));
 
       expect(getDaysOfWeek)
         .toHaveBeenCalled();
     });
 
     it('should call getWeekNumberLabels', () => {
-      shallow((
-        <MonthlyEditor {...defaultProps} />
-      ));
+      shallow((<MonthlyEditor {...defaultProps} />));
 
       expect(getWeekNumberLabels)
         .toHaveBeenCalled();

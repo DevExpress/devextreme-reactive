@@ -19,9 +19,7 @@ describe('AppointmentForm command', () => {
         <SaveButton className="custom-class" {...defaultProps} />
       ));
 
-      expect(tree.is('.custom-class'))
-        .toBeTruthy();
-      expect(tree.is(`.${classes.button}`))
+      expect(tree.is(`.${classes.button}.custom-class`))
         .toBeTruthy();
     });
 

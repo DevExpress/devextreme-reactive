@@ -13,8 +13,10 @@ describe('AppointmentForm common', () => {
   };
   let shallow;
   let mount;
+  let classes;
   beforeAll(() => {
     shallow = createShallow({ dive: true });
+    classes = getClasses(<TextEditor {...defaultProps} />);
   });
   beforeEach(() => {
     mount = createMount();
@@ -24,18 +26,15 @@ describe('AppointmentForm common', () => {
   });
   describe('TextEditor', () => {
     it('should pass className to the root element', () => {
-      const classes = getClasses(<TextEditor {...defaultProps} />);
       const tree = shallow((
         <TextEditor className="custom-class" {...defaultProps} />
       ));
 
-      expect(tree.is('.custom-class'))
-        .toBeTruthy();
-      expect(tree.is(`.${classes.editor}`))
+      expect(tree.is(`.${classes.editor}.custom-class`))
         .toBeTruthy();
     });
 
-    it('should pass rest props to the root element', () => {
+    it('should pass rest props into the root element', () => {
       const tree = shallow((
         <TextEditor data={{ a: 1 }} {...defaultProps} />
       ));
@@ -45,28 +44,24 @@ describe('AppointmentForm common', () => {
     });
 
     it('should pass InputProps correctly', () => {
-      let classes = getClasses(<TextEditor {...defaultProps} />);
-      let tree = mount((
+      let tree = shallow((
         <TextEditor {...defaultProps} />
       ));
       expect(tree.find(`.${classes.title}`).exists())
         .toBeFalsy();
 
-      classes = getClasses(<TextEditor type={NUMBER_EDITOR} {...defaultProps} />);
-      tree = mount((
+      tree = shallow((
         <TextEditor type={NUMBER_EDITOR} {...defaultProps} />
       ));
       expect(tree.find(`.${classes.title}`).exists())
         .toBeFalsy();
 
-      classes = getClasses(<TextEditor type={MULTILINE_TEXT_EDITOR} {...defaultProps} />);
-      tree = mount((
+      tree = shallow((
         <TextEditor type={MULTILINE_TEXT_EDITOR} {...defaultProps} />
       ));
       expect(tree.find(`.${classes.title}`).exists())
         .toBeFalsy();
 
-      classes = getClasses(<TextEditor type={TITLE_TEXT_EDITOR} {...defaultProps} />);
       tree = mount((
         <TextEditor type={TITLE_TEXT_EDITOR} {...defaultProps} />
       ));
@@ -100,7 +95,7 @@ describe('AppointmentForm common', () => {
         .toEqual('number');
     });
 
-    it('should render notes editor correctly', () => {
+    it('should render multiline editor correctly', () => {
       const tree = shallow((
         <TextEditor type={MULTILINE_TEXT_EDITOR} {...defaultProps} />
       ));

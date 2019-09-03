@@ -32,7 +32,7 @@ describe('AppointmentForm recurrence layout', () => {
     changeRecurrenceOptions.mockImplementation(testValue => testValue);
   });
   describe('Yearly', () => {
-    it('should pass rest props to the root element', () => {
+    it('should pass rest props into the root element', () => {
       const tree = shallow((
         <Yearly data={{ a: 1 }} {...defaultProps} />
       ));

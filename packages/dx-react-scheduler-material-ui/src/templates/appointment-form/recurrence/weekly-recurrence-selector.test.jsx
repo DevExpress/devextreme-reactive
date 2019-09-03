@@ -18,8 +18,6 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
 describe('AppointmentForm recurrence', () => {
   const defaultProps = {
     rRule: 'RRULE:FREQ=WEEKLY',
-    getMessage: jest.fn(),
-    onFieldChange: jest.fn(),
     formatDate: jest.fn(),
   };
   let shallow;
@@ -38,13 +36,11 @@ describe('AppointmentForm recurrence', () => {
         <WeeklyRecurrenceSelector className="custom-class" {...defaultProps} />
       ));
 
-      expect(tree.is('.custom-class'))
-        .toBeTruthy();
-      expect(tree.is(`.${classes.buttonGroup}`))
+      expect(tree.is(`.${classes.buttonGroup}.custom-class`))
         .toBeTruthy();
     });
 
-    it('should pass rest props to the root element', () => {
+    it('should pass rest props into the root element', () => {
       const tree = shallow((
         <WeeklyRecurrenceSelector data={{ a: 1 }} {...defaultProps} />
       ));
@@ -101,13 +97,17 @@ describe('AppointmentForm recurrence', () => {
     });
 
     it('should call onAppointmentField on button click', () => {
+      const onFieldChange = jest.fn();
       const tree = shallow((
-        <WeeklyRecurrenceSelector {...defaultProps} />
+        <WeeklyRecurrenceSelector
+          {...defaultProps}
+          onFieldChange={onFieldChange}
+        />
       ));
 
       const buttons = tree.find(Button);
       buttons.at(0).simulate('click');
-      expect(defaultProps.onFieldChange)
+      expect(onFieldChange)
         .toHaveBeenLastCalledWith({
           rRule: {
             ...getRecurrenceOptions(),
@@ -115,7 +115,7 @@ describe('AppointmentForm recurrence', () => {
           },
         });
       buttons.at(1).simulate('click', 0);
-      expect(defaultProps.onFieldChange)
+      expect(onFieldChange)
         .toHaveBeenLastCalledWith({
           rRule: {
             ...getRecurrenceOptions(),
@@ -123,7 +123,7 @@ describe('AppointmentForm recurrence', () => {
           },
         });
       buttons.at(2).simulate('click', 0);
-      expect(defaultProps.onFieldChange)
+      expect(onFieldChange)
         .toHaveBeenLastCalledWith({
           rRule: {
             ...getRecurrenceOptions(),
@@ -131,7 +131,7 @@ describe('AppointmentForm recurrence', () => {
           },
         });
       buttons.at(3).simulate('click', 0);
-      expect(defaultProps.onFieldChange)
+      expect(onFieldChange)
         .toHaveBeenLastCalledWith({
           rRule: {
             ...getRecurrenceOptions(),
@@ -139,7 +139,7 @@ describe('AppointmentForm recurrence', () => {
           },
         });
       buttons.at(4).simulate('click', 0);
-      expect(defaultProps.onFieldChange)
+      expect(onFieldChange)
         .toHaveBeenLastCalledWith({
           rRule: {
             ...getRecurrenceOptions(),
@@ -147,7 +147,7 @@ describe('AppointmentForm recurrence', () => {
           },
         });
       buttons.at(5).simulate('click', 0);
-      expect(defaultProps.onFieldChange)
+      expect(onFieldChange)
         .toHaveBeenLastCalledWith({
           rRule: {
             ...getRecurrenceOptions(),
@@ -155,7 +155,7 @@ describe('AppointmentForm recurrence', () => {
           },
         });
       buttons.at(6).simulate('click', 0);
-      expect(defaultProps.onFieldChange)
+      expect(onFieldChange)
         .toHaveBeenLastCalledWith({
           rRule: {
             ...getRecurrenceOptions(),

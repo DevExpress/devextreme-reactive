@@ -27,6 +27,7 @@ const styles = ({ spacing }) => ({
 });
 
 const DailyBase = ({
+  weeklyRecurrenceSelectorComponent,
   radioGroupComponent,
   textEditorComponent: TextEditor,
   labelComponent: Label,
@@ -36,7 +37,6 @@ const DailyBase = ({
   onFieldChange,
   appointmentData,
   selectComponent,
-  weeklyRecurrenceSelectorComponent,
   className,
   formatDate,
   ...restProps

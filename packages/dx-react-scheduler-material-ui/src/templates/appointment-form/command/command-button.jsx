@@ -10,21 +10,30 @@ import { DeleteButton } from './delete-button';
 import { CancelButton } from './cancel-button';
 
 export const CommandButton = React.memo(({
-  id, getMessage,
-  ...restProps
+  id, getMessage, onExecute, ...restProps
 }) => {
   switch (id) {
     case SAVE_BUTTON:
       return (
-        <SaveButton getMessage={getMessage} {...restProps} />
+        <SaveButton
+          getMessage={getMessage}
+          onExecute={onExecute}
+          {...restProps}
+        />
       );
     case DELETE_BUTTON:
       return (
-        <DeleteButton {...restProps} />
+        <DeleteButton
+          onExecute={onExecute}
+          {...restProps}
+        />
       );
     case CANCEL_BUTTON:
       return (
-        <CancelButton {...restProps} />
+        <CancelButton
+          onExecute={onExecute}
+          {...restProps}
+        />
       );
     default:
       return null;
@@ -33,5 +42,6 @@ export const CommandButton = React.memo(({
 
 CommandButton.propTypes = {
   id: PropTypes.string.isRequired,
+  onExecute: PropTypes.func.isRequired,
   getMessage: PropTypes.func.isRequired,
 };

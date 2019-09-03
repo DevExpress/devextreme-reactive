@@ -32,6 +32,9 @@ const styles = ({ palette, spacing }) => ({
   },
 });
 
+const isCurrentWeekDay = (recurrenceOptions, weekDay) => recurrenceOptions.byweekday
+  && recurrenceOptions.byweekday.indexOf(weekDay) > -1;
+
 const WeeklyRecurrenceSelectorBase = React.memo(({
   formatDate,
   rRule,
@@ -54,8 +57,7 @@ const WeeklyRecurrenceSelectorBase = React.memo(({
       <Button
         className={classNames({
           [classes.button]: true,
-          [classes.selectedButton]: recurrenceOptions.byweekday
-            && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.SUNDAY) > -1,
+          [classes.selectedButton]: isCurrentWeekDay(recurrenceOptions, DAYS_OF_WEEK.SUNDAY),
         })}
         onClick={() => onFieldChange({
           rRule: changeRecurrenceOptions(handleWeekDaysChange(
@@ -70,8 +72,7 @@ const WeeklyRecurrenceSelectorBase = React.memo(({
       <Button
         className={classNames({
           [classes.button]: true,
-          [classes.selectedButton]: recurrenceOptions.byweekday
-            && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.MONDAY) > -1,
+          [classes.selectedButton]: isCurrentWeekDay(recurrenceOptions, DAYS_OF_WEEK.MONDAY),
         })}
         onClick={() => onFieldChange({
           rRule: changeRecurrenceOptions(handleWeekDaysChange(
@@ -86,8 +87,7 @@ const WeeklyRecurrenceSelectorBase = React.memo(({
       <Button
         className={classNames({
           [classes.button]: true,
-          [classes.selectedButton]: recurrenceOptions.byweekday
-            && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.TUESDAY) > -1,
+          [classes.selectedButton]: isCurrentWeekDay(recurrenceOptions, DAYS_OF_WEEK.THURSDAY),
         })}
         onClick={() => onFieldChange({
           rRule: changeRecurrenceOptions(handleWeekDaysChange(
@@ -102,8 +102,7 @@ const WeeklyRecurrenceSelectorBase = React.memo(({
       <Button
         className={classNames({
           [classes.button]: true,
-          [classes.selectedButton]: recurrenceOptions.byweekday
-            && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.WEDNESDAY) > -1,
+          [classes.selectedButton]: isCurrentWeekDay(recurrenceOptions, DAYS_OF_WEEK.WEDNESDAY),
         })}
         onClick={() => onFieldChange({
           rRule: changeRecurrenceOptions(handleWeekDaysChange(
@@ -118,8 +117,7 @@ const WeeklyRecurrenceSelectorBase = React.memo(({
       <Button
         className={classNames({
           [classes.button]: true,
-          [classes.selectedButton]: recurrenceOptions.byweekday
-            && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.THURSDAY) > -1,
+          [classes.selectedButton]: isCurrentWeekDay(recurrenceOptions, DAYS_OF_WEEK.THURSDAY),
         })}
         onClick={() => onFieldChange({
           rRule: changeRecurrenceOptions(handleWeekDaysChange(
@@ -134,8 +132,7 @@ const WeeklyRecurrenceSelectorBase = React.memo(({
       <Button
         className={classNames({
           [classes.button]: true,
-          [classes.selectedButton]: recurrenceOptions.byweekday
-            && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.FRIDAY) > -1,
+          [classes.selectedButton]: isCurrentWeekDay(recurrenceOptions, DAYS_OF_WEEK.FRIDAY),
         })}
         onClick={() => onFieldChange({
           rRule: changeRecurrenceOptions(handleWeekDaysChange(
@@ -150,8 +147,7 @@ const WeeklyRecurrenceSelectorBase = React.memo(({
       <Button
         className={classNames({
           [classes.button]: true,
-          [classes.selectedButton]: recurrenceOptions.byweekday
-            && recurrenceOptions.byweekday.indexOf(DAYS_OF_WEEK.SATURDAY) > -1,
+          [classes.selectedButton]: isCurrentWeekDay(recurrenceOptions, DAYS_OF_WEEK.SATURDAY),
         })}
         onClick={() => onFieldChange({
           rRule: changeRecurrenceOptions(handleWeekDaysChange(
@@ -168,11 +164,11 @@ const WeeklyRecurrenceSelectorBase = React.memo(({
 });
 
 WeeklyRecurrenceSelectorBase.propTypes = {
+  formatDate: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
   rRule: PropTypes.string.isRequired,
   onFieldChange: PropTypes.func,
-  formatDate: PropTypes.func.isRequired,
   readOnly: PropTypes.bool,
-  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
 };
 

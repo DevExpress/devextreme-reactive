@@ -124,7 +124,6 @@ const LayoutBase = ({
         selectComponent={Select}
         weeklyRecurrenceSelectorComponent={weeklyRecurrenceSelectorComponent}
         formatDate={formatDate}
-        {...restProps}
       />
       <Label
         text={getMessage('endRepeatLabel')}

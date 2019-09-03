@@ -69,9 +69,7 @@ describe('AppointmentForm recurrence layout', () => {
     });
 
     it('should handle appointment field changes', () => {
-      const tree = shallow((
-        <Weekly {...defaultProps} />
-      ));
+      const tree = shallow((<Weekly {...defaultProps} />));
 
       tree.find(defaultProps.textEditorComponent).at(0)
         .simulate('valueChange', 23);

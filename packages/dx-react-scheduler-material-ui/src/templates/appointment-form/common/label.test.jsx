@@ -9,7 +9,7 @@ describe('AppointmentForm common', () => {
     shallow = createShallow({ dive: true });
   });
   describe('Label', () => {
-    it('should pass rest props to the root element', () => {
+    it('should pass rest props into the root element', () => {
       const tree = shallow((
         <Label data={{ a: 1 }} />
       ));
@@ -24,10 +24,7 @@ describe('AppointmentForm common', () => {
         <Label className="custom-class" />
       ));
 
-      expect(tree.is('.custom-class'))
-        .toBeTruthy();
-
-      expect(tree.is(`.${classes.label}`))
+      expect(tree.is(`.${classes.label}.custom-class`))
         .toBeTruthy();
     });
 
@@ -37,9 +34,7 @@ describe('AppointmentForm common', () => {
         <Label type={TITLE} />
       ));
 
-      expect(tree.is(`.${classes.label}`))
-        .toBeTruthy();
-      expect(tree.is(`.${classes.titleLabel}`))
+      expect(tree.is(`.${classes.label}.${classes.titleLabel}`))
         .toBeTruthy();
     });
   });

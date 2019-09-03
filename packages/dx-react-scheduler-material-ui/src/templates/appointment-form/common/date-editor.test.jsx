@@ -36,9 +36,7 @@ describe('AppointmentForm common', () => {
 
       const dateTimePicker = tree.find(KeyboardDateTimePicker);
 
-      expect(dateTimePicker.at(0).is('.custom-class'))
-        .toBeTruthy();
-      expect(dateTimePicker.at(0).is(`.${classes.dateEditor}`))
+      expect(dateTimePicker.at(0).is(`.${classes.dateEditor}.custom-class`))
         .toBeTruthy();
     });
 

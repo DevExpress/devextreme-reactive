@@ -32,11 +32,7 @@ describe('AppointmentForm command', () => {
         <Layout className="custom-class" {...defaultProps} />
       ));
 
-      expect(tree.is('.custom-class'))
-        .toBeTruthy();
-      expect(tree.is(`.${classes.root}`))
-        .toBeTruthy();
-      expect(tree.is(`.${classes.basic}`))
+      expect(tree.is(`.${classes.root}.custom-class.${classes.basic}`))
         .toBeTruthy();
     });
 
@@ -45,9 +41,7 @@ describe('AppointmentForm command', () => {
         <Layout fullSize {...defaultProps} />
       ));
 
-      expect(tree.is(`.${classes.root}`))
-        .toBeTruthy();
-      expect(tree.is(`.${classes.fullSize}`))
+      expect(tree.is(`.${classes.root}.${classes.fullSize}`))
         .toBeTruthy();
     });
 
@@ -69,7 +63,7 @@ describe('AppointmentForm command', () => {
 
     it('shouldn\'t render Save and Delete Buttons in readonly mode', () => {
       const tree = shallow((
-        <Layout readOnly {...defaultProps} />
+        <Layout {...defaultProps} readOnly />
       ));
 
       const buttons = tree.find(defaultProps.commandButtonComponent);
@@ -78,7 +72,7 @@ describe('AppointmentForm command', () => {
         .toEqual(CANCEL_BUTTON);
     });
 
-    it('shouldn call onCommitButtonClick', () => {
+    it('should call onCommitButtonClick', () => {
       const tree = shallow((
         <Layout {...defaultProps} />
       ));
@@ -88,7 +82,7 @@ describe('AppointmentForm command', () => {
         .toHaveBeenCalled();
     });
 
-    it('shouldn call onDeleteButtonClick', () => {
+    it('should call onDeleteButtonClick', () => {
       const tree = shallow((
         <Layout {...defaultProps} />
       ));
@@ -98,7 +92,7 @@ describe('AppointmentForm command', () => {
         .toHaveBeenCalled();
     });
 
-    it('shouldn call onCancelButtonClick', () => {
+    it('should call onCancelButtonClick', () => {
       const tree = shallow((
         <Layout {...defaultProps} />
       ));
@@ -108,7 +102,7 @@ describe('AppointmentForm command', () => {
         .toHaveBeenCalled();
     });
 
-    it('should pass children to the root component', () => {
+    it('should pass children into the root component', () => {
       const tree = shallow((
         <Layout {...defaultProps}>
           <div className="child" />

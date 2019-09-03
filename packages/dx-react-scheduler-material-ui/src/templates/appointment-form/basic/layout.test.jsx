@@ -24,15 +24,13 @@ describe('AppointmentForm basic', () => {
   let classes;
   let shallow;
   beforeAll(() => {
-    classes = getClasses(<Layout><div /></Layout>);
+    classes = getClasses(<Layout />);
     shallow = createShallow({ dive: true });
   });
   describe('Layout', () => {
     it('should pass rest props to the root element', () => {
       const tree = shallow((
-        <Layout data={{ a: 1 }} {...defaultProps}>
-          <div />
-        </Layout>
+        <Layout data={{ a: 1 }} {...defaultProps} />
       ));
 
       expect(tree.props().data)
@@ -41,9 +39,7 @@ describe('AppointmentForm basic', () => {
 
     it('should pass className to the root element', () => {
       const tree = shallow((
-        <Layout className="custom-class" {...defaultProps}>
-          <div />
-        </Layout>
+        <Layout className="custom-class" {...defaultProps} />
       ));
 
       expect(tree.is('.custom-class'))
@@ -54,9 +50,7 @@ describe('AppointmentForm basic', () => {
 
     it('should have width equal to 100% if appointment is basic', () => {
       const tree = shallow((
-        <Layout {...defaultProps}>
-          <div />
-        </Layout>
+        <Layout {...defaultProps} />
       ));
 
       expect(tree.is(`.${classes.fullSize}`))
@@ -65,9 +59,7 @@ describe('AppointmentForm basic', () => {
 
     it('should render components correctly if appointment is not recurrent', () => {
       const tree = shallow((
-        <Layout {...defaultProps}>
-          <div />
-        </Layout>
+        <Layout {...defaultProps} />
       ));
 
       const labelComponents = tree.find(defaultProps.labelComponent);
@@ -121,9 +113,7 @@ describe('AppointmentForm basic', () => {
           appointmentData={{
             rRule: 'test rule',
           }}
-        >
-          <div />
-        </Layout>
+        />
       ));
 
       expect(tree.find(defaultProps.labelComponent))
@@ -140,11 +130,7 @@ describe('AppointmentForm basic', () => {
 
     it('should call getMessage with correct parameters', () => {
       shallow((
-        <Layout
-          {...defaultProps}
-        >
-          <div />
-        </Layout>
+        <Layout {...defaultProps} />
       ));
 
       expect(defaultProps.getMessage)
@@ -163,11 +149,7 @@ describe('AppointmentForm basic', () => {
 
     it('should call onFieldChange with correct parameters', () => {
       const tree = shallow((
-        <Layout
-          {...defaultProps}
-        >
-          <div />
-        </Layout>
+        <Layout {...defaultProps} />
       ));
 
       const textEditors = tree.find(defaultProps.textEditorComponent);

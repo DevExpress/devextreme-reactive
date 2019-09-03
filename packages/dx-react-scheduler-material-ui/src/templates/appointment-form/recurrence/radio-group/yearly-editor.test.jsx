@@ -57,7 +57,7 @@ describe('AppointmentForm recurrence RadioGroup', () => {
     jest.resetAllMocks();
   });
   describe('YearlyEditor', () => {
-    it('should pass rest props to the root element', () => {
+    it('should pass rest props into the root element', () => {
       const tree = shallow((
         <YearlyEditor data={{ a: 1 }} {...defaultProps} />
       ));
@@ -134,9 +134,7 @@ describe('AppointmentForm recurrence RadioGroup', () => {
     });
 
     it('should handle switching and call a proper handler', () => {
-      const tree = shallow((
-        <YearlyEditor {...defaultProps} />
-      ));
+      const tree = shallow((<YearlyEditor {...defaultProps} />));
 
       tree.prop('onChange')({ target: { value: 'onDayAndMonth' } });
       expect(defaultProps.onFieldChange)
@@ -158,9 +156,7 @@ describe('AppointmentForm recurrence RadioGroup', () => {
     });
 
     it('should call handleWeekNumberChange with correct data', () => {
-      const tree = mount((
-        <YearlyEditor {...defaultProps} />
-      ));
+      const tree = mount((<YearlyEditor {...defaultProps} />));
 
       tree.find(defaultProps.selectComponent).at(1).prop('onValueChange')('abc');
       expect(handleWeekNumberChange)
@@ -168,9 +164,7 @@ describe('AppointmentForm recurrence RadioGroup', () => {
     });
 
     it('should call handleStartDateChange with correct data', () => {
-      const tree = mount((
-        <YearlyEditor {...defaultProps} />
-      ));
+      const tree = mount((<YearlyEditor {...defaultProps} />));
 
       tree.find(defaultProps.textEditorComponent).at(0).prop('onValueChange')('abc');
       expect(handleStartDateChange)
@@ -178,45 +172,35 @@ describe('AppointmentForm recurrence RadioGroup', () => {
     });
 
     it('should call getMessage with proper parameters', () => {
-      shallow((
-        <YearlyEditor {...defaultProps} />
-      ));
+      shallow((<YearlyEditor {...defaultProps} />));
 
       expect(defaultProps.getMessage)
         .toHaveBeenCalledWith('theLabel');
     });
 
     it('should call getMonths', () => {
-      shallow((
-        <YearlyEditor {...defaultProps} />
-      ));
+      shallow((<YearlyEditor {...defaultProps} />));
 
       expect(getMonths)
         .toHaveBeenCalled();
     });
 
     it('should call getDaysOfWeek', () => {
-      shallow((
-        <YearlyEditor {...defaultProps} />
-      ));
+      shallow((<YearlyEditor {...defaultProps} />));
 
       expect(getDaysOfWeek)
         .toHaveBeenCalled();
     });
 
     it('should call getWeekNumberLabels', () => {
-      shallow((
-        <YearlyEditor {...defaultProps} />
-      ));
+      shallow((<YearlyEditor {...defaultProps} />));
 
       expect(getWeekNumberLabels)
         .toHaveBeenCalled();
     });
 
     it('should call getMonthsWithOf', () => {
-      shallow((
-        <YearlyEditor {...defaultProps} />
-      ));
+      shallow((<YearlyEditor {...defaultProps} />));
 
       expect(getMonthsWithOf)
         .toHaveBeenCalled();

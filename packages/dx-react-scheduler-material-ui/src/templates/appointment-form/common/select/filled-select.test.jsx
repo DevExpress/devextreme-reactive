@@ -28,9 +28,7 @@ describe('AppointmentForm common select', () => {
         <FilledSelect className="custom-class" {...defaultProps} />
       ));
 
-      expect(tree.is('.custom-class'))
-        .toBeTruthy();
-      expect(tree.is(`.${classes.filledSelect}`))
+      expect(tree.is(`.${classes.filledSelect}.custom-class`))
         .toBeTruthy();
     });
     it('should handle change', () => {

@@ -6,7 +6,6 @@ import { CancelButton } from './cancel-button';
 describe('AppointmentForm command', () => {
   const defaultProps = {
     onExecute: jest.fn(),
-    id: 'id',
   };
   let shallow;
   let classes;
@@ -20,9 +19,7 @@ describe('AppointmentForm command', () => {
         <CancelButton className="custom-class" {...defaultProps} />
       ));
 
-      expect(tree.is('.custom-class'))
-        .toBeTruthy();
-      expect(tree.is(`.${classes.button}`))
+      expect(tree.is(`.custom-class.${classes.button}`))
         .toBeTruthy();
     });
 

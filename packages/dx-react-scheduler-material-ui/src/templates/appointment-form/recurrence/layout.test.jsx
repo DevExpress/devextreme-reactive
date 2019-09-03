@@ -82,7 +82,7 @@ describe('AppointmentForm recurrence', () => {
 
     it('should render Daily layout correctly', () => {
       const tree = shallow((
-        <Layout {...defaultProps}><div /></Layout>
+        <Layout {...defaultProps} />
       ));
 
       expect(tree.find(Daily))
@@ -92,7 +92,7 @@ describe('AppointmentForm recurrence', () => {
     it('should render Weekly layout correctly', () => {
       getRecurrenceOptions.mockImplementation(() => ({ freq: 2 }));
       const tree = shallow((
-        <Layout {...defaultProps}><div /></Layout>
+        <Layout {...defaultProps} />
       ));
 
       expect(tree.find(Weekly))
@@ -102,7 +102,7 @@ describe('AppointmentForm recurrence', () => {
     it('should render Monthly layout correctly', () => {
       getRecurrenceOptions.mockImplementation(() => ({ freq: 1 }));
       const tree = shallow((
-        <Layout {...defaultProps}><div /></Layout>
+        <Layout {...defaultProps} />
       ));
 
       expect(tree.find(Monthly))
@@ -112,7 +112,7 @@ describe('AppointmentForm recurrence', () => {
     it('should render Yearly layout correctly', () => {
       getRecurrenceOptions.mockImplementation(() => ({ freq: 0 }));
       const tree = shallow((
-        <Layout {...defaultProps}><div /></Layout>
+        <Layout {...defaultProps} />
       ));
 
       expect(tree.find(Yearly))
@@ -121,7 +121,7 @@ describe('AppointmentForm recurrence', () => {
 
     it('should handle appointment field change', () => {
       const tree = shallow((
-        <Layout {...defaultProps}><div /></Layout>
+        <Layout {...defaultProps} />
       ));
 
       tree.find(Daily).at(0).simulate('fieldChange', 'abc');
@@ -135,7 +135,7 @@ describe('AppointmentForm recurrence', () => {
 
     it('should have call getMessage with proper parameters', () => {
       shallow((
-        <Layout {...defaultProps}><div /></Layout>
+        <Layout {...defaultProps} />
       ));
 
       expect(defaultProps.getMessage)

@@ -39,6 +39,8 @@ export namespace AppointmentForm {
     readOnly?: boolean;
     /** Specifies whether the command layout is full-size. */
     fullSize: boolean;
+    /** Specifies whether the from has been edited. */
+    isFormEdited: boolean;
     /** An event raised when the Commit button is clicked. The event handler should commit an appointment changes. */
     onCommitButtonClick: () => void;
     /** An event raised when the Cancel button is clicked. The event handler should close the appointment form. */

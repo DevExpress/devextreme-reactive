@@ -50,6 +50,7 @@ const LayoutBase = ({
   className,
   fullSize,
   readOnly,
+  isFormEdited,
   ...restProps
 }) => (
   <Grid
@@ -74,11 +75,13 @@ const LayoutBase = ({
           getMessage={getMessage}
           id={DELETE_BUTTON}
         />
-        <CommandButton
-          getMessage={getMessage}
-          onExecute={onCommitButtonClick}
-          id={SAVE_BUTTON}
-        />
+        {isFormEdited && (
+          <CommandButton
+            getMessage={getMessage}
+            onExecute={onCommitButtonClick}
+            id={SAVE_BUTTON}
+          />
+        )}
       </React.Fragment>
     )}
     {children}
@@ -96,6 +99,7 @@ LayoutBase.propTypes = {
   fullSize: PropTypes.bool,
   readOnly: PropTypes.bool,
   children: PropTypes.node,
+  isFormEdited: PropTypes.bool,
 };
 
 LayoutBase.defaultProps = {
@@ -103,6 +107,7 @@ LayoutBase.defaultProps = {
   children: undefined,
   fullSize: false,
   readOnly: false,
+  isFormEdited: false,
 };
 
 export const Layout = withStyles(styles)(LayoutBase, { name: 'Layout' });

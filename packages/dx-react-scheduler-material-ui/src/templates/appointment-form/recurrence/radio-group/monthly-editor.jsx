@@ -180,14 +180,14 @@ const MonthlyEditorBase = ({
               className={classes.label}
             />
             <Select
-              readOnly={value !== 'onDayOfWeek'}
+              readOnly={value !== 'onDayOfWeek' || readOnly}
               onValueChange={changeWeekNumber}
               value={weekNumber}
               availableOptions={weekNumbers}
               className={classes.select}
             />
             <Select
-              readOnly={value !== 'onDayOfWeek'}
+              readOnly={value !== 'onDayOfWeek' || readOnly}
               onValueChange={changeDayOfWeek}
               value={dayOfWeek}
               availableOptions={daysOfWeek}

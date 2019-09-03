@@ -10,6 +10,7 @@ describe('AppointmentForm command', () => {
     onCommitButtonClick: jest.fn(),
     onCancelButtonClick: jest.fn(),
     onDeleteButtonClick: jest.fn(),
+    isFormEdited: true,
   };
   let classes;
   let shallow;
@@ -70,6 +71,19 @@ describe('AppointmentForm command', () => {
       expect(buttons).toHaveLength(1);
       expect(buttons.at(0).prop('id'))
         .toEqual(CANCEL_BUTTON);
+    });
+
+    it('shouldn\'t render Save Button if the form hasn\'t been edited', () => {
+      const tree = shallow((
+        <Layout {...defaultProps} isFormEdited={false} />
+      ));
+
+      const buttons = tree.find(defaultProps.commandButtonComponent);
+      expect(buttons).toHaveLength(2);
+      expect(buttons.at(0).prop('id'))
+        .toEqual(CANCEL_BUTTON);
+      expect(buttons.at(1).prop('id'))
+        .toEqual(DELETE_BUTTON);
     });
 
     it('should call onCommitButtonClick', () => {

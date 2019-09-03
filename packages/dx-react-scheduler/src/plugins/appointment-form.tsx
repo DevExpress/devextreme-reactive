@@ -73,7 +73,8 @@ const prepareChanges = (
     ...appointmentData,
     ...isNew ? addedAppointment : appointmentChanges,
   };
-  return { changedAppointment, isNew };
+  const isFormEdited = isNew || Object.getOwnPropertyNames(appointmentChanges).length !== 0;
+  return { changedAppointment, isNew, isFormEdited };
 };
 
 class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, AppointmentFormState> {
@@ -265,7 +266,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
 
               stopEditAppointment,
             }) => {
-              const { isNew, changedAppointment } = prepareChanges(
+              const { isNew, changedAppointment, isFormEdited } = prepareChanges(
                 appointmentData, editingAppointment, addedAppointment, appointmentChanges,
               );
               return (
@@ -283,6 +284,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                   getMessage={getMessage}
                   readOnly={readOnly}
                   fullSize={!!changedAppointment.rRule}
+                  isFormEdited={isFormEdited}
                 />
               );
             }}

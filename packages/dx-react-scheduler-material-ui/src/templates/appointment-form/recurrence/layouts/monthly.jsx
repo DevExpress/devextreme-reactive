@@ -87,6 +87,7 @@ const MonthlyBase = ({
         appointmentData={appointmentData}
         selectComponent={selectComponent}
         formatDate={formatDate}
+        dateEditorComponent={() => null}
       />
     </div>
   );

@@ -90,6 +90,7 @@ const YearlyBase = ({
         selectComponent={selectComponent}
         formatDate={formatDate}
         className={classes.radioGroup}
+        dateEditorComponent={() => null}
       />
     </div>
   );

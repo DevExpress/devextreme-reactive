@@ -139,6 +139,8 @@ const LayoutBase = ({
         dateEditorComponent={dateEditorComponent}
         appointmentData={appointmentData}
         onFieldChange={onFieldChange}
+        selectComponent={Select}
+        formatDate={formatDate}
         locale={locale}
       />
       {children}

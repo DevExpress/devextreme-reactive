@@ -87,7 +87,7 @@ const WeeklyRecurrenceSelectorBase = React.memo(({
       <Button
         className={classNames({
           [classes.button]: true,
-          [classes.selectedButton]: isCurrentWeekDay(recurrenceOptions, DAYS_OF_WEEK.THURSDAY),
+          [classes.selectedButton]: isCurrentWeekDay(recurrenceOptions, DAYS_OF_WEEK.TUESDAY),
         })}
         onClick={() => onFieldChange({
           rRule: changeRecurrenceOptions(handleWeekDaysChange(

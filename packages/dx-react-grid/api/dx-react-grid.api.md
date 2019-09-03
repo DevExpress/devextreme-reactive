@@ -4,6 +4,7 @@
 
 ```ts
 
+import { EditingCell } from '@devexpress/dx-grid-core';
 import * as React from 'react';
 
 // @public
@@ -211,6 +212,7 @@ export interface EditingStateProps {
   onCommitChanges: (changes: ChangeSet) => void;
   // (undocumented)
   onDeletedRowIdsChange?: (deletedRowIds: Array<number | string>) => void;
+  onEditingCellsChange?: (editingRowIds: Array<EditingCell>) => void;
   onEditingRowIdsChange?: (editingRowIds: Array<number | string>) => void;
   onRowChangesChange?: (rowChanges: {
     [key: string]: any;
@@ -1041,6 +1043,28 @@ export interface TableHeaderRowProps {
   showSortingControls?: boolean;
   sortLabelComponent: React.ComponentType<TableHeaderRow.SortLabelProps>;
   titleComponent: React.ComponentType<object>;
+}
+
+// @public (undocumented)
+export const TableInlineCellEditing: React.ComponentType<TableInlineCellEditingProps>;
+
+// @public (undocumented)
+export namespace TableInlineCellEditing {
+  export interface CellProps extends Table.CellProps {
+    autoFocus: boolean;
+    column: Column;
+    editingEnabled: boolean;
+    onBlur: () => void;
+    onKeyDown: (e: any) => void;
+    onValueChange: (newValue: any) => void;
+    row: any;
+    value: any;
+  }
+}
+
+// @public (undocumented)
+export interface TableInlineCellEditingProps {
+  cellComponent: React.ComponentType<TableInlineCellEditing.CellProps>;
 }
 
 // @public (undocumented)

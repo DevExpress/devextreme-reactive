@@ -146,6 +146,7 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
   static getDerivedStateFromProps(nextProps, prevState) {
     const {
       editingRowIds = prevState.editingRowIds,
+      editingCells = prevState.editingCells,
       rowChanges = prevState.rowChanges,
       addedRows = prevState.addedRows,
       deletedRowIds = prevState.deletedRowIds,
@@ -153,6 +154,7 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
 
     return {
       editingRowIds,
+      editingCells,
       rowChanges,
       addedRows,
       deletedRowIds,

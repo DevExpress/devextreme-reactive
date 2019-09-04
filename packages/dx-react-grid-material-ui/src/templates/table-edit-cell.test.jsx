@@ -133,6 +133,21 @@ describe('EditCell', () => {
       .toBeTruthy();
   });
 
+  it('should provide autoFocus and onBlur props to children', () => {
+    const tree = mount((
+      <EditCell
+        {...defaultProps}
+      >
+        <span className="test" />
+      </EditCell>
+    ));
+
+    expect(tree.find('.test').prop('autoFocus'))
+      .toBeDefined();
+    expect(tree.find('.test').prop('onBlur'))
+      .toBeDefined();
+  });
+
   it('should pass the className prop to the root element', () => {
     const cell = mount((
       <EditCell

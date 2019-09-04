@@ -37,6 +37,21 @@ describe('EditCell', () => {
       .toBeTruthy();
   });
 
+  it('should provide autoFocus and onBlur props to children', () => {
+    const tree = shallow((
+      <EditCell
+        {...defaultProps}
+      >
+        <span className="test" />
+      </EditCell>
+    ));
+
+    expect(tree.find('.test').prop('autoFocus'))
+      .toBeDefined();
+    expect(tree.find('.test').prop('onBlur'))
+      .toBeDefined();
+  });
+
   it('should pass rest props to the root element', () => {
     const tree = shallow((
       <EditCell

@@ -10,7 +10,7 @@ describe('AppointmentForm command', () => {
     onCommitButtonClick: jest.fn(),
     onCancelButtonClick: jest.fn(),
     onDeleteButtonClick: jest.fn(),
-    isFormEdited: true,
+    showSaveButton: true,
   };
   let classes;
   let shallow;
@@ -75,7 +75,7 @@ describe('AppointmentForm command', () => {
 
     it('shouldn\'t render Save Button if the form hasn\'t been edited', () => {
       const tree = shallow((
-        <Layout {...defaultProps} isFormEdited={false} />
+        <Layout {...defaultProps} showSaveButton={false} />
       ));
 
       const buttons = tree.find(defaultProps.commandButtonComponent);

@@ -100,6 +100,9 @@ const MonthlyEditorBase = ({
     () => getDaysOfWeek(formatDate), [formatDate],
   );
 
+  const onDayNumberReadOnly = readOnly || value !== 'onDayNumber';
+  const onDayOfWeekReadOnly = readOnly || value !== 'onDayOfWeek';
+
   const onRadioGroupValueChange = (event) => {
     switch (event.target.value) {
       case 'onDayNumber':
@@ -149,7 +152,7 @@ const MonthlyEditorBase = ({
               className={classes.label}
             />
             <TextEditor
-              readOnly={readOnly || value !== 'onDayNumber'}
+              readOnly={onDayNumberReadOnly}
               value={dayNumberTextField}
               className={classes.textEditor}
               type={NUMBER_EDITOR}
@@ -180,14 +183,14 @@ const MonthlyEditorBase = ({
               className={classes.label}
             />
             <Select
-              readOnly={value !== 'onDayOfWeek' || readOnly}
+              readOnly={onDayOfWeekReadOnly}
               onValueChange={changeWeekNumber}
               value={weekNumber}
               availableOptions={weekNumbers}
               className={classes.select}
             />
             <Select
-              readOnly={value !== 'onDayOfWeek' || readOnly}
+              readOnly={onDayOfWeekReadOnly}
               onValueChange={changeDayOfWeek}
               value={dayOfWeek}
               availableOptions={daysOfWeek}

@@ -93,7 +93,7 @@ Field | Type | Description
 commandButtonComponent | ComponentType&lt;[AppointmentForm.CommandButtonProps](#appointmentformcommandbuttonprops)&gt; | A component that renders a command button.
 readOnly? | boolean | Specifies whether the appointment form is read-only.
 fullSize | boolean | Specifies whether the command layout is full-size.
-isFormEdited | boolean | Specifies whether the from has been edited.
+showSaveButton? | boolean | Specifies whether to show the SaveButton.
 onCommitButtonClick | () => void | An event raised when the Commit button is clicked. The event handler should commit an appointment changes.
 onCancelButtonClick | () => void | An event raised when the Cancel button is clicked. The event handler should close the appointment form.
 onDeleteButtonClick | () => void | An event raised when the Delete button is clicked. The event handler should delete an appointment.

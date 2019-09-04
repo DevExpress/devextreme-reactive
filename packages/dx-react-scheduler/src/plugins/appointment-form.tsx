@@ -284,7 +284,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                   getMessage={getMessage}
                   readOnly={readOnly}
                   fullSize={!!changedAppointment.rRule}
-                  isFormEdited={isFormEdited}
+                  showSaveButton={isFormEdited}
                 />
               );
             }}

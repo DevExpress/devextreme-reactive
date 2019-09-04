@@ -126,6 +126,9 @@ const YearlyEditorBase = ({
     () => getDaysOfWeek(formatDate), [formatDate],
   );
 
+  const onDayAndMonthReadOnly = readOnly || value !== 'onDayAndMonth';
+  const onDayOfWeekReadOnly = readOnly || value !== 'onDayOfWeek';
+
   const onRadioGroupValueChange = (event) => {
     switch (event.target.value) {
       case 'onDayAndMonth':
@@ -179,12 +182,12 @@ const YearlyEditorBase = ({
               className={classes.select}
               value={month}
               onValueChange={changeMonth}
-              readOnly={readOnly || value !== 'onDayAndMonth'}
+              readOnly={onDayAndMonthReadOnly}
               availableOptions={months}
             />
             <TextEditor
               className={classes.textEditor}
-              readOnly={readOnly || value !== 'onDayAndMonth'}
+              readOnly={onDayAndMonthReadOnly}
               value={dayNumberTextField}
               type={NUMBER_EDITOR}
               onValueChange={changeByMonthDay}
@@ -213,14 +216,14 @@ const YearlyEditorBase = ({
                 className={classes.select}
                 value={weekNumber}
                 onValueChange={changeWeekNumber}
-                readOnly={readOnly || value !== 'onDayOfWeek'}
+                readOnly={onDayOfWeekReadOnly}
                 availableOptions={weekNumbers}
               />
               <Select
                 className={classes.longSelect}
                 value={dayOfWeek}
                 onValueChange={changeDayOfWeek}
-                readOnly={readOnly || value !== 'onDayOfWeek'}
+                readOnly={onDayOfWeekReadOnly}
                 availableOptions={daysOfWeek}
               />
             </Grid>
@@ -228,7 +231,7 @@ const YearlyEditorBase = ({
               className={classes.doubleSelect}
               value={month}
               onValueChange={changeMonth}
-              readOnly={readOnly || value !== 'onDayOfWeek'}
+              readOnly={onDayOfWeekReadOnly}
               availableOptions={monthsWithOf}
             />
           </div>

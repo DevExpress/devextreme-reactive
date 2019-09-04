@@ -42,6 +42,7 @@ const EndRepeatEditorBase = ({
   onFieldChange,
   appointmentData,
   locale,
+  readOnly,
   ...restProps
 }) => {
   const [count, setCount] = React.useState(1);
@@ -133,7 +134,7 @@ const EndRepeatEditorBase = ({
               text={getMessage('onLabel')}
             />
             <TextEditor
-              readOnly={value !== 'endAfter'}
+              readOnly={readOnly || value !== 'endAfter'}
               className={classes.textEditor}
               value={recurrenceCount}
               type={NUMBER_EDITOR}
@@ -161,7 +162,7 @@ const EndRepeatEditorBase = ({
             />
             <DateEditor
               className={classes.dateEditor}
-              readOnly={value !== 'endBy'}
+              readOnly={readOnly || value !== 'endBy'}
               value={recurrenceEndDate}
               onValueChange={changeRecurrenceEndDate}
               allowKeyboardControl={false}
@@ -192,11 +193,13 @@ EndRepeatEditorBase.propTypes = {
     additionalInformation: PropTypes.string,
     allDay: PropTypes.bool,
   }).isRequired,
+  readOnly: PropTypes.bool,
 };
 
 EndRepeatEditorBase.defaultProps = {
   onFieldChange: () => undefined,
   getMessage: () => undefined,
+  readOnly: false,
 };
 
 export const EndRepeatEditor = withStyles(styles)(EndRepeatEditorBase, { name: 'EndRepeatEditor' });

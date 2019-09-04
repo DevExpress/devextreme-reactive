@@ -25,7 +25,7 @@
 
 BREAKING CHANGES:
 
-* **react-scheduler:** Editing logic for recurrent appointments was removed from the `EditingState` plugin. Now, editing requires `EditingState` and either the `IntegratedEditing` or the `EditRecurrenceMenu` plugin. In addition, you can add the [EditRecurrenceMenu](https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/reference/edit-recurrence-menu/) plugin to allow users to select how recurrent appointments are edited.
+* **react-scheduler:** Editing logic for recurrent appointments was removed from the `EditingState` plugin. Now, editing requires the `EditingState`, and either the `IntegratedEditing` or the `EditRecurrenceMenu` plugin. In addition, you can add the [EditRecurrenceMenu](https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/reference/edit-recurrence-menu/) plugin to allow users to select how recurrent appointments are edited.
 
 ```diff
 <Scheduler>

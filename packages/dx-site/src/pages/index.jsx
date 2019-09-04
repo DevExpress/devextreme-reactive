@@ -76,6 +76,7 @@ const IndexPage = () => (
         logo={<ProductLogo link="react" />}
         addon={(
           <LandingHeaderAddon
+            isIndexPage
             main={(
               <React.Fragment>
                 Data-Centric

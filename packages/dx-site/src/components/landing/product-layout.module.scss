@@ -1,6 +1,16 @@
 
 .header {
-  margin-top: -145px;
+  margin-top: -420px;
+
+  @media (min-width: 1000px) {
+    margin-top: -165px;
+    margin-bottom: 14px;
+  }
+
+  @media (min-width: 1280px) {
+    margin-top: -145px;
+    margin-bottom: 0;
+  }
 }
 
 .footer {
@@ -8,21 +18,21 @@
   margin-top: -20px;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1000px) {
   .header {
-    margin-top: -420px;
+    // margin-top: -420px;
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 800px) {
   .header {
-    margin-top: -220px;
+    // margin-top: -220px;
   }
 }
 
 @media screen and (min-width: 1000px) and (max-width: 1280px) {
   .header {
-    margin-top: -255px;
-    margin-bottom: 14px;
+    // margin-top: -165px;
+    // margin-bottom: 14px;
   }
 }

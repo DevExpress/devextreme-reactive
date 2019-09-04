@@ -48,7 +48,7 @@
   }
 }
 
-@media(max-width: 800px) {
+@media(max-width: 639px) {
   .links {
     transition: right .1s linear;
     position: fixed;
@@ -78,7 +78,7 @@
 
 @media (min-width: 800px) {
   .header {
-    padding-bottom: 65px;
+    // padding-bottom: 65px;
   }
   .header.productPage {
     padding-bottom: 25px;

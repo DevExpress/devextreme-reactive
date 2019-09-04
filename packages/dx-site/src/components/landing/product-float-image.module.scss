@@ -20,26 +20,39 @@
 
 .image {
   position: absolute;
-  top: -370px;
-  left: 0;
-  max-width: 647px;
+  // top: -470px;
+  // left: 0;
+  max-width: 727px;
 }
 
-.absoluteContainer .image {
-  top: -420px;
-  @media (max-width: 1280px) {
-    top:-450px;
-  }
-}
+.image {
+  left: 40px;
+  top: -600px;
 
-@media (max-width: 720px) {
-  .image {
+  @media (min-width: 680px) {
     left: 20px;
   }
-}
-
-@media (max-width: 680px) {
-  .image {
-    left: 40px;
+  @media (min-width: 720px) {
+    left: 0;
   }
+
+
+  @media (min-width: 1000px) {
+    top: -480px;
+  }
+
+
+  // top: -420px;
+  // @media (min-width: 1000px) and (max-width: 1280px) {
+  //   top:-500px;
+  // }
+  // @media (max-width: 1000px) {
+  //   top: -600px;
+  // }
+  // @media (max-width: 720px) {
+  //   left: 20px;
+  // }
+  // @media (max-width: 680px) {
+  //   left: 40px;
+  // }
 }

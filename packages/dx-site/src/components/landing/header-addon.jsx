@@ -3,11 +3,11 @@ import * as PropTypes from 'prop-types';
 
 import styles from './header-addon.module.scss';
 
-const HeaderAddon = ({ main, additional, imageLink }) => (
+const HeaderAddon = ({ main, additional, imageLink, isIndexPage }) => (
   <div className={styles.cropper}>
     <div className="container">
       <div className={`row ${styles.container} ${imageLink !== undefined ? styles.withImage : ''}`}>
-        <div className={`col-md-6 col-sm-7 ${styles.block}`}>
+        <div className={`col-md-6 col-sm-7 ${isIndexPage ? styles.indexBlock : styles.block}`}>
           <div className={styles.main}>
             {main}
           </div>

@@ -90,6 +90,7 @@ const IndexPage = () => (
   <Layout>
     <Helmet title="React Scheduler" />
     <Header
+      page="productPage"
       logo={<ProductLogo link="react/scheduler" />}
       addon={(
         <LandingHeaderAddon
@@ -105,7 +106,7 @@ const IndexPage = () => (
                   to="/react/scheduler/docs/guides/getting-started/"
                   variant="button"
                   title="Getting Started"
-                  wide
+                  fixedWidth
                 >
                   Getting Started
                 </LandingLink>
@@ -115,7 +116,7 @@ const IndexPage = () => (
                   type="react"
                   variant="button"
                   title="Demos"
-                  wide
+                  fixedWidth
                 >
                   Demos
                 </LandingLink>

@@ -4,27 +4,35 @@ import classNames from 'classnames';
 
 export const EditCell = ({
   column, value, onValueChange, className, children,
-  row, tableRow, tableColumn, editingEnabled, ...restProps
-}) => (
-  <td
-    className={classNames('align-middle dx-g-bs4-table-edit-cell', className)}
-    {...restProps}
-  >
-    {children || (
-      <input
-        type="text"
-        className={classNames({
-          'form-control w-100': true,
-          'text-right': tableColumn && tableColumn.align === 'right',
-          'text-center': tableColumn && tableColumn.align === 'center',
-        })}
-        readOnly={!editingEnabled}
-        value={value}
-        onChange={e => onValueChange(e.target.value)}
-      />
-    )}
-  </td>
-);
+  row, tableRow, tableColumn, editingEnabled,
+  autoFocus, onBlur, ...restProps
+}) => {
+  const patchedChildren = children ? React.cloneElement(children, { autoFocus, onBlur }) : children;
+
+  return (
+    <td
+      className={classNames('align-middle dx-g-bs4-table-edit-cell', className)}
+      {...restProps}
+    >
+      {patchedChildren || (
+        <input
+          type="text"
+          className={classNames({
+            'form-control w-100': true,
+            'text-right': tableColumn && tableColumn.align === 'right',
+            'text-center': tableColumn && tableColumn.align === 'center',
+          })}
+          readOnly={!editingEnabled}
+          value={value}
+          onChange={e => onValueChange(e.target.value)}
+          // eslint-disable-next-line jsx-a11y/no-autofocus
+          autoFocus={autoFocus}
+          onBlur={onBlur}
+        />
+      )}
+    </td>
+  );
+};
 EditCell.propTypes = {
   column: PropTypes.object,
   row: PropTypes.any,
@@ -35,6 +43,8 @@ EditCell.propTypes = {
   className: PropTypes.string,
   editingEnabled: PropTypes.bool,
   children: PropTypes.node,
+  autoFocus: PropTypes.bool,
+  onBlur: PropTypes.func,
 };
 EditCell.defaultProps = {
   column: undefined,
@@ -45,4 +55,6 @@ EditCell.defaultProps = {
   children: undefined,
   editingEnabled: true,
   value: '',
+  autoFocus: false,
+  onBlur: () => {},
 };

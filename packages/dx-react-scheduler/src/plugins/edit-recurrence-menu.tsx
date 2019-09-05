@@ -71,16 +71,22 @@ class EditRecurrenceMenuBase extends React.PureComponent<
     }
   }
 
-  commit = memoize((editAction, deleteAction, payload) => {
+  commit = memoize((editAction, deleteAction, payload) => (type) => {
     if (payload) {
-      return type => deleteAction({ deletedAppointmentData: payload, type });
+      deleteAction({ deletedAppointmentData: payload, type });
+    } else {
+      editAction(type);
     }
-    return type => editAction(type);
+    this.closeMenu();
   });
 
-  closeMenu = () => {
-    this.setState({ isOpen: false, deletedAppointmentData: null });
-  }
+  closeMenu = () => this.setState({ isOpen: false, deletedAppointmentData: null });
+
+  cancelEditing = memoize((cancelAction, stopEditAction) => () => {
+    stopEditAction();
+    cancelAction();
+    this.closeMenu();
+  });
 
   availableOperations = memoize((getMessage, menuAvailableOperations) =>
     menuAvailableOperations.map(({ value }) => ({
@@ -120,9 +126,15 @@ class EditRecurrenceMenuBase extends React.PureComponent<
 
         <Template name="overlay">
           <TemplateConnector>
-            {(getters, { commitChangedAppointment, commitDeletedAppointment }) => {
+            {(getters, {
+              commitChangedAppointment, commitDeletedAppointment,
+              cancelChangedAppointment, stopEditAppointment,
+            }) => {
               const commit = this.commit(
                 commitChangedAppointment, commitDeletedAppointment, deletedAppointmentData,
+              );
+              const cancelEditing = this.cancelEditing(
+                cancelChangedAppointment, stopEditAppointment,
               );
 
               return (
@@ -134,7 +146,7 @@ class EditRecurrenceMenuBase extends React.PureComponent<
                   <Layout
                     isDeleting={!!deletedAppointmentData}
                     buttonComponent={buttonComponent}
-                    handleClose={this.closeMenu}
+                    handleClose={cancelEditing}
                     commit={commit}
                     availableOperations={availableOperations}
                     getMessage={getMessage}

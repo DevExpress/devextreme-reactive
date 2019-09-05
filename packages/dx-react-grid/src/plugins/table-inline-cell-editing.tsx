@@ -9,6 +9,7 @@ import {
   getRowChange,
   isInlineEditTableCell,
   TABLE_HEADING_TYPE,
+  TABLE_DATA_TYPE,
 } from '@devexpress/dx-grid-core';
 import { TableInlineCellEditingProps, TableCellProps } from '../types';
 
@@ -26,7 +27,9 @@ const TableInlineCellEditingBase: React.SFC<TableInlineCellEditingProps> & {comp
     <Plugin name="TableInlineCellEditing" dependencies={pluginDependencies}>
       <Template
         name="tableCell"
-        predicate={({ tableRow }: any) => tableRow.type !== TABLE_HEADING_TYPE}
+        predicate={({ tableRow, tableColumn }: any) => (
+          tableRow.type !== TABLE_HEADING_TYPE && tableColumn.type === TABLE_DATA_TYPE
+        )}
       >
         {(params: TableCellProps & (() => {})) => (
           <TemplateConnector>

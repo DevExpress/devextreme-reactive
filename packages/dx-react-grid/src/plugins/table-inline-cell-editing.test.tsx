@@ -3,6 +3,7 @@ import { mount } from 'enzyme';
 import { pluginDepsToComponents, getComputedState, setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
+  TABLE_DATA_TYPE,
   getRowChange,
   isInlineEditTableCell,
 } from '@devexpress/dx-grid-core';
@@ -35,7 +36,7 @@ const defaultDeps = {
   template: {
     tableCell: {
       tableRow: { type: 'undefined', rowId: 1, row: { a: 'a' } },
-      tableColumn: { type: 'undefined', column: 'column' },
+      tableColumn: { type: TABLE_DATA_TYPE, column: 'column' },
       style: {},
     },
     tableRow: {
@@ -50,7 +51,7 @@ const defaultProps = {
   cellComponent: () => null,
 };
 
-describe('TableEditRow', () => {
+describe('TableInlineCellEditing', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });

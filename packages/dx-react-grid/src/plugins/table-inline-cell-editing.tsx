@@ -63,6 +63,19 @@ const TableInlineCellEditingBase: React.SFC<TableInlineCellEditingProps> & {comp
                   };
                   changeRow(changeArgs);
                 };
+                const onKeyDown = (key) => {
+                  if (key === 'Enter') {
+                    commitChangedRows({ rowIds: [rowId] });
+                    stopEditCells({ editingCells: [{ rowId, columnName }] });
+                  } else if (key === 'Escape') {
+                    cancelChangedRows({ rowIds: [rowId] });
+                    stopEditCells({ editingCells: [{ rowId, columnName }] });
+                  }
+                };
+                const onBlur = () => {
+                  commitChangedRows({ rowIds: [rowId] });
+                  stopEditCells({ editingCells: [{ rowId, columnName }] });
+                };
                 const editingEnabled = isColumnEditingEnabled(columnName);
 
                 return(
@@ -85,19 +98,8 @@ const TableInlineCellEditingBase: React.SFC<TableInlineCellEditingProps> & {comp
                         editingEnabled={editingEnabled}
                         onValueChange={onValueChange}
                         autoFocus
-                        onKeyDown={(e) => {
-                          if (e.key === 'Enter') {
-                            commitChangedRows({ rowIds: [rowId] });
-                            stopEditCells({ editingCells: [{ rowId, columnName }] });
-                          } else if (e.key === 'Escape') {
-                            cancelChangedRows({ rowIds: [rowId] });
-                            stopEditCells({ editingCells: [{ rowId, columnName }] });
-                          }
-                        }}
-                        onBlur={() => {
-                          commitChangedRows({ rowIds: [rowId] });
-                          stopEditCells({ editingCells: [{ rowId, columnName }] });
-                        }}
+                        onKeyDown={({ key }) => onKeyDown(key)}
+                        onBlur={onBlur}
                       >
                         {content}
                       </EditCell>

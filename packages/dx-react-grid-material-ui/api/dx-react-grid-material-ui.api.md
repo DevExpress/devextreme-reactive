@@ -23,6 +23,7 @@ import { TableFilterRow as TableFilterRow_2 } from '@devexpress/dx-react-grid';
 import { TableFixedColumns as TableFixedColumns_2 } from '@devexpress/dx-react-grid';
 import { TableGroupRow as TableGroupRow_2 } from '@devexpress/dx-react-grid';
 import { TableHeaderRow as TableHeaderRow_2 } from '@devexpress/dx-react-grid';
+import { TableInlineCellEditing as TableInlineCellEditing_2 } from '@devexpress/dx-react-grid';
 import { TableRowDetail as TableRowDetail_2 } from '@devexpress/dx-react-grid';
 import { TableSelection as TableSelection_2 } from '@devexpress/dx-react-grid';
 import { TableSummaryRow as TableSummaryRow_2 } from '@devexpress/dx-react-grid';
@@ -526,6 +527,21 @@ export interface TableHeaderRowProps {
   showSortingControls?: boolean;
   sortLabelComponent?: React.ComponentType<TableHeaderRow_2.SortLabelProps>;
   titleComponent?: React.ComponentType<object>;
+}
+
+// @public (undocumented)
+export namespace TableInlineCellEditing {
+  export type CellProps = TableInlineCellEditing_2.CellProps;
+}
+
+// @public
+export const TableInlineCellEditing: React.ComponentType<TableInlineCellEditingProps> & {
+  Cell: React.ComponentType<TableInlineCellEditing_2.CellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+};
+
+// @public (undocumented)
+export interface TableInlineCellEditingProps {
+  cellComponent?: React.ComponentType<TableInlineCellEditing_2.CellProps>;
 }
 
 // @public (undocumented)

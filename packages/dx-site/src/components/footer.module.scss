@@ -2,7 +2,11 @@
 
 .footer {
   background-color: #f0f2f4;
-  padding: 50px 0;
+  padding: 20px 0;
+
+  @media (min-width: 640px) {
+    padding: 50px 0;
+  }
 }
 
 .copyright {

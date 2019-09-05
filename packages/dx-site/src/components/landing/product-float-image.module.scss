@@ -1,9 +1,10 @@
 .container {
-  float: right;
+  display: flex;
+  flex-direction: row-reverse;
 }
 
 .absoluteContainer {
-  position: absolute;
+  // position: absolute;
   left: 50%;
   max-width: 50%;
   width: 100%;
@@ -27,7 +28,11 @@
 
 .image {
   left: 40px;
-  top: -600px;
+  top: -460px;
+
+  &.indexImage {
+    top: -600px;
+  }
 
   @media (min-width: 680px) {
     left: 20px;
@@ -36,10 +41,27 @@
     left: 0;
   }
 
+  @media (min-width: 800px) {
+
+  }
 
   @media (min-width: 1000px) {
-    top: -480px;
+    top: -450px;
+
+    &.indexImage {
+      top: -400px;
+    }
   }
+
+  @media (min-width: 1280px) {
+    top: -450px;
+
+    &.indexImage {
+      top: -450px;
+    }
+  }
+
+
 
 
   // top: -420px;

@@ -7,6 +7,7 @@ import LandingHeaderAddon from '../../../components/landing/header-addon';
 import LandingChessBoardLayoutList from '../../../components/landing/features-list';
 import LandingMaintainence from '../../../components/landing/maintainence';
 import LandingLink from '../../../components/landing/link';
+import LandingProductLinks from '../../../components/landing/product-links';
 import LandingReadyToLearnMore from '../../../components/landing/ready-to-learn-more';
 import imageBoxLink from '../../images/image-box.png';
 import headerImage from './images/Scheduler-screenshot.png';
@@ -92,15 +93,20 @@ const IndexPage = () => (
     <Header
       page="productPage"
       logo={<ProductLogo link="react/scheduler" />}
+      links={(
+        <LandingProductLinks
+          productInfo={[
+            { title: 'Demos', location: '/react/scheduler/demos/' },
+            { title: 'Docs', location: '/react/scheduler/docs/guides/getting-started/' },
+          ]}
+        />
+      )}
       addon={(
         <LandingHeaderAddon
           main="React Scheduler"
           additional={(
             <React.Fragment>
               for Bootstrap and Material-UI
-              <br />
-              <br />
-              <br />
               <ButtonLinksContainer>
                 <LandingLink
                   to="/react/scheduler/docs/guides/getting-started/"
@@ -161,17 +167,18 @@ const IndexPage = () => (
             to="/react/scheduler/docs/guides/getting-started/"
             variant="button"
             title="Getting Started"
-            wide
+            fixedWidth
+            condensed
           >
             Getting Started
           </LandingLink>
-          {' '}
           <LandingLink
             to="/react/scheduler/demos/"
             type="react"
             variant="button"
             title="Demos"
-            wide
+            fixedWidth
+            condensed
           >
             Demos
           </LandingLink>

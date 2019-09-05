@@ -6,9 +6,10 @@ import styles from './ready-to-learn-more.module.scss';
 const ReadyToLearnMore = ({ links }) => (
   <div className={styles.container}>
     <div className="container">
-      <span className="mx-4">
+      <span className={`${styles.title} mx-4`}>
         Ready to learn more?
       </span>
+
       <span className={`${styles.links} mx-4`}>
         {links}
       </span>

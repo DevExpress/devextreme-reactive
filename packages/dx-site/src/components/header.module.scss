@@ -7,8 +7,13 @@
 }
 
 .header-container {
-  padding-top: 30px;
-  padding-bottom: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+
+  @media (min-width: 640px) {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
 }
 
 .opened {
@@ -40,7 +45,7 @@
     background: url(../pages/images/icon-close.svg) no-repeat 0 0;
     position: fixed;
     z-index: 9999;
-    top: 45px;
+    top: 35px;
     right: 0;
   }
   &:focus {
@@ -59,7 +64,7 @@
     background: #093643;
     // box-shadow: -5px 10px 30px -5px #000;
     z-index: 999;
-    padding: 20px;
+    padding: 30px 20px;
 
     &.opened {
       right: 0;

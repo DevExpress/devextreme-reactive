@@ -21,10 +21,24 @@
     background-color: #007d9e;
   }
   &.fixedWidth {
-    width: 210px;
     padding: 19px 20px;
     margin-right: 10px;
     display: inline-block;
+
+    @media (min-width: 460px) {
+      width: 180px;
+    }
+    @media (min-width: 640px) {
+      margin-right: 20px;
+    }
+    @media (min-width: 1280px) {
+      width: 230px;
+    }
+  }
+  &.condensed {
+    @media (max-width: 640px) {
+      margin-bottom: 10px;
+    }
   }
 }
 
@@ -40,11 +54,6 @@
   background-color: rgb(89, 208, 240);
 }
 
-@media (max-width: 1280px) {
-  .button.fixedWidth {
-    width: 180px;
-  }
-}
 // @media (min-width: 500px) {
   // .button {
     // width: 220px;

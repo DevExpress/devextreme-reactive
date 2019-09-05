@@ -1,4 +1,9 @@
 .container {
-  padding-top: 30px;
-  padding-bottom: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+
+  @media (min-width: 640px) {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
 }

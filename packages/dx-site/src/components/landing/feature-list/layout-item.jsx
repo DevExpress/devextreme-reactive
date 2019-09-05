@@ -23,6 +23,7 @@ const LayoutItem = ({
       <LandingFeaturePreview
         title={title}
         imageLink={imageLink}
+        size={md < 6 ? 'dense' : 'normal'}
       />
     </div>
   </LayoutItemContainer>

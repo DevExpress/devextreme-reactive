@@ -5,12 +5,13 @@ import GatsbyLink from 'gatsby-link';
 import styles from './link.module.scss';
 
 const Link = ({
-  children, type, to, variant, title, fixedWidth,
+  children, type, to, variant, title, fixedWidth, condensed,
 }) => (
   <GatsbyLink
     className={`${styles.link} ${type ? styles[type] : ''}
       ${styles[variant]}
-      ${fixedWidth ? styles.fixedWidth : ''}`
+      ${fixedWidth ? styles.fixedWidth : ''}
+      ${condensed ? styles.condensed : ''}`
     }
     to={to}
     {...title ? { title } : null}

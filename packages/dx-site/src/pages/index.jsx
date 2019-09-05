@@ -13,6 +13,7 @@ import LandingMaintainence from '../components/landing/maintainence';
 import LandingProductLayout from '../components/landing/product-layout';
 import LandingProductBlock from '../components/landing/product-block';
 import LandingLink from '../components/landing/link';
+import LandingProductLinks from '../components/landing/product-links';
 import LandingProductFloatImage from '../components/landing/product-float-image';
 import AlternatedBackground from '../components/landing/alternated-background';
 
@@ -74,6 +75,14 @@ const IndexPage = () => (
     <LandingAlternatedBackground>
       <Header
         logo={<ProductLogo link="react" />}
+        links={(
+          <LandingProductLinks
+            productInfo={[
+              { title: 'Demos', location: '/react/grid/demos/' },
+              { title: 'Docs', location: '/react/core/docs/guides/fundamentals/' },
+            ]}
+          />
+        )}
         addon={(
           <LandingHeaderAddon
             isIndexPage
@@ -88,7 +97,8 @@ const IndexPage = () => (
           />
         )}
       />
-      <LandingProductFloatImage imageLink={headerLink} absolute />
+      <LandingProductFloatImage imageLink={headerLink} isIndexPage />
+
       <LandingProductLayout
         position="header"
       >
@@ -185,76 +195,78 @@ const IndexPage = () => (
       <LandingMaintainence />
     </AlternatedBackground>
 
-    <LandingProductLayout
-      position="footer"
-    >
-      <LandingProductBlock
-        type="react"
-        iconLink={reactGridIcon}
-        title={'React\nGrid'}
-        links={[
-          <LandingLink
-            to="/react/grid/docs/guides/getting-started/"
-            variant="button"
-            title="Getting Started"
-            key="react-grid-footer"
-          >
-            Getting Started
-          </LandingLink>,
-          <LandingLink
-            to="/react/grid/demos/"
-            title="Grid Demos"
-            key="react-grid-demos-footer"
-          >
-            Demos
-          </LandingLink>,
-        ]}
-      />
-      <LandingProductBlock
-        type="react"
-        iconLink={reactChartIcon}
-        title={'React\nChart'}
-        links={[
-          <LandingLink
-            to="/react/chart/docs/guides/getting-started/"
-            variant="button"
-            title="Getting Started"
-            key="react-chart-footer"
-          >
-            Getting Started
-          </LandingLink>,
-          <LandingLink
-            to="/react/chart/demos/"
-            title="Chart Demos"
-            key="react-chart-demos-footer"
-          >
-            Demos
-          </LandingLink>,
-        ]}
-      />
-      <LandingProductBlock
-        type="react"
-        iconLink={reactSchedulerIcon}
-        title={'React\nScheduler'}
-        links={[
-          <LandingLink
-            to="/react/scheduler/docs/guides/getting-started/"
-            variant="button"
-            title="Getting Started"
-            key="react-scheduler-footer"
-          >
-            Getting Started
-          </LandingLink>,
-          <LandingLink
-            to="/react/scheduler/demos/"
-            title="Scheduler Demos"
-            key="react-scheduler-demos-footer"
-          >
-            Demos
-          </LandingLink>,
-        ]}
-      />
-    </LandingProductLayout>
+    <AlternatedBackground>
+      <LandingProductLayout
+        position="footer"
+      >
+        <LandingProductBlock
+          type="react"
+          iconLink={reactGridIcon}
+          title={'React\nGrid'}
+          links={[
+            <LandingLink
+              to="/react/grid/docs/guides/getting-started/"
+              variant="button"
+              title="Getting Started"
+              key="react-grid-footer"
+            >
+              Getting Started
+            </LandingLink>,
+            <LandingLink
+              to="/react/grid/demos/"
+              title="Grid Demos"
+              key="react-grid-demos-footer"
+            >
+              Demos
+            </LandingLink>,
+          ]}
+        />
+        <LandingProductBlock
+          type="react"
+          iconLink={reactChartIcon}
+          title={'React\nChart'}
+          links={[
+            <LandingLink
+              to="/react/chart/docs/guides/getting-started/"
+              variant="button"
+              title="Getting Started"
+              key="react-chart-footer"
+            >
+              Getting Started
+            </LandingLink>,
+            <LandingLink
+              to="/react/chart/demos/"
+              title="Chart Demos"
+              key="react-chart-demos-footer"
+            >
+              Demos
+            </LandingLink>,
+          ]}
+        />
+        <LandingProductBlock
+          type="react"
+          iconLink={reactSchedulerIcon}
+          title={'React\nScheduler'}
+          links={[
+            <LandingLink
+              to="/react/scheduler/docs/guides/getting-started/"
+              variant="button"
+              title="Getting Started"
+              key="react-scheduler-footer"
+            >
+              Getting Started
+            </LandingLink>,
+            <LandingLink
+              to="/react/scheduler/demos/"
+              title="Scheduler Demos"
+              key="react-scheduler-demos-footer"
+            >
+              Demos
+            </LandingLink>,
+          ]}
+        />
+      </LandingProductLayout>
+    </AlternatedBackground>
   </Layout>
 );
 

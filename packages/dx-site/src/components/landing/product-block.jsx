@@ -8,10 +8,10 @@ const Title = ({ text }) => text.split('\n').map(chunk => <span key={Math.random
 const ProductLink = ({
   type, iconLink, title, links, condensed,
 }) => (
-  <div className={`col-lg-${condensed ? 3 : 4} col-md-4 col-sm-6 ${styles.productBlock}`}>
-    <div className={`d-flex flex-row flex-sm-column align-content-end ${styles.container} ${styles[type]}`}>
+  <div className={`col-lg-${condensed ? 3 : 4} col-md-4  ${styles.productBlock}`}>
+    <div className={`d-flex flex-row flex-md-column align-content-end ${styles.container} ${styles[type]}`}>
       <div className={`${styles.titleWrapper} align-self-center`}>
-        <div className="d-flex flex-row justify-content-sm-center align-items-end">
+        <div className="d-flex flex-row justify-content-md-center align-items-end">
           <img
             className={styles.icon}
             alt="title"
@@ -22,7 +22,7 @@ const ProductLink = ({
           </div>
         </div>
       </div>
-      <div className={`${styles.divider} d-sm-none`}/>
+      <div className={`${styles.divider}`}/>
       <div className={styles.links}>
         {links}
       </div>

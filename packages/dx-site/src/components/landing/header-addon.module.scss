@@ -3,14 +3,14 @@
 .main {
   line-height: 1.1;
   font-family: "Segoe UI Light";
-  font-size: 48px;
+  font-size: 40px;
   color: white;
   padding-left: $inner-offset;
 }
 
 .additional {
   font-family: "Segoe UI Bold";
-  font-size: 24px;
+  font-size: 21px;
   color: white;
   line-height: 1.1;
   margin-top: 10px;
@@ -25,17 +25,17 @@
 }
 
 .block {
-  padding-bottom: 260px;
+  padding-bottom: 30px;
 
   @media screen and (min-width: 640px) {
-    padding-bottom: 380px;
+    padding-bottom: 260px;
   }
   @media screen and (min-width: 800px) {
     padding-top: 40px;
-    padding-bottom: 300px;
+    padding-bottom: 190px;
   }
-  @media screen and (min-width: 1000px) {
-    padding-bottom: 140px;
+  @media screen and (min-width: 1280px) {
+    padding-bottom: 110px;
   }
 }
 
@@ -49,7 +49,7 @@
     padding-top: 40px;
   }
   @media screen and (min-width: 1000px) {
-    padding-bottom: 260px;
+    padding-bottom: 220px;
   }
 }
 
@@ -69,7 +69,7 @@
     font-size: 42px;
   }
   .additional {
-    font-size: 28px;
+    font-size: 25px;
   }
 }
 
@@ -79,7 +79,7 @@
   }
   .additional {
     font-size: 34px;
-    margin-top: 20px;
+    margin-top: 10px;
     margin-bottom: 55px;
     padding-right: 0;
   }

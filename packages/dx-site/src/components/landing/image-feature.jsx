@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import LandingFeaturePreview from './feature-list/feature-preview';
 
 import styles from './image-feature.module.scss';
 
@@ -27,11 +28,16 @@ const ImageFeature = ({
         </div>
       </div>
       {imageLink && (
-        <img
-          className={styles.image}
-          alt="title"
-          src={imageLink}
+        <LandingFeaturePreview
+          title={title}
+          imageLink={imageLink}
+          size="wide"
         />
+        // <img
+        //   className={styles.image}
+        //   alt="title"
+        //   src={imageLink}
+        // />
       )}
     </div>
   </div>

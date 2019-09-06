@@ -80,7 +80,9 @@ class EditRecurrenceMenuBase extends React.PureComponent<
     this.closeMenu();
   });
 
-  closeMenu = () => this.setState({ isOpen: false, deletedAppointmentData: null });
+  closeMenu = () => {
+    this.setState({ isOpen: false, deletedAppointmentData: null });
+  }
 
   cancelEditing = memoize((cancelAction, stopEditAction) => () => {
     stopEditAction();

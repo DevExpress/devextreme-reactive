@@ -61,7 +61,7 @@ export default class Demo extends React.PureComponent {
             argumentField="age"
             color="#F87CCC"
           />
-          <Title text="Population Pyramids of the World 2018" />
+          <Title text="Population Pyramid of the World 2018" />
           <Animation />
           <Legend
             position="bottom"

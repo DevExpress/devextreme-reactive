@@ -164,6 +164,7 @@ const LocationSelector = withStyles(styles, { name: 'LocationSelector' })(({ onL
       <Button
         className={getButtonClass(locations, classes, location)}
         onClick={() => onLocationsChange(handleButtonClick(location, locations))}
+        key={location}
       >
         {location}
       </Button>

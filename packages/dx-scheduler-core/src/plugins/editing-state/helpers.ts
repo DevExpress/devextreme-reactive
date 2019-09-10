@@ -79,7 +79,7 @@ export const deleteAll: DeleteFn = (appointmentData) => {
   return { deleted: appointmentData.id };
 };
 
-export const deletedCurrentAndFollowing: DeleteFn = (appointmentData) => {
+export const deleteCurrentAndFollowing: DeleteFn = (appointmentData) => {
   const { rRule, startDate, parentData, exDate: prevExDate = '', id } = appointmentData;
 
   const initialSequence: Date[] = configureDateSequence(rRule, prevExDate, {
@@ -95,7 +95,7 @@ export const deletedCurrentAndFollowing: DeleteFn = (appointmentData) => {
 
   const changedRules = configureICalendarRules(rRule as string, {
     dtstart: moment.utc(parentData.startDate).toDate(),
-    until: moment.utc(initialSequence[currentChildIndex]).toDate(),
+    until: moment.utc(initialSequence[currentChildIndex - 1]).toDate(),
     count: null,
   });
 
@@ -199,7 +199,7 @@ export const preCommitChanges: PreCommitChangesFn = (
         return deleteCurrent(appointmentData);
       }
       case RECURRENCE_EDIT_SCOPE.CURRENT_AND_FOLLOWING: {
-        return deletedCurrentAndFollowing(appointmentData);
+        return deleteCurrentAndFollowing(appointmentData);
       }
     }
   } else {

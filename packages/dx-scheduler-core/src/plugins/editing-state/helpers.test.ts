@@ -1,7 +1,7 @@
 import {
   deleteCurrent,
   deleteAll,
-  deletedCurrentAndFollowing,
+  deleteCurrentAndFollowing,
   editAll,
   editCurrent,
   editCurrentAndFollowing,
@@ -73,7 +73,7 @@ describe('EditingState', () => {
       });
     });
 
-    describe('#deletedCurrentAndFollowing', () => {
+    describe('#deleteCurrentAndFollowing', () => {
       it('should work without the exDate field', () => {
         const appointmentData = {
           id: 0,
@@ -86,9 +86,9 @@ describe('EditingState', () => {
           },
         };
 
-        const changes = deletedCurrentAndFollowing(appointmentData);
+        const changes = deleteCurrentAndFollowing(appointmentData);
         expect(changes).toEqual({ changed: { 0: {
-          rRule: 'FREQ=DAILY;UNTIL=20190717T142000Z',
+          rRule: 'FREQ=DAILY;UNTIL=20190716T142000Z',
         } } });
       });
 
@@ -105,9 +105,9 @@ describe('EditingState', () => {
           },
         };
 
-        const changes = deletedCurrentAndFollowing(appointmentData);
+        const changes = deleteCurrentAndFollowing(appointmentData);
         expect(changes).toEqual({ changed: { 0: {
-          rRule: 'FREQ=DAILY;UNTIL=20190717T142000Z',
+          rRule: 'FREQ=DAILY;UNTIL=20190715T142000Z',
           exDate: '20190716T142000Z',
         } } });
       });
@@ -125,9 +125,9 @@ describe('EditingState', () => {
           },
         };
 
-        const changes = deletedCurrentAndFollowing(appointmentData);
+        const changes = deleteCurrentAndFollowing(appointmentData);
         expect(changes).toEqual({ changed: { 0: {
-          rRule: 'FREQ=DAILY;UNTIL=20190717T142000Z',
+          rRule: 'FREQ=DAILY;UNTIL=20190715T142000Z',
         } } });
       });
 

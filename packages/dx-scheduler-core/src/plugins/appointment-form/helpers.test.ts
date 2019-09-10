@@ -154,6 +154,21 @@ describe('AppointmentForm helpers', () => {
         }))
           .options);
     });
+
+    it('should clean byweekday when switching to yearly', () => {
+      const testRule = 'RRULE:INTERVAL=4;BYWEEKDAY=MO';
+
+      expect((new RRule(
+        RRule.parseString(changeRecurrenceFrequency(testRule, RRule.WEEKLY, testDate)))
+      )
+        .options)
+        .toMatchObject((new RRule({
+          ...RRule.parseString(testRule),
+          freq: RRule.WEEKLY,
+          byweekday: undefined,
+        }))
+          .options);
+    });
   });
 
   describe('#getRecurrenceOptions', () => {

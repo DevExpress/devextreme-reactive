@@ -3,7 +3,10 @@ import { createStore } from 'redux';
 import { connect, Provider } from 'react-redux';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
+import { teal } from '@material-ui/core/colors';
 import { ViewState } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
@@ -20,12 +23,69 @@ import { appointments } from '../../../demo-data/appointments';
 const styles = ({ spacing }) => ({
   flexibleSpace: {
     margin: '0 auto 0 0',
+    display: 'flex',
+    alignItems: 'center',
   },
   textField: {
     width: '150px',
+    marginLeft: spacing(1),
+    marginTop: 0,
+    marginBottom: 0,
+    height: spacing(4.875),
+  },
+  locationSelector: {
     marginLeft: spacing(2),
+    height: spacing(4.875),
+  },
+  button: {
+    paddingLeft: spacing(1),
+    paddingRight: spacing(1),
+    width: spacing(10),
+  },
+  selectedButton: {
+    paddingLeft: spacing(1),
+    paddingRight: spacing(1),
+    width: spacing(10),
+    background: teal[400],
+    color: teal[50],
+    '&:hover': {
+      backgroundColor: teal[500],
+    },
+    border: `1px solid ${teal[400]}!important`,
+    borderLeft: `1px solid ${teal[50]}!important`,
+    '&:first-child': {
+      borderLeft: `1px solid ${teal[50]}!important`,
+    },
+  },
+  title: {
+    fontWeight: 'bold',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+  },
+  textContainer: {
+    lineHeight: 1,
+    whiteSpace: 'pre-wrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    width: '100%',
+  },
+  time: {
+    display: 'inline-block',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
+  text: {
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+  },
+  container: {
+    width: '100%',
   },
 });
+
+const LOCATIONS = ['Room 1', 'Room 2', 'Room 3'];
 
 const Appointment = ({ data, ...restProps }) => {
   if (data.location === 'Room 1') {
@@ -36,6 +96,32 @@ const Appointment = ({ data, ...restProps }) => {
   }
   return <Appointments.Appointment {...restProps} style={{ backgroundColor: '#EF5350' }} />;
 };
+
+const AppointmentContent = withStyles(styles, { name: 'AppointmentContent' })(({
+  classes, data, formatDate, ...restProps
+}) => (
+  <Appointments.AppointmentContent {...restProps} formatDate={formatDate} data={data}>
+    <div className={classes.container}>
+      <div className={classes.title}>
+        {data.title}
+      </div>
+      <div className={classes.text}>
+        {data.location}
+      </div>
+      <div className={classes.textContainer}>
+        <div className={classes.time}>
+          {formatDate(data.startDate.toString(), { hour: 'numeric', minute: 'numeric' })}
+        </div>
+        <div className={classes.time}>
+          {' - '}
+        </div>
+        <div className={classes.time}>
+          {formatDate(data.endDate.toString(), { hour: 'numeric', minute: 'numeric' })}
+        </div>
+      </div>
+    </div>
+  </Appointments.AppointmentContent>
+));
 
 const Filter = withStyles(styles, { name: 'TextField' })(({ onCurrentFilterChange, currentFilter, classes }) => (
   <TextField
@@ -49,10 +135,37 @@ const Filter = withStyles(styles, { name: 'TextField' })(({ onCurrentFilterChang
   />
 ));
 
+const handleButtonClick = (locationName, locations) => {
+  if (locations.indexOf(locationName) > -1) {
+    return locations.filter(location => location !== locationName);
+  }
+  const nextLocations = [...locations];
+  nextLocations.push(locationName);
+  return nextLocations;
+};
+
+const getButtonClass = (locations, classes, location) => (
+  locations.indexOf(location) > -1 ? classes.selectedButton : classes.button
+);
+
+const LocationSelector = withStyles(styles, { name: 'LocationSelector' })(({ onLocationsChange, locations, classes }) => (
+  <ButtonGroup className={classes.locationSelector}>
+    {LOCATIONS.map(location => (
+      <Button
+        className={getButtonClass(locations, classes, location)}
+        onClick={() => onLocationsChange(handleButtonClick(location, locations))}
+      >
+        {location}
+      </Button>
+    ))}
+  </ButtonGroup>
+));
+
 const FlexibleSpace = withStyles(styles, { name: 'FlexibleSpace' })(
   ({ classes, ...restProps }) => (
     <Toolbar.FlexibleSpace {...restProps} className={classes.flexibleSpace}>
       <ReduxFilterContainer />
+      <ReduxLocationSelector />
     </Toolbar.FlexibleSpace>
   ),
 );
@@ -88,6 +201,7 @@ const SchedulerContainer = ({
       <ViewSwitcher />
       <Appointments
         appointmentComponent={Appointment}
+        appointmentContentComponent={AppointmentContent}
       />
     </Scheduler>
   </Paper>
@@ -99,6 +213,7 @@ const schedulerInitialState = {
   currentDate: '2018-06-27',
   currentViewName: 'Week',
   currentFilter: '',
+  locations: ['Room 1', 'Room 2', 'Room 3'],
 };
 
 const schedulerReducer = (state = schedulerInitialState, action) => {
@@ -120,8 +235,11 @@ export const createSchedulerAction = (partialStateName, partialStateValue) => ({
 });
 
 const mapStateToProps = (state) => {
+  let data = state.data.filter(dataItem => (
+    state.locations.indexOf(dataItem.location) > -1
+  ));
   const lowerCaseFilter = state.currentFilter.toLowerCase();
-  const data = state.data.filter(dataItem => (
+  data = data.filter(dataItem => (
     dataItem.title.toLowerCase().includes(lowerCaseFilter)
     || dataItem.location.toLowerCase().includes(lowerCaseFilter)
   ));
@@ -132,10 +250,12 @@ const mapDispatchToProps = dispatch => ({
   onCurrentDateChange: currentDate => dispatch(createSchedulerAction('currentDate', currentDate)),
   onCurrentViewNameChange: currentViewName => dispatch(createSchedulerAction('currentViewName', currentViewName)),
   onCurrentFilterChange: currentFilter => dispatch(createSchedulerAction('currentFilter', currentFilter)),
+  onLocationsChange: locations => dispatch(createSchedulerAction('locations', locations)),
 });
 
 const ReduxSchedulerContainer = connect(mapStateToProps, mapDispatchToProps)(SchedulerContainer);
 const ReduxFilterContainer = connect(mapStateToProps, mapDispatchToProps)(Filter);
+const ReduxLocationSelector = connect(mapStateToProps, mapDispatchToProps)(LocationSelector);
 
 const store = createStore(
   schedulerReducer,

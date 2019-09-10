@@ -1055,6 +1055,7 @@ export namespace TableInlineCellEditing {
     column: Column;
     editingEnabled: boolean;
     onBlur: () => void;
+    onFocus: (e: any) => void;
     onKeyDown: (e: any) => void;
     onValueChange: (newValue: any) => void;
     row: any;
@@ -1065,6 +1066,8 @@ export namespace TableInlineCellEditing {
 // @public (undocumented)
 export interface TableInlineCellEditingProps {
   cellComponent: React.ComponentType<TableInlineCellEditing.CellProps>;
+  selectTextOnEditStart: boolean;
+  startEditAction: 'click' | 'doubleClick';
 }
 
 // @public (undocumented)

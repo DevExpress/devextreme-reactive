@@ -542,6 +542,8 @@ export const TableInlineCellEditing: React.ComponentType<TableInlineCellEditingP
 // @public (undocumented)
 export interface TableInlineCellEditingProps {
   cellComponent?: React.ComponentType<TableInlineCellEditing_2.CellProps>;
+  selectTextOnEditStart?: boolean;
+  startEditAction?: 'click' | 'doubleClick';
 }
 
 // @public (undocumented)

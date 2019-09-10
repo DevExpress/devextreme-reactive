@@ -1,4 +1,5 @@
 import { AppointmentModel, SchedulerDateTime } from './scheduler-core.types';
+import { PureComputed } from '@devexpress/dx-core';
 
 /** @internal */
 export type Action = ([fieldName]?: any) => void;
@@ -26,3 +27,11 @@ export type Option = {
   text: string;
   id: number | string;
 };
+/** @internal */
+export type OptionsFormatterFn = PureComputed<
+  [(messageKey: string) => string], Array<Option>
+>;
+/** @internal */
+export type DateFormatterFn = PureComputed<
+  [(date: Date, formatOptions: object) => string], Array<Option>
+>;

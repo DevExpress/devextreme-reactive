@@ -5,9 +5,8 @@ import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import {
-  getRecurrenceOptions, DAYS_OF_WEEK, SUNDAY_DATE, WEEK_DAY_OPTIONS, MONDAY_DATE,
-  TUESDAY_DATE, THURSDAY_DATE, FRIDAY_DATE, SATURDAY_DATE, WEDNESDAY_DATE,
-  handleWeekDaysChange, changeRecurrenceOptions,
+  getRecurrenceOptions, DAYS_OF_WEEK_ARRAY, WEEK_DAY_OPTIONS,
+  handleWeekDaysChange, changeRecurrenceOptions, DAYS_OF_WEEK_DATES,
 } from '@devexpress/dx-scheduler-core';
 import { setColor } from '../../utils';
 
@@ -54,111 +53,25 @@ const WeeklyRecurrenceSelectorBase = React.memo(({
       fullWidth
       {...restProps}
     >
-      <Button
-        className={classNames({
-          [classes.button]: true,
-          [classes.selectedButton]: isCurrentWeekDay(recurrenceOptions, DAYS_OF_WEEK.SUNDAY),
-        })}
-        onClick={() => onFieldChange({
-          rRule: changeRecurrenceOptions(handleWeekDaysChange(
-            recurrenceOptions,
-            DAYS_OF_WEEK.SUNDAY,
-            onFieldChange,
-          )),
-        })}
-      >
-        {formatDate(SUNDAY_DATE, WEEK_DAY_OPTIONS)}
-      </Button>
-      <Button
-        className={classNames({
-          [classes.button]: true,
-          [classes.selectedButton]: isCurrentWeekDay(recurrenceOptions, DAYS_OF_WEEK.MONDAY),
-        })}
-        onClick={() => onFieldChange({
-          rRule: changeRecurrenceOptions(handleWeekDaysChange(
-            recurrenceOptions,
-            DAYS_OF_WEEK.MONDAY,
-            onFieldChange,
-          )),
-        })}
-      >
-        {formatDate(MONDAY_DATE, WEEK_DAY_OPTIONS)}
-      </Button>
-      <Button
-        className={classNames({
-          [classes.button]: true,
-          [classes.selectedButton]: isCurrentWeekDay(recurrenceOptions, DAYS_OF_WEEK.TUESDAY),
-        })}
-        onClick={() => onFieldChange({
-          rRule: changeRecurrenceOptions(handleWeekDaysChange(
-            recurrenceOptions,
-            DAYS_OF_WEEK.TUESDAY,
-            onFieldChange,
-          )),
-        })}
-      >
-        {formatDate(TUESDAY_DATE, WEEK_DAY_OPTIONS)}
-      </Button>
-      <Button
-        className={classNames({
-          [classes.button]: true,
-          [classes.selectedButton]: isCurrentWeekDay(recurrenceOptions, DAYS_OF_WEEK.WEDNESDAY),
-        })}
-        onClick={() => onFieldChange({
-          rRule: changeRecurrenceOptions(handleWeekDaysChange(
-            recurrenceOptions,
-            DAYS_OF_WEEK.WEDNESDAY,
-            onFieldChange,
-          )),
-        })}
-      >
-        {formatDate(WEDNESDAY_DATE, WEEK_DAY_OPTIONS)}
-      </Button>
-      <Button
-        className={classNames({
-          [classes.button]: true,
-          [classes.selectedButton]: isCurrentWeekDay(recurrenceOptions, DAYS_OF_WEEK.THURSDAY),
-        })}
-        onClick={() => onFieldChange({
-          rRule: changeRecurrenceOptions(handleWeekDaysChange(
-            recurrenceOptions,
-            DAYS_OF_WEEK.THURSDAY,
-            onFieldChange,
-          )),
-        })}
-      >
-        {formatDate(THURSDAY_DATE, WEEK_DAY_OPTIONS)}
-      </Button>
-      <Button
-        className={classNames({
-          [classes.button]: true,
-          [classes.selectedButton]: isCurrentWeekDay(recurrenceOptions, DAYS_OF_WEEK.FRIDAY),
-        })}
-        onClick={() => onFieldChange({
-          rRule: changeRecurrenceOptions(handleWeekDaysChange(
-            recurrenceOptions,
-            DAYS_OF_WEEK.FRIDAY,
-            onFieldChange,
-          )),
-        })}
-      >
-        {formatDate(FRIDAY_DATE, WEEK_DAY_OPTIONS)}
-      </Button>
-      <Button
-        className={classNames({
-          [classes.button]: true,
-          [classes.selectedButton]: isCurrentWeekDay(recurrenceOptions, DAYS_OF_WEEK.SATURDAY),
-        })}
-        onClick={() => onFieldChange({
-          rRule: changeRecurrenceOptions(handleWeekDaysChange(
-            recurrenceOptions,
-            DAYS_OF_WEEK.SATURDAY,
-            onFieldChange,
-          )),
-        })}
-      >
-        {formatDate(SATURDAY_DATE, WEEK_DAY_OPTIONS)}
-      </Button>
+      {
+        DAYS_OF_WEEK_ARRAY.map((dayOfWeek, index) => (
+          <Button
+            className={classNames({
+              [classes.button]: true,
+              [classes.selectedButton]: isCurrentWeekDay(recurrenceOptions, dayOfWeek),
+            })}
+            onClick={() => onFieldChange({
+              rRule: changeRecurrenceOptions(handleWeekDaysChange(
+                recurrenceOptions,
+                dayOfWeek,
+                onFieldChange,
+              )),
+            })}
+          >
+            {formatDate(DAYS_OF_WEEK_DATES[index], WEEK_DAY_OPTIONS)}
+          </Button>
+        ))
+      }
     </ButtonGroup>
   );
 });

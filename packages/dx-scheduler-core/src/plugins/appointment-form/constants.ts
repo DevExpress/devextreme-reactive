@@ -14,6 +14,11 @@ export const DAYS_OF_WEEK = {
   SUNDAY: 6,
 };
 
+export const DAYS_OF_WEEK_ARRAY = [
+  DAYS_OF_WEEK.SUNDAY, DAYS_OF_WEEK.MONDAY, DAYS_OF_WEEK.TUESDAY, DAYS_OF_WEEK.WEDNESDAY,
+  DAYS_OF_WEEK.THURSDAY, DAYS_OF_WEEK.FRIDAY, DAYS_OF_WEEK.SATURDAY,
+];
+
 export const MONTHS = {
   JANUARY: 1,
   FEBRUARY: 2,
@@ -46,6 +51,15 @@ export const REPEAT_TYPES = {
   NEVER: 'never',
 };
 
+export const REPEAT_TYPES_ARRAY = [
+  REPEAT_TYPES.NEVER, REPEAT_TYPES.DAILY, REPEAT_TYPES.WEEKLY,
+  REPEAT_TYPES.MONTHLY, REPEAT_TYPES.YEARLY,
+];
+
+export const WEEK_NUMBER_LABELS = [
+  'firstLabel', 'secondLabel', 'thirdLabel', 'fourthLabel', 'lastLabel',
+];
+
 export const END_REPEAT_RADIO_GROUP = 'endRepeat';
 export const MONTHLY_RADIO_GROUP = 'monthlyRadioGroup';
 export const YEARLY_RADIO_GROUP = 'yearlyRadioGroup';
@@ -73,6 +87,11 @@ export const THURSDAY_DATE = new Date(2019, 7, 15);
 export const FRIDAY_DATE = new Date(2019, 7, 16);
 export const SATURDAY_DATE = new Date(2019, 7, 17);
 
+export const DAYS_OF_WEEK_DATES = [
+  SUNDAY_DATE, MONDAY_DATE, TUESDAY_DATE, WEDNESDAY_DATE,
+  THURSDAY_DATE, FRIDAY_DATE, SATURDAY_DATE,
+];
+
 export const JANUARY_DATE = new Date(2019, 0, 1);
 export const FEBRUARY_DATE = new Date(2019, 1, 1);
 export const MARCH_DATE = new Date(2019, 2, 1);
@@ -85,6 +104,11 @@ export const SEPTEMBER_DATE = new Date(2019, 8, 1);
 export const OCTOBER_DATE = new Date(2019, 9, 1);
 export const NOVEMBER_DATE = new Date(2019, 10, 1);
 export const DECEMBER_DATE = new Date(2019, 11, 1);
+
+export const MONTHS_DATES = [
+  JANUARY_DATE, FEBRUARY_DATE, MARCH_DATE, APRIL_DATE, MAY_DATE, JUNE_DATE,
+  JULY_DATE, AUGUST_DATE, SEPTEMBER_DATE, OCTOBER_DATE, NOVEMBER_DATE, DECEMBER_DATE,
+];
 
 export const FIRST_WEEK = 0;
 export const SECOND_WEEK = 1;

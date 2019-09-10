@@ -126,6 +126,8 @@ describe('TableSummaryRow', () => {
       expect(tableRowsWithSummaries)
         .toBeCalledWith(
           defaultDeps.getter.tableBodyRows,
+          defaultDeps.getter.groupSummaryItems,
+          defaultDeps.getter.treeSummaryItems,
           defaultDeps.getter.getRowLevelKey,
           defaultDeps.getter.isGroupRow,
           defaultDeps.getter.getRowId,

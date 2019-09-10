@@ -23,13 +23,15 @@ const styles = theme => ({
 const EditCellBase = ({
   column, value, onValueChange, style, classes, children,
   row, tableRow, tableColumn, editingEnabled, className,
-  autoFocus, onBlur, ...restProps
+  autoFocus, onBlur, onFocus, ...restProps
 }) => {
   const inputClasses = classNames({
     [classes.inputRight]: tableColumn && tableColumn.align === 'right',
     [classes.inputCenter]: tableColumn && tableColumn.align === 'center',
   });
-  const patchedChildren = children ? React.cloneElement(children, { autoFocus, onBlur }) : children;
+  const patchedChildren = children
+    ? React.cloneElement(children, { autoFocus, onBlur, onFocus })
+    : children;
 
   return (
     <TableCell
@@ -47,6 +49,7 @@ const EditCellBase = ({
           // eslint-disable-next-line jsx-a11y/no-autofocus
           autoFocus={autoFocus}
           onBlur={onBlur}
+          onFocus={onFocus}
         />
       )}
     </TableCell>
@@ -67,6 +70,7 @@ EditCellBase.propTypes = {
   className: PropTypes.string,
   autoFocus: PropTypes.bool,
   onBlur: PropTypes.func,
+  onFocus: PropTypes.func,
 };
 
 EditCellBase.defaultProps = {
@@ -81,6 +85,7 @@ EditCellBase.defaultProps = {
   editingEnabled: true,
   autoFocus: false,
   onBlur: () => {},
+  onFocus: () => {},
 };
 
 export const EditCell = withStyles(styles, { name: 'EditCell' })(EditCellBase);

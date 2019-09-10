@@ -133,7 +133,7 @@ describe('EditCell', () => {
       .toBeTruthy();
   });
 
-  it('should provide autoFocus and onBlur props to children', () => {
+  it('should provide autoFocus, onFocus and onBlur props to children', () => {
     const tree = mount((
       <EditCell
         {...defaultProps}
@@ -143,6 +143,8 @@ describe('EditCell', () => {
     ));
 
     expect(tree.find('.test').prop('autoFocus'))
+      .toBeDefined();
+    expect(tree.find('.test').prop('onFocus'))
       .toBeDefined();
     expect(tree.find('.test').prop('onBlur'))
       .toBeDefined();

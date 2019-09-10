@@ -21,7 +21,7 @@ const pluginDependencies = [
 
 // tslint:disable-next-line: max-line-length
 const TableInlineCellEditingBase: React.SFC<TableInlineCellEditingProps> & {components: {cellComponent: string}} = (props) => {
-  const { cellComponent: EditCell } = props;
+  const { cellComponent: EditCell, startEditAction, selectTextOnEditStart } = props;
 
   return(
     <Plugin name="TableInlineCellEditing" dependencies={pluginDependencies}>
@@ -76,6 +76,7 @@ const TableInlineCellEditingBase: React.SFC<TableInlineCellEditingProps> & {comp
                   commitChangedRows({ rowIds: [rowId] });
                   stopEditCells({ editingCells: [{ rowId, columnName }] });
                 };
+                const onFocus = selectTextOnEditStart ? e => e.target.select() : () => {};
                 const editingEnabled = isColumnEditingEnabled(columnName);
 
                 return(
@@ -100,6 +101,7 @@ const TableInlineCellEditingBase: React.SFC<TableInlineCellEditingProps> & {comp
                         autoFocus
                         onKeyDown={({ key }) => onKeyDown(key)}
                         onBlur={onBlur}
+                        onFocus={onFocus}
                       >
                         {content}
                       </EditCell>
@@ -108,14 +110,29 @@ const TableInlineCellEditingBase: React.SFC<TableInlineCellEditingProps> & {comp
                 );
               }
 
-              return (
-                <TemplatePlaceholder
-                  params={{
-                    ...params,
-                    onClick: () => startEditCells({ editingCells: [{ rowId, columnName }] }),
-                  }}
-                />
-              );
+              if (startEditAction === 'click') {
+                return (
+                  <TemplatePlaceholder
+                    params={{
+                      ...params,
+                      onClick: () => startEditCells({ editingCells: [{ rowId, columnName }] }),
+                    }}
+                  />
+                );
+              }
+              if (startEditAction === 'doubleClick') {
+                return (
+                  <TemplatePlaceholder
+                    params={{
+                      ...params,
+                      onDoubleClick: () => startEditCells({
+                        editingCells: [{ rowId, columnName }],
+                      }),
+                    }}
+                  />
+                );
+              }
+              throw new Error('Error, probably  you set invalid values for properties');
             }}
           </TemplateConnector>
         )}
@@ -126,6 +143,11 @@ const TableInlineCellEditingBase: React.SFC<TableInlineCellEditingProps> & {comp
 
 TableInlineCellEditingBase.components = {
   cellComponent: 'Cell',
+};
+
+TableInlineCellEditingBase.defaultProps = {
+  startEditAction: 'click',
+  selectTextOnEditStart: false,
 };
 
 // tslint:disable-next-line: max-line-length

@@ -48,6 +48,8 @@ describe('EditCell', () => {
 
     expect(tree.find('.test').prop('autoFocus'))
       .toBeDefined();
+    expect(tree.find('.test').prop('onFocus'))
+      .toBeDefined();
     expect(tree.find('.test').prop('onBlur'))
       .toBeDefined();
   });

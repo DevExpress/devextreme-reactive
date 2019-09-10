@@ -5,9 +5,11 @@ import classNames from 'classnames';
 export const EditCell = ({
   column, value, onValueChange, className, children,
   row, tableRow, tableColumn, editingEnabled,
-  autoFocus, onBlur, ...restProps
+  autoFocus, onBlur, onFocus, ...restProps
 }) => {
-  const patchedChildren = children ? React.cloneElement(children, { autoFocus, onBlur }) : children;
+  const patchedChildren = children
+    ? React.cloneElement(children, { autoFocus, onBlur, onFocus })
+    : children;
 
   return (
     <td
@@ -28,6 +30,7 @@ export const EditCell = ({
           // eslint-disable-next-line jsx-a11y/no-autofocus
           autoFocus={autoFocus}
           onBlur={onBlur}
+          onFocus={onFocus}
         />
       )}
     </td>
@@ -45,6 +48,7 @@ EditCell.propTypes = {
   children: PropTypes.node,
   autoFocus: PropTypes.bool,
   onBlur: PropTypes.func,
+  onFocus: PropTypes.func,
 };
 EditCell.defaultProps = {
   column: undefined,
@@ -57,4 +61,5 @@ EditCell.defaultProps = {
   value: '',
   autoFocus: false,
   onBlur: () => {},
+  onFocus: () => {},
 };

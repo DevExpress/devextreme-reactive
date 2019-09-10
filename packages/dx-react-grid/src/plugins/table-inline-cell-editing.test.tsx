@@ -49,6 +49,8 @@ const defaultDeps = {
 
 const defaultProps = {
   cellComponent: () => null,
+  startEditAction: 'click',
+  selectTextOnEditStart: false,
 };
 
 describe('TableInlineCellEditing', () => {
@@ -152,7 +154,7 @@ describe('TableInlineCellEditing', () => {
       .toMatchObject({ disabled: true });
   });
 
-  it('should pass autoFocus, onBlur and onKeyDown props into cellComponent', () => {
+  it('should pass autoFocus, onBlur, onFocus and onKeyDown props into cellComponent', () => {
     isInlineEditTableCell.mockImplementation(() => true);
 
     const tree = mount((
@@ -173,7 +175,9 @@ describe('TableInlineCellEditing', () => {
       .toBeDefined();
     expect(cellComponent.prop('onBlur'))
       .toBeDefined();
-    expect(cellComponent.prop('onKeyDown'))
+    expect(cellComponent.prop('onFocus'))
       .toBeDefined();
+    expect(cellComponent.prop('onKeyDown'))
+    .toBeDefined();
   });
 });

@@ -16,6 +16,8 @@ export namespace TableInlineCellEditing {
     onValueChange: (newValue: any) => void;
     /** AutoFocus on element */
     autoFocus: boolean;
+    /** AutoFocus on element */
+    onFocus: (e: any) => void;
     /** A function called on key down */
     onKeyDown: (e: any) => void;
     /** A function called on focus lost */
@@ -26,4 +28,8 @@ export namespace TableInlineCellEditing {
 export interface TableInlineCellEditingProps {
   /** A component that renders an editable cell. */
   cellComponent: React.ComponentType<TableInlineCellEditing.CellProps>;
+  /** Define text selection on edit start */
+  selectTextOnEditStart: boolean;
+  /** An action, that start editing cell */
+  startEditAction: 'click' | 'doubleClick';
 }

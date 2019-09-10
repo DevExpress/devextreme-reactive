@@ -31,6 +31,8 @@ import { TableInlineCellEditing } from '@devexpress/dx-react-grid';
 Name | Type | Default | Description
 -----|------|---------|------------
 cellComponent | ComponentType&lt;[TableInlineCellEditing.CellProps](#tableinlinecelleditingcellprops)&gt; | | A component that renders an editable cell.
+startEditAction | 'click' &#124; 'doubleClick' | 'click' | An action, that start editing cell.
+selectTextOnEditStart | boolean | false | Define text selection on edit start.
 
 ## Interfaces
 

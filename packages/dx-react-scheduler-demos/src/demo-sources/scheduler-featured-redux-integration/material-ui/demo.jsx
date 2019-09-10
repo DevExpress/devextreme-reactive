@@ -7,6 +7,7 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import { teal } from '@material-ui/core/colors';
+import { fade } from '@material-ui/core/styles/colorManipulator';
 import { ViewState } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
@@ -20,7 +21,7 @@ import {
 
 import { appointments } from '../../../demo-data/appointments';
 
-const styles = ({ spacing }) => ({
+const styles = ({ spacing, palette }) => ({
   flexibleSpace: {
     margin: '0 auto 0 0',
     display: 'flex',
@@ -82,6 +83,15 @@ const styles = ({ spacing }) => ({
   },
   container: {
     width: '100%',
+  },
+  weekendCell: {
+    backgroundColor: fade(palette.primary.main, 0.1),
+    '&:hover': {
+      backgroundColor: fade(palette.primary.main, 0.14),
+    },
+    '&:focus': {
+      backgroundColor: fade(palette.primary.main, 0.16),
+    },
   },
 });
 
@@ -170,6 +180,24 @@ const FlexibleSpace = withStyles(styles, { name: 'FlexibleSpace' })(
   ),
 );
 
+const isRestTime = date => (
+  date.getDay() === 0 || date.getDay() === 6 || date.getHours() < 9 || date.getHours() >= 18
+);
+
+const TimeTableCell = withStyles(styles, { name: 'TimeTableCell' })(({ classes, ...restProps }) => {
+  const { startDate } = restProps;
+  if (isRestTime(startDate)) {
+    return <WeekView.TimeTableCell {...restProps} className={classes.weekendCell} />;
+  } return <WeekView.TimeTableCell {...restProps} />;
+});
+
+const DayScaleCell = withStyles(styles, { name: 'DayScaleCell' })(({ classes, ...restProps }) => {
+  const { startDate } = restProps;
+  if (startDate.getDay() === 0 || startDate.getDay() === 6) {
+    return <WeekView.DayScaleCell {...restProps} className={classes.weekendCell} />;
+  } return <WeekView.DayScaleCell {...restProps} />;
+});
+
 const SCHEDULER_STATE_CHANGE_ACTION = 'SCHEDULER_STATE_CHANGE';
 
 const SchedulerContainer = ({
@@ -193,8 +221,10 @@ const SchedulerContainer = ({
         endDayHour={19}
       />
       <WeekView
-        startDayHour={9}
+        startDayHour={8}
         endDayHour={19}
+        timeTableCellComponent={TimeTableCell}
+        dayScaleCellComponent={DayScaleCell}
       />
       <Toolbar flexibleSpaceComponent={FlexibleSpace} />
       <DateNavigator />

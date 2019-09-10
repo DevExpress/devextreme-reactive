@@ -47,7 +47,11 @@ const tableBodyRowsComputed = ({
   getRowLevelKey,
   isGroupRow,
   getRowId,
-}: Getters) => tableRowsWithSummaries(tableBodyRows, getRowLevelKey, isGroupRow, getRowId);
+  groupSummaryItems,
+  treeSummaryItems,
+}: Getters) => tableRowsWithSummaries(
+  tableBodyRows, groupSummaryItems, treeSummaryItems, getRowLevelKey, isGroupRow, getRowId,
+);
 const tableFooterRowsComputed = ({
   tableFooterRows,
 }: Getters) => tableRowsWithTotalSummaries(tableFooterRows);

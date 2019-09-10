@@ -158,7 +158,7 @@ export const processLineAnimation = (startCoords, endCoords, scales, rotated) =>
 export const processAreaAnimation = (startCoords, endCoords, scales, rotated) => {
   const startPosition = rotated ? scales.xScale.copy().clamp!(true)(0) :
   scales.yScale.copy().clamp!(true)(0);
-  let fromCoords = startCoords.slice();
+  let fromCoords = startCoords && startCoords.slice();
   if (!fromCoords) {
     fromCoords = endCoords.map((coord) => {
       return { arg: coord.arg, val: startPosition, startVal: startPosition };
@@ -175,6 +175,17 @@ export const processAreaAnimation = (startCoords, endCoords, scales, rotated) =>
           startVal: startCurCoord.startVal + progress * (coord.startVal - startCurCoord.startVal),
         };
       }),
+    };
+  };
+};
+
+export const processPieAnimation = (start, end) => {
+  return (progress) => {
+    return {
+      innerRadius: start.innerRadius + progress * (end.innerRadius - start.innerRadius),
+      outerRadius: start.outerRadius + progress * (end.outerRadius - start.outerRadius),
+      startAngle: start.startAngle + progress * (end.startAngle - start.startAngle),
+      endAngle: start.endAngle + progress * (end.endAngle - start.endAngle),
     };
   };
 };

@@ -1,12 +1,13 @@
 import * as React from 'react';
 import {
-  processLineAnimation, HOVERED, SELECTED,
+  processLineAnimation, HOVERED, SELECTED, isArrayValuesChanged,
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { PathComponentPathProps } from '../../types';
 
 class RawPath extends React.PureComponent<PathComponentPathProps, any> {
   animationId: any = undefined;
+  isAnimationStart: any = true;
   constructor(props) {
     super(props);
 
@@ -23,31 +24,36 @@ class RawPath extends React.PureComponent<PathComponentPathProps, any> {
 
   componentDidMount() {
     const {
-      coordinates, rotated, animation, scales,
+      coordinates, animation,
     } = this.props;
-    if (animation) {
-      this.animationId = animation(
-        processLineAnimation(null, coordinates, scales, rotated),
-        this.setAttribute,
-        this.animationId,
-    );
-    } else {
+    if (!animation) {
       this.setAttribute({ coordinates });
     }
   }
 
   componentDidUpdate({
-    coordinates: prevCoordinates, rotated: prevRotated,
+    coordinates: prevCoordinates,
   }) {
     const {
       coordinates, rotated, animation, scales,
     } = this.props;
-    if (animation && (coordinates !== prevCoordinates || prevRotated !== rotated)) {
+
+    if (animation && this.isAnimationStart) {
+      this.animationId = animation(
+        processLineAnimation(null, coordinates, scales, rotated),
+        this.setAttribute,
+        this.animationId,
+      );
+      this.isAnimationStart = false;
+    } else if (animation
+      && isArrayValuesChanged(prevCoordinates, coordinates, 'argument', 'value')) {
       this.animationId = animation(
         processLineAnimation(prevCoordinates, coordinates, scales, rotated),
         this.setAttribute,
         this.animationId,
-        );
+      );
+    } else if (isArrayValuesChanged(prevCoordinates, coordinates, 'arg', 'val')) {
+      this.setAttribute({ coordinates });
     }
   }
 

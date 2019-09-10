@@ -153,9 +153,9 @@ export const dSymbol = (
 ) => symbol().size(size ** 2).type(symbolCircle)()!;
 
 /** @internal */
-export const dPie = ({
-  maxRadius, innerRadius, outerRadius, startAngle, endAngle,
-}: PieSeries.PointProps) => arc()({
+export const dPie = (
+  maxRadius: number, innerRadius: number, outerRadius: number, startAngle: number, endAngle: number,
+) => arc()({
   startAngle,
   endAngle,
   innerRadius: innerRadius * maxRadius,
@@ -309,4 +309,19 @@ export const adjustBarSize = (
     width: Math.min(width, bar.x + bar.width) - x,
     height: Math.min(height, bar.y + bar.height) - y,
   };
+};
+
+/** @internal */
+export const isValuesChanged = (prevArg, prevVal, arg, val) => {
+  return prevArg !== arg || prevVal !== val;
+};
+
+/** @internal */
+export const isArrayValuesChanged = (prevCoordinates, coordinates, arg, val) => {
+  if (prevCoordinates.length !== coordinates.length) {
+    return true;
+  }
+  return prevCoordinates.some((el, index) => {
+    return el[arg] !== coordinates[index][arg] || el[val] !== coordinates[index][val];
+  });
 };

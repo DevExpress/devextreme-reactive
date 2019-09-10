@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  processPointAnimation, dSymbol, HOVERED, SELECTED, getVisibility,
+  processPointAnimation, dSymbol, HOVERED, SELECTED, getVisibility, isValuesChanged,
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { ScatterSeries } from '../../types';
@@ -8,6 +8,7 @@ import { ScatterSeries } from '../../types';
 class RawPoint extends React.PureComponent<ScatterSeries.PointProps, any> {
   d: string = '';
   animationId: any = undefined;
+  isAnimationStart: any = true;
   constructor(props) {
     super(props);
 
@@ -25,37 +26,41 @@ class RawPoint extends React.PureComponent<ScatterSeries.PointProps, any> {
 
   componentDidMount() {
     const {
-      arg, val, rotated, animation, scales, point,
+      arg, val, rotated, animation, point,
     } = this.props;
 
     this.d = dSymbol(point);
     const x = rotated ? val : arg;
     const y = rotated ? arg : val;
-    if (animation) {
-      this.animationId = animation(
-      processPointAnimation(null, { x, y }, scales, rotated), this.setAttribute, this.animationId,
-      );
-    } else {
+    if (!animation) {
       this.setAttribute({ x, y });
     }
   }
 
   componentDidUpdate({
-  arg: prevArg, val: prevVal, rotated: prevRotated, argument: prevArgument, value: prevValue,
+  arg: prevArg, val: prevVal, argument: prevArgument, value: prevValue,
 }) {
     const {
-      arg, val, rotated, animation, scales,
+      arg, val, rotated, animation, scales, argument, value,
     } = this.props;
     const x = rotated ? val : arg;
     const y = rotated ? arg : val;
     const prevX = rotated ? prevVal : prevArg;
     const prevY = rotated ? prevArg : prevVal;
-    if (animation && (prevArg !== arg || prevVal !== val || prevRotated !== rotated)) {
+    if (animation && this.isAnimationStart) {
+      this.animationId = animation(
+        processPointAnimation(null, { x, y }, scales, rotated),
+        this.setAttribute, this.animationId,
+      );
+      this.isAnimationStart = false;
+    } else if (animation && isValuesChanged(prevArgument, prevValue, argument, value)) {
       this.animationId = animation(
         processPointAnimation({ x: prevX, y: prevY }, { x, y }, scales, rotated),
         this.setAttribute,
         this.animationId,
       );
+    } else if (isValuesChanged(prevX, prevY, x, y)) {
+      this.setAttribute({ x, y });
     }
   }
 

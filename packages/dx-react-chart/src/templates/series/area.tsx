@@ -1,13 +1,64 @@
 import * as React from 'react';
 import {
-  getAreaAnimationStyle, HOVERED, SELECTED, dArea, dRotateArea,
+  processAreaAnimation, HOVERED, SELECTED, dArea, dRotateArea, isArrayValuesChanged,
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
 import { AreaSeries } from '../../types';
 
-class RawArea extends React.PureComponent<AreaSeries.SeriesProps> {
+class RawArea extends React.PureComponent<AreaSeries.SeriesProps, any> {
+  animationId: any = undefined;
+  isAnimationStart: any = true;
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      coordinates: [],
+      style: undefined,
+    };
+    this.setAttribute = this.setAttribute.bind(this);
+  }
+
+  setAttribute({ coordinates, style }: { coordinates: any, style?: any}) {
+    this.setState({ coordinates, style });
+  }
+
+  componentDidMount() {
+    const {
+      coordinates, animation,
+    } = this.props;
+    if (!animation) {
+      this.setAttribute({ coordinates });
+    }
+  }
+
+  componentDidUpdate({
+    coordinates: prevCoordinates,
+  }) {
+    const {
+      coordinates, rotated, animation, scales,
+    } = this.props;
+
+    if (animation && this.isAnimationStart) {
+      this.animationId = animation(
+        processAreaAnimation(null, coordinates, scales, rotated),
+        this.setAttribute,
+        this.animationId,
+      );
+      this.isAnimationStart = false;
+    } else if (animation
+      && isArrayValuesChanged(prevCoordinates, coordinates, 'argument', 'value')) {
+      this.animationId = animation(
+        processAreaAnimation(prevCoordinates, coordinates, scales, rotated),
+        this.setAttribute,
+        this.animationId,
+      );
+    } else if (isArrayValuesChanged(prevCoordinates, coordinates, 'arg', 'val')) {
+      this.setAttribute({ coordinates });
+    }
+  }
   render() {
+    const { coordinates: coords, style: animateStyle } = this.state;
     const {
       path,
       coordinates,
@@ -20,10 +71,10 @@ class RawArea extends React.PureComponent<AreaSeries.SeriesProps> {
     return (
       <path
         clipPath={`url(#${clipPathId})`}
-        d={dPath!(coordinates)}
+        d={dPath!(coords)}
         fill={color}
         opacity={0.5}
-        style={getAnimatedStyle(style, getAreaAnimationStyle, scales)}
+        style={{ ...style, ...animateStyle }}
         {...restProps}
       />
     );

@@ -142,17 +142,6 @@ export const editCurrentAndFollowing: EditFn = (changes, appointmentData) => {
   const { rRule, startDate, parentData, exDate: prevExDate = '', id } = appointmentData;
 
   const initialRule = new RRule(RRule.parseString(rRule as string));
-  if (moment.utc(changes.startDate as Date).isAfter(initialRule.options.until!)) {
-    return {
-      changed: {
-        [id!]: {
-          ...changes,
-          rRule: 'FREQ=DAILY;COUNT=1',
-          exDate: '',
-        },
-      },
-    };
-  }
 
   const initialSequence: Date[] = configureDateSequence(rRule, prevExDate, {
     dtstart: moment.utc(parentData.startDate).toDate(),
@@ -176,13 +165,25 @@ export const editCurrentAndFollowing: EditFn = (changes, appointmentData) => {
   });
 
   const nextExDate = reduceExDate(prevExDate, startDate as Date);
-  return {
-    changed: {
-      [id!]: {
-        rRule: changedRules[1].slice(6),
-        ...nextExDate && prevExDate !== nextExDate ? { exDate: nextExDate } : {},
-      },
+
+  const changedAppointment = {
+    [id!]: {
+      rRule: changedRules[1].slice(6),
+      ...nextExDate && prevExDate !== nextExDate ? { exDate: nextExDate } : {},
     },
+  };
+
+  if (moment.utc(changes.startDate as Date).isAfter(initialRule.options.until!)
+    && moment.utc(changes.startDate as Date).isAfter(startDate)) {
+    return {
+      changed: changedAppointment,
+      added: {
+        rRule: 'FREQ=DAILY;COUNT=1', exDate: '', ...mergeNewChanges(appointmentData, changes),
+      },
+    };
+  }
+  return {
+    changed: changedAppointment,
     added: { rRule: addedRules[1].slice(6), ...mergeNewChanges(appointmentData, changes) },
   };
 };

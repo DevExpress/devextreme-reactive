@@ -359,12 +359,15 @@ describe('EditingState', () => {
         };
 
         expect(editCurrentAndFollowing(changes, appointmentData)).toEqual({
+          added: {
+            startDate: new Date(Date.UTC(2019, 6, 17, 14, 20)),
+            endDate: new Date(Date.UTC(2019, 6, 17, 16)),
+            rRule: 'FREQ=DAILY;COUNT=1',
+            exDate: '',
+          },
           changed: {
             4: {
-              startDate: new Date(Date.UTC(2019, 6, 17, 14, 20)),
-              endDate: new Date(Date.UTC(2019, 6, 17, 16)),
-              rRule: 'FREQ=DAILY;COUNT=1',
-              exDate: '',
+              rRule: 'FREQ=DAILY;UNTIL=20190715T142000Z',
             },
           },
         });
@@ -386,6 +389,7 @@ describe('EditingState', () => {
           endDate: new Date(Date.UTC(2019, 6, 17, 16)),
         };
 
+        console.log(editCurrentAndFollowing(changes, appointmentData));
         expect(editCurrentAndFollowing(changes, appointmentData)).toEqual({
           changed: {
             4: {

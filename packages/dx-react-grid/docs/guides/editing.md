@@ -43,13 +43,19 @@ Note, you can also use the `onAddedRowsChange` event to initialize a created row
 
 .embedded-demo({ "path": "grid-editing/edit-row-controlled", "showThemeSelector": true })
 
-### Inline Cell Editing
+## Inline Cell Editing
+
+### Basic
 
 You can use `TableInlineCellEditing` plugin to edit single cell. With this plugin you turn cell in editing state by click. When you press `Enter` or lost focus from cell (for example click on another cell or element) changes aplly. When you press 'Escape' changes cancel.
 
-Important, this plugin is incompatible with `TableEditRow` plugin.
-
 .embedded-demo({ "path": "grid-editing/inline-cell-editing", "showThemeSelector": true })
+
+### Cooperation with TableEditRow
+
+`TableInlineCellEditing` plugin may be used with each other editing plugins. For example, you can edit table by single cell and add new rows by `TableEditRow` plugin and with `TableEditColumn` plugin
+
+.embedded-demo({ "path": "grid-editing/edit-row-with-inline-cell-editing", "showThemeSelector": true })
 
 ## Disable Editing in a Column
 

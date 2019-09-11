@@ -24,7 +24,6 @@ export const Layout = React.memo(({
   );
 
   const onCommitButtonClick = () => {
-    handleClose();
     commit(currentValue);
   };
 

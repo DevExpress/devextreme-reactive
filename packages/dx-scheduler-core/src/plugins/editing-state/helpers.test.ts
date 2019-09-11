@@ -1,7 +1,7 @@
 import {
   deleteCurrent,
   deleteAll,
-  deletedCurrentAndFollowing,
+  deleteCurrentAndFollowing,
   editAll,
   editCurrent,
   editCurrentAndFollowing,
@@ -73,7 +73,7 @@ describe('EditingState', () => {
       });
     });
 
-    describe('#deletedCurrentAndFollowing', () => {
+    describe('#deleteCurrentAndFollowing', () => {
       it('should work without the exDate field', () => {
         const appointmentData = {
           id: 0,
@@ -86,9 +86,9 @@ describe('EditingState', () => {
           },
         };
 
-        const changes = deletedCurrentAndFollowing(appointmentData);
+        const changes = deleteCurrentAndFollowing(appointmentData);
         expect(changes).toEqual({ changed: { 0: {
-          rRule: 'FREQ=DAILY;UNTIL=20190717T142000Z',
+          rRule: 'FREQ=DAILY;UNTIL=20190716T142000Z',
         } } });
       });
 
@@ -105,9 +105,9 @@ describe('EditingState', () => {
           },
         };
 
-        const changes = deletedCurrentAndFollowing(appointmentData);
+        const changes = deleteCurrentAndFollowing(appointmentData);
         expect(changes).toEqual({ changed: { 0: {
-          rRule: 'FREQ=DAILY;UNTIL=20190717T142000Z',
+          rRule: 'FREQ=DAILY;UNTIL=20190715T142000Z',
           exDate: '20190716T142000Z',
         } } });
       });
@@ -125,9 +125,9 @@ describe('EditingState', () => {
           },
         };
 
-        const changes = deletedCurrentAndFollowing(appointmentData);
+        const changes = deleteCurrentAndFollowing(appointmentData);
         expect(changes).toEqual({ changed: { 0: {
-          rRule: 'FREQ=DAILY;UNTIL=20190717T142000Z',
+          rRule: 'FREQ=DAILY;UNTIL=20190715T142000Z',
         } } });
       });
 
@@ -146,6 +146,23 @@ describe('EditingState', () => {
         };
 
         const changes = deleteCurrent(appointmentData);
+        expect(changes).toEqual({ deleted: 0 });
+      });
+
+      it('should remove the entire sequence if the chosen appointment is the first one', () => {
+        const appointmentData = {
+          id: 0,
+          startDate: new Date(Date.UTC(2019, 6, 15, 14, 20)),
+          endDate: new Date(Date.UTC(2019, 6, 15, 16)),
+          rRule: 'FREQ=DAILY;COUNT=3',
+          parentData: {
+            rRule: 'FREQ=DAILY;COUNT=3',
+            startDate: new Date(Date.UTC(2019, 6, 15, 14, 20)),
+            endDate: new Date(Date.UTC(2019, 6, 15, 16)),
+          },
+        };
+
+        const changes = deleteCurrentAndFollowing(appointmentData);
         expect(changes).toEqual({ deleted: 0 });
       });
     });

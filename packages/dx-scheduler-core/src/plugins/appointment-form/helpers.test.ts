@@ -167,6 +167,7 @@ describe('AppointmentForm helpers', () => {
           freq: RRule.YEARLY,
           byweekday: undefined,
           bymonthday: testDate.getDate(),
+          bymonth: testDate.getMonth() + 1,
         }))
           .options);
     });
@@ -183,7 +184,6 @@ describe('AppointmentForm helpers', () => {
           freq: RRule.MONTHLY,
           byweekday: undefined,
           bymonthday: testDate.getDate(),
-          bymonth: testDate.getMonth() + 1,
         }))
           .options);
     });

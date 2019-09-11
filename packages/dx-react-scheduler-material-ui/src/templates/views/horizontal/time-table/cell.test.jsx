@@ -79,7 +79,7 @@ describe('Horizontal view TimeTable', () => {
     expect(tree.find(`.${classes.text}`).props().children)
       .toBeTruthy();
   });
-  it('should call date format function', () => {
+  it('should call date format function with month and day parameter', () => {
     const formatDate = jest.fn();
     formatDate.mockImplementation(() => 'time');
     const startDate = new Date(2018, 6, 1, 16);

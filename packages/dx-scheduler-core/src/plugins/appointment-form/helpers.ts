@@ -57,11 +57,8 @@ export const changeRecurrenceFrequency: PureComputed<
   }
   if (freq === RRULE_REPEAT_TYPES.DAILY || freq === RRULE_REPEAT_TYPES.WEEKLY) {
     options.bymonthday = undefined;
-    options.byweekday = undefined;
   }
-  if (freq === RRULE_REPEAT_TYPES.YEARLY) {
-    options.byweekday = undefined;
-  }
+  options.byweekday = undefined;
   const nextRule = new RRule(options);
   return nextRule.toString();
 };

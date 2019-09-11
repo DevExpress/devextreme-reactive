@@ -123,7 +123,7 @@ describe('AppointmentForm helpers', () => {
           .options);
     });
 
-    it('should clean bymonthday and byweekday when switching to daily', () => {
+    it('should clear bymonthday and byweekday when switching to daily', () => {
       const testRule = 'RRULE:INTERVAL=4;BYMONTHDAY=24;BYWEEKDAY=MO';
 
       expect((new RRule(
@@ -139,7 +139,7 @@ describe('AppointmentForm helpers', () => {
           .options);
     });
 
-    it('should clean bymonthday and byweekday when switching to weekly', () => {
+    it('should clear bymonthday and byweekday when switching to weekly', () => {
       const testRule = 'RRULE:INTERVAL=4;BYMONTHDAY=24;BYWEEKDAY=MO';
 
       expect((new RRule(
@@ -155,17 +155,35 @@ describe('AppointmentForm helpers', () => {
           .options);
     });
 
-    it('should clean byweekday when switching to yearly', () => {
+    it('should clear byweekday when switching to yearly', () => {
       const testRule = 'RRULE:INTERVAL=4;BYWEEKDAY=MO';
 
       expect((new RRule(
-        RRule.parseString(changeRecurrenceFrequency(testRule, RRule.WEEKLY, testDate)))
+        RRule.parseString(changeRecurrenceFrequency(testRule, RRule.YEARLY, testDate)))
       )
         .options)
         .toMatchObject((new RRule({
           ...RRule.parseString(testRule),
-          freq: RRule.WEEKLY,
+          freq: RRule.YEARLY,
           byweekday: undefined,
+          bymonthday: testDate.getDate(),
+        }))
+          .options);
+    });
+
+    it('should clear byweekday when switching to monthly', () => {
+      const testRule = 'RRULE:INTERVAL=4;BYWEEKDAY=MO';
+
+      expect((new RRule(
+        RRule.parseString(changeRecurrenceFrequency(testRule, RRule.MONTHLY, testDate)))
+      )
+        .options)
+        .toMatchObject((new RRule({
+          ...RRule.parseString(testRule),
+          freq: RRule.MONTHLY,
+          byweekday: undefined,
+          bymonthday: testDate.getDate(),
+          bymonth: testDate.getMonth() + 1,
         }))
           .options);
     });

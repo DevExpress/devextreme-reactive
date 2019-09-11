@@ -389,7 +389,6 @@ describe('EditingState', () => {
           endDate: new Date(Date.UTC(2019, 6, 17, 16)),
         };
 
-        console.log(editCurrentAndFollowing(changes, appointmentData));
         expect(editCurrentAndFollowing(changes, appointmentData)).toEqual({
           changed: {
             4: {

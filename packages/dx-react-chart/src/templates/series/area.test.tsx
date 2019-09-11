@@ -25,7 +25,6 @@ describe('Area', () => {
     scales: { tag: 'test-scales' },
     rotated: true,
     clipPathId: 'clipPathId',
-    getAnimatedStyle: jest.fn(style => style),
   };
 
   it('should render root element', () => {

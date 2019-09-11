@@ -3,7 +3,7 @@ import {
   Colors, SeriesList, DataItems, ScalesCache,
 } from './chart-core.types';
 import {
-  Scales, GetSeriesAnimatedStyleFn,
+  Scales,
 } from './plugins.animation.types';
 import { Size } from '@devexpress/dx-react-core';
 
@@ -53,8 +53,6 @@ interface CommonComponentProps {
   style?: any;
   /** @internal */
   scales: Scales;
-  /** @internal */
-  getAnimatedStyle: GetSeriesAnimatedStyleFn;
   /** @internal */
   pane: Size;
   /** @internal */

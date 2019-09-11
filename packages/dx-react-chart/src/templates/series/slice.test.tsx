@@ -34,7 +34,6 @@ describe('Slice', () => {
     color: 'color',
     style: { tag: 'test-style' },
     scales: { tag: 'test-scales' },
-    getAnimatedStyle: jest.fn().mockReturnValue('animated-style'),
   };
 
   it('should render slice', () => {

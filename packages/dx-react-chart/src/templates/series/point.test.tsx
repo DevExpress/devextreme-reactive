@@ -28,12 +28,10 @@ describe('Point', () => {
     color: 'color',
     style: { tag: 'test-style' },
     scales: { tag: 'test-scales' },
-    getAnimatedStyle: jest.fn().mockReturnValue('animated-style'),
   };
 
   afterEach(() => {
     (dSymbol as jest.Mock).mockClear();
-    defaultProps.getAnimatedStyle.mockClear();
   });
 
   it('should render point', () => {
@@ -75,15 +73,6 @@ describe('Point', () => {
     const { custom } = tree.find('path').props() as any;
 
     expect(custom).toEqual(10);
-  });
-
-  it('should apply animation style', () => {
-    shallow((
-      <Point {...(defaultProps as any)} />
-    ));
-
-    expect(defaultProps.getAnimatedStyle)
-      .toBeCalledWith(defaultProps.style, 'test-animation-style', defaultProps.scales);
   });
 
   it('should have hovered and selected states', () => {

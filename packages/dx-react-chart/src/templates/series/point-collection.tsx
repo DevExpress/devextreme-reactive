@@ -10,7 +10,7 @@ export class PointCollection extends React.PureComponent<PathComponentProps> {
       index,
       state,
       clipPathId,
-      ...restProps // restProps are used because of getAnimatedStyle and scale
+      ...restProps // restProps are used because of animation and scale
     } = this.props;
     const Point = pointComponent!;
     return (coordinates.map(point => (

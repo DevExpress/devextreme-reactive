@@ -36,12 +36,12 @@ class RawArea extends React.PureComponent<AreaSeries.SeriesProps, any> {
     coordinates: prevCoordinates,
   }) {
     const {
-      coordinates, rotated, animation, scales,
+      coordinates, animation, scales,
     } = this.props;
 
     if (animation && this.isAnimationStart) {
       this.animationId = animation(
-        processAreaAnimation(null, coordinates, scales, rotated),
+        processAreaAnimation(null, coordinates, scales),
         this.setAttribute,
         this.animationId,
       );
@@ -49,7 +49,7 @@ class RawArea extends React.PureComponent<AreaSeries.SeriesProps, any> {
     } else if (animation
       && isArrayValuesChanged(prevCoordinates, coordinates, 'argument', 'value')) {
       this.animationId = animation(
-        processAreaAnimation(prevCoordinates, coordinates, scales, rotated),
+        processAreaAnimation(prevCoordinates, coordinates, scales),
         this.setAttribute,
         this.animationId,
       );
@@ -64,7 +64,7 @@ class RawArea extends React.PureComponent<AreaSeries.SeriesProps, any> {
       coordinates,
       index, state, pointComponent,
       color, clipPathId,
-      style, scales, getAnimatedStyle, rotated,
+      style, scales, rotated,
       ...restProps
     } = this.props;
     const dPath = path === undefined ? (rotated ? dRotateArea : dArea) : path;

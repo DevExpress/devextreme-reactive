@@ -20,7 +20,6 @@ describe('Path', () => {
     color: 'red',
     scales: { tag: 'test-scales' },
     rotated: true,
-    getAnimatedStyle: jest.fn(style => style),
     clipPathId: 'clipPathId',
   };
 

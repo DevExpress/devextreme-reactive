@@ -10,7 +10,7 @@ import {
   PluginComponents,
 } from '@devexpress/dx-react-core';
 import {
-  findSeriesByName, addSeries, extendDomains, getValueDomainName, ARGUMENT_DOMAIN, ScaleObject,
+  findSeriesByName, addSeries, extendDomains, getValueDomainName, ARGUMENT_DOMAIN,
 } from '@devexpress/dx-chart-core';
 import {
   ExtraSeriesParameters, SeriesProps, PathComponentProps, Scales,
@@ -61,18 +61,15 @@ export const declareSeries = <T extends SeriesProps>(
           <Template name="series">
             <TemplatePlaceholder />
             <TemplateConnector>
-              {({ series, scales, getAnimatedStyle, animation, rotated, layouts, clipPathId }) => {
+              {({ series, scales, animation, rotated, layouts, clipPathId }) => {
                 const { pane } = layouts;
                 if (!pane.width && !pane.height) {
                   return null;
                 }
                 const currentSeries = findSeriesByName(symbolName, series);
-                const argScale: ScaleObject = scales[ARGUMENT_DOMAIN];
-                const valScale: ScaleObject = scales[getValueDomainName(currentSeries!.scaleName)];
-                // TODO_THIS: This code is expected to be removed when frame animation is used.
                 const currentScales: Scales = {
-                  xScale: rotated ? valScale : argScale,
-                  yScale: rotated ? argScale : valScale,
+                  argScale: scales[ARGUMENT_DOMAIN],
+                  valScale: scales[getValueDomainName(currentSeries!.scaleName)],
                 };
                 const Path: React.ComponentType<PathComponentProps> =
                   currentSeries.seriesComponent as any;
@@ -85,7 +82,6 @@ export const declareSeries = <T extends SeriesProps>(
                     state={currentSeries.state}
                     color={currentSeries.color}
                     scales={currentScales}
-                    getAnimatedStyle={getAnimatedStyle}
                     pane={pane}
                     clipPathId={clipPathId}
                     animation={animation}

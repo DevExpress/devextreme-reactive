@@ -37,12 +37,7 @@ describe('Bar', () => {
     style: { tag: 'test-style' },
     scales: { tag: 'test-scales' } as any,
     pane: { width: 100, height: 200 },
-    getAnimatedStyle: jest.fn().mockReturnValue('animated-style'),
   };
-
-  afterEach(() => {
-    defaultProps.getAnimatedStyle.mockClear();
-  });
 
   it('should render bar', () => {
     const tree = shallow((
@@ -67,15 +62,6 @@ describe('Bar', () => {
 
     const { custom } = tree.find('rect').props() as any;
     expect(custom).toEqual(10);
-  });
-
-  it('should apply animation style', () => {
-    shallow((
-      <Bar {...defaultProps} />
-    ));
-
-    expect(defaultProps.getAnimatedStyle)
-      .toBeCalledWith(defaultProps.style, 'test-animation-style', defaultProps.scales);
   });
 
   it('should have hovered and selected states', () => {

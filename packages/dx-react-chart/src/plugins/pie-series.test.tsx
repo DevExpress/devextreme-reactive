@@ -70,8 +70,7 @@ describe('Pie series', () => {
       color: 'color',
       coordinates: coords,
       path: undefined,
-      getAnimatedStyle: undefined,
-      scales: { xScale: 'arg-scale', yScale: 'val-scale' },
+      scales: { argScale: 'arg-scale', valScale: 'val-scale' },
       pane: { width: 1, height: 2 },
     });
   });

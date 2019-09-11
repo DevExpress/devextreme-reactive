@@ -13,27 +13,25 @@ class RawPoint extends React.PureComponent<ScatterSeries.PointProps, any> {
     super(props);
 
     this.state = {
-      x: 0,
-      y: 0,
+      cx: 0,
+      cy: 0,
       style: undefined,
     };
     this.setAttribute = this.setAttribute.bind(this);
   }
 
   setAttribute({ x, y, style }: {x: number, y: number, style?: object}) {
-    this.setState({ x, y, style });
+    this.setState({ cx: x, cy: y, style });
   }
 
   componentDidMount() {
     const {
-      arg, val, rotated, animation, point,
+      arg, val, animation, point,
     } = this.props;
 
     this.d = dSymbol(point);
-    const x = rotated ? val : arg;
-    const y = rotated ? arg : val;
     if (!animation) {
-      this.setAttribute({ x, y });
+      this.setAttribute({ x: arg, y: val });
     }
   }
 
@@ -41,39 +39,37 @@ class RawPoint extends React.PureComponent<ScatterSeries.PointProps, any> {
   arg: prevArg, val: prevVal, argument: prevArgument, value: prevValue,
 }) {
     const {
-      arg, val, rotated, animation, scales, argument, value,
+      arg, val, animation, scales, argument, value,
     } = this.props;
-    const x = rotated ? val : arg;
-    const y = rotated ? arg : val;
-    const prevX = rotated ? prevVal : prevArg;
-    const prevY = rotated ? prevArg : prevVal;
     if (animation && this.isAnimationStart) {
       this.animationId = animation(
-        processPointAnimation(null, { x, y }, scales, rotated),
+        processPointAnimation(null, { x: arg, y: val }, scales),
         this.setAttribute, this.animationId,
       );
       this.isAnimationStart = false;
     } else if (animation && isValuesChanged(prevArgument, prevValue, argument, value)) {
       this.animationId = animation(
-        processPointAnimation({ x: prevX, y: prevY }, { x, y }, scales, rotated),
+        processPointAnimation({ x: prevArg, y: prevVal }, { x: arg, y: val }, scales),
         this.setAttribute,
         this.animationId,
       );
-    } else if (isValuesChanged(prevX, prevY, x, y)) {
-      this.setAttribute({ x, y });
+    } else if (isValuesChanged(prevArg, prevVal, arg, val)) {
+      this.setAttribute({ x: arg, y: val });
     }
   }
 
   render() {
-    const { x, y, style: animateStyle } = this.state;
+    const { cx, cy, style: animateStyle } = this.state;
     const {
       arg, val, rotated, animation,
       argument, value, seriesIndex, index, state,
       point: pointOptions,
       color, pane,
-      style, scales, getAnimatedStyle,
+      style, scales,
       ...restProps
     } = this.props;
+    const x = rotated ? cy : cx;
+    const y = rotated ? cx : cy;
     const visibility = getVisibility(pane, x, y, 0, 0);
     return (
       <path

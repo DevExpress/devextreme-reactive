@@ -80,7 +80,7 @@ class RawSlice extends React.PureComponent<PieSeries.PointProps, any> {
       argument, value, seriesIndex, index, state, maxRadius,
       innerRadius, outerRadius, startAngle, endAngle,
       color, animation,
-      style, scales, getAnimatedStyle,
+      style, scales,
       ...restProps
     } = this.props;
     return (

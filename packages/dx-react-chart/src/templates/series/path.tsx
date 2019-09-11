@@ -35,12 +35,12 @@ class RawPath extends React.PureComponent<PathComponentPathProps, any> {
     coordinates: prevCoordinates,
   }) {
     const {
-      coordinates, rotated, animation, scales,
+      coordinates, animation, scales,
     } = this.props;
 
     if (animation && this.isAnimationStart) {
       this.animationId = animation(
-        processLineAnimation(null, coordinates, scales, rotated),
+        processLineAnimation(null, coordinates, scales),
         this.setAttribute,
         this.animationId,
       );
@@ -48,7 +48,7 @@ class RawPath extends React.PureComponent<PathComponentPathProps, any> {
     } else if (animation
       && isArrayValuesChanged(prevCoordinates, coordinates, 'argument', 'value')) {
       this.animationId = animation(
-        processLineAnimation(prevCoordinates, coordinates, scales, rotated),
+        processLineAnimation(prevCoordinates, coordinates, scales),
         this.setAttribute,
         this.animationId,
       );
@@ -64,7 +64,7 @@ class RawPath extends React.PureComponent<PathComponentPathProps, any> {
       coordinates, rotated,
       index, state, pointComponent,
       color, clipPathId,
-      style, scales, getAnimatedStyle,
+      style, scales,
       ...restProps
     } = this.props;
     return (

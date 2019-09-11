@@ -37,17 +37,17 @@ class RawBar extends React.PureComponent<BarSeries.PointProps, any> {
     arg: prevArg, val: prevVal, argument: prevArgument, value: prevValue,
   }) {
     const {
-      arg, val, rotated, animation, scales, argument, value,
+      arg, val, animation, scales, argument, value,
     } = this.props;
     if (animation && this.isAnimationStart) {
       this.animationId = animation(
-        processPointAnimation(null, { x: arg, y: val }, scales, rotated),
+        processPointAnimation(null, { x: arg, y: val }, scales),
         this.setAttribute, this.animationId,
       );
       this.isAnimationStart = false;
     } else if (animation && isValuesChanged(prevArgument, prevValue, argument, value)) {
       this.animationId = animation(
-        processPointAnimation({ x: prevArg, y: prevVal }, { x: arg, y: val }, scales, rotated),
+        processPointAnimation({ x: prevArg, y: prevVal }, { x: arg, y: val }, scales),
         this.setAttribute,
         this.animationId,
         );
@@ -62,7 +62,7 @@ class RawBar extends React.PureComponent<BarSeries.PointProps, any> {
       arg, val, startVal, barWidth, maxBarWidth, animation,
       argument, value, seriesIndex, index, state, rotated,
       color, pane,
-      style, scales, getAnimatedStyle,
+      style, scales,
       ...restProps
     } = this.props;
     const width = barWidth * maxBarWidth;

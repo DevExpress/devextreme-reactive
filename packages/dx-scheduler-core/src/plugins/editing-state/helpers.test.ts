@@ -148,6 +148,23 @@ describe('EditingState', () => {
         const changes = deleteCurrent(appointmentData);
         expect(changes).toEqual({ deleted: 0 });
       });
+
+      it('should remove the entire sequence if the chosen appointment is the first one', () => {
+        const appointmentData = {
+          id: 0,
+          startDate: new Date(Date.UTC(2019, 6, 15, 14, 20)),
+          endDate: new Date(Date.UTC(2019, 6, 15, 16)),
+          rRule: 'FREQ=DAILY;COUNT=3',
+          parentData: {
+            rRule: 'FREQ=DAILY;COUNT=3',
+            startDate: new Date(Date.UTC(2019, 6, 15, 14, 20)),
+            endDate: new Date(Date.UTC(2019, 6, 15, 16)),
+          },
+        };
+
+        const changes = deleteCurrentAndFollowing(appointmentData);
+        expect(changes).toEqual({ deleted: 0 });
+      });
     });
   });
 

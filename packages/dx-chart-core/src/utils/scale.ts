@@ -102,7 +102,7 @@ const moveLinearScaleBounds = (
     r1 = fullRange[1];
     r0 = r1 - range[1] + range[0];
   }
-  const newBounds: DomainBounds = [scale.invert(r0), scale.invert(r1)];
+  const newBounds: DomainBounds = [scale.invert!(r0), scale.invert!(r1)];
   return rangesEqual(bounds, newBounds) ? bounds : newBounds;
 };
 
@@ -207,7 +207,7 @@ const growLinearScaleBounds = (
       r1 = anchor + minRangeThreshold / 2;
     }
   }
-  const newBounds: DomainBounds = [scale.invert(r0), scale.invert(r1)];
+  const newBounds: DomainBounds = [scale.invert!(r0), scale.invert!(r1)];
   return rangesEqual(bounds, newBounds) ? bounds : newBounds;
 };
 
@@ -255,8 +255,8 @@ const invertLinearScaleBounds = (scale: ScaleObject, range: NumberArray): Domain
   const fullRange = scale.range();
   const match = Math.sign(fullRange[1] - fullRange[0]) === Math.sign(range[1] - range[0]);
   return [
-    scale.invert(range[match ? 0 : 1]),
-    scale.invert(range[match ? 1 : 0]),
+    scale.invert!(range[match ? 0 : 1]),
+    scale.invert!(range[match ? 1 : 0]),
   ];
 };
 

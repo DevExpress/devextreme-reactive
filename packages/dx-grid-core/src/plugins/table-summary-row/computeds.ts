@@ -14,21 +14,21 @@ export const tableRowsWithTotalSummaries: PureComputed<[TableRow[]]> = footerRow
 ];
 
 export const tableRowsWithSummaries: TableRowsWithSummariesFn = (
-  tableRows, getRowLevelKey, isGroupRow, getRowId,
+  tableRows, groupSummaryItems, treeSummaryItems, getRowLevelKey, isGroupRow, getRowId,
 ) => {
-  if (!getRowLevelKey) return tableRows;
+  if (!getRowLevelKey || !(groupSummaryItems || treeSummaryItems)) return tableRows;
 
   const result: TableRow[] = [];
   const closeLevel = (level: RowLevel) => {
     if (!level.opened) return;
-    if (isGroupRow && isGroupRow(level.row)) {
+    if (groupSummaryItems && isGroupRow && isGroupRow(level.row)) {
       const { compoundKey } = level.row;
       result.push({
         key: `${TABLE_GROUP_SUMMARY_TYPE.toString()}_${compoundKey}`,
         type: TABLE_GROUP_SUMMARY_TYPE,
         row: level.row,
       });
-    } else {
+    } else if (treeSummaryItems) {
       const rowId = getRowId(level.row);
       result.push({
         key: `${TABLE_TREE_SUMMARY_TYPE.toString()}_${rowId}`,

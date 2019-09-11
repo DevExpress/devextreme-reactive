@@ -93,19 +93,28 @@ const styles = ({ spacing, palette }) => ({
       backgroundColor: fade(palette.primary.main, 0.16),
     },
   },
+  firstRoomAppointment: {
+    backgroundColor: '#26A69A',
+  },
+  secondRoomAppointment: {
+    backgroundColor: '#FFA726',
+  },
+  thirdRoomAppointment: {
+    backgroundColor: '#EF5350',
+  },
 });
 
 const LOCATIONS = ['Room 1', 'Room 2', 'Room 3'];
 
-const Appointment = ({ data, ...restProps }) => {
+const Appointment = withStyles(styles, { name: 'Appointment' })(({ classes, data, ...restProps }) => {
   if (data.location === 'Room 1') {
-    return <Appointments.Appointment {...restProps} style={{ backgroundColor: '#26A69A' }} />;
+    return <Appointments.Appointment {...restProps} className={classes.firstRoomAppointment} />;
   }
   if (data.location === 'Room 2') {
-    return <Appointments.Appointment {...restProps} style={{ backgroundColor: '#FFA726' }} />;
+    return <Appointments.Appointment {...restProps} className={classes.secondRoomAppointment} />;
   }
-  return <Appointments.Appointment {...restProps} style={{ backgroundColor: '#EF5350' }} />;
-};
+  return <Appointments.Appointment {...restProps} className={classes.thirdRoomAppointment} />;
+});
 
 const AppointmentContent = withStyles(styles, { name: 'AppointmentContent' })(({
   classes, data, formatDate, ...restProps

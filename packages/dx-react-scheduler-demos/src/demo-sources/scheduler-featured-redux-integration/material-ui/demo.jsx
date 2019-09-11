@@ -95,12 +95,30 @@ const styles = ({ spacing, palette }) => ({
   },
   firstRoomAppointment: {
     backgroundColor: '#26A69A',
+    '&:hover': {
+      backgroundColor: '#26A69A',
+    },
+    '&:focus': {
+      backgroundColor: '#26A69A',
+    },
   },
   secondRoomAppointment: {
     backgroundColor: '#FFA726',
+    '&:hover': {
+      backgroundColor: '#FFA726',
+    },
+    '&:focus': {
+      backgroundColor: '#FFA726',
+    },
   },
   thirdRoomAppointment: {
     backgroundColor: '#EF5350',
+    '&:hover': {
+      backgroundColor: '#EF5350',
+    },
+    '&:focus': {
+      backgroundColor: '#EF5350',
+    },
   },
 });
 

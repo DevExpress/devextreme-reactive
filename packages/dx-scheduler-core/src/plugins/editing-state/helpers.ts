@@ -173,8 +173,7 @@ export const editCurrentAndFollowing: EditFn = (changes, appointmentData) => {
     },
   };
 
-  if (moment.utc(changes.startDate as Date).isAfter(initialRule.options.until!)
-    && moment.utc(changes.startDate as Date).isAfter(startDate)) {
+  if (moment.utc(changes.startDate as Date).isAfter(initialRule.options.until!)) {
     return {
       changed: changedAppointment,
       added: {

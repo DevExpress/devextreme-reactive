@@ -1,14 +1,14 @@
 import * as React from 'react';
 import {
-  processPointAnimation, HOVERED, SELECTED, dBar, getVisibility, adjustBarSize, isValuesChanged,
+  processPointAnimation, HOVERED, SELECTED, dBar, getVisibility, adjustBarSize,
+  isValuesChanged, getStartY,
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
 import { BarSeries } from '../../types';
 
 class RawBar extends React.PureComponent<BarSeries.PointProps, any> {
-  animationId: any = undefined;
-  isAnimationStart: any = true;
+  animate: any = undefined;
   constructor(props) {
     super(props);
 
@@ -39,18 +39,12 @@ class RawBar extends React.PureComponent<BarSeries.PointProps, any> {
     const {
       arg, val, animation, scales, argument, value,
     } = this.props;
-    if (animation && this.isAnimationStart) {
-      this.animationId = animation(
-        processPointAnimation(null, { x: arg, y: val }, scales),
-        this.setAttribute, this.animationId,
+    if (animation && !this.animate) {
+      this.animate = animation({ x: arg, y: getStartY(scales) }, { x: arg, y: val },
+        processPointAnimation, this.setAttribute,
       );
-      this.isAnimationStart = false;
-    } else if (animation && isValuesChanged(prevArgument, prevValue, argument, value)) {
-      this.animationId = animation(
-        processPointAnimation({ x: prevArg, y: prevVal }, { x: arg, y: val }, scales),
-        this.setAttribute,
-        this.animationId,
-        );
+    } else if (this.animate && isValuesChanged(prevArgument, prevValue, argument, value)) {
+      this.animate.update({ x: prevArg, y: prevVal }, { x: arg, y: val });
     } else if (isValuesChanged(prevArg, prevVal, arg, val)) {
       this.setAttribute({ x: arg, y: val });
     }

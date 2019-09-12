@@ -7,7 +7,7 @@ import { withPattern } from '../../utils/with-pattern';
 import { PieSeries } from '../../types';
 
 class RawSlice extends React.PureComponent<PieSeries.PointProps, any> {
-  animationId: any = undefined;
+  animate: any = undefined;
   constructor(props) {
     super(props);
 
@@ -37,11 +37,10 @@ class RawSlice extends React.PureComponent<PieSeries.PointProps, any> {
       innerRadius, outerRadius, startAngle, endAngle, animation,
     } = this.props;
     if (animation) {
-      this.animationId = animation(
-        processPieAnimation({
-          innerRadius: 0, outerRadius: 0, startAngle, endAngle,
-        }, { innerRadius, outerRadius, startAngle, endAngle }),
-        this.setAttribute, this.animationId,
+      this.animate = animation(
+        { innerRadius: 0, outerRadius: 0, startAngle, endAngle },
+        { innerRadius, outerRadius, startAngle, endAngle },
+        processPieAnimation, this.setAttribute,
       );
     } else {
       this.setAttribute({ innerRadius, outerRadius, startAngle, endAngle });
@@ -53,17 +52,14 @@ class RawSlice extends React.PureComponent<PieSeries.PointProps, any> {
     argument: prevArgument, value: prevValue,
   }) {
     const {
-      innerRadius, outerRadius, argument, value, animation, startAngle, endAngle,
+      innerRadius, outerRadius, argument, value, startAngle, endAngle,
     } = this.props;
-    if (animation && isValuesChanged(prevArgument, prevValue, argument, value)) {
-      this.animationId = animation(
-        processPieAnimation(
-          { innerRadius, outerRadius, startAngle: prevStartAngle, endAngle: prevEndAngle },
-          { innerRadius, outerRadius, startAngle, endAngle },
-        ),
-        this.setAttribute,
-        this.animationId,
-        );
+    if (this.animate && isValuesChanged(prevArgument, prevValue, argument, value)) {
+      this.animate.update(
+        { innerRadius, outerRadius, startAngle: prevStartAngle, endAngle: prevEndAngle },
+        { innerRadius, outerRadius, startAngle, endAngle });
+    } else {
+      this.setAttribute({ innerRadius, outerRadius, startAngle, endAngle });
     }
   }
 

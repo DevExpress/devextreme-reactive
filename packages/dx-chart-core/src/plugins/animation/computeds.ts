@@ -1,63 +1,61 @@
 /** @internal */
-export const buildAnimation = (
-  processAnimation, setState, animationID,
-) => {
-  if (animationID) {
-    cancelAnimationFrame(animationID);
-  }
-  const getProgress = ({ elapsed, total }) => Math.min(elapsed / total, 1);
-  const easeOut = progress => Math.pow(progress - 1, 5) + 1;
+const easeOut = progress => Math.pow(progress - 1, 5) + 1;
+
+/** @internal */
+const getProgress = ({ elapsed, total }) => Math.min(elapsed / total, 1);
+
+const runAnimation = (setAttributes, processAnimation, easing, duration) => {
   const time = {
     start: performance.now(),
-    total: 1000,
+    total: duration,
     elapsed: 0,
   };
 
-  const tick = (now) => {
+  const step = (now) => {
     time.elapsed = now - time.start;
     const progress = getProgress(time);
-    const easing = easeOut(progress);
 
-    setState(processAnimation(easing));
+    setAttributes(processAnimation(easing(progress)));
 
-    if (progress < 1) requestAnimationFrame(tick);
+    if (progress < 1) requestAnimationFrame(step);
   };
-
-  const animationId = requestAnimationFrame(tick);
-  return animationId;
+  return requestAnimationFrame(step);
 };
 
-export const processPointAnimation = (startCoords, endCoords, scales) => {
-  let startX;
-  let startY;
-  if (!startCoords) {
-    startX = endCoords.x;
-    startY = scales.valScale.copy().clamp!(true)(0);
-  } else {
-    startX = startCoords.x;
-    startY = startCoords.y;
-  }
+/** @internal */
+export const buildAnimation = (
+  startCoords, endCoords, processAnimation, setAttributes, duration = 1000, easing = easeOut,
+) => {
+  let animationID = runAnimation(
+    setAttributes, processAnimation(startCoords, endCoords), easing, duration,
+  );
+
+  return {
+    update: (updatedStartCoords, updatedEndCoords) => {
+      if (animationID) {
+        cancelAnimationFrame(animationID);
+      }
+      animationID = runAnimation(
+        setAttributes, processAnimation(updatedStartCoords, updatedEndCoords), easing, duration,
+      );
+    },
+  };
+};
+
+export const processPointAnimation = (startCoords, endCoords) => {
   return (progress) => {
     return {
-      x: startX + progress * (endCoords.x - startX),
-      y: startY + progress * (endCoords.y - startY),
+      x: startCoords.x + progress * (endCoords.x - startCoords.x),
+      y: startCoords.y + progress * (endCoords.y - startCoords.y),
     };
   };
 };
 
-export const processLineAnimation = (startCoords, endCoords, scales) => {
-  const startPosition = scales.valScale.copy().clamp!(true)(0);
-  let fromCoords = startCoords && startCoords.slice();
-  if (!fromCoords) {
-    fromCoords = endCoords.map((coord) => {
-      return { arg: coord.arg, val: startPosition };
-    });
-  }
-
+export const processLineAnimation = (startCoords, endCoords) => {
   return (progress) => {
     return {
       coordinates: endCoords.map((coord, index) => {
-        const startCurCoord = fromCoords[index];
+        const startCurCoord = startCoords[index];
         return {
           arg: startCurCoord.arg + progress * (coord.arg - startCurCoord.arg),
           val: startCurCoord.val + progress * (coord.val - startCurCoord.val),
@@ -68,18 +66,10 @@ export const processLineAnimation = (startCoords, endCoords, scales) => {
 };
 
 export const processAreaAnimation = (startCoords, endCoords, scales) => {
-  const startPosition = scales.valScale.copy().clamp!(true)(0);
-  let fromCoords = startCoords && startCoords.slice();
-  if (!fromCoords) {
-    fromCoords = endCoords.map((coord) => {
-      return { arg: coord.arg, val: startPosition, startVal: startPosition };
-    });
-  }
-
   return (progress) => {
     return {
       coordinates: endCoords.map((coord, index) => {
-        const startCurCoord = fromCoords[index];
+        const startCurCoord = startCoords[index];
         return {
           arg: startCurCoord.arg + progress * (coord.arg - startCurCoord.arg),
           val: startCurCoord.val + progress * (coord.val - startCurCoord.val),
@@ -99,4 +89,17 @@ export const processPieAnimation = (start, end) => {
       endAngle: start.endAngle + progress * (end.endAngle - start.endAngle),
     };
   };
+};
+
+/** @internal */
+export const getStartY = (scales) => {
+  return scales.valScale.copy().clamp!(true)(0);
+};
+
+/** @internal */
+export const getStartCoordinates = (scales, coordinates) => {
+  const startPosition = scales.valScale.copy().clamp!(true)(0);
+  return coordinates.map((coord) => {
+    return { arg: coord.arg, val: startPosition, startVal: startPosition };
+  });
 };

@@ -1,5 +1,5 @@
 /** @internal */
-const easeOut = progress => Math.pow(progress - 1, 5) + 1;
+export const easeOut = progress => Math.pow(progress - 1, 5) + 1;
 
 /** @internal */
 const getProgress = ({ elapsed, total }) => Math.min(elapsed / total, 1);
@@ -23,8 +23,8 @@ const runAnimation = (setAttributes, processAnimation, easing, duration) => {
 };
 
 /** @internal */
-export const buildAnimation = (
-  startCoords, endCoords, processAnimation, setAttributes, duration = 1000, easing = easeOut,
+export const buildAnimation = (easing, duration) => (
+  startCoords, endCoords, processAnimation, setAttributes,
 ) => {
   let animationID = runAnimation(
     setAttributes, processAnimation(startCoords, endCoords), easing, duration,
@@ -65,7 +65,7 @@ export const processLineAnimation = (startCoords, endCoords) => {
   };
 };
 
-export const processAreaAnimation = (startCoords, endCoords, scales) => {
+export const processAreaAnimation = (startCoords, endCoords) => {
   return (progress) => {
     return {
       coordinates: endCoords.map((coord, index) => {

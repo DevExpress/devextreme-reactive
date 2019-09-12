@@ -74,7 +74,8 @@
     "typescript": "3.7.3"
   },
   "dependencies": {
-    "@devexpress/dx-grid-core": "2.3.2"
+    "@devexpress/dx-grid-core": "2.3.2",
+    "exceljs": "^2.0.1"
   },
   "peerDependencies": {
     "@devexpress/dx-core": "2.3.2",

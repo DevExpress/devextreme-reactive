@@ -46,7 +46,7 @@ class FilterSelectorBase extends React.PureComponent {
     } = this.props;
     const { opened } = this.state;
     return availableValues.length ? (
-      <React.Fragment>
+      <>
         <ToggleButton
           buttonRef={this.setButtonRef}
           onToggle={this.handleButtonClick}
@@ -81,7 +81,7 @@ class FilterSelectorBase extends React.PureComponent {
             </MenuItem>
           ))}
         </Menu>
-      </React.Fragment>
+      </>
     ) : null;
   }
 }

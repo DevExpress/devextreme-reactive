@@ -227,7 +227,7 @@ export function generateRows({
 
       const value = values[Math.floor(random() * values.length)];
       if (typeof value === 'object') {
-        record[column] = Object.assign({}, value);
+        record[column] = { ...value };
       } else {
         record[column] = value;
       }

@@ -58,6 +58,7 @@ export default () => {
   ]);
   const [rows] = useState(generateRows({ columnValues: globalSalesValues, length: 8 }));
 
+  // eslint-disable-next-line no-alert
   const commitChanges = () => alert('Datenänderungen sind in dieser Demo nicht implementiert');
 
   return (

@@ -58,6 +58,7 @@ export const processLineAnimation = (startCoords, endCoords) => {
       coordinates: endCoords.map((coord, index) => {
         const startCurCoord = startCoords[index];
         return {
+          ...coord,
           arg: startCurCoord.arg + progress * (coord.arg - startCurCoord.arg),
           val: startCurCoord.val + progress * (coord.val - startCurCoord.val),
         };
@@ -72,6 +73,7 @@ export const processAreaAnimation = (startCoords, endCoords) => {
       coordinates: endCoords.map((coord, index) => {
         const startCurCoord = startCoords[index];
         return {
+          ...coord,
           arg: startCurCoord.arg + progress * (coord.arg - startCurCoord.arg),
           val: startCurCoord.val + progress * (coord.val - startCurCoord.val),
           startVal: startCurCoord.startVal + progress * (coord.startVal - startCurCoord.startVal),

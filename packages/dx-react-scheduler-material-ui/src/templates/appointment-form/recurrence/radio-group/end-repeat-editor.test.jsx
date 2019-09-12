@@ -17,8 +17,8 @@ describe('AppointmentForm recurrence RadioGroup', () => {
     onFieldChange: jest.fn(),
     getMessage: jest.fn(),
     appointmentData: {
-      startDate: new Date(),
-      endDate: new Date(),
+      startDate: new Date(2019, 1, 1, 0, 0),
+      endDate: new Date(2019, 1, 1, 0, 30),
       rRule: 'RRULE:FREQ=YEARLY',
     },
     locale: 'en-US',

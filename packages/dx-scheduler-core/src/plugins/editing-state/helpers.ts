@@ -166,24 +166,19 @@ export const editCurrentAndFollowing: EditFn = (changes, appointmentData) => {
 
   const nextExDate = reduceExDate(prevExDate, startDate as Date);
 
-  const changedAppointment = {
-    [id!]: {
-      rRule: changedRules[1].slice(6),
-      ...nextExDate && prevExDate !== nextExDate ? { exDate: nextExDate } : {},
-    },
-  };
+  const addedAppointment = moment.utc(changes.startDate as Date).isAfter(initialRule.options.until!)
+    ? { rRule: 'FREQ=DAILY;COUNT=1', exDate: '' } : { rRule: addedRules[1].slice(6) };
 
-  if (moment.utc(changes.startDate as Date).isAfter(initialRule.options.until!)) {
-    return {
-      changed: changedAppointment,
-      added: {
-        rRule: 'FREQ=DAILY;COUNT=1', exDate: '', ...mergeNewChanges(appointmentData, changes),
-      },
-    };
-  }
   return {
-    changed: changedAppointment,
-    added: { rRule: addedRules[1].slice(6), ...mergeNewChanges(appointmentData, changes) },
+    changed: {
+      [id!]: {
+        rRule: changedRules[1].slice(6),
+        ...nextExDate && prevExDate !== nextExDate ? { exDate: nextExDate } : {},
+      },
+    },
+    added: {
+      ...addedAppointment, ...mergeNewChanges(appointmentData, changes),
+    },
   };
 };
 

@@ -49,6 +49,7 @@ class RawSlice extends React.PureComponent<PieSeries.PointProps, any> {
 
   componentDidUpdate({
     startAngle: prevStartAngle, endAngle: prevEndAngle,
+    innerRadius: prevInnerRadius, outerRadius: prevOuterRadius,
     argument: prevArgument, value: prevValue,
   }) {
     const {
@@ -58,7 +59,8 @@ class RawSlice extends React.PureComponent<PieSeries.PointProps, any> {
       this.animate.update(
         { innerRadius, outerRadius, startAngle: prevStartAngle, endAngle: prevEndAngle },
         { innerRadius, outerRadius, startAngle, endAngle });
-    } else {
+    } else if (isValuesChanged(prevStartAngle, prevEndAngle, startAngle, endAngle) ||
+    isValuesChanged(prevInnerRadius, prevOuterRadius, innerRadius, outerRadius)) {
       this.setAttribute({ innerRadius, outerRadius, startAngle, endAngle });
     }
   }

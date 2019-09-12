@@ -13,8 +13,8 @@ class RawBar extends React.PureComponent<BarSeries.PointProps, any> {
     super(props);
 
     this.state = {
-      x: 0,
-      y: 0,
+      x: undefined,
+      y: undefined,
       style: undefined,
     };
     this.setAttribute = this.setAttribute.bind(this);
@@ -52,6 +52,9 @@ class RawBar extends React.PureComponent<BarSeries.PointProps, any> {
 
   render() {
     const { x, y, style: animateStyle } = this.state;
+    if (x === undefined && y === undefined) {
+      return null;
+    }
     const {
       arg, val, startVal, barWidth, maxBarWidth, animation,
       argument, value, seriesIndex, index, state, rotated,

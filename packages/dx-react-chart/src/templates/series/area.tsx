@@ -51,7 +51,9 @@ class RawArea extends React.PureComponent<AreaSeries.SeriesProps, any> {
   }
   render() {
     const { coordinates: coords, style: animateStyle } = this.state;
-    debugger;
+    if (!coords.length) {
+      return null;
+    }
     const {
       path,
       coordinates, animation,

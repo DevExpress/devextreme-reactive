@@ -1,18 +1,19 @@
+
 /** @internal */
-export const easeOut = progress => Math.pow(progress - 1, 5) + 1;
+export const linear = progress => progress;
 
 /** @internal */
 const getProgress = ({ elapsed, total }) => Math.min(elapsed / total, 1);
 
 const runAnimation = (setAttributes, processAnimation, easing, duration) => {
   const time = {
-    start: performance.now(),
+    start: new Date().getTime(),
     total: duration,
     elapsed: 0,
   };
 
-  const step = (now) => {
-    time.elapsed = now - time.start;
+  const step = () => {
+    time.elapsed = new Date().getTime() - time.start;
     const progress = getProgress(time);
 
     setAttributes(processAnimation(easing(progress)));

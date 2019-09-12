@@ -50,6 +50,9 @@ class RawPath extends React.PureComponent<PathComponentPathProps, any> {
 
   render() {
     const { coordinates: coords, style: animateStyle } = this.state;
+    if (!coords.length) {
+      return null;
+    }
     const {
       path, animation,
       coordinates, rotated,

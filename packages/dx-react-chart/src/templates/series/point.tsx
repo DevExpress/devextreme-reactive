@@ -13,8 +13,8 @@ class RawPoint extends React.PureComponent<ScatterSeries.PointProps, any> {
     super(props);
 
     this.state = {
-      cx: 0,
-      cy: 0,
+      cx: undefined,
+      cy: undefined,
       style: undefined,
     };
     this.setAttribute = this.setAttribute.bind(this);
@@ -54,6 +54,9 @@ class RawPoint extends React.PureComponent<ScatterSeries.PointProps, any> {
 
   render() {
     const { cx, cy, style: animateStyle } = this.state;
+    if (cx === undefined && cy === undefined) {
+      return null;
+    }
     const {
       arg, val, rotated, animation,
       argument, value, seriesIndex, index, state,

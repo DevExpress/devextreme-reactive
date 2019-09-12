@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { Plugin, Getter } from '@devexpress/dx-react-core';
-import { buildAnimation, easeOut } from '@devexpress/dx-chart-core';
+import { buildAnimation, linear } from '@devexpress/dx-chart-core';
 import { AnimationProps } from '../types';
 
 class AnimationBase extends React.PureComponent<AnimationProps> {
   static defaultProps: Partial<AnimationProps> = {
-    easing: easeOut,
+    easing: linear,
     duration: 1000,
   };
   render() {

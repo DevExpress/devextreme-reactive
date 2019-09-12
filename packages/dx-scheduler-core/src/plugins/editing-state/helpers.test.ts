@@ -431,6 +431,36 @@ describe('EditingState', () => {
           },
         });
       });
+      it('should edit correctly if RRULE contains UNTIL field', () => {
+        const appointmentData = {
+          id: 4,
+          startDate: new Date(Date.UTC(2019, 6, 18, 14, 20)),
+          endDate: new Date(Date.UTC(2019, 6, 18, 16)),
+          rRule: 'FREQ=DAILY;UNTIL=20190720T142000Z',
+          parentData: {
+            id: 4,
+            startDate: new Date(Date.UTC(2019, 6, 16, 14, 20)),
+            endDate: new Date(Date.UTC(2019, 6, 16, 16)),
+          },
+        };
+        const changes = {
+          startDate: new Date(Date.UTC(2019, 6, 14, 14, 20)),
+          endDate: new Date(Date.UTC(2019, 6, 14, 16)),
+        };
+
+        expect(editCurrentAndFollowing(changes, appointmentData)).toEqual({
+          added: {
+            startDate: new Date(Date.UTC(2019, 6, 14, 14, 20)),
+            endDate: new Date(Date.UTC(2019, 6, 14, 16)),
+            rRule: 'FREQ=DAILY;UNTIL=20190720T142000Z;COUNT=3',
+          },
+          changed: {
+            4: {
+              rRule: 'FREQ=DAILY;UNTIL=20190717T142000Z',
+            },
+          },
+        });
+      });
     });
   });
 });

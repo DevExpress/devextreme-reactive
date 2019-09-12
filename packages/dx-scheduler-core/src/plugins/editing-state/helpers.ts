@@ -43,18 +43,19 @@ const configureDateSequence: MakeDateSequenceFn = (rRule, exDate, prevStartDate,
   const rruleSet = getRRuleSetWithExDates(exDate);
 
   const currentOptions = RRule.parseString(rRule as string);
-  const correctedOptions = {
-    dtstart: new Date(getUTCDate(prevStartDate)),
-  };
+  const correctedOptions = currentOptions.until
+    ? { ...currentOptions, until: new Date(getUTCDate(currentOptions.until)) }
+    : currentOptions;
+  const prevStartDateUTC = new Date(getUTCDate(prevStartDate!));
   rruleSet.rrule(new RRule({
-    ...RRule.parseString(rRule as string),
     ...correctedOptions,
+    dtstart: prevStartDateUTC,
   }));
   if (currentOptions.count || currentOptions.until) {
     return rruleSet.all()
       .map(nextDate => new Date(moment.utc(nextDate).format('YYYY-MM-DD HH:mm')));
   }
-  const leftBound = correctedOptions.dtstart;
+  const leftBound = prevStartDateUTC;
   const rightBound = new Date(getUTCDate(nextStartDate!));
   return rruleSet.between(leftBound, rightBound, true)
     .map(nextDate => new Date(moment.utc(nextDate).format('YYYY-MM-DD HH:mm')));

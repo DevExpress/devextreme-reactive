@@ -34,7 +34,7 @@ maxColumnWidth? | number | `Infinity` | Specifies a column's maximum width.
 defaultColumnWidths? | Array&lt;[TableColumnWidthInfo](#tablecolumnwidthinfo)&gt; | [] | Specifies initial column widths in uncontrolled mode.
 onColumnWidthsChange? | (nextColumnWidths: Array&lt;[TableColumnWidthInfo](#tablecolumnwidthinfo)&gt;) => void | | Handles column width changes.
 columnExtensions? | Array&lt;[TableColumnResizing.ColumnExtension](#tablecolumnresizingcolumnextension)&gt; | [] | Additional column properties that the plugin can handle.
-resizingMode? | string | `widget` | Specifies the resizing mode: `widget` or `nextColumn`. In `widget` mode, column widths cannot be specified using the `auto` and percentage values.
+resizingMode? | string | `widget` | Specifies the resizing mode: `widget` or `nextColumn`. In `widget` mode, `auto` and percentage values cannot be used to specify column widths.
 
 ## Interfaces
 
@@ -73,5 +73,5 @@ tableColumns | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array
 tableColumnResizingEnabled | [Getter](../../../dx-react-core/docs/reference/getter.md) | boolean | Specifies whether table column resizing is enabled.
 columnResizingMode | [Getter](../../../dx-react-core/docs/reference/getter.md) | string | Specifies the resizing mode: `widget` or `nextColumn`.
 changeTableColumnWidth | [Action](../../../dx-react-core/docs/reference/action.md) | ({ columnName: string, shift: number }) => void | Changes the specified column width. The column width is increased by the corresponding shift value, or decreased if the value is negative.
-draftTableColumnWidth | [Action](../../../dx-react-core/docs/reference/action.md) | ({ columnName: string, shift: number }) => void | Changes the specified column width used for preview. The column width is increased by the corresponding shift value, or decreased if the value is less than zero.
+draftTableColumnWidth | [Action](../../../dx-react-core/docs/reference/action.md) | ({ columnName: string, shift: number }) => void | Changes the specified column width used for preview. The column width is increased by the corresponding shift value or decreased if the value is less than zero.
 cancelTableColumnWidthDraft | [Action](../../../dx-react-core/docs/reference/action.md) | () => void | Cancels changes to the column width used for preview.

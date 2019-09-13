@@ -51,7 +51,7 @@ const ResetWidthButton = (props) => {
         fontSize: '1em',
       }}
     >
-      RESET WIDTHS TO DEFAULT
+      Reset widths to default
     </button>
   );
 };

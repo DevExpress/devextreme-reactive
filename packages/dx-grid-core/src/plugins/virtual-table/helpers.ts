@@ -5,6 +5,7 @@ import { GetViewportFn, CheckTableColumnWidths, TableColumn } from '../../types'
 import { arraysEqual } from './utils';
 
 const VALID_UNITS = ['px', ''];
+/* tslint:disable max-line-length */
 const VIRTUAL_TABLE_ERROR = 'The columnExtension property of the VirtualTable plugin is given an invalid value.';
 
 export const getViewport: GetViewportFn = (

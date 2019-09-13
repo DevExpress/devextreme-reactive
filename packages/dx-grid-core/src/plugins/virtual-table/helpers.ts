@@ -5,10 +5,7 @@ import { GetViewportFn, CheckTableColumnWidths, TableColumn } from '../../types'
 import { arraysEqual } from './utils';
 
 const VALID_UNITS = ['px', ''];
-const VIRTUAL_TABLE_ERROR = [
-  'Error in VirtualTable plugin.',
-  'Please, check the "columnExtension" property',
-].join('\n');
+const VIRTUAL_TABLE_ERROR = 'The columnExtension property of the VirtualTable plugin is given an invalid value.';
 
 export const getViewport: GetViewportFn = (
   state, getters, estimatedRowHeight, getRowHeight, getColumnWidth,

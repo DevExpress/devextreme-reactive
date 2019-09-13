@@ -6,10 +6,7 @@ import { TABLE_STUB_TYPE } from '../../utils/virtual-table';
 import { isValidValue } from '../table-column-resizing/helpers';
 
 const VALID_UNITS = ['px', '%', 'em', 'rem', 'vm', 'vh', 'vmin', 'vmax', ''];
-const TABLE_ERROR = [
-  'Error in Table plugin',
-  'Please, check the "columnExtension" property',
-].join('\n');
+const TABLE_ERROR = 'The columnExtension property of the Table plugin is given an invalid value.';
 
 export const isDataTableCell: IsSpecificCellFn = (
   tableRow, tableColumn,

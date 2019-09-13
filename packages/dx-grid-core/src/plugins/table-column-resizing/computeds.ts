@@ -4,10 +4,7 @@ import { isValidValue, convertWidth } from './helpers';
 
 const VALID_UNITS = ['px', '%', 'em', 'rem', 'vm', 'vh', 'vmin', 'vmax', ''];
 const NOT_FOR_WIDGET_UNITS = ['%'];
-const COLUMN_RESIZING_ERROR = [
-  'Error in TableColumnResizing plugin.',
-  'Please, check the "defaultColumnWidths" or "columnWidths" property',
-].join('\n');
+const COLUMN_RESIZING_ERROR = 'The columnWidths property of the TableColumnResizing plugin is given an invalid value.'
 
 const specifyWidths: SpecifyWidthsFn = (tableColumns, widths, resizingMode, onError) => {
   if (resizingMode !== 'widget' && resizingMode !== 'nextColumn') {

@@ -59,7 +59,7 @@ const VerticalAppointmentBase = ({
   return (
     <div className={classNames(classes.content, className)} {...restProps}>
       {children || (
-        <React.Fragment>
+        <>
           <div className={repeat ? classes.recurringContainer : classes.container}>
             <div className={classes.title}>
               {data.title}
@@ -81,7 +81,7 @@ const VerticalAppointmentBase = ({
               <RecurringIcon className={classes.image} />
             </div>
           ) : undefined}
-        </React.Fragment>
+        </>
       )}
     </div>
   );

@@ -113,7 +113,7 @@ class DateNavigatorBase extends React.PureComponent<DateNavigatorProps, DateNavi
                 formatDate,
               );
               return (
-                <React.Fragment>
+                <>
                   <Root
                     navigationButtonComponent={NavigationButton}
                     openButtonComponent={OpenButton}
@@ -142,7 +142,7 @@ class DateNavigatorBase extends React.PureComponent<DateNavigatorProps, DateNavi
                       formatDate={formatDate}
                     />
                   </Overlay>
-                </React.Fragment>
+                </>
               );
             }}
           </TemplateConnector>

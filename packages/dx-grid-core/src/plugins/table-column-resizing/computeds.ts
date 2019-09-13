@@ -4,36 +4,14 @@ import { isValidValue, convertWidth } from './helpers';
 
 const VALID_UNITS = ['px', '%', 'em', 'rem', 'vm', 'vh', 'vmin', 'vmax', ''];
 const NOT_FOR_WIDGET_UNITS = ['%'];
-
-const UNSET_COLUMN_WIDTH_ERROR = [
-  'The "$1" column\'s width is not specified.',
-  'The TableColumnResizing plugin requires that all columns have the specified width.',
+const COLUMN_RESIZING_ERROR = [
+  'Error in TableColumnResizing plugin.',
+  'Please, check the "defaultColumnWidths" or "columnWidths" property',
 ].join('\n');
 
-const UNAVAILABLE_RESIZING_MODE_ERROR = [
-  'The "$1" column\'s width specified like non-number type.',
-  'The TableColumnResizing plugin requires nextColumn resizing mode,',
-  'when column width define with some non-number type.',
-].join('\n');
-
-const INVALID_RESIZING_MODE_ERROR = [
-  'The "$1" resizing mode in invalid mode.',
-  'Please, check resizingMode property.',
-].join('\n');
-
-const INVALID_TYPE_ERROR = [
-  'The "$1" column\'s width specified like string with invalid type or value.',
-  'The TableColumnResizing plugin requires that all columns have the valid value.',
-].join('\n');
-
-const NEGATIVE_WIDTH_ERROR = [
-  'The "$1" column\'s width defined less than 0.',
-  'The TableColumnResizing plugin requires that all columns have non-negative width.',
-].join('\n');
-
-const specifyWidths: SpecifyWidthsFn = (tableColumns, widths, resizingMode, onAbsence) => {
+const specifyWidths: SpecifyWidthsFn = (tableColumns, widths, resizingMode, onError) => {
   if (resizingMode !== 'widget' && resizingMode !== 'nextColumn') {
-    onAbsence(resizingMode, 'invalidMode');
+    onError();
   }
   if (!widths.length) return tableColumns;
   return tableColumns
@@ -44,14 +22,14 @@ const specifyWidths: SpecifyWidthsFn = (tableColumns, widths, resizingMode, onAb
         const width = column && column.width;
         if (typeof width !== 'number') {
           if (width === undefined) {
-            onAbsence(columnName, 'undefinedColumn');
+            onError();
           } else if (!isValidValue(width, VALID_UNITS)) {
-            onAbsence(columnName, 'invalidType');
+            onError();
           } else if (resizingMode === 'widget' && isValidValue(width, NOT_FOR_WIDGET_UNITS)) {
-            onAbsence(columnName, 'wrongMode');
+            onError();
           }
         } else if (width < 0) {
-          onAbsence(columnName, 'negativeWidth');
+          onError();
         }
         if (width === undefined) {
           acc.push(tableColumn);
@@ -73,12 +51,6 @@ export const tableColumnsWithDraftWidths: TableColumnsWithWidthFn = (
   tableColumns, draftColumnWidths, resizingMode,
 ) => specifyWidths(tableColumns, draftColumnWidths, resizingMode, () => {});
 
-const throwError: ErrorFn = (target, errorType) => {
-  switch (errorType) {
-    case 'undefinedColumn': throw new Error(UNSET_COLUMN_WIDTH_ERROR.replace('$1', target));
-    case 'wrongMode': throw new Error(UNAVAILABLE_RESIZING_MODE_ERROR.replace('$1', target));
-    case 'invalidType': throw new Error(INVALID_TYPE_ERROR.replace('$1', target));
-    case 'invalidMode': throw new Error(INVALID_RESIZING_MODE_ERROR.replace('$1', target));
-    case 'negativeWidth': throw new Error(NEGATIVE_WIDTH_ERROR.replace('$1', target));
-  }
+const throwError: ErrorFn = () => {
+  throw new Error(COLUMN_RESIZING_ERROR);
 };

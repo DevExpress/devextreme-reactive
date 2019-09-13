@@ -1,5 +1,4 @@
-import { Table, Column } from '../index';
-import { CellWidthGetter } from '@devexpress/dx-grid-core';
+import { Table, Column, CellWidthGetter } from '../index';
 
 // tslint:disable: max-line-length
 // tslint:disable-next-line: no-namespace

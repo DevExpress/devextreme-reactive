@@ -4,8 +4,10 @@
 
 ```ts
 
-import { CellWidthGetter } from '@devexpress/dx-grid-core';
 import * as React from 'react';
+
+// @public (undocumented)
+export type CellWidthGetter = () => number;
 
 // @public
 export interface ChangeSet {

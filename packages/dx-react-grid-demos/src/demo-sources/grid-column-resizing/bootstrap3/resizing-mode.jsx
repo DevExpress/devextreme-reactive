@@ -57,7 +57,7 @@ const ResetWidthButton = (props) => {
 };
 
 const ResizingPanel = props => (
-  <Plugin name="ResizingModeChanger">
+  <Plugin name="ResizingPanel">
     <Template name="toolbarContent">
       <ResetWidthButton {...props} />
       <TemplatePlaceholder />

@@ -1,4 +1,4 @@
-import { ColumnSizesFn, ValidValueFn, NumbStringToNumbFn, ColumnWidthFn } from '../../types';
+import { ColumnSizesFn, ValidValueFn, ConvertWidthFn, ColumnWidthFn } from '../../types';
 
 const getColumnWidth: ColumnWidthFn = (
   columnWidths, name, {
@@ -52,11 +52,11 @@ export const isValidValue: ValidValueFn = (value, validUnits) => {
   const numb = parseInt(value, 10);
   const unit = numb ? value.substr(numb.toString().length) : value;
   const sizeIsAuto = isNaN(numb) && unit === 'auto';
-  const sizeIsValid = !isNaN(numb) && numb >= 0 && validUnits.some(validUnit => validUnit === unit);
+  const sizeIsValid = numb >= 0 && validUnits.some(validUnit => validUnit === unit);
   return sizeIsAuto || sizeIsValid;
 };
 
-export const convertWidth: NumbStringToNumbFn = (value) => {
+export const convertWidth: ConvertWidthFn = (value) => {
   if (typeof value === 'string') {
     const numb = parseInt(value, 10);
     if (value.substr(numb.toString().length).length > 0) {

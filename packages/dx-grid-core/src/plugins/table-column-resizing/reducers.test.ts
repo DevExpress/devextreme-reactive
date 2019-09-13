@@ -175,7 +175,7 @@ describe('TableColumnResizing Plugin reducers', () => {
     describe('nextColumn resizing mode', () => {
       const resizingMode = 'nextColumn';
 
-      it('should resize booth columns', () => {
+      it('should resize both columns', () => {
         getColumnSizes.mockImplementation(() => ({ size: 45, nextSize: 55 }));
         const payload = {
           columnName: 'a',
@@ -195,7 +195,7 @@ describe('TableColumnResizing Plugin reducers', () => {
         expect(getColumnSizes).toBeCalledWith(state.columnWidths, payload);
       });
 
-      it('should block resize if booth columns have min width', () => {
+      it('should block resize if both columns have min width', () => {
         const columnExtensions = [
           { columnName: 'b', minWidth: 60 },
         ];
@@ -369,7 +369,7 @@ describe('TableColumnResizing Plugin reducers', () => {
     });
 
     describe('nextColumn resizing mode', () => {
-      it('should return booth column widths', () => {
+      it('should return both column widths', () => {
         getColumnSizes.mockImplementation(() => ({ size: 45, nextSize: 55 }));
         const payload = {
           columnName: 'a',

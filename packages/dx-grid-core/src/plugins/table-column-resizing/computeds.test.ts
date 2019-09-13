@@ -56,7 +56,7 @@ describe('TableColumnResizing Plugin computeds', () => {
         ],
         resizingMode,
       ))
-        .toThrow(/"b".*width/);
+        .toThrow(/"columnWidths"/);
     });
 
     it('should throw error if width for column specified like invalid type', () => {
@@ -69,7 +69,7 @@ describe('TableColumnResizing Plugin computeds', () => {
         ],
         resizingMode,
       ))
-        .toThrow(/"a".*width/);
+        .toThrow(/"columnWidths"/);
     });
 
     it('should throw error if width for column specified like invalid value', () => {
@@ -82,7 +82,7 @@ describe('TableColumnResizing Plugin computeds', () => {
         ],
         resizingMode,
       ))
-        .toThrow(/"a".*width/);
+        .toThrow(/"columnWidths"/);
     });
 
     it('should throw error if resizing mode is wrong', () => {
@@ -95,7 +95,7 @@ describe('TableColumnResizing Plugin computeds', () => {
         ],
         resizingMode,
       ))
-        .toThrow(/"a".*width/);
+        .toThrow(/"columnWidths"/);
     });
 
     it('should throw error if resizing mode is invalid', () => {
@@ -108,7 +108,7 @@ describe('TableColumnResizing Plugin computeds', () => {
         ],
         'nextResizing',
       ))
-        .toThrow(/"nextResizing".*mode/);
+        .toThrow(/"columnWidths"/);
     });
 
     it('should throw error if column width defined less than 0', () => {
@@ -121,7 +121,7 @@ describe('TableColumnResizing Plugin computeds', () => {
         ],
         'nextColumn',
       ))
-        .toThrow(/"a".*width/);
+        .toThrow(/"columnWidths"/);
     });
   });
 

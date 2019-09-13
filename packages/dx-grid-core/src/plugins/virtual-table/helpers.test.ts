@@ -144,7 +144,7 @@ describe('#checkColumnWidths', () => {
     ];
 
     expect(() => checkColumnWidths(tableColumns))
-      .toThrow(/"a".*width/);
+      .toThrow(/"columnExtension"/);
   });
 
   it('should throw error when some columns does not correct', () => {
@@ -157,7 +157,7 @@ describe('#checkColumnWidths', () => {
         { column: { name: 'c' }, width: 100 },
       ];
       expect(() => checkColumnWidths(tableColumns))
-        .toThrow(/"a".*width/);
+        .toThrow(/"columnExtension"/);
     });
   });
 });

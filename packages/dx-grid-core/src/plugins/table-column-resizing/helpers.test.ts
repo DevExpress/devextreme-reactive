@@ -2,6 +2,7 @@ import * as Immutable from 'seamless-immutable';
 import {
   getColumnSizes,
   isValidValue,
+  convertWidth,
 } from './helpers';
 
 describe('TableColumnResizing Plugin helpers', () => {
@@ -141,7 +142,7 @@ describe('TableColumnResizing Plugin helpers', () => {
     describe('nextColumn resizing mode', () => {
       const resizingMode = 'nextColumn';
 
-      it('should resize booth columns', () => {
+      it('should resize both columns', () => {
         expect(getColumnSizes(columnWidths, {
           columnName: 'a',
           nextColumnName: 'b',
@@ -157,7 +158,7 @@ describe('TableColumnResizing Plugin helpers', () => {
           });
       });
 
-      it('should block resize if booth columns have min width', () => {
+      it('should block resize if both columns have min width', () => {
         const columnExtensions = [
           { columnName: 'b', minWidth: 60 },
         ];
@@ -219,6 +220,25 @@ describe('TableColumnResizing Plugin helpers', () => {
 
       values.forEach(value => expect(isValidValue(value, VALID_UNITS))
         .toBeFalsy());
+    });
+  });
+
+  describe('#convertWidth', () => {
+    it('should work', () => {
+      const width = '100';
+      const VALID_UNITS = ['px', '%', 'em', 'rem', 'vm', 'vh', 'vmin', 'vmax'];
+
+      expect(convertWidth(100))
+        .toEqual(100);
+      expect(convertWidth(width))
+        .toEqual(100);
+      expect(convertWidth('auto'))
+        .toEqual('auto');
+      VALID_UNITS.forEach((unit) => {
+        const converted = convertWidth(`${width}${unit}`);
+        const result = `${width}${unit}`;
+        expect(converted === result).toBeTruthy();
+      });
     });
   });
 });

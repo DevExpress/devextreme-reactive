@@ -23,5 +23,4 @@ export type TableColumnResizingState = {
   draftColumnWidths: TableColumnWidthInfo[],
 };
 
-/** @internal */
 export type CellWidthGetter = () => number;

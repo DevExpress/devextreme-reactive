@@ -96,6 +96,6 @@ export type FilterActiveAnimationsFn = PureComputed<[ColumnAnimationMap]>;
 export type EvalAnimationsFn = PureComputed<[ColumnAnimationMap], ColumnAnimationStyleMap>;
 
 /** @internal */
-export type WidthConverterFn = PureComputed<
-  [string, number | string | undefined], number | string | undefined
+export type CheckColumnExtensionsFn = PureComputed<
+  [GridColumnExtension[]], void
 >;

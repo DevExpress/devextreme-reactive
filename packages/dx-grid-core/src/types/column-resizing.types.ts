@@ -46,7 +46,7 @@ export type TableColumnsWithWidthFn = PureComputed<
 >;
 /** @internal */
 export type ErrorFn = PureComputed<
-  [string, string], void
+  [], void
 >;
 
 /** @internal */
@@ -78,14 +78,12 @@ export type ColumnWidthFn = PureComputed<
   [TableColumnWidthInfo[], string, ColumnWidthPayload], ColumnSizes
 >;
 /** @internal */
-export type CellWidthGetter = () => number;
-/** @internal */
 export type ValidValueFn = PureComputed<
   [string, string[]],
   boolean
 >;
 
 /** @internal */
-export type NumbStringToNumbFn = PureComputed<
+export type ConvertWidthFn = PureComputed<
   [number | string], number | string
 >;

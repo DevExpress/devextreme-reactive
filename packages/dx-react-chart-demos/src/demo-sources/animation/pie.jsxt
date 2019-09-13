@@ -2,7 +2,6 @@ import * as React from 'react';<%&additionalImports%>
 import {
   Chart,
   PieSeries,
-  Title,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 import { Animation } from '@devexpress/dx-react-chart';
 
@@ -54,9 +53,6 @@ export default class Demo extends React.PureComponent {
           <PieSeries
             valueField="area"
             argumentField="country"
-          />
-          <Title
-            text="Area of Countries"
           />
           <Animation />
         </Chart>

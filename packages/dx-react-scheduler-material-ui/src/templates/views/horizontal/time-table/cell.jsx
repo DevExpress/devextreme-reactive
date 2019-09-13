@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import TableCell from '@material-ui/core/TableCell';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
-import { DAY_OPTIONS } from '@devexpress/dx-scheduler-core';
+import { DAY_OPTIONS, DAY_SHORT_MONTH_OPTIONS } from '@devexpress/dx-scheduler-core';
 import { getBorder } from '../../../utils';
 
 const styles = theme => ({
@@ -60,23 +60,27 @@ const CellBase = React.memo(({
   otherMonth,
   formatDate,
   ...restProps
-}) => (
-  <TableCell
-    tabIndex={0}
-    className={classNames(classes.cell, className)}
-    {...restProps}
-  >
-    <div
-      className={classNames({
-        [classes.text]: !today,
-        [classes.today]: today,
-        [classes.otherMonth]: otherMonth && !today,
-      })}
+}) => {
+  const isFirstMonthDay = startDate.getDate() === 1;
+  const formatOptions = isFirstMonthDay ? DAY_SHORT_MONTH_OPTIONS : DAY_OPTIONS;
+  return (
+    <TableCell
+      tabIndex={0}
+      className={classNames(classes.cell, className)}
+      {...restProps}
     >
-      {formatDate(startDate, DAY_OPTIONS)}
-    </div>
-  </TableCell>
-));
+      <div
+        className={classNames({
+          [classes.text]: !today,
+          [classes.today]: today,
+          [classes.otherMonth]: otherMonth && !today,
+        })}
+      >
+        {formatDate(startDate, formatOptions)}
+      </div>
+    </TableCell>
+  );
+});
 
 CellBase.propTypes = {
   classes: PropTypes.object.isRequired,

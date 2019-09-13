@@ -5,39 +5,49 @@ export const linear = progress => progress;
 /** @internal */
 const getProgress = ({ elapsed, total }) => Math.min(elapsed / total, 1);
 
-const runAnimation = (setAttributes, processAnimation, easing, duration) => {
-  const time = {
-    start: new Date().getTime(),
-    total: duration,
-    elapsed: 0,
-  };
+const runAnimation = (setAttributes, processAnimation, easing, duration, delay) => {
+  const promise = () => new Promise((resolve) => {
+    setTimeout(() => {
+      const time = {
+        start: new Date().getTime(),
+        total: duration,
+        elapsed: 0,
+      };
 
-  const step = () => {
-    time.elapsed = new Date().getTime() - time.start;
-    const progress = getProgress(time);
+      const step = () => {
+        time.elapsed = new Date().getTime() - time.start;
+        const progress = getProgress(time);
 
-    setAttributes(processAnimation(easing(progress)));
+        setAttributes(processAnimation(easing(progress)));
 
-    if (progress < 1) requestAnimationFrame(step);
-  };
-  return requestAnimationFrame(step);
+        if (progress < 1) requestAnimationFrame(step);
+      };
+      resolve(requestAnimationFrame(step));
+    }, delay);
+  });
+  let result;
+  promise().then(res => result = res);
+  return result;
 };
 
 /** @internal */
+export const getDelay = (index, isStart) => isStart ? index * 30 : 0;
+
+/** @internal */
 export const buildAnimation = (easing, duration) => (
-  startCoords, endCoords, processAnimation, setAttributes,
+  startCoords, endCoords, processAnimation, setAttributes, delay = 0,
 ) => {
   let animationID = runAnimation(
-    setAttributes, processAnimation(startCoords, endCoords), easing, duration,
+    setAttributes, processAnimation(startCoords, endCoords), easing, duration, delay,
   );
-
   return {
-    update: (updatedStartCoords, updatedEndCoords) => {
+    update: (updatedStartCoords, updatedEndCoords, updatedDelay) => {
       if (animationID) {
         cancelAnimationFrame(animationID);
       }
       animationID = runAnimation(
-        setAttributes, processAnimation(updatedStartCoords, updatedEndCoords), easing, duration,
+        setAttributes, processAnimation(updatedStartCoords, updatedEndCoords),
+        easing, duration, updatedDelay,
       );
     },
   };

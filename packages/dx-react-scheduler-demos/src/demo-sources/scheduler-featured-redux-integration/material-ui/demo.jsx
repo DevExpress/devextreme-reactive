@@ -6,8 +6,9 @@ import TextField from '@material-ui/core/TextField';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
-import { teal } from '@material-ui/core/colors';
+import { teal, orange, red } from '@material-ui/core/colors';
 import { fade } from '@material-ui/core/styles/colorManipulator';
+import classNames from 'classnames';
 import { ViewState } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
@@ -39,23 +40,23 @@ const styles = ({ spacing, palette }) => ({
     height: spacing(4.875),
   },
   button: {
-    paddingLeft: spacing(0.5),
-    paddingRight: spacing(0.5),
+    paddingLeft: spacing(1),
+    paddingRight: spacing(1),
     width: spacing(10),
   },
   selectedButton: {
-    paddingLeft: spacing(0.5),
-    paddingRight: spacing(0.5),
+    paddingLeft: spacing(1),
+    paddingRight: spacing(1),
     width: spacing(10),
-    background: teal[400],
-    color: teal[50],
+    background: palette.primary[400],
+    color: palette.primary[50],
     '&:hover': {
-      backgroundColor: teal[500],
+      backgroundColor: palette.primary[500],
     },
-    border: `1px solid ${teal[400]}!important`,
-    borderLeft: `1px solid ${teal[50]}!important`,
+    border: `1px solid ${palette.primary[400]}!important`,
+    borderLeft: `1px solid ${palette.primary[50]}!important`,
     '&:first-child': {
-      borderLeft: `1px solid ${teal[50]}!important`,
+      borderLeft: `1px solid ${palette.primary[50]}!important`,
     },
   },
   title: {
@@ -85,54 +86,50 @@ const styles = ({ spacing, palette }) => ({
     width: '100%',
   },
   weekendCell: {
-    backgroundColor: fade(palette.primary.main, 0.1),
+    backgroundColor: fade(palette.action.disabledBackground, 0.04),
     '&:hover': {
-      backgroundColor: fade(palette.primary.main, 0.14),
+      backgroundColor: fade(palette.action.disabledBackground, 0.04),
     },
     '&:focus': {
-      backgroundColor: fade(palette.primary.main, 0.16),
+      backgroundColor: fade(palette.action.disabledBackground, 0.04),
     },
   },
+  weekEnd: {
+    backgroundColor: fade(palette.action.disabledBackground, 0.06),
+  },
   firstRoomAppointment: {
-    backgroundColor: '#26A69A',
+    backgroundColor: teal[400],
     '&:hover': {
-      backgroundColor: '#26A69A',
-    },
-    '&:focus': {
-      backgroundColor: '#26A69A',
+      backgroundColor: teal[500],
     },
   },
   secondRoomAppointment: {
-    backgroundColor: '#FFA726',
+    backgroundColor: orange[400],
     '&:hover': {
-      backgroundColor: '#FFA726',
-    },
-    '&:focus': {
-      backgroundColor: '#FFA726',
+      backgroundColor: orange[500],
     },
   },
   thirdRoomAppointment: {
-    backgroundColor: '#EF5350',
+    backgroundColor: red[400],
     '&:hover': {
-      backgroundColor: '#EF5350',
-    },
-    '&:focus': {
-      backgroundColor: '#EF5350',
+      backgroundColor: red[500],
     },
   },
 });
 
 const LOCATIONS = ['Room 1', 'Room 2', 'Room 3'];
 
-const Appointment = withStyles(styles, { name: 'Appointment' })(({ classes, data, ...restProps }) => {
-  if (data.location === 'Room 1') {
-    return <Appointments.Appointment {...restProps} className={classes.firstRoomAppointment} />;
-  }
-  if (data.location === 'Room 2') {
-    return <Appointments.Appointment {...restProps} className={classes.secondRoomAppointment} />;
-  }
-  return <Appointments.Appointment {...restProps} className={classes.thirdRoomAppointment} />;
-});
+const Appointment = withStyles(styles, { name: 'Appointment' })(({ classes, data, ...restProps }) => (
+  <Appointments.Appointment
+    {...restProps}
+    data={data}
+    className={classNames({
+      [classes.firstRoomAppointment]: data.location === LOCATIONS[0],
+      [classes.secondRoomAppointment]: data.location === LOCATIONS[1],
+      [classes.thirdRoomAppointment]: data.location === LOCATIONS[2],
+    })}
+  />
+));
 
 const AppointmentContent = withStyles(styles, { name: 'AppointmentContent' })(({
   classes, data, formatDate, ...restProps
@@ -222,7 +219,7 @@ const TimeTableCell = withStyles(styles, { name: 'TimeTableCell' })(({ classes, 
 const DayScaleCell = withStyles(styles, { name: 'DayScaleCell' })(({ classes, ...restProps }) => {
   const { startDate } = restProps;
   if (startDate.getDay() === 0 || startDate.getDay() === 6) {
-    return <WeekView.DayScaleCell {...restProps} className={classes.weekendCell} />;
+    return <WeekView.DayScaleCell {...restProps} className={classes.weekEnd} />;
   } return <WeekView.DayScaleCell {...restProps} />;
 });
 
@@ -271,7 +268,7 @@ const schedulerInitialState = {
   currentDate: '2018-06-27',
   currentViewName: 'Week',
   currentFilter: '',
-  locations: ['Room 1', 'Room 2', 'Room 3'],
+  locations: LOCATIONS,
 };
 
 const schedulerReducer = (state = schedulerInitialState, action) => {

@@ -512,6 +512,32 @@ describe('Utils', () => {
       expect(result)
         .toHaveLength(1);
     });
+    it('should filter recurrence all-day appointment', () => {
+      const leftBoundTest = new Date('2019-04-9 00:00');
+      const rightBoundTest = new Date('2019-04-10 00:00');
+      const appointment = {
+        start: moment(new Date('2019-04-9 8:00')),
+        end: moment(new Date('2019-04-10 9:00')),
+        rRule: 'FREQ=DAILY;COUNT=2',
+      };
+      const result = filterByViewBoundaries(appointment, leftBoundTest, rightBoundTest, [], true);
+
+      expect(result)
+        .toHaveLength(0);
+    });
+    it('should filter recurrence appointments by excluded days', () => {
+      const leftBoundTest = new Date('2019-08-19 00:00');
+      const rightBoundTest = new Date('2019-08-22 00:00');
+      const appointment = {
+        start: moment(new Date('2019-08-20 10:00')),
+        end: moment(new Date('2019-08-20 11:00')),
+        rRule: 'FREQ=DAILY;COUNT=2',
+      };
+      const result = filterByViewBoundaries(appointment, leftBoundTest, rightBoundTest, [2]);
+
+      expect(result)
+        .toHaveLength(1);
+    });
     it('should work recurrence appointment with EXDATE', () => {
       const leftBoundTest = new Date(Date.UTC(2019, 3, 9, 0, 0));
       const rightBoundTest = new Date(Date.UTC(2019, 3, 12, 0, 0));
@@ -583,6 +609,73 @@ describe('Utils', () => {
         .toBe(moment(new Date('2019-04-26T12:11:00+0600')).toString());
       expect(result[1].end.toString())
         .toBe(moment(new Date('2019-04-26T13:00:00+0600')).toString());
+    });
+    it('should work correctly with near-left-boundary appointments', () => {
+      const leftBoundary = new Date('2019-04-25 00:00:00+0300');
+      const rightBoundary = new Date('2019-04-26 23:59:00+0300');
+      const appointment = {
+        start: moment(new Date('2019-04-25T00:00:00+0300')),
+        end: moment(new Date('2019-04-25T13:00:00+0300')),
+        rRule: 'FREQ=DAILY;COUNT=2',
+      };
+      const result = filterByViewBoundaries(appointment, leftBoundary, rightBoundary);
+
+      expect(result).toHaveLength(2);
+
+      expect(result[0].start.toString())
+        .toBe(moment(new Date('2019-04-25T00:00:00+0300')).toString());
+      expect(result[0].end.toString())
+        .toBe(moment(new Date('2019-04-25T13:00:00+0300')).toString());
+
+      expect(result[1].start.toString())
+        .toBe(moment(new Date('2019-04-26T00:00:00+0300')).toString());
+      expect(result[1].end.toString())
+        .toBe(moment(new Date('2019-04-26T13:00:00+0300')).toString());
+    });
+    it('should work correctly with near-right-boundary appointments', () => {
+      const leftBoundary = new Date('2019-04-25 00:00:00+0300');
+      const rightBoundary = new Date('2019-04-26 23:59:00+0300');
+      const appointment = {
+        start: moment(new Date('2019-04-25T22:11:00+0300')),
+        end: moment(new Date('2019-04-25T23:00:00+0300')),
+        rRule: 'FREQ=DAILY;COUNT=2',
+      };
+
+      const result = filterByViewBoundaries(appointment, leftBoundary, rightBoundary);
+
+      expect(result).toHaveLength(2);
+
+      expect(result[0].start.toString())
+        .toBe(moment(new Date('2019-04-25T22:11:00+0300')).toString());
+      expect(result[0].end.toString())
+        .toBe(moment(new Date('2019-04-25T23:00:00+0300')).toString());
+
+      expect(result[1].start.toString())
+        .toBe(moment(new Date('2019-04-26T22:11:00+0300')).toString());
+      expect(result[1].end.toString())
+        .toBe(moment(new Date('2019-04-26T23:00:00+0300')).toString());
+    });
+    it('should work with recurrence appointment with UNTIL set', () => {
+      const monthlyLeftBound = new Date('2019-04-1 00:00');
+      const monthlyRightBound = new Date('2019-05-30 00:00');
+      const appointment = {
+        start: moment(new Date('2019-04-9 00:00')),
+        end: moment(new Date('2019-04-9 23:59')),
+        rRule: 'FREQ=DAILY;UNTIL=20190410T000000Z',
+      };
+      const result = filterByViewBoundaries(appointment, monthlyLeftBound, monthlyRightBound);
+
+      expect(result).toHaveLength(2);
+
+      expect(result[0].start.toString())
+        .toBe(moment(new Date('2019-04-09 0:00')).toString());
+      expect(result[0].end.toString())
+        .toBe(moment(new Date('2019-04-09 23:59')).toString());
+
+      expect(result[1].start.toString())
+        .toBe(moment(new Date('2019-04-10 0:00')).toString());
+      expect(result[1].end.toString())
+        .toBe(moment(new Date('2019-04-10 23:59')).toString());
     });
   });
 });

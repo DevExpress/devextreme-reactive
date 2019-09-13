@@ -10,8 +10,9 @@ import {
   changeAppointment,
   cancelChanges,
   changedAppointmentById,
+  RECURRENCE_EDIT_SCOPE,
+  preCommitChanges as preCommitChangesBase,
 } from '@devexpress/dx-scheduler-core';
-
 import { EditingStateProps, EditingStateState } from '../types';
 
 class EditingStateBase extends React.PureComponent<EditingStateProps, EditingStateState> {
@@ -27,15 +28,17 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
   commitDeletedAppointment: ActionFn<any>;
 
   static defaultProps: Partial<EditingStateProps> = {
+    defaultEditingAppointment: undefined,
     defaultAppointmentChanges: {},
     defaultAddedAppointment: {},
+    preCommitChanges: preCommitChangesBase,
   };
 
   constructor(props) {
     super(props);
 
     this.state = {
-      editingAppointmentId: props.editingAppointmentId || props.defaultEditingAppointmentId,
+      editingAppointment: props.editingAppointment || props.defaultEditingAppointment,
       addedAppointment: props.addedAppointment || props.defaultAddedAppointment,
       appointmentChanges: props.appointmentChanges || props.defaultAppointmentChanges,
     };
@@ -43,9 +46,9 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
     const stateHelper: StateHelper = createStateHelper(
       this,
       {
-        editingAppointmentId: () => {
-          const { onEditingAppointmentIdChange } = this.props;
-          return onEditingAppointmentIdChange;
+        editingAppointment: () => {
+          const { onEditingAppointmentChange } = this.props;
+          return onEditingAppointmentChange;
         },
         addedAppointment: () => {
           const { onAddedAppointmentChange } = this.props;
@@ -59,20 +62,25 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
     );
 
     this.startEditAppointment = stateHelper.applyFieldReducer
-      .bind(stateHelper, 'editingAppointmentId', startEditAppointment);
+      .bind(stateHelper, 'editingAppointment', startEditAppointment);
     this.stopEditAppointment = stateHelper.applyFieldReducer
-      .bind(stateHelper, 'editingAppointmentId', stopEditAppointment);
+      .bind(stateHelper, 'editingAppointment', stopEditAppointment);
 
     this.changeAppointment = stateHelper.applyFieldReducer
       .bind(stateHelper, 'appointmentChanges', changeAppointment);
     this.cancelChangedAppointment = stateHelper.applyFieldReducer
       .bind(stateHelper, 'appointmentChanges', cancelChanges);
-    this.commitChangedAppointment = ({ appointmentId }) => {
-      const { onCommitChanges } = this.props;
-      const { appointmentChanges } = this.state;
-      onCommitChanges({
-        changed: changedAppointmentById(appointmentChanges, appointmentId),
-      });
+
+    this.commitChangedAppointment = (type = RECURRENCE_EDIT_SCOPE.CURRENT) => {
+      const { appointmentChanges, editingAppointment } = this.state;
+      const { onCommitChanges, preCommitChanges  } = this.props;
+
+      if (!editingAppointment) return;
+      const changes =  !editingAppointment.rRule
+        ? { changed: changedAppointmentById(appointmentChanges, editingAppointment.id!) }
+        : preCommitChanges!(appointmentChanges, editingAppointment, type);
+
+      onCommitChanges(changes);
       this.cancelChangedAppointment();
       this.stopEditAppointment();
     };
@@ -92,34 +100,38 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
       this.cancelAddedAppointment();
     };
 
-    this.commitDeletedAppointment = ({ deletedAppointmentId }) => {
-      const { onCommitChanges } = this.props;
-      onCommitChanges({ deleted: deletedAppointmentId });
+    this.commitDeletedAppointment = ({ deletedAppointmentData, type = 'current' }) => {
+      const { onCommitChanges, preCommitChanges } = this.props;
+
+      const changes = deletedAppointmentData.rRule
+        ? preCommitChanges!(null, deletedAppointmentData, type)
+        : { deleted: deletedAppointmentData.id };
+      onCommitChanges(changes);
     };
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const {
-      editingAppointmentId = prevState.editingAppointmentId,
+      editingAppointment = prevState.editingAppointment,
       appointmentChanges = prevState.appointmentChanges,
       addedAppointment = prevState.addedAppointment,
     } = nextProps;
 
     return {
-      editingAppointmentId,
+      editingAppointment,
       appointmentChanges,
       addedAppointment,
     };
   }
 
   render() {
-    const { addedAppointment, editingAppointmentId, appointmentChanges } = this.state;
+    const { addedAppointment, editingAppointment, appointmentChanges } = this.state;
 
     return (
       <Plugin
         name="EditingState"
       >
-        <Getter name="editingAppointmentId" value={editingAppointmentId} />
+        <Getter name="editingAppointment" value={editingAppointment} />
         <Action name="startEditAppointment" action={this.startEditAppointment} />
         <Action name="stopEditAppointment" action={this.stopEditAppointment} />
 

@@ -110,8 +110,11 @@ export const getSpanBoundary: GetSpanBoundaryFn = (
   items, visibleBoundaries, getItemSpan,
 ) => visibleBoundaries
   .map((visibleBoundary) => {
-    let [start, end] = visibleBoundary;
-    for (let index = 0; index <= visibleBoundary[1]; index += 1) {
+    let [start] = visibleBoundary;
+    const endIndex = Math.min(visibleBoundary[1], items.length - 1);
+    let end = endIndex;
+
+    for (let index = 0; index <= endIndex; index += 1) {
       const span = getItemSpan(items[index]);
       if (index < visibleBoundary[0] && index + span > visibleBoundary[0]) {
         start = index;
@@ -130,10 +133,8 @@ export const collapseBoundaries: CollapseBoundariesFn = (
   spanBoundaries.forEach(rowBoundaries => rowBoundaries
     .forEach((boundary) => {
       breakpoints.add(boundary[0]);
-      if (boundary[1] - 1 < itemsCount) {
-        // next interval starts after span end point
-        breakpoints.add(boundary[1] + 1);
-      }
+      // next interval starts after span end point
+      breakpoints.add(Math.min(boundary[1] + 1, itemsCount));
     }));
 
   visibleBoundaries

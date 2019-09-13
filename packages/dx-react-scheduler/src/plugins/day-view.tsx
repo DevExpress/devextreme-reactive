@@ -266,7 +266,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
               );
 
               return (
-                <React.Fragment>
+                <>
                   <TimeTableLayout
                     cellsData={viewCellsData}
                     rowComponent={timeTableRowComponent}
@@ -288,7 +288,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
                         />
                       ))}
                   </AppointmentLayer>
-                </React.Fragment>
+                </>
               );
             }}
           </TemplateConnector>

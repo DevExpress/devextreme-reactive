@@ -11,7 +11,8 @@ import {
 import {
   ARGUMENT_DOMAIN, getValueDomainName,
   getRotatedPosition, isValidPosition,
-  axisCoordinates, createTickFilter, LEFT, BOTTOM, getGridCoordinates,
+  LEFT, BOTTOM, getTickCoordinates, gridCoordinatesGetter, tickCoordinatesGetter,
+  Tick, Grid,
 } from '@devexpress/dx-chart-core';
 import { RawAxisProps } from '../types';
 import { Root } from '../templates/axis/root';
@@ -70,26 +71,19 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
               return null;
             }
             const { width, height } = layouts[layoutName] || { width: 0, height: 0 };
+            const paneSize = layouts.pane;
 
-            const { sides: [dx, dy], ticks } = axisCoordinates({
+            const { sides: [dx, dy], ticks } = getTickCoordinates({
+              callback: tickCoordinatesGetter,
               scaleName: scaleName!,
               position: position!,
               tickSize: tickSize!,
               tickFormat,
               indentFromAxis: indentFromAxis!,
               scale,
-              paneSize: [this.adjustedWidth, this.adjustedHeight],
+              paneSize: [paneSize.width, paneSize.height],
               rotated,
             });
-            // This is a workaround for a case when only a part of domain is visible.
-            // "overflow: hidden" cannot be used for <svg> element because edge labels would
-            // be truncated by half then.
-            // Looks like some margins should be added to <svg> width/height but for now it is
-            // not clear how to achieve it.
-            // The solution is considered temporary by now.
-            // Let's see if anything could be done to improve the situation.
-            const visibleTicks = ticks
-              .filter(createTickFilter([dx * this.adjustedWidth, dy * this.adjustedHeight]));
 
             const handleSizeChange: onSizeChangeFn = (size) => {
               // The callback is called when DOM is available -
@@ -127,7 +121,7 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
                     dy={dy}
                     onSizeChange={handleSizeChange}
                   >
-                    {showTicks && visibleTicks.map(({
+                    {showTicks && (ticks as Tick[]).map(({
                       x1, x2, y1, y2, key,
                     }) => (
                       <TickComponent
@@ -141,12 +135,12 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
                     {showLine && (
                       <LineComponent
                         x1={0}
-                        x2={dx * this.adjustedWidth}
+                        x2={dx * paneSize.width}
                         y1={0}
-                        y2={dy * this.adjustedHeight}
+                        y2={dy * paneSize.height}
                       />
                     )}
-                    {showLabels && visibleTicks.map(({
+                    {showLabels && (ticks as Tick[]).map(({
                       text,
                       xText,
                       yText,
@@ -188,28 +182,28 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
             if (!scale || !showGrid) {
               return null;
             }
-
             const { width, height } = layouts.pane;
-            const ticks = getGridCoordinates({
+            const { ticks, sides: [dx, dy] } = getTickCoordinates({
+              callback: gridCoordinatesGetter,
               scaleName: scaleName!,
               scale,
-              paneSize: [this.adjustedWidth, this.adjustedHeight],
+              paneSize: [width, height],
               rotated,
             });
             return ((
-              <React.Fragment>
-                {ticks.map(({
-                  key, x, dx, y, dy,
+              <>
+                {(ticks as Grid[]).map(({
+                  key, x1, y1,
                 }) => (
                   <GridComponent
                     key={key}
-                    x1={x}
-                    x2={x + dx * width}
-                    y1={y}
-                    y2={y + dy * height}
+                    x1={x1}
+                    x2={x1 + dy * width}
+                    y1={y1}
+                    y2={y1 + dx * height}
                   />
                 ))}
-              </React.Fragment>
+              </>
             ));
           }}
         </TemplateConnector>

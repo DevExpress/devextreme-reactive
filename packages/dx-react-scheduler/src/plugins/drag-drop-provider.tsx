@@ -48,6 +48,8 @@ const renderAppointmentItems = (items, formatDate, data, Wrapper, Appointment) =
 const pluginDependencies = [
   { name: 'EditingState' },
   { name: 'Appointments' },
+  { name: 'EditRecurrenceMenu', optional: true },
+  { name: 'IntegratedEditing', optional: true },
   { name: 'DayView', optional: true },
   { name: 'WeekView', optional: true },
   { name: 'MonthView', optional: true },
@@ -80,11 +82,13 @@ class DragDropProviderBase extends React.PureComponent<
     allowResize: () => true,
   };
 
-  onPayloadChange = actions =>
-    args => this.handlePayloadChange(args, actions)
+  onPayloadChange(actions) {
+    return args => this.handlePayloadChange(args, actions);
+  }
 
-  calculateNextBoundaries = (getters, actions) =>
-    args => this.calculateBoundaries(args, getters, actions)
+  calculateNextBoundaries(getters, actions) {
+    return args => this.calculateBoundaries(args, getters, actions);
+  }
 
   resetCache() {
     this.timeTableDraftAppointments = [];
@@ -102,20 +106,22 @@ class DragDropProviderBase extends React.PureComponent<
   }
 
   applyChanges(startTime, endTime, payload, startEditAppointment, changeAppointment) {
-    startEditAppointment({ appointmentId: payload.id });
+    startEditAppointment(payload);
     changeAppointment({
-      change: { startDate: startTime, endDate: endTime },
+      change: {
+        startDate: startTime,
+        endDate: endTime,
+        ...payload.allDay && { allDay: undefined },
+      },
     });
     this.setState({ startTime, endTime, payload, isOutside: false });
   }
 
-  handlePayloadChange({ payload }, { commitChangedAppointment, stopEditAppointment }) {
+  handlePayloadChange({ payload }, { finishCommitAppointment }) {
     const { isOutside } = this.state;
     if (payload || !isOutside) return;
-    const { payload: prevPayload } = this.state;
 
-    stopEditAppointment({ appointmentId: prevPayload.id });
-    commitChangedAppointment({ appointmentId: prevPayload.id });
+    finishCommitAppointment();
     this.resetCache();
   }
 
@@ -132,9 +138,11 @@ class DragDropProviderBase extends React.PureComponent<
     }
 
     const tableCellElementsMeta = timeTableElementsMeta;
-    const allDayCellsElementsMeta = allDayElementsMeta
-      || { getCellRects: [] }; // not always AllDayPanel exists
 
+    // AllDayPanel doesn't always exist
+    const allDayCellsElementsMeta = allDayElementsMeta && allDayElementsMeta.getCellRects
+      ? allDayElementsMeta
+      : { getCellRects: [] };
     const timeTableIndex = cellIndex(tableCellElementsMeta.getCellRects, clientOffset);
     const allDayIndex = cellIndex(allDayCellsElementsMeta.getCellRects, clientOffset);
 
@@ -189,11 +197,8 @@ class DragDropProviderBase extends React.PureComponent<
     );
   }
 
-  handleDrop = ({ stopEditAppointment, commitChangedAppointment }) => () => {
-    const { payload: prevPayload } = this.state;
-
-    stopEditAppointment({ appointmentId: prevPayload.id });
-    commitChangedAppointment({ appointmentId: prevPayload.id });
+  handleDrop = ({ finishCommitAppointment }) => () => {
+    finishCommitAppointment();
     this.resetCache();
   }
 
@@ -227,8 +232,7 @@ class DragDropProviderBase extends React.PureComponent<
               viewCellsData, startViewDate, endViewDate, excludedDays,
               timeTableElementsMeta, allDayElementsMeta, scrollingStrategy,
             }, {
-              commitChangedAppointment, changeAppointment,
-              startEditAppointment, stopEditAppointment,
+              changeAppointment, startEditAppointment, finishCommitAppointment,
             }) => {
               const calculateBoundariesByMove = this.calculateNextBoundaries({
                 viewCellsData,
@@ -238,15 +242,15 @@ class DragDropProviderBase extends React.PureComponent<
                 timeTableElementsMeta,
                 allDayElementsMeta,
                 scrollingStrategy,
-              }, { changeAppointment, startEditAppointment, stopEditAppointment });
+              }, { changeAppointment, startEditAppointment });
               return (
                 <DragDropProviderCore
-                  onChange={this.onPayloadChange({ commitChangedAppointment, stopEditAppointment })}
+                  onChange={this.onPayloadChange({ finishCommitAppointment })}
                 >
                   <DropTarget
                     onOver={calculateBoundariesByMove}
                     onEnter={calculateBoundariesByMove}
-                    onDrop={this.handleDrop({ commitChangedAppointment, stopEditAppointment })}
+                    onDrop={this.handleDrop({ finishCommitAppointment })}
                     onLeave={this.handleLeave}
                   >
                     <TemplatePlaceholder />

@@ -129,7 +129,11 @@ describe('TableFilterRow', () => {
 
     const tree = mount((
       <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
+        {pluginDepsToComponents(defaultDeps, {
+          getter: {
+            isColumnFilteringEnabled: () => true,
+          },
+        })}
         <TableFilterRow
           {...defaultProps}
         />
@@ -145,7 +149,31 @@ describe('TableFilterRow', () => {
         column: defaultDeps.template.tableCell.tableColumn.column,
         value: defaultDeps.getter.filters[0].value,
         onValueChange: expect.any(Function),
+        disabled: false,
       });
+  });
+
+  it('should pass disabled prop to the custom editor if filtering is disabled', () => {
+    getColumnFilterConfig.mockImplementation(() => defaultDeps.getter.filters[0]);
+
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps, {
+          getter: {
+            isColumnFilteringEnabled: () => false,
+          },
+        })}
+        <TableFilterRow
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    expect(tree
+      .find('TemplatePlaceholderBase')
+      .findWhere(node => node.prop('name') === 'valueEditor').last().prop('params'),
+    )
+      .toMatchObject({ disabled: true });
   });
 
   it('should render row by using rowComponent', () => {

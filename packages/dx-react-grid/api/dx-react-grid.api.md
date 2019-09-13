@@ -139,6 +139,7 @@ export const DataTypeProvider: React.ComponentType<DataTypeProviderProps>;
 export namespace DataTypeProvider {
   export interface ValueEditorProps {
     column: Column;
+    disabled: boolean;
     onValueChange: (newValue: any) => void;
     row?: any;
     value: any;

@@ -103,6 +103,14 @@ export const timeBoundariesByDrag: TimeBoundariesByDrag = (
   payload, targetData, targetType,
   cellDurationMinutes, insidePart, offsetTimeTopBase,
 ) => {
+  if (targetType === HORIZONTAL_TYPE
+    && intervalDuration(payload, SECONDS) < intervalDuration(targetData, SECONDS)) {
+    return {
+      appointmentStartTime: targetData.startDate as Date,
+      appointmentEndTime: targetData.endDate as Date,
+      offsetTimeTop: 0,
+    };
+  }
   let offsetTimeTop;
   let appointmentStartTime;
   let appointmentEndTime;
@@ -165,12 +173,17 @@ export const calculateDraftAppointments = (
   targetType: string, cellDurationMinutes: number,
   getTableCellElementRects: CellElementsMeta,
 ) => {
-  if (allDayIndex !== -1
-    || (getAllDayCellsElementRects.getCellRects.length
-      && intervalDuration(draftAppointments[0].dataItem, HOURS) > 23)) {
+  if (allDayIndex !== -1 || (targetType === VERTICAL_TYPE
+    && getAllDayCellsElementRects.getCellRects.length
+    && intervalDuration(draftAppointments[0].dataItem, HOURS) > 23)) {
+    const allDayDrafts = draftAppointments.map((draftAppt: any) => ({
+      ...draftAppt,
+      allDay: true,
+    }));
+
     return {
       allDayDraftAppointments: allDayRects(
-        draftAppointments, startViewDate, endViewDate,
+        allDayDrafts, startViewDate, endViewDate,
         excludedDays, viewCellsData, getAllDayCellsElementRects,
       ),
       timeTableDraftAppointments: [],

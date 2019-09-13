@@ -43,11 +43,17 @@ export const getViewport: GetViewportFn = (
   // NOTE: prevent unnecessary updates
   // e.g. when rows changed but bounds remain the same.
   let result = viewport;
-  if (viewportTop !== viewport.viewportTop) {
-    result = { ...result, viewportTop };
+  if (viewportTop !== viewport.top) {
+    result = { ...result, top: viewportTop };
   }
-  if (viewportLeft !== viewport.viewportLeft) {
-    result = { ...result, viewportLeft };
+  if (viewportLeft !== viewport.left) {
+    result = { ...result, left: viewportLeft };
+  }
+  if (containerWidth !== viewport.width) {
+    result = { ...result, width: containerWidth };
+  }
+  if (containerHeight !== viewport.height) {
+    result = { ...result, height: containerHeight };
   }
   if (!arraysEqual(rows, viewport.rows)) {
     result = { ...result, rows };

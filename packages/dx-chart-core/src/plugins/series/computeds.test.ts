@@ -18,6 +18,8 @@ import {
   getBarPointTransformer,
   getPiePointTransformer,
   scaleSeriesPoints,
+  getVisibility,
+  adjustBarSize,
 } from './computeds';
 
 jest.mock('d3-scale', () => ({
@@ -607,5 +609,31 @@ describe('transformers', () => {
       getPiePointTransformer,
     ];
     expect(new Set(list).size).toEqual(list.length);
+  });
+});
+
+describe('#getVisibility', () => {
+  it('should return hidden, point is out of pane', () => {
+    expect(getVisibility({ width: 30, height: 20 }, -3, 10, 1, 5)).toBe('hidden');
+    expect(getVisibility({ width: 30, height: 20 }, 33, 10, 1, 5)).toBe('hidden');
+    expect(getVisibility({ width: 30, height: 20 }, 10, -2, 5, 1)).toBe('hidden');
+    expect(getVisibility({ width: 30, height: 20 }, 10, 22, 5, 1)).toBe('hidden');
+  });
+
+  it('should return visible, point in the pane', () => {
+    expect(getVisibility({ width: 30, height: 20 }, -3, 10, 7, 5)).toBe('visible');
+    expect(getVisibility({ width: 30, height: 20 }, 33, 10, 7, 5)).toBe('visible');
+    expect(getVisibility({ width: 30, height: 20 }, 10, -2, 5, 7)).toBe('visible');
+    expect(getVisibility({ width: 30, height: 20 }, 10, 22, 5, 7)).toBe('visible');
+    expect(getVisibility({ width: 30, height: 20 }, 10, 10, 5, 7)).toBe('visible');
+  });
+});
+
+describe('#adjustBarSize', () => {
+  it('should adjust bar size', () => {
+    expect(adjustBarSize({ x: -2, y: -3, width: 10, height: 20 }, { width: 30, height: 40 }))
+    .toEqual({ x: 0, y: 0, width: 8, height: 17 });
+    expect(adjustBarSize({ x: 2, y: 3, width: 30, height: 40 }, { width: 30, height: 40 }))
+    .toEqual({ x: 2, y: 3, width: 28, height: 37 });
   });
 });

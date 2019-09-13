@@ -304,20 +304,19 @@ export const calculateRectByDateIntervals: CalculateRectByDateIntervalsFn = (
     .map(appointment => rectCalculator(appointment, { rectByDates, multiline, rectByDatesMeta }));
 };
 
-export const filterByViewBoundaries: PureComputed<
-  [AppointmentMoment, Date, Date, number[], boolean], AppointmentMoment[]
-> = (appointment, leftBound, rightBound, excludedDays, keepAllDay) => {
-  if (!appointment.rRule) {
-    return viewPredicate(appointment, leftBound, rightBound, excludedDays, keepAllDay)
-      ? [appointment]
-      : [];
-  }
-
+const expandRecurrenceAppointment = (
+  appointment: AppointmentMoment, leftBound: Date, rightBound: Date,
+) => {
+  const rightBoundUTC = new Date(getUTCDate(rightBound));
+  const leftBoundUTC = new Date(getUTCDate(leftBound));
   const appointmentStartDate = moment(appointment.start).toDate();
   const options = {
     ...RRule.parseString(appointment.rRule),
     dtstart: new Date(getUTCDate(appointmentStartDate)),
   };
+  const correctedOptions = options.until
+    ? { ...options, until: new Date(getUTCDate(options.until)) }
+    : options;
 
   const rruleSet = new RRuleSet();
 
@@ -328,26 +327,42 @@ export const filterByViewBoundaries: PureComputed<
     }, []);
   }
 
-  rruleSet.rrule(new RRule(options));
+  rruleSet.rrule(new RRule(correctedOptions));
 
   // According to https://github.com/jakubroztocil/rrule#important-use-utc-dates
   // we have to format the dates we get from RRuleSet to get local dates
-  const datesInBoundaries = rruleSet.between(leftBound as Date, rightBound as Date).map(date =>
-    moment.utc(date).format('YYYY-MM-DD HH:mm'));
+  const datesInBoundaries = rruleSet.between(leftBoundUTC as Date, rightBoundUTC as Date, true)
+    .map(date => moment.utc(date).format('YYYY-MM-DD HH:mm'));
   if (datesInBoundaries.length === 0) return [];
 
   const appointmentDuration = moment(appointment.end)
     .diff(appointment.start, 'minutes');
+
   return datesInBoundaries.map((startDate, index) => ({
     ...appointment,
     dataItem: {
       ...appointment.dataItem,
       startDate: moment(startDate).toDate(),
       endDate: moment(startDate).add(appointmentDuration, 'minutes').toDate(),
+      parentData: appointment.dataItem,
     },
     start: moment(startDate),
     end: moment(startDate).add(appointmentDuration, 'minutes'),
   }));
+};
+
+export const filterByViewBoundaries: PureComputed<
+  [AppointmentMoment, Date, Date, number[], boolean], AppointmentMoment[]
+> = (appointment, leftBound, rightBound, excludedDays, removeAllDay) => {
+  let appointments = [appointment];
+  if (appointment.rRule) {
+    appointments = expandRecurrenceAppointment(
+      appointment as AppointmentMoment, leftBound as Date, rightBound as Date,
+    );
+  }
+  return appointments.filter(appt => viewPredicate(
+    appt, leftBound, rightBound, excludedDays, removeAllDay,
+  ));
 };
 
 const getUTCDate: PureComputed<[Date], number> = date =>

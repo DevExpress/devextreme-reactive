@@ -1,3 +1,64 @@
+# [2.0.4](https://github.com/DevExpress/devextreme-reactive/compare/v2.0.3...v2.0.4) (2019-09-02)
+
+
+### Bug Fixes
+
+* **react-chart:** fix arrow displaying on corner point ([#2232](https://github.com/DevExpress/devextreme-reactive/issues/2232)) ([5c49aca](https://github.com/DevExpress/devextreme-reactive/commit/5c49aca))
+* **react-grid:** allow DataTypeProvider editor to know if editing is enabled ([#2265](https://github.com/DevExpress/devextreme-reactive/issues/2265)) ([b3cdd95](https://github.com/DevExpress/devextreme-reactive/commit/b3cdd95))
+* **react-grid:** correct calculating start index of loading row for Infinite Scrolling ([#2256](https://github.com/DevExpress/devextreme-reactive/issues/2256)) ([1741f9c](https://github.com/DevExpress/devextreme-reactive/commit/1741f9c))
+* **react-grid:** correct displaying Page Size Selector in Edge ([#2246](https://github.com/DevExpress/devextreme-reactive/issues/2246)) ([f67e419](https://github.com/DevExpress/devextreme-reactive/commit/f67e419))
+* **react-grid:** correct offset calculation in virtual table ([#2245](https://github.com/DevExpress/devextreme-reactive/issues/2245)) ([4d3fba9](https://github.com/DevExpress/devextreme-reactive/commit/4d3fba9))
+* **react-grid:** correctly handle column count changes in virtual table ([#2257](https://github.com/DevExpress/devextreme-reactive/issues/2257)) ([451c56c](https://github.com/DevExpress/devextreme-reactive/commit/451c56c))
+* **react-scheduler:** correct render horizontal draft appointments by DnD ([#2258](https://github.com/DevExpress/devextreme-reactive/issues/2258)) ([d919d19](https://github.com/DevExpress/devextreme-reactive/commit/d919d19))
+* **react-scheduler:** fix create an appointment on the first call of AppointmentForm ([#2272](https://github.com/DevExpress/devextreme-reactive/issues/2272)) ([8ab05ef](https://github.com/DevExpress/devextreme-reactive/commit/8ab05ef))
+* **react-scheduler:** fix incorrect render of recurrent appointments in the first cell of AllDayPanel ([#2264](https://github.com/DevExpress/devextreme-reactive/issues/2264)) ([fe33ea2](https://github.com/DevExpress/devextreme-reactive/commit/fe33ea2))
+* **react-scheduler:** make it possible to drag-drop appointments in MonthView with AllDayPanel plugin ([#2275](https://github.com/DevExpress/devextreme-reactive/issues/2275)) ([456a423](https://github.com/DevExpress/devextreme-reactive/commit/456a423))
+* **react-scheduler:** prevent double render of all-day recurrence appointments ([#2253](https://github.com/DevExpress/devextreme-reactive/issues/2253)) ([e92bdeb](https://github.com/DevExpress/devextreme-reactive/commit/e92bdeb))
+* **scheduler-core:** display recurrent appointments in the lower right corner of WeekView correctly ([#2290](https://github.com/DevExpress/devextreme-reactive/issues/2290)) ([bc8ae2d](https://github.com/DevExpress/devextreme-reactive/commit/bc8ae2d))
+* **scheduler-core:** fix recurrent appointment disappearing after dragdrop ([#2288](https://github.com/DevExpress/devextreme-reactive/issues/2288)) ([5cc0aaf](https://github.com/DevExpress/devextreme-reactive/commit/5cc0aaf))
+
+
+### Features
+
+* **react-scheduler:** add capability to edit recurring appointments ([#2168](https://github.com/DevExpress/devextreme-reactive/issues/2168)) ([c726b6a](https://github.com/DevExpress/devextreme-reactive/commit/c726b6a)), closes [#2202](https://github.com/DevExpress/devextreme-reactive/issues/2202)
+
+
+BREAKING CHANGES:
+
+* **react-scheduler:** Editing logic for recurrent appointments was removed from the `EditingState` plugin. Now, editing requires the `EditingState`, and either the `IntegratedEditing` or the `EditRecurrenceMenu` plugin. In addition, you can add the [EditRecurrenceMenu](https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/reference/edit-recurrence-menu/) plugin to allow users to select how recurrent appointments are edited.
+
+```diff
+<Scheduler>
+   <EditingState />
++  <EditRecurrenceMenu />
++  {/* or <IntegratedEditing />*/}
+   ...
+</Scheduler>
+```
+
+The following `EditingState` properties were replaced:
+
+- `editingAppointmentId` -> `editingAppointment`
+- `defaultEditingAppointmentId` -> `defaultEditingAppointment`
+- `onEditingAppointmentIdChange` -> `onEditingAppointmentChange`
+
+The new properties contain an [AppointmentModel](https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/reference/scheduler/#appointmentmodel) of the appointment being edited.
+
+```diff
+<Scheduler>
+   <EditingState
+-    editingAppointmentId
+-    defaultEditingAppointmentId
+-    onEditingAppointmentIdChange
++    editingAppointment
++    defaultEditingAppointment
++    onEditingAppointmentChange
+   />
+   ...
+</Scheduler>
+```
+
+
 # [2.0.3](https://github.com/DevExpress/devextreme-reactive/compare/v2.0.2...v2.0.3) (2019-08-16)
 
 

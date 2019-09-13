@@ -35,8 +35,10 @@ describe('#getViewport', () => {
       rows: [0, 0],
       headerRows: [0, 0],
       footerRows: [0, 0],
-      viewportTop: 0,
-      viewportLeft: 0,
+      top: 0,
+      left: 0,
+      width: 800,
+      height: 600,
     },
   };
 
@@ -45,8 +47,10 @@ describe('#getViewport', () => {
       defaultState, defaultGetters, estimatedRowheight, getRowHeight, getColumnWidth,
     ))
       .toEqual({
-        viewportTop: 21000,
-        viewportLeft: 1600,
+        top: 21000,
+        left: 1600,
+        width: 800,
+        height: 800,
         columns: [[9, 16]],
         rows: [525, 539],
         headerRows: [0, 1],
@@ -75,8 +79,10 @@ describe('#getViewport', () => {
       state, getters, estimatedRowheight, getRowHeight, getColumnWidth,
     ))
       .toEqual({
-        viewportTop: 400,
-        viewportLeft: 1600,
+        top: 400,
+        left: 1600,
+        width: 800,
+        height: 800,
         columns: [[9, 16]],
         rows: [8, 28],
         headerRows: [0, 2],
@@ -94,8 +100,10 @@ describe('#getViewport', () => {
       defaultState, getters, estimatedRowheight, getRowHeight, getColumnWidth,
     ))
       .toEqual({
-        viewportTop: 21000,
-        viewportLeft: 1600,
+        top: 21000,
+        left: 1600,
+        width: 800,
+        height: 800,
         columns: [[9, 16]],
         rows: [525, 525],
         headerRows: [0, 1],
@@ -105,8 +113,10 @@ describe('#getViewport', () => {
 
   it('should return the same viewport if it is not changed', () => {
     const initialViewport = {
-      viewportTop: 21000,
-      viewportLeft: 1600,
+      top: 21000,
+      left: 1600,
+      width: 800,
+      height: 800,
       columns: [[9, 16]],
       rows: [525, 539],
       headerRows: [0, 1],

@@ -14,6 +14,9 @@ const styles = theme => ({
     '&:first-child': {
       borderLeft: 'none',
     },
+    '&:last-child': {
+      paddingRight: 0,
+    },
   },
   dayOfWeek: {
     ...theme.typography.caption,

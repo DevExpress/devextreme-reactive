@@ -16,6 +16,8 @@ describe('EditRecurrenceMenu', () => {
     action: {
       commitChangedAppointment: jest.fn(),
       commitDeletedAppointment: jest.fn(),
+      cancelChangedAppointment: jest.fn(),
+      stopEditAppointment: jest.fn(),
     },
   };
   const defaultProps = {
@@ -157,6 +159,23 @@ describe('EditRecurrenceMenu', () => {
     });
 
     expect(defaultDeps.action.commitDeletedAppointment)
+      .toBeCalled();
+  });
+  it('should cancel appointment editing', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps, { getter: {} })}
+        <EditRecurrenceMenu
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    tree.find(defaultProps.layoutComponent).prop('handleClose')();
+
+    expect(defaultDeps.action.cancelChangedAppointment)
+      .toBeCalled();
+    expect(defaultDeps.action.stopEditAppointment)
       .toBeCalled();
   });
 });

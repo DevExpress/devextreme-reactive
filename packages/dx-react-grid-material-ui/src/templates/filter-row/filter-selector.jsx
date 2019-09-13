@@ -13,6 +13,9 @@ const styles = ({ spacing }) => ({
   iconItem: {
     minWidth: spacing(2),
   },
+  selectMenu: {
+    position: 'absolute !important',
+  },
 });
 
 class FilterSelectorBase extends React.PureComponent {
@@ -59,6 +62,7 @@ class FilterSelectorBase extends React.PureComponent {
           open={opened}
           onClose={this.handleMenuClose}
           MenuListProps={{ dense: true }}
+          className={classes.selectMenu}
         >
           {availableValues.map(valueItem => (
             <MenuItem

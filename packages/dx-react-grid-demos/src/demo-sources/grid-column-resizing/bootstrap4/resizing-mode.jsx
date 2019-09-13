@@ -45,13 +45,14 @@ const ResetWidthButton = (props) => {
       onClick={resetWidths}
       className="btn btn-sm"
       style={{
-        padding: '0em 1em',
+        paddingLeft: '8px',
+        paddingRight: '8px',
         height: '2em',
         width: 'auto',
         fontSize: '1em',
       }}
     >
-      RESET WIDTHS TO DEFAULT
+      Reset widths to default
     </button>
   );
 };

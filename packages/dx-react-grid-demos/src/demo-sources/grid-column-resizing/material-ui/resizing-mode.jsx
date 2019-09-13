@@ -24,17 +24,20 @@ import { generateRows } from '../../../demo-data/generator';
 
 const styles = () => ({
   input: {
+    paddingLeft: '8px',
     fontSize: '14px',
-    width: '90px',
+    width: '78px',
   },
   label: {
     fontSize: '14px',
   },
   container: {
-    maxWidth: '18em',
+    maxWidth: '17em',
   },
   button: {
     fontSize: '14px',
+    paddingLeft: '8px',
+    paddingRight: '8px',
     height: '32px',
   },
   selector: {

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  processPointAnimation, HOVERED, SELECTED, dBar, getVisibility, adjustBarSize,
+  processBarAnimation, HOVERED, SELECTED, dBar, getVisibility, adjustBarSize,
   isValuesChanged, getStartY,
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
@@ -15,44 +15,51 @@ class RawBar extends React.PureComponent<BarSeries.PointProps, any> {
     this.state = {
       x: undefined,
       y: undefined,
+      startY: undefined,
       style: undefined,
     };
     this.setAttribute = this.setAttribute.bind(this);
   }
 
-  setAttribute({ x, y, style }: {x: number, y: number, style?: object}) {
-    this.setState({ x, y, style });
+  setAttribute({ x, y, startY, style }: {x: number, y: number, startY: number, style?: object}) {
+    this.setState({ x, y, startY, style });
   }
 
   componentDidMount() {
     const {
-      arg, val, animation,
+      arg, val, startVal, animation,
     } = this.props;
     if (!animation) {
-      this.setAttribute({ x: arg, y: val });
+      this.setAttribute({ x: arg, y: val, startY: startVal });
     }
   }
 
   componentDidUpdate({
-    arg: prevArg, val: prevVal, argument: prevArgument, value: prevValue,
+    arg: prevArg, val: prevVal, startVal: prevStartVal, argument: prevArgument, value: prevValue,
   }) {
     const {
-      arg, val, animation, scales, argument, value,
+      arg, val, startVal, animation, scales, argument, value,
     } = this.props;
     if (animation && !this.animate) {
-      this.animate = animation({ x: arg, y: getStartY(scales) }, { x: arg, y: val },
-        processPointAnimation, this.setAttribute,
+      const start = getStartY(scales);
+      this.animate = animation(
+        { x: arg, y: start, startY: start },
+        { x: arg, y: val, startY: startVal },
+        processBarAnimation, this.setAttribute,
       );
+       // check startVal also
     } else if (this.animate && isValuesChanged(prevArgument, prevValue, argument, value)) {
-      this.animate.update({ x: prevArg, y: prevVal }, { x: arg, y: val });
+      this.animate.update(
+        { x: prevArg, y: prevVal, startY: prevStartVal }, { x: arg, y: val, startY: startVal },
+      );
     } else if (isValuesChanged(prevArg, prevVal, arg, val)) {
-      this.setAttribute({ x: arg, y: val });
+      this.setAttribute({ x: arg, y: val, startY: startVal! });
     }
   }
 
   render() {
-    const { x, y, style: animateStyle } = this.state;
-    if (x === undefined && y === undefined) {
+    const { x, y, startY, style: animateStyle } = this.state;
+    if (x === undefined && y === undefined && startY === undefined) {
       return null;
     }
     const {
@@ -63,7 +70,7 @@ class RawBar extends React.PureComponent<BarSeries.PointProps, any> {
       ...restProps
     } = this.props;
     const width = barWidth * maxBarWidth;
-    const bar = dBar(x, y, startVal!, width, rotated);
+    const bar = dBar(x, y, startY, width, rotated);
     const visibility = getVisibility(
       pane, bar.x + bar.width / 2, bar.y + bar.height, bar.width, bar.height,
     );

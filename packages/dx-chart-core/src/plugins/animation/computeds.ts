@@ -62,6 +62,16 @@ export const processPointAnimation = (startCoords, endCoords) => {
   };
 };
 
+export const processBarAnimation = (startCoords, endCoords) => {
+  return (progress) => {
+    return {
+      x: startCoords.x + progress * (endCoords.x - startCoords.x),
+      y: startCoords.y + progress * (endCoords.y - startCoords.y),
+      startY: startCoords.startY + progress * (endCoords.startY - startCoords.startY),
+    };
+  };
+};
+
 export const processLineAnimation = (startCoords, endCoords) => {
   return (progress) => {
     return {

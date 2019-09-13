@@ -84,7 +84,7 @@ export interface PointComponentProps extends CommonComponentProps {
   /** coordinate on value axis */
   val: number;
   /** start coordinate on value axis  */
-  startVal?: number;
+  startVal: number;
 }
 
 export interface SeriesProps {

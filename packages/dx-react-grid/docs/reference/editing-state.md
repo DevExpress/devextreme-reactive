@@ -34,6 +34,8 @@ rowChanges? | { [key: string]: any } | | Not committed row changes.
 defaultRowChanges? | { [key: string]: any } | {} | Row changes initially added to the `rowChanges` array in uncontrolled mode.
 onRowChangesChange? | (rowChanges: { [key: string]: any }) => void | | Handles adding or removing a row changes to/from the `rowChanges` array.
 onCommitChanges | (changes: [ChangeSet](#changeset)) => void | | Handles row changes committing.
+editingCells? | Array&lt;{rowId: number &#124; string, columnName: string}&gt; | | Row ID and column name of cells that are being edited.
+defaultEditingCells? | Array&lt;{rowId: number &#124; string, columnName: string}&gt; | | Row ID and column name of cells initially added to the `editingCells` array in uncontrolled mode.
 
 ## Interfaces
 
@@ -68,11 +70,11 @@ none
 Name | Plugin | Type | Description
 -----|--------|------|------------
 editingRowIds | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;number &#124; string&gt; | Rows being edited.
-editingCells | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;{rowId: number, columnName: string}&gt; | Row ID and column name of cells that are being edited.
+editingCells | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;{rowId: number &#124; string, columnName: string}&gt; | Row ID and column name of cells that are being edited.
 startEditRows | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Enables the edit mode for the rows the ID specifies.
 stopEditRows | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Disables the edit mode for the rows the ID specifies.
-startEditCells | [Action](../../../dx-react-core/docs/reference/action.md) | ({ editingCells: Array&lt;{rowId: number, columnName: string}&gt; }) => void | Switches cells with the specified row ID and column name to the edit mode.
-stopEditCells | [Action](../../../dx-react-core/docs/reference/action.md) | ({ editingCells: Array&lt;{rowId: number, columnName: string}&gt; }) => void | Switches cells with the specified row ID and column name to the read-only mode.
+startEditCells | [Action](../../../dx-react-core/docs/reference/action.md) | ({ editingCells: Array&lt;{rowId: number &#124; string, columnName: string}&gt; }) => void | Switches cells with the specified row ID and column name to the edit mode.
+stopEditCells | [Action](../../../dx-react-core/docs/reference/action.md) | ({ editingCells: Array&lt;{rowId: number &#124; string, columnName: string}&gt; }) => void | Switches cells with the specified row ID and column name to the read-only mode.
 addedRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;any&gt; | Created but not committed rows.
 addRow | [Action](../../../dx-react-core/docs/reference/action.md) | () => void | Adds an item to the `addedRows` array.
 changeAddedRow | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowId: number, change: any }) => void | Applies a change to a created but uncommitted row. Note: `rowId` is a row index within the `addedRows` array.

@@ -75,26 +75,26 @@ const StarPoint = Point(symbolStar, {
 });
 
 const LineWithDiamondPoint = props => (
-  <React.Fragment>
+  <>
     <LineSeries.Path {...props} />
     <ScatterSeries.Path {...props} pointComponent={DiamondPoint} />
-  </React.Fragment>
+  </>
 );
 
 const LineWithCrossPoint = props => (
-  <React.Fragment>
+  <>
     <LineSeries.Path {...props} />
     <ScatterSeries.Path {...props} pointComponent={CrossPoint} />
-  </React.Fragment>
+  </>
 );
 
 const LineWithStarPoint = (props) => {
   const { coordinates } = props;
   return (
-    <React.Fragment>
+    <>
       <LineSeries.Path {...props} coordinates={coordinates} />
       <ScatterSeries.Path {...props} pointComponent={StarPoint} />
-    </React.Fragment>
+    </>
   );
 };
 

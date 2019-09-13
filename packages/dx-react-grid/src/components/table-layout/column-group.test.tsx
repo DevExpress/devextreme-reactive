@@ -34,4 +34,25 @@ describe('ColumnGroup', () => {
         { width: '200px' },
       ]);
   });
+
+  it('should provide correct string properties', () => {
+    const tree = shallow((
+      <ColumnGroup
+        columns={[
+          { key: 'a', width: 'auto' },
+          { key: 'b', width: '10%' },
+          { key: 'c', width: '200px' },
+          { key: 'd', width: '3em' },
+        ]}
+      />
+    ));
+
+    expect(tree.find('colgroup').children('col').map(col => col.prop('style')))
+      .toMatchObject([
+        { width: 'auto' },
+        { width: '10%' },
+        { width: '200px' },
+        { width: '3em' },
+      ]);
+  });
 });

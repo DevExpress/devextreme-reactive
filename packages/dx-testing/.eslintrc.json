@@ -1,17 +1,7 @@
 {
-  "extends": "airbnb",
-  "plugins": [
-      "react",
-      "jsx-a11y",
-      "import",
-      "filenames"
-  ],
-  "parser": "babel-eslint",
+  "extends": "../../.eslintrc.react.json",
   "rules": {
       "no-undef": "off",
-      "import/prefer-default-export": "off",
-      "react/forbid-prop-types": "off",
-      "jsx-a11y/href-no-hash": "off",
       "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.*", "**/*.test-utils.*"]}],
       "filenames/match-regex": [2, "^[a-z-\\.]+$"]
   }

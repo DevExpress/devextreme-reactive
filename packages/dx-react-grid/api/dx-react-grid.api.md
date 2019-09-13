@@ -203,10 +203,12 @@ export interface EditingStateProps {
   columnExtensions?: Array<EditingState.ColumnExtension>;
   createRowChange?: (row: any, value: string | number, columnName: string) => any;
   defaultAddedRows?: Array<any>;
+  defaultEditingCells?: Array<EditingCell>;
   defaultEditingRowIds?: Array<number | string>;
   defaultRowChanges?: {
     [key: string]: any;
   };
+  editingCells?: Array<EditingCell>;
   editingRowIds?: Array<number | string>;
   onAddedRowsChange?: (addedRows: Array<any>) => void;
   onCommitChanges: (changes: ChangeSet) => void;

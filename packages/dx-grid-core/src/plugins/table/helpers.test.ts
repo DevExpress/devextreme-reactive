@@ -72,7 +72,7 @@ describe('Table Plugin helpers', () => {
       )
         .not.toThrow();
       expect(() => checkTableColumnExtensions([{ columnName: 'a', width: '100auto' }]))
-        .toThrow(/"columnExtension"/);
+        .toThrow(/columnExtension.*Table/);
     });
   });
 });

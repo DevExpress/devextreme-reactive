@@ -14,8 +14,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.min.css" type="text/css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/addon/fold/foldgutter.min.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1567430256">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1567430256">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1568647474">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1568647474">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <!-- Google Tag Manager -->
@@ -149,6 +149,12 @@
       <td>[]</td>
       <td>Additional column properties that the plugin can handle.</td>
     </tr>
+    <tr>
+      <td>resizingMode?</td>
+      <td>string</td>
+      <td><code class="highlighter-rouge">widget</code></td>
+      <td>Specifies the resizing mode: <code class="highlighter-rouge">widget</code> or <code class="highlighter-rouge">nextColumn</code>. In <code class="highlighter-rouge">widget</code> mode, <code class="highlighter-rouge">auto</code> and percentage values cannot be used to specify column widths.</td>
+    </tr>
   </tbody>
 </table>
 
@@ -174,8 +180,8 @@
     </tr>
     <tr>
       <td>width</td>
-      <td>number</td>
-      <td>A column width.</td>
+      <td>number | string</td>
+      <td>A column width in pixels or CSS-accepted units (<code class="highlighter-rouge">auto</code>, <code class="highlighter-rouge">px</code>, <code class="highlighter-rouge">%</code>, <code class="highlighter-rouge">em</code>, <code class="highlighter-rouge">rem</code>, <code class="highlighter-rouge">vm</code>, <code class="highlighter-rouge">vh</code>, <code class="highlighter-rouge">vmin</code>, <code class="highlighter-rouge">vmax</code>).</td>
     </tr>
   </tbody>
 </table>
@@ -259,6 +265,12 @@
       <td>Specifies whether table column resizing is enabled.</td>
     </tr>
     <tr>
+      <td>columnResizingMode</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
+      <td>string</td>
+      <td>Specifies the resizing mode: <code class="highlighter-rouge">widget</code> or <code class="highlighter-rouge">nextColumn</code>.</td>
+    </tr>
+    <tr>
       <td>changeTableColumnWidth</td>
       <td><a href="/devextreme-reactive/react/core/docs/reference/action/">Action</a></td>
       <td>({ columnName: string, shift: number }) =&gt; void</td>
@@ -268,7 +280,7 @@
       <td>draftTableColumnWidth</td>
       <td><a href="/devextreme-reactive/react/core/docs/reference/action/">Action</a></td>
       <td>({ columnName: string, shift: number }) =&gt; void</td>
-      <td>Changes the specified column width used for preview. The column width is increased by the corresponding shift value, or decreased if the value is less than zero.</td>
+      <td>Changes the specified column width used for preview. The column width is increased by the corresponding shift value or decreased if the value is less than zero.</td>
     </tr>
     <tr>
       <td>cancelTableColumnWidthDraft</td>
@@ -289,9 +301,9 @@
       </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#2.0.4">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#2.0.5">
             Version
-            <span>2.0.4</span>
+            <span>2.0.5</span>
           </a>
         </li>
       </ul>
@@ -945,7 +957,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/common/dist/index.js?v=1567430256"></script>
+<script src="/devextreme-reactive/react/common/dist/index.js?v=1568647474"></script>
 
 <script
   type="text/javascript"
@@ -1001,7 +1013,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1567430256"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1568647474"></script>
     <script>
         trackingCookie.notice();
     </script>

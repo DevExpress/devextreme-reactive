@@ -1,48 +1,42 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
-export class TableNoDataCell extends React.PureComponent {
-  render() {
-    const {
-      style,
-      colSpan,
-      getMessage,
-      tableRow,
-      tableColumn,
-      ...restProps
-    } = this.props;
-
-    return (
-      <td
+export const TableNoDataCell = ({
+  style,
+  colSpan,
+  getMessage,
+  tableRow,
+  tableColumn,
+  ...restProps
+}) => (
+  <td
+    style={{
+      padding: '50px 0',
+      ...style,
+    }}
+    colSpan={colSpan}
+    {...restProps}
+  >
+    <div
+      style={{
+        display: 'inline-block',
+        position: 'fixed',
+        left: '50%',
+      }}
+    >
+      <big
+        className="text-muted"
         style={{
-          padding: '50px 0',
-          ...style,
+          display: 'inline-block',
+          transform: 'translateX(-50%)',
+          msTransform: 'translateX(-50%)',
         }}
-        colSpan={colSpan}
-        {...restProps}
       >
-        <div
-          style={{
-            display: 'inline-block',
-            position: 'fixed',
-            left: '50%',
-          }}
-        >
-          <big
-            className="text-muted"
-            style={{
-              display: 'inline-block',
-              transform: 'translateX(-50%)',
-              msTransform: 'translateX(-50%)',
-            }}
-          >
-            {getMessage('noData')}
-          </big>
-        </div>
-      </td>
-    );
-  }
-}
+        {getMessage('noData')}
+      </big>
+    </div>
+  </td>
+);
 
 TableNoDataCell.propTypes = {
   style: PropTypes.object,

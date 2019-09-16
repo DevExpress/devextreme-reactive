@@ -44,7 +44,7 @@ describe('TableNoDataCell', () => {
       .toMatchObject({ a: 1 });
   });
 
-  it('should set sticky position for the text container', () => {
+  it('should set fixed position for the text container', () => {
     const tree = shallow((
       <TableNoDataCell
         getMessage={key => key}

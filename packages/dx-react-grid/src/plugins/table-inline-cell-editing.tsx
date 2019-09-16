@@ -110,29 +110,20 @@ const TableInlineCellEditingBase: React.SFC<TableInlineCellEditingProps> & {comp
                 );
               }
 
-              if (startEditAction === 'click') {
-                return (
-                  <TemplatePlaceholder
-                    params={{
-                      ...params,
-                      onClick: () => startEditCells({ editingCells: [{ rowId, columnName }] }),
-                    }}
-                  />
-                );
+              if(startEditAction!== 'click' && startEditAction !=='doubleClick') {
+                throw new Error('Error, probably  you set invalid values for properties');
               }
-              if (startEditAction === 'doubleClick') {
-                return (
-                  <TemplatePlaceholder
-                    params={{
-                      ...params,
-                      onDoubleClick: () => startEditCells({
-                        editingCells: [{ rowId, columnName }],
-                      }),
-                    }}
-                  />
-                );
-              }
-              throw new Error('Error, probably  you set invalid values for properties');
+
+              const startEditCellCallback = () => startEditCells({ editingCells: [{ rowId, columnName }] });
+              const newParams = startEditAction === 'click'
+                ? {...params, onClick: startEditCellCallback}
+                : {...params, onDoubleClick: startEditCellCallback}
+              
+              return (
+                <TemplatePlaceholder
+                  params={{...newParams}}
+                />
+              )
             }}
           </TemplateConnector>
         )}

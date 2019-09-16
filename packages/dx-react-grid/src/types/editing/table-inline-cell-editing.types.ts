@@ -16,7 +16,7 @@ export namespace TableInlineCellEditing {
     onValueChange: (newValue: any) => void;
     /** AutoFocus on element */
     autoFocus: boolean;
-    /** AutoFocus on element */
+    /** A function called on focus an element */
     onFocus: (e: any) => void;
     /** A function called on key down */
     onKeyDown: (e: any) => void;

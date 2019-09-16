@@ -109,6 +109,6 @@ describe('AppointmentForm', () => {
           onEntered: expect.any(Function),
           onExited: expect.any(Function),
         });
-    })
+    });
   });
 });

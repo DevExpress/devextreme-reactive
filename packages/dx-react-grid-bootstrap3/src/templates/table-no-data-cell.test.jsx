@@ -33,7 +33,7 @@ describe('TableNoDataCell', () => {
     expect(tree.find('div').props().style)
       .toEqual({
         display: 'inline-block',
-        position: 'sticky',
+        position: 'fixed',
         left: '50%',
       });
   });

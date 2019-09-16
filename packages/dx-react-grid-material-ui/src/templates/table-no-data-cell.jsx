@@ -10,7 +10,7 @@ const styles = theme => ({
   },
   textContainer: {
     display: 'inline-block',
-    position: 'sticky',
+    position: 'fixed',
     left: '50%',
   },
   text: {

@@ -234,7 +234,7 @@ button.dx-g-bs4-table-edit-command-cell {
   opacity: 0;
 }
 .dx-g-bs4-fixed-block {
-  @include sticky-position();
+  position: fixed;
   display: inline-block;
   left: 50%;
   .text-muted {

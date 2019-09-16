@@ -1,20 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { getStickyPosition } from '../utils/css-fallback-properties';
 
 export class TableNoDataCell extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      stickyPosition: getStickyPosition(),
-    };
-  }
-
-  componentDidMount() {
-    this.setState({ stickyPosition: getStickyPosition() });
-  }
-
   render() {
     const {
       style,
@@ -24,7 +11,6 @@ export class TableNoDataCell extends React.PureComponent {
       tableColumn,
       ...restProps
     } = this.props;
-    const { stickyPosition } = this.state;
 
     return (
       <td
@@ -38,7 +24,7 @@ export class TableNoDataCell extends React.PureComponent {
         <div
           style={{
             display: 'inline-block',
-            position: stickyPosition,
+            position: 'fixed',
             left: '50%',
           }}
         >

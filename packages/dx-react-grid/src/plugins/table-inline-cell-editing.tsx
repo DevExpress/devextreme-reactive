@@ -19,6 +19,9 @@ const pluginDependencies = [
   { name: 'DataTypeProvider', optional: true },
 ];
 
+/* tslint:disable-next-line max-line-length*/
+const INLINE_CELL_EDITING_ERROR = 'The startEditAction property of the InlineCellEditing plugin is given an invalid value.';
+
 // tslint:disable-next-line: max-line-length
 const TableInlineCellEditingBase: React.SFC<TableInlineCellEditingProps> & {components: {cellComponent: string}} = (props) => {
   const { cellComponent: EditCell, startEditAction, selectTextOnEditStart } = props;
@@ -111,7 +114,7 @@ const TableInlineCellEditingBase: React.SFC<TableInlineCellEditingProps> & {comp
               }
 
               if (startEditAction !== 'click' && startEditAction !== 'doubleClick') {
-                throw new Error('Error, probably  you set invalid values for properties');
+                throw new Error(INLINE_CELL_EDITING_ERROR);
               }
 
               const startEditCellCallback = () => startEditCells({

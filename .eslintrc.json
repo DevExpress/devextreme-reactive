@@ -1,0 +1,12 @@
+{
+  "extends": "airbnb",
+  "plugins": [
+    "jsx-a11y",
+    "import",
+    "filenames"
+  ],
+  "rules": {
+    "arrow-parens": [2, "as-needed", { "requireForBlockBody": true }],
+    "import/prefer-default-export": "off"
+  }
+}

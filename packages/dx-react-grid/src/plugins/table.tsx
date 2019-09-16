@@ -20,6 +20,7 @@ import {
   TABLE_DATA_TYPE,
   TABLE_NODATA_TYPE,
   GridColumnExtension,
+  checkTableColumnExtensions,
 } from '@devexpress/dx-grid-core';
 import { TableProps, Table as TableNS, TableLayoutProps } from '../types';
 
@@ -92,6 +93,7 @@ class TableBase extends React.PureComponent<TableProps> {
 
     const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
     const tableColumnsComputed = this.tableColumnsComputed(columnExtensions!);
+    checkTableColumnExtensions(columnExtensions!);
 
     return (
       <Plugin

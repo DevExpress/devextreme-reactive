@@ -17,6 +17,7 @@ describe('Calendar', () => {
       </tr>
     ),
     cellComponent: () => <td />,
+    // eslint-disable-next-line jsx-a11y/control-has-associated-label
     headerCellComponent: () => <th className="header-cell" />,
     cells: [],
     formatDate: key => key,

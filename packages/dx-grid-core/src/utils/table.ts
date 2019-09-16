@@ -11,14 +11,16 @@ export const getTableColumnGeometries: GetTableColumnGeometriesFn = (columns, ta
 
   const freeSpace = tableWidth;
   const restrictedSpace = columnWidths
-    .reduce((accum, width) => accum! + (width || 0), 0);
+    .reduce(
+      (accum, width) => (accum as number)! + (typeof width === 'number' ? width : 0), 0) as number;
   const freeSpacePortions = columnWidths
-    .reduce((accum, width) => accum! + (width === undefined ? 1 : 0), 0);
+    .reduce(
+      (accum, width) => (accum as number)! + (typeof width !== 'number' ? 1 : 0), 0) as number;
   const freeSpacePortion = (freeSpace - restrictedSpace!) / freeSpacePortions!;
 
   let lastRightPosition = 0;
   return columnWidths
-    .map(width => (width === undefined ? freeSpacePortion : width))
+    .map(width => (typeof width !== 'number' ? freeSpacePortion : width))
     .map((width) => {
       lastRightPosition += width;
       return {

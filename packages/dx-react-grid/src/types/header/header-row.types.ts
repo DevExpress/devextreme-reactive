@@ -1,4 +1,4 @@
-import { Table, Column } from '../index';
+import { Table, Column, CellWidthGetter } from '../index';
 
 // tslint:disable: max-line-length
 // tslint:disable-next-line: no-namespace
@@ -21,6 +21,8 @@ export namespace TableHeaderRow {
     onWidthDraft: (parameters: { shift: number }) => void;
     /** An event that cancels the column width change used for preview. */
     onWidthDraftCancel(): void;
+    /** The header cell's getter, which provide width */
+    getCellWidth: (getter: CellWidthGetter) => void;
     /** Specifies whether drag-and-drop is enabled. */
     draggingEnabled: boolean;
     /** The header cell's children. */

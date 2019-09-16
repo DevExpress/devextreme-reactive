@@ -37,6 +37,7 @@ const exportToImage = async (chart, format, exportFunc) => {
     link.click();
     link.remove();
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.error('oops, something went wrong!', err);
   }
 };
@@ -61,6 +62,7 @@ const exportToPdf = async (chart) => {
     doc.addImage(dataUrl, 'JPEG', 0, 0, pdfWidth, pdfHeight);
     doc.save('chart');
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.error('oops, something went wrong!', err);
   }
 };
@@ -78,6 +80,7 @@ const print = async (chart) => {
     printWindow.document.write(html);
     printWindow.document.close();
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.error('oops, something went wrong!', err);
   }
 };
@@ -184,7 +187,7 @@ const BarWithLabel = withStyles({
     animation: `${getLabelAnimationName()} 1s`,
   },
 })(({ classes, value, ...restProps }) => (
-  <React.Fragment>
+  <>
     <BarSeries.Point {...restProps} />
     <Chart.Label
       x={restProps.arg}
@@ -195,7 +198,7 @@ const BarWithLabel = withStyles({
     >
       {`${value}%`}
     </Chart.Label>
-  </React.Fragment>
+  </>
 ));
 const LegendRoot = withStyles({
   root: {

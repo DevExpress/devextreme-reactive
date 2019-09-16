@@ -47,12 +47,12 @@ class RawBar extends React.PureComponent<BarSeries.PointProps, any> {
         { x: arg, y: val, startY: startVal },
         processBarAnimation, this.setAttribute,
       );
-       // check startVal also
-    } else if (this.animate && isValuesChanged(prevArgument, prevValue, argument, value)) {
+    } else if (this.animate &&
+      isValuesChanged([prevArgument, prevValue, prevStartVal], [argument, value, startVal])) {
       this.animate.update(
         { x: prevArg, y: prevVal, startY: prevStartVal }, { x: arg, y: val, startY: startVal },
       );
-    } else if (isValuesChanged(prevArg, prevVal, arg, val)) {
+    } else if (isValuesChanged([prevArg, prevVal, prevStartVal], [arg, val, startVal])) {
       this.setAttribute({ x: arg, y: val, startY: startVal! });
     }
   }

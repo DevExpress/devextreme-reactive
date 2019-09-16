@@ -312,16 +312,18 @@ export const adjustBarSize = (
 };
 
 /** @internal */
-export const isValuesChanged = (prevArg, prevVal, arg, val) => {
-  return prevArg !== arg || prevVal !== val;
+export const isValuesChanged = (prev, cur) => {
+  return prev.some((el, index) => {
+    return el !== cur[index];
+  });
 };
 
 /** @internal */
-export const isArrayValuesChanged = (prevCoordinates, coordinates, arg, val) => {
+export const isArrayValuesChanged = (prevCoordinates, coordinates, field1, field2) => {
   if (prevCoordinates.length !== coordinates.length) {
     return true;
   }
   return prevCoordinates.some((el, index) => {
-    return el[arg] !== coordinates[index][arg] || el[val] !== coordinates[index][val];
+    return el[field1] !== coordinates[index][field1] || el[field2] !== coordinates[index][field2];
   });
 };

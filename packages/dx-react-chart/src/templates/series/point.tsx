@@ -45,9 +45,9 @@ class RawPoint extends React.PureComponent<ScatterSeries.PointProps, any> {
       this.animate = animation({ x: arg, y: getStartY(scales) }, { x: arg, y: val },
         processPointAnimation, this.setAttribute,
       );
-    } else if (this.animate && isValuesChanged(prevArgument, prevValue, argument, value)) {
+    } else if (this.animate && isValuesChanged([prevArgument, prevValue], [argument, value])) {
       this.animate.update({ x: prevArg, y: prevVal }, { x: arg, y: val });
-    } else if (isValuesChanged(prevArg, prevVal, arg, val)) {
+    } else if (isValuesChanged([prevArg, prevVal], [arg, val])) {
       this.setAttribute({ x: arg, y: val });
     }
   }

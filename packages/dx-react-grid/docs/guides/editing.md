@@ -9,7 +9,7 @@ The following plugins implement editing features:
 - [EditingState](../reference/editing-state.md) - controls the editing state
 - [TableEditRow](../reference/table-edit-row.md) - renders a row being edited
 - [TableEditColumn](../reference/table-edit-column.md) - renders a command column (a column containing controls used for row editing/creating/deleting and committing/canceling changes)
-- [TableInlineCellEditing](../reference/table-inline-cell-editing.md) - renders a command column (a column containing controls used for row editing/creating/deleting and committing/canceling changes)
+- [TableInlineCellEditing](../reference/table-inline-cell-editing.md) - render a cell being edited
 
 Note that the [plugin order](./plugin-overview.md#plugin-order) is important.
 
@@ -47,7 +47,7 @@ Note, you can also use the `onAddedRowsChange` event to initialize a created row
 
 ### Basic
 
-You can use `TableInlineCellEditing` plugin to edit single cell. With this plugin you turn cell in editing state by click. When you press `Enter` or lost focus from cell (for example click on another cell or element) changes aplly. When you press 'Escape' changes cancel.
+You can use `TableInlineCellEditing` plugin to edit single cell. With this plugin you turn cell in editing state by click. When you press `Enter` or lost focus from cell (for example click on another cell or element) changes aplly. When you press `Escape` changes cancel.
 
 .embedded-demo({ "path": "grid-editing/inline-cell-editing", "showThemeSelector": true })
 

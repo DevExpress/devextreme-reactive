@@ -11,6 +11,8 @@ export const Animation: React.ComponentType<AnimationProps>;
 
 // @public (undocumented)
 export interface AnimationProps {
+  duration?: number;
+  easing?: (progress: number) => number;
 }
 
 // @public (undocumented)
@@ -347,7 +349,7 @@ export interface PointComponentProps extends CommonComponentProps {
   arg: number;
   argument: any;
   index: number;
-  startVal?: number;
+  startVal: number;
   val: number;
   value: any;
 }

@@ -19,6 +19,8 @@ import {
   getPiePointTransformer,
   scaleSeriesPoints,
   getVisibility,
+  isValuesChanged,
+  isArrayValuesChanged,
   adjustBarSize,
 } from './computeds';
 
@@ -405,9 +407,7 @@ describe('dPie', () => {
   afterEach(jest.clearAllMocks);
 
   it('should return pie coordinates', () => {
-    const result = dPie({
-      maxRadius: 10, innerRadius: 4, outerRadius: 8, startAngle: 90, endAngle: 180,
-    } as any);
+    const result = dPie(10, 4, 8, 90, 180);
 
     expect(mockArc).toBeCalledWith({
       innerRadius: 40,
@@ -635,5 +635,19 @@ describe('#adjustBarSize', () => {
     .toEqual({ x: 0, y: 0, width: 8, height: 17 });
     expect(adjustBarSize({ x: 2, y: 3, width: 30, height: 40 }, { width: 30, height: 40 }))
     .toEqual({ x: 2, y: 3, width: 28, height: 37 });
+  });
+});
+
+describe('Values changed', () => {
+  it('#isValuesChanged', () => {
+    expect(isValuesChanged([2, 5, 6], [4, 5, 7])).toBeTruthy();
+    expect(isValuesChanged([2, 5, 6], [2, 5, 6])).toBeFalsy();
+  });
+
+  it('#isArrayValuesChanged', () => {
+    expect(isArrayValuesChanged([{ arg: 1, val: 2 }] as any, [{ arg: 2, val: 2 }]as any, 'arg', 'val'))
+    .toBeTruthy();
+    expect(isArrayValuesChanged([{ arg: 1, val: 2 }] as any, [{ arg: 1, val: 2 }]as any, 'arg', 'val'))
+    .toBeFalsy();
   });
 });

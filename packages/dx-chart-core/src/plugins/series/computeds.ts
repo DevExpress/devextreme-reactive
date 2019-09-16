@@ -12,7 +12,7 @@ import {
   SeriesList, Series, PointList, Point, DataItems, AddSeriesFn, ScalesCache, ScaleSeriesPointsFn,
   GetPointTransformerFn, Colors, Rect,
   BarSeries, ScatterSeries, PieSeries,
-  PointComponentProps, PathFn,
+  PointComponentProps, PathFn, PathPoints,
 } from '../../types';
 import { Size } from '@devexpress/dx-react-core';
 import { ARGUMENT_DOMAIN } from '../../constants';
@@ -312,14 +312,16 @@ export const adjustBarSize = (
 };
 
 /** @internal */
-export const isValuesChanged = (prev, cur) => {
+export const isValuesChanged = (prev: any, cur: any): boolean => {
   return prev.some((el, index) => {
     return el !== cur[index];
   });
 };
 
 /** @internal */
-export const isArrayValuesChanged = (prevCoordinates, coordinates, field1, field2) => {
+export const isArrayValuesChanged = (
+  prevCoordinates: PathPoints, coordinates: PathPoints, field1: string, field2: string,
+) => {
   if (prevCoordinates.length !== coordinates.length) {
     return true;
   }

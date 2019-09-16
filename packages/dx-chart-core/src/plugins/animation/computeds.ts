@@ -1,11 +1,21 @@
+import {
+  EasingFn, ProcessAnimationFn, SetAttributeFn,
+  GetNewPositionsFn, Scales, PathPoints,
+} from '../../types';
 
 /** @internal */
-export const linear = progress => progress;
+export const linear = (progress: number) => progress;
 
 /** @internal */
-const getProgress = ({ elapsed, total }) => Math.min(elapsed / total, 1);
+export const getDelay = (index: number, isStart: boolean) => isStart ? index * 30 : 0;
 
-const runAnimation = (setAttributes, processAnimation, easing, duration, delay) => {
+/** @internal */
+const getProgress = ({ elapsed, total }: {elapsed: number, total: number}) =>
+Math.min(elapsed / total, 1);
+
+/** @internal */
+const runAnimation = (setAttributes: SetAttributeFn, getNewPositions: GetNewPositionsFn,
+  easing: EasingFn, duration: number, delay: number): number => {
   const promise = () => new Promise((resolve) => {
     setTimeout(() => {
       const time = {
@@ -13,12 +23,11 @@ const runAnimation = (setAttributes, processAnimation, easing, duration, delay) 
         total: duration,
         elapsed: 0,
       };
-
       const step = () => {
         time.elapsed = new Date().getTime() - time.start;
         const progress = getProgress(time);
 
-        setAttributes(processAnimation(easing(progress)));
+        setAttributes(getNewPositions(easing(progress)));
 
         if (progress < 1) requestAnimationFrame(step);
       };
@@ -31,17 +40,15 @@ const runAnimation = (setAttributes, processAnimation, easing, duration, delay) 
 };
 
 /** @internal */
-export const getDelay = (index, isStart) => isStart ? index * 30 : 0;
-
-/** @internal */
-export const buildAnimation = (easing, duration) => (
-  startCoords, endCoords, processAnimation, setAttributes, delay = 0,
+export const buildAnimation = (easing: EasingFn, duration: number) => (
+  startCoords: any, endCoords: any, processAnimation: ProcessAnimationFn,
+  setAttributes: SetAttributeFn, delay: number = 0,
 ) => {
   let animationID = runAnimation(
     setAttributes, processAnimation(startCoords, endCoords), easing, duration, delay,
   );
   return {
-    update: (updatedStartCoords, updatedEndCoords, updatedDelay) => {
+    update: (updatedStartCoords: any, updatedEndCoords: any, updatedDelay: number = 0) => {
       if (animationID) {
         cancelAnimationFrame(animationID);
       }
@@ -53,6 +60,7 @@ export const buildAnimation = (easing, duration) => (
   };
 };
 
+/** @internal */
 export const processPointAnimation = (startCoords, endCoords) => {
   return (progress) => {
     return {
@@ -62,6 +70,7 @@ export const processPointAnimation = (startCoords, endCoords) => {
   };
 };
 
+/** @internal */
 export const processBarAnimation = (startCoords, endCoords) => {
   return (progress) => {
     return {
@@ -72,6 +81,7 @@ export const processBarAnimation = (startCoords, endCoords) => {
   };
 };
 
+/** @internal */
 export const processLineAnimation = (startCoords, endCoords) => {
   return (progress) => {
     return {
@@ -87,6 +97,7 @@ export const processLineAnimation = (startCoords, endCoords) => {
   };
 };
 
+/** @internal */
 export const processAreaAnimation = (startCoords, endCoords) => {
   return (progress) => {
     return {
@@ -103,6 +114,7 @@ export const processAreaAnimation = (startCoords, endCoords) => {
   };
 };
 
+/** @internal */
 export const processPieAnimation = (start, end) => {
   return (progress) => {
     return {
@@ -115,12 +127,12 @@ export const processPieAnimation = (start, end) => {
 };
 
 /** @internal */
-export const getStartY = (scales) => {
+export const getStartY = (scales: Scales) => {
   return scales.valScale.copy().clamp!(true)(0);
 };
 
 /** @internal */
-export const getStartCoordinates = (scales, coordinates) => {
+export const getStartCoordinates = (scales: Scales, coordinates: PathPoints) => {
   const startPosition = scales.valScale.copy().clamp!(true)(0);
   return coordinates.map((coord) => {
     return { arg: coord.arg, val: startPosition, startVal: startPosition };

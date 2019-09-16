@@ -10,7 +10,7 @@ class AnimationBase extends React.PureComponent<AnimationProps> {
   };
   render() {
     const { easing, duration } = this.props;
-    const buildAnimationGetter = () => buildAnimation(easing, duration);
+    const buildAnimationGetter = () => buildAnimation(easing!, duration!);
     return (
       <Plugin name="Animation">
         <Getter name="animation" computed={buildAnimationGetter} />

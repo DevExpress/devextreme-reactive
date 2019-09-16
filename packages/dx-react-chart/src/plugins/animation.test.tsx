@@ -7,12 +7,16 @@ import { Animation } from './animation';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   buildAnimation: jest.fn().mockReturnValue('test-animation'),
+  linear: jest.fn(),
 }));
 
 describe('Animation', () => {
-  it('should provide optinos', () => {
+  afterEach(jest.clearAllMocks);
+
+  it('should provide default optinos', () => {
     const tree = mount((
       <PluginHost>
+        {pluginDepsToComponents({})}
         <Animation />
       </PluginHost>
     ));
@@ -20,6 +24,20 @@ describe('Animation', () => {
     expect(getComputedState(tree)).toEqual({
       animation: 'test-animation',
     });
-    expect(buildAnimation).toBeCalled();
+    expect(buildAnimation).toBeCalledWith(expect.any(Function), 1000);
+  });
+
+  it('should provide custom options', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents({})}
+        <Animation easing={jest.fn()} duration={20} />
+      </PluginHost>
+    ));
+
+    expect(getComputedState(tree)).toEqual({
+      animation: 'test-animation',
+    });
+    expect(buildAnimation).toBeCalledWith(expect.any(Function), 20);
   });
 });

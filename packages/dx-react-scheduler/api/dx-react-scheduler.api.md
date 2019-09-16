@@ -86,6 +86,8 @@ export namespace AppointmentForm {
     booleanEditorComponent: React.ComponentType<AppointmentForm.BooleanEditorProps>;
     children?: React.ReactNode;
     dateEditorComponent: React.ComponentType<AppointmentForm.DateEditorProps>;
+    // (undocumented)
+    fullSize: boolean;
     getMessage: (messageKey: string) => string;
     labelComponent: React.ComponentType<AppointmentForm.LabelProps>;
     locale: string | string[];

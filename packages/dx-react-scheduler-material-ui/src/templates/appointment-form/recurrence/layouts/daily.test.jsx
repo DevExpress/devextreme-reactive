@@ -90,5 +90,14 @@ describe('AppointmentForm recurrence layout', () => {
       expect(defaultProps.getMessage)
         .toHaveBeenCalledWith('daysLabel');
     });
+
+    it('should work even if rule is undefined', () => {
+      const tree = shallow((
+        <Daily {...defaultProps} appointmentData={{}} />
+      ));
+
+      expect(tree.exists())
+        .toBeTruthy();
+    });
   });
 });

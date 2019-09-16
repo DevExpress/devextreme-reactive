@@ -20,6 +20,7 @@ describe('AppointmentForm basic', () => {
     onFieldChange: jest.fn(),
     appointmentData: {},
     locale: 'en-US',
+    fullSize: false,
   };
   let classes;
   let shallow;
@@ -48,9 +49,9 @@ describe('AppointmentForm basic', () => {
         .toBeTruthy();
     });
 
-    it('should have width equal to 100% if appointment is basic', () => {
+    it('should have width equal to 100% if it is full-size', () => {
       const tree = shallow((
-        <Layout {...defaultProps} />
+        <Layout {...defaultProps} fullSize />
       ));
 
       expect(tree.is(`.${classes.fullSize}`))
@@ -59,7 +60,7 @@ describe('AppointmentForm basic', () => {
 
     it('should render components correctly if appointment is not recurrent', () => {
       const tree = shallow((
-        <Layout {...defaultProps} />
+        <Layout {...defaultProps} fullSize />
       ));
 
       const labelComponents = tree.find(defaultProps.labelComponent);
@@ -130,7 +131,7 @@ describe('AppointmentForm basic', () => {
 
     it('should call getMessage with correct parameters', () => {
       shallow((
-        <Layout {...defaultProps} />
+        <Layout {...defaultProps} fullSize />
       ));
 
       expect(defaultProps.getMessage)

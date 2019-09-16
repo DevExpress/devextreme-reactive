@@ -97,5 +97,14 @@ describe('AppointmentForm recurrence layout', () => {
       expect(defaultProps.getMessage)
         .toHaveBeenCalledWith('weeksOnLabel');
     });
+
+    it('should work even if rule is undefined', () => {
+      const tree = shallow((
+        <Weekly {...defaultProps} appointmentData={{}} />
+      ));
+
+      expect(tree.exists())
+        .toBeTruthy();
+    });
   });
 });

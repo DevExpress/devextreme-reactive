@@ -49,7 +49,7 @@ const EndRepeatEditorBase = ({
   const [endDate, setEndDate] = React.useState(appointmentData.endDate);
 
   const { rRule } = appointmentData;
-  const recurrenceOptions = React.useMemo(() => getRecurrenceOptions(rRule), [rRule]);
+  const recurrenceOptions = React.useMemo(() => getRecurrenceOptions(rRule) || {}, [rRule]);
   const changeRecurrenceCount = React.useCallback(nextCount => onFieldChange({
     rRule: changeRecurrenceOptions({ ...recurrenceOptions, count: nextCount }),
   }), [recurrenceOptions, onFieldChange]);

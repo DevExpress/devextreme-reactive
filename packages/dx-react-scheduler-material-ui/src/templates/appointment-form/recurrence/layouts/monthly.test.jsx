@@ -99,5 +99,14 @@ describe('AppointmentForm recurrence layout', () => {
       expect(defaultProps.getMessage)
         .toHaveBeenCalledWith('monthsLabel');
     });
+
+    it('should work even if rule is undefined', () => {
+      const tree = shallow((
+        <Monthly {...defaultProps} appointmentData={{}} />
+      ));
+
+      expect(tree.exists())
+        .toBeTruthy();
+    });
   });
 });

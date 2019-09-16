@@ -77,6 +77,8 @@ const prepareChanges = (
   return { changedAppointment, isNew, isFormEdited };
 };
 
+const getFullSize = (rRule, isPreviouslyFullSize) => !!rRule || isPreviouslyFullSize;
+
 class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, AppointmentFormState> {
   toggleVisibility: (payload?: any) => void;
   setAppointmentData: (payload: any) => void;
@@ -112,6 +114,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
     this.state = {
       visible: props.visible,
       appointmentData: props.appointmentData || {},
+      isPreviouslyFullSize: false,
     };
 
     const stateHelper: StateHelper = createStateHelper(
@@ -209,7 +212,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
       readOnly,
       messages,
     } = this.props;
-    const { visible, appointmentData } = this.state;
+    const { visible, appointmentData, isPreviouslyFullSize } = this.state;
     const getMessage = this.getMessage(defaultMessages, messages);
 
     return (
@@ -228,6 +231,10 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                 appointmentData, editingAppointment, addedAppointment, appointmentChanges,
               );
               const isRecurrence = !!changedAppointment.rRule;
+              if (isPreviouslyFullSize !==  isRecurrence && visible) {
+                this.setState({ isPreviouslyFullSize: isRecurrence });
+              }
+              const fullSize = getFullSize(changedAppointment.rRule, isPreviouslyFullSize);
 
               return (
                 <React.Fragment>
@@ -235,14 +242,14 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                   <Overlay
                     visible={visible}
                     onHide={this.toggleVisibility}
-                    fullSize={isRecurrence}
+                    fullSize={fullSize}
                     target={this.container}
                   >
                     <Layout
                       basicLayoutComponent={BasicLayoutPlaceholder}
                       commandLayoutComponent={CommandLayoutPlaceholder}
                       recurrenceLayoutComponent={RecurrenceLayoutPlaceholder}
-                      isRecurrence={isRecurrence}
+                      isRecurrence={fullSize}
                     />
                   </Overlay>
                   <TemplatePlaceholder />
@@ -283,7 +290,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                   )}
                   getMessage={getMessage}
                   readOnly={readOnly}
-                  fullSize={!!changedAppointment.rRule}
+                  fullSize={getFullSize(changedAppointment.rRule, isPreviouslyFullSize)}
                   showSaveButton={isFormEdited}
                 />
               );
@@ -318,6 +325,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                   booleanEditorComponent={booleanEditorComponent}
                   selectComponent={selectComponent}
                   labelComponent={labelComponent}
+                  fullSize={!getFullSize(changedAppointment.rRule, isPreviouslyFullSize)}
                 />
               );
             }}

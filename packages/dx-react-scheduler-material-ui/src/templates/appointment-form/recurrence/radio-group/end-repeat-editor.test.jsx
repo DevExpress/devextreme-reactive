@@ -145,5 +145,14 @@ describe('AppointmentForm recurrence RadioGroup', () => {
       expect(defaultProps.getMessage)
         .toHaveBeenCalledWith('afterLabel');
     });
+
+    it('should work even if rule is undefined', () => {
+      const tree = shallow((
+        <EndRepeatEditor {...defaultProps} appointmentData={{}} />
+      ));
+
+      expect(tree.exists())
+        .toBeTruthy();
+    });
   });
 });

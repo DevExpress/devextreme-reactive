@@ -111,6 +111,7 @@ appointmentData | [AppointmentModel](./scheduler.md#appointmentmodel) | The appo
 onFieldChange | (nextFieldValue: { [fieldName: string]: any }) => void | Handles appointment field value changes.
 getMessage | (messageKey: string) => string | Returns a localization message by the message key.
 locale | string &#124; Array&lt;string&gt; | Specifies the locale date format that is a string holding a BCP 47 language tag, or an array of such strings.
+fullSize | boolean | Specifies whether the layout is full-size.
 textEditorComponent | ComponentType&lt;[AppointmentForm.TextEditorProps](#appointmentformtexteditorprops)&gt; | A component that renders the appointment form's text editor component.
 dateEditorComponent | ComponentType&lt;[AppointmentForm.DateEditorProps](#appointmentformdateeditorprops)&gt; | A component that renders the appointment form's date editor component.
 booleanEditorComponent | ComponentType&lt;[AppointmentForm.BooleanEditorProps](#appointmentformbooleanteditorprops)&gt; | A component that renders the appointment form's boolean editor component.

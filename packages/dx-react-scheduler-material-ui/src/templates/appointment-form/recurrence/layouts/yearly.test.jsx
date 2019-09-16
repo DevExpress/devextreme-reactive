@@ -99,5 +99,14 @@ describe('AppointmentForm recurrence layout', () => {
       expect(defaultProps.getMessage)
         .toHaveBeenCalledWith('yearsLabel');
     });
+
+    it('should work even if rule is undefined', () => {
+      const tree = shallow((
+        <Yearly {...defaultProps} appointmentData={{}} />
+      ));
+
+      expect(tree.exists())
+        .toBeTruthy();
+    });
   });
 });

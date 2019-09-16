@@ -23,6 +23,9 @@ const styles = ({ spacing }) => ({
       width: '100%',
     },
   },
+  transition: {
+    transition: 'transform .6s, width .6s!important',
+  },
 });
 
 const OverlayBase = ({
@@ -35,10 +38,12 @@ const OverlayBase = ({
   onHide,
   ...restProps
 }) => {
+  const [previouslyOpen, setPreviouslyOpen] = React.useState(false);
   const paperClasses = classNames({
     [classes.absolutePosition]: true,
     [classes.fullSize]: fullSize,
     [classes.halfSize]: !fullSize,
+    [classes.transition]: visible && previouslyOpen,
   });
 
   return (
@@ -50,10 +55,14 @@ const OverlayBase = ({
         className: classes.absolutePosition,
         container: target.current,
       }}
+      SlideProps={{
+        onEntered: () => setPreviouslyOpen(true),
+        onExited: () => setPreviouslyOpen(false),
+      }}
+      open={visible}
       variant="temporary"
       anchor="left"
       transitionDuration={600}
-      open={visible}
       onBackdropClick={onHide}
       {...restProps}
     >

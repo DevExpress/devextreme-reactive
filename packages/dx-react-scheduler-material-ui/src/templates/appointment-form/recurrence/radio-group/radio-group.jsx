@@ -67,7 +67,7 @@ export const RadioGroup = ({
         />
       );
     default:
-      return null;
+      return () => null;
   }
 };
 

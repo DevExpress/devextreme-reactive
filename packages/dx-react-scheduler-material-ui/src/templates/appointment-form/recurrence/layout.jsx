@@ -64,7 +64,7 @@ const getLayoutComponent = (recurrenceOptions) => {
         break;
     }
   }
-  return null;
+  return () => null;
 };
 
 const LayoutBase = ({
@@ -85,7 +85,7 @@ const LayoutBase = ({
   locale,
   ...restProps
 }) => {
-  const recurrenceOptions = getRecurrenceOptions(appointmentData.rRule);
+  const recurrenceOptions = getRecurrenceOptions(appointmentData.rRule) || {};
   const MainLayoutComponent = getLayoutComponent(recurrenceOptions);
   const frequency = getFrequencyString(recurrenceOptions.freq);
 

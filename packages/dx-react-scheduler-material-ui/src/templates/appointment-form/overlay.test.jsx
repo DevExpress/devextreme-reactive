@@ -96,5 +96,19 @@ describe('AppointmentForm', () => {
       expect(defaultProps.onHide)
         .toBeCalledTimes(1);
     });
+
+    it('should pass onEntered and onExited in SlideProps', () => {
+      const tree = shallow((
+        <Overlay {...defaultProps}>
+          <div />
+        </Overlay>
+      ));
+
+      expect(tree.prop('SlideProps'))
+        .toMatchObject({
+          onEntered: expect.any(Function),
+          onExited: expect.any(Function),
+        });
+    })
   });
 });

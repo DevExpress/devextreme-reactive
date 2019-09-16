@@ -49,7 +49,7 @@ const YearlyBase = ({
   ...restProps
 }) => {
   const { rRule } = appointmentData;
-  const recurrenceOptions = React.useMemo(() => getRecurrenceOptions(rRule), [rRule]);
+  const recurrenceOptions = React.useMemo(() => getRecurrenceOptions(rRule) || {}, [rRule]);
 
   const changeRecurrenceInterval = React.useCallback(interval => interval > 0 && onFieldChange({
     rRule: changeRecurrenceOptions({ ...recurrenceOptions, interval }),

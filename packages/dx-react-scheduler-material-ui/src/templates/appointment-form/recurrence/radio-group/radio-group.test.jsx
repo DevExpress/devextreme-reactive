@@ -90,5 +90,14 @@ describe('AppointmentForm recurrence radio group', () => {
       expect(yearlyEditor)
         .toHaveLength(1);
     });
+
+    it('should work even if rule is undefined', () => {
+      const tree = mount((
+        <RadioGroup {...defaultProps} />
+      ));
+
+      expect(tree.exists())
+        .toBeTruthy();
+    });
   });
 });

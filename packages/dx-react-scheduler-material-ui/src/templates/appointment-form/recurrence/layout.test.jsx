@@ -143,5 +143,14 @@ describe('AppointmentForm recurrence', () => {
       expect(defaultProps.getMessage)
         .toHaveBeenCalledWith('endRepeatLabel');
     });
+
+    it('should work even if rule is undefined', () => {
+      const tree = shallow((
+        <Layout {...defaultProps} appointmentData={{}} />
+      ));
+
+      expect(tree.exists())
+        .toBeTruthy();
+    });
   });
 });

@@ -73,7 +73,7 @@ const MonthlyEditorBase = ({
   const [stateDayOfWeek, setStateDayOfWeek] = useState(appointmentData.startDate.getDay());
 
   const { rRule } = appointmentData;
-  const recurrenceOptions = React.useMemo(() => getRecurrenceOptions(rRule), [rRule]);
+  const recurrenceOptions = React.useMemo(() => getRecurrenceOptions(rRule) || {}, [rRule]);
   const changeByMonthDay = React.useCallback(nextByMonthDay => onFieldChange({
     rRule: handleStartDateChange(nextByMonthDay, recurrenceOptions),
   }), [recurrenceOptions]);

@@ -52,7 +52,7 @@ const styles = ({ spacing, typography }) => ({
     textAlign: 'center',
     paddingBottom: '0.5em',
   },
-  '@media (max-width: 500px)': {
+  '@media (max-width: 570px)': {
     dateEditors: {
       flexDirection: 'column',
     },
@@ -80,6 +80,7 @@ const LayoutBase = ({
   readOnly,
   onFieldChange,
   appointmentData,
+  fullSize,
   textEditorComponent: TextEditor,
   dateEditorComponent: DateEditor,
   selectComponent: Select,
@@ -112,7 +113,7 @@ const LayoutBase = ({
     <div
       className={classNames({
         [classes.root]: true,
-        [classes.fullSize]: !appointmentData.rRule,
+        [classes.fullSize]: fullSize,
       }, className)}
       {...restProps}
     >
@@ -171,7 +172,7 @@ const LayoutBase = ({
         onValueChange={changeAllDay}
       />
       {children}
-      {!appointmentData.rRule && (
+      {fullSize && (
         <React.Fragment>
           <Label
             text={getMessage('repeatLabel')}
@@ -212,6 +213,7 @@ LayoutBase.propTypes = {
     allDay: PropTypes.bool,
   }).isRequired,
   readOnly: PropTypes.bool,
+  fullSize: PropTypes.bool.isRequired,
 };
 
 LayoutBase.defaultProps = {

@@ -235,6 +235,7 @@ describe('AppointmentForm', () => {
         labelComponent: defaultProps.labelComponent,
         booleanEditorComponent: defaultProps.booleanEditorComponent,
         readOnly: false,
+        fullSize: true,
       });
   });
 

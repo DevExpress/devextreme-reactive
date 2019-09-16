@@ -173,7 +173,7 @@ const LayoutBase = ({
       />
       {children}
       {fullSize && (
-        <React.Fragment>
+        <>
           <Label
             text={getMessage('repeatLabel')}
             type={TITLE}
@@ -185,7 +185,7 @@ const LayoutBase = ({
             availableOptions={selectOptions}
             type={OUTLINED_SELECT}
           />
-        </React.Fragment>
+        </>
       )}
     </div>
   );

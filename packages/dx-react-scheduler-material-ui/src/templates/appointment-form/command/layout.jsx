@@ -69,7 +69,7 @@ const LayoutBase = ({
       id={CANCEL_BUTTON}
     />
     {!readOnly && (
-      <React.Fragment>
+      <>
         <CommandButton
           onExecute={onDeleteButtonClick}
           getMessage={getMessage}
@@ -82,7 +82,7 @@ const LayoutBase = ({
             id={SAVE_BUTTON}
           />
         )}
-      </React.Fragment>
+      </>
     )}
     {children}
   </Grid>

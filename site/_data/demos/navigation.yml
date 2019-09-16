@@ -93,6 +93,8 @@
         path: /react/scheduler/demos/featured/appearance-customization
       - title: Remote Data
         path: /react/scheduler/demos/featured/remote-data
+      - title: Redux Integration
+        path: /react/scheduler/demos/featured/redux-integration
 /vue/grid:
   - title: DEMOS
     items:

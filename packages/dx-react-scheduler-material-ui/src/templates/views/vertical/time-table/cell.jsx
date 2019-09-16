@@ -21,6 +21,9 @@ const styles = theme => ({
       backgroundColor: fade(theme.palette.primary.main, 0.15),
       outline: 0,
     },
+    '&:last-child': {
+      paddingRight: 0,
+    },
   },
 });
 

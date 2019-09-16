@@ -13,6 +13,9 @@ const styles = ({ spacing }) => ({
   iconItem: {
     minWidth: spacing(2),
   },
+  selectMenu: {
+    position: 'absolute !important',
+  },
 });
 
 class FilterSelectorBase extends React.PureComponent {
@@ -46,7 +49,7 @@ class FilterSelectorBase extends React.PureComponent {
     } = this.props;
     const { opened } = this.state;
     return availableValues.length ? (
-      <React.Fragment>
+      <>
         <ToggleButton
           buttonRef={this.setButtonRef}
           onToggle={this.handleButtonClick}
@@ -59,6 +62,7 @@ class FilterSelectorBase extends React.PureComponent {
           open={opened}
           onClose={this.handleMenuClose}
           MenuListProps={{ dense: true }}
+          className={classes.selectMenu}
         >
           {availableValues.map(valueItem => (
             <MenuItem
@@ -81,7 +85,7 @@ class FilterSelectorBase extends React.PureComponent {
             </MenuItem>
           ))}
         </Menu>
-      </React.Fragment>
+      </>
     ) : null;
   }
 }

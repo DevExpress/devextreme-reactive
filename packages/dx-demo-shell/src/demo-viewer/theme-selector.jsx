@@ -94,8 +94,7 @@ export const ThemeSelector = ({
           </Dropdown.Menu>
         </Dropdown>
       );
-    }
-    }
+    }}
   </EmbeddedDemoContext.Consumer>
 );
 

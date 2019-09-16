@@ -24,6 +24,22 @@ In [uncontrolled mode](controlled-and-uncontrolled-modes.md), use the `TableColu
 
 ### Controlled Mode
 
-In [controlled mode](controlled-and-uncontrolled-modes.md), pass the column widths to the `TableColumnResizing` plugin's `columnWidths` property, and handle the `onColumnWidthsChange` event to control the column width state.
+In [controlled mode](controlled-and-uncontrolled-modes.md), pass the column widths to the `TableColumnResizing` plugin's `columnWidths` property and handle the `onColumnWidthsChange` event to manage the column width state.
 
 .embedded-demo({ "path": "grid-column-resizing/controlled", "showThemeSelector": true })
+
+## Resizing Modes
+
+Columns can be resized in the following modes:
+
+- `nextColumn`        
+When a user resizes a column, the width of the next column changes.
+
+- `widget`        
+When a user resizes a column, columns on the right shift but retain their widths. In this mode, `auto` and percentage values cannot be used to specify column widths.
+
+To specify the resizing mode, use the `TableColumnResizing` plugin's `columnResizingMode` property. 
+
+The following example demonstrates the resizing modes:
+
+.embedded-demo({ "path": "grid-column-resizing/resizing-mode", "showThemeSelector": true })

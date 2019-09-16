@@ -98,7 +98,7 @@ class TableSummaryRowBase extends React.PureComponent<TableSummaryRowProps> {
     );
 
     return (
-      <React.Fragment>
+      <>
         {columnSummaries.map((summary) => {
           if (summary.value === null
             || formatlessSummaryTypes.includes(summary.type)
@@ -122,7 +122,7 @@ class TableSummaryRowBase extends React.PureComponent<TableSummaryRowProps> {
             </TemplatePlaceholder>
           );
         })}
-      </React.Fragment>
+      </>
     );
   }
 

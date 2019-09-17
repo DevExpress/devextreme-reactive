@@ -1,5 +1,5 @@
 import {
-  EasingFn, ProcessAnimationFn, SetAttributeFn,
+  EasingFn, SetAttributeFn, AnimationFn,
   GetNewPositionsFn, Scales, PathPoints,
 } from '../../types';
 
@@ -40,15 +40,15 @@ const runAnimation = (setAttributes: SetAttributeFn, getNewPositions: GetNewPosi
 };
 
 /** @internal */
-export const buildAnimation = (easing: EasingFn, duration: number) => (
-  startCoords: any, endCoords: any, processAnimation: ProcessAnimationFn,
-  setAttributes: SetAttributeFn, delay: number = 0,
+export const buildAnimation = (easing: EasingFn, duration: number): AnimationFn => (
+  startCoords, endCoords, processAnimation,
+  setAttributes, delay = 0,
 ) => {
   let animationID = runAnimation(
     setAttributes, processAnimation(startCoords, endCoords), easing, duration, delay,
   );
   return {
-    update: (updatedStartCoords: any, updatedEndCoords: any, updatedDelay: number = 0) => {
+    update: (updatedStartCoords, updatedEndCoords, updatedDelay = 0) => {
       if (animationID) {
         cancelAnimationFrame(animationID);
       }

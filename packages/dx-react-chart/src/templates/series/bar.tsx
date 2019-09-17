@@ -1,14 +1,14 @@
 import * as React from 'react';
 import {
   processBarAnimation, HOVERED, SELECTED, dBar, getVisibility, adjustBarSize,
-  isValuesChanged, getStartY,
+  isValuesChanged, getStartY, UpdateAnimate,
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
 import { BarSeries } from '../../types';
 
-class RawBar extends React.PureComponent<BarSeries.PointProps, any> {
-  animate: any = undefined;
+class RawBar extends React.PureComponent<BarSeries.PointProps, BarSeries.PointState> {
+  animate: UpdateAnimate | undefined;
   constructor(props) {
     super(props);
 
@@ -21,7 +21,9 @@ class RawBar extends React.PureComponent<BarSeries.PointProps, any> {
     this.setAttribute = this.setAttribute.bind(this);
   }
 
-  setAttribute({ x, y, startY, style }: {x: number, y: number, startY: number, style?: object}) {
+  setAttribute({ x, y, startY, style }: {
+    x: number, y: number, startY: number, style?: React.CSSProperties,
+  }) {
     this.setState({ x, y, startY, style });
   }
 
@@ -70,7 +72,7 @@ class RawBar extends React.PureComponent<BarSeries.PointProps, any> {
       ...restProps
     } = this.props;
     const width = barWidth * maxBarWidth;
-    const bar = dBar(x, y, startY, width, rotated);
+    const bar = dBar(x!, y!, startY!, width, rotated);
     const visibility = getVisibility(
       pane, bar.x + bar.width / 2, bar.y + bar.height, bar.width, bar.height,
     );

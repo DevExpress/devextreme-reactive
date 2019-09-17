@@ -1,14 +1,14 @@
 import * as React from 'react';
 import {
   processPointAnimation, dSymbol, HOVERED, SELECTED, getVisibility,
-  isValuesChanged, getStartY,
+  isValuesChanged, getStartY, UpdateAnimate,
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { ScatterSeries } from '../../types';
 
-class RawPoint extends React.PureComponent<ScatterSeries.PointProps, any> {
+class RawPoint extends React.PureComponent<ScatterSeries.PointProps, ScatterSeries.PointState> {
   d: string = '';
-  animate: any = undefined;
+  animate: UpdateAnimate | undefined;
   constructor(props) {
     super(props);
 
@@ -20,7 +20,7 @@ class RawPoint extends React.PureComponent<ScatterSeries.PointProps, any> {
     this.setAttribute = this.setAttribute.bind(this);
   }
 
-  setAttribute({ x, y, style }: {x: number, y: number, style?: object}) {
+  setAttribute({ x, y, style }: { x: number, y: number, style?: object }) {
     this.setState({ cx: x, cy: y, style });
   }
 
@@ -67,7 +67,7 @@ class RawPoint extends React.PureComponent<ScatterSeries.PointProps, any> {
     } = this.props;
     const x = rotated ? cy : cx;
     const y = rotated ? cx : cy;
-    const visibility = getVisibility(pane, x, y, 0, 0);
+    const visibility = getVisibility(pane, x!, y!, 0, 0);
     return (
       <path
         transform={`translate(${x} ${y})`}

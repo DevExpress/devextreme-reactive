@@ -6,7 +6,7 @@ import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
 import { PieSeries } from '../../types';
 
-class RawSlice extends React.PureComponent<PieSeries.PointProps, any> {
+class RawSlice extends React.PureComponent<PieSeries.PointProps, PieSeries.PointState> {
   animate: any = undefined;
   constructor(props) {
     super(props);
@@ -88,7 +88,8 @@ class RawSlice extends React.PureComponent<PieSeries.PointProps, any> {
     return (
       <g transform={`translate(${arg} ${val})`}>
         <path
-          d={dPie(maxRadius, innerRadiusState, outerRadiusState, startAngleState, endAngleState)}
+          d={dPie(maxRadius, innerRadiusState!, outerRadiusState!,
+            startAngleState!, endAngleState!)}
           fill={color}
           stroke="none"
           style={{ ...style, ...animateStyle }}

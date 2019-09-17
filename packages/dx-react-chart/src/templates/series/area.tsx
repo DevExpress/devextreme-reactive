@@ -1,14 +1,14 @@
 import * as React from 'react';
 import {
   HOVERED, SELECTED, dArea, dRotateArea, isArrayValuesChanged,
-  processAreaAnimation, getStartCoordinates,
+  processAreaAnimation, getStartCoordinates, PathPoints, UpdateAnimate,
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
 import { AreaSeries } from '../../types';
 
-class RawArea extends React.PureComponent<AreaSeries.SeriesProps, any> {
-  animate: any = undefined;
+class RawArea extends React.PureComponent<AreaSeries.SeriesProps, AreaSeries.SeriesState> {
+  animate: UpdateAnimate | undefined;
   constructor(props) {
     super(props);
 
@@ -19,7 +19,7 @@ class RawArea extends React.PureComponent<AreaSeries.SeriesProps, any> {
     this.setAttribute = this.setAttribute.bind(this);
   }
 
-  setAttribute({ coordinates, style }: { coordinates: any, style?: any}) {
+  setAttribute({ coordinates, style }: { coordinates: PathPoints, style?: React.CSSProperties }) {
     this.setState({ coordinates, style });
   }
 

@@ -73,19 +73,6 @@ describe('AppointmentForm command', () => {
         .toEqual(CANCEL_BUTTON);
     });
 
-    it('shouldn\'t render Save Button if the form hasn\'t been edited', () => {
-      const tree = shallow((
-        <Layout {...defaultProps} showSaveButton={false} />
-      ));
-
-      const buttons = tree.find(defaultProps.commandButtonComponent);
-      expect(buttons).toHaveLength(2);
-      expect(buttons.at(0).prop('id'))
-        .toEqual(CANCEL_BUTTON);
-      expect(buttons.at(1).prop('id'))
-        .toEqual(DELETE_BUTTON);
-    });
-
     it('should call onCommitButtonClick', () => {
       const tree = shallow((
         <Layout {...defaultProps} />

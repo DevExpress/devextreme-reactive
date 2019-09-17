@@ -185,7 +185,7 @@ describe('AppointmentForm', () => {
           onCommitButtonClick: expect.any(Function),
           onDeleteButtonClick: expect.any(Function),
           readOnly: false,
-          showSaveButton: true,
+          disableSaveButton: false,
         });
     });
 

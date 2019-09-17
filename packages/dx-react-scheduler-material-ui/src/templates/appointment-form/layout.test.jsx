@@ -52,23 +52,6 @@ describe('AppointmentForm', () => {
       expect(tree.find(defaultProps.basicLayoutComponent))
         .toHaveLength(1);
       expect(tree.find(defaultProps.recurrenceLayoutComponent))
-        .toHaveLength(0);
-    });
-
-    it('should render form with capability to edit recurrent appointments correctly', () => {
-      const tree = shallow((
-        <Layout {...defaultProps} isRecurrence>
-          <div />
-        </Layout>
-      ));
-
-      expect(tree.find(defaultProps.commandLayoutComponent))
-        .toHaveLength(1);
-      expect(tree.find(defaultProps.basicLayoutComponent))
-        .toHaveLength(1);
-      expect(tree.find(defaultProps.recurrenceLayoutComponent))
-        .toHaveLength(1);
-      expect(tree.find(`.${classes.container}`))
         .toHaveLength(1);
     });
 

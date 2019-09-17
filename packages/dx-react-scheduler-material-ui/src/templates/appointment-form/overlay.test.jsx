@@ -68,7 +68,7 @@ describe('AppointmentForm', () => {
 
       expect(tree.prop('PaperProps'))
         .toMatchObject({
-          className: `${classes.absolutePosition} ${classes.halfSize}`,
+          className: `${classes.absolutePosition} ${classes.paper} ${classes.halfSize}`,
         });
     });
 
@@ -81,7 +81,7 @@ describe('AppointmentForm', () => {
 
       expect(tree.prop('PaperProps'))
         .toMatchObject({
-          className: `${classes.absolutePosition} ${classes.fullSize}`,
+          className: `${classes.absolutePosition} ${classes.paper} ${classes.fullSize}`,
         });
     });
 

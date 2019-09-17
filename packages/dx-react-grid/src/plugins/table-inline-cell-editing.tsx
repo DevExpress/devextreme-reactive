@@ -66,7 +66,7 @@ const TableInlineCellEditingBase: React.SFC<TableInlineCellEditingProps> & {comp
                   };
                   changeRow(changeArgs);
                 };
-                const onKeyDown = (key) => {
+                const onKeyDown = ({ key }) => {
                   if (key === 'Enter') {
                     commitChangedRows({ rowIds: [rowId] });
                     stopEditCells({ editingCells: [{ rowId, columnName }] });
@@ -102,7 +102,7 @@ const TableInlineCellEditingBase: React.SFC<TableInlineCellEditingProps> & {comp
                         editingEnabled={editingEnabled}
                         onValueChange={onValueChange}
                         autoFocus
-                        onKeyDown={({ key }) => onKeyDown(key)}
+                        onKeyDown={e => onKeyDown(e)}
                         onBlur={onBlur}
                         onFocus={onFocus}
                       >
@@ -126,7 +126,7 @@ const TableInlineCellEditingBase: React.SFC<TableInlineCellEditingProps> & {comp
 
               return (
                 <TemplatePlaceholder
-                  params={{ ...newParams }}
+                  params={newParams}
                 />
               );
             }}

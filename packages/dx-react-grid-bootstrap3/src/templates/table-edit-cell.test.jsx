@@ -37,7 +37,7 @@ describe('EditCell', () => {
       .toBeTruthy();
   });
 
-  it('should provide autoFocus and onBlur props to children', () => {
+  it('should provide additional props to children', () => {
     const tree = shallow((
       <EditCell
         {...defaultProps}
@@ -51,6 +51,8 @@ describe('EditCell', () => {
     expect(tree.find('.test').prop('onFocus'))
       .toBeDefined();
     expect(tree.find('.test').prop('onBlur'))
+      .toBeDefined();
+    expect(tree.find('.test').prop('onKeyDown'))
       .toBeDefined();
   });
 

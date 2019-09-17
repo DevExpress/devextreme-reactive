@@ -5,10 +5,15 @@ import classNames from 'classnames';
 export const EditCell = ({
   column, value, onValueChange, className, children,
   row, tableRow, tableColumn, editingEnabled,
-  autoFocus, onBlur, onFocus, ...restProps
+  autoFocus, onBlur, onFocus, onKeyDown, ...restProps
 }) => {
   const patchedChildren = children
-    ? React.cloneElement(children, { autoFocus, onBlur, onFocus })
+    ? React.cloneElement(children, {
+      autoFocus,
+      onBlur,
+      onFocus,
+      onKeyDown,
+    })
     : children;
 
   return (
@@ -31,6 +36,7 @@ export const EditCell = ({
           autoFocus={autoFocus}
           onBlur={onBlur}
           onFocus={onFocus}
+          onKeyDown={onKeyDown}
         />
       )}
     </td>
@@ -49,6 +55,7 @@ EditCell.propTypes = {
   autoFocus: PropTypes.bool,
   onBlur: PropTypes.func,
   onFocus: PropTypes.func,
+  onKeyDown: PropTypes.func,
 };
 EditCell.defaultProps = {
   column: undefined,
@@ -62,4 +69,5 @@ EditCell.defaultProps = {
   autoFocus: false,
   onBlur: () => {},
   onFocus: () => {},
+  onKeyDown: () => {},
 };

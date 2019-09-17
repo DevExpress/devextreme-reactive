@@ -50,8 +50,9 @@ value | any | A value to be edited.
 editingEnabled | boolean | Specifies whether editing a column is enabled.
 onValueChange | (newValue: any) => void | Handles value changes.
 autoFocus | boolean | Define autoFocus on cell when editing start (`true` by default).
-onKeyDown | (key: string) => void | Define actions when keyboard key pressed.
+onFocus | boolean | Define actions when cell get focus.
 onBlur | () => void | Define actions when cell lost focus.
+onKeyDown | (key: string) => void | Define actions when keyboard key pressed.
 
 ## Plugin Components
 
@@ -77,6 +78,7 @@ startEditCells | [Action](../../../dx-react-core/docs/reference/action.md) | ({ 
 stopEditCells | [Action](../../../dx-react-core/docs/reference/action.md) | ({ editingCells: Array&lt;{rowId: number &#124; string, columnName: string}&gt; }) => void | Switches cells with the specified row ID and column name to the read-only mode.
 cancelChangedRows | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Cancels uncommitted changes in rows with the specified ID.
 commitChangedRows | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](editing-state.md#changeset) and removes specified rows from the `rowChanges` array.
+tableCell | [Template](../../../dx-react-core/docs/reference/template.md) | [Table.CellProps](table.md#tablecellprops) | A template that renders a table cell.
 
 ### Exports
 

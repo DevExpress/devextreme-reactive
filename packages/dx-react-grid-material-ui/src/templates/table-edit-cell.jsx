@@ -23,14 +23,19 @@ const styles = theme => ({
 const EditCellBase = ({
   column, value, onValueChange, style, classes, children,
   row, tableRow, tableColumn, editingEnabled, className,
-  autoFocus, onBlur, onFocus, ...restProps
+  autoFocus, onBlur, onFocus, onKeyDown, ...restProps
 }) => {
   const inputClasses = classNames({
     [classes.inputRight]: tableColumn && tableColumn.align === 'right',
     [classes.inputCenter]: tableColumn && tableColumn.align === 'center',
   });
   const patchedChildren = children
-    ? React.cloneElement(children, { autoFocus, onBlur, onFocus })
+    ? React.cloneElement(children, {
+      autoFocus,
+      onBlur,
+      onFocus,
+      onKeyDown,
+    })
     : children;
 
   return (
@@ -50,6 +55,7 @@ const EditCellBase = ({
           autoFocus={autoFocus}
           onBlur={onBlur}
           onFocus={onFocus}
+          onKeyDown={onKeyDown}
         />
       )}
     </TableCell>
@@ -71,6 +77,7 @@ EditCellBase.propTypes = {
   autoFocus: PropTypes.bool,
   onBlur: PropTypes.func,
   onFocus: PropTypes.func,
+  onKeyDown: PropTypes.func,
 };
 
 EditCellBase.defaultProps = {
@@ -86,6 +93,7 @@ EditCellBase.defaultProps = {
   autoFocus: false,
   onBlur: () => {},
   onFocus: () => {},
+  onKeyDown: () => {},
 };
 
 export const EditCell = withStyles(styles, { name: 'EditCell' })(EditCellBase);

@@ -34,7 +34,7 @@ const LayoutBase = ({
     <CommandLayout />
     <div className={classes.container}>
       <BasicLayout />
-      {isRecurrence && <RecurrenceLayout />}
+      <RecurrenceLayout />
     </div>
     {children}
   </div>

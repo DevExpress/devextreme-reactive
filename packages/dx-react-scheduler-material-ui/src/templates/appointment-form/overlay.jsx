@@ -24,7 +24,7 @@ const styles = ({ spacing }) => ({
     },
   },
   transition: {
-    transition: 'transform .6s, width .6s!important',
+    transition: 'transform 1s, width 1s!important',
   },
 });
 
@@ -62,7 +62,7 @@ const OverlayBase = ({
       open={visible}
       variant="temporary"
       anchor="left"
-      transitionDuration={600}
+      transitionDuration={1000}
       onBackdropClick={onHide}
       {...restProps}
     >

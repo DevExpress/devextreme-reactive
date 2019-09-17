@@ -19,12 +19,22 @@ import { Yearly as YearlyLayout } from './layouts/yearly';
 
 const styles = ({ spacing }) => ({
   root: {
+    padding: 0,
+    paddingTop: spacing(3),
+    overflow: 'hidden',
+    width: 0,
+    transition: 'all 1s',
+    boxSizing: 'border-box',
+    maxWidth: 0,
+    opacity: 0,
+  },
+  visible: {
+    maxWidth: '500px',
+    width: '40%',
     padding: spacing(3),
     paddingRight: spacing(4),
     paddingLeft: spacing(1),
-    width: '50%',
-    maxWidth: '500px',
-    boxSizing: 'border-box',
+    opacity: 1,
     '@media (max-width: 700px)': {
       width: '100%',
       maxWidth: '700px',
@@ -98,7 +108,7 @@ const LayoutBase = ({
   );
   return (
     <div
-      className={classNames(classes.root, className)}
+      className={classNames({ [classes.root]: true, [classes.visible]: appointmentData.rRule, className })}
       {...restProps}
     >
       <Label

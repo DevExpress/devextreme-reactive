@@ -9,7 +9,7 @@ import { Animation } from '@devexpress/dx-react-chart';
 
 const data = [
   { x: -20, y: -20 },
-  { x: -15, y: 15, },
+  { x: -15, y: 15 },
   { x: -10, y: -10 },
   { x: -5, y: 5 },
   { x: 0, y: 0 },
@@ -21,7 +21,7 @@ const data = [
 
 const updatedData = [
   { x: -20, y: 20 },
-  { x: -15, y: -15, },
+  { x: -15, y: -15 },
   { x: -10, y: 10 },
   { x: -5, y: -5 },
   { x: 0, y: 0 },
@@ -29,7 +29,7 @@ const updatedData = [
   { x: 10, y: -10 },
   { x: 15, y: 15 },
   { x: 20, y: -20 },
-]
+];
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -42,7 +42,7 @@ export default class Demo extends React.PureComponent {
 
   componentDidMount() {
     setTimeout(() => {
-      this.setState({data: updatedData});
+      this.setState({ data: updatedData });
     }, 3000);
   }
 

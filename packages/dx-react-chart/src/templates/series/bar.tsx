@@ -5,9 +5,9 @@ import {
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
-import { BarSeries } from '../../types';
+import { BarSeries, BarSeriesState } from '../../types';
 
-class RawBar extends React.PureComponent<BarSeries.PointProps, BarSeries.PointState> {
+class RawBar extends React.PureComponent<BarSeries.PointProps, BarSeriesState> {
   animate: UpdateAnimate | undefined;
   constructor(props) {
     super(props);

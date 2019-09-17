@@ -113,10 +113,11 @@ export interface PathComponentPathProps extends PathComponentProps {
   path?: PathFn;
 }
 
-export interface PathComponentPathState {
+/** @internal */
+export type PathComponentPathState = {
   coordinates: PathPoints;
   style?: React.CSSProperties;
-}
+};
 
 export interface AreaSeriesProps extends SeriesProps {
   /** A component that renders series */
@@ -135,12 +136,13 @@ export namespace AreaSeries {
   /** Describes properties of a component that renders series */
   // tslint:disable-next-line: no-empty-interface
   export interface PathSeriesProps extends SeriesProps { }
-
-  export interface SeriesState {
-    coordinates: PathPoints;
-    style?: React.CSSProperties;
-  }
 }
+
+  /** @internal */
+export type AreaSeriesState = {
+  coordinates: PathPoints;
+  style?: React.CSSProperties;
+};
 
 export interface LineSeriesProps extends SeriesProps {
   /** A component that renders series */
@@ -181,13 +183,15 @@ export namespace BarSeries {
     /** The maximum width that the bar can occupy, measured in pixels */
     maxBarWidth: number;
   }
-  export interface PointState {
-    x?: number;
-    y?: number;
-    startY?: number;
-    style?: React.CSSProperties;
-  }
 }
+
+/** @internal */
+export type BarSeriesState = {
+  x?: number;
+  y?: number;
+  startY?: number;
+  style?: React.CSSProperties;
+};
 
 export interface BarSeriesProps extends SeriesProps {
   /** The bar width in relative units */
@@ -211,15 +215,16 @@ export namespace PieSeries {
     /** The slice's end angle */
     endAngle: number;
   }
-
-  export interface PointState {
-    innerRadius?: number;
-    outerRadius?: number;
-    startAngle?: number;
-    endAngle?: number;
-    style?: React.CSSProperties;
-  }
 }
+
+/** @internal */
+export type PieSeriesState = {
+  innerRadius?: number;
+  outerRadius?: number;
+  startAngle?: number;
+  endAngle?: number;
+  style?: React.CSSProperties;
+};
 
 export interface PieSeriesProps extends SeriesProps {
   /** The inner radius in relative units */
@@ -245,12 +250,13 @@ export namespace ScatterSeries {
   // tslint:disable-next-line: no-shadowed-variable no-empty-interface
   export interface SeriesProps extends PathComponentProps { }
 
-  export interface PointState {
-    cx?: number;
-    cy?: number;
-    style?: React.CSSProperties;
-  }
 }
+/** @internal */
+export type ScatterSeriesState = {
+  cx?: number;
+  cy?: number;
+  style?: React.CSSProperties;
+};
 
 export interface ScatterSeriesProps extends SeriesProps {
   /** Point options */

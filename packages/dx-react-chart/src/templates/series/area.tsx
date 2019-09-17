@@ -5,9 +5,9 @@ import {
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
-import { AreaSeries } from '../../types';
+import { AreaSeries, AreaSeriesState } from '../../types';
 
-class RawArea extends React.PureComponent<AreaSeries.SeriesProps, AreaSeries.SeriesState> {
+class RawArea extends React.PureComponent<AreaSeries.SeriesProps, AreaSeriesState> {
   animate: UpdateAnimate | undefined;
   constructor(props) {
     super(props);

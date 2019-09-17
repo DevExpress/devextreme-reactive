@@ -10,6 +10,7 @@ export {
 
   AreaSeries, LineSeries, SplineSeries, BarSeries, ScatterSeries, PieSeries,
   SeriesProps, PathComponentProps, PathComponentPathProps, PointComponentProps,
+  AreaSeriesState, ScatterSeriesState, PieSeriesState, PathComponentPathState, BarSeriesState,
   AreaSeriesProps,
   LineSeriesProps,
   SplineSeriesProps,

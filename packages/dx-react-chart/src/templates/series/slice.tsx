@@ -4,9 +4,9 @@ import {
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
-import { PieSeries } from '../../types';
+import { PieSeries, PieSeriesState } from '../../types';
 
-class RawSlice extends React.PureComponent<PieSeries.PointProps, PieSeries.PointState> {
+class RawSlice extends React.PureComponent<PieSeries.PointProps, PieSeriesState> {
   animate: any = undefined;
   constructor(props) {
     super(props);

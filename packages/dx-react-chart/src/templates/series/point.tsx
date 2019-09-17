@@ -4,9 +4,9 @@ import {
   isValuesChanged, getStartY, UpdateAnimate,
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
-import { ScatterSeries } from '../../types';
+import { ScatterSeries, ScatterSeriesState } from '../../types';
 
-class RawPoint extends React.PureComponent<ScatterSeries.PointProps, ScatterSeries.PointState> {
+class RawPoint extends React.PureComponent<ScatterSeries.PointProps, ScatterSeriesState> {
   d: string = '';
   animate: UpdateAnimate | undefined;
   constructor(props) {

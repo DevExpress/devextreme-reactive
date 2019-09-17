@@ -102,7 +102,7 @@ const TableInlineCellEditingBase: React.SFC<TableInlineCellEditingProps> & {comp
                         editingEnabled={editingEnabled}
                         onValueChange={onValueChange}
                         autoFocus
-                        onKeyDown={e => onKeyDown(e)}
+                        onKeyDown={onKeyDown}
                         onBlur={onBlur}
                         onFocus={onFocus}
                       >

@@ -7,10 +7,11 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = theme => ({
   cell: {
     padding: theme.spacing(6, 0),
+    position: 'static !important',
   },
   textContainer: {
     display: 'inline-block',
-    position: 'fixed',
+    position: 'sticky',
     left: '50%',
   },
   text: {

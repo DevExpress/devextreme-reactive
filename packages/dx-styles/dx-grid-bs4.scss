@@ -215,6 +215,7 @@ button.dx-g-bs4-table-edit-command-cell {
 }
 .dx-g-bs4-fixed-cell,
 .dx-g-bs4-fixed-group-cell {
+  position: static !important;
   z-index: 300;
   background-clip: padding-box;
 }
@@ -234,7 +235,8 @@ button.dx-g-bs4-table-edit-command-cell {
   opacity: 0;
 }
 .dx-g-bs4-fixed-block {
-  position: fixed;
+  position: -webkit-sticky;
+  position: sticky;
   display: inline-block;
   left: 50%;
   .text-muted {

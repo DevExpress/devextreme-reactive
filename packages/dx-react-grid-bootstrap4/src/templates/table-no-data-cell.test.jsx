@@ -26,7 +26,7 @@ describe('TableNoDataCell', () => {
       .toBeTruthy();
   });
 
-  it('should set fixed position for text container', () => {
+  it('should set sticky position for text container', () => {
     const tree = shallow((
       <TableNoDataCell
         getMessage={key => key}

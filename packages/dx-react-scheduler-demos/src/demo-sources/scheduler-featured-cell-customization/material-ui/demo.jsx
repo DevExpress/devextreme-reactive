@@ -2,12 +2,15 @@ import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
 import TableCell from '@material-ui/core/TableCell';
 import { darken, fade, lighten } from '@material-ui/core/styles/colorManipulator';
+import Typography from '@material-ui/core/Typography';
 import { ViewState } from '@devexpress/dx-react-scheduler';
 import classNames from 'classnames';
 import {
   Scheduler,
   MonthView,
   Appointments,
+  Toolbar,
+  DateNavigator,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import WbSunny from '@material-ui/icons/WbSunny';
 import FilterDrama from '@material-ui/icons/FilterDrama';
@@ -73,17 +76,29 @@ const styles = theme => ({
   snow: {
     color: '#4FC3F7',
   },
-  sun1: {
+  sunBack: {
     backgroundColor: '#FFFDE7',
   },
-  cloud1: {
+  cloudBack: {
     backgroundColor: '#ECEFF1',
   },
-  snow1: {
+  snowBack: {
     backgroundColor: '#E1F5FE',
   },
   opacity: {
     opacity: '0.5',
+  },
+  toolbar: {
+    backgroundColor: '#E1F5FE',
+  },
+  appointment: {
+    borderRadius: '10px',
+    '&:hover': {
+      opacity: 0.6,
+    },
+  },
+  flexibleSpace: {
+    flex: 'none',
   },
 });
 
@@ -116,9 +131,9 @@ const CellBase = React.memo(({
       tabIndex={0}
       className={classNames({
         [classes.cell]: true,
-        [classes.sun1]: iconId === 0,
-        [classes.cloud1]: iconId === 1,
-        [classes.snow1]: iconId === 2,
+        [classes.sunBack]: iconId === 0,
+        [classes.cloudBack]: iconId === 1,
+        [classes.snowBack]: iconId === 2,
         [classes.opacity]: otherMonth,
       })}
     >
@@ -134,6 +149,21 @@ const CellBase = React.memo(({
 
 const TimeTableCell = withStyles(styles, { name: 'Cell' })(CellBase);
 
+const Appointment = withStyles(styles, { name: 'Appointment' })((props) => {
+  return <Appointments.Appointment {...props} className={props.classes.appointment} />;
+});
+
+const Root = withStyles(styles, { name: 'ToolbarRoot' })((props) => {
+  return <Toolbar.Root {...props} className={props.classes.toolbar} />;
+});
+
+const FlexibleSpace = withStyles(styles, { name: 'ToolbarRoot' })((props) => {
+  return (
+    <Toolbar.FlexibleSpace {...props} className={props.classes.flexibleSpace}>
+      <Typography color="primary" variant="h5">Weather Forecast</Typography>
+    </Toolbar.FlexibleSpace>
+  );
+});
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -141,12 +171,11 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       data: appointments.slice(0, 4),
-      currentDate: '2018-07-17',
     };
   }
 
   render() {
-    const { data, currentDate } = this.state;
+    const { data } = this.state;
 
     return (
       <Paper>
@@ -154,13 +183,22 @@ export default class Demo extends React.PureComponent {
           data={data}
         >
           <ViewState
-            currentDate={currentDate}
+            defaultCurrentDate="2018-07-17"
           />
           <MonthView
             timeTableCellComponent={TimeTableCell}
             dayScaleCellComponent={DayScaleCell}
           />
-          <Appointments />
+
+          <Toolbar
+            rootComponent={Root}
+            flexibleSpaceComponent={FlexibleSpace}
+          />
+          <DateNavigator />
+
+          <Appointments
+            appointmentComponent={Appointment}
+          />
         </Scheduler>
       </Paper>
     );

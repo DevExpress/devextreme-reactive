@@ -7,11 +7,11 @@ import { Bar } from './bar';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   dBar: jest.fn().mockReturnValue({ attributes: 'test-attributes' }),
-  getAreaAnimationStyle: 'test-animation-style',
   HOVERED: 'test_hovered',
   SELECTED: 'test_selected',
   getVisibility: jest.fn().mockReturnValue('visible'),
   adjustBarSize: jest.fn(value => value),
+  isValuesChanged: jest.fn(),
 }));
 
 jest.mock('../../utils/with-states', () => ({
@@ -47,7 +47,7 @@ describe('Bar', () => {
     expect(tree.find('rect').props()).toEqual({
       attributes: 'test-attributes',
       fill: 'color',
-      style: 'animated-style',
+      style: { tag: 'test-style' },
       visibility: 'visible',
     });
     expect(adjustBarSize)

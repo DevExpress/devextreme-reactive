@@ -7,6 +7,7 @@ import { Area } from './area';
 jest.mock('@devexpress/dx-chart-core', () => ({
   HOVERED: 'test_hovered',
   SELECTED: 'test_selected',
+  isArrayValuesChanged: jest.fn(),
 }));
 
 jest.mock('../../utils/with-states', () => ({
@@ -25,6 +26,7 @@ describe('Area', () => {
     scales: { tag: 'test-scales' },
     rotated: true,
     clipPathId: 'clipPathId',
+    style: { tag: 'test-style' },
   };
 
   it('should render root element', () => {
@@ -39,6 +41,7 @@ describe('Area', () => {
       fill: 'red',
       opacity: 0.5,
       clipPath: 'url(#clipPathId)',
+      style: { tag: 'test-style' },
     });
     expect(defaultProps.path).toBeCalledWith(defaultProps.coordinates);
   });

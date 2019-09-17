@@ -6,9 +6,9 @@ import { Slice } from './slice';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   dPie: jest.fn().mockReturnValue('test-d-attribute'),
-  getPieAnimationStyle: 'test-animation-style',
   HOVERED: 'test_hovered',
   SELECTED: 'test_selected',
+  isValuesChanged: jest.fn(),
 }));
 
 jest.mock('../../utils/with-states', () => ({
@@ -46,7 +46,7 @@ describe('Slice', () => {
       d: 'test-d-attribute',
       fill: 'color',
       stroke: 'none',
-      style: 'animated-style',
+      style: { tag: 'test-style' },
     });
   });
 

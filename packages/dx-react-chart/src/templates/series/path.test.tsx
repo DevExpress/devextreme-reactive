@@ -6,6 +6,7 @@ import { Path } from './path';
 jest.mock('@devexpress/dx-chart-core', () => ({
   HOVERED: 'test_hovered',
   SELECTED: 'test_selected',
+  isArrayValuesChanged: jest.fn(),
 }));
 
 jest.mock('../../utils/with-states', () => ({
@@ -21,6 +22,7 @@ describe('Path', () => {
     scales: { tag: 'test-scales' },
     rotated: true,
     clipPathId: 'clipPathId',
+    style: { tag: 'test-style' },
   };
 
   it('should render root element', () => {
@@ -36,6 +38,7 @@ describe('Path', () => {
       strokeWidth: 2,
       stroke: 'red',
       clipPath: 'url(#clipPathId)',
+      style: { tag: 'test-style' },
     });
     expect(defaultProps.path).toBeCalledWith(defaultProps.coordinates);
   });

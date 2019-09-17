@@ -6,10 +6,10 @@ import { Point } from './point';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   dSymbol: jest.fn().mockReturnValue('test-d-attribute'),
-  getScatterAnimationStyle: 'test-animation-style',
   HOVERED: 'test_hovered',
   SELECTED: 'test_selected',
   getVisibility: jest.fn().mockReturnValue('visible'),
+  isValuesChanged: jest.fn(),
 }));
 
 jest.mock('../../utils/with-states', () => ({
@@ -43,7 +43,7 @@ describe('Point', () => {
       transform: 'translate(1 2)',
       d: 'test-d-attribute',
       fill: 'color',
-      style: 'animated-style',
+      style: { tag: 'test-style' },
       stroke: 'none',
       visibility: 'visible',
     });
@@ -59,7 +59,7 @@ describe('Point', () => {
       transform: 'translate(2 1)',
       d: 'test-d-attribute',
       fill: 'color',
-      style: 'animated-style',
+      style: { tag: 'test-style' },
       stroke: 'none',
       visibility: 'visible',
     });

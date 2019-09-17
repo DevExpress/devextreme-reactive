@@ -112,6 +112,7 @@ const LayoutBase = ({
         value={frequency}
         type={OUTLINED_SELECT}
         className={classes.select}
+        readOnly={readOnly}
       />
       <MainLayoutComponent
         textEditorComponent={textEditorComponent}

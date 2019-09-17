@@ -184,6 +184,7 @@ const LayoutBase = ({
             onValueChange={changeFrequency}
             availableOptions={selectOptions}
             type={OUTLINED_SELECT}
+            readOnly={readOnly}
           />
         </>
       )}

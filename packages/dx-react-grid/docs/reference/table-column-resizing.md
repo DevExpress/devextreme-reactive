@@ -45,7 +45,7 @@ Describes an object that specifies a column width.
 Field | Type | Description
 ------|------|------------
 columnName | string | A column name.
-width | number &#124; string | A column width in pixels or CSS-accepted units (`auto`, `px`, `%`, `em`, `rem`, `vm`, `vh`, `vmin`).
+width | number &#124; string | A column width in pixels or CSS-accepted units (`auto`, `px`, `%`, `em`, `rem`, `vm`, `vh`, `vmin`, `vmax`).
 
 ### TableColumnResizing.ColumnExtension
 

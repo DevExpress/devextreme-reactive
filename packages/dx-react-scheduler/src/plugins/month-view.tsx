@@ -213,7 +213,7 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
                 appointments, startViewDate, endViewDate, viewCellsData,
               );
               return (
-                <React.Fragment>
+                <>
                   <TimeTableLayout
                     cellsData={viewCellsData}
                     rowComponent={timeTableRowComponent}
@@ -235,7 +235,7 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
                       />
                     ))}
                   </AppointmentLayer>
-                </React.Fragment>
+                </>
               );
             }}
           </TemplateConnector>

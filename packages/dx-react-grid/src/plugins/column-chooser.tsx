@@ -71,7 +71,7 @@ class ColumnChooserBase extends React.PureComponent<ColumnChooserProps, ColumnCh
               { columns, hiddenColumnNames, isColumnTogglingEnabled },
               { toggleColumnVisibility },
             ) => (
-              <React.Fragment>
+              <>
                 <ToggleButton
                   buttonRef={this.setButtonRef}
                   onToggle={this.handleToggle}
@@ -99,7 +99,7 @@ class ColumnChooserBase extends React.PureComponent<ColumnChooserProps, ColumnCh
                       })}
                   </Container>
                 </Overlay>
-              </React.Fragment>
+              </>
             )}
           </TemplateConnector>
         </Template>

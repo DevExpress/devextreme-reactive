@@ -8,14 +8,17 @@ export class ColumnGroup extends React.PureComponent<{ columns: TableColumn[] }>
 
     return (
       <colgroup>
-        {columns.map(({ key, width }) => (
-          <col
-            key={key}
-            style={width !== undefined
-              ? { width: `${width}px` }
-              : undefined}
-          />
-        ))}
+        {columns.map(({ key, width }) => {
+          const styleWidth = typeof width === 'number' ? `${width}px` : width;
+          return (
+            <col
+              key={key}
+              style={width !== undefined
+                ? { width: styleWidth }
+                : undefined}
+            />
+          );
+        })}
       </colgroup>
     );
   }

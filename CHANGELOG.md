@@ -1,3 +1,24 @@
+# [2.0.5](https://github.com/DevExpress/devextreme-reactive/compare/v2.0.4...v2.0.5) (2019-09-16)
+
+
+### Bug Fixes
+
+* **react-chart:** fix typescript in scales ([#2314](https://github.com/DevExpress/devextreme-reactive/issues/2314)) ([15ecec0](https://github.com/DevExpress/devextreme-reactive/commit/15ecec0))
+* **react-grid:** add summary rows only if summary items are specified ([#2298](https://github.com/DevExpress/devextreme-reactive/issues/2298)) ([5ee7d97](https://github.com/DevExpress/devextreme-reactive/commit/5ee7d97))
+* **react-grid:** correct displaying Filter Selector in Edge ([#2318](https://github.com/DevExpress/devextreme-reactive/issues/2318)) ([903f3c5](https://github.com/DevExpress/devextreme-reactive/commit/903f3c5))
+* **react-scheduler:** make it possible to create an appointment after cancelled drag-drop ([#2307](https://github.com/DevExpress/devextreme-reactive/issues/2307)) ([b666250](https://github.com/DevExpress/devextreme-reactive/commit/b666250))
+* **react-scheduler-material-ui:** remove lastChild's paddingRight from all cells ([#2323](https://github.com/DevExpress/devextreme-reactive/issues/2323)) ([27121c2](https://github.com/DevExpress/devextreme-reactive/commit/27121c2))
+* **scheduler-core:** delete recurrent appointments correctly with 'delete current and following' option ([#2313](https://github.com/DevExpress/devextreme-reactive/issues/2313)) ([d3d1df7](https://github.com/DevExpress/devextreme-reactive/commit/d3d1df7))
+* **scheduler-core:** fix Drag-and-Drop of recurrent appointments with UNTIL ([#2321](https://github.com/DevExpress/devextreme-reactive/issues/2321)) ([ba6cf21](https://github.com/DevExpress/devextreme-reactive/commit/ba6cf21))
+
+
+### Features
+
+* **react-grid:** improve column resizing ([#2218](https://github.com/DevExpress/devextreme-reactive/issues/2218)) ([cd73218](https://github.com/DevExpress/devextreme-reactive/commit/cd73218))
+* **react-scheduler:** display month's name in the first day cell of the month in MonthView ([#2316](https://github.com/DevExpress/devextreme-reactive/issues/2316)) ([28cd3d2](https://github.com/DevExpress/devextreme-reactive/commit/28cd3d2))
+
+
+
 # [2.0.4](https://github.com/DevExpress/devextreme-reactive/compare/v2.0.3...v2.0.4) (2019-09-02)
 
 

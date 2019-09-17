@@ -218,10 +218,10 @@ describe('Getter', () => {
         <Template name="root">
           <TemplateConnector>
             {({ a, b }) => (
-              <React.Fragment>
+              <>
                 <h1 className="a">{a}</h1>
                 <h1 className="b">{b}</h1>
-              </React.Fragment>
+              </>
             )}
           </TemplateConnector>
         </Template>

@@ -4,6 +4,7 @@ import { PluginHost, Template } from '@devexpress/dx-react-core';
 import {
   isStubTableCell,
   tableRowsWithDataRows,
+  checkColumnWidths,
 } from '@devexpress/dx-grid-core';
 import { makeVirtualTable } from './virtual-table';
 import { Table } from '../table';
@@ -18,6 +19,8 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   visibleRowsBounds: jest.fn(),
   getRowsRenderBoundary: jest.fn(),
   isStubTableCell: jest.fn(),
+  checkColumnWidths: jest.fn(),
+  checkTableColumnExtensions: jest.fn(),
 }));
 
 describe('#makeVirtualTable', () => {
@@ -79,6 +82,7 @@ describe('#makeVirtualTable', () => {
 
   beforeEach(() => {
     tableRowsWithDataRows.mockImplementation(() => 'tableRowsWithDataRows');
+    checkColumnWidths.mockImplementation(() => 'checkColumnWidths');
   });
 
   describe('viewport', () => {
@@ -110,6 +114,24 @@ describe('#makeVirtualTable', () => {
 
       expect(getComputedState(tree).viewport)
         .toBe('viewport');
+    });
+  });
+
+  describe('tableColumns', () => {
+    const VirtualTable = makeVirtualTable(TableMock, defaultVirtualTableProps);
+
+    it('should provide tableColumns getter', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <VirtualTable />
+        </PluginHost>
+      ));
+
+      expect(checkColumnWidths)
+        .toBeCalledWith(defaultDeps.getter.tableColumns);
+      expect(getComputedState(tree).tableColumns)
+        .toBe('checkColumnWidths');
     });
   });
 

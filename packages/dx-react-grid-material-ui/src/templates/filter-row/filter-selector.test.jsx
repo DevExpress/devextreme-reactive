@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { createShallow } from '@material-ui/core/test-utils';
+import { createShallow, getClasses } from '@material-ui/core/test-utils';
+import Menu from '@material-ui/core/Menu';
 import { FilterSelector } from './filter-selector';
 
 const defaultProps = {
@@ -10,8 +11,10 @@ const defaultProps = {
 
 describe('FilterSelector', () => {
   let shallow;
+  let classes;
   beforeAll(() => {
     shallow = createShallow({ dive: true });
+    classes = getClasses(<FilterSelector {...defaultProps} />);
   });
   it('should not render anything if no values are available', () => {
     const tree = shallow(<FilterSelector {...defaultProps} />);
@@ -42,6 +45,18 @@ describe('FilterSelector', () => {
     ));
 
     expect(tree.find(defaultProps.toggleButtonComponent).prop('disabled'))
+      .toBeTruthy();
+  });
+
+  it('should have correct classes', () => {
+    const tree = shallow((
+      <FilterSelector
+        {...defaultProps}
+        availableValues={['one', 'two']}
+      />
+    ));
+
+    expect(tree.find(Menu).hasClass(classes.selectMenu))
       .toBeTruthy();
   });
 });

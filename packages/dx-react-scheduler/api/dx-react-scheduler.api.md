@@ -110,13 +110,13 @@ export namespace AppointmentForm {
   export interface CommandLayoutProps {
     children?: React.ReactNode;
     commandButtonComponent: React.ComponentType<AppointmentForm.CommandButtonProps>;
+    disableSaveButton?: boolean;
     fullSize: boolean;
     getMessage: (messageKey: string) => string;
     onCancelButtonClick: () => void;
     onCommitButtonClick: () => void;
     onDeleteButtonClick: () => void;
     readOnly?: boolean;
-    showSaveButton?: boolean;
   }
   export interface DateEditorProps {
     locale?: string | string[];

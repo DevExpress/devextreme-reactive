@@ -65,7 +65,7 @@ export default class Demo extends React.PureComponent {
             showOpenButton
             showDeleteButton
           />
-          <AppointmentForm readOnly />
+          <AppointmentForm />
         </Scheduler>
       </Paper>
     );

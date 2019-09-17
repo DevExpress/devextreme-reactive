@@ -1,4 +1,5 @@
-import React, { useState } from 'react';<%&additionalImports%><%&imports%>
+import React, { useState } from 'react';<%&additionalImports%>
+<%&imports%>
 import { EditingState } from '@devexpress/dx-react-grid';
 import {
   Grid,

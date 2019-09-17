@@ -12,6 +12,9 @@ const styles = ({ spacing }) => ({
   absolutePosition: {
     position: 'absolute!important',
   },
+  paper: {
+    outline: 'none',
+  },
   fullSize: {
     height: '100%',
     width: '100%',
@@ -41,6 +44,7 @@ const OverlayBase = ({
   const [previouslyOpen, setPreviouslyOpen] = React.useState(false);
   const paperClasses = classNames({
     [classes.absolutePosition]: true,
+    [classes.paper]: true,
     [classes.fullSize]: fullSize,
     [classes.halfSize]: !fullSize,
     [classes.transition]: visible && previouslyOpen,

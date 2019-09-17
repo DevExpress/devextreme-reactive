@@ -1,8 +1,12 @@
 import { TABLE_DATA_TYPE, TABLE_NODATA_TYPE } from './constants';
 import {
-  IsSpecificCellFn, IsSpecificRowFn, TableRow, TableColumn,
+  IsSpecificCellFn, IsSpecificRowFn, TableRow, TableColumn, CheckColumnExtensionsFn,
 } from '../../types';
 import { TABLE_STUB_TYPE } from '../../utils/virtual-table';
+import { isValidValue } from '../table-column-resizing/helpers';
+
+const VALID_UNITS = ['px', '%', 'em', 'rem', 'vm', 'vh', 'vmin', 'vmax', ''];
+const TABLE_ERROR = 'The columnExtension property of the Table plugin is given an invalid value.';
 
 export const isDataTableCell: IsSpecificCellFn = (
   tableRow, tableColumn,
@@ -18,3 +22,16 @@ export const isNoDataTableCell: IsSpecificCellFn<TableColumn, TableColumn[]> = (
 export const isStubTableCell: IsSpecificRowFn = tableRow => (
   tableRow.type === TABLE_STUB_TYPE
 );
+
+export const checkTableColumnExtensions: CheckColumnExtensionsFn = (columnExntesions) => {
+  if (columnExntesions) {
+    columnExntesions.map((column) => {
+      const { width } = column;
+      if (typeof width === 'string') {
+        if (!isValidValue(width, VALID_UNITS)) {
+          throw new Error(TABLE_ERROR);
+        }
+      }
+    });
+  }
+};

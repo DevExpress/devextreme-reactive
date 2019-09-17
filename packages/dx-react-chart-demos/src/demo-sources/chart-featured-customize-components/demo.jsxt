@@ -29,7 +29,7 @@ const BarWithLabel = ({
 }) => {
   const width = maxBarWidth * barWidth;
   return (
-    <React.Fragment>
+    <>
       <path d={getPath(arg - width / 2, width, val, startVal)} fill={color} style={style} />
       <Chart.Label
         x={arg}
@@ -40,7 +40,7 @@ const BarWithLabel = ({
       >
         {value}
       </Chart.Label>
-    </React.Fragment>
+    </>
   );
 };
 
@@ -57,7 +57,7 @@ const makeAxisLabel = (data) => {
     const { text, x, y } = props;
     // Though "xlinkHref" is deprecated it is used because Safari does not support "href".
     return (
-      <React.Fragment>
+      <>
         <image
           xlinkHref={loginToAvatar.get(text)}
           width={imageSize}
@@ -65,7 +65,7 @@ const makeAxisLabel = (data) => {
           transform={`translate(${x - (imageSize / 2)} ${y - labelOffset})`}
         />
         <ArgumentAxis.Label {...props} y={y + imageSize} />
-      </React.Fragment>
+      </>
     );
   };
 };

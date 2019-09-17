@@ -395,7 +395,7 @@ export interface ScaleObject {
   copy(): this;
   domain(domain: DomainItems): this;
   domain(): DomainItems;
-  invert(value: number): any;
+  invert?(value: number): any;
   paddingInner?(arg: number): this;
   paddingOuter?(arg: number): this;
   range(): NumberArray;

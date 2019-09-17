@@ -5,6 +5,7 @@ import {
   isDataTableRow,
   isNoDataTableRow,
   isNoDataTableCell,
+  checkTableColumnExtensions,
 } from './helpers';
 
 describe('Table Plugin helpers', () => {
@@ -52,6 +53,26 @@ describe('Table Plugin helpers', () => {
         .toBeTruthy();
       expect(isNoDataTableCell(column, [{ type: 'undefined' }, column]))
         .toBeFalsy();
+    });
+  });
+  describe('#checkTableColumnExtensions', () => {
+    it('should work', () => {
+      expect(() => checkTableColumnExtensions())
+        .not.toThrow();
+      expect(() => checkTableColumnExtensions([]))
+        .not.toThrow();
+      expect(() =>
+        checkTableColumnExtensions([
+          { columnName: 'a', width: 100 },
+          { columnName: 'a', width: '100' },
+          { columnName: 'a', width: '100px' },
+          { columnName: 'a', width: '100em' },
+          { columnName: 'a', width: 'auto' },
+        ]),
+      )
+        .not.toThrow();
+      expect(() => checkTableColumnExtensions([{ columnName: 'a', width: '100auto' }]))
+        .toThrow(/columnExtension.*Table/);
     });
   });
 });

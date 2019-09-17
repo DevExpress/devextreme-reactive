@@ -7,6 +7,8 @@ import {
   isHeadingTableCell,
   isHeadingTableRow,
   getColumnSortingDirection,
+  getNextColumnName,
+  getLastColumnName,
 } from '@devexpress/dx-grid-core';
 import { TableHeaderRow } from './table-header-row';
 
@@ -15,6 +17,8 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   isHeadingTableCell: jest.fn(),
   isHeadingTableRow: jest.fn(),
   getColumnSortingDirection: jest.fn(),
+  getNextColumnName: jest.fn(),
+  getLastColumnName: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -61,6 +65,8 @@ describe('TableHeaderRow', () => {
     isHeadingTableCell.mockImplementation(() => false);
     isHeadingTableRow.mockImplementation(() => false);
     getColumnSortingDirection.mockImplementation(() => null);
+    getNextColumnName.mockImplementation(() => undefined);
+    getLastColumnName.mockImplementation(() => undefined);
   });
   afterEach(() => {
     jest.resetAllMocks();

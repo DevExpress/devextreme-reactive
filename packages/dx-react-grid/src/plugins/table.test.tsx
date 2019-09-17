@@ -23,6 +23,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   isDataTableCell: jest.fn(),
   isHeaderStubTableCell: jest.fn(),
   isDataTableRow: jest.fn(),
+  checkTableColumnExtensions: jest.fn(),
 }));
 
 const defaultDeps = {

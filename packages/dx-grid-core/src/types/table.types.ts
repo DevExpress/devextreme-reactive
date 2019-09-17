@@ -29,7 +29,7 @@ export interface TableColumn {
   /** Specifies the associated user column. */
   column?: Column;
   /** Specifies the table column width. */
-  width?: number;
+  width?: number | string;
   /** Specifies the table's column alignment. */
   align?: 'left' | 'right' | 'center';
   /** Specifies the fixed table's column alignment. */
@@ -39,8 +39,8 @@ export interface TableColumn {
 export type GridColumnExtension = {
   /** The name of the column to extend. */
   columnName: string;
-  /** The table column width in pixels. */
-  width?: number;
+  /** The table column width. */
+  width?: number | string;
   /** The table column alignment. */
   align?: 'left' | 'right' | 'center';
   /** Specifies whether word wrap is enabled in a column's cells. */
@@ -94,3 +94,8 @@ export type GetColumnAnimationsFn = PureComputed<
 export type FilterActiveAnimationsFn = PureComputed<[ColumnAnimationMap]>;
 /** @internal */
 export type EvalAnimationsFn = PureComputed<[ColumnAnimationMap], ColumnAnimationStyleMap>;
+
+/** @internal */
+export type CheckColumnExtensionsFn = PureComputed<
+  [GridColumnExtension[]], void
+>;

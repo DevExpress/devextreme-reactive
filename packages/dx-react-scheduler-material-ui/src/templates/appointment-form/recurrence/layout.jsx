@@ -108,7 +108,11 @@ const LayoutBase = ({
   );
   return (
     <div
-      className={classNames({ [classes.root]: true, [classes.visible]: appointmentData.rRule, className })}
+      className={classNames({
+        [classes.root]: true,
+        [classes.visible]: appointmentData.rRule,
+        className,
+      })}
       {...restProps}
     >
       <Label

@@ -269,7 +269,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               const { isNew, changedAppointment, isFormEdited } = prepareChanges(
                 appointmentData, editingAppointment, addedAppointment, appointmentChanges,
               );
-              const isRecurrence = changedAppointment.rRule;
+              const isRecurrence = !!changedAppointment.rRule;
               return (
                 <CommandLayout
                   commandButtonComponent={commandButtonComponent}

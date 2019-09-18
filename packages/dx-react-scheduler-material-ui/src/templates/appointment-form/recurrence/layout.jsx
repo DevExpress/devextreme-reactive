@@ -27,6 +27,10 @@ const styles = ({ spacing }) => ({
     boxSizing: 'border-box',
     maxWidth: 0,
     opacity: 0,
+    '@media (max-width: 700px)': {
+      minWidth: '100%',
+      maxHeight: 0,
+    },
   },
   visible: {
     maxWidth: '500px',
@@ -40,6 +44,7 @@ const styles = ({ spacing }) => ({
       maxWidth: '700px',
       paddingRight: spacing(2),
       paddingLeft: spacing(2),
+      maxHeight: 1000,
     },
   },
   label: {

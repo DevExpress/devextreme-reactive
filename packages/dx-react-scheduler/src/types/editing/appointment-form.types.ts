@@ -326,5 +326,4 @@ export interface AppointmentFormProps {
 export type AppointmentFormState = {
   visible: boolean;
   appointmentData: AppointmentModel;
-  isPreviouslyFullSize: boolean;
 };

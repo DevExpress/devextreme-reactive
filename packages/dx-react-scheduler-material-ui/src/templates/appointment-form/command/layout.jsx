@@ -20,6 +20,7 @@ const styles = ({ spacing, palette }) => ({
     top: 0,
     backgroundColor: palette.background.paper,
     zIndex: 1,
+    transition: 'all 1s',
   },
   basic: {
     maxWidth: '650px',
@@ -77,7 +78,8 @@ const LayoutBase = ({
         />
         <CommandButton
           getMessage={getMessage}
-          onExecute={() => !disableSaveButton && onCommitButtonClick()}
+          disabled={disableSaveButton}
+          onExecute={onCommitButtonClick}
           id={SAVE_BUTTON}
         />
       </>

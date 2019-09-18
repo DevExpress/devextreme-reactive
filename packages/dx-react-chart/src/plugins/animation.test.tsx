@@ -7,7 +7,7 @@ import { Animation } from './animation';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   buildAnimation: jest.fn().mockReturnValue('test-animation'),
-  linear: jest.fn(),
+  easeOutCubic: jest.fn(),
 }));
 
 describe('Animation', () => {

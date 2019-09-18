@@ -3,11 +3,14 @@ import { shallow } from 'enzyme';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
 import { Area } from './area';
+import { getStartCoordinates, processAreaAnimation, isArrayValuesChanged } from '@devexpress/dx-chart-core';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   HOVERED: 'test_hovered',
   SELECTED: 'test_selected',
-  isArrayValuesChanged: jest.fn(),
+  isArrayValuesChanged: jest.fn().mockReturnValue(true),
+  getStartCoordinates: jest.fn().mockReturnValue('startCoordinates'),
+  processAreaAnimation: jest.fn(),
 }));
 
 jest.mock('../../utils/with-states', () => ({
@@ -85,5 +88,87 @@ describe('Area', () => {
     ]);
     expect((withPattern as jest.Mock).mock.calls[0][0]({ index: 2 })).toEqual('series-2-hover');
     expect((withPattern as jest.Mock).mock.calls[1][0]({ index: 3 })).toEqual('series-3-selection');
+  });
+
+  it('should update props', () => {
+    const tree = shallow((
+      <Area
+        {...defaultProps}
+      />
+    ));
+
+    tree.setProps({ ...defaultProps, coordinates: [4, 5, 6] });
+
+    expect(tree.find('path').props()).toEqual({
+      d: '4-5-6',
+      fill: 'red',
+      opacity: 0.5,
+      clipPath: 'url(#clipPathId)',
+      style: { tag: 'test-style' },
+    });
+  });
+});
+
+describe('Animation', () => {
+  const updateAnimation = jest.fn();
+  const createAnimation = jest.fn().mockReturnValue({ update: updateAnimation });
+  const defaultProps = {
+    path: jest.fn(value => value.join('-')),
+    coordinates: [1, 2, 3],
+    index: 1,
+    color: 'red',
+    scales: { tag: 'test-scales' },
+    clipPathId: 'clipPathId',
+    style: { tag: 'test-style' },
+    animation: createAnimation,
+  };
+
+  it('should start animation on mount', () => {
+    shallow((
+      <Area
+        {...defaultProps}
+      />
+    ));
+
+    expect(getStartCoordinates).toBeCalledWith({ tag: 'test-scales' }, [1, 2, 3]);
+    expect(createAnimation).toBeCalledWith(
+      'startCoordinates', [1, 2, 3], processAreaAnimation, expect.any(Function),
+    );
+  });
+
+  it('should start animation from previous values, update values', () => {
+    const tree = shallow((
+      <Area
+        {...defaultProps}
+      />
+    ));
+    tree.setProps({ ...defaultProps, coordinates: [4, 5, 6] });
+
+    expect(updateAnimation).toBeCalledWith([1, 2, 3], [4, 5, 6]);
+  });
+
+  it('should start animation from start position, coordinates are changed', () => {
+    isArrayValuesChanged.mockReturnValueOnce(false).mockReturnValueOnce(true);
+    const tree = shallow((
+      <Area
+        {...defaultProps}
+      />
+    ));
+    tree.setProps({ ...defaultProps, coordinates: [4, 5, 6] });
+
+    expect(getStartCoordinates).toBeCalledWith({ tag: 'test-scales' }, [4, 5, 6]);
+    expect(updateAnimation).toBeCalledWith('startCoordinates', [4, 5, 6]);
+  });
+
+  it('should start animation from start position, count of values are different', () => {
+    const tree = shallow((
+      <Area
+        {...defaultProps}
+      />
+    ));
+    tree.setProps({ ...defaultProps, coordinates: [1, 2, 3, 4] });
+
+    expect(getStartCoordinates).toBeCalledWith({ tag: 'test-scales' }, [1, 2, 3, 4]);
+    expect(updateAnimation).toBeCalledWith('startCoordinates', [1, 2, 3, 4]);
   });
 });

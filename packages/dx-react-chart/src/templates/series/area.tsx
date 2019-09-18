@@ -25,10 +25,15 @@ class RawArea extends React.PureComponent<AreaSeries.SeriesProps, AreaSeriesStat
 
   componentDidMount() {
     const {
-      coordinates, animation,
+      coordinates, animation, scales,
     } = this.props;
     if (!animation) {
       this.setAttribute({ coordinates });
+    } else {
+      this.animate = animation(
+        getStartCoordinates(scales, coordinates), coordinates,
+        processAreaAnimation, this.setAttribute,
+      );
     }
   }
 
@@ -36,24 +41,23 @@ class RawArea extends React.PureComponent<AreaSeries.SeriesProps, AreaSeriesStat
     coordinates: prevCoordinates,
   }) {
     const {
-      coordinates, animation, scales,
+      coordinates, scales,
     } = this.props;
 
-    if (animation && !this.animate) {
-      this.animate = animation(getStartCoordinates(scales, coordinates), coordinates,
-      processAreaAnimation, this.setAttribute);
-    } else if (this.animate
-      && isArrayValuesChanged(prevCoordinates, coordinates, 'argument', 'value')) {
-      this.animate.update(prevCoordinates, coordinates);
-    } else if (isArrayValuesChanged(prevCoordinates, coordinates, 'arg', 'val')) {
+    if (this.animate) {
+      if (prevCoordinates.length !== coordinates.length) {
+        this.animate.update(getStartCoordinates(scales, coordinates), coordinates);
+      } else if (isArrayValuesChanged(prevCoordinates, coordinates, 'argument', 'value')) {
+        this.animate.update(prevCoordinates, coordinates);
+      } else if (isArrayValuesChanged(prevCoordinates, coordinates, 'arg', 'val')) {
+        this.animate.update(getStartCoordinates(scales, coordinates), coordinates);
+      }
+    } else {
       this.setAttribute({ coordinates });
     }
   }
   render() {
     const { coordinates: coords, style: animateStyle } = this.state;
-    if (!coords.length) {
-      return null;
-    }
     const {
       path,
       coordinates, animation,

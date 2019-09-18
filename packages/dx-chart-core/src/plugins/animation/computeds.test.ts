@@ -1,5 +1,5 @@
 import {
-  getDelay, linear, buildAnimation, getStartY, getStartCoordinates,
+  getDelay, easeOutCubic, buildAnimation, getStartY, getStartCoordinates,
 } from './computeds';
 
 describe('Animation', () => {
@@ -8,8 +8,8 @@ describe('Animation', () => {
     expect(getDelay(2, false)).toBe(0);
   });
 
-  it('#linear', () => {
-    expect(linear(0.5)).toBe(0.5);
+  it('#easeOutCubic', () => {
+    expect(easeOutCubic(0.5)).toBe(0.875);
   });
 
   it('should run animation', () => {

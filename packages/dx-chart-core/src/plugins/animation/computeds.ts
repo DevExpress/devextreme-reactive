@@ -4,7 +4,7 @@ import {
 } from '../../types';
 
 /** @internal */
-export const linear = (progress: number) => progress;
+export const easeOutCubic = (t: number) => (t - 1) * (t - 1) * (t - 1) + 1;
 
 /** @internal */
 export const getDelay = (index: number, isStart: boolean) => isStart ? index * 30 : 0;

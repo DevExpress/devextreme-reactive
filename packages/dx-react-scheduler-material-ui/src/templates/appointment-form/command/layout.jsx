@@ -41,7 +41,7 @@ const styles = ({ spacing, palette }) => ({
   line: {
     backgroundColor: palette.action.disabledBackground,
     height: spacing(5),
-    width: '2px',
+    width: '1px',
   },
 });
 

@@ -1,18 +1,12 @@
 import * as React from 'react';
 import {
-  Template,
   Plugin,
   Getter,
-  TemplateConnector,
-  TemplatePlaceholder,
-  PluginComponents,
   ComputedFn,
 } from '@devexpress/dx-react-core';
 import {
   computed,
   startViewDate as startViewDateCore,
-  monthCellsData,
-  getAppointmentStyle,
   endViewDate as endViewDateCore,
   availableViews as availableViewsCore,
   horizontalTimeTableRects,
@@ -45,6 +39,10 @@ class BasicViewBase extends React.PureComponent {
   intervalCountComputed = memoize((viewName, intervalCount) => getters =>
     computed(getters, viewName!, () => intervalCount, getters.intervalCount));
 
+  excludedDaysComputed = memoize((viewName, excludedDays) => getters => computed(
+    getters, viewName!, () => excludedDays, getters.excludedDays,
+  ));
+
   availableViewsComputed = memoize((viewName, viewDisplayName) => ({ availableViews }) =>
     availableViewsCore(availableViews, viewName!, viewDisplayName));
 
@@ -68,15 +66,14 @@ class BasicViewBase extends React.PureComponent {
     );
   }
 
-  viewCellsDataComputed: ComputedFn = (getters) => {
-    const { name: viewName, viewCellsDataBaseComputed } = this.props;
-    return computed(
-      getters,
-      viewName!,
-      viewCellsDataBaseComputed(getters.firstDayOfWeek, getters.intervalCount),
-      getters.viewCellsData,
-    );
-  }
+  viewCellsDataComputed = memoize((
+    viewName, cellDuration, startDayHour, endDayHour, viewCellsDataBaseComputed,
+  ) => getters => computed(
+    getters,
+    viewName,
+    viewCellsDataBaseComputed(cellDuration, startDayHour, endDayHour),
+    getters.viewCellsData,
+  ));
 
   updateRects = memoize((
     appointments, startViewDate, endViewDate, viewCellsData,
@@ -107,6 +104,11 @@ class BasicViewBase extends React.PureComponent {
       intervalCount,
       displayName,
       type,
+      excludedDays,
+      cellDuration,
+      startDayHour,
+      endDayHour,
+      viewCellsDataBaseComputed,
     } = this.props;
     const viewDisplayName = displayName || viewName;
 
@@ -121,16 +123,19 @@ class BasicViewBase extends React.PureComponent {
           name="currentView"
           computed={this.currentViewComputed(viewName, viewDisplayName, type)}
         />
-
-        <Getter
-          name="firstDayOfWeek"
-          computed={this.firstDayOfWeekComputed(viewName, firstDayOfWeek)}
-        />
         <Getter
           name="intervalCount"
           computed={this.intervalCountComputed(viewName, intervalCount)}
         />
-        <Getter name="viewCellsData" computed={this.viewCellsDataComputed} />
+        <Getter
+          name="firstDayOfWeek"
+          computed={this.firstDayOfWeekComputed(viewName, firstDayOfWeek)}
+        />
+        <Getter name="excludedDays" computed={this.excludedDaysComputed(viewName, excludedDays)} />
+        <Getter
+          name="viewCellsData"
+          computed={this.viewCellsDataComputed(viewName, cellDuration, startDayHour, endDayHour, viewCellsDataBaseComputed)}
+        />
         <Getter name="startViewDate" computed={this.startViewDateComputed} />
         <Getter name="endViewDate" computed={this.endViewDateComputed} />
       </Plugin>

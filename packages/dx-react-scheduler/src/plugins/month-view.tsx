@@ -19,7 +19,9 @@ import { BasicView } from './basic-view';
 import { MonthViewProps, ViewState } from '../types';
 
 const TYPE = 'month';
-const viewCellsDataBaseComputed = (firstDayOfWeek, intervalCount) => ({ currentDate }) => {
+const viewCellsDataBaseComputed = (
+  cellDuration, startDayHour, endDayHour,
+) => ({ currentDate, firstDayOfWeek, intervalCount }) => {
   return monthCellsData(
     currentDate, firstDayOfWeek,
     intervalCount!, Date.now(),

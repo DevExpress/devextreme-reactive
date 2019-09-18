@@ -18,16 +18,18 @@ const styles = ({ spacing }) => ({
   fullSize: {
     height: '100%',
     width: '100%',
+    maxWidth: '100%',
   },
   halfSize: {
     height: '100%',
-    width: '50%',
+    width: '55%',
+    maxWidth: '650px',
     '@media (max-width: 700px)': {
       width: '100%',
     },
   },
   transition: {
-    transition: 'transform 1s, width 1s!important',
+    transition: 'all 500ms!important',
   },
 });
 
@@ -66,7 +68,7 @@ const OverlayBase = ({
       open={visible}
       variant="temporary"
       anchor="left"
-      transitionDuration={1000}
+      transitionDuration={500}
       onBackdropClick={onHide}
       {...restProps}
     >

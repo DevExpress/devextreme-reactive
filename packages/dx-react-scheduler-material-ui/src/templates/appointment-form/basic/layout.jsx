@@ -17,14 +17,14 @@ import {
 
 const styles = ({ spacing, typography }) => ({
   root: {
-    width: '60%',
+    width: '55%',
     paddingTop: spacing(3),
     paddingBottom: spacing(3),
     paddingLeft: spacing(4),
     paddingRight: spacing(4),
     maxWidth: '650px',
     boxSizing: 'border-box',
-    transition: 'all 1s',
+    transition: 'all 500ms',
     '@media (max-width: 700px)': {
       width: '100%',
       maxWidth: '700px',

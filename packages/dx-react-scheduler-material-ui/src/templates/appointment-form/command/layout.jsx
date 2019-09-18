@@ -20,7 +20,7 @@ const styles = ({ spacing, palette }) => ({
     top: 0,
     backgroundColor: palette.background.paper,
     zIndex: 1,
-    transition: 'all 1s',
+    transition: 'all 500ms',
   },
   basic: {
     maxWidth: '650px',

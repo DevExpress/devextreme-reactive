@@ -23,7 +23,7 @@ const styles = ({ spacing }) => ({
     paddingTop: spacing(3),
     overflow: 'hidden',
     width: 0,
-    transition: 'all 1s',
+    transition: 'all 500ms',
     boxSizing: 'border-box',
     maxWidth: 0,
     opacity: 0,
@@ -34,7 +34,7 @@ const styles = ({ spacing }) => ({
   },
   visible: {
     maxWidth: '500px',
-    width: '40%',
+    width: '45%',
     padding: spacing(3),
     paddingRight: spacing(4),
     paddingLeft: spacing(1),

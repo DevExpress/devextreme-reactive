@@ -412,7 +412,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
           {(params: any) => (
             <TemplateConnector>
               {(getters, {
-                addAppointment,
+                addAppointment, cancelAddedAppointment, cancelChangedAppointment,
               }) => {
                 const newAppointmentData = {
                   title: undefined,
@@ -426,6 +426,8 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                       ...params,
                       onDoubleClick: () => {
                         this.openFormHandler(newAppointmentData);
+                        callActionIfExists(cancelAddedAppointment, newAppointmentData);
+                        callActionIfExists(cancelChangedAppointment, newAppointmentData);
                         callActionIfExists(addAppointment,
                           { appointmentData: newAppointmentData });
                       },

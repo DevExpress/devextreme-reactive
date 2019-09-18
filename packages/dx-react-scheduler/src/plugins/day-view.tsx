@@ -6,31 +6,22 @@ import {
   TemplateConnector,
   TemplatePlaceholder,
   PluginComponents,
-  ComputedFn,
 } from '@devexpress/dx-react-core';
 import {
   computed,
   viewCellsData as viewCellsDataCore,
   getAppointmentStyle,
-  startViewDate as startViewDateCore,
-  endViewDate as endViewDateCore,
-  availableViews as availableViewsCore,
   verticalTimeTableRects,
 } from '@devexpress/dx-scheduler-core';
 import { memoize } from '@devexpress/dx-core';
+import { BasicView } from './basic-view';
 
 import { VerticalViewProps, ViewState } from '../types';
 
 const TYPE = 'day';
-const startViewDateBaseComputed = ({
-  viewCellsData,
-}) => startViewDateCore(viewCellsData);
-const endViewDateBaseComputed = ({
-  viewCellsData,
-}) => endViewDateCore(viewCellsData);
-const viewCellsDataBaseComputed = (startDayHour, endDayHour, cellDuration) => ({
-  currentDate, intervalCount,
-}) => {
+const viewCellsDataBaseComputed = (
+  cellDuration, startDayHour, endDayHour,
+) => ({ currentDate, intervalCount }) => {
   return viewCellsDataCore(
     currentDate, undefined,
     intervalCount, [],
@@ -87,42 +78,6 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
   timeTableElementsMetaComputed = memoize((viewName, timeTableElementsMeta) => getters =>
     computed(getters, viewName!, () => timeTableElementsMeta, getters.timeTableElementsMeta));
 
-  viewCellsDataComputed = memoize((viewName, startDayHour, endDayHour, cellDuration) => getters =>
-    computed(
-      getters,
-      viewName,
-      viewCellsDataBaseComputed(startDayHour, endDayHour, cellDuration), getters.viewCellsData,
-    ));
-
-  cellDurationComputed = memoize((viewName, cellDuration) => getters =>
-    computed(getters, viewName!, () => cellDuration, getters.cellDuration));
-
-  intervalCountComputed = memoize((viewName, intervalCount) => getters =>
-    computed(getters, viewName!, () => intervalCount, getters.intervalCount));
-
-  availableViews = memoize((viewName, displayName) => ({ availableViews }) =>
-    availableViewsCore(availableViews, viewName, displayName));
-
-  currentView = memoize((viewName, viewDisplayName) => ({ currentView }) => (
-    currentView && currentView.name !== viewName
-      ? currentView
-      : { name: viewName, type: TYPE, displayName: viewDisplayName }
-  ));
-
-  endViewDateComputed: ComputedFn = (getters) => {
-    const { name: viewName } = this.props;
-    return computed(
-      getters, viewName!, endViewDateBaseComputed, getters.endViewDate,
-    );
-  }
-
-  startViewDateComputed: ComputedFn = (getters) => {
-    const { name: viewName } = this.props;
-    return computed(
-      getters, viewName!, startViewDateBaseComputed, getters.startViewDate,
-    );
-  }
-
   updateRects = memoize((
     appointments, startViewDate, endViewDate, viewCellsData, cellDuration, currentDate,
   ) => (cellElementsMeta) => {
@@ -154,35 +109,18 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
       appointmentLayerComponent: AppointmentLayer,
       cellDuration,
       name: viewName,
-      intervalCount,
-      startDayHour,
-      endDayHour,
-      displayName,
     } = this.props;
     const { rects, timeTableElementsMeta, scrollingStrategy } = this.state;
-    const viewDisplayName = displayName || viewName;
 
     return (
       <Plugin
         name="DayView"
       >
-        <Getter
-          name="availableViews"
-          computed={this.availableViews(viewName, viewDisplayName)}
+        <BasicView
+          {...this.props}
+          viewCellsDataBaseComputed={viewCellsDataBaseComputed}
+          type={TYPE}
         />
-        <Getter name="currentView" computed={this.currentView(viewName, viewDisplayName)} />
-
-        <Getter
-          name="intervalCount"
-          computed={this.intervalCountComputed(viewName, intervalCount)}
-        />
-        <Getter name="cellDuration" computed={this.cellDurationComputed(viewName, cellDuration)} />
-        <Getter
-          name="viewCellsData"
-          computed={this.viewCellsDataComputed(viewName, startDayHour, endDayHour, cellDuration)}
-        />
-        <Getter name="startViewDate" computed={this.startViewDateComputed} />
-        <Getter name="endViewDate" computed={this.endViewDateComputed} />
 
         <Getter
           name="timeTableElementsMeta"

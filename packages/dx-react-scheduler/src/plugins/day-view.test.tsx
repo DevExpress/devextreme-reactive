@@ -183,22 +183,6 @@ describe('Day View', () => {
         .toBe('2018-07-11');
     });
 
-    it('should provide the "cellDuration" getter', () => {
-      const cellDuration = 60;
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <DayView
-            cellDuration={cellDuration}
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).cellDuration)
-        .toBe(cellDuration);
-    });
-
     it('should provide the "intervalCount" getter', () => {
       const tree = mount((
         <PluginHost>

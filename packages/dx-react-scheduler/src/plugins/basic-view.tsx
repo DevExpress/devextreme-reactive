@@ -91,14 +91,6 @@ class BasicViewBase extends React.PureComponent {
   }
   render() {
     const {
-      layoutComponent: Layout,
-      dayScaleLayoutComponent: DayScale,
-      dayScaleCellComponent: DayScaleCell,
-      dayScaleRowComponent: DayScaleRow,
-      timeTableLayoutComponent: TimeTableLayout,
-      timeTableRowComponent,
-      timeTableCellComponent: TimeTableCell,
-      appointmentLayerComponent: AppointmentLayer,
       name: viewName,
       firstDayOfWeek,
       intervalCount,

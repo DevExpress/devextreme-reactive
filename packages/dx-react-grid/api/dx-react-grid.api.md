@@ -577,13 +577,13 @@ export interface SelectionStateProps {
   selection?: Array<number | string>;
 }
 
-// @public
+// @public (undocumented)
 export interface Sorting {
   columnName: string;
-  direction: 'asc' | 'desc';
+  direction: SortingDirection;
 }
 
-// @public (undocumented)
+// @public
 export type SortingDirection = 'asc' | 'desc';
 
 // @public
@@ -1350,3 +1350,4 @@ export interface VirtualTableStateProps {
 // (No @packageDocumentation comment for this package)
 
 ```
+

@@ -17,6 +17,6 @@ export const VirtualTable = makeVirtualTable(Table, {
   defaultHeight: 530,
 });
 
-Table.COLUMN_TYPE = Table.COLUMN_TYPE;
-Table.ROW_TYPE = Table.ROW_TYPE;
-Table.NODATA_ROW_TYPE = Table.NODATA_ROW_TYPE;
+VirtualTable.COLUMN_TYPE = Table.COLUMN_TYPE;
+VirtualTable.ROW_TYPE = Table.ROW_TYPE;
+VirtualTable.NODATA_ROW_TYPE = Table.NODATA_ROW_TYPE;

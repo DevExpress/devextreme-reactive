@@ -11,6 +11,9 @@ const styles = theme => ({
     userSelect: 'none',
     paddingBottom: 0,
     borderLeft: getBorder(theme),
+    '&:last-child': {
+      paddingRight: 0,
+    },
   },
   dayOfWeek: {
     ...theme.typography.caption,

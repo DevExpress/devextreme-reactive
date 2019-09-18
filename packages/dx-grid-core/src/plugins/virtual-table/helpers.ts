@@ -1,8 +1,12 @@
 import {
   getRowsVisibleBoundary, getColumnBoundaries,
 } from '../../utils/virtual-table';
-import { GetViewportFn } from '../../types';
+import { GetViewportFn, CheckTableColumnWidths, TableColumn } from '../../types';
 import { arraysEqual } from './utils';
+
+const VALID_UNITS = ['px', ''];
+/* tslint:disable max-line-length */
+const VIRTUAL_TABLE_ERROR = 'The columnExtension property of the VirtualTable plugin is given an invalid value.';
 
 export const getViewport: GetViewportFn = (
   state, getters, estimatedRowHeight, getRowHeight, getColumnWidth,
@@ -65,4 +69,22 @@ export const getViewport: GetViewportFn = (
   }
 
   return result;
+};
+
+export const checkColumnWidths: CheckTableColumnWidths = (tableColumns) => {
+  return tableColumns.reduce((acc, tableColumn) => {
+    const { width } = tableColumn;
+    if (typeof width === 'string') {
+      const numb = parseInt(width, 10);
+      const unit = numb ? width.substr(numb.toString().length) : width;
+      const isValidUnit = VALID_UNITS.some(validUnit => validUnit === unit);
+      if (!isValidUnit) {
+        throw new Error(VIRTUAL_TABLE_ERROR);
+      }
+      acc.push({ ...tableColumn, width: numb });
+    } else {
+      acc.push(tableColumn);
+    }
+    return acc;
+  }, []  as TableColumn[]);
 };

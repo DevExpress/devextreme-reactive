@@ -20,10 +20,10 @@ export default () => {
   ]);
   const [rows] = useState(generateRows({ columnValues: globalSalesValues, length: 8 }));
   const [tableColumnExtensions] = useState([
-    { columnName: 'region', width: 180 },
-    { columnName: 'sector', width: 130 },
-    { columnName: 'customer', width: 240 },
-    { columnName: 'product', width: 210 },
+    { columnName: 'region', width: '20%' },
+    { columnName: 'sector', width: '15%' },
+    { columnName: 'customer', width: 'auto' },
+    { columnName: 'product', width: 'auto' },
     { columnName: 'amount', width: 140 },
   ]);
 

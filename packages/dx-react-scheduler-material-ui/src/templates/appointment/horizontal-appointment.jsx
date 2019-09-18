@@ -46,7 +46,7 @@ const HorizontalAppointmentBase = ({
   return (
     <div className={classNames(classes.content, className)} {...restProps}>
       {children || (
-        <React.Fragment>
+        <>
           <div className={repeat ? classes.recurringContainer : classes.container}>
             <div className={classes.title}>
               {data.title}
@@ -58,7 +58,7 @@ const HorizontalAppointmentBase = ({
               <RecurringIcon className={classes.image} />
             </div>
           ) : undefined}
-        </React.Fragment>
+        </>
       )}
     </div>
   );

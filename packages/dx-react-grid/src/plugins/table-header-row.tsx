@@ -8,6 +8,8 @@ import {
   tableRowsWithHeading,
   isHeadingTableCell,
   isHeadingTableRow,
+  getLastColumnName,
+  getNextColumnName,
   TABLE_DATA_TYPE,
   TABLE_HEADING_TYPE,
 } from '@devexpress/dx-grid-core';
@@ -68,10 +70,11 @@ class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {
             <TemplateConnector>
               {({
                 sorting, tableColumns, draggingEnabled, tableColumnResizingEnabled,
-                isColumnSortingEnabled, isColumnGroupingEnabled,
+                isColumnSortingEnabled, isColumnGroupingEnabled, columnResizingMode,
               }, {
                 changeColumnSorting, changeColumnGrouping,
                 changeTableColumnWidth, draftTableColumnWidth, cancelTableColumnWidthDraft,
+                storeWidthGetters = () => {},
               }) => {
                 const { name: columnName, title: columnTitle } = params.tableColumn.column!;
                 const atLeastOneDataColumn = tableColumns
@@ -81,16 +84,28 @@ class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {
                 const groupingEnabled = isColumnGroupingEnabled
                   && isColumnGroupingEnabled(columnName)
                   && atLeastOneDataColumn;
+                const nextColumnName = getNextColumnName(tableColumns, columnName);
+                const lastColumn = getLastColumnName(tableColumns) === columnName;
 
                 return (
                   <HeaderCell
                     {...params}
                     column={params.tableColumn.column!}
                     draggingEnabled={draggingEnabled && atLeastOneDataColumn}
-                    resizingEnabled={tableColumnResizingEnabled}
-                    onWidthChange={({ shift }) => changeTableColumnWidth({ columnName, shift })}
-                    onWidthDraft={({ shift }) => draftTableColumnWidth({ columnName, shift })}
+                    resizingEnabled={
+                      tableColumnResizingEnabled
+                      && (!lastColumn || columnResizingMode === 'widget')
+                    }
+                    onWidthChange={({ shift }) => changeTableColumnWidth({
+                      columnName, nextColumnName, shift,
+                    })}
+                    onWidthDraft={({ shift }) => draftTableColumnWidth({
+                      columnName, nextColumnName, shift,
+                    })}
                     onWidthDraftCancel={() => cancelTableColumnWidthDraft()}
+                    getCellWidth={getter => storeWidthGetters({
+                      tableColumn: params.tableColumn , getter, tableColumns,
+                    })}
                     // @deprecated
                     sortingEnabled={sortingEnabled}
                     // @deprecated

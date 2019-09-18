@@ -4,6 +4,8 @@ import {
   isHeadingTableCell,
   isHeadingTableRow,
   splitHeaderColumnChains,
+  getLastColumnName,
+  getNextColumnName,
 } from './helpers';
 
 describe('TableHeaderRow Plugin helpers', () => {
@@ -51,6 +53,33 @@ describe('TableHeaderRow Plugin helpers', () => {
         { start: 2, extended: true, columns: columns.slice(2, 3) },
         { start: 3, extended: true, columns: columns.slice(3, 4) },
       ]);
+    });
+  });
+
+  describe('#getLastColumnName', () => {
+    it('should work', () => {
+      const tableColumns = [
+        { column: { name: 'a' }, type: TABLE_DATA_TYPE },
+        { column: { name: 'b' }, type: TABLE_DATA_TYPE },
+        { column: { name: 'c' }, type: TABLE_DATA_TYPE },
+      ];
+
+      expect(getLastColumnName(tableColumns)).toMatch('c');
+      expect(getLastColumnName([])).toBeUndefined();
+    });
+  });
+
+  describe('#getNextColumnName', () => {
+    it('should work', () => {
+      const tableColumns = [
+        { column: { name: 'a' }, type: TABLE_DATA_TYPE },
+        { column: { name: 'b' }, type: TABLE_DATA_TYPE },
+        { column: { name: 'c' }, type: TABLE_DATA_TYPE },
+      ];
+
+      expect(getNextColumnName(tableColumns, 'a')).toMatch('b');
+      expect(getNextColumnName(tableColumns, 'b')).toMatch('c');
+      expect(getNextColumnName(tableColumns, 'c')).toBeUndefined();
     });
   });
 });

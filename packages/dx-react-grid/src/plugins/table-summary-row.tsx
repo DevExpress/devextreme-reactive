@@ -47,7 +47,11 @@ const tableBodyRowsComputed = ({
   getRowLevelKey,
   isGroupRow,
   getRowId,
-}: Getters) => tableRowsWithSummaries(tableBodyRows, getRowLevelKey, isGroupRow, getRowId);
+  groupSummaryItems,
+  treeSummaryItems,
+}: Getters) => tableRowsWithSummaries(
+  tableBodyRows, groupSummaryItems, treeSummaryItems, getRowLevelKey, isGroupRow, getRowId,
+);
 const tableFooterRowsComputed = ({
   tableFooterRows,
 }: Getters) => tableRowsWithTotalSummaries(tableFooterRows);
@@ -94,7 +98,7 @@ class TableSummaryRowBase extends React.PureComponent<TableSummaryRowProps> {
     );
 
     return (
-      <React.Fragment>
+      <>
         {columnSummaries.map((summary) => {
           if (summary.value === null
             || formatlessSummaryTypes.includes(summary.type)
@@ -118,7 +122,7 @@ class TableSummaryRowBase extends React.PureComponent<TableSummaryRowProps> {
             </TemplatePlaceholder>
           );
         })}
-      </React.Fragment>
+      </>
     );
   }
 

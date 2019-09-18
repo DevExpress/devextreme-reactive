@@ -55,8 +55,7 @@ export const SectionsViewer = ({
           />
         </Switch>
       );
-    }
-      }
+    }}
   </EmbeddedDemoContext.Consumer>
 );
 

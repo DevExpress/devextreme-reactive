@@ -19,6 +19,9 @@ import {
 } from '@devexpress/dx-scheduler-core';
 import { memoize } from '@devexpress/dx-core';
 
+const startViewDateBaseComputed = ({ viewCellsData }) => startViewDateCore(viewCellsData);
+const endViewDateBaseComputed = ({ viewCellsData }) => endViewDateCore(viewCellsData);
+
 class BasicViewBase extends React.PureComponent {
   state = {
     rects: [],
@@ -45,10 +48,10 @@ class BasicViewBase extends React.PureComponent {
   availableViewsComputed = memoize((viewName, viewDisplayName) => ({ availableViews }) =>
     availableViewsCore(availableViews, viewName!, viewDisplayName));
 
-  currentViewComputed = memoize((viewName, viewDisplayName) => ({ currentView }) => (
+  currentViewComputed = memoize((viewName, viewDisplayName, type) => ({ currentView }) => (
     currentView && currentView.name !== viewName
       ? currentView
-      : { name: viewName, type: TYPE, displayName: viewDisplayName }
+      : { name: viewName, type, displayName: viewDisplayName }
   ));
 
   endViewDateComputed: ComputedFn = (getters) => {
@@ -66,7 +69,7 @@ class BasicViewBase extends React.PureComponent {
   }
 
   viewCellsDataComputed: ComputedFn = (getters) => {
-    const { name: viewName } = this.props;
+    const { name: viewName, viewCellsDataBaseComputed } = this.props;
     return computed(
       getters,
       viewName!,
@@ -90,13 +93,34 @@ class BasicViewBase extends React.PureComponent {
     this.setState({ scrollingStrategy });
   }
   render() {
+    const {
+      layoutComponent: Layout,
+      dayScaleLayoutComponent: DayScale,
+      dayScaleCellComponent: DayScaleCell,
+      dayScaleRowComponent: DayScaleRow,
+      timeTableLayoutComponent: TimeTableLayout,
+      timeTableRowComponent,
+      timeTableCellComponent: TimeTableCell,
+      appointmentLayerComponent: AppointmentLayer,
+      name: viewName,
+      firstDayOfWeek,
+      intervalCount,
+      displayName,
+      type,
+    } = this.props;
+    const viewDisplayName = displayName || viewName;
+
+    console.log('basic view');
     return (
       <Plugin name="basicView">
         <Getter
           name="availableViews"
           computed={this.availableViewsComputed(viewName, viewDisplayName)}
         />
-        <Getter name="currentView" computed={this.currentViewComputed(viewName, viewDisplayName)} />
+        <Getter
+          name="currentView"
+          computed={this.currentViewComputed(viewName, viewDisplayName, type)}
+        />
 
         <Getter
           name="firstDayOfWeek"
@@ -109,96 +133,6 @@ class BasicViewBase extends React.PureComponent {
         <Getter name="viewCellsData" computed={this.viewCellsDataComputed} />
         <Getter name="startViewDate" computed={this.startViewDateComputed} />
         <Getter name="endViewDate" computed={this.endViewDateComputed} />
-
-        <Getter
-          name="timeTableElementsMeta"
-          computed={this.timeTableElementsMetaComputed(viewName, timeTableElementsMeta)}
-        />
-        <Getter
-          name="scrollingStrategy"
-          computed={this.scrollingStrategyComputed(viewName, scrollingStrategy)}
-        />
-
-        <Template name="body">
-          <TemplateConnector>
-            {({ currentView }) => {
-              if (currentView.name !== viewName) return <TemplatePlaceholder />;
-              return (
-                <Layout
-                  dayScaleComponent={DayScalePlaceholder}
-                  timeTableComponent={TimeTablePlaceholder}
-                  setScrollingStrategy={this.setScrollingStrategy}
-                />
-              );
-            }}
-          </TemplateConnector>
-        </Template>
-
-        <Template name="dayScale">
-          <TemplateConnector>
-            {({ currentView, viewCellsData, formatDate }) => {
-              if (currentView.name !== viewName) return <TemplatePlaceholder />;
-              return (
-                <DayScale
-                  cellComponent={DayScaleCell}
-                  rowComponent={DayScaleRow}
-                  cellsData={viewCellsData}
-                  formatDate={formatDate}
-                />
-              );
-            }}
-          </TemplateConnector>
-        </Template>
-        <Template name="timeTable">
-          <TemplateConnector>
-            {({
-              appointments, startViewDate, endViewDate, currentView, viewCellsData, formatDate,
-            }) => {
-              if (currentView.name !== viewName) return <TemplatePlaceholder />;
-              const setRects = this.updateRects(
-                appointments, startViewDate, endViewDate, viewCellsData,
-              );
-              return (
-                <React.Fragment>
-                  <TimeTableLayout
-                    cellsData={viewCellsData}
-                    rowComponent={timeTableRowComponent}
-                    cellComponent={CellPlaceholder}
-                    formatDate={formatDate}
-                    setCellElementsMeta={setRects}
-                  />
-                  <AppointmentLayer>
-                    {rects.map(({
-                      dataItem, type, fromPrev, toNext, ...geometry
-                    }, index) => (
-                      <AppointmentPlaceholder
-                        key={index.toString()}
-                        type={type}
-                        data={dataItem}
-                        fromPrev={fromPrev}
-                        toNext={toNext}
-                        style={getAppointmentStyle(geometry)}
-                      />
-                    ))}
-                  </AppointmentLayer>
-                </React.Fragment>
-              );
-            }}
-          </TemplateConnector>
-        </Template>
-
-        <Template name="cell">
-          {params => (
-            <TemplateConnector>
-              {({ currentView }) => {
-                if (currentView.name !== viewName) return <TemplatePlaceholder params={params} />;
-                return (
-                  <TimeTableCell {...params} />
-                );
-              }}
-            </TemplateConnector>
-          )}
-        </Template>
       </Plugin>
     );
   }

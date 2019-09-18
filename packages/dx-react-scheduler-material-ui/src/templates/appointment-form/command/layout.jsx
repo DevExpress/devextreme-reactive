@@ -40,7 +40,7 @@ const styles = ({ spacing, palette }) => ({
   },
   line: {
     backgroundColor: palette.action.disabledBackground,
-    height: spacing(5),
+    height: spacing(4.5),
     width: '1px',
   },
 });

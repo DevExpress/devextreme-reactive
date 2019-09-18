@@ -7,7 +7,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 const styles = ({ spacing }) => ({
   button: {
-    marginRight: spacing(3),
+    marginRight: spacing(0.5),
   },
 });
 

@@ -38,6 +38,11 @@ const styles = ({ spacing, palette }) => ({
       paddingTop: spacing(1),
     },
   },
+  line: {
+    backgroundColor: palette.action.disabledBackground,
+    height: spacing(5),
+    width: '2px',
+  },
 });
 
 const LayoutBase = ({
@@ -76,6 +81,7 @@ const LayoutBase = ({
           getMessage={getMessage}
           id={DELETE_BUTTON}
         />
+        <div className={classes.line} />
         <CommandButton
           getMessage={getMessage}
           disabled={disableSaveButton}

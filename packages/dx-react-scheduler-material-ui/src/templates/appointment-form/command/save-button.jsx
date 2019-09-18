@@ -8,7 +8,7 @@ import { setColor } from '../../utils';
 const styles = ({ spacing, palette }) => ({
   button: {
     padding: spacing(0.5, 3.5),
-    marginLeft: spacing(0.5),
+    marginLeft: spacing(3),
     height: spacing(4.5),
     '&:first-child': {
       marginLeft: 0,

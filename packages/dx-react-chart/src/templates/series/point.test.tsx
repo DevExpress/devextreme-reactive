@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { dSymbol } from '@devexpress/dx-chart-core';
+import { dSymbol, getStartY, processPointAnimation, isValuesChanged } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { Point } from './point';
 
@@ -9,7 +9,9 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   HOVERED: 'test_hovered',
   SELECTED: 'test_selected',
   getVisibility: jest.fn().mockReturnValue('visible'),
-  isValuesChanged: jest.fn(),
+  isValuesChanged: jest.fn().mockReturnValue(true),
+  getStartY: jest.fn().mockReturnValue('startY'),
+  processPointAnimation: jest.fn(),
 }));
 
 jest.mock('../../utils/with-states', () => ({
@@ -90,5 +92,82 @@ describe('Point', () => {
     })).toEqual({
       a: 1, b: 2, strokeWidth: 4, fill: 'none', stroke: 'blue', point: { size: 15 },
     });
+  });
+
+  it('should update props', () => {
+    const tree = shallow((
+      <Point {...defaultProps} />
+    ));
+
+    tree.setProps({ ...defaultProps, arg: 3, val: 4 });
+
+    expect(tree.find('path').props()).toEqual({
+      transform: 'translate(3 4)',
+      d: 'test-d-attribute',
+      fill: 'color',
+      style: { tag: 'test-style' },
+      stroke: 'none',
+      visibility: 'visible',
+    });
+  });
+});
+
+describe('Animation', () => {
+  const updateAnimation = jest.fn();
+  const createAnimation = jest.fn().mockReturnValue({ update: updateAnimation });
+  const defaultProps = {
+    argument: 'arg',
+    value: 15,
+    seriesIndex: 1,
+    index: 2,
+    arg: 1,
+    val: 2,
+    point: { tag: 'test-options' },
+    color: 'color',
+    style: { tag: 'test-style' },
+    scales: { tag: 'test-scales' },
+    animation: createAnimation,
+  };
+
+  afterEach(jest.clearAllMocks);
+
+  it('should start animation on mount', () => {
+    shallow((
+      <Point
+        {...defaultProps}
+      />
+    ));
+
+    expect(getStartY).lastCalledWith({ tag: 'test-scales' });
+    expect(createAnimation).toBeCalledWith(
+      { x: 1, y: 'startY' }, { x: 1, y: 2 },
+      processPointAnimation, expect.any(Function),
+    );
+  });
+
+  it('should start animation from previous values, update values', () => {
+    const tree = shallow((
+      <Point
+        {...defaultProps}
+      />
+    ));
+    tree.setProps({ ...defaultProps, value: 3, val: 10 });
+
+    expect(isValuesChanged).lastCalledWith(['arg', 15], ['arg', 3]);
+    expect(updateAnimation).lastCalledWith({ x: 1, y: 2 }, { x: 1, y: 10 });
+  });
+
+  it('should start animation from start position, coordinates are changed', () => {
+    isValuesChanged.mockReturnValueOnce(false).mockReturnValueOnce(true);
+    const tree = shallow((
+      <Point
+        {...defaultProps}
+      />
+    ));
+    tree.setProps({ ...defaultProps, val: 10 });
+
+    expect(isValuesChanged).lastCalledWith([1, 2], [1, 10]);
+    expect(updateAnimation)
+    .lastCalledWith({ x: 1, y: 'startY' }, { x: 1, y: 10 });
   });
 });

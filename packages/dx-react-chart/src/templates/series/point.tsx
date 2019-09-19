@@ -26,12 +26,16 @@ class RawPoint extends React.PureComponent<ScatterSeries.PointProps, ScatterSeri
 
   componentDidMount() {
     const {
-      arg, val, animation, point,
+      arg, val, animation, point, scales,
     } = this.props;
 
     this.d = dSymbol(point);
     if (!animation) {
       this.setAttribute({ x: arg, y: val });
+    } else {
+      this.animate = animation({ x: arg, y: getStartY(scales) }, { x: arg, y: val },
+        processPointAnimation, this.setAttribute,
+      );
     }
   }
 
@@ -39,15 +43,15 @@ class RawPoint extends React.PureComponent<ScatterSeries.PointProps, ScatterSeri
     arg: prevArg, val: prevVal, argument: prevArgument, value: prevValue,
   }) {
     const {
-      arg, val, animation, scales, argument, value,
+      arg, val, scales, argument, value,
     } = this.props;
-    if (animation && !this.animate) {
-      this.animate = animation({ x: arg, y: getStartY(scales) }, { x: arg, y: val },
-        processPointAnimation, this.setAttribute,
-      );
-    } else if (this.animate && isValuesChanged([prevArgument, prevValue], [argument, value])) {
-      this.animate.update({ x: prevArg, y: prevVal }, { x: arg, y: val });
-    } else if (isValuesChanged([prevArg, prevVal], [arg, val])) {
+    if (this.animate) {
+      if (isValuesChanged([prevArgument, prevValue], [argument, value])) {
+        this.animate.update({ x: prevArg, y: prevVal }, { x: arg, y: val });
+      } else if (isValuesChanged([prevArg, prevVal], [arg, val])) {
+        this.animate.update({ x: arg, y: getStartY(scales) }, { x: arg, y: val });
+      }
+    } else {
       this.setAttribute({ x: arg, y: val });
     }
   }

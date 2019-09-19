@@ -24,10 +24,15 @@ class RawPath extends React.PureComponent<PathComponentPathProps, PathComponentP
 
   componentDidMount() {
     const {
-      coordinates, animation,
+      coordinates, animation, scales,
     } = this.props;
     if (!animation) {
       this.setAttribute({ coordinates });
+    } else {
+      this.animate = animation(
+        getStartCoordinates(scales, coordinates), coordinates,
+        processLineAnimation, this.setAttribute,
+      );
     }
   }
 
@@ -35,16 +40,18 @@ class RawPath extends React.PureComponent<PathComponentPathProps, PathComponentP
     coordinates: prevCoordinates,
   }) {
     const {
-      coordinates, animation, scales,
+      coordinates, scales,
     } = this.props;
 
-    if (animation && !this.animate) {
-      this.animate = animation(getStartCoordinates(scales, coordinates), coordinates,
-        processLineAnimation, this.setAttribute);
-    } else if (this.animate
-      && isArrayValuesChanged(prevCoordinates, coordinates, 'argument', 'value')) {
-      this.animate.update(prevCoordinates, coordinates);
-    } else if (isArrayValuesChanged(prevCoordinates, coordinates, 'arg', 'val')) {
+    if (this.animate) {
+      if (prevCoordinates.length !== coordinates.length) {
+        this.animate.update(getStartCoordinates(scales, coordinates), coordinates);
+      } else if (isArrayValuesChanged(prevCoordinates, coordinates, 'argument', 'value')) {
+        this.animate.update(prevCoordinates, coordinates);
+      } else if (isArrayValuesChanged(prevCoordinates, coordinates, 'arg', 'val')) {
+        this.animate.update(getStartCoordinates(scales, coordinates), coordinates);
+      }
+    } else {
       this.setAttribute({ coordinates });
     }
   }

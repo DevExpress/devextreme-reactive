@@ -122,6 +122,7 @@ describe('Animation', () => {
     style: { tag: 'test-style' },
     animation: createAnimation,
   };
+  afterEach(jest.clearAllMocks);
 
   it('should start animation on mount', () => {
     shallow((
@@ -130,7 +131,7 @@ describe('Animation', () => {
       />
     ));
 
-    expect(getStartCoordinates).toBeCalledWith({ tag: 'test-scales' }, [1, 2, 3]);
+    expect(getStartCoordinates).lastCalledWith({ tag: 'test-scales' }, [1, 2, 3]);
     expect(createAnimation).toBeCalledWith(
       'startCoordinates', [1, 2, 3], processAreaAnimation, expect.any(Function),
     );
@@ -144,7 +145,8 @@ describe('Animation', () => {
     ));
     tree.setProps({ ...defaultProps, coordinates: [4, 5, 6] });
 
-    expect(updateAnimation).toBeCalledWith([1, 2, 3], [4, 5, 6]);
+    expect(isArrayValuesChanged).lastCalledWith([1, 2, 3], [4, 5, 6], 'argument', 'value');
+    expect(updateAnimation).lastCalledWith([1, 2, 3], [4, 5, 6]);
   });
 
   it('should start animation from start position, coordinates are changed', () => {
@@ -156,8 +158,9 @@ describe('Animation', () => {
     ));
     tree.setProps({ ...defaultProps, coordinates: [4, 5, 6] });
 
-    expect(getStartCoordinates).toBeCalledWith({ tag: 'test-scales' }, [4, 5, 6]);
-    expect(updateAnimation).toBeCalledWith('startCoordinates', [4, 5, 6]);
+    expect(isArrayValuesChanged).lastCalledWith([1, 2, 3], [4, 5, 6], 'arg', 'val');
+    expect(getStartCoordinates).lastCalledWith({ tag: 'test-scales' }, [4, 5, 6]);
+    expect(updateAnimation).lastCalledWith('startCoordinates', [4, 5, 6]);
   });
 
   it('should start animation from start position, count of values are different', () => {
@@ -168,7 +171,7 @@ describe('Animation', () => {
     ));
     tree.setProps({ ...defaultProps, coordinates: [1, 2, 3, 4] });
 
-    expect(getStartCoordinates).toBeCalledWith({ tag: 'test-scales' }, [1, 2, 3, 4]);
-    expect(updateAnimation).toBeCalledWith('startCoordinates', [1, 2, 3, 4]);
+    expect(getStartCoordinates).lastCalledWith({ tag: 'test-scales' }, [1, 2, 3, 4]);
+    expect(updateAnimation).lastCalledWith('startCoordinates', [1, 2, 3, 4]);
   });
 });

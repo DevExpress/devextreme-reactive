@@ -29,10 +29,17 @@ class RawBar extends React.PureComponent<BarSeries.PointProps, BarSeriesState> {
 
   componentDidMount() {
     const {
-      arg, val, startVal, animation,
+      arg, val, startVal, animation, scales,
     } = this.props;
     if (!animation) {
       this.setAttribute({ x: arg, y: val, startY: startVal });
+    } else {
+      const start = getStartY(scales);
+      this.animate = animation(
+        { x: arg, y: start, startY: start },
+        { x: arg, y: val, startY: startVal },
+        processBarAnimation, this.setAttribute,
+      );
     }
   }
 
@@ -40,21 +47,22 @@ class RawBar extends React.PureComponent<BarSeries.PointProps, BarSeriesState> {
     arg: prevArg, val: prevVal, startVal: prevStartVal, argument: prevArgument, value: prevValue,
   }) {
     const {
-      arg, val, startVal, animation, scales, argument, value,
+      arg, val, startVal, argument, value, scales,
     } = this.props;
-    if (animation && !this.animate) {
-      const start = getStartY(scales);
-      this.animate = animation(
-        { x: arg, y: start, startY: start },
-        { x: arg, y: val, startY: startVal },
-        processBarAnimation, this.setAttribute,
-      );
-    } else if (this.animate &&
-      isValuesChanged([prevArgument, prevValue, prevStartVal], [argument, value, startVal])) {
-      this.animate.update(
-        { x: prevArg, y: prevVal, startY: prevStartVal }, { x: arg, y: val, startY: startVal },
-      );
-    } else if (isValuesChanged([prevArg, prevVal, prevStartVal], [arg, val, startVal])) {
+
+    if (this.animate) {
+      if (isValuesChanged([prevArgument, prevValue], [argument, value])) {
+        this.animate.update(
+          { x: prevArg, y: prevVal, startY: prevStartVal }, { x: arg, y: val, startY: startVal },
+        );
+      } else if (isValuesChanged([prevArg, prevVal, prevStartVal], [arg, val, startVal])) {
+        const start = getStartY(scales);
+        this.animate.update(
+          { x: arg, y: start, startY: start },
+          { x: arg, y: val, startY: startVal },
+        );
+      }
+    } else {
       this.setAttribute({ x: arg, y: val, startY: startVal! });
     }
   }

@@ -4,16 +4,13 @@ import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
   computed,
-  viewCellsData,
-  startViewDate,
-  endViewDate,
   calculateRectByDateIntervals,
   calculateWeekDateIntervals,
-  availableViews,
   getAppointmentStyle,
   verticalTimeTableRects,
 } from '@devexpress/dx-scheduler-core';
 import { WeekView } from './week-view';
+import { BasicView } from './basic-view';
 
 // tslint:disable: max-line-length
 jest.mock('@devexpress/dx-scheduler-core', () => ({
@@ -28,13 +25,9 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
   verticalTimeTableRects: jest.fn(),
 }));
 
-const DAYS_IN_WEEK = 7;
-
 const defaultDeps = {
   getter: {
     currentDate: '2018-07-04',
-    availableViews: [],
-    currentView: { name: 'Week' },
     formatDate: jest.fn(),
   },
   template: {
@@ -67,11 +60,6 @@ describe('Week View', () => {
     computed.mockImplementation(
       (getters, viewName, baseComputed) => baseComputed(getters, viewName),
     );
-    viewCellsData.mockImplementation(() => ([
-      [{}, {}], [{}, {}],
-    ]));
-    startViewDate.mockImplementation(() => '2018-07-04');
-    endViewDate.mockImplementation(() => '2018-07-11');
     calculateRectByDateIntervals.mockImplementation(() => [{
       x: 1, y: 2, width: 100, height: 150, dataItem: 'data',
     }]);
@@ -84,7 +72,18 @@ describe('Week View', () => {
   });
 
   describe('Getters', () => {
-    it('should provide "allDayElementsMeta" getter', () => {
+    it('should render BasicView', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <WeekView {...defaultProps} />
+        </PluginHost>
+      ));
+
+      expect(tree.find(BasicView).exists())
+        .toBeTruthy();
+    });
+    it('should provide "timeTableElementsMeta" getter', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -110,216 +109,6 @@ describe('Week View', () => {
       expect(getComputedState(tree).timeTableElementsMeta)
         .toEqual('elementsMeta');
     });
-    it('should provide the "viewCellsData" getter', () => {
-      computed.mockImplementation(
-        (getters, viewName, baseComputed) => getters.currentView.name === viewName && baseComputed(getters, viewName),
-      );
-      const DATE_TO_USE = new Date('2018-10-9');
-      global.Date.now = jest.fn(() => new Date(DATE_TO_USE));
-      const props = {
-        firstDayOfWeek: 2,
-        intervalCount: 2,
-        startDayHour: 1,
-        endDayHour: 9,
-        cellDuration: 30,
-        excludedDays: [1],
-      };
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <WeekView
-            {...defaultProps}
-            {...props}
-          />
-        </PluginHost>
-      ));
-
-      expect(viewCellsData)
-        .toBeCalledWith(
-          '2018-07-04', props.firstDayOfWeek,
-          props.intervalCount * DAYS_IN_WEEK, props.excludedDays,
-          props.startDayHour, props.endDayHour, props.cellDuration,
-          DATE_TO_USE,
-        );
-      expect(getComputedState(tree).viewCellsData)
-        .toEqual([[{}, {}], [{}, {}]]);
-    });
-
-    it('should provide the "firstDayOfWeek" getter', () => {
-      const firstDayOfWeek = 2;
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <WeekView
-            firstDayOfWeek={firstDayOfWeek}
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).firstDayOfWeek)
-        .toBe(firstDayOfWeek);
-    });
-
-    it('should provide the "startViewDate" getter', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <WeekView
-            {...defaultProps}
-            startDayHour={2}
-          />
-        </PluginHost>
-      ));
-      expect(startViewDate)
-        .toBeCalledWith([
-          [{}, {}], [{}, {}],
-        ]);
-      expect(getComputedState(tree).startViewDate)
-        .toBe('2018-07-04');
-    });
-
-    it('should provide the "endViewDate" getter', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <WeekView
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-      expect(endViewDate)
-        .toBeCalledWith([
-          [{}, {}],
-          [{}, {}],
-        ]);
-      expect(getComputedState(tree).endViewDate)
-        .toBe('2018-07-11');
-    });
-
-    it('should provide the "excludedDays" getter', () => {
-      const excludedDays = [1, 2];
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <WeekView
-            excludedDays={excludedDays}
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).excludedDays)
-        .toBe(excludedDays);
-    });
-
-    it('should provide the "intervalCount" getter', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <WeekView
-            intervalCount={2}
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).intervalCount)
-        .toBe(2);
-    });
-
-    it('should provide the "currentView" getter with default "displayName"', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <WeekView
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).currentView)
-        .toEqual({ name: 'Week', type: 'week', displayName: 'Week' });
-    });
-
-    it('should provide the "currentView" getter with user-set "displayName"', () => {
-      const userDisplayName = 'User-set display name';
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <WeekView
-            displayName={userDisplayName}
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).currentView)
-        .toEqual({ name: 'Week', type: 'week', displayName: userDisplayName });
-    });
-
-    it('should provide "availableViews" getter', () => {
-      availableViews.mockImplementation(() => 'availableViews');
-      const viewName = 'Custom Month';
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <WeekView
-            name={viewName}
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).availableViews)
-        .toEqual('availableViews');
-    });
-
-    it('should calculate the "currentView" getter if there aren\'t any views before', () => {
-      const viewName = 'Week View';
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps, { getter: { currentView: undefined } })}
-          <WeekView
-            {...defaultProps}
-            name={viewName}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).currentView)
-        .toEqual({ name: viewName, type: 'week', displayName: viewName });
-    });
-
-    it('should not override previous view type', () => {
-      const prevView = { name: 'Month', type: 'month' };
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps, { getter: { currentView: prevView } })}
-          <WeekView
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).currentView)
-        .toEqual(prevView);
-    });
-
-    it('should provide "timeTableElementsMeta" getter', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <WeekView
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).timeTableElementsMeta)
-        .toEqual({});
-    });
-
     it('should provide "scrollingStrategy" getter', () => {
       const tree = mount((
         <PluginHost>

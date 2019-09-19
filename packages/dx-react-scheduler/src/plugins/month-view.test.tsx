@@ -4,17 +4,14 @@ import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
   computed,
-  viewCellsData,
-  startViewDate,
-  endViewDate,
   getHorizontalRectByDates,
   calculateMonthDateIntervals,
   monthCellsData,
-  availableViews,
   getAppointmentStyle,
   horizontalTimeTableRects,
 } from '@devexpress/dx-scheduler-core';
 import { MonthView } from './month-view';
+import { BasicView } from './basic-view';
 
 // tslint:disable: max-line-length
 jest.mock('@devexpress/dx-scheduler-core', () => ({
@@ -33,10 +30,6 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
 const defaultDeps = {
   getter: {
     currentDate: '2018-07-04',
-    viewCellsData: [
-      [{ startDate: new Date('2018-06-25') }, {}],
-      [{}, { startDate: new Date('2018-08-05') }],
-    ],
     formatDate: jest.fn(),
   },
   template: {
@@ -67,12 +60,6 @@ describe('Month View', () => {
     computed.mockImplementation(
       (getters, viewName, baseComputed) => baseComputed(getters, viewName),
     );
-    viewCellsData.mockImplementation(() => ([
-      [{ startDate: new Date('2018-06-25') }, {}],
-      [{}, { startDate: new Date('2018-08-05') }],
-    ]));
-    startViewDate.mockImplementation(() => new Date('2018-06-25'));
-    endViewDate.mockImplementation(() => new Date('2018-08-06'));
     getHorizontalRectByDates.mockImplementation(() => [{
       x: 1, y: 2, width: 100, height: 150, dataItem: 'data',
     }]);
@@ -86,7 +73,18 @@ describe('Month View', () => {
   });
 
   describe('Getters', () => {
-    it('should provide "allDayElementsMeta" getter', () => {
+    it('should render BasicView', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <MonthView {...defaultProps} />
+        </PluginHost>
+      ));
+
+      expect(tree.find(BasicView).exists())
+        .toBeTruthy();
+    });
+    it('should provide "timeTableElementsMeta" getter', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -112,202 +110,6 @@ describe('Month View', () => {
       expect(getComputedState(tree).timeTableElementsMeta)
         .toEqual('elementsMeta');
     });
-    it('should provide the "viewCellsData" getter', () => {
-      computed.mockImplementation(
-        (getters, viewName, baseComputed) => getters.currentView.name === viewName && baseComputed(getters, viewName),
-      );
-      const firstDayOfWeek = 2;
-      const intervalCount = 2;
-      const expectedMonthCellsData = 'monthCellsData';
-      monthCellsData.mockImplementation(() => expectedMonthCellsData);
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <MonthView
-            firstDayOfWeek={firstDayOfWeek}
-            intervalCount={intervalCount}
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-      const monthCellsDataCalls = monthCellsData.mock.calls;
-      expect(monthCellsDataCalls)
-        .toHaveLength(1);
-      expect(monthCellsDataCalls[0][0])
-        .toBe('2018-07-04');
-      expect(monthCellsDataCalls[0][1])
-        .toBe(firstDayOfWeek);
-      expect(monthCellsDataCalls[0][2])
-        .toBe(intervalCount);
-      expect(getComputedState(tree).viewCellsData)
-        .toEqual(expectedMonthCellsData);
-    });
-
-    it('should provide the "firstDayOfWeek" getter', () => {
-      const firstDayOfWeek = 2;
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <MonthView
-            firstDayOfWeek={firstDayOfWeek}
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).firstDayOfWeek)
-        .toBe(firstDayOfWeek);
-    });
-
-    it('should provide the "startViewDate" getter', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <MonthView
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-      expect(getComputedState(tree).startViewDate)
-        .toEqual(new Date('2018-06-25'));
-    });
-
-    it('should provide the "endViewDate" getter', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <MonthView
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-      expect(getComputedState(tree).endViewDate)
-        .toEqual(new Date('2018-08-06'));
-    });
-
-    it('should provide the "firstDayOfWeek" getter', () => {
-      const firstDayOfWeek = 2;
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <MonthView
-            firstDayOfWeek={firstDayOfWeek}
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).firstDayOfWeek)
-        .toBe(firstDayOfWeek);
-    });
-
-    it('should provide the "intervalCount" getter', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <MonthView
-            intervalCount={2}
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).intervalCount)
-        .toBe(2);
-    });
-
-    it('should provide the "currentView" getter with default "displayName"', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <MonthView
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).currentView)
-        .toEqual({ name: 'Month', type: 'month', displayName: 'Month' });
-    });
-
-    it('should provide the "currentView" getter with user-set "displayName"', () => {
-      const userDisplayName = 'User set display name';
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <MonthView
-            displayName={userDisplayName}
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).currentView)
-        .toEqual({ name: 'Month', type: 'month', displayName: userDisplayName });
-    });
-
-    it('should provide "availableViews" getter', () => {
-      availableViews.mockImplementation(() => 'availableViews');
-      const viewName = 'Custom Month';
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <MonthView
-            name={viewName}
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).availableViews)
-        .toEqual('availableViews');
-    });
-
-    it('should calculate the "currentView" getter if there aren\'t any views before', () => {
-      const viewName = 'Custom Month';
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps, { getter: { currentView: undefined } })}
-          <MonthView
-            {...defaultProps}
-            name={viewName}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).currentView)
-        .toEqual({ name: viewName, type: 'month', displayName: viewName });
-    });
-
-    it('should not override previous view type', () => {
-      const prevView = { name: 'Week', type: 'week' };
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps, { getter: { currentView: prevView } })}
-          <MonthView
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).currentView)
-        .toEqual(prevView);
-    });
-
-    it('should provide "timeTableElementsMeta" getter', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <MonthView
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).timeTableElementsMeta)
-        .toEqual({});
-    });
-
     it('should provide "scrollingStrategy" getter', () => {
       const tree = mount((
         <PluginHost>

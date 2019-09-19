@@ -4,16 +4,13 @@ import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
   computed,
-  viewCellsData,
-  startViewDate,
-  endViewDate,
   calculateRectByDateIntervals,
   calculateWeekDateIntervals,
-  availableViews,
   getAppointmentStyle,
   verticalTimeTableRects,
 } from '@devexpress/dx-scheduler-core';
 import { DayView } from './day-view';
+import { BasicView } from './basic-view';
 
 /* tslint:disable max-line-length */
 jest.mock('@devexpress/dx-scheduler-core', () => ({
@@ -31,11 +28,6 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
 const defaultDeps = {
   getter: {
     currentDate: '2018-07-04',
-    availableViewNames: [],
-    viewCellsData: [
-      [{ startDate: new Date('2018-06-25') }, {}],
-      [{}, { startDate: new Date('2018-08-05') }],
-    ],
     formatDate: jest.fn(),
   },
   template: {
@@ -68,12 +60,6 @@ describe('Day View', () => {
     computed.mockImplementation(
       (getters, viewName, baseComputed) => baseComputed(getters, viewName),
     );
-    viewCellsData.mockImplementation(() => [
-      [{}, {}],
-      [{}, {}],
-    ]);
-    startViewDate.mockImplementation(() => '2018-07-04');
-    endViewDate.mockImplementation(() => '2018-07-11');
     calculateRectByDateIntervals.mockImplementation(() => [{
       x: 1, y: 2, width: 100, height: 150, dataItem: 'data',
     }]);
@@ -86,7 +72,19 @@ describe('Day View', () => {
   });
 
   describe('Getters', () => {
-    it('should provide "allDayElementsMeta" getter', () => {
+    it('should render BasicView', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <DayView {...defaultProps} />
+        </PluginHost>
+      ));
+
+      expect(tree.find(BasicView).exists())
+        .toBeTruthy();
+    });
+
+    it('should provide "timeTableElementsMeta" getter', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -111,152 +109,6 @@ describe('Day View', () => {
 
       expect(getComputedState(tree).timeTableElementsMeta)
         .toEqual('elementsMeta');
-    });
-    it('should provide the "viewCellsData" getter', () => {
-      computed.mockImplementation(
-        (getters, viewName, baseComputed) => getters.currentView.name === viewName && baseComputed(getters, viewName),
-      );
-      const DATE_TO_USE = new Date('2018-10-9');
-      global.Date.now = jest.fn(() => new Date(DATE_TO_USE));
-      const props = {
-        firstDayOfWeek: 2,
-        intervalCount: 2,
-        startDayHour: 1,
-        endDayHour: 9,
-        cellDuration: 30,
-        excludedDays: [1],
-      };
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <DayView
-            {...defaultProps}
-            {...props}
-          />
-        </PluginHost>
-      ));
-
-      expect(viewCellsData)
-        .toBeCalledWith(
-          '2018-07-04', undefined,
-          props.intervalCount, [],
-          props.startDayHour, props.endDayHour, props.cellDuration,
-          DATE_TO_USE,
-        );
-      expect(getComputedState(tree).viewCellsData)
-        .toEqual([[{}, {}], [{}, {}]]);
-    });
-
-    it('should provide the "startViewDate" getter', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <DayView
-            {...defaultProps}
-            startDayHour={2}
-          />
-        </PluginHost>
-      ));
-      expect(startViewDate)
-        .toBeCalledWith([
-          [{}, {}], [{}, {}],
-        ]);
-      expect(getComputedState(tree).startViewDate)
-        .toBe('2018-07-04');
-    });
-
-    it('should provide the "endViewDate" getter', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <DayView
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-      expect(endViewDate)
-        .toBeCalledWith([
-          [{}, {}],
-          [{}, {}],
-        ]);
-      expect(getComputedState(tree).endViewDate)
-        .toBe('2018-07-11');
-    });
-
-    it('should provide the "intervalCount" getter', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <DayView
-            intervalCount={2}
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).intervalCount)
-        .toBe(2);
-    });
-
-    it('should provide the "currentView" getter with default "displayName"', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <DayView
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).currentView)
-        .toEqual({ name: 'Day', type: 'day', displayName: 'Day' });
-    });
-
-    it('should provide the "currentView" getter with user-set "displayName"', () => {
-      const userDisplayName = 'User-set display name';
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <DayView
-            displayName={userDisplayName}
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).currentView)
-        .toEqual({ name: 'Day', type: 'day', displayName: userDisplayName });
-    });
-
-    it('should provide "availableViews" getter', () => {
-      availableViews.mockImplementation(() => 'availableViews');
-      const viewName = 'Custom Month';
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <DayView
-            name={viewName}
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).availableViews)
-        .toEqual('availableViews');
-    });
-
-    it('should provide "timeTableElementsMeta" getter', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <DayView
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).timeTableElementsMeta)
-        .toEqual({});
     });
 
     it('should provide "scrollingStrategy" getter', () => {

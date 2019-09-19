@@ -9,7 +9,6 @@ import {
   startViewDate as startViewDateCore,
   endViewDate as endViewDateCore,
   availableViews as availableViewsCore,
-  horizontalTimeTableRects,
 } from '@devexpress/dx-scheduler-core';
 import { memoize } from '@devexpress/dx-core';
 
@@ -75,20 +74,6 @@ class BasicViewBase extends React.PureComponent {
     getters.viewCellsData,
   ));
 
-  updateRects = memoize((
-    appointments, startViewDate, endViewDate, viewCellsData,
-  ) => (cellElementsMeta) => {
-    const rects = horizontalTimeTableRects(
-      appointments, startViewDate, endViewDate,
-      viewCellsData, cellElementsMeta,
-    );
-
-    this.setState({ rects, timeTableElementsMeta: cellElementsMeta });
-  });
-
-  setScrollingStrategy = (scrollingStrategy) => {
-    this.setState({ scrollingStrategy });
-  }
   render() {
     const {
       name: viewName,
@@ -104,7 +89,6 @@ class BasicViewBase extends React.PureComponent {
     } = this.props;
     const viewDisplayName = displayName || viewName;
 
-    console.log('basic view');
     return (
       <Plugin name="basicView">
         <Getter

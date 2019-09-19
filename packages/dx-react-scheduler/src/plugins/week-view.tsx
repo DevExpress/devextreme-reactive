@@ -31,8 +31,8 @@ const viewCellsDataBaseComputed = (
     Date.now(),
   );
 };
-const CellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
-const AppointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
+// const CellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
+// const AppointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
 const TimeTablePlaceholder = () => <TemplatePlaceholder name="timeTable" />;
 const DayScalePlaceholder = () => <TemplatePlaceholder name="dayScale" />;
 const DayScaleEmptyCellPlaceholder = () => <TemplatePlaceholder name="dayScaleEmptyCell" />;
@@ -84,7 +84,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
     computed(getters, viewName!, () => timeTableElementsMeta, getters.timeTableElementsMeta));
 
   updateRects = memoize((
-    appointments, startViewDate, endViewDate, excludedDays, viewCellsData, cellDuration,
+    appointments, startViewDate, endViewDate, viewCellsData, cellDuration, excludedDays,
   ) => (cellElementsMeta) => {
     const rects = verticalTimeTableRects(
       appointments, startViewDate, endViewDate, excludedDays,
@@ -119,6 +119,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
       displayName,
       startDayHour,
       endDayHour,
+      firstDayOfWeek,
     } = this.props;
     const { rects, timeTableElementsMeta, scrollingStrategy } = this.state;
 
@@ -131,10 +132,24 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
           type={TYPE}
           cellDuration={cellDuration}
           name={viewName}
+          firstDayOfWeek={firstDayOfWeek}
           intervalCount={intervalCount}
           displayName={displayName}
           startDayHour={startDayHour}
           endDayHour={endDayHour}
+          excludedDays={excludedDays}
+
+          dayScaleLayoutComponent={DayScale}
+          dayScaleCellComponent={DayScaleCell}
+          dayScaleRowComponent={DayScaleRow}
+
+          timeTableCellComponent={TimeTableCell}
+          timeTableLayoutComponent={TimeTableLayout}
+          timeTableRowComponent={timeTableRowComponent}
+
+          appointmentLayerComponent={AppointmentLayer}
+          rects={rects}
+          updateRects={this.updateRects}
         />
 
         <Getter
@@ -163,7 +178,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
           </TemplateConnector>
         </Template>
 
-        <Template name="dayScale">
+        {/* <Template name="dayScale">
           <TemplateConnector>
             {({ currentView, viewCellsData, formatDate }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
@@ -177,7 +192,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
               );
             }}
           </TemplateConnector>
-        </Template>
+        </Template> */}
 
         <Template name="dayScaleEmptyCell">
           <TemplateConnector>
@@ -206,7 +221,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
           </TemplateConnector>
         </Template>
 
-        <Template name="timeTable">
+        {/* <Template name="timeTable">
           <TemplateConnector>
             {({
               formatDate,
@@ -216,7 +231,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
             }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               const setRects = this.updateRects(
-                appointments, startViewDate, endViewDate, excludedDays, viewCellsData, cellDuration,
+                appointments, startViewDate, endViewDate, viewCellsData, cellDuration, excludedDays,
               );
 
               return (
@@ -246,9 +261,9 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
               );
             }}
           </TemplateConnector>
-        </Template>
+        </Template> */}
 
-        <Template name="cell">
+        {/* <Template name="cell">
           {params => (
             <TemplateConnector>
               {({ currentView }) => {
@@ -259,7 +274,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
               }}
             </TemplateConnector>
           )}
-        </Template>
+        </Template> */}
       </Plugin>
     );
   }

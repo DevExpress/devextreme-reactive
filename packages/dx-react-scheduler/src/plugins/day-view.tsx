@@ -79,7 +79,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
     computed(getters, viewName!, () => timeTableElementsMeta, getters.timeTableElementsMeta));
 
   updateRects = memoize((
-    appointments, startViewDate, endViewDate, viewCellsData, cellDuration, currentDate,
+    appointments, startViewDate, endViewDate, viewCellsData, cellDuration,
   ) => (cellElementsMeta) => {
     const rects = verticalTimeTableRects(
       appointments, startViewDate, endViewDate, [],
@@ -129,6 +129,18 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
           displayName={displayName}
           startDayHour={startDayHour}
           endDayHour={endDayHour}
+
+          dayScaleLayoutComponent={DayScale}
+          dayScaleCellComponent={DayScaleCell}
+          dayScaleRowComponent={DayScaleRow}
+
+          timeTableCellComponent={TimeTableCell}
+          timeTableLayoutComponent={TimeTableLayout}
+          timeTableRowComponent={timeTableRowComponent}
+
+          appointmentLayerComponent={AppointmentLayer}
+          rects={rects}
+          updateRects={this.updateRects}
         />
 
         <Getter
@@ -151,22 +163,6 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
                   timeTableComponent={TimeTablePlaceholder}
                   timeScaleComponent={TimeScalePlaceholder}
                   setScrollingStrategy={this.setScrollingStrategy}
-                />
-              );
-            }}
-          </TemplateConnector>
-        </Template>
-
-        <Template name="dayScale">
-          <TemplateConnector>
-            {({ currentView, viewCellsData, formatDate }) => {
-              if (currentView.name !== viewName) return <TemplatePlaceholder />;
-              return (
-                <DayScale
-                  cellComponent={DayScaleCell}
-                  rowComponent={DayScaleRow}
-                  cellsData={viewCellsData}
-                  formatDate={formatDate}
                 />
               );
             }}
@@ -200,7 +196,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
           </TemplateConnector>
         </Template>
 
-        <Template name="timeTable">
+        {/* <Template name="timeTable">
           <TemplateConnector>
             {({
               appointments, startViewDate, formatDate,
@@ -209,7 +205,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
             }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               const setRects = this.updateRects(
-                appointments, startViewDate, endViewDate, viewCellsData, cellDuration, currentDate,
+                appointments, startViewDate, endViewDate, viewCellsData, cellDuration,
               );
 
               return (
@@ -239,9 +235,9 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
               );
             }}
           </TemplateConnector>
-        </Template>
+        </Template> */}
 
-        <Template name="cell">
+        {/* <Template name="cell">
           {params => (
             <TemplateConnector>
               {({ currentView }) => {
@@ -252,7 +248,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
               }}
             </TemplateConnector>
           )}
-        </Template>
+        </Template> */}
       </Plugin >
     );
   }

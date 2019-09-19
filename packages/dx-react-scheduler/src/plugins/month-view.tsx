@@ -110,6 +110,18 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
           intervalCount={intervalCount}
           displayName={displayName}
           firstDayOfWeek={firstDayOfWeek}
+
+          dayScaleLayoutComponent={DayScale}
+          dayScaleCellComponent={DayScaleCell}
+          dayScaleRowComponent={DayScaleRow}
+
+          timeTableCellComponent={TimeTableCell}
+          timeTableLayoutComponent={TimeTableLayout}
+          timeTableRowComponent={timeTableRowComponent}
+
+          appointmentLayerComponent={AppointmentLayer}
+          rects={rects}
+          updateRects={this.updateRects}
         />
 
         <Getter
@@ -136,7 +148,7 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
           </TemplateConnector>
         </Template>
 
-        <Template name="dayScale">
+        {/* <Template name="dayScale">
           <TemplateConnector>
             {({ currentView, viewCellsData, formatDate }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
@@ -150,8 +162,8 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
               );
             }}
           </TemplateConnector>
-        </Template>
-        <Template name="timeTable">
+        </Template> */}
+        {/* <Template name="timeTable">
           <TemplateConnector>
             {({
               appointments, startViewDate, endViewDate, currentView, viewCellsData, formatDate,
@@ -187,9 +199,9 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
               );
             }}
           </TemplateConnector>
-        </Template>
+        </Template> */}
 
-        <Template name="cell">
+        {/* <Template name="cell">
           {params => (
             <TemplateConnector>
               {({ currentView }) => {
@@ -200,7 +212,7 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
               }}
             </TemplateConnector>
           )}
-        </Template>
+        </Template> */}
       </Plugin>
     );
   }

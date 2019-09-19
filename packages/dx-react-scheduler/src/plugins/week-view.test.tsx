@@ -80,8 +80,19 @@ describe('Week View', () => {
         </PluginHost>
       ));
 
-      expect(tree.find(BasicView).exists())
-        .toBeTruthy();
+      expect(tree.find(BasicView).props())
+        .toEqual({
+          // viewCellsDataBaseComputed: expect.any(Function),
+          type: 'week',
+          name: 'Week',
+          intervalCount: 1,
+          displayName: undefined,
+          cellDuration: 30,
+          startDayHour: 0,
+          endDayHour: 24,
+          firstDayOfWeek: 0,
+          excludedDays: [],
+        });
     });
     it('should provide "timeTableElementsMeta" getter', () => {
       const tree = mount((

@@ -1,17 +1,24 @@
 import * as React from 'react';
 import {
+  Template,
   Plugin,
   Getter,
+  TemplateConnector,
+  TemplatePlaceholder,
   ComputedFn,
 } from '@devexpress/dx-react-core';
 import {
   computed,
+  getAppointmentStyle,
   startViewDate as startViewDateCore,
   endViewDate as endViewDateCore,
   availableViews as availableViewsCore,
 } from '@devexpress/dx-scheduler-core';
 import { memoize } from '@devexpress/dx-core';
 import { BasicViewProps } from '../types';
+
+const CellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
+const AppointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
 
 const startViewDateBaseComputed = ({ viewCellsData }) => startViewDateCore(viewCellsData);
 const endViewDateBaseComputed = ({ viewCellsData }) => endViewDateCore(viewCellsData);
@@ -77,6 +84,18 @@ class BasicViewBase extends React.PureComponent<BasicViewProps> {
       startDayHour,
       endDayHour,
       viewCellsDataBaseComputed,
+      rects,
+      updateRects,
+
+      dayScaleCellComponent,
+      dayScaleRowComponent,
+      dayScaleLayoutComponent: DayScale,
+
+      timeTableCellComponent: TimeTableCell,
+      timeTableLayoutComponent: TimeTableLayout
+      timeTableRowComponent,
+
+      appointmentLayerComponent: AppointmentLayer,
     } = this.props;
     const viewDisplayName = displayName || viewName;
 
@@ -107,6 +126,78 @@ class BasicViewBase extends React.PureComponent<BasicViewProps> {
         />
         <Getter name="startViewDate" computed={this.startViewDateComputed} />
         <Getter name="endViewDate" computed={this.endViewDateComputed} />
+
+        <Template name="dayScale">
+          <TemplateConnector>
+            {({ currentView, viewCellsData, formatDate }) => {
+              if (currentView.name !== viewName) return <TemplatePlaceholder />;
+              return (
+                <DayScale
+                  cellComponent={dayScaleCellComponent}
+                  rowComponent={dayScaleRowComponent}
+                  cellsData={viewCellsData}
+                  formatDate={formatDate}
+                />
+              );
+            }}
+          </TemplateConnector>
+        </Template>
+
+        <Template name="cell">
+          {params => (
+            <TemplateConnector>
+              {({ currentView }) => {
+                if (currentView.name !== viewName) return <TemplatePlaceholder params={params} />;
+                return (
+                  <TimeTableCell {...params} />
+                );
+              }}
+            </TemplateConnector>
+          )}
+        </Template>
+
+        <Template name="timeTable">
+          <TemplateConnector>
+            {({
+              formatDate,
+              currentView,
+              viewCellsData,
+              appointments, startViewDate, endViewDate,
+              excludedDays: excludedDaysGetter,
+            }) => {
+              if (currentView.name !== viewName) return <TemplatePlaceholder />;
+              const setRects = updateRects(
+                appointments, startViewDate, endViewDate, viewCellsData, cellDuration, excludedDaysGetter,
+              );
+
+              return (
+                <>
+                  <TimeTableLayout
+                    cellsData={viewCellsData}
+                    rowComponent={timeTableRowComponent}
+                    cellComponent={CellPlaceholder}
+                    formatDate={formatDate}
+                    setCellElementsMeta={setRects}
+                  />
+                  <AppointmentLayer>
+                    {rects.map(({
+                      dataItem, type, fromPrev, toNext, ...geometry
+                    }, index) => (
+                      <AppointmentPlaceholder
+                        key={index.toString()}
+                        type={type}
+                        data={dataItem}
+                        fromPrev={fromPrev}
+                        toNext={toNext}
+                        style={getAppointmentStyle(geometry)}
+                      />
+                    ))}
+                  </AppointmentLayer>
+                </>
+              );
+            }}
+          </TemplateConnector>
+        </Template>
       </Plugin>
     );
   }

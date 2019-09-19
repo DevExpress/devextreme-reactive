@@ -81,8 +81,15 @@ describe('Month View', () => {
         </PluginHost>
       ));
 
-      expect(tree.find(BasicView).exists())
-        .toBeTruthy();
+      expect(tree.find(BasicView).props())
+        .toEqual({
+          // viewCellsDataBaseComputed: expect.any(Function),
+          type: 'month',
+          name: 'Month',
+          intervalCount: 1,
+          displayName: undefined,
+          firstDayOfWeek: 0,
+        });
     });
     it('should provide "timeTableElementsMeta" getter', () => {
       const tree = mount((

@@ -80,8 +80,17 @@ describe('Day View', () => {
         </PluginHost>
       ));
 
-      expect(tree.find(BasicView).exists())
-        .toBeTruthy();
+      expect(tree.find(BasicView).props())
+        .toEqual({
+          // viewCellsDataBaseComputed: expect.any(Function),
+          type: 'day',
+          name: 'Day',
+          intervalCount: 1,
+          displayName: undefined,
+          cellDuration: 30,
+          startDayHour: 0,
+          endDayHour: 24,
+        });
     });
 
     it('should provide "timeTableElementsMeta" getter', () => {

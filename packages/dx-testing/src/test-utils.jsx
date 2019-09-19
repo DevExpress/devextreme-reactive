@@ -14,6 +14,7 @@ const computedEntries = object => Object.getOwnPropertyNames(object)
 let actionExecutor = () => {};
 // eslint-disable-next-line react/prop-types
 const ComputedStateContainer = ({ actions }) => (
+  // eslint-disable-next-line jsx-a11y/control-has-associated-label
   <button
     type="button"
     className="actionExecutor"

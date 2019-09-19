@@ -36,3 +36,9 @@ export type FindChainByColumnIndexFn = PureComputed<
 
 /** @internal */
 export type GenerateChainsFn = PureComputed<[TableRow[], TableColumn[]], HeaderColumnChainRows>;
+
+/** @internal */
+export type LastColumnNameFn = PureComputed<[TableColumn[]], string | undefined>;
+
+/** @internal */
+export type NextColumnNameFn = PureComputed<[TableColumn[], string], string | undefined>;

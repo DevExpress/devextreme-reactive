@@ -62,6 +62,8 @@ export * from './plugins/table-column-reordering/computeds';
 export * from './plugins/table-column-resizing/computeds';
 /** @internal */
 export * from './plugins/table-column-resizing/reducers';
+/** @internal */
+export * from './plugins/table-column-resizing/helpers';
 
 /** @internal */
 export * from './plugins/table-edit-column/constants';

@@ -6,8 +6,8 @@ export namespace Table {
   export interface ColumnExtension {
     /** The name of the column to extend. */
     columnName: string;
-    /** The table column width in pixels. */
-    width?: number;
+    /** The table column width. */
+    width?: number | string;
     /** The table column alignment. */
     align?: 'left' | 'right' | 'center';
     /** Specifies whether word wrap is enabled in a column's cells. */

@@ -34,11 +34,13 @@ describe('TableHeaderCell', () => {
   });
 
   it('should have correct styles when dragging is allowed', () => {
+    const getCellWidth = () => {};
     const tree = mount((
       <DragDropProvider>
         <TableHeaderCell
           column={{ name: 'a' }}
           draggingEnabled
+          getCellWidth={getCellWidth}
         />
       </DragDropProvider>
     ));
@@ -53,11 +55,13 @@ describe('TableHeaderCell', () => {
   });
 
   it('should have correct styles when dragging', () => {
+    const getCellWidth = () => {};
     const tree = mount((
       <DragDropProvider>
         <TableHeaderCell
           column={{ name: 'a' }}
           draggingEnabled
+          getCellWidth={getCellWidth}
         />
       </DragDropProvider>
     ));

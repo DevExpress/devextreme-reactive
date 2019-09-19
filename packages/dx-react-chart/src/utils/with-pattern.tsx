@@ -9,7 +9,7 @@ export const withPattern = <T extends any>(
   const { color, ...restProps } = targetProps;
   const patternId = getPatternId(restProps);
   return (
-    <React.Fragment>
+    <>
       <Target
         color={`url(#${patternId})`}
         {...restProps}
@@ -19,6 +19,6 @@ export const withPattern = <T extends any>(
         color={color}
         {...props}
       />
-    </React.Fragment>
+    </>
   );
 };

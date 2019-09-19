@@ -71,24 +71,6 @@ describe('EditingState', () => {
         const changes = deleteCurrent(appointmentData);
         expect(changes).toEqual({ deleted: 0 });
       });
-
-      it('should remove all sequence if current item is last', () => {
-        const appointmentData = {
-          id: 0,
-          startDate: new Date(Date.UTC(2019, 6, 17, 14, 20)),
-          endDate: new Date(Date.UTC(2019, 6, 17, 16)),
-          exDate: '20190716T142000Z,20190715T142000Z',
-          rRule: 'FREQ=DAILY;COUNT=3',
-          parentData: {
-            rRule: 'FREQ=DAILY;COUNT=3',
-            startDate: new Date(Date.UTC(2019, 6, 15, 14, 20)),
-            endDate: new Date(Date.UTC(2019, 6, 15, 16)),
-          },
-        };
-
-        const changes = deleteCurrent(appointmentData);
-        expect(changes).toEqual({ deleted: 0 });
-      });
     });
 
     describe('#deleteCurrentAndFollowing', () => {

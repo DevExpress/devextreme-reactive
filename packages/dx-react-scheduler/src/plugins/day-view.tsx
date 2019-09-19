@@ -10,7 +10,6 @@ import {
 import {
   computed,
   viewCellsData as viewCellsDataCore,
-  getAppointmentStyle,
   verticalTimeTableRects,
 } from '@devexpress/dx-scheduler-core';
 import { memoize } from '@devexpress/dx-core';
@@ -29,8 +28,6 @@ const viewCellsDataBaseComputed = (
     Date.now(),
   );
 };
-const CellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
-const AppointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
 const TimeTablePlaceholder = () => <TemplatePlaceholder name="timeTable" />;
 const DayScaleEmptyCellPlaceholder = () => <TemplatePlaceholder name="dayScaleEmptyCell" />;
 const DayScalePlaceholder = () => <TemplatePlaceholder name="dayScale" />;
@@ -78,17 +75,6 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
   timeTableElementsMetaComputed = memoize((viewName, timeTableElementsMeta) => getters =>
     computed(getters, viewName!, () => timeTableElementsMeta, getters.timeTableElementsMeta));
 
-  updateRects = memoize((
-    appointments, startViewDate, endViewDate, viewCellsData, cellDuration,
-  ) => (cellElementsMeta) => {
-    const rects = verticalTimeTableRects(
-      appointments, startViewDate, endViewDate, [],
-      viewCellsData, cellDuration, cellElementsMeta,
-    );
-
-    this.setState({ rects, timeTableElementsMeta: cellElementsMeta });
-  });
-
   setScrollingStrategy = (scrollingStrategy) => {
     this.setState({ scrollingStrategy });
   }
@@ -114,7 +100,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
       startDayHour,
       endDayHour,
     } = this.props;
-    const { rects, timeTableElementsMeta, scrollingStrategy } = this.state;
+    const { scrollingStrategy } = this.state;
 
     return (
       <Plugin
@@ -139,14 +125,10 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
           timeTableRowComponent={timeTableRowComponent}
 
           appointmentLayerComponent={AppointmentLayer}
-          rects={rects}
-          updateRects={this.updateRects}
+
+          timeTableRects={verticalTimeTableRects}
         />
 
-        <Getter
-          name="timeTableElementsMeta"
-          computed={this.timeTableElementsMetaComputed(viewName, timeTableElementsMeta)}
-        />
         <Getter
           name="scrollingStrategy"
           computed={this.scrollingStrategyComputed(viewName, scrollingStrategy)}
@@ -195,60 +177,6 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
             }}
           </TemplateConnector>
         </Template>
-
-        {/* <Template name="timeTable">
-          <TemplateConnector>
-            {({
-              appointments, startViewDate, formatDate,
-              endViewDate, currentView, currentDate,
-              viewCellsData,
-            }) => {
-              if (currentView.name !== viewName) return <TemplatePlaceholder />;
-              const setRects = this.updateRects(
-                appointments, startViewDate, endViewDate, viewCellsData, cellDuration,
-              );
-
-              return (
-                <>
-                  <TimeTableLayout
-                    cellsData={viewCellsData}
-                    rowComponent={timeTableRowComponent}
-                    cellComponent={CellPlaceholder}
-                    formatDate={formatDate}
-                    setCellElementsMeta={setRects}
-                  />
-                  <AppointmentLayer>
-                    {rects.map(({
-                      dataItem, type, fromPrev, toNext, ...geometry
-                    }, index) => (
-                        <AppointmentPlaceholder
-                          key={index.toString()}
-                          type={type}
-                          data={dataItem}
-                          fromPrev={fromPrev}
-                          toNext={toNext}
-                          style={getAppointmentStyle(geometry)}
-                        />
-                      ))}
-                  </AppointmentLayer>
-                </>
-              );
-            }}
-          </TemplateConnector>
-        </Template> */}
-
-        {/* <Template name="cell">
-          {params => (
-            <TemplateConnector>
-              {({ currentView }) => {
-                if (currentView.name !== viewName) return <TemplatePlaceholder params={params} />;
-                return (
-                  <TimeTableCell {...params} />
-                );
-              }}
-            </TemplateConnector>
-          )}
-        </Template> */}
       </Plugin >
     );
   }

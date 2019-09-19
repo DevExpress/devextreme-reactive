@@ -10,7 +10,6 @@ import {
 import {
   computed,
   viewCellsData as viewCellsDataCore,
-  getAppointmentStyle,
   verticalTimeTableRects,
   ScrollingStrategy,
 } from '@devexpress/dx-scheduler-core';
@@ -31,8 +30,6 @@ const viewCellsDataBaseComputed = (
     Date.now(),
   );
 };
-// const CellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
-// const AppointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
 const TimeTablePlaceholder = () => <TemplatePlaceholder name="timeTable" />;
 const DayScalePlaceholder = () => <TemplatePlaceholder name="dayScale" />;
 const DayScaleEmptyCellPlaceholder = () => <TemplatePlaceholder name="dayScaleEmptyCell" />;
@@ -83,17 +80,6 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
   timeTableElementsMetaComputed = memoize((viewName, timeTableElementsMeta) => getters =>
     computed(getters, viewName!, () => timeTableElementsMeta, getters.timeTableElementsMeta));
 
-  updateRects = memoize((
-    appointments, startViewDate, endViewDate, viewCellsData, cellDuration, excludedDays,
-  ) => (cellElementsMeta) => {
-    const rects = verticalTimeTableRects(
-      appointments, startViewDate, endViewDate, excludedDays,
-      viewCellsData, cellDuration, cellElementsMeta,
-    );
-
-    this.setState({ rects, timeTableElementsMeta: cellElementsMeta });
-  });
-
   setScrollingStrategy = (scrollingStrategy: ScrollingStrategy) => {
     this.setState({ scrollingStrategy });
   }
@@ -121,7 +107,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
       endDayHour,
       firstDayOfWeek,
     } = this.props;
-    const { rects, timeTableElementsMeta, scrollingStrategy } = this.state;
+    const { scrollingStrategy } = this.state;
 
     return (
       <Plugin
@@ -148,14 +134,10 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
           timeTableRowComponent={timeTableRowComponent}
 
           appointmentLayerComponent={AppointmentLayer}
-          rects={rects}
-          updateRects={this.updateRects}
+
+          timeTableRects={verticalTimeTableRects}
         />
 
-        <Getter
-          name="timeTableElementsMeta"
-          computed={this.timeTableElementsMetaComputed(viewName, timeTableElementsMeta)}
-        />
         <Getter
           name="scrollingStrategy"
           computed={this.scrollingStrategyComputed(viewName, scrollingStrategy)}
@@ -177,22 +159,6 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
             }}
           </TemplateConnector>
         </Template>
-
-        {/* <Template name="dayScale">
-          <TemplateConnector>
-            {({ currentView, viewCellsData, formatDate }) => {
-              if (currentView.name !== viewName) return <TemplatePlaceholder />;
-              return (
-                <DayScale
-                  cellComponent={DayScaleCell}
-                  rowComponent={DayScaleRow}
-                  cellsData={viewCellsData}
-                  formatDate={formatDate}
-                />
-              );
-            }}
-          </TemplateConnector>
-        </Template> */}
 
         <Template name="dayScaleEmptyCell">
           <TemplateConnector>
@@ -220,61 +186,6 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
             }}
           </TemplateConnector>
         </Template>
-
-        {/* <Template name="timeTable">
-          <TemplateConnector>
-            {({
-              formatDate,
-              currentView,
-              viewCellsData,
-              appointments, startViewDate, endViewDate,
-            }) => {
-              if (currentView.name !== viewName) return <TemplatePlaceholder />;
-              const setRects = this.updateRects(
-                appointments, startViewDate, endViewDate, viewCellsData, cellDuration, excludedDays,
-              );
-
-              return (
-                <>
-                  <TimeTableLayout
-                    cellsData={viewCellsData}
-                    rowComponent={timeTableRowComponent}
-                    cellComponent={CellPlaceholder}
-                    formatDate={formatDate}
-                    setCellElementsMeta={setRects}
-                  />
-                  <AppointmentLayer>
-                    {rects.map(({
-                      dataItem, type, fromPrev, toNext, ...geometry
-                    }, index) => (
-                      <AppointmentPlaceholder
-                        key={index.toString()}
-                        type={type}
-                        data={dataItem}
-                        fromPrev={fromPrev}
-                        toNext={toNext}
-                        style={getAppointmentStyle(geometry)}
-                      />
-                    ))}
-                  </AppointmentLayer>
-                </>
-              );
-            }}
-          </TemplateConnector>
-        </Template> */}
-
-        {/* <Template name="cell">
-          {params => (
-            <TemplateConnector>
-              {({ currentView }) => {
-                if (currentView.name !== viewName) return <TemplatePlaceholder params={params} />;
-                return (
-                  <TimeTableCell {...params} />
-                );
-              }}
-            </TemplateConnector>
-          )}
-        </Template> */}
       </Plugin>
     );
   }

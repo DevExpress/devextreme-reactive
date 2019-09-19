@@ -24,6 +24,11 @@ const startViewDateBaseComputed = ({ viewCellsData }) => startViewDateCore(viewC
 const endViewDateBaseComputed = ({ viewCellsData }) => endViewDateCore(viewCellsData);
 
 class BasicViewBase extends React.PureComponent<BasicViewProps> {
+  state = {
+    rects: [],
+    timeTableElementsMeta: {},
+  };
+
   scrollingStrategyComputed = memoize((viewName, scrollingStrategy) => getters =>
     computed(getters, viewName!, () => scrollingStrategy, getters.scrollingStrategy));
 
@@ -72,6 +77,18 @@ class BasicViewBase extends React.PureComponent<BasicViewProps> {
     getters.viewCellsData,
   ));
 
+  updateRects = memoize((
+    appointments, startViewDate, endViewDate,
+    viewCellsData, cellDuration, excludedDays, timeTableRects,
+  ) => (cellElementsMeta) => {
+    const rects = timeTableRects(
+      appointments, startViewDate, endViewDate, excludedDays,
+      viewCellsData, cellDuration, cellElementsMeta,
+    );
+
+    this.setState({ rects, timeTableElementsMeta: cellElementsMeta });
+  });
+
   render() {
     const {
       name: viewName,
@@ -84,8 +101,8 @@ class BasicViewBase extends React.PureComponent<BasicViewProps> {
       startDayHour,
       endDayHour,
       viewCellsDataBaseComputed,
-      rects,
-      updateRects,
+
+      timeTableRects, // function to calculate time table appointment rects
 
       dayScaleCellComponent,
       dayScaleRowComponent,
@@ -97,6 +114,7 @@ class BasicViewBase extends React.PureComponent<BasicViewProps> {
 
       appointmentLayerComponent: AppointmentLayer,
     } = this.props;
+    const { rects, timeTableElementsMeta } = this.state;
     const viewDisplayName = displayName || viewName;
 
     return (
@@ -126,6 +144,11 @@ class BasicViewBase extends React.PureComponent<BasicViewProps> {
         />
         <Getter name="startViewDate" computed={this.startViewDateComputed} />
         <Getter name="endViewDate" computed={this.endViewDateComputed} />
+
+        <Getter
+          name="timeTableElementsMeta"
+          computed={this.timeTableElementsMetaComputed(viewName, timeTableElementsMeta)}
+        />
 
         <Template name="dayScale">
           <TemplateConnector>
@@ -166,8 +189,10 @@ class BasicViewBase extends React.PureComponent<BasicViewProps> {
               excludedDays: excludedDaysGetter,
             }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
-              const setRects = updateRects(
-                appointments, startViewDate, endViewDate, viewCellsData, cellDuration, excludedDaysGetter,
+              const setRects = this.updateRects(
+                appointments, startViewDate, endViewDate,
+                viewCellsData, cellDuration, excludedDaysGetter,
+                timeTableRects,
               );
 
               return (
@@ -181,11 +206,11 @@ class BasicViewBase extends React.PureComponent<BasicViewProps> {
                   />
                   <AppointmentLayer>
                     {rects.map(({
-                      dataItem, type, fromPrev, toNext, ...geometry
+                      dataItem, type: rectType, fromPrev, toNext, ...geometry
                     }, index) => (
                       <AppointmentPlaceholder
                         key={index.toString()}
-                        type={type}
+                        type={rectType}
                         data={dataItem}
                         fromPrev={fromPrev}
                         toNext={toNext}

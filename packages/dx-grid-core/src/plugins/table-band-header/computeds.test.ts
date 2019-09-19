@@ -184,9 +184,7 @@ describe('TableBandHeader Plugin computeds', () => {
 
   describe('#bandLevelsVisibility', () => {
     it('should work when all columns are visible', () => {
-      const viewport = {
-        columns: [[0, 4]],
-      };
+      const columnVisibleIntervals = [[0, 4]];
       const headerColumnChains = generateChains(5, [
         { Band0: [1, 3] },
         { Band0: [1, 1], Band1: [2, 3] },
@@ -197,7 +195,7 @@ describe('TableBandHeader Plugin computeds', () => {
         Band1: 1,
       };
 
-      expect(bandLevelsVisibility(viewport, headerColumnChains, bandLevels))
+      expect(bandLevelsVisibility(columnVisibleIntervals, headerColumnChains, bandLevels))
         .toEqual([true, true]);
     });
 
@@ -214,11 +212,9 @@ describe('TableBandHeader Plugin computeds', () => {
       };
 
       it('should work with partially hidden bands', () => {
-        const viewport = {
-          columns: [[2, 6]],
-        };
+        const columnVisibleIntervals = [[2, 6]];
 
-        expect(bandLevelsVisibility(viewport, headerColumnsChains, bandLevels))
+        expect(bandLevelsVisibility(columnVisibleIntervals, headerColumnsChains, bandLevels))
           .toEqual([
             true, // 0 - Band0
             false,
@@ -226,11 +222,9 @@ describe('TableBandHeader Plugin computeds', () => {
       });
 
       it('should work with hidden bands', () => {
-        const viewport = {
-          columns: [[4, 6]],
-        };
+        const columnVisibleIntervals = [[4, 6]];
 
-        expect(bandLevelsVisibility(viewport, headerColumnsChains, bandLevels))
+        expect(bandLevelsVisibility(columnVisibleIntervals, headerColumnsChains, bandLevels))
           .toEqual([
             false,
             false,
@@ -238,11 +232,9 @@ describe('TableBandHeader Plugin computeds', () => {
       });
 
       it('should work with gapped column boundaries', () => {
-        const viewport = {
-          columns: [[0, 0], [2, 2], [5, 6]],
-        };
+        const columnVisibleIntervals = [[0, 0], [2, 2], [5, 6]];
 
-        expect(bandLevelsVisibility(viewport, headerColumnsChains, bandLevels))
+        expect(bandLevelsVisibility(columnVisibleIntervals, headerColumnsChains, bandLevels))
           .toEqual([
             true,
             false,

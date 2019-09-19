@@ -39,7 +39,7 @@ export const getColumnMeta: GetColumnBandMetaFn = (
 export const getBandComponent: GetBandComponentFn = (
   { tableColumn: currentTableColumn, tableRow, rowSpan },
   tableHeaderRows, tableColumns, columnBands, tableHeaderColumnChains,
-  viewport, bandLevelsVisibility,
+  columnVisibleIntervals, bandLevelsVisibility,
 ) => {
   if (rowSpan) return { type: BAND_DUPLICATE_RENDER, payload: null };
 
@@ -103,7 +103,7 @@ export const getBandComponent: GetBandComponentFn = (
     currentColumnIndex,
   );
 
-  const columnVisibleBoundary = viewport.columns.find(([start, end]) => (
+  const columnVisibleBoundary = columnVisibleIntervals.find(([start, end]) => (
     start <= currentColumnIndex && currentColumnIndex <= end
   ))!;
   const bandStart = Math.max(columnVisibleBoundary[0], currentColumnChain.start);

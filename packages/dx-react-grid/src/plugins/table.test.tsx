@@ -11,7 +11,6 @@ import {
   isDataTableCell,
   isHeaderStubTableCell,
   isDataTableRow,
-  fixedViewport,
 } from '@devexpress/dx-grid-core';
 import { Table } from './table';
 
@@ -24,7 +23,6 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   isDataTableCell: jest.fn(),
   isHeaderStubTableCell: jest.fn(),
   isDataTableRow: jest.fn(),
-  fixedViewport: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -69,7 +67,6 @@ describe('Table', () => {
     tableColumnsWithDataRows.mockImplementation(() => 'tableColumnsWithDataRows');
     tableRowsWithDataRows.mockImplementation(() => 'tableRowsWithDataRows');
     tableCellColSpanGetter.mockImplementation(() => 'tableCellColSpanGetter');
-    fixedViewport.mockImplementation(() => 'fixedViewport');
     isNoDataTableRow.mockImplementation(() => false);
     isNoDataTableCell.mockImplementation(() => false);
     isDataTableCell.mockImplementation(() => false);
@@ -134,20 +131,6 @@ describe('Table', () => {
 
       expect(getComputedState(tree).getTableCellColSpan)
         .toBe(tableCellColSpanGetter);
-    });
-
-    it('should provide viewport', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <Table
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).viewport)
-        .toBe('fixedViewport');
     });
   });
 

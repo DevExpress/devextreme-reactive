@@ -5,8 +5,8 @@ import { getColumnMeta } from './helpers';
 import { splitHeaderColumnChains, generateSimpleChains } from '../table-header-row/helpers';
 import {
   ColumnBands, GetHeaderColumnChainsFn, ShouldSplitChainFn,
-  GetMaxNestedLevelFn, TableRow, TableColumn, GridViewport, HeaderColumnChainRows,
-  BandLevels, BandColumnChainExtension, HeaderColumnChain,
+  GetMaxNestedLevelFn, TableRow, TableColumn, HeaderColumnChainRows,
+  BandLevels, BandColumnChainExtension, HeaderColumnChain, VisibleBoundary, GridViewport,
 } from '../../types';
 import { intervalUtil } from '../virtual-table-state/utils';
 
@@ -76,7 +76,7 @@ export const tableHeaderColumnChainsWithBands: GetHeaderColumnChainsFn<
   return [...bandChains, ...chains.slice(maxBandRowIndex)];
 };
 
-const getBandLevel: PureComputed<[any[], string, number?], number> = (
+const getBandLevel: PureComputed<[ColumnBands[], string, number?], number> = (
   bands, bandTitle, level = 0,
 ) => {
   for (const band of bands) {
@@ -108,13 +108,13 @@ export const columnBandLevels: PureComputed<[ColumnBands[]], BandLevels> = colum
 );
 
 export const bandLevelsVisibility: PureComputed<
-  [GridViewport, HeaderColumnChainRows<BandColumnChainExtension>, BandLevels],
+  [VisibleBoundary[], HeaderColumnChainRows<BandColumnChainExtension>, BandLevels],
   boolean[]
-> = ({ columns }, tableHeaderColumnChains, bandLevels) => {
+> = (columnIntervals, tableHeaderColumnChains, bandLevels) => {
   const rowsWithBands = tableHeaderColumnChains
     .filter(r => r.filter(ch => !!ch.bandTitle).length);
 
-  const visibleIntervals = columns.map(([start, end]) => ({ start, end }));
+  const visibleIntervals = columnIntervals.map(([start, end]) => ({ start, end }));
 
   const isBandChainVisible = (chain: HeaderColumnChain) => (
     visibleIntervals.some(interval => (
@@ -139,3 +139,12 @@ export const bandLevelsVisibility: PureComputed<
     return [...acc, !!rowBands.length];
   }, [] as boolean[]);
 };
+
+export const columnVisibleIntervals: PureComputed<
+  [GridViewport, TableColumn[]],
+  VisibleBoundary[]
+> = (
+  viewport, tableColumns,
+) => (
+  viewport ? viewport.columns : [[0, tableColumns.length]]
+);

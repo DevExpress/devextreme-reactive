@@ -15,6 +15,7 @@ import {
   isHeadingTableCell,
   columnBandLevels,
   bandLevelsVisibility,
+  columnVisibleIntervals,
   BAND_DUPLICATE_RENDER,
   BAND_EMPTY_CELL,
   BAND_GROUP_CELL,
@@ -32,6 +33,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   isHeadingTableCell: jest.fn(),
   columnBandLevels: jest.fn(),
   bandLevelsVisibility: jest.fn(),
+  columnVisibleIntervals: jest.fn(),
   BAND_DUPLICATE_RENDER: 'd',
   BAND_EMPTY_CELL: 'e',
   BAND_GROUP_CELL: 'g',
@@ -42,7 +44,7 @@ const defaultDeps = {
   getter: {
     tableHeaderRows: [],
     tableColumns: [],
-    viewport: 'viewport',
+    columnVisibleIntervals: 'columnVisibleIntervals',
   },
   template: {
     tableCell: {
@@ -86,6 +88,7 @@ describe('TableBandHeader', () => {
     tableHeaderColumnChainsWithBands.mockImplementation(() => 'tableHeaderColumnChainsWithBands');
     columnBandLevels.mockImplementation(() => 'columnBandLevels');
     bandLevelsVisibility.mockImplementation(() => 'bandLevelsVisibility');
+    columnVisibleIntervals.mockImplementation(() => 'columnVisibleIntervals');
     isHeadingTableCell.mockImplementation(() => false);
     isBandedTableRow.mockImplementation(() => false);
     isBandedOrHeaderRow.mockImplementation(() => false);
@@ -121,6 +124,20 @@ describe('TableBandHeader', () => {
 
       expect(getComputedState(tree).bandLevelsVisibility)
         .toBe('bandLevelsVisibility');
+    });
+
+    it('should provide columnVisibleIntervals getter', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableBandHeader
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).columnVisibleIntervals)
+        .toBe('columnVisibleIntervals');
     });
 
     it('should extend tableHeaderRows', () => {
@@ -165,7 +182,7 @@ describe('TableBandHeader', () => {
         defaultDeps.getter.tableColumns,
         defaultProps.columnBands,
         'tableHeaderColumnChainsWithBands',
-        'viewport',
+        'columnVisibleIntervals',
         'bandLevelsVisibility',
       );
   });

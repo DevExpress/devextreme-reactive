@@ -117,7 +117,7 @@ describe('TableBandHeader Plugin helpers', () => {
       { type: TABLE_BAND_TYPE, level: 1 },
       { type: TABLE_HEADING_TYPE },
     ];
-    const viewport = { columns: [[0, 4]] };
+    const columnVisibleBoundaries = [[0, 4]];
     const levelsVisibility = [true, true];
 
     it('should return a duplicate render type if column has a rowSpan', () => {
@@ -127,7 +127,7 @@ describe('TableBandHeader Plugin helpers', () => {
         tableRow: {},
       };
 
-      expect(getBandComponent(params, {}, {}, {}, [], viewport, levelsVisibility))
+      expect(getBandComponent(params, {}, {}, {}, [], columnVisibleBoundaries, levelsVisibility))
         .toEqual({ type: BAND_DUPLICATE_RENDER, payload: null });
     });
 
@@ -146,7 +146,8 @@ describe('TableBandHeader Plugin helpers', () => {
 
       expect(
         getBandComponent(
-          params, tableHeaderRows, tableColumns, columnBands, chains, viewport, levelsVisibility,
+          params, tableHeaderRows, tableColumns, columnBands,
+          chains, columnVisibleBoundaries, levelsVisibility,
       ))
         .toEqual({ type: BAND_EMPTY_CELL, payload: null });
     });
@@ -166,7 +167,8 @@ describe('TableBandHeader Plugin helpers', () => {
 
       expect(
         getBandComponent(
-          params, tableHeaderRows, tableColumns, columnBands, chains, viewport, levelsVisibility,
+          params, tableHeaderRows, tableColumns, columnBands,
+          chains, columnVisibleBoundaries, levelsVisibility,
       ))
         .toEqual({
           type: BAND_HEADER_CELL,
@@ -192,7 +194,8 @@ describe('TableBandHeader Plugin helpers', () => {
 
       expect(
         getBandComponent(
-          params, tableHeaderRows, tableColumns, columnBands, chains, viewport, levelsVisibility,
+          params, tableHeaderRows, tableColumns, columnBands,
+          chains, columnVisibleBoundaries, levelsVisibility,
       ))
         .toEqual({
           type: BAND_GROUP_CELL,
@@ -220,7 +223,7 @@ describe('TableBandHeader Plugin helpers', () => {
       expect(
         getBandComponent(
           params, tableHeaderRows, tableColumns, columnBands,
-          chains, viewport, levelsVisibility,
+          chains, columnVisibleBoundaries, levelsVisibility,
       ))
         .toEqual({
           type: null,
@@ -245,7 +248,7 @@ describe('TableBandHeader Plugin helpers', () => {
             tableRow: { level: 0 },
           },
           tableHeaderRows, tableColumns, columnBands, columnChains,
-          viewport, levelsVisibility),
+          columnVisibleBoundaries, levelsVisibility),
         )
           .toEqual({
             type: BAND_GROUP_CELL,
@@ -261,7 +264,7 @@ describe('TableBandHeader Plugin helpers', () => {
             tableColumn: tableColumns[0],
             tableRow: { level: 1 },
           }, tableHeaderRows, tableColumns, columnBands, columnChains,
-          viewport, levelsVisibility),
+          columnVisibleBoundaries, levelsVisibility),
         )
           .toEqual({
             type: BAND_GROUP_CELL,
@@ -277,7 +280,7 @@ describe('TableBandHeader Plugin helpers', () => {
             tableColumn: tableColumns[0],
             tableRow: { level: 2 },
           }, tableHeaderRows, tableColumns, columnBands, columnChains,
-          viewport, levelsVisibility),
+          columnVisibleBoundaries, levelsVisibility),
         )
           .toEqual({
             type: BAND_HEADER_CELL,
@@ -305,7 +308,7 @@ describe('TableBandHeader Plugin helpers', () => {
             },
             tableHeaderRows, columns,
             columnBands, columnChains,
-            viewport, levelsVisibility,
+            columnVisibleBoundaries, levelsVisibility,
           ),
         )
           .toEqual({
@@ -333,7 +336,7 @@ describe('TableBandHeader Plugin helpers', () => {
             },
             tableHeaderRows, columns,
             columnBands, columnChains,
-            viewport, levelsVisibility,
+            columnVisibleBoundaries, levelsVisibility,
           ),
         )
           .toEqual({
@@ -378,7 +381,7 @@ describe('TableBandHeader Plugin helpers', () => {
             },
             testTableHeaderRows, testColumns,
             testColumnBands, columnChains,
-            viewport, levelsVisibility,
+            columnVisibleBoundaries, levelsVisibility,
           ),
         )
           .toEqual({
@@ -401,7 +404,7 @@ describe('TableBandHeader Plugin helpers', () => {
             },
             testTableHeaderRows, testColumns,
             testColumnBands, columnChains,
-            viewport, levelsVisibility,
+            columnVisibleBoundaries, levelsVisibility,
           ),
         )
           .toEqual({
@@ -442,9 +445,9 @@ describe('TableBandHeader Plugin helpers', () => {
           tableColumn,
           tableRow: { level: 0 },
         });
-        const getBandComponentByViewport = (testViewport, column) => getBandComponent(
+        const getBandComponentByViewport = (columnBoundaries, column) => getBandComponent(
           getParams(column), tableHeaderRows, testColumns, testBands, columnChains,
-          testViewport, levelsVisibility,
+          columnBoundaries, levelsVisibility,
         );
         const groupCellWithColSpan = colSpan => ({
           type: BAND_GROUP_CELL,
@@ -456,21 +459,21 @@ describe('TableBandHeader Plugin helpers', () => {
         });
 
         it('should be correct when a right part of band is hidden', () => {
-          expect(getBandComponentByViewport({ columns: [[0, 5]] }, testColumns[4]))
+          expect(getBandComponentByViewport([[0, 5]], testColumns[4]))
           .toEqual(
             groupCellWithColSpan(2),
           );
         });
 
         it('should be correct when whole band is visible', () => {
-          expect(getBandComponentByViewport({ columns: [[3, 8]] }, testColumns[4]))
+          expect(getBandComponentByViewport([[3, 8]], testColumns[4]))
           .toEqual(
             groupCellWithColSpan(4),
           );
         });
 
         it('should be correct when a left part of band is hidden', () => {
-          expect(getBandComponentByViewport({ columns: [[5, 9]] }, testColumns[5]))
+          expect(getBandComponentByViewport([[5, 9]], testColumns[5]))
           .toEqual(
             groupCellWithColSpan(3),
           );
@@ -514,22 +517,22 @@ describe('TableBandHeader Plugin helpers', () => {
           tableColumn,
           tableRow: { level },
         });
-        const getBandComponentGetter = (testViewport, testLevelsVisibility) => (
+        const getBandComponentGetter = (columnBoundaries, testLevelsVisibility) => (
           (tableColumn, level) => (getBandComponent(
             getParams(tableColumn, level), testTableHeaderRows, testColumns, testBands,
-            columnChains, testViewport, testLevelsVisibility,
+            columnChains, columnBoundaries, testLevelsVisibility,
           ))
         );
 
         it('should fill invisible level in place of invisible cell', () => {
-          const testViewport = { columns: [[4, 6]] };
+          const columnBoundaries = [[4, 6]];
           const stubColumn = {
             type: TABLE_STUB_TYPE,
             key: 'stub_0-3',
           };
           const testLevelsVisibility = [true, false, false];
           const getBandComponentByLevel = getBandComponentGetter(
-            testViewport, testLevelsVisibility,
+            columnBoundaries, testLevelsVisibility,
           );
 
           expect(getBandComponentByLevel(stubColumn, 0))
@@ -558,14 +561,14 @@ describe('TableBandHeader Plugin helpers', () => {
         });
 
         it('should fill space vertically', () => {
-          const testViewport = { columns: [[5, 7]] };
+          const columnBoundaries = [[5, 7]];
           const stubColumn = {
             type: TABLE_STUB_TYPE,
             key: 'stub_0-4',
           };
           const testLevelsVisibility = [true, true, true];
           const getBandComponentByLevel = getBandComponentGetter(
-            testViewport, testLevelsVisibility,
+            columnBoundaries, testLevelsVisibility,
           );
           const assertEmptyCell = (level) => {
             expect(getBandComponentByLevel(stubColumn, level))

@@ -12,5 +12,6 @@ export * from './utils/legend';
 export * from './utils/event-tracker';
 export * from './utils/hover-state';
 export * from './utils/common';
+export * from './utils/animation';
 export * from './constants';
 export * from './types';

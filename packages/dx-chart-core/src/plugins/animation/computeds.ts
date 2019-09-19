@@ -1,6 +1,7 @@
 import {
   EasingFn, SetAttributeFn, AnimationFn,
-  GetNewPositionsFn, Scales, PathPoints,
+  GetNewPositionsFn, Scales, PathPoints, BarCoordinates, PointCoordinates,
+  PathCoordinates, PieCoordinates,
 } from '../../types';
 
 /** @internal */
@@ -61,8 +62,10 @@ export const buildAnimation = (easing: EasingFn, duration: number): AnimationFn 
 };
 
 /** @internal */
-export const processPointAnimation = (startCoords, endCoords) => {
-  return (progress) => {
+export const processPointAnimation = (
+  startCoords: PointCoordinates, endCoords: PointCoordinates,
+) => {
+  return (progress: number) => {
     return {
       x: startCoords.x + progress * (endCoords.x - startCoords.x),
       y: startCoords.y + progress * (endCoords.y - startCoords.y),
@@ -71,8 +74,8 @@ export const processPointAnimation = (startCoords, endCoords) => {
 };
 
 /** @internal */
-export const processBarAnimation = (startCoords, endCoords) => {
-  return (progress) => {
+export const processBarAnimation = (startCoords: BarCoordinates, endCoords: BarCoordinates) => {
+  return (progress: number) => {
     return {
       x: startCoords.x + progress * (endCoords.x - startCoords.x),
       y: startCoords.y + progress * (endCoords.y - startCoords.y),
@@ -82,8 +85,8 @@ export const processBarAnimation = (startCoords, endCoords) => {
 };
 
 /** @internal */
-export const processLineAnimation = (startCoords, endCoords) => {
-  return (progress) => {
+export const processLineAnimation = (startCoords: PathCoordinates, endCoords: PathPoints) => {
+  return (progress: number) => {
     return {
       coordinates: endCoords.map((coord, index) => {
         const startCurCoord = startCoords[index];
@@ -98,8 +101,8 @@ export const processLineAnimation = (startCoords, endCoords) => {
 };
 
 /** @internal */
-export const processAreaAnimation = (startCoords, endCoords) => {
-  return (progress) => {
+export const processAreaAnimation = (startCoords: PathCoordinates, endCoords: PathPoints) => {
+  return (progress: number) => {
     return {
       coordinates: endCoords.map((coord, index) => {
         const startCurCoord = startCoords[index];
@@ -115,8 +118,8 @@ export const processAreaAnimation = (startCoords, endCoords) => {
 };
 
 /** @internal */
-export const processPieAnimation = (start, end) => {
-  return (progress) => {
+export const processPieAnimation = (start: PieCoordinates, end: PieCoordinates) => {
+  return (progress: number) => {
     return {
       innerRadius: start.innerRadius + progress * (end.innerRadius - start.innerRadius),
       outerRadius: start.outerRadius + progress * (end.outerRadius - start.outerRadius),

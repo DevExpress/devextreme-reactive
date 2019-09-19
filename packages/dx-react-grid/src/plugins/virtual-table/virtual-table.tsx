@@ -8,7 +8,7 @@ import {
   Getters,
 } from '@devexpress/dx-react-core';
 import {
-  isStubTableCell, emptyViewport, checkColumnWidths,
+  isStubTableCell, checkColumnWidths,
 } from '@devexpress/dx-grid-core';
 import {
   VirtualTableProps, VirtualTableLayoutProps,

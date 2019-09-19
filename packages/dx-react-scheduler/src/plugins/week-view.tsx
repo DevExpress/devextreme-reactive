@@ -115,6 +115,10 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
       excludedDays,
       name: viewName,
       appointmentLayerComponent: AppointmentLayer,
+      intervalCount,
+      displayName,
+      startDayHour,
+      endDayHour,
     } = this.props;
     const { rects, timeTableElementsMeta, scrollingStrategy } = this.state;
 
@@ -123,9 +127,14 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
         name="WeekView"
       >
         <BasicView
-          {...this.props}
           viewCellsDataBaseComputed={viewCellsDataBaseComputed}
           type={TYPE}
+          cellDuration={cellDuration}
+          name={viewName}
+          intervalCount={intervalCount}
+          displayName={displayName}
+          startDayHour={startDayHour}
+          endDayHour={endDayHour}
         />
 
         <Getter

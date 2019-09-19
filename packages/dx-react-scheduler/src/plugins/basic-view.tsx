@@ -11,21 +11,12 @@ import {
   availableViews as availableViewsCore,
 } from '@devexpress/dx-scheduler-core';
 import { memoize } from '@devexpress/dx-core';
+import { BasicViewProps } from '../types';
 
 const startViewDateBaseComputed = ({ viewCellsData }) => startViewDateCore(viewCellsData);
 const endViewDateBaseComputed = ({ viewCellsData }) => endViewDateCore(viewCellsData);
 
-class BasicViewBase extends React.PureComponent {
-  state = {
-    rects: [],
-    timeTableElementsMeta: {},
-    scrollingStrategy: {
-      topBoundary: 0,
-      bottomBoundary: 0,
-      changeVerticalScroll: () => undefined,
-    },
-  };
-
+class BasicViewBase extends React.PureComponent<BasicViewProps> {
   scrollingStrategyComputed = memoize((viewName, scrollingStrategy) => getters =>
     computed(getters, viewName!, () => scrollingStrategy, getters.scrollingStrategy));
 
@@ -110,7 +101,9 @@ class BasicViewBase extends React.PureComponent {
         <Getter name="excludedDays" computed={this.excludedDaysComputed(viewName, excludedDays)} />
         <Getter
           name="viewCellsData"
-          computed={this.viewCellsDataComputed(viewName, cellDuration, startDayHour, endDayHour, viewCellsDataBaseComputed)}
+          computed={this.viewCellsDataComputed(
+            viewName, cellDuration, startDayHour, endDayHour, viewCellsDataBaseComputed,
+          )}
         />
         <Getter name="startViewDate" computed={this.startViewDateComputed} />
         <Getter name="endViewDate" computed={this.endViewDateComputed} />
@@ -118,4 +111,4 @@ class BasicViewBase extends React.PureComponent {
     );
   }
 }
-export const BasicView: React.ComponentType = BasicViewBase;
+export const BasicView: React.ComponentType<BasicViewProps> = BasicViewBase;

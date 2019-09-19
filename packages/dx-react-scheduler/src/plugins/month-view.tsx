@@ -93,6 +93,9 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
       timeTableCellComponent: TimeTableCell,
       appointmentLayerComponent: AppointmentLayer,
       name: viewName,
+      intervalCount,
+      displayName,
+      firstDayOfWeek,
     } = this.props;
     const { rects, timeTableElementsMeta, scrollingStrategy } = this.state;
 
@@ -101,9 +104,12 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
         name="MonthView"
       >
         <BasicView
-          {...this.props}
           viewCellsDataBaseComputed={viewCellsDataBaseComputed}
           type={TYPE}
+          name={viewName}
+          intervalCount={intervalCount}
+          displayName={displayName}
+          firstDayOfWeek={firstDayOfWeek}
         />
 
         <Getter

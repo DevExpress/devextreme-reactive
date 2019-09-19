@@ -109,6 +109,10 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
       appointmentLayerComponent: AppointmentLayer,
       cellDuration,
       name: viewName,
+      intervalCount,
+      displayName,
+      startDayHour,
+      endDayHour,
     } = this.props;
     const { rects, timeTableElementsMeta, scrollingStrategy } = this.state;
 
@@ -117,9 +121,14 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
         name="DayView"
       >
         <BasicView
-          {...this.props}
           viewCellsDataBaseComputed={viewCellsDataBaseComputed}
           type={TYPE}
+          cellDuration={cellDuration}
+          name={viewName}
+          intervalCount={intervalCount}
+          displayName={displayName}
+          startDayHour={startDayHour}
+          endDayHour={endDayHour}
         />
 
         <Getter

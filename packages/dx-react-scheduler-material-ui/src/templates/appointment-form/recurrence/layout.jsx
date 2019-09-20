@@ -16,6 +16,7 @@ import { Daily as DailyLayout } from './layouts/daily';
 import { Weekly as WeeklyLayout } from './layouts/weekly';
 import { Monthly as MonthlyLayout } from './layouts/monthly';
 import { Yearly as YearlyLayout } from './layouts/yearly';
+import { TRANSITIONS_TIME } from '../../constants';
 
 const styles = ({ spacing }) => ({
   root: {
@@ -23,7 +24,7 @@ const styles = ({ spacing }) => ({
     paddingTop: spacing(3),
     overflow: 'hidden',
     width: 0,
-    transition: 'all 500ms',
+    transition: `all ${TRANSITIONS_TIME}ms linear`,
     boxSizing: 'border-box',
     maxWidth: 0,
     opacity: 0,

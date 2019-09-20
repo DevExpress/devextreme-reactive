@@ -14,6 +14,7 @@ import {
   getAvailableRecurrenceOptions,
   handleChangeFrequency,
 } from '@devexpress/dx-scheduler-core';
+import { TRANSITIONS_TIME } from '../../constants';
 
 const styles = ({ spacing, typography }) => ({
   root: {
@@ -24,7 +25,9 @@ const styles = ({ spacing, typography }) => ({
     paddingRight: spacing(4),
     maxWidth: '650px',
     boxSizing: 'border-box',
-    transition: 'all 500ms',
+    //transition: `all ${TRANSITIONS_TIME}ms cubic-bezier(0.2322, 0.425, 0.575, 0.7678)`,
+    transition: `all ${TRANSITIONS_TIME}ms`,
+
     '@media (max-width: 700px)': {
       width: '100%',
       maxWidth: '700px',
@@ -36,6 +39,7 @@ const styles = ({ spacing, typography }) => ({
   fullSize: {
     width: '100%',
     paddingBottom: spacing(3),
+    //transition: `all ${TRANSITIONS_TIME}ms cubic-bezier(0.425, 0.2322, 0.7678, 0.575)`,
   },
   labelWithMargins: {
     marginBottom: spacing(0.5),

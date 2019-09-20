@@ -8,6 +8,7 @@ import {
   DELETE_BUTTON,
   CANCEL_BUTTON,
 } from '@devexpress/dx-scheduler-core';
+import { TRANSITIONS_TIME } from '../../constants';
 
 const styles = ({ spacing, palette }) => ({
   root: {
@@ -20,7 +21,7 @@ const styles = ({ spacing, palette }) => ({
     top: 0,
     backgroundColor: palette.background.paper,
     zIndex: 1,
-    transition: 'all 500ms',
+    transition: `all ${TRANSITIONS_TIME}ms`,
   },
   basic: {
     maxWidth: '650px',

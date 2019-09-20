@@ -3,6 +3,7 @@ import * as PropTypes from 'prop-types';
 import Drawer from '@material-ui/core/Drawer';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
+import { TRANSITIONS_TIME } from '../constants';
 
 const styles = ({ spacing }) => ({
   root: {
@@ -26,10 +27,11 @@ const styles = ({ spacing }) => ({
     maxWidth: '650px',
     '@media (max-width: 700px)': {
       width: '100%',
+      maxWidth: '700px',
     },
   },
   transition: {
-    transition: 'all 500ms!important',
+    transition: `all ${TRANSITIONS_TIME}ms linear!important`,
   },
 });
 

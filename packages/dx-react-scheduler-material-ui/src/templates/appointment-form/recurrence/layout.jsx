@@ -35,7 +35,7 @@ const styles = ({ spacing }) => ({
   },
   visible: {
     maxWidth: '500px',
-    width: '45%',
+    width: '43.5%',
     padding: spacing(3),
     paddingRight: spacing(4),
     paddingLeft: spacing(1),

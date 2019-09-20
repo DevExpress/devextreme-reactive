@@ -18,7 +18,7 @@ import { TRANSITIONS_TIME } from '../../constants';
 
 const styles = ({ spacing, typography }) => ({
   root: {
-    width: '55%',
+    width: '56.5%',
     paddingTop: spacing(3),
     paddingBottom: spacing(3),
     paddingLeft: spacing(4),

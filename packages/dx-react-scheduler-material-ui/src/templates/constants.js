@@ -1,4 +1,4 @@
 import { blue } from '@material-ui/core/colors';
 
 export const PRIMARY_COLOR = blue;
-export const TRANSITIONS_TIME = 600;
+export const TRANSITIONS_TIME = 400;

@@ -229,13 +229,14 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                 appointmentData, editingAppointment, addedAppointment, appointmentChanges,
               );
               const fullSize = !!changedAppointment.rRule;
+              const onHideAction = () => this.state.visible && this.toggleVisibility();
 
               return (
                 <React.Fragment>
                   <Container ref={this.container} />
                   <Overlay
                     visible={visible}
-                    onHide={this.toggleVisibility}
+                    onHide={onHideAction}
                     fullSize={fullSize}
                     target={this.container}
                   >

@@ -70,7 +70,7 @@ class RawPath extends React.PureComponent<PathComponentPathProps, PathComponentP
       coordinates, rotated,
       index, state, pointComponent,
       color, clipPathId,
-      style, scales,
+      style, scales, pane,
       ...restProps
     } = this.props;
     return (

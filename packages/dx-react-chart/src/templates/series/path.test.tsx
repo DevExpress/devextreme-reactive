@@ -104,7 +104,10 @@ describe('Path', () => {
 
 describe('Animation', () => {
   const updateAnimation = jest.fn();
-  const createAnimation = jest.fn().mockReturnValue({ update: updateAnimation });
+  const stopAnimation = jest.fn();
+  const createAnimation = jest.fn().mockReturnValue({
+    update: updateAnimation, stop: stopAnimation,
+  });
   const defaultProps = {
     path: jest.fn(value => value.join('-')),
     coordinates: [1, 2, 3],
@@ -165,5 +168,16 @@ describe('Animation', () => {
 
     expect(getStartCoordinates).lastCalledWith({ tag: 'test-scales' }, [1, 2, 3, 4]);
     expect(updateAnimation).lastCalledWith('startCoordinates', [1, 2, 3, 4]);
+  });
+
+  it('should call stop animation on unmount', () => {
+    const tree = shallow((
+      <Path
+        {...defaultProps}
+      />
+    ));
+    tree.unmount();
+
+    expect(stopAnimation).toBeCalled();
   });
 });

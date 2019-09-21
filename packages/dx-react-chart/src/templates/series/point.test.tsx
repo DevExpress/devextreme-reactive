@@ -114,7 +114,10 @@ describe('Point', () => {
 
 describe('Animation', () => {
   const updateAnimation = jest.fn();
-  const createAnimation = jest.fn().mockReturnValue({ update: updateAnimation });
+  const stopAnimation = jest.fn();
+  const createAnimation = jest.fn().mockReturnValue({
+    update: updateAnimation, stop: stopAnimation,
+  });
   const defaultProps = {
     argument: 'arg',
     value: 15,
@@ -167,5 +170,16 @@ describe('Animation', () => {
     tree.setProps({ ...defaultProps, val: 10 });
 
     expect(isValuesChanged.mock.calls[1]).toEqual([[1, 2], [1, 10]]);
+  });
+
+  it('should call stop animation on unmount', () => {
+    const tree = shallow((
+      <Point
+        {...defaultProps}
+      />
+    ));
+    tree.unmount();
+
+    expect(stopAnimation).toBeCalled();
   });
 });

@@ -70,7 +70,7 @@ class RawArea extends React.PureComponent<AreaSeries.SeriesProps, AreaSeriesStat
       path,
       coordinates, animation,
       index, state, pointComponent,
-      color, clipPathId,
+      color, clipPathId, pane,
       style, scales, rotated,
       ...restProps
     } = this.props;

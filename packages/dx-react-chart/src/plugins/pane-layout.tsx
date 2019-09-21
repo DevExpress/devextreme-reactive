@@ -30,39 +30,56 @@ const getUniqueId = () => {
   numDefs += 1;
   return numDefs;
 };
-export class PaneLayout extends React.PureComponent {
+export class PaneLayout extends React.PureComponent<{}, { ready: boolean }> {
   ref = React.createRef<SVGSVGElement>();
   clipPathId = `clip_path_${getUniqueId()}`;
+  size = { width: 0, height: 0 };
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      ready: false,
+    };
+  }
 
   render() {
+    const { ready } = this.state;
     return (
       <Plugin name="PaneLayout">
         <Getter name="rootRef" value={this.ref} />
         <Getter name="clipPathId" value={this.clipPathId} />
         <Template name="canvas">
-          {params => (
-            <TemplateConnector>
-              {({ layouts }, { changeBBox }) => {
-                const { width, height } = layouts.pane;
-                return (
-                  <UpdatableSizer
-                    containerComponent={SizerContainer}
-                    onSizeChange={size => changeBBox({ placeholder: 'pane', bBox: size })}
+        {params => (
+          <TemplateConnector>
+            {({ layouts }, { changeBBox }) => {
+              const { width, height } = layouts.pane;
+              return (
+                <UpdatableSizer
+                  containerComponent={SizerContainer}
+                  onSizeChange={(size) => {
+                    if (this.size.width === size.width && this.size.height === size.height) {
+                      this.setState({ ready: true });
+                    } else {
+                      this.size = size;
+                    }
+                    changeBBox({ placeholder: 'pane', bBox: size });
+                  }}
+                >
+                  <svg
+                    ref={this.ref}
+                    {...params}
+                    width={width}
+                    height={height}
+                    style={SVG_STYLE}
                   >
-                    <svg
-                      ref={this.ref}
-                      {...params}
-                      width={width}
-                      height={height}
-                      style={SVG_STYLE}
-                    >
-                      <ClipPath id={this.clipPathId} width={width} height={height} />
-                      <TemplatePlaceholder name="series" />
-                    </svg>
-                  </UpdatableSizer>
-                );
-              }}
-            </TemplateConnector>
+                    <ClipPath id={this.clipPathId} width={width} height={height} />
+                    {ready && <TemplatePlaceholder name="series" />}
+                  </svg>
+                </UpdatableSizer>
+              );
+            }}
+          </TemplateConnector>
           )}
         </Template>
       </Plugin>

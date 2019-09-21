@@ -43,17 +43,17 @@ class RawPoint extends React.PureComponent<ScatterSeries.PointProps, ScatterSeri
     arg: prevArg, val: prevVal, argument: prevArgument, value: prevValue,
   }) {
     const {
-      arg, val, scales, argument, value,
+      arg, val, argument, value,
     } = this.props;
-    if (this.animate) {
-      if (isValuesChanged([prevArgument, prevValue], [argument, value])) {
-        this.animate.update({ x: prevArg, y: prevVal }, { x: arg, y: val });
-      } else if (isValuesChanged([prevArg, prevVal], [arg, val])) {
-        this.animate.update({ x: arg, y: getStartY(scales) }, { x: arg, y: val });
-      }
-    } else {
+    if (this.animate && isValuesChanged([prevArgument, prevValue], [argument, value])) {
+      this.animate.update({ x: prevArg, y: prevVal }, { x: arg, y: val });
+    } else if (isValuesChanged([prevArg, prevVal], [arg, val])) {
       this.setAttribute({ x: arg, y: val });
     }
+  }
+
+  componentWillUnmount() {
+    return this.animate && this.animate.stop();
   }
 
   render() {

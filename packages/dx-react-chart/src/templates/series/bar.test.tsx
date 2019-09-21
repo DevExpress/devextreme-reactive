@@ -147,7 +147,7 @@ describe('Animation', () => {
     expect(updateAnimation).lastCalledWith({ x: 1, y: 2, startY: 18 }, { x: 1, y: 2, startY: 18 });
   });
 
-  it('should start animation from start position, coordinates are changed', () => {
+  it('should not start animation on change coordinates', () => {
     isValuesChanged.mockReturnValueOnce(false).mockReturnValueOnce(true);
     const tree = shallow((
       <Bar
@@ -156,8 +156,6 @@ describe('Animation', () => {
     ));
     tree.setProps({ ...defaultProps, val: 3 });
 
-    expect(isValuesChanged).lastCalledWith([1, 2, 18], [1, 3, 18]);
-    expect(updateAnimation)
-    .lastCalledWith({ x: 1, y: 'startY', startY: 'startY' }, { x: 1, y: 3, startY: 18 });
+    expect(isValuesChanged.mock.calls[1]).toEqual([[1, 2, 18], [1, 3, 18]]);
   });
 });

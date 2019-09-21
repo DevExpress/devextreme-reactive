@@ -50,12 +50,17 @@ class RawArea extends React.PureComponent<AreaSeries.SeriesProps, AreaSeriesStat
       } else if (isArrayValuesChanged(prevCoordinates, coordinates, 'argument', 'value')) {
         this.animate.update(prevCoordinates, coordinates);
       } else if (isArrayValuesChanged(prevCoordinates, coordinates, 'arg', 'val')) {
-        this.animate.update(getStartCoordinates(scales, coordinates), coordinates);
+        this.setAttribute({ coordinates });
       }
     } else {
       this.setAttribute({ coordinates });
     }
   }
+
+  componentWillUnmount() {
+    return this.animate && this.animate.stop();
+  }
+
   render() {
     const { coordinates: coords, style: animateStyle } = this.state;
     if (!coords.length) {

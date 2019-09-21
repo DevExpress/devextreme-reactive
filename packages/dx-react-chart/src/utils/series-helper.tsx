@@ -63,9 +63,6 @@ export const declareSeries = <T extends SeriesProps>(
             <TemplateConnector>
               {({ series, scales, animation, rotated, layouts, clipPathId }) => {
                 const { pane } = layouts;
-                if (!pane.width && !pane.height) {
-                  return null;
-                }
                 const currentSeries = findSeriesByName(symbolName, series);
                 const currentScales: Scales = {
                   argScale: scales[ARGUMENT_DOMAIN],

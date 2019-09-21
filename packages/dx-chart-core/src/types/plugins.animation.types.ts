@@ -23,6 +23,7 @@ export type UpdateAnimationFn = PureComputed<[any, any, number?]>;
 /** @internal */
 export type UpdateAnimate = {
   update: UpdateAnimationFn,
+  stop: () => void;
 };
 /** @internal */
 export type AnimationFn = PureComputed<

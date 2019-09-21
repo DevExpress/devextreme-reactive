@@ -69,6 +69,10 @@ class RawSlice extends React.PureComponent<PieSeries.PointProps, PieSeriesState>
     }
   }
 
+  componentWillUnmount() {
+    return this.animate && this.animate.stop();
+  }
+
   render() {
     const {
       innerRadius: innerRadiusState,

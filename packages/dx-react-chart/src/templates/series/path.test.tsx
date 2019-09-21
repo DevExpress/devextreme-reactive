@@ -143,7 +143,7 @@ describe('Animation', () => {
     expect(updateAnimation).lastCalledWith([1, 2, 3], [4, 5, 6]);
   });
 
-  it('should start animation from start position, coordinates are changed', () => {
+  it('should not start animation on change coordinates', () => {
     isArrayValuesChanged.mockReturnValueOnce(false).mockReturnValueOnce(true);
     const tree = shallow((
       <Path
@@ -152,9 +152,7 @@ describe('Animation', () => {
     ));
     tree.setProps({ ...defaultProps, coordinates: [4, 5, 6] });
 
-    expect(isArrayValuesChanged).lastCalledWith([1, 2, 3], [4, 5, 6], 'arg', 'val');
-    expect(getStartCoordinates).lastCalledWith({ tag: 'test-scales' }, [4, 5, 6]);
-    expect(updateAnimation).lastCalledWith('startCoordinates', [4, 5, 6]);
+    expect(isArrayValuesChanged.mock.calls[1]).toEqual([[1, 2, 3], [4, 5, 6], 'arg', 'val']);
   });
 
   it('should start animation from start position, count of values are different', () => {

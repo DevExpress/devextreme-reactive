@@ -51,6 +51,11 @@ export const buildAnimation = (easing: EasingFn, duration: number): AnimationFn 
         easing, duration, updatedDelay,
       );
     },
+    stop: () => {
+      if (animationID) {
+        cancelAnimationFrame(animationID);
+      }
+    },
   };
 };
 

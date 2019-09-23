@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { dSymbol, getStartY, processPointAnimation, isValuesChanged } from '@devexpress/dx-chart-core';
+import { dSymbol, getStartY, processPointAnimation, isValuesChanged, isScalesChanged } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { Point } from './point';
 
@@ -12,6 +12,7 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   isValuesChanged: jest.fn().mockReturnValue(true),
   getStartY: jest.fn().mockReturnValue('startY'),
   processPointAnimation: jest.fn(),
+  isScalesChanged: jest.fn().mockReturnValue(false),
 }));
 
 jest.mock('../../utils/with-states', () => ({
@@ -156,12 +157,13 @@ describe('Animation', () => {
     ));
     tree.setProps({ ...defaultProps, value: 3, val: 10 });
 
-    expect(isValuesChanged).lastCalledWith(['arg', 15], ['arg', 3]);
+    expect(isValuesChanged).lastCalledWith([1, 2], [1, 10]);
     expect(updateAnimation).lastCalledWith({ x: 1, y: 2 }, { x: 1, y: 10 });
   });
 
-  it('should not start animation on change coordinates', () => {
-    isValuesChanged.mockReturnValueOnce(false).mockReturnValueOnce(true);
+  it('should not start animation on resize/zoom', () => {
+    isScalesChanged.mockReturnValueOnce(true);
+    isValuesChanged.mockReturnValueOnce(false);
     const tree = shallow((
       <Point
         {...defaultProps}
@@ -169,7 +171,8 @@ describe('Animation', () => {
     ));
     tree.setProps({ ...defaultProps, val: 10 });
 
-    expect(isValuesChanged.mock.calls[1]).toEqual([[1, 2], [1, 10]]);
+    expect(isScalesChanged).toBeCalled();
+    expect(updateAnimation).not.toBeCalled();
   });
 
   it('should call stop animation on unmount', () => {

@@ -12,7 +12,7 @@ import {
   SeriesList, Series, PointList, Point, DataItems, AddSeriesFn, ScalesCache, ScaleSeriesPointsFn,
   GetPointTransformerFn, Colors, Rect,
   BarSeries, ScatterSeries, PieSeries,
-  PointComponentProps, PathFn, PathPoints,
+  PointComponentProps, PathFn, PathPoints, Scales,
 } from '../../types';
 import { Size } from '@devexpress/dx-react-core';
 import { ARGUMENT_DOMAIN } from '../../constants';
@@ -328,4 +328,14 @@ export const isArrayValuesChanged = (
   return prevCoordinates.some((el, index) => {
     return el[field1] !== coordinates[index][field1] || el[field2] !== coordinates[index][field2];
   });
+};
+
+/** @internal */
+export const isScalesChanged = (prev: Scales, cur: Scales): boolean => {
+  const prevArgRange = prev.argScale.range();
+  const prevValRange = prev.valScale.range();
+  const argRange = cur.argScale.range();
+  const valRange = cur.valScale.range();
+  return prevArgRange[0] !== argRange[0] || prevArgRange[1] !== argRange[1] ||
+  prevValRange[0] !== valRange[0] || prevValRange[1] !== valRange[1];
 };

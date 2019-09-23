@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {
   processBarAnimation, HOVERED, SELECTED, dBar, getVisibility, adjustBarSize,
-  isValuesChanged, getStartY, UpdateAnimate,
+  isValuesChanged, getStartY, UpdateAnimate, isScalesChanged,
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
@@ -44,17 +44,21 @@ class RawBar extends React.PureComponent<BarSeries.PointProps, BarSeriesState> {
   }
 
   componentDidUpdate({
-    arg: prevArg, val: prevVal, startVal: prevStartVal, argument: prevArgument, value: prevValue,
+    arg: prevArg, val: prevVal, startVal: prevStartVal, scales: prevScales,
   }) {
     const {
-      arg, val, startVal, argument, value,
+      arg, val, startVal, scales,
     } = this.props;
 
-    if (this.animate && isValuesChanged([prevArgument, prevValue], [argument, value])) {
-      this.animate.update(
+    if (this.animate) {
+      if (isScalesChanged(prevScales, scales)) {
+        this.setAttribute({ x: arg, y: val, startY: startVal! });
+      } else if (isValuesChanged([prevArg, prevVal, prevStartVal], [arg, val, startVal])) {
+        this.animate.update(
           { x: prevArg, y: prevVal, startY: prevStartVal }, { x: arg, y: val, startY: startVal },
         );
-    } else if (isValuesChanged([prevArg, prevVal, prevStartVal], [arg, val, startVal])) {
+      }
+    } else {
       this.setAttribute({ x: arg, y: val, startY: startVal! });
     }
   }

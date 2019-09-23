@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
 import { Area } from './area';
-import { getStartCoordinates, processAreaAnimation, isArrayValuesChanged } from '@devexpress/dx-chart-core';
+import { getStartCoordinates, processAreaAnimation, isArrayValuesChanged, isScalesChanged } from '@devexpress/dx-chart-core';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   HOVERED: 'test_hovered',
@@ -11,6 +11,7 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   isArrayValuesChanged: jest.fn().mockReturnValue(true),
   getStartCoordinates: jest.fn().mockReturnValue('startCoordinates'),
   processAreaAnimation: jest.fn(),
+  isScalesChanged: jest.fn().mockReturnValue(false),
 }));
 
 jest.mock('../../utils/with-states', () => ({
@@ -148,12 +149,13 @@ describe('Animation', () => {
     ));
     tree.setProps({ ...defaultProps, coordinates: [4, 5, 6] });
 
-    expect(isArrayValuesChanged).lastCalledWith([1, 2, 3], [4, 5, 6], 'argument', 'value');
+    expect(isArrayValuesChanged).lastCalledWith([1, 2, 3], [4, 5, 6], 'arg', 'val');
     expect(updateAnimation).lastCalledWith([1, 2, 3], [4, 5, 6]);
   });
 
-  it('should not start animation on change coordinates', () => {
-    isArrayValuesChanged.mockReturnValueOnce(false).mockReturnValueOnce(true);
+  it('should not start animation on resize/zoom', () => {
+    isScalesChanged.mockReturnValueOnce(true);
+    isArrayValuesChanged.mockReturnValueOnce(false);
     const tree = shallow((
       <Area
         {...defaultProps}
@@ -161,10 +163,11 @@ describe('Animation', () => {
     ));
     tree.setProps({ ...defaultProps, coordinates: [4, 5, 6] });
 
-    expect(isArrayValuesChanged.mock.calls[1]).toEqual([[1, 2, 3], [4, 5, 6], 'arg', 'val']);
+    expect(isScalesChanged).toBeCalled();
+    expect(updateAnimation).not.toBeCalled();
   });
 
-  it('should start animation from start position, count of values are different', () => {
+  it('should start animation from start position, count of points are different', () => {
     const tree = shallow((
       <Area
         {...defaultProps}

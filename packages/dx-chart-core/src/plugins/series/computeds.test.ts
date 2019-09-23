@@ -21,7 +21,7 @@ import {
   getVisibility,
   isValuesChanged,
   isArrayValuesChanged,
-  adjustBarSize,
+  adjustBarSize, isScalesChanged,
 } from './computeds';
 
 jest.mock('d3-scale', () => ({
@@ -649,5 +649,32 @@ describe('Values changed', () => {
     .toBeTruthy();
     expect(isArrayValuesChanged([{ arg: 1, val: 2 }] as any, [{ arg: 1, val: 2 }]as any, 'arg', 'val'))
     .toBeFalsy();
+  });
+
+  it('#isScalesChanged', () => {
+    const mockRange = (value1, value2) => () => [value1, value2];
+    expect(isScalesChanged({
+      argScale: { range: mockRange(2, 3) } as any,
+      valScale: { range: mockRange(5, 6) } as any,
+    }, {
+      argScale: { range: mockRange(2, 3) } as any,
+      valScale: { range: mockRange(5, 6) } as any,
+    })).toBeFalsy();
+
+    expect(isScalesChanged({
+      argScale: { range: mockRange(2, 3) } as any,
+      valScale: { range: mockRange(5, 6) } as any,
+    }, {
+      argScale: { range: mockRange(2, 7) } as any,
+      valScale: { range: mockRange(5, 6) } as any,
+    })).toBeTruthy();
+
+    expect(isScalesChanged({
+      argScale: { range: mockRange(2, 3) } as any,
+      valScale: { range: mockRange(3, 6) } as any,
+    }, {
+      argScale: { range: mockRange(2, 3) } as any,
+      valScale: { range: mockRange(5, 6) } as any,
+    })).toBeTruthy();
   });
 });

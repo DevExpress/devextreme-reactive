@@ -95,7 +95,6 @@ describe('Slice', () => {
       startAngle: 22, endAngle: 23,
     });
 
-    expect(isValuesChanged).toBeCalled();
     expect(dPie).toBeCalledWith(20, 6, 8, 22, 23);
   });
 });
@@ -145,23 +144,13 @@ describe('Animation', () => {
     ));
 
     tree.setProps({ ...defaultProps, value: 32 });
-    expect(isValuesChanged).lastCalledWith(['arg', 15], ['arg', 32]);
+    expect(isValuesChanged).lastCalledWith([11, 12, 2, 4], [11, 12, 2, 4]);
     expect(updateAnimation).lastCalledWith(
       { innerRadius: 2, outerRadius: 4, startAngle: 11, endAngle: 12 },
       { innerRadius: 2, outerRadius: 4, startAngle: 11, endAngle: 12 },
       'delay',
     );
     expect(getDelay).toBeCalledWith(2, false);
-  });
-
-  it('should not start animation on change coordinates', () => {
-    isValuesChanged.mockReturnValueOnce(false).mockReturnValueOnce(true);
-    const tree = shallow((
-      <Slice {...(defaultProps as any)} />
-    ));
-
-    tree.setProps({ ...defaultProps, outerRadius: 5 });
-    expect(isValuesChanged.mock.calls[1]).toEqual([[11, 12, 2, 4], [11, 12, 2, 5]]);
   });
 
   it('should call stop animation on unmount', () => {

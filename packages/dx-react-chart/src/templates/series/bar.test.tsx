@@ -2,7 +2,10 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
-import { dBar, adjustBarSize, getStartY, processBarAnimation, isValuesChanged } from '@devexpress/dx-chart-core';
+import {
+  dBar, adjustBarSize, getStartY, processBarAnimation, isValuesChanged,
+  isScalesChanged,
+} from '@devexpress/dx-chart-core';
 import { Bar } from './bar';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
@@ -14,6 +17,7 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   isValuesChanged: jest.fn().mockReturnValue(true),
   getStartY: jest.fn().mockReturnValue('startY'),
   processBarAnimation: jest.fn(),
+  isScalesChanged: jest.fn().mockReturnValue(false),
 }));
 
 jest.mock('../../utils/with-states', () => ({
@@ -146,12 +150,13 @@ describe('Animation', () => {
     ));
     tree.setProps({ ...defaultProps, value: 3 });
 
-    expect(isValuesChanged).lastCalledWith(['arg', 15], ['arg', 3]);
+    expect(isValuesChanged).lastCalledWith([1, 2, 18], [1, 2, 18]);
     expect(updateAnimation).lastCalledWith({ x: 1, y: 2, startY: 18 }, { x: 1, y: 2, startY: 18 });
   });
 
-  it('should not start animation on change coordinates', () => {
-    isValuesChanged.mockReturnValueOnce(false).mockReturnValueOnce(true);
+  it('should not start animation on resize/zoom', () => {
+    isScalesChanged.mockReturnValueOnce(true);
+    isValuesChanged.mockReturnValueOnce(false);
     const tree = shallow((
       <Bar
         {...defaultProps}
@@ -159,7 +164,8 @@ describe('Animation', () => {
     ));
     tree.setProps({ ...defaultProps, val: 3 });
 
-    expect(isValuesChanged.mock.calls[1]).toEqual([[1, 2, 18], [1, 3, 18]]);
+    expect(isScalesChanged).toBeCalled();
+    expect(updateAnimation).not.toBeCalled();
   });
 
   it('should call stop animation on unmount', () => {

@@ -2,6 +2,7 @@ import * as React from 'react';
 import {
   HOVERED, SELECTED, dArea, dRotateArea, isArrayValuesChanged,
   processAreaAnimation, getStartCoordinates, PathPoints, UpdateAnimate,
+  isScalesChanged,
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
@@ -38,7 +39,7 @@ class RawArea extends React.PureComponent<AreaSeries.SeriesProps, AreaSeriesStat
   }
 
   componentDidUpdate({
-    coordinates: prevCoordinates,
+    coordinates: prevCoordinates, scales: prevScales,
   }) {
     const {
       coordinates, scales,
@@ -47,10 +48,10 @@ class RawArea extends React.PureComponent<AreaSeries.SeriesProps, AreaSeriesStat
     if (this.animate) {
       if (prevCoordinates.length !== coordinates.length) {
         this.animate.update(getStartCoordinates(scales, coordinates), coordinates);
-      } else if (isArrayValuesChanged(prevCoordinates, coordinates, 'argument', 'value')) {
-        this.animate.update(prevCoordinates, coordinates);
-      } else if (isArrayValuesChanged(prevCoordinates, coordinates, 'arg', 'val')) {
+      } else if (isScalesChanged(prevScales, scales)) {
         this.setAttribute({ coordinates });
+      } else if (isArrayValuesChanged(prevCoordinates, coordinates, 'arg', 'val')) {
+        this.animate.update(prevCoordinates, coordinates);
       }
     } else {
       this.setAttribute({ coordinates });

@@ -4,31 +4,63 @@ import {
 } from './animation';
 
 describe('build animation', () => {
+  let  requestAnimationFrame;
+  let cancelAnimationFrame;
+  const easing = jest.fn(value => value);
+  const duration = 3;
+  const processAnimation = jest.fn().mockReturnValue(() => 'processedAnimation');
+  const setAttributes = jest.fn();
+  beforeEach(() => {
+    requestAnimationFrame = jest.spyOn(window, 'requestAnimationFrame')
+    .mockImplementation(time => time(0) as any);
+    cancelAnimationFrame = jest.spyOn(window, 'cancelAnimationFrame').mockImplementation();
+  });
+
+  afterEach(() => {
+    requestAnimationFrame.mockRestore();
+    cancelAnimationFrame.mockRestore();
+    jest.clearAllMocks();
+  });
+
+  jest.useFakeTimers();
+
   it('should run animation', () => {
-    const easing = jest.fn(value => value);
-    const duration = 10;
-    const processAnimation = jest.fn().mockReturnValue(() => 'processedAnimation');
-    const setAttributes = jest.fn();
     const animation = buildAnimation(easing, duration)(
       'startCoords', 'endCoords', processAnimation, setAttributes,
     );
+    jest.runAllTimers();
     expect(animation).toBeTruthy();
     expect(animation.update).toBeTruthy();
+    expect(animation.stop).toBeTruthy();
     expect(processAnimation).toBeCalledWith('startCoords', 'endCoords');
+    expect(easing).toHaveBeenLastCalledWith(1);
+    expect(setAttributes).toHaveBeenLastCalledWith('processedAnimation');
+    expect(requestAnimationFrame).toBeCalled();
   });
 
   it('should update animation', () => {
-    const easing = jest.fn(value => value);
-    const duration = 10;
-    const processAnimation = jest.fn().mockReturnValue(() => 'processedAnimation');
-    const setAttributes = jest.fn();
     const animation = buildAnimation(easing, duration)(
       'startCoords', 'endCoords', processAnimation, setAttributes,
     );
+    jest.runAllTimers();
     animation.update('updatedStartCoords', 'updatedEndCoords');
     expect(processAnimation).toBeCalledWith('updatedStartCoords', 'updatedEndCoords');
+    expect(cancelAnimationFrame).toBeCalled();
+    expect(requestAnimationFrame).toBeCalled();
   });
 
+  it('should stop animation', () => {
+    const animation = buildAnimation(easing, duration)(
+      'startCoords', 'endCoords', processAnimation, setAttributes,
+    );
+    jest.runAllTimers();
+    animation.stop();
+    animation.stop();
+    expect(cancelAnimationFrame).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('process animation animation', () => {
   it('#processPointAnimation', () => {
     const start = { x: 2, y: 3 };
     const end = { x: 5, y: 6 };

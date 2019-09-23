@@ -1,5 +1,6 @@
 import {
-  EasingFn, SetAttributeFn, AnimationFn, GetNewPositionsFn, BarCoordinates, PointCoordinates,
+  EasingFn, SetAttributeFn, AnimationFn, GetNewPositionsFn,
+  BarCoordinates, PointCoordinates,
   PathCoordinates, PieCoordinates, PathPoints,
 } from '../types';
 
@@ -8,8 +9,11 @@ const getProgress = ({ elapsed, total }: {elapsed: number, total: number}) =>
 Math.min(elapsed / total, 1);
 
 /** @internal */
-const runAnimation = (setAttributes: SetAttributeFn, getNewPositions: GetNewPositionsFn,
-  easing: EasingFn, duration: number, delay: number): number => {
+const runAnimation = (
+  setAttributes: SetAttributeFn,
+  getNewPositions: GetNewPositionsFn,
+  easing: EasingFn, duration: number, delay: number,
+) => {
   const promise = () => new Promise((resolve) => {
     setTimeout(() => {
       const time = {
@@ -20,7 +24,6 @@ const runAnimation = (setAttributes: SetAttributeFn, getNewPositions: GetNewPosi
       const step = () => {
         time.elapsed = new Date().getTime() - time.start;
         const progress = getProgress(time);
-
         setAttributes(getNewPositions(easing(progress)));
 
         if (progress < 1) requestAnimationFrame(step);
@@ -28,23 +31,27 @@ const runAnimation = (setAttributes: SetAttributeFn, getNewPositions: GetNewPosi
       resolve(requestAnimationFrame(step));
     }, delay);
   });
-  let result;
-  promise().then(res => result = res);
-  return result;
+
+  return promise().then((res) => {
+    return res;
+  });
 };
 
 /** @internal */
 export const buildAnimation = (easing: EasingFn, duration: number): AnimationFn => (
-  startCoords, endCoords, processAnimation,
-  setAttributes, delay = 0,
+  startCoords, endCoords, processAnimation, setAttributes, delay = 0,
 ) => {
-  let animationID = runAnimation(
+  let animationID;
+
+  animationID = runAnimation(
     setAttributes, processAnimation(startCoords, endCoords), easing, duration, delay,
   );
+
   return {
     update: (updatedStartCoords, updatedEndCoords, updatedDelay = 0) => {
       if (animationID) {
         cancelAnimationFrame(animationID);
+        animationID = undefined;
       }
       animationID = runAnimation(
         setAttributes, processAnimation(updatedStartCoords, updatedEndCoords),
@@ -54,6 +61,7 @@ export const buildAnimation = (easing: EasingFn, duration: number): AnimationFn 
     stop: () => {
       if (animationID) {
         cancelAnimationFrame(animationID);
+        animationID = undefined;
       }
     },
   };

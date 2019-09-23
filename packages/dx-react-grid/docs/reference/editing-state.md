@@ -73,8 +73,8 @@ editingRowIds | [Getter](../../../dx-react-core/docs/reference/getter.md) | Arra
 editingCells | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;{rowId: number &#124; string, columnName: string}&gt; | Edited cells identified by the row ID and column name.
 startEditRows | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Enables the edit mode for the rows the ID specifies.
 stopEditRows | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Disables the edit mode for the rows the ID specifies.
-startEditCells | [Action](../../../dx-react-core/docs/reference/action.md) | ({ editingCells: Array&lt;{rowId: number &#124; string, columnName: string}&gt; }) => void | Switches cells with the specified row ID and column name to edit mode.
-stopEditCells | [Action](../../../dx-react-core/docs/reference/action.md) | ({ editingCells: Array&lt;{rowId: number &#124; string, columnName: string}&gt; }) => void | Switches cells with the specified row ID and column name to normal mode.
+startEditCells | [Action](../../../dx-react-core/docs/reference/action.md) | ({ editingCells: Array&lt;{rowId: number &#124; string, columnName: string}&gt; }) => void | Switches cells identified by the row ID and column name to edit mode.
+stopEditCells | [Action](../../../dx-react-core/docs/reference/action.md) | ({ editingCells: Array&lt;{rowId: number &#124; string, columnName: string}&gt; }) => void | Switches cells identified by the row ID and column name to normal mode.
 addedRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;any&gt; | Created but not committed rows.
 addRow | [Action](../../../dx-react-core/docs/reference/action.md) | () => void | Adds an item to the `addedRows` array.
 changeAddedRow | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowId: number, change: any }) => void | Applies a change to a created but uncommitted row. Note: `rowId` is a row index within the `addedRows` array.

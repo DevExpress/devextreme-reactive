@@ -26,7 +26,7 @@ columnExtensions? | Array&lt;[EditingState.ColumnExtension](#editingstatecolumne
 editingRowIds? | Array&lt;number &#124; string&gt; | | IDs of the rows being edited.
 defaultEditingRowIds? | Array&lt;number &#124; string&gt; | [] | IDs of the rows initially added to the `editingRowIds` array in uncontrolled mode.
 onEditingRowIdsChange? | (editingRowIds: Array&lt;number &#124; string&gt;) => void | | Handles adding or removing a row to/from the `editingRowIds` array.
-onEditingCellsChange? | (editingCells: Array&lt;{rowId: number, columnName: string}&gt;) => void | | Handles adding or removing a row to/from the `editingRowIds` array.
+onEditingCellsChange? | (editingCells: Array&lt;{rowId: number, columnName: string}&gt;) => void | | Handles adding or removing a row to/from the `editingCells` array.
 addedRows? | Array&lt;any&gt; | | Created but not committed rows.
 defaultAddedRows? | Array&lt;any&gt; | [] | Rows initially added to the `addedRows` array in uncontrolled mode.
 onAddedRowsChange? | (addedRows: Array&lt;any&gt;) => void | | Handles adding or removing a row to/from the `addedRows` array.

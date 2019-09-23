@@ -26,7 +26,7 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-name? | string | `Day` | The view's unique identifier. Required if you use several `MonthView` plugins.
+name? | string | `Month` | The view's unique identifier. Required if you use several `MonthView` plugins.
 displayName? | string |  | The view's name used in UI plugins. The default value is equal to `name`.
 firstDayOfWeek? | number | 0 | Specifies first day of week.
 intervalCount? | number | 1 | Multiplies the default view interval.
@@ -97,7 +97,7 @@ formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that formats d
 
 ### MonthView.TimeTableCellProps
 
-Describes properties passed to a component that renders a time scale cell.
+Describes properties passed to a component that renders a time table cell.
 
 Field | Type | Description
 ------|------|------------

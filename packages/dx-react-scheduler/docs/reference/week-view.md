@@ -26,7 +26,7 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-name? | string | `Day` | The view's unique identifier. Required if you use several `WeekView` plugins.
+name? | string | `Week` | The view's unique identifier. Required if you use several `WeekView` plugins.
 displayName? | string |  | The view's name used in UI plugins. The default value is equal to `name`.
 excludedDays? | Array&lt;number&gt; | [] | Specifies the days of week that should not be displayed in the view. Accepts an array of zero-bazed day indexes (0 - Sunday).
 firstDayOfWeek? | number | 0 | Specifies the first day of week.

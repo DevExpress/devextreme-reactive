@@ -131,24 +131,6 @@ describe('EditingState', () => {
         } } });
       });
 
-      it('should remove all sequence if current item is last', () => {
-        const appointmentData = {
-          id: 0,
-          startDate: new Date(Date.UTC(2019, 6, 17, 14, 20)),
-          endDate: new Date(Date.UTC(2019, 6, 17, 16)),
-          exDate: '20190716T142000Z,20190715T142000Z',
-          rRule: 'FREQ=DAILY;COUNT=3',
-          parentData: {
-            rRule: 'FREQ=DAILY;COUNT=3',
-            startDate: new Date(Date.UTC(2019, 6, 15, 14, 20)),
-            endDate: new Date(Date.UTC(2019, 6, 15, 16)),
-          },
-        };
-
-        const changes = deleteCurrent(appointmentData);
-        expect(changes).toEqual({ deleted: 0 });
-      });
-
       it('should remove the entire sequence if the chosen appointment is the first one', () => {
         const appointmentData = {
           id: 0,
@@ -189,7 +171,7 @@ describe('EditingState', () => {
           rRule: 'FREQ=DAILY;COUNT=5',
         };
 
-        expect(editAll(changes, appointmentDataBase)).toEqual({
+        expect(editAll(appointmentDataBase, changes)).toEqual({
           changed: {
             4: {
               startDate: new Date(Date.UTC(2019, 6, 17, 14, 20)),
@@ -212,7 +194,7 @@ describe('EditingState', () => {
           endDate: new Date(Date.UTC(2019, 6, 18, 16)),
         };
 
-        expect(editAll(changes, appointmentData)).toEqual({
+        expect(editAll(appointmentData, changes)).toEqual({
           changed: {
             4: {
               startDate: new Date(Date.UTC(2019, 6, 18, 14, 20)),
@@ -232,7 +214,7 @@ describe('EditingState', () => {
           endDate: new Date(Date.UTC(2019, 6, 17, 16)),
         };
 
-        expect(editCurrent(changes, appointmentDataBase)).toEqual({
+        expect(editCurrent(appointmentDataBase, changes)).toEqual({
           changed: {
             4: {
               exDate: '20190716T142000Z,20190717T142000Z',
@@ -252,7 +234,7 @@ describe('EditingState', () => {
           endDate: new Date(Date.UTC(2019, 6, 17, 16)),
         };
 
-        expect(editCurrent(changes, { ...appointmentDataBase, exDate: '' })).toEqual({
+        expect(editCurrent({ ...appointmentDataBase, exDate: '' }, changes)).toEqual({
           changed: {
             4: {
               exDate: '20190717T142000Z',
@@ -271,7 +253,7 @@ describe('EditingState', () => {
           title: 'Next title',
         };
 
-        expect(editCurrent(changes, appointmentDataBase)).toEqual({
+        expect(editCurrent(appointmentDataBase, changes)).toEqual({
           changed: {
             4: {
               exDate: '20190716T142000Z,20190717T142000Z',
@@ -298,7 +280,7 @@ describe('EditingState', () => {
           endDate: new Date(Date.UTC(2019, 6, 17, 16)),
         };
 
-        expect(editCurrentAndFollowing(changes, appointmentData)).toEqual({
+        expect(editCurrentAndFollowing(appointmentData, changes)).toEqual({
           changed: {
             4: {
               rRule: 'FREQ=DAILY;UNTIL=20190717T142000Z',
@@ -316,7 +298,7 @@ describe('EditingState', () => {
           title: 'Next title',
         };
 
-        expect(editCurrentAndFollowing(changes, appointmentDataBase)).toEqual({
+        expect(editCurrentAndFollowing(appointmentDataBase, changes)).toEqual({
           changed: {
             4: {
               rRule: 'FREQ=DAILY;UNTIL=20190715T142000Z',
@@ -348,7 +330,7 @@ describe('EditingState', () => {
           endDate: new Date(Date.UTC(2019, 6, 15, 14)),
         };
 
-        expect(editCurrentAndFollowing(changes, appointmentData)).toEqual({
+        expect(editCurrentAndFollowing(appointmentData, changes)).toEqual({
           changed: {
             4: {
               startDate: new Date(Date.UTC(2019, 6, 15, 11, 20)),
@@ -375,7 +357,7 @@ describe('EditingState', () => {
           endDate: new Date(Date.UTC(2019, 6, 17, 16)),
         };
 
-        expect(editCurrentAndFollowing(changes, appointmentData)).toEqual({
+        expect(editCurrentAndFollowing(appointmentData, changes)).toEqual({
           added: {
             startDate: new Date(Date.UTC(2019, 6, 17, 14, 20)),
             endDate: new Date(Date.UTC(2019, 6, 17, 16)),
@@ -406,7 +388,7 @@ describe('EditingState', () => {
           endDate: new Date(Date.UTC(2019, 6, 17, 16)),
         };
 
-        expect(editCurrentAndFollowing(changes, appointmentData)).toEqual({
+        expect(editCurrentAndFollowing(appointmentData, changes)).toEqual({
           changed: {
             4: {
               startDate: new Date(Date.UTC(2019, 6, 17, 14, 20)),

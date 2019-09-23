@@ -12,7 +12,7 @@ import {
 } from '@devexpress/dx-scheduler-core';
 import { BasicView } from './basic-view';
 
-import { VerticalViewProps, ViewState } from '../types';
+import { VerticalViewProps } from '../types';
 
 const TYPE = 'day';
 const viewCellsDataBaseComputed = (
@@ -28,7 +28,7 @@ const viewCellsDataBaseComputed = (
 const DayScaleEmptyCellPlaceholder = () => <TemplatePlaceholder name="dayScaleEmptyCell" />;
 const TimeScalePlaceholder = () => <TemplatePlaceholder name="timeScale" />;
 
-class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
+class DayViewBase extends React.PureComponent<VerticalViewProps> {
   static defaultProps: Partial<VerticalViewProps> = {
     name: 'Day',
     startDayHour: 0,
@@ -89,21 +89,15 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
           displayName={displayName}
           startDayHour={startDayHour}
           endDayHour={endDayHour}
-
           dayScaleLayoutComponent={DayScale}
           dayScaleCellComponent={DayScaleCell}
           dayScaleRowComponent={DayScaleRow}
-
           timeTableCellComponent={TimeTableCell}
           timeTableLayoutComponent={TimeTableLayout}
           timeTableRowComponent={timeTableRowComponent}
-
           appointmentLayerComponent={AppointmentLayer}
-
           timeTableRects={verticalTimeTableRects}
-
           layoutComponent={Layout}
-
           layoutProps={{
             dayScaleEmptyCellComponent: DayScaleEmptyCellPlaceholder,
             timeScaleComponent: TimeScalePlaceholder,

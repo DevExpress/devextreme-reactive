@@ -2,7 +2,9 @@ import { ViewCell } from '../index';
 
 /* tslint:disable no-namespace max-line-length no-empty-interface */
 export interface BasicViewProps {
+  /** The function that calculate cells data */
   viewCellsDataBaseComputed: (cellDuration: any, startDayHour: any, endDayHour: any) => (payload: any) => readonly ViewCell[][];
+  /** The view's type */
   type: string;
   /** The view's unique identifier. */
   name?: string;
@@ -20,4 +22,27 @@ export interface BasicViewProps {
   startDayHour?: number;
   /** Specifies the end hour of the view time scale. */
   endDayHour?: number;
+  /** The function that calculate time table appointment rects */
+  timeTableRects: any;
+  /** The properties that passed into layout component */
+  layoutProps?: {
+    dayScaleEmptyCellComponent: React.ComponentType<any>,
+    timeScaleComponent: React.ComponentType<any>,
+  };
+  /** A component that renders a view layout. */
+  layoutComponent: React.ComponentType<any>;
+  /** A component that renders a day scale layout. */
+  dayScaleLayoutComponent: React.ComponentType<any>;
+  /** A component that renders a day scale cell. */
+  dayScaleCellComponent: React.ComponentType<any>;
+  /** A component that renders a day scale row.  */
+  dayScaleRowComponent: React.ComponentType<any>;
+  /** A component that renders a time table layout. */
+  timeTableLayoutComponent: React.ComponentType<any>;
+  /** A component that renders a time table cell. */
+  timeTableCellComponent: React.ComponentType<any>;
+  /** A component that renders a time table row. */
+  timeTableRowComponent: React.ComponentType<any>;
+  /** A component that renders the appointment layer. */
+  appointmentLayerComponent: React.ComponentType<any>;
 }

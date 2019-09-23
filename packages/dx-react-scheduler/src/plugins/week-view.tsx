@@ -12,7 +12,7 @@ import {
 } from '@devexpress/dx-scheduler-core';
 import { BasicView } from './basic-view';
 
-import { WeekViewProps, ViewState } from '../types';
+import { WeekViewProps } from '../types';
 
 const DAYS_IN_WEEK = 7;
 const TYPE = 'week';
@@ -29,7 +29,7 @@ const viewCellsDataBaseComputed = (
 const DayScaleEmptyCellPlaceholder = () => <TemplatePlaceholder name="dayScaleEmptyCell" />;
 const TimeScalePlaceholder = () => <TemplatePlaceholder name="timeScale" />;
 
-class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
+class WeekViewBase extends React.PureComponent<WeekViewProps> {
   static defaultProps: Partial<WeekViewProps> = {
     startDayHour: 0,
     endDayHour: 24,
@@ -96,19 +96,14 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
           startDayHour={startDayHour}
           endDayHour={endDayHour}
           excludedDays={excludedDays}
-
           dayScaleLayoutComponent={DayScale}
           dayScaleCellComponent={DayScaleCell}
           dayScaleRowComponent={DayScaleRow}
-
           timeTableCellComponent={TimeTableCell}
           timeTableLayoutComponent={TimeTableLayout}
           timeTableRowComponent={timeTableRowComponent}
-
           appointmentLayerComponent={AppointmentLayer}
-
           timeTableRects={verticalTimeTableRects}
-
           layoutComponent={Layout}
           layoutProps={{
             timeScaleComponent: TimeScalePlaceholder,

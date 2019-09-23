@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {
   Plugin,
-  TemplatePlaceholder,
   PluginComponents,
 } from '@devexpress/dx-react-core';
 import {
@@ -10,7 +9,7 @@ import {
 } from '@devexpress/dx-scheduler-core';
 import { BasicView } from './basic-view';
 
-import { MonthViewProps, ViewState } from '../types';
+import { MonthViewProps } from '../types';
 
 const timeTableRects = (
   appointments, startViewDate, endViewDate, excludedDays,
@@ -30,7 +29,7 @@ const viewCellsDataBaseComputed = (
   );
 };
 
-class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
+class MonthViewBase extends React.PureComponent<MonthViewProps> {
   static defaultProps: Partial<MonthViewProps> = {
     intervalCount: 1,
     firstDayOfWeek: 0,
@@ -76,19 +75,14 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
           intervalCount={intervalCount}
           displayName={displayName}
           firstDayOfWeek={firstDayOfWeek}
-
           dayScaleLayoutComponent={DayScale}
           dayScaleCellComponent={DayScaleCell}
           dayScaleRowComponent={DayScaleRow}
-
           timeTableCellComponent={TimeTableCell}
           timeTableLayoutComponent={TimeTableLayout}
           timeTableRowComponent={timeTableRowComponent}
-
           appointmentLayerComponent={AppointmentLayer}
-
           timeTableRects={timeTableRects}
-
           layoutComponent={Layout}
         />
       </Plugin>
